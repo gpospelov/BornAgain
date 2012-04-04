@@ -1,7 +1,7 @@
 #ifndef NANOPARTICLE_H
 #define NANOPARTICLE_H
 
-#include "isample.h"
+#include "inc/ISample.h"
 
 class NanoParticle : public ISample
 {

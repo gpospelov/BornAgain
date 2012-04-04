@@ -1,5 +1,5 @@
-#include "layer.h"
-# include <stdexcept>
+#include "inc/Layer.h"
+#include <stdexcept>
 
 Layer::Layer()
 {

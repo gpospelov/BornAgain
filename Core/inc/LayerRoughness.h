@@ -1,7 +1,7 @@
 #ifndef LAYERROUGHNESS_H
 #define LAYERROUGHNESS_H
 
-#include "layer.h"
+#include "inc/Layer.h"
 
 class LayerRoughness
 {

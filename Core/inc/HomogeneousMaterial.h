@@ -1,7 +1,7 @@
 #ifndef HOMOGENEOUSMATERIAL_H
 #define HOMOGENEOUSMATERIAL_H
 
-#include "imaterial.h"
+#include "inc/IMaterial.h"
 
 class HomogeneousMaterial : public IMaterial
 {

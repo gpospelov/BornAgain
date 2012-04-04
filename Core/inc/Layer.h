@@ -1,8 +1,8 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "isample.h"
-#include "imaterial.h"
+#include "inc/ISample.h"
+#include "inc/IMaterial.h"
 
 class Layer : public ISample
 {

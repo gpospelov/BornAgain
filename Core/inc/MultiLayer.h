@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include "layer.h"
-#include "layerroughness.h"
+#include "inc/Layer.h"
+#include "inc/LayerRoughness.h"
 
 class MultiLayer : public ISample
 {

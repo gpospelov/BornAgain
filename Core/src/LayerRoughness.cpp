@@ -1,4 +1,4 @@
-#include "layerroughness.h"
+#include "inc/LayerRoughness.h"
 
 LayerRoughness *LayerRoughness::createSmoothLayerInterface(Layer *p_top_layer, Layer *p_bottom_layer)
 {

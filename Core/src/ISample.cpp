@@ -1,17 +1,4 @@
-#ifndef ISAMPLE_H
-#define ISAMPLE_H
-
-#include "exceptions.h"
-
-class ISample
-{
-public:
-    virtual ~ISample() {}
-
-    virtual void add(ISample* p_child);
-//    virtual void remove(ISample* p_child);
-//    virtual ISample* getChild(size_t index);
-};
+#include "inc/ISample.h"
 
 void ISample::add(ISample* p_child)
 {
@@ -27,5 +14,3 @@ void ISample::add(ISample* p_child)
 //{
 //    throw NotImplementedException("This sample class is not allowed to have subsamples.");
 //}
-
-#endif // ISAMPLE_H

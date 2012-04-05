@@ -7,13 +7,13 @@ INCDIR        = ./inc
 BINDIR        = ./
 LIBDIR        = ./obj
 
-ROOTCFLAGS    = $(shell root-config --cflags)
-ROOTGLIBS     = $(shell root-config --glibs)
-ROOTLDFLAGS   = $(shell root-config --ldflags)
+#ROOTCFLAGS    = $(shell root-config --cflags)
+#ROOTGLIBS     = $(shell root-config --glibs)
+#ROOTLDFLAGS   = $(shell root-config --ldflags)
 
 CC      = g++
-CXX     = g++  -fpic
-LD      = g++  -rdynamic
+CXX     = g++  -fpic -pthread -m64
+LD      = g++  -rdynamic -m64
 RM      = rm -f
 
 UBIN = $(BINDIR)/Gisasfw

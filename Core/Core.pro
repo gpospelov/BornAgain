@@ -11,7 +11,10 @@ SOURCES += src/main.cpp \
     src/Exceptions.cpp \
     src/ISample.cpp \
     src/IAlgorithm.cpp \
-    src/TestFresnelCoeff.cpp
+    src/TestFresnelCoeff.cpp \
+    src/CalculatorOptical.cpp \
+    src/ISimulation.cpp \
+    src/OutputData.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -24,7 +27,11 @@ HEADERS += \
     inc/Exceptions.h \
     inc/IAlgorithm.h \
     inc/TestFresnelCoeff.h \
-    inc/Types.h
+    inc/Types.h \
+    inc/CalculatorOptical.h \
+    inc/ISimulation.h \
+    inc/OutputData.h \
+    inc/NamedVector.h
 
 INCLUDEPATH += ./inc
 

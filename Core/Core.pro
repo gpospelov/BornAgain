@@ -9,7 +9,10 @@ SOURCES += src/main.cpp \
     src/MultiLayer.cpp \
     src/LayerRoughness.cpp \
     src/Exceptions.cpp \
-    src/ISample.cpp
+    src/ISample.cpp \
+    src/CalculatorOptical.cpp \
+    src/ISimulation.cpp \
+    src/OutputData.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -19,7 +22,11 @@ HEADERS += \
     inc/HomogeneousMaterial.h \
     inc/MultiLayer.h \
     inc/LayerRoughness.h \
-    inc/Exceptions.h
+    inc/Exceptions.h \
+    inc/CalculatorOptical.h \
+    inc/ISimulation.h \
+    inc/OutputData.h \
+    inc/NamedVector.h
 
 INCLUDEPATH += ./inc
 

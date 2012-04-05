@@ -27,3 +27,6 @@ OTHER_FILES += \
     Makefile.am
 
 OBJECTS_DIR = obj
+
+# bla bla 1
+# bla bla 2

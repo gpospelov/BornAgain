@@ -2,18 +2,19 @@
 #define HOMOGENEOUSMATERIAL_H
 
 #include "IMaterial.h"
+#include "Types.h"
 
 class HomogeneousMaterial : public IMaterial
 {
 public:
-    HomogeneousMaterial(double refractive_index = 1);
+    HomogeneousMaterial(complex_t refractive_index = complex_t(1,0) );
     virtual ~HomogeneousMaterial() {}
 
-    double getRefractiveIndex() { return m_refractive_index; }
+    complex_t getRefractiveIndex() { return m_refractive_index; }
 
 
 private:
-    double m_refractive_index;
+    complex_t m_refractive_index;
 };
 
 #endif // HOMOGENEOUSMATERIAL_H

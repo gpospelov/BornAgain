@@ -9,7 +9,9 @@ SOURCES += src/main.cpp \
     src/MultiLayer.cpp \
     src/LayerRoughness.cpp \
     src/Exceptions.cpp \
-    src/ISample.cpp
+    src/ISample.cpp \
+    src/IAlgorithm.cpp \
+    src/TestFresnelCoeff.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -19,7 +21,10 @@ HEADERS += \
     inc/HomogeneousMaterial.h \
     inc/MultiLayer.h \
     inc/LayerRoughness.h \
-    inc/Exceptions.h
+    inc/Exceptions.h \
+    inc/IAlgorithm.h \
+    inc/TestFresnelCoeff.h \
+    inc/Types.h
 
 INCLUDEPATH += ./inc
 

@@ -1,4 +1,4 @@
-#include "inc/Layer.h"
+#include "Layer.h"
 #include <stdexcept>
 
 Layer::Layer()

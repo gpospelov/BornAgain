@@ -1,4 +1,4 @@
-#include "inc/NanoParticle.h"
+#include "NanoParticle.h"
 
 NanoParticle::NanoParticle()
 {

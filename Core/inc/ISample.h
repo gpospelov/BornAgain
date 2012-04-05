@@ -1,7 +1,7 @@
 #ifndef ISAMPLE_H
 #define ISAMPLE_H
 
-#include "inc/Exceptions.h"
+#include "Exceptions.h"
 
 class ISample
 {

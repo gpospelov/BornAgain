@@ -21,3 +21,9 @@ HEADERS += \
     inc/LayerRoughness.h \
     inc/Exceptions.h
 
+INCLUDEPATH += ./inc
+
+OTHER_FILES += \
+    Makefile.am
+
+OBJECTS_DIR = obj

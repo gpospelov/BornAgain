@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "inc/MultiLayer.h"
+#include "MultiLayer.h"
 
 MultiLayer::MultiLayer()
 {

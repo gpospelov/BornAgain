@@ -1,4 +1,4 @@
-#include "inc/Exceptions.h"
+#include "Exceptions.h"
 
 NotImplementedException::NotImplementedException(const std::string& message)
     : std::logic_error(message)

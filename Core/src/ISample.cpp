@@ -1,4 +1,4 @@
-#include "inc/ISample.h"
+#include "ISample.h"
 
 void ISample::add(ISample* p_child)
 {

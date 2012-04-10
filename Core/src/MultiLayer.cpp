@@ -27,13 +27,18 @@ void MultiLayer::addLayerWithTopRoughness(Layer *p_layer, LayerRoughness *p_roug
         }
         m_layers.push_back(p_layer);
         m_roughnesses.push_back(p_top_roughness);
+        m_layers_z.push_back(m_layers_z.back() - p_layer->getThickness() );
         return;
     }
     m_layers.push_back(p_layer);
+    m_layers_z.push_back(0.0);
 }
+
 
 void MultiLayer::add(ISample* p_child)
 {
     Layer* p_layer = dynamic_cast<Layer*>(p_child);
     addLayerWithTopRoughness(p_layer, 0);
 }
+
+

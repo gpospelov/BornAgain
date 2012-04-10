@@ -14,7 +14,8 @@ SOURCES += src/main.cpp \
     src/TestFresnelCoeff.cpp \
     src/CalculatorOptical.cpp \
     src/ISimulation.cpp \
-    src/OutputData.cpp
+    src/OutputData.cpp \
+    src/OpticalFresnel.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -31,7 +32,8 @@ HEADERS += \
     inc/CalculatorOptical.h \
     inc/ISimulation.h \
     inc/OutputData.h \
-    inc/NamedVector.h
+    inc/NamedVector.h \
+    inc/OpticalFresnel.h
 
 INCLUDEPATH += ./inc
 
@@ -40,5 +42,36 @@ OTHER_FILES += \
 
 OBJECTS_DIR = obj
 
-# bla bla 1
-# bla bla 2
+
+INCLUDEPATH += /opt/local/include/root
+LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
+# for root installed via macport in /opt/local
+#INCLUDEPATH += $(ROOTSYS)/include/root
+#LIBS += $$system(root-config --glibs)
+
+
+#############################################################
+# Hand made addition to generate root dictionaries in the
+# absence of rootcint.pri file
+#############################################################
+#CREATE_ROOT_DICT_FOR_CLASSES = TestLogos.h TestLogosLinkDef.h
+#
+#DICTDEFINES += -DQT_VERSION=0x30000
+#QT_VERSION=$$[QT_VERSION]
+#contains( QT_VERSION, "^4.*" ) {
+#  DICTDEFINES -= -DQT_VERSION=0x30000
+#  DICTDEFINES *= -DQT_VERSION=0x40000
+#}
+#ROOT_CINT_TARGET = $${TARGET}
+#SOURCES         *= $${ROOT_CINT_TARGET}Dict.cpp
+#rootcint.target       = $${ROOT_CINT_TARGET}Dict.cpp
+#rootcint.commands    += /opt/local/bin/rootcint
+#rootcint.commands    +=  -f $$rootcint.target  -c -p $$DICTDEFINES $(INCPATH) $$CREATE_ROOT_DICT_FOR_CLASSES
+#rootcint.depends      = $$CREATE_ROOT_DICT_FOR_CLASSES
+#
+#rootcintecho.commands = @echo "Generating dictionary $$rootcint.target for $$CREATE_ROOT_DICT_FOR_CLASSES classes"
+#QMAKE_EXTRA_TARGETS += rootcintecho rootcint
+#QMAKE_CLEAN       +=  $${ROOT_CINT_TARGET}Dict.cpp $${ROOT_CINT_TARGET}Dict.h
+
+
+

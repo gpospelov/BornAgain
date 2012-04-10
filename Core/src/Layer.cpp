@@ -1,7 +1,7 @@
 #include "Layer.h"
 #include <stdexcept>
 
-Layer::Layer()
+Layer::Layer() : mp_bulk_material(0), m_thickness(0)
 {
 }
 
@@ -18,3 +18,4 @@ void Layer::setThickness(double thickness)
     }
     throw new std::domain_error("Layer thickness cannot be negative");
 }
+

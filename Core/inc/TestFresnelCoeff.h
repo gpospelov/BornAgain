@@ -3,6 +3,7 @@
 
 #include "IAlgorithm.h"
 #include "OpticalFresnel.h"
+#include "MultiLayer.h"
 
 
 class TestFresnelCoeff : public IAlgorithm
@@ -18,7 +19,7 @@ public:
     typedef std::vector<MyData > MyDataSet_t;
 
     void execute();
-    void Draw(const MyDataSet_t &data);
+    void Draw(const MultiLayer &sample,  const MyDataSet_t &data);
 
 private:
 

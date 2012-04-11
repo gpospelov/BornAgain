@@ -19,3 +19,9 @@ void Layer::setThickness(double thickness)
     throw new std::domain_error("Layer thickness cannot be negative");
 }
 
+
+void Layer::setMaterial(IMaterial* p_material, double thickness)
+{
+    setMaterial(p_material);
+    setThickness(thickness);
+}

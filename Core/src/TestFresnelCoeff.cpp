@@ -18,6 +18,10 @@ TestFresnelCoeff::TestFresnelCoeff()
 }
 
 
+/* ****************************************************************************
+Creates some multilayer system, runs calculation of Fresnel R,T coefficients for
+all layers, makes plots.
+**************************************************************************** */
 void TestFresnelCoeff::execute()
 {
     std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
@@ -31,18 +35,16 @@ void TestFresnelCoeff::execute()
     HomogeneousMaterial mSubstrate( complex_t(0.99999692440971188, 0) );
 
     Layer lAmbience;
-    lAmbience.setMaterial(&mAmbience);
+    lAmbience.setMaterial(&mAmbience, 0);
 
     Layer lAg1;
-    lAg1.setThickness(1500.0);
-    lAg1.setMaterial(&mAg1);
+    lAg1.setMaterial(&mAg1, 1500.0);
 
     Layer lCr1;
-    lCr1.setThickness(1200.0);
-    lCr1.setMaterial(&mCr1);
+    lCr1.setMaterial(&mCr1, 1200.0);
 
     Layer lSubstrate;
-    lSubstrate.setMaterial(&mSubstrate);
+    lSubstrate.setMaterial(&mSubstrate, 0);
 
     // adding layers
     mySample.add(&lAmbience);
@@ -78,41 +80,47 @@ void TestFresnelCoeff::execute()
         myDataSet.push_back(myData);
     }
 
-    TApplication theApp("theApp",0,0);
-    Draw(myDataSet);
+    new TApplication("theApp", 0, 0);
 
-    theApp.Run();
+    Draw(mySample, myDataSet);
 
 }
 
 
-void TestFresnelCoeff::Draw(const MyDataSet_t &data)
+void TestFresnelCoeff::Draw(const MultiLayer &sample, const MyDataSet_t &data)
 {
-    size_t nlayers = data.front().coeffs.size();
+    //size_t nlayers = data.front().coeffs.size();
+    size_t nlayers = sample.getNumberOfLayers();
 
+    // creation of graphics to plot R,T coefficients in layers as a function of alpha_i
     std::vector<TGraph *> gr_absR;
     std::vector<TGraph *> gr_absT;
     for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
       gr_absR.push_back(new TGraph() );
       gr_absT.push_back(new TGraph() );
     }
-    //TGraph *gr_absSum = new TGraph();
+    TGraph *gr_absSum = new TGraph(); // |R_top|+|T_bottom|
 
     for(size_t i_point=0; i_point<data.size(); ++i_point) {
+        double alpha_i = data[i_point].alpha_i;
+        // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
-            double alpha_i = data[i_point].alpha_i*180./M_PI;
-            gr_absR[i_layer]->SetPoint(i_point, alpha_i, std::abs(data[i_point].coeffs[i_layer].R) );
-            gr_absT[i_layer]->SetPoint(i_point, alpha_i, std::abs(data[i_point].coeffs[i_layer].T) );
+            gr_absR[i_layer]->SetPoint(i_point, alpha_i*180./M_PI, std::abs(data[i_point].coeffs[i_layer].R) );
+            gr_absT[i_layer]->SetPoint(i_point, alpha_i*180./M_PI, std::abs(data[i_point].coeffs[i_layer].T) );
         }
+        // Filling graphics for |R|+|T| as a function of alpha_i taking R from the top and T from the bottom layers
+        int nlast = nlayers - 1;
+        complex_t nx = sample.getLayer(nlast)->getRefractiveIndex();
+        complex_t n1 = sample.getLayer(0)->getRefractiveIndex();
+        //std::complex<double> kk = (1./(n1*std::sin(theta_i)))*std::sqrt(std::pow(nx,2)-cos(theta_i)*cos(theta_i)*std::pow(n1,2));
+        complex_t kk = std::sqrt((complex_t(1,0) - cos(alpha_i)*cos(alpha_i)/nx/nx) ) / sin(alpha_i);
+        double sum = std::norm(data[i_point].coeffs[0].R) + std::abs(kk)*std::norm(data[i_point].coeffs[nlast].T);
+        // calculation for sum is not valid, when outgoing angle in the bottom layer is parallel to the surfaced
+        double alpha_bottom = std::abs(n1/nx)*cos(alpha_i);
+        if(1-alpha_bottom < 0.0) sum = std::norm(data[i_point].coeffs[0].R);
+
+        gr_absSum->SetPoint(i_point, alpha_i*180./M_PI, sum);
     }
-//    int nlast = m_sample->GetNlayers() - 1;
-//      complex_t nx = (*m_sample)[nlast].GetRefrIndex();
-//      complex_t n1 = (*m_sample)[0].GetRefrIndex();
-//      //std::complex<double> kk = (1./(n1*std::sin(theta_i)))*std::sqrt(std::pow(nx,2)-cos(theta_i)*cos(theta_i)*std::pow(n1,2));
-//      complex_t kk = std::sqrt((complex_t(1,0) - cos(theta_i)*cos(theta_i)/nx/nx) ) / sin(theta_i);
-//      double sum = std::norm(m_FresnelCoeff[0].R) + std::abs(kk)*std::norm(m_FresnelCoeff[nlast].T);
-//      gr_absSum->SetPoint(i, theta_i*180./M_PI, sum);
-//    }
 
     TCanvas *c1 = new TCanvas("c1","c1",1024,768);
 //    BDrawHelper *drawHelper = BDrawHelper::instance();
@@ -136,7 +144,7 @@ void TestFresnelCoeff::Draw(const MyDataSet_t &data)
       gr->SetMarkerColor(kBlue);
       gr->SetMarkerStyle(21);
       gr->SetMarkerSize(0.2);
-      gr->Draw("p same");
+      gr->Draw("pl same");
 
       gr = gr_absT[i_layer];
       gr->SetMarkerStyle(21);
@@ -145,15 +153,12 @@ void TestFresnelCoeff::Draw(const MyDataSet_t &data)
       gr->SetMarkerColor(kRed);
       gr->Draw("pl same");
     }
-//    TGraph *gr = gr_absSum;
-//    gr->SetMarkerStyle(21);
-//    gr->SetMarkerSize(0.2);
-//    gr->SetLineColor(kMagenta);
-//    gr->SetMarkerColor(kMagenta);
-//    gr->Draw("pl same");
-
-
-
+    TGraph *gr = gr_absSum;
+    gr->SetMarkerStyle(21);
+    gr->SetMarkerSize(0.2);
+    gr->SetLineColor(kMagenta);
+    gr->SetMarkerColor(kMagenta);
+    gr->Draw("pl same");
 
 }
 

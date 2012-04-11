@@ -6,7 +6,7 @@ class IAlgorithm
 public:
   virtual ~IAlgorithm() {}
 
-  virtual void Run();
+  virtual void execute();
 };
 
 #endif // IALGORITHM_H

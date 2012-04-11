@@ -2,13 +2,28 @@
 #define TESTFRESNELCOEFF_H
 
 #include "IAlgorithm.h"
+#include "OpticalFresnel.h"
+#include "MultiLayer.h"
+
 
 class TestFresnelCoeff : public IAlgorithm
 {
 public:
-  TestFresnelCoeff();
+    TestFresnelCoeff();
 
-  void Run();
+    class MyData {
+    public:
+        double alpha_i;
+        OpticalFresnel::MultiLayerCoeff_t coeffs;
+    };
+    typedef std::vector<MyData > MyDataSet_t;
+
+    void execute();
+    void Draw(const MultiLayer &sample,  const MyDataSet_t &data);
+
+private:
+
 };
+
 
 #endif // TESTFRESNELCOEFF_H

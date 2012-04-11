@@ -7,9 +7,9 @@ INCDIR        = ./inc
 BINDIR        = ./
 LIBDIR        = ./obj
 
-#ROOTCFLAGS    = $(shell root-config --cflags)
-#ROOTGLIBS     = $(shell root-config --glibs)
-#ROOTLDFLAGS   = $(shell root-config --ldflags)
+ROOTCFLAGS    = $(shell root-config --cflags)
+ROOTGLIBS     = $(shell root-config --glibs)
+ROOTLDFLAGS   = $(shell root-config --ldflags)
 
 CC      = g++
 CXX     = g++  -fpic -pthread -m64

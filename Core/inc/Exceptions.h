@@ -21,4 +21,10 @@ public:
     OutOfBoundsException(const std::string& message);
 };
 
+class ClassInitializationException : public std::runtime_error
+{
+public:
+    ClassInitializationException(const std::string& message);
+};
+
 #endif // EXCEPTIONS_H

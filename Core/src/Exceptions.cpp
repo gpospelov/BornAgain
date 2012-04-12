@@ -14,3 +14,8 @@ OutOfBoundsException::OutOfBoundsException(const std::string& message)
     : std::logic_error(message)
 {
 }
+
+ClassInitializationException::ClassInitializationException(const std::string &message)
+    : std::runtime_error(message)
+{
+}

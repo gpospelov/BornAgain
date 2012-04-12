@@ -23,20 +23,25 @@ TEST_F(NamedVectorTest, ExtendedConstructor)
     EXPECT_DOUBLE_EQ(9.9, doubleLengthVector[99]);
 }
 
-TEST_F(OutputDataTest, EmptyAfterConstruction)
+TEST_F(OutputDataTest, SingleElementAfterConstruction)
 {
-    EXPECT_EQ((size_t)0, int_data_0d.getAllocatedSize());
-    EXPECT_EQ((size_t)0, fl_data_1d.getAllocatedSize());
+    EXPECT_EQ((size_t)1, int_data_0d.getAllocatedSize());
 }
 
-TEST_F(OutputDataTest, SizeAfterAllocation)
+TEST_F(OutputDataTest, SizeAfterAddingAxes)
 {
-    MultiIndex &index_int_data = int_data_0d.getIndex();
-    MultiIndex &index_fl_data = fl_data_1d.getIndex();
-    MultiIndex &index_db_data = db_data_3d.getIndex();
     EXPECT_EQ((size_t)1, int_data_0d.getAllocatedSize());
     EXPECT_EQ((size_t)20, fl_data_1d.getAllocatedSize());
     EXPECT_EQ((size_t)2000, db_data_3d.getAllocatedSize());
+}
+
+TEST_F(OutputDataTest, DataInitialization)
+{
+    MultiIndex &db_data_index = db_data_3d.getIndex();
+    db_data_index.setCoordinate("angle", 11);
+    db_data_index.setCoordinate("length", 4);
+    db_data_index.setCoordinate("index", 3);
+    EXPECT_DOUBLE_EQ((double)1143, db_data_3d.currentValue());
 }
 
 int main(int argc, char** argv)

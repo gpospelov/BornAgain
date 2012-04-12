@@ -4,26 +4,37 @@
 #include <string>
 #include <vector>
 
-template <class T> class NamedVector
+class NamedVectorBase
 {
 public:
-    NamedVector(std::string name) : m_name(name) {}
+    NamedVectorBase(std::string name) : m_name(name) {}
+    virtual ~NamedVectorBase() {}
+
+    virtual size_t getSize()=0;
+    std::string getName() { return m_name; }
+
+private:
+    std::string m_name;
+};
+
+template <class T> class NamedVector : public NamedVectorBase
+{
+public:
+    NamedVector(std::string name) : NamedVectorBase(name) {}
     NamedVector(std::string name, T start, T step, size_t size);
     ~NamedVector();
 
     size_t getSize() { return m_value_vector.size(); }
-    std::string getName() { return m_name; }
     void initElements(T start, T step, size_t size);
     void push_back(T element) { m_value_vector.push_back(element); }
     T& operator[](size_t index) { return m_value_vector.at(index); }
 
 private:
-    std::string m_name;
     std::vector<T> m_value_vector;
 };
 
 template <class T> NamedVector<T>::NamedVector(std::string name, T start, T step, size_t size)
-    : m_name(name)
+    : NamedVectorBase(name)
 {
     initElements(start, step, size);
 }

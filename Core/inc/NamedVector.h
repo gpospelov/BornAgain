@@ -35,11 +35,9 @@ template <class T> NamedVector<T>::~NamedVector()
 
 template <class T> void NamedVector<T>::initElements(T start, T step, size_t size)
 {
-    T element = start;
     for (size_t i=0; i<size; ++i)
     {
-        push_back(element);
-        element = element + step;
+        push_back(start + step*i);
     }
 }
 

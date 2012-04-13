@@ -1,17 +1,32 @@
+QT       -= core
+QT       -= gui
+
 TEMPLATE = app
 CONFIG += console
 CONFIG -= qt
+CONFIG -= app_bundle
 
 SOURCES += main.cpp \
-    ../../Core/src/OutputData.cpp \
-    ../../Core/src/Exceptions.cpp
+    $$PWD/../../Core/src/OutputData.cpp \
+    $$PWD/../../Core/src/Exceptions.cpp
 
-INCLUDEPATH += ../../ThirdParty/gtest-1.6.0/include ../../Core/inc
+INCLUDEPATH += $$PWD/../../ThirdParty/gtest/include ../../Core/inc
 
-LIBS += -L../../ThirdParty/Qt_gtest -lgtest
+LIBS += -L$$PWD/../../ThirdParty/gtest -lgtest
 
 HEADERS += \
     NamedVectorTest.h \
     OutputDataTest.h
 
 OBJECTS_DIR = obj
+
+# the projects depends from third party library "google test"
+PRE_TARGETDEPS += $$PWD/../../ThirdParty/gtest/libgtest.a
+makelibs.target = $$PWD/../../ThirdParty/gtest/libgtest.a
+#makelibs.target = $$PWD/../../ThirdParty/gtest/libgtest.a
+makelibs.commands = (cd $$PWD/../../ThirdParty/gtest; qmake; make)
+makelibs.depends = FORCE
+QMAKE_EXTRA_TARGETS += makelibs
+
+# runs automatically tests right after linking
+QMAKE_POST_LINK = ./$(TARGET)

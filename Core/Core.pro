@@ -1,6 +1,11 @@
 TEMPLATE = app
+
 CONFIG += console
 CONFIG -= qt
+CONFIG -= app_bundle
+
+QT       -= core
+QT       -= gui
 
 SOURCES += src/main.cpp \
     src/NanoParticle.cpp \
@@ -42,12 +47,13 @@ OTHER_FILES += \
 
 OBJECTS_DIR = obj
 
-
-INCLUDEPATH += /opt/local/include/root
-LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
-# for root installed via macport in /opt/local
-#INCLUDEPATH += $(ROOTSYS)/include/root
-#LIBS += $$system(root-config --glibs)
+#############################################################
+# adding ROOT libraries
+#############################################################
+#INCLUDEPATH += /opt/local/include/root
+#LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
+INCLUDEPATH += $$system(root-config --incdir)
+LIBS += $$system(root-config --libdir)
 
 
 #############################################################

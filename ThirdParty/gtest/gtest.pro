@@ -1,3 +1,4 @@
+
 QT -= gui
 QT -= core
 
@@ -25,9 +26,13 @@ HEADERS += \
 
 OBJECTS_DIR = obj
 
+QMAKE_POST_LINK = ln -sf $$mygtest/include .
+
 #target.path = ../../lib
 #INSTALLS += target
 #QMAKE_CLEAN += $(TARGET) $$target.path/$(TARGET)
-QMAKE_CLEAN = $(TARGET)
+
+QMAKE_DISTCLEAN += -r $(OBJECTS_DIR)
+QMAKE_DISTCLEAN += -r ./include
 
 

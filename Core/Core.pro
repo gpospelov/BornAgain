@@ -47,13 +47,32 @@ OTHER_FILES += \
 
 OBJECTS_DIR = obj
 
+# special configuration for shared library production
+configB{
+  TEMPLATE=lib
+  CONFIG+=plugin
+  SOURCES -= src/main.cpp
+#  DEFINES += CORE_LIBRARY
+}
+
+# pretty output
+#QMAKE_CXX      = @echo [C++ ] $< && $$QMAKE_CXX
+#QMAKE_LINK     = @echo [LINK] $@ && $$QMAKE_LINK
+
+
 #############################################################
 # adding ROOT libraries
+# the problem here is that system variables doesn;t propagate
+# into QtCreator
 #############################################################
-#INCLUDEPATH += /opt/local/include/root
-#LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
-INCLUDEPATH += $$system(root-config --incdir)
-LIBS += $$system(root-config --libdir)
+exists($$(ROOTSYS)/bin/root-config){
+  INCLUDEPATH += $$system($ROOTSYS/bin/root-config --incdir)
+  LIBS += $$system($ROOTSYS/bin/root-config --glibs)
+}
+!exists($$(ROOTSYS)/bin/root-config){
+  INCLUDEPATH += /opt/local/include/root
+  LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
+}
 
 
 #############################################################

@@ -26,13 +26,16 @@ HEADERS += \
 
 OBJECTS_DIR = obj
 
-QMAKE_POST_LINK = ln -sf $$mygtest/include .
+#QMAKE_POST_LINK = ln -sf $$mygtest/include .
+# making copying instead of link since virtual machine has probles in making links while being on host partitions
+QMAKE_POST_LINK = cp -r $$mygtest/include .
 
 #target.path = ../../lib
 #INSTALLS += target
 #QMAKE_CLEAN += $(TARGET) $$target.path/$(TARGET)
 
 QMAKE_DISTCLEAN += -r $(OBJECTS_DIR)
+#QMAKE_DISTCLEAN += -r ./include
 QMAKE_DISTCLEAN += -r ./include
 
 

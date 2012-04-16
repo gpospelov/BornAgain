@@ -1,41 +1,42 @@
-
-QT -= gui
-QT -= core
-
-TARGET = gtest
+###############################################################################
+# qmake project file for google unit test library
+###############################################################################
+TARGET   = gtest
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG  += lib plugin
+QT      -= gui core
+
+QMAKE_EXTENSION_SHLIB = so
 
 mygtest = gtest-1.6.0
 
-INCLUDEPATH += ./$$mygtest/include ./$$mygtest
+INCLUDEPATH += $$mygtest/include
+INCLUDEPATH += $$mygtest
 
 SOURCES += \
-    ./$$mygtest/src/gtest.cc \
-    ./$$mygtest/src/gtest-typed-test.cc \
-    ./$$mygtest/src/gtest-test-part.cc \
-    ./$$mygtest/src/gtest-printers.cc \
-    ./$$mygtest/src/gtest-port.cc \
-    ./$$mygtest/src/gtest-filepath.cc \
-    ./$$mygtest/src/gtest-death-test.cc \
-    ./$$mygtest/src/gtest-all.cc \
-    ./$$mygtest/src/gtest_main.cc
+    ./$$mygtest/src/gtest-all.cc
 
 HEADERS += \
     ./$$mygtest/src/gtest-internal-inl.h
 
 OBJECTS_DIR = obj
 
-#QMAKE_POST_LINK = ln -sf $$mygtest/include .
-# making copying instead of link since virtual machine has probles in making links while being on host partitions
-QMAKE_POST_LINK = cp -r $$mygtest/include .
+###############################################################################
+# Installing library into dedicated directory at the end of compilation
+###############################################################################
+MYPREFIX = $$PWD/../.. # place to install library and headers
+target.path = $$MYPREFIX/lib
+INSTALLS += target
+#includes.files = $$mygtest/include/gtest/*.h
+#includes.path = $$MYPREFIX/inc/gtest
+includes.files = $$mygtest/include/gtest
+includes.path = $$MYPREFIX/inc
+INSTALLS += includes
+# there is a soft bug here in qmake, it looks like flag '-r' works
+# only when it appears at the beginning of QMAKE_DISTCLEAN variable
+# i.e. the order below is important
+QMAKE_DISTCLEAN += -r $$includes.path/gtest
+QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 
-#target.path = ../../lib
-#INSTALLS += target
-#QMAKE_CLEAN += $(TARGET) $$target.path/$(TARGET)
-
-QMAKE_DISTCLEAN += -r $(OBJECTS_DIR)
-#QMAKE_DISTCLEAN += -r ./include
-QMAKE_DISTCLEAN += -r ./include
-
+QMAKE_POST_LINK = (make install)
 

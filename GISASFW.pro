@@ -3,6 +3,7 @@ TEMPLATE = subdirs
 SUBDIRS += \
     Core \
     ThirdParty/gtest \
+    App \
     UnitTests/TestCore
 
 TestCore.depends = ThirdParty/gtest

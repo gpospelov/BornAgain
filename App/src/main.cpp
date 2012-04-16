@@ -8,6 +8,7 @@ using namespace std;
 int main(int argc, char **argv)
 {
     cout << "Hello Brave New World!" << endl;
+    TApplication theApp("theApp",0,0);
 
     if(argc>=2) {
         std::string spar(argv[1]);
@@ -25,4 +26,5 @@ int main(int argc, char **argv)
     }
     return 0;
 }
+
 

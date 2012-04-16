@@ -80,8 +80,7 @@ void TestFresnelCoeff::execute()
         myDataSet.push_back(myData);
     }
 
-    new TApplication("theApp", 0, 0);
-
+    //new TApplication("theApp", 0, 0);
     Draw(mySample, myDataSet);
 
 }

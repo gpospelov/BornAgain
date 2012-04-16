@@ -1,13 +1,14 @@
-TEMPLATE = app
+###############################################################################
+# qmake project file to compile shared library
+###############################################################################
+TARGET   = ScattCore
+TEMPLATE = lib
+CONFIG  += plugin # to remove versions from file name
+QT      -= core gui
 
-CONFIG += console
-CONFIG -= qt
-CONFIG -= app_bundle
+QMAKE_EXTENSION_SHLIB = so
 
-QT       -= core
-QT       -= gui
-
-SOURCES += src/main.cpp \
+SOURCES += \
     src/NanoParticle.cpp \
     src/Layer.cpp \
     src/HomogeneousMaterial.cpp \
@@ -16,7 +17,6 @@ SOURCES += src/main.cpp \
     src/Exceptions.cpp \
     src/ISample.cpp \
     src/IAlgorithm.cpp \
-    src/TestFresnelCoeff.cpp \
     src/CalculatorOptical.cpp \
     src/ISimulation.cpp \
     src/OutputData.cpp \
@@ -32,7 +32,6 @@ HEADERS += \
     inc/LayerRoughness.h \
     inc/Exceptions.h \
     inc/IAlgorithm.h \
-    inc/TestFresnelCoeff.h \
     inc/Types.h \
     inc/CalculatorOptical.h \
     inc/ISimulation.h \
@@ -42,61 +41,22 @@ HEADERS += \
 
 INCLUDEPATH += ./inc
 
-OTHER_FILES += \
-    Makefile.am
-
 OBJECTS_DIR = obj
 
-# special configuration for shared library production
-configB{
-  TEMPLATE=lib
-  CONFIG+=plugin
-  SOURCES -= src/main.cpp
-#  DEFINES += CORE_LIBRARY
-}
+###############################################################################
+# Installing library into dedicated directory at the end of compilation
+###############################################################################
+MYPREFIX = $$PWD/.. # place to install library and headers
+target.path = $$MYPREFIX/lib
+INSTALLS += target
+includes.files = $$PWD/inc/*.h
+includes.path = $$MYPREFIX/inc/ScattCore
+INSTALLS += includes
+# there is a soft bug here in qmake, it looks like flag '-r' works
+# only when it appears at the beginning of QMAKE_DISTCLEAN variable
+# i.e. the order below is important
+QMAKE_DISTCLEAN += -r $$includes.path
+QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 
-# pretty output
-#QMAKE_CXX      = @echo [C++ ] $< && $$QMAKE_CXX
-#QMAKE_LINK     = @echo [LINK] $@ && $$QMAKE_LINK
-
-
-#############################################################
-# adding ROOT libraries
-# the problem here is that system variables doesn;t propagate
-# into QtCreator
-#############################################################
-exists($$(ROOTSYS)/bin/root-config){
-  INCLUDEPATH += $$system($ROOTSYS/bin/root-config --incdir)
-  LIBS += $$system($ROOTSYS/bin/root-config --glibs)
-}
-!exists($$(ROOTSYS)/bin/root-config){
-  INCLUDEPATH += /opt/local/include/root
-  LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
-}
-
-
-#############################################################
-# Hand made addition to generate root dictionaries in the
-# absence of rootcint.pri file
-#############################################################
-#CREATE_ROOT_DICT_FOR_CLASSES = TestLogos.h TestLogosLinkDef.h
-#
-#DICTDEFINES += -DQT_VERSION=0x30000
-#QT_VERSION=$$[QT_VERSION]
-#contains( QT_VERSION, "^4.*" ) {
-#  DICTDEFINES -= -DQT_VERSION=0x30000
-#  DICTDEFINES *= -DQT_VERSION=0x40000
-#}
-#ROOT_CINT_TARGET = $${TARGET}
-#SOURCES         *= $${ROOT_CINT_TARGET}Dict.cpp
-#rootcint.target       = $${ROOT_CINT_TARGET}Dict.cpp
-#rootcint.commands    += /opt/local/bin/rootcint
-#rootcint.commands    +=  -f $$rootcint.target  -c -p $$DICTDEFINES $(INCPATH) $$CREATE_ROOT_DICT_FOR_CLASSES
-#rootcint.depends      = $$CREATE_ROOT_DICT_FOR_CLASSES
-#
-#rootcintecho.commands = @echo "Generating dictionary $$rootcint.target for $$CREATE_ROOT_DICT_FOR_CLASSES classes"
-#QMAKE_EXTRA_TARGETS += rootcintecho rootcint
-#QMAKE_CLEAN       +=  $${ROOT_CINT_TARGET}Dict.cpp $${ROOT_CINT_TARGET}Dict.h
-
-
+QMAKE_POST_LINK = (make install)
 

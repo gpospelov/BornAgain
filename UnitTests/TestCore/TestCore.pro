@@ -1,11 +1,10 @@
-QT       -= core
-QT       -= gui
-
+###############################################################################
+# qmake project file to compile and run unit test of ScattCore library
+###############################################################################
 TEMPLATE = app
-CONFIG += console
-CONFIG -= qt
-CONFIG -= app_bundle
-CONFIG  += build_all
+CONFIG  -= qt app_bundle
+CONFIG  += console build_all
+QT      -= core gui
 
 SOURCES += main.cpp
 
@@ -13,16 +12,22 @@ HEADERS += \
     NamedVectorTest.h \
     OutputDataTest.h
 
-INCLUDEPATH += $$PWD/../../ThirdParty/gtest/include \
-               $$PWD/../../Core/inc
-
 OBJECTS_DIR = obj
 
-LIBS += -L$$OUT_PWD/../../ThirdParty/gtest -lgtest
-LIBS += -L$$OUT_PWD/../../Core -lCore
 
-INCLUDEPATH += $$system($ROOTSYS/bin/root-config --incdir)
-LIBS += $$system($ROOTSYS/bin/root-config --glibs)
+###############################################################################
+# generating package dependency flags
+###############################################################################
+MY_DEPENDENCY_LIB = gtest ScattCore
+MY_DEPENDENCY_DEST =$$PWD/../..
+SONAME = so
+INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc
+for(dep, MY_DEPENDENCY_LIB) {
+    LIBS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
+    PRE_TARGETDEPS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
+    INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
+}
+
 
 # some hack that might be required for linux... under investigation
 #LIBS += -lpthread
@@ -30,14 +35,18 @@ LIBS += $$system($ROOTSYS/bin/root-config --glibs)
 #QMAKE_CXXFLAGS += -pthread
 
 
-PRE_TARGETDEPS += $$PWD/../../Core/libCore.dylib
 
-# the projects depends from third party library "google test"
-PRE_TARGETDEPS += $$PWD/../../ThirdParty/gtest/libgtest.a
-makelibs.target = $$PWD/../../ThirdParty/gtest/libgtest.a
-makelibs.commands = (cd $$PWD/../../ThirdParty/gtest; qmake; make)
-makelibs.depends = FORCE
-QMAKE_EXTRA_TARGETS += makelibs
+###############################################################################
+# attempt to compile project dependencies not from the top
+###############################################################################
+#PRE_TARGETDEPS += $$PWD/../../ThirdParty/gtest/libgtest.a
+#makelibs.target = $$PWD/../../ThirdParty/gtest/libgtest.a
+#makelibs.commands = (cd $$PWD/../../ThirdParty/gtest; qmake; make)
+#makelibs.depends = FORCE
+#QMAKE_EXTRA_TARGETS += makelibs
 
+
+###############################################################################
 # runs automatically tests right after linking
+###############################################################################
 QMAKE_POST_LINK = ./$(TARGET)

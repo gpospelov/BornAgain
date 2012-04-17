@@ -10,6 +10,7 @@
 #include "HomogeneousMaterial.h"
 #include "Exceptions.h"
 #include "OpticalFresnel.h"
+#include "DrawHelper.h"
 
 
 TestFresnelCoeff::TestFresnelCoeff()
@@ -122,8 +123,8 @@ void TestFresnelCoeff::Draw(const MultiLayer &sample, const MyDataSet_t &data)
     }
 
     TCanvas *c1 = new TCanvas("c1","c1",1024,768);
-//    BDrawHelper *drawHelper = BDrawHelper::instance();
-//    drawHelper->SetMagnifier(c1);
+    DrawHelper *drawHelper = DrawHelper::instance();
+    drawHelper->SetMagnifier(c1);
 
     int ndivy = sqrt(nlayers);
     int ndivx = nlayers/ndivy + 1;

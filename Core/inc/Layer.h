@@ -13,7 +13,7 @@ public:
     virtual ~Layer();
 
     virtual void setThickness(double thickness);
-    virtual const double getThickness() const { return m_thickness; }
+    virtual double getThickness() const { return m_thickness; }
     virtual void setMaterial(IMaterial* p_material) { mp_bulk_material = p_material; }
     virtual void setMaterial(IMaterial* p_material, double thickness);
     virtual IMaterial* getMaterial() { return mp_bulk_material; }

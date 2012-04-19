@@ -1,13 +1,14 @@
 #include <iostream>
 #include <string>
 #include "TestFresnelCoeff.h"
+#include "TestDiffuseScattering.h"
 #include "TApplication.h"
 
-using namespace std;
+
 
 int main(int argc, char **argv)
 {
-    cout << "Hello Brave New World!" << endl;
+    std::cout << "Hello Brave New World!" << std::endl;
     TApplication theApp("theApp",0,0);
 
     if(argc>=2) {
@@ -18,6 +19,13 @@ int main(int argc, char **argv)
             TestFresnelCoeff test;
             test.execute();
         }
+
+        // user algorithm to test reflection/refraction coefficients for multilayer system
+        if(spar.find("diffuse") != std::string::npos) {
+            TestDiffuseScattering test;
+            test.execute();
+        }
+
     }
 
     if(gApplication) {

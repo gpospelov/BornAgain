@@ -27,4 +27,10 @@ public:
     ClassInitializationException(const std::string& message);
 };
 
+class SelfReferenceException : public std::logic_error
+{
+public:
+    SelfReferenceException(const std::string &message);
+};
+
 #endif // EXCEPTIONS_H

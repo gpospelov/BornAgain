@@ -6,6 +6,7 @@
 class ISample
 {
 public:
+    ISample(){}
     virtual ~ISample() {}
 
     virtual void add(ISample* p_child);

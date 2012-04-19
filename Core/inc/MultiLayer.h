@@ -1,37 +1,85 @@
 #ifndef MULTILAYER_H
 #define MULTILAYER_H
+// ********************************************************************
+// * The BornAgain project                                            *
+// * Simulation of neutron and x-ray scattering at grazing incidence  *
+// *                                                                  *
+// * LICENSE AND DISCLAIMER                                           *
+// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
+// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
+// * mollis quis. Mauris commodo rhoncus porttitor.                   *
+// ********************************************************************
+//! @file   MultiLayer.h
+//! @brief  Definition of MultiLayer class
+//! @author James Bond <j.bond@fz-juelich.de>, Chuck Norris <c.norris@fz-juelich.de>
+//! @date   01.04.2012
 
 #include <vector>
 
 #include "Layer.h"
+#include "LayerInterface.h"
 #include "LayerRoughness.h"
 
+
+//- -------------------------------------------------------------------
+/// @class MultiLayer
+/// @brief Stack of layers one on top of the other
+///
+/// Example of system of 4 layers:
+///
+///  ambience    layer #0        z=getLayerBottomZ(0)=0.0
+///  ---------   interface #0
+///  Fe, 20A     layer #1        z=getLayerBottomZ(1)=-20.0
+///  ---------   interface #1
+///  Cr, 40A     layer #2        z=getLayerBottomZ(2)=-60.0
+///  ---------   interface #2
+///  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
+///
+//- -------------------------------------------------------------------
 class MultiLayer : public ISample
 {
 public:
     MultiLayer();
     ~MultiLayer();
 
-    // adds layer with top roughness
-    void addLayerWithTopRoughness(Layer* p_layer, LayerRoughness* p_roughness);
+    /// return number of layers in multilayer
+    inline size_t getNumberOfLayers() const { return m_layers.size(); }
 
-    // returns number of layers in multilayer
-    size_t getNumberOfLayers() const { return m_layers.size(); }
+    /// add layer with top roughness
+    void addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness);
 
-    // Overrides from ISample:
-    void add(ISample* p_child);
+    /// add object to multilayer, overrides from ISample
+    void add(const ISample &p_child);
 
-    // returns layer with given index
-    const Layer *getLayer(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]; }
+    /// return layer with given index
+    const Layer *getLayer(size_t i_layer) const { return &m_layers[ check_layer_index(i_layer) ]; }
 
-    // returns layer z-coordinate
-    double getLayerZ(size_t i_layer) const { return m_layers_z[ check_layer_index(i_layer) ]; }
+    /// return z-coordinate of the layer's bottom
+    double getLayerBottomZ(size_t i_layer) const { return m_layers_z[ check_layer_index(i_layer) ]; }
+
+    /// return bottom interface of layer
+    //const LayerInterface *getLayerBottomInterface(size_t i_layer);
+
+    /// destruct allocated objects
+    void clear();
+
+    /// return clone of multilayer with clones of all layers and new interfaces between layers
+    MultiLayer *clone();
 
 private:
+    /// hiding copy constructor
+    MultiLayer(const MultiLayer &other);
+
+    /// hiding assignment operator
+    MultiLayer &operator=(const MultiLayer &other);
+
+    /// check index of layer w.r.t. vector length
     inline size_t check_layer_index(size_t i_layer) const { return i_layer < m_layers.size() ? i_layer : throw OutOfBoundsException("Layer index is out of bounds"); }
-    std::vector<Layer*> m_layers;
-    std::vector<LayerRoughness*> m_roughnesses;
-    std::vector<double > m_layers_z;
+
+    std::vector<Layer > m_layers;                 ///< stack of layers [nlayers]
+    std::vector<double > m_layers_z;              ///< coordinate of layer's bottoms [nlayers]
+    std::vector<LayerInterface *> m_interfaces;   ///< stack of layer interfaces [nlayers-1]
 };
 
 #endif // MULTILAYER_H
+

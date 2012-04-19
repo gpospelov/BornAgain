@@ -20,7 +20,10 @@ SOURCES += \
     src/CalculatorOptical.cpp \
     src/ISimulation.cpp \
     src/OutputData.cpp \
-    src/OpticalFresnel.cpp
+    src/OpticalFresnel.cpp \
+    src/IRoughness.cpp \
+    src/LayerInterface.cpp \
+    src/IMaterial.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -37,7 +40,9 @@ HEADERS += \
     inc/ISimulation.h \
     inc/OutputData.h \
     inc/NamedVector.h \
-    inc/OpticalFresnel.h
+    inc/OpticalFresnel.h \
+    inc/IRoughness.h \
+    inc/LayerInterface.h
 
 INCLUDEPATH += ./inc
 

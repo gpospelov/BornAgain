@@ -7,13 +7,15 @@ QT      -= core gui
 SOURCES += \
     src/main.cpp \
     src/TestFresnelCoeff.cpp \
-    src/DrawHelper.cpp
+    src/DrawHelper.cpp \
+    src/TestDiffuseScattering.cpp
 
 HEADERS += \
     inc/DrawHelper.h \
     inc/TestFresnelCoeff.h \
     inc/App.h \
-    inc/AppLinkDef.h
+    inc/AppLinkDef.h \
+    inc/TestDiffuseScattering.h
 
 INCLUDEPATH += ./inc
 

@@ -9,31 +9,9 @@ MultiLayer::MultiLayer()
 }
 
 
-//MultiLayer::MultiLayer(const MultiLayer &other) : ISample(other)
-//{
-//    m_layers = other.m_layers;
-//    m_layers_z = other.m_layers_z;
-//    m_interfaces = other.m_interfaces;
-//}
-
-
-//MultiLayer &MultiLayer::operator=(const MultiLayer &other)
-//{
-//    if( this != &other)
-//    {
-
-//        clean();
-//        m_layers = other.m_layers;
-//        m_layers_z = other.m_layers_z;
-//        //m_interfaces = other.m_interfaces;
-//    }
-//    return *this;
-//}
-
-
 MultiLayer::~MultiLayer()
 {
-
+    clear();
 }
 
 
@@ -42,47 +20,62 @@ MultiLayer::~MultiLayer()
 /* ************************************************************************* */
 void MultiLayer::clear()
 {
-    m_layers.clear();
-    m_layers_z.clear();
-    for(size_t i=0; i<m_interfaces.size(); i++)
-    {
-        if( m_interfaces[i] ) {
-            delete m_interfaces[i];
-            m_interfaces[i] = 0;
-        }
-        m_interfaces.clear();
+    for(size_t i=0; i<m_layers.size(); i++) {
+        if( m_layers[i] ) delete m_layers[i];
     }
+    m_layers.clear();
+
+    for(size_t i=0; i<m_interfaces.size(); i++) {
+        if( m_interfaces[i] ) delete m_interfaces[i];
+    }
+    m_interfaces.clear();
+
+    m_layers_z.clear();
 }
 
 
 /* ************************************************************************* */
-// clear MultiLayer contents including interfaces
+// clone MultiLayer contents including interfaces
 /* ************************************************************************* */
 MultiLayer *MultiLayer::clone()
 {
-//    MultiLayer
-//    m_layers.clear();
-//    m_layers_z.clear();
-//    for(size_t i=0; i<m_interfaces.size(); i++)
-//    {
-//        if( m_interfaces[i] ) {
-//            delete m_interfaces[i];
-//            m_interfaces[i] = 0;
-//        }
-//        m_interfaces.clear();
-//    }
-    return 0;
+    MultiLayer *newMultiLayer = new MultiLayer();
+
+    newMultiLayer->m_layers_z = m_layers_z;
+
+    for(size_t i=0; i<m_layers.size(); i++) {
+        newMultiLayer->m_layers.push_back( new Layer( *m_layers[i] ) );
+    }
+
+    for(size_t i=0; i<m_interfaces.size(); i++) {
+        const Layer *topLayer = newMultiLayer->m_layers[i];
+        const Layer *bottomLayer = newMultiLayer->m_layers[i+1];
+
+        LayerInterface *newInterface = LayerInterface::createRoughInterface(topLayer, bottomLayer, m_interfaces[i]->getRoughness() );
+        newMultiLayer->m_interfaces.push_back( newInterface );
+    }
+
+    return newMultiLayer;
 }
 
-const LayerInterface *MultiLayer::getLayerBottomInterface(size_t i_layer)
-{
-    return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : 0;
-}
 
-
+/* ************************************************************************* */
+// return pointer to the top interface of the layer
+// (nInterfaces = nLayers-1, first layer in multilayer doesn't have interface)
+/* ************************************************************************* */
 const LayerInterface *MultiLayer::getLayerTopInterface(size_t i_layer)
 {
     return i_layer>0 ? m_interfaces[ check_interface_index(i_layer-1) ] : 0;
+}
+
+
+/* ************************************************************************* */
+// return pointer to the bottom interface of the layer
+// (nInterfaces = nLayers-1, i.e. last layer in multilayer doesn't have interface)
+/* ************************************************************************* */
+const LayerInterface *MultiLayer::getLayerBottomInterface(size_t i_layer)
+{
+    return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : 0;
 }
 
 
@@ -108,7 +101,7 @@ void MultiLayer::print()
         if(interface) {
             std::cout << " " << " layers("
                       << " " << std::setw(16) << interface->getLayerTop()
-                      << "," << std::setw(16) << interface->getLayerTop() << ")";
+                      << "," << std::setw(16) << interface->getLayerBottom() << ")";
         }
         std::cout << std::endl;
     }
@@ -121,28 +114,25 @@ void MultiLayer::print()
 /* ************************************************************************* */
 void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness)
 {
+    Layer *p_new_layer = new Layer(layer);
     if (getNumberOfLayers())
     {
-        //const Layer *p_last_layer = getLayer( getNumberOfLayers()-1 );
-        const Layer *p_previous_layer = &m_layers[m_layers.size() -1 ];
-        m_layers.push_back(layer);
-        const Layer *p_new_layer = &m_layers[m_layers.size() -1 ];
-        std::cout << "XXX" << p_previous_layer << " " << p_new_layer << std::endl;
-        LayerInterface *interface = LayerInterface::createRoughInterface( p_previous_layer, p_new_layer, roughness);
+        const Layer *p_last_layer = m_layers.back();
+        LayerInterface *interface = LayerInterface::createRoughInterface( p_last_layer, p_new_layer, roughness);
+        m_layers.push_back( p_new_layer );
         m_interfaces.push_back(interface);
         m_layers_z.push_back(m_layers_z.back() - layer.getThickness() );
         return;
     }
-    m_layers.push_back(layer);
+    m_layers.push_back(p_new_layer);
     m_layers_z.push_back(0.0);
 }
 
 
-void MultiLayer::add(const ISample &p_child)
+void MultiLayer::addLayer(const Layer &p_child)
 {
-    LayerRoughness defRough;
-    const Layer &layer = dynamic_cast<const Layer&>(p_child);
-    addLayerWithTopRoughness(layer, defRough);
+    const Layer &layer = dynamic_cast<const Layer &>(p_child);
+    addLayerWithTopRoughness(layer, LayerRoughness());
 }
 
 

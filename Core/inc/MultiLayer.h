@@ -25,7 +25,7 @@
 /// @class MultiLayer
 /// @brief Stack of layers one on top of the other
 ///
-/// Example of system of 4 layers:
+/// Example of system of 4 layers (3 interfaces):
 ///
 ///  ambience    layer #0        z=getLayerBottomZ(0)=0.0
 ///  ---------   interface #0
@@ -46,13 +46,13 @@ public:
     inline size_t getNumberOfLayers() const { return m_layers.size(); }
 
     /// add object to multilayer, overrides from ISample
-    virtual void add(const ISample &p_child);
+    void addLayer(const Layer &p_child);
 
     /// add layer with top roughness
     void addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness);
 
     /// return layer with given index
-    const Layer *getLayer(size_t i_layer) const { return &m_layers[ check_layer_index(i_layer) ]; }
+    const Layer *getLayer(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]; }
 
     /// return z-coordinate of the layer's bottom
     double getLayerBottomZ(size_t i_layer) const { return m_layers_z[ check_layer_index(i_layer) ]; }
@@ -73,10 +73,8 @@ public:
     void print();
 
 private:
-    /// hiding copy constructor
+    /// hiding copy constructor & assignment operator
     MultiLayer(const MultiLayer &);
-
-    /// hiding assignment operator
     MultiLayer &operator=(const MultiLayer &);
 
     /// check index of layer w.r.t. vector length
@@ -85,7 +83,7 @@ private:
     /// check index of interface w.r.t. vector length
     inline size_t check_interface_index(size_t i_interface) const { return i_interface < m_interfaces.size() ? i_interface : throw OutOfBoundsException("Interface index is out of bounds"); }
 
-    std::vector<Layer > m_layers;                 ///< stack of layers [nlayers]
+    std::vector<Layer *> m_layers;                ///< stack of layers [nlayers]
     std::vector<double > m_layers_z;              ///< coordinate of layer's bottoms [nlayers]
     std::vector<LayerInterface *> m_interfaces;   ///< stack of layer interfaces [nlayers-1]
 };

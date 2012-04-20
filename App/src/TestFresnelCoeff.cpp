@@ -48,14 +48,14 @@ void TestFresnelCoeff::execute()
     lSubstrate.setMaterial(&mSubstrate, 0);
 
     // adding layers
-    mySample.add(lAmbience);
+    mySample.addLayer(lAmbience);
 
     const unsigned nrepetitions = 4;
     for(unsigned i=0; i<nrepetitions; ++i) {
-        mySample.add(lAg1);
-        mySample.add(lCr1);
+        mySample.addLayer(lAg1);
+        mySample.addLayer(lCr1);
     }
-    mySample.add(lSubstrate);
+    mySample.addLayer(lSubstrate);
 
     // -------------------
     // calculation of Fresnel coefficients for multi-layers system

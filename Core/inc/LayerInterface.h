@@ -50,6 +50,9 @@ public:
     //! set roughness of the interface
     inline void setRoughness(const LayerRoughness &roughness) { m_roughness = roughness; }
 
+    //! get roughness of the interface
+    inline const LayerRoughness &getRoughness() { return m_roughness; }
+
     //! get top layer
     inline const Layer *getLayerTop() const { return m_LayerTop; }
 

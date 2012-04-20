@@ -24,7 +24,9 @@ SOURCES += \
     src/IRoughness.cpp \
     src/LayerInterface.cpp \
     src/IMaterial.cpp \
-    src/MaterialManager.cpp
+    src/MaterialManager.cpp \
+    src/StochasticGaussian.cpp \
+    src/MathFunctions.cpp \
 
 HEADERS += \
     inc/ISample.h \
@@ -44,7 +46,10 @@ HEADERS += \
     inc/OpticalFresnel.h \
     inc/IRoughness.h \
     inc/LayerInterface.h \
-    inc/MaterialManager.h
+    inc/MaterialManager.h \
+    inc/IStochasticParameter.h \
+    inc/StochasticGaussian.h \
+    inc/MathFunctions.h
 
 INCLUDEPATH += ./inc
 

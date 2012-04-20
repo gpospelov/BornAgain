@@ -19,3 +19,13 @@ ClassInitializationException::ClassInitializationException(const std::string &me
     : std::runtime_error(message)
 {
 }
+
+SelfReferenceException::SelfReferenceException(const std::string& message)
+    : std::logic_error(message)
+{
+}
+
+DeadReferenceException::DeadReferenceException(const std::string &message)
+    : std::runtime_error(message)
+{
+}

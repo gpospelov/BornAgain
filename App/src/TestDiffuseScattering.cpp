@@ -12,6 +12,8 @@
 #include "OpticalFresnel.h"
 #include "DrawHelper.h"
 #include "LayerRoughness.h"
+#include "MaterialManager.h"
+
 
 TestDiffuseScattering::TestDiffuseScattering()
 {
@@ -26,36 +28,43 @@ void TestDiffuseScattering::execute()
 
     std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
 
+
+    MaterialManager &matManager = MaterialManager::instance();
+
+
     MultiLayer mySample;
 
     // creation of materials and layers
-    HomogeneousMaterial mAmbience( complex_t(1.0, 0.0) );
-    HomogeneousMaterial mAg1( complex_t(0.99999653774962993, 0) );
-    HomogeneousMaterial mCr1( complex_t(0.99999701914797656, 0) );
-    HomogeneousMaterial mSubstrate( complex_t(0.99999692440971188, 0) );
+    const IMaterial *mAmbience = matManager.addHomogeneousMaterial("ambience",complex_t(1.0, 0.0) );
+    const IMaterial *mAg1 = matManager.addHomogeneousMaterial( "Ag1",complex_t(0.99999653774962993, 0) );
+    const IMaterial *mCr1 = matManager.addHomogeneousMaterial("Cr1",complex_t(0.99999701914797656, 0) );
+    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate", complex_t(0.99999692440971188, 0) );
+
+    matManager.print();
 
     Layer lAmbience;
-    lAmbience.setMaterial(&mAmbience, 0);
+    lAmbience.setMaterial(mAmbience, 0);
 
     Layer lAg1;
-    lAg1.setMaterial(&mAg1, 1500.0);
+    lAg1.setMaterial(mAg1, 1500.0);
 
     Layer lCr1;
-    lCr1.setMaterial(&mCr1, 1200.0);
+    lCr1.setMaterial(mCr1, 1200.0);
 
     Layer lSubstrate;
-    lSubstrate.setMaterial(&mSubstrate, 0);
+    lSubstrate.setMaterial(mSubstrate, 0);
 
     // adding layers
     mySample.add(lAmbience);
 
     const unsigned nrepetitions = 4;
     for(unsigned i=0; i<nrepetitions; ++i) {
-        LayerRoughness rr(3.,4.,5.);
-        mySample.addLayerWithTopRoughness(lAg1, rr );
+        mySample.addLayerWithTopRoughness(lAg1, LayerRoughness(3.,4.,5.) );
         mySample.add(lCr1);
     }
     mySample.add(lSubstrate);
 
+    mySample.print();
 
 }
+

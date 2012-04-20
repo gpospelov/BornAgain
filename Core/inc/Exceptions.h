@@ -2,6 +2,7 @@
 #define EXCEPTIONS_H
 
 #include <stdexcept>
+#include <string>
 
 class NotImplementedException : public std::logic_error
 {
@@ -31,6 +32,12 @@ class SelfReferenceException : public std::logic_error
 {
 public:
     SelfReferenceException(const std::string &message);
+};
+
+class DeadReferenceException : public std::runtime_error
+{
+public:
+    DeadReferenceException(const std::string& message);
 };
 
 #endif // EXCEPTIONS_H

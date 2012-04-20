@@ -23,7 +23,8 @@ SOURCES += \
     src/OpticalFresnel.cpp \
     src/IRoughness.cpp \
     src/LayerInterface.cpp \
-    src/IMaterial.cpp
+    src/IMaterial.cpp \
+    src/MaterialManager.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -42,7 +43,8 @@ HEADERS += \
     inc/NamedVector.h \
     inc/OpticalFresnel.h \
     inc/IRoughness.h \
-    inc/LayerInterface.h
+    inc/LayerInterface.h \
+    inc/MaterialManager.h
 
 INCLUDEPATH += ./inc
 

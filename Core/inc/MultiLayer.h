@@ -45,11 +45,11 @@ public:
     /// return number of layers in multilayer
     inline size_t getNumberOfLayers() const { return m_layers.size(); }
 
+    /// add object to multilayer, overrides from ISample
+    virtual void add(const ISample &p_child);
+
     /// add layer with top roughness
     void addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness);
-
-    /// add object to multilayer, overrides from ISample
-    void add(const ISample &p_child);
 
     /// return layer with given index
     const Layer *getLayer(size_t i_layer) const { return &m_layers[ check_layer_index(i_layer) ]; }
@@ -57,24 +57,33 @@ public:
     /// return z-coordinate of the layer's bottom
     double getLayerBottomZ(size_t i_layer) const { return m_layers_z[ check_layer_index(i_layer) ]; }
 
+    /// return top interface of layer
+    const LayerInterface *getLayerTopInterface(size_t i_layer);
+
     /// return bottom interface of layer
-    //const LayerInterface *getLayerBottomInterface(size_t i_layer);
+    const LayerInterface *getLayerBottomInterface(size_t i_layer);
 
     /// destruct allocated objects
     void clear();
 
-    /// return clone of multilayer with clones of all layers and new interfaces between layers
+    /// return clone of multilayer with clones of all layers and recreated interfaces between layers
     MultiLayer *clone();
+
+    /// print structure of multilayer
+    void print();
 
 private:
     /// hiding copy constructor
-    MultiLayer(const MultiLayer &other);
+    MultiLayer(const MultiLayer &);
 
     /// hiding assignment operator
-    MultiLayer &operator=(const MultiLayer &other);
+    MultiLayer &operator=(const MultiLayer &);
 
     /// check index of layer w.r.t. vector length
     inline size_t check_layer_index(size_t i_layer) const { return i_layer < m_layers.size() ? i_layer : throw OutOfBoundsException("Layer index is out of bounds"); }
+
+    /// check index of interface w.r.t. vector length
+    inline size_t check_interface_index(size_t i_interface) const { return i_interface < m_interfaces.size() ? i_interface : throw OutOfBoundsException("Interface index is out of bounds"); }
 
     std::vector<Layer > m_layers;                 ///< stack of layers [nlayers]
     std::vector<double > m_layers_z;              ///< coordinate of layer's bottoms [nlayers]

@@ -38,7 +38,13 @@ public:
     /// set refractive index of he material
     void setRefractiveIndex(complex_t refractive_index) { m_refractive_index = refractive_index; }
 
-private:
+protected:
+    //! print material class
+    virtual void print(std::ostream &ostr) const {
+        IMaterial::print(ostr);
+        ostr << " " << m_refractive_index;
+    }
+
     complex_t m_refractive_index; ///< complex index of refraction
 };
 

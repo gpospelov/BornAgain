@@ -28,6 +28,16 @@ std::vector<size_t> MultiIndex::getCoordinate()
     return m_current_coordinate;
 }
 
+size_t MultiIndex::getCoordinate(std::string label)
+{
+    if (m_label_index_map.count(label) == 0)
+    {
+        std::string message = "Label not found: " + label;
+        throw NullPointerException(message);
+    }
+    return getCoordinate()[m_label_index_map.find(label)->second];
+}
+
 void MultiIndex::updateCurrentCoordinate()
 {
     size_t remainder = m_current_position;

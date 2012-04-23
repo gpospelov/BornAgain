@@ -2,7 +2,7 @@
 #include "MathFunctions.h"
 
 StochasticDoubleGaussian::StochasticDoubleGaussian(double average, double std_dev)
-    : m_average(average)
+    : StochasticParameter<double>(average)
     , m_std_dev(std_dev)
 {
 }
@@ -16,24 +16,7 @@ void StochasticDoubleGaussian::setToRandom()
     m_current = MathFunctions::GenerateNormalRandom(m_average, m_std_dev);
 }
 
-void StochasticDoubleGaussian::setToAverage()
+double StochasticDoubleGaussian::probabilityDensity(double value) const
 {
-    m_current = m_average;
-}
-
-double StochasticDoubleGaussian::getRandom()
-{
-    setToRandom();
-    return getCurrent();
-}
-
-double StochasticDoubleGaussian::getAverage()
-{
-    setToAverage();
-    return getCurrent();
-}
-
-double StochasticDoubleGaussian::getCurrentProbDensity()
-{
-    return MathFunctions::Gaussian(m_current, m_average, m_std_dev);
+    return MathFunctions::Gaussian(value, m_average, m_std_dev);
 }

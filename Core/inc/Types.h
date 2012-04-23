@@ -35,6 +35,7 @@ public:
     inline T z() const { return m_z; }
     inline T mag() const { return std::sqrt(m_mag2); }
     inline T mag2() const { return m_mag2; }
+    inline T magxy() const { return std::sqrt(m_x*m_x+m_y*m_y); }
 private:
     T m_x;
     T m_y;

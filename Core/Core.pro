@@ -27,6 +27,8 @@ SOURCES += \
     src/MaterialManager.cpp \
     src/StochasticGaussian.cpp \
     src/MathFunctions.cpp \
+    src/DispersedParticleDecorator.cpp \
+    src/FormFactorCylinder.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -49,11 +51,17 @@ HEADERS += \
     inc/MaterialManager.h \
     inc/IStochasticParameter.h \
     inc/StochasticGaussian.h \
-    inc/MathFunctions.h
+    inc/MathFunctions.h \
+    inc/DispersedParticleDecorator.h \
+    inc/IFormFactor.h \
+    inc/FormFactorCylinder.h \
+    inc/StochasticDiracDelta.h
 
 INCLUDEPATH += ./inc
 
 OBJECTS_DIR = obj
+
+LIBS += -L/opt/gsl/lib -lgsl
 
 ###############################################################################
 # Installing library into dedicated directory at the end of compilation

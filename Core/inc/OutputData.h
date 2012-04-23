@@ -11,6 +11,9 @@ class MultiIndex
 public:
     std::vector<std::string> getLabels() { return m_labels; }
     std::vector<size_t> getCoordinate();
+    size_t getCoordinate(std::string label);
+    size_t getPosition() { return m_current_position; }
+    size_t getSize() { return m_total_size; }
     void setCoordinate(std::string label, size_t value);
     void incrementCoordinate(std::string label);
     void decrementCoordinate(std::string label);
@@ -44,6 +47,7 @@ public:
 
     void addAxis(NamedVectorBase* p_new_axis);
     std::vector<NamedVectorBase*> getAxes() { return m_value_axes; }
+    NamedVectorBase* getAxis(std::string label);
     size_t getDimension() const { return m_dimension; }
     size_t getAllocatedSize() const { return m_data_vector.size(); }
     MultiIndex& getIndex();
@@ -82,6 +86,18 @@ template <class T> void OutputData<T>::addAxis(NamedVectorBase* p_new_axis)
         m_value_axes.push_back(p_new_axis);
         allocate();
     }
+}
+
+template <class T> NamedVectorBase* OutputData<T>::getAxis(std::string label)
+{
+    for (std::vector<NamedVectorBase*>::iterator it = m_value_axes.begin(); it != m_value_axes.end(); ++it)
+    {
+        if ((*it)->getName() == label)
+        {
+            return (*it);
+        }
+    }
+    return 0;
 }
 
 template <class T> inline MultiIndex& OutputData<T>::getIndex()

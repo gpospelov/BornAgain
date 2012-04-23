@@ -3,24 +3,18 @@
 
 #include "IStochasticParameter.h"
 
-class StochasticDoubleGaussian : public IStochasticParameter
+class StochasticDoubleGaussian : public StochasticParameter<double>
 {
 public:
     StochasticDoubleGaussian(double average, double std_dev);
     ~StochasticDoubleGaussian();
 
     virtual void setToRandom();
-    virtual void setToAverage();
+    virtual double probabilityDensity(double value) const;
 
-    double getCurrent() { return m_current; }
-    double getRandom();
-    double getAverage();
     double getStdDev() { return m_std_dev; }
-    double getCurrentProbDensity();
 
 private:
-    double m_current;
-    double m_average;
     double m_std_dev;
 };
 

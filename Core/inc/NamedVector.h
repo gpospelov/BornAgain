@@ -25,7 +25,7 @@ public:
     ~NamedVector();
 
     size_t getSize() { return m_value_vector.size(); }
-    void initElements(T start, T step, size_t size);
+    void initElements(T start, T end, size_t size);
     void push_back(T element) { m_value_vector.push_back(element); }
     T& operator[](size_t index) { return m_value_vector.at(index); }
 
@@ -33,9 +33,10 @@ private:
     std::vector<T> m_value_vector;
 };
 
-template <class T> NamedVector<T>::NamedVector(std::string name, T start, T step, size_t size)
+template <class T> NamedVector<T>::NamedVector(std::string name, T start, T end, size_t size)
     : NamedVectorBase(name)
 {
+    T step = size>1 ? (end - start)/(size-1) : end;
     initElements(start, step, size);
 }
 

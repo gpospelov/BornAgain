@@ -15,7 +15,7 @@ protected:
 
 NamedVectorTest::NamedVectorTest()
     : floatAngleVector("angle")
-    , doubleLengthVector("length", 0.0, 0.1, 100)
+    , doubleLengthVector("length", 0.0, 9.9, 100)
 {
 }
 

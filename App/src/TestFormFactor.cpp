@@ -1,9 +1,8 @@
 #include "TestFormFactor.h"
 #include "Types.h"
 
-#include "TGraph2D.h"
 #include "TCanvas.h"
-#include "TRandom.h"
+#include "TH2.h"
 #include "TStyle.h"
 
 #include <cmath>
@@ -13,8 +12,8 @@ TestFormFactor::TestFormFactor()
     : m_ff(50.0, 50.0)
 {
     mp_intensity_output = new OutputData<double>();
-    NamedVectorBase *p_y_axis = new NamedVector<double>(std::string("detector y-axis"), 0.0, 1.0, 50);
-    NamedVectorBase *p_z_axis = new NamedVector<double>(std::string("detector z-axis"), 0.0, 1.0, 50);
+    NamedVectorBase *p_y_axis = new NamedVector<double>(std::string("detector y-axis"), -4.0, 4.0, 200);
+    NamedVectorBase *p_z_axis = new NamedVector<double>(std::string("detector z-axis"), 0.0, 4.0, 200);
     mp_intensity_output->addAxis(p_y_axis);
     mp_intensity_output->addAxis(p_z_axis);
 }
@@ -30,8 +29,8 @@ void TestFormFactor::execute()
     NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
     NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
     double lambda = 1.0;
-    double alpha_i = 0.003;
-    double D = 30.0;
+    double alpha_i = 0.2*M_PI/180.0;
+//    double D = 30.0;
     kvector_t k_i;
     k_i.setLambdaAlphaPhi(lambda, alpha_i, 0.0);
     while (!index.endPassed())
@@ -39,8 +38,10 @@ void TestFormFactor::execute()
         size_t index_y = index.getCoordinate("detector y-axis");
         size_t index_z = index.getCoordinate("detector z-axis");
         // std::cout << "index y: " << index_y << "   index z: " << index_z << std::endl;
-        double phi_f = std::atan((*p_y_axis)[index_y]/D);
-        double alpha_f = std::atan((*p_z_axis)[index_z]*std::cos(phi_f)/D);
+//        double phi_f = std::atan((*p_y_axis)[index_y]/D);
+//        double alpha_f = std::atan((*p_z_axis)[index_z]*std::cos(phi_f)/D);
+        double phi_f = M_PI*(*p_y_axis)[index_y]/180.0;
+        double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
         kvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
         kvector_t q = k_f - k_i;
@@ -52,15 +53,24 @@ void TestFormFactor::execute()
 
 void TestFormFactor::draw()
 {
-    // creation TGraph2D from calcualted intensities
-    TCanvas *c1 = new TCanvas("c1", "Formfactor cylinder", 0, 0, 600, 400);
-    TGraph2D *p_graph = new TGraph2D();
+    // creation of 2D histogram from calculated intensities
+    TCanvas *c1 = new TCanvas("c1", "Cylinder Formfactor", 0, 0, 1024, 768);
 
     MultiIndex& index = mp_intensity_output->getIndex();
     index.reset();
     NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
     NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
-    int point_index = 0;
+    size_t y_size = p_y_axis->getSize();
+    size_t z_size = p_z_axis->getSize();
+    double y_start = (*p_y_axis)[0];
+    double y_end = (*p_y_axis)[y_size-1];
+    double z_start = (*p_z_axis)[0];
+    double z_end = (*p_z_axis)[z_size-1];
+    TH2D *p_hist2D = new TH2D("p_hist2D", "Cylinder Formfactor", y_size, y_start, y_end, z_size, z_start, z_end);
+    p_hist2D->UseCurrentStyle();
+    p_hist2D->GetXaxis()->SetTitle("phi_f");
+    p_hist2D->GetYaxis()->SetTitle("alpha_f");
+
     while (!index.endPassed())
     {
         size_t index_y = index.getCoordinate("detector y-axis");
@@ -68,11 +78,11 @@ void TestFormFactor::draw()
         double x_value = (*p_y_axis)[index_y];
         double y_value = (*p_z_axis)[index_z];
         double z_value = std::log(mp_intensity_output->currentValue());
-        p_graph->SetPoint(point_index, x_value, y_value, z_value);
+        p_hist2D->Fill(x_value, y_value, z_value);
         ++index;
-        ++point_index;
     }
-    std::cout << point_index << "TGraph2D initilialized" << std::endl;
-    //gStyle->SetPalette(1);
-    p_graph->Draw("CONT4Z");
+    p_hist2D->SetContour(50);
+    gStyle->SetPalette(51);
+    gStyle->SetOptStat(0);
+    p_hist2D->Draw("CONT4");
 }

@@ -5,6 +5,8 @@
 
 #include <map>
 
+template <class T> class OutputData;
+
 class MultiIndex
 {
     template <class T> friend class OutputData;
@@ -14,10 +16,12 @@ public:
     size_t getCoordinate(std::string label);
     size_t getPosition() { return m_current_position; }
     size_t getSize() { return m_total_size; }
+    void reset();
     void setCoordinate(std::string label, size_t value);
     void incrementCoordinate(std::string label);
     void decrementCoordinate(std::string label);
     MultiIndex& operator++();
+    bool endPassed() { return m_end_passed; }
 private:
     MultiIndex();
     ~MultiIndex();
@@ -37,6 +41,7 @@ private:
     std::vector<size_t> m_axis_sizes;
     std::vector<size_t> m_current_coordinate;
     std::vector<size_t> m_steps;
+    bool m_end_passed;
 };
 
 template <class T> class OutputData

@@ -7,6 +7,10 @@ MultiIndex& MultiIndex::operator++()
     {
         ++m_current_position;
     }
+    else
+    {
+        m_end_passed = true;
+    }
     return *this;
 }
 
@@ -14,6 +18,7 @@ MultiIndex::MultiIndex()
     : m_dimension(0)
     , m_total_size(1)
     , m_current_position(0)
+    , m_end_passed(false)
 {
 }
 
@@ -38,6 +43,13 @@ size_t MultiIndex::getCoordinate(std::string label)
     return getCoordinate()[m_label_index_map.find(label)->second];
 }
 
+void MultiIndex::reset()
+{
+    m_current_position = 0;
+    m_end_passed = false;
+    updateCurrentCoordinate();
+}
+
 void MultiIndex::updateCurrentCoordinate()
 {
     size_t remainder = m_current_position;
@@ -50,6 +62,7 @@ void MultiIndex::updateCurrentCoordinate()
 
 void MultiIndex::updateCurrentPosition()
 {
+    m_end_passed = false;
     m_current_position = 0;
     for (size_t i=0; i<m_dimension; ++i)
     {
@@ -76,6 +89,7 @@ void MultiIndex::incrementCoordinate(std::string label)
     if (m_current_coordinate[index] < m_axis_sizes[index]-2)
     {
         ++m_current_coordinate[index];
+        updateCurrentPosition();
         return;
     }
     throw OutOfBoundsException("Coordinate value out of bounds!");
@@ -88,6 +102,7 @@ void MultiIndex::decrementCoordinate(std::string label)
     if (m_current_coordinate[index] > 1)
     {
         --m_current_coordinate[index];
+        updateCurrentPosition();
         return;
     }
     throw OutOfBoundsException("Coordinate value out of bounds!");
@@ -132,5 +147,6 @@ void MultiIndex::clear()
     m_dimension = 0;
     m_total_size = 1;
     m_current_position = 0;
+    m_end_passed = false;
 }
 

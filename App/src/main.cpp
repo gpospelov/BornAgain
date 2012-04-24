@@ -2,6 +2,7 @@
 #include <string>
 #include "TestFresnelCoeff.h"
 #include "TestDiffuseScattering.h"
+#include "TestFormFactor.h"
 #include "TApplication.h"
 
 
@@ -23,6 +24,12 @@ int main(int argc, char **argv)
         // user algorithm to test reflection/refraction coefficients for multilayer system
         if(spar.find("diffuse") != std::string::npos) {
             TestDiffuseScattering test;
+            test.execute();
+        }
+
+        // user algorithm to test the form factor calculation
+        if(spar.find("formfactor") != std::string::npos) {
+            TestFormFactor test;
             test.execute();
         }
 

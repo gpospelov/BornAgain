@@ -27,6 +27,7 @@ SOURCES += \
     src/MaterialManager.cpp \
     src/StochasticGaussian.cpp \
     src/MathFunctions.cpp \
+    src/Types.cpp
 
 HEADERS += \
     inc/ISample.h \

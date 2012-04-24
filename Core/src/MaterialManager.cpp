@@ -27,9 +27,9 @@ MaterialManager::~MaterialManager()
 /* ************************************************************************* */
 MaterialManager &MaterialManager::instance()
 {
-    // check if not exists, then initialise
+    // check if exists, if not, then initialise
     if( !pInstance) {
-        // check for dead reference
+        // check for dead reference (i.e. object has been initialised but then somebody managed to delete it)
         if( m_destroyed ) {
             onDeadReference();
         } else {

@@ -67,7 +67,7 @@ public:
     void clear();
 
     /// return clone of multilayer with clones of all layers and recreated interfaces between layers
-    MultiLayer *clone();
+    virtual MultiLayer *clone() const;
 
     /// print structure of multilayer
     void print();

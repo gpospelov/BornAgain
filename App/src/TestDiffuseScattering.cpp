@@ -61,16 +61,17 @@ void TestDiffuseScattering::execute()
 
     mySample.print();
 
-    std::cout << "--- Attempt to clone MultiLayer" << std::endl;
+//    std::cout << "--- Attempt to clone MultiLayer" << std::endl;
+//    MultiLayer *newSample = mySample.clone();
+//    newSample->print();
+//    MultiLayer *newSample2 = newSample->clone();
+//    delete newSample;
+//    newSample2->print();
 
-    MultiLayer *newSample = mySample.clone();
-    newSample->print();
-
-    MultiLayer *newSample2 = newSample->clone();
-
-    delete newSample;
-
-    newSample2->print();
+    kvector_t k1(0.1,0.2,0.3);
+    kvector_t k2(0.1,0.2,0.8);
+    kvector_t k3 = k2 - k1;
+    std::cout << k3 << std::endl;
 
 }
 

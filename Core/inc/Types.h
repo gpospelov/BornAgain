@@ -9,6 +9,11 @@
 typedef std::complex<double > complex_t;
 
 
+// we need forward declaration here to be able to redefine ostream as friend
+template<typename T> class KVector;
+template<typename T> std::ostream& operator<< (std::ostream& o, const KVector<T>& );
+
+
 template<typename T>
 class KVector {
 public:
@@ -35,12 +40,21 @@ public:
     inline T z() const { return m_z; }
     inline T mag() const { return std::sqrt(m_mag2); }
     inline T mag2() const { return m_mag2; }
+
+    KVector<T> &operator=(const KVector<T> &other);
+    KVector<T> &operator+=(const KVector<T> &other);
+    KVector<T> &operator-=(const KVector<T> &other);
+    friend std::ostream &operator<< <T> (std::ostream &ostr, KVector<T> const &k);
 private:
     T m_x;
     T m_y;
     T m_z;
     T m_mag2;
 };
+
+template<typename T> KVector<T> operator+(const KVector<T> &a, const KVector<T> &b);
+template<typename T> KVector<T> operator-(const KVector<T> &a, const KVector<T> &b);
+
 typedef KVector<double >  kvector_t;
 
 

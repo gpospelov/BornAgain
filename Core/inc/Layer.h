@@ -32,6 +32,9 @@ public:
     Layer &operator=(const Layer &other);
     virtual ~Layer();
 
+    //! make layer's clone
+    virtual Layer *clone() const;
+
     /// set layer thickness in _angstrom_
     virtual void setThickness(double thickness);
 

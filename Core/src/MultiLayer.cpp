@@ -37,7 +37,7 @@ void MultiLayer::clear()
 /* ************************************************************************* */
 // clone MultiLayer contents including interfaces
 /* ************************************************************************* */
-MultiLayer *MultiLayer::clone()
+MultiLayer *MultiLayer::clone() const
 {
     MultiLayer *newMultiLayer = new MultiLayer();
 

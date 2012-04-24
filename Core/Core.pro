@@ -28,7 +28,8 @@ SOURCES += \
     src/StochasticGaussian.cpp \
     src/MathFunctions.cpp \
     src/DispersedParticleDecorator.cpp \
-    src/FormFactorCylinder.cpp
+    src/FormFactorCylinder.cpp \
+    src/Types.cpp
 
 HEADERS += \
     inc/ISample.h \

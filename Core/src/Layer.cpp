@@ -33,6 +33,12 @@ Layer::~Layer()
 
 
 /* ************************************************************************* */
+Layer *Layer::clone() const {
+    return new Layer(*this);
+}
+
+
+/* ************************************************************************* */
 void Layer::setThickness(double thickness)
 {
     if (thickness>=0.0)

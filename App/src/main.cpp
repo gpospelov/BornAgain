@@ -3,6 +3,7 @@
 #include "TestFresnelCoeff.h"
 #include "TestDiffuseScattering.h"
 #include "TestFormFactor.h"
+#include "TestDWBAFormFactor.h"
 #include "TApplication.h"
 
 
@@ -30,6 +31,12 @@ int main(int argc, char **argv)
         // user algorithm to test the form factor calculation
         if(spar.find("formfactor") != std::string::npos) {
             TestFormFactor test;
+            test.execute();
+        }
+
+        // user algorithm to test the DWBA form factor calculation
+        if(spar.find("dwba") != std::string::npos) {
+            TestDWBAFormFactor test;
             test.execute();
         }
 

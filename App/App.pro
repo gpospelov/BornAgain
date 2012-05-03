@@ -9,7 +9,8 @@ SOURCES += \
     src/TestFresnelCoeff.cpp \
     src/DrawHelper.cpp \
     src/TestDiffuseScattering.cpp \
-    src/TestFormFactor.cpp
+    src/TestFormFactor.cpp \
+    src/TestDWBAFormFactor.cpp
 
 HEADERS += \
     inc/DrawHelper.h \
@@ -17,7 +18,8 @@ HEADERS += \
     inc/App.h \
     inc/AppLinkDef.h \
     inc/TestDiffuseScattering.h \
-    inc/TestFormFactor.h
+    inc/TestFormFactor.h \
+    inc/TestDWBAFormFactor.h
 
 INCLUDEPATH += ./inc
 

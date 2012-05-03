@@ -21,7 +21,7 @@ FormFactorCylinder::~FormFactorCylinder()
     delete mp_radius;
 }
 
-complex_t FormFactorCylinder::evaluate(kvector_t q) const
+complex_t FormFactorCylinder::evaluate_for_q(kvector_t q) const
 {
     double R = mp_radius->getCurrent();
     double H = mp_height->getCurrent();

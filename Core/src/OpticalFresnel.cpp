@@ -16,7 +16,7 @@ int OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, Mul
     // Q_{z,j} &= 2k_{z,j} = 2\cdot \sqrt{ k^2 n_j^2 - k_x^2 }
     for(size_t i=0; i<fC.size(); ++i) {
         complex_t rindex = sample.getLayer(i)->getRefractiveIndex();
-        fC[i].kz = std::sqrt( kvec.mag2()*std::pow( rindex, 2) - kvec.x()*kvec.x() );
+        fC[i].kz = std::sqrt( kvec.mag2()*std::pow( rindex, 2) - kvec.magxy()*kvec.magxy() );
     }
 
     // calculation of reflection/transmission Fresnel coefficients

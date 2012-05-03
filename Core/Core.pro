@@ -29,7 +29,9 @@ SOURCES += \
     src/MathFunctions.cpp \
     src/DispersedParticleDecorator.cpp \
     src/FormFactorCylinder.cpp \
-    src/Types.cpp
+    src/Types.cpp \
+    src/DoubleToComplexInterpolatingFunction.cpp \
+    src/DWBAFormFactor.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -56,7 +58,10 @@ HEADERS += \
     inc/DispersedParticleDecorator.h \
     inc/IFormFactor.h \
     inc/FormFactorCylinder.h \
-    inc/StochasticDiracDelta.h
+    inc/StochasticDiracDelta.h \
+    inc/IDoubleToComplexFunction.h \
+    inc/DoubleToComplexInterpolatingFunction.h \
+    inc/DWBAFormFactor.h
 
 INCLUDEPATH += ./inc
 

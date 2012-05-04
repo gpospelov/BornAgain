@@ -1,5 +1,5 @@
 #include "LayerRoughness.h"
-#include <math.h>
+#include <cmath>
 #include <iostream>
 
 LayerRoughness::LayerRoughness() : m_sigma(0), m_hurstParameter(0), m_latteralCorrLength(0)

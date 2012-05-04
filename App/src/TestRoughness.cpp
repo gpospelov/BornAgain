@@ -54,7 +54,7 @@ void TestRoughness::DrawProfile()
         double hurst;
         double clength;
     };
-    RoughnessData roughnessSet[] = { {sigma, 0.2, 1000.}, {sigma, 0.5, 1000.}, {sigma, 0.8, 1000.},
+    RoughnessData roughnessSet[] = { {sigma, 0.2, 100.}, {sigma, 0.5, 100.}, {sigma, 0.8, 100.},
                                      {sigma, 0.8,   25.}, {sigma, 0.8,  100.}, {sigma, 0.8,  500.} };
 
     // defining x-grid for surface
@@ -225,7 +225,7 @@ void TestRoughness::GetProfileXZ_FFTMethod()
     std::vector<complex_t > ft_result;
     ft_result.resize(npx);
     for(size_t i=0; i<npx; i++) {
-        ft_result[i] = ft_z[i] * std::sqrt(dx * ft_cov[i]);
+        ft_result[i] = ft_z[i] * std::sqrt(ft_cov[i]);
     }
 
     // inverse transform to find correlated sequenced of random numbers

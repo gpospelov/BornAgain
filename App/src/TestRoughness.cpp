@@ -31,7 +31,7 @@ void TestRoughness::execute()
 {
     //test_FFT();
 
-    // draw possible surface profile using different methods for calculation of correlated random numbers
+    // draw surface profile using different methods for calculation of correlated random numbers
     m_TestMethods.push_back( &TestRoughness::GetProfileXZ_MatrixMethod );
     m_TestMethods.push_back( &TestRoughness::GetProfileXZ_FFTMethod );
     DrawProfile();
@@ -74,7 +74,7 @@ void TestRoughness::DrawProfile()
         m_vzuncorr[i] = mr.Gaus(0,sigma);
     }
 
-    // run through different sets of roughnes parameters and calculation models
+    // run through different sets of roughnes parameters and calculation methods
     // and calculate z-profile of surface
     size_t nsets = int(sizeof(roughnessSet)/sizeof(RoughnessData));
     size_t nmethods = m_TestMethods.size();
@@ -96,7 +96,7 @@ void TestRoughness::DrawProfile()
     }
 
     // making drawing
-    TCanvas *c1 = new TCanvas("c1","c1",1024, 768);
+    TCanvas *c1 = new TCanvas("c1_test_roughness","Surface Roughness Profile",1024, 768);
     c1->Divide(2,3);
 
     TH1F *href = new TH1F("h1","h1",npx, xmin, xmax);
@@ -130,7 +130,7 @@ void TestRoughness::DrawProfile()
                 c1->cd(2+(i_set-3)*2); // i_set=3,4,5 will be on the right side of canvas
             }
 
-            if(i_method==0) { // draw reference histogram only once per set
+            if(i_method==0) { // draw reference histogram per set only once
                 std::ostringstream out;
                 out << "#sigma: " << std::setprecision(3) << roughnessSet[i_set].sigma
                     << "   H: " << std::setprecision(3) << roughnessSet[i_set].hurst
@@ -201,6 +201,7 @@ void TestRoughness::GetProfileXZ_MatrixMethod()
 /* ************************************************************************* */
 void TestRoughness::GetProfileXZ_FFTMethod()
 {
+    // preparing array for rezults
     size_t npx = m_vx.size();
     m_vzcorr.clear();
     m_vzcorr.resize(npx, 0);
@@ -232,12 +233,6 @@ void TestRoughness::GetProfileXZ_FFTMethod()
 
     for(size_t i=0; i<npx; i++){
         m_vzcorr[i] = ift_result[i].real();
-//        std::cout << i << "C:" << cov[i] << "ftC:" << ft_cov[i]
-//                  << " z:" << m_vzuncorr[i] << " ftZ" << ft_z[i]
-//                  << " ft_R:" << ft_result[i]
-//                  << " ift_R:" << ift_result[i]
-//                  << " Zc:" << m_vzcorr[i]
-//                  << std::endl;
     }
 }
 

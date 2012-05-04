@@ -58,7 +58,7 @@ void TestDWBAFormFactor::execute()
 void TestDWBAFormFactor::draw()
 {
     // creation of 2D histogram from calculated intensities
-    TCanvas *c1 = new TCanvas("c1", "Cylinder Formfactor", 0, 0, 1024, 768);
+    TCanvas *c1 = new TCanvas("c1_test_dwba_formfactor", "Cylinder Formfactor", 0, 0, 1024, 768);
     (void)c1;
 
     MultiIndex& index = mp_intensity_output->getIndex();

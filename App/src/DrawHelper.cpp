@@ -1,4 +1,6 @@
 #include "DrawHelper.h"
+#include "Exceptions.h"
+
 #include <iostream>
 #include "TROOT.h"
 #include "TCanvas.h"
@@ -8,6 +10,8 @@
 
 
 DrawHelper *DrawHelper::m_instance = 0;
+bool DrawHelper::m_destroyed = false;
+
 
 
 DrawHelper::DrawHelper()
@@ -18,17 +22,51 @@ DrawHelper::DrawHelper()
 
 DrawHelper::~DrawHelper()
 {
-
+    std::cout << "DrawHelper::~DrawHelper() -> Info. Deleting material manager" << std::endl;
+    m_instance = 0;
+    m_destroyed = true;
 }
 
 
-DrawHelper *DrawHelper::instance()
+/* ************************************************************************* */
+// access to material manager
+/* ************************************************************************* */
+DrawHelper &DrawHelper::instance()
 {
-  if( m_instance == 0) {
-    m_instance = new DrawHelper();
-  }
-  return m_instance;
+    // check if exists, if not, then initialise
+    if( !m_instance) {
+        // check for dead reference (i.e. object has been initialised but then somebody managed to delete it)
+        if( m_destroyed ) {
+            onDeadReference();
+        } else {
+            // first call initalise
+            create();
+        }
+    }
+    std::cout << "DrawHelper::Instance() -> Info. Accesing instance... " << m_instance << std::endl;
+    return *m_instance;
 }
+
+
+/* ************************************************************************* */
+// create single instance
+/* ************************************************************************* */
+void DrawHelper::create() {
+    std::cout << "MaterialManager::Create() -> Info. Creating material manager" << std::endl;
+    static DrawHelper theInstance;
+    m_instance = &theInstance;
+}
+
+
+/* ************************************************************************* */
+// Action for abnormal situation when object has been occasionally deleted.
+// The possibility to rise object again should be still implemented.
+/* ************************************************************************* */
+void DrawHelper::onDeadReference() {
+    throw DeadReferenceException("Dead reference detected.");
+}
+
+
 
 
 /* ************************************************************************* */

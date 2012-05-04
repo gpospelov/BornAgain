@@ -32,31 +32,31 @@
 class MaterialManager
 {
 public:
-    /// access to material manager
+    //! access to material manager
     static MaterialManager &instance();
 
-    /// return material from database
+    //! return material from database
     const IMaterial *getMaterial(const std::string &name);
 
-    /// add material to the database
+    //! add material to the database
     const IMaterial *addHomogeneousMaterial(const std::string &name, complex_t refractive_index);
 
-    /// clean collection of material
+    //! clean collection of material
     void clear();
 
-    /// print material database
+    //! print material database
     void print() const;
 
 private:
-    /// prevents client from creating a copy of the singleton
+    //! prevents client from creating a copy of the singleton
     MaterialManager();
     MaterialManager(const MaterialManager &);
     MaterialManager &operator=(const MaterialManager &);
 
-    /// reaction on too early destroyed object
+    //! reaction on too early destroyed object
     static void onDeadReference();
 
-    /// create single copy of manager
+    //! create single copy of manager
     static void create();
 
     virtual ~MaterialManager();

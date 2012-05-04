@@ -11,7 +11,7 @@
 // ********************************************************************
 //! @file   MaterialManager.h
 //! @brief  Definition of MaterialManager class
-//! @author JCNS Scientific Computing Group
+//! @author Scientific Computing Group at FRM II
 //! @date   20.04.2012
 
 #include <iostream>
@@ -23,11 +23,11 @@
 
 
 //- -------------------------------------------------------------------
-/// @class MaterialManager
-/// @brief Manager of materials used in simulatiom.
-///
-/// It is a singleton which provide common and unique interface for
-/// material creation and access. No thread safeness.
+//! @class MaterialManager
+//! @brief Manager of materials used in simulatiom.
+//!
+//! It is a singleton which provide common and unique interface for
+//! material creation and access. No thread safeness.
 //- -------------------------------------------------------------------
 class MaterialManager
 {

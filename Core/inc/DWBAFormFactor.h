@@ -1,15 +1,22 @@
-/*
- * DWBAFormFactor.h
- *
- *  Created on: Apr 26, 2012
- *      Author: herck
- */
-
 #ifndef DWBAFORMFACTOR_H_
 #define DWBAFORMFACTOR_H_
+// ********************************************************************
+// * The BornAgain project                                            *
+// * Simulation of neutron and x-ray scattering at grazing incidence  *
+// *                                                                  *
+// * LICENSE AND DISCLAIMER                                           *
+// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
+// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
+// * mollis quis. Mauris commodo rhoncus porttitor.                   *
+// ********************************************************************
+//! @file   DWBAFormFactor.h
+//! @brief  Definition of DWBAFormFactor
+//! @author herck
+//! @date   01.05.2012
 
 #include "IFormFactor.h"
 #include "IDoubleToComplexFunction.h"
+
 
 class DWBAFormFactor: public IFormFactor
 {

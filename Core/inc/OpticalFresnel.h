@@ -1,10 +1,24 @@
 #ifndef OPTICALFRESNEL_H
 #define OPTICALFRESNEL_H
+// ********************************************************************
+// * The BornAgain project                                            *
+// * Simulation of neutron and x-ray scattering at grazing incidence  *
+// *                                                                  *
+// * LICENSE AND DISCLAIMER                                           *
+// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
+// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
+// * mollis quis. Mauris commodo rhoncus porttitor.                   *
+// ********************************************************************
+//! @file   OpticalFresnel.h
+//! @brief  Definition of OpticalFresnel class
+//! @author Scientific Computing Group at FRM II
+//! @date   01.04.2012
 
 #include <vector>
 #include "Types.h"
 #include "ISimulation.h"
 #include "MultiLayer.h"
+
 
 class OpticalFresnel : public ISimulation
 {

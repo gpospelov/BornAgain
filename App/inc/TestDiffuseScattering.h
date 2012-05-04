@@ -11,7 +11,7 @@
 // ********************************************************************
 //! @file   TestDiffuseScattering.h
 //! @brief  Test of diffusse (incoherent) scattering from rough multilayer in DWBA.
-//! @author James Bond <j.bond@fz-juelich.de>, Chuck Norris <c.norris@fz-juelich.de>
+//! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
 #include "IAlgorithm.h"

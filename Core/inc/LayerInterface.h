@@ -11,13 +11,12 @@
 // ********************************************************************
 //! @file   LayerInterface.h
 //! @brief  Definition of LayerInterface class
-//! @author JCNS Scientific Computing group
+//! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
 #include "LayerRoughness.h"
 
 class Layer;
-
 
 //- -------------------------------------------------------------------
 //! @class LayerInterface

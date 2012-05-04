@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #include "TestFresnelCoeff.h"
 #include "TestDiffuseScattering.h"
 #include "TestFormFactor.h"
@@ -7,7 +5,10 @@
 #include "TestRoughness.h"
 #include "DrawHelper.h"
 
+#include <iostream>
+#include <string>
 #include "TApplication.h"
+
 
 bool exists(int argc, char **argv, const std::string &stext);
 
@@ -42,11 +43,13 @@ int main(int argc, char **argv)
         test.execute();
     }
 
+    // user algorithm to test DWBA formfactors
     if( exists(argc, argv, "dwba") ) {
         TestDWBAFormFactor test;
         test.execute();
     }
 
+    // utility which saves user plots in multi-page pdf file
     if( exists(argc, argv, "report") ) {
         DrawHelper::SaveReport();
     }

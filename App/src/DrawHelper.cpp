@@ -177,12 +177,8 @@ void DrawHelper::SaveReport()
 
         // canvas->Print(sfilename.c_str()); // simple method if file page and all canvases have same aspect ratio
 
-        // user canvas will be redrawn in TPad with preserving initial apsect ratio
-
-        std::cout << c1->GetName() << c1->GetX1() << c1->GetY1() << c1->GetX2() << c1->GetY2() << std::endl;
-        std::cout << c1->GetName() << " " << c1->GetWindowWidth() << " " << c1->GetWindowHeight() << std::endl;
-
-        // first we need appropriate TPad in our master canvas
+        // preserving aspect ratio of user's canvas
+        // first we need appropriate TPad in our master canvas which has same aspect ratio as user canvas
         double xlow(0), ylow(0), xup(1), yup(1);
         if( c1->GetWindowWidth() >= c1->GetWindowHeight() ) {
             double npx_user_new = npx_master;
@@ -201,14 +197,13 @@ void DrawHelper::SaveReport()
         }
         TPad *pad = new TPad("tmppad", "tmppad", xlow, ylow, xup, yup);
 
+        // draw pad in master canvas, draw user canvas in the pad and save whole thing in file
         cmaster->cd();
         pad->Draw();
         pad->cd();
         c1->DrawClonePad();
-
         cmaster->Print(sfilename.c_str());
     }
-
 
     stmpname = sfilename + "]";
     cmaster->Print(stmpname.c_str()); // close file

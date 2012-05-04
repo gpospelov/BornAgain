@@ -1,13 +1,24 @@
 #ifndef TYPES_H
 #define TYPES_H
-
+// ********************************************************************
+// * The BornAgain project                                            *
+// * Simulation of neutron and x-ray scattering at grazing incidence  *
+// *                                                                  *
+// * LICENSE AND DISCLAIMER                                           *
+// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
+// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
+// * mollis quis. Mauris commodo rhoncus porttitor.                   *
+// ********************************************************************
+//! @file   Types.h
+//! @brief  Definition of Types
+//! @author Scientific Computing Group at FRM II
+//! @date   01.04.2012
 
 #include <complex>
 #include <vector>
 
 
 typedef std::complex<double > complex_t;
-
 
 // we need forward declaration here to be able to redefine ostream as friend
 template<typename T> class KVector;

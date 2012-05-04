@@ -1,12 +1,19 @@
-/*
- * TestDWBAFormFactor.h
- *
- *  Created on: May 2, 2012
- *      Author: herck
- */
-
 #ifndef TESTDWBAFORMFACTOR_H_
 #define TESTDWBAFORMFACTOR_H_
+// ********************************************************************
+// * The BornAgain project                                            *
+// * Simulation of neutron and x-ray scattering at grazing incidence  *
+// *                                                                  *
+// * LICENSE AND DISCLAIMER                                           *
+// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
+// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
+// * mollis quis. Mauris commodo rhoncus porttitor.                   *
+// ********************************************************************
+//! @file   TestDWBAFormFactor.h
+//! @brief  Definition of TestDWBAFormFactor class for formfactor validation
+//! @author herk
+//! @date   02.05.2012
+
 
 #include "IAlgorithm.h"
 #include "OutputData.h"

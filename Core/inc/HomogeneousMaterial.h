@@ -11,7 +11,7 @@
 // ********************************************************************
 //! @file   HomogeneousMaterial.h
 //! @brief  Definition of HomogeneousMaterial class
-//! @author James Bond <j.bond@fz-juelich.de>, Chuck Norris <c.norris@fz-juelich.de>
+//! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
 #include "IMaterial.h"

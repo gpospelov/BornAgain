@@ -34,7 +34,9 @@ public:
     LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
 
     /// return power spectral density of the surface roughness
-    double getPowerSpectralDensity(const kvector_t &kvec);
+    double getSpectralFun(const kvector_t &kvec) const;
+
+    double getCorrFun(const kvector_t &k) const;
 
     /// set rms value of roughness
     void   setSigma(double sigma) { m_sigma = sigma; }

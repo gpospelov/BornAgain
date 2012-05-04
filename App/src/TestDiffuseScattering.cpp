@@ -54,10 +54,10 @@ void TestDiffuseScattering::execute()
 
     const unsigned nrepetitions = 4;
     for(unsigned i=0; i<nrepetitions; ++i) {
-        mySample.addLayerWithTopRoughness(lAg1, LayerRoughness(3.,4.,5.) );
-        mySample.addLayer(lCr1);
+        mySample.addLayerWithTopRoughness(lAg1, LayerRoughness(3.0, 0.3, 1.0) ); // (double sigma, double hurstParameter, double latteralCorrLength
+        mySample.addLayerWithTopRoughness(lCr1, LayerRoughness(3.0, 0.3, 1.0) );
     }
-    mySample.addLayer(lSubstrate);
+    mySample.addLayerWithTopRoughness(lSubstrate, LayerRoughness(3.0, 0.3, 1.0));
 
     mySample.print();
 
@@ -68,10 +68,54 @@ void TestDiffuseScattering::execute()
 //    delete newSample;
 //    newSample2->print();
 
-    kvector_t k1(0.1,0.2,0.3);
-    kvector_t k2(0.1,0.2,0.8);
-    kvector_t k3 = k2 - k1;
-    std::cout << k3 << std::endl;
+    test1(mySample);
+}
+
+
+// dSigma/dOmega
+void TestDiffuseScattering::test1(const MultiLayer &sample)
+{
+    const size_t npoints = 1000.;
+    double alphaMin(0), alphaMax(0.5*M_PI/180.);
+
+    for(size_t i=0; i<npoints; i++) {
+        double alpha_i = i*(alphaMax-alphaMin)/double(npoints);
+        kvector_t ki;
+        ki.setLambdaAlphaPhi(23.0, alpha_i, 0.0);
+
+        kvector_t kf;
+        kf.setLambdaAlphaPhi(23.0, alpha_i+180.0, 0.0);
+
+        test1_a(sample, ki, kf);
+
+
+    }
+
+
+}
+
+
+void TestDiffuseScattering::test1_a(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf)
+{
+    // calculation
+//    OpticalFresnel::MultiLayerCoeff_t iniFresnelCoeffs;
+//    OpticalFresnel::execute(sample, ki, iniFresnelCoeffs);
+
+//    OpticalFresnel::MultiLayerCoeff_t finFresnelCoeffs;
+//    OpticalFresnel::execute(sample, kf, finFresnelCoeffs);
+
+    //const double S = 1.0;
+    //double CS = S*ki.mag2()/16./M_PI;
+
+//    for(size_t i=0; i<sample.getNumberOfLayers()-1; i++){
+//        complex_t n1 = sample.getLayer(i)->getRefractiveIndex();
+//        complex_t n2 = sample.getLayer(i+1)->getRefractiveIndex();
+        //const LayerRoughness &m_roughness = sample.getLayerBottomInterface(i)->getRoughness();
+        //double corr = m_roughness.getPowerSpectralDensity(ki);
+
+//    }
+
+
 
 }
 

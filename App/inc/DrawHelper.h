@@ -11,6 +11,8 @@ public:
   ~DrawHelper();
   static DrawHelper *instance();
 
+  static void SetStyle();
+
   /// connect user canvas with magnifier function
   void SetMagnifier(TCanvas *c);
 

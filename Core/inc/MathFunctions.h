@@ -7,6 +7,7 @@
 
 #include "gsl/gsl_sf_bessel.h"
 #include "gsl/gsl_sf_trig.h"
+#include <vector>
 
 namespace MathFunctions
 {
@@ -23,6 +24,11 @@ double GenerateUniformRandom();
 double Bessel_J1(double value);
 
 double Sinc(double value);
+
+enum TransformCase { ForwardFFT, BackwardFFT };
+std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, TransformCase tcase);
+
+std::vector<complex_t > FastFourierTransform(const std::vector<double > &data, TransformCase tcase);
 
 } // Namespace MathFunctions
 

@@ -9,7 +9,8 @@ SOURCES += \
     src/TestFresnelCoeff.cpp \
     src/DrawHelper.cpp \
     src/TestDiffuseScattering.cpp \
-    src/TestFormFactor.cpp
+    src/TestFormFactor.cpp \
+    src/TestRoughness.cpp
 
 HEADERS += \
     inc/DrawHelper.h \
@@ -17,9 +18,11 @@ HEADERS += \
     inc/App.h \
     inc/AppLinkDef.h \
     inc/TestDiffuseScattering.h \
-    inc/TestFormFactor.h
+    inc/TestFormFactor.h \
+    inc/TestRoughness.h
 
 INCLUDEPATH += ./inc
+DEPENDPATH += ./inc
 
 OBJECTS_DIR = obj
 
@@ -36,6 +39,9 @@ for(dep, MY_DEPENDENCY_LIB) {
     INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
 }
 
+
+INCLUDEPATH += /opt/local/include
+LIBS += -L /opt/local/lib/ -lfftw3
 
 ###############################################################################
 # adding ROOT libraries

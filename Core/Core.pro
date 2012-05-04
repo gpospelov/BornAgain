@@ -58,11 +58,12 @@ HEADERS += \
     inc/FormFactorCylinder.h \
     inc/StochasticDiracDelta.h
 
-INCLUDEPATH += ./inc
+INCLUDEPATH += /opt/local/include ./inc
+DEPENDPATH += ./inc
 
 OBJECTS_DIR = obj
 
-LIBS += -L/opt/gsl/lib -lgsl
+LIBS += -L/opt/local/lib -lgsl -lfftw3
 
 ###############################################################################
 # Installing library into dedicated directory at the end of compilation
@@ -70,14 +71,16 @@ LIBS += -L/opt/gsl/lib -lgsl
 MYPREFIX = $$PWD/.. # place to install library and headers
 target.path = $$MYPREFIX/lib
 INSTALLS += target
-includes.files = $$PWD/inc/*.h
-includes.path = $$MYPREFIX/inc/ScattCore
-INSTALLS += includes
+#includes.files = $$PWD/inc/*.h
+#includes.path = $$MYPREFIX/inc/ScattCore
+#INSTALLS += includes
 # there is a soft bug here in qmake, it looks like flag '-r' works
 # only when it appears at the beginning of QMAKE_DISTCLEAN variable
 # i.e. the order below is important
-QMAKE_DISTCLEAN += -r $$includes.path
+#QMAKE_DISTCLEAN += -r $$includes.path
+QMAKE_DISTCLEAN += $$MYPREFIX/inc/ScattCore
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 
-QMAKE_POST_LINK = (make install)
+
+QMAKE_POST_LINK = (make install; ln -sf $$PWD/inc $$MYPREFIX/inc/ScattCore)
 

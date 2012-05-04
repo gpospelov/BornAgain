@@ -63,7 +63,7 @@ MultiLayer *MultiLayer::clone() const
 // return pointer to the top interface of the layer
 // (nInterfaces = nLayers-1, first layer in multilayer doesn't have interface)
 /* ************************************************************************* */
-const LayerInterface *MultiLayer::getLayerTopInterface(size_t i_layer)
+const LayerInterface *MultiLayer::getLayerTopInterface(size_t i_layer) const
 {
     return i_layer>0 ? m_interfaces[ check_interface_index(i_layer-1) ] : 0;
 }
@@ -73,7 +73,7 @@ const LayerInterface *MultiLayer::getLayerTopInterface(size_t i_layer)
 // return pointer to the bottom interface of the layer
 // (nInterfaces = nLayers-1, i.e. last layer in multilayer doesn't have interface)
 /* ************************************************************************* */
-const LayerInterface *MultiLayer::getLayerBottomInterface(size_t i_layer)
+const LayerInterface *MultiLayer::getLayerBottomInterface(size_t i_layer) const
 {
     return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : 0;
 }

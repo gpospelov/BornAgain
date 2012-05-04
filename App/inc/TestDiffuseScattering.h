@@ -15,7 +15,7 @@
 //! @date   01.04.2012
 
 #include "IAlgorithm.h"
-
+#include "MultiLayer.h"
 
 class TestDiffuseScattering : public IAlgorithm
 {
@@ -23,6 +23,10 @@ public:
     TestDiffuseScattering();
 
     void execute();
+
+    void test1(const MultiLayer &sample);
+    void test1_a(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf);
+
 };
 
 #endif // TESTDIFFUSESCATTERING_H

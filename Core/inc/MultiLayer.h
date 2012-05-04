@@ -58,10 +58,10 @@ public:
     double getLayerBottomZ(size_t i_layer) const { return m_layers_z[ check_layer_index(i_layer) ]; }
 
     /// return top interface of layer
-    const LayerInterface *getLayerTopInterface(size_t i_layer);
+    const LayerInterface *getLayerTopInterface(size_t i_layer) const;
 
     /// return bottom interface of layer
-    const LayerInterface *getLayerBottomInterface(size_t i_layer);
+    const LayerInterface *getLayerBottomInterface(size_t i_layer) const;
 
     /// destruct allocated objects
     void clear();

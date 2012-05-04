@@ -4,15 +4,17 @@
 #include "IFormFactor.h"
 #include "IStochasticParameter.h"
 
-class FormFactorCylinder : public IFormFactor
+class FormFactorCylinder : public IBornFormFactor
 {
 public:
     FormFactorCylinder(double height, double radius);
     FormFactorCylinder(StochasticParameter<double> *p_height, StochasticParameter<double> *p_radius);
     ~FormFactorCylinder();
 
-    virtual complex_t evaluate(kvector_t q) const;
     virtual int getNumberOfStochasticParameters() { return 2; }
+
+protected:
+    virtual complex_t evaluate_for_q(kvector_t q) const;
 
 private:
     StochasticParameter<double> *mp_height;

@@ -1,4 +1,11 @@
-#include "TestFormFactor.h"
+/*
+ * TestDWBAFormFactor.cpp
+ *
+ *  Created on: May 2, 2012
+ *      Author: herck
+ */
+
+#include "TestDWBAFormFactor.h"
 #include "Types.h"
 
 #include "TCanvas.h"
@@ -8,22 +15,24 @@
 #include <cmath>
 #include <iostream>
 
-TestFormFactor::TestFormFactor()
-    : m_ff(50.0, 50.0)
+TestDWBAFormFactor::TestDWBAFormFactor()
+    : m_dwba_ff(new FormFactorCylinder(50.0, 50.0))
 {
+    m_dwba_ff.setReflectionFunction(new DoubleToComplexFunctionWrapper(reflection_fresnel));
+    m_dwba_ff.setTransmissionFunction(new DoubleToComplexFunctionWrapper(transmission_fresnel));
     mp_intensity_output = new OutputData<double>();
-    NamedVectorBase *p_y_axis = new NamedVector<double>(std::string("detector y-axis"), -4.0, 4.0, 200);
-    NamedVectorBase *p_z_axis = new NamedVector<double>(std::string("detector z-axis"), 0.0, 4.0, 200);
+    NamedVectorBase *p_y_axis = new NamedVector<double>(std::string("detector y-axis"), 0.0, 2.0, 200);
+    NamedVectorBase *p_z_axis = new NamedVector<double>(std::string("detector z-axis"), 0.0, 2.0, 200);
     mp_intensity_output->addAxis(p_y_axis);
     mp_intensity_output->addAxis(p_z_axis);
 }
 
-TestFormFactor::~TestFormFactor()
+TestDWBAFormFactor::~TestDWBAFormFactor()
 {
     delete mp_intensity_output;
 }
 
-void TestFormFactor::execute()
+void TestDWBAFormFactor::execute()
 {
     MultiIndex& index = mp_intensity_output->getIndex();
     NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
@@ -40,13 +49,13 @@ void TestFormFactor::execute()
         double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
         kvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        mp_intensity_output->currentValue() = std::pow(std::abs(m_ff.evaluate(k_i, k_f)),2);
+        mp_intensity_output->currentValue() = std::pow(std::abs(m_dwba_ff.evaluate(k_i, k_f)),2);
         ++index;
     }
     draw();
 }
 
-void TestFormFactor::draw()
+void TestDWBAFormFactor::draw()
 {
     // creation of 2D histogram from calculated intensities
     TCanvas *c1 = new TCanvas("c1", "Cylinder Formfactor", 0, 0, 1024, 768);
@@ -61,8 +70,8 @@ void TestFormFactor::draw()
     double y_end = (*p_y_axis)[y_size-1];
     double z_start = (*p_z_axis)[0];
     double z_end = (*p_z_axis)[z_size-1];
-    TH2D *p_hist2D = new TH2D("p_hist2D", "Cylinder Formfactor", y_size, y_start, y_end, z_size, z_start, z_end);
-    p_hist2D->UseCurrentStyle();
+    TH2D *p_hist2D = new TH2D("p_hist2D", "Cylinder DWBA Formfactor", y_size, y_start, y_end, z_size, z_start, z_end);
+    //p_hist2D->UseCurrentStyle();
     p_hist2D->GetXaxis()->SetTitle("phi_f");
     p_hist2D->GetYaxis()->SetTitle("alpha_f");
 
@@ -72,12 +81,28 @@ void TestFormFactor::draw()
         size_t index_z = index.getCoordinate("detector z-axis");
         double x_value = (*p_y_axis)[index_y];
         double y_value = (*p_z_axis)[index_z];
-        double z_value = std::log(mp_intensity_output->currentValue());
+        double z_value = mp_intensity_output->currentValue();
         p_hist2D->Fill(x_value, y_value, z_value);
         ++index;
     }
     p_hist2D->SetContour(50);
-    gStyle->SetPalette(51);
+    //gStyle->SetPalette(51);
     gStyle->SetOptStat(0);
+    gPad->SetLogz();
+    p_hist2D->SetMinimum(1e5);
     p_hist2D->Draw("CONT4");
+}
+
+complex_t reflection_fresnel(double alpha_i)
+{
+    complex_t refraction_index(1.0-5e-6, -2e-8);
+    complex_t cos_alpha_0_squared = std::cos(alpha_i)*std::cos(alpha_i);
+    complex_t f0 = std::sqrt(complex_t(1.0, 0.0) - cos_alpha_0_squared);
+    complex_t f1 = std::sqrt(refraction_index*refraction_index - cos_alpha_0_squared);
+    return (f0 - f1)/(f0 + f1);
+}
+
+complex_t transmission_fresnel(double alpha_i)
+{
+    return complex_t(1.0, 0.0);
 }

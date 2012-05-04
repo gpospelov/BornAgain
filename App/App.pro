@@ -10,7 +10,8 @@ SOURCES += \
     src/DrawHelper.cpp \
     src/TestDiffuseScattering.cpp \
     src/TestFormFactor.cpp \
-    src/TestRoughness.cpp
+    src/TestRoughness.cpp \
+    src/TestDWBAFormFactor.cpp
 
 HEADERS += \
     inc/DrawHelper.h \
@@ -19,7 +20,8 @@ HEADERS += \
     inc/AppLinkDef.h \
     inc/TestDiffuseScattering.h \
     inc/TestFormFactor.h \
-    inc/TestRoughness.h
+    inc/TestRoughness.h \
+    inc/TestDWBAFormFactor.h
 
 INCLUDEPATH += ./inc
 DEPENDPATH += ./inc

@@ -45,7 +45,7 @@ public:
     KVector<T> &operator=(const KVector<T> &other);
     KVector<T> &operator+=(const KVector<T> &other);
     KVector<T> &operator-=(const KVector<T> &other);
-    friend std::ostream &operator<< <T> (std::ostream &ostr, KVector<T> const &k);
+    friend std::ostream &operator<< <> (std::ostream &ostr, KVector<T> const &k);
 private:
     T m_x;
     T m_y;

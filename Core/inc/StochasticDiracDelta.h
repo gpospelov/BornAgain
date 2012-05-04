@@ -11,7 +11,7 @@ public:
 
     virtual void setToAverage() {}
     virtual void setToRandom() {}
-    virtual double probabilityDensity(T value) const { return 0.0; }
+    virtual double probabilityDensity(T /*value*/) const { return 0.0; }
 
 };
 

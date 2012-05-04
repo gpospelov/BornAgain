@@ -79,7 +79,7 @@ void TestRoughness::DrawProfile()
     size_t nsets = int(sizeof(roughnessSet)/sizeof(RoughnessData));
     size_t nmethods = m_TestMethods.size();
 
-    std::vector<std::vector<TGraph *> > vgr_profile; // [nmodels][nsets]
+    std::vector<std::vector<TGraph *> > vgr_profile; // [nmethods][nsets]
     vgr_profile.resize(nmethods);
     for(size_t i_method=0; i_method<nmethods; i_method++) {
         vgr_profile[i_method].resize(nsets, 0);
@@ -233,12 +233,12 @@ void TestRoughness::GetProfileXZ_FFTMethod()
 
     for(size_t i=0; i<npx; i++){
         m_vzcorr[i] = ift_result[i].real();
-        std::cout << i << "C:" << cov[i] << "ftC:" << ft_cov[i]
-                  << " z:" << m_vzuncorr[i] << " ftZ" << ft_z[i]
-                  << " ft_R:" << ft_result[i]
-                  << " ift_R:" << ift_result[i]
-                  << " Zc:" << m_vzcorr[i]
-                  << std::endl;
+//        std::cout << i << "C:" << cov[i] << "ftC:" << ft_cov[i]
+//                  << " z:" << m_vzuncorr[i] << " ftZ" << ft_z[i]
+//                  << " ft_R:" << ft_result[i]
+//                  << " ift_R:" << ift_result[i]
+//                  << " Zc:" << m_vzcorr[i]
+//                  << std::endl;
     }
 }
 

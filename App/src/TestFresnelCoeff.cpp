@@ -122,7 +122,7 @@ void TestFresnelCoeff::Draw(const MultiLayer &sample, const MyDataSet_t &data)
         gr_absSum->SetPoint(i_point, alpha_i*180./M_PI, sum);
     }
 
-    TCanvas *c1 = new TCanvas("c1","c1",1024,768);
+    TCanvas *c1 = new TCanvas("cf1","cf1",1024,768);
     DrawHelper *drawHelper = DrawHelper::instance();
     drawHelper->SetMagnifier(c1);
 

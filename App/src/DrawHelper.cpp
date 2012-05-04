@@ -4,6 +4,8 @@
 #include "TCanvas.h"
 #include "TObject.h"
 #include "TStyle.h"
+#include "TKey.h"
+
 
 DrawHelper *DrawHelper::m_instance = 0;
 
@@ -29,12 +31,18 @@ DrawHelper *DrawHelper::instance()
 }
 
 
+/* ************************************************************************* */
+// assign function to handle mouse events inside canvas
+/* ************************************************************************* */
 void DrawHelper::SetMagnifier(TCanvas *canvas)
 {
   canvas->Connect("ProcessedEvent(Int_t,Int_t,Int_t,TObject*)", "DrawHelper", this, "ExecuteMagnifier(int,int,int,TObject*)");
 }
 
 
+/* ************************************************************************* */
+// helper function to process double clicks inside TCanvas to magnify pads
+/* ************************************************************************* */
 void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
 {
   TCanvas *c = (TCanvas *) gTQSender;
@@ -59,14 +67,11 @@ void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
 }
 
 
-
 /* ************************************************************************* */
-// Set our own style to draw things
+// Set our own default style to draw things
 /* ************************************************************************* */
-void DrawHelper::SetStyle() {
-
-    std::cout << "\nApplying Scattering style settings...\n" << std::endl ;
-
+void DrawHelper::SetStyle()
+{
     TStyle *scattStyle = new TStyle("Scattering","Scattering style");
 
     // use plain black on white colors
@@ -133,5 +138,81 @@ void DrawHelper::SetStyle() {
 
     gROOT->SetStyle("Scattering");
     gROOT->ForceStyle();
-
 }
+
+
+
+
+/* ************************************************************************* */
+// Save canvases in pdf file.
+// Method reads existing ROOT canvases from memory and save them in file
+//
+// Since canvases might have different aspect ratio with respect to pdf file,
+// simple saving leads to the distortion of aspect ratio. To avoid this,
+// following approach is used. Canvas are drawn first inside one master canvas
+// with right proportion, and then master canvas goes inside pdf file.
+/* ************************************************************************* */
+void DrawHelper::SaveReport()
+{
+    std::string sfilename("report.pdf");
+    int npx_master(768);
+    int npy_master(1024);
+
+    // to print many different canvases into multy-page single file one uses following convention:
+    // c1->Print("name.ps["); // create new empty file
+    // c1->Print("name.ps");  // print canvas content into existing file (repeat as many times as required)
+    // c1->Print("name.ps]"); // close file
+
+    // canvas to save in pdf file
+    TCanvas *cmaster = new TCanvas("cmaster", "cmaster", npx_master, npy_master);
+    std::string stmpname = sfilename + "[";
+    cmaster->Print(stmpname.c_str()); // create new file
+    //cmaster->SetBatch(kTRUE);
+
+    // loop over existing user canvas in memory
+    TList *coll = dynamic_cast<TList *>(gROOT->GetListOfCanvases());
+    TIter next(coll);
+    while(TCanvas *c1 = dynamic_cast<TCanvas *>(next()) ) {
+        if( strcmp(c1->GetName(), "cmaster") == 0) continue; // skipping master canvas
+
+        // canvas->Print(sfilename.c_str()); // simple method if file page and all canvases have same aspect ratio
+
+        // user canvas will be redrawn in TPad with preserving initial apsect ratio
+
+        std::cout << c1->GetName() << c1->GetX1() << c1->GetY1() << c1->GetX2() << c1->GetY2() << std::endl;
+        std::cout << c1->GetName() << " " << c1->GetWindowWidth() << " " << c1->GetWindowHeight() << std::endl;
+
+        // first we need appropriate TPad in our master canvas
+        double xlow(0), ylow(0), xup(1), yup(1);
+        if( c1->GetWindowWidth() >= c1->GetWindowHeight() ) {
+            double npx_user_new = npx_master;
+            double npy_user_new = npx_user_new * c1->GetWindowHeight()/c1->GetWindowWidth();
+            xlow=0; xup = 1;
+            double ywidth = npy_user_new/npy_master;
+            ylow = (1-ywidth)/2.;
+            yup = ylow + ywidth;
+        } else {
+            double npy_user_new = npy_master;
+            double npx_user_new = npy_user_new * c1->GetWindowWidth()/c1->GetWindowHeight();
+            ylow=0; yup = 1;
+            double xwidth = npx_user_new/npx_master;
+            xlow = (1-xwidth)/2.;
+            xup = xlow + xwidth;
+        }
+        TPad *pad = new TPad("tmppad", "tmppad", xlow, ylow, xup, yup);
+
+        cmaster->cd();
+        pad->Draw();
+        pad->cd();
+        c1->DrawClonePad();
+
+        cmaster->Print(sfilename.c_str());
+    }
+
+
+    stmpname = sfilename + "]";
+    cmaster->Print(stmpname.c_str()); // close file
+}
+
+
+

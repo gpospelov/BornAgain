@@ -13,6 +13,8 @@ public:
 
   static void SetStyle();
 
+  static void SaveReport();
+
   /// connect user canvas with magnifier function
   void SetMagnifier(TCanvas *c);
 

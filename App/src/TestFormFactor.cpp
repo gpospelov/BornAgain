@@ -50,7 +50,7 @@ void TestFormFactor::draw()
 {
     // creation of 2D histogram from calculated intensities
     TCanvas *c1 = new TCanvas("c1", "Cylinder Formfactor", 0, 0, 1024, 768);
-    c1->cd();
+    (void)c1;
 
     MultiIndex& index = mp_intensity_output->getIndex();
     index.reset();

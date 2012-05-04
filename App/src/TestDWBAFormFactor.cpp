@@ -86,7 +86,7 @@ void TestDWBAFormFactor::draw()
         ++index;
     }
     p_hist2D->SetContour(50);
-    //gStyle->SetPalette(51);
+    gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
     gPad->SetLogz();
     p_hist2D->SetMinimum(1e5);

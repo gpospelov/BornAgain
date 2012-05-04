@@ -97,6 +97,10 @@ void TestDiffuseScattering::test1(const MultiLayer &sample)
 
 void TestDiffuseScattering::test1_a(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf)
 {
+    (void)sample;
+    (void)ki;
+    (void)kf;
+
     // calculation
 //    OpticalFresnel::MultiLayerCoeff_t iniFresnelCoeffs;
 //    OpticalFresnel::execute(sample, ki, iniFresnelCoeffs);

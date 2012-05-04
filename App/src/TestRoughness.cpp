@@ -130,8 +130,7 @@ void TestRoughness::DrawProfile()
                 c1->cd(2+(i_set-3)*2); // i_set=3,4,5 will be on the right side of canvas
             }
 
-
-            if(i_method==0) { // draw reference histogram only once
+            if(i_method==0) { // draw reference histogram only once per set
                 std::ostringstream out;
                 out << "#sigma: " << std::setprecision(3) << roughnessSet[i_set].sigma
                     << "   H: " << std::setprecision(3) << roughnessSet[i_set].hurst

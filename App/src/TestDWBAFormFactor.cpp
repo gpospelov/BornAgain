@@ -59,6 +59,7 @@ void TestDWBAFormFactor::draw()
 {
     // creation of 2D histogram from calculated intensities
     TCanvas *c1 = new TCanvas("c1", "Cylinder Formfactor", 0, 0, 1024, 768);
+    c1->cd();
 
     MultiIndex& index = mp_intensity_output->getIndex();
     index.reset();
@@ -104,5 +105,6 @@ complex_t reflection_fresnel(double alpha_i)
 
 complex_t transmission_fresnel(double alpha_i)
 {
+    (void)alpha_i;
     return complex_t(1.0, 0.0);
 }

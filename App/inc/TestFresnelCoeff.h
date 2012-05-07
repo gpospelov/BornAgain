@@ -34,6 +34,8 @@ public:
     void execute();
     void Draw(const MultiLayer &sample,  const MyDataSet_t &data);
 
+
+
 private:
 
 };

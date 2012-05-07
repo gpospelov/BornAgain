@@ -35,7 +35,7 @@ template <class T> class NamedVector : public NamedVectorBase
 {
 public:
     NamedVector(std::string name) : NamedVectorBase(name) {}
-    NamedVector(std::string name, T start, T step, size_t size);
+    NamedVector(std::string name, T start, T end, size_t size);
     ~NamedVector();
 
     size_t getSize() { return m_value_vector.size(); }

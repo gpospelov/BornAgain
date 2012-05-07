@@ -29,3 +29,8 @@ DeadReferenceException::DeadReferenceException(const std::string &message)
     : std::runtime_error(message)
 {
 }
+
+UnknownClassException::UnknownClassException(const std::string &message)
+    : std::runtime_error(message)
+{
+}

@@ -54,4 +54,12 @@ public:
     DeadReferenceException(const std::string& message);
 };
 
+class UnknownClassException : public std::runtime_error
+{
+public:
+    UnknownClassException(const std::string& message);
+};
+
+
+
 #endif // EXCEPTIONS_H

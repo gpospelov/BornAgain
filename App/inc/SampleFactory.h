@@ -21,6 +21,7 @@
 //- -------------------------------------------------------------------
 //! @class SampleFactory
 //! @brief Factory to create standard pre-defined samples
+//! See StandardSamples.{h,cpp} with sample definition
 //- -------------------------------------------------------------------
 class SampleFactory
 {
@@ -28,11 +29,16 @@ public:
     //! access to SampleFactory
     static SampleFactory &instance();
 
-    ISample *createStandard(int i_sample);
+    //! create sample described by given sampleId
+    ISample *createStandard(int sampleId);
 
     typedef ISample* (*CreateSampleCallback) ();
 
+    //! save pointer to the function which will be used for object creation
     bool RegisterSample(int sampleId, CreateSampleCallback CreateFn);
+
+    //! return number of register standard samples
+    size_t getNumberOfSamples() const { return m_callbacks.size(); }
 
 private:
     //! prevents client from creating a copy of singleton

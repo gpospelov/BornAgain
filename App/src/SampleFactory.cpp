@@ -36,7 +36,7 @@ SampleFactory &SampleFactory::instance()
             create();
         }
     }
-    std::cout << "SampleFactory::Instance() -> Info. Accesing instance... " << m_instance << std::endl;
+    //std::cout << "SampleFactory::Instance() -> Info. Accesing instance... " << m_instance << std::endl;
     return *m_instance;
 }
 
@@ -45,7 +45,7 @@ SampleFactory &SampleFactory::instance()
 // create single instance of the manager
 /* ************************************************************************* */
 void SampleFactory::create() {
-    std::cout << "MaterialManager::Create() -> Info. Creating material manager" << std::endl;
+    //std::cout << "MaterialManager::Create() -> Info. Creating material manager" << std::endl;
     static SampleFactory theInstance;
     m_instance = &theInstance;
 }
@@ -66,6 +66,12 @@ void SampleFactory::onDeadReference() {
 /* ************************************************************************* */
 bool SampleFactory::RegisterSample(int sampleId, CreateSampleCallback CreateFn)
 {
+    SampleCallbackMap_t::const_iterator it = m_callbacks.find(sampleId);
+    if( it != m_callbacks.end() ) {
+        std::cout << "SampleFactory::RegisterSample() -> Panic. Already registered sampleId " << sampleId << std::endl;
+        throw ExistingClassRegistrationException("already registered object");
+    }
+    std::cout << "SampleFactory::RegisterSample() -> Info. Registering sample " << sampleId << std::endl;
     return m_callbacks.insert( SampleCallbackMap_t::value_type(sampleId, CreateFn)).second;
 }
 
@@ -77,8 +83,9 @@ ISample *SampleFactory::createStandard(int sampleId)
 {
     SampleCallbackMap_t::const_iterator it = m_callbacks.find(sampleId);
     if( it == m_callbacks.end() ) {
-        // sample of such kond have not been registered in the database
-        throw UnknownClassException("Unknown sampleId");
+        // sample with such sampleId have not been registered in the database
+        std::cout << "SampleFactory::createStandard() -> Panic. Unknown sampleId " << sampleId << std::endl;
+        throw UnknownClassRegistrationException("Unknown sampleId");
     }
     // invoke the creation function
     return (it->second)();

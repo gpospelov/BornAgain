@@ -54,10 +54,22 @@ public:
     DeadReferenceException(const std::string& message);
 };
 
-class UnknownClassException : public std::runtime_error
+class UnknownClassRegistrationException : public std::runtime_error
 {
 public:
-    UnknownClassException(const std::string& message);
+    UnknownClassRegistrationException(const std::string& message);
+};
+
+class ExistingClassRegistrationException : public std::runtime_error
+{
+public:
+    ExistingClassRegistrationException(const std::string& message);
+};
+
+class LogicErrorException : public std::logic_error
+{
+public:
+    LogicErrorException(const std::string& message);
 };
 
 

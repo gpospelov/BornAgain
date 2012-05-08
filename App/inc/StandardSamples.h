@@ -4,21 +4,20 @@
 #include "ISample.h"
 #include "SampleFactory.h"
 
-//class StandardSample : public ISample
-//{
-//public:
-//    StandardSample();
-//};
 
 namespace StandardSamples{
 
-ISample *SampleAirOnSubstrate();
-const int Id_AirOnSubstrate = 1;
-const bool registered_AirOnSubstrate = SampleFactory::instance().RegisterSample(Id_AirOnSubstrate, SampleAirOnSubstrate);
+ISample *AirOnSubstrate();
+const int id_AirOnSubstrate = 0;
+const bool reg_AirOnSubstrate = SampleFactory::instance().RegisterSample(id_AirOnSubstrate, AirOnSubstrate);
 
-ISample *SampleSubstrateOnSubstrate();
-const int Id_SubstrateOnSubstrate = 1;
-const bool registered_SubstrateOnSubstrate = SampleFactory::instance().RegisterSample(Id_SubstrateOnSubstrate, SampleSubstrateOnSubstrate);
+ISample *SubstrateOnSubstrate();
+const int id_SubstrateOnSubstrate = 1;
+const bool reg_SubstrateOnSubstrate = SampleFactory::instance().RegisterSample(id_SubstrateOnSubstrate, SubstrateOnSubstrate);
+
+ISample *SimpleMultilayer();
+const int id_SimpleMultilayer = 2;
+const bool reg_SimpleMultilayer = SampleFactory::instance().RegisterSample(id_SimpleMultilayer, SimpleMultilayer);
 
 }
 

@@ -18,6 +18,8 @@
 
 
 class TCanvas;
+class MultiLayer;
+class TPad;
 
 //- -------------------------------------------------------------------
 //! @class DrawHelper
@@ -43,6 +45,9 @@ public:
 
   //! process double click in canvas to magnify given pad
   void ExecuteMagnifier(Int_t event, Int_t px, Int_t py, TObject *sel);
+
+  //! draw multilayer structure in TPad
+  void DrawMultilayer(const MultiLayer *sample);
 
 private:
   /// prevents client from creating a copy of the singleton

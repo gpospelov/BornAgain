@@ -25,7 +25,7 @@ public:
     void execute();
 
     void test1(const MultiLayer &sample);
-    void test1_a(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf);
+    double test1_a(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf);
 
 };
 

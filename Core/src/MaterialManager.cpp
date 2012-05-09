@@ -88,15 +88,20 @@ const IMaterial *MaterialManager::getMaterial(const std::string &name)
 
 
 /* ************************************************************************* */
-// create material and add into database, but check before if there is no
-// such material already. Unikness of material is defined by the material name
+// Create material and add into database. The name of material serve as unique
+// identifier. If such material already exists, return it. If such material
+// already exist, but its propery are different from users order, throw exception
 /* ************************************************************************* */
 const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name, complex_t refractive_index)
 {
     const IMaterial *mat = getMaterial(name);
     if( mat ) {
         std::cout << "MaterialManager::Add() -> Info. Material '" << name << "' already exists" << std::endl;
-        //return dynamic_cast<HomogeneousMaterial *>(mat);
+        // check if user is trying to create material with same name but different parameters
+        const HomogeneousMaterial *old = dynamic_cast<const HomogeneousMaterial *>(mat);
+        if(old->getRefractiveIndex() != refractive_index) {
+            throw LogicErrorException("MaterialManager::addHomogeneousMaterial() -> Error! Attempt to create material with same name but different refractive index");
+        }
         return mat;
     } else {
         IMaterial *hmat = new HomogeneousMaterial(name, refractive_index);

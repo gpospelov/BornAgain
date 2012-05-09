@@ -11,7 +11,9 @@ SOURCES += \
     src/TestDiffuseScattering.cpp \
     src/TestFormFactor.cpp \
     src/TestRoughness.cpp \
-    src/TestDWBAFormFactor.cpp
+    src/TestDWBAFormFactor.cpp \
+    src/SampleFactory.cpp \
+    src/StandardSamples.cpp
 
 HEADERS += \
     inc/DrawHelper.h \
@@ -21,7 +23,9 @@ HEADERS += \
     inc/TestDiffuseScattering.h \
     inc/TestFormFactor.h \
     inc/TestRoughness.h \
-    inc/TestDWBAFormFactor.h
+    inc/TestDWBAFormFactor.h \
+    inc/SampleFactory.h \
+    inc/StandardSamples.h
 
 INCLUDEPATH += ./inc
 DEPENDPATH += ./inc

@@ -57,6 +57,13 @@ public:
     KVector<T> &operator+=(const KVector<T> &other);
     KVector<T> &operator-=(const KVector<T> &other);
     friend std::ostream &operator<< <> (std::ostream &ostr, KVector<T> const &k);
+
+    static KVector<T> LambdaAlphaPhi(T lambda, T alpha, T phi)
+    {
+            KVector<T> k; k.setLambdaAlphaPhi(lambda, alpha, phi);
+            return k;
+    }
+
 private:
     T m_x;
     T m_y;
@@ -66,6 +73,14 @@ private:
 
 template<typename T> KVector<T> operator+(const KVector<T> &a, const KVector<T> &b);
 template<typename T> KVector<T> operator-(const KVector<T> &a, const KVector<T> &b);
+
+//template<typename T>
+//inline KVector<T> LambdaAlphaPhi(T lambda, T alpha, T phi)
+//{
+//    KVector<T> k;
+//    k.setLambdaAlphaPhi(lambda, alpha, phi);
+//}
+
 
 typedef KVector<double >  kvector_t;
 

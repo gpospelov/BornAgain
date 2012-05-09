@@ -17,25 +17,26 @@
 #include "IAlgorithm.h"
 #include "OpticalFresnel.h"
 #include "MultiLayer.h"
+#include "OutputData.h"
 
 
+//- -------------------------------------------------------------------
+//! @class TestFresnelCoeff
+//! @brief Calculate Fresnel coefficients for several typical multilayer
+//! samples and produce validation plots
+//- -------------------------------------------------------------------
 class TestFresnelCoeff : public IAlgorithm
 {
 public:
     TestFresnelCoeff();
 
-    class MyData {
-    public:
-        double alpha_i;
-        OpticalFresnel::MultiLayerCoeff_t coeffs;
-    };
-    typedef std::vector<MyData > MyDataSet_t;
-
     void execute();
-    void Draw(const MultiLayer &sample,  const MyDataSet_t &data);
+
+    void draw();
 
 private:
-
+    MultiLayer *m_sample; //!< pointer to multilayer sample
+    OutputData<OpticalFresnel::MultiLayerCoeff_t  > *m_coeffs; //!< output data structure
 };
 
 

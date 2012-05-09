@@ -61,7 +61,8 @@ HEADERS += \
     inc/StochasticDiracDelta.h \
     inc/IDoubleToComplexFunction.h \
     inc/DoubleToComplexInterpolatingFunction.h \
-    inc/DWBAFormFactor.h
+    inc/DWBAFormFactor.h \
+    inc/Units.h
 
 INCLUDEPATH += /opt/local/include ./inc
 DEPENDPATH += ./inc

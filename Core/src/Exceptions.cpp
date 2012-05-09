@@ -1,4 +1,5 @@
 #include "Exceptions.h"
+#include <iostream>
 
 NotImplementedException::NotImplementedException(const std::string &message)
     : std::logic_error(message)
@@ -28,4 +29,23 @@ SelfReferenceException::SelfReferenceException(const std::string& message)
 DeadReferenceException::DeadReferenceException(const std::string &message)
     : std::runtime_error(message)
 {
+}
+
+UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string &message)
+    : std::runtime_error(message)
+{
+    std::cout << message << std::endl;
+}
+
+ExistingClassRegistrationException::ExistingClassRegistrationException(const std::string &message)
+    : std::runtime_error(message)
+{
+    std::cout << message << std::endl;
+}
+
+
+LogicErrorException::LogicErrorException(const std::string &message)
+    : std::logic_error(message)
+{
+    std::cout << message << std::endl;
 }

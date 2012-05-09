@@ -1,13 +1,22 @@
 #include "DrawHelper.h"
 #include "Exceptions.h"
+#include "MultiLayer.h"
 
 #include <iostream>
+#include <vector>
+#include <map>
+#include <string>
+#include <list>
+
 #include "TROOT.h"
 #include "TCanvas.h"
 #include "TObject.h"
 #include "TStyle.h"
 #include "TKey.h"
-
+#include "TLine.h"
+#include "TBox.h"
+#include "TLatex.h"
+#include "TH1F.h"
 
 DrawHelper *DrawHelper::m_instance = 0;
 bool DrawHelper::m_destroyed = false;
@@ -70,7 +79,7 @@ void DrawHelper::onDeadReference() {
 
 
 /* ************************************************************************* */
-// assign function to handle mouse events inside canvas
+// assign function to canvas to handle mouse events inside canvas
 /* ************************************************************************* */
 void DrawHelper::SetMagnifier(TCanvas *canvas)
 {
@@ -83,11 +92,9 @@ void DrawHelper::SetMagnifier(TCanvas *canvas)
 /* ************************************************************************* */
 void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
 {
-  TCanvas *c = (TCanvas *) gTQSender;
-  if(sel) {
-    // we do not need it for the moment
-  }
+  (void)sel;
   if ( (event == kButton1Double) ) {
+    TCanvas *c = (TCanvas *) gTQSender;
     char cname[256];
     sprintf(cname,"%s_%d",c->GetTitle(),(int)time(0));
     TPad *pad = c->Pick(px, py, 0);
@@ -98,7 +105,6 @@ void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
     pad_new->SetEditable(kTRUE);
     pad_new->Draw();
     pad_new->Modified();
-     //gVirtualX->SetCursor(gPad->GetId()     , gVirtualX->CreateCursor(kWatch));
     pad_new->Update();
     c1->RaiseWindow();
   }
@@ -245,6 +251,95 @@ void DrawHelper::SaveReport()
 
     stmpname = sfilename + "]";
     cmaster->Print(stmpname.c_str()); // close file
+}
+
+
+/* ************************************************************************* */
+// Draw multilayer structure in gPad
+/* ************************************************************************* */
+void DrawHelper::DrawMultilayer(const MultiLayer *sample)
+{
+    size_t nlayers = sample->getNumberOfLayers();
+    if(nlayers < 1) return;
+
+    double z1 = sample->getLayerBottomZ(0);
+    double z2 = sample->getLayerBottomZ(nlayers-1);
+
+    double size = std::abs(z2 - z1);  // typical size of sample
+    double margin = size*0.02;        // safety margin to avoid overlapping of layers
+    double fake_thickness = size*0.3; // thickness for layers without defined thickness (like ambience&substrate)
+
+    // frame to draw
+    TH1F *h1 = gPad->DrawFrame(-size, -size*2., size, size*1.0);
+    h1->GetXaxis()->SetTitle("X, [nm]");
+    h1->GetYaxis()->SetTitle("Y, [nm]");
+    h1->GetYaxis()->SetTitleOffset(1.4);
+
+    // drawing properties for interfaces, material and their names
+    TLine interface;
+    interface.SetLineWidth(3);
+    interface.SetLineStyle(3);
+    interface.SetLineColor(kRed);
+    TBox bulk;
+    bulk.SetFillStyle(1001);
+    TLatex tex;
+    tex.SetNDC(false);
+    tex.SetTextAlign(12);
+    tex.SetTextSize(0.04);
+
+    // defining set of good colors
+    int a_colors[]={kOrange, kAzure+1, kViolet-9, kCyan+2, kViolet+6, kRed+1, kOrange-3, kBlue-9};
+    std::list<int> good_colors(a_colors, a_colors+sizeof(a_colors)/sizeof(int));
+
+    // map of correspondance between material with given name and used color
+    // two colors are reserved for materials with name 'substrate' and 'ambience'
+    std::map<std::string, int> colors;
+    colors["substrate"] = kOrange-5;
+    colors["ambience"] = kCyan-10;
+
+    // loop over layers and drawing
+    for(size_t i_layer = 0; i_layer<nlayers; i_layer++) {
+        const Layer *layer = sample->getLayer(i_layer);
+        double z = sample->getLayerBottomZ(i_layer);
+        double thickness = layer->getThickness();
+
+        //calculating size of box representing layer
+        double x1(0), x2(0), y1(0), y2(0);
+        x1 = -size*0.5;
+        x2 = size*0.5;
+        y1 = z;
+        y2 = z+thickness;
+        // but top and bottom layers need special treatment, since they thickness==0
+        if(i_layer==0) { // ambience normally doesn't have thickness
+            y1=z;
+            y2=z+fake_thickness;
+        }
+        if(i_layer==nlayers-1) { // substrate normally doesn't have thickness and has wrong zbottom
+            y2=z;
+            y1=z-fake_thickness;
+        }
+
+        // selecting colors for bulk material, materials with same name will have same color
+        int color = kBlack;
+        std::string matname = layer->getMaterial()->getName();
+        std::map<std::string, int>::iterator pos = colors.find(matname);
+        if(pos != colors.end()) {
+            // existing material
+            color = pos->second;
+        }else{
+            // new material
+            color = good_colors.front(); // taking color from list of good colors
+            good_colors.remove(color);   // this color want be used anymore
+            colors[matname] = color;     // saving correspondance of selected color and material
+        }
+
+        bulk.SetFillColor(color);
+        bulk.DrawBox(x1,y1+margin,x2,y2-margin);
+        tex.DrawLatex(x2+margin, (y1+y2)/2., matname.c_str());
+        if(sample->getLayerBottomInterface(i_layer)) interface.DrawLine(x1,y1,x2,y1);
+    }
+
+    gPad->Update();
 }
 
 

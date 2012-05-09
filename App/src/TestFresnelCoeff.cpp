@@ -4,6 +4,8 @@
 #include "TGraph.h"
 #include "TH1F.h"
 #include "TApplication.h"
+#include "TLatex.h"
+#include "TLegend.h"
 
 #include "Layer.h"
 #include "MultiLayer.h"
@@ -28,9 +30,10 @@ void TestFresnelCoeff::execute()
 {
     std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
 
-    //size_t nsamples = SampleFactory::instance().getNumberOfSamples();
-    for(int i_sample=0; i_sample<2; i_sample++){
-        MultiLayer *mySample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createStandard(i_sample));
+    // loop over standard samples defined in SampleFactory and StandardSamples
+    size_t nsamples = SampleFactory::instance().getNumberOfSamples();
+    for(size_t i_sample=0; i_sample<nsamples; i_sample++){
+        m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createStandard(i_sample));
 
         m_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
 
@@ -45,34 +48,41 @@ void TestFresnelCoeff::execute()
             kvector_t kvec = kvector_t::LambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 
             OpticalFresnel::MultiLayerCoeff_t coeffs;
-            OpticalFresnel::execute(*mySample, kvec, coeffs);
+            OpticalFresnel::execute(*m_sample, kvec, coeffs);
 
             m_coeffs->currentValue() = coeffs;
 
             ++index;
         } // alpha_i
 
-        Draw(mySample);
+        draw();
 
-        delete mySample;
+        delete m_sample;
         delete m_coeffs;
     } // i_sample
 
 }
 
 
-void TestFresnelCoeff::Draw(const MultiLayer *sample)
+void TestFresnelCoeff::draw()
 {
     static int ncall = 0;
-    //size_t nlayers = data.front().coeffs.size();
-    size_t nlayers = sample->getNumberOfLayers();
 
-    // creation of graphics to plot R,T coefficients in layers as a function of alpha_i
-    std::vector<TGraph *> gr_absR;
-    std::vector<TGraph *> gr_absT;
+    size_t nlayers = m_sample->getNumberOfLayers();
+
+    // graphics for R,T coefficients in layers as a function of alpha_i
+    size_t ncoeffs = 2;
+    enum key_coeffs { kCoeffR, kCoeffT};
+    const char *coeffs_title[]={" |R| "," |T| "};
+    int coeffs_color[] = {kBlue, kRed};
+
+    std::vector<std::vector<TGraph *> > gr_coeff; // [nlayers][ncoeffs]
+    gr_coeff.resize(nlayers);
     for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
-      gr_absR.push_back(new TGraph() );
-      gr_absT.push_back(new TGraph() );
+        gr_coeff[i_layer].resize(ncoeffs,0);
+        for(size_t i_coeff=0; i_coeff<ncoeffs; i_coeff++) {
+            gr_coeff[i_layer][i_coeff] = new TGraph();
+        }
     }
     TGraph *gr_absSum = new TGraph(); // |R_top|+|T_bottom|
 
@@ -88,15 +98,14 @@ void TestFresnelCoeff::Draw(const MultiLayer *sample)
 
         // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
-            gr_absR[i_layer]->SetPoint(i_point, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R) );
-            gr_absT[i_layer]->SetPoint(i_point, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T) );
-            //std::cout << Units::rad2deg(alpha_i) << " l:" << i_layer << " R:" <<  std::abs(coeffs[i_layer].R) << "T:" << std::abs(coeffs[i_layer].T) << std::endl;
+            gr_coeff[i_layer][kCoeffR]->SetPoint(i_point, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R) );
+            gr_coeff[i_layer][kCoeffT]->SetPoint(i_point, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T) );
         }
 
         // Filling graphics for |R|+|T| as a function of alpha_i taking R from the top and T from the bottom layers
         int nlast = nlayers - 1;
-        complex_t nx = sample->getLayer(nlast)->getRefractiveIndex();
-        complex_t n1 = sample->getLayer(0)->getRefractiveIndex();
+        complex_t nx = m_sample->getLayer(nlast)->getRefractiveIndex();
+        complex_t n1 = m_sample->getLayer(0)->getRefractiveIndex();
         //std::complex<double> kk = (1./(n1*std::sin(theta_i)))*std::sqrt(std::pow(nx,2)-cos(theta_i)*cos(theta_i)*std::pow(n1,2));
         complex_t kk = std::sqrt((complex_t(1,0) - cos(alpha_i)*cos(alpha_i)/nx/nx) ) / sin(alpha_i);
         double sum = std::norm(coeffs[0].R) + std::abs(kk)*std::norm(coeffs[nlast].T);
@@ -113,42 +122,55 @@ void TestFresnelCoeff::Draw(const MultiLayer *sample)
     // create name of canvas different for each new call of this method
     std::ostringstream os;
     os << (ncall++) << std::endl;
-    std::string cname = std::string("c1_test_fresnel")+os.str();
-
+    std::string cname = std::string("c1_test_fresnel_sample")+os.str();
     TCanvas *c1 = new TCanvas(cname.c_str(),"Fresnel Coefficients in Multilayer",1024,768);
-    //DrawHelper::instance().SetMagnifier(c1);
+    DrawHelper::instance().SetMagnifier(c1);
 
-    int ndivy = sqrt(nlayers);
-    int ndivx = nlayers/ndivy + 1;
-    //c1->Divide(ndivx, ndivy);
-    c1->Divide(2,2);
+    // estimate subdivision of canvas (we need place for 'nlayers' and for one sample picture)
+    int ndiv(2);
+    if( nlayers+1 > 4 ) ndiv = int(sqrt(nlayers+1)+1);
+    c1->Divide(ndiv,ndiv);
 
-    TH1F *h1ref = new TH1F("h1ref","h1ref",100,0.0,2.0);
-    h1ref->SetMinimum(0.01);
-    h1ref->SetMaximum(3.0);
-    h1ref->SetStats(0);
-    h1ref->SetTitle("");
     for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
-      c1->cd(i_layer+1);
-      //gPad->SetLogy();
-      h1ref->Draw();
+        c1->cd(i_layer+1);
 
-      TGraph *gr = gr_absR[i_layer];
-      gr->SetLineColor(kBlue);
-      gr->SetMarkerColor(kBlue);
-      gr->SetMarkerStyle(21);
-      gr->SetMarkerSize(0.2);
-      gr->Draw("pl same");
+        // calculating histogram limits common for all graphs on given pad
+        double xmin(0), ymin(0), xmax(0), ymax(0);
+        for(size_t i_coeff=0; i_coeff<ncoeffs; i_coeff++){
+            double x1(0), y1(0), x2(0), y2(0);
+            gr_coeff[i_layer][kCoeffT]->ComputeRange(x1, y1, x2, y2);
+            if(x1 < xmin ) xmin= x1;
+            if(x2 > xmax ) xmax = x2;
+            if(y1 < ymin ) ymin = y1;
+            if(y2 > ymax ) ymax = y2;
+        }
+        TH1F h1ref("h1ref","h1ref",100, xmin, xmax);
+        h1ref.SetMinimum(ymin);
+        h1ref.SetMaximum(ymax*1.1);
+        h1ref.SetStats(0);
+        h1ref.SetTitle("");
+        h1ref.GetXaxis()->SetTitle("angle, deg");
+        h1ref.GetYaxis()->SetTitle("|R|, |T|");
+        h1ref.DrawCopy();
 
-      gr = gr_absT[i_layer];
-      gr->SetMarkerStyle(21);
-      gr->SetMarkerSize(0.2);
-      gr->SetLineColor(kRed);
-      gr->SetMarkerColor(kRed);
-      gr->Draw("pl same");
-      double xmin, ymin, xmax, ymax;
-      gr->ComputeRange(xmin, ymin, xmax, ymax);
-      std::cout << i_layer << " xmin:" << xmin << " ymin:" << ymin << " xmax:" << xmax << " ymax:" << ymax << std::endl;
+        TLegend *leg = new TLegend(0.725,0.7,0.89,0.88);
+        leg->SetTextSize(0.04);
+        leg->SetBorderSize(1);
+        leg->SetFillStyle(0);
+        std::ostringstream os;
+        os << " layer #" << i_layer;
+        leg->SetHeader(os.str().c_str());
+
+        for(size_t i_coeff=0; i_coeff<ncoeffs; i_coeff++) {
+            TGraph *gr = gr_coeff[i_layer][i_coeff];
+            gr->SetLineColor( coeffs_color[i_coeff] );
+            gr->SetMarkerColor( coeffs_color[i_coeff] );
+            gr->SetMarkerStyle(21);
+            gr->SetMarkerSize(0.2);
+            gr->Draw("pl same");
+            leg->AddEntry(gr, coeffs_title[i_coeff],"pl");
+        }
+        leg->Draw();
     }
     TGraph *gr = gr_absSum;
     gr->SetMarkerStyle(21);
@@ -156,7 +178,16 @@ void TestFresnelCoeff::Draw(const MultiLayer *sample)
     gr->SetLineColor(kMagenta);
     gr->SetMarkerColor(kMagenta);
     gr->Draw("pl same");
+    TLegend *leg = new TLegend(0.625,0.6,0.89,0.69);
+    leg->SetTextSize(0.04);
+    leg->SetBorderSize(0);
+    leg->SetFillStyle(0);
+    leg->AddEntry(gr, "|R_top|+|T_bottom|","pl");
+    leg->Draw();
 
+    // drawing sample geometry
+    c1->cd(nlayers+1);
+    DrawHelper::instance().DrawMultilayer(m_sample);
 }
 
 

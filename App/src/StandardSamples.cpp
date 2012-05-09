@@ -98,7 +98,7 @@ ISample *StandardSamples::SimpleMultilayer()
     // adding layers
     mySample->addLayer(lAmbience);
 
-    const unsigned nrepetitions = 1;
+    const unsigned nrepetitions = 2;
     for(unsigned i=0; i<nrepetitions; ++i) {
         mySample->addLayer(lAg1);
         mySample->addLayer(lCr1);

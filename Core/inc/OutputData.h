@@ -64,11 +64,15 @@ public:
     virtual ~OutputData();
 
     void addAxis(NamedVectorBase* p_new_axis);
+    template <class U> void addAxis(std::string name, U start, U end, size_t size);
     std::vector<NamedVectorBase*> getAxes() { return m_value_axes; }
     NamedVectorBase* getAxis(std::string label);
     size_t getDimension() const { return m_dimension; }
     size_t getAllocatedSize() const { return m_data_vector.size(); }
     MultiIndex& getIndex();
+    void resetIndex();
+    bool hasNext();
+    T& next();
     T& currentValue();
 
 private:
@@ -106,6 +110,13 @@ template <class T> void OutputData<T>::addAxis(NamedVectorBase* p_new_axis)
     }
 }
 
+template <class T>
+template <class U> void OutputData<T>::addAxis(std::string name, U start, U end, size_t size)
+{
+    NamedVector<U> *p_new_axis = new NamedVector<U>(name, start, end, size);
+    addAxis(p_new_axis);
+}
+
 template <class T> NamedVectorBase* OutputData<T>::getAxis(std::string label)
 {
     for (std::vector<NamedVectorBase*>::iterator it = m_value_axes.begin(); it != m_value_axes.end(); ++it)
@@ -121,6 +132,23 @@ template <class T> NamedVectorBase* OutputData<T>::getAxis(std::string label)
 template <class T> inline MultiIndex& OutputData<T>::getIndex()
 {
     return m_index;
+}
+
+template <class T> inline void OutputData<T>::resetIndex()
+{
+    m_index.reset();
+}
+
+template <class T> inline bool OutputData<T>::hasNext()
+{
+    return !m_index.endPassed();
+}
+
+template <class T> inline T& OutputData<T>::next()
+{
+    T &temp = currentValue();
+    ++m_index;
+    return temp;
 }
 
 template <class T> inline T& OutputData<T>::currentValue()

@@ -69,7 +69,7 @@ HEADERS += \
     inc/Units.h \
     inc/ISingleton.h \
     inc/IFunctionalTest.h \
-    inc/IFactory.h
+    inc/IFactory.h \
     inc/Numeric.h
 
 INCLUDEPATH += /opt/local/include ./inc

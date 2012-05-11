@@ -26,13 +26,13 @@ class MultiIndex
 public:
     std::vector<std::string> getLabels() { return m_labels; }
     std::vector<size_t> getCoordinate();
-    size_t getCoordinate(std::string label);
+    size_t getCoordinate(std::string axis_name);
     size_t getPosition() { return m_current_position; }
     size_t getSize() { return m_total_size; }
     void reset();
-    void setCoordinate(std::string label, size_t value);
-    void incrementCoordinate(std::string label);
-    void decrementCoordinate(std::string label);
+    void setCoordinate(std::string axis_name, size_t value);
+    void incrementCoordinate(std::string axis_name);
+    void decrementCoordinate(std::string axis_name);
     MultiIndex& operator++();
     bool endPassed() { return m_end_passed; }
 private:
@@ -74,6 +74,8 @@ public:
     bool hasNext();
     T& next();
     T& currentValue();
+    size_t getCoordinate(std::string axis_name);
+    template <class U> U getCurrentValueOfAxis(std::string axis_name);
 
 private:
     void allocate();
@@ -154,6 +156,19 @@ template <class T> inline T& OutputData<T>::next()
 template <class T> inline T& OutputData<T>::currentValue()
 {
     return m_data_vector[m_index.m_current_position];
+}
+
+template <class T> inline size_t OutputData<T>::getCoordinate(std::string axis_name)
+{
+    return m_index.getCoordinate(axis_name);
+}
+
+template <class T>
+template <class U> inline U OutputData<T>::getCurrentValueOfAxis(std::string axis_name)
+{
+    NamedVector<U> *p_axis = dynamic_cast<NamedVector<U>*>(getAxis(axis_name));
+    size_t index = getCoordinate(axis_name);
+    return (*p_axis)[index];
 }
 
 template <class T> void OutputData<T>::allocate()

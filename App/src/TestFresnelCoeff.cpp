@@ -17,6 +17,7 @@
 #include "Units.h"
 #include "OutputData.h"
 
+
 TestFresnelCoeff::TestFresnelCoeff()
 {
     std::cout << "TestFresnelCoeff::TestFresnelCoeff() -> Info." << std::endl;
@@ -33,7 +34,7 @@ void TestFresnelCoeff::execute()
     // loop over standard samples defined in SampleFactory and StandardSamples
     size_t nsamples = SampleFactory::instance().getNumberOfSamples();
     for(size_t i_sample=0; i_sample<nsamples; i_sample++){
-        m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createStandard(i_sample));
+        m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem(i_sample));
 
         m_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
 

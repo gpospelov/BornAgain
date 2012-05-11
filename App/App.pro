@@ -13,7 +13,9 @@ SOURCES += \
     src/TestRoughness.cpp \
     src/TestDWBAFormFactor.cpp \
     src/SampleFactory.cpp \
-    src/StandardSamples.cpp
+    src/StandardSamples.cpp \
+    src/CommandLine.cpp \
+    src/TestFactory.cpp
 
 HEADERS += \
     inc/DrawHelper.h \
@@ -25,7 +27,9 @@ HEADERS += \
     inc/TestRoughness.h \
     inc/TestDWBAFormFactor.h \
     inc/SampleFactory.h \
-    inc/StandardSamples.h
+    inc/StandardSamples.h \
+    inc/CommandLine.h \
+    inc/TestFactory.h
 
 INCLUDEPATH += ./inc
 DEPENDPATH += ./inc

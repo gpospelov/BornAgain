@@ -17,6 +17,7 @@
 #include "MaterialManager.h"
 
 
+
 TestDiffuseScattering::TestDiffuseScattering()
 {
     std::cout << "TestDiffuseScattering::TestDiffuseScattering() -> Info." << std::endl;

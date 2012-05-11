@@ -31,7 +31,10 @@ SOURCES += \
     src/FormFactorCylinder.cpp \
     src/Types.cpp \
     src/DoubleToComplexInterpolatingFunction.cpp \
-    src/DWBAFormFactor.cpp
+    src/DWBAFormFactor.cpp \
+    src/ISingleton.cpp \
+    src/IFunctionalTest.cpp \
+    src/IFactory.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -62,7 +65,10 @@ HEADERS += \
     inc/IDoubleToComplexFunction.h \
     inc/DoubleToComplexInterpolatingFunction.h \
     inc/DWBAFormFactor.h \
-    inc/Units.h
+    inc/Units.h \
+    inc/ISingleton.h \
+    inc/IFunctionalTest.h \
+    inc/IFactory.h
 
 INCLUDEPATH += /opt/local/include ./inc
 DEPENDPATH += ./inc

@@ -30,12 +30,12 @@ public:
     static SampleFactory &instance();
 
     //! create sample described by given sampleId
-    ISample *createStandard(int sampleId);
+    ISample *createItem(int sampleId);
 
-    typedef ISample* (*CreateSampleCallback) ();
+    typedef ISample* (*CreateItemCallback) ();
 
     //! save pointer to the function which will be used for object creation
-    bool RegisterSample(int sampleId, CreateSampleCallback CreateFn);
+    bool registerItem(int itemId, CreateItemCallback CreateFn);
 
     //! return number of register standard samples
     size_t getNumberOfSamples() const { return m_callbacks.size(); }
@@ -58,10 +58,10 @@ private:
     static bool m_destroyed;
 
     //! holds pointers to function which create sample of given type (which is int)
-    typedef std::map<int, CreateSampleCallback > SampleCallbackMap_t;
+    typedef std::map<int, CreateItemCallback > CallbackMap_t;
 
     //! holds pointers to function which create sample of given type (which is int)
-    SampleCallbackMap_t m_callbacks;
+    CallbackMap_t m_callbacks;
 };
 
 #endif // SAMPLEFACTORY_H

@@ -14,12 +14,11 @@
 //! @author herk
 //! @date   02.05.2012
 
-#include "IAlgorithm.h"
+#include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "FormFactorCylinder.h"
 
-
-class TestFormFactor : public IAlgorithm
+class TestFormFactor : public IFunctionalTest
 {
 public:
     TestFormFactor();
@@ -31,5 +30,6 @@ private:
     OutputData<double> *mp_intensity_output;
     FormFactorCylinder m_ff;
 };
+
 
 #endif // TESTFORMFACTOR_H

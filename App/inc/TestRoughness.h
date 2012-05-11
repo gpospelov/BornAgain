@@ -15,11 +15,17 @@
 //! @date   02.05.2012
 
 #include <vector>
-#include "IAlgorithm.h"
+#include "IFunctionalTest.h"
 #include "LayerRoughness.h"
 
 
-class TestRoughness : public IAlgorithm
+//- -------------------------------------------------------------------
+//! @class TestRoughness
+//! @brief Draw profile of rough surface for different sets of
+//! roughness parameters. Two models are used for profile calculation:
+//! 1) matrix method 2) fast fourier transform using moving average
+//- -------------------------------------------------------------------
+class TestRoughness : public IFunctionalTest
 {
 public:
     TestRoughness();
@@ -39,6 +45,7 @@ public:
     /// some tests of FFT
     void test_FFT();
 
+
 private:
     LayerRoughness *m_roughness;    // pointer to roughness
     std::vector<double> m_vx;       // x-coordinates of grid along the surface
@@ -48,5 +55,8 @@ private:
     typedef void (TestRoughness::*TestMethod)();
     std::vector<TestMethod > m_TestMethods; // collection of class methods which will be used for correlated randoms
 };
+
+
+
 
 #endif // TESTROUGHNESS_H

@@ -21,7 +21,9 @@
 #include <fftw3.h>
 
 
-TestRoughness::TestRoughness() : m_roughness(0)
+
+TestRoughness::TestRoughness() : IFunctionalTest("roughness","draw roughness profile"),
+                                 m_roughness(0)
 {
 
 }

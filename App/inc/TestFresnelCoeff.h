@@ -14,18 +14,17 @@
 #ifndef TESTFRESNELCOEFF_H
 #define TESTFRESNELCOEFF_H
 
-#include "IAlgorithm.h"
+#include "IFunctionalTest.h"
 #include "OpticalFresnel.h"
 #include "MultiLayer.h"
 #include "OutputData.h"
-
 
 //- -------------------------------------------------------------------
 //! @class TestFresnelCoeff
 //! @brief Calculate Fresnel coefficients for several typical multilayer
 //! samples and produce validation plots
 //- -------------------------------------------------------------------
-class TestFresnelCoeff : public IAlgorithm
+class TestFresnelCoeff : public IFunctionalTest
 {
 public:
     TestFresnelCoeff();
@@ -38,6 +37,12 @@ private:
     MultiLayer *m_sample; //!< pointer to multilayer sample
     OutputData<OpticalFresnel::MultiLayerCoeff_t  > *m_coeffs; //!< output data structure
 };
+
+
+
+
+
+
 
 
 #endif // TESTFRESNELCOEFF_H

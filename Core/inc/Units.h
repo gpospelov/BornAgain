@@ -19,7 +19,7 @@ namespace Units {  // BornAgain namespace
 
 // Length
 static const double nanometer   = 1;
-static const double angstrom    = 10*nanometer;
+static const double angstrom    = 1.e-1*nanometer;
 static const double micrometer  = 1.e+3*nanometer;
 static const double millimeter  = 1.e+6*nanometer;
 static const double meter       = 1.e+9*nanometer;

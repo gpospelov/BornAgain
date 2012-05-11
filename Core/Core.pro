@@ -4,6 +4,7 @@
 TARGET   = ScattCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
+#CONFIG  += debug
 QT      -= core gui
 
 QMAKE_EXTENSION_SHLIB = so
@@ -69,6 +70,7 @@ HEADERS += \
     inc/ISingleton.h \
     inc/IFunctionalTest.h \
     inc/IFactory.h
+    inc/Numeric.h
 
 INCLUDEPATH += /opt/local/include ./inc
 DEPENDPATH += ./inc

@@ -77,9 +77,9 @@ ISample *StandardSamples::SimpleMultilayer()
     MaterialManager &matManager = MaterialManager::instance();
 
     const IMaterial *mAmbience = matManager.addHomogeneousMaterial("ambience", complex_t(1.0, 0.0) );
-    const IMaterial *mAg1 = matManager.addHomogeneousMaterial("ag1", complex_t(0.99999653774962993, 0) );
-    const IMaterial *mCr1 = matManager.addHomogeneousMaterial("cr1", complex_t(0.99999701914797656, 0) );
-    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate2", complex_t(0.99999692440971188, 0) );
+    const IMaterial *mAg1 = matManager.addHomogeneousMaterial("ag1", complex_t(0.99999653774962993, 0.0) );
+    const IMaterial *mCr1 = matManager.addHomogeneousMaterial("cr1", complex_t(0.99999701914797656, 0.0) );
+    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate2", complex_t(0.99999692440971188, 0.0) );
 
     Layer lAmbience;
     lAmbience.setMaterial(mAmbience, 0);

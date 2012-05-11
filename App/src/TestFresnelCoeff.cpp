@@ -123,15 +123,16 @@ void TestFresnelCoeff::draw()
     }
     TGraph *gr_absSum = new TGraph(); // |R_top|+|T_bottom|
 
-    MultiIndex& index = m_coeffs->getIndex();
-    index.reset();
-    NamedVector<double> *alpha_axis = dynamic_cast<NamedVector<double>*>(m_coeffs->getAxis("alpha_axis"));
+//    MultiIndex& index = m_coeffs->getIndex();
+//    index.reset();
+    m_coeffs->resetIndex();
+    NamedVector<double> *alpha_axis = dynamic_cast<NamedVector<double>*>(m_coeffs->getAxis("alpha_i"));
     int i_point = 0;
-    while (!index.endPassed())
+    while (m_coeffs->hasNext())
     {
-        size_t index_alpha = index.getCoordinate("alpha_axis");
-        double alpha_i = (*alpha_axis)[index_alpha];
-        OpticalFresnel::MultiLayerCoeff_t coeffs = m_coeffs->currentValue();
+//        size_t index_alpha = index.getCoordinate("alpha_i");
+        double alpha_i = m_coeffs->getCurrentValueOfAxis<double>("alpha_i");
+        OpticalFresnel::MultiLayerCoeff_t coeffs = m_coeffs->next();
 
         // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
@@ -153,7 +154,7 @@ void TestFresnelCoeff::draw()
         gr_absSum->SetPoint(i_point, Units::rad2deg(alpha_i), sum);
 
         ++i_point;
-        ++index;
+//        ++index;
     }
 
     // create name of canvas different for each new call of this method

@@ -62,7 +62,6 @@ void TestFresnelCoeff::execute()
         delete m_sample;
         delete m_coeffs;
     } // i_sample
-
 }
 
 //void TestFresnelCoeff::execute()
@@ -70,19 +69,19 @@ void TestFresnelCoeff::execute()
 //    std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
 //
 //    m_sample =
-//            dynamic_cast<MultiLayer *>(SampleFactory::instance().createStandard(2));
+//            dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem(2));
 //
 //    m_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t>;
 //
 //    NamedVector<double> *alpha_axis = new NamedVector<double>(
-//            std::string("alpha_axis"), 0.05 * Units::degree,
+//            std::string("alpha_i"), 0.0 * Units::degree,
 //            2.0 * Units::degree, 3);
 //    m_coeffs->addAxis(alpha_axis);
 //
 //    MultiIndex &index = m_coeffs->getIndex();
 //    while (!index.endPassed())
 //    {
-//        size_t index_y = index.getCoordinate("alpha_axis");
+//        size_t index_y = index.getCoordinate("alpha_i");
 //        double alpha_i = (*alpha_axis)[index_y];
 //        kvector_t kvec = kvector_t::LambdaAlphaPhi(0.04 * Units::angstrom,
 //                -alpha_i, 0.0);

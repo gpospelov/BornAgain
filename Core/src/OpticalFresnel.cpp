@@ -41,14 +41,22 @@ void OpticalFresnel::calculateFresnelCoefficients(MultiLayerCoeff_t &coeff)
     for(size_t i=0; i<coeff.size() - 1; i++) {
         complex_t kzi = coeff[i].kz;
         complex_t kziplus1 = coeff[i+1].kz;
-        // r_{i,i+1}
-        coeff[i].r = ( coeff[i].kz - coeff[i+1].kz ) / (coeff[i].kz + coeff[i+1].kz );
-        // t_{i,i+1}
-        coeff[i].t = 2.*coeff[i].kz / (coeff[i].kz + coeff[i+1].kz );
-        // r_{i+1,i}
-        coeff[i].rb = ( coeff[i+1].kz - coeff[i].kz ) / (coeff[i].kz + coeff[i+1].kz );
-        // t_{i+1,i}
-        coeff[i].tb = 2.*coeff[i+1].kz / (coeff[i].kz + coeff[i+1].kz );
+        if (kzi == complex_t(0, 0) && kziplus1 == complex_t(0, 0))
+        {
+            coeff[i].r = complex_t(0, 0);
+            coeff[i].t = complex_t(1, 0);
+            coeff[i].rb = complex_t(0, 0);
+            coeff[i].tb = complex_t(1, 0);
+        } else
+        {
+            coeff[i].r = (coeff[i].kz - coeff[i + 1].kz)
+                    / (coeff[i].kz + coeff[i + 1].kz);
+            coeff[i].t = 2. * coeff[i].kz / (coeff[i].kz + coeff[i + 1].kz);
+            coeff[i].rb = (coeff[i + 1].kz - coeff[i].kz)
+                    / (coeff[i].kz + coeff[i + 1].kz);
+            coeff[i].tb = 2. * coeff[i + 1].kz
+                    / (coeff[i].kz + coeff[i + 1].kz);
+        }
     }
 }
 
@@ -102,8 +110,8 @@ void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &c
     coeff[0].T = 1;
 
     for(size_t i=0; i<coeff.size()-1; ++i) {
-        // First check for adjecant identical layers
-        if(coeff[i+1].kz == coeff[i].kz) {
+        // First check for adjecant identical layers with kz = 0
+        if(coeff[i+1].kz == complex_t(0,0) && coeff[i].kz == complex_t(0,0)) {
             coeff[i+1].R = coeff[i].R;
             coeff[i+1].T = coeff[i].T;
             continue;

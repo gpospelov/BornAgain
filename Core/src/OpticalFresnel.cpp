@@ -77,6 +77,10 @@ void OpticalFresnel::calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &co
     // ratio of amplitudes of outgoing and incoming waves in alternative conventions
     coeff[coeff.size()-1].X = complex_t(0, 0);
     for(int i=coeff.size()-2; i>=0; --i) {
+        // first check for infinity
+        if(std::abs(coeff[i].r*coeff[i+1].X + complex_t(1,0)) < Numeric::double_epsilon) {
+            throw DivisionByZeroException("Division by zer during calculation of X_i");
+        }
         double d = i==0 ? 0.0 : sample.getLayerThickness(i);
         complex_t exp_factor;
         if((coeff[i].kz*d*2.0).imag() >= -std::log(Numeric::double_min)) {
@@ -110,7 +114,7 @@ void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &c
     coeff[0].T = 1;
 
     for(size_t i=0; i<coeff.size()-1; ++i) {
-        // First check for adjecant identical layers with kz = 0
+        // First check for adjecant identical layers with k_z = 0
         if(coeff[i+1].kz == complex_t(0,0) && coeff[i].kz == complex_t(0,0)) {
             coeff[i+1].R = coeff[i].R;
             coeff[i+1].T = coeff[i].T;

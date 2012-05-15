@@ -72,6 +72,13 @@ public:
     LogicErrorException(const std::string& message);
 };
 
+class DivisionByZeroException : public std::runtime_error
+{
+public:
+    DivisionByZeroException(const std::string& message);
+};
+
+void LogExceptionMessage(const std::string &message);
 
 
 #endif // EXCEPTIONS_H

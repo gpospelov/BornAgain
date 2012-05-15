@@ -3,7 +3,7 @@
 #include "TestFresnelCoeff.h"
 #include "TestFormFactor.h"
 #include "TestDWBAFormFactor.h"
-#include "TestDiffuseScattering.h"
+#include "TestDiffuseReflection.h"
 
 
 //template class ISingleton<IFactory<std::string, IFunctionalTest> >;
@@ -18,9 +18,8 @@ TestFactory::TestFactory()
     registerItem("fresnel",    IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest> );
     registerItem("formfactor", IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
     registerItem("dwba",       IFactoryCreateFunction<TestDWBAFormFactor, IFunctionalTest> );
-    registerItem("diffuse",    IFactoryCreateFunction<TestDiffuseScattering, IFunctionalTest> );
+    registerItem("diffuse",    IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
 }
-
 
 
 /* ************************************************************************* */

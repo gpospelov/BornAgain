@@ -21,8 +21,8 @@
 
 
 //- -------------------------------------------------------------------
-/// @class Layer
-/// @brief Definition of Layer with thickness and pointer to the material
+//! @class Layer
+//! @brief Definition of Layer with thickness and pointer to the material
 //- -------------------------------------------------------------------
 class Layer : public ISample
 {

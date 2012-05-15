@@ -9,28 +9,28 @@ SOURCES += \
     src/main.cpp \
     src/TestFresnelCoeff.cpp \
     src/DrawHelper.cpp \
-    src/TestDiffuseScattering.cpp \
     src/TestFormFactor.cpp \
     src/TestRoughness.cpp \
     src/TestDWBAFormFactor.cpp \
     src/SampleFactory.cpp \
     src/StandardSamples.cpp \
     src/CommandLine.cpp \
-    src/TestFactory.cpp
+    src/TestFactory.cpp \
+    src/TestDiffuseReflection.cpp
 
 HEADERS += \
     inc/DrawHelper.h \
     inc/TestFresnelCoeff.h \
     inc/App.h \
     inc/AppLinkDef.h \
-    inc/TestDiffuseScattering.h \
     inc/TestFormFactor.h \
     inc/TestRoughness.h \
     inc/TestDWBAFormFactor.h \
     inc/SampleFactory.h \
     inc/StandardSamples.h \
     inc/CommandLine.h \
-    inc/TestFactory.h
+    inc/TestFactory.h \
+    inc/TestDiffuseReflection.h
 
 INCLUDEPATH += ./inc
 DEPENDPATH += ./inc

@@ -1,12 +1,4 @@
 #include "TestFresnelCoeff.h"
-#include <iostream>
-#include "TCanvas.h"
-#include "TGraph.h"
-#include "TH1F.h"
-#include "TApplication.h"
-#include "TLatex.h"
-#include "TLegend.h"
-
 #include "Layer.h"
 #include "MultiLayer.h"
 #include "HomogeneousMaterial.h"
@@ -16,6 +8,16 @@
 #include "SampleFactory.h"
 #include "Units.h"
 #include "OutputData.h"
+
+#include <iostream>
+#include <iomanip>
+#include "TCanvas.h"
+#include "TGraph.h"
+#include "TH1F.h"
+#include "TApplication.h"
+#include "TLatex.h"
+#include "TLegend.h"
+
 
 
 TestFresnelCoeff::TestFresnelCoeff()
@@ -31,10 +33,14 @@ void TestFresnelCoeff::execute()
 {
     std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
 
+    std::vector<std::string > snames;
+    snames.push_back("AirOnSubstrate");
+    snames.push_back("SubstrateOnSubstrate");
+    snames.push_back("SimpleMultilayer");
+
     // loop over standard samples defined in SampleFactory and StandardSamples
-    size_t nsamples = SampleFactory::instance().getNumberOfSamples();
-    for(size_t i_sample=0; i_sample<nsamples; i_sample++){
-        m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem(i_sample));
+    for(size_t i_sample=0; i_sample<snames.size(); i_sample++){
+        m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem(snames[i_sample]));
 
         m_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
 
@@ -57,6 +63,7 @@ void TestFresnelCoeff::execute()
 
         delete m_sample;
         delete m_coeffs;
+        //break;
     } // i_sample
 }
 
@@ -96,6 +103,11 @@ void TestFresnelCoeff::execute()
 //    delete m_coeffs;
 //}
 
+
+
+/* ************************************************************************* */
+//! drawing fresnel coefficients in a layer as a function of alpha
+/* ************************************************************************* */
 void TestFresnelCoeff::draw()
 {
     static int ncall = 0;
@@ -129,9 +141,11 @@ void TestFresnelCoeff::draw()
         OpticalFresnel::MultiLayerCoeff_t coeffs = m_coeffs->next();
 
         // Filling graphics for R,T as a function of alpha_i
+        //if(index_alpha%100==0) std::cout << "alpha_i: " << index_alpha << " " <<std::setprecision(12) << alpha_i << std::endl;
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
             gr_coeff[i_layer][kCoeffR]->SetPoint(i_point, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R) );
             gr_coeff[i_layer][kCoeffT]->SetPoint(i_point, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T) );
+            //if(index_alpha%100==0) std::cout << " L:" << i_layer << " R:" << coeffs[i_layer].R << " T:" << coeffs[i_layer].T << std::endl;
         }
 
         // Filling graphics for |R|+|T| as a function of alpha_i taking R from the top and T from the bottom layers
@@ -145,7 +159,7 @@ void TestFresnelCoeff::draw()
         double alpha_bottom = std::abs(n1/nx)*cos(alpha_i);
         if(1-alpha_bottom < 0.0) sum = std::norm(coeffs[0].R);
 
-        gr_absSum->SetPoint(i_point, Units::rad2deg(alpha_i), sum);
+        if(alpha_i!=0.0) gr_absSum->SetPoint(i_point, Units::rad2deg(alpha_i), sum);
 
         ++i_point;
 //        ++index;
@@ -165,6 +179,7 @@ void TestFresnelCoeff::draw()
 
     for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
         c1->cd(i_layer+1);
+        //gPad->SetLogy();
 
         // calculating histogram limits common for all graphs on given pad
         double xmin(0), ymin(0), xmax(0), ymax(0);

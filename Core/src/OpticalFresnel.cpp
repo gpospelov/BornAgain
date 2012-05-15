@@ -17,9 +17,9 @@ int OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, Mul
 
     calculateFresnelCoefficients(coeff);
 
-    calculateX2(sample, coeff);
+    calculateX(sample, coeff);
 
-    calculateRT2(sample, coeff);
+    calculateRT(sample, coeff);
 
     return 0;
 }
@@ -31,7 +31,7 @@ void OpticalFresnel::calculateKZ(const MultiLayer &sample, const kvector_t &kvec
     for(size_t i=0; i<coeff.size(); ++i) {
         complex_t rindex = sample.getLayer(i)->getRefractiveIndex();
         coeff[i].kz = std::sqrt( kvec.mag2()*std::pow( rindex, 2) - kvec.magxy()*kvec.magxy() );
-        std::cout << "k_z: " << coeff[i].kz << std::endl;
+        //std::cout << "k_z: " << coeff[i].kz << std::endl;
     }
 }
 

@@ -1,3 +1,5 @@
+#ifndef TESTFRESNELCOEFF_H
+#define TESTFRESNELCOEFF_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -11,13 +13,12 @@
 //! @brief  Definition of TestFresnelCoeff class for tests of Fresnel coeffs
 //! @author Scientific Computing Group at FRM II
 //! @date   02.05.2012
-#ifndef TESTFRESNELCOEFF_H
-#define TESTFRESNELCOEFF_H
 
 #include "IFunctionalTest.h"
 #include "OpticalFresnel.h"
 #include "MultiLayer.h"
 #include "OutputData.h"
+
 
 //- -------------------------------------------------------------------
 //! @class TestFresnelCoeff

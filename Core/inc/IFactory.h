@@ -58,7 +58,7 @@ public:
         if( it != m_callbacks.end() ) {
             throw ExistingClassRegistrationException("IFactory::registerItem() -> Panic! Already registered itemId '"+std::string(itemId)+"'");
         }
-        std::cout << "IFactory::RegisterSample() -> Info. Registering sample " << itemId << std::endl;
+        std::cout << "IFactory::registerItem() -> Info. Registering item '" << itemId << "'." << std::endl;
         return m_callbacks.insert( typename CallbackMap_t::value_type(itemId, CreateFn)).second;
     }
 

@@ -35,7 +35,8 @@ SOURCES += \
     src/DWBAFormFactor.cpp \
     src/ISingleton.cpp \
     src/IFunctionalTest.cpp \
-    src/IFactory.cpp
+    src/IFactory.cpp \
+    src/DWBADiffuseReflection.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -69,8 +70,9 @@ HEADERS += \
     inc/Units.h \
     inc/ISingleton.h \
     inc/IFunctionalTest.h \
-    inc/IFactory.h
-    inc/Numeric.h
+    inc/IFactory.h \
+    inc/Numeric.h \
+    inc/DWBADiffuseReflection.h
 
 INCLUDEPATH += /opt/local/include ./inc
 DEPENDPATH += ./inc

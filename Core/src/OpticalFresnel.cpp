@@ -17,9 +17,9 @@ int OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, Mul
 
     calculateFresnelCoefficients(coeff);
 
-    calculateX2(sample, coeff);
+    calculateX(sample, coeff);
 
-    calculateRT2(sample, coeff);
+    calculateRT(sample, coeff);
 
     return 0;
 }

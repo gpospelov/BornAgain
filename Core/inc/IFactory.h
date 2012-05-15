@@ -14,8 +14,9 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.05.2012
 
+
+#include "Exceptions.h"
 #include <map>
-#include <stdexcept>
 #include <iostream>
 #include <vector>
 
@@ -42,9 +43,7 @@ public:
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
         if( it == m_callbacks.end() ) {
             // item with such itemId have not been registered in the database
-            //std::cout << "IFactory::createItem() -> Warning. No object '" << itemId << "' registered." << std::endl;
-            throw std::runtime_error("IFactory::createItem() -> Panic. Unknown itemId");
-            //return 0;
+            throw UnknownClassRegistrationException("IFactory::createItem() -> Panic. Unknown itemId '"+std::string(itemId)+"'");
         }
         // invoke the creation function
         AbstractProduct *x = (it->second)();
@@ -57,7 +56,7 @@ public:
     {
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
         if( it != m_callbacks.end() ) {
-            throw std::runtime_error("IFactory::createItem() -> Panic. Unknown itemId ");
+            throw ExistingClassRegistrationException("IFactory::registerItem() -> Panic! Already registered itemId '"+std::string(itemId)+"'");
         }
         std::cout << "IFactory::RegisterSample() -> Info. Registering sample " << itemId << std::endl;
         return m_callbacks.insert( typename CallbackMap_t::value_type(itemId, CreateFn)).second;
@@ -87,11 +86,14 @@ public:
     //! set flag to store created objects
     void setStoreObjects(bool store_objects) { m_store_objects = store_objects; }
 
+    //! return number of registered objects
+    size_t getNumberOfRegistered() const { return m_callbacks.size(); }
+
 protected:
     bool m_delete_objects;         //!< will delete created objects on exit then true
     bool m_store_objects;          //!< will store created objects
     CallbackMap_t m_callbacks;     //!< map of correspondance of objectsId and creation functions
-    std::vector<AbstractProduct *> m_objects;
+    std::vector<AbstractProduct *> m_objects; //! vector of all created objects (if m_store_objects==true)
 };
 
 //! creation function

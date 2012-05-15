@@ -7,9 +7,6 @@
 #include "TApplication.h"
 
 
-bool exists(int argc, char **argv, const std::string &stext);
-
-
 
 int main(int argc, char **argv)
 {

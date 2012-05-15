@@ -3,7 +3,7 @@
 #include <cmath>
 #include <stdexcept>
 #include <fftw3.h>
-
+#include <string.h>
 
 double MathFunctions::Gaussian(double value, double average, double std_dev)
 {

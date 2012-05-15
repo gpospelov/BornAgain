@@ -24,11 +24,13 @@ ClassInitializationException::ClassInitializationException(const std::string &me
 SelfReferenceException::SelfReferenceException(const std::string& message)
     : std::logic_error(message)
 {
+    std::cout << message << std::endl;
 }
 
 DeadReferenceException::DeadReferenceException(const std::string &message)
     : std::runtime_error(message)
 {
+    std::cout << message << std::endl;
 }
 
 UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string &message)

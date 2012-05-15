@@ -1,5 +1,5 @@
-#ifndef SAMPLEFACTORY_H
-#define SAMPLEFACTORY_H
+#ifndef DWBADIFFUSEREFLECTION_H
+#define DWBADIFFUSEREFLECTION_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,27 +9,28 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   SampleFactory.h
-//! @brief  Definition of SampleFactory class
+//! @file   DWBADiffuseReflection.h
+//! @brief  Definition of DWBADiffuseReflection class for multi-layers
 //! @author Scientific Computing Group at FRM II
-//! @date   01.05.2012
+//! @date   02.05.2012
 
-#include "ISingleton.h"
-#include "IFactory.h"
-#include "ISample.h"
+#include "ISimulation.h"
+#include "Units.h"
+#include "MultiLayer.h"
 
 
 //- -------------------------------------------------------------------
-//! @class SampleFactory
-//! @brief Factory to create standard pre-defined samples
-//! Samples itself are defined in StandardSamples.{h, cxx}
+//! @class DWBADiffuseReflection
+//! @brief Calculation of diffuse (aka off-specular) reflection from multilayers.
 //- -------------------------------------------------------------------
-class SampleFactory : public ISingleton<SampleFactory>, public IFactory<std::string, ISample>
+class DWBADiffuseReflection : public ISimulation
 {
 public:
-    SampleFactory();
+    DWBADiffuseReflection();
+
+
+    static double execute(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf);
 
 };
 
-#endif // SAMPLEFACTORY_H
-
+#endif // DWBADIFFUSEREFLECTION_H

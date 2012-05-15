@@ -33,14 +33,14 @@ std::vector<size_t> MultiIndex::getCoordinate()
     return m_current_coordinate;
 }
 
-size_t MultiIndex::getCoordinate(std::string label)
+size_t MultiIndex::getCoordinate(std::string axis_name)
 {
-    if (m_label_index_map.count(label) == 0)
+    if (m_label_index_map.count(axis_name) == 0)
     {
-        std::string message = "Label not found: " + label;
+        std::string message = "Label not found: " + axis_name;
         throw NullPointerException(message);
     }
-    return getCoordinate()[m_label_index_map.find(label)->second];
+    return getCoordinate()[m_label_index_map.find(axis_name)->second];
 }
 
 void MultiIndex::reset()
@@ -70,10 +70,10 @@ void MultiIndex::updateCurrentPosition()
     }
 }
 
-void MultiIndex::setCoordinate(std::string label, size_t value)
+void MultiIndex::setCoordinate(std::string axis_name, size_t value)
 {
-    if (m_label_index_map.count(label) == 0) return;
-    size_t index = m_label_index_map[label];
+    if (m_label_index_map.count(axis_name) == 0) return;
+    size_t index = m_label_index_map[axis_name];
     if (value >= m_axis_sizes[index])
     {
         throw OutOfBoundsException("Coordinate value out of bounds!");
@@ -82,10 +82,10 @@ void MultiIndex::setCoordinate(std::string label, size_t value)
     updateCurrentPosition();
 }
 
-void MultiIndex::incrementCoordinate(std::string label)
+void MultiIndex::incrementCoordinate(std::string axis_name)
 {
-    if (m_label_index_map.count(label) == 0) return;
-    size_t index = m_label_index_map[label];
+    if (m_label_index_map.count(axis_name) == 0) return;
+    size_t index = m_label_index_map[axis_name];
     if (m_current_coordinate[index] < m_axis_sizes[index]-2)
     {
         ++m_current_coordinate[index];
@@ -95,10 +95,10 @@ void MultiIndex::incrementCoordinate(std::string label)
     throw OutOfBoundsException("Coordinate value out of bounds!");
 }
 
-void MultiIndex::decrementCoordinate(std::string label)
+void MultiIndex::decrementCoordinate(std::string axis_name)
 {
-    if (m_label_index_map.count(label) == 0) return;
-    size_t index = m_label_index_map[label];
+    if (m_label_index_map.count(axis_name) == 0) return;
+    size_t index = m_label_index_map[axis_name];
     if (m_current_coordinate[index] > 1)
     {
         --m_current_coordinate[index];

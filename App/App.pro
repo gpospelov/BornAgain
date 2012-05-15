@@ -2,6 +2,7 @@ TEMPLATE = app
 CONFIG  += console
 CONFIG  -= qt
 CONFIG  -= app_bundle
+#CONFIG  += debug
 QT      -= core gui
 
 SOURCES += \

@@ -10,18 +10,8 @@ namespace StandardSamples{
 ISample *AirOnSubstrate();
 ISample *SubstrateOnSubstrate();
 ISample *SimpleMultilayer();
+ISample *MultilayerWithRoughness();
 
-//ISample *AirOnSubstrate();
-//const int id_AirOnSubstrate = 0;
-//const bool reg_AirOnSubstrate = SampleFactory::instance().registerItem(id_AirOnSubstrate, AirOnSubstrate);
-
-//ISample *SubstrateOnSubstrate();
-//const int id_SubstrateOnSubstrate = 1;
-//const bool reg_SubstrateOnSubstrate = SampleFactory::instance().registerItem(id_SubstrateOnSubstrate, SubstrateOnSubstrate);
-
-//ISample *SimpleMultilayer();
-//const int id_SimpleMultilayer = 2;
-//const bool reg_SimpleMultilayer = SampleFactory::instance().registerItem(id_SimpleMultilayer, SimpleMultilayer);
 }
 
 

@@ -70,7 +70,7 @@ ISample *StandardSamples::SubstrateOnSubstrate()
 
 
 /* ************************************************************************* */
-// 10 nm of substrate on top of substrate.
+// simple multilayer
 /* ************************************************************************* */
 ISample *StandardSamples::SimpleMultilayer()
 {
@@ -100,9 +100,48 @@ ISample *StandardSamples::SimpleMultilayer()
 
     const unsigned nrepetitions = 2;
     for(unsigned i=0; i<nrepetitions; ++i) {
-        mySample->addLayer(lAg1);
+        mySample->addLayer(lAg1); // (double sigma, double hurstParameter, double latteralCorrLength
         mySample->addLayer(lCr1);
     }
     mySample->addLayer(lSubstrate);
     return mySample;
 }
+
+
+
+/* ************************************************************************* */
+// simple multilayer with roughness
+/* ************************************************************************* */
+ISample *StandardSamples::MultilayerWithRoughness()
+{
+    MaterialManager &matManager = MaterialManager::instance();
+
+    const IMaterial *mAmbience = matManager.addHomogeneousMaterial("ambience", complex_t(1.0, 0.0) );
+    const IMaterial *mAir = matManager.addHomogeneousMaterial("ag1", complex_t(1.0, 0.0) );
+    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate2", complex_t(1.0-15e-6, 0.0) );
+
+    Layer lAmbience;
+    lAmbience.setMaterial(mAmbience, 0);
+
+    Layer lAir;
+    lAir.setMaterial(mAir, 10.0*Units::nanometer);
+
+    Layer lSubstrate;
+    lSubstrate.setMaterial(mSubstrate, 0);
+
+    LayerRoughness roughness;
+    roughness.setSigma(1.0);
+    roughness.setHurstParameter(0.3);
+    roughness.setLatteralCorrLength(5000.);
+
+    MultiLayer *mySample = new MultiLayer;
+
+    // adding layers
+    mySample->addLayer(lAmbience);
+    mySample->addLayer(lAir);
+
+    mySample->addLayerWithTopRoughness(lSubstrate, roughness);
+
+    return mySample;
+}
+

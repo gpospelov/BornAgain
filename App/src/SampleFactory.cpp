@@ -10,4 +10,5 @@ SampleFactory::SampleFactory()
     registerItem("AirOnSubstrate", StandardSamples::AirOnSubstrate);
     registerItem("SubstrateOnSubstrate", StandardSamples::SubstrateOnSubstrate);
     registerItem("SimpleMultilayer", StandardSamples::SimpleMultilayer);
+    registerItem("MultilayerWithRoughness", StandardSamples::MultilayerWithRoughness);
 }

@@ -44,7 +44,7 @@ void TestFresnelCoeff::execute()
 
         m_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
 
-        m_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 201);
+        m_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 1024);
 
         m_coeffs->resetIndex();
         while (m_coeffs->hasNext())
@@ -130,13 +130,10 @@ void TestFresnelCoeff::draw()
     }
     TGraph *gr_absSum = new TGraph(); // |R_top|+|T_bottom|
 
-//    MultiIndex& index = m_coeffs->getIndex();
-//    index.reset();
     m_coeffs->resetIndex();
     int i_point = 0;
     while (m_coeffs->hasNext())
     {
-//        size_t index_alpha = index.getCoordinate("alpha_i");
         double alpha_i = m_coeffs->getCurrentValueOfAxis<double>("alpha_i");
         OpticalFresnel::MultiLayerCoeff_t coeffs = m_coeffs->next();
 
@@ -150,19 +147,17 @@ void TestFresnelCoeff::draw()
 
         // Filling graphics for |R|+|T| as a function of alpha_i taking R from the top and T from the bottom layers
         int nlast = nlayers - 1;
-        complex_t nx = m_sample->getLayer(nlast)->getRefractiveIndex();
-        complex_t n1 = m_sample->getLayer(0)->getRefractiveIndex();
-        //std::complex<double> kk = (1./(n1*std::sin(theta_i)))*std::sqrt(std::pow(nx,2)-cos(theta_i)*cos(theta_i)*std::pow(n1,2));
-        complex_t kk = std::sqrt((complex_t(1,0) - cos(alpha_i)*cos(alpha_i)/nx/nx) ) / sin(alpha_i);
-        double sum = std::norm(coeffs[0].R) + std::abs(kk)*std::norm(coeffs[nlast].T);
-        // calculation for sum is not valid, when outgoing angle in the bottom layer is parallel to the surfaced
-        double alpha_bottom = std::abs(n1/nx)*cos(alpha_i);
-        if(1-alpha_bottom < 0.0) sum = std::norm(coeffs[0].R);
+        double sum;
+        if(coeffs[0].kz.real()!=0.0) {
+            sum = std::norm(coeffs[0].R) + std::norm(coeffs[nlast].T)*coeffs[nlast].kz.real()/coeffs[0].kz.real();
+        }
+        else {
+            sum = 1.0;
+            std::cout << "Re(k_{z,0}) = 0 for alpha_i = " << alpha_i << std::endl;
+            std::cout << " and Re(k_{z,N+1}) = " << coeffs[nlast].kz.real() << std::endl;
+        }
+        gr_absSum->SetPoint(i_point++, Units::rad2deg(alpha_i), sum);
 
-        if(alpha_i!=0.0) gr_absSum->SetPoint(i_point, Units::rad2deg(alpha_i), sum);
-
-        ++i_point;
-//        ++index;
     }
 
     // create name of canvas different for each new call of this method
@@ -179,7 +174,7 @@ void TestFresnelCoeff::draw()
 
     for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
         c1->cd(i_layer+1);
-        //gPad->SetLogy();
+        gPad->SetLogy();
 
         // calculating histogram limits common for all graphs on given pad
         double xmin(0), ymin(0), xmax(0), ymax(0);
@@ -192,8 +187,8 @@ void TestFresnelCoeff::draw()
             if(y2 > ymax ) ymax = y2;
         }
         TH1F h1ref("h1ref","h1ref",100, xmin, xmax);
-        h1ref.SetMinimum(ymin);
-        h1ref.SetMaximum(ymax*1.1);
+        h1ref.SetMinimum(1e-6);
+        h1ref.SetMaximum(10);
         h1ref.SetStats(0);
         h1ref.SetTitle("");
         h1ref.GetXaxis()->SetTitle("angle, deg");

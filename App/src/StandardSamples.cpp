@@ -85,10 +85,10 @@ ISample *StandardSamples::SimpleMultilayer()
     lAmbience.setMaterial(mAmbience, 0);
 
     Layer lAg1;
-    lAg1.setMaterial(mAg1, 1500.0*Units::nanometer);
+    lAg1.setMaterial(mAg1, 150.0*Units::nanometer);
 
     Layer lCr1;
-    lCr1.setMaterial(mCr1, 1200.0*Units::nanometer);
+    lCr1.setMaterial(mCr1, 120.0*Units::nanometer);
 
     Layer lSubstrate;
     lSubstrate.setMaterial(mSubstrate, 0);

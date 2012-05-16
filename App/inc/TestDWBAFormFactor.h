@@ -27,6 +27,7 @@ public:
     virtual ~TestDWBAFormFactor();
     virtual void execute();
     void draw();
+    void write();
 
 private:
     OutputData<double> *mp_intensity_output;

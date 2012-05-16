@@ -14,6 +14,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <fstream>
 
 
 
@@ -23,8 +24,8 @@ TestDWBAFormFactor::TestDWBAFormFactor()
     m_dwba_ff.setReflectionFunction(new DoubleToComplexFunctionWrapper(reflection_fresnel));
     m_dwba_ff.setTransmissionFunction(new DoubleToComplexFunctionWrapper(transmission_fresnel));
     mp_intensity_output = new OutputData<double>();
-    NamedVectorBase *p_y_axis = new NamedVector<double>(std::string("detector y-axis"), 0.0, 2.0, 200);
-    NamedVectorBase *p_z_axis = new NamedVector<double>(std::string("detector z-axis"), 0.0, 2.0, 200);
+    NamedVectorBase *p_y_axis = new NamedVector<double>(std::string("detector y-axis"), 0.0, 2.0, 100);
+    NamedVectorBase *p_z_axis = new NamedVector<double>(std::string("detector z-axis"), 0.0, 2.0, 100);
     mp_intensity_output->addAxis(p_y_axis);
     mp_intensity_output->addAxis(p_z_axis);
 }
@@ -55,6 +56,7 @@ void TestDWBAFormFactor::execute()
         ++index;
     }
     draw();
+    write();
 }
 
 void TestDWBAFormFactor::draw()
@@ -96,9 +98,26 @@ void TestDWBAFormFactor::draw()
     p_hist2D->Draw("CONT4");
 }
 
+void TestDWBAFormFactor::write()
+{
+    std::ofstream file;
+    file.open("dwbacyl.ima", std::ios::out);
+    mp_intensity_output->resetIndex();
+    size_t row_length = mp_intensity_output->getAxes()[0]->getSize();
+    int counter = 1;
+    while(mp_intensity_output->hasNext()) {
+        double z_value = mp_intensity_output->next();
+        file << z_value << "    ";
+        if(counter%row_length==0) {
+            file << std::endl;
+        }
+        ++counter;
+    }
+}
+
 complex_t reflection_fresnel(double alpha_i)
 {
-    complex_t refraction_index(1.0-5e-6, -2e-8);
+    complex_t refraction_index(1.0-6e-6, +2e-8);
     complex_t cos_alpha_0_squared = std::cos(alpha_i)*std::cos(alpha_i);
     complex_t f0 = std::sqrt(complex_t(1.0, 0.0) - cos_alpha_0_squared);
     complex_t f1 = std::sqrt(refraction_index*refraction_index - cos_alpha_0_squared);

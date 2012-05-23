@@ -7,6 +7,7 @@
 
 #include "TestDWBAFormFactor.h"
 #include "Types.h"
+#include "Units.h"
 
 #include "TCanvas.h"
 #include "TH2.h"
@@ -19,13 +20,15 @@
 
 
 TestDWBAFormFactor::TestDWBAFormFactor()
-    : m_dwba_ff(new FormFactorCylinder(50.0, 50.0))
+    : m_dwba_ff(new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer))
 {
     m_dwba_ff.setReflectionFunction(new DoubleToComplexFunctionWrapper(reflection_fresnel));
     m_dwba_ff.setTransmissionFunction(new DoubleToComplexFunctionWrapper(transmission_fresnel));
     mp_intensity_output = new OutputData<double>();
-    NamedVectorBase *p_y_axis = new NamedVector<double>(std::string("detector y-axis"), 0.0, 2.0, 100);
-    NamedVectorBase *p_z_axis = new NamedVector<double>(std::string("detector z-axis"), 0.0, 2.0, 100);
+    NamedVector<double> *p_y_axis = new NamedVector<double>(std::string("detector y-axis"));
+    initialize_angles_sine(p_y_axis, 0.0, 2.0, 100);
+    NamedVector<double> *p_z_axis = new NamedVector<double>(std::string("detector z-axis"));
+    initialize_angles_sine(p_z_axis, 0.0, 2.0, 100);
     mp_intensity_output->addAxis(p_y_axis);
     mp_intensity_output->addAxis(p_z_axis);
 }
@@ -40,8 +43,10 @@ void TestDWBAFormFactor::execute()
     MultiIndex& index = mp_intensity_output->getIndex();
     NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
     NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
-    double lambda = 1.0;
+    double lambda = 1*Units::angstrom;
     double alpha_i = 0.2*M_PI/180.0;
+    complex_t n_island(1.0-6e-4, +2e-8);
+    double normalizing_factor = std::norm((complex_t(1.0,0.0) - n_island*n_island)*M_PI/lambda/lambda);
     kvector_t k_i;
     k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
     while (!index.endPassed())
@@ -52,7 +57,7 @@ void TestDWBAFormFactor::execute()
         double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
         kvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        mp_intensity_output->currentValue() = std::pow(std::abs(m_dwba_ff.evaluate(k_i, k_f)),2);
+        mp_intensity_output->currentValue() = normalizing_factor*std::pow(std::abs(m_dwba_ff.evaluate(k_i, k_f)),2);
         ++index;
     }
     draw();
@@ -94,8 +99,9 @@ void TestDWBAFormFactor::draw()
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
     gPad->SetLogz();
-    p_hist2D->SetMinimum(1e5);
-    p_hist2D->Draw("CONT4");
+    gPad->SetRightMargin(0.12);
+    p_hist2D->SetMinimum(1.0);
+    p_hist2D->Draw("CONT4 Z");
 }
 
 void TestDWBAFormFactor::write()
@@ -117,7 +123,7 @@ void TestDWBAFormFactor::write()
 
 complex_t reflection_fresnel(double alpha_i)
 {
-    complex_t refraction_index(1.0-6e-6, +2e-8);
+    complex_t refraction_index(1.0-6e-6, 2e-8);
     complex_t cos_alpha_0_squared = std::cos(alpha_i)*std::cos(alpha_i);
     complex_t f0 = std::sqrt(complex_t(1.0, 0.0) - cos_alpha_0_squared);
     complex_t f1 = std::sqrt(refraction_index*refraction_index - cos_alpha_0_squared);
@@ -128,4 +134,15 @@ complex_t transmission_fresnel(double alpha_i)
 {
     (void)alpha_i;
     return complex_t(1.0, 0.0);
+}
+
+// For IsGISAXS comparison:
+void initialize_angles_sine(NamedVector<double> *p_axis, double start, double end, size_t size) {
+	double start_sin = std::sin(start*M_PI/180);
+	double end_sin = std::sin(end*M_PI/180);
+	double step = (end_sin-start_sin)/(size-1);
+	for(size_t i=0; i<size; ++i) {
+		p_axis->push_back(std::asin(start_sin + step*i)*180/M_PI);
+	}
+	return;
 }

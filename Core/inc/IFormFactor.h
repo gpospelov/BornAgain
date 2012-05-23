@@ -33,7 +33,7 @@ public:
 
     virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const
     {
-    	return evaluate_for_q(k_f - k_i);
+    	return evaluate_for_q(k_i - k_f);
     }
 protected:
     virtual complex_t evaluate_for_q(kvector_t q) const=0;

@@ -36,6 +36,7 @@ private:
 
 complex_t reflection_fresnel(double alpha_i);
 complex_t transmission_fresnel(double alpha_i);
+void initialize_angles_sine(NamedVector<double> *p_axis, double start, double end, size_t size);
 
 
 #endif /* TESTDWBAFORMFACTOR_H_ */

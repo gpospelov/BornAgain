@@ -35,8 +35,8 @@ void TestFormFactor::execute()
     k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
     while (!index.endPassed())
     {
-        size_t index_y = index.getCoordinate("detector y-axis");
-        size_t index_z = index.getCoordinate("detector z-axis");
+        size_t index_y = index.getCurrentIndexOfAxis("detector y-axis");
+        size_t index_z = index.getCurrentIndexOfAxis("detector z-axis");
         double phi_f = M_PI*(*p_y_axis)[index_y]/180.0;
         double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
         kvector_t k_f;
@@ -70,8 +70,8 @@ void TestFormFactor::draw()
 
     while (!index.endPassed())
     {
-        size_t index_y = index.getCoordinate("detector y-axis");
-        size_t index_z = index.getCoordinate("detector z-axis");
+        size_t index_y = index.getCurrentIndexOfAxis("detector y-axis");
+        size_t index_z = index.getCurrentIndexOfAxis("detector z-axis");
         double x_value = (*p_y_axis)[index_y];
         double y_value = (*p_z_axis)[index_z];
         double z_value = std::log(mp_intensity_output->currentValue());

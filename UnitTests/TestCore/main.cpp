@@ -38,9 +38,9 @@ TEST_F(OutputDataTest, SizeAfterAddingAxes)
 TEST_F(OutputDataTest, DataInitialization)
 {
     MultiIndex &db_data_index = db_data_3d.getIndex();
-    db_data_index.setCoordinate("angle", 11);
-    db_data_index.setCoordinate("length", 4);
-    db_data_index.setCoordinate("index", 3);
+    db_data_index.setIndexOfAxis("angle", 11);
+    db_data_index.setIndexOfAxis("length", 4);
+    db_data_index.setIndexOfAxis("index", 3);
     EXPECT_DOUBLE_EQ((double)1143, db_data_3d.currentValue());
 }
 

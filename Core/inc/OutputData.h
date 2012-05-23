@@ -25,14 +25,14 @@ class MultiIndex
     template <class T> friend class OutputData;
 public:
     std::vector<std::string> getLabels() { return m_labels; }
-    std::vector<size_t> getCoordinate();
-    size_t getCoordinate(std::string axis_name);
+    std::vector<size_t> getCurrentIndices();
+    size_t getCurrentIndexOfAxis(std::string axis_name);
     size_t getPosition() { return m_current_position; }
     size_t getSize() { return m_total_size; }
     void reset();
-    void setCoordinate(std::string axis_name, size_t value);
-    void incrementCoordinate(std::string axis_name);
-    void decrementCoordinate(std::string axis_name);
+    void setIndexOfAxis(std::string axis_name, size_t value);
+    void incrementIndexOfAxis(std::string axis_name);
+    void decrementIndexOfAxis(std::string axis_name);
     MultiIndex& operator++();
     bool endPassed() { return m_end_passed; }
 private:
@@ -41,7 +41,7 @@ private:
     // Disabling copy constructor and assignment
     MultiIndex(const MultiIndex& source);
     MultiIndex operator=(const MultiIndex& source);
-    void updateCurrentCoordinate();
+    void updateCurrentIndices();
     void updateCurrentPosition();
 
     void init(const std::vector<NamedVectorBase*>& value_axes);
@@ -74,7 +74,7 @@ public:
     bool hasNext();
     T& next();
     T& currentValue();
-    size_t getCoordinate(std::string axis_name);
+    size_t getCurrentIndexOfAxis(std::string axis_name);
     template <class U> U getCurrentValueOfAxis(std::string axis_name);
 
 private:
@@ -158,16 +158,16 @@ template <class T> inline T& OutputData<T>::currentValue()
     return m_data_vector[m_index.m_current_position];
 }
 
-template <class T> inline size_t OutputData<T>::getCoordinate(std::string axis_name)
+template <class T> inline size_t OutputData<T>::getCurrentIndexOfAxis(std::string axis_name)
 {
-    return m_index.getCoordinate(axis_name);
+    return m_index.getCurrentIndexOfAxis(axis_name);
 }
 
 template <class T>
 template <class U> inline U OutputData<T>::getCurrentValueOfAxis(std::string axis_name)
 {
     NamedVector<U> *p_axis = dynamic_cast<NamedVector<U>*>(getAxis(axis_name));
-    size_t index = getCoordinate(axis_name);
+    size_t index = getCurrentIndexOfAxis(axis_name);
     return (*p_axis)[index];
 }
 

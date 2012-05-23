@@ -4,7 +4,7 @@
 
 #include "MultiLayer.h"
 
-MultiLayer::MultiLayer()
+MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
 }
 
@@ -54,6 +54,8 @@ MultiLayer *MultiLayer::clone() const
         LayerInterface *newInterface = LayerInterface::createRoughInterface(topLayer, bottomLayer, m_interfaces[i]->getRoughness() );
         newMultiLayer->m_interfaces.push_back( newInterface );
     }
+
+    newMultiLayer->m_crossCorrLength = m_crossCorrLength;
 
     return newMultiLayer;
 }
@@ -108,9 +110,8 @@ void MultiLayer::print()
 }
 
 
-
 /* ************************************************************************* */
-// clear MultiLayer contents including interfaces
+// add layer with top roughness
 /* ************************************************************************* */
 void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness)
 {
@@ -129,6 +130,10 @@ void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughne
 }
 
 
+
+/* ************************************************************************* */
+// add layer with default (zero) roughness
+/* ************************************************************************* */
 void MultiLayer::addLayer(const Layer &p_child)
 {
     const Layer &layer = dynamic_cast<const Layer &>(p_child);
@@ -136,3 +141,38 @@ void MultiLayer::addLayer(const Layer &p_child)
 }
 
 
+/* ************************************************************************* */
+//! Correlation function of roughnesses between the interfaces
+//! j,k - indexes of layers in multilayer whose bottom interfaces we are considering
+/* ************************************************************************* */
+//double MultiLayer::getCrossCorrFun(const kvector_t &kvec, int j, int k) const
+//{
+//    double z_j = getLayerBottomZ(j);
+//    double z_k = getLayerBottomZ(k);
+//    const LayerRoughness &rough_j = getLayerBottomInterface(j)->getRoughness();
+//    const LayerRoughness &rough_k = getLayerBottomInterface(k)->getRoughness();
+//    double sigma_j = rough_j.getSigma();
+//    double sigma_k = rough_k.getSigma();
+//    double corr = 0.5*(sigma_k/sigma_j*rough_j.getCorrFun(kvec) + sigma_j/sigma_k*rough_k.getCorrFun(kvec) ) * std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
+//    return corr;
+//}
+
+
+/* ************************************************************************* */
+//! Fourier transform of the correlation function of roughnesses between the interfaces
+//! j,k - indexes of layers in multilayer whose bottom interfaces we are considering
+/* ************************************************************************* */
+double MultiLayer::getCrossCorrSpectralFun(const kvector_t &kvec, int j, int k) const
+{
+    double z_j = getLayerBottomZ(j);
+    double z_k = getLayerBottomZ(k);
+    const LayerRoughness &rough_j = getLayerBottomInterface(j)->getRoughness();
+    const LayerRoughness &rough_k = getLayerBottomInterface(k)->getRoughness();
+    double sigma_j = rough_j.getSigma();
+    double sigma_k = rough_k.getSigma();
+    if(sigma_j == 0 || sigma_k ==0 || m_crossCorrLength==0) {
+        throw DivisionByZeroException("MultiLayer::getCrossCorrSpectralFun() -> Not defined sigma of roughness or crossCorrLength");
+    }
+    double corr = 0.5*(sigma_k/sigma_j*rough_j.getSpectralFun(kvec) + sigma_j/sigma_k*rough_k.getSpectralFun(kvec) ) * std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
+    return corr;
+}

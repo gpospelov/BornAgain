@@ -17,6 +17,7 @@
 #include "ISimulation.h"
 #include "Units.h"
 #include "MultiLayer.h"
+#include "OpticalFresnel.h"
 
 
 //- -------------------------------------------------------------------
@@ -28,9 +29,32 @@ class DWBADiffuseReflection : public ISimulation
 public:
     DWBADiffuseReflection();
 
+    void execute(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf);
 
-    static double execute(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf);
+    void setSample(const MultiLayer &sample) {m_sample = &sample; }
 
+    double getDiffuseAutocorr() const { return m_diffuse_autocorr; }
+
+    double getDiffuseCrosscorr() const { return m_diffuse_crosscorr; }
+
+    //static double execute0(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf);
+
+private:
+    void diffuse_autocorr();
+
+    void diffuse_crosscorr();
+
+    complex_t get_refractive_term(int ilayer);
+
+    complex_t get_sum4terms(int ilayer);
+
+    const MultiLayer *m_sample;
+    OpticalFresnel::MultiLayerCoeff_t m_fcoeff_i;
+    OpticalFresnel::MultiLayerCoeff_t m_fcoeff_f;
+    kvector_t m_ki;
+    kvector_t m_kf;
+    double m_diffuse_autocorr;
+    double m_diffuse_crosscorr;
 };
 
 #endif // DWBADIFFUSEREFLECTION_H

@@ -4,7 +4,7 @@
 TARGET   = ScattCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
-#CONFIG  += debug
+CONFIG  += debug
 QT      -= core gui
 
 QMAKE_EXTENSION_SHLIB = so

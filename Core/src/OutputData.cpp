@@ -27,30 +27,30 @@ MultiIndex::~MultiIndex()
     clear();
 }
 
-std::vector<size_t> MultiIndex::getCoordinate()
+std::vector<size_t> MultiIndex::getCurrentIndices()
 {
-    updateCurrentCoordinate();
+    updateCurrentIndices();
     return m_current_coordinate;
 }
 
-size_t MultiIndex::getCoordinate(std::string axis_name)
+size_t MultiIndex::getCurrentIndexOfAxis(std::string axis_name)
 {
     if (m_label_index_map.count(axis_name) == 0)
     {
         std::string message = "Label not found: " + axis_name;
         throw NullPointerException(message);
     }
-    return getCoordinate()[m_label_index_map.find(axis_name)->second];
+    return getCurrentIndices()[m_label_index_map.find(axis_name)->second];
 }
 
 void MultiIndex::reset()
 {
     m_current_position = 0;
     m_end_passed = false;
-    updateCurrentCoordinate();
+    updateCurrentIndices();
 }
 
-void MultiIndex::updateCurrentCoordinate()
+void MultiIndex::updateCurrentIndices()
 {
     size_t remainder = m_current_position;
     for (size_t i=0; i<m_dimension; ++i)
@@ -70,7 +70,7 @@ void MultiIndex::updateCurrentPosition()
     }
 }
 
-void MultiIndex::setCoordinate(std::string axis_name, size_t value)
+void MultiIndex::setIndexOfAxis(std::string axis_name, size_t value)
 {
     if (m_label_index_map.count(axis_name) == 0) return;
     size_t index = m_label_index_map[axis_name];
@@ -82,7 +82,7 @@ void MultiIndex::setCoordinate(std::string axis_name, size_t value)
     updateCurrentPosition();
 }
 
-void MultiIndex::incrementCoordinate(std::string axis_name)
+void MultiIndex::incrementIndexOfAxis(std::string axis_name)
 {
     if (m_label_index_map.count(axis_name) == 0) return;
     size_t index = m_label_index_map[axis_name];
@@ -95,7 +95,7 @@ void MultiIndex::incrementCoordinate(std::string axis_name)
     throw OutOfBoundsException("Coordinate value out of bounds!");
 }
 
-void MultiIndex::decrementCoordinate(std::string axis_name)
+void MultiIndex::decrementIndexOfAxis(std::string axis_name)
 {
     if (m_label_index_map.count(axis_name) == 0) return;
     size_t index = m_label_index_map[axis_name];

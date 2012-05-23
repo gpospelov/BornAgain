@@ -50,9 +50,12 @@ for(dep, MY_DEPENDENCY_LIB) {
     INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
 }
 
-
-INCLUDEPATH += /opt/local/include
-LIBS += -L /opt/local/lib/ -lfftw3
+macx {
+  INCLUDEPATH += /opt/local/include
+  LIBS += -L /opt/local/lib/ -lfftw3
+} else {
+  LIBS += -L /usr/lib64/ -lfftw3
+}
 
 ###############################################################################
 # adding ROOT libraries

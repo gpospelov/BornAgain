@@ -132,11 +132,12 @@ void TestDiffuseReflection::draw()
     // specular plot
     TGraph *gr = new TGraph(m_npoints);
     m_data_spec->resetIndex();
+    int i_point=0;
     while (m_data_spec->hasNext())
     {
         double alpha_i = m_data_spec->getCurrentValueOfAxis<double>("alpha_i");
         double r = m_data_spec->next();
-        gr->SetPoint(m_data_spec->getCoordinate("alpha_i"), Units::rad2deg(alpha_i), r);
+        gr->SetPoint(i_point++, Units::rad2deg(alpha_i), r);
     }
 
     // off specular plot

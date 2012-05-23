@@ -74,12 +74,18 @@ HEADERS += \
     inc/Numeric.h \
     inc/DWBADiffuseReflection.h
 
-INCLUDEPATH += /opt/local/include ./inc
+INCLUDEPATH += ./inc
 DEPENDPATH += ./inc
 
 OBJECTS_DIR = obj
 
-LIBS += -L/opt/local/lib -lgsl -lfftw3
+macx {
+  INCLUDEPATH += /opt/local/include
+  LIBS += -L /opt/local/lib/ -lgsl -lfftw3
+} else {
+  LIBS += -L /usr/lib64/ -lgsl -lgslcblas -lfftw3
+}
+
 
 ###############################################################################
 # Installing library into dedicated directory at the end of compilation

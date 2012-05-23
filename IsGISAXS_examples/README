@@ -1,0 +1,12 @@
+This folder contains example data from IsGISAXS for comparison with GISASFW
+
+In each subdirectory, one finds:
+- one or multiple .inp files, used to generate IsGISAXS simulations and describing the simulation parameters
+- the simulation output (.ima ascii files, containing the scattered intensity)
+- a text file (sim.txt) describing how to reproduce this simulation with GISASFW
+- the simulation output from GISASFW (same format as for IsGISAXS)
+
+Some notes:
+-Since polarization (x-ray) is not yet included in GISASFW, this feature should be disabled in IsGISAXS by returning 1._wp from function PolFac in Reflectivity_mod.f90
+-IsGISAXS initializes the arrays of outgoing angles such that their sines are evenly spaced. This necessitates a different initialization in GISASFW too: see TestDWBAFormFactor.cpp for an example of how to do this
+-In the subdirectory scripts/ , one can find python scripts that can be used to compare the different simulation outputs

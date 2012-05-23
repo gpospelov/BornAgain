@@ -107,7 +107,7 @@ void TestDWBAFormFactor::draw()
 void TestDWBAFormFactor::write()
 {
     std::ofstream file;
-    file.open("dwbacyl.ima", std::ios::out);
+    file.open("./IsGISAXS_examples/ex-3/dwbacyl.ima", std::ios::out);
     mp_intensity_output->resetIndex();
     size_t row_length = mp_intensity_output->getAxes()[0]->getSize();
     int counter = 1;

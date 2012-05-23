@@ -15,6 +15,8 @@
 //! @date   01.05.2012
 
 #include "IFunctionalTest.h"
+#include "OutputData.h"
+#include "TH2D.h"
 
 class MultiLayer;
 
@@ -34,6 +36,13 @@ public:
 
 private:
     MultiLayer *m_sample; //!< pointer to multilayer sample
+    OutputData<double  > *m_data_spec; //!< specular reflectivity
+    OutputData<double  > *m_data_offspec; //!< off specular reflectivity
+
+    double m_alphaMin; //! min alpha value
+    double m_alphaMax; //! max alpha value
+    int m_npoints;     //! number of points in range [m_alphaMin, m_alphaMax]
+
 };
 
 

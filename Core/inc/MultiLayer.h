@@ -23,7 +23,7 @@
 
 //- -------------------------------------------------------------------
 //! @class MultiLayer
-//! @brief Stack of layers one on top of the other
+//! @brief Stack of layers one below the other
 //!
 //! Example of system of 4 layers (3 interfaces):
 //!
@@ -75,6 +75,18 @@ public:
     //! print structure of multilayer
     void print();
 
+    //! set cross correlation length of roughnesses between interfaces
+    inline void   setCrossCorrLength(double crossCorrLength) { crossCorrLength!=0 ? m_crossCorrLength = crossCorrLength : throw LogicErrorException("Attempt to set crossCorrLength to zero"); }
+
+    //! return cross correlation length of roughnesses between interfaces
+    inline double getCrossCorrLength() const { return m_crossCorrLength; }
+
+    ///! correlation function of roughnesses between the interfaces
+    //double getCrossCorrFun(const kvector_t &k, int j, int k) const;
+
+    //! fourier transform of the correlation function of roughnesses between the interfaces
+    double getCrossCorrSpectralFun(const kvector_t &k, int j, int k) const;
+
 private:
     //! hiding copy constructor & assignment operator
     MultiLayer(const MultiLayer &);
@@ -89,6 +101,7 @@ private:
     std::vector<Layer *> m_layers;                ///< stack of layers [nlayers]
     std::vector<double > m_layers_z;              ///< coordinate of layer's bottoms [nlayers]
     std::vector<LayerInterface *> m_interfaces;   ///< stack of layer interfaces [nlayers-1]
+    double m_crossCorrLength;                     //!< cross correlation length (in z direction) between different layers
 };
 
 #endif // MULTILAYER_H

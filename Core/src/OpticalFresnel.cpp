@@ -164,7 +164,7 @@ void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &c
         }
 
         complex_t x_ratio = coeff[i+1].R / coeff[i+1].T;
-        std::cout << "Calculated R: "<< coeff[i+1].R << " Calculated T: " << coeff[i+1].T << std::endl;
-        std::cout << "Calculated X: "<< x_ratio << " Real X: " << coeff[i+1].X << std::endl;
+        //std::cout << "Calculated R: "<< coeff[i+1].R << " Calculated T: " << coeff[i+1].T << std::endl;
+        //std::cout << "Calculated X: "<< x_ratio << " Real X: " << coeff[i+1].X << std::endl;
     }
 }

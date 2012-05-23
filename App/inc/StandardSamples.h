@@ -10,7 +10,10 @@ namespace StandardSamples{
 ISample *AirOnSubstrate();
 ISample *SubstrateOnSubstrate();
 ISample *SimpleMultilayer();
-ISample *MultilayerWithRoughness();
+ISample *MultilayerOffspecTestcase1a();
+ISample *MultilayerOffspecTestcase1b();
+ISample *MultilayerOffspecTestcase2a();
+ISample *MultilayerOffspecTestcase2b();
 
 }
 

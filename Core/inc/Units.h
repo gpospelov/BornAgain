@@ -14,8 +14,8 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.05.2012
 
-namespace Units {  // BornAgain namespace
 
+namespace Units {  // BornAgain namespace
 
 // Length
 static const double nanometer   = 1;

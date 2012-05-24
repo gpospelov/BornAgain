@@ -32,7 +32,7 @@ void DWBADiffuseReflection::execute(const MultiLayer &sample, const kvector_t &k
 void DWBADiffuseReflection::diffuse_autocorr()
 {
     double autocorr(0);
-    kvector_t q = m_ki - m_kf;
+    kvector_t q = m_kf - m_ki;
     for(size_t i=0; i<m_sample->getNumberOfLayers()-1; i++){
         autocorr += std::norm( get_refractive_term(i)) * std::norm(get_sum4terms(i) ) * m_sample->getLayerBottomInterface(i)->getRoughness().getSpectralFun(q);
     }
@@ -42,12 +42,12 @@ void DWBADiffuseReflection::diffuse_autocorr()
 
 void DWBADiffuseReflection::diffuse_crosscorr()
 {
-    double crosscorr(0);
-    kvector_t q = m_ki - m_kf;
+    complex_t crosscorr(0);
+    kvector_t q = m_kf - m_ki;
     for(size_t j=0; j<m_sample->getNumberOfLayers()-1; j++){
         for(size_t k=0; k<m_sample->getNumberOfLayers()-1; k++) {
             if(j==k) continue;
-            crosscorr += std::abs(get_refractive_term(j)*get_refractive_term(k))*m_sample->getCrossCorrSpectralFun(q,j,k)*std::abs(get_sum4terms(j)*std::conj(get_sum4terms(k)));
+            crosscorr += get_refractive_term(j)*get_refractive_term(k)*m_sample->getCrossCorrSpectralFun(q,j,k)*get_sum4terms(j)*std::conj(get_sum4terms(k));
         }
     }
     m_diffuse_crosscorr = std::abs(crosscorr)*m_ki.mag2()/16./M_PI;
@@ -65,14 +65,24 @@ complex_t DWBADiffuseReflection::get_refractive_term(int ilayer)
 complex_t DWBADiffuseReflection::get_sum4terms(int ilayer)
 {
     double sigma = m_sample->getLayerBottomInterface(ilayer)->getRoughness().getSigma();
+//    double qz1 = m_ki.z() + m_kf.z();
+//    double qz2 = -m_ki.z() - m_kf.z();
+//    double qz3 = m_ki.z() - m_kf.z();
+//    double qz4 = -m_ki.z() + m_kf.z();
+//    complex_t term1 = m_fcoeff_i[ilayer+1].T * m_fcoeff_f[ilayer+1].T * std::exp( -0.5*std::pow(sigma * qz1 ,2) );
+//    complex_t term2 = m_fcoeff_i[ilayer+1].R * m_fcoeff_f[ilayer+1].T * std::exp( -0.5*std::pow(sigma * qz2 ,2) );
+//    complex_t term3 = m_fcoeff_i[ilayer+1].T * m_fcoeff_f[ilayer+1].R * std::exp( -0.5*std::pow(sigma * qz3 ,2) );
+//    complex_t term4 = m_fcoeff_i[ilayer+1].R * m_fcoeff_f[ilayer+1].R * std::exp( -0.5*std::pow(sigma * qz4 ,2) );
+
     double qz1 = m_ki.z() + m_kf.z();
-    double qz2 = -m_ki.z() - m_kf.z();
-    double qz3 = m_ki.z() - m_kf.z();
-    double qz4 = -m_ki.z() + m_kf.z();
+    double qz2 = m_ki.z() - m_kf.z();
+    double qz3 = -m_ki.z() + m_kf.z();
+    double qz4 = -m_ki.z() - m_kf.z();
     complex_t term1 = m_fcoeff_i[ilayer+1].T * m_fcoeff_f[ilayer+1].T * std::exp( -0.5*std::pow(sigma * qz1 ,2) );
-    complex_t term2 = m_fcoeff_i[ilayer+1].R * m_fcoeff_f[ilayer+1].T * std::exp( -0.5*std::pow(sigma * qz2 ,2) );
-    complex_t term3 = m_fcoeff_i[ilayer+1].T * m_fcoeff_f[ilayer+1].R * std::exp( -0.5*std::pow(sigma * qz3 ,2) );
+    complex_t term2 = m_fcoeff_i[ilayer+1].T * m_fcoeff_f[ilayer+1].R * std::exp( -0.5*std::pow(sigma * qz2 ,2) );
+    complex_t term3 = m_fcoeff_i[ilayer+1].R * m_fcoeff_f[ilayer+1].T * std::exp( -0.5*std::pow(sigma * qz3 ,2) );
     complex_t term4 = m_fcoeff_i[ilayer+1].R * m_fcoeff_f[ilayer+1].R * std::exp( -0.5*std::pow(sigma * qz4 ,2) );
+
     return term1 + term2 + term3 + term4;
 }
 

@@ -35,9 +35,10 @@ void TestFresnelCoeff::execute()
     std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
 
     std::vector<std::string > snames;
-    snames.push_back("AirOnSubstrate");
+//    snames.push_back("AirOnSubstrate");
 //    snames.push_back("SubstrateOnSubstrate");
 //    snames.push_back("SimpleMultilayer");
+    snames.push_back("MultilayerOffspecTestcase1a");
 
     // loop over standard samples defined in SampleFactory and StandardSamples
     for(size_t i_sample=0; i_sample<snames.size(); i_sample++){
@@ -139,25 +140,25 @@ void TestFresnelCoeff::draw()
         OpticalFresnel::MultiLayerCoeff_t coeffs = m_coeffs->next();
 
         // debug printing
-//        size_t index_alpha = i_point;
-//        if( index_alpha%100==0 ) {
-//            std::cout << "alpha_i: " << index_alpha << " " <<std::setprecision(20) << alpha_i << std::endl;
-//            for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
-//                std::cout << std::setprecision(12) << " L:" << i_layer
+        size_t index_alpha = i_point;
+        if( index_alpha%100==0 ) {
+            std::cout << "alpha_i: " << index_alpha << " " <<std::setprecision(20) << alpha_i << std::endl;
+            for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
+                std::cout << std::setprecision(12) << " L:" << i_layer
 //                          << " kz:" << coeffs[i_layer].kz/10.
 //                          << " rt:"
 //                          << coeffs[i_layer].r
 //                          << coeffs[i_layer].t
 //                          << coeffs[i_layer].rb
 //                          << coeffs[i_layer].tb
-//                          << "X:" << coeffs[i_layer].X
-//                          << "R:" << coeffs[i_layer].R
-//                          << "T:" << coeffs[i_layer].T
-//                          << std::endl;
+                          << "X:" << coeffs[i_layer].X
+                          << "R:" << coeffs[i_layer].R
+                          << "T:" << coeffs[i_layer].T
+                          << std::endl;
 
-//                //if(index_alpha%100==0) std::cout << " L:" << i_layer << " R:" << coeffs[i_layer].R << " T:" << coeffs[i_layer].T << std::endl;
-//            }
-//        }
+                //if(index_alpha%100==0) std::cout << " L:" << i_layer << " R:" << coeffs[i_layer].R << " T:" << coeffs[i_layer].T << std::endl;
+            }
+        }
 
 
         // Filling graphics for R,T as a function of alpha_i

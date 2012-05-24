@@ -131,6 +131,11 @@ void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &c
         double d = i==0 ? 0.0 : sample.getLayerThickness(i);
         // Logarithm of common prefactor:
         // \log(T_i) + i k_{z,i}d_i - \log(t_{i+1,i})
+        if(std::abs(coeff[i].T) == 0) {
+            coeff[i+1].R = complex_t(0,0);
+            coeff[i+1].T = complex_t(0,0);
+            continue;
+        }
         complex_t log_prefactor = std::log(coeff[i].T) + complex_t(0,1)*coeff[i].kz*d - std::log(coeff[i].tb);
 
         // Calculate R

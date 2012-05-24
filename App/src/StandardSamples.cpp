@@ -118,18 +118,18 @@ ISample *StandardSamples::MultilayerOffspecTestcase1a()
     MaterialManager &matManager = MaterialManager::instance();
 
     const IMaterial *mAmbience = matManager.addHomogeneousMaterial("ambience", complex_t(1.0, 0.0) );
-    const IMaterial *mPartA = matManager.addHomogeneousMaterial("PartA", complex_t(1.0-10e-6, 0.0) );
-    const IMaterial *mPartB = matManager.addHomogeneousMaterial("PartB", complex_t(1.0-5e-6, 0.0) );
+    const IMaterial *mPartA = matManager.addHomogeneousMaterial("PartA", complex_t(1.0-5e-6, 0.0) );
+    const IMaterial *mPartB = matManager.addHomogeneousMaterial("PartB", complex_t(1.0-10e-6, 0.0) );
     const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate", complex_t(1.0-15e-6, 0.0) );
 
     Layer lAmbience;
     lAmbience.setMaterial(mAmbience, 0);
 
     Layer lPartA;
-    lPartA.setMaterial(mPartA, 10.0*Units::nanometer);
+    lPartA.setMaterial(mPartA, 5.0*Units::nanometer);
 
     Layer lPartB;
-    lPartB.setMaterial(mPartB, 5.0*Units::nanometer);
+    lPartB.setMaterial(mPartB, 10.0*Units::nanometer);
 
     Layer lSubstrate;
     lSubstrate.setMaterial(mSubstrate, 0);
@@ -152,7 +152,7 @@ ISample *StandardSamples::MultilayerOffspecTestcase1a()
 
     mySample->addLayerWithTopRoughness(lSubstrate, roughness);
 
-    mySample->setCrossCorrLength(1e-10);
+    mySample->setCrossCorrLength(1e10);
 
     return mySample;
 }

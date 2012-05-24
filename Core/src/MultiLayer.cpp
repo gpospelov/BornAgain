@@ -173,6 +173,6 @@ double MultiLayer::getCrossCorrSpectralFun(const kvector_t &kvec, int j, int k) 
     if(sigma_j == 0 || sigma_k ==0 || m_crossCorrLength==0) {
         throw DivisionByZeroException("MultiLayer::getCrossCorrSpectralFun() -> Not defined sigma of roughness or crossCorrLength");
     }
-    double corr = 0.5*(sigma_k/sigma_j*rough_j.getSpectralFun(kvec) + sigma_j/sigma_k*rough_k.getSpectralFun(kvec) ) * std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
+    double corr = 0.5*( (sigma_k/sigma_j)*rough_j.getSpectralFun(kvec) + (sigma_j/sigma_k)*rough_k.getSpectralFun(kvec) ) * std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
     return corr;
 }

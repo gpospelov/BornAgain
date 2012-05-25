@@ -52,13 +52,13 @@ public:
     void addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness);
 
     //! return layer with given index
-    const Layer *getLayer(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]; }
+    inline const Layer *getLayer(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]; }
 
     //! return z-coordinate of the layer's bottom
-    double getLayerBottomZ(size_t i_layer) const { return m_layers_z[ check_layer_index(i_layer) ]; }
+    inline double getLayerBottomZ(size_t i_layer) const { return m_layers_z[ check_layer_index(i_layer) ]; }
 
     //! return thickness of layer
-    double getLayerThickness(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]->getThickness(); }
+    inline double getLayerThickness(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]->getThickness(); }
 
     //! return top interface of layer
     const LayerInterface *getLayerTopInterface(size_t i_layer) const;

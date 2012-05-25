@@ -39,6 +39,7 @@ public:
 
     //static double execute0(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf);
 
+    void setKvectors(const kvector_t &ki, const kvector_t &kf);
 private:
     void diffuse_autocorr();
 
@@ -51,10 +52,15 @@ private:
     const MultiLayer *m_sample;
     OpticalFresnel::MultiLayerCoeff_t m_fcoeff_i;
     OpticalFresnel::MultiLayerCoeff_t m_fcoeff_f;
-    kvector_t m_ki;
-    kvector_t m_kf;
     double m_diffuse_autocorr;
     double m_diffuse_crosscorr;
+
+    kvector_t m_ki;
+    kvector_t m_q;
+    double m_qz1;
+    double m_qz2;
+    double m_qz3;
+    double m_qz4;
 };
 
 #endif // DWBADIFFUSEREFLECTION_H

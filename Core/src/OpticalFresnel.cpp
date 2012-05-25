@@ -3,6 +3,8 @@
 #include "OpticalFresnel.h"
 #include "Numeric.h"
 
+
+
 OpticalFresnel::OpticalFresnel()
 {
 }
@@ -30,7 +32,7 @@ void OpticalFresnel::calculateKZ(const MultiLayer &sample, const kvector_t &kvec
     // Q_{z,j} &= 2k_{z,j} = 2\cdot \sqrt{ k^2 n_j^2 - k_x^2 }
     for(size_t i=0; i<coeff.size(); ++i) {
         complex_t rindex = sample.getLayer(i)->getRefractiveIndex();
-        coeff[i].kz = std::sqrt( kvec.mag2()*std::pow( rindex, 2) - kvec.magxy()*kvec.magxy() );
+        coeff[i].kz = std::sqrt( kvec.mag2()*rindex*rindex - kvec.magxy()*kvec.magxy() );
         //std::cout << "k_z: " << coeff[i].kz << std::endl;
     }
 }
@@ -110,6 +112,8 @@ void OpticalFresnel::calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &co
 
 void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff)
 {
+    //complex_t ct0(0,0);
+
     coeff[0].R = coeff[0].X;
     coeff[0].T = 1;
 

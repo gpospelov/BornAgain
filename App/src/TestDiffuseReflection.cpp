@@ -35,8 +35,8 @@ void TestDiffuseReflection::execute()
     DWBADiffuseReflection calc;
 
     std::vector<std::string > snames;
-    snames.push_back("MultilayerOffspecTestcase1a");
-    //snames.push_back("MultilayerOffspecTestcase1b");
+    //snames.push_back("MultilayerOffspecTestcase1a");
+    snames.push_back("MultilayerOffspecTestcase1b");
     //snames.push_back("MultilayerOffspecTestcase2a");
     //snames.push_back("MultilayerOffspecTestcase2b");
 

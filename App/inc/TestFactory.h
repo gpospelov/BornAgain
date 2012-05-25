@@ -15,17 +15,19 @@
 //! @date   01.05.2012
 
 #include <string>
-#include <map>
 #include "ISingleton.h"
 #include "IFactory.h"
 #include "IFunctionalTest.h"
 
 
+class TBenchmark;
+
 class TestFactory : public ISingleton<TestFactory>, public IFactory<std::string, IFunctionalTest>
+//before it was template class ISingleton<IFactory<std::string, IFunctionalTest> >;
 {
 public:
     TestFactory();
-    virtual ~TestFactory() {}
+    virtual ~TestFactory();
 
     //! execute specified test
     void execute(std::string name);
@@ -33,6 +35,11 @@ public:
     //! execute all registered tests
     void execute_all();
 
+    //! print benchmark summary
+    void print_benchmarks();
+
+private:
+    TBenchmark *m_benchmark;
 };
 
 #endif // TESTFACTORY_H

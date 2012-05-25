@@ -5,11 +5,11 @@
 #include "TestDWBAFormFactor.h"
 #include "TestDiffuseReflection.h"
 
+#include "TBenchmark.h"
 
-//template class ISingleton<IFactory<std::string, IFunctionalTest> >;
 
 
-TestFactory::TestFactory()
+TestFactory::TestFactory() : m_benchmark(0)
 {
     setStoreObjects(true);
     setDeleteObjects(true);
@@ -19,6 +19,26 @@ TestFactory::TestFactory()
     registerItem("formfactor", IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
     registerItem("dwba",       IFactoryCreateFunction<TestDWBAFormFactor, IFunctionalTest> );
     registerItem("diffuse",    IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
+
+    m_benchmark = new TBenchmark();
+}
+
+
+TestFactory::~TestFactory()
+{
+    print_benchmarks();
+    delete m_benchmark;
+}
+
+
+/* ************************************************************************* */
+// print benchmark summary on the screen
+/* ************************************************************************* */
+void TestFactory::print_benchmarks()
+{
+    std::cout << "--- TestFactory::print_benchmarks() ---" << std::endl;
+    float_t rp, cp;
+    m_benchmark->Summary(rp, cp);
 }
 
 
@@ -36,7 +56,12 @@ void TestFactory::execute(std::string name)
         std::cout << "TestFactory::execute() -> Warning. No test with name '" << name << "' is defined." << std::endl;
         return;
     }
+
+    m_benchmark->Start(name.c_str());
     test->execute();
+    m_benchmark->Stop(name.c_str());
+    m_benchmark->Show(name.c_str());
+
 }
 
 
@@ -47,7 +72,8 @@ void TestFactory::execute_all()
 {
     CallbackMap_t::const_iterator it;
     for(it=m_callbacks.begin(); it != m_callbacks.end(); it++ ) {
-        createItem( it->first )->execute();
+        execute( it->first );
+        //createItem( it->first )->execute();
     }
 }
 

@@ -4,6 +4,7 @@
 #include "TestFormFactor.h"
 #include "TestDWBAFormFactor.h"
 #include "TestDiffuseReflection.h"
+#include "TestInstrument.h"
 
 #include "TBenchmark.h"
 
@@ -19,6 +20,7 @@ TestFactory::TestFactory() : m_benchmark(0)
     registerItem("formfactor", IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
     registerItem("dwba",       IFactoryCreateFunction<TestDWBAFormFactor, IFunctionalTest> );
     registerItem("diffuse",    IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
+    registerItem("instrument", IFactoryCreateFunction<TestInstrument, IFunctionalTest> );
 
     m_benchmark = new TBenchmark();
 }

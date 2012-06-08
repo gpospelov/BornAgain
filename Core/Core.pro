@@ -36,7 +36,8 @@ SOURCES += \
     src/ISingleton.cpp \
     src/IFunctionalTest.cpp \
     src/IFactory.cpp \
-    src/DWBADiffuseReflection.cpp
+    src/DWBADiffuseReflection.cpp \
+    src/Convolve.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -72,7 +73,8 @@ HEADERS += \
     inc/IFunctionalTest.h \
     inc/IFactory.h \
     inc/Numeric.h \
-    inc/DWBADiffuseReflection.h
+    inc/DWBADiffuseReflection.h \
+    inc/Convolve.h
 
 INCLUDEPATH += ./inc
 DEPENDPATH += ./inc

@@ -42,6 +42,8 @@ std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data
 
 std::vector<complex_t > FastFourierTransform(const std::vector<double > &data, TransformCase tcase);
 
+std::vector<complex_t> ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc);
+
 } // Namespace MathFunctions
 
 inline double MathFunctions::GenerateNormalRandom(double average, double std_dev)

@@ -162,12 +162,13 @@ void DrawHelper::SetStyle()
     scattStyle->SetMarkerSize(0.2);
     scattStyle->SetHistLineWidth(2.);
     scattStyle->SetLineStyleString(2,"[12 12]"); // postscript dashes
+    scattStyle->SetFuncWidth(1.);
 
     // get rid of X error bars and y error bar caps
     //scattStyle->SetErrorX(0.001);
 
     // do not display any of the standard histogram decorations
-    scattStyle->SetOptTitle(0);
+    scattStyle->SetOptTitle(1);
     //scattStyle->SetOptStat(1111);
     scattStyle->SetOptStat(1);
     //scattStyle->SetOptFit(1111);
@@ -266,7 +267,7 @@ void DrawHelper::DrawMultilayer(const MultiLayer *sample)
     double z2 = sample->getLayerBottomZ(nlayers-1);
 
     double size = std::abs(z2 - z1);  // typical size of sample
-    double margin = size*0.02;        // safety margin to avoid overlapping of layers
+    double margin = size*0.01;        // safety margin to avoid overlapping of layers
     double fake_thickness = size*0.3; // thickness for layers without defined thickness (like ambience&substrate)
 
     // frame to draw
@@ -277,7 +278,7 @@ void DrawHelper::DrawMultilayer(const MultiLayer *sample)
 
     // drawing properties for interfaces, material and their names
     TLine interface;
-    interface.SetLineWidth(3);
+    interface.SetLineWidth(1);
     interface.SetLineStyle(3);
     interface.SetLineColor(kRed);
     TBox bulk;

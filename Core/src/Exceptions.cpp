@@ -60,6 +60,12 @@ LogicErrorException::LogicErrorException(const std::string &message)
     LogExceptionMessage(message);
 }
 
+RuntimeErrorException::RuntimeErrorException(const std::string &message)
+    : std::runtime_error(message)
+{
+    LogExceptionMessage(message);
+}
+
 DivisionByZeroException::DivisionByZeroException(const std::string &message)
     : std::runtime_error(message)
 {

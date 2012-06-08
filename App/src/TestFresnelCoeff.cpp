@@ -35,10 +35,10 @@ void TestFresnelCoeff::execute()
     std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
 
     std::vector<std::string > snames;
-//    snames.push_back("AirOnSubstrate");
+    snames.push_back("AirOnSubstrate");
 //    snames.push_back("SubstrateOnSubstrate");
 //    snames.push_back("SimpleMultilayer");
-    snames.push_back("MultilayerOffspecTestcase1a");
+//    snames.push_back("MultilayerOffspecTestcase1a");
 
     // loop over standard samples defined in SampleFactory and StandardSamples
     for(size_t i_sample=0; i_sample<snames.size(); i_sample++){

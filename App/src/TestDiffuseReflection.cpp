@@ -35,7 +35,7 @@ void TestDiffuseReflection::execute()
     DWBADiffuseReflection calc;
 
     std::vector<std::string > snames;
-    //snames.push_back("MultilayerOffspecTestcase1a");
+    snames.push_back("MultilayerOffspecTestcase1a");
     snames.push_back("MultilayerOffspecTestcase1b");
     //snames.push_back("MultilayerOffspecTestcase2a");
     //snames.push_back("MultilayerOffspecTestcase2b");
@@ -162,11 +162,12 @@ void TestDiffuseReflection::draw()
     TCanvas *c1 = new TCanvas(cname.c_str(),"Diffuse reflection",1024,768);
     DrawHelper::instance().SetMagnifier(c1);
 
-    c1->Divide(2,2);
-    c1->cd(1);
-    gr->Draw("apl");
+//    c1->Divide(2,2);
+//    c1->cd(1);
+//    gr->Draw("apl");
 
-    c1->cd(2);
+//    c1->cd(2);
+    c1->cd();
     gPad->SetRightMargin(0.2);
     gStyle->SetPalette(1);
     gPad->SetLogz();

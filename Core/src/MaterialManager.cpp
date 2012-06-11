@@ -1,65 +1,6 @@
 #include "MaterialManager.h"
 #include "Exceptions.h"
 
-MaterialManager *MaterialManager::pInstance = 0;
-bool MaterialManager::m_destroyed = false;
-
-
-MaterialManager::MaterialManager()
-{
-
-}
-
-
-MaterialManager::~MaterialManager()
-{
-    std::cout << "MaterialManager::~MaterialManager() -> Info. Deleting material manager" << std::endl;
-    pInstance = 0;
-    m_destroyed = true;
-
-    // clean collection of materials
-    clear();
-}
-
-
-/* ************************************************************************* */
-// access to material manager
-/* ************************************************************************* */
-MaterialManager &MaterialManager::instance()
-{
-    // check if exists, if not, then initialise
-    if( !pInstance) {
-        // check for dead reference (i.e. object has been initialised but then somebody managed to delete it)
-        if( m_destroyed ) {
-            onDeadReference();
-        } else {
-            // first call initalise
-            create();
-        }
-    }
-    std::cout << "MaterialManager::Instance() -> Info. Accesing instance... " << pInstance << std::endl;
-    return *pInstance;
-}
-
-
-/* ************************************************************************* */
-// create single instance of the manager
-/* ************************************************************************* */
-void MaterialManager::create() {
-    std::cout << "MaterialManager::Create() -> Info. Creating material manager" << std::endl;
-    static MaterialManager theInstance;
-    pInstance = &theInstance;
-}
-
-
-/* ************************************************************************* */
-// Action for abnormal situation when object has been occasionally deleted.
-// The possibility to rise object again should be still implemented.
-/* ************************************************************************* */
-void MaterialManager::onDeadReference() {
-    throw DeadReferenceException("Dead reference detected.");
-}
-
 
 /* ************************************************************************* */
 // cleaning material database

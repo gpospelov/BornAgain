@@ -1,3 +1,4 @@
+#include "App.h"
 #ifdef __CINT__
 // ********************************************************************
 // * The BornAgain project                                            *
@@ -17,6 +18,7 @@
 #pragma link off all classes;
 #pragma link off all functions;
 
+#pragma link C++ class ISingleton<DrawHelper>+;
 #pragma link C++ class DrawHelper+;
 
 #endif

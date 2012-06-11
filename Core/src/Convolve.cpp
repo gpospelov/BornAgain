@@ -123,8 +123,7 @@ void MathFunctions::Convolve::fftconvolve(const double1d_t &source, const double
     double2d_t result2d;
     fftconvolve(source2d, kernel2d, result2d);
     if(result2d.size() != 1) {
-        std::cout << "MathFunctions::Convolve::fftconvolve -> Panic in 1d" << std::endl;
-        throw std::runtime_error("Panic!");
+        throw RuntimeErrorException("MathFunctions::Convolve::fftconvolve -> Panic in 1d");
     }
     result = result2d[0];
 }

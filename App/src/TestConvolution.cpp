@@ -157,7 +157,8 @@ void TestConvolution::test_convolve1d()
         benchmark.Start(sname.c_str());
 
         MathFunctions::Convolve cv;
-        cv.setMode(mode);
+        cv.setMode(mode);        
+        // running convolution several times to get statistics for benchmarking
         std::vector<double> result;
         for(int i=0; i<1000; i++) {
             cv.fftconvolve(signal, kernel, result);

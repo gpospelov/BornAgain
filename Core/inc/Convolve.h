@@ -46,10 +46,10 @@ public:
     ~Convolve();
 
     //! definition of 1d vector of double
-    typedef std::vector<double> double1d_t;
+    typedef std::vector<double > double1d_t;
 
     //! definition of 2d vector of double
-    typedef std::vector<double1d_t> double2d_t;
+    typedef std::vector<double1d_t > double2d_t;
 
     //! convolution  modes
     //! use LINEAR_SAME or CIRCULAR_SAME_SHIFTED for maximum performance

@@ -25,12 +25,13 @@ ISample *StandardSamples::AirOnSubstrate()
     Layer lSubstrate;
     lSubstrate.setMaterial(mSubstrate,0);
 
-    LayerRoughness roughness;
-    roughness.setSigma(1.0*Units::nanometer);
-    roughness.setHurstParameter(0.3);
-    roughness.setLatteralCorrLength(5000.*Units::nanometer);
+//    LayerRoughness roughness;
+//    roughness.setSigma(1.0*Units::nanometer);
+//    roughness.setHurstParameter(0.3);
+//    roughness.setLatteralCorrLength(5000.*Units::nanometer);
+//    mySample->addLayerWithTopRoughness(lSubstrate, roughness);
 
-    mySample->addLayerWithTopRoughness(lSubstrate, roughness);
+    mySample->addLayer(lSubstrate);
 
     return mySample;
 }
@@ -58,12 +59,13 @@ ISample *StandardSamples::SubstrateOnSubstrate()
     Layer lSubstrate;
     lSubstrate.setMaterial(mSubstrate,0);
 
-    LayerRoughness roughness;
-    roughness.setSigma(1.0*Units::nanometer);
-    roughness.setHurstParameter(0.3);
-    roughness.setLatteralCorrLength(5000.*Units::nanometer);
+//    LayerRoughness roughness;
+//    roughness.setSigma(1.0*Units::nanometer);
+//    roughness.setHurstParameter(0.3);
+//    roughness.setLatteralCorrLength(5000.*Units::nanometer);
+//    mySample->addLayerWithTopRoughness(lSubstrate, roughness);
 
-    mySample->addLayerWithTopRoughness(lSubstrate, roughness);
+    mySample->addLayer(lSubstrate);
 
     return mySample;
 }

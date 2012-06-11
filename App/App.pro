@@ -17,7 +17,7 @@ SOURCES += \
     src/CommandLine.cpp \
     src/TestFactory.cpp \
     src/TestDiffuseReflection.cpp \
-    src/TestInstrument.cpp
+    src/TestConvolution.cpp
 
 HEADERS += \
     inc/DrawHelper.h \
@@ -32,7 +32,7 @@ HEADERS += \
     inc/CommandLine.h \
     inc/TestFactory.h \
     inc/TestDiffuseReflection.h \
-    inc/TestInstrument.h
+    inc/TestConvolution.h
 
 INCLUDEPATH += ./inc
 DEPENDPATH += ./inc

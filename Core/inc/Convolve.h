@@ -52,6 +52,7 @@ public:
     typedef std::vector<double1d_t> double2d_t;
 
     //! convolution  modes
+    //! use LINEAR_SAME or CIRCULAR_SAME_SHIFTED for maximum performance
     enum Mode { FFTW_LINEAR_FULL, FFTW_LINEAR_SAME_UNPADDED, FFTW_LINEAR_SAME, FFTW_LINEAR_VALID, FFTW_CIRCULAR_SAME, FFTW_CIRCULAR_SAME_SHIFTED, FFTW_UNDEFINED };
 
     //! convolution in 1D
@@ -67,12 +68,7 @@ public:
     void setMode(Mode mode) { m_mode = mode; }
 
 private:
-    //! compute convolution of source and kernel using fast fourier transformation
-    void fftw_convolve(const double2d_t &source, const double2d_t &kernel);
-    //void fftw_convolve(double * src,double * kernel);
-
     //! compute circual convolution of source and kernel using fast fourier transformation
-    //void fftw_circular_convolution(double * src, double * kernel);
     void fftw_circular_convolution(const double2d_t &source, const double2d_t &kernel);
 
     //! find closest number X>n,  which  can be factorised according to fftw3 favorite factorisation
@@ -82,7 +78,7 @@ private:
     bool is_optimal(int n);
 
     //! Workspace contains input (source and kernel), intermediate and output arrays to run convolution via fft
-    //! 'source' it is our signal, 'kernel' it is our resolution (or delta-responce) function
+    //! 'source' it is our signal, 'kernel' it is our resolution (also known as delta-responce) function
     //! Sizes of input arrays are adjusted; output arrays are alocated via fftw3 allocation for maximum performance
     class Workspace
     {
@@ -102,6 +98,7 @@ private:
         double *dst_fft;                  // result of production of FFT(source) and FFT(kernel)
         int h_dst, w_dst;                 // size of resulting array
         double *dst;                      // The array containing the result
+        int h_offset, w_offset;           // offsets to copy result into output arrays
         fftw_plan p_forw_src;
         fftw_plan p_forw_kernel;
         fftw_plan p_back;
@@ -114,49 +111,6 @@ private:
 
 
 } // namespace MathFunctions
-
-
-typedef enum
-{
-    FFTW_LINEAR_FULL,
-    FFTW_LINEAR_SAME_UNPADDED,
-    FFTW_LINEAR_SAME,
-    FFTW_LINEAR_VALID,
-    FFTW_CIRCULAR_SAME,
-    FFTW_CIRCULAR_SAME_SHIFTED,
-    FFTW_CIRCULAR_CUSTOM
-} FFTW_Convolution_Mode;
-
-typedef struct FFTW_Workspace
-{
-    //fftw_complex * in_src, *out_src;
-    double * in_src, *out_src, *in_kernel, *out_kernel;
-    int h_src, w_src, h_kernel, w_kernel;
-    int w_fftw, h_fftw;
-    FFTW_Convolution_Mode mode;
-    double * dst_fft;
-    double * dst; // The array containing the result
-    int h_dst, w_dst; // its size ; This is automatically set by init_workspace, despite you use FFTW_CIRCULAR_CUSTOM
-    fftw_plan p_forw_src;
-    fftw_plan p_forw_kernel;
-    fftw_plan p_back;
-
-} FFTW_Workspace;
-
-extern void factorize (const int n,
-                int *n_factors,
-                int factors[],
-                int * implemented_factors);
-
-extern bool is_optimal(int n, int * implemented_factors);
-extern int find_closest_factor(int n, int * implemented_factor);
-extern void init_workspace_fftw(FFTW_Workspace & ws, FFTW_Convolution_Mode mode, int h_src, int w_src, int h_kernel, int w_kernel);
-extern void clear_workspace_fftw(FFTW_Workspace & ws);
-extern void fftw_convolve(FFTW_Workspace &ws, double * src,double * kernel);
-extern void fftw_circular_convolution(FFTW_Workspace &ws, double * src, double * kernel);
-
-
-
 
 
 #endif // CONVOLVE_H

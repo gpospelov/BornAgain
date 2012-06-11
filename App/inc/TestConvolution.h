@@ -1,5 +1,5 @@
-#ifndef TESTINSTRUMENT_H
-#define TESTINSTRUMENT_H
+#ifndef TESTCONVOLUTION_H
+#define TESTCONVOLUTION_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -24,10 +24,10 @@
 //! @class TestConvolution
 //! @brief Testing Convolve class for instrumental effects studies
 //- -------------------------------------------------------------------
-class TestInstrument : public IFunctionalTest
+class TestConvolution : public IFunctionalTest
 {
 public:
-    TestInstrument();
+    TestConvolution();
 
     void execute();
 
@@ -38,8 +38,17 @@ public:
     void test_convolve2d();
 
 private:
+    //! test function with many gaus'es on top of flat background for convolution studies
+    double fpeaks(double *x, double *par);
+
+    //! typedef of pair for the description of convolution mode
     typedef std::pair<std::string, MathFunctions::Convolve::Mode> mode_pair_t;
+
+    //! vector of pairs defined above
     std::vector<mode_pair_t> m_modes;
+
+    //! number of peaks for convolution test function
+    int m_npeaks;
 };
 
-#endif // TESTINSTRUMENT_H
+#endif // TESTCONVOLUTION_H

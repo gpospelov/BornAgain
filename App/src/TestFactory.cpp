@@ -4,7 +4,7 @@
 #include "TestFormFactor.h"
 #include "TestDWBAFormFactor.h"
 #include "TestDiffuseReflection.h"
-#include "TestInstrument.h"
+#include "TestConvolution.h"
 
 #include "TBenchmark.h"
 
@@ -15,12 +15,12 @@ TestFactory::TestFactory() : m_benchmark(0)
     setStoreObjects(true);
     setDeleteObjects(true);
 
-    registerItem("roughness",  IFactoryCreateFunction<TestRoughness, IFunctionalTest> );
-    registerItem("fresnel",    IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest> );
-    registerItem("formfactor", IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
-    registerItem("dwba",       IFactoryCreateFunction<TestDWBAFormFactor, IFunctionalTest> );
-    registerItem("diffuse",    IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
-    registerItem("instrument", IFactoryCreateFunction<TestInstrument, IFunctionalTest> );
+    registerItem("roughness",   IFactoryCreateFunction<TestRoughness, IFunctionalTest> );
+    registerItem("fresnel",     IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest> );
+    registerItem("formfactor",  IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
+    registerItem("dwba",        IFactoryCreateFunction<TestDWBAFormFactor, IFunctionalTest> );
+    registerItem("diffuse",     IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
+    registerItem("convolution", IFactoryCreateFunction<TestConvolution, IFunctionalTest> );
 
     m_benchmark = new TBenchmark();
 }

@@ -106,5 +106,5 @@ QMAKE_DISTCLEAN += $$MYPREFIX/inc/ScattCore
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 
 
-QMAKE_POST_LINK = (make install; mkdir -p $$PWD/inc; ln -sf $$PWD/inc $$MYPREFIX/inc/ScattCore)
+QMAKE_POST_LINK = (make install; mkdir -p $$MYPREFIX/inc; ln -sf $$PWD/inc $$MYPREFIX/inc/ScattCore)
 

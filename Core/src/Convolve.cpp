@@ -21,7 +21,8 @@ MathFunctions::Convolve::~Convolve()
 
 MathFunctions::Convolve::Workspace::Workspace() :
     h_src(0), w_src(0), h_kernel(0), w_kernel(0),
-    w_fftw(0), h_fftw(0), in_src(0), out_src(0), in_kernel(0), out_kernel(0), dst_fft(0), h_dst(0), w_dst(0), dst(0),
+    w_fftw(0), h_fftw(0), in_src(0), out_src(0), in_kernel(0), out_kernel(0), dst_fft(0), h_dst(0), w_dst(0),
+    //dst(0),
     h_offset(0), w_offset(0),
     p_forw_src(NULL), p_forw_kernel(NULL), p_back(NULL)
 {
@@ -56,8 +57,8 @@ void MathFunctions::Convolve::Workspace::clear()
     if(dst_fft) delete[] dst_fft;
     dst_fft=0;
 
-    if(dst) delete[] dst;
-    dst=0;
+    //if(dst) delete[] dst;
+    //dst=0;
 
     h_offset = 0;
     w_offset = 0;
@@ -233,7 +234,7 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
     ws.out_kernel = (double*) fftw_malloc(sizeof(fftw_complex) * ws.h_fftw * (ws.w_fftw/2+1));
 
     ws.dst_fft = new double[ws.h_fftw * ws.w_fftw];
-    ws.dst = new double[ws.h_dst * ws.w_dst];
+    //ws.dst = new double[ws.h_dst * ws.w_dst];
 
     // Initialization of the plans
     ws.p_forw_src = fftw_plan_dft_r2c_2d(ws.h_fftw, ws.w_fftw, ws.in_src, (fftw_complex*)ws.out_src, FFTW_ESTIMATE);

@@ -87,6 +87,9 @@ public:
     //! fourier transform of the correlation function of roughnesses between the interfaces
     double getCrossCorrSpectralFun(const kvector_t &kvec, int j, int k) const;
 
+    //! change thickness of layer
+    void setLayerThickness(size_t i_layer, double thickness);
+
 private:
     //! hiding copy constructor & assignment operator
     MultiLayer(const MultiLayer &);

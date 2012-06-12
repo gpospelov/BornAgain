@@ -141,10 +141,10 @@ void MultiLayer::addLayer(const Layer &p_child)
 }
 
 
-/* ************************************************************************* */
-//! Correlation function of roughnesses between the interfaces
-//! j,k - indexes of layers in multilayer whose bottom interfaces we are considering
-/* ************************************************************************* */
+///* ************************************************************************* */
+////! Correlation function of roughnesses between the interfaces
+////! j,k - indexes of layers in multilayer whose bottom interfaces we are considering
+///* ************************************************************************* */
 //double MultiLayer::getCrossCorrFun(const kvector_t &kvec, int j, int k) const
 //{
 //    double z_j = getLayerBottomZ(j);
@@ -176,3 +176,20 @@ double MultiLayer::getCrossCorrSpectralFun(const kvector_t &kvec, int j, int k) 
     double corr = 0.5*( (sigma_k/sigma_j)*rough_j.getSpectralFun(kvec) + (sigma_j/sigma_k)*rough_k.getSpectralFun(kvec) ) * std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
     return corr;
 }
+
+
+/* ************************************************************************* */
+//! change layer thickness
+/* ************************************************************************* */
+void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
+{
+    m_layers[ check_layer_index(i_layer) ]->setThickness(thickness);
+    // recalculating z-coordinates of layers
+    m_layers_z.clear();
+    m_layers_z.push_back(0.0);
+    for(size_t il=1; il<getNumberOfLayers(); il++){
+        m_layers_z.push_back(m_layers_z.back() - m_layers[ check_layer_index(il) ]->getThickness() );
+    }
+}
+
+

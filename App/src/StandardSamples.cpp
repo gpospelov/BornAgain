@@ -24,13 +24,6 @@ ISample *StandardSamples::AirOnSubstrate()
 
     Layer lSubstrate;
     lSubstrate.setMaterial(mSubstrate,0);
-
-//    LayerRoughness roughness;
-//    roughness.setSigma(1.0*Units::nanometer);
-//    roughness.setHurstParameter(0.3);
-//    roughness.setLatteralCorrLength(5000.*Units::nanometer);
-//    mySample->addLayerWithTopRoughness(lSubstrate, roughness);
-
     mySample->addLayer(lSubstrate);
 
     return mySample;
@@ -58,13 +51,6 @@ ISample *StandardSamples::SubstrateOnSubstrate()
 
     Layer lSubstrate;
     lSubstrate.setMaterial(mSubstrate,0);
-
-//    LayerRoughness roughness;
-//    roughness.setSigma(1.0*Units::nanometer);
-//    roughness.setHurstParameter(0.3);
-//    roughness.setLatteralCorrLength(5000.*Units::nanometer);
-//    mySample->addLayerWithTopRoughness(lSubstrate, roughness);
-
     mySample->addLayer(lSubstrate);
 
     return mySample;
@@ -100,12 +86,17 @@ ISample *StandardSamples::SimpleMultilayer()
     // adding layers
     mySample->addLayer(lAmbience);
 
+    LayerRoughness roughness;
+    roughness.setSigma(0.0*Units::nanometer);
+    roughness.setHurstParameter(0.3);
+    roughness.setLatteralCorrLength(5000*Units::nanometer);
+
     const unsigned nrepetitions = 2;
     for(unsigned i=0; i<nrepetitions; ++i) {
-        mySample->addLayer(lAg1);
-        mySample->addLayer(lCr1);
+        mySample->addLayerWithTopRoughness(lAg1, roughness);
+        mySample->addLayerWithTopRoughness(lCr1, roughness);
     }
-    mySample->addLayer(lSubstrate);
+    mySample->addLayerWithTopRoughness(lSubstrate, roughness);
     return mySample;
 }
 
@@ -216,29 +207,11 @@ ISample *StandardSamples::MultilayerOffspecTestcase2a()
 /* ************************************************************************* */
 ISample *StandardSamples::MultilayerOffspecTestcase2b()
 {
-    MaterialManager &matManager = MaterialManager::instance();
-    const IMaterial *mAmbience = matManager.addHomogeneousMaterial("ambience",complex_t(1.0, 0.0) );
-    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate", complex_t(1.0-15e-6, 0) );
-
-    MultiLayer *mySample = new MultiLayer;
-
-    Layer lAmbience;
-    lAmbience.setMaterial(mAmbience, 0);
-    mySample->addLayer(lAmbience);
-
-    LayerRoughness roughness;
-    roughness.setSigma(0.5*Units::nanometer);
-    roughness.setHurstParameter(0.3);
-    roughness.setLatteralCorrLength(500.*Units::nanometer);
-
-    Layer lAir;
-    lAir.setMaterial(mAmbience, 0.01*Units::nanometer);
-    mySample->addLayerWithTopRoughness(lAir, roughness);
-
-    Layer lSubstrate;
-    lSubstrate.setMaterial(mSubstrate,0);
-    mySample->addLayerWithTopRoughness(lSubstrate, roughness);
-
+    MultiLayer *myOrigSample = dynamic_cast<MultiLayer *>(StandardSamples::MultilayerOffspecTestcase2a());
+    MultiLayer *mySample = myOrigSample->clone();
+    delete myOrigSample;
+    // changing thickness of middle layer
+    mySample->setLayerThickness(1, 0.01*Units::nanometer);
     return mySample;
 }
 

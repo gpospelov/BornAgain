@@ -28,7 +28,6 @@ SOURCES += \
     src/MaterialManager.cpp \
     src/StochasticGaussian.cpp \
     src/MathFunctions.cpp \
-    src/DispersedParticleDecorator.cpp \
     src/FormFactorCylinder.cpp \
     src/Types.cpp \
     src/DoubleToComplexInterpolatingFunction.cpp \
@@ -36,7 +35,8 @@ SOURCES += \
     src/ISingleton.cpp \
     src/IFunctionalTest.cpp \
     src/IFactory.cpp \
-    src/DWBADiffuseReflection.cpp
+    src/DWBADiffuseReflection.cpp \
+    src/NanoParticleDecorator.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -60,7 +60,6 @@ HEADERS += \
     inc/IStochasticParameter.h \
     inc/StochasticGaussian.h \
     inc/MathFunctions.h \
-    inc/DispersedParticleDecorator.h \
     inc/IFormFactor.h \
     inc/FormFactorCylinder.h \
     inc/StochasticDiracDelta.h \
@@ -72,7 +71,9 @@ HEADERS += \
     inc/IFunctionalTest.h \
     inc/IFactory.h \
     inc/Numeric.h \
-    inc/DWBADiffuseReflection.h
+    inc/DWBADiffuseReflection.h \
+    inc/NanoParticleDecorator.h \
+    inc/IDispersalState.h
 
 INCLUDEPATH += /opt/local/include ./inc
 DEPENDPATH += ./inc

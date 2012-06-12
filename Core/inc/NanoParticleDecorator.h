@@ -1,5 +1,5 @@
-#ifndef NANOPARTICLE_H
-#define NANOPARTICLE_H
+#ifndef NANOPARTICLEDECORATOR_H
+#define NANOPARTICLEDECORATOR_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,27 +9,31 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   NanoParticle.h
-//! @brief  Definition of NanoParticle
+//! @file   NanoParticleDecorator.h
+//! @brief  Definition of NanoParticleDecorator
 //! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
+//! @date   23.05.2012
 
-#include "ISample.h"
-#include "IFormFactor.h"
-
+#include "NanoParticle.h"
 
 //- -------------------------------------------------------------------
-//! @class NanoParticle
-//! @brief Definition of a nanoparticle with a form factor
+//! @class NanoParticleDecorator
+//! @brief Definition of decorator class that adds nano particles to ISample objects
 //- -------------------------------------------------------------------
-class NanoParticle : public ISample
+class NanoParticleDecorator : public ISample
 {
 public:
-    NanoParticle();
-    virtual ~NanoParticle();
+	NanoParticleDecorator(ISample *p_sub_sample);
+	virtual ~NanoParticleDecorator() {}
+
+	/// Return decorated sample
+	ISample* getSubSample() const { return mp_sub_sample; }
 
 private:
-    IFormFactor* mp_form_factor;  ///< pointer to the form factor
+	std::vector<NanoParticle *> m_particles;  ///< Vector of the types of nano particles
+    ISample* mp_sub_sample;                   ///< Decorated ISample object
+
 };
 
-#endif // NANOPARTICLE_H
+
+#endif // NANOPARTICLEDECORATOR_H

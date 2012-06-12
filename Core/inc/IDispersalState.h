@@ -1,5 +1,5 @@
-#ifndef DISPERSEDPARTICLEDECORATOR_H
-#define DISPERSEDPARTICLEDECORATOR_H
+#ifndef IDISPERSALSTATE_H_
+#define IDISPERSALSTATE_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,25 +9,22 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   DispersedParticleDecorator.h
-//! @brief  Defenition of DispersedParticleDecorator
+//! @file   IDispersalState.h
+//! @brief  Definition of IDispersalState
 //! @author Scientific Computing Group at FRM II
-//! @date   01.05.2012
+//! @date   12.06.2012
 
-#include "ISample.h"
-
-
-class DispersedParticleDecorator : public ISample
+//- -------------------------------------------------------------------
+//! @class IDispersalState
+//! @brief Definition of IDispersalState interface
+//- -------------------------------------------------------------------
+class IDispersalState
 {
 public:
-    DispersedParticleDecorator(ISample* p_sub_sample);
-    virtual ~DispersedParticleDecorator() {}
-
-    ISample* getSubSample() const { return mp_sub_sample; }
-
-private:
-    ISample* mp_sub_sample;
+	virtual ~IDispersalState() {}
 
 };
 
-#endif // DISPERSEDPARTICLEDECORATOR_H
+
+
+#endif /* IDISPERSALSTATE_H_ */

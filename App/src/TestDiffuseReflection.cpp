@@ -136,7 +136,7 @@ void TestDiffuseReflection::draw()
     {
         double alpha_i = m_data_spec->getCurrentValueOfAxis<double>("alpha_i");
         double r = m_data_spec->next();
-        gr->SetPoint(m_data_spec->getCoordinate("alpha_i"), Units::rad2deg(alpha_i), r);
+        gr->SetPoint(m_data_spec->getCurrentIndexOfAxis("alpha_i"), Units::rad2deg(alpha_i), r);
     }
 
     // off specular plot

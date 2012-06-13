@@ -67,7 +67,7 @@ macx {
 exists($$(ROOTSYS)/bin/root-config){
   INCLUDEPATH += $$system($ROOTSYS/bin/root-config --incdir)
   #LIBS += $$system($ROOTSYS/bin/root-config --glibs)
-  LIBS += -L$$system($ROOTSYS/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
+  LIBS += -L$$system($ROOTSYS/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad  -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
 
   MYROOTCINT = ${ROOTSYS}/bin/rootcint
 }

@@ -16,6 +16,7 @@
 
 #include <vector>
 
+#include "ICompositeSample.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
@@ -36,7 +37,7 @@
 //!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
 //!
 //- -------------------------------------------------------------------
-class MultiLayer : public ISample
+class MultiLayer : public ICompositeSample
 {
 public:
     MultiLayer();
@@ -94,6 +95,20 @@ private:
     //! hiding copy constructor & assignment operator
     MultiLayer(const MultiLayer &);
     MultiLayer &operator=(const MultiLayer &);
+
+    //! adding the layer with simultaneous registration in parent class
+    void addAndRegisterLayer(Layer *child)
+    {
+        m_layers.push_back(child);
+        registerChild(child);
+    }
+
+    //! adding the interface with simultaneous registration in parent class
+    void addAndRegisterInterface(LayerInterface *child)
+    {
+        m_interfaces.push_back(child);
+        registerChild(child);
+    }
 
     //! check index of layer w.r.t. vector length
     inline size_t check_layer_index(size_t i_layer) const { return i_layer < m_layers.size() ? i_layer : throw OutOfBoundsException("Layer index is out of bounds"); }

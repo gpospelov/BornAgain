@@ -4,7 +4,7 @@
 
 LayerRoughness::LayerRoughness() : m_sigma(0), m_hurstParameter(0), m_latteralCorrLength(0)
 {
-
+    setName("roughness");
 }
 
 
@@ -13,6 +13,29 @@ LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double latte
 {
 
 }
+
+
+
+LayerRoughness::LayerRoughness(const LayerRoughness &other) : IRoughness(other)
+{
+    m_sigma = other.m_sigma;
+    m_hurstParameter = other.m_hurstParameter;
+    m_latteralCorrLength = other.m_latteralCorrLength;
+}
+
+
+LayerRoughness &LayerRoughness::operator=(const LayerRoughness &other)
+{
+    if( this != &other)
+    {
+        IRoughness::operator=(other);
+        m_sigma = other.m_sigma;
+        m_hurstParameter = other.m_hurstParameter;
+        m_latteralCorrLength = other.m_latteralCorrLength;
+    }
+    return *this;
+}
+
 
 
 /* ************************************************************************* */

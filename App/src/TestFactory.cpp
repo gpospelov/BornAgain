@@ -12,8 +12,7 @@
 
 TestFactory::TestFactory() : m_benchmark(0)
 {
-    setStoreObjects(true);
-    setDeleteObjects(true);
+    setOwnObjects(true);
 
     registerItem("roughness",   IFactoryCreateFunction<TestRoughness, IFunctionalTest> );
     registerItem("fresnel",     IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest> );

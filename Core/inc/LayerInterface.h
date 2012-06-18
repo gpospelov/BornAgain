@@ -14,9 +14,11 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
+#include "ICompositeSample.h"
 #include "LayerRoughness.h"
 
 class Layer;
+
 
 //- -------------------------------------------------------------------
 //! @class LayerInterface
@@ -26,7 +28,7 @@ class Layer;
 //! We prevent usage of default/copy constructors and assignment
 //! operator and provide clone functionality from MultiLayer interface
 //- -------------------------------------------------------------------
-class LayerInterface
+class LayerInterface : public ICompositeSample
 {
 public:
     ~LayerInterface();
@@ -47,10 +49,10 @@ public:
     inline void setLayersTopBottom(const Layer* p_layer_top, const Layer* p_layer_bottom) { setLayerTop(p_layer_top); setLayerBottom(p_layer_bottom); }
 
     //! set roughness of the interface
-    inline void setRoughness(const LayerRoughness &roughness) { m_roughness = roughness; }
+    inline void setRoughness(const LayerRoughness &roughness);
 
     //! get roughness of the interface
-    inline const LayerRoughness &getRoughness() const { return m_roughness; }
+    inline const LayerRoughness *getRoughness() const { return m_roughness; }
 
     //! get top layer
     inline const Layer *getLayerTop() const { return m_LayerTop; }
@@ -63,7 +65,7 @@ private:
     LayerInterface(const LayerInterface &);
     LayerInterface &operator=(const LayerInterface &);
 
-    LayerRoughness m_roughness;    //!< roughness of the interface
+    LayerRoughness *m_roughness;   //!< roughness of the interface
     const Layer *m_LayerTop;       //!< pointer to the layer above interface
     const Layer *m_LayerBottom;    //!< pointer to the layer below interface
 };

@@ -6,6 +6,7 @@
 
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
+    setName("multilayer");
 }
 
 
@@ -40,19 +41,20 @@ void MultiLayer::clear()
 MultiLayer *MultiLayer::clone() const
 {
     MultiLayer *newMultiLayer = new MultiLayer();
+    newMultiLayer->setName(getName());
 
     newMultiLayer->m_layers_z = m_layers_z;
 
     for(size_t i=0; i<m_layers.size(); i++) {
-        newMultiLayer->m_layers.push_back( new Layer( *m_layers[i] ) );
+        newMultiLayer->addAndRegisterLayer( m_layers[i]->clone() );
     }
 
     for(size_t i=0; i<m_interfaces.size(); i++) {
         const Layer *topLayer = newMultiLayer->m_layers[i];
         const Layer *bottomLayer = newMultiLayer->m_layers[i+1];
 
-        LayerInterface *newInterface = LayerInterface::createRoughInterface(topLayer, bottomLayer, m_interfaces[i]->getRoughness() );
-        newMultiLayer->m_interfaces.push_back( newInterface );
+        LayerInterface *newInterface = LayerInterface::createRoughInterface(topLayer, bottomLayer, *m_interfaces[i]->getRoughness() );
+        newMultiLayer->addAndRegisterInterface( newInterface );
     }
 
     newMultiLayer->m_crossCorrLength = m_crossCorrLength;
@@ -107,6 +109,8 @@ void MultiLayer::print()
         }
         std::cout << std::endl;
     }
+    std::cout << "yyy" << std::endl;
+    std::cout << m_layers.size() << " " << m_interfaces.size() << " " << m_samples.size() << std::endl;
 }
 
 
@@ -120,12 +124,12 @@ void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughne
     {
         const Layer *p_last_layer = m_layers.back();
         LayerInterface *interface = LayerInterface::createRoughInterface( p_last_layer, p_new_layer, roughness);
-        m_layers.push_back( p_new_layer );
-        m_interfaces.push_back(interface);
+        addAndRegisterLayer(p_new_layer);
+        addAndRegisterInterface(interface);
         m_layers_z.push_back(m_layers_z.back() - layer.getThickness() );
         return;
     }
-    m_layers.push_back(p_new_layer);
+    addAndRegisterLayer(p_new_layer);
     m_layers_z.push_back(0.0);
 }
 
@@ -166,14 +170,14 @@ double MultiLayer::getCrossCorrSpectralFun(const kvector_t &kvec, int j, int k) 
 {
     double z_j = getLayerBottomZ(j);
     double z_k = getLayerBottomZ(k);
-    const LayerRoughness &rough_j = getLayerBottomInterface(j)->getRoughness();
-    const LayerRoughness &rough_k = getLayerBottomInterface(k)->getRoughness();
-    double sigma_j = rough_j.getSigma();
-    double sigma_k = rough_k.getSigma();
+    const LayerRoughness *rough_j = getLayerBottomInterface(j)->getRoughness();
+    const LayerRoughness *rough_k = getLayerBottomInterface(k)->getRoughness();
+    double sigma_j = rough_j->getSigma();
+    double sigma_k = rough_k->getSigma();
     if(sigma_j == 0 || sigma_k ==0 || m_crossCorrLength==0) {
         throw DivisionByZeroException("MultiLayer::getCrossCorrSpectralFun() -> Not defined sigma of roughness or crossCorrLength");
     }
-    double corr = 0.5*( (sigma_k/sigma_j)*rough_j.getSpectralFun(kvec) + (sigma_j/sigma_k)*rough_k.getSpectralFun(kvec) ) * std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
+    double corr = 0.5*( (sigma_k/sigma_j)*rough_j->getSpectralFun(kvec) + (sigma_j/sigma_k)*rough_k->getSpectralFun(kvec) ) * std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
     return corr;
 }
 

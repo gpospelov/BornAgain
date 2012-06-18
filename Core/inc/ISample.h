@@ -14,21 +14,30 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
+#include "INamed.h"
 #include "Exceptions.h"
 
 
-class ISample
+class ICompositeSample;
+
+class ISample : public INamed
 {
 public:
-    ISample(){}
+    ISample();
     virtual ~ISample() {}
 
-    virtual void add(ISample* p_child);
+    virtual ICompositeSample *getCompositeSample() { return 0; }
+    virtual ISample *clone();
 
-    virtual ISample *clone() const =0;
-
+//    virtual void add(ISample* p_child);
 //    virtual void remove(ISample* p_child);
 //    virtual ISample* getChild(size_t index);
+
+    long getId() const {return m_id; }
+
+protected:
+    long m_id; //! temporary debug variable to track id of instance
+    static long m_id_last; //! temporary debug variable to track id of instance
 };
 
 #endif // ISAMPLE_H

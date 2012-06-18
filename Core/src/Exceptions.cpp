@@ -71,3 +71,9 @@ DivisionByZeroException::DivisionByZeroException(const std::string &message)
 {
     LogExceptionMessage(message);
 }
+
+DomainErrorException::DomainErrorException(const std::string &message)
+    : std::domain_error(message)
+{
+    LogExceptionMessage(message);
+}

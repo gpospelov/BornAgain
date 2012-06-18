@@ -32,6 +32,8 @@ class LayerRoughness : public IRoughness
 public:
     LayerRoughness();
     LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
+    LayerRoughness(const LayerRoughness &other);
+    LayerRoughness &operator=(const LayerRoughness &other);
 
     //! return power spectral density of the surface roughness
     double getSpectralFun(const kvector_t &kvec) const;

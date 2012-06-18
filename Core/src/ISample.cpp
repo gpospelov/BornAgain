@@ -1,7 +1,15 @@
 #include "ISample.h"
 
+long ISample::m_id_last=0;
 
-void ISample::add(ISample* /*p_child*/)
+
+ISample::ISample() {
+    m_id = m_id_last;
+    m_id_last++;
+}
+
+
+ISample *ISample::clone()
 {
-    throw NotImplementedException("This sample class is not allowed to have subsamples.");
+    throw NotImplementedException("ISample::clone() -> Error! The clone method is not implemented");
 }

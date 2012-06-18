@@ -1,5 +1,5 @@
-#ifndef IMATERIAL_H
-#define IMATERIAL_H
+#ifndef INAMED_H
+#define INAMED_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,43 +9,30 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   IMaterial.h
-//! @brief  Definition of IMaterial class
+//! @file   INamed.h
+//! @brief  Definition of INamed class
 //! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
+//! @date   18.06.2012
 
 #include <string>
-#include <iostream>
-#include "INamed.h"
 
 
 //- -------------------------------------------------------------------
-//! @class IMaterial
-//! @brief Material definition
+//! @class INamed
+//! @brief Definition of INamed class for all objects havint the name
 //- -------------------------------------------------------------------
-class IMaterial : public INamed
+class INamed
 {
 public:
-    IMaterial() {}
-    IMaterial(const std::string &name) : INamed(name) {}
-    IMaterial(const IMaterial &other);
-    IMaterial &operator=(const IMaterial &other);
-    virtual ~IMaterial() {}
+    INamed() {}
+    INamed(std::string name) { m_name = name; }
+    virtual ~INamed(){}
 
-    //! print material class
-    friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
-    {
-        m.print(ostr); return ostr;
-    }
+    virtual std::string getName() const { return m_name; }
+    virtual void setName(std::string name) { m_name = name; }
 
 protected:
-    //! print material class
-    virtual void print(std::ostream &ostr) const {
-        ostr << this << " '" << m_name << "'";
-    }
-
+    std::string m_name;
 };
 
-
-
-#endif // IMATERIAL_H
+#endif // INAMED_H

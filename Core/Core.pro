@@ -37,7 +37,10 @@ SOURCES += \
     src/IFunctionalTest.cpp \
     src/IFactory.cpp \
     src/DWBADiffuseReflection.cpp \
-    src/Convolve.cpp
+    src/Convolve.cpp \
+    src/INamed.cpp \
+    src/ICompositeSample.cpp \
+    src/ICompositeIterator.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -74,7 +77,10 @@ HEADERS += \
     inc/IFactory.h \
     inc/Numeric.h \
     inc/DWBADiffuseReflection.h \
-    inc/Convolve.h
+    inc/Convolve.h \
+    inc/INamed.h \
+    inc/ICompositeSample.h \
+    inc/ICompositeIterator.h
 
 INCLUDEPATH += ./inc
 DEPENDPATH += ./inc

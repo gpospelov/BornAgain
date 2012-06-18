@@ -84,6 +84,12 @@ public:
     DivisionByZeroException(const std::string& message);
 };
 
+class DomainErrorException : public std::domain_error
+{
+public:
+    DomainErrorException(const std::string& message);
+};
+
 void LogExceptionMessage(const std::string &message);
 
 

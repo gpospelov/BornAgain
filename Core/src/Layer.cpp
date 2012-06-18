@@ -1,9 +1,13 @@
 #include "Layer.h"
-#include <stdexcept>
+#include "Exceptions.h"
 
+
+/* ************************************************************************* */
+// constructors, assignment operator, destructors
 /* ************************************************************************* */
 Layer::Layer() : mp_material(0), m_thickness(0)
 {
+    setName("layer");
 }
 
 
@@ -33,7 +37,10 @@ Layer::~Layer()
 
 
 /* ************************************************************************* */
-Layer *Layer::clone() const {
+// clone
+/* ************************************************************************* */
+Layer *Layer::clone() const
+{
     return new Layer(*this);
 }
 
@@ -46,7 +53,7 @@ void Layer::setThickness(double thickness)
         m_thickness = thickness;
         return;
     }
-    throw new std::domain_error("Layer thickness cannot be negative");
+    throw DomainErrorException("Layer thickness cannot be negative");
 }
 
 
@@ -55,3 +62,4 @@ void Layer::setMaterial(const IMaterial* p_material, double thickness)
     setMaterial(p_material);
     setThickness(thickness);
 }
+

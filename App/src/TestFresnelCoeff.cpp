@@ -9,6 +9,8 @@
 #include "Units.h"
 #include "OutputData.h"
 #include "Numeric.h"
+#include "ICompositeIterator.h"
+#include "MaterialManager.h"
 
 #include <iostream>
 #include <iomanip>
@@ -233,7 +235,40 @@ void TestFresnelCoeff::draw_standard()
 /* ************************************************************************* */
 void TestFresnelCoeff::test_roughness()
 {
-//    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("SimpleMultilayer"));
+    std::cout << "TestFresnelCoeff::test_roughness() " << std::endl;
+    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("SimpleMultilayer"));
+
+//    MaterialManager &matManager = MaterialManager::instance();
+//    const IMaterial *mAmbience = matManager.addHomogeneousMaterial("ambience",complex_t(1.0, 0.0) );
+//    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate", complex_t(1.0-15e-6, 0) );
+
+//    m_sample = new MultiLayer;
+
+//    Layer lAmbience;
+//    lAmbience.setMaterial(mAmbience, 0);
+//    m_sample->addLayer(lAmbience);
+
+//    Layer lAir;
+//    lAir.setMaterial(mAmbience, 10*Units::nanometer);
+//    m_sample->addLayer(lAir);
+
+//    Layer lSubstrate;
+//    lSubstrate.setMaterial(mSubstrate,0);
+//    m_sample->addLayer(lSubstrate);
+
+
+    m_sample->print();
+
+    ICompositeIterator it=m_sample->createIterator();
+    //it.print();
+    it.first();
+    std::cout << " XXX" << std::endl;
+    while(!it.is_done())
+    {
+        std::cout << it.get_current() << " " << it.get_current()->getName() << " " << it.get_current()->getId() << std::endl;
+        it.next();
+    }
+
 
 //    double a_roughness[]={0.0,1.0,10.0,100.0};
 

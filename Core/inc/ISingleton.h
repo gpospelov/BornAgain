@@ -49,7 +49,7 @@ public:
 
 protected:
     ISingleton() {}
-    ISingleton(const ISingleton &);
+    ISingleton(const ISingleton &) {}
 
     static void create_singleton()
     {

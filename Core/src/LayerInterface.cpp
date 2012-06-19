@@ -1,12 +1,17 @@
 #include "LayerInterface.h"
 
-LayerInterface::LayerInterface() : m_LayerTop(0), m_LayerBottom(0)
+#include <iostream>
+
+
+LayerInterface::LayerInterface() : m_roughness(0), m_LayerTop(0), m_LayerBottom(0)
 {
+    setName("interface");
 }
 
 
 LayerInterface::~LayerInterface()
 {
+    if(m_roughness) delete m_roughness;
 }
 
 
@@ -26,5 +31,18 @@ LayerInterface *LayerInterface::createRoughInterface(const Layer *p_layer_top, c
     lr->setLayerBottom(p_layer_bottom);
     lr->setRoughness(roughness);
     return lr;
+}
+
+
+void LayerInterface::setRoughness(const LayerRoughness &roughness)
+{
+    if(m_roughness) {
+        std::cout << "LayerInterface::setRoughness() -> Info. Roughness already assigned to given interface, removing it " << std::endl;
+        deregisterChild(m_roughness);
+        delete m_roughness;
+        m_roughness=0;
+    }
+    m_roughness = new LayerRoughness(roughness);
+    registerChild(m_roughness);
 }
 

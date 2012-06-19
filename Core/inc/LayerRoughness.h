@@ -32,6 +32,8 @@ class LayerRoughness : public IRoughness
 public:
     LayerRoughness();
     LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
+    LayerRoughness(const LayerRoughness &other);
+    LayerRoughness &operator=(const LayerRoughness &other);
 
     //! return power spectral density of the surface roughness
     double getSpectralFun(const kvector_t &kvec) const;
@@ -39,9 +41,9 @@ public:
     double getCorrFun(const kvector_t &k) const;
 
     //! set rms value of roughness
-    void   setSigma(double sigma) { m_sigma = sigma; }
+    inline void   setSigma(double sigma) { m_sigma = sigma; }
     //! return rms value of roughness
-    double getSigma() const { return m_sigma; }
+    inline double getSigma() const { return m_sigma; }
 
     //! Set hurst parameter. It describes how jagged the surface is.
     inline void   setHurstParameter(double hurstParameter) { m_hurstParameter = hurstParameter; }

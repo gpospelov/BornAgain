@@ -14,8 +14,14 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
+#include "ISample.h"
 
-class IRoughness
+
+//- -------------------------------------------------------------------
+//! @class IRoughness
+//! @brief Definition of Roughness interface
+//- -------------------------------------------------------------------
+class IRoughness : public ISample
 {
 public:
     IRoughness();

@@ -3,6 +3,8 @@
 #include "OpticalFresnel.h"
 #include "Numeric.h"
 
+
+
 OpticalFresnel::OpticalFresnel()
 {
 }
@@ -30,7 +32,7 @@ void OpticalFresnel::calculateKZ(const MultiLayer &sample, const kvector_t &kvec
     // Q_{z,j} &= 2k_{z,j} = 2\cdot \sqrt{ k^2 n_j^2 - k_x^2 }
     for(size_t i=0; i<coeff.size(); ++i) {
         complex_t rindex = sample.getLayer(i)->getRefractiveIndex();
-        coeff[i].kz = std::sqrt( kvec.mag2()*std::pow( rindex, 2) - kvec.magxy()*kvec.magxy() );
+        coeff[i].kz = std::sqrt( kvec.mag2()*rindex*rindex - kvec.magxy()*kvec.magxy() );
         //std::cout << "k_z: " << coeff[i].kz << std::endl;
     }
 }
@@ -110,6 +112,8 @@ void OpticalFresnel::calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &co
 
 void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff)
 {
+    //complex_t ct0(0,0);
+
     coeff[0].R = coeff[0].X;
     coeff[0].T = 1;
 
@@ -131,6 +135,11 @@ void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &c
         double d = i==0 ? 0.0 : sample.getLayerThickness(i);
         // Logarithm of common prefactor:
         // \log(T_i) + i k_{z,i}d_i - \log(t_{i+1,i})
+        if(std::abs(coeff[i].T) == 0) {
+            coeff[i+1].R = complex_t(0,0);
+            coeff[i+1].T = complex_t(0,0);
+            continue;
+        }
         complex_t log_prefactor = std::log(coeff[i].T) + complex_t(0,1)*coeff[i].kz*d - std::log(coeff[i].tb);
 
         // Calculate R
@@ -163,7 +172,7 @@ void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &c
             }
         }
 
-        complex_t x_ratio = coeff[i+1].R / coeff[i+1].T;
+        //complex_t x_ratio = coeff[i+1].R / coeff[i+1].T;
         //std::cout << "Calculated R: "<< coeff[i+1].R << " Calculated T: " << coeff[i+1].T << std::endl;
         //std::cout << "Calculated X: "<< x_ratio << " Real X: " << coeff[i+1].X << std::endl;
     }

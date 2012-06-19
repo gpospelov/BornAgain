@@ -19,6 +19,7 @@
 #include <map>
 #include "Exceptions.h"
 #include "IMaterial.h"
+#include "ISingleton.h"
 #include "HomogeneousMaterial.h"
 
 
@@ -29,12 +30,9 @@
 //! It is a singleton which provide common and unique interface for
 //! material creation and access. No thread safeness.
 //- -------------------------------------------------------------------
-class MaterialManager
+class MaterialManager: public ISingleton<MaterialManager>
 {
 public:
-    //! access to material manager
-    static MaterialManager &instance();
-
     //! return material from database
     const IMaterial *getMaterial(const std::string &name);
 
@@ -48,22 +46,6 @@ public:
     void print() const;
 
 private:
-    //! prevents client from creating a copy of the singleton
-    MaterialManager();
-    MaterialManager(const MaterialManager &);
-    MaterialManager &operator=(const MaterialManager &);
-
-    //! reaction on too early destroyed object
-    static void onDeadReference();
-
-    //! create single copy of manager
-    static void create();
-
-    virtual ~MaterialManager();
-
-    static MaterialManager *pInstance;
-    static bool m_destroyed;
-
     typedef std::map<std::string, IMaterial *> materials_t;
     materials_t m_materials;
 };

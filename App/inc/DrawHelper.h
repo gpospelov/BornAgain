@@ -15,11 +15,12 @@
 //! @date   01.04.2012
 
 #include "TObject.h"
-
+#include "ISingleton.h"
 
 class TCanvas;
 class MultiLayer;
 class TPad;
+
 
 //- -------------------------------------------------------------------
 //! @class DrawHelper
@@ -28,11 +29,11 @@ class TPad;
 //! Provides magnification of pads in canvas, common style for drawing,
 //! saving of all opened canvases from memory to pdf file
 //- -------------------------------------------------------------------
-class DrawHelper : public TObject
+class DrawHelper : public ISingleton<DrawHelper>, public TObject
 {
 public:
-  ~DrawHelper();
-  static DrawHelper &instance();
+//  ~DrawHelper();
+//  static DrawHelper &instance();
 
   //! set own drawing style
   static void SetStyle();
@@ -50,19 +51,19 @@ public:
   void DrawMultilayer(const MultiLayer *sample);
 
 private:
-  /// prevents client from creating a copy of the singleton
-  DrawHelper();
-  DrawHelper(const DrawHelper &);
-  DrawHelper &operator=(const DrawHelper &);
+//  /// prevents client from creating a copy of the singleton
+//  DrawHelper();
+//  DrawHelper(const DrawHelper &);
+//  DrawHelper &operator=(const DrawHelper &);
 
-  /// reaction on too early destroyed object
-  static void onDeadReference();
+//  /// reaction on too early destroyed object
+//  static void onDeadReference();
 
-  /// create single copy of manager
-  static void create();
+//  /// create single copy of manager
+//  static void create();
 
-  static DrawHelper *m_instance;
-  static bool m_destroyed;
+//  static DrawHelper *m_instance;
+//  static bool m_destroyed;
 
   ClassDef(DrawHelper,1)
 };

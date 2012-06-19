@@ -18,7 +18,8 @@ SOURCES += \
     src/TestFactory.cpp \
     src/TestDiffuseReflection.cpp \
     src/TestIsGISAXS10.cpp \
-    src/IsGISAXSTools.cpp
+    src/IsGISAXSTools.cpp \
+    src/TestConvolution.cpp
 
 HEADERS += \
     inc/DrawHelper.h \
@@ -34,7 +35,8 @@ HEADERS += \
     inc/TestFactory.h \
     inc/TestDiffuseReflection.h \
     inc/TestIsGISAXS10.h \
-    inc/IsGISAXSTools.h
+    inc/IsGISAXSTools.h \
+    inc/TestConvolution.h
 
 INCLUDEPATH += ./inc
 DEPENDPATH += ./inc
@@ -54,9 +56,12 @@ for(dep, MY_DEPENDENCY_LIB) {
     INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
 }
 
-
-INCLUDEPATH += /opt/local/include
-LIBS += -L /opt/local/lib/ -lfftw3
+macx {
+  INCLUDEPATH += /opt/local/include
+  LIBS += -L /opt/local/lib/ -lfftw3
+} else {
+  LIBS += -L /usr/lib64/ -lfftw3
+}
 
 ###############################################################################
 # adding ROOT libraries
@@ -65,7 +70,9 @@ LIBS += -L /opt/local/lib/ -lfftw3
 ###############################################################################
 exists($$(ROOTSYS)/bin/root-config){
   INCLUDEPATH += $$system($ROOTSYS/bin/root-config --incdir)
-  LIBS += $$system($ROOTSYS/bin/root-config --glibs)
+  #LIBS += $$system($ROOTSYS/bin/root-config --glibs)
+  LIBS += -L$$system($ROOTSYS/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad  -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
+
   MYROOTCINT = ${ROOTSYS}/bin/rootcint
 }
 !exists($$(ROOTSYS)/bin/root-config){

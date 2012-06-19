@@ -16,26 +16,21 @@
 
 #include <string>
 #include <iostream>
+#include "INamed.h"
 
 
 //- -------------------------------------------------------------------
 //! @class IMaterial
 //! @brief Material definition
 //- -------------------------------------------------------------------
-class IMaterial
+class IMaterial : public INamed
 {
 public:
     IMaterial() {}
-    IMaterial(const std::string &name) : m_name(name) {}
+    IMaterial(const std::string &name) : INamed(name) {}
     IMaterial(const IMaterial &other);
     IMaterial &operator=(const IMaterial &other);
     virtual ~IMaterial() {}
-
-    //! set name of the material
-    void setName(const std::string &name) { m_name = name; }
-
-    //! return name of the material
-    std::string getName() const { return m_name; }
 
     //! print material class
     friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
@@ -49,7 +44,6 @@ protected:
         ostr << this << " '" << m_name << "'";
     }
 
-    std::string m_name;
 };
 
 

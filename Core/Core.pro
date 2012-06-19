@@ -36,7 +36,11 @@ SOURCES += \
     src/IFactory.cpp \
     src/DWBADiffuseReflection.cpp \
     src/NanoParticleDecorator.cpp \
-    src/InterferenceFunction1DParaCrystal.cpp
+    src/InterferenceFunction1DParaCrystal.cpp \
+    src/Convolve.cpp \
+    src/INamed.cpp \
+    src/ICompositeSample.cpp \
+    src/ICompositeIterator.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -74,14 +78,24 @@ HEADERS += \
     inc/NanoParticleDecorator.h \
     inc/IDispersalState.h \
     inc/IInterferenceFunction.h \
-    inc/InterferenceFunction1DParaCrystal.h
+    inc/InterferenceFunction1DParaCrystal.h \
+    inc/Convolve.h \
+    inc/INamed.h \
+    inc/ICompositeSample.h \
+    inc/ICompositeIterator.h
 
-INCLUDEPATH += /opt/local/include ./inc
+INCLUDEPATH += ./inc
 DEPENDPATH += ./inc
 
 OBJECTS_DIR = obj
 
-LIBS += -L/opt/local/lib -lgsl -lfftw3
+macx {
+  INCLUDEPATH += /opt/local/include
+  LIBS += -L /opt/local/lib/ -lgsl -lfftw3
+} else {
+  LIBS += -L /usr/lib64/ -lgsl -lgslcblas -lfftw3
+}
+
 
 ###############################################################################
 # Installing library into dedicated directory at the end of compilation
@@ -100,5 +114,5 @@ QMAKE_DISTCLEAN += $$MYPREFIX/inc/ScattCore
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 
 
-QMAKE_POST_LINK = (make install; ln -sf $$PWD/inc $$MYPREFIX/inc/ScattCore)
+QMAKE_POST_LINK = (make install; mkdir -p $$MYPREFIX/inc; ln -sf $$PWD/inc $$MYPREFIX/inc/ScattCore)
 

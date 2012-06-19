@@ -32,9 +32,17 @@ public:
 
     void execute();
 
-    void draw();
-
 private:
+    //! calculate fresnel coefficients for several standard multi-layer samples
+    void test_standard();
+    //! draw results of the test
+    void draw_standard();
+
+    //! calculate fresnel coefficients for multi-layer with different roughnesses
+    void test_roughness();
+    //! draw result of the test
+    void draw_roughness();
+
     MultiLayer *m_sample; //!< pointer to multilayer sample
     OutputData<OpticalFresnel::MultiLayerCoeff_t  > *m_coeffs; //!< output data structure
 };

@@ -8,6 +8,6 @@ IFunctionalTest::IFunctionalTest()
 
 void IFunctionalTest::execute()
 {
-    throw NotImplementedException("This test can't run.");
+    throw NotImplementedException("This test can't run. Undefined execute method.");
 }
 

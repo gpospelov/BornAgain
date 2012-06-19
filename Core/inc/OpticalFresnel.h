@@ -42,7 +42,9 @@ public:
     typedef std::vector<FresnelCoeff > MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
 
     static int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
+
 private:
+
     static void calculateKZ(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
     static void calculateFresnelCoefficients(MultiLayerCoeff_t &coeff);
     static void calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coeff);

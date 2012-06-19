@@ -29,7 +29,7 @@ template<class IdentifierType, class AbstractProduct >
 class IFactory
 {
 public:
-    IFactory() : m_delete_objects(false), m_store_objects(false) { }
+    IFactory() : m_own_objects(false) { }
 
     //! pointer to function which will be used to create object of AbstractProduct base type
     typedef AbstractProduct* (*CreateItemCallback) ();
@@ -47,7 +47,7 @@ public:
         }
         // invoke the creation function
         AbstractProduct *x = (it->second)();
-        if(m_store_objects) m_objects.push_back(x);
+        if(m_own_objects) m_objects.push_back(x);
         return x;
     }
 
@@ -71,7 +71,7 @@ public:
     void clear()
     {
         m_callbacks.clear();
-        if(m_delete_objects) {
+        if(m_own_objects) {
             typename std::vector<AbstractProduct *>::iterator it;
             for(it=m_objects.begin(); it!=m_objects.end(); it++) {
                 delete (*it);
@@ -81,17 +81,13 @@ public:
     }
 
     //! set flag to delete objects on descruction
-    void setDeleteObjects(bool delete_objects) { m_delete_objects = delete_objects; }
-
-    //! set flag to store created objects
-    void setStoreObjects(bool store_objects) { m_store_objects = store_objects; }
+    void setOwnObjects(bool own_objects) { m_own_objects = own_objects; }
 
     //! return number of registered objects
     size_t getNumberOfRegistered() const { return m_callbacks.size(); }
 
 protected:
-    bool m_delete_objects;         //!< will delete created objects on exit then true
-    bool m_store_objects;          //!< will store created objects
+    bool m_own_objects;         //!< will store created objects in the list and then delete them on exit then true
     CallbackMap_t m_callbacks;     //!< map of correspondance of objectsId and creation functions
     std::vector<AbstractProduct *> m_objects; //! vector of all created objects (if m_store_objects==true)
 };

@@ -88,3 +88,23 @@ std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<do
 }
 
 
+/* ************************************************************************* */
+// convolution of two real vectors of equal size
+/* ************************************************************************* */
+std::vector<complex_t> MathFunctions::ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc)
+{
+    if(signal.size() != resfunc.size() ) {
+        throw std::runtime_error("MathFunctions::ConvolveFFT() -> This convolution works only for two vectors of equal size. Use Convolve class instead.");
+    }
+    std::vector<complex_t > fft_signal = MathFunctions::FastFourierTransform(signal, MathFunctions::ForwardFFT);
+    std::vector<complex_t > fft_resfunc = MathFunctions::FastFourierTransform(resfunc, MathFunctions::ForwardFFT);
+
+    std::vector<complex_t > fft_prod;
+    fft_prod.resize(fft_signal.size());
+    for(size_t i=0; i<fft_signal.size(); i++){
+        fft_prod[i] = fft_signal[i] * fft_resfunc[i];
+    }
+
+    std::vector<complex_t > result = MathFunctions::FastFourierTransform(fft_prod, MathFunctions::BackwardFFT);
+    return result;
+}

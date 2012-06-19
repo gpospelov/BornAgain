@@ -16,6 +16,7 @@
 
 #include <vector>
 
+#include "ICompositeSample.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
@@ -36,7 +37,7 @@
 //!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
 //!
 //- -------------------------------------------------------------------
-class MultiLayer : public ISample
+class MultiLayer : public ICompositeSample
 {
 public:
     MultiLayer();
@@ -52,13 +53,13 @@ public:
     void addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness);
 
     //! return layer with given index
-    const Layer *getLayer(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]; }
+    inline const Layer *getLayer(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]; }
 
     //! return z-coordinate of the layer's bottom
-    double getLayerBottomZ(size_t i_layer) const { return m_layers_z[ check_layer_index(i_layer) ]; }
+    inline double getLayerBottomZ(size_t i_layer) const { return m_layers_z[ check_layer_index(i_layer) ]; }
 
     //! return thickness of layer
-    double getLayerThickness(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]->getThickness(); }
+    inline double getLayerThickness(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]->getThickness(); }
 
     //! return top interface of layer
     const LayerInterface *getLayerTopInterface(size_t i_layer) const;
@@ -85,12 +86,29 @@ public:
     //double getCrossCorrFun(const kvector_t &k, int j, int k) const;
 
     //! fourier transform of the correlation function of roughnesses between the interfaces
-    double getCrossCorrSpectralFun(const kvector_t &k, int j, int k) const;
+    double getCrossCorrSpectralFun(const kvector_t &kvec, int j, int k) const;
+
+    //! change thickness of layer
+    void setLayerThickness(size_t i_layer, double thickness);
 
 private:
     //! hiding copy constructor & assignment operator
     MultiLayer(const MultiLayer &);
     MultiLayer &operator=(const MultiLayer &);
+
+    //! adding the layer with simultaneous registration in parent class
+    void addAndRegisterLayer(Layer *child)
+    {
+        m_layers.push_back(child);
+        registerChild(child);
+    }
+
+    //! adding the interface with simultaneous registration in parent class
+    void addAndRegisterInterface(LayerInterface *child)
+    {
+        m_interfaces.push_back(child);
+        registerChild(child);
+    }
 
     //! check index of layer w.r.t. vector length
     inline size_t check_layer_index(size_t i_layer) const { return i_layer < m_layers.size() ? i_layer : throw OutOfBoundsException("Layer index is out of bounds"); }

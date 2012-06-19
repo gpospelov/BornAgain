@@ -72,10 +72,22 @@ public:
     LogicErrorException(const std::string& message);
 };
 
+class RuntimeErrorException : public std::runtime_error
+{
+public:
+    RuntimeErrorException(const std::string& message);
+};
+
 class DivisionByZeroException : public std::runtime_error
 {
 public:
     DivisionByZeroException(const std::string& message);
+};
+
+class DomainErrorException : public std::domain_error
+{
+public:
+    DomainErrorException(const std::string& message);
 };
 
 void LogExceptionMessage(const std::string &message);

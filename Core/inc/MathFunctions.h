@@ -19,6 +19,7 @@
 #include "gsl/gsl_sf_bessel.h"
 #include "gsl/gsl_sf_trig.h"
 #include "Types.h"
+#include "Numeric.h"
 
 
 namespace MathFunctions
@@ -36,6 +37,8 @@ double GenerateUniformRandom();
 double Bessel_J1(double value);
 
 double Sinc(double value);
+
+complex_t Sinc(complex_t value);
 
 enum TransformCase { ForwardFFT, BackwardFFT };
 std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, TransformCase tcase);
@@ -63,6 +66,15 @@ inline double MathFunctions::Bessel_J1(double value)
 inline double MathFunctions::Sinc(double value)  // Sin(x)/x
 {
     return gsl_sf_sinc(value/M_PI);
+}
+
+inline complex_t MathFunctions::Sinc(complex_t value)  // Sin(x)/x
+{
+	if(std::abs(value)<Numeric::double_epsilon) {
+		return complex_t(1.0, 0.0);
+	}
+    return (std::exp(complex_t(0.0, 1.0)*value) - std::exp(complex_t(0.0, -1.0)*value))
+    		/(complex_t(0.0, 2.0)*value);
 }
 
 #endif // MATHFUNCTIONS_H

@@ -1,5 +1,5 @@
-#ifndef TESTDWBAFORMFACTOR_H_
-#define TESTDWBAFORMFACTOR_H_
+#ifndef DWBAFORMFACTORCONSTZ_H_
+#define DWBAFORMFACTORCONSTZ_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,28 +9,27 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestDWBAFormFactor.h
-//! @brief  Definition of TestDWBAFormFactor class for formfactor validation
-//! @author herk
-//! @date   02.05.2012
+//! @file   DWBAFormFactorConstZ.h
+//! @brief  Definition of DWBAFormFactorConstZ
+//! @author herck
+//! @date   15.06.2012
 
-#include "IFunctionalTest.h"
-#include "OutputData.h"
-#include "FormFactorCylinder.h"
 #include "DWBAFormFactor.h"
 
-
-class TestDWBAFormFactor : public IFunctionalTest
+class DWBAFormFactorConstZ: public DWBAFormFactor
 {
 public:
-    TestDWBAFormFactor();
-    virtual ~TestDWBAFormFactor();
-    virtual void execute();
-    void draw();
-    void write();
+	DWBAFormFactorConstZ(IFormFactor* p_form_factor, double depth=0.0);
+    virtual ~DWBAFormFactorConstZ();
+
+    virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const;
+    virtual complex_t evaluateForComplexkz(kvector_t k_i, kvector_t k_f,
+    		complex_t k_iz, complex_t k_fz) const;
+protected:
+    double m_depth;
 
 private:
-    OutputData<double> *mp_intensity_output;
-    DWBAFormFactor m_dwba_ff;
+    complex_t getDepthPhase(complex_t q_z) const;
 };
-#endif /* TESTDWBAFORMFACTOR_H_ */
+
+#endif /* DWBAFORMFACTORCONSTZ_H_ */

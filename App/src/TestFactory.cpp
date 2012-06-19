@@ -4,6 +4,7 @@
 #include "TestFormFactor.h"
 #include "TestDWBAFormFactor.h"
 #include "TestDiffuseReflection.h"
+#include "TestIsGISAXS10.h"
 
 
 //template class ISingleton<IFactory<std::string, IFunctionalTest> >;
@@ -19,6 +20,7 @@ TestFactory::TestFactory()
     registerItem("formfactor", IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
     registerItem("dwba",       IFactoryCreateFunction<TestDWBAFormFactor, IFunctionalTest> );
     registerItem("diffuse",    IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
+    registerItem("isgisaxs10", IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest> );
 }
 
 

@@ -1,5 +1,5 @@
-#ifndef TESTDWBAFORMFACTOR_H_
-#define TESTDWBAFORMFACTOR_H_
+#ifndef INTERFERENCEFUNCTION2DPARACRYSTAL_H_
+#define INTERFERENCEFUNCTION2DPARACRYSTAL_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,28 +9,18 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestDWBAFormFactor.h
-//! @brief  Definition of TestDWBAFormFactor class for formfactor validation
-//! @author herk
-//! @date   02.05.2012
+//! @file   InterferenceFunction2DParaCrystal.h
+//! @brief  Definition of InterferenceFunction2DParaCrystal class
+//! @author herck
+//! @date   18.06.2012
 
-#include "IFunctionalTest.h"
-#include "OutputData.h"
-#include "FormFactorCylinder.h"
-#include "DWBAFormFactor.h"
+#include "IInterferenceFunction.h"
 
-
-class TestDWBAFormFactor : public IFunctionalTest
+class InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
-public:
-    TestDWBAFormFactor();
-    virtual ~TestDWBAFormFactor();
-    virtual void execute();
-    void draw();
-    void write();
 
-private:
-    OutputData<double> *mp_intensity_output;
-    DWBAFormFactor m_dwba_ff;
 };
-#endif /* TESTDWBAFORMFACTOR_H_ */
+
+
+
+#endif /* INTERFERENCEFUNCTION2DPARACRYSTAL_H_ */

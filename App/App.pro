@@ -16,7 +16,9 @@ SOURCES += \
     src/StandardSamples.cpp \
     src/CommandLine.cpp \
     src/TestFactory.cpp \
-    src/TestDiffuseReflection.cpp
+    src/TestDiffuseReflection.cpp \
+    src/TestIsGISAXS10.cpp \
+    src/IsGISAXSTools.cpp
 
 HEADERS += \
     inc/DrawHelper.h \
@@ -30,7 +32,9 @@ HEADERS += \
     inc/StandardSamples.h \
     inc/CommandLine.h \
     inc/TestFactory.h \
-    inc/TestDiffuseReflection.h
+    inc/TestDiffuseReflection.h \
+    inc/TestIsGISAXS10.h \
+    inc/IsGISAXSTools.h
 
 INCLUDEPATH += ./inc
 DEPENDPATH += ./inc

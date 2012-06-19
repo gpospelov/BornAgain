@@ -18,7 +18,6 @@ SOURCES += \
     src/Exceptions.cpp \
     src/ISample.cpp \
     src/IAlgorithm.cpp \
-    src/CalculatorOptical.cpp \
     src/ISimulation.cpp \
     src/OutputData.cpp \
     src/OpticalFresnel.cpp \
@@ -36,7 +35,8 @@ SOURCES += \
     src/IFunctionalTest.cpp \
     src/IFactory.cpp \
     src/DWBADiffuseReflection.cpp \
-    src/NanoParticleDecorator.cpp
+    src/NanoParticleDecorator.cpp \
+    src/InterferenceFunction1DParaCrystal.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -49,7 +49,6 @@ HEADERS += \
     inc/Exceptions.h \
     inc/IAlgorithm.h \
     inc/Types.h \
-    inc/CalculatorOptical.h \
     inc/ISimulation.h \
     inc/OutputData.h \
     inc/NamedVector.h \
@@ -73,7 +72,9 @@ HEADERS += \
     inc/Numeric.h \
     inc/DWBADiffuseReflection.h \
     inc/NanoParticleDecorator.h \
-    inc/IDispersalState.h
+    inc/IDispersalState.h \
+    inc/IInterferenceFunction.h \
+    inc/InterferenceFunction1DParaCrystal.h
 
 INCLUDEPATH += /opt/local/include ./inc
 DEPENDPATH += ./inc

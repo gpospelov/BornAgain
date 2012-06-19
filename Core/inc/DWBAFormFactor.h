@@ -33,6 +33,8 @@ public:
         mp_R = p_R;
     }
     virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const;
+    virtual complex_t evaluateForComplexkz(kvector_t k_i, kvector_t k_f,
+    		complex_t k_iz, complex_t k_fz) const;
 protected:
     IFormFactor *mp_form_factor;
     IDoubleToComplexFunction *mp_T;
@@ -40,6 +42,10 @@ protected:
     complex_t getT(double alpha) const;
     complex_t getR(double alpha) const;
     complex_t getX(double alpha) const;
+    void calculateTerms(kvector_t k_i, kvector_t k_f) const;
+    void calculateTerms(kvector_t k_i, kvector_t k_f,
+    		complex_t k_iz, complex_t k_fz) const;
+    mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
 };
 
 inline complex_t DWBAFormFactor::getT(double alpha) const

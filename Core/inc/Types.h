@@ -82,7 +82,15 @@ template<typename T> KVector<T> operator-(const KVector<T> &a, const KVector<T> 
 //}
 
 
-typedef KVector<double >  kvector_t;
+typedef KVector<double>  kvector_t;
+//typedef KVector<complex_t> complex_vector_t;
+//
+//inline complex_vector_t getComplexVector(kvector_t real_vector)
+//{
+//	return complex_vector_t(complex_t(real_vector.x()),
+//			complex_t(real_vector.y()), complex_t(real_vector.z()));
+//}
+
 
 
 #endif // TYPES_H

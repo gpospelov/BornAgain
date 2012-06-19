@@ -1,5 +1,5 @@
-#ifndef CALCULATOROPTICAL_H
-#define CALCULATOROPTICAL_H
+#ifndef IINTERFERENCEFUNCTION_H_
+#define IINTERFERENCEFUNCTION_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,15 +9,20 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   CalculatorOptical.h
-//! @brief  Defenition of base class for optical calculations
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
+//! @file   IInterferenceFunction.h
+//! @brief  Definition of IInterferenceFunction interface
+//! @author herck
+//! @date   18.06.2012
 
-class CalculatorOptical
+#include "Types.h"
+
+class IInterferenceFunction
 {
 public:
-    CalculatorOptical();
+	virtual ~IInterferenceFunction() {}
+
+	virtual double evaluate(kvector_t q) const=0;
 };
 
-#endif // CALCULATOROPTICAL_H
+
+#endif /* IINTERFERENCEFUNCTION_H_ */

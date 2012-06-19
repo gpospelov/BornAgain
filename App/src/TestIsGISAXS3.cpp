@@ -1,4 +1,4 @@
-#include "TestDWBAFormFactor.h"
+#include "TestIsGISAXS3.h"
 #include "IsGISAXSTools.h"
 #include "Types.h"
 #include "Units.h"
@@ -13,7 +13,7 @@
 
 
 
-TestDWBAFormFactor::TestDWBAFormFactor()
+TestIsGISAXS3::TestIsGISAXS3()
     : m_dwba_ff(new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer))
 {
 	complex_t n_substrate(1.0-6e-6, 2e-8);
@@ -28,12 +28,12 @@ TestDWBAFormFactor::TestDWBAFormFactor()
     mp_intensity_output->addAxis(p_z_axis);
 }
 
-TestDWBAFormFactor::~TestDWBAFormFactor()
+TestIsGISAXS3::~TestIsGISAXS3()
 {
     delete mp_intensity_output;
 }
 
-void TestDWBAFormFactor::execute()
+void TestIsGISAXS3::execute()
 {
     MultiIndex& index = mp_intensity_output->getIndex();
     NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
@@ -60,7 +60,7 @@ void TestDWBAFormFactor::execute()
     write();
 }
 
-void TestDWBAFormFactor::draw()
+void TestIsGISAXS3::draw()
 {
     // creation of 2D histogram from calculated intensities
     TCanvas *c1 = new TCanvas("c1_test_dwba_formfactor", "Cylinder Formfactor", 0, 0, 1024, 768);
@@ -100,7 +100,7 @@ void TestDWBAFormFactor::draw()
     p_hist2D->Draw("CONT4 Z");
 }
 
-void TestDWBAFormFactor::write()
+void TestIsGISAXS3::write()
 {
     std::ofstream file;
     file.open("./IsGISAXS_examples/ex-3/dwbacyl.ima", std::ios::out);

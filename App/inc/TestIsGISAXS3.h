@@ -1,5 +1,5 @@
-#ifndef TESTDWBAFORMFACTOR_H_
-#define TESTDWBAFORMFACTOR_H_
+#ifndef TESTISGISAXS3_H_
+#define TESTISGISAXS3_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,8 +9,8 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestDWBAFormFactor.h
-//! @brief  Definition of TestDWBAFormFactor class for formfactor validation
+//! @file   TestIsGISAXS3.h
+//! @brief  Definition of TestIsGISAXS3 class for IsGISAXS validation
 //! @author herk
 //! @date   02.05.2012
 
@@ -20,11 +20,11 @@
 #include "DWBAFormFactor.h"
 
 
-class TestDWBAFormFactor : public IFunctionalTest
+class TestIsGISAXS3 : public IFunctionalTest
 {
 public:
-    TestDWBAFormFactor();
-    virtual ~TestDWBAFormFactor();
+    TestIsGISAXS3();
+    virtual ~TestIsGISAXS3();
     virtual void execute();
     void draw();
     void write();
@@ -33,4 +33,4 @@ private:
     OutputData<double> *mp_intensity_output;
     DWBAFormFactor m_dwba_ff;
 };
-#endif /* TESTDWBAFORMFACTOR_H_ */
+#endif /* TESTISGISAXS3_H_ */

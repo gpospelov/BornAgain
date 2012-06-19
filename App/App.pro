@@ -11,7 +11,7 @@ SOURCES += \
     src/DrawHelper.cpp \
     src/TestFormFactor.cpp \
     src/TestRoughness.cpp \
-    src/TestDWBAFormFactor.cpp \
+    src/TestIsGISAXS3.cpp \
     src/SampleFactory.cpp \
     src/StandardSamples.cpp \
     src/CommandLine.cpp \
@@ -28,7 +28,7 @@ HEADERS += \
     inc/AppLinkDef.h \
     inc/TestFormFactor.h \
     inc/TestRoughness.h \
-    inc/TestDWBAFormFactor.h \
+    inc/TestIsGISAXS3.h \
     inc/SampleFactory.h \
     inc/StandardSamples.h \
     inc/CommandLine.h \

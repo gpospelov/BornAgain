@@ -27,8 +27,8 @@
 //! @class MaterialManager
 //! @brief Manager of materials used in simulatiom.
 //!
-//! It is a singleton which provide common and unique interface for
-//! material creation and access. No thread safeness.
+//! It is a singleton which provides common and unique interface for
+//! material creation and access. No thread safety.
 //- -------------------------------------------------------------------
 class MaterialManager: public ISingleton<MaterialManager>
 {

@@ -24,7 +24,7 @@ OBJECTS_DIR = obj
 ###############################################################################
 # Installing library into dedicated directory at the end of compilation
 ###############################################################################
-MYPREFIX = $$PWD/../.. # place to install library and headers
+MYPREFIX = $$PWD/../.. # place to install library
 target.path = $$MYPREFIX/lib
 INSTALLS += target
 ##includes.files = $$mygtest/include/gtest/*.h
@@ -37,7 +37,6 @@ INSTALLS += target
 # i.e. the order below is important
 #QMAKE_DISTCLEAN += -r $$includes.path/gtest
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
-QMAKE_DISTCLEAN += $$MYPREFIX/inc/gtest
 
-QMAKE_POST_LINK = (make install; ln -sf $$PWD/$$mygtest/include/gtest $$MYPREFIX/inc/gtest)
+QMAKE_POST_LINK = (make install)
 

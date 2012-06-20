@@ -14,6 +14,9 @@ HEADERS += \
 
 OBJECTS_DIR = obj
 
+INCLUDEPATH += ../../Core/Algorithms/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/include
+DEPENDPATH += ../../Core/Algorithms/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/include
+
 
 ###############################################################################
 # generating package dependency flags
@@ -21,11 +24,11 @@ OBJECTS_DIR = obj
 MY_DEPENDENCY_LIB = gtest ScattCore
 MY_DEPENDENCY_DEST =$$PWD/../..
 SONAME = so
-INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc
+# INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc
 for(dep, MY_DEPENDENCY_LIB) {
     LIBS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
     PRE_TARGETDEPS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-    INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
+#    INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
 }
 
 

@@ -10,82 +10,83 @@ QT      -= core gui
 QMAKE_EXTENSION_SHLIB = so
 
 SOURCES += \
-    src/NanoParticle.cpp \
-    src/Layer.cpp \
-    src/HomogeneousMaterial.cpp \
-    src/MultiLayer.cpp \
-    src/LayerRoughness.cpp \
-    src/Exceptions.cpp \
-    src/ISample.cpp \
-    src/IAlgorithm.cpp \
-    src/ISimulation.cpp \
-    src/OutputData.cpp \
-    src/OpticalFresnel.cpp \
-    src/IRoughness.cpp \
-    src/LayerInterface.cpp \
-    src/IMaterial.cpp \
-    src/MaterialManager.cpp \
-    src/StochasticGaussian.cpp \
-    src/MathFunctions.cpp \
-    src/FormFactorCylinder.cpp \
-    src/Types.cpp \
-    src/DoubleToComplexInterpolatingFunction.cpp \
-    src/DWBAFormFactor.cpp \
-    src/ISingleton.cpp \
-    src/IFunctionalTest.cpp \
-    src/IFactory.cpp \
-    src/DWBADiffuseReflection.cpp \
-    src/NanoParticleDecorator.cpp \
-    src/InterferenceFunction1DParaCrystal.cpp \
-    src/Convolve.cpp \
-    src/INamed.cpp \
-    src/ICompositeSample.cpp \
-    src/ICompositeIterator.cpp
+    Algorithms/src/DWBADiffuseReflection.cpp \
+    Algorithms/src/DWBAFormFactor.cpp \
+    Algorithms/src/DWBAFormFactorConstZ.cpp \
+    Algorithms/src/OpticalFresnel.cpp \
+    \
+    Samples/src/FormFactorCylinder.cpp \
+    Samples/src/HomogeneousMaterial.cpp \
+    Samples/src/ICompositeIterator.cpp \
+    Samples/src/ICompositeSample.cpp \
+    Samples/src/IMaterial.cpp \
+    Samples/src/InterferenceFunction1DParaCrystal.cpp \
+    Samples/src/IRoughness.cpp \
+    Samples/src/ISample.cpp \
+    Samples/src/Layer.cpp \
+    Samples/src/LayerInterface.cpp \
+    Samples/src/LayerRoughness.cpp \
+    Samples/src/MaterialManager.cpp \
+    Samples/src/MultiLayer.cpp \
+    Samples/src/NanoParticle.cpp \
+    Samples/src/NanoParticleDecorator.cpp \
+    \
+    Tools/src/Convolve.cpp \
+    Tools/src/DoubleToComplexInterpolatingFunction.cpp \
+    Tools/src/Exceptions.cpp \
+    Tools/src/IFactory.cpp \
+    Tools/src/INamed.cpp \
+    Tools/src/ISingleton.cpp \
+    Tools/src/MathFunctions.cpp \
+    Tools/src/OutputData.cpp \
+    Tools/src/StochasticGaussian.cpp \
+    Tools/src/Types.cpp
 
 HEADERS += \
-    inc/ISample.h \
-    inc/NanoParticle.h \
-    inc/Layer.h \
-    inc/IMaterial.h \
-    inc/HomogeneousMaterial.h \
-    inc/MultiLayer.h \
-    inc/LayerRoughness.h \
-    inc/Exceptions.h \
-    inc/IAlgorithm.h \
-    inc/Types.h \
-    inc/ISimulation.h \
-    inc/OutputData.h \
-    inc/NamedVector.h \
-    inc/OpticalFresnel.h \
-    inc/IRoughness.h \
-    inc/LayerInterface.h \
-    inc/MaterialManager.h \
-    inc/IStochasticParameter.h \
-    inc/StochasticGaussian.h \
-    inc/MathFunctions.h \
-    inc/IFormFactor.h \
-    inc/FormFactorCylinder.h \
-    inc/StochasticDiracDelta.h \
-    inc/IDoubleToComplexFunction.h \
-    inc/DoubleToComplexInterpolatingFunction.h \
-    inc/DWBAFormFactor.h \
-    inc/Units.h \
-    inc/ISingleton.h \
-    inc/IFunctionalTest.h \
-    inc/IFactory.h \
-    inc/Numeric.h \
-    inc/DWBADiffuseReflection.h \
-    inc/NanoParticleDecorator.h \
-    inc/IDispersalState.h \
-    inc/IInterferenceFunction.h \
-    inc/InterferenceFunction1DParaCrystal.h \
-    inc/Convolve.h \
-    inc/INamed.h \
-    inc/ICompositeSample.h \
-    inc/ICompositeIterator.h
+    Algorithms/inc/DWBADiffuseReflection.h \
+    Algorithms/inc/DWBAFormFactor.h \
+    Algorithms/inc/DWBAFormFactorConstZ.h \
+    Algorithms/inc/ISimulation.h \
+    Algorithms/inc/OpticalFresnel.h \
+    \
+    Samples/inc/FormFactorCylinder.h \
+    Samples/inc/HomogeneousMaterial.h \
+    Samples/inc/ICompositeIterator.h \
+    Samples/inc/ICompositeSample.h \
+    Samples/inc/IDispersalState.h \
+    Samples/inc/IFormFactor.h \
+    Samples/inc/IInterferenceFunction.h \
+    Samples/inc/IMaterial.h \
+    Samples/inc/InterferenceFunction1DParaCrystal.h \
+    Samples/inc/IRoughness.h \
+    Samples/inc/ISample.h \
+    Samples/inc/Layer.h \
+    Samples/inc/LayerInterface.h \
+    Samples/inc/LayerRoughness.h \
+    Samples/inc/MaterialManager.h \
+    Samples/inc/MultiLayer.h \
+    Samples/inc/NanoParticle.h \
+    Samples/inc/NanoParticleDecorator.h \
+    \
+    Tools/inc/Convolve.h \
+    Tools/inc/DoubleToComplexInterpolatingFunction.h \
+    Tools/inc/Exceptions.h \
+    Tools/inc/IDoubleToComplexFunction.h \
+    Tools/inc/IFactory.h \
+    Tools/inc/INamed.h \
+    Tools/inc/ISingleton.h \
+    Tools/inc/IStochasticParameter.h \
+    Tools/inc/MathFunctions.h \
+    Tools/inc/NamedVector.h \
+    Tools/inc/Numeric.h \
+    Tools/inc/OutputData.h \
+    Tools/inc/StochasticDiracDelta.h \
+    Tools/inc/StochasticGaussian.h \
+    Tools/inc/Types.h \
+    Tools/inc/Units.h
 
-INCLUDEPATH += ./inc
-DEPENDPATH += ./inc
+INCLUDEPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc
+DEPENDPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc
 
 OBJECTS_DIR = obj
 
@@ -110,9 +111,9 @@ INSTALLS += target
 # only when it appears at the beginning of QMAKE_DISTCLEAN variable
 # i.e. the order below is important
 #QMAKE_DISTCLEAN += -r $$includes.path
-QMAKE_DISTCLEAN += $$MYPREFIX/inc/ScattCore
+#QMAKE_DISTCLEAN += $$MYPREFIX/inc/ScattCore
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 
 
-QMAKE_POST_LINK = (make install; mkdir -p $$MYPREFIX/inc; ln -sf $$PWD/inc $$MYPREFIX/inc/ScattCore)
+QMAKE_POST_LINK = (make install)
 

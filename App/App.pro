@@ -7,6 +7,7 @@ QT      -= core gui
 
 SOURCES += \
     src/main.cpp \
+    src/IFunctionalTest.cpp \
     src/TestFresnelCoeff.cpp \
     src/DrawHelper.cpp \
     src/TestFormFactor.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
     src/TestConvolution.cpp
 
 HEADERS += \
+    inc/IFunctionalTest.h \
     inc/DrawHelper.h \
     inc/TestFresnelCoeff.h \
     inc/App.h \
@@ -38,8 +40,8 @@ HEADERS += \
     inc/IsGISAXSTools.h \
     inc/TestConvolution.h
 
-INCLUDEPATH += ./inc
-DEPENDPATH += ./inc
+INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/Samples/inc ../Core/Tools/inc
+DEPENDPATH += ./inc ../Core/Algorithms/inc ../Core/Samples/inc ../Core/Tools/inc
 
 OBJECTS_DIR = obj
 

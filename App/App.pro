@@ -11,12 +11,14 @@ SOURCES += \
     src/DrawHelper.cpp \
     src/TestFormFactor.cpp \
     src/TestRoughness.cpp \
-    src/TestDWBAFormFactor.cpp \
+    src/TestIsGISAXS3.cpp \
     src/SampleFactory.cpp \
     src/StandardSamples.cpp \
     src/CommandLine.cpp \
     src/TestFactory.cpp \
     src/TestDiffuseReflection.cpp \
+    src/TestIsGISAXS10.cpp \
+    src/IsGISAXSTools.cpp \
     src/TestConvolution.cpp
 
 HEADERS += \
@@ -26,12 +28,14 @@ HEADERS += \
     inc/AppLinkDef.h \
     inc/TestFormFactor.h \
     inc/TestRoughness.h \
-    inc/TestDWBAFormFactor.h \
+    inc/TestIsGISAXS3.h \
     inc/SampleFactory.h \
     inc/StandardSamples.h \
     inc/CommandLine.h \
     inc/TestFactory.h \
     inc/TestDiffuseReflection.h \
+    inc/TestIsGISAXS10.h \
+    inc/IsGISAXSTools.h \
     inc/TestConvolution.h
 
 INCLUDEPATH += ./inc

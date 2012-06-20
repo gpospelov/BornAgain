@@ -1,11 +1,5 @@
-/*
- * TestDWBAFormFactor.cpp
- *
- *  Created on: May 2, 2012
- *      Author: herck
- */
-
-#include "TestDWBAFormFactor.h"
+#include "TestIsGISAXS3.h"
+#include "IsGISAXSTools.h"
 #include "Types.h"
 #include "Units.h"
 
@@ -19,10 +13,11 @@
 
 
 
-TestDWBAFormFactor::TestDWBAFormFactor()
+TestIsGISAXS3::TestIsGISAXS3()
     : m_dwba_ff(new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer))
 {
-    m_dwba_ff.setReflectionFunction(new DoubleToComplexFunctionWrapper(reflection_fresnel));
+	complex_t n_substrate(1.0-6e-6, 2e-8);
+    m_dwba_ff.setReflectionFunction(new ReflectionFresnelFunctionWrapper(n_substrate));
     m_dwba_ff.setTransmissionFunction(new DoubleToComplexFunctionWrapper(transmission_fresnel));
     mp_intensity_output = new OutputData<double>();
     NamedVector<double> *p_y_axis = new NamedVector<double>(std::string("detector y-axis"));
@@ -33,12 +28,12 @@ TestDWBAFormFactor::TestDWBAFormFactor()
     mp_intensity_output->addAxis(p_z_axis);
 }
 
-TestDWBAFormFactor::~TestDWBAFormFactor()
+TestIsGISAXS3::~TestIsGISAXS3()
 {
     delete mp_intensity_output;
 }
 
-void TestDWBAFormFactor::execute()
+void TestIsGISAXS3::execute()
 {
     MultiIndex& index = mp_intensity_output->getIndex();
     NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
@@ -57,14 +52,15 @@ void TestDWBAFormFactor::execute()
         double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
         kvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        mp_intensity_output->currentValue() = normalizing_factor*std::pow(std::abs(m_dwba_ff.evaluate(k_i, k_f)),2);
+        complex_t ff = m_dwba_ff.evaluate(k_i, k_f);
+        mp_intensity_output->currentValue() = normalizing_factor*std::norm(ff);
         ++index;
     }
     draw();
     write();
 }
 
-void TestDWBAFormFactor::draw()
+void TestIsGISAXS3::draw()
 {
     // creation of 2D histogram from calculated intensities
     TCanvas *c1 = new TCanvas("c1_test_dwba_formfactor", "Cylinder Formfactor", 0, 0, 1024, 768);
@@ -104,7 +100,7 @@ void TestDWBAFormFactor::draw()
     p_hist2D->Draw("CONT4 Z");
 }
 
-void TestDWBAFormFactor::write()
+void TestIsGISAXS3::write()
 {
     std::ofstream file;
     file.open("./IsGISAXS_examples/ex-3/dwbacyl.ima", std::ios::out);
@@ -119,30 +115,4 @@ void TestDWBAFormFactor::write()
         }
         ++counter;
     }
-}
-
-complex_t reflection_fresnel(double alpha_i)
-{
-    complex_t refraction_index(1.0-6e-6, 2e-8);
-    complex_t cos_alpha_0_squared = std::cos(alpha_i)*std::cos(alpha_i);
-    complex_t f0 = std::sqrt(complex_t(1.0, 0.0) - cos_alpha_0_squared);
-    complex_t f1 = std::sqrt(refraction_index*refraction_index - cos_alpha_0_squared);
-    return (f0 - f1)/(f0 + f1);
-}
-
-complex_t transmission_fresnel(double alpha_i)
-{
-    (void)alpha_i;
-    return complex_t(1.0, 0.0);
-}
-
-// For IsGISAXS comparison:
-void initialize_angles_sine(NamedVector<double> *p_axis, double start, double end, size_t size) {
-	double start_sin = std::sin(start*M_PI/180);
-	double end_sin = std::sin(end*M_PI/180);
-	double step = (end_sin-start_sin)/(size-1);
-	for(size_t i=0; i<size; ++i) {
-		p_axis->push_back(std::asin(start_sin + step*i)*180/M_PI);
-	}
-	return;
 }

@@ -1,5 +1,5 @@
-#ifndef NANOPARTICLE_H
-#define NANOPARTICLE_H
+#ifndef INTERFERENCEFUNCTION2DPARACRYSTAL_H_
+#define INTERFERENCEFUNCTION2DPARACRYSTAL_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,27 +9,18 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   NanoParticle.h
-//! @brief  Definition of NanoParticle
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
+//! @file   InterferenceFunction2DParaCrystal.h
+//! @brief  Definition of InterferenceFunction2DParaCrystal class
+//! @author herck
+//! @date   18.06.2012
 
-#include "ISample.h"
-#include "IFormFactor.h"
+#include "IInterferenceFunction.h"
 
-
-//- -------------------------------------------------------------------
-//! @class NanoParticle
-//! @brief Definition of a nanoparticle with a form factor
-//- -------------------------------------------------------------------
-class NanoParticle : public ISample
+class InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
-public:
-    NanoParticle();
-    virtual ~NanoParticle();
 
-private:
-    IFormFactor* mp_form_factor;  ///< pointer to the form factor
 };
 
-#endif // NANOPARTICLE_H
+
+
+#endif /* INTERFERENCEFUNCTION2DPARACRYSTAL_H_ */

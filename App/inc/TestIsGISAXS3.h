@@ -1,5 +1,5 @@
-#ifndef NANOPARTICLE_H
-#define NANOPARTICLE_H
+#ifndef TESTISGISAXS3_H_
+#define TESTISGISAXS3_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,27 +9,28 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   NanoParticle.h
-//! @brief  Definition of NanoParticle
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
+//! @file   TestIsGISAXS3.h
+//! @brief  Definition of TestIsGISAXS3 class for IsGISAXS validation
+//! @author herk
+//! @date   02.05.2012
 
-#include "ISample.h"
-#include "IFormFactor.h"
+#include "IFunctionalTest.h"
+#include "OutputData.h"
+#include "FormFactorCylinder.h"
+#include "DWBAFormFactor.h"
 
 
-//- -------------------------------------------------------------------
-//! @class NanoParticle
-//! @brief Definition of a nanoparticle with a form factor
-//- -------------------------------------------------------------------
-class NanoParticle : public ISample
+class TestIsGISAXS3 : public IFunctionalTest
 {
 public:
-    NanoParticle();
-    virtual ~NanoParticle();
+    TestIsGISAXS3();
+    virtual ~TestIsGISAXS3();
+    virtual void execute();
+    void draw();
+    void write();
 
 private:
-    IFormFactor* mp_form_factor;  ///< pointer to the form factor
+    OutputData<double> *mp_intensity_output;
+    DWBAFormFactor m_dwba_ff;
 };
-
-#endif // NANOPARTICLE_H
+#endif /* TESTISGISAXS3_H_ */

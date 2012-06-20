@@ -2,8 +2,9 @@
 #include "TestRoughness.h"
 #include "TestFresnelCoeff.h"
 #include "TestFormFactor.h"
-#include "TestDWBAFormFactor.h"
 #include "TestDiffuseReflection.h"
+#include "TestIsGISAXS3.h"
+#include "TestIsGISAXS10.h"
 #include "TestConvolution.h"
 
 #include "TBenchmark.h"
@@ -14,11 +15,12 @@ TestFactory::TestFactory() : m_benchmark(0)
 {
     setOwnObjects(true);
 
-    registerItem("roughness",   IFactoryCreateFunction<TestRoughness, IFunctionalTest> );
-    registerItem("fresnel",     IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest> );
-    registerItem("formfactor",  IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
-    registerItem("dwba",        IFactoryCreateFunction<TestDWBAFormFactor, IFunctionalTest> );
-    registerItem("diffuse",     IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
+    registerItem("roughness",  IFactoryCreateFunction<TestRoughness, IFunctionalTest> );
+    registerItem("fresnel",    IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest> );
+    registerItem("formfactor", IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
+    registerItem("diffuse",    IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
+    registerItem("isgisaxs3",  IFactoryCreateFunction<TestIsGISAXS3, IFunctionalTest> );
+    registerItem("isgisaxs10", IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest> );
     registerItem("convolution", IFactoryCreateFunction<TestConvolution, IFunctionalTest> );
 
     m_benchmark = new TBenchmark();

@@ -18,7 +18,6 @@ SOURCES += \
     src/Exceptions.cpp \
     src/ISample.cpp \
     src/IAlgorithm.cpp \
-    src/CalculatorOptical.cpp \
     src/ISimulation.cpp \
     src/OutputData.cpp \
     src/OpticalFresnel.cpp \
@@ -28,7 +27,6 @@ SOURCES += \
     src/MaterialManager.cpp \
     src/StochasticGaussian.cpp \
     src/MathFunctions.cpp \
-    src/DispersedParticleDecorator.cpp \
     src/FormFactorCylinder.cpp \
     src/Types.cpp \
     src/DoubleToComplexInterpolatingFunction.cpp \
@@ -37,6 +35,8 @@ SOURCES += \
     src/IFunctionalTest.cpp \
     src/IFactory.cpp \
     src/DWBADiffuseReflection.cpp \
+    src/NanoParticleDecorator.cpp \
+    src/InterferenceFunction1DParaCrystal.cpp \
     src/Convolve.cpp \
     src/INamed.cpp \
     src/ICompositeSample.cpp \
@@ -55,7 +55,6 @@ HEADERS += \
     inc/Exceptions.h \
     inc/IAlgorithm.h \
     inc/Types.h \
-    inc/CalculatorOptical.h \
     inc/ISimulation.h \
     inc/OutputData.h \
     inc/NamedVector.h \
@@ -66,7 +65,6 @@ HEADERS += \
     inc/IStochasticParameter.h \
     inc/StochasticGaussian.h \
     inc/MathFunctions.h \
-    inc/DispersedParticleDecorator.h \
     inc/IFormFactor.h \
     inc/FormFactorCylinder.h \
     inc/StochasticDiracDelta.h \
@@ -79,6 +77,10 @@ HEADERS += \
     inc/IFactory.h \
     inc/Numeric.h \
     inc/DWBADiffuseReflection.h \
+    inc/NanoParticleDecorator.h \
+    inc/IDispersalState.h \
+    inc/IInterferenceFunction.h \
+    inc/InterferenceFunction1DParaCrystal.h \
     inc/Convolve.h \
     inc/INamed.h \
     inc/ICompositeSample.h \

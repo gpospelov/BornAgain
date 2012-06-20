@@ -1,5 +1,5 @@
-#ifndef TESTDWBAFORMFACTOR_H_
-#define TESTDWBAFORMFACTOR_H_
+#ifndef TESTISGISAXS10_H_
+#define TESTISGISAXS10_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,22 +9,23 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestDWBAFormFactor.h
-//! @brief  Definition of TestDWBAFormFactor class for formfactor validation
+//! @file   TestIsGISAXS10.h
+//! @brief  Definition of TestIsGISAXS10 class for IsGISAXS validation
 //! @author herk
-//! @date   02.05.2012
+//! @date   19.06.2012
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "FormFactorCylinder.h"
 #include "DWBAFormFactor.h"
+#include "InterferenceFunction1DParaCrystal.h"
 
 
-class TestDWBAFormFactor : public IFunctionalTest
+class TestIsGISAXS10 : public IFunctionalTest
 {
 public:
-    TestDWBAFormFactor();
-    virtual ~TestDWBAFormFactor();
+	TestIsGISAXS10();
+    virtual ~TestIsGISAXS10();
     virtual void execute();
     void draw();
     void write();
@@ -32,11 +33,7 @@ public:
 private:
     OutputData<double> *mp_intensity_output;
     DWBAFormFactor m_dwba_ff;
+    InterferenceFunction1DParaCrystal m_interference_function;
 };
 
-complex_t reflection_fresnel(double alpha_i);
-complex_t transmission_fresnel(double alpha_i);
-void initialize_angles_sine(NamedVector<double> *p_axis, double start, double end, size_t size);
-
-
-#endif /* TESTDWBAFORMFACTOR_H_ */
+#endif /* TESTISGISAXS10_H_ */

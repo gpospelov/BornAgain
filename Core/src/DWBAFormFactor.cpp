@@ -1,10 +1,3 @@
-/*
- * DWBAFormFactor.cpp
- *
- *  Created on: Apr 26, 2012
- *      Author: herck
- */
-
 #include "DWBAFormFactor.h"
 
 DWBAFormFactor::DWBAFormFactor(IFormFactor *p_form_factor)
@@ -20,14 +13,36 @@ DWBAFormFactor::~DWBAFormFactor()
 
 complex_t DWBAFormFactor::evaluate(kvector_t k_i, kvector_t k_f) const
 {
+	calculateTerms(k_i, k_f);
+    return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
+}
+
+complex_t DWBAFormFactor::evaluateForComplexkz(kvector_t k_i, kvector_t k_f,
+		complex_t k_iz, complex_t k_fz) const
+{
+	calculateTerms(k_i, k_f, k_iz, k_fz);
+    return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
+}
+
+void DWBAFormFactor::calculateTerms(kvector_t k_i, kvector_t k_f) const {
     kvector_t k_i_mirror_xy(k_i.x(), k_i.y(), -k_i.z());
     kvector_t k_f_mirror_xy(k_f.x(), k_f.y(), -k_f.z());
     double alpha_i = -std::asin(k_i.z()/k_i.mag());
     double alpha_f = std::asin(k_f.z()/k_f.mag());
     // The four different scattering contributions; S stands for scattering off the particle, R for reflection off the layer interface
-    complex_t term_S = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_f);
-    complex_t term_RS = getR(alpha_i)*mp_form_factor->evaluate(k_i_mirror_xy, k_f);
-    complex_t term_SR = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_f_mirror_xy)*getX(alpha_f);
-    complex_t term_RSR = getR(alpha_i)*mp_form_factor->evaluate(k_i_mirror_xy, k_f_mirror_xy)*getX(alpha_f);
-    return term_S + term_RS + term_SR + term_RSR;
+    m_term_S = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_f)*getT(alpha_f);
+    m_term_RS = getR(alpha_i)*mp_form_factor->evaluate(k_i_mirror_xy, k_f)*getT(alpha_f);
+    m_term_SR = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_f_mirror_xy)*getR(alpha_f);
+    m_term_RSR = getR(alpha_i)*mp_form_factor->evaluate(k_i_mirror_xy, k_f_mirror_xy)*getR(alpha_f);
+}
+void DWBAFormFactor::calculateTerms(kvector_t k_i, kvector_t k_f,
+    		complex_t k_iz, complex_t k_fz) const
+{
+    double alpha_i = -std::asin(k_i.z()/k_i.mag());
+    double alpha_f = std::asin(k_f.z()/k_f.mag());
+    // The four different scattering contributions; S stands for scattering off the particle, R for reflection off the layer interface
+    m_term_S = getT(alpha_i)*mp_form_factor->evaluateForComplexkz(k_i, k_f, k_iz, k_fz)*getT(alpha_f);
+    m_term_RS = getR(alpha_i)*mp_form_factor->evaluateForComplexkz(k_i, k_f, k_iz, k_fz)*getT(alpha_f);
+    m_term_SR = getT(alpha_i)*mp_form_factor->evaluateForComplexkz(k_i, k_f, k_iz, k_fz)*getR(alpha_f);
+    m_term_RSR = getR(alpha_i)*mp_form_factor->evaluateForComplexkz(k_i, k_f, k_iz, k_fz)*getR(alpha_f);
 }

@@ -1,5 +1,5 @@
-#ifndef INAMED_H
-#define INAMED_H
+#ifndef EXPERIMENT_H_
+#define EXPERIMENT_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,30 +9,39 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   INamed.h
-//! @brief  Definition of INamed class
+//! @file   ISimulation.h
+//! @brief  Definition of ISimulation class
 //! @author Scientific Computing Group at FRM II
-//! @date   18.06.2012
+//! @date   01.04.2012
 
-#include <string>
+#include "ISample.h"
+#include "OutputData.h"
 
-
-//- -------------------------------------------------------------------
-//! @class INamed
-//! @brief Definition of INamed class for all objects having a name
-//- -------------------------------------------------------------------
-class INamed
+class Experiment
 {
 public:
-    INamed() {}
-    INamed(std::string name) { m_name = name; }
-    virtual ~INamed(){}
+	Experiment();
+	Experiment(ISample *p_sample);
+    virtual ~Experiment() {}
 
-    virtual std::string getName() const { return m_name; }
-    virtual void setName(std::string name) { m_name = name; }
+    /// Run a simulation with the current parameter settings
+    void runSimulation();
+
+    /// Set the sample to be tested
+    void setSample(ISample *p_sample);
+
+    /// Set data structure that will contain the intensity map on the detector
+    void setOutputData(OutputData<double> *p_data);
 
 protected:
-    std::string m_name;
+    ISample *mp_sample;
+//    Detector *mp_detector;
+//    Beam *mp_beam;
+    OutputData<double> *mp_intensity_map;
 };
 
-#endif // INAMED_H
+
+
+
+
+#endif /* EXPERIMENT_H_ */

@@ -13,6 +13,7 @@ SOURCES += \
     Algorithms/src/DWBADiffuseReflection.cpp \
     Algorithms/src/DWBAFormFactor.cpp \
     Algorithms/src/DWBAFormFactorConstZ.cpp \
+    Algorithms/src/Experiment.cpp \
     Algorithms/src/OpticalFresnel.cpp \
     \
     Samples/src/FormFactorCylinder.cpp \
@@ -48,6 +49,7 @@ HEADERS += \
     Algorithms/inc/DWBADiffuseReflection.h \
     Algorithms/inc/DWBAFormFactor.h \
     Algorithms/inc/DWBAFormFactorConstZ.h \
+    Algorithms/inc/Experiment.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     \
@@ -60,6 +62,7 @@ HEADERS += \
     Samples/inc/IInterferenceFunction.h \
     Samples/inc/IMaterial.h \
     Samples/inc/InterferenceFunction1DParaCrystal.h \
+    Samples/inc/InterferenceFunctionNone.h \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \
     Samples/inc/Layer.h \

@@ -40,7 +40,9 @@ SOURCES += \
     src/Convolve.cpp \
     src/INamed.cpp \
     src/ICompositeSample.cpp \
-    src/ICompositeIterator.cpp
+    src/ICompositeIterator.cpp \
+    src/ParameterPool.cpp \
+    src/Utils.cpp
 
 HEADERS += \
     inc/ISample.h \
@@ -80,7 +82,9 @@ HEADERS += \
     inc/Convolve.h \
     inc/INamed.h \
     inc/ICompositeSample.h \
-    inc/ICompositeIterator.h
+    inc/ICompositeIterator.h \
+    inc/ParameterPool.h \
+    inc/Utils.h
 
 INCLUDEPATH += ./inc
 DEPENDPATH += ./inc

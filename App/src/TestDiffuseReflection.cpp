@@ -23,6 +23,8 @@ TestDiffuseReflection::TestDiffuseReflection() :
 {
     std::cout << "TestDiffuseScattering::TestDiffuseReflection() -> Info." << std::endl;
 
+    // Performance log
+    // 18.06.2012       diffuse   :  Cpu Time =   7.67 seconds  (MultilayerOffspecTestcase1a,MultilayerOffspecTestcase1b, MultilayerOffspecTestcase2a, MultilayerOffspecTestcase2b)
 }
 
 

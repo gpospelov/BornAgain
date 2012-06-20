@@ -8,6 +8,7 @@
 Layer::Layer() : mp_material(0), m_thickness(0)
 {
     setName("layer");
+    init_parameters();
 }
 
 
@@ -15,6 +16,7 @@ Layer::Layer(const Layer &other) : ISample(other)
 {
     mp_material = other.mp_material;
     m_thickness = other.m_thickness;
+    init_parameters();
 }
 
 
@@ -25,6 +27,7 @@ Layer &Layer::operator=(const Layer &other)
         ISample::operator=(other);
         mp_material = other.mp_material;
         m_thickness = other.m_thickness;
+        init_parameters();
     }
     return *this;
 }
@@ -33,6 +36,17 @@ Layer &Layer::operator=(const Layer &other)
 Layer::~Layer()
 {
 
+}
+
+
+/* ************************************************************************* */
+// initialize pool parameters, i.e. register some of class members for later
+// access via parameter pool
+/* ************************************************************************* */
+void Layer::init_parameters()
+{
+    getParameterPool()->clear();
+    getParameterPool()->registerParameter("thickness", &m_thickness);
 }
 
 

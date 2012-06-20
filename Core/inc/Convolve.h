@@ -26,7 +26,8 @@ namespace MathFunctions
 
 //- -------------------------------------------------------------------
 //! @class Convolve
-//! @brief Convolution of two real vectors (1D or 2D ) using Fast Fourier Transformation.
+//! @brief Convolution of two real vectors (in 1D or 2D ) using Fast Fourier
+//! Transformation.
 //!
 //! Usage:
 //! std::vector<double> signal, kernel, result;
@@ -42,14 +43,14 @@ namespace MathFunctions
 class Convolve
 {
 public:
-    Convolve();
-    ~Convolve();
-
     //! definition of 1d vector of double
     typedef std::vector<double > double1d_t;
 
     //! definition of 2d vector of double
     typedef std::vector<double1d_t > double2d_t;
+
+    Convolve();
+    ~Convolve();
 
     //! convolution  modes
     //! use LINEAR_SAME or CIRCULAR_SAME_SHIFTED for maximum performance

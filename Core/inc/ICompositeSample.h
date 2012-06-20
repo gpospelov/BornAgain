@@ -28,24 +28,32 @@ class ICompositeIterator;
 class ICompositeSample : public ISample
 {
 public:
+    //! definition of container for registered children
     typedef std::list<ISample *> samples_t;
     typedef samples_t::iterator iterator_t;
 
     ICompositeSample();
 
-
+    //! to confirm compound nature of given class
     virtual ICompositeSample *getCompositeSample() { return this; }
 
+    //! register/derigister child in the container
     virtual void registerChild(ISample *sample) { m_samples.push_back(sample); }
     virtual void deregisterChild(ISample *sample) { m_samples.remove(sample); }
 
-    //virtual ISample* getChild(size_t index) { return m_samples[ check_index(index) ]; }
-
+    //! iteration over local registered children
     iterator_t begin_shallow() { return m_samples.begin(); }
     iterator_t end_shallow() { return m_samples.end(); }
 
+    //! size of children
+    virtual size_t size() const { return m_samples.size(); }
+
+    //! create general iterator to walk through the tree of registered composite children
     ICompositeIterator createIterator();
 
+    // return pointer to the new parameter pool which contains all local parameter plus all parameters
+    // from CompositeSample tree user has to take to delete it
+    // virtual ParameterPool *cloneParameterTree();
 
 protected:
     ICompositeSample(const ICompositeSample &other);

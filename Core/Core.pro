@@ -30,6 +30,7 @@ SOURCES += \
     Samples/src/MultiLayer.cpp \
     Samples/src/NanoParticle.cpp \
     Samples/src/NanoParticleDecorator.cpp \
+    Samples/src/ParameterPool.cpp \
     \
     Tools/src/Convolve.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
@@ -41,8 +42,7 @@ SOURCES += \
     Tools/src/OutputData.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/Types.cpp \
-    src/ParameterPool.cpp \
-    src/Utils.cpp
+    Tools/src/Utils.cpp
 
 HEADERS += \
     Algorithms/inc/DWBADiffuseReflection.h \
@@ -69,6 +69,7 @@ HEADERS += \
     Samples/inc/MultiLayer.h \
     Samples/inc/NanoParticle.h \
     Samples/inc/NanoParticleDecorator.h \
+    Samples/inc/ParameterPool.h \
     \
     Tools/inc/Convolve.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
@@ -86,8 +87,7 @@ HEADERS += \
     Tools/inc/StochasticGaussian.h \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
-    inc/ParameterPool.h \
-    inc/Utils.h
+    Tools/inc/Utils.h
 
 INCLUDEPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc
 DEPENDPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc

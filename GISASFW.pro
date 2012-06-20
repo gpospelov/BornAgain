@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     Core \
-    ThirdParty/gtest \
+#    ThirdParty/gtest \
 #    ThirdParty/fftw++ \
     App \
     UnitTests/TestCore

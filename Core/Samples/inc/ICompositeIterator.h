@@ -95,6 +95,7 @@ public:
     }
     void next() { m_state_stack.top().next(); }
 
+    size_t size() { return m_state_stack.size(); }
 protected:
     std::stack<MementoState > m_state_stack;
 };
@@ -117,7 +118,7 @@ public:
         return *(m_memento_itor.get_current_itor());
     }
     bool is_done() { return m_done; }
-
+    size_t get_level() { return m_memento_itor.size(); }
 protected:
     MementoIterator m_memento_itor;
     ICompositeSample* m_root;

@@ -15,7 +15,6 @@
 //! @date   01.04.2012
 
 #include <vector>
-
 #include "ICompositeSample.h"
 #include "Layer.h"
 #include "LayerInterface.h"
@@ -73,9 +72,6 @@ public:
     //! return clone of multilayer with clones of all layers and recreated interfaces between layers
     virtual MultiLayer *clone() const;
 
-    //! print structure of multilayer
-    void print();
-
     //! set cross correlation length of roughnesses between interfaces
     inline void   setCrossCorrLength(double crossCorrLength) { crossCorrLength!=0 ? m_crossCorrLength = crossCorrLength : throw LogicErrorException("Attempt to set crossCorrLength to zero"); }
 
@@ -90,6 +86,12 @@ public:
 
     //! change thickness of layer
     void setLayerThickness(size_t i_layer, double thickness);
+
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
+    //! print structure of multilayer
+    void print();
 
 private:
     //! hiding copy constructor & assignment operator

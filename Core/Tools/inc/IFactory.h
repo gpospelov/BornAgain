@@ -29,13 +29,13 @@ template<class IdentifierType, class AbstractProduct >
 class IFactory
 {
 public:
-    IFactory() : m_own_objects(false) { }
-
     //! pointer to function which will be used to create object of AbstractProduct base type
     typedef AbstractProduct* (*CreateItemCallback) ();
 
     //! typedef for map which stores correspondance between object identifier and object creation function
     typedef std::map<IdentifierType, CreateItemCallback> CallbackMap_t;
+
+    IFactory() : m_own_objects(false) { }
 
     //! create object by calling creation function corresponded to given identifier
     AbstractProduct *createItem(const IdentifierType &itemId)

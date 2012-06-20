@@ -40,7 +40,9 @@ SOURCES += \
     Tools/src/MathFunctions.cpp \
     Tools/src/OutputData.cpp \
     Tools/src/StochasticGaussian.cpp \
-    Tools/src/Types.cpp
+    Tools/src/Types.cpp \
+    src/ParameterPool.cpp \
+    src/Utils.cpp
 
 HEADERS += \
     Algorithms/inc/DWBADiffuseReflection.h \
@@ -83,7 +85,9 @@ HEADERS += \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticGaussian.h \
     Tools/inc/Types.h \
-    Tools/inc/Units.h
+    Tools/inc/Units.h \
+    inc/ParameterPool.h \
+    inc/Utils.h
 
 INCLUDEPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc
 DEPENDPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc

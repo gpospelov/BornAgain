@@ -7,12 +7,24 @@
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
     setName("multilayer");
+    init_parameters();
 }
 
 
 MultiLayer::~MultiLayer()
 {
     clear();
+}
+
+
+/* ************************************************************************* */
+// initialize pool parameters, i.e. register some of class members for later
+// access via parameter pool
+/* ************************************************************************* */
+void MultiLayer::init_parameters()
+{
+    getParameterPool()->clear();
+    getParameterPool()->registerParameter("crossCorrLength", &m_crossCorrLength);
 }
 
 
@@ -32,6 +44,8 @@ void MultiLayer::clear()
     m_interfaces.clear();
 
     m_layers_z.clear();
+
+    getParameterPool()->clear();
 }
 
 
@@ -58,6 +72,8 @@ MultiLayer *MultiLayer::clone() const
     }
 
     newMultiLayer->m_crossCorrLength = m_crossCorrLength;
+
+    newMultiLayer->init_parameters();
 
     return newMultiLayer;
 }
@@ -109,8 +125,8 @@ void MultiLayer::print()
         }
         std::cout << std::endl;
     }
-    std::cout << "yyy" << std::endl;
-    std::cout << m_layers.size() << " " << m_interfaces.size() << " " << m_samples.size() << std::endl;
+    //std::cout << "yyy" << std::endl;
+    //std::cout << m_layers.size() << " " << m_interfaces.size() << " " << m_samples.size() << std::endl;
 }
 
 

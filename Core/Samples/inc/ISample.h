@@ -16,28 +16,52 @@
 
 #include "INamed.h"
 #include "Exceptions.h"
+#include "ParameterPool.h"
 
 
 class ICompositeSample;
 
+//- -------------------------------------------------------------------
+//! @class ISample
+//! @brief Definition of ISample which
+//- -------------------------------------------------------------------
 class ISample : public INamed
 {
 public:
     ISample();
-    virtual ~ISample() {}
+    ISample(const ISample &other);
+    ISample &operator=(const ISample &other);
+    virtual ~ISample();
 
+    //! return pointer to "this", if it is composite sample (to overload)
     virtual ICompositeSample *getCompositeSample() { return 0; }
+
+    //! clone sample (to overload)
     virtual ISample *clone();
 
-//    virtual void add(ISample* p_child);
-//    virtual void remove(ISample* p_child);
-//    virtual ISample* getChild(size_t index);
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)
+    virtual void init_parameters();
 
+    //! (temporary for debugging) return sample Id
     long getId() const {return m_id; }
+
+    //! return pointer to the parameter pool
+    ParameterPool *getParameterPool() { return &m_parameters; }
+
+    //! create new parameter pool which contains all local parameter and  parameters of children
+    virtual ParameterPool *createParameterTree();
+
+    //! same as above, demonstration of iterators instead of nested calls
+    virtual ParameterPool *createParameterTreeTest();
+
+    //! add parameters from local pool to external pool and call recursion over direct children
+    virtual void addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1);
 
 protected:
     long m_id; //! temporary debug variable to track id of instance
     static long m_id_last; //! temporary debug variable to track id of instance
+
+    ParameterPool m_parameters; //! parameter pool
 };
 
 #endif // ISAMPLE_H

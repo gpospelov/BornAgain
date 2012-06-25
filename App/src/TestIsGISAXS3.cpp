@@ -1,7 +1,13 @@
 #include "TestIsGISAXS3.h"
 #include "IsGISAXSTools.h"
+#include "InterferenceFunctionNone.h"
 #include "Types.h"
 #include "Units.h"
+#include "MultiLayer.h"
+#include "MaterialManager.h"
+#include "NanoParticleDecoration.h"
+#include "NanoParticle.h"
+#include "LayerDecorator.h"
 
 #include "TCanvas.h"
 #include "TH2.h"
@@ -10,7 +16,6 @@
 #include <cmath>
 #include <iostream>
 #include <fstream>
-
 
 
 TestIsGISAXS3::TestIsGISAXS3()
@@ -116,3 +121,26 @@ void TestIsGISAXS3::write()
         ++counter;
     }
 }
+
+void TestIsGISAXS3::initializeSample()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, +2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    NanoParticleDecoration particle_decoration(
+                new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
+                new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    mp_sample = p_multi_layer;
+}
+

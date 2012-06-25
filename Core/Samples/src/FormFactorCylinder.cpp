@@ -34,6 +34,11 @@ complex_t FormFactorCylinder::evaluate_for_q(kvector_t q) const
     return phase_factor*modulus;
 }
 
+FormFactorCylinder* FormFactorCylinder::clone() const
+{
+    return new FormFactorCylinder(mp_height->clone(), mp_radius->clone());
+}
+
 complex_t FormFactorCylinder::evaluate_for_complex_qz(kvector_t q, complex_t qz) const
 {
     double R = mp_radius->getCurrent();

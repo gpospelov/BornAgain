@@ -19,6 +19,11 @@ void initialize_angles_sine(NamedVector<double> *p_axis, double start, double en
 	return;
 }
 
+ReflectionFresnelFunctionWrapper* ReflectionFresnelFunctionWrapper::clone() const
+{
+    return new ReflectionFresnelFunctionWrapper(m_refraction_index);
+}
+
 complex_t ReflectionFresnelFunctionWrapper::reflection_fresnel(double alpha_i, complex_t refraction_index)
 {
     complex_t cos_alpha_0_squared = std::cos(alpha_i)*std::cos(alpha_i);

@@ -19,7 +19,17 @@ void Experiment::setSample(ISample* p_sample)
 	mp_sample = p_sample;  ///< Not owned by Experiment
 }
 
-void Experiment::setOutputData(OutputData<double>* p_data)
+OutputData<double>* Experiment::getOutputData() const
 {
-	mp_intensity_map = p_data;  ///< Not owned by Experiment
+	return m_intensity_map.clone();
 }
+
+void Experiment::updateIntensityMapAxes()
+{
+    m_intensity_map.clear();
+    size_t detector_dimension = m_detector.getDimension();
+    for (size_t dim=0; dim<detector_dimension; ++dim) {
+        m_intensity_map.addAxis(new NamedVector<double>(m_detector.getAxis(dim)));
+    }
+}
+

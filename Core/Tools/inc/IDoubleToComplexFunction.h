@@ -21,6 +21,7 @@ class IDoubleToComplexFunction
 {
 public:
 	virtual ~IDoubleToComplexFunction() {}
+	virtual IDoubleToComplexFunction *clone() const=0;
 
 	virtual complex_t evaluate(double value)=0;
 };
@@ -31,6 +32,9 @@ class DoubleToComplexFunctionWrapper : public IDoubleToComplexFunction
 public:
 	typedef complex_t (*double_to_complex_t)(double);
 	DoubleToComplexFunctionWrapper(double_to_complex_t function) : m_function(function) {}
+	virtual DoubleToComplexFunctionWrapper *clone() const {
+	    return new DoubleToComplexFunctionWrapper(m_function);
+	}
 
 	virtual complex_t evaluate(double value) { return m_function(value); }
 

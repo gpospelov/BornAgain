@@ -22,7 +22,8 @@ class DoubleToComplexInterpolatingFunction : public IDoubleToComplexFunction
 {
 public:
 	virtual ~DoubleToComplexInterpolatingFunction();
-	DoubleToComplexInterpolatingFunction(std::map<double, complex_t> value_map);
+	DoubleToComplexInterpolatingFunction(const std::map<double, complex_t> &value_map);
+	virtual DoubleToComplexInterpolatingFunction *clone() const;
 
     virtual complex_t evaluate(double value);
 

@@ -70,6 +70,17 @@ void MultiIndex::updateCurrentPosition()
     }
 }
 
+void MultiIndex::setPosition(size_t position)
+{
+    if (position>=m_total_size) {
+        throw OutOfBoundsException("Position value out of bounds!");
+    }
+    m_current_position = position;
+    updateCurrentIndices();
+}
+
+
+
 void MultiIndex::setIndexOfAxis(std::string axis_name, size_t value)
 {
     if (m_label_index_map.count(axis_name) == 0) return;

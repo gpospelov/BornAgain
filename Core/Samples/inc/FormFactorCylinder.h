@@ -24,6 +24,7 @@ public:
     FormFactorCylinder(double height, double radius);
     FormFactorCylinder(StochasticParameter<double> *p_height, StochasticParameter<double> *p_radius);
     ~FormFactorCylinder();
+    virtual FormFactorCylinder *clone() const;
 
     virtual int getNumberOfStochasticParameters() { return 2; }
 

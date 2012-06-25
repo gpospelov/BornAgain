@@ -22,6 +22,7 @@ public:
 	virtual ~IInterferenceFunction() {}
 
 	virtual double evaluate(kvector_t q) const=0;
+	virtual IInterferenceFunction *clone() const=0;
 };
 
 

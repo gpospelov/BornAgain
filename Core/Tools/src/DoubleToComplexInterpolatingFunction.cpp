@@ -12,11 +12,17 @@ DoubleToComplexInterpolatingFunction::~DoubleToComplexInterpolatingFunction()
 {
 }
 
-DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(std::map<double, complex_t> value_map)
+DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(const std::map<double, complex_t> &value_map)
     : m_value_map(value_map)
 {
 	m_lower_limit = (*m_value_map.begin()).first;
 	m_upper_limit = (*m_value_map.end()).first;
+}
+
+DoubleToComplexInterpolatingFunction* DoubleToComplexInterpolatingFunction::clone() const
+{
+    DoubleToComplexInterpolatingFunction *p_new = new DoubleToComplexInterpolatingFunction(m_value_map);
+    return p_new;
 }
 
 complex_t DoubleToComplexInterpolatingFunction::evaluate(double value)

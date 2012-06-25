@@ -24,6 +24,8 @@ public:
     DWBAFormFactor(IFormFactor* p_form_factor);
     virtual ~DWBAFormFactor();
 
+    virtual DWBAFormFactor *clone() const;
+
     void setTransmissionFunction(IDoubleToComplexFunction *p_T)
     {
         mp_T = p_T;
@@ -36,15 +38,17 @@ public:
     virtual complex_t evaluateForComplexkz(kvector_t k_i, kvector_t k_f,
     		complex_t k_iz, complex_t k_fz) const;
 protected:
-    IFormFactor *mp_form_factor;
-    IDoubleToComplexFunction *mp_T;
-    IDoubleToComplexFunction *mp_R;
     complex_t getT(double alpha) const;
     complex_t getR(double alpha) const;
     complex_t getX(double alpha) const;
     void calculateTerms(kvector_t k_i, kvector_t k_f) const;
     void calculateTerms(kvector_t k_i, kvector_t k_f,
-    		complex_t k_iz, complex_t k_fz) const;
+            complex_t k_iz, complex_t k_fz) const;
+
+    IFormFactor *mp_form_factor;
+    IDoubleToComplexFunction *mp_T;
+    IDoubleToComplexFunction *mp_R;
+
     mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
 };
 

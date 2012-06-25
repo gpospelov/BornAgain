@@ -25,6 +25,7 @@ class IFormFactor
 {
 public:
     virtual ~IFormFactor() {}
+    virtual IFormFactor *clone() const=0;
 
     /// calculate scattering amplitude
     ///
@@ -42,7 +43,7 @@ public:
     virtual complex_t evaluateForComplexkz(kvector_t k_i, kvector_t k_f, complex_t k_iz, complex_t k_fz) const=0;
 
     /// return number of variable/stochastic parameters
-    virtual int getNumberOfStochasticParameters() { return 0; }
+    virtual int getNumberOfStochasticParameters() const { return 0; }
 };
 
 class IBornFormFactor : public IFormFactor

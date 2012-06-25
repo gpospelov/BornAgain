@@ -10,10 +10,13 @@ QT      -= core gui
 QMAKE_EXTENSION_SHLIB = so
 
 SOURCES += \
+    Algorithms/src/Beam.cpp \
+    Algorithms/src/Detector.cpp \
     Algorithms/src/DWBADiffuseReflection.cpp \
     Algorithms/src/DWBAFormFactor.cpp \
     Algorithms/src/DWBAFormFactorConstZ.cpp \
     Algorithms/src/Experiment.cpp \
+    Algorithms/src/GISASExperiment.cpp \
     Algorithms/src/OpticalFresnel.cpp \
     \
     Samples/src/FormFactorCylinder.cpp \
@@ -25,6 +28,7 @@ SOURCES += \
     Samples/src/IRoughness.cpp \
     Samples/src/ISample.cpp \
     Samples/src/Layer.cpp \
+    Samples/src/LayerDecorator.cpp \
     Samples/src/LayerInterface.cpp \
     Samples/src/LayerRoughness.cpp \
     Samples/src/MaterialManager.cpp \
@@ -46,10 +50,13 @@ SOURCES += \
     Tools/src/Utils.cpp
 
 HEADERS += \
+    Algorithms/inc/Beam.h \
+    Algorithms/inc/Detector.h \
     Algorithms/inc/DWBADiffuseReflection.h \
     Algorithms/inc/DWBAFormFactor.h \
     Algorithms/inc/DWBAFormFactorConstZ.h \
     Algorithms/inc/Experiment.h \
+    Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     \
@@ -57,6 +64,7 @@ HEADERS += \
     Samples/inc/HomogeneousMaterial.h \
     Samples/inc/ICompositeIterator.h \
     Samples/inc/ICompositeSample.h \
+    Samples/inc/IDecoration.h \
     Samples/inc/IDispersalState.h \
     Samples/inc/IFormFactor.h \
     Samples/inc/IInterferenceFunction.h \
@@ -66,6 +74,7 @@ HEADERS += \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \
     Samples/inc/Layer.h \
+    Samples/inc/LayerDecorator.h \
     Samples/inc/LayerInterface.h \
     Samples/inc/LayerRoughness.h \
     Samples/inc/MaterialManager.h \

@@ -24,11 +24,13 @@ class ReflectionFresnelFunctionWrapper : public IDoubleToComplexFunction
 {
 public:
 	ReflectionFresnelFunctionWrapper(complex_t refraction_index) : m_refraction_index(refraction_index) {}
+	virtual ReflectionFresnelFunctionWrapper *clone() const;
 
 	virtual complex_t evaluate(double value) { return reflection_fresnel(value, m_refraction_index); }
 
 private:
 	complex_t reflection_fresnel(double alpha_i, complex_t refraction_index);
+
 	complex_t m_refraction_index;
 };
 

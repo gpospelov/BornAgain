@@ -21,6 +21,9 @@ class InterferenceFunction1DParaCrystal : public IInterferenceFunction
 public:
 	InterferenceFunction1DParaCrystal(double peak_distance, double width, double corr_length=0.0);
 	virtual ~InterferenceFunction1DParaCrystal() {}
+	virtual InterferenceFunction1DParaCrystal *clone() const {
+	    return new InterferenceFunction1DParaCrystal(m_peak_distance, m_width, m_corr_length);
+	}
 
 	virtual double evaluate(kvector_t q) const;
 protected:

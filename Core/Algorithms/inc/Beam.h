@@ -1,5 +1,5 @@
-#ifndef INTERFERENCEFUNCTIONNONE_H_
-#define INTERFERENCEFUNCTIONNONE_H_
+#ifndef BEAM_H_
+#define BEAM_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,23 +9,32 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   InterferenceFunctionNone.h
-//! @brief  Definition of InterferenceFunctionNone class
-//! @author herck
-//! @date   19.06.2012
+//! @file   Beam.h
+//! @brief  Definition of Beam class
+//! @author Scientific Computing Group at FRM II
+//! @date   Jun 21, 2012
 
-#include "IInterferenceFunction.h"
+#include "Types.h"
 
-class InterferenceFunctionNone : public IInterferenceFunction
+class Beam
 {
 public:
-	InterferenceFunctionNone() {}
-	virtual ~InterferenceFunctionNone() {}
-	virtual InterferenceFunctionNone *clone() const { return new InterferenceFunctionNone(); }
+	Beam();
+	virtual ~Beam() {}
 
-	virtual double evaluate(kvector_t q) const { (void)q; return 1.0; }
+	kvector_t getCentralK() const { return m_central_k; }
+
+	void setCentralK(const kvector_t &k_i);
+	void setCentralK(double lambda, double alpha_i, double phi_i);
+
+	double getIntensity() const { return m_intensity; }
+
+	void setIntensity(double intensity) { m_intensity = intensity; }
+
+protected:
+	kvector_t m_central_k;
+	double m_intensity;
 };
 
 
-
-#endif /* INTERFERENCEFUNCTIONNONE_H_ */
+#endif /* BEAM_H_ */

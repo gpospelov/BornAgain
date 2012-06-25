@@ -37,7 +37,7 @@ public:
     virtual ICompositeSample *getCompositeSample() { return 0; }
 
     //! clone sample (to overload)
-    virtual ISample *clone();
+    virtual ISample *clone() const;
 
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)
     virtual void init_parameters();

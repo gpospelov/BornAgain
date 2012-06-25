@@ -26,6 +26,8 @@ public:
 
     virtual size_t getSize()=0;
     std::string getName() { return m_name; }
+    void setName(std::string name) { m_name = name; }
+    virtual NamedVectorBase* clone()=0;
 
 private:
     std::string m_name;
@@ -39,6 +41,7 @@ public:
     ~NamedVector();
 
     size_t getSize() { return m_value_vector.size(); }
+    virtual NamedVectorBase* clone();
     void initElements(T start, T end, size_t size);
     void push_back(T element) { m_value_vector.push_back(element); }
     T& operator[](size_t index) { return m_value_vector.at(index); }
@@ -50,8 +53,7 @@ private:
 template <class T> NamedVector<T>::NamedVector(std::string name, T start, T end, size_t size)
     : NamedVectorBase(name)
 {
-    T step = size>1 ? (end - start)/(size-1) : end;
-    initElements(start, step, size);
+    initElements(start, end, size);
 }
 
 template <class T> NamedVector<T>::~NamedVector()
@@ -59,8 +61,14 @@ template <class T> NamedVector<T>::~NamedVector()
     m_value_vector.clear();
 }
 
-template <class T> void NamedVector<T>::initElements(T start, T step, size_t size)
+template <class T> NamedVectorBase* NamedVector<T>::clone()
 {
+    return new NamedVector<T>(*this);
+}
+
+template <class T> void NamedVector<T>::initElements(T start, T end, size_t size)
+{
+	T step = size>1 ? (end - start)/(size-1) : end;
     for (size_t i=0; i<size; ++i)
     {
         push_back(start + step*i);

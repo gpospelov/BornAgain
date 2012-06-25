@@ -43,6 +43,7 @@ private:
     MultiIndex operator=(const MultiIndex& source);
     void updateCurrentIndices();
     void updateCurrentPosition();
+    void setPosition(size_t position);
 
     void init(const std::vector<NamedVectorBase*>& value_axes);
     void clear();
@@ -62,6 +63,7 @@ template <class T> class OutputData
 public:
     OutputData();
     virtual ~OutputData();
+    OutputData* clone() const;
 
     void addAxis(NamedVectorBase* p_new_axis);
     template <class U> void addAxis(std::string name, U start, U end, size_t size);
@@ -76,8 +78,11 @@ public:
     T& currentValue();
     size_t getCurrentIndexOfAxis(std::string axis_name);
     template <class U> U getCurrentValueOfAxis(std::string axis_name);
+    void clear();
 
 private:
+    OutputData(const OutputData& source);
+    const OutputData& operator=(const OutputData& right);
     void allocate();
     size_t m_dimension;
     size_t m_data_size;
@@ -99,6 +104,23 @@ template <class T> OutputData<T>::~OutputData()
     {
         delete m_value_axes[i];
     }
+}
+
+template <class T> OutputData<T>* OutputData<T>::clone() const
+{
+	OutputData<T>* p_result = new OutputData<T>();
+    for (size_t i=0; i<m_dimension; ++i)
+    {
+        p_result->addAxis(m_value_axes[i]->clone());
+    }
+	p_result->resetIndex();
+	size_t source_index = 0;
+	size_t source_size = this->getAllocatedSize();
+	while (p_result->hasNext() && source_index<source_size) {
+	    p_result->next() = m_data_vector[source_index];
+	    ++source_index;
+	}
+	return p_result;
 }
 
 template <class T> void OutputData<T>::addAxis(NamedVectorBase* p_new_axis)
@@ -169,6 +191,17 @@ template <class U> inline U OutputData<T>::getCurrentValueOfAxis(std::string axi
     NamedVector<U> *p_axis = dynamic_cast<NamedVector<U>*>(getAxis(axis_name));
     size_t index = getCurrentIndexOfAxis(axis_name);
     return (*p_axis)[index];
+}
+
+template <class T> void OutputData<T>::clear()
+{
+    for (size_t i=0; i<m_dimension; ++i)
+    {
+        delete m_value_axes[i];
+    }
+    m_dimension = 0;
+    m_data_size = 1;
+    allocate();
 }
 
 template <class T> void OutputData<T>::allocate()

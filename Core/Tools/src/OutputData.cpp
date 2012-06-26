@@ -70,6 +70,17 @@ void MultiIndex::updateCurrentPosition()
     }
 }
 
+void MultiIndex::setPosition(size_t position)
+{
+    if (position>=m_total_size) {
+        throw OutOfBoundsException("Position value out of bounds!");
+    }
+    m_current_position = position;
+    updateCurrentIndices();
+}
+
+
+
 void MultiIndex::setIndexOfAxis(std::string axis_name, size_t value)
 {
     if (m_label_index_map.count(axis_name) == 0) return;
@@ -150,3 +161,17 @@ void MultiIndex::clear()
     m_end_passed = false;
 }
 
+const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<double> &right)
+{
+    size_t total_size = left.getAllocatedSize();
+    if (right.getAllocatedSize()!= total_size) {
+        throw LogicErrorException("Cannot add OutputData objects of different size.");
+    }
+    OutputData<double> *p_right_clone = right.clone();
+    left.resetIndex();
+    p_right_clone->resetIndex();
+    while (p_right_clone->hasNext()) {
+        left.next() += p_right_clone->next();
+    }
+    return left;
+}

@@ -22,6 +22,7 @@ template <class T> class StochasticDiracDelta : public StochasticParameter<T>
 public:
     StochasticDiracDelta(T average);
     virtual ~StochasticDiracDelta() {}
+    virtual StochasticDiracDelta *clone() const;
 
     virtual void setToAverage() {}
     virtual void setToRandom() {}
@@ -33,6 +34,11 @@ template <class T> StochasticDiracDelta<T>::StochasticDiracDelta(T average)
     : StochasticParameter<T>(average)
 {
     this->m_current = this->m_average;
+}
+
+template <class T> StochasticDiracDelta<T> *StochasticDiracDelta<T>::clone() const
+{
+    return new StochasticDiracDelta<T>(this->m_average);
 }
 
 #endif // STOCHASTICDIRACDELTA_H

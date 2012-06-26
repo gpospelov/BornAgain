@@ -22,6 +22,7 @@ class StochasticDoubleGaussian : public StochasticParameter<double>
 public:
     StochasticDoubleGaussian(double average, double std_dev);
     ~StochasticDoubleGaussian();
+    virtual StochasticDoubleGaussian *clone() const;
 
     virtual void setToRandom();
     virtual double probabilityDensity(double value) const;

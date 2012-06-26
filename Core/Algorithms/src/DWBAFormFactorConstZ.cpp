@@ -26,6 +26,14 @@ complex_t DWBAFormFactorConstZ::evaluateForComplexkz(kvector_t k_i, kvector_t k_
 	return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
 }
 
+DWBAFormFactorConstZ* DWBAFormFactorConstZ::clone() const
+{
+    DWBAFormFactorConstZ *p_new = new DWBAFormFactorConstZ(mp_form_factor->clone(), m_depth);
+    p_new->setTransmissionFunction(mp_T->clone());
+    p_new->setReflectionFunction(mp_R->clone());
+    return p_new;
+}
+
 complex_t DWBAFormFactorConstZ::getDepthPhase(complex_t q_z) const
 {
 	complex_t exponent = complex_t(0.0,1.0)*q_z*m_depth;

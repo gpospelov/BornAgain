@@ -134,7 +134,7 @@ void MultiLayer::print(std::ostream &ostr) const
 /* ************************************************************************* */
 void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness)
 {
-    Layer *p_new_layer = new Layer(layer);
+    Layer *p_new_layer = layer.clone();
     if (getNumberOfLayers())
     {
         const Layer *p_last_layer = m_layers.back();

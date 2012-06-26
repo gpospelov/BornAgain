@@ -1,5 +1,5 @@
-#ifndef INAMED_H
-#define INAMED_H
+#ifndef IDECORATION_H_
+#define IDECORATION_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,30 +9,19 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   INamed.h
-//! @brief  Definition of INamed class
+//! @file   IDecoration.h
+//! @brief  Definition of IDecoration interface
 //! @author Scientific Computing Group at FRM II
-//! @date   18.06.2012
+//! @date   Jun 22, 2012
 
-#include <string>
+#include "ISample.h"
 
-
-//- -------------------------------------------------------------------
-//! @class INamed
-//! @brief Definition of INamed class for all objects having a name
-//- -------------------------------------------------------------------
-class INamed
+class IDecoration : public ISample
 {
 public:
-    INamed() {}
-    INamed(std::string name) { m_name = name; }
-    virtual ~INamed(){}
+    virtual ~IDecoration() {}
 
-    virtual std::string getName() const { return m_name; }
-    virtual void setName(std::string name) { m_name = name; }
 
-protected:
-    std::string m_name;
 };
 
-#endif // INAMED_H
+#endif /* IDECORATION_H_ */

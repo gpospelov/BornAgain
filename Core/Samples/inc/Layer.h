@@ -18,7 +18,7 @@
 #include "IMaterial.h"
 #include "Types.h"
 #include "HomogeneousMaterial.h"
-
+#include "LayerDWBASimulation.h"
 
 //- -------------------------------------------------------------------
 //! @class Layer
@@ -55,6 +55,9 @@ public:
 
     //! return refractive index of the layer's material
     virtual complex_t getRefractiveIndex() const { return (dynamic_cast<const HomogeneousMaterial *>(mp_material))->getRefractiveIndex(); }
+
+    //
+    virtual LayerDWBASimulation *getDWBASimulation() const { return 0; }
 
 private:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool

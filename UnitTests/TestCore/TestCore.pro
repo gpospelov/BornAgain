@@ -14,8 +14,8 @@ HEADERS += \
 
 OBJECTS_DIR = obj
 
-INCLUDEPATH += ../../Core/Algorithms/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/include
-DEPENDPATH += ../../Core/Algorithms/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/include
+INCLUDEPATH += ../../Core/Algorithms/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
+DEPENDPATH += ../../Core/Algorithms/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
 
 
 ###############################################################################

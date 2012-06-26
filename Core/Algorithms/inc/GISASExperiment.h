@@ -1,5 +1,5 @@
-#ifndef INAMED_H
-#define INAMED_H
+#ifndef GISASEXPERIMENT_H_
+#define GISASEXPERIMENT_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,30 +9,27 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   INamed.h
-//! @brief  Definition of INamed class
+//! @file   GISASExperiment.h
+//! @brief  Definition of GISASExperiment class
 //! @author Scientific Computing Group at FRM II
-//! @date   18.06.2012
-
-#include <string>
+//! @date   20.06.2012
 
 
-//- -------------------------------------------------------------------
-//! @class INamed
-//! @brief Definition of INamed class for all objects having a name
-//- -------------------------------------------------------------------
-class INamed
+#include "Experiment.h"
+
+class GISASExperiment : public Experiment
 {
 public:
-    INamed() {}
-    INamed(std::string name) { m_name = name; }
-    virtual ~INamed(){}
+	GISASExperiment();
 
-    virtual std::string getName() const { return m_name; }
-    virtual void setName(std::string name) { m_name = name; }
+	virtual void runSimulation();
 
-protected:
-    std::string m_name;
+	void setDetectorParameters(double phi_f_min, double phi_f_max, size_t n_phi,
+	        double alpha_f_min, double alpha_f_max, size_t n_alpha, bool isgisaxs_style=false);
+private:
+	void initializeAnglesIsgisaxs(NamedVector<double> *p_axis, double start, double end, size_t size);
 };
 
-#endif // INAMED_H
+
+
+#endif /* GISASEXPERIMENT_H_ */

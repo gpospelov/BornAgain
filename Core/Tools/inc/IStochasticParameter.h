@@ -19,6 +19,7 @@ class IStochasticParameter
 {
 public:
     virtual ~IStochasticParameter() {}
+    virtual IStochasticParameter *clone() const=0;
     virtual void setToRandom()=0;
     virtual void setToAverage()=0;
 };
@@ -28,6 +29,7 @@ template <class T> class StochasticParameter : public IStochasticParameter
 public:
     StochasticParameter(T average);
     virtual ~StochasticParameter() {}
+    virtual StochasticParameter<T> *clone() const=0;
 
     virtual void setToAverage();
     T getCurrent() { return m_current; }

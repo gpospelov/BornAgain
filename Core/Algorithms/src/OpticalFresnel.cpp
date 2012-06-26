@@ -28,7 +28,7 @@ int OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, Mul
 
 void OpticalFresnel::calculateKZ(const MultiLayer &sample, const kvector_t &kvec, MultiLayerCoeff_t &coeff)
 {
-    // wave vector inside each layer
+    // z-component of reflected wave vector inside each layer
     // Q_{z,j} &= 2k_{z,j} = 2\cdot \sqrt{ k^2 n_j^2 - k_x^2 }
     for(size_t i=0; i<coeff.size(); ++i) {
         complex_t rindex = sample.getLayer(i)->getRefractiveIndex();

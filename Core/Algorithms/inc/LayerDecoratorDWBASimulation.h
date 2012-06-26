@@ -1,5 +1,5 @@
-#ifndef INAMED_H
-#define INAMED_H
+#ifndef LAYERDECORATORDWBASIMULATION_H_
+#define LAYERDECORATORDWBASIMULATION_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,30 +9,29 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   INamed.h
-//! @brief  Definition of INamed class
+//! @file   LayerDecoratorDWBASimulation.h
+//! @brief  Definition of LayerDecoratorDWBASimulation class
 //! @author Scientific Computing Group at FRM II
-//! @date   18.06.2012
+//! @date   Jun 25, 2012
 
-#include <string>
+#include "LayerDWBASimulation.h"
+#include "Experiment.h"
 
+class LayerDecorator;
 
-//- -------------------------------------------------------------------
-//! @class INamed
-//! @brief Definition of INamed class for all objects having a name
-//- -------------------------------------------------------------------
-class INamed
+class LayerDecoratorDWBASimulation : public LayerDWBASimulation
 {
 public:
-    INamed() {}
-    INamed(std::string name) { m_name = name; }
-    virtual ~INamed(){}
+    LayerDecoratorDWBASimulation(const LayerDecorator *p_layer_decorator);
+    virtual ~LayerDecoratorDWBASimulation();
 
-    virtual std::string getName() const { return m_name; }
-    virtual void setName(std::string name) { m_name = name; }
+    virtual void init(const Experiment &experiment);
 
+    virtual void run();
 protected:
-    std::string m_name;
+    kvector_t m_ki;
+    double m_alpha_i;
+    LayerDecorator *mp_layer_decorator;
 };
 
-#endif // INAMED_H
+#endif /* LAYERDECORATORDWBASIMULATION_H_ */

@@ -1,5 +1,5 @@
-#ifndef INAMED_H
-#define INAMED_H
+#ifndef BEAM_H_
+#define BEAM_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,30 +9,32 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   INamed.h
-//! @brief  Definition of INamed class
+//! @file   Beam.h
+//! @brief  Definition of Beam class
 //! @author Scientific Computing Group at FRM II
-//! @date   18.06.2012
+//! @date   Jun 21, 2012
 
-#include <string>
+#include "Types.h"
 
-
-//- -------------------------------------------------------------------
-//! @class INamed
-//! @brief Definition of INamed class for all objects having a name
-//- -------------------------------------------------------------------
-class INamed
+class Beam
 {
 public:
-    INamed() {}
-    INamed(std::string name) { m_name = name; }
-    virtual ~INamed(){}
+	Beam();
+	virtual ~Beam() {}
 
-    virtual std::string getName() const { return m_name; }
-    virtual void setName(std::string name) { m_name = name; }
+	kvector_t getCentralK() const { return m_central_k; }
+
+	void setCentralK(const kvector_t &k_i);
+	void setCentralK(double lambda, double alpha_i, double phi_i);
+
+	double getIntensity() const { return m_intensity; }
+
+	void setIntensity(double intensity) { m_intensity = intensity; }
 
 protected:
-    std::string m_name;
+	kvector_t m_central_k;
+	double m_intensity;
 };
 
-#endif // INAMED_H
+
+#endif /* BEAM_H_ */

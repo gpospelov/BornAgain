@@ -18,6 +18,8 @@
 #include "OutputData.h"
 #include "FormFactorCylinder.h"
 #include "DWBAFormFactor.h"
+#include "ISample.h"
+#include "DWBAFormFactorConstZ.h"
 
 
 class TestIsGISAXS3 : public IFunctionalTest
@@ -29,7 +31,11 @@ public:
     void draw();
     void write();
 
+    void alternateExecute();
+
 private:
+    void initializeSample();
+    ISample *mp_sample;
     OutputData<double> *mp_intensity_output;
     DWBAFormFactor m_dwba_ff;
 };

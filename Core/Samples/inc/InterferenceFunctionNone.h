@@ -1,5 +1,5 @@
-#ifndef ISIMULATION_H
-#define ISIMULATION_H
+#ifndef INTERFERENCEFUNCTIONNONE_H_
+#define INTERFERENCEFUNCTIONNONE_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,17 +9,23 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   ISimulation.h
-//! @brief  Definition of ISimulation class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
+//! @file   InterferenceFunctionNone.h
+//! @brief  Definition of InterferenceFunctionNone class
+//! @author herck
+//! @date   19.06.2012
 
+#include "IInterferenceFunction.h"
 
-class ISimulation
+class InterferenceFunctionNone : public IInterferenceFunction
 {
 public:
-    virtual ~ISimulation() {}
-    virtual void run() {};
+	InterferenceFunctionNone() {}
+	virtual ~InterferenceFunctionNone() {}
+	virtual InterferenceFunctionNone *clone() const { return new InterferenceFunctionNone(); }
+
+	virtual double evaluate(kvector_t q) const { (void)q; return 1.0; }
 };
 
-#endif // ISIMULATION_H
+
+
+#endif /* INTERFERENCEFUNCTIONNONE_H_ */

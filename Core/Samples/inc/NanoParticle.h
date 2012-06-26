@@ -25,11 +25,34 @@
 class NanoParticle : public ISample
 {
 public:
-    NanoParticle();
+    NanoParticle(complex_t refractive_index, IFormFactor* p_form_factor = 0);
     virtual ~NanoParticle();
+    virtual NanoParticle *clone() const;
+
+    complex_t getRefractiveIndex() const
+    {
+        return m_refractive_index;
+    }
+
+    void setRefractiveIndex(complex_t refractiveIndex)
+    {
+        m_refractive_index = refractiveIndex;
+    }
+
+    const IFormFactor* getFormFactor() const
+    {
+        return mp_form_factor;
+    }
+
+    void setFormFactor(IFormFactor* mpFormFactor)
+    {
+        mp_form_factor = mpFormFactor;
+    }
 
 private:
-    IFormFactor* mp_form_factor;  ///< pointer to the form factor
+    complex_t m_refractive_index;
+    IFormFactor* mp_form_factor;
+    ///< pointer to the form factor
 };
 
 #endif // NANOPARTICLE_H

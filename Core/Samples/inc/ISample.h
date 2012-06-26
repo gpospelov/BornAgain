@@ -37,7 +37,7 @@ public:
     virtual ICompositeSample *getCompositeSample() { return 0; }
 
     //! clone sample (to overload)
-    virtual ISample *clone();
+    virtual ISample *clone() const;
 
     //! (temporary for debugging) return sample Id
     long getId() const {return m_id; }
@@ -50,6 +50,9 @@ public:
 
     //! same as above, demonstration of iterators instead of nested calls
     virtual ParameterPool *createParameterTreeTest();
+
+    //! check if this sample (or one of its subsamples) contains elements requiring DWBA corrections
+    virtual bool containsDWBATerms() const { return false; }
 
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)

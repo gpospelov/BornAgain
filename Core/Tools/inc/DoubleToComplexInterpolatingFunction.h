@@ -10,7 +10,7 @@
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
 //! @file   DoubleToComplexInterpolatingFunction.h
-//! @brief  Definition of something really cool ane necessary
+//! @brief  Definition of class that interpolates for a given map
 //! @author herck
 //! @date   01.05.2012
 
@@ -22,7 +22,8 @@ class DoubleToComplexInterpolatingFunction : public IDoubleToComplexFunction
 {
 public:
 	virtual ~DoubleToComplexInterpolatingFunction();
-	DoubleToComplexInterpolatingFunction(std::map<double, complex_t> value_map);
+	DoubleToComplexInterpolatingFunction(const std::map<double, complex_t> &value_map);
+	virtual DoubleToComplexInterpolatingFunction *clone() const;
 
     virtual complex_t evaluate(double value);
 

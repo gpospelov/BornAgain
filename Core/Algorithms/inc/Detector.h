@@ -1,5 +1,5 @@
-#ifndef INAMED_H
-#define INAMED_H
+#ifndef DETECTOR_H_
+#define DETECTOR_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,30 +9,30 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   INamed.h
-//! @brief  Definition of INamed class
+//! @file   Detector.h
+//! @brief  Definition of Detector class
 //! @author Scientific Computing Group at FRM II
-//! @date   18.06.2012
+//! @date   Jun 21, 2012
 
-#include <string>
+#include "NamedVector.h"
 
+#include <vector>
 
-//- -------------------------------------------------------------------
-//! @class INamed
-//! @brief Definition of INamed class for all objects having a name
-//- -------------------------------------------------------------------
-class INamed
+class Detector
 {
 public:
-    INamed() {}
-    INamed(std::string name) { m_name = name; }
-    virtual ~INamed(){}
+	Detector();
+	virtual ~Detector();
 
-    virtual std::string getName() const { return m_name; }
-    virtual void setName(std::string name) { m_name = name; }
-
+	void addAxis(const NamedVector<double> &axis);
+	NamedVector<double> getAxis(size_t index) const;
+	size_t getDimension() const { return m_axes.size(); }
+	void clear();
 protected:
-    std::string m_name;
+	bool isCorrectAxisIndex(size_t index) const { return index<getDimension(); }
+private:
+	std::vector<NamedVector<double> > m_axes;
+
 };
 
-#endif // INAMED_H
+#endif /* DETECTOR_H_ */

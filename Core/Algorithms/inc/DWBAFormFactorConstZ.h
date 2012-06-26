@@ -21,6 +21,7 @@ class DWBAFormFactorConstZ: public DWBAFormFactor
 public:
 	DWBAFormFactorConstZ(IFormFactor* p_form_factor, double depth=0.0);
     virtual ~DWBAFormFactorConstZ();
+    virtual DWBAFormFactorConstZ *clone() const;
 
     virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const;
     virtual complex_t evaluateForComplexkz(kvector_t k_i, kvector_t k_f,

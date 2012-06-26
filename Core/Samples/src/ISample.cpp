@@ -43,7 +43,7 @@ ISample::~ISample()
 }
 
 
-ISample *ISample::clone()
+ISample *ISample::clone() const
 {
     throw NotImplementedException("ISample::clone() -> Error! Method is not implemented");
 }

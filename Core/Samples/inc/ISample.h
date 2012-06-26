@@ -57,6 +57,9 @@ public:
     //! add parameters from local pool to external pool and call recursion over direct children
     virtual void addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1);
 
+    //! check if this sample (or one of its subsamples) contains elements requiring DWBA corrections
+    virtual bool containsDWBATerms() const { return false; }
+
 protected:
     long m_id; //! temporary debug variable to track id of instance
     static long m_id_last; //! temporary debug variable to track id of instance

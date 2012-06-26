@@ -25,11 +25,11 @@ public:
 	virtual ~Detector();
 
 	void addAxis(const NamedVector<double> &axis);
-	NamedVector<double>& getAxis(size_t index);
-	size_t getDimension() { return m_axes.size(); }
+	NamedVector<double> getAxis(size_t index) const;
+	size_t getDimension() const { return m_axes.size(); }
 	void clear();
 protected:
-	bool isCorrectAxisIndex(size_t index) { return index<getDimension(); }
+	bool isCorrectAxisIndex(size_t index) const { return index<getDimension(); }
 private:
 	std::vector<NamedVector<double> > m_axes;
 

@@ -16,7 +16,7 @@ DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(const
     : m_value_map(value_map)
 {
 	m_lower_limit = (*m_value_map.begin()).first;
-	m_upper_limit = (*m_value_map.end()).first;
+	m_upper_limit = (*m_value_map.rbegin()).first;
 }
 
 DoubleToComplexInterpolatingFunction* DoubleToComplexInterpolatingFunction::clone() const
@@ -31,15 +31,12 @@ complex_t DoubleToComplexInterpolatingFunction::evaluate(double value)
     {
         throw OutOfBoundsException("Cannot interpolate: argument value is outside of bounds.");
     }
+    std::map<double, complex_t>::const_iterator found_it = m_value_map.find(value);
+    if (found_it != m_value_map.end()) {
+        return found_it->second;
+    }
     std::map<double, complex_t>::const_iterator lower_it = m_value_map.lower_bound(value);
-    if ((*lower_it).first == value)
-    {
-        return (*lower_it).second;
-    }
-    else
-    {
-        --lower_it;
-    }
+    --lower_it;
     std::map<double, complex_t>::const_iterator upper_it = m_value_map.upper_bound(value);
     // Linear interpolation:
     complex_t result_difference = (*upper_it).second - (*lower_it).second;

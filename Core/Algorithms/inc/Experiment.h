@@ -50,6 +50,8 @@ public:
         return m_detector;
     }
 
+    void setBeamParameters(double lambda, double alpha_i, double phi_i);
+
 protected:
     /// Default implementation only adds the detector axes
     virtual void updateIntensityMapAxes();

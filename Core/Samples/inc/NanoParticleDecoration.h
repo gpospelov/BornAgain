@@ -40,7 +40,7 @@ public:
 	size_t getNumberOfParticles() { return m_particles.size(); }
 
 	/// Get particle with index
-    NanoParticle* getNanoParticle(size_t index);
+    NanoParticle* getNanoParticle(size_t index) const;
 
     /// Set interference function
     void setInterferenceFunction(IInterferenceFunction* p_interference_function);

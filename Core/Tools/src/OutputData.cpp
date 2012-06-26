@@ -161,3 +161,17 @@ void MultiIndex::clear()
     m_end_passed = false;
 }
 
+const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<double> &right)
+{
+    size_t total_size = left.getAllocatedSize();
+    if (right.getAllocatedSize()!= total_size) {
+        throw LogicErrorException("Cannot add OutputData objects of different size.");
+    }
+    OutputData<double> *p_right_clone = right.clone();
+    left.resetIndex();
+    p_right_clone->resetIndex();
+    while (p_right_clone->hasNext()) {
+        left.next() += p_right_clone->next();
+    }
+    return left;
+}

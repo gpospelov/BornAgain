@@ -17,6 +17,8 @@ SOURCES += \
     Algorithms/src/DWBAFormFactorConstZ.cpp \
     Algorithms/src/Experiment.cpp \
     Algorithms/src/GISASExperiment.cpp \
+    Algorithms/src/LayerDecoratorDWBASimulation.cpp \
+    Algorithms/src/LayerDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
     \
     Samples/src/FormFactorCylinder.cpp \
@@ -58,6 +60,8 @@ HEADERS += \
     Algorithms/inc/Experiment.h \
     Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/ISimulation.h \
+    Algorithms/inc/LayerDecoratorDWBASimulation.h \
+    Algorithms/inc/LayerDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     \
     Samples/inc/FormFactorCylinder.h \

@@ -10,7 +10,7 @@
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
 //! @file   DoubleToComplexInterpolatingFunction.h
-//! @brief  Definition of something really cool ane necessary
+//! @brief  Definition of class that interpolates for a given map
 //! @author herck
 //! @date   01.05.2012
 

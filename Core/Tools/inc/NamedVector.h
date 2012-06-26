@@ -41,7 +41,7 @@ public:
     ~NamedVector();
 
     size_t getSize() { return m_value_vector.size(); }
-    virtual NamedVectorBase* clone();
+    virtual NamedVector<T>* clone();
     void initElements(T start, T end, size_t size);
     void push_back(T element) { m_value_vector.push_back(element); }
     T& operator[](size_t index) { return m_value_vector.at(index); }
@@ -61,7 +61,7 @@ template <class T> NamedVector<T>::~NamedVector()
     m_value_vector.clear();
 }
 
-template <class T> NamedVectorBase* NamedVector<T>::clone()
+template <class T> NamedVector<T>* NamedVector<T>::clone()
 {
     return new NamedVector<T>(*this);
 }

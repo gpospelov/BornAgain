@@ -24,6 +24,11 @@ OutputData<double>* Experiment::getOutputData() const
 	return m_intensity_map.clone();
 }
 
+void Experiment::setBeamParameters(double lambda, double alpha_i, double phi_i)
+{
+    m_beam.setCentralK(lambda, alpha_i, phi_i);
+}
+
 void Experiment::updateIntensityMapAxes()
 {
     m_intensity_map.clear();

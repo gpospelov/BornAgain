@@ -79,6 +79,7 @@ public:
     size_t getCurrentIndexOfAxis(std::string axis_name);
     template <class U> U getCurrentValueOfAxis(std::string axis_name);
     void clear();
+    void setAllTo(const T& value);
 
 private:
     OutputData(const OutputData& source);
@@ -90,6 +91,8 @@ private:
     MultiIndex m_index;
     std::vector<T> m_data_vector;
 };
+
+const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<double> &right);
 
 template <class T> OutputData<T>::OutputData()
     : m_dimension(0)
@@ -199,9 +202,17 @@ template <class T> void OutputData<T>::clear()
     {
         delete m_value_axes[i];
     }
+    m_value_axes.clear();
     m_dimension = 0;
     m_data_size = 1;
     allocate();
+}
+
+template <class T> void OutputData<T>::setAllTo(const T &value)
+{
+    for (size_t index=0; index<m_data_size; ++index) {
+        m_data_vector[index] = value;
+    }
 }
 
 template <class T> void OutputData<T>::allocate()

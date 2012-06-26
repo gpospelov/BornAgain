@@ -2,16 +2,19 @@
 
 /* ************************************************************************* */
 NanoParticleDecoration::NanoParticleDecoration()
+: mp_interference_function(0)
 {
 }
 
 NanoParticleDecoration::NanoParticleDecoration(NanoParticle* p_particle)
+: mp_interference_function(0)
 {
 	addNanoParticle(p_particle);
 }
 
 NanoParticleDecoration::NanoParticleDecoration(NanoParticle* p_particle,
 		IInterferenceFunction* p_interference_function)
+: mp_interference_function(0)
 {
 	addNanoParticle(p_particle);
 	setInterferenceFunction(p_interference_function);
@@ -36,10 +39,10 @@ NanoParticleDecoration* NanoParticleDecoration::clone() const
     return p_new;
 }
 
-NanoParticle* NanoParticleDecoration::getNanoParticle(size_t index)
+NanoParticle* NanoParticleDecoration::getNanoParticle(size_t index) const
 {
     if (index<m_particles.size()) {
-        return m_particles[index];
+        return m_particles[index]->clone();
     }
     throw OutOfBoundsException("Not so many particles in this decoration.");
 }

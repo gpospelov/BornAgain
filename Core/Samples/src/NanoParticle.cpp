@@ -1,8 +1,8 @@
 #include "NanoParticle.h"
 
 NanoParticle::NanoParticle(complex_t refractive_index, IFormFactor *p_form_factor)
-: mp_form_factor(p_form_factor),
-  m_refractive_index(refractive_index)
+: m_refractive_index(refractive_index),
+  mp_form_factor(p_form_factor)
 {
 }
 

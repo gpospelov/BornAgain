@@ -8,6 +8,7 @@
 #include "NanoParticleDecoration.h"
 #include "NanoParticle.h"
 #include "LayerDecorator.h"
+#include "GISASExperiment.h"
 
 #include "TCanvas.h"
 #include "TH2.h"
@@ -25,9 +26,9 @@ TestIsGISAXS3::TestIsGISAXS3()
     m_dwba_ff.setReflectionFunction(new ReflectionFresnelFunctionWrapper(n_substrate));
     m_dwba_ff.setTransmissionFunction(new DoubleToComplexFunctionWrapper(transmission_fresnel));
     mp_intensity_output = new OutputData<double>();
-    NamedVector<double> *p_y_axis = new NamedVector<double>(std::string("detector y-axis"));
+    NamedVector<double> *p_y_axis = new NamedVector<double>(std::string("phi_f"));
     initialize_angles_sine(p_y_axis, 0.0, 2.0, 100);
-    NamedVector<double> *p_z_axis = new NamedVector<double>(std::string("detector z-axis"));
+    NamedVector<double> *p_z_axis = new NamedVector<double>(std::string("alpha_f"));
     initialize_angles_sine(p_z_axis, 0.0, 2.0, 100);
     mp_intensity_output->addAxis(p_y_axis);
     mp_intensity_output->addAxis(p_z_axis);
@@ -36,31 +37,33 @@ TestIsGISAXS3::TestIsGISAXS3()
 TestIsGISAXS3::~TestIsGISAXS3()
 {
     delete mp_intensity_output;
+    delete mp_sample;
 }
 
 void TestIsGISAXS3::execute()
 {
-    MultiIndex& index = mp_intensity_output->getIndex();
-    NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
-    NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
-    double lambda = 1*Units::angstrom;
-    double alpha_i = 0.2*M_PI/180.0;
-    complex_t n_island(1.0-6e-4, +2e-8);
-    double normalizing_factor = std::norm((complex_t(1.0,0.0) - n_island*n_island)*M_PI/lambda/lambda);
-    kvector_t k_i;
-    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
-    while (!index.endPassed())
-    {
-        size_t index_y = index.getCurrentIndexOfAxis("detector y-axis");
-        size_t index_z = index.getCurrentIndexOfAxis("detector z-axis");
-        double phi_f = M_PI*(*p_y_axis)[index_y]/180.0;
-        double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
-        kvector_t k_f;
-        k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        complex_t ff = m_dwba_ff.evaluate(k_i, k_f);
-        mp_intensity_output->currentValue() = normalizing_factor*std::norm(ff);
-        ++index;
-    }
+//    MultiIndex& index = mp_intensity_output->getIndex();
+//    NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("phi_f"));
+//    NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("alpha_f"));
+//    double lambda = 1*Units::angstrom;
+//    double alpha_i = 0.2*M_PI/180.0;
+//    complex_t n_island(1.0-6e-4, +2e-8);
+//    double normalizing_factor = std::norm((complex_t(1.0,0.0) - n_island*n_island)*M_PI/lambda/lambda);
+//    kvector_t k_i;
+//    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
+//    while (!index.endPassed())
+//    {
+//        size_t index_y = index.getCurrentIndexOfAxis("phi_f");
+//        size_t index_z = index.getCurrentIndexOfAxis("alpha_f");
+//        double phi_f = M_PI*(*p_y_axis)[index_y]/180.0;
+//        double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
+//        kvector_t k_f;
+//        k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
+//        complex_t ff = m_dwba_ff.evaluate(k_i, k_f);
+//        mp_intensity_output->currentValue() = normalizing_factor*std::norm(ff);
+//        ++index;
+//    }
+    alternateExecute();
     draw();
     write();
 }
@@ -73,8 +76,8 @@ void TestIsGISAXS3::draw()
 
     MultiIndex& index = mp_intensity_output->getIndex();
     index.reset();
-    NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
-    NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
+    NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("phi_f"));
+    NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("alpha_f"));
     size_t y_size = p_y_axis->getSize();
     size_t z_size = p_z_axis->getSize();
     double y_start = (*p_y_axis)[0];
@@ -88,8 +91,8 @@ void TestIsGISAXS3::draw()
 
     while (!index.endPassed())
     {
-        size_t index_y = index.getCurrentIndexOfAxis("detector y-axis");
-        size_t index_z = index.getCurrentIndexOfAxis("detector z-axis");
+        size_t index_y = index.getCurrentIndexOfAxis("phi_f");
+        size_t index_z = index.getCurrentIndexOfAxis("alpha_f");
         double x_value = (*p_y_axis)[index_y];
         double y_value = (*p_z_axis)[index_z];
         double z_value = mp_intensity_output->currentValue();
@@ -122,12 +125,24 @@ void TestIsGISAXS3::write()
     }
 }
 
+void TestIsGISAXS3::alternateExecute()
+{
+    initializeSample();
+    GISASExperiment experiment;
+    experiment.setSample(mp_sample);
+    experiment.setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
+            , 0.0*Units::degree, 2.0*Units::degree, 100, true);
+    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    experiment.runSimulation();
+    mp_intensity_output = experiment.getOutputData();
+}
+
 void TestIsGISAXS3::initializeSample()
 {
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, +2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
     const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;

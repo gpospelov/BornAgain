@@ -212,4 +212,21 @@ void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
     }
 }
 
+/* ************************************************************************* */
+//! change layer thickness
+/* ************************************************************************* */
+
+MultiLayerDWBASimulation* MultiLayer::getDWBASimulation() const
+{
+    for (size_t i=0; i<getNumberOfLayers(); ++i) {
+        LayerDWBASimulation *p_layer_dwba_sim = getLayer(i)->getDWBASimulation();
+        if (p_layer_dwba_sim) {
+            delete p_layer_dwba_sim;
+            return new MultiLayerDWBASimulation(this);
+        }
+    }
+    return 0;
+}
+
+
 

@@ -15,10 +15,12 @@ SOURCES += \
     Algorithms/src/DWBADiffuseReflection.cpp \
     Algorithms/src/DWBAFormFactor.cpp \
     Algorithms/src/DWBAFormFactorConstZ.cpp \
+    Algorithms/src/DWBASimulation.cpp \
     Algorithms/src/Experiment.cpp \
     Algorithms/src/GISASExperiment.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
+    Algorithms/src/MultiLayerDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
     \
     Samples/src/FormFactorCylinder.cpp \
@@ -36,7 +38,7 @@ SOURCES += \
     Samples/src/MaterialManager.cpp \
     Samples/src/MultiLayer.cpp \
     Samples/src/NanoParticle.cpp \
-    Samples/src/NanoParticleDecorator.cpp \
+    Samples/src/NanoParticleDecoration.cpp \
     Samples/src/ParameterPool.cpp \
     \
     Tools/src/Convolve.cpp \
@@ -57,11 +59,13 @@ HEADERS += \
     Algorithms/inc/DWBADiffuseReflection.h \
     Algorithms/inc/DWBAFormFactor.h \
     Algorithms/inc/DWBAFormFactorConstZ.h \
+    Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/Experiment.h \
     Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/LayerDecoratorDWBASimulation.h \
     Algorithms/inc/LayerDWBASimulation.h \
+    Algorithms/inc/MultiLayerDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     \
     Samples/inc/FormFactorCylinder.h \
@@ -84,7 +88,7 @@ HEADERS += \
     Samples/inc/MaterialManager.h \
     Samples/inc/MultiLayer.h \
     Samples/inc/NanoParticle.h \
-    Samples/inc/NanoParticleDecorator.h \
+    Samples/inc/NanoParticleDecoration.h \
     Samples/inc/ParameterPool.h \
     \
     Tools/inc/Convolve.h \

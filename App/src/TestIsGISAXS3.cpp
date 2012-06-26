@@ -42,28 +42,14 @@ TestIsGISAXS3::~TestIsGISAXS3()
 
 void TestIsGISAXS3::execute()
 {
-//    MultiIndex& index = mp_intensity_output->getIndex();
-//    NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("phi_f"));
-//    NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("alpha_f"));
-//    double lambda = 1*Units::angstrom;
-//    double alpha_i = 0.2*M_PI/180.0;
-//    complex_t n_island(1.0-6e-4, +2e-8);
-//    double normalizing_factor = std::norm((complex_t(1.0,0.0) - n_island*n_island)*M_PI/lambda/lambda);
-//    kvector_t k_i;
-//    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
-//    while (!index.endPassed())
-//    {
-//        size_t index_y = index.getCurrentIndexOfAxis("phi_f");
-//        size_t index_z = index.getCurrentIndexOfAxis("alpha_f");
-//        double phi_f = M_PI*(*p_y_axis)[index_y]/180.0;
-//        double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
-//        kvector_t k_f;
-//        k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-//        complex_t ff = m_dwba_ff.evaluate(k_i, k_f);
-//        mp_intensity_output->currentValue() = normalizing_factor*std::norm(ff);
-//        ++index;
-//    }
-    alternateExecute();
+    initializeSample();
+    GISASExperiment experiment;
+    experiment.setSample(mp_sample);
+    experiment.setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
+            , 0.0*Units::degree, 2.0*Units::degree, 100, true);
+    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    experiment.runSimulation();
+    mp_intensity_output = experiment.getOutputData();
     draw();
     write();
 }
@@ -125,18 +111,6 @@ void TestIsGISAXS3::write()
     }
 }
 
-void TestIsGISAXS3::alternateExecute()
-{
-    initializeSample();
-    GISASExperiment experiment;
-    experiment.setSample(mp_sample);
-    experiment.setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
-            , 0.0*Units::degree, 2.0*Units::degree, 100, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    experiment.runSimulation();
-    mp_intensity_output = experiment.getOutputData();
-}
-
 void TestIsGISAXS3::initializeSample()
 {
     MultiLayer *p_multi_layer = new MultiLayer();
@@ -151,7 +125,7 @@ void TestIsGISAXS3::initializeSample()
     substrate_layer.setMaterial(p_substrate_material);
     NanoParticleDecoration particle_decoration(
                 new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
-                new InterferenceFunctionNone());
+                0.0, new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer_decorator);
@@ -159,3 +133,24 @@ void TestIsGISAXS3::initializeSample()
     mp_sample = p_multi_layer;
 }
 
+void TestIsGISAXS3::initializeSample2()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    NanoParticleDecoration particle_decoration(
+                new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
+                7*Units::nanometer, new InterferenceFunctionNone());
+    LayerDecorator substrate_layer_decorator(substrate_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
+    p_multi_layer->addLayer(substrate_layer_decorator);
+    mp_sample = p_multi_layer;
+}

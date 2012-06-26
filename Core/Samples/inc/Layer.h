@@ -59,7 +59,7 @@ public:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    //
+    //! return zero pointer (override is important for polymorphism of LayerDecorator)
     virtual LayerDWBASimulation *getDWBASimulation() const { return 0; }
 
 private:

@@ -36,6 +36,6 @@ DWBAFormFactorConstZ* DWBAFormFactorConstZ::clone() const
 
 complex_t DWBAFormFactorConstZ::getDepthPhase(complex_t q_z) const
 {
-	complex_t exponent = complex_t(0.0,1.0)*q_z*m_depth;
+	complex_t exponent = -complex_t(0.0,1.0)*q_z*m_depth; // Minus sign for depth
 	return std::exp(exponent);
 }

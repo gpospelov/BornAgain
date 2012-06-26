@@ -62,8 +62,6 @@ public:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    virtual bool containsDWBATerms() const { return true; }
-
     const Layer* getDecoratedLayer() const { return mp_decorated_layer; }
     const NanoParticleDecoration* getDecoration() const { return mp_decoration; }
     void setDecoration(NanoParticleDecoration* mpDecoration) { mp_decoration = mpDecoration; }

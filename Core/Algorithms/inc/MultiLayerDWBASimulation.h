@@ -1,5 +1,5 @@
-#ifndef ISIMULATION_H
-#define ISIMULATION_H
+#ifndef MULTILAYERDWBASIMULATION_H_
+#define MULTILAYERDWBASIMULATION_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,17 +9,30 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   ISimulation.h
-//! @brief  Definition of ISimulation class
+//! @file   MultiLayerDWBASimulation.h
+//! @brief  Definition of MultiLayerDWBASimulation class
 //! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
-#include "Experiment.h"
+//! @date   Jun 26, 2012
 
-class ISimulation
+#include "LayerDWBASimulation.h"
+
+#include <map>
+
+class MultiLayer;
+
+class MultiLayerDWBASimulation : public DWBASimulation
 {
 public:
-    virtual ~ISimulation() {}
-    virtual void run() {};
+    MultiLayerDWBASimulation(const MultiLayer *p_multi_layer);
+    virtual ~MultiLayerDWBASimulation();
+
+    virtual void init(const Experiment &experiment);
+
+    virtual void run();
+protected:
+    std::map<size_t, LayerDWBASimulation*> m_layer_dwba_simulation_map;
+    MultiLayer *mp_multi_layer;
 };
 
-#endif // ISIMULATION_H
+
+#endif /* MULTILAYERDWBASIMULATION_H_ */

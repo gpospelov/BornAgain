@@ -1,6 +1,9 @@
 #include "LayerDWBASimulation.h"
 
 LayerDWBASimulation::LayerDWBASimulation()
+: mp_kz_function(0)
+, mp_T_function(0)
+, mp_R_function(0)
 {
 }
 
@@ -38,10 +41,3 @@ void LayerDWBASimulation::setKzTAndRFunctions(
     setTFunction(T_function);
     setRFunction(R_function);
 }
-
-OutputData<double>* LayerDWBASimulation::getDWBAIntensity()
-{
-    return m_dwba_intensity.clone();
-}
-
-

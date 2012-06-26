@@ -1,5 +1,5 @@
-#ifndef ISIMULATION_H
-#define ISIMULATION_H
+#ifndef DWBASIMULATION_H_
+#define DWBASIMULATION_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,17 +9,32 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   ISimulation.h
-//! @brief  Definition of ISimulation class
+//! @file   DWBASimulation.h
+//! @brief  Definition of
 //! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
-#include "Experiment.h"
+//! @date   Jun 26, 2012
 
-class ISimulation
+#include "ISimulation.h"
+#include "OutputData.h"
+#include "Types.h"
+
+class DWBASimulation : public ISimulation
 {
 public:
-    virtual ~ISimulation() {}
-    virtual void run() {};
+    DWBASimulation();
+    virtual ~DWBASimulation();
+
+    virtual void init(const Experiment &experiment);
+
+    OutputData<double> *getDWBAIntensity();
+protected:
+    OutputData<double> m_dwba_intensity;
+    kvector_t m_ki;
+    double m_alpha_i;
 };
 
-#endif // ISIMULATION_H
+inline OutputData<double> *DWBASimulation::getDWBAIntensity() {
+    return m_dwba_intensity.clone();
+}
+
+#endif /* DWBASIMULATION_H_ */

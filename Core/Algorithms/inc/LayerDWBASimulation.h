@@ -14,18 +14,14 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jun 25, 2012
 
-#include "ISimulation.h"
+#include "DWBASimulation.h"
 #include "IDoubleToComplexFunction.h"
-#include "OutputData.h"
-#include "Experiment.h"
 
-class LayerDWBASimulation : public ISimulation
+class LayerDWBASimulation : public DWBASimulation
 {
 public:
     LayerDWBASimulation();
     virtual ~LayerDWBASimulation();
-
-    virtual void init(const Experiment &experiment)=0;
 
     void setKzFunction(const IDoubleToComplexFunction &kz_function);
     void setTFunction(const IDoubleToComplexFunction &T_function);
@@ -35,13 +31,10 @@ public:
             const IDoubleToComplexFunction &T_function,
             const IDoubleToComplexFunction &R_function);
 
-    OutputData<double> *getDWBAIntensity();
-
 protected:
     IDoubleToComplexFunction *mp_kz_function;
     IDoubleToComplexFunction *mp_T_function;
     IDoubleToComplexFunction *mp_R_function;
-    OutputData<double> m_dwba_intensity;
 };
 
 

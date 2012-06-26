@@ -19,6 +19,7 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
+#include "MultiLayerDWBASimulation.h"
 
 
 //- -------------------------------------------------------------------
@@ -92,6 +93,9 @@ public:
 
     //! print structure of multilayer
     void print();
+
+    //! look for the presence of DWBA terms (e.g. included nano particles) and return ISimulation if needed
+    virtual MultiLayerDWBASimulation *getDWBASimulation() const;
 
 private:
     //! hiding copy constructor & assignment operator

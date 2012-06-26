@@ -15,7 +15,6 @@
 //! @date   Jun 25, 2012
 
 #include "LayerDWBASimulation.h"
-#include "Experiment.h"
 
 class LayerDecorator;
 
@@ -25,12 +24,8 @@ public:
     LayerDecoratorDWBASimulation(const LayerDecorator *p_layer_decorator);
     virtual ~LayerDecoratorDWBASimulation();
 
-    virtual void init(const Experiment &experiment);
-
     virtual void run();
 protected:
-    kvector_t m_ki;
-    double m_alpha_i;
     LayerDecorator *mp_layer_decorator;
 };
 

@@ -14,6 +14,7 @@ SOURCES += \
     Algorithms/src/DWBAFormFactor.cpp \
     Algorithms/src/DWBAFormFactorConstZ.cpp \
     Algorithms/src/OpticalFresnel.cpp \
+    Algorithms/src/PythonAlgorithmsInterface.cpp \
     \
     Samples/src/FormFactorCylinder.cpp \
     Samples/src/HomogeneousMaterial.cpp \
@@ -31,6 +32,7 @@ SOURCES += \
     Samples/src/NanoParticle.cpp \
     Samples/src/NanoParticleDecorator.cpp \
     Samples/src/ParameterPool.cpp \
+    Samples/src/PythonSamplesInterface.cpp \
     \
     Tools/src/Convolve.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
@@ -40,6 +42,8 @@ SOURCES += \
     Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
     Tools/src/OutputData.cpp \
+    Tools/src/PythonModule.cpp \
+    Tools/src/PythonToolsInterface.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/Types.cpp \
     Tools/src/Utils.cpp
@@ -50,6 +54,7 @@ HEADERS += \
     Algorithms/inc/DWBAFormFactorConstZ.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/OpticalFresnel.h \
+    Algorithms/inc/PythonAlgorithmsInterface.h \
     \
     Samples/inc/FormFactorCylinder.h \
     Samples/inc/HomogeneousMaterial.h \
@@ -70,6 +75,7 @@ HEADERS += \
     Samples/inc/NanoParticle.h \
     Samples/inc/NanoParticleDecorator.h \
     Samples/inc/ParameterPool.h \
+    Samples/inc/PythonSamplesInterface.h \
     \
     Tools/inc/Convolve.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
@@ -84,6 +90,8 @@ HEADERS += \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
     Tools/inc/StochasticDiracDelta.h \
+    Tools/inc/PythonModule.h \
+    Tools/inc/PythonToolsInterface.h \
     Tools/inc/StochasticGaussian.h \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
@@ -96,9 +104,10 @@ OBJECTS_DIR = obj
 
 macx {
   INCLUDEPATH += /opt/local/include
-  LIBS += -L /opt/local/lib/ -lgsl -lfftw3
+  INCLUDEPATH += /opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
+  LIBS += -L /opt/local/lib/ -lgslcblas -lgsl  -lfftw3 -lpython2.7 -lboost_python
 } else {
-  LIBS += -L /usr/lib64/ -lgsl -lgslcblas -lfftw3
+  LIBS += -L /usr/lib64/ -lgslcblas -lgsl -lfftw3 -lpython2.7 -lboost_python
 }
 
 

@@ -16,6 +16,7 @@
 
 #include <string>
 #include <iostream>
+#include <typeinfo>
 #include "INamed.h"
 
 
@@ -41,7 +42,7 @@ public:
 protected:
     //! print material class
     virtual void print(std::ostream &ostr) const {
-        ostr << this << " '" << m_name << "'";
+        ostr << typeid(*this).name() << " " << this;
     }
 
 };

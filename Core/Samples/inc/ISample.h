@@ -39,9 +39,6 @@ public:
     //! clone sample (to overload)
     virtual ISample *clone();
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)
-    virtual void init_parameters();
-
     //! (temporary for debugging) return sample Id
     long getId() const {return m_id; }
 
@@ -54,10 +51,13 @@ public:
     //! same as above, demonstration of iterators instead of nested calls
     virtual ParameterPool *createParameterTreeTest();
 
+protected:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)
+    virtual void init_parameters();
+
     //! add parameters from local pool to external pool and call recursion over direct children
     virtual void addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1);
 
-protected:
     long m_id; //! temporary debug variable to track id of instance
     static long m_id_last; //! temporary debug variable to track id of instance
 

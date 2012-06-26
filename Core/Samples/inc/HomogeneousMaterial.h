@@ -41,8 +41,8 @@ public:
 protected:
     //! print material class
     virtual void print(std::ostream &ostr) const {
-        IMaterial::print(ostr);
-        ostr << " " << m_refractive_index;
+        //IMaterial::print(ostr);
+        ostr << typeid(*this).name() << " " << this << " " << m_refractive_index;
     }
 
     complex_t m_refractive_index; ///< complex index of refraction

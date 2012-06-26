@@ -50,6 +50,10 @@ public:
   //! draw multilayer structure in TPad
   void DrawMultilayer(const MultiLayer *sample);
 
+protected:
+    DrawHelper(){}
+    friend class ISingleton<DrawHelper >;
+
 private:
 //  /// prevents client from creating a copy of the singleton
 //  DrawHelper();

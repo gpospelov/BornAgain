@@ -237,7 +237,7 @@ void TestFresnelCoeff::test_roughness()
 {
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("SimpleMultilayer"));
 
-    m_sample->print();
+    std::cout << *m_sample << std::endl;
     ParameterPool *newpool = m_sample->createParameterTree();
     std::cout << *newpool << std::endl;
 

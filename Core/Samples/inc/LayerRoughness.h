@@ -55,10 +55,10 @@ public:
     //! return latteral correlation length
     inline double getLatteralCorrLength() const { return m_latteralCorrLength; }
 
+protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-protected:
     double m_sigma;                //!< rms of roughness
     double m_hurstParameter;       //!< Hurst parameter which describes how jagged the interface, 0<H<=1
     double m_latteralCorrLength;   //!< latteral correlation length of the roughness

@@ -63,9 +63,6 @@ public:
         obj.print(ostr); return ostr;
     }
 
-    //! print content of parameter pool on the screen
-    void print();
-
 protected:
     //! hiding copy constructors and assignment operators to allow only conscious cloning
     ParameterPool(const ParameterPool &other);

@@ -9,6 +9,7 @@
 #include "NanoParticle.h"
 #include "LayerDecorator.h"
 #include "GISASExperiment.h"
+#include "FormFactors.h"
 
 #include "TCanvas.h"
 #include "TH2.h"
@@ -58,8 +59,8 @@ void TestIsGISAXS3::initializeSample()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     NanoParticleDecoration particle_decoration(
-                new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
-                0.0, new InterferenceFunctionNone());
+                new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.setInterferenceFunction(new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer_decorator);

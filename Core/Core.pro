@@ -25,6 +25,7 @@ SOURCES += \
     Algorithms/src/PythonAlgorithmsInterface.cpp \
     \
     Samples/src/FormFactorCylinder.cpp \
+    Samples/src/FormFactorPrism3.cpp \
     Samples/src/HomogeneousMaterial.cpp \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
@@ -74,6 +75,8 @@ HEADERS += \
     Algorithms/inc/PythonAlgorithmsInterface.h \
     \
     Samples/inc/FormFactorCylinder.h \
+    Samples/inc/FormFactorPrism3.h \
+    Samples/inc/FormFactors.h \
     Samples/inc/HomogeneousMaterial.h \
     Samples/inc/ICompositeIterator.h \
     Samples/inc/ICompositeSample.h \

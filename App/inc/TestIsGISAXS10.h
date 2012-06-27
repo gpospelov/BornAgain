@@ -18,6 +18,7 @@
 #include "OutputData.h"
 #include "FormFactorCylinder.h"
 #include "DWBAFormFactor.h"
+#include "ISample.h"
 #include "InterferenceFunction1DParaCrystal.h"
 
 
@@ -31,9 +32,9 @@ public:
     void write();
 
 private:
+    void initializeSample();
+    ISample *mp_sample;
     OutputData<double> *mp_intensity_output;
-    DWBAFormFactor m_dwba_ff;
-    InterferenceFunction1DParaCrystal m_interference_function;
 };
 
 #endif /* TESTISGISAXS10_H_ */

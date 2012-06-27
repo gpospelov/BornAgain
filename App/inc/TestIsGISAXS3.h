@@ -31,13 +31,9 @@ public:
     void draw();
     void write();
 
-    void alternateExecute();
-
 private:
     void initializeSample();
-    void initializeSample2();
     ISample *mp_sample;
     OutputData<double> *mp_intensity_output;
-    DWBAFormFactor m_dwba_ff;
 };
 #endif /* TESTISGISAXS3_H_ */

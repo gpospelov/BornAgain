@@ -14,24 +14,12 @@
 #include "TH2.h"
 #include "TStyle.h"
 
-#include <cmath>
-#include <iostream>
 #include <fstream>
 
 
 TestIsGISAXS3::TestIsGISAXS3()
-    : m_dwba_ff(new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer))
+: mp_intensity_output(0)
 {
-	complex_t n_substrate(1.0-6e-6, 2e-8);
-    m_dwba_ff.setReflectionFunction(new ReflectionFresnelFunctionWrapper(n_substrate));
-    m_dwba_ff.setTransmissionFunction(new DoubleToComplexFunctionWrapper(transmission_fresnel));
-    mp_intensity_output = new OutputData<double>();
-    NamedVector<double> *p_y_axis = new NamedVector<double>(std::string("phi_f"));
-    initialize_angles_sine(p_y_axis, 0.0, 2.0, 100);
-    NamedVector<double> *p_z_axis = new NamedVector<double>(std::string("alpha_f"));
-    initialize_angles_sine(p_z_axis, 0.0, 2.0, 100);
-    mp_intensity_output->addAxis(p_y_axis);
-    mp_intensity_output->addAxis(p_z_axis);
 }
 
 TestIsGISAXS3::~TestIsGISAXS3()
@@ -49,6 +37,7 @@ void TestIsGISAXS3::execute()
             , 0.0*Units::degree, 2.0*Units::degree, 100, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     experiment.runSimulation();
+    if (mp_intensity_output) delete mp_intensity_output;
     mp_intensity_output = experiment.getOutputData();
     draw();
     write();
@@ -113,6 +102,7 @@ void TestIsGISAXS3::write()
 
 void TestIsGISAXS3::initializeSample()
 {
+    delete mp_sample;
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
@@ -130,27 +120,5 @@ void TestIsGISAXS3::initializeSample()
 
     p_multi_layer->addLayer(air_layer_decorator);
     p_multi_layer->addLayer(substrate_layer);
-    mp_sample = p_multi_layer;
-}
-
-void TestIsGISAXS3::initializeSample2()
-{
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    NanoParticleDecoration particle_decoration(
-                new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
-                7*Units::nanometer, new InterferenceFunctionNone());
-    LayerDecorator substrate_layer_decorator(substrate_layer, particle_decoration);
-
-    p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(substrate_layer_decorator);
     mp_sample = p_multi_layer;
 }

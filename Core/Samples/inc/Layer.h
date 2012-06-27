@@ -56,13 +56,13 @@ public:
     //! return refractive index of the layer's material
     virtual complex_t getRefractiveIndex() const { return (dynamic_cast<const HomogeneousMaterial *>(mp_material))->getRefractiveIndex(); }
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters();
-
     //! return zero pointer (override is important for polymorphism of LayerDecorator)
     virtual LayerDWBASimulation *getDWBASimulation() const { return 0; }
 
 private:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
     const IMaterial* mp_material;    //!< pointer to the material
     double m_thickness;              //!< layer thickness in _angstrom_
 };

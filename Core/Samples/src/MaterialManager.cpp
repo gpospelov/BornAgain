@@ -55,12 +55,13 @@ const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name
 /* ************************************************************************* */
 // print content of material database on the screen
 /* ************************************************************************* */
-void MaterialManager::print() const
+void MaterialManager::print(std::ostream &ostr) const
 {
-    std::cout << "=== MaterialManager =========================================" << std::endl;
+    std::cout << "xxx" << std::endl;
+    ostr << typeid(*this).name() << " " << this << " nmaterials:" << m_materials.size() << std::endl;
     for(materials_t::const_iterator it = m_materials.begin(); it!= m_materials.end(); it++) {
         const IMaterial *mat = (*it).second;
-        std::cout << *mat << std::endl;
+        ostr << *mat << std::endl;
     }
 }
 

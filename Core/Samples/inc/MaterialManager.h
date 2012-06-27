@@ -30,9 +30,19 @@
 //! It is a singleton which provides common and unique interface for
 //! material creation and access. No thread safety.
 //- -------------------------------------------------------------------
+
+//class MaterialManager;
+//typedef ISingleton<MaterialManager> MaterialManagerSingleton;
+
+//class MaterialManager: public MaterialManagerSingleton
 class MaterialManager: public ISingleton<MaterialManager>
 {
+//    friend ISingleton<MaterialManager>;
+
 public:
+    //! definition of materials container
+    typedef std::map<std::string, IMaterial *> materials_t;
+
     //! return material from database
     const IMaterial *getMaterial(const std::string &name);
 
@@ -42,12 +52,20 @@ public:
     //! clean collection of material
     void clear();
 
-    //! print material database
-    void print() const;
+    //! print material class
+    friend std::ostream &operator<<(std::ostream &ostr, const MaterialManager &m)
+    {
+        m.print(ostr); return ostr;
+    }
 
-private:
-    typedef std::map<std::string, IMaterial *> materials_t;
-    materials_t m_materials;
+protected:
+    MaterialManager(){}
+    friend class ISingleton<MaterialManager >;
+
+    //! print material class
+    virtual void print(std::ostream &ostr) const;
+
+    materials_t m_materials; //! container with defined materials
 };
 
 #endif // MATERIALMANAGER_H

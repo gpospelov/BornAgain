@@ -6,11 +6,15 @@
 #include <string>
 #include "TApplication.h"
 
-
+#include "MaterialManager.h"
 
 int main(int argc, char **argv)
 {
     std::cout << "Hello Brave New World!" << std::endl;
+
+//    MaterialManager *mm = new MaterialManager;
+//    std::cout << *mm << std::endl;
+    return 0;
 
     CommandLine args(argc, argv); // parsing command line arguments
 

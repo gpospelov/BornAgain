@@ -48,8 +48,8 @@ public:
     }
 
 protected:
-    ISingleton() {}
-    ISingleton(const ISingleton &) {}
+    ISingleton(){}
+    virtual ~ISingleton();
 
     static void create_singleton()
     {
@@ -65,8 +65,14 @@ protected:
 
     typedef T* T_Pointer;
 
+
+private:
+    ISingleton(const ISingleton<T> &) {}
+    ISingleton &operator=(const ISingleton<T> &) {}
+
     static T_Pointer m_instance;
     static bool m_destroyed;
+
 };
 
 template<class T > typename ISingleton<T>::T_Pointer ISingleton<T>::m_instance = 0;

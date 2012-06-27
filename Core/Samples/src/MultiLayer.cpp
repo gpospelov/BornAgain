@@ -102,12 +102,13 @@ const LayerInterface *MultiLayer::getLayerBottomInterface(size_t i_layer) const
 /* ************************************************************************* */
 // print content of multilayer on the screen
 /* ************************************************************************* */
-void MultiLayer::print()
+void MultiLayer::print(std::ostream &ostr) const
 {
-    std::cout << "=== Multilayer =================================================" << std::endl;
+    ostr << typeid(*this).name() << " " << this;
+
     for(size_t i=0; i<getNumberOfLayers(); i++) {
         const Layer *layer = getLayer(i);
-        std::cout << " " << "LAYER  "
+        ostr << " " << "LAYER  "
                   << " " << "#" << std::left << std::setw(2)   << i
                   << " " << std::setw(16)  << layer
                   << " " << std::setw(5)   << layer->getThickness()
@@ -116,17 +117,15 @@ void MultiLayer::print()
                   << " " << (*layer->getMaterial())
                   << std::endl;
         const LayerInterface *interface = getLayerBottomInterface(i);
-        std::cout << " " << "------"
+        ostr << " " << "------"
                   << " " << std::setw(16)  << interface;
         if(interface) {
             std::cout << " " << " layers("
                       << " " << std::setw(16) << interface->getLayerTop()
                       << "," << std::setw(16) << interface->getLayerBottom() << ")";
         }
-        std::cout << std::endl;
+        ostr << std::endl;
     }
-    //std::cout << "yyy" << std::endl;
-    //std::cout << m_layers.size() << " " << m_interfaces.size() << " " << m_samples.size() << std::endl;
 }
 
 

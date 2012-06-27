@@ -37,7 +37,7 @@ void TestFresnelCoeff::execute()
     std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
 
     // calculate fresnel coefficients for several standard multi-layer samples
-    //test_standard();
+    test_standard();
 
     // calculate fresnel coefficients for multi-layer with different roughnesses
     test_roughness();
@@ -238,8 +238,8 @@ void TestFresnelCoeff::test_roughness()
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("SimpleMultilayer"));
 
     std::cout << *m_sample << std::endl;
-    ParameterPool *newpool = m_sample->createParameterTree();
-    std::cout << *newpool << std::endl;
+//    ParameterPool *newpool = m_sample->createParameterTree();
+//    std::cout << *newpool << std::endl;
 
 }
 

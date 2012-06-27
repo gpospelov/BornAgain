@@ -57,7 +57,6 @@ const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name
 /* ************************************************************************* */
 void MaterialManager::print(std::ostream &ostr) const
 {
-    std::cout << "xxx" << std::endl;
     ostr << typeid(*this).name() << " " << this << " nmaterials:" << m_materials.size() << std::endl;
     for(materials_t::const_iterator it = m_materials.begin(); it!= m_materials.end(); it++) {
         const IMaterial *mat = (*it).second;

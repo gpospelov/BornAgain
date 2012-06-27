@@ -100,36 +100,6 @@ const LayerInterface *MultiLayer::getLayerBottomInterface(size_t i_layer) const
 
 
 /* ************************************************************************* */
-// print content of multilayer on the screen
-/* ************************************************************************* */
-void MultiLayer::print(std::ostream &ostr) const
-{
-    ostr << typeid(*this).name() << " " << this;
-
-    for(size_t i=0; i<getNumberOfLayers(); i++) {
-        const Layer *layer = getLayer(i);
-        ostr << " " << "LAYER  "
-                  << " " << "#" << std::left << std::setw(2)   << i
-                  << " " << std::setw(16)  << layer
-                  << " " << std::setw(5)   << layer->getThickness()
-                  << " " << "z:" << std::setw(6)   << getLayerBottomZ(i)
-                  << " " << std::setw(11)  << " material>"
-                  << " " << (*layer->getMaterial())
-                  << std::endl;
-        const LayerInterface *interface = getLayerBottomInterface(i);
-        ostr << " " << "------"
-                  << " " << std::setw(16)  << interface;
-        if(interface) {
-            std::cout << " " << " layers("
-                      << " " << std::setw(16) << interface->getLayerTop()
-                      << "," << std::setw(16) << interface->getLayerBottom() << ")";
-        }
-        ostr << std::endl;
-    }
-}
-
-
-/* ************************************************************************* */
 // add layer with top roughness
 /* ************************************************************************* */
 void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness)
@@ -229,3 +199,23 @@ MultiLayerDWBASimulation* MultiLayer::getDWBASimulation() const
 
 
 
+/* ************************************************************************* */
+// print content of multilayer
+/* ************************************************************************* */
+void MultiLayer::print(std::ostream &ostr) const
+{
+    ostr << getName() << " " << this << std::endl;
+
+    for(size_t i=0; i<getNumberOfLayers(); i++) {
+        const Layer *layer = getLayer(i);
+        ostr << " " << "#" << std::left << std::setw(2) << i
+             << *layer
+             << std::endl;
+        const LayerInterface *interface = getLayerBottomInterface(i);
+        if(interface) {
+            ostr << " " << "------" << *interface << std::endl;
+        } else {
+            ostr << " " << "------ no interface " << std::endl;
+        }
+    }
+}

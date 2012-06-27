@@ -34,15 +34,13 @@ public:
     virtual ~IMaterial() {}
 
     //! print material class
-    friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
-    {
-        m.print(ostr); return ostr;
-    }
+    friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m) { m.print(ostr); return ostr; }
 
 protected:
     //! print material class
     virtual void print(std::ostream &ostr) const {
-        ostr << typeid(*this).name() << " " << this;
+        //ostr << typeid(*this).name() << " " << this;
+        ostr << getName() << " " << this;
     }
 
 };

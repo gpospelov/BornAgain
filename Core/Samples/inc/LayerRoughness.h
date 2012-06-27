@@ -55,9 +55,15 @@ public:
     //! return latteral correlation length
     inline double getLatteralCorrLength() const { return m_latteralCorrLength; }
 
+    //! print class
+    friend std::ostream &operator<<(std::ostream &ostr, const LayerRoughness &m) { m.print(ostr); return ostr; }
+
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
+
+    //! print class
+    void print(std::ostream &ostr) const;
 
     double m_sigma;                //!< rms of roughness
     double m_hurstParameter;       //!< Hurst parameter which describes how jagged the interface, 0<H<=1

@@ -41,7 +41,19 @@ public:
     };
     typedef std::vector<FresnelCoeff > MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
 
+    class MultiLayerCoeff
+    {
+    public:
+        FresnelCoeff &operator[](size_t i) { return m_data[i]; }
+        size_t size() const { return m_data.size(); }
+        MultiLayerCoeff_t m_data;
+    };
+
     static int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
+    static int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff &coeff)
+    {
+        execute(sample,k,coeff.m_data); return 0;
+    }
 
 private:
 
@@ -52,5 +64,13 @@ private:
     static void calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
     static void calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
 };
+
+
+// class to help pyplusplus to expose MultiLayerCoeff_t in python during automatic code generation
+//class PyHelperOpticalFresnel
+//{
+//    size_t python_boost_helper() { return sizeof(OpticalFresnel::MultiLayerCoeff_t); }
+//};
+
 
 #endif // OPTICALFRESNEL_H

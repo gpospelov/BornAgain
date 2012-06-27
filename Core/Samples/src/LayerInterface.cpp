@@ -1,7 +1,7 @@
 #include "LayerInterface.h"
 
 #include <iostream>
-
+#include <iomanip>
 
 LayerInterface::LayerInterface() : m_roughness(0), m_LayerTop(0), m_LayerBottom(0)
 {
@@ -46,3 +46,19 @@ void LayerInterface::setRoughness(const LayerRoughness &roughness)
     registerChild(m_roughness);
 }
 
+
+/* ************************************************************************* */
+// print
+/* ************************************************************************* */
+void LayerInterface::print(std::ostream &ostr) const
+{
+    ostr << getName()
+         << " " << std::setw(12) << this
+         << " top:"<< getLayerTop() << " bottom:" << getLayerBottom() << "   ";
+    const LayerRoughness *roughness = getRoughness();
+    if(roughness) {
+        ostr << "> " << *roughness;
+    }else{
+        ostr << "> no roughness";
+    }
+}

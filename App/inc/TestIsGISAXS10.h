@@ -31,6 +31,7 @@ public:
 
 private:
     void initializeSample();
+    void initializeSample2();
     ISample *mp_sample;
     OutputData<double> *mp_intensity_output;
 };

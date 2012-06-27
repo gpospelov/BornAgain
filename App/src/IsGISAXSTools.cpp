@@ -1,34 +1,77 @@
 #include "IsGISAXSTools.h"
+#include "Units.h"
 
-#include <cmath>
+#include "TCanvas.h"
+#include "TH2.h"
+#include "TStyle.h"
 
-complex_t transmission_fresnel(double alpha_i)
+#include <fstream>
+
+void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
+        const std::string& canvas_name, const std::string& canvas_title,
+        const std::string& draw_options, const std::string &histogram_title)
 {
-    (void)alpha_i;
-    return complex_t(1.0, 0.0);
+    OutputData<double> *p_output = output.clone();
+    if (p_output->getDimension() != 2) return;
+    // creation of 2D histogram from calculated intensities
+    TCanvas *c1 = new TCanvas(canvas_name.c_str(), canvas_title.c_str(), 0, 0, 1024, 768);
+    (void)c1;
+
+    p_output->resetIndex();
+    NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(p_output->getAxes()[0]);
+    NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(p_output->getAxes()[1]);
+    std::string y_axis_name = p_y_axis->getName();
+    std::string z_axis_name = p_z_axis->getName();
+    size_t y_size = p_y_axis->getSize();
+    size_t z_size = p_z_axis->getSize();
+    double y_start = (*p_y_axis)[0]/Units::degree;
+    double y_end = (*p_y_axis)[y_size-1]/Units::degree;
+    double z_start = (*p_z_axis)[0]/Units::degree;
+    double z_end = (*p_z_axis)[z_size-1]/Units::degree;
+    std::string histo_name = histogram_title;
+    if (histo_name.empty()) {
+        histo_name = canvas_title;
+    }
+    TH2D *p_hist2D = new TH2D("p_hist2D", histo_name.c_str(), y_size, y_start, y_end, z_size, z_start, z_end);
+    //p_hist2D->UseCurrentStyle();
+    p_hist2D->GetXaxis()->SetTitle(y_axis_name.c_str());
+    p_hist2D->GetYaxis()->SetTitle(z_axis_name.c_str());
+
+    while (p_output->hasNext())
+    {
+        size_t index_y = p_output->getCurrentIndexOfAxis(y_axis_name.c_str());
+        size_t index_z = p_output->getCurrentIndexOfAxis(z_axis_name.c_str());
+        double x_value = (*p_y_axis)[index_y]/Units::degree;
+        double y_value = (*p_z_axis)[index_z]/Units::degree;
+        double z_value = p_output->next();
+        p_hist2D->Fill(x_value, y_value, z_value);
+    }
+    p_hist2D->SetContour(50);
+    gStyle->SetPalette(1);
+    gStyle->SetOptStat(0);
+    gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    p_hist2D->SetMinimum(1.0);
+    p_hist2D->Draw(draw_options.c_str());
+    delete p_output;
 }
 
-// For IsGISAXS comparison:
-void initialize_angles_sine(NamedVector<double> *p_axis, double start, double end, size_t size) {
-	double start_sin = std::sin(start*M_PI/180);
-	double end_sin = std::sin(end*M_PI/180);
-	double step = (end_sin-start_sin)/(size-1);
-	for(size_t i=0; i<size; ++i) {
-		p_axis->push_back(std::asin(start_sin + step*i)*180/M_PI);
-	}
-	return;
-}
-
-ReflectionFresnelFunctionWrapper* ReflectionFresnelFunctionWrapper::clone() const
+void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
+        const std::string &filename)
 {
-    return new ReflectionFresnelFunctionWrapper(m_refraction_index);
+    OutputData<double> *p_output = output.clone();
+    std::ofstream file;
+    file.open(filename.c_str(), std::ios::out);
+    p_output->resetIndex();
+    size_t row_length = p_output->getAxes()[0]->getSize();
+    int counter = 1;
+    while(p_output->hasNext()) {
+        double z_value = p_output->next();
+        file << z_value << "    ";
+        if(counter%row_length==0) {
+            file << std::endl;
+        }
+        ++counter;
+    }
+    delete p_output;
 }
-
-complex_t ReflectionFresnelFunctionWrapper::reflection_fresnel(double alpha_i, complex_t refraction_index)
-{
-    complex_t cos_alpha_0_squared = std::cos(alpha_i)*std::cos(alpha_i);
-    complex_t f0 = std::sqrt(complex_t(1.0, 0.0) - cos_alpha_0_squared);
-    complex_t f1 = std::sqrt(refraction_index*refraction_index - cos_alpha_0_squared);
-    return (f0 - f1)/(f0 + f1);
-}
-

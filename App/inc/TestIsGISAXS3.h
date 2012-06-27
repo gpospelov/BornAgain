@@ -28,8 +28,6 @@ public:
     TestIsGISAXS3();
     virtual ~TestIsGISAXS3();
     virtual void execute();
-    void draw();
-    void write();
 
 private:
     void initializeSample();

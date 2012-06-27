@@ -13,27 +13,18 @@
 //! @brief  Definition of functions and classes for IsGISAXS validation
 //! @author herck
 //! @date   19.06.2012
-#include "Types.h"
-#include "NamedVector.h"
-#include "IDoubleToComplexFunction.h"
+#include "OutputData.h"
 
-complex_t transmission_fresnel(double alpha_i);
-void initialize_angles_sine(NamedVector<double> *p_axis, double start, double end, size_t size);
+#include <string>
 
-class ReflectionFresnelFunctionWrapper : public IDoubleToComplexFunction
-{
-public:
-	ReflectionFresnelFunctionWrapper(complex_t refraction_index) : m_refraction_index(refraction_index) {}
-	virtual ReflectionFresnelFunctionWrapper *clone() const;
+namespace IsGISAXSTools {
 
-	virtual complex_t evaluate(double value) { return reflection_fresnel(value, m_refraction_index); }
+void drawLogOutputData(const OutputData<double> &output, const std::string &canvas_name,
+        const std::string &canvas_title, const std::string &draw_options,
+        const std::string &histogram_title = std::string());
 
-private:
-	complex_t reflection_fresnel(double alpha_i, complex_t refraction_index);
+void writeOutputDataToFile(const OutputData<double> &output, const std::string &filename);
 
-	complex_t m_refraction_index;
-};
-
-
+} /* namespace IsGISAXS Tools */
 
 #endif /* ISGISAXSTOOLS_H_ */

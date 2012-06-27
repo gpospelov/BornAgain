@@ -13,28 +13,16 @@ LayerDecoratorDWBASimulation::~LayerDecoratorDWBASimulation()
     delete mp_layer_decorator;
 }
 
-void LayerDecoratorDWBASimulation::init(const Experiment& experiment)
-{
-    m_dwba_intensity.clear();
-    Detector detector = experiment.getDetector();
-    size_t detector_dimension = detector.getDimension();
-    for (size_t dim=0; dim<detector_dimension; ++dim) {
-        m_dwba_intensity.addAxis(new NamedVector<double>(detector.getAxis(dim)));
-    }
-    Beam beam = experiment.getBeam();
-    m_ki = beam.getCentralK();
-    m_alpha_i = std::asin(m_ki.z()/m_ki.mag());
-}
-
 void LayerDecoratorDWBASimulation::run()
 {
     m_dwba_intensity.resetIndex();
     NanoParticle *p_particle = mp_layer_decorator->getDecoration()->getNanoParticle(0);
+    double depth = mp_layer_decorator->getDecoration()->getDepthOfNanoParticle(0);
     complex_t n_decoration = p_particle->getRefractiveIndex();
     complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
     double lambda = 2.0*M_PI/m_ki.mag();
     double normalizing_factor = std::norm((n_layer*n_layer - n_decoration*n_decoration)*M_PI/lambda/lambda);
-    DWBAFormFactorConstZ dwba_z(p_particle->getFormFactor()->clone());
+    DWBAFormFactorConstZ dwba_z(p_particle->getFormFactor()->clone(), depth);
     dwba_z.setReflectionFunction(mp_R_function);
     dwba_z.setTransmissionFunction(mp_T_function);
     complex_t k_iz = -mp_kz_function->evaluate(-m_alpha_i);

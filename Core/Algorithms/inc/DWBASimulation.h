@@ -1,5 +1,5 @@
-#ifndef TESTISGISAXS10_H_
-#define TESTISGISAXS10_H_
+#ifndef DWBASIMULATION_H_
+#define DWBASIMULATION_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,31 +9,32 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestIsGISAXS10.h
-//! @brief  Definition of TestIsGISAXS10 class for IsGISAXS validation
-//! @author herk
-//! @date   19.06.2012
+//! @file   DWBASimulation.h
+//! @brief  Definition of
+//! @author Scientific Computing Group at FRM II
+//! @date   Jun 26, 2012
 
-#include "IFunctionalTest.h"
+#include "ISimulation.h"
 #include "OutputData.h"
-#include "FormFactorCylinder.h"
-#include "DWBAFormFactor.h"
-#include "ISample.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "Types.h"
 
-
-class TestIsGISAXS10 : public IFunctionalTest
+class DWBASimulation : public ISimulation
 {
 public:
-	TestIsGISAXS10();
-    virtual ~TestIsGISAXS10();
-    virtual void execute();
+    DWBASimulation();
+    virtual ~DWBASimulation();
 
-private:
-    void initializeSample();
-    void initializeSample2();
-    ISample *mp_sample;
-    OutputData<double> *mp_intensity_output;
+    virtual void init(const Experiment &experiment);
+
+    OutputData<double> *getDWBAIntensity();
+protected:
+    OutputData<double> m_dwba_intensity;
+    kvector_t m_ki;
+    double m_alpha_i;
 };
 
-#endif /* TESTISGISAXS10_H_ */
+inline OutputData<double> *DWBASimulation::getDWBAIntensity() {
+    return m_dwba_intensity.clone();
+}
+
+#endif /* DWBASIMULATION_H_ */

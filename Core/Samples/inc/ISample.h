@@ -18,8 +18,8 @@
 #include "Exceptions.h"
 #include "ParameterPool.h"
 
-
 class ICompositeSample;
+class DWBASimulation;
 
 //- -------------------------------------------------------------------
 //! @class ISample
@@ -51,8 +51,8 @@ public:
     //! same as above, demonstration of iterators instead of nested calls
     virtual ParameterPool *createParameterTreeTest();
 
-    //! check if this sample (or one of its subsamples) contains elements requiring DWBA corrections
-    virtual bool containsDWBATerms() const { return false; }
+    //! check if this sample (or one of its subsamples) contains elements requiring DWBA corrections and return an ISimulation to calculate this
+    virtual DWBASimulation *getDWBASimulation() const { return 0; }
 
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)

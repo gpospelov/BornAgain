@@ -16,10 +16,12 @@ SOURCES += \
     Algorithms/src/DWBADiffuseReflection.cpp \
     Algorithms/src/DWBAFormFactor.cpp \
     Algorithms/src/DWBAFormFactorConstZ.cpp \
+    Algorithms/src/DWBASimulation.cpp \
     Algorithms/src/Experiment.cpp \
     Algorithms/src/GISASExperiment.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
+    Algorithms/src/MultiLayerDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/PythonAlgorithmsInterface.cpp \
     \
@@ -38,7 +40,7 @@ SOURCES += \
     Samples/src/MaterialManager.cpp \
     Samples/src/MultiLayer.cpp \
     Samples/src/NanoParticle.cpp \
-    Samples/src/NanoParticleDecorator.cpp \
+    Samples/src/NanoParticleDecoration.cpp \
     Samples/src/ParameterPool.cpp \
     Samples/src/PythonSamplesInterface.cpp \
     \
@@ -62,11 +64,13 @@ HEADERS += \
     Algorithms/inc/DWBADiffuseReflection.h \
     Algorithms/inc/DWBAFormFactor.h \
     Algorithms/inc/DWBAFormFactorConstZ.h \
+    Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/Experiment.h \
     Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/LayerDecoratorDWBASimulation.h \
     Algorithms/inc/LayerDWBASimulation.h \
+    Algorithms/inc/MultiLayerDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     Algorithms/inc/PythonAlgorithmsInterface.h \
     \

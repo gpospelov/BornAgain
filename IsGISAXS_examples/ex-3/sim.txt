@@ -1,1 +1,1 @@
-Run App with commandline parameter "dwba"
+Run App with commandline parameter "isgisaxs3"

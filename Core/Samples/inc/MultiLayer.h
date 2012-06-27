@@ -19,6 +19,7 @@
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
+#include "MultiLayerDWBASimulation.h"
 
 
 //- -------------------------------------------------------------------
@@ -89,6 +90,9 @@ public:
 
     //! print class
     friend std::ostream &operator<<(std::ostream &ostr, const MultiLayer &m) { m.print(ostr); return ostr; }
+
+    //! look for the presence of DWBA terms (e.g. included nano particles) and return ISimulation if needed
+    virtual MultiLayerDWBASimulation *getDWBASimulation() const;
 
 private:
     //! hiding copy constructor & assignment operator

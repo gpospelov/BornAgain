@@ -2,117 +2,94 @@
 #include "IsGISAXSTools.h"
 #include "Types.h"
 #include "Units.h"
+#include "GISASExperiment.h"
+#include "MultiLayer.h"
+#include "MaterialManager.h"
+#include "LayerDecorator.h"
+#include "NanoParticleDecoration.h"
 
 #include "TCanvas.h"
 #include "TH2.h"
 #include "TStyle.h"
 
-#include <cmath>
-#include <iostream>
 #include <fstream>
 
+
 TestIsGISAXS10::TestIsGISAXS10()
-: m_dwba_ff(new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer))
-, m_interference_function(20.0*Units::nanometer, 7*Units::nanometer, 1e7*Units::nanometer)
+: mp_intensity_output(0)
 {
-	complex_t n_substrate(1.0-5e-6, 2e-8);
-    m_dwba_ff.setReflectionFunction(new ReflectionFresnelFunctionWrapper(n_substrate));
-    m_dwba_ff.setTransmissionFunction(new DoubleToComplexFunctionWrapper(transmission_fresnel));
-    mp_intensity_output = new OutputData<double>();
-    NamedVector<double> *p_y_axis = new NamedVector<double>(std::string("detector y-axis"));
-    initialize_angles_sine(p_y_axis, 0.0, 2.0, 100);
-    NamedVector<double> *p_z_axis = new NamedVector<double>(std::string("detector z-axis"));
-    initialize_angles_sine(p_z_axis, 0.0, 2.0, 100);
-    mp_intensity_output->addAxis(p_y_axis);
-    mp_intensity_output->addAxis(p_z_axis);
 }
 
 TestIsGISAXS10::~TestIsGISAXS10()
 {
 	delete mp_intensity_output;
+	delete mp_sample;
 }
 
 void TestIsGISAXS10::execute()
 {
-    MultiIndex& index = mp_intensity_output->getIndex();
-    NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
-    NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
-    double lambda = 1*Units::angstrom;
-    double alpha_i = 0.2*M_PI/180.0;
-    complex_t n_island(1.0-5e-5, +2e-8);
-    double normalizing_factor = std::norm((complex_t(1.0,0.0) - n_island*n_island)*M_PI/lambda/lambda);
-    kvector_t k_i;
-    k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
-    while (!index.endPassed())
-    {
-        size_t index_y = index.getCurrentIndexOfAxis("detector y-axis");
-        size_t index_z = index.getCurrentIndexOfAxis("detector z-axis");
-        double phi_f = M_PI*(*p_y_axis)[index_y]/180.0;
-        double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
-        kvector_t k_f;
-        k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        double intensity = normalizing_factor*std::pow(std::abs(m_dwba_ff.evaluate(k_i, k_f)),2)
-          *m_interference_function.evaluate(k_i-k_f);
-        mp_intensity_output->currentValue() = intensity;
-        ++index;
-    }
-    draw();
-    write();
+    if (mp_intensity_output) delete mp_intensity_output;
+    initializeSample();
+    GISASExperiment experiment;
+    experiment.setSample(mp_sample);
+    experiment.setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
+            , 0.0*Units::degree, 2.0*Units::degree, 100, true);
+    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    experiment.runSimulation();
+    mp_intensity_output = experiment.getOutputData();
+    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_isgisaxs_10", "1D paracrystal islands",
+            "CONT4 Z");
+    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, "./IsGISAXS_examples/ex-10/para1dcyl.ima");
 }
 
-void TestIsGISAXS10::draw()
+void TestIsGISAXS10::initializeSample()
 {
-    // creation of 2D histogram from calculated intensities
-    TCanvas *c1 = new TCanvas("c1_test_isgisaxs_10", "1D paracrystal islands", 0, 0, 1024, 768);
-    (void)c1;
+    delete mp_sample;
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-5e-6, 2e-8);
+    complex_t n_particle(1.0-5e-5, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
+            7*Units::nanometer, 1e7*Units::nanometer);
+    NanoParticleDecoration particle_decoration(
+                new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
+                0.0, p_interference_funtion);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    MultiIndex& index = mp_intensity_output->getIndex();
-    index.reset();
-    NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
-    NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
-    size_t y_size = p_y_axis->getSize();
-    size_t z_size = p_z_axis->getSize();
-    double y_start = (*p_y_axis)[0];
-    double y_end = (*p_y_axis)[y_size-1];
-    double z_start = (*p_z_axis)[0];
-    double z_end = (*p_z_axis)[z_size-1];
-    TH2D *p_hist2D = new TH2D("p_hist2D", "1D paracrystal islands", y_size, y_start, y_end, z_size, z_start, z_end);
-    //p_hist2D->UseCurrentStyle();
-    p_hist2D->GetXaxis()->SetTitle("phi_f");
-    p_hist2D->GetYaxis()->SetTitle("alpha_f");
-
-    while (!index.endPassed())
-    {
-        size_t index_y = index.getCurrentIndexOfAxis("detector y-axis");
-        size_t index_z = index.getCurrentIndexOfAxis("detector z-axis");
-        double x_value = (*p_y_axis)[index_y];
-        double y_value = (*p_z_axis)[index_z];
-        double z_value = mp_intensity_output->currentValue();
-        p_hist2D->Fill(x_value, y_value, z_value);
-        ++index;
-    }
-    p_hist2D->SetContour(50);
-    gStyle->SetPalette(1);
-    gStyle->SetOptStat(0);
-    gPad->SetLogz();
-    gPad->SetRightMargin(0.12);
-    p_hist2D->SetMinimum(1.0);
-    p_hist2D->Draw("CONT4 Z");
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    mp_sample = p_multi_layer;
 }
 
-void TestIsGISAXS10::write()
+// The next sample was for testing particles inside substrate and is now obsolete
+void TestIsGISAXS10::initializeSample2()
 {
-    std::ofstream file;
-    file.open("./IsGISAXS_examples/ex-10/para1dcyl.ima", std::ios::out);
-    mp_intensity_output->resetIndex();
-    size_t row_length = mp_intensity_output->getAxes()[0]->getSize();
-    int counter = 1;
-    while(mp_intensity_output->hasNext()) {
-        double z_value = mp_intensity_output->next();
-        file << z_value << "    ";
-        if(counter%row_length==0) {
-            file << std::endl;
-        }
-        ++counter;
-    }
+    delete mp_sample;
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-5e-6, 2e-8);
+    complex_t n_particle(1.0-5e-5, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
+            7*Units::nanometer, 1e7*Units::nanometer);
+    NanoParticleDecoration particle_decoration(
+                new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
+                8*Units::nanometer, p_interference_funtion);
+    LayerDecorator substrate_layer_decorator(substrate_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer);
+    p_multi_layer->addLayer(substrate_layer_decorator);
+    mp_sample = p_multi_layer;
 }
+

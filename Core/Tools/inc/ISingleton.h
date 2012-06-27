@@ -40,16 +40,14 @@ public:
         return *m_instance;
     }
 
+protected:
+    ISingleton(){}
     virtual ~ISingleton()
     {
         std::cout << "ISingleton::~ISingleton() -> Deleting singleton" << std::endl;
         m_instance = 0;
         m_destroyed = true;
     }
-
-protected:
-    ISingleton(){}
-    virtual ~ISingleton();
 
     static void create_singleton()
     {

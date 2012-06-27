@@ -5,6 +5,7 @@ TARGET   = ScattCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 CONFIG  += debug
+#CONFIG  += nopython # to not generate interface to python
 QT      -= core gui
 
 QMAKE_EXTENSION_SHLIB = so
@@ -89,7 +90,7 @@ HEADERS += \
     Samples/inc/MaterialManager.h \
     Samples/inc/MultiLayer.h \
     Samples/inc/NanoParticle.h \
-    Samples/inc/NanoParticleDecorator.h \
+    Samples/inc/NanoParticleDecoration.h \
     Samples/inc/ParameterPool.h \
     Samples/inc/PythonSamplesInterface.h \
     \
@@ -112,6 +113,13 @@ HEADERS += \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
     Tools/inc/Utils.h
+
+# excluding files with python interface to not to expose library in python
+CONFIG(nopython) {
+  HEADERS -= Tools/inc/PythonToolsInterface.h Samples/inc/PythonSamplesInterface.h Algorithms/inc/PythonAlgorithmsInterface.h Tools/inc/PythonModule.h
+  SOURCES -= Tools/src/PythonToolsInterface.cpp Samples/src/PythonSamplesInterface.cpp Algorithms/src/PythonAlgorithmsInterface.cpp Tools/src/PythonModule.cpp
+}
+
 
 INCLUDEPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc
 DEPENDPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc

@@ -60,10 +60,16 @@ public:
     //! get bottom layer
     inline const Layer *getLayerBottom() const { return m_LayerBottom; }
 
+    //! print class
+    friend std::ostream &operator<<(std::ostream &ostr, const LayerInterface &m) { m.print(ostr); return ostr; }
+
 private:
     LayerInterface();
     LayerInterface(const LayerInterface &);
     LayerInterface &operator=(const LayerInterface &);
+
+    //! print class
+    void print(std::ostream &ostr) const;
 
     LayerRoughness *m_roughness;   //!< roughness of the interface
     const Layer *m_LayerTop;       //!< pointer to the layer above interface

@@ -53,10 +53,7 @@ public:
     void clear();
 
     //! print material class
-    friend std::ostream &operator<<(std::ostream &ostr, const MaterialManager &m)
-    {
-        m.print(ostr); return ostr;
-    }
+    friend std::ostream &operator<<(std::ostream &ostr, const MaterialManager &m) { m.print(ostr); return ostr; }
 
 protected:
     MaterialManager(){}

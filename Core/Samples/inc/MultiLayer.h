@@ -88,18 +88,12 @@ public:
     void setLayerThickness(size_t i_layer, double thickness);
 
     //! print class
-    friend std::ostream &operator<<(std::ostream &ostr, const MultiLayer &m)
-    {
-        m.print(ostr); return ostr;
-    }
+    friend std::ostream &operator<<(std::ostream &ostr, const MultiLayer &m) { m.print(ostr); return ostr; }
 
 private:
     //! hiding copy constructor & assignment operator
     MultiLayer(const MultiLayer &);
     MultiLayer &operator=(const MultiLayer &);
-
-    //! print class
-    void print(std::ostream &ostr) const;
 
     //! adding the layer with simultaneous registration in parent class
     void addAndRegisterLayer(Layer *child)
@@ -123,6 +117,9 @@ private:
 
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
+
+    //! print class
+    void print(std::ostream &ostr) const;
 
     std::vector<Layer *> m_layers;                ///< stack of layers [nlayers]
     std::vector<double > m_layers_z;              ///< coordinate of layer's bottoms [nlayers]

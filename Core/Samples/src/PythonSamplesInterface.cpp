@@ -66,7 +66,6 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
 };
 
 
-
 void PythonInterface::export_samples()
 {
     { //::IMaterial
@@ -187,6 +186,7 @@ void PythonInterface::export_samples()
                 , ( bp::arg("p_material"), bp::arg("thickness") ) );
 
         }
+        Layer_exposer.def( bp::self_ns::str( bp::self ) );
     }
 
     { //::LayerRoughness
@@ -263,6 +263,7 @@ void PythonInterface::export_samples()
                 , ( bp::arg("sigma") ) );
 
         }
+        LayerRoughness_exposer.def( bp::self_ns::str( bp::self ) );
     }
 
     bp::class_< MaterialManager, bp::bases< ISingleton< MaterialManager > >, boost::noncopyable >( "MaterialManager", bp::no_init )

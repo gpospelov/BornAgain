@@ -1,6 +1,7 @@
 #include "LayerRoughness.h"
 #include <cmath>
 #include <iostream>
+#include <iomanip>
 
 LayerRoughness::LayerRoughness() : m_sigma(0), m_hurstParameter(0), m_latteralCorrLength(0)
 {
@@ -76,4 +77,15 @@ double LayerRoughness::getCorrFun(const kvector_t &k) const
     double clength = m_latteralCorrLength;
     double R = sqrt(k.x()*k.x() + k.y()*k.y());
     return m_sigma*m_sigma*std::exp( -1.0*std::pow(R/clength, 2.*H) );
+}
+
+
+/* ************************************************************************* */
+// print
+/* ************************************************************************* */
+void LayerRoughness::print(std::ostream &ostr) const
+{
+    ostr << getName()
+         << " " << std::setw(12) << this;
+    ostr << "(s:" << m_sigma << ",H:"<<m_hurstParameter<< ",C:"<<m_latteralCorrLength << ")";
 }

@@ -1,6 +1,6 @@
 #include "Layer.h"
 #include "Exceptions.h"
-
+#include <iomanip>
 
 /* ************************************************************************* */
 // constructors, assignment operator, destructors
@@ -75,5 +75,17 @@ void Layer::setMaterial(const IMaterial* p_material, double thickness)
 {
     setMaterial(p_material);
     setThickness(thickness);
+}
+
+
+/* ************************************************************************* */
+// print content of multilayer
+/* ************************************************************************* */
+void Layer::print(std::ostream &ostr) const
+{
+    ostr << getName()
+         << " " << std::setw(12) << this
+         << " " << getThickness() << "nm > "
+         << *getMaterial();
 }
 

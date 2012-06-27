@@ -59,9 +59,15 @@ public:
     //
     virtual LayerDWBASimulation *getDWBASimulation() const { return 0; }
 
+    //! print class
+    friend std::ostream &operator<<(std::ostream &ostr, const Layer &m) { m.print(ostr); return ostr; }
+
 private:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
+
+    //! print class
+    void print(std::ostream &ostr) const;
 
     const IMaterial* mp_material;    //!< pointer to the material
     double m_thickness;              //!< layer thickness in _angstrom_

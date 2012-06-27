@@ -83,6 +83,7 @@ template<typename T> KVector<T> operator-(const KVector<T> &a, const KVector<T> 
 
 
 typedef KVector<double>  kvector_t;
+
 //typedef KVector<complex_t> complex_vector_t;
 //
 //inline complex_vector_t getComplexVector(kvector_t real_vector)
@@ -91,6 +92,12 @@ typedef KVector<double>  kvector_t;
 //			complex_t(real_vector.y()), complex_t(real_vector.z()));
 //}
 
+// class to help pyplusplus to expose kvector_t in python during automatic code generation
+class KVectorPyHelper
+{
+public:
+    size_t python_boost_helper() { return sizeof(KVector<double>); }
+};
 
 
 #endif // TYPES_H

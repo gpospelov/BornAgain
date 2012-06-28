@@ -135,6 +135,7 @@ macx {
   INCLUDEPATH += /opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
   LIBS += -L /opt/local/lib/ -lgslcblas -lgsl  -lfftw3 -lpython2.7 -lboost_python
 } else {
+  INCLUDEPATH += /opt/local/include
   LIBS += -L /usr/lib64/ -lgslcblas -lgsl -lfftw3 -lpython2.7 -lboost_python
 }
 

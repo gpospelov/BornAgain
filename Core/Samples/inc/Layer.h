@@ -70,7 +70,7 @@ private:
     void print(std::ostream &ostr) const;
 
     const IMaterial* mp_material;    //!< pointer to the material
-    double m_thickness;              //!< layer thickness in _angstrom_
+    double m_thickness;              //!< layer thickness in nanometers
 };
 
 

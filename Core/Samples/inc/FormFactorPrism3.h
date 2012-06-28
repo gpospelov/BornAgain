@@ -1,5 +1,5 @@
-#ifndef FORMFACTORCYLINDER_H
-#define FORMFACTORCYLINDER_H
+#ifndef FORMFACTORPRISM3_H_
+#define FORMFACTORPRISM3_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,22 +9,22 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   FormFactorCylinder.h
-//! @brief  Definition of FormFactorCylinder
+//! @file   FormFactorPrism3.h
+//! @brief  Definition of FormFactorPrism3
 //! @author Scientific Computing Group at FRM II
-//! @date   01.05.2012
+//! @date   Jun 27, 2012
 
 #include "IFormFactor.h"
 #include "IStochasticParameter.h"
 
 
-class FormFactorCylinder : public IBornFormFactor
+class FormFactorPrism3 : public IBornFormFactor
 {
 public:
-    FormFactorCylinder(double height, double radius);
-    FormFactorCylinder(StochasticParameter<double> *p_height, StochasticParameter<double> *p_radius);
-    ~FormFactorCylinder();
-    virtual FormFactorCylinder *clone() const;
+    FormFactorPrism3(double height, double half_side);
+    FormFactorPrism3(StochasticParameter<double> *p_height, StochasticParameter<double> *p_half_side);
+    ~FormFactorPrism3();
+    virtual FormFactorPrism3 *clone() const;
 
     virtual int getNumberOfStochasticParameters() { return 2; }
 
@@ -33,7 +33,10 @@ protected:
 
 private:
     StochasticParameter<double> *mp_height;
-    StochasticParameter<double> *mp_radius;
+    StochasticParameter<double> *mp_half_side;
+    // Cached value of square root of 3
+    double m_root3;
 };
 
-#endif // FORMFACTORCYLINDER_H
+
+#endif /* FORMFACTORPRISM3_H_ */

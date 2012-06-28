@@ -58,8 +58,8 @@ void TestIsGISAXS10::initializeSample()
     IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
             7*Units::nanometer, 1e7*Units::nanometer);
     NanoParticleDecoration particle_decoration(
-                new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
-                0.0, p_interference_funtion);
+                new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.setInterferenceFunction(p_interference_funtion);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer_decorator);
@@ -85,7 +85,8 @@ void TestIsGISAXS10::initializeSample2()
             7*Units::nanometer, 1e7*Units::nanometer);
     NanoParticleDecoration particle_decoration(
                 new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
-                8*Units::nanometer, p_interference_funtion);
+                8*Units::nanometer);
+    particle_decoration.setInterferenceFunction(p_interference_funtion);
     LayerDecorator substrate_layer_decorator(substrate_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer);

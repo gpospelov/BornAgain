@@ -26,24 +26,26 @@ class NanoParticleDecoration : public IDecoration
 {
 public:
 	NanoParticleDecoration();
-	NanoParticleDecoration(NanoParticle *p_particle, double depth=0.0);
-	NanoParticleDecoration(NanoParticle *p_particle, double depth, IInterferenceFunction *p_interference_function);
+	NanoParticleDecoration(NanoParticle *p_particle, double depth=0.0, double abundance=1.0);
 	virtual ~NanoParticleDecoration();
 
 	/// Clone decoration
 	virtual NanoParticleDecoration *clone() const;
 
 	/// Add nano particle
-	void addNanoParticle(NanoParticle *p_particle, double depth=0.0) { m_particles.push_back(ParticleDepthStruct(p_particle, depth)); }
+	void addNanoParticle(NanoParticle *p_particle, double depth=0.0, double abundance=1.0);
 
 	/// Get number of particles
-	size_t getNumberOfParticles() { return m_particles.size(); }
+	size_t getNumberOfParticles() const { return m_particles.size(); }
 
 	/// Get particle with index
     NanoParticle* getNanoParticle(size_t index) const;
 
-    /// zGet depth of particle with index
+    /// Get depth of particle with index
     double getDepthOfNanoParticle(size_t index) const;
+
+    /// Get abundance fraction of particle with index
+    double getAbundanceFractionOfNanoParticle(size_t index) const;
 
     /// Set interference function
     void setInterferenceFunction(IInterferenceFunction* p_interference_function);
@@ -55,20 +57,23 @@ public:
     }
 
 private:
-    struct ParticleDepthStruct
+    struct ParticleInfoStruct
     {
-        ParticleDepthStruct(NanoParticle *p_particle, double depth);
-        ParticleDepthStruct(const ParticleDepthStruct &source);
-        ~ParticleDepthStruct();
+        ParticleInfoStruct(NanoParticle *p_particle, double depth, double abundance);
+        ParticleInfoStruct(const ParticleInfoStruct &source);
+        ~ParticleInfoStruct();
 
-        const ParticleDepthStruct &operator=(const ParticleDepthStruct &right);
+        const ParticleInfoStruct &operator=(const ParticleInfoStruct &right);
         NanoParticle *mp_particle;
         double m_depth;
+        double m_abundance;
     };
-    std::vector<ParticleDepthStruct> m_particles;
+    std::vector<ParticleInfoStruct> m_particles;
     ///< Vector of the types of nano particles
     IInterferenceFunction* mp_interference_function;
     ///< Currently only a scalar interference function (instead of matrix)
+    double m_total_abundance;
+    ///< To guarantee that fractions sum up to 1
 };
 
 

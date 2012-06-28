@@ -16,25 +16,43 @@ LayerDecoratorDWBASimulation::~LayerDecoratorDWBASimulation()
 void LayerDecoratorDWBASimulation::run()
 {
     m_dwba_intensity.resetIndex();
-    NanoParticle *p_particle = mp_layer_decorator->getDecoration()->getNanoParticle(0);
-    double depth = mp_layer_decorator->getDecoration()->getDepthOfNanoParticle(0);
-    complex_t n_decoration = p_particle->getRefractiveIndex();
-    complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
+    m_dwba_intensity.setAllTo(0.0);
     double lambda = 2.0*M_PI/m_ki.mag();
-    double normalizing_factor = std::norm((n_layer*n_layer - n_decoration*n_decoration)*M_PI/lambda/lambda);
-    DWBAFormFactorConstZ dwba_z(p_particle->getFormFactor()->clone(), depth);
-    dwba_z.setReflectionFunction(mp_R_function);
-    dwba_z.setTransmissionFunction(mp_T_function);
     complex_t k_iz = -mp_kz_function->evaluate(-m_alpha_i);
-    const IInterferenceFunction *p_interference_function = mp_layer_decorator->getDecoration()->getInterferenceFunction();
-    while (m_dwba_intensity.hasNext())
-    {
-        double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
-        double alpha_f = m_dwba_intensity.getCurrentValueOfAxis<double>("alpha_f");
-        kvector_t k_f;
-        complex_t k_fz = mp_kz_function->evaluate(alpha_f);
-        k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        complex_t ff = dwba_z.evaluateForComplexkz(m_ki, k_f, k_iz, k_fz);
-        m_dwba_intensity.next() = normalizing_factor*std::norm(ff)*p_interference_function->evaluate(m_ki-k_f);
+    const NanoParticleDecoration *p_decoration = mp_layer_decorator->getDecoration();
+    complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
+    size_t number_of_particles = p_decoration->getNumberOfParticles();
+    for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
+        NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index);
+        double depth = p_decoration->getDepthOfNanoParticle(particle_index);
+        double m_abundance_fraction = p_decoration->getAbundanceFractionOfNanoParticle(particle_index);
+        complex_t n_decoration = p_particle->getRefractiveIndex();
+        double normalizing_factor = m_abundance_fraction*
+                std::norm((n_layer*n_layer - n_decoration*n_decoration)*M_PI/lambda/lambda);
+        DWBAFormFactorConstZ dwba_z(p_particle->getFormFactor()->clone(), depth);
+        dwba_z.setReflectionFunction(mp_R_function);
+        dwba_z.setTransmissionFunction(mp_T_function);
+        while (m_dwba_intensity.hasNext())
+        {
+            double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
+            double alpha_f = m_dwba_intensity.getCurrentValueOfAxis<double>("alpha_f");
+            kvector_t k_f;
+            complex_t k_fz = mp_kz_function->evaluate(alpha_f);
+            k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
+            complex_t ff = dwba_z.evaluateForComplexkz(m_ki, k_f, k_iz, k_fz);
+            m_dwba_intensity.next() += normalizing_factor*std::norm(ff);
+        }
+        m_dwba_intensity.resetIndex();
+    }
+    if (number_of_particles!=0) {
+        const IInterferenceFunction *p_interference_function = p_decoration->getInterferenceFunction();
+        while (m_dwba_intensity.hasNext())
+        {
+            double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
+            double alpha_f = m_dwba_intensity.getCurrentValueOfAxis<double>("alpha_f");
+            kvector_t k_f;
+            k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
+            m_dwba_intensity.next() *= p_interference_function->evaluate(m_ki-k_f);
+        }
     }
 }

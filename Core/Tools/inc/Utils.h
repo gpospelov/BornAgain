@@ -65,63 +65,76 @@ private:
 };
 
 
+
 //- -------------------------------------------------------------------
-//! @class StringSampleHelper
-//! @brief Definition of StringSampleHelper to build the string representing
-//! path in ISample parameter tree
-//!
-//! See example in ICompositeSample::getParameterTree()
+//! @class StringMatchText
+//! @brief Definition of StringMatchText class to perform simple '*' and '?'
+//! wilcard matching
 //- -------------------------------------------------------------------
-class StringSampleHelper
+class StringMatchText
 {
 public:
-    typedef std::vector<StringUsageMap > nstringmap_t;
-    typedef nstringmap_t::iterator iterator_t;
-
-    StringSampleHelper(){}
-    ~StringSampleHelper(){}
-
-    void add(std::string name, int dirlevel) {
-
-        while(dirlevel > (int)m_stringstack.size()-1) {
-            m_stringstack.push_back(StringUsageMap());
-        }
-
-        while(dirlevel < (int)m_stringstack.size()-1) {
-            m_stringstack.pop_back();
-        }
-
-        m_stringstack[dirlevel].add(name);
-    }
-
-    //! return current path in parameter tree, like /multilayer/interface3/roughness/sigma
-    std::string get_path()
-    {
-        std::string result;
-        for(size_t i_level=0; i_level<m_stringstack.size(); i_level++) {
-            std::string currentLevelName = m_stringstack[i_level].get_current();
-            StringUsageMap &strUsageMap = m_stringstack[i_level];
-            // if such name has been already used on that level, built the level name using index number
-            std::ostringstream os;
-            int nOfUsage = strUsageMap[currentLevelName];
-            result += std::string("/") + currentLevelName;
-            if(nOfUsage != 1) {
-                os<<nOfUsage;
-                result += os.str();
-            }
-        }
-        return result;
-    }
-
-    iterator_t begin() { return m_stringstack.begin(); }
-    iterator_t end() { return m_stringstack.end(); }
-    size_t size() const { return m_stringstack.size(); }
-    StringUsageMap &operator[](size_t i) { return m_stringstack[i]; }
-    StringUsageMap const &operator[](size_t i) const { return m_stringstack[i]; }
-
-protected:
-    std::vector<StringUsageMap > m_stringstack;
+    static bool WildcardPattern(const std::string &text, std::string wildcardPattern);
 };
+
+
+////- -------------------------------------------------------------------
+////! @class StringSampleHelper
+////! @brief Definition of StringSampleHelper to build the string representing
+////! path in ISample parameter tree
+////!
+////! See example in ICompositeSample::getParameterTree()
+////- -------------------------------------------------------------------
+//class StringSampleHelper
+//{
+//public:
+//    typedef std::vector<StringUsageMap > nstringmap_t;
+//    typedef nstringmap_t::iterator iterator_t;
+
+//    StringSampleHelper(){}
+//    ~StringSampleHelper(){}
+
+//    void add(std::string name, int dirlevel) {
+
+//        while(dirlevel > (int)m_stringstack.size()-1) {
+//            m_stringstack.push_back(StringUsageMap());
+//        }
+
+//        while(dirlevel < (int)m_stringstack.size()-1) {
+//            m_stringstack.pop_back();
+//        }
+
+//        m_stringstack[dirlevel].add(name);
+//    }
+
+//    //! return current path in parameter tree, like /multilayer/interface3/roughness/sigma
+//    std::string get_path()
+//    {
+//        std::string result;
+//        for(size_t i_level=0; i_level<m_stringstack.size(); i_level++) {
+//            std::string currentLevelName = m_stringstack[i_level].get_current();
+//            StringUsageMap &strUsageMap = m_stringstack[i_level];
+//            // if such name has been already used on that level, built the level name using index number
+//            std::ostringstream os;
+//            int nOfUsage = strUsageMap[currentLevelName];
+//            result += std::string("/") + currentLevelName;
+//            if(nOfUsage != 1) {
+//                os<<nOfUsage;
+//                result += os.str();
+//            }
+//        }
+//        return result;
+//    }
+
+//    iterator_t begin() { return m_stringstack.begin(); }
+//    iterator_t end() { return m_stringstack.end(); }
+//    size_t size() const { return m_stringstack.size(); }
+//    StringUsageMap &operator[](size_t i) { return m_stringstack[i]; }
+//    StringUsageMap const &operator[](size_t i) const { return m_stringstack[i]; }
+
+//protected:
+//    std::vector<StringUsageMap > m_stringstack;
+//};
 
 
 }

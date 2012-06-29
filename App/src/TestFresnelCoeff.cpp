@@ -20,7 +20,7 @@
 #include "TApplication.h"
 #include "TLatex.h"
 #include "TLegend.h"
-
+#include "FitMultiParameter.h"
 
 
 TestFresnelCoeff::TestFresnelCoeff()
@@ -37,7 +37,7 @@ void TestFresnelCoeff::execute()
     std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
 
     // calculate fresnel coefficients for several standard multi-layer samples
-    test_standard();
+    //test_standard();
 
     // calculate fresnel coefficients for multi-layer with different roughnesses
     test_roughness();
@@ -238,8 +238,24 @@ void TestFresnelCoeff::test_roughness()
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("SimpleMultilayer"));
 
     std::cout << *m_sample << std::endl;
-//    ParameterPool *newpool = m_sample->createParameterTree();
-//    std::cout << *newpool << std::endl;
+    std::cout << "-----" << std::endl;
+    ParameterPool *newpool = m_sample->createParameterTree();
+    std::cout << *newpool << std::endl;
+
+//    std::cout << "-----" << std::endl;
+    FitMultiParameter multipar;
+//    double x = 9.0;
+//    FitMultiParameter::parameter_t p(&x);
+//    std::cout << p  << " " << &x << std::endl;
+//    multipar.addParameter(p);
+
+    multipar.addMatchedParametersFromPool("/*/*/*/ssigma",newpool);
+    std::cout << multipar << std::endl;
+    multipar.setValue(3.0);
+
+    std::cout << *m_sample << std::endl;
+
+
 
 }
 

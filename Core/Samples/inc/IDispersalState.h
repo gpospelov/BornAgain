@@ -14,6 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   12.06.2012
 
+
 //- -------------------------------------------------------------------
 //! @class IDispersalState
 //! @brief Definition of IDispersalState interface

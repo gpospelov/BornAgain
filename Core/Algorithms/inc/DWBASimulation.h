@@ -29,7 +29,6 @@ public:
     OutputData<double> *getDWBAIntensity();
 protected:
     OutputData<double> m_dwba_intensity;
-    OutputData<complex_t> m_dwba_amplitude;
     kvector_t m_ki;
     double m_alpha_i;
 };

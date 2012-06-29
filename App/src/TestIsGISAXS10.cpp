@@ -59,7 +59,7 @@ void TestIsGISAXS10::initializeSample()
             7*Units::nanometer, 1e7*Units::nanometer);
     NanoParticleDecoration particle_decoration(
                 new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.setInterferenceFunction(p_interference_funtion);
+    particle_decoration.addInterferenceFunction(p_interference_funtion);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer_decorator);
@@ -86,7 +86,7 @@ void TestIsGISAXS10::initializeSample2()
     NanoParticleDecoration particle_decoration(
                 new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
                 8*Units::nanometer);
-    particle_decoration.setInterferenceFunction(p_interference_funtion);
+    particle_decoration.addInterferenceFunction(p_interference_funtion);
     LayerDecorator substrate_layer_decorator(substrate_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer);

@@ -63,7 +63,7 @@ void TestIsGISAXS1::initializeSample()
             0.0, 0.5);
     particle_decoration.addNanoParticle(new NanoParticle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)),
             0.0, 0.5);
-    particle_decoration.setInterferenceFunction(new InterferenceFunctionNone());
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer_decorator);

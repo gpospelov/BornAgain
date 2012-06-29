@@ -17,6 +17,7 @@
 #include "Exceptions.h"
 #include <string>
 #include <map>
+#include <iostream>
 
 
 //- -------------------------------------------------------------------
@@ -27,10 +28,22 @@
 class ParameterPool
 {
 public:
+    class RealPar {
+    public:
+        explicit RealPar(double *par) : m_data(par) {}
+        void setValue(double value) { checkNull(); *m_data = value; }
+        double getValue() const { checkNull(); return *m_data; }
+        bool isNull() { return (m_data ? false : true); }
+        void checkNull() const { if(!m_data) throw NullPointerException("ParameterPool::RealPar::getValue() -> Attempt to access uninitialised pointer."); }
+        friend std::ostream &operator<<(std::ostream &ostr, const RealPar &p) { ostr << p.m_data; return ostr; }
+    private:
+        double *m_data;
+    };
+
     //! definition of parameter type and parameter container
-    typedef double * parameter_t;
-    typedef std::map<std::string, parameter_t > parametermap_t;
+    typedef std::map<std::string, RealPar > parametermap_t;
     typedef parametermap_t::iterator iterator_t;
+    typedef parametermap_t::const_iterator const_iterator_t;
 
     ParameterPool();
     virtual ~ParameterPool();
@@ -48,14 +61,24 @@ public:
     void clear();
 
     //! return size of parameter container
-    size_t size() const { return m_map ? m_map->size() : 0; }
+    size_t size() const { return m_map.size(); }
 
-    //! main method to register parameter in the container
-    bool registerParameter(std::string name, parameter_t par);
+    //! main method to register data address in the pool
+    bool registerParameter(std::string name, double *parpointer);
+
+    //! add parameter to the pool
+    bool addParameter(std::string name, RealPar par);
 
     //! access to parameter container
-    iterator_t begin() { return (m_map ? m_map->begin() : throw NullPointerException("ParameterPool::begin() -> Error! Non existing parameter map.")); }
-    iterator_t end() { return (m_map ? m_map->end() : throw NullPointerException("ParameterPool::end() -> Error! Non existing parameter map.")); }
+    iterator_t begin() { return m_map.begin(); }
+    iterator_t end() { return m_map.end(); }
+
+    //! const access to parameter container
+    const_iterator_t begin() const { return m_map.begin(); }
+    const_iterator_t end() const { return m_map.end(); }
+
+    //! return parameter with given name
+     RealPar getParameter(std::string name) const;
 
     //! print parameter pool
     friend std::ostream &operator<<(std::ostream &ostr, const ParameterPool &obj)
@@ -71,7 +94,7 @@ protected:
     //! print parameter pool content
     virtual void print(std::ostream &ostr) const;
 
-    parametermap_t *m_map; //! map of parameters
+    parametermap_t m_map; //! map of parameters
 };
 
 #endif // PARAMETERPOOL_H

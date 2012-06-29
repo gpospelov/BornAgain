@@ -95,12 +95,12 @@ void ISample::addParametersToExternalPool(std::string path, ParameterPool *exter
             strUsageMap.add( path +(*it)->getName() ); // saving children name
         }
 
-        // Now we run through direct children again, adjusting copy number of children, if necessary
+        // Now we run through direct children again, and assign copy number for all children with same name
         Utils::StringUsageMap strUsageMap2;
         for(ICompositeSample::iterator_t it=sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
             std::string children_name = path +(*it)->getName();
             strUsageMap2.add(children_name);
-            int ncopy = strUsageMap2[children_name];
+            int ncopy = strUsageMap2[children_name]-1; // staring from 0
 
             // if object is in single exemplar, we do not want any copy number
             if(strUsageMap[children_name] == 1) ncopy = -1;
@@ -121,40 +121,41 @@ void ISample::addParametersToExternalPool(std::string path, ParameterPool *exter
 // example shows how to walk through all subsamples using iterators instead
 // of recursion
 /* ************************************************************************* */
-ParameterPool *ISample::createParameterTreeTest()
-{
-    // cloning first local parameter pool
-    ParameterPool *newpool = m_parameters.cloneWithPrefix( std::string("/")+getName()+std::string("/"));
+//ParameterPool *ISample::createParameterTreeTest()
+//{
+//    // cloning first local parameter pool
+//    ParameterPool *newpool = m_parameters.cloneWithPrefix( std::string("/")+getName()+std::string("/"));
 
-    // walking through children tree
-    ICompositeSample *sample = getCompositeSample();
-    if( sample ) {
-        // using helper to get unique path in the tree as parameter names
-        Utils::StringSampleHelper strHelper;
-        strHelper.add(getName(), 0); // "folder" name, level of nesting (0 - for top level)
+//    // walking through children tree
+//    ICompositeSample *sample = getCompositeSample();
+//    if( sample ) {
+//        // using helper to get unique path in the tree as parameter names
+//        Utils::StringSampleHelper strHelper;
+//        strHelper.add(getName(), 0); // "folder" name, level of nesting (0 - for top level)
 
-        // loop over children tree
-        ICompositeIterator it = sample->createIterator();
-        it.first();
-        while(!it.is_done())
-        {
-            // adding child name to the path
-            strHelper.add(it.get_current()->getName(), it.get_level() );
+//        // loop over children tree
+//        ICompositeIterator it = sample->createIterator();
+//        it.first();
+//        while(!it.is_done())
+//        {
+//            // adding child name to the path
+//            strHelper.add(it.get_current()->getName(), it.get_level() );
 
-            // access to the poll parameter of child
-            ParameterPool *pool = it.get_current()->getParameterPool();
-            if(pool->size()) {
-                for(ParameterPool::iterator_t ip=pool->begin(); ip!=pool->end(); ip++) {
-                    //std::cout << (*ip).first << " " << (*ip).second << std::endl;
-                    // adding parameter name to the path
-                    strHelper.add( (*ip).first, it.get_level()+1 );
-                    // registering new parameter with full path
-                    newpool->registerParameter(strHelper.get_path(), (*ip).second);
-                }
-            }
-            it.next();
-        }
-        //std::cout << *newpool;
-    }
-    return newpool;
-}
+//            // access to the poll parameter of child
+//            ParameterPool *pool = it.get_current()->getParameterPool();
+//            if(pool->size()) {
+//                for(ParameterPool::iterator_t ip=pool->begin(); ip!=pool->end(); ip++) {
+//                    //std::cout << (*ip).first << " " << (*ip).second << std::endl;
+//                    // adding parameter name to the path
+//                    strHelper.add( (*ip).first, it.get_level()+1 );
+//                    // registering new parameter with full path
+//                    newpool->addParameter(strHelper.get_path(), (*ip).second);
+//                }
+//            }
+//            it.next();
+//        }
+//        //std::cout << *newpool;
+//    }
+//    return newpool;
+//    return 0;
+//}

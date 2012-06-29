@@ -4,7 +4,7 @@
 #include <sstream>
 
 
-ParameterPool::ParameterPool() : m_map(0)
+ParameterPool::ParameterPool()
 {
 
 }
@@ -23,12 +23,13 @@ ParameterPool::~ParameterPool()
 /* ************************************************************************* */
 ParameterPool::ParameterPool(const ParameterPool &other)
 {
-    m_map = 0;
-    if( other.m_map ) {
-        m_map = new parametermap_t;
-        // copying content of other's map
-        *m_map = *other.m_map;
-    }
+//    m_map = 0;
+//    if( other.m_map ) {
+//        m_map = new parametermap_t;
+//        // copying content of other's map
+//        *m_map = *other.m_map;
+//    }
+    m_map = other.m_map;
 }
 
 
@@ -40,12 +41,13 @@ ParameterPool &ParameterPool::operator=(const ParameterPool &other)
 {
     if( this != &other)
     {
-        m_map = 0;
-        if( other.m_map ) {
-            m_map = new parametermap_t;
-            // copying content of other's map
-            *m_map = *other.m_map;
-        }
+//        m_map = 0;
+//        if( other.m_map ) {
+//            m_map = new parametermap_t;
+//            // copying content of other's map
+//            *m_map = *other.m_map;
+//        }
+        m_map = other.m_map;
     }
     return *this;
 }
@@ -56,11 +58,38 @@ ParameterPool &ParameterPool::operator=(const ParameterPool &other)
 /* ************************************************************************* */
 void ParameterPool::clear()
 {
-    if(m_map) {
-        m_map->clear();
-        delete m_map;
-        m_map=0;
+//    if(m_map) {
+//        m_map->clear();
+//        delete m_map;
+//        m_map=0;
+//    }
+    m_map.clear();
+}
+
+
+/* ************************************************************************* */
+// Registering parameter with given name. Name should be different for each
+// register.
+/* ************************************************************************* */
+bool ParameterPool::registerParameter(std::string name, double *parameter_address)
+{
+    RealPar par(parameter_address);
+    return addParameter(name, par);
+}
+
+
+bool ParameterPool::addParameter(std::string name, RealPar par)
+{
+    // create map if not exist
+    parametermap_t::iterator it = m_map.find(name);
+    if( it!=m_map.end() ) {
+        // such parameter already registered, throw exception
+        print(std::cout);
+        std::ostringstream os;
+        os << "ParameterPool::registerParameter() -> Warning! Registering parameter with same name '" << name << "'. Previous link will be replaced ";
+        throw RuntimeErrorException(os.str());
     }
+    return m_map.insert(parametermap_t::value_type(name, par ) ).second;
 }
 
 
@@ -70,10 +99,11 @@ void ParameterPool::clear()
 ParameterPool *ParameterPool::clone()
 {
     ParameterPool *new_pool = new ParameterPool;
-    if(m_map) {
-        new_pool->m_map = new parametermap_t;
-        *new_pool->m_map = *m_map;
-    }
+//    if(m_map) {
+//        new_pool->m_map = new parametermap_t;
+//        *new_pool->m_map = *m_map;
+//    }
+    new_pool->m_map = m_map;
     return new_pool;
 }
 
@@ -84,11 +114,9 @@ ParameterPool *ParameterPool::clone()
 ParameterPool *ParameterPool::cloneWithPrefix(std::string prefix)
 {
     ParameterPool *new_pool = new ParameterPool;
-    if(m_map) {
-        for(parametermap_t::iterator it=m_map->begin(); it!= m_map->end(); ++it)
-        {
-            new_pool->registerParameter(prefix+it->first, it->second);
-        }
+    for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it)
+    {
+        new_pool->addParameter(prefix+it->first, it->second);
     }
     return new_pool;
 }
@@ -100,34 +128,23 @@ ParameterPool *ParameterPool::cloneWithPrefix(std::string prefix)
 /* ************************************************************************* */
 void ParameterPool::copyToExternalPool(std::string prefix, ParameterPool *external_pool)
 {
-    if(m_map) {
-        for(parametermap_t::iterator it=m_map->begin(); it!= m_map->end(); ++it) {
-            external_pool->registerParameter(prefix+it->first, it->second);
-        }
+    for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it) {
+        external_pool->addParameter(prefix+it->first, it->second);
     }
 }
 
 
 /* ************************************************************************* */
-// Registering parameter with given name. Name should be different for each
-// register.
-/* ************************************************************************* */
-bool ParameterPool::registerParameter(std::string name, parameter_t par)
+ParameterPool::RealPar ParameterPool::getParameter(std::string name) const
 {
-    // create map if not exist
-    if( !m_map ) {
-        m_map = new parametermap_t;
+    parametermap_t::const_iterator it = m_map.find(name);
+    if( it!=m_map.end() ) {
+        std::cout << "1.1 " << name << std::endl;
+        return (*it).second;
+    } else {
+        std::cout << "1.2 noname " << name << std::endl;
+        return RealPar(0);
     }
-
-    parametermap_t::iterator it = m_map->find(name);
-    if( it!=m_map->end() ) {
-        // such parameter already registered, throw exception
-        print(std::cout);
-        std::ostringstream os;
-        os << "ParameterPool::registerParameter() -> Warning! Registering parameter with same name '" << name << "'. Previous link will be replaced ";
-        throw RuntimeErrorException(os.str());
-    }
-    return m_map->insert(parametermap_t::value_type(name, par)).second;
 }
 
 
@@ -136,12 +153,10 @@ bool ParameterPool::registerParameter(std::string name, parameter_t par)
 /* ************************************************************************* */
 void ParameterPool::print(std::ostream &ostr) const
 {
-    ostr << "parameter pool: " << this << " map:" << m_map;
-    if(m_map) {
-        ostr << "size(): " << m_map->size() << std::endl;
-        for(parametermap_t::iterator it=m_map->begin(); it!= m_map->end(); it++) {
-            std::cout << (*it).first << " " << (*it).second << std::endl;
-        }
+    ostr << "parameter pool: " << this;
+    ostr << "size(): " << m_map.size() << std::endl;
+    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); it++) {
+        std::cout << (*it).first << " " << (*it).second << std::endl;
     }
 }
 

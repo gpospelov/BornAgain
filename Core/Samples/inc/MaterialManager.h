@@ -30,15 +30,8 @@
 //! It is a singleton which provides common and unique interface for
 //! material creation and access. No thread safety.
 //- -------------------------------------------------------------------
-
-//class MaterialManager;
-//typedef ISingleton<MaterialManager> MaterialManagerSingleton;
-
-//class MaterialManager: public MaterialManagerSingleton
 class MaterialManager: public ISingleton<MaterialManager>
 {
-//    friend ISingleton<MaterialManager>;
-
 public:
     //! definition of materials container
     typedef std::map<std::string, IMaterial *> materials_t;

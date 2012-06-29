@@ -49,7 +49,7 @@ public:
     virtual ParameterPool *createParameterTree();
 
     //! same as above, demonstration of iterators instead of nested calls
-    virtual ParameterPool *createParameterTreeTest();
+    //virtual ParameterPool *createParameterTreeTest();
 
     //! check if this sample (or one of its subsamples) contains elements requiring DWBA corrections and return an ISimulation to calculate this
     virtual DWBASimulation *getDWBASimulation() const { return 0; }

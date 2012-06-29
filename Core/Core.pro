@@ -48,6 +48,8 @@ SOURCES += \
     Tools/src/Convolve.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
     Tools/src/Exceptions.cpp \
+    Tools/src/FitMultiParameter.cpp \
+    Tools/src/FitParameter.cpp \
     Tools/src/IFactory.cpp \
     Tools/src/INamed.cpp \
     Tools/src/ISingleton.cpp \
@@ -104,6 +106,8 @@ HEADERS += \
     Tools/inc/Convolve.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
     Tools/inc/Exceptions.h \
+    Tools/inc/FitMultiParameter.h \
+    Tools/inc/FitParameter.h \
     Tools/inc/IDoubleToComplexFunction.h \
     Tools/inc/IFactory.h \
     Tools/inc/INamed.h \
@@ -136,9 +140,10 @@ OBJECTS_DIR = obj
 macx {
   INCLUDEPATH += /opt/local/include
   INCLUDEPATH += /opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
-  LIBS += -L /opt/local/lib/ -lgslcblas -lgsl  -lfftw3 -lpython2.7 -lboost_python
+  LIBS += -L /opt/local/lib/ -lgslcblas -lgsl  -lfftw3 -lpython2.7 -lboost_python -lboost_regex
 } else {
-  LIBS += -L /usr/lib64/ -lgslcblas -lgsl -lfftw3 -lpython2.7 -lboost_python
+  INCLUDEPATH += /opt/local/include
+  LIBS += -L /usr/lib64/ -lgslcblas -lgsl -lfftw3 -lpython2.7 -lboost_python -lboost_regex
 }
 
 

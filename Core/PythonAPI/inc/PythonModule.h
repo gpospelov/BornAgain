@@ -1,5 +1,5 @@
-#ifndef PYTHONINTERFACE_H
-#define PYTHONINTERFACE_H
+#ifndef PYTHONMODULE_H
+#define PYTHONMODULE_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -14,10 +14,6 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   22.06.2012
 
-#include "PythonAlgorithmsInterface.h"
-#include "PythonSamplesInterface.h"
-#include "PythonToolsInterface.h"
 
 
-
-#endif // PYTHONINTERFACE_H
+#endif // PYTHONMODULE_H

@@ -34,8 +34,9 @@ void DWBADiffuseReflection::setKvectors(const kvector_t &ki, const kvector_t &kf
     m_qz2 = std::pow(ki.z() - kf.z(), 2);
     m_qz3 = std::pow(-ki.z() + kf.z(), 2);
     m_qz4 = std::pow(-ki.z() - kf.z(), 2);
-    OpticalFresnel::execute(*m_sample, ki, m_fcoeff_i);
-    OpticalFresnel::execute(*m_sample, kf, m_fcoeff_f);
+    OpticalFresnel calculator;
+    calculator.execute(*m_sample, ki, m_fcoeff_i);
+    calculator.execute(*m_sample, kf, m_fcoeff_f);
 }
 
 

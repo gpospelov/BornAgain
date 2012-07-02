@@ -27,6 +27,8 @@ void MultiLayerDWBASimulation::init(const Experiment& experiment)
 
 void MultiLayerDWBASimulation::run()
 {
+    OpticalFresnel fresnelCalculator;
+
     m_dwba_intensity.setAllTo(0.0);
     NamedVector<double> *p_alpha_axis = dynamic_cast<NamedVector<double> *>(m_dwba_intensity.getAxis("alpha_f"));
     double lambda = 2.0*M_PI/m_ki.mag();
@@ -35,12 +37,12 @@ void MultiLayerDWBASimulation::run()
         double angle = (*p_alpha_axis)[i];
         kvector_t kvec = kvector_t::LambdaAlphaPhi(lambda, -angle, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
-        OpticalFresnel::execute(*mp_multi_layer, kvec, coeffs);
+        fresnelCalculator.execute(*mp_multi_layer, kvec, coeffs);
         fresnel_coeff_map[angle] = coeffs;
     }
     // Also add input angle
     OpticalFresnel::MultiLayerCoeff_t coeffs;
-    OpticalFresnel::execute(*mp_multi_layer, m_ki, coeffs);
+    fresnelCalculator.execute(*mp_multi_layer, m_ki, coeffs);
     fresnel_coeff_map[-m_alpha_i] = coeffs;
     // Run through layers for DWBA corrections
     for (std::map<size_t, LayerDWBASimulation*>::const_iterator it=m_layer_dwba_simulation_map.begin();

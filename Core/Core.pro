@@ -23,7 +23,6 @@ SOURCES += \
     Algorithms/src/LayerDWBASimulation.cpp \
     Algorithms/src/MultiLayerDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
-    Algorithms/src/PythonAlgorithmsInterface.cpp \
     \
     Samples/src/FormFactorCylinder.cpp \
     Samples/src/FormFactorPrism3.cpp \
@@ -43,7 +42,6 @@ SOURCES += \
     Samples/src/NanoParticle.cpp \
     Samples/src/NanoParticleDecoration.cpp \
     Samples/src/ParameterPool.cpp \
-    Samples/src/PythonSamplesInterface.cpp \
     \
     Tools/src/Convolve.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
@@ -55,11 +53,17 @@ SOURCES += \
     Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
     Tools/src/OutputData.cpp \
-    Tools/src/PythonModule.cpp \
-    Tools/src/PythonToolsInterface.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/Types.cpp \
-    Tools/src/Utils.cpp
+    Tools/src/Utils.cpp \
+    \
+    PythonAPI/src/PythonInterface_classes_1.cpp \
+    PythonAPI/src/PythonInterface_classes_2.cpp \
+    PythonAPI/src/PythonInterface_classes_3.cpp \
+    PythonAPI/src/PythonInterface_free_functions.cpp \
+    PythonAPI/src/PythonInterface_global_variables.cpp \
+    PythonAPI/src/PythonModule.cpp \
+    PythonAPI/src/PythonPlusplusHelper.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -75,7 +79,6 @@ HEADERS += \
     Algorithms/inc/LayerDWBASimulation.h \
     Algorithms/inc/MultiLayerDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
-    Algorithms/inc/PythonAlgorithmsInterface.h \
     \
     Samples/inc/FormFactorCylinder.h \
     Samples/inc/FormFactorPrism3.h \
@@ -101,7 +104,6 @@ HEADERS += \
     Samples/inc/NanoParticle.h \
     Samples/inc/NanoParticleDecoration.h \
     Samples/inc/ParameterPool.h \
-    Samples/inc/PythonSamplesInterface.h \
     \
     Tools/inc/Convolve.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
@@ -118,22 +120,46 @@ HEADERS += \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
     Tools/inc/StochasticDiracDelta.h \
-    Tools/inc/PythonModule.h \
-    Tools/inc/PythonToolsInterface.h \
     Tools/inc/StochasticGaussian.h \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
-    Tools/inc/Utils.h
+    Tools/inc/Utils.h \
+    \
+    PythonAPI/inc/PythonInterface_classes_1.h \
+    PythonAPI/inc/PythonInterface_classes_2.h \
+    PythonAPI/inc/PythonInterface_classes_3.h \
+    PythonAPI/inc/PythonInterface_free_functions.h \
+    PythonAPI/inc/PythonInterface_global_variables.h \
+    PythonAPI/inc/PythonModule.h \
+    PythonAPI/inc/PythonPlusplusHelper.h
+
+INCLUDEPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
+DEPENDPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 
 # excluding files with python interface to not to expose library in python
 CONFIG(nopython) {
-  HEADERS -= Tools/inc/PythonToolsInterface.h Samples/inc/PythonSamplesInterface.h Algorithms/inc/PythonAlgorithmsInterface.h Tools/inc/PythonModule.h
-  SOURCES -= Tools/src/PythonToolsInterface.cpp Samples/src/PythonSamplesInterface.cpp Algorithms/src/PythonAlgorithmsInterface.cpp Tools/src/PythonModule.cpp
+  HEADERS -= \
+    PythonAPI/inc/PythonInterface_classes_1.h \
+    PythonAPI/inc/PythonInterface_classes_2.h \
+    PythonAPI/inc/PythonInterface_classes_3.h \
+    PythonAPI/inc/PythonInterface_free_functions.h \
+    PythonAPI/inc/PythonInterface_global_variables.h \
+    PythonAPI/inc/PythonModule.h \
+    PythonAPI/inc/PythonPlusplusHelper.h
+
+  SOURCES -= \
+    PythonAPI/src/PythonInterface_classes_1.cpp \
+    PythonAPI/src/PythonInterface_classes_2.cpp \
+    PythonAPI/src/PythonInterface_classes_3.cpp \
+    PythonAPI/src/PythonInterface_free_functions.cpp \
+    PythonAPI/src/PythonInterface_global_variables.cpp \
+    PythonAPI/src/PythonModule.cpp \
+    PythonAPI/src/PythonPlusplusHelper.cpp
+
+  INCLUDEPATH -= ./PythonAPI/inc
+  DEPENDPATH -= ./PythonAPI/inc
 }
 
-
-INCLUDEPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc
-DEPENDPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc
 
 OBJECTS_DIR = obj
 

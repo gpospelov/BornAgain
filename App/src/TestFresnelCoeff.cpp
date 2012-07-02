@@ -11,8 +11,11 @@
 #include "Numeric.h"
 #include "ICompositeIterator.h"
 #include "MaterialManager.h"
+#include "TStyle.h"
 
 #include <iostream>
+#include <sstream>
+
 #include <iomanip>
 #include "TCanvas.h"
 #include "TGraph.h"
@@ -37,28 +40,29 @@ void TestFresnelCoeff::execute()
     std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
 
     // calculate fresnel coefficients for several standard multi-layer samples
-    //test_standard();
+    test_standard_samples();
 
     // calculate fresnel coefficients for multi-layer with different roughnesses
-    test_roughness();
+    test_roughness_set();
 }
 
 
 /* ************************************************************************* */
-//! calculate fresnel coefficients for several standard multi-layer samples
+//! calculate fresnel coefficients .vs. alpha_i for several standard samples
 /* ************************************************************************* */
-void TestFresnelCoeff::test_standard()
+void TestFresnelCoeff::test_standard_samples()
 {
     std::vector<std::string > snames;
-    snames.push_back("AirOnSubstrate");
-    snames.push_back("SubstrateOnSubstrate");
-    snames.push_back("SimpleMultilayer");
+//    snames.push_back("AirOnSubstrate");
+//    snames.push_back("SubstrateOnSubstrate");
+//    snames.push_back("SimpleMultilayer");
 //    snames.push_back("MultilayerOffspecTestcase2a");
 //    snames.push_back("MultilayerOffspecTestcase2b");
+    snames.push_back("MultilayerOffspecTestcase1a");
 
     // loop over standard samples defined in SampleFactory and StandardSamples
     for(size_t i_sample=0; i_sample<snames.size(); i_sample++){
-        m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem(snames[i_sample]));
+        m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample(snames[i_sample]));
 
         m_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
         m_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 2000);
@@ -68,13 +72,14 @@ void TestFresnelCoeff::test_standard()
             kvector_t kvec = kvector_t::LambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 
             OpticalFresnel::MultiLayerCoeff_t coeffs;
-            OpticalFresnel::execute(*m_sample, kvec, coeffs);
+            OpticalFresnel fresnelCalculator;
+            fresnelCalculator.execute(*m_sample, kvec, coeffs);
 
             m_coeffs->next() = coeffs;
 
         } // alpha_i
 
-        draw_standard();
+        draw_standard_samples();
 
         delete m_sample;
         delete m_coeffs;
@@ -84,10 +89,9 @@ void TestFresnelCoeff::test_standard()
 
 
 /* ************************************************************************* */
-//! draw fresnel coefficients for several standard multi-layer samples as a
-//! function of alpha
+//! draw test results
 /* ************************************************************************* */
-void TestFresnelCoeff::draw_standard()
+void TestFresnelCoeff::draw_standard_samples()
 {
     static int ncall = 0;
 
@@ -231,11 +235,12 @@ void TestFresnelCoeff::draw_standard()
 
 
 /* ************************************************************************* */
-//! calculate fresnel coefficients for several standard multi-layer samples
+//! calculate fresnel coefficients .vs. alpha_i for set of roughnesses
 /* ************************************************************************* */
-void TestFresnelCoeff::test_roughness()
+void TestFresnelCoeff::test_roughness_set()
 {
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("SimpleMultilayer"));
+//    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerOffspecTestcase1a"));
+    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("SubstrateOnSubstrate"));
 
     std::cout << *m_sample << std::endl;
     std::cout << "-----" << std::endl;
@@ -249,133 +254,172 @@ void TestFresnelCoeff::test_roughness()
 //    std::cout << p  << " " << &x << std::endl;
 //    multipar.addParameter(p);
 
-    multipar.addMatchedParametersFromPool("/*/*/*/ssigma",newpool);
+//    multipar.addMatchedParametersFromPool("/multilayer/interface0/roughness/sigma",newpool);
+    multipar.addMatchedParametersFromPool("/*/*/*/sigma",newpool);
     std::cout << multipar << std::endl;
-    multipar.setValue(3.0);
+//    multipar.setValue(0.0);
 
     std::cout << *m_sample << std::endl;
 
+    m_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
+    m_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 1000);
+    m_coeffs->addAxis(std::string("roughness"), 0.0, 12.0*Units::nanometer, 6);
+    m_coeffs->resetIndex();
+    while (m_coeffs->hasNext()) {
+        double alpha_i = m_coeffs->getCurrentValueOfAxis<double>("alpha_i");
+        double roughness = m_coeffs->getCurrentValueOfAxis<double>("roughness");
+        multipar.setValue(roughness);
 
+        kvector_t kvec = kvector_t::LambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+        OpticalFresnel::MultiLayerCoeff_t coeffs;
+        OpticalFresnel fresnelCalculator;
+        fresnelCalculator.execute(*m_sample, kvec, coeffs, true);
+        m_coeffs->next() = coeffs;
+        //std::cout << alpha_i << " " << roughness << " " << coeffs[0].R << std::endl;
+    }
+
+    draw_roughness_set();
 
 }
 
 
-///* ****************************************************************************
-//Creates some multilayer system, runs calculation of Fresnel R,T coefficients for
-//all layers, makes plots.
-//**************************************************************************** */
-//void TestFresnelCoeff::execute()
-//{
-//    std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
 
-//    size_t nsamples = SampleFactory::instance().getNumberOfSamples();
+/* ************************************************************************* */
+//! draw test results
+/* ************************************************************************* */
+void TestFresnelCoeff::draw_roughness_set()
+{
+    static int ncall = 0;
 
-//     MultiLayer *mySample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createStandard(0));
-//     const size_t npoints = 101.;
-//     double alphaMin(0), alphaMax(2.0*Units::degree);
+    size_t nlayers = m_sample->getNumberOfLayers();
 
-//     MyDataSet_t myDataSet;
-//     for(size_t i=1; i<npoints; i++) {
-//        double alpha_i = alphaMin + i*(alphaMax-alphaMin)/double(npoints-1);
-//        kvector_t kvec;
-//        std::cout << " alpha_i:" << alpha_i << std::endl;
-//        kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+    // graphics for R,T coefficients in layers as a function of alpha_i
+    size_t ncoeffs = 2;
+    enum key_coeffs { kCoeffR, kCoeffT};
 
-//        // calculation
-//        OpticalFresnel::MultiLayerCoeff_t coeffs;
-//        OpticalFresnel::execute(*mySample, kvec, coeffs);
-
-//        // saving data for later drawing
-//        MyData myData;
-//        myData.alpha_i = alpha_i;
-//        myData.coeffs = coeffs;
-//        myDataSet.push_back(myData);
-//    }
-
-//    Draw(mySample, myDataSet);
-//}
+    m_coeffs->resetIndex();
+    MultiIndex& index = m_coeffs->getIndex();
+    //NamedVector<double> *p_alpha = dynamic_cast<NamedVector<double>*>(m_coeffs->getAxis("alpha_i"));
+    NamedVector<double> *p_rough = dynamic_cast<NamedVector<double>*>(m_coeffs->getAxis("roughness"));
+    size_t nroughness = p_rough->getSize();
 
 
-//void TestFresnelCoeff::Draw(const MultiLayer *sample, const MyDataSet_t &data)
-//{
-//    //size_t nlayers = data.front().coeffs.size();
-//    size_t nlayers = sample->getNumberOfLayers();
-
-//    // creation of graphics to plot R,T coefficients in layers as a function of alpha_i
-//    std::vector<TGraph *> gr_absR;
-//    std::vector<TGraph *> gr_absT;
-//    for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
-//      gr_absR.push_back(new TGraph() );
-//      gr_absT.push_back(new TGraph() );
-//    }
+    std::vector<std::vector<std::vector<TGraph *> > > gr_coeff; // [nlayers][ncoeffs][nroughness]
+    gr_coeff.resize(nlayers);
+    for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
+        gr_coeff[i_layer].resize(ncoeffs);
+        for(size_t i_coeff=0; i_coeff<ncoeffs; i_coeff++) {
+            gr_coeff[i_layer][i_coeff].resize(nroughness,0);
+            for(size_t i_rough =0; i_rough<nroughness; i_rough++){
+                gr_coeff[i_layer][i_coeff][i_rough] = new TGraph();
+            }
+        }
+    }
 //    TGraph *gr_absSum = new TGraph(); // |R_top|+|T_bottom|
 
-//    for(size_t i_point=0; i_point<data.size(); ++i_point) {
-//        double alpha_i = data[i_point].alpha_i;
-//        // Filling graphics for R,T as a function of alpha_i
-//        for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
-//            std::cout << i_layer << " " << alpha_i*180./M_PI << " R:"  << data[i_point].coeffs[i_layer].R << " " << std::abs(data[i_point].coeffs[i_layer].R)
-//                      << " T:" << data[i_point].coeffs[i_layer].T << " " << std::abs(data[i_point].coeffs[i_layer].T) << std::endl;
-//            gr_absR[i_layer]->SetPoint(i_point, Units::rad2deg(alpha_i), std::abs(data[i_point].coeffs[i_layer].R) );
-//            gr_absT[i_layer]->SetPoint(i_point, Units::rad2deg(alpha_i), std::abs(data[i_point].coeffs[i_layer].T) );
-//        }
+
+    while (!index.endPassed())
+    {
+        double alpha_i = m_coeffs->getCurrentValueOfAxis<double>("alpha_i");
+        //double roughness = m_coeffs->getCurrentValueOfAxis<double>("roughness");
+        size_t i_alpha = index.getCurrentIndexOfAxis("alpha_i");
+        size_t i_rough = index.getCurrentIndexOfAxis("roughness");
+
+        OpticalFresnel::MultiLayerCoeff_t coeffs = m_coeffs->currentValue();
+
+        // Filling graphics for R,T as a function of alpha_i
+        for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
+            gr_coeff[i_layer][kCoeffR][i_rough]->SetPoint(i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R) );
+            gr_coeff[i_layer][kCoeffT][i_rough]->SetPoint(i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T) );
+        }
+
 //        // Filling graphics for |R|+|T| as a function of alpha_i taking R from the top and T from the bottom layers
 //        int nlast = nlayers - 1;
-//        complex_t nx = sample->getLayer(nlast)->getRefractiveIndex();
-//        complex_t n1 = sample->getLayer(0)->getRefractiveIndex();
-//        //std::complex<double> kk = (1./(n1*std::sin(theta_i)))*std::sqrt(std::pow(nx,2)-cos(theta_i)*cos(theta_i)*std::pow(n1,2));
-//        complex_t kk = std::sqrt((complex_t(1,0) - cos(alpha_i)*cos(alpha_i)/nx/nx) ) / sin(alpha_i);
-//        double sum = std::norm(data[i_point].coeffs[0].R) + std::abs(kk)*std::norm(data[i_point].coeffs[nlast].T);
-//        // calculation for sum is not valid, when outgoing angle in the bottom layer is parallel to the surfaced
-//        double alpha_bottom = std::abs(n1/nx)*cos(alpha_i);
-//        if(1-alpha_bottom < 0.0) sum = std::norm(data[i_point].coeffs[0].R);
+//        double sum;
+//        if(coeffs[0].kz.real()!=0.0) {
+//            sum = std::norm(coeffs[0].R) + std::norm(coeffs[nlast].T)*coeffs[nlast].kz.real()/coeffs[0].kz.real();
+//        } else {
+//            sum = 1.0;
+//            std::cout << "Re(k_{z,0}) = 0 for alpha_i = " << alpha_i << std::endl;
+//            std::cout << " and Re(k_{z,N+1}) = " << coeffs[nlast].kz.real() << std::endl;
+//        }
+//        gr_absSum->SetPoint(i_point++, Units::rad2deg(alpha_i), sum);
+        ++index;
+    }
 
-//        gr_absSum->SetPoint(i_point, Units::rad2deg(alpha_i), sum);
-//    }
+    // create name of canvas different for each new call of this method
+    std::ostringstream os;
+    os << (ncall++) << std::endl;
+    std::string cname = std::string("c1_test_fresnel_roughness")+os.str();
+    TCanvas *c1 = new TCanvas(cname.c_str(),"Fresnel Coefficients in Multilayer",1024,768);
+    DrawHelper::instance().SetMagnifier(c1);
 
-//    TCanvas *c1 = new TCanvas("c1_test_fresnel","Fresnel Coefficients in Multilayer",1024,768);
-//    DrawHelper &drawHelper = DrawHelper::instance();
-//    drawHelper.SetMagnifier(c1);
+    // estimate subdivision of canvas (we need place for 'nlayers' and for one sample picture)
+    int ndiv(2);
+    if( nlayers+1 > 4 ) ndiv = int(sqrt(nlayers+1)+1);
+    c1->Divide(ndiv,ndiv);
 
-//    int ndivy = sqrt(nlayers);
-//    int ndivx = nlayers/ndivy + 1;
-//    c1->Divide(ndivx, ndivy);
-//    //c1->Divide(2,2);
+    int i_coeff_sel = kCoeffR;
+    for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
+        c1->cd(i_layer+1);
+        gPad->SetLogy();
 
-//    TH1F *h1ref = new TH1F("h1ref","h1ref",100,0.0,2.0);
-//    h1ref->SetMinimum(0.01);
-//    h1ref->SetMaximum(3.0);
-//    h1ref->SetStats(0);
-//    h1ref->SetTitle("");
-//    for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
-//      c1->cd(i_layer+1); gPad->SetLogy();
-//      h1ref->Draw();
+        // calculating histogram limits common for all graphs on given pad
+        double xmin(0), ymin(0), xmax(0), ymax(0);
+        for(size_t i_rough=0; i_rough<nroughness; i_rough++){
+            double x1(0), y1(0), x2(0), y2(0);
+            gr_coeff[i_layer][i_coeff_sel][i_rough]->ComputeRange(x1, y1, x2, y2);
+            if(x1 < xmin ) xmin= x1;
+            if(x2 > xmax ) xmax = x2;
+            if(y1 < ymin ) ymin = y1;
+            if(y2 > ymax ) ymax = y2;
+        }
+        TH1F h1ref("h1ref","h1ref",100, xmin, xmax);
+        h1ref.SetMinimum(1e-6);
+        h1ref.SetMaximum(10);
+        h1ref.SetStats(0);
+        h1ref.SetTitle("");
+        h1ref.GetXaxis()->SetTitle("angle, deg");
+        h1ref.GetYaxis()->SetTitle("|R|, |T|");
+        h1ref.DrawCopy();
 
-//      TGraph *gr = gr_absR[i_layer];
-//      gr->SetLineColor(kBlue);
-//      gr->SetMarkerColor(kBlue);
-//      gr->SetMarkerStyle(21);
-//      gr->SetMarkerSize(0.2);
-//      gr->Draw("pl same");
+//        TLegend *leg = new TLegend(0.725,0.7,0.89,0.88);
+        TLegend *leg = new TLegend(0.18,0.20,0.28,0.69);
+        leg->SetTextSize(0.04);
+        leg->SetBorderSize(1);
+        leg->SetFillStyle(0);
+        std::ostringstream os;
+        os << " layer #" << i_layer;
+        leg->SetHeader(os.str().c_str());
 
-//      gr = gr_absT[i_layer];
-//      gr->SetMarkerStyle(21);
-//      gr->SetMarkerSize(0.2);
-//      gr->SetLineColor(kRed);
-//      gr->SetMarkerColor(kRed);
-//      gr->Draw("pl same");
-//      double xmin, ymin, xmax, ymax;
-//      gr->ComputeRange(xmin, ymin, xmax, ymax);
-//      std::cout << i_layer << " xmin:" << xmin << " ymin:" << ymin << " xmax:" << xmax << " ymax:" << ymax << std::endl;
-//    }
-//    TGraph *gr = gr_absSum;
-//    gr->SetMarkerStyle(21);
-//    gr->SetMarkerSize(0.2);
-//    gr->SetLineColor(kMagenta);
-//    gr->SetMarkerColor(kMagenta);
-//    gr->Draw("pl same");
+        for(size_t i_rough=0; i_rough<nroughness; i_rough++) {
+            TGraph *gr = gr_coeff[i_layer][i_coeff_sel][i_rough];
+            gr->SetLineColor( i_rough+1 );
+            gr->SetMarkerColor(  i_rough+1 );
+            gr->SetMarkerStyle(21);
+            gr->SetMarkerSize(0.2);
+            gr->Draw("pl same");
+            std::ostringstream os;
+            os << "rgh " << i_rough;
+            leg->AddEntry(gr, os.str().c_str(),"pl");
+        }
+        leg->Draw();
+    }
+////    TGraph *gr = gr_absSum;
+////    gr->SetMarkerStyle(21);
+////    gr->SetMarkerSize(0.2);
+////    gr->SetLineColor(kMagenta);
+////    gr->SetMarkerColor(kMagenta);
+////    gr->Draw("pl same");
+//    TLegend *leg = new TLegend(0.625,0.6,0.89,0.69);
+//    leg->SetTextSize(0.04);
+//    leg->SetBorderSize(0);
+//    leg->SetFillStyle(0);
+//    leg->AddEntry(gr, "|R_top|+|T_bottom|","pl");
+//    leg->Draw();
 
-//}
-
-
+    // drawing sample geometry
+    c1->cd(nlayers+1);
+    DrawHelper::instance().DrawMultilayer(m_sample);
+}
 

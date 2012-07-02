@@ -65,9 +65,9 @@ ISample *StandardSamples::SimpleMultilayer()
     MaterialManager &matManager = MaterialManager::instance();
 
     const IMaterial *mAmbience = matManager.addHomogeneousMaterial("ambience", complex_t(1.0, 0.0) );
-    const IMaterial *mAg1 = matManager.addHomogeneousMaterial("ag1", complex_t(0.99999653774962993, 0.0) );
-    const IMaterial *mCr1 = matManager.addHomogeneousMaterial("cr1", complex_t(0.99999701914797656, 0.0) );
-    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate2", complex_t(0.99999692440971188, 0.0) );
+    const IMaterial *mAg1 = matManager.addHomogeneousMaterial("ag1", complex_t(1.0-5e-6, 0.0) );
+    const IMaterial *mCr1 = matManager.addHomogeneousMaterial("cr1", complex_t(1.0-10e-6, 0.0) );
+    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate2", complex_t(1.0-15e-6, 0.0) );
 
     Layer lAmbience;
     lAmbience.setMaterial(mAmbience, 0);
@@ -128,7 +128,7 @@ ISample *StandardSamples::MultilayerOffspecTestcase1a()
     lSubstrate.setMaterial(mSubstrate, 0);
 
     LayerRoughness roughness;
-    roughness.setSigma(0.5*Units::nanometer);
+    roughness.setSigma(0.0*Units::nanometer);
     roughness.setHurstParameter(0.3);
     roughness.setLatteralCorrLength(500*Units::nanometer);
 

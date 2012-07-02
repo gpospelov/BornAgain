@@ -92,12 +92,5 @@ typedef KVector<double>  kvector_t;
 //			complex_t(real_vector.y()), complex_t(real_vector.z()));
 //}
 
-// class to help pyplusplus to expose kvector_t in python during automatic code generation
-class KVectorPyHelper
-{
-public:
-    size_t python_boost_helper() { return sizeof(KVector<double>); }
-};
-
 
 #endif // TYPES_H

@@ -38,6 +38,9 @@ public:
         complex_t X; //  ratio of amplitudes R/T of the outgoing to the incoming waves in layer
         complex_t R; //  ratio of amplitudes R/T of the outgoing to the incoming waves in layer
         complex_t T; //  ratio of amplitudes R/T of the outgoing to the incoming waves in layer
+
+        //! operator is necessary to make pyplusplus/boost happy during exposing of FresnelCoeff to python using boost::vector_indexing_suite
+        bool operator==(FresnelCoeff const &other) const;
     };
     typedef std::vector<FresnelCoeff > MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
 
@@ -49,20 +52,18 @@ public:
         MultiLayerCoeff_t m_data;
     };
 
-    static int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
-    static int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff &coeff)
-    {
-        execute(sample,k,coeff.m_data); return 0;
-    }
+    int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff, bool useRoughness=false);
+    int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff &coeff, bool useRoughness=false) { return execute(sample,k,coeff.m_data, useRoughness); }
 
 private:
 
-    static void calculateKZ(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
-    static void calculateFresnelCoefficients(MultiLayerCoeff_t &coeff);
-    static void calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
-    static void calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
-    static void calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
-    static void calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
+    void calculateKZ(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
+    void calculateFresnelCoefficients(MultiLayerCoeff_t &coeff);
+    void calculateFresnelCoefficientsWithRoughness(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
+    void calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
+    void calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
+    void calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
+    void calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
 };
 
 

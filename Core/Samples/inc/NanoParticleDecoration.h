@@ -17,6 +17,7 @@
 #include "IDecoration.h"
 #include "NanoParticle.h"
 #include "IInterferenceFunction.h"
+#include "IInterferenceFunctionStrategy.h"
 
 //- -------------------------------------------------------------------
 //! @class NanoParticleDecoration
@@ -47,14 +48,14 @@ public:
     /// Get abundance fraction of particle with index
     double getAbundanceFractionOfNanoParticle(size_t index) const;
 
-    /// Set interference function
-    void setInterferenceFunction(IInterferenceFunction* p_interference_function);
+    /// Add interference function
+    void addInterferenceFunction(IInterferenceFunction* p_interference_function);
 
-    /// Get interference function
-    const IInterferenceFunction* getInterferenceFunction() const
-    {
-        return mp_interference_function;
-    }
+    /// Get interference function with index
+    const IInterferenceFunction* getInterferenceFunction(size_t index) const;
+
+    /// Create interference function strategy
+    IInterferenceFunctionStrategy *createStrategy(const std::vector<IFormFactor *> &form_factors) const;
 
 private:
     struct ParticleInfoStruct
@@ -70,7 +71,7 @@ private:
     };
     std::vector<ParticleInfoStruct> m_particles;
     ///< Vector of the types of nano particles
-    IInterferenceFunction* mp_interference_function;
+    std::vector<IInterferenceFunction*> m_interference_functions;
     ///< Currently only a scalar interference function (instead of matrix)
     double m_total_abundance;
     ///< To guarantee that fractions sum up to 1

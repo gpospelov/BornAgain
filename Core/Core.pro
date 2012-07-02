@@ -12,6 +12,7 @@ QMAKE_EXTENSION_SHLIB = so
 
 SOURCES += \
     Algorithms/src/Beam.cpp \
+    Algorithms/src/DecouplingApproximationStrategy.cpp \
     Algorithms/src/Detector.cpp \
     Algorithms/src/DWBADiffuseReflection.cpp \
     Algorithms/src/DWBAFormFactor.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
     Algorithms/src/GISASExperiment.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
+    Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
     Algorithms/src/MultiLayerDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
     \
@@ -67,6 +69,7 @@ SOURCES += \
 
 HEADERS += \
     Algorithms/inc/Beam.h \
+    Algorithms/inc/DecouplingApproximationStrategy.h \
     Algorithms/inc/Detector.h \
     Algorithms/inc/DWBADiffuseReflection.h \
     Algorithms/inc/DWBAFormFactor.h \
@@ -75,8 +78,10 @@ HEADERS += \
     Algorithms/inc/Experiment.h \
     Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/ISimulation.h \
+    Algorithms/inc/IInterferenceFunctionStrategy.h \
     Algorithms/inc/LayerDecoratorDWBASimulation.h \
     Algorithms/inc/LayerDWBASimulation.h \
+    Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
     Algorithms/inc/MultiLayerDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     \

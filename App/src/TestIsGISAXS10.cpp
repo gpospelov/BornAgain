@@ -39,7 +39,7 @@ void TestIsGISAXS10::execute()
     mp_intensity_output = experiment.getOutputData();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_isgisaxs_10", "1D paracrystal islands",
             "CONT4 Z");
-    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, "./IsGISAXS_examples/ex-10/para1dcyl.ima");
+    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, "./Examples/IsGISAXS_examples/ex-10/para1dcyl.ima");
 }
 
 void TestIsGISAXS10::initializeSample()
@@ -59,7 +59,7 @@ void TestIsGISAXS10::initializeSample()
             7*Units::nanometer, 1e7*Units::nanometer);
     NanoParticleDecoration particle_decoration(
                 new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.setInterferenceFunction(p_interference_funtion);
+    particle_decoration.addInterferenceFunction(p_interference_funtion);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer_decorator);
@@ -81,16 +81,20 @@ void TestIsGISAXS10::initializeSample2()
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
-            7*Units::nanometer, 1e7*Units::nanometer);
-    NanoParticleDecoration particle_decoration(
-                new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
-                8*Units::nanometer);
-    particle_decoration.setInterferenceFunction(p_interference_funtion);
+    IInterferenceFunction *p_interference_funtion_1 = new InterferenceFunctionNone();
+//    IInterferenceFunction *p_interference_funtion_2 = new InterferenceFunctionNone();
+    NanoParticleDecoration particle_decoration;
+    particle_decoration.addNanoParticle(new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
+                0*Units::nanometer, 0.5);
+    particle_decoration.addNanoParticle(new NanoParticle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)),
+            0*Units::nanometer, 0.5);
+    particle_decoration.addInterferenceFunction(p_interference_funtion_1);
+//    particle_decoration.addInterferenceFunction(p_interference_funtion_2);
     LayerDecorator substrate_layer_decorator(substrate_layer, particle_decoration);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer);
-    p_multi_layer->addLayer(substrate_layer_decorator);
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
     mp_sample = p_multi_layer;
 }
 

@@ -3,6 +3,7 @@
 #include "TestFresnelCoeff.h"
 #include "TestFormFactor.h"
 #include "TestDiffuseReflection.h"
+#include "TestIsGISAXS1.h"
 #include "TestIsGISAXS3.h"
 #include "TestIsGISAXS10.h"
 #include "TestConvolution.h"
@@ -19,6 +20,7 @@ TestFactory::TestFactory() : m_benchmark(0)
     registerItem("fresnel",    IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest> );
     registerItem("formfactor", IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
     registerItem("diffuse",    IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
+    registerItem("isgisaxs1",  IFactoryCreateFunction<TestIsGISAXS1, IFunctionalTest> );
     registerItem("isgisaxs3",  IFactoryCreateFunction<TestIsGISAXS3, IFunctionalTest> );
     registerItem("isgisaxs10", IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest> );
     registerItem("convolution", IFactoryCreateFunction<TestConvolution, IFunctionalTest> );

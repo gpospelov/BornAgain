@@ -7,38 +7,40 @@ QT      -= core gui
 
 SOURCES += \
     src/main.cpp \
-    src/IFunctionalTest.cpp \
-    src/TestFresnelCoeff.cpp \
+    src/CommandLine.cpp \
     src/DrawHelper.cpp \
-    src/TestFormFactor.cpp \
-    src/TestRoughness.cpp \
-    src/TestIsGISAXS3.cpp \
+    src/IFunctionalTest.cpp \
+    src/IsGISAXSTools.cpp \
     src/SampleFactory.cpp \
     src/StandardSamples.cpp \
-    src/CommandLine.cpp \
-    src/TestFactory.cpp \
+    src/TestConvolution.cpp \
     src/TestDiffuseReflection.cpp \
+    src/TestFactory.cpp \
+    src/TestFormFactor.cpp \
+    src/TestFresnelCoeff.cpp \
+    src/TestIsGISAXS1.cpp \
+    src/TestIsGISAXS3.cpp \
     src/TestIsGISAXS10.cpp \
-    src/IsGISAXSTools.cpp \
-    src/TestConvolution.cpp
+    src/TestRoughness.cpp \
 
 HEADERS += \
-    inc/IFunctionalTest.h \
-    inc/DrawHelper.h \
-    inc/TestFresnelCoeff.h \
     inc/App.h \
     inc/AppLinkDef.h \
-    inc/TestFormFactor.h \
-    inc/TestRoughness.h \
-    inc/TestIsGISAXS3.h \
+    inc/CommandLine.h \
+    inc/DrawHelper.h \
+    inc/IFunctionalTest.h \
+    inc/IsGISAXSTools.h \
     inc/SampleFactory.h \
     inc/StandardSamples.h \
-    inc/CommandLine.h \
-    inc/TestFactory.h \
+    inc/TestConvolution.h \
     inc/TestDiffuseReflection.h \
+    inc/TestFactory.h \
+    inc/TestFormFactor.h \
+    inc/TestFresnelCoeff.h \
+    inc/TestIsGISAXS1.h \
+    inc/TestIsGISAXS3.h \
     inc/TestIsGISAXS10.h \
-    inc/IsGISAXSTools.h \
-    inc/TestConvolution.h
+    inc/TestRoughness.h \
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/Samples/inc ../Core/Tools/inc
 DEPENDPATH += ./inc ../Core/Algorithms/inc ../Core/Samples/inc ../Core/Tools/inc

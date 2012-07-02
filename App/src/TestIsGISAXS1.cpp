@@ -42,7 +42,7 @@ void TestIsGISAXS1::execute()
     mp_intensity_output = experiment.getOutputData();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_2_particles_formfactor", "Two particles mean DWBA Formfactor",
             "CONT4 Z");
-    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, "./IsGISAXS_examples/ex-1/2-particles.ima");
+    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, "./Examples/IsGISAXS_examples/ex-1/2-particles.ima");
 }
 
 void TestIsGISAXS1::initializeSample()

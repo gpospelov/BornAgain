@@ -42,7 +42,7 @@ void TestIsGISAXS3::execute()
     mp_intensity_output = experiment.getOutputData();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_dwba_formfactor", "Cylinder DWBA Formfactor",
             "CONT4 Z");
-    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, "./IsGISAXS_examples/ex-3/dwbacyl.ima");
+    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, "./Examples/IsGISAXS_examples/ex-3/dwbacyl.ima");
 }
 
 void TestIsGISAXS3::initializeSample()

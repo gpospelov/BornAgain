@@ -16,10 +16,11 @@
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
-#include "FormFactorCylinder.h"
+#include "FormFactors.h"
 #include "DWBAFormFactor.h"
 #include "ISample.h"
 #include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionNone.h"
 
 
 class TestIsGISAXS10 : public IFunctionalTest

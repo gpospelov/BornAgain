@@ -139,9 +139,6 @@ def GenerateCode():
   # from PythonPlusplusHelper.h - we do not need these classes visbile in python
   mb.class_('PythonPlusplusKVector').exclude()
 
-
-  
-  print mb
   # ---------------------------------------------------------
   # generating output
   # ---------------------------------------------------------

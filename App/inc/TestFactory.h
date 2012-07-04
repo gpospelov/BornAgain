@@ -35,6 +35,9 @@ public:
     //! execute all registered tests
     void execute_all();
 
+    //! print names of registered tests
+    void print_testnames();
+
     //! print benchmark summary
     void print_benchmarks();
 

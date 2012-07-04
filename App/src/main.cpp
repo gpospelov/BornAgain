@@ -18,9 +18,15 @@ int main(int argc, char **argv)
     DrawHelper::SetStyle();
 
     // running functional tests
-    if( args.find("all") ) {
+    if( args.find("help") ) {
+        // printing names of tests
+        TestFactory::instance().print_testnames();
+        return 0;
+
+    }else if( args.find("all") ) {
         // running all registered tests
         TestFactory::instance().execute_all();
+
     } else {
         // running specified tests
         for(size_t i=0; i<args.size(); i++) TestFactory::instance().execute( args[i] );

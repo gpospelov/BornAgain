@@ -70,3 +70,4 @@ void TestIsGISAXS1::initializeSample()
     p_multi_layer->addLayer(substrate_layer);
     mp_sample = p_multi_layer;
 }
+

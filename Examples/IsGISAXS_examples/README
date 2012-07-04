@@ -6,7 +6,15 @@ In each subdirectory, one finds:
 - a text file (sim.txt) describing how to reproduce this simulation with GISASFW
 - the simulation output from GISASFW (same format as for IsGISAXS)
 
+List of examples:
+ex-1  2 types of particles (cylinder, prism3) on top of substrate. No interference function.
+ex-3  cylinder form factor
+ex-9  pyramid form factor
+ex-10 cylinders with interference on top of substrate
+
+
 Some notes:
 -Since polarization (x-ray) is not yet included in GISASFW, this feature should be disabled in IsGISAXS by returning 1._wp from function PolFac in Reflectivity_mod.f90
 -IsGISAXS initializes the arrays of outgoing angles such that their sines are evenly spaced. This necessitates a different initialization in GISASFW too: see GISASExperiment::setDetectorParameters function
 -In the subdirectory scripts/ , one can find python scripts that can be used to compare the different simulation outputs
+

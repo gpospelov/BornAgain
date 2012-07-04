@@ -28,6 +28,7 @@ SOURCES += \
     \
     Samples/src/FormFactorCylinder.cpp \
     Samples/src/FormFactorPrism3.cpp \
+#    Samples/src/FormFactorPyramid.cpp \
     Samples/src/HomogeneousMaterial.cpp \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
@@ -87,6 +88,7 @@ HEADERS += \
     \
     Samples/inc/FormFactorCylinder.h \
     Samples/inc/FormFactorPrism3.h \
+#    Samples/inc/FormFactorPyramid.h \
     Samples/inc/FormFactors.h \
     Samples/inc/HomogeneousMaterial.h \
     Samples/inc/ICompositeIterator.h \

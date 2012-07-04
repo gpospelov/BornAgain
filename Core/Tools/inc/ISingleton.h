@@ -36,7 +36,7 @@ public:
                 create_singleton();
             }
         }
-        std::cout << "ISingleton::instance() -> Info. Accesing instance... " << m_instance << std::endl;
+        //std::cout << "ISingleton::instance() -> Info. Accesing instance... " << m_instance << std::endl;
         return *m_instance;
     }
 
@@ -44,7 +44,7 @@ protected:
     ISingleton(){}
     virtual ~ISingleton()
     {
-        std::cout << "ISingleton::~ISingleton() -> Deleting singleton" << std::endl;
+        //std::cout << "ISingleton::~ISingleton() -> Deleting singleton" << std::endl;
         m_instance = 0;
         m_destroyed = true;
     }

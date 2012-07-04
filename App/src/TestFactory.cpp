@@ -5,6 +5,7 @@
 #include "TestDiffuseReflection.h"
 #include "TestIsGISAXS1.h"
 #include "TestIsGISAXS3.h"
+#include "TestIsGISAXS9.h"
 #include "TestIsGISAXS10.h"
 #include "TestConvolution.h"
 
@@ -16,13 +17,14 @@ TestFactory::TestFactory() : m_benchmark(0)
 {
     setOwnObjects(true);
 
-    registerItem("roughness",  IFactoryCreateFunction<TestRoughness, IFunctionalTest> );
-    registerItem("fresnel",    IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest> );
-    registerItem("formfactor", IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
-    registerItem("diffuse",    IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
-    registerItem("isgisaxs1",  IFactoryCreateFunction<TestIsGISAXS1, IFunctionalTest> );
-    registerItem("isgisaxs3",  IFactoryCreateFunction<TestIsGISAXS3, IFunctionalTest> );
-    registerItem("isgisaxs10", IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest> );
+    registerItem("roughness",   IFactoryCreateFunction<TestRoughness, IFunctionalTest> );
+    registerItem("fresnel",     IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest> );
+    registerItem("formfactor",  IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
+    registerItem("diffuse",     IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
+    registerItem("isgisaxs1",   IFactoryCreateFunction<TestIsGISAXS1, IFunctionalTest> );
+    registerItem("isgisaxs3",   IFactoryCreateFunction<TestIsGISAXS3, IFunctionalTest> );
+    registerItem("isgisaxs9",   IFactoryCreateFunction<TestIsGISAXS9, IFunctionalTest> );
+    registerItem("isgisaxs10",  IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest> );
     registerItem("convolution", IFactoryCreateFunction<TestConvolution, IFunctionalTest> );
 
     m_benchmark = new TBenchmark();
@@ -31,7 +33,6 @@ TestFactory::TestFactory() : m_benchmark(0)
 
 TestFactory::~TestFactory()
 {
-    print_benchmarks();
     delete m_benchmark;
 }
 
@@ -80,5 +81,20 @@ void TestFactory::execute_all()
         execute( it->first );
         //createItem( it->first )->execute();
     }
+    print_benchmarks();
 }
+
+
+/* ************************************************************************* */
+// print on the screen names of registered tests
+/* ************************************************************************* */
+void TestFactory::print_testnames()
+{
+    std::cout << "TestFactory::print_testnames() -> Info. Registered tests:" << std::endl;
+    CallbackMap_t::const_iterator it;
+    for(it=m_callbacks.begin(); it != m_callbacks.end(); it++ ) {
+        std::cout << it->first << std::endl;
+    }
+}
+
 

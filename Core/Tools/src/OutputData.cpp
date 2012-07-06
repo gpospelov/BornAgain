@@ -173,5 +173,22 @@ const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<
     while (p_right_clone->hasNext()) {
         left.next() += p_right_clone->next();
     }
+    delete p_right_clone;
+    return left;
+}
+
+const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<double> &right)
+{
+    size_t total_size = left.getAllocatedSize();
+    if (right.getAllocatedSize()!= total_size) {
+        throw LogicErrorException("Cannot substract OutputData objects of different size.");
+    }
+    OutputData<double> *p_right_clone = right.clone();
+    left.resetIndex();
+    p_right_clone->resetIndex();
+    while (p_right_clone->hasNext()) {
+        left.next() -= p_right_clone->next();
+    }
+    delete p_right_clone;
     return left;
 }

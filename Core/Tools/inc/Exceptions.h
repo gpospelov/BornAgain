@@ -90,6 +90,12 @@ public:
     DomainErrorException(const std::string& message);
 };
 
+class FileNotIsOpenException : public std::runtime_error
+{
+public:
+    FileNotIsOpenException(const std::string& message);
+};
+
 void LogExceptionMessage(const std::string &message);
 
 

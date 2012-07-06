@@ -77,3 +77,12 @@ DomainErrorException::DomainErrorException(const std::string &message)
 {
     LogExceptionMessage(message);
 }
+
+FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
+    : std::runtime_error(message)
+{
+    LogExceptionMessage(message);
+}
+
+
+

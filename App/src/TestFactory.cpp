@@ -90,7 +90,11 @@ void TestFactory::execute_all()
 /* ************************************************************************* */
 void TestFactory::print_testnames()
 {
-    std::cout << "TestFactory::print_testnames() -> Info. Registered tests:" << std::endl;
+    std::string help;
+    help += "TestFactory::print_testnames() -> Info. \n";
+    help += "You can run few functional tests by running './App testname'\n";
+    help += "List of available tests are below:";
+    std::cout << help << std::endl;
     CallbackMap_t::const_iterator it;
     for(it=m_callbacks.begin(); it != m_callbacks.end(); it++ ) {
         std::cout << it->first << std::endl;

@@ -13,17 +13,17 @@ int main(int argc, char **argv)
     std::cout << "Hello Brave New World!" << std::endl;
 
     CommandLine args(argc, argv); // parsing command line arguments
+    if( argc==1 || args.find("help") ) {
+        // printing names of tests
+        TestFactory::instance().print_testnames();
+        return 0;
+     }
 
     TApplication theApp("theApp", &argc, argv);
     DrawHelper::SetStyle();
 
-    // running functional tests
-    if( args.find("help") ) {
-        // printing names of tests
-        TestFactory::instance().print_testnames();
-        return 0;
-
-    }else if( args.find("all") ) {
+     // running functional tests
+    if( args.find("all") ) {
         // running all registered tests
         TestFactory::instance().execute_all();
 

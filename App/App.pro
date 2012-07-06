@@ -21,8 +21,8 @@ SOURCES += \
     src/TestIsGISAXS1.cpp \
     src/TestIsGISAXS3.cpp \
     src/TestIsGISAXS10.cpp \
-    src/TestRoughness.cpp
-#    src/TestIsGISAXS9.cpp
+    src/TestRoughness.cpp \
+    src/TestIsGISAXS9.cpp
 
 HEADERS += \
     inc/App.h \
@@ -41,8 +41,8 @@ HEADERS += \
     inc/TestIsGISAXS1.h \
     inc/TestIsGISAXS3.h \
     inc/TestIsGISAXS10.h \
-    inc/TestRoughness.h
-#    inc/TestIsGISAXS9.h
+    inc/TestRoughness.h \
+    inc/TestIsGISAXS9.h
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/Samples/inc ../Core/Tools/inc
 DEPENDPATH += ./inc ../Core/Algorithms/inc ../Core/Samples/inc ../Core/Tools/inc
@@ -104,7 +104,8 @@ ROOT_CINT_TARGET = $${TARGET}
 SOURCES         *= src/$${ROOT_CINT_TARGET}Dict.cpp
 rootcint.target       = src/$${ROOT_CINT_TARGET}Dict.cpp
 rootcint.commands    += $$MYROOTCINT
-rootcint.commands    +=  -f $$rootcint.target  -c -p $$DICTDEFINES $(INCPATH) $$CREATE_ROOT_DICT_FOR_CLASSES
+rootcint.commands    +=  -f $$rootcint.target  -c -I../Core/Tools/inc $$CREATE_ROOT_DICT_FOR_CLASSES
+#rootcint.commands    +=  -f $$rootcint.target  -c -p $$DICTDEFINES $(INCPATH) $$CREATE_ROOT_DICT_FOR_CLASSES
 rootcint.depends      = $$CREATE_ROOT_DICT_FOR_CLASSES
 
 rootcintecho.commands = @echo "Generating dictionary $$rootcint.target for $$CREATE_ROOT_DICT_FOR_CLASSES classes"

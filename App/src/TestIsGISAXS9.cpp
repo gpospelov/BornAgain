@@ -40,30 +40,52 @@ void TestIsGISAXS9::execute()
     experiment.runSimulation();
     if (mp_intensity_output) delete mp_intensity_output;
     mp_intensity_output = experiment.getOutputData();
-    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_dwba_formfactor", "Cylinder DWBA Formfactor",
-            "CONT4 Z");
-    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, "./Examples/IsGISAXS_examples/ex-3/dwbacyl.ima");
+
+    // saving results to file
+    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, "./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
+    // reading result of IsGISAXS for comparison
+    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile("./Examples/IsGISAXS_examples/ex-9/isgi_pyramid_Z0.ima");
+
+    // ploting results
+    TCanvas *c1 = new TCanvas("TestIsGISAXS9_c1", "Pyramid DWBA formfactor", 1024, 768);
+    c1->Divide(2,2);
+
+    // our calculations
+    c1->cd(1);
+    IsGISAXSTools::drawLogOutputDataInCurrentPad(*mp_intensity_output, "CONT4 Z", "Calculated pyramid FF");
+    // isgisaxs data
+    c1->cd(2);
+    IsGISAXSTools::drawLogOutputDataInCurrentPad(*isgi_data, "CONT4 Z", "IsGisaxs pyramid FF");
+    // difference between two
+    OutputData<double> *difference = mp_intensity_output->clone();
+    c1->cd(3);
+    *difference -= *isgi_data;
+    IsGISAXSTools::drawLogOutputDataInCurrentPad(*difference, "CONT4 Z", "Difference");
+
+    delete isgi_data;
+    delete difference;
 }
+
 
 void TestIsGISAXS9::initializeSample()
 {
-//    if(mp_sample) delete mp_sample;
-//    MultiLayer *p_multi_layer = new MultiLayer();
-//    complex_t n_air(1.0, 0.0);
-//    complex_t n_substrate(1.0-6e-6, 2e-8);
-//    complex_t n_particle(1.0-6e-4, 2e-8);
-//    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-//    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
-//    Layer air_layer;
-//    air_layer.setMaterial(p_air_material);
-//    Layer substrate_layer;
-//    substrate_layer.setMaterial(p_substrate_material);
-//    NanoParticleDecoration particle_decoration(
-//                new NanoParticle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ) ));
-//    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-//    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    if(mp_sample) delete mp_sample;
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    NanoParticleDecoration particle_decoration(
+                new NanoParticle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ) ) ) );
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-//    p_multi_layer->addLayer(air_layer_decorator);
-//    p_multi_layer->addLayer(substrate_layer);
-//    mp_sample = p_multi_layer;
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    mp_sample = p_multi_layer;
 }

@@ -19,11 +19,20 @@
 
 namespace IsGISAXSTools {
 
+//! draw 2D histogram representing OutputData (in new canvas)
 void drawLogOutputData(const OutputData<double> &output, const std::string &canvas_name,
         const std::string &canvas_title, const std::string &draw_options,
         const std::string &histogram_title = std::string());
 
+//! draw 2D histogram representing OutputData (in current gPad)
+void drawLogOutputDataInCurrentPad(const OutputData<double> &output, const std::string &draw_options, const std::string &histogram_title = std::string());
+
+//! write output data (1D or 2D) in ASCII file
 void writeOutputDataToFile(const OutputData<double> &output, const std::string &filename);
+
+//! read data from ASCII file (2D assumed) and fill newly created OutputData with it
+OutputData<double> *readOutputDataFromFile(const std::string &filename);
+
 
 } /* namespace IsGISAXS Tools */
 

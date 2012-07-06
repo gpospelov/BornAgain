@@ -93,6 +93,7 @@ private:
 };
 
 const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<double> &right);
+const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<double> &right);
 
 template <class T> OutputData<T>::OutputData()
     : m_dimension(0)

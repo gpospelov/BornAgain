@@ -84,7 +84,7 @@ bool CommandLine::isGood()
 /* ************************************************************************* */
 bool CommandLine::isFunctionalTest(std::string name)
 {
-    for(arguments_t::iterator it=m_defined_arguments.begin(); it!= m_defined_arguments.end(); ++it) {
+    for(arguments_t::iterator it=m_defined_functional_tests.begin(); it!= m_defined_functional_tests.end(); ++it) {
         if(name == (*it)) return true;
     }
     return false;

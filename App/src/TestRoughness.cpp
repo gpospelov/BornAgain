@@ -22,7 +22,7 @@
 
 
 
-TestRoughness::TestRoughness() : IFunctionalTest("roughness","draw roughness profile"),
+TestRoughness::TestRoughness() : IFunctionalTest("roughness"),
                                  m_roughness(0)
 {
 

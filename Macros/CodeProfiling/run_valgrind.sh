@@ -1,0 +1,33 @@
+# run GISASFW functional tests with 'gperftools'
+# see README for more explanation
+
+mkdir -p ./output
+
+
+application=../../App/App
+arguments="isgisaxs9"
+#arguments="isgisaxs9 batch"
+focuson=GISASExperiment
+
+# ------------------------------------------- #
+# profiling cpu usage
+# ------------------------------------------- #
+profile_cpu=yes
+if [ $profile_cpu = "yes" ]
+then
+#  valgrind --tool=callgrind -v --dump-every-bb=10000000 --dump-instr=yes --trace-jump=yes ./App commandline
+  valgrind  --tool=callgrind --callgrind-out-file=./output/callgrind.output  --log-file=./output/valgrind.output --dump-instr=yes --trace-jump=yes $application $arguments
+# --zero-before=GISASExperiment
+fi
+
+
+# ------------------------------------------- #
+# profiling HEAP usage
+# ------------------------------------------- #
+profile_memory=no
+if [ $profile_memory = "yes" ]
+then
+  valgrind --log-file=./output/valgrind.output --num-callers=6 --track-origins=yes --leak-check=yes $application $arguments
+fi
+
+

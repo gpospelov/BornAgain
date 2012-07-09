@@ -3,6 +3,7 @@
 #include "InterferenceFunctionNone.h"
 #include "Types.h"
 #include "Units.h"
+#include "Utils.h"
 #include "MultiLayer.h"
 #include "MaterialManager.h"
 #include "NanoParticleDecoration.h"
@@ -42,9 +43,9 @@ void TestIsGISAXS9::execute()
     mp_intensity_output = experiment.getOutputData();
 
     // saving results to file
-    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, "./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
+    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
     // reading result of IsGISAXS for comparison
-    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile("./Examples/IsGISAXS_examples/ex-9/isgi_pyramid_Z0.ima");
+    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/isgi_pyramid_Z0.ima");
 
     // ploting results
     TCanvas *c1 = new TCanvas("TestIsGISAXS9_c1", "Pyramid DWBA formfactor", 1024, 768);

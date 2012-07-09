@@ -4,6 +4,8 @@ CONFIG  -= qt
 CONFIG  -= app_bundle
 CONFIG  += debug
 QT      -= core gui
+#CONFIG += GPERFTOOLS # to compile with GPERFTOOLS support for code profiling
+
 
 SOURCES += \
     src/main.cpp \
@@ -66,18 +68,16 @@ for(dep, MY_DEPENDENCY_LIB) {
 # external (platform dependent) libraries
 macx {
   INCLUDEPATH += /opt/local/include
-  LIBS += -L /opt/local/lib/ -lfftw3
-#  LIBS += -L /opt/local/lib/ -lfftw3 -lprofiler -ltcmalloc
+  LIBS += -L /opt/local/lib -lfftw3 -lboost_system -lboost_filesystem
 } else {
-  LIBS += -L /usr/lib64/ -lfftw3
+  LIBS += -L /usr/lib64 -lfftw3  -lboost_system -lboost_filesystem
 }
 
 
-# special compiling mode for code profiling using gperftools
+# special compiling mode for code profiling using gperftools, variable GPERFTOOLS defined in main GISASFW.pro
 CONFIG(GPERFTOOLS) {
   QMAKE_CXXFLAGS += -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
-  LIBS += -lprofiler -ltcmalloc
-#-ltcmalloc_and_profiler
+  LIBS += -L /opt/local/lib -lprofiler -ltcmalloc
 }
 
 

@@ -65,7 +65,6 @@ private:
 };
 
 
-
 //- -------------------------------------------------------------------
 //! @class StringMatchText
 //! @brief Definition of StringMatchText class to perform simple '*' and '?'
@@ -74,7 +73,29 @@ private:
 class StringMatchText
 {
 public:
+    //! return true if text matches wildcards
     static bool WildcardPattern(const std::string &text, std::string wildcardPattern);
+};
+
+
+//- -------------------------------------------------------------------
+//! @class FileSystem
+//! @brief different utilities to deal with file system
+//- -------------------------------------------------------------------
+class FileSystem
+{
+public:
+    //! return path to the current (working) directory
+    static std::string GetWorkingPath();
+
+    //! return path to GISASFW home directory
+    static std::string GetHomePath();
+
+    //! set relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
+    static void SetRelativePath(const std::string path) { m_relative_path = path; }
+
+private:
+    static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module
 };
 
 

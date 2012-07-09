@@ -41,6 +41,9 @@ public:
     //! print benchmark summary
     void print_benchmarks();
 
+    //! return vector of registere test names
+    std::vector<std::string > get_testnames();
+
 private:
     TBenchmark *m_benchmark;
 };

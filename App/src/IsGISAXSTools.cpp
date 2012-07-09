@@ -96,6 +96,7 @@ void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
         ++counter;
     }
     file.close();
+    std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Info. File '" << filename << "' successfully created." << std::endl;
     delete p_output;
 }
 

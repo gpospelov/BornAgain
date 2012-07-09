@@ -62,12 +62,24 @@ for(dep, MY_DEPENDENCY_LIB) {
     INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
 }
 
+
+# external (platform dependent) libraries
 macx {
   INCLUDEPATH += /opt/local/include
   LIBS += -L /opt/local/lib/ -lfftw3
+#  LIBS += -L /opt/local/lib/ -lfftw3 -lprofiler -ltcmalloc
 } else {
   LIBS += -L /usr/lib64/ -lfftw3
 }
+
+
+# special compiling mode for code profiling using gperftools
+CONFIG(GPERFTOOLS) {
+  QMAKE_CXXFLAGS += -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
+  LIBS += -lprofiler -ltcmalloc
+#-ltcmalloc_and_profiler
+}
+
 
 ###############################################################################
 # adding ROOT libraries

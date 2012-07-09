@@ -167,17 +167,25 @@ CONFIG(nopython) {
   DEPENDPATH -= ./PythonAPI/inc
 }
 
-
 OBJECTS_DIR = obj
 
+# external (platform dependent) libraries
 macx {
   INCLUDEPATH += /opt/local/include
   INCLUDEPATH += /opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
   LIBS += -L /opt/local/lib/ -lgslcblas -lgsl  -lfftw3 -lpython2.7 -lboost_python -lboost_regex
 } else {
   INCLUDEPATH += /opt/local/include
+  INCLUDEPATH += /usr/include/python2.7
   LIBS += -L /usr/lib64/ -lgslcblas -lgsl -lfftw3 -lpython2.7 -lboost_python -lboost_regex
 }
+
+# special compiling mode for code profiling using gperftools
+CONFIG(GPERFTOOLS) {
+  QMAKE_CXXFLAGS += -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
+  LIBS += -lprofiler -ltcmalloc
+}
+
 
 
 ###############################################################################

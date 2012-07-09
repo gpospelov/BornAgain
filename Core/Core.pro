@@ -5,8 +5,9 @@ TARGET   = ScattCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 CONFIG  += debug
-#CONFIG  += nopython # to not generate interface to python
 QT      -= core gui
+#CONFIG  += nopython # to not generate interface to python
+#CONFIG += GPERFTOOLS # to compile with GPERFTOOLS support for code profiling
 
 QMAKE_EXTENSION_SHLIB = so
 
@@ -173,17 +174,17 @@ OBJECTS_DIR = obj
 macx {
   INCLUDEPATH += /opt/local/include
   INCLUDEPATH += /opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
-  LIBS += -L /opt/local/lib/ -lgslcblas -lgsl  -lfftw3 -lpython2.7 -lboost_python -lboost_regex
+  LIBS += -L /opt/local/lib -lgslcblas -lgsl  -lfftw3 -lpython2.7 -lboost_python -lboost_regex -lboost_system -lboost_filesystem
 } else {
   INCLUDEPATH += /opt/local/include
   INCLUDEPATH += /usr/include/python2.7
-  LIBS += -L /usr/lib64/ -lgslcblas -lgsl -lfftw3 -lpython2.7 -lboost_python -lboost_regex
+  LIBS += -L /usr/lib64/ -lgslcblas -lgsl -lfftw3 -lpython2.7 -lboost_python -lboost_regex -lboost_system -lboost_filesystem
 }
 
-# special compiling mode for code profiling using gperftools
+# special compiling mode for code profiling using gperftools, variable GPERFTOOLS defined in main GISASFW.pro
 CONFIG(GPERFTOOLS) {
   QMAKE_CXXFLAGS += -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
-  LIBS += -lprofiler -ltcmalloc
+  LIBS += -L /opt/local/lib -lprofiler -ltcmalloc
 }
 
 

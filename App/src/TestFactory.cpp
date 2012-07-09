@@ -102,3 +102,17 @@ void TestFactory::print_testnames()
 }
 
 
+/* ************************************************************************* */
+// return vector of registered test names
+/* ************************************************************************* */
+std::vector<std::string > TestFactory::get_testnames()
+{
+    std::vector<std::string > names;
+    CallbackMap_t::const_iterator it;
+    for(it=m_callbacks.begin(); it != m_callbacks.end(); it++ ) {
+        names.push_back(it->first);
+    }
+
+    return names;
+}
+

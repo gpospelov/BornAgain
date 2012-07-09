@@ -53,7 +53,7 @@ protected:
     {
         static T theInstance;
         m_instance = &theInstance;
-        std::cout << "ISingleton::create_singleton() -> Info. Creating singleton " << m_instance << " of type '" << (typeid(theInstance).name()) << "'." << std::endl;
+        //std::cout << "ISingleton::create_singleton() -> Info. Creating singleton " << m_instance << " of type '" << (typeid(theInstance).name()) << "'." << std::endl;
     }
 
     static void onDeadReference()

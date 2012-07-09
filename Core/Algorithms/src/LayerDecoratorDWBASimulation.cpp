@@ -26,7 +26,6 @@ void LayerDecoratorDWBASimulation::run()
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
         NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index);
         double depth = p_decoration->getDepthOfNanoParticle(particle_index);
-        double m_abundance_fraction = p_decoration->getAbundanceFractionOfNanoParticle(particle_index);
         complex_t n_decoration = p_particle->getRefractiveIndex();
         complex_t scattering_length_density = (n_layer*n_layer - n_decoration*n_decoration)*M_PI/lambda/lambda;
         DWBAFormFactorConstZ dwba_z(p_particle->getFormFactor()->clone(), depth);

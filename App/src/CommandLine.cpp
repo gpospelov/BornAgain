@@ -22,6 +22,7 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
     m_defined_arguments.push_back("batch");
     m_defined_arguments.push_back("pdfreport");
     m_defined_arguments.push_back("all");
+    m_defined_arguments.push_back("profile");
     // getting info about names of defined functional tests and adding them to the list of defined arguments
     m_defined_functional_tests = TestFactory::instance().get_testnames();
     m_defined_arguments.insert(m_defined_arguments.end(), m_defined_functional_tests.begin(), m_defined_functional_tests.end());
@@ -33,6 +34,7 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
     m_description["batch"]        = "run application in batch mode (no graphics)";
     m_description["pdfreport"]    = "generate pdf report for functional tests";
     m_description["all"]          = "run all registered functional test";
+    m_description["profile"]      = "profile specified test";
     // default description of functional tests
     for(arguments_t::iterator it = m_defined_functional_tests.begin(); it!=m_defined_functional_tests.end(); ++it ) {
         m_description[ (*it) ]    = "functional test: no description";
@@ -103,6 +105,7 @@ void CommandLine::print_help()
         std::cout << std::setw(15) << std::left << (*it) << " - " << m_description[(*it)] << std::endl;
     }
     std::cout << " " << std::endl;
-    std::cout << "Example: ./App isgisaxs10 pdfreport batch " << std::endl;
+    std::cout << "Example: ./App isgisaxs10 " << std::endl;
+    std::cout << "Example: ./App isgisaxs3 isgisaxs10 pdfreport batch " << std::endl;
 
 }

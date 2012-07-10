@@ -85,14 +85,12 @@ macx {
 LIBS += -lgsl -lgslcblas -lfftw3 -lboost_system -lboost_filesystem -lboost_regex
 
 # here is workaround since JCNS /usr/local doesn't have shared fftw3
-#LIBS += -lgsl -lgslcblas -lboost_system -lboost_filesystem -lboost_regex
-#macx {
-#  LIBS += -lfftw3
-#}
-#!macx:unix {
-#  # telling linker to link with static version of the library with fPIC option
-#  LIBS += -Bstatic -lfftw3f -Bdynamic
-#}
+# qmake CONFIG+=JCNS
+CONFIG(JCNS) {
+  LIBS -= -lfftw3
+  LIBS += -Bstatic -lfftw3 -Bdynamic # request for static (without fPIC option)
+  # "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
+}
 
 
 # -----------------------------------------------------------------------------

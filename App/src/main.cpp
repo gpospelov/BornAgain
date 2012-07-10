@@ -17,6 +17,15 @@ int main(int argc, char **argv)
     CommandLine args(argc, argv);
     if( !args.isGood() ) { args.print_help(); return 0; }
 
+    // profiling code for memory leakages and cpu performance
+    if( args.find("profile") ) {
+        for(size_t i=0; i<args.size(); i++) {
+            if(args.isFunctionalTest( args[i] ))
+            TestFactory::instance().execute( args[i] );
+        }
+        return 0;
+    }
+
     // setting graphics environment
     TApplication theApp("theApp", 0, 0);
     DrawHelper::SetStyle();

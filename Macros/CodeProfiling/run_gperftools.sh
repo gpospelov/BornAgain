@@ -5,7 +5,7 @@ mkdir -p ./output
 
 
 application=../../App/App
-arguments="isgisaxs9 batch"
+arguments="isgisaxs9 profile"
 focuson=GISASExperiment
 
 # ------------------------------------------- #

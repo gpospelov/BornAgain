@@ -6,7 +6,7 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 CONFIG  += debug
 QT      -= core gui
-CONFIG  += nopython # to not generate interface to python
+#CONFIG  += nopython # to not generate interface to python
 #CONFIG += GPERFTOOLS # to compile with GPERFTOOLS support for code profiling
 
 QMAKE_EXTENSION_SHLIB = so

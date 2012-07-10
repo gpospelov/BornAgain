@@ -1,12 +1,11 @@
-import sys
+import sys, os
 from numpy import linspace, array, zeros
 import pylab
 
-sys.path.append("../../lib")
-module = __import__("libScattCore")
-reload(module)
+sys.path.append(os.path.abspath(
+                os.path.join(os.path.split(__file__)[0],
+                '..', '..', 'lib')))
 
-#import libScattCore
 from libScattCore import *
 
 # ------------------------------------------------

@@ -13,6 +13,7 @@ QMAKE_EXTENSION_SHLIB = so
 
 SOURCES += \
     Algorithms/src/Beam.cpp \
+    Algorithms/src/ConvolutionDetectorResolution.cpp \
     Algorithms/src/DecouplingApproximationStrategy.cpp \
     Algorithms/src/Detector.cpp \
     Algorithms/src/DWBADiffuseReflection.cpp \
@@ -71,6 +72,7 @@ SOURCES += \
 
 HEADERS += \
     Algorithms/inc/Beam.h \
+    Algorithms/inc/ConvolutionDetectorResolution.h \
     Algorithms/inc/DecouplingApproximationStrategy.h \
     Algorithms/inc/Detector.h \
     Algorithms/inc/DWBADiffuseReflection.h \
@@ -79,6 +81,7 @@ HEADERS += \
     Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/Experiment.h \
     Algorithms/inc/GISASExperiment.h \
+    Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
     Algorithms/inc/LayerDecoratorDWBASimulation.h \

@@ -20,6 +20,7 @@ void GISASExperiment::runSimulation()
         p_dwba_simulation->run();
         m_intensity_map += (*p_dwba_simulation->getDWBAIntensity());
     }
+    m_detector.applyDetectorResolution(&m_intensity_map);
 }
 
 void GISASExperiment::setDetectorParameters(double phi_f_min, double phi_f_max,
@@ -40,6 +41,12 @@ void GISASExperiment::setDetectorParameters(double phi_f_min, double phi_f_max,
     m_detector.addAxis(phi_axis);
     m_detector.addAxis(alpha_axis);
     updateIntensityMapAxes();
+}
+
+void GISASExperiment::setDetectorResolutionFunction(
+        ConvolutionDetectorResolution::resolution_function_2d resolution_function)
+{
+    m_detector.setDetectorResolution(new ConvolutionDetectorResolution(resolution_function));
 }
 
 void GISASExperiment::initializeAnglesIsgisaxs(NamedVector<double> *p_axis, double start, double end, size_t size) {

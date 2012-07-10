@@ -5,9 +5,19 @@
 #include <fftw3.h>
 #include <string.h>
 
+#include "gsl/gsl_sf_erf.h"
+
 double MathFunctions::Gaussian(double value, double average, double std_dev)
 {
     return StandardNormal((value-average)/std_dev)/std_dev;
+}
+
+double MathFunctions::IntegratedGaussian(double value, double average, double std_dev, double step)
+{
+    double left_margin = (value - average - step/2)/std_dev;
+    double right_margin = (value - average + step/2)/std_dev;
+    double root2 = std::sqrt(2.0);
+    return (gsl_sf_erf(right_margin/root2) - gsl_sf_erf(left_margin/root2))/2.0;
 }
 
 double MathFunctions::StandardNormal(double value)

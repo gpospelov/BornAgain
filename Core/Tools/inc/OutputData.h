@@ -15,8 +15,9 @@
 //! @date   01.04.2012
 
 #include "NamedVector.h"
-#include <map>
+#include "Exceptions.h"
 
+#include <map>
 
 template <class T> class OutputData;
 
@@ -71,6 +72,8 @@ public:
     NamedVectorBase* getAxis(std::string label);
     size_t getDimension() const { return m_dimension; }
     size_t getAllocatedSize() const { return m_data_vector.size(); }
+    std::vector<T> getRawDataVector() const { return m_data_vector; }
+    void setRawDataVector(const std::vector<T> &data_vector);
     MultiIndex& getIndex();
     void resetIndex();
     bool hasNext();
@@ -155,6 +158,14 @@ template <class T> NamedVectorBase* OutputData<T>::getAxis(std::string label)
         }
     }
     return 0;
+}
+
+template<class T> inline void OutputData<T>::setRawDataVector(const std::vector<T> &data_vector)
+{
+    if (data_vector.size() != m_data_size) {
+        throw RuntimeErrorException("setRawDataVector can only be called with a data vector of the correct size.");
+    }
+    m_data_vector = data_vector;
 }
 
 template <class T> inline MultiIndex& OutputData<T>::getIndex()

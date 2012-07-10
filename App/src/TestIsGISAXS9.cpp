@@ -13,11 +13,6 @@
 #include "FormFactors.h"
 
 #include "TCanvas.h"
-#include "TH2.h"
-#include "TStyle.h"
-
-#include <fstream>
-
 
 TestIsGISAXS9::TestIsGISAXS9()
     : mp_sample(0), mp_intensity_output(0)

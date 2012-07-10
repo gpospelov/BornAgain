@@ -15,6 +15,7 @@
 //! @date   Jun 21, 2012
 
 #include "NamedVector.h"
+#include "IDetectorResolution.h"
 
 #include <vector>
 
@@ -28,10 +29,13 @@ public:
 	NamedVector<double> getAxis(size_t index) const;
 	size_t getDimension() const { return m_axes.size(); }
 	void clear();
+	void setDetectorResolution(IDetectorResolution *p_detector_resolution) { mp_detector_resolution = p_detector_resolution; }
+	void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
 protected:
 	bool isCorrectAxisIndex(size_t index) const { return index<getDimension(); }
 private:
 	std::vector<NamedVector<double> > m_axes;
+	IDetectorResolution *mp_detector_resolution;
 
 };
 

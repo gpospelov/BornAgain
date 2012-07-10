@@ -16,6 +16,7 @@
 
 
 #include "Experiment.h"
+#include "ConvolutionDetectorResolution.h"
 
 class GISASExperiment : public Experiment
 {
@@ -26,6 +27,8 @@ public:
 
 	void setDetectorParameters(double phi_f_min, double phi_f_max, size_t n_phi,
 	        double alpha_f_min, double alpha_f_max, size_t n_alpha, bool isgisaxs_style=false);
+
+	void setDetectorResolutionFunction(ConvolutionDetectorResolution::resolution_function_2d resolution_function);
 private:
 	void initializeAnglesIsgisaxs(NamedVector<double> *p_axis, double start, double end, size_t size);
 };

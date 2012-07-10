@@ -2,6 +2,7 @@
 #include "Exceptions.h"
 
 Detector::Detector()
+: mp_detector_resolution(0)
 {
 }
 
@@ -27,3 +28,10 @@ void Detector::clear()
     m_axes.clear();
 }
 
+void Detector::applyDetectorResolution(
+        OutputData<double>* p_intensity_map) const
+{
+    if (mp_detector_resolution) {
+        mp_detector_resolution->applyDetectorResolution(p_intensity_map);
+    }
+}

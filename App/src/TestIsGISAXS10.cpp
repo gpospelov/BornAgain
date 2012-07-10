@@ -8,15 +8,9 @@
 #include "LayerDecorator.h"
 #include "NanoParticleDecoration.h"
 
-#include "TCanvas.h"
-#include "TH2.h"
-#include "TStyle.h"
-
-#include <fstream>
-
-
 TestIsGISAXS10::TestIsGISAXS10()
 : mp_intensity_output(0)
+, mp_sample(0)
 {
 }
 

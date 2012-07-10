@@ -8,6 +8,7 @@
 #include "TestIsGISAXS9.h"
 #include "TestIsGISAXS10.h"
 #include "TestConvolution.h"
+#include "TestDetectorResolution.h"
 
 #include "TBenchmark.h"
 
@@ -26,6 +27,7 @@ TestFactory::TestFactory() : m_benchmark(0)
     registerItem("isgisaxs9",   IFactoryCreateFunction<TestIsGISAXS9, IFunctionalTest> );
     registerItem("isgisaxs10",  IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest> );
     registerItem("convolution", IFactoryCreateFunction<TestConvolution, IFunctionalTest> );
+    registerItem("detectorresolution", IFactoryCreateFunction<TestDetectorResolution, IFunctionalTest> );
 
     m_benchmark = new TBenchmark();
 }

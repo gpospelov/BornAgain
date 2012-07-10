@@ -33,8 +33,8 @@ public:
 private:
     void initializeSample();
     void initializeSample2();
-    ISample *mp_sample;
     OutputData<double> *mp_intensity_output;
+    ISample *mp_sample;
 };
 
 #endif /* TESTISGISAXS10_H_ */

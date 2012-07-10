@@ -28,8 +28,8 @@ public:
 
 private:
     void initializeSample();
-    ISample *mp_sample;
     OutputData<double> *mp_intensity_output;
+    ISample *mp_sample;
 };
 
 

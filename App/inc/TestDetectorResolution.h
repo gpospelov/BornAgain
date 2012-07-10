@@ -1,5 +1,5 @@
-#ifndef TESTISGISAXS3_H_
-#define TESTISGISAXS3_H_
+#ifndef TESTDETECTORRESOLUTION_H_
+#define TESTDETECTORRESOLUTION_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,21 +9,25 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestIsGISAXS3.h
-//! @brief  Definition of TestIsGISAXS3 class for IsGISAXS validation
-//! @author herk
-//! @date   02.05.2012
+//! @file   TestDetectorResolution.h
+//! @brief  Definition of TestDetectorResolution functional test class
+//! @author Scientific Computing Group at FRM II
+//! @date   Jul 10, 2012
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
+#include "FormFactors.h"
+#include "DWBAFormFactor.h"
 #include "ISample.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionNone.h"
 
 
-class TestIsGISAXS3 : public IFunctionalTest
+class TestDetectorResolution : public IFunctionalTest
 {
 public:
-    TestIsGISAXS3();
-    virtual ~TestIsGISAXS3();
+    TestDetectorResolution();
+    virtual ~TestDetectorResolution();
     virtual void execute();
 
 private:
@@ -31,4 +35,7 @@ private:
     OutputData<double> *mp_intensity_output;
     ISample *mp_sample;
 };
-#endif /* TESTISGISAXS3_H_ */
+
+double testResolutionFunction(double u, double v);
+
+#endif /* TESTDETECTORRESOLUTION_H_ */

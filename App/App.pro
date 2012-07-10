@@ -22,9 +22,10 @@ SOURCES += \
     src/TestFresnelCoeff.cpp \
     src/TestIsGISAXS1.cpp \
     src/TestIsGISAXS3.cpp \
+    src/TestIsGISAXS9.cpp \
     src/TestIsGISAXS10.cpp \
+    src/TestDetectorResolution.cpp \
     src/TestRoughness.cpp \
-    src/TestIsGISAXS9.cpp
 
 HEADERS += \
     inc/App.h \
@@ -42,9 +43,10 @@ HEADERS += \
     inc/TestFresnelCoeff.h \
     inc/TestIsGISAXS1.h \
     inc/TestIsGISAXS3.h \
+    inc/TestIsGISAXS9.h \
     inc/TestIsGISAXS10.h \
+    inc/TestDetectorResolution.h \
     inc/TestRoughness.h \
-    inc/TestIsGISAXS9.h
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/Samples/inc ../Core/Tools/inc
 DEPENDPATH += ./inc ../Core/Algorithms/inc ../Core/Samples/inc ../Core/Tools/inc

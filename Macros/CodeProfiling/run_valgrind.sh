@@ -5,8 +5,8 @@ mkdir -p ./output
 
 
 application=../../App/App
-arguments="isgisaxs9"
-#arguments="isgisaxs9 batch"
+#arguments="isgisaxs9"
+arguments="isgisaxs9 batch"
 focuson=GISASExperiment
 
 # ------------------------------------------- #
@@ -16,7 +16,7 @@ profile_cpu=yes
 if [ $profile_cpu = "yes" ]
 then
 #  valgrind --tool=callgrind -v --dump-every-bb=10000000 --dump-instr=yes --trace-jump=yes ./App commandline
-  valgrind  --tool=callgrind --callgrind-out-file=./output/callgrind.output  --log-file=./output/valgrind.output --dump-instr=yes --trace-jump=yes $application $arguments
+  valgrind  --tool=callgrind --callgrind-out-file=./output/callgrind.output  --log-file=./output/valgrind2.output --dump-instr=yes --trace-jump=yes $application $arguments
 # --zero-before=GISASExperiment
 fi
 
@@ -24,7 +24,7 @@ fi
 # ------------------------------------------- #
 # profiling HEAP usage
 # ------------------------------------------- #
-profile_memory=no
+profile_memory=yes
 if [ $profile_memory = "yes" ]
 then
   valgrind --log-file=./output/valgrind.output --num-callers=6 --track-origins=yes --leak-check=yes $application $arguments

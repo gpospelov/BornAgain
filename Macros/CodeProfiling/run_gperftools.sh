@@ -23,10 +23,10 @@ then
   pprof --text --focus $focuson /bin/ls $OutputCpuLog
 
   #generating graph
-  pprof --gv --focus GISASExperiment /bin/ls $OutputCpuLog
+  pprof --gv --focus GISASExperiment /bin/ls $OutputCpuLog &
 
   # generating log for usage with qcachegrind
-  #pprof --callgrind /bin/ls $OutputCpuLog > $OutputCpuLog.callgrind
+  pprof --callgrind /bin/ls $OutputCpuLog > $OutputCpuLog.callgrind
   #one have to look at it with
   #~/Applications/qcachegrind.app/Contents/MacOS/qcachegrind output/gperftools_cpuprof.out.callgrind
 fi
@@ -35,7 +35,7 @@ fi
 # ------------------------------------------- #
 # profiling HEAP usage
 # ------------------------------------------- #
-profile_heap=no
+profile_heap=yes
 if [ $profile_heap = "yes" ]
 then
   OutputHeapLog=./output/gperftools_heapprof

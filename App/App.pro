@@ -82,17 +82,17 @@ macx {
   LIBS += -L/usr/local/lib -L/usr/lib64
 }
 # normally it should be done like that
-#LIBS += -lgsl -lgslcblas -lfftw3 -lboost_system -lboost_filesystem -lboost_regex
+LIBS += -lgsl -lgslcblas -lfftw3 -lboost_system -lboost_filesystem -lboost_regex
 
 # here is workaround since JCNS /usr/local doesn't have shared fftw3
-LIBS += -lgsl -lgslcblas -lboost_system -lboost_filesystem -lboost_regex
-macx {
-  LIBS += -lfftw3
-}
-!macx:unix {
-  # telling linker to link with static version of the library with fPIC option
-  LIBS += -Bstatic -lfftw3f -Bdynamic
-}
+#LIBS += -lgsl -lgslcblas -lboost_system -lboost_filesystem -lboost_regex
+#macx {
+#  LIBS += -lfftw3
+#}
+#!macx:unix {
+#  # telling linker to link with static version of the library with fPIC option
+#  LIBS += -Bstatic -lfftw3f -Bdynamic
+#}
 
 
 # -----------------------------------------------------------------------------

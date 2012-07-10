@@ -6,7 +6,12 @@ CONFIG  += debug
 QT      -= core gui
 #CONFIG += GPERFTOOLS # to compile with GPERFTOOLS support for code profiling
 
+include($$PWD/../shared.pri)
 
+
+# -----------------------------------------------------------------------------
+# Our source and headers
+# -----------------------------------------------------------------------------
 SOURCES += \
     src/main.cpp \
     src/CommandLine.cpp \
@@ -51,9 +56,9 @@ DEPENDPATH += ./inc ../Core/Algorithms/inc ../Core/Samples/inc ../Core/Tools/inc
 
 OBJECTS_DIR = obj
 
-###############################################################################
+# -----------------------------------------------------------------------------
 # generating package dependency flags
-###############################################################################
+# -----------------------------------------------------------------------------
 MY_DEPENDENCY_LIB = ScattCore
 MY_DEPENDENCY_DEST =$$PWD/..
 SONAME = so
@@ -65,27 +70,26 @@ for(dep, MY_DEPENDENCY_LIB) {
 }
 
 
-# external (platform dependent) libraries
+# -----------------------------------------------------------------------------
+# external libraries
+# -----------------------------------------------------------------------------
 macx {
   INCLUDEPATH += /opt/local/include
-  LIBS += -L /opt/local/lib -lfftw3 -lboost_system -lboost_filesystem
-} else {
-  LIBS += -L /usr/lib64 -lfftw3  -lboost_system -lboost_filesystem
+  LIBS += -L/opt/local/lib
 }
-
-
-# special compiling mode for code profiling using gperftools, variable GPERFTOOLS defined in main GISASFW.pro
-CONFIG(GPERFTOOLS) {
-  QMAKE_CXXFLAGS += -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
-  LIBS += -L /opt/local/lib -lprofiler -ltcmalloc
+!macx:unix {
+  INCLUDEPATH += /usr/local/include
+  LIBS += -L/usr/local/lib -L/usr/lib64
 }
+#LIBS += -lgsl -lgslcblas -lfftw3 -lboost_system -lboost_filesystem -lboost_regex
+#LIBS += -lgsl -lgslcblas -static -lfftw3 --Wl,-Bdynamic -lboost_system -lboost_filesystem -lboost_regex
+# we include static version of fftw3 library, because jcns doesn't have shared one
+LIBS += -lgsl -lgslcblas -Bstatic -lfftw3 -Bdynamic -lboost_system -lboost_filesystem -lboost_regex
 
 
-###############################################################################
+# -----------------------------------------------------------------------------
 # adding ROOT libraries
-# the problem here is that system variables doesn;t propagate
-# into QtCreator
-###############################################################################
+# -----------------------------------------------------------------------------
 exists($$(ROOTSYS)/bin/root-config){
   INCLUDEPATH += $$system($ROOTSYS/bin/root-config --incdir)
   #LIBS += $$system($ROOTSYS/bin/root-config --glibs)
@@ -93,6 +97,7 @@ exists($$(ROOTSYS)/bin/root-config){
 
   MYROOTCINT = ${ROOTSYS}/bin/rootcint
 }
+# if it doesn't exist, try to do something
 !exists($$(ROOTSYS)/bin/root-config){
   INCLUDEPATH += /opt/local/include/root
   LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
@@ -100,10 +105,11 @@ exists($$(ROOTSYS)/bin/root-config){
 }
 
 
-###############################################################################
+
+# -----------------------------------------------------------------------------
 # Hand made addition to generate root dictionaries in the
 # absence of rootcint.pri file
-###############################################################################
+# -----------------------------------------------------------------------------
 CREATE_ROOT_DICT_FOR_CLASSES = inc/App.h inc/AppLinkDef.h
 
 DICTDEFINES += -DQT_VERSION=0x30000

@@ -28,7 +28,10 @@ class TestIsGISAXS9 : public IFunctionalTest
 public:
     TestIsGISAXS9();
     virtual ~TestIsGISAXS9();
+
+    virtual void initialise();
     virtual void execute();
+    virtual void finalise();
 
 private:
     void initializeSample();

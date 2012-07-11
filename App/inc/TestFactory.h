@@ -32,6 +32,9 @@ public:
     //! execute specified test
     void execute(std::string name);
 
+    //! profile specified test
+    void profile(std::string name);
+
     //! execute all registered tests
     void execute_all();
 

@@ -1,0 +1,28 @@
+Directory contains different scripts for running code profiling utilities.
+
+
+----------------------------------------------------------
+Profiling with valgrind
+----------------------------------------------------------
+1) Compile GISASFW as usuall and simply run
+./run_valgrind.sh
+
+
+----------------------------------------------------------
+Profiling with gperftool
+----------------------------------------------------------
+
+1) gperftool should be installed
+download code from http://code.google.com/p/gperftools/
+./configure --prefix=/opt/local; make; make install
+
+2) GISASFW should be compiled with GPERFTOOLS in config
+make distclean
+qmake CONFIG+=GPERFTOOLS
+make
+
+3) run profiling
+run_gperftools.sh
+
+*) When compiled with GPERFTOOLS option, profiling with valgrind (callgrind) wont work.
+

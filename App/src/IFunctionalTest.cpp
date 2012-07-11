@@ -1,9 +1,6 @@
 #include "IFunctionalTest.h"
 #include "Exceptions.h"
 
-IFunctionalTest::IFunctionalTest()
-{
-}
 
 
 void IFunctionalTest::execute()

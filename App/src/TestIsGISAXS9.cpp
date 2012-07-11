@@ -25,9 +25,15 @@ TestIsGISAXS9::~TestIsGISAXS9()
     if(mp_intensity_output) delete mp_intensity_output;
 }
 
-void TestIsGISAXS9::execute()
+
+void TestIsGISAXS9::initialise()
 {
     initializeSample();
+}
+
+
+void TestIsGISAXS9::execute()
+{
     GISASExperiment experiment;
     experiment.setSample(mp_sample);
     experiment.setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
@@ -39,6 +45,12 @@ void TestIsGISAXS9::execute()
 
     // saving results to file
     IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
+
+}
+
+
+void TestIsGISAXS9::finalise()
+{
     // reading result of IsGISAXS for comparison
     OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/isgi_pyramid_Z0.ima");
 

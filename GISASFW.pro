@@ -1,5 +1,7 @@
 TEMPLATE = subdirs
 
+include($$PWD/shared.pri)
+
 SUBDIRS += \
     Core \
     ThirdParty/gtest \

@@ -6,6 +6,9 @@ CONFIG  -= qt app_bundle
 CONFIG  += console build_all
 QT      -= core gui
 
+# including common project properties
+include($$PWD/../shared.pri)
+
 SOURCES += main.cpp
 
 HEADERS += \
@@ -37,6 +40,11 @@ for(dep, MY_DEPENDENCY_LIB) {
 #LDFLAGS = -L/lib64
 #QMAKE_CXXFLAGS += -pthread
 
+CONFIG(JCNS) {
+  LIBS -= -lfftw3
+  LIBS += -Bstatic -lfftw3f -Bdynamic # request for static (with fPIC option)
+  # "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
+}
 
 
 ###############################################################################

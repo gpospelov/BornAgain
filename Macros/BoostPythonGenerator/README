@@ -1,0 +1,11 @@
+c++ wrapper generator for accessing libScatCore from python
+
+
+Usage:
+'make'  - to generate python-boost C++ wrappers
+'make install'  - to copy files into GISASFW/Core/PythonAPI directory
+
+requires boost, python27, py27-pyplusplus-devel, py-pygccxml-devel, gccxml-devel
+
+
+

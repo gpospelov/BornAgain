@@ -65,12 +65,33 @@ void TestFactory::execute(std::string name)
         return;
     }
 
+    test->initialise();
     m_benchmark->Start(name.c_str());
     test->execute();
     m_benchmark->Stop(name.c_str());
     m_benchmark->Show(name.c_str());
+    test->finalise();
 
 }
+
+
+void TestFactory::profile(std::string name)
+{
+    //IFunctionalTest *test = TestFactory::instance().createItem( args[i] );
+    IFunctionalTest *test(0);
+    try {
+        test = createItem( name );
+    } catch (std::runtime_error &e) {
+        std::cout << e.what() << std::endl;
+        std::cout << "TestFactory::execute() -> Warning. No test with name '" << name << "' is defined." << std::endl;
+        return;
+    }
+
+    test->initialise();
+    for(int i=0; i<10; i++) test->execute();
+
+}
+
 
 
 /* ************************************************************************* */

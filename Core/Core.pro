@@ -6,11 +6,18 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 CONFIG  += debug
 QT      -= core gui
-#CONFIG  += nopython # to not generate interface to python
-#CONFIG += GPERFTOOLS # to compile with GPERFTOOLS support for code profiling
+CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
+# including common project properties
+include($$PWD/../shared.pri)
+
+# making standard shared library extension
 QMAKE_EXTENSION_SHLIB = so
 
+
+# -----------------------------------------------------------------------------
+# Our source and headers
+# -----------------------------------------------------------------------------
 SOURCES += \
     Algorithms/src/Beam.cpp \
     Algorithms/src/ConvolutionDetectorResolution.cpp \
@@ -148,7 +155,7 @@ INCLUDEPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 
 # excluding files with python interface to not to expose library in python
-CONFIG(nopython) {
+!contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
   HEADERS -= \
     PythonAPI/inc/PythonInterface_classes_1.h \
     PythonAPI/inc/PythonInterface_classes_2.h \
@@ -173,28 +180,61 @@ CONFIG(nopython) {
 
 OBJECTS_DIR = obj
 
-# external (platform dependent) libraries
+
+# -----------------------------------------------------------------------------
+# external libraries
+# -----------------------------------------------------------------------------
 macx {
   INCLUDEPATH += /opt/local/include
-  INCLUDEPATH += /opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
-  LIBS += -L /opt/local/lib -lgslcblas -lgsl  -lfftw3 -lpython2.7 -lboost_python -lboost_regex -lboost_system -lboost_filesystem
-} else {
-  INCLUDEPATH += /opt/local/include
-  INCLUDEPATH += /usr/include/python2.7
-  LIBS += -L /usr/lib64/ -lgslcblas -lgsl -lfftw3 -lpython2.7 -lboost_python -lboost_regex -lboost_system -lboost_filesystem
+  LIBS += -L/opt/local/lib
+}
+!macx:unix {
+  INCLUDEPATH += /usr/local/include
+  LIBS += -L/usr/local/lib -L/usr/lib64
+}
+# normally it should be done like that
+LIBS += -lgsl -lgslcblas -lfftw3 -lboost_system -lboost_filesystem -lboost_regex
+
+# here is workaround since JCNS /usr/local doesn't have shared fftw3
+# qmake CONFIG+=JCNS
+CONFIG(JCNS) {
+  LIBS -= -lfftw3
+  LIBS += -Bstatic -lfftw3f -Bdynamic # request for static (with fPIC option)
+  # "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
 }
 
-# special compiling mode for code profiling using gperftools, variable GPERFTOOLS defined in main GISASFW.pro
-CONFIG(GPERFTOOLS) {
-  QMAKE_CXXFLAGS += -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
-  LIBS += -L /opt/local/lib -lprofiler -ltcmalloc
+
+# -----------------------------------------------------------------------------
+# checking python configuration
+# -----------------------------------------------------------------------------
+CONFIG(BUILD_PYTHON_BOOST_MODULE) {
+  # user wants to compile python module
+
+  WhichPython=$$system(which python)
+  isEmpty(WhichPython) {
+    # we do not have python
+    error("Can not find any sign of python")
+  } else {
+    # we have python
+    pythonvers=$$system("python -c 'import sys; sys.stdout.write(sys.version[:3])'")
+    pythonsysincdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
+    #pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib/python\" + sys.version[:3])'")
+    pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'")
+    #message(we have python)
+    #message($$pythonvers)
+    #message($$pythonsysincdir)
+    #message($$pythonsyslibdir)
+    lessThan(pythonvers, 2.6): error("GISASFW requires python 2.6 or greater")
+    INCLUDEPATH += $$pythonsysincdir
+    LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
+  }
+
 }
 
 
-
-###############################################################################
+# -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation
-###############################################################################
+# -----------------------------------------------------------------------------
 MYPREFIX = $$PWD/.. # place to install library and headers
 target.path = $$MYPREFIX/lib
 INSTALLS += target
@@ -207,7 +247,6 @@ INSTALLS += target
 #QMAKE_DISTCLEAN += -r $$includes.path
 #QMAKE_DISTCLEAN += $$MYPREFIX/inc/ScattCore
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
-
 
 QMAKE_POST_LINK = (make install)
 

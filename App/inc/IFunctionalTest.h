@@ -14,39 +14,25 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.05.2012
 
-#include <string>
 
+#include <string>
+#include "INamed.h"
 
 //- -------------------------------------------------------------------
 //! @class IFunctionalTest
 //! @brief Base class for sophisticated functional tests.
 //! See also FunctionalTestFactory
 //- -------------------------------------------------------------------
-class IFunctionalTest
+class IFunctionalTest : public INamed
 {
 public:
-    IFunctionalTest();
-    IFunctionalTest(const std::string &name) : m_name(name) {}
-    IFunctionalTest(const std::string &name, const std::string &descr) : m_name(name), m_description(descr) {}
+    IFunctionalTest(){}
+    IFunctionalTest(const std::string &name) : INamed(name) {}
     virtual ~IFunctionalTest(){}
 
+    virtual void initialise() {}
     virtual void execute();
-
-    //! get name of test
-    std::string getName() const { return m_name; }
-
-    //! set name of test
-    void setName(const std::string name) { m_name = name; }
-
-    //! get short description
-    std::string getDescription() const { return m_description; }
-
-    //! set short description of test
-    void setDescription(const std::string description) { m_description = description; }
-
-protected:
-    std::string m_name;
-    std::string m_description;
+    virtual void finalise() {}
 
 };
 

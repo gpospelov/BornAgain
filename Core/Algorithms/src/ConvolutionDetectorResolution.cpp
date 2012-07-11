@@ -6,7 +6,7 @@
 #include <iostream>
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(
-        resolution_function_1d res_function_1d)
+        cumulative_DF_1d res_function_1d)
 : m_dimension(1)
 , m_res_function_1d(res_function_1d)
 , m_res_function_2d(0)
@@ -14,7 +14,7 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
 }
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(
-        resolution_function_2d res_function_2d)
+        cumulative_DF_2d res_function_2d)
 : m_dimension(2)
 , m_res_function_1d(0)
 , m_res_function_2d(res_function_2d)
@@ -58,15 +58,18 @@ void ConvolutionDetectorResolution::apply1dConvolution(
     // Construct source vector from original intensity map
     std::vector<double> source_vector = p_intensity_map->getRawDataVector();
     size_t data_size = source_vector.size();
+    if (data_size < 2) {
+        return; // No convolution for sets of zero or one element
+    }
     // Construct kernel vector from resolution function
     if (p_axis->getSize() != data_size) {
         throw LogicErrorException("Size of axis for intensity map does not correspond to the size of the data in the map.");
     }
-    double step_size = std::abs((*p_axis)[0]-(*p_axis)[p_axis->getSize()-1])/p_axis->getSize();
+    double step_size = std::abs((*p_axis)[0]-(*p_axis)[p_axis->getSize()-1])/(data_size-1);
     double mid_value = (*p_axis)[p_axis->getSize()/2];  // Needed because Convolve class expects zero at midpoint
     std::vector<double> kernel;
     for (size_t index=0; index<data_size; ++index) {
-        kernel.push_back(m_res_function_1d((*p_axis)[index] - mid_value)*step_size);
+        kernel.push_back(getIntegratedPDF1d((*p_axis)[index] - mid_value, step_size));
     }
     // Calculate convolution
     std::vector<double> result;
@@ -90,6 +93,9 @@ void ConvolutionDetectorResolution::apply2dConvolution(
     NamedVector<double> *p_axis_2 = dynamic_cast<NamedVector<double> *>(axes[1]);
     size_t axis_size_1 = p_axis_1->getSize();
     size_t axis_size_2 = p_axis_2->getSize();
+    if (axis_size_1 < 2 || axis_size_2 < 2) {
+        return; // No 2d convolution for 1d data
+    }
     // Construct source vector array from original intensity map
     std::vector<double> raw_source_vector = p_intensity_map->getRawDataVector();
     std::vector<std::vector<double> > source;
@@ -102,26 +108,23 @@ void ConvolutionDetectorResolution::apply2dConvolution(
         source.push_back(row_vector);
     }
     // Construct kernel vector from resolution function
-    double kernel_total_sum = 0.0; // Temporary sum of the kernel values (should be 1 in total)
     std::vector<std::vector<double> > kernel;
     kernel.resize(axis_size_1);
     double mid_value_1 = (*p_axis_1)[axis_size_1/2];  // Needed because Convolve class expects zero at midpoint
     double mid_value_2 = (*p_axis_2)[axis_size_2/2];  // Needed because Convolve class expects zero at midpoint
-    double step_size_1 = std::abs((*p_axis_1)[0]-(*p_axis_1)[axis_size_1-1])/axis_size_1;
-    double step_size_2 = std::abs((*p_axis_2)[0]-(*p_axis_2)[axis_size_2-1])/axis_size_2;
+    double step_size_1 = std::abs((*p_axis_1)[0]-(*p_axis_1)[axis_size_1-1])/(axis_size_1-1);
+    double step_size_2 = std::abs((*p_axis_2)[0]-(*p_axis_2)[axis_size_2-1])/(axis_size_2-1);
     for (size_t index_1=0; index_1<axis_size_1; ++index_1) {
         double value_1 = (*p_axis_1)[index_1]-mid_value_1;
         std::vector<double> row_vector;
         row_vector.resize(axis_size_2);
         for (size_t index_2=0; index_2<axis_size_2;++index_2) {
             double value_2 = (*p_axis_2)[index_2]-mid_value_2;
-            double z_value = m_res_function_2d(value_1, value_2); // *step_size_1*step_size_2;
+            double z_value = getIntegratedPDF2d(value_1, step_size_1, value_2, step_size_2);
             row_vector[index_2] = z_value;
-            kernel_total_sum += z_value;
         }
         kernel[index_1] = row_vector;
     }
-    std::cout << "Total kernel value = " << kernel_total_sum << std::endl;
     // Calculate convolution
     std::vector<std::vector<double> > result;
     MathFunctions::Convolve cv;
@@ -135,4 +138,27 @@ void ConvolutionDetectorResolution::apply2dConvolution(
         }
     }
     p_intensity_map->setRawDataVector(result_vector);
+}
+
+double ConvolutionDetectorResolution::getIntegratedPDF1d(double x,
+        double step) const
+{
+    double halfstep = step/2.0;
+    double xmin = x - halfstep;
+    double xmax = x + halfstep;
+    return m_res_function_1d(xmax) - m_res_function_1d(xmin);
+}
+
+double ConvolutionDetectorResolution::getIntegratedPDF2d(double x,
+        double step_x, double y, double step_y) const
+{
+    double halfstepx = step_x/2.0;
+    double halfstepy = step_y/2.0;
+    double xmin = x - halfstepx;
+    double xmax = x + halfstepx;
+    double ymin = y - halfstepy;
+    double ymax = y + halfstepy;
+    double result = m_res_function_2d(xmax, ymax) - m_res_function_2d(xmax, ymin)
+            - m_res_function_2d(xmin, ymax) + m_res_function_2d(xmin, ymin);
+    return result;
 }

@@ -29,7 +29,7 @@ void TestDetectorResolution::execute()
     GISASExperiment experiment;
     experiment.setSample(mp_sample);
     experiment.setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
-            , 0.0*Units::degree, 2.0*Units::degree, 100, true);
+            , 0.0*Units::degree, 2.0*Units::degree, 100);
     experiment.setDetectorResolutionFunction(&testResolutionFunction);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     experiment.runSimulation();
@@ -42,9 +42,7 @@ double testResolutionFunction(double u, double v)
 {
     double sigma_u = 0.001;
     double sigma_v = 0.001;
-    double step_u = 0.02*Units::degree;
-    double step_v = 0.02*Units::degree;
-    return MathFunctions::IntegratedGaussian(u, 0.0, sigma_u, step_u)*MathFunctions::IntegratedGaussian(v, 0.0, sigma_v, step_v);
+    return MathFunctions::IntegratedGaussian(u, 0.0, sigma_u)*MathFunctions::IntegratedGaussian(v, 0.0, sigma_v);
 }
 
 void TestDetectorResolution::initializeSample()

@@ -26,7 +26,7 @@ namespace MathFunctions
 {
 double Gaussian(double value, double average, double std_dev);
 
-double IntegratedGaussian(double value, double average, double std_dev, double step);
+double IntegratedGaussian(double value, double average, double std_dev);
 
 double GenerateNormalRandom(double average, double std_dev);
 

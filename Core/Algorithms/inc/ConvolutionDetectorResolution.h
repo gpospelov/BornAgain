@@ -26,12 +26,12 @@
 class ConvolutionDetectorResolution : public IDetectorResolution
 {
 public:
-    typedef double (*resolution_function_1d)(double);
-    typedef double (*resolution_function_2d)(double, double);
+    typedef double (*cumulative_DF_1d)(double);
+    typedef double (*cumulative_DF_2d)(double, double);
     //! Constructor taking a 1 dimensional resolution function as argument
-    ConvolutionDetectorResolution(resolution_function_1d res_function_1d);
+    ConvolutionDetectorResolution(cumulative_DF_1d res_function_1d);
     //! Constructor taking a 2 dimensional resolution function as argument
-    ConvolutionDetectorResolution(resolution_function_2d res_function_2d);
+    ConvolutionDetectorResolution(cumulative_DF_2d res_function_2d);
     //! Destructor
     virtual ~ConvolutionDetectorResolution();
 
@@ -39,10 +39,12 @@ public:
     virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
 private:
     size_t m_dimension;
-    resolution_function_1d m_res_function_1d;
-    resolution_function_2d m_res_function_2d;
+    cumulative_DF_1d m_res_function_1d;
+    cumulative_DF_2d m_res_function_2d;
     void apply1dConvolution(const std::vector<NamedVectorBase *> &axes, OutputData<double> *p_intensity_map) const;
     void apply2dConvolution(const std::vector<NamedVectorBase *> &axes, OutputData<double> *p_intensity_map) const;
+    double getIntegratedPDF1d(double x, double step) const;
+    double getIntegratedPDF2d(double x, double step_x, double y, double step_y) const;
 };
 
 

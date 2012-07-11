@@ -44,7 +44,7 @@ void GISASExperiment::setDetectorParameters(double phi_f_min, double phi_f_max,
 }
 
 void GISASExperiment::setDetectorResolutionFunction(
-        ConvolutionDetectorResolution::resolution_function_2d resolution_function)
+        ConvolutionDetectorResolution::cumulative_DF_2d resolution_function)
 {
     m_detector.setDetectorResolution(new ConvolutionDetectorResolution(resolution_function));
 }

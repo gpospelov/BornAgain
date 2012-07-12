@@ -196,59 +196,23 @@ void register_classes_2(){
         kvector_t_exposer.def( bp::self_ns::str( bp::self ) );
     }
 
-    { //::Layer
-        typedef bp::class_< Layer_wrapper > Layer_exposer_t;
-        Layer_exposer_t Layer_exposer = Layer_exposer_t( "Layer", bp::init< >() );
-        bp::scope Layer_scope( Layer_exposer );
-        Layer_exposer.def( bp::init< Layer const & >(( bp::arg("other") )) );
-        { //::Layer::getMaterial
-        
-            typedef ::IMaterial const * ( ::Layer::*getMaterial_function_type )(  ) const;
-            typedef ::IMaterial const * ( Layer_wrapper::*default_getMaterial_function_type )(  ) const;
-            
-            Layer_exposer.def( 
-                "getMaterial"
-                , getMaterial_function_type(&::Layer::getMaterial)
-                , default_getMaterial_function_type(&Layer_wrapper::default_getMaterial)
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::Layer::operator=
-        
-            typedef ::Layer & ( ::Layer::*assign_function_type )( ::Layer const & ) ;
-            
-            Layer_exposer.def( 
-                "assign"
-                , assign_function_type( &::Layer::operator= )
-                , ( bp::arg("other") )
-                , bp::return_self< >() );
-        
-        }
-        { //::Layer::setMaterial
-        
-            typedef void ( ::Layer::*setMaterial_function_type )( ::IMaterial const * ) ;
-            typedef void ( Layer_wrapper::*default_setMaterial_function_type )( ::IMaterial const * ) ;
-            
-            Layer_exposer.def( 
-                "setMaterial"
-                , setMaterial_function_type(&::Layer::setMaterial)
-                , default_setMaterial_function_type(&Layer_wrapper::default_setMaterial)
-                , ( bp::arg("p_material") ) );
-        
-        }
-        { //::Layer::setMaterial
-        
-            typedef void ( ::Layer::*setMaterial_function_type )( ::IMaterial const *,double ) ;
-            typedef void ( Layer_wrapper::*default_setMaterial_function_type )( ::IMaterial const *,double ) ;
-            
-            Layer_exposer.def( 
-                "setMaterial"
-                , setMaterial_function_type(&::Layer::setMaterial)
-                , default_setMaterial_function_type(&Layer_wrapper::default_setMaterial)
-                , ( bp::arg("p_material"), bp::arg("thickness") ) );
-        
-        }
-        Layer_exposer.def( bp::self_ns::str( bp::self ) );
-    }
+    bp::class_< Layer_wrapper >( "Layer", bp::init< >() )    
+        .def( bp::init< Layer const & >(( bp::arg("other") )) )    
+        .def( 
+            "getMaterial"
+            , (::IMaterial const * ( ::Layer::* )(  ) const)(&::Layer::getMaterial)
+            , (::IMaterial const * ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_getMaterial)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "setMaterial"
+            , (void ( ::Layer::* )( ::IMaterial const * ) )(&::Layer::setMaterial)
+            , (void ( Layer_wrapper::* )( ::IMaterial const * ) )(&Layer_wrapper::default_setMaterial)
+            , ( bp::arg("p_material") ) )    
+        .def( 
+            "setMaterial"
+            , (void ( ::Layer::* )( ::IMaterial const *,double ) )(&::Layer::setMaterial)
+            , (void ( Layer_wrapper::* )( ::IMaterial const *,double ) )(&Layer_wrapper::default_setMaterial)
+            , ( bp::arg("p_material"), bp::arg("thickness") ) )    
+        .def( bp::self_ns::str( bp::self ) );
 
 }

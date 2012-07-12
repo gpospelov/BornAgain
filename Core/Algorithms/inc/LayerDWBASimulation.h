@@ -35,6 +35,11 @@ protected:
     IDoubleToComplexFunction *mp_kz_function;
     IDoubleToComplexFunction *mp_T_function;
     IDoubleToComplexFunction *mp_R_function;
+
+private:
+    //! copy constructor and assignment operator are hidden
+    LayerDWBASimulation(const LayerDWBASimulation &);
+    LayerDWBASimulation &operator=(const LayerDWBASimulation &);
 };
 
 

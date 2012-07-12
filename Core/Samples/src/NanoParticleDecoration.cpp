@@ -22,6 +22,7 @@ NanoParticleDecoration::~NanoParticleDecoration()
     }
 }
 
+
 NanoParticleDecoration* NanoParticleDecoration::clone() const
 {
     NanoParticleDecoration *p_new = new NanoParticleDecoration();
@@ -42,10 +43,11 @@ void NanoParticleDecoration::addNanoParticle(NanoParticle* p_particle,
     m_total_abundance += abundance;
 }
 
-NanoParticle* NanoParticleDecoration::getNanoParticle(size_t index) const
+const NanoParticle* NanoParticleDecoration::getNanoParticle(size_t index) const
 {
     if (index<m_particles.size()) {
-        return m_particles[index].mp_particle->clone();
+        //return m_particles[index].mp_particle->clone();
+        return m_particles[index].mp_particle;
     }
     throw OutOfBoundsException("Not so many particles in this decoration.");
 }

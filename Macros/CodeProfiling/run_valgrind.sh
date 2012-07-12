@@ -5,14 +5,15 @@ mkdir -p ./output
 
 
 application=../../App/App
-#arguments="isgisaxs9"
-arguments="isgisaxs9 profile"
+#arguments="isgisaxs9 profile"
+#arguments="isgisaxs10 batch"
+arguments="isgisaxs3 batch"
 focuson=GISASExperiment
 
 # ------------------------------------------- #
 # profiling cpu usage
 # ------------------------------------------- #
-profile_cpu=yes
+profile_cpu=no
 if [ $profile_cpu = "yes" ]
 then
 #  valgrind --tool=callgrind -v --dump-every-bb=10000000 --dump-instr=yes --trace-jump=yes ./App commandline

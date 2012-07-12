@@ -87,6 +87,7 @@ HEADERS += \
     Algorithms/inc/DWBAFormFactorConstZ.h \
     Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/Experiment.h \
+    Algorithms/inc/FormFactorSLDDecorator.h \
     Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/ISimulation.h \

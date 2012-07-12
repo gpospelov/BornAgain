@@ -2,6 +2,7 @@
 #include "IsGISAXSTools.h"
 #include "Types.h"
 #include "Units.h"
+#include "Utils.h"
 #include "GISASExperiment.h"
 #include "MultiLayer.h"
 #include "MaterialManager.h"
@@ -9,15 +10,14 @@
 #include "NanoParticleDecoration.h"
 
 TestIsGISAXS10::TestIsGISAXS10()
-: mp_intensity_output(0)
-, mp_sample(0)
+    : mp_sample(0), mp_intensity_output(0)
 {
 }
 
 TestIsGISAXS10::~TestIsGISAXS10()
 {
-	delete mp_intensity_output;
-	delete mp_sample;
+    delete mp_sample;
+    delete mp_intensity_output;
 }
 
 void TestIsGISAXS10::execute()
@@ -33,7 +33,7 @@ void TestIsGISAXS10::execute()
     mp_intensity_output = experiment.getOutputData();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_isgisaxs_10", "1D paracrystal islands",
             "CONT4 Z");
-    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, "./Examples/IsGISAXS_examples/ex-10/para1dcyl.ima");
+    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-10/para1dcyl.ima");
 }
 
 void TestIsGISAXS10::initializeSample()

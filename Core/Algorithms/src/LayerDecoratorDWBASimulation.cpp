@@ -24,13 +24,13 @@ void LayerDecoratorDWBASimulation::run()
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     std::vector<IFormFactor *> form_factors;
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
-        NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index);
+        const NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index);
         double depth = p_decoration->getDepthOfNanoParticle(particle_index);
         complex_t n_decoration = p_particle->getRefractiveIndex();
         complex_t scattering_length_density = (n_layer*n_layer - n_decoration*n_decoration)*M_PI/lambda/lambda;
         DWBAFormFactorConstZ dwba_z(p_particle->getFormFactor()->clone(), depth);
-        dwba_z.setReflectionFunction(mp_R_function);
-        dwba_z.setTransmissionFunction(mp_T_function);
+        dwba_z.setReflectionFunction(*mp_R_function);
+        dwba_z.setTransmissionFunction(*mp_T_function);
         FormFactorSLDDecorator *p_ff = new FormFactorSLDDecorator(dwba_z.clone(), scattering_length_density);
         form_factors.push_back(p_ff);
     }
@@ -48,4 +48,6 @@ void LayerDecoratorDWBASimulation::run()
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
         m_dwba_intensity.next() = p_strategy->evaluateForComplexkz(m_ki, k_f, k_iz, k_fz);
     }
+    delete p_strategy;
 }
+

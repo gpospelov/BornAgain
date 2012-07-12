@@ -20,17 +20,17 @@ Layer::Layer(const Layer &other) : ISample(other)
 }
 
 
-Layer &Layer::operator=(const Layer &other)
-{
-    if( this != &other)
-    {
-        ISample::operator=(other);
-        mp_material = other.mp_material;
-        m_thickness = other.m_thickness;
-        init_parameters();
-    }
-    return *this;
-}
+//Layer &Layer::operator=(const Layer &other)
+//{
+//    if( this != &other)
+//    {
+//        ISample::operator=(other);
+//        mp_material = other.mp_material;
+//        m_thickness = other.m_thickness;
+//        init_parameters();
+//    }
+//    return *this;
+//}
 
 
 Layer::~Layer()

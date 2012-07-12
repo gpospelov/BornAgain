@@ -18,6 +18,7 @@
 #include "OutputData.h"
 #include "Types.h"
 
+
 class DWBASimulation : public ISimulation
 {
 public:
@@ -26,15 +27,25 @@ public:
 
     virtual void init(const Experiment &experiment);
 
-    OutputData<double> *getDWBAIntensity();
+    //OutputData<double> *getDWBAIntensity();
+    OutputData<double> &getDWBAIntensity();
 protected:
     OutputData<double> m_dwba_intensity;
     kvector_t m_ki;
     double m_alpha_i;
+
+private:
+    //! copy constructor and assignment operator are hidden
+    DWBASimulation(const DWBASimulation &);
+    DWBASimulation &operator=(const DWBASimulation &);
+
 };
 
-inline OutputData<double> *DWBASimulation::getDWBAIntensity() {
-    return m_dwba_intensity.clone();
+//inline OutputData<double> *DWBASimulation::getDWBAIntensity() {
+//    return m_dwba_intensity.clone();
+//}
+inline OutputData<double> &DWBASimulation::getDWBAIntensity() {
+    return m_dwba_intensity;
 }
 
 #endif /* DWBASIMULATION_H_ */

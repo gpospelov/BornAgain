@@ -26,18 +26,31 @@ public:
 
     virtual DWBAFormFactor *clone() const;
 
-    void setTransmissionFunction(IDoubleToComplexFunction *p_T)
+//    void setTransmissionFunction(IDoubleToComplexFunction *p_T)
+//    {
+//        mp_T = p_T;
+//    }
+//    void setReflectionFunction(IDoubleToComplexFunction *p_R)
+//    {
+//        mp_R = p_R;
+//    }
+    void setTransmissionFunction(const IDoubleToComplexFunction &p_T)
     {
-        mp_T = p_T;
+        mp_T = p_T.clone();
     }
-    void setReflectionFunction(IDoubleToComplexFunction *p_R)
+    void setReflectionFunction(const IDoubleToComplexFunction &p_R)
     {
-        mp_R = p_R;
+        mp_R = p_R.clone();
     }
+
     virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const;
     virtual complex_t evaluateForComplexkz(kvector_t k_i, kvector_t k_f,
     		complex_t k_iz, complex_t k_fz) const;
 protected:
+    //! copy constructor and assignment operator are hidden since there is a clone method
+    DWBAFormFactor(const DWBAFormFactor &);
+    DWBAFormFactor &operator=(const DWBAFormFactor &);
+
     complex_t getT(double alpha) const;
     complex_t getR(double alpha) const;
     complex_t getX(double alpha) const;

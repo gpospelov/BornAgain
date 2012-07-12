@@ -33,6 +33,8 @@
 class MaterialManager: public ISingleton<MaterialManager>
 {
 public:
+    virtual ~MaterialManager() { clear(); }
+
     //! definition of materials container
     typedef std::map<std::string, IMaterial *> materials_t;
 

@@ -21,11 +21,8 @@ void GISASExperiment::runSimulation()
         //m_intensity_map += (*p_dwba_simulation->getDWBAIntensity());
         m_intensity_map += p_dwba_simulation->getDWBAIntensity();
     }
-<<<<<<< HEAD
     m_detector.applyDetectorResolution(&m_intensity_map);
-=======
     delete p_dwba_simulation;
->>>>>>> gp-test
 }
 
 void GISASExperiment::setDetectorParameters(double phi_f_min, double phi_f_max,

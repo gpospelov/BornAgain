@@ -10,7 +10,7 @@
 #include "NanoParticleDecoration.h"
 
 TestIsGISAXS10::TestIsGISAXS10()
-    : mp_sample(0), mp_intensity_output(0)
+    : mp_intensity_output(0), mp_sample(0)
 {
 }
 

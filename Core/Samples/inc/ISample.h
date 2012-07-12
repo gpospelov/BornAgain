@@ -39,9 +39,6 @@ public:
     //! clone sample (to overload)
     virtual ISample *clone() const;
 
-    //! (temporary for debugging) return sample Id
-    long getId() const {return m_id; }
-
     //! return pointer to the parameter pool
     ParameterPool *getParameterPool() { return &m_parameters; }
 
@@ -52,7 +49,7 @@ public:
     //virtual ParameterPool *createParameterTreeTest();
 
     //! check if this sample (or one of its subsamples) contains elements requiring DWBA corrections and return an ISimulation to calculate this
-    virtual DWBASimulation *getDWBASimulation() const { return 0; }
+    virtual DWBASimulation *createDWBASimulation() const { return 0; }
 
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)
@@ -60,9 +57,6 @@ protected:
 
     //! add parameters from local pool to external pool and call recursion over direct children
     virtual void addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1);
-
-    long m_id; //! temporary debug variable to track id of instance
-    static long m_id_last; //! temporary debug variable to track id of instance
 
     ParameterPool m_parameters; //! parameter pool
 };

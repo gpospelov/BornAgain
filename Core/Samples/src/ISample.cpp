@@ -3,13 +3,10 @@
 #include "ICompositeIterator.h"
 #include "Utils.h"
 
-long ISample::m_id_last=0;
 
+ISample::ISample()
+{
 
-ISample::ISample() {
-    // tracking index of created object for debugging purpose
-    m_id = m_id_last;
-    m_id_last++;
 }
 
 

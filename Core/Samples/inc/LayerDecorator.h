@@ -22,9 +22,8 @@ class LayerDecorator : public Layer
 {
 public:
     LayerDecorator(const Layer &layer);
+    LayerDecorator(const LayerDecorator &layer);
     LayerDecorator(const Layer &layer, const NanoParticleDecoration &decoration);
-    LayerDecorator(const LayerDecorator &other);
-    LayerDecorator &operator=(const LayerDecorator &other);
     virtual ~LayerDecorator();
 
     /// make layer's clone
@@ -66,15 +65,19 @@ public:
     const NanoParticleDecoration* getDecoration() const { return mp_decoration; }
     void setDecoration(NanoParticleDecoration* mpDecoration) { mp_decoration = mpDecoration; }
 
-    virtual LayerDecoratorDWBASimulation *getDWBASimulation() const {
+    virtual LayerDecoratorDWBASimulation *createDWBASimulation() const {
         return new LayerDecoratorDWBASimulation(this);
     }
-
 
 protected:
     void clear();
     Layer *mp_decorated_layer;
     NanoParticleDecoration *mp_decoration;
+
+private:
+    //! copy constructor and assignment operator are hidden since there is a clone method
+    LayerDecorator &operator=(const LayerDecorator &other);
+
 };
 
 

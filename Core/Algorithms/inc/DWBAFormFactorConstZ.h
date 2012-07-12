@@ -30,6 +30,10 @@ protected:
     double m_depth;
 
 private:
+    //! copy constructor and assignment operator are hidden since there is a clone method
+    DWBAFormFactorConstZ(const DWBAFormFactorConstZ &);
+    DWBAFormFactorConstZ &operator=(const DWBAFormFactorConstZ &);
+
     complex_t getDepthPhase(complex_t q_z) const;
 };
 

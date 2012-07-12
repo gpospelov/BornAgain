@@ -92,10 +92,10 @@ public:
     friend std::ostream &operator<<(std::ostream &ostr, const MultiLayer &m) { m.print(ostr); return ostr; }
 
     //! look for the presence of DWBA terms (e.g. included nano particles) and return ISimulation if needed
-    virtual MultiLayerDWBASimulation *getDWBASimulation() const;
+    virtual MultiLayerDWBASimulation *createDWBASimulation() const;
 
 private:
-    //! hiding copy constructor & assignment operator
+    //! copy constructor and assignment operator are hidden since there is a clone method
     MultiLayer(const MultiLayer &);
     MultiLayer &operator=(const MultiLayer &);
 

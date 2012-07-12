@@ -32,6 +32,10 @@ protected:
     virtual complex_t evaluate_for_complex_qz(kvector_t q, complex_t qz) const;
 
 private:
+    //! copy constructor and assignment operator are hidden since there is a clone method
+    FormFactorPrism3(const FormFactorPrism3 &);
+    FormFactorPrism3 &operator=(const FormFactorPrism3 &);
+
     StochasticParameter<double> *mp_height;
     StochasticParameter<double> *mp_half_side;
     // Cached value of square root of 3

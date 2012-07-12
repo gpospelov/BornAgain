@@ -26,8 +26,8 @@ TestIsGISAXS9::TestIsGISAXS9()
 
 TestIsGISAXS9::~TestIsGISAXS9()
 {
-    if(mp_sample) delete mp_sample;
-    if(mp_intensity_output) delete mp_intensity_output;
+    delete mp_sample;
+    delete mp_intensity_output;
 }
 
 

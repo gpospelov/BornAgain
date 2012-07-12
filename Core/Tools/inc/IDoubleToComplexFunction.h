@@ -39,6 +39,10 @@ public:
 	virtual complex_t evaluate(double value) { return m_function(value); }
 
 private:
+    //! copy constructor and assignment operator are hidden since there is a clone method
+    DoubleToComplexFunctionWrapper(const DoubleToComplexFunctionWrapper &);
+    DoubleToComplexFunctionWrapper &operator=(const DoubleToComplexFunctionWrapper &);
+
 	double_to_complex_t m_function;
 };
 

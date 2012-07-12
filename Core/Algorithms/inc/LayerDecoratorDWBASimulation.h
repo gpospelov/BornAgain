@@ -27,6 +27,11 @@ public:
     virtual void run();
 protected:
     LayerDecorator *mp_layer_decorator;
+private:
+    //! copy constructor and assignment operator are hidden
+    LayerDecoratorDWBASimulation(const LayerDecoratorDWBASimulation &);
+    LayerDecoratorDWBASimulation &operator=(const LayerDecoratorDWBASimulation &);
+
 };
 
 #endif /* LAYERDECORATORDWBASIMULATION_H_ */

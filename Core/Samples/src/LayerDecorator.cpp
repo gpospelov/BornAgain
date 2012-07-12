@@ -19,15 +19,15 @@ LayerDecorator::LayerDecorator(const LayerDecorator& other)
     mp_decoration = other.getDecoration()->clone();
 }
 
-LayerDecorator& LayerDecorator::operator =(const LayerDecorator& other)
-{
-    if (this!=&other) {
-        clear();
-        mp_decorated_layer = other.getDecoratedLayer()->clone();
-        mp_decoration = other.getDecoration()->clone();
-    }
-    return *this;
-}
+//LayerDecorator& LayerDecorator::operator =(const LayerDecorator& other)
+//{
+//    if (this!=&other) {
+//        clear();
+//        mp_decorated_layer = other.getDecoratedLayer()->clone();
+//        mp_decoration = other.getDecoration()->clone();
+//    }
+//    return *this;
+//}
 
 LayerDecorator* LayerDecorator::clone() const
 {

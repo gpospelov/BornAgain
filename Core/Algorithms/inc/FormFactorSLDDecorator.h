@@ -16,6 +16,7 @@
 
 #include "IFormFactor.h"
 
+
 class FormFactorSLDDecorator : public IFormFactor
 {
 public:
@@ -26,7 +27,12 @@ public:
     virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const;
     virtual complex_t evaluateForComplexkz(kvector_t k_i, kvector_t k_f, complex_t k_iz, complex_t k_fz) const;
     virtual int getNumberOfStochasticParameters() const;
+
 private:
+    //! copy constructor and assignment operator are hidden since there is a clone method
+    FormFactorSLDDecorator(const FormFactorSLDDecorator &);
+    FormFactorSLDDecorator &operator=(const FormFactorSLDDecorator &);
+
     IFormFactor *mp_form_factor;
     complex_t m_sld;
 };

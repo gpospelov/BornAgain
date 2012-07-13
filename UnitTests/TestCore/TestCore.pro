@@ -7,7 +7,7 @@ CONFIG  += console build_all
 QT      -= core gui
 
 # including common project properties
-include($$PWD/../shared.pri)
+include($$PWD/../../shared.pri)
 
 SOURCES += main.cpp
 

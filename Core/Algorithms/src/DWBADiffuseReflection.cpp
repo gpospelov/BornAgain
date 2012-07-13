@@ -4,9 +4,9 @@
 
 
 
-DWBADiffuseReflection::DWBADiffuseReflection() : m_diffuse_autocorr(0), m_diffuse_crosscorr(0)
+DWBADiffuseReflection::DWBADiffuseReflection()
+: m_diffuse_autocorr(0), m_diffuse_crosscorr(0)
 {
-
 }
 
 

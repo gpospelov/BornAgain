@@ -17,6 +17,7 @@
 #include "FormFactorPyramid.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
+#include "FormFactorFullSphere.h"
 
 
 #endif /* FORMFACTORS_H_ */

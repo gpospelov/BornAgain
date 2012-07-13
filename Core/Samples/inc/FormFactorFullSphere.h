@@ -1,0 +1,38 @@
+#ifndef FORMFACTORFULLSPHERE_H_
+#define FORMFACTORFULLSPHERE_H_
+// ********************************************************************
+// * The BornAgain project                                            *
+// * Simulation of neutron and x-ray scattering at grazing incidence  *
+// *                                                                  *
+// * LICENSE AND DISCLAIMER                                           *
+// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
+// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
+// * mollis quis. Mauris commodo rhoncus porttitor.                   *
+// ********************************************************************
+//! @file   FormFactorFullSphere.h
+//! @brief  Definition of FormFactorFullSphere class
+//! @author Scientific Computing Group at FRM II
+//! @date   Jul 13, 2012
+
+#include "IFormFactor.h"
+#include "IStochasticParameter.h"
+
+class FormFactorFullSphere : public IBornFormFactor
+{
+public:
+    FormFactorFullSphere(double radius);
+    FormFactorFullSphere(StochasticParameter<double> *p_radius);
+    ~FormFactorFullSphere();
+    virtual FormFactorFullSphere *clone() const;
+
+    virtual int getNumberOfStochasticParameters() { return 1; }
+
+protected:
+    virtual complex_t evaluate_for_complex_qz(kvector_t q, complex_t qz) const;
+
+private:
+    StochasticParameter<double> *mp_radius;
+};
+
+
+#endif /* FORMFACTORFULLSPHERE_H_ */

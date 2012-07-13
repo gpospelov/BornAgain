@@ -31,6 +31,8 @@ protected:
 	std::map<double, complex_t> m_value_map;
 	double m_lower_limit;
 	double m_upper_limit;
+	double m_low_step;
+	double m_high_step;
 };
 
 #endif /* DOUBLETOCOMPLEXINTERPOLATINGFUNCTION_H_ */

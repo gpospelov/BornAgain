@@ -1,5 +1,5 @@
-#ifndef TESTFORMFACTOR_H
-#define TESTFORMFACTOR_H
+#ifndef TESTMESOCRYSTAL_H_
+#define TESTMESOCRYSTAL_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,28 +9,32 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestFormFactor.h
-//! @brief  Definition of TestFormFactor class for formfactor validation
-//! @author herk
-//! @date   02.05.2012
+//! @file   TestMesoCrystal.h
+//! @brief  Definition of
+//! @author Scientific Computing Group at FRM II
+//! @date   Jul 13, 2012
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "FormFactors.h"
+#include "DWBAFormFactor.h"
+#include "ISample.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionNone.h"
 
 
-class TestFormFactor : public IFunctionalTest
+class TestMesoCrystal : public IFunctionalTest
 {
 public:
-    TestFormFactor();
-    ~TestFormFactor();
+    TestMesoCrystal();
+    virtual ~TestMesoCrystal();
     virtual void execute();
-    void draw();
 
 private:
+    void initializeSample();
     OutputData<double> *mp_intensity_output;
-    FormFactorCylinder m_ff;
+    ISample *mp_sample;
 };
 
 
-#endif // TESTFORMFACTOR_H
+#endif /* TESTMESOCRYSTAL_H_ */

@@ -16,6 +16,7 @@
 
 #include "ISample.h"
 #include "IFormFactor.h"
+#include "FormFactorDecoratorRefractiveIndex.h"
 
 
 //- -------------------------------------------------------------------
@@ -29,25 +30,34 @@ public:
     virtual ~NanoParticle();
     virtual NanoParticle *clone() const;
 
-    complex_t getRefractiveIndex() const
+//    virtual complex_t getRefractiveIndex() const
+//    {
+//        return m_refractive_index;
+//    }
+
+    virtual void setAmbientRefractiveIndex(complex_t refractive_index)
     {
-        return m_refractive_index;
+        m_ambient_refractive_index = refractive_index;
     }
 
-    void setRefractiveIndex(complex_t refractiveIndex)
+    virtual IFormFactor* createFormFactor() const
     {
-        m_refractive_index = refractiveIndex;
+        FormFactorDecoratorRefractiveIndex *p_ff = new FormFactorDecoratorRefractiveIndex(
+                mp_form_factor->clone(), m_refractive_index);
+        p_ff->setAmbientRefractiveIndex(m_ambient_refractive_index);
+        return p_ff;
     }
 
-    const IFormFactor* getFormFactor() const
+    virtual void setFormFactor(IFormFactor* p_form_factor)
     {
-        return mp_form_factor;
+        if (p_form_factor != mp_form_factor) {
+            delete mp_form_factor;
+            mp_form_factor = p_form_factor;
+        }
     }
 
-    void setFormFactor(IFormFactor* mpFormFactor)
-    {
-        mp_form_factor = mpFormFactor;
-    }
+protected:
+    complex_t m_ambient_refractive_index;
 
 private:
     complex_t m_refractive_index;

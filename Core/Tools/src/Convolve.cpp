@@ -226,6 +226,7 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
         break;
     default:
         std::cout << "Unrecognized convolution mode, possible modes are FFTW_LINEAR_FULL, FFTW_LINEAR_SAME, FFTW_LINEAR_SAME_UNPADDED, FFTW_LINEAR_VALID, FFTW_CIRCULAR_SAME, FFTW_CIRCULAR_SHIFTED " << std::endl;
+        break;
     }
 
     ws.in_src = new double[ws.h_fftw * ws.w_fftw];

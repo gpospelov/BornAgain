@@ -68,7 +68,6 @@ void MultiLayerDWBASimulation::run()
         DoubleToComplexInterpolatingFunction R_function(R_map);
         p_layer_dwba_sim->setKzTAndRFunctions(kz_function, T_function, R_function);
         p_layer_dwba_sim->run();
-        // TODO: this must be a += statement when this is implemented in OutputData<double>
         m_dwba_intensity += (*p_layer_dwba_sim->getDWBAIntensity());
     }
 }

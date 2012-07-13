@@ -21,6 +21,7 @@ SOURCES += \
     src/SampleFactory.cpp \
     src/StandardSamples.cpp \
     src/TestConvolution.cpp \
+    src/TestDetectorResolution.cpp \
     src/TestDiffuseReflection.cpp \
     src/TestFactory.cpp \
     src/TestFormFactor.cpp \
@@ -29,7 +30,7 @@ SOURCES += \
     src/TestIsGISAXS3.cpp \
     src/TestIsGISAXS9.cpp \
     src/TestIsGISAXS10.cpp \
-    src/TestDetectorResolution.cpp \
+    src/TestMesoCrystal.cpp \
     src/TestRoughness.cpp \
 
 HEADERS += \
@@ -42,6 +43,7 @@ HEADERS += \
     inc/SampleFactory.h \
     inc/StandardSamples.h \
     inc/TestConvolution.h \
+    inc/TestDetectorResolution.h \
     inc/TestDiffuseReflection.h \
     inc/TestFactory.h \
     inc/TestFormFactor.h \
@@ -50,7 +52,7 @@ HEADERS += \
     inc/TestIsGISAXS3.h \
     inc/TestIsGISAXS9.h \
     inc/TestIsGISAXS10.h \
-    inc/TestDetectorResolution.h \
+    inc/TestMesoCrystal.h \
     inc/TestRoughness.h \
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/Samples/inc ../Core/Tools/inc

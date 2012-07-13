@@ -36,6 +36,7 @@ SOURCES += \
     Algorithms/src/OpticalFresnel.cpp \
     \
     Samples/src/FormFactorCylinder.cpp \
+    Samples/src/FormFactorFullSphere.cpp \
     Samples/src/FormFactorPrism3.cpp \
     Samples/src/FormFactorPyramid.cpp \
     Samples/src/HomogeneousMaterial.cpp \
@@ -45,13 +46,17 @@ SOURCES += \
     Samples/src/InterferenceFunction1DParaCrystal.cpp \
     Samples/src/IRoughness.cpp \
     Samples/src/ISample.cpp \
+    Samples/src/Lattice.cpp \
     Samples/src/Layer.cpp \
     Samples/src/LayerDecorator.cpp \
     Samples/src/LayerInterface.cpp \
     Samples/src/LayerRoughness.cpp \
     Samples/src/MaterialManager.cpp \
+    Samples/src/MesoCrystal.cpp \
     Samples/src/MultiLayer.cpp \
     Samples/src/NanoParticle.cpp \
+    Samples/src/NanoParticleCrystal.cpp \
+    Samples/src/NanoParticleCrystalFormFactor.cpp \
     Samples/src/NanoParticleDecoration.cpp \
     Samples/src/ParameterPool.cpp \
     \
@@ -87,6 +92,8 @@ HEADERS += \
     Algorithms/inc/DWBAFormFactorConstZ.h \
     Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/Experiment.h \
+    Algorithms/inc/FormFactorDecoratorFactor.h \
+    Algorithms/inc/FormFactorDecoratorRefractiveIndex.h \
     Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/ISimulation.h \
@@ -98,10 +105,12 @@ HEADERS += \
     Algorithms/inc/OpticalFresnel.h \
     \
     Samples/inc/FormFactorCylinder.h \
+    Samples/inc/FormFactorFullSphere.h \
     Samples/inc/FormFactorPrism3.h \
     Samples/inc/FormFactorPyramid.h \
     Samples/inc/FormFactors.h \
     Samples/inc/HomogeneousMaterial.h \
+    Samples/inc/IClusteredNanoParticles.h \
     Samples/inc/ICompositeIterator.h \
     Samples/inc/ICompositeSample.h \
     Samples/inc/IDecoration.h \
@@ -113,17 +122,22 @@ HEADERS += \
     Samples/inc/InterferenceFunctionNone.h \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \
+    Samples/inc/Lattice.h \
     Samples/inc/Layer.h \
     Samples/inc/LayerDecorator.h \
     Samples/inc/LayerInterface.h \
     Samples/inc/LayerRoughness.h \
     Samples/inc/MaterialManager.h \
+    Samples/inc/MesoCrystal.h \
     Samples/inc/MultiLayer.h \
     Samples/inc/NanoParticle.h \
+    Samples/inc/NanoParticleCrystal.h \
+    Samples/inc/NanoParticleCrystalFormFactor.h \
     Samples/inc/NanoParticleDecoration.h \
     Samples/inc/ParameterPool.h \
     \
     Tools/inc/Convolve.h \
+    Tools/inc/Coordinate3D.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
     Tools/inc/Exceptions.h \
     Tools/inc/FitMultiParameter.h \

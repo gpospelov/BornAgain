@@ -30,13 +30,10 @@ public:
     virtual void setAmbientRefractiveIndex(complex_t refractive_index) { (void)refractive_index; }
 
     /// calculate scattering amplitude
-    ///
-    /// calculate scattering amplitude
     /// @param k_i   incoming wavevector
     /// @param k_f   outgoing wavevector
     virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const=0;
-    /// calculate scattering amplitude for complex wavevectors
-    ///
+
     /// calculate scattering amplitude for wavevectors with complex z-component
     /// @param k_i   incoming wavevector
     /// @param k_f   outgoing wavevector
@@ -66,6 +63,7 @@ protected:
     /// evaluate scattering amplitude
     /// @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
     virtual complex_t evaluate_for_q(kvector_t q) const;
+
     /// evaluate scattering amplitude for wavevector q\with complex z-component
     /// @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
     /// @param qz complex z-component of wavevector transfer \f$q_z\equiv k_{iz}-k_{fz}\f$

@@ -40,7 +40,7 @@ public:
 	size_t getNumberOfParticles() const { return m_particles.size(); }
 
 	/// Get particle with index
-    NanoParticle* getNanoParticle(size_t index) const;
+    const NanoParticle* getNanoParticle(size_t index) const;
 
     /// Get depth of particle with index
     double getDepthOfNanoParticle(size_t index) const;
@@ -58,6 +58,10 @@ public:
     IInterferenceFunctionStrategy *createStrategy(const std::vector<IFormFactor *> &form_factors) const;
 
 private:
+    /// copy constructor and assignment operator are hidden since there is a clone method
+    NanoParticleDecoration(const NanoParticleDecoration &);
+    NanoParticleDecoration &operator=(const NanoParticleDecoration &);
+
     struct ParticleInfoStruct
     {
         ParticleInfoStruct(NanoParticle *p_particle, double depth, double abundance);

@@ -21,6 +21,9 @@ FormFactorPyramid::FormFactorPyramid(StochasticParameter<double> *p_height, Stoc
 
 FormFactorPyramid::~FormFactorPyramid()
 {
+    delete mp_height;
+    delete mp_half_side;
+    delete mp_alpha;
 }
 
 FormFactorPyramid* FormFactorPyramid::clone() const

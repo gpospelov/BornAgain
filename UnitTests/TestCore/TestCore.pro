@@ -42,7 +42,7 @@ for(dep, MY_DEPENDENCY_LIB) {
 
 CONFIG(JCNS) {
   LIBS -= -lfftw3
-  LIBS += -Bstatic -lfftw3f -Bdynamic # request for static (with fPIC option)
+  LIBS += -Bstatic -lfftw3 -Bdynamic # request for static (with fPIC option)
   # "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
 }
 

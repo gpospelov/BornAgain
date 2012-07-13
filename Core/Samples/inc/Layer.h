@@ -29,7 +29,6 @@ class Layer : public ISample
 public:
     Layer();
     Layer(const Layer &other);
-    Layer &operator=(const Layer &other);
     virtual ~Layer();
 
     //! make layer's clone
@@ -57,12 +56,15 @@ public:
     virtual complex_t getRefractiveIndex() const { return (dynamic_cast<const HomogeneousMaterial *>(mp_material))->getRefractiveIndex(); }
 
     //! return zero pointer (override is important for polymorphism of LayerDecorator)
-    virtual LayerDWBASimulation *getDWBASimulation() const { return 0; }
+    virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
 
     //! print class
     friend std::ostream &operator<<(std::ostream &ostr, const Layer &m) { m.print(ostr); return ostr; }
 
 private:
+    //! copy constructor and assignment operator are hidden since there is a clone method
+    Layer &operator=(const Layer &other);
+
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 

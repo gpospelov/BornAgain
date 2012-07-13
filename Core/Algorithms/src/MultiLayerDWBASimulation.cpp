@@ -11,13 +11,17 @@ MultiLayerDWBASimulation::MultiLayerDWBASimulation(
 MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
 {
     delete mp_multi_layer;
+    for(std::map<size_t, LayerDWBASimulation*>::iterator it=m_layer_dwba_simulation_map.begin(); it!=m_layer_dwba_simulation_map.end(); it++)
+    {
+        delete (*it).second;
+    }
 }
 
 void MultiLayerDWBASimulation::init(const Experiment& experiment)
 {
     DWBASimulation::init(experiment);
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
-        LayerDWBASimulation *p_layer_dwba_sim = mp_multi_layer->getLayer(i)->getDWBASimulation();
+        LayerDWBASimulation *p_layer_dwba_sim = mp_multi_layer->getLayer(i)->createDWBASimulation();
         if (p_layer_dwba_sim) {
             m_layer_dwba_simulation_map[i] = p_layer_dwba_sim;
             p_layer_dwba_sim->init(experiment);
@@ -68,6 +72,8 @@ void MultiLayerDWBASimulation::run()
         DoubleToComplexInterpolatingFunction R_function(R_map);
         p_layer_dwba_sim->setKzTAndRFunctions(kz_function, T_function, R_function);
         p_layer_dwba_sim->run();
-        m_dwba_intensity += (*p_layer_dwba_sim->getDWBAIntensity());
+        // TODO: this must be a += statement when this is implemented in OutputData<double>
+        //m_dwba_intensity += (*p_layer_dwba_sim->getDWBAIntensity());
+        m_dwba_intensity += p_layer_dwba_sim->getDWBAIntensity();
     }
 }

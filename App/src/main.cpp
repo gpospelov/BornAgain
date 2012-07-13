@@ -21,7 +21,7 @@ int main(int argc, char **argv)
     if( args.find("profile") ) {
         for(size_t i=0; i<args.size(); i++) {
             if(args.isFunctionalTest( args[i] ))
-            TestFactory::instance().execute( args[i] );
+            TestFactory::instance().profile( args[i] );
         }
         return 0;
     }

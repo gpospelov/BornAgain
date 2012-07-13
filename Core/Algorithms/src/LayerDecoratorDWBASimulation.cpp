@@ -24,7 +24,7 @@ void LayerDecoratorDWBASimulation::run()
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     std::vector<IFormFactor *> form_factors;
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
-        NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index);
+        const NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index);
         double depth = p_decoration->getDepthOfNanoParticle(particle_index);
         p_particle->setAmbientRefractiveIndex(n_layer);
         complex_t wavevector_scattering_factor = M_PI/lambda/lambda;
@@ -48,4 +48,6 @@ void LayerDecoratorDWBASimulation::run()
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
         m_dwba_intensity.next() = p_strategy->evaluateForComplexkz(m_ki, k_f, k_iz, k_fz);
     }
+    delete p_strategy;
 }
+

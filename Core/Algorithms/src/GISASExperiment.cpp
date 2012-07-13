@@ -14,13 +14,15 @@ GISASExperiment::GISASExperiment()
 void GISASExperiment::runSimulation()
 {
     m_intensity_map.setAllTo(0.0);
-    DWBASimulation *p_dwba_simulation = mp_sample->getDWBASimulation();
+    DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
     if (p_dwba_simulation) {
         p_dwba_simulation->init(*this);
         p_dwba_simulation->run();
-        m_intensity_map += (*p_dwba_simulation->getDWBAIntensity());
+        //m_intensity_map += (*p_dwba_simulation->getDWBAIntensity());
+        m_intensity_map += p_dwba_simulation->getDWBAIntensity();
     }
     m_detector.applyDetectorResolution(&m_intensity_map);
+    delete p_dwba_simulation;
 }
 
 void GISASExperiment::setDetectorParameters(double phi_f_min, double phi_f_max,

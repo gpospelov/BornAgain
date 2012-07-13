@@ -33,6 +33,11 @@ protected:
 	double m_upper_limit;
 	double m_low_step;
 	double m_high_step;
+
+private:
+    //! copy constructor and assignment operator are hidden since there is a clone method
+    DoubleToComplexInterpolatingFunction(const DoubleToComplexInterpolatingFunction &);
+    DoubleToComplexInterpolatingFunction &operator=(const DoubleToComplexInterpolatingFunction &);
 };
 
 #endif /* DOUBLETOCOMPLEXINTERPOLATINGFUNCTION_H_ */

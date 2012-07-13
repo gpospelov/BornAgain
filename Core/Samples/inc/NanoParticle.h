@@ -60,6 +60,10 @@ protected:
     complex_t m_ambient_refractive_index;
 
 private:
+    //! copy constructor and assignment operator are hidden since there is a clone method
+    NanoParticle(const NanoParticle &);
+    NanoParticle &operator=(const NanoParticle &);
+
     complex_t m_refractive_index;
     IFormFactor* mp_form_factor;
     ///< pointer to the form factor

@@ -29,8 +29,10 @@ complex_t DWBAFormFactorConstZ::evaluateForComplexkz(kvector_t k_i, kvector_t k_
 DWBAFormFactorConstZ* DWBAFormFactorConstZ::clone() const
 {
     DWBAFormFactorConstZ *p_new = new DWBAFormFactorConstZ(mp_form_factor->clone(), m_depth);
-    p_new->setTransmissionFunction(mp_T->clone());
-    p_new->setReflectionFunction(mp_R->clone());
+//    p_new->setTransmissionFunction(mp_T->clone());
+//    p_new->setReflectionFunction(mp_R->clone());
+    p_new->setTransmissionFunction(*mp_T);
+    p_new->setReflectionFunction(*mp_R);
     return p_new;
 }
 

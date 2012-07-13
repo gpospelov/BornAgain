@@ -9,6 +9,8 @@ DWBAFormFactor::DWBAFormFactor(IFormFactor *p_form_factor)
 DWBAFormFactor::~DWBAFormFactor()
 {
     delete mp_form_factor;
+    delete mp_T;
+    delete mp_R;
 }
 
 complex_t DWBAFormFactor::evaluate(kvector_t k_i, kvector_t k_f) const
@@ -37,8 +39,10 @@ void DWBAFormFactor::calculateTerms(kvector_t k_i, kvector_t k_f) const {
 DWBAFormFactor* DWBAFormFactor::clone() const
 {
     DWBAFormFactor *p_new = new DWBAFormFactor(mp_form_factor->clone());
-    p_new->setTransmissionFunction(mp_T->clone());
-    p_new->setReflectionFunction(mp_R->clone());
+//    p_new->setTransmissionFunction(mp_T->clone());
+//    p_new->setReflectionFunction(mp_R->clone());
+    p_new->setTransmissionFunction(*mp_T);
+    p_new->setReflectionFunction(*mp_R);
     return p_new;
 }
 

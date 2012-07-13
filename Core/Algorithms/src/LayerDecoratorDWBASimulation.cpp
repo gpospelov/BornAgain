@@ -24,13 +24,13 @@ void LayerDecoratorDWBASimulation::run()
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     std::vector<IFormFactor *> form_factors;
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
-        const NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index);
+        NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index)->clone();
         double depth = p_decoration->getDepthOfNanoParticle(particle_index);
         p_particle->setAmbientRefractiveIndex(n_layer);
         complex_t wavevector_scattering_factor = M_PI/lambda/lambda;
         DWBAFormFactorConstZ dwba_z(p_particle->createFormFactor(), depth);
-        dwba_z.setReflectionFunction(mp_R_function);
-        dwba_z.setTransmissionFunction(mp_T_function);
+        dwba_z.setReflectionFunction(*mp_R_function);
+        dwba_z.setTransmissionFunction(*mp_T_function);
         FormFactorDecoratorFactor *p_ff = new FormFactorDecoratorFactor(dwba_z.clone(), wavevector_scattering_factor);
         form_factors.push_back(p_ff);
     }

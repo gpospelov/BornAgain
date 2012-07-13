@@ -17,7 +17,7 @@
 #include "IFormFactor.h"
 
 
-class FormFactorSLDDecorator : public IFormFactor
+class FormFactorDecoratorFactor : public IFormFactor
 {
 public:
     FormFactorDecoratorFactor(IFormFactor *p_form_factor, complex_t factor);

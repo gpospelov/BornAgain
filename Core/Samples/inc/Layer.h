@@ -31,7 +31,7 @@ public:
     Layer(const Layer &other);
     virtual ~Layer();
 
-    /// make layer's clone
+    //! make layer's clone
     virtual Layer *clone() const;
 
     //! set layer thickness in _angstrom_

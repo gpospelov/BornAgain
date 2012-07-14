@@ -28,15 +28,15 @@ template<typename T> std::ostream& operator<< (std::ostream& o, const KVector<T>
 template<typename T>
 class KVector {
 public:
-    KVector() : m_x(0), m_y(0), m_z(0), m_mag2(0) {}
-    KVector(T x, T y, T z) : m_x(x), m_y(y), m_z(z), m_mag2(0) {}
+    KVector() : m_x(0), m_y(0), m_z(0) {}
+    KVector(T x, T y, T z) : m_x(x), m_y(y), m_z(z) {}
     void setMagThetaPhi(T mag, T theta, T phi)
     {
         T amag = std::abs(mag);
         m_x = amag * std::sin(theta) * std::cos(phi);
         m_y = amag * std::sin(theta) * std::sin(phi);
         m_z = amag * std::cos(theta);
-        m_mag2 = m_x*m_x + m_y*m_y + m_z*m_z;
+        // m_mag2 = m_x*m_x + m_y*m_y + m_z*m_z;
     }
     void setLambdaAlphaPhi(T lambda, T alpha, T phi)
     {
@@ -44,13 +44,13 @@ public:
         m_x = k*std::cos(alpha) * std::cos(phi);
         m_y = k*std::cos(alpha) * std::sin(phi);
         m_z = k*std::sin(alpha);
-        m_mag2 = m_x*m_x + m_y*m_y + m_z*m_z;
+        // m_mag2 = m_x*m_x + m_y*m_y + m_z*m_z;
     }
     inline T x() const { return m_x; }
     inline T y() const { return m_y; }
     inline T z() const { return m_z; }
-    inline T mag() const { return std::sqrt(m_mag2); }
-    inline T mag2() const { return m_mag2; }
+    inline T mag() const { return std::sqrt(mag2()); }
+    inline T mag2() const { return m_x*m_x+m_y*m_y+m_z*m_z; }
     inline T magxy() const { return std::sqrt(m_x*m_x+m_y*m_y); }
 
     KVector<T> &operator=(const KVector<T> &other);
@@ -68,7 +68,7 @@ private:
     T m_x;
     T m_y;
     T m_z;
-    T m_mag2;
+    // T m_mag2;
 };
 
 template<typename T> KVector<T> operator+(const KVector<T> &a, const KVector<T> &b);
@@ -92,5 +92,24 @@ typedef KVector<double>  kvector_t;
 //			complex_t(real_vector.y()), complex_t(real_vector.z()));
 //}
 
+inline kvector_t CrossProduct(const kvector_t vectorLeft, const kvector_t vectorRight)
+{
+    double x = vectorLeft.y()*vectorRight.z() - vectorLeft.z()*vectorRight.y();
+    double y = vectorLeft.z()*vectorRight.x() - vectorLeft.x()*vectorRight.z();
+    double z = vectorLeft.x()*vectorRight.y() - vectorLeft.y()*vectorRight.x();
+    return kvector_t(x, y, z);
+}
 
+inline double DotProduct(const kvector_t left, const kvector_t right)
+{
+    return left.x()*right.x() + left.y()*right.y() + left.z()*right.z();
+}
+
+inline kvector_t operator*(double scalar, kvector_t vector)
+{
+    double x = scalar*vector.x();
+    double y = scalar*vector.y();
+    double z = scalar*vector.z();
+    return kvector_t(x, y, z);
+}
 #endif // TYPES_H

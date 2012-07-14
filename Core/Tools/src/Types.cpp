@@ -5,21 +5,21 @@
 template<typename T>
 KVector<T> &KVector<T>::operator=(const KVector<T> &other)
 {
-    m_x=other.m_x; m_y = other.m_y; m_z = other.m_z; m_mag2 = other.m_mag2;
+    m_x=other.m_x; m_y = other.m_y; m_z = other.m_z; //m_mag2 = other.m_mag2;
     return *this;
 }
 
 template<typename T> KVector<T> &KVector<T>::operator+=(const KVector<T> &b)
 {
     m_x += b.m_x; m_y += b.m_y; m_z += b.m_z;
-    m_mag2 = m_x*m_x + m_y*m_y + m_z*m_z;
+    //m_mag2 = m_x*m_x + m_y*m_y + m_z*m_z;
     return *this;
 }
 
 template<typename T> KVector<T> &KVector<T>::operator-=(const KVector<T> &b)
 {
     m_x -= b.m_x; m_y -= b.m_y; m_z -= b.m_z;
-    m_mag2 = m_x*m_x + m_y*m_y + m_z*m_z;
+    //m_mag2 = m_x*m_x + m_y*m_y + m_z*m_z;
     return *this;
 }
 

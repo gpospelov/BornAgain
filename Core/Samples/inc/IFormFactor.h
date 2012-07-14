@@ -27,6 +27,8 @@ public:
     virtual ~IFormFactor() {}
     virtual IFormFactor *clone() const=0;
 
+    virtual void setAmbientRefractiveIndex(complex_t refractive_index) { (void)refractive_index; }
+
     /// calculate scattering amplitude
     /// @param k_i   incoming wavevector
     /// @param k_f   outgoing wavevector
@@ -47,8 +49,9 @@ class IBornFormFactor : public IFormFactor
 {
 public:
 	virtual ~IBornFormFactor() {}
+	virtual IBornFormFactor *clone() const=0;
 
-    virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const
+	virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const
     {
     	return evaluate_for_q(k_i - k_f);
     }

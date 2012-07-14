@@ -1,7 +1,7 @@
 #include "LayerDecoratorDWBASimulation.h"
 #include "LayerDecorator.h"
 #include "DWBAFormFactorConstZ.h"
-#include "FormFactorSLDDecorator.h"
+#include "FormFactorDecoratorFactor.h"
 
 LayerDecoratorDWBASimulation::LayerDecoratorDWBASimulation(
         const LayerDecorator *p_layer_decorator)
@@ -24,14 +24,14 @@ void LayerDecoratorDWBASimulation::run()
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     std::vector<IFormFactor *> form_factors;
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
-        const NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index);
+        NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index)->clone();
         double depth = p_decoration->getDepthOfNanoParticle(particle_index);
-        complex_t n_decoration = p_particle->getRefractiveIndex();
-        complex_t scattering_length_density = (n_layer*n_layer - n_decoration*n_decoration)*M_PI/lambda/lambda;
-        DWBAFormFactorConstZ dwba_z(p_particle->getFormFactor()->clone(), depth);
+        p_particle->setAmbientRefractiveIndex(n_layer);
+        complex_t wavevector_scattering_factor = M_PI/lambda/lambda;
+        DWBAFormFactorConstZ dwba_z(p_particle->createFormFactor(), depth);
         dwba_z.setReflectionFunction(*mp_R_function);
         dwba_z.setTransmissionFunction(*mp_T_function);
-        FormFactorSLDDecorator *p_ff = new FormFactorSLDDecorator(dwba_z.clone(), scattering_length_density);
+        FormFactorDecoratorFactor *p_ff = new FormFactorDecoratorFactor(dwba_z.clone(), wavevector_scattering_factor);
         form_factors.push_back(p_ff);
     }
     IInterferenceFunctionStrategy *p_strategy = p_decoration->createStrategy(form_factors);

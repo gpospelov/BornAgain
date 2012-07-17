@@ -70,6 +70,7 @@ SOURCES += \
     Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
     Tools/src/OutputData.cpp \
+    Tools/src/Placement.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/Types.cpp \
     Tools/src/Utils.cpp \
@@ -80,7 +81,9 @@ SOURCES += \
     PythonAPI/src/PythonInterface_free_functions.cpp \
     PythonAPI/src/PythonInterface_global_variables.cpp \
     PythonAPI/src/PythonModule.cpp \
-    PythonAPI/src/PythonPlusplusHelper.cpp
+    PythonAPI/src/PythonPlusplusHelper.cpp \
+    Tools/src/BasicVector3D.cpp \
+    Tools/src/RotationMatrix.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -151,6 +154,7 @@ HEADERS += \
     Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
+    Tools/inc/Placement.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticGaussian.h \
     Tools/inc/Types.h \
@@ -163,7 +167,9 @@ HEADERS += \
     PythonAPI/inc/PythonInterface_free_functions.h \
     PythonAPI/inc/PythonInterface_global_variables.h \
     PythonAPI/inc/PythonModule.h \
-    PythonAPI/inc/PythonPlusplusHelper.h
+    PythonAPI/inc/PythonPlusplusHelper.h \
+    Tools/inc/BasicVector3D.h \
+    Tools/inc/RotationMatrix.h
 
 INCLUDEPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

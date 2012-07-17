@@ -70,7 +70,14 @@ public:
     template <class U> void addAxis(std::string name, U start, U end, size_t size);
     std::vector<NamedVectorBase*> getAxes() { return m_value_axes; }
     NamedVectorBase* getAxis(std::string label);
+
+    //! return number of dimensions
     size_t getDimension() const { return m_dimension; }
+
+    //! return number of dimensions (same as above)
+    size_t getNdimensions() const { return m_dimension; }
+
+    //! return total size of data buffer (product of bin number in every dimension)
     size_t getAllocatedSize() const { return m_data_vector.size(); }
     std::vector<T> getRawDataVector() const { return m_data_vector; }
     void setRawDataVector(const std::vector<T> &data_vector);
@@ -82,7 +89,12 @@ public:
     size_t getCurrentIndexOfAxis(std::string axis_name);
     template <class U> U getCurrentValueOfAxis(std::string axis_name);
     void clear();
+
+    //! set content of output data to specific value
     void setAllTo(const T& value);
+
+    //! multiply every item of this output data by value
+    void scaleAll(const T& value);
 
 private:
     OutputData(const OutputData& source);
@@ -95,8 +107,14 @@ private:
     std::vector<T> m_data_vector;
 };
 
+//! addition-assignment operator for two output data
 const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<double> &right);
+
+//! substraction-assignment operator for two output data
 const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<double> &right);
+
+//! division-assignment operator for two output data
+const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<double> &right);
 
 template <class T> OutputData<T>::OutputData()
     : m_dimension(0)
@@ -224,6 +242,13 @@ template <class T> void OutputData<T>::setAllTo(const T &value)
 {
     for (size_t index=0; index<m_data_size; ++index) {
         m_data_vector[index] = value;
+    }
+}
+
+template <class T> void OutputData<T>::scaleAll(const T &value)
+{
+    for (size_t index=0; index<m_data_size; ++index) {
+        m_data_vector[index] *= value;
     }
 }
 

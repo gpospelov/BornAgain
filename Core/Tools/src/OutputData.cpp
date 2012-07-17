@@ -1,5 +1,7 @@
 #include "OutputData.h"
 #include "Exceptions.h"
+#include "Numeric.h"
+#include <cmath>
 
 MultiIndex& MultiIndex::operator++()
 {
@@ -161,6 +163,8 @@ void MultiIndex::clear()
     m_end_passed = false;
 }
 
+
+//! addition-assignment operator for two output data
 const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<double> &right)
 {
     size_t total_size = left.getAllocatedSize();
@@ -177,6 +181,8 @@ const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<
     return left;
 }
 
+
+//! substraction-assignment operator for two output data
 const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<double> &right)
 {
     size_t total_size = left.getAllocatedSize();
@@ -192,3 +198,34 @@ const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<
     delete p_right_clone;
     return left;
 }
+
+
+//! division-assignment operator for two output data
+const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<double> &right)
+{
+    size_t total_size = left.getAllocatedSize();
+    if (right.getAllocatedSize()!= total_size) {
+        throw LogicErrorException("Cannot substract OutputData objects of different size.");
+    }
+    OutputData<double> *right_clone = right.clone();
+    left.resetIndex();
+    right_clone->resetIndex();
+    while ( right_clone->hasNext() ) {
+        double xleft = left.currentValue();
+        double xright = right_clone->currentValue();
+        double ratio(0);
+        if( fabs(xleft) <= Numeric::double_epsilon && fabs(xright) <= Numeric::double_epsilon) {
+            ratio = 0.0;
+        } else if (fabs(xright) <= Numeric::double_epsilon) {
+            ratio = xleft/Numeric::double_epsilon;
+        } else {
+            ratio = xleft/xright;
+        }
+        left.next() = ratio;
+        right_clone->next();
+    }
+    delete right_clone;
+    return left;
+}
+
+

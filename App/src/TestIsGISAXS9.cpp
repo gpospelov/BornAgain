@@ -11,8 +11,18 @@
 #include "LayerDecorator.h"
 #include "GISASExperiment.h"
 #include "FormFactors.h"
+#include "RotationMatrix.h"
+#include "BasicVector3D.h"
 
 #include "TCanvas.h"
+
+// сравнение 1d и 2d of two output data classes
+// случай с qx,qy=0
+// 45 degree
+// output data: const index
+// output data: export to *double, export to numpy array
+// trree example simple, complex
+
 
 TestIsGISAXS9::TestIsGISAXS9()
     : mp_sample(0), mp_intensity_output(0)
@@ -34,6 +44,10 @@ void TestIsGISAXS9::initialise()
 
 void TestIsGISAXS9::execute()
 {
+
+
+    return;
+
     GISASExperiment experiment;
     experiment.setSample(mp_sample);
     experiment.setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
@@ -44,7 +58,8 @@ void TestIsGISAXS9::execute()
     mp_intensity_output = experiment.getOutputData();
 
     // saving results to file
-    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
+    //IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
+    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_tmp2.ima");
 
 }
 
@@ -53,25 +68,33 @@ void TestIsGISAXS9::finalise()
 {
     // reading result of IsGISAXS for comparison
     OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/isgi_pyramid_Z0.ima");
+////    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
+//    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_tmp.ima");
 
     // ploting results
     TCanvas *c1 = new TCanvas("TestIsGISAXS9_c1", "Pyramid DWBA formfactor", 1024, 768);
     c1->Divide(2,2);
 
+    IsGISAXSTools::setMinimum(1.);
     // our calculations
-    c1->cd(1);
-    IsGISAXSTools::drawLogOutputDataInCurrentPad(*mp_intensity_output, "CONT4 Z", "Calculated pyramid FF");
+    c1->cd(1); gPad->SetLogz();
+    IsGISAXSTools::drawOutputDataInPad(*mp_intensity_output, "CONT4 Z", "Calculated pyramid FF");
+
     // isgisaxs data
-    c1->cd(2);
-    IsGISAXSTools::drawLogOutputDataInCurrentPad(*isgi_data, "CONT4 Z", "IsGisaxs pyramid FF");
-    // difference between two
-    OutputData<double> *difference = mp_intensity_output->clone();
+    c1->cd(2); gPad->SetLogz();
+    IsGISAXSTools::drawOutputDataInPad(*isgi_data, "CONT4 Z", "IsGisaxs pyramid FF");
+
+    IsGISAXSTools::resetMinimum(); IsGISAXSTools::resetMaximum();
+
+    // difference
     c1->cd(3);
-    *difference -= *isgi_data;
-    IsGISAXSTools::drawLogOutputDataInCurrentPad(*difference, "CONT4 Z", "Difference");
+    IsGISAXSTools::drawOutputDataDifference2D(*mp_intensity_output, *isgi_data, "CONT4 Z", "Difference");
+
+    // difference
+    c1->cd(4);
+    IsGISAXSTools::drawOutputDataDifference1D(*mp_intensity_output, *isgi_data, "", "Difference");
 
     delete isgi_data;
-    delete difference;
 }
 
 

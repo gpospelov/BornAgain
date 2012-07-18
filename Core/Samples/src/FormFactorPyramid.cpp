@@ -42,6 +42,14 @@ complex_t FormFactorPyramid::evaluate_for_complex_qz(kvector_t q, complex_t qz) 
     double qx = q.x();
     double qy = q.y();
 
+//    // comparison with isgisaxs trick
+//        double gisaxs_epsilon = 2.2204460492503131e-12;
+//        qx < 0 ? qx -= gisaxs_epsilon : qx += gisaxs_epsilon;
+//        qy < 0 ? qy -= gisaxs_epsilon : qy += gisaxs_epsilon;
+//        //double Z = 45.*Units::deg;
+//        //double qx =  std::cos(Z)*q.x() + std::sin(Z)*q.y();
+//        //double qy = -std::sin(Z)*q.x() + std::cos(Z)*q.y();
+
     complex_t F;
     const complex_t im(0,1);
     if( std::abs(qx) > Numeric::double_epsilon && std::abs(qy) > Numeric::double_epsilon ) {

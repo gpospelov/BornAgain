@@ -55,8 +55,8 @@ HEADERS += \
     inc/TestMesoCrystal.h \
     inc/TestRoughness.h \
 
-INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/Samples/inc ../Core/Tools/inc
-DEPENDPATH += ./inc ../Core/Algorithms/inc ../Core/Samples/inc ../Core/Tools/inc
+INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc
+DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc
 
 OBJECTS_DIR = obj
 

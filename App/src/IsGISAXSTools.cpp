@@ -131,14 +131,20 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
         histo_name = gPad->GetTitle();
     }
 
-    TH1D h1_spect("h1_spect", histo_name.c_str(), 20, -10.0, 10.0);
+    TH1D h1_spect("difference", histo_name.c_str(), 40, -20.0, 20.0);
+    h1_spect.GetXaxis()->SetTitle("log10( 100*(we-isgi)/isgi )");
 
     left_clone->resetIndex();
     while (left_clone->hasNext())
     {
         double x = left_clone->next();
-        if(x!=0) x = log10(fabs(x));
-        h1_spect.Fill( x );
+        if(x!=0) {
+            x = log10(fabs(x));
+            h1_spect.Fill( x );
+        } else {
+            // lets put the cases then the difference is exactly 0 to underflow bin
+            x = -21.;
+        }
     }
 
     gPad->SetLogy();

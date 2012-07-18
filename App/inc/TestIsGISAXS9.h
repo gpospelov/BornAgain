@@ -29,14 +29,15 @@ public:
     TestIsGISAXS9();
     virtual ~TestIsGISAXS9();
 
-    virtual void initialise();
     virtual void execute();
     virtual void finalise();
 
 private:
-    void initializeSample();
-    ISample *mp_sample;
-    OutputData<double> *mp_intensity_output;
+    void initializeSample_Pyramid();
+    void initializeSample_RotatedPyramid();
+
+    ISample *m_sample;
+    std::vector<OutputData<double> *> m_results;
 };
 
 

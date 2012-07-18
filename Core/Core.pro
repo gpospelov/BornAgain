@@ -28,12 +28,20 @@ SOURCES += \
     Algorithms/src/DWBAFormFactorConstZ.cpp \
     Algorithms/src/DWBASimulation.cpp \
     Algorithms/src/Experiment.cpp \
+    Algorithms/src/FormFactorDecoratorTransformation.cpp \
     Algorithms/src/GISASExperiment.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
     Algorithms/src/MultiLayerDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
+    \
+    Geometry/src/BasicVector3D.cpp \
+    Geometry/src/Normal3D.cpp \
+    Geometry/src/Plane3D.cpp \
+    Geometry/src/Point3D.cpp \
+    Geometry/src/Transform3D.cpp \
+    Geometry/src/Vector3D.cpp \
     \
     Samples/src/FormFactorCylinder.cpp \
     Samples/src/FormFactorFullSphere.cpp \
@@ -58,6 +66,7 @@ SOURCES += \
     Samples/src/NanoParticleCrystal.cpp \
     Samples/src/NanoParticleCrystalFormFactor.cpp \
     Samples/src/NanoParticleDecoration.cpp \
+    Samples/src/NanoParticleInfo.cpp \
     Samples/src/ParameterPool.cpp \
     \
     Tools/src/Convolve.cpp \
@@ -70,7 +79,6 @@ SOURCES += \
     Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
     Tools/src/OutputData.cpp \
-    Tools/src/Placement.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/Types.cpp \
     Tools/src/Utils.cpp \
@@ -81,9 +89,7 @@ SOURCES += \
     PythonAPI/src/PythonInterface_free_functions.cpp \
     PythonAPI/src/PythonInterface_global_variables.cpp \
     PythonAPI/src/PythonModule.cpp \
-    PythonAPI/src/PythonPlusplusHelper.cpp \
-    Tools/src/BasicVector3D.cpp \
-    Tools/src/RotationMatrix.cpp
+    PythonAPI/src/PythonPlusplusHelper.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -97,6 +103,7 @@ HEADERS += \
     Algorithms/inc/Experiment.h \
     Algorithms/inc/FormFactorDecoratorFactor.h \
     Algorithms/inc/FormFactorDecoratorRefractiveIndex.h \
+    Algorithms/inc/FormFactorDecoratorTransformation.h \
     Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/ISimulation.h \
@@ -106,6 +113,14 @@ HEADERS += \
     Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
     Algorithms/inc/MultiLayerDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
+    \
+    Geometry/inc/BasicVector3D.h \
+    Geometry/inc/Normal3D.h \
+    Geometry/inc/Plane3D.h \
+    Geometry/inc/Point3D.h \
+    Geometry/inc/Transform3D.h \
+    Geometry/inc/Transform3D.icc \
+    Geometry/inc/Vector3D.h \
     \
     Samples/inc/FormFactorCylinder.h \
     Samples/inc/FormFactorFullSphere.h \
@@ -137,6 +152,7 @@ HEADERS += \
     Samples/inc/NanoParticleCrystal.h \
     Samples/inc/NanoParticleCrystalFormFactor.h \
     Samples/inc/NanoParticleDecoration.h \
+    Samples/inc/NanoParticleInfo.h \
     Samples/inc/ParameterPool.h \
     \
     Tools/inc/Convolve.h \
@@ -154,7 +170,6 @@ HEADERS += \
     Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
-    Tools/inc/Placement.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticGaussian.h \
     Tools/inc/Types.h \
@@ -167,12 +182,10 @@ HEADERS += \
     PythonAPI/inc/PythonInterface_free_functions.h \
     PythonAPI/inc/PythonInterface_global_variables.h \
     PythonAPI/inc/PythonModule.h \
-    PythonAPI/inc/PythonPlusplusHelper.h \
-    Tools/inc/BasicVector3D.h \
-    Tools/inc/RotationMatrix.h
+    PythonAPI/inc/PythonPlusplusHelper.h
 
-INCLUDEPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
-DEPENDPATH += ./Algorithms/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
+INCLUDEPATH += ./Algorithms/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
+DEPENDPATH  += ./Algorithms/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 
 # excluding files with python interface to not to expose library in python
 !contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {

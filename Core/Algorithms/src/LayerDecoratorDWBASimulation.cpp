@@ -2,6 +2,8 @@
 #include "LayerDecorator.h"
 #include "DWBAFormFactorConstZ.h"
 #include "FormFactorDecoratorFactor.h"
+#include "Transform3D.h"
+#include "FormFactorDecoratorTransformation.h"
 
 LayerDecoratorDWBASimulation::LayerDecoratorDWBASimulation(
         const LayerDecorator *p_layer_decorator)
@@ -24,11 +26,25 @@ void LayerDecoratorDWBASimulation::run()
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     std::vector<IFormFactor *> form_factors;
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
-        NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index)->clone();
-        double depth = p_decoration->getDepthOfNanoParticle(particle_index);
+//        NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index)->clone();
+//        double depth = p_decoration->getDepthOfNanoParticle(particle_index);
+//        Geometry::Transform3D *transform = p_decoration->getTransformationOfNanoParticle(particle_index);
+        NanoParticle *p_particle = p_decoration->getNanoParticleInfo(particle_index)->getNanoParticle()->clone();
+        double depth = p_decoration->getNanoParticleInfo(particle_index)->getDepth();
+        const Geometry::Transform3D *transform = p_decoration->getNanoParticleInfo(particle_index)->getTransform3D();
+
         p_particle->setAmbientRefractiveIndex(n_layer);
         complex_t wavevector_scattering_factor = M_PI/lambda/lambda;
-        DWBAFormFactorConstZ dwba_z(p_particle->createFormFactor(), depth);
+
+        IFormFactor *ff_particle = p_particle->createFormFactor();
+        IFormFactor  *ff_transformed(0);
+        if(transform) {
+            ff_transformed = new FormFactorDecoratorTransformation(ff_particle, new Geometry::Transform3D(*transform));
+        } else{
+            ff_transformed = ff_particle;
+        }
+
+        DWBAFormFactorConstZ dwba_z(ff_transformed, depth);
         dwba_z.setReflectionFunction(*mp_R_function);
         dwba_z.setTransmissionFunction(*mp_T_function);
         FormFactorDecoratorFactor *p_ff = new FormFactorDecoratorFactor(dwba_z.clone(), wavevector_scattering_factor);

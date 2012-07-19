@@ -12,21 +12,31 @@
 #include <vector>
 #include <iterator>
 #include <iomanip>
+#include <cmath>
+
+double IsGISAXSTools::m_hist_min = 0;
+double IsGISAXSTools::m_hist_max = 0;
+bool   IsGISAXSTools::m_has_min = false;
+bool   IsGISAXSTools::m_has_max = false;
 
 
-//! draw 2D histogram representing OutputData (in new canvas)
+/* ************************************************************************* */
+// draw 2D histogram representing OutputData (in new canvas)
+/* ************************************************************************* */
 void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
         const std::string& canvas_name, const std::string& canvas_title,
         const std::string& draw_options, const std::string &histogram_title)
 {
     TCanvas *c1 = new TCanvas(canvas_name.c_str(), canvas_title.c_str(), 0, 0, 1024, 768);
+    IsGISAXSTools::setMinimum(1.);
     c1->cd();
-    drawLogOutputDataInCurrentPad(output, draw_options, histogram_title);
+    gPad->SetLogz();
+    drawOutputDataInPad(output, draw_options, histogram_title);
 }
 
 
-//! draw 2D histogram representing OutputData (in current gPad)
-void IsGISAXSTools::drawLogOutputDataInCurrentPad(const OutputData<double>& output,
+// draw 2D histogram representing OutputData (in current gPad)
+void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         const std::string& draw_options, const std::string &histogram_title)
 {
     OutputData<double> *p_output = output.clone();
@@ -63,18 +73,111 @@ void IsGISAXSTools::drawLogOutputDataInCurrentPad(const OutputData<double>& outp
         p_hist2D.Fill(x_value, y_value, z_value);
     }
     p_hist2D.SetContour(50);
+    p_hist2D.SetStats(0);
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
-    gPad->SetLogz();
+//    gPad->SetLogz();
     gPad->SetRightMargin(0.12);
-    p_hist2D.SetMinimum(1.0e13);
-//  p_hist2D.SetMaximum(10.0);
+    if( hasMinimum() ) p_hist2D.SetMinimum(m_hist_min);
+    if( hasMaximum() ) p_hist2D.SetMaximum(m_hist_max);
+
     p_hist2D.DrawCopy(draw_options.c_str());
     delete p_output;
 }
 
 
-//! write output data (1D or 2D) in ASCII file
+/* ************************************************************************* */
+// draw 1D distribution over values stored in OutputData
+// binning of histogram is calculated on the fly
+/* ************************************************************************* */
+void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double> &output, const std::string &draw_options, const std::string &histogram_title)
+{
+    OutputData<double> *output_clone = output.clone();
+
+    std::string histo_name = histogram_title;
+    if (histo_name.empty()) {
+        histo_name = gPad->GetTitle();
+    }
+
+    // creating histogram with automatic binning
+    TH1::SetDefaultBufferSize(5000);
+    TH1D h1_spect("h1_spect", histo_name.c_str(), 200, 1.0, -1.0); // xmin > xmax as a sign of automatic binning
+
+    output_clone->resetIndex();
+    while (output_clone->hasNext())
+    {
+        h1_spect.Fill( output_clone->next() );
+    }
+
+    h1_spect.DrawCopy(draw_options.c_str());
+    delete output_clone;
+}
+
+
+/* ************************************************************************* */
+// draw 1D distribution over relative difference in two OutputData sets
+/* ************************************************************************* */
+void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
+{
+    OutputData<double> *left_clone = left.clone();
+    OutputData<double> *right_clone = right.clone();
+
+    *left_clone -= *right_clone;
+    *left_clone /= *right_clone;
+    left_clone->scaleAll(100.0);
+
+    std::string histo_name = histogram_title;
+    if (histo_name.empty()) {
+        histo_name = gPad->GetTitle();
+    }
+
+    TH1D h1_spect("difference", histo_name.c_str(), 40, -20.0, 20.0);
+    h1_spect.GetXaxis()->SetTitle("log10( 100*(we-isgi)/isgi )");
+
+    left_clone->resetIndex();
+    while (left_clone->hasNext())
+    {
+        double x = left_clone->next();
+        if(x!=0) {
+            x = log10(fabs(x));
+            h1_spect.Fill( x );
+        } else {
+            // lets put the cases then the difference is exactly 0 to underflow bin
+            x = -21.;
+        }
+    }
+
+    gPad->SetLogy();
+    h1_spect.SetStats(1);
+    gStyle->SetOptStat(111111);
+    h1_spect.DrawCopy(draw_options.c_str());
+    delete left_clone;
+    delete right_clone;
+}
+
+
+/* ************************************************************************* */
+// draw relative difference of two 2D OutputData sets
+/* ************************************************************************* */
+void IsGISAXSTools::drawOutputDataDifference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
+{
+    OutputData<double> *left_clone = left.clone();
+    OutputData<double> *right_clone = right.clone();
+
+    *left_clone -= *right_clone;
+    *left_clone /= *right_clone;
+    left_clone->scaleAll(100.0);
+
+    IsGISAXSTools::drawOutputDataInPad(*left_clone, draw_options, histogram_title);
+
+    delete left_clone;
+    delete right_clone;
+}
+
+
+/* ************************************************************************* */
+// write output data (1D or 2D) in ASCII file
+/* ************************************************************************* */
 void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
         const std::string &filename)
 {
@@ -101,7 +204,9 @@ void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
 }
 
 
-//! read data from ASCII file (2D assumed) and fill newly created OutputData with it
+/* ************************************************************************* */
+// read data from ASCII file (2D assumed) and fill newly created OutputData with it
+/* ************************************************************************* */
 OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &filename)
 {
     // opening ASCII file

@@ -131,10 +131,10 @@ void DrawHelper::SetStyle()
 
     // set the paper & margin sizes
     scattStyle->SetPaperSize(20,26);
-    scattStyle->SetPadTopMargin(0.05);
-    scattStyle->SetPadRightMargin(0.05);
-    scattStyle->SetPadBottomMargin(0.16);
-    scattStyle->SetPadLeftMargin(0.16);
+    scattStyle->SetPadTopMargin(0.1);
+    scattStyle->SetPadRightMargin(0.1);
+    scattStyle->SetPadBottomMargin(0.1);
+    scattStyle->SetPadLeftMargin(0.1);
 
     // use large fonts
     //Int_t font=72; // Helvetica italics
@@ -154,7 +154,7 @@ void DrawHelper::SetStyle()
     scattStyle->SetTitleSize(tsize,"x");
     scattStyle->SetLabelSize(tsize,"y");
     scattStyle->SetTitleSize(tsize,"y");
-    scattStyle->SetLabelSize(tsize,"z");
+    scattStyle->SetLabelSize(tsize*0.8,"z");
     scattStyle->SetTitleSize(tsize,"z");
 
     // use bold lines and markers

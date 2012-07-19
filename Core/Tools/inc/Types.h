@@ -38,6 +38,9 @@ public:
         m_z = amag * std::cos(theta);
         // m_mag2 = m_x*m_x + m_y*m_y + m_z*m_z;
     }
+
+    void setXYZ(T x, T y, T z) {  m_x = x; m_y = y; m_z = z; }
+
     void setLambdaAlphaPhi(T lambda, T alpha, T phi)
     {
         T k = 2.*M_PI/lambda;

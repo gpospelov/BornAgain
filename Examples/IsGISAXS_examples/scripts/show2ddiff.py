@@ -26,6 +26,7 @@ print( "Taking logarithm" )
 #b=np.log10(b+1)
 print( "Calculating difference" )
 diff=100*(a-b)/(b+0.001)
+#diff=a-b
 print( "plotting" )
 im=plt.imshow(diff)
 plt.colorbar(im)

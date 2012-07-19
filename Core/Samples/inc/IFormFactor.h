@@ -59,6 +59,7 @@ public:
     {
     	return evaluate_for_complex_qz(k_i - k_f, k_iz-k_fz);
     }
+
 protected:
     /// evaluate scattering amplitude
     /// @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
@@ -68,6 +69,7 @@ protected:
     /// @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
     /// @param qz complex z-component of wavevector transfer \f$q_z\equiv k_{iz}-k_{fz}\f$
     virtual complex_t evaluate_for_complex_qz(kvector_t q, complex_t qz) const=0;
+
 };
 
 inline complex_t IBornFormFactor::evaluate_for_q(kvector_t q) const

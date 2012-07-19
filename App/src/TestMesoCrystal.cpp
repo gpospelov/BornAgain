@@ -45,7 +45,7 @@ void TestMesoCrystal::execute()
     experiment.setSample(mp_sample);
     experiment.setDetectorParameters(0.1*Units::degree, 2.0*Units::degree, 100
             , 0.0*Units::degree, 2.0*Units::degree, 100);
-    experiment.setDetectorResolutionFunction(&testResolutionFunction);
+//    experiment.setDetectorResolutionFunction(&testResolutionFunction);
     experiment.setBeamParameters(0.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     experiment.runSimulation();
     mp_intensity_output = experiment.getOutputData();

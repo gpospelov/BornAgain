@@ -47,7 +47,7 @@ complex_t NanoParticleCrystalFormFactor::evaluate_for_complex_qz(kvector_t q,
     std::vector<kvector_t> rec_vectors =
             m_lattice.getReciprocalLatticeVectorsWithinRadius(q_real, radius);
     // perform convolution on these lattice vectors
-    std::cout << "Number of reciprocal vectors used for convolution: " << rec_vectors.size() << std::endl;
+//    std::cout << "Number of reciprocal vectors used for convolution: " << rec_vectors.size() << std::endl;
     complex_t result(0.0, 0.0);
     IFormFactor *p_basis_form_factor = mp_nano_particle->createFormFactor();
     for (std::vector<kvector_t>::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {

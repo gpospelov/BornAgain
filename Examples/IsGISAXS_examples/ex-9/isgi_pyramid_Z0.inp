@@ -3,10 +3,10 @@
 ###########################################
 
 # Base filename
-pyramid_Z=0
+isgi_pyramid_Z0
 ############################  Framework and beam  parameters ############################################
 # Framework   Diffuse,  Multilayer, Number of index slices, Polarization 
-   DWBA         LMA        0             100             ss
+   DWBA         LMA        0             25             ss
 # Beam Wavelenght  :  Lambda(nm),  Wl_distribution,  Sigma_Wl/Wl,  Wl_min(nm), Wl_max(nm), nWl,  xWl
                       0.1            none               0.3           0.08         0.12     20    3
 # Beam Alpha_i     :  Alpha_i(deg), Ai_distribution, Sigma_Ai(deg), Ai_min(deg), Ai_max(deg), nAi, xAi
@@ -47,7 +47,7 @@ pyramid			 1
 # Lattice type
          none 
 #  Interference function :    Peak position D(nm),   w(nm), Statistics,  Eta_Voigt, Size-Distance coupling, Cut-off
-                               20                     7      gau	      0.5            0            10000000
+                               20                     5      gau	      0.5            0            10000000
 # Pair correlation function :   Density(nm-2), D1(nm),  Hard core coverage, CxR
                                    0.007         25          0.3             1.  
 # Lattice parameters : L(1)(nm), L(2)(nm), Angle(deg,  Xi_fixed 

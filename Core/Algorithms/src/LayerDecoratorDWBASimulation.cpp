@@ -33,6 +33,7 @@ void LayerDecoratorDWBASimulation::run()
         dwba_z.setTransmissionFunction(*mp_T_function);
         FormFactorDecoratorFactor *p_ff = new FormFactorDecoratorFactor(dwba_z.clone(), wavevector_scattering_factor);
         form_factors.push_back(p_ff);
+        delete p_particle;
     }
     IInterferenceFunctionStrategy *p_strategy = p_decoration->createStrategy(form_factors);
     for (size_t i=0; i<form_factors.size(); ++i) {

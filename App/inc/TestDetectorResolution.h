@@ -36,6 +36,4 @@ private:
     ISample *mp_sample;
 };
 
-double testResolutionFunction(double u, double v);
-
 #endif /* TESTDETECTORRESOLUTION_H_ */

@@ -10,6 +10,17 @@
 #include "NanoParticleDecoration.h"
 #include "MathFunctions.h"
 
+namespace
+{
+double testResolutionFunction(double u, double v)
+{
+    double sigma_u = 0.001;
+    double sigma_v = 0.001;
+    return MathFunctions::IntegratedGaussian(u, 0.0, sigma_u)
+            * MathFunctions::IntegratedGaussian(v, 0.0, sigma_v);
+}
+}
+
 TestDetectorResolution::TestDetectorResolution()
 : mp_intensity_output(0)
 , mp_sample(0)
@@ -36,13 +47,6 @@ void TestDetectorResolution::execute()
     mp_intensity_output = experiment.getOutputData();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_detector_resolution", "Detector resolution",
             "CONT4 Z");
-}
-
-double testResolutionFunction(double u, double v)
-{
-    double sigma_u = 0.001;
-    double sigma_v = 0.001;
-    return MathFunctions::IntegratedGaussian(u, 0.0, sigma_u)*MathFunctions::IntegratedGaussian(v, 0.0, sigma_v);
 }
 
 void TestDetectorResolution::initializeSample()

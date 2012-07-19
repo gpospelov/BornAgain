@@ -67,7 +67,7 @@ void IsGISAXSTools::drawLogOutputDataInCurrentPad(const OutputData<double>& outp
     gStyle->SetOptStat(0);
     gPad->SetLogz();
     gPad->SetRightMargin(0.12);
-    p_hist2D.SetMinimum(1.0);
+    p_hist2D.SetMinimum(1.0e13);
 //  p_hist2D.SetMaximum(10.0);
     p_hist2D.DrawCopy(draw_options.c_str());
     delete p_output;

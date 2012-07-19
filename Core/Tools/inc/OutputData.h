@@ -31,7 +31,7 @@ class MultiIndex
 public:
     std::vector<std::string> getLabels() { return m_labels; }
     std::vector<size_t> getCurrentIndices();
-    size_t getCurrentIndexOfAxis(std::string axis_name) const;
+    size_t getCurrentIndexOfAxis(std::string axis_name);
     size_t getPosition() const { return m_current_position; }
     size_t getSize() const { return m_total_size; }
     void reset();
@@ -79,7 +79,7 @@ public:
 
     void addAxis(NamedVectorBase* p_new_axis);
     template <class U> void addAxis(std::string name, U start, U end, size_t size);
-    std::vector<NamedVectorBase*> getAxes() { return m_value_axes; }
+    std::vector<NamedVectorBase*> getAxes() const { return m_value_axes; }
 
     const NamedVectorBase* getAxis(std::string label) const;
 

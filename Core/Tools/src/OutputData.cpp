@@ -51,7 +51,7 @@ std::vector<size_t> MultiIndex::getCurrentIndices()
 /* ************************************************************************* */
 //
 /* ************************************************************************* */
-size_t MultiIndex::getCurrentIndexOfAxis(std::string axis_name) const
+size_t MultiIndex::getCurrentIndexOfAxis(std::string axis_name)
 {
     if (m_label_index_map.count(axis_name) == 0)
     {

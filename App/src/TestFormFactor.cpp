@@ -27,8 +27,8 @@ TestFormFactor::~TestFormFactor()
 void TestFormFactor::execute()
 {
     MultiIndex& index = mp_intensity_output->getIndex();
-    NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
-    NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
+    const NamedVector<double> *p_y_axis = dynamic_cast<const  NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
+    const NamedVector<double> *p_z_axis = dynamic_cast<const  NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
     double lambda = 1.0;
     double alpha_i = 0.2*M_PI/180.0;
     kvector_t k_i;
@@ -55,8 +55,8 @@ void TestFormFactor::draw()
 
     MultiIndex& index = mp_intensity_output->getIndex();
     index.reset();
-    NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
-    NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
+    const NamedVector<double> *p_y_axis = dynamic_cast<const NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
+    const NamedVector<double> *p_z_axis = dynamic_cast<const NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
     size_t y_size = p_y_axis->getSize();
     size_t z_size = p_z_axis->getSize();
     double y_start = (*p_y_axis)[0];

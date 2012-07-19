@@ -25,7 +25,7 @@ public:
     virtual ~NamedVectorBase() {}
 
     virtual size_t getSize() const=0;
-    std::string getName() { return m_name; }
+    std::string getName() const { return m_name; }
     void setName(std::string name) { m_name = name; }
     virtual NamedVectorBase* clone()=0;
 

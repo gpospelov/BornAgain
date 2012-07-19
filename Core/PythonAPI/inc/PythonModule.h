@@ -10,7 +10,7 @@
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
 //! @file   PythonModule.h
-//! @brief  Collection of wrappers for python module
+//! @brief  Collection of wrappers for python module, see source file
 //! @author Scientific Computing Group at FRM II
 //! @date   22.06.2012
 

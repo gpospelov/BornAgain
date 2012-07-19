@@ -12,7 +12,7 @@ NanoParticleCrystalFormFactor::NanoParticleCrystalFormFactor(
     mp_nano_particle = p_crystal->createNanoParticle();
     mp_meso_form_factor = meso_crystal_form_factor.clone();
     setAmbientRefractiveIndex(ambient_refractive_index);
-    calculateLargestReciprocalBasisLength();
+    calculateLargestReciprocalDistance();
 }
 
 NanoParticleCrystalFormFactor::~NanoParticleCrystalFormFactor()
@@ -42,11 +42,12 @@ complex_t NanoParticleCrystalFormFactor::evaluate_for_complex_qz(kvector_t q,
     kvector_t q_real(q.x(), q.y(), qz.real());
     kvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
-    double radius = 100*m_max_rec_length;
+    double radius = 2*m_max_rec_length;
     // retrieve nearest reciprocal lattice vectors
     std::vector<kvector_t> rec_vectors =
             m_lattice.getReciprocalLatticeVectorsWithinRadius(q_real, radius);
     // perform convolution on these lattice vectors
+//    std::cout << "Number of reciprocal vectors used for convolution: " << rec_vectors.size() << std::endl;
     complex_t result(0.0, 0.0);
     IFormFactor *p_basis_form_factor = mp_nano_particle->createFormFactor();
     for (std::vector<kvector_t>::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {
@@ -62,10 +63,12 @@ complex_t NanoParticleCrystalFormFactor::evaluate_for_complex_qz(kvector_t q,
     return 8.0*pi3*result;
 }
 
-void NanoParticleCrystalFormFactor::calculateLargestReciprocalBasisLength()
+void NanoParticleCrystalFormFactor::calculateLargestReciprocalDistance()
 {
-    kvector_t b1, b2, b3;
-    m_lattice.getReciprocalLatticeBasis(b1, b2, b3);
-    m_max_rec_length = std::max(b1.mag(), b2.mag());
-    m_max_rec_length = std::max(m_max_rec_length, b3.mag());
+    kvector_t a1 = m_lattice.getBasisVectorA();
+    kvector_t a2 = m_lattice.getBasisVectorB();
+    kvector_t a3 = m_lattice.getBasisVectorC();
+
+    m_max_rec_length = std::max(M_PI/a1.mag(), M_PI/a2.mag());
+    m_max_rec_length = std::max(m_max_rec_length, M_PI/a3.mag());
 }

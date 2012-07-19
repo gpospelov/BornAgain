@@ -55,6 +55,7 @@ SOURCES += \
     Samples/src/IRoughness.cpp \
     Samples/src/ISample.cpp \
     Samples/src/Lattice.cpp \
+    Samples/src/LatticeBasis.cpp \
     Samples/src/Layer.cpp \
     Samples/src/LayerDecorator.cpp \
     Samples/src/LayerInterface.cpp \
@@ -68,6 +69,7 @@ SOURCES += \
     Samples/src/NanoParticleDecoration.cpp \
     Samples/src/NanoParticleInfo.cpp \
     Samples/src/ParameterPool.cpp \
+    Samples/src/WeightedFormFactor.cpp \
     \
     Tools/src/Convolve.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
@@ -102,6 +104,7 @@ HEADERS += \
     Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/Experiment.h \
     Algorithms/inc/FormFactorDecoratorFactor.h \
+    Algorithms/inc/FormFactorDecoratorPositionFactor.h \
     Algorithms/inc/FormFactorDecoratorRefractiveIndex.h \
     Algorithms/inc/FormFactorDecoratorTransformation.h \
     Algorithms/inc/GISASExperiment.h \
@@ -141,6 +144,7 @@ HEADERS += \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \
     Samples/inc/Lattice.h \
+    Samples/inc/LatticeBasis.h \
     Samples/inc/Layer.h \
     Samples/inc/LayerDecorator.h \
     Samples/inc/LayerInterface.h \
@@ -154,6 +158,7 @@ HEADERS += \
     Samples/inc/NanoParticleDecoration.h \
     Samples/inc/NanoParticleInfo.h \
     Samples/inc/ParameterPool.h \
+    Samples/inc/WeightedFormFactor.h \
     \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \

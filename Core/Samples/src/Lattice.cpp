@@ -57,6 +57,14 @@ Lattice Lattice::createFCCLattice(double a)
     return Lattice(a1, a2, a3);
 }
 
+Lattice Lattice::createTrigonalLattice(double a, double c)
+{
+    kvector_t a1(a, 0.0, 0.0);
+    kvector_t a2(-a/2.0, std::sqrt(3.0)*a/2.0, 0);
+    kvector_t a3(0.0, 0.0, c);
+    return Lattice(a1, a2, a3);
+}
+
 void Lattice::computeReciprocalVectors() const
 {
     kvector_t a23 = CrossProduct(m_a2, m_a3);
@@ -124,9 +132,9 @@ std::vector<kvector_t> Lattice::getVectorsWithinRadius(
         const kvector_t& v2, const kvector_t& v3, const kvector_t& rec1,
         const kvector_t& rec2, const kvector_t& rec3) const
 {
-    int max_X = (int)std::floor( radius/(2*M_PI)/rec1.mag() );
-    int max_Y = (int)std::floor( radius/(2*M_PI)/rec2.mag() );
-    int max_Z = (int)std::floor( radius/(2*M_PI)/rec3.mag() );
+    int max_X = (int)std::floor( rec1.mag()*radius/(2*M_PI) );
+    int max_Y = (int)std::floor( rec2.mag()*radius/(2*M_PI) );
+    int max_Z = (int)std::floor( rec3.mag()*radius/(2*M_PI) );
 
     Coordinate3D<int> nearestPointCoordinates = getNearestVectorCoordinates(input_vector, v1, v2, v3);
     std::vector<kvector_t> result;

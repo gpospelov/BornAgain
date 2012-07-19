@@ -30,6 +30,15 @@ public:
     Lattice(const kvector_t &a1, const kvector_t &a2, const kvector_t &a3);
     ~Lattice();
 
+    //! get basis vector a
+    kvector_t getBasisVectorA() { return m_a1; }
+
+    //! get basis vector b
+    kvector_t getBasisVectorB() { return m_a2; }
+
+    //! get basis vector c
+    kvector_t getBasisVectorC() { return m_a3; }
+
     //! get the reciprocal basis vectors
     void getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const;
 
@@ -48,6 +57,8 @@ public:
             const kvector_t &input_vector, double radius) const;
 
     static Lattice createFCCLattice(double a);
+
+    static Lattice createTrigonalLattice(double a, double c);
 
 private:
     // This is a naive algorithm which will not work for skewed lattice bases (see Closest Vector Problem for more information)

@@ -30,9 +30,19 @@ TestRootTree::~TestRootTree()
     delete m_data;
 }
 
+void test( const OutputData<double > &oo);
+
 
 void TestRootTree::execute()
 {
+
+    m_data = new OutputData<double >;
+    m_data->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 2000);
+    m_data->setAllTo(0.0);
+
+    test(*m_data);
+
+    return;
 
     // preparing some real data for tree playing
     prepare_experiment();
@@ -46,6 +56,13 @@ void TestRootTree::execute()
 //    complex_read();
 }
 
+
+void test( const OutputData<double > &oo)
+{
+
+ oo.resetIndex();
+
+}
 
 
 /* ************************************************************************* */
@@ -154,7 +171,7 @@ void TestRootTree::simple_write()
 /* ************************************************************************* */
 void TestRootTree::simple_read()
 {
-    std::cout << "TestRootTree::simple_read() -> going to red tree back from file" << std::endl;
+    std::cout << "TestRootTree::simple_read() -> going to read tree back from file" << std::endl;
 
     std::string root_file_name = "mydata.root";
     std::string tree_name = "mytree";
@@ -176,7 +193,7 @@ void TestRootTree::simple_read()
     tree->Print();
     tree->Draw("intens1:alpha_f:phi_f","intens1>0","prof CONT4 Z");
 
-    // not reading the tree in another way
+    // now reading the tree in another way
     // variables below will be red from the tree
     double intens1(0), intens2(0), alpha_i(0), phi_i(0), alpha_f(0), phi_f(0);
     int nev;

@@ -34,7 +34,7 @@ void MultiLayerDWBASimulation::run()
     OpticalFresnel fresnelCalculator;
 
     m_dwba_intensity.setAllTo(0.0);
-    NamedVector<double> *p_alpha_axis = dynamic_cast<NamedVector<double> *>(m_dwba_intensity.getAxis("alpha_f"));
+    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(m_dwba_intensity.getAxis("alpha_f"));
     double lambda = 2.0*M_PI/m_ki.mag();
     std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {

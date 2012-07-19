@@ -3,19 +3,10 @@
 #include "Numeric.h"
 #include <cmath>
 
-MultiIndex& MultiIndex::operator++()
-{
-    if (m_current_position<m_total_size-1)
-    {
-        ++m_current_position;
-    }
-    else
-    {
-        m_end_passed = true;
-    }
-    return *this;
-}
 
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
 MultiIndex::MultiIndex()
     : m_dimension(0)
     , m_total_size(1)
@@ -29,13 +20,38 @@ MultiIndex::~MultiIndex()
     clear();
 }
 
+
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
+MultiIndex& MultiIndex::operator++()
+{
+    if (m_current_position<m_total_size-1)
+    {
+        ++m_current_position;
+    }
+    else
+    {
+        m_end_passed = true;
+    }
+    return *this;
+}
+
+
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
 std::vector<size_t> MultiIndex::getCurrentIndices()
 {
     updateCurrentIndices();
     return m_current_coordinate;
 }
 
-size_t MultiIndex::getCurrentIndexOfAxis(std::string axis_name)
+
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
+size_t MultiIndex::getCurrentIndexOfAxis(std::string axis_name) const
 {
     if (m_label_index_map.count(axis_name) == 0)
     {
@@ -45,6 +61,10 @@ size_t MultiIndex::getCurrentIndexOfAxis(std::string axis_name)
     return getCurrentIndices()[m_label_index_map.find(axis_name)->second];
 }
 
+
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
 void MultiIndex::reset()
 {
     m_current_position = 0;
@@ -52,6 +72,10 @@ void MultiIndex::reset()
     updateCurrentIndices();
 }
 
+
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
 void MultiIndex::updateCurrentIndices()
 {
     size_t remainder = m_current_position;
@@ -62,6 +86,10 @@ void MultiIndex::updateCurrentIndices()
     }
 }
 
+
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
 void MultiIndex::updateCurrentPosition()
 {
     m_end_passed = false;
@@ -72,6 +100,10 @@ void MultiIndex::updateCurrentPosition()
     }
 }
 
+
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
 void MultiIndex::setPosition(size_t position)
 {
     if (position>=m_total_size) {
@@ -83,6 +115,9 @@ void MultiIndex::setPosition(size_t position)
 
 
 
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
 void MultiIndex::setIndexOfAxis(std::string axis_name, size_t value)
 {
     if (m_label_index_map.count(axis_name) == 0) return;
@@ -95,6 +130,10 @@ void MultiIndex::setIndexOfAxis(std::string axis_name, size_t value)
     updateCurrentPosition();
 }
 
+
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
 void MultiIndex::incrementIndexOfAxis(std::string axis_name)
 {
     if (m_label_index_map.count(axis_name) == 0) return;
@@ -108,6 +147,10 @@ void MultiIndex::incrementIndexOfAxis(std::string axis_name)
     throw OutOfBoundsException("Coordinate value out of bounds!");
 }
 
+
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
 void MultiIndex::decrementIndexOfAxis(std::string axis_name)
 {
     if (m_label_index_map.count(axis_name) == 0) return;
@@ -121,6 +164,10 @@ void MultiIndex::decrementIndexOfAxis(std::string axis_name)
     throw OutOfBoundsException("Coordinate value out of bounds!");
 }
 
+
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
 void MultiIndex::init(const std::vector<NamedVectorBase*>& value_axes)
 {
     clear();
@@ -150,6 +197,10 @@ void MultiIndex::init(const std::vector<NamedVectorBase*>& value_axes)
     }
 }
 
+
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
 void MultiIndex::clear()
 {
     m_axis_sizes.clear();
@@ -164,55 +215,58 @@ void MultiIndex::clear()
 }
 
 
-//! addition-assignment operator for two output data
+/* ************************************************************************* */
+// addition-assignment operator for two output data
+/* ************************************************************************* */
 const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<double> &right)
 {
     size_t total_size = left.getAllocatedSize();
     if (right.getAllocatedSize()!= total_size) {
         throw LogicErrorException("Cannot add OutputData objects of different size.");
     }
-    OutputData<double> *p_right_clone = right.clone();
     left.resetIndex();
-    p_right_clone->resetIndex();
-    while (p_right_clone->hasNext()) {
-        left.next() += p_right_clone->next();
+    right.resetIndex();
+    while (right.hasNext()) {
+        left.currentValue() += right.currentValue();
+        left.next(); right.next();
     }
-    delete p_right_clone;
     return left;
 }
 
 
-//! substraction-assignment operator for two output data
+/* ************************************************************************* */
+// substraction-assignment operator for two output data
+/* ************************************************************************* */
 const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<double> &right)
 {
     size_t total_size = left.getAllocatedSize();
     if (right.getAllocatedSize()!= total_size) {
         throw LogicErrorException("Cannot substract OutputData objects of different size.");
     }
-    OutputData<double> *p_right_clone = right.clone();
     left.resetIndex();
-    p_right_clone->resetIndex();
-    while (p_right_clone->hasNext()) {
-        left.next() -= p_right_clone->next();
+    right.resetIndex();
+    while (right.hasNext()) {
+        left.currentValue() -= right.currentValue();
+        left.next(); right.next();
     }
-    delete p_right_clone;
     return left;
 }
 
 
-//! division-assignment operator for two output data
+/* ************************************************************************* */
+// division-assignment operator for two output data
+/* ************************************************************************* */
 const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<double> &right)
 {
     size_t total_size = left.getAllocatedSize();
     if (right.getAllocatedSize()!= total_size) {
         throw LogicErrorException("Cannot substract OutputData objects of different size.");
     }
-    OutputData<double> *right_clone = right.clone();
     left.resetIndex();
-    right_clone->resetIndex();
-    while ( right_clone->hasNext() ) {
+    right.resetIndex();
+    while ( right.hasNext() ) {
         double xleft = left.currentValue();
-        double xright = right_clone->currentValue();
+        double xright = right.currentValue();
         double ratio(0);
         if( fabs(xleft) <= Numeric::double_epsilon && fabs(xright) <= Numeric::double_epsilon) {
             ratio = 0.0;
@@ -221,11 +275,9 @@ const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<
         } else {
             ratio = xleft/xright;
         }
-        left.next() = ratio;
-        right_clone->next();
+        left.currentValue() = ratio;
+        left.next(); right.next();
     }
-    delete right_clone;
     return left;
 }
-
 

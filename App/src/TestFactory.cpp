@@ -10,6 +10,7 @@
 #include "TestConvolution.h"
 #include "TestDetectorResolution.h"
 #include "TestMesoCrystal.h"
+#include "TestRootTree.h"
 
 #include "TBenchmark.h"
 
@@ -30,6 +31,7 @@ TestFactory::TestFactory() : m_benchmark(0)
     registerItem("convolution", IFactoryCreateFunction<TestConvolution, IFunctionalTest> );
     registerItem("detectorresolution", IFactoryCreateFunction<TestDetectorResolution, IFunctionalTest> );
     registerItem("mesocrystal", IFactoryCreateFunction<TestMesoCrystal, IFunctionalTest> );
+    registerItem("roottree",    IFactoryCreateFunction<TestRootTree, IFunctionalTest> );
 
     m_benchmark = new TBenchmark();
 }

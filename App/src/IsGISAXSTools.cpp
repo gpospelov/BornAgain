@@ -140,11 +140,11 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
         double x = left_clone->next();
         if(x!=0) {
             x = log10(fabs(x));
-            h1_spect.Fill( x );
         } else {
             // lets put the cases then the difference is exactly 0 to underflow bin
             x = -21.;
         }
+        h1_spect.Fill( x );
     }
 
     gPad->SetLogy();

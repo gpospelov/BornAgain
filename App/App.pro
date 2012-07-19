@@ -31,7 +31,9 @@ SOURCES += \
     src/TestIsGISAXS9.cpp \
     src/TestIsGISAXS10.cpp \
     src/TestMesoCrystal.cpp \
+    src/TestRootTree.cpp \
     src/TestRoughness.cpp \
+    src/TestEventStructure.cpp
 
 HEADERS += \
     inc/App.h \
@@ -53,7 +55,9 @@ HEADERS += \
     inc/TestIsGISAXS9.h \
     inc/TestIsGISAXS10.h \
     inc/TestMesoCrystal.h \
+    inc/TestRootTree.h \
     inc/TestRoughness.h \
+    inc/TestEventStructure.h
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc
 DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc
@@ -103,7 +107,7 @@ CONFIG(JCNS) {
 exists($$(ROOTSYS)/bin/root-config){
   INCLUDEPATH += $$system($ROOTSYS/bin/root-config --incdir)
   #LIBS += $$system($ROOTSYS/bin/root-config --glibs)
-  LIBS += -L$$system($ROOTSYS/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad  -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
+  LIBS += -L$$system($ROOTSYS/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
 
   MYROOTCINT = ${ROOTSYS}/bin/rootcint
 }

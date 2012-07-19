@@ -16,5 +16,7 @@
 
 #include "ISingleton.h"
 #include "DrawHelper.h"
+//#include "OutputData.h"
+#include "TestEventStructure.h"
 
 #endif // APP_H

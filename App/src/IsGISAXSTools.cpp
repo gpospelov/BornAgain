@@ -39,13 +39,13 @@ void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
 void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         const std::string& draw_options, const std::string &histogram_title)
 {
-    OutputData<double> *p_output = output.clone();
+    const OutputData<double> *p_output = &output;
     if (p_output->getDimension() != 2) return;
     // creation of 2D histogram from calculated intensities
 
     p_output->resetIndex();
-    NamedVector<double> *p_y_axis = dynamic_cast<NamedVector<double>*>(p_output->getAxes()[0]);
-    NamedVector<double> *p_z_axis = dynamic_cast<NamedVector<double>*>(p_output->getAxes()[1]);
+    const NamedVector<double> *p_y_axis = dynamic_cast<const NamedVector<double>*>(p_output->getAxes()[0]);
+    const NamedVector<double> *p_z_axis = dynamic_cast<const NamedVector<double>*>(p_output->getAxes()[1]);
     std::string y_axis_name = p_y_axis->getName();
     std::string z_axis_name = p_z_axis->getName();
     size_t y_size = p_y_axis->getSize();
@@ -82,7 +82,7 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
     if( hasMaximum() ) p_hist2D.SetMaximum(m_hist_max);
 
     p_hist2D.DrawCopy(draw_options.c_str());
-    delete p_output;
+    //delete p_output;
 }
 
 
@@ -92,8 +92,6 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
 /* ************************************************************************* */
 void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double> &output, const std::string &draw_options, const std::string &histogram_title)
 {
-    OutputData<double> *output_clone = output.clone();
-
     std::string histo_name = histogram_title;
     if (histo_name.empty()) {
         histo_name = gPad->GetTitle();
@@ -103,14 +101,13 @@ void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double> &outpu
     TH1::SetDefaultBufferSize(5000);
     TH1D h1_spect("h1_spect", histo_name.c_str(), 200, 1.0, -1.0); // xmin > xmax as a sign of automatic binning
 
-    output_clone->resetIndex();
-    while (output_clone->hasNext())
+    output.resetIndex();
+    while (output.hasNext())
     {
-        h1_spect.Fill( output_clone->next() );
+        h1_spect.Fill( output.next() );
     }
 
     h1_spect.DrawCopy(draw_options.c_str());
-    delete output_clone;
 }
 
 
@@ -140,11 +137,11 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
         double x = left_clone->next();
         if(x!=0) {
             x = log10(fabs(x));
-            h1_spect.Fill( x );
         } else {
             // lets put the cases then the difference is exactly 0 to underflow bin
             x = -21.;
         }
+        h1_spect.Fill( x );
     }
 
     gPad->SetLogy();
@@ -181,17 +178,16 @@ void IsGISAXSTools::drawOutputDataDifference2D(const OutputData<double> &left, c
 void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
         const std::string &filename)
 {
-    OutputData<double> *p_output = output.clone();
     std::ofstream file;
     file.open(filename.c_str(), std::ios::out);
     if( !file.is_open() ) {
         throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing.");
     }
-    p_output->resetIndex();
-    size_t row_length = p_output->getAxes()[0]->getSize();
+    output.resetIndex();
+    size_t row_length = output.getAxes()[0]->getSize();
     int counter = 1;
-    while(p_output->hasNext()) {
-        double z_value = p_output->next();
+    while(output.hasNext()) {
+        double z_value = output.next();
         file << std::setprecision(20) << z_value << "    ";
         if(counter%row_length==0) {
             file << std::endl;
@@ -200,7 +196,6 @@ void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
     }
     file.close();
     std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Info. File '" << filename << "' successfully created." << std::endl;
-    delete p_output;
 }
 
 

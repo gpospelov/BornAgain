@@ -48,6 +48,7 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
     m_description["diffuse"]      = "functional test: diffuse scattering from multi layer with roughness";
     m_description["formfactor"]   = "functional test: some formfactor";
     m_description["roughness"]    = "functional test: roughness parameters";
+    m_description["roottree"]     = "functional test: using root trees to read/write data from/to disk";
 
 }
 

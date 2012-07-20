@@ -24,8 +24,8 @@ public:
     NamedVectorBase(std::string name) : m_name(name) {}
     virtual ~NamedVectorBase() {}
 
-    virtual size_t getSize()=0;
-    std::string getName() { return m_name; }
+    virtual size_t getSize() const=0;
+    std::string getName() const { return m_name; }
     void setName(std::string name) { m_name = name; }
     virtual NamedVectorBase* clone()=0;
 
@@ -40,11 +40,12 @@ public:
     NamedVector(std::string name, T start, T end, size_t size);
     ~NamedVector();
 
-    size_t getSize() { return m_value_vector.size(); }
+    size_t getSize() const { return m_value_vector.size(); }
     virtual NamedVector<T>* clone();
     void initElements(T start, T end, size_t size);
     void push_back(T element) { m_value_vector.push_back(element); }
     T& operator[](size_t index) { return m_value_vector.at(index); }
+    const T& operator[](size_t index) const { return m_value_vector.at(index); }
 
 private:
     std::vector<T> m_value_vector;

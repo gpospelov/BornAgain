@@ -18,12 +18,6 @@
 #include "TVector3.h"
 #include "TRandom.h"
 
-// сравнение 1d и 2d of two output data classes
-// случай с qx,qy=0
-// 45 degree
-// output data: const index
-// output data: export to *double, export to numpy array
-// trree example simple, complex
 
 
 TestIsGISAXS9::TestIsGISAXS9()
@@ -93,7 +87,7 @@ void TestIsGISAXS9::finalise()
         c1->cd(2); gPad->SetLogz();
         IsGISAXSTools::drawOutputDataInPad(*isgi_data, "CONT4 Z", "IsGisaxs pyramid FF");
 
-        IsGISAXSTools::resetMinimum(); IsGISAXSTools::resetMaximum();
+        //IsGISAXSTools::resetMinimum(); IsGISAXSTools::resetMaximum();
         IsGISAXSTools::setMinimum(-0.0001);
         IsGISAXSTools::setMaximum(0.0001);
 

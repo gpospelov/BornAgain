@@ -300,7 +300,7 @@ void TestFresnelCoeff::draw_roughness_set()
     m_coeffs->resetIndex();
     MultiIndex& index = m_coeffs->getIndex();
     //NamedVector<double> *p_alpha = dynamic_cast<NamedVector<double>*>(m_coeffs->getAxis("alpha_i"));
-    NamedVector<double> *p_rough = dynamic_cast<NamedVector<double>*>(m_coeffs->getAxis("roughness"));
+    const NamedVector<double> *p_rough = dynamic_cast<const NamedVector<double>*>(m_coeffs->getAxis("roughness"));
     size_t nroughness = p_rough->getSize();
 
 

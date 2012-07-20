@@ -1,5 +1,5 @@
-#ifndef TESTISGISAXS10_H_
-#define TESTISGISAXS10_H_
+#ifndef TESTFITTINGMODULE_H_
+#define TESTFITTINGMODULE_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,28 +9,30 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestIsGISAXS10.h
-//! @brief  Definition of TestIsGISAXS10 class for IsGISAXS validation
-//! @author herk
-//! @date   19.06.2012
+//! @file   TestFittingModule.h
+//! @brief  Definition of
+//! @author Scientific Computing Group at FRM II
+//! @date   Jul 20, 2012
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 
-
-class TestIsGISAXS10 : public IFunctionalTest
+class TestFittingModule : public IFunctionalTest
 {
 public:
-	TestIsGISAXS10();
-    virtual ~TestIsGISAXS10();
+    TestFittingModule();
+    virtual ~TestFittingModule();
     virtual void execute();
 
 private:
     void initializeSample();
-    void initializeSample2();
-    OutputData<double> *mp_intensity_output;
+    void generateRealData(double noise_factor);
+    OutputData<double> *mp_exact_data;
+    OutputData<double> *mp_real_data;
+    OutputData<double> *mp_simulated_data;
     ISample *mp_sample;
 };
 
-#endif /* TESTISGISAXS10_H_ */
+
+#endif /* TESTFITTINGMODULE_H_ */

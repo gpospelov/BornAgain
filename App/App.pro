@@ -24,6 +24,7 @@ SOURCES += \
     src/TestDetectorResolution.cpp \
     src/TestDiffuseReflection.cpp \
     src/TestFactory.cpp \
+    src/TestFittingModule.cpp \
     src/TestFormFactor.cpp \
     src/TestFresnelCoeff.cpp \
     src/TestIsGISAXS1.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
     inc/TestDetectorResolution.h \
     inc/TestDiffuseReflection.h \
     inc/TestFactory.h \
+    inc/TestFittingModule.h \
     inc/TestFormFactor.h \
     inc/TestFresnelCoeff.h \
     inc/TestIsGISAXS1.h \

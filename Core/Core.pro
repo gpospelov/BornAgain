@@ -20,6 +20,7 @@ QMAKE_EXTENSION_SHLIB = so
 # -----------------------------------------------------------------------------
 SOURCES += \
     Algorithms/src/Beam.cpp \
+    Algorithms/src/ChiSquaredModule.cpp \
     Algorithms/src/ConvolutionDetectorResolution.cpp \
     Algorithms/src/DecouplingApproximationStrategy.cpp \
     Algorithms/src/Detector.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
     Algorithms/src/Experiment.cpp \
     Algorithms/src/FormFactorDecoratorTransformation.cpp \
     Algorithms/src/GISASExperiment.cpp \
+    Algorithms/src/IFittingDataSelector.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
@@ -95,6 +97,7 @@ SOURCES += \
 
 HEADERS += \
     Algorithms/inc/Beam.h \
+    Algorithms/inc/ChiSquaredModule.h \
     Algorithms/inc/ConvolutionDetectorResolution.h \
     Algorithms/inc/DecouplingApproximationStrategy.h \
     Algorithms/inc/Detector.h \
@@ -109,7 +112,9 @@ HEADERS += \
     Algorithms/inc/FormFactorDecoratorTransformation.h \
     Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/IDetectorResolution.h \
+    Algorithms/inc/IFittingDataSelector.h \
     Algorithms/inc/ISimulation.h \
+    Algorithms/inc/ISquaredFunction.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
     Algorithms/inc/LayerDecoratorDWBASimulation.h \
     Algorithms/inc/LayerDWBASimulation.h \

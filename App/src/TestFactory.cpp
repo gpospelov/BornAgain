@@ -12,6 +12,8 @@
 #include "TestMesoCrystal.h"
 #include "TestRootTree.h"
 #include "TestFittingModule.h"
+#include "TestPerformance.h"
+
 
 #include "TBenchmark.h"
 
@@ -33,7 +35,8 @@ TestFactory::TestFactory() : m_benchmark(0)
     registerItem("detectorresolution", IFactoryCreateFunction<TestDetectorResolution, IFunctionalTest> );
     registerItem("mesocrystal", IFactoryCreateFunction<TestMesoCrystal, IFunctionalTest> );
     registerItem("roottree",    IFactoryCreateFunction<TestRootTree, IFunctionalTest> );
-    registerItem("fitting", IFactoryCreateFunction<TestFittingModule, IFunctionalTest> );
+    registerItem("fitting",     IFactoryCreateFunction<TestFittingModule, IFunctionalTest> );
+    registerItem("performance", IFactoryCreateFunction<TestPerformance, IFunctionalTest> );
 
     m_benchmark = new TBenchmark();
 }

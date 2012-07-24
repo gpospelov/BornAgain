@@ -49,6 +49,7 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
     m_description["formfactor"]   = "functional test: some formfactor";
     m_description["roughness"]    = "functional test: roughness parameters";
     m_description["roottree"]     = "functional test: using root trees to read/write data from/to disk";
+    m_description["performance"]  = "functional test: run performance test for several predefined tasks";
 
 }
 

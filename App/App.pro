@@ -34,7 +34,8 @@ SOURCES += \
     src/TestIsGISAXS10.cpp \
     src/TestMesoCrystal.cpp \
     src/TestRootTree.cpp \
-    src/TestRoughness.cpp
+    src/TestRoughness.cpp \
+    src/TestPerformance.cpp
 
 HEADERS += \
     inc/App.h \
@@ -59,7 +60,8 @@ HEADERS += \
     inc/TestIsGISAXS10.h \
     inc/TestMesoCrystal.h \
     inc/TestRootTree.h \
-    inc/TestRoughness.h
+    inc/TestRoughness.h \
+    inc/TestPerformance.h
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
 DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc

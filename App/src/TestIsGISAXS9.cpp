@@ -20,6 +20,7 @@
 
 
 
+
 TestIsGISAXS9::TestIsGISAXS9()
     : m_sample(0)
 {
@@ -27,29 +28,39 @@ TestIsGISAXS9::TestIsGISAXS9()
 
 TestIsGISAXS9::~TestIsGISAXS9()
 {
-    delete m_sample;
+    clear();
+}
+
+
+void TestIsGISAXS9::clear()
+{
+    delete m_sample; m_sample = 0;
     for(std::vector<OutputData<double> *>::iterator it=m_results.begin(); it!=m_results.end(); it++) {
         delete (*it);
     }
+    m_results.clear();
 }
 
 
 
 void TestIsGISAXS9::execute()
 {
+    clear();
+
     // setting experiment
     GISASExperiment experiment;
     experiment.setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
             , 0.0*Units::degree, 2.0*Units::degree, 100, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
+    // pyramid
     initializeSample_Pyramid();
     experiment.setSample(m_sample);
     experiment.runSimulation();
-
     m_results.push_back( experiment.getOutputData() );
     IsGISAXSTools::writeOutputDataToFile(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
 
+    // rotated pyramid
     initializeSample_RotatedPyramid();
     experiment.setSample(m_sample);
     experiment.runSimulation();

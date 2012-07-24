@@ -15,13 +15,15 @@
 //! @date   Jul 17, 2012
 
 #include "NanoParticle.h"
+#include "Types.h"
+#include <vector>
 
 class LatticeBasis : public NanoParticle
 {
 public:
     LatticeBasis();
     LatticeBasis(const NanoParticle &particle);
-    LatticeBasis(const NanoParticle &particle, std::vector<kvector_t> positions);
+    LatticeBasis(const NanoParticle &particle, std::vector<kvector_t > positions);
     virtual ~LatticeBasis();
     virtual LatticeBasis *clone() const;
 

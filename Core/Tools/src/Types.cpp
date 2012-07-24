@@ -23,19 +23,6 @@ template<typename T> KVector<T> &KVector<T>::operator-=(const KVector<T> &b)
     return *this;
 }
 
-template<typename T> KVector<T> operator+(const KVector<T> &a, const KVector<T> &b)
-{
-    KVector<T> target = a;
-    target += b;
-    return target;
-}
-
-template<typename T> KVector<T> operator-(const KVector<T> &a, const KVector<T> &b)
-{
-    KVector<T> target = a;
-    target -= b;
-    return target;
-}
 
 template<typename T>
 std::ostream &operator<<(std::ostream &o, const KVector<T>  &a)

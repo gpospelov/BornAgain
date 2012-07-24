@@ -92,7 +92,7 @@ void TestFactory::profile(std::string name)
     }
 
     test->initialise();
-    for(int i=0; i<1; i++) test->execute();
+    for(int i=0; i<10; i++) test->execute();
 
 }
 

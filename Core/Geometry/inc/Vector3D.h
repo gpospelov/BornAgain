@@ -35,63 +35,63 @@ namespace Geometry {
   template<class T>
   class Vector3D : public BasicVector3D<T> {};
 
-  /**
-   * Geometrical 3D Vector with components of float type.
-   *
-   * @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch>
-   * @ingroup geometry
-   */
-  template<>
-  class Vector3D<float> : public BasicVector3D<float> {
-  public:
-    /**
-     * Default constructor. */
-    Vector3D() {}
+//  /**
+//   * Geometrical 3D Vector with components of float type.
+//   *
+//   * @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch>
+//   * @ingroup geometry
+//   */
+//  template<>
+//  class Vector3D<float> : public BasicVector3D<float> {
+//  public:
+//    /**
+//     * Default constructor. */
+//    Vector3D() {}
 
-    /**
-     * Constructor from three numbers. */
-    Vector3D(float x1, float y1, float z1) : BasicVector3D<float>(x1,y1,z1) {}
+//    /**
+//     * Constructor from three numbers. */
+//    Vector3D(float x1, float y1, float z1) : BasicVector3D<float>(x1,y1,z1) {}
 
-    /**
-     * Constructor from array of floats. */
-    explicit Vector3D(const float * a)
-      : BasicVector3D<float>(a[0],a[1],a[2]) {}
+//    /**
+//     * Constructor from array of floats. */
+//    explicit Vector3D(const float * a)
+//      : BasicVector3D<float>(a[0],a[1],a[2]) {}
 
-    /**
-     * Copy constructor. */
-    Vector3D(const Vector3D<float> & v) : BasicVector3D<float>(v) {}
+//    /**
+//     * Copy constructor. */
+//    Vector3D(const Vector3D<float> & v) : BasicVector3D<float>(v) {}
 
-    /**
-     * Constructor from BasicVector3D<float>. */
-    Vector3D(const BasicVector3D<float> & v) : BasicVector3D<float>(v) {}
+//    /**
+//     * Constructor from BasicVector3D<float>. */
+//    Vector3D(const BasicVector3D<float> & v) : BasicVector3D<float>(v) {}
 
-    /**
-     * Destructor. */
-    ~Vector3D() {}
+//    /**
+//     * Destructor. */
+//    ~Vector3D() {}
 
-    /**
-     * Assignment. */
-    Vector3D<float> & operator=(const Vector3D<float> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
-    }
+//    /**
+//     * Assignment. */
+//    Vector3D<float> & operator=(const Vector3D<float> & v) {
+//      set(v.x(),v.y(),v.z()); return *this;
+//    }
 
-    /**
-     * Assignment from BasicVector3D<float>. */
-    Vector3D<float> & operator=(const BasicVector3D<float> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
-    }
+//    /**
+//     * Assignment from BasicVector3D<float>. */
+//    Vector3D<float> & operator=(const BasicVector3D<float> & v) {
+//      set(v.x(),v.y(),v.z()); return *this;
+//    }
 
-    /**
-     * Transformation by Transform3D. */
-    Vector3D<float> & transform(const Transform3D & m);
-  };
+//    /**
+//     * Transformation by Transform3D. */
+//    Vector3D<float> & transform(const Transform3D & m);
+//  };
 
-  /**
-   * Transformation of Vector<float> by Transform3D.
-   * @relates Vector3D
-   */
-  Vector3D<float>
-  operator*(const Transform3D & m, const Vector3D<float> & v);
+//  /**
+//   * Transformation of Vector<float> by Transform3D.
+//   * @relates Vector3D
+//   */
+//  Vector3D<float>
+//  operator*(const Transform3D & m, const Vector3D<float> & v);
 
   /**
    * Geometrical 3D Vector with components of double type.
@@ -110,10 +110,10 @@ namespace Geometry {
      * Constructor from three numbers. */
     Vector3D(double x1, double y1, double z1) : BasicVector3D<double>(x1,y1,z1) {}
 
-    /**
-     * Constructor from array of floats. */
-    explicit Vector3D(const float * a)
-      : BasicVector3D<double>(a[0],a[1],a[2]) {}
+//    /**
+//     * Constructor from array of floats. */
+//    explicit Vector3D(const float * a)
+//      : BasicVector3D<double>(a[0],a[1],a[2]) {}
 
     /**
      * Constructor from array of doubles. */
@@ -124,9 +124,9 @@ namespace Geometry {
      * Copy constructor. */
     Vector3D(const Vector3D<double> & v) : BasicVector3D<double>(v) {}
 
-    /**
-     * Constructor from BasicVector3D<float>. */
-    Vector3D(const BasicVector3D<float> & v) : BasicVector3D<double>(v) {}
+//    /**
+//     * Constructor from BasicVector3D<float>. */
+//    Vector3D(const BasicVector3D<float> & v) : BasicVector3D<double>(v) {}
 
     /**
      * Constructor from BasicVector3D<double>. */
@@ -157,11 +157,11 @@ namespace Geometry {
       set(v.x(),v.y(),v.z()); return *this;
     }
 
-    /**
-     * Assignment from BasicVector3D<float>. */
-    Vector3D<double> & operator=(const BasicVector3D<float> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
-    }
+//    /**
+//     * Assignment from BasicVector3D<float>. */
+//    Vector3D<double> & operator=(const BasicVector3D<float> & v) {
+//      set(v.x(),v.y(),v.z()); return *this;
+//    }
 
     /**
      * Assignment from BasicVector3D<double>. */

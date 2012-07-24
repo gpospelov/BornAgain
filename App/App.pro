@@ -23,6 +23,7 @@ SOURCES += \
     src/TestConvolution.cpp \
     src/TestDetectorResolution.cpp \
     src/TestDiffuseReflection.cpp \
+    src/TestEventStructure.cpp \
     src/TestFactory.cpp \
     src/TestFormFactor.cpp \
     src/TestFresnelCoeff.cpp \
@@ -32,8 +33,7 @@ SOURCES += \
     src/TestIsGISAXS10.cpp \
     src/TestMesoCrystal.cpp \
     src/TestRootTree.cpp \
-    src/TestRoughness.cpp \
-    src/TestEventStructure.cpp
+    src/TestRoughness.cpp
 
 HEADERS += \
     inc/App.h \
@@ -47,6 +47,7 @@ HEADERS += \
     inc/TestConvolution.h \
     inc/TestDetectorResolution.h \
     inc/TestDiffuseReflection.h \
+    inc/TestEventStructure.h \
     inc/TestFactory.h \
     inc/TestFormFactor.h \
     inc/TestFresnelCoeff.h \
@@ -56,13 +57,30 @@ HEADERS += \
     inc/TestIsGISAXS10.h \
     inc/TestMesoCrystal.h \
     inc/TestRootTree.h \
-    inc/TestRoughness.h \
-    inc/TestEventStructure.h
+    inc/TestRoughness.h
 
-INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc
-DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc
+INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
+DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
 
 OBJECTS_DIR = obj
+
+
+#    pythonvers=$$system("python -c 'import sys; sys.stdout.write(sys.version[:3])'")
+#    pythonsysincdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
+#    #pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib/python\" + sys.version[:3])'")
+#    pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'")
+#    #message(we have python)
+#    #message($$pythonvers)
+#    #message($$pythonsysincdir)
+#    #message($$pythonsyslibdir)
+#    lessThan(pythonvers, 2.6): error("GISASFW requires python 2.6 or greater")
+#    INCLUDEPATH += $$pythonsysincdir
+#    LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
+
+#    # we need to know to location of numpy
+#    pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")
+#    INCLUDEPATH += $$pythonnumpy
+
 
 # -----------------------------------------------------------------------------
 # generating package dependency flags

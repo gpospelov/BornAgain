@@ -14,7 +14,7 @@
 #ifndef GEOMETRY_NORMAL3D_H
 #define GEOMETRY_NORMAL3D_H
 
-#include <iosfwd>
+//#include <iosfwd>
 //#include "CLHEP/Geometry/defs.h"
 //#include "CLHEP/Vector/ThreeVector.h"
 //#include "CLHEP/Geometry/BasicVector3D.h"
@@ -36,63 +36,63 @@ namespace Geometry {
   template<class T>
   class Normal3D : public BasicVector3D<T> {};
 
-  /**
-   * Geometrical 3D Normal with components of float type.
-   *
-   * @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch>
-   * @ingroup geometry
-   */
-  template<>
-  class Normal3D<float> : public BasicVector3D<float> {
-  public:
-    /**
-     * Default constructor. */
-    Normal3D() {}
+//  /**
+//   * Geometrical 3D Normal with components of float type.
+//   *
+//   * @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch>
+//   * @ingroup geometry
+//   */
+//  template<>
+//  class Normal3D<float> : public BasicVector3D<float> {
+//  public:
+//    /**
+//     * Default constructor. */
+//    Normal3D() {}
 
-    /**
-     * Constructor from three numbers. */
-    Normal3D(float x1, float y1, float z1) : BasicVector3D<float>(x1,y1,z1) {}
+//    /**
+//     * Constructor from three numbers. */
+//    Normal3D(float x1, float y1, float z1) : BasicVector3D<float>(x1,y1,z1) {}
 
-    /**
-     * Constructor from array of floats. */
-    explicit Normal3D(const float * a)
-      : BasicVector3D<float>(a[0],a[1],a[2]) {}
+//    /**
+//     * Constructor from array of floats. */
+//    explicit Normal3D(const float * a)
+//      : BasicVector3D<float>(a[0],a[1],a[2]) {}
 
-    /**
-     * Copy constructor. */
-    Normal3D(const Normal3D<float> & v) : BasicVector3D<float>(v) {}
+//    /**
+//     * Copy constructor. */
+//    Normal3D(const Normal3D<float> & v) : BasicVector3D<float>(v) {}
 
-    /**
-     * Constructor from BasicVector3D<float>. */
-    Normal3D(const BasicVector3D<float> & v) : BasicVector3D<float>(v) {}
+//    /**
+//     * Constructor from BasicVector3D<float>. */
+//    Normal3D(const BasicVector3D<float> & v) : BasicVector3D<float>(v) {}
 
-    /**
-     * Destructor. */
-    ~Normal3D() {}
+//    /**
+//     * Destructor. */
+//    ~Normal3D() {}
 
-    /**
-     * Assignment. */
-    Normal3D<float> & operator=(const Normal3D<float> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
-    }
+//    /**
+//     * Assignment. */
+//    Normal3D<float> & operator=(const Normal3D<float> & v) {
+//      set(v.x(),v.y(),v.z()); return *this;
+//    }
 
-    /**
-     * Assignment from BasicVector3D<float>. */
-    Normal3D<float> & operator=(const BasicVector3D<float> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
-    }
+//    /**
+//     * Assignment from BasicVector3D<float>. */
+//    Normal3D<float> & operator=(const BasicVector3D<float> & v) {
+//      set(v.x(),v.y(),v.z()); return *this;
+//    }
 
-    /**
-     * Transformation by Transform3D. */
-    Normal3D<float> & transform(const Transform3D & m);
-  };
+//    /**
+//     * Transformation by Transform3D. */
+//    Normal3D<float> & transform(const Transform3D & m);
+//  };
 
-  /**
-   * Transformation of Normal<float> by Transform3D.
-   * @relates Normal3D
-   */
-  Normal3D<float>
-  operator*(const Transform3D & m, const Normal3D<float> & n);
+//  /**
+//   * Transformation of Normal<float> by Transform3D.
+//   * @relates Normal3D
+//   */
+//  Normal3D<float>
+//  operator*(const Transform3D & m, const Normal3D<float> & n);
 
   /**
    * Geometrical 3D Normal with components of double type.
@@ -111,10 +111,10 @@ namespace Geometry {
      * Constructor from three numbers. */
     Normal3D(double x1, double y1, double z1) : BasicVector3D<double>(x1,y1,z1) {}
 
-    /**
-     * Constructor from array of floats. */
-    explicit Normal3D(const float * a)
-      : BasicVector3D<double>(a[0],a[1],a[2]) {}
+//    /**
+//     * Constructor from array of floats. */
+//    explicit Normal3D(const float * a)
+//      : BasicVector3D<double>(a[0],a[1],a[2]) {}
 
     /**
      * Constructor from array of doubles. */
@@ -125,9 +125,9 @@ namespace Geometry {
      * Copy constructor. */
     Normal3D(const Normal3D<double> & v) : BasicVector3D<double>(v) {}
 
-    /**
-     * Constructor from BasicVector3D<float>. */
-    Normal3D(const BasicVector3D<float> & v) : BasicVector3D<double>(v) {}
+//    /**
+//     * Constructor from BasicVector3D<float>. */
+//    Normal3D(const BasicVector3D<float> & v) : BasicVector3D<double>(v) {}
 
     /**
      * Constructor from BasicVector3D<double>. */
@@ -158,11 +158,11 @@ namespace Geometry {
       set(v.x(),v.y(),v.z()); return *this;
     }
 
-    /**
-     * Assignment from BasicVector3D<float>. */
-    Normal3D<double> & operator=(const BasicVector3D<float> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
-    }
+//    /**
+//     * Assignment from BasicVector3D<float>. */
+//    Normal3D<double> & operator=(const BasicVector3D<float> & v) {
+//      set(v.x(),v.y(),v.z()); return *this;
+//    }
 
     /**
      * Assignment from BasicVector3D<double>. */

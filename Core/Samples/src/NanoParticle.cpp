@@ -7,6 +7,15 @@ NanoParticle::NanoParticle(complex_t refractive_index, IFormFactor *p_form_facto
 {
 }
 
+NanoParticle::NanoParticle(complex_t refractive_index, const IFormFactor &p_form_factor)
+: m_ambient_refractive_index(complex_t(1.0, 0.0))
+, m_refractive_index(refractive_index)
+, mp_form_factor(0)
+{
+    mp_form_factor = p_form_factor.clone();
+}
+
+
 NanoParticle::~NanoParticle()
 {
     delete mp_form_factor;

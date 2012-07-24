@@ -77,15 +77,35 @@ private:
 template<typename T> KVector<T> operator+(const KVector<T> &a, const KVector<T> &b);
 template<typename T> KVector<T> operator-(const KVector<T> &a, const KVector<T> &b);
 
-//template<typename T>
-//inline KVector<T> LambdaAlphaPhi(T lambda, T alpha, T phi)
-//{
-//    KVector<T> k;
-//    k.setLambdaAlphaPhi(lambda, alpha, phi);
-//}
+
+template<typename T> KVector<T> operator+(const KVector<T> &a, const KVector<T> &b)
+{
+    KVector<T> target = a;
+    target += b;
+    return target;
+}
+
+template<typename T> KVector<T> operator-(const KVector<T> &a, const KVector<T> &b)
+{
+    KVector<T> target = a;
+    target -= b;
+    return target;
+}
+
+
 
 
 typedef KVector<double>  kvector_t;
+
+#include "Point3D.h"
+#include "BasicVector3D.h"
+#include "Vector3D.h"
+#include "Transform3D.h"
+
+typedef Geometry::Point3D<double > point3d_t;
+typedef Geometry::BasicVector3D<double > basicvector3d_t;
+typedef Geometry::Vector3D<double > vector3d_t;
+
 
 //typedef KVector<complex_t> complex_vector_t;
 //
@@ -115,4 +135,46 @@ inline kvector_t operator*(double scalar, kvector_t vector)
     double z = scalar*vector.z();
     return kvector_t(x, y, z);
 }
+
+inline kvector_t
+operator+(const kvector_t & v) { return v; }
+
+inline kvector_t
+operator+(const kvector_t & a,const kvector_t & b) {
+  return kvector_t(a.x()+b.x(), a.y()+b.y(), a.z()+b.z());
+}
+
+inline kvector_t
+operator-(const kvector_t & v) {
+  return kvector_t(-v.x(), -v.y(), -v.z());
+}
+
+inline kvector_t
+operator-(const kvector_t & a,const kvector_t & b) {
+  return kvector_t(a.x()-b.x(), a.y()-b.y(), a.z()-b.z());
+}
+
+//inline kvector_t
+//operator*(const kvector_t & v, double a) {
+//  return kvector_t(v.x()*a, v.y()*a, v.z()*a);
+//}
+
+inline double
+operator*(const kvector_t & a,const kvector_t & b) {
+  return DotProduct(a,b);
+}
+
+//inline kvector_t
+//operator*(double a, const kvector_t & v) {
+//  return kvector_t(a*v.x(), a*v.y(), a*v.z());
+//}
+
+//inline kvector_t
+//operator/(const kvector_t & v, double a) {
+//  return kvector_t(v.x()/a, v.y()/a, v.z()/a);
+//}
+
+
+
+
 #endif // TYPES_H

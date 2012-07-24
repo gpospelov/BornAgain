@@ -53,16 +53,16 @@ namespace Geometry {
      * Constructor from three numbers. */
     BasicVector3D(T x1, T y1, T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
-    /**
-     * Copy constructor.
-     * Note: BasicVector3D<double> has constructors
-     * from BasicVector3D<double> (provided by compiler) and
-     * from BasicVector3D<float> (defined in this file);
-     * BasicVector3D<float> has only the last one.
-     */
-    BasicVector3D(const BasicVector3D<float> & v) {
-      v_[0] = v.x(); v_[1] = v.y(); v_[2] = v.z();
-    }
+//    /**
+//     * Copy constructor.
+//     * Note: BasicVector3D<double> has constructors
+//     * from BasicVector3D<double> (provided by compiler) and
+//     * from BasicVector3D<float> (defined in this file);
+//     * BasicVector3D<float> has only the last one.
+//     */
+//    BasicVector3D(const BasicVector3D<float> & v) {
+//      v_[0] = v.x(); v_[1] = v.y(); v_[2] = v.z();
+//    }
 
     /**
      * Destructor. */
@@ -72,13 +72,13 @@ namespace Geometry {
     // Interface to "good old C"
     // -------------------------
 
-    /**
-     * Conversion (cast) to ordinary array. */
-    operator T * () { return v_; }
+//    /**
+//     * Conversion (cast) to ordinary array. */
+//    operator T * () { return v_; }
 
-    /**
-     * Conversion (cast) to ordinary const array. */
-    operator const T * () const { return v_; }
+//    /**
+//     * Conversion (cast) to ordinary const array. */
+//    operator const T * () const { return v_; }
 
 //    /**
 //     * Conversion (cast) to CLHEP::Hep3Vector.
@@ -121,16 +121,16 @@ namespace Geometry {
     // Subscripting
     // ------------
 
-    /**
-     * Gets components by index. */
-    T operator()(int i) const { return v_[i]; }
+//    /**
+//     * Gets components by index. */
+//    T operator()(int i) const { return v_[i]; }
     /**
      * Gets components by index. */
     T operator[](int i) const { return v_[i]; }
     
-    /**
-     * Sets components by index. */
-    T & operator()(int i) { return v_[i]; }
+//    /**
+//     * Sets components by index. */
+//    T & operator()(int i) { return v_[i]; }
     /**
      * Sets components by index. */
     T & operator[](int i) { return v_[i]; }
@@ -249,19 +249,19 @@ namespace Geometry {
     // Pseudo rapidity
     // ---------------
 
-    /**
-     * Gets pseudo-rapidity: -ln(std::tan(theta/2)) */
-    T pseudoRapidity() const;
-    /**
-     * Gets pseudo-rapidity. */
-    T eta() const { return pseudoRapidity(); }
-    /**
-     * Gets pseudo-rapidity. */
-    T getEta() const { return pseudoRapidity(); }
+//    /**
+//     * Gets pseudo-rapidity: -ln(std::tan(theta/2)) */
+//    T pseudoRapidity() const;
+//    /**
+//     * Gets pseudo-rapidity. */
+//    T eta() const { return pseudoRapidity(); }
+//    /**
+//     * Gets pseudo-rapidity. */
+//    T getEta() const { return pseudoRapidity(); }
 
-    /**
-     * Sets pseudo-rapidity, keeping magnitude and phi fixed. */
-    void setEta(T a);
+//    /**
+//     * Sets pseudo-rapidity, keeping magnitude and phi fixed. */
+//    void setEta(T a);
 
     // -------------------
     // Combine two vectors
@@ -343,113 +343,113 @@ namespace Geometry {
     BasicVector3D<T> & rotate(T a, const BasicVector3D<T> & v);
   };
 
-  /*************************************************************************
-   *                                                                       *  
-   * Non-member functions for BasicVector3D<float>                         *
-   *                                                                       *  
-   *************************************************************************/
+//  /*************************************************************************
+//   *                                                                       *
+//   * Non-member functions for BasicVector3D<float>                         *
+//   *                                                                       *
+//   *************************************************************************/
 
-  /**
-   * Output to stream.
-   * @relates BasicVector3D
-   */
-  std::ostream &
-  operator<<(std::ostream &, const BasicVector3D<float> &);
+//  /**
+//   * Output to stream.
+//   * @relates BasicVector3D
+//   */
+//  std::ostream &
+//  operator<<(std::ostream &, const BasicVector3D<float> &);
 
-  /**
-   * Input from stream.
-   * @relates BasicVector3D
-   */
-  std::istream &
-  operator>>(std::istream &, BasicVector3D<float> &);
+//  /**
+//   * Input from stream.
+//   * @relates BasicVector3D
+//   */
+//  std::istream &
+//  operator>>(std::istream &, BasicVector3D<float> &);
 
-  /**
-   * Unary plus.
-   * @relates BasicVector3D
-   */
-  inline BasicVector3D<float>
-  operator+(const BasicVector3D<float> & v) { return v; }
+//  /**
+//   * Unary plus.
+//   * @relates BasicVector3D
+//   */
+//  inline BasicVector3D<float>
+//  operator+(const BasicVector3D<float> & v) { return v; }
 
-  /**
-   * Addition of two vectors.
-   * @relates BasicVector3D
-   */
-  inline BasicVector3D<float>
-  operator+(const BasicVector3D<float> & a, const BasicVector3D<float> & b) {
-    return BasicVector3D<float>(a.x()+b.x(), a.y()+b.y(), a.z()+b.z());
-  }
+//  /**
+//   * Addition of two vectors.
+//   * @relates BasicVector3D
+//   */
+//  inline BasicVector3D<float>
+//  operator+(const BasicVector3D<float> & a, const BasicVector3D<float> & b) {
+//    return BasicVector3D<float>(a.x()+b.x(), a.y()+b.y(), a.z()+b.z());
+//  }
 
-  /**
-   * Unary minus.
-   * @relates BasicVector3D
-   */
-  inline BasicVector3D<float>
-  operator-(const BasicVector3D<float> & v) {
-    return BasicVector3D<float>(-v.x(), -v.y(), -v.z());
-  }
+//  /**
+//   * Unary minus.
+//   * @relates BasicVector3D
+//   */
+//  inline BasicVector3D<float>
+//  operator-(const BasicVector3D<float> & v) {
+//    return BasicVector3D<float>(-v.x(), -v.y(), -v.z());
+//  }
 
-  /**
-   * Subtraction of two vectors.
-   * @relates BasicVector3D
-   */
-  inline BasicVector3D<float>
-  operator-(const BasicVector3D<float> & a, const BasicVector3D<float> & b) {
-    return BasicVector3D<float>(a.x()-b.x(), a.y()-b.y(), a.z()-b.z());
-  }
+//  /**
+//   * Subtraction of two vectors.
+//   * @relates BasicVector3D
+//   */
+//  inline BasicVector3D<float>
+//  operator-(const BasicVector3D<float> & a, const BasicVector3D<float> & b) {
+//    return BasicVector3D<float>(a.x()-b.x(), a.y()-b.y(), a.z()-b.z());
+//  }
 
-  /**
-   * Multiplication vector by scalar.
-   * @relates BasicVector3D
-   */
-  inline BasicVector3D<float>
-  operator*(const BasicVector3D<float> & v, double a) {
-    return BasicVector3D<float>(v.x()*static_cast<float>(a), v.y()*static_cast<float>(a), v.z()*static_cast<float>(a));
-  }
+//  /**
+//   * Multiplication vector by scalar.
+//   * @relates BasicVector3D
+//   */
+//  inline BasicVector3D<float>
+//  operator*(const BasicVector3D<float> & v, double a) {
+//    return BasicVector3D<float>(v.x()*static_cast<float>(a), v.y()*static_cast<float>(a), v.z()*static_cast<float>(a));
+//  }
 
-  /**
-   * Scalar product of two vectors.
-   * @relates BasicVector3D
-   */
-  inline float
-  operator*(const BasicVector3D<float> & a, const BasicVector3D<float> & b) {
-    return a.dot(b);
-  }
+//  /**
+//   * Scalar product of two vectors.
+//   * @relates BasicVector3D
+//   */
+//  inline float
+//  operator*(const BasicVector3D<float> & a, const BasicVector3D<float> & b) {
+//    return a.dot(b);
+//  }
 
-  /**
-   * Multiplication scalar by vector.
-   * @relates BasicVector3D
-   */
-  inline BasicVector3D<float>
-  operator*(double a, const BasicVector3D<float> & v) {
-    return BasicVector3D<float>(static_cast<float>(a)*v.x(), static_cast<float>(a)*v.y(), static_cast<float>(a)*v.z());
-  }
+//  /**
+//   * Multiplication scalar by vector.
+//   * @relates BasicVector3D
+//   */
+//  inline BasicVector3D<float>
+//  operator*(double a, const BasicVector3D<float> & v) {
+//    return BasicVector3D<float>(static_cast<float>(a)*v.x(), static_cast<float>(a)*v.y(), static_cast<float>(a)*v.z());
+//  }
 
-  /**
-   * Division vector by scalar.
-   * @relates BasicVector3D
-   */
-  inline BasicVector3D<float>
-  operator/(const BasicVector3D<float> & v, double a) {
-    return BasicVector3D<float>(v.x()/static_cast<float>(a), v.y()/static_cast<float>(a), v.z()/static_cast<float>(a));
-  }
+//  /**
+//   * Division vector by scalar.
+//   * @relates BasicVector3D
+//   */
+//  inline BasicVector3D<float>
+//  operator/(const BasicVector3D<float> & v, double a) {
+//    return BasicVector3D<float>(v.x()/static_cast<float>(a), v.y()/static_cast<float>(a), v.z()/static_cast<float>(a));
+//  }
   
-  /**
-   * Comparison of two vectors for equality. 
-   * @relates BasicVector3D
-   */
-  inline bool
-  operator==(const BasicVector3D<float> & a, const BasicVector3D<float> & b) {
-    return (a.x()==b.x() && a.y()==b.y() && a.z()==b.z());
-  }
+//  /**
+//   * Comparison of two vectors for equality.
+//   * @relates BasicVector3D
+//   */
+//  inline bool
+//  operator==(const BasicVector3D<float> & a, const BasicVector3D<float> & b) {
+//    return (a.x()==b.x() && a.y()==b.y() && a.z()==b.z());
+//  }
 
-  /**
-   * Comparison of two vectors for inequality. 
-   * @relates BasicVector3D
-   */
-  inline bool
-  operator!=(const BasicVector3D<float> & a, const BasicVector3D<float> & b) {
-    return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z());
-  }
+//  /**
+//   * Comparison of two vectors for inequality.
+//   * @relates BasicVector3D
+//   */
+//  inline bool
+//  operator!=(const BasicVector3D<float> & a, const BasicVector3D<float> & b) {
+//    return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z());
+//  }
 
   /*************************************************************************
    *                                                                       *  
@@ -464,12 +464,12 @@ namespace Geometry {
   std::ostream &
   operator<<(std::ostream &, const BasicVector3D<double> &);
 
-  /**
-   * Input from stream.
-   * @relates BasicVector3D
-   */
-  std::istream &
-  operator>>(std::istream &, BasicVector3D<double> &);
+//  /**
+//   * Input from stream.
+//   * @relates BasicVector3D
+//   */
+//  std::istream &
+//  operator>>(std::istream &, BasicVector3D<double> &);
 
   /**
    * Unary plus.

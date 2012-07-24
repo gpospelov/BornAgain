@@ -27,6 +27,7 @@ class NanoParticle : public ISample
 {
 public:
     NanoParticle(complex_t refractive_index, IFormFactor* p_form_factor = 0);
+    NanoParticle(complex_t refractive_index, const IFormFactor &p_form_factor);
     virtual ~NanoParticle();
     virtual NanoParticle *clone() const;
 

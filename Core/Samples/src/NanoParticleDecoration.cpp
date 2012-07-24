@@ -50,12 +50,24 @@ void NanoParticleDecoration::addNanoParticle(NanoParticle* p_particle,
     addNanoParticle(p_particle, 0, depth, abundance);
 }
 
+void NanoParticleDecoration::addNanoParticle(const NanoParticle &p_particle,
+        double depth, double abundance)
+{
+    addNanoParticle(p_particle.clone(), 0, depth, abundance);
+}
+
 
 void NanoParticleDecoration::addNanoParticle(NanoParticle* p_particle,
         Geometry::Transform3D *transform, double depth, double abundance)
 {
     addNanoParticleInfo( new NanoParticleInfo(p_particle, transform, depth, abundance) );
     m_total_abundance += abundance;
+}
+
+void NanoParticleDecoration::addNanoParticle(const NanoParticle &p_particle,
+        const Geometry::Transform3D &transform, double depth, double abundance)
+{
+    addNanoParticle(p_particle.clone(), new Geometry::Transform3D(transform), depth, abundance);
 }
 
 
@@ -87,18 +99,23 @@ void NanoParticleDecoration::addNanoParticle(NanoParticle* p_particle,
 
 
 
-double NanoParticleDecoration::getAbundanceFractionOfNanoParticle(
-        size_t index) const
+double NanoParticleDecoration::getAbundanceFractionOfNanoParticle(size_t index) const
 {
     return getNanoParticleInfo(index)->getAbundance()/m_total_abundance;
 }
 
 
-void NanoParticleDecoration::addInterferenceFunction(
-		IInterferenceFunction* p_interference_function)
+void NanoParticleDecoration::addInterferenceFunction(IInterferenceFunction* p_interference_function)
 {
     m_interference_functions.push_back(p_interference_function);
 }
+
+
+void NanoParticleDecoration::addInterferenceFunction(const IInterferenceFunction &interference_function)
+{
+    m_interference_functions.push_back(interference_function.clone());
+}
+
 
 void NanoParticleDecoration::addNanoParticleInfo(NanoParticleInfo *info)
 {

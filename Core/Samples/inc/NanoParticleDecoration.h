@@ -37,9 +37,11 @@ public:
 
     /// Add nano particle
     void addNanoParticle(NanoParticle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=1.0);
+    void addNanoParticle(const NanoParticle &p_particle, const Geometry::Transform3D &transform, double depth=0, double abundance=1.0);
 
     /// Add nano particle
     void addNanoParticle(NanoParticle *p_particle, double depth=0.0, double abundance=1.0);
+    void addNanoParticle(const NanoParticle &p_particle, double depth=0.0, double abundance=1.0);
 
 //    /// Add nano particle
 //    void addNanoParticle(NanoParticle *p_particle, Geometry::Transform3D *transform, double abundance=1.0);
@@ -58,6 +60,7 @@ public:
 
     /// Add interference function
     void addInterferenceFunction(IInterferenceFunction* p_interference_function);
+    void addInterferenceFunction(const IInterferenceFunction &interference_function);
 
     /// Add nano particle info
     void addNanoParticleInfo(NanoParticleInfo* p_info);

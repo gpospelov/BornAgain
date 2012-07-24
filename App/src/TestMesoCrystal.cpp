@@ -12,6 +12,7 @@
 #include "FormFactors.h"
 #include "LatticeBasis.h"
 #include "MathFunctions.h"
+#include "Utils.h"
 
 
 namespace
@@ -51,7 +52,7 @@ void TestMesoCrystal::execute()
     mp_intensity_output = experiment.getOutputData();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
             "CONT4 Z");
-    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, "./Examples/MesoCrystals/mesocrystal.ima");
+    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/mesocrystal.ima");
 }
 
 void TestMesoCrystal::initializeSample()

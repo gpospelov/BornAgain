@@ -8,6 +8,15 @@ MesoCrystal::MesoCrystal(IClusteredNanoParticles* p_nano_particle_structure,
 {
 }
 
+MesoCrystal::MesoCrystal(const IClusteredNanoParticles &nano_particle_structure,
+        IFormFactor &form_factor)
+: NanoParticle(complex_t(1.0, 0.0))
+, mp_nano_particle_structure(nano_particle_structure.clone())
+, mp_meso_form_factor(form_factor.clone())
+{
+}
+
+
 MesoCrystal::~MesoCrystal()
 {
     delete mp_meso_form_factor;

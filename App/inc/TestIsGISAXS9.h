@@ -32,6 +32,7 @@ public:
     virtual void execute();
     virtual void finalise();
 
+    void clear();
 private:
     void initializeSample_Pyramid();
     void initializeSample_RotatedPyramid();

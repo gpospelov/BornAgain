@@ -12,7 +12,7 @@
 #ifndef GEOMETRY_PLANE3D_H
 #define GEOMETRY_PLANE3D_H
 
-#include <iosfwd>
+//#include <iosfwd>
 //#include "CLHEP/Geometry/defs.h"
 //#include "CLHEP/Geometry/Point3D.h"
 //#include "CLHEP/Geometry/Normal3D.h"
@@ -57,14 +57,14 @@ namespace Geometry {
       a_ = n.x(); b_ = n.y(); c_ = n.z(); d_ = -n*p1;
     }
 
-    /** Copy constructor.
-     * Plane3D<double> has two constructors:
-     * from Plane3D<double> (provided by compiler) and
-     * from Plane3D<float> (defined in this file).
-     * Plane3D<float> has only the last one.
-     */
-    Plane3D(const Plane3D<float> & p)
-      : a_(p.a_), b_(p.b_), c_(p.c_), d_(p.d_) {}
+//    /** Copy constructor.
+//     * Plane3D<double> has two constructors:
+//     * from Plane3D<double> (provided by compiler) and
+//     * from Plane3D<float> (defined in this file).
+//     * Plane3D<float> has only the last one.
+//     */
+//    Plane3D(const Plane3D<float> & p)
+//      : a_(p.a_), b_(p.b_), c_(p.c_), d_(p.d_) {}
 
     /**
      * Destructor. */
@@ -143,11 +143,11 @@ namespace Geometry {
     }
   };
 
-  /**
-   * Output to the stream.
-   * @relates Plane3D
-   */
-  std::ostream & operator<<(std::ostream & os, const Plane3D<float> & p);
+//  /**
+//   * Output to the stream.
+//   * @relates Plane3D
+//   */
+//  std::ostream & operator<<(std::ostream & os, const Plane3D<float> & p);
 
   /**
    * Output to the stream.

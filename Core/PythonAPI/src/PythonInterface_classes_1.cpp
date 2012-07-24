@@ -2,21 +2,91 @@
 
 #include "boost/python.hpp"
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
-#include "Types.h"
-#include "PythonPlusplusHelper.h"
-#include "Units.h"
-#include "IMaterial.h"
+#include "BasicVector3D.h"
+#include "Experiment.h"
+#include "FormFactorCylinder.h"
+#include "FormFactorFullSphere.h"
+#include "FormFactorPyramid.h"
+#include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "IClusteredNanoParticles.h"
+#include "ICompositeSample.h"
+#include "IFormFactor.h"
+#include "IInterferenceFunction.h"
+#include "InterferenceFunctionNone.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "IMaterial.h"
+#include "ISample.h"
 #include "ISingleton.h"
-#include "MaterialManager.h"
-#include "LayerRoughness.h"
+#include "Lattice.h"
+#include "LatticeBasis.h"
 #include "Layer.h"
+#include "LayerDecorator.h"
+#include "LayerRoughness.h"
+#include "MaterialManager.h"
+#include "MesoCrystal.h"
 #include "MultiLayer.h"
-#include "ParameterPool.h"
+#include "NanoParticle.h"
+#include "NanoParticleCrystal.h"
+#include "NanoParticleDecoration.h"
 #include "OpticalFresnel.h"
+#include "ParameterPool.h"
+#include "Point3D.h"
+#include "PythonOutputData.h"
+#include "PythonPlusplusHelper.h"
+#include "Transform3D.h"
+#include "Units.h"
+#include "Types.h"
+#include "Vector3D.h"
 #include "PythonInterface_classes_1.h"
 
 namespace bp = boost::python;
+
+struct Experiment_wrapper : Experiment, bp::wrapper< Experiment > {
+
+    Experiment_wrapper( )
+    : Experiment( )
+      , bp::wrapper< Experiment >(){
+        // null constructor
+    
+    }
+
+    virtual void runSimulation(  ) {
+        if( bp::override func_runSimulation = this->get_override( "runSimulation" ) )
+            func_runSimulation(  );
+        else{
+            this->Experiment::runSimulation(  );
+        }
+    }
+    
+    void default_runSimulation(  ) {
+        Experiment::runSimulation( );
+    }
+
+};
+
+struct GISASExperiment_wrapper : GISASExperiment, bp::wrapper< GISASExperiment > {
+
+    GISASExperiment_wrapper( )
+    : GISASExperiment( )
+      , bp::wrapper< GISASExperiment >(){
+        // null constructor
+    
+    }
+
+    virtual void runSimulation(  ) {
+        if( bp::override func_runSimulation = this->get_override( "runSimulation" ) )
+            func_runSimulation(  );
+        else{
+            this->GISASExperiment::runSimulation(  );
+        }
+    }
+    
+    void default_runSimulation(  ) {
+        GISASExperiment::runSimulation( );
+    }
+
+};
 
 void register_classes_1(){
 
@@ -27,63 +97,737 @@ void register_classes_1(){
         MultiLayerCoeff_t_exposer.def( bp::vector_indexing_suite< ::std::vector< OpticalFresnel::FresnelCoeff > >() );
     }
 
-    { //::IMaterial
-        typedef bp::class_< IMaterial > IMaterial_exposer_t;
-        IMaterial_exposer_t IMaterial_exposer = IMaterial_exposer_t( "IMaterial", bp::init< >() );
-        bp::scope IMaterial_scope( IMaterial_exposer );
-        IMaterial_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
-        IMaterial_exposer.def( bp::init< IMaterial const & >(( bp::arg("other") )) );
-        { //::IMaterial::operator=
+    bp::class_< Experiment_wrapper, boost::noncopyable >( "Experiment", bp::init< >() )    
+        .def( 
+            "runSimulation"
+            , (void ( ::Experiment::* )(  ) )(&::Experiment::runSimulation)
+            , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_runSimulation) )    
+        .def( 
+            "setBeamParameters"
+            , (void ( ::Experiment::* )( double,double,double ) )( &::Experiment::setBeamParameters )
+            , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) )    
+        .def( 
+            "setSample"
+            , (void ( ::Experiment::* )( ::ISample * ) )( &::Experiment::setSample )
+            , ( bp::arg("p_sample") ) );
+
+    bp::class_< IFormFactor, boost::noncopyable >( "IFormFactor", bp::no_init );
+
+    bp::class_< IBornFormFactor, bp::bases< IFormFactor >, boost::noncopyable >( "IBornFormFactor", bp::no_init );
+
+    bp::class_< FormFactorCylinder, bp::bases< IBornFormFactor >, boost::noncopyable >( "FormFactorCylinder", bp::init< double, double >(( bp::arg("height"), bp::arg("radius") )) );
+
+    bp::class_< FormFactorFullSphere, bp::bases< IBornFormFactor > >( "FormFactorFullSphere", bp::init< double >(( bp::arg("radius") )) );
+
+    bp::class_< FormFactorPyramid, bp::bases< IBornFormFactor >, boost::noncopyable >( "FormFactorPyramid", bp::init< double, double, double >(( bp::arg("height"), bp::arg("half_side"), bp::arg("alpha") )) );
+
+    bp::class_< GISASExperiment_wrapper, bp::bases< Experiment >, boost::noncopyable >( "GISASExperiment", bp::init< >() )    
+        .def( 
+            "runSimulation"
+            , (void ( ::GISASExperiment::* )(  ) )(&::GISASExperiment::runSimulation)
+            , (void ( GISASExperiment_wrapper::* )(  ) )(&GISASExperiment_wrapper::default_runSimulation) )    
+        .def( 
+            "setDetectorParameters"
+            , (void ( ::GISASExperiment::* )( double,double,::size_t,double,double,::size_t,bool ) )( &::GISASExperiment::setDetectorParameters )
+            , ( bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_phi"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("n_alpha"), bp::arg("isgisaxs_style")=(bool)(false) ) );
+
+    { //::Geometry::BasicVector3D< double >
+        typedef bp::class_< Geometry::BasicVector3D< double > > basicvector3d_t_exposer_t;
+        basicvector3d_t_exposer_t basicvector3d_t_exposer = basicvector3d_t_exposer_t( "basicvector3d_t", bp::init< double, double, double >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
+        bp::scope basicvector3d_t_scope( basicvector3d_t_exposer );
+        bp::scope().attr("X") = (int)Geometry::BasicVector3D<double>::X;
+        bp::scope().attr("Y") = (int)Geometry::BasicVector3D<double>::Y;
+        bp::scope().attr("Z") = (int)Geometry::BasicVector3D<double>::Z;
+        bp::scope().attr("NUM_COORDINATES") = (int)Geometry::BasicVector3D<double>::NUM_COORDINATES;
+        bp::scope().attr("SIZE") = (int)Geometry::BasicVector3D<double>::SIZE;
+        { //::Geometry::BasicVector3D< double >::angle
         
-            typedef ::IMaterial & ( ::IMaterial::*assign_function_type )( ::IMaterial const & ) ;
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*angle_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
             
-            IMaterial_exposer.def( 
+            basicvector3d_t_exposer.def( 
+                "angle"
+                , angle_function_type( &::Geometry::BasicVector3D< double >::angle )
+                , ( bp::arg("v") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::cosTheta
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*cosTheta_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "cosTheta"
+                , cosTheta_function_type( &::Geometry::BasicVector3D< double >::cosTheta ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::cross
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef ::Geometry::BasicVector3D< double > ( exported_class_t::*cross_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "cross"
+                , cross_function_type( &::Geometry::BasicVector3D< double >::cross )
+                , ( bp::arg("v") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::dot
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*dot_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "dot"
+                , dot_function_type( &::Geometry::BasicVector3D< double >::dot )
+                , ( bp::arg("v") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::getPhi
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*getPhi_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "getPhi"
+                , getPhi_function_type( &::Geometry::BasicVector3D< double >::getPhi ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::getR
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*getR_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "getR"
+                , getR_function_type( &::Geometry::BasicVector3D< double >::getR ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::getTheta
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*getTheta_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "getTheta"
+                , getTheta_function_type( &::Geometry::BasicVector3D< double >::getTheta ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::mag
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*mag_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "mag"
+                , mag_function_type( &::Geometry::BasicVector3D< double >::mag ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::mag2
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*mag2_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "mag2"
+                , mag2_function_type( &::Geometry::BasicVector3D< double >::mag2 ) );
+        
+        }
+        basicvector3d_t_exposer.def( bp::self *= bp::other< double >() );
+        basicvector3d_t_exposer.def( bp::self += bp::self );
+        basicvector3d_t_exposer.def( bp::self -= bp::self );
+        basicvector3d_t_exposer.def( bp::self /= bp::other< double >() );
+        { //::Geometry::BasicVector3D< double >::operator=
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*assign_function_type )( ::Geometry::BasicVector3D< double > const & ) ;
+            
+            basicvector3d_t_exposer.def( 
                 "assign"
-                , assign_function_type( &::IMaterial::operator= )
-                , ( bp::arg("other") )
+                , assign_function_type( &::Geometry::BasicVector3D< double >::operator= )
+                , ( bp::arg("v") )
                 , bp::return_self< >() );
         
         }
-        IMaterial_exposer.def( bp::self_ns::str( bp::self ) );
+        { //::Geometry::BasicVector3D< double >::operator[]
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*__getitem___function_type )( int ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "__getitem__"
+                , __getitem___function_type( &::Geometry::BasicVector3D< double >::operator[] )
+                , ( bp::arg("i") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::operator[]
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double & ( exported_class_t::*__getitem___function_type )( int ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "__getitem__"
+                , __getitem___function_type( &::Geometry::BasicVector3D< double >::operator[] )
+                , ( bp::arg("i") )
+                , bp::return_value_policy< bp::copy_non_const_reference >() );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::orthogonal
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef ::Geometry::BasicVector3D< double > ( exported_class_t::*orthogonal_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "orthogonal"
+                , orthogonal_function_type( &::Geometry::BasicVector3D< double >::orthogonal ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::perp
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*perp_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "perp"
+                , perp_function_type( &::Geometry::BasicVector3D< double >::perp ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::perp
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*perp_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "perp"
+                , perp_function_type( &::Geometry::BasicVector3D< double >::perp )
+                , ( bp::arg("v") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::perp2
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*perp2_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "perp2"
+                , perp2_function_type( &::Geometry::BasicVector3D< double >::perp2 ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::perp2
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*perp2_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "perp2"
+                , perp2_function_type( &::Geometry::BasicVector3D< double >::perp2 )
+                , ( bp::arg("v") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::phi
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*phi_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "phi"
+                , phi_function_type( &::Geometry::BasicVector3D< double >::phi ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::r
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*r_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "r"
+                , r_function_type( &::Geometry::BasicVector3D< double >::r ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::rho
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*rho_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "rho"
+                , rho_function_type( &::Geometry::BasicVector3D< double >::rho ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::rotate
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*rotate_function_type )( double,::Geometry::BasicVector3D< double > const & ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "rotate"
+                , rotate_function_type( &::Geometry::BasicVector3D< double >::rotate )
+                , ( bp::arg("a"), bp::arg("v") )
+                , bp::return_internal_reference< >() );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::rotateX
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*rotateX_function_type )( double ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "rotateX"
+                , rotateX_function_type( &::Geometry::BasicVector3D< double >::rotateX )
+                , ( bp::arg("a") )
+                , bp::return_internal_reference< >() );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::rotateY
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*rotateY_function_type )( double ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "rotateY"
+                , rotateY_function_type( &::Geometry::BasicVector3D< double >::rotateY )
+                , ( bp::arg("a") )
+                , bp::return_internal_reference< >() );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::rotateZ
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*rotateZ_function_type )( double ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "rotateZ"
+                , rotateZ_function_type( &::Geometry::BasicVector3D< double >::rotateZ )
+                , ( bp::arg("a") )
+                , bp::return_internal_reference< >() );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::set
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef void ( exported_class_t::*set_function_type )( double,double,double ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "set"
+                , set_function_type( &::Geometry::BasicVector3D< double >::set )
+                , ( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::setMag
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef void ( exported_class_t::*setMag_function_type )( double ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "setMag"
+                , setMag_function_type( &::Geometry::BasicVector3D< double >::setMag )
+                , ( bp::arg("ma") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::setPerp
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef void ( exported_class_t::*setPerp_function_type )( double ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "setPerp"
+                , setPerp_function_type( &::Geometry::BasicVector3D< double >::setPerp )
+                , ( bp::arg("rh") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::setPhi
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef void ( exported_class_t::*setPhi_function_type )( double ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "setPhi"
+                , setPhi_function_type( &::Geometry::BasicVector3D< double >::setPhi )
+                , ( bp::arg("ph") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::setR
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef void ( exported_class_t::*setR_function_type )( double ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "setR"
+                , setR_function_type( &::Geometry::BasicVector3D< double >::setR )
+                , ( bp::arg("ma") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::setTheta
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef void ( exported_class_t::*setTheta_function_type )( double ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "setTheta"
+                , setTheta_function_type( &::Geometry::BasicVector3D< double >::setTheta )
+                , ( bp::arg("th") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::setX
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef void ( exported_class_t::*setX_function_type )( double ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "setX"
+                , setX_function_type( &::Geometry::BasicVector3D< double >::setX )
+                , ( bp::arg("a") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::setY
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef void ( exported_class_t::*setY_function_type )( double ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "setY"
+                , setY_function_type( &::Geometry::BasicVector3D< double >::setY )
+                , ( bp::arg("a") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::setZ
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef void ( exported_class_t::*setZ_function_type )( double ) ;
+            
+            basicvector3d_t_exposer.def( 
+                "setZ"
+                , setZ_function_type( &::Geometry::BasicVector3D< double >::setZ )
+                , ( bp::arg("a") ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::theta
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*theta_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "theta"
+                , theta_function_type( &::Geometry::BasicVector3D< double >::theta ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::unit
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef ::Geometry::BasicVector3D< double > ( exported_class_t::*unit_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "unit"
+                , unit_function_type( &::Geometry::BasicVector3D< double >::unit ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::x
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*x_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "x"
+                , x_function_type( &::Geometry::BasicVector3D< double >::x ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::y
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*y_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "y"
+                , y_function_type( &::Geometry::BasicVector3D< double >::y ) );
+        
+        }
+        { //::Geometry::BasicVector3D< double >::z
+        
+            typedef Geometry::BasicVector3D< double > exported_class_t;
+            typedef double ( exported_class_t::*z_function_type )(  ) const;
+            
+            basicvector3d_t_exposer.def( 
+                "z"
+                , z_function_type( &::Geometry::BasicVector3D< double >::z ) );
+        
+        }
+        basicvector3d_t_exposer.def( bp::self != bp::self );
+        basicvector3d_t_exposer.def( bp::other< double >() * bp::self );
+        basicvector3d_t_exposer.def( bp::self * bp::self );
+        basicvector3d_t_exposer.def( bp::self * bp::other< double >() );
+        basicvector3d_t_exposer.def( bp::self + bp::self );
+        basicvector3d_t_exposer.def( +bp::self );
+        basicvector3d_t_exposer.def( bp::self - bp::self );
+        basicvector3d_t_exposer.def( -bp::self );
+        basicvector3d_t_exposer.def( bp::self / bp::other< double >() );
+        basicvector3d_t_exposer.def( bp::self_ns::str( bp::self ) );
+        basicvector3d_t_exposer.def( bp::self == bp::self );
     }
 
-    { //::HomogeneousMaterial
-        typedef bp::class_< HomogeneousMaterial, bp::bases< IMaterial > > HomogeneousMaterial_exposer_t;
-        HomogeneousMaterial_exposer_t HomogeneousMaterial_exposer = HomogeneousMaterial_exposer_t( "HomogeneousMaterial", bp::init< >() );
-        bp::scope HomogeneousMaterial_scope( HomogeneousMaterial_exposer );
-        HomogeneousMaterial_exposer.def( bp::init< complex_t >(( bp::arg("refractive_index") )) );
-        HomogeneousMaterial_exposer.def( bp::init< std::string const &, complex_t >(( bp::arg("name"), bp::arg("refractive_index") )) );
-        HomogeneousMaterial_exposer.def( bp::init< HomogeneousMaterial const & >(( bp::arg("other") )) );
-        { //::HomogeneousMaterial::getRefractiveIndex
+    { //::Geometry::Point3D< double >
+        typedef bp::class_< Geometry::Point3D< double >, bp::bases< Geometry::BasicVector3D< double > > > point3d_t_exposer_t;
+        point3d_t_exposer_t point3d_t_exposer = point3d_t_exposer_t( "point3d_t", bp::init< >() );
+        bp::scope point3d_t_scope( point3d_t_exposer );
+        point3d_t_exposer.def( bp::init< double, double, double >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
+        point3d_t_exposer.def( bp::init< double const * >(( bp::arg("a") )) );
+        point3d_t_exposer.def( bp::init< Geometry::Point3D< double > const & >(( bp::arg("v") )) );
+        point3d_t_exposer.def( bp::init< Geometry::BasicVector3D< double > const & >(( bp::arg("v") )) );
+        { //::Geometry::Point3D< double >::distance
         
-            typedef ::complex_t ( ::HomogeneousMaterial::*getRefractiveIndex_function_type )(  ) const;
+            typedef Geometry::Point3D< double > exported_class_t;
+            typedef double ( exported_class_t::*distance_function_type )(  ) const;
             
-            HomogeneousMaterial_exposer.def( 
-                "getRefractiveIndex"
-                , getRefractiveIndex_function_type( &::HomogeneousMaterial::getRefractiveIndex ) );
+            point3d_t_exposer.def( 
+                "distance"
+                , distance_function_type( &::Geometry::Point3D< double >::distance ) );
         
         }
-        { //::HomogeneousMaterial::operator=
+        { //::Geometry::Point3D< double >::distance
         
-            typedef ::HomogeneousMaterial & ( ::HomogeneousMaterial::*assign_function_type )( ::HomogeneousMaterial const & ) ;
+            typedef Geometry::Point3D< double > exported_class_t;
+            typedef double ( exported_class_t::*distance_function_type )( ::Geometry::Point3D< double > const & ) const;
             
-            HomogeneousMaterial_exposer.def( 
+            point3d_t_exposer.def( 
+                "distance"
+                , distance_function_type( &::Geometry::Point3D< double >::distance )
+                , ( bp::arg("p") ) );
+        
+        }
+        { //::Geometry::Point3D< double >::distance2
+        
+            typedef Geometry::Point3D< double > exported_class_t;
+            typedef double ( exported_class_t::*distance2_function_type )(  ) const;
+            
+            point3d_t_exposer.def( 
+                "distance2"
+                , distance2_function_type( &::Geometry::Point3D< double >::distance2 ) );
+        
+        }
+        { //::Geometry::Point3D< double >::distance2
+        
+            typedef Geometry::Point3D< double > exported_class_t;
+            typedef double ( exported_class_t::*distance2_function_type )( ::Geometry::Point3D< double > const & ) const;
+            
+            point3d_t_exposer.def( 
+                "distance2"
+                , distance2_function_type( &::Geometry::Point3D< double >::distance2 )
+                , ( bp::arg("p") ) );
+        
+        }
+        { //::Geometry::Point3D< double >::operator=
+        
+            typedef Geometry::Point3D< double > exported_class_t;
+            typedef ::Geometry::Point3D< double > & ( exported_class_t::*assign_function_type )( ::Geometry::Point3D< double > const & ) ;
+            
+            point3d_t_exposer.def( 
                 "assign"
-                , assign_function_type( &::HomogeneousMaterial::operator= )
-                , ( bp::arg("other") )
+                , assign_function_type( &::Geometry::Point3D< double >::operator= )
+                , ( bp::arg("v") )
                 , bp::return_self< >() );
         
         }
-        { //::HomogeneousMaterial::setRefractiveIndex
+        { //::Geometry::Point3D< double >::operator=
         
-            typedef void ( ::HomogeneousMaterial::*setRefractiveIndex_function_type )( ::complex_t ) ;
+            typedef Geometry::Point3D< double > exported_class_t;
+            typedef ::Geometry::Point3D< double > & ( exported_class_t::*assign_function_type )( ::Geometry::BasicVector3D< double > const & ) ;
             
-            HomogeneousMaterial_exposer.def( 
-                "setRefractiveIndex"
-                , setRefractiveIndex_function_type( &::HomogeneousMaterial::setRefractiveIndex )
-                , ( bp::arg("refractive_index") ) );
+            point3d_t_exposer.def( 
+                "assign"
+                , assign_function_type( &::Geometry::Point3D< double >::operator= )
+                , ( bp::arg("v") )
+                , bp::return_self< >() );
         
         }
+        { //::Geometry::Point3D< double >::transform
+        
+            typedef Geometry::Point3D< double > exported_class_t;
+            typedef ::Geometry::Point3D< double > & ( exported_class_t::*transform_function_type )( ::Geometry::Transform3D const & ) ;
+            
+            point3d_t_exposer.def( 
+                "transform"
+                , transform_function_type( &::Geometry::Point3D< double >::transform )
+                , ( bp::arg("m") )
+                , bp::return_internal_reference< >() );
+        
+        }
+    }
+
+    bp::class_< Geometry::ReflectX3D >( "ReflectX3D", bp::init< bp::optional< double > >(( bp::arg("x")=0 )) );
+
+    bp::class_< Geometry::ReflectY3D >( "ReflectY3D", bp::init< bp::optional< double > >(( bp::arg("y")=0 )) );
+
+    bp::class_< Geometry::ReflectZ3D >( "ReflectZ3D", bp::init< bp::optional< double > >(( bp::arg("z")=0 )) );
+
+    { //::Geometry::Transform3D
+        typedef bp::class_< Geometry::Transform3D > Transform3D_exposer_t;
+        Transform3D_exposer_t Transform3D_exposer = Transform3D_exposer_t( "Transform3D", bp::init< >() );
+        bp::scope Transform3D_scope( Transform3D_exposer );
+        bp::class_< Geometry::Transform3D::Transform3D_row, boost::noncopyable >( "Transform3D_row", bp::no_init );
+        Transform3D_exposer.def( bp::init< Geometry::Point3D< double > const &, Geometry::Point3D< double > const &, Geometry::Point3D< double > const &, Geometry::Point3D< double > const &, Geometry::Point3D< double > const &, Geometry::Point3D< double > const & >(( bp::arg("fr0"), bp::arg("fr1"), bp::arg("fr2"), bp::arg("to0"), bp::arg("to1"), bp::arg("to2") )) );
+        Transform3D_exposer.def( bp::init< Geometry::Transform3D const & >(( bp::arg("m") )) );
+        { //::Geometry::Transform3D::dx
+        
+            typedef double ( ::Geometry::Transform3D::*dx_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "dx"
+                , dx_function_type( &::Geometry::Transform3D::dx ) );
+        
+        }
+        { //::Geometry::Transform3D::dy
+        
+            typedef double ( ::Geometry::Transform3D::*dy_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "dy"
+                , dy_function_type( &::Geometry::Transform3D::dy ) );
+        
+        }
+        { //::Geometry::Transform3D::dz
+        
+            typedef double ( ::Geometry::Transform3D::*dz_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "dz"
+                , dz_function_type( &::Geometry::Transform3D::dz ) );
+        
+        }
+        { //::Geometry::Transform3D::getDecomposition
+        
+            typedef void ( ::Geometry::Transform3D::*getDecomposition_function_type )( ::Geometry::Scale3D &,::Geometry::Rotate3D &,::Geometry::Translate3D & ) const;
+            
+            Transform3D_exposer.def( 
+                "getDecomposition"
+                , getDecomposition_function_type( &::Geometry::Transform3D::getDecomposition )
+                , ( bp::arg("scale"), bp::arg("rotation"), bp::arg("translation") ) );
+        
+        }
+        { //::Geometry::Transform3D::inverse
+        
+            typedef ::Geometry::Transform3D ( ::Geometry::Transform3D::*inverse_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "inverse"
+                , inverse_function_type( &::Geometry::Transform3D::inverse ) );
+        
+        }
+        { //::Geometry::Transform3D::isNear
+        
+            typedef bool ( ::Geometry::Transform3D::*isNear_function_type )( ::Geometry::Transform3D const &,double ) const;
+            
+            Transform3D_exposer.def( 
+                "isNear"
+                , isNear_function_type( &::Geometry::Transform3D::isNear )
+                , ( bp::arg("t"), bp::arg("tolerance")=2.20000000000000009206578920655319378310295179435041035276e-14 ) );
+        
+        }
+        Transform3D_exposer.def( bp::self != bp::self );
+        Transform3D_exposer.def( bp::self * bp::self );
+        { //::Geometry::Transform3D::operator=
+        
+            typedef ::Geometry::Transform3D & ( ::Geometry::Transform3D::*assign_function_type )( ::Geometry::Transform3D const & ) ;
+            
+            Transform3D_exposer.def( 
+                "assign"
+                , assign_function_type( &::Geometry::Transform3D::operator= )
+                , ( bp::arg("m") )
+                , bp::return_self< >() );
+        
+        }
+        Transform3D_exposer.def( bp::self == bp::self );
+        { //::Geometry::Transform3D::setIdentity
+        
+            typedef void ( ::Geometry::Transform3D::*setIdentity_function_type )(  ) ;
+            
+            Transform3D_exposer.def( 
+                "setIdentity"
+                , setIdentity_function_type( &::Geometry::Transform3D::setIdentity ) );
+        
+        }
+        { //::Geometry::Transform3D::xx
+        
+            typedef double ( ::Geometry::Transform3D::*xx_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "xx"
+                , xx_function_type( &::Geometry::Transform3D::xx ) );
+        
+        }
+        { //::Geometry::Transform3D::xy
+        
+            typedef double ( ::Geometry::Transform3D::*xy_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "xy"
+                , xy_function_type( &::Geometry::Transform3D::xy ) );
+        
+        }
+        { //::Geometry::Transform3D::xz
+        
+            typedef double ( ::Geometry::Transform3D::*xz_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "xz"
+                , xz_function_type( &::Geometry::Transform3D::xz ) );
+        
+        }
+        { //::Geometry::Transform3D::yx
+        
+            typedef double ( ::Geometry::Transform3D::*yx_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "yx"
+                , yx_function_type( &::Geometry::Transform3D::yx ) );
+        
+        }
+        { //::Geometry::Transform3D::yy
+        
+            typedef double ( ::Geometry::Transform3D::*yy_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "yy"
+                , yy_function_type( &::Geometry::Transform3D::yy ) );
+        
+        }
+        { //::Geometry::Transform3D::yz
+        
+            typedef double ( ::Geometry::Transform3D::*yz_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "yz"
+                , yz_function_type( &::Geometry::Transform3D::yz ) );
+        
+        }
+        { //::Geometry::Transform3D::zx
+        
+            typedef double ( ::Geometry::Transform3D::*zx_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "zx"
+                , zx_function_type( &::Geometry::Transform3D::zx ) );
+        
+        }
+        { //::Geometry::Transform3D::zy
+        
+            typedef double ( ::Geometry::Transform3D::*zy_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "zy"
+                , zy_function_type( &::Geometry::Transform3D::zy ) );
+        
+        }
+        { //::Geometry::Transform3D::zz
+        
+            typedef double ( ::Geometry::Transform3D::*zz_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "zz"
+                , zz_function_type( &::Geometry::Transform3D::zz ) );
+        
+        }
+        Transform3D_exposer.def_readonly( "Identity", Geometry::Transform3D::Identity );
+        Transform3D_exposer.def( bp::self * bp::other< Geometry::Vector3D< double > >() );
+        Transform3D_exposer.def( bp::self * bp::other< Geometry::Point3D< double > >() );
     }
 
 }

@@ -36,84 +36,84 @@ namespace Geometry {
   template<class T>
   class Point3D : public BasicVector3D<T> {};
 
-  /**
-   * Geometrical 3D Point with components of float type.
-   *
-   * @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch>
-   * @ingroup geometry
-   */
-  template<>
-  class Point3D<float> : public BasicVector3D<float> {
-  public:
-    /**
-     * Default constructor. */
-    Point3D() {}
+//  /**
+//   * Geometrical 3D Point with components of float type.
+//   *
+//   * @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch>
+//   * @ingroup geometry
+//   */
+//  template<>
+//  class Point3D<float> : public BasicVector3D<float> {
+//  public:
+//    /**
+//     * Default constructor. */
+//    Point3D() {}
 
-    /**
-     * Constructor from three numbers. */
-    Point3D(float x1, float y1, float z1) : BasicVector3D<float>(x1,y1,z1) {}
+//    /**
+//     * Constructor from three numbers. */
+//    Point3D(float x1, float y1, float z1) : BasicVector3D<float>(x1,y1,z1) {}
 
-    /**
-     * Constructor from array of floats. */
-    explicit Point3D(const float * a)
-      : BasicVector3D<float>(a[0],a[1],a[2]) {}
+//    /**
+//     * Constructor from array of floats. */
+//    explicit Point3D(const float * a)
+//      : BasicVector3D<float>(a[0],a[1],a[2]) {}
 
-    /**
-     * Copy constructor. */
-    Point3D(const Point3D<float> & v) : BasicVector3D<float>(v) {}
+//    /**
+//     * Copy constructor. */
+//    Point3D(const Point3D<float> & v) : BasicVector3D<float>(v) {}
 
-    /**
-     * Constructor from BasicVector3D<float>. */
-    Point3D(const BasicVector3D<float> & v) : BasicVector3D<float>(v) {}
+//    /**
+//     * Constructor from BasicVector3D<float>. */
+//    Point3D(const BasicVector3D<float> & v) : BasicVector3D<float>(v) {}
 
-    /**
-     * Destructor. */
-    ~Point3D() {}
+//    /**
+//     * Destructor. */
+//    ~Point3D() {}
 
-    /**
-     * Assignment. */
-    Point3D<float> & operator=(const Point3D<float> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
-    }
+//    /**
+//     * Assignment. */
+//    Point3D<float> & operator=(const Point3D<float> & v) {
+//      set(v.x(),v.y(),v.z()); return *this;
+//    }
 
-    /**
-     * Assignment from BasicVector3D<float>. */
-    Point3D<float> & operator=(const BasicVector3D<float> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
-    }
+//    /**
+//     * Assignment from BasicVector3D<float>. */
+//    Point3D<float> & operator=(const BasicVector3D<float> & v) {
+//      set(v.x(),v.y(),v.z()); return *this;
+//    }
 
-    /**
-     * Returns distance to the origin squared. */
-    float distance2() const { return mag2(); }
+//    /**
+//     * Returns distance to the origin squared. */
+//    float distance2() const { return mag2(); }
 
-    /**
-     * Returns distance to the point squared. */
-    float distance2(const Point3D<float> & p) const {
-      float dx = p.x()-x(), dy = p.y()-y(), dz = p.z()-z();
-      return dx*dx + dy*dy + dz*dz;
-    }
+//    /**
+//     * Returns distance to the point squared. */
+//    float distance2(const Point3D<float> & p) const {
+//      float dx = p.x()-x(), dy = p.y()-y(), dz = p.z()-z();
+//      return dx*dx + dy*dy + dz*dz;
+//    }
 
-    /**
-     * Returns distance to the origin. */
-    float distance() const { return std::sqrt(distance2()); }
+//    /**
+//     * Returns distance to the origin. */
+//    float distance() const { return std::sqrt(distance2()); }
 
-    /**
-     * Returns distance to the point. */
-    float distance(const Point3D<float> & p) const {
-      return std::sqrt(distance2(p));
-    }
+//    /**
+//     * Returns distance to the point. */
+//    float distance(const Point3D<float> & p) const {
+//      return std::sqrt(distance2(p));
+//    }
 
-    /**
-     * Transformation by Transform3D. */
-    Point3D<float> & transform(const Transform3D & m);
-  };
+//    /**
+//     * Transformation by Transform3D. */
+//    Point3D<float> & transform(const Transform3D & m);
+//  };
 
-  /**
-   * Transformation of Point3D<float> by Transform3D.
-   * @relates Point3D
-   */
-  Point3D<float>
-  operator*(const Transform3D & m, const Point3D<float> & p);
+//  /**
+//   * Transformation of Point3D<float> by Transform3D.
+//   * @relates Point3D
+//   */
+//  Point3D<float>
+//  operator*(const Transform3D & m, const Point3D<float> & p);
 
   /**
    * Geometrical 3D Point with components of double type.
@@ -132,10 +132,10 @@ namespace Geometry {
      * Constructor from three numbers. */
     Point3D(double x1, double y1, double z1) : BasicVector3D<double>(x1,y1,z1) {}
 
-    /**
-     * Constructor from array of floats. */
-    explicit Point3D(const float * a)
-      : BasicVector3D<double>(a[0],a[1],a[2]) {}
+//    /**
+//     * Constructor from array of floats. */
+//    explicit Point3D(const float * a)
+//      : BasicVector3D<double>(a[0],a[1],a[2]) {}
 
     /**
      * Constructor from array of doubles. */
@@ -146,9 +146,9 @@ namespace Geometry {
      * Copy constructor. */
     Point3D(const Point3D<double> & v) : BasicVector3D<double>(v) {}
 
-    /**
-     * Constructor from BasicVector3D<float>. */
-    Point3D(const BasicVector3D<float> & v) : BasicVector3D<double>(v) {}
+//    /**
+//     * Constructor from BasicVector3D<float>. */
+//    Point3D(const BasicVector3D<float> & v) : BasicVector3D<double>(v) {}
 
     /**
      * Constructor from BasicVector3D<double>. */
@@ -179,11 +179,11 @@ namespace Geometry {
       set(v.x(),v.y(),v.z()); return *this;
     }
 
-    /**
-     * Assignment from BasicVector3D<float>. */
-    Point3D<double> & operator=(const BasicVector3D<float> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
-    }
+//    /**
+//     * Assignment from BasicVector3D<float>. */
+//    Point3D<double> & operator=(const BasicVector3D<float> & v) {
+//      set(v.x(),v.y(),v.z()); return *this;
+//    }
 
     /**
      * Assignment from BasicVector3D<double>. */

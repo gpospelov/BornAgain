@@ -91,7 +91,8 @@ SOURCES += \
     PythonAPI/src/PythonInterface_free_functions.cpp \
     PythonAPI/src/PythonInterface_global_variables.cpp \
     PythonAPI/src/PythonModule.cpp \
-    PythonAPI/src/PythonPlusplusHelper.cpp
+    PythonAPI/src/PythonPlusplusHelper.cpp \
+    PythonAPI/src/PythonOutputData.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -187,7 +188,8 @@ HEADERS += \
     PythonAPI/inc/PythonInterface_free_functions.h \
     PythonAPI/inc/PythonInterface_global_variables.h \
     PythonAPI/inc/PythonModule.h \
-    PythonAPI/inc/PythonPlusplusHelper.h
+    PythonAPI/inc/PythonPlusplusHelper.h \
+    PythonAPI/inc/PythonOutputData.h
 
 INCLUDEPATH += ./Algorithms/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
@@ -265,6 +267,10 @@ CONFIG(BUILD_PYTHON_BOOST_MODULE) {
     lessThan(pythonvers, 2.6): error("GISASFW requires python 2.6 or greater")
     INCLUDEPATH += $$pythonsysincdir
     LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
+
+    # we need to know to location of numpy
+    pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")
+    INCLUDEPATH += $$pythonnumpy
   }
 
 }

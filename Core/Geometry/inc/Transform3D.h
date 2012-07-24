@@ -122,6 +122,7 @@
 
 //#include "CLHEP/Geometry/defs.h"
 //#include "CLHEP/Vector/ThreeVector.h"
+#include <cmath>
 
 namespace Geometry {
 

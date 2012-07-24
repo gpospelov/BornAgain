@@ -1,0 +1,4 @@
+# date and time     | hostname  | system information         | FresnelCoeff Pyramid RotatedPyramid MesoCrystal
+
+2012-07-24 18:21:18 | jcnsopc73 | macosx64, 2800 MHz, 256 Kb |  82987.5 |  4.14079 |  3.89105 | 0.233918 | 
+2012-07-24 18:22:36 | jcnsopc73 | macosx64, 2800 MHz, 256 Kb |  82987.5 |  4.14938 |  3.91389 | 0.233918 | 

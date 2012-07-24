@@ -8,6 +8,9 @@
 #include "MaterialManager.h"
 #include "LayerDecorator.h"
 #include "NanoParticleDecoration.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "FormFactors.h"
+#include "InterferenceFunctionNone.h"
 
 TestIsGISAXS10::TestIsGISAXS10()
     : mp_intensity_output(0), mp_sample(0)

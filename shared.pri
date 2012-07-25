@@ -19,7 +19,7 @@ lessThan(QT_VERSION, 4.5) {
 ## this behaviour is causing problem, when this library later is used from python on linux session
 ## so, if you are on linux, have compiled library in non-debug mode, with python support, and then trying to import it in python, you will have problems
 ## lets forbid this behaviour
-QMAKE_STRIP=:
+#QMAKE_STRIP=:
 
 
 CONFIG(GPERFTOOLS) {

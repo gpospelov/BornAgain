@@ -245,13 +245,14 @@ LIBS += -lgsl -lgslcblas -lfftw3 -lboost_system -lboost_filesystem -lboost_regex
 # here is workaround since JCNS /usr/local doesn't have shared fftw3
 # qmake CONFIG+=JCNS
 CONFIG(JCNS) {
-  #LIBS -= -lfftw3
+  ##LIBS -= -lfftw3
+  ##LIBS += -Bstatic -lfftw3f -Bdynamic
+  ## "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
   #LIBS = -lgsl -lgslcblas -Bstatic -lfftw3f -Bdynamic -lboost_system -lboost_filesystem -lboost_regex
-  # "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
   #-Wl,--whole-archive
   #http://stackoverflow.com/questions/2763988/how-to-include-all-objects-of-an-archive-in-a-shared-object
 
-  LIBS = -L/usr/users/jcns/pospelov/software/lib + LIBS
+  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_system -lboost_filesystem -lboost_regex
 }
 
 

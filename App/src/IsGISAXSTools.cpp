@@ -181,7 +181,9 @@ void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
     std::ofstream file;
     file.open(filename.c_str(), std::ios::out);
     if( !file.is_open() ) {
-        throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing.");
+        std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing." << std::endl;
+        return;
+        //throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing.");
     }
     output.resetIndex();
     size_t row_length = output.getAxes()[0]->getSize();

@@ -8,6 +8,8 @@ QT      -= gui core
 
 QMAKE_EXTENSION_SHLIB = so
 
+include($$PWD/../shared.pri)
+
 mygtest = gtest-1.6.0
 
 INCLUDEPATH += $$mygtest/include

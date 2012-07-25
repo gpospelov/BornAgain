@@ -26,7 +26,7 @@ class TestEventStructure
 {
 public:
     TestEventStructure();
-    ~TestEventStructure(){}
+    virtual ~TestEventStructure(){}
 
     double alpha_i;
     double alpha_f;

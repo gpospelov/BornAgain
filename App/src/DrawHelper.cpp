@@ -160,9 +160,9 @@ void DrawHelper::SetStyle()
     // use bold lines and markers
     scattStyle->SetMarkerStyle(20);
     scattStyle->SetMarkerSize(0.2);
-    scattStyle->SetHistLineWidth(2.);
+    scattStyle->SetHistLineWidth(2);
     scattStyle->SetLineStyleString(2,"[12 12]"); // postscript dashes
-    scattStyle->SetFuncWidth(1.);
+    scattStyle->SetFuncWidth(1);
 
     // get rid of X error bars and y error bar caps
     //scattStyle->SetErrorX(0.001);

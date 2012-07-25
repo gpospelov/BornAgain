@@ -4,7 +4,7 @@
 TARGET   = ScattCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
-CONFIG  += debug
+#CONFIG  += debug
 QT      -= core gui
 CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
@@ -193,8 +193,8 @@ HEADERS += \
     PythonAPI/inc/PythonInterface_free_functions.h \
     PythonAPI/inc/PythonInterface_global_variables.h \
     PythonAPI/inc/PythonModule.h \
-    PythonAPI/inc/PythonPlusplusHelper.h \
-    PythonAPI/inc/PythonOutputData.h
+    PythonAPI/inc/PythonOutputData.h \
+    PythonAPI/inc/PythonPlusplusHelper.h
 
 INCLUDEPATH += ./Algorithms/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
@@ -208,6 +208,7 @@ DEPENDPATH  += ./Algorithms/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./Pytho
     PythonAPI/inc/PythonInterface_free_functions.h \
     PythonAPI/inc/PythonInterface_global_variables.h \
     PythonAPI/inc/PythonModule.h \
+    PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h
 
   SOURCES -= \
@@ -217,6 +218,7 @@ DEPENDPATH  += ./Algorithms/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./Pytho
     PythonAPI/src/PythonInterface_free_functions.cpp \
     PythonAPI/src/PythonInterface_global_variables.cpp \
     PythonAPI/src/PythonModule.cpp \
+    PythonAPI/src/PythonOutputData.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp
 
   INCLUDEPATH -= ./PythonAPI/inc

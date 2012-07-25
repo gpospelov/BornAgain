@@ -62,12 +62,16 @@ inline complex_t FormFactorDecoratorTransformation::evaluate(kvector_t k_i,
 inline complex_t FormFactorDecoratorTransformation::evaluateForComplexkz(kvector_t k_i,
         kvector_t k_f, complex_t k_iz, complex_t k_fz) const
 {
-    Geometry::Vector3D<double> vki( k_i.x(), k_i.y(), k_i.z() );
-    Geometry::Vector3D<double> vkf( k_f.x(), k_f.y(), k_f.z() );
-    vki = *m_transform*vki;
-    vkf = *m_transform*vkf;
-    k_i.setXYZ(vki.x(), vki.y(), vki.z() );
-    k_f.setXYZ(vkf.x(), vkf.y(), vkf.z() );
+//    Geometry::Vector3D<double> vki( k_i.x(), k_i.y(), k_i.z() );
+//    Geometry::Vector3D<double> vkf( k_f.x(), k_f.y(), k_f.z() );
+//    vki = *m_transform*vki;
+//    vkf = *m_transform*vkf;
+//    k_i.setXYZ(vki.x(), vki.y(), vki.z() );
+//    k_f.setXYZ(vkf.x(), vkf.y(), vkf.z() );
+//    k_i = *m_transform*k_i;
+//    k_f = *m_transform*k_f;
+    k_i.transform(*m_transform);
+    k_f.transform(*m_transform);
     return mp_form_factor->evaluateForComplexkz(k_i, k_f, k_iz, k_fz);
 }
 

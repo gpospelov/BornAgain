@@ -8,6 +8,7 @@
 //#include "CLHEP/Geometry/defs.h"
 //#include "CLHEP/Geometry/BasicVector3D.h"
 #include "BasicVector3D.h"
+#include "Transform3D.h"
 
 namespace Geometry {
   //--------------------------------------------------------------------------
@@ -321,4 +322,27 @@ namespace Geometry {
     a.setZ(z);
     return is;
   }
+
+  template<>
+  BasicVector3D<double> &
+  BasicVector3D<double>::transform(const Transform3D & m) {
+    double vx = x(), vy = y(), vz = z();
+    set(m.xx()*vx + m.xy()*vy + m.xz()*vz,
+    m.yx()*vx + m.yy()*vy + m.yz()*vz,
+    m.zx()*vx + m.zy()*vy + m.zz()*vz);
+    return *this;
+  }
+
+
+  //--------------------------------------------------------------------------
+  BasicVector3D<double>
+  operator*(const Transform3D & m, const BasicVector3D<double> & v) {
+    double vx = v.x(), vy = v.y(), vz = v.z();
+    return BasicVector3D<double>
+      (m.xx()*vx + m.xy()*vy + m.xz()*vz,
+       m.yx()*vx + m.yy()*vy + m.yz()*vz,
+       m.zx()*vx + m.zy()*vy + m.zz()*vz);
+  }
+
+
 } /* namespace HepGeom */

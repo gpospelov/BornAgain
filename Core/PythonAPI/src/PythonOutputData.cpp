@@ -24,9 +24,8 @@ PyObject *ExportOutputDataAxis(const OutputData<double > &output, int naxis);
 /* ************************************************************************* */
 int GetOutputDataNdimensions(const GISASExperiment &experiment)
 {
-    OutputData<double > *data = experiment.getOutputData();
+    const OutputData<double > *data = experiment.getOutputData();
     int ndims = data->getNdimensions();
-    delete data;
     return ndims;
 }
 
@@ -36,9 +35,8 @@ int GetOutputDataNdimensions(const GISASExperiment &experiment)
 /* ************************************************************************* */
 PyObject *GetOutputData(const GISASExperiment &experiment)
 {
-    OutputData<double > *data = experiment.getOutputData();
+    const OutputData<double > *data = experiment.getOutputData();
     PyObject *obj = ExportOutputData(*data);
-    delete data;
     return obj;
 }
 
@@ -49,9 +47,8 @@ PyObject *GetOutputData(const GISASExperiment &experiment)
 /* ************************************************************************* */
 PyObject *GetOutputDataAxis(const GISASExperiment &experiment, int naxis)
 {
-    OutputData<double > *data = experiment.getOutputData();
+    const OutputData<double > *data = experiment.getOutputData();
     PyObject *obj = ExportOutputDataAxis(*data, naxis);
-    delete data;
     return obj;
 }
 

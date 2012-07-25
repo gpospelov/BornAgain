@@ -48,22 +48,21 @@ void TestIsGISAXS9::execute()
 
     // setting experiment
     GISASExperiment experiment;
-    experiment.setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
-            , 0.0*Units::degree, 2.0*Units::degree, 100, true);
+    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // pyramid
     initializeSample_Pyramid();
     experiment.setSample(m_sample);
     experiment.runSimulation();
-    m_results.push_back( experiment.getOutputData() );
+    m_results.push_back( experiment.getOutputDataClone() );
     IsGISAXSTools::writeOutputDataToFile(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
 
     // rotated pyramid
     initializeSample_RotatedPyramid();
     experiment.setSample(m_sample);
     experiment.runSimulation();
-    m_results.push_back( experiment.getOutputData() );
+    m_results.push_back( experiment.getOutputDataClone() );
     IsGISAXSTools::writeOutputDataToFile(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z45.ima");
 
 }

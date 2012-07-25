@@ -19,6 +19,9 @@
 #include <iostream>
 
 namespace Geometry {
+class Transform3D;
+
+
   /**
    * Base class for Point3D<T>, Vector3D<T> and Normal3D<T>.
    * It defines only common functionality for those classes and
@@ -31,13 +34,13 @@ namespace Geometry {
   protected:
     T v_[3];
 
+  public:
     /**
      * Default constructor.
      * It is protected - this class should not be instantiated directly.
      */
     BasicVector3D() { v_[0] = 0; v_[1] = 0; v_[2] = 0; }
 
-  public:
     /**
      * Safe indexing of the coordinates when using with matrices, arrays, etc.
      */
@@ -162,6 +165,7 @@ namespace Geometry {
     /**
      * Sets components in cartesian coordinate system.  */
     void set(T x1, T y1, T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+    void setXYZ(T x1, T y1, T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     // ------------------------------------------
     // Cylindrical coordinate system: rho, phi, z
@@ -176,6 +180,10 @@ namespace Geometry {
     /**
      * Gets rho-component in cylindrical coordinate system */
     T rho() const { return perp(); }
+
+    /**
+     * Gets rho-component in cylindrical coordinate system */
+    T magxy() const { return perp(); }
 
     /**
      * Sets transverse component keeping phi and z constant. */
@@ -341,6 +349,23 @@ namespace Geometry {
     /**
      * Rotates around the axis specified by another vector. */
     BasicVector3D<T> & rotate(T a, const BasicVector3D<T> & v);
+
+    // ---------
+    // Specific
+    // ---------
+
+    void setLambdaAlphaPhi(T lambda, T alpha, T phi)
+    {
+        T k = 2.*M_PI/lambda;
+        v_[0] = k*std::cos(alpha) * std::cos(phi);
+        v_[1] = k*std::cos(alpha) * std::sin(phi);
+        v_[2] = k*std::sin(alpha);
+     }
+
+    /**
+     * Transformation by Transform3D. */
+    BasicVector3D<double> & transform(const Transform3D & m);
+
   };
 
 //  /*************************************************************************
@@ -560,6 +585,27 @@ namespace Geometry {
   {
     return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z());
   }
+
+  inline BasicVector3D<double> CrossProduct(const BasicVector3D<double> vectorLeft, const BasicVector3D<double> vectorRight)
+  {
+      double x = vectorLeft.y()*vectorRight.z() - vectorLeft.z()*vectorRight.y();
+      double y = vectorLeft.z()*vectorRight.x() - vectorLeft.x()*vectorRight.z();
+      double z = vectorLeft.x()*vectorRight.y() - vectorLeft.y()*vectorRight.x();
+      return BasicVector3D<double> (x, y, z);
+  }
+
+  inline double DotProduct(const BasicVector3D<double> left, const BasicVector3D<double> right)
+  {
+      return left.x()*right.x() + left.y()*right.y() + left.z()*right.z();
+  }
+
+  /**
+   * Transformation of BasicVector3D<double> by Transform3D.
+   */
+  BasicVector3D<double>
+  operator*(const Transform3D & m, const BasicVector3D<double> & v);
+
+
 } /* namespace Geometry */
 
 

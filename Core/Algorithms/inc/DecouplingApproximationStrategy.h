@@ -14,6 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jun 29, 2012
 
+#include "Types.h"
 #include "IInterferenceFunctionStrategy.h"
 
 class DecouplingApproximationStrategy : public IInterferenceFunctionStrategy

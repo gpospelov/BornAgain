@@ -30,19 +30,9 @@ TestRootTree::~TestRootTree()
     delete m_data;
 }
 
-void test( const OutputData<double > &oo);
-
 
 void TestRootTree::execute()
 {
-
-    m_data = new OutputData<double >;
-    m_data->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 2000);
-    m_data->setAllTo(0.0);
-
-    test(*m_data);
-
-    return;
 
     // preparing some real data for tree playing
     prepare_experiment();
@@ -54,14 +44,6 @@ void TestRootTree::execute()
     // example showing handling of tree with complex data structures
 //    complex_write();
 //    complex_read();
-}
-
-
-void test( const OutputData<double > &oo)
-{
-
- oo.resetIndex();
-
 }
 
 
@@ -113,7 +95,7 @@ void TestRootTree::simple_write()
         m_experiment->setBeamParameters(1.0*Units::angstrom, alpha_i*Units::degree, phi_i);
         m_experiment->runSimulation();
 
-        m_data = m_experiment->getOutputData();
+        m_data = m_experiment->getOutputDataClone();
         // accessing to scattering data
         NamedVector<double> *axis0 = dynamic_cast<NamedVector<double>*>(m_data->getAxes()[0]);
         NamedVector<double> *axis1 = dynamic_cast<NamedVector<double>*>(m_data->getAxes()[1]);
@@ -328,7 +310,7 @@ void TestRootTree::prepare_experiment()
 
     // setting experiment
     m_experiment = new GISASExperiment();
-    m_experiment->setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, 100, true);
+    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     m_experiment->setSample(m_sample);

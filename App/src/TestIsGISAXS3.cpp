@@ -28,12 +28,12 @@ void TestIsGISAXS3::execute()
     initializeSample();
     GISASExperiment experiment;
     experiment.setSample(mp_sample);
-    experiment.setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
-            , 0.0*Units::degree, 2.0*Units::degree, 100, true);
+    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree
+            , 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     experiment.runSimulation();
     if (mp_intensity_output) delete mp_intensity_output;
-    mp_intensity_output = experiment.getOutputData();
+    mp_intensity_output = experiment.getOutputDataClone();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_dwba_formfactor", "Cylinder DWBA Formfactor",
             "CONT4 Z");
     IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-3/dwbacyl.ima");

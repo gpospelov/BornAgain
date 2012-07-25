@@ -44,12 +44,12 @@ void TestMesoCrystal::execute()
     initializeSample();
     GISASExperiment experiment;
     experiment.setSample(mp_sample);
-    experiment.setDetectorParameters(0.1*Units::degree, 2.0*Units::degree, 100
-            , 0.0*Units::degree, 2.0*Units::degree, 100);
+    experiment.setDetectorParameters(100, 0.1*Units::degree, 2.0*Units::degree
+           , 100 , 0.0*Units::degree, 2.0*Units::degree);
 //    experiment.setDetectorResolutionFunction(&testResolutionFunction);
     experiment.setBeamParameters(0.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     experiment.runSimulation();
-    mp_intensity_output = experiment.getOutputData();
+    mp_intensity_output = experiment.getOutputDataClone();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
             "CONT4 Z");
     IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/mesocrystal.ima");

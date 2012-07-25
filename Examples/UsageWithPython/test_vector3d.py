@@ -10,14 +10,18 @@ sys.path.append(os.path.abspath(
 from libScattCore import *
 
 
-v1=vector3d_t(1,0,0)
+v1=kvector_t(1,0,0)
 print v1
 
-v2=vector3d_t(0,1,0)
+v2=kvector_t(0,1,0)
 print v2
 
 v3=0.5*v1+v2
 print v3
 
-t = transform3d_t()
-print t
+v4=kvector_t(1,0,0)
+
+t = Transform3D()
+t = RotateZ3D(45.*degree)
+v4.transform(t)
+print v4

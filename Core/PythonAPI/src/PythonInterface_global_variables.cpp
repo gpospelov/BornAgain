@@ -30,13 +30,11 @@
 #include "NanoParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
-#include "Point3D.h"
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
 #include "Types.h"
-#include "Vector3D.h"
 #include "PythonInterface_global_variables.h"
 
 namespace bp = boost::python;

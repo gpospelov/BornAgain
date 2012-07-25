@@ -87,7 +87,7 @@ void TestPerformance::execute()
                   << std::setw(4) << std::left << test_info->m_nrepetitions << " repetitions )"<< std::endl;
         // saving results
         std::ostringstream os;
-        os << std::setw(8) << std::setprecision(6)  << fhz;
+        os << std::setprecision(6)  << fhz;
         m_performance_info[test_name] = os.str();
     }
 
@@ -112,11 +112,11 @@ void TestPerformance::write_performance()
     }
 
     file << m_performance_info["datime"] << get_delimeter();
-    file << m_performance_info["hostname"] << get_delimeter();
-    file << std::setw(8)  << m_performance_info["sysinfo"] << get_delimeter();
+    file << std::left << adjust_string_length(m_performance_info["hostname"],10) << get_delimeter();
+    file << std::left << adjust_string_length(m_performance_info["sysinfo"],23) << get_delimeter();
     for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); it++) {
         std::string test_name = (*it)->m_test->getName();
-        file << m_performance_info[test_name] << get_delimeter();
+        file << std::left << adjust_string_length(m_performance_info[test_name],7) << get_delimeter();
     }
     file<<std::endl;
 
@@ -125,6 +125,16 @@ void TestPerformance::write_performance()
     std::cout << "TestPerformance::write_performance() -> Info. File '" << filename << "' is updated." << std::endl;
 }
 
+
+/* ************************************************************************* */
+// adjust length of string
+/* ************************************************************************* */
+std::string TestPerformance::adjust_string_length(std::string name, int length)
+{
+    std::string newstring = name;
+    newstring.resize(length,' ');
+    return newstring;
+}
 
 
 
@@ -156,7 +166,7 @@ void TestPerformance::get_sysinfo()
     }else{
         std::ostringstream os;
         os << std::string(gSystem->GetBuildArch()) << ", "<< sys_info.fCpuSpeed << " MHz";
-        os << ", " << 	sys_info.fL2Cache << " Kb";
+        //os << ", " << 	sys_info.fL2Cache << " Kb";
         m_performance_info["sysinfo"] = os.str();
     }
 }
@@ -201,7 +211,8 @@ void PerfTest_FresnelCoeff::initialise()
 void PerfTest_FresnelCoeff::execute()
 {
     static double alpha_i = -0.3;
-    kvector_t kvec = kvector_t::LambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+    kvector_t kvec;
+    kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
     OpticalFresnel::MultiLayerCoeff_t coeffs;
     OpticalFresnel fresnelCalculator;
     MultiLayer *ml = (MultiLayer *) m_sample;
@@ -237,8 +248,7 @@ void PerfTest_Pyramid::initialise()
     // experiment
     if(m_experiment) delete m_experiment;
     m_experiment = new GISASExperiment;
-    m_experiment->setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
-            , 0.0*Units::degree, 2.0*Units::degree, 100, true);
+    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     m_experiment->setSample(m_sample);
 }
@@ -287,8 +297,7 @@ void PerfTest_RotatedPyramid::initialise()
     // experiment
     if(m_experiment) delete m_experiment;
     m_experiment = new GISASExperiment;
-    m_experiment->setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
-            , 0.0*Units::degree, 2.0*Units::degree, 100, true);
+    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     m_experiment->setSample(m_sample);
 }
@@ -353,8 +362,7 @@ void PerfTest_MesoCrystal::initialise()
     // experiment
     m_experiment = new GISASExperiment;
     m_experiment->setSample(m_sample);
-    m_experiment->setDetectorParameters(0.1*Units::degree, 2.0*Units::degree, 100
-            , 0.0*Units::degree, 2.0*Units::degree, 100);
+    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     m_experiment->setBeamParameters(0.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
 
 }

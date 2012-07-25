@@ -1,4 +1,23 @@
-# date and time     | hostname  | system information         | FresnelCoeff Pyramid RotatedPyramid MesoCrystal
+# date and time     | hostname   | system information      | FresnelCoeff Pyramid RotatedPyramid MesoCrystal
 
-2012-07-24 18:21:18 | jcnsopc73 | macosx64, 2800 MHz, 256 Kb |  82987.5 |  4.14079 |  3.89105 | 0.233918 | 
-2012-07-24 18:22:36 | jcnsopc73 | macosx64, 2800 MHz, 256 Kb |  82987.5 |  4.14938 |  3.91389 | 0.233918 | 
+2012-07-24 18:21:18 | jcnsopc73  | macosx64, 2800 MHz      | 82987.5 | 4.14079 | 3.89105 | 0.23391 | 
+2012-07-24 18:22:36 | jcnsopc73  | macosx64, 2800 MHz      | 82987.5 | 4.14938 | 3.91389 | 0.23391 | 
+2012-07-24 18:31:44 | iff1610    | linuxx8664gcc, 2399 MHz | 45248.9 | 3.10559 | 2.90698 | 0.17730 |
+2012-07-25 10:32:15 | jcnsopc73  | macosx64, 2800 MHz      | 84033.6 | 4.0404  | 3.87597 | 0.23640 | 
+2012-07-25 12:53:59 | jcnsopc73  | macosx64, 2800 MHz      | 81300.8 | 3.99202 | 3.82409 | 0.22321 | 
+2012-07-25 13:07:19 | jcnsopc73  | macosx64, 2800 MHz      | 80000   | 4.08163 | 3.89105 | 0.23446 | 
+2012-07-25 13:08:31 | jcnsopc73  | macosx64, 2800 MHz      | 83333.3 | 4.06504 | 3.861   | 0.22883 | 
+2012-07-25 13:10:06 | jcnsopc73  | macosx64, 2800 MHz      | 84033.6 | 4.05679 | 3.89105 | 0.22857 | 
+
+# switched off debug 
+2012-07-25 13:18:04 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 12.987  | 12.8205 | 0.70922 | 
+2012-07-25 13:19:11 | jcnsopc73  | macosx64, 2800 MHz      | 256410  | 12.9032 | 12.4224 | 0.70175 |
+
+# kvector_t -> BasicVector3D < double> : improvement ~10%
+2012-07-25 15:39:19 | jcnsopc73  | macosx64, 2800 MHz      | 229885  | 11.2994 | 11.4286 | 0.60606 | 
+2012-07-25 15:40:44 | jcnsopc73  | macosx64, 2800 MHz      | 240964  | 11.1732 | 11.5607 | 0.625   | 
+2012-07-25 15:53:31 | jcnsopc73  | macosx64, 2800 MHz      | 238095  | 11.8343 | 11.6279 | 0.60060 | 
+
+# debug is switched on again, and it is the same as before migration in kvector
+2012-07-25 15:57:02 | jcnsopc73  | macosx64, 2800 MHz      | 80645.2 | 3.92927 | 3.89105 | 0.21254 | 
+2012-07-25 15:58:36 | jcnsopc73  | macosx64, 2800 MHz      | 80971.7 | 3.96825 | 3.80228 | 0.21276 | 

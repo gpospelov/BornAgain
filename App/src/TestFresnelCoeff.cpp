@@ -69,7 +69,8 @@ void TestFresnelCoeff::test_standard_samples()
         m_coeffs->resetIndex();
         while (m_coeffs->hasNext()) {
             double alpha_i = m_coeffs->getCurrentValueOfAxis<double>("alpha_i");
-            kvector_t kvec = kvector_t::LambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+            kvector_t kvec;
+            kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 
             OpticalFresnel::MultiLayerCoeff_t coeffs;
             OpticalFresnel fresnelCalculator;
@@ -270,7 +271,8 @@ void TestFresnelCoeff::test_roughness_set()
         double roughness = m_coeffs->getCurrentValueOfAxis<double>("roughness");
         multipar.setValue(roughness);
 
-        kvector_t kvec = kvector_t::LambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+        kvector_t kvec;
+        kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
         OpticalFresnel fresnelCalculator;
         fresnelCalculator.execute(*m_sample, kvec, coeffs, true);

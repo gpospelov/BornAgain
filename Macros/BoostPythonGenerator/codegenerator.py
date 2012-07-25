@@ -53,13 +53,13 @@ myFiles=[
   'NanoParticleDecoration.h',
   'OpticalFresnel.h',
   'ParameterPool.h',
-  'Point3D.h',
+##  'Point3D.h',
   'PythonOutputData.h',
   'PythonPlusplusHelper.h',
   'Transform3D.h',
   'Units.h',
   'Types.h',
-  'Vector3D.h',
+##  'Vector3D.h',
 ]
   #'IClusteredNanoParticles.h',
 

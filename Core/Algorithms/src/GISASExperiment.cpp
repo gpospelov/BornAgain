@@ -7,8 +7,8 @@
 GISASExperiment::GISASExperiment()
 {
     m_beam.setCentralK(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree); ///< Set default beam parameters
-    setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100,
-            0.0*Units::degree, 2.0*Units::degree, 100);
+    setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+            100, 0.0*Units::degree, 2.0*Units::degree);
 }
 
 void GISASExperiment::runSimulation()
@@ -25,9 +25,9 @@ void GISASExperiment::runSimulation()
     delete p_dwba_simulation;
 }
 
-void GISASExperiment::setDetectorParameters(double phi_f_min, double phi_f_max,
-        size_t n_phi, double alpha_f_min, double alpha_f_max, size_t n_alpha,
-        bool isgisaxs_style)
+
+void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
+                                            size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {
     m_detector.clear();
     NamedVector<double> phi_axis("phi_f");

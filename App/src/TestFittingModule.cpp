@@ -34,11 +34,11 @@ void TestFittingModule::execute()
     initializeSample();
     GISASExperiment experiment;
     experiment.setSample(mp_sample);
-    experiment.setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
-            , 0.0*Units::degree, 2.0*Units::degree, 100);
+    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree
+            ,100 , 0.0*Units::degree, 2.0*Units::degree);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     experiment.runSimulation();
-    mp_exact_data = experiment.getOutputData();
+    mp_exact_data = experiment.getOutputDataClone();
     // Generate noisy version
     generateRealData(0.2);
     IsGISAXSTools::drawLogOutputData(*mp_real_data, "c1_test_fitting", "fitting", "CONT4 Z");

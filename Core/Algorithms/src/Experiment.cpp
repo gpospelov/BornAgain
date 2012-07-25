@@ -19,10 +19,16 @@ void Experiment::setSample(ISample* p_sample)
 	mp_sample = p_sample;  ///< Not owned by Experiment
 }
 
-OutputData<double>* Experiment::getOutputData() const
+OutputData<double>* Experiment::getOutputDataClone() const
 {
 	return m_intensity_map.clone();
 }
+
+const OutputData<double>* Experiment::getOutputData() const
+{
+    return &m_intensity_map;
+}
+
 
 void Experiment::setBeamParameters(double lambda, double alpha_i, double phi_i)
 {

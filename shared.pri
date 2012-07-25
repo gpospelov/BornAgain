@@ -10,6 +10,7 @@ lessThan(QT_VERSION, 4.5) {
 
 # uncomment to compile with GPERFTOOLS support for code profiling
 #CONFIG += GPERFTOOLS
+#CONFIG += debug
 
 CONFIG(GPERFTOOLS) {
   QMAKE_CXXFLAGS += -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free

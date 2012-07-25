@@ -33,7 +33,9 @@ public:
     void setSample(ISample *p_sample);
 
     /// Get data structure that contains the intensity map on the detector for all scan parameters
-    OutputData<double>* getOutputData() const;
+    OutputData<double>* getOutputDataClone() const;
+
+    const OutputData<double>* getOutputData() const;
 
     Beam getBeam() const
     {

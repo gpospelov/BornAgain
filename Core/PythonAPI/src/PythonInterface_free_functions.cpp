@@ -30,37 +30,35 @@
 #include "NanoParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
-#include "Point3D.h"
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
 #include "Types.h"
-#include "Vector3D.h"
 #include "PythonInterface_free_functions.h"
 
 namespace bp = boost::python;
 
 void register_free_functions(){
 
-    { //::CrossProduct
+    { //::Geometry::CrossProduct
     
-        typedef ::kvector_t ( *CrossProduct_function_type )( ::kvector_t const,::kvector_t const );
+        typedef ::Geometry::BasicVector3D< double > ( *CrossProduct_function_type )( ::Geometry::BasicVector3D< double > const,::Geometry::BasicVector3D< double > const );
         
         bp::def( 
             "CrossProduct"
-            , CrossProduct_function_type( &::CrossProduct )
+            , CrossProduct_function_type( &::Geometry::CrossProduct )
             , ( bp::arg("vectorLeft"), bp::arg("vectorRight") ) );
     
     }
 
-    { //::DotProduct
+    { //::Geometry::DotProduct
     
-        typedef double ( *DotProduct_function_type )( ::kvector_t const,::kvector_t const );
+        typedef double ( *DotProduct_function_type )( ::Geometry::BasicVector3D< double > const,::Geometry::BasicVector3D< double > const );
         
         bp::def( 
             "DotProduct"
-            , DotProduct_function_type( &::DotProduct )
+            , DotProduct_function_type( &::Geometry::DotProduct )
             , ( bp::arg("left"), bp::arg("right") ) );
     
     }

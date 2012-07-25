@@ -58,7 +58,7 @@ multi_layer.addLayer(substrate)
 # build and run experiment
 # ------------------------
 experiment = GISASExperiment()
-experiment.setDetectorParameters(0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, 100, True)
+experiment.setDetectorParameters(100, 0.0*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
 experiment.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
 
 experiment.setSample(multi_layer)

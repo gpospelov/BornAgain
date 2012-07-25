@@ -39,12 +39,12 @@ void TestDetectorResolution::execute()
     initializeSample();
     GISASExperiment experiment;
     experiment.setSample(mp_sample);
-    experiment.setDetectorParameters(0.0*Units::degree, 2.0*Units::degree, 100
-            , 0.0*Units::degree, 2.0*Units::degree, 100);
+    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree
+            ,100, 0.0*Units::degree, 2.0*Units::degree);
     experiment.setDetectorResolutionFunction(&testResolutionFunction);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     experiment.runSimulation();
-    mp_intensity_output = experiment.getOutputData();
+    mp_intensity_output = experiment.getOutputDataClone();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_detector_resolution", "Detector resolution",
             "CONT4 Z");
 }

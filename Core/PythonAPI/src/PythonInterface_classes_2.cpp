@@ -30,13 +30,11 @@
 #include "NanoParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
-#include "Point3D.h"
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
 #include "Types.h"
-#include "Vector3D.h"
 #include "PythonInterface_classes_2.h"
 
 namespace bp = boost::python;
@@ -89,52 +87,6 @@ void register_classes_2(){
 
     bp::class_< Geometry::RotateZ3D, bp::bases< Geometry::Rotate3D > >( "RotateZ3D", bp::init< >() )    
         .def( bp::init< double >(( bp::arg("a") )) );
-
-    { //::Geometry::Vector3D< double >
-        typedef bp::class_< Geometry::Vector3D< double >, bp::bases< Geometry::BasicVector3D< double > > > vector3d_t_exposer_t;
-        vector3d_t_exposer_t vector3d_t_exposer = vector3d_t_exposer_t( "vector3d_t", bp::init< >() );
-        bp::scope vector3d_t_scope( vector3d_t_exposer );
-        vector3d_t_exposer.def( bp::init< double, double, double >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
-        vector3d_t_exposer.def( bp::init< double const * >(( bp::arg("a") )) );
-        vector3d_t_exposer.def( bp::init< Geometry::Vector3D< double > const & >(( bp::arg("v") )) );
-        vector3d_t_exposer.def( bp::init< Geometry::BasicVector3D< double > const & >(( bp::arg("v") )) );
-        { //::Geometry::Vector3D< double >::operator=
-        
-            typedef Geometry::Vector3D< double > exported_class_t;
-            typedef ::Geometry::Vector3D< double > & ( exported_class_t::*assign_function_type )( ::Geometry::Vector3D< double > const & ) ;
-            
-            vector3d_t_exposer.def( 
-                "assign"
-                , assign_function_type( &::Geometry::Vector3D< double >::operator= )
-                , ( bp::arg("v") )
-                , bp::return_self< >() );
-        
-        }
-        { //::Geometry::Vector3D< double >::operator=
-        
-            typedef Geometry::Vector3D< double > exported_class_t;
-            typedef ::Geometry::Vector3D< double > & ( exported_class_t::*assign_function_type )( ::Geometry::BasicVector3D< double > const & ) ;
-            
-            vector3d_t_exposer.def( 
-                "assign"
-                , assign_function_type( &::Geometry::Vector3D< double >::operator= )
-                , ( bp::arg("v") )
-                , bp::return_self< >() );
-        
-        }
-        { //::Geometry::Vector3D< double >::transform
-        
-            typedef Geometry::Vector3D< double > exported_class_t;
-            typedef ::Geometry::Vector3D< double > & ( exported_class_t::*transform_function_type )( ::Geometry::Transform3D const & ) ;
-            
-            vector3d_t_exposer.def( 
-                "transform"
-                , transform_function_type( &::Geometry::Vector3D< double >::transform )
-                , ( bp::arg("m") )
-                , bp::return_internal_reference< >() );
-        
-        }
-    }
 
     { //::IMaterial
         typedef bp::class_< IMaterial > IMaterial_exposer_t;

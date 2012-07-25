@@ -39,7 +39,9 @@ void MultiLayerDWBASimulation::run()
     std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
         double angle = (*p_alpha_axis)[i];
-        kvector_t kvec = kvector_t::LambdaAlphaPhi(lambda, -angle, 0.0);
+        //kvector_t kvec = kvector_t::LambdaAlphaPhi(lambda, -angle, 0.0);
+        kvector_t kvec;
+        kvec.setLambdaAlphaPhi(lambda, -angle, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
         fresnelCalculator.execute(*mp_multi_layer, kvec, coeffs);
         fresnel_coeff_map[angle] = coeffs;

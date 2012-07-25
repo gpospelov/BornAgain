@@ -25,8 +25,8 @@ public:
 
 	virtual void runSimulation();
 
-	void setDetectorParameters(double phi_f_min, double phi_f_max, size_t n_phi,
-	        double alpha_f_min, double alpha_f_max, size_t n_alpha, bool isgisaxs_style=false);
+    void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
+            size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style=false);
 
 	void setDetectorResolutionFunction(ConvolutionDetectorResolution::cumulative_DF_2d resolution_function);
 private:

@@ -10,6 +10,10 @@ LayerDecorator::LayerDecorator(const Layer &layer,
 : mp_decorated_layer(layer.clone())
 , mp_decoration(decoration.clone())
 {
+    setName("LayerDecorator");
+    registerChild(mp_decorated_layer);
+    registerChild(mp_decoration);
+    init_parameters();
 }
 
 LayerDecorator::LayerDecorator(const LayerDecorator& other)
@@ -17,17 +21,12 @@ LayerDecorator::LayerDecorator(const LayerDecorator& other)
 {
     mp_decorated_layer = other.getDecoratedLayer()->clone();
     mp_decoration = other.getDecoration()->clone();
-}
 
-//LayerDecorator& LayerDecorator::operator =(const LayerDecorator& other)
-//{
-//    if (this!=&other) {
-//        clear();
-//        mp_decorated_layer = other.getDecoratedLayer()->clone();
-//        mp_decoration = other.getDecoration()->clone();
-//    }
-//    return *this;
-//}
+    setName("LayerDecorator");
+    registerChild(mp_decorated_layer);
+    registerChild(mp_decoration);
+    init_parameters();
+}
 
 LayerDecorator* LayerDecorator::clone() const
 {
@@ -36,18 +35,20 @@ LayerDecorator* LayerDecorator::clone() const
 
 LayerDecorator::~LayerDecorator()
 {
-    clear();
-}
-
-void LayerDecorator::init_parameters()
-{
-}
-
-void LayerDecorator::clear()
-{
     delete mp_decorated_layer;
     delete mp_decoration;
 }
 
+// LayerDecorator is derived from Layer and it has to clean all parameters created by Layer
+void LayerDecorator::init_parameters()
+{
+    getParameterPool()->clear();
+}
 
-
+/* ************************************************************************* */
+// print content of multilayer
+/* ************************************************************************* */
+void LayerDecorator::print(std::ostream &ostr) const
+{
+    ICompositeSample::print(ostr);
+}

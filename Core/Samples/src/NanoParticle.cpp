@@ -5,6 +5,8 @@ NanoParticle::NanoParticle(complex_t refractive_index, IFormFactor *p_form_facto
 , m_refractive_index(refractive_index)
 , mp_form_factor(p_form_factor)
 {
+    setName("NanoParticle");
+    registerChild(mp_form_factor);
 }
 
 NanoParticle::NanoParticle(complex_t refractive_index, const IFormFactor &p_form_factor)
@@ -12,7 +14,9 @@ NanoParticle::NanoParticle(complex_t refractive_index, const IFormFactor &p_form
 , m_refractive_index(refractive_index)
 , mp_form_factor(0)
 {
+    setName("NanoParticle");
     mp_form_factor = p_form_factor.clone();
+    registerChild(mp_form_factor);
 }
 
 

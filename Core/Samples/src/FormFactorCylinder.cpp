@@ -6,31 +6,50 @@
 
 FormFactorCylinder::FormFactorCylinder(double height, double radius)
 {
-    mp_height = new StochasticDiracDelta<double>(height);
-    mp_radius = new StochasticDiracDelta<double>(radius);
+    setName("FormFactorCylinder");
+    m_height = height;
+    m_radius = radius;
+    init_parameters();
+    //    mp_height = new StochasticDiracDelta<double>(height);
+    //    mp_radius = new StochasticDiracDelta<double>(radius);
 }
 
-FormFactorCylinder::FormFactorCylinder(StochasticParameter<double> *p_height, StochasticParameter<double> *p_radius)
-    : mp_height(p_height)
-    , mp_radius(p_radius)
-{
-}
+//FormFactorCylinder::FormFactorCylinder(StochasticParameter<double> *p_height, StochasticParameter<double> *p_radius)
+//    : mp_height(p_height)
+//    , mp_radius(p_radius)
+//{
+//}
 
 FormFactorCylinder::~FormFactorCylinder()
 {
-    delete mp_height;
-    delete mp_radius;
+//    delete mp_height;
+//    delete mp_radius;
 }
+
+
+/* ************************************************************************* */
+// initialize pool parameters, i.e. register some of class members for later access via parameter pool
+/* ************************************************************************* */
+void FormFactorCylinder::init_parameters()
+{
+    getParameterPool()->clear();
+    getParameterPool()->registerParameter("height", &m_height);
+    getParameterPool()->registerParameter("radius", &m_radius);
+}
+
 
 FormFactorCylinder* FormFactorCylinder::clone() const
 {
-    return new FormFactorCylinder(mp_height->clone(), mp_radius->clone());
+    return new FormFactorCylinder(m_height, m_radius);
+//    return new FormFactorCylinder(mp_height->clone(), mp_radius->clone());
 }
 
 complex_t FormFactorCylinder::evaluate_for_complex_qz(kvector_t q, complex_t qz) const
 {
-    double R = mp_radius->getCurrent();
-    double H = mp_height->getCurrent();
+//    double R = mp_radius->getCurrent();
+//    double H = mp_height->getCurrent();
+    double R = m_radius;
+    double H = m_height;
 
     complex_t qzH_half = qz*H/2.0;
     complex_t z_part = H*MathFunctions::Sinc(qzH_half)*std::exp(complex_t(0.0, 1.0)*qzH_half);
@@ -40,4 +59,14 @@ complex_t FormFactorCylinder::evaluate_for_complex_qz(kvector_t q, complex_t qz)
     double radial_part = 2*M_PI*R*R*J1_qrR_div_qrR;
 
     return radial_part*z_part;
+}
+
+
+/* ************************************************************************* */
+// print class
+/* ************************************************************************* */
+void FormFactorCylinder::print(std::ostream &ostr) const
+{
+    ISample::print(ostr);
+//    ostr << " (height:"<<m_height << " radius:"<<m_radius << ")";
 }

@@ -41,7 +41,7 @@ public:
 protected:
     //! print material class
     virtual void print(std::ostream &ostr) const {
-        ostr  << "Homogeneous " << this << " " << getName() << " rindx:" << m_refractive_index;
+        ostr  << "  " << getName() << " " << this << " R" << m_refractive_index;
     }
 
     complex_t m_refractive_index; ///< complex index of refraction

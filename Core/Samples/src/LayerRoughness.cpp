@@ -85,7 +85,8 @@ double LayerRoughness::getCorrFun(const kvector_t &k) const
 /* ************************************************************************* */
 void LayerRoughness::print(std::ostream &ostr) const
 {
-    ostr << getName()
-         << " " << std::setw(12) << this;
-    ostr << "(s:" << m_sigma << ",H:"<<m_hurstParameter<< ",C:"<<m_latteralCorrLength << ")";
+//    ostr << getName()
+//         << " " << std::setw(12) << this;
+//    ostr << "(s:" << m_sigma << ",H:"<<m_hurstParameter<< ",C:"<<m_latteralCorrLength << ")";
+    ISample::print(ostr);
 }

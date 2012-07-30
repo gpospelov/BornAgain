@@ -2,6 +2,18 @@
 #include "MultiLayer.h"
 #include "MaterialManager.h"
 #include "Units.h"
+#include "NanoParticle.h"
+#include "FormFactors.h"
+#include "Transform3D.h"
+#include "NanoParticleDecoration.h"
+#include "InterferenceFunctionNone.h"
+#include "LayerDecorator.h"
+#include "Lattice.h"
+#include "LatticeBasis.h"
+#include "NanoParticleCrystal.h"
+#include "MesoCrystal.h"
+#include "InterferenceFunction1DParaCrystal.h"
+
 
 /* ************************************************************************* */
 // 10 nm of ambience on top of substrate.
@@ -215,4 +227,88 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
     return mySample;
 }
 
+
+/* ************************************************************************* */
+// Rotated pyramid from IsGISAXS9 functional test
+/* ************************************************************************* */
+ISample *StandardSamples::IsGISAXS9_RotatedPyramid()
+{
+    const double angle_around_z = 45.*Units::degree;
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+
+    NanoParticle *pyramid = new NanoParticle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73)) );
+
+    Geometry::Transform3D *transform = new Geometry::Transform3D();
+    *transform = Geometry::RotateZ3D(angle_around_z);
+
+    NanoParticleDecoration particle_decoration;
+
+    particle_decoration.addNanoParticle(pyramid, transform);
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+
+/* ************************************************************************* */
+// first mesco crystal test
+/* ************************************************************************* */
+ISample *StandardSamples::MesoCrystal1()
+{
+    // create mesocrystal
+    double R = 6.1*Units::nanometer;
+    Lattice lat = Lattice::createTrigonalLattice(R*2.0, R*2.0*2.3);
+    kvector_t bas_a = lat.getBasisVectorA();
+    kvector_t bas_b = lat.getBasisVectorB();
+    kvector_t bas_c = lat.getBasisVectorC();
+    complex_t n_particle(1.0-1.5e-5, 1.3e-6);
+    NanoParticle particle(n_particle, new FormFactorFullSphere(R));
+    kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
+    kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
+    kvector_t position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);
+    std::vector<kvector_t> pos_vector;
+    pos_vector.push_back(position_0);
+    pos_vector.push_back(position_1);
+    pos_vector.push_back(position_2);
+    LatticeBasis basis(particle, pos_vector);
+    NanoParticleCrystal npc(basis, lat);
+    MesoCrystal meso(npc.clone(), new FormFactorCylinder(0.2*Units::micrometer, 300*Units::nanometer));
+    MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, 300*Units::nanometer, 84*Units::degree));
+
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-3.5e-6, 7.8e-8);
+
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air2", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate2", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    //    IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
+    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
+        50*Units::nanometer, 1e7*Units::nanometer);
+    NanoParticleDecoration particle_decoration(meso.clone(), 0.0, 0.5);
+    particle_decoration.addNanoParticle(meso2.clone(), 0.0, 0.5);
+    particle_decoration.addInterferenceFunction(p_interference_funtion);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+
+}
 

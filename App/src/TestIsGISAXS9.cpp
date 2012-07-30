@@ -13,6 +13,8 @@
 #include "FormFactors.h"
 #include "BasicVector3D.h"
 #include "Transform3D.h"
+#include "ICompositeIterator.h"
+#include "SampleFactory.h"
 
 #include "TCanvas.h"
 #include "TRandom.h"
@@ -44,6 +46,21 @@ void TestIsGISAXS9::clear()
 
 void TestIsGISAXS9::execute()
 {
+
+    //MultiLayer *ml = dynamic_cast<MultiLayer *>(SampleFactory::createSample("IsGISAXS9_RotatedPyramid"));
+    MultiLayer *ml = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MesoCrystal1"));
+
+    std::cout << *ml << std::endl;
+
+    std::cout << "------------------------------------" << std::endl;
+    ml->getCompositeSample()->walk_and_print();
+
+    std::cout << "------------------------------------" << std::endl;
+    ParameterPool *pool = ml->createParameterTree();
+    std::cout << *pool << std::endl;
+
+
+    return;
     clear();
 
     // setting experiment

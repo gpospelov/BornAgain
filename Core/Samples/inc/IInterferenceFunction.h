@@ -15,8 +15,9 @@
 //! @date   18.06.2012
 
 #include "Types.h"
+#include "ISample.h"
 
-class IInterferenceFunction
+class IInterferenceFunction : public ISample
 {
 public:
 	virtual ~IInterferenceFunction() {}

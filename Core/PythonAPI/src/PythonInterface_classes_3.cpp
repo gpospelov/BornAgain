@@ -48,13 +48,6 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     }
 
-    Layer_wrapper(::Layer const & other )
-    : Layer( boost::ref(other) )
-      , bp::wrapper< Layer >(){
-        // copy constructor
-    
-    }
-
     virtual ::IMaterial const * getMaterial(  ) const  {
         if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
             return func_getMaterial(  );
@@ -148,8 +141,7 @@ void register_classes_3(){
             , (void ( ::LatticeBasis::* )( ::NanoParticle const &,::kvector_t ) )( &::LatticeBasis::addParticle )
             , ( bp::arg("particle"), bp::arg("position") ) );
 
-    bp::class_< Layer_wrapper, bp::bases< ISample > >( "Layer", bp::init< >() )    
-        .def( bp::init< Layer const & >(( bp::arg("other") )) )    
+    bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Layer", bp::init< >() )    
         .def( 
             "getMaterial"
             , (::IMaterial const * ( ::Layer::* )(  ) const)(&::Layer::getMaterial)
@@ -164,8 +156,7 @@ void register_classes_3(){
             "setMaterial"
             , (void ( ::Layer::* )( ::IMaterial const *,double ) )(&::Layer::setMaterial)
             , (void ( Layer_wrapper::* )( ::IMaterial const *,double ) )(&Layer_wrapper::default_setMaterial)
-            , ( bp::arg("p_material"), bp::arg("thickness") ) )    
-        .def( bp::self_ns::str( bp::self ) );
+            , ( bp::arg("p_material"), bp::arg("thickness") ) );
 
     bp::class_< LayerDecorator, bp::bases< Layer > >( "LayerDecorator", bp::init< Layer const &, NanoParticleDecoration const & >(( bp::arg("layer"), bp::arg("decoration") )) );
 

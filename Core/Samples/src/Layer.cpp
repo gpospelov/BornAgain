@@ -7,12 +7,12 @@
 /* ************************************************************************* */
 Layer::Layer() : mp_material(0), m_thickness(0)
 {
-    setName("layer");
+    setName("Layer");
     init_parameters();
 }
 
 
-Layer::Layer(const Layer &other) : ISample(other)
+Layer::Layer(const Layer &other) : ICompositeSample(other)
 {
     mp_material = other.mp_material;
     m_thickness = other.m_thickness;
@@ -83,9 +83,11 @@ void Layer::setMaterial(const IMaterial* p_material, double thickness)
 /* ************************************************************************* */
 void Layer::print(std::ostream &ostr) const
 {
-    ostr << getName()
-         << " " << std::setw(12) << this
-         << " " << getThickness() << "nm > "
-         << *getMaterial();
+    ICompositeSample::print(ostr);
+    ostr << *getMaterial();
+//    ostr << getName()
+//         << " " << std::setw(12) << this
+//         << " " << getThickness() << "nm > "
+//         << *getMaterial();
 }
 

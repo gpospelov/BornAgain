@@ -7,11 +7,13 @@
 NanoParticleDecoration::NanoParticleDecoration()
 : m_total_abundance(0.0)
 {
+    setName("NanoParticleDecoration");
 }
 
 NanoParticleDecoration::NanoParticleDecoration(NanoParticle* p_particle, double depth, double abundance)
 : m_total_abundance(0.0)
 {
+    setName("NanoParticleDecoration");
     addNanoParticle(p_particle, 0, depth, abundance);
 }
 
@@ -30,13 +32,14 @@ NanoParticleDecoration::~NanoParticleDecoration()
 NanoParticleDecoration* NanoParticleDecoration::clone() const
 {
     NanoParticleDecoration *p_new = new NanoParticleDecoration();
+    p_new->setName(getName());
 
     for (size_t i=0; i<m_particles.size(); ++i) {
-        p_new->addNanoParticleInfo(m_particles[i]->clone());
+        p_new->addAndRegisterNanoParticleInfo(m_particles[i]->clone());
     }
 
     for (size_t i=0; i<m_interference_functions.size(); ++i) {
-        p_new->addInterferenceFunction(m_interference_functions[i]->clone());
+        p_new->addAndRegisterInterferenceFunction(m_interference_functions[i]->clone());
     }
 
     p_new->m_total_abundance = m_total_abundance;
@@ -44,6 +47,10 @@ NanoParticleDecoration* NanoParticleDecoration::clone() const
     return p_new;
 }
 
+
+/* ************************************************************************* */
+// add nano particle
+/* ************************************************************************* */
 void NanoParticleDecoration::addNanoParticle(NanoParticle* p_particle,
         double depth, double abundance)
 {
@@ -56,48 +63,30 @@ void NanoParticleDecoration::addNanoParticle(const NanoParticle &p_particle,
     addNanoParticle(p_particle.clone(), 0, depth, abundance);
 }
 
-
-void NanoParticleDecoration::addNanoParticle(NanoParticle* p_particle,
-        Geometry::Transform3D *transform, double depth, double abundance)
-{
-    addNanoParticleInfo( new NanoParticleInfo(p_particle, transform, depth, abundance) );
-    m_total_abundance += abundance;
-}
-
 void NanoParticleDecoration::addNanoParticle(const NanoParticle &p_particle,
         const Geometry::Transform3D &transform, double depth, double abundance)
 {
     addNanoParticle(p_particle.clone(), new Geometry::Transform3D(transform), depth, abundance);
 }
 
+// main function to add nano particle
+void NanoParticleDecoration::addNanoParticle(NanoParticle* p_particle,
+        Geometry::Transform3D *transform, double depth, double abundance)
+{
+    addAndRegisterNanoParticleInfo( new NanoParticleInfo(p_particle, transform, depth, abundance) );
+    m_total_abundance += abundance;
+}
 
-//const NanoParticle* NanoParticleDecoration::getNanoParticle(size_t index) const
-//{
-//    if (index<m_particles.size()) {
-//        //return m_particles[index].mp_particle->clone();
-//        return m_particles[index].mp_particle;
-//    }
-//    throw OutOfBoundsException("Not so many particles in this decoration.");
-//}
-
-//double NanoParticleDecoration::getDepthOfNanoParticle(size_t index) const
-//{
-//    if (index<m_particles.size()) {
-//        return m_particles[index].m_depth;
-//    }
-//    throw OutOfBoundsException("Not so many particles in this decoration.");
-//}
-
-
-//Geometry::Transform3D * NanoParticleDecoration::getTransformationOfNanoParticle(size_t index) const
-//{
-//    if (index<m_particles.size()) {
-//        return m_particles[index].m_transform;
-//    }
-//    throw OutOfBoundsException("Not so many particles in this decoration.");
-//}
-
-
+/* ************************************************************************* */
+// get nano particle info
+/* ************************************************************************* */
+const NanoParticleInfo* NanoParticleDecoration::getNanoParticleInfo(size_t index) const
+{
+    if (index<m_particles.size()) {
+        return m_particles[index];
+    }
+    throw OutOfBoundsException("Not so many interference functions in this decoration.");
+}
 
 double NanoParticleDecoration::getAbundanceFractionOfNanoParticle(size_t index) const
 {
@@ -105,23 +94,18 @@ double NanoParticleDecoration::getAbundanceFractionOfNanoParticle(size_t index) 
 }
 
 
+/* ************************************************************************* */
+// add interference functions
+/* ************************************************************************* */
 void NanoParticleDecoration::addInterferenceFunction(IInterferenceFunction* p_interference_function)
 {
-    m_interference_functions.push_back(p_interference_function);
+    addAndRegisterInterferenceFunction(p_interference_function);
 }
-
 
 void NanoParticleDecoration::addInterferenceFunction(const IInterferenceFunction &interference_function)
 {
-    m_interference_functions.push_back(interference_function.clone());
+    addAndRegisterInterferenceFunction(interference_function.clone());
 }
-
-
-void NanoParticleDecoration::addNanoParticleInfo(NanoParticleInfo *info)
-{
-    m_particles.push_back(info);
-}
-
 
 const IInterferenceFunction* NanoParticleDecoration::getInterferenceFunction(size_t index) const
 {
@@ -132,15 +116,9 @@ const IInterferenceFunction* NanoParticleDecoration::getInterferenceFunction(siz
 }
 
 
-const NanoParticleInfo* NanoParticleDecoration::getNanoParticleInfo(size_t index) const
-{
-    if (index<m_particles.size()) {
-        return m_particles[index];
-    }
-    throw OutOfBoundsException("Not so many interference functions in this decoration.");
-}
-
-
+/* ************************************************************************* */
+// create strategy
+/* ************************************************************************* */
 IInterferenceFunctionStrategy* NanoParticleDecoration::createStrategy(
         const std::vector<IFormFactor*>& form_factors) const
 {

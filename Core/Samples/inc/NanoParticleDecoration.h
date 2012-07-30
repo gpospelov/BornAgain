@@ -35,41 +35,35 @@ public:
 	/// Clone decoration
 	virtual NanoParticleDecoration *clone() const;
 
-    /// Add nano particle
+
+    /// add nano particle giving depth and transformation
     void addNanoParticle(NanoParticle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=1.0);
     void addNanoParticle(const NanoParticle &p_particle, const Geometry::Transform3D &transform, double depth=0, double abundance=1.0);
 
-    /// Add nano particle
-    void addNanoParticle(NanoParticle *p_particle, double depth=0.0, double abundance=1.0);
+    /// add nano particle giving depth
     void addNanoParticle(const NanoParticle &p_particle, double depth=0.0, double abundance=1.0);
+    void addNanoParticle(NanoParticle *p_particle, double depth=0.0, double abundance=1.0);
 
-//    /// Add nano particle
-//    void addNanoParticle(NanoParticle *p_particle, Geometry::Transform3D *transform, double abundance=1.0);
+//    /// Add nano particle info
+//    void addNanoParticleInfo(NanoParticleInfo* p_info);
 
 	/// Get number of particles
 	size_t getNumberOfParticles() const { return m_particles.size(); }
 
-//	/// Get particle with index
-//    const NanoParticle* getNanoParticle(size_t index) const;
-//    /// Get depth of particle with index
-//    double getDepthOfNanoParticle(size_t index) const;
+    /// get information about nano particle with index
+    const NanoParticleInfo *getNanoParticleInfo(size_t index) const;
+
     /// Get abundance fraction of particle with index
     double getAbundanceFractionOfNanoParticle(size_t index) const;
-//    /// get particle geometry transformation
-//    Geometry::Transform3D * getTransformationOfNanoParticle(size_t index) const;
+
 
     /// Add interference function
     void addInterferenceFunction(IInterferenceFunction* p_interference_function);
     void addInterferenceFunction(const IInterferenceFunction &interference_function);
 
-    /// Add nano particle info
-    void addNanoParticleInfo(NanoParticleInfo* p_info);
-
     /// Get interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;
 
-    /// get information about nano particle with index
-    const NanoParticleInfo *getNanoParticleInfo(size_t index) const;
 
     /// Create interference function strategy
     IInterferenceFunctionStrategy *createStrategy(const std::vector<IFormFactor *> &form_factors) const;
@@ -79,9 +73,23 @@ private:
     NanoParticleDecoration(const NanoParticleDecoration &);
     NanoParticleDecoration &operator=(const NanoParticleDecoration &);
 
+    //! adding nano particle information with simultaneous registration in parent class
+    void addAndRegisterNanoParticleInfo(NanoParticleInfo *child)
+    {
+        m_particles.push_back(child);
+        registerChild(child);
+    }
+
+    //! adding interference function with simultaneous registration in parent class
+    void addAndRegisterInterferenceFunction(IInterferenceFunction *child)
+    {
+        m_interference_functions.push_back(child);
+        registerChild(child);
+    }
+
     std::vector<NanoParticleInfo *> m_particles;
     ///< Vector of the types of nano particles
-    std::vector<IInterferenceFunction*> m_interference_functions;
+    std::vector<IInterferenceFunction *> m_interference_functions;
     ///< Currently only a scalar interference function (instead of matrix)
     double m_total_abundance;
     ///< To guarantee that fractions sum up to 1

@@ -14,9 +14,9 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jun 22, 2012
 
-#include "ISample.h"
+#include "ICompositeSample.h"
 
-class IDecoration : public ISample
+class IDecoration : public ICompositeSample
 {
 public:
     virtual ~IDecoration() {}

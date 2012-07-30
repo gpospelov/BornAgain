@@ -51,7 +51,13 @@ public:
     //! check if this sample (or one of its subsamples) contains elements requiring DWBA corrections and return an ISimulation to calculate this
     virtual DWBASimulation *createDWBASimulation() const { return 0; }
 
+    //! stream output
+    friend std::ostream &operator<<(std::ostream &ostr, const ISample &m) { m.print(ostr); return ostr; }
+
 protected:
+    //! print in the output stream
+    virtual void print(std::ostream &ostr) const { ostr << getName() << " " << this << " " << m_parameters; }
+
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)
     virtual void init_parameters();
 

@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
-#include "ISample.h"
+#include "ICompositeSample.h"
 #include "IMaterial.h"
 #include "Types.h"
 #include "HomogeneousMaterial.h"
@@ -24,11 +24,10 @@
 //! @class Layer
 //! @brief Definition of Layer with thickness and pointer to the material
 //- -------------------------------------------------------------------
-class Layer : public ISample
+class Layer : public ICompositeSample
 {
 public:
     Layer();
-    Layer(const Layer &other);
     virtual ~Layer();
 
     //! make layer's clone
@@ -58,13 +57,14 @@ public:
     //! return zero pointer (override is important for polymorphism of LayerDecorator)
     virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
 
-    //! print class
-    friend std::ostream &operator<<(std::ostream &ostr, const Layer &m) { m.print(ostr); return ostr; }
+//    //! print class
+//    friend std::ostream &operator<<(std::ostream &ostr, const Layer &m) { m.print(ostr); return ostr; }
+
+protected:
+    Layer &operator=(const Layer &other);
+    Layer(const Layer &other);
 
 private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    Layer &operator=(const Layer &other);
-
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 

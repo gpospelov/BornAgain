@@ -15,13 +15,14 @@
 //! @date   01.04.2012
 
 #include "Types.h"
+#include "ISample.h"
 
 
 //- -------------------------------------------------------------------
 //! @class IFormFactor
 //! @brief Definition of IFormfactor interface
 //- -------------------------------------------------------------------
-class IFormFactor
+class IFormFactor : public ISample
 {
 public:
     virtual ~IFormFactor() {}

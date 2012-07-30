@@ -248,7 +248,6 @@ CONFIG(JCNS) {
   ##LIBS -= -lfftw3
   ##LIBS += -Bstatic -lfftw3f -Bdynamic
   ## "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
-  #LIBS = -lgsl -lgslcblas -Bstatic -lfftw3f -Bdynamic -lboost_system -lboost_filesystem -lboost_regex
   #-Wl,--whole-archive
   #http://stackoverflow.com/questions/2763988/how-to-include-all-objects-of-an-archive-in-a-shared-object
 

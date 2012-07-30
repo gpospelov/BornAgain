@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
-#include "ISample.h"
+#include "ICompositeSample.h"
 #include "IFormFactor.h"
 #include "FormFactorDecoratorRefractiveIndex.h"
 
@@ -23,7 +23,7 @@
 //! @class NanoParticle
 //! @brief Definition of a nanoparticle with a form factor
 //- -------------------------------------------------------------------
-class NanoParticle : public ISample
+class NanoParticle : public ICompositeSample
 {
 public:
     NanoParticle(complex_t refractive_index, IFormFactor* p_form_factor = 0);

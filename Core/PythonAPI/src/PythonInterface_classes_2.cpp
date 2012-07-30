@@ -165,11 +165,12 @@ void register_classes_2(){
                 , bp::return_self< >() );
         
         }
+        ISample_exposer.def( bp::self_ns::str( bp::self ) );
     }
 
     bp::class_< ICompositeSample, bp::bases< ISample >, boost::noncopyable >( "ICompositeSample", bp::init< >() );
 
-    bp::class_< IInterferenceFunction, boost::noncopyable >( "IInterferenceFunction", bp::no_init );
+    bp::class_< IInterferenceFunction, bp::bases< ISample >, boost::noncopyable >( "IInterferenceFunction", bp::no_init );
 
     bp::class_< ISingleton< MaterialManager >, boost::noncopyable >( "ISingleton_less__MaterialManager__greater_", bp::no_init )    
         .def( 

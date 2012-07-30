@@ -51,12 +51,13 @@ public:
     //! create general iterator to walk through the tree of registered composite children
     ICompositeIterator createIterator();
 
-    // return pointer to the new parameter pool which contains all local parameter plus all parameters
-    // from CompositeSample tree user has to take to delete it
-    // virtual ParameterPool *cloneParameterTree();
+    //! walk through composite sample and print content
+    virtual void walk_and_print();
 
 protected:
     ICompositeSample(const ICompositeSample &other);
+
+private:
     ICompositeSample &operator=(const ICompositeSample &other);
 
     //! check index of child

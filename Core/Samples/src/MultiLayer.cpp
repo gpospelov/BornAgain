@@ -6,7 +6,7 @@
 
 MultiLayer::MultiLayer() : m_crossCorrLength(0)
 {
-    setName("multilayer");
+    setName("MultiLayer");
     init_parameters();
 }
 

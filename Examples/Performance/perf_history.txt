@@ -21,3 +21,5 @@
 # debug is switched on again, and it is the same as before migration in kvector
 2012-07-25 15:57:02 | jcnsopc73  | macosx64, 2800 MHz      | 80645.2 | 3.92927 | 3.89105 | 0.21254 | 
 2012-07-25 15:58:36 | jcnsopc73  | macosx64, 2800 MHz      | 80971.7 | 3.96825 | 3.80228 | 0.21276 | 
+2012-07-30 16:19:13 | jcnsopc73  | macosx64, 2800 MHz      | 77519.4 | 3.75235 | 3.80952 | 0.18433 | 
+2012-07-30 16:19:46 | jcnsopc73  | macosx64, 2800 MHz      | 81967.2 | 3.8835  | 3.83142 | 0.19175 | 

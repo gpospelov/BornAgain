@@ -21,7 +21,7 @@ class FormFactorFullSphere : public IBornFormFactor
 {
 public:
     FormFactorFullSphere(double radius);
-    FormFactorFullSphere(StochasticParameter<double> *p_radius);
+//    FormFactorFullSphere(StochasticParameter<double> *p_radius);
     ~FormFactorFullSphere();
     virtual FormFactorFullSphere *clone() const;
 
@@ -31,7 +31,15 @@ protected:
     virtual complex_t evaluate_for_complex_qz(kvector_t q, complex_t qz) const;
 
 private:
-    StochasticParameter<double> *mp_radius;
+
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
+    //! print class
+    void print(std::ostream &ostr) const;
+
+    double m_radius;
+//    StochasticParameter<double> *mp_radius;
 };
 
 

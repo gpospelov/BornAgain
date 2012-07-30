@@ -151,13 +151,38 @@ ParameterPool::RealPar ParameterPool::getParameter(std::string name) const
 /* ************************************************************************* */
 // print content on the screen
 /* ************************************************************************* */
+//void ParameterPool::print(std::ostream &ostr) const
+//{
+//    ostr << "parameter pool: " << this;
+//    ostr << "size(): " << m_map.size() << std::endl;
+//    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); it++) {
+//        std::cout << (*it).first << " " << (*it).second << std::endl;
+//    }
+//}
+
 void ParameterPool::print(std::ostream &ostr) const
 {
-    ostr << "parameter pool: " << this;
-    ostr << "size(): " << m_map.size() << std::endl;
-    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); it++) {
-        std::cout << (*it).first << " " << (*it).second << std::endl;
+    // output depends on size of the pool
+    size_t nsize = m_map.size();
+
+    if(nsize) {
+        // printing in one line
+        if(nsize < 4) {
+            ostr << "POOL_" << nsize;
+            ostr << "(";
+            for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); it++) {
+                std::cout << "'" << (*it).first << "'" << ":" << it->second.getValue() << " " ;
+            }
+            ostr << ")";
+
+        // printing in several lines
+        } else {
+            for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); it++) {
+                std::cout << "'" << (*it).first << "'" << ":" << it->second.getValue() << std::endl;
+            }
+        }
+
+
     }
 }
-
 

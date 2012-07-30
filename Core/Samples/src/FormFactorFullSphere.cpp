@@ -6,27 +6,42 @@
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)
 {
-    mp_radius = new StochasticDiracDelta<double>(radius);
+    setName("FormFactorFullSphere");
+    m_radius = radius;
+    init_parameters();
+    //    mp_radius = new StochasticDiracDelta<double>(radius);
 }
 
-FormFactorFullSphere::FormFactorFullSphere(StochasticParameter<double> *p_radius)
-    : mp_radius(p_radius)
-{
-}
+//FormFactorFullSphere::FormFactorFullSphere(StochasticParameter<double> *p_radius)
+//    : mp_radius(p_radius)
+//{
+//}
 
 FormFactorFullSphere::~FormFactorFullSphere()
 {
-    delete mp_radius;
+//    delete mp_radius;
 }
+
+/* ************************************************************************* */
+// initialize pool parameters, i.e. register some of class members for later access via parameter pool
+/* ************************************************************************* */
+void FormFactorFullSphere::init_parameters()
+{
+    getParameterPool()->clear();
+    getParameterPool()->registerParameter("radius", &m_radius);
+}
+
 
 FormFactorFullSphere* FormFactorFullSphere::clone() const
 {
-    return new FormFactorFullSphere(mp_radius->clone());
+    return new FormFactorFullSphere(m_radius);
+//    return new FormFactorFullSphere(mp_radius->clone());
 }
 
 complex_t FormFactorFullSphere::evaluate_for_complex_qz(kvector_t q, complex_t qz) const
 {
-    double R = mp_radius->getCurrent();
+//    double R = mp_radius->getCurrent();
+    double R = m_radius;
 
     complex_t qzR = complex_t(0.0, 1.0)*qz*R;
     complex_t z_part = std::exp(qzR);
@@ -42,4 +57,14 @@ complex_t FormFactorFullSphere::evaluate_for_complex_qz(kvector_t q, complex_t q
     }
 
     return radial*z_part;
+}
+
+
+/* ************************************************************************* */
+// print class
+/* ************************************************************************* */
+void FormFactorFullSphere::print(std::ostream &ostr) const
+{
+    ISample::print(ostr);
+//    ostr << " " << "(radius:"<<m_radius << ")";
 }

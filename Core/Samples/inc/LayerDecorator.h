@@ -70,13 +70,15 @@ public:
     }
 
 protected:
-    void clear();
     Layer *mp_decorated_layer;
     NanoParticleDecoration *mp_decoration;
 
 private:
     //! copy constructor and assignment operator are hidden since there is a clone method
     LayerDecorator &operator=(const LayerDecorator &other);
+
+    //! print class
+    void print(std::ostream &ostr) const;
 
 };
 

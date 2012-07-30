@@ -22,7 +22,7 @@ class FormFactorPrism3 : public IBornFormFactor
 {
 public:
     FormFactorPrism3(double height, double half_side);
-    FormFactorPrism3(StochasticParameter<double> *p_height, StochasticParameter<double> *p_half_side);
+//    FormFactorPrism3(StochasticParameter<double> *p_height, StochasticParameter<double> *p_half_side);
     ~FormFactorPrism3();
     virtual FormFactorPrism3 *clone() const;
 
@@ -36,8 +36,16 @@ private:
     FormFactorPrism3(const FormFactorPrism3 &);
     FormFactorPrism3 &operator=(const FormFactorPrism3 &);
 
-    StochasticParameter<double> *mp_height;
-    StochasticParameter<double> *mp_half_side;
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
+    //! print class
+    void print(std::ostream &ostr) const;
+
+    double m_height;
+    double m_half_side;
+//    StochasticParameter<double> *mp_height;
+//    StochasticParameter<double> *mp_half_side;
     // Cached value of square root of 3
     double m_root3;
 };

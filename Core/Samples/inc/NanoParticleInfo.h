@@ -14,6 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   18.07.2012
 
+#include "ICompositeSample.h"
 #include "NanoParticle.h"
 #include "Transform3D.h"
 
@@ -21,29 +22,39 @@
 //! @class NanoParticleInfo
 //! @brief holds additional information about nanoparticle (used in NanoParticleDecoration)
 //- -------------------------------------------------------------------
-class NanoParticleInfo
+class NanoParticleInfo : public ICompositeSample
 {
 public:
     //! default constructor
     //NanoParticleInfo();
     //! constructor for nano particle having depth and abundance
-    NanoParticleInfo(NanoParticle *p_particle, double depth, double abundance);
+    //NanoParticleInfo(NanoParticle *p_particle, double depth, double abundance);
     //! constructor for nano particle having transformation property and abundance
     NanoParticleInfo(NanoParticle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
-    //! copy constructor
-    NanoParticleInfo(const NanoParticleInfo &source);
 
     virtual ~NanoParticleInfo();
 
+    //! clone nano particle info
     virtual NanoParticleInfo *clone() const;
 
+    //! return nano particle
     const NanoParticle *getNanoParticle() const { return mp_particle; }
+
+    //! return nano particle transformation
     const Geometry::Transform3D *getTransform3D() const { return m_transform; }
+
+    //! return nano particle depth
     double getDepth() const { return m_depth;}
+
+    //! return nano particle abundance
     double getAbundance() const { return m_abundance; }
 
 private:
     NanoParticleInfo &operator=(const NanoParticleInfo &right);
+    NanoParticleInfo(const NanoParticleInfo &source);
+
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
 
     NanoParticle *mp_particle;
     Geometry::Transform3D *m_transform;

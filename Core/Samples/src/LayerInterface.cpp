@@ -5,7 +5,7 @@
 
 LayerInterface::LayerInterface() : m_roughness(0), m_LayerTop(0), m_LayerBottom(0)
 {
-    setName("interface");
+    setName("LayerInterface");
 }
 
 
@@ -52,13 +52,14 @@ void LayerInterface::setRoughness(const LayerRoughness &roughness)
 /* ************************************************************************* */
 void LayerInterface::print(std::ostream &ostr) const
 {
-    ostr << getName()
-         << " " << std::setw(12) << this
-         << " top:"<< getLayerTop() << " bottom:" << getLayerBottom() << "   ";
-    const LayerRoughness *roughness = getRoughness();
-    if(roughness) {
-        ostr << "> " << *roughness;
-    }else{
-        ostr << "> no roughness";
-    }
+    ICompositeSample::print(ostr);
+//    ostr << getName()
+//         << " " << std::setw(12) << this
+//         << " top:"<< getLayerTop() << " bottom:" << getLayerBottom() << "   ";
+//    const LayerRoughness *roughness = getRoughness();
+//    if(roughness) {
+//        ostr << "> " << *roughness;
+//    }else{
+//        ostr << "> no roughness";
+//    }
 }

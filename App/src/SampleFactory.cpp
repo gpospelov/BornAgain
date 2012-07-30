@@ -23,4 +23,11 @@ SampleFactory::SampleFactory()
     // thin layer of air (two different thicknesses) to check diffuse (off-specular) reflectivity
     registerItem("MultilayerOffspecTestcase2a", StandardSamples::MultilayerOffspecTestcase2a);
     registerItem("MultilayerOffspecTestcase2b", StandardSamples::MultilayerOffspecTestcase2b);
+
+    // rotated pytamid from IsGISAXS9 example
+    registerItem("IsGISAXS9_RotatedPyramid", StandardSamples::IsGISAXS9_RotatedPyramid);
+
+    // mesocrystal
+    registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);
 }
+

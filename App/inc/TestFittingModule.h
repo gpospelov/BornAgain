@@ -17,6 +17,9 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
+#include "ChiSquaredModule.h"
+#include "FitMultiParameter.h"
+#include "GISASExperiment.h"
 
 class TestFittingModule : public IFunctionalTest
 {
@@ -33,6 +36,13 @@ private:
     OutputData<double> *mp_simulated_data;
     ISample *mp_sample;
 };
+
+namespace Fitting {
+extern GISASExperiment *p_experiment;
+extern ChiSquaredModule *p_chi_squared_module;
+extern std::vector<FitMultiParameter *> fit_params;
+double functionToMinimize(const double *p_params);
+}
 
 
 #endif /* TESTFITTINGMODULE_H_ */

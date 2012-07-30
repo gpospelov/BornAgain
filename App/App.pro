@@ -129,14 +129,14 @@ CONFIG(JCNS) {
 exists($$(ROOTSYS)/bin/root-config){
   INCLUDEPATH += $$system($ROOTSYS/bin/root-config --incdir)
   #LIBS += $$system($ROOTSYS/bin/root-config --glibs)
-  LIBS += -L$$system($ROOTSYS/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
+  LIBS += -L$$system($ROOTSYS/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lThread -lpthread -lm -ldl
 
   MYROOTCINT = ${ROOTSYS}/bin/rootcint
 }
 # if it doesn't exist, try to do something
 !exists($$(ROOTSYS)/bin/root-config){
   INCLUDEPATH += /opt/local/include/root
-  LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lpthread -lm -ldl
+  LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lThread -lpthread -lm -ldl
   MYROOTCINT = /opt/local/bin/rootcint
 }
 

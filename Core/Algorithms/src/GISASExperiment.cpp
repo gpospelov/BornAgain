@@ -29,6 +29,8 @@ void GISASExperiment::runSimulation()
 
 void GISASExperiment::normalize()
 {
+    // This normalization assumes that the intensity map contains total differential scattering cross sections
+    // (so not the cross section per scattering particle as is usual)
     if (!m_is_normalized) {
         double incident_intensity = m_beam.getIntensity(); // Actually, this is the integrated intensity (units: length^-2)
         m_intensity_map.resetIndex();

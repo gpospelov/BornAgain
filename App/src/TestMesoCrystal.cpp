@@ -49,6 +49,7 @@ void TestMesoCrystal::execute()
 //    experiment.setDetectorResolutionFunction(&testResolutionFunction);
     experiment.setBeamParameters(0.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     experiment.runSimulation();
+    experiment.normalize();
     mp_intensity_output = experiment.getOutputDataClone();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
             "CONT4 Z");

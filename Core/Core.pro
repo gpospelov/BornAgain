@@ -235,7 +235,7 @@ macx {
   INCLUDEPATH += /opt/local/include
   LIBS += -L/opt/local/lib
 }
-!macx:unix {
+!macx:unix:exists(/usr/local) {
   INCLUDEPATH += /usr/local/include
   LIBS += -L/usr/local/lib -L/usr/lib64
 }

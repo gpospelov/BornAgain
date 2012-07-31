@@ -56,7 +56,7 @@ void TestFittingModule::execute()
     ParameterPool *p_param_pool = mp_sample->createParameterTree();
     std::cout << *p_param_pool;
     FitMultiParameter fmp1;
-    fmp1.addParameterFromPool("/multilayer/layer1/thickness", p_param_pool);
+    fmp1.addParameterFromPool("/MultiLayer/Layer0/thickness", p_param_pool);
     Fitting::fit_params.push_back(&fmp1);
     //   Execute the fitting with ROOT:
     ROOT::Minuit2::Minuit2Minimizer min ( ROOT::Minuit2::kMigrad );

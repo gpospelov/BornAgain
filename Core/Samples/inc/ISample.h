@@ -45,14 +45,14 @@ public:
     //! create new parameter pool which contains all local parameter and  parameters of children
     virtual ParameterPool *createParameterTree();
 
-    //! same as above, demonstration of iterators instead of nested calls
-    //virtual ParameterPool *createParameterTreeTest();
-
     //! check if this sample (or one of its subsamples) contains elements requiring DWBA corrections and return an ISimulation to calculate this
     virtual DWBASimulation *createDWBASimulation() const { return 0; }
 
     //! stream output
     friend std::ostream &operator<<(std::ostream &ostr, const ISample &m) { m.print(ostr); return ostr; }
+
+    //! walk through composite sample and print content
+    virtual void walk_and_print();
 
 protected:
     //! print in the output stream

@@ -49,23 +49,23 @@ ICompositeIterator ICompositeSample::createIterator()
 }
 
 
-void ICompositeSample::walk_and_print()
-{
-    std::cout << getName() << " " << this << std::endl;
-    ICompositeIterator it = getCompositeSample()->createIterator();
-    it.first();
-    while(!it.is_done())
-    {
-        ISample *smp = it.get_current();
-        if(smp) {
-            int nlevel = it.get_level();
-            for(int i=0; i<nlevel; i++) std::cout << "... ";
-            std::cout << (*smp) << std::endl;
-        } else {
-            std::cout << "NULL" << std::endl;
-        }
-        it.next();
-    }
-}
+//void ICompositeSample::walk_and_print()
+//{
+//    std::cout << getName() << " " << this << std::endl;
+//    ICompositeIterator it = getCompositeSample()->createIterator();
+//    it.first();
+//    while(!it.is_done())
+//    {
+//        ISample *smp = it.get_current();
+//        if(smp) {
+//            int nlevel = it.get_level();
+//            for(int i=0; i<nlevel; i++) std::cout << "... ";
+//            std::cout << (*smp) << std::endl;
+//        } else {
+//            std::cout << "NULL" << std::endl;
+//        }
+//        it.next();
+//    }
+//}
 
 

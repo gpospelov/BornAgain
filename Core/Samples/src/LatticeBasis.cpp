@@ -20,7 +20,7 @@ LatticeBasis::LatticeBasis(const NanoParticle& particle,
 : NanoParticle(complex_t(1.0, 0.0))
 {
     setName("LatticeBasis");
-    for (size_t index=0; index<m_positions.size(); ++index) {
+    for (size_t index=0; index<positions.size(); ++index) {
         addParticle( particle, positions[index] );
     }
 }

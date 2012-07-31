@@ -78,7 +78,13 @@ public:
     const_iterator_t end() const { return m_map.end(); }
 
     //! return parameter with given name
-     RealPar getParameter(std::string name) const;
+    RealPar getParameter(std::string name) const;
+
+    //! set parameter value, return true in the case of success
+    bool setParameterValue(std::string name, double value);
+
+    //! set parameter value, return number of changed parameters
+    int setMatchedParametersValue(std::string wildcards, double value);
 
     //! print parameter pool
     friend std::ostream &operator<<(std::ostream &ostr, const ParameterPool &obj)

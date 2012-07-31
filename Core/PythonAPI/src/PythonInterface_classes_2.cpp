@@ -8,10 +8,7 @@
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
-#include "IClusteredNanoParticles.h"
 #include "ICompositeSample.h"
-#include "IFormFactor.h"
-#include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "IMaterial.h"
@@ -34,10 +31,86 @@
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
-#include "Types.h"
 #include "PythonInterface_classes_2.h"
 
 namespace bp = boost::python;
+
+struct ISample_wrapper : ISample, bp::wrapper< ISample > {
+
+    ISample_wrapper( )
+    : ISample( )
+      , bp::wrapper< ISample >(){
+        // null constructor
+    
+    }
+
+    ISample_wrapper(::ISample const & other )
+    : ISample( boost::ref(other) )
+      , bp::wrapper< ISample >(){
+        // copy constructor
+    
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
+struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSample > {
+
+    ICompositeSample_wrapper( )
+    : ICompositeSample( )
+      , bp::wrapper< ICompositeSample >(){
+        // null constructor
+    
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
 
 struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCrystal, bp::wrapper< InterferenceFunction1DParaCrystal > {
 
@@ -70,6 +143,65 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
     
     double default_evaluate( ::kvector_t q ) const  {
         return InterferenceFunction1DParaCrystal::evaluate( q );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
+struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper< InterferenceFunctionNone > {
+
+    InterferenceFunctionNone_wrapper( )
+    : InterferenceFunctionNone( )
+      , bp::wrapper< InterferenceFunctionNone >(){
+        // null constructor
+    
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
     }
 
 };
@@ -147,13 +279,24 @@ void register_classes_2(){
         }
     }
 
-    bp::class_< IClusteredNanoParticles, boost::noncopyable >( "IClusteredNanoParticles", bp::no_init );
-
     { //::ISample
-        typedef bp::class_< ISample > ISample_exposer_t;
+        typedef bp::class_< ISample_wrapper > ISample_exposer_t;
         ISample_exposer_t ISample_exposer = ISample_exposer_t( "ISample", bp::no_init );
         bp::scope ISample_scope( ISample_exposer );
         ISample_exposer.def( bp::init< >() );
+        ISample_exposer.def( bp::init< ISample const & >(( bp::arg("other") )) );
+        { //::ISample::createParameterTree
+        
+            typedef ::ParameterPool * ( ::ISample::*createParameterTree_function_type )(  ) ;
+            typedef ::ParameterPool * ( ISample_wrapper::*default_createParameterTree_function_type )(  ) ;
+            
+            ISample_exposer.def( 
+                "createParameterTree"
+                , createParameterTree_function_type(&::ISample::createParameterTree)
+                , default_createParameterTree_function_type(&ISample_wrapper::default_createParameterTree)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::ISample::operator=
         
             typedef ::ISample & ( ::ISample::*assign_function_type )( ::ISample const & ) ;
@@ -165,12 +308,30 @@ void register_classes_2(){
                 , bp::return_self< >() );
         
         }
+        { //::ISample::walk_and_print
+        
+            typedef void ( ::ISample::*walk_and_print_function_type )(  ) ;
+            typedef void ( ISample_wrapper::*default_walk_and_print_function_type )(  ) ;
+            
+            ISample_exposer.def( 
+                "walk_and_print"
+                , walk_and_print_function_type(&::ISample::walk_and_print)
+                , default_walk_and_print_function_type(&ISample_wrapper::default_walk_and_print) );
+        
+        }
         ISample_exposer.def( bp::self_ns::str( bp::self ) );
     }
 
-    bp::class_< ICompositeSample, bp::bases< ISample >, boost::noncopyable >( "ICompositeSample", bp::init< >() );
-
-    bp::class_< IInterferenceFunction, bp::bases< ISample >, boost::noncopyable >( "IInterferenceFunction", bp::no_init );
+    bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, boost::noncopyable >( "ICompositeSample", bp::init< >() )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_walk_and_print) );
 
     bp::class_< ISingleton< MaterialManager >, boost::noncopyable >( "ISingleton_less__MaterialManager__greater_", bp::no_init )    
         .def( 
@@ -179,7 +340,7 @@ void register_classes_2(){
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .staticmethod( "instance" );
 
-    bp::class_< InterferenceFunction1DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunction1DParaCrystal", bp::init< double, double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("width"), bp::arg("corr_length")=0.0 )) )    
+    bp::class_< InterferenceFunction1DParaCrystal_wrapper, boost::noncopyable >( "InterferenceFunction1DParaCrystal", bp::init< double, double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("width"), bp::arg("corr_length")=0.0 )) )    
         .def( 
             "clone"
             , (::InterferenceFunction1DParaCrystal * ( ::InterferenceFunction1DParaCrystal::* )(  ) const)(&::InterferenceFunction1DParaCrystal::clone)
@@ -189,8 +350,26 @@ void register_classes_2(){
             "evaluate"
             , (double ( ::InterferenceFunction1DParaCrystal::* )( ::kvector_t ) const)(&::InterferenceFunction1DParaCrystal::evaluate)
             , (double ( InterferenceFunction1DParaCrystal_wrapper::* )( ::kvector_t ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_evaluate)
-            , ( bp::arg("q") ) );
+            , ( bp::arg("q") ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_walk_and_print) );
 
-    bp::class_< InterferenceFunctionNone, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunctionNone", bp::init< >() );
+    bp::class_< InterferenceFunctionNone_wrapper, boost::noncopyable >( "InterferenceFunctionNone", bp::init< >() )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( InterferenceFunctionNone_wrapper::* )(  ) )(&InterferenceFunctionNone_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( InterferenceFunctionNone_wrapper::* )(  ) )(&InterferenceFunctionNone_wrapper::default_walk_and_print) );
 
 }

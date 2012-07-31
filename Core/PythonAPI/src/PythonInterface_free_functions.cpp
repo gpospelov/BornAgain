@@ -8,10 +8,7 @@
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
-#include "IClusteredNanoParticles.h"
 #include "ICompositeSample.h"
-#include "IFormFactor.h"
-#include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "IMaterial.h"
@@ -34,7 +31,6 @@
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
-#include "Types.h"
 #include "PythonInterface_free_functions.h"
 
 namespace bp = boost::python;

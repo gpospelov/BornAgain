@@ -9,10 +9,7 @@
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
-#include "IClusteredNanoParticles.h"
 #include "ICompositeSample.h"
-#include "IFormFactor.h"
-#include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "IMaterial.h"
@@ -35,7 +32,6 @@
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
-#include "Types.h"
 #include "PythonInterface_classes_1.h"
 
 namespace bp = boost::python;
@@ -59,6 +55,118 @@ struct Experiment_wrapper : Experiment, bp::wrapper< Experiment > {
     
     void default_runSimulation(  ) {
         Experiment::runSimulation( );
+    }
+
+};
+
+struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorCylinder > {
+
+    FormFactorCylinder_wrapper(double height, double radius )
+    : FormFactorCylinder( height, radius )
+      , bp::wrapper< FormFactorCylinder >(){
+        // constructor
+    
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
+struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFactorFullSphere > {
+
+    FormFactorFullSphere_wrapper(FormFactorFullSphere const & arg )
+    : FormFactorFullSphere( arg )
+      , bp::wrapper< FormFactorFullSphere >(){
+        // copy constructor
+        
+    }
+
+    FormFactorFullSphere_wrapper(double radius )
+    : FormFactorFullSphere( radius )
+      , bp::wrapper< FormFactorFullSphere >(){
+        // constructor
+    
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
+struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyramid > {
+
+    FormFactorPyramid_wrapper(double height, double half_side, double alpha )
+    : FormFactorPyramid( height, half_side, alpha )
+      , bp::wrapper< FormFactorPyramid >(){
+        // constructor
+    
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
     }
 
 };
@@ -109,15 +217,38 @@ void register_classes_1(){
             , (void ( ::Experiment::* )( ::ISample * ) )( &::Experiment::setSample )
             , ( bp::arg("p_sample") ) );
 
-    bp::class_< IFormFactor, boost::noncopyable >( "IFormFactor", bp::no_init );
+    bp::class_< FormFactorCylinder_wrapper, boost::noncopyable >( "FormFactorCylinder", bp::init< double, double >(( bp::arg("height"), bp::arg("radius") )) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorCylinder_wrapper::* )(  ) )(&FormFactorCylinder_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( FormFactorCylinder_wrapper::* )(  ) )(&FormFactorCylinder_wrapper::default_walk_and_print) );
 
-    bp::class_< IBornFormFactor, bp::bases< IFormFactor >, boost::noncopyable >( "IBornFormFactor", bp::no_init );
+    bp::class_< FormFactorFullSphere_wrapper >( "FormFactorFullSphere", bp::init< double >(( bp::arg("radius") )) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorFullSphere_wrapper::* )(  ) )(&FormFactorFullSphere_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( FormFactorFullSphere_wrapper::* )(  ) )(&FormFactorFullSphere_wrapper::default_walk_and_print) );
 
-    bp::class_< FormFactorCylinder, bp::bases< IBornFormFactor >, boost::noncopyable >( "FormFactorCylinder", bp::init< double, double >(( bp::arg("height"), bp::arg("radius") )) );
-
-    bp::class_< FormFactorFullSphere, bp::bases< IBornFormFactor > >( "FormFactorFullSphere", bp::init< double >(( bp::arg("radius") )) );
-
-    bp::class_< FormFactorPyramid, bp::bases< IBornFormFactor >, boost::noncopyable >( "FormFactorPyramid", bp::init< double, double, double >(( bp::arg("height"), bp::arg("half_side"), bp::arg("alpha") )) );
+    bp::class_< FormFactorPyramid_wrapper, boost::noncopyable >( "FormFactorPyramid", bp::init< double, double, double >(( bp::arg("height"), bp::arg("half_side"), bp::arg("alpha") )) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorPyramid_wrapper::* )(  ) )(&FormFactorPyramid_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( FormFactorPyramid_wrapper::* )(  ) )(&FormFactorPyramid_wrapper::default_walk_and_print) );
 
     bp::class_< GISASExperiment_wrapper, bp::bases< Experiment >, boost::noncopyable >( "GISASExperiment", bp::init< >() )    
         .def( 
@@ -677,6 +808,16 @@ void register_classes_1(){
         
         }
         Transform3D_exposer.def( bp::self != bp::self );
+        { //::Geometry::Transform3D::operator()
+        
+            typedef double ( ::Geometry::Transform3D::*__call___function_type )( int,int ) const;
+            
+            Transform3D_exposer.def( 
+                "__call__"
+                , __call___function_type( &::Geometry::Transform3D::operator() )
+                , ( bp::arg("arg0"), bp::arg("arg1") ) );
+        
+        }
         Transform3D_exposer.def( bp::self * bp::self );
         { //::Geometry::Transform3D::operator=
         

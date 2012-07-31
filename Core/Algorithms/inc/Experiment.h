@@ -29,6 +29,9 @@ public:
     /// Run a simulation with the current parameter settings
     virtual void runSimulation();
 
+    /// Normalize the detector counts
+    virtual void normalize();
+
     /// Set the sample to be tested
     void setSample(ISample *p_sample);
 
@@ -62,6 +65,7 @@ protected:
     Detector m_detector;
     Beam m_beam;
     OutputData<double> m_intensity_map;
+    bool m_is_normalized;
 };
 
 

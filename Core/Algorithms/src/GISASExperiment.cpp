@@ -23,8 +23,23 @@ void GISASExperiment::runSimulation()
     }
     m_detector.applyDetectorResolution(&m_intensity_map);
     delete p_dwba_simulation;
+    Experiment::runSimulation();
 }
 
+
+void GISASExperiment::normalize()
+{
+    if (!m_is_normalized) {
+        double incident_intensity = m_beam.getIntensity(); // Actually, this is the integrated intensity (units: length^-2)
+        m_intensity_map.resetIndex();
+        while (m_intensity_map.hasNext()) {
+            double old_value = m_intensity_map.currentValue();
+            double factor = incident_intensity*getCurrentSolidAngle();
+            m_intensity_map.next() = factor*old_value;
+        }
+        m_is_normalized = true;
+    }
+}
 
 void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
                                             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
@@ -59,4 +74,42 @@ void GISASExperiment::initializeAnglesIsgisaxs(NamedVector<double> *p_axis, doub
         p_axis->push_back(std::asin(start_sin + step*i));
     }
     return;
+}
+
+double GISASExperiment::getCurrentSolidAngle() const
+{
+    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double>* >(m_intensity_map.getAxis("alpha_f"));
+    const NamedVector<double> *p_phi_axis = dynamic_cast<const NamedVector<double>* >(m_intensity_map.getAxis("phi_f"));
+    size_t alpha_index = m_intensity_map.getCurrentIndexOfAxis("alpha_f");
+    size_t alpha_size = p_alpha_axis->getSize();
+    size_t phi_index = m_intensity_map.getCurrentIndexOfAxis("phi_f");
+    size_t phi_size = p_phi_axis->getSize();
+    if (alpha_size<2 || phi_size<2) {
+        // Cannot determine detector cell size!
+        return 0.0;
+    }
+    double alpha_f = m_intensity_map.getCurrentValueOfAxis<double>("alpha_f");
+    double cos_alpha_f = std::cos(alpha_f);
+    double dalpha, dphi;
+    if (alpha_index==0) {
+        dalpha = p_alpha_axis->operator[](1) - p_alpha_axis->operator[](0);
+    }
+    else if (alpha_index==alpha_size-1) {
+        dalpha = p_alpha_axis->operator[](alpha_size-1) - p_alpha_axis->operator[](alpha_size-2);
+    }
+    else {
+        dalpha = (p_alpha_axis->operator[](alpha_index+1) - p_alpha_axis->operator[](alpha_index-1))/2.0;
+    }
+    dalpha = std::abs(dalpha);
+    if (phi_index==0) {
+        dphi = p_phi_axis->operator[](1) - p_phi_axis->operator[](0);
+    }
+    else if (phi_index==phi_size-1) {
+        dphi = p_phi_axis->operator[](phi_size-1) - p_phi_axis->operator[](phi_size-2);
+    }
+    else {
+        dphi = (p_phi_axis->operator[](phi_index+1) - p_phi_axis->operator[](phi_index-1))/2.0;
+    }
+    dphi = std::abs(dphi);
+    return cos_alpha_f*dalpha*dphi;
 }

@@ -2,6 +2,7 @@
 
 LayerDecorator::LayerDecorator(const Layer &layer)
 : mp_decorated_layer(layer.clone())
+, mp_decoration(0)
 {
 }
 

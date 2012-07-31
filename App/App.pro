@@ -92,11 +92,11 @@ OBJECTS_DIR = obj
 MY_DEPENDENCY_LIB = ScattCore
 MY_DEPENDENCY_DEST =$$PWD/..
 SONAME = so
-INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc
+#INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc
 for(dep, MY_DEPENDENCY_LIB) {
     LIBS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
     PRE_TARGETDEPS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-    INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
+#    INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
 }
 
 
@@ -107,7 +107,7 @@ macx {
   INCLUDEPATH += /opt/local/include
   LIBS += -L/opt/local/lib
 }
-!macx:unix {
+!macx:unix:exists(/usr/local) {
   INCLUDEPATH += /usr/local/include
   LIBS += -L/usr/local/lib -L/usr/lib64
 }

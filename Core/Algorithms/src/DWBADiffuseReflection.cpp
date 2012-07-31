@@ -5,7 +5,10 @@
 
 
 DWBADiffuseReflection::DWBADiffuseReflection()
-: m_diffuse_autocorr(0), m_diffuse_crosscorr(0)
+: m_sample(0)
+, m_diffuse_autocorr(0)
+, m_diffuse_crosscorr(0)
+, m_qz1(0), m_qz2(0), m_qz3(0), m_qz4(0)
 {
 }
 

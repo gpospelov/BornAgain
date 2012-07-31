@@ -21,10 +21,8 @@
 class MesoCrystal : public NanoParticle
 {
 public:
-    MesoCrystal(IClusteredNanoParticles *p_nano_particle_structure,
-            IFormFactor *p_form_factor);
-    MesoCrystal(const IClusteredNanoParticles &nano_particle_structure,
-            IFormFactor &form_factor);
+    MesoCrystal(IClusteredNanoParticles *p_nano_particle_structure, IFormFactor *p_form_factor);
+    MesoCrystal(const IClusteredNanoParticles &nano_particle_structure, IFormFactor &form_factor);
 
     virtual ~MesoCrystal();
     virtual MesoCrystal *clone() const;

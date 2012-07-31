@@ -5,7 +5,9 @@ NanoParticleCrystal::NanoParticleCrystal(const NanoParticle& nano_particle,
         const Lattice& lattice)
 : m_lattice(lattice)
 {
+    setName("NanoParticleCrystal");
     mp_nano_particle = nano_particle.clone();
+    registerChild(mp_nano_particle);
 }
 
 NanoParticleCrystal::~NanoParticleCrystal()

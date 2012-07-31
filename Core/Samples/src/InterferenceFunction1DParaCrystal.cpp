@@ -6,10 +6,22 @@ InterferenceFunction1DParaCrystal::InterferenceFunction1DParaCrystal(double peak
 , m_corr_length(corr_length)
 , m_use_corr_length(true)
 {
+    setName("InterferenceFunction1DParaCrystal");
 	if (m_corr_length==0.0) {
 		m_use_corr_length = false;
 	}
+    init_parameters();
 }
+
+
+void InterferenceFunction1DParaCrystal::init_parameters()
+{
+    getParameterPool()->clear();
+    getParameterPool()->registerParameter("peak_distance", &m_peak_distance);
+    getParameterPool()->registerParameter("width", &m_width);
+    getParameterPool()->registerParameter("corr_length", &m_corr_length);
+}
+
 
 double InterferenceFunction1DParaCrystal::evaluate(kvector_t q) const
 {

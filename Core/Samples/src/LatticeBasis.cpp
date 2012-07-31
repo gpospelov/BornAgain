@@ -5,22 +5,23 @@
 LatticeBasis::LatticeBasis()
 : NanoParticle(complex_t(1.0, 0.0))
 {
+    setName("LatticeBasis");
 }
 
 LatticeBasis::LatticeBasis(const NanoParticle& particle)
 : NanoParticle(complex_t(1.0, 0.0))
 {
-    m_particles.push_back(particle.clone());
-    m_positions.push_back(kvector_t(0.0, 0.0, 0.0));
+    setName("LatticeBasis");
+    addParticle( particle, kvector_t(0.0, 0.0, 0.0) );
 }
 
 LatticeBasis::LatticeBasis(const NanoParticle& particle,
         std::vector<kvector_t> positions)
 : NanoParticle(complex_t(1.0, 0.0))
-, m_positions(positions)
 {
+    setName("LatticeBasis");
     for (size_t index=0; index<m_positions.size(); ++index) {
-        m_particles.push_back(particle.clone());
+        addParticle( particle, positions[index] );
     }
 }
 
@@ -37,12 +38,15 @@ LatticeBasis* LatticeBasis::clone() const
     for (size_t index=0; index<m_particles.size(); ++index) {
         p_new->addParticle(*m_particles[index], m_positions[index]);
     }
+    p_new->setName(getName());
     return p_new;
 }
 
 void LatticeBasis::addParticle(const NanoParticle& particle, kvector_t position)
 {
-    m_particles.push_back(particle.clone());
+    NanoParticle *np = particle.clone();
+    registerChild(np);
+    m_particles.push_back(np);
     m_positions.push_back(position);
 }
 

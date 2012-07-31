@@ -8,7 +8,10 @@
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "IClusteredNanoParticles.h"
 #include "ICompositeSample.h"
+#include "IFormFactor.h"
+#include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "IMaterial.h"
@@ -111,6 +114,13 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     : Layer( )
       , bp::wrapper< Layer >(){
         // null constructor
+    
+    }
+
+    Layer_wrapper(::Layer const & other )
+    : Layer( boost::ref(other) )
+      , bp::wrapper< Layer >(){
+        // copy constructor
     
     }
 
@@ -248,6 +258,30 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
     
     }
 
+    virtual void init_parameters(  ){
+        if( bp::override func_init_parameters = this->get_override( "init_parameters" ) )
+            func_init_parameters(  );
+        else{
+            this->LayerRoughness::init_parameters(  );
+        }
+    }
+    
+    virtual void default_init_parameters(  ){
+        LayerRoughness::init_parameters( );
+    }
+
+    virtual void print( ::std::ostream & ostr ) const {
+        if( bp::override func_print = this->get_override( "print" ) )
+            func_print( boost::ref(ostr) );
+        else{
+            this->LayerRoughness::print( boost::ref(ostr) );
+        }
+    }
+    
+    virtual void default_print( ::std::ostream & ostr ) const {
+        LayerRoughness::print( boost::ref(ostr) );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -270,6 +304,30 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
     
     void default_walk_and_print(  ) {
         ISample::walk_and_print( );
+    }
+
+};
+
+struct MaterialManager_wrapper : MaterialManager, bp::wrapper< MaterialManager > {
+
+    virtual void print( ::std::ostream & ostr ) const {
+        if( bp::override func_print = this->get_override( "print" ) )
+            func_print( boost::ref(ostr) );
+        else{
+            this->MaterialManager::print( boost::ref(ostr) );
+        }
+    }
+    
+    virtual void default_print( ::std::ostream & ostr ) const {
+        MaterialManager::print( boost::ref(ostr) );
+    }
+
+    static void create_singleton(  ){
+        ISingleton< MaterialManager >::create_singleton(  );
+    }
+
+    static void onDeadReference(  ){
+        ISingleton< MaterialManager >::onDeadReference(  );
     }
 
 };
@@ -372,6 +430,16 @@ struct NanoParticleCrystal_wrapper : NanoParticleCrystal, bp::wrapper< NanoParti
         return ISample::createParameterTree( );
     }
 
+    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const {
+        bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" );
+        return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ){
+        bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" );
+        func_setAmbientRefractiveIndex( refractive_index );
+    }
+
     virtual void walk_and_print(  ) {
         if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
             func_walk_and_print(  );
@@ -417,6 +485,36 @@ struct NanoParticleDecoration_wrapper : NanoParticleDecoration, bp::wrapper< Nan
     
     void default_walk_and_print(  ) {
         ISample::walk_and_print( );
+    }
+
+};
+
+struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
+
+    ParameterPool_wrapper( )
+    : ParameterPool( )
+      , bp::wrapper< ParameterPool >(){
+        // null constructor
+    
+    }
+
+    ParameterPool_wrapper(::ParameterPool const & other )
+    : ParameterPool( boost::ref(other) )
+      , bp::wrapper< ParameterPool >(){
+        // copy constructor
+    
+    }
+
+    virtual void print( ::std::ostream & ostr ) const {
+        if( bp::override func_print = this->get_override( "print" ) )
+            func_print( boost::ref(ostr) );
+        else{
+            this->ParameterPool::print( boost::ref(ostr) );
+        }
+    }
+    
+    virtual void default_print( ::std::ostream & ostr ) const {
+        ParameterPool::print( boost::ref(ostr) );
     }
 
 };
@@ -467,6 +565,7 @@ void register_classes_3(){
             , (void ( LatticeBasis_wrapper::* )(  ) )(&LatticeBasis_wrapper::default_walk_and_print) );
 
     bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Layer", bp::init< >() )    
+        .def( bp::init< Layer const & >(( bp::arg("other") )) )    
         .def( 
             "getMaterial"
             , (::IMaterial const * ( ::Layer::* )(  ) const)(&::Layer::getMaterial)
@@ -538,6 +637,15 @@ void register_classes_3(){
                 , getSigma_function_type( &::LayerRoughness::getSigma ) );
         
         }
+        { //::LayerRoughness::init_parameters
+        
+            typedef void ( LayerRoughness_wrapper::*init_parameters_function_type )(  ) ;
+            
+            LayerRoughness_exposer.def( 
+                "init_parameters"
+                , init_parameters_function_type( &LayerRoughness_wrapper::default_init_parameters ) );
+        
+        }
         { //::LayerRoughness::operator=
         
             typedef ::LayerRoughness & ( ::LayerRoughness::*assign_function_type )( ::LayerRoughness const & ) ;
@@ -547,6 +655,16 @@ void register_classes_3(){
                 , assign_function_type( &::LayerRoughness::operator= )
                 , ( bp::arg("other") )
                 , bp::return_self< >() );
+        
+        }
+        { //::LayerRoughness::print
+        
+            typedef void ( LayerRoughness_wrapper::*print_function_type )( ::std::ostream & ) const;
+            
+            LayerRoughness_exposer.def( 
+                "print"
+                , print_function_type( &LayerRoughness_wrapper::default_print )
+                , ( bp::arg("ostr") ) );
         
         }
         { //::LayerRoughness::setHurstParameter
@@ -605,7 +723,7 @@ void register_classes_3(){
         LayerRoughness_exposer.def( bp::self_ns::str( bp::self ) );
     }
 
-    bp::class_< MaterialManager, bp::bases< ISingleton< MaterialManager > >, boost::noncopyable >( "MaterialManager", bp::no_init )    
+    bp::class_< MaterialManager_wrapper, bp::bases< ISingleton< MaterialManager > >, boost::noncopyable >( "MaterialManager", bp::no_init )    
         .def( 
             "addHomogeneousMaterial"
             , (::IMaterial const * ( ::MaterialManager::* )( ::std::string const &,::complex_t ) )( &::MaterialManager::addHomogeneousMaterial )
@@ -619,6 +737,18 @@ void register_classes_3(){
             , (::IMaterial const * ( ::MaterialManager::* )( ::std::string const & ) )( &::MaterialManager::getMaterial )
             , ( bp::arg("name") )
             , bp::return_internal_reference< >() )    
+        .def( 
+            "print"
+            , (void ( MaterialManager_wrapper::* )( ::std::ostream & ) const)(&MaterialManager_wrapper::default_print)
+            , ( bp::arg("ostr") ) )    
+        .def( 
+            "create_singleton"
+            , (void (*)(  ))(&MaterialManager_wrapper::create_singleton) )    
+        .def( 
+            "onDeadReference"
+            , (void (*)(  ))(&MaterialManager_wrapper::onDeadReference) )    
+        .staticmethod( "create_singleton" )    
+        .staticmethod( "onDeadReference" )    
         .def( bp::self_ns::str( bp::self ) );
 
     bp::class_< MesoCrystal_wrapper, bp::bases< NanoParticle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredNanoParticles const &, IFormFactor & >(( bp::arg("nano_particle_structure"), bp::arg("form_factor") )) )    
@@ -662,12 +792,21 @@ void register_classes_3(){
             , (void ( MultiLayer_wrapper::* )(  ) )(&MultiLayer_wrapper::default_walk_and_print) )    
         .def( bp::self_ns::str( bp::self ) );
 
-    bp::class_< NanoParticleCrystal_wrapper >( "NanoParticleCrystal", bp::init< NanoParticle const &, Lattice const & >(( bp::arg("nano_particle"), bp::arg("lattice") )) )    
+    bp::class_< NanoParticleCrystal_wrapper, bp::bases< IClusteredNanoParticles > >( "NanoParticleCrystal", bp::init< NanoParticle const &, Lattice const & >(( bp::arg("nano_particle"), bp::arg("lattice") )) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( NanoParticleCrystal_wrapper::* )(  ) )(&NanoParticleCrystal_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createTotalFormFactor"
+            , bp::pure_virtual( (::IFormFactor * ( ::IClusteredNanoParticles::* )( ::IFormFactor const &,::complex_t ) const)(&::IClusteredNanoParticles::createTotalFormFactor) )
+            , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , bp::pure_virtual( (void ( ::IClusteredNanoParticles::* )( ::complex_t ) )(&::IClusteredNanoParticles::setAmbientRefractiveIndex) )
+            , ( bp::arg("refractive_index") ) )    
         .def( 
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
@@ -743,7 +882,7 @@ void register_classes_3(){
     }
 
     { //::ParameterPool
-        typedef bp::class_< ParameterPool, boost::noncopyable > ParameterPool_exposer_t;
+        typedef bp::class_< ParameterPool_wrapper, boost::noncopyable > ParameterPool_exposer_t;
         ParameterPool_exposer_t ParameterPool_exposer = ParameterPool_exposer_t( "ParameterPool", bp::init< >() );
         bp::scope ParameterPool_scope( ParameterPool_exposer );
         bp::class_< ParameterPool::RealPar >( "RealPar", bp::init< double * >(( bp::arg("par") )) )    
@@ -761,6 +900,7 @@ void register_classes_3(){
                 , (void ( ::ParameterPool::RealPar::* )( double ) )( &::ParameterPool::RealPar::setValue )
                 , ( bp::arg("value") ) )    
             .def( bp::self_ns::str( bp::self ) );
+        ParameterPool_exposer.def( bp::init< ParameterPool const & >(( bp::arg("other") )) );
         { //::ParameterPool::addParameter
         
             typedef bool ( ::ParameterPool::*addParameter_function_type )( ::std::string,::ParameterPool::RealPar ) ;
@@ -855,6 +995,16 @@ void register_classes_3(){
                 "getParameter"
                 , getParameter_function_type( &::ParameterPool::getParameter )
                 , ( bp::arg("name") ) );
+        
+        }
+        { //::ParameterPool::print
+        
+            typedef void ( ParameterPool_wrapper::*print_function_type )( ::std::ostream & ) const;
+            
+            ParameterPool_exposer.def( 
+                "print"
+                , print_function_type( &ParameterPool_wrapper::default_print )
+                , ( bp::arg("ostr") ) );
         
         }
         { //::ParameterPool::registerParameter

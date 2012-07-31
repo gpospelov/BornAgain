@@ -31,10 +31,10 @@ myFiles=[
   'FormFactorPyramid.h',
   'GISASExperiment.h',
   'HomogeneousMaterial.h',
-  #'IClusteredNanoParticles.h',
+  'IClusteredNanoParticles.h',
   'ICompositeSample.h',
-  #'IFormFactor.h',
-  #'IInterferenceFunction.h',
+  'IFormFactor.h',
+  'IInterferenceFunction.h',
   'InterferenceFunctionNone.h',
   'InterferenceFunction1DParaCrystal.h',
   'IMaterial.h',
@@ -134,7 +134,7 @@ def RulesGISASExperiment(mb):
 def RulesIClusteredNanoParticles(mb):
   cl = mb.class_( "IClusteredNanoParticles" )
   #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-  cl.member_functions().exclude()
+  #cl.member_functions().exclude()
   cl.member_function("createTotalFormFactor").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
 
 
@@ -154,14 +154,14 @@ def RulesICompositeSample(mb):
 # -------------------------------------------------------------------
 def RulesIFormFactor(mb):
   cl = mb.class_( "IFormFactor" )
-  cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-  cl.member_functions( ).exclude()
+  #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
+  #cl.member_functions( ).exclude()
   #members = cl.decls( declarations.virtuality_type_matcher(declarations.VIRTUALITY_TYPES.VIRTUAL ), decl_type=pd.member_calldef_t, allow_empty=True)
   #members.set_virtuality( declarations.VIRTUALITY_TYPES.NOT_VIRTUAL )
   
   cl = mb.class_( "IBornFormFactor" )
-  cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-  cl.member_functions( ).exclude()
+  #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
+  #cl.member_functions( ).exclude()
   #members = cl.decls( declarations.virtuality_type_matcher(declarations.VIRTUALITY_TYPES.VIRTUAL ), decl_type=declarations.member_calldef_t, allow_empty=True)
   #members.set_virtuality( declarations.VIRTUALITY_TYPES.NOT_VIRTUAL )
   
@@ -172,7 +172,7 @@ def RulesIFormFactor(mb):
 def RulesIInterferenceFunction(mb):
   cl = mb.class_( "IInterferenceFunction" )
   cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-  cl.member_functions().exclude()
+  #cl.member_functions().exclude()
 
 # -------------------------------------------------------------------
 # InterferenceFunctionNone.h
@@ -480,7 +480,7 @@ def GenerateCode():
   mb.calldefs( access_type_matcher_t( 'private' ) ).exclude()
 
   # excluding generation of access code for protected methods
-  mb.calldefs( access_type_matcher_t( 'protected' ) ).exclude()
+  #mb.calldefs( access_type_matcher_t( 'protected' ) ).exclude()
 
   # excluding generation of methods for implicit conversion
   mb.constructors().allow_implicit_conversion = False

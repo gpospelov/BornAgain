@@ -37,9 +37,11 @@ public:
     //! to confirm compound nature of given class
     virtual ICompositeSample *getCompositeSample() { return this; }
 
-    //! register/derigister child in the container
-    virtual void registerChild(ISample *sample) { m_samples.push_back(sample); }
-    virtual void deregisterChild(ISample *sample) { m_samples.remove(sample); }
+    //! register child in the container
+    virtual void registerChild(ISample *sample);
+
+    //! remove registered child from the container
+    virtual void deregisterChild(ISample *sample);
 
     //! iteration over local registered children
     iterator_t begin_shallow() { return m_samples.begin(); }

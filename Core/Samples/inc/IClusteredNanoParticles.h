@@ -15,12 +15,13 @@
 //! @date   Jul 12, 2012
 
 #include "IFormFactor.h"
+#include "ICompositeSample.h"
 
 //- -------------------------------------------------------------------
 //! @class IClusteredNanoParticles
 //! @brief Definition of an interface, representing an ordered assembly of nanoparticles
 //- -------------------------------------------------------------------
-class IClusteredNanoParticles
+class IClusteredNanoParticles : public ICompositeSample
 {
 public:
     virtual ~IClusteredNanoParticles() {}

@@ -53,11 +53,15 @@ void TestIsGISAXS9::execute()
     std::cout << *ml << std::endl;
 
     std::cout << "------------------------------------" << std::endl;
-    ml->getCompositeSample()->walk_and_print();
+    ml->walk_and_print();
 
     std::cout << "------------------------------------" << std::endl;
     ParameterPool *pool = ml->createParameterTree();
     std::cout << *pool << std::endl;
+
+    std::cout << pool->setMatchedParametersValue("/*NanoParticleInfo*/depth",99);
+
+    ml->walk_and_print();
 
 
     return;

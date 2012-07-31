@@ -110,6 +110,30 @@ void ISample::addParametersToExternalPool(std::string path, ParameterPool *exter
 }
 
 
+
+void ISample::walk_and_print()
+{
+    std::cout << getName() << " " << this << std::endl;
+    if(getCompositeSample()) {
+        ICompositeIterator it = getCompositeSample()->createIterator();
+        it.first();
+        while(!it.is_done())
+        {
+            ISample *smp = it.get_current();
+            if(smp) {
+                int nlevel = it.get_level();
+                for(int i=0; i<nlevel; i++) std::cout << "... ";
+                std::cout << (*smp) << std::endl;
+            } else {
+                std::cout << "NULL" << std::endl;
+            }
+            it.next();
+        }
+    }
+}
+
+
+
 /* ************************************************************************* */
 // same as above
 // return new parameter pool which contains all local parameter as well as all

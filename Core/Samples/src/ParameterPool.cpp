@@ -1,5 +1,6 @@
 #include "ParameterPool.h"
 #include "Exceptions.h"
+#include "Utils.h"
 #include <iostream>
 #include <sstream>
 
@@ -139,12 +140,43 @@ ParameterPool::RealPar ParameterPool::getParameter(std::string name) const
 {
     parametermap_t::const_iterator it = m_map.find(name);
     if( it!=m_map.end() ) {
-        std::cout << "1.1 " << name << std::endl;
         return (*it).second;
     } else {
-        std::cout << "1.2 noname " << name << std::endl;
         return RealPar(0);
     }
+}
+
+
+/* ************************************************************************* */
+// set parameter value
+/* ************************************************************************* */
+bool ParameterPool::setParameterValue(std::string name, double value)
+{
+    RealPar x = getParameter(name);
+    if( x.isNull() ) {
+        std::cout << "ParameterPool::setParameterValue() -> Warning. Non parameter with name '" << name << "'" << std::endl;
+        return false;
+    }
+    x.setValue(value);
+    return true;
+}
+
+
+/* ************************************************************************* */
+// set parameter value
+/* ************************************************************************* */
+int ParameterPool::setMatchedParametersValue(std::string wildcards, double value)
+{
+    int npars(0);
+    for(iterator_t it=begin(); it!= end(); it++) {
+        // (*it).first - parameter key, (*it).second - parameter itself
+        // parameters whose key match pattern is added to the FitMultiParameter container
+        if( Utils::StringMatchText::WildcardPattern( (*it).first, wildcards ) ) {
+            (*it).second.setValue(value);
+            npars++;
+        }
+    }
+    return npars;
 }
 
 

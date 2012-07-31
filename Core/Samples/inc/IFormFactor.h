@@ -25,6 +25,7 @@
 class IFormFactor : public ISample
 {
 public:
+    IFormFactor(){}
     virtual ~IFormFactor() {}
     virtual IFormFactor *clone() const=0;
 
@@ -49,7 +50,8 @@ public:
 class IBornFormFactor : public IFormFactor
 {
 public:
-	virtual ~IBornFormFactor() {}
+    IBornFormFactor(){}
+    virtual ~IBornFormFactor() {}
 	virtual IBornFormFactor *clone() const=0;
 
 	virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const

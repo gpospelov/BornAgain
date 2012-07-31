@@ -53,15 +53,12 @@ myFiles=[
   'NanoParticleDecoration.h',
   'OpticalFresnel.h',
   'ParameterPool.h',
-##  'Point3D.h',
   'PythonOutputData.h',
   'PythonPlusplusHelper.h',
   'Transform3D.h',
   'Units.h',
-  'Types.h',
-##  'Vector3D.h',
+  #'Types.h',
 ]
-  #'IClusteredNanoParticles.h',
 
 # list of include directories
 myIncludes = ['../../Core/Samples/inc','../../Core/Algorithms/inc','../../Core/Tools/inc','../../Core/PythonAPI/inc','../../Core/Geometry/inc']
@@ -137,7 +134,7 @@ def RulesGISASExperiment(mb):
 def RulesIClusteredNanoParticles(mb):
   cl = mb.class_( "IClusteredNanoParticles" )
   #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-  cl.member_functions().exclude()
+  #cl.member_functions().exclude()
   cl.member_function("createTotalFormFactor").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
 
 
@@ -148,6 +145,7 @@ def RulesICompositeSample(mb):
   cl = mb.class_( "ICompositeSample" )
   cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   cl.member_functions().exclude()
+  #cl.member_function("walk_and_print").include()
   #cl.member_function( "getCompositeSample" ).include()
   #cl.member_function( "getCompositeSample" ).call_policies = call_policies.return_internal_reference( )
 
@@ -155,10 +153,18 @@ def RulesICompositeSample(mb):
 # IFormFactor.h
 # -------------------------------------------------------------------
 def RulesIFormFactor(mb):
-  mb.class_( "IFormFactor" ).constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-  mb.class_( "IFormFactor" ).member_functions( ).exclude()
-  mb.class_( "IBornFormFactor" ).constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-  mb.class_( "IBornFormFactor" ).member_functions( ).exclude()
+  cl = mb.class_( "IFormFactor" )
+  #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
+  #cl.member_functions( ).exclude()
+  #members = cl.decls( declarations.virtuality_type_matcher(declarations.VIRTUALITY_TYPES.VIRTUAL ), decl_type=pd.member_calldef_t, allow_empty=True)
+  #members.set_virtuality( declarations.VIRTUALITY_TYPES.NOT_VIRTUAL )
+  
+  cl = mb.class_( "IBornFormFactor" )
+  #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
+  #cl.member_functions( ).exclude()
+  #members = cl.decls( declarations.virtuality_type_matcher(declarations.VIRTUALITY_TYPES.VIRTUAL ), decl_type=declarations.member_calldef_t, allow_empty=True)
+  #members.set_virtuality( declarations.VIRTUALITY_TYPES.NOT_VIRTUAL )
+  
 
 # -------------------------------------------------------------------
 # IInterferenceFunction.h
@@ -166,7 +172,7 @@ def RulesIFormFactor(mb):
 def RulesIInterferenceFunction(mb):
   cl = mb.class_( "IInterferenceFunction" )
   cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-  cl.member_functions().exclude()
+  #cl.member_functions().exclude()
 
 # -------------------------------------------------------------------
 # InterferenceFunctionNone.h
@@ -198,8 +204,12 @@ def RulesInterferenceFunction1DParaCrystal(mb):
 # -------------------------------------------------------------------
 def RulesISample(mb):
   cl = mb.class_( "ISample" )
-  cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
+  #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   cl.member_functions().exclude()
+  cl.member_function("walk_and_print").include()
+  cl.member_function("createParameterTree").include()
+  cl.member_function("createParameterTree").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
+  
   #cl.member_function( "getCompositeSample" ).include()
   #cl.member_function( "getCompositeSample" ).call_policies = call_policies.return_internal_reference( )
 
@@ -242,9 +252,9 @@ def RulesLayer(mb):
 # -------------------------------------------------------------------
 def RulesLayerDecorator(mb):
   cl = mb.class_( "LayerDecorator" )
-  cl.constructors( ).exclude() # excluding all constructors
+  #cl.constructors( ).exclude() # excluding all constructors
   cl.member_functions( ).exclude() # excluding all member functions
-  cl.constructors( lambda x: len(x.arguments)==2).include() # including constructor with two parameters
+  #cl.constructors( lambda x: len(x.arguments)==2).include() # including constructor with two parameters
 
 # -------------------------------------------------------------------
 # LayerRoughness.h
@@ -375,6 +385,7 @@ def RulesTransform3D(mb):
   for fun in cl.member_functions(): # setting policy for functions returning internal reference
     if declarations.type_traits.is_reference(fun.return_type):
       fun.call_policies = call_policies.return_internal_reference( )
+  
   mb.class_( "Reflect3D" ).exclude()
   mb.class_( "Translate3D" ).exclude()
   mb.class_( "TranslateX3D" ).exclude()
@@ -469,7 +480,7 @@ def GenerateCode():
   mb.calldefs( access_type_matcher_t( 'private' ) ).exclude()
 
   # excluding generation of access code for protected methods
-  mb.calldefs( access_type_matcher_t( 'protected' ) ).exclude()
+  #mb.calldefs( access_type_matcher_t( 'protected' ) ).exclude()
 
   # excluding generation of methods for implicit conversion
   mb.constructors().allow_implicit_conversion = False
@@ -490,7 +501,9 @@ def GenerateCode():
   #mb.member_operators( lambda x: x.name in ("operator++", "operator--",
                                             #"operator*", "operator->",
                                             #"operator()", "operator[]") ).exclude()
-  mb.member_operators( lambda x: x.name in ("operator>>","operator()") ).exclude()
+  #mb.member_operators( lambda x: x.name in ("operator>>","operator()") ).exclude()
+
+
 
   # disable some warnings
   messages.disable( messages.W1035 )

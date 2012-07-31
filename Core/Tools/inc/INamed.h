@@ -26,13 +26,19 @@ class INamed
 public:
     INamed() {}
     INamed(std::string name) { m_name = name; }
+    INamed(std::string name, std::string title) { m_name = name; m_title=title; }
     virtual ~INamed(){}
 
-    virtual std::string getName() const { return m_name; }
     virtual void setName(std::string name) { m_name = name; }
+    virtual std::string getName() const { return m_name; }
+
+    virtual std::string getTitle() const { return m_title; }
+    virtual void setTitle(std::string title) { m_title = title; }
 
 protected:
     std::string m_name;
+
+    std::string m_title;
 };
 
 #endif // INAMED_H

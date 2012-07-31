@@ -20,6 +20,14 @@ OBJECTS_DIR = obj
 INCLUDEPATH += ../../Core/Algorithms/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
 DEPENDPATH += ../../Core/Algorithms/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
 
+LIBS = -lfftw3
+
+CONFIG(JCNS) {
+  #LIBS -= -lfftw3
+  #LIBS += -Bstatic -lfftw3 -Bdynamic # request for static (with fPIC option)
+  # "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
+  LIBS = -L/usr/users/jcns/pospelov/software/lib -lfftw3
+}
 
 ###############################################################################
 # generating package dependency flags
@@ -39,13 +47,6 @@ for(dep, MY_DEPENDENCY_LIB) {
 #LIBS += -lpthread
 #LDFLAGS = -L/lib64
 #QMAKE_CXXFLAGS += -pthread
-
-CONFIG(JCNS) {
-  LIBS -= -lfftw3
-  LIBS += -Bstatic -lfftw3 -Bdynamic # request for static (with fPIC option)
-  # "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
-}
-
 
 ###############################################################################
 # attempt to compile project dependencies not from the top

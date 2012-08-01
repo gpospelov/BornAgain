@@ -61,6 +61,9 @@ void TestMesoCrystal::initializeSample()
     delete mp_sample;
     // create mesocrystal
     double R = 6.1*Units::nanometer;
+    double meso_radius = 300*Units::nanometer;
+    double surface_filling_ratio = 0.3;
+    double surface_density = M_PI*meso_radius*meso_radius/surface_filling_ratio;
     Lattice lat = Lattice::createTrigonalLattice(R*2.0, R*2.0*2.3);
     kvector_t bas_a = lat.getBasisVectorA();
     kvector_t bas_b = lat.getBasisVectorB();
@@ -79,25 +82,33 @@ void TestMesoCrystal::initializeSample()
     MesoCrystal meso(npc.clone(), new FormFactorCylinder(0.2*Units::micrometer, 300*Units::nanometer));
     MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, 300*Units::nanometer, 84*Units::degree));
 
+    // Create multilayer
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
+    complex_t n_avg(1.0-2e-6, 3e-8);
     complex_t n_substrate(1.0-3.5e-6, 7.8e-8);
 
     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_average_layer_material = MaterialManager::instance().addHomogeneousMaterial("Averagelayer", n_avg);
     const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
+    Layer avg_layer;
+    avg_layer.setMaterial(p_average_layer_material);
+    avg_layer.setThickness(0.2*Units::micrometer);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-//    IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
-    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
-            50*Units::nanometer, 1e7*Units::nanometer);
-    NanoParticleDecoration particle_decoration(meso.clone(), 0.0, 0.5);
-    particle_decoration.addNanoParticle(meso2.clone(), 0.0, 0.5);
+    IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
+//    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
+//            50*Units::nanometer, 1e7*Units::nanometer);
+    NanoParticleDecoration particle_decoration(meso.clone(), 0.2*Units::micrometer, 0.5);
+    particle_decoration.addNanoParticle(meso2.clone(), 0.2*Units::micrometer, 0.5);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    particle_decoration.setTotalParticleSurfaceDensity(surface_density);
+    LayerDecorator avg_layer_decorator(avg_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(air_layer);
+    p_multi_layer->addLayer(avg_layer_decorator);
     p_multi_layer->addLayer(substrate_layer);
     mp_sample = p_multi_layer;
 }

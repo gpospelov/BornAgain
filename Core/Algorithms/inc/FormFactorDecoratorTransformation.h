@@ -30,32 +30,38 @@ public:
     virtual int getNumberOfStochasticParameters() const;
 
 protected:
-    Geometry::Transform3D *m_transform;
+    Geometry::Transform3D *mp_transform;
+    Geometry::Transform3D *mp_inverse_transform;
     IFormFactor *mp_form_factor;
 };
 
 inline FormFactorDecoratorTransformation::FormFactorDecoratorTransformation(
         IFormFactor* p_form_factor, Geometry::Transform3D *transform)
-: m_transform(transform)
+: mp_transform(transform)
+, mp_inverse_transform(0)
 , mp_form_factor(p_form_factor)
 {
+    mp_inverse_transform = new Geometry::Transform3D(mp_transform->inverse());
 }
 
 inline FormFactorDecoratorTransformation* FormFactorDecoratorTransformation::clone() const
 {
-    Geometry::Transform3D *transform = new Geometry::Transform3D(*m_transform);
-    return new FormFactorDecoratorTransformation(mp_form_factor->clone(), transform);
+    Geometry::Transform3D *p_new_transform = new Geometry::Transform3D(*mp_transform);
+    return new FormFactorDecoratorTransformation(mp_form_factor->clone(), p_new_transform);
 }
 
 inline FormFactorDecoratorTransformation::~FormFactorDecoratorTransformation()
 {
-    delete m_transform;
+    delete mp_transform;
+    delete mp_inverse_transform;
     delete mp_form_factor;
 }
 
 inline complex_t FormFactorDecoratorTransformation::evaluate(kvector_t k_i,
         kvector_t k_f) const
 {
+    k_i.transform(*mp_inverse_transform);
+    k_f.transform(*mp_inverse_transform);
     return mp_form_factor->evaluate(k_i, k_f);
 }
 
@@ -70,9 +76,13 @@ inline complex_t FormFactorDecoratorTransformation::evaluateForComplexkz(kvector
 //    k_f.setXYZ(vkf.x(), vkf.y(), vkf.z() );
 //    k_i = *m_transform*k_i;
 //    k_f = *m_transform*k_f;
-    k_i.transform(*m_transform);
-    k_f.transform(*m_transform);
-    return mp_form_factor->evaluateForComplexkz(k_i, k_f, k_iz, k_fz);
+    kvector_t realki(k_i.x(), k_i.y(), k_iz.real());
+    kvector_t realkf(k_f.x(), k_f.y(), k_fz.real());
+    realki.transform(*mp_inverse_transform);
+    realkf.transform(*mp_inverse_transform);
+    k_iz.real() = realki.z();
+    k_fz.real() = realkf.z();
+    return mp_form_factor->evaluateForComplexkz(realki, realkf, k_iz, k_fz);
 }
 
 inline int FormFactorDecoratorTransformation::getNumberOfStochasticParameters() const

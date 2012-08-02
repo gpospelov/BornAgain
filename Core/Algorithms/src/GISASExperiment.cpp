@@ -32,11 +32,12 @@ void GISASExperiment::normalize()
     // This normalization assumes that the intensity map contains total differential scattering cross sections
     // (so not the cross section per scattering particle as is usual)
     if (!m_is_normalized) {
-        double incident_intensity = m_beam.getIntensity(); // Actually, this is the integrated intensity (units: length^-2)
+        double incident_intensity = m_beam.getIntensity(); // Actually, this is the total number of neutrons hitting the sample
+        double sin_alpha_i = std::abs(m_beam.getCentralK().cosTheta());
         m_intensity_map.resetIndex();
         while (m_intensity_map.hasNext()) {
             double old_value = m_intensity_map.currentValue();
-            double factor = incident_intensity*getCurrentSolidAngle();
+            double factor = incident_intensity*getCurrentSolidAngle()/sin_alpha_i;
             m_intensity_map.next() = factor*old_value;
         }
         m_is_normalized = true;

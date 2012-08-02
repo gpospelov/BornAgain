@@ -57,6 +57,8 @@ public:
 
     void setBeamParameters(double lambda, double alpha_i, double phi_i);
 
+    void setBeamIntensity(double intensity);
+
 protected:
     /// Default implementation only adds the detector axes
     virtual void updateIntensityMapAxes();

@@ -61,6 +61,10 @@ void LayerDecoratorDWBASimulation::run()
     {
         double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
         double alpha_f = m_dwba_intensity.getCurrentValueOfAxis<double>("alpha_f");
+        if (alpha_f<0) {
+            m_dwba_intensity.next() = 0.0;
+            continue;
+        }
         kvector_t k_f;
         complex_t k_fz = mp_kz_function->evaluate(alpha_f);
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);

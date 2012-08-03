@@ -75,9 +75,10 @@ multi_layer.addLayer(substrate_layer)
 # ------------------------
 # build and run experiment
 # ------------------------
+ai=0.4
 experiment = GISASExperiment()
-experiment.setDetectorParameters(100, 0.1*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
-experiment.setBeamParameters(0.77*angstrom, -0.4*degree, 0.0*degree)
+experiment.setDetectorParameters(100, 0.*degree, 2.0*degree, 100, 0.0*degree, 2.0*degree, True)
+experiment.setBeamParameters(0.77*angstrom, -ai*degree, 0.0*degree)
 
 experiment.setSample(multi_layer)
 
@@ -96,8 +97,8 @@ x = x*180./3.1415926
 y = y*180./3.1415926
 
 fg = pylab.figure()
-X,Y = pylab.meshgrid(x,y)
-pylab.pcolormesh(Y,X,output,  norm=LogNorm(1, 1e19) )
+Y,X = pylab.meshgrid(y,x)
+pylab.pcolormesh(X,Y,output,  norm=LogNorm(1e10, 1e19) )
 pylab.ylim([0,y.max()])
 pylab.xlim([0,x.max()])
 pylab.colorbar()

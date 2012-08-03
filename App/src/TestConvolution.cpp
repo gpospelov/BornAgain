@@ -177,7 +177,7 @@ void TestConvolution::test_convolve1d()
         href->DrawCopy();
         gr_result->Draw("pl same");
     }
-    float_t rp, cp;
+    Float_t rp, cp;
     std::cout << "--- TestConvolution::test_convolve_1d() -> Peformance." << std::endl;
     benchmark.Summary(rp, cp);
 
@@ -320,7 +320,7 @@ void TestConvolution::test_convolve2d()
     }
 
     // benchmark summary
-    float_t rp, cp;
+    Float_t rp, cp;
     std::cout << "--- TestConvolution::test_convolve_2d() -> Peformance." << std::endl;
     benchmark.Summary(rp, cp);
 

@@ -140,7 +140,7 @@ ISample *StandardSamples::MultilayerOffspecTestcase1a()
     lSubstrate.setMaterial(mSubstrate, 0);
 
     LayerRoughness roughness;
-    roughness.setSigma(0.0*Units::nanometer);
+    roughness.setSigma(1.0*Units::nanometer);
     roughness.setHurstParameter(0.3);
     roughness.setLatteralCorrLength(500*Units::nanometer);
 

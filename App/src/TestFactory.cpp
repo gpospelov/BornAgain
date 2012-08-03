@@ -13,6 +13,7 @@
 #include "TestRootTree.h"
 #include "TestFittingModule.h"
 #include "TestPerformance.h"
+#include "TestMultiLayerRoughness.h"
 
 
 #include "TBenchmark.h"
@@ -37,6 +38,7 @@ TestFactory::TestFactory() : m_benchmark(0)
     registerItem("roottree",    IFactoryCreateFunction<TestRootTree, IFunctionalTest> );
     registerItem("fitting",     IFactoryCreateFunction<TestFittingModule, IFunctionalTest> );
     registerItem("performance", IFactoryCreateFunction<TestPerformance, IFunctionalTest> );
+    registerItem("roughdwba",   IFactoryCreateFunction<TestMultiLayerRoughness, IFunctionalTest> );
 
     m_benchmark = new TBenchmark();
 }
@@ -54,7 +56,7 @@ TestFactory::~TestFactory()
 void TestFactory::print_benchmarks()
 {
     std::cout << "--- TestFactory::print_benchmarks() ---" << std::endl;
-    float_t rp, cp;
+    Float_t rp, cp;
     m_benchmark->Summary(rp, cp);
 }
 

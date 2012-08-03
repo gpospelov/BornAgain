@@ -53,6 +53,8 @@ void TestDiffuseReflection::execute()
     kvector_t ki, kf;
     for(size_t i_sample=0; i_sample<samples.size(); i_sample++){
         m_sample = samples[i_sample];
+        std::cout << *m_sample << std::endl;
+        m_sample->walk_and_print();
 
         // specular reflectivity alpha_i = alpha_f
         m_data_spec = new OutputData<double >;
@@ -75,7 +77,7 @@ void TestDiffuseReflection::execute()
         m_data_offspec = new OutputData<double >;
         m_data_offspec->addAxis(std::string("alpha_i"), m_alphaMin, m_alphaMax, m_npoints);
         m_data_offspec->addAxis(std::string("alpha_f"), m_alphaMin, m_alphaMax, m_npoints);
-        m_data_spec->resetIndex();
+        m_data_offspec->resetIndex();
         while (m_data_offspec->hasNext()) {
             double alpha_i = m_data_offspec->getCurrentValueOfAxis<double>("alpha_i");
             double alpha_f = m_data_offspec->getCurrentValueOfAxis<double>("alpha_f");
@@ -84,6 +86,7 @@ void TestDiffuseReflection::execute()
             //double r = calc.execute0(*m_sample, ki, kf);
             calc.execute(*m_sample, ki, kf);
             m_data_offspec->next() = calc.getDiffuseAutocorr() + calc.getDiffuseCrosscorr();
+//            std::cout << alpha_i << " " << alpha_f << " " << calc.getDiffuseAutocorr() << std::endl;
         }
 
         draw();
@@ -149,7 +152,7 @@ void TestDiffuseReflection::draw()
     double dalpha = (m_alphaMax - m_alphaMin) / (m_npoints-1);
     TH2D h2("h2","h2", m_npoints, Units::rad2deg(m_alphaMin-dalpha/2.), Units::rad2deg(m_alphaMax+dalpha/2.), m_npoints, Units::rad2deg(m_alphaMin-dalpha/2.), Units::rad2deg(m_alphaMax+dalpha/2.) );
     h2.SetContour(50);
-    h2.SetMinimum(0.001);
+//    h2.SetMinimum(0.001);
     h2.SetStats(0);
     m_data_offspec->resetIndex();
     while (m_data_offspec->hasNext()) {

@@ -46,6 +46,9 @@ public:
     //! return number of layers in multilayer
     inline size_t getNumberOfLayers() const { return m_layers.size(); }
 
+    //! return number of interfaces in multilayer
+    inline size_t getNumberOfInterfaces() const { return m_interfaces.size(); }
+
     //! add object to multilayer, overrides from ISample
     void addLayer(const Layer &p_child);
 
@@ -54,6 +57,9 @@ public:
 
     //! return layer with given index
     inline const Layer *getLayer(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]; }
+
+    //! return layer with given index
+    inline const LayerInterface *getLayerInterface(size_t i_interface) const { return m_interfaces[ check_interface_index(i_interface) ]; }
 
     //! return z-coordinate of the layer's bottom
     inline double getLayerBottomZ(size_t i_layer) const { return m_layers_z[ check_layer_index(i_layer) ]; }

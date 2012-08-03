@@ -25,11 +25,9 @@
 2012-07-30 16:19:46 | jcnsopc73  | macosx64, 2800 MHz      | 81967.2 | 3.8835  | 3.83142 | 0.19175 | 
 
 # multiple changes to get parameters from MesoCrystal, LayerDecorator etc into parameter pool
-2012-07-31 11:21:26 | jcnsopc73  | macosx64, 2800 MHz      | 80321.3 | 3.96825 | 3.94477 | 0.34305 | 
-2012-07-31 11:25:57 | jcnsopc73  | macosx64, 2800 MHz      | 82304.5 | 3.89864 | 3.861   | 0.33444 | 
-2012-07-31 11:27:52 | jcnsopc73  | macosx64, 2800 MHz      | 82987.5 | 3.98406 | 3.861   | 0.34188 | 
-
-# switching off debug
+# switching off debug, it looks like MesoCrystal is now slower (0.45Hz vs 0.70 Hz), origin is not understood
 2012-07-31 11:39:09 | jcnsopc73  | macosx64, 2800 MHz      | 263158  | 13.1579 | 13.0719 | 0.45351 | 
 2012-07-31 11:39:23 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 12.9032 | 13.0719 | 0.45351 | 
 2012-07-31 11:40:12 | jcnsopc73  | macosx64, 2800 MHz      | 270270  | 13.0719 | 12.9032 | 0.45351 | 
+
+2012-08-03 09:21:48 | jcnsopc73  | macosx64, 2800 MHz      | 77519.4 | 4.04858 | 3.89864 | 0.17574 | 

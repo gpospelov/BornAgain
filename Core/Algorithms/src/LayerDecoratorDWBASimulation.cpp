@@ -25,6 +25,7 @@ void LayerDecoratorDWBASimulation::run()
     complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     std::vector<IFormFactor *> form_factors;
+    double total_surface_density = p_decoration->getTotalParticleSurfaceDensity();
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
 //        NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index)->clone();
 //        double depth = p_decoration->getDepthOfNanoParticle(particle_index);
@@ -60,10 +61,14 @@ void LayerDecoratorDWBASimulation::run()
     {
         double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
         double alpha_f = m_dwba_intensity.getCurrentValueOfAxis<double>("alpha_f");
+        if (alpha_f<0) {
+            m_dwba_intensity.next() = 0.0;
+            continue;
+        }
         kvector_t k_f;
         complex_t k_fz = mp_kz_function->evaluate(alpha_f);
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        m_dwba_intensity.next() = p_strategy->evaluateForComplexkz(m_ki, k_f, k_iz, k_fz);
+        m_dwba_intensity.next() = p_strategy->evaluateForComplexkz(m_ki, k_f, k_iz, k_fz)*total_surface_density;
     }
     delete p_strategy;
 }

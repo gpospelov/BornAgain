@@ -20,7 +20,7 @@ OBJECTS_DIR = obj
 INCLUDEPATH += ../../Core/Algorithms/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
 DEPENDPATH += ../../Core/Algorithms/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
 
-LIBS = -lfftw3
+LIBS = -L/opt/local/lib -lfftw3
 
 CONFIG(JCNS) {
   #LIBS -= -lfftw3

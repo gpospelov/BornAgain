@@ -68,6 +68,12 @@ public:
     /// Create interference function strategy
     IInterferenceFunctionStrategy *createStrategy(const std::vector<IFormFactor *> &form_factors) const;
 
+    /// Get surface density of all particles
+    double getTotalParticleSurfaceDensity() const { return m_total_particle_surface_density; }
+
+    /// Set surface density of all particles
+    void setTotalParticleSurfaceDensity(double surface_density) { m_total_particle_surface_density = surface_density; }
+
 private:
     /// copy constructor and assignment operator are hidden since there is a clone method
     NanoParticleDecoration(const NanoParticleDecoration &);
@@ -93,6 +99,7 @@ private:
     ///< Currently only a scalar interference function (instead of matrix)
     double m_total_abundance;
     ///< To guarantee that fractions sum up to 1
+    double m_total_particle_surface_density;
 };
 
 

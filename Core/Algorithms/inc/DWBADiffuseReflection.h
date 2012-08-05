@@ -56,6 +56,7 @@ private:
     double m_diffuse_crosscorr;
 
     kvector_t m_ki;
+    kvector_t m_kf;
     kvector_t m_q;
     double m_qz1;
     double m_qz2;

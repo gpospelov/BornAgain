@@ -14,6 +14,7 @@
 #include "TestFittingModule.h"
 #include "TestPerformance.h"
 #include "TestMultiLayerRoughness.h"
+#include "TestMiscellaneous.h"
 
 
 #include "TBenchmark.h"
@@ -39,9 +40,11 @@ TestFactory::TestFactory() : m_benchmark(0)
     registerItem("fitting",     IFactoryCreateFunction<TestFittingModule, IFunctionalTest> );
     registerItem("performance", IFactoryCreateFunction<TestPerformance, IFunctionalTest> );
     registerItem("roughdwba",   IFactoryCreateFunction<TestMultiLayerRoughness, IFunctionalTest> );
+    registerItem("testmisc",    IFactoryCreateFunction<TestMiscellaneous, IFunctionalTest> );
 
     m_benchmark = new TBenchmark();
 }
+
 
 
 TestFactory::~TestFactory()

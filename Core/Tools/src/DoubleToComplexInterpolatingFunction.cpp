@@ -7,6 +7,7 @@
 
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "Exceptions.h"
+#include <sstream>
 
 DoubleToComplexInterpolatingFunction::~DoubleToComplexInterpolatingFunction()
 {
@@ -31,7 +32,11 @@ complex_t DoubleToComplexInterpolatingFunction::evaluate(double value)
 {
     if (value < m_lower_limit-m_low_step || value > m_upper_limit + m_high_step)
     {
-        throw OutOfBoundsException("Cannot interpolate: argument value is outside of bounds.");
+        std::ostringstream os;
+        os << "DoubleToComplexInterpolatingFunction::evaluate() -> Error! ";
+        os << "Cannot interpolate: argument value is outside of bounds. ";
+        os << " value: " << value << " m_lower_limit:" << m_lower_limit << " " << m_low_step << " m_upper_limit: " << m_upper_limit << " " << m_high_step;
+        throw OutOfBoundsException(os.str());
     }
     if (value < m_lower_limit) value = m_lower_limit;
     else if (value > m_upper_limit) value = m_upper_limit;

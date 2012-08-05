@@ -51,6 +51,8 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
     m_description["roottree"]         = "functional test: using root trees to read/write data from/to disk";
     m_description["performance"]      = "functional test: run performance test for several predefined tasks";
     m_description["roughdwba"]        = "functional test: diffuse scattering from multi layer with roughness";
+    m_description["testmisc"]         = "functional test: test of different miscellaneous issues";
+
 
 }
 

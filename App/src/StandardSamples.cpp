@@ -157,7 +157,7 @@ ISample *StandardSamples::MultilayerOffspecTestcase1a()
 
     mySample->addLayerWithTopRoughness(lSubstrate, roughness);
 
-    mySample->setCrossCorrLength(1e-10);
+    //mySample->setCrossCorrLength(1e-10);
 
     return mySample;
 }

@@ -32,8 +32,8 @@ public:
 
     virtual void run();
 
-    // set Kz, T and R functions for given layer
-    void setKzTAndRFunctions(int i, const IDoubleToComplexFunction &kz_function, const IDoubleToComplexFunction &T_function, const IDoubleToComplexFunction &R_function);
+    // set T and R functions for given layer
+    void setTAndRFunctions(int i, const IDoubleToComplexFunction &T_function, const IDoubleToComplexFunction &R_function);
 
     // evaluate
     virtual double evaluate(kvector_t k_i, kvector_t k_f);
@@ -43,16 +43,13 @@ protected:
     MultiLayerRoughnessDWBASimulation &operator=(const MultiLayerRoughnessDWBASimulation &);
 
     complex_t get_refractive_term(int ilayer);
-    complex_t get_sum4terms(int ilayer);
+    complex_t get_sum4terms(int ilayer, kvector_t k_i, kvector_t k_f);
 
-    std::vector<IDoubleToComplexFunction *> mp_kz_function;
     std::vector<IDoubleToComplexFunction *> mp_T_function;
     std::vector<IDoubleToComplexFunction *> mp_R_function;
 
     MultiLayer *mp_multi_layer;
 
-    double m_alpha_f;
-    kvector_t m_kf;
 };
 
 #endif // MULTILAYERROUGHNESSDWBASIMULATION_H

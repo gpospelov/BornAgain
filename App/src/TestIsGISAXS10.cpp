@@ -32,8 +32,13 @@ void TestIsGISAXS10::execute()
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree
             , 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+//    experiment.setBeamIntensity(1e7);
     experiment.runSimulation();
+//    experiment.normalize();
     mp_intensity_output = experiment.getOutputDataClone();
+    double total_count = mp_intensity_output->total();
+    std::cout << "Total count in detector: " << total_count << std::endl;
+    std::cout << "Scattered percentage in detector: " << 100*total_count/experiment.getBeam().getIntensity() << std::endl;
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_isgisaxs_10", "1D paracrystal islands",
             "CONT4 Z");
     IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-10/para1dcyl.ima");
@@ -57,6 +62,7 @@ void TestIsGISAXS10::initializeSample()
     NanoParticleDecoration particle_decoration(
                 new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_funtion);
+//    particle_decoration.setTotalParticleSurfaceDensity(1.0/(20.0*Units::nanometer*20.0*Units::nanometer));
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer_decorator);

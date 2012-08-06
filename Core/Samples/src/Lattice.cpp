@@ -21,6 +21,11 @@ Lattice::~Lattice()
 {
 }
 
+double Lattice::getVolume() const
+{
+    return std::abs(DotProduct(m_a1, CrossProduct(m_a2, m_a3)));
+}
+
 void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2,
         kvector_t& b3) const
 {

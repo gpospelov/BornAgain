@@ -126,6 +126,9 @@ public:
     //! return current value of axis with given name
     template <class U> U getCurrentValueOfAxis(std::string axis_name) const;
 
+    //! get sum of all values in the data structure
+    T total() const;
+
     // ---------
     // modifiers
     // ---------
@@ -311,6 +314,16 @@ template <class U> inline U OutputData<T>::getCurrentValueOfAxis(std::string axi
 }
 
 
+template<class T>
+inline T OutputData<T>::total() const
+{
+    T total = 0;
+    for (size_t i=0; i<m_data_size; ++i) {
+        total += m_data_vector[i];
+    }
+    return total;
+}
+
 // set object into initial state (no dimensions, data)
 template <class T> void OutputData<T>::clear()
 {
@@ -361,6 +374,5 @@ template<class T> inline void OutputData<T>::setRawDataVector(const std::vector<
     }
     m_data_vector = data_vector;
 }
-
 
 #endif // OUTPUTDATA_H

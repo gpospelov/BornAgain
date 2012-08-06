@@ -18,7 +18,7 @@
 #include "IDoubleToComplexFunction.h"
 
 
-class DWBAFormFactor: public IFormFactor
+class DWBAFormFactor: public IFormFactorDecorator
 {
 public:
     DWBAFormFactor(IFormFactor* p_form_factor);
@@ -58,7 +58,6 @@ protected:
     void calculateTerms(kvector_t k_i, kvector_t k_f,
             complex_t k_iz, complex_t k_fz) const;
 
-    IFormFactor *mp_form_factor;
     IDoubleToComplexFunction *mp_T;
     IDoubleToComplexFunction *mp_R;
 

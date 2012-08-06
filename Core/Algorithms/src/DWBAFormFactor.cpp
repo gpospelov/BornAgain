@@ -1,7 +1,7 @@
 #include "DWBAFormFactor.h"
 
 DWBAFormFactor::DWBAFormFactor(IFormFactor *p_form_factor)
-    : mp_form_factor(p_form_factor)
+    : IFormFactorDecorator(p_form_factor)
     , mp_T(0), mp_R(0)
 {
 }

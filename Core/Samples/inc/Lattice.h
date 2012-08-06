@@ -31,13 +31,16 @@ public:
     ~Lattice();
 
     //! get basis vector a
-    kvector_t getBasisVectorA() { return m_a1; }
+    kvector_t getBasisVectorA() const { return m_a1; }
 
     //! get basis vector b
-    kvector_t getBasisVectorB() { return m_a2; }
+    kvector_t getBasisVectorB() const { return m_a2; }
 
     //! get basis vector c
-    kvector_t getBasisVectorC() { return m_a3; }
+    kvector_t getBasisVectorC() const { return m_a3; }
+
+    //! get the volume of the unit cell
+    double getVolume() const;
 
     //! get the reciprocal basis vectors
     void getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const;

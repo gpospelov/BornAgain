@@ -19,16 +19,12 @@
 
 #include <cmath>
 
-class FormFactorDecoratorPositionFactor : public IFormFactor
+class FormFactorDecoratorPositionFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, kvector_t position);
     virtual ~FormFactorDecoratorPositionFactor();
     virtual FormFactorDecoratorPositionFactor *clone() const;
-
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index) {
-        mp_form_factor->setAmbientRefractiveIndex(refractive_index);
-    }
 
     virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const;
 
@@ -39,14 +35,13 @@ public:
     }
 protected:
     kvector_t m_position;
-    IFormFactor *mp_form_factor;
 };
 
 inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
         const IFormFactor& form_factor, kvector_t position)
-: m_position(position)
+: IFormFactorDecorator(form_factor.clone())
+, m_position(position)
 {
-    mp_form_factor = form_factor.clone();
 }
 
 inline FormFactorDecoratorPositionFactor::~FormFactorDecoratorPositionFactor()

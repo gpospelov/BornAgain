@@ -37,19 +37,22 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
     m_description["profile"]      = "profile specified test";
     // default description of functional tests
     for(arguments_t::iterator it = m_defined_functional_tests.begin(); it!=m_defined_functional_tests.end(); ++it ) {
-        m_description[ (*it) ]    = "functional test: no description";
+        m_description[ (*it) ]        = "functional test: no description";
     }
     // additional description of functional tests (overwrites previous default)
-    m_description["isgisaxs1"]    = "functional test: isgisaxs ex-1 (2 types of particles without inteference on top of substrate)";
-    m_description["isgisaxs3"]    = "functional test: isgisaxs ex-3 (cylinder FF)";
-    m_description["isgisaxs9"]    = "functional test: isgisaxs ex-9 (pyramid FF)";
-    m_description["isgisaxs10"]   = "functional test: isgisaxs ex-10 (cylinders with interference on top of substrate)";
-    m_description["convolution"]  = "functional test: test of convolution via fft";
-    m_description["diffuse"]      = "functional test: diffuse scattering from multi layer with roughness";
-    m_description["formfactor"]   = "functional test: some formfactor";
-    m_description["roughness"]    = "functional test: roughness parameters";
-    m_description["roottree"]     = "functional test: using root trees to read/write data from/to disk";
-    m_description["performance"]  = "functional test: run performance test for several predefined tasks";
+    m_description["isgisaxs1"]        = "functional test: isgisaxs ex-1 (2 types of particles without inteference on top of substrate)";
+    m_description["isgisaxs3"]        = "functional test: isgisaxs ex-3 (cylinder FF)";
+    m_description["isgisaxs9"]        = "functional test: isgisaxs ex-9 (rotated pyramid FF)";
+    m_description["isgisaxs10"]       = "functional test: isgisaxs ex-10 (cylinders with interference on top of substrate)";
+    m_description["convolution"]      = "functional test: test of convolution via fft";
+    m_description["diffuse"]          = "functional test: diffuse scattering from multi layer with roughness";
+    m_description["formfactor"]       = "functional test: some formfactor";
+    m_description["roughness"]        = "functional test: roughness parameters";
+    m_description["roottree"]         = "functional test: using root trees to read/write data from/to disk";
+    m_description["performance"]      = "functional test: run performance test for several predefined tasks";
+    m_description["roughdwba"]        = "functional test: diffuse scattering from multi layer with roughness";
+    m_description["testmisc"]         = "functional test: test of different miscellaneous issues";
+
 
 }
 

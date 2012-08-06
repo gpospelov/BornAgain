@@ -140,7 +140,7 @@ ISample *StandardSamples::MultilayerOffspecTestcase1a()
     lSubstrate.setMaterial(mSubstrate, 0);
 
     LayerRoughness roughness;
-    roughness.setSigma(0.0*Units::nanometer);
+    roughness.setSigma(1.0*Units::nanometer);
     roughness.setHurstParameter(0.3);
     roughness.setLatteralCorrLength(500*Units::nanometer);
 
@@ -157,7 +157,7 @@ ISample *StandardSamples::MultilayerOffspecTestcase1a()
 
     mySample->addLayerWithTopRoughness(lSubstrate, roughness);
 
-    mySample->setCrossCorrLength(1e-10);
+    //mySample->setCrossCorrLength(1e-10);
 
     return mySample;
 }

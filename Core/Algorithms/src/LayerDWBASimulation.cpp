@@ -17,18 +17,21 @@ LayerDWBASimulation::~LayerDWBASimulation()
 void LayerDWBASimulation::setKzFunction(
         const IDoubleToComplexFunction& kz_function)
 {
+    delete mp_kz_function;
     mp_kz_function = kz_function.clone();
 }
 
 void LayerDWBASimulation::setTFunction(
         const IDoubleToComplexFunction& T_function)
 {
+    delete mp_T_function;
     mp_T_function = T_function.clone();
 }
 
 void LayerDWBASimulation::setRFunction(
         const IDoubleToComplexFunction& R_function)
 {
+    delete mp_R_function;
     mp_R_function = R_function.clone();
 }
 

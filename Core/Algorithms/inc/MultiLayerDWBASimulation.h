@@ -19,6 +19,8 @@
 #include <map>
 
 class MultiLayer;
+class MultiLayerRoughnessDWBASimulation;
+
 
 class MultiLayerDWBASimulation : public DWBASimulation
 {
@@ -32,6 +34,7 @@ public:
 protected:
     std::map<size_t, LayerDWBASimulation*> m_layer_dwba_simulation_map;
     MultiLayer *mp_multi_layer;
+    MultiLayerRoughnessDWBASimulation *m_roughness_dwba_simulation;
 };
 
 

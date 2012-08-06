@@ -65,6 +65,8 @@ public:
     const NanoParticleDecoration* getDecoration() const { return mp_decoration; }
     void setDecoration(NanoParticleDecoration* mpDecoration) { mp_decoration = mpDecoration; }
 
+    virtual bool hasDWBASimulation() const { return true; }
+
     virtual LayerDecoratorDWBASimulation *createDWBASimulation() const {
         return new LayerDecoratorDWBASimulation(this);
     }

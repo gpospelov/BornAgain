@@ -67,11 +67,4 @@ private:
 };
 
 
-// class to help pyplusplus to expose MultiLayerCoeff_t in python during automatic code generation
-//class PyHelperOpticalFresnel
-//{
-//    size_t python_boost_helper() { return sizeof(OpticalFresnel::MultiLayerCoeff_t); }
-//};
-
-
 #endif // OPTICALFRESNEL_H

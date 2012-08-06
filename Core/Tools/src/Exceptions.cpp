@@ -1,6 +1,8 @@
 #include "Exceptions.h"
 #include <iostream>
 
+namespace Exceptions {
+
 void LogExceptionMessage(const std::string &message)
 {
     std::cout << message << std::endl;
@@ -84,5 +86,5 @@ FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
     LogExceptionMessage(message);
 }
 
-
+}
 

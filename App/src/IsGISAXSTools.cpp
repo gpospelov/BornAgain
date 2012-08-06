@@ -39,6 +39,10 @@ void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
 void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         const std::string& draw_options, const std::string &histogram_title)
 {
+    if(!gPad) {
+        throw NullPointerException("IsGISAXSTools::drawOutputDataInPad() -> Error! No canvas exists.");
+    }
+
     const OutputData<double> *p_output = &output;
     if (p_output->getDimension() != 2) return;
     // creation of 2D histogram from calculated intensities
@@ -92,6 +96,10 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
 /* ************************************************************************* */
 void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double> &output, const std::string &draw_options, const std::string &histogram_title)
 {
+    if(!gPad) {
+        throw NullPointerException("IsGISAXSTools::drawOutputDataDistribution1D() -> Error! No canvas exists.");
+    }
+
     std::string histo_name = histogram_title;
     if (histo_name.empty()) {
         histo_name = gPad->GetTitle();
@@ -116,6 +124,10 @@ void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double> &outpu
 /* ************************************************************************* */
 void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
 {
+    if(!gPad) {
+        throw NullPointerException("IsGISAXSTools::drawOutputDataDifference1D() -> Error! No canvas exists.");
+    }
+
     OutputData<double> *left_clone = left.clone();
     OutputData<double> *right_clone = right.clone();
 
@@ -158,6 +170,9 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
 /* ************************************************************************* */
 void IsGISAXSTools::drawOutputDataDifference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
 {
+    if(!gPad) {
+        throw NullPointerException("IsGISAXSTools::drawOutputDataDifference2D -> Error! No canvas exists.");
+    }
     OutputData<double> *left_clone = left.clone();
     OutputData<double> *right_clone = right.clone();
 

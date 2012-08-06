@@ -36,6 +36,7 @@ SOURCES += \
     Algorithms/src/LayerDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
     Algorithms/src/MultiLayerDWBASimulation.cpp \
+    Algorithms/src/MultiLayerRoughnessDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
     \
     Geometry/src/BasicVector3D.cpp \
@@ -121,6 +122,7 @@ HEADERS += \
     Algorithms/inc/LayerDWBASimulation.h \
     Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
     Algorithms/inc/MultiLayerDWBASimulation.h \
+    Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     \
     Geometry/inc/BasicVector3D.h \

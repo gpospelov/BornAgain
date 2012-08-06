@@ -4,6 +4,8 @@
 #include "DWBADiffuseReflection.h"
 #include "OutputData.h"
 #include "DrawHelper.h"
+#include "MultiLayerRoughnessDWBASimulation.h"
+#include "DoubleToComplexInterpolatingFunction.h"
 
 #include <iostream>
 #include "TCanvas.h"
@@ -14,15 +16,13 @@
 #include "TStyle.h"
 
 
-
-
 TestDiffuseReflection::TestDiffuseReflection()
 : m_sample(0)
 , m_data_spec(0)
 , m_data_offspec(0)
 , m_alphaMin(0.0*Units::degree)
 , m_alphaMax(2.0*Units::degree)
-, m_npoints(101)
+, m_npoints(100)
 {
     std::cout << "TestDiffuseScattering::TestDiffuseReflection() -> Info." << std::endl;
 
@@ -42,8 +42,8 @@ void TestDiffuseReflection::execute()
     std::vector<std::string > snames;
     snames.push_back("MultilayerOffspecTestcase1a");
     snames.push_back("MultilayerOffspecTestcase1b");
-    snames.push_back("MultilayerOffspecTestcase2a");
-    snames.push_back("MultilayerOffspecTestcase2b");
+//    snames.push_back("MultilayerOffspecTestcase2a");
+//    snames.push_back("MultilayerOffspecTestcase2b");
 
     std::vector<MultiLayer *> samples;
     for(size_t i_sample=0; i_sample<snames.size(); i_sample++){
@@ -58,6 +58,7 @@ void TestDiffuseReflection::execute()
         m_data_spec = new OutputData<double >;
         m_data_spec->addAxis(std::string("alpha_i"), m_alphaMin, m_alphaMax, m_npoints);
         m_data_spec->resetIndex();
+
         while (m_data_spec->hasNext()) {
             double alpha_i = m_data_spec->getCurrentValueOfAxis<double>("alpha_i");
             ki.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
@@ -75,15 +76,47 @@ void TestDiffuseReflection::execute()
         m_data_offspec = new OutputData<double >;
         m_data_offspec->addAxis(std::string("alpha_i"), m_alphaMin, m_alphaMax, m_npoints);
         m_data_offspec->addAxis(std::string("alpha_f"), m_alphaMin, m_alphaMax, m_npoints);
-        m_data_spec->resetIndex();
+
+//        OpticalFresnel fresnelCalculator;
+//        MultiLayerRoughnessDWBASimulation rdwba(m_sample);
+//        const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(m_data_offspec->getAxis("alpha_f"));
+//        std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
+//        for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
+//            double angle = (*p_alpha_axis)[i];
+//            kvector_t kvec;
+//            kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -angle, 0.0);
+//            OpticalFresnel::MultiLayerCoeff_t coeffs;
+//            fresnelCalculator.execute(*m_sample, kvec, coeffs);
+//            fresnel_coeff_map[angle] = coeffs;
+//        }
+//        // Also add input angle
+//        for(size_t i_layer=0; i_layer<m_sample->getNumberOfLayers(); ++i_layer) {
+//            std::map<double, complex_t> T_map;
+//            std::map<double, complex_t> R_map;
+//            for (std::map<double, OpticalFresnel::MultiLayerCoeff_t>::const_iterator it=fresnel_coeff_map.begin();
+//                    it!=fresnel_coeff_map.end(); ++it) {
+//                double angle = (*it).first;
+//                complex_t T = (*it).second[i_layer].T;
+//                complex_t R = (*it).second[i_layer].R;
+//                T_map[angle] = T;
+//                R_map[angle] = R;
+//            }
+//            DoubleToComplexInterpolatingFunction T_function(T_map);
+//            DoubleToComplexInterpolatingFunction R_function(R_map);
+//            rdwba.setTAndRFunctions(i_layer, T_function, R_function);
+//        } // i_layer
+
+        m_data_offspec->resetIndex();
         while (m_data_offspec->hasNext()) {
             double alpha_i = m_data_offspec->getCurrentValueOfAxis<double>("alpha_i");
             double alpha_f = m_data_offspec->getCurrentValueOfAxis<double>("alpha_f");
             ki.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
             kf.setLambdaAlphaPhi(1.54*Units::angstrom, alpha_f, 0.0);
-            //double r = calc.execute0(*m_sample, ki, kf);
             calc.execute(*m_sample, ki, kf);
-            m_data_offspec->next() = calc.getDiffuseAutocorr() + calc.getDiffuseCrosscorr();
+            double intensity = calc.getDiffuseAutocorr() + calc.getDiffuseCrosscorr();
+            //double intensity = rdwba.evaluate(ki, kf);
+            //std::cout << "alpha_i " << alpha_i << " alpha_f " << alpha_f << " phi_f " << 0.0 << " inten " << intensity << std::endl;
+            m_data_offspec->next() = intensity;
         }
 
         draw();
@@ -149,7 +182,7 @@ void TestDiffuseReflection::draw()
     double dalpha = (m_alphaMax - m_alphaMin) / (m_npoints-1);
     TH2D h2("h2","h2", m_npoints, Units::rad2deg(m_alphaMin-dalpha/2.), Units::rad2deg(m_alphaMax+dalpha/2.), m_npoints, Units::rad2deg(m_alphaMin-dalpha/2.), Units::rad2deg(m_alphaMax+dalpha/2.) );
     h2.SetContour(50);
-    h2.SetMinimum(0.001);
+//    h2.SetMinimum(0.001);
     h2.SetStats(0);
     m_data_offspec->resetIndex();
     while (m_data_offspec->hasNext()) {

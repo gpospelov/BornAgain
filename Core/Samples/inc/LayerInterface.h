@@ -76,4 +76,5 @@ private:
     const Layer *m_LayerBottom;    //!< pointer to the layer below interface
 };
 
+
 #endif // LAYERINTERFACE_H

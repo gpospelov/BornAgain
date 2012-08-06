@@ -54,6 +54,9 @@ public:
     //! return refractive index of the layer's material
     virtual complex_t getRefractiveIndex() const { return (dynamic_cast<const HomogeneousMaterial *>(mp_material))->getRefractiveIndex(); }
 
+    //! return false (override is important for polymorphism of LayerDecorator)
+    virtual bool hasDWBASimulation() const { return false; }
+
     //! return zero pointer (override is important for polymorphism of LayerDecorator)
     virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
 

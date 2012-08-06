@@ -78,8 +78,8 @@ x = x*180./3.1415926
 y = y*180./3.1415926
 
 fg = pylab.figure()
-X,Y = pylab.meshgrid(x,y)
-pylab.pcolormesh(Y,X,output,  norm=LogNorm(0.1, 1e+05) )
+Y,X = pylab.meshgrid(y,x)
+pylab.pcolormesh(X,Y,output,  norm=LogNorm(0.1, 1e+05) )
 pylab.ylim([0,y.max()])
 pylab.xlim([0,x.max()])
 pylab.colorbar()

@@ -18,7 +18,7 @@
 #include "Transform3D.h"
 
 
-class FormFactorDecoratorTransformation : public IFormFactor
+class FormFactorDecoratorTransformation : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorTransformation(IFormFactor *p_form_factor, Geometry::Transform3D *transform);
@@ -32,14 +32,13 @@ public:
 protected:
     Geometry::Transform3D *mp_transform;
     Geometry::Transform3D *mp_inverse_transform;
-    IFormFactor *mp_form_factor;
 };
 
 inline FormFactorDecoratorTransformation::FormFactorDecoratorTransformation(
         IFormFactor* p_form_factor, Geometry::Transform3D *transform)
-: mp_transform(transform)
+: IFormFactorDecorator(p_form_factor)
+, mp_transform(transform)
 , mp_inverse_transform(0)
-, mp_form_factor(p_form_factor)
 {
     mp_inverse_transform = new Geometry::Transform3D(mp_transform->inverse());
 }

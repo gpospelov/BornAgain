@@ -10,6 +10,7 @@ NanoParticleCrystalFormFactor::NanoParticleCrystalFormFactor(
 {
     m_lattice = p_crystal->getLattice();
     mp_nano_particle = p_crystal->createNanoParticle();
+    mp_basis_form_factor = mp_nano_particle->createFormFactor();
     mp_meso_form_factor = meso_crystal_form_factor.clone();
     setAmbientRefractiveIndex(ambient_refractive_index);
     calculateLargestReciprocalDistance();
@@ -33,6 +34,7 @@ void NanoParticleCrystalFormFactor::setAmbientRefractiveIndex(
         complex_t refractive_index)
 {
     mp_nano_particle->setAmbientRefractiveIndex(refractive_index);
+    mp_basis_form_factor->setAmbientRefractiveIndex(refractive_index);
 }
 
 complex_t NanoParticleCrystalFormFactor::evaluate_for_complex_qz(kvector_t q,
@@ -49,18 +51,18 @@ complex_t NanoParticleCrystalFormFactor::evaluate_for_complex_qz(kvector_t q,
     // perform convolution on these lattice vectors
 //    std::cout << "Number of reciprocal vectors used for convolution: " << rec_vectors.size() << std::endl;
     complex_t result(0.0, 0.0);
-    IFormFactor *p_basis_form_factor = mp_nano_particle->createFormFactor();
     for (std::vector<kvector_t>::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {
         kvector_t q_i = *it;
         kvector_t q_min_q_i = q_real - q_i;
         complex_t q_min_q_i_z = qz - q_i.z();
-        result += p_basis_form_factor->evaluate(q_i, k_zero)
-                *mp_meso_form_factor->evaluateForComplexkz(q_min_q_i, k_zero, q_min_q_i_z, complex_t(0.0, 0.0));
+        complex_t basis_factor = mp_basis_form_factor->evaluate(q_i, k_zero);
+        complex_t meso_factor = mp_meso_form_factor->evaluateForComplexkz(q_min_q_i, k_zero, q_min_q_i_z, complex_t(0.0, 0.0));
+        result += basis_factor*meso_factor;
     }
-    delete p_basis_form_factor;
-    // the transformed delta train gets a factor of (2pi)^3 :
+    // the transformed delta train gets a factor of (2pi)^3/V :
     double pi3 = M_PI*M_PI*M_PI;
-    return 8.0*pi3*result;
+    double volume = m_lattice.getVolume();
+    return 8.0*pi3*result/volume;
 }
 
 void NanoParticleCrystalFormFactor::calculateLargestReciprocalDistance()

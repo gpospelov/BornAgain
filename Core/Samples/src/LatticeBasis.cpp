@@ -39,6 +39,7 @@ LatticeBasis* LatticeBasis::clone() const
         p_new->addParticle(*m_particles[index], m_positions[index]);
     }
     p_new->setName(getName());
+    p_new->m_ambient_refractive_index = this->m_ambient_refractive_index;
     return p_new;
 }
 

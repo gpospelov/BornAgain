@@ -47,6 +47,18 @@ public:
     virtual int getNumberOfStochasticParameters() const { return 0; }
 };
 
+class IFormFactorDecorator : public IFormFactor
+{
+public:
+    IFormFactorDecorator(IFormFactor *p_form_factor) : mp_form_factor(p_form_factor) {}
+    virtual ~IFormFactorDecorator() {}
+    virtual IFormFactorDecorator *clone() const=0;
+
+    virtual void setAmbientRefractiveIndex(complex_t refractive_index) { if (mp_form_factor) mp_form_factor->setAmbientRefractiveIndex(refractive_index); }
+protected:
+    IFormFactor *mp_form_factor;
+};
+
 class IBornFormFactor : public IFormFactor
 {
 public:

@@ -17,7 +17,7 @@
 #include "IFormFactor.h"
 
 
-class FormFactorDecoratorFactor : public IFormFactor
+class FormFactorDecoratorFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorFactor(IFormFactor *p_form_factor, complex_t factor);
@@ -30,13 +30,12 @@ public:
 
 protected:
     complex_t m_factor;
-    IFormFactor *mp_form_factor;
 };
 
 inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(
         IFormFactor* p_form_factor, complex_t factor)
-: m_factor(factor)
-, mp_form_factor(p_form_factor)
+: IFormFactorDecorator(p_form_factor)
+, m_factor(factor)
 {
 }
 

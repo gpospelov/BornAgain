@@ -46,12 +46,19 @@ void TestMesoCrystal::execute()
     experiment.setSample(mp_sample);
     experiment.setDetectorParameters(100, 0.3*Units::degree, 0.073
            , 100 , -0.4*Units::degree, 0.066);
+//    experiment.setDetectorParameters(5, 2*Units::degree, 3*Units::degree
+//           , 5 , 1*Units::degree, 2*Units::degree);
 //    experiment.setDetectorResolutionFunction(&testResolutionFunction);
-    experiment.setBeamParameters(1.54*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
-    experiment.setBeamIntensity(1e3);
+    experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
+    experiment.setBeamIntensity(1e7);
     experiment.runSimulation();
+    double count_before_normalize = experiment.getOutputData()->total();
     experiment.normalize();
     mp_intensity_output = experiment.getOutputDataClone();
+    double total_count = mp_intensity_output->total();
+    std::cout << "Total count in detector: " << total_count << std::endl;
+    std::cout << "Scattered percentage in detector: " << 100*total_count/experiment.getBeam().getIntensity() << std::endl;
+    std::cout << "Total count in detector before normalize: " << count_before_normalize << std::endl;
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
             "CONT4 Z");
     IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/mesocrystal.ima");
@@ -105,8 +112,8 @@ void TestMesoCrystal::initializeSample()
 //    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
 //            50*Units::nanometer, 1e7*Units::nanometer);
     NanoParticleDecoration particle_decoration;
-    size_t n_phi_rotation_steps = 11;
-    size_t n_alpha_rotation_steps =3;
+    size_t n_phi_rotation_steps = 1;
+    size_t n_alpha_rotation_steps =1;
     double phi_step = 2*M_PI/3.0/n_phi_rotation_steps;
     double alpha_step = 5*Units::degree/n_alpha_rotation_steps;
     for (size_t i=0; i<n_phi_rotation_steps; ++i) {
@@ -125,4 +132,8 @@ void TestMesoCrystal::initializeSample()
     p_multi_layer->addLayer(avg_layer_decorator);
     p_multi_layer->addLayer(substrate_layer);
     mp_sample = p_multi_layer;
+
+    std::cout << "Average layer index: " << n_avg << std::endl;
+    std::cout << "Adapted particle index: " << n_particle_adapted << std::endl;
+    std::cout << "Substrate layer index: " << n_substrate << std::endl;
 }

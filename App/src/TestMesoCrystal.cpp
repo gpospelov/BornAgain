@@ -68,30 +68,15 @@ void TestMesoCrystal::initializeSample()
 {
     delete mp_sample;
     // create mesocrystal
-    double R = 6.1*Units::nanometer;
     double meso_radius = 300*Units::nanometer;
     double surface_filling_ratio = 0.25;
     double surface_density = surface_filling_ratio/M_PI/meso_radius/meso_radius;
-    Lattice lat = Lattice::createTrigonalLattice(R*2.0, R*2.0*2.3);
-    kvector_t bas_a = lat.getBasisVectorA();
-    kvector_t bas_b = lat.getBasisVectorB();
-    kvector_t bas_c = lat.getBasisVectorC();
     complex_t n_particle(1.0-1.55e-5, 1.37e-6);
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
     complex_t n_avg = std::sqrt(surface_filling_ratio*avg_n_squared_meso + 1.0 - surface_filling_ratio);
     complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
-    NanoParticle particle(n_particle_adapted, new FormFactorFullSphere(R));
-    kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
-    kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
-    kvector_t position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);
-    std::vector<kvector_t> pos_vector;
-    pos_vector.push_back(position_0);
-    pos_vector.push_back(position_1);
-    pos_vector.push_back(position_2);
-    LatticeBasis basis(particle, pos_vector);
-    NanoParticleCrystal npc(basis, lat);
-    MesoCrystal meso(npc.clone(), new FormFactorCylinder(0.2*Units::micrometer, meso_radius));
-    MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, meso_radius, 84*Units::degree));
+    FormFactorCylinder ff_meso(0.2*Units::micrometer, meso_radius);
+//    MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, meso_radius, 84*Units::degree));
 
     // Create multilayer
     MultiLayer *p_multi_layer = new MultiLayer();
@@ -112,16 +97,23 @@ void TestMesoCrystal::initializeSample()
 //    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
 //            50*Units::nanometer, 1e7*Units::nanometer);
     NanoParticleDecoration particle_decoration;
-    size_t n_phi_rotation_steps = 1;
-    size_t n_alpha_rotation_steps =1;
+    size_t n_phi_rotation_steps = 11;
+    size_t n_alpha_rotation_steps = 3;
+    size_t n_np_size_steps = 5;
     double phi_step = 2*M_PI/3.0/n_phi_rotation_steps;
     double alpha_step = 5*Units::degree/n_alpha_rotation_steps;
+    double np_size_step = 0.3*Units::nanometer/n_np_size_steps;
+    double np_size_start = 6.1*Units::nanometer - (n_np_size_steps/2)*np_size_step;
     for (size_t i=0; i<n_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {
-            Geometry::RotateZ3D transform1(i*phi_step);
-            Geometry::RotateY3D transform2(j*alpha_step);
-            particle_decoration.addNanoParticle(meso, transform1*transform2, 0.2*Units::micrometer, 0.5);
-//            particle_decoration.addNanoParticle(meso2, transform1, 0.2*Units::micrometer, 0.5);
+            for (size_t k=0; k<n_np_size_steps; ++k) {
+                double R = np_size_start + k*np_size_step;
+                Geometry::RotateZ3D transform1(i*phi_step);
+                Geometry::RotateY3D transform2(j*alpha_step);
+                Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1*transform2);
+                particle_decoration.addNanoParticle(createMesoCrystal(R, n_particle_adapted, &ff_meso), p_total_transform, 0.2*Units::micrometer);
+    //            particle_decoration.addNanoParticle(meso2, transform1, 0.2*Units::micrometer, 0.5);
+            }
         }
     }
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
@@ -136,4 +128,24 @@ void TestMesoCrystal::initializeSample()
     std::cout << "Average layer index: " << n_avg << std::endl;
     std::cout << "Adapted particle index: " << n_particle_adapted << std::endl;
     std::cout << "Substrate layer index: " << n_substrate << std::endl;
+}
+
+MesoCrystal* createMesoCrystal(double nanoparticle_radius, complex_t n_particle,
+        const IFormFactor* p_meso_form_factor)
+{
+    Lattice lat = Lattice::createTrigonalLattice(nanoparticle_radius*2.0, nanoparticle_radius*2.0*2.3);
+    kvector_t bas_a = lat.getBasisVectorA();
+    kvector_t bas_b = lat.getBasisVectorB();
+    kvector_t bas_c = lat.getBasisVectorC();
+    NanoParticle particle(n_particle, new FormFactorFullSphere(nanoparticle_radius));
+    kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
+    kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
+    kvector_t position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);
+    std::vector<kvector_t> pos_vector;
+    pos_vector.push_back(position_0);
+    pos_vector.push_back(position_1);
+    pos_vector.push_back(position_2);
+    LatticeBasis basis(particle, pos_vector);
+    NanoParticleCrystal npc(basis, lat);
+    return new MesoCrystal(npc.clone(), p_meso_form_factor->clone());
 }

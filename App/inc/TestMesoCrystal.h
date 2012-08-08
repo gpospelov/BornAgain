@@ -21,6 +21,7 @@
 #include "ISample.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
+#include "MesoCrystal.h"
 
 
 class TestMesoCrystal : public IFunctionalTest
@@ -35,6 +36,8 @@ private:
     OutputData<double> *mp_intensity_output;
     ISample *mp_sample;
 };
+
+MesoCrystal *createMesoCrystal(double nanoparticle_radius, complex_t n_particle, const IFormFactor *p_meso_form_factor);
 
 
 #endif /* TESTMESOCRYSTAL_H_ */

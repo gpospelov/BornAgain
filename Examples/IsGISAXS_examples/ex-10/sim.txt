@@ -1,1 +1,0 @@
-Run App with commandline parameter "isgisaxs10"

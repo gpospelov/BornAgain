@@ -7,7 +7,8 @@
 #include "TGraph.h"
 #include "TH2F.h"
 #include "TCanvas.h"
-
+#include "TGraphPolar.h"
+#include "TSystem.h"
 
 TestMiscellaneous::TestMiscellaneous()
 {
@@ -31,7 +32,7 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MultilayerOffspecTestcase1a"));
 
     OutputData<double > *data_alpha = new OutputData<double >;
-    data_alpha->addAxis(std::string("alpha_f"), 0.0*Units::degree, 2.0*Units::degree, 100);
+    data_alpha->addAxis(std::string("alpha_f"), 0.0*Units::degree, 2.0*Units::degree, 200);
 
     OpticalFresnel fresnelCalculator;
 
@@ -63,14 +64,14 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
             R_map[angle] = R;
         }
         DoubleToComplexInterpolatingFunction T_function(T_map);
-        DoubleToComplexInterpolatingFunction R_function(R_map);
+        DoubleToComplexInterpolatingFunction R_function(R_map, DoubleToComplexInterpolatingFunction::Nearest);
 
         m_TT[i_layer] = T_function.clone();
         m_RR[i_layer] = R_function.clone();
     }
 
     double alpha_min(0), alpha_max(2.0*Units::degree);
-    int npoints = 99*5;
+    int npoints = 200*2;
 
     TGraph *gr1_exact = new TGraph(npoints);
     TGraph *gr2_interp = new TGraph(npoints);
@@ -78,34 +79,19 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
 
     for(int i_point=0; i_point < npoints; i_point++){
         int i_layer_sel = 0;
-        double angle = alpha_min + i_point*(alpha_max-alpha_min)/double(npoints);
+        double angle = alpha_min + i_point*(alpha_max-alpha_min)/double(npoints-1);
         kvector_t kvec;
         kvec.setLambdaAlphaPhi(1.4*Units::angstrom, angle, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
         fresnelCalculator.execute(*sample, kvec, coeffs);
-//        hh2[0][0]->Fill();
         complex_t R = m_RR[i_layer_sel]->evaluate(angle);
         std::cout << i_point << " " << angle << " true R:" << coeffs[i_layer_sel].R << " interp:" << R << " " << std::abs(R - coeffs[i_layer_sel].R) << std::endl;
+        complex_t r = coeffs[i_layer_sel].R;
+//        std::cout << "RRR " << r << " abs:" << std::abs(r) << " arg:" << std::arg(r) << " " << Units::rad2deg(std::arg(r)) << std::endl << std::endl;
         gr1_exact->SetPoint(i_point, angle, std::abs(coeffs[i_layer_sel].R) );
         gr2_interp->SetPoint(i_point, angle, std::abs(R) );
         gr3_diff->SetPoint(i_point, angle, std::abs(R) - std::abs(coeffs[i_layer_sel].R) );
     }
-
-//    data_alpha->resetIndex();
-//    while (data_alpha->hasNext())
-//    {
-//        double angle = data_alpha->getCurrentValueOfAxis<double>("alpha_f") + ;
-//        kvector_t kvec;
-//        kvec.setLambdaAlphaPhi(1.4*Units::angstrom, angle, 0.0);
-//        OpticalFresnel::MultiLayerCoeff_t coeffs;
-//        fresnelCalculator.execute(*sample, kvec, coeffs);
-//        complex_t R = m_RR[0]->evaluate(angle);
-//        std::cout  << " " << angle << " true R:" << coeffs[0].R << " interp:" << R << " " << std::abs(R - coeffs[0].R) << std::endl;
-//        hh2[0][0]->Fill(angle, std::abs(R - coeffs[0].R) );
-
-//        data_alpha->next();
-//    }
-
 
 
     TCanvas *c1 = new TCanvas("c1","c1",1024, 768);

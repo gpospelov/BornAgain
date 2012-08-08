@@ -73,23 +73,6 @@ DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples
 OBJECTS_DIR = obj
 
 
-#    pythonvers=$$system("python -c 'import sys; sys.stdout.write(sys.version[:3])'")
-#    pythonsysincdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
-#    #pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib/python\" + sys.version[:3])'")
-#    pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'")
-#    #message(we have python)
-#    #message($$pythonvers)
-#    #message($$pythonsysincdir)
-#    #message($$pythonsyslibdir)
-#    lessThan(pythonvers, 2.6): error("GISASFW requires python 2.6 or greater")
-#    INCLUDEPATH += $$pythonsysincdir
-#    LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
-
-#    # we need to know to location of numpy
-#    pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")
-#    INCLUDEPATH += $$pythonnumpy
-
-
 # -----------------------------------------------------------------------------
 # generating package dependency flags
 # -----------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 ###########################################
 
 # Base filename
-cylinder_DWBA
+isgi_cylinder_DWBA
 ############################  Framework and beam  parameters ############################################
 # Framework   Diffuse,  Multilayer, Number of index slices, Polarization 
    DWBA         LMA               0             25             ss 

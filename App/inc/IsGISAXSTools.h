@@ -41,10 +41,10 @@ public:
     static void drawOutputDataDifference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title = std::string());
 
     //! write output data (1D or 2D) in ASCII file
-    static void writeOutputDataToFile(const OutputData<double> &output, const std::string &filename);
+    static void writeOutputDataToFile(const OutputData<double> &output, const std::string &filename, int precision=10);
 
     //! read data from ASCII file (2D assumed) and fill newly created OutputData with it
-    static OutputData<double> *readOutputDataFromFile(const std::string &filename);
+    static OutputData<double> *readOutputDataFromFile(const std::string &filename, int precision=6);
 
     //! set minimum and maximum values of y-axis (for 1D histogram), or z-axis (for 2D histograms)
     static void setMinimum(double hist_min) { m_hist_min = hist_min; m_has_min = true; }
@@ -58,11 +58,14 @@ public:
     //! return true if user has defined minimum
     static bool hasMaximum()  { return m_has_max; }
 
-    //! reset user defined min,max values for histograms, they will be calculated automatically
+    //! reset user defined min values for histograms, they will be calculated automatically
     static void resetMinimum() { m_hist_min = 0; m_has_min = false; }
 
-    //! reset user defined min,max values for histograms, they will be calculated automatically
+    //! reset user defined max values for histograms, they will be calculated automatically
     static void resetMaximum() { m_hist_max = 0; m_has_max = false; }
+
+    //! reset user defined min,max values for histograms
+    static void resetMinimumAndMaximum() { resetMinimum(); resetMaximum(); }
 
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

@@ -9,7 +9,7 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestIsGISAXS3.h
+//! @file   TestIsGISAXS9.h
 //! @brief  Definition of TestIsGISAXS9 class for IsGISAXS validation
 //! @author Scientific Computing Group at FRM II
 //! @date   02.07.2012
@@ -21,7 +21,7 @@
 
 //- -------------------------------------------------------------------
 //! @class TestIsGISAXS9
-//! @brief Test of pyramid formfactor (correspond to IsGISAXS ex-9 example).
+//! @brief Comparison with IsGISAXS ex-9: pyramids on top of substrate
 //- -------------------------------------------------------------------
 class TestIsGISAXS9 : public IFunctionalTest
 {
@@ -34,10 +34,6 @@ public:
 
     void clear();
 private:
-    void initializeSample_Pyramid();
-    void initializeSample_RotatedPyramid();
-
-    ISample *m_sample;
     std::vector<OutputData<double> *> m_results;
 };
 

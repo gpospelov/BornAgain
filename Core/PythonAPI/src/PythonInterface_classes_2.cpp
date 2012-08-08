@@ -356,6 +356,80 @@ struct IClusteredNanoParticles_wrapper : IClusteredNanoParticles, bp::wrapper< I
 
 };
 
+struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFactorDecorator > {
+
+    IFormFactorDecorator_wrapper(::IFormFactor * p_form_factor )
+    : IFormFactorDecorator( boost::python::ptr(p_form_factor) )
+      , bp::wrapper< IFormFactorDecorator >(){
+        // constructor
+    
+    }
+
+    virtual ::IFormFactorDecorator * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual ::complex_t evaluate( ::kvector_t k_i, ::kvector_t k_f ) const {
+        bp::override func_evaluate = this->get_override( "evaluate" );
+        return func_evaluate( k_i, k_f );
+    }
+
+    virtual ::complex_t evaluateForComplexkz( ::kvector_t k_i, ::kvector_t k_f, ::complex_t k_iz, ::complex_t k_fz ) const {
+        bp::override func_evaluateForComplexkz = this->get_override( "evaluateForComplexkz" );
+        return func_evaluateForComplexkz( k_i, k_f, k_iz, k_fz );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) const  {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->IFormFactor::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) const  {
+        return IFormFactor::getNumberOfStochasticParameters( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
 struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInterferenceFunction > {
 
     IInterferenceFunction_wrapper()
@@ -451,41 +525,6 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
     
     double default_evaluate( ::kvector_t q ) const  {
         return InterferenceFunction1DParaCrystal::evaluate( q );
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->ISample::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) {
-        return ISample::createParameterTree( );
-    }
-
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
-        else{
-            this->ISample::walk_and_print(  );
-        }
-    }
-    
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
-    }
-
-};
-
-struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper< InterferenceFunctionNone > {
-
-    InterferenceFunctionNone_wrapper( )
-    : InterferenceFunctionNone( )
-      , bp::wrapper< InterferenceFunctionNone >(){
-        // null constructor
-    
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -849,6 +888,38 @@ void register_classes_2(){
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( IClusteredNanoParticles_wrapper::* )(  ) )(&IClusteredNanoParticles_wrapper::default_walk_and_print) );
 
+    bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, boost::noncopyable >( "IFormFactorDecorator", bp::init< IFormFactor * >(( bp::arg("p_form_factor") )) )    
+        .def( 
+            "clone"
+            , bp::pure_virtual( (::IFormFactorDecorator * ( ::IFormFactorDecorator::* )(  ) const)(&::IFormFactorDecorator::clone) )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::IFormFactorDecorator::* )( ::complex_t ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
+            , (void ( IFormFactorDecorator_wrapper::* )( ::complex_t ) )(&IFormFactorDecorator_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::kvector_t,::kvector_t ) const)(&::IFormFactor::evaluate) )
+            , ( bp::arg("k_i"), bp::arg("k_f") ) )    
+        .def( 
+            "evaluateForComplexkz"
+            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::kvector_t,::kvector_t,::complex_t,::complex_t ) const)(&::IFormFactor::evaluateForComplexkz) )
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("k_iz"), bp::arg("k_fz") ) )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)
+            , (int ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_walk_and_print) );
+
     bp::class_< IInterferenceFunction_wrapper, bp::bases< ISample >, boost::noncopyable >( "IInterferenceFunction" )    
         .def( 
             "clone"
@@ -904,16 +975,5 @@ void register_classes_2(){
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_walk_and_print) );
-
-    bp::class_< InterferenceFunctionNone_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunctionNone", bp::init< >() )    
-        .def( 
-            "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( InterferenceFunctionNone_wrapper::* )(  ) )(&InterferenceFunctionNone_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( InterferenceFunctionNone_wrapper::* )(  ) )(&InterferenceFunctionNone_wrapper::default_walk_and_print) );
 
 }

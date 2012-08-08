@@ -97,7 +97,7 @@ os.chdir(prevfolder)
 # --------------------------------------------------------
 # making ROOT plot - number of lines of code .vs. time
 # --------------------------------------------------------
-from ROOT import TDatime, gStyle, TCanvas, TGraph, gROOT, gPad
+from ROOT import TDatime, gStyle, TCanvas, TGraph, gROOT, gPad, TLatex
 #gROOT.Reset()
 
 # beginning of coding (first commit) to set beginning of time x-scale
@@ -118,8 +118,8 @@ for c in history:
 gr = TGraph(len(history), x, y);
 gr.SetLineColor( 4 )
 gr.SetLineWidth( 2 )
-gr.SetTitle( 'Lines of code vs time' )
-#gr.GetXaxis().SetTitle( 'time' )
+gStyle.SetTitleSize(0.035)
+gr.SetTitle( " number of lines of code vs time " )
 gr.GetXaxis().SetLabelOffset( 0.025 )
 gr.GetXaxis().SetTimeDisplay(1)
 #gr.GetXaxis().SetTimeFormat("#splitline{%d %m %y}{%H:%M}")
@@ -128,16 +128,20 @@ gr.GetXaxis().SetLabelSize(0.03)
 gr.GetXaxis().SetNdivisions(512)
 gr.GetXaxis().SetTimeOffset(time_offset)
 
-
 #preparing canvas
-c1 = TCanvas( 'gisasfw_loc', 'Number of lines of code in GISASFW project', 800, 800)
+c1 = TCanvas( 'gisasfw_loc', 'Number of lines of code in GISASFW project', 600, 600)
 c1.SetGrid()
 gPad.SetBottomMargin(0.12)
 
 # drawing
 gr.Draw("al")
+#txt=TLatex()
+#txt.SetNDC()
+#txt.SetTextSize(0.025)
+#txt.DrawLatex(0.2,0.95,"Lines of code vs time")
 c1.Modified()
 c1.Print("gisasfw_loc.png")
+
 
 
 # wait for input to keep the GUI (which lives on a ROOT event dispatcher) alive

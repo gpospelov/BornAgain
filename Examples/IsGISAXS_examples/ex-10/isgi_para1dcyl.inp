@@ -3,7 +3,7 @@
 ###########################################
 
 # Base filename
-reflectivity
+isgi_para1dcyl
 ############################  Framework and beam  parameters ############################################
 # Framework   Diffuse,  Multilayer, Number of index slices, Polarization 
    DWBA         LMA         0             25               ss 

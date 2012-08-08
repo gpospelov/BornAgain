@@ -20,7 +20,7 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
     // creating list of defined arguments
     m_defined_arguments.push_back("help");
     m_defined_arguments.push_back("batch");
-    m_defined_arguments.push_back("pdfreport");
+    m_defined_arguments.push_back("report");
     m_defined_arguments.push_back("all");
     m_defined_arguments.push_back("profile");
     // getting info about names of defined functional tests and adding them to the list of defined arguments
@@ -32,7 +32,7 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
     // description of general command line arguments
     m_description["help"]         = "print given help";
     m_description["batch"]        = "run application in batch mode (no graphics)";
-    m_description["pdfreport"]    = "generate pdf report for functional tests";
+    m_description["report"]    = "write functional tests report in pdf file";
     m_description["all"]          = "run all registered functional test";
     m_description["profile"]      = "profile specified test";
     // default description of functional tests

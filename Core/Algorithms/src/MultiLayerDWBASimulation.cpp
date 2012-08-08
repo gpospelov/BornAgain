@@ -61,33 +61,6 @@ void MultiLayerDWBASimulation::run()
     fresnelCalculator.execute(*mp_multi_layer, m_ki, coeffs);
     fresnel_coeff_map[-m_alpha_i] = coeffs;
 
-    // Run through layers for DWBA corrections
-    for (std::map<size_t, LayerDWBASimulation*>::const_iterator it=m_layer_dwba_simulation_map.begin();
-            it!=m_layer_dwba_simulation_map.end(); ++it) {
-        size_t i = (*it).first;
-        LayerDWBASimulation *p_layer_dwba_sim = (*it).second;
-        // Construct kz, T and R functions for use inside layer i
-        std::map<double, complex_t> kz_map;
-        std::map<double, complex_t> T_map;
-        std::map<double, complex_t> R_map;
-        for (std::map<double, OpticalFresnel::MultiLayerCoeff_t>::const_iterator it=fresnel_coeff_map.begin();
-                it!=fresnel_coeff_map.end(); ++it) {
-            double angle = (*it).first;
-            complex_t kz = (*it).second[i].kz;
-            complex_t T = (*it).second[i].T;
-            complex_t R = (*it).second[i].R;
-            kz_map[angle] = kz;
-            T_map[angle] = T;
-            R_map[angle] = R;
-        }
-        DoubleToComplexInterpolatingFunction kz_function(kz_map);
-        DoubleToComplexInterpolatingFunction T_function(T_map);
-        DoubleToComplexInterpolatingFunction R_function(R_map);
-        p_layer_dwba_sim->setKzTAndRFunctions(kz_function, T_function, R_function);
-        p_layer_dwba_sim->run();
-        m_dwba_intensity += p_layer_dwba_sim->getDWBAIntensity();
-    }
-
     // run through layers and construct T,R functions
     for(size_t i_layer=0; i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
         std::map<double, complex_t> kz_map;

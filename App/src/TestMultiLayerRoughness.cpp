@@ -26,7 +26,7 @@ void TestMultiLayerRoughness::execute()
     std::cout << *sample << std::endl;
     sample->walk_and_print();
 
-    int npoints=101;
+    int npoints=100;
     double alphaMax = 2.0;
     double alphaMin = 0.0;
     double dalpha = (alphaMax-alphaMin)/double(npoints-1);

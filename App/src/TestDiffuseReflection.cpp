@@ -22,7 +22,7 @@ TestDiffuseReflection::TestDiffuseReflection()
 , m_data_offspec(0)
 , m_alphaMin(0.0*Units::degree)
 , m_alphaMax(2.0*Units::degree)
-, m_npoints(100)
+, m_npoints(101)
 {
     std::cout << "TestDiffuseScattering::TestDiffuseReflection() -> Info." << std::endl;
 
@@ -41,7 +41,7 @@ void TestDiffuseReflection::execute()
 
     std::vector<std::string > snames;
     snames.push_back("MultilayerOffspecTestcase1a");
-    snames.push_back("MultilayerOffspecTestcase1b");
+//    snames.push_back("MultilayerOffspecTestcase1b");
 //    snames.push_back("MultilayerOffspecTestcase2a");
 //    snames.push_back("MultilayerOffspecTestcase2b");
 

@@ -48,6 +48,18 @@ struct Experiment_wrapper : Experiment, bp::wrapper< Experiment > {
     
     }
 
+    virtual void normalize(  ) {
+        if( bp::override func_normalize = this->get_override( "normalize" ) )
+            func_normalize(  );
+        else{
+            this->Experiment::normalize(  );
+        }
+    }
+    
+    void default_normalize(  ) {
+        Experiment::normalize( );
+    }
+
     virtual void runSimulation(  ) {
         if( bp::override func_runSimulation = this->get_override( "runSimulation" ) )
             func_runSimulation(  );
@@ -584,6 +596,18 @@ struct GISASExperiment_wrapper : GISASExperiment, bp::wrapper< GISASExperiment >
     
     }
 
+    virtual void normalize(  ) {
+        if( bp::override func_normalize = this->get_override( "normalize" ) )
+            func_normalize(  );
+        else{
+            this->GISASExperiment::normalize(  );
+        }
+    }
+    
+    void default_normalize(  ) {
+        GISASExperiment::normalize( );
+    }
+
     virtual void runSimulation(  ) {
         if( bp::override func_runSimulation = this->get_override( "runSimulation" ) )
             func_runSimulation(  );
@@ -675,9 +699,17 @@ void register_classes_1(){
 
     bp::class_< Experiment_wrapper, boost::noncopyable >( "Experiment", bp::init< >() )    
         .def( 
+            "normalize"
+            , (void ( ::Experiment::* )(  ) )(&::Experiment::normalize)
+            , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_normalize) )    
+        .def( 
             "runSimulation"
             , (void ( ::Experiment::* )(  ) )(&::Experiment::runSimulation)
             , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_runSimulation) )    
+        .def( 
+            "setBeamIntensity"
+            , (void ( ::Experiment::* )( double ) )( &::Experiment::setBeamIntensity )
+            , ( bp::arg("intensity") ) )    
         .def( 
             "setBeamParameters"
             , (void ( ::Experiment::* )( double,double,double ) )( &::Experiment::setBeamParameters )
@@ -907,6 +939,10 @@ void register_classes_1(){
             , (void ( FormFactorPyramid_wrapper::* )(  ) )(&FormFactorPyramid_wrapper::default_walk_and_print) );
 
     bp::class_< GISASExperiment_wrapper, bp::bases< Experiment >, boost::noncopyable >( "GISASExperiment", bp::init< >() )    
+        .def( 
+            "normalize"
+            , (void ( ::GISASExperiment::* )(  ) )(&::GISASExperiment::normalize)
+            , (void ( GISASExperiment_wrapper::* )(  ) )(&GISASExperiment_wrapper::default_normalize) )    
         .def( 
             "runSimulation"
             , (void ( ::GISASExperiment::* )(  ) )(&::GISASExperiment::runSimulation)

@@ -19,17 +19,19 @@
 #include "ISample.h"
 
 
+//- -------------------------------------------------------------------
+//! @class TestIsGISAXS1
+//! @brief Comparison with IsGISAXS ex-1: mean forfactor cylinder and prism
+//- -------------------------------------------------------------------
 class TestIsGISAXS1 : public IFunctionalTest
 {
 public:
-    TestIsGISAXS1();
-    virtual ~TestIsGISAXS1();
-    virtual void execute();
+    TestIsGISAXS1(){}
+    virtual ~TestIsGISAXS1(){}
 
-private:
-    void initializeSample();
-    OutputData<double> *mp_intensity_output;
-    ISample *mp_sample;
+    virtual void execute();
+    virtual void finalise();
+
 };
 
 

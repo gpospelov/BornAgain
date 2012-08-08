@@ -20,7 +20,7 @@ void TestIsGISAXS10::execute()
 //    experiment.setBeamIntensity(1e7);
     experiment.runSimulation();
 //    experiment.normalize();
-    mp_intensity_output = experiment.getOutputDataClone();
+    OutputData<double > *mp_intensity_output = experiment.getOutputDataClone();
 //    double total_count = mp_intensity_output->total();
 //    std::cout << "Total count in detector: " << total_count << std::endl;
 //    std::cout << "Scattered percentage in detector: " << 100*total_count/experiment.getBeam().getIntensity() << std::endl;

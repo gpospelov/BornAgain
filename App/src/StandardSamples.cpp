@@ -416,4 +416,3 @@ ISample *StandardSamples::MesoCrystal1()
     return p_multi_layer;
 
 }
-

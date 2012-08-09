@@ -17,7 +17,7 @@ CONFIG += debug
 #
 #QMAKE_STRIP=:
 
-
+#CONFIG+=GPERFTOOLS
 CONFIG(GPERFTOOLS) {
   QMAKE_CXXFLAGS += -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
   LIBS += -L/opt/local/lib -lprofiler -ltcmalloc

@@ -28,9 +28,18 @@ public:
     TestEventStructure();
     virtual ~TestEventStructure(){}
 
+    void clear();
+    int nframe;
     double alpha_i;
     double alpha_f;
-    std::vector<double > vec;
+    double phi_f;
+    double malpha; // rotation of meso
+    double mphi;
+    double npR;
+    double I;
+    std::vector<std::vector<double > > valpha_f;
+    std::vector<std::vector<double > > vphi_f;
+    std::vector<std::vector<double > > vi;
     //OutputData<double> m_data;
 
 ClassDef(TestEventStructure,1)

@@ -70,15 +70,12 @@ void TestIsGISAXS9::finalise()
     int ncomparison = m_results.size();
 
     TCanvas *canvaces[2];
-//    canvaces[0] = new TCanvas("TestIsGISAXS9_c1", "Pyramid DWBA formfactor", 1024, 768);
-//    canvaces[1] = new TCanvas("TestIsGISAXS9_c2", "Rotated pyramid DWBA formfactor", 1024, 768);
     canvaces[0] = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS9_c1", "Pyramid DWBA formfactor");
     canvaces[1] = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS9_c2", "Pyramid DWBA formfactor");
 
     for(int i_comparison=0; i_comparison<ncomparison; i_comparison++) {
         OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_files[i_comparison]);
         OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_files[i_comparison]);
-        //OutputData<double> *our_data = m_results[i_comparison];
 
         TCanvas *c1 = canvaces[i_comparison];
         c1->Divide(2,2);

@@ -45,8 +45,7 @@ private:
     //! example showing reading from the tree complex data structures
     void complex_read();
 
-    //! prepare for calculations
-    void prepare_experiment();
+    void initializeMesoCrystal(double meso_alpha, double meso_phi, double nanopart_radius);
 
     ISample *m_sample;
     GISASExperiment *m_experiment;

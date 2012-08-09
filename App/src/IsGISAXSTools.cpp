@@ -286,3 +286,48 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
 }
 
 
+void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output_data
+                                        , std::vector<std::vector<double > > &v_data
+                                        , std::vector<std::vector<double > > &v_axis0
+                                        , std::vector<std::vector<double > > &v_axis1)
+{
+    if (output_data.getDimension() != 2) return;
+
+    output_data.resetIndex();
+    const NamedVector<double> *p_axis0 = dynamic_cast<const NamedVector<double>*>(output_data.getAxes()[0]);
+    const NamedVector<double> *p_axis1 = dynamic_cast<const NamedVector<double>*>(output_data.getAxes()[1]);
+    std::string axis0_name = p_axis0->getName();
+    std::string axis1_name = p_axis1->getName();
+    size_t axis0_size = p_axis0->getSize();
+    size_t axis1_size = p_axis1->getSize();
+
+    v_data.clear();
+    v_axis0.clear();
+    v_axis1.clear();
+
+    v_data.resize(axis0_size);
+    v_axis0.resize(axis0_size);
+    v_axis1.resize(axis0_size);
+
+    for(size_t i=0; i<axis0_size; ++i) {
+        v_data[i].resize(axis1_size,0.0);
+        v_axis0[i].resize(axis1_size,0.0);
+        v_axis1[i].resize(axis1_size,0.0);
+    }
+
+    while (output_data.hasNext())
+    {
+        size_t axis0_index = output_data.getCurrentIndexOfAxis(axis0_name.c_str());
+        size_t axis1_index = output_data.getCurrentIndexOfAxis(axis1_name.c_str());
+        double axis0_value = Units::rad2deg((*p_axis0)[axis0_index]);
+        double axis1_value = Units::rad2deg((*p_axis1)[axis1_index]);
+        double intensity = output_data.next();
+
+        v_data[axis0_index][axis1_index] = intensity;
+        v_axis0[axis0_index][axis1_index] = axis0_value;
+        v_axis1[axis0_index][axis1_index] = axis1_value;
+    }
+
+}
+
+

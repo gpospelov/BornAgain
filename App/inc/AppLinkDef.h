@@ -21,8 +21,6 @@
 #pragma link C++ class ISingleton<DrawHelper>+;
 #pragma link C++ class DrawHelper+;
 
-//#pragma link C++ class MultiIndex+;
-//#pragma link C++ class OutputData<double>+;
-#pragma link C++ class TestEventStructure+;
+#pragma link C++ class EventFrame+;
 
 #endif

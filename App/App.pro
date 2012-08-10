@@ -16,6 +16,7 @@ SOURCES += \
     src/main.cpp \
     src/CommandLine.cpp \
     src/DrawHelper.cpp \
+    src/EventFrame.cpp \
     src/IFunctionalTest.cpp \
     src/IsGISAXSTools.cpp \
     src/SampleFactory.cpp \
@@ -23,7 +24,6 @@ SOURCES += \
     src/TestConvolution.cpp \
     src/TestDetectorResolution.cpp \
     src/TestDiffuseReflection.cpp \
-    src/TestEventStructure.cpp \
     src/TestFactory.cpp \
     src/TestFittingModule.cpp \
     src/TestFormFactor.cpp \
@@ -44,6 +44,7 @@ HEADERS += \
     inc/AppLinkDef.h \
     inc/CommandLine.h \
     inc/DrawHelper.h \
+    inc/EventFrame.h \
     inc/IFunctionalTest.h \
     inc/IsGISAXSTools.h \
     inc/SampleFactory.h \
@@ -51,7 +52,6 @@ HEADERS += \
     inc/TestConvolution.h \
     inc/TestDetectorResolution.h \
     inc/TestDiffuseReflection.h \
-    inc/TestEventStructure.h \
     inc/TestFactory.h \
     inc/TestFittingModule.h \
     inc/TestFormFactor.h \

@@ -27,6 +27,15 @@
 class TestRootTree : public IFunctionalTest
 {
 public:
+    class MesoParSet{
+    public:
+        MesoParSet(double _npR, double _phi, double _alpha) : npR(_npR), phi(_phi), alpha(_alpha){}
+        double npR;
+        double phi;
+        double alpha;
+    };
+
+
     TestRootTree();
     virtual ~TestRootTree();
 

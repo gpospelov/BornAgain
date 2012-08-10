@@ -16,9 +16,10 @@
 #include "TRandom.h"
 #include "TCanvas.h"
 #include "IsGISAXSTools.h"
-#include "TestEventStructure.h"
+#include "EventFrame.h"
 #include "TestMesoCrystal.h"
 
+#include <vector>
 
 TestRootTree::TestRootTree() : m_sample(0), m_experiment(0), m_data(0)
 {
@@ -70,52 +71,74 @@ void TestRootTree::complex_write()
     // creating new tree
     TTree *tree = new TTree(tree_name.c_str(),"Oh, my data");
 
-    TestEventStructure *event = new TestEventStructure();
+    EventFrame *event = new EventFrame();
     tree->Branch("Event",&event,16000,2);
 
-    size_t n_phi_rotation_steps =11;
-    size_t n_alpha_rotation_steps = 3;
-    size_t n_np_size_steps = 5;
+    // preparing set of meso parameters to simulate
+
+    size_t n_phi_rotation_steps =100;
+    size_t n_alpha_rotation_steps = 100;
+    size_t n_np_size_steps = 100;
     double phi_step = 2*M_PI/3.0/n_phi_rotation_steps;
-    double alpha_step = 5*Units::degree/n_alpha_rotation_steps;
-    double np_size_step = 0.3*Units::nanometer/n_np_size_steps;
+    double alpha_step = 10*Units::degree/n_alpha_rotation_steps;
+    double np_size_step = 0.5*Units::nanometer/n_np_size_steps;
     double np_size_start = 6.1*Units::nanometer - (n_np_size_steps/2)*np_size_step;
-    for (size_t i=0; i<n_phi_rotation_steps; ++i) {
-        for (size_t j=0; j<n_alpha_rotation_steps; ++j) {
-            for (size_t k=0; k<n_np_size_steps; ++k) {
-                event->npR = np_size_start + k*np_size_step;
-                event->mphi = i*phi_step;
-                event->malpha = j*alpha_step;
-                initializeMesoCrystal(event->malpha, event->mphi, event->npR);
-                std::cout << " npR:" << event->npR << " meso_phi:" << event->mphi << " meso_alpha:" << event->malpha << std::endl;
 
-                event->alpha_i = 0.4*Units::degree;
+    std::vector<MesoParSet > meso_parameters;
+    for (size_t j=0; j<n_np_size_steps; ++j) meso_parameters.push_back( MesoParSet(np_size_start + j*np_size_step, 0, 0) );
+    for (size_t j=0; j<n_phi_rotation_steps; ++j) meso_parameters.push_back( MesoParSet(np_size_start, j*phi_step, 0) );
+    for (size_t j=0; j<n_alpha_rotation_steps; ++j) meso_parameters.push_back( MesoParSet(np_size_start, 0, j*alpha_step) );
 
-                GISASExperiment experiment;
-                experiment.setSample(m_sample);
-                experiment.setDetectorParameters(100, 0.3*Units::degree, 0.073, 100 , -0.4*Units::degree, 0.066);
-                experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
-                experiment.setBeamIntensity(1e7);
-                experiment.runSimulation();
-//                experiment.normalize();
+    for (size_t ipar=0; ipar<meso_parameters.size(); ++ipar) {
+        double meso_npR = meso_parameters[ipar].npR;
+        double meso_phi = meso_parameters[ipar].phi;
+        double meso_alpha = meso_parameters[ipar].alpha;
+        initializeMesoCrystal(meso_alpha, meso_phi, meso_npR);
+        std::cout << " npR:" << meso_npR << " meso_phi:" << meso_phi << " meso_alpha:" << meso_alpha << std::endl;
 
-                delete m_data;
-                m_data = experiment.getOutputDataClone();
-                IsGISAXSTools::exportOutputDataInVectors2D(*m_data, event->vi, event->vphi_f, event->valpha_f);
-//                m_data->resetIndex();
-//                while (m_data->hasNext())
-//                {
-//                    event->phi_f = m_data->getCurrentValueOfAxis<double>("phi_f");
-//                    event->alpha_f = m_data->getCurrentValueOfAxis<double>("alpha_f");
-//                    event->I = m_data->next();
-//                }
-//                std::cout << event->vi.size() << std::endl;
+        double alpha_i(0.4*Units::degree);
+        double phi_i(0.0*Units::degree);
+        int nphi_f(100), nalpha_f(100);
+        double phi_f_min(0.3*Units::degree), phi_f_max(0.072);
+        double alpha_f_min(-0.4*Units::degree), alpha_f_max(0.066);
 
-                tree->Fill();
-                event->nframe++;
+        GISASExperiment experiment;
+        experiment.setSample(m_sample);
+        experiment.setDetectorParameters(nphi_f, phi_f_min, phi_f_max, nalpha_f , alpha_f_min, alpha_f_max);
+        experiment.setBeamParameters(1.77*Units::angstrom, -alpha_i, phi_i);
+        experiment.setBeamIntensity(1e7);
+        experiment.runSimulation();
+        experiment.normalize();
 
+        // saving experimental parameter in event structure
+        event->alpha_i = Units::rad2deg(alpha_i);
+        event->phi_i = Units::rad2deg(phi_i);
+        event->nalpha_f = nalpha_f;
+        event->alpha_f_min = Units::rad2deg(alpha_f_min);
+        event->alpha_f_max = Units::rad2deg(alpha_f_max);
+        event->nphi_f = nphi_f;
+        event->phi_f_min = Units::rad2deg(phi_f_min);
+        event->phi_f_max = Units::rad2deg(phi_f_max);
+        // saving mesocrystal parameters
+        event->npR = meso_npR;
+        event->mphi = Units::rad2deg(meso_phi);
+        event->malpha = Units::rad2deg(meso_alpha);
+        // copying output data into event frame
+        delete m_data;
+        m_data = experiment.getOutputDataClone();
+        IsGISAXSTools::exportOutputDataInVectors2D(*m_data, event->vi, event->vphi_f, event->valpha_f);
+
+        // lets switch to degtrees
+        for(size_t i=0; i<event->vphi_f.size(); i++){
+            for(size_t j=0; j<event->vphi_f[i].size(); j++) {
+                event->vphi_f[i][j] /= Units::degree;
+                event->valpha_f[i][j] /= Units::degree;
             }
         }
+
+        tree->Fill();
+        event->nframe++;
+
     }
 
 
@@ -146,13 +169,13 @@ void TestRootTree::complex_read()
         throw RuntimeErrorException("TestRootTree::complex_read() -> Can't get tree with name '" + tree_name + "' from root file");
     }
 
-    TestEventStructure *event = 0;
+    EventFrame *event = 0;
     tree->SetBranchAddress("Event", &event);
 
     // reading data from the tree
     for(int i=0; i<tree->GetEntries(); i++) {
         tree->GetEntry(i);
-        std::cout << event->alpha_i << " " << event->alpha_f << " " << std::endl;
+        std::cout << event->alpha_i << " " << " " << std::endl;
     }
 
     top->Close();

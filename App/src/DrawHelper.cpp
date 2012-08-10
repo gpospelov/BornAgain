@@ -8,6 +8,7 @@
 #include <map>
 #include <string>
 #include <list>
+#include <algorithm>
 
 #include "TROOT.h"
 #include "TCanvas.h"

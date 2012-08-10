@@ -319,8 +319,8 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
     {
         size_t axis0_index = output_data.getCurrentIndexOfAxis(axis0_name.c_str());
         size_t axis1_index = output_data.getCurrentIndexOfAxis(axis1_name.c_str());
-        double axis0_value = Units::rad2deg((*p_axis0)[axis0_index]);
-        double axis1_value = Units::rad2deg((*p_axis1)[axis1_index]);
+        double axis0_value = (*p_axis0)[axis0_index];
+        double axis1_value = (*p_axis1)[axis1_index];
         double intensity = output_data.next();
 
         v_data[axis0_index][axis1_index] = intensity;

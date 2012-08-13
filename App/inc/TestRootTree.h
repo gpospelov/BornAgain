@@ -27,6 +27,15 @@
 class TestRootTree : public IFunctionalTest
 {
 public:
+    class MesoParSet{
+    public:
+        MesoParSet(double _npR, double _phi, double _alpha) : npR(_npR), phi(_phi), alpha(_alpha){}
+        double npR;
+        double phi;
+        double alpha;
+    };
+
+
     TestRootTree();
     virtual ~TestRootTree();
 
@@ -45,8 +54,7 @@ private:
     //! example showing reading from the tree complex data structures
     void complex_read();
 
-    //! prepare for calculations
-    void prepare_experiment();
+    void initializeMesoCrystal(double meso_alpha, double meso_phi, double nanopart_radius);
 
     ISample *m_sample;
     GISASExperiment *m_experiment;

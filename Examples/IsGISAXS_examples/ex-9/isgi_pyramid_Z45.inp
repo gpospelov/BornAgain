@@ -3,7 +3,7 @@
 ###########################################
 
 # Base filename
-pyramid_Z45
+isgi_pyramid_Z45
 ############################  Framework and beam  parameters ############################################
 # Framework   Diffuse,  Multilayer, Number of index slices, Polarization 
    DWBA         LMA          0             25                ss 

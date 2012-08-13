@@ -19,18 +19,20 @@
 #include "ISample.h"
 
 
+//- -------------------------------------------------------------------
+//! @class TestIsGISAXS10
+//! @brief Comparison with IsGISAXS ex-10: cylinder with interference on top of substrate
+//- -------------------------------------------------------------------
 class TestIsGISAXS10 : public IFunctionalTest
 {
 public:
-	TestIsGISAXS10();
-    virtual ~TestIsGISAXS10();
-    virtual void execute();
+    TestIsGISAXS10(){}
+    virtual ~TestIsGISAXS10(){}
 
-private:
-    void initializeSample();
-    void initializeSample2();
-    OutputData<double> *mp_intensity_output;
-    ISample *mp_sample;
+    virtual void execute();
+    virtual void finalise();
+
+    //void initializeSample2();
 };
 
 #endif /* TESTISGISAXS10_H_ */

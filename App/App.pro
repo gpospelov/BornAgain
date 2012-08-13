@@ -16,6 +16,7 @@ SOURCES += \
     src/main.cpp \
     src/CommandLine.cpp \
     src/DrawHelper.cpp \
+    src/EventFrame.cpp \
     src/IFunctionalTest.cpp \
     src/IsGISAXSTools.cpp \
     src/SampleFactory.cpp \
@@ -23,7 +24,6 @@ SOURCES += \
     src/TestConvolution.cpp \
     src/TestDetectorResolution.cpp \
     src/TestDiffuseReflection.cpp \
-    src/TestEventStructure.cpp \
     src/TestFactory.cpp \
     src/TestFittingModule.cpp \
     src/TestFormFactor.cpp \
@@ -44,6 +44,7 @@ HEADERS += \
     inc/AppLinkDef.h \
     inc/CommandLine.h \
     inc/DrawHelper.h \
+    inc/EventFrame.h \
     inc/IFunctionalTest.h \
     inc/IsGISAXSTools.h \
     inc/SampleFactory.h \
@@ -51,7 +52,6 @@ HEADERS += \
     inc/TestConvolution.h \
     inc/TestDetectorResolution.h \
     inc/TestDiffuseReflection.h \
-    inc/TestEventStructure.h \
     inc/TestFactory.h \
     inc/TestFittingModule.h \
     inc/TestFormFactor.h \
@@ -71,23 +71,6 @@ INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples
 DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
 
 OBJECTS_DIR = obj
-
-
-#    pythonvers=$$system("python -c 'import sys; sys.stdout.write(sys.version[:3])'")
-#    pythonsysincdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
-#    #pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib/python\" + sys.version[:3])'")
-#    pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'")
-#    #message(we have python)
-#    #message($$pythonvers)
-#    #message($$pythonsysincdir)
-#    #message($$pythonsyslibdir)
-#    lessThan(pythonvers, 2.6): error("GISASFW requires python 2.6 or greater")
-#    INCLUDEPATH += $$pythonsysincdir
-#    LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
-
-#    # we need to know to location of numpy
-#    pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")
-#    INCLUDEPATH += $$pythonnumpy
 
 
 # -----------------------------------------------------------------------------

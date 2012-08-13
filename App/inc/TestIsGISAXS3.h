@@ -19,16 +19,17 @@
 #include "ISample.h"
 
 
+//- -------------------------------------------------------------------
+//! @class TestIsGISAXS3
+//! @brief Comparison with IsGISAXS ex-3: cylinder on top of substrate
+//- -------------------------------------------------------------------
 class TestIsGISAXS3 : public IFunctionalTest
 {
 public:
-    TestIsGISAXS3();
-    virtual ~TestIsGISAXS3();
+    TestIsGISAXS3(){}
+    virtual ~TestIsGISAXS3(){}
     virtual void execute();
+    virtual void finalise();
 
-private:
-    void initializeSample();
-    OutputData<double> *mp_intensity_output;
-    ISample *mp_sample;
 };
 #endif /* TESTISGISAXS3_H_ */

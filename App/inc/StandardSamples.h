@@ -14,7 +14,11 @@ ISample *MultilayerOffspecTestcase1a();
 ISample *MultilayerOffspecTestcase1b();
 ISample *MultilayerOffspecTestcase2a();
 ISample *MultilayerOffspecTestcase2b();
+ISample *IsGISAXS1_CylinderAndPrism();
+ISample *IsGISAXS3_Cylinder();
+ISample *IsGISAXS9_Pyramid();
 ISample *IsGISAXS9_RotatedPyramid();
+ISample *IsGISAXS10_CylindersParacrystal1D();
 ISample *MesoCrystal1();
 
 }

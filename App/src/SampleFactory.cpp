@@ -24,8 +24,18 @@ SampleFactory::SampleFactory()
     registerItem("MultilayerOffspecTestcase2a", StandardSamples::MultilayerOffspecTestcase2a);
     registerItem("MultilayerOffspecTestcase2b", StandardSamples::MultilayerOffspecTestcase2b);
 
-    // rotated pytamid from IsGISAXS9 example
+    // IsGISAXS1 example: cylinder and prism
+    registerItem("IsGISAXS1_CylinderAndPrism", StandardSamples::IsGISAXS1_CylinderAndPrism);
+
+    // IsGISAXS3 example: cylinder on top of substrate
+    registerItem("IsGISAXS3_Cylinder", StandardSamples::IsGISAXS3_Cylinder);
+
+    // IsGISAXS9 example: pyramid and rotated pyramid
+    registerItem("IsGISAXS9_Pyramid", StandardSamples::IsGISAXS9_Pyramid);
     registerItem("IsGISAXS9_RotatedPyramid", StandardSamples::IsGISAXS9_RotatedPyramid);
+
+    // IsGISAXS10 example: cyliunderw with interference
+    registerItem("IsGISAXS10_CylindersParacrystal1D", StandardSamples::IsGISAXS10_CylindersParacrystal1D);
 
     // mesocrystal
     registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);

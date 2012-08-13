@@ -9,12 +9,14 @@
 #include "Exceptions.h"
 #include <sstream>
 
+
+
 DoubleToComplexInterpolatingFunction::~DoubleToComplexInterpolatingFunction()
 {
 }
 
-DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(const std::map<double, complex_t> &value_map)
-    : m_value_map(value_map)
+DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(const std::map<double, complex_t> &value_map, InterpolatingMode imode)
+    : m_value_map(value_map), m_interpolating_mode(imode)
 {
 	m_lower_limit = (*m_value_map.begin()).first;
 	m_upper_limit = (*m_value_map.rbegin()).first;
@@ -24,7 +26,7 @@ DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(const
 
 DoubleToComplexInterpolatingFunction* DoubleToComplexInterpolatingFunction::clone() const
 {
-    DoubleToComplexInterpolatingFunction *p_new = new DoubleToComplexInterpolatingFunction(m_value_map);
+    DoubleToComplexInterpolatingFunction *p_new = new DoubleToComplexInterpolatingFunction(m_value_map, m_interpolating_mode);
     return p_new;
 }
 
@@ -47,8 +49,24 @@ complex_t DoubleToComplexInterpolatingFunction::evaluate(double value)
     std::map<double, complex_t>::const_iterator lower_it = m_value_map.lower_bound(value);
     --lower_it;
     std::map<double, complex_t>::const_iterator upper_it = m_value_map.upper_bound(value);
-    // Linear interpolation:
-    complex_t result_difference = (*upper_it).second - (*lower_it).second;
+
     double interpolating_factor = (value - (*lower_it).first)/((*upper_it).first-(*lower_it).first);
-    return (*lower_it).second + result_difference * interpolating_factor;
+    if(m_interpolating_mode == Nearest) {
+        if( interpolating_factor < 0.5 ) {
+            return (*lower_it).second;
+        } else {
+            return (*upper_it).second;
+        }
+    } else if ( m_interpolating_mode == Linear ) {
+        complex_t result_difference = (*upper_it).second - (*lower_it).second;
+        return (*lower_it).second + result_difference * interpolating_factor;
+    } else if (m_interpolating_mode == Polar) {
+        double cabs_difference = std::abs((*upper_it).second) - std::abs((*lower_it).second);
+        double cabs = std::abs((*lower_it).second) + cabs_difference * interpolating_factor;
+        double carg_difference = std::arg((*upper_it).second) - std::arg((*lower_it).second);
+        double carg = std::arg((*lower_it).second) + carg_difference * interpolating_factor;
+        return std::polar(cabs, carg);
+    } else {
+        throw DomainErrorException("DoubleToComplexInterpolatingFunction::evaluate() -> Error. Unknown interpolation mode");
+    }
 }

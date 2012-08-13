@@ -35,7 +35,7 @@ fi
 # ------------------------------------------- #
 # profiling HEAP usage
 # ------------------------------------------- #
-profile_heap=yes
+profile_heap=no
 if [ $profile_heap = "yes" ]
 then
   OutputHeapLog=./output/gperftools_heapprof

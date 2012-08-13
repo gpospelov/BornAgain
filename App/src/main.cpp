@@ -44,9 +44,9 @@ int main(int argc, char **argv)
         }
     }
 
-    // saving postscript report
-    if( args.find("pdfreport") ) {
-        DrawHelper::SaveReport();
+    // saving report in pdf and root
+    if( args.find("report") ) {
+        DrawHelper::instance().saveReport();
     }
 
     // holding graphics if not in the batch mode

@@ -144,13 +144,13 @@ class Transform3D;
 
     /**
      * Gets x-component in cartesian coordinate system. */ 
-    T x() const { return v_[0]; }
+    inline T x() const { return v_[0]; }
     /**
      * Gets y-component in cartesian coordinate system. */ 
-    T y() const { return v_[1]; }
+    inline T y() const { return v_[1]; }
     /**
      * Gets z-component in cartesian coordinate system. */ 
-    T z() const { return v_[2]; }
+    inline T z() const { return v_[2]; }
 
     /**
      * Sets x-component in cartesian coordinate system. */ 

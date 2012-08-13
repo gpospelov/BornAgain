@@ -1,12 +1,14 @@
 #include "DrawHelper.h"
 #include "Exceptions.h"
 #include "MultiLayer.h"
+#include "Utils.h"
 
 #include <iostream>
 #include <vector>
 #include <map>
 #include <string>
 #include <list>
+#include <algorithm>
 
 #include "TROOT.h"
 #include "TCanvas.h"
@@ -17,65 +19,14 @@
 #include "TBox.h"
 #include "TLatex.h"
 #include "TH1F.h"
-
-////DrawHelper *DrawHelper::m_instance = 0;
-////bool DrawHelper::m_destroyed = false;
-
+#include "TFile.h"
+#include "TDatime.h"
 
 
-////DrawHelper::DrawHelper()
-////{
+DrawHelper::DrawHelper() : m_default_canvas_xsize(1024), m_default_canvas_ysize(768)
+{
 
-////}
-
-
-////DrawHelper::~DrawHelper()
-////{
-////    std::cout << "DrawHelper::~DrawHelper() -> Info. Deleting material manager" << std::endl;
-////    m_instance = 0;
-////    m_destroyed = true;
-////}
-
-
-///* ************************************************************************* */
-//// access to material manager
-///* ************************************************************************* */
-//DrawHelper &DrawHelper::instance()
-//{
-//    // check if exists, if not, then initialise
-//    if( !m_instance) {
-//        // check for dead reference (i.e. object has been initialised but then somebody managed to delete it)
-//        if( m_destroyed ) {
-//            onDeadReference();
-//        } else {
-//            // first call initalise
-//            create();
-//        }
-//    }
-//    std::cout << "DrawHelper::Instance() -> Info. Accesing instance... " << m_instance << std::endl;
-//    return *m_instance;
-//}
-
-
-///* ************************************************************************* */
-//// create single instance
-///* ************************************************************************* */
-//void DrawHelper::create() {
-//    std::cout << "MaterialManager::Create() -> Info. Creating material manager" << std::endl;
-//    static DrawHelper theInstance;
-//    m_instance = &theInstance;
-//}
-
-
-///* ************************************************************************* */
-//// Action for abnormal situation when object has been occasionally deleted.
-//// The possibility to rise object again should be still implemented.
-///* ************************************************************************* */
-//void DrawHelper::onDeadReference() {
-//    throw DeadReferenceException("Dead reference detected.");
-//}
-
-
+}
 
 
 /* ************************************************************************* */
@@ -197,7 +148,7 @@ void DrawHelper::SetStyle()
 // following approach is used. Canvas are drawn first inside one master canvas
 // with right proportion, and then master canvas goes inside pdf file.
 /* ************************************************************************* */
-void DrawHelper::SaveReport()
+void DrawHelper::SaveReportPDFObsolete()
 {
     std::string sfilename("report.pdf");
     int npx_master(768);
@@ -343,5 +294,91 @@ void DrawHelper::DrawMultilayer(const MultiLayer *sample)
     gPad->Update();
 }
 
+
+
+/* ************************************************************************* */
+// Draw multilayer structure in gPad
+/* ************************************************************************* */
+TCanvas *DrawHelper::createAndRegisterCanvas(std::string name, std::string title)
+{
+
+    TCanvas *c1 = new TCanvas(name.c_str(), title.c_str(), m_default_canvas_xsize, m_default_canvas_ysize);
+    SetMagnifier(c1);
+    m_registered_canvases.push_back(c1);
+
+    return c1;
+}
+
+
+
+void DrawHelper::saveReport()
+{
+    // constructing string representing time to put it in the file name
+    TDatime now;
+    std::cout  << now.AsSQLString() << std::endl;
+    std::string datime(now.AsSQLString());
+    // replacing spaces
+    for(size_t i=0; i<datime.size(); i++) if(datime[i]==' ') datime[i]='_';
+    // removing ':'
+    std::string::iterator end_pos = std::remove(datime.begin(), datime.end(), ':');
+    datime.erase(end_pos, datime.end());
+
+    // -----------------------
+    // create pdf
+    // -----------------------
+    //std::string pdffilename(Utils::FileSystem::GetHomePath()+std::string("./Examples/Reports/report_")+datime+std::string(".pdf"));
+    std::string pdffilename(std::string("./report_")+datime+std::string(".pdf"));
+    // to print many different canvases into multy-page single file one uses following convention:
+    // c1->Print("name.ps["); // create new empty file
+    // c1->Print("name.ps");  // print canvas content into existing file (repeat as many times as required)
+    // c1->Print("name.ps]"); // close file
+
+    // canvas to save in pdf file
+    TCanvas *cmaster = new TCanvas("cmaster", "cmaster", m_default_canvas_xsize, m_default_canvas_ysize);
+    std::string stmpname = pdffilename + "[";
+    cmaster->Print(stmpname.c_str()); // create new file
+
+    for(std::vector<TCanvas *>::iterator it=m_registered_canvases.begin(); it!=m_registered_canvases.end(); it++) {
+        TCanvas *c1 = (*it);
+
+        double xlow(0.05), ylow(0), xup(0.95), yup(0.95);
+        TPad *header_pad = new TPad("headerpad", "headerpad", xlow, yup, xup, 1.);
+        cmaster->cd();
+        header_pad->Draw();
+        header_pad->cd();
+        TLatex tex;
+        tex.SetNDC(1);
+        tex.SetTextSize(0.4);
+        std::string title=std::string(c1->GetName()) + std::string(":    ") +std::string(c1->GetTitle());
+        tex.DrawLatex(0.002,0.1,title.c_str());
+
+        TPad *main_pad = new TPad("main_pad", "main_pad", xlow, ylow, xup, yup);
+        // draw pad in master canvas, draw user canvas in the pad and save whole thing in file
+        cmaster->cd();
+        main_pad->Draw();
+        main_pad->cd();
+        c1->DrawClonePad();
+        cmaster->Print(pdffilename.c_str());
+
+    }
+
+    stmpname = pdffilename + "]";
+    cmaster->Print(stmpname.c_str()); // close file
+
+    // -----------------------
+    // create ROOT
+    // -----------------------
+    //std::string rootfilename(Utils::FileSystem::GetHomePath()+std::string("./Examples/Reports/report_")+datime+std::string(".root"));
+    std::string rootfilename(std::string("./report_")+datime+std::string(".root"));
+    TFile *top = new TFile(rootfilename.c_str(), "RECREATE");
+    for(std::vector<TCanvas *>::iterator it=m_registered_canvases.begin(); it!=m_registered_canvases.end(); it++) {
+        TCanvas *c1 = (*it);
+        c1->Write();
+    }
+    top->Close();
+
+    std::cout << "DrawHelper::saveReport() -> File '" << pdffilename << "' is created" << std::endl;
+    std::cout << "DrawHelper::saveReport() -> File '" << rootfilename << "' is created" << std::endl;
+}
 
 

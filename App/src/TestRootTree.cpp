@@ -8,14 +8,18 @@
 #include "FormFactors.h"
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
+#include "SampleFactory.h"
+#include "IsGISAXSTools.h"
 
 #include "TFile.h"
 #include "TTree.h"
 #include "TRandom.h"
 #include "TCanvas.h"
 #include "IsGISAXSTools.h"
-#include "TestEventStructure.h"
+#include "EventFrame.h"
+#include "TestMesoCrystal.h"
 
+#include <vector>
 
 TestRootTree::TestRootTree() : m_sample(0), m_experiment(0), m_data(0)
 {
@@ -34,17 +38,150 @@ TestRootTree::~TestRootTree()
 void TestRootTree::execute()
 {
 
-    // preparing some real data for tree playing
-    prepare_experiment();
-
-    // example showing handling of tree with simple data structures
-    simple_write();
-    simple_read();
 
     // example showing handling of tree with complex data structures
-//    complex_write();
+    complex_write();
 //    complex_read();
+
+    // example showing handling of tree with simple data structures
+    //simple_write();
+    //simple_read();
+
 }
+
+
+
+
+
+/* ************************************************************************* */
+// example showing writing in the tree simple data structures
+/* ************************************************************************* */
+void TestRootTree::complex_write()
+{
+
+    std::string root_file_name = "testmeso.root";
+    std::string tree_name = "testmeso";
+
+    // preparing root file for writing
+    TFile *top = new TFile(root_file_name.c_str(),"RECREATE");
+    if( !top->IsOpen() ) {
+        throw RuntimeErrorException("TestRootTree::complex_write() -> Can't open file "+root_file_name+" for writing");
+    }
+
+    // creating new tree
+    TTree *tree = new TTree(tree_name.c_str(),"Oh, my data");
+
+    EventFrame *event = new EventFrame();
+    tree->Branch("Event",&event,16000,2);
+
+    // preparing set of meso parameters to simulate
+
+    size_t n_phi_rotation_steps =100;
+    size_t n_alpha_rotation_steps = 100;
+    size_t n_np_size_steps = 100;
+    double phi_step = 2*M_PI/3.0/n_phi_rotation_steps;
+    double alpha_step = 10*Units::degree/n_alpha_rotation_steps;
+    double np_size_step = 0.5*Units::nanometer/n_np_size_steps;
+    double np_size_start = 6.1*Units::nanometer - (n_np_size_steps/2)*np_size_step;
+
+    std::vector<MesoParSet > meso_parameters;
+    for (size_t j=0; j<n_np_size_steps; ++j) meso_parameters.push_back( MesoParSet(np_size_start + j*np_size_step, 0, 0) );
+    for (size_t j=0; j<n_phi_rotation_steps; ++j) meso_parameters.push_back( MesoParSet(np_size_start, j*phi_step, 0) );
+    for (size_t j=0; j<n_alpha_rotation_steps; ++j) meso_parameters.push_back( MesoParSet(np_size_start, 0, j*alpha_step) );
+
+    for (size_t ipar=0; ipar<meso_parameters.size(); ++ipar) {
+        double meso_npR = meso_parameters[ipar].npR;
+        double meso_phi = meso_parameters[ipar].phi;
+        double meso_alpha = meso_parameters[ipar].alpha;
+        initializeMesoCrystal(meso_alpha, meso_phi, meso_npR);
+        std::cout << " npR:" << meso_npR << " meso_phi:" << meso_phi << " meso_alpha:" << meso_alpha << std::endl;
+
+        double alpha_i(0.4*Units::degree);
+        double phi_i(0.0*Units::degree);
+        int nphi_f(100), nalpha_f(100);
+        double phi_f_min(0.3*Units::degree), phi_f_max(0.072);
+        double alpha_f_min(-0.4*Units::degree), alpha_f_max(0.066);
+
+        GISASExperiment experiment;
+        experiment.setSample(m_sample);
+        experiment.setDetectorParameters(nphi_f, phi_f_min, phi_f_max, nalpha_f , alpha_f_min, alpha_f_max);
+        experiment.setBeamParameters(1.77*Units::angstrom, -alpha_i, phi_i);
+        experiment.setBeamIntensity(1e7);
+        experiment.runSimulation();
+        experiment.normalize();
+
+        // saving experimental parameter in event structure
+        event->alpha_i = Units::rad2deg(alpha_i);
+        event->phi_i = Units::rad2deg(phi_i);
+        event->nalpha_f = nalpha_f;
+        event->alpha_f_min = Units::rad2deg(alpha_f_min);
+        event->alpha_f_max = Units::rad2deg(alpha_f_max);
+        event->nphi_f = nphi_f;
+        event->phi_f_min = Units::rad2deg(phi_f_min);
+        event->phi_f_max = Units::rad2deg(phi_f_max);
+        // saving mesocrystal parameters
+        event->npR = meso_npR;
+        event->mphi = Units::rad2deg(meso_phi);
+        event->malpha = Units::rad2deg(meso_alpha);
+        // copying output data into event frame
+        delete m_data;
+        m_data = experiment.getOutputDataClone();
+        IsGISAXSTools::exportOutputDataInVectors2D(*m_data, event->vi, event->vphi_f, event->valpha_f);
+
+        // lets switch to degtrees
+        for(size_t i=0; i<event->vphi_f.size(); i++){
+            for(size_t j=0; j<event->vphi_f[i].size(); j++) {
+                event->vphi_f[i][j] /= Units::degree;
+                event->valpha_f[i][j] /= Units::degree;
+            }
+        }
+
+        tree->Fill();
+        event->nframe++;
+
+    }
+
+
+    tree->Write();
+    top->Close();
+}
+
+
+/* ************************************************************************* */
+// example showing reading from the tree simple data structures
+/* ************************************************************************* */
+void TestRootTree::complex_read()
+{
+    std::cout << "TestRootTree::complex_read() -> going to red tree back from file" << std::endl;
+
+    std::string root_file_name = "mydata2.root";
+    std::string tree_name = "mytree2";
+
+    // preparing root file for reading
+    TFile *top = new TFile(root_file_name.c_str(),"READ");
+    if( !top->IsOpen() ) {
+        throw RuntimeErrorException("TestRootTree::complex_read() -> Can't open file "+root_file_name+" for reading");
+    }
+
+    // getting existing tree
+    TTree *tree = (TTree *)top->Get(tree_name.c_str());
+    if( !tree ) {
+        throw RuntimeErrorException("TestRootTree::complex_read() -> Can't get tree with name '" + tree_name + "' from root file");
+    }
+
+    EventFrame *event = 0;
+    tree->SetBranchAddress("Event", &event);
+
+    // reading data from the tree
+    for(int i=0; i<tree->GetEntries(); i++) {
+        tree->GetEntry(i);
+        std::cout << event->alpha_i << " " << " " << std::endl;
+    }
+
+    top->Close();
+
+}
+
 
 
 /* ************************************************************************* */
@@ -52,6 +189,18 @@ void TestRootTree::execute()
 /* ************************************************************************* */
 void TestRootTree::simple_write()
 {
+    delete m_experiment;
+    delete m_sample;
+    delete m_data;
+
+    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
+
+    // setting experiment
+    m_experiment = new GISASExperiment();
+    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    m_experiment->setSample(m_sample);
+
     // variables below will be written in the tree
     double intens1(0), intens2(0), alpha_i(0), phi_i(0), alpha_f(0), phi_f(0);
     int nev;
@@ -202,119 +351,50 @@ void TestRootTree::simple_read()
 
 
 
-/* ************************************************************************* */
-// example showing writing in the tree simple data structures
-/* ************************************************************************* */
-void TestRootTree::complex_write()
+void TestRootTree::initializeMesoCrystal(double meso_alpha, double meso_phi, double nanopart_radius)
 {
+    delete m_sample;
+    // create mesocrystal
+    double meso_radius = 300*Units::nanometer;
+    double surface_filling_ratio = 0.25;
+    double surface_density = surface_filling_ratio/M_PI/meso_radius/meso_radius;
+    complex_t n_particle(1.0-1.55e-5, 1.37e-6);
+    complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
+    complex_t n_avg = std::sqrt(surface_filling_ratio*avg_n_squared_meso + 1.0 - surface_filling_ratio);
+    complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
+    FormFactorCylinder ff_meso(0.2*Units::micrometer, meso_radius);
 
-    std::string root_file_name = "mydata2.root";
-    std::string tree_name = "mytree2";
-
-    // preparing root file for writing
-    TFile *top = new TFile(root_file_name.c_str(),"RECREATE");
-    if( !top->IsOpen() ) {
-        throw RuntimeErrorException("TestRootTree::complex_write() -> Can't open file "+root_file_name+" for writing");
-    }
-
-    // creating new tree
-    TTree *tree = new TTree(tree_name.c_str(),"Oh, my data");
-
-    TestEventStructure *event = new TestEventStructure();
-    tree->Branch("Event",&event,16000,2);
-
-    // writing 10 events
-    for(int i=0; i<10; i++) {
-        event->alpha_i = i+1;
-        event->alpha_f = i+10;
-        event->vec.resize(10, 99.9);
-        tree->Fill();
-    }
-
-    tree->Write();
-    top->Close();
-}
-
-
-/* ************************************************************************* */
-// example showing reading from the tree simple data structures
-/* ************************************************************************* */
-void TestRootTree::complex_read()
-{
-    std::cout << "TestRootTree::complex_read() -> going to red tree back from file" << std::endl;
-
-    std::string root_file_name = "mydata2.root";
-    std::string tree_name = "mytree2";
-
-    // preparing root file for reading
-    TFile *top = new TFile(root_file_name.c_str(),"READ");
-    if( !top->IsOpen() ) {
-        throw RuntimeErrorException("TestRootTree::complex_read() -> Can't open file "+root_file_name+" for reading");
-    }
-
-    // getting existing tree
-    TTree *tree = (TTree *)top->Get(tree_name.c_str());
-    if( !tree ) {
-        throw RuntimeErrorException("TestRootTree::complex_read() -> Can't get tree with name '" + tree_name + "' from root file");
-    }
-
-    TestEventStructure *event = 0;
-    tree->SetBranchAddress("Event", &event);
-
-    // reading data from the tree
-    for(int i=0; i<tree->GetEntries(); i++) {
-        tree->GetEntry(i);
-        std::cout << event->alpha_i << " " << event->alpha_f << " " << std::endl;
-    }
-
-    top->Close();
-
-}
-
-
-
-/* ************************************************************************* */
-// prepare for calculations
-/* ************************************************************************* */
-void TestRootTree::prepare_experiment()
-{
-    if(m_sample) delete m_sample;
-    m_sample=0;
-
-    if(m_experiment) delete m_experiment;
-    m_experiment = 0;
-
-    if(m_data) delete m_data;
-    m_data = 0;
-
-    // making sample
-    MultiLayer *multi_layer = new MultiLayer();
+    // Create multilayer
+    MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, 2e-8);
+    complex_t n_substrate(1.0-7.57e-6, 1.73e-7);
+
     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_average_layer_material = MaterialManager::instance().addHomogeneousMaterial("Averagelayer", n_avg);
     const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
+    Layer avg_layer;
+    avg_layer.setMaterial(p_average_layer_material);
+    avg_layer.setThickness(0.2*Units::micrometer);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    NanoParticleDecoration particle_decoration(
-                new NanoParticle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ) ) ) );
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
+    NanoParticleDecoration particle_decoration;
 
-    multi_layer->addLayer(air_layer_decorator);
-    multi_layer->addLayer(substrate_layer);
+    double R = nanopart_radius;
+    Geometry::RotateZ3D transform1(meso_phi);
+    Geometry::RotateY3D transform2(meso_alpha);
+    Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1*transform2);
+    particle_decoration.addNanoParticle(createMesoCrystal(R, n_particle_adapted, &ff_meso), p_total_transform, 0.2*Units::micrometer);
 
-    m_sample = multi_layer;
+    particle_decoration.setTotalParticleSurfaceDensity(surface_density);
+    particle_decoration.addInterferenceFunction(p_interference_funtion);
+    LayerDecorator avg_layer_decorator(avg_layer, particle_decoration);
 
-    // setting experiment
-    m_experiment = new GISASExperiment();
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-
-    m_experiment->setSample(m_sample);
-
+    p_multi_layer->addLayer(air_layer);
+    p_multi_layer->addLayer(avg_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    m_sample = p_multi_layer;
 }
-
 

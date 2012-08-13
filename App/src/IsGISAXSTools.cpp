@@ -13,6 +13,7 @@
 #include <iterator>
 #include <iomanip>
 #include <cmath>
+#include <algorithm>
 
 double IsGISAXSTools::m_hist_min = 0;
 double IsGISAXSTools::m_hist_max = 0;
@@ -78,10 +79,13 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
     }
     p_hist2D.SetContour(50);
     p_hist2D.SetStats(0);
+    p_hist2D.GetYaxis()->SetTitleOffset(1.3);
+
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
 //    gPad->SetLogz();
-    gPad->SetRightMargin(0.12);
+    gPad->SetRightMargin(0.115);
+    gPad->SetLeftMargin(0.115);
     if( hasMinimum() ) p_hist2D.SetMinimum(m_hist_min);
     if( hasMaximum() ) p_hist2D.SetMaximum(m_hist_max);
 
@@ -157,8 +161,13 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
     }
 
     gPad->SetLogy();
+    gPad->SetRightMargin(0.115);
+    gPad->SetLeftMargin(0.115);
     h1_spect.SetStats(1);
     gStyle->SetOptStat(111111);
+    if( hasMinimum() ) h1_spect.SetMinimum(m_hist_min);
+    if( hasMaximum() ) h1_spect.SetMaximum(m_hist_max);
+
     h1_spect.DrawCopy(draw_options.c_str());
     delete left_clone;
     delete right_clone;
@@ -191,7 +200,7 @@ void IsGISAXSTools::drawOutputDataDifference2D(const OutputData<double> &left, c
 // write output data (1D or 2D) in ASCII file
 /* ************************************************************************* */
 void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
-        const std::string &filename)
+        const std::string &filename, int precision)
 {
     std::ofstream file;
     file.open(filename.c_str(), std::ios::out);
@@ -205,7 +214,7 @@ void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
     int counter = 1;
     while(output.hasNext()) {
         double z_value = output.next();
-        file << std::setprecision(20) << z_value << "    ";
+        file << std::scientific << std::setprecision(precision) << z_value << "    ";
         if(counter%row_length==0) {
             file << std::endl;
         }
@@ -219,7 +228,7 @@ void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
 /* ************************************************************************* */
 // read data from ASCII file (2D assumed) and fill newly created OutputData with it
 /* ************************************************************************* */
-OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &filename)
+OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &filename, int precision)
 {
     // opening ASCII file
     std::ifstream fin;
@@ -235,6 +244,19 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
     // reading file line by line, every line is parsed into vector of double, so at the end we have buffer_2d of doubles
     while( std::getline(fin, sline))
     {
+        // here we mimic different precision in numbers contained in string, if precision is say 6, than 7.2908527770e+03 -> 7.290853e+03
+        if(precision > 0) {
+            std::string newline;
+            std::istringstream is0(sline.c_str());
+            double number;
+            while( is0 >> number ) {
+                std::ostringstream os;
+                os << std::scientific << std::setprecision(precision) << number;
+                newline += os.str() + std::string("    ");
+            }
+            sline = newline;
+        }
+
         double1d_t buff_1d;
         std::istringstream iss(sline);
         std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(), back_inserter(buff_1d));
@@ -261,6 +283,51 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
     }
 
     return output;
+}
+
+
+void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output_data
+                                        , std::vector<std::vector<double > > &v_data
+                                        , std::vector<std::vector<double > > &v_axis0
+                                        , std::vector<std::vector<double > > &v_axis1)
+{
+    if (output_data.getDimension() != 2) return;
+
+    output_data.resetIndex();
+    const NamedVector<double> *p_axis0 = dynamic_cast<const NamedVector<double>*>(output_data.getAxes()[0]);
+    const NamedVector<double> *p_axis1 = dynamic_cast<const NamedVector<double>*>(output_data.getAxes()[1]);
+    std::string axis0_name = p_axis0->getName();
+    std::string axis1_name = p_axis1->getName();
+    size_t axis0_size = p_axis0->getSize();
+    size_t axis1_size = p_axis1->getSize();
+
+    v_data.clear();
+    v_axis0.clear();
+    v_axis1.clear();
+
+    v_data.resize(axis0_size);
+    v_axis0.resize(axis0_size);
+    v_axis1.resize(axis0_size);
+
+    for(size_t i=0; i<axis0_size; ++i) {
+        v_data[i].resize(axis1_size,0.0);
+        v_axis0[i].resize(axis1_size,0.0);
+        v_axis1[i].resize(axis1_size,0.0);
+    }
+
+    while (output_data.hasNext())
+    {
+        size_t axis0_index = output_data.getCurrentIndexOfAxis(axis0_name.c_str());
+        size_t axis1_index = output_data.getCurrentIndexOfAxis(axis1_name.c_str());
+        double axis0_value = (*p_axis0)[axis0_index];
+        double axis1_value = (*p_axis1)[axis1_index];
+        double intensity = output_data.next();
+
+        v_data[axis0_index][axis1_index] = intensity;
+        v_axis0[axis0_index][axis1_index] = axis0_value;
+        v_axis1[axis0_index][axis1_index] = axis1_value;
+    }
+
 }
 
 

@@ -17,6 +17,9 @@
 #include "TObject.h"
 #include "ISingleton.h"
 
+#include <vector>
+#include <string>
+
 class TCanvas;
 class MultiLayer;
 class TPad;
@@ -32,42 +35,37 @@ class TPad;
 class DrawHelper : public ISingleton<DrawHelper>, public TObject
 {
 public:
-//  ~DrawHelper();
-//  static DrawHelper &instance();
+    //! set own drawing style
+    static void SetStyle();
 
-  //! set own drawing style
-  static void SetStyle();
+    //! saving canvases from memory into multipage pdf file
+    static void SaveReportPDFObsolete();
 
-  //! saving canvases from memory into multipage pdf file
-  static void SaveReport();
+    //! connect user canvas with magnifier function
+    void SetMagnifier(TCanvas *c);
 
-  //! connect user canvas with magnifier function
-  void SetMagnifier(TCanvas *c);
+    //! process double click in canvas to magnify given pad
+    void ExecuteMagnifier(Int_t event, Int_t px, Int_t py, TObject *sel);
 
-  //! process double click in canvas to magnify given pad
-  void ExecuteMagnifier(Int_t event, Int_t px, Int_t py, TObject *sel);
+    //! draw multilayer structure in TPad
+    void DrawMultilayer(const MultiLayer *sample);
 
-  //! draw multilayer structure in TPad
-  void DrawMultilayer(const MultiLayer *sample);
+    //! create and register canvas
+    TCanvas *createAndRegisterCanvas(std::string name, std::string title);
+
+    //! save reports (pdf and ROOT)
+    void saveReport();
+
 
 protected:
-    DrawHelper(){}
+    DrawHelper();
     friend class ISingleton<DrawHelper >;
 
 private:
-//  /// prevents client from creating a copy of the singleton
-//  DrawHelper();
-//  DrawHelper(const DrawHelper &);
-//  DrawHelper &operator=(const DrawHelper &);
+    int m_default_canvas_xsize;
+    int m_default_canvas_ysize;
 
-//  /// reaction on too early destroyed object
-//  static void onDeadReference();
-
-//  /// create single copy of manager
-//  static void create();
-
-//  static DrawHelper *m_instance;
-//  static bool m_destroyed;
+    std::vector<TCanvas *> m_registered_canvases;
 
   ClassDef(DrawHelper,1)
 };

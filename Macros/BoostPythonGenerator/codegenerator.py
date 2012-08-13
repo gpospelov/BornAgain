@@ -86,9 +86,11 @@ def RulesExperiment(mb):
   cl = mb.class_( "Experiment" )
   cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   cl.member_functions().exclude()
-  cl.member_function("setSample").include()
   cl.member_function("runSimulation").include()
+  cl.member_function("normalize").include()
+  cl.member_function("setSample").include()
   cl.member_function("setBeamParameters").include()
+  cl.member_function("setBeamIntensity").include()
 
 # -------------------------------------------------------------------
 # FormFactorCylinder.h
@@ -291,16 +293,20 @@ def RulesMesoCrystal(mb):
 # -------------------------------------------------------------------
 def RulesMultiLayer(mb):
   cl = mb.class_( "MultiLayer" )
-  cl.member_function( "getLayer" ).exclude();
-  cl.member_function( "getLayerBottomZ" ).exclude();
-  cl.member_function( "getLayerThickness" ).exclude();
-  cl.member_function( "getLayerTopInterface" ).exclude();
-  cl.member_function( "getLayerBottomInterface" ).exclude();
-  cl.member_function( "clear" ).exclude();
-  cl.member_function( "clone" ).exclude()
-  cl.member_function( "getCrossCorrSpectralFun" ).exclude();
-  cl.member_function( "setLayerThickness" ).exclude();
-  cl.member_function( "createDWBASimulation" ).exclude()
+  cl.member_functions( ).exclude()
+  cl.member_function( "addLayer" ).include()
+  cl.member_function( "addLayerWithTopRoughness" ).include()
+  #cl.member_function( "getLayer" ).exclude();
+  #cl.member_function( "getLayerInterface" ).exclude();
+  #cl.member_function( "getLayerBottomZ" ).exclude();
+  #cl.member_function( "getLayerThickness" ).exclude();
+  #cl.member_function( "getLayerTopInterface" ).exclude();
+  #cl.member_function( "getLayerBottomInterface" ).exclude();
+  #cl.member_function( "clear" ).exclude();
+  #cl.member_function( "clone" ).exclude()
+  #cl.member_function( "getCrossCorrSpectralFun" ).exclude();
+  #cl.member_function( "setLayerThickness" ).exclude();
+  #cl.member_function( "createDWBASimulation" ).exclude()
 
 # -------------------------------------------------------------------
 # NanoParticle.h
@@ -331,7 +337,7 @@ def RulesNanoParticleDecoration(mb):
   cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   cl.member_functions( ).exclude() # exclude all member functions
   # including following methods if they doesn't have pointers in argument list
-  methods = ['addNanoParticle', 'addInterferenceFunction']
+  methods = ['addNanoParticle', 'addInterferenceFunction', 'setTotalParticleSurfaceDensity']
   for m in methods:
     for fun in cl.member_functions(m): # including methods if they don't have pointers in argument list
       has_pointers = False

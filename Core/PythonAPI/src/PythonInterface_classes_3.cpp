@@ -38,6 +38,41 @@
 
 namespace bp = boost::python;
 
+struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper< InterferenceFunctionNone > {
+
+    InterferenceFunctionNone_wrapper( )
+    : InterferenceFunctionNone( )
+      , bp::wrapper< InterferenceFunctionNone >(){
+        // null constructor
+    
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
 struct NanoParticle_wrapper : NanoParticle, bp::wrapper< NanoParticle > {
 
     NanoParticle_wrapper(::complex_t refractive_index, ::IFormFactor const & p_form_factor )
@@ -134,6 +169,18 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     ::IMaterial const * default_getMaterial(  ) const  {
         return Layer::getMaterial( );
+    }
+
+    virtual bool hasDWBASimulation(  ) const  {
+        if( bp::override func_hasDWBASimulation = this->get_override( "hasDWBASimulation" ) )
+            return func_hasDWBASimulation(  );
+        else{
+            return this->Layer::hasDWBASimulation(  );
+        }
+    }
+    
+    bool default_hasDWBASimulation(  ) const  {
+        return Layer::hasDWBASimulation( );
     }
 
     virtual void setMaterial( ::IMaterial const * p_material ) {
@@ -521,6 +568,17 @@ struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
 
 void register_classes_3(){
 
+    bp::class_< InterferenceFunctionNone_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunctionNone", bp::init< >() )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( InterferenceFunctionNone_wrapper::* )(  ) )(&InterferenceFunctionNone_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( InterferenceFunctionNone_wrapper::* )(  ) )(&InterferenceFunctionNone_wrapper::default_walk_and_print) );
+
     bp::class_< Lattice >( "Lattice", bp::init< >() )    
         .def( bp::init< kvector_t const &, kvector_t const &, kvector_t const & >(( bp::arg("a1"), bp::arg("a2"), bp::arg("a3") )) )    
         .def( 
@@ -529,13 +587,13 @@ void register_classes_3(){
             , ( bp::arg("a"), bp::arg("c") ) )    
         .def( 
             "getBasisVectorA"
-            , (::kvector_t ( ::Lattice::* )(  ) )( &::Lattice::getBasisVectorA ) )    
+            , (::kvector_t ( ::Lattice::* )(  ) const)( &::Lattice::getBasisVectorA ) )    
         .def( 
             "getBasisVectorB"
-            , (::kvector_t ( ::Lattice::* )(  ) )( &::Lattice::getBasisVectorB ) )    
+            , (::kvector_t ( ::Lattice::* )(  ) const)( &::Lattice::getBasisVectorB ) )    
         .def( 
             "getBasisVectorC"
-            , (::kvector_t ( ::Lattice::* )(  ) )( &::Lattice::getBasisVectorC ) )    
+            , (::kvector_t ( ::Lattice::* )(  ) const)( &::Lattice::getBasisVectorC ) )    
         .staticmethod( "createTrigonalLattice" );
 
     bp::class_< NanoParticle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "NanoParticle", bp::init< complex_t, IFormFactor const & >(( bp::arg("refractive_index"), bp::arg("p_form_factor") )) )    
@@ -571,6 +629,10 @@ void register_classes_3(){
             , (::IMaterial const * ( ::Layer::* )(  ) const)(&::Layer::getMaterial)
             , (::IMaterial const * ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_getMaterial)
             , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "hasDWBASimulation"
+            , (bool ( ::Layer::* )(  ) const)(&::Layer::hasDWBASimulation)
+            , (bool ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_hasDWBASimulation) )    
         .def( 
             "setMaterial"
             , (void ( ::Layer::* )( ::IMaterial const * ) )(&::Layer::setMaterial)
@@ -772,16 +834,6 @@ void register_classes_3(){
             , (void ( ::MultiLayer::* )( ::Layer const &,::LayerRoughness const & ) )( &::MultiLayer::addLayerWithTopRoughness )
             , ( bp::arg("layer"), bp::arg("roughness") ) )    
         .def( 
-            "getCrossCorrLength"
-            , (double ( ::MultiLayer::* )(  ) const)( &::MultiLayer::getCrossCorrLength ) )    
-        .def( 
-            "getNumberOfLayers"
-            , (::size_t ( ::MultiLayer::* )(  ) const)( &::MultiLayer::getNumberOfLayers ) )    
-        .def( 
-            "setCrossCorrLength"
-            , (void ( ::MultiLayer::* )( double ) )( &::MultiLayer::setCrossCorrLength )
-            , ( bp::arg("crossCorrLength") ) )    
-        .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( MultiLayer_wrapper::* )(  ) )(&MultiLayer_wrapper::default_createParameterTree)
@@ -825,6 +877,10 @@ void register_classes_3(){
             "addNanoParticle"
             , (void ( ::NanoParticleDecoration::* )( ::NanoParticle const &,double,double ) )( &::NanoParticleDecoration::addNanoParticle )
             , ( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) )    
+        .def( 
+            "setTotalParticleSurfaceDensity"
+            , (void ( ::NanoParticleDecoration::* )( double ) )( &::NanoParticleDecoration::setTotalParticleSurfaceDensity )
+            , ( bp::arg("surface_density") ) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)

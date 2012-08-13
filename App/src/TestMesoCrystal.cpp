@@ -101,7 +101,8 @@ void TestMesoCrystal::initializeSample()
     size_t n_alpha_rotation_steps = 3;
     size_t n_np_size_steps = 5;
     double phi_step = 2*M_PI/3.0/n_phi_rotation_steps;
-    double alpha_step = 5*Units::degree/n_alpha_rotation_steps;
+    double alpha_step = 4*Units::degree/n_alpha_rotation_steps;
+    double alpha_start = - (n_alpha_rotation_steps/2)*alpha_step;
     double np_size_step = 0.3*Units::nanometer/n_np_size_steps;
     double np_size_start = 6.1*Units::nanometer - (n_np_size_steps/2)*np_size_step;
     for (size_t i=0; i<n_phi_rotation_steps; ++i) {
@@ -109,7 +110,7 @@ void TestMesoCrystal::initializeSample()
             for (size_t k=0; k<n_np_size_steps; ++k) {
                 double R = np_size_start + k*np_size_step;
                 Geometry::RotateZ3D transform1(i*phi_step);
-                Geometry::RotateY3D transform2(j*alpha_step);
+                Geometry::RotateY3D transform2(alpha_start+j*alpha_step);
                 Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1*transform2);
                 particle_decoration.addNanoParticle(createMesoCrystal(R, n_particle_adapted, &ff_meso), p_total_transform, 0.2*Units::micrometer);
     //            particle_decoration.addNanoParticle(meso2, transform1, 0.2*Units::micrometer, 0.5);

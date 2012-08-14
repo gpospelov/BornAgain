@@ -91,11 +91,11 @@ namespace Geometry {
 //    double xx = cosa + (1-cosa)*cx*cx;
 //    double xy =        (1-cosa)*cx*cy - sina*cz;
 //    double xz =        (1-cosa)*cx*cz + sina*cy;
-    
+
 //    double yx =        (1-cosa)*cy*cx + sina*cz;
 //    double yy = cosa + (1-cosa)*cy*cy;
 //    double yz =        (1-cosa)*cy*cz - sina*cx;
-    
+
 //    double zx =        (1-cosa)*cz*cx - sina*cy;
 //    double zy =        (1-cosa)*cz*cy + sina*cx;
 //    double zz = cosa + (1-cosa)*cz*cz;
@@ -166,7 +166,7 @@ namespace Geometry {
 //    a.setZ(z);
 //    return is;
 //  }
-  
+
 //  //--------------------------------------------------------------------------
 //  template<>
 //  double BasicVector3D<double>::pseudoRapidity() const {
@@ -242,21 +242,21 @@ namespace Geometry {
       return *this;
     }
     double cosa = std::cos(a), sina = std::sin(a);
-    cx /= ll; cy /= ll; cz /= ll;   
+    cx /= ll; cy /= ll; cz /= ll;
 
     double xx = cosa + (1-cosa)*cx*cx;
     double xy =        (1-cosa)*cx*cy - sina*cz;
     double xz =        (1-cosa)*cx*cz + sina*cy;
-    
+
     double yx =        (1-cosa)*cy*cx + sina*cz;
-    double yy = cosa + (1-cosa)*cy*cy; 
+    double yy = cosa + (1-cosa)*cy*cy;
     double yz =        (1-cosa)*cy*cz - sina*cx;
-    
+
     double zx =        (1-cosa)*cz*cx - sina*cy;
     double zy =        (1-cosa)*cz*cy + sina*cx;
     double zz = cosa + (1-cosa)*cz*cz;
 
-    cx = x(); cy = y(); cz = z();   
+    cx = x(); cy = y(); cz = z();
     set(xx*cx+xy*cy+xz*cz, yx*cx+yy*cy+yz*cz, zx*cx+zy*cy+zz*cz);
     return *this;
   }
@@ -267,7 +267,7 @@ namespace Geometry {
   {
     return os << "(" << a.x() << "," << a.y() << "," << a.z() << ")";
   }
-  
+
   //--------------------------------------------------------------------------
   std::istream &
   operator>> (std::istream & is, BasicVector3D<double> & a)
@@ -275,10 +275,10 @@ namespace Geometry {
     // Required format is ( a, b, c ) that is, three numbers, preceded by
     // (, followed by ), and separated by commas.  The three numbers are
     // taken as x, y, z.
-    
+
     double x, y, z;
     char c;
-    
+
     is >> std::ws >> c;
     // ws is defined to invoke eatwhite(istream & )
     // see (Stroustrup gray book) page 333 and 345.
@@ -295,7 +295,7 @@ namespace Geometry {
       std::cerr
 	<< "Could not find x value and required trailing comma "
 	<< "in input of a BasicVector3D<double>"
-	<< std::endl; 
+	<< std::endl;
       return is;
     }
 
@@ -327,6 +327,16 @@ namespace Geometry {
   BasicVector3D<double> &
   BasicVector3D<double>::transform(const Transform3D & m) {
     double vx = x(), vy = y(), vz = z();
+    set(m.xx()*vx + m.xy()*vy + m.xz()*vz,
+    m.yx()*vx + m.yy()*vy + m.yz()*vz,
+    m.zx()*vx + m.zy()*vy + m.zz()*vz);
+    return *this;
+  }
+
+  template<>
+  BasicVector3D<std::complex<double> > &
+  BasicVector3D<std::complex<double> >::transform(const Transform3D & m) {
+    std::complex<double> vx = x(), vy = y(), vz = z();
     set(m.xx()*vx + m.xy()*vy + m.xz()*vz,
     m.yx()*vx + m.yy()*vy + m.yz()*vz,
     m.zx()*vx + m.zy()*vy + m.zz()*vz);

@@ -44,6 +44,7 @@ public:
     }
 
     virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const;
+    virtual complex_t evaluate(cvector_t k_i, cvector_t k_f) const;
     virtual complex_t evaluateForComplexkz(kvector_t k_i, kvector_t k_f,
     		complex_t k_iz, complex_t k_fz) const;
 protected:
@@ -55,6 +56,7 @@ protected:
     complex_t getR(double alpha) const;
     complex_t getX(double alpha) const;
     void calculateTerms(kvector_t k_i, kvector_t k_f) const;
+    void calculateTerms(cvector_t k_i, cvector_t k_f) const;
     void calculateTerms(kvector_t k_i, kvector_t k_f,
             complex_t k_iz, complex_t k_fz) const;
 

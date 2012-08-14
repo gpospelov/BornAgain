@@ -44,28 +44,28 @@ struct Transform3D_wrapper : Geometry::Transform3D, bp::wrapper< Geometry::Trans
     : Geometry::Transform3D( XX, XY, XZ, DX, YX, YY, YZ, DY, ZX, ZY, ZZ, DZ )
       , bp::wrapper< Geometry::Transform3D >(){
         // constructor
-    
+
     }
 
     Transform3D_wrapper( )
     : Geometry::Transform3D( )
       , bp::wrapper< Geometry::Transform3D >(){
         // null constructor
-    
+
     }
 
     Transform3D_wrapper(::Geometry::Point3D< double > const & fr0, ::Geometry::Point3D< double > const & fr1, ::Geometry::Point3D< double > const & fr2, ::Geometry::Point3D< double > const & to0, ::Geometry::Point3D< double > const & to1, ::Geometry::Point3D< double > const & to2 )
     : Geometry::Transform3D( boost::ref(fr0), boost::ref(fr1), boost::ref(fr2), boost::ref(to0), boost::ref(to1), boost::ref(to2) )
       , bp::wrapper< Geometry::Transform3D >(){
         // constructor
-    
+
     }
 
     Transform3D_wrapper(::Geometry::Transform3D const & m )
     : Geometry::Transform3D( boost::ref(m) )
       , bp::wrapper< Geometry::Transform3D >(){
         // copy constructor
-    
+
     }
 
     void setTransform( double XX, double XY, double XZ, double DX, double YX, double YY, double YZ, double DY, double ZX, double ZY, double ZZ, double DZ ){
@@ -80,21 +80,21 @@ struct Rotate3D_wrapper : Geometry::Rotate3D, bp::wrapper< Geometry::Rotate3D > 
     : Geometry::Rotate3D( arg )
       , bp::wrapper< Geometry::Rotate3D >(){
         // copy constructor
-        
+
     }
 
     Rotate3D_wrapper( )
     : Geometry::Rotate3D( )
       , bp::wrapper< Geometry::Rotate3D >(){
         // null constructor
-    
+
     }
 
     Rotate3D_wrapper(double a, ::Geometry::Point3D< double > const & p1, ::Geometry::Point3D< double > const & p2 )
     : Geometry::Rotate3D( a, boost::ref(p1), boost::ref(p2) )
       , bp::wrapper< Geometry::Rotate3D >(){
         // constructor
-    
+
     }
 
     void setTransform( double XX, double XY, double XZ, double DX, double YX, double YY, double YZ, double DY, double ZX, double ZY, double ZZ, double DZ ){
@@ -109,21 +109,21 @@ struct RotateX3D_wrapper : Geometry::RotateX3D, bp::wrapper< Geometry::RotateX3D
     : Geometry::RotateX3D( arg )
       , bp::wrapper< Geometry::RotateX3D >(){
         // copy constructor
-        
+
     }
 
     RotateX3D_wrapper( )
     : Geometry::RotateX3D( )
       , bp::wrapper< Geometry::RotateX3D >(){
         // null constructor
-    
+
     }
 
     RotateX3D_wrapper(double a )
     : Geometry::RotateX3D( a )
       , bp::wrapper< Geometry::RotateX3D >(){
         // constructor
-    
+
     }
 
     void setTransform( double XX, double XY, double XZ, double DX, double YX, double YY, double YZ, double DY, double ZX, double ZY, double ZZ, double DZ ){
@@ -138,21 +138,21 @@ struct RotateY3D_wrapper : Geometry::RotateY3D, bp::wrapper< Geometry::RotateY3D
     : Geometry::RotateY3D( arg )
       , bp::wrapper< Geometry::RotateY3D >(){
         // copy constructor
-        
+
     }
 
     RotateY3D_wrapper( )
     : Geometry::RotateY3D( )
       , bp::wrapper< Geometry::RotateY3D >(){
         // null constructor
-    
+
     }
 
     RotateY3D_wrapper(double a )
     : Geometry::RotateY3D( a )
       , bp::wrapper< Geometry::RotateY3D >(){
         // constructor
-    
+
     }
 
     void setTransform( double XX, double XY, double XZ, double DX, double YX, double YY, double YZ, double DY, double ZX, double ZY, double ZZ, double DZ ){
@@ -167,21 +167,21 @@ struct RotateZ3D_wrapper : Geometry::RotateZ3D, bp::wrapper< Geometry::RotateZ3D
     : Geometry::RotateZ3D( arg )
       , bp::wrapper< Geometry::RotateZ3D >(){
         // copy constructor
-        
+
     }
 
     RotateZ3D_wrapper( )
     : Geometry::RotateZ3D( )
       , bp::wrapper< Geometry::RotateZ3D >(){
         // null constructor
-    
+
     }
 
     RotateZ3D_wrapper(double a )
     : Geometry::RotateZ3D( a )
       , bp::wrapper< Geometry::RotateZ3D >(){
         // constructor
-    
+
     }
 
     void setTransform( double XX, double XY, double XZ, double DX, double YX, double YY, double YZ, double DY, double ZX, double ZY, double ZZ, double DZ ){
@@ -196,21 +196,21 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
     : IMaterial( )
       , bp::wrapper< IMaterial >(){
         // null constructor
-    
+
     }
 
     IMaterial_wrapper(::std::string const & name )
     : IMaterial( name )
       , bp::wrapper< IMaterial >(){
         // constructor
-    
+
     }
 
     IMaterial_wrapper(::IMaterial const & other )
     : IMaterial( boost::ref(other) )
       , bp::wrapper< IMaterial >(){
         // copy constructor
-    
+
     }
 
     virtual void print( ::std::ostream & ostr ) const {
@@ -220,7 +220,7 @@ struct IMaterial_wrapper : IMaterial, bp::wrapper< IMaterial > {
             this->IMaterial::print( boost::ref(ostr) );
         }
     }
-    
+
     virtual void default_print( ::std::ostream & ostr ) const {
         IMaterial::print( boost::ref(ostr) );
     }
@@ -233,28 +233,28 @@ struct HomogeneousMaterial_wrapper : HomogeneousMaterial, bp::wrapper< Homogeneo
     : HomogeneousMaterial( )
       , bp::wrapper< HomogeneousMaterial >(){
         // null constructor
-    
+
     }
 
     HomogeneousMaterial_wrapper(::complex_t refractive_index )
     : HomogeneousMaterial( refractive_index )
       , bp::wrapper< HomogeneousMaterial >(){
         // constructor
-    
+
     }
 
     HomogeneousMaterial_wrapper(::std::string const & name, ::complex_t refractive_index )
     : HomogeneousMaterial( name, refractive_index )
       , bp::wrapper< HomogeneousMaterial >(){
         // constructor
-    
+
     }
 
     HomogeneousMaterial_wrapper(::HomogeneousMaterial const & other )
     : HomogeneousMaterial( boost::ref(other) )
       , bp::wrapper< HomogeneousMaterial >(){
         // copy constructor
-    
+
     }
 
     virtual void print( ::std::ostream & ostr ) const {
@@ -264,7 +264,7 @@ struct HomogeneousMaterial_wrapper : HomogeneousMaterial, bp::wrapper< Homogeneo
             this->HomogeneousMaterial::print( boost::ref(ostr) );
         }
     }
-    
+
     virtual void default_print( ::std::ostream & ostr ) const {
         HomogeneousMaterial::print( boost::ref(ostr) );
     }
@@ -277,7 +277,7 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     : ICompositeSample( )
       , bp::wrapper< ICompositeSample >(){
         // null constructor
-    
+
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -287,7 +287,7 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
             return this->ISample::createParameterTree(  );
         }
     }
-    
+
     ::ParameterPool * default_createParameterTree(  ) {
         return ISample::createParameterTree( );
     }
@@ -299,7 +299,7 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
             this->ISample::walk_and_print(  );
         }
     }
-    
+
     void default_walk_and_print(  ) {
         ISample::walk_and_print( );
     }
@@ -312,7 +312,7 @@ struct IClusteredNanoParticles_wrapper : IClusteredNanoParticles, bp::wrapper< I
     : IClusteredNanoParticles()
       , bp::wrapper< IClusteredNanoParticles >(){
         // null constructor
-        
+
     }
 
     virtual ::IClusteredNanoParticles * clone(  ) const {
@@ -337,7 +337,7 @@ struct IClusteredNanoParticles_wrapper : IClusteredNanoParticles, bp::wrapper< I
             return this->ISample::createParameterTree(  );
         }
     }
-    
+
     ::ParameterPool * default_createParameterTree(  ) {
         return ISample::createParameterTree( );
     }
@@ -349,7 +349,7 @@ struct IClusteredNanoParticles_wrapper : IClusteredNanoParticles, bp::wrapper< I
             this->ISample::walk_and_print(  );
         }
     }
-    
+
     void default_walk_and_print(  ) {
         ISample::walk_and_print( );
     }
@@ -362,7 +362,7 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
     : IFormFactorDecorator( boost::python::ptr(p_form_factor) )
       , bp::wrapper< IFormFactorDecorator >(){
         // constructor
-    
+
     }
 
     virtual ::IFormFactorDecorator * clone(  ) const {
@@ -377,7 +377,7 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
             this->IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
         }
     }
-    
+
     void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
     }
@@ -389,12 +389,17 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
             return this->ISample::createParameterTree(  );
         }
     }
-    
+
     ::ParameterPool * default_createParameterTree(  ) {
         return ISample::createParameterTree( );
     }
 
     virtual ::complex_t evaluate( ::kvector_t k_i, ::kvector_t k_f ) const {
+        bp::override func_evaluate = this->get_override( "evaluate" );
+        return func_evaluate( k_i, k_f );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
         return func_evaluate( k_i, k_f );
     }
@@ -411,7 +416,7 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
             return this->IFormFactor::getNumberOfStochasticParameters(  );
         }
     }
-    
+
     int default_getNumberOfStochasticParameters(  ) const  {
         return IFormFactor::getNumberOfStochasticParameters( );
     }
@@ -423,7 +428,7 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
             this->ISample::walk_and_print(  );
         }
     }
-    
+
     void default_walk_and_print(  ) {
         ISample::walk_and_print( );
     }
@@ -436,7 +441,7 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
     : IInterferenceFunction()
       , bp::wrapper< IInterferenceFunction >(){
         // null constructor
-        
+
     }
 
     virtual ::IInterferenceFunction * clone(  ) const {
@@ -456,7 +461,7 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
             return this->ISample::createParameterTree(  );
         }
     }
-    
+
     ::ParameterPool * default_createParameterTree(  ) {
         return ISample::createParameterTree( );
     }
@@ -468,7 +473,7 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
             this->ISample::walk_and_print(  );
         }
     }
-    
+
     void default_walk_and_print(  ) {
         ISample::walk_and_print( );
     }
@@ -481,7 +486,7 @@ struct ISingleton_less__MaterialManager__greater__wrapper : ISingleton< Material
     : ISingleton<MaterialManager>( )
       , bp::wrapper< ISingleton< MaterialManager > >(){
         // null constructor
-    
+
     }
 
     static void create_singleton(  ){
@@ -500,7 +505,7 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
     : InterferenceFunction1DParaCrystal( peak_distance, width, corr_length )
       , bp::wrapper< InterferenceFunction1DParaCrystal >(){
         // constructor
-    
+
     }
 
     virtual ::InterferenceFunction1DParaCrystal * clone(  ) const  {
@@ -510,7 +515,7 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
             return this->InterferenceFunction1DParaCrystal::clone(  );
         }
     }
-    
+
     ::InterferenceFunction1DParaCrystal * default_clone(  ) const  {
         return InterferenceFunction1DParaCrystal::clone( );
     }
@@ -522,7 +527,7 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
             return this->InterferenceFunction1DParaCrystal::evaluate( q );
         }
     }
-    
+
     double default_evaluate( ::kvector_t q ) const  {
         return InterferenceFunction1DParaCrystal::evaluate( q );
     }
@@ -534,7 +539,7 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
             return this->ISample::createParameterTree(  );
         }
     }
-    
+
     ::ParameterPool * default_createParameterTree(  ) {
         return ISample::createParameterTree( );
     }
@@ -546,7 +551,7 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
             this->ISample::walk_and_print(  );
         }
     }
-    
+
     void default_walk_and_print(  ) {
         ISample::walk_and_print( );
     }
@@ -564,212 +569,212 @@ void register_classes_2(){
         Transform3D_exposer.def( bp::init< Geometry::Point3D< double > const &, Geometry::Point3D< double > const &, Geometry::Point3D< double > const &, Geometry::Point3D< double > const &, Geometry::Point3D< double > const &, Geometry::Point3D< double > const & >(( bp::arg("fr0"), bp::arg("fr1"), bp::arg("fr2"), bp::arg("to0"), bp::arg("to1"), bp::arg("to2") )) );
         Transform3D_exposer.def( bp::init< Geometry::Transform3D const & >(( bp::arg("m") )) );
         { //::Geometry::Transform3D::dx
-        
+
             typedef double ( ::Geometry::Transform3D::*dx_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "dx"
                 , dx_function_type( &::Geometry::Transform3D::dx ) );
-        
+
         }
         { //::Geometry::Transform3D::dy
-        
+
             typedef double ( ::Geometry::Transform3D::*dy_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "dy"
                 , dy_function_type( &::Geometry::Transform3D::dy ) );
-        
+
         }
         { //::Geometry::Transform3D::dz
-        
+
             typedef double ( ::Geometry::Transform3D::*dz_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "dz"
                 , dz_function_type( &::Geometry::Transform3D::dz ) );
-        
+
         }
         { //::Geometry::Transform3D::getDecomposition
-        
+
             typedef void ( ::Geometry::Transform3D::*getDecomposition_function_type )( ::Geometry::Scale3D &,::Geometry::Rotate3D &,::Geometry::Translate3D & ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "getDecomposition"
                 , getDecomposition_function_type( &::Geometry::Transform3D::getDecomposition )
                 , ( bp::arg("scale"), bp::arg("rotation"), bp::arg("translation") ) );
-        
+
         }
         { //::Geometry::Transform3D::inverse
-        
+
             typedef ::Geometry::Transform3D ( ::Geometry::Transform3D::*inverse_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "inverse"
                 , inverse_function_type( &::Geometry::Transform3D::inverse ) );
-        
+
         }
         { //::Geometry::Transform3D::isNear
-        
+
             typedef bool ( ::Geometry::Transform3D::*isNear_function_type )( ::Geometry::Transform3D const &,double ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "isNear"
                 , isNear_function_type( &::Geometry::Transform3D::isNear )
                 , ( bp::arg("t"), bp::arg("tolerance")=2.20000000000000009206578920655319378310295179435041035276e-14 ) );
-        
+
         }
         Transform3D_exposer.def( bp::self != bp::self );
         { //::Geometry::Transform3D::operator()
-        
+
             typedef double ( ::Geometry::Transform3D::*__call___function_type )( int,int ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "__call__"
                 , __call___function_type( &::Geometry::Transform3D::operator() )
                 , ( bp::arg("arg0"), bp::arg("arg1") ) );
-        
+
         }
         Transform3D_exposer.def( bp::self * bp::self );
         { //::Geometry::Transform3D::operator=
-        
+
             typedef ::Geometry::Transform3D & ( ::Geometry::Transform3D::*assign_function_type )( ::Geometry::Transform3D const & ) ;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "assign"
                 , assign_function_type( &::Geometry::Transform3D::operator= )
                 , ( bp::arg("m") )
                 , bp::return_self< >() );
-        
+
         }
         Transform3D_exposer.def( bp::self == bp::self );
         { //::Geometry::Transform3D::setIdentity
-        
+
             typedef void ( ::Geometry::Transform3D::*setIdentity_function_type )(  ) ;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "setIdentity"
                 , setIdentity_function_type( &::Geometry::Transform3D::setIdentity ) );
-        
+
         }
         { //::Geometry::Transform3D::setTransform
-        
+
             typedef void ( Transform3D_wrapper::*setTransform_function_type )( double,double,double,double,double,double,double,double,double,double,double,double ) ;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "setTransform"
                 , setTransform_function_type( &Transform3D_wrapper::setTransform )
                 , ( bp::arg("XX"), bp::arg("XY"), bp::arg("XZ"), bp::arg("DX"), bp::arg("YX"), bp::arg("YY"), bp::arg("YZ"), bp::arg("DY"), bp::arg("ZX"), bp::arg("ZY"), bp::arg("ZZ"), bp::arg("DZ") ) );
-        
+
         }
         { //::Geometry::Transform3D::xx
-        
+
             typedef double ( ::Geometry::Transform3D::*xx_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "xx"
                 , xx_function_type( &::Geometry::Transform3D::xx ) );
-        
+
         }
         { //::Geometry::Transform3D::xy
-        
+
             typedef double ( ::Geometry::Transform3D::*xy_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "xy"
                 , xy_function_type( &::Geometry::Transform3D::xy ) );
-        
+
         }
         { //::Geometry::Transform3D::xz
-        
+
             typedef double ( ::Geometry::Transform3D::*xz_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "xz"
                 , xz_function_type( &::Geometry::Transform3D::xz ) );
-        
+
         }
         { //::Geometry::Transform3D::yx
-        
+
             typedef double ( ::Geometry::Transform3D::*yx_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "yx"
                 , yx_function_type( &::Geometry::Transform3D::yx ) );
-        
+
         }
         { //::Geometry::Transform3D::yy
-        
+
             typedef double ( ::Geometry::Transform3D::*yy_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "yy"
                 , yy_function_type( &::Geometry::Transform3D::yy ) );
-        
+
         }
         { //::Geometry::Transform3D::yz
-        
+
             typedef double ( ::Geometry::Transform3D::*yz_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "yz"
                 , yz_function_type( &::Geometry::Transform3D::yz ) );
-        
+
         }
         { //::Geometry::Transform3D::zx
-        
+
             typedef double ( ::Geometry::Transform3D::*zx_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "zx"
                 , zx_function_type( &::Geometry::Transform3D::zx ) );
-        
+
         }
         { //::Geometry::Transform3D::zy
-        
+
             typedef double ( ::Geometry::Transform3D::*zy_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "zy"
                 , zy_function_type( &::Geometry::Transform3D::zy ) );
-        
+
         }
         { //::Geometry::Transform3D::zz
-        
+
             typedef double ( ::Geometry::Transform3D::*zz_function_type )(  ) const;
-            
-            Transform3D_exposer.def( 
+
+            Transform3D_exposer.def(
                 "zz"
                 , zz_function_type( &::Geometry::Transform3D::zz ) );
-        
+
         }
         Transform3D_exposer.def_readonly( "Identity", Geometry::Transform3D::Identity );
     }
 
-    bp::class_< Rotate3D_wrapper, bp::bases< Geometry::Transform3D > >( "Rotate3D", bp::init< >() )    
-        .def( bp::init< double, Geometry::Point3D< double > const &, Geometry::Point3D< double > const & >(( bp::arg("a"), bp::arg("p1"), bp::arg("p2") )) )    
-        .def( 
+    bp::class_< Rotate3D_wrapper, bp::bases< Geometry::Transform3D > >( "Rotate3D", bp::init< >() )
+        .def( bp::init< double, Geometry::Point3D< double > const &, Geometry::Point3D< double > const & >(( bp::arg("a"), bp::arg("p1"), bp::arg("p2") )) )
+        .def(
             "setTransform"
             , (void ( Rotate3D_wrapper::* )( double,double,double,double,double,double,double,double,double,double,double,double ) )(&Rotate3D_wrapper::setTransform)
             , ( bp::arg("XX"), bp::arg("XY"), bp::arg("XZ"), bp::arg("DX"), bp::arg("YX"), bp::arg("YY"), bp::arg("YZ"), bp::arg("DY"), bp::arg("ZX"), bp::arg("ZY"), bp::arg("ZZ"), bp::arg("DZ") ) );
 
-    bp::class_< RotateX3D_wrapper, bp::bases< Geometry::Rotate3D > >( "RotateX3D", bp::init< >() )    
-        .def( bp::init< double >(( bp::arg("a") )) )    
-        .def( 
+    bp::class_< RotateX3D_wrapper, bp::bases< Geometry::Rotate3D > >( "RotateX3D", bp::init< >() )
+        .def( bp::init< double >(( bp::arg("a") )) )
+        .def(
             "setTransform"
             , (void ( RotateX3D_wrapper::* )( double,double,double,double,double,double,double,double,double,double,double,double ) )(&RotateX3D_wrapper::setTransform)
             , ( bp::arg("XX"), bp::arg("XY"), bp::arg("XZ"), bp::arg("DX"), bp::arg("YX"), bp::arg("YY"), bp::arg("YZ"), bp::arg("DY"), bp::arg("ZX"), bp::arg("ZY"), bp::arg("ZZ"), bp::arg("DZ") ) );
 
-    bp::class_< RotateY3D_wrapper, bp::bases< Geometry::Rotate3D > >( "RotateY3D", bp::init< >() )    
-        .def( bp::init< double >(( bp::arg("a") )) )    
-        .def( 
+    bp::class_< RotateY3D_wrapper, bp::bases< Geometry::Rotate3D > >( "RotateY3D", bp::init< >() )
+        .def( bp::init< double >(( bp::arg("a") )) )
+        .def(
             "setTransform"
             , (void ( RotateY3D_wrapper::* )( double,double,double,double,double,double,double,double,double,double,double,double ) )(&RotateY3D_wrapper::setTransform)
             , ( bp::arg("XX"), bp::arg("XY"), bp::arg("XZ"), bp::arg("DX"), bp::arg("YX"), bp::arg("YY"), bp::arg("YZ"), bp::arg("DY"), bp::arg("ZX"), bp::arg("ZY"), bp::arg("ZZ"), bp::arg("DZ") ) );
 
-    bp::class_< RotateZ3D_wrapper, bp::bases< Geometry::Rotate3D > >( "RotateZ3D", bp::init< >() )    
-        .def( bp::init< double >(( bp::arg("a") )) )    
-        .def( 
+    bp::class_< RotateZ3D_wrapper, bp::bases< Geometry::Rotate3D > >( "RotateZ3D", bp::init< >() )
+        .def( bp::init< double >(( bp::arg("a") )) )
+        .def(
             "setTransform"
             , (void ( RotateZ3D_wrapper::* )( double,double,double,double,double,double,double,double,double,double,double,double ) )(&RotateZ3D_wrapper::setTransform)
             , ( bp::arg("XX"), bp::arg("XY"), bp::arg("XZ"), bp::arg("DX"), bp::arg("YX"), bp::arg("YY"), bp::arg("YZ"), bp::arg("DY"), bp::arg("ZX"), bp::arg("ZY"), bp::arg("ZZ"), bp::arg("DZ") ) );
@@ -781,25 +786,25 @@ void register_classes_2(){
         IMaterial_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
         IMaterial_exposer.def( bp::init< IMaterial const & >(( bp::arg("other") )) );
         { //::IMaterial::operator=
-        
+
             typedef ::IMaterial & ( ::IMaterial::*assign_function_type )( ::IMaterial const & ) ;
-            
-            IMaterial_exposer.def( 
+
+            IMaterial_exposer.def(
                 "assign"
                 , assign_function_type( &::IMaterial::operator= )
                 , ( bp::arg("other") )
                 , bp::return_self< >() );
-        
+
         }
         { //::IMaterial::print
-        
+
             typedef void ( IMaterial_wrapper::*print_function_type )( ::std::ostream & ) const;
-            
-            IMaterial_exposer.def( 
+
+            IMaterial_exposer.def(
                 "print"
                 , print_function_type( &IMaterial_wrapper::default_print )
                 , ( bp::arg("ostr") ) );
-        
+
         }
         IMaterial_exposer.def( bp::self_ns::str( bp::self ) );
     }
@@ -812,166 +817,166 @@ void register_classes_2(){
         HomogeneousMaterial_exposer.def( bp::init< std::string const &, complex_t >(( bp::arg("name"), bp::arg("refractive_index") )) );
         HomogeneousMaterial_exposer.def( bp::init< HomogeneousMaterial const & >(( bp::arg("other") )) );
         { //::HomogeneousMaterial::getRefractiveIndex
-        
+
             typedef ::complex_t ( ::HomogeneousMaterial::*getRefractiveIndex_function_type )(  ) const;
-            
-            HomogeneousMaterial_exposer.def( 
+
+            HomogeneousMaterial_exposer.def(
                 "getRefractiveIndex"
                 , getRefractiveIndex_function_type( &::HomogeneousMaterial::getRefractiveIndex ) );
-        
+
         }
         { //::HomogeneousMaterial::operator=
-        
+
             typedef ::HomogeneousMaterial & ( ::HomogeneousMaterial::*assign_function_type )( ::HomogeneousMaterial const & ) ;
-            
-            HomogeneousMaterial_exposer.def( 
+
+            HomogeneousMaterial_exposer.def(
                 "assign"
                 , assign_function_type( &::HomogeneousMaterial::operator= )
                 , ( bp::arg("other") )
                 , bp::return_self< >() );
-        
+
         }
         { //::HomogeneousMaterial::print
-        
+
             typedef void ( HomogeneousMaterial_wrapper::*print_function_type )( ::std::ostream & ) const;
-            
-            HomogeneousMaterial_exposer.def( 
+
+            HomogeneousMaterial_exposer.def(
                 "print"
                 , print_function_type( &HomogeneousMaterial_wrapper::default_print )
                 , ( bp::arg("ostr") ) );
-        
+
         }
         { //::HomogeneousMaterial::setRefractiveIndex
-        
+
             typedef void ( ::HomogeneousMaterial::*setRefractiveIndex_function_type )( ::complex_t ) ;
-            
-            HomogeneousMaterial_exposer.def( 
+
+            HomogeneousMaterial_exposer.def(
                 "setRefractiveIndex"
                 , setRefractiveIndex_function_type( &::HomogeneousMaterial::setRefractiveIndex )
                 , ( bp::arg("refractive_index") ) );
-        
+
         }
     }
 
-    bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, boost::noncopyable >( "ICompositeSample", bp::init< >() )    
-        .def( 
+    bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, boost::noncopyable >( "ICompositeSample", bp::init< >() )
+        .def(
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
+            , bp::return_value_policy< bp::manage_new_object >() )
+        .def(
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_walk_and_print) );
 
-    bp::class_< IClusteredNanoParticles_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "IClusteredNanoParticles" )    
-        .def( 
+    bp::class_< IClusteredNanoParticles_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "IClusteredNanoParticles" )
+        .def(
             "clone"
             , bp::pure_virtual( (::IClusteredNanoParticles * ( ::IClusteredNanoParticles::* )(  ) const)(&::IClusteredNanoParticles::clone) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
+            , bp::return_value_policy< bp::reference_existing_object >() )
+        .def(
             "createTotalFormFactor"
             , bp::pure_virtual( (::IFormFactor * ( ::IClusteredNanoParticles::* )( ::IFormFactor const &,::complex_t ) const)(&::IClusteredNanoParticles::createTotalFormFactor) )
             , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
+            , bp::return_value_policy< bp::manage_new_object >() )
+        .def(
             "setAmbientRefractiveIndex"
             , bp::pure_virtual( (void ( ::IClusteredNanoParticles::* )( ::complex_t ) )(&::IClusteredNanoParticles::setAmbientRefractiveIndex) )
-            , ( bp::arg("refractive_index") ) )    
-        .def( 
+            , ( bp::arg("refractive_index") ) )
+        .def(
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( IClusteredNanoParticles_wrapper::* )(  ) )(&IClusteredNanoParticles_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
+            , bp::return_value_policy< bp::manage_new_object >() )
+        .def(
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( IClusteredNanoParticles_wrapper::* )(  ) )(&IClusteredNanoParticles_wrapper::default_walk_and_print) );
 
-    bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, boost::noncopyable >( "IFormFactorDecorator", bp::init< IFormFactor * >(( bp::arg("p_form_factor") )) )    
-        .def( 
+    bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, boost::noncopyable >( "IFormFactorDecorator", bp::init< IFormFactor * >(( bp::arg("p_form_factor") )) )
+        .def(
             "clone"
             , bp::pure_virtual( (::IFormFactorDecorator * ( ::IFormFactorDecorator::* )(  ) const)(&::IFormFactorDecorator::clone) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
+            , bp::return_value_policy< bp::reference_existing_object >() )
+        .def(
             "setAmbientRefractiveIndex"
             , (void ( ::IFormFactorDecorator::* )( ::complex_t ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
             , (void ( IFormFactorDecorator_wrapper::* )( ::complex_t ) )(&IFormFactorDecorator_wrapper::default_setAmbientRefractiveIndex)
-            , ( bp::arg("refractive_index") ) )    
-        .def( 
+            , ( bp::arg("refractive_index") ) )
+        .def(
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
+            , bp::return_value_policy< bp::manage_new_object >() )
+        .def(
             "evaluate"
             , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::kvector_t,::kvector_t ) const)(&::IFormFactor::evaluate) )
-            , ( bp::arg("k_i"), bp::arg("k_f") ) )    
-        .def( 
+            , ( bp::arg("k_i"), bp::arg("k_f") ) )
+        .def(
             "evaluateForComplexkz"
             , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::kvector_t,::kvector_t,::complex_t,::complex_t ) const)(&::IFormFactor::evaluateForComplexkz) )
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("k_iz"), bp::arg("k_fz") ) )    
-        .def( 
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("k_iz"), bp::arg("k_fz") ) )
+        .def(
             "getNumberOfStochasticParameters"
             , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)
-            , (int ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getNumberOfStochasticParameters) )    
-        .def( 
+            , (int ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getNumberOfStochasticParameters) )
+        .def(
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_walk_and_print) );
 
-    bp::class_< IInterferenceFunction_wrapper, bp::bases< ISample >, boost::noncopyable >( "IInterferenceFunction" )    
-        .def( 
+    bp::class_< IInterferenceFunction_wrapper, bp::bases< ISample >, boost::noncopyable >( "IInterferenceFunction" )
+        .def(
             "clone"
             , bp::pure_virtual( (::IInterferenceFunction * ( ::IInterferenceFunction::* )(  ) const)(&::IInterferenceFunction::clone) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
+            , bp::return_value_policy< bp::reference_existing_object >() )
+        .def(
             "evaluate"
             , bp::pure_virtual( (double ( ::IInterferenceFunction::* )( ::kvector_t ) const)(&::IInterferenceFunction::evaluate) )
-            , ( bp::arg("q") ) )    
-        .def( 
+            , ( bp::arg("q") ) )
+        .def(
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( IInterferenceFunction_wrapper::* )(  ) )(&IInterferenceFunction_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
+            , bp::return_value_policy< bp::manage_new_object >() )
+        .def(
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( IInterferenceFunction_wrapper::* )(  ) )(&IInterferenceFunction_wrapper::default_walk_and_print) );
 
-    bp::class_< ISingleton_less__MaterialManager__greater__wrapper, boost::noncopyable >( "ISingleton_less__MaterialManager__greater_", bp::no_init )    
-        .def( bp::init< >() )    
-        .def( 
+    bp::class_< ISingleton_less__MaterialManager__greater__wrapper, boost::noncopyable >( "ISingleton_less__MaterialManager__greater_", bp::no_init )
+        .def( bp::init< >() )
+        .def(
             "create_singleton"
-            , (void (*)(  ))(&ISingleton_less__MaterialManager__greater__wrapper::create_singleton) )    
-        .def( 
+            , (void (*)(  ))(&ISingleton_less__MaterialManager__greater__wrapper::create_singleton) )
+        .def(
             "instance"
             , (::MaterialManager & (*)(  ))( &::ISingleton< MaterialManager >::instance )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
+            , bp::return_value_policy< bp::reference_existing_object >() )
+        .def(
             "onDeadReference"
-            , (void (*)(  ))(&ISingleton_less__MaterialManager__greater__wrapper::onDeadReference) )    
-        .staticmethod( "create_singleton" )    
-        .staticmethod( "instance" )    
+            , (void (*)(  ))(&ISingleton_less__MaterialManager__greater__wrapper::onDeadReference) )
+        .staticmethod( "create_singleton" )
+        .staticmethod( "instance" )
         .staticmethod( "onDeadReference" );
 
-    bp::class_< InterferenceFunction1DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunction1DParaCrystal", bp::init< double, double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("width"), bp::arg("corr_length")=0.0 )) )    
-        .def( 
+    bp::class_< InterferenceFunction1DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunction1DParaCrystal", bp::init< double, double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("width"), bp::arg("corr_length")=0.0 )) )
+        .def(
             "clone"
             , (::InterferenceFunction1DParaCrystal * ( ::InterferenceFunction1DParaCrystal::* )(  ) const)(&::InterferenceFunction1DParaCrystal::clone)
             , (::InterferenceFunction1DParaCrystal * ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_clone)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
+            , bp::return_value_policy< bp::reference_existing_object >() )
+        .def(
             "evaluate"
             , (double ( ::InterferenceFunction1DParaCrystal::* )( ::kvector_t ) const)(&::InterferenceFunction1DParaCrystal::evaluate)
             , (double ( InterferenceFunction1DParaCrystal_wrapper::* )( ::kvector_t ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_evaluate)
-            , ( bp::arg("q") ) )    
-        .def( 
+            , ( bp::arg("q") ) )
+        .def(
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
+            , bp::return_value_policy< bp::manage_new_object >() )
+        .def(
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_walk_and_print) );

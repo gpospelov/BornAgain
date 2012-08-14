@@ -44,6 +44,16 @@ complex_t WeightedFormFactor::evaluate(kvector_t k_i, kvector_t k_f) const
     return result;
 }
 
+complex_t WeightedFormFactor::evaluate(cvector_t k_i, cvector_t k_f) const
+{
+    complex_t result(0.0, 0.0);
+    for (size_t index=0; index<m_form_factors.size(); ++index) {
+        complex_t ff_evaluate = m_form_factors[index]->evaluate(k_i, k_f);
+        result += m_weights[index]*ff_evaluate;
+    }
+    return result;
+}
+
 complex_t WeightedFormFactor::evaluateForComplexkz(kvector_t k_i, kvector_t k_f,
         complex_t k_iz, complex_t k_fz) const
 {

@@ -18,6 +18,13 @@ complex_t DWBAFormFactor::evaluate(kvector_t k_i, kvector_t k_f) const
     return evaluateForComplexkz(k_i, k_f, k_i.z(), k_f.z());
 }
 
+complex_t DWBAFormFactor::evaluate(cvector_t k_i, cvector_t k_f) const
+{
+    calculateTerms(k_i, k_f);
+    return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
+}
+
+
 complex_t DWBAFormFactor::evaluateForComplexkz(kvector_t k_i, kvector_t k_f,
 		complex_t k_iz, complex_t k_fz) const
 {
@@ -35,6 +42,12 @@ void DWBAFormFactor::calculateTerms(kvector_t k_i, kvector_t k_f) const {
     m_term_RS = getR(alpha_i)*mp_form_factor->evaluate(k_i_mirror_xy, k_f)*getT(alpha_f);
     m_term_SR = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_f_mirror_xy)*getR(alpha_f);
     m_term_RSR = getR(alpha_i)*mp_form_factor->evaluate(k_i_mirror_xy, k_f_mirror_xy)*getR(alpha_f);
+}
+
+void DWBAFormFactor::calculateTerms(cvector_t k_i, cvector_t k_f) const {
+    kvector_t k_i_real(k_i.x().real(), k_i.y().real(), k_i.z().real());
+    kvector_t k_f_real(k_f.x().real(), k_f.y().real(), k_f.z().real());
+    calculateTerms(k_i_real, k_f_real, k_i.z(), k_f.z());
 }
 DWBAFormFactor* DWBAFormFactor::clone() const
 {

@@ -38,6 +38,8 @@ double GenerateUniformRandom();
 
 double Bessel_J1(double value);
 
+complex_t Bessel_J1(complex_t value);
+
 double Sinc(double value);
 
 complex_t Sinc(complex_t value);

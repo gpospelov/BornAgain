@@ -17,6 +17,7 @@
 //#include "CLHEP/Vector/ThreeVector.h"
 #include <cmath>
 #include <iostream>
+#include <complex>
 
 namespace Geometry {
 class Transform3D;
@@ -130,36 +131,36 @@ class Transform3D;
     /**
      * Gets components by index. */
     T operator[](int i) const { return v_[i]; }
-    
+
 //    /**
 //     * Sets components by index. */
 //    T & operator()(int i) { return v_[i]; }
     /**
      * Sets components by index. */
     T & operator[](int i) { return v_[i]; }
-    
+
     // ------------------------------------
     // Cartesian coordinate system: x, y, z
     // ------------------------------------
 
     /**
-     * Gets x-component in cartesian coordinate system. */ 
+     * Gets x-component in cartesian coordinate system. */
     inline T x() const { return v_[0]; }
     /**
-     * Gets y-component in cartesian coordinate system. */ 
+     * Gets y-component in cartesian coordinate system. */
     inline T y() const { return v_[1]; }
     /**
-     * Gets z-component in cartesian coordinate system. */ 
+     * Gets z-component in cartesian coordinate system. */
     inline T z() const { return v_[2]; }
 
     /**
-     * Sets x-component in cartesian coordinate system. */ 
+     * Sets x-component in cartesian coordinate system. */
     void setX(T a) { v_[0] = a; }
     /**
-     * Sets y-component in cartesian coordinate system. */ 
+     * Sets y-component in cartesian coordinate system. */
     void setY(T a) { v_[1] = a; }
     /**
-     * Sets z-component in cartesian coordinate system. */ 
+     * Sets z-component in cartesian coordinate system. */
     void setZ(T a) { v_[2] = a; }
 
     /**
@@ -191,7 +192,7 @@ class Transform3D;
       T factor = perp();
       if (factor > 0) {
 	factor = rh/factor; v_[0] *= factor; v_[1] *= factor;
-      } 
+      }
     }
 
     // ------------------------------------------
@@ -224,10 +225,10 @@ class Transform3D;
     /**
      * Gets r-component in spherical coordinate system */
     T getR() const { return r(); }
-    /** 
+    /**
      * Gets phi-component in spherical coordinate system */
     T getPhi() const { return phi(); }
-    /** 
+    /**
      * Gets theta-component in spherical coordinate system */
     T getTheta() const { return theta(); }
 
@@ -237,7 +238,7 @@ class Transform3D;
       T factor = mag();
       if (factor > 0) {
 	factor = ma/factor; v_[0] *= factor; v_[1] *= factor; v_[2] *= factor;
-      } 
+      }
     }
     /**
      * Sets r-component in spherical coordinate system. */
@@ -311,7 +312,7 @@ class Transform3D;
     // ---------------
 
     /**
-     * Returns unit vector parallel to this. */ 
+     * Returns unit vector parallel to this. */
     BasicVector3D<T> unit() const {
       T len = mag();
       return (len > 0) ?
@@ -319,7 +320,7 @@ class Transform3D;
     }
 
     /**
-     * Returns orthogonal vector. */ 
+     * Returns orthogonal vector. */
     BasicVector3D<T> orthogonal() const {
       T dx = x() < 0 ? -x() : x();
       T dy = y() < 0 ? -y() : y();
@@ -364,7 +365,7 @@ class Transform3D;
 
     /**
      * Transformation by Transform3D. */
-    BasicVector3D<double> & transform(const Transform3D & m);
+    BasicVector3D<T> &transform(const Transform3D &m);
 
   };
 
@@ -457,7 +458,7 @@ class Transform3D;
 //  operator/(const BasicVector3D<float> & v, double a) {
 //    return BasicVector3D<float>(v.x()/static_cast<float>(a), v.y()/static_cast<float>(a), v.z()/static_cast<float>(a));
 //  }
-  
+
 //  /**
 //   * Comparison of two vectors for equality.
 //   * @relates BasicVector3D
@@ -477,9 +478,9 @@ class Transform3D;
 //  }
 
   /*************************************************************************
-   *                                                                       *  
+   *                                                                       *
    * Non-member functions for BasicVector3D<double>                        *
-   *                                                                       *  
+   *                                                                       *
    *************************************************************************/
 
   /**
@@ -565,9 +566,9 @@ class Transform3D;
   operator/(const BasicVector3D<double> & v, double a) {
     return BasicVector3D<double>(v.x()/a, v.y()/a, v.z()/a);
   }
-  
+
   /**
-   * Comparison of two vectors for equality. 
+   * Comparison of two vectors for equality.
    * @relates BasicVector3D
    */
   inline bool
@@ -577,7 +578,7 @@ class Transform3D;
   }
 
   /**
-   * Comparison of two vectors for inequality. 
+   * Comparison of two vectors for inequality.
    * @relates BasicVector3D
    */
   inline bool
@@ -604,6 +605,136 @@ class Transform3D;
    */
   BasicVector3D<double>
   operator*(const Transform3D & m, const BasicVector3D<double> & v);
+
+
+  /*************************************************************************
+   *                                                                       *
+   * Non-member functions for BasicVector3D<std::complex<double> >                        *
+   *                                                                       *
+   *************************************************************************/
+
+  /**
+   * Output to stream.
+   * @relates BasicVector3D
+   */
+  std::ostream &
+  operator<<(std::ostream &, const BasicVector3D<std::complex<double> > &);
+
+//  /**
+//   * Input from stream.
+//   * @relates BasicVector3D
+//   */
+//  std::istream &
+//  operator>>(std::istream &, BasicVector3D<double> &);
+
+  /**
+   * Unary plus.
+   * @relates BasicVector3D
+   */
+  inline BasicVector3D<std::complex<double> >
+  operator+(const BasicVector3D<std::complex<double> > & v) { return v; }
+
+  /**
+   * Addition of two vectors.
+   * @relates BasicVector3D
+   */
+  inline BasicVector3D<std::complex<double> >
+  operator+(const BasicVector3D<std::complex<double> > & a,const BasicVector3D<std::complex<double> > & b) {
+    return BasicVector3D<std::complex<double> >(a.x()+b.x(), a.y()+b.y(), a.z()+b.z());
+  }
+
+  /**
+   * Unary minus.
+   * @relates BasicVector3D
+   */
+  inline BasicVector3D<std::complex<double> >
+  operator-(const BasicVector3D<std::complex<double> > & v) {
+    return BasicVector3D<std::complex<double> >(-v.x(), -v.y(), -v.z());
+  }
+
+  /**
+   * Subtraction of two vectors.
+   * @relates BasicVector3D
+   */
+  inline BasicVector3D<std::complex<double> >
+  operator-(const BasicVector3D<std::complex<double> > & a,const BasicVector3D<std::complex<double> > & b) {
+    return BasicVector3D<std::complex<double> >(a.x()-b.x(), a.y()-b.y(), a.z()-b.z());
+  }
+
+  /**
+   * Multiplication vector by scalar.
+   * @relates BasicVector3D
+   */
+  inline BasicVector3D<std::complex<double> >
+  operator*(const BasicVector3D<std::complex<double> > & v, std::complex<double> a) {
+    return BasicVector3D<std::complex<double> >(v.x()*a, v.y()*a, v.z()*a);
+  }
+
+  /**
+   * Scalar product of two vectors.
+   * @relates BasicVector3D
+   */
+  inline std::complex<double>
+  operator*(const BasicVector3D<std::complex<double> > & a,const BasicVector3D<std::complex<double> > & b) {
+    return a.dot(b);
+  }
+
+  /**
+   * Multiplication scalar by vector.
+   * @relates BasicVector3D
+   */
+  inline BasicVector3D<std::complex<double> >
+  operator*(std::complex<double>  a, const BasicVector3D<std::complex<double> > & v) {
+    return BasicVector3D<std::complex<double> >(a*v.x(), a*v.y(), a*v.z());
+  }
+
+  /**
+   * Division vector by scalar.
+   * @relates BasicVector3D
+   */
+  inline BasicVector3D<std::complex<double> >
+  operator/(const BasicVector3D<std::complex<double> > & v, std::complex<double> a) {
+    return BasicVector3D<std::complex<double> >(v.x()/a, v.y()/a, v.z()/a);
+  }
+
+  /**
+   * Comparison of two vectors for equality.
+   * @relates BasicVector3D
+   */
+  inline bool
+  operator==(const BasicVector3D<std::complex<double> > & a, const BasicVector3D<std::complex<double> > & b)
+  {
+    return (a.x()==b.x() && a.y()==b.y() && a.z()==b.z());
+  }
+
+  /**
+   * Comparison of two vectors for inequality.
+   * @relates BasicVector3D
+   */
+  inline bool
+  operator!=(const BasicVector3D<std::complex<double> > & a, const BasicVector3D<std::complex<double> > & b)
+  {
+    return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z());
+  }
+
+  inline BasicVector3D<std::complex<double> > CrossProduct(const BasicVector3D<std::complex<double> > vectorLeft, const BasicVector3D<std::complex<double> > vectorRight)
+  {
+      std::complex<double> x = vectorLeft.y()*vectorRight.z() - vectorLeft.z()*vectorRight.y();
+      std::complex<double> y = vectorLeft.z()*vectorRight.x() - vectorLeft.x()*vectorRight.z();
+      std::complex<double> z = vectorLeft.x()*vectorRight.y() - vectorLeft.y()*vectorRight.x();
+      return BasicVector3D<std::complex<double> > (x, y, z);
+  }
+
+  inline std::complex<double> DotProduct(const BasicVector3D<std::complex<double> > left, const BasicVector3D<std::complex<double> > right)
+  {
+      return left.x()*right.x() + left.y()*right.y() + left.z()*right.z();
+  }
+
+  /**
+   * Transformation of BasicVector3D<double> by Transform3D.
+   */
+  BasicVector3D<std::complex<double> >
+  operator*(const Transform3D & m, const BasicVector3D<std::complex<double> > & v);
 
 
 } /* namespace Geometry */

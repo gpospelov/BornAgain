@@ -10,7 +10,7 @@
 #include "TCanvas.h"
 
 
-TestIsGISAXS9::TestIsGISAXS9()
+TestIsGISAXS9::TestIsGISAXS9()  : IFunctionalTest("TestIsGISAXS9")
 {
 }
 
@@ -74,8 +74,8 @@ void TestIsGISAXS9::finalise()
     canvaces[1] = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS9_c2", "Pyramid DWBA formfactor");
 
     for(int i_comparison=0; i_comparison<ncomparison; i_comparison++) {
-        OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_files[i_comparison]);
-        OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_files[i_comparison]);
+        OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_files[i_comparison], 10);
+        OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_files[i_comparison], 10);
 
         TCanvas *c1 = canvaces[i_comparison];
         c1->Divide(2,2);

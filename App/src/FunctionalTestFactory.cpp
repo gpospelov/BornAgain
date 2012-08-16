@@ -1,9 +1,10 @@
-#include "TestFactory.h"
+#include "FunctionalTestFactory.h"
 #include "TestRoughness.h"
 #include "TestFresnelCoeff.h"
 #include "TestFormFactor.h"
 #include "TestDiffuseReflection.h"
 #include "TestIsGISAXS1.h"
+#include "TestIsGISAXS2.h"
 #include "TestIsGISAXS3.h"
 #include "TestIsGISAXS9.h"
 #include "TestIsGISAXS10.h"
@@ -21,7 +22,7 @@
 
 
 
-TestFactory::TestFactory() : m_benchmark(0)
+FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
 {
     setOwnObjects(true);
 
@@ -30,6 +31,7 @@ TestFactory::TestFactory() : m_benchmark(0)
     registerItem("formfactor",  IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
     registerItem("diffuse",     IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
     registerItem("isgisaxs1",   IFactoryCreateFunction<TestIsGISAXS1, IFunctionalTest> );
+    registerItem("isgisaxs2",   IFactoryCreateFunction<TestIsGISAXS2, IFunctionalTest> );
     registerItem("isgisaxs3",   IFactoryCreateFunction<TestIsGISAXS3, IFunctionalTest> );
     registerItem("isgisaxs9",   IFactoryCreateFunction<TestIsGISAXS9, IFunctionalTest> );
     registerItem("isgisaxs10",  IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest> );
@@ -47,7 +49,7 @@ TestFactory::TestFactory() : m_benchmark(0)
 
 
 
-TestFactory::~TestFactory()
+FunctionalTestFactory::~FunctionalTestFactory()
 {
     delete m_benchmark;
 }
@@ -56,7 +58,7 @@ TestFactory::~TestFactory()
 /* ************************************************************************* */
 // print benchmark summary on the screen
 /* ************************************************************************* */
-void TestFactory::print_benchmarks()
+void FunctionalTestFactory::print_benchmarks()
 {
     std::cout << "--- TestFactory::print_benchmarks() ---" << std::endl;
     Float_t rp, cp;
@@ -67,7 +69,7 @@ void TestFactory::print_benchmarks()
 /* ************************************************************************* */
 // execute specific functional tests
 /* ************************************************************************* */
-void TestFactory::execute(std::string name)
+void FunctionalTestFactory::execute(std::string name)
 {
     //IFunctionalTest *test = TestFactory::instance().createItem( args[i] );
     IFunctionalTest *test(0);
@@ -89,7 +91,7 @@ void TestFactory::execute(std::string name)
 }
 
 
-void TestFactory::profile(std::string name)
+void FunctionalTestFactory::profile(std::string name)
 {
     //IFunctionalTest *test = TestFactory::instance().createItem( args[i] );
     IFunctionalTest *test(0);
@@ -111,7 +113,7 @@ void TestFactory::profile(std::string name)
 /* ************************************************************************* */
 // execute all registered functional tests
 /* ************************************************************************* */
-void TestFactory::execute_all()
+void FunctionalTestFactory::execute_all()
 {
     CallbackMap_t::const_iterator it;
     for(it=m_callbacks.begin(); it != m_callbacks.end(); it++ ) {
@@ -125,7 +127,7 @@ void TestFactory::execute_all()
 /* ************************************************************************* */
 // print on the screen names of registered tests
 /* ************************************************************************* */
-void TestFactory::print_testnames()
+void FunctionalTestFactory::print_testnames()
 {
     std::string help;
     help += "TestFactory::print_testnames() -> Info. \n";
@@ -142,7 +144,7 @@ void TestFactory::print_testnames()
 /* ************************************************************************* */
 // return vector of registered test names
 /* ************************************************************************* */
-std::vector<std::string > TestFactory::get_testnames()
+std::vector<std::string > FunctionalTestFactory::get_testnames()
 {
     std::vector<std::string > names;
     CallbackMap_t::const_iterator it;

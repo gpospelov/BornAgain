@@ -1,5 +1,5 @@
-#ifndef IFUNCTIONALTEST_H
-#define IFUNCTIONALTEST_H
+#ifndef TESTISGISAXS2_H
+#define TESTISGISAXS2_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,32 +9,32 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   IFunctionalTest.h
-//! @brief  Defenition of base class for functional tests
+//! @file   TestIsGISAXS2.h
+//! @brief  Definition of TestIsGISAXS2 class for IsGISAXS validation
 //! @author Scientific Computing Group at FRM II
-//! @date   01.05.2012
+//! @date   16.08.2012
 
+#include "IFunctionalTest.h"
+#include "OutputData.h"
+#include "ISample.h"
 
-#include <string>
-#include "INamed.h"
 
 //- -------------------------------------------------------------------
-//! @class IFunctionalTest
-//! @brief Base class for sophisticated functional tests.
-//! See also FunctionalTestFactory
+//! @class TestIsGISAXS2
+//! @brief Comparison with IsGISAXS ex-2: mean form factors for particles
+//! with shape size distributions
 //- -------------------------------------------------------------------
-class IFunctionalTest : public INamed
+class TestIsGISAXS2 : public IFunctionalTest
 {
 public:
-    IFunctionalTest(){}
-    IFunctionalTest(const std::string &name) : INamed(name) {}
-    IFunctionalTest(const std::string &name, const std::string &title) : INamed(name, title) {}
-    virtual ~IFunctionalTest(){}
+    TestIsGISAXS2();
+    virtual ~TestIsGISAXS2(){}
 
-    virtual void initialise() {}
     virtual void execute();
-    virtual void finalise() {}
+    virtual void finalise();
+
+
 
 };
 
-#endif // IFUNCTIONALTEST_H
+#endif // TESTISGISAXS2_H

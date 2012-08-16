@@ -91,7 +91,7 @@ protected:
 
     /// evaluate scattering amplitude for complex wavevector
     /// @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
-    virtual complex_t evaluate_for_q(cvector_t q) const { return complex_t(0.0, 0.0); } // TODO: remvoe this default implementation
+    virtual complex_t evaluate_for_q(cvector_t q) const { (void)q; return complex_t(0.0, 0.0); } // TODO: remvoe this default implementation
 
     /// evaluate scattering amplitude for wavevector q\with complex z-component
     /// @param q  wavevector transfer \f$q\equiv k_i-k_f\f$

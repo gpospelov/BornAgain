@@ -1,5 +1,5 @@
-#ifndef TESTFACTORY_H
-#define TESTFACTORY_H
+#ifndef FUNCTIONALTESTFACTORY_H
+#define FUNCTIONALTESTFACTORY_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,7 +9,7 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestFactory.h
+//! @file   FunctionalTestFactory.h
 //! @brief  Definition of factory class to hold collection of functional tests
 //! @author Scientific Computing Group at FRM II
 //! @date   01.05.2012
@@ -22,12 +22,12 @@
 
 class TBenchmark;
 
-class TestFactory : public ISingleton<TestFactory>, public IFactory<std::string, IFunctionalTest>
+class FunctionalTestFactory : public ISingleton<FunctionalTestFactory>, public IFactory<std::string, IFunctionalTest>
 //before it was template class ISingleton<IFactory<std::string, IFunctionalTest> >;
 {
 public:
-    TestFactory();
-    virtual ~TestFactory();
+    FunctionalTestFactory();
+    virtual ~FunctionalTestFactory();
 
     //! execute specified test
     void execute(std::string name);
@@ -51,4 +51,4 @@ private:
     TBenchmark *m_benchmark;
 };
 
-#endif // TESTFACTORY_H
+#endif // FUNCTIONALTESTFACTORY_H

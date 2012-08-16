@@ -256,9 +256,9 @@ ISample *StandardSamples::IsGISAXS1_CylinderAndPrism()
 
 
 /* ************************************************************************* */
-// IsGISAXS1 functional test: cylinder on top of substrate
+// IsGISAXS3 functional test: cylinder on top of substrate
 /* ************************************************************************* */
-ISample *StandardSamples::IsGISAXS3_Cylinder()
+ISample *StandardSamples::IsGISAXS3_CylinderDWBA()
 {
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
@@ -276,6 +276,38 @@ ISample *StandardSamples::IsGISAXS3_Cylinder()
 
     p_multi_layer->addLayer(air_layer_decorator);
     p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+// IsGISAXS3 functional test: cylinder in the air
+ISample *StandardSamples::IsGISAXS3_CylinderBA()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    NanoParticleDecoration particle_decoration( new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    p_multi_layer->addLayer(air_layer_decorator);
+    return p_multi_layer;
+}
+
+// IsGISAXS3 functional test: cylinder in the air with size distribution
+ISample *StandardSamples::IsGISAXS3_CylinderBASize()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    NanoParticleDecoration particle_decoration( new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    p_multi_layer->addLayer(air_layer_decorator);
     return p_multi_layer;
 }
 

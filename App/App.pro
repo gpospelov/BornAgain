@@ -17,6 +17,7 @@ SOURCES += \
     src/CommandLine.cpp \
     src/DrawHelper.cpp \
     src/EventFrame.cpp \
+    src/FunctionalTestFactory.cpp \
     src/IFunctionalTest.cpp \
     src/IsGISAXSTools.cpp \
     src/SampleFactory.cpp \
@@ -24,11 +25,11 @@ SOURCES += \
     src/TestConvolution.cpp \
     src/TestDetectorResolution.cpp \
     src/TestDiffuseReflection.cpp \
-    src/TestFactory.cpp \
     src/TestFittingModule.cpp \
     src/TestFormFactor.cpp \
     src/TestFresnelCoeff.cpp \
     src/TestIsGISAXS1.cpp \
+    src/TestIsGISAXS2.cpp \
     src/TestIsGISAXS3.cpp \
     src/TestIsGISAXS9.cpp \
     src/TestIsGISAXS10.cpp \
@@ -45,6 +46,7 @@ HEADERS += \
     inc/CommandLine.h \
     inc/DrawHelper.h \
     inc/EventFrame.h \
+    inc/FunctionalTestFactory.h \
     inc/IFunctionalTest.h \
     inc/IsGISAXSTools.h \
     inc/SampleFactory.h \
@@ -52,11 +54,11 @@ HEADERS += \
     inc/TestConvolution.h \
     inc/TestDetectorResolution.h \
     inc/TestDiffuseReflection.h \
-    inc/TestFactory.h \
     inc/TestFittingModule.h \
     inc/TestFormFactor.h \
     inc/TestFresnelCoeff.h \
     inc/TestIsGISAXS1.h \
+    inc/TestIsGISAXS2.h \
     inc/TestIsGISAXS3.h \
     inc/TestIsGISAXS9.h \
     inc/TestIsGISAXS10.h \

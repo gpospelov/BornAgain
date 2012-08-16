@@ -18,6 +18,7 @@
 #include "OutputData.h"
 #include "ISample.h"
 
+#include <string>
 
 //- -------------------------------------------------------------------
 //! @class TestIsGISAXS3
@@ -26,10 +27,21 @@
 class TestIsGISAXS3 : public IFunctionalTest
 {
 public:
-    TestIsGISAXS3(){}
+    TestIsGISAXS3();
     virtual ~TestIsGISAXS3(){}
     virtual void execute();
     virtual void finalise();
 
+private:
+    // structure to holed info over several compare cases
+    struct CompareStruct
+    {
+        CompareStruct(std::string _isginame, std::string _thisname, std::string _descr) : isginame(_isginame), thisname(_thisname), descr(_descr){}
+        std::string isginame;
+        std::string thisname;
+        std::string descr;
+    };
+
+    std::string m_data_path;
 };
 #endif /* TESTISGISAXS3_H_ */

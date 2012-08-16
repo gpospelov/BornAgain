@@ -1,4 +1,4 @@
-#include "TestFactory.h"
+#include "FunctionalTestFactory.h"
 #include "DrawHelper.h"
 #include "CommandLine.h"
 #include "Utils.h"
@@ -21,7 +21,7 @@ int main(int argc, char **argv)
     if( args.find("profile") ) {
         for(size_t i=0; i<args.size(); i++) {
             if(args.isFunctionalTest( args[i] ))
-            TestFactory::instance().profile( args[i] );
+            FunctionalTestFactory::instance().profile( args[i] );
         }
         return 0;
     }
@@ -34,13 +34,13 @@ int main(int argc, char **argv)
     // running functional tests
     if( args.find("all") ) {
         // running all registered tests
-        TestFactory::instance().execute_all();
+        FunctionalTestFactory::instance().execute_all();
 
     } else {
         // running specified tests
         for(size_t i=0; i<args.size(); i++) {
             if(args.isFunctionalTest( args[i] ))
-            TestFactory::instance().execute( args[i] );
+            FunctionalTestFactory::instance().execute( args[i] );
         }
     }
 

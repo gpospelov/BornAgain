@@ -67,12 +67,11 @@ public:
     //! reset user defined min,max values for histograms
     static void resetMinimumAndMaximum() { resetMinimum(); resetMaximum(); }
 
-    //! export 2D output data in std::vectors
+    //! export 2D output data in std::vectors (used for saving in ROOT tree)
     static void exportOutputDataInVectors2D(const OutputData<double> &output_data
                                             , std::vector<std::vector<double > > &v_data
                                             , std::vector<std::vector<double > > &v_axis0
                                             , std::vector<std::vector<double > > &v_axis1);
-
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)
     static double m_hist_max; // maximum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

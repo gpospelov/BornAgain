@@ -1,5 +1,5 @@
 #include "CommandLine.h"
-#include "TestFactory.h"
+#include "FunctionalTestFactory.h"
 #include <iomanip>
 #include <set>
 #include <algorithm>
@@ -24,7 +24,7 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
     m_defined_arguments.push_back("all");
     m_defined_arguments.push_back("profile");
     // getting info about names of defined functional tests and adding them to the list of defined arguments
-    m_defined_functional_tests = TestFactory::instance().get_testnames();
+    m_defined_functional_tests = FunctionalTestFactory::instance().get_testnames();
     m_defined_arguments.insert(m_defined_arguments.end(), m_defined_functional_tests.begin(), m_defined_functional_tests.end());
 
     // adding description of command line arguments
@@ -41,6 +41,7 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
     }
     // additional description of functional tests (overwrites previous default)
     m_description["isgisaxs1"]        = "functional test: isgisaxs ex-1 (2 types of particles without inteference on top of substrate)";
+    m_description["isgisaxs2"]        = "functional test: isgisaxs ex-2 (mean form factors for particles with shape size distribution)";
     m_description["isgisaxs3"]        = "functional test: isgisaxs ex-3 (cylinder FF)";
     m_description["isgisaxs9"]        = "functional test: isgisaxs ex-9 (rotated pyramid FF)";
     m_description["isgisaxs10"]       = "functional test: isgisaxs ex-10 (cylinders with interference on top of substrate)";

@@ -27,8 +27,10 @@ SampleFactory::SampleFactory()
     // IsGISAXS1 example: cylinder and prism
     registerItem("IsGISAXS1_CylinderAndPrism", StandardSamples::IsGISAXS1_CylinderAndPrism);
 
-    // IsGISAXS3 example: cylinder on top of substrate
-    registerItem("IsGISAXS3_Cylinder", StandardSamples::IsGISAXS3_Cylinder);
+    // IsGISAXS3 example: cylinder on top of substrate, cylinder in the air, cylinder with size distribution
+    registerItem("IsGISAXS3_CylinderDWBA", StandardSamples::IsGISAXS3_CylinderDWBA);
+    registerItem("IsGISAXS3_CylinderBA", StandardSamples::IsGISAXS3_CylinderBA);
+    registerItem("IsGISAXS3_CylinderBASize", StandardSamples::IsGISAXS3_CylinderBASize);
 
     // IsGISAXS9 example: pyramid and rotated pyramid
     registerItem("IsGISAXS9_Pyramid", StandardSamples::IsGISAXS9_Pyramid);

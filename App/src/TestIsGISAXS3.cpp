@@ -8,56 +8,83 @@
 #include "SampleFactory.h"
 #include "DrawHelper.h"
 
+#include <sstream>
 #include "TCanvas.h"
+
+
+TestIsGISAXS3::TestIsGISAXS3() : IFunctionalTest("TestIsGISAXS3")
+{
+    m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-3/");
+}
+
 
 void TestIsGISAXS3::execute()
 {
-    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_Cylinder"));
-
     GISASExperiment experiment;
-    experiment.setSample(sample);
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    experiment.runSimulation();
 
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-3/this_cylinder_DWBA.ima");
+    // cylinder in BA
+    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderBA"));
+    experiment.setSample(sample);
+    experiment.runSimulation();
+    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_cylinder_BA.ima");
+
+    // cylinder in BA with size distribution
+    sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderBASize"));
+    experiment.setSample(sample);
+    experiment.runSimulation();
+    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_cylinder_BA_size.ima");
+
+    // cylinder in DWBA
+    sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderDWBA"));
+    experiment.setSample(sample);
+    experiment.runSimulation();
+    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_cylinder_DWBA.ima");
 }
 
 
 void TestIsGISAXS3::finalise()
 {
-    std::string isgi_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-3/isgi_cylinder_DWBA.ima");
-    std::string this_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-3/this_cylinder_DWBA.ima");
+    std::vector< CompareStruct > tocompare;
+    tocompare.push_back( CompareStruct("isgi_cylinder_BA.ima",      "this_cylinder_BA.ima",      "Cylinder BA Formfactor") );
+    tocompare.push_back( CompareStruct("isgi_cylinder_BA_size.ima", "this_cylinder_BA_size.ima", "Cylinder BA Formfactor with size") );
+    tocompare.push_back( CompareStruct("isgi_cylinder_DWBA.ima",    "this_cylinder_DWBA.ima",    "Cylinder DWBA Formfactor") );
 
-    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_file, 10);
-    OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_file, 10);
+    for(size_t i=0; i<tocompare.size(); ++i) {
+        OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].isginame );
+        OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].thisname );
 
-    //TCanvas *c1 = new TCanvas("TestIsGISAXS3_c1", "Cylinder DWBA Formfactor", 1024, 768);
-    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS3_c1", "Cylinder DWBA Formfactor");
-    c1->Divide(2,2);
+        std::ostringstream os;
+        os<<i;
+        std::string cname = getName()+"_c"+os.str();
+        TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas(cname.c_str(), tocompare[i].descr);
+        c1->Divide(2,2);
 
-    IsGISAXSTools::setMinimum(1.);
-    // our calculations
-    c1->cd(1); gPad->SetLogz();
-    IsGISAXSTools::drawOutputDataInPad(*our_data, "CONT4 Z", "Our cylinder FF");
+        IsGISAXSTools::setMinimum(1.);
+        // our calculations
+        c1->cd(1); gPad->SetLogz();
+        IsGISAXSTools::drawOutputDataInPad(*our_data, "CONT4 Z", "Our cylinder FF");
 
-    // isgisaxs data
-    c1->cd(2); gPad->SetLogz();
-    IsGISAXSTools::drawOutputDataInPad(*isgi_data, "CONT4 Z", "IsGisaxs mean FF");
+        // isgisaxs data
+        c1->cd(2); gPad->SetLogz();
+        IsGISAXSTools::drawOutputDataInPad(*isgi_data, "CONT4 Z", "IsGisaxs mean FF");
 
-    // difference
-    c1->cd(3);
-    IsGISAXSTools::setMinimum(-0.0001);
-    IsGISAXSTools::setMaximum(0.0001);
-    IsGISAXSTools::drawOutputDataDifference2D(*our_data, *isgi_data, "CONT4 Z", "2D Difference map");
+        // difference
+        c1->cd(3);
+        IsGISAXSTools::setMinimum(-0.0001);
+        IsGISAXSTools::setMaximum(0.0001);
+        IsGISAXSTools::drawOutputDataDifference2D(*our_data, *isgi_data, "CONT4 Z", "2D Difference map");
 
-    // difference
-    c1->cd(4);
-    IsGISAXSTools::resetMinimumAndMaximum();
-    IsGISAXSTools::setMinimum(1);
-    IsGISAXSTools::drawOutputDataDifference1D(*our_data, *isgi_data, "", "Difference spectra");
+        // difference
+        c1->cd(4);
+        IsGISAXSTools::resetMinimumAndMaximum();
+        //IsGISAXSTools::setMinimum(1);
+        IsGISAXSTools::drawOutputDataDifference1D(*our_data, *isgi_data, "", "Difference spectra");
 
-    delete isgi_data;
-    delete our_data;
+        IsGISAXSTools::resetMinimum(); IsGISAXSTools::resetMaximum();
+        delete isgi_data;
+        delete our_data;
+    }
 
 }

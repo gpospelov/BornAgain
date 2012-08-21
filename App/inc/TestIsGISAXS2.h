@@ -18,6 +18,7 @@
 #include "OutputData.h"
 #include "ISample.h"
 
+#include <string>
 
 //- -------------------------------------------------------------------
 //! @class TestIsGISAXS2
@@ -33,7 +34,8 @@ public:
     virtual void execute();
     virtual void finalise();
 
-
+private:
+    std::string m_data_path;
 
 };
 

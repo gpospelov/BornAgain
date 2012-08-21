@@ -24,8 +24,10 @@ void TestIsGISAXS3::execute()
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
+    MultiLayer *sample(0);
+
     // cylinder in BA
-    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderBA"));
+    sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderBA"));
     experiment.setSample(sample);
     experiment.runSimulation();
     IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_cylinder_BA.ima");
@@ -48,7 +50,7 @@ void TestIsGISAXS3::finalise()
 {
     std::vector< CompareStruct > tocompare;
     tocompare.push_back( CompareStruct("isgi_cylinder_BA.ima",      "this_cylinder_BA.ima",      "Cylinder BA Formfactor") );
-    tocompare.push_back( CompareStruct("isgi_cylinder_BA_size.ima", "this_cylinder_BA_size.ima", "Cylinder BA Formfactor with size") );
+    tocompare.push_back( CompareStruct("isgi_cylinder_BA_size.ima", "this_cylinder_BA_size.ima", "Cylinder BA Formfactor with size distribution") );
     tocompare.push_back( CompareStruct("isgi_cylinder_DWBA.ima",    "this_cylinder_DWBA.ima",    "Cylinder DWBA Formfactor") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {

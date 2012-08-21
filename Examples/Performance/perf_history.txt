@@ -37,3 +37,16 @@
 
 # after implementation of complex cvector_t
 2012-08-14 17:29:28 | jcnsopc73  | macosx64, 2800 MHz      | 83682   | 4.09836 | 3.95257 | 0.26738 | 
+2012-08-17 15:45:43 | jcnsopc73  | macosx64, 2800 MHz      | 78125   | 4.08163 | 3.79507 | 0.25906 | 
+2012-08-20 11:23:34 | jcnsopc73  | macosx64, 2800 MHz      | 84033.6 | 4.09836 | 4.00802 | 0.26455 | 
+
+# debug is off, current state of the art
+2012-08-20 11:36:58 | jcnsopc73  | macosx64, 2800 MHz      | 270270  | 13.0719 | 12.9032 | 0.93023 | 
+
+# StochasticParameter<double> inside of Sphere and Pyramid formfactors i.e. the performance is > two times worse
+2012-08-20 11:46:07 | jcnsopc73  | macosx64, 2800 MHz      | 263158  | 5.49451 | 5.44959 | 0.43478 | 
+2012-08-20 11:46:25 | jcnsopc73  | macosx64, 2800 MHz      | 263158  | 5.50964 | 5.49451 | 0.44052 | 
+
+# removing StochasticParameter<double> from Sphiere, Pyramid ff again
+# debug is off, current state of the art
+2012-08-20 13:16:30 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 13.1579 | 13.0719 | 0.93896 | 

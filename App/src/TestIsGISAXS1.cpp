@@ -36,7 +36,6 @@ void TestIsGISAXS1::finalise()
     OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_file);
     OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_file);
 
-    //TCanvas *c1 = new TCanvas("TestIsGISAXS1_c1", "Two particles mean DWBA Formfactor", 1024, 768);
     TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS1_c1", "Two particles mean DWBA Formfactor");
 
     c1->Divide(2,2);

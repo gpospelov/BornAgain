@@ -53,9 +53,6 @@ public:
     //! create general iterator to walk through the tree of registered composite children
     ICompositeIterator createIterator();
 
-    // walk through composite sample and print content
-    //virtual void walk_and_print();
-
 protected:
     ICompositeSample(const ICompositeSample &other);
 

@@ -77,7 +77,14 @@ void NanoParticleDecoration::addNanoParticle(NanoParticle* p_particle,
         Geometry::Transform3D *transform, double depth, double abundance)
 {
     addAndRegisterNanoParticleInfo( new NanoParticleInfo(p_particle, transform, depth, abundance) );
-    m_total_abundance += abundance;
+}
+
+/* ************************************************************************* */
+// add nano particle info
+/* ************************************************************************* */
+void NanoParticleDecoration::addNanoParticleInfo(const NanoParticleInfo &info)
+{
+    addAndRegisterNanoParticleInfo( info.clone() );
 }
 
 /* ************************************************************************* */

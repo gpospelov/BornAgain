@@ -9,7 +9,7 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
     setName("FormFactorFullSphere");
     m_radius = radius;
     init_parameters();
-    //    mp_radius = new StochasticDiracDelta<double>(radius);
+//    mp_radius = new StochasticDiracDelta<double>(radius);
 }
 
 //FormFactorFullSphere::FormFactorFullSphere(StochasticParameter<double> *p_radius)

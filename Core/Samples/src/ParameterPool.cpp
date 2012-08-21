@@ -154,7 +154,8 @@ bool ParameterPool::setParameterValue(std::string name, double value)
 {
     RealPar x = getParameter(name);
     if( x.isNull() ) {
-        std::cout << "ParameterPool::setParameterValue() -> Warning. Non parameter with name '" << name << "'" << std::endl;
+        std::cout << "ParameterPool::setParameterValue() -> Warning. No parameter with name '" << name << "'" << std::endl;
+        throw LogicErrorException("ParameterPool::setParameterValue() -> Warning. No such parameter");
         return false;
     }
     x.setValue(value);

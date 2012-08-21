@@ -44,8 +44,8 @@ public:
     void addNanoParticle(const NanoParticle &p_particle, double depth=0.0, double abundance=1.0);
     void addNanoParticle(NanoParticle *p_particle, double depth=0.0, double abundance=1.0);
 
-//    /// Add nano particle info
-//    void addNanoParticleInfo(NanoParticleInfo* p_info);
+    /// Add nano particle info
+    void addNanoParticleInfo(const NanoParticleInfo &p_info);
 
 	/// Get number of particles
 	size_t getNumberOfParticles() const { return m_particles.size(); }
@@ -82,6 +82,7 @@ private:
     //! adding nano particle information with simultaneous registration in parent class
     void addAndRegisterNanoParticleInfo(NanoParticleInfo *child)
     {
+        m_total_abundance += child->getAbundance();
         m_particles.push_back(child);
         registerChild(child);
     }

@@ -112,7 +112,7 @@ class PerfTest_MesoCrystal : public IFunctionalTest
 {
 public:
     PerfTest_MesoCrystal() : IFunctionalTest("MesoCrystal"), m_sample(0), m_experiment(0) {}
-    virtual ~PerfTest_MesoCrystal() { delete m_sample;delete m_experiment; }
+    virtual ~PerfTest_MesoCrystal() { delete m_sample; delete m_experiment; }
     void initialise();
     void execute();
     ISample *m_sample;

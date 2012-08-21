@@ -13,6 +13,12 @@
 #include "NanoParticleCrystal.h"
 #include "MesoCrystal.h"
 #include "InterferenceFunction1DParaCrystal.h"
+#include "WeightedFormFactor.h"
+#include "StochasticGaussian.h"
+#include "Numeric.h"
+#include "MathFunctions.h"
+#include "NanoParticleBuilder.h"
+#include "StochasticSampledParameter.h"
 
 
 /* ************************************************************************* */
@@ -256,6 +262,58 @@ ISample *StandardSamples::IsGISAXS1_CylinderAndPrism()
 
 
 /* ************************************************************************* */
+// IsGISAXS2 functional test: Mixture cylinder particles with different size distribution
+/* ************************************************************************* */
+ISample *StandardSamples::IsGISAXS2_CylindersMixture()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+
+    NanoParticleDecoration particle_decoration;
+
+    // preparing nano particles prototypes for seeding layer's particle_decoration
+    double radius1 = 5*Units::nanometer;
+    double radius2 = 10*Units::nanometer;
+    double height1 = radius1;
+    double height2 = radius2;
+    FormFactorCylinder ff_cylinder1(height1, radius1);
+    NanoParticle cylinder1(n_particle, ff_cylinder1 );
+
+    FormFactorCylinder ff_cylinder2(height2, radius2);
+    NanoParticle cylinder2(n_particle, ff_cylinder2 );
+
+    // radius of nanoparticles will be sampled with gaussian probability
+    int nbins=150;
+    double sigma1 = radius1*0.2;
+    double sigma2 = radius2*0.02;
+    int nfwhm(3); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM
+    StochasticSampledParameter par1(StochasticDoubleGaussian(radius1, sigma1), nbins, nfwhm);
+    StochasticSampledParameter par2(StochasticDoubleGaussian(radius2, sigma2), nbins, nfwhm);
+
+    // building nano particles
+    NanoParticleBuilder builder;
+    builder.setPrototype(cylinder1,"/NanoParticle/FormFactorCylinder/radius", par1, 0.95);
+    builder.plantNanoParticles(particle_decoration);
+
+    builder.setPrototype(cylinder2,"/NanoParticle/FormFactorCylinder/radius", par2, 0.05);
+    builder.plantNanoParticles(particle_decoration);
+
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+
+    // making layer holding all whose nano particles
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    p_multi_layer->addLayer(air_layer_decorator);
+
+    return p_multi_layer;
+}
+
+
+/* ************************************************************************* */
 // IsGISAXS3 functional test: cylinder on top of substrate
 /* ************************************************************************* */
 ISample *StandardSamples::IsGISAXS3_CylinderDWBA()
@@ -302,12 +360,31 @@ ISample *StandardSamples::IsGISAXS3_CylinderBASize()
     complex_t n_air(1.0, 0.0);
     complex_t n_particle(1.0-6e-4, 2e-8);
     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
-    NanoParticleDecoration particle_decoration( new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+
+    NanoParticleDecoration particle_decoration;
+
+    // preparing prototype of nano particle
+    double radius = 5*Units::nanometer;
+    double sigma = 0.2*radius;
+    FormFactorCylinder ff_cylinder( 5*Units::nanometer, radius);
+    NanoParticle nano_particle(n_particle, ff_cylinder);
+
+    // radius of nanoparticles will be sampled with gaussian probability
+    int nbins(100), nfwhm(2);
+    StochasticSampledParameter par(StochasticDoubleGaussian(radius, sigma), nbins, nfwhm);
+
+    NanoParticleBuilder builder;
+    builder.setPrototype(nano_particle,"/NanoParticle/FormFactorCylinder/radius", par);
+    builder.plantNanoParticles(particle_decoration);
+
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     p_multi_layer->addLayer(air_layer_decorator);
+
     return p_multi_layer;
 }
 

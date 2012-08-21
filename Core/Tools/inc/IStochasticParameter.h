@@ -32,10 +32,11 @@ public:
     virtual StochasticParameter<T> *clone() const=0;
 
     virtual void setToAverage();
-    T getCurrent() { return m_current; }
+    T getCurrent() const { return m_current; }
     T getAverage();
     virtual T getRandom();
     virtual double probabilityDensity(T value) const=0;
+    virtual double getFWHM() const { return 0.0;}
 
 protected:
     //! copy constructor and assignment operator are hidden since there is a clone method

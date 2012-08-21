@@ -14,7 +14,6 @@ FormFactorPyramid::FormFactorPyramid(double height, double half_side, double alp
     m_half_side = half_side;
     m_alpha = alpha;
     init_parameters();
-
 //    mp_height = new StochasticDiracDelta<double>(height);
 //    mp_half_side = new StochasticDiracDelta<double>(half_side);
 //    mp_alpha = new StochasticDiracDelta<double>(alpha);

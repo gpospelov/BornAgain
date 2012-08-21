@@ -67,6 +67,7 @@ SOURCES += \
     Samples/src/MesoCrystal.cpp \
     Samples/src/MultiLayer.cpp \
     Samples/src/NanoParticle.cpp \
+    Samples/src/NanoParticleBuilder.cpp \
     Samples/src/NanoParticleCrystal.cpp \
     Samples/src/NanoParticleCrystalFormFactor.cpp \
     Samples/src/NanoParticleDecoration.cpp \
@@ -85,6 +86,7 @@ SOURCES += \
     Tools/src/MathFunctions.cpp \
     Tools/src/OutputData.cpp \
     Tools/src/StochasticGaussian.cpp \
+    Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
     Tools/src/Utils.cpp \
     \
@@ -161,6 +163,7 @@ HEADERS += \
     Samples/inc/MesoCrystal.h \
     Samples/inc/MultiLayer.h \
     Samples/inc/NanoParticle.h \
+    Samples/inc/NanoParticleBuilder.h \
     Samples/inc/NanoParticleCrystal.h \
     Samples/inc/NanoParticleCrystalFormFactor.h \
     Samples/inc/NanoParticleDecoration.h \
@@ -185,6 +188,7 @@ HEADERS += \
     Tools/inc/OutputData.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticGaussian.h \
+    Tools/inc/StochasticSampledParameter.h \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \

@@ -15,7 +15,7 @@
 //! @date   01.04.2012
 
 #include "IStochasticParameter.h"
-
+#include <cmath>
 
 class StochasticDoubleGaussian : public StochasticParameter<double>
 {
@@ -28,6 +28,8 @@ public:
     virtual double probabilityDensity(double value) const;
 
     double getStdDev() { return m_std_dev; }
+
+    virtual double getFWHM() const { return 2.*m_std_dev*std::sqrt(2.*std::log(2)); }
 
 private:
     double m_std_dev;

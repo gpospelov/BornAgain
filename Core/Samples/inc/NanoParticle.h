@@ -57,6 +57,9 @@ public:
         }
     }
 
+    //! return form factor of the particle
+    const IFormFactor *getFormFactor() const { return mp_form_factor;}
+
 protected:
     complex_t m_ambient_refractive_index;
 

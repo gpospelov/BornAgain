@@ -2,6 +2,13 @@
 #include "Exceptions.h"
 #include "MultiLayer.h"
 #include "Utils.h"
+#include "Lattice.h"
+#include "LayerDecorator.h"
+#include "MesoCrystal.h"
+#include "NanoParticleCrystal.h"
+#include "LatticeBasis.h"
+#include "Units.h"
+#include "FormFactorFullSphere.h"
 
 #include <iostream>
 #include <vector>
@@ -21,6 +28,16 @@
 #include "TH1F.h"
 #include "TFile.h"
 #include "TDatime.h"
+#include "TSystem.h"
+#include "TEveManager.h"
+#include "TEvePointSet.h"
+#include "TEveArrow.h"
+#include "TEveGeoShape.h"
+#include "TGeoSphere.h"
+#include "TEveTrans.h"
+#include "TEveViewer.h"
+#include "TGLViewer.h"
+
 
 
 DrawHelper::DrawHelper() : m_default_canvas_xsize(1024), m_default_canvas_ysize(768)
@@ -379,6 +396,96 @@ void DrawHelper::saveReport()
 
     std::cout << "DrawHelper::saveReport() -> File '" << pdffilename << "' is created" << std::endl;
     std::cout << "DrawHelper::saveReport() -> File '" << rootfilename << "' is created" << std::endl;
+}
+
+
+/* ************************************************************************* */
+// attempt to draw meso crystal lattice in 3d
+/* ************************************************************************* */
+void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
+{
+    gSystem->IgnoreSignal(kSigSegmentationViolation, true);
+    TEveManager::Create();
+
+    const LayerDecorator *layer_decor = dynamic_cast<const LayerDecorator *>(sample->getLayer(1));
+    if( !layer_decor ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> layer_decor panic");
+    const MesoCrystal *meso = dynamic_cast<const MesoCrystal *>(layer_decor->getDecoration()->getNanoParticleInfo(0)->getNanoParticle());
+    if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> meso panic");
+    const NanoParticleCrystal *nano_crystal = dynamic_cast<const NanoParticleCrystal *>(meso->getClusteredNanoParticles());
+    if( !nano_crystal ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> nano_crystal panic");
+    Lattice lattice = nano_crystal->getLattice();
+    const LatticeBasis *lattice_basis = dynamic_cast<const LatticeBasis *>(nano_crystal->getNanoParticle());
+    if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> lattice_basis panic");
+
+    const FormFactorFullSphere *ff_sphere = dynamic_cast<const FormFactorFullSphere *>(lattice_basis->getNanoParticle(0)->getFormFactor());
+    if( !ff_sphere) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> ff_sphere panic");
+
+    double nanoparticle_radius =ff_sphere->getRadius();
+
+    kvector_t bas_a = lattice.getBasisVectorA();
+    kvector_t bas_b = lattice.getBasisVectorB();
+    kvector_t bas_c = lattice.getBasisVectorC();
+
+    // drawing basis
+    TEveArrow* a1 = new TEveArrow(bas_a.x(), bas_a.y(), bas_a.z());
+    a1->SetMainColor(kYellow);
+    a1->SetTubeR(0.02);
+    a1->SetPickable(kTRUE);
+
+    TEveArrow* a2 = new TEveArrow(bas_b.x(), bas_b.y(), bas_b.z());
+    a2->SetMainColor(kYellow);
+    a2->SetTubeR(0.02);
+    a2->SetPickable(kTRUE);
+
+    TEveArrow* a3 = new TEveArrow(bas_c.x(), bas_c.y(), bas_c.z());
+    a3->SetMainColor(kYellow);
+    a3->SetTubeR(0.02);
+    a3->SetPickable(kTRUE);
+
+    gEve->AddElement(a1);
+    gEve->AddElement(a2);
+    gEve->AddElement(a3);
+
+    // drawing nano particles
+    char str[128];
+    for(int iz=0; iz<3; iz++) {
+        TEveElementList *list_of_layer = new TEveElementList();
+        sprintf(str,"zlayer%d",iz);
+        list_of_layer->SetName(str);
+        for(int ix=-2; ix<=2; ix++) {
+            for(int iy=-2; iy<=2; iy++){
+
+                kvector_t origin = iz*bas_c + ix*bas_a + iy*bas_b;
+                TEveElementList *list_of_basis = new TEveElementList();
+                sprintf(str,"basis_ix(%d)_iy(%d)",ix,iy);
+                list_of_basis->SetName(str);
+                for(size_t i=0; i<lattice_basis->getNelements(); ++i) {
+                    TEveGeoShape* x = new TEveGeoShape("SS");
+                     x->SetShape(new TGeoSphere(0, nanoparticle_radius));
+                     kvector_t pos =lattice_basis->getPosition(i) + origin;
+                     if(i==0) {
+                         x->SetMainColor(kRed);
+                     } else{
+                         x->SetMainColor(kBlue);
+                     }
+                     x->RefMainTrans().SetPos(pos.x(), pos.y(), pos.z());
+                     //x->SetMainTransparency(10);
+                     list_of_basis->AddElement(x);
+                     list_of_basis->SetPickable(kTRUE);
+                }
+                list_of_layer->AddElement(list_of_basis);
+                list_of_layer->SetPickable(kTRUE);
+            }
+        }
+        gEve->AddElement(list_of_layer);
+    }
+
+    TEveViewer *ev = gEve->GetDefaultViewer();
+    TGLViewer  *gv = ev->GetGLViewer();
+    gv->SetGuideState(TGLUtil::kAxesOrigin, kTRUE, kFALSE, 0);
+    gv->CurrentCamera().RotateRad(10.0,0);
+    gEve->FullRedraw3D(kTRUE);
+
 }
 
 

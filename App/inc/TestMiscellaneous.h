@@ -29,6 +29,8 @@ public:
 
     virtual void execute();
     void test_DoubleToComplexInterpolatingFunction();
+    void test_FormFactor();
+    void test_DrawMesocrystal();
 
 };
 

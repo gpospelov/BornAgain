@@ -78,11 +78,13 @@ void TestRootTree::complex_write()
 
     size_t n_phi_rotation_steps =100;
     size_t n_alpha_rotation_steps = 100;
-    size_t n_np_size_steps = 100;
+    size_t n_np_size_steps = 10;
     double phi_step = 2*M_PI/3.0/n_phi_rotation_steps;
     double alpha_step = 10*Units::degree/n_alpha_rotation_steps;
     double np_size_step = 0.5*Units::nanometer/n_np_size_steps;
     double np_size_start = 6.1*Units::nanometer - (n_np_size_steps/2)*np_size_step;
+
+    TCanvas *c1 = new TCanvas("c1","c1");
 
     std::vector<MesoParSet > meso_parameters;
     for (size_t j=0; j<n_np_size_steps; ++j) meso_parameters.push_back( MesoParSet(np_size_start + j*np_size_step, 0, 0) );
@@ -94,6 +96,8 @@ void TestRootTree::complex_write()
         double meso_phi = meso_parameters[ipar].phi;
         double meso_alpha = meso_parameters[ipar].alpha;
         initializeMesoCrystal(meso_alpha, meso_phi, meso_npR);
+//        initializeMesoCrystal(0.0, 0.0, meso_npR);
+
         std::cout << " npR:" << meso_npR << " meso_phi:" << meso_phi << " meso_alpha:" << meso_alpha << std::endl;
 
         double alpha_i(0.4*Units::degree);
@@ -135,6 +139,14 @@ void TestRootTree::complex_write()
                 event->valpha_f[i][j] /= Units::degree;
             }
         }
+
+
+        c1->cd(); gPad->SetLogz();
+        c1->Clear();
+        IsGISAXSTools::setMinimum(1.);
+        IsGISAXSTools::drawOutputDataInPad(*m_data, "CONT4 Z", "IsGisaxs pyramid FF");
+        c1->Modified();
+        c1->Update();
 
         tree->Fill();
         event->nframe++;

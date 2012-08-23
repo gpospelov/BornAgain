@@ -12,7 +12,7 @@ lessThan(QT_VERSION, 4.5) {
 #CONFIG += GPERFTOOLS
 
 # uncomment to compile in debug mode
-#CONFIG += debug
+CONFIG += debug
 
 #
 #QMAKE_STRIP=:

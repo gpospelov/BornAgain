@@ -56,6 +56,8 @@ public:
     //! save reports (pdf and ROOT)
     void saveReport();
 
+    //! attempt to draw meso crystal lattice in 3d
+    void DrawMesoCrystal(const MultiLayer *sample);
 
 protected:
     DrawHelper();

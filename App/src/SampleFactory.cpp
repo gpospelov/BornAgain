@@ -42,7 +42,8 @@ SampleFactory::SampleFactory()
     // IsGISAXS10 example: cyliunderw with interference
     registerItem("IsGISAXS10_CylindersParacrystal1D", StandardSamples::IsGISAXS10_CylindersParacrystal1D);
 
-    // mesocrystal
+    // mesocrystal's
     registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);
+    registerItem("MesoCrystal2", StandardSamples::MesoCrystal2);
 }
 

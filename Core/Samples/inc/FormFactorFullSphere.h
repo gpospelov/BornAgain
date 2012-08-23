@@ -27,6 +27,9 @@ public:
 
     virtual int getNumberOfStochasticParameters() { return 1; }
 
+    //! return radius of sphere
+    double getRadius() const { return m_radius; }
+
 protected:
     virtual complex_t evaluate_for_complex_qz(kvector_t q, complex_t qz) const;
 

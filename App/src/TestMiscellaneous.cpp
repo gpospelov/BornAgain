@@ -4,11 +4,21 @@
 #include "OpticalFresnel.h"
 #include "Units.h"
 #include "DoubleToComplexInterpolatingFunction.h"
+#include "FormFactors.h"
+#include "DrawHelper.h"
+#include "GISASExperiment.h"
+#include "IsGISAXSTools.h"
+#include "Lattice.h"
+#include "LayerDecorator.h"
+#include "MesoCrystal.h"
+#include "NanoParticleCrystal.h"
+#include "LatticeBasis.h"
+
 #include "TGraph.h"
-#include "TH2F.h"
+#include "TH2D.h"
+#include "TH3D.h"
 #include "TCanvas.h"
 #include "TGraphPolar.h"
-#include "TSystem.h"
 
 TestMiscellaneous::TestMiscellaneous()
 {
@@ -20,11 +30,180 @@ TestMiscellaneous::TestMiscellaneous()
 void TestMiscellaneous::execute()
 {
 
-    test_DoubleToComplexInterpolatingFunction();
+    //test_DoubleToComplexInterpolatingFunction();
+    //test_FormFactor();
+    test_DrawMesocrystal();
+}
+
+
+/* ************************************************************************* */
+// test double to complex interpolating function
+/* ************************************************************************* */
+void TestMiscellaneous::test_DrawMesocrystal()
+{
+
+    MultiLayer *m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MesoCrystal2"));
+
+    DrawHelper::instance().DrawMesoCrystal(m_sample);
+
+//    GISASExperiment experiment;
+//    experiment.setSample(m_sample);
+//    experiment.setDetectorParameters(100, 0.3*Units::degree, 0.073 , 100 , -0.4*Units::degree, 0.066);
+//    experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
+//    experiment.setBeamIntensity(1e7);
+//    experiment.runSimulation();
+//    experiment.normalize();
+//    OutputData<double> *mp_intensity_output = experiment.getOutputDataClone();
+//    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal","CONT4 Z");
 
 }
 
 
+
+/* ************************************************************************* */
+// test double to complex interpolating function
+/* ************************************************************************* */
+void TestMiscellaneous::test_FormFactor()
+{
+
+    FormFactorFullSphere ff_sphere(5.*Units::nanometer);
+    FormFactorCylinder ff_cylinder(10.*Units::nanometer, 5.*Units::nanometer);
+
+//    IFormFactor &ff = ff_cylinder;
+    IFormFactor &ff = ff_sphere;
+
+    double qmin(-4.0), qmax(4.0);
+    int nbins(51);
+    double dq = (qmax-qmin)/(nbins-1);
+
+    TH1D *h1[3];
+    h1[0] = new TH1D("h10","h10", nbins, qmin-dq/2., qmax+dq/2.);
+    h1[1] = new TH1D("h11","h11", nbins, qmin-dq/2., qmax+dq/2.);
+    h1[2] = new TH1D("h12","h12", nbins, qmin-dq/2., qmax+dq/2.);
+    TH2D *h2 = new TH2D("h2","h2", nbins, qmin-dq/2., qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.);
+    TH3D *h3 = new TH3D("h3","h3", nbins, qmin-dq/2., qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.,nbins, qmin-dq/2., qmax+dq/2.);
+
+
+    std::vector<TH2D *> vh2_xy;
+    std::vector<TH2D *> vh2_xz;
+    std::vector<TH2D *> vh2_yz;
+
+    vh2_xy.resize(nbins, 0);
+    vh2_xz.resize(nbins, 0);
+    vh2_yz.resize(nbins, 0);
+
+    for(int i=0; i<nbins; ++i) {
+        char str[128];
+        sprintf(str, "h2_xy_z%d",i);
+        vh2_xy[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.);
+        vh2_xy[i]->GetXaxis()->SetTitle("x");
+        vh2_xy[i]->GetYaxis()->SetTitle("y");
+
+        sprintf(str, "h2_xz_y%d",i);
+        vh2_xz[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.);
+        vh2_xz[i]->GetXaxis()->SetTitle("x");
+        vh2_xz[i]->GetYaxis()->SetTitle("z");
+
+        sprintf(str, "h2_yz_x%d",i);
+        vh2_yz[i] = new TH2D(str,str,nbins, qmin-dq/2., qmax+dq/2., nbins, qmin-dq/2., qmax+dq/2.);
+        vh2_yz[i]->GetXaxis()->SetTitle("y");
+        vh2_yz[i]->GetYaxis()->SetTitle("z");
+    }
+
+
+    OutputData<double > *data1 = new OutputData<double >;
+    data1->addAxis(std::string("qx"), qmin, qmax, nbins);
+    data1->addAxis(std::string("qy"), qmin, qmax, nbins);
+    data1->addAxis(std::string("qz"), qmin, qmax, nbins);
+    data1->resetIndex();
+    while (data1->hasNext()) {
+        double x = data1->getCurrentValueOfAxis<double>("qx");
+        double y = data1->getCurrentValueOfAxis<double>("qy");
+        double z = data1->getCurrentValueOfAxis<double>("qz");
+
+        int ix = data1->getCurrentIndexOfAxis("qx");
+        int iy = data1->getCurrentIndexOfAxis("qy");
+        int iz = data1->getCurrentIndexOfAxis("qz");
+
+        kvector_t q(x,y,z);
+        kvector_t q0(0,0,0);
+        double value = std::abs(ff.evaluate(q,q0));
+//        complex_t qz(z,0.0);
+//        std::cout << q << " " << std::abs(ff.evaluate(q,q0)) << std::endl;
+        if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0)));
+        //if(iy==0) h2->Fill(x,z,std::abs(ff.evaluate(q,q0)));
+        //if(ix==0) h2->Fill(z,y,std::abs(ff.evaluate(q,q0)));
+
+        h3->Fill(x,y,z,std::abs(ff.evaluate(q,q0)));
+
+        if(iy==0 && iz==0) {
+            kvector_t kx(x,1,1);
+            kvector_t ky(1,x,1);
+            kvector_t kz(1,1,x);
+            h1[0]->Fill(x, std::abs(ff.evaluate(kx,q0)));
+            h1[1]->Fill(x, std::abs(ff.evaluate(ky,q0)));
+            h1[2]->Fill(x, std::abs(ff.evaluate(kz,q0)));
+        }
+
+        vh2_xy[iz] ->Fill(x,y,value);
+        vh2_xz[iy] ->Fill(x,z,value);
+        vh2_yz[ix] ->Fill(y,z,value);
+
+        data1->next();
+    }
+
+
+
+//    TCanvas *c1 = new TCanvas("c1","c1",1024,768);
+//    c1->Divide(2,2);
+//    gStyle->SetPalette(1);
+
+//    c1->cd(1);
+//    gPad->SetLogz();
+//    h2->Draw("surf2");
+////    h3->Draw("iso");
+
+//    for(int i=0; i<3; i++){
+//        c1->cd(2+i);
+//        h1[i]->Draw();
+//    }
+
+    TCanvas *c1_xy = new TCanvas("c1_xy","c1_xy",1024,768);
+    DrawHelper::instance().SetMagnifier(c1_xy);
+    c1_xy->Divide(3,3);
+    int ndiv=9;
+    for(int i=0; i<ndiv; i++) {
+        c1_xy->cd(i+1);
+        int indx = i*int(nbins/ndiv);
+        std::cout << indx << std::endl;
+        vh2_xy[indx]->Draw("surf");
+    }
+
+    TCanvas *c1_xz = new TCanvas("c1_xz","c1_xz",1024,768);
+    DrawHelper::instance().SetMagnifier(c1_xz);
+    c1_xz->Divide(3,3);
+    for(int i=0; i<ndiv; i++) {
+        c1_xz->cd(i+1);
+        int indx = i*int(nbins/ndiv);
+        vh2_xz[indx]->Draw("surf");
+    }
+
+    TCanvas *c1_yz = new TCanvas("c1_yz","c1_yz",1024,768);
+    DrawHelper::instance().SetMagnifier(c1_yz);
+    c1_yz->Divide(3,3);
+    for(int i=0; i<ndiv; i++) {
+        c1_yz->cd(i+1);
+        int indx = i*int(nbins/ndiv);
+        vh2_yz[indx]->Draw("surf");
+    }
+
+
+}
+
+
+/* ************************************************************************* */
+// test double to complex interpolating function
+/* ************************************************************************* */
 void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
 {
 
@@ -108,17 +287,3 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
     gr3_diff->Draw("apl");
 
 }
-
-//std::abs(coeffs[i_layer].R)
-
-//    //MultiLayer *ml = dynamic_cast<MultiLayer *>(SampleFactory::createSample("IsGISAXS9_RotatedPyramid"));
-//    MultiLayer *ml = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MesoCrystal1"));
-//    std::cout << *ml << std::endl;
-//    std::cout << "------------------------------------" << std::endl;
-//    ml->walk_and_print();
-//    std::cout << "------------------------------------" << std::endl;
-//    ParameterPool *pool = ml->createParameterTree();
-//    std::cout << *pool << std::endl;
-//    std::cout << pool->setMatchedParametersValue("/*NanoParticleInfo*/depth",99);
-//    ml->walk_and_print();
-//    return;

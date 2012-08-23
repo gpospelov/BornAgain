@@ -49,17 +49,19 @@ void NanoParticleBuilder::plantNanoParticles(NanoParticleDecoration &decor)
         throw LogicErrorException("NanoParticleBuilder::plantNanoParticle() -> Error. Not supported parameter type");
     }
 
+    // calculating sum of all weights, and maximum value
     std::vector<double> weights;
     for(size_t i=0; i<sampled_parameter->getNbins(); ++i) weights.push_back(sampled_parameter->probabilityBinDensity(i));
     double maximum_value = *std::max_element(weights.begin(), weights.end());
     double sum_of_weights = std::accumulate(weights.begin(), weights.end(), 0.0);
 
+    // loop over sampled parameter values
     for(size_t i=0; i<sampled_parameter->getNbins(); ++i) {
 
         double weight = sampled_parameter->probabilityBinDensity(i);
         double value = sampled_parameter->getBinValue(i);
 
-        // changing value of the parameter and making clone
+        // changing value of the particle's parameter and making clone
         pool->setParameterValue(m_parameter_name, value);
         NanoParticle *particle = m_prototype->clone();
 

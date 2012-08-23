@@ -24,7 +24,7 @@ static const double required_precision = 1.e-4;
 static double double_epsilon = std::numeric_limits<double>::epsilon();
 static double double_min = std::numeric_limits<double>::min();
 
-static double probthreshold = 0.0000000001; //!< threshold on probability value during calculation of weighted form factor
+static const double probthreshold = 0.0000000001; //!< threshold on probability value during calculation of weighted form factor
 
 }
 

@@ -23,6 +23,7 @@ ISample *IsGISAXS9_Pyramid();
 ISample *IsGISAXS9_RotatedPyramid();
 ISample *IsGISAXS10_CylindersParacrystal1D();
 ISample *MesoCrystal1();
+ISample *MesoCrystal2();
 
 }
 

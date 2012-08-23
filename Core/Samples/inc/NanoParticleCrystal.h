@@ -44,6 +44,8 @@ public:
     Lattice getLattice() const { return m_lattice; }
     NanoParticle *createNanoParticle() const { return mp_nano_particle->clone(); }
 
+    const NanoParticle *getNanoParticle() const { return mp_nano_particle; }
+
 private:
     Lattice m_lattice;
     NanoParticle *mp_nano_particle;

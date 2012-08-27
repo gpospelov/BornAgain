@@ -126,7 +126,7 @@ exists($$(ROOTSYS)/bin/root-config){
 # if it doesn't exist, try to do something
 !exists($$(ROOTSYS)/bin/root-config){
   INCLUDEPATH += /opt/local/include/root
-  LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lThread -lpthread -lm -ldl
+  LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
   MYROOTCINT = /opt/local/bin/rootcint
 }
 

@@ -30,6 +30,9 @@ public:
     Lattice(const kvector_t &a1, const kvector_t &a2, const kvector_t &a3);
     ~Lattice();
 
+    //! initialize cached data
+    void initialize() const;
+
     //! get basis vector a
     kvector_t getBasisVectorA() const { return m_a1; }
 
@@ -64,16 +67,18 @@ public:
     static Lattice createTrigonalLattice(double a, double c);
 
 private:
-    // This is a naive algorithm which will not work for skewed lattice bases (see Closest Vector Problem for more information)
-    Coordinate3D<int> getNearestVectorCoordinates(const kvector_t &in, const kvector_t &a1,
-            const kvector_t &a2, const kvector_t &a3) const;
     std::vector<kvector_t> getVectorsWithinRadius(const kvector_t &input_vector,
-            double radius, const kvector_t &v1, const kvector_t &v2, const kvector_t &v3,
+            const Coordinate3D<int> &nearest_coords, double radius,
+            const kvector_t &v1, const kvector_t &v2, const kvector_t &v3,
             const kvector_t &rec1, const kvector_t &rec2, const kvector_t &rec3) const;
     void computeReciprocalVectors() const;
+    void computeInverseLatticeVectors() const;
+    void computeInverseReciprocalLatticeVectors() const;
+    static void computeInverseVectors(const kvector_t &v1, const kvector_t &v2, const kvector_t &v3, kvector_t &o1, kvector_t &o2, kvector_t &o3);
     kvector_t m_a1, m_a2, m_a3; //!< Basis vectors in real space
     mutable kvector_t m_b1, m_b2, m_b3; //!< Cache of basis vectors in reciprocal space
-    mutable bool m_cache_ok; //!< Boolean indicating if the reciprocal vectors are already initialized in the cache
+    mutable kvector_t m_amin1, m_amin2, m_amin3, m_bmin1, m_bmin2, m_bmin3; //!< Cache of inverse vectors for calculation of coordinates
+    mutable bool m_cache_ok, m_is_zero; //!< Boolean indicating if the reciprocal vectors are already initialized in the cache
 };
 
 

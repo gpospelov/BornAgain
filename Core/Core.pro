@@ -48,8 +48,10 @@ SOURCES += \
     \
     Samples/src/FormFactorCylinder.cpp \
     Samples/src/FormFactorFullSphere.cpp \
+    Samples/src/FormFactorGauss.cpp \
     Samples/src/FormFactorPrism3.cpp \
     Samples/src/FormFactorPyramid.cpp \
+    Samples/src/FormFactorLorentz.cpp \
     Samples/src/HomogeneousMaterial.cpp \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
@@ -137,8 +139,10 @@ HEADERS += \
     \
     Samples/inc/FormFactorCylinder.h \
     Samples/inc/FormFactorFullSphere.h \
+    Samples/inc/FormFactorGauss.h \
     Samples/inc/FormFactorPrism3.h \
     Samples/inc/FormFactorPyramid.h \
+    Samples/inc/FormFactorLorentz.h \
     Samples/inc/FormFactors.h \
     Samples/inc/HomogeneousMaterial.h \
     Samples/inc/IClusteredNanoParticles.h \

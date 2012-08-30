@@ -54,7 +54,7 @@ void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2,
 std::vector<kvector_t> Lattice::getLatticeVectorsWithinRadius(
         const kvector_t& input_vector, double radius) const
 {
-    if (m_cache_ok==false) {
+    if (!m_cache_ok) {
         initialize();
     }
     Coordinate3D<int> nearest_coords = getNearestLatticeVectorCoordinates(input_vector);
@@ -64,7 +64,7 @@ std::vector<kvector_t> Lattice::getLatticeVectorsWithinRadius(
 std::vector<kvector_t> Lattice::getReciprocalLatticeVectorsWithinRadius(
         const kvector_t& input_vector, double radius) const
 {
-    if (m_cache_ok==false) {
+    if (!m_cache_ok) {
         initialize();
     }
     Coordinate3D<int> nearest_coords = getNearestReciprocalLatticeVectorCoordinates(input_vector);

@@ -68,14 +68,14 @@ void TestMesoCrystal::initializeSample()
 {
     delete mp_sample;
     // create mesocrystal
-    double meso_radius = 300*Units::nanometer;
+    double meso_width = 600*Units::nanometer;
     double surface_filling_ratio = 0.25;
-    double surface_density = surface_filling_ratio/M_PI/meso_radius/meso_radius;
+    double surface_density = surface_filling_ratio/meso_width/meso_width;
     complex_t n_particle(1.0-1.55e-5, 1.37e-6);
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
     complex_t n_avg = std::sqrt(surface_filling_ratio*avg_n_squared_meso + 1.0 - surface_filling_ratio);
     complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
-    FormFactorCylinder ff_meso(0.2*Units::micrometer, meso_radius);
+    FormFactorLorentz ff_meso(0.2*Units::micrometer, meso_width);
 //    MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, meso_radius, 84*Units::degree));
 
     // Create multilayer
@@ -97,9 +97,9 @@ void TestMesoCrystal::initializeSample()
 //    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
 //            50*Units::nanometer, 1e7*Units::nanometer);
     NanoParticleDecoration particle_decoration;
-    size_t n_phi_rotation_steps = 11;
-    size_t n_alpha_rotation_steps = 3;
-    size_t n_np_size_steps = 5;
+    size_t n_phi_rotation_steps = 1;
+    size_t n_alpha_rotation_steps = 1;
+    size_t n_np_size_steps = 1;
     double phi_step = 2*M_PI/3.0/n_phi_rotation_steps;
     double alpha_step = 4*Units::degree/n_alpha_rotation_steps;
     double alpha_start = - (n_alpha_rotation_steps/2)*alpha_step;

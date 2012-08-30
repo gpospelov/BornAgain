@@ -31,7 +31,7 @@ void TestFormFactor::execute()
     const NamedVector<double> *p_z_axis = dynamic_cast<const  NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
     double lambda = 1.0;
     double alpha_i = 0.2*M_PI/180.0;
-    kvector_t k_i;
+    cvector_t k_i;
     k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
     while (!index.endPassed())
     {
@@ -39,9 +39,9 @@ void TestFormFactor::execute()
         size_t index_z = index.getCurrentIndexOfAxis("detector z-axis");
         double phi_f = M_PI*(*p_y_axis)[index_y]/180.0;
         double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
-        kvector_t k_f;
+        cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        mp_intensity_output->currentValue() = std::pow(std::abs(m_ff.evaluate(k_i, k_f)),2);
+        mp_intensity_output->currentValue() = std::pow(std::abs(m_ff.evaluate(k_i, k_f, alpha_i, alpha_f)),2);
         ++index;
     }
     draw();

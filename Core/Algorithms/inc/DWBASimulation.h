@@ -31,7 +31,7 @@ public:
     OutputData<double> &getDWBAIntensity();
 protected:
     OutputData<double> m_dwba_intensity;
-    kvector_t m_ki;
+    cvector_t m_ki;
     double m_alpha_i;
 
 private:

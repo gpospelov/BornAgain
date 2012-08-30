@@ -220,8 +220,7 @@ class Transform3D;
     }
     /**
      * Gets cosine of polar angle. */
-    T cosTheta() const { T ma = mag(); return ma == 0 ? 1 : z()/ma; }
-
+    T cosTheta() const { T ma = mag(); return std::abs(ma) == 0 ? 1 : z()/ma; }
     /**
      * Gets r-component in spherical coordinate system */
     T getR() const { return r(); }

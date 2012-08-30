@@ -44,9 +44,11 @@ void MultiLayerDWBASimulation::run()
 {
     OpticalFresnel fresnelCalculator;
 
+    kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
+
     m_dwba_intensity.setAllTo(0.0);
     const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(m_dwba_intensity.getAxis("alpha_f"));
-    double lambda = 2.0*M_PI/m_ki.mag();
+    double lambda = 2.0*M_PI/m_ki_real.mag();
     std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
         double angle = (*p_alpha_axis)[i];
@@ -58,7 +60,7 @@ void MultiLayerDWBASimulation::run()
     }
     // Also add input angle
     OpticalFresnel::MultiLayerCoeff_t coeffs;
-    fresnelCalculator.execute(*mp_multi_layer, m_ki, coeffs);
+    fresnelCalculator.execute(*mp_multi_layer, m_ki_real, coeffs);
     fresnel_coeff_map[-m_alpha_i] = coeffs;
 
     // run through layers and construct T,R functions

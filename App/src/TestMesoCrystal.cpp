@@ -75,7 +75,7 @@ void TestMesoCrystal::initializeSample()
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
     complex_t n_avg = std::sqrt(surface_filling_ratio*avg_n_squared_meso + 1.0 - surface_filling_ratio);
     complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
-    FormFactorLorentz ff_meso(0.2*Units::micrometer, meso_width);
+    FormFactorGauss ff_meso(0.2*Units::micrometer, meso_width);
 //    MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, meso_radius, 84*Units::degree));
 
     // Create multilayer

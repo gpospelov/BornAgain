@@ -10,15 +10,12 @@ DWBAFormFactorConstZ::~DWBAFormFactorConstZ()
 {
 }
 
-complex_t DWBAFormFactorConstZ::evaluate(kvector_t k_i, kvector_t k_f) const
+complex_t DWBAFormFactorConstZ::evaluate(cvector_t k_i, cvector_t k_f,
+		double alpha_i, double alpha_f) const
 {
-	return evaluateForComplexkz(k_i, k_f, k_i.z(), k_f.z());
-}
-
-complex_t DWBAFormFactorConstZ::evaluateForComplexkz(kvector_t k_i, kvector_t k_f,
-		complex_t k_iz, complex_t k_fz) const
-{
-	calculateTerms(k_i, k_f, k_iz, k_fz);
+	calculateTerms(k_i, k_f, alpha_i, alpha_f);
+	complex_t k_iz = k_i.z();
+	complex_t k_fz = k_f.z();
 	m_term_S *= getDepthPhase(k_iz-k_fz);
 	m_term_RS *= getDepthPhase(-k_iz-k_fz);
 	m_term_SR *= getDepthPhase(k_iz+k_fz);

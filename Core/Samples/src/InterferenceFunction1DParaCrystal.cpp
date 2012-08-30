@@ -23,9 +23,9 @@ void InterferenceFunction1DParaCrystal::init_parameters()
 }
 
 
-double InterferenceFunction1DParaCrystal::evaluate(kvector_t q) const
+double InterferenceFunction1DParaCrystal::evaluate(cvector_t q) const
 {
-	double qpar = q.magxy();
+	double qpar = q.magxy().real();
 	complex_t p_transformed = FTGaussianCorrLength(qpar);
 	double interference_function = 1.0 + 2*(p_transformed/(complex_t(1.0, 0.0)-p_transformed)).real();
 	return interference_function;

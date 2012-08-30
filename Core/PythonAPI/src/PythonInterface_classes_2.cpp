@@ -394,19 +394,9 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         return ISample::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::kvector_t k_i, ::kvector_t k_f ) const {
+    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
-        return func_evaluate( k_i, k_f );
-    }
-
-    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f ) const {
-        bp::override func_evaluate = this->get_override( "evaluate" );
-        return func_evaluate( k_i, k_f );
-    }
-
-    virtual ::complex_t evaluateForComplexkz( ::kvector_t k_i, ::kvector_t k_f, ::complex_t k_iz, ::complex_t k_fz ) const {
-        bp::override func_evaluateForComplexkz = this->get_override( "evaluateForComplexkz" );
-        return func_evaluateForComplexkz( k_i, k_f, k_iz, k_fz );
+        return func_evaluate( k_i, k_f, alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -449,7 +439,7 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
         return func_clone(  );
     }
 
-    virtual double evaluate( ::kvector_t q ) const {
+    virtual double evaluate( ::cvector_t q ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
         return func_evaluate( q );
     }
@@ -520,7 +510,7 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
         return InterferenceFunction1DParaCrystal::clone( );
     }
 
-    virtual double evaluate( ::kvector_t q ) const  {
+    virtual double evaluate( ::cvector_t q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( q );
         else{
@@ -528,7 +518,7 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
         }
     }
 
-    double default_evaluate( ::kvector_t q ) const  {
+    double default_evaluate( ::cvector_t q ) const  {
         return InterferenceFunction1DParaCrystal::evaluate( q );
     }
 
@@ -910,12 +900,8 @@ void register_classes_2(){
             , bp::return_value_policy< bp::manage_new_object >() )
         .def(
             "evaluate"
-            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::kvector_t,::kvector_t ) const)(&::IFormFactor::evaluate) )
-            , ( bp::arg("k_i"), bp::arg("k_f") ) )
-        .def(
-            "evaluateForComplexkz"
-            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::kvector_t,::kvector_t,::complex_t,::complex_t ) const)(&::IFormFactor::evaluateForComplexkz) )
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("k_iz"), bp::arg("k_fz") ) )
+            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactor::evaluate) )
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )
         .def(
             "getNumberOfStochasticParameters"
             , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)

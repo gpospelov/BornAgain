@@ -125,24 +125,24 @@ void TestMiscellaneous::test_FormFactor()
         int iy = data1->getCurrentIndexOfAxis("qy");
         int iz = data1->getCurrentIndexOfAxis("qz");
 
-        kvector_t q(x,y,z);
-        kvector_t q0(0,0,0);
-        double value = std::abs(ff.evaluate(q,q0));
+        cvector_t q(x,y,z);
+        cvector_t q0(0,0,0);
+        double value = std::abs(ff.evaluate(q,q0, 0.0, 0.0));
 //        complex_t qz(z,0.0);
 //        std::cout << q << " " << std::abs(ff.evaluate(q,q0)) << std::endl;
-        if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0)));
+        if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0, 0.0, 0.0)));
         //if(iy==0) h2->Fill(x,z,std::abs(ff.evaluate(q,q0)));
         //if(ix==0) h2->Fill(z,y,std::abs(ff.evaluate(q,q0)));
 
-        h3->Fill(x,y,z,std::abs(ff.evaluate(q,q0)));
+        h3->Fill(x,y,z,std::abs(ff.evaluate(q,q0, 0.0, 0.0)));
 
         if(iy==0 && iz==0) {
-            kvector_t kx(x,1,1);
-            kvector_t ky(1,x,1);
-            kvector_t kz(1,1,x);
-            h1[0]->Fill(x, std::abs(ff.evaluate(kx,q0)));
-            h1[1]->Fill(x, std::abs(ff.evaluate(ky,q0)));
-            h1[2]->Fill(x, std::abs(ff.evaluate(kz,q0)));
+            cvector_t kx(x,1.0,1.0);
+            cvector_t ky(1.0,x,1.0);
+            cvector_t kz(1.0,1.0,x);
+            h1[0]->Fill(x, std::abs(ff.evaluate(kx,q0, 0.0, 0.0)));
+            h1[1]->Fill(x, std::abs(ff.evaluate(ky,q0, 0.0, 0.0)));
+            h1[2]->Fill(x, std::abs(ff.evaluate(kz,q0, 0.0, 0.0)));
         }
 
         vh2_xy[iz] ->Fill(x,y,value);

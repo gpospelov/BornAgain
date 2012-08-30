@@ -16,16 +16,16 @@ void DecouplingApproximationStrategy::init(
     }
 }
 
-double DecouplingApproximationStrategy::evaluateForComplexkz(kvector_t k_i,
-        kvector_t k_f, complex_t k_iz, complex_t k_fz) const
+double DecouplingApproximationStrategy::evaluate(cvector_t k_i,
+        cvector_t k_f, double alpha_i, double alpha_f) const
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
     for (size_t i=0; i<m_form_factors.size(); ++i) {
-        complex_t ff = m_form_factors[i]->evaluateForComplexkz(k_i, k_f, k_iz, k_fz);
+        complex_t ff = m_form_factors[i]->evaluate(k_i, k_f, alpha_i, alpha_f);
         double fraction = m_fractions[i];
         amplitude += fraction*ff;
-        intensity += fraction*std::norm(ff);
+        intensity += fraction*(std::norm(ff) + m_form_factors[i]->evaluateDiffuse(k_i, k_f));
     }
     double amplitude_norm = std::norm(amplitude);
     double itf_function = m_interference_functions[0]->evaluate(k_i-k_f);

@@ -27,11 +27,7 @@ public:
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);
 
-    virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const;
-
-    virtual complex_t evaluate(cvector_t k_i, cvector_t k_f) const;
-
-    virtual complex_t evaluateForComplexkz(kvector_t k_i, kvector_t k_f, complex_t k_iz, complex_t k_fz) const;
+    virtual complex_t evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const;
 protected:

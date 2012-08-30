@@ -43,10 +43,7 @@ public:
         mp_R = p_R.clone();
     }
 
-    virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const;
-    virtual complex_t evaluate(cvector_t k_i, cvector_t k_f) const;
-    virtual complex_t evaluateForComplexkz(kvector_t k_i, kvector_t k_f,
-    		complex_t k_iz, complex_t k_fz) const;
+    virtual complex_t evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
 protected:
     //! copy constructor and assignment operator are hidden since there is a clone method
     DWBAFormFactor(const DWBAFormFactor &);
@@ -55,10 +52,7 @@ protected:
     complex_t getT(double alpha) const;
     complex_t getR(double alpha) const;
     complex_t getX(double alpha) const;
-    void calculateTerms(kvector_t k_i, kvector_t k_f) const;
-    void calculateTerms(cvector_t k_i, cvector_t k_f) const;
-    void calculateTerms(kvector_t k_i, kvector_t k_f,
-            complex_t k_iz, complex_t k_fz) const;
+    void calculateTerms(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
 
     IDoubleToComplexFunction *mp_T;
     IDoubleToComplexFunction *mp_R;

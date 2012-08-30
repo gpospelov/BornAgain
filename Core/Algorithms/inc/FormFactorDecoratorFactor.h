@@ -24,9 +24,7 @@ public:
     virtual FormFactorDecoratorFactor *clone() const;
     virtual ~FormFactorDecoratorFactor();
 
-    virtual complex_t evaluate(kvector_t k_i, kvector_t k_f) const;
-    virtual complex_t evaluate(cvector_t k_i, cvector_t k_f) const;
-    virtual complex_t evaluateForComplexkz(kvector_t k_i, kvector_t k_f, complex_t k_iz, complex_t k_fz) const;
+    virtual complex_t evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
     virtual int getNumberOfStochasticParameters() const;
 
 protected:
@@ -50,22 +48,10 @@ inline FormFactorDecoratorFactor::~FormFactorDecoratorFactor()
     delete mp_form_factor;
 }
 
-inline complex_t FormFactorDecoratorFactor::evaluate(kvector_t k_i,
-        kvector_t k_f) const
-{
-    return m_factor*mp_form_factor->evaluate(k_i, k_f);
-}
-
 inline complex_t FormFactorDecoratorFactor::evaluate(cvector_t k_i,
-        cvector_t k_f) const
+        cvector_t k_f, double alpha_i, double alpha_f) const
 {
-    return m_factor*mp_form_factor->evaluate(k_i, k_f);
-}
-
-inline complex_t FormFactorDecoratorFactor::evaluateForComplexkz(kvector_t k_i,
-        kvector_t k_f, complex_t k_iz, complex_t k_fz) const
-{
-    return m_factor*mp_form_factor->evaluateForComplexkz(k_i, k_f, k_iz, k_fz);
+    return m_factor*mp_form_factor->evaluate(k_i, k_f, alpha_i, alpha_f);
 }
 
 inline int FormFactorDecoratorFactor::getNumberOfStochasticParameters() const

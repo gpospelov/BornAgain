@@ -51,17 +51,19 @@ FormFactorPyramid* FormFactorPyramid::clone() const
 //    return new FormFactorPyramid(mp_height->clone(), mp_half_side->clone(), mp_alpha->clone());
 }
 
-complex_t FormFactorPyramid::evaluate_for_complex_qz(kvector_t q, complex_t qz) const
+complex_t FormFactorPyramid::evaluate_for_q(cvector_t q) const
 {
 //    double H = mp_height->getCurrent();
 //    double R = mp_half_side->getCurrent();
 //    double tga = std::tan(mp_alpha->getCurrent());
+
     double H = m_height;
     double R = m_half_side;
     double tga = std::tan(m_alpha);
 
-    double qx = q.x();
-    double qy = q.y();
+    complex_t qx = q.x();
+    complex_t qy = q.y();
+    complex_t qz = q.z();
 
 //    // comparison with isgisaxs trick
 //        double gisaxs_epsilon = 2.2204460492503131e-12;

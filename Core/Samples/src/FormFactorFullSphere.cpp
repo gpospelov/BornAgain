@@ -38,18 +38,19 @@ FormFactorFullSphere* FormFactorFullSphere::clone() const
 //    return new FormFactorFullSphere(mp_radius->clone());
 }
 
-complex_t FormFactorFullSphere::evaluate_for_complex_qz(kvector_t q, complex_t qz) const
+complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const
 {
 //    double R = mp_radius->getCurrent();
+    complex_t qz = q.z();
     double R = m_radius;
 
     complex_t qzR = complex_t(0.0, 1.0)*qz*R;
     complex_t z_part = std::exp(qzR);
 
-    double qR = std::sqrt( q.x()*q.x()+q.y()*q.y()+std::abs(qz)*std::abs(qz) )*R;
+    complex_t qR = std::sqrt( q.x()*q.x()+q.y()*q.y()+std::abs(qz)*std::abs(qz) )*R;
     double volume = 4*M_PI*R*R*R/3;
-    double radial;
-    if (qR < Numeric::double_epsilon) {
+    complex_t radial;
+    if (std::abs(qR) < Numeric::double_epsilon) {
         radial = volume;
     }
     else {

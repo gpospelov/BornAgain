@@ -1,6 +1,7 @@
 #include "DWBASimulation.h"
 
 DWBASimulation::DWBASimulation()
+: m_alpha_i(0)
 {
 }
 
@@ -18,5 +19,5 @@ void DWBASimulation::init(const Experiment& experiment)
     }
     Beam beam = experiment.getBeam();
     m_ki = beam.getCentralK();
-    m_alpha_i = std::asin(m_ki.z()/m_ki.mag());
+    m_alpha_i = std::asin(m_ki.z().real()/m_ki.mag().real());
 }

@@ -13,42 +13,23 @@ DWBAFormFactor::~DWBAFormFactor()
     delete mp_R;
 }
 
-complex_t DWBAFormFactor::evaluate(kvector_t k_i, kvector_t k_f) const
+complex_t DWBAFormFactor::evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const
 {
-    return evaluateForComplexkz(k_i, k_f, k_i.z(), k_f.z());
-}
-
-complex_t DWBAFormFactor::evaluate(cvector_t k_i, cvector_t k_f) const
-{
-    calculateTerms(k_i, k_f);
+    calculateTerms(k_i, k_f, alpha_i, alpha_f);
     return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
 }
 
 
-complex_t DWBAFormFactor::evaluateForComplexkz(kvector_t k_i, kvector_t k_f,
-		complex_t k_iz, complex_t k_fz) const
-{
-	calculateTerms(k_i, k_f, k_iz, k_fz);
-    return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
-}
-
-void DWBAFormFactor::calculateTerms(kvector_t k_i, kvector_t k_f) const {
-    kvector_t k_i_mirror_xy(k_i.x(), k_i.y(), -k_i.z());
-    kvector_t k_f_mirror_xy(k_f.x(), k_f.y(), -k_f.z());
-    double alpha_i = -std::asin(k_i.z()/k_i.mag());
-    double alpha_f = std::asin(k_f.z()/k_f.mag());
+void DWBAFormFactor::calculateTerms(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const {
+    cvector_t k_itilde(k_i.x(), k_i.y(), -k_i.z());
+    cvector_t k_ftilde(k_f.x(), k_f.y(), -k_f.z());
     // The four different scattering contributions; S stands for scattering off the particle, R for reflection off the layer interface
-    m_term_S = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_f)*getT(alpha_f);
-    m_term_RS = getR(alpha_i)*mp_form_factor->evaluate(k_i_mirror_xy, k_f)*getT(alpha_f);
-    m_term_SR = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_f_mirror_xy)*getR(alpha_f);
-    m_term_RSR = getR(alpha_i)*mp_form_factor->evaluate(k_i_mirror_xy, k_f_mirror_xy)*getR(alpha_f);
+    m_term_S = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_f, alpha_i, alpha_f)*getT(alpha_f);
+    m_term_RS = getR(alpha_i)*mp_form_factor->evaluate(k_itilde, k_f, alpha_i, alpha_f)*getT(alpha_f);
+    m_term_SR = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_ftilde, alpha_i, alpha_f)*getR(alpha_f);
+    m_term_RSR = getR(alpha_i)*mp_form_factor->evaluate(k_itilde, k_ftilde, alpha_i, alpha_f)*getR(alpha_f);
 }
 
-void DWBAFormFactor::calculateTerms(cvector_t k_i, cvector_t k_f) const {
-    kvector_t k_i_real(k_i.x().real(), k_i.y().real(), k_i.z().real());
-    kvector_t k_f_real(k_f.x().real(), k_f.y().real(), k_f.z().real());
-    calculateTerms(k_i_real, k_f_real, k_i.z(), k_f.z());
-}
 DWBAFormFactor* DWBAFormFactor::clone() const
 {
     DWBAFormFactor *p_new = new DWBAFormFactor(mp_form_factor->clone());
@@ -57,16 +38,4 @@ DWBAFormFactor* DWBAFormFactor::clone() const
     p_new->setTransmissionFunction(*mp_T);
     p_new->setReflectionFunction(*mp_R);
     return p_new;
-}
-
-void DWBAFormFactor::calculateTerms(kvector_t k_i, kvector_t k_f,
-    		complex_t k_iz, complex_t k_fz) const
-{
-    double alpha_i = -std::asin(k_i.z()/k_i.mag());
-    double alpha_f = std::asin(k_f.z()/k_f.mag());
-    // The four different scattering contributions; S stands for scattering off the particle, R for reflection off the layer interface
-    m_term_S = getT(alpha_i)*mp_form_factor->evaluateForComplexkz(k_i, k_f, k_iz, k_fz)*getT(alpha_f);
-    m_term_RS = getR(alpha_i)*mp_form_factor->evaluateForComplexkz(k_i, k_f, -k_iz, k_fz)*getT(alpha_f);
-    m_term_SR = getT(alpha_i)*mp_form_factor->evaluateForComplexkz(k_i, k_f, k_iz, -k_fz)*getR(alpha_f);
-    m_term_RSR = getR(alpha_i)*mp_form_factor->evaluateForComplexkz(k_i, k_f, -k_iz, -k_fz)*getR(alpha_f);
 }

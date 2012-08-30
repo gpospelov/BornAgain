@@ -19,13 +19,14 @@ LayerDecoratorDWBASimulation::~LayerDecoratorDWBASimulation()
 void LayerDecoratorDWBASimulation::run()
 {
     m_dwba_intensity.resetIndex();
-    double lambda = 2.0*M_PI/m_ki.mag();
+    double lambda = 2.0*M_PI/m_ki.mag().real();
     complex_t k_iz = -mp_kz_function->evaluate(-m_alpha_i);
     const NanoParticleDecoration *p_decoration = mp_layer_decorator->getDecoration();
     complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     std::vector<IFormFactor *> form_factors;
     double total_surface_density = p_decoration->getTotalParticleSurfaceDensity();
+    // collect all nanoparticle formfactors and create dwba formfactors for these
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
 //        NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index)->clone();
 //        double depth = p_decoration->getDepthOfNanoParticle(particle_index);
@@ -52,6 +53,7 @@ void LayerDecoratorDWBASimulation::run()
         form_factors.push_back(p_ff);
         delete p_particle;
     }
+    // get appropriate interference function and transfer the formfactors to it
     IInterferenceFunctionStrategy *p_strategy = p_decoration->createStrategy(form_factors);
     for (size_t i=0; i<form_factors.size(); ++i) {
         delete form_factors[i];
@@ -65,10 +67,10 @@ void LayerDecoratorDWBASimulation::run()
             m_dwba_intensity.next() = 0.0;
             continue;
         }
-        kvector_t k_f;
-        complex_t k_fz = mp_kz_function->evaluate(alpha_f);
+        cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        m_dwba_intensity.next() = p_strategy->evaluateForComplexkz(m_ki, k_f, k_iz, k_fz)*total_surface_density;
+        k_f.setZ(mp_kz_function->evaluate(alpha_f));
+        m_dwba_intensity.next() = p_strategy->evaluate(m_ki, k_f, -m_alpha_i, alpha_f)*total_surface_density;
     }
     delete p_strategy;
 }

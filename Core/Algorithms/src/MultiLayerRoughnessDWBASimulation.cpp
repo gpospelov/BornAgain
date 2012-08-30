@@ -34,24 +34,28 @@ void MultiLayerRoughnessDWBASimulation::setTAndRFunctions(int i_layer,
 
 void MultiLayerRoughnessDWBASimulation::run()
 {
-    double lambda = 2.0*M_PI/m_ki.mag();
+    kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
+    double lambda = 2.0*M_PI/m_ki_real.mag();
     m_dwba_intensity.setAllTo(0.0);
     m_dwba_intensity.resetIndex();
     while (m_dwba_intensity.hasNext())
     {
         double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
         double alpha_f = m_dwba_intensity.getCurrentValueOfAxis<double>("alpha_f");
-        kvector_t k_f;
+        cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        m_dwba_intensity.next() = evaluate(m_ki, k_f);
+        m_dwba_intensity.next() = evaluate(m_ki, k_f, m_alpha_i, alpha_f);
     }
 
 }
 
 
-double MultiLayerRoughnessDWBASimulation::evaluate(kvector_t k_i, kvector_t k_f)
+double MultiLayerRoughnessDWBASimulation::evaluate(cvector_t k_i, cvector_t k_f,
+        double alpha_i, double alpha_f)
 {
-    kvector_t q = k_f - k_i;
+    kvector_t ki_real(k_i.x().real(), k_i.y().real(), k_i.z().real());
+    kvector_t kf_real(k_f.x().real(), k_f.y().real(), k_f.z().real());
+    kvector_t q = kf_real - ki_real;
     double autocorr(0);
     complex_t crosscorr(0);
 
@@ -62,7 +66,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(kvector_t k_i, kvector_t k_f)
 
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
         rterm[i] = get_refractive_term(i);
-        sterm[i] = get_sum4terms(i, k_i, k_f);
+        sterm[i] = get_sum4terms(i, k_i, k_f, alpha_i, alpha_f);
     }
 
 
@@ -86,7 +90,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(kvector_t k_i, kvector_t k_f)
         }
     }
 
-    return (autocorr+crosscorr.real())*k_i.mag2()/16./M_PI;
+    return (autocorr+crosscorr.real())*k_i.mag2().real()/16./M_PI;
 }
 
 
@@ -99,15 +103,13 @@ complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(int ilayer)
 
 
 
-complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(int ilayer, kvector_t k_i, kvector_t k_f)
+complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(int ilayer, cvector_t k_i, cvector_t k_f,
+        double alpha_i, double alpha_f)
 {
-    double alpha_i = -std::asin(k_i.z()/k_i.mag());
-    double alpha_f = std::asin(k_f.z()/k_f.mag());
-
-    double qz1 =  k_i.z() + k_f.z();
-    double qz2 =  k_i.z() - k_f.z();
-    double qz3 = -k_i.z() + k_f.z();
-    double qz4 = -k_i.z() - k_f.z();
+    complex_t qz1 =  k_i.z() + k_f.z();
+    complex_t qz2 =  k_i.z() - k_f.z();
+    complex_t qz3 = -k_i.z() + k_f.z();
+    complex_t qz4 = -k_i.z() - k_f.z();
 
     complex_t Ti = mp_T_function[ilayer+1]->evaluate(alpha_i);
     complex_t Tf = mp_T_function[ilayer+1]->evaluate(alpha_f);

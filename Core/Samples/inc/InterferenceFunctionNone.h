@@ -23,7 +23,7 @@ public:
 	virtual ~InterferenceFunctionNone() {}
 	virtual InterferenceFunctionNone *clone() const { return new InterferenceFunctionNone(); }
 
-	virtual double evaluate(kvector_t q) const { (void)q; return 1.0; }
+	virtual double evaluate(cvector_t q) const { (void)q; return 1.0; }
 
 private:
     //! copy constructor and assignment operator are hidden since there is a clone method

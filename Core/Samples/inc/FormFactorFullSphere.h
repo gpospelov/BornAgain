@@ -31,7 +31,7 @@ public:
     double getRadius() const { return m_radius; }
 
 protected:
-    virtual complex_t evaluate_for_complex_qz(kvector_t q, complex_t qz) const;
+    virtual complex_t evaluate_for_q(cvector_t q) const;
 
 private:
 

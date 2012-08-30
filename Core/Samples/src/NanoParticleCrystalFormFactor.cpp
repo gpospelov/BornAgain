@@ -37,26 +37,23 @@ void NanoParticleCrystalFormFactor::setAmbientRefractiveIndex(
     mp_basis_form_factor->setAmbientRefractiveIndex(refractive_index);
 }
 
-complex_t NanoParticleCrystalFormFactor::evaluate_for_complex_qz(kvector_t q,
-        complex_t qz) const
+complex_t NanoParticleCrystalFormFactor::evaluate_for_q(cvector_t q) const
 {
     // construct a real reciprocal vector
-    kvector_t q_real(q.x(), q.y(), qz.real());
-    kvector_t k_zero;
+    kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
+    cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
     double radius = 2*m_max_rec_length;
     // retrieve nearest reciprocal lattice vectors
     std::vector<kvector_t> rec_vectors =
             m_lattice.getReciprocalLatticeVectorsWithinRadius(q_real, radius);
     // perform convolution on these lattice vectors
-//    std::cout << "Number of reciprocal vectors used for convolution: " << rec_vectors.size() << std::endl;
     complex_t result(0.0, 0.0);
     for (std::vector<kvector_t>::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {
-        kvector_t q_i = *it;
-        kvector_t q_min_q_i = q_real - q_i;
-        complex_t q_min_q_i_z = qz - q_i.z();
-        complex_t basis_factor = mp_basis_form_factor->evaluate(q_i, k_zero);
-        complex_t meso_factor = mp_meso_form_factor->evaluateForComplexkz(q_min_q_i, k_zero, q_min_q_i_z, complex_t(0.0, 0.0));
+        cvector_t q_i((*it).x(), (*it).y(), (*it).z());
+        cvector_t q_min_q_i = q - q_i;
+        complex_t basis_factor = mp_basis_form_factor->evaluate(q_i, k_zero, 0.0, 0.0);
+        complex_t meso_factor = mp_meso_form_factor->evaluate(q_min_q_i, k_zero, 0.0, 0.0);
         result += basis_factor*meso_factor;
     }
     // the transformed delta train gets a factor of (2pi)^3/V :

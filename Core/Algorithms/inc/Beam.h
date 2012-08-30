@@ -22,9 +22,9 @@ public:
 	Beam();
 	virtual ~Beam() {}
 
-	kvector_t getCentralK() const { return m_central_k; }
+	cvector_t getCentralK() const { return m_central_k; }
 
-	void setCentralK(const kvector_t &k_i);
+	void setCentralK(const cvector_t &k_i);
 	void setCentralK(double lambda, double alpha_i, double phi_i);
 
 	double getIntensity() const { return m_intensity; }
@@ -32,7 +32,7 @@ public:
 	void setIntensity(double intensity) { m_intensity = intensity; }
 
 protected:
-	kvector_t m_central_k;
+	cvector_t m_central_k;
 	double m_intensity;
 };
 

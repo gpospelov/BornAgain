@@ -24,7 +24,8 @@ double LocalMonodisperseApproximationStrategy::evaluate(
         complex_t ff = m_form_factors[i]->evaluate(k_i, k_f, alpha_i, alpha_f);
         double itf_function = m_interference_functions[i]->evaluate(k_i-k_f);
         double fraction = m_fractions[i];
-        intensity += fraction*itf_function*std::norm(ff);
+        intensity += fraction*(itf_function*std::norm(ff)
+                                + m_form_factors[i]->evaluateDiffuse(k_i, k_f, alpha_i, alpha_f));
     }
     return intensity;
 }

@@ -68,14 +68,14 @@ void TestMesoCrystal::initializeSample()
 {
     delete mp_sample;
     // create mesocrystal
-    double meso_width = 600*Units::nanometer;
+    double meso_radius = 300*Units::nanometer;
     double surface_filling_ratio = 0.25;
-    double surface_density = surface_filling_ratio/meso_width/meso_width;
+    double surface_density = surface_filling_ratio/M_PI/meso_radius/meso_radius;
     complex_t n_particle(1.0-1.55e-5, 1.37e-6);
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
     complex_t n_avg = std::sqrt(surface_filling_ratio*avg_n_squared_meso + 1.0 - surface_filling_ratio);
     complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
-    FormFactorGauss ff_meso(0.2*Units::micrometer, meso_width);
+    FormFactorCylinder ff_meso(0.2*Units::micrometer, meso_radius);
 //    MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, meso_radius, 84*Units::degree));
 
     // Create multilayer
@@ -101,6 +101,7 @@ void TestMesoCrystal::initializeSample()
     size_t n_alpha_rotation_steps = 1;
     size_t n_np_size_steps = 1;
     double phi_step = 2*M_PI/3.0/n_phi_rotation_steps;
+    double phi_start = 0.0;
     double alpha_step = 4*Units::degree/n_alpha_rotation_steps;
     double alpha_start = - (n_alpha_rotation_steps/2)*alpha_step;
     double np_size_step = 0.3*Units::nanometer/n_np_size_steps;
@@ -109,8 +110,8 @@ void TestMesoCrystal::initializeSample()
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {
             for (size_t k=0; k<n_np_size_steps; ++k) {
                 double R = np_size_start + k*np_size_step;
-                Geometry::RotateZ3D transform1(i*phi_step);
-                Geometry::RotateY3D transform2(alpha_start+j*alpha_step);
+                Geometry::RotateZ3D transform1(phi_start + i*phi_step);
+                Geometry::RotateY3D transform2(alpha_start + j*alpha_step);
                 Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1*transform2);
                 particle_decoration.addNanoParticle(createMesoCrystal(R, n_particle_adapted, &ff_meso), p_total_transform, 0.2*Units::micrometer);
     //            particle_decoration.addNanoParticle(meso2, transform1, 0.2*Units::micrometer, 0.5);
@@ -148,5 +149,8 @@ MesoCrystal* createMesoCrystal(double nanoparticle_radius, complex_t n_particle,
     pos_vector.push_back(position_2);
     LatticeBasis basis(particle, pos_vector);
     NanoParticleCrystal npc(basis, lat);
+    double relative_sigma_np_radius = 0.0;
+    double dw_factor = relative_sigma_np_radius*relative_sigma_np_radius*nanoparticle_radius*nanoparticle_radius/6.0;
+    npc.setDWFactor(dw_factor);
     return new MesoCrystal(npc.clone(), p_meso_form_factor->clone());
 }

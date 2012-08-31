@@ -55,7 +55,6 @@ inline double IFormFactor::evaluateDiffuse(cvector_t k_i, cvector_t k_f, double 
     return 0.0;
 }
 
-
 class IFormFactorDecorator : public IFormFactor
 {
 public:

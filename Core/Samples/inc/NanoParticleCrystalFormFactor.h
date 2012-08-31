@@ -33,16 +33,19 @@ public:
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);
 
+//    virtual double evaluateDiffuse(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
 protected:
     virtual complex_t evaluate_for_q(cvector_t q) const;
 private:
     void calculateLargestReciprocalDistance();
+//    void initializeDiffuseNanoparticleFormfactors();
     Lattice m_lattice;
     NanoParticle *mp_nano_particle;
     IFormFactor *mp_basis_form_factor;
     IFormFactor *mp_meso_form_factor;
     complex_t m_ambient_refractive_index;
     double m_max_rec_length;
+//    std::vector<IFormFactor *> m_diffuse_nanoparticle_ffs;
 };
 
 

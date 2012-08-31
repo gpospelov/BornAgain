@@ -112,6 +112,7 @@ HEADERS += \
     Algorithms/inc/DWBAFormFactorConstZ.h \
     Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/Experiment.h \
+    Algorithms/inc/FormFactorDecoratorDebyeWaller.h \
     Algorithms/inc/FormFactorDecoratorFactor.h \
     Algorithms/inc/FormFactorDecoratorPositionFactor.h \
     Algorithms/inc/FormFactorDecoratorRefractiveIndex.h \

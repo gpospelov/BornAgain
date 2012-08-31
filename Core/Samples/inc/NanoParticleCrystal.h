@@ -26,7 +26,7 @@ class NanoParticleCrystal : public IClusteredNanoParticles
 {
 public:
      //! @brief constructor
-     //! @param basis_form_factor  the form factor of the basis which is repeated in the lattice structure
+     //! @param nano_particle  the basis which is repeated in the lattice structure
      //! @param lattice  the crystal lattice, described by its basis vectors
      NanoParticleCrystal(const NanoParticle &nano_particle, const Lattice &lattice);
     ~NanoParticleCrystal();
@@ -46,9 +46,12 @@ public:
 
     const NanoParticle *getNanoParticle() const { return mp_nano_particle; }
 
+    void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
+
 private:
     Lattice m_lattice;
     NanoParticle *mp_nano_particle;
+    double m_dw_factor;
 };
 
 

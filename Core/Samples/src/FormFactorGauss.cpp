@@ -54,32 +54,16 @@ FormFactorGauss* FormFactorGauss::clone() const
 //    return new FormFactorGauss(mp_height->clone(), mp_radius->clone());
 }
 
-complex_t FormFactorGauss::evaluate_for_complex_qz(kvector_t q, complex_t qz) const
-{
-//    double R = mp_radius->getCurrent();
-//    double H = mp_height->getCurrent();
-    double R = m_width;
-    double H = m_height;
-
-    complex_t z_part = H*std::exp(-qz*qz*H*H/4.0/M_PI);
-
-    double qrR = q.magxy()*R;
-    double radial_part = R*R*std::exp(-qrR*qrR/4.0/M_PI);
-
-    return radial_part*z_part;
-}
-
 complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const
 {
-//    double R = mp_radius->getCurrent();
+//    double R = mp_width->getCurrent();
 //    double H = mp_height->getCurrent();
     double R = m_width;
     double H = m_height;
 
-    complex_t z_part = H*std::exp(-q.z()*q.z()*H*H/4.0/M_PI);
+    complex_t z_part = H*std::exp(-q.z()*q.z()*H*H/8.0/M_PI);
 
-    complex_t qrR = q.magxy()*R;
-    complex_t radial_part = R*R*std::exp(-qrR*qrR/4.0/M_PI);
+    complex_t radial_part = R*R*std::exp(-(q.x()*q.x()+q.y()*q.y())*R*R/8.0/M_PI);
 
     return radial_part*z_part;
 }

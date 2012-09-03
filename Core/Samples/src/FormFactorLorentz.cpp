@@ -54,20 +54,6 @@ FormFactorLorentz* FormFactorLorentz::clone() const
 //    return new FormFactorLorentz(mp_height->clone(), mp_radius->clone());
 }
 
-complex_t FormFactorLorentz::evaluate_for_complex_qz(kvector_t q, complex_t qz) const
-{
-//    double R = mp_radius->getCurrent();
-//    double H = mp_height->getCurrent();
-    double R = m_width;
-    double H = m_height;
-
-    complex_t z_part = H/(1.0 + (H*qz/2.0)*(H*qz/2.0));
-
-    double radial_part = R*R/(1.0 + (R*q.x()/2.0)*(R*q.x()/2.0))/(1.0 + (R*q.y()/2.0)*(R*q.y()/2.0));
-
-    return radial_part*z_part;
-}
-
 complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const
 {
 //    double R = mp_radius->getCurrent();
@@ -75,9 +61,9 @@ complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const
     double R = m_width;
     double H = m_height;
 
-    complex_t z_part = H/(1.0 + (H*q.z()/2.0)*(H*q.z()/2.0));
+    complex_t z_part = H/std::sqrt(1.0 + (H*q.z()/2.0)*(H*q.z()/2.0));
 
-    complex_t radial_part = R*R/(1.0 + (R*q.x()/2.0)*(R*q.x()/2.0))/(1.0 + (R*q.y()/2.0)*(R*q.y()/2.0));
+    complex_t radial_part = R*R/std::sqrt(1.0 + (R*q.x()/2.0)*(R*q.x()/2.0))/std::sqrt(1.0 + (R*q.y()/2.0)*(R*q.y()/2.0));
 
     return radial_part*z_part;
 }

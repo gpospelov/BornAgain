@@ -38,7 +38,7 @@ double GenerateUniformRandom();
 
 double Bessel_J1(double value);
 
-complex_t Bessel_J1(complex_t value);
+//complex_t Bessel_J1(complex_t value);
 
 double Sinc(double value);
 
@@ -81,8 +81,7 @@ inline complex_t MathFunctions::Sinc(complex_t value)  // Sin(x)/x
 	if(std::abs(value)<Numeric::double_epsilon) {
 		return complex_t(1.0, 0.0);
 	}
-    return (std::exp(complex_t(0.0, 1.0)*value) - std::exp(complex_t(0.0, -1.0)*value))
-    		/(complex_t(0.0, 2.0)*value);
+    return std::sin(value)/value;
 }
 
 inline complex_t MathFunctions::Laue(complex_t value, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)

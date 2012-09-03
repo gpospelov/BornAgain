@@ -30,7 +30,6 @@ public:
 
 protected:
     virtual complex_t evaluate_for_q(cvector_t q) const;
-    virtual complex_t evaluate_for_complex_qz(kvector_t q, complex_t qz) const;
 
 private:
     //! copy constructor and assignment operator are hidden since there is a clone method

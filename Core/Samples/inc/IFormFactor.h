@@ -39,12 +39,22 @@ public:
     /// calculate a possible diffuse scattering intensity
     /// @param k_i   incoming wavevector
     /// @param k_f   outgoing wavevector
-    virtual double evaluateDiffuse(cvector_t k_i, cvector_t k_f) const { (void)k_i; (void)k_f; return 0.0; }
+    virtual double evaluateDiffuse(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
 
     /// return number of variable/stochastic parameters
     virtual int getNumberOfStochasticParameters() const { return 0; }
 
 };
+
+inline double IFormFactor::evaluateDiffuse(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const
+{
+    (void)k_i;
+    (void)k_f;
+    (void)alpha_i;
+    (void)alpha_f;
+    return 0.0;
+}
+
 
 class IFormFactorDecorator : public IFormFactor
 {

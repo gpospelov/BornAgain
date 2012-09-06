@@ -49,7 +49,7 @@ public:
     //! return nano particle abundance
     double getAbundance() const { return m_abundance; }
 
-private:
+protected:
     NanoParticleInfo &operator=(const NanoParticleInfo &right);
     NanoParticleInfo(const NanoParticleInfo &source);
 

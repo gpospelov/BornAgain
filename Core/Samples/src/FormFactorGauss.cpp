@@ -61,6 +61,7 @@ complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const
     double R = m_width;
     double H = m_height;
 
+//    complex_t z_phase = std::exp(complex_t(0.0, 1.0)*q.z()*H/2.0);
     complex_t z_part = H*std::exp(-q.z()*q.z()*H*H/8.0/M_PI);
 
     complex_t radial_part = R*R*std::exp(-(q.x()*q.x()+q.y()*q.y())*R*R/8.0/M_PI);

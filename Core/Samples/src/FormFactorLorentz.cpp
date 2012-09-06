@@ -58,14 +58,17 @@ complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const
 {
 //    double R = mp_radius->getCurrent();
 //    double H = mp_height->getCurrent();
+    static const double sigma2 = 4.0*std::pow(M_PI, 2.0/3.0);
     double R = m_width;
     double H = m_height;
 
-    complex_t z_part = H/std::sqrt(1.0 + (H*q.z()/2.0)*(H*q.z()/2.0));
+    complex_t xnorm = R*R*q.x()*q.x()/sigma2;
+    complex_t ynorm = R*R*q.y()*q.y()/sigma2;
+    complex_t znorm = H*H*q.z()*q.z()/sigma2;
 
-    complex_t radial_part = R*R/std::sqrt(1.0 + (R*q.x()/2.0)*(R*q.x()/2.0))/std::sqrt(1.0 + (R*q.y()/2.0)*(R*q.y()/2.0));
+    complex_t result = H*R*R/(1.0 + xnorm + ynorm + znorm);
 
-    return radial_part*z_part;
+    return result;
 }
 
 /* ************************************************************************* */

@@ -6,7 +6,7 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 #CONFIG  += debug
 QT      -= core gui
-CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)
@@ -24,6 +24,7 @@ SOURCES += \
     Algorithms/src/ConvolutionDetectorResolution.cpp \
     Algorithms/src/DecouplingApproximationStrategy.cpp \
     Algorithms/src/Detector.cpp \
+    Algorithms/src/DiffuseDWBASimulation.cpp \
     Algorithms/src/DWBADiffuseReflection.cpp \
     Algorithms/src/DWBAFormFactor.cpp \
     Algorithms/src/DWBAFormFactorConstZ.cpp \
@@ -46,6 +47,7 @@ SOURCES += \
     Geometry/src/Transform3D.cpp \
     Geometry/src/Vector3D.cpp \
     \
+    Samples/src/DiffuseNanoParticleInfo.cpp \
     Samples/src/FormFactorCylinder.cpp \
     Samples/src/FormFactorFullSphere.cpp \
     Samples/src/FormFactorGauss.cpp \
@@ -107,6 +109,7 @@ HEADERS += \
     Algorithms/inc/ConvolutionDetectorResolution.h \
     Algorithms/inc/DecouplingApproximationStrategy.h \
     Algorithms/inc/Detector.h \
+    Algorithms/inc/DiffuseDWBASimulation.h \
     Algorithms/inc/DWBADiffuseReflection.h \
     Algorithms/inc/DWBAFormFactor.h \
     Algorithms/inc/DWBAFormFactorConstZ.h \
@@ -138,6 +141,7 @@ HEADERS += \
     Geometry/inc/Transform3D.icc \
     Geometry/inc/Vector3D.h \
     \
+    Samples/inc/DiffuseNanoParticleInfo.h \
     Samples/inc/FormFactorCylinder.h \
     Samples/inc/FormFactorFullSphere.h \
     Samples/inc/FormFactorGauss.h \

@@ -33,7 +33,6 @@ public:
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);
 
-//    virtual double evaluateDiffuse(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
 protected:
     virtual complex_t evaluate_for_q(cvector_t q) const;
 private:

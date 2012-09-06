@@ -71,6 +71,9 @@ public:
         return new LayerDecoratorDWBASimulation(this);
     }
 
+    virtual DiffuseDWBASimulation *createDiffuseDWBASimulation() const;
+
+
 protected:
     Layer *mp_decorated_layer;
     NanoParticleDecoration *mp_decoration;

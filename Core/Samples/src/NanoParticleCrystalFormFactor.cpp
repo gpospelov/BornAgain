@@ -43,7 +43,7 @@ complex_t NanoParticleCrystalFormFactor::evaluate_for_q(cvector_t q) const
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
-    double radius = 2*m_max_rec_length;
+    double radius = 1.1*m_max_rec_length;
     // retrieve nearest reciprocal lattice vectors
     std::vector<kvector_t> rec_vectors =
             m_lattice.getReciprocalLatticeVectorsWithinRadius(q_real, radius);
@@ -62,16 +62,6 @@ complex_t NanoParticleCrystalFormFactor::evaluate_for_q(cvector_t q) const
     return 8.0*pi3*result/volume;
 }
 
-//double NanoParticleCrystalFormFactor::evaluateDiffuse(cvector_t k_i,
-//        cvector_t k_f, double alpha_i, double alpha_f) const
-//{
-//    // TODO: remove fixed params
-//    cvector_t k_zero;
-//    double nbr_nanoparticles = mp_meso_form_factor->evaluate(k_zero, k_zero, 0.0, 0.0)/m_lattice.getVolume();
-//
-//
-//}
-
 void NanoParticleCrystalFormFactor::calculateLargestReciprocalDistance()
 {
     kvector_t a1 = m_lattice.getBasisVectorA();
@@ -81,17 +71,3 @@ void NanoParticleCrystalFormFactor::calculateLargestReciprocalDistance()
     m_max_rec_length = std::max(M_PI/a1.mag(), M_PI/a2.mag());
     m_max_rec_length = std::max(m_max_rec_length, M_PI/a3.mag());
 }
-
-//void NanoParticleCrystalFormFactor::initializeDiffuseNanoparticleFormfactors()
-//{
-//    // TODO: remove fixed params
-//    NanoParticle *p_nano = mp_nano_particle->clone();
-//    double heigth = 0.2*Units::micrometer;
-//    size_t nbr_heigths = 10;
-//    size_t nbr_shapes = 5;
-//    for (size_t i=0; i<nbr_shapes; ++i) {
-//        for (size_t j=0; j< nbr_heigths; ++j) {
-//
-//        }
-//    }
-//}

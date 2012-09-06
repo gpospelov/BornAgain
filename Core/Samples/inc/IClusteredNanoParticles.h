@@ -16,6 +16,8 @@
 
 #include "IFormFactor.h"
 #include "ICompositeSample.h"
+#include "NanoParticleInfo.h"
+#include "Transform3D.h"
 
 //- -------------------------------------------------------------------
 //! @class IClusteredNanoParticles
@@ -34,8 +36,11 @@ public:
     //! @param meso_crystal_form_factor  the form factor describing the shape of the mesocrystal
     //! @param ambient_refractive_index  the refractive index of the ambient material
     //! The bulk content of the mesocrystal is encapsulated by the IClusteredNanoParticles objeect itself
-    virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor
-            , complex_t ambient_refractive_index) const=0;
+    virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
+            complex_t ambient_refractive_index) const=0;
+
+    virtual std::vector<DiffuseNanoParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
+                const Geometry::Transform3D &transform, double meso_volume) const=0;
 };
 
 

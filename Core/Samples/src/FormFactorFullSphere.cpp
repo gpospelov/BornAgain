@@ -44,8 +44,8 @@ complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const
     complex_t qz = q.z();
     double R = m_radius;
 
-    complex_t qzR = complex_t(0.0, 1.0)*qz*R;
-    complex_t z_part = std::exp(qzR);
+    complex_t iqzR = complex_t(0.0, 1.0)*qz*R;
+    complex_t z_part = std::exp(iqzR);
 
     complex_t qR = std::sqrt( q.x()*q.x()+q.y()*q.y()+std::abs(qz)*std::abs(qz) )*R;
     double volume = 4*M_PI*R*R*R/3;

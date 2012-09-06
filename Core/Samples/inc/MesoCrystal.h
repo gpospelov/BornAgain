@@ -47,6 +47,9 @@ public:
 
     const IClusteredNanoParticles *getClusteredNanoParticles() const {return mp_nano_particle_structure; }
 
+    virtual std::vector<DiffuseNanoParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
+                const Geometry::Transform3D &transform) const;
+
 private:
     IClusteredNanoParticles *mp_nano_particle_structure;
     IFormFactor *mp_meso_form_factor;

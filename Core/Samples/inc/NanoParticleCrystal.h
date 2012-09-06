@@ -17,6 +17,7 @@
 #include "IClusteredNanoParticles.h"
 #include "NanoParticle.h"
 #include "Lattice.h"
+#include "LatticeBasis.h"
 
 //- -------------------------------------------------------------------
 //! @class NanoParticleCrystal
@@ -28,29 +29,32 @@ public:
      //! @brief constructor
      //! @param nano_particle  the basis which is repeated in the lattice structure
      //! @param lattice  the crystal lattice, described by its basis vectors
-     NanoParticleCrystal(const NanoParticle &nano_particle, const Lattice &lattice);
+     NanoParticleCrystal(const LatticeBasis &lattice_basis, const Lattice &lattice);
     ~NanoParticleCrystal();
 
     virtual NanoParticleCrystal *clone() const;
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)
     {
-        mp_nano_particle->setAmbientRefractiveIndex(refractive_index);
+        mp_lattice_basis->setAmbientRefractiveIndex(refractive_index);
     }
 
     virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor
             , complex_t ambient_refractive_index) const;
 
     Lattice getLattice() const { return m_lattice; }
-    NanoParticle *createNanoParticle() const { return mp_nano_particle->clone(); }
+    NanoParticle *createNanoParticle() const { return mp_lattice_basis->clone(); }
 
-    const NanoParticle *getNanoParticle() const { return mp_nano_particle; }
+    const LatticeBasis *getLatticeBasis() const { return mp_lattice_basis; }
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
+     virtual std::vector<DiffuseNanoParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
+                const Geometry::Transform3D &transform, double meso_volume) const;
+
 private:
     Lattice m_lattice;
-    NanoParticle *mp_nano_particle;
+    LatticeBasis *mp_lattice_basis;
     double m_dw_factor;
 };
 

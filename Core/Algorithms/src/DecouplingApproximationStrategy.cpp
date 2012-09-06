@@ -25,7 +25,7 @@ double DecouplingApproximationStrategy::evaluate(cvector_t k_i,
         complex_t ff = m_form_factors[i]->evaluate(k_i, k_f, alpha_i, alpha_f);
         double fraction = m_fractions[i];
         amplitude += fraction*ff;
-        intensity += fraction*(std::norm(ff)); // + m_form_factors[i]->evaluateDiffuse(k_i, k_f, alpha_i, alpha_f));
+        intensity += fraction*(std::norm(ff));
     }
     double amplitude_norm = std::norm(amplitude);
     double itf_function = m_interference_functions[0]->evaluate(k_i-k_f);

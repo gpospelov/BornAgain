@@ -33,7 +33,7 @@ void GISASExperiment::normalize()
     // (so not the cross section per scattering particle as is usual)
     if (!m_is_normalized) {
         double incident_intensity = m_beam.getIntensity(); // Actually, this is the total number of neutrons hitting the sample
-        double sin_alpha_i = std::abs(m_beam.getCentralK().cosTheta().real());
+        double sin_alpha_i = std::abs(m_beam.getCentralK().cosTheta());
         m_intensity_map.resetIndex();
         while (m_intensity_map.hasNext()) {
             double old_value = m_intensity_map.currentValue();

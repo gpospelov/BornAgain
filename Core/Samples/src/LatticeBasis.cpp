@@ -61,6 +61,7 @@ void LatticeBasis::setAmbientRefractiveIndex(complex_t refractive_index)
 
 IFormFactor* LatticeBasis::createFormFactor() const
 {
+    // TODO: for equal particles, create position superposition times the formfactor
     WeightedFormFactor *p_ff = new WeightedFormFactor();
     for (size_t index=0; index<m_particles.size(); ++index) {
         IFormFactor *p_particle_ff = m_particles[index]->createFormFactor();

@@ -33,3 +33,11 @@ MesoCrystal* MesoCrystal::clone() const
 {
     return new MesoCrystal(mp_nano_particle_structure->clone(), mp_meso_form_factor->clone());
 }
+
+std::vector<DiffuseNanoParticleInfo*>* MesoCrystal::createDiffuseNanoParticleInfo(
+        double depth, double weight,
+        const Geometry::Transform3D& transform) const
+{
+    double crystal_volume = mp_meso_form_factor->getVolume();
+    return mp_nano_particle_structure->createDiffuseNanoParticleInfo(depth, weight, transform, crystal_volume);
+}

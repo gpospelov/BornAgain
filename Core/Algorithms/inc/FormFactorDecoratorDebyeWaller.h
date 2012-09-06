@@ -22,7 +22,6 @@ public:
     virtual ~FormFactorDecoratorDebyeWaller();
 
     virtual complex_t evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
-    virtual double evaluateDiffuse(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const;
 
@@ -54,15 +53,6 @@ inline complex_t FormFactorDecoratorDebyeWaller::evaluate(cvector_t k_i,
     double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
     double dw = std::exp(-q2*m_dw_factor);
     return dw*mp_form_factor->evaluate(k_i, k_f, alpha_i, alpha_f);
-}
-
-inline double FormFactorDecoratorDebyeWaller::evaluateDiffuse(cvector_t k_i,
-        cvector_t k_f, double alpha_i, double alpha_f) const
-{
-    cvector_t q = k_i - k_f;
-    double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
-    double dw = std::exp(-q2*m_dw_factor);
-    return dw*dw*mp_form_factor->evaluateDiffuse(k_i, k_f, alpha_i, alpha_f);
 }
 
 inline int FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters() const

@@ -15,6 +15,7 @@
 //! @date   Jun 25, 2012
 
 #include "LayerDWBASimulation.h"
+#include "DiffuseDWBASimulation.h"
 
 class LayerDecorator;
 
@@ -24,9 +25,12 @@ public:
     LayerDecoratorDWBASimulation(const LayerDecorator *p_layer_decorator);
     virtual ~LayerDecoratorDWBASimulation();
 
+    virtual void init(const Experiment &experiment);
+
     virtual void run();
 protected:
     LayerDecorator *mp_layer_decorator;
+    DiffuseDWBASimulation *mp_diffuseDWBA;
 private:
     //! copy constructor and assignment operator are hidden
     LayerDecoratorDWBASimulation(const LayerDecoratorDWBASimulation &);

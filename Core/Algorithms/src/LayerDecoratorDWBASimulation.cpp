@@ -9,11 +9,21 @@ LayerDecoratorDWBASimulation::LayerDecoratorDWBASimulation(
         const LayerDecorator *p_layer_decorator)
 {
     mp_layer_decorator = p_layer_decorator->clone();
+    mp_diffuseDWBA = mp_layer_decorator->createDiffuseDWBASimulation();
 }
 
 LayerDecoratorDWBASimulation::~LayerDecoratorDWBASimulation()
 {
     delete mp_layer_decorator;
+    delete mp_diffuseDWBA;
+}
+
+void LayerDecoratorDWBASimulation::init(const Experiment& experiment)
+{
+    DWBASimulation::init(experiment);
+    if (mp_diffuseDWBA) {
+        mp_diffuseDWBA->init(experiment);
+    }
 }
 
 void LayerDecoratorDWBASimulation::run()
@@ -59,6 +69,7 @@ void LayerDecoratorDWBASimulation::run()
         delete form_factors[i];
     }
 
+    // calculate intensity
     while (m_dwba_intensity.hasNext())
     {
         double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
@@ -72,6 +83,15 @@ void LayerDecoratorDWBASimulation::run()
         k_f.setZ(mp_kz_function->evaluate(alpha_f));
         m_dwba_intensity.next() = p_strategy->evaluate(m_ki, k_f, -m_alpha_i, alpha_f)*total_surface_density;
     }
+
+    // get possible extra diffuse intensity which could not be handled by the interference function strategy
+    if (mp_diffuseDWBA) {
+        mp_diffuseDWBA->setKzTAndRFunctions(*mp_kz_function, *mp_T_function, *mp_R_function);
+        mp_diffuseDWBA->run();
+        m_dwba_intensity += mp_diffuseDWBA->getDWBAIntensity();
+    }
+
     delete p_strategy;
+
 }
 

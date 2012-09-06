@@ -18,7 +18,7 @@
 #include "IFormFactor.h"
 #include "FormFactorDecoratorRefractiveIndex.h"
 
-
+class DiffuseNanoParticleInfo;
 //- -------------------------------------------------------------------
 //! @class NanoParticle
 //! @brief Definition of a nanoparticle with a form factor
@@ -59,6 +59,15 @@ public:
 
     //! return form factor of the particle
     const IFormFactor *getFormFactor() const { return mp_form_factor;}
+
+    //! create list of contained nanoparticles for diffuse calculations
+    virtual std::vector<DiffuseNanoParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
+            const Geometry::Transform3D &transform) const {
+        (void)depth;
+        (void)weight;
+        (void)transform;
+        return 0;
+    }
 
 protected:
     complex_t m_ambient_refractive_index;

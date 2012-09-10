@@ -1,28 +1,10 @@
 #include "LayerDecorator.h"
 
-LayerDecorator::LayerDecorator(const Layer &layer)
-: mp_decorated_layer(layer.clone())
-, mp_decoration(0)
-{
-}
-
 LayerDecorator::LayerDecorator(const Layer &layer,
         const ParticleDecoration &decoration)
 : mp_decorated_layer(layer.clone())
 , mp_decoration(decoration.clone())
 {
-    setName("LayerDecorator");
-    registerChild(mp_decorated_layer);
-    registerChild(mp_decoration);
-    init_parameters();
-}
-
-LayerDecorator::LayerDecorator(const LayerDecorator& other)
-: Layer(other)
-{
-    mp_decorated_layer = other.getDecoratedLayer()->clone();
-    mp_decoration = other.getDecoration()->clone();
-
     setName("LayerDecorator");
     registerChild(mp_decorated_layer);
     registerChild(mp_decoration);
@@ -75,6 +57,18 @@ DiffuseDWBASimulation* LayerDecorator::createDiffuseDWBASimulation() const
     }
     delete p_sim;
     return 0;
+}
+
+LayerDecorator::LayerDecorator(const LayerDecorator& other)
+: Layer(other)
+{
+    mp_decorated_layer = other.getDecoratedLayer()->clone();
+    mp_decoration = other.getDecoration()->clone();
+
+    setName("LayerDecorator");
+    registerChild(mp_decorated_layer);
+    registerChild(mp_decoration);
+    init_parameters();
 }
 
 /* ************************************************************************* */

@@ -21,9 +21,7 @@
 class LayerDecorator : public Layer
 {
 public:
-    LayerDecorator(const Layer &layer);
     LayerDecorator(const Layer &layer, const ParticleDecoration &decoration);
-    LayerDecorator(const LayerDecorator &layer);
     virtual ~LayerDecorator();
 
     /// make layer's clone
@@ -63,7 +61,6 @@ public:
 
     const Layer* getDecoratedLayer() const { return mp_decorated_layer; }
     const ParticleDecoration* getDecoration() const { return mp_decoration; }
-    void setDecoration(ParticleDecoration* mpDecoration) { mp_decoration = mpDecoration; }
 
     virtual bool hasDWBASimulation() const { return true; }
 
@@ -92,8 +89,12 @@ protected:
     ParticleDecoration *mp_decoration;
 
 private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
+    //! assignment operator hidden since there is a clone method
     LayerDecorator &operator=(const LayerDecorator &other);
+
+    //! private copy constructor used by clone method
+    LayerDecorator(const LayerDecorator &layer);
+
 
     //! print class
     void print(std::ostream &ostr) const;

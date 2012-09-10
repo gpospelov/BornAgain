@@ -1,5 +1,5 @@
-#ifndef NANOPARTICLEINFO_H
-#define NANOPARTICLEINFO_H
+#ifndef PARTICLEINFO_H
+#define PARTICLEINFO_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,7 +9,7 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   NanoParticleInfo.h
+//! @file   ParticleInfo.h
 //! @brief  Definition of Layer class
 //! @author Scientific Computing Group at FRM II
 //! @date   18.07.2012
@@ -19,39 +19,35 @@
 #include "Transform3D.h"
 
 //- -------------------------------------------------------------------
-//! @class NanoParticleInfo
-//! @brief holds additional information about nanoparticle (used in NanoParticleDecoration)
+//! @class ParticleInfo
+//! @brief holds additional information about particle (used in NanoParticleDecoration)
 //- -------------------------------------------------------------------
-class NanoParticleInfo : public ICompositeSample
+class ParticleInfo : public ICompositeSample
 {
 public:
-    //! default constructor
-    //NanoParticleInfo();
-    //! constructor for nano particle having depth and abundance
-    //NanoParticleInfo(NanoParticle *p_particle, double depth, double abundance);
-    //! constructor for nano particle having transformation property and abundance
-    NanoParticleInfo(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
+    //! constructor for particle info having transformation property and abundance
+    ParticleInfo(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
 
-    virtual ~NanoParticleInfo();
+    virtual ~ParticleInfo();
 
-    //! clone nano particle info
-    virtual NanoParticleInfo *clone() const;
+    //! clone particle info
+    virtual ParticleInfo *clone() const;
 
-    //! return nano particle
-    const Particle *getNanoParticle() const { return mp_particle; }
+    //! return particle
+    const Particle *getParticle() const { return mp_particle; }
 
-    //! return nano particle transformation
+    //! return particle transformation
     const Geometry::Transform3D *getTransform3D() const { return m_transform; }
 
-    //! return nano particle depth
+    //! return particle depth
     double getDepth() const { return m_depth;}
 
-    //! return nano particle abundance
+    //! return particle abundance
     double getAbundance() const { return m_abundance; }
 
 protected:
-    NanoParticleInfo &operator=(const NanoParticleInfo &right);
-    NanoParticleInfo(const NanoParticleInfo &source);
+    ParticleInfo &operator=(const ParticleInfo &right);
+    ParticleInfo(const ParticleInfo &source);
 
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
@@ -63,4 +59,4 @@ protected:
 };
 
 
-#endif // NANOPARTICLEINFO_H
+#endif // PARTICLEINFO_H

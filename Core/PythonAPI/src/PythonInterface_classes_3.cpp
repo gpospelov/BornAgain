@@ -852,11 +852,11 @@ void register_classes_3(){
             , ( bp::arg("interference_function") ) )    
         .def( 
             "addNanoParticle"
-            , (void ( ::NanoParticleDecoration::* )( ::Particle const &,::Geometry::Transform3D const &,double,double ) )( &::NanoParticleDecoration::addNanoParticle )
+            , (void ( ::NanoParticleDecoration::* )( ::Particle const &,::Geometry::Transform3D const &,double,double ) )( &::NanoParticleDecoration::addParticle )
             , ( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=1.0e+0 ) )    
         .def( 
             "addNanoParticle"
-            , (void ( ::NanoParticleDecoration::* )( ::Particle const &,double,double ) )( &::NanoParticleDecoration::addNanoParticle )
+            , (void ( ::NanoParticleDecoration::* )( ::Particle const &,double,double ) )( &::NanoParticleDecoration::addParticle )
             , ( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) )    
         .def( 
             "setTotalParticleSurfaceDensity"

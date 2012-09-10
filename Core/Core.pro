@@ -47,7 +47,7 @@ SOURCES += \
     Geometry/src/Transform3D.cpp \
     Geometry/src/Vector3D.cpp \
     \
-    Samples/src/DiffuseNanoParticleInfo.cpp \
+    Samples/src/DiffuseParticleInfo.cpp \
     Samples/src/FormFactorCylinder.cpp \
     Samples/src/FormFactorFullSphere.cpp \
     Samples/src/FormFactorGauss.cpp \
@@ -75,7 +75,7 @@ SOURCES += \
     Samples/src/NanoParticleCrystal.cpp \
     Samples/src/NanoParticleCrystalFormFactor.cpp \
     Samples/src/NanoParticleDecoration.cpp \
-    Samples/src/NanoParticleInfo.cpp \
+    Samples/src/ParticleInfo.cpp \
     Samples/src/ParameterPool.cpp \
     Samples/src/WeightedFormFactor.cpp \
     \
@@ -141,7 +141,7 @@ HEADERS += \
     Geometry/inc/Transform3D.icc \
     Geometry/inc/Vector3D.h \
     \
-    Samples/inc/DiffuseNanoParticleInfo.h \
+    Samples/inc/DiffuseParticleInfo.h \
     Samples/inc/FormFactorCylinder.h \
     Samples/inc/FormFactorFullSphere.h \
     Samples/inc/FormFactorGauss.h \
@@ -176,7 +176,7 @@ HEADERS += \
     Samples/inc/NanoParticleCrystal.h \
     Samples/inc/NanoParticleCrystalFormFactor.h \
     Samples/inc/NanoParticleDecoration.h \
-    Samples/inc/NanoParticleInfo.h \
+    Samples/inc/ParticleInfo.h \
     Samples/inc/ParameterPool.h \
     Samples/inc/WeightedFormFactor.h \
     \

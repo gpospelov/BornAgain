@@ -635,10 +635,10 @@ void register_classes_1(){
     }
 
     { //::std::vector< DiffuseNanoParticleInfo* >
-        typedef bp::class_< std::vector< DiffuseNanoParticleInfo* > > vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer_t;
+        typedef bp::class_< std::vector< DiffuseParticleInfo* > > vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer_t;
         vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer_t vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer = vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer_t( "vector_less__DiffuseNanoParticleInfo_ptr___greater_" );
         bp::scope vector_less__DiffuseNanoParticleInfo_ptr___greater__scope( vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer );
-        vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< DiffuseNanoParticleInfo* > >() );
+        vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< DiffuseParticleInfo* > >() );
     }
 
     bp::class_< Experiment_wrapper, boost::noncopyable >( "Experiment", bp::init< >() )    

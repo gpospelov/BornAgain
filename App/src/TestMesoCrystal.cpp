@@ -106,7 +106,7 @@ void TestMesoCrystal::initializeSample()
             Geometry::RotateZ3D transform1(phi_start + i*phi_step);
             Geometry::RotateY3D transform2(alpha_start + j*alpha_step);
             Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1*transform2);
-            particle_decoration.addNanoParticle(createMesoCrystal(6.1*Units::nanometer,
+            particle_decoration.addParticle(createMesoCrystal(6.1*Units::nanometer,
                     n_particle_adapted, &ff_meso), p_total_transform, 0.2*Units::micrometer);
         }
     }

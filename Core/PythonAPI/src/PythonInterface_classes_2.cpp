@@ -342,7 +342,7 @@ struct IClusteredNanoParticles_wrapper : IClusteredNanoParticles, bp::wrapper< I
         return func_clone(  );
     }
 
-    virtual ::std::vector< DiffuseNanoParticleInfo* > * createDiffuseNanoParticleInfo( double depth, double weight, ::Geometry::Transform3D const & transform, double meso_volume ) const {
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseNanoParticleInfo( double depth, double weight, ::Geometry::Transform3D const & transform, double meso_volume ) const {
         bp::override func_createDiffuseNanoParticleInfo = this->get_override( "createDiffuseNanoParticleInfo" );
         return func_createDiffuseNanoParticleInfo( depth, weight, boost::ref(transform), meso_volume );
     }
@@ -911,7 +911,7 @@ void register_classes_2(){
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "createDiffuseNanoParticleInfo"
-            , bp::pure_virtual( (::std::vector< DiffuseNanoParticleInfo* > * ( ::IClusteredNanoParticles::* )( double,double,::Geometry::Transform3D const &,double ) const)(&::IClusteredNanoParticles::createDiffuseNanoParticleInfo) )
+            , bp::pure_virtual( (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredNanoParticles::* )( double,double,::Geometry::Transform3D const &,double ) const)(&::IClusteredNanoParticles::createDiffuseNanoParticleInfo) )
             , ( bp::arg("depth"), bp::arg("weight"), bp::arg("transform"), bp::arg("meso_volume") )
                 /* undefined call policies */ )    
         .def( 

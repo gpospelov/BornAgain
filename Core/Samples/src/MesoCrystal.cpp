@@ -34,7 +34,7 @@ MesoCrystal* MesoCrystal::clone() const
     return new MesoCrystal(mp_nano_particle_structure->clone(), mp_meso_form_factor->clone());
 }
 
-std::vector<DiffuseNanoParticleInfo*>* MesoCrystal::createDiffuseNanoParticleInfo(
+std::vector<DiffuseParticleInfo*>* MesoCrystal::createDiffuseParticleInfo(
         double depth, double weight,
         const Geometry::Transform3D& transform) const
 {

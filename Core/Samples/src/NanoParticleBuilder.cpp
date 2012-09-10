@@ -66,7 +66,7 @@ void NanoParticleBuilder::plantNanoParticles(NanoParticleDecoration &decor)
         Particle *particle = m_prototype->clone();
 
         if(weight/maximum_value > Numeric::probthreshold)  { // isgisaxs way
-            decor.addNanoParticle(*particle, 0.0, weight/sum_of_weights*m_scale);
+            decor.addParticle(*particle, 0.0, weight/sum_of_weights*m_scale);
         }
 
         delete particle;

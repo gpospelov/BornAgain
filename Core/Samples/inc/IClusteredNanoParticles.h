@@ -16,7 +16,7 @@
 
 #include "IFormFactor.h"
 #include "ICompositeSample.h"
-#include "NanoParticleInfo.h"
+#include "ParticleInfo.h"
 #include "Transform3D.h"
 
 //- -------------------------------------------------------------------
@@ -39,7 +39,7 @@ public:
     virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
             complex_t ambient_refractive_index) const=0;
 
-    virtual std::vector<DiffuseNanoParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
                 const Geometry::Transform3D &transform, double meso_volume) const=0;
 };
 

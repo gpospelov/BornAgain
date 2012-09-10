@@ -49,7 +49,7 @@ public:
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
-     virtual std::vector<DiffuseNanoParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
+     virtual std::vector<DiffuseParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
                 const Geometry::Transform3D &transform, double meso_volume) const;
 
 private:

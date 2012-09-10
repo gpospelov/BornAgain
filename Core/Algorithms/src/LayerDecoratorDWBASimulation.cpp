@@ -41,9 +41,9 @@ void LayerDecoratorDWBASimulation::run()
 //        NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index)->clone();
 //        double depth = p_decoration->getDepthOfNanoParticle(particle_index);
 //        Geometry::Transform3D *transform = p_decoration->getTransformationOfNanoParticle(particle_index);
-        Particle *p_particle = p_decoration->getNanoParticleInfo(particle_index)->getNanoParticle()->clone();
-        double depth = p_decoration->getNanoParticleInfo(particle_index)->getDepth();
-        const Geometry::Transform3D *transform = p_decoration->getNanoParticleInfo(particle_index)->getTransform3D();
+        Particle *p_particle = p_decoration->getParticleInfo(particle_index)->getParticle()->clone();
+        double depth = p_decoration->getParticleInfo(particle_index)->getDepth();
+        const Geometry::Transform3D *transform = p_decoration->getParticleInfo(particle_index)->getTransform3D();
 
         p_particle->setAmbientRefractiveIndex(n_layer);
         complex_t wavevector_scattering_factor = M_PI/lambda/lambda;

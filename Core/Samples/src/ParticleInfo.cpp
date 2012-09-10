@@ -1,4 +1,4 @@
-#include "NanoParticleInfo.h"
+#include "ParticleInfo.h"
 
 
 
@@ -20,7 +20,7 @@
 //}
 
 
-NanoParticleInfo::NanoParticleInfo(Particle* p_particle, Geometry::Transform3D *transform, double depth, double abundance)
+ParticleInfo::ParticleInfo(Particle* p_particle, Geometry::Transform3D *transform, double depth, double abundance)
 : mp_particle(p_particle)
 , m_transform(transform)
 , m_depth(depth)
@@ -49,7 +49,7 @@ NanoParticleInfo::NanoParticleInfo(Particle* p_particle, Geometry::Transform3D *
 //}
 
 
-NanoParticleInfo::~NanoParticleInfo()
+ParticleInfo::~ParticleInfo()
 {
     delete mp_particle;
     delete m_transform;
@@ -57,7 +57,7 @@ NanoParticleInfo::~NanoParticleInfo()
 
 
 // initialize pool parameters, i.e. register some of class members for later access via parameter pool
-void NanoParticleInfo::init_parameters()
+void ParticleInfo::init_parameters()
 {
     getParameterPool()->clear();
     getParameterPool()->registerParameter("depth", &m_depth);
@@ -67,11 +67,11 @@ void NanoParticleInfo::init_parameters()
 /* ************************************************************************* */
 // clone method
 /* ************************************************************************* */
-NanoParticleInfo *NanoParticleInfo::clone() const
+ParticleInfo *ParticleInfo::clone() const
 {
     Geometry::Transform3D *transform(0);
     if(m_transform) transform = new Geometry::Transform3D(*m_transform);
-    return new NanoParticleInfo(mp_particle->clone(), transform, m_depth, m_abundance);
+    return new ParticleInfo(mp_particle->clone(), transform, m_depth, m_abundance);
 }
 
 

@@ -1,5 +1,5 @@
-#ifndef DIFFUSENANOPARTICLEINFO_H_
-#define DIFFUSENANOPARTICLEINFO_H_
+#ifndef DIFFUSEPARTICLEINFO_H_
+#define DIFFUSEPARTICLEINFO_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,18 +9,18 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   DiffuseNanoParticleInfo.h
+//! @file   DiffuseParticleInfo.h
 //! @brief  Definition of
 //! @author Scientific Computing Group at FRM II
 //! @date   Sep 4, 2012
 
-#include "NanoParticleInfo.h"
+#include "ParticleInfo.h"
 
-class DiffuseNanoParticleInfo: public NanoParticleInfo
+class DiffuseParticleInfo: public ParticleInfo
 {
 public:
-    DiffuseNanoParticleInfo(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
-    virtual ~DiffuseNanoParticleInfo();
+    DiffuseParticleInfo(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
+    virtual ~DiffuseParticleInfo();
 
     //! scale abundance
     void scaleAbundance(double factor) { m_abundance *= factor; }
@@ -38,4 +38,4 @@ protected:
 
 };
 
-#endif /* DIFFUSENANOPARTICLEINFO_H_ */
+#endif /* DIFFUSEPARTICLEINFO_H_ */

@@ -1,5 +1,5 @@
-#ifndef NANOPARTICLE_H
-#define NANOPARTICLE_H
+#ifndef PARTICLE_H
+#define PARTICLE_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -18,24 +18,19 @@
 #include "IFormFactor.h"
 #include "FormFactorDecoratorRefractiveIndex.h"
 
-class DiffuseNanoParticleInfo;
+class DiffuseParticleInfo;
 //- -------------------------------------------------------------------
-//! @class NanoParticle
-//! @brief Definition of a nanoparticle with a form factor
+//! @class Particle
+//! @brief Definition of a particle with a form factor and refractive index
 //- -------------------------------------------------------------------
 class Particle : public ICompositeSample
 {
 public:
     Particle(complex_t refractive_index, IFormFactor* p_form_factor = 0);
-    Particle(complex_t refractive_index, const IFormFactor &p_form_factor);
     virtual ~Particle();
     virtual Particle *clone() const;
 
-//    virtual complex_t getRefractiveIndex() const
-//    {
-//        return m_refractive_index;
-//    }
-
+    //! Set the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)
     {
         m_ambient_refractive_index = refractive_index;
@@ -49,6 +44,7 @@ public:
         return p_ff;
     }
 
+    //! set the from factor of the particle
     virtual void setFormFactor(IFormFactor* p_form_factor)
     {
         if (p_form_factor != mp_form_factor) {
@@ -60,8 +56,8 @@ public:
     //! return form factor of the particle
     const IFormFactor *getFormFactor() const { return mp_form_factor;}
 
-    //! create list of contained nanoparticles for diffuse calculations
-    virtual std::vector<DiffuseNanoParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
+    //! create list of contained particles for diffuse calculations
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(double depth, double weight,
             const Geometry::Transform3D &transform) const {
         (void)depth;
         (void)weight;
@@ -71,15 +67,15 @@ public:
 
 protected:
     complex_t m_ambient_refractive_index;
+    complex_t m_refractive_index;
+    IFormFactor* mp_form_factor;
+    ///< pointer to the form factor
 
 private:
     //! copy constructor and assignment operator are hidden since there is a clone method
     Particle(const Particle &);
     Particle &operator=(const Particle &);
 
-    complex_t m_refractive_index;
-    IFormFactor* mp_form_factor;
-    ///< pointer to the form factor
 };
 
-#endif // NANOPARTICLE_H
+#endif // PARTICLE_H

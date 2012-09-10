@@ -250,8 +250,8 @@ ISample *StandardSamples::IsGISAXS1_CylinderAndPrism()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     NanoParticleDecoration particle_decoration;
-    particle_decoration.addNanoParticle(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),0.0, 0.5);
-    particle_decoration.addNanoParticle(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)), 0.0, 0.5);
+    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),0.0, 0.5);
+    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)), 0.0, 0.5);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
@@ -281,11 +281,11 @@ ISample *StandardSamples::IsGISAXS2_CylindersMixture()
     double radius2 = 10*Units::nanometer;
     double height1 = radius1;
     double height2 = radius2;
-    FormFactorCylinder ff_cylinder1(height1, radius1);
-    Particle cylinder1(n_particle, ff_cylinder1 );
+    FormFactorCylinder *p_ff_cylinder1 = new FormFactorCylinder(height1, radius1);
+    Particle cylinder1(n_particle, p_ff_cylinder1 );
 
-    FormFactorCylinder ff_cylinder2(height2, radius2);
-    Particle cylinder2(n_particle, ff_cylinder2 );
+    FormFactorCylinder *p_ff_cylinder2 = new FormFactorCylinder(height2, radius2);
+    Particle cylinder2(n_particle, p_ff_cylinder2 );
 
     // radius of nanoparticles will be sampled with gaussian probability
     int nbins=150;
@@ -369,8 +369,8 @@ ISample *StandardSamples::IsGISAXS3_CylinderBASize()
     // preparing prototype of nano particle
     double radius = 5*Units::nanometer;
     double sigma = 0.2*radius;
-    FormFactorCylinder ff_cylinder( 5*Units::nanometer, radius);
-    Particle nano_particle(n_particle, ff_cylinder);
+    FormFactorCylinder *p_ff_cylinder = new FormFactorCylinder( 5*Units::nanometer, radius);
+    Particle nano_particle(n_particle, p_ff_cylinder);
 
     // radius of nanoparticles will be sampled with gaussian probability
     int nbins(100), nfwhm(2);
@@ -439,7 +439,7 @@ ISample *StandardSamples::IsGISAXS9_RotatedPyramid()
 
     NanoParticleDecoration particle_decoration;
 
-    particle_decoration.addNanoParticle(pyramid, transform);
+    particle_decoration.addParticle(pyramid, transform);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
@@ -516,7 +516,7 @@ ISample *StandardSamples::MesoCrystal1()
     IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
         50*Units::nanometer, 1e7*Units::nanometer);
     NanoParticleDecoration particle_decoration(meso.clone(), 0.0, 0.5);
-    particle_decoration.addNanoParticle(meso2.clone(), 0.0, 0.5);
+    particle_decoration.addParticle(meso2.clone(), 0.0, 0.5);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
@@ -579,7 +579,7 @@ ISample *StandardSamples::MesoCrystal2()
     NanoParticleCrystal npc(basis, lat);
     MesoCrystal *meso_crystal = new MesoCrystal(npc.clone(), p_meso_form_factor->clone());
 
-    particle_decoration.addNanoParticle(meso_crystal, 0.2*Units::micrometer);
+    particle_decoration.addParticle(meso_crystal, 0.2*Units::micrometer);
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);

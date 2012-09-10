@@ -4,7 +4,7 @@
 #include "Units.h"
 #include "MathFunctions.h"
 #include "FormFactorFullSphere.h"
-#include "DiffuseNanoParticleInfo.h"
+#include "DiffuseParticleInfo.h"
 
 NanoParticleCrystal::NanoParticleCrystal(const LatticeBasis& lattice_basis,
         const Lattice& lattice)
@@ -39,7 +39,7 @@ IFormFactor* NanoParticleCrystal::createTotalFormFactor(
     return p_npcrystal;
 }
 
-std::vector<DiffuseNanoParticleInfo*>* NanoParticleCrystal::createDiffuseNanoParticleInfo(
+std::vector<DiffuseParticleInfo*>* NanoParticleCrystal::createDiffuseNanoParticleInfo(
         double depth, double weight,
         const Geometry::Transform3D& transform, double meso_volume) const
 {
@@ -52,7 +52,7 @@ std::vector<DiffuseNanoParticleInfo*>* NanoParticleCrystal::createDiffuseNanoPar
     double sigma = 2.0*Units::nanometer;
     size_t nbr_radii = 25;
     complex_t n_particle(0.999966, 5.62664e-7);
-    std::vector<DiffuseNanoParticleInfo *> *p_infos = new std::vector<DiffuseNanoParticleInfo *>();
+    std::vector<DiffuseParticleInfo *> *p_infos = new std::vector<DiffuseParticleInfo *>();
     double total_prob = 0.0;
     for (size_t i=0; i<nbr_radii; ++i) {
         double radius = (mean_radius-1.5*sigma) + 3.0*sigma/(nbr_radii-1);
@@ -69,9 +69,9 @@ std::vector<DiffuseNanoParticleInfo*>* NanoParticleCrystal::createDiffuseNanoPar
         }
         double particle_weight = weight*MathFunctions::Gaussian(radius, mean_radius, sigma)/total_prob;
         Particle particle(n_particle, new FormFactorFullSphere(radius));
-        DiffuseNanoParticleInfo *p_new_np_info;
+        DiffuseParticleInfo *p_new_np_info;
         if (nbr_heights<2) {
-            p_new_np_info = new DiffuseNanoParticleInfo(particle.clone(),
+            p_new_np_info = new DiffuseParticleInfo(particle.clone(),
                     new Geometry::Transform3D(transform), 5.0*Units::nanometer, particle_weight);
             p_new_np_info->setNumberPerMeso(np_density*particle_weight);
             p_infos->push_back(p_new_np_info);
@@ -79,7 +79,7 @@ std::vector<DiffuseNanoParticleInfo*>* NanoParticleCrystal::createDiffuseNanoPar
         else {
             for (size_t j=0; j<nbr_heights; ++j) {
                 double particle_depth = depth - j*height/(nbr_heights-1);
-                p_new_np_info = new DiffuseNanoParticleInfo(particle.clone(),
+                p_new_np_info = new DiffuseParticleInfo(particle.clone(),
                                     new Geometry::Transform3D(transform), particle_depth, particle_weight);
                 p_new_np_info->setNumberPerMeso(np_density*particle_weight);
                 p_infos->push_back(p_new_np_info);

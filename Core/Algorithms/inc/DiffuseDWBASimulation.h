@@ -15,7 +15,7 @@
 //! @date   Sep 4, 2012
 
 #include "LayerDWBASimulation.h"
-#include "DiffuseNanoParticleInfo.h"
+#include "DiffuseParticleInfo.h"
 
 class DiffuseDWBASimulation: public LayerDWBASimulation
 {
@@ -25,7 +25,7 @@ public:
 
     virtual void run();
     size_t getSize() const { return m_np_infos.size(); }
-    void addNanoParticleInfo(DiffuseNanoParticleInfo *p_info);
+    void addNanoParticleInfo(DiffuseParticleInfo *p_info);
     void setRefractiveIndex(complex_t n) { m_refractive_index = n; }
     void setSurfaceDensity(double surface_density) { m_surface_density = surface_density; }
     void rescaleAbundances(double factor);
@@ -33,7 +33,7 @@ public:
 protected:
     complex_t m_refractive_index;
     double m_surface_density;
-    std::vector<DiffuseNanoParticleInfo *> m_np_infos;
+    std::vector<DiffuseParticleInfo *> m_np_infos;
 };
 
 #endif /* DIFFUSEDWBASIMULATION_H_ */

@@ -409,7 +409,7 @@ void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
 
     const LayerDecorator *layer_decor = dynamic_cast<const LayerDecorator *>(sample->getLayer(1));
     if( !layer_decor ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> layer_decor panic");
-    const MesoCrystal *meso = dynamic_cast<const MesoCrystal *>(layer_decor->getDecoration()->getNanoParticleInfo(0)->getNanoParticle());
+    const MesoCrystal *meso = dynamic_cast<const MesoCrystal *>(layer_decor->getDecoration()->getParticleInfo(0)->getParticle());
     if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> meso panic");
     const NanoParticleCrystal *nano_crystal = dynamic_cast<const NanoParticleCrystal *>(meso->getClusteredNanoParticles());
     if( !nano_crystal ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> nano_crystal panic");

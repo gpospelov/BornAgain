@@ -15,7 +15,7 @@
 //! @date   23.05.2012
 
 #include "IDecoration.h"
-#include "NanoParticle.h"
+#include "Particle.h"
 #include "NanoParticleInfo.h"
 #include "IInterferenceFunction.h"
 #include "IInterferenceFunctionStrategy.h"
@@ -29,7 +29,7 @@ class NanoParticleDecoration : public IDecoration
 {
 public:
 	NanoParticleDecoration();
-	NanoParticleDecoration(NanoParticle *p_particle, double depth=0.0, double abundance=1.0);
+	NanoParticleDecoration(Particle *p_particle, double depth=0.0, double abundance=1.0);
 	virtual ~NanoParticleDecoration();
 
 	/// Clone decoration
@@ -37,12 +37,12 @@ public:
 
 
     /// add nano particle giving depth and transformation
-    void addNanoParticle(NanoParticle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=1.0);
-    void addNanoParticle(const NanoParticle &p_particle, const Geometry::Transform3D &transform, double depth=0, double abundance=1.0);
+    void addNanoParticle(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=1.0);
+    void addNanoParticle(const Particle &p_particle, const Geometry::Transform3D &transform, double depth=0, double abundance=1.0);
 
     /// add nano particle giving depth
-    void addNanoParticle(const NanoParticle &p_particle, double depth=0.0, double abundance=1.0);
-    void addNanoParticle(NanoParticle *p_particle, double depth=0.0, double abundance=1.0);
+    void addNanoParticle(const Particle &p_particle, double depth=0.0, double abundance=1.0);
+    void addNanoParticle(Particle *p_particle, double depth=0.0, double abundance=1.0);
 
     /// Add nano particle info
     void addNanoParticleInfo(const NanoParticleInfo &p_info);

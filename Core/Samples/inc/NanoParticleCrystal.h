@@ -15,7 +15,7 @@
 //! @date   Jul 12, 2012
 
 #include "IClusteredNanoParticles.h"
-#include "NanoParticle.h"
+#include "Particle.h"
 #include "Lattice.h"
 #include "LatticeBasis.h"
 
@@ -43,7 +43,7 @@ public:
             , complex_t ambient_refractive_index) const;
 
     Lattice getLattice() const { return m_lattice; }
-    NanoParticle *createNanoParticle() const { return mp_lattice_basis->clone(); }
+    Particle *createNanoParticle() const { return mp_lattice_basis->clone(); }
 
     const LatticeBasis *getLatticeBasis() const { return mp_lattice_basis; }
 

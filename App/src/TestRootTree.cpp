@@ -2,7 +2,7 @@
 #include "MultiLayer.h"
 #include "MaterialManager.h"
 #include "NanoParticleDecoration.h"
-#include "NanoParticle.h"
+#include "Particle.h"
 #include "LayerDecorator.h"
 #include "GISASExperiment.h"
 #include "FormFactors.h"

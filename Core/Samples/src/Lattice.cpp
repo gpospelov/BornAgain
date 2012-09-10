@@ -135,6 +135,9 @@ std::vector<kvector_t> Lattice::getVectorsWithinRadius(const kvector_t &input_ve
             {
                 Coordinate3D<int> coords(index_X + nearest_coords[0],
                         index_Y + nearest_coords[1], index_Z + nearest_coords[2]);
+                // TODO: remove following condition (only works for this specific lattice,
+                // where (klm) is selected only if -k+l+m = 0 mod 3)
+                if ((coords[1] + coords[2] - coords[0])%3 != 0) continue;
                 kvector_t latticePoint = coords[0]*v1 + coords[1]*v2 + coords[2]*v3;
                 if ((latticePoint - input_vector).mag() <= radius)
                 {

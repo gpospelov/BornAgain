@@ -16,9 +16,9 @@
 
 #include "IClusteredNanoParticles.h"
 #include "IFormFactor.h"
-#include "NanoParticle.h"
+#include "Particle.h"
 
-class MesoCrystal : public NanoParticle
+class MesoCrystal : public Particle
 {
 public:
     MesoCrystal(IClusteredNanoParticles *p_nano_particle_structure, IFormFactor *p_form_factor);

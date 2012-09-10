@@ -48,7 +48,7 @@ myFiles=[
   'MaterialManager.h',
   'MesoCrystal.h',
   'MultiLayer.h',
-  'NanoParticle.h',
+  'Particle.h',
   'NanoParticleCrystal.h',
   'NanoParticleDecoration.h',
   'OpticalFresnel.h',
@@ -309,10 +309,10 @@ def RulesMultiLayer(mb):
   #cl.member_function( "createDWBASimulation" ).exclude()
 
 # -------------------------------------------------------------------
-# NanoParticle.h
+# Particle.h
 # -------------------------------------------------------------------
-def RulesNanoParticle(mb):
-  cl = mb.class_( "NanoParticle" )
+def RulesParticle(mb):
+  cl = mb.class_( "Particle" )
   cl.member_functions( ).exclude() # excluding all member functions, leaving only constructors
   for fun in cl.constructors(): # excluding constructors which have pointers
     for arg in fun.arguments:
@@ -452,7 +452,7 @@ myRules = {
   'MaterialManager.h'          : RulesMaterialManager,
   'MesoCrystal.h'              : RulesMesoCrystal,
   'MultiLayer.h'               : RulesMultiLayer,
-  'NanoParticle.h'             : RulesNanoParticle,
+  'Particle.h'                 : RulesParticle,
   'NanoParticleCrystal.h'      : RulesNanoParticleCrystal,
   'NanoParticleDecoration.h'   : RulesNanoParticleDecoration,
   #'OpticalFresnel.h'           : RulesOpticalFresnel,
@@ -475,6 +475,7 @@ def GenerateCode():
   balanced_files_t.SOURCE_EXT='.cpp'
 
   myIncludes.append('/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7')
+  myIncludes.append('/opt/local/include/')
   mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')
 
   # ---------------------------------------------------------

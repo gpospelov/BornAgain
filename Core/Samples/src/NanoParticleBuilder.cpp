@@ -22,7 +22,7 @@ NanoParticleBuilder::~NanoParticleBuilder()
 /* ************************************************************************* */
 //set prototype for nano particle production
 /* ************************************************************************* */
-void NanoParticleBuilder::setPrototype(const NanoParticle &particle, std::string name, const StochasticParameter<double> &param, double scale)
+void NanoParticleBuilder::setPrototype(const Particle &particle, std::string name, const StochasticParameter<double> &param, double scale)
 {
     delete m_prototype;
     m_prototype = particle.clone();
@@ -63,7 +63,7 @@ void NanoParticleBuilder::plantNanoParticles(NanoParticleDecoration &decor)
 
         // changing value of the particle's parameter and making clone
         pool->setParameterValue(m_parameter_name, value);
-        NanoParticle *particle = m_prototype->clone();
+        Particle *particle = m_prototype->clone();
 
         if(weight/maximum_value > Numeric::probthreshold)  { // isgisaxs way
             decor.addNanoParticle(*particle, 0.0, weight/sum_of_weights*m_scale);

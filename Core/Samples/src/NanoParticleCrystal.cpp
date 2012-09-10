@@ -68,7 +68,7 @@ std::vector<DiffuseNanoParticleInfo*>* NanoParticleCrystal::createDiffuseNanoPar
             radius = (mean_radius-2.0*sigma) + 4.0*sigma*i/(nbr_radii-1);
         }
         double particle_weight = weight*MathFunctions::Gaussian(radius, mean_radius, sigma)/total_prob;
-        NanoParticle particle(n_particle, new FormFactorFullSphere(radius));
+        Particle particle(n_particle, new FormFactorFullSphere(radius));
         DiffuseNanoParticleInfo *p_new_np_info;
         if (nbr_heights<2) {
             p_new_np_info = new DiffuseNanoParticleInfo(particle.clone(),

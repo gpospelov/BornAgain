@@ -41,7 +41,7 @@ void LayerDecoratorDWBASimulation::run()
 //        NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index)->clone();
 //        double depth = p_decoration->getDepthOfNanoParticle(particle_index);
 //        Geometry::Transform3D *transform = p_decoration->getTransformationOfNanoParticle(particle_index);
-        NanoParticle *p_particle = p_decoration->getNanoParticleInfo(particle_index)->getNanoParticle()->clone();
+        Particle *p_particle = p_decoration->getNanoParticleInfo(particle_index)->getNanoParticle()->clone();
         double depth = p_decoration->getNanoParticleInfo(particle_index)->getDepth();
         const Geometry::Transform3D *transform = p_decoration->getNanoParticleInfo(particle_index)->getTransform3D();
 

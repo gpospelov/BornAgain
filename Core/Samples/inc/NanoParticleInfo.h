@@ -15,7 +15,7 @@
 //! @date   18.07.2012
 
 #include "ICompositeSample.h"
-#include "NanoParticle.h"
+#include "Particle.h"
 #include "Transform3D.h"
 
 //- -------------------------------------------------------------------
@@ -30,7 +30,7 @@ public:
     //! constructor for nano particle having depth and abundance
     //NanoParticleInfo(NanoParticle *p_particle, double depth, double abundance);
     //! constructor for nano particle having transformation property and abundance
-    NanoParticleInfo(NanoParticle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
+    NanoParticleInfo(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
 
     virtual ~NanoParticleInfo();
 
@@ -38,7 +38,7 @@ public:
     virtual NanoParticleInfo *clone() const;
 
     //! return nano particle
-    const NanoParticle *getNanoParticle() const { return mp_particle; }
+    const Particle *getNanoParticle() const { return mp_particle; }
 
     //! return nano particle transformation
     const Geometry::Transform3D *getTransform3D() const { return m_transform; }
@@ -56,7 +56,7 @@ protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    NanoParticle *mp_particle;
+    Particle *mp_particle;
     Geometry::Transform3D *m_transform;
     double m_depth;
     double m_abundance;

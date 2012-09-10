@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   20.08.2012
 
-#include "NanoParticle.h"
+#include "Particle.h"
 #include "IStochasticParameter.h"
 #include "NanoParticleDecoration.h"
 
@@ -37,13 +37,13 @@ public:
     //! @param name       parameter name in the parameter pool of given prototype
     //! @param parameter  variation type
     //! @param scale      global scale factor for probabilities
-    void setPrototype(const NanoParticle &particle, std::string name, const StochasticParameter<double> &param, double scale=1.0);
+    void setPrototype(const Particle &particle, std::string name, const StochasticParameter<double> &param, double scale=1.0);
 
     //! plant nano particles in given decoration
     void plantNanoParticles(NanoParticleDecoration &decor);
 
 private:
-    NanoParticle *m_prototype; //!< prototype of the particle, all particles will be cloned from it
+    Particle *m_prototype; //!< prototype of the particle, all particles will be cloned from it
     std::string m_parameter_name; //!< name of parameter to variate
     StochasticParameter<double > *m_parameter;
     double m_scale; //!< global scale factor for probabilities

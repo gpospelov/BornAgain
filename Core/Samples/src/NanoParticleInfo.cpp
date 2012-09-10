@@ -20,7 +20,7 @@
 //}
 
 
-NanoParticleInfo::NanoParticleInfo(NanoParticle* p_particle, Geometry::Transform3D *transform, double depth, double abundance)
+NanoParticleInfo::NanoParticleInfo(Particle* p_particle, Geometry::Transform3D *transform, double depth, double abundance)
 : mp_particle(p_particle)
 , m_transform(transform)
 , m_depth(depth)

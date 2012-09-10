@@ -19,7 +19,7 @@
 class DiffuseNanoParticleInfo: public NanoParticleInfo
 {
 public:
-    DiffuseNanoParticleInfo(NanoParticle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
+    DiffuseNanoParticleInfo(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
     virtual ~DiffuseNanoParticleInfo();
 
     //! scale abundance

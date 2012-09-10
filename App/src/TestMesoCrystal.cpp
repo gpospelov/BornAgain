@@ -95,8 +95,8 @@ void TestMesoCrystal::initializeSample()
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
     NanoParticleDecoration particle_decoration;
-    size_t n_phi_rotation_steps = 61;
-    size_t n_alpha_rotation_steps = 17;
+    size_t n_phi_rotation_steps = 241;
+    size_t n_alpha_rotation_steps = 7;
     double phi_step = 2.0*M_PI/3.0/n_phi_rotation_steps;
     double phi_start = 0.0;
     double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;
@@ -137,7 +137,7 @@ MesoCrystal* createMesoCrystal(double nanoparticle_radius, complex_t n_particle,
     kvector_t bas_a = lat.getBasisVectorA();
     kvector_t bas_b = lat.getBasisVectorB();
     kvector_t bas_c = lat.getBasisVectorC();
-    NanoParticle particle(n_particle, new FormFactorFullSphere(nanoparticle_radius));
+    Particle particle(n_particle, new FormFactorFullSphere(nanoparticle_radius));
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
     kvector_t position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);

@@ -25,7 +25,7 @@
 #include "MaterialManager.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
-#include "NanoParticle.h"
+#include "Particle.h"
 #include "NanoParticleCrystal.h"
 #include "NanoParticleDecoration.h"
 #include "OpticalFresnel.h"
@@ -73,11 +73,11 @@ struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper<
 
 };
 
-struct NanoParticle_wrapper : NanoParticle, bp::wrapper< NanoParticle > {
+struct Particle_wrapper : Particle, bp::wrapper< Particle > {
 
-    NanoParticle_wrapper(::complex_t refractive_index, ::IFormFactor const & p_form_factor )
-    : NanoParticle( refractive_index, boost::ref(p_form_factor) )
-      , bp::wrapper< NanoParticle >(){
+    Particle_wrapper(::complex_t refractive_index, ::IFormFactor const & p_form_factor )
+    : Particle( refractive_index, boost::ref(p_form_factor) )
+      , bp::wrapper< Particle >(){
         // constructor
     
     }
@@ -458,8 +458,8 @@ struct NanoParticleCrystal_wrapper : NanoParticleCrystal, bp::wrapper< NanoParti
         
     }
 
-    NanoParticleCrystal_wrapper(::NanoParticle const & nano_particle, ::Lattice const & lattice )
-    : NanoParticleCrystal( boost::ref(nano_particle), boost::ref(lattice) )
+    NanoParticleCrystal_wrapper(::LatticeBasis const & lattice_basis, ::Lattice const & lattice )
+    : NanoParticleCrystal( boost::ref(lattice_basis), boost::ref(lattice) )
       , bp::wrapper< NanoParticleCrystal >(){
         // constructor
     
@@ -475,16 +475,6 @@ struct NanoParticleCrystal_wrapper : NanoParticleCrystal, bp::wrapper< NanoParti
     
     ::ParameterPool * default_createParameterTree(  ) {
         return ISample::createParameterTree( );
-    }
-
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const {
-        bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" );
-        return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
-    }
-
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ){
-        bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" );
-        func_setAmbientRefractiveIndex( refractive_index );
     }
 
     virtual void walk_and_print(  ) {
@@ -596,21 +586,21 @@ void register_classes_3(){
             , (::kvector_t ( ::Lattice::* )(  ) const)( &::Lattice::getBasisVectorC ) )    
         .staticmethod( "createTrigonalLattice" );
 
-    bp::class_< NanoParticle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "NanoParticle", bp::init< complex_t, IFormFactor const & >(( bp::arg("refractive_index"), bp::arg("p_form_factor") )) )    
+    bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Particle", bp::init< complex_t, IFormFactor const & >(( bp::arg("refractive_index"), bp::arg("p_form_factor") )) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( NanoParticle_wrapper::* )(  ) )(&NanoParticle_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( Particle_wrapper::* )(  ) )(&Particle_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( NanoParticle_wrapper::* )(  ) )(&NanoParticle_wrapper::default_walk_and_print) );
+            , (void ( Particle_wrapper::* )(  ) )(&Particle_wrapper::default_walk_and_print) );
 
-    bp::class_< LatticeBasis_wrapper, bp::bases< NanoParticle >, boost::noncopyable >( "LatticeBasis", bp::init< >() )    
+    bp::class_< LatticeBasis_wrapper, bp::bases< Particle >, boost::noncopyable >( "LatticeBasis", bp::init< >() )    
         .def( 
             "addParticle"
-            , (void ( ::LatticeBasis::* )( ::NanoParticle const &,::kvector_t ) )( &::LatticeBasis::addParticle )
+            , (void ( ::LatticeBasis::* )( ::Particle const &,::kvector_t ) )( &::LatticeBasis::addParticle )
             , ( bp::arg("particle"), bp::arg("position") ) )    
         .def( 
             "createParameterTree"
@@ -813,7 +803,7 @@ void register_classes_3(){
         .staticmethod( "onDeadReference" )    
         .def( bp::self_ns::str( bp::self ) );
 
-    bp::class_< MesoCrystal_wrapper, bp::bases< NanoParticle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredNanoParticles const &, IFormFactor & >(( bp::arg("nano_particle_structure"), bp::arg("form_factor") )) )    
+    bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredNanoParticles const &, IFormFactor & >(( bp::arg("nano_particle_structure"), bp::arg("form_factor") )) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -844,21 +834,12 @@ void register_classes_3(){
             , (void ( MultiLayer_wrapper::* )(  ) )(&MultiLayer_wrapper::default_walk_and_print) )    
         .def( bp::self_ns::str( bp::self ) );
 
-    bp::class_< NanoParticleCrystal_wrapper, bp::bases< IClusteredNanoParticles > >( "NanoParticleCrystal", bp::init< NanoParticle const &, Lattice const & >(( bp::arg("nano_particle"), bp::arg("lattice") )) )    
+    bp::class_< NanoParticleCrystal_wrapper, bp::bases< IClusteredNanoParticles > >( "NanoParticleCrystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( NanoParticleCrystal_wrapper::* )(  ) )(&NanoParticleCrystal_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "createTotalFormFactor"
-            , bp::pure_virtual( (::IFormFactor * ( ::IClusteredNanoParticles::* )( ::IFormFactor const &,::complex_t ) const)(&::IClusteredNanoParticles::createTotalFormFactor) )
-            , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "setAmbientRefractiveIndex"
-            , bp::pure_virtual( (void ( ::IClusteredNanoParticles::* )( ::complex_t ) )(&::IClusteredNanoParticles::setAmbientRefractiveIndex) )
-            , ( bp::arg("refractive_index") ) )    
         .def( 
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
@@ -871,11 +852,11 @@ void register_classes_3(){
             , ( bp::arg("interference_function") ) )    
         .def( 
             "addNanoParticle"
-            , (void ( ::NanoParticleDecoration::* )( ::NanoParticle const &,::Geometry::Transform3D const &,double,double ) )( &::NanoParticleDecoration::addNanoParticle )
+            , (void ( ::NanoParticleDecoration::* )( ::Particle const &,::Geometry::Transform3D const &,double,double ) )( &::NanoParticleDecoration::addNanoParticle )
             , ( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=1.0e+0 ) )    
         .def( 
             "addNanoParticle"
-            , (void ( ::NanoParticleDecoration::* )( ::NanoParticle const &,double,double ) )( &::NanoParticleDecoration::addNanoParticle )
+            , (void ( ::NanoParticleDecoration::* )( ::Particle const &,double,double ) )( &::NanoParticleDecoration::addNanoParticle )
             , ( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) )    
         .def( 
             "setTotalParticleSurfaceDensity"

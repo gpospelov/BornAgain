@@ -24,7 +24,7 @@ void DiffuseDWBASimulation::run()
     // collect all nanoparticle formfactors and create dwba formfactors for these
     for (size_t np_index=0; np_index<number_of_nps; ++np_index) {
         NanoParticleInfo *p_np_info = m_np_infos[np_index];
-        NanoParticle *p_np = p_np_info->getNanoParticle()->clone();
+        Particle *p_np = p_np_info->getNanoParticle()->clone();
         double depth = p_np_info->getDepth();
 
         p_np->setAmbientRefractiveIndex(m_refractive_index);

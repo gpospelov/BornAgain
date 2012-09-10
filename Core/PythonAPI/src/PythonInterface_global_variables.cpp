@@ -25,7 +25,7 @@
 #include "MaterialManager.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
-#include "NanoParticle.h"
+#include "Particle.h"
 #include "NanoParticleCrystal.h"
 #include "NanoParticleDecoration.h"
 #include "OpticalFresnel.h"

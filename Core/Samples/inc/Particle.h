@@ -9,8 +9,8 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   NanoParticle.h
-//! @brief  Definition of NanoParticle
+//! @file   Particle.h
+//! @brief  Definition of Particle class
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
@@ -23,13 +23,13 @@ class DiffuseNanoParticleInfo;
 //! @class NanoParticle
 //! @brief Definition of a nanoparticle with a form factor
 //- -------------------------------------------------------------------
-class NanoParticle : public ICompositeSample
+class Particle : public ICompositeSample
 {
 public:
-    NanoParticle(complex_t refractive_index, IFormFactor* p_form_factor = 0);
-    NanoParticle(complex_t refractive_index, const IFormFactor &p_form_factor);
-    virtual ~NanoParticle();
-    virtual NanoParticle *clone() const;
+    Particle(complex_t refractive_index, IFormFactor* p_form_factor = 0);
+    Particle(complex_t refractive_index, const IFormFactor &p_form_factor);
+    virtual ~Particle();
+    virtual Particle *clone() const;
 
 //    virtual complex_t getRefractiveIndex() const
 //    {
@@ -74,8 +74,8 @@ protected:
 
 private:
     //! copy constructor and assignment operator are hidden since there is a clone method
-    NanoParticle(const NanoParticle &);
-    NanoParticle &operator=(const NanoParticle &);
+    Particle(const Particle &);
+    Particle &operator=(const Particle &);
 
     complex_t m_refractive_index;
     IFormFactor* mp_form_factor;

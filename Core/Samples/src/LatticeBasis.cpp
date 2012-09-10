@@ -3,21 +3,21 @@
 #include "FormFactorDecoratorPositionFactor.h"
 
 LatticeBasis::LatticeBasis()
-: NanoParticle(complex_t(1.0, 0.0))
+: Particle(complex_t(1.0, 0.0))
 {
     setName("LatticeBasis");
 }
 
-LatticeBasis::LatticeBasis(const NanoParticle& particle)
-: NanoParticle(complex_t(1.0, 0.0))
+LatticeBasis::LatticeBasis(const Particle& particle)
+: Particle(complex_t(1.0, 0.0))
 {
     setName("LatticeBasis");
     addParticle( particle, kvector_t(0.0, 0.0, 0.0) );
 }
 
-LatticeBasis::LatticeBasis(const NanoParticle& particle,
+LatticeBasis::LatticeBasis(const Particle& particle,
         std::vector<kvector_t> positions)
-: NanoParticle(complex_t(1.0, 0.0))
+: Particle(complex_t(1.0, 0.0))
 {
     setName("LatticeBasis");
     for (size_t index=0; index<positions.size(); ++index) {
@@ -43,9 +43,9 @@ LatticeBasis* LatticeBasis::clone() const
     return p_new;
 }
 
-void LatticeBasis::addParticle(const NanoParticle& particle, kvector_t position)
+void LatticeBasis::addParticle(const Particle& particle, kvector_t position)
 {
-    NanoParticle *np = particle.clone();
+    Particle *np = particle.clone();
     registerChild(np);
     m_particles.push_back(np);
     m_positions.push_back(position);
@@ -53,7 +53,7 @@ void LatticeBasis::addParticle(const NanoParticle& particle, kvector_t position)
 
 void LatticeBasis::setAmbientRefractiveIndex(complex_t refractive_index)
 {
-    NanoParticle::setAmbientRefractiveIndex(refractive_index);
+    Particle::setAmbientRefractiveIndex(refractive_index);
     for (size_t index=0; index<m_particles.size(); ++index) {
         m_particles[index]->setAmbientRefractiveIndex(refractive_index);
     }

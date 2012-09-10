@@ -39,7 +39,7 @@ private:
     void calculateLargestReciprocalDistance();
 //    void initializeDiffuseNanoparticleFormfactors();
     Lattice m_lattice;
-    NanoParticle *mp_nano_particle;
+    Particle *mp_nano_particle;
     IFormFactor *mp_basis_form_factor;
     IFormFactor *mp_meso_form_factor;
     complex_t m_ambient_refractive_index;

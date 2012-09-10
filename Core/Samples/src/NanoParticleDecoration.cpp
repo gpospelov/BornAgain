@@ -11,7 +11,7 @@ NanoParticleDecoration::NanoParticleDecoration()
     setName("NanoParticleDecoration");
 }
 
-NanoParticleDecoration::NanoParticleDecoration(NanoParticle* p_particle, double depth, double abundance)
+NanoParticleDecoration::NanoParticleDecoration(Particle* p_particle, double depth, double abundance)
 : m_total_abundance(0.0)
 , m_total_particle_surface_density(1.0)
 {
@@ -54,26 +54,26 @@ NanoParticleDecoration* NanoParticleDecoration::clone() const
 /* ************************************************************************* */
 // add nano particle
 /* ************************************************************************* */
-void NanoParticleDecoration::addNanoParticle(NanoParticle* p_particle,
+void NanoParticleDecoration::addNanoParticle(Particle* p_particle,
         double depth, double abundance)
 {
     addNanoParticle(p_particle, 0, depth, abundance);
 }
 
-void NanoParticleDecoration::addNanoParticle(const NanoParticle &p_particle,
+void NanoParticleDecoration::addNanoParticle(const Particle &p_particle,
         double depth, double abundance)
 {
     addNanoParticle(p_particle.clone(), 0, depth, abundance);
 }
 
-void NanoParticleDecoration::addNanoParticle(const NanoParticle &p_particle,
+void NanoParticleDecoration::addNanoParticle(const Particle &p_particle,
         const Geometry::Transform3D &transform, double depth, double abundance)
 {
     addNanoParticle(p_particle.clone(), new Geometry::Transform3D(transform), depth, abundance);
 }
 
 // main function to add nano particle
-void NanoParticleDecoration::addNanoParticle(NanoParticle* p_particle,
+void NanoParticleDecoration::addNanoParticle(Particle* p_particle,
         Geometry::Transform3D *transform, double depth, double abundance)
 {
     addAndRegisterNanoParticleInfo( new NanoParticleInfo(p_particle, transform, depth, abundance) );

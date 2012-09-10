@@ -14,20 +14,20 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 17, 2012
 
-#include "NanoParticle.h"
+#include "Particle.h"
 #include "Types.h"
 #include <vector>
 
-class LatticeBasis : public NanoParticle
+class LatticeBasis : public Particle
 {
 public:
     LatticeBasis();
-    LatticeBasis(const NanoParticle &particle);
-    LatticeBasis(const NanoParticle &particle, std::vector<kvector_t > positions);
+    LatticeBasis(const Particle &particle);
+    LatticeBasis(const Particle &particle, std::vector<kvector_t > positions);
     virtual ~LatticeBasis();
     virtual LatticeBasis *clone() const;
 
-    void addParticle(const NanoParticle &particle, kvector_t position);
+    void addParticle(const Particle &particle, kvector_t position);
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);
 
@@ -40,13 +40,13 @@ public:
     kvector_t getPosition(size_t indx) const { return m_positions[check_index(indx)]; }
 
     //! return nano particle with given index
-    const NanoParticle *getNanoParticle(size_t indx) const { return m_particles[check_index(indx)]; }
+    const Particle *getNanoParticle(size_t indx) const { return m_particles[check_index(indx)]; }
 
 private:
     //! check index
     inline size_t check_index(size_t indx) const { return indx < m_positions.size() ? indx : throw OutOfBoundsException("LatticeBasis::check_index() -> Index is out of bounds"); }
 
-    std::vector<NanoParticle *> m_particles;
+    std::vector<Particle *> m_particles;
     std::vector<kvector_t> m_positions;
 };
 

@@ -35,9 +35,7 @@ MesoCrystal* MesoCrystal::clone() const
 }
 
 std::vector<DiffuseParticleInfo*>* MesoCrystal::createDiffuseParticleInfo(
-        double depth, double weight,
-        const Geometry::Transform3D& transform) const
+        const ParticleInfo& parent_info) const
 {
-    double crystal_volume = mp_meso_form_factor->getVolume();
-    return mp_particle_structure->createDiffuseParticleInfo(depth, weight, transform, crystal_volume);
+    return mp_particle_structure->createDiffuseParticleInfo(parent_info);
 }

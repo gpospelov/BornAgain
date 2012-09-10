@@ -37,7 +37,7 @@ public:
         return mp_particle_structure->createTotalFormFactor(*mp_meso_form_factor, m_ambient_refractive_index);
     }
 
-    virtual void setFormFactor(IFormFactor* p_form_factor)
+    virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
     {
         if (p_form_factor != mp_meso_form_factor) {
             delete mp_meso_form_factor;
@@ -45,10 +45,11 @@ public:
         }
     }
 
+    virtual const IFormFactor *getSimpleFormFactor() const { return mp_meso_form_factor;}
+
     const IClusteredParticles *getClusteredParticles() const {return mp_particle_structure; }
 
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(double depth, double weight,
-                const Geometry::Transform3D &transform) const;
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const;
 
 private:
     IClusteredParticles *mp_particle_structure;

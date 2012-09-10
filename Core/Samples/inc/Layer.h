@@ -60,9 +60,6 @@ public:
     //! return zero pointer (override is important for polymorphism of LayerDecorator)
     virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
 
-//    //! print class
-//    friend std::ostream &operator<<(std::ostream &ostr, const Layer &m) { m.print(ostr); return ostr; }
-
 protected:
     Layer &operator=(const Layer &other);
     Layer(const Layer &other);

@@ -39,8 +39,7 @@ public:
     virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
             complex_t ambient_refractive_index) const=0;
 
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(double depth, double weight,
-                const Geometry::Transform3D &transform, double meso_volume) const=0;
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const=0;
 };
 
 

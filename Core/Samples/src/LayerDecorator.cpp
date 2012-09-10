@@ -56,8 +56,7 @@ DiffuseDWBASimulation* LayerDecorator::createDiffuseDWBASimulation() const
     for (size_t i=0; i<nbr_particles; ++i) {
         const ParticleInfo *p_info = mp_decoration->getParticleInfo(i);
         std::vector<DiffuseParticleInfo *> *p_diffuse_nps =
-                p_info->getParticle()->createDiffuseParticleInfo(p_info->getDepth(),
-                         p_info->getAbundance(), *(p_info->getTransform3D()));
+                p_info->getParticle()->createDiffuseParticleInfo(*p_info);
         if (p_diffuse_nps) {
             for (size_t j=0; j<p_diffuse_nps->size(); ++j) {
                 p_sim->addParticleInfo((*p_diffuse_nps)[j]);

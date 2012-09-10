@@ -19,6 +19,7 @@
 #include "FormFactorDecoratorRefractiveIndex.h"
 
 class DiffuseParticleInfo;
+class ParticleInfo;
 //- -------------------------------------------------------------------
 //! @class Particle
 //! @brief Definition of a particle with a form factor and refractive index
@@ -44,8 +45,8 @@ public:
         return p_ff;
     }
 
-    //! set the from factor of the particle
-    virtual void setFormFactor(IFormFactor* p_form_factor)
+    //! set the form factor of the particle (not including scattering factor from refractive index)
+    virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
     {
         if (p_form_factor != mp_form_factor) {
             delete mp_form_factor;
@@ -53,15 +54,12 @@ public:
         }
     }
 
-    //! return form factor of the particle
-    const IFormFactor *getFormFactor() const { return mp_form_factor;}
+    //! return form factor of the particle (not including scattering factor from refractive index)
+    virtual const IFormFactor *getSimpleFormFactor() const { return mp_form_factor;}
 
     //! create list of contained particles for diffuse calculations
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(double depth, double weight,
-            const Geometry::Transform3D &transform) const {
-        (void)depth;
-        (void)weight;
-        (void)transform;
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const {
+        (void)parent_info;
         return 0;
     }
 

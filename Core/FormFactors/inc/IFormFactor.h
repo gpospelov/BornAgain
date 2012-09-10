@@ -46,7 +46,7 @@ public:
 inline double IFormFactor::getVolume() const
 {
     cvector_t zero;
-    return evaluate(zero, zero, 0.0, 0.0).real();
+    return std::abs(evaluate(zero, zero, 0.0, 0.0));
 }
 
 class IFormFactorDecorator : public IFormFactor

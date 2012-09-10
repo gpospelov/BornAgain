@@ -31,7 +31,7 @@ myFiles=[
   'FormFactorPyramid.h',
   'GISASExperiment.h',
   'HomogeneousMaterial.h',
-  'IClusteredNanoParticles.h',
+  'IClusteredParticles.h',
   'ICompositeSample.h',
   'IFormFactor.h',
   'IInterferenceFunction.h',
@@ -49,8 +49,8 @@ myFiles=[
   'MesoCrystal.h',
   'MultiLayer.h',
   'Particle.h',
-  'NanoParticleCrystal.h',
-  'NanoParticleDecoration.h',
+  'Crystal.h',
+  'ParticleDecoration.h',
   'OpticalFresnel.h',
   'ParameterPool.h',
   'PythonOutputData.h',
@@ -61,7 +61,7 @@ myFiles=[
 ]
 
 # list of include directories
-myIncludes = ['../../Core/Samples/inc','../../Core/Algorithms/inc','../../Core/Tools/inc','../../Core/PythonAPI/inc','../../Core/Geometry/inc']
+myIncludes = ['../../Core/Samples/inc','../../Core/FormFactors/inc','../../Core/Algorithms/inc','../../Core/Tools/inc','../../Core/PythonAPI/inc','../../Core/Geometry/inc']
 
 
 #-------------------------------------------------------------
@@ -131,10 +131,10 @@ def RulesGISASExperiment(mb):
 #def RulesHomogeneousMaterial(mb):
 
 # -------------------------------------------------------------------
-# IClusteredNanoParticles.h
+# IClusteredParticles.h
 # -------------------------------------------------------------------
-def RulesIClusteredNanoParticles(mb):
-  cl = mb.class_( "IClusteredNanoParticles" )
+def RulesIClusteredParticles(mb):
+  cl = mb.class_( "IClusteredParticles" )
   #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   #cl.member_functions().exclude()
   cl.member_function("createTotalFormFactor").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
@@ -161,7 +161,7 @@ def RulesIFormFactor(mb):
   #members = cl.decls( declarations.virtuality_type_matcher(declarations.VIRTUALITY_TYPES.VIRTUAL ), decl_type=pd.member_calldef_t, allow_empty=True)
   #members.set_virtuality( declarations.VIRTUALITY_TYPES.NOT_VIRTUAL )
   
-  cl = mb.class_( "IBornFormFactor" )
+  cl = mb.class_( "IFormFactorBorn" )
   #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   #cl.member_functions( ).exclude()
   #members = cl.decls( declarations.virtuality_type_matcher(declarations.VIRTUALITY_TYPES.VIRTUAL ), decl_type=declarations.member_calldef_t, allow_empty=True)
@@ -320,24 +320,24 @@ def RulesParticle(mb):
         fun.exclude()
 
 # -------------------------------------------------------------------
-# NanoParticleCrystal.h
+# Crystal.h
 # -------------------------------------------------------------------
-def RulesNanoParticleCrystal(mb):
-  cl = mb.class_( "NanoParticleCrystal" )
+def RulesCrystal(mb):
+  cl = mb.class_( "Crystal" )
   cl.member_functions( ).exclude() # excluding all member functions, leaving only constructors
   cl.member_function("createTotalFormFactor").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
   #cl.member_function("setAmbientRefractiveIndex").include()
 
 
 # -------------------------------------------------------------------
-# NanoParticleDecoration.h
+# ParticleDecoration.h
 # -------------------------------------------------------------------
-def RulesNanoParticleDecoration(mb):
-  cl = mb.class_( "NanoParticleDecoration" )
+def RulesParticleDecoration(mb):
+  cl = mb.class_( "ParticleDecoration" )
   cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   cl.member_functions( ).exclude() # exclude all member functions
   # including following methods if they doesn't have pointers in argument list
-  methods = ['addNanoParticle', 'addInterferenceFunction', 'setTotalParticleSurfaceDensity']
+  methods = ['addParticle', 'addInterferenceFunction', 'setTotalParticleSurfaceDensity']
   for m in methods:
     for fun in cl.member_functions(m): # including methods if they don't have pointers in argument list
       has_pointers = False
@@ -435,7 +435,7 @@ myRules = {
   'FormFactorPyramid.h'        : RulesFormFactorPyramid,
   'GISASExperiment.h'          : RulesGISASExperiment,
   #'HomogeneousMaterial.h'      : RulesHomogeneousMaterial,
-  'IClusteredNanoParticles.h'    : RulesIClusteredNanoParticles,
+  'IClusteredParticles.h'      : RulesIClusteredParticles,
   'ICompositeSample.h'         : RulesICompositeSample,
   'IFormFactor.h'              : RulesIFormFactor,
   'IInterferenceFunction.h'    : RulesIInterferenceFunction,
@@ -453,8 +453,8 @@ myRules = {
   'MesoCrystal.h'              : RulesMesoCrystal,
   'MultiLayer.h'               : RulesMultiLayer,
   'Particle.h'                 : RulesParticle,
-  'NanoParticleCrystal.h'      : RulesNanoParticleCrystal,
-  'NanoParticleDecoration.h'   : RulesNanoParticleDecoration,
+  'Crystal.h'                  : RulesCrystal,
+  'ParticleDecoration.h'       : RulesParticleDecoration,
   #'OpticalFresnel.h'           : RulesOpticalFresnel,
   'Point3D.h'                  : RulesPoint3D,
   'ParameterPool.h'            : RulesParameterPool,

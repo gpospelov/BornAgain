@@ -36,11 +36,11 @@ void LayerDecoratorDWBASimulation::run()
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     std::vector<IFormFactor *> form_factors;
     double total_surface_density = p_decoration->getTotalParticleSurfaceDensity();
-    // collect all nanoparticle formfactors and create dwba formfactors for these
+    // collect all particle formfactors and create dwba formfactors for these
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
-//        NanoParticle *p_particle = p_decoration->getNanoParticle(particle_index)->clone();
-//        double depth = p_decoration->getDepthOfNanoParticle(particle_index);
-//        Geometry::Transform3D *transform = p_decoration->getTransformationOfNanoParticle(particle_index);
+//        Particle *p_particle = p_decoration->getParticle(particle_index)->clone();
+//        double depth = p_decoration->getDepthOfParticle(particle_index);
+//        Geometry::Transform3D *transform = p_decoration->getTransformationOfParticle(particle_index);
         Particle *p_particle = p_decoration->getParticleInfo(particle_index)->getParticle()->clone();
         double depth = p_decoration->getParticleInfo(particle_index)->getDepth();
         const Geometry::Transform3D *transform = p_decoration->getParticleInfo(particle_index)->getTransform3D();

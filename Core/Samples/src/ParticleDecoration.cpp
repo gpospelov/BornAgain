@@ -8,14 +8,14 @@ ParticleDecoration::ParticleDecoration()
 : m_total_abundance(0.0)
 , m_total_particle_surface_density(1.0)
 {
-    setName("NanoParticleDecoration");
+    setName("ParticleDecoration");
 }
 
 ParticleDecoration::ParticleDecoration(Particle* p_particle, double depth, double abundance)
 : m_total_abundance(0.0)
 , m_total_particle_surface_density(1.0)
 {
-    setName("NanoParticleDecoration");
+    setName("ParticleDecoration");
     addParticle(p_particle, 0, depth, abundance);
 }
 
@@ -52,7 +52,7 @@ ParticleDecoration* ParticleDecoration::clone() const
 
 
 /* ************************************************************************* */
-// add nano particle
+// add particle
 /* ************************************************************************* */
 void ParticleDecoration::addParticle(Particle* p_particle,
         double depth, double abundance)
@@ -72,7 +72,7 @@ void ParticleDecoration::addParticle(const Particle &p_particle,
     addParticle(p_particle.clone(), new Geometry::Transform3D(transform), depth, abundance);
 }
 
-// main function to add nano particle
+// main function to add particle
 void ParticleDecoration::addParticle(Particle* p_particle,
         Geometry::Transform3D *transform, double depth, double abundance)
 {
@@ -80,7 +80,7 @@ void ParticleDecoration::addParticle(Particle* p_particle,
 }
 
 /* ************************************************************************* */
-// add nano particle info
+// add particle info
 /* ************************************************************************* */
 void ParticleDecoration::addParticleInfo(const ParticleInfo &info)
 {
@@ -88,7 +88,7 @@ void ParticleDecoration::addParticleInfo(const ParticleInfo &info)
 }
 
 /* ************************************************************************* */
-// get nano particle info
+// get particle info
 /* ************************************************************************* */
 const ParticleInfo* ParticleDecoration::getParticleInfo(size_t index) const
 {

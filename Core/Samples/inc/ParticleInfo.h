@@ -20,7 +20,7 @@
 
 //- -------------------------------------------------------------------
 //! @class ParticleInfo
-//! @brief holds additional information about particle (used in NanoParticleDecoration)
+//! @brief holds additional information about particle (used in ParticleDecoration)
 //- -------------------------------------------------------------------
 class ParticleInfo : public ICompositeSample
 {

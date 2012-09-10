@@ -85,10 +85,10 @@ void TestIsGISAXS10::finalise()
 //    substrate_layer.setMaterial(p_substrate_material);
 //    IInterferenceFunction *p_interference_funtion_1 = new InterferenceFunctionNone();
 ////    IInterferenceFunction *p_interference_funtion_2 = new InterferenceFunctionNone();
-//    NanoParticleDecoration particle_decoration;
-//    particle_decoration.addNanoParticle(new NanoParticle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
+//    ParticleDecoration particle_decoration;
+//    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
 //                0*Units::nanometer, 0.5);
-//    particle_decoration.addNanoParticle(new NanoParticle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)),
+//    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)),
 //            0*Units::nanometer, 0.5);
 //    particle_decoration.addInterferenceFunction(p_interference_funtion_1);
 ////    particle_decoration.addInterferenceFunction(p_interference_funtion_2);

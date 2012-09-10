@@ -20,7 +20,7 @@ ParticleBuilder::~ParticleBuilder()
 
 
 /* ************************************************************************* */
-//set prototype for nano particle production
+//set prototype for particle production
 /* ************************************************************************* */
 void ParticleBuilder::setPrototype(const Particle &particle, std::string name, const StochasticParameter<double> &param, double scale)
 {
@@ -34,7 +34,7 @@ void ParticleBuilder::setPrototype(const Particle &particle, std::string name, c
 
 
 /* ************************************************************************* */
-// plant nano particles in given decoration
+// plant particles in given decoration
 /* ************************************************************************* */
 void ParticleBuilder::plantParticles(ParticleDecoration &decor)
 {
@@ -46,7 +46,7 @@ void ParticleBuilder::plantParticles(ParticleDecoration &decor)
 
     StochasticSampledParameter *sampled_parameter = dynamic_cast<StochasticSampledParameter *>(m_parameter);
     if( !sampled_parameter) {
-        throw LogicErrorException("NanoParticleBuilder::plantNanoParticle() -> Error. Not supported parameter type");
+        throw LogicErrorException("ParticleBuilder::plantParticle() -> Error. Not supported parameter type");
     }
 
     // calculating sum of all weights, and maximum value

@@ -10,7 +10,7 @@
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
 //! @file   ParticleBuilder.h
-//! @brief  Definition of NanoParticleBuilder class
+//! @brief  Definition of ParticleBuilder class
 //! @author Scientific Computing Group at FRM II
 //! @date   20.08.2012
 

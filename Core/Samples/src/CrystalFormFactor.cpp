@@ -9,7 +9,7 @@ CrystalFormFactor::CrystalFormFactor(
 , m_max_rec_length(0.0)
 {
     m_lattice = p_crystal->getLattice();
-    mp_particle = p_crystal->createNanoParticle();
+    mp_particle = p_crystal->createBasis();
     mp_basis_form_factor = mp_particle->createFormFactor();
     mp_meso_form_factor = meso_crystal_form_factor.clone();
     setAmbientRefractiveIndex(ambient_refractive_index);

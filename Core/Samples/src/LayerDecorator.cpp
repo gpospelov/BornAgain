@@ -60,7 +60,7 @@ DiffuseDWBASimulation* LayerDecorator::createDiffuseDWBASimulation() const
                          p_info->getAbundance(), *(p_info->getTransform3D()));
         if (p_diffuse_nps) {
             for (size_t j=0; j<p_diffuse_nps->size(); ++j) {
-                p_sim->addNanoParticleInfo((*p_diffuse_nps)[j]);
+                p_sim->addParticleInfo((*p_diffuse_nps)[j]);
                 nps_per_meso += (*p_diffuse_nps)[j]->getNumberPerMeso();
             }
             total_abundance += p_info->getAbundance();

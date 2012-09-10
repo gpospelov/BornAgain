@@ -28,10 +28,10 @@ public:
     //! scale abundance
     void scaleNumberPerMeso(double factor) { m_number_per_meso *= factor; }
 
-    //! set number of nanoparticles per containing mesocrystal
+    //! set number of particles per containing mesocrystal
     void setNumberPerMeso(double n) { m_number_per_meso = n; }
 
-    //! get number of nanoparticles per containing mesocrystal
+    //! get number of particles per containing mesocrystal
     double getNumberPerMeso() const { return m_number_per_meso; }
 protected:
     double m_number_per_meso;

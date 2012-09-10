@@ -10,7 +10,7 @@
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
 //! @file   Crystal.h
-//! @brief  Definition of NanoParticleCrystal class
+//! @brief  Definition of Crystal class
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 12, 2012
 
@@ -20,14 +20,14 @@
 #include "LatticeBasis.h"
 
 //- -------------------------------------------------------------------
-//! @class NanoParticleCrystal
+//! @class Crystal
 //! @brief Definition of a crystal structure with a form factor as a basis
 //- -------------------------------------------------------------------
 class Crystal : public IClusteredParticles
 {
 public:
      //! @brief constructor
-     //! @param nano_particle  the basis which is repeated in the lattice structure
+     //! @param lattice_basis  the basis which is repeated in the lattice structure
      //! @param lattice  the crystal lattice, described by its basis vectors
     Crystal(const LatticeBasis &lattice_basis, const Lattice &lattice);
     ~Crystal();
@@ -43,7 +43,7 @@ public:
             , complex_t ambient_refractive_index) const;
 
     Lattice getLattice() const { return m_lattice; }
-    Particle *createNanoParticle() const { return mp_lattice_basis->clone(); }
+    Particle *createBasis() const { return mp_lattice_basis->clone(); }
 
     const LatticeBasis *getLatticeBasis() const { return mp_lattice_basis; }
 

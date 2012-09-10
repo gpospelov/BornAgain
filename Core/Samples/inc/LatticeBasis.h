@@ -39,8 +39,8 @@ public:
     //! return position of element with given index
     kvector_t getPosition(size_t indx) const { return m_positions[check_index(indx)]; }
 
-    //! return nano particle with given index
-    const Particle *getNanoParticle(size_t indx) const { return m_particles[check_index(indx)]; }
+    //! return particle with given index
+    const Particle *getParticle(size_t indx) const { return m_particles[check_index(indx)]; }
 
 private:
     //! check index

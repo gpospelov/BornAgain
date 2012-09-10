@@ -297,10 +297,10 @@ ISample *StandardSamples::IsGISAXS2_CylindersMixture()
 
     // building nano particles
     ParticleBuilder builder;
-    builder.setPrototype(cylinder1,"/NanoParticle/FormFactorCylinder/radius", par1, 0.95);
+    builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", par1, 0.95);
     builder.plantParticles(particle_decoration);
 
-    builder.setPrototype(cylinder2,"/NanoParticle/FormFactorCylinder/radius", par2, 0.05);
+    builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, 0.05);
     builder.plantParticles(particle_decoration);
 
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
@@ -377,7 +377,7 @@ ISample *StandardSamples::IsGISAXS3_CylinderBASize()
     StochasticSampledParameter par(StochasticDoubleGaussian(radius, sigma), nbins, nfwhm);
 
     ParticleBuilder builder;
-    builder.setPrototype(nano_particle,"/NanoParticle/FormFactorCylinder/radius", par);
+    builder.setPrototype(nano_particle,"/Particle/FormFactorCylinder/radius", par);
     builder.plantParticles(particle_decoration);
 
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());

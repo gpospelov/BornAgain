@@ -11,7 +11,7 @@ Crystal::Crystal(const LatticeBasis& lattice_basis,
 : m_lattice(lattice)
 , m_dw_factor(0.0)
 {
-    setName("NanoParticleCrystal");
+    setName("Crystal");
     mp_lattice_basis = lattice_basis.clone();
     registerChild(mp_lattice_basis);
 }

@@ -21,7 +21,7 @@ void DiffuseDWBASimulation::run()
     complex_t k_iz = -mp_kz_function->evaluate(-m_alpha_i);
     size_t number_of_nps = m_np_infos.size();
     std::vector<IFormFactor *> form_factors;
-    // collect all nanoparticle formfactors and create dwba formfactors for these
+    // collect all particle formfactors and create dwba formfactors for these
     for (size_t np_index=0; np_index<number_of_nps; ++np_index) {
         ParticleInfo *p_np_info = m_np_infos[np_index];
         Particle *p_np = p_np_info->getParticle()->clone();
@@ -68,7 +68,7 @@ void DiffuseDWBASimulation::run()
     }
 }
 
-void DiffuseDWBASimulation::addNanoParticleInfo(DiffuseParticleInfo *p_info)
+void DiffuseDWBASimulation::addParticleInfo(DiffuseParticleInfo *p_info)
 {
     m_np_infos.push_back(p_info);
 }

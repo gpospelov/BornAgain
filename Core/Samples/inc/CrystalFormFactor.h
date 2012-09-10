@@ -10,7 +10,7 @@
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
 //! @file   CrystalFormFactor.h
-//! @brief  Definition of NanoParticleCrystalFormFactor
+//! @brief  Definition of CrystalFormFactor
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 12, 2012
 

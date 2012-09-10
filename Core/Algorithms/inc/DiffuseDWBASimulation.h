@@ -25,7 +25,7 @@ public:
 
     virtual void run();
     size_t getSize() const { return m_np_infos.size(); }
-    void addNanoParticleInfo(DiffuseParticleInfo *p_info);
+    void addParticleInfo(DiffuseParticleInfo *p_info);
     void setRefractiveIndex(complex_t n) { m_refractive_index = n; }
     void setSurfaceDensity(double surface_density) { m_surface_density = surface_density; }
     void rescaleAbundances(double factor);

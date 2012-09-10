@@ -10,7 +10,7 @@
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
 //! @file   IClusteredParticles.h
-//! @brief  Definition of IClusteredNanoParticles interface
+//! @brief  Definition of IClusteredParticles interface
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 12, 2012
 

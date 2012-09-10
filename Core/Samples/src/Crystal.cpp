@@ -1,4 +1,4 @@
-#include "NanoParticleCrystal.h"
+#include "Crystal.h"
 #include "NanoParticleCrystalFormFactor.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "Units.h"
@@ -6,7 +6,7 @@
 #include "FormFactorFullSphere.h"
 #include "DiffuseParticleInfo.h"
 
-NanoParticleCrystal::NanoParticleCrystal(const LatticeBasis& lattice_basis,
+Crystal::Crystal(const LatticeBasis& lattice_basis,
         const Lattice& lattice)
 : m_lattice(lattice)
 , m_dw_factor(0.0)
@@ -16,19 +16,19 @@ NanoParticleCrystal::NanoParticleCrystal(const LatticeBasis& lattice_basis,
     registerChild(mp_lattice_basis);
 }
 
-NanoParticleCrystal::~NanoParticleCrystal()
+Crystal::~Crystal()
 {
     delete mp_lattice_basis;
 }
 
-NanoParticleCrystal* NanoParticleCrystal::clone() const
+Crystal* Crystal::clone() const
 {
-    NanoParticleCrystal *p_new = new NanoParticleCrystal(*mp_lattice_basis, m_lattice);
+    Crystal *p_new = new Crystal(*mp_lattice_basis, m_lattice);
     p_new->setDWFactor(m_dw_factor);
     return p_new;
 }
 
-IFormFactor* NanoParticleCrystal::createTotalFormFactor(
+IFormFactor* Crystal::createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
         complex_t ambient_refractive_index) const
 {
@@ -39,7 +39,7 @@ IFormFactor* NanoParticleCrystal::createTotalFormFactor(
     return p_npcrystal;
 }
 
-std::vector<DiffuseParticleInfo*>* NanoParticleCrystal::createDiffuseNanoParticleInfo(
+std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
         double depth, double weight,
         const Geometry::Transform3D& transform, double meso_volume) const
 {

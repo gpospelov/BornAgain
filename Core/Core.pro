@@ -72,7 +72,7 @@ SOURCES += \
     Samples/src/MultiLayer.cpp \
     Samples/src/Particle.cpp \
     Samples/src/ParticleBuilder.cpp \
-    Samples/src/NanoParticleCrystal.cpp \
+    Samples/src/Crystal.cpp \
     Samples/src/NanoParticleCrystalFormFactor.cpp \
     Samples/src/ParticleDecoration.cpp \
     Samples/src/ParticleInfo.cpp \
@@ -173,7 +173,7 @@ HEADERS += \
     Samples/inc/MultiLayer.h \
     Samples/inc/Particle.h \
     Samples/inc/ParticleBuilder.h \
-    Samples/inc/NanoParticleCrystal.h \
+    Samples/inc/Crystal.h \
     Samples/inc/NanoParticleCrystalFormFactor.h \
     Samples/inc/ParticleDecoration.h \
     Samples/inc/ParticleInfo.h \

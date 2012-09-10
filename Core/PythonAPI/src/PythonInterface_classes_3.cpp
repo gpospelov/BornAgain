@@ -26,7 +26,7 @@
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "Particle.h"
-#include "NanoParticleCrystal.h"
+#include "Crystal.h"
 #include "ParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
@@ -449,18 +449,18 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
 
 };
 
-struct NanoParticleCrystal_wrapper : NanoParticleCrystal, bp::wrapper< NanoParticleCrystal > {
+struct NanoParticleCrystal_wrapper : Crystal, bp::wrapper< Crystal > {
 
-    NanoParticleCrystal_wrapper(NanoParticleCrystal const & arg )
-    : NanoParticleCrystal( arg )
-      , bp::wrapper< NanoParticleCrystal >(){
+    NanoParticleCrystal_wrapper(Crystal const & arg )
+    : Crystal( arg )
+      , bp::wrapper< Crystal >(){
         // copy constructor
         
     }
 
     NanoParticleCrystal_wrapper(::LatticeBasis const & lattice_basis, ::Lattice const & lattice )
-    : NanoParticleCrystal( boost::ref(lattice_basis), boost::ref(lattice) )
-      , bp::wrapper< NanoParticleCrystal >(){
+    : Crystal( boost::ref(lattice_basis), boost::ref(lattice) )
+      , bp::wrapper< Crystal >(){
         // constructor
     
     }

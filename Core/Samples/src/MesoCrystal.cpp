@@ -39,5 +39,5 @@ std::vector<DiffuseParticleInfo*>* MesoCrystal::createDiffuseParticleInfo(
         const Geometry::Transform3D& transform) const
 {
     double crystal_volume = mp_meso_form_factor->getVolume();
-    return mp_nano_particle_structure->createDiffuseNanoParticleInfo(depth, weight, transform, crystal_volume);
+    return mp_nano_particle_structure->createDiffuseParticleInfo(depth, weight, transform, crystal_volume);
 }

@@ -15,7 +15,7 @@
 //! @date   Jul 12, 2012
 
 #include "IFormFactor.h"
-#include "NanoParticleCrystal.h"
+#include "Crystal.h"
 #include "Types.h"
 
 //- -------------------------------------------------------------------
@@ -25,7 +25,7 @@
 class NanoParticleCrystalFormFactor : public IBornFormFactor
 {
 public:
-    NanoParticleCrystalFormFactor(const NanoParticleCrystal *p_crystal,
+    NanoParticleCrystalFormFactor(const Crystal *p_crystal,
             const IFormFactor &meso_crystal_form_factor, complex_t ambient_refractive_index);
     virtual ~NanoParticleCrystalFormFactor();
 
@@ -39,7 +39,7 @@ private:
     void calculateLargestReciprocalDistance();
 //    void initializeDiffuseNanoparticleFormfactors();
     Lattice m_lattice;
-    Particle *mp_nano_particle;
+    Particle *mp_particle;
     IFormFactor *mp_basis_form_factor;
     IFormFactor *mp_meso_form_factor;
     complex_t m_ambient_refractive_index;

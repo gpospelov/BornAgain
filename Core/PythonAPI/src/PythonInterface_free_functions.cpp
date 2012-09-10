@@ -26,7 +26,7 @@
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "Particle.h"
-#include "NanoParticleCrystal.h"
+#include "Crystal.h"
 #include "ParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"

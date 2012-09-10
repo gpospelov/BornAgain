@@ -10,7 +10,7 @@
 #include "LayerDecorator.h"
 #include "Lattice.h"
 #include "LatticeBasis.h"
-#include "NanoParticleCrystal.h"
+#include "Crystal.h"
 #include "MesoCrystal.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "WeightedFormFactor.h"
@@ -498,7 +498,7 @@ ISample *StandardSamples::MesoCrystal1()
     pos_vector.push_back(position_1);
     pos_vector.push_back(position_2);
     LatticeBasis basis(particle, pos_vector);
-    NanoParticleCrystal npc(basis, lat);
+    Crystal npc(basis, lat);
     MesoCrystal meso(npc.clone(), new FormFactorCylinder(0.2*Units::micrometer, 300*Units::nanometer));
     MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, 300*Units::nanometer, 84*Units::degree));
 
@@ -576,7 +576,7 @@ ISample *StandardSamples::MesoCrystal2()
     pos_vector.push_back(position_1);
     pos_vector.push_back(position_2);
     LatticeBasis basis(particle, pos_vector);
-    NanoParticleCrystal npc(basis, lat);
+    Crystal npc(basis, lat);
     MesoCrystal *meso_crystal = new MesoCrystal(npc.clone(), p_meso_form_factor->clone());
 
     particle_decoration.addParticle(meso_crystal, 0.2*Units::micrometer);

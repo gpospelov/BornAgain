@@ -2,15 +2,15 @@
 #include "Units.h"
 
 NanoParticleCrystalFormFactor::NanoParticleCrystalFormFactor(
-        const NanoParticleCrystal* p_crystal,
+        const Crystal* p_crystal,
         const IFormFactor& meso_crystal_form_factor,
         complex_t ambient_refractive_index)
 : m_ambient_refractive_index(ambient_refractive_index)
 , m_max_rec_length(0.0)
 {
     m_lattice = p_crystal->getLattice();
-    mp_nano_particle = p_crystal->createNanoParticle();
-    mp_basis_form_factor = mp_nano_particle->createFormFactor();
+    mp_particle = p_crystal->createNanoParticle();
+    mp_basis_form_factor = mp_particle->createFormFactor();
     mp_meso_form_factor = meso_crystal_form_factor.clone();
     setAmbientRefractiveIndex(ambient_refractive_index);
     calculateLargestReciprocalDistance();
@@ -18,13 +18,13 @@ NanoParticleCrystalFormFactor::NanoParticleCrystalFormFactor(
 
 NanoParticleCrystalFormFactor::~NanoParticleCrystalFormFactor()
 {
-    delete mp_nano_particle;
+    delete mp_particle;
     delete mp_meso_form_factor;
 }
 
 NanoParticleCrystalFormFactor* NanoParticleCrystalFormFactor::clone() const
 {
-    NanoParticleCrystal np_crystal(*mp_nano_particle, m_lattice);
+    Crystal np_crystal(*mp_particle, m_lattice);
     NanoParticleCrystalFormFactor *p_new = new NanoParticleCrystalFormFactor(&np_crystal,
             *mp_meso_form_factor, m_ambient_refractive_index);
     return p_new;
@@ -33,7 +33,7 @@ NanoParticleCrystalFormFactor* NanoParticleCrystalFormFactor::clone() const
 void NanoParticleCrystalFormFactor::setAmbientRefractiveIndex(
         complex_t refractive_index)
 {
-    mp_nano_particle->setAmbientRefractiveIndex(refractive_index);
+    mp_particle->setAmbientRefractiveIndex(refractive_index);
     mp_basis_form_factor->setAmbientRefractiveIndex(refractive_index);
 }
 

@@ -26,7 +26,7 @@
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "Particle.h"
-#include "NanoParticleCrystal.h"
+#include "Crystal.h"
 #include "ParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
@@ -911,7 +911,7 @@ void register_classes_2(){
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "createDiffuseNanoParticleInfo"
-            , bp::pure_virtual( (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredNanoParticles::* )( double,double,::Geometry::Transform3D const &,double ) const)(&::IClusteredNanoParticles::createDiffuseNanoParticleInfo) )
+            , bp::pure_virtual( (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredNanoParticles::* )( double,double,::Geometry::Transform3D const &,double ) const)(&::IClusteredNanoParticles::createDiffuseParticleInfo) )
             , ( bp::arg("depth"), bp::arg("weight"), bp::arg("transform"), bp::arg("meso_volume") )
                 /* undefined call policies */ )    
         .def( 

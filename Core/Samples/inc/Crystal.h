@@ -1,5 +1,5 @@
-#ifndef NANOPARTICLECRYSTAL_H_
-#define NANOPARTICLECRYSTAL_H_
+#ifndef CRYSTAL_H_
+#define CRYSTAL_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,7 +9,7 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   NanoParticleCrystal.h
+//! @file   Crystal.h
 //! @brief  Definition of NanoParticleCrystal class
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 12, 2012
@@ -23,16 +23,16 @@
 //! @class NanoParticleCrystal
 //! @brief Definition of a crystal structure with a form factor as a basis
 //- -------------------------------------------------------------------
-class NanoParticleCrystal : public IClusteredNanoParticles
+class Crystal : public IClusteredNanoParticles
 {
 public:
      //! @brief constructor
      //! @param nano_particle  the basis which is repeated in the lattice structure
      //! @param lattice  the crystal lattice, described by its basis vectors
-     NanoParticleCrystal(const LatticeBasis &lattice_basis, const Lattice &lattice);
-    ~NanoParticleCrystal();
+    Crystal(const LatticeBasis &lattice_basis, const Lattice &lattice);
+    ~Crystal();
 
-    virtual NanoParticleCrystal *clone() const;
+    virtual Crystal *clone() const;
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)
     {
@@ -49,7 +49,7 @@ public:
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
-     virtual std::vector<DiffuseParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
+     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(double depth, double weight,
                 const Geometry::Transform3D &transform, double meso_volume) const;
 
 private:
@@ -59,4 +59,4 @@ private:
 };
 
 
-#endif /* NANOPARTICLECRYSTAL_H_ */
+#endif /* CRYSTAL_H_ */

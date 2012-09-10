@@ -8,7 +8,7 @@
 #include "LayerDecorator.h"
 #include "ParticleDecoration.h"
 #include "MesoCrystal.h"
-#include "NanoParticleCrystal.h"
+#include "Crystal.h"
 #include "FormFactors.h"
 #include "LatticeBasis.h"
 #include "MathFunctions.h"
@@ -146,7 +146,7 @@ MesoCrystal* createMesoCrystal(double nanoparticle_radius, complex_t n_particle,
     pos_vector.push_back(position_1);
     pos_vector.push_back(position_2);
     LatticeBasis basis(particle, pos_vector);
-    NanoParticleCrystal npc(basis, lat);
+    Crystal npc(basis, lat);
     double relative_sigma_np_radius = 0.3;
     double dw_factor = relative_sigma_np_radius*relative_sigma_np_radius*nanoparticle_radius*nanoparticle_radius/6.0;
     npc.setDWFactor(dw_factor);

@@ -27,7 +27,7 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "NanoParticleCrystal.h"
-#include "NanoParticleDecoration.h"
+#include "ParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
 #include "PythonOutputData.h"
@@ -249,7 +249,7 @@ struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
     
     }
 
-    LayerDecorator_wrapper(::Layer const & layer, ::NanoParticleDecoration const & decoration )
+    LayerDecorator_wrapper(::Layer const & layer, ::ParticleDecoration const & decoration )
     : LayerDecorator( boost::ref(layer), boost::ref(decoration) )
       , bp::wrapper< LayerDecorator >(){
         // constructor
@@ -491,11 +491,11 @@ struct NanoParticleCrystal_wrapper : NanoParticleCrystal, bp::wrapper< NanoParti
 
 };
 
-struct NanoParticleDecoration_wrapper : NanoParticleDecoration, bp::wrapper< NanoParticleDecoration > {
+struct NanoParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDecoration > {
 
     NanoParticleDecoration_wrapper( )
-    : NanoParticleDecoration( )
-      , bp::wrapper< NanoParticleDecoration >(){
+    : ParticleDecoration( )
+      , bp::wrapper< ParticleDecoration >(){
         // null constructor
     
     }
@@ -645,7 +645,7 @@ void register_classes_3(){
 
     bp::class_< LayerDecorator_wrapper, bp::bases< Layer > >( "LayerDecorator", bp::init< Layer const & >(( bp::arg("layer") )) )    
         .def( bp::init< LayerDecorator const & >(( bp::arg("layer") )) )    
-        .def( bp::init< Layer const &, NanoParticleDecoration const & >(( bp::arg("layer"), bp::arg("decoration") )) )    
+        .def( bp::init< Layer const &, ParticleDecoration const & >(( bp::arg("layer"), bp::arg("decoration") )) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -848,19 +848,19 @@ void register_classes_3(){
     bp::class_< NanoParticleDecoration_wrapper, boost::noncopyable >( "NanoParticleDecoration", bp::init< >() )    
         .def( 
             "addInterferenceFunction"
-            , (void ( ::NanoParticleDecoration::* )( ::IInterferenceFunction const & ) )( &::NanoParticleDecoration::addInterferenceFunction )
+            , (void ( ::ParticleDecoration::* )( ::IInterferenceFunction const & ) )( &::ParticleDecoration::addInterferenceFunction )
             , ( bp::arg("interference_function") ) )    
         .def( 
             "addNanoParticle"
-            , (void ( ::NanoParticleDecoration::* )( ::Particle const &,::Geometry::Transform3D const &,double,double ) )( &::NanoParticleDecoration::addParticle )
+            , (void ( ::ParticleDecoration::* )( ::Particle const &,::Geometry::Transform3D const &,double,double ) )( &::ParticleDecoration::addParticle )
             , ( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=1.0e+0 ) )    
         .def( 
             "addNanoParticle"
-            , (void ( ::NanoParticleDecoration::* )( ::Particle const &,double,double ) )( &::NanoParticleDecoration::addParticle )
+            , (void ( ::ParticleDecoration::* )( ::Particle const &,double,double ) )( &::ParticleDecoration::addParticle )
             , ( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) )    
         .def( 
             "setTotalParticleSurfaceDensity"
-            , (void ( ::NanoParticleDecoration::* )( double ) )( &::NanoParticleDecoration::setTotalParticleSurfaceDensity )
+            , (void ( ::ParticleDecoration::* )( double ) )( &::ParticleDecoration::setTotalParticleSurfaceDensity )
             , ( bp::arg("surface_density") ) )    
         .def( 
             "createParameterTree"

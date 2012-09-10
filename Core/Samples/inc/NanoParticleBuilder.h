@@ -1,5 +1,5 @@
-#ifndef NANOPARTICLEBUILDER_H
-#define NANOPARTICLEBUILDER_H
+#ifndef PARTICLEBUILDER_H
+#define PARTICLEBUILDER_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -16,15 +16,15 @@
 
 #include "Particle.h"
 #include "IStochasticParameter.h"
-#include "NanoParticleDecoration.h"
+#include "ParticleDecoration.h"
 
 
 //- -------------------------------------------------------------------
 //! @class NanoParticleBuilder
-//! @brief To build set of nanoparticles with similar properties
+//! @brief To build set of particles with similar properties
 //!
-//! currently produces nano particles but probably can produce directly
-//! NanoParticleInfo, or even ISample
+//! currently produces particles but probably can produce directly
+//! ParticleInfo, or even ISample
 //- -------------------------------------------------------------------
 class NanoParticleBuilder
 {
@@ -33,14 +33,14 @@ public:
     virtual ~NanoParticleBuilder();
 
     //! set prototype for nano particle production
-    //! @param particle   prototype of nano particle
+    //! @param particle   prototype of particle
     //! @param name       parameter name in the parameter pool of given prototype
     //! @param parameter  variation type
     //! @param scale      global scale factor for probabilities
     void setPrototype(const Particle &particle, std::string name, const StochasticParameter<double> &param, double scale=1.0);
 
     //! plant nano particles in given decoration
-    void plantNanoParticles(NanoParticleDecoration &decor);
+    void plantNanoParticles(ParticleDecoration &decor);
 
 private:
     Particle *m_prototype; //!< prototype of the particle, all particles will be cloned from it
@@ -50,4 +50,4 @@ private:
 };
 
 
-#endif // NANOPARTICLEBUILDER_H
+#endif // PARTICLEBUILDER_H

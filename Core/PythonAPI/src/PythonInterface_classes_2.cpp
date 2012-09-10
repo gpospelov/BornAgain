@@ -27,7 +27,7 @@
 #include "MultiLayer.h"
 #include "Particle.h"
 #include "NanoParticleCrystal.h"
-#include "NanoParticleDecoration.h"
+#include "ParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
 #include "PythonOutputData.h"

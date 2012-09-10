@@ -5,7 +5,7 @@
 #include "Particle.h"
 #include "FormFactors.h"
 #include "Transform3D.h"
-#include "NanoParticleDecoration.h"
+#include "ParticleDecoration.h"
 #include "InterferenceFunctionNone.h"
 #include "LayerDecorator.h"
 #include "Lattice.h"
@@ -249,7 +249,7 @@ ISample *StandardSamples::IsGISAXS1_CylinderAndPrism()
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    NanoParticleDecoration particle_decoration;
+    ParticleDecoration particle_decoration;
     particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),0.0, 0.5);
     particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)), 0.0, 0.5);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
@@ -274,7 +274,7 @@ ISample *StandardSamples::IsGISAXS2_CylindersMixture()
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
 
-    NanoParticleDecoration particle_decoration;
+    ParticleDecoration particle_decoration;
 
     // preparing nano particles prototypes for seeding layer's particle_decoration
     double radius1 = 5*Units::nanometer;
@@ -328,7 +328,7 @@ ISample *StandardSamples::IsGISAXS3_CylinderDWBA()
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    NanoParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
@@ -346,7 +346,7 @@ ISample *StandardSamples::IsGISAXS3_CylinderBA()
     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
-    NanoParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     p_multi_layer->addLayer(air_layer_decorator);
@@ -364,7 +364,7 @@ ISample *StandardSamples::IsGISAXS3_CylinderBASize()
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
 
-    NanoParticleDecoration particle_decoration;
+    ParticleDecoration particle_decoration;
 
     // preparing prototype of nano particle
     double radius = 5*Units::nanometer;
@@ -404,7 +404,7 @@ ISample *StandardSamples::IsGISAXS9_Pyramid()
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    NanoParticleDecoration particle_decoration(
+    ParticleDecoration particle_decoration(
                 new Particle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ) ) ) );
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
@@ -437,7 +437,7 @@ ISample *StandardSamples::IsGISAXS9_RotatedPyramid()
     Geometry::Transform3D *transform = new Geometry::Transform3D();
     *transform = Geometry::RotateZ3D(angle_around_z);
 
-    NanoParticleDecoration particle_decoration;
+    ParticleDecoration particle_decoration;
 
     particle_decoration.addParticle(pyramid, transform);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
@@ -466,7 +466,7 @@ ISample *StandardSamples::IsGISAXS10_CylindersParacrystal1D()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e7*Units::nanometer);
-    NanoParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_funtion);
     //    particle_decoration.setTotalParticleSurfaceDensity(1.0/(20.0*Units::nanometer*20.0*Units::nanometer));
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
@@ -515,7 +515,7 @@ ISample *StandardSamples::MesoCrystal1()
     //    IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
     IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
         50*Units::nanometer, 1e7*Units::nanometer);
-    NanoParticleDecoration particle_decoration(meso.clone(), 0.0, 0.5);
+    ParticleDecoration particle_decoration(meso.clone(), 0.0, 0.5);
     particle_decoration.addParticle(meso2.clone(), 0.0, 0.5);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
@@ -558,7 +558,7 @@ ISample *StandardSamples::MesoCrystal2()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
-    NanoParticleDecoration particle_decoration;
+    ParticleDecoration particle_decoration;
 
     //
     double nanoparticle_radius = 5.4*Units::nanometer;

@@ -1,5 +1,5 @@
-#ifndef NANOPARTICLEDECORATION_H
-#define NANOPARTICLEDECORATION_H
+#ifndef PARTICLEDECORATION_H
+#define PARTICLEDECORATION_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,7 +9,7 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   NanoParticleDecoration.h
+//! @file   ParticleDecoration.h
 //! @brief  Definition of NanoParticleDecoration
 //! @author Scientific Computing Group at FRM II
 //! @date   23.05.2012
@@ -22,18 +22,18 @@
 #include "Transform3D.h"
 
 //- -------------------------------------------------------------------
-//! @class NanoParticleDecoration
-//! @brief Definition of decorator class that adds nano particles to ISample objects
+//! @class ParticleDecoration
+//! @brief Definition of decorator class that adds particles to ISample objects
 //- -------------------------------------------------------------------
-class NanoParticleDecoration : public IDecoration
+class ParticleDecoration : public IDecoration
 {
 public:
-	NanoParticleDecoration();
-	NanoParticleDecoration(Particle *p_particle, double depth=0.0, double abundance=1.0);
-	virtual ~NanoParticleDecoration();
+	ParticleDecoration();
+	ParticleDecoration(Particle *p_particle, double depth=0.0, double abundance=1.0);
+	virtual ~ParticleDecoration();
 
 	/// Clone decoration
-	virtual NanoParticleDecoration *clone() const;
+	virtual ParticleDecoration *clone() const;
 
 
     /// add nano particle giving depth and transformation
@@ -76,8 +76,8 @@ public:
 
 private:
     /// copy constructor and assignment operator are hidden since there is a clone method
-    NanoParticleDecoration(const NanoParticleDecoration &);
-    NanoParticleDecoration &operator=(const NanoParticleDecoration &);
+    ParticleDecoration(const ParticleDecoration &);
+    ParticleDecoration &operator=(const ParticleDecoration &);
 
     //! adding nano particle information with simultaneous registration in parent class
     void addAndRegisterParticleInfo(ParticleInfo *child)
@@ -104,4 +104,4 @@ private:
 };
 
 
-#endif // NANOPARTICLEDECORATION_H
+#endif // PARTICLEDECORATION_H

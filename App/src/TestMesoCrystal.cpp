@@ -6,7 +6,7 @@
 #include "MultiLayer.h"
 #include "MaterialManager.h"
 #include "LayerDecorator.h"
-#include "NanoParticleDecoration.h"
+#include "ParticleDecoration.h"
 #include "MesoCrystal.h"
 #include "NanoParticleCrystal.h"
 #include "FormFactors.h"
@@ -94,7 +94,7 @@ void TestMesoCrystal::initializeSample()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
-    NanoParticleDecoration particle_decoration;
+    ParticleDecoration particle_decoration;
     size_t n_phi_rotation_steps = 241;
     size_t n_alpha_rotation_steps = 7;
     double phi_step = 2.0*M_PI/3.0/n_phi_rotation_steps;

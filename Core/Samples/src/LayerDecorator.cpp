@@ -7,7 +7,7 @@ LayerDecorator::LayerDecorator(const Layer &layer)
 }
 
 LayerDecorator::LayerDecorator(const Layer &layer,
-        const NanoParticleDecoration &decoration)
+        const ParticleDecoration &decoration)
 : mp_decorated_layer(layer.clone())
 , mp_decoration(decoration.clone())
 {

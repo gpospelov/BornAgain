@@ -15,15 +15,15 @@
 //! @date   Jun 22, 2012
 
 #include "Layer.h"
-#include "NanoParticleDecoration.h"
+#include "ParticleDecoration.h"
 #include "LayerDecoratorDWBASimulation.h"
 
 class LayerDecorator : public Layer
 {
 public:
     LayerDecorator(const Layer &layer);
+    LayerDecorator(const Layer &layer, const ParticleDecoration &decoration);
     LayerDecorator(const LayerDecorator &layer);
-    LayerDecorator(const Layer &layer, const NanoParticleDecoration &decoration);
     virtual ~LayerDecorator();
 
     /// make layer's clone
@@ -62,8 +62,8 @@ public:
     virtual void init_parameters();
 
     const Layer* getDecoratedLayer() const { return mp_decorated_layer; }
-    const NanoParticleDecoration* getDecoration() const { return mp_decoration; }
-    void setDecoration(NanoParticleDecoration* mpDecoration) { mp_decoration = mpDecoration; }
+    const ParticleDecoration* getDecoration() const { return mp_decoration; }
+    void setDecoration(ParticleDecoration* mpDecoration) { mp_decoration = mpDecoration; }
 
     virtual bool hasDWBASimulation() const { return true; }
 
@@ -76,7 +76,7 @@ public:
 
 protected:
     Layer *mp_decorated_layer;
-    NanoParticleDecoration *mp_decoration;
+    ParticleDecoration *mp_decoration;
 
 private:
     //! copy constructor and assignment operator are hidden since there is a clone method

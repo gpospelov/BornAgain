@@ -1,5 +1,5 @@
 #include "NanoParticleBuilder.h"
-#include "NanoParticleDecoration.h"
+#include "ParticleDecoration.h"
 #include "Numeric.h"
 #include "StochasticSampledParameter.h"
 
@@ -36,7 +36,7 @@ void NanoParticleBuilder::setPrototype(const Particle &particle, std::string nam
 /* ************************************************************************* */
 // plant nano particles in given decoration
 /* ************************************************************************* */
-void NanoParticleBuilder::plantNanoParticles(NanoParticleDecoration &decor)
+void NanoParticleBuilder::plantNanoParticles(ParticleDecoration &decor)
 {
     if( !m_prototype ) throw NullPointerException("NanoParticleBuilder::plantNanoParticle() -> Error. No prototype is defined");
 

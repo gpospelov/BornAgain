@@ -31,7 +31,7 @@ void LayerDecoratorDWBASimulation::run()
     m_dwba_intensity.resetIndex();
     double lambda = 2.0*M_PI/m_ki.mag().real();
     complex_t k_iz = -mp_kz_function->evaluate(-m_alpha_i);
-    const NanoParticleDecoration *p_decoration = mp_layer_decorator->getDecoration();
+    const ParticleDecoration *p_decoration = mp_layer_decorator->getDecoration();
     complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     std::vector<IFormFactor *> form_factors;

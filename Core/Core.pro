@@ -74,7 +74,7 @@ SOURCES += \
     Samples/src/NanoParticleBuilder.cpp \
     Samples/src/NanoParticleCrystal.cpp \
     Samples/src/NanoParticleCrystalFormFactor.cpp \
-    Samples/src/NanoParticleDecoration.cpp \
+    Samples/src/ParticleDecoration.cpp \
     Samples/src/ParticleInfo.cpp \
     Samples/src/ParameterPool.cpp \
     Samples/src/WeightedFormFactor.cpp \
@@ -175,7 +175,7 @@ HEADERS += \
     Samples/inc/NanoParticleBuilder.h \
     Samples/inc/NanoParticleCrystal.h \
     Samples/inc/NanoParticleCrystalFormFactor.h \
-    Samples/inc/NanoParticleDecoration.h \
+    Samples/inc/ParticleDecoration.h \
     Samples/inc/ParticleInfo.h \
     Samples/inc/ParameterPool.h \
     Samples/inc/WeightedFormFactor.h \

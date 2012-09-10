@@ -1,4 +1,4 @@
-#include "NanoParticleBuilder.h"
+#include "ParticleBuilder.h"
 #include "ParticleDecoration.h"
 #include "Numeric.h"
 #include "StochasticSampledParameter.h"
@@ -6,13 +6,13 @@
 #include <numeric>
 #include <algorithm>
 
-NanoParticleBuilder::NanoParticleBuilder() :
+ParticleBuilder::ParticleBuilder() :
     m_prototype(0), m_parameter(0), m_scale(0)
 {
 }
 
 
-NanoParticleBuilder::~NanoParticleBuilder()
+ParticleBuilder::~ParticleBuilder()
 {
     delete m_prototype;
     delete m_parameter;
@@ -22,7 +22,7 @@ NanoParticleBuilder::~NanoParticleBuilder()
 /* ************************************************************************* */
 //set prototype for nano particle production
 /* ************************************************************************* */
-void NanoParticleBuilder::setPrototype(const Particle &particle, std::string name, const StochasticParameter<double> &param, double scale)
+void ParticleBuilder::setPrototype(const Particle &particle, std::string name, const StochasticParameter<double> &param, double scale)
 {
     delete m_prototype;
     m_prototype = particle.clone();
@@ -36,11 +36,11 @@ void NanoParticleBuilder::setPrototype(const Particle &particle, std::string nam
 /* ************************************************************************* */
 // plant nano particles in given decoration
 /* ************************************************************************* */
-void NanoParticleBuilder::plantNanoParticles(ParticleDecoration &decor)
+void ParticleBuilder::plantParticles(ParticleDecoration &decor)
 {
-    if( !m_prototype ) throw NullPointerException("NanoParticleBuilder::plantNanoParticle() -> Error. No prototype is defined");
+    if( !m_prototype ) throw NullPointerException("ParticleBuilder::plantParticle() -> Error. No prototype is defined");
 
-    if( !m_parameter ) throw NullPointerException("NanoParticleBuilder::plantNanoParticle() -> Error. No parameter is defined");
+    if( !m_parameter ) throw NullPointerException("ParticleBuilder::plantParticle() -> Error. No parameter is defined");
 
     ParameterPool *pool = m_prototype->createParameterTree();
 

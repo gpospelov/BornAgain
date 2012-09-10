@@ -17,7 +17,7 @@
 #include "StochasticGaussian.h"
 #include "Numeric.h"
 #include "MathFunctions.h"
-#include "NanoParticleBuilder.h"
+#include "ParticleBuilder.h"
 #include "StochasticSampledParameter.h"
 
 
@@ -296,12 +296,12 @@ ISample *StandardSamples::IsGISAXS2_CylindersMixture()
     StochasticSampledParameter par2(StochasticDoubleGaussian(radius2, sigma2), nbins, nfwhm);
 
     // building nano particles
-    NanoParticleBuilder builder;
+    ParticleBuilder builder;
     builder.setPrototype(cylinder1,"/NanoParticle/FormFactorCylinder/radius", par1, 0.95);
-    builder.plantNanoParticles(particle_decoration);
+    builder.plantParticles(particle_decoration);
 
     builder.setPrototype(cylinder2,"/NanoParticle/FormFactorCylinder/radius", par2, 0.05);
-    builder.plantNanoParticles(particle_decoration);
+    builder.plantParticles(particle_decoration);
 
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
@@ -376,9 +376,9 @@ ISample *StandardSamples::IsGISAXS3_CylinderBASize()
     int nbins(100), nfwhm(2);
     StochasticSampledParameter par(StochasticDoubleGaussian(radius, sigma), nbins, nfwhm);
 
-    NanoParticleBuilder builder;
+    ParticleBuilder builder;
     builder.setPrototype(nano_particle,"/NanoParticle/FormFactorCylinder/radius", par);
-    builder.plantNanoParticles(particle_decoration);
+    builder.plantParticles(particle_decoration);
 
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 

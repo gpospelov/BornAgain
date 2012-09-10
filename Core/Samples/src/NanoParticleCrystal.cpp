@@ -47,10 +47,10 @@ std::vector<DiffuseParticleInfo*>* NanoParticleCrystal::createDiffuseNanoParticl
     double np_density = 3.0*meso_volume/primitive_cell_volume;
     //TODO: refine this method; current implementation only serves as a test
     double height = 0.2*Units::micrometer;
-    size_t nbr_heights = 100;
+    size_t nbr_heights = 1;
     double mean_radius = 6.1*Units::nanometer;
     double sigma = 2.0*Units::nanometer;
-    size_t nbr_radii = 25;
+    size_t nbr_radii = 3;
     complex_t n_particle(0.999966, 5.62664e-7);
     std::vector<DiffuseParticleInfo *> *p_infos = new std::vector<DiffuseParticleInfo *>();
     double total_prob = 0.0;

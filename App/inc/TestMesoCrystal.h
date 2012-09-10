@@ -37,7 +37,7 @@ private:
     ISample *mp_sample;
 };
 
-MesoCrystal *createMesoCrystal(double nanoparticle_radius, complex_t n_particle, const IFormFactor *p_meso_form_factor);
+MesoCrystal *createMesoCrystal(double particle_radius, complex_t n_particle, const IFormFactor *p_meso_form_factor);
 
 
 #endif /* TESTMESOCRYSTAL_H_ */

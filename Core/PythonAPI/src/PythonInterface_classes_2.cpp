@@ -8,7 +8,7 @@
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
-#include "IClusteredNanoParticles.h"
+#include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
@@ -328,16 +328,16 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
 
 };
 
-struct IClusteredNanoParticles_wrapper : IClusteredNanoParticles, bp::wrapper< IClusteredNanoParticles > {
+struct IClusteredNanoParticles_wrapper : IClusteredParticles, bp::wrapper< IClusteredParticles > {
 
     IClusteredNanoParticles_wrapper()
-    : IClusteredNanoParticles()
-      , bp::wrapper< IClusteredNanoParticles >(){
+    : IClusteredParticles()
+      , bp::wrapper< IClusteredParticles >(){
         // null constructor
         
     }
 
-    virtual ::IClusteredNanoParticles * clone(  ) const {
+    virtual ::IClusteredParticles * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
     }
@@ -907,21 +907,21 @@ void register_classes_2(){
     bp::class_< IClusteredNanoParticles_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "IClusteredNanoParticles" )    
         .def( 
             "clone"
-            , bp::pure_virtual( (::IClusteredNanoParticles * ( ::IClusteredNanoParticles::* )(  ) const)(&::IClusteredNanoParticles::clone) )
+            , bp::pure_virtual( (::IClusteredParticles * ( ::IClusteredParticles::* )(  ) const)(&::IClusteredParticles::clone) )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "createDiffuseNanoParticleInfo"
-            , bp::pure_virtual( (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredNanoParticles::* )( double,double,::Geometry::Transform3D const &,double ) const)(&::IClusteredNanoParticles::createDiffuseParticleInfo) )
+            , bp::pure_virtual( (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredParticles::* )( double,double,::Geometry::Transform3D const &,double ) const)(&::IClusteredParticles::createDiffuseParticleInfo) )
             , ( bp::arg("depth"), bp::arg("weight"), bp::arg("transform"), bp::arg("meso_volume") )
                 /* undefined call policies */ )    
         .def( 
             "createTotalFormFactor"
-            , bp::pure_virtual( (::IFormFactor * ( ::IClusteredNanoParticles::* )( ::IFormFactor const &,::complex_t ) const)(&::IClusteredNanoParticles::createTotalFormFactor) )
+            , bp::pure_virtual( (::IFormFactor * ( ::IClusteredParticles::* )( ::IFormFactor const &,::complex_t ) const)(&::IClusteredParticles::createTotalFormFactor) )
             , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "setAmbientRefractiveIndex"
-            , bp::pure_virtual( (void ( ::IClusteredNanoParticles::* )( ::complex_t ) )(&::IClusteredNanoParticles::setAmbientRefractiveIndex) )
+            , bp::pure_virtual( (void ( ::IClusteredParticles::* )( ::complex_t ) )(&::IClusteredParticles::setAmbientRefractiveIndex) )
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "createParameterTree"

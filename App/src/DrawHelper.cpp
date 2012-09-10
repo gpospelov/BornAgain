@@ -411,10 +411,10 @@ void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
     if( !layer_decor ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> layer_decor panic");
     const MesoCrystal *meso = dynamic_cast<const MesoCrystal *>(layer_decor->getDecoration()->getParticleInfo(0)->getParticle());
     if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> meso panic");
-    const Crystal *nano_crystal = dynamic_cast<const Crystal *>(meso->getClusteredNanoParticles());
-    if( !nano_crystal ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> nano_crystal panic");
-    Lattice lattice = nano_crystal->getLattice();
-    const LatticeBasis *lattice_basis = nano_crystal->getLatticeBasis();
+    const Crystal *crystal = dynamic_cast<const Crystal *>(meso->getClusteredParticles());
+    if( !crystal ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> nano_crystal panic");
+    Lattice lattice = crystal->getLattice();
+    const LatticeBasis *lattice_basis = crystal->getLatticeBasis();
     if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> lattice_basis panic");
 
     const FormFactorFullSphere *ff_sphere = dynamic_cast<const FormFactorFullSphere *>(lattice_basis->getNanoParticle(0)->getFormFactor());

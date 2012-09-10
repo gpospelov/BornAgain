@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 12, 2012
 
-#include "IClusteredNanoParticles.h"
+#include "IClusteredParticles.h"
 #include "Particle.h"
 #include "Lattice.h"
 #include "LatticeBasis.h"
@@ -23,7 +23,7 @@
 //! @class NanoParticleCrystal
 //! @brief Definition of a crystal structure with a form factor as a basis
 //- -------------------------------------------------------------------
-class Crystal : public IClusteredNanoParticles
+class Crystal : public IClusteredParticles
 {
 public:
      //! @brief constructor

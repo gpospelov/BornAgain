@@ -150,7 +150,7 @@ HEADERS += \
     Samples/inc/FormFactorLorentz.h \
     Samples/inc/FormFactors.h \
     Samples/inc/HomogeneousMaterial.h \
-    Samples/inc/IClusteredNanoParticles.h \
+    Samples/inc/IClusteredParticles.h \
     Samples/inc/ICompositeIterator.h \
     Samples/inc/ICompositeSample.h \
     Samples/inc/IDecoration.h \

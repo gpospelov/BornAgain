@@ -14,27 +14,27 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 11, 2012
 
-#include "IClusteredNanoParticles.h"
+#include "IClusteredParticles.h"
 #include "IFormFactor.h"
 #include "Particle.h"
 
 class MesoCrystal : public Particle
 {
 public:
-    MesoCrystal(IClusteredNanoParticles *p_nano_particle_structure, IFormFactor *p_form_factor);
-    MesoCrystal(const IClusteredNanoParticles &nano_particle_structure, IFormFactor &form_factor);
+    MesoCrystal(IClusteredParticles *p_nano_particle_structure, IFormFactor *p_form_factor);
+    MesoCrystal(const IClusteredParticles &nano_particle_structure, IFormFactor &form_factor);
 
     virtual ~MesoCrystal();
     virtual MesoCrystal *clone() const;
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)
     {
-        mp_nano_particle_structure->setAmbientRefractiveIndex(refractive_index);
+        mp_particle_structure->setAmbientRefractiveIndex(refractive_index);
     }
 
     virtual IFormFactor* createFormFactor() const
     {
-        return mp_nano_particle_structure->createTotalFormFactor(*mp_meso_form_factor, m_ambient_refractive_index);
+        return mp_particle_structure->createTotalFormFactor(*mp_meso_form_factor, m_ambient_refractive_index);
     }
 
     virtual void setFormFactor(IFormFactor* p_form_factor)
@@ -45,13 +45,13 @@ public:
         }
     }
 
-    const IClusteredNanoParticles *getClusteredNanoParticles() const {return mp_nano_particle_structure; }
+    const IClusteredParticles *getClusteredParticles() const {return mp_particle_structure; }
 
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(double depth, double weight,
                 const Geometry::Transform3D &transform) const;
 
 private:
-    IClusteredNanoParticles *mp_nano_particle_structure;
+    IClusteredParticles *mp_particle_structure;
     IFormFactor *mp_meso_form_factor;
 };
 

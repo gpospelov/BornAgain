@@ -9,7 +9,7 @@
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
-#include "IClusteredNanoParticles.h"
+#include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"

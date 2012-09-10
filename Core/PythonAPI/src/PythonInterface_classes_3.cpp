@@ -8,7 +8,7 @@
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
-#include "IClusteredNanoParticles.h"
+#include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
@@ -381,7 +381,7 @@ struct MaterialManager_wrapper : MaterialManager, bp::wrapper< MaterialManager >
 
 struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
 
-    MesoCrystal_wrapper(::IClusteredNanoParticles const & nano_particle_structure, ::IFormFactor & form_factor )
+    MesoCrystal_wrapper(::IClusteredParticles const & nano_particle_structure, ::IFormFactor & form_factor )
     : MesoCrystal( boost::ref(nano_particle_structure), boost::ref(form_factor) )
       , bp::wrapper< MesoCrystal >(){
         // constructor
@@ -803,7 +803,7 @@ void register_classes_3(){
         .staticmethod( "onDeadReference" )    
         .def( bp::self_ns::str( bp::self ) );
 
-    bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredNanoParticles const &, IFormFactor & >(( bp::arg("nano_particle_structure"), bp::arg("form_factor") )) )    
+    bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("nano_particle_structure"), bp::arg("form_factor") )) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -834,7 +834,7 @@ void register_classes_3(){
             , (void ( MultiLayer_wrapper::* )(  ) )(&MultiLayer_wrapper::default_walk_and_print) )    
         .def( bp::self_ns::str( bp::self ) );
 
-    bp::class_< NanoParticleCrystal_wrapper, bp::bases< IClusteredNanoParticles > >( "NanoParticleCrystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
+    bp::class_< NanoParticleCrystal_wrapper, bp::bases< IClusteredParticles > >( "NanoParticleCrystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)

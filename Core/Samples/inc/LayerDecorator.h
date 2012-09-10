@@ -73,6 +73,19 @@ public:
 
     virtual DiffuseDWBASimulation *createDiffuseDWBASimulation() const;
 
+    virtual double getTotalParticleSurfaceDensity() const {
+        if (mp_decoration) {
+            return mp_decoration->getTotalParticleSurfaceDensity();
+        }
+        return 0.0;
+    }
+
+    virtual IInterferenceFunctionStrategy *createStrategy(const std::vector<IFormFactor *> &form_factors) const {
+        if (mp_decoration) {
+            return mp_decoration->createStrategy(form_factors);
+        }
+        throw NullPointerException("No decoration present in LaeyerDecorator.");
+    }
 
 protected:
     Layer *mp_decorated_layer;

@@ -18,6 +18,10 @@
 #include "IFormFactor.h"
 #include "Particle.h"
 
+//- -------------------------------------------------------------------
+//! @class MesoCrystal
+//! @brief Defines a particle with an internal structure of smaller particles
+//- -------------------------------------------------------------------
 class MesoCrystal : public Particle
 {
 public:
@@ -47,6 +51,7 @@ public:
 
     virtual const IFormFactor *getSimpleFormFactor() const { return mp_meso_form_factor;}
 
+    //! @brief get the internal structure, which is in principle unbounded in space (eg.  an infinite crystal)
     const IClusteredParticles *getClusteredParticles() const {return mp_particle_structure; }
 
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const;
@@ -55,6 +60,5 @@ private:
     IClusteredParticles *mp_particle_structure;
     IFormFactor *mp_meso_form_factor;
 };
-
 
 #endif /* MESOCRYSTAL_H_ */

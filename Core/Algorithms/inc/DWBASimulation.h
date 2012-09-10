@@ -18,16 +18,20 @@
 #include "OutputData.h"
 #include "Types.h"
 
-
+//- -------------------------------------------------------------------
+//! @class DWBASimulation
+//! @brief Calculates scattering cross sections in DWBA
+//- -------------------------------------------------------------------
 class DWBASimulation : public ISimulation
 {
 public:
     DWBASimulation();
     virtual ~DWBASimulation();
 
+    //! Initialize the simulation with the parameters from experiment
     virtual void init(const Experiment &experiment);
 
-    //OutputData<double> *getDWBAIntensity();
+    // TODO: return const or clone
     OutputData<double> &getDWBAIntensity();
 protected:
     OutputData<double> m_dwba_intensity;
@@ -41,9 +45,6 @@ private:
 
 };
 
-//inline OutputData<double> *DWBASimulation::getDWBAIntensity() {
-//    return m_dwba_intensity.clone();
-//}
 inline OutputData<double> &DWBASimulation::getDWBAIntensity() {
     return m_dwba_intensity;
 }

@@ -29,24 +29,40 @@ void LayerDecoratorDWBASimulation::init(const Experiment& experiment)
 void LayerDecoratorDWBASimulation::run()
 {
     m_dwba_intensity.resetIndex();
-    double lambda = 2.0*M_PI/m_ki.mag().real();
-    complex_t k_iz = -mp_kz_function->evaluate(-m_alpha_i);
+
+    // get appropriate interference function and transfer the required formfactors to it
+    std::vector<IFormFactor *> form_factors = createDWBAFormFactors();
+    IInterferenceFunctionStrategy *p_strategy = mp_layer_decorator->createStrategy(form_factors);
+    for (size_t i=0; i<form_factors.size(); ++i) {
+        delete form_factors[i];
+    }
+
+    calculateCoherentIntensity(p_strategy);
+    calculateInCoherentIntensity();
+
+    delete p_strategy;
+
+}
+
+double LayerDecoratorDWBASimulation::getWaveLength() const
+{
+    kvector_t real_ki(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
+    return 2.0*M_PI/real_ki.mag();
+}
+
+std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors() const
+{
+    std::vector<IFormFactor *> result;
     const ParticleDecoration *p_decoration = mp_layer_decorator->getDecoration();
     complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
     size_t number_of_particles = p_decoration->getNumberOfParticles();
-    std::vector<IFormFactor *> form_factors;
-    double total_surface_density = p_decoration->getTotalParticleSurfaceDensity();
-    // collect all particle formfactors and create dwba formfactors for these
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
-//        Particle *p_particle = p_decoration->getParticle(particle_index)->clone();
-//        double depth = p_decoration->getDepthOfParticle(particle_index);
-//        Geometry::Transform3D *transform = p_decoration->getTransformationOfParticle(particle_index);
         Particle *p_particle = p_decoration->getParticleInfo(particle_index)->getParticle()->clone();
         double depth = p_decoration->getParticleInfo(particle_index)->getDepth();
         const Geometry::Transform3D *transform = p_decoration->getParticleInfo(particle_index)->getTransform3D();
 
         p_particle->setAmbientRefractiveIndex(n_layer);
-        complex_t wavevector_scattering_factor = M_PI/lambda/lambda;
+        complex_t wavevector_scattering_factor = M_PI/getWaveLength()/getWaveLength();
 
         IFormFactor *ff_particle = p_particle->createFormFactor();
         IFormFactor  *ff_transformed(0);
@@ -60,16 +76,16 @@ void LayerDecoratorDWBASimulation::run()
         dwba_z.setReflectionFunction(*mp_R_function);
         dwba_z.setTransmissionFunction(*mp_T_function);
         FormFactorDecoratorFactor *p_ff = new FormFactorDecoratorFactor(dwba_z.clone(), wavevector_scattering_factor);
-        form_factors.push_back(p_ff);
+        result.push_back(p_ff);
         delete p_particle;
     }
-    // get appropriate interference function and transfer the formfactors to it
-    IInterferenceFunctionStrategy *p_strategy = p_decoration->createStrategy(form_factors);
-    for (size_t i=0; i<form_factors.size(); ++i) {
-        delete form_factors[i];
-    }
+    return result;
+}
 
-    // calculate intensity
+void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunctionStrategy *p_strategy)
+{
+    double wavelength = getWaveLength();
+    double total_surface_density = mp_layer_decorator->getTotalParticleSurfaceDensity();
     while (m_dwba_intensity.hasNext())
     {
         double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
@@ -79,19 +95,17 @@ void LayerDecoratorDWBASimulation::run()
             continue;
         }
         cvector_t k_f;
-        k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
+        k_f.setLambdaAlphaPhi(wavelength, alpha_f, phi_f);
         k_f.setZ(mp_kz_function->evaluate(alpha_f));
         m_dwba_intensity.next() = p_strategy->evaluate(m_ki, k_f, -m_alpha_i, alpha_f)*total_surface_density;
     }
+}
 
-    // get possible extra diffuse intensity which could not be handled by the interference function strategy
+void LayerDecoratorDWBASimulation::calculateInCoherentIntensity()
+{
     if (mp_diffuseDWBA) {
         mp_diffuseDWBA->setKzTAndRFunctions(*mp_kz_function, *mp_T_function, *mp_R_function);
         mp_diffuseDWBA->run();
         m_dwba_intensity += mp_diffuseDWBA->getDWBAIntensity();
     }
-
-    delete p_strategy;
-
 }
-

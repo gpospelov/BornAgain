@@ -1,5 +1,5 @@
 #include "LatticeBasis.h"
-#include "WeightedFormFactor.h"
+#include "FormFactorWeighted.h"
 #include "FormFactorDecoratorPositionFactor.h"
 
 LatticeBasis::LatticeBasis()
@@ -62,7 +62,7 @@ void LatticeBasis::setAmbientRefractiveIndex(complex_t refractive_index)
 IFormFactor* LatticeBasis::createFormFactor() const
 {
     // TODO: for equal particles, create position superposition times the formfactor
-    WeightedFormFactor *p_ff = new WeightedFormFactor();
+    FormFactorWeighted *p_ff = new FormFactorWeighted();
     for (size_t index=0; index<m_particles.size(); ++index) {
         IFormFactor *p_particle_ff = m_particles[index]->createFormFactor();
         FormFactorDecoratorPositionFactor pos_ff(*p_particle_ff, m_positions[index]);

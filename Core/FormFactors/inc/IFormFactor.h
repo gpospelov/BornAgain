@@ -61,12 +61,12 @@ protected:
     IFormFactor *mp_form_factor;
 };
 
-class IBornFormFactor : public IFormFactor
+class IFormFactorBorn : public IFormFactor
 {
 public:
-    IBornFormFactor(){}
-    virtual ~IBornFormFactor() {}
-	virtual IBornFormFactor *clone() const=0;
+    IFormFactorBorn(){}
+    virtual ~IFormFactorBorn() {}
+	virtual IFormFactorBorn *clone() const=0;
 
 	virtual complex_t evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
 protected:
@@ -75,7 +75,7 @@ protected:
     virtual complex_t evaluate_for_q(cvector_t q) const=0;
 };
 
-inline complex_t IBornFormFactor::evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const
+inline complex_t IFormFactorBorn::evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const
 {
     (void)alpha_i;
     (void)alpha_f;

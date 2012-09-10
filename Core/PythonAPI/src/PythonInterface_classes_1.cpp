@@ -197,16 +197,16 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
 
 };
 
-struct IBornFormFactor_wrapper : IBornFormFactor, bp::wrapper< IBornFormFactor > {
+struct IBornFormFactor_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn > {
 
     IBornFormFactor_wrapper( )
-    : IBornFormFactor( )
-      , bp::wrapper< IBornFormFactor >(){
+    : IFormFactorBorn( )
+      , bp::wrapper< IFormFactorBorn >(){
         // null constructor
     
     }
 
-    virtual ::IBornFormFactor * clone(  ) const {
+    virtual ::IFormFactorBorn * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
     }
@@ -215,12 +215,12 @@ struct IBornFormFactor_wrapper : IBornFormFactor, bp::wrapper< IBornFormFactor >
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( k_i, k_f, alpha_i, alpha_f );
         else{
-            return this->IBornFormFactor::evaluate( k_i, k_f, alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
         }
     }
     
     ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
-        return IBornFormFactor::evaluate( k_i, k_f, alpha_i, alpha_f );
+        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t q ) const {
@@ -315,12 +315,12 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( k_i, k_f, alpha_i, alpha_f );
         else{
-            return this->IBornFormFactor::evaluate( k_i, k_f, alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
         }
     }
     
     ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
-        return IBornFormFactor::evaluate( k_i, k_f, alpha_i, alpha_f );
+        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -405,12 +405,12 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( k_i, k_f, alpha_i, alpha_f );
         else{
-            return this->IBornFormFactor::evaluate( k_i, k_f, alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
         }
     }
     
     ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
-        return IBornFormFactor::evaluate( k_i, k_f, alpha_i, alpha_f );
+        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -488,12 +488,12 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( k_i, k_f, alpha_i, alpha_f );
         else{
-            return this->IBornFormFactor::evaluate( k_i, k_f, alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
         }
     }
     
     ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
-        return IBornFormFactor::evaluate( k_i, k_f, alpha_i, alpha_f );
+        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -741,11 +741,11 @@ void register_classes_1(){
     bp::class_< IBornFormFactor_wrapper, bp::bases< IFormFactor >, boost::noncopyable >( "IBornFormFactor", bp::init< >() )    
         .def( 
             "clone"
-            , bp::pure_virtual( (::IBornFormFactor * ( ::IBornFormFactor::* )(  ) const)(&::IBornFormFactor::clone) )
+            , bp::pure_virtual( (::IFormFactorBorn * ( ::IFormFactorBorn::* )(  ) const)(&::IFormFactorBorn::clone) )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IBornFormFactor::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IBornFormFactor::evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
             , (::complex_t ( IBornFormFactor_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&IBornFormFactor_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
@@ -775,7 +775,7 @@ void register_classes_1(){
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( IBornFormFactor_wrapper::* )(  ) )(&IBornFormFactor_wrapper::default_walk_and_print) );
 
-    bp::class_< FormFactorCylinder_wrapper, bp::bases< IBornFormFactor >, boost::noncopyable >( "FormFactorCylinder", bp::init< double, double >(( bp::arg("height"), bp::arg("radius") )) )    
+    bp::class_< FormFactorCylinder_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorCylinder", bp::init< double, double >(( bp::arg("height"), bp::arg("radius") )) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -783,7 +783,7 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IBornFormFactor::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IBornFormFactor::evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
             , (::complex_t ( FormFactorCylinder_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorCylinder_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
@@ -804,7 +804,7 @@ void register_classes_1(){
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( FormFactorCylinder_wrapper::* )(  ) )(&FormFactorCylinder_wrapper::default_walk_and_print) );
 
-    bp::class_< FormFactorFullSphere_wrapper, bp::bases< IBornFormFactor > >( "FormFactorFullSphere", bp::init< double >(( bp::arg("radius") )) )    
+    bp::class_< FormFactorFullSphere_wrapper, bp::bases< IFormFactorBorn > >( "FormFactorFullSphere", bp::init< double >(( bp::arg("radius") )) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -812,7 +812,7 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IBornFormFactor::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IBornFormFactor::evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
             , (::complex_t ( FormFactorFullSphere_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorFullSphere_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
@@ -833,7 +833,7 @@ void register_classes_1(){
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( FormFactorFullSphere_wrapper::* )(  ) )(&FormFactorFullSphere_wrapper::default_walk_and_print) );
 
-    bp::class_< FormFactorPyramid_wrapper, bp::bases< IBornFormFactor >, boost::noncopyable >( "FormFactorPyramid", bp::init< double, double, double >(( bp::arg("height"), bp::arg("half_side"), bp::arg("alpha") )) )    
+    bp::class_< FormFactorPyramid_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorPyramid", bp::init< double, double, double >(( bp::arg("height"), bp::arg("half_side"), bp::arg("alpha") )) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -841,7 +841,7 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IBornFormFactor::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IBornFormFactor::evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
             , (::complex_t ( FormFactorPyramid_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorPyramid_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 

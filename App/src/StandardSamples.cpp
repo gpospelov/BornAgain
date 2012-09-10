@@ -13,7 +13,7 @@
 #include "Crystal.h"
 #include "MesoCrystal.h"
 #include "InterferenceFunction1DParaCrystal.h"
-#include "WeightedFormFactor.h"
+#include "FormFactorWeighted.h"
 #include "StochasticGaussian.h"
 #include "Numeric.h"
 #include "MathFunctions.h"

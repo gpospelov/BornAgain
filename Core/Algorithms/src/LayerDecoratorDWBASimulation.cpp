@@ -1,6 +1,6 @@
 #include "LayerDecoratorDWBASimulation.h"
 #include "LayerDecorator.h"
-#include "DWBAFormFactorConstZ.h"
+#include "FormFactorDWBAConstZ.h"
 #include "FormFactorDecoratorFactor.h"
 #include "Transform3D.h"
 #include "FormFactorDecoratorTransformation.h"
@@ -56,7 +56,7 @@ void LayerDecoratorDWBASimulation::run()
             ff_transformed = ff_particle;
         }
 
-        DWBAFormFactorConstZ dwba_z(ff_transformed, depth);
+        FormFactorDWBAConstZ dwba_z(ff_transformed, depth);
         dwba_z.setReflectionFunction(*mp_R_function);
         dwba_z.setTransmissionFunction(*mp_T_function);
         FormFactorDecoratorFactor *p_ff = new FormFactorDecoratorFactor(dwba_z.clone(), wavevector_scattering_factor);

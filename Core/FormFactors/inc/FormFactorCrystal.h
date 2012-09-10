@@ -1,5 +1,5 @@
-#ifndef CRYSTALFORMFACTOR_H_
-#define CRYSTALFORMFACTOR_H_
+#ifndef FORMFACTORCRYSTAL_H_
+#define FORMFACTORCRYSTAL_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,7 +9,7 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   CrystalFormFactor.h
+//! @file   FormFactorCrystal.h
 //! @brief  Definition of CrystalFormFactor
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 12, 2012
@@ -19,17 +19,17 @@
 #include "Types.h"
 
 //- -------------------------------------------------------------------
-//! @class CrystalFormFactor
+//! @class FormFactorCrystal
 //! @brief Definition of a form factor for mesocrystals with a bulk crystal structure of particles
 //- -------------------------------------------------------------------
-class CrystalFormFactor : public IBornFormFactor
+class FormFactorCrystal : public IFormFactorBorn
 {
 public:
-    CrystalFormFactor(const Crystal *p_crystal,
+    FormFactorCrystal(const Crystal *p_crystal,
             const IFormFactor &meso_crystal_form_factor, complex_t ambient_refractive_index);
-    virtual ~CrystalFormFactor();
+    virtual ~FormFactorCrystal();
 
-    virtual CrystalFormFactor *clone() const;
+    virtual FormFactorCrystal *clone() const;
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);
 
@@ -46,4 +46,4 @@ private:
 };
 
 
-#endif /* CRYSTALFORMFACTOR_H_ */
+#endif /* FORMFACTORCRYSTAL_H_ */

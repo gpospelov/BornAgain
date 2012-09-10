@@ -22,7 +22,7 @@
 //! @class FormFactorPyramid
 //! @brief Form factor of pyramid
 //- -------------------------------------------------------------------
-class FormFactorPyramid : public IBornFormFactor
+class FormFactorPyramid : public IFormFactorBorn
 {
 public:
     //! @brief pyramid constructor

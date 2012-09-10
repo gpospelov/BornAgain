@@ -17,7 +17,7 @@
 #include "IFormFactor.h"
 #include "IStochasticParameter.h"
 
-class FormFactorFullSphere : public IBornFormFactor
+class FormFactorFullSphere : public IFormFactorBorn
 {
 public:
     FormFactorFullSphere(double radius);

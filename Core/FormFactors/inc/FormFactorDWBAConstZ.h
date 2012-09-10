@@ -1,5 +1,5 @@
-#ifndef DWBAFORMFACTORCONSTZ_H_
-#define DWBAFORMFACTORCONSTZ_H_
+#ifndef FORMFACTORDWBACONSTZ_H_
+#define FORMFACTORDWBACONSTZ_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,19 +9,19 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   DWBAFormFactorConstZ.h
-//! @brief  Definition of DWBAFormFactorConstZ
+//! @file   FormFactorDWBAConstZ.h
+//! @brief  Definition of FormFactorDWBAConstZ
 //! @author herck
 //! @date   15.06.2012
 
-#include "DWBAFormFactor.h"
+#include "FormFactorDWBA.h"
 
-class DWBAFormFactorConstZ: public DWBAFormFactor
+class FormFactorDWBAConstZ: public FormFactorDWBA
 {
 public:
-	DWBAFormFactorConstZ(IFormFactor* p_form_factor, double depth=0.0);
-    virtual ~DWBAFormFactorConstZ();
-    virtual DWBAFormFactorConstZ *clone() const;
+	FormFactorDWBAConstZ(IFormFactor* p_form_factor, double depth=0.0);
+    virtual ~FormFactorDWBAConstZ();
+    virtual FormFactorDWBAConstZ *clone() const;
 
     virtual complex_t evaluate(cvector_t k_i, cvector_t k_f,
     		double alpha_i, double alpha_f) const;
@@ -30,10 +30,10 @@ protected:
 
 private:
     //! copy constructor and assignment operator are hidden since there is a clone method
-    DWBAFormFactorConstZ(const DWBAFormFactorConstZ &);
-    DWBAFormFactorConstZ &operator=(const DWBAFormFactorConstZ &);
+    FormFactorDWBAConstZ(const FormFactorDWBAConstZ &);
+    FormFactorDWBAConstZ &operator=(const FormFactorDWBAConstZ &);
 
     complex_t getDepthPhase(complex_t q_z) const;
 };
 
-#endif /* DWBAFORMFACTORCONSTZ_H_ */
+#endif /* FORMFACTORDWBACONSTZ_H_ */

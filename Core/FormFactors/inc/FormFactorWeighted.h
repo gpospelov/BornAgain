@@ -1,5 +1,5 @@
-#ifndef WEIGHTEDFORMFACTOR_H_
-#define WEIGHTEDFORMFACTOR_H_
+#ifndef FORMFACTORWEIGHTED_H_
+#define FORMFACTORWEIGHTED_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,19 +9,19 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   WeightedFormFactor.h
-//! @brief  Definition of
+//! @file   FormFactorWeighted.h
+//! @brief  Definition of FormFactorWeighted
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 17, 2012
 
 #include "IFormFactor.h"
 
-class WeightedFormFactor : public IFormFactor
+class FormFactorWeighted : public IFormFactor
 {
 public:
-    WeightedFormFactor();
-    virtual ~WeightedFormFactor();
-    virtual WeightedFormFactor *clone() const;
+    FormFactorWeighted();
+    virtual ~FormFactorWeighted();
+    virtual FormFactorWeighted *clone() const;
 
     void addFormFactor(const IFormFactor &form_factor, double weight=1.0);
 
@@ -36,4 +36,4 @@ protected:
 };
 
 
-#endif /* WEIGHTEDFORMFACTOR_H_ */
+#endif /* FORMFACTORWEIGHTED_H_ */

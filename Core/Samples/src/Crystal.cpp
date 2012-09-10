@@ -1,5 +1,5 @@
 #include "Crystal.h"
-#include "CrystalFormFactor.h"
+#include "FormFactorCrystal.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "Units.h"
 #include "MathFunctions.h"
@@ -32,7 +32,7 @@ IFormFactor* Crystal::createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
         complex_t ambient_refractive_index) const
 {
-    IFormFactor *p_npcrystal = new CrystalFormFactor(this, meso_crystal_form_factor, ambient_refractive_index);
+    IFormFactor *p_npcrystal = new FormFactorCrystal(this, meso_crystal_form_factor, ambient_refractive_index);
     if (m_dw_factor>0.0) {
         return new FormFactorDecoratorDebyeWaller(p_npcrystal, m_dw_factor);
     }

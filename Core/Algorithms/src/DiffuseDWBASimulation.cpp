@@ -1,5 +1,5 @@
 #include "DiffuseDWBASimulation.h"
-#include "DWBAFormFactorConstZ.h"
+#include "FormFactorDWBAConstZ.h"
 
 DiffuseDWBASimulation::DiffuseDWBASimulation()
 : m_refractive_index(1.0, 0.0)
@@ -37,7 +37,7 @@ void DiffuseDWBASimulation::run()
 //            ff_transformed = ff_particle;
 //        }
 
-        DWBAFormFactorConstZ *p_dwba_z = new DWBAFormFactorConstZ(ff_particle, depth);
+        FormFactorDWBAConstZ *p_dwba_z = new FormFactorDWBAConstZ(ff_particle, depth);
         p_dwba_z->setReflectionFunction(*mp_R_function);
         p_dwba_z->setTransmissionFunction(*mp_T_function);
 

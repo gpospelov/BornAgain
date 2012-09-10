@@ -18,7 +18,7 @@
 #include "IStochasticParameter.h"
 
 
-class FormFactorPrism3 : public IBornFormFactor
+class FormFactorPrism3 : public IFormFactorBorn
 {
 public:
     FormFactorPrism3(double height, double half_side);

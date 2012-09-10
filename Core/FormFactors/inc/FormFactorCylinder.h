@@ -18,7 +18,7 @@
 #include "IStochasticParameter.h"
 
 
-class FormFactorCylinder : public IBornFormFactor
+class FormFactorCylinder : public IFormFactorBorn
 {
 public:
     FormFactorCylinder(double height, double radius);

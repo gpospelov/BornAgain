@@ -18,7 +18,7 @@
 #include "IStochasticParameter.h"
 
 
-class FormFactorGauss : public IBornFormFactor
+class FormFactorGauss : public IFormFactorBorn
 {
 public:
     FormFactorGauss(double volume);

@@ -37,8 +37,8 @@ SOURCES += \
     Algorithms/src/MultiLayerRoughnessDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
     \
-    FormFactors/src/DWBAFormFactor.cpp \
-    FormFactors/src/DWBAFormFactorConstZ.cpp \
+    FormFactors/src/FormFactorDWBA.cpp \
+    FormFactors/src/FormFactorDWBAConstZ.cpp \
     FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorCylinder.cpp \
     FormFactors/src/FormFactorFullSphere.cpp \
@@ -46,8 +46,8 @@ SOURCES += \
     FormFactors/src/FormFactorPrism3.cpp \
     FormFactors/src/FormFactorPyramid.cpp \
     FormFactors/src/FormFactorLorentz.cpp \
-    FormFactors/src/WeightedFormFactor.cpp \
-    FormFactors/src/CrystalFormFactor.cpp \
+    FormFactors/src/FormFactorWeighted.cpp \
+    FormFactors/src/FormFactorCrystal.cpp \
     \
     Geometry/src/BasicVector3D.cpp \
     Geometry/src/Normal3D.cpp \
@@ -127,8 +127,8 @@ HEADERS += \
     Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     \
-    FormFactors/inc/DWBAFormFactor.h \
-    FormFactors/inc/DWBAFormFactorConstZ.h \
+    FormFactors/inc/FormFactorDWBA.h \
+    FormFactors/inc/FormFactorDWBAConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
     FormFactors/inc/FormFactorDecoratorFactor.h \
     FormFactors/inc/FormFactorDecoratorPositionFactor.h \
@@ -142,8 +142,8 @@ HEADERS += \
     FormFactors/inc/FormFactorLorentz.h \
     FormFactors/inc/FormFactors.h \
     FormFactors/inc/IFormFactor.h \
-    FormFactors/inc/CrystalFormFactor.h \
-    FormFactors/inc/WeightedFormFactor.h \
+    FormFactors/inc/FormFactorCrystal.h \
+    FormFactors/inc/FormFactorWeighted.h \
     \
     Geometry/inc/BasicVector3D.h \
     Geometry/inc/Normal3D.h \

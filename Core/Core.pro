@@ -73,7 +73,7 @@ SOURCES += \
     Samples/src/Particle.cpp \
     Samples/src/ParticleBuilder.cpp \
     Samples/src/Crystal.cpp \
-    Samples/src/NanoParticleCrystalFormFactor.cpp \
+    Samples/src/CrystalFormFactor.cpp \
     Samples/src/ParticleDecoration.cpp \
     Samples/src/ParticleInfo.cpp \
     Samples/src/ParameterPool.cpp \
@@ -174,7 +174,7 @@ HEADERS += \
     Samples/inc/Particle.h \
     Samples/inc/ParticleBuilder.h \
     Samples/inc/Crystal.h \
-    Samples/inc/NanoParticleCrystalFormFactor.h \
+    Samples/inc/CrystalFormFactor.h \
     Samples/inc/ParticleDecoration.h \
     Samples/inc/ParticleInfo.h \
     Samples/inc/ParameterPool.h \

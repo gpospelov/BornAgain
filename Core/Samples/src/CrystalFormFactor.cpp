@@ -1,7 +1,7 @@
-#include "NanoParticleCrystalFormFactor.h"
+#include "CrystalFormFactor.h"
 #include "Units.h"
 
-NanoParticleCrystalFormFactor::NanoParticleCrystalFormFactor(
+CrystalFormFactor::CrystalFormFactor(
         const Crystal* p_crystal,
         const IFormFactor& meso_crystal_form_factor,
         complex_t ambient_refractive_index)
@@ -16,28 +16,28 @@ NanoParticleCrystalFormFactor::NanoParticleCrystalFormFactor(
     calculateLargestReciprocalDistance();
 }
 
-NanoParticleCrystalFormFactor::~NanoParticleCrystalFormFactor()
+CrystalFormFactor::~CrystalFormFactor()
 {
     delete mp_particle;
     delete mp_meso_form_factor;
 }
 
-NanoParticleCrystalFormFactor* NanoParticleCrystalFormFactor::clone() const
+CrystalFormFactor* CrystalFormFactor::clone() const
 {
     Crystal np_crystal(*mp_particle, m_lattice);
-    NanoParticleCrystalFormFactor *p_new = new NanoParticleCrystalFormFactor(&np_crystal,
+    CrystalFormFactor *p_new = new CrystalFormFactor(&np_crystal,
             *mp_meso_form_factor, m_ambient_refractive_index);
     return p_new;
 }
 
-void NanoParticleCrystalFormFactor::setAmbientRefractiveIndex(
+void CrystalFormFactor::setAmbientRefractiveIndex(
         complex_t refractive_index)
 {
     mp_particle->setAmbientRefractiveIndex(refractive_index);
     mp_basis_form_factor->setAmbientRefractiveIndex(refractive_index);
 }
 
-complex_t NanoParticleCrystalFormFactor::evaluate_for_q(cvector_t q) const
+complex_t CrystalFormFactor::evaluate_for_q(cvector_t q) const
 {
     // construct a real reciprocal vector
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
@@ -62,7 +62,7 @@ complex_t NanoParticleCrystalFormFactor::evaluate_for_q(cvector_t q) const
     return 8.0*pi3*result/volume;
 }
 
-void NanoParticleCrystalFormFactor::calculateLargestReciprocalDistance()
+void CrystalFormFactor::calculateLargestReciprocalDistance()
 {
     kvector_t a1 = m_lattice.getBasisVectorA();
     kvector_t a2 = m_lattice.getBasisVectorB();

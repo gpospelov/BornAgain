@@ -5,10 +5,10 @@ FormFactorCrystal::FormFactorCrystal(
         const Crystal* p_crystal,
         const IFormFactor& meso_crystal_form_factor,
         complex_t ambient_refractive_index)
-: m_ambient_refractive_index(ambient_refractive_index)
+: m_lattice(p_crystal->getLattice())
+, m_ambient_refractive_index(ambient_refractive_index)
 , m_max_rec_length(0.0)
 {
-    m_lattice = p_crystal->getLattice();
     mp_particle = p_crystal->createBasis();
     mp_basis_form_factor = mp_particle->createFormFactor();
     mp_meso_form_factor = meso_crystal_form_factor.clone();

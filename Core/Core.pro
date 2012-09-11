@@ -168,6 +168,7 @@ HEADERS += \
     Samples/inc/InterferenceFunctionNone.h \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \
+    Samples/inc/ISelectionRule.h \
     Samples/inc/Lattice.h \
     Samples/inc/LatticeBasis.h \
     Samples/inc/Layer.h \

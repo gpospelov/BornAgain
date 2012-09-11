@@ -17,7 +17,7 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "FormFactors.h"
-#include "DWBAFormFactor.h"
+#include "FormFactorDWBA.h"
 #include "ISample.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
@@ -37,7 +37,7 @@ private:
     ISample *mp_sample;
 };
 
-MesoCrystal *createMesoCrystal(double nanoparticle_radius, complex_t n_particle, const IFormFactor *p_meso_form_factor);
+MesoCrystal *createMesoCrystal(double particle_radius, complex_t n_particle, const IFormFactor *p_meso_form_factor);
 
 
 #endif /* TESTMESOCRYSTAL_H_ */

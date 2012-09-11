@@ -26,11 +26,8 @@ SOURCES += \
     Algorithms/src/Detector.cpp \
     Algorithms/src/DiffuseDWBASimulation.cpp \
     Algorithms/src/DWBADiffuseReflection.cpp \
-    Algorithms/src/DWBAFormFactor.cpp \
-    Algorithms/src/DWBAFormFactorConstZ.cpp \
     Algorithms/src/DWBASimulation.cpp \
     Algorithms/src/Experiment.cpp \
-    Algorithms/src/FormFactorDecoratorTransformation.cpp \
     Algorithms/src/GISASExperiment.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
@@ -40,6 +37,18 @@ SOURCES += \
     Algorithms/src/MultiLayerRoughnessDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
     \
+    FormFactors/src/FormFactorDWBA.cpp \
+    FormFactors/src/FormFactorDWBAConstZ.cpp \
+    FormFactors/src/FormFactorDecoratorTransformation.cpp \
+    FormFactors/src/FormFactorCylinder.cpp \
+    FormFactors/src/FormFactorFullSphere.cpp \
+    FormFactors/src/FormFactorGauss.cpp \
+    FormFactors/src/FormFactorPrism3.cpp \
+    FormFactors/src/FormFactorPyramid.cpp \
+    FormFactors/src/FormFactorLorentz.cpp \
+    FormFactors/src/FormFactorWeighted.cpp \
+    FormFactors/src/FormFactorCrystal.cpp \
+    \
     Geometry/src/BasicVector3D.cpp \
     Geometry/src/Normal3D.cpp \
     Geometry/src/Plane3D.cpp \
@@ -47,13 +56,8 @@ SOURCES += \
     Geometry/src/Transform3D.cpp \
     Geometry/src/Vector3D.cpp \
     \
-    Samples/src/DiffuseNanoParticleInfo.cpp \
-    Samples/src/FormFactorCylinder.cpp \
-    Samples/src/FormFactorFullSphere.cpp \
-    Samples/src/FormFactorGauss.cpp \
-    Samples/src/FormFactorPrism3.cpp \
-    Samples/src/FormFactorPyramid.cpp \
-    Samples/src/FormFactorLorentz.cpp \
+    Samples/src/Crystal.cpp \
+    Samples/src/DiffuseParticleInfo.cpp \
     Samples/src/HomogeneousMaterial.cpp \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
@@ -70,14 +74,11 @@ SOURCES += \
     Samples/src/MaterialManager.cpp \
     Samples/src/MesoCrystal.cpp \
     Samples/src/MultiLayer.cpp \
-    Samples/src/Particle.cpp \
-    Samples/src/NanoParticleBuilder.cpp \
-    Samples/src/NanoParticleCrystal.cpp \
-    Samples/src/NanoParticleCrystalFormFactor.cpp \
-    Samples/src/NanoParticleDecoration.cpp \
-    Samples/src/NanoParticleInfo.cpp \
     Samples/src/ParameterPool.cpp \
-    Samples/src/WeightedFormFactor.cpp \
+    Samples/src/Particle.cpp \
+    Samples/src/ParticleBuilder.cpp \
+    Samples/src/ParticleDecoration.cpp \
+    Samples/src/ParticleInfo.cpp \
     \
     Tools/src/Convolve.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
@@ -111,15 +112,8 @@ HEADERS += \
     Algorithms/inc/Detector.h \
     Algorithms/inc/DiffuseDWBASimulation.h \
     Algorithms/inc/DWBADiffuseReflection.h \
-    Algorithms/inc/DWBAFormFactor.h \
-    Algorithms/inc/DWBAFormFactorConstZ.h \
     Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/Experiment.h \
-    Algorithms/inc/FormFactorDecoratorDebyeWaller.h \
-    Algorithms/inc/FormFactorDecoratorFactor.h \
-    Algorithms/inc/FormFactorDecoratorPositionFactor.h \
-    Algorithms/inc/FormFactorDecoratorRefractiveIndex.h \
-    Algorithms/inc/FormFactorDecoratorTransformation.h \
     Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \
@@ -133,6 +127,25 @@ HEADERS += \
     Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     \
+    FormFactors/inc/FormFactorDWBA.h \
+    FormFactors/inc/FormFactorDWBAConstZ.h \
+    FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
+    FormFactors/inc/FormFactorDecoratorFactor.h \
+    FormFactors/inc/FormFactorDecoratorMultiPositionFactor.h \
+    FormFactors/inc/FormFactorDecoratorPositionFactor.h \
+    FormFactors/inc/FormFactorDecoratorRefractiveIndex.h \
+    FormFactors/inc/FormFactorDecoratorTransformation.h \
+    FormFactors/inc/FormFactorCylinder.h \
+    FormFactors/inc/FormFactorFullSphere.h \
+    FormFactors/inc/FormFactorGauss.h \
+    FormFactors/inc/FormFactorPrism3.h \
+    FormFactors/inc/FormFactorPyramid.h \
+    FormFactors/inc/FormFactorLorentz.h \
+    FormFactors/inc/FormFactors.h \
+    FormFactors/inc/IFormFactor.h \
+    FormFactors/inc/FormFactorCrystal.h \
+    FormFactors/inc/FormFactorWeighted.h \
+    \
     Geometry/inc/BasicVector3D.h \
     Geometry/inc/Normal3D.h \
     Geometry/inc/Plane3D.h \
@@ -141,27 +154,21 @@ HEADERS += \
     Geometry/inc/Transform3D.icc \
     Geometry/inc/Vector3D.h \
     \
-    Samples/inc/DiffuseNanoParticleInfo.h \
-    Samples/inc/FormFactorCylinder.h \
-    Samples/inc/FormFactorFullSphere.h \
-    Samples/inc/FormFactorGauss.h \
-    Samples/inc/FormFactorPrism3.h \
-    Samples/inc/FormFactorPyramid.h \
-    Samples/inc/FormFactorLorentz.h \
-    Samples/inc/FormFactors.h \
+    Samples/inc/Crystal.h \
+    Samples/inc/DiffuseParticleInfo.h \
     Samples/inc/HomogeneousMaterial.h \
-    Samples/inc/IClusteredNanoParticles.h \
+    Samples/inc/IClusteredParticles.h \
     Samples/inc/ICompositeIterator.h \
     Samples/inc/ICompositeSample.h \
     Samples/inc/IDecoration.h \
     Samples/inc/IDispersalState.h \
-    Samples/inc/IFormFactor.h \
     Samples/inc/IInterferenceFunction.h \
     Samples/inc/IMaterial.h \
     Samples/inc/InterferenceFunction1DParaCrystal.h \
     Samples/inc/InterferenceFunctionNone.h \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \
+    Samples/inc/ISelectionRule.h \
     Samples/inc/Lattice.h \
     Samples/inc/LatticeBasis.h \
     Samples/inc/Layer.h \
@@ -171,14 +178,11 @@ HEADERS += \
     Samples/inc/MaterialManager.h \
     Samples/inc/MesoCrystal.h \
     Samples/inc/MultiLayer.h \
-    Samples/inc/Particle.h \
-    Samples/inc/NanoParticleBuilder.h \
-    Samples/inc/NanoParticleCrystal.h \
-    Samples/inc/NanoParticleCrystalFormFactor.h \
-    Samples/inc/NanoParticleDecoration.h \
-    Samples/inc/NanoParticleInfo.h \
     Samples/inc/ParameterPool.h \
-    Samples/inc/WeightedFormFactor.h \
+    Samples/inc/Particle.h \
+    Samples/inc/ParticleBuilder.h \
+    Samples/inc/ParticleDecoration.h \
+    Samples/inc/ParticleInfo.h \
     \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \
@@ -211,8 +215,8 @@ HEADERS += \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h
 
-INCLUDEPATH += ./Algorithms/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
-DEPENDPATH  += ./Algorithms/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
+INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
+DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 
 # excluding files with python interface to not to expose library in python
 !contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {

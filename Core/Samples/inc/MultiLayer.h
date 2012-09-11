@@ -97,7 +97,7 @@ public:
     //! print class
     friend std::ostream &operator<<(std::ostream &ostr, const MultiLayer &m) { m.print(ostr); return ostr; }
 
-    //! look for the presence of DWBA terms (e.g. included nano particles) and return ISimulation if needed
+    //! look for the presence of DWBA terms (e.g. included particles) and return ISimulation if needed
     virtual MultiLayerDWBASimulation *createDWBASimulation() const;
 
 private:

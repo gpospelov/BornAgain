@@ -6,9 +6,9 @@
 #include "MultiLayer.h"
 #include "MaterialManager.h"
 #include "LayerDecorator.h"
-#include "NanoParticleDecoration.h"
+#include "ParticleDecoration.h"
 #include "MesoCrystal.h"
-#include "NanoParticleCrystal.h"
+#include "Crystal.h"
 #include "FormFactors.h"
 #include "LatticeBasis.h"
 #include "MathFunctions.h"
@@ -94,9 +94,9 @@ void TestMesoCrystal::initializeSample()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
-    NanoParticleDecoration particle_decoration;
-    size_t n_phi_rotation_steps = 241;
-    size_t n_alpha_rotation_steps = 7;
+    ParticleDecoration particle_decoration;
+    size_t n_phi_rotation_steps = 11;
+    size_t n_alpha_rotation_steps = 5;
     double phi_step = 2.0*M_PI/3.0/n_phi_rotation_steps;
     double phi_start = 0.0;
     double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;
@@ -106,7 +106,7 @@ void TestMesoCrystal::initializeSample()
             Geometry::RotateZ3D transform1(phi_start + i*phi_step);
             Geometry::RotateY3D transform2(alpha_start + j*alpha_step);
             Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1*transform2);
-            particle_decoration.addNanoParticle(createMesoCrystal(6.1*Units::nanometer,
+            particle_decoration.addParticle(createMesoCrystal(6.1*Units::nanometer,
                     n_particle_adapted, &ff_meso), p_total_transform, 0.2*Units::micrometer);
         }
     }
@@ -146,7 +146,8 @@ MesoCrystal* createMesoCrystal(double nanoparticle_radius, complex_t n_particle,
     pos_vector.push_back(position_1);
     pos_vector.push_back(position_2);
     LatticeBasis basis(particle, pos_vector);
-    NanoParticleCrystal npc(basis, lat);
+    lat.setSelectionRule(new SimpleSelectionRule(-1, 1, 1, 3));
+    Crystal npc(basis, lat);
     double relative_sigma_np_radius = 0.3;
     double dw_factor = relative_sigma_np_radius*relative_sigma_np_radius*nanoparticle_radius*nanoparticle_radius/6.0;
     npc.setDWFactor(dw_factor);

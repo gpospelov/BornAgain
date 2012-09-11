@@ -5,7 +5,7 @@
 #include "Lattice.h"
 #include "LayerDecorator.h"
 #include "MesoCrystal.h"
-#include "NanoParticleCrystal.h"
+#include "Crystal.h"
 #include "LatticeBasis.h"
 #include "Units.h"
 #include "FormFactorFullSphere.h"
@@ -409,15 +409,15 @@ void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
 
     const LayerDecorator *layer_decor = dynamic_cast<const LayerDecorator *>(sample->getLayer(1));
     if( !layer_decor ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> layer_decor panic");
-    const MesoCrystal *meso = dynamic_cast<const MesoCrystal *>(layer_decor->getDecoration()->getNanoParticleInfo(0)->getNanoParticle());
+    const MesoCrystal *meso = dynamic_cast<const MesoCrystal *>(layer_decor->getDecoration()->getParticleInfo(0)->getParticle());
     if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> meso panic");
-    const NanoParticleCrystal *nano_crystal = dynamic_cast<const NanoParticleCrystal *>(meso->getClusteredNanoParticles());
-    if( !nano_crystal ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> nano_crystal panic");
-    Lattice lattice = nano_crystal->getLattice();
-    const LatticeBasis *lattice_basis = nano_crystal->getLatticeBasis();
+    const Crystal *crystal = dynamic_cast<const Crystal *>(meso->getClusteredParticles());
+    if( !crystal ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> nano_crystal panic");
+    Lattice lattice = crystal->getLattice();
+    const LatticeBasis *lattice_basis = crystal->getLatticeBasis();
     if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> lattice_basis panic");
 
-    const FormFactorFullSphere *ff_sphere = dynamic_cast<const FormFactorFullSphere *>(lattice_basis->getNanoParticle(0)->getFormFactor());
+    const FormFactorFullSphere *ff_sphere = dynamic_cast<const FormFactorFullSphere *>(lattice_basis->getParticle(0)->getSimpleFormFactor());
     if( !ff_sphere) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> ff_sphere panic");
 
     double nanoparticle_radius =ff_sphere->getRadius();
@@ -459,19 +459,22 @@ void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
                 TEveElementList *list_of_basis = new TEveElementList();
                 sprintf(str,"basis_ix(%d)_iy(%d)",ix,iy);
                 list_of_basis->SetName(str);
-                for(size_t i=0; i<lattice_basis->getNelements(); ++i) {
-                    TEveGeoShape* x = new TEveGeoShape("SS");
-                     x->SetShape(new TGeoSphere(0, nanoparticle_radius));
-                     kvector_t pos =lattice_basis->getPosition(i) + origin;
-                     if(i==0) {
-                         x->SetMainColor(kRed);
-                     } else{
-                         x->SetMainColor(kBlue);
-                     }
-                     x->RefMainTrans().SetPos(pos.x(), pos.y(), pos.z());
-                     //x->SetMainTransparency(10);
-                     list_of_basis->AddElement(x);
-                     list_of_basis->SetPickable(kTRUE);
+                for(size_t i=0; i<lattice_basis->getNbrParticles(); ++i) {
+                    std::vector<kvector_t> positions = lattice_basis->getParticlePositions(i);
+                    for(size_t j=0; j<positions.size(); ++j) {
+                        TEveGeoShape* x = new TEveGeoShape("SS");
+                         x->SetShape(new TGeoSphere(0, nanoparticle_radius));
+                         kvector_t pos = positions[j] + origin;
+                         if(i==0 && j==0) {
+                             x->SetMainColor(kRed);
+                         } else{
+                             x->SetMainColor(kBlue);
+                         }
+                         x->RefMainTrans().SetPos(pos.x(), pos.y(), pos.z());
+                         //x->SetMainTransparency(10);
+                         list_of_basis->AddElement(x);
+                         list_of_basis->SetPickable(kTRUE);
+                    }
                 }
                 list_of_layer->AddElement(list_of_basis);
                 list_of_layer->SetPickable(kTRUE);

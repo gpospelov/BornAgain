@@ -27,27 +27,32 @@ public:
     virtual ~LatticeBasis();
     virtual LatticeBasis *clone() const;
 
-    void addParticle(const Particle &particle, kvector_t position);
+    void addParticle(const Particle &particle, std::vector<kvector_t > positions);
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);
 
     virtual IFormFactor* createFormFactor() const;
 
-    //! return number of elements
-    size_t getNelements() const {return m_positions.size(); }
+    //! return number of different particles
+    size_t getNbrParticles() const {return m_particles.size(); }
+
+    //! return number of positions for particle with index
+    size_t getNbrPositionsForParticle(size_t index) { return m_positions_vector[check_index(index)].size(); }
 
     //! return position of element with given index
-    kvector_t getPosition(size_t indx) const { return m_positions[check_index(indx)]; }
+//    kvector_t getPosition(size_t index) const { return m_positions[check_index(index)]; }
 
-    //! return nano particle with given index
-    const Particle *getNanoParticle(size_t indx) const { return m_particles[check_index(indx)]; }
+    //! return particle with given index
+    const Particle *getParticle(size_t index) const { return m_particles[check_index(index)]; }
+
+    std::vector<kvector_t> getParticlePositions(size_t index) const { return m_positions_vector[check_index(index)]; }
 
 private:
     //! check index
-    inline size_t check_index(size_t indx) const { return indx < m_positions.size() ? indx : throw OutOfBoundsException("LatticeBasis::check_index() -> Index is out of bounds"); }
+    inline size_t check_index(size_t index) const { return index < m_positions_vector.size() ? index : throw OutOfBoundsException("LatticeBasis::check_index() -> Index is out of bounds"); }
 
     std::vector<Particle *> m_particles;
-    std::vector<kvector_t> m_positions;
+    std::vector<std::vector<kvector_t> > m_positions_vector;
 };
 
 

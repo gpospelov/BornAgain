@@ -1,28 +1,10 @@
 #include "LayerDecorator.h"
 
-LayerDecorator::LayerDecorator(const Layer &layer)
-: mp_decorated_layer(layer.clone())
-, mp_decoration(0)
-{
-}
-
 LayerDecorator::LayerDecorator(const Layer &layer,
-        const NanoParticleDecoration &decoration)
+        const ParticleDecoration &decoration)
 : mp_decorated_layer(layer.clone())
 , mp_decoration(decoration.clone())
 {
-    setName("LayerDecorator");
-    registerChild(mp_decorated_layer);
-    registerChild(mp_decoration);
-    init_parameters();
-}
-
-LayerDecorator::LayerDecorator(const LayerDecorator& other)
-: Layer(other)
-{
-    mp_decorated_layer = other.getDecoratedLayer()->clone();
-    mp_decoration = other.getDecoration()->clone();
-
     setName("LayerDecorator");
     registerChild(mp_decorated_layer);
     registerChild(mp_decoration);
@@ -54,13 +36,12 @@ DiffuseDWBASimulation* LayerDecorator::createDiffuseDWBASimulation() const
     double nps_per_meso = 0.0;
     double total_abundance = 0.0;
     for (size_t i=0; i<nbr_particles; ++i) {
-        const NanoParticleInfo *p_info = mp_decoration->getNanoParticleInfo(i);
-        std::vector<DiffuseNanoParticleInfo *> *p_diffuse_nps =
-                p_info->getNanoParticle()->createDiffuseNanoParticleInfo(p_info->getDepth(),
-                         p_info->getAbundance(), *(p_info->getTransform3D()));
+        const ParticleInfo *p_info = mp_decoration->getParticleInfo(i);
+        std::vector<DiffuseParticleInfo *> *p_diffuse_nps =
+                p_info->getParticle()->createDiffuseParticleInfo(*p_info);
         if (p_diffuse_nps) {
             for (size_t j=0; j<p_diffuse_nps->size(); ++j) {
-                p_sim->addNanoParticleInfo((*p_diffuse_nps)[j]);
+                p_sim->addParticleInfo((*p_diffuse_nps)[j]);
                 nps_per_meso += (*p_diffuse_nps)[j]->getNumberPerMeso();
             }
             total_abundance += p_info->getAbundance();
@@ -76,6 +57,18 @@ DiffuseDWBASimulation* LayerDecorator::createDiffuseDWBASimulation() const
     }
     delete p_sim;
     return 0;
+}
+
+LayerDecorator::LayerDecorator(const LayerDecorator& other)
+: Layer(other)
+{
+    mp_decorated_layer = other.getDecoratedLayer()->clone();
+    mp_decoration = other.getDecoration()->clone();
+
+    setName("LayerDecorator");
+    registerChild(mp_decorated_layer);
+    registerChild(mp_decoration);
+    init_parameters();
 }
 
 /* ************************************************************************* */

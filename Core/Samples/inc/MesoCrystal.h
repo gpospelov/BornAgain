@@ -14,30 +14,34 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 11, 2012
 
-#include "IClusteredNanoParticles.h"
+#include "IClusteredParticles.h"
 #include "IFormFactor.h"
 #include "Particle.h"
 
+//- -------------------------------------------------------------------
+//! @class MesoCrystal
+//! @brief Defines a particle with an internal structure of smaller particles
+//- -------------------------------------------------------------------
 class MesoCrystal : public Particle
 {
 public:
-    MesoCrystal(IClusteredNanoParticles *p_nano_particle_structure, IFormFactor *p_form_factor);
-    MesoCrystal(const IClusteredNanoParticles &nano_particle_structure, IFormFactor &form_factor);
+    MesoCrystal(IClusteredParticles *p_particle_structure, IFormFactor *p_form_factor);
+    MesoCrystal(const IClusteredParticles &particle_structure, IFormFactor &form_factor);
 
     virtual ~MesoCrystal();
     virtual MesoCrystal *clone() const;
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)
     {
-        mp_nano_particle_structure->setAmbientRefractiveIndex(refractive_index);
+        mp_particle_structure->setAmbientRefractiveIndex(refractive_index);
     }
 
     virtual IFormFactor* createFormFactor() const
     {
-        return mp_nano_particle_structure->createTotalFormFactor(*mp_meso_form_factor, m_ambient_refractive_index);
+        return mp_particle_structure->createTotalFormFactor(*mp_meso_form_factor, m_ambient_refractive_index);
     }
 
-    virtual void setFormFactor(IFormFactor* p_form_factor)
+    virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
     {
         if (p_form_factor != mp_meso_form_factor) {
             delete mp_meso_form_factor;
@@ -45,15 +49,16 @@ public:
         }
     }
 
-    const IClusteredNanoParticles *getClusteredNanoParticles() const {return mp_nano_particle_structure; }
+    virtual const IFormFactor *getSimpleFormFactor() const { return mp_meso_form_factor;}
 
-    virtual std::vector<DiffuseNanoParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
-                const Geometry::Transform3D &transform) const;
+    //! @brief get the internal structure, which is in principle unbounded in space (eg.  an infinite crystal)
+    const IClusteredParticles *getClusteredParticles() const {return mp_particle_structure; }
+
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const;
 
 private:
-    IClusteredNanoParticles *mp_nano_particle_structure;
+    IClusteredParticles *mp_particle_structure;
     IFormFactor *mp_meso_form_factor;
 };
-
 
 #endif /* MESOCRYSTAL_H_ */

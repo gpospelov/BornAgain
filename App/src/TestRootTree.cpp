@@ -1,7 +1,7 @@
 #include "TestRootTree.h"
 #include "MultiLayer.h"
 #include "MaterialManager.h"
-#include "NanoParticleDecoration.h"
+#include "ParticleDecoration.h"
 #include "Particle.h"
 #include "LayerDecorator.h"
 #include "GISASExperiment.h"
@@ -392,13 +392,13 @@ void TestRootTree::initializeMesoCrystal(double meso_alpha, double meso_phi, dou
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
-    NanoParticleDecoration particle_decoration;
+    ParticleDecoration particle_decoration;
 
     double R = nanopart_radius;
     Geometry::RotateZ3D transform1(meso_phi);
     Geometry::RotateY3D transform2(meso_alpha);
     Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1*transform2);
-    particle_decoration.addNanoParticle(createMesoCrystal(R, n_particle_adapted, &ff_meso), p_total_transform, 0.2*Units::micrometer);
+    particle_decoration.addParticle(createMesoCrystal(R, n_particle_adapted, &ff_meso), p_total_transform, 0.2*Units::micrometer);
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);

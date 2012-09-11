@@ -1,5 +1,5 @@
 #include "DiffuseDWBASimulation.h"
-#include "DWBAFormFactorConstZ.h"
+#include "FormFactorDWBAConstZ.h"
 
 DiffuseDWBASimulation::DiffuseDWBASimulation()
 : m_refractive_index(1.0, 0.0)
@@ -17,14 +17,13 @@ DiffuseDWBASimulation::~DiffuseDWBASimulation()
 void DiffuseDWBASimulation::run()
 {
     m_dwba_intensity.resetIndex();
-    double lambda = 2.0*M_PI/m_ki.mag().real();
     complex_t k_iz = -mp_kz_function->evaluate(-m_alpha_i);
     size_t number_of_nps = m_np_infos.size();
     std::vector<IFormFactor *> form_factors;
-    // collect all nanoparticle formfactors and create dwba formfactors for these
+    // collect all particle formfactors and create dwba formfactors for these
     for (size_t np_index=0; np_index<number_of_nps; ++np_index) {
-        NanoParticleInfo *p_np_info = m_np_infos[np_index];
-        Particle *p_np = p_np_info->getNanoParticle()->clone();
+        ParticleInfo *p_np_info = m_np_infos[np_index];
+        Particle *p_np = p_np_info->getParticle()->clone();
         double depth = p_np_info->getDepth();
 
         p_np->setAmbientRefractiveIndex(m_refractive_index);
@@ -37,14 +36,14 @@ void DiffuseDWBASimulation::run()
 //            ff_transformed = ff_particle;
 //        }
 
-        DWBAFormFactorConstZ *p_dwba_z = new DWBAFormFactorConstZ(ff_particle, depth);
+        FormFactorDWBAConstZ *p_dwba_z = new FormFactorDWBAConstZ(ff_particle, depth);
         p_dwba_z->setReflectionFunction(*mp_R_function);
         p_dwba_z->setTransmissionFunction(*mp_T_function);
 
         form_factors.push_back(p_dwba_z);
     }
 
-    double wavevector_scattering_factor = M_PI/lambda/lambda;
+    double wavevector_scattering_factor = M_PI/getWaveLength()/getWaveLength();
     while (m_dwba_intensity.hasNext()) {
         complex_t amplitude(0.0, 0.0);
         double intensity = 0.0;
@@ -57,7 +56,7 @@ void DiffuseDWBASimulation::run()
                 continue;
             }
             cvector_t k_f;
-            k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
+            k_f.setLambdaAlphaPhi(getWaveLength(), alpha_f, phi_f);
             k_f.setZ(mp_kz_function->evaluate(alpha_f));
             complex_t amp = form_factors[i]->evaluate(m_ki, k_f, -m_alpha_i, alpha_f);
             amplitude += weight*amp;
@@ -68,7 +67,7 @@ void DiffuseDWBASimulation::run()
     }
 }
 
-void DiffuseDWBASimulation::addNanoParticleInfo(DiffuseNanoParticleInfo *p_info)
+void DiffuseDWBASimulation::addParticleInfo(DiffuseParticleInfo *p_info)
 {
     m_np_infos.push_back(p_info);
 }

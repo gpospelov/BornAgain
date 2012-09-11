@@ -16,6 +16,7 @@
 
 #include "Types.h"
 #include "Coordinate3D.h"
+#include "ISelectionRule.h"
 
 #include <vector>
 
@@ -28,6 +29,7 @@ class Lattice
 public:
     Lattice();
     Lattice(const kvector_t &a1, const kvector_t &a2, const kvector_t &a3);
+    Lattice(const Lattice &lattice);
     ~Lattice();
 
     //! initialize cached data
@@ -62,11 +64,20 @@ public:
     std::vector<kvector_t> getReciprocalLatticeVectorsWithinRadius(
             const kvector_t &input_vector, double radius) const;
 
+    //! set a selection rule for the reciprocal vectors
+    void setSelectionRule(ISelectionRule *p_selection_rule) {
+        if (mp_selection_rule != p_selection_rule) {
+            delete mp_selection_rule;
+            mp_selection_rule = p_selection_rule;
+        }
+    }
+
     static Lattice createFCCLattice(double a);
 
     static Lattice createTrigonalLattice(double a, double c);
 
 private:
+    Lattice &operator=(const Lattice &lattice);
     std::vector<kvector_t> getVectorsWithinRadius(const kvector_t &input_vector,
             const Coordinate3D<int> &nearest_coords, double radius,
             const kvector_t &v1, const kvector_t &v2, const kvector_t &v3,
@@ -75,6 +86,7 @@ private:
     void computeInverseLatticeVectors() const;
     void computeInverseReciprocalLatticeVectors() const;
     static void computeInverseVectors(const kvector_t &v1, const kvector_t &v2, const kvector_t &v3, kvector_t &o1, kvector_t &o2, kvector_t &o3);
+    ISelectionRule *mp_selection_rule;
     kvector_t m_a1, m_a2, m_a3; //!< Basis vectors in real space
     mutable kvector_t m_b1, m_b2, m_b3; //!< Cache of basis vectors in reciprocal space
     mutable kvector_t m_amin1, m_amin2, m_amin3, m_bmin1, m_bmin2, m_bmin3; //!< Cache of inverse vectors for calculation of coordinates

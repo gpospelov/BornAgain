@@ -4,14 +4,16 @@
 #include "gsl/gsl_linalg.h"
 
 Lattice::Lattice()
-: m_cache_ok(false)
+: mp_selection_rule(0)
+, m_cache_ok(false)
 , m_is_zero(true)
 {
     initialize();
 }
 
 Lattice::Lattice(const kvector_t& a1, const kvector_t& a2, const kvector_t& a3)
-: m_a1(a1)
+: mp_selection_rule(0)
+, m_a1(a1)
 , m_a2(a2)
 , m_a3(a3)
 , m_cache_ok(false)
@@ -20,8 +22,21 @@ Lattice::Lattice(const kvector_t& a1, const kvector_t& a2, const kvector_t& a3)
     initialize();
 }
 
+Lattice::Lattice(const Lattice& lattice)
+: mp_selection_rule(0)
+, m_a1(lattice.m_a1)
+, m_a2(lattice.m_a2)
+, m_a3(lattice.m_a3)
+, m_cache_ok(false)
+, m_is_zero(false)
+{
+    initialize();
+    setSelectionRule(lattice.mp_selection_rule->clone());
+}
+
 Lattice::~Lattice()
 {
+    delete mp_selection_rule;
 }
 
 void Lattice::initialize() const
@@ -135,9 +150,7 @@ std::vector<kvector_t> Lattice::getVectorsWithinRadius(const kvector_t &input_ve
             {
                 Coordinate3D<int> coords(index_X + nearest_coords[0],
                         index_Y + nearest_coords[1], index_Z + nearest_coords[2]);
-                // TODO: remove following condition (only works for this specific lattice,
-                // where (klm) is selected only if -k+l+m = 0 mod 3)
-                if ((coords[1] + coords[2] - coords[0])%3 != 0) continue;
+                if (mp_selection_rule && !mp_selection_rule->coordinateSelected(coords)) continue;
                 kvector_t latticePoint = coords[0]*v1 + coords[1]*v2 + coords[2]*v3;
                 if ((latticePoint - input_vector).mag() <= radius)
                 {

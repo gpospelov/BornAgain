@@ -32,7 +32,7 @@ myFiles=[
   'FormFactorPyramid.h',
   'GISASExperiment.h',
   'HomogeneousMaterial.h',
-  'IClusteredNanoParticles.h',
+  'IClusteredParticles.h',
   'ICompositeSample.h',
   'IFormFactor.h',
   'IInterferenceFunction.h',
@@ -50,8 +50,8 @@ myFiles=[
   'MesoCrystal.h',
   'MultiLayer.h',
   'Particle.h',
-  'NanoParticleCrystal.h',
-  'NanoParticleDecoration.h',
+  'Crystal.h',
+  'ParticleDecoration.h',
   'OpticalFresnel.h',
   'ParameterPool.h',
   'PythonOutputData.h',
@@ -62,7 +62,7 @@ myFiles=[
 ]
 
 # list of include directories
-myIncludes = ['../../Core/Samples/inc','../../Core/Algorithms/inc','../../Core/Tools/inc','../../Core/PythonAPI/inc','../../Core/Geometry/inc']
+myIncludes = ['../../Core/Samples/inc','../../Core/FormFactors/inc','../../Core/Algorithms/inc','../../Core/Tools/inc','../../Core/PythonAPI/inc','../../Core/Geometry/inc']
 
 
 #-------------------------------------------------------------
@@ -144,11 +144,10 @@ def RulesGISASExperiment(mb):
 #def RulesHomogeneousMaterial(mb):
 
 # -------------------------------------------------------------------
-# IClusteredNanoParticles.h
+# IClusteredParticles.h
 # -------------------------------------------------------------------
 def RulesIClusteredNanoParticles(mb):
   cl = mb.class_( "IClusteredNanoParticles" )
-  cl.member_function("createDiffuseNanoParticleInfo").exclude()
   #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   #cl.member_functions().exclude()
   #cl.member_function("createTotalFormFactor").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
@@ -173,7 +172,7 @@ def RulesIFormFactor(mb):
   #cl.member_function( "clone" ).include() # including one virtual function back to have wrappers properly generated
   #cl.member_functions("createTotalFormFactor").exclude()
   
-  cl = mb.class_( "IBornFormFactor" )
+  cl = mb.class_( "IFormFactorBorn" )
   #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   #cl.member_functions( ).exclude()
   #cl.member_function( "clone" ).include() # including one virtual function back to have wrappers properly generated
@@ -339,33 +338,33 @@ def RulesParticle(mb):
 
 
 # -------------------------------------------------------------------
-# NanoParticleCrystal.h
+# Crystal.h
 # -------------------------------------------------------------------
-def RulesNanoParticleCrystal(mb):
-  cl = mb.class_( "NanoParticleCrystal" )
+def RulesCrystal(mb):
+  cl = mb.class_( "Crystal" )
   cl.member_functions( ).exclude() # excluding all member functions, leaving only constructors
   cl.member_function("createTotalFormFactor").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
   #cl.member_function("setAmbientRefractiveIndex").include()
 
 
 # -------------------------------------------------------------------
-# NanoParticleDecoration.h
+# ParticleDecoration.h
 # -------------------------------------------------------------------
-def RulesNanoParticleDecoration(mb):
-  cl = mb.class_( "NanoParticleDecoration" )
+def RulesParticleDecoration(mb):
+  cl = mb.class_( "ParticleDecoration" )
   cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   cl.member_function("createStrategy").exclude()
   #cl.member_functions( ).exclude() # exclude all member functions
   # including following methods if they doesn't have pointers in argument list
-  #methods = ['addNanoParticle', 'addInterferenceFunction', 'setTotalParticleSurfaceDensity']
-  #for m in methods:
-    #for fun in cl.member_functions(m): # including methods if they don't have pointers in argument list
-      #has_pointers = False
-      #for arg in fun.arguments:
-        #if declarations.type_traits.is_pointer(arg.type):
-          #has_pointers = True
-      #if not has_pointers:
-        #fun.include()
+  methods = ['addNanoParticle', 'addInterferenceFunction', 'setTotalParticleSurfaceDensity']
+  for m in methods:
+    for fun in cl.member_functions(m): # including methods if they don't have pointers in argument list
+      has_pointers = False
+      for arg in fun.arguments:
+        if declarations.type_traits.is_pointer(arg.type):
+          has_pointers = True
+      if not has_pointers:
+        fun.include()
 
 # -------------------------------------------------------------------
 # OpticalFresnel.h
@@ -452,7 +451,7 @@ myRules = {
   'FormFactorPyramid.h'        : RulesFormFactorPyramid,
   'GISASExperiment.h'          : RulesGISASExperiment,
   #'HomogeneousMaterial.h'      : RulesHomogeneousMaterial,
-  'IClusteredNanoParticles.h'    : RulesIClusteredNanoParticles,
+  'IClusteredParticles.h'      : RulesIClusteredParticles,
   'ICompositeSample.h'         : RulesICompositeSample,
   'IFormFactor.h'              : RulesIFormFactor,
   'IInterferenceFunction.h'    : RulesIInterferenceFunction,
@@ -470,8 +469,8 @@ myRules = {
   'MesoCrystal.h'              : RulesMesoCrystal,
   'MultiLayer.h'               : RulesMultiLayer,
   'Particle.h'                 : RulesParticle,
-  'NanoParticleCrystal.h'      : RulesNanoParticleCrystal,
-  'NanoParticleDecoration.h'   : RulesNanoParticleDecoration,
+  'Crystal.h'                  : RulesCrystal,
+  'ParticleDecoration.h'       : RulesParticleDecoration,
   #'OpticalFresnel.h'           : RulesOpticalFresnel,
   'Point3D.h'                  : RulesPoint3D,
   'ParameterPool.h'            : RulesParameterPool,

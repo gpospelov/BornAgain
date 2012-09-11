@@ -11,7 +11,7 @@
 #include "Lattice.h"
 #include "LayerDecorator.h"
 #include "MesoCrystal.h"
-#include "NanoParticleCrystal.h"
+#include "Crystal.h"
 #include "LatticeBasis.h"
 
 #include "TGraph.h"

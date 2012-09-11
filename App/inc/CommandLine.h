@@ -23,7 +23,7 @@
 
 //- -------------------------------------------------------------------
 //! @class CommandLine
-//! @brief Simple hadling of command line parameters
+//! @brief Simple handling of command line parameters
 //- -------------------------------------------------------------------
 class CommandLine
 {

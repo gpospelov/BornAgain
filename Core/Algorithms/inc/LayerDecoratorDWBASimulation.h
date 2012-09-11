@@ -16,9 +16,14 @@
 
 #include "LayerDWBASimulation.h"
 #include "DiffuseDWBASimulation.h"
+#include "IInterferenceFunctionStrategy.h"
 
 class LayerDecorator;
 
+//- -------------------------------------------------------------------
+//! @class LayerDecoratorDWBASimulation
+//! @brief Calculates scattering cross sections in DWBA for a layer with particles in/on it
+//- -------------------------------------------------------------------
 class LayerDecoratorDWBASimulation : public LayerDWBASimulation
 {
 public:
@@ -35,6 +40,11 @@ private:
     //! copy constructor and assignment operator are hidden
     LayerDecoratorDWBASimulation(const LayerDecoratorDWBASimulation &);
     LayerDecoratorDWBASimulation &operator=(const LayerDecoratorDWBASimulation &);
+
+    IInterferenceFunctionStrategy *createAndInitStrategy() const;
+    std::vector<IFormFactor *> createDWBAFormFactors() const;
+    void calculateCoherentIntensity(IInterferenceFunctionStrategy *p_strategy);
+    void calculateInCoherentIntensity();
 
 };
 

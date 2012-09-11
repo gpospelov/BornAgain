@@ -19,7 +19,7 @@ class FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
 public:
     FormFactorDecoratorDebyeWaller(IFormFactor *p_form_factor, double dw_factor);
     virtual FormFactorDecoratorDebyeWaller *clone() const;
-    virtual ~FormFactorDecoratorDebyeWaller();
+    virtual ~FormFactorDecoratorDebyeWaller() {};
 
     virtual complex_t evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
 
@@ -39,11 +39,6 @@ inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
 inline FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const
 {
     return new FormFactorDecoratorDebyeWaller(mp_form_factor->clone(), m_dw_factor);
-}
-
-inline FormFactorDecoratorDebyeWaller::~FormFactorDecoratorDebyeWaller()
-{
-    delete mp_form_factor;
 }
 
 inline complex_t FormFactorDecoratorDebyeWaller::evaluate(cvector_t k_i,

@@ -53,13 +53,18 @@ class IFormFactorDecorator : public IFormFactor
 {
 public:
     IFormFactorDecorator(IFormFactor *p_form_factor) : mp_form_factor(p_form_factor) {}
-    virtual ~IFormFactorDecorator() {}
+    virtual ~IFormFactorDecorator();
     virtual IFormFactorDecorator *clone() const=0;
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index) { if (mp_form_factor) mp_form_factor->setAmbientRefractiveIndex(refractive_index); }
 protected:
     IFormFactor *mp_form_factor;
 };
+
+inline IFormFactorDecorator::~IFormFactorDecorator()
+{
+    delete mp_form_factor;
+}
 
 class IFormFactorBorn : public IFormFactor
 {

@@ -8,7 +8,6 @@ FormFactorDWBA::FormFactorDWBA(IFormFactor *p_form_factor)
 
 FormFactorDWBA::~FormFactorDWBA()
 {
-    delete mp_form_factor;
     delete mp_T;
     delete mp_R;
 }

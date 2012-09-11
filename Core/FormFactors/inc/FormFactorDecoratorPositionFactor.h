@@ -23,7 +23,7 @@ class FormFactorDecoratorPositionFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, kvector_t position);
-    virtual ~FormFactorDecoratorPositionFactor();
+    virtual ~FormFactorDecoratorPositionFactor() {};
     virtual FormFactorDecoratorPositionFactor *clone() const;
 
     virtual complex_t evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
@@ -40,11 +40,6 @@ inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
 : IFormFactorDecorator(form_factor.clone())
 , m_position(position)
 {
-}
-
-inline FormFactorDecoratorPositionFactor::~FormFactorDecoratorPositionFactor()
-{
-    delete mp_form_factor;
 }
 
 inline FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clone() const

@@ -459,19 +459,22 @@ void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
                 TEveElementList *list_of_basis = new TEveElementList();
                 sprintf(str,"basis_ix(%d)_iy(%d)",ix,iy);
                 list_of_basis->SetName(str);
-                for(size_t i=0; i<lattice_basis->getNelements(); ++i) {
-                    TEveGeoShape* x = new TEveGeoShape("SS");
-                     x->SetShape(new TGeoSphere(0, nanoparticle_radius));
-                     kvector_t pos =lattice_basis->getPosition(i) + origin;
-                     if(i==0) {
-                         x->SetMainColor(kRed);
-                     } else{
-                         x->SetMainColor(kBlue);
-                     }
-                     x->RefMainTrans().SetPos(pos.x(), pos.y(), pos.z());
-                     //x->SetMainTransparency(10);
-                     list_of_basis->AddElement(x);
-                     list_of_basis->SetPickable(kTRUE);
+                for(size_t i=0; i<lattice_basis->getNbrParticles(); ++i) {
+                    std::vector<kvector_t> positions = lattice_basis->getParticlePositions(i);
+                    for(size_t j=0; j<positions.size(); ++j) {
+                        TEveGeoShape* x = new TEveGeoShape("SS");
+                         x->SetShape(new TGeoSphere(0, nanoparticle_radius));
+                         kvector_t pos = positions[j] + origin;
+                         if(i==0 && j==0) {
+                             x->SetMainColor(kRed);
+                         } else{
+                             x->SetMainColor(kBlue);
+                         }
+                         x->RefMainTrans().SetPos(pos.x(), pos.y(), pos.z());
+                         //x->SetMainTransparency(10);
+                         list_of_basis->AddElement(x);
+                         list_of_basis->SetPickable(kTRUE);
+                    }
                 }
                 list_of_layer->AddElement(list_of_basis);
                 list_of_layer->SetPickable(kTRUE);

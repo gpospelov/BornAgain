@@ -131,6 +131,7 @@ HEADERS += \
     FormFactors/inc/FormFactorDWBAConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
     FormFactors/inc/FormFactorDecoratorFactor.h \
+    FormFactors/inc/FormFactorDecoratorMultiPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorRefractiveIndex.h \
     FormFactors/inc/FormFactorDecoratorTransformation.h \

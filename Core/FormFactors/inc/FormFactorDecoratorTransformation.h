@@ -52,7 +52,6 @@ inline FormFactorDecoratorTransformation::~FormFactorDecoratorTransformation()
 {
     delete mp_transform;
     delete mp_inverse_transform;
-    delete mp_form_factor;
 }
 
 inline complex_t FormFactorDecoratorTransformation::evaluate(cvector_t k_i, cvector_t k_f,

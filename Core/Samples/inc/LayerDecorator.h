@@ -95,11 +95,9 @@ private:
     //! private copy constructor used by clone method
     LayerDecorator(const LayerDecorator &layer);
 
-
     //! print class
     void print(std::ostream &ostr) const;
 
 };
-
 
 #endif /* LAYERDECORATOR_H_ */

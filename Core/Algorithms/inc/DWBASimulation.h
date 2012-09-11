@@ -37,6 +37,7 @@ protected:
     OutputData<double> m_dwba_intensity;
     cvector_t m_ki;
     double m_alpha_i;
+    double getWaveLength() const;
 
 private:
     //! copy constructor and assignment operator are hidden

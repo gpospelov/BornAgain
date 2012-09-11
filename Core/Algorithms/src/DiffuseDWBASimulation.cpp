@@ -17,7 +17,6 @@ DiffuseDWBASimulation::~DiffuseDWBASimulation()
 void DiffuseDWBASimulation::run()
 {
     m_dwba_intensity.resetIndex();
-    double lambda = 2.0*M_PI/m_ki.mag().real();
     complex_t k_iz = -mp_kz_function->evaluate(-m_alpha_i);
     size_t number_of_nps = m_np_infos.size();
     std::vector<IFormFactor *> form_factors;
@@ -44,7 +43,7 @@ void DiffuseDWBASimulation::run()
         form_factors.push_back(p_dwba_z);
     }
 
-    double wavevector_scattering_factor = M_PI/lambda/lambda;
+    double wavevector_scattering_factor = M_PI/getWaveLength()/getWaveLength();
     while (m_dwba_intensity.hasNext()) {
         complex_t amplitude(0.0, 0.0);
         double intensity = 0.0;
@@ -57,7 +56,7 @@ void DiffuseDWBASimulation::run()
                 continue;
             }
             cvector_t k_f;
-            k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
+            k_f.setLambdaAlphaPhi(getWaveLength(), alpha_f, phi_f);
             k_f.setZ(mp_kz_function->evaluate(alpha_f));
             complex_t amp = form_factors[i]->evaluate(m_ki, k_f, -m_alpha_i, alpha_f);
             amplitude += weight*amp;

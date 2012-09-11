@@ -7,66 +7,42 @@
 
 ParameterPool::ParameterPool()
 {
-
 }
-
 
 ParameterPool::~ParameterPool()
 {
     clear();
 }
 
-
-
 /* ************************************************************************* */
-// copy constructor for completness
-// declared private, to avoid unconscious copying of parameters, that pointing to previous owner
+// copy constructor for completeness
+// declared private, to avoid unconscious copying of parameters that point to previous owner
 /* ************************************************************************* */
 ParameterPool::ParameterPool(const ParameterPool &other)
 {
-//    m_map = 0;
-//    if( other.m_map ) {
-//        m_map = new parametermap_t;
-//        // copying content of other's map
-//        *m_map = *other.m_map;
-//    }
     m_map = other.m_map;
 }
 
-
 /* ************************************************************************* */
-// assignment operator for completness
-// declared private, to avoid unconscious copying of parameters, that pointing to previous owner
+// assignment operator for completeness
+// declared private, to avoid unconscious copying of parameters that point to previous owner
 /* ************************************************************************* */
 ParameterPool &ParameterPool::operator=(const ParameterPool &other)
 {
     if( this != &other)
     {
-//        m_map = 0;
-//        if( other.m_map ) {
-//            m_map = new parametermap_t;
-//            // copying content of other's map
-//            *m_map = *other.m_map;
-//        }
         m_map = other.m_map;
     }
     return *this;
 }
-
 
 /* ************************************************************************* */
 // Clear the parameter container
 /* ************************************************************************* */
 void ParameterPool::clear()
 {
-//    if(m_map) {
-//        m_map->clear();
-//        delete m_map;
-//        m_map=0;
-//    }
     m_map.clear();
 }
-
 
 /* ************************************************************************* */
 // Registering parameter with given name. Name should be different for each
@@ -78,13 +54,10 @@ bool ParameterPool::registerParameter(std::string name, double *parameter_addres
     return addParameter(name, par);
 }
 
-
 bool ParameterPool::addParameter(std::string name, RealPar par)
 {
-    // create map if not exist
     parametermap_t::iterator it = m_map.find(name);
     if( it!=m_map.end() ) {
-        // such parameter already registered, throw exception
         print(std::cout);
         std::ostringstream os;
         os << "ParameterPool::registerParameter() -> Warning! Registering parameter with same name '" << name << "'. Previous link will be replaced ";
@@ -93,24 +66,18 @@ bool ParameterPool::addParameter(std::string name, RealPar par)
     return m_map.insert(parametermap_t::value_type(name, par ) ).second;
 }
 
-
 /* ************************************************************************* */
 // Clone method. Clones everything.
 /* ************************************************************************* */
 ParameterPool *ParameterPool::clone()
 {
     ParameterPool *new_pool = new ParameterPool;
-//    if(m_map) {
-//        new_pool->m_map = new parametermap_t;
-//        *new_pool->m_map = *m_map;
-//    }
     new_pool->m_map = m_map;
     return new_pool;
 }
 
-
 /* ************************************************************************* */
-// Clone method with adding preffix to parameter's keys
+// Clone method that adds a prefix to parameter's keys
 /* ************************************************************************* */
 ParameterPool *ParameterPool::cloneWithPrefix(std::string prefix)
 {
@@ -121,7 +88,6 @@ ParameterPool *ParameterPool::cloneWithPrefix(std::string prefix)
     }
     return new_pool;
 }
-
 
 /* ************************************************************************* */
 // copy parameters of given pool to the external pool while adding prefix to
@@ -134,7 +100,6 @@ void ParameterPool::copyToExternalPool(std::string prefix, ParameterPool *extern
     }
 }
 
-
 /* ************************************************************************* */
 ParameterPool::RealPar ParameterPool::getParameter(std::string name) const
 {
@@ -145,7 +110,6 @@ ParameterPool::RealPar ParameterPool::getParameter(std::string name) const
         return RealPar(0);
     }
 }
-
 
 /* ************************************************************************* */
 // set parameter value
@@ -162,7 +126,6 @@ bool ParameterPool::setParameterValue(std::string name, double value)
     return true;
 }
 
-
 /* ************************************************************************* */
 // set parameter value
 /* ************************************************************************* */
@@ -170,8 +133,6 @@ int ParameterPool::setMatchedParametersValue(std::string wildcards, double value
 {
     int npars(0);
     for(iterator_t it=begin(); it!= end(); it++) {
-        // (*it).first - parameter key, (*it).second - parameter itself
-        // parameters whose key match pattern is added to the FitMultiParameter container
         if( Utils::StringMatchText::WildcardPattern( (*it).first, wildcards ) ) {
             (*it).second.setValue(value);
             npars++;
@@ -180,19 +141,9 @@ int ParameterPool::setMatchedParametersValue(std::string wildcards, double value
     return npars;
 }
 
-
 /* ************************************************************************* */
 // print content on the screen
 /* ************************************************************************* */
-//void ParameterPool::print(std::ostream &ostr) const
-//{
-//    ostr << "parameter pool: " << this;
-//    ostr << "size(): " << m_map.size() << std::endl;
-//    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); it++) {
-//        std::cout << (*it).first << " " << (*it).second << std::endl;
-//    }
-//}
-
 void ParameterPool::print(std::ostream &ostr) const
 {
     // output depends on size of the pool
@@ -218,4 +169,3 @@ void ParameterPool::print(std::ostream &ostr) const
 
     }
 }
-

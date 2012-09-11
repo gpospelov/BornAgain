@@ -41,7 +41,7 @@ private:
     LayerDecoratorDWBASimulation(const LayerDecoratorDWBASimulation &);
     LayerDecoratorDWBASimulation &operator=(const LayerDecoratorDWBASimulation &);
 
-    double getWaveLength() const;
+    IInterferenceFunctionStrategy *createAndInitStrategy() const;
     std::vector<IFormFactor *> createDWBAFormFactors() const;
     void calculateCoherentIntensity(IInterferenceFunctionStrategy *p_strategy);
     void calculateInCoherentIntensity();

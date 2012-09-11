@@ -28,14 +28,7 @@ void LayerDecoratorDWBASimulation::init(const Experiment& experiment)
 
 void LayerDecoratorDWBASimulation::run()
 {
-    m_dwba_intensity.resetIndex();
-
-    // get appropriate interference function and transfer the required formfactors to it
-    std::vector<IFormFactor *> form_factors = createDWBAFormFactors();
-    IInterferenceFunctionStrategy *p_strategy = mp_layer_decorator->createStrategy(form_factors);
-    for (size_t i=0; i<form_factors.size(); ++i) {
-        delete form_factors[i];
-    }
+    IInterferenceFunctionStrategy *p_strategy = createAndInitStrategy();
 
     calculateCoherentIntensity(p_strategy);
     calculateInCoherentIntensity();
@@ -44,10 +37,14 @@ void LayerDecoratorDWBASimulation::run()
 
 }
 
-double LayerDecoratorDWBASimulation::getWaveLength() const
+IInterferenceFunctionStrategy *LayerDecoratorDWBASimulation::createAndInitStrategy() const
 {
-    kvector_t real_ki(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    return 2.0*M_PI/real_ki.mag();
+    std::vector<IFormFactor *> form_factors = createDWBAFormFactors();
+    IInterferenceFunctionStrategy *p_strategy = mp_layer_decorator->createStrategy(form_factors);
+    for (size_t i=0; i<form_factors.size(); ++i) {
+        delete form_factors[i];
+    }
+    return p_strategy;
 }
 
 std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors() const
@@ -86,6 +83,7 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunct
 {
     double wavelength = getWaveLength();
     double total_surface_density = mp_layer_decorator->getTotalParticleSurfaceDensity();
+    m_dwba_intensity.resetIndex();
     while (m_dwba_intensity.hasNext())
     {
         double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");

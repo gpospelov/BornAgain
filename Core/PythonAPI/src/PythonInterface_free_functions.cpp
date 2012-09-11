@@ -34,22 +34,14 @@
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
+#include "Types.h"
 #include "PythonInterface_free_functions.h"
 
 namespace bp = boost::python;
 
-void register_free_functions(){
+BOOST_PYTHON_OPAQUE_SPECIALIZED_TYPE_ID( _object )
 
-    { //::Geometry::CrossProduct
-    
-        typedef ::Geometry::BasicVector3D< std::complex< double > > ( *CrossProduct_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const,::Geometry::BasicVector3D< std::complex< double > > const );
-        
-        bp::def( 
-            "CrossProduct"
-            , CrossProduct_function_type( &::Geometry::CrossProduct )
-            , ( bp::arg("vectorLeft"), bp::arg("vectorRight") ) );
-    
-    }
+void register_free_functions(){
 
     { //::Geometry::CrossProduct
     
@@ -59,17 +51,6 @@ void register_free_functions(){
             "CrossProduct"
             , CrossProduct_function_type( &::Geometry::CrossProduct )
             , ( bp::arg("vectorLeft"), bp::arg("vectorRight") ) );
-    
-    }
-
-    { //::Geometry::DotProduct
-    
-        typedef ::std::complex< double > ( *DotProduct_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const,::Geometry::BasicVector3D< std::complex< double > > const );
-        
-        bp::def( 
-            "DotProduct"
-            , DotProduct_function_type( &::Geometry::DotProduct )
-            , ( bp::arg("left"), bp::arg("right") ) );
     
     }
 
@@ -92,7 +73,7 @@ void register_free_functions(){
             "GetOutputData"
             , GetOutputData_function_type( &::GetOutputData )
             , ( bp::arg("experiment") )
-                /* undefined call policies */ );
+            , bp::return_value_policy< bp::return_opaque_pointer >() );
     
     }
 
@@ -104,7 +85,7 @@ void register_free_functions(){
             "GetOutputDataAxis"
             , GetOutputDataAxis_function_type( &::GetOutputDataAxis )
             , ( bp::arg("experiment"), bp::arg("naxis") )
-                /* undefined call policies */ );
+            , bp::return_value_policy< bp::return_opaque_pointer >() );
     
     }
 

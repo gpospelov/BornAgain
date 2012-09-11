@@ -14,6 +14,7 @@ from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
 from pyplusplus import file_writers
 from pygccxml.declarations.matchers import access_type_matcher_t
+from pygccxml.declarations.matchers import virtuality_type_matcher_t
 from pygccxml import declarations
 
 
@@ -57,7 +58,7 @@ myFiles=[
   'PythonPlusplusHelper.h',
   'Transform3D.h',
   'Units.h',
-  #'Types.h',
+  'Types.h',
 ]
 
 # list of include directories
@@ -74,13 +75,23 @@ myIncludes = ['../../Core/Samples/inc','../../Core/Algorithms/inc','../../Core/T
 # BasicVector3D.h
 # -------------------------------------------------------------------
 def RulesBasicVector3D(mb):
-  cl = mb.class_( "BasicVector3D<double>" )
-  for fun in cl.member_functions(): # setting policy for functions returning internal reference
-    if declarations.type_traits.is_reference(fun.return_type):
-      fun.call_policies = call_policies.return_internal_reference( )
+  # we exclude everyting related to complex BasicVector3D<complex_t>
+  mb.class_("BasicVector3D<std::complex<double> >").exclude()
+  mb.free_operators( lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
+  mb.free_functions( lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
+
+  #cl = mb.class_( "BasicVector3D<double>" )
+  #for fun in cl.member_functions(): # setting policy for functions returning internal reference
+    #if declarations.type_traits.is_reference(fun.return_type):
+      #fun.call_policies = call_policies.return_internal_reference( )
+
+  # excluding transform member_function to get rid from warning, anyway we are not using it in python
+  # (otherwise pyplusplus keeps complaining about unexposed Trasform3D class, dont know why)
+  #cl.member_function("transform").exclude()
+
 
 # -------------------------------------------------------------------
-# FormFactorPyramid.h
+# Experiment.h
 # -------------------------------------------------------------------
 def RulesExperiment(mb):
   cl = mb.class_( "Experiment" )
@@ -97,33 +108,35 @@ def RulesExperiment(mb):
 # -------------------------------------------------------------------
 def RulesFormFactorCylinder(mb):
   cl = mb.class_( "FormFactorCylinder" )
-  cl.member_functions().exclude() # excluding all member functions
-  cl.constructors().exclude() # excluding all constructors
-  cl.constructors( arg_types=[ "double", "double" ] ).include() # including constructor with 2 double parameters
+  #cl.constructors().exclude() # excluding all constructors
+  #cl.constructors( arg_types=[ "double", "double" ] ).include() # including constructor with 2 double parameters
+  #cl.member_functions().exclude() # excluding all member functions
 
 # -------------------------------------------------------------------
 # FormFactorPyramid.h
 # -------------------------------------------------------------------
 def RulesFormFactorPyramid(mb):
   cl = mb.class_( "FormFactorPyramid" )
-  cl.member_functions().exclude() # excluding all member functions
-  cl.constructors().exclude() # excluding all constructors
-  cl.constructors( arg_types=[ "double", "double", "double" ] ).include() # including constructor with 3 double parameters
+  #cl.constructors().exclude() # excluding all constructors
+  #cl.constructors( arg_types=[ "double", "double", "double" ] ).include() # including constructor with 3 double parameters
+  #cl.member_functions().exclude() # excluding all member functions
 
 # -------------------------------------------------------------------
 # FormFactorFullSphere.h
 # -------------------------------------------------------------------
 def RulesFormFactorFullSphere(mb):
   cl = mb.class_( "FormFactorFullSphere" )
-  cl.member_functions().exclude() # excluding all member functions
-  cl.constructors().exclude() # excluding all constructors
-  cl.constructors( arg_types=[ "double" ] ).include() # including constructor with 3 double parametes
+  #cl.constructors().exclude() # excluding all constructors
+  #cl.constructors( arg_types=[ "double" ] ).include() # including constructor with 3 double parametes
+  #cl.member_functions().exclude() # excluding all member functions
 
+  
 # -------------------------------------------------------------------
 # GISASExperiment.h
 # -------------------------------------------------------------------
 def RulesGISASExperiment(mb):
-  mb.class_( "GISASExperiment" ).member_function( "setDetectorResolutionFunction" ).exclude()
+  cl = mb.class_( "GISASExperiment" )
+  cl.member_function( "setDetectorResolutionFunction" ).exclude()
 
 # -------------------------------------------------------------------
 # HomogeneousMaterial.h
@@ -135,9 +148,10 @@ def RulesGISASExperiment(mb):
 # -------------------------------------------------------------------
 def RulesIClusteredNanoParticles(mb):
   cl = mb.class_( "IClusteredNanoParticles" )
+  cl.member_function("createDiffuseNanoParticleInfo").exclude()
   #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   #cl.member_functions().exclude()
-  cl.member_function("createTotalFormFactor").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
+  #cl.member_function("createTotalFormFactor").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
 
 
 # -------------------------------------------------------------------
@@ -147,9 +161,7 @@ def RulesICompositeSample(mb):
   cl = mb.class_( "ICompositeSample" )
   cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   cl.member_functions().exclude()
-  #cl.member_function("walk_and_print").include()
-  #cl.member_function( "getCompositeSample" ).include()
-  #cl.member_function( "getCompositeSample" ).call_policies = call_policies.return_internal_reference( )
+
 
 # -------------------------------------------------------------------
 # IFormFactor.h
@@ -158,48 +170,57 @@ def RulesIFormFactor(mb):
   cl = mb.class_( "IFormFactor" )
   #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   #cl.member_functions( ).exclude()
-  #members = cl.decls( declarations.virtuality_type_matcher(declarations.VIRTUALITY_TYPES.VIRTUAL ), decl_type=pd.member_calldef_t, allow_empty=True)
-  #members.set_virtuality( declarations.VIRTUALITY_TYPES.NOT_VIRTUAL )
+  #cl.member_function( "clone" ).include() # including one virtual function back to have wrappers properly generated
+  #cl.member_functions("createTotalFormFactor").exclude()
   
   cl = mb.class_( "IBornFormFactor" )
   #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   #cl.member_functions( ).exclude()
-  #members = cl.decls( declarations.virtuality_type_matcher(declarations.VIRTUALITY_TYPES.VIRTUAL ), decl_type=declarations.member_calldef_t, allow_empty=True)
-  #members.set_virtuality( declarations.VIRTUALITY_TYPES.NOT_VIRTUAL )
-  
+  #cl.member_function( "clone" ).include() # including one virtual function back to have wrappers properly generated
+
+  cl = mb.class_( "IFormFactorDecorator" )
+  #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
+  #cl.member_functions( ).exclude()
+  #cl.member_function( "clone" ).include() # including one virtual function back to have wrappers properly generated
 
 # -------------------------------------------------------------------
 # IInterferenceFunction.h
 # -------------------------------------------------------------------
 def RulesIInterferenceFunction(mb):
   cl = mb.class_( "IInterferenceFunction" )
-  cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
+  #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   #cl.member_functions().exclude()
+  #cl.member_function( "clone" ).include() # including one virtual function back to have wrappers properly generated
 
 # -------------------------------------------------------------------
 # InterferenceFunctionNone.h
 # -------------------------------------------------------------------
 def RulesInterferenceFunctionNone(mb):
   cl = mb.class_( "InterferenceFunctionNone" )
-  cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-  cl.member_functions().exclude()
+  #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
+  #cl.member_functions().exclude()
+  #cl.member_function( "clone" ).include() # including one virtual function back to have wrappers properly generated
 
 # -------------------------------------------------------------------
 # InterferenceFunction1DParaCrystal.h
 # -------------------------------------------------------------------
 def RulesInterferenceFunction1DParaCrystal(mb):
   cl = mb.class_( "InterferenceFunction1DParaCrystal" )
-  cl.member_functions().exclude()
-  
+  #cl.member_functions().exclude()
+  #cl.member_function( "clone" ).include() # including one virtual function back to have wrappers properly generated
+
+
 # -------------------------------------------------------------------
 # IMaterial.h
 # -------------------------------------------------------------------
 #def RulesIMaterial(mb):
 
+
 # -------------------------------------------------------------------
 # ISingleton.h
 # -------------------------------------------------------------------
 #def RulesISingleton(mb):
+
 
 # -------------------------------------------------------------------
 # ISample.h
@@ -208,12 +229,10 @@ def RulesISample(mb):
   cl = mb.class_( "ISample" )
   #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   cl.member_functions().exclude()
+  cl.member_function( "clone" ).include()
   cl.member_function("walk_and_print").include()
   cl.member_function("createParameterTree").include()
-  cl.member_function("createParameterTree").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
-  
-  #cl.member_function( "getCompositeSample" ).include()
-  #cl.member_function( "getCompositeSample" ).call_policies = call_policies.return_internal_reference( )
+
 
 # -------------------------------------------------------------------
 # Lattice.h
@@ -225,7 +244,12 @@ def RulesLattice(mb):
   cl.member_function("getBasisVectorB").include()
   cl.member_function("getBasisVectorC").include()
   cl.member_function("createTrigonalLattice").include()
+  cl.member_function("createTrigonalLattice").call_policies = call_policies.return_value_policy(call_policies.return_by_value )
 
+#x.call_policies = code_creators.return_value_policy(
+#>code_creators.return_by_value )
+
+  
 # -------------------------------------------------------------------
 # LatticeBasis.h
 # -------------------------------------------------------------------
@@ -241,13 +265,12 @@ def RulesLatticeBasis(mb):
 # -------------------------------------------------------------------
 def RulesLayer(mb):
   cl = mb.class_( "Layer" )
-  cl.member_function( "clone" ).exclude()
-  cl.member_function( "setThickness" ).exclude()
-  cl.member_function( "getThickness" ).exclude()
-  cl.member_function( "getMaterial" ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object )
-  cl.member_function( "getRefractiveIndex" ).exclude()
-  cl.member_function( "createDWBASimulation" ).exclude()
+  cl.member_functions().exclude()
+  cl.member_function( "clone" ).include()
   cl.member_functions( "setMaterial" ).include()
+  cl.member_functions( "setThickness" ).include()
+  cl.member_functions( "getThickness" ).include()
+
 
 # -------------------------------------------------------------------
 # LayerDecorator.h
@@ -256,7 +279,9 @@ def RulesLayerDecorator(mb):
   cl = mb.class_( "LayerDecorator" )
   #cl.constructors( ).exclude() # excluding all constructors
   cl.member_functions( ).exclude() # excluding all member functions
+  cl.member_function( "clone" ).include()
   #cl.constructors( lambda x: len(x.arguments)==2).include() # including constructor with two parameters
+
 
 # -------------------------------------------------------------------
 # LayerRoughness.h
@@ -265,6 +290,7 @@ def RulesLayerRoughness(mb):
   cl = mb.class_( "LayerRoughness" )
   cl.member_function( "getSpectralFun" ).exclude()
   cl.member_function( "getCorrFun" ).exclude()
+
 
 # -------------------------------------------------------------------
 # MaterialManager.h
@@ -276,16 +302,17 @@ def RulesMaterialManager(mb):
   cl.member_function( "addHomogeneousMaterial" ).call_policies = call_policies.return_internal_reference( )
   cl.disable_warnings( messages.W1051 ) # not sure
 
+
 # -------------------------------------------------------------------
 # MesoCrystal.h
 # -------------------------------------------------------------------
 def RulesMesoCrystal(mb):
   cl = mb.class_( "MesoCrystal" )
   cl.member_functions( ).exclude() # excluding all member functions, leaving only constructors
-  for fun in cl.constructors(): # excluding constructors which have pointers
-    for arg in fun.arguments:
-      if declarations.type_traits.is_pointer(arg.type):
-        fun.exclude()
+  #for fun in cl.constructors(): # excluding constructors which have pointers
+    #for arg in fun.arguments:
+      #if declarations.type_traits.is_pointer(arg.type):
+        #fun.exclude()
 
   
 # -------------------------------------------------------------------
@@ -295,18 +322,9 @@ def RulesMultiLayer(mb):
   cl = mb.class_( "MultiLayer" )
   cl.member_functions( ).exclude()
   cl.member_function( "addLayer" ).include()
+  cl.member_function( "addLayer" ).include()
   cl.member_function( "addLayerWithTopRoughness" ).include()
-  #cl.member_function( "getLayer" ).exclude();
-  #cl.member_function( "getLayerInterface" ).exclude();
-  #cl.member_function( "getLayerBottomZ" ).exclude();
-  #cl.member_function( "getLayerThickness" ).exclude();
-  #cl.member_function( "getLayerTopInterface" ).exclude();
-  #cl.member_function( "getLayerBottomInterface" ).exclude();
-  #cl.member_function( "clear" ).exclude();
-  #cl.member_function( "clone" ).exclude()
-  #cl.member_function( "getCrossCorrSpectralFun" ).exclude();
-  #cl.member_function( "setLayerThickness" ).exclude();
-  #cl.member_function( "createDWBASimulation" ).exclude()
+
 
 # -------------------------------------------------------------------
 # Particle.h
@@ -314,10 +332,11 @@ def RulesMultiLayer(mb):
 def RulesParticle(mb):
   cl = mb.class_( "Particle" )
   cl.member_functions( ).exclude() # excluding all member functions, leaving only constructors
-  for fun in cl.constructors(): # excluding constructors which have pointers
-    for arg in fun.arguments:
-      if declarations.type_traits.is_pointer(arg.type):
-        fun.exclude()
+  #for fun in cl.constructors(): # excluding constructors which have pointers
+    #for arg in fun.arguments:
+      #if declarations.type_traits.is_pointer(arg.type):
+        #fun.exclude()
+
 
 # -------------------------------------------------------------------
 # NanoParticleCrystal.h
@@ -335,17 +354,18 @@ def RulesNanoParticleCrystal(mb):
 def RulesNanoParticleDecoration(mb):
   cl = mb.class_( "NanoParticleDecoration" )
   cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-  cl.member_functions( ).exclude() # exclude all member functions
+  cl.member_function("createStrategy").exclude()
+  #cl.member_functions( ).exclude() # exclude all member functions
   # including following methods if they doesn't have pointers in argument list
-  methods = ['addNanoParticle', 'addInterferenceFunction', 'setTotalParticleSurfaceDensity']
-  for m in methods:
-    for fun in cl.member_functions(m): # including methods if they don't have pointers in argument list
-      has_pointers = False
-      for arg in fun.arguments:
-        if declarations.type_traits.is_pointer(arg.type):
-          has_pointers = True
-      if not has_pointers:
-        fun.include()
+  #methods = ['addNanoParticle', 'addInterferenceFunction', 'setTotalParticleSurfaceDensity']
+  #for m in methods:
+    #for fun in cl.member_functions(m): # including methods if they don't have pointers in argument list
+      #has_pointers = False
+      #for arg in fun.arguments:
+        #if declarations.type_traits.is_pointer(arg.type):
+          #has_pointers = True
+      #if not has_pointers:
+        #fun.include()
 
 # -------------------------------------------------------------------
 # OpticalFresnel.h
@@ -357,9 +377,9 @@ def RulesNanoParticleDecoration(mb):
 # -------------------------------------------------------------------
 def RulesPoint3D(mb):
   cl = mb.class_( "Point3D<double>" )
-  for fun in cl.member_functions(): 
-    if declarations.type_traits.is_reference(fun.return_type):
-      fun.call_policies = call_policies.return_internal_reference( )
+  #for fun in cl.member_functions(): 
+    #if declarations.type_traits.is_reference(fun.return_type):
+      #fun.call_policies = call_policies.return_internal_reference( )
 
 
 # -------------------------------------------------------------------
@@ -367,7 +387,7 @@ def RulesPoint3D(mb):
 # -------------------------------------------------------------------
 def RulesParameterPool(mb):
   cl = mb.class_( "ParameterPool" )
-  cl.member_function( "cloneWithPrefix" ).call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
+  #cl.member_function( "cloneWithPrefix" ).call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
 
 # -------------------------------------------------------------------
 # PythonOutputData.h
@@ -375,7 +395,8 @@ def RulesParameterPool(mb):
 #def RulesPythonOutputData(mb):
   #mb.free_function('ExportOutputData').exclude()
   #mb.free_function('GetOutputData').exclude()
-  #mb.free_function('GetOutputData').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object )
+  mb.free_function('GetOutputData').call_policies = call_policies.return_value_policy(call_policies.return_opaque_pointer )
+  mb.free_function('GetOutputDataAxis').call_policies = call_policies.return_value_policy(call_policies.return_opaque_pointer )
 
 # -------------------------------------------------------------------
 # PythonPlusplusHelper.h
@@ -387,20 +408,16 @@ def RulesPythonPlusplusHelper(mb):
 # Transform3D.h
 # -------------------------------------------------------------------
 def RulesTransform3D(mb):
-  cl = mb.class_( "Transform3D" )
-  for fun in cl.member_functions(): # setting policy for functions returning internal reference
-    if declarations.type_traits.is_reference(fun.return_type):
-      fun.call_policies = call_policies.return_internal_reference( )
-  
-  mb.class_( "Reflect3D" ).exclude()
-  mb.class_( "Translate3D" ).exclude()
-  mb.class_( "TranslateX3D" ).exclude()
-  mb.class_( "TranslateY3D" ).exclude()
-  mb.class_( "TranslateZ3D" ).exclude()
-  mb.class_( "Scale3D" ).exclude()
-  mb.class_( "ScaleX3D" ).exclude()
-  mb.class_( "ScaleY3D" ).exclude()
-  mb.class_( "ScaleZ3D" ).exclude()
+  mb.class_( "Point3D<double>").exclude()
+  TransformClasses={"Transform3D","Reflect3D","Translate3D", "Scale3D", "Rotate3D"}
+  for clname in TransformClasses:
+    cl = mb.class_(clname)
+    # removing mentioning of Point3D from constructors and member_functions
+    cl.constructors(lambda decl: 'Point3D' in decl.decl_string, allow_empty=True ).exclude()
+    cl.member_functions(lambda decl: 'Point3D' in decl.decl_string, allow_empty=True ).exclude()
+    #for fun in cl.member_functions(allow_empty=True): # setting policy for functions returning internal reference
+      #if declarations.type_traits.is_reference(fun.return_type):
+        #fun.call_policies = call_policies.return_internal_reference( )
 
 
 # -------------------------------------------------------------------
@@ -421,9 +438,9 @@ def RulesTransform3D(mb):
 # -------------------------------------------------------------------
 def RulesVector3D(mb):
   cl = mb.class_("Vector3D<double>")
-  for fun in cl.member_functions(): # including method 'addNanoParticle' if it doesnt have pointers in argument list
-    if declarations.type_traits.is_reference(fun.return_type):
-      fun.call_policies = call_policies.return_internal_reference( )
+  #for fun in cl.member_functions(): # including method 'addNanoParticle' if it doesnt have pointers in argument list
+    #if declarations.type_traits.is_reference(fun.return_type):
+      #fun.call_policies = call_policies.return_internal_reference( )
 
 
 # list of additional rules which have to be executed for every processed header file
@@ -481,22 +498,77 @@ def GenerateCode():
   # ---------------------------------------------------------
   # common properties
   # ---------------------------------------------------------
-  mb.always_expose_using_scope = False
+  mb.always_expose_using_scope = True
 
   # excluding generation of access code for  private methods
-  mb.calldefs( access_type_matcher_t( 'private' ) ).exclude()
-
+  #mb.calldefs( access_type_matcher_t( 'private' ) ).exclude()
   # excluding generation of access code for protected methods
   #mb.calldefs( access_type_matcher_t( 'protected' ) ).exclude()
+
+  # Exclude protected and private that are not pure virtual (we have to expose pure virtual functions to have them overriden in the wrapper)
+  query = declarations.access_type_matcher_t( 'private' ) & ~declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
+  mb.global_ns.calldefs( query, allow_empty=True ).exclude()
+  query = declarations.access_type_matcher_t( 'protected' ) & ~declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
+  mb.global_ns.calldefs( query, allow_empty=True ).exclude()
 
   # excluding generation of methods for implicit conversion
   mb.constructors().allow_implicit_conversion = False
 
-  # policy for singletons and clone methods
+  # return policy for singletons, clone and create methods
   classes = mb.classes();
-  for cs in classes:
-    cs.member_functions('instance',allow_empty=True).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
-    cs.member_functions('clone',allow_empty=True).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
+  for cl in classes:
+    cl.member_functions('instance', allow_empty=True).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
+    cl.member_functions('clone', allow_empty=True).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
+    cl.member_functions( lambda x: x.name.startswith('create'), allow_empty=True ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
+
+  # excluding constructors which have pointers in argument list
+  for cl in classes:
+    for ctor in cl.constructors(allow_empty=True):
+      for arg in ctor.arguments:
+        if declarations.type_traits.is_pointer(arg.type):
+          ctor.exclude()
+
+  # excluding member functions if they have pointers in argument list
+  for cl in classes:
+    for fun in cl.member_functions(allow_empty=True):
+      has_pointers = False
+      for arg in fun.arguments:
+        if declarations.type_traits.is_pointer(arg.type):
+          has_pointers = True
+      if has_pointers:
+          fun.exclude();
+
+  # setting policy for functions returning internal reference
+  #for cl in classes:
+    #for fun in cl.member_functions(allow_empty=True): 
+      #if declarations.type_traits.is_reference(fun.return_type):
+        #fun.call_policies = call_policies.return_internal_reference( )
+
+  # set the default return policies (for references/pointers) on classes if it wasn't already been done for
+  mem_funs = mb.calldefs()
+  for mem_fun in mem_funs:
+    if mem_fun.call_policies:
+      continue
+    #if not mem_fun.call_policies and (declarations.is_reference (mem_fun.return_type) ):
+    if not mem_fun.call_policies and (declarations.is_reference(mem_fun.return_type) or declarations.is_pointer(mem_fun.return_type) ):
+      mem_fun.call_policies = call_policies.return_value_policy(call_policies.reference_existing_object )
+
+  #methods = ['addNanoParticle', 'addInterferenceFunction', 'setTotalParticleSurfaceDensity']
+  #for m in methods:
+    #for fun in cl.member_functions(m): # including methods if they don't have pointers in argument list
+      #has_pointers = False
+      #for arg in fun.arguments:
+        #if declarations.type_traits.is_pointer(arg.type):
+          #has_pointers = True
+      #if not has_pointers:
+        #fun.include()
+
+          
+    #query = declarations.access_type_matcher_t( 'private' ) \
+            #& ~declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
+    #mb.calldefs( declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL ), allow_empty=True ).exclude()
+    
+#  mb.free_function("__cxa_throw").exclude()
 
   # excluding all member functions which have pointers in argument list to not to bother our self with python<-->cpp object ownership, only const references is allowed
   #for fun in mb.member_functions():
@@ -510,10 +582,29 @@ def GenerateCode():
                                             #"operator()", "operator[]") ).exclude()
   #mb.member_operators( lambda x: x.name in ("operator>>","operator()") ).exclude()
 
-
-
-  # disable some warnings
-  messages.disable( messages.W1035 )
+  messages.disable(
+        messages.W1020  # Warnings 1020 - 1031 are all about why Py++ generates wrapper for class X
+      , messages.W1021
+      , messages.W1022
+      , messages.W1023
+      , messages.W1024
+      , messages.W1025
+      , messages.W1026
+      , messages.W1027
+      , messages.W1028
+      , messages.W1029
+      , messages.W1030
+      , messages.W1031
+      #, messages.W1035
+      #, messages.W1040
+      #, messages.W1038
+      #, messages.W1041
+      #, messages.W1036 # pointer to Python immutable member
+      #, messages.W1033 # unnamed variables
+      #, messages.W1018 # expose unnamed classes
+      #, messages.W1049 # returns reference to local variable
+      #, messages.W1014 # unsupported '=' operator
+       )
 
   #Generated code will not compile on
   mem_funs = mb.calldefs ()

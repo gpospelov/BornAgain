@@ -18,6 +18,7 @@
 #include "ICompositeSample.h"
 #include "NanoParticleInfo.h"
 #include "Transform3D.h"
+#include "Exceptions.h"
 
 //- -------------------------------------------------------------------
 //! @class IClusteredNanoParticles
@@ -39,9 +40,21 @@ public:
     virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
             complex_t ambient_refractive_index) const=0;
 
+//    virtual std::vector<DiffuseNanoParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
+//                const Geometry::Transform3D &transform, double meso_volume) const=0;
+
     virtual std::vector<DiffuseNanoParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
-                const Geometry::Transform3D &transform, double meso_volume) const=0;
+                const Geometry::Transform3D &transform, double meso_volume) {
+        (void)depth;
+        (void)weight;
+        (void)transform;
+        (void)meso_volume;
+        throw NotImplementedException("IClusteredNanoParticles::createDiffuseNanoParticleInfo()");
+    }
+
 };
+
+
 
 
 #endif /* ICLUSTEREDNANOPARTICLES_H_ */

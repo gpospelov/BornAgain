@@ -34,9 +34,114 @@
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
+#include "Types.h"
 #include "PythonInterface_classes_3.h"
 
 namespace bp = boost::python;
+
+struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInterferenceFunction > {
+
+    IInterferenceFunction_wrapper()
+    : IInterferenceFunction()
+      , bp::wrapper< IInterferenceFunction >(){
+        // null constructor
+        
+    }
+
+    virtual ::IInterferenceFunction * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
+    }
+
+    virtual double evaluate( ::cvector_t q ) const {
+        bp::override func_evaluate = this->get_override( "evaluate" );
+        return func_evaluate( q );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
+struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCrystal, bp::wrapper< InterferenceFunction1DParaCrystal > {
+
+    InterferenceFunction1DParaCrystal_wrapper(double peak_distance, double width, double corr_length=0.0 )
+    : InterferenceFunction1DParaCrystal( peak_distance, width, corr_length )
+      , bp::wrapper< InterferenceFunction1DParaCrystal >(){
+        // constructor
+    
+    }
+
+    virtual ::InterferenceFunction1DParaCrystal * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->InterferenceFunction1DParaCrystal::clone(  );
+        }
+    }
+    
+    ::InterferenceFunction1DParaCrystal * default_clone(  ) const  {
+        return InterferenceFunction1DParaCrystal::clone( );
+    }
+
+    virtual double evaluate( ::cvector_t q ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( q );
+        else{
+            return this->InterferenceFunction1DParaCrystal::evaluate( q );
+        }
+    }
+    
+    double default_evaluate( ::cvector_t q ) const  {
+        return InterferenceFunction1DParaCrystal::evaluate( q );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
 
 struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper< InterferenceFunctionNone > {
 
@@ -45,6 +150,30 @@ struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper<
       , bp::wrapper< InterferenceFunctionNone >(){
         // null constructor
     
+    }
+
+    virtual ::InterferenceFunctionNone * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->InterferenceFunctionNone::clone(  );
+        }
+    }
+    
+    ::InterferenceFunctionNone * default_clone(  ) const  {
+        return InterferenceFunctionNone::clone( );
+    }
+
+    virtual double evaluate( ::cvector_t q ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( q );
+        else{
+            return this->InterferenceFunctionNone::evaluate( q );
+        }
+    }
+    
+    double default_evaluate( ::cvector_t q ) const  {
+        return InterferenceFunctionNone::evaluate( q );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -152,35 +281,28 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     }
 
-    Layer_wrapper(::Layer const & other )
-    : Layer( boost::ref(other) )
-      , bp::wrapper< Layer >(){
-        // copy constructor
-    
-    }
-
-    virtual ::IMaterial const * getMaterial(  ) const  {
-        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
-            return func_getMaterial(  );
+    virtual ::Layer * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
         else{
-            return this->Layer::getMaterial(  );
+            return this->Layer::clone(  );
         }
     }
     
-    ::IMaterial const * default_getMaterial(  ) const  {
-        return Layer::getMaterial( );
+    ::Layer * default_clone(  ) const  {
+        return Layer::clone( );
     }
 
-    virtual bool hasDWBASimulation(  ) const  {
-        if( bp::override func_hasDWBASimulation = this->get_override( "hasDWBASimulation" ) )
-            return func_hasDWBASimulation(  );
+    virtual double getThickness(  ) const  {
+        if( bp::override func_getThickness = this->get_override( "getThickness" ) )
+            return func_getThickness(  );
         else{
-            return this->Layer::hasDWBASimulation(  );
+            return this->Layer::getThickness(  );
         }
     }
     
-    bool default_hasDWBASimulation(  ) const  {
-        return Layer::hasDWBASimulation( );
+    double default_getThickness(  ) const  {
+        return Layer::getThickness( );
     }
 
     virtual void setMaterial( ::IMaterial const * p_material ) {
@@ -205,6 +327,18 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     void default_setMaterial( ::IMaterial const * p_material, double thickness ) {
         Layer::setMaterial( boost::python::ptr(p_material), thickness );
+    }
+
+    virtual void setThickness( double thickness ) {
+        if( bp::override func_setThickness = this->get_override( "setThickness" ) )
+            func_setThickness( thickness );
+        else{
+            this->Layer::setThickness( thickness );
+        }
+    }
+    
+    void default_setThickness( double thickness ) {
+        Layer::setThickness( thickness );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -256,6 +390,18 @@ struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
     
     }
 
+    virtual ::LayerDecorator * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->LayerDecorator::clone(  );
+        }
+    }
+    
+    ::LayerDecorator * default_clone(  ) const  {
+        return LayerDecorator::clone( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -305,28 +451,16 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
     
     }
 
-    virtual void init_parameters(  ){
-        if( bp::override func_init_parameters = this->get_override( "init_parameters" ) )
-            func_init_parameters(  );
+    virtual ::ISample * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
         else{
-            this->LayerRoughness::init_parameters(  );
+            return this->ISample::clone(  );
         }
     }
     
-    virtual void default_init_parameters(  ){
-        LayerRoughness::init_parameters( );
-    }
-
-    virtual void print( ::std::ostream & ostr ) const {
-        if( bp::override func_print = this->get_override( "print" ) )
-            func_print( boost::ref(ostr) );
-        else{
-            this->LayerRoughness::print( boost::ref(ostr) );
-        }
-    }
-    
-    virtual void default_print( ::std::ostream & ostr ) const {
-        LayerRoughness::print( boost::ref(ostr) );
+    ::ISample * default_clone(  ) const  {
+        return ISample::clone( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -351,30 +485,6 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
     
     void default_walk_and_print(  ) {
         ISample::walk_and_print( );
-    }
-
-};
-
-struct MaterialManager_wrapper : MaterialManager, bp::wrapper< MaterialManager > {
-
-    virtual void print( ::std::ostream & ostr ) const {
-        if( bp::override func_print = this->get_override( "print" ) )
-            func_print( boost::ref(ostr) );
-        else{
-            this->MaterialManager::print( boost::ref(ostr) );
-        }
-    }
-    
-    virtual void default_print( ::std::ostream & ostr ) const {
-        MaterialManager::print( boost::ref(ostr) );
-    }
-
-    static void create_singleton(  ){
-        ISingleton< MaterialManager >::create_singleton(  );
-    }
-
-    static void onDeadReference(  ){
-        ISingleton< MaterialManager >::onDeadReference(  );
     }
 
 };
@@ -500,6 +610,18 @@ struct NanoParticleDecoration_wrapper : NanoParticleDecoration, bp::wrapper< Nan
     
     }
 
+    virtual ::NanoParticleDecoration * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->NanoParticleDecoration::clone(  );
+        }
+    }
+    
+    ::NanoParticleDecoration * default_clone(  ) const  {
+        return NanoParticleDecoration::clone( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -526,39 +648,66 @@ struct NanoParticleDecoration_wrapper : NanoParticleDecoration, bp::wrapper< Nan
 
 };
 
-struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
-
-    ParameterPool_wrapper( )
-    : ParameterPool( )
-      , bp::wrapper< ParameterPool >(){
-        // null constructor
-    
-    }
-
-    ParameterPool_wrapper(::ParameterPool const & other )
-    : ParameterPool( boost::ref(other) )
-      , bp::wrapper< ParameterPool >(){
-        // copy constructor
-    
-    }
-
-    virtual void print( ::std::ostream & ostr ) const {
-        if( bp::override func_print = this->get_override( "print" ) )
-            func_print( boost::ref(ostr) );
-        else{
-            this->ParameterPool::print( boost::ref(ostr) );
-        }
-    }
-    
-    virtual void default_print( ::std::ostream & ostr ) const {
-        ParameterPool::print( boost::ref(ostr) );
-    }
-
-};
-
 void register_classes_3(){
 
+    bp::class_< IInterferenceFunction_wrapper, bp::bases< ISample >, boost::noncopyable >( "IInterferenceFunction" )    
+        .def( 
+            "clone"
+            , bp::pure_virtual( (::IInterferenceFunction * ( ::IInterferenceFunction::* )(  ) const)(&::IInterferenceFunction::clone) )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , bp::pure_virtual( (double ( ::IInterferenceFunction::* )( ::cvector_t ) const)(&::IInterferenceFunction::evaluate) )
+            , ( bp::arg("q") ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( IInterferenceFunction_wrapper::* )(  ) )(&IInterferenceFunction_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( IInterferenceFunction_wrapper::* )(  ) )(&IInterferenceFunction_wrapper::default_walk_and_print) );
+
+    bp::class_< ISingleton< MaterialManager >, boost::noncopyable >( "ISingleton_less__MaterialManager__greater_", bp::no_init )    
+        .def( 
+            "instance"
+            , (::MaterialManager & (*)(  ))( &::ISingleton< MaterialManager >::instance )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .staticmethod( "instance" );
+
+    bp::class_< InterferenceFunction1DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunction1DParaCrystal", bp::init< double, double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("width"), bp::arg("corr_length")=0.0 )) )    
+        .def( 
+            "clone"
+            , (::InterferenceFunction1DParaCrystal * ( ::InterferenceFunction1DParaCrystal::* )(  ) const)(&::InterferenceFunction1DParaCrystal::clone)
+            , (::InterferenceFunction1DParaCrystal * ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , (double ( ::InterferenceFunction1DParaCrystal::* )( ::cvector_t ) const)(&::InterferenceFunction1DParaCrystal::evaluate)
+            , (double ( InterferenceFunction1DParaCrystal_wrapper::* )( ::cvector_t ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_evaluate)
+            , ( bp::arg("q") ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_walk_and_print) );
+
     bp::class_< InterferenceFunctionNone_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunctionNone", bp::init< >() )    
+        .def( 
+            "clone"
+            , (::InterferenceFunctionNone * ( ::InterferenceFunctionNone::* )(  ) const)(&::InterferenceFunctionNone::clone)
+            , (::InterferenceFunctionNone * ( InterferenceFunctionNone_wrapper::* )(  ) const)(&InterferenceFunctionNone_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , (double ( ::InterferenceFunctionNone::* )( ::cvector_t ) const)(&::InterferenceFunctionNone::evaluate)
+            , (double ( InterferenceFunctionNone_wrapper::* )( ::cvector_t ) const)(&InterferenceFunctionNone_wrapper::default_evaluate)
+            , ( bp::arg("q") ) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -574,7 +723,8 @@ void register_classes_3(){
         .def( 
             "createTrigonalLattice"
             , (::Lattice (*)( double,double ))( &::Lattice::createTrigonalLattice )
-            , ( bp::arg("a"), bp::arg("c") ) )    
+            , ( bp::arg("a"), bp::arg("c") )
+            , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "getBasisVectorA"
             , (::kvector_t ( ::Lattice::* )(  ) const)( &::Lattice::getBasisVectorA ) )    
@@ -613,16 +763,15 @@ void register_classes_3(){
             , (void ( LatticeBasis_wrapper::* )(  ) )(&LatticeBasis_wrapper::default_walk_and_print) );
 
     bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Layer", bp::init< >() )    
-        .def( bp::init< Layer const & >(( bp::arg("other") )) )    
         .def( 
-            "getMaterial"
-            , (::IMaterial const * ( ::Layer::* )(  ) const)(&::Layer::getMaterial)
-            , (::IMaterial const * ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_getMaterial)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
+            "clone"
+            , (::Layer * ( ::Layer::* )(  ) const)(&::Layer::clone)
+            , (::Layer * ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
-            "hasDWBASimulation"
-            , (bool ( ::Layer::* )(  ) const)(&::Layer::hasDWBASimulation)
-            , (bool ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_hasDWBASimulation) )    
+            "getThickness"
+            , (double ( ::Layer::* )(  ) const)(&::Layer::getThickness)
+            , (double ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_getThickness) )    
         .def( 
             "setMaterial"
             , (void ( ::Layer::* )( ::IMaterial const * ) )(&::Layer::setMaterial)
@@ -633,6 +782,11 @@ void register_classes_3(){
             , (void ( ::Layer::* )( ::IMaterial const *,double ) )(&::Layer::setMaterial)
             , (void ( Layer_wrapper::* )( ::IMaterial const *,double ) )(&Layer_wrapper::default_setMaterial)
             , ( bp::arg("p_material"), bp::arg("thickness") ) )    
+        .def( 
+            "setThickness"
+            , (void ( ::Layer::* )( double ) )(&::Layer::setThickness)
+            , (void ( Layer_wrapper::* )( double ) )(&Layer_wrapper::default_setThickness)
+            , ( bp::arg("thickness") ) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -646,6 +800,11 @@ void register_classes_3(){
     bp::class_< LayerDecorator_wrapper, bp::bases< Layer > >( "LayerDecorator", bp::init< Layer const & >(( bp::arg("layer") )) )    
         .def( bp::init< LayerDecorator const & >(( bp::arg("layer") )) )    
         .def( bp::init< Layer const &, NanoParticleDecoration const & >(( bp::arg("layer"), bp::arg("decoration") )) )    
+        .def( 
+            "clone"
+            , (::LayerDecorator * ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::clone)
+            , (::LayerDecorator * ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -689,15 +848,6 @@ void register_classes_3(){
                 , getSigma_function_type( &::LayerRoughness::getSigma ) );
         
         }
-        { //::LayerRoughness::init_parameters
-        
-            typedef void ( LayerRoughness_wrapper::*init_parameters_function_type )(  ) ;
-            
-            LayerRoughness_exposer.def( 
-                "init_parameters"
-                , init_parameters_function_type( &LayerRoughness_wrapper::default_init_parameters ) );
-        
-        }
         { //::LayerRoughness::operator=
         
             typedef ::LayerRoughness & ( ::LayerRoughness::*assign_function_type )( ::LayerRoughness const & ) ;
@@ -707,16 +857,6 @@ void register_classes_3(){
                 , assign_function_type( &::LayerRoughness::operator= )
                 , ( bp::arg("other") )
                 , bp::return_self< >() );
-        
-        }
-        { //::LayerRoughness::print
-        
-            typedef void ( LayerRoughness_wrapper::*print_function_type )( ::std::ostream & ) const;
-            
-            LayerRoughness_exposer.def( 
-                "print"
-                , print_function_type( &LayerRoughness_wrapper::default_print )
-                , ( bp::arg("ostr") ) );
         
         }
         { //::LayerRoughness::setHurstParameter
@@ -749,6 +889,18 @@ void register_classes_3(){
                 , ( bp::arg("sigma") ) );
         
         }
+        { //::ISample::clone
+        
+            typedef ::ISample * ( ::ISample::*clone_function_type )(  ) const;
+            typedef ::ISample * ( LayerRoughness_wrapper::*default_clone_function_type )(  ) const;
+            
+            LayerRoughness_exposer.def( 
+                "clone"
+                , clone_function_type(&::ISample::clone)
+                , default_clone_function_type(&LayerRoughness_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::ISample::createParameterTree
         
             typedef ::ParameterPool * ( ::ISample::*createParameterTree_function_type )(  ) ;
@@ -775,7 +927,7 @@ void register_classes_3(){
         LayerRoughness_exposer.def( bp::self_ns::str( bp::self ) );
     }
 
-    bp::class_< MaterialManager_wrapper, bp::bases< ISingleton< MaterialManager > >, boost::noncopyable >( "MaterialManager", bp::no_init )    
+    bp::class_< MaterialManager, bp::bases< ISingleton< MaterialManager > >, boost::noncopyable >( "MaterialManager", bp::no_init )    
         .def( 
             "addHomogeneousMaterial"
             , (::IMaterial const * ( ::MaterialManager::* )( ::std::string const &,::complex_t ) )( &::MaterialManager::addHomogeneousMaterial )
@@ -789,18 +941,6 @@ void register_classes_3(){
             , (::IMaterial const * ( ::MaterialManager::* )( ::std::string const & ) )( &::MaterialManager::getMaterial )
             , ( bp::arg("name") )
             , bp::return_internal_reference< >() )    
-        .def( 
-            "print"
-            , (void ( MaterialManager_wrapper::* )( ::std::ostream & ) const)(&MaterialManager_wrapper::default_print)
-            , ( bp::arg("ostr") ) )    
-        .def( 
-            "create_singleton"
-            , (void (*)(  ))(&MaterialManager_wrapper::create_singleton) )    
-        .def( 
-            "onDeadReference"
-            , (void (*)(  ))(&MaterialManager_wrapper::onDeadReference) )    
-        .staticmethod( "create_singleton" )    
-        .staticmethod( "onDeadReference" )    
         .def( bp::self_ns::str( bp::self ) );
 
     bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredNanoParticles const &, IFormFactor & >(( bp::arg("nano_particle_structure"), bp::arg("form_factor") )) )    
@@ -858,6 +998,35 @@ void register_classes_3(){
             "addNanoParticle"
             , (void ( ::NanoParticleDecoration::* )( ::Particle const &,double,double ) )( &::NanoParticleDecoration::addNanoParticle )
             , ( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) )    
+        .def( 
+            "addNanoParticleInfo"
+            , (void ( ::NanoParticleDecoration::* )( ::NanoParticleInfo const & ) )( &::NanoParticleDecoration::addNanoParticleInfo )
+            , ( bp::arg("p_info") ) )    
+        .def( 
+            "clone"
+            , (::NanoParticleDecoration * ( ::NanoParticleDecoration::* )(  ) const)(&::NanoParticleDecoration::clone)
+            , (::NanoParticleDecoration * ( NanoParticleDecoration_wrapper::* )(  ) const)(&NanoParticleDecoration_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getAbundanceFractionOfNanoParticle"
+            , (double ( ::NanoParticleDecoration::* )( ::size_t ) const)( &::NanoParticleDecoration::getAbundanceFractionOfNanoParticle )
+            , ( bp::arg("index") ) )    
+        .def( 
+            "getInterferenceFunction"
+            , (::IInterferenceFunction const * ( ::NanoParticleDecoration::* )( ::size_t ) const)( &::NanoParticleDecoration::getInterferenceFunction )
+            , ( bp::arg("index") )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getNanoParticleInfo"
+            , (::NanoParticleInfo const * ( ::NanoParticleDecoration::* )( ::size_t ) const)( &::NanoParticleDecoration::getNanoParticleInfo )
+            , ( bp::arg("index") )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getNumberOfParticles"
+            , (::size_t ( ::NanoParticleDecoration::* )(  ) const)( &::NanoParticleDecoration::getNumberOfParticles ) )    
+        .def( 
+            "getTotalParticleSurfaceDensity"
+            , (double ( ::NanoParticleDecoration::* )(  ) const)( &::NanoParticleDecoration::getTotalParticleSurfaceDensity ) )    
         .def( 
             "setTotalParticleSurfaceDensity"
             , (void ( ::NanoParticleDecoration::* )( double ) )( &::NanoParticleDecoration::setTotalParticleSurfaceDensity )
@@ -919,10 +1088,10 @@ void register_classes_3(){
     }
 
     { //::ParameterPool
-        typedef bp::class_< ParameterPool_wrapper, boost::noncopyable > ParameterPool_exposer_t;
+        typedef bp::class_< ParameterPool, boost::noncopyable > ParameterPool_exposer_t;
         ParameterPool_exposer_t ParameterPool_exposer = ParameterPool_exposer_t( "ParameterPool", bp::init< >() );
         bp::scope ParameterPool_scope( ParameterPool_exposer );
-        bp::class_< ParameterPool::RealPar >( "RealPar", bp::init< double * >(( bp::arg("par") )) )    
+        bp::class_< ParameterPool::RealPar >( "RealPar", bp::no_init )    
             .def( 
                 "checkNull"
                 , (void ( ::ParameterPool::RealPar::* )(  ) const)( &::ParameterPool::RealPar::checkNull ) )    
@@ -937,7 +1106,6 @@ void register_classes_3(){
                 , (void ( ::ParameterPool::RealPar::* )( double ) )( &::ParameterPool::RealPar::setValue )
                 , ( bp::arg("value") ) )    
             .def( bp::self_ns::str( bp::self ) );
-        ParameterPool_exposer.def( bp::init< ParameterPool const & >(( bp::arg("other") )) );
         { //::ParameterPool::addParameter
         
             typedef bool ( ::ParameterPool::*addParameter_function_type )( ::std::string,::ParameterPool::RealPar ) ;
@@ -982,7 +1150,7 @@ void register_classes_3(){
             ParameterPool_exposer.def( 
                 "clone"
                 , clone_function_type( &::ParameterPool::clone )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::ParameterPool::cloneWithPrefix
@@ -993,17 +1161,7 @@ void register_classes_3(){
                 "cloneWithPrefix"
                 , cloneWithPrefix_function_type( &::ParameterPool::cloneWithPrefix )
                 , ( bp::arg("prefix") )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::ParameterPool::copyToExternalPool
-        
-            typedef void ( ::ParameterPool::*copyToExternalPool_function_type )( ::std::string,::ParameterPool * ) ;
-            
-            ParameterPool_exposer.def( 
-                "copyToExternalPool"
-                , copyToExternalPool_function_type( &::ParameterPool::copyToExternalPool )
-                , ( bp::arg("prefix"), bp::arg("external_pool") ) );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ParameterPool::end
@@ -1032,26 +1190,6 @@ void register_classes_3(){
                 "getParameter"
                 , getParameter_function_type( &::ParameterPool::getParameter )
                 , ( bp::arg("name") ) );
-        
-        }
-        { //::ParameterPool::print
-        
-            typedef void ( ParameterPool_wrapper::*print_function_type )( ::std::ostream & ) const;
-            
-            ParameterPool_exposer.def( 
-                "print"
-                , print_function_type( &ParameterPool_wrapper::default_print )
-                , ( bp::arg("ostr") ) );
-        
-        }
-        { //::ParameterPool::registerParameter
-        
-            typedef bool ( ::ParameterPool::*registerParameter_function_type )( ::std::string,double * ) ;
-            
-            ParameterPool_exposer.def( 
-                "registerParameter"
-                , registerParameter_function_type( &::ParameterPool::registerParameter )
-                , ( bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::ParameterPool::setMatchedParametersValue

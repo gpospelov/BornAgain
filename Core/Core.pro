@@ -6,7 +6,7 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 #CONFIG  += debug
 QT      -= core gui
-#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)

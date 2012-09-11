@@ -34,6 +34,7 @@
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
+#include "Types.h"
 #include "PythonInterface_global_variables.h"
 
 namespace bp = boost::python;

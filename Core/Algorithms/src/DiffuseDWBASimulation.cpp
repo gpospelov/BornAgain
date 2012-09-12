@@ -65,6 +65,9 @@ void DiffuseDWBASimulation::run()
         m_dwba_intensity.next() = m_surface_density*wavevector_scattering_factor*wavevector_scattering_factor
                 *(intensity - std::norm(amplitude));
     }
+
+    for (size_t i=0; i<form_factors.size(); ++i) delete form_factors[i];
+
 }
 
 void DiffuseDWBASimulation::addParticleInfo(DiffuseParticleInfo *p_info)

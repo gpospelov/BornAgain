@@ -19,6 +19,7 @@
 #include "ParticleInfo.h"
 #include "Transform3D.h"
 #include "Exceptions.h"
+#include "DiffuseParticleInfo.h"
 
 //- -------------------------------------------------------------------
 //! @class IClusteredParticles
@@ -40,17 +41,22 @@ public:
     virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
             complex_t ambient_refractive_index) const=0;
 
-//    virtual std::vector<DiffuseNanoParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
-//                const Geometry::Transform3D &transform, double meso_volume) const=0;
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const=0;
 
-    virtual std::vector<DiffuseNanoParticleInfo *> *createDiffuseNanoParticleInfo(double depth, double weight,
-                const Geometry::Transform3D &transform, double meso_volume) {
-        (void)depth;
-        (void)weight;
-        (void)transform;
-        (void)meso_volume;
-        throw NotImplementedException("IClusteredNanoParticles::createDiffuseNanoParticleInfo()");
-    }
+
+//    virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
+//            complex_t ambient_refractive_index)
+//    {
+//        (void)meso_crystal_form_factor;
+//        (void)ambient_refractive_index;
+//        throw NotImplementedException("IClusteredParticles::createTotalFormFactor() -> NotImplementedException");
+//    }
+
+//    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info)
+//    {
+//        (void)parent_info;
+//        throw NotImplementedException("IClusteredParticles::createDiffuseParticleInfo() -> NotImplementedException");
+//    }
 
 };
 

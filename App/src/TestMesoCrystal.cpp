@@ -95,8 +95,10 @@ void TestMesoCrystal::initializeSample()
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
     ParticleDecoration particle_decoration;
-    size_t n_phi_rotation_steps = 11;
-    size_t n_alpha_rotation_steps = 5;
+//    size_t n_phi_rotation_steps = 11;
+//    size_t n_alpha_rotation_steps = 5;
+    size_t n_phi_rotation_steps = 1;
+    size_t n_alpha_rotation_steps = 1;
     double phi_step = 2.0*M_PI/3.0/n_phi_rotation_steps;
     double phi_start = 0.0;
     double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;

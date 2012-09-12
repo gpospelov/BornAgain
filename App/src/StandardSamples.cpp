@@ -481,15 +481,15 @@ ISample *StandardSamples::IsGISAXS10_CylindersParacrystal1D()
 // first mesco crystal test
 /* ************************************************************************* */
 ISample *StandardSamples::MesoCrystal1()
-{
+{    
     // create mesocrystal
-    double R = 6.1*Units::nanometer;
-    Lattice lat = Lattice::createTrigonalLattice(R*2.0, R*2.0*2.3);
+    double nanoparticle_radius = 6.1*Units::nanometer;
+    Lattice lat = Lattice::createTrigonalLattice(nanoparticle_radius*2.0, nanoparticle_radius*2.0*2.3);
     kvector_t bas_a = lat.getBasisVectorA();
     kvector_t bas_b = lat.getBasisVectorB();
     kvector_t bas_c = lat.getBasisVectorC();
     complex_t n_particle(1.0-1.5e-5, 1.3e-6);
-    Particle particle(n_particle, new FormFactorFullSphere(R));
+    Particle particle(n_particle, new FormFactorFullSphere(nanoparticle_radius));
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
     kvector_t position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);
@@ -498,9 +498,14 @@ ISample *StandardSamples::MesoCrystal1()
     pos_vector.push_back(position_1);
     pos_vector.push_back(position_2);
     LatticeBasis basis(particle, pos_vector);
+    //lat.setSelectionRule(new SimpleSelectionRule(-1, 1, 1, 3));
     Crystal npc(basis, lat);
+    double relative_sigma_np_radius = 0.3;
+    double dw_factor = relative_sigma_np_radius*relative_sigma_np_radius*nanoparticle_radius*nanoparticle_radius/6.0;
+    npc.setDWFactor(dw_factor);
+
     MesoCrystal meso(npc.clone(), new FormFactorCylinder(0.2*Units::micrometer, 300*Units::nanometer));
-    MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, 300*Units::nanometer, 84*Units::degree));
+    MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, 300*Units::nanometer, 84*Units::degree));    
 
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
@@ -512,10 +517,11 @@ ISample *StandardSamples::MesoCrystal1()
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    //    IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
-    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
-        50*Units::nanometer, 1e7*Units::nanometer);
-    ParticleDecoration particle_decoration(meso.clone(), 0.0, 0.5);
+    IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
+//    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
+//        50*Units::nanometer, 1e7*Units::nanometer);
+    ParticleDecoration particle_decoration;
+    particle_decoration.addParticle(meso.clone(), 0.0, 0.5);
     particle_decoration.addParticle(meso2.clone(), 0.0, 0.5);
     particle_decoration.addInterferenceFunction(p_interference_funtion);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);

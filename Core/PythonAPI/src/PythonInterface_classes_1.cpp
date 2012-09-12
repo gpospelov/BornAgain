@@ -56,6 +56,18 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
     
     }
 
+    virtual ::ISample * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->ISample::clone(  );
+        }
+    }
+    
+    ::ISample * default_clone(  ) const  {
+        return ISample::clone( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -89,6 +101,18 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
       , bp::wrapper< ICompositeSample >(){
         // null constructor
     
+    }
+
+    virtual ::ISample * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->ISample::clone(  );
+        }
+    }
+    
+    ::ISample * default_clone(  ) const  {
+        return ISample::clone( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -131,14 +155,28 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return func_clone(  );
     }
 
-    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( double depth, double weight, ::Geometry::Transform3D const & transform, double meso_volume ) const {
-        bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" );
-        return func_createDiffuseParticleInfo( depth, weight, boost::ref(transform), meso_volume );
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) {
+        if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
+            return func_createDiffuseParticleInfo( boost::ref(parent_info) );
+        else{
+            return this->IClusteredParticles::createDiffuseParticleInfo( boost::ref(parent_info) );
+        }
+    }
+    
+    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) {
+        return IClusteredParticles::createDiffuseParticleInfo( boost::ref(parent_info) );
     }
 
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const {
-        bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" );
-        return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) {
+        if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
+            return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+        else{
+            return this->IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+        }
+    }
+    
+    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) {
+        return IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
     }
 
     virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ){
@@ -181,6 +219,25 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         
     }
 
+    Crystal_wrapper(::LatticeBasis const & lattice_basis, ::Lattice const & lattice )
+    : Crystal( boost::ref(lattice_basis), boost::ref(lattice) )
+      , bp::wrapper< Crystal >(){
+        // constructor
+    
+    }
+
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) {
+        if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
+            return func_createDiffuseParticleInfo( boost::ref(parent_info) );
+        else{
+            return this->IClusteredParticles::createDiffuseParticleInfo( boost::ref(parent_info) );
+        }
+    }
+    
+    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) {
+        return IClusteredParticles::createDiffuseParticleInfo( boost::ref(parent_info) );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -191,6 +248,18 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     
     ::ParameterPool * default_createParameterTree(  ) {
         return ISample::createParameterTree( );
+    }
+
+    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) {
+        if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
+            return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+        else{
+            return this->IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+        }
+    }
+    
+    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) {
+        return IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
     }
 
     virtual void walk_and_print(  ) {
@@ -788,34 +857,19 @@ void register_classes_1(){
         MultiLayerCoeff_t_exposer.def( bp::vector_indexing_suite< ::std::vector< OpticalFresnel::FresnelCoeff > >() );
     }
 
-    { //::std::vector< DiffuseNanoParticleInfo* >
-        typedef bp::class_< std::vector< DiffuseNanoParticleInfo* > > vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer_t;
-        vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer_t vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer = vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer_t( "vector_less__DiffuseNanoParticleInfo_ptr___greater_" );
-        bp::scope vector_less__DiffuseNanoParticleInfo_ptr___greater__scope( vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer );
-        vector_less__DiffuseNanoParticleInfo_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< DiffuseNanoParticleInfo* > >() );
+    { //::std::vector< Geometry::BasicVector3D<double> >
+        typedef bp::class_< std::vector< Geometry::BasicVector3D<double> > > vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer_t;
+        vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer_t vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer = vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer_t( "vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater_" );
+        bp::scope vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__scope( vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer );
+        vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< Geometry::BasicVector3D<double> > >() );
     }
 
-    bp::class_< Experiment_wrapper, boost::noncopyable >( "Experiment", bp::init< >() )    
-        .def( 
-            "normalize"
-            , (void ( ::Experiment::* )(  ) )(&::Experiment::normalize)
-            , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_normalize) )    
-        .def( 
-            "runSimulation"
-            , (void ( ::Experiment::* )(  ) )(&::Experiment::runSimulation)
-            , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_runSimulation) )    
-        .def( 
-            "setBeamIntensity"
-            , (void ( ::Experiment::* )( double ) )( &::Experiment::setBeamIntensity )
-            , ( bp::arg("intensity") ) )    
-        .def( 
-            "setBeamParameters"
-            , (void ( ::Experiment::* )( double,double,double ) )( &::Experiment::setBeamParameters )
-            , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) )    
-        .def( 
-            "setSample"
-            , (void ( ::Experiment::* )( ::ISample * ) )( &::Experiment::setSample )
-            , ( bp::arg("p_sample") ) );
+    { //::std::vector< DiffuseParticleInfo* >
+        typedef bp::class_< std::vector< DiffuseParticleInfo* > > vector_less__DiffuseParticleInfo_ptr___greater__exposer_t;
+        vector_less__DiffuseParticleInfo_ptr___greater__exposer_t vector_less__DiffuseParticleInfo_ptr___greater__exposer = vector_less__DiffuseParticleInfo_ptr___greater__exposer_t( "vector_less__DiffuseParticleInfo_ptr___greater_" );
+        bp::scope vector_less__DiffuseParticleInfo_ptr___greater__scope( vector_less__DiffuseParticleInfo_ptr___greater__exposer );
+        vector_less__DiffuseParticleInfo_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< DiffuseParticleInfo* > >() );
+    }
 
     { //::ISample
         typedef bp::class_< ISample_wrapper > ISample_exposer_t;
@@ -874,6 +928,11 @@ void register_classes_1(){
 
     bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, boost::noncopyable >( "ICompositeSample", bp::init< >() )    
         .def( 
+            "clone"
+            , (::ISample * ( ::ISample::* )(  ) const)(&::ISample::clone)
+            , (::ISample * ( ICompositeSample_wrapper::* )(  ) const)(&ICompositeSample_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_createParameterTree)
@@ -887,15 +946,17 @@ void register_classes_1(){
         .def( 
             "clone"
             , bp::pure_virtual( (::IClusteredParticles * ( ::IClusteredParticles::* )(  ) const)(&::IClusteredParticles::clone) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createDiffuseParticleInfo"
-            , bp::pure_virtual( (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredParticles::* )( double,double,::Geometry::Transform3D const &,double ) const)(&::IClusteredParticles::createDiffuseParticleInfo) )
-            , ( bp::arg("depth"), bp::arg("weight"), bp::arg("transform"), bp::arg("meso_volume") )
-                /* undefined call policies */ )    
+            , (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredParticles::* )( ::ParticleInfo const & ) )(&::IClusteredParticles::createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( IClusteredParticles_wrapper::* )( ::ParticleInfo const & ) )(&IClusteredParticles_wrapper::default_createDiffuseParticleInfo)
+            , ( bp::arg("parent_info") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createTotalFormFactor"
-            , bp::pure_virtual( (::IFormFactor * ( ::IClusteredParticles::* )( ::IFormFactor const &,::complex_t ) const)(&::IClusteredParticles::createTotalFormFactor) )
+            , (::IFormFactor * ( ::IClusteredParticles::* )( ::IFormFactor const &,::complex_t ) )(&::IClusteredParticles::createTotalFormFactor)
+            , (::IFormFactor * ( IClusteredParticles_wrapper::* )( ::IFormFactor const &,::complex_t ) )(&IClusteredParticles_wrapper::default_createTotalFormFactor)
             , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -914,9 +975,21 @@ void register_classes_1(){
 
     bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles > >( "Crystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
         .def( 
+            "createDiffuseParticleInfo"
+            , (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredParticles::* )( ::ParticleInfo const & ) )(&::IClusteredParticles::createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( Crystal_wrapper::* )( ::ParticleInfo const & ) )(&Crystal_wrapper::default_createDiffuseParticleInfo)
+            , ( bp::arg("parent_info") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( Crystal_wrapper::* )(  ) )(&Crystal_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createTotalFormFactor"
+            , (::IFormFactor * ( ::IClusteredParticles::* )( ::IFormFactor const &,::complex_t ) )(&::IClusteredParticles::createTotalFormFactor)
+            , (::IFormFactor * ( Crystal_wrapper::* )( ::IFormFactor const &,::complex_t ) )(&Crystal_wrapper::default_createTotalFormFactor)
+            , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "walk_and_print"
@@ -980,8 +1053,8 @@ void register_classes_1(){
     bp::class_< IFormFactorBorn_wrapper, bp::bases< IFormFactor >, boost::noncopyable >( "IFormFactorBorn", bp::init< >() )    
         .def( 
             "clone"
-            , bp::pure_virtual( (::IBornFormFactor * ( ::IBornFormFactor::* )(  ) const)(&::IBornFormFactor::clone) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
+            , bp::pure_virtual( (::IFormFactorBorn * ( ::IFormFactorBorn::* )(  ) const)(&::IFormFactorBorn::clone) )
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
             , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
@@ -1623,493 +1696,186 @@ void register_classes_1(){
         kvector_t_exposer.def( bp::self == bp::self );
     }
 
-    { //::Geometry::BasicVector3D< std::complex< double > >
-        typedef bp::class_< Geometry::BasicVector3D< std::complex< double > > > cvector_t_exposer_t;
-        cvector_t_exposer_t cvector_t_exposer = cvector_t_exposer_t( "cvector_t", bp::init< >() );
-        bp::scope cvector_t_scope( cvector_t_exposer );
-        bp::scope().attr("X") = (int)Geometry::BasicVector3D<std::complex<double> >::X;
-        bp::scope().attr("Y") = (int)Geometry::BasicVector3D<std::complex<double> >::Y;
-        bp::scope().attr("Z") = (int)Geometry::BasicVector3D<std::complex<double> >::Z;
-        bp::scope().attr("NUM_COORDINATES") = (int)Geometry::BasicVector3D<std::complex<double> >::NUM_COORDINATES;
-        bp::scope().attr("SIZE") = (int)Geometry::BasicVector3D<std::complex<double> >::SIZE;
-        cvector_t_exposer.def( bp::init< std::complex< double >, std::complex< double >, std::complex< double > >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
-        { //::Geometry::BasicVector3D< std::complex< double > >::angle
+    { //::Geometry::Transform3D
+        typedef bp::class_< Geometry::Transform3D > Transform3D_exposer_t;
+        Transform3D_exposer_t Transform3D_exposer = Transform3D_exposer_t( "Transform3D", bp::init< >() );
+        bp::scope Transform3D_scope( Transform3D_exposer );
+        bp::class_< Geometry::Transform3D::Transform3D_row, boost::noncopyable >( "Transform3D_row", bp::no_init );
+        Transform3D_exposer.def( bp::init< Geometry::Transform3D const & >(( bp::arg("m") )) );
+        { //::Geometry::Transform3D::dx
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*angle_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
+            typedef double ( ::Geometry::Transform3D::*dx_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "angle"
-                , angle_function_type( &::Geometry::BasicVector3D< std::complex< double > >::angle )
-                , ( bp::arg("v") ) );
+            Transform3D_exposer.def( 
+                "dx"
+                , dx_function_type( &::Geometry::Transform3D::dx ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::cosTheta
+        { //::Geometry::Transform3D::dy
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*cosTheta_function_type )(  ) const;
+            typedef double ( ::Geometry::Transform3D::*dy_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "cosTheta"
-                , cosTheta_function_type( &::Geometry::BasicVector3D< std::complex< double > >::cosTheta ) );
+            Transform3D_exposer.def( 
+                "dy"
+                , dy_function_type( &::Geometry::Transform3D::dy ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::cross
+        { //::Geometry::Transform3D::dz
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > > ( exported_class_t::*cross_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
+            typedef double ( ::Geometry::Transform3D::*dz_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "cross"
-                , cross_function_type( &::Geometry::BasicVector3D< std::complex< double > >::cross )
-                , ( bp::arg("v") ) );
+            Transform3D_exposer.def( 
+                "dz"
+                , dz_function_type( &::Geometry::Transform3D::dz ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::dot
+        { //::Geometry::Transform3D::getDecomposition
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*dot_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
+            typedef void ( ::Geometry::Transform3D::*getDecomposition_function_type )( ::Geometry::Scale3D &,::Geometry::Rotate3D &,::Geometry::Translate3D & ) const;
             
-            cvector_t_exposer.def( 
-                "dot"
-                , dot_function_type( &::Geometry::BasicVector3D< std::complex< double > >::dot )
-                , ( bp::arg("v") ) );
+            Transform3D_exposer.def( 
+                "getDecomposition"
+                , getDecomposition_function_type( &::Geometry::Transform3D::getDecomposition )
+                , ( bp::arg("scale"), bp::arg("rotation"), bp::arg("translation") ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::getPhi
+        { //::Geometry::Transform3D::inverse
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*getPhi_function_type )(  ) const;
+            typedef ::Geometry::Transform3D ( ::Geometry::Transform3D::*inverse_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "getPhi"
-                , getPhi_function_type( &::Geometry::BasicVector3D< std::complex< double > >::getPhi ) );
+            Transform3D_exposer.def( 
+                "inverse"
+                , inverse_function_type( &::Geometry::Transform3D::inverse ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::getR
+        { //::Geometry::Transform3D::isNear
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*getR_function_type )(  ) const;
+            typedef bool ( ::Geometry::Transform3D::*isNear_function_type )( ::Geometry::Transform3D const &,double ) const;
             
-            cvector_t_exposer.def( 
-                "getR"
-                , getR_function_type( &::Geometry::BasicVector3D< std::complex< double > >::getR ) );
+            Transform3D_exposer.def( 
+                "isNear"
+                , isNear_function_type( &::Geometry::Transform3D::isNear )
+                , ( bp::arg("t"), bp::arg("tolerance")=2.20000000000000009206578920655319378310295179435041035276e-14 ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::getTheta
+        Transform3D_exposer.def( bp::self != bp::self );
+        { //::Geometry::Transform3D::operator()
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*getTheta_function_type )(  ) const;
+            typedef double ( ::Geometry::Transform3D::*__call___function_type )( int,int ) const;
             
-            cvector_t_exposer.def( 
-                "getTheta"
-                , getTheta_function_type( &::Geometry::BasicVector3D< std::complex< double > >::getTheta ) );
+            Transform3D_exposer.def( 
+                "__call__"
+                , __call___function_type( &::Geometry::Transform3D::operator() )
+                , ( bp::arg("arg0"), bp::arg("arg1") ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::mag
+        Transform3D_exposer.def( bp::self * bp::self );
+        { //::Geometry::Transform3D::operator=
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*mag_function_type )(  ) const;
+            typedef ::Geometry::Transform3D & ( ::Geometry::Transform3D::*assign_function_type )( ::Geometry::Transform3D const & ) ;
             
-            cvector_t_exposer.def( 
-                "mag"
-                , mag_function_type( &::Geometry::BasicVector3D< std::complex< double > >::mag ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::mag2
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*mag2_function_type )(  ) const;
-            
-            cvector_t_exposer.def( 
-                "mag2"
-                , mag2_function_type( &::Geometry::BasicVector3D< std::complex< double > >::mag2 ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::magxy
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*magxy_function_type )(  ) const;
-            
-            cvector_t_exposer.def( 
-                "magxy"
-                , magxy_function_type( &::Geometry::BasicVector3D< std::complex< double > >::magxy ) );
-        
-        }
-        cvector_t_exposer.def( bp::self *= bp::other< double >() );
-        cvector_t_exposer.def( bp::self += bp::self );
-        cvector_t_exposer.def( bp::self -= bp::self );
-        cvector_t_exposer.def( bp::self /= bp::other< double >() );
-        { //::Geometry::BasicVector3D< std::complex< double > >::operator=
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > > & ( exported_class_t::*assign_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) ;
-            
-            cvector_t_exposer.def( 
+            Transform3D_exposer.def( 
                 "assign"
-                , assign_function_type( &::Geometry::BasicVector3D< std::complex< double > >::operator= )
-                , ( bp::arg("v") )
+                , assign_function_type( &::Geometry::Transform3D::operator= )
+                , ( bp::arg("m") )
                 , bp::return_self< >() );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::operator[]
+        Transform3D_exposer.def( bp::self == bp::self );
+        { //::Geometry::Transform3D::setIdentity
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*__getitem___function_type )( int ) const;
+            typedef void ( ::Geometry::Transform3D::*setIdentity_function_type )(  ) ;
             
-            cvector_t_exposer.def( 
-                "__getitem__"
-                , __getitem___function_type( &::Geometry::BasicVector3D< std::complex< double > >::operator[] )
-                , ( bp::arg("i") ) );
+            Transform3D_exposer.def( 
+                "setIdentity"
+                , setIdentity_function_type( &::Geometry::Transform3D::setIdentity ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::operator[]
+        { //::Geometry::Transform3D::xx
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > & ( exported_class_t::*__getitem___function_type )( int ) ;
+            typedef double ( ::Geometry::Transform3D::*xx_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "__getitem__"
-                , __getitem___function_type( &::Geometry::BasicVector3D< std::complex< double > >::operator[] )
-                , ( bp::arg("i") )
-                , bp::return_internal_reference< >() );
+            Transform3D_exposer.def( 
+                "xx"
+                , xx_function_type( &::Geometry::Transform3D::xx ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::orthogonal
+        { //::Geometry::Transform3D::xy
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > > ( exported_class_t::*orthogonal_function_type )(  ) const;
+            typedef double ( ::Geometry::Transform3D::*xy_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "orthogonal"
-                , orthogonal_function_type( &::Geometry::BasicVector3D< std::complex< double > >::orthogonal ) );
+            Transform3D_exposer.def( 
+                "xy"
+                , xy_function_type( &::Geometry::Transform3D::xy ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::perp
+        { //::Geometry::Transform3D::xz
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*perp_function_type )(  ) const;
+            typedef double ( ::Geometry::Transform3D::*xz_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "perp"
-                , perp_function_type( &::Geometry::BasicVector3D< std::complex< double > >::perp ) );
+            Transform3D_exposer.def( 
+                "xz"
+                , xz_function_type( &::Geometry::Transform3D::xz ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::perp
+        { //::Geometry::Transform3D::yx
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*perp_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
+            typedef double ( ::Geometry::Transform3D::*yx_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "perp"
-                , perp_function_type( &::Geometry::BasicVector3D< std::complex< double > >::perp )
-                , ( bp::arg("v") ) );
+            Transform3D_exposer.def( 
+                "yx"
+                , yx_function_type( &::Geometry::Transform3D::yx ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::perp2
+        { //::Geometry::Transform3D::yy
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*perp2_function_type )(  ) const;
+            typedef double ( ::Geometry::Transform3D::*yy_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "perp2"
-                , perp2_function_type( &::Geometry::BasicVector3D< std::complex< double > >::perp2 ) );
+            Transform3D_exposer.def( 
+                "yy"
+                , yy_function_type( &::Geometry::Transform3D::yy ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::perp2
+        { //::Geometry::Transform3D::yz
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*perp2_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
+            typedef double ( ::Geometry::Transform3D::*yz_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "perp2"
-                , perp2_function_type( &::Geometry::BasicVector3D< std::complex< double > >::perp2 )
-                , ( bp::arg("v") ) );
+            Transform3D_exposer.def( 
+                "yz"
+                , yz_function_type( &::Geometry::Transform3D::yz ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::phi
+        { //::Geometry::Transform3D::zx
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*phi_function_type )(  ) const;
+            typedef double ( ::Geometry::Transform3D::*zx_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "phi"
-                , phi_function_type( &::Geometry::BasicVector3D< std::complex< double > >::phi ) );
+            Transform3D_exposer.def( 
+                "zx"
+                , zx_function_type( &::Geometry::Transform3D::zx ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::r
+        { //::Geometry::Transform3D::zy
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*r_function_type )(  ) const;
+            typedef double ( ::Geometry::Transform3D::*zy_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "r"
-                , r_function_type( &::Geometry::BasicVector3D< std::complex< double > >::r ) );
+            Transform3D_exposer.def( 
+                "zy"
+                , zy_function_type( &::Geometry::Transform3D::zy ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::rho
+        { //::Geometry::Transform3D::zz
         
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*rho_function_type )(  ) const;
+            typedef double ( ::Geometry::Transform3D::*zz_function_type )(  ) const;
             
-            cvector_t_exposer.def( 
-                "rho"
-                , rho_function_type( &::Geometry::BasicVector3D< std::complex< double > >::rho ) );
+            Transform3D_exposer.def( 
+                "zz"
+                , zz_function_type( &::Geometry::Transform3D::zz ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::rotate
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > > & ( exported_class_t::*rotate_function_type )( ::std::complex< double >,::Geometry::BasicVector3D< std::complex< double > > const & ) ;
-            
-            cvector_t_exposer.def( 
-                "rotate"
-                , rotate_function_type( &::Geometry::BasicVector3D< std::complex< double > >::rotate )
-                , ( bp::arg("a"), bp::arg("v") )
-                    /* undefined call policies */ );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::rotateX
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > > & ( exported_class_t::*rotateX_function_type )( ::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "rotateX"
-                , rotateX_function_type( &::Geometry::BasicVector3D< std::complex< double > >::rotateX )
-                , ( bp::arg("a") )
-                    /* undefined call policies */ );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::rotateY
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > > & ( exported_class_t::*rotateY_function_type )( ::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "rotateY"
-                , rotateY_function_type( &::Geometry::BasicVector3D< std::complex< double > >::rotateY )
-                , ( bp::arg("a") )
-                    /* undefined call policies */ );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::rotateZ
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > > & ( exported_class_t::*rotateZ_function_type )( ::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "rotateZ"
-                , rotateZ_function_type( &::Geometry::BasicVector3D< std::complex< double > >::rotateZ )
-                , ( bp::arg("a") )
-                    /* undefined call policies */ );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::set
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*set_function_type )( ::std::complex< double >,::std::complex< double >,::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "set"
-                , set_function_type( &::Geometry::BasicVector3D< std::complex< double > >::set )
-                , ( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::setLambdaAlphaPhi
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setLambdaAlphaPhi_function_type )( ::std::complex< double >,::std::complex< double >,::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "setLambdaAlphaPhi"
-                , setLambdaAlphaPhi_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setLambdaAlphaPhi )
-                , ( bp::arg("lambda"), bp::arg("alpha"), bp::arg("phi") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::setMag
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setMag_function_type )( ::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "setMag"
-                , setMag_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setMag )
-                , ( bp::arg("ma") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::setPerp
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setPerp_function_type )( ::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "setPerp"
-                , setPerp_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setPerp )
-                , ( bp::arg("rh") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::setPhi
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setPhi_function_type )( ::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "setPhi"
-                , setPhi_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setPhi )
-                , ( bp::arg("ph") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::setR
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setR_function_type )( ::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "setR"
-                , setR_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setR )
-                , ( bp::arg("ma") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::setTheta
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setTheta_function_type )( ::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "setTheta"
-                , setTheta_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setTheta )
-                , ( bp::arg("th") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::setX
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setX_function_type )( ::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "setX"
-                , setX_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setX )
-                , ( bp::arg("a") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::setXYZ
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setXYZ_function_type )( ::std::complex< double >,::std::complex< double >,::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "setXYZ"
-                , setXYZ_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setXYZ )
-                , ( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::setY
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setY_function_type )( ::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "setY"
-                , setY_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setY )
-                , ( bp::arg("a") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::setZ
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setZ_function_type )( ::std::complex< double > ) ;
-            
-            cvector_t_exposer.def( 
-                "setZ"
-                , setZ_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setZ )
-                , ( bp::arg("a") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::theta
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*theta_function_type )(  ) const;
-            
-            cvector_t_exposer.def( 
-                "theta"
-                , theta_function_type( &::Geometry::BasicVector3D< std::complex< double > >::theta ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::transform
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > > & ( exported_class_t::*transform_function_type )( ::Geometry::Transform3D const & ) ;
-            
-            cvector_t_exposer.def( 
-                "transform"
-                , transform_function_type( &::Geometry::BasicVector3D< std::complex< double > >::transform )
-                , ( bp::arg("m") )
-                    /* undefined call policies */ );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::unit
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > > ( exported_class_t::*unit_function_type )(  ) const;
-            
-            cvector_t_exposer.def( 
-                "unit"
-                , unit_function_type( &::Geometry::BasicVector3D< std::complex< double > >::unit ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::x
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*x_function_type )(  ) const;
-            
-            cvector_t_exposer.def( 
-                "x"
-                , x_function_type( &::Geometry::BasicVector3D< std::complex< double > >::x ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::y
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*y_function_type )(  ) const;
-            
-            cvector_t_exposer.def( 
-                "y"
-                , y_function_type( &::Geometry::BasicVector3D< std::complex< double > >::y ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::z
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*z_function_type )(  ) const;
-            
-            cvector_t_exposer.def( 
-                "z"
-                , z_function_type( &::Geometry::BasicVector3D< std::complex< double > >::z ) );
-        
-        }
-        cvector_t_exposer.def( bp::self != bp::self );
-        cvector_t_exposer.def( bp::self * bp::self );
-        cvector_t_exposer.def( bp::self * bp::other< std::complex< double > >() );
-        cvector_t_exposer.def( bp::self + bp::self );
-        cvector_t_exposer.def( +bp::self );
-        cvector_t_exposer.def( bp::self - bp::self );
-        cvector_t_exposer.def( -bp::self );
-        cvector_t_exposer.def( bp::self / bp::other< std::complex< double > >() );
-        cvector_t_exposer.def( bp::self_ns::str( bp::self ) );
-        cvector_t_exposer.def( bp::self == bp::self );
+        Transform3D_exposer.def_readonly( "Identity", Geometry::Transform3D::Identity );
     }
 
-    bp::class_< ReflectX3D_wrapper >( "ReflectX3D", bp::init< bp::optional< double > >(( bp::arg("x")=0 )) )    
-        .def( 
-            "setTransform"
-            , (void ( ReflectX3D_wrapper::* )( double,double,double,double,double,double,double,double,double,double,double,double ) )(&ReflectX3D_wrapper::setTransform)
-            , ( bp::arg("XX"), bp::arg("XY"), bp::arg("XZ"), bp::arg("DX"), bp::arg("YX"), bp::arg("YY"), bp::arg("YZ"), bp::arg("DY"), bp::arg("ZX"), bp::arg("ZY"), bp::arg("ZZ"), bp::arg("DZ") ) );
-
-    bp::class_< ReflectY3D_wrapper >( "ReflectY3D", bp::init< bp::optional< double > >(( bp::arg("y")=0 )) )    
-        .def( 
-            "setTransform"
-            , (void ( ReflectY3D_wrapper::* )( double,double,double,double,double,double,double,double,double,double,double,double ) )(&ReflectY3D_wrapper::setTransform)
-            , ( bp::arg("XX"), bp::arg("XY"), bp::arg("XZ"), bp::arg("DX"), bp::arg("YX"), bp::arg("YY"), bp::arg("YZ"), bp::arg("DY"), bp::arg("ZX"), bp::arg("ZY"), bp::arg("ZZ"), bp::arg("DZ") ) );
+    bp::class_< Geometry::Reflect3D, bp::bases< Geometry::Transform3D > >( "Reflect3D", bp::init< >() )    
+        .def( bp::init< double, double, double, double >(( bp::arg("a"), bp::arg("b"), bp::arg("c"), bp::arg("d") )) );
 
 }

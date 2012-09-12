@@ -8,7 +8,7 @@
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
-#include "IClusteredNanoParticles.h"
+#include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
@@ -26,8 +26,8 @@
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "Particle.h"
-#include "NanoParticleCrystal.h"
-#include "NanoParticleDecoration.h"
+#include "Crystal.h"
+#include "ParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
 #include "PythonOutputData.h"
@@ -38,6 +38,80 @@
 #include "PythonInterface_classes_3.h"
 
 namespace bp = boost::python;
+
+struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFactorDecorator > {
+
+    virtual ::IFormFactorDecorator * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const {
+        bp::override func_evaluate = this->get_override( "evaluate" );
+        return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) const  {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->IFormFactor::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) const  {
+        return IFormFactor::getNumberOfStochasticParameters( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactor::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactor::getVolume( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
 
 struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInterferenceFunction > {
 
@@ -211,6 +285,66 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
     
     }
 
+    virtual ::Particle * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->Particle::clone(  );
+        }
+    }
+    
+    ::Particle * default_clone(  ) const  {
+        return Particle::clone( );
+    }
+
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+        if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
+            return func_createDiffuseParticleInfo( boost::ref(parent_info) );
+        else{
+            return this->Particle::createDiffuseParticleInfo( boost::ref(parent_info) );
+        }
+    }
+    
+    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+        return Particle::createDiffuseParticleInfo( boost::ref(parent_info) );
+    }
+
+    virtual ::IFormFactor * createFormFactor(  ) const  {
+        if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
+            return func_createFormFactor(  );
+        else{
+            return this->Particle::createFormFactor(  );
+        }
+    }
+    
+    ::IFormFactor * default_createFormFactor(  ) const  {
+        return Particle::createFormFactor( );
+    }
+
+    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
+        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
+            return func_getSimpleFormFactor(  );
+        else{
+            return this->Particle::getSimpleFormFactor(  );
+        }
+    }
+    
+    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
+        return Particle::getSimpleFormFactor( );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->Particle::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        Particle::setAmbientRefractiveIndex( refractive_index );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -246,6 +380,18 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     
     }
 
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+        if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
+            return func_createDiffuseParticleInfo( boost::ref(parent_info) );
+        else{
+            return this->Particle::createDiffuseParticleInfo( boost::ref(parent_info) );
+        }
+    }
+    
+    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+        return Particle::createDiffuseParticleInfo( boost::ref(parent_info) );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -256,6 +402,18 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     
     ::ParameterPool * default_createParameterTree(  ) {
         return ISample::createParameterTree( );
+    }
+
+    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
+        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
+            return func_getSimpleFormFactor(  );
+        else{
+            return this->Particle::getSimpleFormFactor(  );
+        }
+    }
+    
+    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
+        return Particle::getSimpleFormFactor( );
     }
 
     virtual void walk_and_print(  ) {
@@ -369,21 +527,7 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
 
 struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
 
-    LayerDecorator_wrapper(::Layer const & layer )
-    : LayerDecorator( boost::ref(layer) )
-      , bp::wrapper< LayerDecorator >(){
-        // constructor
-    
-    }
-
-    LayerDecorator_wrapper(::LayerDecorator const & layer )
-    : LayerDecorator( boost::ref(layer) )
-      , bp::wrapper< LayerDecorator >(){
-        // copy constructor
-    
-    }
-
-    LayerDecorator_wrapper(::Layer const & layer, ::NanoParticleDecoration const & decoration )
+    LayerDecorator_wrapper(::Layer const & layer, ::ParticleDecoration const & decoration )
     : LayerDecorator( boost::ref(layer), boost::ref(decoration) )
       , bp::wrapper< LayerDecorator >(){
         // constructor
@@ -491,8 +635,8 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
 
 struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
 
-    MesoCrystal_wrapper(::IClusteredNanoParticles const & nano_particle_structure, ::IFormFactor & form_factor )
-    : MesoCrystal( boost::ref(nano_particle_structure), boost::ref(form_factor) )
+    MesoCrystal_wrapper(::IClusteredParticles const & particle_structure, ::IFormFactor & form_factor )
+    : MesoCrystal( boost::ref(particle_structure), boost::ref(form_factor) )
       , bp::wrapper< MesoCrystal >(){
         // constructor
     
@@ -559,67 +703,25 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
 
 };
 
-struct NanoParticleCrystal_wrapper : NanoParticleCrystal, bp::wrapper< NanoParticleCrystal > {
+struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDecoration > {
 
-    NanoParticleCrystal_wrapper(NanoParticleCrystal const & arg )
-    : NanoParticleCrystal( arg )
-      , bp::wrapper< NanoParticleCrystal >(){
-        // copy constructor
-        
-    }
-
-    NanoParticleCrystal_wrapper(::LatticeBasis const & lattice_basis, ::Lattice const & lattice )
-    : NanoParticleCrystal( boost::ref(lattice_basis), boost::ref(lattice) )
-      , bp::wrapper< NanoParticleCrystal >(){
-        // constructor
-    
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->ISample::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) {
-        return ISample::createParameterTree( );
-    }
-
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
-        else{
-            this->ISample::walk_and_print(  );
-        }
-    }
-    
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
-    }
-
-};
-
-struct NanoParticleDecoration_wrapper : NanoParticleDecoration, bp::wrapper< NanoParticleDecoration > {
-
-    NanoParticleDecoration_wrapper( )
-    : NanoParticleDecoration( )
-      , bp::wrapper< NanoParticleDecoration >(){
+    ParticleDecoration_wrapper( )
+    : ParticleDecoration( )
+      , bp::wrapper< ParticleDecoration >(){
         // null constructor
     
     }
 
-    virtual ::NanoParticleDecoration * clone(  ) const  {
+    virtual ::ParticleDecoration * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else{
-            return this->NanoParticleDecoration::clone(  );
+            return this->ParticleDecoration::clone(  );
         }
     }
     
-    ::NanoParticleDecoration * default_clone(  ) const  {
-        return NanoParticleDecoration::clone( );
+    ::ParticleDecoration * default_clone(  ) const  {
+        return ParticleDecoration::clone( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -649,6 +751,38 @@ struct NanoParticleDecoration_wrapper : NanoParticleDecoration, bp::wrapper< Nan
 };
 
 void register_classes_3(){
+
+    bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, boost::noncopyable >( "IFormFactorDecorator", bp::no_init )    
+        .def( 
+            "clone"
+            , bp::pure_virtual( (::IFormFactorDecorator * ( ::IFormFactorDecorator::* )(  ) const)(&::IFormFactorDecorator::clone) )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::IFormFactorDecorator::* )( ::complex_t ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
+            , (void ( IFormFactorDecorator_wrapper::* )( ::complex_t ) )(&IFormFactorDecorator_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactor::evaluate) )
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)
+            , (int ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "getVolume"
+            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
+            , (double ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getVolume) )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_walk_and_print) );
 
     bp::class_< IInterferenceFunction_wrapper, bp::bases< ISample >, boost::noncopyable >( "IInterferenceFunction" )    
         .def( 
@@ -720,6 +854,7 @@ void register_classes_3(){
 
     bp::class_< Lattice >( "Lattice", bp::init< >() )    
         .def( bp::init< kvector_t const &, kvector_t const &, kvector_t const & >(( bp::arg("a1"), bp::arg("a2"), bp::arg("a3") )) )    
+        .def( bp::init< Lattice const & >(( bp::arg("lattice") )) )    
         .def( 
             "createTrigonalLattice"
             , (::Lattice (*)( double,double ))( &::Lattice::createTrigonalLattice )
@@ -738,6 +873,32 @@ void register_classes_3(){
 
     bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Particle", bp::init< complex_t, IFormFactor const & >(( bp::arg("refractive_index"), bp::arg("p_form_factor") )) )    
         .def( 
+            "clone"
+            , (::Particle * ( ::Particle::* )(  ) const)(&::Particle::clone)
+            , (::Particle * ( Particle_wrapper::* )(  ) const)(&Particle_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createDiffuseParticleInfo"
+            , (::std::vector< DiffuseParticleInfo* > * ( ::Particle::* )( ::ParticleInfo const & ) const)(&::Particle::createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( Particle_wrapper::* )( ::ParticleInfo const & ) const)(&Particle_wrapper::default_createDiffuseParticleInfo)
+            , ( bp::arg("parent_info") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createFormFactor"
+            , (::IFormFactor * ( ::Particle::* )(  ) const)(&::Particle::createFormFactor)
+            , (::IFormFactor * ( Particle_wrapper::* )(  ) const)(&Particle_wrapper::default_createFormFactor)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getSimpleFormFactor"
+            , (::IFormFactor const * ( ::Particle::* )(  ) const)(&::Particle::getSimpleFormFactor)
+            , (::IFormFactor const * ( Particle_wrapper::* )(  ) const)(&Particle_wrapper::default_getSimpleFormFactor)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::Particle::* )( ::complex_t ) )(&::Particle::setAmbientRefractiveIndex)
+            , (void ( Particle_wrapper::* )( ::complex_t ) )(&Particle_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
+        .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( Particle_wrapper::* )(  ) )(&Particle_wrapper::default_createParameterTree)
@@ -750,13 +911,24 @@ void register_classes_3(){
     bp::class_< LatticeBasis_wrapper, bp::bases< Particle >, boost::noncopyable >( "LatticeBasis", bp::init< >() )    
         .def( 
             "addParticle"
-            , (void ( ::LatticeBasis::* )( ::Particle const &,::kvector_t ) )( &::LatticeBasis::addParticle )
-            , ( bp::arg("particle"), bp::arg("position") ) )    
+            , (void ( ::LatticeBasis::* )( ::Particle const &,::std::vector< Geometry::BasicVector3D<double> > ) )( &::LatticeBasis::addParticle )
+            , ( bp::arg("particle"), bp::arg("positions") ) )    
+        .def( 
+            "createDiffuseParticleInfo"
+            , (::std::vector< DiffuseParticleInfo* > * ( ::Particle::* )( ::ParticleInfo const & ) const)(&::Particle::createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( LatticeBasis_wrapper::* )( ::ParticleInfo const & ) const)(&LatticeBasis_wrapper::default_createDiffuseParticleInfo)
+            , ( bp::arg("parent_info") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( LatticeBasis_wrapper::* )(  ) )(&LatticeBasis_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getSimpleFormFactor"
+            , (::IFormFactor const * ( ::Particle::* )(  ) const)(&::Particle::getSimpleFormFactor)
+            , (::IFormFactor const * ( LatticeBasis_wrapper::* )(  ) const)(&LatticeBasis_wrapper::default_getSimpleFormFactor)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
@@ -797,9 +969,7 @@ void register_classes_3(){
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( Layer_wrapper::* )(  ) )(&Layer_wrapper::default_walk_and_print) );
 
-    bp::class_< LayerDecorator_wrapper, bp::bases< Layer > >( "LayerDecorator", bp::init< Layer const & >(( bp::arg("layer") )) )    
-        .def( bp::init< LayerDecorator const & >(( bp::arg("layer") )) )    
-        .def( bp::init< Layer const &, NanoParticleDecoration const & >(( bp::arg("layer"), bp::arg("decoration") )) )    
+    bp::class_< LayerDecorator_wrapper, bp::bases< Layer >, boost::noncopyable >( "LayerDecorator", bp::init< Layer const &, ParticleDecoration const & >(( bp::arg("layer"), bp::arg("decoration") )) )    
         .def( 
             "clone"
             , (::LayerDecorator * ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::clone)
@@ -943,7 +1113,7 @@ void register_classes_3(){
             , bp::return_internal_reference< >() )    
         .def( bp::self_ns::str( bp::self ) );
 
-    bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredNanoParticles const &, IFormFactor & >(( bp::arg("nano_particle_structure"), bp::arg("form_factor") )) )    
+    bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -973,73 +1143,6 @@ void register_classes_3(){
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( MultiLayer_wrapper::* )(  ) )(&MultiLayer_wrapper::default_walk_and_print) )    
         .def( bp::self_ns::str( bp::self ) );
-
-    bp::class_< NanoParticleCrystal_wrapper, bp::bases< IClusteredNanoParticles > >( "NanoParticleCrystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
-        .def( 
-            "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( NanoParticleCrystal_wrapper::* )(  ) )(&NanoParticleCrystal_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( NanoParticleCrystal_wrapper::* )(  ) )(&NanoParticleCrystal_wrapper::default_walk_and_print) );
-
-    bp::class_< NanoParticleDecoration_wrapper, boost::noncopyable >( "NanoParticleDecoration", bp::init< >() )    
-        .def( 
-            "addInterferenceFunction"
-            , (void ( ::NanoParticleDecoration::* )( ::IInterferenceFunction const & ) )( &::NanoParticleDecoration::addInterferenceFunction )
-            , ( bp::arg("interference_function") ) )    
-        .def( 
-            "addNanoParticle"
-            , (void ( ::NanoParticleDecoration::* )( ::Particle const &,::Geometry::Transform3D const &,double,double ) )( &::NanoParticleDecoration::addNanoParticle )
-            , ( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=1.0e+0 ) )    
-        .def( 
-            "addNanoParticle"
-            , (void ( ::NanoParticleDecoration::* )( ::Particle const &,double,double ) )( &::NanoParticleDecoration::addNanoParticle )
-            , ( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) )    
-        .def( 
-            "addNanoParticleInfo"
-            , (void ( ::NanoParticleDecoration::* )( ::NanoParticleInfo const & ) )( &::NanoParticleDecoration::addNanoParticleInfo )
-            , ( bp::arg("p_info") ) )    
-        .def( 
-            "clone"
-            , (::NanoParticleDecoration * ( ::NanoParticleDecoration::* )(  ) const)(&::NanoParticleDecoration::clone)
-            , (::NanoParticleDecoration * ( NanoParticleDecoration_wrapper::* )(  ) const)(&NanoParticleDecoration_wrapper::default_clone)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "getAbundanceFractionOfNanoParticle"
-            , (double ( ::NanoParticleDecoration::* )( ::size_t ) const)( &::NanoParticleDecoration::getAbundanceFractionOfNanoParticle )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getInterferenceFunction"
-            , (::IInterferenceFunction const * ( ::NanoParticleDecoration::* )( ::size_t ) const)( &::NanoParticleDecoration::getInterferenceFunction )
-            , ( bp::arg("index") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getNanoParticleInfo"
-            , (::NanoParticleInfo const * ( ::NanoParticleDecoration::* )( ::size_t ) const)( &::NanoParticleDecoration::getNanoParticleInfo )
-            , ( bp::arg("index") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getNumberOfParticles"
-            , (::size_t ( ::NanoParticleDecoration::* )(  ) const)( &::NanoParticleDecoration::getNumberOfParticles ) )    
-        .def( 
-            "getTotalParticleSurfaceDensity"
-            , (double ( ::NanoParticleDecoration::* )(  ) const)( &::NanoParticleDecoration::getTotalParticleSurfaceDensity ) )    
-        .def( 
-            "setTotalParticleSurfaceDensity"
-            , (void ( ::NanoParticleDecoration::* )( double ) )( &::NanoParticleDecoration::setTotalParticleSurfaceDensity )
-            , ( bp::arg("surface_density") ) )    
-        .def( 
-            "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( NanoParticleDecoration_wrapper::* )(  ) )(&NanoParticleDecoration_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( NanoParticleDecoration_wrapper::* )(  ) )(&NanoParticleDecoration_wrapper::default_walk_and_print) );
 
     { //::OpticalFresnel
         typedef bp::class_< OpticalFresnel > OpticalFresnel_exposer_t;
@@ -1223,5 +1326,61 @@ void register_classes_3(){
         }
         ParameterPool_exposer.def( bp::self_ns::str( bp::self ) );
     }
+
+    bp::class_< ParticleDecoration_wrapper, boost::noncopyable >( "ParticleDecoration", bp::init< >() )    
+        .def( 
+            "addInterferenceFunction"
+            , (void ( ::ParticleDecoration::* )( ::IInterferenceFunction const & ) )( &::ParticleDecoration::addInterferenceFunction )
+            , ( bp::arg("interference_function") ) )    
+        .def( 
+            "addParticle"
+            , (void ( ::ParticleDecoration::* )( ::Particle const &,::Geometry::Transform3D const &,double,double ) )( &::ParticleDecoration::addParticle )
+            , ( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=1.0e+0 ) )    
+        .def( 
+            "addParticle"
+            , (void ( ::ParticleDecoration::* )( ::Particle const &,double,double ) )( &::ParticleDecoration::addParticle )
+            , ( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) )    
+        .def( 
+            "addParticleInfo"
+            , (void ( ::ParticleDecoration::* )( ::ParticleInfo const & ) )( &::ParticleDecoration::addParticleInfo )
+            , ( bp::arg("p_info") ) )    
+        .def( 
+            "clone"
+            , (::ParticleDecoration * ( ::ParticleDecoration::* )(  ) const)(&::ParticleDecoration::clone)
+            , (::ParticleDecoration * ( ParticleDecoration_wrapper::* )(  ) const)(&ParticleDecoration_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getAbundanceFractionOfParticle"
+            , (double ( ::ParticleDecoration::* )( ::size_t ) const)( &::ParticleDecoration::getAbundanceFractionOfParticle )
+            , ( bp::arg("index") ) )    
+        .def( 
+            "getInterferenceFunction"
+            , (::IInterferenceFunction const * ( ::ParticleDecoration::* )( ::size_t ) const)( &::ParticleDecoration::getInterferenceFunction )
+            , ( bp::arg("index") )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getNumberOfParticles"
+            , (::size_t ( ::ParticleDecoration::* )(  ) const)( &::ParticleDecoration::getNumberOfParticles ) )    
+        .def( 
+            "getParticleInfo"
+            , (::ParticleInfo const * ( ::ParticleDecoration::* )( ::size_t ) const)( &::ParticleDecoration::getParticleInfo )
+            , ( bp::arg("index") )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getTotalParticleSurfaceDensity"
+            , (double ( ::ParticleDecoration::* )(  ) const)( &::ParticleDecoration::getTotalParticleSurfaceDensity ) )    
+        .def( 
+            "setTotalParticleSurfaceDensity"
+            , (void ( ::ParticleDecoration::* )( double ) )( &::ParticleDecoration::setTotalParticleSurfaceDensity )
+            , ( bp::arg("surface_density") ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ParticleDecoration_wrapper::* )(  ) )(&ParticleDecoration_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( ParticleDecoration_wrapper::* )(  ) )(&ParticleDecoration_wrapper::default_walk_and_print) );
 
 }

@@ -8,7 +8,7 @@
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
-#include "IClusteredNanoParticles.h"
+#include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
@@ -26,8 +26,8 @@
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
 #include "Particle.h"
-#include "NanoParticleCrystal.h"
-#include "NanoParticleDecoration.h"
+#include "Crystal.h"
+#include "ParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
 #include "PythonOutputData.h"
@@ -39,178 +39,15 @@
 
 namespace bp = boost::python;
 
-struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSample > {
-
-    ICompositeSample_wrapper( )
-    : ICompositeSample( )
-      , bp::wrapper< ICompositeSample >(){
-        // null constructor
-    
-    }
-
-    virtual ::ISample * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->ISample::clone(  );
-        }
-    }
-    
-    ::ISample * default_clone(  ) const  {
-        return ISample::clone( );
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->ISample::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) {
-        return ISample::createParameterTree( );
-    }
-
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
-        else{
-            this->ISample::walk_and_print(  );
-        }
-    }
-    
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
-    }
-
-};
-
-struct IClusteredNanoParticles_wrapper : IClusteredNanoParticles, bp::wrapper< IClusteredNanoParticles > {
-
-    IClusteredNanoParticles_wrapper()
-    : IClusteredNanoParticles()
-      , bp::wrapper< IClusteredNanoParticles >(){
-        // null constructor
-        
-    }
-
-    virtual ::IClusteredNanoParticles * clone(  ) const {
-        bp::override func_clone = this->get_override( "clone" );
-        return func_clone(  );
-    }
-
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const {
-        bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" );
-        return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
-    }
-
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ){
-        bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" );
-        func_setAmbientRefractiveIndex( refractive_index );
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->ISample::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) {
-        return ISample::createParameterTree( );
-    }
-
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
-        else{
-            this->ISample::walk_and_print(  );
-        }
-    }
-    
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
-    }
-
-};
-
-struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFactorDecorator > {
-
-    virtual ::IFormFactorDecorator * clone(  ) const {
-        bp::override func_clone = this->get_override( "clone" );
-        return func_clone(  );
-    }
-
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
-        else{
-            this->IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
-        }
-    }
-    
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->ISample::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) {
-        return ISample::createParameterTree( );
-    }
-
-    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const {
-        bp::override func_evaluate = this->get_override( "evaluate" );
-        return func_evaluate( k_i, k_f, alpha_i, alpha_f );
-    }
-
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->IFormFactor::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return IFormFactor::getNumberOfStochasticParameters( );
-    }
-
-    virtual double getVolume(  ) const  {
-        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
-            return func_getVolume(  );
-        else{
-            return this->IFormFactor::getVolume(  );
-        }
-    }
-    
-    double default_getVolume(  ) const  {
-        return IFormFactor::getVolume( );
-    }
-
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
-        else{
-            this->ISample::walk_and_print(  );
-        }
-    }
-    
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
-    }
-
-};
-
 void register_classes_2(){
+
+    bp::class_< Geometry::ReflectX3D, bp::bases< Geometry::Reflect3D > >( "ReflectX3D", bp::init< bp::optional< double > >(( bp::arg("x")=0 )) );
+
+    bp::class_< Geometry::ReflectY3D, bp::bases< Geometry::Reflect3D > >( "ReflectY3D", bp::init< bp::optional< double > >(( bp::arg("y")=0 )) );
+
+    bp::class_< Geometry::ReflectZ3D, bp::bases< Geometry::Reflect3D > >( "ReflectZ3D", bp::init< bp::optional< double > >(( bp::arg("z")=0 )) );
+
+    bp::class_< Geometry::Rotate3D, bp::bases< Geometry::Transform3D > >( "Rotate3D", bp::init< >() );
 
     bp::class_< Geometry::RotateX3D, bp::bases< Geometry::Rotate3D > >( "RotateX3D", bp::init< >() )    
         .def( bp::init< double >(( bp::arg("a") )) );
@@ -304,77 +141,5 @@ void register_classes_2(){
         
         }
     }
-
-    bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, boost::noncopyable >( "ICompositeSample", bp::init< >() )    
-        .def( 
-            "clone"
-            , (::ISample * ( ::ISample::* )(  ) const)(&::ISample::clone)
-            , (::ISample * ( ICompositeSample_wrapper::* )(  ) const)(&ICompositeSample_wrapper::default_clone)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_walk_and_print) );
-
-    bp::class_< IClusteredNanoParticles_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "IClusteredNanoParticles" )    
-        .def( 
-            "clone"
-            , bp::pure_virtual( (::IClusteredNanoParticles * ( ::IClusteredNanoParticles::* )(  ) const)(&::IClusteredNanoParticles::clone) )
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "createTotalFormFactor"
-            , bp::pure_virtual( (::IFormFactor * ( ::IClusteredNanoParticles::* )( ::IFormFactor const &,::complex_t ) const)(&::IClusteredNanoParticles::createTotalFormFactor) )
-            , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "setAmbientRefractiveIndex"
-            , bp::pure_virtual( (void ( ::IClusteredNanoParticles::* )( ::complex_t ) )(&::IClusteredNanoParticles::setAmbientRefractiveIndex) )
-            , ( bp::arg("refractive_index") ) )    
-        .def( 
-            "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( IClusteredNanoParticles_wrapper::* )(  ) )(&IClusteredNanoParticles_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( IClusteredNanoParticles_wrapper::* )(  ) )(&IClusteredNanoParticles_wrapper::default_walk_and_print) );
-
-    bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, boost::noncopyable >( "IFormFactorDecorator", bp::no_init )    
-        .def( 
-            "clone"
-            , bp::pure_virtual( (::IFormFactorDecorator * ( ::IFormFactorDecorator::* )(  ) const)(&::IFormFactorDecorator::clone) )
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactorDecorator::* )( ::complex_t ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
-            , (void ( IFormFactorDecorator_wrapper::* )( ::complex_t ) )(&IFormFactorDecorator_wrapper::default_setAmbientRefractiveIndex)
-            , ( bp::arg("refractive_index") ) )    
-        .def( 
-            "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "evaluate"
-            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactor::evaluate) )
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
-        .def( 
-            "getNumberOfStochasticParameters"
-            , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)
-            , (int ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getNumberOfStochasticParameters) )    
-        .def( 
-            "getVolume"
-            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
-            , (double ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getVolume) )    
-        .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_walk_and_print) );
 
 }

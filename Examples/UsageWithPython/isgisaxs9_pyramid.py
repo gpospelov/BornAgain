@@ -35,11 +35,12 @@ substrate.setMaterial(mSubstrate, 0)
 
 # creating nanoparticle
 pyramid_ff = FormFactorPyramid(5*nanometer, 5*nanometer, 54.73*deg)
-pyramid = NanoParticle(n_particle, pyramid_ff)
+
+pyramid = Particle(n_particle, pyramid_ff)
 
 # creating collection of nano particles
-nanopart_collection = NanoParticleDecoration()
-nanopart_collection.addNanoParticle(pyramid)
+nanopart_collection = ParticleDecoration()
+nanopart_collection.addParticle(pyramid)
 interference = InterferenceFunctionNone()
 nanopart_collection.addInterferenceFunction(interference);
 

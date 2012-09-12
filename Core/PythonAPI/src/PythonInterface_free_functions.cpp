@@ -39,8 +39,6 @@
 
 namespace bp = boost::python;
 
-BOOST_PYTHON_OPAQUE_SPECIALIZED_TYPE_ID( _object )
-
 void register_free_functions(){
 
     { //::Geometry::CrossProduct
@@ -72,8 +70,7 @@ void register_free_functions(){
         bp::def( 
             "GetOutputData"
             , GetOutputData_function_type( &::GetOutputData )
-            , ( bp::arg("experiment") )
-            , bp::return_value_policy< bp::return_opaque_pointer >() );
+            , ( bp::arg("experiment") ) );
     
     }
 
@@ -84,8 +81,7 @@ void register_free_functions(){
         bp::def( 
             "GetOutputDataAxis"
             , GetOutputDataAxis_function_type( &::GetOutputDataAxis )
-            , ( bp::arg("experiment"), bp::arg("naxis") )
-            , bp::return_value_policy< bp::return_opaque_pointer >() );
+            , ( bp::arg("experiment"), bp::arg("naxis") ) );
     
     }
 

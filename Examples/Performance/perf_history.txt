@@ -51,6 +51,9 @@
 # debug is off, current state of the art
 2012-08-20 13:16:30 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 13.1579 | 13.0719 | 0.93896 | 
 
-# after Walter's refactoring and changes in 
+# after Walter's refactoring (debug=on)
 2012-09-13 10:43:41 | jcnsopc73  | macosx64, 2800 MHz      | 80971.7 | 4.58716 | 3.83877 | 0.05608 | 
+# (debug=off)
+2012-09-13 17:19:44 | jcnsopc73  | macosx64, 2800 MHz      | 259740  | 15.1515 | 14.5985 | 0.29585 | 
+
 

@@ -3,8 +3,12 @@
 #include "boost/python.hpp"
 #include "BasicVector3D.h"
 #include "Experiment.h"
+#include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorFullSphere.h"
+#include "FormFactorGauss.h"
+#include "FormFactorLorentz.h"
+#include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
@@ -34,9 +38,129 @@
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
+#include "Types.h"
 #include "PythonInterface_classes_3.h"
 
 namespace bp = boost::python;
+
+struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFactorDecorator > {
+
+    virtual ::IFormFactorDecorator * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const {
+        bp::override func_evaluate = this->get_override( "evaluate" );
+        return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) const  {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->IFormFactor::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) const  {
+        return IFormFactor::getNumberOfStochasticParameters( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactor::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactor::getVolume( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
+struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInterferenceFunction > {
+
+    IInterferenceFunction_wrapper()
+    : IInterferenceFunction()
+      , bp::wrapper< IInterferenceFunction >(){
+        // null constructor
+        
+    }
+
+    virtual ::IInterferenceFunction * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
+    }
+
+    virtual double evaluate( ::cvector_t q ) const {
+        bp::override func_evaluate = this->get_override( "evaluate" );
+        return func_evaluate( q );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
 
 struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCrystal, bp::wrapper< InterferenceFunction1DParaCrystal > {
 
@@ -106,6 +230,30 @@ struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper<
     
     }
 
+    virtual ::InterferenceFunctionNone * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->InterferenceFunctionNone::clone(  );
+        }
+    }
+    
+    ::InterferenceFunctionNone * default_clone(  ) const  {
+        return InterferenceFunctionNone::clone( );
+    }
+
+    virtual double evaluate( ::cvector_t q ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( q );
+        else{
+            return this->InterferenceFunctionNone::evaluate( q );
+        }
+    }
+    
+    double default_evaluate( ::cvector_t q ) const  {
+        return InterferenceFunctionNone::evaluate( q );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -133,6 +281,73 @@ struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper<
 };
 
 struct Particle_wrapper : Particle, bp::wrapper< Particle > {
+
+    Particle_wrapper(::complex_t refractive_index, ::IFormFactor const & p_form_factor )
+    : Particle( refractive_index, boost::ref(p_form_factor) )
+      , bp::wrapper< Particle >(){
+        // constructor
+    
+    }
+
+    virtual ::Particle * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->Particle::clone(  );
+        }
+    }
+    
+    ::Particle * default_clone(  ) const  {
+        return Particle::clone( );
+    }
+
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+        if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
+            return func_createDiffuseParticleInfo( boost::ref(parent_info) );
+        else{
+            return this->Particle::createDiffuseParticleInfo( boost::ref(parent_info) );
+        }
+    }
+    
+    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+        return Particle::createDiffuseParticleInfo( boost::ref(parent_info) );
+    }
+
+    virtual ::IFormFactor * createFormFactor(  ) const  {
+        if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
+            return func_createFormFactor(  );
+        else{
+            return this->Particle::createFormFactor(  );
+        }
+    }
+    
+    ::IFormFactor * default_createFormFactor(  ) const  {
+        return Particle::createFormFactor( );
+    }
+
+    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
+        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
+            return func_getSimpleFormFactor(  );
+        else{
+            return this->Particle::getSimpleFormFactor(  );
+        }
+    }
+    
+    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
+        return Particle::getSimpleFormFactor( );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->Particle::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        Particle::setAmbientRefractiveIndex( refractive_index );
+    }
 
     virtual ::ParameterPool * createParameterTree(  ) {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
@@ -169,6 +384,18 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     
     }
 
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+        if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
+            return func_createDiffuseParticleInfo( boost::ref(parent_info) );
+        else{
+            return this->Particle::createDiffuseParticleInfo( boost::ref(parent_info) );
+        }
+    }
+    
+    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+        return Particle::createDiffuseParticleInfo( boost::ref(parent_info) );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -179,6 +406,18 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
     
     ::ParameterPool * default_createParameterTree(  ) {
         return ISample::createParameterTree( );
+    }
+
+    virtual ::IFormFactor const * getSimpleFormFactor(  ) const  {
+        if( bp::override func_getSimpleFormFactor = this->get_override( "getSimpleFormFactor" ) )
+            return func_getSimpleFormFactor(  );
+        else{
+            return this->Particle::getSimpleFormFactor(  );
+        }
+    }
+    
+    ::IFormFactor const * default_getSimpleFormFactor(  ) const  {
+        return Particle::getSimpleFormFactor( );
     }
 
     virtual void walk_and_print(  ) {
@@ -204,11 +443,16 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     }
 
-    Layer_wrapper(::Layer const & other )
-    : Layer( boost::ref(other) )
-      , bp::wrapper< Layer >(){
-        // copy constructor
+    virtual ::Layer * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->Layer::clone(  );
+        }
+    }
     
+    ::Layer * default_clone(  ) const  {
+        return Layer::clone( );
     }
 
     virtual ::IMaterial const * getMaterial(  ) const  {
@@ -221,6 +465,30 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     ::IMaterial const * default_getMaterial(  ) const  {
         return Layer::getMaterial( );
+    }
+
+    virtual ::complex_t getRefractiveIndex(  ) const  {
+        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
+            return func_getRefractiveIndex(  );
+        else{
+            return this->Layer::getRefractiveIndex(  );
+        }
+    }
+    
+    ::complex_t default_getRefractiveIndex(  ) const  {
+        return Layer::getRefractiveIndex( );
+    }
+
+    virtual double getThickness(  ) const  {
+        if( bp::override func_getThickness = this->get_override( "getThickness" ) )
+            return func_getThickness(  );
+        else{
+            return this->Layer::getThickness(  );
+        }
+    }
+    
+    double default_getThickness(  ) const  {
+        return Layer::getThickness( );
     }
 
     virtual bool hasDWBASimulation(  ) const  {
@@ -259,6 +527,18 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         Layer::setMaterial( boost::python::ptr(p_material), thickness );
     }
 
+    virtual void setThickness( double thickness ) {
+        if( bp::override func_setThickness = this->get_override( "setThickness" ) )
+            func_setThickness( thickness );
+        else{
+            this->Layer::setThickness( thickness );
+        }
+    }
+    
+    void default_setThickness( double thickness ) {
+        Layer::setThickness( thickness );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -287,13 +567,6 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
 
 struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
 
-    LayerDecorator_wrapper(::Layer const & layer )
-    : LayerDecorator( boost::ref(layer) )
-      , bp::wrapper< LayerDecorator >(){
-        // constructor
-    
-    }
-
     LayerDecorator_wrapper(::Layer const & layer, ::ParticleDecoration const & decoration )
     : LayerDecorator( boost::ref(layer), boost::ref(decoration) )
       , bp::wrapper< LayerDecorator >(){
@@ -301,11 +574,100 @@ struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
     
     }
 
-    LayerDecorator_wrapper(::LayerDecorator const & layer )
-    : LayerDecorator( boost::ref(layer) )
-      , bp::wrapper< LayerDecorator >(){
-        // copy constructor
+    virtual ::LayerDecorator * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->LayerDecorator::clone(  );
+        }
+    }
     
+    ::LayerDecorator * default_clone(  ) const  {
+        return LayerDecorator::clone( );
+    }
+
+    virtual ::IMaterial const * getMaterial(  ) const  {
+        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
+            return func_getMaterial(  );
+        else{
+            return this->LayerDecorator::getMaterial(  );
+        }
+    }
+    
+    ::IMaterial const * default_getMaterial(  ) const  {
+        return LayerDecorator::getMaterial( );
+    }
+
+    virtual ::complex_t getRefractiveIndex(  ) const  {
+        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
+            return func_getRefractiveIndex(  );
+        else{
+            return this->LayerDecorator::getRefractiveIndex(  );
+        }
+    }
+    
+    ::complex_t default_getRefractiveIndex(  ) const  {
+        return LayerDecorator::getRefractiveIndex( );
+    }
+
+    virtual double getThickness(  ) const  {
+        if( bp::override func_getThickness = this->get_override( "getThickness" ) )
+            return func_getThickness(  );
+        else{
+            return this->LayerDecorator::getThickness(  );
+        }
+    }
+    
+    double default_getThickness(  ) const  {
+        return LayerDecorator::getThickness( );
+    }
+
+    virtual double getTotalParticleSurfaceDensity(  ) const  {
+        if( bp::override func_getTotalParticleSurfaceDensity = this->get_override( "getTotalParticleSurfaceDensity" ) )
+            return func_getTotalParticleSurfaceDensity(  );
+        else{
+            return this->LayerDecorator::getTotalParticleSurfaceDensity(  );
+        }
+    }
+    
+    double default_getTotalParticleSurfaceDensity(  ) const  {
+        return LayerDecorator::getTotalParticleSurfaceDensity( );
+    }
+
+    virtual bool hasDWBASimulation(  ) const  {
+        if( bp::override func_hasDWBASimulation = this->get_override( "hasDWBASimulation" ) )
+            return func_hasDWBASimulation(  );
+        else{
+            return this->LayerDecorator::hasDWBASimulation(  );
+        }
+    }
+    
+    bool default_hasDWBASimulation(  ) const  {
+        return LayerDecorator::hasDWBASimulation( );
+    }
+
+    virtual void init_parameters(  ) {
+        if( bp::override func_init_parameters = this->get_override( "init_parameters" ) )
+            func_init_parameters(  );
+        else{
+            this->LayerDecorator::init_parameters(  );
+        }
+    }
+    
+    void default_init_parameters(  ) {
+        LayerDecorator::init_parameters( );
+    }
+
+    virtual void setThickness( double thickness ) {
+        if( bp::override func_setThickness = this->get_override( "setThickness" ) )
+            func_setThickness( thickness );
+        else{
+            this->LayerDecorator::setThickness( thickness );
+        }
+    }
+    
+    void default_setThickness( double thickness ) {
+        LayerDecorator::setThickness( thickness );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -357,28 +719,16 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
     
     }
 
-    virtual void init_parameters(  ){
-        if( bp::override func_init_parameters = this->get_override( "init_parameters" ) )
-            func_init_parameters(  );
+    virtual ::ISample * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
         else{
-            this->LayerRoughness::init_parameters(  );
+            return this->ISample::clone(  );
         }
     }
     
-    virtual void default_init_parameters(  ){
-        LayerRoughness::init_parameters( );
-    }
-
-    virtual void print( ::std::ostream & ostr ) const {
-        if( bp::override func_print = this->get_override( "print" ) )
-            func_print( boost::ref(ostr) );
-        else{
-            this->LayerRoughness::print( boost::ref(ostr) );
-        }
-    }
-    
-    virtual void default_print( ::std::ostream & ostr ) const {
-        LayerRoughness::print( boost::ref(ostr) );
+    ::ISample * default_clone(  ) const  {
+        return ISample::clone( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -407,30 +757,6 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
 
 };
 
-struct MaterialManager_wrapper : MaterialManager, bp::wrapper< MaterialManager > {
-
-    virtual void print( ::std::ostream & ostr ) const {
-        if( bp::override func_print = this->get_override( "print" ) )
-            func_print( boost::ref(ostr) );
-        else{
-            this->MaterialManager::print( boost::ref(ostr) );
-        }
-    }
-    
-    virtual void default_print( ::std::ostream & ostr ) const {
-        MaterialManager::print( boost::ref(ostr) );
-    }
-
-    static void create_singleton(  ){
-        ISingleton< MaterialManager >::create_singleton(  );
-    }
-
-    static void onDeadReference(  ){
-        ISingleton< MaterialManager >::onDeadReference(  );
-    }
-
-};
-
 struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
 
     MesoCrystal_wrapper(::IClusteredParticles const & particle_structure, ::IFormFactor & form_factor )
@@ -450,6 +776,18 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
     
     ::ParameterPool * default_createParameterTree(  ) {
         return ISample::createParameterTree( );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->Particle::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        Particle::setAmbientRefractiveIndex( refractive_index );
     }
 
     virtual void walk_and_print(  ) {
@@ -501,36 +839,6 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
 
 };
 
-struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
-
-    ParameterPool_wrapper( )
-    : ParameterPool( )
-      , bp::wrapper< ParameterPool >(){
-        // null constructor
-    
-    }
-
-    ParameterPool_wrapper(::ParameterPool const & other )
-    : ParameterPool( boost::ref(other) )
-      , bp::wrapper< ParameterPool >(){
-        // copy constructor
-    
-    }
-
-    virtual void print( ::std::ostream & ostr ) const {
-        if( bp::override func_print = this->get_override( "print" ) )
-            func_print( boost::ref(ostr) );
-        else{
-            this->ParameterPool::print( boost::ref(ostr) );
-        }
-    }
-    
-    virtual void default_print( ::std::ostream & ostr ) const {
-        ParameterPool::print( boost::ref(ostr) );
-    }
-
-};
-
 struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDecoration > {
 
     ParticleDecoration_wrapper( )
@@ -538,6 +846,18 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
       , bp::wrapper< ParticleDecoration >(){
         // null constructor
     
+    }
+
+    virtual ::ParticleDecoration * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->ParticleDecoration::clone(  );
+        }
+    }
+    
+    ::ParticleDecoration * default_clone(  ) const  {
+        return ParticleDecoration::clone( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -568,12 +888,129 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
 
 void register_classes_3(){
 
+    { //::IMaterial
+        typedef bp::class_< IMaterial > IMaterial_exposer_t;
+        IMaterial_exposer_t IMaterial_exposer = IMaterial_exposer_t( "IMaterial", bp::init< >() );
+        bp::scope IMaterial_scope( IMaterial_exposer );
+        IMaterial_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
+        IMaterial_exposer.def( bp::init< IMaterial const & >(( bp::arg("other") )) );
+        { //::IMaterial::operator=
+        
+            typedef ::IMaterial & ( ::IMaterial::*assign_function_type )( ::IMaterial const & ) ;
+            
+            IMaterial_exposer.def( 
+                "assign"
+                , assign_function_type( &::IMaterial::operator= )
+                , ( bp::arg("other") )
+                , bp::return_self< >() );
+        
+        }
+        IMaterial_exposer.def( bp::self_ns::str( bp::self ) );
+    }
+
+    { //::HomogeneousMaterial
+        typedef bp::class_< HomogeneousMaterial, bp::bases< IMaterial > > HomogeneousMaterial_exposer_t;
+        HomogeneousMaterial_exposer_t HomogeneousMaterial_exposer = HomogeneousMaterial_exposer_t( "HomogeneousMaterial", bp::init< >() );
+        bp::scope HomogeneousMaterial_scope( HomogeneousMaterial_exposer );
+        HomogeneousMaterial_exposer.def( bp::init< complex_t >(( bp::arg("refractive_index") )) );
+        HomogeneousMaterial_exposer.def( bp::init< std::string const &, complex_t >(( bp::arg("name"), bp::arg("refractive_index") )) );
+        HomogeneousMaterial_exposer.def( bp::init< HomogeneousMaterial const & >(( bp::arg("other") )) );
+        { //::HomogeneousMaterial::getRefractiveIndex
+        
+            typedef ::complex_t ( ::HomogeneousMaterial::*getRefractiveIndex_function_type )(  ) const;
+            
+            HomogeneousMaterial_exposer.def( 
+                "getRefractiveIndex"
+                , getRefractiveIndex_function_type( &::HomogeneousMaterial::getRefractiveIndex ) );
+        
+        }
+        { //::HomogeneousMaterial::operator=
+        
+            typedef ::HomogeneousMaterial & ( ::HomogeneousMaterial::*assign_function_type )( ::HomogeneousMaterial const & ) ;
+            
+            HomogeneousMaterial_exposer.def( 
+                "assign"
+                , assign_function_type( &::HomogeneousMaterial::operator= )
+                , ( bp::arg("other") )
+                , bp::return_self< >() );
+        
+        }
+        { //::HomogeneousMaterial::setRefractiveIndex
+        
+            typedef void ( ::HomogeneousMaterial::*setRefractiveIndex_function_type )( ::complex_t ) ;
+            
+            HomogeneousMaterial_exposer.def( 
+                "setRefractiveIndex"
+                , setRefractiveIndex_function_type( &::HomogeneousMaterial::setRefractiveIndex )
+                , ( bp::arg("refractive_index") ) );
+        
+        }
+    }
+
+    bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, boost::noncopyable >( "IFormFactorDecorator", bp::no_init )    
+        .def( 
+            "clone"
+            , bp::pure_virtual( (::IFormFactorDecorator * ( ::IFormFactorDecorator::* )(  ) const)(&::IFormFactorDecorator::clone) )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::IFormFactorDecorator::* )( ::complex_t ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
+            , (void ( IFormFactorDecorator_wrapper::* )( ::complex_t ) )(&IFormFactorDecorator_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactor::evaluate) )
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)
+            , (int ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "getVolume"
+            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
+            , (double ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getVolume) )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_walk_and_print) );
+
+    bp::class_< IInterferenceFunction_wrapper, bp::bases< ISample >, boost::noncopyable >( "IInterferenceFunction" )    
+        .def( 
+            "clone"
+            , bp::pure_virtual( (::IInterferenceFunction * ( ::IInterferenceFunction::* )(  ) const)(&::IInterferenceFunction::clone) )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , bp::pure_virtual( (double ( ::IInterferenceFunction::* )( ::cvector_t ) const)(&::IInterferenceFunction::evaluate) )
+            , ( bp::arg("q") ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( IInterferenceFunction_wrapper::* )(  ) )(&IInterferenceFunction_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( IInterferenceFunction_wrapper::* )(  ) )(&IInterferenceFunction_wrapper::default_walk_and_print) );
+
+    bp::class_< ISingleton< MaterialManager >, boost::noncopyable >( "ISingleton_less__MaterialManager__greater_", bp::no_init )    
+        .def( 
+            "instance"
+            , (::MaterialManager & (*)(  ))( &::ISingleton< MaterialManager >::instance )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .staticmethod( "instance" );
+
     bp::class_< InterferenceFunction1DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunction1DParaCrystal", bp::init< double, double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("width"), bp::arg("corr_length")=0.0 )) )    
         .def( 
             "clone"
             , (::InterferenceFunction1DParaCrystal * ( ::InterferenceFunction1DParaCrystal::* )(  ) const)(&::InterferenceFunction1DParaCrystal::clone)
             , (::InterferenceFunction1DParaCrystal * ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_clone)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
             , (double ( ::InterferenceFunction1DParaCrystal::* )( ::cvector_t ) const)(&::InterferenceFunction1DParaCrystal::evaluate)
@@ -591,6 +1028,16 @@ void register_classes_3(){
 
     bp::class_< InterferenceFunctionNone_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunctionNone", bp::init< >() )    
         .def( 
+            "clone"
+            , (::InterferenceFunctionNone * ( ::InterferenceFunctionNone::* )(  ) const)(&::InterferenceFunctionNone::clone)
+            , (::InterferenceFunctionNone * ( InterferenceFunctionNone_wrapper::* )(  ) const)(&InterferenceFunctionNone_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , (double ( ::InterferenceFunctionNone::* )( ::cvector_t ) const)(&::InterferenceFunctionNone::evaluate)
+            , (double ( InterferenceFunctionNone_wrapper::* )( ::cvector_t ) const)(&InterferenceFunctionNone_wrapper::default_evaluate)
+            , ( bp::arg("q") ) )    
+        .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( InterferenceFunctionNone_wrapper::* )(  ) )(&InterferenceFunctionNone_wrapper::default_createParameterTree)
@@ -602,10 +1049,12 @@ void register_classes_3(){
 
     bp::class_< Lattice >( "Lattice", bp::init< >() )    
         .def( bp::init< kvector_t const &, kvector_t const &, kvector_t const & >(( bp::arg("a1"), bp::arg("a2"), bp::arg("a3") )) )    
+        .def( bp::init< Lattice const & >(( bp::arg("lattice") )) )    
         .def( 
             "createTrigonalLattice"
             , (::Lattice (*)( double,double ))( &::Lattice::createTrigonalLattice )
-            , ( bp::arg("a"), bp::arg("c") ) )    
+            , ( bp::arg("a"), bp::arg("c") )
+            , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "getBasisVectorA"
             , (::kvector_t ( ::Lattice::* )(  ) const)( &::Lattice::getBasisVectorA ) )    
@@ -617,7 +1066,33 @@ void register_classes_3(){
             , (::kvector_t ( ::Lattice::* )(  ) const)( &::Lattice::getBasisVectorC ) )    
         .staticmethod( "createTrigonalLattice" );
 
-    bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Particle", bp::no_init )    
+    bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Particle", bp::init< complex_t, IFormFactor const & >(( bp::arg("refractive_index"), bp::arg("p_form_factor") )) )    
+        .def( 
+            "clone"
+            , (::Particle * ( ::Particle::* )(  ) const)(&::Particle::clone)
+            , (::Particle * ( Particle_wrapper::* )(  ) const)(&Particle_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createDiffuseParticleInfo"
+            , (::std::vector< DiffuseParticleInfo* > * ( ::Particle::* )( ::ParticleInfo const & ) const)(&::Particle::createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( Particle_wrapper::* )( ::ParticleInfo const & ) const)(&Particle_wrapper::default_createDiffuseParticleInfo)
+            , ( bp::arg("parent_info") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createFormFactor"
+            , (::IFormFactor * ( ::Particle::* )(  ) const)(&::Particle::createFormFactor)
+            , (::IFormFactor * ( Particle_wrapper::* )(  ) const)(&Particle_wrapper::default_createFormFactor)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getSimpleFormFactor"
+            , (::IFormFactor const * ( ::Particle::* )(  ) const)(&::Particle::getSimpleFormFactor)
+            , (::IFormFactor const * ( Particle_wrapper::* )(  ) const)(&Particle_wrapper::default_getSimpleFormFactor)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::Particle::* )( ::complex_t ) )(&::Particle::setAmbientRefractiveIndex)
+            , (void ( Particle_wrapper::* )( ::complex_t ) )(&Particle_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -631,25 +1106,48 @@ void register_classes_3(){
     bp::class_< LatticeBasis_wrapper, bp::bases< Particle >, boost::noncopyable >( "LatticeBasis", bp::init< >() )    
         .def( 
             "addParticle"
-            , (void ( ::LatticeBasis::* )( ::Particle const &,::kvector_t ) )( &::LatticeBasis::addParticle )
-            , ( bp::arg("particle"), bp::arg("position") ) )    
+            , (void ( ::LatticeBasis::* )( ::Particle const &,::std::vector< Geometry::BasicVector3D<double> > ) )( &::LatticeBasis::addParticle )
+            , ( bp::arg("particle"), bp::arg("positions") ) )    
+        .def( 
+            "createDiffuseParticleInfo"
+            , (::std::vector< DiffuseParticleInfo* > * ( ::Particle::* )( ::ParticleInfo const & ) const)(&::Particle::createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( LatticeBasis_wrapper::* )( ::ParticleInfo const & ) const)(&LatticeBasis_wrapper::default_createDiffuseParticleInfo)
+            , ( bp::arg("parent_info") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( LatticeBasis_wrapper::* )(  ) )(&LatticeBasis_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "getSimpleFormFactor"
+            , (::IFormFactor const * ( ::Particle::* )(  ) const)(&::Particle::getSimpleFormFactor)
+            , (::IFormFactor const * ( LatticeBasis_wrapper::* )(  ) const)(&LatticeBasis_wrapper::default_getSimpleFormFactor)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( LatticeBasis_wrapper::* )(  ) )(&LatticeBasis_wrapper::default_walk_and_print) );
 
     bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Layer", bp::init< >() )    
-        .def( bp::init< Layer const & >(( bp::arg("other") )) )    
+        .def( 
+            "clone"
+            , (::Layer * ( ::Layer::* )(  ) const)(&::Layer::clone)
+            , (::Layer * ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getMaterial"
             , (::IMaterial const * ( ::Layer::* )(  ) const)(&::Layer::getMaterial)
             , (::IMaterial const * ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_getMaterial)
             , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getRefractiveIndex"
+            , (::complex_t ( ::Layer::* )(  ) const)(&::Layer::getRefractiveIndex)
+            , (::complex_t ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_getRefractiveIndex) )    
+        .def( 
+            "getThickness"
+            , (double ( ::Layer::* )(  ) const)(&::Layer::getThickness)
+            , (double ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_getThickness) )    
         .def( 
             "hasDWBASimulation"
             , (bool ( ::Layer::* )(  ) const)(&::Layer::hasDWBASimulation)
@@ -665,6 +1163,11 @@ void register_classes_3(){
             , (void ( Layer_wrapper::* )( ::IMaterial const *,double ) )(&Layer_wrapper::default_setMaterial)
             , ( bp::arg("p_material"), bp::arg("thickness") ) )    
         .def( 
+            "setThickness"
+            , (void ( ::Layer::* )( double ) )(&::Layer::setThickness)
+            , (void ( Layer_wrapper::* )( double ) )(&Layer_wrapper::default_setThickness)
+            , ( bp::arg("thickness") ) )    
+        .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( Layer_wrapper::* )(  ) )(&Layer_wrapper::default_createParameterTree)
@@ -674,9 +1177,50 @@ void register_classes_3(){
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( Layer_wrapper::* )(  ) )(&Layer_wrapper::default_walk_and_print) );
 
-    bp::class_< LayerDecorator_wrapper, bp::bases< Layer > >( "LayerDecorator", bp::init< Layer const & >(( bp::arg("layer") )) )    
-        .def( bp::init< Layer const &, ParticleDecoration const & >(( bp::arg("layer"), bp::arg("decoration") )) )    
-        .def( bp::init< LayerDecorator const & >(( bp::arg("layer") )) )    
+    bp::class_< LayerDecorator_wrapper, bp::bases< Layer >, boost::noncopyable >( "LayerDecorator", bp::init< Layer const &, ParticleDecoration const & >(( bp::arg("layer"), bp::arg("decoration") )) )    
+        .def( 
+            "clone"
+            , (::LayerDecorator * ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::clone)
+            , (::LayerDecorator * ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getDecoratedLayer"
+            , (::Layer const * ( ::LayerDecorator::* )(  ) const)( &::LayerDecorator::getDecoratedLayer )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getDecoration"
+            , (::ParticleDecoration const * ( ::LayerDecorator::* )(  ) const)( &::LayerDecorator::getDecoration )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getMaterial"
+            , (::IMaterial const * ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::getMaterial)
+            , (::IMaterial const * ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getMaterial)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getRefractiveIndex"
+            , (::complex_t ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::getRefractiveIndex)
+            , (::complex_t ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getRefractiveIndex) )    
+        .def( 
+            "getThickness"
+            , (double ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::getThickness)
+            , (double ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getThickness) )    
+        .def( 
+            "getTotalParticleSurfaceDensity"
+            , (double ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::getTotalParticleSurfaceDensity)
+            , (double ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getTotalParticleSurfaceDensity) )    
+        .def( 
+            "hasDWBASimulation"
+            , (bool ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::hasDWBASimulation)
+            , (bool ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_hasDWBASimulation) )    
+        .def( 
+            "init_parameters"
+            , (void ( ::LayerDecorator::* )(  ) )(&::LayerDecorator::init_parameters)
+            , (void ( LayerDecorator_wrapper::* )(  ) )(&LayerDecorator_wrapper::default_init_parameters) )    
+        .def( 
+            "setThickness"
+            , (void ( ::LayerDecorator::* )( double ) )(&::LayerDecorator::setThickness)
+            , (void ( LayerDecorator_wrapper::* )( double ) )(&LayerDecorator_wrapper::default_setThickness)
+            , ( bp::arg("thickness") ) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -720,15 +1264,6 @@ void register_classes_3(){
                 , getSigma_function_type( &::LayerRoughness::getSigma ) );
         
         }
-        { //::LayerRoughness::init_parameters
-        
-            typedef void ( LayerRoughness_wrapper::*init_parameters_function_type )(  ) ;
-            
-            LayerRoughness_exposer.def( 
-                "init_parameters"
-                , init_parameters_function_type( &LayerRoughness_wrapper::default_init_parameters ) );
-        
-        }
         { //::LayerRoughness::operator=
         
             typedef ::LayerRoughness & ( ::LayerRoughness::*assign_function_type )( ::LayerRoughness const & ) ;
@@ -738,16 +1273,6 @@ void register_classes_3(){
                 , assign_function_type( &::LayerRoughness::operator= )
                 , ( bp::arg("other") )
                 , bp::return_self< >() );
-        
-        }
-        { //::LayerRoughness::print
-        
-            typedef void ( LayerRoughness_wrapper::*print_function_type )( ::std::ostream & ) const;
-            
-            LayerRoughness_exposer.def( 
-                "print"
-                , print_function_type( &LayerRoughness_wrapper::default_print )
-                , ( bp::arg("ostr") ) );
         
         }
         { //::LayerRoughness::setHurstParameter
@@ -780,6 +1305,18 @@ void register_classes_3(){
                 , ( bp::arg("sigma") ) );
         
         }
+        { //::ISample::clone
+        
+            typedef ::ISample * ( ::ISample::*clone_function_type )(  ) const;
+            typedef ::ISample * ( LayerRoughness_wrapper::*default_clone_function_type )(  ) const;
+            
+            LayerRoughness_exposer.def( 
+                "clone"
+                , clone_function_type(&::ISample::clone)
+                , default_clone_function_type(&LayerRoughness_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::ISample::createParameterTree
         
             typedef ::ParameterPool * ( ::ISample::*createParameterTree_function_type )(  ) ;
@@ -806,12 +1343,12 @@ void register_classes_3(){
         LayerRoughness_exposer.def( bp::self_ns::str( bp::self ) );
     }
 
-    bp::class_< MaterialManager_wrapper, bp::bases< ISingleton< MaterialManager > >, boost::noncopyable >( "MaterialManager", bp::no_init )    
+    bp::class_< MaterialManager, bp::bases< ISingleton< MaterialManager > >, boost::noncopyable >( "MaterialManager", bp::no_init )    
         .def( 
             "addHomogeneousMaterial"
             , (::IMaterial const * ( ::MaterialManager::* )( ::std::string const &,::complex_t ) )( &::MaterialManager::addHomogeneousMaterial )
             , ( bp::arg("name"), bp::arg("refractive_index") )
-            , bp::return_internal_reference< >() )    
+            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "clear"
             , (void ( ::MaterialManager::* )(  ) )( &::MaterialManager::clear ) )    
@@ -819,19 +1356,7 @@ void register_classes_3(){
             "getMaterial"
             , (::IMaterial const * ( ::MaterialManager::* )( ::std::string const & ) )( &::MaterialManager::getMaterial )
             , ( bp::arg("name") )
-            , bp::return_internal_reference< >() )    
-        .def( 
-            "print"
-            , (void ( MaterialManager_wrapper::* )( ::std::ostream & ) const)(&MaterialManager_wrapper::default_print)
-            , ( bp::arg("ostr") ) )    
-        .def( 
-            "create_singleton"
-            , (void (*)(  ))(&MaterialManager_wrapper::create_singleton) )    
-        .def( 
-            "onDeadReference"
-            , (void (*)(  ))(&MaterialManager_wrapper::onDeadReference) )    
-        .staticmethod( "create_singleton" )    
-        .staticmethod( "onDeadReference" )    
+            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( bp::self_ns::str( bp::self ) );
 
     bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) )    
@@ -840,6 +1365,11 @@ void register_classes_3(){
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( MesoCrystal_wrapper::* )(  ) )(&MesoCrystal_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::Particle::* )( ::complex_t ) )(&::Particle::setAmbientRefractiveIndex)
+            , (void ( MesoCrystal_wrapper::* )( ::complex_t ) )(&MesoCrystal_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
         .def( 
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
@@ -912,10 +1442,10 @@ void register_classes_3(){
     }
 
     { //::ParameterPool
-        typedef bp::class_< ParameterPool_wrapper, boost::noncopyable > ParameterPool_exposer_t;
+        typedef bp::class_< ParameterPool, boost::noncopyable > ParameterPool_exposer_t;
         ParameterPool_exposer_t ParameterPool_exposer = ParameterPool_exposer_t( "ParameterPool", bp::init< >() );
         bp::scope ParameterPool_scope( ParameterPool_exposer );
-        bp::class_< ParameterPool::RealPar >( "RealPar", bp::init< double * >(( bp::arg("par") )) )    
+        bp::class_< ParameterPool::RealPar >( "RealPar", bp::no_init )    
             .def( 
                 "checkNull"
                 , (void ( ::ParameterPool::RealPar::* )(  ) const)( &::ParameterPool::RealPar::checkNull ) )    
@@ -930,7 +1460,6 @@ void register_classes_3(){
                 , (void ( ::ParameterPool::RealPar::* )( double ) )( &::ParameterPool::RealPar::setValue )
                 , ( bp::arg("value") ) )    
             .def( bp::self_ns::str( bp::self ) );
-        ParameterPool_exposer.def( bp::init< ParameterPool const & >(( bp::arg("other") )) );
         { //::ParameterPool::addParameter
         
             typedef bool ( ::ParameterPool::*addParameter_function_type )( ::std::string,::ParameterPool::RealPar ) ;
@@ -975,7 +1504,7 @@ void register_classes_3(){
             ParameterPool_exposer.def( 
                 "clone"
                 , clone_function_type( &::ParameterPool::clone )
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::ParameterPool::cloneWithPrefix
@@ -986,17 +1515,7 @@ void register_classes_3(){
                 "cloneWithPrefix"
                 , cloneWithPrefix_function_type( &::ParameterPool::cloneWithPrefix )
                 , ( bp::arg("prefix") )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::ParameterPool::copyToExternalPool
-        
-            typedef void ( ::ParameterPool::*copyToExternalPool_function_type )( ::std::string,::ParameterPool * ) ;
-            
-            ParameterPool_exposer.def( 
-                "copyToExternalPool"
-                , copyToExternalPool_function_type( &::ParameterPool::copyToExternalPool )
-                , ( bp::arg("prefix"), bp::arg("external_pool") ) );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::ParameterPool::end
@@ -1025,26 +1544,6 @@ void register_classes_3(){
                 "getParameter"
                 , getParameter_function_type( &::ParameterPool::getParameter )
                 , ( bp::arg("name") ) );
-        
-        }
-        { //::ParameterPool::print
-        
-            typedef void ( ParameterPool_wrapper::*print_function_type )( ::std::ostream & ) const;
-            
-            ParameterPool_exposer.def( 
-                "print"
-                , print_function_type( &ParameterPool_wrapper::default_print )
-                , ( bp::arg("ostr") ) );
-        
-        }
-        { //::ParameterPool::registerParameter
-        
-            typedef bool ( ::ParameterPool::*registerParameter_function_type )( ::std::string,double * ) ;
-            
-            ParameterPool_exposer.def( 
-                "registerParameter"
-                , registerParameter_function_type( &::ParameterPool::registerParameter )
-                , ( bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::ParameterPool::setMatchedParametersValue
@@ -1092,6 +1591,35 @@ void register_classes_3(){
             "addParticle"
             , (void ( ::ParticleDecoration::* )( ::Particle const &,double,double ) )( &::ParticleDecoration::addParticle )
             , ( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) )    
+        .def( 
+            "addParticleInfo"
+            , (void ( ::ParticleDecoration::* )( ::ParticleInfo const & ) )( &::ParticleDecoration::addParticleInfo )
+            , ( bp::arg("p_info") ) )    
+        .def( 
+            "clone"
+            , (::ParticleDecoration * ( ::ParticleDecoration::* )(  ) const)(&::ParticleDecoration::clone)
+            , (::ParticleDecoration * ( ParticleDecoration_wrapper::* )(  ) const)(&ParticleDecoration_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getAbundanceFractionOfParticle"
+            , (double ( ::ParticleDecoration::* )( ::size_t ) const)( &::ParticleDecoration::getAbundanceFractionOfParticle )
+            , ( bp::arg("index") ) )    
+        .def( 
+            "getInterferenceFunction"
+            , (::IInterferenceFunction const * ( ::ParticleDecoration::* )( ::size_t ) const)( &::ParticleDecoration::getInterferenceFunction )
+            , ( bp::arg("index") )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getNumberOfParticles"
+            , (::size_t ( ::ParticleDecoration::* )(  ) const)( &::ParticleDecoration::getNumberOfParticles ) )    
+        .def( 
+            "getParticleInfo"
+            , (::ParticleInfo const * ( ::ParticleDecoration::* )( ::size_t ) const)( &::ParticleDecoration::getParticleInfo )
+            , ( bp::arg("index") )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getTotalParticleSurfaceDensity"
+            , (double ( ::ParticleDecoration::* )(  ) const)( &::ParticleDecoration::getTotalParticleSurfaceDensity ) )    
         .def( 
             "setTotalParticleSurfaceDensity"
             , (void ( ::ParticleDecoration::* )( double ) )( &::ParticleDecoration::setTotalParticleSurfaceDensity )

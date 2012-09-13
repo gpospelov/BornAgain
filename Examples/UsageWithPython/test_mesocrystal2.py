@@ -35,7 +35,7 @@ n_avg = sqrt(surface_filling_ratio*avg_n_squared_meso + 1.0 - surface_filling_ra
 n_particle_adapted = sqrt(n_avg*n_avg + n_particle*n_particle - 1.0)
 
 sphere_ff = FormFactorFullSphere(R)
-particle = NanoParticle(n_particle_adapted, sphere_ff )
+particle = Particle(n_particle_adapted, sphere_ff )
 
 position_0 = kvector_t(0.0, 0.0, 0.0)
 position_1 = kvector_t(0.0, 0.0, 0.0)
@@ -44,11 +44,10 @@ position_2 = kvector_t(0.0, 0.0, 0.0)
 position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
 position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);
 basis = LatticeBasis()
-basis.addParticle(particle, position_0)
-basis.addParticle(particle, position_1)
-basis.addParticle(particle, position_2)
+positions = [position_0, position_1, position_2 ]
+basis.addParticle(particle, positions)
 
-npc = NanoParticleCrystal(basis, lattice)
+npc = Crystal(basis, lattice)
 cylinder_ff = FormFactorCylinder(0.2*micrometer, meso_radius)
 meso = MesoCrystal(npc, cylinder_ff )
 
@@ -80,7 +79,7 @@ substrate_layer = Layer()
 substrate_layer.setMaterial(substrate_material)
 
 interference_function = InterferenceFunctionNone()
-particle_decoration = NanoParticleDecoration()
+particle_decoration = ParticleDecoration()
 
 n_phi_rotation_steps = 1
 n_alpha_rotation_steps =1
@@ -91,7 +90,7 @@ for i in range(0, n_phi_rotation_steps):
     for j in range(0, n_alpha_rotation_steps):
         transform1 = RotateZ3D(i*phi_step)
         transform2 = RotateZ3D(j*alpha_step)
-        particle_decoration.addNanoParticle(meso, transform1*transform2, 0.2*micrometer, 0.5)
+        particle_decoration.addParticle(meso, transform1*transform2, 0.2*micrometer, 0.5)
 
 particle_decoration.setTotalParticleSurfaceDensity(surface_density)
 particle_decoration.addInterferenceFunction(interference_function)

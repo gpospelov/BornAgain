@@ -35,13 +35,13 @@ substrate.setMaterial(mSubstrate, 0)
 
 # creating rotated nanoparticle
 pyramid_ff = FormFactorPyramid(5*nanometer, 5*nanometer, 54.73*deg)
-pyramid = NanoParticle(n_particle, pyramid_ff)
+pyramid = Particle(n_particle, pyramid_ff)
 angle_around_z = 45.*degree
 transform = RotateZ3D(angle_around_z)
 
 # creating collection of nano particles
-nanopart_collection = NanoParticleDecoration()
-nanopart_collection.addNanoParticle(pyramid, transform)
+nanopart_collection = ParticleDecoration()
+nanopart_collection.addParticle(pyramid, transform)
 interference = InterferenceFunctionNone()
 nanopart_collection.addInterferenceFunction(interference);
 

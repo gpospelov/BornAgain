@@ -3,8 +3,12 @@
 #include "boost/python.hpp"
 #include "BasicVector3D.h"
 #include "Experiment.h"
+#include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorFullSphere.h"
+#include "FormFactorGauss.h"
+#include "FormFactorLorentz.h"
+#include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
@@ -34,22 +38,12 @@
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
+#include "Types.h"
 #include "PythonInterface_free_functions.h"
 
 namespace bp = boost::python;
 
 void register_free_functions(){
-
-    { //::Geometry::CrossProduct
-    
-        typedef ::Geometry::BasicVector3D< std::complex< double > > ( *CrossProduct_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const,::Geometry::BasicVector3D< std::complex< double > > const );
-        
-        bp::def( 
-            "CrossProduct"
-            , CrossProduct_function_type( &::Geometry::CrossProduct )
-            , ( bp::arg("vectorLeft"), bp::arg("vectorRight") ) );
-    
-    }
 
     { //::Geometry::CrossProduct
     
@@ -59,17 +53,6 @@ void register_free_functions(){
             "CrossProduct"
             , CrossProduct_function_type( &::Geometry::CrossProduct )
             , ( bp::arg("vectorLeft"), bp::arg("vectorRight") ) );
-    
-    }
-
-    { //::Geometry::DotProduct
-    
-        typedef ::std::complex< double > ( *DotProduct_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const,::Geometry::BasicVector3D< std::complex< double > > const );
-        
-        bp::def( 
-            "DotProduct"
-            , DotProduct_function_type( &::Geometry::DotProduct )
-            , ( bp::arg("left"), bp::arg("right") ) );
     
     }
 
@@ -91,8 +74,7 @@ void register_free_functions(){
         bp::def( 
             "GetOutputData"
             , GetOutputData_function_type( &::GetOutputData )
-            , ( bp::arg("experiment") )
-                /* undefined call policies */ );
+            , ( bp::arg("experiment") ) );
     
     }
 
@@ -103,8 +85,7 @@ void register_free_functions(){
         bp::def( 
             "GetOutputDataAxis"
             , GetOutputDataAxis_function_type( &::GetOutputDataAxis )
-            , ( bp::arg("experiment"), bp::arg("naxis") )
-                /* undefined call policies */ );
+            , ( bp::arg("experiment"), bp::arg("naxis") ) );
     
     }
 

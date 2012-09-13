@@ -8,7 +8,8 @@ application=../../App/App
 #arguments="isgisaxs9 profile"
 #arguments="isgisaxs10 batch"
 #arguments="isgisaxs9 batch"
-arguments="isgisaxs2 batch profile"
+#arguments="isgisaxs2 batch profile"
+arguments="mesocrystal"
 focuson=GISASExperiment
 
 # ------------------------------------------- #
@@ -32,4 +33,4 @@ then
   valgrind --log-file=./output/valgrind.output  --dsymutil=yes --num-callers=6 --track-origins=yes --leak-check=yes $application $arguments
 fi
 
-
+#valgrind --log-file=valgrind.output --tool=memcheck --leak-check=yes --show-reachable=yes --num-callers=20 --track-fds=yes ./App/App mesocrystal

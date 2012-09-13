@@ -1,4 +1,5 @@
 #include "Lattice.h"
+#include "Exceptions.h"
 
 #include "gsl/gsl_matrix.h"
 #include "gsl/gsl_linalg.h"
@@ -31,7 +32,7 @@ Lattice::Lattice(const Lattice& lattice)
 , m_is_zero(false)
 {
     initialize();
-    setSelectionRule(lattice.mp_selection_rule->clone());
+    if( lattice.mp_selection_rule ) setSelectionRule(lattice.mp_selection_rule->clone());
 }
 
 Lattice::~Lattice()

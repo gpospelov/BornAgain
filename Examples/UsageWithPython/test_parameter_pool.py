@@ -12,7 +12,6 @@ from libScattCore import *
 
 # ------------------------
 # building mesocrystal
-# see access to
 # ------------------------
 
 def BuildSample():
@@ -24,7 +23,7 @@ def BuildSample():
 
   n_particle = complex(1.0-1.5e-5, 1.3e-6)
   sphere_ff = FormFactorFullSphere(R)
-  particle = NanoParticle(n_particle, sphere_ff )
+  particle = Particle(n_particle, sphere_ff )
 
   position_0 = kvector_t(0.0, 0.0, 0.0)
   position_1 = kvector_t(0.0, 0.0, 0.0)
@@ -34,11 +33,10 @@ def BuildSample():
   position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c)
 
   basis = LatticeBasis()
-  basis.addParticle(particle, position_0)
-  basis.addParticle(particle, position_1)
-  basis.addParticle(particle, position_2)
+  positions = [ position_0, position_1, position_2 ]
+  basis.addParticle(particle, positions)
 
-  npc = NanoParticleCrystal(basis, lattice)
+  npc = Crystal(basis, lattice)
 
   cylinder_ff = FormFactorCylinder(0.2*micrometer, 300*nanometer)
   meso = MesoCrystal(npc, cylinder_ff )
@@ -61,9 +59,9 @@ def BuildSample():
   substrate_layer.setMaterial(substrate_material)
 
   interference_funtion = InterferenceFunction1DParaCrystal(800.0*nanometer,50*nanometer, 1e7*nanometer)
-  particle_decoration = NanoParticleDecoration()
-  particle_decoration.addNanoParticle(meso, 0.0, 0.5)
-  particle_decoration.addNanoParticle(meso2, 0.0, 0.5)
+  particle_decoration = ParticleDecoration()
+  particle_decoration.addParticle(meso, 0.0, 0.5)
+  particle_decoration.addParticle(meso2, 0.0, 0.5)
   particle_decoration.addInterferenceFunction(interference_funtion)
   air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
 
@@ -84,13 +82,13 @@ def main():
   print pool
 
   # one way to change parameters
-  pool.setParameterValue("/MultiLayer/LayerInterface/roughness/corrlength",99.)
+  pool.setParameterValue("/MultiLayer/Layer/thickness",99.)
 
   #another way to change several parameters at once
-  pool.setMatchedParametersValue("/*NanoParticleInfo*/depth",88)
+  pool.setMatchedParametersValue("/*ParticleInfo*/depth",88)
 
   # third way to change parameters
-  p = pool.getParameter("/MultiLayer/LayerDecorator/NanoParticleDecoration/NanoParticleInfo1/MesoCrystal/FormFactorPyramid/half_side")
+  p = pool.getParameter("/MultiLayer/LayerDecorator/ParticleDecoration/ParticleInfo1/MesoCrystal/FormFactorPyramid/half_side")
   p.setValue(77.)
 
   print "------ Sample with changed parameters ------"

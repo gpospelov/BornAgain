@@ -28,6 +28,7 @@ void DiffuseDWBASimulation::run()
 
         p_np->setAmbientRefractiveIndex(m_refractive_index);
         IFormFactor *ff_particle = p_np->createFormFactor();
+        delete p_np;
         // TODO: include geometric transformation?
 //        IFormFactor  *ff_transformed(0);
 //        if(transform) {
@@ -65,6 +66,9 @@ void DiffuseDWBASimulation::run()
         m_dwba_intensity.next() = m_surface_density*wavevector_scattering_factor*wavevector_scattering_factor
                 *(intensity - std::norm(amplitude));
     }
+
+    for (size_t i=0; i<form_factors.size(); ++i) delete form_factors[i];
+
 }
 
 void DiffuseDWBASimulation::addParticleInfo(DiffuseParticleInfo *p_info)

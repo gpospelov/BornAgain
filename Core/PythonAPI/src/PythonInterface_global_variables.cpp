@@ -3,8 +3,12 @@
 #include "boost/python.hpp"
 #include "BasicVector3D.h"
 #include "Experiment.h"
+#include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorFullSphere.h"
+#include "FormFactorGauss.h"
+#include "FormFactorLorentz.h"
+#include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
@@ -34,6 +38,7 @@
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
+#include "Types.h"
 #include "PythonInterface_global_variables.h"
 
 namespace bp = boost::python;

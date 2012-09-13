@@ -19,6 +19,7 @@ FormFactorCrystal::FormFactorCrystal(
 FormFactorCrystal::~FormFactorCrystal()
 {
     delete mp_particle;
+    delete mp_basis_form_factor;
     delete mp_meso_form_factor;
 }
 

@@ -6,7 +6,7 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 #CONFIG  += debug
 QT      -= core gui
-#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)
@@ -100,6 +100,7 @@ SOURCES += \
     PythonAPI/src/PythonInterface_classes_3.cpp \
     PythonAPI/src/PythonInterface_free_functions.cpp \
     PythonAPI/src/PythonInterface_global_variables.cpp \
+    PythonAPI/src/PythonListConverter.cpp \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp \
     PythonAPI/src/PythonOutputData.cpp
@@ -213,6 +214,7 @@ HEADERS += \
     PythonAPI/inc/PythonInterface_classes_3.h \
     PythonAPI/inc/PythonInterface_free_functions.h \
     PythonAPI/inc/PythonInterface_global_variables.h \
+    PythonAPI/inc/PythonListConverter.h \
     PythonAPI/inc/PythonModule.h \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h
@@ -228,6 +230,7 @@ DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc 
     PythonAPI/inc/PythonInterface_classes_3.h \
     PythonAPI/inc/PythonInterface_free_functions.h \
     PythonAPI/inc/PythonInterface_global_variables.h \
+    PythonAPI/inc/PythonListConverter.h \
     PythonAPI/inc/PythonModule.h \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h
@@ -238,6 +241,7 @@ DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc 
     PythonAPI/src/PythonInterface_classes_3.cpp \
     PythonAPI/src/PythonInterface_free_functions.cpp \
     PythonAPI/src/PythonInterface_global_variables.cpp \
+    PythonAPI/src/PythonListConverter.cpp \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonOutputData.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp

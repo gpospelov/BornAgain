@@ -57,11 +57,12 @@ alpha=linspace(0., 2.0*degree, 2000)
 ai = array(alpha)
 rcoeff = zeros(ai.shape)
 
+kvec = kvector_t()
 for i in range(0,len(ai)):
-  kvec = kvector_t.LambdaAlphaPhi(1.54*angstrom, -ai[i], 0.0)
+  kvec.setLambdaAlphaPhi(1.54*angstrom, -ai[i], 0.0)
   calculator.execute(sample, kvec, fresnelCoeff)
   rcoeff[i]=abs(fresnelCoeff[0].R)
-  print i, rcoeff[i]
+  #print i, rcoeff[i]
 
 fg = pylab.figure()
 pylab.semilogy(ai, rcoeff)

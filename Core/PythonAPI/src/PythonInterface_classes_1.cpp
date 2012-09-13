@@ -4,8 +4,12 @@
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 #include "BasicVector3D.h"
 #include "Experiment.h"
+#include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorFullSphere.h"
+#include "FormFactorGauss.h"
+#include "FormFactorLorentz.h"
+#include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
@@ -35,6 +39,7 @@
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
 #include "Units.h"
+#include "Types.h"
 #include "PythonInterface_classes_1.h"
 
 namespace bp = boost::python;
@@ -53,6 +58,18 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
       , bp::wrapper< ISample >(){
         // copy constructor
     
+    }
+
+    virtual ::ISample * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->ISample::clone(  );
+        }
+    }
+    
+    ::ISample * default_clone(  ) const  {
+        return ISample::clone( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -88,6 +105,18 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
       , bp::wrapper< ICompositeSample >(){
         // null constructor
     
+    }
+
+    virtual ::ISample * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->ISample::clone(  );
+        }
+    }
+    
+    ::ISample * default_clone(  ) const  {
+        return ISample::clone( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -130,14 +159,28 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return func_clone(  );
     }
 
-    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( double depth, double weight, ::Geometry::Transform3D const & transform, double meso_volume ) const {
-        bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" );
-        return func_createDiffuseParticleInfo( depth, weight, boost::ref(transform), meso_volume );
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+        if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
+            return func_createDiffuseParticleInfo( boost::ref(parent_info) );
+        else{
+            return this->IClusteredParticles::createDiffuseParticleInfo( boost::ref(parent_info) );
+        }
+    }
+    
+    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+        return IClusteredParticles::createDiffuseParticleInfo( boost::ref(parent_info) );
     }
 
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const {
-        bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" );
-        return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
+        if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
+            return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+        else{
+            return this->IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+        }
+    }
+    
+    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
+        return IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
     }
 
     virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ){
@@ -185,6 +228,54 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
       , bp::wrapper< Crystal >(){
         // constructor
     
+    }
+
+    virtual ::Crystal * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->Crystal::clone(  );
+        }
+    }
+    
+    ::Crystal * default_clone(  ) const  {
+        return Crystal::clone( );
+    }
+
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+        if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
+            return func_createDiffuseParticleInfo( boost::ref(parent_info) );
+        else{
+            return this->Crystal::createDiffuseParticleInfo( boost::ref(parent_info) );
+        }
+    }
+    
+    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+        return Crystal::createDiffuseParticleInfo( boost::ref(parent_info) );
+    }
+
+    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
+        if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
+            return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+        else{
+            return this->Crystal::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+        }
+    }
+    
+    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
+        return Crystal::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->Crystal::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        Crystal::setAmbientRefractiveIndex( refractive_index );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -422,6 +513,101 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
 
 };
 
+struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCrystal > {
+
+    FormFactorCrystal_wrapper(FormFactorCrystal const & arg )
+    : FormFactorCrystal( arg )
+      , bp::wrapper< FormFactorCrystal >(){
+        // copy constructor
+        
+    }
+
+    virtual ::FormFactorCrystal * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->FormFactorCrystal::clone(  );
+        }
+    }
+    
+    ::FormFactorCrystal * default_clone(  ) const  {
+        return FormFactorCrystal::clone( );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->FormFactorCrystal::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        FormFactorCrystal::setAmbientRefractiveIndex( refractive_index );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+        else{
+            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+        }
+    }
+    
+    ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) const  {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->IFormFactor::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) const  {
+        return IFormFactor::getNumberOfStochasticParameters( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactor::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactor::getVolume( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
 struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorCylinder > {
 
     FormFactorCylinder_wrapper(double height, double radius )
@@ -429,6 +615,30 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
       , bp::wrapper< FormFactorCylinder >(){
         // constructor
     
+    }
+
+    virtual ::FormFactorCylinder * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->FormFactorCylinder::clone(  );
+        }
+    }
+    
+    ::FormFactorCylinder * default_clone(  ) const  {
+        return FormFactorCylinder::clone( );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->FormFactorCylinder::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) {
+        return FormFactorCylinder::getNumberOfStochasticParameters( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -521,6 +731,365 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
     
     }
 
+    virtual ::FormFactorFullSphere * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->FormFactorFullSphere::clone(  );
+        }
+    }
+    
+    ::FormFactorFullSphere * default_clone(  ) const  {
+        return FormFactorFullSphere::clone( );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->FormFactorFullSphere::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) {
+        return FormFactorFullSphere::getNumberOfStochasticParameters( );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+        else{
+            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+        }
+    }
+    
+    ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) const  {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->IFormFactor::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) const  {
+        return IFormFactor::getNumberOfStochasticParameters( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactor::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactor::getVolume( );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->IFormFactor::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        IFormFactor::setAmbientRefractiveIndex( refractive_index );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
+struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss > {
+
+    FormFactorGauss_wrapper(double volume )
+    : FormFactorGauss( volume )
+      , bp::wrapper< FormFactorGauss >(){
+        // constructor
+    
+    }
+
+    FormFactorGauss_wrapper(double height, double width )
+    : FormFactorGauss( height, width )
+      , bp::wrapper< FormFactorGauss >(){
+        // constructor
+    
+    }
+
+    virtual ::FormFactorGauss * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->FormFactorGauss::clone(  );
+        }
+    }
+    
+    ::FormFactorGauss * default_clone(  ) const  {
+        return FormFactorGauss::clone( );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->FormFactorGauss::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) {
+        return FormFactorGauss::getNumberOfStochasticParameters( );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+        else{
+            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+        }
+    }
+    
+    ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) const  {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->IFormFactor::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) const  {
+        return IFormFactor::getNumberOfStochasticParameters( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactor::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactor::getVolume( );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->IFormFactor::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        IFormFactor::setAmbientRefractiveIndex( refractive_index );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
+struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLorentz > {
+
+    FormFactorLorentz_wrapper(double volume )
+    : FormFactorLorentz( volume )
+      , bp::wrapper< FormFactorLorentz >(){
+        // constructor
+    
+    }
+
+    FormFactorLorentz_wrapper(double height, double width )
+    : FormFactorLorentz( height, width )
+      , bp::wrapper< FormFactorLorentz >(){
+        // constructor
+    
+    }
+
+    virtual ::FormFactorLorentz * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->FormFactorLorentz::clone(  );
+        }
+    }
+    
+    ::FormFactorLorentz * default_clone(  ) const  {
+        return FormFactorLorentz::clone( );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->FormFactorLorentz::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) {
+        return FormFactorLorentz::getNumberOfStochasticParameters( );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) {
+        return ISample::createParameterTree( );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+        else{
+            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+        }
+    }
+    
+    ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) const  {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->IFormFactor::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) const  {
+        return IFormFactor::getNumberOfStochasticParameters( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactor::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactor::getVolume( );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->IFormFactor::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        IFormFactor::setAmbientRefractiveIndex( refractive_index );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
+struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism3 > {
+
+    FormFactorPrism3_wrapper(double height, double half_side )
+    : FormFactorPrism3( height, half_side )
+      , bp::wrapper< FormFactorPrism3 >(){
+        // constructor
+    
+    }
+
+    virtual ::FormFactorPrism3 * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->FormFactorPrism3::clone(  );
+        }
+    }
+    
+    ::FormFactorPrism3 * default_clone(  ) const  {
+        return FormFactorPrism3::clone( );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->FormFactorPrism3::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) {
+        return FormFactorPrism3::getNumberOfStochasticParameters( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -602,6 +1171,30 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
       , bp::wrapper< FormFactorPyramid >(){
         // constructor
     
+    }
+
+    virtual ::FormFactorPyramid * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->FormFactorPyramid::clone(  );
+        }
+    }
+    
+    ::FormFactorPyramid * default_clone(  ) const  {
+        return FormFactorPyramid::clone( );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->FormFactorPyramid::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) {
+        return FormFactorPyramid::getNumberOfStochasticParameters( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -722,6 +1315,13 @@ void register_classes_1(){
         MultiLayerCoeff_t_exposer.def( bp::vector_indexing_suite< ::std::vector< OpticalFresnel::FresnelCoeff > >() );
     }
 
+    { //::std::vector< Geometry::BasicVector3D<double> >
+        typedef bp::class_< std::vector< Geometry::BasicVector3D<double> > > vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer_t;
+        vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer_t vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer = vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer_t( "vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater_" );
+        bp::scope vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__scope( vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer );
+        vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< Geometry::BasicVector3D<double> > >() );
+    }
+
     { //::std::vector< DiffuseParticleInfo* >
         typedef bp::class_< std::vector< DiffuseParticleInfo* > > vector_less__DiffuseParticleInfo_ptr___greater__exposer_t;
         vector_less__DiffuseParticleInfo_ptr___greater__exposer_t vector_less__DiffuseParticleInfo_ptr___greater__exposer = vector_less__DiffuseParticleInfo_ptr___greater__exposer_t( "vector_less__DiffuseParticleInfo_ptr___greater_" );
@@ -735,6 +1335,18 @@ void register_classes_1(){
         bp::scope ISample_scope( ISample_exposer );
         ISample_exposer.def( bp::init< >() );
         ISample_exposer.def( bp::init< ISample const & >(( bp::arg("other") )) );
+        { //::ISample::clone
+        
+            typedef ::ISample * ( ::ISample::*clone_function_type )(  ) const;
+            typedef ::ISample * ( ISample_wrapper::*default_clone_function_type )(  ) const;
+            
+            ISample_exposer.def( 
+                "clone"
+                , clone_function_type(&::ISample::clone)
+                , default_clone_function_type(&ISample_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         { //::ISample::createParameterTree
         
             typedef ::ParameterPool * ( ::ISample::*createParameterTree_function_type )(  ) ;
@@ -774,6 +1386,11 @@ void register_classes_1(){
 
     bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, boost::noncopyable >( "ICompositeSample", bp::init< >() )    
         .def( 
+            "clone"
+            , (::ISample * ( ::ISample::* )(  ) const)(&::ISample::clone)
+            , (::ISample * ( ICompositeSample_wrapper::* )(  ) const)(&ICompositeSample_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_createParameterTree)
@@ -787,15 +1404,17 @@ void register_classes_1(){
         .def( 
             "clone"
             , bp::pure_virtual( (::IClusteredParticles * ( ::IClusteredParticles::* )(  ) const)(&::IClusteredParticles::clone) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createDiffuseParticleInfo"
-            , bp::pure_virtual( (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredParticles::* )( double,double,::Geometry::Transform3D const &,double ) const)(&::IClusteredParticles::createDiffuseParticleInfo) )
-            , ( bp::arg("depth"), bp::arg("weight"), bp::arg("transform"), bp::arg("meso_volume") )
-                /* undefined call policies */ )    
+            , (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredParticles::* )( ::ParticleInfo const & ) const)(&::IClusteredParticles::createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( IClusteredParticles_wrapper::* )( ::ParticleInfo const & ) const)(&IClusteredParticles_wrapper::default_createDiffuseParticleInfo)
+            , ( bp::arg("parent_info") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createTotalFormFactor"
-            , bp::pure_virtual( (::IFormFactor * ( ::IClusteredParticles::* )( ::IFormFactor const &,::complex_t ) const)(&::IClusteredParticles::createTotalFormFactor) )
+            , (::IFormFactor * ( ::IClusteredParticles::* )( ::IFormFactor const &,::complex_t ) const)(&::IClusteredParticles::createTotalFormFactor)
+            , (::IFormFactor * ( IClusteredParticles_wrapper::* )( ::IFormFactor const &,::complex_t ) const)(&IClusteredParticles_wrapper::default_createTotalFormFactor)
             , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -813,6 +1432,43 @@ void register_classes_1(){
             , (void ( IClusteredParticles_wrapper::* )(  ) )(&IClusteredParticles_wrapper::default_walk_and_print) );
 
     bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles > >( "Crystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
+        .def( 
+            "clone"
+            , (::Crystal * ( ::Crystal::* )(  ) const)(&::Crystal::clone)
+            , (::Crystal * ( Crystal_wrapper::* )(  ) const)(&Crystal_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createBasis"
+            , (::Particle * ( ::Crystal::* )(  ) const)( &::Crystal::createBasis )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createDiffuseParticleInfo"
+            , (::std::vector< DiffuseParticleInfo* > * ( ::Crystal::* )( ::ParticleInfo const & ) const)(&::Crystal::createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( Crystal_wrapper::* )( ::ParticleInfo const & ) const)(&Crystal_wrapper::default_createDiffuseParticleInfo)
+            , ( bp::arg("parent_info") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createTotalFormFactor"
+            , (::IFormFactor * ( ::Crystal::* )( ::IFormFactor const &,::complex_t ) const)(&::Crystal::createTotalFormFactor)
+            , (::IFormFactor * ( Crystal_wrapper::* )( ::IFormFactor const &,::complex_t ) const)(&Crystal_wrapper::default_createTotalFormFactor)
+            , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getLattice"
+            , (::Lattice ( ::Crystal::* )(  ) const)( &::Crystal::getLattice ) )    
+        .def( 
+            "getLatticeBasis"
+            , (::LatticeBasis const * ( ::Crystal::* )(  ) const)( &::Crystal::getLatticeBasis )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::Crystal::* )( ::complex_t ) )(&::Crystal::setAmbientRefractiveIndex)
+            , (void ( Crystal_wrapper::* )( ::complex_t ) )(&Crystal_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "setDWFactor"
+            , (void ( ::Crystal::* )( double ) )( &::Crystal::setDWFactor )
+            , ( bp::arg("dw_factor") ) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -849,7 +1505,7 @@ void register_classes_1(){
         .def( 
             "clone"
             , bp::pure_virtual( (::IFormFactor * ( ::IFormFactor::* )(  ) const)(&::IFormFactor::clone) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
             , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactor::evaluate) )
@@ -881,7 +1537,7 @@ void register_classes_1(){
         .def( 
             "clone"
             , bp::pure_virtual( (::IFormFactorBorn * ( ::IFormFactorBorn::* )(  ) const)(&::IFormFactorBorn::clone) )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
             , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
@@ -914,7 +1570,50 @@ void register_classes_1(){
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( IFormFactorBorn_wrapper::* )(  ) )(&IFormFactorBorn_wrapper::default_walk_and_print) );
 
+    bp::class_< FormFactorCrystal_wrapper, bp::bases< IFormFactorBorn > >( "FormFactorCrystal", bp::no_init )    
+        .def( 
+            "clone"
+            , (::FormFactorCrystal * ( ::FormFactorCrystal::* )(  ) const)(&::FormFactorCrystal::clone)
+            , (::FormFactorCrystal * ( FormFactorCrystal_wrapper::* )(  ) const)(&FormFactorCrystal_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::FormFactorCrystal::* )( ::complex_t ) )(&::FormFactorCrystal::setAmbientRefractiveIndex)
+            , (void ( FormFactorCrystal_wrapper::* )( ::complex_t ) )(&FormFactorCrystal_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorCrystal_wrapper::* )(  ) )(&FormFactorCrystal_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorCrystal_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorCrystal_wrapper::default_evaluate)
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)
+            , (int ( FormFactorCrystal_wrapper::* )(  ) const)(&FormFactorCrystal_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "getVolume"
+            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
+            , (double ( FormFactorCrystal_wrapper::* )(  ) const)(&FormFactorCrystal_wrapper::default_getVolume) )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( FormFactorCrystal_wrapper::* )(  ) )(&FormFactorCrystal_wrapper::default_walk_and_print) );
+
     bp::class_< FormFactorCylinder_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorCylinder", bp::init< double, double >(( bp::arg("height"), bp::arg("radius") )) )    
+        .def( 
+            "clone"
+            , (::FormFactorCylinder * ( ::FormFactorCylinder::* )(  ) const)(&::FormFactorCylinder::clone)
+            , (::FormFactorCylinder * ( FormFactorCylinder_wrapper::* )(  ) const)(&FormFactorCylinder_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::FormFactorCylinder::* )(  ) )(&::FormFactorCylinder::getNumberOfStochasticParameters)
+            , (int ( FormFactorCylinder_wrapper::* )(  ) )(&FormFactorCylinder_wrapper::default_getNumberOfStochasticParameters) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -945,6 +1644,18 @@ void register_classes_1(){
 
     bp::class_< FormFactorFullSphere_wrapper, bp::bases< IFormFactorBorn > >( "FormFactorFullSphere", bp::init< double >(( bp::arg("radius") )) )    
         .def( 
+            "clone"
+            , (::FormFactorFullSphere * ( ::FormFactorFullSphere::* )(  ) const)(&::FormFactorFullSphere::clone)
+            , (::FormFactorFullSphere * ( FormFactorFullSphere_wrapper::* )(  ) const)(&FormFactorFullSphere_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::FormFactorFullSphere::* )(  ) )(&::FormFactorFullSphere::getNumberOfStochasticParameters)
+            , (int ( FormFactorFullSphere_wrapper::* )(  ) )(&FormFactorFullSphere_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "getRadius"
+            , (double ( ::FormFactorFullSphere::* )(  ) const)( &::FormFactorFullSphere::getRadius ) )    
+        .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( FormFactorFullSphere_wrapper::* )(  ) )(&FormFactorFullSphere_wrapper::default_createParameterTree)
@@ -972,7 +1683,132 @@ void register_classes_1(){
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( FormFactorFullSphere_wrapper::* )(  ) )(&FormFactorFullSphere_wrapper::default_walk_and_print) );
 
+    bp::class_< FormFactorGauss_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorGauss", bp::init< double >(( bp::arg("volume") )) )    
+        .def( bp::init< double, double >(( bp::arg("height"), bp::arg("width") )) )    
+        .def( 
+            "clone"
+            , (::FormFactorGauss * ( ::FormFactorGauss::* )(  ) const)(&::FormFactorGauss::clone)
+            , (::FormFactorGauss * ( FormFactorGauss_wrapper::* )(  ) const)(&FormFactorGauss_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::FormFactorGauss::* )(  ) )(&::FormFactorGauss::getNumberOfStochasticParameters)
+            , (int ( FormFactorGauss_wrapper::* )(  ) )(&FormFactorGauss_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorGauss_wrapper::* )(  ) )(&FormFactorGauss_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorGauss_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorGauss_wrapper::default_evaluate)
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)
+            , (int ( FormFactorGauss_wrapper::* )(  ) const)(&FormFactorGauss_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "getVolume"
+            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
+            , (double ( FormFactorGauss_wrapper::* )(  ) const)(&FormFactorGauss_wrapper::default_getVolume) )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
+            , (void ( FormFactorGauss_wrapper::* )( ::complex_t ) )(&FormFactorGauss_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( FormFactorGauss_wrapper::* )(  ) )(&FormFactorGauss_wrapper::default_walk_and_print) );
+
+    bp::class_< FormFactorLorentz_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorLorentz", bp::init< double >(( bp::arg("volume") )) )    
+        .def( bp::init< double, double >(( bp::arg("height"), bp::arg("width") )) )    
+        .def( 
+            "clone"
+            , (::FormFactorLorentz * ( ::FormFactorLorentz::* )(  ) const)(&::FormFactorLorentz::clone)
+            , (::FormFactorLorentz * ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::FormFactorLorentz::* )(  ) )(&::FormFactorLorentz::getNumberOfStochasticParameters)
+            , (int ( FormFactorLorentz_wrapper::* )(  ) )(&FormFactorLorentz_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorLorentz_wrapper::* )(  ) )(&FormFactorLorentz_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorLorentz_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorLorentz_wrapper::default_evaluate)
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)
+            , (int ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "getVolume"
+            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
+            , (double ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_getVolume) )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
+            , (void ( FormFactorLorentz_wrapper::* )( ::complex_t ) )(&FormFactorLorentz_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( FormFactorLorentz_wrapper::* )(  ) )(&FormFactorLorentz_wrapper::default_walk_and_print) );
+
+    bp::class_< FormFactorPrism3_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorPrism3", bp::init< double, double >(( bp::arg("height"), bp::arg("half_side") )) )    
+        .def( 
+            "clone"
+            , (::FormFactorPrism3 * ( ::FormFactorPrism3::* )(  ) const)(&::FormFactorPrism3::clone)
+            , (::FormFactorPrism3 * ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::FormFactorPrism3::* )(  ) )(&::FormFactorPrism3::getNumberOfStochasticParameters)
+            , (int ( FormFactorPrism3_wrapper::* )(  ) )(&FormFactorPrism3_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorPrism3_wrapper::* )(  ) )(&FormFactorPrism3_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorPrism3_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorPrism3_wrapper::default_evaluate)
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)
+            , (int ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "getVolume"
+            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
+            , (double ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_getVolume) )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
+            , (void ( FormFactorPrism3_wrapper::* )( ::complex_t ) )(&FormFactorPrism3_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( FormFactorPrism3_wrapper::* )(  ) )(&FormFactorPrism3_wrapper::default_walk_and_print) );
+
     bp::class_< FormFactorPyramid_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorPyramid", bp::init< double, double, double >(( bp::arg("height"), bp::arg("half_side"), bp::arg("alpha") )) )    
+        .def( 
+            "clone"
+            , (::FormFactorPyramid * ( ::FormFactorPyramid::* )(  ) const)(&::FormFactorPyramid::clone)
+            , (::FormFactorPyramid * ( FormFactorPyramid_wrapper::* )(  ) const)(&FormFactorPyramid_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::FormFactorPyramid::* )(  ) )(&::FormFactorPyramid::getNumberOfStochasticParameters)
+            , (int ( FormFactorPyramid_wrapper::* )(  ) )(&FormFactorPyramid_wrapper::default_getNumberOfStochasticParameters) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -1014,483 +1850,5 @@ void register_classes_1(){
             "setDetectorParameters"
             , (void ( ::GISASExperiment::* )( ::size_t,double,double,::size_t,double,double,bool ) )( &::GISASExperiment::setDetectorParameters )
             , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) );
-
-    { //::Geometry::BasicVector3D< double >
-        typedef bp::class_< Geometry::BasicVector3D< double > > kvector_t_exposer_t;
-        kvector_t_exposer_t kvector_t_exposer = kvector_t_exposer_t( "kvector_t", bp::init< >() );
-        bp::scope kvector_t_scope( kvector_t_exposer );
-        bp::scope().attr("X") = (int)Geometry::BasicVector3D<double>::X;
-        bp::scope().attr("Y") = (int)Geometry::BasicVector3D<double>::Y;
-        bp::scope().attr("Z") = (int)Geometry::BasicVector3D<double>::Z;
-        bp::scope().attr("NUM_COORDINATES") = (int)Geometry::BasicVector3D<double>::NUM_COORDINATES;
-        bp::scope().attr("SIZE") = (int)Geometry::BasicVector3D<double>::SIZE;
-        kvector_t_exposer.def( bp::init< double, double, double >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
-        { //::Geometry::BasicVector3D< double >::angle
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*angle_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
-            
-            kvector_t_exposer.def( 
-                "angle"
-                , angle_function_type( &::Geometry::BasicVector3D< double >::angle )
-                , ( bp::arg("v") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::cosTheta
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*cosTheta_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "cosTheta"
-                , cosTheta_function_type( &::Geometry::BasicVector3D< double >::cosTheta ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::cross
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > ( exported_class_t::*cross_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
-            
-            kvector_t_exposer.def( 
-                "cross"
-                , cross_function_type( &::Geometry::BasicVector3D< double >::cross )
-                , ( bp::arg("v") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::dot
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*dot_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
-            
-            kvector_t_exposer.def( 
-                "dot"
-                , dot_function_type( &::Geometry::BasicVector3D< double >::dot )
-                , ( bp::arg("v") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::getPhi
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*getPhi_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "getPhi"
-                , getPhi_function_type( &::Geometry::BasicVector3D< double >::getPhi ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::getR
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*getR_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "getR"
-                , getR_function_type( &::Geometry::BasicVector3D< double >::getR ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::getTheta
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*getTheta_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "getTheta"
-                , getTheta_function_type( &::Geometry::BasicVector3D< double >::getTheta ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::mag
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*mag_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "mag"
-                , mag_function_type( &::Geometry::BasicVector3D< double >::mag ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::mag2
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*mag2_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "mag2"
-                , mag2_function_type( &::Geometry::BasicVector3D< double >::mag2 ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::magxy
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*magxy_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "magxy"
-                , magxy_function_type( &::Geometry::BasicVector3D< double >::magxy ) );
-        
-        }
-        kvector_t_exposer.def( bp::self *= bp::other< double >() );
-        kvector_t_exposer.def( bp::self += bp::self );
-        kvector_t_exposer.def( bp::self -= bp::self );
-        kvector_t_exposer.def( bp::self /= bp::other< double >() );
-        { //::Geometry::BasicVector3D< double >::operator=
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*assign_function_type )( ::Geometry::BasicVector3D< double > const & ) ;
-            
-            kvector_t_exposer.def( 
-                "assign"
-                , assign_function_type( &::Geometry::BasicVector3D< double >::operator= )
-                , ( bp::arg("v") )
-                , bp::return_self< >() );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::operator[]
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*__getitem___function_type )( int ) const;
-            
-            kvector_t_exposer.def( 
-                "__getitem__"
-                , __getitem___function_type( &::Geometry::BasicVector3D< double >::operator[] )
-                , ( bp::arg("i") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::operator[]
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double & ( exported_class_t::*__getitem___function_type )( int ) ;
-            
-            kvector_t_exposer.def( 
-                "__getitem__"
-                , __getitem___function_type( &::Geometry::BasicVector3D< double >::operator[] )
-                , ( bp::arg("i") )
-                , bp::return_value_policy< bp::copy_non_const_reference >() );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::orthogonal
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > ( exported_class_t::*orthogonal_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "orthogonal"
-                , orthogonal_function_type( &::Geometry::BasicVector3D< double >::orthogonal ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::perp
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*perp_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "perp"
-                , perp_function_type( &::Geometry::BasicVector3D< double >::perp ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::perp
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*perp_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
-            
-            kvector_t_exposer.def( 
-                "perp"
-                , perp_function_type( &::Geometry::BasicVector3D< double >::perp )
-                , ( bp::arg("v") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::perp2
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*perp2_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "perp2"
-                , perp2_function_type( &::Geometry::BasicVector3D< double >::perp2 ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::perp2
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*perp2_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
-            
-            kvector_t_exposer.def( 
-                "perp2"
-                , perp2_function_type( &::Geometry::BasicVector3D< double >::perp2 )
-                , ( bp::arg("v") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::phi
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*phi_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "phi"
-                , phi_function_type( &::Geometry::BasicVector3D< double >::phi ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::r
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*r_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "r"
-                , r_function_type( &::Geometry::BasicVector3D< double >::r ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::rho
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*rho_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "rho"
-                , rho_function_type( &::Geometry::BasicVector3D< double >::rho ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::rotate
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*rotate_function_type )( double,::Geometry::BasicVector3D< double > const & ) ;
-            
-            kvector_t_exposer.def( 
-                "rotate"
-                , rotate_function_type( &::Geometry::BasicVector3D< double >::rotate )
-                , ( bp::arg("a"), bp::arg("v") )
-                , bp::return_internal_reference< >() );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::rotateX
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*rotateX_function_type )( double ) ;
-            
-            kvector_t_exposer.def( 
-                "rotateX"
-                , rotateX_function_type( &::Geometry::BasicVector3D< double >::rotateX )
-                , ( bp::arg("a") )
-                , bp::return_internal_reference< >() );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::rotateY
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*rotateY_function_type )( double ) ;
-            
-            kvector_t_exposer.def( 
-                "rotateY"
-                , rotateY_function_type( &::Geometry::BasicVector3D< double >::rotateY )
-                , ( bp::arg("a") )
-                , bp::return_internal_reference< >() );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::rotateZ
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*rotateZ_function_type )( double ) ;
-            
-            kvector_t_exposer.def( 
-                "rotateZ"
-                , rotateZ_function_type( &::Geometry::BasicVector3D< double >::rotateZ )
-                , ( bp::arg("a") )
-                , bp::return_internal_reference< >() );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::set
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*set_function_type )( double,double,double ) ;
-            
-            kvector_t_exposer.def( 
-                "set"
-                , set_function_type( &::Geometry::BasicVector3D< double >::set )
-                , ( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::setLambdaAlphaPhi
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setLambdaAlphaPhi_function_type )( double,double,double ) ;
-            
-            kvector_t_exposer.def( 
-                "setLambdaAlphaPhi"
-                , setLambdaAlphaPhi_function_type( &::Geometry::BasicVector3D< double >::setLambdaAlphaPhi )
-                , ( bp::arg("lambda"), bp::arg("alpha"), bp::arg("phi") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::setMag
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setMag_function_type )( double ) ;
-            
-            kvector_t_exposer.def( 
-                "setMag"
-                , setMag_function_type( &::Geometry::BasicVector3D< double >::setMag )
-                , ( bp::arg("ma") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::setPerp
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setPerp_function_type )( double ) ;
-            
-            kvector_t_exposer.def( 
-                "setPerp"
-                , setPerp_function_type( &::Geometry::BasicVector3D< double >::setPerp )
-                , ( bp::arg("rh") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::setPhi
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setPhi_function_type )( double ) ;
-            
-            kvector_t_exposer.def( 
-                "setPhi"
-                , setPhi_function_type( &::Geometry::BasicVector3D< double >::setPhi )
-                , ( bp::arg("ph") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::setR
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setR_function_type )( double ) ;
-            
-            kvector_t_exposer.def( 
-                "setR"
-                , setR_function_type( &::Geometry::BasicVector3D< double >::setR )
-                , ( bp::arg("ma") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::setTheta
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setTheta_function_type )( double ) ;
-            
-            kvector_t_exposer.def( 
-                "setTheta"
-                , setTheta_function_type( &::Geometry::BasicVector3D< double >::setTheta )
-                , ( bp::arg("th") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::setX
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setX_function_type )( double ) ;
-            
-            kvector_t_exposer.def( 
-                "setX"
-                , setX_function_type( &::Geometry::BasicVector3D< double >::setX )
-                , ( bp::arg("a") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::setXYZ
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setXYZ_function_type )( double,double,double ) ;
-            
-            kvector_t_exposer.def( 
-                "setXYZ"
-                , setXYZ_function_type( &::Geometry::BasicVector3D< double >::setXYZ )
-                , ( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::setY
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setY_function_type )( double ) ;
-            
-            kvector_t_exposer.def( 
-                "setY"
-                , setY_function_type( &::Geometry::BasicVector3D< double >::setY )
-                , ( bp::arg("a") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::setZ
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setZ_function_type )( double ) ;
-            
-            kvector_t_exposer.def( 
-                "setZ"
-                , setZ_function_type( &::Geometry::BasicVector3D< double >::setZ )
-                , ( bp::arg("a") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::theta
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*theta_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "theta"
-                , theta_function_type( &::Geometry::BasicVector3D< double >::theta ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::transform
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*transform_function_type )( ::Geometry::Transform3D const & ) ;
-            
-            kvector_t_exposer.def( 
-                "transform"
-                , transform_function_type( &::Geometry::BasicVector3D< double >::transform )
-                , ( bp::arg("m") )
-                , bp::return_internal_reference< >() );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::unit
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > ( exported_class_t::*unit_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "unit"
-                , unit_function_type( &::Geometry::BasicVector3D< double >::unit ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::x
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*x_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "x"
-                , x_function_type( &::Geometry::BasicVector3D< double >::x ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::y
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*y_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "y"
-                , y_function_type( &::Geometry::BasicVector3D< double >::y ) );
-        
-        }
-        { //::Geometry::BasicVector3D< double >::z
-        
-            typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*z_function_type )(  ) const;
-            
-            kvector_t_exposer.def( 
-                "z"
-                , z_function_type( &::Geometry::BasicVector3D< double >::z ) );
-        
-        }
-        kvector_t_exposer.def( bp::self != bp::self );
-        kvector_t_exposer.def( bp::other< double >() * bp::self );
-        kvector_t_exposer.def( bp::self * bp::self );
-        kvector_t_exposer.def( bp::self * bp::other< double >() );
-        kvector_t_exposer.def( bp::self + bp::self );
-        kvector_t_exposer.def( +bp::self );
-        kvector_t_exposer.def( bp::self - bp::self );
-        kvector_t_exposer.def( -bp::self );
-        kvector_t_exposer.def( bp::self / bp::other< double >() );
-        kvector_t_exposer.def( bp::self_ns::str( bp::self ) );
-        kvector_t_exposer.def( bp::self == bp::self );
-    }
 
 }

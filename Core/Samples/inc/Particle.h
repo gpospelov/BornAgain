@@ -29,6 +29,7 @@ class Particle : public ICompositeSample
 {
 public:
     Particle(complex_t refractive_index, IFormFactor* p_form_factor = 0);
+    Particle(complex_t refractive_index, const IFormFactor &p_form_factor);
     virtual ~Particle();
     virtual Particle *clone() const;
 
@@ -71,7 +72,7 @@ protected:
     //!< pointer to the form factor
 
 private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
+    //! copy constructor and assignment operator are absent
     Particle(const Particle &);
     Particle &operator=(const Particle &);
 

@@ -353,9 +353,9 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         return func_clone(  );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
-        return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+        return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -434,16 +434,16 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         return func_clone(  );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         else{
-            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t q ) const {
@@ -558,16 +558,16 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         return ISample::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         else{
-            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -653,16 +653,16 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         return ISample::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         else{
-            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -767,16 +767,16 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
         return ISample::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         else{
-            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -881,16 +881,16 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         return ISample::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         else{
-            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -995,16 +995,16 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         return ISample::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         else{
-            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -1102,16 +1102,16 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         return ISample::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         else{
-            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -1209,16 +1209,16 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         return ISample::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( k_i, k_f, alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         else{
-            return this->IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t k_i, ::cvector_t k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( k_i, k_f, alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -1316,10 +1316,10 @@ void register_classes_1(){
     }
 
     { //::std::vector< Geometry::BasicVector3D<double> >
-        typedef bp::class_< std::vector< Geometry::BasicVector3D<double> > > vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer_t;
-        vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer_t vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer = vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer_t( "vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater_" );
-        bp::scope vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__scope( vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer );
-        vector_less__Geometry_scope_BasicVector3D_less_double_greater___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< Geometry::BasicVector3D<double> > >() );
+        typedef bp::class_< std::vector< Geometry::BasicVector3D<double> > > vector_kvector_t_exposer_t;
+        vector_kvector_t_exposer_t vector_kvector_t_exposer = vector_kvector_t_exposer_t( "vector_kvector_t" );
+        bp::scope vector_kvector_t_scope( vector_kvector_t_exposer );
+        vector_kvector_t_exposer.def( bp::vector_indexing_suite< ::std::vector< Geometry::BasicVector3D<double> > >() );
     }
 
     { //::std::vector< DiffuseParticleInfo* >
@@ -1508,7 +1508,7 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactor::evaluate) )
+            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactor::evaluate) )
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getNumberOfStochasticParameters"
@@ -1540,8 +1540,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( IFormFactorBorn_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&IFormFactorBorn_wrapper::default_evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( IFormFactorBorn_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&IFormFactorBorn_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "evaluate_for_q"
@@ -1588,8 +1588,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorCrystal_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorCrystal_wrapper::default_evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorCrystal_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorCrystal_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getNumberOfStochasticParameters"
@@ -1621,8 +1621,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorCylinder_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorCylinder_wrapper::default_evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorCylinder_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorCylinder_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getNumberOfStochasticParameters"
@@ -1662,8 +1662,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorFullSphere_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorFullSphere_wrapper::default_evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorFullSphere_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorFullSphere_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getNumberOfStochasticParameters"
@@ -1701,8 +1701,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorGauss_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorGauss_wrapper::default_evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorGauss_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorGauss_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getNumberOfStochasticParameters"
@@ -1740,8 +1740,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorLorentz_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorLorentz_wrapper::default_evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorLorentz_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorLorentz_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getNumberOfStochasticParameters"
@@ -1778,8 +1778,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorPrism3_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorPrism3_wrapper::default_evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorPrism3_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorPrism3_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getNumberOfStochasticParameters"
@@ -1816,8 +1816,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t,::cvector_t,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorPyramid_wrapper::* )( ::cvector_t,::cvector_t,double,double ) const)(&FormFactorPyramid_wrapper::default_evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorPyramid_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorPyramid_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getNumberOfStochasticParameters"
@@ -1849,6 +1849,9 @@ void register_classes_1(){
         .def( 
             "setDetectorParameters"
             , (void ( ::GISASExperiment::* )( ::size_t,double,double,::size_t,double,double,bool ) )( &::GISASExperiment::setDetectorParameters )
-            , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) );
+            , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) )    
+        .def( 
+            "smearIntensityFromZAxisTilting"
+            , (void ( ::GISASExperiment::* )(  ) )( &::GISASExperiment::smearIntensityFromZAxisTilting ) );
 
 }

@@ -23,7 +23,7 @@ public:
     virtual ~FormFactorDWBAConstZ();
     virtual FormFactorDWBAConstZ *clone() const;
 
-    virtual complex_t evaluate(cvector_t k_i, cvector_t k_f,
+    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f,
     		double alpha_i, double alpha_f) const;
 protected:
     double m_depth;

@@ -22,6 +22,7 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "MesoCrystal.h"
+#include "Lattice.h"
 
 
 class TestMesoCrystal : public IFunctionalTest
@@ -38,6 +39,6 @@ private:
 };
 
 MesoCrystal *createMesoCrystal(double particle_radius, complex_t n_particle, const IFormFactor *p_meso_form_factor);
-
+const Lattice *createLattice(double stacking_radius);
 
 #endif /* TESTMESOCRYSTAL_H_ */

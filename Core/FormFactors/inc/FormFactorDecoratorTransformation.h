@@ -25,7 +25,7 @@ public:
     virtual FormFactorDecoratorTransformation *clone() const;
     virtual ~FormFactorDecoratorTransformation();
 
-    virtual complex_t evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
     virtual int getNumberOfStochasticParameters() const;
 
 protected:
@@ -54,12 +54,14 @@ inline FormFactorDecoratorTransformation::~FormFactorDecoratorTransformation()
     delete mp_inverse_transform;
 }
 
-inline complex_t FormFactorDecoratorTransformation::evaluate(cvector_t k_i, cvector_t k_f,
+inline complex_t FormFactorDecoratorTransformation::evaluate(const cvector_t &k_i, const cvector_t &k_f,
         double alpha_i, double alpha_f) const
 {
-    k_i.transform(*mp_inverse_transform);
-    k_f.transform(*mp_inverse_transform);
-    return mp_form_factor->evaluate(k_i, k_f, alpha_i, alpha_f);
+    cvector_t newki(k_i);
+    cvector_t newkf(k_f);
+    newki.transform(*mp_inverse_transform);
+    newkf.transform(*mp_inverse_transform);
+    return mp_form_factor->evaluate(newki, newkf, alpha_i, alpha_f);
 }
 
 inline int FormFactorDecoratorTransformation::getNumberOfStochasticParameters() const

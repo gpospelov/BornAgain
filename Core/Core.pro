@@ -142,6 +142,7 @@ HEADERS += \
     FormFactors/inc/FormFactorPyramid.h \
     FormFactors/inc/FormFactorLorentz.h \
     FormFactors/inc/FormFactors.h \
+    FormFactors/inc/FormFactorSphereGaussianRadius.h \
     FormFactors/inc/IFormFactor.h \
     FormFactors/inc/FormFactorCrystal.h \
     FormFactors/inc/FormFactorWeighted.h \
@@ -199,6 +200,7 @@ HEADERS += \
     Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
+    Tools/inc/TRange.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticGaussian.h \
     Tools/inc/StochasticSampledParameter.h \

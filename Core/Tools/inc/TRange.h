@@ -1,5 +1,5 @@
-#ifndef FORMFACTORS_H_
-#define FORMFACTORS_H_
+#ifndef TRANGE_H_
+#define TRANGE_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,17 +9,23 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   FormFactors.h
-//! @brief  Definition of
+//! @file   TRange.h
+//! @brief  Definition of TRange template
 //! @author Scientific Computing Group at FRM II
-//! @date   Jun 27, 2012
+//! @date   Sep 12, 2012
 
-#include "FormFactorPyramid.h"
-#include "FormFactorCylinder.h"
-#include "FormFactorPrism3.h"
-#include "FormFactorFullSphere.h"
-#include "FormFactorLorentz.h"
-#include "FormFactorGauss.h"
-#include "FormFactorSphereGaussianRadius.h"
+template <class T> class TRange
+{
+public:
+    TRange(T min, T max) : m_min(min), m_max(max) {}
 
-#endif /* FORMFACTORS_H_ */
+    T getMin() const { return m_min; }
+    T getMax() const { return m_max; }
+    T getDifference() const { return m_max-m_min; }
+
+    bool inRange(T value) const { return value >= m_min && value < m_max; }
+private:
+    T m_min, m_max;
+};
+
+#endif /* TRANGE_H_ */

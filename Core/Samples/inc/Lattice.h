@@ -17,6 +17,7 @@
 #include "Types.h"
 #include "Coordinate3D.h"
 #include "ISelectionRule.h"
+#include "TRange.h"
 
 #include <vector>
 
@@ -63,6 +64,9 @@ public:
     //! get a list of reciprocal lattice vectors within a specified distance of a given vector
     std::vector<kvector_t> getReciprocalLatticeVectorsWithinRadius(
             const kvector_t &input_vector, double radius) const;
+
+    //! get a list of rotation angles within a specified range that hit a maximal set of small Bragg peaks
+    std::vector<double> collectBraggAngles(size_t size, double max_radius, const TRange<double> &phi_range, const TRange<double> &z_range) const;
 
     //! set a selection rule for the reciprocal vectors
     void setSelectionRule(ISelectionRule *p_selection_rule) {

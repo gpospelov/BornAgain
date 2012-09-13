@@ -22,7 +22,7 @@ public:
     virtual FormFactorDecoratorDebyeWaller *clone() const;
     virtual ~FormFactorDecoratorDebyeWaller() {};
 
-    virtual complex_t evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const;
 
@@ -51,8 +51,7 @@ inline FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() c
     return new FormFactorDecoratorDebyeWaller(mp_form_factor->clone(), m_h_dw_factor, m_r_dw_factor);
 }
 
-inline complex_t FormFactorDecoratorDebyeWaller::evaluate(cvector_t k_i,
-        cvector_t k_f, double alpha_i, double alpha_f) const
+inline complex_t FormFactorDecoratorDebyeWaller::evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const
 {
     cvector_t q = k_i - k_f;
     double qr2 = std::norm(q.x()) + std::norm(q.y());

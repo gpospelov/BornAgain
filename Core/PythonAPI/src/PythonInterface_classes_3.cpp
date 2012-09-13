@@ -3,8 +3,12 @@
 #include "boost/python.hpp"
 #include "BasicVector3D.h"
 #include "Experiment.h"
+#include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorFullSphere.h"
+#include "FormFactorGauss.h"
+#include "FormFactorLorentz.h"
+#include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
@@ -451,6 +455,30 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         return Layer::clone( );
     }
 
+    virtual ::IMaterial const * getMaterial(  ) const  {
+        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
+            return func_getMaterial(  );
+        else{
+            return this->Layer::getMaterial(  );
+        }
+    }
+    
+    ::IMaterial const * default_getMaterial(  ) const  {
+        return Layer::getMaterial( );
+    }
+
+    virtual ::complex_t getRefractiveIndex(  ) const  {
+        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
+            return func_getRefractiveIndex(  );
+        else{
+            return this->Layer::getRefractiveIndex(  );
+        }
+    }
+    
+    ::complex_t default_getRefractiveIndex(  ) const  {
+        return Layer::getRefractiveIndex( );
+    }
+
     virtual double getThickness(  ) const  {
         if( bp::override func_getThickness = this->get_override( "getThickness" ) )
             return func_getThickness(  );
@@ -461,6 +489,18 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     double default_getThickness(  ) const  {
         return Layer::getThickness( );
+    }
+
+    virtual bool hasDWBASimulation(  ) const  {
+        if( bp::override func_hasDWBASimulation = this->get_override( "hasDWBASimulation" ) )
+            return func_hasDWBASimulation(  );
+        else{
+            return this->Layer::hasDWBASimulation(  );
+        }
+    }
+    
+    bool default_hasDWBASimulation(  ) const  {
+        return Layer::hasDWBASimulation( );
     }
 
     virtual void setMaterial( ::IMaterial const * p_material ) {
@@ -544,6 +584,90 @@ struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
     
     ::LayerDecorator * default_clone(  ) const  {
         return LayerDecorator::clone( );
+    }
+
+    virtual ::IMaterial const * getMaterial(  ) const  {
+        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
+            return func_getMaterial(  );
+        else{
+            return this->LayerDecorator::getMaterial(  );
+        }
+    }
+    
+    ::IMaterial const * default_getMaterial(  ) const  {
+        return LayerDecorator::getMaterial( );
+    }
+
+    virtual ::complex_t getRefractiveIndex(  ) const  {
+        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
+            return func_getRefractiveIndex(  );
+        else{
+            return this->LayerDecorator::getRefractiveIndex(  );
+        }
+    }
+    
+    ::complex_t default_getRefractiveIndex(  ) const  {
+        return LayerDecorator::getRefractiveIndex( );
+    }
+
+    virtual double getThickness(  ) const  {
+        if( bp::override func_getThickness = this->get_override( "getThickness" ) )
+            return func_getThickness(  );
+        else{
+            return this->LayerDecorator::getThickness(  );
+        }
+    }
+    
+    double default_getThickness(  ) const  {
+        return LayerDecorator::getThickness( );
+    }
+
+    virtual double getTotalParticleSurfaceDensity(  ) const  {
+        if( bp::override func_getTotalParticleSurfaceDensity = this->get_override( "getTotalParticleSurfaceDensity" ) )
+            return func_getTotalParticleSurfaceDensity(  );
+        else{
+            return this->LayerDecorator::getTotalParticleSurfaceDensity(  );
+        }
+    }
+    
+    double default_getTotalParticleSurfaceDensity(  ) const  {
+        return LayerDecorator::getTotalParticleSurfaceDensity( );
+    }
+
+    virtual bool hasDWBASimulation(  ) const  {
+        if( bp::override func_hasDWBASimulation = this->get_override( "hasDWBASimulation" ) )
+            return func_hasDWBASimulation(  );
+        else{
+            return this->LayerDecorator::hasDWBASimulation(  );
+        }
+    }
+    
+    bool default_hasDWBASimulation(  ) const  {
+        return LayerDecorator::hasDWBASimulation( );
+    }
+
+    virtual void init_parameters(  ) {
+        if( bp::override func_init_parameters = this->get_override( "init_parameters" ) )
+            func_init_parameters(  );
+        else{
+            this->LayerDecorator::init_parameters(  );
+        }
+    }
+    
+    void default_init_parameters(  ) {
+        LayerDecorator::init_parameters( );
+    }
+
+    virtual void setThickness( double thickness ) {
+        if( bp::override func_setThickness = this->get_override( "setThickness" ) )
+            func_setThickness( thickness );
+        else{
+            this->LayerDecorator::setThickness( thickness );
+        }
+    }
+    
+    void default_setThickness( double thickness ) {
+        LayerDecorator::setThickness( thickness );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -654,6 +778,18 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
         return ISample::createParameterTree( );
     }
 
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->Particle::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        Particle::setAmbientRefractiveIndex( refractive_index );
+    }
+
     virtual void walk_and_print(  ) {
         if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
             func_walk_and_print(  );
@@ -751,6 +887,65 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
 };
 
 void register_classes_3(){
+
+    { //::IMaterial
+        typedef bp::class_< IMaterial > IMaterial_exposer_t;
+        IMaterial_exposer_t IMaterial_exposer = IMaterial_exposer_t( "IMaterial", bp::init< >() );
+        bp::scope IMaterial_scope( IMaterial_exposer );
+        IMaterial_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
+        IMaterial_exposer.def( bp::init< IMaterial const & >(( bp::arg("other") )) );
+        { //::IMaterial::operator=
+        
+            typedef ::IMaterial & ( ::IMaterial::*assign_function_type )( ::IMaterial const & ) ;
+            
+            IMaterial_exposer.def( 
+                "assign"
+                , assign_function_type( &::IMaterial::operator= )
+                , ( bp::arg("other") )
+                , bp::return_self< >() );
+        
+        }
+        IMaterial_exposer.def( bp::self_ns::str( bp::self ) );
+    }
+
+    { //::HomogeneousMaterial
+        typedef bp::class_< HomogeneousMaterial, bp::bases< IMaterial > > HomogeneousMaterial_exposer_t;
+        HomogeneousMaterial_exposer_t HomogeneousMaterial_exposer = HomogeneousMaterial_exposer_t( "HomogeneousMaterial", bp::init< >() );
+        bp::scope HomogeneousMaterial_scope( HomogeneousMaterial_exposer );
+        HomogeneousMaterial_exposer.def( bp::init< complex_t >(( bp::arg("refractive_index") )) );
+        HomogeneousMaterial_exposer.def( bp::init< std::string const &, complex_t >(( bp::arg("name"), bp::arg("refractive_index") )) );
+        HomogeneousMaterial_exposer.def( bp::init< HomogeneousMaterial const & >(( bp::arg("other") )) );
+        { //::HomogeneousMaterial::getRefractiveIndex
+        
+            typedef ::complex_t ( ::HomogeneousMaterial::*getRefractiveIndex_function_type )(  ) const;
+            
+            HomogeneousMaterial_exposer.def( 
+                "getRefractiveIndex"
+                , getRefractiveIndex_function_type( &::HomogeneousMaterial::getRefractiveIndex ) );
+        
+        }
+        { //::HomogeneousMaterial::operator=
+        
+            typedef ::HomogeneousMaterial & ( ::HomogeneousMaterial::*assign_function_type )( ::HomogeneousMaterial const & ) ;
+            
+            HomogeneousMaterial_exposer.def( 
+                "assign"
+                , assign_function_type( &::HomogeneousMaterial::operator= )
+                , ( bp::arg("other") )
+                , bp::return_self< >() );
+        
+        }
+        { //::HomogeneousMaterial::setRefractiveIndex
+        
+            typedef void ( ::HomogeneousMaterial::*setRefractiveIndex_function_type )( ::complex_t ) ;
+            
+            HomogeneousMaterial_exposer.def( 
+                "setRefractiveIndex"
+                , setRefractiveIndex_function_type( &::HomogeneousMaterial::setRefractiveIndex )
+                , ( bp::arg("refractive_index") ) );
+        
+        }
+    }
 
     bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, boost::noncopyable >( "IFormFactorDecorator", bp::no_init )    
         .def( 
@@ -941,9 +1136,22 @@ void register_classes_3(){
             , (::Layer * ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "getMaterial"
+            , (::IMaterial const * ( ::Layer::* )(  ) const)(&::Layer::getMaterial)
+            , (::IMaterial const * ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_getMaterial)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getRefractiveIndex"
+            , (::complex_t ( ::Layer::* )(  ) const)(&::Layer::getRefractiveIndex)
+            , (::complex_t ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_getRefractiveIndex) )    
+        .def( 
             "getThickness"
             , (double ( ::Layer::* )(  ) const)(&::Layer::getThickness)
             , (double ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_getThickness) )    
+        .def( 
+            "hasDWBASimulation"
+            , (bool ( ::Layer::* )(  ) const)(&::Layer::hasDWBASimulation)
+            , (bool ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_hasDWBASimulation) )    
         .def( 
             "setMaterial"
             , (void ( ::Layer::* )( ::IMaterial const * ) )(&::Layer::setMaterial)
@@ -975,6 +1183,44 @@ void register_classes_3(){
             , (::LayerDecorator * ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::clone)
             , (::LayerDecorator * ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getDecoratedLayer"
+            , (::Layer const * ( ::LayerDecorator::* )(  ) const)( &::LayerDecorator::getDecoratedLayer )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getDecoration"
+            , (::ParticleDecoration const * ( ::LayerDecorator::* )(  ) const)( &::LayerDecorator::getDecoration )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getMaterial"
+            , (::IMaterial const * ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::getMaterial)
+            , (::IMaterial const * ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getMaterial)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getRefractiveIndex"
+            , (::complex_t ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::getRefractiveIndex)
+            , (::complex_t ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getRefractiveIndex) )    
+        .def( 
+            "getThickness"
+            , (double ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::getThickness)
+            , (double ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getThickness) )    
+        .def( 
+            "getTotalParticleSurfaceDensity"
+            , (double ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::getTotalParticleSurfaceDensity)
+            , (double ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getTotalParticleSurfaceDensity) )    
+        .def( 
+            "hasDWBASimulation"
+            , (bool ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::hasDWBASimulation)
+            , (bool ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_hasDWBASimulation) )    
+        .def( 
+            "init_parameters"
+            , (void ( ::LayerDecorator::* )(  ) )(&::LayerDecorator::init_parameters)
+            , (void ( LayerDecorator_wrapper::* )(  ) )(&LayerDecorator_wrapper::default_init_parameters) )    
+        .def( 
+            "setThickness"
+            , (void ( ::LayerDecorator::* )( double ) )(&::LayerDecorator::setThickness)
+            , (void ( LayerDecorator_wrapper::* )( double ) )(&LayerDecorator_wrapper::default_setThickness)
+            , ( bp::arg("thickness") ) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
@@ -1102,7 +1348,7 @@ void register_classes_3(){
             "addHomogeneousMaterial"
             , (::IMaterial const * ( ::MaterialManager::* )( ::std::string const &,::complex_t ) )( &::MaterialManager::addHomogeneousMaterial )
             , ( bp::arg("name"), bp::arg("refractive_index") )
-            , bp::return_internal_reference< >() )    
+            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "clear"
             , (void ( ::MaterialManager::* )(  ) )( &::MaterialManager::clear ) )    
@@ -1110,7 +1356,7 @@ void register_classes_3(){
             "getMaterial"
             , (::IMaterial const * ( ::MaterialManager::* )( ::std::string const & ) )( &::MaterialManager::getMaterial )
             , ( bp::arg("name") )
-            , bp::return_internal_reference< >() )    
+            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( bp::self_ns::str( bp::self ) );
 
     bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) )    
@@ -1119,6 +1365,11 @@ void register_classes_3(){
             , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
             , (::ParameterPool * ( MesoCrystal_wrapper::* )(  ) )(&MesoCrystal_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::Particle::* )( ::complex_t ) )(&::Particle::setAmbientRefractiveIndex)
+            , (void ( MesoCrystal_wrapper::* )( ::complex_t ) )(&MesoCrystal_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
         .def( 
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)

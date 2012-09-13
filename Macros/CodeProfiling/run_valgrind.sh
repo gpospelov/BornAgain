@@ -33,4 +33,4 @@ then
   valgrind --log-file=./output/valgrind.output  --dsymutil=yes --num-callers=6 --track-origins=yes --leak-check=yes $application $arguments
 fi
 
-
+#valgrind --log-file=valgrind.output --tool=memcheck --leak-check=yes --show-reachable=yes --num-callers=20 --track-fds=yes ./App/App mesocrystal

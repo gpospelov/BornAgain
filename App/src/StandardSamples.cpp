@@ -500,9 +500,9 @@ ISample *StandardSamples::MesoCrystal1()
     LatticeBasis basis(particle, pos_vector);
     //lat.setSelectionRule(new SimpleSelectionRule(-1, 1, 1, 3));
     Crystal npc(basis, lat);
-    double relative_sigma_np_radius = 0.3;
-    double dw_factor = relative_sigma_np_radius*relative_sigma_np_radius*nanoparticle_radius*nanoparticle_radius/6.0;
-    npc.setDWFactor(dw_factor);
+//    double relative_sigma_np_radius = 0.3;
+//    double dw_factor = relative_sigma_np_radius*relative_sigma_np_radius*nanoparticle_radius*nanoparticle_radius/6.0;
+//    npc.setDWFactor(dw_factor);
 
     MesoCrystal meso(npc.clone(), new FormFactorCylinder(0.2*Units::micrometer, 300*Units::nanometer));
     MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, 300*Units::nanometer, 84*Units::degree));    
@@ -517,9 +517,9 @@ ISample *StandardSamples::MesoCrystal1()
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
-//    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
-//        50*Units::nanometer, 1e7*Units::nanometer);
+//    IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
+    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
+        50*Units::nanometer, 1e7*Units::nanometer);
     ParticleDecoration particle_decoration;
     particle_decoration.addParticle(meso.clone(), 0.0, 0.5);
     particle_decoration.addParticle(meso2.clone(), 0.0, 0.5);

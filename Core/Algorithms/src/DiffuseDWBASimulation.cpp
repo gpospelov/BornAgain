@@ -28,6 +28,7 @@ void DiffuseDWBASimulation::run()
 
         p_np->setAmbientRefractiveIndex(m_refractive_index);
         IFormFactor *ff_particle = p_np->createFormFactor();
+        delete p_np;
         // TODO: include geometric transformation?
 //        IFormFactor  *ff_transformed(0);
 //        if(transform) {

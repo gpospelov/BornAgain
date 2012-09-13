@@ -74,8 +74,10 @@ std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
         Particle particle(n_particle, new FormFactorFullSphere(radius));
         DiffuseParticleInfo *p_new_np_info;
         if (nbr_heights<2) {
+            Geometry::Transform3D *p_new_transform(0);
+            if(p_parent_transform) p_new_transform = new Geometry::Transform3D(*p_parent_transform);
             p_new_np_info = new DiffuseParticleInfo(particle.clone(),
-                    new Geometry::Transform3D(*p_parent_transform), 5.0*Units::nanometer, particle_weight);
+                    p_new_transform, 5.0*Units::nanometer, particle_weight);
             p_new_np_info->setNumberPerMeso(np_density*particle_weight);
             p_infos->push_back(p_new_np_info);
         }

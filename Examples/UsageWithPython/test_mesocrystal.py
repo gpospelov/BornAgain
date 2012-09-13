@@ -13,6 +13,9 @@ sys.path.append(os.path.abspath(
 from libScattCore import *
 
 
+#ll=[kvector_t(1,0,0), kvector_t(2,0,0)]
+#display
+
 # ------------------------
 # building mesocrystal
 # ------------------------
@@ -24,7 +27,7 @@ bas_c = lattice.getBasisVectorC()
 
 n_particle = complex(1.0-1.5e-5, 1.3e-6)
 sphere_ff = FormFactorFullSphere(R)
-particle = NanoParticle(n_particle, sphere_ff )
+particle = Particle(n_particle, sphere_ff )
 
 position_0 = kvector_t(0.0, 0.0, 0.0)
 position_1 = kvector_t(0.0, 0.0, 0.0)
@@ -34,11 +37,10 @@ position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c)
 position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c)
 
 basis = LatticeBasis()
-basis.addParticle(particle, position_0)
-basis.addParticle(particle, position_1)
-basis.addParticle(particle, position_2)
+positions = [ position_0, position_1, position_2 ]
+basis.addParticle(particle, positions)
 
-npc = NanoParticleCrystal(basis, lattice)
+npc = Crystal(basis, lattice)
 
 cylinder_ff = FormFactorCylinder(0.2*micrometer, 300*nanometer)
 meso = MesoCrystal(npc, cylinder_ff )
@@ -62,9 +64,9 @@ substrate_layer = Layer()
 substrate_layer.setMaterial(substrate_material)
 
 interference_funtion = InterferenceFunction1DParaCrystal(800.0*nanometer,50*nanometer, 1e7*nanometer)
-particle_decoration = NanoParticleDecoration()
-particle_decoration.addNanoParticle(meso, 0.0, 0.5)
-particle_decoration.addNanoParticle(meso2, 0.0, 0.5)
+particle_decoration = ParticleDecoration()
+particle_decoration.addParticle(meso, 0.0, 0.5)
+particle_decoration.addParticle(meso2, 0.0, 0.5)
 particle_decoration.addInterferenceFunction(interference_funtion)
 air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
 

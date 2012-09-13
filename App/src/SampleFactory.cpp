@@ -4,6 +4,7 @@
 
 #include <iostream>
 
+/* test for remote git access */
 
 SampleFactory::SampleFactory()
 {

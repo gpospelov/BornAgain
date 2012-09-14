@@ -23,7 +23,7 @@ public:
 
     virtual int getNumberOfStochasticParameters() const;
 protected:
-    virtual complex_t evaluate_for_q(cvector_t q) const;
+    virtual complex_t evaluate_for_q(const cvector_t &q) const;
 private:
     double calculateMeanR3() const;
     double m_mean; //!< This is the mean radius
@@ -58,7 +58,7 @@ inline int FormFactorSphereGaussianRadius::getNumberOfStochasticParameters() con
     return 2;
 }
 
-inline complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const
+inline complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t &q) const
 {
     double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
     double dw = std::exp(-q2*m_sigma*m_sigma/2.0);

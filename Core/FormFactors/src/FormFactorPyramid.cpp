@@ -51,7 +51,7 @@ FormFactorPyramid* FormFactorPyramid::clone() const
 //    return new FormFactorPyramid(mp_height->clone(), mp_half_side->clone(), mp_alpha->clone());
 }
 
-complex_t FormFactorPyramid::evaluate_for_q(cvector_t q) const
+complex_t FormFactorPyramid::evaluate_for_q(const cvector_t &q) const
 {
 //    double H = mp_height->getCurrent();
 //    double R = mp_half_side->getCurrent();

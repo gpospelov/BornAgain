@@ -45,7 +45,7 @@ FormFactorPrism3* FormFactorPrism3::clone() const
 //    return new FormFactorPrism3(mp_height->clone(), mp_half_side->clone());
 }
 
-complex_t FormFactorPrism3::evaluate_for_q(cvector_t q) const
+complex_t FormFactorPrism3::evaluate_for_q(const cvector_t &q) const
 {
 //    double R = mp_half_side->getCurrent();
 //    double H = mp_height->getCurrent();

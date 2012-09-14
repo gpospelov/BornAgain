@@ -25,7 +25,7 @@ public:
     virtual void init(const std::vector<IFormFactor *> &form_factors,
             const std::vector<double> &fractions,
             const std::vector<IInterferenceFunction *> &interference_functions);
-    virtual double evaluate(cvector_t k_i, cvector_t k_f,
+    virtual double evaluate(const cvector_t &k_i, const cvector_t &k_f,
             double alpha_i, double alpha_f) const;
 private:
     bool checkVectorSizes();

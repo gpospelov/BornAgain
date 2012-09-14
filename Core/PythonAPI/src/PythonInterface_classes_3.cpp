@@ -131,9 +131,9 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
         return func_clone(  );
     }
 
-    virtual double evaluate( ::cvector_t q ) const {
+    virtual double evaluate( ::cvector_t const & q ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
-        return func_evaluate( q );
+        return func_evaluate( boost::ref(q) );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -183,16 +183,16 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
         return InterferenceFunction1DParaCrystal::clone( );
     }
 
-    virtual double evaluate( ::cvector_t q ) const  {
+    virtual double evaluate( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( q );
+            return func_evaluate( boost::ref(q) );
         else{
-            return this->InterferenceFunction1DParaCrystal::evaluate( q );
+            return this->InterferenceFunction1DParaCrystal::evaluate( boost::ref(q) );
         }
     }
     
-    double default_evaluate( ::cvector_t q ) const  {
-        return InterferenceFunction1DParaCrystal::evaluate( q );
+    double default_evaluate( ::cvector_t const & q ) const  {
+        return InterferenceFunction1DParaCrystal::evaluate( boost::ref(q) );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -242,16 +242,16 @@ struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper<
         return InterferenceFunctionNone::clone( );
     }
 
-    virtual double evaluate( ::cvector_t q ) const  {
+    virtual double evaluate( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( q );
+            return func_evaluate( boost::ref(q) );
         else{
-            return this->InterferenceFunctionNone::evaluate( q );
+            return this->InterferenceFunctionNone::evaluate( boost::ref(q) );
         }
     }
     
-    double default_evaluate( ::cvector_t q ) const  {
-        return InterferenceFunctionNone::evaluate( q );
+    double default_evaluate( ::cvector_t const & q ) const  {
+        return InterferenceFunctionNone::evaluate( boost::ref(q) );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -986,7 +986,7 @@ void register_classes_3(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , bp::pure_virtual( (double ( ::IInterferenceFunction::* )( ::cvector_t ) const)(&::IInterferenceFunction::evaluate) )
+            , bp::pure_virtual( (double ( ::IInterferenceFunction::* )( ::cvector_t const & ) const)(&::IInterferenceFunction::evaluate) )
             , ( bp::arg("q") ) )    
         .def( 
             "createParameterTree"
@@ -1013,8 +1013,8 @@ void register_classes_3(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (double ( ::InterferenceFunction1DParaCrystal::* )( ::cvector_t ) const)(&::InterferenceFunction1DParaCrystal::evaluate)
-            , (double ( InterferenceFunction1DParaCrystal_wrapper::* )( ::cvector_t ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_evaluate)
+            , (double ( ::InterferenceFunction1DParaCrystal::* )( ::cvector_t const & ) const)(&::InterferenceFunction1DParaCrystal::evaluate)
+            , (double ( InterferenceFunction1DParaCrystal_wrapper::* )( ::cvector_t const & ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_evaluate)
             , ( bp::arg("q") ) )    
         .def( 
             "createParameterTree"
@@ -1034,8 +1034,8 @@ void register_classes_3(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (double ( ::InterferenceFunctionNone::* )( ::cvector_t ) const)(&::InterferenceFunctionNone::evaluate)
-            , (double ( InterferenceFunctionNone_wrapper::* )( ::cvector_t ) const)(&InterferenceFunctionNone_wrapper::default_evaluate)
+            , (double ( ::InterferenceFunctionNone::* )( ::cvector_t const & ) const)(&::InterferenceFunctionNone::evaluate)
+            , (double ( InterferenceFunctionNone_wrapper::* )( ::cvector_t const & ) const)(&InterferenceFunctionNone_wrapper::default_evaluate)
             , ( bp::arg("q") ) )    
         .def( 
             "createParameterTree"

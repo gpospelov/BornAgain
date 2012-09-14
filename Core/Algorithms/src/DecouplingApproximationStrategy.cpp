@@ -16,8 +16,8 @@ void DecouplingApproximationStrategy::init(
     }
 }
 
-double DecouplingApproximationStrategy::evaluate(cvector_t k_i,
-        cvector_t k_f, double alpha_i, double alpha_f) const
+double DecouplingApproximationStrategy::evaluate(const cvector_t &k_i,
+        const cvector_t &k_f, double alpha_i, double alpha_f) const
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);

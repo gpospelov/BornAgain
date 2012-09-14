@@ -54,7 +54,7 @@ FormFactorGauss* FormFactorGauss::clone() const
 //    return new FormFactorGauss(mp_height->clone(), mp_radius->clone());
 }
 
-complex_t FormFactorGauss::evaluate_for_q(cvector_t q) const
+complex_t FormFactorGauss::evaluate_for_q(const cvector_t &q) const
 {
 //    double R = mp_width->getCurrent();
 //    double H = mp_height->getCurrent();

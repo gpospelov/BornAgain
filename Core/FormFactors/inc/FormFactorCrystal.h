@@ -34,7 +34,7 @@ public:
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);
 
 protected:
-    virtual complex_t evaluate_for_q(cvector_t q) const;
+    virtual complex_t evaluate_for_q(const cvector_t &q) const;
 private:
     void calculateLargestReciprocalDistance();
     Lattice m_lattice;

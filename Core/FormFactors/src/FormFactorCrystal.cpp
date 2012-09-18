@@ -44,7 +44,7 @@ complex_t FormFactorCrystal::evaluate_for_q(cvector_t q) const
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());
     cvector_t k_zero;
     // calculate the used radius in function of the reciprocal lattice scale
-    double radius = 3.0*m_max_rec_length;
+    double radius = 1.1*m_max_rec_length;
     // retrieve nearest reciprocal lattice vectors
     std::vector<kvector_t> rec_vectors =
             m_lattice.getReciprocalLatticeVectorsWithinRadius(q_real, radius);

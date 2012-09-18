@@ -82,7 +82,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1335354038744</id>
+			<id>1347614538348</id>
 			<name></name>
 			<type>21</type>
 			<matcher>
@@ -99,6 +99,10 @@
 					<matcher>
 						<id>org.eclipse.ui.ide.multiFilter</id>
 						<arguments>1.0-name-matches-false-false-*.cpp</arguments>
+					</matcher>
+					<matcher>
+						<id>org.eclipse.ui.ide.multiFilter</id>
+						<arguments>1.0-name-matches-false-false-*.pri</arguments>
 					</matcher>
 				</arguments>
 			</matcher>

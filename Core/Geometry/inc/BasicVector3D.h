@@ -97,27 +97,27 @@ class Transform3D;
 
     /**
      * Assignment. */
-    BasicVector3D<T> & operator= (const BasicVector3D<T> & v) {
+    inline BasicVector3D<T> & operator= (const BasicVector3D<T> & v) {
       v_[0] = v.v_[0]; v_[1] = v.v_[1]; v_[2] = v.v_[2]; return *this;
     }
     /**
      * Addition. */
-    BasicVector3D<T> & operator+=(const BasicVector3D<T> & v) {
+    inline BasicVector3D<T> & operator+=(const BasicVector3D<T> & v) {
       v_[0] += v.v_[0]; v_[1] += v.v_[1]; v_[2] += v.v_[2]; return *this;
     }
     /**
      * Subtraction. */
-    BasicVector3D<T> & operator-=(const BasicVector3D<T> & v) {
+    inline BasicVector3D<T> & operator-=(const BasicVector3D<T> & v) {
       v_[0] -= v.v_[0]; v_[1] -= v.v_[1]; v_[2] -= v.v_[2]; return *this;
     }
     /**
      * Multiplication by scalar. */
-    BasicVector3D<T> & operator*=(double a) {
+    inline BasicVector3D<T> & operator*=(double a) {
       v_[0] *= a; v_[1] *= a; v_[2] *= a; return *this;
     }
     /**
      * Division by scalar. */
-    BasicVector3D<T> & operator/=(double a) {
+    inline BasicVector3D<T> & operator/=(double a) {
       v_[0] /= a; v_[1] /= a; v_[2] /= a; return *this;
     }
 
@@ -130,14 +130,14 @@ class Transform3D;
 //    T operator()(int i) const { return v_[i]; }
     /**
      * Gets components by index. */
-    T operator[](int i) const { return v_[i]; }
+    inline T operator[](int i) const { return v_[i]; }
 
 //    /**
 //     * Sets components by index. */
 //    T & operator()(int i) { return v_[i]; }
     /**
      * Sets components by index. */
-    T & operator[](int i) { return v_[i]; }
+    inline T & operator[](int i) { return v_[i]; }
 
     // ------------------------------------
     // Cartesian coordinate system: x, y, z
@@ -155,18 +155,18 @@ class Transform3D;
 
     /**
      * Sets x-component in cartesian coordinate system. */
-    void setX(T a) { v_[0] = a; }
+    inline void setX(T a) { v_[0] = a; }
     /**
      * Sets y-component in cartesian coordinate system. */
-    void setY(T a) { v_[1] = a; }
+    inline void setY(T a) { v_[1] = a; }
     /**
      * Sets z-component in cartesian coordinate system. */
-    void setZ(T a) { v_[2] = a; }
+    inline void setZ(T a) { v_[2] = a; }
 
     /**
      * Sets components in cartesian coordinate system.  */
-    void set(T x1, T y1, T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
-    void setXYZ(T x1, T y1, T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+    inline void set(T x1, T y1, T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+    inline void setXYZ(T x1, T y1, T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     // ------------------------------------------
     // Cylindrical coordinate system: rho, phi, z
@@ -174,21 +174,21 @@ class Transform3D;
 
     /**
      * Gets transverse component squared. */
-    T perp2() const { return x()*x()+y()*y(); }
+    inline T perp2() const { return x()*x()+y()*y(); }
     /**
      * Gets transverse component. */
-    T perp() const { return std::sqrt(perp2()); }
+    inline T perp() const { return std::sqrt(perp2()); }
     /**
      * Gets rho-component in cylindrical coordinate system */
-    T rho() const { return perp(); }
+    inline T rho() const { return perp(); }
 
     /**
      * Gets rho-component in cylindrical coordinate system */
-    T magxy() const { return perp(); }
+    inline T magxy() const { return perp(); }
 
     /**
      * Sets transverse component keeping phi and z constant. */
-    void setPerp(T rh) {
+    inline void setPerp(T rh) {
       T factor = perp();
       if (factor > 0) {
 	factor = rh/factor; v_[0] *= factor; v_[1] *= factor;
@@ -201,39 +201,39 @@ class Transform3D;
 
     /**
      * Gets magnitude squared of the vector. */
-    T mag2() const { return x()*x()+y()*y()+z()*z(); }
+    inline T mag2() const { return x()*x()+y()*y()+z()*z(); }
     /**
      * Gets magnitude of the vector. */
-    T mag() const { return std::sqrt(mag2()); }
+    inline T mag() const { return std::sqrt(mag2()); }
     /**
      * Gets r-component in spherical coordinate system */
-    T r() const { return mag(); }
+    inline T r() const { return mag(); }
     /**
      * Gets azimuth angle. */
-    T phi() const {
+    inline T phi() const {
       return x() == 0 && y() == 0 ? 0 : std::atan2(y(),x());
     }
     /**
      * Gets polar angle. */
-    T theta() const {
+    inline T theta() const {
       return x() == 0 && y() == 0 && z() == 0 ? 0 : std::atan2(perp(),z());
     }
     /**
      * Gets cosine of polar angle. */
-    T cosTheta() const { T ma = mag(); return std::abs(ma) == 0 ? 1 : z()/ma; }
+    inline T cosTheta() const { T ma = mag(); return std::abs(ma) == 0 ? 1 : z()/ma; }
     /**
      * Gets r-component in spherical coordinate system */
-    T getR() const { return r(); }
+    inline T getR() const { return r(); }
     /**
      * Gets phi-component in spherical coordinate system */
-    T getPhi() const { return phi(); }
+    inline T getPhi() const { return phi(); }
     /**
      * Gets theta-component in spherical coordinate system */
-    T getTheta() const { return theta(); }
+    inline T getTheta() const { return theta(); }
 
     /**
      * Sets magnitude. */
-    void setMag(T ma) {
+    inline void setMag(T ma) {
       T factor = mag();
       if (factor > 0) {
 	factor = ma/factor; v_[0] *= factor; v_[1] *= factor; v_[2] *= factor;
@@ -241,13 +241,13 @@ class Transform3D;
     }
     /**
      * Sets r-component in spherical coordinate system. */
-    void setR(T ma) { setMag(ma); }
+    inline void setR(T ma) { setMag(ma); }
     /**
      * Sets phi-component in spherical coordinate system. */
-    void setPhi(T ph) { T xy = perp(); setX(xy*std::cos(ph)); setY(xy*std::sin(ph)); }
+    inline void setPhi(T ph) { T xy = perp(); setX(xy*std::cos(ph)); setY(xy*std::sin(ph)); }
     /**
      * Sets theta-component in spherical coordinate system. */
-    void setTheta(T th) {
+    inline void setTheta(T th) {
       T ma = mag();
       T ph = phi();
       set(ma*std::sin(th)*std::cos(ph), ma*std::sin(th)*std::sin(ph), ma*std::cos(th));
@@ -277,13 +277,13 @@ class Transform3D;
 
     /**
      * Scalar product. */
-    T dot(const BasicVector3D<T> & v) const {
+    inline T dot(const BasicVector3D<T> & v) const {
       return x()*v.x()+y()*v.y()+z()*v.z();
     }
 
     /**
      * Vector product. */
-    BasicVector3D<T> cross(const BasicVector3D<T> & v) const {
+    inline BasicVector3D<T> cross(const BasicVector3D<T> & v) const {
       return BasicVector3D<T>(y()*v.z()-v.y()*z(),
 			      z()*v.x()-v.z()*x(),
 			      x()*v.y()-v.x()*y());
@@ -291,20 +291,20 @@ class Transform3D;
 
     /**
      * Returns transverse component w.r.t. given axis squared. */
-    T perp2(const BasicVector3D<T> & v) const {
+    inline T perp2(const BasicVector3D<T> & v) const {
       T tot = v.mag2(), s = dot(v);
       return tot > 0 ? mag2()-s*s/tot : mag2();
     }
 
     /**
      * Returns transverse component w.r.t. given axis. */
-    T perp(const BasicVector3D<T> & v) const {
+    inline T perp(const BasicVector3D<T> & v) const {
       return std::sqrt(perp2(v));
     }
 
     /**
      * Returns angle w.r.t. another vector. */
-    T angle(const BasicVector3D<T> & v) const;
+    inline T angle(const BasicVector3D<T> & v) const;
 
     // ---------------
     // Related vectors
@@ -312,7 +312,7 @@ class Transform3D;
 
     /**
      * Returns unit vector parallel to this. */
-    BasicVector3D<T> unit() const {
+    inline BasicVector3D<T> unit() const {
       T len = mag();
       return (len > 0) ?
 	BasicVector3D<T>(x()/len, y()/len, z()/len) : BasicVector3D<T>();
@@ -354,7 +354,7 @@ class Transform3D;
     // Specific
     // ---------
 
-    void setLambdaAlphaPhi(T lambda, T alpha, T phi)
+    inline void setLambdaAlphaPhi(T lambda, T alpha, T phi)
     {
         T k = 2.*M_PI/lambda;
         v_[0] = k*std::cos(alpha) * std::cos(phi);

@@ -47,7 +47,8 @@ void MultiLayerDWBASimulation::run()
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
 
     m_dwba_intensity.setAllTo(0.0);
-    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(m_dwba_intensity.getAxis("alpha_f"));
+    //const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(m_dwba_intensity.getAxis("alpha_f"));
+    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(getDWBAIntensity().getAxis("alpha_f"));
     double lambda = 2.0*M_PI/m_ki_real.mag();
     std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
@@ -88,7 +89,8 @@ void MultiLayerDWBASimulation::run()
             LayerDWBASimulation *p_layer_dwba_sim = pos->second;
             p_layer_dwba_sim->setKzTAndRFunctions(kz_function, T_function, R_function);
             p_layer_dwba_sim->run();
-            m_dwba_intensity += p_layer_dwba_sim->getDWBAIntensity();
+            //m_dwba_intensity += p_layer_dwba_sim->getDWBAIntensity();
+            addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
         }
 
         // layer roughness DWBA
@@ -100,7 +102,8 @@ void MultiLayerDWBASimulation::run()
 
     if(m_roughness_dwba_simulation) {
         m_roughness_dwba_simulation->run();
-        m_dwba_intensity += m_roughness_dwba_simulation->getDWBAIntensity();
+        //m_dwba_intensity += m_roughness_dwba_simulation->getDWBAIntensity();
+        addDWBAIntensity( m_roughness_dwba_simulation->getDWBAIntensity() );
     }
 
 }

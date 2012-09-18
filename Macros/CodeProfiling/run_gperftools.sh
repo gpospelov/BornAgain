@@ -5,7 +5,7 @@ mkdir -p ./output
 
 
 application=../../App/App
-arguments="isgisaxs9 profile"
+arguments="mesocrystal profile"
 focuson=GISASExperiment
 
 # ------------------------------------------- #

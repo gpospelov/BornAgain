@@ -13,13 +13,15 @@
 //! @brief  Definition of ISimulation class
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
+
 #include "Experiment.h"
+#include "Exceptions.h"
 
 class ISimulation
 {
 public:
     virtual ~ISimulation() {}
-    virtual void run() {};
+    virtual void run() {}
 };
 
 #endif // ISIMULATION_H

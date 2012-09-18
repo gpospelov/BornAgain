@@ -77,6 +77,9 @@ public:
     //! make object clone
     OutputData* clone() const;
 
+//    void copyInto(OutputData<T> &x) const;
+    void copyFrom(const OutputData<T> &x);
+
     void addAxis(NamedVectorBase* p_new_axis);
     template <class U> void addAxis(std::string name, U start, U end, size_t size);
     std::vector<NamedVectorBase*> getAxes() const { return m_value_axes; }
@@ -213,6 +216,43 @@ template <class T> OutputData<T>* OutputData<T>::clone() const
 	}
 	return p_result;
 }
+
+
+//template <class T> void OutputData<T>::copyInto(OutputData<T> &other) const
+//{
+//    other.clear();
+//    for (size_t i=0; i<m_dimension; ++i)
+//    {
+//        other.addAxis(m_value_axes[i]->clone());
+//    }
+//    other.resetIndex();
+//    size_t source_index = 0;
+//    size_t source_size = this->getAllocatedSize();
+//    while (other.hasNext() && source_index<source_size) {
+//        other.next() = m_data_vector[source_index];
+//        ++source_index;
+//    }
+
+//}
+
+
+template <class T> void OutputData<T>::copyFrom(const OutputData<T> &other)
+{
+    clear();
+    for (size_t i=0; i<other.getNdimensions(); ++i)
+    {
+        const NamedVector<T> *axis = dynamic_cast<const NamedVector<T>*>(other.getAxes()[i]);
+        addAxis(axis->clone());
+    }
+    resetIndex();
+    other.resetIndex();
+    while (other.hasNext()) {
+        currentValue() = other.currentValue();
+        next(); other.next();
+    }
+}
+
+
 
 template <class T> void OutputData<T>::addAxis(NamedVectorBase* p_new_axis)
 {

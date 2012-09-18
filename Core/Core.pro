@@ -14,6 +14,7 @@ include($$PWD/../shared.pri)
 # making standard shared library extension
 QMAKE_EXTENSION_SHLIB = so
 
+#CXXFLAGS += w
 
 # -----------------------------------------------------------------------------
 # Our source and headers
@@ -265,7 +266,7 @@ macx {
   LIBS += -L/usr/local/lib -L/usr/lib64
 }
 # normally it should be done like that
-LIBS += -lgsl -lgslcblas -lfftw3 -lboost_system -lboost_filesystem -lboost_regex
+LIBS += -lgsl -lgslcblas -lfftw3 -lboost_thread -lboost_system -lboost_filesystem -lboost_regex
 
 # here is workaround since JCNS /usr/local doesn't have shared fftw3
 # qmake CONFIG+=JCNS
@@ -276,7 +277,7 @@ CONFIG(JCNS) {
   #-Wl,--whole-archive
   #http://stackoverflow.com/questions/2763988/how-to-include-all-objects-of-an-archive-in-a-shared-object
 
-  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_system -lboost_filesystem -lboost_regex
+  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_thread -lboost_system -lboost_filesystem -lboost_regex
 }
 
 

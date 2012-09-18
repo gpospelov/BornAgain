@@ -4,6 +4,8 @@
 #include "OpticalFresnel.h"
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "MathFunctions.h"
+#include <boost/thread.hpp>
+
 
 GISASExperiment::GISASExperiment()
 {
@@ -14,16 +16,44 @@ GISASExperiment::GISASExperiment()
 
 void GISASExperiment::runSimulation()
 {
+    int n_threads_total = boost::thread::hardware_concurrency();
+    //n_threads_total = 0;
+
     m_intensity_map.setAllTo(0.0);
-    DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-    if (p_dwba_simulation) {
+    if(n_threads_total<=1) {
+        DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
+        if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
         p_dwba_simulation->init(*this);
         p_dwba_simulation->run();
-        //m_intensity_map += (*p_dwba_simulation->getDWBAIntensity());
         m_intensity_map += p_dwba_simulation->getDWBAIntensity();
+        delete p_dwba_simulation;
+    } else {
+        std::vector<boost::thread *> threads;
+        std::vector<DWBASimulation *> simulations;
+
+        for(int i_thread=0; i_thread<n_threads_total; ++i_thread){
+            setOutputDataMask(n_threads_total, i_thread);
+            DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
+            if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
+            p_dwba_simulation->init(*this);
+            simulations.push_back(p_dwba_simulation);
+            threads.push_back( new boost::thread(boost::bind(&DWBASimulation::run, p_dwba_simulation)) );
+        }
+
+        // waiting for threads to be complete
+        for(size_t i=0; i<threads.size(); ++i) {
+            threads[i]->join();
+        }
+
+        // saving data
+        for(size_t i=0; i<simulations.size(); ++i) {
+            m_intensity_map += simulations[i]->getDWBAIntensity();
+            delete simulations[i];
+            delete threads[i];
+        }
+
     }
     m_detector.applyDetectorResolution(&m_intensity_map);
-    delete p_dwba_simulation;
     Experiment::runSimulation();
 }
 

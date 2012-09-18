@@ -21,6 +21,22 @@ void DWBASimulation::init(const Experiment& experiment)
     m_ki = beam.getCentralK();
     kvector_t ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     m_alpha_i = std::asin(ki_real.z()/ki_real.mag());
+
+    // initialising mask
+    m_output_data_mask.copyFrom(*experiment.getOutputDataMask());
+}
+
+
+
+DWBASimulation *DWBASimulation::clone()
+{
+    DWBASimulation *sim = new DWBASimulation();
+    sim->m_dwba_intensity.copyFrom(m_dwba_intensity);
+    sim->m_output_data_mask.copyFrom(m_output_data_mask);
+    sim->m_ki = m_ki;
+    sim->m_alpha_i = m_alpha_i;
+
+    return sim;
 }
 
 double DWBASimulation::getWaveLength() const
@@ -28,3 +44,30 @@ double DWBASimulation::getWaveLength() const
     kvector_t real_ki(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     return 2.0*M_PI/real_ki.mag();
 }
+
+
+void DWBASimulation::resetIndex()
+{
+    m_output_data_mask.resetIndex();
+    m_dwba_intensity.resetIndex();
+}
+
+
+bool DWBASimulation::hasNext() const
+{
+    return m_dwba_intensity.hasNext();
+}
+
+
+const double &DWBASimulation::next() const
+{
+    m_output_data_mask.next();
+    return m_dwba_intensity.next();
+}
+
+double &DWBASimulation::next()
+{
+    m_output_data_mask.next();
+    return m_dwba_intensity.next();
+}
+

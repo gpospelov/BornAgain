@@ -16,7 +16,6 @@ DiffuseDWBASimulation::~DiffuseDWBASimulation()
 
 void DiffuseDWBASimulation::run()
 {
-    m_dwba_intensity.resetIndex();
     complex_t k_iz = -mp_kz_function->evaluate(-m_alpha_i);
     size_t number_of_nps = m_np_infos.size();
     std::vector<IFormFactor *> form_factors;
@@ -45,15 +44,25 @@ void DiffuseDWBASimulation::run()
     }
 
     double wavevector_scattering_factor = M_PI/getWaveLength()/getWaveLength();
-    while (m_dwba_intensity.hasNext()) {
+//    m_dwba_intensity.resetIndex();
+    resetIndex();
+    while ( hasNext() ) {
+        if( (int)m_output_data_mask.currentValue() !=1 ) {
+            next();
+            continue;
+        }
+
         complex_t amplitude(0.0, 0.0);
         double intensity = 0.0;
         for (size_t i=0; i<form_factors.size(); ++i) {
-            double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
-            double alpha_f = m_dwba_intensity.getCurrentValueOfAxis<double>("alpha_f");
+//            double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
+//            double alpha_f = m_dwba_intensity.getCurrentValueOfAxis<double>("alpha_f");
+            double phi_f = getDWBAIntensity().getCurrentValueOfAxis<double>("phi_f");
+            double alpha_f = getDWBAIntensity().getCurrentValueOfAxis<double>("alpha_f");
             double weight = m_np_infos[i]->getAbundance();
             if (alpha_f<0) {
-                m_dwba_intensity.next() = 0.0;
+//                m_dwba_intensity.next() = 0.0;
+                next() = 0.0;
                 continue;
             }
             cvector_t k_f;
@@ -63,8 +72,9 @@ void DiffuseDWBASimulation::run()
             amplitude += weight*amp;
             intensity += weight*std::norm(amp);
         }
-        m_dwba_intensity.next() = m_surface_density*wavevector_scattering_factor*wavevector_scattering_factor
-                *(intensity - std::norm(amplitude));
+//        m_dwba_intensity.next() = m_surface_density*wavevector_scattering_factor*wavevector_scattering_factor
+//                *(intensity - std::norm(amplitude));
+        next() = m_surface_density*wavevector_scattering_factor*wavevector_scattering_factor*(intensity - std::norm(amplitude));
     }
 
     for (size_t i=0; i<form_factors.size(); ++i) delete form_factors[i];

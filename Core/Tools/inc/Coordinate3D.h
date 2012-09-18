@@ -41,18 +41,18 @@ public:
     }
     virtual ~Coordinate3D() {}
 
-    T& operator[](const int index)
+    inline T& operator[](const int index)
     {
         return m_coords[index%3];
     }
-    const T& operator[](const int index) const
+    inline const T& operator[](const int index) const
     {
         return m_coords[index%3];
     }
-    Coordinate3D<T> &operator+=(const Coordinate3D<T> &right);
-    Coordinate3D<T> &operator-=(const Coordinate3D<T> &right);
-    Coordinate3D<T> &operator=(const Coordinate3D<T> &right);
-    T norm()
+    inline Coordinate3D<T> &operator+=(const Coordinate3D<T> &right);
+    inline Coordinate3D<T> &operator-=(const Coordinate3D<T> &right);
+    inline Coordinate3D<T> &operator=(const Coordinate3D<T> &right);
+    inline T norm()
     {
         return std::sqrt(m_coords[0]*m_coords[0]+m_coords[1]*m_coords[1]+m_coords[2]*m_coords[2]);
     }

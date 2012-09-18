@@ -24,7 +24,7 @@ public:
 
     virtual ISelectionRule *clone() const=0;
 
-    virtual bool coordinateSelected(Coordinate3D<int> coordinate) const=0;
+    virtual bool coordinateSelected(const Coordinate3D<int> &coordinate) const=0;
 };
 
 class SimpleSelectionRule : public ISelectionRule
@@ -35,7 +35,7 @@ public:
 
     virtual SimpleSelectionRule *clone() const;
 
-    virtual bool coordinateSelected(Coordinate3D<int> coordinate) const;
+    virtual bool coordinateSelected(const Coordinate3D<int> &coordinate) const;
 private:
     int m_a, m_b, m_c;
     int m_mod;
@@ -54,7 +54,7 @@ inline SimpleSelectionRule* SimpleSelectionRule::clone() const
 }
 
 inline bool SimpleSelectionRule::coordinateSelected(
-        Coordinate3D<int> coordinate) const
+        const Coordinate3D<int> &coordinate) const
 {
     return (m_a*coordinate[0]+m_b*coordinate[1]+m_c*coordinate[2])%m_mod == 0;
 }

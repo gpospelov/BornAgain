@@ -59,6 +59,10 @@ public:
 
     void setBeamIntensity(double intensity);
 
+    void setOutputDataMask(size_t n_chunks_total=1, size_t n_chunk=0);
+
+    const OutputData<double>* getOutputDataMask() const;
+
 protected:
     /// Default implementation only adds the detector axes
     virtual void updateIntensityMapAxes();
@@ -67,6 +71,7 @@ protected:
     Detector m_detector;
     Beam m_beam;
     OutputData<double> m_intensity_map;
+    OutputData<double> m_output_data_mask;
     bool m_is_normalized;
 };
 

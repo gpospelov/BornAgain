@@ -27,7 +27,7 @@ public:
     virtual size_t getSize() const=0;
     std::string getName() const { return m_name; }
     void setName(std::string name) { m_name = name; }
-    virtual NamedVectorBase* clone()=0;
+    virtual NamedVectorBase* clone() const = 0;
 
 private:
     std::string m_name;
@@ -41,7 +41,7 @@ public:
     ~NamedVector();
 
     size_t getSize() const { return m_value_vector.size(); }
-    virtual NamedVector<T>* clone();
+    virtual NamedVector<T>* clone() const;
     void initElements(T start, T end, size_t size);
     void push_back(T element) { m_value_vector.push_back(element); }
     T& operator[](size_t index) { return m_value_vector.at(index); }
@@ -62,7 +62,7 @@ template <class T> NamedVector<T>::~NamedVector()
     m_value_vector.clear();
 }
 
-template <class T> NamedVector<T>* NamedVector<T>::clone()
+template <class T> NamedVector<T>* NamedVector<T>::clone() const
 {
     return new NamedVector<T>(*this);
 }

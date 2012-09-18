@@ -31,10 +31,24 @@ public:
     //! Initialize the simulation with the parameters from experiment
     virtual void init(const Experiment &experiment);
 
-    // TODO: return const or clone
-    OutputData<double> &getDWBAIntensity();
+    //! return output data containing calculated intensity
+    const OutputData<double> &getDWBAIntensity() const;
+
+    //! add intensity to current dwba intensity
+    void addDWBAIntensity(const OutputData<double > &data_to_add);
+
+    //! clone DWBA simulation
+    virtual DWBASimulation *clone();
+
 protected:
+
+    virtual void resetIndex();
+    virtual bool hasNext() const;
+    virtual const double &next() const;
+    virtual double &next();
+
     OutputData<double> m_dwba_intensity;
+    OutputData<double> m_output_data_mask;
     cvector_t m_ki;
     double m_alpha_i;
     double getWaveLength() const;
@@ -46,8 +60,13 @@ private:
 
 };
 
-inline OutputData<double> &DWBASimulation::getDWBAIntensity() {
+inline const OutputData<double> &DWBASimulation::getDWBAIntensity() const {
     return m_dwba_intensity;
 }
+
+inline void DWBASimulation::addDWBAIntensity(const OutputData<double> &data_to_add) {
+    m_dwba_intensity += data_to_add;
+}
+
 
 #endif /* DWBASIMULATION_H_ */

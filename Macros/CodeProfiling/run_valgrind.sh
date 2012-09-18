@@ -9,7 +9,7 @@ application=../../App/App
 #arguments="isgisaxs10 batch"
 #arguments="isgisaxs9 batch"
 #arguments="isgisaxs2 batch profile"
-arguments="mesocrystal batch profile"
+arguments="mesocrystal batch"
 focuson=GISASExperiment
 
 # ------------------------------------------- #

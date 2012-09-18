@@ -31,7 +31,7 @@ void LayerDecoratorDWBASimulation::run()
     IInterferenceFunctionStrategy *p_strategy = createAndInitStrategy();
 
     calculateCoherentIntensity(p_strategy);
-    //calculateInCoherentIntensity();
+    calculateInCoherentIntensity();
 
     delete p_strategy;
 
@@ -84,19 +84,27 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunct
     std::cout << "Calculating coherent scattering..." << std::endl;
     double wavelength = getWaveLength();
     double total_surface_density = mp_layer_decorator->getTotalParticleSurfaceDensity();
-    m_dwba_intensity.resetIndex();
-    while (m_dwba_intensity.hasNext())
+    //m_dwba_intensity.resetIndex();
+    resetIndex();
+    while ( hasNext() )
     {
-        double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
-        double alpha_f = m_dwba_intensity.getCurrentValueOfAxis<double>("alpha_f");
+        if( (int)m_output_data_mask.currentValue() !=1 ) {
+            next();
+            continue;
+        }
+        //double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
+        //double alpha_f = m_dwba_intensity.getCurrentValueOfAxis<double>("alpha_f");
+        double phi_f = getDWBAIntensity().getCurrentValueOfAxis<double>("phi_f");
+        double alpha_f = getDWBAIntensity().getCurrentValueOfAxis<double>("alpha_f");
         if (alpha_f<0) {
-            m_dwba_intensity.next() = 0.0;
+            next() = 0.0;
             continue;
         }
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(wavelength, alpha_f, phi_f);
         k_f.setZ(mp_kz_function->evaluate(alpha_f));
-        m_dwba_intensity.next() = p_strategy->evaluate(m_ki, k_f, -m_alpha_i, alpha_f)*total_surface_density;
+        //m_dwba_intensity.next() = p_strategy->evaluate(m_ki, k_f, -m_alpha_i, alpha_f)*total_surface_density;
+        next() = p_strategy->evaluate(m_ki, k_f, -m_alpha_i, alpha_f)*total_surface_density;
     }
 }
 
@@ -106,6 +114,7 @@ void LayerDecoratorDWBASimulation::calculateInCoherentIntensity()
     if (mp_diffuseDWBA) {
         mp_diffuseDWBA->setKzTAndRFunctions(*mp_kz_function, *mp_T_function, *mp_R_function);
         mp_diffuseDWBA->run();
-        m_dwba_intensity += mp_diffuseDWBA->getDWBAIntensity();
+        //m_dwba_intensity += mp_diffuseDWBA->getDWBAIntensity();
+        addDWBAIntensity( mp_diffuseDWBA->getDWBAIntensity() );
     }
 }

@@ -149,6 +149,7 @@ void TestPerformance::get_sysinfo()
     }else{
         std::ostringstream os;
         os << std::string(gSystem->GetBuildArch()) << ", "<< sys_info.fCpuSpeed << " MHz";
+
         //os << ", " << 	sys_info.fL2Cache << " Kb";
         m_performance_info["sysinfo"] = os.str();
     }

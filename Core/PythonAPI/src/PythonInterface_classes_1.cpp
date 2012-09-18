@@ -446,9 +446,9 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
     }
 
-    virtual ::complex_t evaluate_for_q( ::cvector_t q ) const {
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const {
         bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" );
-        return func_evaluate_for_q( q );
+        return func_evaluate_for_q( boost::ref(q) );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) {
@@ -1545,7 +1545,7 @@ void register_classes_1(){
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "evaluate_for_q"
-            , (::complex_t ( IFormFactorBorn_wrapper::* )( ::cvector_t ) const)(&IFormFactorBorn_wrapper::evaluate_for_q)
+            , (::complex_t ( IFormFactorBorn_wrapper::* )( ::cvector_t const & ) const)(&IFormFactorBorn_wrapper::evaluate_for_q)
             , ( bp::arg("q") ) )    
         .def( 
             "createParameterTree"

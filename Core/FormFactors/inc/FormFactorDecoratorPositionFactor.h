@@ -18,15 +18,16 @@
 #include "IFormFactor.h"
 
 #include <cmath>
+#include "Units.h"
 
 class FormFactorDecoratorPositionFactor : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, kvector_t position);
-    virtual ~FormFactorDecoratorPositionFactor() {};
+    virtual ~FormFactorDecoratorPositionFactor() {}
     virtual FormFactorDecoratorPositionFactor *clone() const;
 
-    virtual complex_t evaluate(cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const {
         return mp_form_factor->getNumberOfStochasticParameters();
@@ -47,8 +48,8 @@ inline FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clo
     return new FormFactorDecoratorPositionFactor(*mp_form_factor, m_position);
 }
 
-inline complex_t FormFactorDecoratorPositionFactor::evaluate(cvector_t k_i,
-        cvector_t k_f, double alpha_i, double alpha_f) const
+inline complex_t FormFactorDecoratorPositionFactor::evaluate(const cvector_t &k_i,
+        const cvector_t &k_f, double alpha_i, double alpha_f) const
 {
     cvector_t q = k_i - k_f;
     complex_t qr = q.x()*m_position.x() + q.y()*m_position.y() + q.z()*m_position.z();

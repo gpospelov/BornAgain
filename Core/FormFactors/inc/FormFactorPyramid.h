@@ -37,7 +37,7 @@ public:
     virtual int getNumberOfStochasticParameters() { return 3; }
 
 protected:
-    virtual complex_t evaluate_for_q(cvector_t q) const;
+    virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
 private:
     //! copy constructor and assignment operator are hidden since there is a clone method

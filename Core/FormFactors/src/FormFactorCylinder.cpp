@@ -44,7 +44,7 @@ FormFactorCylinder* FormFactorCylinder::clone() const
 //    return new FormFactorCylinder(mp_height->clone(), mp_radius->clone());
 }
 
-complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const
+complex_t FormFactorCylinder::evaluate_for_q(const cvector_t &q) const
 {
 //    double R = mp_radius->getCurrent();
 //    double H = mp_height->getCurrent();

@@ -14,6 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.05.2012
 
+#include "Types.h"
 
 namespace Units {  // BornAgain namespace
 
@@ -41,6 +42,7 @@ static const double rad  = radian;
 static const double mrad = milliradian;
 static const double sr   = steradian;
 static const double deg  = degree;
+
 
 }
 

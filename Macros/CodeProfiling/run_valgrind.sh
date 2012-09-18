@@ -9,13 +9,13 @@ application=../../App/App
 #arguments="isgisaxs10 batch"
 #arguments="isgisaxs9 batch"
 #arguments="isgisaxs2 batch profile"
-arguments="mesocrystal"
+arguments="mesocrystal batch profile"
 focuson=GISASExperiment
 
 # ------------------------------------------- #
 # profiling cpu usage
 # ------------------------------------------- #
-profile_cpu=no
+profile_cpu=yes
 if [ $profile_cpu = "yes" ]
 then
 #  valgrind --tool=callgrind -v --dump-every-bb=10000000 --dump-instr=yes --trace-jump=yes ./App commandline
@@ -27,7 +27,7 @@ fi
 # ------------------------------------------- #
 # profiling HEAP usage
 # ------------------------------------------- #
-profile_memory=yes
+profile_memory=no
 if [ $profile_memory = "yes" ]
 then
   valgrind --log-file=./output/valgrind.output  --dsymutil=yes --num-callers=6 --track-origins=yes --leak-check=yes $application $arguments

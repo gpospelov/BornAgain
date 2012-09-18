@@ -17,7 +17,7 @@ void LocalMonodisperseApproximationStrategy::init(
 }
 
 double LocalMonodisperseApproximationStrategy::evaluate(
-        cvector_t k_i, cvector_t k_f, double alpha_i, double alpha_f) const
+        const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const
 {
     double intensity = 0.0;
     for (size_t i=0; i<m_form_factors.size(); ++i) {

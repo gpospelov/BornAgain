@@ -50,7 +50,7 @@ void MultiLayerRoughnessDWBASimulation::run()
 }
 
 
-double MultiLayerRoughnessDWBASimulation::evaluate(cvector_t k_i, cvector_t k_f,
+double MultiLayerRoughnessDWBASimulation::evaluate(const cvector_t &k_i, const cvector_t &k_f,
         double alpha_i, double alpha_f)
 {
     kvector_t ki_real(k_i.x().real(), k_i.y().real(), k_i.z().real());
@@ -103,7 +103,7 @@ complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(int ilayer)
 
 
 
-complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(int ilayer, cvector_t k_i, cvector_t k_f,
+complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(int ilayer, const cvector_t &k_i, const cvector_t &k_f,
         double alpha_i, double alpha_f)
 {
     complex_t qz1 =  k_i.z() + k_f.z();

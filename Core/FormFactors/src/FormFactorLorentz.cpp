@@ -54,7 +54,7 @@ FormFactorLorentz* FormFactorLorentz::clone() const
 //    return new FormFactorLorentz(mp_height->clone(), mp_radius->clone());
 }
 
-complex_t FormFactorLorentz::evaluate_for_q(cvector_t q) const
+complex_t FormFactorLorentz::evaluate_for_q(const cvector_t &q) const
 {
 //    double R = mp_radius->getCurrent();
 //    double H = mp_height->getCurrent();

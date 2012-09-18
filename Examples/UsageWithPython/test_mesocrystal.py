@@ -13,9 +13,6 @@ sys.path.append(os.path.abspath(
 from libScattCore import *
 
 
-#ll=[kvector_t(1,0,0), kvector_t(2,0,0)]
-#display
-
 # ------------------------
 # building mesocrystal
 # ------------------------

@@ -38,7 +38,7 @@ FormFactorFullSphere* FormFactorFullSphere::clone() const
 //    return new FormFactorFullSphere(mp_radius->clone());
 }
 
-complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const
+complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t &q) const
 {
 //    double R = mp_radius->getCurrent();
     complex_t qz = q.z();

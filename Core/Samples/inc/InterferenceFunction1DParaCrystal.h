@@ -25,7 +25,7 @@ public:
 	    return new InterferenceFunction1DParaCrystal(m_peak_distance, m_width, m_corr_length);
 	}
 
-	virtual double evaluate(cvector_t q) const;
+    virtual double evaluate(const cvector_t &q) const;
 protected:
 	double m_peak_distance;
 	double m_width;

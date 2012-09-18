@@ -13,11 +13,11 @@
 #include "PythonListConverter.h"
 
 
-void display(const std::vector<double>&v)
-{
-  std::copy(v.begin(),v.end(), std::ostream_iterator<double>(std::cout," "));
-  std::cout << std::endl;
-}
+//void display(const std::vector<double>&v)
+//{
+//  std::copy(v.begin(),v.end(), std::ostream_iterator<double>(std::cout," "));
+//  std::cout << std::endl;
+//}
 
 
 BOOST_PYTHON_MODULE(libScattCore){
@@ -34,7 +34,7 @@ BOOST_PYTHON_MODULE(libScattCore){
 
     register_python2cpp_converters();
 
-    boost::python::def("display", display);
+//    boost::python::def("display", display);
 
     import_array();
     /* IMPORTANT

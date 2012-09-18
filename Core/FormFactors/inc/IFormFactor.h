@@ -77,7 +77,7 @@ public:
 protected:
     /// evaluate scattering amplitude for complex wavevector
     /// @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
-    virtual complex_t evaluate_for_q(cvector_t q) const=0;
+    virtual complex_t evaluate_for_q(const cvector_t &q) const=0;
 };
 
 inline complex_t IFormFactorBorn::evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const

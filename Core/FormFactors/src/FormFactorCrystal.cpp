@@ -38,7 +38,7 @@ void FormFactorCrystal::setAmbientRefractiveIndex(
     mp_basis_form_factor->setAmbientRefractiveIndex(refractive_index);
 }
 
-complex_t FormFactorCrystal::evaluate_for_q(cvector_t q) const
+complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
 {
     // construct a real reciprocal vector
     kvector_t q_real(q.x().real(), q.y().real(), q.z().real());

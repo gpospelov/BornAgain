@@ -25,7 +25,7 @@ public:
     ~FormFactorFullSphere();
     virtual FormFactorFullSphere *clone() const;
 
-    virtual int getNumberOfStochasticParameters() { return 1; }
+    virtual int getNumberOfStochasticParameters() const { return 1; }
 
     //! return radius of sphere
     double getRadius() const { return m_radius; }

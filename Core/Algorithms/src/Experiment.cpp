@@ -48,7 +48,7 @@ const OutputData<double>* Experiment::getOutputData() const
 
 const OutputData<double>* Experiment::getOutputDataMask() const
 {
-    return &m_output_data_mask;
+    return &m_current_output_data_mask;
 }
 
 
@@ -83,15 +83,15 @@ void Experiment::setOutputDataMask(size_t n_chunks_total, size_t n_chunk )
 {
     if(n_chunks_total==0) throw RuntimeErrorException("Experiment::setOutputDataMask() -> Error! Number of chunks can not be zero");
     // copying topology from intensity data
-    m_output_data_mask.copyFrom(m_intensity_map);
+    m_current_output_data_mask.copyFrom(m_intensity_map);
     // setting mask
-    m_output_data_mask.setAllTo(0.0);
-    m_output_data_mask.resetIndex();
-    while(m_output_data_mask.hasNext()) {
-        if(m_output_data_mask.getIndex().getPosition() % n_chunks_total == n_chunk) {
-            m_output_data_mask.next() = 1;
+    m_current_output_data_mask.setAllTo(0.0);
+    m_current_output_data_mask.resetIndex();
+    while(m_current_output_data_mask.hasNext()) {
+        if(m_current_output_data_mask.getIndex().getPosition() % n_chunks_total == n_chunk) {
+            m_current_output_data_mask.next() = 1;
         } else {
-            m_output_data_mask.next();
+            m_current_output_data_mask.next();
         }
     }
 

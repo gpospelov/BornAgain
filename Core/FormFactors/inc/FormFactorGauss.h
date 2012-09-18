@@ -26,7 +26,7 @@ public:
     ~FormFactorGauss();
     virtual FormFactorGauss *clone() const;
 
-    virtual int getNumberOfStochasticParameters() { return 2; }
+    virtual int getNumberOfStochasticParameters() const { return 2; }
 
 protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;

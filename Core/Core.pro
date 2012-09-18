@@ -266,7 +266,7 @@ macx {
   LIBS += -L/usr/local/lib -L/usr/lib64
 }
 # normally it should be done like that
-LIBS += -lgsl -lgslcblas -lfftw3 -lboost_thread -lboost_system -lboost_filesystem -lboost_regex
+LIBS += -lgsl -lgslcblas -lfftw3 -lboost_thread-mt -lboost_system -lboost_filesystem -lboost_regex
 
 # here is workaround since JCNS /usr/local doesn't have shared fftw3
 # qmake CONFIG+=JCNS

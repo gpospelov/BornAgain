@@ -71,15 +71,15 @@ void TestMesoCrystal::initializeSample()
     // create mesocrystal
     double meso_width = 300*Units::nanometer;
     double surface_filling_ratio = 0.25;
-    double surface_density = surface_filling_ratio/meso_width/meso_width;
+    double surface_density = surface_filling_ratio/M_PI/meso_width/meso_width;
 //    complex_t n_particle(1.0-1.55e-5, 1.37e-6); // data from Artur
     complex_t n_particle(1.0-2.84e-5, 4.7e-7); // data from http://henke.lbl.gov/optical_constants/getdb2.html
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
     complex_t n_avg = std::sqrt(surface_filling_ratio*avg_n_squared_meso + 1.0 - surface_filling_ratio);
     complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
     FormFactorCylinder ff_cyl(0.2*Units::micrometer, meso_width);
-    double sigma_h = 10*Units::nanometer;
-    double sigma_r = 100*Units::nanometer;
+    double sigma_h = 40*Units::nanometer;
+    double sigma_r = 120*Units::nanometer;
     FormFactorDecoratorDebyeWaller ff_meso(ff_cyl.clone(), sigma_h*sigma_h/2.0, sigma_r*sigma_r/2.0);
 
     // Create multilayer
@@ -99,7 +99,7 @@ void TestMesoCrystal::initializeSample()
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
     ParticleDecoration particle_decoration;
-    size_t n_max_phi_rotation_steps = 171;
+    size_t n_max_phi_rotation_steps = 140;
     size_t n_alpha_rotation_steps = 1;
 
     double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;
@@ -126,7 +126,7 @@ void TestMesoCrystal::initializeSample()
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {
             Geometry::RotateZ3D transform1(phi_start + (double)i*phi_step);
             Geometry::RotateY3D transform2(alpha_start + j*alpha_step);
-            Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1*transform2);
+            Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1);
             particle_decoration.addParticle(createMesoCrystal(6.1*Units::nanometer,
                     n_particle_adapted, &ff_meso), p_total_transform, 0.2*Units::micrometer);
         }

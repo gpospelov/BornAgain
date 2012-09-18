@@ -12,9 +12,14 @@ lessThan(QT_VERSION, 4.5) {
 #CONFIG += GPERFTOOLS
 
 # uncomment to compile in debug mode
-CONFIG += debug
+#CONFIG += debug
 
-#
+# optimization flag used in release builds
+# the -O2 is the default used by qmake
+# QMAKE_CXXFLAGS_RELEASE -= -O2
+# QMAKE_CXXFLAGS_RELEASE += -O3
+
+
 #QMAKE_STRIP=:
 
 #CONFIG+=GPERFTOOLS

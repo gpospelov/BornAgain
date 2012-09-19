@@ -44,13 +44,13 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         throw NullPointerException("IsGISAXSTools::drawOutputDataInPad() -> Error! No canvas exists.");
     }
 
-    const OutputData<double> *p_output = &output;
-    if (p_output->getDimension() != 2) return;
+//    const OutputData<double> *p_output = &output;
+    if (output.getDimension() != 2) return;
     // creation of 2D histogram from calculated intensities
 
-    p_output->resetIndex();
-    const NamedVector<double> *p_y_axis = dynamic_cast<const NamedVector<double>*>(p_output->getAxes()[0]);
-    const NamedVector<double> *p_z_axis = dynamic_cast<const NamedVector<double>*>(p_output->getAxes()[1]);
+    output.resetIndex();
+    const NamedVector<double> *p_y_axis = dynamic_cast<const NamedVector<double>*>(output.getAxes()[0]);
+    const NamedVector<double> *p_z_axis = dynamic_cast<const NamedVector<double>*>(output.getAxes()[1]);
     std::string y_axis_name = p_y_axis->getName();
     std::string z_axis_name = p_z_axis->getName();
     size_t y_size = p_y_axis->getSize();
@@ -68,13 +68,13 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
     p_hist2D.GetXaxis()->SetTitle(y_axis_name.c_str());
     p_hist2D.GetYaxis()->SetTitle(z_axis_name.c_str());
 
-    while (p_output->hasNext())
+    while (output.hasNext())
     {
-        size_t index_y = p_output->getCurrentIndexOfAxis(y_axis_name.c_str());
-        size_t index_z = p_output->getCurrentIndexOfAxis(z_axis_name.c_str());
+        size_t index_y = output.getCurrentIndexOfAxis(y_axis_name.c_str());
+        size_t index_z = output.getCurrentIndexOfAxis(z_axis_name.c_str());
         double x_value = (*p_y_axis)[index_y]/Units::degree;
         double y_value = (*p_z_axis)[index_z]/Units::degree;
-        double z_value = p_output->next();
+        double z_value = output.next();
         p_hist2D.Fill(x_value, y_value, z_value);
     }
     p_hist2D.SetContour(50);

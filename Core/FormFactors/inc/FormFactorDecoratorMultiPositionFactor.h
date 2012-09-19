@@ -38,6 +38,7 @@ inline FormFactorDecoratorMultiPositionFactor::FormFactorDecoratorMultiPositionF
 : IFormFactorDecorator(form_factor.clone())
 , m_positions(positions)
 {
+    setName("FormFactorDecoratorMultiPositionFactor");
 }
 
 inline FormFactorDecoratorMultiPositionFactor* FormFactorDecoratorMultiPositionFactor::clone() const

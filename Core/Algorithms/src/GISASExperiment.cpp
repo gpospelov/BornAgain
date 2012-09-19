@@ -17,7 +17,7 @@ GISASExperiment::GISASExperiment()
 void GISASExperiment::runSimulation()
 {
     int n_threads_total = boost::thread::hardware_concurrency();
-    //n_threads_total = 0;
+//    n_threads_total = 0;
 
     m_intensity_map.setAllTo(0.0);
     if(n_threads_total<=1) {

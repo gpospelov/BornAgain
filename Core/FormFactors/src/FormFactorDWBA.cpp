@@ -4,6 +4,7 @@ FormFactorDWBA::FormFactorDWBA(IFormFactor *p_form_factor)
     : IFormFactorDecorator(p_form_factor)
     , mp_T(0), mp_R(0)
 {
+    setName("FormFactorDWBA");
 }
 
 FormFactorDWBA::~FormFactorDWBA()

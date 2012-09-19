@@ -36,6 +36,7 @@ inline FormFactorDecoratorRefractiveIndex::FormFactorDecoratorRefractiveIndex(
         getRefractiveIndexFactor(complex_t(1.0, 0.0), refractive_index))
 , m_refractive_index(refractive_index)
 {
+    setName("FormFactorDecoratorRefractiveIndex");
 }
 
 inline FormFactorDecoratorRefractiveIndex::~FormFactorDecoratorRefractiveIndex()

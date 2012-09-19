@@ -40,6 +40,7 @@ inline FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mea
 , p_ff_sphere(0)
 , m_zero_vector(0.0, 0.0, 0.0)
 {
+    setName("FormFactorSphereGaussianRadius");
     m_mean_r3 = calculateMeanR3();
     p_ff_sphere = new FormFactorFullSphere(m_mean_r3);
 }

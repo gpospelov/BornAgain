@@ -2,6 +2,7 @@
 
 FormFactorWeighted::FormFactorWeighted()
 {
+    setName("FormFactorWeighted");
 }
 
 FormFactorWeighted::~FormFactorWeighted()

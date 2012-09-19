@@ -37,6 +37,7 @@ inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(
 : IFormFactorDecorator(p_form_factor)
 , m_factor(factor)
 {
+    setName("FormFactorDecoratorFactor");
 }
 
 inline FormFactorDecoratorFactor* FormFactorDecoratorFactor::clone() const

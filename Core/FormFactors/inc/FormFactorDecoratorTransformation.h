@@ -39,6 +39,7 @@ inline FormFactorDecoratorTransformation::FormFactorDecoratorTransformation(
 , mp_transform(transform)
 , mp_inverse_transform(0)
 {
+    setName("FormFactorDecoratorTransformation");
     mp_inverse_transform = new Geometry::Transform3D(mp_transform->inverse());
 }
 

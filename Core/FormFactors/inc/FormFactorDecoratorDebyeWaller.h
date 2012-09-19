@@ -20,7 +20,7 @@ public:
     FormFactorDecoratorDebyeWaller(IFormFactor *p_form_factor, double dw_factor);
     FormFactorDecoratorDebyeWaller(IFormFactor *p_form_factor, double dw_h_factor, double dw_r_factor);
     virtual FormFactorDecoratorDebyeWaller *clone() const;
-    virtual ~FormFactorDecoratorDebyeWaller() {};
+    virtual ~FormFactorDecoratorDebyeWaller() {}
 
     virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
 
@@ -29,6 +29,15 @@ public:
 protected:
     double m_h_dw_factor; //!< the Debye-Waller factor in the z-direction
     double m_r_dw_factor; //!< the Debye-Waller factor in the radial direction
+
+private:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters() {
+        getParameterPool()->clear();
+        getParameterPool()->registerParameter("hfactor", &m_h_dw_factor);
+        getParameterPool()->registerParameter("rfactor", &m_r_dw_factor);
+    }
+
 };
 
 inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
@@ -37,6 +46,8 @@ inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
 , m_h_dw_factor(dw_factor)
 , m_r_dw_factor(dw_factor)
 {
+    setName("FormFactorDecoratorDebyeWaller");
+    init_parameters();
 }
 
 inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
@@ -44,6 +55,8 @@ inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
 : IFormFactorDecorator(p_form_factor)
 , m_h_dw_factor(dw_h_factor)
 , m_r_dw_factor(dw_r_factor){
+    setName("FormFactorDecoratorDebyeWaller");
+    init_parameters();
 }
 
 inline FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const

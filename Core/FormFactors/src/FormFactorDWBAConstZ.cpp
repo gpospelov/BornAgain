@@ -4,6 +4,7 @@ FormFactorDWBAConstZ::FormFactorDWBAConstZ(IFormFactor* p_form_factor, double de
 : FormFactorDWBA(p_form_factor)
 , m_depth(depth)
 {
+    setName("FormFactorDWBAConstZ");
 }
 
 FormFactorDWBAConstZ::~FormFactorDWBAConstZ()

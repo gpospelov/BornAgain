@@ -51,8 +51,10 @@ public:
     virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
     {
         if (p_form_factor != mp_form_factor) {
+            deregisterChild(mp_form_factor);
             delete mp_form_factor;
             mp_form_factor = p_form_factor;
+            registerChild(mp_form_factor);
         }
     }
 

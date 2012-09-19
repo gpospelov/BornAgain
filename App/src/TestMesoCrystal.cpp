@@ -146,7 +146,7 @@ void TestMesoCrystal::initializeSample()
 
 
     mp_sample = p_multi_layer;
-    //mp_sample->walk_and_print();
+    mp_sample->walk_and_print();
 
     std::cout << "Average layer index: " << n_avg << std::endl;
     std::cout << "Adapted particle index: " << n_particle_adapted << std::endl;

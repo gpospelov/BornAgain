@@ -41,6 +41,7 @@ inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(
 : IFormFactorDecorator(form_factor.clone())
 , m_position(position)
 {
+    setName("FormFactorDecoratorPositionFactor");
 }
 
 inline FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clone() const

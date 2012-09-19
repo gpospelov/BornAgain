@@ -90,29 +90,6 @@ for(dep, MY_DEPENDENCY_LIB) {
 
 
 # -----------------------------------------------------------------------------
-# external libraries
-# -----------------------------------------------------------------------------
-macx {
-  INCLUDEPATH += /opt/local/include
-  LIBS += -L/opt/local/lib
-}
-!macx:unix:exists(/usr/local) {
-  INCLUDEPATH += /usr/local/include
-  LIBS += -L/usr/local/lib -L/usr/lib64
-}
-# normally it should be done like that
-LIBS += -lgsl -lgslcblas -lfftw3 -lboost_system -lboost_filesystem -lboost_regex
-
-# here is workaround since JCNS /usr/local doesn't have shared fftw3
-# qmake CONFIG+=JCNS
-CONFIG(JCNS) {
-  LIBS -= -lfftw3
-  LIBS += -Bstatic -lfftw3 -Bdynamic # request for static (without fPIC option)
-  # "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
-}
-
-
-# -----------------------------------------------------------------------------
 # adding ROOT libraries
 # -----------------------------------------------------------------------------
 exists($$(ROOTSYS)/bin/root-config){

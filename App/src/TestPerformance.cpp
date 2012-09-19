@@ -16,7 +16,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
-
+#include <time.h>
 
 TestPerformance::TestPerformance()
 {
@@ -47,6 +47,10 @@ void TestPerformance::execute()
     // getting system information
     get_sysinfo();
 
+    clock_t clock1 = clock();
+    //clock_t gt_clock1 = clock_get_time();
+    std::cout << "1.1 " << clock1 << std::endl;
+
     // run tests
     TBenchmark mb;
     for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); it++) {
@@ -75,6 +79,10 @@ void TestPerformance::execute()
     }
 
     write_performance();
+
+    clock_t clock2 = clock();
+    std::cout << "1.2 " << clock2 << std::endl;
+    std::cout << "1.3 " << clock2-clock1 << std::endl;
 
 }
 

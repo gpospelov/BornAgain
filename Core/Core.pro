@@ -253,34 +253,6 @@ DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc 
 
 OBJECTS_DIR = obj
 
-
-# -----------------------------------------------------------------------------
-# external libraries
-# -----------------------------------------------------------------------------
-macx {
-  INCLUDEPATH += /opt/local/include
-  LIBS += -L/opt/local/lib
-}
-!macx:unix:exists(/usr/local) {
-  INCLUDEPATH += /usr/local/include
-  LIBS += -L/usr/local/lib -L/usr/lib64
-}
-# normally it should be done like that
-LIBS += -lgsl -lgslcblas -lfftw3 -lboost_thread-mt -lboost_system -lboost_filesystem -lboost_regex
-
-# here is workaround since JCNS /usr/local doesn't have shared fftw3
-# qmake CONFIG+=JCNS
-CONFIG(JCNS) {
-  ##LIBS -= -lfftw3
-  ##LIBS += -Bstatic -lfftw3f -Bdynamic
-  ## "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
-  #-Wl,--whole-archive
-  #http://stackoverflow.com/questions/2763988/how-to-include-all-objects-of-an-archive-in-a-shared-object
-
-  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_thread -lboost_system -lboost_filesystem -lboost_regex
-}
-
-
 # -----------------------------------------------------------------------------
 # checking python configuration
 # -----------------------------------------------------------------------------

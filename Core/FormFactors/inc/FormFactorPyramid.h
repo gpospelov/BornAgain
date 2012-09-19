@@ -34,7 +34,7 @@ public:
     ~FormFactorPyramid();
     virtual FormFactorPyramid *clone() const;
 
-    virtual int getNumberOfStochasticParameters() { return 3; }
+    virtual int getNumberOfStochasticParameters() const { return 3; }
 
 protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;

@@ -71,7 +71,7 @@ protected:
     Detector m_detector;
     Beam m_beam;
     OutputData<double> m_intensity_map;
-    OutputData<double> m_output_data_mask;
+    OutputData<double> m_current_output_data_mask;
     bool m_is_normalized;
 };
 

@@ -61,7 +61,7 @@ void TestMesoCrystal::execute()
     std::cout << "Scattered percentage in detector: " << 100*total_count/experiment.getBeam().getIntensity() << std::endl;
     std::cout << "Total count in detector before normalize: " << count_before_normalize << std::endl;
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
-            "CONT4 Z");
+            "CONT4 Z", "mesocrystal");
     IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/mesocrystal.ima");
 }
 

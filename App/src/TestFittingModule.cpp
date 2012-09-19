@@ -79,7 +79,7 @@ void TestFittingModule::execute()
 
     std::cout << "Layer thickness fit: " << min.X()[0] << " nanometer" << std::endl;
 
-    IsGISAXSTools::drawLogOutputData(*mp_real_data, "c1_test_fitting", "fitting", "CONT4 Z");
+    IsGISAXSTools::drawLogOutputData(*mp_real_data, "c1_test_fitting", "fitting", "CONT4 Z", "fitting");
 //    IsGISAXSTools::writeOutputDataToFile(*mp_real_data, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-10/para1dcyl.ima");
 }
 

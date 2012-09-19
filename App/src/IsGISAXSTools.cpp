@@ -43,11 +43,9 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataInPad() -> Error! No canvas exists.");
     }
-
-//    const OutputData<double> *p_output = &output;
     if (output.getDimension() != 2) return;
-    // creation of 2D histogram from calculated intensities
 
+    // creation of 2D histogram from calculated intensities
     output.resetIndex();
     const NamedVector<double> *p_y_axis = dynamic_cast<const NamedVector<double>*>(output.getAxes()[0]);
     const NamedVector<double> *p_z_axis = dynamic_cast<const NamedVector<double>*>(output.getAxes()[1]);

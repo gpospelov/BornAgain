@@ -46,7 +46,7 @@ void TestDetectorResolution::execute()
     experiment.runSimulation();
     mp_intensity_output = experiment.getOutputDataClone();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_detector_resolution", "Detector resolution",
-            "CONT4 Z");
+            "CONT4 Z", "Detector resolution");
 }
 
 void TestDetectorResolution::initializeSample()

@@ -26,10 +26,10 @@ public:
     //! draw 2D histogram representing OutputData (in new canvas)
     static void drawLogOutputData(const OutputData<double> &output, const std::string &canvas_name,
             const std::string &canvas_title, const std::string &draw_options,
-            const std::string &histogram_title = std::string());
+            const std::string &histogram_title);
 
     //! draw 2D histogram representing OutputData (in current gPad)
-    static void drawOutputDataInPad(const OutputData<double> &output, const std::string &draw_options, const std::string &histogram_title = std::string());
+    static void drawOutputDataInPad(const OutputData<double> &output, const std::string &draw_options, const std::string &histogram_title);
 
     //! draw 1D distribution over values stored in OutputData
     static void drawOutputDataDistribution1D(const OutputData<double> &output, const std::string &draw_options, const std::string &histogram_title = std::string());

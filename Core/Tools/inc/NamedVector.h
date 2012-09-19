@@ -27,7 +27,7 @@ public:
     virtual size_t getSize() const=0;
     std::string getName() const { return m_name; }
     void setName(std::string name) { m_name = name; }
-    virtual NamedVectorBase* clone() const = 0;
+    virtual NamedVectorBase* clone() const=0;
 
 private:
     std::string m_name;
@@ -64,7 +64,9 @@ template <class T> NamedVector<T>::~NamedVector()
 
 template <class T> NamedVector<T>* NamedVector<T>::clone() const
 {
-    return new NamedVector<T>(*this);
+    NamedVector<T> *p_new = new NamedVector<T>(getName());
+    p_new->m_value_vector = this->m_value_vector;
+    return p_new;
 }
 
 template <class T> void NamedVector<T>::initElements(T start, T end, size_t size)

@@ -58,12 +58,20 @@ public:
     Coordinate3D<int> getNearestReciprocalLatticeVectorCoordinates(const kvector_t &vector_in) const;
 
     //! get a list of lattice vectors within a specified distance of a given vector
-    std::vector<kvector_t> getLatticeVectorsWithinRadius(
-            const kvector_t &input_vector, double radius) const;
+//    std::vector<kvector_t> getLatticeVectorsWithinRadius(
+//            const kvector_t &input_vector, double radius) const;
+
+//    //! get a list of reciprocal lattice vectors within a specified distance of a given vector
+//    std::vector<kvector_t> getReciprocalLatticeVectorsWithinRadius(
+//            const kvector_t &input_vector, double radius) const;
+
+    void getLatticeVectorsWithinRadius(
+            const kvector_t &input_vector, double radius, std::vector<kvector_t> &result) const;
 
     //! get a list of reciprocal lattice vectors within a specified distance of a given vector
-    std::vector<kvector_t> getReciprocalLatticeVectorsWithinRadius(
-            const kvector_t &input_vector, double radius) const;
+    void getReciprocalLatticeVectorsWithinRadius(
+            const kvector_t &input_vector, double radius, std::vector<kvector_t> &result) const;
+
 
     //! get a list of rotation angles within a specified range that hit a maximal set of small Bragg peaks
     std::vector<double> collectBraggAngles(size_t size, double max_radius, const TRange<double> &phi_range, const TRange<double> &z_range) const;
@@ -82,10 +90,14 @@ public:
 
 private:
     Lattice &operator=(const Lattice &lattice);
-    std::vector<kvector_t> getVectorsWithinRadius(const kvector_t &input_vector,
+//    std::vector<kvector_t> getVectorsWithinRadius(const kvector_t &input_vector,
+//            const Coordinate3D<int> &nearest_coords, double radius,
+//            const kvector_t &v1, const kvector_t &v2, const kvector_t &v3,
+//            const kvector_t &rec1, const kvector_t &rec2, const kvector_t &rec3) const;
+    void getVectorsWithinRadius(const kvector_t &input_vector,
             const Coordinate3D<int> &nearest_coords, double radius,
             const kvector_t &v1, const kvector_t &v2, const kvector_t &v3,
-            const kvector_t &rec1, const kvector_t &rec2, const kvector_t &rec3) const;
+            const kvector_t &rec1, const kvector_t &rec2, const kvector_t &rec3, std::vector<kvector_t> &result) const;
     void computeReciprocalVectors() const;
     void computeInverseLatticeVectors() const;
     void computeInverseReciprocalLatticeVectors() const;

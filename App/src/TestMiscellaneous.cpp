@@ -30,9 +30,9 @@ TestMiscellaneous::TestMiscellaneous()
 void TestMiscellaneous::execute()
 {
 
-    //test_DoubleToComplexInterpolatingFunction();
+    test_DoubleToComplexInterpolatingFunction();
     //test_FormFactor();
-    test_DrawMesocrystal();
+    //test_DrawMesocrystal();
 }
 
 

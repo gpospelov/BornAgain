@@ -85,26 +85,50 @@ Coordinate3D<int> Lattice::getNearestReciprocalLatticeVectorCoordinates(const kv
     return Coordinate3D<int>(c1, c2, c3);
 }
 
-std::vector<kvector_t> Lattice::getLatticeVectorsWithinRadius(
-        const kvector_t& input_vector, double radius) const
+//std::vector<kvector_t> Lattice::getLatticeVectorsWithinRadius(
+//        const kvector_t& input_vector, double radius) const
+//{
+//    if (!m_cache_ok) {
+//        initialize();
+//    }
+//    Coordinate3D<int> nearest_coords = getNearestLatticeVectorCoordinates(input_vector);
+//    return getVectorsWithinRadius(input_vector, nearest_coords, radius, m_a1, m_a2, m_a3, m_b1, m_b2, m_b3);
+//}
+
+//std::vector<kvector_t> Lattice::getReciprocalLatticeVectorsWithinRadius(
+//        const kvector_t& input_vector, double radius) const
+//{
+//    if (!m_cache_ok) {
+//        initialize();
+//    }
+//    Coordinate3D<int> nearest_coords = getNearestReciprocalLatticeVectorCoordinates(input_vector);
+//    return getVectorsWithinRadius(input_vector, nearest_coords, radius, m_b1, m_b2, m_b3, m_a1, m_a2, m_a3);
+
+//}
+
+
+void Lattice::getLatticeVectorsWithinRadius(
+        const kvector_t& input_vector, double radius, std::vector<kvector_t> &result) const
 {
     if (!m_cache_ok) {
         initialize();
     }
     Coordinate3D<int> nearest_coords = getNearestLatticeVectorCoordinates(input_vector);
-    return getVectorsWithinRadius(input_vector, nearest_coords, radius, m_a1, m_a2, m_a3, m_b1, m_b2, m_b3);
+    getVectorsWithinRadius(input_vector, nearest_coords, radius, m_a1, m_a2, m_a3, m_b1, m_b2, m_b3, result);
 }
 
-std::vector<kvector_t> Lattice::getReciprocalLatticeVectorsWithinRadius(
-        const kvector_t& input_vector, double radius) const
+void Lattice::getReciprocalLatticeVectorsWithinRadius(
+        const kvector_t& input_vector, double radius, std::vector<kvector_t> &result) const
 {
     if (!m_cache_ok) {
         initialize();
     }
     Coordinate3D<int> nearest_coords = getNearestReciprocalLatticeVectorCoordinates(input_vector);
-    return getVectorsWithinRadius(input_vector, nearest_coords, radius, m_b1, m_b2, m_b3, m_a1, m_a2, m_a3);
+    getVectorsWithinRadius(input_vector, nearest_coords, radius, m_b1, m_b2, m_b3, m_a1, m_a2, m_a3, result);
 
 }
+
+
 
 std::vector<double> Lattice::collectBraggAngles(size_t size, double max_radius,
         const TRange<double>& phi_range, const TRange<double>& z_range) const
@@ -118,7 +142,9 @@ std::vector<double> Lattice::collectBraggAngles(size_t size, double max_radius,
         max_radius *= (double)size/max_nbr_angles;
     }
     double radius = std::max(max_radius, z_range.getMax());
-    std::vector<kvector_t> rec_vectors = getReciprocalLatticeVectorsWithinRadius(kvector_t(0.0, 0.0, 0.0), radius);
+    //std::vector<kvector_t> rec_vectors = getReciprocalLatticeVectorsWithinRadius(kvector_t(0.0, 0.0, 0.0), radius);
+    std::vector<kvector_t> rec_vectors;
+    getReciprocalLatticeVectorsWithinRadius(kvector_t(0.0, 0.0, 0.0), radius, rec_vectors);
     for (size_t i=0; i<rec_vectors.size(); ++i) {
         kvector_t rvec = rec_vectors[i];
         double phi = rvec.phi();
@@ -157,24 +183,64 @@ void Lattice::computeReciprocalVectors() const
     m_b3 = 2*M_PI/DotProduct(m_a3, a12)*a12;
 }
 
-std::vector<kvector_t> Lattice::getVectorsWithinRadius(const kvector_t &input_vector,
+//std::vector<kvector_t> Lattice::getVectorsWithinRadius(const kvector_t &input_vector,
+//        const Coordinate3D<int> &nearest_coords, double radius, const kvector_t& v1,
+//        const kvector_t& v2, const kvector_t& v3, const kvector_t& rec1,
+//        const kvector_t& rec2, const kvector_t& rec3) const
+//{
+//    int max_X = (int)std::floor( rec1.mag()*radius/(2*M_PI) );
+//    int max_Y = (int)std::floor( rec2.mag()*radius/(2*M_PI) );
+//    int max_Z = (int)std::floor( rec3.mag()*radius/(2*M_PI) );
+
+//    std::vector<kvector_t> result;
+//    Coordinate3D<int> coords(0,0,0);
+//    for (int index_X = -max_X; index_X <= max_X; ++index_X)
+//    {
+//        coords[0] = index_X + nearest_coords[0];
+//        for (int index_Y = -max_Y; index_Y <= max_Y; ++index_Y)
+//        {
+//            coords[1] = index_Y + nearest_coords[1];
+//            for (int index_Z = -max_Z; index_Z <= max_Z; ++index_Z)
+//            {
+//                coords[2] = index_Z + nearest_coords[2];
+////                Coordinate3D<int> coords(index_X + nearest_coords[0],
+////                        index_Y + nearest_coords[1], index_Z + nearest_coords[2]);
+//                if (mp_selection_rule && !mp_selection_rule->coordinateSelected(coords)) continue;
+//                kvector_t latticePoint = coords[0]*v1 + coords[1]*v2 + coords[2]*v3;
+//                if ((latticePoint - input_vector).mag() <= radius)
+//                {
+//                    result.push_back(latticePoint);
+//                }
+//            }
+//        }
+//    }
+//    return result;
+//}
+
+
+void Lattice::getVectorsWithinRadius(const kvector_t &input_vector,
         const Coordinate3D<int> &nearest_coords, double radius, const kvector_t& v1,
         const kvector_t& v2, const kvector_t& v3, const kvector_t& rec1,
-        const kvector_t& rec2, const kvector_t& rec3) const
+        const kvector_t& rec2, const kvector_t& rec3, std::vector<kvector_t> &result) const
 {
     int max_X = (int)std::floor( rec1.mag()*radius/(2*M_PI) );
     int max_Y = (int)std::floor( rec2.mag()*radius/(2*M_PI) );
     int max_Z = (int)std::floor( rec3.mag()*radius/(2*M_PI) );
 
-    std::vector<kvector_t> result;
+//    std::vector<kvector_t> result;
+    result.clear();
+    Coordinate3D<int> coords(0,0,0);
     for (int index_X = -max_X; index_X <= max_X; ++index_X)
     {
+        coords[0] = index_X + nearest_coords[0];
         for (int index_Y = -max_Y; index_Y <= max_Y; ++index_Y)
         {
+            coords[1] = index_Y + nearest_coords[1];
             for (int index_Z = -max_Z; index_Z <= max_Z; ++index_Z)
             {
-                Coordinate3D<int> coords(index_X + nearest_coords[0],
-                        index_Y + nearest_coords[1], index_Z + nearest_coords[2]);
+                coords[2] = index_Z + nearest_coords[2];
+//                Coordinate3D<int> coords(index_X + nearest_coords[0],
+//                        index_Y + nearest_coords[1], index_Z + nearest_coords[2]);
                 if (mp_selection_rule && !mp_selection_rule->coordinateSelected(coords)) continue;
                 kvector_t latticePoint = coords[0]*v1 + coords[1]*v2 + coords[2]*v3;
                 if ((latticePoint - input_vector).mag() <= radius)
@@ -184,8 +250,10 @@ std::vector<kvector_t> Lattice::getVectorsWithinRadius(const kvector_t &input_ve
             }
         }
     }
-    return result;
+//    return result;
 }
+
+
 
 void Lattice::computeInverseLatticeVectors() const
 {

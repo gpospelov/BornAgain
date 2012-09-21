@@ -1,0 +1,1922 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6222D038160C683B008205AC /* libboost_python.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D037160C683B008205AC /* libboost_python.dylib */; };
+		6222D03A160C685A008205AC /* Python in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D039160C685A008205AC /* Python */; };
+		6222D041160C690A008205AC /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03B160C690A008205AC /* libboost_filesystem.dylib */; };
+		6222D042160C690A008205AC /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03C160C690A008205AC /* libboost_regex.dylib */; };
+		6222D043160C690A008205AC /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03D160C690A008205AC /* libboost_system.dylib */; };
+		6222D044160C690A008205AC /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03E160C690A008205AC /* libboost_thread-mt.dylib */; };
+		6222D045160C690A008205AC /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03F160C690A008205AC /* libgsl.0.dylib */; };
+		6222D046160C690A008205AC /* libgslcblas.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D040160C690A008205AC /* libgslcblas.0.dylib */; };
+		6222D04B160C6C2C008205AC /* libGISASFW.Core.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
+		6222D04C160C6C78008205AC /* libGISASFW.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
+		6222D04F160C79B0008205AC /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D04E160C79B0008205AC /* gtest.framework */; };
+		6222D068160C82CB008205AC /* libCint.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D053160C82CB008205AC /* libCint.5.34.so */; };
+		6222D069160C82CB008205AC /* libCore.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D054160C82CB008205AC /* libCore.5.34.so */; };
+		6222D06A160C82CB008205AC /* libEve.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D055160C82CB008205AC /* libEve.5.34.so */; };
+		6222D06B160C82CB008205AC /* libGeom.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D056160C82CB008205AC /* libGeom.5.34.so */; };
+		6222D06C160C82CB008205AC /* libGpad.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D057160C82CB008205AC /* libGpad.5.34.so */; };
+		6222D06D160C82CB008205AC /* libGraf.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D058160C82CB008205AC /* libGraf.5.34.so */; };
+		6222D06E160C82CB008205AC /* libGraf3d.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D059160C82CB008205AC /* libGraf3d.5.34.so */; };
+		6222D06F160C82CB008205AC /* libGui.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05A160C82CB008205AC /* libGui.5.34.so */; };
+		6222D070160C82CB008205AC /* libHist.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05B160C82CB008205AC /* libHist.5.34.so */; };
+		6222D071160C82CB008205AC /* libMathCore.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05C160C82CB008205AC /* libMathCore.5.34.so */; };
+		6222D072160C82CB008205AC /* libMathMore.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05D160C82CB008205AC /* libMathMore.5.34.so */; };
+		6222D073160C82CB008205AC /* libMatrix.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05E160C82CB008205AC /* libMatrix.5.34.so */; };
+		6222D074160C82CB008205AC /* libMinuit2.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D05F160C82CB008205AC /* libMinuit2.5.34.so */; };
+		6222D075160C82CB008205AC /* libNet.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D060160C82CB008205AC /* libNet.5.34.so */; };
+		6222D076160C82CB008205AC /* libPhysics.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D061160C82CB008205AC /* libPhysics.5.34.so */; };
+		6222D077160C82CB008205AC /* libPostscript.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D062160C82CB008205AC /* libPostscript.5.34.so */; };
+		6222D078160C82CB008205AC /* libRGL.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D063160C82CB008205AC /* libRGL.5.34.so */; };
+		6222D079160C82CB008205AC /* libRint.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D064160C82CB008205AC /* libRint.5.34.so */; };
+		6222D07A160C82CB008205AC /* libRIO.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D065160C82CB008205AC /* libRIO.5.34.so */; };
+		6222D07B160C82CB008205AC /* libThread.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D066160C82CB008205AC /* libThread.5.34.so */; };
+		6222D07C160C82CB008205AC /* libTree.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D067160C82CB008205AC /* libTree.5.34.so */; };
+		6222D07D160C8361008205AC /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
+		6222D080160C83F4008205AC /* libdl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D07E160C83F4008205AC /* libdl.dylib */; };
+		6222D081160C83F4008205AC /* libm.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D07F160C83F4008205AC /* libm.dylib */; };
+		6222D083160C840C008205AC /* libpthread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D082160C840C008205AC /* libpthread.dylib */; };
+		6222D084160C84C0008205AC /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03F160C690A008205AC /* libgsl.0.dylib */; };
+		6222D085160C84C0008205AC /* libgslcblas.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D040160C690A008205AC /* libgslcblas.0.dylib */; };
+		6222D086160C8513008205AC /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03B160C690A008205AC /* libboost_filesystem.dylib */; };
+		6222D087160C8513008205AC /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03C160C690A008205AC /* libboost_regex.dylib */; };
+		6222D088160C8513008205AC /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03D160C690A008205AC /* libboost_system.dylib */; };
+		6222D089160C8513008205AC /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03E160C690A008205AC /* libboost_thread-mt.dylib */; };
+		6222D08B160C8CA3008205AC /* AppDict.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222D08A160C8CA3008205AC /* AppDict.cpp */; };
+		627C2EE9160B4EE6004C1B11 /* CommandLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C8E160B49B0004C1B11 /* CommandLine.cpp */; };
+		627C2EEA160B4EE6004C1B11 /* DrawHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C8F160B49B0004C1B11 /* DrawHelper.cpp */; };
+		627C2EEB160B4EE6004C1B11 /* EventFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C90160B49B0004C1B11 /* EventFrame.cpp */; };
+		627C2EEC160B4EE6004C1B11 /* FunctionalTestFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C91160B49B0004C1B11 /* FunctionalTestFactory.cpp */; };
+		627C2EED160B4EE6004C1B11 /* IFunctionalTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C92160B49B0004C1B11 /* IFunctionalTest.cpp */; };
+		627C2EEE160B4EE6004C1B11 /* IsGISAXSTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C93160B49B0004C1B11 /* IsGISAXSTools.cpp */; };
+		627C2EEF160B4EE6004C1B11 /* SampleFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C94160B49B0004C1B11 /* SampleFactory.cpp */; };
+		627C2EF0160B4EE6004C1B11 /* StandardSamples.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C95160B49B0004C1B11 /* StandardSamples.cpp */; };
+		627C2EF1160B4EE6004C1B11 /* TestConvolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C96160B49B0004C1B11 /* TestConvolution.cpp */; };
+		627C2EF2160B4EE6004C1B11 /* TestDetectorResolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C97160B49B0004C1B11 /* TestDetectorResolution.cpp */; };
+		627C2EF3160B4EE6004C1B11 /* TestDiffuseReflection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C98160B49B0004C1B11 /* TestDiffuseReflection.cpp */; };
+		627C2EF4160B4EE6004C1B11 /* TestFittingModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C99160B49B0004C1B11 /* TestFittingModule.cpp */; };
+		627C2EF5160B4EE6004C1B11 /* TestFormFactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C9A160B49B0004C1B11 /* TestFormFactor.cpp */; };
+		627C2EF6160B4EE6004C1B11 /* TestFresnelCoeff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C9B160B49B0004C1B11 /* TestFresnelCoeff.cpp */; };
+		627C2EF7160B4EE6004C1B11 /* TestIsGISAXS1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C9C160B49B0004C1B11 /* TestIsGISAXS1.cpp */; };
+		627C2EF8160B4EE6004C1B11 /* TestIsGISAXS10.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C9D160B49B0004C1B11 /* TestIsGISAXS10.cpp */; };
+		627C2EF9160B4EE6004C1B11 /* TestIsGISAXS2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C9E160B49B0004C1B11 /* TestIsGISAXS2.cpp */; };
+		627C2EFA160B4EE6004C1B11 /* TestIsGISAXS3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2C9F160B49B0004C1B11 /* TestIsGISAXS3.cpp */; };
+		627C2EFB160B4EE6004C1B11 /* TestIsGISAXS9.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CA0160B49B0004C1B11 /* TestIsGISAXS9.cpp */; };
+		627C2EFC160B4EE6004C1B11 /* TestMesoCrystal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CA1160B49B0004C1B11 /* TestMesoCrystal.cpp */; };
+		627C2EFD160B4EE6004C1B11 /* TestMiscellaneous.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CA2160B49B0004C1B11 /* TestMiscellaneous.cpp */; };
+		627C2EFE160B4EE6004C1B11 /* TestMultiLayerRoughness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CA3160B49B0004C1B11 /* TestMultiLayerRoughness.cpp */; };
+		627C2EFF160B4EE6004C1B11 /* TestPerformance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CA4160B49B0004C1B11 /* TestPerformance.cpp */; };
+		627C2F00160B4EE6004C1B11 /* TestRootTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CA5160B49B0004C1B11 /* TestRootTree.cpp */; };
+		627C2F01160B4EE6004C1B11 /* TestRoughness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CA6160B49B0004C1B11 /* TestRoughness.cpp */; };
+		627C2F02160B4EE6004C1B11 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CA7160B49B0004C1B11 /* main.cpp */; };
+		627C2F20160B4FBE004C1B11 /* Beam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CC1160B49B0004C1B11 /* Beam.cpp */; };
+		627C2F21160B4FBE004C1B11 /* ChiSquaredModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CC2160B49B0004C1B11 /* ChiSquaredModule.cpp */; };
+		627C2F22160B4FBE004C1B11 /* ConvolutionDetectorResolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CC3160B49B0004C1B11 /* ConvolutionDetectorResolution.cpp */; };
+		627C2F23160B4FBE004C1B11 /* DWBADiffuseReflection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CC4160B49B0004C1B11 /* DWBADiffuseReflection.cpp */; };
+		627C2F24160B4FBE004C1B11 /* DWBASimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CC5160B49B0004C1B11 /* DWBASimulation.cpp */; };
+		627C2F25160B4FBE004C1B11 /* DecouplingApproximationStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CC6160B49B0004C1B11 /* DecouplingApproximationStrategy.cpp */; };
+		627C2F26160B4FBE004C1B11 /* Detector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CC7160B49B0004C1B11 /* Detector.cpp */; };
+		627C2F27160B4FBE004C1B11 /* DiffuseDWBASimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CC8160B49B0004C1B11 /* DiffuseDWBASimulation.cpp */; };
+		627C2F28160B4FBE004C1B11 /* Experiment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CC9160B49B0004C1B11 /* Experiment.cpp */; };
+		627C2F29160B4FBE004C1B11 /* GISASExperiment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CCA160B49B0004C1B11 /* GISASExperiment.cpp */; };
+		627C2F2A160B4FBE004C1B11 /* IFittingDataSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CCB160B49B0004C1B11 /* IFittingDataSelector.cpp */; };
+		627C2F2B160B4FBE004C1B11 /* LayerDWBASimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CCC160B49B0004C1B11 /* LayerDWBASimulation.cpp */; };
+		627C2F2C160B4FBE004C1B11 /* LayerDecoratorDWBASimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CCD160B49B0004C1B11 /* LayerDecoratorDWBASimulation.cpp */; };
+		627C2F2D160B4FBE004C1B11 /* LocalMonodisperseApproximationStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CCE160B49B0004C1B11 /* LocalMonodisperseApproximationStrategy.cpp */; };
+		627C2F2E160B4FBE004C1B11 /* MultiLayerDWBASimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CCF160B49B0004C1B11 /* MultiLayerDWBASimulation.cpp */; };
+		627C2F2F160B4FBE004C1B11 /* MultiLayerRoughnessDWBASimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CD0160B49B0004C1B11 /* MultiLayerRoughnessDWBASimulation.cpp */; };
+		627C2F30160B4FBE004C1B11 /* OpticalFresnel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CD1160B49B0004C1B11 /* OpticalFresnel.cpp */; };
+		627C2F45160B4FBE004C1B11 /* FormFactorCrystal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CE9160B49B1004C1B11 /* FormFactorCrystal.cpp */; };
+		627C2F46160B4FBE004C1B11 /* FormFactorCylinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CEA160B49B1004C1B11 /* FormFactorCylinder.cpp */; };
+		627C2F47160B4FBE004C1B11 /* FormFactorDWBA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CEB160B49B1004C1B11 /* FormFactorDWBA.cpp */; };
+		627C2F48160B4FBE004C1B11 /* FormFactorDWBAConstZ.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CEC160B49B1004C1B11 /* FormFactorDWBAConstZ.cpp */; };
+		627C2F49160B4FBE004C1B11 /* FormFactorDecoratorTransformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CED160B49B1004C1B11 /* FormFactorDecoratorTransformation.cpp */; };
+		627C2F4A160B4FBE004C1B11 /* FormFactorFullSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CEE160B49B1004C1B11 /* FormFactorFullSphere.cpp */; };
+		627C2F4B160B4FBE004C1B11 /* FormFactorGauss.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CEF160B49B1004C1B11 /* FormFactorGauss.cpp */; };
+		627C2F4C160B4FBE004C1B11 /* FormFactorLorentz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CF0160B49B1004C1B11 /* FormFactorLorentz.cpp */; };
+		627C2F4D160B4FBE004C1B11 /* FormFactorPrism3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CF1160B49B1004C1B11 /* FormFactorPrism3.cpp */; };
+		627C2F4E160B4FBE004C1B11 /* FormFactorPyramid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CF2160B49B1004C1B11 /* FormFactorPyramid.cpp */; };
+		627C2F4F160B4FBE004C1B11 /* FormFactorWeighted.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CF3160B49B1004C1B11 /* FormFactorWeighted.cpp */; };
+		627C2F57160B4FBE004C1B11 /* BasicVector3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CFE160B49B1004C1B11 /* BasicVector3D.cpp */; };
+		627C2F58160B4FBE004C1B11 /* Normal3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2CFF160B49B1004C1B11 /* Normal3D.cpp */; };
+		627C2F59160B4FBE004C1B11 /* Plane3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D00160B49B1004C1B11 /* Plane3D.cpp */; };
+		627C2F5A160B4FBE004C1B11 /* Point3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D01160B49B1004C1B11 /* Point3D.cpp */; };
+		627C2F5B160B4FBE004C1B11 /* Transform3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D02160B49B1004C1B11 /* Transform3D.cpp */; };
+		627C2F5C160B4FBE004C1B11 /* Vector3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D03160B49B1004C1B11 /* Vector3D.cpp */; };
+		627C2F66160B4FBE004C1B11 /* PythonInterface_classes_1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D10160B49B1004C1B11 /* PythonInterface_classes_1.cpp */; };
+		627C2F67160B4FBE004C1B11 /* PythonInterface_classes_2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D11160B49B1004C1B11 /* PythonInterface_classes_2.cpp */; };
+		627C2F68160B4FBE004C1B11 /* PythonInterface_classes_3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D12160B49B1004C1B11 /* PythonInterface_classes_3.cpp */; };
+		627C2F69160B4FBE004C1B11 /* PythonInterface_free_functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D13160B49B1004C1B11 /* PythonInterface_free_functions.cpp */; };
+		627C2F6A160B4FBE004C1B11 /* PythonInterface_global_variables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D14160B49B1004C1B11 /* PythonInterface_global_variables.cpp */; };
+		627C2F6B160B4FBE004C1B11 /* PythonListConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D15160B49B1004C1B11 /* PythonListConverter.cpp */; };
+		627C2F6C160B4FBE004C1B11 /* PythonModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D16160B49B1004C1B11 /* PythonModule.cpp */; };
+		627C2F6D160B4FBE004C1B11 /* PythonOutputData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D17160B49B1004C1B11 /* PythonOutputData.cpp */; };
+		627C2F6E160B4FBE004C1B11 /* PythonPlusplusHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D18160B49B1004C1B11 /* PythonPlusplusHelper.cpp */; };
+		627C2F8C160B4FBE004C1B11 /* Crystal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D39160B49B1004C1B11 /* Crystal.cpp */; };
+		627C2F8D160B4FBE004C1B11 /* DiffuseParticleInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D3A160B49B1004C1B11 /* DiffuseParticleInfo.cpp */; };
+		627C2F8E160B4FBE004C1B11 /* HomogeneousMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D3B160B49B1004C1B11 /* HomogeneousMaterial.cpp */; };
+		627C2F8F160B4FBE004C1B11 /* ICompositeIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D3C160B49B1004C1B11 /* ICompositeIterator.cpp */; };
+		627C2F90160B4FBE004C1B11 /* ICompositeSample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D3D160B49B1004C1B11 /* ICompositeSample.cpp */; };
+		627C2F91160B4FBE004C1B11 /* IMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D3E160B49B1004C1B11 /* IMaterial.cpp */; };
+		627C2F92160B4FBE004C1B11 /* IRoughness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D3F160B49B1004C1B11 /* IRoughness.cpp */; };
+		627C2F93160B4FBE004C1B11 /* ISample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D40160B49B1004C1B11 /* ISample.cpp */; };
+		627C2F94160B4FBE004C1B11 /* InterferenceFunction1DParaCrystal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D41160B49B1004C1B11 /* InterferenceFunction1DParaCrystal.cpp */; };
+		627C2F95160B4FBE004C1B11 /* Lattice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D42160B49B1004C1B11 /* Lattice.cpp */; };
+		627C2F96160B4FBE004C1B11 /* LatticeBasis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D43160B49B1004C1B11 /* LatticeBasis.cpp */; };
+		627C2F97160B4FBE004C1B11 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D44160B49B1004C1B11 /* Layer.cpp */; };
+		627C2F98160B4FBE004C1B11 /* LayerDecorator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D45160B49B1004C1B11 /* LayerDecorator.cpp */; };
+		627C2F99160B4FBE004C1B11 /* LayerInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D46160B49B1004C1B11 /* LayerInterface.cpp */; };
+		627C2F9A160B4FBE004C1B11 /* LayerRoughness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D47160B49B1004C1B11 /* LayerRoughness.cpp */; };
+		627C2F9B160B4FBE004C1B11 /* MaterialManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D48160B49B1004C1B11 /* MaterialManager.cpp */; };
+		627C2F9C160B4FBE004C1B11 /* MesoCrystal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D49160B49B1004C1B11 /* MesoCrystal.cpp */; };
+		627C2F9D160B4FBE004C1B11 /* MultiLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D4A160B49B1004C1B11 /* MultiLayer.cpp */; };
+		627C2F9E160B4FBE004C1B11 /* ParameterPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D4B160B49B1004C1B11 /* ParameterPool.cpp */; };
+		627C2F9F160B4FBE004C1B11 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D4C160B49B1004C1B11 /* Particle.cpp */; };
+		627C2FA0160B4FBE004C1B11 /* ParticleBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D4D160B49B1004C1B11 /* ParticleBuilder.cpp */; };
+		627C2FA1160B4FBE004C1B11 /* ParticleDecoration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D4E160B49B1004C1B11 /* ParticleDecoration.cpp */; };
+		627C2FA2160B4FBE004C1B11 /* ParticleInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D4F160B49B1004C1B11 /* ParticleInfo.cpp */; };
+		627C2FB9160B4FBE004C1B11 /* Convolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D69160B49B1004C1B11 /* Convolve.cpp */; };
+		627C2FBA160B4FBE004C1B11 /* DoubleToComplexInterpolatingFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D6A160B49B1004C1B11 /* DoubleToComplexInterpolatingFunction.cpp */; };
+		627C2FBB160B4FBE004C1B11 /* Exceptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D6B160B49B1004C1B11 /* Exceptions.cpp */; };
+		627C2FBC160B4FBE004C1B11 /* FitMultiParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D6C160B49B1004C1B11 /* FitMultiParameter.cpp */; };
+		627C2FBD160B4FBE004C1B11 /* FitParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D6D160B49B1004C1B11 /* FitParameter.cpp */; };
+		627C2FBE160B4FBE004C1B11 /* IFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D6E160B49B1004C1B11 /* IFactory.cpp */; };
+		627C2FBF160B4FBE004C1B11 /* INamed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D6F160B49B1004C1B11 /* INamed.cpp */; };
+		627C2FC0160B4FBE004C1B11 /* ISingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D70160B49B1004C1B11 /* ISingleton.cpp */; };
+		627C2FC1160B4FBE004C1B11 /* MathFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D71160B49B1004C1B11 /* MathFunctions.cpp */; };
+		627C2FC2160B4FBE004C1B11 /* OutputData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D72160B49B1004C1B11 /* OutputData.cpp */; };
+		627C2FC3160B4FBE004C1B11 /* StochasticGaussian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D73160B49B1004C1B11 /* StochasticGaussian.cpp */; };
+		627C2FC4160B4FBE004C1B11 /* StochasticSampledParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D74160B49B1004C1B11 /* StochasticSampledParameter.cpp */; };
+		627C2FC5160B4FBE004C1B11 /* Types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D75160B49B1004C1B11 /* Types.cpp */; };
+		627C2FC6160B4FBE004C1B11 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2D76160B49B1004C1B11 /* Utils.cpp */; };
+		627C2FD7160B5132004C1B11 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 627C2E8F160B49B1004C1B11 /* main.cpp */; };
+		627C2FDA160B515D004C1B11 /* libGISASFW.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
+		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		627C2FD8160B5149004C1B11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 627C2F06160B4F98004C1B11;
+			remoteInfo = GISASFW.Core;
+		};
+		627C2FE4160B5900004C1B11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 627C2C5A160B4937004C1B11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 627C2F06160B4F98004C1B11;
+			remoteInfo = GISASFW.Core;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6222D04A160C6C1A008205AC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /Users/herck/Development/xcode/GISASFW/Repo/lib;
+			dstSubfolderSpec = 0;
+			files = (
+				6222D04B160C6C2C008205AC /* libGISASFW.Core.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6222D037160C683B008205AC /* libboost_python.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_python.dylib; path = ../../../../../../opt/local/lib/libboost_python.dylib; sourceTree = "<group>"; };
+		6222D039160C685A008205AC /* Python */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = Python; path = ../../../../../../opt/local/Library/Frameworks/Python.framework/Versions/2.7/Python; sourceTree = "<group>"; };
+		6222D03B160C690A008205AC /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = ../../../../../../opt/local/lib/libboost_filesystem.dylib; sourceTree = "<group>"; };
+		6222D03C160C690A008205AC /* libboost_regex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_regex.dylib; path = ../../../../../../opt/local/lib/libboost_regex.dylib; sourceTree = "<group>"; };
+		6222D03D160C690A008205AC /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = ../../../../../../opt/local/lib/libboost_system.dylib; sourceTree = "<group>"; };
+		6222D03E160C690A008205AC /* libboost_thread-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_thread-mt.dylib"; path = "../../../../../../opt/local/lib/libboost_thread-mt.dylib"; sourceTree = "<group>"; };
+		6222D03F160C690A008205AC /* libgsl.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgsl.0.dylib; path = ../../../../../../opt/local/lib/libgsl.0.dylib; sourceTree = "<group>"; };
+		6222D040160C690A008205AC /* libgslcblas.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgslcblas.0.dylib; path = ../../../../../../opt/local/lib/libgslcblas.0.dylib; sourceTree = "<group>"; };
+		6222D047160C696B008205AC /* gtest.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = gtest.dylib; path = "../Repo/ThirdParty/gtest/gtest-1.6.0/xcode/build/Release/gtest.dylib"; sourceTree = "<group>"; };
+		6222D04E160C79B0008205AC /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = "../Repo/ThirdParty/gtest/gtest-1.6.0/xcode/build/Debug/gtest.framework"; sourceTree = "<group>"; };
+		6222D053160C82CB008205AC /* libCint.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libCint.5.34.so; path = ../../../../../../opt/local/lib/root/libCint.5.34.so; sourceTree = "<group>"; };
+		6222D054160C82CB008205AC /* libCore.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libCore.5.34.so; path = ../../../../../../opt/local/lib/root/libCore.5.34.so; sourceTree = "<group>"; };
+		6222D055160C82CB008205AC /* libEve.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libEve.5.34.so; path = ../../../../../../opt/local/lib/root/libEve.5.34.so; sourceTree = "<group>"; };
+		6222D056160C82CB008205AC /* libGeom.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGeom.5.34.so; path = ../../../../../../opt/local/lib/root/libGeom.5.34.so; sourceTree = "<group>"; };
+		6222D057160C82CB008205AC /* libGpad.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGpad.5.34.so; path = ../../../../../../opt/local/lib/root/libGpad.5.34.so; sourceTree = "<group>"; };
+		6222D058160C82CB008205AC /* libGraf.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGraf.5.34.so; path = ../../../../../../opt/local/lib/root/libGraf.5.34.so; sourceTree = "<group>"; };
+		6222D059160C82CB008205AC /* libGraf3d.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGraf3d.5.34.so; path = ../../../../../../opt/local/lib/root/libGraf3d.5.34.so; sourceTree = "<group>"; };
+		6222D05A160C82CB008205AC /* libGui.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGui.5.34.so; path = ../../../../../../opt/local/lib/root/libGui.5.34.so; sourceTree = "<group>"; };
+		6222D05B160C82CB008205AC /* libHist.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHist.5.34.so; path = ../../../../../../opt/local/lib/root/libHist.5.34.so; sourceTree = "<group>"; };
+		6222D05C160C82CB008205AC /* libMathCore.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libMathCore.5.34.so; path = ../../../../../../opt/local/lib/root/libMathCore.5.34.so; sourceTree = "<group>"; };
+		6222D05D160C82CB008205AC /* libMathMore.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libMathMore.5.34.so; path = ../../../../../../opt/local/lib/root/libMathMore.5.34.so; sourceTree = "<group>"; };
+		6222D05E160C82CB008205AC /* libMatrix.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libMatrix.5.34.so; path = ../../../../../../opt/local/lib/root/libMatrix.5.34.so; sourceTree = "<group>"; };
+		6222D05F160C82CB008205AC /* libMinuit2.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libMinuit2.5.34.so; path = ../../../../../../opt/local/lib/root/libMinuit2.5.34.so; sourceTree = "<group>"; };
+		6222D060160C82CB008205AC /* libNet.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libNet.5.34.so; path = ../../../../../../opt/local/lib/root/libNet.5.34.so; sourceTree = "<group>"; };
+		6222D061160C82CB008205AC /* libPhysics.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libPhysics.5.34.so; path = ../../../../../../opt/local/lib/root/libPhysics.5.34.so; sourceTree = "<group>"; };
+		6222D062160C82CB008205AC /* libPostscript.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libPostscript.5.34.so; path = ../../../../../../opt/local/lib/root/libPostscript.5.34.so; sourceTree = "<group>"; };
+		6222D063160C82CB008205AC /* libRGL.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libRGL.5.34.so; path = ../../../../../../opt/local/lib/root/libRGL.5.34.so; sourceTree = "<group>"; };
+		6222D064160C82CB008205AC /* libRint.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libRint.5.34.so; path = ../../../../../../opt/local/lib/root/libRint.5.34.so; sourceTree = "<group>"; };
+		6222D065160C82CB008205AC /* libRIO.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libRIO.5.34.so; path = ../../../../../../opt/local/lib/root/libRIO.5.34.so; sourceTree = "<group>"; };
+		6222D066160C82CB008205AC /* libThread.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libThread.5.34.so; path = ../../../../../../opt/local/lib/root/libThread.5.34.so; sourceTree = "<group>"; };
+		6222D067160C82CB008205AC /* libTree.5.34.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libTree.5.34.so; path = ../../../../../../opt/local/lib/root/libTree.5.34.so; sourceTree = "<group>"; };
+		6222D07E160C83F4008205AC /* libdl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libdl.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libdl.dylib; sourceTree = DEVELOPER_DIR; };
+		6222D07F160C83F4008205AC /* libm.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libm.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libm.dylib; sourceTree = DEVELOPER_DIR; };
+		6222D082160C840C008205AC /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libpthread.dylib; sourceTree = DEVELOPER_DIR; };
+		6222D08A160C8CA3008205AC /* AppDict.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDict.cpp; path = ../Repo/App/src/AppDict.cpp; sourceTree = "<group>"; };
+		6222D090160C8E59008205AC /* GISASFW.CL.All */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GISASFW.CL.All; sourceTree = BUILT_PRODUCTS_DIR; };
+		627C2C70160B49B0004C1B11 /* App.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = App.pro; sourceTree = "<group>"; };
+		627C2C72160B49B0004C1B11 /* App.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
+		627C2C73160B49B0004C1B11 /* AppLinkDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppLinkDef.h; sourceTree = "<group>"; };
+		627C2C74160B49B0004C1B11 /* CommandLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandLine.h; sourceTree = "<group>"; };
+		627C2C75160B49B0004C1B11 /* DrawHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawHelper.h; sourceTree = "<group>"; };
+		627C2C76160B49B0004C1B11 /* EventFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventFrame.h; sourceTree = "<group>"; };
+		627C2C77160B49B0004C1B11 /* FunctionalTestFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionalTestFactory.h; sourceTree = "<group>"; };
+		627C2C78160B49B0004C1B11 /* IFunctionalTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFunctionalTest.h; sourceTree = "<group>"; };
+		627C2C79160B49B0004C1B11 /* IsGISAXSTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IsGISAXSTools.h; sourceTree = "<group>"; };
+		627C2C7A160B49B0004C1B11 /* SampleFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleFactory.h; sourceTree = "<group>"; };
+		627C2C7B160B49B0004C1B11 /* StandardSamples.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StandardSamples.h; sourceTree = "<group>"; };
+		627C2C7C160B49B0004C1B11 /* TestConvolution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestConvolution.h; sourceTree = "<group>"; };
+		627C2C7D160B49B0004C1B11 /* TestDetectorResolution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestDetectorResolution.h; sourceTree = "<group>"; };
+		627C2C7E160B49B0004C1B11 /* TestDiffuseReflection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestDiffuseReflection.h; sourceTree = "<group>"; };
+		627C2C7F160B49B0004C1B11 /* TestFittingModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFittingModule.h; sourceTree = "<group>"; };
+		627C2C80160B49B0004C1B11 /* TestFormFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFormFactor.h; sourceTree = "<group>"; };
+		627C2C81160B49B0004C1B11 /* TestFresnelCoeff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFresnelCoeff.h; sourceTree = "<group>"; };
+		627C2C82160B49B0004C1B11 /* TestIsGISAXS1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS1.h; sourceTree = "<group>"; };
+		627C2C83160B49B0004C1B11 /* TestIsGISAXS10.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS10.h; sourceTree = "<group>"; };
+		627C2C84160B49B0004C1B11 /* TestIsGISAXS2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS2.h; sourceTree = "<group>"; };
+		627C2C85160B49B0004C1B11 /* TestIsGISAXS3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS3.h; sourceTree = "<group>"; };
+		627C2C86160B49B0004C1B11 /* TestIsGISAXS9.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS9.h; sourceTree = "<group>"; };
+		627C2C87160B49B0004C1B11 /* TestMesoCrystal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestMesoCrystal.h; sourceTree = "<group>"; };
+		627C2C88160B49B0004C1B11 /* TestMiscellaneous.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestMiscellaneous.h; sourceTree = "<group>"; };
+		627C2C89160B49B0004C1B11 /* TestMultiLayerRoughness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestMultiLayerRoughness.h; sourceTree = "<group>"; };
+		627C2C8A160B49B0004C1B11 /* TestPerformance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestPerformance.h; sourceTree = "<group>"; };
+		627C2C8B160B49B0004C1B11 /* TestRootTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestRootTree.h; sourceTree = "<group>"; };
+		627C2C8C160B49B0004C1B11 /* TestRoughness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestRoughness.h; sourceTree = "<group>"; };
+		627C2C8E160B49B0004C1B11 /* CommandLine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CommandLine.cpp; sourceTree = "<group>"; };
+		627C2C8F160B49B0004C1B11 /* DrawHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DrawHelper.cpp; sourceTree = "<group>"; };
+		627C2C90160B49B0004C1B11 /* EventFrame.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EventFrame.cpp; sourceTree = "<group>"; };
+		627C2C91160B49B0004C1B11 /* FunctionalTestFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionalTestFactory.cpp; sourceTree = "<group>"; };
+		627C2C92160B49B0004C1B11 /* IFunctionalTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IFunctionalTest.cpp; sourceTree = "<group>"; };
+		627C2C93160B49B0004C1B11 /* IsGISAXSTools.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXSTools.cpp; sourceTree = "<group>"; };
+		627C2C94160B49B0004C1B11 /* SampleFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SampleFactory.cpp; sourceTree = "<group>"; };
+		627C2C95160B49B0004C1B11 /* StandardSamples.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StandardSamples.cpp; sourceTree = "<group>"; };
+		627C2C96160B49B0004C1B11 /* TestConvolution.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestConvolution.cpp; sourceTree = "<group>"; };
+		627C2C97160B49B0004C1B11 /* TestDetectorResolution.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestDetectorResolution.cpp; sourceTree = "<group>"; };
+		627C2C98160B49B0004C1B11 /* TestDiffuseReflection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestDiffuseReflection.cpp; sourceTree = "<group>"; };
+		627C2C99160B49B0004C1B11 /* TestFittingModule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestFittingModule.cpp; sourceTree = "<group>"; };
+		627C2C9A160B49B0004C1B11 /* TestFormFactor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestFormFactor.cpp; sourceTree = "<group>"; };
+		627C2C9B160B49B0004C1B11 /* TestFresnelCoeff.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestFresnelCoeff.cpp; sourceTree = "<group>"; };
+		627C2C9C160B49B0004C1B11 /* TestIsGISAXS1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS1.cpp; sourceTree = "<group>"; };
+		627C2C9D160B49B0004C1B11 /* TestIsGISAXS10.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS10.cpp; sourceTree = "<group>"; };
+		627C2C9E160B49B0004C1B11 /* TestIsGISAXS2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS2.cpp; sourceTree = "<group>"; };
+		627C2C9F160B49B0004C1B11 /* TestIsGISAXS3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS3.cpp; sourceTree = "<group>"; };
+		627C2CA0160B49B0004C1B11 /* TestIsGISAXS9.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS9.cpp; sourceTree = "<group>"; };
+		627C2CA1160B49B0004C1B11 /* TestMesoCrystal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestMesoCrystal.cpp; sourceTree = "<group>"; };
+		627C2CA2160B49B0004C1B11 /* TestMiscellaneous.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestMiscellaneous.cpp; sourceTree = "<group>"; };
+		627C2CA3160B49B0004C1B11 /* TestMultiLayerRoughness.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestMultiLayerRoughness.cpp; sourceTree = "<group>"; };
+		627C2CA4160B49B0004C1B11 /* TestPerformance.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestPerformance.cpp; sourceTree = "<group>"; };
+		627C2CA5160B49B0004C1B11 /* TestRootTree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestRootTree.cpp; sourceTree = "<group>"; };
+		627C2CA6160B49B0004C1B11 /* TestRoughness.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestRoughness.cpp; sourceTree = "<group>"; };
+		627C2CA7160B49B0004C1B11 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		627C2CAB160B49B0004C1B11 /* Beam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Beam.h; sourceTree = "<group>"; };
+		627C2CAC160B49B0004C1B11 /* ChiSquaredModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChiSquaredModule.h; sourceTree = "<group>"; };
+		627C2CAD160B49B0004C1B11 /* ConvolutionDetectorResolution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvolutionDetectorResolution.h; sourceTree = "<group>"; };
+		627C2CAE160B49B0004C1B11 /* DWBADiffuseReflection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DWBADiffuseReflection.h; sourceTree = "<group>"; };
+		627C2CAF160B49B0004C1B11 /* DWBASimulation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DWBASimulation.h; sourceTree = "<group>"; };
+		627C2CB0160B49B0004C1B11 /* DecouplingApproximationStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecouplingApproximationStrategy.h; sourceTree = "<group>"; };
+		627C2CB1160B49B0004C1B11 /* Detector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Detector.h; sourceTree = "<group>"; };
+		627C2CB2160B49B0004C1B11 /* DiffuseDWBASimulation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiffuseDWBASimulation.h; sourceTree = "<group>"; };
+		627C2CB3160B49B0004C1B11 /* Experiment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Experiment.h; sourceTree = "<group>"; };
+		627C2CB4160B49B0004C1B11 /* GISASExperiment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GISASExperiment.h; sourceTree = "<group>"; };
+		627C2CB5160B49B0004C1B11 /* IDetectorResolution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDetectorResolution.h; sourceTree = "<group>"; };
+		627C2CB6160B49B0004C1B11 /* IFittingDataSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFittingDataSelector.h; sourceTree = "<group>"; };
+		627C2CB7160B49B0004C1B11 /* IInterferenceFunctionStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IInterferenceFunctionStrategy.h; sourceTree = "<group>"; };
+		627C2CB8160B49B0004C1B11 /* ISimulation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISimulation.h; sourceTree = "<group>"; };
+		627C2CB9160B49B0004C1B11 /* ISquaredFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISquaredFunction.h; sourceTree = "<group>"; };
+		627C2CBA160B49B0004C1B11 /* LayerDWBASimulation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerDWBASimulation.h; sourceTree = "<group>"; };
+		627C2CBB160B49B0004C1B11 /* LayerDecoratorDWBASimulation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerDecoratorDWBASimulation.h; sourceTree = "<group>"; };
+		627C2CBC160B49B0004C1B11 /* LocalMonodisperseApproximationStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalMonodisperseApproximationStrategy.h; sourceTree = "<group>"; };
+		627C2CBD160B49B0004C1B11 /* MultiLayerDWBASimulation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLayerDWBASimulation.h; sourceTree = "<group>"; };
+		627C2CBE160B49B0004C1B11 /* MultiLayerRoughnessDWBASimulation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLayerRoughnessDWBASimulation.h; sourceTree = "<group>"; };
+		627C2CBF160B49B0004C1B11 /* OpticalFresnel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpticalFresnel.h; sourceTree = "<group>"; };
+		627C2CC1160B49B0004C1B11 /* Beam.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Beam.cpp; sourceTree = "<group>"; };
+		627C2CC2160B49B0004C1B11 /* ChiSquaredModule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChiSquaredModule.cpp; sourceTree = "<group>"; };
+		627C2CC3160B49B0004C1B11 /* ConvolutionDetectorResolution.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConvolutionDetectorResolution.cpp; sourceTree = "<group>"; };
+		627C2CC4160B49B0004C1B11 /* DWBADiffuseReflection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DWBADiffuseReflection.cpp; sourceTree = "<group>"; };
+		627C2CC5160B49B0004C1B11 /* DWBASimulation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DWBASimulation.cpp; sourceTree = "<group>"; };
+		627C2CC6160B49B0004C1B11 /* DecouplingApproximationStrategy.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecouplingApproximationStrategy.cpp; sourceTree = "<group>"; };
+		627C2CC7160B49B0004C1B11 /* Detector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Detector.cpp; sourceTree = "<group>"; };
+		627C2CC8160B49B0004C1B11 /* DiffuseDWBASimulation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DiffuseDWBASimulation.cpp; sourceTree = "<group>"; };
+		627C2CC9160B49B0004C1B11 /* Experiment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Experiment.cpp; sourceTree = "<group>"; };
+		627C2CCA160B49B0004C1B11 /* GISASExperiment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GISASExperiment.cpp; sourceTree = "<group>"; };
+		627C2CCB160B49B0004C1B11 /* IFittingDataSelector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IFittingDataSelector.cpp; sourceTree = "<group>"; };
+		627C2CCC160B49B0004C1B11 /* LayerDWBASimulation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LayerDWBASimulation.cpp; sourceTree = "<group>"; };
+		627C2CCD160B49B0004C1B11 /* LayerDecoratorDWBASimulation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LayerDecoratorDWBASimulation.cpp; sourceTree = "<group>"; };
+		627C2CCE160B49B0004C1B11 /* LocalMonodisperseApproximationStrategy.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LocalMonodisperseApproximationStrategy.cpp; sourceTree = "<group>"; };
+		627C2CCF160B49B0004C1B11 /* MultiLayerDWBASimulation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLayerDWBASimulation.cpp; sourceTree = "<group>"; };
+		627C2CD0160B49B0004C1B11 /* MultiLayerRoughnessDWBASimulation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLayerRoughnessDWBASimulation.cpp; sourceTree = "<group>"; };
+		627C2CD1160B49B0004C1B11 /* OpticalFresnel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OpticalFresnel.cpp; sourceTree = "<group>"; };
+		627C2CD2160B49B0004C1B11 /* Core.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = Core.pro; sourceTree = "<group>"; };
+		627C2CD5160B49B0004C1B11 /* FormFactorCrystal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorCrystal.h; sourceTree = "<group>"; };
+		627C2CD6160B49B0004C1B11 /* FormFactorCylinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorCylinder.h; sourceTree = "<group>"; };
+		627C2CD7160B49B0004C1B11 /* FormFactorDWBA.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDWBA.h; sourceTree = "<group>"; };
+		627C2CD8160B49B0004C1B11 /* FormFactorDWBAConstZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDWBAConstZ.h; sourceTree = "<group>"; };
+		627C2CD9160B49B1004C1B11 /* FormFactorDecoratorDebyeWaller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorDebyeWaller.h; sourceTree = "<group>"; };
+		627C2CDA160B49B1004C1B11 /* FormFactorDecoratorFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorFactor.h; sourceTree = "<group>"; };
+		627C2CDB160B49B1004C1B11 /* FormFactorDecoratorMultiPositionFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorMultiPositionFactor.h; sourceTree = "<group>"; };
+		627C2CDC160B49B1004C1B11 /* FormFactorDecoratorPositionFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorPositionFactor.h; sourceTree = "<group>"; };
+		627C2CDD160B49B1004C1B11 /* FormFactorDecoratorRefractiveIndex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorRefractiveIndex.h; sourceTree = "<group>"; };
+		627C2CDE160B49B1004C1B11 /* FormFactorDecoratorTransformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorDecoratorTransformation.h; sourceTree = "<group>"; };
+		627C2CDF160B49B1004C1B11 /* FormFactorFullSphere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorFullSphere.h; sourceTree = "<group>"; };
+		627C2CE0160B49B1004C1B11 /* FormFactorGauss.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorGauss.h; sourceTree = "<group>"; };
+		627C2CE1160B49B1004C1B11 /* FormFactorLorentz.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorLorentz.h; sourceTree = "<group>"; };
+		627C2CE2160B49B1004C1B11 /* FormFactorPrism3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorPrism3.h; sourceTree = "<group>"; };
+		627C2CE3160B49B1004C1B11 /* FormFactorPyramid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorPyramid.h; sourceTree = "<group>"; };
+		627C2CE4160B49B1004C1B11 /* FormFactorSphereGaussianRadius.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorSphereGaussianRadius.h; sourceTree = "<group>"; };
+		627C2CE5160B49B1004C1B11 /* FormFactorWeighted.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactorWeighted.h; sourceTree = "<group>"; };
+		627C2CE6160B49B1004C1B11 /* FormFactors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFactors.h; sourceTree = "<group>"; };
+		627C2CE7160B49B1004C1B11 /* IFormFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFormFactor.h; sourceTree = "<group>"; };
+		627C2CE9160B49B1004C1B11 /* FormFactorCrystal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorCrystal.cpp; sourceTree = "<group>"; };
+		627C2CEA160B49B1004C1B11 /* FormFactorCylinder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorCylinder.cpp; sourceTree = "<group>"; };
+		627C2CEB160B49B1004C1B11 /* FormFactorDWBA.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDWBA.cpp; sourceTree = "<group>"; };
+		627C2CEC160B49B1004C1B11 /* FormFactorDWBAConstZ.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDWBAConstZ.cpp; sourceTree = "<group>"; };
+		627C2CED160B49B1004C1B11 /* FormFactorDecoratorTransformation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorDecoratorTransformation.cpp; sourceTree = "<group>"; };
+		627C2CEE160B49B1004C1B11 /* FormFactorFullSphere.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorFullSphere.cpp; sourceTree = "<group>"; };
+		627C2CEF160B49B1004C1B11 /* FormFactorGauss.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorGauss.cpp; sourceTree = "<group>"; };
+		627C2CF0160B49B1004C1B11 /* FormFactorLorentz.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorLorentz.cpp; sourceTree = "<group>"; };
+		627C2CF1160B49B1004C1B11 /* FormFactorPrism3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorPrism3.cpp; sourceTree = "<group>"; };
+		627C2CF2160B49B1004C1B11 /* FormFactorPyramid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorPyramid.cpp; sourceTree = "<group>"; };
+		627C2CF3160B49B1004C1B11 /* FormFactorWeighted.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorWeighted.cpp; sourceTree = "<group>"; };
+		627C2CF6160B49B1004C1B11 /* BasicVector3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicVector3D.h; sourceTree = "<group>"; };
+		627C2CF7160B49B1004C1B11 /* Normal3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Normal3D.h; sourceTree = "<group>"; };
+		627C2CF8160B49B1004C1B11 /* Plane3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Plane3D.h; sourceTree = "<group>"; };
+		627C2CF9160B49B1004C1B11 /* Point3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Point3D.h; sourceTree = "<group>"; };
+		627C2CFA160B49B1004C1B11 /* Transform3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Transform3D.h; sourceTree = "<group>"; };
+		627C2CFB160B49B1004C1B11 /* Transform3D.icc */ = {isa = PBXFileReference; lastKnownFileType = text; path = Transform3D.icc; sourceTree = "<group>"; };
+		627C2CFC160B49B1004C1B11 /* Vector3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector3D.h; sourceTree = "<group>"; };
+		627C2CFE160B49B1004C1B11 /* BasicVector3D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BasicVector3D.cpp; sourceTree = "<group>"; };
+		627C2CFF160B49B1004C1B11 /* Normal3D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Normal3D.cpp; sourceTree = "<group>"; };
+		627C2D00160B49B1004C1B11 /* Plane3D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Plane3D.cpp; sourceTree = "<group>"; };
+		627C2D01160B49B1004C1B11 /* Point3D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Point3D.cpp; sourceTree = "<group>"; };
+		627C2D02160B49B1004C1B11 /* Transform3D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Transform3D.cpp; sourceTree = "<group>"; };
+		627C2D03160B49B1004C1B11 /* Vector3D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3D.cpp; sourceTree = "<group>"; };
+		627C2D06160B49B1004C1B11 /* PythonInterface_classes_1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PythonInterface_classes_1.h; sourceTree = "<group>"; };
+		627C2D07160B49B1004C1B11 /* PythonInterface_classes_2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PythonInterface_classes_2.h; sourceTree = "<group>"; };
+		627C2D08160B49B1004C1B11 /* PythonInterface_classes_3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PythonInterface_classes_3.h; sourceTree = "<group>"; };
+		627C2D09160B49B1004C1B11 /* PythonInterface_free_functions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PythonInterface_free_functions.h; sourceTree = "<group>"; };
+		627C2D0A160B49B1004C1B11 /* PythonInterface_global_variables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PythonInterface_global_variables.h; sourceTree = "<group>"; };
+		627C2D0B160B49B1004C1B11 /* PythonListConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PythonListConverter.h; sourceTree = "<group>"; };
+		627C2D0C160B49B1004C1B11 /* PythonModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PythonModule.h; sourceTree = "<group>"; };
+		627C2D0D160B49B1004C1B11 /* PythonOutputData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PythonOutputData.h; sourceTree = "<group>"; };
+		627C2D0E160B49B1004C1B11 /* PythonPlusplusHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PythonPlusplusHelper.h; sourceTree = "<group>"; };
+		627C2D10160B49B1004C1B11 /* PythonInterface_classes_1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PythonInterface_classes_1.cpp; sourceTree = "<group>"; };
+		627C2D11160B49B1004C1B11 /* PythonInterface_classes_2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PythonInterface_classes_2.cpp; sourceTree = "<group>"; };
+		627C2D12160B49B1004C1B11 /* PythonInterface_classes_3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PythonInterface_classes_3.cpp; sourceTree = "<group>"; };
+		627C2D13160B49B1004C1B11 /* PythonInterface_free_functions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PythonInterface_free_functions.cpp; sourceTree = "<group>"; };
+		627C2D14160B49B1004C1B11 /* PythonInterface_global_variables.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PythonInterface_global_variables.cpp; sourceTree = "<group>"; };
+		627C2D15160B49B1004C1B11 /* PythonListConverter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PythonListConverter.cpp; sourceTree = "<group>"; };
+		627C2D16160B49B1004C1B11 /* PythonModule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PythonModule.cpp; sourceTree = "<group>"; };
+		627C2D17160B49B1004C1B11 /* PythonOutputData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PythonOutputData.cpp; sourceTree = "<group>"; };
+		627C2D18160B49B1004C1B11 /* PythonPlusplusHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PythonPlusplusHelper.cpp; sourceTree = "<group>"; };
+		627C2D1B160B49B1004C1B11 /* Crystal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Crystal.h; sourceTree = "<group>"; };
+		627C2D1C160B49B1004C1B11 /* DiffuseParticleInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiffuseParticleInfo.h; sourceTree = "<group>"; };
+		627C2D1D160B49B1004C1B11 /* HomogeneousMaterial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomogeneousMaterial.h; sourceTree = "<group>"; };
+		627C2D1E160B49B1004C1B11 /* IClusteredParticles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IClusteredParticles.h; sourceTree = "<group>"; };
+		627C2D1F160B49B1004C1B11 /* ICompositeIterator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICompositeIterator.h; sourceTree = "<group>"; };
+		627C2D20160B49B1004C1B11 /* ICompositeSample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICompositeSample.h; sourceTree = "<group>"; };
+		627C2D21160B49B1004C1B11 /* IDecoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDecoration.h; sourceTree = "<group>"; };
+		627C2D22160B49B1004C1B11 /* IDispersalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDispersalState.h; sourceTree = "<group>"; };
+		627C2D23160B49B1004C1B11 /* IInterferenceFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IInterferenceFunction.h; sourceTree = "<group>"; };
+		627C2D24160B49B1004C1B11 /* IMaterial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMaterial.h; sourceTree = "<group>"; };
+		627C2D25160B49B1004C1B11 /* IRoughness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IRoughness.h; sourceTree = "<group>"; };
+		627C2D26160B49B1004C1B11 /* ISample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISample.h; sourceTree = "<group>"; };
+		627C2D27160B49B1004C1B11 /* ISelectionRule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISelectionRule.h; sourceTree = "<group>"; };
+		627C2D28160B49B1004C1B11 /* InterferenceFunction1DParaCrystal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterferenceFunction1DParaCrystal.h; sourceTree = "<group>"; };
+		627C2D29160B49B1004C1B11 /* InterferenceFunctionNone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterferenceFunctionNone.h; sourceTree = "<group>"; };
+		627C2D2A160B49B1004C1B11 /* Lattice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lattice.h; sourceTree = "<group>"; };
+		627C2D2B160B49B1004C1B11 /* LatticeBasis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LatticeBasis.h; sourceTree = "<group>"; };
+		627C2D2C160B49B1004C1B11 /* Layer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
+		627C2D2D160B49B1004C1B11 /* LayerDecorator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerDecorator.h; sourceTree = "<group>"; };
+		627C2D2E160B49B1004C1B11 /* LayerInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerInterface.h; sourceTree = "<group>"; };
+		627C2D2F160B49B1004C1B11 /* LayerRoughness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LayerRoughness.h; sourceTree = "<group>"; };
+		627C2D30160B49B1004C1B11 /* MaterialManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaterialManager.h; sourceTree = "<group>"; };
+		627C2D31160B49B1004C1B11 /* MesoCrystal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MesoCrystal.h; sourceTree = "<group>"; };
+		627C2D32160B49B1004C1B11 /* MultiLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLayer.h; sourceTree = "<group>"; };
+		627C2D33160B49B1004C1B11 /* ParameterPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParameterPool.h; sourceTree = "<group>"; };
+		627C2D34160B49B1004C1B11 /* Particle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
+		627C2D35160B49B1004C1B11 /* ParticleBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleBuilder.h; sourceTree = "<group>"; };
+		627C2D36160B49B1004C1B11 /* ParticleDecoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleDecoration.h; sourceTree = "<group>"; };
+		627C2D37160B49B1004C1B11 /* ParticleInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleInfo.h; sourceTree = "<group>"; };
+		627C2D39160B49B1004C1B11 /* Crystal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Crystal.cpp; sourceTree = "<group>"; };
+		627C2D3A160B49B1004C1B11 /* DiffuseParticleInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DiffuseParticleInfo.cpp; sourceTree = "<group>"; };
+		627C2D3B160B49B1004C1B11 /* HomogeneousMaterial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HomogeneousMaterial.cpp; sourceTree = "<group>"; };
+		627C2D3C160B49B1004C1B11 /* ICompositeIterator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ICompositeIterator.cpp; sourceTree = "<group>"; };
+		627C2D3D160B49B1004C1B11 /* ICompositeSample.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ICompositeSample.cpp; sourceTree = "<group>"; };
+		627C2D3E160B49B1004C1B11 /* IMaterial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IMaterial.cpp; sourceTree = "<group>"; };
+		627C2D3F160B49B1004C1B11 /* IRoughness.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IRoughness.cpp; sourceTree = "<group>"; };
+		627C2D40160B49B1004C1B11 /* ISample.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ISample.cpp; sourceTree = "<group>"; };
+		627C2D41160B49B1004C1B11 /* InterferenceFunction1DParaCrystal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InterferenceFunction1DParaCrystal.cpp; sourceTree = "<group>"; };
+		627C2D42160B49B1004C1B11 /* Lattice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Lattice.cpp; sourceTree = "<group>"; };
+		627C2D43160B49B1004C1B11 /* LatticeBasis.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LatticeBasis.cpp; sourceTree = "<group>"; };
+		627C2D44160B49B1004C1B11 /* Layer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Layer.cpp; sourceTree = "<group>"; };
+		627C2D45160B49B1004C1B11 /* LayerDecorator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LayerDecorator.cpp; sourceTree = "<group>"; };
+		627C2D46160B49B1004C1B11 /* LayerInterface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LayerInterface.cpp; sourceTree = "<group>"; };
+		627C2D47160B49B1004C1B11 /* LayerRoughness.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LayerRoughness.cpp; sourceTree = "<group>"; };
+		627C2D48160B49B1004C1B11 /* MaterialManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialManager.cpp; sourceTree = "<group>"; };
+		627C2D49160B49B1004C1B11 /* MesoCrystal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MesoCrystal.cpp; sourceTree = "<group>"; };
+		627C2D4A160B49B1004C1B11 /* MultiLayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLayer.cpp; sourceTree = "<group>"; };
+		627C2D4B160B49B1004C1B11 /* ParameterPool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterPool.cpp; sourceTree = "<group>"; };
+		627C2D4C160B49B1004C1B11 /* Particle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
+		627C2D4D160B49B1004C1B11 /* ParticleBuilder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleBuilder.cpp; sourceTree = "<group>"; };
+		627C2D4E160B49B1004C1B11 /* ParticleDecoration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleDecoration.cpp; sourceTree = "<group>"; };
+		627C2D4F160B49B1004C1B11 /* ParticleInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleInfo.cpp; sourceTree = "<group>"; };
+		627C2D52160B49B1004C1B11 /* Convolve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Convolve.h; sourceTree = "<group>"; };
+		627C2D53160B49B1004C1B11 /* Coordinate3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Coordinate3D.h; sourceTree = "<group>"; };
+		627C2D54160B49B1004C1B11 /* DoubleToComplexInterpolatingFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubleToComplexInterpolatingFunction.h; sourceTree = "<group>"; };
+		627C2D55160B49B1004C1B11 /* Exceptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Exceptions.h; sourceTree = "<group>"; };
+		627C2D56160B49B1004C1B11 /* FitMultiParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FitMultiParameter.h; sourceTree = "<group>"; };
+		627C2D57160B49B1004C1B11 /* FitParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FitParameter.h; sourceTree = "<group>"; };
+		627C2D58160B49B1004C1B11 /* IDoubleToComplexFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDoubleToComplexFunction.h; sourceTree = "<group>"; };
+		627C2D59160B49B1004C1B11 /* IFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFactory.h; sourceTree = "<group>"; };
+		627C2D5A160B49B1004C1B11 /* INamed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INamed.h; sourceTree = "<group>"; };
+		627C2D5B160B49B1004C1B11 /* ISingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISingleton.h; sourceTree = "<group>"; };
+		627C2D5C160B49B1004C1B11 /* IStochasticParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IStochasticParameter.h; sourceTree = "<group>"; };
+		627C2D5D160B49B1004C1B11 /* MathFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathFunctions.h; sourceTree = "<group>"; };
+		627C2D5E160B49B1004C1B11 /* NamedVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NamedVector.h; sourceTree = "<group>"; };
+		627C2D5F160B49B1004C1B11 /* Numeric.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Numeric.h; sourceTree = "<group>"; };
+		627C2D60160B49B1004C1B11 /* OutputData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputData.h; sourceTree = "<group>"; };
+		627C2D61160B49B1004C1B11 /* StochasticDiracDelta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StochasticDiracDelta.h; sourceTree = "<group>"; };
+		627C2D62160B49B1004C1B11 /* StochasticGaussian.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StochasticGaussian.h; sourceTree = "<group>"; };
+		627C2D63160B49B1004C1B11 /* StochasticSampledParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StochasticSampledParameter.h; sourceTree = "<group>"; };
+		627C2D64160B49B1004C1B11 /* TRange.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TRange.h; sourceTree = "<group>"; };
+		627C2D65160B49B1004C1B11 /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		627C2D66160B49B1004C1B11 /* Units.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Units.h; sourceTree = "<group>"; };
+		627C2D67160B49B1004C1B11 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		627C2D69160B49B1004C1B11 /* Convolve.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Convolve.cpp; sourceTree = "<group>"; };
+		627C2D6A160B49B1004C1B11 /* DoubleToComplexInterpolatingFunction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DoubleToComplexInterpolatingFunction.cpp; sourceTree = "<group>"; };
+		627C2D6B160B49B1004C1B11 /* Exceptions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Exceptions.cpp; sourceTree = "<group>"; };
+		627C2D6C160B49B1004C1B11 /* FitMultiParameter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FitMultiParameter.cpp; sourceTree = "<group>"; };
+		627C2D6D160B49B1004C1B11 /* FitParameter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FitParameter.cpp; sourceTree = "<group>"; };
+		627C2D6E160B49B1004C1B11 /* IFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IFactory.cpp; sourceTree = "<group>"; };
+		627C2D6F160B49B1004C1B11 /* INamed.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = INamed.cpp; sourceTree = "<group>"; };
+		627C2D70160B49B1004C1B11 /* ISingleton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ISingleton.cpp; sourceTree = "<group>"; };
+		627C2D71160B49B1004C1B11 /* MathFunctions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MathFunctions.cpp; sourceTree = "<group>"; };
+		627C2D72160B49B1004C1B11 /* OutputData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OutputData.cpp; sourceTree = "<group>"; };
+		627C2D73160B49B1004C1B11 /* StochasticGaussian.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StochasticGaussian.cpp; sourceTree = "<group>"; };
+		627C2D74160B49B1004C1B11 /* StochasticSampledParameter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StochasticSampledParameter.cpp; sourceTree = "<group>"; };
+		627C2D75160B49B1004C1B11 /* Types.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Types.cpp; sourceTree = "<group>"; };
+		627C2D76160B49B1004C1B11 /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
+		627C2D79160B49B1004C1B11 /* Doxyfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Doxyfile; sourceTree = "<group>"; };
+		627C2D7B160B49B1004C1B11 /* .project */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = .project; sourceTree = "<group>"; };
+		627C2D7C160B49B1004C1B11 /* SampleClasses.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = SampleClasses.pdf; sourceTree = "<group>"; };
+		627C2D7D160B49B1004C1B11 /* model.di */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = model.di; sourceTree = "<group>"; };
+		627C2D7E160B49B1004C1B11 /* model.notation */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = model.notation; sourceTree = "<group>"; };
+		627C2D7F160B49B1004C1B11 /* model.uml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = model.uml; sourceTree = "<group>"; };
+		627C2D83160B49B1004C1B11 /* MesoData.C */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MesoData.C; sourceTree = "<group>"; };
+		627C2D84160B49B1004C1B11 /* MesoData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MesoData.h; sourceTree = "<group>"; };
+		627C2D85160B49B1004C1B11 /* analysis1.C */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = analysis1.C; sourceTree = "<group>"; };
+		627C2D86160B49B1004C1B11 /* analysis2.C */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = analysis2.C; sourceTree = "<group>"; };
+		627C2D88160B49B1004C1B11 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		627C2D8A160B49B1004C1B11 /* isgi_2-types-of-islands-ewald.ima */ = {isa = PBXFileReference; lastKnownFileType = text; path = "isgi_2-types-of-islands-ewald.ima"; sourceTree = "<group>"; };
+		627C2D8B160B49B1004C1B11 /* isgi_2-types-of-islands-ewald.inp */ = {isa = PBXFileReference; lastKnownFileType = text; path = "isgi_2-types-of-islands-ewald.inp"; sourceTree = "<group>"; };
+		627C2D8C160B49B1004C1B11 /* isgi_2-types-of-islands.inp */ = {isa = PBXFileReference; lastKnownFileType = text; path = "isgi_2-types-of-islands.inp"; sourceTree = "<group>"; };
+		627C2D8E160B49B1004C1B11 /* isgi_para1dcyl.ima */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_para1dcyl.ima; sourceTree = "<group>"; };
+		627C2D8F160B49B1004C1B11 /* isgi_para1dcyl.inp */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_para1dcyl.inp; sourceTree = "<group>"; };
+		627C2D91160B49B1004C1B11 /* isgi_bimodal.ima */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_bimodal.ima; sourceTree = "<group>"; };
+		627C2D92160B49B1004C1B11 /* isgi_bimodal.inp */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_bimodal.inp; sourceTree = "<group>"; };
+		627C2D94160B49B1004C1B11 /* isgi_cylinder_BA.ima */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_cylinder_BA.ima; sourceTree = "<group>"; };
+		627C2D95160B49B1004C1B11 /* isgi_cylinder_BA.inp */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_cylinder_BA.inp; sourceTree = "<group>"; };
+		627C2D96160B49B1004C1B11 /* isgi_cylinder_BA_qxqy.inp */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_cylinder_BA_qxqy.inp; sourceTree = "<group>"; };
+		627C2D97160B49B1004C1B11 /* isgi_cylinder_BA_size.ima */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_cylinder_BA_size.ima; sourceTree = "<group>"; };
+		627C2D98160B49B1004C1B11 /* isgi_cylinder_BA_size.inp */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_cylinder_BA_size.inp; sourceTree = "<group>"; };
+		627C2D99160B49B1004C1B11 /* isgi_cylinder_DWBA.ima */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_cylinder_DWBA.ima; sourceTree = "<group>"; };
+		627C2D9A160B49B1004C1B11 /* isgi_cylinder_DWBA.inp */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_cylinder_DWBA.inp; sourceTree = "<group>"; };
+		627C2D9C160B49B1004C1B11 /* isgi_pyramid_Z0.ima */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_pyramid_Z0.ima; sourceTree = "<group>"; };
+		627C2D9D160B49B1004C1B11 /* isgi_pyramid_Z0.inp */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_pyramid_Z0.inp; sourceTree = "<group>"; };
+		627C2D9E160B49B1004C1B11 /* isgi_pyramid_Z45.ima */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_pyramid_Z45.ima; sourceTree = "<group>"; };
+		627C2D9F160B49B1004C1B11 /* isgi_pyramid_Z45.inp */ = {isa = PBXFileReference; lastKnownFileType = text; path = isgi_pyramid_Z45.inp; sourceTree = "<group>"; };
+		627C2DA1160B49B1004C1B11 /* show2d.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = show2d.py; sourceTree = "<group>"; };
+		627C2DA2160B49B1004C1B11 /* show2ddiff.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = show2ddiff.py; sourceTree = "<group>"; };
+		627C2DA4160B49B1004C1B11 /* perf_history.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = perf_history.txt; sourceTree = "<group>"; };
+		627C2DA6160B49B1004C1B11 /* build_multilayer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = build_multilayer.py; sourceTree = "<group>"; };
+		627C2DA7160B49B1004C1B11 /* isgisaxs9_pyramid.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = isgisaxs9_pyramid.py; sourceTree = "<group>"; };
+		627C2DA8160B49B1004C1B11 /* isgisaxs9_rotated_pyramid.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = isgisaxs9_rotated_pyramid.py; sourceTree = "<group>"; };
+		627C2DA9160B49B1004C1B11 /* test_mesocrystal.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test_mesocrystal.py; sourceTree = "<group>"; };
+		627C2DAA160B49B1004C1B11 /* test_mesocrystal2.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test_mesocrystal2.py; sourceTree = "<group>"; };
+		627C2DAB160B49B1004C1B11 /* test_parameter_pool.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test_parameter_pool.py; sourceTree = "<group>"; };
+		627C2DAC160B49B1004C1B11 /* test_vector3d.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test_vector3d.py; sourceTree = "<group>"; };
+		627C2DAD160B49B1004C1B11 /* GISASFW.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = GISASFW.pro; sourceTree = "<group>"; };
+		627C2DB0160B49B1004C1B11 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		627C2DB1160B49B1004C1B11 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		627C2DB2160B49B1004C1B11 /* codegenerator.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = codegenerator.py; sourceTree = "<group>"; };
+		627C2DB4160B49B1004C1B11 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		627C2DB5160B49B1004C1B11 /* run_gperftools.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = run_gperftools.sh; sourceTree = "<group>"; };
+		627C2DB6160B49B1004C1B11 /* run_valgrind.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = run_valgrind.sh; sourceTree = "<group>"; };
+		627C2DB8160B49B1004C1B11 /* gisasfw_loc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gisasfw_loc.png; sourceTree = "<group>"; };
+		627C2DB9160B49B1004C1B11 /* gisasfw_loc.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = gisasfw_loc.svg; sourceTree = "<group>"; };
+		627C2DBA160B49B1004C1B11 /* git_loc_current.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = git_loc_current.py; sourceTree = "<group>"; };
+		627C2DBB160B49B1004C1B11 /* git_loc_history.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = git_loc_history.py; sourceTree = "<group>"; };
+		627C2DBC160B49B1004C1B11 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		627C2E8C160B49B1004C1B11 /* NamedVectorTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NamedVectorTest.h; sourceTree = "<group>"; };
+		627C2E8D160B49B1004C1B11 /* OutputDataTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputDataTest.h; sourceTree = "<group>"; };
+		627C2E8E160B49B1004C1B11 /* TestCore.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestCore.pro; sourceTree = "<group>"; };
+		627C2E8F160B49B1004C1B11 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		627C2E90160B49B1004C1B11 /* shared.pri */ = {isa = PBXFileReference; lastKnownFileType = text; path = shared.pri; sourceTree = "<group>"; };
+		627C2EC3160B4E8F004C1B11 /* GISASFW.App */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GISASFW.App; sourceTree = BUILT_PRODUCTS_DIR; };
+		627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGISASFW.Core.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GISASFW.TestCore; sourceTree = BUILT_PRODUCTS_DIR; };
+		627C3031160B69D7004C1B11 /* libfftw3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfftw3.3.dylib; path = ../../../../../../opt/local/lib/libfftw3.3.dylib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		627C2EC0160B4E8F004C1B11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6222D086160C8513008205AC /* libboost_filesystem.dylib in Frameworks */,
+				6222D087160C8513008205AC /* libboost_regex.dylib in Frameworks */,
+				6222D088160C8513008205AC /* libboost_system.dylib in Frameworks */,
+				6222D089160C8513008205AC /* libboost_thread-mt.dylib in Frameworks */,
+				6222D084160C84C0008205AC /* libgsl.0.dylib in Frameworks */,
+				6222D085160C84C0008205AC /* libgslcblas.0.dylib in Frameworks */,
+				6222D083160C840C008205AC /* libpthread.dylib in Frameworks */,
+				6222D080160C83F4008205AC /* libdl.dylib in Frameworks */,
+				6222D081160C83F4008205AC /* libm.dylib in Frameworks */,
+				6222D07D160C8361008205AC /* libfftw3.3.dylib in Frameworks */,
+				6222D068160C82CB008205AC /* libCint.5.34.so in Frameworks */,
+				6222D069160C82CB008205AC /* libCore.5.34.so in Frameworks */,
+				6222D06A160C82CB008205AC /* libEve.5.34.so in Frameworks */,
+				6222D06B160C82CB008205AC /* libGeom.5.34.so in Frameworks */,
+				6222D06C160C82CB008205AC /* libGpad.5.34.so in Frameworks */,
+				6222D06D160C82CB008205AC /* libGraf.5.34.so in Frameworks */,
+				6222D06E160C82CB008205AC /* libGraf3d.5.34.so in Frameworks */,
+				6222D06F160C82CB008205AC /* libGui.5.34.so in Frameworks */,
+				6222D070160C82CB008205AC /* libHist.5.34.so in Frameworks */,
+				6222D071160C82CB008205AC /* libMathCore.5.34.so in Frameworks */,
+				6222D072160C82CB008205AC /* libMathMore.5.34.so in Frameworks */,
+				6222D073160C82CB008205AC /* libMatrix.5.34.so in Frameworks */,
+				6222D074160C82CB008205AC /* libMinuit2.5.34.so in Frameworks */,
+				6222D075160C82CB008205AC /* libNet.5.34.so in Frameworks */,
+				6222D076160C82CB008205AC /* libPhysics.5.34.so in Frameworks */,
+				6222D077160C82CB008205AC /* libPostscript.5.34.so in Frameworks */,
+				6222D078160C82CB008205AC /* libRGL.5.34.so in Frameworks */,
+				6222D079160C82CB008205AC /* libRint.5.34.so in Frameworks */,
+				6222D07A160C82CB008205AC /* libRIO.5.34.so in Frameworks */,
+				6222D07B160C82CB008205AC /* libThread.5.34.so in Frameworks */,
+				6222D07C160C82CB008205AC /* libTree.5.34.so in Frameworks */,
+				6222D04C160C6C78008205AC /* libGISASFW.Core.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		627C2F04160B4F98004C1B11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6222D041160C690A008205AC /* libboost_filesystem.dylib in Frameworks */,
+				6222D042160C690A008205AC /* libboost_regex.dylib in Frameworks */,
+				6222D043160C690A008205AC /* libboost_system.dylib in Frameworks */,
+				6222D044160C690A008205AC /* libboost_thread-mt.dylib in Frameworks */,
+				6222D045160C690A008205AC /* libgsl.0.dylib in Frameworks */,
+				6222D046160C690A008205AC /* libgslcblas.0.dylib in Frameworks */,
+				6222D03A160C685A008205AC /* Python in Frameworks */,
+				6222D038160C683B008205AC /* libboost_python.dylib in Frameworks */,
+				627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		627C2FC8160B50D6004C1B11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6222D04F160C79B0008205AC /* gtest.framework in Frameworks */,
+				627C2FDA160B515D004C1B11 /* libGISASFW.Core.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		627C2C58160B4937004C1B11 = {
+			isa = PBXGroup;
+			children = (
+				6222D08A160C8CA3008205AC /* AppDict.cpp */,
+				6222D082160C840C008205AC /* libpthread.dylib */,
+				6222D07E160C83F4008205AC /* libdl.dylib */,
+				6222D07F160C83F4008205AC /* libm.dylib */,
+				6222D053160C82CB008205AC /* libCint.5.34.so */,
+				6222D054160C82CB008205AC /* libCore.5.34.so */,
+				6222D055160C82CB008205AC /* libEve.5.34.so */,
+				6222D056160C82CB008205AC /* libGeom.5.34.so */,
+				6222D057160C82CB008205AC /* libGpad.5.34.so */,
+				6222D058160C82CB008205AC /* libGraf.5.34.so */,
+				6222D059160C82CB008205AC /* libGraf3d.5.34.so */,
+				6222D05A160C82CB008205AC /* libGui.5.34.so */,
+				6222D05B160C82CB008205AC /* libHist.5.34.so */,
+				6222D05C160C82CB008205AC /* libMathCore.5.34.so */,
+				6222D05D160C82CB008205AC /* libMathMore.5.34.so */,
+				6222D05E160C82CB008205AC /* libMatrix.5.34.so */,
+				6222D05F160C82CB008205AC /* libMinuit2.5.34.so */,
+				6222D060160C82CB008205AC /* libNet.5.34.so */,
+				6222D061160C82CB008205AC /* libPhysics.5.34.so */,
+				6222D062160C82CB008205AC /* libPostscript.5.34.so */,
+				6222D063160C82CB008205AC /* libRGL.5.34.so */,
+				6222D064160C82CB008205AC /* libRint.5.34.so */,
+				6222D065160C82CB008205AC /* libRIO.5.34.so */,
+				6222D066160C82CB008205AC /* libThread.5.34.so */,
+				6222D067160C82CB008205AC /* libTree.5.34.so */,
+				6222D04E160C79B0008205AC /* gtest.framework */,
+				6222D047160C696B008205AC /* gtest.dylib */,
+				6222D03B160C690A008205AC /* libboost_filesystem.dylib */,
+				6222D03C160C690A008205AC /* libboost_regex.dylib */,
+				6222D03D160C690A008205AC /* libboost_system.dylib */,
+				6222D03E160C690A008205AC /* libboost_thread-mt.dylib */,
+				6222D03F160C690A008205AC /* libgsl.0.dylib */,
+				6222D040160C690A008205AC /* libgslcblas.0.dylib */,
+				6222D039160C685A008205AC /* Python */,
+				6222D037160C683B008205AC /* libboost_python.dylib */,
+				627C3031160B69D7004C1B11 /* libfftw3.3.dylib */,
+				627C2C61160B49B0004C1B11 /* Repo */,
+				627C2EC4160B4E8F004C1B11 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		627C2C61160B49B0004C1B11 /* Repo */ = {
+			isa = PBXGroup;
+			children = (
+				627C2C6F160B49B0004C1B11 /* App */,
+				627C2CA8160B49B0004C1B11 /* Core */,
+				627C2D77160B49B1004C1B11 /* Doc */,
+				627C2D80160B49B1004C1B11 /* Examples */,
+				627C2DAD160B49B1004C1B11 /* GISASFW.pro */,
+				627C2DAE160B49B1004C1B11 /* Macros */,
+				627C2DBC160B49B1004C1B11 /* README */,
+				627C2E8A160B49B1004C1B11 /* UnitTests */,
+				627C2E90160B49B1004C1B11 /* shared.pri */,
+			);
+			name = Repo;
+			path = ../Repo;
+			sourceTree = "<group>";
+		};
+		627C2C6F160B49B0004C1B11 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				627C2C70160B49B0004C1B11 /* App.pro */,
+				627C2C71160B49B0004C1B11 /* inc */,
+				627C2C8D160B49B0004C1B11 /* src */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		627C2C71160B49B0004C1B11 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				627C2C72160B49B0004C1B11 /* App.h */,
+				627C2C73160B49B0004C1B11 /* AppLinkDef.h */,
+				627C2C74160B49B0004C1B11 /* CommandLine.h */,
+				627C2C75160B49B0004C1B11 /* DrawHelper.h */,
+				627C2C76160B49B0004C1B11 /* EventFrame.h */,
+				627C2C77160B49B0004C1B11 /* FunctionalTestFactory.h */,
+				627C2C78160B49B0004C1B11 /* IFunctionalTest.h */,
+				627C2C79160B49B0004C1B11 /* IsGISAXSTools.h */,
+				627C2C7A160B49B0004C1B11 /* SampleFactory.h */,
+				627C2C7B160B49B0004C1B11 /* StandardSamples.h */,
+				627C2C7C160B49B0004C1B11 /* TestConvolution.h */,
+				627C2C7D160B49B0004C1B11 /* TestDetectorResolution.h */,
+				627C2C7E160B49B0004C1B11 /* TestDiffuseReflection.h */,
+				627C2C7F160B49B0004C1B11 /* TestFittingModule.h */,
+				627C2C80160B49B0004C1B11 /* TestFormFactor.h */,
+				627C2C81160B49B0004C1B11 /* TestFresnelCoeff.h */,
+				627C2C82160B49B0004C1B11 /* TestIsGISAXS1.h */,
+				627C2C83160B49B0004C1B11 /* TestIsGISAXS10.h */,
+				627C2C84160B49B0004C1B11 /* TestIsGISAXS2.h */,
+				627C2C85160B49B0004C1B11 /* TestIsGISAXS3.h */,
+				627C2C86160B49B0004C1B11 /* TestIsGISAXS9.h */,
+				627C2C87160B49B0004C1B11 /* TestMesoCrystal.h */,
+				627C2C88160B49B0004C1B11 /* TestMiscellaneous.h */,
+				627C2C89160B49B0004C1B11 /* TestMultiLayerRoughness.h */,
+				627C2C8A160B49B0004C1B11 /* TestPerformance.h */,
+				627C2C8B160B49B0004C1B11 /* TestRootTree.h */,
+				627C2C8C160B49B0004C1B11 /* TestRoughness.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		627C2C8D160B49B0004C1B11 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				627C2C8E160B49B0004C1B11 /* CommandLine.cpp */,
+				627C2C8F160B49B0004C1B11 /* DrawHelper.cpp */,
+				627C2C90160B49B0004C1B11 /* EventFrame.cpp */,
+				627C2C91160B49B0004C1B11 /* FunctionalTestFactory.cpp */,
+				627C2C92160B49B0004C1B11 /* IFunctionalTest.cpp */,
+				627C2C93160B49B0004C1B11 /* IsGISAXSTools.cpp */,
+				627C2C94160B49B0004C1B11 /* SampleFactory.cpp */,
+				627C2C95160B49B0004C1B11 /* StandardSamples.cpp */,
+				627C2C96160B49B0004C1B11 /* TestConvolution.cpp */,
+				627C2C97160B49B0004C1B11 /* TestDetectorResolution.cpp */,
+				627C2C98160B49B0004C1B11 /* TestDiffuseReflection.cpp */,
+				627C2C99160B49B0004C1B11 /* TestFittingModule.cpp */,
+				627C2C9A160B49B0004C1B11 /* TestFormFactor.cpp */,
+				627C2C9B160B49B0004C1B11 /* TestFresnelCoeff.cpp */,
+				627C2C9C160B49B0004C1B11 /* TestIsGISAXS1.cpp */,
+				627C2C9D160B49B0004C1B11 /* TestIsGISAXS10.cpp */,
+				627C2C9E160B49B0004C1B11 /* TestIsGISAXS2.cpp */,
+				627C2C9F160B49B0004C1B11 /* TestIsGISAXS3.cpp */,
+				627C2CA0160B49B0004C1B11 /* TestIsGISAXS9.cpp */,
+				627C2CA1160B49B0004C1B11 /* TestMesoCrystal.cpp */,
+				627C2CA2160B49B0004C1B11 /* TestMiscellaneous.cpp */,
+				627C2CA3160B49B0004C1B11 /* TestMultiLayerRoughness.cpp */,
+				627C2CA4160B49B0004C1B11 /* TestPerformance.cpp */,
+				627C2CA5160B49B0004C1B11 /* TestRootTree.cpp */,
+				627C2CA6160B49B0004C1B11 /* TestRoughness.cpp */,
+				627C2CA7160B49B0004C1B11 /* main.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		627C2CA8160B49B0004C1B11 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				627C2CA9160B49B0004C1B11 /* Algorithms */,
+				627C2CD2160B49B0004C1B11 /* Core.pro */,
+				627C2CD3160B49B0004C1B11 /* FormFactors */,
+				627C2CF4160B49B1004C1B11 /* Geometry */,
+				627C2D04160B49B1004C1B11 /* PythonAPI */,
+				627C2D19160B49B1004C1B11 /* Samples */,
+				627C2D50160B49B1004C1B11 /* Tools */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		627C2CA9160B49B0004C1B11 /* Algorithms */ = {
+			isa = PBXGroup;
+			children = (
+				627C2CAA160B49B0004C1B11 /* inc */,
+				627C2CC0160B49B0004C1B11 /* src */,
+			);
+			path = Algorithms;
+			sourceTree = "<group>";
+		};
+		627C2CAA160B49B0004C1B11 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				627C2CAB160B49B0004C1B11 /* Beam.h */,
+				627C2CAC160B49B0004C1B11 /* ChiSquaredModule.h */,
+				627C2CAD160B49B0004C1B11 /* ConvolutionDetectorResolution.h */,
+				627C2CAE160B49B0004C1B11 /* DWBADiffuseReflection.h */,
+				627C2CAF160B49B0004C1B11 /* DWBASimulation.h */,
+				627C2CB0160B49B0004C1B11 /* DecouplingApproximationStrategy.h */,
+				627C2CB1160B49B0004C1B11 /* Detector.h */,
+				627C2CB2160B49B0004C1B11 /* DiffuseDWBASimulation.h */,
+				627C2CB3160B49B0004C1B11 /* Experiment.h */,
+				627C2CB4160B49B0004C1B11 /* GISASExperiment.h */,
+				627C2CB5160B49B0004C1B11 /* IDetectorResolution.h */,
+				627C2CB6160B49B0004C1B11 /* IFittingDataSelector.h */,
+				627C2CB7160B49B0004C1B11 /* IInterferenceFunctionStrategy.h */,
+				627C2CB8160B49B0004C1B11 /* ISimulation.h */,
+				627C2CB9160B49B0004C1B11 /* ISquaredFunction.h */,
+				627C2CBA160B49B0004C1B11 /* LayerDWBASimulation.h */,
+				627C2CBB160B49B0004C1B11 /* LayerDecoratorDWBASimulation.h */,
+				627C2CBC160B49B0004C1B11 /* LocalMonodisperseApproximationStrategy.h */,
+				627C2CBD160B49B0004C1B11 /* MultiLayerDWBASimulation.h */,
+				627C2CBE160B49B0004C1B11 /* MultiLayerRoughnessDWBASimulation.h */,
+				627C2CBF160B49B0004C1B11 /* OpticalFresnel.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		627C2CC0160B49B0004C1B11 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				627C2CC1160B49B0004C1B11 /* Beam.cpp */,
+				627C2CC2160B49B0004C1B11 /* ChiSquaredModule.cpp */,
+				627C2CC3160B49B0004C1B11 /* ConvolutionDetectorResolution.cpp */,
+				627C2CC4160B49B0004C1B11 /* DWBADiffuseReflection.cpp */,
+				627C2CC5160B49B0004C1B11 /* DWBASimulation.cpp */,
+				627C2CC6160B49B0004C1B11 /* DecouplingApproximationStrategy.cpp */,
+				627C2CC7160B49B0004C1B11 /* Detector.cpp */,
+				627C2CC8160B49B0004C1B11 /* DiffuseDWBASimulation.cpp */,
+				627C2CC9160B49B0004C1B11 /* Experiment.cpp */,
+				627C2CCA160B49B0004C1B11 /* GISASExperiment.cpp */,
+				627C2CCB160B49B0004C1B11 /* IFittingDataSelector.cpp */,
+				627C2CCC160B49B0004C1B11 /* LayerDWBASimulation.cpp */,
+				627C2CCD160B49B0004C1B11 /* LayerDecoratorDWBASimulation.cpp */,
+				627C2CCE160B49B0004C1B11 /* LocalMonodisperseApproximationStrategy.cpp */,
+				627C2CCF160B49B0004C1B11 /* MultiLayerDWBASimulation.cpp */,
+				627C2CD0160B49B0004C1B11 /* MultiLayerRoughnessDWBASimulation.cpp */,
+				627C2CD1160B49B0004C1B11 /* OpticalFresnel.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		627C2CD3160B49B0004C1B11 /* FormFactors */ = {
+			isa = PBXGroup;
+			children = (
+				627C2CD4160B49B0004C1B11 /* inc */,
+				627C2CE8160B49B1004C1B11 /* src */,
+			);
+			path = FormFactors;
+			sourceTree = "<group>";
+		};
+		627C2CD4160B49B0004C1B11 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				627C2CD5160B49B0004C1B11 /* FormFactorCrystal.h */,
+				627C2CD6160B49B0004C1B11 /* FormFactorCylinder.h */,
+				627C2CD7160B49B0004C1B11 /* FormFactorDWBA.h */,
+				627C2CD8160B49B0004C1B11 /* FormFactorDWBAConstZ.h */,
+				627C2CD9160B49B1004C1B11 /* FormFactorDecoratorDebyeWaller.h */,
+				627C2CDA160B49B1004C1B11 /* FormFactorDecoratorFactor.h */,
+				627C2CDB160B49B1004C1B11 /* FormFactorDecoratorMultiPositionFactor.h */,
+				627C2CDC160B49B1004C1B11 /* FormFactorDecoratorPositionFactor.h */,
+				627C2CDD160B49B1004C1B11 /* FormFactorDecoratorRefractiveIndex.h */,
+				627C2CDE160B49B1004C1B11 /* FormFactorDecoratorTransformation.h */,
+				627C2CDF160B49B1004C1B11 /* FormFactorFullSphere.h */,
+				627C2CE0160B49B1004C1B11 /* FormFactorGauss.h */,
+				627C2CE1160B49B1004C1B11 /* FormFactorLorentz.h */,
+				627C2CE2160B49B1004C1B11 /* FormFactorPrism3.h */,
+				627C2CE3160B49B1004C1B11 /* FormFactorPyramid.h */,
+				627C2CE4160B49B1004C1B11 /* FormFactorSphereGaussianRadius.h */,
+				627C2CE5160B49B1004C1B11 /* FormFactorWeighted.h */,
+				627C2CE6160B49B1004C1B11 /* FormFactors.h */,
+				627C2CE7160B49B1004C1B11 /* IFormFactor.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		627C2CE8160B49B1004C1B11 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				627C2CE9160B49B1004C1B11 /* FormFactorCrystal.cpp */,
+				627C2CEA160B49B1004C1B11 /* FormFactorCylinder.cpp */,
+				627C2CEB160B49B1004C1B11 /* FormFactorDWBA.cpp */,
+				627C2CEC160B49B1004C1B11 /* FormFactorDWBAConstZ.cpp */,
+				627C2CED160B49B1004C1B11 /* FormFactorDecoratorTransformation.cpp */,
+				627C2CEE160B49B1004C1B11 /* FormFactorFullSphere.cpp */,
+				627C2CEF160B49B1004C1B11 /* FormFactorGauss.cpp */,
+				627C2CF0160B49B1004C1B11 /* FormFactorLorentz.cpp */,
+				627C2CF1160B49B1004C1B11 /* FormFactorPrism3.cpp */,
+				627C2CF2160B49B1004C1B11 /* FormFactorPyramid.cpp */,
+				627C2CF3160B49B1004C1B11 /* FormFactorWeighted.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		627C2CF4160B49B1004C1B11 /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				627C2CF5160B49B1004C1B11 /* inc */,
+				627C2CFD160B49B1004C1B11 /* src */,
+			);
+			path = Geometry;
+			sourceTree = "<group>";
+		};
+		627C2CF5160B49B1004C1B11 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				627C2CF6160B49B1004C1B11 /* BasicVector3D.h */,
+				627C2CF7160B49B1004C1B11 /* Normal3D.h */,
+				627C2CF8160B49B1004C1B11 /* Plane3D.h */,
+				627C2CF9160B49B1004C1B11 /* Point3D.h */,
+				627C2CFA160B49B1004C1B11 /* Transform3D.h */,
+				627C2CFB160B49B1004C1B11 /* Transform3D.icc */,
+				627C2CFC160B49B1004C1B11 /* Vector3D.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		627C2CFD160B49B1004C1B11 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				627C2CFE160B49B1004C1B11 /* BasicVector3D.cpp */,
+				627C2CFF160B49B1004C1B11 /* Normal3D.cpp */,
+				627C2D00160B49B1004C1B11 /* Plane3D.cpp */,
+				627C2D01160B49B1004C1B11 /* Point3D.cpp */,
+				627C2D02160B49B1004C1B11 /* Transform3D.cpp */,
+				627C2D03160B49B1004C1B11 /* Vector3D.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		627C2D04160B49B1004C1B11 /* PythonAPI */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D05160B49B1004C1B11 /* inc */,
+				627C2D0F160B49B1004C1B11 /* src */,
+			);
+			path = PythonAPI;
+			sourceTree = "<group>";
+		};
+		627C2D05160B49B1004C1B11 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D06160B49B1004C1B11 /* PythonInterface_classes_1.h */,
+				627C2D07160B49B1004C1B11 /* PythonInterface_classes_2.h */,
+				627C2D08160B49B1004C1B11 /* PythonInterface_classes_3.h */,
+				627C2D09160B49B1004C1B11 /* PythonInterface_free_functions.h */,
+				627C2D0A160B49B1004C1B11 /* PythonInterface_global_variables.h */,
+				627C2D0B160B49B1004C1B11 /* PythonListConverter.h */,
+				627C2D0C160B49B1004C1B11 /* PythonModule.h */,
+				627C2D0D160B49B1004C1B11 /* PythonOutputData.h */,
+				627C2D0E160B49B1004C1B11 /* PythonPlusplusHelper.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		627C2D0F160B49B1004C1B11 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D10160B49B1004C1B11 /* PythonInterface_classes_1.cpp */,
+				627C2D11160B49B1004C1B11 /* PythonInterface_classes_2.cpp */,
+				627C2D12160B49B1004C1B11 /* PythonInterface_classes_3.cpp */,
+				627C2D13160B49B1004C1B11 /* PythonInterface_free_functions.cpp */,
+				627C2D14160B49B1004C1B11 /* PythonInterface_global_variables.cpp */,
+				627C2D15160B49B1004C1B11 /* PythonListConverter.cpp */,
+				627C2D16160B49B1004C1B11 /* PythonModule.cpp */,
+				627C2D17160B49B1004C1B11 /* PythonOutputData.cpp */,
+				627C2D18160B49B1004C1B11 /* PythonPlusplusHelper.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		627C2D19160B49B1004C1B11 /* Samples */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D1A160B49B1004C1B11 /* inc */,
+				627C2D38160B49B1004C1B11 /* src */,
+			);
+			path = Samples;
+			sourceTree = "<group>";
+		};
+		627C2D1A160B49B1004C1B11 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D1B160B49B1004C1B11 /* Crystal.h */,
+				627C2D1C160B49B1004C1B11 /* DiffuseParticleInfo.h */,
+				627C2D1D160B49B1004C1B11 /* HomogeneousMaterial.h */,
+				627C2D1E160B49B1004C1B11 /* IClusteredParticles.h */,
+				627C2D1F160B49B1004C1B11 /* ICompositeIterator.h */,
+				627C2D20160B49B1004C1B11 /* ICompositeSample.h */,
+				627C2D21160B49B1004C1B11 /* IDecoration.h */,
+				627C2D22160B49B1004C1B11 /* IDispersalState.h */,
+				627C2D23160B49B1004C1B11 /* IInterferenceFunction.h */,
+				627C2D24160B49B1004C1B11 /* IMaterial.h */,
+				627C2D25160B49B1004C1B11 /* IRoughness.h */,
+				627C2D26160B49B1004C1B11 /* ISample.h */,
+				627C2D27160B49B1004C1B11 /* ISelectionRule.h */,
+				627C2D28160B49B1004C1B11 /* InterferenceFunction1DParaCrystal.h */,
+				627C2D29160B49B1004C1B11 /* InterferenceFunctionNone.h */,
+				627C2D2A160B49B1004C1B11 /* Lattice.h */,
+				627C2D2B160B49B1004C1B11 /* LatticeBasis.h */,
+				627C2D2C160B49B1004C1B11 /* Layer.h */,
+				627C2D2D160B49B1004C1B11 /* LayerDecorator.h */,
+				627C2D2E160B49B1004C1B11 /* LayerInterface.h */,
+				627C2D2F160B49B1004C1B11 /* LayerRoughness.h */,
+				627C2D30160B49B1004C1B11 /* MaterialManager.h */,
+				627C2D31160B49B1004C1B11 /* MesoCrystal.h */,
+				627C2D32160B49B1004C1B11 /* MultiLayer.h */,
+				627C2D33160B49B1004C1B11 /* ParameterPool.h */,
+				627C2D34160B49B1004C1B11 /* Particle.h */,
+				627C2D35160B49B1004C1B11 /* ParticleBuilder.h */,
+				627C2D36160B49B1004C1B11 /* ParticleDecoration.h */,
+				627C2D37160B49B1004C1B11 /* ParticleInfo.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		627C2D38160B49B1004C1B11 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D39160B49B1004C1B11 /* Crystal.cpp */,
+				627C2D3A160B49B1004C1B11 /* DiffuseParticleInfo.cpp */,
+				627C2D3B160B49B1004C1B11 /* HomogeneousMaterial.cpp */,
+				627C2D3C160B49B1004C1B11 /* ICompositeIterator.cpp */,
+				627C2D3D160B49B1004C1B11 /* ICompositeSample.cpp */,
+				627C2D3E160B49B1004C1B11 /* IMaterial.cpp */,
+				627C2D3F160B49B1004C1B11 /* IRoughness.cpp */,
+				627C2D40160B49B1004C1B11 /* ISample.cpp */,
+				627C2D41160B49B1004C1B11 /* InterferenceFunction1DParaCrystal.cpp */,
+				627C2D42160B49B1004C1B11 /* Lattice.cpp */,
+				627C2D43160B49B1004C1B11 /* LatticeBasis.cpp */,
+				627C2D44160B49B1004C1B11 /* Layer.cpp */,
+				627C2D45160B49B1004C1B11 /* LayerDecorator.cpp */,
+				627C2D46160B49B1004C1B11 /* LayerInterface.cpp */,
+				627C2D47160B49B1004C1B11 /* LayerRoughness.cpp */,
+				627C2D48160B49B1004C1B11 /* MaterialManager.cpp */,
+				627C2D49160B49B1004C1B11 /* MesoCrystal.cpp */,
+				627C2D4A160B49B1004C1B11 /* MultiLayer.cpp */,
+				627C2D4B160B49B1004C1B11 /* ParameterPool.cpp */,
+				627C2D4C160B49B1004C1B11 /* Particle.cpp */,
+				627C2D4D160B49B1004C1B11 /* ParticleBuilder.cpp */,
+				627C2D4E160B49B1004C1B11 /* ParticleDecoration.cpp */,
+				627C2D4F160B49B1004C1B11 /* ParticleInfo.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		627C2D50160B49B1004C1B11 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D51160B49B1004C1B11 /* inc */,
+				627C2D68160B49B1004C1B11 /* src */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		627C2D51160B49B1004C1B11 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D52160B49B1004C1B11 /* Convolve.h */,
+				627C2D53160B49B1004C1B11 /* Coordinate3D.h */,
+				627C2D54160B49B1004C1B11 /* DoubleToComplexInterpolatingFunction.h */,
+				627C2D55160B49B1004C1B11 /* Exceptions.h */,
+				627C2D56160B49B1004C1B11 /* FitMultiParameter.h */,
+				627C2D57160B49B1004C1B11 /* FitParameter.h */,
+				627C2D58160B49B1004C1B11 /* IDoubleToComplexFunction.h */,
+				627C2D59160B49B1004C1B11 /* IFactory.h */,
+				627C2D5A160B49B1004C1B11 /* INamed.h */,
+				627C2D5B160B49B1004C1B11 /* ISingleton.h */,
+				627C2D5C160B49B1004C1B11 /* IStochasticParameter.h */,
+				627C2D5D160B49B1004C1B11 /* MathFunctions.h */,
+				627C2D5E160B49B1004C1B11 /* NamedVector.h */,
+				627C2D5F160B49B1004C1B11 /* Numeric.h */,
+				627C2D60160B49B1004C1B11 /* OutputData.h */,
+				627C2D61160B49B1004C1B11 /* StochasticDiracDelta.h */,
+				627C2D62160B49B1004C1B11 /* StochasticGaussian.h */,
+				627C2D63160B49B1004C1B11 /* StochasticSampledParameter.h */,
+				627C2D64160B49B1004C1B11 /* TRange.h */,
+				627C2D65160B49B1004C1B11 /* Types.h */,
+				627C2D66160B49B1004C1B11 /* Units.h */,
+				627C2D67160B49B1004C1B11 /* Utils.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		627C2D68160B49B1004C1B11 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D69160B49B1004C1B11 /* Convolve.cpp */,
+				627C2D6A160B49B1004C1B11 /* DoubleToComplexInterpolatingFunction.cpp */,
+				627C2D6B160B49B1004C1B11 /* Exceptions.cpp */,
+				627C2D6C160B49B1004C1B11 /* FitMultiParameter.cpp */,
+				627C2D6D160B49B1004C1B11 /* FitParameter.cpp */,
+				627C2D6E160B49B1004C1B11 /* IFactory.cpp */,
+				627C2D6F160B49B1004C1B11 /* INamed.cpp */,
+				627C2D70160B49B1004C1B11 /* ISingleton.cpp */,
+				627C2D71160B49B1004C1B11 /* MathFunctions.cpp */,
+				627C2D72160B49B1004C1B11 /* OutputData.cpp */,
+				627C2D73160B49B1004C1B11 /* StochasticGaussian.cpp */,
+				627C2D74160B49B1004C1B11 /* StochasticSampledParameter.cpp */,
+				627C2D75160B49B1004C1B11 /* Types.cpp */,
+				627C2D76160B49B1004C1B11 /* Utils.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		627C2D77160B49B1004C1B11 /* Doc */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D78160B49B1004C1B11 /* Doxygen */,
+				627C2D7A160B49B1004C1B11 /* UML */,
+			);
+			path = Doc;
+			sourceTree = "<group>";
+		};
+		627C2D78160B49B1004C1B11 /* Doxygen */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D79160B49B1004C1B11 /* Doxyfile */,
+			);
+			path = Doxygen;
+			sourceTree = "<group>";
+		};
+		627C2D7A160B49B1004C1B11 /* UML */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D7B160B49B1004C1B11 /* .project */,
+				627C2D7C160B49B1004C1B11 /* SampleClasses.pdf */,
+				627C2D7D160B49B1004C1B11 /* model.di */,
+				627C2D7E160B49B1004C1B11 /* model.notation */,
+				627C2D7F160B49B1004C1B11 /* model.uml */,
+			);
+			path = UML;
+			sourceTree = "<group>";
+		};
+		627C2D80160B49B1004C1B11 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D81160B49B1004C1B11 /* Analysis */,
+				627C2D87160B49B1004C1B11 /* IsGISAXS_examples */,
+				627C2DA3160B49B1004C1B11 /* Performance */,
+				627C2DA5160B49B1004C1B11 /* UsageWithPython */,
+			);
+			path = Examples;
+			sourceTree = "<group>";
+		};
+		627C2D81160B49B1004C1B11 /* Analysis */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D82160B49B1004C1B11 /* MesoData */,
+			);
+			path = Analysis;
+			sourceTree = "<group>";
+		};
+		627C2D82160B49B1004C1B11 /* MesoData */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D83160B49B1004C1B11 /* MesoData.C */,
+				627C2D84160B49B1004C1B11 /* MesoData.h */,
+				627C2D85160B49B1004C1B11 /* analysis1.C */,
+				627C2D86160B49B1004C1B11 /* analysis2.C */,
+			);
+			path = MesoData;
+			sourceTree = "<group>";
+		};
+		627C2D87160B49B1004C1B11 /* IsGISAXS_examples */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D88160B49B1004C1B11 /* README */,
+				627C2D89160B49B1004C1B11 /* ex-1 */,
+				627C2D8D160B49B1004C1B11 /* ex-10 */,
+				627C2D90160B49B1004C1B11 /* ex-2 */,
+				627C2D93160B49B1004C1B11 /* ex-3 */,
+				627C2D9B160B49B1004C1B11 /* ex-9 */,
+				627C2DA0160B49B1004C1B11 /* scripts */,
+			);
+			path = IsGISAXS_examples;
+			sourceTree = "<group>";
+		};
+		627C2D89160B49B1004C1B11 /* ex-1 */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D8A160B49B1004C1B11 /* isgi_2-types-of-islands-ewald.ima */,
+				627C2D8B160B49B1004C1B11 /* isgi_2-types-of-islands-ewald.inp */,
+				627C2D8C160B49B1004C1B11 /* isgi_2-types-of-islands.inp */,
+			);
+			path = "ex-1";
+			sourceTree = "<group>";
+		};
+		627C2D8D160B49B1004C1B11 /* ex-10 */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D8E160B49B1004C1B11 /* isgi_para1dcyl.ima */,
+				627C2D8F160B49B1004C1B11 /* isgi_para1dcyl.inp */,
+			);
+			path = "ex-10";
+			sourceTree = "<group>";
+		};
+		627C2D90160B49B1004C1B11 /* ex-2 */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D91160B49B1004C1B11 /* isgi_bimodal.ima */,
+				627C2D92160B49B1004C1B11 /* isgi_bimodal.inp */,
+			);
+			path = "ex-2";
+			sourceTree = "<group>";
+		};
+		627C2D93160B49B1004C1B11 /* ex-3 */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D94160B49B1004C1B11 /* isgi_cylinder_BA.ima */,
+				627C2D95160B49B1004C1B11 /* isgi_cylinder_BA.inp */,
+				627C2D96160B49B1004C1B11 /* isgi_cylinder_BA_qxqy.inp */,
+				627C2D97160B49B1004C1B11 /* isgi_cylinder_BA_size.ima */,
+				627C2D98160B49B1004C1B11 /* isgi_cylinder_BA_size.inp */,
+				627C2D99160B49B1004C1B11 /* isgi_cylinder_DWBA.ima */,
+				627C2D9A160B49B1004C1B11 /* isgi_cylinder_DWBA.inp */,
+			);
+			path = "ex-3";
+			sourceTree = "<group>";
+		};
+		627C2D9B160B49B1004C1B11 /* ex-9 */ = {
+			isa = PBXGroup;
+			children = (
+				627C2D9C160B49B1004C1B11 /* isgi_pyramid_Z0.ima */,
+				627C2D9D160B49B1004C1B11 /* isgi_pyramid_Z0.inp */,
+				627C2D9E160B49B1004C1B11 /* isgi_pyramid_Z45.ima */,
+				627C2D9F160B49B1004C1B11 /* isgi_pyramid_Z45.inp */,
+			);
+			path = "ex-9";
+			sourceTree = "<group>";
+		};
+		627C2DA0160B49B1004C1B11 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				627C2DA1160B49B1004C1B11 /* show2d.py */,
+				627C2DA2160B49B1004C1B11 /* show2ddiff.py */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
+		627C2DA3160B49B1004C1B11 /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				627C2DA4160B49B1004C1B11 /* perf_history.txt */,
+			);
+			path = Performance;
+			sourceTree = "<group>";
+		};
+		627C2DA5160B49B1004C1B11 /* UsageWithPython */ = {
+			isa = PBXGroup;
+			children = (
+				627C2DA6160B49B1004C1B11 /* build_multilayer.py */,
+				627C2DA7160B49B1004C1B11 /* isgisaxs9_pyramid.py */,
+				627C2DA8160B49B1004C1B11 /* isgisaxs9_rotated_pyramid.py */,
+				627C2DA9160B49B1004C1B11 /* test_mesocrystal.py */,
+				627C2DAA160B49B1004C1B11 /* test_mesocrystal2.py */,
+				627C2DAB160B49B1004C1B11 /* test_parameter_pool.py */,
+				627C2DAC160B49B1004C1B11 /* test_vector3d.py */,
+			);
+			path = UsageWithPython;
+			sourceTree = "<group>";
+		};
+		627C2DAE160B49B1004C1B11 /* Macros */ = {
+			isa = PBXGroup;
+			children = (
+				627C2DAF160B49B1004C1B11 /* BoostPythonGenerator */,
+				627C2DB3160B49B1004C1B11 /* CodeProfiling */,
+				627C2DB7160B49B1004C1B11 /* GitUtils */,
+			);
+			path = Macros;
+			sourceTree = "<group>";
+		};
+		627C2DAF160B49B1004C1B11 /* BoostPythonGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				627C2DB0160B49B1004C1B11 /* Makefile */,
+				627C2DB1160B49B1004C1B11 /* README */,
+				627C2DB2160B49B1004C1B11 /* codegenerator.py */,
+			);
+			path = BoostPythonGenerator;
+			sourceTree = "<group>";
+		};
+		627C2DB3160B49B1004C1B11 /* CodeProfiling */ = {
+			isa = PBXGroup;
+			children = (
+				627C2DB4160B49B1004C1B11 /* README */,
+				627C2DB5160B49B1004C1B11 /* run_gperftools.sh */,
+				627C2DB6160B49B1004C1B11 /* run_valgrind.sh */,
+			);
+			path = CodeProfiling;
+			sourceTree = "<group>";
+		};
+		627C2DB7160B49B1004C1B11 /* GitUtils */ = {
+			isa = PBXGroup;
+			children = (
+				627C2DB8160B49B1004C1B11 /* gisasfw_loc.png */,
+				627C2DB9160B49B1004C1B11 /* gisasfw_loc.svg */,
+				627C2DBA160B49B1004C1B11 /* git_loc_current.py */,
+				627C2DBB160B49B1004C1B11 /* git_loc_history.py */,
+			);
+			path = GitUtils;
+			sourceTree = "<group>";
+		};
+		627C2E8A160B49B1004C1B11 /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				627C2E8B160B49B1004C1B11 /* TestCore */,
+			);
+			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		627C2E8B160B49B1004C1B11 /* TestCore */ = {
+			isa = PBXGroup;
+			children = (
+				627C2E8C160B49B1004C1B11 /* NamedVectorTest.h */,
+				627C2E8D160B49B1004C1B11 /* OutputDataTest.h */,
+				627C2E8E160B49B1004C1B11 /* TestCore.pro */,
+				627C2E8F160B49B1004C1B11 /* main.cpp */,
+			);
+			path = TestCore;
+			sourceTree = "<group>";
+		};
+		627C2EC4160B4E8F004C1B11 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				627C2EC3160B4E8F004C1B11 /* GISASFW.App */,
+				627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */,
+				627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */,
+				6222D090160C8E59008205AC /* GISASFW.CL.All */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6222D08F160C8E59008205AC /* GISASFW.CL.All */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6222D097160C8E59008205AC /* Build configuration list for PBXNativeTarget "GISASFW.CL.All" */;
+			buildPhases = (
+				6222D09B160C8EF0008205AC /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GISASFW.CL.All;
+			productName = GISASFW.CL.All;
+			productReference = 6222D090160C8E59008205AC /* GISASFW.CL.All */;
+			productType = "com.apple.product-type.tool";
+		};
+		627C2EC2160B4E8F004C1B11 /* GISASFW.App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 627C2ECB160B4E8F004C1B11 /* Build configuration list for PBXNativeTarget "GISASFW.App" */;
+			buildPhases = (
+				6222D09A160C8E67008205AC /* ShellScript */,
+				627C2EBF160B4E8F004C1B11 /* Sources */,
+				627C2EC0160B4E8F004C1B11 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				627C2FE5160B5900004C1B11 /* PBXTargetDependency */,
+			);
+			name = GISASFW.App;
+			productName = GISASFW.App;
+			productReference = 627C2EC3160B4E8F004C1B11 /* GISASFW.App */;
+			productType = "com.apple.product-type.tool";
+		};
+		627C2F06160B4F98004C1B11 /* GISASFW.Core */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 627C2F08160B4F99004C1B11 /* Build configuration list for PBXNativeTarget "GISASFW.Core" */;
+			buildPhases = (
+				627C2F03160B4F98004C1B11 /* Sources */,
+				627C2F04160B4F98004C1B11 /* Frameworks */,
+				6222D04A160C6C1A008205AC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GISASFW.Core;
+			productName = GISASFW.Core;
+			productReference = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		627C2FCA160B50D6004C1B11 /* GISASFW.TestCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 627C2FD2160B50D6004C1B11 /* Build configuration list for PBXNativeTarget "GISASFW.TestCore" */;
+			buildPhases = (
+				627C2FC7160B50D6004C1B11 /* Sources */,
+				627C2FC8160B50D6004C1B11 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				627C2FD9160B5149004C1B11 /* PBXTargetDependency */,
+			);
+			name = GISASFW.TestCore;
+			productName = GISASFW.TestCore;
+			productReference = 627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		627C2C5A160B4937004C1B11 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = 627C2C5D160B4937004C1B11 /* Build configuration list for PBXProject "XCode_GISASFW" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 627C2C58160B4937004C1B11;
+			productRefGroup = 627C2EC4160B4E8F004C1B11 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				627C2EC2160B4E8F004C1B11 /* GISASFW.App */,
+				627C2F06160B4F98004C1B11 /* GISASFW.Core */,
+				627C2FCA160B50D6004C1B11 /* GISASFW.TestCore */,
+				6222D08F160C8E59008205AC /* GISASFW.CL.All */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6222D09A160C8E67008205AC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${SRCROOT}/../Repo/Core\nqmake\nmake\ncd ${SRCROOT}/../Repo/App\nqmake\nmake";
+		};
+		6222D09B160C8EF0008205AC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/../Repo/App/App",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${SRCROOT}/../Repo\nqmake\nmake";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		627C2EBF160B4E8F004C1B11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6222D08B160C8CA3008205AC /* AppDict.cpp in Sources */,
+				627C2EE9160B4EE6004C1B11 /* CommandLine.cpp in Sources */,
+				627C2EEA160B4EE6004C1B11 /* DrawHelper.cpp in Sources */,
+				627C2EEB160B4EE6004C1B11 /* EventFrame.cpp in Sources */,
+				627C2EEC160B4EE6004C1B11 /* FunctionalTestFactory.cpp in Sources */,
+				627C2EED160B4EE6004C1B11 /* IFunctionalTest.cpp in Sources */,
+				627C2EEE160B4EE6004C1B11 /* IsGISAXSTools.cpp in Sources */,
+				627C2EEF160B4EE6004C1B11 /* SampleFactory.cpp in Sources */,
+				627C2EF0160B4EE6004C1B11 /* StandardSamples.cpp in Sources */,
+				627C2EF1160B4EE6004C1B11 /* TestConvolution.cpp in Sources */,
+				627C2EF2160B4EE6004C1B11 /* TestDetectorResolution.cpp in Sources */,
+				627C2EF3160B4EE6004C1B11 /* TestDiffuseReflection.cpp in Sources */,
+				627C2EF4160B4EE6004C1B11 /* TestFittingModule.cpp in Sources */,
+				627C2EF5160B4EE6004C1B11 /* TestFormFactor.cpp in Sources */,
+				627C2EF6160B4EE6004C1B11 /* TestFresnelCoeff.cpp in Sources */,
+				627C2EF7160B4EE6004C1B11 /* TestIsGISAXS1.cpp in Sources */,
+				627C2EF8160B4EE6004C1B11 /* TestIsGISAXS10.cpp in Sources */,
+				627C2EF9160B4EE6004C1B11 /* TestIsGISAXS2.cpp in Sources */,
+				627C2EFA160B4EE6004C1B11 /* TestIsGISAXS3.cpp in Sources */,
+				627C2EFB160B4EE6004C1B11 /* TestIsGISAXS9.cpp in Sources */,
+				627C2EFC160B4EE6004C1B11 /* TestMesoCrystal.cpp in Sources */,
+				627C2EFD160B4EE6004C1B11 /* TestMiscellaneous.cpp in Sources */,
+				627C2EFE160B4EE6004C1B11 /* TestMultiLayerRoughness.cpp in Sources */,
+				627C2EFF160B4EE6004C1B11 /* TestPerformance.cpp in Sources */,
+				627C2F00160B4EE6004C1B11 /* TestRootTree.cpp in Sources */,
+				627C2F01160B4EE6004C1B11 /* TestRoughness.cpp in Sources */,
+				627C2F02160B4EE6004C1B11 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		627C2F03160B4F98004C1B11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				627C2F20160B4FBE004C1B11 /* Beam.cpp in Sources */,
+				627C2F21160B4FBE004C1B11 /* ChiSquaredModule.cpp in Sources */,
+				627C2F22160B4FBE004C1B11 /* ConvolutionDetectorResolution.cpp in Sources */,
+				627C2F23160B4FBE004C1B11 /* DWBADiffuseReflection.cpp in Sources */,
+				627C2F24160B4FBE004C1B11 /* DWBASimulation.cpp in Sources */,
+				627C2F25160B4FBE004C1B11 /* DecouplingApproximationStrategy.cpp in Sources */,
+				627C2F26160B4FBE004C1B11 /* Detector.cpp in Sources */,
+				627C2F27160B4FBE004C1B11 /* DiffuseDWBASimulation.cpp in Sources */,
+				627C2F28160B4FBE004C1B11 /* Experiment.cpp in Sources */,
+				627C2F29160B4FBE004C1B11 /* GISASExperiment.cpp in Sources */,
+				627C2F2A160B4FBE004C1B11 /* IFittingDataSelector.cpp in Sources */,
+				627C2F2B160B4FBE004C1B11 /* LayerDWBASimulation.cpp in Sources */,
+				627C2F2C160B4FBE004C1B11 /* LayerDecoratorDWBASimulation.cpp in Sources */,
+				627C2F2D160B4FBE004C1B11 /* LocalMonodisperseApproximationStrategy.cpp in Sources */,
+				627C2F2E160B4FBE004C1B11 /* MultiLayerDWBASimulation.cpp in Sources */,
+				627C2F2F160B4FBE004C1B11 /* MultiLayerRoughnessDWBASimulation.cpp in Sources */,
+				627C2F30160B4FBE004C1B11 /* OpticalFresnel.cpp in Sources */,
+				627C2F45160B4FBE004C1B11 /* FormFactorCrystal.cpp in Sources */,
+				627C2F46160B4FBE004C1B11 /* FormFactorCylinder.cpp in Sources */,
+				627C2F47160B4FBE004C1B11 /* FormFactorDWBA.cpp in Sources */,
+				627C2F48160B4FBE004C1B11 /* FormFactorDWBAConstZ.cpp in Sources */,
+				627C2F49160B4FBE004C1B11 /* FormFactorDecoratorTransformation.cpp in Sources */,
+				627C2F4A160B4FBE004C1B11 /* FormFactorFullSphere.cpp in Sources */,
+				627C2F4B160B4FBE004C1B11 /* FormFactorGauss.cpp in Sources */,
+				627C2F4C160B4FBE004C1B11 /* FormFactorLorentz.cpp in Sources */,
+				627C2F4D160B4FBE004C1B11 /* FormFactorPrism3.cpp in Sources */,
+				627C2F4E160B4FBE004C1B11 /* FormFactorPyramid.cpp in Sources */,
+				627C2F4F160B4FBE004C1B11 /* FormFactorWeighted.cpp in Sources */,
+				627C2F57160B4FBE004C1B11 /* BasicVector3D.cpp in Sources */,
+				627C2F58160B4FBE004C1B11 /* Normal3D.cpp in Sources */,
+				627C2F59160B4FBE004C1B11 /* Plane3D.cpp in Sources */,
+				627C2F5A160B4FBE004C1B11 /* Point3D.cpp in Sources */,
+				627C2F5B160B4FBE004C1B11 /* Transform3D.cpp in Sources */,
+				627C2F5C160B4FBE004C1B11 /* Vector3D.cpp in Sources */,
+				627C2F66160B4FBE004C1B11 /* PythonInterface_classes_1.cpp in Sources */,
+				627C2F67160B4FBE004C1B11 /* PythonInterface_classes_2.cpp in Sources */,
+				627C2F68160B4FBE004C1B11 /* PythonInterface_classes_3.cpp in Sources */,
+				627C2F69160B4FBE004C1B11 /* PythonInterface_free_functions.cpp in Sources */,
+				627C2F6A160B4FBE004C1B11 /* PythonInterface_global_variables.cpp in Sources */,
+				627C2F6B160B4FBE004C1B11 /* PythonListConverter.cpp in Sources */,
+				627C2F6C160B4FBE004C1B11 /* PythonModule.cpp in Sources */,
+				627C2F6D160B4FBE004C1B11 /* PythonOutputData.cpp in Sources */,
+				627C2F6E160B4FBE004C1B11 /* PythonPlusplusHelper.cpp in Sources */,
+				627C2F8C160B4FBE004C1B11 /* Crystal.cpp in Sources */,
+				627C2F8D160B4FBE004C1B11 /* DiffuseParticleInfo.cpp in Sources */,
+				627C2F8E160B4FBE004C1B11 /* HomogeneousMaterial.cpp in Sources */,
+				627C2F8F160B4FBE004C1B11 /* ICompositeIterator.cpp in Sources */,
+				627C2F90160B4FBE004C1B11 /* ICompositeSample.cpp in Sources */,
+				627C2F91160B4FBE004C1B11 /* IMaterial.cpp in Sources */,
+				627C2F92160B4FBE004C1B11 /* IRoughness.cpp in Sources */,
+				627C2F93160B4FBE004C1B11 /* ISample.cpp in Sources */,
+				627C2F94160B4FBE004C1B11 /* InterferenceFunction1DParaCrystal.cpp in Sources */,
+				627C2F95160B4FBE004C1B11 /* Lattice.cpp in Sources */,
+				627C2F96160B4FBE004C1B11 /* LatticeBasis.cpp in Sources */,
+				627C2F97160B4FBE004C1B11 /* Layer.cpp in Sources */,
+				627C2F98160B4FBE004C1B11 /* LayerDecorator.cpp in Sources */,
+				627C2F99160B4FBE004C1B11 /* LayerInterface.cpp in Sources */,
+				627C2F9A160B4FBE004C1B11 /* LayerRoughness.cpp in Sources */,
+				627C2F9B160B4FBE004C1B11 /* MaterialManager.cpp in Sources */,
+				627C2F9C160B4FBE004C1B11 /* MesoCrystal.cpp in Sources */,
+				627C2F9D160B4FBE004C1B11 /* MultiLayer.cpp in Sources */,
+				627C2F9E160B4FBE004C1B11 /* ParameterPool.cpp in Sources */,
+				627C2F9F160B4FBE004C1B11 /* Particle.cpp in Sources */,
+				627C2FA0160B4FBE004C1B11 /* ParticleBuilder.cpp in Sources */,
+				627C2FA1160B4FBE004C1B11 /* ParticleDecoration.cpp in Sources */,
+				627C2FA2160B4FBE004C1B11 /* ParticleInfo.cpp in Sources */,
+				627C2FB9160B4FBE004C1B11 /* Convolve.cpp in Sources */,
+				627C2FBA160B4FBE004C1B11 /* DoubleToComplexInterpolatingFunction.cpp in Sources */,
+				627C2FBB160B4FBE004C1B11 /* Exceptions.cpp in Sources */,
+				627C2FBC160B4FBE004C1B11 /* FitMultiParameter.cpp in Sources */,
+				627C2FBD160B4FBE004C1B11 /* FitParameter.cpp in Sources */,
+				627C2FBE160B4FBE004C1B11 /* IFactory.cpp in Sources */,
+				627C2FBF160B4FBE004C1B11 /* INamed.cpp in Sources */,
+				627C2FC0160B4FBE004C1B11 /* ISingleton.cpp in Sources */,
+				627C2FC1160B4FBE004C1B11 /* MathFunctions.cpp in Sources */,
+				627C2FC2160B4FBE004C1B11 /* OutputData.cpp in Sources */,
+				627C2FC3160B4FBE004C1B11 /* StochasticGaussian.cpp in Sources */,
+				627C2FC4160B4FBE004C1B11 /* StochasticSampledParameter.cpp in Sources */,
+				627C2FC5160B4FBE004C1B11 /* Types.cpp in Sources */,
+				627C2FC6160B4FBE004C1B11 /* Utils.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		627C2FC7160B50D6004C1B11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				627C2FD7160B5132004C1B11 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		627C2FD9160B5149004C1B11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 627C2F06160B4F98004C1B11 /* GISASFW.Core */;
+			targetProxy = 627C2FD8160B5149004C1B11 /* PBXContainerItemProxy */;
+		};
+		627C2FE5160B5900004C1B11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 627C2F06160B4F98004C1B11 /* GISASFW.Core */;
+			targetProxy = 627C2FE4160B5900004C1B11 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		6222D098160C8E59008205AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /;
+				DYLD_LIBRARY_PATH = "${SRCROOT}/../Repo/lib";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		6222D099160C8E59008205AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DSTROOT = /;
+				DYLD_LIBRARY_PATH = "${SRCROOT}/../Repo/lib";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		627C2C5F160B4937004C1B11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+			};
+			name = Debug;
+		};
+		627C2C60160B4937004C1B11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+			};
+			name = Release;
+		};
+		627C2ECC160B4E8F004C1B11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					"${ROOT_INCLUDE}",
+					"${SRCROOT}/../Repo/App",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"${SRCROOT}/../Repo/lib",
+					"${ROOT_LIB}",
+					/opt/local/lib,
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				ROOT_INCLUDE = /opt/local/include/root;
+				ROOT_LIB = /opt/local/lib/root;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		627C2ECD160B4E8F004C1B11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DSTROOT = /;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					"${ROOT_INCLUDE}",
+					"${SRCROOT}/../Repo/App",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"${SRCROOT}/../Repo/lib",
+					"${ROOT_LIB}",
+					/opt/local/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				ROOT_INCLUDE = /opt/local/include/root;
+				ROOT_LIB = /opt/local/lib/root;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		627C2F09160B4F99004C1B11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/opt/local/include/boost,
+					"${PYTHON_INCLUDE}",
+					"${PYTHON_NUMPY_INCLUDE}",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+					"${PYTHON_LIB}",
+					/opt/local/Library/Frameworks/Python.framework/Versions/2.7,
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				PYTHON_INCLUDE = /opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7;
+				PYTHON_LIB = /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib;
+				PYTHON_NUMPY_INCLUDE = "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/include";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		627C2F0A160B4F99004C1B11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/opt/local/include/boost,
+					"${PYTHON_INCLUDE}",
+					"${PYTHON_NUMPY_INCLUDE}",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+					"${PYTHON_LIB}",
+					/opt/local/Library/Frameworks/Python.framework/Versions/2.7,
+				);
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				PYTHON_INCLUDE = /opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7;
+				PYTHON_LIB = /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib;
+				PYTHON_NUMPY_INCLUDE = "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/include";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		627C2FD3160B50D6004C1B11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../Repo/ThirdParty/gtest/gtest-1.6.0/xcode/build/Debug\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GTEST_INCLUDE = "$(SRCROOT)/../Repo/ThirdParty/gtest/gtest-1.6.0/include";
+				GTEST_LIB = "$(SRCROOT)/../Repo/lib";
+				HEADER_SEARCH_PATHS = "${GTEST_INCLUDE}";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"${GTEST_LIB}",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		627C2FD4160B50D6004C1B11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../Repo/ThirdParty/gtest/gtest-1.6.0/xcode/build/Debug\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GTEST_INCLUDE = "$(SRCROOT)/../Repo/ThirdParty/gtest/gtest-1.6.0/include";
+				GTEST_LIB = "$(SRCROOT)/../Repo/lib";
+				HEADER_SEARCH_PATHS = "${GTEST_INCLUDE}";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"${GTEST_LIB}",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6222D097160C8E59008205AC /* Build configuration list for PBXNativeTarget "GISASFW.CL.All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6222D098160C8E59008205AC /* Debug */,
+				6222D099160C8E59008205AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		627C2C5D160B4937004C1B11 /* Build configuration list for PBXProject "XCode_GISASFW" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				627C2C5F160B4937004C1B11 /* Debug */,
+				627C2C60160B4937004C1B11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		627C2ECB160B4E8F004C1B11 /* Build configuration list for PBXNativeTarget "GISASFW.App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				627C2ECC160B4E8F004C1B11 /* Debug */,
+				627C2ECD160B4E8F004C1B11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		627C2F08160B4F99004C1B11 /* Build configuration list for PBXNativeTarget "GISASFW.Core" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				627C2F09160B4F99004C1B11 /* Debug */,
+				627C2F0A160B4F99004C1B11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		627C2FD2160B50D6004C1B11 /* Build configuration list for PBXNativeTarget "GISASFW.TestCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				627C2FD3160B50D6004C1B11 /* Debug */,
+				627C2FD4160B50D6004C1B11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 627C2C5A160B4937004C1B11 /* Project object */;
+}

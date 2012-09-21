@@ -14,9 +14,13 @@ lessThan(QT_VERSION, 4.5) {
 
 # -----------------------------------------------------------------------------
 # to compile in debug mode
+# 'export GISASFW_DEBUG=yes' to have automatic debug
 # -----------------------------------------------------------------------------
-# CONFIG += debug
-
+env_debug_variable = $$(GISASFW_DEBUG)
+isEqual(env_debug_variable, "yes") {
+  message("Compiling with DEBUG option")
+  CONFIG += debug
+}
 
 # -----------------------------------------------------------------------------
 # general external libraries

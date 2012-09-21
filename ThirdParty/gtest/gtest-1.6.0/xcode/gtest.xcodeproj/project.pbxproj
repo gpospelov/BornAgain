@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -79,6 +79,9 @@
 		4539C9390EC280E200A70F4C /* gtest-param-util-generated.h in Copy Headers Internal */ = {isa = PBXBuildFile; fileRef = 4539C9360EC280E200A70F4C /* gtest-param-util-generated.h */; };
 		4539C93A0EC280E200A70F4C /* gtest-param-util.h in Copy Headers Internal */ = {isa = PBXBuildFile; fileRef = 4539C9370EC280E200A70F4C /* gtest-param-util.h */; };
 		4567C8181264FF71007740BE /* gtest-printers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4567C8171264FF71007740BE /* gtest-printers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6222D052160C7F02008205AC /* gtest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4539C8FF0EC27F6400A70F4C /* gtest.framework */; };
+		627C3011160B5FC0004C1B11 /* gtest-all.cc in Sources */ = {isa = PBXBuildFile; fileRef = 224A12A10E9EADA700BD17FD /* gtest-all.cc */; };
+		627C302F160B675B004C1B11 /* gtest.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 627C3015160B5FC0004C1B11 /* gtest.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +199,26 @@
 			name = "Copy Headers Internal";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6222D051160C7EE0008205AC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "${SRCROOT}/../../../../lib";
+			dstSubfolderSpec = 0;
+			files = (
+				6222D052160C7F02008205AC /* gtest.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		627C3017160B6377004C1B11 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "${SRCROOT}/../../../../lib";
+			dstSubfolderSpec = 0;
+			files = (
+				627C302F160B675B004C1B11 /* gtest.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -244,6 +267,7 @@
 		4539C9360EC280E200A70F4C /* gtest-param-util-generated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-util-generated.h"; sourceTree = "<group>"; };
 		4539C9370EC280E200A70F4C /* gtest-param-util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-util.h"; sourceTree = "<group>"; };
 		4567C8171264FF71007740BE /* gtest-printers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-printers.h"; sourceTree = "<group>"; };
+		627C3015160B5FC0004C1B11 /* gtest.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = gtest.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +320,7 @@
 				40C84987101A36850083642A /* gtest_unittest */,
 				4089A0130FFACEFC000B29AE /* sample1_unittest-framework */,
 				40C84997101A36A60083642A /* sample1_unittest-static */,
+				627C3015160B5FC0004C1B11 /* gtest.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -553,6 +578,22 @@
 			productReference = 40C84997101A36A60083642A /* sample1_unittest-static */;
 			productType = "com.apple.product-type.tool";
 		};
+		627C300F160B5FC0004C1B11 /* gtest-dynamic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 627C3012160B5FC0004C1B11 /* Build configuration list for PBXNativeTarget "gtest-dynamic" */;
+			buildPhases = (
+				627C3010160B5FC0004C1B11 /* Sources */,
+				627C3017160B6377004C1B11 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "gtest-dynamic";
+			productName = "gtest-static";
+			productReference = 627C3015160B5FC0004C1B11 /* gtest.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
 		8D07F2BC0486CC7A007CD1D0 /* gtest-framework */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4FADC24208B4156D00ABE55E /* Build configuration list for PBXNativeTarget "gtest-framework" */;
@@ -561,6 +602,7 @@
 				8D07F2BD0486CC7A007CD1D0 /* Headers */,
 				404884A50E2F7C0400CF7658 /* Copy Headers Internal */,
 				8D07F2BF0486CC7A007CD1D0 /* Resources */,
+				6222D051160C7EE0008205AC /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -580,8 +622,12 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
 			buildConfigurationList = 4FADC24608B4156D00ABE55E /* Build configuration list for PBXProject "gtest" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -595,6 +641,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				627C300F160B5FC0004C1B11 /* gtest-dynamic */,
 				8D07F2BC0486CC7A007CD1D0 /* gtest-framework */,
 				40C848F9101A209C0083642A /* gtest-static */,
 				40C8490A101A217E0083642A /* gtest_main-static */,
@@ -707,6 +754,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		627C3010160B5FC0004C1B11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				627C3011160B5FC0004C1B11 /* gtest-all.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D07F2C10486CC7A007CD1D0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -789,9 +844,11 @@
 		3B238F600E828B5400846E11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = Check;
 			};
 			name = Debug;
@@ -799,9 +856,10 @@
 		3B238F610E828B5400846E11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = Check;
 				ZERO_LINK = NO;
 			};
@@ -810,6 +868,7 @@
 		40899F450FFA7185000B29AE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../;
 				PRODUCT_NAME = "gtest_unittest-framework";
 			};
@@ -818,6 +877,7 @@
 		40899F460FFA7185000B29AE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../;
 				PRODUCT_NAME = "gtest_unittest-framework";
 			};
@@ -826,6 +886,7 @@
 		4089A0150FFACEFD000B29AE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "sample1_unittest-framework";
 			};
 			name = Debug;
@@ -833,6 +894,7 @@
 		4089A0160FFACEFD000B29AE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "sample1_unittest-framework";
 			};
 			name = Release;
@@ -840,6 +902,8 @@
 		40C44ADF0E3798F4008FCC51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = gtest;
 				TARGET_NAME = gtest;
 			};
@@ -848,6 +912,8 @@
 		40C44AE00E3798F4008FCC51 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = gtest;
 				TARGET_NAME = gtest;
 			};
@@ -857,8 +923,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40899FB30FFA7567000B29AE /* StaticLibraryTarget.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../,
 					../include/,
@@ -871,8 +939,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40899FB30FFA7567000B29AE /* StaticLibraryTarget.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../,
 					../include/,
@@ -885,6 +955,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40899FB30FFA7567000B29AE /* StaticLibraryTarget.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../,
 					../include/,
@@ -897,6 +969,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40899FB30FFA7567000B29AE /* StaticLibraryTarget.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../,
 					../include/,
@@ -908,6 +982,7 @@
 		40C84985101A36850083642A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../;
 				PRODUCT_NAME = gtest_unittest;
 			};
@@ -916,6 +991,7 @@
 		40C84986101A36850083642A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../;
 				PRODUCT_NAME = gtest_unittest;
 			};
@@ -924,6 +1000,7 @@
 		40C84995101A36A60083642A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "sample1_unittest-static";
 			};
 			name = Debug;
@@ -931,6 +1008,7 @@
 		40C84996101A36A60083642A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "sample1_unittest-static";
 			};
 			name = Release;
@@ -939,8 +1017,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40D4CDF20E30E07400294801 /* FrameworkTarget.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../,
 					../include/,
@@ -957,8 +1037,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40D4CDF20E30E07400294801 /* FrameworkTarget.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../,
 					../include/,
@@ -975,6 +1057,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40D4CDF10E30E07400294801 /* DebugProject.xcconfig */;
 			buildSettings = {
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -982,6 +1065,46 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40D4CDF40E30E07400294801 /* ReleaseProject.xcconfig */;
 			buildSettings = {
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		627C3013160B5FC0004C1B11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40899FB30FFA7567000B29AE /* StaticLibraryTarget.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					../,
+					../include/,
+				);
+				INSTALL_PATH = "${SRCROOT}/../../../../lib";
+				LD_DYLIB_INSTALL_NAME = gtest;
+				MACH_O_TYPE = mh_dylib;
+				PRODUCT_NAME = gtest;
+			};
+			name = Debug;
+		};
+		627C3014160B5FC0004C1B11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40899FB30FFA7567000B29AE /* StaticLibraryTarget.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					../,
+					../include/,
+				);
+				INSTALL_PATH = "${SRCROOT}/../../../../lib";
+				LD_DYLIB_INSTALL_NAME = gtest;
+				MACH_O_TYPE = mh_dylib;
+				PRODUCT_NAME = gtest;
 			};
 			name = Release;
 		};
@@ -1074,6 +1197,15 @@
 			buildConfigurations = (
 				4FADC24708B4156D00ABE55E /* Debug */,
 				4FADC24808B4156D00ABE55E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		627C3012160B5FC0004C1B11 /* Build configuration list for PBXNativeTarget "gtest-dynamic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				627C3013160B5FC0004C1B11 /* Debug */,
+				627C3014160B5FC0004C1B11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

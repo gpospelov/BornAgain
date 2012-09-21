@@ -304,7 +304,7 @@ class Transform3D;
 
     /**
      * Returns angle w.r.t. another vector. */
-    inline T angle(const BasicVector3D<T> & v) const;
+    T angle(const BasicVector3D<T> & v) const;
 
     // ---------------
     // Related vectors

@@ -52,22 +52,21 @@ void DiffuseDWBASimulation::run()
             continue;
         }
 
+        double phi_f = getDWBAIntensity().getCurrentValueOfAxis<double>("phi_f");
+        double alpha_f = getDWBAIntensity().getCurrentValueOfAxis<double>("alpha_f");
+        if (alpha_f<0) {
+            // m_dwba_intensity.next() = 0.0;
+            next() = 0.0;
+            continue;
+        }
+        cvector_t k_f;
+        k_f.setLambdaAlphaPhi(getWaveLength(), alpha_f, phi_f);
+        k_f.setZ(mp_kz_function->evaluate(alpha_f));
+
         complex_t amplitude(0.0, 0.0);
         double intensity = 0.0;
         for (size_t i=0; i<form_factors.size(); ++i) {
-//            double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
-//            double alpha_f = m_dwba_intensity.getCurrentValueOfAxis<double>("alpha_f");
-            double phi_f = getDWBAIntensity().getCurrentValueOfAxis<double>("phi_f");
-            double alpha_f = getDWBAIntensity().getCurrentValueOfAxis<double>("alpha_f");
             double weight = m_np_infos[i]->getAbundance();
-            if (alpha_f<0) {
-//                m_dwba_intensity.next() = 0.0;
-                next() = 0.0;
-                continue;
-            }
-            cvector_t k_f;
-            k_f.setLambdaAlphaPhi(getWaveLength(), alpha_f, phi_f);
-            k_f.setZ(mp_kz_function->evaluate(alpha_f));
             complex_t amp = form_factors[i]->evaluate(m_ki, k_f, -m_alpha_i, alpha_f);
             amplitude += weight*amp;
             intensity += weight*std::norm(amp);

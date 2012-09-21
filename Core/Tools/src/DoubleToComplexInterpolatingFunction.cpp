@@ -42,13 +42,21 @@ complex_t DoubleToComplexInterpolatingFunction::evaluate(double value)
     }
     if (value < m_lower_limit) value = m_lower_limit;
     else if (value > m_upper_limit) value = m_upper_limit;
-    std::map<double, complex_t>::const_iterator found_it = m_value_map.find(value);
-    if (found_it != m_value_map.end()) {
-        return found_it->second;
-    }
+
+//    std::map<double, complex_t>::const_iterator found_it = m_value_map.find(value);
+//    if (found_it != m_value_map.end()) {
+//        return found_it->second;
+//    }
+//    std::map<double, complex_t>::const_iterator lower_it = m_value_map.lower_bound(value);
+//    --lower_it;
+//    std::map<double, complex_t>::const_iterator upper_it = m_value_map.upper_bound(value);
+
     std::map<double, complex_t>::const_iterator lower_it = m_value_map.lower_bound(value);
+    if( (*lower_it).first == value ) {
+        return (*lower_it).second;
+    }
+    std::map<double, complex_t>::const_iterator upper_it = lower_it;
     --lower_it;
-    std::map<double, complex_t>::const_iterator upper_it = m_value_map.upper_bound(value);
 
     double interpolating_factor = (value - (*lower_it).first)/((*upper_it).first-(*lower_it).first);
     if(m_interpolating_mode == Nearest) {

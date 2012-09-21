@@ -48,6 +48,7 @@ complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
     // retrieve nearest reciprocal lattice vectors
     std::vector<kvector_t> rec_vectors =
             m_lattice.getReciprocalLatticeVectorsWithinRadius(q_real, radius);
+
     // perform convolution on these lattice vectors
     complex_t result(0.0, 0.0);
     for (std::vector<kvector_t>::const_iterator it = rec_vectors.begin(); it != rec_vectors.end(); ++it) {

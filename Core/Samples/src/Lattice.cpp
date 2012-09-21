@@ -106,6 +106,7 @@ std::vector<kvector_t> Lattice::getReciprocalLatticeVectorsWithinRadius(
 
 }
 
+
 std::vector<double> Lattice::collectBraggAngles(size_t size, double max_radius,
         const TRange<double>& phi_range, const TRange<double>& z_range) const
 {
@@ -186,6 +187,8 @@ std::vector<kvector_t> Lattice::getVectorsWithinRadius(const kvector_t &input_ve
     }
     return result;
 }
+
+
 
 void Lattice::computeInverseLatticeVectors() const
 {

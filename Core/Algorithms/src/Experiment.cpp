@@ -30,9 +30,10 @@ void Experiment::normalize()
     }
 }
 
+//! The ISample object will not be owned by the Experiment object
 void Experiment::setSample(ISample* p_sample)
 {
-	mp_sample = p_sample;  ///< Not owned by Experiment
+	mp_sample = p_sample;
 }
 
 OutputData<double>* Experiment::getOutputDataClone() const

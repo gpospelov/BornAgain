@@ -47,8 +47,8 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
 
     // creation of 2D histogram from calculated intensities
     output.resetIndex();
-    const NamedVector<double> *p_y_axis = dynamic_cast<const NamedVector<double>*>(output.getAxes()[0]);
-    const NamedVector<double> *p_z_axis = dynamic_cast<const NamedVector<double>*>(output.getAxes()[1]);
+    const NamedVector<double> *p_y_axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[0]);
+    const NamedVector<double> *p_z_axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[1]);
     std::string y_axis_name = p_y_axis->getName();
     std::string z_axis_name = p_z_axis->getName();
     size_t y_size = p_y_axis->getSize();

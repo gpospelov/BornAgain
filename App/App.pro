@@ -38,7 +38,8 @@ SOURCES += \
     src/TestMultiLayerRoughness.cpp \
     src/TestPerformance.cpp \
     src/TestRootTree.cpp \
-    src/TestRoughness.cpp
+    src/TestRoughness.cpp \
+    src/AppOptionsDescription.cpp
 
 HEADERS += \
     inc/App.h \
@@ -67,7 +68,8 @@ HEADERS += \
     inc/TestMultiLayerRoughness.h \
     inc/TestPerformance.h \
     inc/TestRootTree.h \
-    inc/TestRoughness.h
+    inc/TestRoughness.h \
+    inc/AppOptionsDescription.h
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
 DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc

@@ -24,8 +24,8 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
     m_defined_arguments.push_back("all");
     m_defined_arguments.push_back("profile");
     // getting info about names of defined functional tests and adding them to the list of defined arguments
-    m_defined_functional_tests = FunctionalTestFactory::instance().get_testnames();
-    m_defined_arguments.insert(m_defined_arguments.end(), m_defined_functional_tests.begin(), m_defined_functional_tests.end());
+//    m_defined_functional_tests = FunctionalTestFactory::instance().get_testinfo();
+//    m_defined_arguments.insert(m_defined_arguments.end(), m_defined_functional_tests.begin(), m_defined_functional_tests.end());
 
     // adding description of command line arguments
 
@@ -35,24 +35,31 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
     m_description["report"]    = "write functional tests report in pdf file";
     m_description["all"]          = "run all registered functional test";
     m_description["profile"]      = "profile specified test";
-    // default description of functional tests
-    for(arguments_t::iterator it = m_defined_functional_tests.begin(); it!=m_defined_functional_tests.end(); ++it ) {
-        m_description[ (*it) ]        = "functional test: no description";
-    }
+
+    // collecting description of functional tests
+//    std::map<std::string, std::string> test_descriptions= FunctionalTestFactory::instance().get_testinfo();
+//    for(std::map<std::string, std::string>::iterator it=test_descriptions.begin(); it!= test_descriptions.end(); ++it) {
+//        m_description[(*it).first] = (*it).second;
+//    }
+
+
+//    for(arguments_t::iterator it = m_defined_functional_tests.begin(); it!=m_defined_functional_tests.end(); ++it ) {
+//        m_description[ (*it) ]        = "functional test: no description";
+//    }
     // additional description of functional tests (overwrites previous default)
-    m_description["isgisaxs1"]        = "functional test: isgisaxs ex-1 (2 types of particles without inteference on top of substrate)";
-    m_description["isgisaxs2"]        = "functional test: isgisaxs ex-2 (mean form factors for particles with shape size distribution)";
-    m_description["isgisaxs3"]        = "functional test: isgisaxs ex-3 (cylinder FF)";
-    m_description["isgisaxs9"]        = "functional test: isgisaxs ex-9 (rotated pyramid FF)";
-    m_description["isgisaxs10"]       = "functional test: isgisaxs ex-10 (cylinders with interference on top of substrate)";
-    m_description["convolution"]      = "functional test: test of convolution via fft";
-    m_description["diffuse"]          = "functional test: diffuse scattering from multi layer with roughness";
-    m_description["formfactor"]       = "functional test: some formfactor";
-    m_description["roughness"]        = "functional test: roughness parameters";
-    m_description["roottree"]         = "functional test: using root trees to read/write data from/to disk";
-    m_description["performance"]      = "functional test: run performance test for several predefined tasks";
-    m_description["roughdwba"]        = "functional test: diffuse scattering from multi layer with roughness";
-    m_description["testmisc"]         = "functional test: test of different miscellaneous issues";
+//    m_description["isgisaxs1"]        = "functional test: isgisaxs ex-1 (2 types of particles without inteference on top of substrate)";
+//    m_description["isgisaxs2"]        = "functional test: isgisaxs ex-2 (mean form factors for particles with shape size distribution)";
+//    m_description["isgisaxs3"]        = "functional test: isgisaxs ex-3 (cylinder FF)";
+//    m_description["isgisaxs9"]        = "functional test: isgisaxs ex-9 (rotated pyramid FF)";
+//    m_description["isgisaxs10"]       = "functional test: isgisaxs ex-10 (cylinders with interference on top of substrate)";
+//    m_description["convolution"]      = "functional test: test of convolution via fft";
+//    m_description["diffuse"]          = "functional test: diffuse scattering from multi layer with roughness";
+//    m_description["formfactor"]       = "functional test: some formfactor";
+//    m_description["roughness"]        = "functional test: roughness parameters";
+//    m_description["roottree"]         = "functional test: using root trees to read/write data from/to disk";
+//    m_description["performance"]      = "functional test: run performance test for several predefined tasks";
+//    m_description["roughdwba"]        = "functional test: diffuse scattering from multi layer with roughness";
+//    m_description["testmisc"]         = "functional test: test of different miscellaneous issues";
 
 
 }
@@ -63,25 +70,25 @@ CommandLine::CommandLine(int argc, char **argv) : m_argc(argc), m_argv(argv)
 /* ************************************************************************* */
 bool CommandLine::isGood()
 {
-    // no arguments in command line is not good
-    if(!m_arguments.size() ) return false;
+//    // no arguments in command line is not good
+//    if(!m_arguments.size() ) return false;
 
-    // pleading for 'help' in command line is also not good
-    if( find("help") ) return false;
+//    // pleading for 'help' in command line is also not good
+//    if( find("help") ) return false;
 
-    // check if all arguments from command line are known
-    std::set<std::string> s_defined( m_defined_arguments.begin(), m_defined_arguments.end() );
-    std::set<std::string> s_requested( m_arguments.begin(), m_arguments.end() );
-    arguments_t unknown_arguments;
-    std::set_difference(s_requested.begin(), s_requested.end(), s_defined.begin(), s_defined.end(), std::back_inserter(unknown_arguments) );
-    if( unknown_arguments.size() ) {
-        std::cout << "Unkown arguments: ";
-        for(size_t i=0; i<unknown_arguments.size(); i++){
-            std::cout << "'" << unknown_arguments[i] << "' ";
-        }
-        std::cout << std::endl;
-        return false;
-    }
+//    // check if all arguments from command line are known
+//    std::set<std::string> s_defined( m_defined_arguments.begin(), m_defined_arguments.end() );
+//    std::set<std::string> s_requested( m_arguments.begin(), m_arguments.end() );
+//    arguments_t unknown_arguments;
+//    std::set_difference(s_requested.begin(), s_requested.end(), s_defined.begin(), s_defined.end(), std::back_inserter(unknown_arguments) );
+//    if( unknown_arguments.size() ) {
+//        std::cout << "Unkown arguments: ";
+//        for(size_t i=0; i<unknown_arguments.size(); i++){
+//            std::cout << "'" << unknown_arguments[i] << "' ";
+//        }
+//        std::cout << std::endl;
+//        return false;
+//    }
 
     return true;
 }
@@ -92,9 +99,10 @@ bool CommandLine::isGood()
 /* ************************************************************************* */
 bool CommandLine::isFunctionalTest(std::string name)
 {
-    for(arguments_t::iterator it=m_defined_functional_tests.begin(); it!= m_defined_functional_tests.end(); ++it) {
-        if(name == (*it)) return true;
-    }
+    (void) name;
+//    for(arguments_t::iterator it=m_defined_functional_tests.begin(); it!= m_defined_functional_tests.end(); ++it) {
+//        if(name == (*it)) return true;
+//    }
     return false;
 }
 

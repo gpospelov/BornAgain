@@ -35,6 +35,9 @@ public:
     //! typedef for map which stores correspondance between object identifier and object creation function
     typedef std::map<IdentifierType, CreateItemCallback> CallbackMap_t;
 
+    //! typedef for map which stores correspondance between object identifier and object description
+    typedef std::map<IdentifierType, IdentifierType> DescriptionMap_t;
+
     IFactory() : m_own_objects(false) { }
 
     //! create object by calling creation function corresponded to given identifier
@@ -61,6 +64,19 @@ public:
         //std::cout << "IFactory::registerItem() -> Info. Registering item '" << itemId << "'." << std::endl;
         return m_callbacks.insert( typename CallbackMap_t::value_type(itemId, CreateFn)).second;
     }
+
+    //! register object's creation function and store object description
+    bool registerItem(const IdentifierType &itemId, CreateItemCallback CreateFn, const IdentifierType &itemDescription)
+    {
+        typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
+        if( it != m_callbacks.end() ) {
+            throw ExistingClassRegistrationException("IFactory::registerItem() -> Panic! Already registered itemId '"+std::string(itemId)+"'");
+        }
+        //std::cout << "IFactory::registerItem() -> Info. Registering item '" << itemId << "'." << std::endl;
+        m_descriptions.insert( typename DescriptionMap_t::value_type(itemId, itemDescription));
+        return m_callbacks.insert( typename CallbackMap_t::value_type(itemId, CreateFn)).second;
+    }
+
 
     ~IFactory()
     {
@@ -89,6 +105,7 @@ public:
 protected:
     bool m_own_objects;         //!< will store created objects in the list and then delete them on exit then true
     CallbackMap_t m_callbacks;     //!< map of correspondance of objectsId and creation functions
+    DescriptionMap_t m_descriptions;     //!< map of correspondance of objectsId and description
     std::vector<AbstractProduct *> m_objects; //! vector of all created objects (if m_store_objects==true)
 };
 

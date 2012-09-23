@@ -14,8 +14,6 @@ include($$PWD/../shared.pri)
 # making standard shared library extension
 QMAKE_EXTENSION_SHLIB = so
 
-#CXXFLAGS += w
-
 # -----------------------------------------------------------------------------
 # Our source and headers
 # -----------------------------------------------------------------------------
@@ -82,6 +80,7 @@ SOURCES += \
     Samples/src/ParticleInfo.cpp \
     \
     Tools/src/Convolve.cpp \
+    Tools/src/CoreOptionsDescription.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
     Tools/src/Exceptions.cpp \
     Tools/src/FitMultiParameter.cpp \
@@ -91,6 +90,7 @@ SOURCES += \
     Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
     Tools/src/OutputData.cpp \
+    Tools/src/ProgramOptions.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
@@ -202,6 +202,7 @@ HEADERS += \
     Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
+    Tools/inc/ProgramOptions.h \
     Tools/inc/TRange.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticGaussian.h \
@@ -209,6 +210,7 @@ HEADERS += \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
+    Tools/inc/CoreOptionsDescription.h \
     \
     PythonAPI/inc/PythonInterface_classes_1.h \
     PythonAPI/inc/PythonInterface_classes_2.h \

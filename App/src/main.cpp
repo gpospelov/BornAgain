@@ -7,47 +7,41 @@
 #include <string>
 #include "TROOT.h"
 #include "TApplication.h"
+#include "ProgramOptions.h"
+#include "AppOptionsDescription.h"
 
 
 int main(int argc, char **argv)
 {
     std::cout << "Hello Brave New World!" << std::endl;
-
-    // parsing command line arguments
-    CommandLine args(argc, argv);
-    if( !args.isGood() ) { args.print_help(); return 0; }
-
-    // profiling code for memory leakages and cpu performance
-    if( args.find("profile") ) {
-        for(size_t i=0; i<args.size(); i++) {
-            if(args.isFunctionalTest( args[i] ))
-            FunctionalTestFactory::instance().profile( args[i] );
-        }
-        return 0;
-    }
+    ProgramOptions::instance().parseCommandLine(argc, argv);
 
     // setting graphics environment
     TApplication theApp("theApp", 0, 0);
     DrawHelper::SetStyle();
-    if( args.find("batch") ) gROOT->SetBatch(true);
+    if( ProgramOptions::instance().find("batch") ) gROOT->SetBatch(true);
 
     // running functional tests
-    if( args.find("all") ) {
+    if( ProgramOptions::instance().find("all") ) {
         // running all registered tests
         FunctionalTestFactory::instance().execute_all();
 
     } else {
-        // running specified tests
-        for(size_t i=0; i<args.size(); i++) {
-            if(args.isFunctionalTest( args[i] ))
-            FunctionalTestFactory::instance().execute( args[i] );
+        // loop over functional tests, run test if it's name is present in command line
+        FunctionalTestFactory::iterator it = FunctionalTestFactory::instance().begin();
+        for(; it!= FunctionalTestFactory::instance().end(); ++it) {
+            if( ProgramOptions::instance().find( (*it).first ) )
+                FunctionalTestFactory::instance().execute( (*it).first );
         }
     }
 
     // saving report in pdf and root
-    if( args.find("report") ) {
+    if( ProgramOptions::instance().find("report") ) {
         DrawHelper::instance().saveReport();
     }
+
+    // exit now if there is unrecognized options or plead for help
+    if( !ProgramOptions::instance().isConsistent() ) return 0;
 
     // holding graphics if not in the batch mode
     if(gApplication && !gROOT->IsBatch() ) {

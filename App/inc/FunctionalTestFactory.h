@@ -15,6 +15,7 @@
 //! @date   01.05.2012
 
 #include <string>
+#include <map>
 #include "ISingleton.h"
 #include "IFactory.h"
 #include "IFunctionalTest.h"
@@ -26,6 +27,9 @@ class FunctionalTestFactory : public ISingleton<FunctionalTestFactory>, public I
 //before it was template class ISingleton<IFactory<std::string, IFunctionalTest> >;
 {
 public:
+    typedef DescriptionMap_t::iterator iterator;
+    typedef DescriptionMap_t::const_iterator const_iterator;
+
     FunctionalTestFactory();
     virtual ~FunctionalTestFactory();
 
@@ -44,8 +48,11 @@ public:
     //! print benchmark summary
     void print_benchmarks();
 
-    //! return vector of registere test names
-    std::vector<std::string > get_testnames();
+    //! return vector of registered test names and they desciptions map["name"]="description"
+    DescriptionMap_t getDescriptionMap();
+
+    iterator begin() { return m_descriptions.begin(); }
+    iterator end() { return m_descriptions.end(); }
 
 private:
     TBenchmark *m_benchmark;

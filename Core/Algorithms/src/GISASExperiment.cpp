@@ -4,6 +4,7 @@
 #include "OpticalFresnel.h"
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "MathFunctions.h"
+#include "ProgramOptions.h"
 #include <boost/thread.hpp>
 
 
@@ -16,11 +17,11 @@ GISASExperiment::GISASExperiment()
 
 void GISASExperiment::runSimulation()
 {
-    int n_threads_total = boost::thread::hardware_concurrency();
-    //n_threads_total = 0;
+    int n_threads_total = ProgramOptions::instance()["threads"].as<int>();
+    std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads defined " << n_threads_total << std::endl;
 
     m_intensity_map.setAllTo(0.0);
-    if(n_threads_total<=1) {
+    if(n_threads_total<0) {
         DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
         if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
         p_dwba_simulation->init(*this);
@@ -28,6 +29,8 @@ void GISASExperiment::runSimulation()
         m_intensity_map += p_dwba_simulation->getDWBAIntensity();
         delete p_dwba_simulation;
     } else {
+        // if n_threads=0, take optimal number of threads from the hardware
+        if(n_threads_total == 0 )  n_threads_total = boost::thread::hardware_concurrency();
         std::vector<boost::thread *> threads;
         std::vector<DWBASimulation *> simulations;
 

@@ -63,7 +63,7 @@ private:
     arguments_t m_arguments; //! parsed command line arguments
 
     arguments_t m_defined_arguments; //! defined command line arguments
-    arguments_t m_defined_functional_tests; //! defined names of functional tests
+//    arguments_t m_defined_functional_tests; //! defined names of functional tests
     std::map<std::string, std::string > m_description; //! description of command line arguments
 
 };

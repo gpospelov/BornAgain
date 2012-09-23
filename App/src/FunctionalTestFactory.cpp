@@ -26,23 +26,40 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
 {
     setOwnObjects(true);
 
-    registerItem("roughness",   IFactoryCreateFunction<TestRoughness, IFunctionalTest> );
-    registerItem("fresnel",     IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest> );
-    registerItem("formfactor",  IFactoryCreateFunction<TestFormFactor, IFunctionalTest> );
-    registerItem("diffuse",     IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest> );
-    registerItem("isgisaxs1",   IFactoryCreateFunction<TestIsGISAXS1, IFunctionalTest> );
-    registerItem("isgisaxs2",   IFactoryCreateFunction<TestIsGISAXS2, IFunctionalTest> );
-    registerItem("isgisaxs3",   IFactoryCreateFunction<TestIsGISAXS3, IFunctionalTest> );
-    registerItem("isgisaxs9",   IFactoryCreateFunction<TestIsGISAXS9, IFunctionalTest> );
-    registerItem("isgisaxs10",  IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest> );
-    registerItem("convolution", IFactoryCreateFunction<TestConvolution, IFunctionalTest> );
-    registerItem("detectorresolution", IFactoryCreateFunction<TestDetectorResolution, IFunctionalTest> );
-    registerItem("mesocrystal", IFactoryCreateFunction<TestMesoCrystal, IFunctionalTest> );
-    registerItem("roottree",    IFactoryCreateFunction<TestRootTree, IFunctionalTest> );
-    registerItem("fitting",     IFactoryCreateFunction<TestFittingModule, IFunctionalTest> );
-    registerItem("performance", IFactoryCreateFunction<TestPerformance, IFunctionalTest> );
-    registerItem("roughdwba",   IFactoryCreateFunction<TestMultiLayerRoughness, IFunctionalTest> );
-    registerItem("testmisc",    IFactoryCreateFunction<TestMiscellaneous, IFunctionalTest> );
+    registerItem("roughness",   IFactoryCreateFunction<TestRoughness, IFunctionalTest>,
+                 "functional test: roughness parameters");
+    registerItem("fresnel",     IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest>,
+                 "functional test: fresnel coefficients calculations");
+    registerItem("formfactor",  IFactoryCreateFunction<TestFormFactor, IFunctionalTest>,
+                 "functional test: some formfactor");
+    registerItem("diffuse",     IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest>,
+                 "functional test: diffuse scattering from multi layer with roughness (obsolete)");
+    registerItem("isgisaxs1",   IFactoryCreateFunction<TestIsGISAXS1, IFunctionalTest>,
+                 "functional test: isgisaxs ex-1 (2 types of particles without inteference on top of substrate)");
+    registerItem("isgisaxs2",   IFactoryCreateFunction<TestIsGISAXS2, IFunctionalTest>,
+                 "functional test: isgisaxs ex-2 (mean form factors for particles with shape size distribution)");
+    registerItem("isgisaxs3",   IFactoryCreateFunction<TestIsGISAXS3, IFunctionalTest>,
+                 "functional test: isgisaxs ex-3 (cylinder FF)");
+    registerItem("isgisaxs9",   IFactoryCreateFunction<TestIsGISAXS9, IFunctionalTest>,
+                 "functional test: isgisaxs ex-9 (rotated pyramid FF)");
+    registerItem("isgisaxs10",  IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest>,
+                 "functional test: isgisaxs ex-10 (cylinders with interference on top of substrate)");
+    registerItem("convolution", IFactoryCreateFunction<TestConvolution, IFunctionalTest>,
+                 "functional test: test of convolution via fft");
+    registerItem("detectorresolution", IFactoryCreateFunction<TestDetectorResolution, IFunctionalTest>,
+                 "functional test: detector resolution function");
+    registerItem("mesocrystal", IFactoryCreateFunction<TestMesoCrystal, IFunctionalTest>,
+                 "functional test: mesocrystal");
+    registerItem("roottree",    IFactoryCreateFunction<TestRootTree, IFunctionalTest>,
+                 "functional test: using root trees to read/write data from/to disk");
+    registerItem("fitting",     IFactoryCreateFunction<TestFittingModule, IFunctionalTest>,
+                 "functional test: fit module");
+    registerItem("performance", IFactoryCreateFunction<TestPerformance, IFunctionalTest>,
+                 "functional test: run performance test for several predefined tasks");
+    registerItem("roughdwba",   IFactoryCreateFunction<TestMultiLayerRoughness, IFunctionalTest>,
+                 "functional test: diffuse scattering from multi layer with roughness");
+    registerItem("testmisc",    IFactoryCreateFunction<TestMiscellaneous, IFunctionalTest>,
+                 "functional test: test of different miscellaneous issues");
 
     m_benchmark = new TBenchmark();
 }
@@ -144,14 +161,8 @@ void FunctionalTestFactory::print_testnames()
 /* ************************************************************************* */
 // return vector of registered test names
 /* ************************************************************************* */
-std::vector<std::string > FunctionalTestFactory::get_testnames()
+FunctionalTestFactory::DescriptionMap_t FunctionalTestFactory::getDescriptionMap()
 {
-    std::vector<std::string > names;
-    CallbackMap_t::const_iterator it;
-    for(it=m_callbacks.begin(); it != m_callbacks.end(); it++ ) {
-        names.push_back(it->first);
-    }
-
-    return names;
+    return m_descriptions;
 }
 

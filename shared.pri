@@ -14,11 +14,11 @@ lessThan(QT_VERSION, 4.5) {
 
 # -----------------------------------------------------------------------------
 # to compile in debug mode
-# 'export GISASFW_DEBUG=yes' to have automatic debug
+# 'export GISASFW_DEBUG=yes' to have automatic compilation in debug mode
 # -----------------------------------------------------------------------------
 env_debug_variable = $$(GISASFW_DEBUG)
 isEqual(env_debug_variable, "yes") {
-  message("Compiling with DEBUG option")
+  #message("Compiling with DEBUG option")
   CONFIG += debug
 }
 
@@ -52,11 +52,12 @@ INCLUDEPATH = $${GENERAL_EXTERNALS_DIR}/include
 LIBS = -L$${GENERAL_EXTERNALS_DIR}/lib
 
 !macx:unix{
+  # it's a linux
   LIBS += -L/usr/local/lib -L/usr/lib64
 }
 
 # adding libs we are depending on
-LIBS += -lgsl -lgslcblas -lfftw3 -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
+LIBS += -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
 
 # here is workaround since JCNS /usr/local doesn't have shared fftw3 (run with 'qmake CONFIG+=JCNS')
 CONFIG(JCNS) {
@@ -65,7 +66,7 @@ CONFIG(JCNS) {
   ## "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
   #-Wl,--whole-archive
   #http://stackoverflow.com/questions/2763988/how-to-include-all-objects-of-an-archive-in-a-shared-object
-  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
+  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
 }
 
 # checking special case when system doesn't have libboost_thread library but have libbost_thread-mt

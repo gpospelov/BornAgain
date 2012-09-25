@@ -18,7 +18,7 @@ GISASExperiment::GISASExperiment()
 void GISASExperiment::runSimulation()
 {
     int n_threads_total = ProgramOptions::instance()["threads"].as<int>();
-    std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads defined " << n_threads_total << std::endl;
+    std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads defined in program options " << n_threads_total << std::endl;
 
     m_intensity_map.setAllTo(0.0);
     if(n_threads_total<0) {
@@ -30,7 +30,10 @@ void GISASExperiment::runSimulation()
         delete p_dwba_simulation;
     } else {
         // if n_threads=0, take optimal number of threads from the hardware
-        if(n_threads_total == 0 )  n_threads_total = boost::thread::hardware_concurrency();
+        if(n_threads_total == 0 )  {
+            n_threads_total = boost::thread::hardware_concurrency();
+            std::cout << "GISASExperiment::runSimulation() -> Info. Hardware concurrency: " << n_threads_total << std::endl;
+        }
         std::vector<boost::thread *> threads;
         std::vector<DWBASimulation *> simulations;
 

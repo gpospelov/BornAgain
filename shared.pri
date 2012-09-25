@@ -60,12 +60,12 @@ LIBS = -L$${GENERAL_EXTERNALS_DIR}/lib
 LIBS += -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
 
 # here is workaround since JCNS /usr/local doesn't have shared fftw3 (run with 'qmake CONFIG+=JCNS')
+env_jcns_variable = $$(GISASFW_JCNS)
+isEqual(env_jcns_variable, "yes") {
+  #message("Compiling with DEBUG option")
+  CONFIG += JCNS
+}
 CONFIG(JCNS) {
-  ##LIBS -= -lfftw3
-  ##LIBS += -Bstatic -lfftw3f -Bdynamic
-  ## "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
-  #-Wl,--whole-archive
-  #http://stackoverflow.com/questions/2763988/how-to-include-all-objects-of-an-archive-in-a-shared-object
   LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
 }
 

@@ -20,6 +20,7 @@
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 #include <boost/program_options/options_description.hpp>
+#include <boost/program_options/positional_options.hpp>
 GCC_DIAG_ON(unused-parameter);
 #include <boost/program_options/variables_map.hpp>
 
@@ -46,11 +47,11 @@ public:
     //! adding options to the global options list (object is passed by value, so no dependency from object life)
     ProgramOptions  &add(bpo::options_description opt) { m_options.add(opt); return *this;}
 
+    //! adding positional options
+    ProgramOptions  &addPositional(std::string option_name, int num_occurencies) { m_positional_options.add(option_name.c_str(), num_occurencies); return *this;}
+
     //! access to variable with given name defined in variables container
     const bpo::variable_value& operator[] (const std::string &s);
-
-    //! return variables container
-    bpo::variables_map &getVariables() { return m_variables_map; }
 
     //! return true if option with given name has been set
     bool find(std::string name){ return (m_variables_map.count(name.c_str()) ? true : false); }
@@ -64,9 +65,19 @@ public:
     //! parse config file for arguments
     void parseConfigFile();
 
+    // return reference to the variables container
+    bpo::variables_map &getVariables() { return m_variables_map; }
+
+    // return reference to the options description
+    bpo::options_description &getOptions() { return m_options; }
+
+    // return reference to the positional options description
+    bpo::positional_options_description &getPositionalOptions() { return m_positional_options; }
+
 private:
     bool m_options_is_consistent;       //! true if options are consistent (no conflicts, no --help request)
     bpo::options_description m_options; //! options desciption, to be filled with add() from different program modules
+    bpo::positional_options_description m_positional_options; //! positional options desciption, to be filled with addPositional() from main module
     bpo::variables_map m_variables_map; //! parsed variables
 };
 

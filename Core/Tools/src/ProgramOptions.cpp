@@ -29,20 +29,24 @@ const bpo::variable_value& ProgramOptions::operator[] (const std::string &s)
 /* ************************************************************************* */
 void ProgramOptions::parseCommandLine(int argc, char **argv)
 {
-    std::cout << "ProgramOptions::parseCommandLine" << std::endl;
     try {
-        bpo::store(bpo::parse_command_line(argc, argv, m_options), m_variables_map);
+        // if positional option description is empty, no command line arguments without '--' or '-' will be accepted
+        // 'store' populates the variable map
+        bpo::store( bpo::command_line_parser( argc, argv).options( m_options ).positional( m_positional_options ).run(), m_variables_map);
+        //bpo::store(bpo::parse_command_line(argc, argv, m_options), m_variables_map);
+
+        // 'notify' raises any erros encountered
         bpo::notify(m_variables_map);
 
         if (m_variables_map.count("help") || argc == 1) {
-            std::cout << m_options << "\n";
-            // if user ask for help there is no sence to continue
+            std::cout << m_options << std::endl;
+            // if user asked for help there is no sence to continue
             return;
         }
     }
     catch(std::exception& e) {
         // we get here if there is unrecognized options
-        std::cout << "ProgramOptions::parseCommanLine() -> Error. Unrecognized options in command line" << std::endl;
+        std::cout << "ProgramOptions::parseCommanLine() -> Error. Unrecognized options in command line." << std::endl;
         std::cerr << "error: " << e.what() << "\n";
         throw e; // throwing it further to terminate program
     }
@@ -75,7 +79,9 @@ void ProgramOptions::parseConfigFile()
 
         // parsing config file
         try {
+            // 'store' populates the variable map
             bpo::store(bpo::parse_config_file(ifs, m_options), m_variables_map);
+            // 'notify' raises any erros encountered
             bpo::notify(m_variables_map);
         }
         catch(std::exception& e) {

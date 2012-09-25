@@ -29,6 +29,8 @@ AppOptionsDescription::AppOptionsDescription()
             ("config,c", bpo::value<std::string>()->default_value("gisasfw.cfg"),"config file name")
     ;
 
+    // there is no positional options (without '--' or '-' signs) at the moment
+
     // functional tests options constructed from information carried by FunctionalTestFactory
     bpo::options_description functional_test_options("Functional tests");
     FunctionalTestFactory::iterator it = FunctionalTestFactory::instance().begin();

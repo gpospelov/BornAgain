@@ -198,6 +198,7 @@ HEADERS += \
     Tools/inc/INamed.h \
     Tools/inc/ISingleton.h \
     Tools/inc/IStochasticParameter.h \
+    Tools/inc/Macros.h \
     Tools/inc/MathFunctions.h \
     Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
@@ -220,8 +221,7 @@ HEADERS += \
     PythonAPI/inc/PythonListConverter.h \
     PythonAPI/inc/PythonModule.h \
     PythonAPI/inc/PythonOutputData.h \
-    PythonAPI/inc/PythonPlusplusHelper.h \
-    Tools/inc/Macros.h
+    PythonAPI/inc/PythonPlusplusHelper.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

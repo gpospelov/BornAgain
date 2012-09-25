@@ -1,4 +1,6 @@
 #include "ProgramOptions.h"
+#include "Utils.h"
+
 #include <boost/program_options/config.hpp>
 #include <boost/program_options/parsers.hpp>
 #include <iostream>
@@ -29,6 +31,10 @@ const bpo::variable_value& ProgramOptions::operator[] (const std::string &s)
 /* ************************************************************************* */
 void ProgramOptions::parseCommandLine(int argc, char **argv)
 {
+    // saving relative path to the application for later usage
+    Utils::FileSystem::SetRelativePath(argv[0]);
+
+    // parsing command line arguments
     try {
         // if positional option description is empty, no command line arguments without '--' or '-' will be accepted
         // 'store' populates the variable map
@@ -72,7 +78,8 @@ void ProgramOptions::parseConfigFile()
         std::cout << "Name of config file defined in command line '" << config_file << "'" << std::endl;
     }
 
-    std::ifstream ifs(config_file.c_str());
+    std::string config_full_name = Utils::FileSystem::GetHomePath()+config_file;
+    std::ifstream ifs(config_full_name.c_str());
     if (!ifs) {
         std::cout << "ProgramOptions::parseConfigFile() -> Warning! Can not open config file: " << config_file << std::endl;
     } else {

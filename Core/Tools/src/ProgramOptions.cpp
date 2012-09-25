@@ -1,4 +1,5 @@
 #include "ProgramOptions.h"
+#include <boost/program_options/config.hpp>
 #include <boost/program_options/parsers.hpp>
 #include <iostream>
 #include <fstream>
@@ -16,7 +17,7 @@ const bpo::variable_value& ProgramOptions::operator[] (const std::string &s)
 {
     if( !m_options_is_consistent ) {
         // no consistent options, there reason might be that no call to parseConfigFile
-        // has been made (for example due to absence of main)
+        // has been made (for example due to the absence of main())
         parseConfigFile();
     }
     return m_variables_map[s.c_str()];
@@ -64,7 +65,7 @@ void ProgramOptions::parseConfigFile()
     // definitions of config file name in command line options overrides default name
     if (m_variables_map.count("config") ) {
         config_file = m_variables_map["config"].as<std::string >();
-        std::cout << "config_name defined in options " << config_file << std::endl;
+        std::cout << "Name of config file defined in command line '" << config_file << "'" << std::endl;
     }
 
     std::ifstream ifs(config_file.c_str());

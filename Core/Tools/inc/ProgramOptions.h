@@ -16,10 +16,13 @@
 
 
 #include "ISingleton.h"
-#include <boost/program_options.hpp>
+
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
 #include <boost/program_options/options_description.hpp>
+GCC_DIAG_ON(unused-parameter);
 #include <boost/program_options/variables_map.hpp>
-#include <boost/program_options/config.hpp>
+
 #include <string>
 
 namespace bpo = boost::program_options;
@@ -30,7 +33,8 @@ namespace bpo = boost::program_options;
 //! @brief Handles command line and config file program options
 //
 //! The definition of program options are done separately from
-//! CoreOptionsDescription and AppOptionsDescription modules
+//! CoreOptionsDescription, AppOptionsDescription modules and then
+//! added to given class using add() method
 //- -------------------------------------------------------------------
 class ProgramOptions : public ISingleton<ProgramOptions>
 {
@@ -51,7 +55,7 @@ public:
     //! return true if option with given name has been set
     bool find(std::string name){ return (m_variables_map.count(name.c_str()) ? true : false); }
 
-    //! return true if options are consistent (no conflicting options, no --help request)
+    //! return true if options are consistent (no conflicting options, no --help request, config file is parsed)
     bool isConsistent() { return m_options_is_consistent; }
 
     //! parsing command line arguments
@@ -61,7 +65,6 @@ public:
     void parseConfigFile();
 
 private:
-    //bool m_initialized;                 //! true if at least one of parseCommandLine or parseConfigFile has been called
     bool m_options_is_consistent;       //! true if options are consistent (no conflicts, no --help request)
     bpo::options_description m_options; //! options desciption, to be filled with add() from different program modules
     bpo::variables_map m_variables_map; //! parsed variables

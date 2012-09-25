@@ -9,7 +9,7 @@
 #include "TApplication.h"
 #include "ProgramOptions.h"
 #include "AppOptionsDescription.h"
-
+#include "Macros.h"
 
 int main(int argc, char **argv)
 {
@@ -51,3 +51,4 @@ int main(int argc, char **argv)
 
     return 0;
 }
+

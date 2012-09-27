@@ -31,6 +31,7 @@ public:
     void test_DoubleToComplexInterpolatingFunction();
     void test_FormFactor();
     void test_DrawMesocrystal();
+    void test_FastSin();
 
 };
 

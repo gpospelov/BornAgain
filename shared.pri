@@ -87,10 +87,10 @@ NumberOfSuchFiles=$$system(ls $${GENERAL_EXTERNALS_DIR}/lib/libboost_thread-mt* 
 # -----------------------------------------------------------------------------
 
 # optimization flag used in release builds (the -O2 is the default used by qmake)
-# QMAKE_CXXFLAGS_RELEASE -= -O2
-# QMAKE_CXXFLAGS_RELEASE += -O3
-QMAKE_CXXFLAGS_RELEASE += -fdiagnostics-show-option # to find out in gcc which option control warning
-
+QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which option control warning
+#QMAKE_CXXFLAGS_RELEASE += -O3 -ffast-math -msse3
+QMAKE_CXXFLAGS_RELEASE -= -O2
+QMAKE_CXXFLAGS_RELEASE += -O3  -ffast-math
 # uncommenting line below produces non-stripped (very large) libraries
 #QMAKE_STRIP=:
 

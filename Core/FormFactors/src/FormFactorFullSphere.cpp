@@ -1,6 +1,7 @@
 #include "FormFactorFullSphere.h"
 #include "StochasticDiracDelta.h"
 #include "Numeric.h"
+#include "MathFunctions.h"
 
 #include <cmath>
 
@@ -54,7 +55,16 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t &q) const
         radial = volume;
     }
     else {
-        radial = 3*volume*(std::sin(qR) - qR*std::cos(qR))/(qR*qR*qR);
+        // way1 (standard)
+        //radial = 3*volume*(std::sin(qR) - qR*std::cos(qR))/(qR*qR*qR);
+
+        // way2 (fast)
+        radial = 3*volume*(MathFunctions::FastSin(qR) - qR*MathFunctions::FastCos(qR))/(qR*qR*qR);
+
+        // way3 (experimental)
+        // complex_t xsin, xcos;
+        // MathFunctions::FastSinCos(qR, xsin, xcos);
+        // radial = 3*volume*(xsin - qR*xcos)/(qR*qR*qR);
     }
 
     return radial*z_part;

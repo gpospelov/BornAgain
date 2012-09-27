@@ -43,6 +43,11 @@ static const double mrad = milliradian;
 static const double sr   = steradian;
 static const double deg  = degree;
 
+// definitions of Pi for fast sine calculations
+static const double PI          = 3.14159265358979323846264338327950288f;
+static const double PI2         = 6.28318530717958647692528676655900577f;
+static const double PID2        = 1.57079632679489661923132169163975144f;
+static const double PI_SQR      = 9.86960440108935861883449099987615114f;
 
 }
 

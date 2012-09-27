@@ -17,9 +17,13 @@ int main(int argc, char **argv)
     ProgramOptions::instance().parseCommandLine(argc, argv);
 
     // setting graphics environment
-    TApplication theApp("theApp", 0, 0);
-    DrawHelper::SetStyle();
-    if( ProgramOptions::instance().find("batch") ) gROOT->SetBatch(true);
+    TApplication *theApp(0);
+    if( ProgramOptions::instance().find("batch") ) {
+        gROOT->SetBatch(true);
+    } else {
+        theApp = new TApplication("theApp", 0, 0);
+        DrawHelper::SetStyle();
+    }
 
     // running functional tests
     if( ProgramOptions::instance().find("all") ) {

@@ -13,12 +13,15 @@
 #include "MesoCrystal.h"
 #include "Crystal.h"
 #include "LatticeBasis.h"
+#include "MathFunctions.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
 #include "TH3D.h"
 #include "TCanvas.h"
 #include "TGraphPolar.h"
+#include "TRandom.h"
+#include "TBenchmark.h"
 
 TestMiscellaneous::TestMiscellaneous()
 {
@@ -26,13 +29,60 @@ TestMiscellaneous::TestMiscellaneous()
 
 
 
-
 void TestMiscellaneous::execute()
 {
 
-    test_DoubleToComplexInterpolatingFunction();
+    test_FastSin();
+    //test_DoubleToComplexInterpolatingFunction();
     //test_FormFactor();
     //test_DrawMesocrystal();
+}
+
+
+/* ************************************************************************* */
+// test of fast sin function approximation
+/* ************************************************************************* */
+void TestMiscellaneous::test_FastSin()
+{
+    double xmin = -2*M_PI;
+    double xmax = 2*M_PI;
+    int npx(100);
+    double dx = (xmax-xmin)/double(npx-1);
+    for(int i=0; i<npx; ++i){
+        double x = (xmin + dx*i);
+//        std::cout << x << " " << std::sin(x) << " " << MathFunctions::FastSin<double, true>(x) << std::endl;
+//        std::cout << "x:" << x << " std::sin " << std::sin(x) << " sine:" << sine(y) << " FastSin:" << MathFunctions::FastSin<double, true>(y) << std::endl;
+        //std::cout << "xx:" << x << " std::sin " << std::sin(x) << " sine:" << sine1(mod_pi(x))  << std::endl;
+//        double s1 = std::sin(x);
+//        double s2 = sine2(x);
+//        double s2 = MathFunctions::FastSin(x);
+//        std::cout << "xx:" << x << " std::sin " << s1 << " sine:" << s2 << " diff:" << s1-s2 << std::endl;
+
+        complex_t cx(x, x/2.);
+        complex_t cs1 = std::sin(cx);
+        complex_t cs2 = MathFunctions::FastSin(cx);
+        std::cout << "xx:" << cx << " std::sin " << cs1 << " sine:" << cs2 << " diff:" << cs1-cs2 << std::endl;
+    }
+
+//    const int nevents = 1000000000;
+////    TRandom mr;
+////    mr.SetSeed(1);
+
+//    TBenchmark mb;
+//    mb.Start("sin");
+//    for(int i=0; i<nevents; i++){
+////        double x = mr.Rndm();
+//        //double y = std::sin(1.0) + std::sin(2.0);
+//        //double y = MathFunctions::FastSin(1.0)+MathFunctions::FastSin(2.0);
+//        complex_t x(1.0,-.5);
+//        //complex_t y = std::sin(x);
+//        complex_t y = MathFunctions::FastComplexSin(x);
+//        (void)y;
+//    }
+//    mb.Stop("sin");
+
+//    mb.Show("sin");
+
 }
 
 
@@ -287,3 +337,4 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
     gr3_diff->Draw("apl");
 
 }
+

@@ -70,6 +70,7 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
     {
         size_t index_y = output.getCurrentIndexOfAxis(y_axis_name.c_str());
         size_t index_z = output.getCurrentIndexOfAxis(z_axis_name.c_str());
+        //std::cout << "!!! " << index_y << " " << index_z << std::endl;
         double x_value = (*p_y_axis)[index_y]/Units::degree;
         double y_value = (*p_z_axis)[index_z]/Units::degree;
         double z_value = output.next();
@@ -218,6 +219,9 @@ void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
         }
         ++counter;
     }
+    if ( file.bad() ) {
+        throw FileIsBadException("IsGISAXSTools::writeOutputDataToFile() -> Error! File is bad, probably it is a directory.");
+    }
     file.close();
     std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Info. File '" << filename << "' successfully created." << std::endl;
 }
@@ -240,6 +244,7 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
     std::string sline;
     double2d_t buff_2d;
     // reading file line by line, every line is parsed into vector of double, so at the end we have buffer_2d of doubles
+
     while( std::getline(fin, sline))
     {
         // here we mimic different precision in numbers contained in string, if precision is say 6, than 7.2908527770e+03 -> 7.290853e+03
@@ -260,6 +265,9 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
         std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(), back_inserter(buff_1d));
         if( !buff_1d.size() ) LogicErrorException("IsGISAXSTools::readOutputDataFromFile() -> Error. Null size of vector");
         buff_2d.push_back(buff_1d);
+    }
+    if ( fin.bad() ) {
+        throw FileIsBadException("IsGISAXSTools::readOutputDataFromFile() -> Error! File is bad after readline(), probably it is a directory.");
     }
     fin.close();
 

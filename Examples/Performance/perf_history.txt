@@ -100,7 +100,7 @@
 # current status of the art (debug=off);
 2012-09-26 12:07:01 | jcnsops73  | macosx64, 2800 MHz      | 273973  | 18.6916 | 18.3486 | 0.36429 |
 
-# Fast complex sin and cos in FullSphere ff
+# Fast complex sin and cos in FullSphere ff (
 2012-09-27 10:40:50 | jcnsopc73  | macosx64, 2800 MHz      | 270270  | 18.018  | 18.1818 | 0.47281 | 
 2012-09-27 10:41:25 | jcnsopc73  | macosx64, 2800 MHz      | 256410  | 17.6991 | 16.6667 | 0.42105 | 
 2012-09-27 10:41:41 | jcnsopc73  | macosx64, 2800 MHz      | 263158  | 18.018  | 17.8571 | 0.46511 | 
@@ -115,6 +115,5 @@
 
 # Fast complex sin and cos which use std::sin
 2012-09-27 11:07:29 | jcnsopc73  | macosx64, 2800 MHz      | 273973  | 18.1818 | 18.018  | 0.4914  | 
-2012-09-27 11:07:52 | jcnsopc73  | macosx64, 2800 MHz      | 273973  | 18.5185 | 18.1818 | 0.49019 | 
-2012-09-27 11:08:49 | jcnsopc73  | macosx64, 2800 MHz      | 256410  | 18.018  | 18.1818 | 0.35778 | 
-2012-09-27 11:08:59 | jcnsopc73  | macosx64, 2800 MHz      | 273973  | 18.3486 | 18.018  | 0.35906 | 
+2012-09-27 11:07:52 | jcnsopc73  | macosx64, 2800 MHz      | 273973  | 18.5185 | 18.1818 | 0.49019 |
+

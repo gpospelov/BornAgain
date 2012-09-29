@@ -17,6 +17,8 @@ GISASExperiment::GISASExperiment()
 
 void GISASExperiment::runSimulation()
 {
+    if( !mp_sample) throw NullPointerException( "GISASExperiment::runSimulation() -> Error! No sample set.");
+
     int n_threads_total = ProgramOptions::instance()["threads"].as<int>();
     std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads defined in program options " << n_threads_total << std::endl;
 

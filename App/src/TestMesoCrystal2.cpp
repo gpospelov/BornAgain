@@ -1,4 +1,4 @@
-#include "TestMesoCrystal.h"
+#include "TestMesoCrystal2.h"
 #include "IsGISAXSTools.h"
 #include "Types.h"
 #include "Units.h"
@@ -14,32 +14,53 @@
 #include "MathFunctions.h"
 #include "Utils.h"
 #include "FormFactorDecoratorDebyeWaller.h"
+#include "IInterferenceFunction.h"
+#include "InterferenceFunctionNone.h"
+#include "DrawHelper.h"
+
+#include "TCanvas.h"
 
 
-namespace {
-    double testResolutionFunction(double u, double v)
-    {
-        double sigma_u = 0.0002;
-        double sigma_v = 0.0002;
-        return MathFunctions::IntegratedGaussian(u, 0.0, sigma_u)
-                * MathFunctions::IntegratedGaussian(v, 0.0, sigma_v);
-    }
-}
-
-TestMesoCrystal::TestMesoCrystal()
-: mp_intensity_output(0)
-, mp_sample(0)
+TestMesoCrystal2::TestMesoCrystal2() : mp_intensity_output(0), mp_sample(0)
 {
 }
 
-TestMesoCrystal::~TestMesoCrystal()
+TestMesoCrystal2::~TestMesoCrystal2()
 {
-    delete mp_intensity_output;
-    delete mp_sample;
 }
 
-void TestMesoCrystal::execute()
+
+
+
+void TestMesoCrystal2::execute()
 {
+
+    OutputData<double> *data = IsGISAXSTools::readOutputDataFromFile( Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/foo.csv" );
+
+//    data->resetIndex();
+//    while (data->hasNext())
+//    {
+//        size_t index_x = data->getCurrentIndexOfAxis("x-axis");
+//        size_t index_y = data->getCurrentIndexOfAxis("y-axis");
+//        //output->next() = buff_2d[index_y][index_x];
+//        std::cout << "index_" << index_x << " " << index_y << std::endl;
+//        data->next();
+//    }
+
+
+    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("TestMesoCrystal2_c1", "mesocrystal exp");
+
+    c1->Divide(2,2);
+
+    IsGISAXSTools::setMinimum(1.);
+    // our calculations
+    c1->cd(1); gPad->SetLogz();
+    IsGISAXSTools::drawOutputDataInPad(*data, "CONT4 Z", "Our mean FF");
+
+
+
+    return;
+
     if (mp_intensity_output) delete mp_intensity_output;
     initializeSample();
     GISASExperiment experiment;
@@ -62,10 +83,10 @@ void TestMesoCrystal::execute()
     std::cout << "Total count in detector before normalize: " << count_before_normalize << std::endl;
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
             "CONT4 Z", "mesocrystal");
-    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/mesocrystal.ima");
 }
 
-void TestMesoCrystal::initializeSample()
+
+void TestMesoCrystal2::initializeSample()
 {
     delete mp_sample;
     // create mesocrystal
@@ -153,7 +174,9 @@ void TestMesoCrystal::initializeSample()
     std::cout << "Substrate layer index: " << n_substrate << std::endl;
 }
 
-MesoCrystal* createMesoCrystal(double stacking_radius, complex_t n_particle,
+
+
+MesoCrystal* TestMesoCrystal2::createMesoCrystal(double stacking_radius, complex_t n_particle,
         const IFormFactor* p_meso_form_factor)
 {
     const Lattice *p_lat = createLattice(stacking_radius);
@@ -178,7 +201,9 @@ MesoCrystal* createMesoCrystal(double stacking_radius, complex_t n_particle,
     return new MesoCrystal(npc.clone(), p_meso_form_factor->clone());
 }
 
-const Lattice *createLattice(double stacking_radius) {
+
+
+const Lattice *TestMesoCrystal2::createLattice(double stacking_radius) {
     Lattice *p_result = new Lattice(Lattice::createTrigonalLattice(stacking_radius*2.0, stacking_radius*2.0*2.3));
     p_result->setSelectionRule(new SimpleSelectionRule(-1, 1, 1, 3));
     return p_result;

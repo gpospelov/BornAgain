@@ -1,5 +1,5 @@
-#ifndef TESTMESOCRYSTAL_H_
-#define TESTMESOCRYSTAL_H_
+#ifndef TESTMESOCRYSTAL2_H
+#define TESTMESOCRYSTAL2_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,36 +9,39 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestMesoCrystal.h
-//! @brief  Definition of
+//! @file   TestMesoCrystal2.h
+//! @brief  Definition of Layer class
 //! @author Scientific Computing Group at FRM II
-//! @date   Jul 13, 2012
+//! @date   27.09.2012
 
 #include "IFunctionalTest.h"
+#include "Types.h"
 #include "OutputData.h"
-#include "FormFactors.h"
-#include "FormFactorDWBA.h"
-#include "ISample.h"
-#include "InterferenceFunction1DParaCrystal.h"
-#include "InterferenceFunctionNone.h"
-#include "MesoCrystal.h"
-#include "Lattice.h"
 
+class MesoCrystal;
+class IFormFactor;
+class Lattice;
+class ISample;
 
-class TestMesoCrystal : public IFunctionalTest
+//- -------------------------------------------------------------------
+//! @class TestMesoCrystal2
+//! @brief Simulation of 3D ordered particle assemblies
+//- -------------------------------------------------------------------
+class TestMesoCrystal2 : public IFunctionalTest
 {
 public:
-    TestMesoCrystal();
-    virtual ~TestMesoCrystal();
+    TestMesoCrystal2();
+    virtual ~TestMesoCrystal2();
+
     virtual void execute();
 
-private:
     void initializeSample();
+    MesoCrystal* createMesoCrystal(double stacking_radius, complex_t n_particle, const IFormFactor* p_meso_form_factor);
+    const Lattice *createLattice(double stacking_radius);
+
     OutputData<double> *mp_intensity_output;
     ISample *mp_sample;
+
 };
 
-MesoCrystal *createMesoCrystal(double particle_radius, complex_t n_particle, const IFormFactor *p_meso_form_factor);
-const Lattice *createLattice(double stacking_radius);
-
-#endif /* TESTMESOCRYSTAL_H_ */
+#endif // TESTMESOCRYSTAL2_H

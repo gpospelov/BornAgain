@@ -37,12 +37,13 @@ complex_t DoubleToComplexInterpolatingFunction::evaluate(double value)
         std::ostringstream os;
         os << "DoubleToComplexInterpolatingFunction::evaluate() -> Error! ";
         os << "Cannot interpolate: argument value is outside of bounds. ";
-        os << " value: " << value << " m_lower_limit:" << m_lower_limit << " " << m_low_step << " m_upper_limit: " << m_upper_limit << " " << m_high_step;
+        os << " value: " << value << " m_lower_limit:" << m_lower_limit << " m_low_step:" << m_low_step << " m_upper_limit: " << m_upper_limit << " m_high_step:" << m_high_step;
         throw OutOfBoundsException(os.str());
     }
     if (value < m_lower_limit) value = m_lower_limit;
     else if (value > m_upper_limit) value = m_upper_limit;
 
+// way #1
 //    std::map<double, complex_t>::const_iterator found_it = m_value_map.find(value);
 //    if (found_it != m_value_map.end()) {
 //        return found_it->second;
@@ -50,7 +51,7 @@ complex_t DoubleToComplexInterpolatingFunction::evaluate(double value)
 //    std::map<double, complex_t>::const_iterator lower_it = m_value_map.lower_bound(value);
 //    --lower_it;
 //    std::map<double, complex_t>::const_iterator upper_it = m_value_map.upper_bound(value);
-
+// way #2
     std::map<double, complex_t>::const_iterator lower_it = m_value_map.lower_bound(value);
     if( (*lower_it).first == value ) {
         return (*lower_it).second;

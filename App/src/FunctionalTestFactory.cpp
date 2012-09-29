@@ -10,7 +10,8 @@
 #include "TestIsGISAXS10.h"
 #include "TestConvolution.h"
 #include "TestDetectorResolution.h"
-#include "TestMesoCrystal.h"
+#include "TestMesoCrystal1.h"
+#include "TestMesoCrystal2.h"
 #include "TestRootTree.h"
 #include "TestFittingModule.h"
 #include "TestPerformance.h"
@@ -48,8 +49,10 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: test of convolution via fft");
     registerItem("detectorresolution", IFactoryCreateFunction<TestDetectorResolution, IFunctionalTest>,
                  "functional test: detector resolution function");
-    registerItem("mesocrystal", IFactoryCreateFunction<TestMesoCrystal, IFunctionalTest>,
+    registerItem("mesocrystal1", IFactoryCreateFunction<TestMesoCrystal1, IFunctionalTest>,
                  "functional test: mesocrystal");
+    registerItem("mesocrystal2", IFactoryCreateFunction<TestMesoCrystal2, IFunctionalTest>,
+                 "functional test: mesocrystal fit");
     registerItem("roottree",    IFactoryCreateFunction<TestRootTree, IFunctionalTest>,
                  "functional test: using root trees to read/write data from/to disk");
     registerItem("fitting",     IFactoryCreateFunction<TestFittingModule, IFunctionalTest>,

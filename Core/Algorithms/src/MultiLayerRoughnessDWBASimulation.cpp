@@ -45,14 +45,11 @@ void MultiLayerRoughnessDWBASimulation::run()
             continue;
         }
 
-        //double phi_f = m_dwba_intensity.getCurrentValueOfAxis<double>("phi_f");
-        //double alpha_f = m_dwba_intensity.getCurrentValueOfAxis<double>("alpha_f");
         double phi_f = getDWBAIntensity().getCurrentValueOfAxis<double>("phi_f");
         double alpha_f = getDWBAIntensity().getCurrentValueOfAxis<double>("alpha_f");
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        //m_dwba_intensity.next() = evaluate(m_ki, k_f, m_alpha_i, alpha_f);
-        next() = evaluate(m_ki, k_f, m_alpha_i, alpha_f);
+        next() = evaluate(m_ki, k_f, -m_alpha_i, alpha_f);
     }
 
 }
@@ -76,7 +73,6 @@ double MultiLayerRoughnessDWBASimulation::evaluate(const cvector_t &k_i, const c
         rterm[i] = get_refractive_term(i);
         sterm[i] = get_sum4terms(i, k_i, k_f, alpha_i, alpha_f);
     }
-
 
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
         const LayerRoughness *rough = mp_multi_layer->getLayerBottomInterface(i)->getRoughness();

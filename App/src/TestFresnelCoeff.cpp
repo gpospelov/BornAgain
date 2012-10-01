@@ -240,8 +240,8 @@ void TestFresnelCoeff::draw_standard_samples()
 /* ************************************************************************* */
 void TestFresnelCoeff::test_roughness_set()
 {
-//    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerOffspecTestcase1a"));
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("SubstrateOnSubstrate"));
+    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerOffspecTestcase1a"));
+//    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("SubstrateOnSubstrate"));
 
     std::cout << *m_sample << std::endl;
     std::cout << "-----" << std::endl;
@@ -257,7 +257,7 @@ void TestFresnelCoeff::test_roughness_set()
 
 //    multipar.addMatchedParametersFromPool("/multilayer/interface0/roughness/sigma",newpool);
     multipar.addMatchedParametersFromPool("/*/*/*/sigma",newpool);
-    std::cout << multipar << std::endl;
+    std::cout << "multipar: " << multipar << std::endl;
 //    multipar.setValue(0.0);
 
     std::cout << *m_sample << std::endl;
@@ -275,7 +275,7 @@ void TestFresnelCoeff::test_roughness_set()
         kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
         OpticalFresnel fresnelCalculator;
-        fresnelCalculator.execute(*m_sample, kvec, coeffs, true);
+        fresnelCalculator.execute(*m_sample, kvec, coeffs);
         m_coeffs->next() = coeffs;
         //std::cout << alpha_i << " " << roughness << " " << coeffs[0].R << std::endl;
     }

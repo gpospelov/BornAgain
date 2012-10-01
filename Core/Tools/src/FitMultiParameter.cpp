@@ -3,7 +3,7 @@
 
 FitMultiParameter::FitMultiParameter()
 {
-
+    setName("FitMultiParameter");
 }
 
 /* ************************************************************************* */
@@ -34,13 +34,16 @@ void FitMultiParameter::addParameterFromPool(std::string parkey, const Parameter
 void FitMultiParameter::addMatchedParametersFromPool(std::string wildcards, const ParameterPool *pool)
 {
     // loop over all parameters in the pool
+    int n_added_pars(0);
     for(ParameterPool::const_iterator_t it=pool->begin(); it!= pool->end(); it++) {
         // (*it).first - parameter key, (*it).second - parameter itself
         // parameters whose key match pattern is added to the FitMultiParameter container
         if( Utils::StringMatchText::WildcardPattern( (*it).first, wildcards ) ) {
             addParameter((*it).second);
+            n_added_pars++;
         }
     }
+    if(n_added_pars==0) std::cout << "FitMultiParameter::addMatchedParametersFromPool() -> Warning! No parameters satisfying  criteria'" << wildcards << "' have been found" << std::endl;
 }
 
 

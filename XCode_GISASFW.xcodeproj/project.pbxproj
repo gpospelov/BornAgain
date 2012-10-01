@@ -159,6 +159,13 @@
 		6222D089160C8513008205AC /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03E160C690A008205AC /* libboost_thread-mt.dylib */; };
 		627C2FDA160B515D004C1B11 /* libGISASFW.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
+		62FDC05C1615E39200D28B08 /* ProgramOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */; };
+		62FDC05D1615E3C500D28B08 /* ProgramOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */; };
+		62FDC05F1615F0DE00D28B08 /* CoreOptionsDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */; };
+		62FDC0601615F11000D28B08 /* CoreOptionsDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */; };
+		62FDC0641615F1CB00D28B08 /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDC0631615F1CB00D28B08 /* libboost_program_options.dylib */; };
+		62FDC0671615F26C00D28B08 /* AppOptionsDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC0661615F26C00D28B08 /* AppOptionsDescription.cpp */; };
+		62FDC0681615F2B700D28B08 /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FDC0631615F1CB00D28B08 /* libboost_program_options.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -407,7 +414,6 @@
 		622222F3160CB745008205AC /* Convolve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Convolve.h; sourceTree = "<group>"; };
 		622222F4160CB745008205AC /* Coordinate3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Coordinate3D.h; sourceTree = "<group>"; };
 		622222F5160CB745008205AC /* DoubleToComplexInterpolatingFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubleToComplexInterpolatingFunction.h; sourceTree = "<group>"; };
-		622222F6160CB745008205AC /* DoubleToComplexInterpolatingFunction.h.orig */ = {isa = PBXFileReference; lastKnownFileType = text; path = DoubleToComplexInterpolatingFunction.h.orig; sourceTree = "<group>"; };
 		622222F7160CB745008205AC /* Exceptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Exceptions.h; sourceTree = "<group>"; };
 		622222F8160CB745008205AC /* FitMultiParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FitMultiParameter.h; sourceTree = "<group>"; };
 		622222F9160CB745008205AC /* FitParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FitParameter.h; sourceTree = "<group>"; };
@@ -1050,6 +1056,14 @@
 		627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGISASFW.Core.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GISASFW.TestCore; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C3031160B69D7004C1B11 /* libfftw3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfftw3.3.dylib; path = ../../../../../../opt/local/lib/libfftw3.3.dylib; sourceTree = "<group>"; };
+		62FDC0591615E35900D28B08 /* ProgramOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramOptions.h; sourceTree = "<group>"; };
+		62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgramOptions.cpp; sourceTree = "<group>"; };
+		62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoreOptionsDescription.cpp; sourceTree = "<group>"; };
+		62FDC0611615F11F00D28B08 /* CoreOptionsDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreOptionsDescription.h; sourceTree = "<group>"; };
+		62FDC0621615F11F00D28B08 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		62FDC0631615F1CB00D28B08 /* libboost_program_options.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_program_options.dylib; path = ../../../../../opt/local/lib/libboost_program_options.dylib; sourceTree = "<group>"; };
+		62FDC0651615F25900D28B08 /* AppOptionsDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppOptionsDescription.h; sourceTree = "<group>"; };
+		62FDC0661615F26C00D28B08 /* AppOptionsDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppOptionsDescription.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1057,6 +1071,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62FDC0681615F2B700D28B08 /* libboost_program_options.dylib in Frameworks */,
 				6222D086160C8513008205AC /* libboost_filesystem.dylib in Frameworks */,
 				6222D087160C8513008205AC /* libboost_regex.dylib in Frameworks */,
 				6222D088160C8513008205AC /* libboost_system.dylib in Frameworks */,
@@ -1096,6 +1111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62FDC0641615F1CB00D28B08 /* libboost_program_options.dylib in Frameworks */,
 				62224887160CBD55008205AC /* libgsl.0.dylib in Frameworks */,
 				62224888160CBD55008205AC /* libgslcblas.0.dylib in Frameworks */,
 				6222D041160C690A008205AC /* libboost_filesystem.dylib in Frameworks */,
@@ -1133,6 +1149,7 @@
 		622221E9160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62FDC0651615F25900D28B08 /* AppOptionsDescription.h */,
 				622221EA160CB745008205AC /* App.h */,
 				622221EB160CB745008205AC /* AppLinkDef.h */,
 				622221EC160CB745008205AC /* CommandLine.h */,
@@ -1167,6 +1184,7 @@
 		62222224160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62FDC0661615F26C00D28B08 /* AppOptionsDescription.cpp */,
 				62222225160CB745008205AC /* AppDict.cpp */,
 				62222226160CB745008205AC /* AppDict.h */,
 				62222227160CB745008205AC /* CommandLine.cpp */,
@@ -1495,10 +1513,12 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62FDC0611615F11F00D28B08 /* CoreOptionsDescription.h */,
+				62FDC0621615F11F00D28B08 /* Macros.h */,
+				62FDC0591615E35900D28B08 /* ProgramOptions.h */,
 				622222F3160CB745008205AC /* Convolve.h */,
 				622222F4160CB745008205AC /* Coordinate3D.h */,
 				622222F5160CB745008205AC /* DoubleToComplexInterpolatingFunction.h */,
-				622222F6160CB745008205AC /* DoubleToComplexInterpolatingFunction.h.orig */,
 				622222F7160CB745008205AC /* Exceptions.h */,
 				622222F8160CB745008205AC /* FitMultiParameter.h */,
 				622222F9160CB745008205AC /* FitParameter.h */,
@@ -1525,6 +1545,8 @@
 		6222230A160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */,
+				62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */,
 				6222230B160CB745008205AC /* Convolve.cpp */,
 				6222230C160CB745008205AC /* DoubleToComplexInterpolatingFunction.cpp */,
 				6222230D160CB745008205AC /* Exceptions.cpp */,
@@ -68125,6 +68147,7 @@
 		627C2C58160B4937004C1B11 = {
 			isa = PBXGroup;
 			children = (
+				62FDC0631615F1CB00D28B08 /* libboost_program_options.dylib */,
 				622248A8160CC56B008205AC /* gtest.framework */,
 				622221E4160CB745008205AC /* App */,
 				62222241160CB745008205AC /* Core */,
@@ -68344,6 +68367,9 @@
 				622248A5160CC1E6008205AC /* TestRootTree.cpp in Sources */,
 				622248A6160CC1E6008205AC /* TestRoughness.cpp in Sources */,
 				622248A7160CC1E6008205AC /* main.cpp in Sources */,
+				62FDC05C1615E39200D28B08 /* ProgramOptions.cpp in Sources */,
+				62FDC05F1615F0DE00D28B08 /* CoreOptionsDescription.cpp in Sources */,
+				62FDC0671615F26C00D28B08 /* AppOptionsDescription.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68351,6 +68377,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62FDC0601615F11000D28B08 /* CoreOptionsDescription.cpp in Sources */,
+				62FDC05D1615E3C500D28B08 /* ProgramOptions.cpp in Sources */,
 				62224886160CBA43008205AC /* BasicVector3D.cpp in Sources */,
 				622247D9160CB853008205AC /* Beam.cpp in Sources */,
 				622247DA160CB853008205AC /* ChiSquaredModule.cpp in Sources */,

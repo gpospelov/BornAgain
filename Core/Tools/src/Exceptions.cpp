@@ -86,5 +86,12 @@ FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
     LogExceptionMessage(message);
 }
 
+FileIsBadException::FileIsBadException(const std::string &message)
+    : std::runtime_error(message)
+{
+    LogExceptionMessage(message);
+}
+
+
 }
 

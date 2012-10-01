@@ -1,4 +1,4 @@
-#include "TestMesoCrystal.h"
+#include "TestMesoCrystal1.h"
 #include "IsGISAXSTools.h"
 #include "Types.h"
 #include "Units.h"
@@ -26,19 +26,19 @@ namespace {
     }
 }
 
-TestMesoCrystal::TestMesoCrystal()
+TestMesoCrystal1::TestMesoCrystal1()
 : mp_intensity_output(0)
 , mp_sample(0)
 {
 }
 
-TestMesoCrystal::~TestMesoCrystal()
+TestMesoCrystal1::~TestMesoCrystal1()
 {
     delete mp_intensity_output;
     delete mp_sample;
 }
 
-void TestMesoCrystal::execute()
+void TestMesoCrystal1::execute()
 {
     if (mp_intensity_output) delete mp_intensity_output;
     initializeSample();
@@ -62,10 +62,10 @@ void TestMesoCrystal::execute()
     std::cout << "Total count in detector before normalize: " << count_before_normalize << std::endl;
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
             "CONT4 Z", "mesocrystal");
-    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/mesocrystal.ima");
+    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/ex01_spheres/mesocrystal.ima");
 }
 
-void TestMesoCrystal::initializeSample()
+void TestMesoCrystal1::initializeSample()
 {
     delete mp_sample;
     // create mesocrystal

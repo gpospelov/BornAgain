@@ -33,13 +33,14 @@ SOURCES += \
     src/TestIsGISAXS3.cpp \
     src/TestIsGISAXS9.cpp \
     src/TestIsGISAXS10.cpp \
-    src/TestMesoCrystal.cpp \
+    src/TestMesoCrystal2.cpp \
     src/TestMiscellaneous.cpp \
     src/TestMultiLayerRoughness.cpp \
     src/TestPerformance.cpp \
     src/TestRootTree.cpp \
     src/TestRoughness.cpp \
-    src/AppOptionsDescription.cpp
+    src/AppOptionsDescription.cpp \
+    src/TestMesoCrystal1.cpp
 
 HEADERS += \
     inc/App.h \
@@ -63,13 +64,14 @@ HEADERS += \
     inc/TestIsGISAXS3.h \
     inc/TestIsGISAXS9.h \
     inc/TestIsGISAXS10.h \
-    inc/TestMesoCrystal.h \
+    inc/TestMesoCrystal2.h \
     inc/TestMiscellaneous.h \
     inc/TestMultiLayerRoughness.h \
     inc/TestPerformance.h \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
-    inc/AppOptionsDescription.h
+    inc/AppOptionsDescription.h \
+    inc/TestMesoCrystal1.h
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
 DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc

@@ -55,7 +55,7 @@ size_t MultiIndex::getCurrentIndexOfAxis(std::string axis_name)
 {
     if (m_label_index_map.count(axis_name) == 0)
     {
-        std::string message = "Label not found: " + axis_name;
+        std::string message = "MultiIndex::getCurrentIndexOfAxis() -> Error! Label not found: " + axis_name;
         throw NullPointerException(message);
     }
     return getCurrentIndices()[m_label_index_map.find(axis_name)->second];
@@ -107,7 +107,7 @@ void MultiIndex::updateCurrentPosition()
 void MultiIndex::setPosition(size_t position)
 {
     if (position>=m_total_size) {
-        throw OutOfBoundsException("Position value out of bounds!");
+        throw OutOfBoundsException("MultiIndex::setPosition() -> Error! Position value out of bounds!");
     }
     m_current_position = position;
     updateCurrentIndices();
@@ -124,7 +124,7 @@ void MultiIndex::setIndexOfAxis(std::string axis_name, size_t value)
     size_t index = m_label_index_map[axis_name];
     if (value >= m_axis_sizes[index])
     {
-        throw OutOfBoundsException("Coordinate value out of bounds!");
+        throw OutOfBoundsException(" MultiIndex::setIndexOfAxis() -> Coordinate value out of bounds!");
     }
     m_current_coordinate[index] = value;
     updateCurrentPosition();
@@ -144,7 +144,7 @@ void MultiIndex::incrementIndexOfAxis(std::string axis_name)
         updateCurrentPosition();
         return;
     }
-    throw OutOfBoundsException("Coordinate value out of bounds!");
+    throw OutOfBoundsException("MultiIndex::incrementIndexOfAxis() -> Error! Coordinate value out of bounds!");
 }
 
 
@@ -161,7 +161,7 @@ void MultiIndex::decrementIndexOfAxis(std::string axis_name)
         updateCurrentPosition();
         return;
     }
-    throw OutOfBoundsException("Coordinate value out of bounds!");
+    throw OutOfBoundsException("MultiIndex::decrementIndexOfAxis() -> Error! Coordinate value out of bounds!");
 }
 
 
@@ -181,7 +181,7 @@ void MultiIndex::init(const std::vector<NamedVectorBase*>& value_axes)
         NamedVectorBase* p_axis = value_axes[i];
         if (m_label_index_map.count(p_axis->getName()) != 0)
         {
-            throw ClassInitializationException("Axis labels for OutputData object should be unique!");
+            throw ClassInitializationException("MultiIndex::init() -> Error! Axis labels for OutputData object should be unique!");
         }
         m_label_index_map[p_axis->getName()] = i;
         m_labels.push_back(p_axis->getName());
@@ -222,7 +222,7 @@ const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<
 {
     size_t total_size = left.getAllocatedSize();
     if (right.getAllocatedSize()!= total_size) {
-        throw LogicErrorException("Cannot add OutputData objects of different size.");
+        throw LogicErrorException("OutputData<double> &operator+=() -> Error! Cannot add OutputData objects of different size.");
     }
     left.resetIndex();
     right.resetIndex();
@@ -241,7 +241,7 @@ const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<
 {
     size_t total_size = left.getAllocatedSize();
     if (right.getAllocatedSize()!= total_size) {
-        throw LogicErrorException("Cannot substract OutputData objects of different size.");
+        throw LogicErrorException("OutputData<double> &operator-=() -> Error! Cannot substract OutputData objects of different size.");
     }
     left.resetIndex();
     right.resetIndex();
@@ -260,7 +260,7 @@ const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<
 {
     size_t total_size = left.getAllocatedSize();
     if (right.getAllocatedSize()!= total_size) {
-        throw LogicErrorException("Cannot substract OutputData objects of different size.");
+        throw LogicErrorException("OutputData<double> &operator/=() -> Error! Cannot substract OutputData objects of different size.");
     }
     left.resetIndex();
     right.resetIndex();

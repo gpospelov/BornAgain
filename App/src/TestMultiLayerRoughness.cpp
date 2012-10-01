@@ -39,14 +39,14 @@ void TestMultiLayerRoughness::execute()
     while (data_alpha_i->hasNext()) {
         double alpha_i = data_alpha_i->getCurrentValueOfAxis<double>("alpha_i");
         size_t index_alpha_i = data_alpha_i->getCurrentIndexOfAxis("alpha_i");
-        //alpha_i = 0.2*Units::degree;
         if(index_alpha_i%10 == 0) std::cout << index_alpha_i << " of " << npoints << std::endl;
 
         // setting experiment
         GISASExperiment experiment;
+        experiment.setSample(sample);
         experiment.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree, false);
         experiment.setBeamParameters(1.54*Units::angstrom, -alpha_i, 0.0*Units::degree);
-        experiment.setSample(sample);
+
         experiment.runSimulation();
 
         const OutputData<double> *output = experiment.getOutputData();

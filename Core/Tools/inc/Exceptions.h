@@ -98,6 +98,13 @@ namespace Exceptions {
         FileNotIsOpenException(const std::string& message);
     };
 
+
+    class FileIsBadException : public std::runtime_error
+    {
+    public:
+        FileIsBadException(const std::string& message);
+    };
+
     void LogExceptionMessage(const std::string &message);
 
 }

@@ -19,6 +19,7 @@
 #include "MathFunctions.h"
 #include "ParticleBuilder.h"
 #include "StochasticSampledParameter.h"
+#include "ParticleCoreShell.h"
 
 
 /* ************************************************************************* */
@@ -476,12 +477,35 @@ ISample *StandardSamples::IsGISAXS10_CylindersParacrystal1D()
     return p_multi_layer;
 }
 
+/* ************************************************************************* */
+// IsGISAXS11 functional test: core shell parallelepiped islands
+/* ************************************************************************* */
+ISample *StandardSamples::IsGISAXS11_CoreShellParticles()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_particle_shell(1.0-1e-4, 2e-8);
+    complex_t n_particle_core(1.0-6e-5, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air11", n_air);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Particle shell_particle(n_particle_shell, new FormFactorParallelepiped(8*Units::nanometer, 8*Units::nanometer));
+    Particle core_particle(n_particle_core, new FormFactorParallelepiped(7*Units::nanometer, 6*Units::nanometer));
+    kvector_t core_position(0.0, 0.0, 0.0);
+    ParticleCoreShell particle(shell_particle, core_particle, core_position);
+    ParticleDecoration particle_decoration(particle.clone());
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    return p_multi_layer;
+}
 
 /* ************************************************************************* */
 // first mesco crystal test
 /* ************************************************************************* */
 ISample *StandardSamples::MesoCrystal1()
-{    
+{
     // create mesocrystal
     double nanoparticle_radius = 6.1*Units::nanometer;
     Lattice lat = Lattice::createTrigonalLattice(nanoparticle_radius*2.0, nanoparticle_radius*2.0*2.3);
@@ -505,7 +529,7 @@ ISample *StandardSamples::MesoCrystal1()
 //    npc.setDWFactor(dw_factor);
 
     MesoCrystal meso(npc.clone(), new FormFactorCylinder(0.2*Units::micrometer, 300*Units::nanometer));
-    MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, 300*Units::nanometer, 84*Units::degree));    
+    MesoCrystal meso2(npc.clone(), new FormFactorPyramid(0.2*Units::micrometer, 300*Units::nanometer, 84*Units::degree));
 
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);

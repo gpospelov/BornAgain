@@ -8,6 +8,7 @@
 #include "TestIsGISAXS3.h"
 #include "TestIsGISAXS9.h"
 #include "TestIsGISAXS10.h"
+#include "TestIsGISAXS11.h"
 #include "TestConvolution.h"
 #include "TestDetectorResolution.h"
 #include "TestMesoCrystal1.h"
@@ -45,6 +46,8 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: isgisaxs ex-9 (rotated pyramid FF)");
     registerItem("isgisaxs10",  IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest>,
                  "functional test: isgisaxs ex-10 (cylinders with interference on top of substrate)");
+    registerItem("isgisaxs11",  IFactoryCreateFunction<TestIsGISAXS11, IFunctionalTest>,
+                 "functional test: isgisaxs ex-11 (core shell parallelopiped islands on top of substrate)");
     registerItem("convolution", IFactoryCreateFunction<TestConvolution, IFunctionalTest>,
                  "functional test: test of convolution via fft");
     registerItem("detectorresolution", IFactoryCreateFunction<TestDetectorResolution, IFunctionalTest>,

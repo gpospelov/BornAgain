@@ -40,8 +40,11 @@ SampleFactory::SampleFactory()
     registerItem("IsGISAXS9_Pyramid", StandardSamples::IsGISAXS9_Pyramid);
     registerItem("IsGISAXS9_RotatedPyramid", StandardSamples::IsGISAXS9_RotatedPyramid);
 
-    // IsGISAXS10 example: cyliunderw with interference
+    // IsGISAXS10 example: cylinders with interference
     registerItem("IsGISAXS10_CylindersParacrystal1D", StandardSamples::IsGISAXS10_CylindersParacrystal1D);
+
+    // IsGISAXS11 example: core shell parallelepipeds
+    registerItem("IsGISAXS11_CoreShellParticle", StandardSamples::IsGISAXS11_CoreShellParticles);
 
     // mesocrystal's
     registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);

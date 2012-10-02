@@ -42,6 +42,7 @@ SOURCES += \
     FormFactors/src/FormFactorCylinder.cpp \
     FormFactors/src/FormFactorFullSphere.cpp \
     FormFactors/src/FormFactorGauss.cpp \
+    FormFactors/src/FormFactorParallelepiped.cpp \
     FormFactors/src/FormFactorPrism3.cpp \
     FormFactors/src/FormFactorPyramid.cpp \
     FormFactors/src/FormFactorLorentz.cpp \
@@ -76,6 +77,7 @@ SOURCES += \
     Samples/src/ParameterPool.cpp \
     Samples/src/Particle.cpp \
     Samples/src/ParticleBuilder.cpp \
+    Samples/src/ParticleCoreShell.cpp \
     Samples/src/ParticleDecoration.cpp \
     Samples/src/ParticleInfo.cpp \
     \
@@ -140,6 +142,7 @@ HEADERS += \
     FormFactors/inc/FormFactorCylinder.h \
     FormFactors/inc/FormFactorFullSphere.h \
     FormFactors/inc/FormFactorGauss.h \
+    FormFactors/inc/FormFactorParallelepiped.h \
     FormFactors/inc/FormFactorPrism3.h \
     FormFactors/inc/FormFactorPyramid.h \
     FormFactors/inc/FormFactorLorentz.h \
@@ -184,6 +187,7 @@ HEADERS += \
     Samples/inc/ParameterPool.h \
     Samples/inc/Particle.h \
     Samples/inc/ParticleBuilder.h \
+    Samples/inc/ParticleCoreShell.h \
     Samples/inc/ParticleDecoration.h \
     Samples/inc/ParticleInfo.h \
     \

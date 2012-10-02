@@ -1,5 +1,6 @@
-#ifndef PARTICLE_H
-#define PARTICLE_H
+#ifndef PARTICLECORESHELL_H
+#define PARTICLECORESHELL_H
+
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,43 +10,33 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   Particle.h
-//! @brief  Definition of Particle class
+//! @file   ParticleCoreShell.h
+//! @brief  Definition of ParticleCoreShell class
 //! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
+//! @date  1/10/12
 
-#include "ICompositeSample.h"
-#include "IFormFactor.h"
-#include "FormFactorDecoratorRefractiveIndex.h"
-
-class DiffuseParticleInfo;
-class ParticleInfo;
+#include "Particle.h"
 
 //- -------------------------------------------------------------------
-//! @class Particle
-//! @brief Definition of a particle with a form factor and refractive index
+//! @class ParticleCoreShell
+//! @brief Describes a particle with a core/shell geometry
 //- -------------------------------------------------------------------
-class Particle : public ICompositeSample
+class ParticleCoreShell : public Particle
 {
 public:
-    Particle(complex_t refractive_index, IFormFactor* p_form_factor = 0);
-    Particle(complex_t refractive_index, const IFormFactor &p_form_factor);
-    virtual ~Particle();
-    virtual Particle *clone() const;
+    ParticleCoreShell(const Particle &shell, const Particle &core, kvector_t relative_core_position);
+    virtual ~ParticleCoreShell();
+    virtual ParticleCoreShell *clone() const;
 
     //! Set the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)
     {
         m_ambient_refractive_index = refractive_index;
+        mp_shell->setAmbientRefractiveIndex(refractive_index);
+        mp_core->setAmbientRefractiveIndex(refractive_index);
     }
 
-    virtual IFormFactor* createFormFactor() const
-    {
-        FormFactorDecoratorRefractiveIndex *p_ff = new FormFactorDecoratorRefractiveIndex(
-                mp_form_factor->clone(), m_refractive_index);
-        p_ff->setAmbientRefractiveIndex(m_ambient_refractive_index);
-        return p_ff;
-    }
+    virtual IFormFactor* createFormFactor() const;
 
     //! set the form factor of the particle (not including scattering factor from refractive index)
     virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
@@ -56,11 +47,6 @@ public:
             mp_form_factor = p_form_factor;
             registerChild(mp_form_factor);
         }
-    }
-    
-    //! return refractive index of the particle
-    virtual const complex_t getRefractiveIndex() const {
-        return m_refractive_index;
     }
 
     //! return form factor of the particle (not including scattering factor from refractive index)
@@ -73,16 +59,10 @@ public:
     }
 
 protected:
-    complex_t m_ambient_refractive_index;
-    complex_t m_refractive_index;
-    IFormFactor* mp_form_factor;
-    //!< pointer to the form factor
-
+    Particle *mp_shell;
+    Particle *mp_core;
+    kvector_t m_relative_core_position;
 private:
-    //! copy constructor and assignment operator are absent
-    Particle(const Particle &);
-    Particle &operator=(const Particle &);
-
 };
 
-#endif // PARTICLE_H
+#endif // PARTICLECORESHELL_H

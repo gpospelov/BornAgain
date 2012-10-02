@@ -21,5 +21,6 @@
 #include "FormFactorLorentz.h"
 #include "FormFactorGauss.h"
 #include "FormFactorSphereGaussianRadius.h"
+#include "FormFactorParallelepiped.h"
 
 #endif /* FORMFACTORS_H_ */

@@ -5,19 +5,27 @@
 
 
 
-OpticalFresnel::OpticalFresnel()
+OpticalFresnel::OpticalFresnel() : m_use_roughness(false)
 {
 }
 
 
-int OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, MultiLayerCoeff_t &coeff, bool useRoughness)
+int OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, MultiLayerCoeff_t &coeff)
 {
     coeff.clear();
     coeff.resize(sample.getNumberOfLayers());
 
     calculateKZ(sample, kvec, coeff);
 
-    if(useRoughness) {
+    // check if there is a roughness
+    for (size_t i=0; i<sample.getNumberOfInterfaces(); ++i) {
+        if(sample.getLayerInterface(i)->getRoughness() ) {
+            m_use_roughness = true;
+            break;
+        }
+    }
+
+    if(m_use_roughness) {
         calculateFresnelCoefficientsWithRoughness(sample, coeff);
     } else{
         calculateFresnelCoefficients(coeff);

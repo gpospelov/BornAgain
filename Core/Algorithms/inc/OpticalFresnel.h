@@ -52,10 +52,10 @@ public:
         MultiLayerCoeff_t m_data;
     };
 
-    int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff, bool useRoughness=false);
-    int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff &coeff, bool useRoughness=false) { return execute(sample,k,coeff.m_data, useRoughness); }
+    int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
 
 private:
+    bool m_use_roughness;
 
     void calculateKZ(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
     void calculateFresnelCoefficients(MultiLayerCoeff_t &coeff);

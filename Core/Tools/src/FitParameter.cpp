@@ -4,12 +4,13 @@
 
 FitParameter::FitParameter() : m_value(0), m_error(0), m_lower_limit(0), m_upper_limit(0)
 {
-
+    setName("FitParameter");
 }
 
 
 FitParameter::FitParameter(const FitParameter &other) : INamed(other)
 {
+    setName("FitParameter");
     m_value = other.m_value;
     m_error = other.m_error;
     m_lower_limit = other.m_lower_limit;

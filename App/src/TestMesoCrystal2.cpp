@@ -17,9 +17,12 @@
 #include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
 #include "DrawHelper.h"
+#include "OutputDataReader.h"
+#include "OutputDataIOFactory.h"
+
 
 #include "TCanvas.h"
-
+#include "TH2D.h"
 
 TestMesoCrystal2::TestMesoCrystal2() : mp_intensity_output(0), mp_sample(0)
 {
@@ -34,30 +37,21 @@ TestMesoCrystal2::~TestMesoCrystal2()
 
 void TestMesoCrystal2::execute()
 {
-
-    OutputData<double> *data = IsGISAXSTools::readOutputDataFromFile( Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/foo.csv" );
-
-//    data->resetIndex();
-//    while (data->hasNext())
-//    {
-//        size_t index_x = data->getCurrentIndexOfAxis("x-axis");
-//        size_t index_y = data->getCurrentIndexOfAxis("y-axis");
-//        //output->next() = buff_2d[index_y][index_x];
-//        std::cout << "index_" << index_x << " " << index_y << std::endl;
-//        data->next();
-//    }
+    std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
+    OutputDataReader *reader = OutputDataIOFactory::instance().getReader(file_name);
+    OutputData<double > *data = reader->getOutputData();
+    delete reader;
 
 
-    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("TestMesoCrystal2_c1", "mesocrystal exp");
+    TCanvas *c1 = new TCanvas("c1","c1",800, 800);
+    c1->cd();
+    gPad->SetLogz();
 
-    c1->Divide(2,2);
+    TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(*data, "xxx");
+    h2->SetMinimum(100.);
+    h2->Draw("CONT4 Z");
 
-    IsGISAXSTools::setMinimum(1.);
-    // our calculations
-    c1->cd(1); gPad->SetLogz();
-    IsGISAXSTools::drawOutputDataInPad(*data, "CONT4 Z", "Our mean FF");
-
-
+    delete data;
 
     return;
 

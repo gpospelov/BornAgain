@@ -10,6 +10,7 @@
 #include "ProgramOptions.h"
 #include "AppOptionsDescription.h"
 #include "Macros.h"
+#include "GISASExperiment.h"
 
 int main(int argc, char **argv)
 {
@@ -47,8 +48,8 @@ int main(int argc, char **argv)
     // exit now if there is unrecognized options or plead for help
     if( !ProgramOptions::instance().isConsistent() ) return 0;
 
-    // holding graphics if not in the batch mode
-    if(gApplication && !gROOT->IsBatch() ) {
+    // holding graphics if it exists
+    if( gApplication ) {
         std::cout << "main() -> Info. Holding graphics, press ctrl-C to exit..." << std::endl;
         gApplication->Run();
     }

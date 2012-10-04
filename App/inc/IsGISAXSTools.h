@@ -17,6 +17,8 @@
 
 #include <string>
 
+class TH2D;
+
 //- -------------------------------------------------------------------
 //! @class IsGISAXSTools
 //! @brief Definition of functions and classes for IsGISAXS validation
@@ -72,6 +74,10 @@ public:
                                             , std::vector<std::vector<double > > &v_data
                                             , std::vector<std::vector<double > > &v_axis0
                                             , std::vector<std::vector<double > > &v_axis1);
+
+    //! create TH2D from OutputData
+    static TH2D *getOutputDataTH2D(const OutputData<double>& output, const std::string &histo_name);
+
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)
     static double m_hist_max; // maximum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

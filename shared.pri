@@ -57,7 +57,7 @@ LIBS = -L$${GENERAL_EXTERNALS_DIR}/lib
 }
 
 # adding libs we are depending on
-LIBS += -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
+LIBS += -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
 
 # here is workaround since JCNS /usr/local doesn't have shared fftw3 (run with 'qmake CONFIG+=JCNS')
 env_jcns_variable = $$(GISASFW_JCNS)

@@ -22,6 +22,8 @@
 typedef std::complex<double > complex_t;
 typedef Geometry::BasicVector3D<double> kvector_t;
 typedef Geometry::BasicVector3D<complex_t> cvector_t;
+typedef std::vector<double > vdouble1d_t;
+typedef std::vector<vdouble1d_t > vdouble2d_t;
 
 
 //// we need forward declaration here to be able to redefine ostream as friend

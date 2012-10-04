@@ -33,6 +33,7 @@ SOURCES += \
     src/TestIsGISAXS3.cpp \
     src/TestIsGISAXS9.cpp \
     src/TestIsGISAXS10.cpp \
+    src/TestIsGISAXS11.cpp \
     src/TestMesoCrystal2.cpp \
     src/TestMiscellaneous.cpp \
     src/TestMultiLayerRoughness.cpp \
@@ -64,6 +65,7 @@ HEADERS += \
     inc/TestIsGISAXS3.h \
     inc/TestIsGISAXS9.h \
     inc/TestIsGISAXS10.h \
+    inc/TestIsGISAXS11.h \
     inc/TestMesoCrystal2.h \
     inc/TestMiscellaneous.h \
     inc/TestMultiLayerRoughness.h \

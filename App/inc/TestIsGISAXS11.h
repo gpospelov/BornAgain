@@ -1,5 +1,5 @@
-#ifndef TESTISGISAXS10_H_
-#define TESTISGISAXS10_H_
+#ifndef TESTISGISAXS11_H_
+#define TESTISGISAXS11_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,27 +9,26 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestIsGISAXS10.h
-//! @brief  Definition of TestIsGISAXS10 class for IsGISAXS validation
-//! @author herk
-//! @date   19.06.2012
+//! @file   TestIsGISAXS11.h
+//! @brief  Definition of TestIsGISAXS11 class
+//! @author Scientific Computing Group at FRM II
+//! @date   Oct 1, 2012
 
 #include "IFunctionalTest.h"
 
 //- -------------------------------------------------------------------
-//! @class TestIsGISAXS10
-//! @brief Comparison with IsGISAXS ex-10: cylinder with interference on top of substrate
+//! @class TestIsGISAXS11
+//! @brief Comparison with IsGISAXS ex-11:
 //- -------------------------------------------------------------------
-class TestIsGISAXS10 : public IFunctionalTest
+class TestIsGISAXS11 : public IFunctionalTest
 {
 public:
-    TestIsGISAXS10(){}
-    virtual ~TestIsGISAXS10(){}
+    TestIsGISAXS11(){}
+    virtual ~TestIsGISAXS11(){}
 
     virtual void execute();
     virtual void finalise();
-
-    //void initializeSample2();
 };
 
-#endif /* TESTISGISAXS10_H_ */
+
+#endif /* TESTISGISAXS11_H_ */

@@ -16,7 +16,7 @@ DiffuseDWBASimulation::~DiffuseDWBASimulation()
 
 void DiffuseDWBASimulation::run()
 {
-    complex_t k_iz = -mp_kz_function->evaluate(-m_alpha_i);
+//    complex_t k_iz = -mp_kz_function->evaluate(-m_alpha_i);
     size_t number_of_nps = m_np_infos.size();
     std::vector<IFormFactor *> form_factors;
     // collect all particle formfactors and create dwba formfactors for these

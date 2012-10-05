@@ -27,8 +27,6 @@ complex_t FormFactorDWBAConstZ::evaluate(const cvector_t &k_i, const cvector_t &
 FormFactorDWBAConstZ* FormFactorDWBAConstZ::clone() const
 {
     FormFactorDWBAConstZ *p_new = new FormFactorDWBAConstZ(mp_form_factor->clone(), m_depth);
-//    p_new->setTransmissionFunction(mp_T->clone());
-//    p_new->setReflectionFunction(mp_R->clone());
     p_new->setTransmissionFunction(*mp_T);
     p_new->setReflectionFunction(*mp_R);
     return p_new;
@@ -36,6 +34,6 @@ FormFactorDWBAConstZ* FormFactorDWBAConstZ::clone() const
 
 complex_t FormFactorDWBAConstZ::getDepthPhase(complex_t q_z) const
 {
-	complex_t exponent = -complex_t(0.0,1.0)*q_z*m_depth; // Minus sign for depth
+	complex_t exponent = -complex_t(0.0,1.0)*q_z*m_depth; // Minus sign for depth (m_depth > 0)
 	return std::exp(exponent);
 }

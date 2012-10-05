@@ -49,10 +49,10 @@ std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
     double weight = parent_info.getAbundance();
     double np_density = 3.0*parent_volume/primitive_cell_volume;
     //TODO: refine this method; current implementation only serves as a test
-    double height = 0.2*Units::micrometer;
-    size_t nbr_heights = 31;
-    double mean_radius = 5.1*Units::nanometer;
-    double sigma = 2.0*Units::nanometer;
+    double height = 0.5*Units::micrometer;
+    size_t nbr_heights = 251;
+    double mean_radius = 4.2*Units::nanometer;
+    double sigma = 0.2*Units::nanometer;
     size_t nbr_radii = 7;
     complex_t n_particle(0.999966, 5.62664e-7);
     std::vector<DiffuseParticleInfo *> *p_infos = new std::vector<DiffuseParticleInfo *>();

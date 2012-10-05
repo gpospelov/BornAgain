@@ -36,7 +36,9 @@ void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
 }
 
 
+/* ************************************************************************* */
 // draw 2D histogram representing OutputData (in current gPad)
+/* ************************************************************************* */
 void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         const std::string& draw_options, const std::string &histogram_title)
 {
@@ -90,6 +92,63 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
 
     p_hist2D.DrawCopy(draw_options.c_str());
     //delete p_output;
+}
+
+
+/* ************************************************************************* */
+// create TH2D from OutputData
+/* ************************************************************************* */
+TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const std::string &histo_name)
+{
+    if (output.getDimension() != 2) {
+        std::cout << "IsGISAXSTools::getOutputDataTH2D() -> Warning! Wrong number of dimensions " << std::endl;
+        return 0;
+    }
+
+    // we assume variable bin size and prepare [nbins+1] array of low edges of each bin
+    std::vector<double> histo_axises[2]; // arrays describing x and y histogram axis
+    for(int i_axis=0; i_axis<2; ++i_axis) {
+        const NamedVector<double> *axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[i_axis]);
+        double dx(0);
+        for(size_t i_bin=0; i_bin<axis->getSize(); ++i_bin) {
+            if(i_bin == 0) {
+                dx = (*axis)[1]-(*axis)[0];
+            } else {
+                dx = (*axis)[i_bin] - (*axis)[i_bin-1];
+            }
+            histo_axises[i_axis].push_back( (*axis)[i_bin] - dx/2.);
+        }
+        histo_axises[i_axis].push_back((*axis)[axis->getSize()-1] + dx/2.); // right bin edge of last bin
+//        std::cout << "XXX " << histo_axises[i_axis].size() << " " << (*axis)[i_axis] << std::endl;
+//        for(size_t i=0; i<histo_axises[i_axis].size(); ++i) {
+//            std::cout << " i " << i << " " << histo_axises[i_axis][i];
+//            if(i < axis->getSize()) std::cout << " " << (*axis)[i];
+//            std::cout << std::endl;
+//        }
+    }
+
+    // creation of 2D histogram with variable bin size
+    const NamedVector<double> *axis0 = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[0]);
+    const NamedVector<double> *axis1 = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[1]);
+    TH2D *h2 = new TH2D(histo_name.c_str(), histo_name.c_str(), axis0->getSize(), &histo_axises[0][0], axis1->getSize(), &histo_axises[1][0]);
+    h2->GetXaxis()->SetTitle( axis0->getName().c_str() );
+    h2->GetYaxis()->SetTitle( axis1->getName().c_str() );
+
+    output.resetIndex();
+    while (output.hasNext())
+    {
+        double x_value = output.getCurrentValueOfAxis<double>( axis0->getName().c_str() );
+        double y_value = output.getCurrentValueOfAxis<double>( axis1->getName().c_str() );
+        double z_value = output.next();
+        h2->Fill(x_value, y_value, z_value);
+    }
+    h2->SetContour(50);
+    h2->SetStats(0);
+    h2->GetYaxis()->SetTitleOffset(1.3);
+
+    gStyle->SetPalette(1);
+    gStyle->SetOptStat(0);
+    return h2;
 }
 
 

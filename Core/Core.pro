@@ -92,6 +92,9 @@ SOURCES += \
     Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
     Tools/src/OutputData.cpp \
+    Tools/src/OutputDataIOFactory.cpp \
+    Tools/src/OutputDataReader.cpp \
+    Tools/src/OutputDataWriter.cpp \
     Tools/src/ProgramOptions.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
@@ -207,6 +210,9 @@ HEADERS += \
     Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
+    Tools/inc/OutputDataIOFactory.h \
+    Tools/inc/OutputDataReader.h \
+    Tools/inc/OutputDataWriter.h \
     Tools/inc/ProgramOptions.h \
     Tools/inc/TRange.h \
     Tools/inc/StochasticDiracDelta.h \

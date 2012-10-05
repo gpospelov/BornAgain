@@ -16,8 +16,15 @@
 
 
 #include "OutputData.h"
+#include "TRange.h"
+#include "FitMultiParameter.h"
+#include <string>
+
 class Experiment;
-class Minimizer;
+class IMinimizer;
+class ParameterPool;
+class ChiSquaredModule;
+
 
 //- -------------------------------------------------------------------
 //! @class FitSuite
@@ -26,13 +33,34 @@ class Minimizer;
 class FitSuite
 {
 public:
+    typedef std::vector<FitMultiParameter *> fitmultiparameters_t;
     FitSuite();
+    virtual ~FitSuite();
 
     void setExperiment(Experiment *experiment) { m_experiment = experiment; }
-    void setMinimizer(Minimizer *minimizer) { m_minimizer = minimizer; }
+    void setMinimizer(IMinimizer *minimizer) { m_minimizer = minimizer; }
+
+    //! add fit parameter
+    FitMultiParameter *addFitParameter(const std::string &name, double value, double step, double error=0.0);
+    FitMultiParameter *addFitParameter(const std::string &name, double value, double step, const TRange<double> &range);
+
+    //! initialize fitting parameters
+    virtual void init_fit_parameters();
+
+    //! set real data
+    void setRealData(const OutputData<double> &data);
+
+    //! run fit
+    virtual void runFit();
+
+    //! function to minimize
+    double functionToMinimize(const double *pars_current_values);
+
 private:
     Experiment *m_experiment;
-    Minimizer  *m_minimizer;
+    IMinimizer  *m_minimizer;
+    fitmultiparameters_t m_fit_params;
+    ChiSquaredModule *m_chi2_module;
 };
 
 #endif // FITSUITE_H

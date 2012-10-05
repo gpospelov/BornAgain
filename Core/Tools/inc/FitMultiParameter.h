@@ -33,6 +33,7 @@ public:
     typedef std::vector<parameter_t > parametercoll_t;
 
     FitMultiParameter();
+    FitMultiParameter(const std::string &name, double value, double step, double error=0.0);
 
     virtual void setValue(double value)
     {
@@ -55,6 +56,11 @@ public:
     friend std::ostream &operator<<(std::ostream &ostr, const FitMultiParameter &m) { m.print(ostr); return ostr; }
 
 protected:
+    // disabled copy constructor
+    FitMultiParameter(const FitMultiParameter &other);
+    // disabled assignment operator
+    FitMultiParameter &operator=(const FitMultiParameter &other);
+
     //! print class
     void print(std::ostream &ostr) const;
 

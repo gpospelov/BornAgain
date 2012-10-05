@@ -48,13 +48,13 @@ void ParameterPool::clear()
 // Registering parameter with given name. Name should be different for each
 // register.
 /* ************************************************************************* */
-bool ParameterPool::registerParameter(std::string name, double *parameter_address)
+bool ParameterPool::registerParameter(const std::string &name, double *parameter_address)
 {
     RealPar par(parameter_address);
     return addParameter(name, par);
 }
 
-bool ParameterPool::addParameter(std::string name, RealPar par)
+bool ParameterPool::addParameter(const std::string &name, RealPar par)
 {
     parametermap_t::iterator it = m_map.find(name);
     if( it!=m_map.end() ) {
@@ -79,7 +79,7 @@ ParameterPool *ParameterPool::clone()
 /* ************************************************************************* */
 // Clone method that adds a prefix to parameter's keys
 /* ************************************************************************* */
-ParameterPool *ParameterPool::cloneWithPrefix(std::string prefix)
+ParameterPool *ParameterPool::cloneWithPrefix(const std::string &prefix)
 {
     ParameterPool *new_pool = new ParameterPool;
     for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it)
@@ -93,20 +93,21 @@ ParameterPool *ParameterPool::cloneWithPrefix(std::string prefix)
 // copy parameters of given pool to the external pool while adding prefix to
 // local parameter keys
 /* ************************************************************************* */
-void ParameterPool::copyToExternalPool(std::string prefix, ParameterPool *external_pool)
+void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
 {
-    for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it) {
+    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         external_pool->addParameter(prefix+it->first, it->second);
     }
 }
 
 /* ************************************************************************* */
-ParameterPool::RealPar ParameterPool::getParameter(std::string name) const
+ParameterPool::RealPar ParameterPool::getParameter(const std::string &name) const
 {
     parametermap_t::const_iterator it = m_map.find(name);
     if( it!=m_map.end() ) {
         return (*it).second;
     } else {
+        std::cout << "ParameterPool::getParameter() -> Warning. No parameter with name '" << name << std::endl;
         return RealPar(0);
     }
 }
@@ -114,7 +115,7 @@ ParameterPool::RealPar ParameterPool::getParameter(std::string name) const
 /* ************************************************************************* */
 // set parameter value
 /* ************************************************************************* */
-bool ParameterPool::setParameterValue(std::string name, double value)
+bool ParameterPool::setParameterValue(const std::string &name, double value)
 {
     RealPar x = getParameter(name);
     if( x.isNull() ) {
@@ -129,7 +130,7 @@ bool ParameterPool::setParameterValue(std::string name, double value)
 /* ************************************************************************* */
 // set parameter value
 /* ************************************************************************* */
-int ParameterPool::setMatchedParametersValue(std::string wildcards, double value)
+int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
 {
     int npars(0);
     for(iterator_t it=begin(); it!= end(); it++) {

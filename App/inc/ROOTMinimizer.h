@@ -14,25 +14,32 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   05.10.2012
 
-#include "Minimizer.h"
+#include "IMinimizer.h"
 #include "OutputData.h"
+#include <string>
 // from ROOT
 #include "Math/Minimizer.h"
 #include "Math/Factory.h"
-#include <string>
+#include "Math/Functor.h"
+
 
 //- -------------------------------------------------------------------
 //! @class FitSuite
 //! @brief Wrapper for ROOT minimizers to interface with our FitSuite
 //- -------------------------------------------------------------------
-class ROOTMinimizer : public Minimizer
+class ROOTMinimizer : public IMinimizer
 {
 public:
     ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type);
     virtual ~ROOTMinimizer();
 
+    virtual void setVariable(int i, const FitParameter *par) ;
+    virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1);
+    virtual void minimize();
+
 private:
     ROOT::Math::Minimizer *m_root_minimizer;
+    ROOT::Math::Functor *m_fcn;
 };
 
 #endif // ROOTMINIMIZER_H

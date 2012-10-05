@@ -97,3 +97,14 @@ void Experiment::setOutputDataMask(size_t n_chunks_total, size_t n_chunk )
     }
 
 }
+
+
+/* ************************************************************************* */
+// create combined parameter pool of the whole sample and experiment (if any)
+/* ************************************************************************* */
+ParameterPool *Experiment::createParameterTree() const
+{
+    if(mp_sample == 0 ) throw NullPointerException("Experiment::createParameterTree() -> Error! Sample is absent");
+    return mp_sample->createParameterTree();
+}
+

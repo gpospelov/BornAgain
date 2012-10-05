@@ -1,5 +1,5 @@
-#ifndef MINIMIZER_H
-#define MINIMIZER_H
+#ifndef IMINIMIZER_H
+#define IMINIMIZER_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,21 +9,30 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   Minimizer.h
+//! @file   IMinimizer.h
 //! @brief  Definition of Minimizer class
 //! @author Scientific Computing Group at FRM II
 //! @date   05.10.2012
 
 
+#include "FitParameter.h"
+#include <boost/function.hpp>
+
+
 //- -------------------------------------------------------------------
-//! @class Minimizer
-//! @brief Common wrapper for all kind minimizer's
+//! @class IMinimizer
+//! @brief Common interface for all kind minimizer's
 //- -------------------------------------------------------------------
-class Minimizer
+class IMinimizer
 {
 public:
-    Minimizer();
-    virtual ~Minimizer(){}
+    IMinimizer();
+    virtual ~IMinimizer(){}
+
+    virtual void setVariable(int i, const FitParameter *par) = 0;
+    //virtual void setVariable(int i, const std::string &name, double value, double step) = 0;
+    virtual void minimize() = 0;
+    virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1) = 0;
 };
 
-#endif // MINIMIZER_H
+#endif // IMINIMIZER_H

@@ -111,7 +111,7 @@ SOURCES += \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp \
     PythonAPI/src/PythonOutputData.cpp \
-    Tools/src/Minimizer.cpp
+    Tools/src/IMinimizer.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -235,7 +235,7 @@ HEADERS += \
     PythonAPI/inc/PythonModule.h \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h \
-    Tools/inc/Minimizer.h
+    Tools/inc/IMinimizer.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

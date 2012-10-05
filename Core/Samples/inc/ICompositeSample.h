@@ -31,11 +31,13 @@ public:
     //! definition of container for registered children
     typedef std::list<ISample *> samples_t;
     typedef samples_t::iterator iterator_t;
+    typedef samples_t::const_iterator const_iterator_t;
 
     ICompositeSample();
 
     //! to confirm compound nature of given class
     virtual ICompositeSample *getCompositeSample() { return this; }
+    virtual const ICompositeSample *getCompositeSample() const { return this; }
 
     //! register child in the container
     virtual void registerChild(ISample *sample);
@@ -46,6 +48,8 @@ public:
     //! iteration over local registered children
     iterator_t begin_shallow() { return m_samples.begin(); }
     iterator_t end_shallow() { return m_samples.end(); }
+    const_iterator_t begin_shallow() const { return m_samples.begin(); }
+    const_iterator_t end_shallow() const { return m_samples.end(); }
 
     //! size of children
     virtual size_t size() const { return m_samples.size(); }

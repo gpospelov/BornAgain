@@ -1,5 +1,5 @@
-#ifndef TESTMESOCRYSTAL2_H
-#define TESTMESOCRYSTAL2_H
+#ifndef ROOTMINIMIZER_H
+#define ROOTMINIMIZER_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,43 +9,30 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestMesoCrystal2.h
-//! @brief  Definition of Layer class
+//! @file   ROOTMinimizer.h
+//! @brief  Definition of ROOTMinimizer class
 //! @author Scientific Computing Group at FRM II
-//! @date   27.09.2012
+//! @date   05.10.2012
 
-#include "IFunctionalTest.h"
-#include "Types.h"
+#include "Minimizer.h"
 #include "OutputData.h"
-
-class GISASExperiment;
-class ISample;
-class MesoCrystal;
-class IFormFactor;
-class Lattice;
-
+// from ROOT
+#include "Math/Minimizer.h"
+#include "Math/Factory.h"
+#include <string>
 
 //- -------------------------------------------------------------------
-//! @class TestMesoCrystal2
-//! @brief Simulation of 3D ordered particle assemblies
+//! @class FitSuite
+//! @brief Wrapper for ROOT minimizers to interface with our FitSuite
 //- -------------------------------------------------------------------
-class TestMesoCrystal2 : public IFunctionalTest
+class ROOTMinimizer : public Minimizer
 {
 public:
-    TestMesoCrystal2();
-    virtual ~TestMesoCrystal2();
-
-    virtual void execute();
+    ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type);
+    virtual ~ROOTMinimizer();
 
 private:
-    void initializeExperiment();
-    void initializeSample();
-
-    MesoCrystal* createMesoCrystal(double stacking_radius, complex_t n_particle, const IFormFactor* p_meso_form_factor);
-    const Lattice *createLattice(double stacking_radius);
-
-    ISample *m_sample;
-    GISASExperiment *m_experiment;
+    ROOT::Math::Minimizer *m_root_minimizer;
 };
 
-#endif // TESTMESOCRYSTAL2_H
+#endif // ROOTMINIMIZER_H

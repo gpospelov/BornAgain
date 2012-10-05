@@ -41,7 +41,8 @@ SOURCES += \
     src/TestRootTree.cpp \
     src/TestRoughness.cpp \
     src/AppOptionsDescription.cpp \
-    src/TestMesoCrystal1.cpp
+    src/TestMesoCrystal1.cpp \
+    src/ROOTMinimizer.cpp
 
 HEADERS += \
     inc/App.h \
@@ -73,7 +74,8 @@ HEADERS += \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
     inc/AppOptionsDescription.h \
-    inc/TestMesoCrystal1.h
+    inc/TestMesoCrystal1.h \
+    inc/ROOTMinimizer.h
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
 DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc

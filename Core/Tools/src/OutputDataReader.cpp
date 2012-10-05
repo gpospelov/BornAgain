@@ -23,7 +23,7 @@ OutputData<double > *OutputDataReader::getOutputData(const std::string &file_nam
     std::ifstream fin;
     fin.open(file_name.c_str(), std::ios::in);
     if( !fin.is_open() ) {
-        throw FileNotIsOpenException("OutputDataReader::read() -> Error. Can't open file '"+file_name+"' for reading.");
+        throw FileNotIsOpenException("OutputDataReader::getOutputData() -> Error. Can't open file '"+file_name+"' for reading.");
     }
     if ( !fin.good() ) {
         throw FileIsBadException("OutputDataReader::getOutputData() -> Error! File is not good, probably it is a directory.");
@@ -64,7 +64,7 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
     vdouble1d_t buff_xaxis, buff_yaxis;
     vdouble2d_t buff_data; // [y][x]
 
-    while( std::getline(input_stream, sline))
+    while( std::getline(input_stream, sline) )
     {
         if(sline[0] == '#') continue;
         std::string str = round_doubles(sline, 10);
@@ -81,12 +81,12 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
 
     // check consistency of y dimension and data buffer
     if( buff_data.size() != buff_yaxis.size()) {
-        throw LogicErrorException("OutputDataReadASCII::readOutputData() -> Error. Unconsistent x-size.");
+        throw LogicErrorException("OutputDataReadASCII::readOutputData() -> Error. Unconsistent y-size.");
     }
     // check consistency of y dimension and data buffer
     for(size_t i = 0; i<buff_yaxis.size(); ++i) {
         if( buff_data[i].size() != buff_xaxis.size()) {
-            throw LogicErrorException("OutputDataReadASCII::readOutputData() -> Error. Unconsistent y-size.");
+            throw LogicErrorException("OutputDataReadASCII::readOutputData() -> Error. Unconsistent x-size.");
         }
     }
 
@@ -100,13 +100,12 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
     output->addAxis(xaxis);
     output->addAxis(yaxis);
     output->setAllTo(0.0);
-
     output->resetIndex();
     while (output->hasNext())
     {
         size_t index_x = output->getCurrentIndexOfAxis("x-axis");
         size_t index_y = output->getCurrentIndexOfAxis("y-axis");
-        output->next() = buff_data[index_y][index_x]; // strange
+        output->next() = buff_data[index_y][index_x];
     }
 
     return output;

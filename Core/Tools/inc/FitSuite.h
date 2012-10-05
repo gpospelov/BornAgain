@@ -1,5 +1,5 @@
-#ifndef TESTMESOCRYSTAL2_H
-#define TESTMESOCRYSTAL2_H
+#ifndef FITSUITE_H
+#define FITSUITE_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,43 +9,30 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestMesoCrystal2.h
-//! @brief  Definition of Layer class
+//! @file   FitSuite.h
+//! @brief  Definition of FitSuite class
 //! @author Scientific Computing Group at FRM II
-//! @date   27.09.2012
+//! @date   05.10.2012
 
-#include "IFunctionalTest.h"
-#include "Types.h"
+
 #include "OutputData.h"
-
-class GISASExperiment;
-class ISample;
-class MesoCrystal;
-class IFormFactor;
-class Lattice;
-
+class Experiment;
+class Minimizer;
 
 //- -------------------------------------------------------------------
-//! @class TestMesoCrystal2
-//! @brief Simulation of 3D ordered particle assemblies
+//! @class FitSuite
+//! @brief Main class to perform fitting
 //- -------------------------------------------------------------------
-class TestMesoCrystal2 : public IFunctionalTest
+class FitSuite
 {
 public:
-    TestMesoCrystal2();
-    virtual ~TestMesoCrystal2();
+    FitSuite();
 
-    virtual void execute();
-
+    void setExperiment(Experiment *experiment) { m_experiment = experiment; }
+    void setMinimizer(Minimizer *minimizer) { m_minimizer = minimizer; }
 private:
-    void initializeExperiment();
-    void initializeSample();
-
-    MesoCrystal* createMesoCrystal(double stacking_radius, complex_t n_particle, const IFormFactor* p_meso_form_factor);
-    const Lattice *createLattice(double stacking_radius);
-
-    ISample *m_sample;
-    GISASExperiment *m_experiment;
+    Experiment *m_experiment;
+    Minimizer  *m_minimizer;
 };
 
-#endif // TESTMESOCRYSTAL2_H
+#endif // FITSUITE_H

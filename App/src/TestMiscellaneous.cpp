@@ -14,6 +14,8 @@
 #include "Crystal.h"
 #include "LatticeBasis.h"
 #include "MathFunctions.h"
+#include "OutputDataIOFactory.h"
+#include "Utils.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -32,10 +34,32 @@ TestMiscellaneous::TestMiscellaneous()
 void TestMiscellaneous::execute()
 {
 
+    test_OutputDataIOFactory();
     //test_FastSin();
     //test_DoubleToComplexInterpolatingFunction();
     //test_FormFactor();
-    test_DrawMesocrystal();
+    //test_DrawMesocrystal();
+}
+
+
+
+/* ************************************************************************* */
+// test of reading of OutputData from ASCII file
+/* ************************************************************************* */
+void TestMiscellaneous::test_OutputDataIOFactory()
+{
+    std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
+    OutputDataReader *reader = OutputDataIOFactory::instance().getReader(file_name);
+    OutputData<double > *data = reader->getOutputData();
+    delete reader;
+
+    TCanvas *c1 = new TCanvas("c1","c1",800, 800);
+    c1->cd(); gPad->SetRightMargin(0.14);
+    gPad->SetLogz();
+
+    TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(*data, "xxx");
+    h2->SetMinimum(100.);
+    h2->Draw("CONT4 Z");
 }
 
 
@@ -87,31 +111,18 @@ void TestMiscellaneous::test_FastSin()
 
 
 /* ************************************************************************* */
-// test double to complex interpolating function
+// opengl mesocrystal drawing
 /* ************************************************************************* */
 void TestMiscellaneous::test_DrawMesocrystal()
 {
-
     MultiLayer *m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MesoCrystal2"));
-
     DrawHelper::instance().DrawMesoCrystal(m_sample);
-
-//    GISASExperiment experiment;
-//    experiment.setSample(m_sample);
-//    experiment.setDetectorParameters(100, 0.3*Units::degree, 0.073 , 100 , -0.4*Units::degree, 0.066);
-//    experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
-//    experiment.setBeamIntensity(1e7);
-//    experiment.runSimulation();
-//    experiment.normalize();
-//    OutputData<double> *mp_intensity_output = experiment.getOutputDataClone();
-//    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal","CONT4 Z");
-
 }
 
 
 
 /* ************************************************************************* */
-// test double to complex interpolating function
+// form factor as a function of qx,qy,qz
 /* ************************************************************************* */
 void TestMiscellaneous::test_FormFactor()
 {
@@ -202,22 +213,6 @@ void TestMiscellaneous::test_FormFactor()
         data1->next();
     }
 
-
-
-//    TCanvas *c1 = new TCanvas("c1","c1",1024,768);
-//    c1->Divide(2,2);
-//    gStyle->SetPalette(1);
-
-//    c1->cd(1);
-//    gPad->SetLogz();
-//    h2->Draw("surf2");
-////    h3->Draw("iso");
-
-//    for(int i=0; i<3; i++){
-//        c1->cd(2+i);
-//        h1[i]->Draw();
-//    }
-
     TCanvas *c1_xy = new TCanvas("c1_xy","c1_xy",1024,768);
     DrawHelper::instance().SetMagnifier(c1_xy);
     c1_xy->Divide(3,3);
@@ -256,8 +251,6 @@ void TestMiscellaneous::test_FormFactor()
 /* ************************************************************************* */
 void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
 {
-
-
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MultilayerOffspecTestcase1a"));
 
     OutputData<double > *data_alpha = new OutputData<double >;

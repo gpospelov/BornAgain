@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6218B466161B2577007FFA5C /* FormFactorParallelepiped.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */; };
+		6218B469161B25BC007FFA5C /* TestIsGISAXS11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6218B468161B25BC007FFA5C /* TestIsGISAXS11.cpp */; };
 		622247D9160CB853008205AC /* Beam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222225D160CB745008205AC /* Beam.cpp */; };
 		622247DA160CB853008205AC /* ChiSquaredModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222225E160CB745008205AC /* ChiSquaredModule.cpp */; };
 		622247DB160CB853008205AC /* ConvolutionDetectorResolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222225F160CB745008205AC /* ConvolutionDetectorResolution.cpp */; };
@@ -201,6 +203,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6218B463161B2562007FFA5C /* FormFactorParallelepiped.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorParallelepiped.h; sourceTree = "<group>"; };
+		6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorParallelepiped.cpp; sourceTree = "<group>"; };
+		6218B467161B25B2007FFA5C /* TestIsGISAXS11.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS11.h; sourceTree = "<group>"; };
+		6218B468161B25BC007FFA5C /* TestIsGISAXS11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS11.cpp; sourceTree = "<group>"; };
 		622221E7160CB745008205AC /* App.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = App.pro; sourceTree = "<group>"; };
 		622221EA160CB745008205AC /* App.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
 		622221EB160CB745008205AC /* AppLinkDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppLinkDef.h; sourceTree = "<group>"; };
@@ -1151,6 +1157,7 @@
 		622221E9160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				6218B467161B25B2007FFA5C /* TestIsGISAXS11.h */,
 				62F77E281619993B00C8F15E /* TestMesoCrystal1.h */,
 				62F77E291619993B00C8F15E /* TestMesoCrystal2.h */,
 				62FDC0651615F25900D28B08 /* AppOptionsDescription.h */,
@@ -1187,6 +1194,7 @@
 		62222224160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				6218B468161B25BC007FFA5C /* TestIsGISAXS11.cpp */,
 				62F77E241619992B00C8F15E /* TestMesoCrystal1.cpp */,
 				62F77E251619992B00C8F15E /* TestMesoCrystal2.cpp */,
 				62FDC0661615F26C00D28B08 /* AppOptionsDescription.cpp */,
@@ -1308,6 +1316,7 @@
 		62222271160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				6218B463161B2562007FFA5C /* FormFactorParallelepiped.h */,
 				62222272160CB745008205AC /* FormFactorCrystal.h */,
 				62222273160CB745008205AC /* FormFactorCylinder.h */,
 				62222274160CB745008205AC /* FormFactorDWBA.h */,
@@ -1334,6 +1343,7 @@
 		62222285160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */,
 				62222286160CB745008205AC /* FormFactorCrystal.cpp */,
 				62222287160CB745008205AC /* FormFactorCylinder.cpp */,
 				62222288160CB745008205AC /* FormFactorDWBA.cpp */,
@@ -68373,6 +68383,7 @@
 				62FDC0671615F26C00D28B08 /* AppOptionsDescription.cpp in Sources */,
 				62F77E261619992B00C8F15E /* TestMesoCrystal1.cpp in Sources */,
 				62F77E271619992B00C8F15E /* TestMesoCrystal2.cpp in Sources */,
+				6218B469161B25BC007FFA5C /* TestIsGISAXS11.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68463,6 +68474,7 @@
 				62224884160CB853008205AC /* Types.cpp in Sources */,
 				62224885160CB853008205AC /* Utils.cpp in Sources */,
 				62BD93501619D05D0008A768 /* ParticleCoreShell.cpp in Sources */,
+				6218B466161B2577007FFA5C /* FormFactorParallelepiped.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

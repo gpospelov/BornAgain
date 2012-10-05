@@ -58,10 +58,9 @@ complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
         complex_t meso_factor = mp_meso_form_factor->evaluate(q_min_q_i, k_zero, 0.0, 0.0);
         result += basis_factor*meso_factor;
     }
-    // the transformed delta train gets a factor of (2pi)^3/V :
-    double pi3 = M_PI*M_PI*M_PI;
+    // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3 is cancelled by the convolution of Fourier transforms :
     double volume = m_lattice.getVolume();
-    return 8.0*pi3*result/volume;
+    return result/volume;
 }
 
 void FormFactorCrystal::calculateLargestReciprocalDistance()

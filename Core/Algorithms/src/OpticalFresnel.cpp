@@ -92,8 +92,11 @@ void OpticalFresnel::calculateFresnelCoefficientsWithRoughness(const MultiLayer 
             coeff[i].tb = complex_t(1, 0);
         } else
         {
-            double sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
-            if(sigma==0) {
+            double sigma = 0.0;
+            if (sample.getLayerBottomInterface(i)) {
+                sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
+            }
+            if(sigma == 0.0) {
                 coeff[i].r = (coeff[i].kz - coeff[i + 1].kz)
                         / (coeff[i].kz + coeff[i + 1].kz);
             } else {

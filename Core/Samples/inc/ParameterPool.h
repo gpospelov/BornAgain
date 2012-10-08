@@ -52,10 +52,10 @@ public:
     ParameterPool *clone();
 
     //! clone with adding preffix to every parameter key
-    ParameterPool *cloneWithPrefix(std::string prefix);
+    ParameterPool *cloneWithPrefix(const std::string &prefix);
 
     //! copy parameters of given pool to the external pool while adding prefix to local parameter keys
-    void copyToExternalPool(std::string prefix, ParameterPool *external_pool);
+    void copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const;
 
     //! clear and delete parameter map
     void clear();
@@ -64,10 +64,10 @@ public:
     size_t size() const { return m_map.size(); }
 
     //! main method to register data address in the pool
-    bool registerParameter(std::string name, double *parpointer);
+    bool registerParameter(const std::string &name, double *parpointer);
 
     //! add parameter to the pool
-    bool addParameter(std::string name, RealPar par);
+    bool addParameter(const std::string &name, RealPar par);
 
     //! access to parameter container
     iterator_t begin() { return m_map.begin(); }
@@ -78,13 +78,13 @@ public:
     const_iterator_t end() const { return m_map.end(); }
 
     //! return parameter with given name
-    RealPar getParameter(std::string name) const;
+    RealPar getParameter(const std::string &name) const;
 
     //! set parameter value, return true in the case of success
-    bool setParameterValue(std::string name, double value);
+    bool setParameterValue(const std::string &name, double value);
 
     //! set parameter value, return number of changed parameters
-    int setMatchedParametersValue(std::string wildcards, double value);
+    int setMatchedParametersValue(const std::string &wildcards, double value);
 
     //! print parameter pool
     friend std::ostream &operator<<(std::ostream &ostr, const ParameterPool &obj)

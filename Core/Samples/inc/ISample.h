@@ -35,6 +35,7 @@ public:
 
     //! return pointer to "this", if it is composite sample (to overload)
     virtual ICompositeSample *getCompositeSample() { return 0; }
+    virtual const ICompositeSample *getCompositeSample() const { return 0; }
 
     //! clone sample (to overload)
     virtual ISample *clone() const;
@@ -43,7 +44,7 @@ public:
     ParameterPool *getParameterPool() { return &m_parameters; }
 
     //! create new parameter pool which contains all local parameter and  parameters of children
-    virtual ParameterPool *createParameterTree();
+    virtual ParameterPool *createParameterTree() const;
 
     //! check if this sample (or one of its subsamples) contains elements requiring DWBA corrections and return an ISimulation to calculate this
     virtual DWBASimulation *createDWBASimulation() const { return 0; }
@@ -62,7 +63,7 @@ protected:
     virtual void init_parameters();
 
     //! add parameters from local pool to external pool and call recursion over direct children
-    virtual void addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1);
+    virtual void addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
     ParameterPool m_parameters; //! parameter pool
 };

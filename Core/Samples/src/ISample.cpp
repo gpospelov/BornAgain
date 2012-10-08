@@ -56,7 +56,7 @@ void ISample::init_parameters()
 // create new parameter pool which contains all local parameter and  parameters of children
 // user have to delete it
 /* ************************************************************************* */
-ParameterPool *ISample::createParameterTree()
+ParameterPool *ISample::createParameterTree() const
 {
     ParameterPool *newpool = new ParameterPool;
     std::string path("/");
@@ -68,7 +68,7 @@ ParameterPool *ISample::createParameterTree()
 /* ************************************************************************* */
 // add parameters from local pool to external pool and call recursion over direct children
 /* ************************************************************************* */
-void ISample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number)
+void ISample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const
 {
     // adding trailing slash, if it is not already there
     if( path[path.length()-1] != '/' ) path += "/";
@@ -82,19 +82,19 @@ void ISample::addParametersToExternalPool(std::string path, ParameterPool *exter
     m_parameters.copyToExternalPool(path, external_pool);
 
     // going through direct children of given sample and copy they parameters recursively
-    ICompositeSample *sample = getCompositeSample();
+    const ICompositeSample *sample = getCompositeSample();
     if( sample ) {
 
         // Here we need some default mechanism to handle cases with many children with same name.
         // Lets run through all direct children and save they names
         Utils::StringUsageMap strUsageMap;
-        for(ICompositeSample::iterator_t it=sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
+        for(ICompositeSample::const_iterator_t it=sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
             strUsageMap.add( path +(*it)->getName() ); // saving children name
         }
 
         // Now we run through direct children again, and assign copy number for all children with same name
         Utils::StringUsageMap strUsageMap2;
-        for(ICompositeSample::iterator_t it=sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
+        for(ICompositeSample::const_iterator_t it=sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
             std::string children_name = path +(*it)->getName();
             strUsageMap2.add(children_name);
             int ncopy = strUsageMap2[children_name]-1; // staring from 0

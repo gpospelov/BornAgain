@@ -35,6 +35,10 @@ public:
     /// Set the sample to be tested
     void setSample(ISample *p_sample);
 
+    /// get the sample
+    ISample *getSample() { return mp_sample; }
+    const ISample *getSample() const { return mp_sample; }
+
     /// Get data structure that contains the intensity map on the detector for all scan parameters
     OutputData<double>* getOutputDataClone() const;
 
@@ -62,6 +66,9 @@ public:
     void setOutputDataMask(size_t n_chunks_total=1, size_t n_chunk=0);
 
     const OutputData<double>* getOutputDataMask() const;
+
+    //! create combined parameter pool of the whole sample and experiment (if any)
+    virtual ParameterPool *createParameterTree() const;
 
 protected:
     /// Default implementation only adds the detector axes

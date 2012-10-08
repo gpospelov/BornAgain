@@ -28,10 +28,21 @@ public:
     virtual ~TestMiscellaneous(){}
 
     virtual void execute();
+
+    //! test double to complex interpolating function
     void test_DoubleToComplexInterpolatingFunction();
+
+    //! form factor as a function of qx,qy,qz
     void test_FormFactor();
+
+    //! opengl mesocrystal drawing
     void test_DrawMesocrystal();
+
+    //! test of fast sin function approximation
     void test_FastSin();
+
+    //! test of reading of OutputData from ASCII file
+    void test_OutputDataIOFactory();
 
 };
 

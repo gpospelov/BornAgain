@@ -1,10 +1,18 @@
 #include "FitMultiParameter.h"
 #include "Utils.h"
 
+
 FitMultiParameter::FitMultiParameter()
 {
     setName("FitMultiParameter");
 }
+
+
+FitMultiParameter::FitMultiParameter(const std::string &name, double value, double step, double error) : FitParameter(name, value, step, error)
+{
+
+}
+
 
 /* ************************************************************************* */
 //! add real parameter to the collection

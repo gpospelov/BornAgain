@@ -34,6 +34,15 @@ public:
 
     virtual double calculateChiSquared(const OutputData<double> *p_simulation_data=0);
 
+    //! return real data
+    const OutputData<double> *getRealData() const { return mp_real_data; }
+
+    //! return simulation data
+    const OutputData<double> *getSimulationData() const { return mp_simulation_data; }
+
+    //! return chi2 value (should be called after calculateChiSquared)
+    virtual double getValue() const { return m_chi2_value; }
+
 protected:
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulation_data;
@@ -42,6 +51,8 @@ protected:
     std::vector<double> m_simulation_data_vector;
     IFittingDataSelector *mp_data_selector;
     ISquaredFunction *mp_squared_function;
+
+    double m_chi2_value;
 };
 
 

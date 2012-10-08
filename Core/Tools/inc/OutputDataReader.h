@@ -88,9 +88,13 @@ public:
     OutputDataReader(IOutputDataReadStrategy *reader) : m_reader(reader) {}
     virtual ~OutputDataReader() { delete m_reader; }
 
+    //! read output data from file
     OutputData<double > *getOutputData(const std::string &file_name);
+
+    //! read output data from file (file name was set already from OutputDataIOFactory)
     OutputData<double > *getOutputData() { return getOutputData(m_file_name); }
 
+    //! set concrete reading strategy
     void setStrategy(IOutputDataReadStrategy *reader) { m_reader = reader; }
 
 private:

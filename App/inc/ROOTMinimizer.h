@@ -16,6 +16,7 @@
 
 #include "IMinimizer.h"
 #include "OutputData.h"
+#include "Exceptions.h"
 #include <string>
 // from ROOT
 #include "Math/Minimizer.h"
@@ -24,8 +25,8 @@
 
 
 //- -------------------------------------------------------------------
-//! @class FitSuite
-//! @brief Wrapper for ROOT minimizers to interface with our FitSuite
+//! @class ROOTMinimizer
+//! @brief Wrapper for ROOT minimizers to interface with FitSuite
 //- -------------------------------------------------------------------
 class ROOTMinimizer : public IMinimizer
 {
@@ -36,6 +37,18 @@ public:
     virtual void setVariable(int i, const FitParameter *par) ;
     virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1);
     virtual void minimize();
+
+    //! return pointer to created minimizer
+    ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
+
+    //! return minimum function value
+    virtual double getMinValue() { return m_root_minimizer->MinValue(); }
+
+    //! return pointer to the parameters values at the minimum
+    virtual double getValueOfVariableAtMinimum(size_t i) {
+        if(i >= m_root_minimizer->NDim() ) throw OutOfBoundsException("ROOTMinimizer::getVariableAtMinimum() -> Wrong number of the variable");
+        return m_root_minimizer->X()[i];
+    }
 
 private:
     ROOT::Math::Minimizer *m_root_minimizer;

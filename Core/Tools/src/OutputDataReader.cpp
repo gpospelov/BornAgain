@@ -83,7 +83,7 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
     if( buff_data.size() != buff_yaxis.size()) {
         throw LogicErrorException("OutputDataReadASCII::readOutputData() -> Error. Unconsistent y-size.");
     }
-    // check consistency of y dimension and data buffer
+    // check consistency of x dimension and data buffer
     for(size_t i = 0; i<buff_yaxis.size(); ++i) {
         if( buff_data[i].size() != buff_xaxis.size()) {
             throw LogicErrorException("OutputDataReadASCII::readOutputData() -> Error. Unconsistent x-size.");
@@ -115,6 +115,7 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
 /* ************************************************************************* */
 // double numbers in string will be rounded according to the precision
 // if precision is 6, then 7.2908527770e+03 -> 7.290853e+03
+// (this method is used to compare IsGisaxs and our ASCII files at equal precision)
 /* ************************************************************************* */
 std::string OutputDataReadStreamV1::round_doubles(const std::string &str, int precision)
 {

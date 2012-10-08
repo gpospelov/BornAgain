@@ -45,53 +45,59 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataInPad() -> Error! No canvas exists.");
     }
-    if (output.getDimension() != 2) return;
 
-    // creation of 2D histogram from calculated intensities
-    output.resetIndex();
-    const NamedVector<double> *p_y_axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[0]);
-    const NamedVector<double> *p_z_axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[1]);
-    std::string y_axis_name = p_y_axis->getName();
-    std::string z_axis_name = p_z_axis->getName();
-    size_t y_size = p_y_axis->getSize();
-    size_t z_size = p_z_axis->getSize();
-    double y_start = (*p_y_axis)[0]/Units::degree;
-    double y_end = (*p_y_axis)[y_size-1]/Units::degree;
-    double z_start = (*p_z_axis)[0]/Units::degree;
-    double z_end = (*p_z_axis)[z_size-1]/Units::degree;
-    std::string histo_name = histogram_title;
-    if (histo_name.empty()) {
-        histo_name = gPad->GetTitle();
-    }
-    TH2D p_hist2D("p_hist2D", histo_name.c_str(), y_size, y_start, y_end, z_size, z_start, z_end);
-    //p_hist2D->UseCurrentStyle();
-    p_hist2D.GetXaxis()->SetTitle(y_axis_name.c_str());
-    p_hist2D.GetYaxis()->SetTitle(z_axis_name.c_str());
+//    if (output.getDimension() != 2) return;
 
-    while (output.hasNext())
-    {
-        size_t index_y = output.getCurrentIndexOfAxis(y_axis_name.c_str());
-        size_t index_z = output.getCurrentIndexOfAxis(z_axis_name.c_str());
-        //std::cout << "!!! " << index_y << " " << index_z << std::endl;
-        double x_value = (*p_y_axis)[index_y]/Units::degree;
-        double y_value = (*p_z_axis)[index_z]/Units::degree;
-        double z_value = output.next();
-        p_hist2D.Fill(x_value, y_value, z_value);
-    }
-    p_hist2D.SetContour(50);
-    p_hist2D.SetStats(0);
-    p_hist2D.GetYaxis()->SetTitleOffset(1.3);
+//    // creation of 2D histogram from calculated intensities
+//    output.resetIndex();
+//    const NamedVector<double> *p_y_axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[0]);
+//    const NamedVector<double> *p_z_axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[1]);
+//    std::string y_axis_name = p_y_axis->getName();
+//    std::string z_axis_name = p_z_axis->getName();
+//    size_t y_size = p_y_axis->getSize();
+//    size_t z_size = p_z_axis->getSize();
+//    double y_start = (*p_y_axis)[0]/Units::degree;
+//    double y_end = (*p_y_axis)[y_size-1]/Units::degree;
+//    double z_start = (*p_z_axis)[0]/Units::degree;
+//    double z_end = (*p_z_axis)[z_size-1]/Units::degree;
+//    std::string histo_name = histogram_title;
+//    if (histo_name.empty()) {
+//        histo_name = gPad->GetTitle();
+//    }
+//    TH2D p_hist2D("p_hist2D", histo_name.c_str(), y_size, y_start, y_end, z_size, z_start, z_end);
+//    //p_hist2D->UseCurrentStyle();
+//    p_hist2D.GetXaxis()->SetTitle(y_axis_name.c_str());
+//    p_hist2D.GetYaxis()->SetTitle(z_axis_name.c_str());
 
-    gStyle->SetPalette(1);
-    gStyle->SetOptStat(0);
-//    gPad->SetLogz();
-    gPad->SetRightMargin(0.115);
-    gPad->SetLeftMargin(0.115);
-    if( hasMinimum() ) p_hist2D.SetMinimum(m_hist_min);
-    if( hasMaximum() ) p_hist2D.SetMaximum(m_hist_max);
+//    while (output.hasNext())
+//    {
+//        size_t index_y = output.getCurrentIndexOfAxis(y_axis_name.c_str());
+//        size_t index_z = output.getCurrentIndexOfAxis(z_axis_name.c_str());
+//        //std::cout << "!!! " << index_y << " " << index_z << std::endl;
+//        double x_value = (*p_y_axis)[index_y]/Units::degree;
+//        double y_value = (*p_z_axis)[index_z]/Units::degree;
+//        double z_value = output.next();
+//        p_hist2D.Fill(x_value, y_value, z_value);
+//    }
+//    p_hist2D.SetContour(50);
+//    p_hist2D.SetStats(0);
+//    p_hist2D.GetYaxis()->SetTitleOffset(1.3);
 
-    p_hist2D.DrawCopy(draw_options.c_str());
-    //delete p_output;
+//    gStyle->SetPalette(1);
+//    gStyle->SetOptStat(0);
+////    gPad->SetLogz();
+//    gPad->SetRightMargin(0.115);
+//    gPad->SetLeftMargin(0.115);
+//    if( hasMinimum() ) p_hist2D.SetMinimum(m_hist_min);
+//    if( hasMaximum() ) p_hist2D.SetMaximum(m_hist_max);
+
+//    p_hist2D.DrawCopy(draw_options.c_str());
+//    //delete p_output;
+
+    TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(output, "p_hist2D");
+    h2->SetTitle(histogram_title.c_str());
+    h2->DrawCopy(draw_options.c_str());
+    delete h2;
 }
 
 
@@ -119,12 +125,6 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
             histo_axises[i_axis].push_back( (*axis)[i_bin] - dx/2.);
         }
         histo_axises[i_axis].push_back((*axis)[axis->getSize()-1] + dx/2.); // right bin edge of last bin
-//        std::cout << "XXX " << histo_axises[i_axis].size() << " " << (*axis)[i_axis] << std::endl;
-//        for(size_t i=0; i<histo_axises[i_axis].size(); ++i) {
-//            std::cout << " i " << i << " " << histo_axises[i_axis][i];
-//            if(i < axis->getSize()) std::cout << " " << (*axis)[i];
-//            std::cout << std::endl;
-//        }
     }
 
     // creation of 2D histogram with variable bin size

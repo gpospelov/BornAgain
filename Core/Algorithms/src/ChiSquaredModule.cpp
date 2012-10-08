@@ -1,7 +1,7 @@
 #include "ChiSquaredModule.h"
 
 ChiSquaredModule::ChiSquaredModule(const OutputData<double>& real_data)
-: mp_simulation_data(0)
+    : mp_simulation_data(0), m_chi2_value(0)
 {
     mp_real_data = real_data.clone();
     mp_data_selector = new DefaultAllDataSelector();
@@ -55,5 +55,6 @@ double ChiSquaredModule::calculateChiSquared(
                 m_simulation_data_vector[index]);
         result += squared_value*m_weights[index];
     }
+    m_chi2_value = result;
     return result;
 }

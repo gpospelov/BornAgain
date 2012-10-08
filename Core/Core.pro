@@ -110,8 +110,7 @@ SOURCES += \
     PythonAPI/src/PythonListConverter.cpp \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp \
-    PythonAPI/src/PythonOutputData.cpp \
-    Tools/src/IMinimizer.cpp
+    PythonAPI/src/PythonOutputData.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -205,7 +204,9 @@ HEADERS += \
     Tools/inc/FitSuite.h \
     Tools/inc/IDoubleToComplexFunction.h \
     Tools/inc/IFactory.h \
+    Tools/inc/IMinimizer.h \
     Tools/inc/INamed.h \
+    Tools/inc/IObserver.h \
     Tools/inc/ISingleton.h \
     Tools/inc/IStochasticParameter.h \
     Tools/inc/Macros.h \
@@ -234,8 +235,7 @@ HEADERS += \
     PythonAPI/inc/PythonListConverter.h \
     PythonAPI/inc/PythonModule.h \
     PythonAPI/inc/PythonOutputData.h \
-    PythonAPI/inc/PythonPlusplusHelper.h \
-    Tools/inc/IMinimizer.h
+    PythonAPI/inc/PythonPlusplusHelper.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

@@ -38,7 +38,7 @@ public:
     virtual void execute();
 
 private:
-    void initializeExperiment();
+    void initializeExperiment(const OutputData<double> *output_data=0);
     void initializeSample();
 
     MesoCrystal* createMesoCrystal(double stacking_radius, complex_t n_particle, const IFormFactor* p_meso_form_factor);

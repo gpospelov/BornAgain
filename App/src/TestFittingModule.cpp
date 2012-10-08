@@ -10,78 +10,123 @@
 #include "LayerDecorator.h"
 #include "Particle.h"
 #include "FormFactors.h"
+#include "Exceptions.h"
+#include "DrawHelper.h"
+#include "FittingHelper.h"
 
-#include "Math/GSLMinimizer.h"
-#include "Minuit2/Minuit2Minimizer.h"
-#include "Math/Functor.h"
+#include "IObserver.h"
+#include "FitSuite.h"
+#include "ChiSquaredModule.h"
+#include "ROOTMinimizer.h"
 
-MultiLayer *gp_fit_sample = 0;
+#include "TROOT.h"
+#include "TCanvas.h"
+#include "TLatex.h"
+#include "TPaveText.h"
+
+
+
 
 TestFittingModule::TestFittingModule()
 : mp_exact_data(0)
 , mp_real_data(0)
 , mp_simulated_data(0)
+, mp_experiment(0)
 , mp_sample(0)
 {
 }
+
 
 TestFittingModule::~TestFittingModule()
 {
     delete mp_exact_data;
     delete mp_real_data;
     delete mp_simulated_data;
+    delete mp_experiment;
     delete mp_sample;
 }
 
+
 void TestFittingModule::execute()
 {
-    // Generate exact sample simulation
-    if (mp_exact_data) delete mp_exact_data;
+
+    // initializing data
     initializeSample();
-    gp_fit_sample = dynamic_cast<MultiLayer *>(mp_sample);
-    GISASExperiment experiment;
-    experiment.setSample(mp_sample);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree
-            ,100 , 0.0*Units::degree, 2.0*Units::degree);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    experiment.runSimulation();
-    mp_exact_data = experiment.getOutputDataClone();
-    // Generate noisy version
-    generateRealData(0.2);
-    // Perform the actual fitting
-    //   Initialize global data:
-    Fitting::p_experiment = &experiment;
-    ChiSquaredModule csm(*mp_real_data);
-    Fitting::p_chi_squared_module = &csm;
-    ParameterPool *p_param_pool = mp_sample->createParameterTree();
-    std::cout << *p_param_pool;
-    FitMultiParameter fmp1;
-    fmp1.addParameterFromPool("/MultiLayer/Layer0/thickness", p_param_pool);
-    Fitting::fit_params.push_back(&fmp1);
-    //   Execute the fitting with ROOT:
-    ROOT::Minuit2::Minuit2Minimizer min ( ROOT::Minuit2::kMigrad );
-//    ROOT::Math::GSLMinimizer min;
-    min.SetMaxFunctionCalls(1000000);
-    min.SetMaxIterations(100000);
-    min.SetTolerance(0.001);
+    initializeExperiment();
+    generateRealData(0.1);
 
-    ROOT::Math::Functor f(&Fitting::functionToMinimize, 1);
-    double step[1] = { 5*Units::nanometer };
-    double variable[1] = { 12*Units::nanometer };
+//    mp_sample->walk_and_print();
+//    ParameterPool *pool = mp_sample->createParameterTree();
+//    std::cout << *pool << std::endl;
+//    return;
 
-    min.SetFunction(f);
+    // drawing initial data
+    std::string canvas_name("TestFittingModule_c1");
+    TCanvas *c1 = new TCanvas(canvas_name.c_str(), "Test of the fitting suite", 768, 1024);
+    c1->Divide(2,3);
+    IsGISAXSTools::setMinimum(1.);
+    // exact data
+    c1->cd(1); gPad->SetLogz();
+    IsGISAXSTools::drawOutputDataInPad(*mp_exact_data, "CONT4 Z", "exact data");
+    // real data
+    c1->cd(2); gPad->SetLogz();
+    IsGISAXSTools::drawOutputDataInPad(*mp_real_data, "CONT4 Z", "real data");
+\
+    // setting fitSuite
+    FitSuite *fitSuite = new FitSuite();
+    fitSuite->setExperiment(mp_experiment);
+    fitSuite->setRealData(*mp_real_data);
+    fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    fitSuite->addFitParameter("/MultiLayer/Layer0/thickness", 12*Units::nanometer, 1*Units::nanometer, TRange<double>(1.0, 20.0) );
+    fitSuite->addFitParameter("*/FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, TRange<double>(1.0, 20.0) );
 
-      // Set the free variables to be minimized!
-    min.SetVariable(0,"x",variable[0], step[0]);
+    FittingHelper::ObserveAndDraw *observer = new FittingHelper::ObserveAndDraw(canvas_name);
+    fitSuite->attachObserver(observer);
 
-    min.Minimize();
-    mp_simulated_data = experiment.getOutputDataClone();
+    fitSuite->runFit();
 
-    std::cout << "Layer thickness fit: " << min.X()[0] << " nanometer" << std::endl;
+    std::cout << "------ RESULTS ---------" << std::endl;
+    std::cout << "FitSuite > MinValue:" << fitSuite->getMinimizer()->getMinValue() << " " << fitSuite->getMinimizer()->getValueOfVariableAtMinimum(0) << std::endl;
+    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
+        std::cout << *(*it) << std::endl;
+    }
+    // another way to get results
+    std::cout << "ROOTMinimizer >" << std::endl;
+    ROOTMinimizer *min = dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer());
+    std::cout << min->getROOTMinimizer()->MinValue() << " " << min->getROOTMinimizer()->NCalls() << std::endl;
+    std::cout << min->getROOTMinimizer()->X()[0] << std::endl;
 
-    IsGISAXSTools::drawLogOutputData(*mp_real_data, "c1_test_fitting", "fitting", "CONT4 Z", "fitting");
+    c1->cd(6);
+    TPaveText *pt = new TPaveText(.05,.1,.95,.8);
+    char str[256];
+    sprintf(str,"Results");
+    pt->AddText(str);
+    sprintf(str,"chi2 %e",fitSuite->getMinimizer()->getMinValue());
+    pt->AddText(str);
+    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
+        sprintf(str,"%s %f", (*it)->getName().c_str(),  (*it)->getValue());
+        pt->AddText(str);
+    }
+    pt->Draw();
+
+
+//    IsGISAXSTools::drawLogOutputData(*mp_exact_data, "c1_test_fitting", "fitting", "CONT4 Z", "fitting");
 //    IsGISAXSTools::writeOutputDataToFile(*mp_real_data, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-10/para1dcyl.ima");
 }
+
+
+void TestFittingModule::initializeExperiment()
+{
+
+    delete mp_experiment;
+    mp_experiment = new GISASExperiment();
+    mp_experiment->setSample(mp_sample);
+    mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
+    mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    mp_experiment->setBeamIntensity(1e10);
+}
+
+
 
 void TestFittingModule::initializeSample()
 {
@@ -115,14 +160,19 @@ void TestFittingModule::initializeSample()
     mp_sample = p_multi_layer;
 }
 
+
+/* ************************************************************************* */
+// generate real data
+/* ************************************************************************* */
 void TestFittingModule::generateRealData(double noise_factor)
 {
-    if (mp_exact_data==0) {
-        return;
-    }
-    if (mp_real_data) {
-        delete mp_real_data;
-    }
+    if(mp_exact_data) delete mp_exact_data;
+
+    mp_experiment->runSimulation();
+    mp_experiment->normalize();
+    mp_exact_data = mp_experiment->getOutputDataClone();
+    if (mp_real_data) delete mp_real_data;
+
     mp_real_data = mp_exact_data->clone();
     mp_real_data->resetIndex();
     while (mp_real_data->hasNext()) {
@@ -134,20 +184,3 @@ void TestFittingModule::generateRealData(double noise_factor)
     }
 }
 
-GISASExperiment *Fitting::p_experiment = 0;
-ChiSquaredModule *Fitting::p_chi_squared_module = 0;
-std::vector<FitMultiParameter *> Fitting::fit_params;
-
-double Fitting::functionToMinimize(const double* p_params)
-{
-    for (size_t i=0; i<Fitting::fit_params.size(); ++i) {
-        std::cout << "param " << i+1 << ": " << p_params[i] << std::endl;
-        Fitting::fit_params[i]->setValue(p_params[i]);
-    }
-    std::cout << "thickness of layer 1: " << gp_fit_sample->getLayer(1)->getThickness() << std::endl;
-    Fitting::p_experiment->runSimulation();
-    const OutputData<double> *p_simulated_data = Fitting::p_experiment->getOutputData();
-    double chi_squared = Fitting::p_chi_squared_module->calculateChiSquared(p_simulated_data);
-    std::cout << "chi squared = " << chi_squared << std::endl;
-    return chi_squared;
-}

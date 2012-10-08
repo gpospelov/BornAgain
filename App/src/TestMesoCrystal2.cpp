@@ -24,9 +24,11 @@
 #include "SampleFactory.h"
 #include "FitMultiParameter.h"
 #include "TRange.h"
+#include "FittingHelper.h"
 
 #include "TCanvas.h"
 #include "TH2D.h"
+
 
 
 TestMesoCrystal2::TestMesoCrystal2() : m_sample(0), m_experiment(0)
@@ -47,32 +49,49 @@ TestMesoCrystal2::~TestMesoCrystal2()
 /* ************************************************************************* */
 void TestMesoCrystal2::execute()
 {
-    initializeExperiment();
+    std::string canvas_name("TestMesoCrystal2_c1");
+    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas(canvas_name.c_str(), canvas_name.c_str(), 768, 1024);
+    c1->Divide(2,3);
 
-//    m_sample->walk_and_print();
-//    ParameterPool *p_param_pool = m_sample->createParameterTree();
-//    std::cout << *p_param_pool;
-//    return;
+    // reading data file
+    //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
+    std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
+    OutputDataReader *reader = OutputDataIOFactory::instance().getReader(file_name);
+    OutputData<double > *real_data = reader->getOutputData();
+    delete reader;
+    c1->cd(1); gPad->SetLogz();
+    IsGISAXSTools::drawOutputDataInPad(*real_data, "CONT4 Z", "experiment");
+    c1->Update();
 
-    m_experiment->runSimulation();
-    m_experiment->normalize();
 
-    OutputData<double > *m_real_data = m_experiment->getOutputDataClone();
 
-//    IsGISAXSTools::setMinimum(1.);
-//    IsGISAXSTools::drawLogOutputData(*(m_experiment->getOutputDataClone()), "c1_test_meso_crystal", "mesocrystal","CONT4 Z", "mesocrystal");
-    //mp_exact_data = experiment.getOutputDataClone();
-//    return;
+//    m_experiment->runSimulation();
+//    m_experiment->normalize();
+//    OutputData<double > *m_real_data = m_experiment->getOutputDataClone();
+
+    // initializing experiment using real data to have detector axises like in real_data
+    initializeExperiment(real_data);
+    m_sample->walk_and_print();
+    ParameterPool *pool = m_sample->createParameterTree();
+    std::cout << *pool << std::endl;
+
 
     // setting fitSuite
     FitSuite *fitSuite = new FitSuite();
-    fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
     fitSuite->setExperiment(m_experiment);
-    fitSuite->setRealData(*m_real_data);
-    //fitSuite->addFitParameter("*alpha",0.5, 0.1);
-    fitSuite->addFitParameter("*height",2.0, 0.1, TRange<double>(1.0, 10.0) );
+    fitSuite->setRealData(*real_data);
+    fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    fitSuite->addFitParameter("/MultiLayer/LayerInterface1/roughness/sigma", 0.1, 0.05, TRange<double>(0.0, 10.0) );
+
+    FittingHelper::ObserveAndDraw *observer = new FittingHelper::ObserveAndDraw(canvas_name);
+    fitSuite->attachObserver(observer);
+
     fitSuite->runFit();
 
+    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
+        std::cout << (*it) << std::endl;
+
+    }
 
 }
 
@@ -80,20 +99,27 @@ void TestMesoCrystal2::execute()
 /* ************************************************************************* */
 //
 /* ************************************************************************* */
-void TestMesoCrystal2::initializeExperiment()
+void TestMesoCrystal2::initializeExperiment(const OutputData<double> *output_data)
 {
     delete m_experiment;
-    //initializeSample();
-
-    m_sample = SampleFactory::instance().createItem("IsGISAXS9_Pyramid");
+    initializeSample();
 
     m_experiment = new GISASExperiment();
     m_experiment->setSample( m_sample );
-    m_experiment->setDetectorParameters(200, 0.3*Units::degree, 0.073, 200, -0.4*Units::degree, 0.066);
     m_experiment->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     m_experiment->setBeamIntensity(1e10);
-}
 
+    if( !output_data ) {
+        // initialize default detector
+        m_experiment->setDetectorParameters(200, 0.3*Units::degree, 0.073, 200, -0.4*Units::degree, 0.066);
+    } else {
+        // if there is output_data as input parameter, build detector using output_data axises
+        const NamedVector<double> *axis0 = reinterpret_cast<const NamedVector<double>*>(output_data->getAxes()[0]);
+        const NamedVector<double> *axis1 = reinterpret_cast<const NamedVector<double>*>(output_data->getAxes()[1]);
+
+        m_experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
+    }
+}
 
 
 /* ************************************************************************* */

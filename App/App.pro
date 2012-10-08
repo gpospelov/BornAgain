@@ -13,13 +13,16 @@ include($$PWD/../shared.pri)
 # Our source and headers
 # -----------------------------------------------------------------------------
 SOURCES += \
-    src/main.cpp \
+    src/AppOptionsDescription.cpp \
     src/CommandLine.cpp \
     src/DrawHelper.cpp \
     src/EventFrame.cpp \
+    src/FittingHelper.cpp \
     src/FunctionalTestFactory.cpp \
     src/IFunctionalTest.cpp \
     src/IsGISAXSTools.cpp \
+    src/main.cpp \
+    src/ROOTMinimizer.cpp \
     src/SampleFactory.cpp \
     src/StandardSamples.cpp \
     src/TestConvolution.cpp \
@@ -34,25 +37,26 @@ SOURCES += \
     src/TestIsGISAXS9.cpp \
     src/TestIsGISAXS10.cpp \
     src/TestIsGISAXS11.cpp \
+    src/TestMesoCrystal1.cpp \
     src/TestMesoCrystal2.cpp \
     src/TestMiscellaneous.cpp \
     src/TestMultiLayerRoughness.cpp \
     src/TestPerformance.cpp \
     src/TestRootTree.cpp \
-    src/TestRoughness.cpp \
-    src/AppOptionsDescription.cpp \
-    src/TestMesoCrystal1.cpp \
-    src/ROOTMinimizer.cpp
+    src/TestRoughness.cpp
 
 HEADERS += \
     inc/App.h \
     inc/AppLinkDef.h \
+    inc/AppOptionsDescription.h \
     inc/CommandLine.h \
     inc/DrawHelper.h \
     inc/EventFrame.h \
     inc/FunctionalTestFactory.h \
+    inc/FittingHelper.h \
     inc/IFunctionalTest.h \
     inc/IsGISAXSTools.h \
+    inc/ROOTMinimizer.h \
     inc/SampleFactory.h \
     inc/StandardSamples.h \
     inc/TestConvolution.h \
@@ -67,15 +71,13 @@ HEADERS += \
     inc/TestIsGISAXS9.h \
     inc/TestIsGISAXS10.h \
     inc/TestIsGISAXS11.h \
+    inc/TestMesoCrystal1.h \
     inc/TestMesoCrystal2.h \
     inc/TestMiscellaneous.h \
     inc/TestMultiLayerRoughness.h \
     inc/TestPerformance.h \
     inc/TestRootTree.h \
-    inc/TestRoughness.h \
-    inc/AppOptionsDescription.h \
-    inc/TestMesoCrystal1.h \
-    inc/ROOTMinimizer.h
+    inc/TestRoughness.h
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
 DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc

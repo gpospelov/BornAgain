@@ -4,7 +4,7 @@
 
 ParticleInfo::ParticleInfo(Particle* p_particle, Geometry::Transform3D *transform, double depth, double abundance)
 : mp_particle(p_particle)
-, m_transform(transform)
+, mp_transform(transform)
 , m_depth(depth)
 , m_abundance(abundance)
 {
@@ -17,7 +17,7 @@ ParticleInfo::ParticleInfo(Particle* p_particle, Geometry::Transform3D *transfor
 ParticleInfo::~ParticleInfo()
 {
     delete mp_particle;
-    delete m_transform;
+    delete mp_transform;
 }
 
 
@@ -35,6 +35,6 @@ void ParticleInfo::init_parameters()
 ParticleInfo *ParticleInfo::clone() const
 {
     Geometry::Transform3D *transform(0);
-    if(m_transform) transform = new Geometry::Transform3D(*m_transform);
+    if(mp_transform) transform = new Geometry::Transform3D(*mp_transform);
     return new ParticleInfo(mp_particle->clone(), transform, m_depth, m_abundance);
 }

@@ -37,13 +37,25 @@ public:
     const Particle *getParticle() const { return mp_particle; }
 
     //! return particle transformation
-    const Geometry::Transform3D *getTransform3D() const { return m_transform; }
+    const Geometry::Transform3D *getTransform3D() const { return mp_transform; }
+
+    //! set particle transformation
+    void setTransform(const Geometry::Transform3D &transform) {
+        delete mp_transform;
+        mp_transform = new Geometry::Transform3D(transform);
+    }
 
     //! return particle depth
     double getDepth() const { return m_depth;}
 
+    //! set particle depth
+    void setDepth(double depth) { m_depth = depth; }
+
     //! return particle abundance
     double getAbundance() const { return m_abundance; }
+
+    //! set particle abundance
+    void setAbundance(double abundance) { m_abundance = abundance; }
 
 protected:
     ParticleInfo &operator=(const ParticleInfo &right);
@@ -53,7 +65,7 @@ protected:
     virtual void init_parameters();
 
     Particle *mp_particle;
-    Geometry::Transform3D *m_transform;
+    Geometry::Transform3D *mp_transform;
     double m_depth;
     double m_abundance;
 };

@@ -30,6 +30,8 @@ public:
     //! return radius of sphere
     double getRadius() const { return m_radius; }
 
+    virtual double getHeight() const { return 2.0*m_radius; }
+
 protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 

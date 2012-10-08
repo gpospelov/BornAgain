@@ -28,6 +28,9 @@ public:
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
+    virtual double getHeight() const { return m_height; }
+
+
 protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 

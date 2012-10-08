@@ -49,7 +49,8 @@ public:
 
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
-     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const;
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
+            const ParticleInfo &parent_info) const;
 
 private:
     Lattice m_lattice;

@@ -68,15 +68,15 @@ void TestMesoCrystal1::initializeSample()
 {
     delete mp_sample;
     // create mesocrystal
-    double meso_width = 1000*Units::nanometer;
+    double meso_radius = 1000*Units::nanometer;
     double surface_filling_ratio = 0.25;
-    double surface_density = surface_filling_ratio/M_PI/meso_width/meso_width;
+    double surface_density = surface_filling_ratio/M_PI/meso_radius/meso_radius;
 //    complex_t n_particle(1.0-1.55e-5, 1.37e-6); // data from Artur
     complex_t n_particle(1.0-2.84e-5, 4.7e-7); // data from http://henke.lbl.gov/optical_constants/getdb2.html
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
     complex_t n_avg = std::sqrt(surface_filling_ratio*avg_n_squared_meso + 1.0 - surface_filling_ratio);
     complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
-    FormFactorCylinder ff_cyl(0.5*Units::micrometer, meso_width);
+    FormFactorCylinder ff_cyl(0.5*Units::micrometer, meso_radius);
     double sigma_h = 4*Units::nanometer;
     double sigma_r = 50*Units::nanometer;
     FormFactorDecoratorDebyeWaller ff_meso(ff_cyl.clone(), sigma_h*sigma_h/2.0, sigma_r*sigma_r/2.0);
@@ -135,7 +135,7 @@ void TestMesoCrystal1::initializeSample()
     particle_decoration.addInterferenceFunction(p_interference_funtion);
     LayerDecorator avg_layer_decorator(avg_layer, particle_decoration);
 
-    LayerRoughness roughness(2.0*Units::nanometer, 0.3, 500.0*Units::nanometer);
+    LayerRoughness roughness(1.0*Units::nanometer, 0.3, 500.0*Units::nanometer);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(avg_layer_decorator);

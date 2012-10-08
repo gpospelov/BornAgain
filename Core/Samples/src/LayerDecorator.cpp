@@ -32,27 +32,24 @@ DiffuseDWBASimulation* LayerDecorator::createDiffuseDWBASimulation() const
 {
     DiffuseDWBASimulation *p_sim = new DiffuseDWBASimulation;
     size_t nbr_particles = mp_decoration->getNumberOfParticles();
-    double meso_density = mp_decoration->getTotalParticleSurfaceDensity();
-    double nps_per_meso = 0.0;
-    double total_abundance = 0.0;
+    double particle_density = mp_decoration->getTotalParticleSurfaceDensity();
     for (size_t i=0; i<nbr_particles; ++i) {
         const ParticleInfo *p_info = mp_decoration->getParticleInfo(i);
         std::vector<DiffuseParticleInfo *> *p_diffuse_nps =
                 p_info->getParticle()->createDiffuseParticleInfo(*p_info);
         if (p_diffuse_nps) {
             for (size_t j=0; j<p_diffuse_nps->size(); ++j) {
+                DiffuseParticleInfo *p_diff_info = (*p_diffuse_nps)[j];
+                p_diff_info->setNumberPerMeso(particle_density*p_info->getAbundance()
+                        *p_diff_info->getNumberPerMeso());
                 p_sim->addParticleInfo((*p_diffuse_nps)[j]);
-                nps_per_meso += (*p_diffuse_nps)[j]->getNumberPerMeso();
             }
-            total_abundance += p_info->getAbundance();
             delete p_diffuse_nps;
-            break; // TODO: remove this (temporarely to increase speed)
+            break; // TODO: remove this break (this necessitates the creation of a phi-averaged mesocrystal class generating only one nanoparticle for diffuse calculations)
         }
     }
     if (p_sim->getSize()>0) {
         p_sim->setRefractiveIndex(getRefractiveIndex());
-        p_sim->setSurfaceDensity(meso_density*nps_per_meso);
-        p_sim->rescaleAbundances(1.0/total_abundance);
         return p_sim;
     }
     delete p_sim;

@@ -16,35 +16,12 @@ DiffuseDWBASimulation::~DiffuseDWBASimulation()
 
 void DiffuseDWBASimulation::run()
 {
-//    complex_t k_iz = -mp_kz_function->evaluate(-m_alpha_i);
-    size_t number_of_nps = m_np_infos.size();
-    std::vector<IFormFactor *> form_factors;
-    // collect all particle formfactors and create dwba formfactors for these
-    for (size_t np_index=0; np_index<number_of_nps; ++np_index) {
-        ParticleInfo *p_np_info = m_np_infos[np_index];
-        Particle *p_np = p_np_info->getParticle()->clone();
-        double depth = p_np_info->getDepth();
-
-        p_np->setAmbientRefractiveIndex(m_refractive_index);
-        IFormFactor *ff_particle = p_np->createFormFactor();
-        delete p_np;
-        // TODO: include geometric transformation?
-//        IFormFactor  *ff_transformed(0);
-//        if(transform) {
-//            ff_transformed = new FormFactorDecoratorTransformation(ff_particle, new Geometry::Transform3D(*transform));
-//        } else{
-//            ff_transformed = ff_particle;
-//        }
-
-        FormFactorDWBAConstZ *p_dwba_z = new FormFactorDWBAConstZ(ff_particle, depth);
-        p_dwba_z->setReflectionFunction(*mp_R_function);
-        p_dwba_z->setTransmissionFunction(*mp_T_function);
-
-        form_factors.push_back(p_dwba_z);
-    }
-
+    std::vector<DiffuseFormFactorTerm *> diffuse_terms;
+    size_t nbr_heights = 50;
+    size_t samples_per_particle = 9;
+    initDiffuseFormFactorTerms(diffuse_terms, nbr_heights, samples_per_particle);
     double wavevector_scattering_factor = M_PI/getWaveLength()/getWaveLength();
-//    m_dwba_intensity.resetIndex();
+
     resetIndex();
     while ( hasNext() ) {
         if( (int)m_output_data_mask.currentValue() !=1 ) {
@@ -63,21 +40,22 @@ void DiffuseDWBASimulation::run()
         k_f.setLambdaAlphaPhi(getWaveLength(), alpha_f, phi_f);
         k_f.setZ(mp_kz_function->evaluate(alpha_f));
 
-        complex_t amplitude(0.0, 0.0);
-        double intensity = 0.0;
-        for (size_t i=0; i<form_factors.size(); ++i) {
-            double weight = m_np_infos[i]->getAbundance();
-            complex_t amp = form_factors[i]->evaluate(m_ki, k_f, -m_alpha_i, alpha_f);
-            amplitude += weight*amp;
-            intensity += weight*std::norm(amp);
+        double total_intensity = 0.0;
+        for (size_t i=0; i<diffuse_terms.size(); ++i) {
+            DiffuseFormFactorTerm *p_diffuse_term = diffuse_terms[i];
+            complex_t amplitude(0.0, 0.0);
+            double intensity = 0.0;
+            for (size_t j=0; j<p_diffuse_term->m_form_factors.size(); ++j) {
+                complex_t amp = p_diffuse_term->m_form_factors[j]->evaluate(m_ki, k_f, -m_alpha_i, alpha_f);
+                amplitude += p_diffuse_term->m_probabilities[j]*amp;
+                intensity += p_diffuse_term->m_probabilities[j]*std::norm(amp);
+            }
+            total_intensity += p_diffuse_term->m_factor*(intensity - std::norm(amplitude));
         }
-//        m_dwba_intensity.next() = m_surface_density*wavevector_scattering_factor*wavevector_scattering_factor
-//                *(intensity - std::norm(amplitude));
-        next() = m_surface_density*wavevector_scattering_factor*wavevector_scattering_factor*(intensity - std::norm(amplitude));
+        next() = total_intensity*wavevector_scattering_factor*wavevector_scattering_factor;
     }
 
-    for (size_t i=0; i<form_factors.size(); ++i) delete form_factors[i];
-
+    for (size_t i=0; i<diffuse_terms.size(); ++i) delete diffuse_terms[i];
 }
 
 void DiffuseDWBASimulation::addParticleInfo(DiffuseParticleInfo *p_info)
@@ -90,5 +68,43 @@ void DiffuseDWBASimulation::rescaleAbundances(double factor)
     size_t number_of_nps = m_np_infos.size();
     for (size_t np_index=0; np_index<number_of_nps; ++np_index) {
         m_np_infos[np_index]->scaleAbundance(factor);
+    }
+}
+
+void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
+        std::vector<DiffuseFormFactorTerm*>& terms, size_t nbr_heights,
+        size_t samples_per_particle)
+{
+    size_t number_of_nps = m_np_infos.size();
+    for (size_t i=0; i<number_of_nps; ++i) {
+        DiffuseParticleInfo *p_diff_info = m_np_infos[i];
+        Particle *p_particle = p_diff_info->getParticle()->clone();
+        double total_particle_density = p_diff_info->getNumberPerMeso();
+        double density_per_height_per_particle = total_particle_density/nbr_heights;
+        for (size_t j=0; j<nbr_heights; ++j) {
+            DiffuseFormFactorTerm *p_diffuse_term = new DiffuseFormFactorTerm;
+            p_diffuse_term->m_factor = density_per_height_per_particle;
+            double depth = p_diff_info->getDepth() - (double)j*p_diff_info->getHeightRange()/(nbr_heights-1.0);
+            std::vector<IFormFactor *> form_factors;
+            p_diff_info->getParticle()->getSimpleFormFactor()->createDistributedFormFactors(
+                    form_factors, p_diffuse_term->m_probabilities, samples_per_particle);
+            for (size_t ff_index=0; ff_index<form_factors.size(); ++ff_index) {
+                p_particle->setSimpleFormFactor(form_factors[ff_index]);
+                IFormFactor *ff_particle = p_particle->createFormFactor();
+                FormFactorDWBAConstZ *p_dwba_z = new FormFactorDWBAConstZ(ff_particle, depth);
+                p_dwba_z->setReflectionFunction(*mp_R_function);
+                p_dwba_z->setTransmissionFunction(*mp_T_function);
+                p_diffuse_term->m_form_factors.push_back(p_dwba_z);
+            }
+            terms.push_back(p_diffuse_term);
+        }
+        delete p_particle;
+    }
+}
+
+DiffuseDWBASimulation::DiffuseFormFactorTerm::~DiffuseFormFactorTerm()
+{
+    for (size_t i=0; i<m_form_factors.size(); ++i) {
+        delete m_form_factors[i];
     }
 }

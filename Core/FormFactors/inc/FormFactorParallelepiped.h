@@ -29,12 +29,11 @@ public:
     //! return radius of parallelepiped
     double getRadius() const { return m_radius; }
 
-    //! return height of parallelepiped
-    double getHeight() const { return m_height; }
-
     virtual double getVolume() const {
         return 4.0*m_height*m_radius*m_radius;
     }
+
+    virtual double getHeight() const { return m_height; }
 
 
 protected:

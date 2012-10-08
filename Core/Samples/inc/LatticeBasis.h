@@ -37,7 +37,7 @@ public:
     size_t getNbrParticles() const {return m_particles.size(); }
 
     //! return number of positions for particle with index
-    size_t getNbrPositionsForParticle(size_t index) { return m_positions_vector[check_index(index)].size(); }
+    size_t getNbrPositionsForParticle(size_t index) const { return m_positions_vector[check_index(index)].size(); }
 
     //! return position of element with given index
 //    kvector_t getPosition(size_t index) const { return m_positions[check_index(index)]; }
@@ -46,6 +46,9 @@ public:
     const Particle *getParticle(size_t index) const { return m_particles[check_index(index)]; }
 
     std::vector<kvector_t> getParticlePositions(size_t index) const { return m_positions_vector[check_index(index)]; }
+
+    //! create vector of size/shape distributed particles corresponding to the particle with index i
+    std::vector<DiffuseParticleInfo *> createDiffuseParticleInfos() const;
 
 private:
     //! check index

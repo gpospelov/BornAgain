@@ -64,6 +64,18 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         return FormFactorPyramid::clone( );
     }
 
+    virtual double getHeight(  ) const  {
+        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
+            return func_getHeight(  );
+        else{
+            return this->FormFactorPyramid::getHeight(  );
+        }
+    }
+    
+    double default_getHeight(  ) const  {
+        return FormFactorPyramid::getHeight( );
+    }
+
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
@@ -88,7 +100,7 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -96,7 +108,7 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -110,18 +122,6 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
     }
 
     virtual double getVolume(  ) const  {
@@ -218,6 +218,10 @@ void register_classes_2(){
             , (::FormFactorPyramid * ( FormFactorPyramid_wrapper::* )(  ) const)(&FormFactorPyramid_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "getHeight"
+            , (double ( ::FormFactorPyramid::* )(  ) const)(&::FormFactorPyramid::getHeight)
+            , (double ( FormFactorPyramid_wrapper::* )(  ) const)(&FormFactorPyramid_wrapper::default_getHeight) )    
+        .def( 
             "getNumberOfStochasticParameters"
             , (int ( ::FormFactorPyramid::* )(  ) const)(&::FormFactorPyramid::getNumberOfStochasticParameters)
             , (int ( FormFactorPyramid_wrapper::* )(  ) const)(&FormFactorPyramid_wrapper::default_getNumberOfStochasticParameters) )    
@@ -229,18 +233,14 @@ void register_classes_2(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( FormFactorPyramid_wrapper::* )(  ) )(&FormFactorPyramid_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorPyramid_wrapper::* )(  ) const)(&FormFactorPyramid_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
             , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
             , (::complex_t ( FormFactorPyramid_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorPyramid_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
-        .def( 
-            "getHeight"
-            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getHeight)
-            , (double ( FormFactorPyramid_wrapper::* )(  ) const)(&FormFactorPyramid_wrapper::default_getHeight) )    
         .def( 
             "getVolume"
             , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)

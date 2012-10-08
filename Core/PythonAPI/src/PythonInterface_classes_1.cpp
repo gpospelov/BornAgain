@@ -72,7 +72,7 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
         return ISample::clone( );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -80,7 +80,7 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -119,7 +119,7 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
         return ISample::clone( );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -127,7 +127,7 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -188,7 +188,7 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         func_setAmbientRefractiveIndex( refractive_index );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -196,7 +196,7 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -278,7 +278,7 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         Crystal::setAmbientRefractiveIndex( refractive_index );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -286,7 +286,7 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -430,7 +430,7 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         IFormFactor::setAmbientRefractiveIndex( refractive_index );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -438,7 +438,7 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -499,7 +499,7 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -507,7 +507,7 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -630,7 +630,7 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -638,7 +638,7 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -737,6 +737,18 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         return FormFactorCylinder::clone( );
     }
 
+    virtual double getHeight(  ) const  {
+        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
+            return func_getHeight(  );
+        else{
+            return this->FormFactorCylinder::getHeight(  );
+        }
+    }
+    
+    double default_getHeight(  ) const  {
+        return FormFactorCylinder::getHeight( );
+    }
+
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
@@ -761,7 +773,7 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -769,7 +781,7 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -783,18 +795,6 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
     }
 
     virtual double getVolume(  ) const  {
@@ -875,6 +875,18 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
         return FormFactorFullSphere::clone( );
     }
 
+    virtual double getHeight(  ) const  {
+        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
+            return func_getHeight(  );
+        else{
+            return this->FormFactorFullSphere::getHeight(  );
+        }
+    }
+    
+    double default_getHeight(  ) const  {
+        return FormFactorFullSphere::getHeight( );
+    }
+
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
@@ -899,7 +911,7 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -907,7 +919,7 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -921,18 +933,6 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
     }
 
     virtual double getVolume(  ) const  {
@@ -1037,7 +1037,7 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -1045,7 +1045,7 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -1175,7 +1175,7 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -1183,7 +1183,7 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -1282,6 +1282,18 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         return FormFactorPrism3::clone( );
     }
 
+    virtual double getHeight(  ) const  {
+        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
+            return func_getHeight(  );
+        else{
+            return this->FormFactorPrism3::getHeight(  );
+        }
+    }
+    
+    double default_getHeight(  ) const  {
+        return FormFactorPrism3::getHeight( );
+    }
+
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
@@ -1306,7 +1318,7 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) {
+    virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
@@ -1314,7 +1326,7 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         }
     }
     
-    ::ParameterPool * default_createParameterTree(  ) {
+    ::ParameterPool * default_createParameterTree(  ) const  {
         return ISample::createParameterTree( );
     }
 
@@ -1328,18 +1340,6 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
     }
 
     virtual double getVolume(  ) const  {
@@ -1456,8 +1456,8 @@ void register_classes_1(){
         }
         { //::ISample::createParameterTree
         
-            typedef ::ParameterPool * ( ::ISample::*createParameterTree_function_type )(  ) ;
-            typedef ::ParameterPool * ( ISample_wrapper::*default_createParameterTree_function_type )(  ) ;
+            typedef ::ParameterPool * ( ::ISample::*createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ISample_wrapper::*default_createParameterTree_function_type )(  ) const;
             
             ISample_exposer.def( 
                 "createParameterTree"
@@ -1499,8 +1499,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ICompositeSample_wrapper::* )(  ) const)(&ICompositeSample_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "walk_and_print"
@@ -1530,8 +1530,8 @@ void register_classes_1(){
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( IClusteredParticles_wrapper::* )(  ) )(&IClusteredParticles_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( IClusteredParticles_wrapper::* )(  ) const)(&IClusteredParticles_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "walk_and_print"
@@ -1578,8 +1578,8 @@ void register_classes_1(){
             , ( bp::arg("dw_factor") ) )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( Crystal_wrapper::* )(  ) )(&Crystal_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( Crystal_wrapper::* )(  ) const)(&Crystal_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "walk_and_print"
@@ -1646,8 +1646,8 @@ void register_classes_1(){
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( IFormFactor_wrapper::* )(  ) )(&IFormFactor_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( IFormFactor_wrapper::* )(  ) const)(&IFormFactor_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "walk_and_print"
@@ -1676,8 +1676,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( IFormFactorBorn_wrapper::* )(  ) )(&IFormFactorBorn_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( IFormFactorBorn_wrapper::* )(  ) const)(&IFormFactorBorn_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getHeight"
@@ -1724,8 +1724,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( FormFactorCrystal_wrapper::* )(  ) )(&FormFactorCrystal_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorCrystal_wrapper::* )(  ) const)(&FormFactorCrystal_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
@@ -1760,6 +1760,10 @@ void register_classes_1(){
             , (::FormFactorCylinder * ( FormFactorCylinder_wrapper::* )(  ) const)(&FormFactorCylinder_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "getHeight"
+            , (double ( ::FormFactorCylinder::* )(  ) const)(&::FormFactorCylinder::getHeight)
+            , (double ( FormFactorCylinder_wrapper::* )(  ) const)(&FormFactorCylinder_wrapper::default_getHeight) )    
+        .def( 
             "getNumberOfStochasticParameters"
             , (int ( ::FormFactorCylinder::* )(  ) const)(&::FormFactorCylinder::getNumberOfStochasticParameters)
             , (int ( FormFactorCylinder_wrapper::* )(  ) const)(&FormFactorCylinder_wrapper::default_getNumberOfStochasticParameters) )    
@@ -1771,18 +1775,14 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( FormFactorCylinder_wrapper::* )(  ) )(&FormFactorCylinder_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorCylinder_wrapper::* )(  ) const)(&FormFactorCylinder_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
             , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
             , (::complex_t ( FormFactorCylinder_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorCylinder_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
-        .def( 
-            "getHeight"
-            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getHeight)
-            , (double ( FormFactorCylinder_wrapper::* )(  ) const)(&FormFactorCylinder_wrapper::default_getHeight) )    
         .def( 
             "getVolume"
             , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
@@ -1808,6 +1808,10 @@ void register_classes_1(){
             , (::FormFactorFullSphere * ( FormFactorFullSphere_wrapper::* )(  ) const)(&FormFactorFullSphere_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "getHeight"
+            , (double ( ::FormFactorFullSphere::* )(  ) const)(&::FormFactorFullSphere::getHeight)
+            , (double ( FormFactorFullSphere_wrapper::* )(  ) const)(&FormFactorFullSphere_wrapper::default_getHeight) )    
+        .def( 
             "getNumberOfStochasticParameters"
             , (int ( ::FormFactorFullSphere::* )(  ) const)(&::FormFactorFullSphere::getNumberOfStochasticParameters)
             , (int ( FormFactorFullSphere_wrapper::* )(  ) const)(&FormFactorFullSphere_wrapper::default_getNumberOfStochasticParameters) )    
@@ -1822,18 +1826,14 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( FormFactorFullSphere_wrapper::* )(  ) )(&FormFactorFullSphere_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorFullSphere_wrapper::* )(  ) const)(&FormFactorFullSphere_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
             , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
             , (::complex_t ( FormFactorFullSphere_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorFullSphere_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
-        .def( 
-            "getHeight"
-            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getHeight)
-            , (double ( FormFactorFullSphere_wrapper::* )(  ) const)(&FormFactorFullSphere_wrapper::default_getHeight) )    
         .def( 
             "getVolume"
             , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
@@ -1871,8 +1871,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( FormFactorGauss_wrapper::* )(  ) )(&FormFactorGauss_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorGauss_wrapper::* )(  ) const)(&FormFactorGauss_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
@@ -1920,8 +1920,8 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( FormFactorLorentz_wrapper::* )(  ) )(&FormFactorLorentz_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
@@ -1957,6 +1957,10 @@ void register_classes_1(){
             , (::FormFactorPrism3 * ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "getHeight"
+            , (double ( ::FormFactorPrism3::* )(  ) const)(&::FormFactorPrism3::getHeight)
+            , (double ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_getHeight) )    
+        .def( 
             "getNumberOfStochasticParameters"
             , (int ( ::FormFactorPrism3::* )(  ) const)(&::FormFactorPrism3::getNumberOfStochasticParameters)
             , (int ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_getNumberOfStochasticParameters) )    
@@ -1968,18 +1972,14 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) )(&::ISample::createParameterTree)
-            , (::ParameterPool * ( FormFactorPrism3_wrapper::* )(  ) )(&FormFactorPrism3_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
             , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
             , (::complex_t ( FormFactorPrism3_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorPrism3_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
-        .def( 
-            "getHeight"
-            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getHeight)
-            , (double ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_getHeight) )    
         .def( 
             "getVolume"
             , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)

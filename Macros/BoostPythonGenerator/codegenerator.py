@@ -58,6 +58,8 @@ myFiles=[
   'ParticleDecoration.h',
   'OpticalFresnel.h',
   'ParameterPool.h',
+  'ParticleInfo.h',
+  'DiffuseParticleInfo.h',
   'PythonOutputData.h',
   'PythonPlusplusHelper.h',
   'Transform3D.h',
@@ -340,6 +342,9 @@ def RulesMultiLayer(mb):
 # -------------------------------------------------------------------
 def RulesParticle(mb):
   cl = mb.class_( "Particle" )
+  cl.member_function( "createDiffuseParticleInfo" ).exclude()
+  cl.member_function( "createDistributedParticles" ).exclude()
+
   #cl.member_functions( ).exclude() # excluding all member functions, leaving only constructors
   #for fun in cl.constructors(): # excluding constructors which have pointers
     #for arg in fun.arguments:

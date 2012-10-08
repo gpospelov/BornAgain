@@ -40,6 +40,9 @@ public:
     //! get the range of height
     double getHeightRange() const { return m_height_range; }
 protected:
+    DiffuseParticleInfo &operator=(const DiffuseParticleInfo &right);
+    DiffuseParticleInfo(const DiffuseParticleInfo &source);
+
     double m_number_per_meso;
     double m_height_range;
 

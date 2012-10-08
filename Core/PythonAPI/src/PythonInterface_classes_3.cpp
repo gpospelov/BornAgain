@@ -34,6 +34,8 @@
 #include "ParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
+#include "ParticleInfo.h"
+#include "DiffuseParticleInfo.h"
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
@@ -337,30 +339,6 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return Particle::clone( );
     }
 
-    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
-        if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
-            return func_createDiffuseParticleInfo( boost::ref(parent_info) );
-        else{
-            return this->Particle::createDiffuseParticleInfo( boost::ref(parent_info) );
-        }
-    }
-    
-    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
-        return Particle::createDiffuseParticleInfo( boost::ref(parent_info) );
-    }
-
-    virtual ::std::vector< ParticleInfo* > createDistributedParticles( ::size_t samples_per_particle, double factor ) const  {
-        if( bp::override func_createDistributedParticles = this->get_override( "createDistributedParticles" ) )
-            return func_createDistributedParticles( samples_per_particle, factor );
-        else{
-            return this->Particle::createDistributedParticles( samples_per_particle, factor );
-        }
-    }
-    
-    ::std::vector< ParticleInfo* > default_createDistributedParticles( ::size_t samples_per_particle, double factor ) const  {
-        return Particle::createDistributedParticles( samples_per_particle, factor );
-    }
-
     virtual ::IFormFactor * createFormFactor(  ) const  {
         if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
             return func_createFormFactor(  );
@@ -454,30 +432,6 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
       , bp::wrapper< LatticeBasis >(){
         // null constructor
     
-    }
-
-    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
-        if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
-            return func_createDiffuseParticleInfo( boost::ref(parent_info) );
-        else{
-            return this->Particle::createDiffuseParticleInfo( boost::ref(parent_info) );
-        }
-    }
-    
-    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
-        return Particle::createDiffuseParticleInfo( boost::ref(parent_info) );
-    }
-
-    virtual ::std::vector< ParticleInfo* > createDistributedParticles( ::size_t samples_per_particle, double factor ) const  {
-        if( bp::override func_createDistributedParticles = this->get_override( "createDistributedParticles" ) )
-            return func_createDistributedParticles( samples_per_particle, factor );
-        else{
-            return this->Particle::createDistributedParticles( samples_per_particle, factor );
-        }
-    }
-    
-    ::std::vector< ParticleInfo* > default_createDistributedParticles( ::size_t samples_per_particle, double factor ) const  {
-        return Particle::createDistributedParticles( samples_per_particle, factor );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -874,18 +828,6 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
     
     }
 
-    virtual ::std::vector< ParticleInfo* > createDistributedParticles( ::size_t samples_per_particle, double factor ) const  {
-        if( bp::override func_createDistributedParticles = this->get_override( "createDistributedParticles" ) )
-            return func_createDistributedParticles( samples_per_particle, factor );
-        else{
-            return this->Particle::createDistributedParticles( samples_per_particle, factor );
-        }
-    }
-    
-    ::std::vector< ParticleInfo* > default_createDistributedParticles( ::size_t samples_per_particle, double factor ) const  {
-        return Particle::createDistributedParticles( samples_per_particle, factor );
-    }
-
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -1031,6 +973,9 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
 };
 
 void register_classes_3(){
+
+    bp::class_< Geometry::TranslateY3D, bp::bases< Geometry::Translate3D > >( "TranslateY3D", bp::init< >() )    
+        .def( bp::init< double >(( bp::arg("y") )) );
 
     bp::class_< Geometry::TranslateZ3D, bp::bases< Geometry::Translate3D > >( "TranslateZ3D", bp::init< >() )    
         .def( bp::init< double >(( bp::arg("z") )) );
@@ -1234,18 +1179,6 @@ void register_classes_3(){
             , (::Particle * ( Particle_wrapper::* )(  ) const)(&Particle_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
-            "createDiffuseParticleInfo"
-            , (::std::vector< DiffuseParticleInfo* > * ( ::Particle::* )( ::ParticleInfo const & ) const)(&::Particle::createDiffuseParticleInfo)
-            , (::std::vector< DiffuseParticleInfo* > * ( Particle_wrapper::* )( ::ParticleInfo const & ) const)(&Particle_wrapper::default_createDiffuseParticleInfo)
-            , ( bp::arg("parent_info") )
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "createDistributedParticles"
-            , (::std::vector< ParticleInfo* > ( ::Particle::* )( ::size_t,double ) const)(&::Particle::createDistributedParticles)
-            , (::std::vector< ParticleInfo* > ( Particle_wrapper::* )( ::size_t,double ) const)(&Particle_wrapper::default_createDistributedParticles)
-            , ( bp::arg("samples_per_particle"), bp::arg("factor") )
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
             "createFormFactor"
             , (::IFormFactor * ( ::Particle::* )(  ) const)(&::Particle::createFormFactor)
             , (::IFormFactor * ( Particle_wrapper::* )(  ) const)(&Particle_wrapper::default_createFormFactor)
@@ -1283,18 +1216,6 @@ void register_classes_3(){
             "addParticle"
             , (void ( ::LatticeBasis::* )( ::Particle const &,::std::vector< Geometry::BasicVector3D<double> > ) )( &::LatticeBasis::addParticle )
             , ( bp::arg("particle"), bp::arg("positions") ) )    
-        .def( 
-            "createDiffuseParticleInfo"
-            , (::std::vector< DiffuseParticleInfo* > * ( ::Particle::* )( ::ParticleInfo const & ) const)(&::Particle::createDiffuseParticleInfo)
-            , (::std::vector< DiffuseParticleInfo* > * ( LatticeBasis_wrapper::* )( ::ParticleInfo const & ) const)(&LatticeBasis_wrapper::default_createDiffuseParticleInfo)
-            , ( bp::arg("parent_info") )
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "createDistributedParticles"
-            , (::std::vector< ParticleInfo* > ( ::Particle::* )( ::size_t,double ) const)(&::Particle::createDistributedParticles)
-            , (::std::vector< ParticleInfo* > ( LatticeBasis_wrapper::* )( ::size_t,double ) const)(&LatticeBasis_wrapper::default_createDistributedParticles)
-            , ( bp::arg("samples_per_particle"), bp::arg("factor") )
-            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
@@ -1549,12 +1470,6 @@ void register_classes_3(){
         .def( bp::self_ns::str( bp::self ) );
 
     bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) )    
-        .def( 
-            "createDistributedParticles"
-            , (::std::vector< ParticleInfo* > ( ::Particle::* )( ::size_t,double ) const)(&::Particle::createDistributedParticles)
-            , (::std::vector< ParticleInfo* > ( MesoCrystal_wrapper::* )( ::size_t,double ) const)(&MesoCrystal_wrapper::default_createDistributedParticles)
-            , ( bp::arg("samples_per_particle"), bp::arg("factor") )
-            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)

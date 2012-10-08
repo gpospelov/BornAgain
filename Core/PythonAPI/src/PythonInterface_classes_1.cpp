@@ -35,6 +35,8 @@
 #include "ParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
+#include "ParticleInfo.h"
+#include "DiffuseParticleInfo.h"
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"
@@ -276,6 +278,86 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     
     void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         Crystal::setAmbientRefractiveIndex( refractive_index );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) const  {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) const  {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
+struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
+
+    virtual ::ParticleInfo * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->ParticleInfo::clone(  );
+        }
+    }
+    
+    ::ParticleInfo * default_clone(  ) const  {
+        return ParticleInfo::clone( );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) const  {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->ISample::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) const  {
+        return ISample::createParameterTree( );
+    }
+
+    virtual void walk_and_print(  ) {
+        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
+            func_walk_and_print(  );
+        else{
+            this->ISample::walk_and_print(  );
+        }
+    }
+    
+    void default_walk_and_print(  ) {
+        ISample::walk_and_print( );
+    }
+
+};
+
+struct DiffuseParticleInfo_wrapper : DiffuseParticleInfo, bp::wrapper< DiffuseParticleInfo > {
+
+    virtual ::ParticleInfo * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->ParticleInfo::clone(  );
+        }
+    }
+    
+    ::ParticleInfo * default_clone(  ) const  {
+        return ParticleInfo::clone( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -1123,275 +1205,6 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
 
 };
 
-struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLorentz > {
-
-    FormFactorLorentz_wrapper(double volume )
-    : FormFactorLorentz( volume )
-      , bp::wrapper< FormFactorLorentz >(){
-        // constructor
-    
-    }
-
-    FormFactorLorentz_wrapper(double height, double width )
-    : FormFactorLorentz( height, width )
-      , bp::wrapper< FormFactorLorentz >(){
-        // constructor
-    
-    }
-
-    virtual ::FormFactorLorentz * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->FormFactorLorentz::clone(  );
-        }
-    }
-    
-    ::FormFactorLorentz * default_clone(  ) const  {
-        return FormFactorLorentz::clone( );
-    }
-
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorLorentz::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorLorentz::getNumberOfStochasticParameters( );
-    }
-
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
-        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
-            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else{
-            this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        }
-    }
-    
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
-        IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->ISample::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
-    }
-
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
-        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-        else{
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-        }
-    }
-    
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
-    }
-
-    virtual double getVolume(  ) const  {
-        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
-            return func_getVolume(  );
-        else{
-            return this->IFormFactor::getVolume(  );
-        }
-    }
-    
-    double default_getVolume(  ) const  {
-        return IFormFactor::getVolume( );
-    }
-
-    virtual bool isDistributedFormFactor(  ) const  {
-        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
-            return func_isDistributedFormFactor(  );
-        else{
-            return this->IFormFactor::isDistributedFormFactor(  );
-        }
-    }
-    
-    bool default_isDistributedFormFactor(  ) const  {
-        return IFormFactor::isDistributedFormFactor( );
-    }
-
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
-        else{
-            this->IFormFactor::setAmbientRefractiveIndex( refractive_index );
-        }
-    }
-    
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        IFormFactor::setAmbientRefractiveIndex( refractive_index );
-    }
-
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
-        else{
-            this->ISample::walk_and_print(  );
-        }
-    }
-    
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
-    }
-
-};
-
-struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism3 > {
-
-    FormFactorPrism3_wrapper(double height, double half_side )
-    : FormFactorPrism3( height, half_side )
-      , bp::wrapper< FormFactorPrism3 >(){
-        // constructor
-    
-    }
-
-    virtual ::FormFactorPrism3 * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->FormFactorPrism3::clone(  );
-        }
-    }
-    
-    ::FormFactorPrism3 * default_clone(  ) const  {
-        return FormFactorPrism3::clone( );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->FormFactorPrism3::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return FormFactorPrism3::getHeight( );
-    }
-
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorPrism3::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorPrism3::getNumberOfStochasticParameters( );
-    }
-
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
-        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
-            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else{
-            this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        }
-    }
-    
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
-        IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->ISample::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
-    }
-
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
-        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-        else{
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-        }
-    }
-    
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-    }
-
-    virtual double getVolume(  ) const  {
-        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
-            return func_getVolume(  );
-        else{
-            return this->IFormFactor::getVolume(  );
-        }
-    }
-    
-    double default_getVolume(  ) const  {
-        return IFormFactor::getVolume( );
-    }
-
-    virtual bool isDistributedFormFactor(  ) const  {
-        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
-            return func_isDistributedFormFactor(  );
-        else{
-            return this->IFormFactor::isDistributedFormFactor(  );
-        }
-    }
-    
-    bool default_isDistributedFormFactor(  ) const  {
-        return IFormFactor::isDistributedFormFactor( );
-    }
-
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
-        else{
-            this->IFormFactor::setAmbientRefractiveIndex( refractive_index );
-        }
-    }
-    
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        IFormFactor::setAmbientRefractiveIndex( refractive_index );
-    }
-
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
-        else{
-            this->ISample::walk_and_print(  );
-        }
-    }
-    
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
-    }
-
-};
-
 void register_classes_1(){
 
     { //::std::vector< double >
@@ -1399,13 +1212,6 @@ void register_classes_1(){
         vdouble1d_t_exposer_t vdouble1d_t_exposer = vdouble1d_t_exposer_t( "vdouble1d_t" );
         bp::scope vdouble1d_t_scope( vdouble1d_t_exposer );
         vdouble1d_t_exposer.def( bp::vector_indexing_suite< ::std::vector< double >, true >() );
-    }
-
-    { //::std::vector< ParticleInfo* >
-        typedef bp::class_< std::vector< ParticleInfo* > > vector_less__ParticleInfo_ptr___greater__exposer_t;
-        vector_less__ParticleInfo_ptr___greater__exposer_t vector_less__ParticleInfo_ptr___greater__exposer = vector_less__ParticleInfo_ptr___greater__exposer_t( "vector_less__ParticleInfo_ptr___greater_" );
-        bp::scope vector_less__ParticleInfo_ptr___greater__scope( vector_less__ParticleInfo_ptr___greater__exposer );
-        vector_less__ParticleInfo_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< ParticleInfo* > >() );
     }
 
     { //::std::vector< OpticalFresnel::FresnelCoeff >
@@ -1585,6 +1391,265 @@ void register_classes_1(){
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( Crystal_wrapper::* )(  ) )(&Crystal_wrapper::default_walk_and_print) );
+
+    { //::Geometry::Transform3D
+        typedef bp::class_< Geometry::Transform3D > Transform3D_exposer_t;
+        Transform3D_exposer_t Transform3D_exposer = Transform3D_exposer_t( "Transform3D", bp::init< >() );
+        bp::scope Transform3D_scope( Transform3D_exposer );
+        bp::class_< Geometry::Transform3D::Transform3D_row, boost::noncopyable >( "Transform3D_row", bp::no_init );
+        Transform3D_exposer.def( bp::init< Geometry::Transform3D const & >(( bp::arg("m") )) );
+        { //::Geometry::Transform3D::dx
+        
+            typedef double ( ::Geometry::Transform3D::*dx_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "dx"
+                , dx_function_type( &::Geometry::Transform3D::dx ) );
+        
+        }
+        { //::Geometry::Transform3D::dy
+        
+            typedef double ( ::Geometry::Transform3D::*dy_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "dy"
+                , dy_function_type( &::Geometry::Transform3D::dy ) );
+        
+        }
+        { //::Geometry::Transform3D::dz
+        
+            typedef double ( ::Geometry::Transform3D::*dz_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "dz"
+                , dz_function_type( &::Geometry::Transform3D::dz ) );
+        
+        }
+        { //::Geometry::Transform3D::getDecomposition
+        
+            typedef void ( ::Geometry::Transform3D::*getDecomposition_function_type )( ::Geometry::Scale3D &,::Geometry::Rotate3D &,::Geometry::Translate3D & ) const;
+            
+            Transform3D_exposer.def( 
+                "getDecomposition"
+                , getDecomposition_function_type( &::Geometry::Transform3D::getDecomposition )
+                , ( bp::arg("scale"), bp::arg("rotation"), bp::arg("translation") ) );
+        
+        }
+        { //::Geometry::Transform3D::inverse
+        
+            typedef ::Geometry::Transform3D ( ::Geometry::Transform3D::*inverse_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "inverse"
+                , inverse_function_type( &::Geometry::Transform3D::inverse ) );
+        
+        }
+        { //::Geometry::Transform3D::isNear
+        
+            typedef bool ( ::Geometry::Transform3D::*isNear_function_type )( ::Geometry::Transform3D const &,double ) const;
+            
+            Transform3D_exposer.def( 
+                "isNear"
+                , isNear_function_type( &::Geometry::Transform3D::isNear )
+                , ( bp::arg("t"), bp::arg("tolerance")=2.20000000000000009206578920655319378310295179435041035276e-14 ) );
+        
+        }
+        Transform3D_exposer.def( bp::self != bp::self );
+        { //::Geometry::Transform3D::operator()
+        
+            typedef double ( ::Geometry::Transform3D::*__call___function_type )( int,int ) const;
+            
+            Transform3D_exposer.def( 
+                "__call__"
+                , __call___function_type( &::Geometry::Transform3D::operator() )
+                , ( bp::arg("arg0"), bp::arg("arg1") ) );
+        
+        }
+        Transform3D_exposer.def( bp::self * bp::self );
+        { //::Geometry::Transform3D::operator=
+        
+            typedef ::Geometry::Transform3D & ( ::Geometry::Transform3D::*assign_function_type )( ::Geometry::Transform3D const & ) ;
+            
+            Transform3D_exposer.def( 
+                "assign"
+                , assign_function_type( &::Geometry::Transform3D::operator= )
+                , ( bp::arg("m") )
+                , bp::return_self< >() );
+        
+        }
+        Transform3D_exposer.def( bp::self == bp::self );
+        { //::Geometry::Transform3D::setIdentity
+        
+            typedef void ( ::Geometry::Transform3D::*setIdentity_function_type )(  ) ;
+            
+            Transform3D_exposer.def( 
+                "setIdentity"
+                , setIdentity_function_type( &::Geometry::Transform3D::setIdentity ) );
+        
+        }
+        { //::Geometry::Transform3D::xx
+        
+            typedef double ( ::Geometry::Transform3D::*xx_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "xx"
+                , xx_function_type( &::Geometry::Transform3D::xx ) );
+        
+        }
+        { //::Geometry::Transform3D::xy
+        
+            typedef double ( ::Geometry::Transform3D::*xy_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "xy"
+                , xy_function_type( &::Geometry::Transform3D::xy ) );
+        
+        }
+        { //::Geometry::Transform3D::xz
+        
+            typedef double ( ::Geometry::Transform3D::*xz_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "xz"
+                , xz_function_type( &::Geometry::Transform3D::xz ) );
+        
+        }
+        { //::Geometry::Transform3D::yx
+        
+            typedef double ( ::Geometry::Transform3D::*yx_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "yx"
+                , yx_function_type( &::Geometry::Transform3D::yx ) );
+        
+        }
+        { //::Geometry::Transform3D::yy
+        
+            typedef double ( ::Geometry::Transform3D::*yy_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "yy"
+                , yy_function_type( &::Geometry::Transform3D::yy ) );
+        
+        }
+        { //::Geometry::Transform3D::yz
+        
+            typedef double ( ::Geometry::Transform3D::*yz_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "yz"
+                , yz_function_type( &::Geometry::Transform3D::yz ) );
+        
+        }
+        { //::Geometry::Transform3D::zx
+        
+            typedef double ( ::Geometry::Transform3D::*zx_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "zx"
+                , zx_function_type( &::Geometry::Transform3D::zx ) );
+        
+        }
+        { //::Geometry::Transform3D::zy
+        
+            typedef double ( ::Geometry::Transform3D::*zy_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "zy"
+                , zy_function_type( &::Geometry::Transform3D::zy ) );
+        
+        }
+        { //::Geometry::Transform3D::zz
+        
+            typedef double ( ::Geometry::Transform3D::*zz_function_type )(  ) const;
+            
+            Transform3D_exposer.def( 
+                "zz"
+                , zz_function_type( &::Geometry::Transform3D::zz ) );
+        
+        }
+        Transform3D_exposer.def_readonly( "Identity", Geometry::Transform3D::Identity );
+    }
+
+    bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "ParticleInfo", bp::no_init )    
+        .def( 
+            "clone"
+            , (::ParticleInfo * ( ::ParticleInfo::* )(  ) const)(&::ParticleInfo::clone)
+            , (::ParticleInfo * ( ParticleInfo_wrapper::* )(  ) const)(&ParticleInfo_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getAbundance"
+            , (double ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getAbundance ) )    
+        .def( 
+            "getDepth"
+            , (double ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getDepth ) )    
+        .def( 
+            "getParticle"
+            , (::Particle const * ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getParticle )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getTransform3D"
+            , (::Geometry::Transform3D const * ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getTransform3D )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "setAbundance"
+            , (void ( ::ParticleInfo::* )( double ) )( &::ParticleInfo::setAbundance )
+            , ( bp::arg("abundance") ) )    
+        .def( 
+            "setDepth"
+            , (void ( ::ParticleInfo::* )( double ) )( &::ParticleInfo::setDepth )
+            , ( bp::arg("depth") ) )    
+        .def( 
+            "setTransform"
+            , (void ( ::ParticleInfo::* )( ::Geometry::Transform3D const & ) )( &::ParticleInfo::setTransform )
+            , ( bp::arg("transform") ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ParticleInfo_wrapper::* )(  ) const)(&ParticleInfo_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( ParticleInfo_wrapper::* )(  ) )(&ParticleInfo_wrapper::default_walk_and_print) );
+
+    bp::class_< DiffuseParticleInfo_wrapper, bp::bases< ParticleInfo >, boost::noncopyable >( "DiffuseParticleInfo", bp::no_init )    
+        .def( 
+            "getHeightRange"
+            , (double ( ::DiffuseParticleInfo::* )(  ) const)( &::DiffuseParticleInfo::getHeightRange ) )    
+        .def( 
+            "getNumberPerMeso"
+            , (double ( ::DiffuseParticleInfo::* )(  ) const)( &::DiffuseParticleInfo::getNumberPerMeso ) )    
+        .def( 
+            "scaleAbundance"
+            , (void ( ::DiffuseParticleInfo::* )( double ) )( &::DiffuseParticleInfo::scaleAbundance )
+            , ( bp::arg("factor") ) )    
+        .def( 
+            "scaleNumberPerMeso"
+            , (void ( ::DiffuseParticleInfo::* )( double ) )( &::DiffuseParticleInfo::scaleNumberPerMeso )
+            , ( bp::arg("factor") ) )    
+        .def( 
+            "setHeightRange"
+            , (void ( ::DiffuseParticleInfo::* )( double ) )( &::DiffuseParticleInfo::setHeightRange )
+            , ( bp::arg("height_range") ) )    
+        .def( 
+            "setNumberPerMeso"
+            , (void ( ::DiffuseParticleInfo::* )( double ) )( &::DiffuseParticleInfo::setNumberPerMeso )
+            , ( bp::arg("n") ) )    
+        .def( 
+            "clone"
+            , (::ParticleInfo * ( ::ParticleInfo::* )(  ) const)(&::ParticleInfo::clone)
+            , (::ParticleInfo * ( DiffuseParticleInfo_wrapper::* )(  ) const)(&DiffuseParticleInfo_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( DiffuseParticleInfo_wrapper::* )(  ) const)(&DiffuseParticleInfo_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "walk_and_print"
+            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
+            , (void ( DiffuseParticleInfo_wrapper::* )(  ) )(&DiffuseParticleInfo_wrapper::default_walk_and_print) );
 
     bp::class_< Experiment_wrapper, boost::noncopyable >( "Experiment", bp::init< >() )    
         .def( 
@@ -1900,102 +1965,5 @@ void register_classes_1(){
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( FormFactorGauss_wrapper::* )(  ) )(&FormFactorGauss_wrapper::default_walk_and_print) );
-
-    bp::class_< FormFactorLorentz_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorLorentz", bp::init< double >(( bp::arg("volume") )) )    
-        .def( bp::init< double, double >(( bp::arg("height"), bp::arg("width") )) )    
-        .def( 
-            "clone"
-            , (::FormFactorLorentz * ( ::FormFactorLorentz::* )(  ) const)(&::FormFactorLorentz::clone)
-            , (::FormFactorLorentz * ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_clone)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "getNumberOfStochasticParameters"
-            , (int ( ::FormFactorLorentz::* )(  ) const)(&::FormFactorLorentz::getNumberOfStochasticParameters)
-            , (int ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_getNumberOfStochasticParameters) )    
-        .def( 
-            "createDistributedFormFactors"
-            , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
-            , (void ( FormFactorLorentz_wrapper::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&FormFactorLorentz_wrapper::default_createDistributedFormFactors)
-            , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
-            , (::ParameterPool * ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorLorentz_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorLorentz_wrapper::default_evaluate)
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
-        .def( 
-            "getHeight"
-            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getHeight)
-            , (double ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_getHeight) )    
-        .def( 
-            "getVolume"
-            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
-            , (double ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_getVolume) )    
-        .def( 
-            "isDistributedFormFactor"
-            , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
-            , (bool ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_isDistributedFormFactor) )    
-        .def( 
-            "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
-            , (void ( FormFactorLorentz_wrapper::* )( ::complex_t ) )(&FormFactorLorentz_wrapper::default_setAmbientRefractiveIndex)
-            , ( bp::arg("refractive_index") ) )    
-        .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( FormFactorLorentz_wrapper::* )(  ) )(&FormFactorLorentz_wrapper::default_walk_and_print) );
-
-    bp::class_< FormFactorPrism3_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorPrism3", bp::init< double, double >(( bp::arg("height"), bp::arg("half_side") )) )    
-        .def( 
-            "clone"
-            , (::FormFactorPrism3 * ( ::FormFactorPrism3::* )(  ) const)(&::FormFactorPrism3::clone)
-            , (::FormFactorPrism3 * ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_clone)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "getHeight"
-            , (double ( ::FormFactorPrism3::* )(  ) const)(&::FormFactorPrism3::getHeight)
-            , (double ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_getHeight) )    
-        .def( 
-            "getNumberOfStochasticParameters"
-            , (int ( ::FormFactorPrism3::* )(  ) const)(&::FormFactorPrism3::getNumberOfStochasticParameters)
-            , (int ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_getNumberOfStochasticParameters) )    
-        .def( 
-            "createDistributedFormFactors"
-            , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
-            , (void ( FormFactorPrism3_wrapper::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&FormFactorPrism3_wrapper::default_createDistributedFormFactors)
-            , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
-            , (::ParameterPool * ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorPrism3_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorPrism3_wrapper::default_evaluate)
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
-        .def( 
-            "getVolume"
-            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
-            , (double ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_getVolume) )    
-        .def( 
-            "isDistributedFormFactor"
-            , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
-            , (bool ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_isDistributedFormFactor) )    
-        .def( 
-            "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
-            , (void ( FormFactorPrism3_wrapper::* )( ::complex_t ) )(&FormFactorPrism3_wrapper::default_setAmbientRefractiveIndex)
-            , ( bp::arg("refractive_index") ) )    
-        .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( FormFactorPrism3_wrapper::* )(  ) )(&FormFactorPrism3_wrapper::default_walk_and_print) );
 
 }

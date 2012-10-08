@@ -41,12 +41,29 @@ public:
 
     virtual double getVolume() const;
 
+    virtual double getHeight() const;
+
+    virtual bool isDistributedFormFactor() const { return false; }
+
+    virtual void createDistributedFormFactors(std::vector<IFormFactor *> &form_factors,
+            std::vector<double> &probabilities, size_t nbr_samples) const {
+        (void)form_factors;
+        (void)probabilities;
+        (void)nbr_samples;
+    }
+
 };
 
 inline double IFormFactor::getVolume() const
 {
     cvector_t zero;
     return std::abs(evaluate(zero, zero, 0.0, 0.0));
+}
+
+inline double IFormFactor::getHeight() const
+{
+    double result = std::pow(getVolume(), 1.0/3.0);
+    return result;
 }
 
 class IFormFactorDecorator : public IFormFactor
@@ -57,6 +74,9 @@ public:
     virtual IFormFactorDecorator *clone() const=0;
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index) { if (mp_form_factor) mp_form_factor->setAmbientRefractiveIndex(refractive_index); }
+
+    virtual double getHeight() const { return mp_form_factor->getHeight(); }
+
 protected:
     IFormFactor *mp_form_factor;
 };

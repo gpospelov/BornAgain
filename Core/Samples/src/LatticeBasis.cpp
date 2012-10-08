@@ -1,6 +1,7 @@
 #include "LatticeBasis.h"
 #include "FormFactorWeighted.h"
 #include "FormFactorDecoratorMultiPositionFactor.h"
+#include "DiffuseParticleInfo.h"
 
 LatticeBasis::LatticeBasis()
 : Particle(complex_t(1.0, 0.0))
@@ -61,7 +62,6 @@ void LatticeBasis::setAmbientRefractiveIndex(complex_t refractive_index)
 
 IFormFactor* LatticeBasis::createFormFactor() const
 {
-    // TODO: for equal particles, create position superposition times the formfactor
     FormFactorWeighted *p_ff = new FormFactorWeighted();
     for (size_t index=0; index<m_particles.size(); ++index) {
         IFormFactor *p_particle_ff = m_particles[index]->createFormFactor();
@@ -71,4 +71,19 @@ IFormFactor* LatticeBasis::createFormFactor() const
     }
     p_ff->setAmbientRefractiveIndex(m_ambient_refractive_index);
     return p_ff;
+}
+
+std::vector<DiffuseParticleInfo *> LatticeBasis::createDiffuseParticleInfos() const
+{
+    std::vector<DiffuseParticleInfo *> result;
+    for (size_t index=0; index<getNbrParticles(); ++index) {
+        const Particle *p_particle = getParticle(index);
+        if (p_particle->hasDistributedFormFactor()) {
+            DiffuseParticleInfo *p_new_info = new DiffuseParticleInfo(
+                    p_particle->clone());
+            p_new_info->setNumberPerMeso((double)getNbrPositionsForParticle(index));
+            result.push_back(p_new_info);
+        }
+    }
+    return result;
 }

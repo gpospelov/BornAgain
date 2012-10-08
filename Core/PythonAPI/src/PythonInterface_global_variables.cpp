@@ -45,6 +45,14 @@ namespace bp = boost::python;
 
 void register_global_variables(){
 
+    bp::scope().attr("PI") = Units::PI;
+
+    bp::scope().attr("PI2") = Units::PI2;
+
+    bp::scope().attr("PID2") = Units::PID2;
+
+    bp::scope().attr("PI_SQR") = Units::PI_SQR;
+
     bp::scope().attr("angstrom") = Units::angstrom;
 
     bp::scope().attr("deg") = Units::deg;

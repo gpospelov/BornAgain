@@ -57,7 +57,7 @@ public:
             registerChild(mp_form_factor);
         }
     }
-    
+
     //! return refractive index of the particle
     virtual const complex_t getRefractiveIndex() const {
         return m_refractive_index;
@@ -71,6 +71,10 @@ public:
         (void)parent_info;
         return 0;
     }
+
+    virtual bool hasDistributedFormFactor() const { return mp_form_factor->isDistributedFormFactor(); }
+
+    virtual std::vector<ParticleInfo *> createDistributedParticles(size_t samples_per_particle, double factor) const;
 
 protected:
     complex_t m_ambient_refractive_index;

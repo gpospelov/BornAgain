@@ -33,8 +33,15 @@ public:
 
     //! get number of particles per containing mesocrystal
     double getNumberPerMeso() const { return m_number_per_meso; }
+
+    //! set the range of height
+    void setHeightRange(double height_range) { m_height_range = height_range; }
+
+    //! get the range of height
+    double getHeightRange() const { return m_height_range; }
 protected:
     double m_number_per_meso;
+    double m_height_range;
 
 };
 

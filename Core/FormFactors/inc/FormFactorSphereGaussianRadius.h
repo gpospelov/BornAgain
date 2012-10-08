@@ -1,5 +1,6 @@
 #ifndef FORMFACTORSPHEREGAUSSIANRADIUS_H_
 #define FORMFACTORSPHEREGAUSSIANRADIUS_H_
+#include "MathFunctions.h"
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -22,6 +23,12 @@ public:
     virtual ~FormFactorSphereGaussianRadius();
 
     virtual int getNumberOfStochasticParameters() const;
+    virtual bool isDistributedFormFactor() const { return true; }
+    virtual void createDistributedFormFactors(std::vector<IFormFactor *> &form_factors,
+             std::vector<double> &probabilities, size_t nbr_samples) const;
+
+    virtual double getHeight() const { return p_ff_sphere->getHeight(); }
+
 protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 private:
@@ -69,6 +76,26 @@ inline complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t 
 inline double FormFactorSphereGaussianRadius::calculateMeanR3() const
 {
     return std::pow(m_mean*(m_mean*m_mean+3.0*m_sigma*m_sigma),1.0/3.0);
+}
+
+inline void FormFactorSphereGaussianRadius::createDistributedFormFactors(
+        std::vector<IFormFactor*>& form_factors,
+        std::vector<double>& probabilities, size_t nbr_samples) const
+{
+    double sigma_range = 2.0*m_sigma;
+    double step = 2.0*sigma_range/(nbr_samples-1.0);
+    double radius_start = m_mean-step*(nbr_samples/2);
+    double total_prob = 0.0;
+    for (size_t i=0; i<nbr_samples; ++i) {
+        double radius = radius_start + (double)i*step;
+        double probability = MathFunctions::Gaussian(radius, m_mean, m_sigma);
+        form_factors.push_back(new FormFactorFullSphere(radius));
+        probabilities.push_back(probability);
+        total_prob += probability;
+    }
+    for (size_t i=0; i<probabilities.size(); ++i) {
+        probabilities[i] /= total_prob;
+    }
 }
 
 #endif /* FORMFACTORSPHEREGAUSSIANRADIUS_H_ */

@@ -44,7 +44,7 @@ public:
     //! return minimum function value
     virtual double getMinValue() { return m_root_minimizer->MinValue(); }
 
-    //! return pointer to the parameters values at the minimum
+    //! return value of variable corresponding the minimum of the function
     virtual double getValueOfVariableAtMinimum(size_t i) {
         if(i >= m_root_minimizer->NDim() ) throw OutOfBoundsException("ROOTMinimizer::getVariableAtMinimum() -> Wrong number of the variable");
         return m_root_minimizer->X()[i];

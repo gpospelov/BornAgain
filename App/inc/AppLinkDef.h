@@ -20,7 +20,7 @@
 
 #pragma link C++ class ISingleton<DrawHelper>+;
 #pragma link C++ class DrawHelper+;
-
-#pragma link C++ class EventFrame+;
+#pragma link C++ class TreeEventOutputData+;
+#pragma link C++ class TreeEventFitData+;
 
 #endif

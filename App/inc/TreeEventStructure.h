@@ -1,5 +1,5 @@
-#ifndef EVENTFRAME_H
-#define EVENTFRAME_H
+#ifndef TREEEVENTSTRUCTURE_H
+#define TREEEVENTSTRUCTURE_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,24 +9,27 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   EventFrame.h
-//! @brief  Definition of EventFrame class for writing in root files
+//! @file   TreeEventStructure.h
+//! @brief  Collection of classes to write output data in ROOT trees
 //! @author Scientific Computing Group at FRM II
-//! @date   19.07.2012
-
+//! @date   09.10.2012
 
 #include "TObject.h"
 #include <vector>
+#include <string>
+
+
 
 //- -------------------------------------------------------------------
-//! @class EventFrame
-//! @brief event structure to save in the root file
+//! @class TreeEventOutputData
+//! @brief Data structure respresenting OutputData and mesocrystal settings
+//! for writing/reading in/from the ROOT tree.
 //- -------------------------------------------------------------------
-class EventFrame
+class TreeEventOutputData
 {
 public:
-    EventFrame();
-    virtual ~EventFrame(){}
+    TreeEventOutputData();
+    virtual ~TreeEventOutputData() { }
 
     void clear();
 
@@ -49,9 +52,35 @@ public:
     std::vector<std::vector<double > > valpha_f; // values of alpha_f for the frame
     std::vector<std::vector<double > > vphi_f; // values of phi_f for the frames
 
-    ClassDef(EventFrame,1)
+    ClassDef(TreeEventOutputData,1)
+};
+
+
+//- -------------------------------------------------------------------
+//! @class TreeEventFitData
+//! @brief Represent fit results after each iteration for writing/reading
+//! in/from the ROOT tree
+//- -------------------------------------------------------------------
+class TreeEventFitData
+{
+public:
+    TreeEventFitData();
+    virtual ~TreeEventFitData()  { }
+    void clear();
+
+    int niter; // number of iteration
+    std::vector<std::vector<double > > real_data; // real data
+    std::vector<std::vector<double > > fit_data; // current fit iteration data
+    std::vector<std::vector<double > > diff; // chi2 difference between real and fit data
+    std::vector<std::vector<double > > axis0; // values of phi_f (made in 2D for convenient drawing)
+    std::vector<std::vector<double > > axis1; // values of alpha_f (made in 2D for convenient drawing)
+    double chi2; // current value of the function to minimize
+    std::vector<double> parvalues; // vector of minimization parameters
+    std::vector<std::string> parnames; // names of parameters
+
+    ClassDef(TreeEventFitData,1)
 };
 
 
 
-#endif // EventFrame_H
+#endif // TREEEVENTSTRUCTURE_H

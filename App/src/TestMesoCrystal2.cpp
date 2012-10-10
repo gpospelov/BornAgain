@@ -24,7 +24,7 @@
 #include "SampleFactory.h"
 #include "FitMultiParameter.h"
 #include "TRange.h"
-#include "FittingHelper.h"
+#include "FitSuiteHelper.h"
 
 #include "TCanvas.h"
 #include "TH2D.h"
@@ -83,9 +83,9 @@ void TestMesoCrystal2::execute()
     fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
     fitSuite->addFitParameter("/MultiLayer/LayerInterface1/roughness/sigma", 0.1, 0.05, TRange<double>(0.0, 10.0) );
 
-    FittingHelper::ObserveAndDraw *observer = new FittingHelper::ObserveAndDraw(canvas_name);
-    fitSuite->attachObserver(observer);
-
+    FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
+    fitSuite->attachObserver(drawObserver);
+\
     fitSuite->runFit();
 
     for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {

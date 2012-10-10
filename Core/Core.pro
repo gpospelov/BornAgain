@@ -110,7 +110,8 @@ SOURCES += \
     PythonAPI/src/PythonListConverter.cpp \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp \
-    PythonAPI/src/PythonOutputData.cpp
+    PythonAPI/src/PythonOutputData.cpp \
+    Tools/src/IObserver.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \

@@ -120,3 +120,7 @@
 # current status of the art (not possible to trace what was changed)
 2012-10-08 17:36:40 | jcnsopc73  | macosx64, 2800 MHz      | 270270  | 13.986  | 13.8889 | 4.7619  | 
 2012-10-08 17:37:28 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 13.986  | 13.986  | 4.7619  | 
+2012-10-09 14:00:42 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 14.1844 | 13.986  | 4.7619  |
+
+
+

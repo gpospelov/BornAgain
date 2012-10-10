@@ -34,6 +34,8 @@
 #include "ParticleDecoration.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
+#include "ParticleInfo.h"
+#include "DiffuseParticleInfo.h"
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "Transform3D.h"

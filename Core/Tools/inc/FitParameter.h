@@ -74,8 +74,8 @@ protected:
     double m_value; //! parameter value
     double m_step;  //! parameter step size
     double m_error; //! parameter error
-    bool   m_has_lower_limit; //! paramter has lower bound
-    bool   m_has_upper_limit; //! paramter has upper bound
+    bool   m_has_lower_limit; //! parameter has lower bound
+    bool   m_has_upper_limit; //! parameter has upper bound
     double m_lower_limit; //! minimum allowed value
     double m_upper_limit; //! maximum allowed value
 };

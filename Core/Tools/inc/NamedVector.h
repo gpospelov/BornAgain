@@ -46,6 +46,8 @@ public:
     void push_back(T element) { m_value_vector.push_back(element); }
     T& operator[](size_t index) { return m_value_vector.at(index); }
     const T& operator[](size_t index) const { return m_value_vector.at(index); }
+    T getMin() const { return m_value_vector.front(); }
+    T getMax() const { return m_value_vector.back(); }
 
 private:
     std::vector<T> m_value_vector;

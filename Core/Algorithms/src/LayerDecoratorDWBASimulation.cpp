@@ -81,7 +81,7 @@ std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors()
 
 void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunctionStrategy *p_strategy)
 {
-    std::cout << "Calculating coherent scattering..." << std::endl;
+    //std::cout << "Calculating coherent scattering..." << std::endl;
     double wavelength = getWaveLength();
     double total_surface_density = mp_layer_decorator->getTotalParticleSurfaceDensity();
     resetIndex();
@@ -106,7 +106,7 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunct
 
 void LayerDecoratorDWBASimulation::calculateInCoherentIntensity()
 {
-    std::cout << "Calculating incoherent scattering..." << std::endl;
+    //std::cout << "Calculating incoherent scattering..." << std::endl;
     if (mp_diffuseDWBA) {
         mp_diffuseDWBA->setKzTAndRFunctions(*mp_kz_function, *mp_T_function, *mp_R_function);
         mp_diffuseDWBA->run();

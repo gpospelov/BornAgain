@@ -30,19 +30,16 @@ public:
 
 private:
     void initializeSample();
+    void initializeExperiment();
     void generateRealData(double noise_factor);
+
     OutputData<double> *mp_exact_data;
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulated_data;
+    GISASExperiment *mp_experiment;
     ISample *mp_sample;
 };
 
-namespace Fitting {
-extern GISASExperiment *p_experiment;
-extern ChiSquaredModule *p_chi_squared_module;
-extern std::vector<FitMultiParameter *> fit_params;
-double functionToMinimize(const double *p_params);
-}
 
 
 #endif /* TESTFITTINGMODULE_H_ */

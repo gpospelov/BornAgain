@@ -51,7 +51,7 @@ public:
     void DrawMultilayer(const MultiLayer *sample);
 
     //! create and register canvas
-    TCanvas *createAndRegisterCanvas(std::string name, std::string title);
+    TCanvas *createAndRegisterCanvas(std::string name, std::string title, int xsize=0, int ysize=0);
 
     //! save reports (pdf and ROOT)
     void saveReport();

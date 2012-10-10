@@ -117,3 +117,6 @@
 2012-09-27 11:07:29 | jcnsopc73  | macosx64, 2800 MHz      | 273973  | 18.1818 | 18.018  | 0.4914  | 
 2012-09-27 11:07:52 | jcnsopc73  | macosx64, 2800 MHz      | 273973  | 18.5185 | 18.1818 | 0.49019 |
 
+# current status of the art (not possible to trace what was changed)
+2012-10-08 17:36:40 | jcnsopc73  | macosx64, 2800 MHz      | 270270  | 13.986  | 13.8889 | 4.7619  | 
+2012-10-08 17:37:28 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 13.986  | 13.986  | 4.7619  | 

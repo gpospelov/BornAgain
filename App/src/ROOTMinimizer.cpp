@@ -18,11 +18,6 @@ ROOTMinimizer::~ROOTMinimizer()
 }
 
 
-//void ROOTMinimizer::setVariable(int i, const std::string &name, double value, double step)
-//{
-//    m_root_minimizer->SetVariable(i, name.c_str(), value, step);
-//}
-
 void ROOTMinimizer::setVariable(int i, const FitParameter *par)
 {
     if(par->hasDoubleBound() ) {
@@ -34,7 +29,7 @@ void ROOTMinimizer::setVariable(int i, const FitParameter *par)
     } else if( !par->hasUpperLimit() && !par->hasLowerLimit() ) {
         m_root_minimizer->SetVariable(i, par->getName().c_str(), par->getValue(), par->getStep());
     } else {
-        throw LogicErrorException("ROOTMinimizer::setVariable() -> I wish I knew how I got there...");
+        throw LogicErrorException("ROOTMinimizer::setVariable() -> Strange place... I wish I knew how I got here.");
     }
 }
 

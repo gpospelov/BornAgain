@@ -1,5 +1,5 @@
-#ifndef IMINIMIZER_H
-#define IMINIMIZER_H
+#ifndef FITTINGHELPER_H
+#define FITTINGHELPER_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,40 +9,34 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   IMinimizer.h
-//! @brief  Definition of Minimizer class
+//! @file   FittingHelper.h
+//! @brief  Collection of helper classes for fitting from App
 //! @author Scientific Computing Group at FRM II
-//! @date   05.10.2012
+//! @date   08.10.2012
 
 
-#include "FitParameter.h"
-#include <boost/function.hpp>
+#include "IObserver.h"
+#include <string>
+
+namespace FittingHelper {
 
 
 //- -------------------------------------------------------------------
-//! @class IMinimizer
-//! @brief Common interface for all kind minimizer's
+//! @class ObserveAndDraw
+//! @brief Draw fit progress at the end of each FitSuite's minimization function call
 //- -------------------------------------------------------------------
-class IMinimizer
+class ObserveAndDraw : public IObserver
 {
 public:
-    IMinimizer(){}
-    virtual ~IMinimizer(){}
-
-    //! set variable
-    virtual void setVariable(int i, const FitParameter *par) = 0;
-
-    //! set function to minimize
-    virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1) = 0;
-
-    //! run minimization
-    virtual void minimize() = 0;
-
-    //! return minimum function value
-    virtual double getMinValue() = 0;
-
-    //! return pointer to the parameters values at the minimum
-    virtual double getValueOfVariableAtMinimum(size_t i) = 0;
+    ObserveAndDraw(std::string canvas_name) : m_ncall(0), m_canvas_name(canvas_name) {}
+    void update(IObservable *subject);
+private:
+    int m_ncall; //! number of call of given observer
+    std::string m_canvas_name; //! canvas name were to draw
 };
 
-#endif // IMINIMIZER_H
+
+}
+
+
+#endif // FITTINGHELPER_H

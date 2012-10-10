@@ -58,14 +58,18 @@ public:
     Coordinate3D<int> getNearestReciprocalLatticeVectorCoordinates(const kvector_t &vector_in) const;
 
     //! get a list of lattice vectors within a specified distance of a given vector
-    std::vector<kvector_t> getLatticeVectorsWithinRadius(
-            const kvector_t &input_vector, double radius) const;
+//    std::vector<kvector_t> getLatticeVectorsWithinRadius(
+//            const kvector_t &input_vector, double radius) const;
 
     //! get a list of reciprocal lattice vectors within a specified distance of a given vector
-    std::vector<kvector_t> getReciprocalLatticeVectorsWithinRadius(
+//    std::vector<kvector_t> getReciprocalLatticeVectorsWithinRadius(
+//            const kvector_t &input_vector, double radius) const;
+    void computeReciprocalLatticeVectorsWithinRadius(
             const kvector_t &input_vector, double radius) const;
 
+
     //! get a list of rotation angles within a specified range that hit a maximal set of small Bragg peaks
+    //std::vector<double> collectBraggAngles(size_t size, double max_radius, const TRange<double> &phi_range, const TRange<double> &z_range) const;
     std::vector<double> collectBraggAngles(size_t size, double max_radius, const TRange<double> &phi_range, const TRange<double> &z_range) const;
 
     //! set a selection rule for the reciprocal vectors
@@ -80,12 +84,20 @@ public:
 
     static Lattice createTrigonalLattice(double a, double c);
 
+    const KVectorContainer &getKVectorContainer() const { return m_kvector_container; }
 private:
     Lattice &operator=(const Lattice &lattice);
-    std::vector<kvector_t> getVectorsWithinRadius(const kvector_t &input_vector,
+//    std::vector<kvector_t> getVectorsWithinRadius(const kvector_t &input_vector,
+//            const Coordinate3D<int> &nearest_coords, double radius,
+//            const kvector_t &v1, const kvector_t &v2, const kvector_t &v3,
+//            const kvector_t &rec1, const kvector_t &rec2, const kvector_t &rec3) const;
+
+    void computeVectorsWithinRadius(const kvector_t &input_vector,
             const Coordinate3D<int> &nearest_coords, double radius,
             const kvector_t &v1, const kvector_t &v2, const kvector_t &v3,
             const kvector_t &rec1, const kvector_t &rec2, const kvector_t &rec3) const;
+
+
     void computeReciprocalVectors() const;
     void computeInverseLatticeVectors() const;
     void computeInverseReciprocalLatticeVectors() const;
@@ -95,6 +107,8 @@ private:
     mutable kvector_t m_b1, m_b2, m_b3; //!< Cache of basis vectors in reciprocal space
     mutable kvector_t m_amin1, m_amin2, m_amin3, m_bmin1, m_bmin2, m_bmin3; //!< Cache of inverse vectors for calculation of coordinates
     mutable bool m_cache_ok, m_is_zero; //!< Boolean indicating if the reciprocal vectors are already initialized in the cache
+
+    mutable KVectorContainer m_kvector_container;
 };
 
 

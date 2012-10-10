@@ -16,6 +16,7 @@
 #include "MathFunctions.h"
 #include "OutputDataIOFactory.h"
 #include "Utils.h"
+#include "Types.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -34,11 +35,26 @@ TestMiscellaneous::TestMiscellaneous()
 void TestMiscellaneous::execute()
 {
 
-    test_OutputDataIOFactory();
+    test_KVectorContainer();
+    //test_OutputDataIOFactory();
     //test_FastSin();
     //test_DoubleToComplexInterpolatingFunction();
     //test_FormFactor();
     //test_DrawMesocrystal();
+}
+
+
+/* ************************************************************************* */
+// test of reading of OutputData from ASCII file
+/* ************************************************************************* */
+void TestMiscellaneous::test_KVectorContainer()
+{
+    KVectorContainer cc;
+
+    for(size_t i=0; i<100; ++i) {
+        cc.push_back(kvector_t(i,0,0));
+        cc.print();
+    }
 }
 
 

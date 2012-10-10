@@ -44,6 +44,9 @@ public:
     //! test of reading of OutputData from ASCII file
     void test_OutputDataIOFactory();
 
+    //! test kvector container
+    void test_KVectorContainer();
+
 };
 
 #endif // TESTMISCELLANEOUS_H

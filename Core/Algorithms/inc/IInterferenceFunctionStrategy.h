@@ -29,8 +29,6 @@ public:
             const std::vector<IInterferenceFunction *> &interference_functions);
     virtual double evaluate(const cvector_t &k_i, const cvector_t &k_f,
             double alpha_i, double alpha_f) const=0;
-//    virtual double evaluateForComplexkz(kvector_t k_i, kvector_t k_f,
-//            complex_t k_iz, complex_t k_fz) const=0;
 protected:
     void deleteVectors();
     std::vector<IFormFactor*> m_form_factors; //!< Includes Scattering Length Density

@@ -74,7 +74,6 @@ SOURCES += \
     Samples/src/MaterialManager.cpp \
     Samples/src/MesoCrystal.cpp \
     Samples/src/MultiLayer.cpp \
-    Samples/src/ParameterPool.cpp \
     Samples/src/Particle.cpp \
     Samples/src/ParticleBuilder.cpp \
     Samples/src/ParticleCoreShell.cpp \
@@ -90,12 +89,14 @@ SOURCES += \
     Tools/src/FitSuite.cpp \
     Tools/src/IFactory.cpp \
     Tools/src/INamed.cpp \
+    Tools/src/IParameterized.cpp \
     Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
     Tools/src/OutputData.cpp \
     Tools/src/OutputDataIOFactory.cpp \
     Tools/src/OutputDataReader.cpp \
     Tools/src/OutputDataWriter.cpp \
+    Tools/src/ParameterPool.cpp \
     Tools/src/ProgramOptions.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
@@ -189,7 +190,6 @@ HEADERS += \
     Samples/inc/MaterialManager.h \
     Samples/inc/MesoCrystal.h \
     Samples/inc/MultiLayer.h \
-    Samples/inc/ParameterPool.h \
     Samples/inc/Particle.h \
     Samples/inc/ParticleBuilder.h \
     Samples/inc/ParticleCoreShell.h \
@@ -208,6 +208,7 @@ HEADERS += \
     Tools/inc/IMinimizer.h \
     Tools/inc/INamed.h \
     Tools/inc/IObserver.h \
+    Tools/inc/IParameterized.h \
     Tools/inc/ISingleton.h \
     Tools/inc/IStochasticParameter.h \
     Tools/inc/Macros.h \
@@ -218,6 +219,7 @@ HEADERS += \
     Tools/inc/OutputDataIOFactory.h \
     Tools/inc/OutputDataReader.h \
     Tools/inc/OutputDataWriter.h \
+    Tools/inc/ParameterPool.h \
     Tools/inc/ProgramOptions.h \
     Tools/inc/TRange.h \
     Tools/inc/StochasticDiracDelta.h \

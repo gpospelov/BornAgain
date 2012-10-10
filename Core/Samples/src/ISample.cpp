@@ -3,83 +3,44 @@
 #include "ICompositeIterator.h"
 #include "Utils.h"
 
-
 ISample::ISample()
 {
-
 }
 
-
 /* ************************************************************************* */
-// copy constructor
-// we are consciously not copying parameter pool, it should be done in child class
+// default copy constructor
 /* ************************************************************************* */
-ISample::ISample(const ISample &other) : INamed(other)
+ISample::ISample(const ISample &other) : IParameterized(other)
 {
-
 }
 
-
 /* ************************************************************************* */
-// assignment operator
-// we are consciously not copying parameter pool, it should be done in child class
+// default assignment operator
 /* ************************************************************************* */
 ISample &ISample::operator=(const ISample &other)
 {
     if( this != &other)
     {
-        INamed::operator=(other);
+        IParameterized::operator=(other);
     }
     return *this;
 }
 
-
 ISample::~ISample()
 {
-
 }
-
 
 ISample *ISample::clone() const
 {
     throw NotImplementedException("ISample::clone() -> Error! Method is not implemented");
 }
 
-
-void ISample::init_parameters()
-{
-    throw NotImplementedException("ISample::init_parameters() -> Error! Method is not implemented");
-}
-
-
-/* ************************************************************************* */
-// create new parameter pool which contains all local parameter and  parameters of children
-// user have to delete it
-/* ************************************************************************* */
-ParameterPool *ISample::createParameterTree() const
-{
-    ParameterPool *newpool = new ParameterPool;
-    std::string path("/");
-    addParametersToExternalPool(path, newpool);
-    return newpool;
-}
-
-
 /* ************************************************************************* */
 // add parameters from local pool to external pool and call recursion over direct children
 /* ************************************************************************* */
-void ISample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const
+std::string ISample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const
 {
-    // adding trailing slash, if it is not already there
-    if( path[path.length()-1] != '/' ) path += "/";
-
-    // constructing new path, using object name and copy number
-    std::ostringstream osCopyNumber;
-    if(copy_number >=0) osCopyNumber << copy_number;
-    path =  path + getName() + osCopyNumber.str() + "/";
-
-    // copy local parameter to external pool
-    m_parameters.copyToExternalPool(path, external_pool);
+    path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
 
     // going through direct children of given sample and copy they parameters recursively
     const ICompositeSample *sample = getCompositeSample();
@@ -105,11 +66,10 @@ void ISample::addParametersToExternalPool(std::string path, ParameterPool *exter
             (*it)->addParametersToExternalPool(path, external_pool, ncopy);
         }
 
-    } // sample
+    }
 
+    return path;
 }
-
-
 
 void ISample::walk_and_print()
 {

@@ -16,6 +16,7 @@ SOURCES += \
     src/AppOptionsDescription.cpp \
     src/CommandLine.cpp \
     src/DrawHelper.cpp \
+    src/FitSuiteHelper.cpp \
     src/FunctionalTestFactory.cpp \
     src/IFunctionalTest.cpp \
     src/IsGISAXSTools.cpp \
@@ -42,8 +43,7 @@ SOURCES += \
     src/TestPerformance.cpp \
     src/TestRootTree.cpp \
     src/TestRoughness.cpp \
-    src/TreeEventStructure.cpp \
-    src/FitSuiteHelper.cpp
+    src/TreeEventStructure.cpp
 
 HEADERS += \
     inc/App.h \
@@ -51,6 +51,7 @@ HEADERS += \
     inc/AppOptionsDescription.h \
     inc/CommandLine.h \
     inc/DrawHelper.h \
+    inc/FitSuiteHelper.h \
     inc/FunctionalTestFactory.h \
     inc/IFunctionalTest.h \
     inc/IsGISAXSTools.h \
@@ -76,8 +77,7 @@ HEADERS += \
     inc/TestPerformance.h \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
-    inc/TreeEventStructure.h \
-    inc/FitSuiteHelper.h
+    inc/TreeEventStructure.h
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
 DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc

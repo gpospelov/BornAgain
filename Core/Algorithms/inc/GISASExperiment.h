@@ -35,6 +35,9 @@ public:
 
 	void smearIntensityFromZAxisTilting();
 private:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
 	void initializeAnglesIsgisaxs(NamedVector<double> *p_axis, double start, double end, size_t size);
 	double getCurrentSolidAngle() const;
 	double deltaAlpha(double alpha, double zeta) const;

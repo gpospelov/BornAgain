@@ -15,7 +15,9 @@
 #include "Utils.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 
-
+/* ************************************************************************* */
+// global functions
+/* ************************************************************************* */
 namespace {
     double testResolutionFunction(double u, double v)
     {
@@ -26,31 +28,38 @@ namespace {
     }
 }
 
+/* ************************************************************************* */
+// TestMesoCrystal1 member definitions
+/* ************************************************************************* */
 TestMesoCrystal1::TestMesoCrystal1()
 : mp_intensity_output(0)
-, mp_sample(0)
+, mp_sample_builder(0)
 {
+    mp_sample_builder = new MesoCrystalBuilder;
 }
 
 TestMesoCrystal1::~TestMesoCrystal1()
 {
     delete mp_intensity_output;
-    delete mp_sample;
+    delete mp_sample_builder;
 }
 
 void TestMesoCrystal1::execute()
 {
     if (mp_intensity_output) delete mp_intensity_output;
-    initializeSample();
     GISASExperiment experiment;
-    experiment.setSample(mp_sample);
-    experiment.setDetectorParameters(200, 0.3*Units::degree, 0.073
-           , 200, -0.4*Units::degree, 0.066);
+    experiment.setSampleBuilder(mp_sample_builder);
+    experiment.setDetectorParameters(128, 0.3*Units::degree, 0.073
+           , 128, -0.4*Units::degree, 0.066);
 //    experiment.setDetectorParameters(2, 0.96*Units::degree, 0.962*Units::degree
 //           , 2 , 0.376*Units::degree, 0.378*Units::degree);
 //    experiment.setDetectorResolutionFunction(&testResolutionFunction);
     experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
-    experiment.setBeamIntensity(1e10);
+    experiment.setBeamIntensity(8e12);
+
+    ParameterPool *p_param_pool = experiment.createParameterTree();
+    std::cout << (*p_param_pool) << std::endl;
+
     experiment.runSimulation();
     double count_before_normalize = experiment.getOutputData()->total();
     experiment.normalize();
@@ -64,22 +73,38 @@ void TestMesoCrystal1::execute()
     IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/ex01_spheres/mesocrystal.ima");
 }
 
-void TestMesoCrystal1::initializeSample()
+/* ************************************************************************* */
+// MesoCrystalBuilder member definitions
+/* ************************************************************************* */
+MesoCrystalBuilder::MesoCrystalBuilder()
+: m_meso_radius(1000*Units::nanometer)
+, m_surface_filling_ratio(0.25)
+, m_meso_height(0.5*Units::micrometer)
+, m_sigma_meso_height(4*Units::nanometer)
+, m_sigma_meso_radius(50*Units::nanometer)
+, m_lattice_length_a(4.7*Units::nanometer)
+, m_nanoparticle_radius(4.2*Units::nanometer)
+, m_sigma_nanoparticle_radius(0.2*Units::nanometer)
 {
-    delete mp_sample;
+    init_parameters();
+}
+
+MesoCrystalBuilder::~MesoCrystalBuilder()
+{
+}
+
+ISample* MesoCrystalBuilder::buildSample() const
+{
     // create mesocrystal
-    double meso_radius = 1000*Units::nanometer;
-    double surface_filling_ratio = 0.25;
-    double surface_density = surface_filling_ratio/M_PI/meso_radius/meso_radius;
+    double surface_density = m_surface_filling_ratio/M_PI/m_meso_radius/m_meso_radius;
 //    complex_t n_particle(1.0-1.55e-5, 1.37e-6); // data from Artur
     complex_t n_particle(1.0-2.84e-5, 4.7e-7); // data from http://henke.lbl.gov/optical_constants/getdb2.html
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
-    complex_t n_avg = std::sqrt(surface_filling_ratio*avg_n_squared_meso + 1.0 - surface_filling_ratio);
+    complex_t n_avg = std::sqrt(m_surface_filling_ratio*avg_n_squared_meso + 1.0 - m_surface_filling_ratio);
     complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
-    FormFactorCylinder ff_cyl(0.5*Units::micrometer, meso_radius);
-    double sigma_h = 4*Units::nanometer;
-    double sigma_r = 50*Units::nanometer;
-    FormFactorDecoratorDebyeWaller ff_meso(ff_cyl.clone(), sigma_h*sigma_h/2.0, sigma_r*sigma_r/2.0);
+    FormFactorCylinder ff_cyl(m_meso_height, m_meso_radius);
+    FormFactorDecoratorDebyeWaller ff_meso(ff_cyl.clone(), m_sigma_meso_height*m_sigma_meso_height/2.0,
+            m_sigma_meso_radius*m_sigma_meso_radius/2.0);
 
     // Create multilayer
     MultiLayer *p_multi_layer = new MultiLayer();
@@ -93,7 +118,7 @@ void TestMesoCrystal1::initializeSample()
     air_layer.setMaterial(p_air_material);
     Layer avg_layer;
     avg_layer.setMaterial(p_average_layer_material);
-    avg_layer.setThickness(0.5*Units::micrometer);
+    avg_layer.setThickness(m_meso_height);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
@@ -104,21 +129,6 @@ void TestMesoCrystal1::initializeSample()
     double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;
     double alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step;
 
-    // with optimization
-//    TRange<double> phi_range(0.0, 2.0*M_PI/3.0);
-//    TRange<double> z_range(0.0, 2.6);
-//    double max_rho = 2.6;
-//    std::vector<double> phi_angles = createLattice(6.1*Units::nanometer)->collectBraggAngles(n_max_phi_rotation_steps, max_rho, phi_range, z_range);
-//    for (size_t i=0; i<phi_angles.size(); ++i) {
-//        for (size_t j=0; j<n_alpha_rotation_steps; ++j) {
-//            Geometry::RotateZ3D transform1(phi_angles[i]);
-//            Geometry::RotateY3D transform2(alpha_start + j*alpha_step);
-//            Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1*transform2);
-//            particle_decoration.addParticle(createMesoCrystal(6.1*Units::nanometer,
-//                    n_particle_adapted, &ff_meso), p_total_transform, 0.2*Units::micrometer);
-//        }
-//    }
-    // without
     double phi_step = 2.0*M_PI/3.0/n_max_phi_rotation_steps;
     double phi_start = 0.0;
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
@@ -126,8 +136,8 @@ void TestMesoCrystal1::initializeSample()
             Geometry::RotateZ3D transform1(phi_start + (double)i*phi_step);
             Geometry::RotateY3D transform2(alpha_start + j*alpha_step);
             Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1);
-            particle_decoration.addParticle(createMesoCrystal(4.7*Units::nanometer,
-                    n_particle_adapted, &ff_meso), p_total_transform, 0.5*Units::micrometer);
+            particle_decoration.addParticle(createMesoCrystal(m_lattice_length_a,
+                    n_particle_adapted, &ff_meso), p_total_transform, m_meso_height);
         }
     }
 
@@ -141,28 +151,34 @@ void TestMesoCrystal1::initializeSample()
     p_multi_layer->addLayer(avg_layer_decorator);
     p_multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
 
-//    LayerDecorator air_decorator(air_layer, particle_decoration);
-//    p_multi_layer->addLayer(air_decorator);
-//    p_multi_layer->addLayer(substrate_layer);
-
-
-    mp_sample = p_multi_layer;
-    //mp_sample->walk_and_print();
-
     std::cout << "Average layer index: " << n_avg << std::endl;
     std::cout << "Adapted particle index: " << n_particle_adapted << std::endl;
     std::cout << "Substrate layer index: " << n_substrate << std::endl;
+
+    return p_multi_layer;
 }
 
-MesoCrystal* createMesoCrystal(double stacking_radius, complex_t n_particle,
-        const IFormFactor* p_meso_form_factor)
+void MesoCrystalBuilder::init_parameters()
+{
+    getParameterPool()->clear();
+    getParameterPool()->registerParameter("meso_radius", &m_meso_radius);
+    getParameterPool()->registerParameter("surface_filling_ratio", &m_surface_filling_ratio);
+    getParameterPool()->registerParameter("meso_height", &m_meso_height);
+    getParameterPool()->registerParameter("sigma_meso_height", &m_sigma_meso_height);
+    getParameterPool()->registerParameter("sigma_meso_radius", &m_sigma_meso_radius);
+    getParameterPool()->registerParameter("lattice_length_a", &m_lattice_length_a);
+    getParameterPool()->registerParameter("nanoparticle_radius", &m_nanoparticle_radius);
+    getParameterPool()->registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius);
+}
+
+MesoCrystal* MesoCrystalBuilder::createMesoCrystal(double stacking_radius, complex_t n_particle,
+        const IFormFactor* p_meso_form_factor) const
 {
     const Lattice *p_lat = createLattice(stacking_radius);
     kvector_t bas_a = p_lat->getBasisVectorA();
     kvector_t bas_b = p_lat->getBasisVectorB();
     kvector_t bas_c = p_lat->getBasisVectorC();
-    double sigma = 0.2*Units::nanometer;
-    Particle particle(n_particle, new FormFactorSphereGaussianRadius(stacking_radius-0.5*Units::nanometer, sigma));
+    Particle particle(n_particle, new FormFactorSphereGaussianRadius(m_nanoparticle_radius, m_sigma_nanoparticle_radius));
     kvector_t position_0 = kvector_t(0.0, 0.0, 0.0);
     kvector_t position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c);
     kvector_t position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c);
@@ -179,8 +195,11 @@ MesoCrystal* createMesoCrystal(double stacking_radius, complex_t n_particle,
     return new MesoCrystal(npc.clone(), p_meso_form_factor->clone());
 }
 
-const Lattice *createLattice(double stacking_radius) {
+const Lattice *MesoCrystalBuilder::createLattice(double stacking_radius) const
+{
     Lattice *p_result = new Lattice(Lattice::createTrigonalLattice(stacking_radius*2.0, stacking_radius*2.0*2.3));
     p_result->setSelectionRule(new SimpleSelectionRule(-1, 1, 1, 3));
     return p_result;
 }
+
+

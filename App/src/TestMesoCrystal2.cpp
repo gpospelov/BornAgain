@@ -107,7 +107,7 @@ void TestMesoCrystal2::initializeExperiment(const OutputData<double> *output_dat
     m_experiment = new GISASExperiment();
     m_experiment->setSample( m_sample );
     m_experiment->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
-    m_experiment->setBeamIntensity(1e10);
+    m_experiment->setBeamIntensity(8e12);
 
     if( !output_data ) {
         // initialize default detector

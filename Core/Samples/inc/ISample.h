@@ -48,10 +48,10 @@ public:
     //! walk through composite sample and print content
     virtual void walk_and_print();
 
-protected:
     //! add parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
+protected:
     //! print in the output stream
     virtual void print(std::ostream &ostr) const { ostr << getName() << " " << this << " " << m_parameters; }
 };

@@ -32,12 +32,12 @@ public:
     //! create new parameter pool which contains all local parameter and  parameters of children
     virtual ParameterPool *createParameterTree() const;
 
+    //! add parameters from local pool to external pool and call recursion over direct children
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
+
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)
     virtual void init_parameters();
-
-    //! add parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
     ParameterPool m_parameters; //! parameter pool
 

@@ -33,7 +33,14 @@ private:
     FormFactorDWBAConstZ(const FormFactorDWBAConstZ &);
     FormFactorDWBAConstZ &operator=(const FormFactorDWBAConstZ &);
 
-    complex_t getDepthPhase(complex_t q_z) const;
+    inline complex_t getDepthPhase(const complex_t &q_z) const
+    {
+        complex_t exponent = -complex_t(0.0,1.0)*q_z*m_depth; // Minus sign for depth (m_depth > 0)
+        return std::exp(exponent);
+    }
+
+
+
 };
 
 #endif /* FORMFACTORDWBACONSTZ_H_ */

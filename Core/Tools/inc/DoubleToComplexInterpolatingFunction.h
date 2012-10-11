@@ -16,11 +16,12 @@
 
 #include "IDoubleToComplexFunction.h"
 #include <map>
-
+#include <boost/unordered_map.hpp>
 
 class DoubleToComplexInterpolatingFunction : public IDoubleToComplexFunction
 {
 public:
+    typedef std::map<double, complex_t> container_t;
     enum InterpolatingMode { Nearest, Linear, Polar };
 
 	virtual ~DoubleToComplexInterpolatingFunction();
@@ -30,7 +31,7 @@ public:
     virtual complex_t evaluate(double value);
 
 protected:
-	std::map<double, complex_t> m_value_map;
+    container_t m_value_map;
 	double m_lower_limit;
 	double m_upper_limit;
 	double m_low_step;

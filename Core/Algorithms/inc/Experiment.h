@@ -15,34 +15,43 @@
 //! @date   20.06.2012
 
 #include "ISample.h"
+#include "ISampleBuilder.h"
 #include "OutputData.h"
 #include "Beam.h"
 #include "Detector.h"
 
-class Experiment
+class Experiment : public IParameterized
 {
 public:
 	Experiment();
 	Experiment(ISample *p_sample);
+	Experiment(ISampleBuilder *p_sample_builder);
     virtual ~Experiment() {}
 
-    /// Run a simulation with the current parameter settings
+    //! run a simulation with the current parameter settings
     virtual void runSimulation();
 
-    /// Normalize the detector counts
+    //! normalize the detector counts
     virtual void normalize();
 
-    /// Set the sample to be tested
+    //! set the sample to be tested
     void setSample(ISample *p_sample);
 
-    /// get the sample
+    //! get the sample
     ISample *getSample() { return mp_sample; }
     const ISample *getSample() const { return mp_sample; }
 
-    /// Get data structure that contains the intensity map on the detector for all scan parameters
+    //! set the sample builder
+    void setSampleBuilder(ISampleBuilder *p_sample_builder);
+
+    //! get data structure that contains the intensity map on the detector for all scan parameters
     OutputData<double>* getOutputDataClone() const;
 
     const OutputData<double>* getOutputData() const;
+
+    const OutputData<double>* getOutputDataMask() const;
+
+    void setOutputDataMask(size_t n_chunks_total=1, size_t n_chunk=0);
 
     Beam getBeam() const
     {
@@ -63,18 +72,21 @@ public:
 
     void setBeamIntensity(double intensity);
 
-    void setOutputDataMask(size_t n_chunks_total=1, size_t n_chunk=0);
-
-    const OutputData<double>* getOutputDataMask() const;
-
-    //! create combined parameter pool of the whole sample and experiment (if any)
-    virtual ParameterPool *createParameterTree() const;
+    //! add parameters from local pool to external pool and call recursion over direct children
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
 protected:
-    /// Default implementation only adds the detector axes
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
+    //! Default implementation only adds the detector axes
     virtual void updateIntensityMapAxes();
 
+    //! Update the sample by calling the sample builder, if present
+    void updateSample();
+
     ISample *mp_sample;
+    ISampleBuilder *mp_sample_builder;
     Detector m_detector;
     Beam m_beam;
     OutputData<double> m_intensity_map;

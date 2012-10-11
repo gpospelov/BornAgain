@@ -66,7 +66,7 @@ protected:
 
 private:
     ISingleton(const ISingleton<T> &) {}
-    ISingleton &operator=(const ISingleton<T> &) {}
+    ISingleton &operator=(const ISingleton<T> &) { throw; }
 
     static T_Pointer m_instance;
     static bool m_destroyed;

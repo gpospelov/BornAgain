@@ -27,14 +27,6 @@ IParameterized &IParameterized::operator=(const IParameterized &other)
 }
 
 /* ************************************************************************* */
-// No pure virtual function here, due to problems in exporting abstract classes to python
-/* ************************************************************************* */
-void IParameterized::init_parameters()
-{
-    throw NotImplementedException("IParameterized::init_parameters() -> Error! Method is not implemented");
-}
-
-/* ************************************************************************* */
 // create new parameter pool which contains all local parameter and  parameters of children
 // user have to delete it
 /* ************************************************************************* */
@@ -64,4 +56,12 @@ std::string IParameterized::addParametersToExternalPool(std::string path, Parame
     m_parameters.copyToExternalPool(path, external_pool);
 
     return path;
+}
+
+/* ************************************************************************* */
+// No pure virtual function here, due to problems in exporting abstract classes to python
+/* ************************************************************************* */
+void IParameterized::init_parameters()
+{
+    throw NotImplementedException("IParameterized::init_parameters() -> Error! Method is not implemented");
 }

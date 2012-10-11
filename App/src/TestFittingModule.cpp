@@ -77,7 +77,7 @@ void TestFittingModule::execute()
     fitSuite->setExperiment(mp_experiment);
     fitSuite->setRealData(*mp_real_data);
     fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    fitSuite->addFitParameter("/MultiLayer/Layer0/thickness", 12*Units::nanometer, 1*Units::nanometer, TRange<double>(1.0, 20.0) );
+    fitSuite->addFitParameter("*/MultiLayer/Layer0/thickness", 12*Units::nanometer, 1*Units::nanometer, TRange<double>(1.0, 20.0) );
     fitSuite->addFitParameter("*/FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, TRange<double>(1.0, 20.0) );
 
     FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);

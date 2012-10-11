@@ -4,6 +4,8 @@
 Detector::Detector()
 : mp_detector_resolution(0)
 {
+    setName("Detector");
+    init_parameters();
 }
 
 Detector::~Detector()
@@ -34,4 +36,8 @@ void Detector::applyDetectorResolution(
     if (mp_detector_resolution) {
         mp_detector_resolution->applyDetectorResolution(p_intensity_map);
     }
+}
+
+void Detector::init_parameters()
+{
 }

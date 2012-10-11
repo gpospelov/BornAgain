@@ -126,6 +126,7 @@ HEADERS += \
     Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \
+    Algorithms/inc/ISampleBuilder.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/ISquaredFunction.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \

@@ -10,6 +10,7 @@
 
 GISASExperiment::GISASExperiment()
 {
+    setName("GISASExperiment");
     m_beam.setCentralK(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree); ///< Set default beam parameters
     setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
             100, 0.0*Units::degree, 2.0*Units::degree);
@@ -17,6 +18,7 @@ GISASExperiment::GISASExperiment()
 
 void GISASExperiment::runSimulation()
 {
+    Experiment::runSimulation();
     if( !mp_sample) throw NullPointerException( "GISASExperiment::runSimulation() -> Error! No sample set.");
 
     int n_threads_total = ProgramOptions::instance()["threads"].as<int>();
@@ -62,7 +64,6 @@ void GISASExperiment::runSimulation()
 
     }
     m_detector.applyDetectorResolution(&m_intensity_map);
-    Experiment::runSimulation();
 }
 
 
@@ -130,6 +131,10 @@ void GISASExperiment::smearIntensityFromZAxisTilting()
         }
         p_old->next();
     }
+}
+
+void GISASExperiment::init_parameters()
+{
 }
 
 void GISASExperiment::initializeAnglesIsgisaxs(NamedVector<double> *p_axis, double start, double end, size_t size) {

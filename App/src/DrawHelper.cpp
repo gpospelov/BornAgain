@@ -319,7 +319,7 @@ void DrawHelper::DrawMultilayer(const MultiLayer *sample)
 TCanvas *DrawHelper::createAndRegisterCanvas(std::string name, std::string title, int xsize, int ysize)
 {
     if(xsize==0) xsize = m_default_canvas_xsize;
-    if(ysize==0) xsize = m_default_canvas_ysize;
+    if(ysize==0) ysize = m_default_canvas_ysize;
 
     TCanvas *c1 = new TCanvas(name.c_str(), title.c_str(), xsize, ysize);
     SetMagnifier(c1);

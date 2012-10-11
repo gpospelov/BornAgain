@@ -25,11 +25,16 @@ class IObservable;
 //- -------------------------------------------------------------------
 class IObserver {
 public:
-    virtual ~IObserver(){}
-    //! method which is used by observable object to notify change in status
+    //! destructor detach observer from observed subject
+    virtual ~IObserver();
+    //! method which is used by observable subject to notify change in status
     virtual void update (IObservable *subject) = 0;
+    //! set pointer to observed subject
+    virtual void setObservedSubject(IObservable *subject);
 protected:
-    IObserver(){}
+    IObserver() : m_observed_subject(0) {}
+private:
+    IObservable *m_observed_subject;
 };
 
 
@@ -44,18 +49,13 @@ public:
     virtual ~IObservable(){}
 
     //! attach observer to the list of observers
-    virtual void attachObserver(IObserver *obj) { m_observers.push_back(obj); }
+    virtual void attachObserver(IObserver *obj);
 
     //! detach observer from observers list
-    virtual void detachObserver(IObserver *obj) { m_observers.remove(obj); }
+    virtual void detachObserver(IObserver *obj);
 
     //! notify observers about change in status
-    virtual void notifyObservers()
-    {
-        for(observers_t::iterator it = m_observers.begin(); it!=m_observers.end(); ++it) {
-            (*it)->update(this);
-        }
-    }
+    virtual void notifyObservers();
 
 protected:
     IObservable(){}

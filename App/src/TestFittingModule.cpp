@@ -12,7 +12,7 @@
 #include "FormFactors.h"
 #include "Exceptions.h"
 #include "DrawHelper.h"
-#include "FittingHelper.h"
+#include "FitSuiteHelper.h"
 
 #include "IObserver.h"
 #include "FitSuite.h"
@@ -80,10 +80,14 @@ void TestFittingModule::execute()
     fitSuite->addFitParameter("*/MultiLayer/Layer0/thickness", 12*Units::nanometer, 1*Units::nanometer, TRange<double>(1.0, 20.0) );
     fitSuite->addFitParameter("*/FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, TRange<double>(1.0, 20.0) );
 
-    FittingHelper::ObserveAndDraw *observer = new FittingHelper::ObserveAndDraw(canvas_name);
-    fitSuite->attachObserver(observer);
+    FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
+    fitSuite->attachObserver(drawObserver);
+    FitSuiteObserverWriteTree *writeObserver = new FitSuiteObserverWriteTree("fitsuite.root");
+    fitSuite->attachObserver(writeObserver);
 
     fitSuite->runFit();
+    delete drawObserver;
+    delete writeObserver;
 
     std::cout << "------ RESULTS ---------" << std::endl;
     std::cout << "FitSuite > MinValue:" << fitSuite->getMinimizer()->getMinValue() << " " << fitSuite->getMinimizer()->getValueOfVariableAtMinimum(0) << std::endl;

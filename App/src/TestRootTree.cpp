@@ -16,7 +16,7 @@
 #include "TRandom.h"
 #include "TCanvas.h"
 #include "IsGISAXSTools.h"
-#include "EventFrame.h"
+#include "TreeEventStructure.h"
 #include "TestMesoCrystal1.h"
 
 #include <vector>
@@ -71,7 +71,7 @@ void TestRootTree::complex_write()
     // creating new tree
     TTree *tree = new TTree(tree_name.c_str(),"Oh, my data");
 
-    EventFrame *event = new EventFrame();
+    TreeEventOutputData *event = new TreeEventOutputData();
     tree->Branch("Event",&event,16000,2);
 
     // preparing set of meso parameters to simulate
@@ -181,7 +181,8 @@ void TestRootTree::complex_read()
         throw RuntimeErrorException("TestRootTree::complex_read() -> Can't get tree with name '" + tree_name + "' from root file");
     }
 
-    EventFrame *event = 0;
+    TreeEventOutputData *event = 0;
+
     tree->SetBranchAddress("Event", &event);
 
     // reading data from the tree

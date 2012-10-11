@@ -16,6 +16,6 @@
 
 #include "ISingleton.h"
 #include "DrawHelper.h"
-#include "EventFrame.h"
+#include "TreeEventStructure.h"
 
 #endif // APP_H

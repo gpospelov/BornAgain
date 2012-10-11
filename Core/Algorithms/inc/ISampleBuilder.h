@@ -23,7 +23,7 @@ public:
     ISampleBuilder() { setName("SampleBuilder"); }
     virtual ~ISampleBuilder() {}
 
-    virtual ISample *buildSample() const=0;
+    virtual ISample *buildSample() const { throw; }
 protected:
 };
 

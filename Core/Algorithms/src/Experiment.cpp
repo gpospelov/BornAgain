@@ -119,11 +119,17 @@ std::string Experiment::addParametersToExternalPool(std::string path,
     // add own parameters
     std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
 
+    // add parameters of the beam
+    m_beam.addParametersToExternalPool(new_path, external_pool, -1);
+
+    // add parameters of the detector
+    m_detector.addParametersToExternalPool(new_path, external_pool, -1);
+
     // add parameters of the sample builder
     if (mp_sample_builder) {
         mp_sample_builder->addParametersToExternalPool(new_path, external_pool, -1);
     }
-    // add parameters of the sample
+    // add parameters of the sample (only in the case without sample builder)
     else if (mp_sample) {
         std::string sample_path = new_path + mp_sample->getName();
         mp_sample->addParametersToExternalPool(sample_path, external_pool, -1);

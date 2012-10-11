@@ -19,7 +19,9 @@
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "IMaterial.h"
+#include "IParameterized.h"
 #include "ISample.h"
+#include "ISampleBuilder.h"
 #include "ISingleton.h"
 #include "Lattice.h"
 #include "LatticeBasis.h"
@@ -101,12 +103,12 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
@@ -244,12 +246,12 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
@@ -375,12 +377,12 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
@@ -478,6 +480,18 @@ struct GISASExperiment_wrapper : GISASExperiment, bp::wrapper< GISASExperiment >
         GISASExperiment::runSimulation( );
     }
 
+    virtual ::ParameterPool * createParameterTree(  ) const  {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->IParameterized::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) const  {
+        return IParameterized::createParameterTree( );
+    }
+
 };
 
 void register_classes_2(){
@@ -501,7 +515,7 @@ void register_classes_2(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -553,7 +567,7 @@ void register_classes_2(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( FormFactorPrism3_wrapper::* )(  ) const)(&FormFactorPrism3_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -601,7 +615,7 @@ void register_classes_2(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( FormFactorPyramid_wrapper::* )(  ) const)(&FormFactorPyramid_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -642,7 +656,12 @@ void register_classes_2(){
             , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) )    
         .def( 
             "smearIntensityFromZAxisTilting"
-            , (void ( ::GISASExperiment::* )(  ) )( &::GISASExperiment::smearIntensityFromZAxisTilting ) );
+            , (void ( ::GISASExperiment::* )(  ) )( &::GISASExperiment::smearIntensityFromZAxisTilting ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
+            , (::ParameterPool * ( GISASExperiment_wrapper::* )(  ) const)(&GISASExperiment_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() );
 
     { //::Geometry::BasicVector3D< double >
         typedef bp::class_< Geometry::BasicVector3D< double > > kvector_t_exposer_t;
@@ -1160,5 +1179,8 @@ void register_classes_2(){
 
     bp::class_< Geometry::TranslateX3D, bp::bases< Geometry::Translate3D > >( "TranslateX3D", bp::init< >() )    
         .def( bp::init< double >(( bp::arg("x") )) );
+
+    bp::class_< Geometry::TranslateY3D, bp::bases< Geometry::Translate3D > >( "TranslateY3D", bp::init< >() )    
+        .def( bp::init< double >(( bp::arg("y") )) );
 
 }

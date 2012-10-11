@@ -43,7 +43,9 @@ myFiles=[
   'InterferenceFunctionNone.h',
   'InterferenceFunction1DParaCrystal.h',
   'IMaterial.h',
+  'IParameterized.h',
   'ISample.h',
+  'ISampleBuilder.h',
   'ISingleton.h',
   'Lattice.h',
   'LatticeBasis.h',
@@ -220,6 +222,15 @@ def RulesInterferenceFunction1DParaCrystal(mb):
 
 
 # -------------------------------------------------------------------
+# IParameterized.h
+# -------------------------------------------------------------------
+def RulesIParameterized(mb):
+  cl = mb.class_( "IParameterized" )
+  cl.member_functions().exclude()
+  cl.member_function( "createParameterTree" ).include()
+  cl.member_function( "addParametersToExternalPool" ).include()
+
+# -------------------------------------------------------------------
 # ISingleton.h
 # -------------------------------------------------------------------
 #def RulesISingleton(mb):
@@ -234,7 +245,15 @@ def RulesISample(mb):
   cl.member_functions().exclude()
   cl.member_function( "clone" ).include()
   cl.member_function("walk_and_print").include()
-  cl.member_function("createParameterTree").include()
+
+
+# -------------------------------------------------------------------
+# ISampleBuilder.h
+# -------------------------------------------------------------------
+def RulesISampleBuilder(mb):
+  cl = mb.class_( "ISampleBuilder" )
+  cl.member_functions().exclude()
+  cl.member_function( "buildSample" ).include()
 
 
 # -------------------------------------------------------------------

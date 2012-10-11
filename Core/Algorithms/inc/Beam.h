@@ -15,8 +15,9 @@
 //! @date   Jun 21, 2012
 
 #include "Types.h"
+#include "IParameterized.h"
 
-class Beam
+class Beam : public IParameterized
 {
 public:
 	Beam();
@@ -32,6 +33,9 @@ public:
 	void setIntensity(double intensity) { m_intensity = intensity; }
 
 protected:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
 	cvector_t m_central_k;
 	double m_intensity;
 };

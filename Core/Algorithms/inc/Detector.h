@@ -16,10 +16,12 @@
 
 #include "NamedVector.h"
 #include "IDetectorResolution.h"
+#include "IParameterized.h"
+
 
 #include <vector>
 
-class Detector
+class Detector : public IParameterized
 {
 public:
 	Detector();
@@ -31,7 +33,11 @@ public:
 	void clear();
 	void setDetectorResolution(IDetectorResolution *p_detector_resolution) { mp_detector_resolution = p_detector_resolution; }
 	void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
+
 protected:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
 	bool isCorrectAxisIndex(size_t index) const { return index<getDimension(); }
 private:
 	std::vector<NamedVector<double> > m_axes;

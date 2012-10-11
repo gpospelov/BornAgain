@@ -20,7 +20,9 @@
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "IMaterial.h"
+#include "IParameterized.h"
 #include "ISample.h"
+#include "ISampleBuilder.h"
 #include "ISingleton.h"
 #include "Lattice.h"
 #include "LatticeBasis.h"
@@ -45,6 +47,36 @@
 #include "PythonInterface_classes_1.h"
 
 namespace bp = boost::python;
+
+struct IParameterized_wrapper : IParameterized, bp::wrapper< IParameterized > {
+
+    IParameterized_wrapper( )
+    : IParameterized( )
+      , bp::wrapper< IParameterized >(){
+        // null constructor
+    
+    }
+
+    IParameterized_wrapper(::IParameterized const & other )
+    : IParameterized( boost::ref(other) )
+      , bp::wrapper< IParameterized >(){
+        // copy constructor
+    
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) const  {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->IParameterized::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) const  {
+        return IParameterized::createParameterTree( );
+    }
+
+};
 
 struct ISample_wrapper : ISample, bp::wrapper< ISample > {
 
@@ -74,18 +106,6 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
         return ISample::clone( );
     }
 
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->ISample::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
-    }
-
     virtual void walk_and_print(  ) {
         if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
             func_walk_and_print(  );
@@ -96,6 +116,18 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
     
     void default_walk_and_print(  ) {
         ISample::walk_and_print( );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) const  {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->IParameterized::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) const  {
+        return IParameterized::createParameterTree( );
     }
 
 };
@@ -125,12 +157,12 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual void walk_and_print(  ) {
@@ -194,12 +226,12 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual void walk_and_print(  ) {
@@ -284,12 +316,12 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual void walk_and_print(  ) {
@@ -324,12 +356,12 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual void walk_and_print(  ) {
@@ -364,12 +396,12 @@ struct DiffuseParticleInfo_wrapper : DiffuseParticleInfo, bp::wrapper< DiffusePa
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual void walk_and_print(  ) {
@@ -417,6 +449,18 @@ struct Experiment_wrapper : Experiment, bp::wrapper< Experiment > {
     
     void default_runSimulation(  ) {
         Experiment::runSimulation( );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) const  {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->IParameterized::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) const  {
+        return IParameterized::createParameterTree( );
     }
 
 };
@@ -516,12 +560,12 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual void walk_and_print(  ) {
@@ -585,12 +629,12 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual double getHeight(  ) const  {
@@ -716,12 +760,12 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
@@ -859,12 +903,12 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
@@ -997,12 +1041,12 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
@@ -1123,12 +1167,12 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
         else{
-            return this->ISample::createParameterTree(  );
+            return this->IParameterized::createParameterTree(  );
         }
     }
     
     ::ParameterPool * default_createParameterTree(  ) const  {
-        return ISample::createParameterTree( );
+        return IParameterized::createParameterTree( );
     }
 
     virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
@@ -1242,11 +1286,51 @@ void register_classes_1(){
         vector_less__DiffuseParticleInfo_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< DiffuseParticleInfo* > >() );
     }
 
+    { //::IParameterized
+        typedef bp::class_< IParameterized_wrapper > IParameterized_exposer_t;
+        IParameterized_exposer_t IParameterized_exposer = IParameterized_exposer_t( "IParameterized", bp::no_init );
+        bp::scope IParameterized_scope( IParameterized_exposer );
+        IParameterized_exposer.def( bp::init< >() );
+        IParameterized_exposer.def( bp::init< IParameterized const & >(( bp::arg("other") )) );
+        { //::IParameterized::createParameterTree
+        
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( IParameterized_wrapper::*default_createParameterTree_function_type )(  ) const;
+            
+            IParameterized_exposer.def( 
+                "createParameterTree"
+                , createParameterTree_function_type(&::IParameterized::createParameterTree)
+                , default_createParameterTree_function_type(&IParameterized_wrapper::default_createParameterTree)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::IParameterized::getParameterPool
+        
+            typedef ::ParameterPool * ( ::IParameterized::*getParameterPool_function_type )(  ) ;
+            
+            IParameterized_exposer.def( 
+                "getParameterPool"
+                , getParameterPool_function_type( &::IParameterized::getParameterPool )
+                , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::IParameterized::operator=
+        
+            typedef ::IParameterized & ( ::IParameterized::*assign_function_type )( ::IParameterized const & ) ;
+            
+            IParameterized_exposer.def( 
+                "assign"
+                , assign_function_type( &::IParameterized::operator= )
+                , ( bp::arg("other") )
+                , bp::return_self< >() );
+        
+        }
+    }
+
     { //::ISample
-        typedef bp::class_< ISample_wrapper > ISample_exposer_t;
-        ISample_exposer_t ISample_exposer = ISample_exposer_t( "ISample", bp::no_init );
+        typedef bp::class_< ISample_wrapper, bp::bases< IParameterized > > ISample_exposer_t;
+        ISample_exposer_t ISample_exposer = ISample_exposer_t( "ISample", bp::init< >() );
         bp::scope ISample_scope( ISample_exposer );
-        ISample_exposer.def( bp::init< >() );
         ISample_exposer.def( bp::init< ISample const & >(( bp::arg("other") )) );
         { //::ISample::clone
         
@@ -1257,18 +1341,6 @@ void register_classes_1(){
                 "clone"
                 , clone_function_type(&::ISample::clone)
                 , default_clone_function_type(&ISample_wrapper::default_clone)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::ISample::createParameterTree
-        
-            typedef ::ParameterPool * ( ::ISample::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( ISample_wrapper::*default_createParameterTree_function_type )(  ) const;
-            
-            ISample_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::ISample::createParameterTree)
-                , default_createParameterTree_function_type(&ISample_wrapper::default_createParameterTree)
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
@@ -1294,6 +1366,18 @@ void register_classes_1(){
                 , default_walk_and_print_function_type(&ISample_wrapper::default_walk_and_print) );
         
         }
+        { //::IParameterized::createParameterTree
+        
+            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
+            typedef ::ParameterPool * ( ISample_wrapper::*default_createParameterTree_function_type )(  ) const;
+            
+            ISample_exposer.def( 
+                "createParameterTree"
+                , createParameterTree_function_type(&::IParameterized::createParameterTree)
+                , default_createParameterTree_function_type(&ISample_wrapper::default_createParameterTree)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
         ISample_exposer.def( bp::self_ns::str( bp::self ) );
     }
 
@@ -1305,7 +1389,7 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( ICompositeSample_wrapper::* )(  ) const)(&ICompositeSample_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -1336,7 +1420,7 @@ void register_classes_1(){
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( IClusteredParticles_wrapper::* )(  ) const)(&IClusteredParticles_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -1384,7 +1468,7 @@ void register_classes_1(){
             , ( bp::arg("dw_factor") ) )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( Crystal_wrapper::* )(  ) const)(&Crystal_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -1605,7 +1689,7 @@ void register_classes_1(){
             , ( bp::arg("transform") ) )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( ParticleInfo_wrapper::* )(  ) const)(&ParticleInfo_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -1643,7 +1727,7 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( DiffuseParticleInfo_wrapper::* )(  ) const)(&DiffuseParticleInfo_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -1651,7 +1735,7 @@ void register_classes_1(){
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( DiffuseParticleInfo_wrapper::* )(  ) )(&DiffuseParticleInfo_wrapper::default_walk_and_print) );
 
-    bp::class_< Experiment_wrapper, boost::noncopyable >( "Experiment", bp::init< >() )    
+    bp::class_< Experiment_wrapper, bp::bases< IParameterized >, boost::noncopyable >( "Experiment", bp::init< >() )    
         .def( 
             "normalize"
             , (void ( ::Experiment::* )(  ) )(&::Experiment::normalize)
@@ -1671,7 +1755,12 @@ void register_classes_1(){
         .def( 
             "setSample"
             , (void ( ::Experiment::* )( ::ISample * ) )( &::Experiment::setSample )
-            , ( bp::arg("p_sample") ) );
+            , ( bp::arg("p_sample") ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
+            , (::ParameterPool * ( Experiment_wrapper::* )(  ) const)(&Experiment_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() );
 
     bp::class_< IFormFactor_wrapper, bp::bases< ISample >, boost::noncopyable >( "IFormFactor", bp::init< >() )    
         .def( 
@@ -1711,7 +1800,7 @@ void register_classes_1(){
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( IFormFactor_wrapper::* )(  ) const)(&IFormFactor_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -1741,7 +1830,7 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( IFormFactorBorn_wrapper::* )(  ) const)(&IFormFactorBorn_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -1789,7 +1878,7 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( FormFactorCrystal_wrapper::* )(  ) const)(&FormFactorCrystal_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -1840,7 +1929,7 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( FormFactorCylinder_wrapper::* )(  ) const)(&FormFactorCylinder_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -1891,7 +1980,7 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( FormFactorFullSphere_wrapper::* )(  ) const)(&FormFactorFullSphere_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -1936,7 +2025,7 @@ void register_classes_1(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
-            , (::ParameterPool * ( ::ISample::* )(  ) const)(&::ISample::createParameterTree)
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( FormFactorGauss_wrapper::* )(  ) const)(&FormFactorGauss_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 

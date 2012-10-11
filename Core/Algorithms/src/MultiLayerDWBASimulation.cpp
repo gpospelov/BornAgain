@@ -71,15 +71,22 @@ void MultiLayerDWBASimulation::run()
         std::map<double, complex_t> T_map;
         std::map<double, complex_t> R_map;
 
+        std::map<double, complex_t>::iterator it_kz = kz_map.begin();
+        std::map<double, complex_t>::iterator it_T = T_map.begin();
+        std::map<double, complex_t>::iterator it_R = R_map.begin();
         for (std::map<double, OpticalFresnel::MultiLayerCoeff_t>::const_iterator it=fresnel_coeff_map.begin();
                 it!=fresnel_coeff_map.end(); ++it) {
             double angle = (*it).first;
-            complex_t kz = (*it).second[i_layer].kz;
-            complex_t T = (*it).second[i_layer].T;
-            complex_t R = (*it).second[i_layer].R;
-            kz_map[angle] = kz;
-            T_map[angle] = T;
-            R_map[angle] = R;
+//            complex_t kz = (*it).second[i_layer].kz;
+//            complex_t T = (*it).second[i_layer].T;
+//            complex_t R = (*it).second[i_layer].R;
+//            kz_map[angle] = kz;
+//            T_map[angle] = T;
+//            R_map[angle] = R;
+            // using the fact that we are moving across sorted angles of original map
+            it_kz = kz_map.insert(it_kz, std::pair<double, complex_t>(angle, (*it).second[i_layer].kz));
+            it_T = T_map.insert(it_T, std::pair<double, complex_t>(angle, (*it).second[i_layer].T));
+            it_R = R_map.insert(it_R, std::pair<double, complex_t>(angle, (*it).second[i_layer].R));
         }
         DoubleToComplexInterpolatingFunction kz_function(kz_map);
         DoubleToComplexInterpolatingFunction T_function(T_map);

@@ -8,7 +8,7 @@
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "Exceptions.h"
 #include <sstream>
-
+#include <boost/unordered_map.hpp>
 
 
 DoubleToComplexInterpolatingFunction::~DoubleToComplexInterpolatingFunction()
@@ -18,17 +18,19 @@ DoubleToComplexInterpolatingFunction::~DoubleToComplexInterpolatingFunction()
 DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(const std::map<double, complex_t> &value_map, InterpolatingMode imode)
     : m_value_map(value_map), m_interpolating_mode(imode)
 {
-	m_lower_limit = (*m_value_map.begin()).first;
-	m_upper_limit = (*m_value_map.rbegin()).first;
-	m_low_step = (*(++m_value_map.begin())).first - m_lower_limit;
-	m_high_step = m_upper_limit - (*(--m_value_map.rbegin())).first;
+    m_lower_limit = (*m_value_map.begin()).first;
+    m_upper_limit = (*m_value_map.rbegin()).first;
+    m_low_step = (*(++m_value_map.begin())).first - m_lower_limit;
+    m_high_step = m_upper_limit - (*(--m_value_map.rbegin())).first;
 }
+
 
 DoubleToComplexInterpolatingFunction* DoubleToComplexInterpolatingFunction::clone() const
 {
     DoubleToComplexInterpolatingFunction *p_new = new DoubleToComplexInterpolatingFunction(m_value_map, m_interpolating_mode);
     return p_new;
 }
+
 
 complex_t DoubleToComplexInterpolatingFunction::evaluate(double value)
 {
@@ -52,11 +54,11 @@ complex_t DoubleToComplexInterpolatingFunction::evaluate(double value)
 //    --lower_it;
 //    std::map<double, complex_t>::const_iterator upper_it = m_value_map.upper_bound(value);
 // way #2
-    std::map<double, complex_t>::const_iterator lower_it = m_value_map.lower_bound(value);
+    container_t::const_iterator lower_it = m_value_map.lower_bound(value);
     if( (*lower_it).first == value ) {
         return (*lower_it).second;
     }
-    std::map<double, complex_t>::const_iterator upper_it = lower_it;
+    container_t::const_iterator upper_it = lower_it;
     --lower_it;
 
     double interpolating_factor = (value - (*lower_it).first)/((*upper_it).first-(*lower_it).first);

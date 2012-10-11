@@ -20,15 +20,30 @@ complex_t FormFactorDWBA::evaluate(const cvector_t &k_i, const cvector_t &k_f, d
 }
 
 
+//void FormFactorDWBA::calculateTerms(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const {
+//    cvector_t k_itilde(k_i.x(), k_i.y(), -k_i.z());
+//    cvector_t k_ftilde(k_f.x(), k_f.y(), -k_f.z());
+//    // The four different scattering contributions; S stands for scattering off the particle, R for reflection off the layer interface
+//    m_term_S = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_f, alpha_i, alpha_f)*getT(alpha_f);
+//    m_term_RS = getR(alpha_i)*mp_form_factor->evaluate(k_itilde, k_f, alpha_i, alpha_f)*getT(alpha_f);
+//    m_term_SR = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_ftilde, alpha_i, alpha_f)*getR(alpha_f);
+//    m_term_RSR = getR(alpha_i)*mp_form_factor->evaluate(k_itilde, k_ftilde, alpha_i, alpha_f)*getR(alpha_f);
+//}
+
 void FormFactorDWBA::calculateTerms(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const {
     cvector_t k_itilde(k_i.x(), k_i.y(), -k_i.z());
     cvector_t k_ftilde(k_f.x(), k_f.y(), -k_f.z());
     // The four different scattering contributions; S stands for scattering off the particle, R for reflection off the layer interface
-    m_term_S = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_f, alpha_i, alpha_f)*getT(alpha_f);
-    m_term_RS = getR(alpha_i)*mp_form_factor->evaluate(k_itilde, k_f, alpha_i, alpha_f)*getT(alpha_f);
-    m_term_SR = getT(alpha_i)*mp_form_factor->evaluate(k_i, k_ftilde, alpha_i, alpha_f)*getR(alpha_f);
-    m_term_RSR = getR(alpha_i)*mp_form_factor->evaluate(k_itilde, k_ftilde, alpha_i, alpha_f)*getR(alpha_f);
+    complex_t T_alpha_i = getT(alpha_i);
+    complex_t R_alpha_i = getR(alpha_i);
+    complex_t T_alpha_f = getT(alpha_f);
+    complex_t R_alpha_f = getR(alpha_f);
+    m_term_S = T_alpha_i*mp_form_factor->evaluate(k_i, k_f, alpha_i, alpha_f)*T_alpha_f;
+    m_term_RS = R_alpha_i*mp_form_factor->evaluate(k_itilde, k_f, alpha_i, alpha_f)*T_alpha_f;
+    m_term_SR = T_alpha_i*mp_form_factor->evaluate(k_i, k_ftilde, alpha_i, alpha_f)*R_alpha_f;
+    m_term_RSR = R_alpha_i*mp_form_factor->evaluate(k_itilde, k_ftilde, alpha_i, alpha_f)*R_alpha_f;
 }
+
 
 FormFactorDWBA* FormFactorDWBA::clone() const
 {

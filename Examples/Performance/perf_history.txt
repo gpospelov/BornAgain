@@ -125,3 +125,11 @@
 # start rearanging ISample (Iparametrized)
 2012-10-10 15:38:43 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 14.1844 | 13.986  | 4.65116 | 
 2012-10-10 15:39:04 | jcnsopc73  | macosx64, 2800 MHz      | 259740  | 14.0845 | 13.6986 | 4.65116 | 
+
+# new insert in the map at MultiLayerDWBASimulation
+2012-10-10 17:56:51 | jcnsopc73  | macosx64, 2800 MHz      | 259740  | 13.6054 | 13.1579 | 5.12821 |
+2012-10-10 17:57:22 | jcnsopc73  | macosx64, 2800 MHz      | 259740  | 13.5135 | 13.5135 | 5       | 
+# getRgetT
+2012-10-10 18:04:45 | jcnsopc73  | macosx64, 2800 MHz      | 259740  | 14.1844 | 13.8889 | 5.26316 | 
+2012-10-10 18:05:12 | jcnsopc73  | macosx64, 2800 MHz      | 253165  | 13.986  | 13.4228 | 5.12821 | 
+2012-10-11 14:59:48 | jcnsopc73  | macosx64, 2800 MHz      | 270270  | 14.9254 | 14.5985 | 5.26316 |

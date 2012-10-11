@@ -49,11 +49,11 @@ void TestMesoCrystal1::execute()
     if (mp_intensity_output) delete mp_intensity_output;
     GISASExperiment experiment;
     experiment.setSampleBuilder(mp_sample_builder);
-    experiment.setDetectorParameters(128, 0.3*Units::degree, 0.073
-           , 128, -0.4*Units::degree, 0.066);
+    experiment.setDetectorParameters(200, 0.3*Units::degree, 0.073
+           , 200, -0.4*Units::degree, 0.066);
 //    experiment.setDetectorParameters(2, 0.96*Units::degree, 0.962*Units::degree
 //           , 2 , 0.376*Units::degree, 0.378*Units::degree);
-//    experiment.setDetectorResolutionFunction(&testResolutionFunction);
+    experiment.setDetectorResolutionFunction(&testResolutionFunction);
     experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     experiment.setBeamIntensity(8e12);
 
@@ -82,9 +82,10 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 , m_meso_height(0.5*Units::micrometer)
 , m_sigma_meso_height(4*Units::nanometer)
 , m_sigma_meso_radius(50*Units::nanometer)
-, m_lattice_length_a(4.7*Units::nanometer)
-, m_nanoparticle_radius(4.2*Units::nanometer)
+, m_lattice_length_a(6.2*Units::nanometer)
+, m_nanoparticle_radius(5.5*Units::nanometer)
 , m_sigma_nanoparticle_radius(0.2*Units::nanometer)
+, m_sigma_lattice_length_a(2.0*Units::nanometer)
 {
     init_parameters();
 }
@@ -169,6 +170,7 @@ void MesoCrystalBuilder::init_parameters()
     getParameterPool()->registerParameter("lattice_length_a", &m_lattice_length_a);
     getParameterPool()->registerParameter("nanoparticle_radius", &m_nanoparticle_radius);
     getParameterPool()->registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius);
+    getParameterPool()->registerParameter("sigma_lattice_length_a", &m_sigma_lattice_length_a);
 }
 
 MesoCrystal* MesoCrystalBuilder::createMesoCrystal(double stacking_radius, complex_t n_particle,
@@ -189,9 +191,8 @@ MesoCrystal* MesoCrystalBuilder::createMesoCrystal(double stacking_radius, compl
     LatticeBasis basis(particle, pos_vector);
 
     Crystal npc(basis, *p_lat);
-//    double relative_sigma_np_radius = 0.3;
-//    double dw_factor = relative_sigma_np_radius*relative_sigma_np_radius*stacking_radius*stacking_radius/6.0;
-//    npc.setDWFactor(dw_factor);
+    double dw_factor = m_sigma_lattice_length_a*m_sigma_lattice_length_a/6.0;
+    npc.setDWFactor(dw_factor);
     return new MesoCrystal(npc.clone(), p_meso_form_factor->clone());
 }
 

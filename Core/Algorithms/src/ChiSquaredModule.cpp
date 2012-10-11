@@ -55,6 +55,6 @@ double ChiSquaredModule::calculateChiSquared(
                 m_simulation_data_vector[index]);
         result += squared_value*m_weights[index];
     }
-    m_chi2_value = result;
+    m_chi2_value = result/data_size;
     return result;
 }

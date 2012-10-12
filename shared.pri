@@ -66,7 +66,7 @@ isEqual(env_jcns_variable, "yes") {
   CONFIG += JCNS
 }
 CONFIG(JCNS) {
-  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
+  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
 }
 
 # checking special case when system doesn't have libboost_thread library but have libbost_thread-mt

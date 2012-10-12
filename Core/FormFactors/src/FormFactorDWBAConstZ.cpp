@@ -24,13 +24,21 @@ complex_t FormFactorDWBAConstZ::evaluate(const cvector_t &k_i, const cvector_t &
 	return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
 }
 
+//FormFactorDWBAConstZ* FormFactorDWBAConstZ::clone() const
+//{
+//    FormFactorDWBAConstZ *p_new = new FormFactorDWBAConstZ(mp_form_factor->clone(), m_depth);
+//    p_new->setTransmissionFunction(*mp_T);
+//    p_new->setReflectionFunction(*mp_R);
+//    return p_new;
+//}
+
 FormFactorDWBAConstZ* FormFactorDWBAConstZ::clone() const
 {
     FormFactorDWBAConstZ *p_new = new FormFactorDWBAConstZ(mp_form_factor->clone(), m_depth);
-    p_new->setTransmissionFunction(*mp_T);
-    p_new->setReflectionFunction(*mp_R);
+    p_new->setReflectionTransmissionFunction(*mp_RT);
     return p_new;
 }
+
 
 //complex_t FormFactorDWBAConstZ::getDepthPhase(const complex_t &q_z) const
 //{

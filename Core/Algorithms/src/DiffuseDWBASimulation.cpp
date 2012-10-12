@@ -92,8 +92,10 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
                 p_particle->setSimpleFormFactor(form_factors[ff_index]);
                 IFormFactor *ff_particle = p_particle->createFormFactor();
                 FormFactorDWBAConstZ *p_dwba_z = new FormFactorDWBAConstZ(ff_particle, depth);
-                p_dwba_z->setReflectionFunction(*mp_R_function);
-                p_dwba_z->setTransmissionFunction(*mp_T_function);
+//                p_dwba_z->setReflectionFunction(*mp_R_function);
+//                p_dwba_z->setTransmissionFunction(*mp_T_function);
+                p_dwba_z->setReflectionTransmissionFunction(*mp_RT_function);
+
                 p_diffuse_term->m_form_factors.push_back(p_dwba_z);
             }
             terms.push_back(p_diffuse_term);

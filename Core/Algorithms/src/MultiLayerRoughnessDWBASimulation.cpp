@@ -6,28 +6,37 @@
 MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(const MultiLayer *p_multi_layer)
 {
     mp_multi_layer = p_multi_layer->clone();
-    mp_T_function.resize(mp_multi_layer->getNumberOfLayers(), 0);
-    mp_R_function.resize(mp_multi_layer->getNumberOfLayers(), 0);
+//    mp_T_function.resize(mp_multi_layer->getNumberOfLayers(), 0);
+//    mp_R_function.resize(mp_multi_layer->getNumberOfLayers(), 0);
+    mp_RT_function.resize(mp_multi_layer->getNumberOfLayers(), 0);
 }
 
 
 MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation()
 {
-    for(size_t i=0; i<mp_T_function.size(); ++i) delete mp_T_function[i];
-    for(size_t i=0; i<mp_R_function.size(); ++i) delete mp_R_function[i];
+//    for(size_t i=0; i<mp_T_function.size(); ++i) delete mp_T_function[i];
+//    for(size_t i=0; i<mp_R_function.size(); ++i) delete mp_R_function[i];
+    for(size_t i=0; i<mp_RT_function.size(); ++i) delete mp_RT_function[i];
     delete mp_multi_layer;
 }
 
 
-void MultiLayerRoughnessDWBASimulation::setTAndRFunctions(int i_layer,
-        const IDoubleToComplexFunction& T_function,
-        const IDoubleToComplexFunction& R_function)
-{
-    delete mp_T_function[i_layer];
-    mp_T_function[i_layer] = T_function.clone();
+//void MultiLayerRoughnessDWBASimulation::setTAndRFunctions(int i_layer,
+//        const IDoubleToComplexFunction& T_function,
+//        const IDoubleToComplexFunction& R_function)
+//{
+//    delete mp_T_function[i_layer];
+//    mp_T_function[i_layer] = T_function.clone();
 
-    delete mp_R_function[i_layer];
-    mp_R_function[i_layer] = R_function.clone();
+//    delete mp_R_function[i_layer];
+//    mp_R_function[i_layer] = R_function.clone();
+//}
+
+
+void MultiLayerRoughnessDWBASimulation::setReflectionTransmissionFunction(int i_layer, const IDoubleToPairOfComplexMap &RT_function)
+{
+    delete mp_RT_function[i_layer];
+    mp_RT_function[i_layer] = RT_function.clone();
 }
 
 
@@ -115,17 +124,24 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(int ilayer, const cve
     complex_t qz3 = -k_i.z() + k_f.z();
     complex_t qz4 = -k_i.z() - k_f.z();
 
-    complex_t Ti = mp_T_function[ilayer+1]->evaluate(alpha_i);
-    complex_t Tf = mp_T_function[ilayer+1]->evaluate(alpha_f);
-    complex_t Ri = mp_R_function[ilayer+1]->evaluate(alpha_i);
-    complex_t Rf = mp_R_function[ilayer+1]->evaluate(alpha_f);
+//    complex_t Ti = mp_T_function[ilayer+1]->evaluate(alpha_i);
+//    complex_t Tf = mp_T_function[ilayer+1]->evaluate(alpha_f);
+//    complex_t Ri = mp_R_function[ilayer+1]->evaluate(alpha_i);
+//    complex_t Rf = mp_R_function[ilayer+1]->evaluate(alpha_f);
+    complexpair_t ai_RT = mp_RT_function[ilayer+1]->evaluate(alpha_i);
+    complexpair_t af_RT = mp_RT_function[ilayer+1]->evaluate(alpha_f);
 
     double sigma = mp_multi_layer->getLayerBottomInterface(ilayer)->getRoughness()->getSigma();
     double sigma2 = -0.5*sigma*sigma;
-    complex_t term1 = Ti * Tf * std::exp( sigma2*qz1*qz1 );
-    complex_t term2 = Ti * Rf * std::exp( sigma2*qz2*qz2 );
-    complex_t term3 = Ri * Tf * std::exp( sigma2*qz3*qz3 );
-    complex_t term4 = Ri * Rf * std::exp( sigma2*qz4*qz4 );
+//    complex_t term1 = Ti * Tf * std::exp( sigma2*qz1*qz1 );
+//    complex_t term2 = Ti * Rf * std::exp( sigma2*qz2*qz2 );
+//    complex_t term3 = Ri * Tf * std::exp( sigma2*qz3*qz3 );
+//    complex_t term4 = Ri * Rf * std::exp( sigma2*qz4*qz4 );
+    complex_t term1 = ai_RT.second * af_RT.second * std::exp( sigma2*qz1*qz1 );
+    complex_t term2 = ai_RT.second * af_RT.first * std::exp( sigma2*qz2*qz2 );
+    complex_t term3 = ai_RT.first * af_RT.second * std::exp( sigma2*qz3*qz3 );
+    complex_t term4 = ai_RT.first * af_RT.first * std::exp( sigma2*qz4*qz4 );
+
 
 //        OpticalFresnel calculator;
 //        OpticalFresnel::MultiLayerCoeff_t m_fcoeff_i;

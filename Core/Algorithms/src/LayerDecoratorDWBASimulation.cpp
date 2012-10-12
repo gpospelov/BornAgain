@@ -70,8 +70,9 @@ std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors()
         }
 
         FormFactorDWBAConstZ dwba_z(ff_transformed, depth);
-        dwba_z.setReflectionFunction(*mp_R_function);
-        dwba_z.setTransmissionFunction(*mp_T_function);
+//        dwba_z.setReflectionFunction(*mp_R_function);
+//        dwba_z.setTransmissionFunction(*mp_T_function);
+        dwba_z.setReflectionTransmissionFunction(*mp_RT_function);
         FormFactorDecoratorFactor *p_ff = new FormFactorDecoratorFactor(dwba_z.clone(), wavevector_scattering_factor);
         result.push_back(p_ff);
         delete p_particle;
@@ -108,7 +109,9 @@ void LayerDecoratorDWBASimulation::calculateInCoherentIntensity()
 {
     //std::cout << "Calculating incoherent scattering..." << std::endl;
     if (mp_diffuseDWBA) {
-        mp_diffuseDWBA->setKzTAndRFunctions(*mp_kz_function, *mp_T_function, *mp_R_function);
+        //mp_diffuseDWBA->setKzTAndRFunctions(*mp_kz_function, *mp_T_function, *mp_R_function);
+        mp_diffuseDWBA->setReflectionTransmissionFunction( *mp_RT_function);
+        mp_diffuseDWBA->setKzFunction( *mp_kz_function);
         mp_diffuseDWBA->run();
         addDWBAIntensity( mp_diffuseDWBA->getDWBAIntensity() );
     }

@@ -24,7 +24,7 @@ public:
     IParameterized();
     IParameterized(const IParameterized &other);
     IParameterized &operator=(const IParameterized &other);
-    virtual ~IParameterized() {};
+    virtual ~IParameterized() {}
 
     //! return pointer to the parameter pool
     ParameterPool *getParameterPool() { return &m_parameters; }

@@ -17,6 +17,10 @@
 #include "Types.h"
 
 
+//- -------------------------------------------------------------------
+//! @class IDoubleToComplexFunction
+//! @brief Base class for double to complex interpolators
+//- -------------------------------------------------------------------
 class IDoubleToComplexFunction
 {
 public:
@@ -24,6 +28,34 @@ public:
 	virtual IDoubleToComplexFunction *clone() const=0;
 
 	virtual complex_t evaluate(double value)=0;
+};
+
+
+//- -------------------------------------------------------------------
+//! @class IDoubleToComplexMap
+//! @brief Base class for double to complex map
+//- -------------------------------------------------------------------
+class IDoubleToComplexMap
+{
+public:
+    virtual ~IDoubleToComplexMap() {}
+    virtual IDoubleToComplexMap *clone() const = 0;
+
+    virtual const complex_t &evaluate(double value) const = 0;
+};
+
+
+//- -------------------------------------------------------------------
+//! @class IDoubleToPairOfComplexMap
+//! @brief Base class for double to complexpair_t map
+//- -------------------------------------------------------------------
+class IDoubleToPairOfComplexMap
+{
+public:
+    virtual ~IDoubleToPairOfComplexMap() {}
+    virtual IDoubleToPairOfComplexMap *clone() const = 0;
+
+    virtual const complexpair_t &evaluate(double value) const = 0;
 };
 
 

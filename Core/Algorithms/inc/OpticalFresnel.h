@@ -20,6 +20,23 @@
 #include "MultiLayer.h"
 
 
+
+/* ************************************************************************* */
+// helper to hold reflection and transmission coefficients simultaneously
+// not used
+/* ************************************************************************* */
+class ReflectionTransmission
+{
+public:
+    complex_t R;
+    complex_t T;
+};
+
+
+
+/* ************************************************************************* */
+// optical fresnel coefficients
+/* ************************************************************************* */
 class OpticalFresnel : public ISimulation
 {
 public:

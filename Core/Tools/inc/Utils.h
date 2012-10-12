@@ -99,6 +99,7 @@ private:
 };
 
 
+
 ////- -------------------------------------------------------------------
 ////! @class StringSampleHelper
 ////! @brief Definition of StringSampleHelper to build the string representing

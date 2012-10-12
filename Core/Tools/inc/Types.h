@@ -17,6 +17,8 @@
 #include <complex>
 #include <vector>
 #include "BasicVector3D.h"
+#include "Exceptions.h"
+#include <boost/unordered_map.hpp>
 
 
 typedef std::complex<double > complex_t;
@@ -24,9 +26,12 @@ typedef Geometry::BasicVector3D<double> kvector_t;
 typedef Geometry::BasicVector3D<complex_t> cvector_t;
 typedef std::vector<double > vdouble1d_t;
 typedef std::vector<vdouble1d_t > vdouble2d_t;
+typedef std::pair<complex_t, complex_t > complexpair_t;
 
 
-// container for holding kvectors
+/* ************************************************************************* */
+// container for holding kvectors with optimied location/deallocation
+/* ************************************************************************* */
 class KVectorContainer {
 public:
     typedef std::vector<kvector_t > container_t;
@@ -39,7 +44,7 @@ public:
 
     inline void push_back(const kvector_t &k) {
         if(m_current_position == m_max_buff_size) {
-            std::cout << "KVectorContainer::push_nack() -> Info. Increasing size of the buffer from " << m_max_buff_size;
+            std::cout << "KVectorContainer::push_back() -> Info. Increasing size of the buffer from " << m_max_buff_size;
             m_max_buff_size *=2;
             std::cout << " to " << m_max_buff_size << std::endl;
             m_buffer.resize(m_max_buff_size);
@@ -68,6 +73,45 @@ private:
     size_t m_max_buff_size;
     container_t m_buffer;
 };
+
+
+/* ************************************************************************* */
+// unordered map of values
+/* ************************************************************************* */
+template<class Key, class Object >
+class UnorderedMap
+{
+public:
+    typedef boost::unordered_map<Key, Object > container_t;
+    typedef typename container_t::iterator iterator;
+    typedef typename container_t::const_iterator const_iterator;
+
+    UnorderedMap() {}
+    virtual ~UnorderedMap(){}
+
+    //UnorderedMap *clone() { return new UnorderedMap(m_value_map); }
+
+    const_iterator begin() { return m_value_map.begin(); }
+    const_iterator end() { return m_value_map.end(); }
+    const Object &find(const Key &key) const
+    {
+        const_iterator pos = m_value_map.find(key);
+        if(pos != m_value_map.end() ) {
+            return (*pos).second;
+        } else {
+            throw RuntimeErrorException("UnorderedMap::find() -> Error! Can't find the object");
+        }
+    }
+
+    size_t size() { return m_value_map.size(); }
+    Object & operator[] (const Key &key) { return m_value_map[key]; }
+
+private:
+    UnorderedMap &operator=(const UnorderedMap &);
+
+    container_t m_value_map;
+};
+
 
 //// we need forward declaration here to be able to redefine ostream as friend
 //template<typename T> class KVector;

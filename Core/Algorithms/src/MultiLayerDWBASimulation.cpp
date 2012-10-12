@@ -2,6 +2,7 @@
 #include "OpticalFresnel.h"
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
+#include "DoubleToComplexMap.h"
 
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(
@@ -41,6 +42,84 @@ void MultiLayerDWBASimulation::init(const Experiment& experiment)
 }
 
 
+//void MultiLayerDWBASimulation::run()
+//{
+//    OpticalFresnel fresnelCalculator;
+
+//    kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
+
+//    m_dwba_intensity.setAllTo(0.0);
+//    //const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(m_dwba_intensity.getAxis("alpha_f"));
+//    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(getDWBAIntensity().getAxis("alpha_f"));
+//    double lambda = 2.0*M_PI/m_ki_real.mag();
+//    std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
+//    for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
+//        double angle = (*p_alpha_axis)[i];
+//        kvector_t kvec;
+//        kvec.setLambdaAlphaPhi(lambda, -angle, 0.0);
+//        OpticalFresnel::MultiLayerCoeff_t coeffs;
+//        fresnelCalculator.execute(*mp_multi_layer, kvec, coeffs);
+//        fresnel_coeff_map[angle] = coeffs;
+//    }
+//    // Also add input angle
+//    OpticalFresnel::MultiLayerCoeff_t coeffs;
+//    fresnelCalculator.execute(*mp_multi_layer, m_ki_real, coeffs);
+//    fresnel_coeff_map[-m_alpha_i] = coeffs;
+
+//    // run through layers and construct T,R functions
+//    for(size_t i_layer=0; i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
+//        std::map<double, complex_t> kz_map;
+//        std::map<double, complex_t> T_map;
+//        std::map<double, complex_t> R_map;
+
+//        std::map<double, complex_t>::iterator it_kz = kz_map.begin();
+//        std::map<double, complex_t>::iterator it_T = T_map.begin();
+//        std::map<double, complex_t>::iterator it_R = R_map.begin();
+//        for (std::map<double, OpticalFresnel::MultiLayerCoeff_t>::const_iterator it=fresnel_coeff_map.begin();
+//                it!=fresnel_coeff_map.end(); ++it) {
+//            double angle = (*it).first;
+////            complex_t kz = (*it).second[i_layer].kz;
+////            complex_t T = (*it).second[i_layer].T;
+////            complex_t R = (*it).second[i_layer].R;
+////            kz_map[angle] = kz;
+////            T_map[angle] = T;
+////            R_map[angle] = R;
+//            // using the fact that we are moving across sorted angles of original map
+//            it_kz = kz_map.insert(it_kz, std::pair<double, complex_t>(angle, (*it).second[i_layer].kz));
+//            it_T = T_map.insert(it_T, std::pair<double, complex_t>(angle, (*it).second[i_layer].T));
+//            it_R = R_map.insert(it_R, std::pair<double, complex_t>(angle, (*it).second[i_layer].R));
+//        }
+//        DoubleToComplexInterpolatingFunction kz_function(kz_map);
+//        DoubleToComplexInterpolatingFunction T_function(T_map);
+//        DoubleToComplexInterpolatingFunction R_function(R_map);
+
+//        // layer DWBA simulation
+//        std::map<size_t, LayerDWBASimulation*>::const_iterator pos = m_layer_dwba_simulation_map.find(i_layer);
+//        if(pos != m_layer_dwba_simulation_map.end() ) {
+//            LayerDWBASimulation *p_layer_dwba_sim = pos->second;
+//            p_layer_dwba_sim->setKzTAndRFunctions(kz_function, T_function, R_function);
+//            p_layer_dwba_sim->run();
+//            //m_dwba_intensity += p_layer_dwba_sim->getDWBAIntensity();
+//            addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
+//        }
+
+//        // layer roughness DWBA
+//        if(m_roughness_dwba_simulation) {
+//            m_roughness_dwba_simulation->setTAndRFunctions(i_layer, T_function, R_function);
+//        }
+
+//    } // i_layer
+
+//    if(m_roughness_dwba_simulation) {
+//        m_roughness_dwba_simulation->run();
+//        //m_dwba_intensity += m_roughness_dwba_simulation->getDWBAIntensity();
+//        addDWBAIntensity( m_roughness_dwba_simulation->getDWBAIntensity() );
+//    }
+
+//}
+
+
+
 void MultiLayerDWBASimulation::run()
 {
     OpticalFresnel fresnelCalculator;
@@ -48,55 +127,45 @@ void MultiLayerDWBASimulation::run()
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
 
     m_dwba_intensity.setAllTo(0.0);
-    //const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(m_dwba_intensity.getAxis("alpha_f"));
     const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(getDWBAIntensity().getAxis("alpha_f"));
     double lambda = 2.0*M_PI/m_ki_real.mag();
-    std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
+
+    typedef std::pair<double, OpticalFresnel::MultiLayerCoeff_t > doublefresnel_t;
+    std::vector<doublefresnel_t > doublefresnel_buffer;
+    doublefresnel_buffer.reserve(p_alpha_axis->getSize()+1);
+
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
         double angle = (*p_alpha_axis)[i];
         kvector_t kvec;
         kvec.setLambdaAlphaPhi(lambda, -angle, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
         fresnelCalculator.execute(*mp_multi_layer, kvec, coeffs);
-        fresnel_coeff_map[angle] = coeffs;
+        doublefresnel_buffer.push_back( doublefresnel_t(angle,coeffs) );
     }
     // Also add input angle
     OpticalFresnel::MultiLayerCoeff_t coeffs;
     fresnelCalculator.execute(*mp_multi_layer, m_ki_real, coeffs);
-    fresnel_coeff_map[-m_alpha_i] = coeffs;
+    doublefresnel_buffer.push_back( doublefresnel_t(-m_alpha_i,coeffs) );
 
     // run through layers and construct T,R functions
     for(size_t i_layer=0; i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
-        std::map<double, complex_t> kz_map;
-        std::map<double, complex_t> T_map;
-        std::map<double, complex_t> R_map;
 
-        std::map<double, complex_t>::iterator it_kz = kz_map.begin();
-        std::map<double, complex_t>::iterator it_T = T_map.begin();
-        std::map<double, complex_t>::iterator it_R = R_map.begin();
-        for (std::map<double, OpticalFresnel::MultiLayerCoeff_t>::const_iterator it=fresnel_coeff_map.begin();
-                it!=fresnel_coeff_map.end(); ++it) {
+        DoubleToPairOfComplexMap RT_map;
+        DoubleToComplexMap Kz_map;
+
+        for(std::vector<doublefresnel_t >::const_iterator it=doublefresnel_buffer.begin(); it!=doublefresnel_buffer.end(); ++it) {
             double angle = (*it).first;
-//            complex_t kz = (*it).second[i_layer].kz;
-//            complex_t T = (*it).second[i_layer].T;
-//            complex_t R = (*it).second[i_layer].R;
-//            kz_map[angle] = kz;
-//            T_map[angle] = T;
-//            R_map[angle] = R;
-            // using the fact that we are moving across sorted angles of original map
-            it_kz = kz_map.insert(it_kz, std::pair<double, complex_t>(angle, (*it).second[i_layer].kz));
-            it_T = T_map.insert(it_T, std::pair<double, complex_t>(angle, (*it).second[i_layer].T));
-            it_R = R_map.insert(it_R, std::pair<double, complex_t>(angle, (*it).second[i_layer].R));
+            const OpticalFresnel::FresnelCoeff &coeff = (*it).second[i_layer];
+            RT_map[angle] = complexpair_t(coeff.R, coeff.T);
+            Kz_map[angle] = coeff.kz;
         }
-        DoubleToComplexInterpolatingFunction kz_function(kz_map);
-        DoubleToComplexInterpolatingFunction T_function(T_map);
-        DoubleToComplexInterpolatingFunction R_function(R_map);
 
         // layer DWBA simulation
         std::map<size_t, LayerDWBASimulation*>::const_iterator pos = m_layer_dwba_simulation_map.find(i_layer);
         if(pos != m_layer_dwba_simulation_map.end() ) {
             LayerDWBASimulation *p_layer_dwba_sim = pos->second;
-            p_layer_dwba_sim->setKzTAndRFunctions(kz_function, T_function, R_function);
+//            p_layer_dwba_sim->setKzTAndRFunctions(kz_function, T_function, R_function);
+            p_layer_dwba_sim->setKzAndRTFunctions(Kz_map, RT_map);
             p_layer_dwba_sim->run();
             //m_dwba_intensity += p_layer_dwba_sim->getDWBAIntensity();
             addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
@@ -104,7 +173,8 @@ void MultiLayerDWBASimulation::run()
 
         // layer roughness DWBA
         if(m_roughness_dwba_simulation) {
-            m_roughness_dwba_simulation->setTAndRFunctions(i_layer, T_function, R_function);
+//            m_roughness_dwba_simulation->setTAndRFunctions(i_layer, T_function, R_function);
+            m_roughness_dwba_simulation->setReflectionTransmissionFunction(i_layer, RT_map);
         }
 
     } // i_layer
@@ -116,5 +186,4 @@ void MultiLayerDWBASimulation::run()
     }
 
 }
-
 

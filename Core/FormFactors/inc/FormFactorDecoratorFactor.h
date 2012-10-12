@@ -22,7 +22,7 @@ class FormFactorDecoratorFactor : public IFormFactorDecorator
 public:
     FormFactorDecoratorFactor(IFormFactor *p_form_factor, complex_t factor);
     virtual FormFactorDecoratorFactor *clone() const;
-    virtual ~FormFactorDecoratorFactor() {};
+    virtual ~FormFactorDecoratorFactor() {}
 
     virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
 

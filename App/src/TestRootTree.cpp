@@ -366,6 +366,7 @@ void TestRootTree::simple_read()
 
 void TestRootTree::initializeMesoCrystal(double meso_alpha, double meso_phi, double nanopart_radius)
 {
+    (void)nanopart_radius;
     delete m_sample;
     // create mesocrystal
     double meso_radius = 300*Units::nanometer;
@@ -395,10 +396,10 @@ void TestRootTree::initializeMesoCrystal(double meso_alpha, double meso_phi, dou
     IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
     ParticleDecoration particle_decoration;
 
-    double R = nanopart_radius;
+    //double R = nanopart_radius;
     Geometry::RotateZ3D transform1(meso_phi);
     Geometry::RotateY3D transform2(meso_alpha);
-    Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1*transform2);
+    //Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1*transform2);
 //    particle_decoration.addParticle(createMesoCrystal(R, n_particle_adapted, &ff_meso), p_total_transform, 0.2*Units::micrometer);
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);

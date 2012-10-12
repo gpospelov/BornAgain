@@ -37,7 +37,7 @@ namespace {
     double testResolutionFunction(double u, double v)
     {
         double sigma_u = 0.0002;
-        double sigma_v = 0.0005;
+        double sigma_v = 0.0002;
         return MathFunctions::IntegratedGaussian(u, 0.0, sigma_u)
                 * MathFunctions::IntegratedGaussian(v, 0.0, sigma_v);
     }

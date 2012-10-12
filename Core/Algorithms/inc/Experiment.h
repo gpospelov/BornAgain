@@ -26,7 +26,7 @@ public:
 	Experiment();
 	Experiment(ISample *p_sample);
 	Experiment(ISampleBuilder *p_sample_builder);
-    virtual ~Experiment() {}
+    virtual ~Experiment() {delete mp_sample; }
 
     //! run a simulation with the current parameter settings
     virtual void runSimulation();

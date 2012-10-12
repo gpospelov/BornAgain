@@ -88,6 +88,7 @@ SOURCES += \
     Tools/src/FitSuite.cpp \
     Tools/src/IFactory.cpp \
     Tools/src/INamed.cpp \
+    Tools/src/IObserver.cpp \
     Tools/src/IParameterized.cpp \
     Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
@@ -110,8 +111,7 @@ SOURCES += \
     PythonAPI/src/PythonListConverter.cpp \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp \
-    PythonAPI/src/PythonOutputData.cpp \
-    Tools/src/IObserver.cpp
+    PythonAPI/src/PythonOutputData.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -199,6 +199,7 @@ HEADERS += \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
+    Tools/inc/DoubleToComplexMap.h \
     Tools/inc/Exceptions.h \
     Tools/inc/FitMultiParameter.h \
     Tools/inc/FitParameter.h \
@@ -238,8 +239,7 @@ HEADERS += \
     PythonAPI/inc/PythonListConverter.h \
     PythonAPI/inc/PythonModule.h \
     PythonAPI/inc/PythonOutputData.h \
-    PythonAPI/inc/PythonPlusplusHelper.h \
-    Tools/inc/DoubleToComplexMap.h
+    PythonAPI/inc/PythonPlusplusHelper.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

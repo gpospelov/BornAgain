@@ -69,6 +69,7 @@ private:
     double m_nanoparticle_radius;
     double m_sigma_nanoparticle_radius;
     double m_sigma_lattice_length_a;
+    double m_roughness;
 };
 
 

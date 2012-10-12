@@ -49,8 +49,8 @@ void TestMesoCrystal1::execute()
     if (mp_intensity_output) delete mp_intensity_output;
     GISASExperiment experiment;
     experiment.setSampleBuilder(mp_sample_builder);
-    experiment.setDetectorParameters(200, 0.3*Units::degree, 0.073
-           , 200, -0.4*Units::degree, 0.066);
+    experiment.setDetectorParameters(1024, 0.3*Units::degree, 0.073
+           , 1024, -0.4*Units::degree, 0.066);
 //    experiment.setDetectorParameters(2, 0.96*Units::degree, 0.962*Units::degree
 //           , 2 , 0.376*Units::degree, 0.378*Units::degree);
     experiment.setDetectorResolutionFunction(&testResolutionFunction);
@@ -83,9 +83,10 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 , m_sigma_meso_height(4*Units::nanometer)
 , m_sigma_meso_radius(50*Units::nanometer)
 , m_lattice_length_a(6.2*Units::nanometer)
-, m_nanoparticle_radius(6.2*Units::nanometer)
-, m_sigma_nanoparticle_radius(0.2*Units::nanometer)
-, m_sigma_lattice_length_a(2.0*Units::nanometer)
+, m_nanoparticle_radius(4.3*Units::nanometer)
+, m_sigma_nanoparticle_radius(0.14*Units::nanometer)
+, m_sigma_lattice_length_a(1.5*Units::nanometer)
+, m_roughness(1.0*Units::nanometer)
 {
     init_parameters();
 }
@@ -146,7 +147,7 @@ ISample* MesoCrystalBuilder::buildSample() const
     particle_decoration.addInterferenceFunction(p_interference_funtion);
     LayerDecorator avg_layer_decorator(avg_layer, particle_decoration);
 
-    LayerRoughness roughness(1.0*Units::nanometer, 0.3, 500.0*Units::nanometer);
+    LayerRoughness roughness(m_roughness, 0.3, 500.0*Units::nanometer);
 
     p_multi_layer->addLayer(air_layer);
     p_multi_layer->addLayer(avg_layer_decorator);
@@ -171,6 +172,7 @@ void MesoCrystalBuilder::init_parameters()
     getParameterPool()->registerParameter("nanoparticle_radius", &m_nanoparticle_radius);
     getParameterPool()->registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius);
     getParameterPool()->registerParameter("sigma_lattice_length_a", &m_sigma_lattice_length_a);
+    getParameterPool()->registerParameter("roughness", &m_roughness);
 }
 
 MesoCrystal* MesoCrystalBuilder::createMesoCrystal(double stacking_radius, complex_t n_particle,

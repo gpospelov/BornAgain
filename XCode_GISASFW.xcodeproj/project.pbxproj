@@ -69,7 +69,6 @@
 		62224859160CB853008205AC /* MaterialManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222E9160CB745008205AC /* MaterialManager.cpp */; };
 		6222485A160CB853008205AC /* MesoCrystal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222EA160CB745008205AC /* MesoCrystal.cpp */; };
 		6222485B160CB853008205AC /* MultiLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222EB160CB745008205AC /* MultiLayer.cpp */; };
-		6222485C160CB853008205AC /* ParameterPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222EC160CB745008205AC /* ParameterPool.cpp */; };
 		6222485D160CB853008205AC /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222ED160CB745008205AC /* Particle.cpp */; };
 		6222485E160CB853008205AC /* ParticleBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222EE160CB745008205AC /* ParticleBuilder.cpp */; };
 		6222485F160CB853008205AC /* ParticleDecoration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222EF160CB745008205AC /* ParticleDecoration.cpp */; };
@@ -95,7 +94,6 @@
 		6222488D160CC1E6008205AC /* AppDict.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222225160CB745008205AC /* AppDict.cpp */; };
 		6222488E160CC1E6008205AC /* CommandLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222227160CB745008205AC /* CommandLine.cpp */; };
 		6222488F160CC1E6008205AC /* DrawHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222228160CB745008205AC /* DrawHelper.cpp */; };
-		62224890160CC1E6008205AC /* EventFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222229160CB745008205AC /* EventFrame.cpp */; };
 		62224891160CC1E6008205AC /* FunctionalTestFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222222A160CB745008205AC /* FunctionalTestFactory.cpp */; };
 		62224892160CC1E6008205AC /* IFunctionalTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222222B160CB745008205AC /* IFunctionalTest.cpp */; };
 		62224893160CC1E6008205AC /* IsGISAXSTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222222C160CB745008205AC /* IsGISAXSTools.cpp */; };
@@ -161,6 +159,13 @@
 		627C2FDA160B515D004C1B11 /* libGISASFW.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
 		62BD93501619D05D0008A768 /* ParticleCoreShell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */; };
+		62EA737B1628422200656B41 /* FitSuite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73741628422200656B41 /* FitSuite.cpp */; };
+		62EA737C1628422200656B41 /* IObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73751628422200656B41 /* IObserver.cpp */; };
+		62EA737D1628422200656B41 /* IParameterized.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73761628422200656B41 /* IParameterized.cpp */; };
+		62EA737E1628422200656B41 /* OutputDataIOFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73771628422200656B41 /* OutputDataIOFactory.cpp */; };
+		62EA737F1628422200656B41 /* OutputDataReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73781628422200656B41 /* OutputDataReader.cpp */; };
+		62EA73801628422200656B41 /* OutputDataWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73791628422200656B41 /* OutputDataWriter.cpp */; };
+		62EA73811628422200656B41 /* ParameterPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA737A1628422200656B41 /* ParameterPool.cpp */; };
 		62F77E261619992B00C8F15E /* TestMesoCrystal1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62F77E241619992B00C8F15E /* TestMesoCrystal1.cpp */; };
 		62F77E271619992B00C8F15E /* TestMesoCrystal2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62F77E251619992B00C8F15E /* TestMesoCrystal2.cpp */; };
 		62FDC05C1615E39200D28B08 /* ProgramOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */; };
@@ -238,7 +243,6 @@
 		62222226160CB745008205AC /* AppDict.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDict.h; sourceTree = "<group>"; };
 		62222227160CB745008205AC /* CommandLine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CommandLine.cpp; sourceTree = "<group>"; };
 		62222228160CB745008205AC /* DrawHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DrawHelper.cpp; sourceTree = "<group>"; };
-		62222229160CB745008205AC /* EventFrame.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EventFrame.cpp; sourceTree = "<group>"; };
 		6222222A160CB745008205AC /* FunctionalTestFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionalTestFactory.cpp; sourceTree = "<group>"; };
 		6222222B160CB745008205AC /* IFunctionalTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IFunctionalTest.cpp; sourceTree = "<group>"; };
 		6222222C160CB745008205AC /* IsGISAXSTools.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXSTools.cpp; sourceTree = "<group>"; };
@@ -385,7 +389,6 @@
 		622222D1160CB745008205AC /* MaterialManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaterialManager.h; sourceTree = "<group>"; };
 		622222D2160CB745008205AC /* MesoCrystal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MesoCrystal.h; sourceTree = "<group>"; };
 		622222D3160CB745008205AC /* MultiLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiLayer.h; sourceTree = "<group>"; };
-		622222D4160CB745008205AC /* ParameterPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParameterPool.h; sourceTree = "<group>"; };
 		622222D5160CB745008205AC /* Particle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
 		622222D6160CB745008205AC /* ParticleBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleBuilder.h; sourceTree = "<group>"; };
 		622222D7160CB745008205AC /* ParticleDecoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleDecoration.h; sourceTree = "<group>"; };
@@ -408,7 +411,6 @@
 		622222E9160CB745008205AC /* MaterialManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialManager.cpp; sourceTree = "<group>"; };
 		622222EA160CB745008205AC /* MesoCrystal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MesoCrystal.cpp; sourceTree = "<group>"; };
 		622222EB160CB745008205AC /* MultiLayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiLayer.cpp; sourceTree = "<group>"; };
-		622222EC160CB745008205AC /* ParameterPool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterPool.cpp; sourceTree = "<group>"; };
 		622222ED160CB745008205AC /* Particle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
 		622222EE160CB745008205AC /* ParticleBuilder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleBuilder.cpp; sourceTree = "<group>"; };
 		622222EF160CB745008205AC /* ParticleDecoration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleDecoration.cpp; sourceTree = "<group>"; };
@@ -1060,6 +1062,22 @@
 		627C3031160B69D7004C1B11 /* libfftw3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfftw3.3.dylib; path = ../../../../../../opt/local/lib/libfftw3.3.dylib; sourceTree = "<group>"; };
 		62AE01631619C72E00A83353 /* ParticleCoreShell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleCoreShell.h; sourceTree = "<group>"; };
 		62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleCoreShell.cpp; sourceTree = "<group>"; };
+		62EA736B1628421000656B41 /* FitSuite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FitSuite.h; sourceTree = "<group>"; };
+		62EA736C1628421000656B41 /* IMinimizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMinimizer.h; sourceTree = "<group>"; };
+		62EA736D1628421000656B41 /* IObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IObserver.h; sourceTree = "<group>"; };
+		62EA736E1628421000656B41 /* IParameterized.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IParameterized.h; sourceTree = "<group>"; };
+		62EA736F1628421000656B41 /* OutputDataIOFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputDataIOFactory.h; sourceTree = "<group>"; };
+		62EA73701628421000656B41 /* OutputDataReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputDataReader.h; sourceTree = "<group>"; };
+		62EA73711628421000656B41 /* OutputDataWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputDataWriter.h; sourceTree = "<group>"; };
+		62EA73721628421000656B41 /* ParameterPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParameterPool.h; sourceTree = "<group>"; };
+		62EA73741628422200656B41 /* FitSuite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuite.cpp; sourceTree = "<group>"; };
+		62EA73751628422200656B41 /* IObserver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IObserver.cpp; sourceTree = "<group>"; };
+		62EA73761628422200656B41 /* IParameterized.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IParameterized.cpp; sourceTree = "<group>"; };
+		62EA73771628422200656B41 /* OutputDataIOFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataIOFactory.cpp; sourceTree = "<group>"; };
+		62EA73781628422200656B41 /* OutputDataReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataReader.cpp; sourceTree = "<group>"; };
+		62EA73791628422200656B41 /* OutputDataWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataWriter.cpp; sourceTree = "<group>"; };
+		62EA737A1628422200656B41 /* ParameterPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterPool.cpp; sourceTree = "<group>"; };
+		62EA73821628425600656B41 /* ISampleBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISampleBuilder.h; sourceTree = "<group>"; };
 		62F77E241619992B00C8F15E /* TestMesoCrystal1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMesoCrystal1.cpp; sourceTree = "<group>"; };
 		62F77E251619992B00C8F15E /* TestMesoCrystal2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMesoCrystal2.cpp; sourceTree = "<group>"; };
 		62F77E281619993B00C8F15E /* TestMesoCrystal1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMesoCrystal1.h; sourceTree = "<group>"; };
@@ -1202,7 +1220,6 @@
 				62222226160CB745008205AC /* AppDict.h */,
 				62222227160CB745008205AC /* CommandLine.cpp */,
 				62222228160CB745008205AC /* DrawHelper.cpp */,
-				62222229160CB745008205AC /* EventFrame.cpp */,
 				6222222A160CB745008205AC /* FunctionalTestFactory.cpp */,
 				6222222B160CB745008205AC /* IFunctionalTest.cpp */,
 				6222222C160CB745008205AC /* IsGISAXSTools.cpp */,
@@ -1255,6 +1272,7 @@
 		62222245160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62EA73821628425600656B41 /* ISampleBuilder.h */,
 				62222246160CB745008205AC /* Beam.h */,
 				62222247160CB745008205AC /* ChiSquaredModule.h */,
 				62222248160CB745008205AC /* ConvolutionDetectorResolution.h */,
@@ -1473,7 +1491,6 @@
 				622222D1160CB745008205AC /* MaterialManager.h */,
 				622222D2160CB745008205AC /* MesoCrystal.h */,
 				622222D3160CB745008205AC /* MultiLayer.h */,
-				622222D4160CB745008205AC /* ParameterPool.h */,
 				622222D5160CB745008205AC /* Particle.h */,
 				622222D6160CB745008205AC /* ParticleBuilder.h */,
 				622222D7160CB745008205AC /* ParticleDecoration.h */,
@@ -1504,7 +1521,6 @@
 				622222E9160CB745008205AC /* MaterialManager.cpp */,
 				622222EA160CB745008205AC /* MesoCrystal.cpp */,
 				622222EB160CB745008205AC /* MultiLayer.cpp */,
-				622222EC160CB745008205AC /* ParameterPool.cpp */,
 				622222ED160CB745008205AC /* Particle.cpp */,
 				622222EE160CB745008205AC /* ParticleBuilder.cpp */,
 				622222EF160CB745008205AC /* ParticleDecoration.cpp */,
@@ -1525,6 +1541,14 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62EA736B1628421000656B41 /* FitSuite.h */,
+				62EA736C1628421000656B41 /* IMinimizer.h */,
+				62EA736D1628421000656B41 /* IObserver.h */,
+				62EA736E1628421000656B41 /* IParameterized.h */,
+				62EA736F1628421000656B41 /* OutputDataIOFactory.h */,
+				62EA73701628421000656B41 /* OutputDataReader.h */,
+				62EA73711628421000656B41 /* OutputDataWriter.h */,
+				62EA73721628421000656B41 /* ParameterPool.h */,
 				62FDC0611615F11F00D28B08 /* CoreOptionsDescription.h */,
 				62FDC0621615F11F00D28B08 /* Macros.h */,
 				62FDC0591615E35900D28B08 /* ProgramOptions.h */,
@@ -1557,6 +1581,13 @@
 		6222230A160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62EA73741628422200656B41 /* FitSuite.cpp */,
+				62EA73751628422200656B41 /* IObserver.cpp */,
+				62EA73761628422200656B41 /* IParameterized.cpp */,
+				62EA73771628422200656B41 /* OutputDataIOFactory.cpp */,
+				62EA73781628422200656B41 /* OutputDataReader.cpp */,
+				62EA73791628422200656B41 /* OutputDataWriter.cpp */,
+				62EA737A1628422200656B41 /* ParameterPool.cpp */,
 				62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */,
 				62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */,
 				6222230B160CB745008205AC /* Convolve.cpp */,
@@ -68355,7 +68386,6 @@
 				6222488D160CC1E6008205AC /* AppDict.cpp in Sources */,
 				6222488E160CC1E6008205AC /* CommandLine.cpp in Sources */,
 				6222488F160CC1E6008205AC /* DrawHelper.cpp in Sources */,
-				62224890160CC1E6008205AC /* EventFrame.cpp in Sources */,
 				62224891160CC1E6008205AC /* FunctionalTestFactory.cpp in Sources */,
 				62224892160CC1E6008205AC /* IFunctionalTest.cpp in Sources */,
 				62224893160CC1E6008205AC /* IsGISAXSTools.cpp in Sources */,
@@ -68454,7 +68484,6 @@
 				62224859160CB853008205AC /* MaterialManager.cpp in Sources */,
 				6222485A160CB853008205AC /* MesoCrystal.cpp in Sources */,
 				6222485B160CB853008205AC /* MultiLayer.cpp in Sources */,
-				6222485C160CB853008205AC /* ParameterPool.cpp in Sources */,
 				6222485D160CB853008205AC /* Particle.cpp in Sources */,
 				6222485E160CB853008205AC /* ParticleBuilder.cpp in Sources */,
 				6222485F160CB853008205AC /* ParticleDecoration.cpp in Sources */,
@@ -68475,6 +68504,13 @@
 				62224885160CB853008205AC /* Utils.cpp in Sources */,
 				62BD93501619D05D0008A768 /* ParticleCoreShell.cpp in Sources */,
 				6218B466161B2577007FFA5C /* FormFactorParallelepiped.cpp in Sources */,
+				62EA737B1628422200656B41 /* FitSuite.cpp in Sources */,
+				62EA737C1628422200656B41 /* IObserver.cpp in Sources */,
+				62EA737D1628422200656B41 /* IParameterized.cpp in Sources */,
+				62EA737E1628422200656B41 /* OutputDataIOFactory.cpp in Sources */,
+				62EA737F1628422200656B41 /* OutputDataReader.cpp in Sources */,
+				62EA73801628422200656B41 /* OutputDataWriter.cpp in Sources */,
+				62EA73811628422200656B41 /* ParameterPool.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

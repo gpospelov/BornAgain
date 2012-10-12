@@ -91,6 +91,10 @@ void TestMesoCrystal2::execute()
     fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
     fitSuite->addFitParameter("*/lattice_length_a", 6.2*Units::nanometer, 0.1*Units::nanometer,
             TRange<double>(2.0*Units::nanometer, 10.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/nanoparticle_radius", 5.7*Units::nanometer, 0.1*Units::nanometer,
+            TRange<double>(2.0*Units::nanometer, 10.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/sigma_nanoparticle_radius", 0.1*Units::nanometer, 0.05*Units::nanometer,
+            TRange<double>(0.01*Units::nanometer, 2.0*Units::nanometer) );
 
     IsGISAXSTools::setMinimum(1e2);
     FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);

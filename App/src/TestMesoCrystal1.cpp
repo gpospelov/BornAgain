@@ -83,7 +83,7 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 , m_sigma_meso_height(4*Units::nanometer)
 , m_sigma_meso_radius(50*Units::nanometer)
 , m_lattice_length_a(6.2*Units::nanometer)
-, m_nanoparticle_radius(5.5*Units::nanometer)
+, m_nanoparticle_radius(6.2*Units::nanometer)
 , m_sigma_nanoparticle_radius(0.2*Units::nanometer)
 , m_sigma_lattice_length_a(2.0*Units::nanometer)
 {

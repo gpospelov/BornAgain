@@ -22,7 +22,6 @@
 //!
 //! Limitation: this class assumes that the data points are evenly distributed on each axis
 //- -------------------------------------------------------------------
-
 class ConvolutionDetectorResolution : public IDetectorResolution
 {
 public:

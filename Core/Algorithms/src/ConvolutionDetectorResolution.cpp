@@ -103,8 +103,8 @@ void ConvolutionDetectorResolution::apply2dConvolution(
     if (raw_data_size != axis_size_1*axis_size_2) {
         throw LogicErrorException("Intensity map data size does not match the product of its axes' sizes");
     }
-    for (std::vector<double>::const_iterator it=raw_source_vector.begin(); it != raw_source_vector.end();it+=axis_size_1) {
-        std::vector<double> row_vector(it, it+axis_size_1);
+    for (std::vector<double>::const_iterator it=raw_source_vector.begin(); it != raw_source_vector.end();it+=axis_size_2) {
+        std::vector<double> row_vector(it, it+axis_size_2);
         source.push_back(row_vector);
     }
     // Construct kernel vector from resolution function

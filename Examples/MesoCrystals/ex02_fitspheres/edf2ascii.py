@@ -164,9 +164,9 @@ def make_file(filename):
 
   # data .vs. phi,theta
   phi = phi/180.*pi
-  tth=tth/180.*pi
+  tth=(tth-0.32)/180.*pi
   tth=tth[ ::-1]
-  newphi, newtheta, newdata2 = modify_arrays(phi, tth, data, 0.0, 0.07, 0.0, 0.07)
+  newphi, newtheta, newdata2 = modify_arrays(phi, tth, data, 0.02, 0.06, 0.0, 0.04)
   save_text_file(filename.rsplit('.',1)[0]+'_phitheta.txt.gz', newphi, newtheta, newdata2)
 
 

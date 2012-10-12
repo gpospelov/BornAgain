@@ -14,6 +14,10 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 20, 2012
 
+#include "Numeric.h"
+
+#include <cmath>
+
 class ISquaredFunction
 {
 public:
@@ -30,10 +34,16 @@ public:
     virtual ~DefaultSquaredFunction() {}
     virtual DefaultSquaredFunction *clone() const { return new DefaultSquaredFunction(); }
 
-    virtual double calculateSquaredDifference(double real_value, double simulated_value) const {
-        return (simulated_value-real_value)*(simulated_value-real_value);
-    }
+    virtual double calculateSquaredDifference(double real_value, double simulated_value) const;
 };
 
+inline double DefaultSquaredFunction::calculateSquaredDifference(
+        double real_value, double simulated_value) const
+{
+    double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
+    if (diff_squared < Numeric::double_epsilon) return 0.0;
+//    double real_squared = real_value*real_value;
+    return diff_squared;
+}
 
 #endif /* ISQUAREDFUNCTION_H_ */

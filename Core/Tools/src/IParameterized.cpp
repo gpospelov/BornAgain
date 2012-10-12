@@ -58,6 +58,13 @@ std::string IParameterized::addParametersToExternalPool(std::string path, Parame
     return path;
 }
 
+void IParameterized::printParameters() const
+{
+    ParameterPool *p_pool = createParameterTree();
+    std::cout << *p_pool << std::endl;
+    delete p_pool;
+}
+
 /* ************************************************************************* */
 // No pure virtual function here, due to problems in exporting abstract classes to python
 /* ************************************************************************* */

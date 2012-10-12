@@ -41,7 +41,9 @@ const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name
         // check if user is trying to create material with same name but different parameters
         const HomogeneousMaterial *old = dynamic_cast<const HomogeneousMaterial *>(mat);
         if(old->getRefractiveIndex() != refractive_index) {
-            throw LogicErrorException("MaterialManager::addHomogeneousMaterial() -> Error! Attempt to create material with same name but different refractive index");
+            HomogeneousMaterial *non_const_mat = const_cast<HomogeneousMaterial *>(old);
+            non_const_mat->setRefractiveIndex(refractive_index);
+//            throw LogicErrorException("MaterialManager::addHomogeneousMaterial() -> Error! Attempt to create material with same name but different refractive index");
         }
         return mat;
     } else {

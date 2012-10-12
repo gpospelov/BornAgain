@@ -20,6 +20,7 @@
 
 class GISASExperiment;
 class ISample;
+class ISampleBuilder;
 class MesoCrystal;
 class IFormFactor;
 class Lattice;
@@ -39,13 +40,12 @@ public:
 
 private:
     void initializeExperiment(const OutputData<double> *output_data=0);
-    void initializeSample();
 
-    MesoCrystal* createMesoCrystal(double stacking_radius, complex_t n_particle, const IFormFactor* p_meso_form_factor);
-    const Lattice *createLattice(double stacking_radius);
+//    MesoCrystal* createMesoCrystal(double stacking_radius, complex_t n_particle, const IFormFactor* p_meso_form_factor);
+//    const Lattice *createLattice(double stacking_radius);
 
-    ISample *m_sample;
-    GISASExperiment *m_experiment;
+    ISampleBuilder *mp_sample_builder;
+    GISASExperiment *mp_experiment;
 };
 
 #endif // TESTMESOCRYSTAL2_H

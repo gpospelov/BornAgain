@@ -102,6 +102,7 @@ void FitSuite::runFit()
     // seting parameters to the optimum values found by the minimizer
     for(size_t i=0; i<m_fit_params.size(); ++i) m_fit_params[i]->setValue(m_minimizer->getValueOfVariableAtMinimum(i));
 
+    notifyObservers();
 }
 
 

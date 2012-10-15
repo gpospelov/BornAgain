@@ -30,7 +30,6 @@
 class TestPerformance : public IFunctionalTest
 {
 public:
-
     //! class to hold performance information over functional test
     class PerformanceTestInfo {
     public:
@@ -40,7 +39,6 @@ public:
         double m_nrepetitions;
         double m_results;
     };
-
 
     typedef std::vector<PerformanceTestInfo *> performance_tests_t;
 
@@ -74,7 +72,7 @@ class PerfTest_FresnelCoeff : public IFunctionalTest
 public:
     PerfTest_FresnelCoeff() : IFunctionalTest("Fresnel"), m_sample(0){}
     virtual ~PerfTest_FresnelCoeff() { delete m_sample;}
-    void initialise();
+    void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
 };
@@ -86,7 +84,7 @@ class PerfTest_Pyramid : public IFunctionalTest
 public:
     PerfTest_Pyramid() : IFunctionalTest("Pyramid"), m_sample(0), m_experiment(0) {}
     virtual ~PerfTest_Pyramid() { delete m_sample; delete m_experiment; }
-    void initialise();
+    void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
     GISASExperiment *m_experiment;
@@ -99,7 +97,7 @@ class PerfTest_RotatedPyramid : public IFunctionalTest
 public:
     PerfTest_RotatedPyramid() : IFunctionalTest("RotatedPyramid"), m_sample(0), m_experiment(0) {}
     virtual ~PerfTest_RotatedPyramid() { delete m_sample;delete m_experiment; }
-    void initialise();
+    void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
     GISASExperiment *m_experiment;
@@ -113,7 +111,7 @@ class PerfTest_MesoCrystal : public IFunctionalTest
 public:
     PerfTest_MesoCrystal() : IFunctionalTest("MesoCrystal"), m_sample(0), m_experiment(0) {}
     virtual ~PerfTest_MesoCrystal() { delete m_sample; delete m_experiment; }
-    void initialise();
+    void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
     GISASExperiment *m_experiment;

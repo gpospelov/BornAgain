@@ -14,9 +14,10 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.05.2012
 
-
 #include <string>
 #include "INamed.h"
+
+class ProgramOptions;
 
 //- -------------------------------------------------------------------
 //! @class IFunctionalTest
@@ -26,15 +27,18 @@
 class IFunctionalTest : public INamed
 {
 public:
-    IFunctionalTest(){}
-    IFunctionalTest(const std::string &name) : INamed(name) {}
-    IFunctionalTest(const std::string &name, const std::string &title) : INamed(name, title) {}
+    IFunctionalTest() : mp_options(0) {}
+    IFunctionalTest(const std::string &name) : INamed(name), mp_options(0) {}
+    IFunctionalTest(const std::string &name, const std::string &title) : INamed(name, title), mp_options(0) {}
     virtual ~IFunctionalTest(){}
 
-    virtual void initialise() {}
+    virtual void initialise(ProgramOptions *p_options) {
+        mp_options = p_options;
+    }
     virtual void execute();
     virtual void finalise() {}
-
+protected:
+    ProgramOptions *mp_options;
 };
 
 #endif // IFUNCTIONALTEST_H

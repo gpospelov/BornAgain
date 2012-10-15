@@ -1,26 +1,29 @@
 #include "Experiment.h"
 
-Experiment::Experiment()
+Experiment::Experiment(ProgramOptions *p_options)
 : mp_sample(0)
 , mp_sample_builder(0)
 , m_is_normalized(false)
+, mp_options(p_options)
 {
     setName("Experiment");
     init_parameters();
 }
 
-Experiment::Experiment(ISample* p_sample)
+Experiment::Experiment(ISample* p_sample, ProgramOptions *p_options)
 : mp_sample(p_sample)
 , mp_sample_builder(0)
 , m_is_normalized(false)
+, mp_options(p_options)
 {
     init_parameters();
 }
 
-Experiment::Experiment(ISampleBuilder* p_sample_builder)
+Experiment::Experiment(ISampleBuilder* p_sample_builder, ProgramOptions *p_options)
 : mp_sample(0)
 , mp_sample_builder(p_sample_builder)
 , m_is_normalized(false)
+, mp_options(p_options)
 {
     init_parameters();
 }

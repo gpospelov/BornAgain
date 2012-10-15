@@ -8,7 +8,8 @@
 #include <boost/thread.hpp>
 
 
-GISASExperiment::GISASExperiment()
+GISASExperiment::GISASExperiment(ProgramOptions *p_options)
+: Experiment(p_options)
 {
     setName("GISASExperiment");
     m_beam.setCentralK(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree); ///< Set default beam parameters
@@ -21,8 +22,11 @@ void GISASExperiment::runSimulation()
     Experiment::runSimulation();
     if( !mp_sample) throw NullPointerException( "GISASExperiment::runSimulation() -> Error! No sample set.");
 
-    int n_threads_total = ProgramOptions::instance()["threads"].as<int>();
-    std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads defined in program options " << n_threads_total << std::endl;
+    int n_threads_total=0;
+    if (mp_options) {
+        n_threads_total = (*mp_options)["threads"].as<int>();
+        std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads defined in program options " << n_threads_total << std::endl;
+    }
 
     m_intensity_map.setAllTo(0.0);
     if(n_threads_total<0) {

@@ -10,19 +10,13 @@
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
 //! @file   CoreOptionsDescription.h
-//! @brief  Definition of CoreOptionsDescription class
+//! @brief  Definition of Core Options
 //! @author Scientific Computing Group at FRM II
 //! @date   21.09.2012
 
 
-//- -------------------------------------------------------------------
-//! @class CoreOptionsDescription
-//! @brief Definition of program options of Core's package
-//- -------------------------------------------------------------------
-class CoreOptionsDescription
-{
-public:
-    CoreOptionsDescription();
-};
+class ProgramOptions;
+
+void AddCoreOptions(ProgramOptions *p_options);
 
 #endif // COREOPTIONSDESCRIPTION_H

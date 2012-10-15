@@ -133,7 +133,7 @@ void TestMesoCrystal2::initializeExperiment(const OutputData<double> *output_dat
 {
     delete mp_experiment;
 
-    mp_experiment = new GISASExperiment();
+    mp_experiment = new GISASExperiment(mp_options);
     mp_experiment->setSampleBuilder( mp_sample_builder );
     mp_experiment->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     mp_experiment->setBeamIntensity(8e12);

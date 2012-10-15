@@ -22,6 +22,7 @@
 
 
 class TBenchmark;
+class ProgramOptions;
 
 class FunctionalTestFactory : public ISingleton<FunctionalTestFactory>, public IFactory<std::string, IFunctionalTest>
 //before it was template class ISingleton<IFactory<std::string, IFunctionalTest> >;
@@ -34,13 +35,13 @@ public:
     virtual ~FunctionalTestFactory();
 
     //! execute specified test
-    void execute(std::string name);
+    void execute(std::string name, ProgramOptions *p_options);
 
     //! profile specified test
-    void profile(std::string name);
+    void profile(std::string name, ProgramOptions *p_options);
 
     //! execute all registered tests
-    void execute_all();
+    void execute_all(ProgramOptions *p_options);
 
     //! print names of registered tests
     void print_testnames();

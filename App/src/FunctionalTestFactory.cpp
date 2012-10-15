@@ -92,7 +92,7 @@ void FunctionalTestFactory::print_benchmarks()
 /* ************************************************************************* */
 // execute specific functional tests
 /* ************************************************************************* */
-void FunctionalTestFactory::execute(std::string name)
+void FunctionalTestFactory::execute(std::string name, ProgramOptions *p_options)
 {
     //IFunctionalTest *test = TestFactory::instance().createItem( args[i] );
     IFunctionalTest *test(0);
@@ -104,7 +104,7 @@ void FunctionalTestFactory::execute(std::string name)
         return;
     }
 
-    test->initialise();
+    test->initialise(p_options);
     m_benchmark->Start(name.c_str());
     test->execute();
     m_benchmark->Stop(name.c_str());
@@ -114,7 +114,7 @@ void FunctionalTestFactory::execute(std::string name)
 }
 
 
-void FunctionalTestFactory::profile(std::string name)
+void FunctionalTestFactory::profile(std::string name, ProgramOptions *p_options)
 {
     //IFunctionalTest *test = TestFactory::instance().createItem( args[i] );
     IFunctionalTest *test(0);
@@ -126,7 +126,7 @@ void FunctionalTestFactory::profile(std::string name)
         return;
     }
 
-    test->initialise();
+    test->initialise(p_options);
     for(int i=0; i<1; i++) test->execute();
 
 }
@@ -136,11 +136,11 @@ void FunctionalTestFactory::profile(std::string name)
 /* ************************************************************************* */
 // execute all registered functional tests
 /* ************************************************************************* */
-void FunctionalTestFactory::execute_all()
+void FunctionalTestFactory::execute_all(ProgramOptions *p_options)
 {
     CallbackMap_t::const_iterator it;
     for(it=m_callbacks.begin(); it != m_callbacks.end(); it++ ) {
-        execute( it->first );
+        execute( it->first , p_options);
         //createItem( it->first )->execute();
     }
     print_benchmarks();

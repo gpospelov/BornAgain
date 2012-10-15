@@ -42,7 +42,7 @@ void TestMultiLayerRoughness::execute()
         if(index_alpha_i%10 == 0) std::cout << index_alpha_i << " of " << npoints << std::endl;
 
         // setting experiment
-        GISASExperiment experiment;
+        GISASExperiment experiment(mp_options);
         experiment.setSample(sample);
         experiment.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree, false);
         experiment.setBeamParameters(1.54*Units::angstrom, -alpha_i, 0.0*Units::degree);

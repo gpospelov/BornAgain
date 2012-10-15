@@ -10,20 +10,12 @@
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
 //! @file   AppOptionsDescription.h
-//! @brief  Definition of AppOptionsDescription class
+//! @brief  Definition of Application options
 //! @author Scientific Computing Group at FRM II
 //! @date   21.09.2012
 
+class ProgramOptions;
 
-//- -------------------------------------------------------------------
-//! @class AppOptionsDescription
-//! @brief Definition of program options for App package
-//- -------------------------------------------------------------------
-class AppOptionsDescription
-{
-public:
-    AppOptionsDescription();
-
-};
+void AddApplicationOptions(ProgramOptions *p_options);
 
 #endif // APPPROGRAMOPTIONS_H

@@ -47,7 +47,7 @@ TestMesoCrystal1::~TestMesoCrystal1()
 void TestMesoCrystal1::execute()
 {
     if (mp_intensity_output) delete mp_intensity_output;
-    GISASExperiment experiment;
+    GISASExperiment experiment(mp_options);
     experiment.setSampleBuilder(mp_sample_builder);
     experiment.setDetectorParameters(256, 0.3*Units::degree, 0.073
            , 256, -0.4*Units::degree, 0.066);

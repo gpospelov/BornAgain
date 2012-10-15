@@ -22,7 +22,7 @@
 class GISASExperiment : public Experiment
 {
 public:
-	GISASExperiment();
+	GISASExperiment(ProgramOptions *p_options);
 
 	virtual void runSimulation();
 

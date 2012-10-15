@@ -87,6 +87,16 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 , m_sigma_nanoparticle_radius(0.14*Units::nanometer)
 , m_sigma_lattice_length_a(1.5*Units::nanometer)
 , m_roughness(1.0*Units::nanometer)
+//: m_meso_radius(1000*Units::nanometer)
+//, m_surface_filling_ratio(0.100013)
+//, m_meso_height(0.5*Units::micrometer)
+//, m_sigma_meso_height(199.989*Units::nanometer)
+//, m_sigma_meso_radius(3.11584*Units::nanometer)
+//, m_lattice_length_a(6.2128*Units::nanometer)
+//, m_nanoparticle_radius(3.82322*Units::nanometer)
+//, m_sigma_nanoparticle_radius(0.371165*Units::nanometer)
+//, m_sigma_lattice_length_a(1.2186*Units::nanometer)
+//, m_roughness(49.979*Units::nanometer)
 {
     init_parameters();
 }

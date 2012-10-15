@@ -88,13 +88,17 @@ void TestMesoCrystal2::execute()
     FitSuite *fitSuite = new FitSuite();
     fitSuite->setExperiment(mp_experiment);
     fitSuite->setRealData(*real_data);
-    fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
     fitSuite->addFitParameter("*/lattice_length_a", 6.2*Units::nanometer, 0.1*Units::nanometer,
             TRange<double>(2.0*Units::nanometer, 10.0*Units::nanometer) );
     fitSuite->addFitParameter("*/nanoparticle_radius", 5.7*Units::nanometer, 0.1*Units::nanometer,
             TRange<double>(2.0*Units::nanometer, 10.0*Units::nanometer) );
     fitSuite->addFitParameter("*/sigma_nanoparticle_radius", 0.1*Units::nanometer, 0.05*Units::nanometer,
             TRange<double>(0.01*Units::nanometer, 2.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/meso_height", 500.0*Units::nanometer, 1.0*Units::nanometer,
+            TRange<double>(100.0*Units::nanometer, 2000.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/meso_radius", 1000.0*Units::nanometer, 1.0*Units::nanometer,
+            TRange<double>(100.0*Units::nanometer, 5000.0*Units::nanometer) );
     fitSuite->addFitParameter("*/sigma_meso_height", 4.0*Units::nanometer, 1.0*Units::nanometer,
             TRange<double>(0.01*Units::nanometer, 200.0*Units::nanometer) );
     fitSuite->addFitParameter("*/sigma_meso_radius", 50.0*Units::nanometer, 1.0*Units::nanometer,
@@ -107,8 +111,10 @@ void TestMesoCrystal2::execute()
             TRange<double>(0.01*Units::nanometer, 50.0*Units::nanometer) );
 
     IsGISAXSTools::setMinimum(1e2);
-    FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
-    fitSuite->attachObserver(drawObserver);
+    FitSuiteObserverWriteTree *writeTreeObserver = new FitSuiteObserverWriteTree("~/fitmeso003.tree");
+    fitSuite->attachObserver(writeTreeObserver);
+//    FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
+//    fitSuite->attachObserver(drawObserver);
 
     fitSuite->runFit();
 

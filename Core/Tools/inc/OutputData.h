@@ -34,8 +34,10 @@ public:
     size_t getCurrentIndexOfAxis(std::string axis_name);
     size_t getPosition() const { return m_current_position; }
     size_t getSize() const { return m_total_size; }
+    std::vector<size_t> getAllSizes() { return m_axis_sizes; }
     void reset();
     void setIndexOfAxis(std::string axis_name, size_t value);
+    void setAllIndices(std::vector<size_t> indices);
     void incrementIndexOfAxis(std::string axis_name);
     void decrementIndexOfAxis(std::string axis_name);
     MultiIndex& operator++();
@@ -84,7 +86,8 @@ public:
     template <class U> void addAxis(std::string name, U start, U end, size_t size);
     std::vector<NamedVectorBase*> getAxes() const { return m_value_axes; }
 
-    const NamedVectorBase* getAxis(std::string label) const;
+    const NamedVectorBase *getAxis(std::string label) const;
+    const NamedVectorBase *getAxis(size_t index) const;
 
     //! return number of dimensions
     size_t getDimension() const { return m_dimension; }
@@ -95,11 +98,14 @@ public:
     //! return total size of data buffer (product of bin number in every dimension)
     size_t getAllocatedSize() const { return m_data_vector.size(); }
 
+    //! return all sizes of its axes
+    std::vector<size_t> getAllSizes() const { return m_index.getAllSizes(); }
+
     //! return copy of raw data vector
     std::vector<T> getRawDataVector() const { return m_data_vector; }
 
     //! return multi index
-    MultiIndex& getIndex();
+    MultiIndex& getIndex() const;
 
     // ---------------------------------
     // navigation and access to stored elements
@@ -176,6 +182,10 @@ const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<
 
 //! division-assignment operator for two output data
 const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<double> &right);
+
+//! double the bin size for each dimension
+OutputData<double> *doubleBinSize(const OutputData<double> &source);
+
 
 
 /* ***************************************************************************/
@@ -284,9 +294,13 @@ template <class T> const NamedVectorBase* OutputData<T>::getAxis(std::string lab
     return 0;
 }
 
+template <class T> const NamedVectorBase* OutputData<T>::getAxis(size_t index) const
+{
+    return m_value_axes.at(index);
+}
 
 // return multi index
-template <class T> inline MultiIndex& OutputData<T>::getIndex()
+template <class T> inline MultiIndex& OutputData<T>::getIndex() const
 {
     return m_index;
 }

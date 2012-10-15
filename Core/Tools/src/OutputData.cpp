@@ -130,6 +130,17 @@ void MultiIndex::setIndexOfAxis(std::string axis_name, size_t value)
     updateCurrentPosition();
 }
 
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
+void MultiIndex::setAllIndices(std::vector<size_t> indices)
+{
+    if (indices.size()!=m_dimension) {
+        throw OutOfBoundsException(" MultiIndex::setAllIndices() -> Indices vector not of the right size!");
+    }
+    m_current_coordinate = indices;
+    updateCurrentPosition();
+}
 
 /* ************************************************************************* */
 //
@@ -281,3 +292,39 @@ const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<
     return left;
 }
 
+/* ************************************************************************* */
+// double the bin size for each dimension
+/* ************************************************************************* */
+OutputData<double> *doubleBinSize(const OutputData<double> &source)
+{
+    OutputData<double> *p_result = new OutputData<double>;
+    size_t dimension = source.getDimension();
+    std::vector<size_t> source_sizes = source.getAllSizes();
+    std::vector<bool> needs_resizing;
+    // create new axes
+    for (size_t i=0; i<dimension; ++i) {
+        needs_resizing.push_back(source_sizes[i] > 1);
+        const NamedVector<double> *source_axis = dynamic_cast<const NamedVector<double> *>(source.getAxis(i));
+        p_result->addAxis(source_axis->createDoubleBinSize());
+    }
+    // calculate new data content
+    source.resetIndex();
+    MultiIndex &source_index = source.getIndex();
+    MultiIndex &result_index = p_result->getIndex();
+    while (source.hasNext()) {
+        std::vector<size_t> source_indices = source_index.getCurrentIndices();
+        std::vector<size_t> dest_indices;
+        double boundary_factor = 1.0;
+        for (size_t i=0; i<source_indices.size(); ++i) {
+            dest_indices.push_back(source_indices[i]/2);
+            if (needs_resizing[i] &&
+                    source_sizes[i]%2 == 1 &&
+                    source_indices[i] == source_sizes[i]-1) {
+                boundary_factor *= 2.0;
+            }
+        }
+        result_index.setAllIndices(dest_indices);
+        p_result->currentValue() = boundary_factor*source.next();
+    }
+    return p_result;
+}

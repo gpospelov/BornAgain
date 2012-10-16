@@ -76,22 +76,22 @@ void TestMesoCrystal2::execute()
     OutputDataReader *reader = OutputDataIOFactory::instance().getReader(file_name);
     OutputData<double > *real_data = reader->getOutputData();
     OutputData<double > *real_data_half = doubleBinSize(*real_data);
-    OutputData<double > *real_data_quarter = doubleBinSize(*real_data_half);
-    OutputData<double > *real_data_eighth = doubleBinSize(*real_data_quarter);
+//    OutputData<double > *real_data_quarter = doubleBinSize(*real_data_half);
+//    OutputData<double > *real_data_eighth = doubleBinSize(*real_data_quarter);
     delete reader;
     c1->cd(1); gPad->SetLogz();
-    IsGISAXSTools::drawOutputDataInPad(*real_data_quarter, "CONT4 Z", "experiment");
+    IsGISAXSTools::drawOutputDataInPad(*real_data_half, "CONT4 Z", "experiment");
     c1->Update();
 
     // initializing experiment using real data to have detector axises like in real_data
-    initializeExperiment(real_data_quarter);
+    initializeExperiment(real_data_half);
     mp_experiment->printParameters();
 
     // setting fitSuite
     FitSuite *fitSuite = new FitSuite();
     fitSuite->setExperiment(mp_experiment);
-    fitSuite->setRealData(*real_data_quarter);
-    fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "ConjugateFR") );
+    fitSuite->setRealData(*real_data_half);
+    fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
     fitSuite->addFitParameter("*/lattice_length_a", 6.2*Units::nanometer, 1.0*Units::nanometer,
             TRange<double>(4.0*Units::nanometer, 8.0*Units::nanometer) );
     fitSuite->addFitParameter("*/nanoparticle_radius", 5.7*Units::nanometer, 1.0*Units::nanometer,
@@ -114,10 +114,10 @@ void TestMesoCrystal2::execute()
             TRange<double>(0.01*Units::nanometer, 50.0*Units::nanometer) );
 
     IsGISAXSTools::setMinimum(1e2);
-//    FitSuiteObserverWriteTree *writeTreeObserver = new FitSuiteObserverWriteTree("~/fitmeso003.tree");
-//    fitSuite->attachObserver(writeTreeObserver);
-    FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
-    fitSuite->attachObserver(drawObserver);
+    FitSuiteObserverWriteTree *writeTreeObserver = new FitSuiteObserverWriteTree("~/fitmeso003.tree");
+    fitSuite->attachObserver(writeTreeObserver);
+//    FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
+//    fitSuite->attachObserver(drawObserver);
 
     fitSuite->runFit();
 

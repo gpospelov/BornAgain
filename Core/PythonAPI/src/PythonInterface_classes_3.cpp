@@ -1018,29 +1018,6 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
 
 void register_classes_3(){
 
-    bp::class_< Geometry::TranslateZ3D, bp::bases< Geometry::Translate3D > >( "TranslateZ3D", bp::init< >() )    
-        .def( bp::init< double >(( bp::arg("z") )) );
-
-    { //::IMaterial
-        typedef bp::class_< IMaterial > IMaterial_exposer_t;
-        IMaterial_exposer_t IMaterial_exposer = IMaterial_exposer_t( "IMaterial", bp::init< >() );
-        bp::scope IMaterial_scope( IMaterial_exposer );
-        IMaterial_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
-        IMaterial_exposer.def( bp::init< IMaterial const & >(( bp::arg("other") )) );
-        { //::IMaterial::operator=
-        
-            typedef ::IMaterial & ( ::IMaterial::*assign_function_type )( ::IMaterial const & ) ;
-            
-            IMaterial_exposer.def( 
-                "assign"
-                , assign_function_type( &::IMaterial::operator= )
-                , ( bp::arg("other") )
-                , bp::return_self< >() );
-        
-        }
-        IMaterial_exposer.def( bp::self_ns::str( bp::self ) );
-    }
-
     { //::HomogeneousMaterial
         typedef bp::class_< HomogeneousMaterial, bp::bases< IMaterial > > HomogeneousMaterial_exposer_t;
         HomogeneousMaterial_exposer_t HomogeneousMaterial_exposer = HomogeneousMaterial_exposer_t( "HomogeneousMaterial", bp::init< >() );
@@ -1815,5 +1792,9 @@ void register_classes_3(){
             "walk_and_print"
             , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
             , (void ( ParticleDecoration_wrapper::* )(  ) )(&ParticleDecoration_wrapper::default_walk_and_print) );
+
+    bp::class_< ReflectionTransmission >( "ReflectionTransmission" )    
+        .def_readwrite( "R", &ReflectionTransmission::R )    
+        .def_readwrite( "T", &ReflectionTransmission::T );
 
 }

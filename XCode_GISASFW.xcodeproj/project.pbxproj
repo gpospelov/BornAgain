@@ -1082,6 +1082,7 @@
 		62F77E251619992B00C8F15E /* TestMesoCrystal2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMesoCrystal2.cpp; sourceTree = "<group>"; };
 		62F77E281619993B00C8F15E /* TestMesoCrystal1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMesoCrystal1.h; sourceTree = "<group>"; };
 		62F77E291619993B00C8F15E /* TestMesoCrystal2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMesoCrystal2.h; sourceTree = "<group>"; };
+		62F7B50B162C63BF008B8E1D /* DoubleToComplexMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleToComplexMap.h; sourceTree = "<group>"; };
 		62FDC0591615E35900D28B08 /* ProgramOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramOptions.h; sourceTree = "<group>"; };
 		62FDC05B1615E39200D28B08 /* ProgramOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgramOptions.cpp; sourceTree = "<group>"; };
 		62FDC05E1615F0DE00D28B08 /* CoreOptionsDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoreOptionsDescription.cpp; sourceTree = "<group>"; };
@@ -1541,6 +1542,7 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62F7B50B162C63BF008B8E1D /* DoubleToComplexMap.h */,
 				62EA736B1628421000656B41 /* FitSuite.h */,
 				62EA736C1628421000656B41 /* IMinimizer.h */,
 				62EA736D1628421000656B41 /* IObserver.h */,

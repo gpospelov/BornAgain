@@ -63,6 +63,13 @@ void FitSuiteObserverWriteTree::update(IObservable *subject)
     FitSuite *fitSuite = dynamic_cast<FitSuite *>(subject);
     if( !fitSuite ) throw NullPointerException("FitSuiteObserverWriteTree::update() -> Error! Can't cast FitSuite");
 
+    std::cout << "FitObserver: " << " ncall" << m_ncall << " chi2:" << fitSuite->getChiSquaredModule()->getValue();
+    // printing parameter values
+    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
+        std::cout << " " << (*it)->getName() << " " << (*it)->getValue();
+        //            std::cout << *(*it);
+    }
+    std::cout << std::endl;
     // preparing root file for writing
     // if it is first call the file will be opened in 'recreate' mode, otherwise in 'update' mode
     TFile *top(0);

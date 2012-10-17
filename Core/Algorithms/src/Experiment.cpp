@@ -138,10 +138,6 @@ std::string Experiment::addParametersToExternalPool(std::string path,
         mp_sample->addParametersToExternalPool(sample_path, external_pool, -1);
     }
 
-    // Output parameterpool
-//    for(ParameterPool::iterator_t ip=external_pool->begin(); ip!=external_pool->end(); ip++) {
-//        std::cout << (*ip).first << " " << (*ip).second << std::endl;
-//    }
     return new_path;
 }
 

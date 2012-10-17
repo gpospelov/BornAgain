@@ -5,6 +5,8 @@
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "MathFunctions.h"
 #include "ProgramOptions.h"
+#include "ConvolutionDetectorResolution.h"
+
 #include <boost/thread.hpp>
 
 
@@ -107,10 +109,9 @@ void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, doub
     updateIntensityMapAxes();
 }
 
-void GISASExperiment::setDetectorResolutionFunction(
-        ConvolutionDetectorResolution::cumulative_DF_2d resolution_function)
+void GISASExperiment::setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function)
 {
-    m_detector.setDetectorResolution(new ConvolutionDetectorResolution(resolution_function));
+    m_detector.setDetectorResolution(new ConvolutionDetectorResolution(p_resolution_function));
 }
 
 void GISASExperiment::smearIntensityFromZAxisTilting()

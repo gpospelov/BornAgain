@@ -9,6 +9,7 @@
 #include "LayerDecorator.h"
 #include "ParticleDecoration.h"
 #include "MathFunctions.h"
+#include "ResolutionFunction2DSimple.h"
 
 namespace
 {
@@ -41,7 +42,8 @@ void TestDetectorResolution::execute()
     experiment.setSample(mp_sample);
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree
             ,100, 0.0*Units::degree, 2.0*Units::degree);
-    experiment.setDetectorResolutionFunction(&testResolutionFunction);
+    IResolutionFunction2D *p_resolution_function = new ResolutionFunction2DSimple(0.001, 0.001);
+    experiment.setDetectorResolutionFunction(p_resolution_function);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     experiment.runSimulation();
     mp_intensity_output = experiment.getOutputDataClone();

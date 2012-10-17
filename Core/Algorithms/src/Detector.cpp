@@ -38,6 +38,18 @@ void Detector::applyDetectorResolution(
     }
 }
 
+std::string Detector::addParametersToExternalPool(std::string path,
+        ParameterPool* external_pool, int copy_number) const
+{
+    // add own parameters
+    std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+
+    // add parameters of the resolution function
+    mp_detector_resolution->addParametersToExternalPool(new_path, external_pool, -1);
+
+    return new_path;
+}
+
 void Detector::init_parameters()
 {
 }

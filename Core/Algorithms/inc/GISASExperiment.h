@@ -16,7 +16,7 @@
 
 
 #include "Experiment.h"
-#include "ConvolutionDetectorResolution.h"
+#include "IResolutionFunction2D.h"
 
 
 class GISASExperiment : public Experiment
@@ -31,7 +31,7 @@ public:
     void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style=false);
 
-	void setDetectorResolutionFunction(ConvolutionDetectorResolution::cumulative_DF_2d resolution_function);
+	void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
 
 	void smearIntensityFromZAxisTilting();
 private:

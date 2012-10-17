@@ -29,19 +29,11 @@
 
 #include "TCanvas.h"
 #include "TH2D.h"
+#include "ResolutionFunction2DSimple.h"
 
 /* ************************************************************************* */
 // global functions
 /* ************************************************************************* */
-namespace {
-    double testResolutionFunction(double u, double v)
-    {
-        double sigma_u = 0.0002;
-        double sigma_v = 0.0002;
-        return MathFunctions::IntegratedGaussian(u, 0.0, sigma_u)
-                * MathFunctions::IntegratedGaussian(v, 0.0, sigma_v);
-    }
-}
 
 /* ************************************************************************* */
 // TestMesoCrystal2 member definitions
@@ -112,12 +104,17 @@ void TestMesoCrystal2::execute()
             TRange<double>(0.1, 0.4) );
     fitSuite->addFitParameter("*/roughness", 1.0*Units::nanometer, 0.1*Units::nanometer,
             TRange<double>(0.01*Units::nanometer, 50.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/ResolutionFunction2D/sigma_x", 0.0002, 0.00001,
+            TRange<double>(0.0, 0.002) );
+    fitSuite->addFitParameter("*/ResolutionFunction2D/sigma_y", 0.0002, 0.00001,
+            TRange<double>(0.0, 0.002) );
 
     IsGISAXSTools::setMinimum(1e2);
-    FitSuiteObserverWriteTree *writeTreeObserver = new FitSuiteObserverWriteTree("~/fitmeso003.tree");
+    std::string tree_file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/mesofit.tree";
+    FitSuiteObserverWriteTree *writeTreeObserver = new FitSuiteObserverWriteTree(tree_file_name);
     fitSuite->attachObserver(writeTreeObserver);
-//    FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
-//    fitSuite->attachObserver(drawObserver);
+    FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
+    fitSuite->attachObserver(drawObserver);
 
     fitSuite->runFit();
 
@@ -137,7 +134,7 @@ void TestMesoCrystal2::initializeExperiment(const OutputData<double> *output_dat
     mp_experiment->setSampleBuilder( mp_sample_builder );
     mp_experiment->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     mp_experiment->setBeamIntensity(8e12);
-    mp_experiment->setDetectorResolutionFunction(&testResolutionFunction);
+    mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
 
     if( !output_data ) {
         // initialize default detector

@@ -1,6 +1,5 @@
-#ifndef IDETECTORRESOLUTION_H_
-#define IDETECTORRESOLUTION_H_
-
+#ifndef IRESOLUTIONFUNCTION2D_H_
+#define IRESOLUTIONFUNCTION2D_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -10,22 +9,19 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   IDetectorResolution.h
-//! @brief  Definition of IDetectorResolution interface
+//! @file   IResolutionFunction2D.h
+//! @brief  Definition of IResolutionFunction2D interface
 //! @author Scientific Computing Group at FRM II
-//! @date   Jul 10, 2012
+//! @date   Oct 16, 2012
 
-#include "OutputData.h"
 #include "IParameterized.h"
 
-class IDetectorResolution : public IParameterized
+class IResolutionFunction2D : public IParameterized
 {
 public:
-    //! Destructor
-    virtual ~IDetectorResolution() {}
-    //! Apply the resolution function to the intensity data
-    virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const=0;
+    virtual ~IResolutionFunction2D() {}
+
+    virtual double evaluateCDF(double x, double y) const=0;
 };
 
-
-#endif /* IDETECTORRESOLUTION_H_ */
+#endif /* IRESOLUTIONFUNCTION2D_H_ */

@@ -16,6 +16,10 @@ from pyplusplus import file_writers
 from pygccxml.declarations.matchers import access_type_matcher_t
 from pygccxml.declarations.matchers import virtuality_type_matcher_t
 from pygccxml import declarations
+from pyplusplus import function_transformers as FT
+
+
+
 
 
 ModuleName = 'PythonInterface'
@@ -29,11 +33,13 @@ myFiles=[
   'Experiment.h',
   'FormFactorCrystal.h',
   'FormFactorCylinder.h',
+  'FormFactorDecoratorDebyeWaller.h',
   'FormFactorFullSphere.h',
   'FormFactorGauss.h',
   'FormFactorLorentz.h',
   'FormFactorPrism3.h',
   'FormFactorPyramid.h',
+  'FormFactorSphereGaussianRadius.h',
   'GISASExperiment.h',
   'HomogeneousMaterial.h',
   'IClusteredParticles.h',
@@ -46,6 +52,7 @@ myFiles=[
   'IParameterized.h',
   'ISample.h',
   'ISampleBuilder.h',
+  'ISelectionRule.h',
   'ISingleton.h',
   'Lattice.h',
   'LatticeBasis.h',
@@ -83,6 +90,7 @@ myIncludes = ['../../Core/Samples/inc','../../Core/FormFactors/inc','../../Core/
 # BasicVector3D.h
 # -------------------------------------------------------------------
 def RulesBasicVector3D(mb):
+  cl = mb.class_("BasicVector3D<std::complex<double> >")
   # we exclude everyting related to complex BasicVector3D<complex_t>
   mb.class_("BasicVector3D<std::complex<double> >").exclude()
   mb.free_operators( lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
@@ -105,9 +113,11 @@ def RulesExperiment(mb):
   cl.member_functions().exclude()
   cl.member_function("runSimulation").include()
   cl.member_function("normalize").include()
-  cl.member_function("setSample").include()
   cl.member_function("setBeamParameters").include()
   cl.member_function("setBeamIntensity").include()
+  cl.member_function("setSample").include()
+  cl.member_function("setSampleBuilder").include()
+
 
 # -------------------------------------------------------------------
 # FormFactorCylinder.h
@@ -116,6 +126,24 @@ def RulesFormFactorCylinder(mb):
   cl = mb.class_( "FormFactorCylinder" )
   #cl.constructors().exclude() # excluding all constructors
   #cl.constructors( arg_types=[ "double", "double" ] ).include() # including constructor with 2 double parameters
+  #cl.member_functions().exclude() # excluding all member functions
+
+# -------------------------------------------------------------------
+# FormFactorDecoratorDebyeWaller.h
+# -------------------------------------------------------------------
+def RulesFormFactorDecoratorDebyeWaller(mb):
+  cl = mb.class_( "FormFactorDecoratorDebyeWaller" )
+  #cl.constructors().exclude() # excluding all constructors
+  #cl.constructors( arg_types=[ "double", "double" ] ).include() # including constructor with 2 double parameters
+  #cl.member_functions().exclude() # excluding all member functions
+
+# -------------------------------------------------------------------
+# FormFactorFullSphere.h
+# -------------------------------------------------------------------
+def RulesFormFactorFullSphere(mb):
+  cl = mb.class_( "FormFactorFullSphere" )
+  #cl.constructors().exclude() # excluding all constructors
+  #cl.constructors( arg_types=[ "double" ] ).include() # including constructor with 3 double parametes
   #cl.member_functions().exclude() # excluding all member functions
 
 # -------------------------------------------------------------------
@@ -128,13 +156,11 @@ def RulesFormFactorPyramid(mb):
   #cl.member_functions().exclude() # excluding all member functions
 
 # -------------------------------------------------------------------
-# FormFactorFullSphere.h
+# FormFactorSphereGaussianRadius.h
 # -------------------------------------------------------------------
-def RulesFormFactorFullSphere(mb):
-  cl = mb.class_( "FormFactorFullSphere" )
-  #cl.constructors().exclude() # excluding all constructors
-  #cl.constructors( arg_types=[ "double" ] ).include() # including constructor with 3 double parametes
-  #cl.member_functions().exclude() # excluding all member functions
+def RulesFormFactorSphereGaussianRadius(mb):
+  cl = mb.class_( "FormFactorSphereGaussianRadius" )
+  cl.member_functions("createDistributedFormFactors").exclude()
 
   
 # -------------------------------------------------------------------
@@ -244,7 +270,7 @@ def RulesISample(mb):
   #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   cl.member_functions().exclude()
   cl.member_function( "clone" ).include()
-  cl.member_function("walk_and_print").include()
+  cl.member_function("print_structure").include()
 
 
 # -------------------------------------------------------------------
@@ -254,6 +280,7 @@ def RulesISampleBuilder(mb):
   cl = mb.class_( "ISampleBuilder" )
   cl.member_functions().exclude()
   cl.member_function( "buildSample" ).include()
+  cl.member_function( "buildSample" ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
 
 
 # -------------------------------------------------------------------
@@ -267,9 +294,10 @@ def RulesLattice(mb):
   cl.member_function("getBasisVectorC").include()
   cl.member_function("createTrigonalLattice").include()
   cl.member_function("createTrigonalLattice").call_policies = call_policies.return_value_policy(call_policies.return_by_value )
-
-
+  cl.member_function("setSelectionRule").include()
   
+
+
 # -------------------------------------------------------------------
 # LatticeBasis.h
 # -------------------------------------------------------------------
@@ -287,17 +315,12 @@ def RulesLayer(mb):
   cl = mb.class_( "Layer" )
   cl.member_function( "createDWBASimulation" ).exclude()
   # we need to include back setMaterial methods since they have pointers in argument list (and our default policy is to exclude them)
-  for fun in cl.member_functions(): # excluding constructors which have pointers
+  for fun in cl.member_functions(): 
     if fun.name == "setMaterial":
       fun.include()
       print fun
-  # why following method doesn't work?
-  #cl.member_functions(lambda decl: 'setMaterial' in decl.decl_string, allow_empty=True).include()
-  #cl.member_functions().exclude()
-  #cl.member_functions( "setMaterial" ).include()
-  #cl.member_functions( "setThickness" ).include()
-  #cl.member_functions( "getThickness" ).include()
-
+  # including back constructors with pointers (general policy is to exclude them)
+  cl.constructors().include()
 
 # -------------------------------------------------------------------
 # LayerDecorator.h
@@ -464,10 +487,9 @@ def RulesTransform3D(mb):
 # -------------------------------------------------------------------
 # Types.h
 # -------------------------------------------------------------------
-#def RulesTypes(mb):
-
-        #typedef bp::class_< KVector< double > > KVector_less__double__greater__exposer_t;
-        #KVector_less__double__greater__exposer_t KVector_less__double__greater__exposer = KVector_less__double__greater__exposer_t( "KVector_less__double__greater_", bp::init< >() );
+def RulesTypes(mb):
+    cl = mb.class_("KVectorContainer")
+    cl.exclude()
 
 # -------------------------------------------------------------------
 # Units.h
@@ -486,40 +508,42 @@ def RulesTransform3D(mb):
 
 # list of additional rules which have to be executed for every processed header file
 myRules = {
-  'BasicVector3D.h'            : RulesBasicVector3D,
-  'Experiment.h'               : RulesExperiment,
-  'FormFactorCylinder.h'       : RulesFormFactorCylinder,
-  'FormFactorFullSphere.h'     : RulesFormFactorFullSphere,
-  'FormFactorPyramid.h'        : RulesFormFactorPyramid,
-  'GISASExperiment.h'          : RulesGISASExperiment,
-  #'HomogeneousMaterial.h'      : RulesHomogeneousMaterial,
-  'IClusteredParticles.h'      : RulesIClusteredParticles,
-  'ICompositeSample.h'         : RulesICompositeSample,
-  'IFormFactor.h'              : RulesIFormFactor,
-  'IInterferenceFunction.h'    : RulesIInterferenceFunction,
-  'InterferenceFunctionNone.h' : RulesInterferenceFunctionNone,
+  'BasicVector3D.h'                   : RulesBasicVector3D,
+  'Experiment.h'                      : RulesExperiment,
+  'FormFactorCylinder.h'              : RulesFormFactorCylinder,
+  'FormFactorDecoratorDebyeWaller.h'  : RulesFormFactorDecoratorDebyeWaller,
+  'FormFactorFullSphere.h'            : RulesFormFactorFullSphere,
+  'FormFactorPyramid.h'               : RulesFormFactorPyramid,
+  'GISASExperiment.h'                 : RulesGISASExperiment,
+  #'HomogeneousMaterial.h'            : RulesHomogeneousMaterial,
+  'IClusteredParticles.h'             : RulesIClusteredParticles,
+  'ICompositeSample.h'                : RulesICompositeSample,
+  'IFormFactor.h'                     : RulesIFormFactor,
+  'IInterferenceFunction.h'           : RulesIInterferenceFunction,
+  'InterferenceFunctionNone.h'        : RulesInterferenceFunctionNone,
   'InterferenceFunction1DParaCrystal' : RulesInterferenceFunction1DParaCrystal,
-  #'IMaterial.h'                : RulesIMaterial,
-  #'ISingleton.h'               : RulesISingleton,
-  'ISample.h'                  : RulesISample,
-  'Lattice.h'                  : RulesLattice,
-  'LatticeBasis.h'             : RulesLatticeBasis,
-  'Layer.h'                    : RulesLayer,
-  'LayerDecorator.h'           : RulesLayerDecorator,
-  'LayerRoughness.h'           : RulesLayerRoughness,
-  'MaterialManager.h'          : RulesMaterialManager,
-  'MesoCrystal.h'              : RulesMesoCrystal,
-  'MultiLayer.h'               : RulesMultiLayer,
-  'Particle.h'                 : RulesParticle,
-  'Crystal.h'                  : RulesCrystal,
-  'ParticleDecoration.h'       : RulesParticleDecoration,
-  #'OpticalFresnel.h'           : RulesOpticalFresnel,
-  'Point3D.h'                  : RulesPoint3D,
-  'ParameterPool.h'            : RulesParameterPool,
-  'PythonOutputData.h'         : RulesPythonOutputData,
-  'PythonPlusplusHelper.h'     : RulesPythonPlusplusHelper,
-  'Transform3D.h'              : RulesTransform3D,
-  #'Types.h'                    : RulesTypes,
+  #'IMaterial.h'                      : RulesIMaterial,
+  #'ISingleton.h'                     : RulesISingleton,
+  'ISample.h'                         : RulesISample,
+  'FormFactorSphereGaussianRadius.h'  : RulesFormFactorSphereGaussianRadius,
+  'Lattice.h'                         : RulesLattice,
+  'LatticeBasis.h'                    : RulesLatticeBasis,
+  'Layer.h'                           : RulesLayer,
+  'LayerDecorator.h'                  : RulesLayerDecorator,
+  'LayerRoughness.h'                  : RulesLayerRoughness,
+  'MaterialManager.h'                 : RulesMaterialManager,
+  'MesoCrystal.h'                     : RulesMesoCrystal,
+  'MultiLayer.h'                      : RulesMultiLayer,
+  'Particle.h'                        : RulesParticle,
+  'Crystal.h'                         : RulesCrystal,
+  'ParticleDecoration.h'              : RulesParticleDecoration,
+  #'OpticalFresnel.h'                 : RulesOpticalFresnel,
+  'Point3D.h'                         : RulesPoint3D,
+  'ParameterPool.h'                   : RulesParameterPool,
+  'PythonOutputData.h'                : RulesPythonOutputData,
+  'PythonPlusplusHelper.h'            : RulesPythonPlusplusHelper,
+  'Transform3D.h'                     : RulesTransform3D,
+  'Types.h'                           : RulesTypes,
   #'Units.h'                    : RulesUnits,
   #'Vector3D.h'                 : RulesVector3D
 }
@@ -545,7 +569,7 @@ def GenerateCode():
   mem_funs = mb.calldefs ()
   mem_funs.create_with_signature = True
 
-  # Exclude protected and private that are not pure virtual (we have to expose pure virtual functions to have them overriden in the wrapper)
+  # Exclude protected and private that are not pure virtual (we still have to expose pure virtual functions to have them overriden in the wrapper)
   query = declarations.access_type_matcher_t( 'private' ) & ~declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
   mb.global_ns.calldefs( query, allow_empty=True ).exclude()
   query = declarations.access_type_matcher_t( 'protected' ) & ~declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
@@ -617,6 +641,7 @@ def GenerateCode():
       #, messages.W1049 # returns reference to local variable
       #, messages.W1014 # unsupported '=' operator
        )
+
 
   # ---------------------------------------------------------
   # generating output
@@ -694,4 +719,36 @@ def main():
 if __name__ == '__main__':
   main()
 
-  
+
+
+#-------------------------------------------------------------
+#
+# not used code examples
+#
+#-------------------------------------------------------------
+
+# code below is an example of transferring of ownership from python to C++
+  #from pyplusplus import function_transformers as FT
+  #impl_conv_code = \
+  #"""
+  #boost::python::implicitly_convertible< std::auto_ptr< %(from)s >, std::auto_ptr< %(to)s > >();
+  #"""
+  #cls = mb.class_( 'Layer' )
+  #cls.held_type = 'std::auto_ptr< %s >' % cls.decl_string
+  #cls.add_registration_code( impl_conv_code % { 'from' : cls.wrapper_alias
+                                                #, 'to' : cls.decl_string }
+                             #, False)
+  #for base in cls.recursive_bases:
+      #if base.access_type == 'public':
+          #cls.add_registration_code( #from class to its base
+              #impl_conv_code % { 'from' : cls.decl_string
+                                 #, 'to' : base.related_class.decl_string }
+              #, False)
+
+          #cls.add_registration_code( #from wrapper to clas base class
+              #impl_conv_code % { 'from' : cls.wrapper_alias
+                                  #, 'to' : base.related_class.decl_string }
+              #, False)
+  #add_fun = mb.class_("MultiLayer").member_function( 'addLayer' )
+  #add_fun.add_transformation( FT.transfer_ownership( 0 ) )
+

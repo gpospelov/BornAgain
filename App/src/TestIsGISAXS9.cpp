@@ -40,7 +40,7 @@ void TestIsGISAXS9::execute()
 
     // pyramid
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
-    experiment.setSample(sample);
+    experiment.setSample(*sample);
     experiment.runSimulation();
     OutputData<double> *data = experiment.getOutputDataClone();
     m_results.push_back( data );
@@ -48,7 +48,7 @@ void TestIsGISAXS9::execute()
 
     // rotated pyramid
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_RotatedPyramid"));
-    experiment.setSample(sample);
+    experiment.setSample(*sample);
     experiment.runSimulation();
     data = experiment.getOutputDataClone();
     m_results.push_back( data );

@@ -21,6 +21,13 @@ HomogeneousMaterial::HomogeneousMaterial(const std::string &name, complex_t refr
 }
 
 
+HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag)
+    : IMaterial(name), m_refractive_index(refractive_index_real, refractive_index_imag)
+{
+
+}
+
+
 HomogeneousMaterial::HomogeneousMaterial(const HomogeneousMaterial &other) : IMaterial(other)
 {
     m_refractive_index = m_refractive_index;

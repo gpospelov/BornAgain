@@ -38,7 +38,7 @@ void TestDetectorResolution::execute()
     if (mp_intensity_output) delete mp_intensity_output;
     initializeSample();
     GISASExperiment experiment;
-    experiment.setSample(mp_sample);
+    experiment.setSample(*mp_sample);
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree
             ,100, 0.0*Units::degree, 2.0*Units::degree);
     experiment.setDetectorResolutionFunction(&testResolutionFunction);

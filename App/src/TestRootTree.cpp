@@ -107,7 +107,7 @@ void TestRootTree::complex_write()
         double alpha_f_min(-0.4*Units::degree), alpha_f_max(0.066);
 
         GISASExperiment experiment;
-        experiment.setSample(m_sample);
+        experiment.setSample(*m_sample);
         experiment.setDetectorParameters(nphi_f, phi_f_min, phi_f_max, nalpha_f , alpha_f_min, alpha_f_max);
         experiment.setBeamParameters(1.77*Units::angstrom, -alpha_i, phi_i);
         experiment.setBeamIntensity(1e7);
@@ -212,7 +212,7 @@ void TestRootTree::simple_write()
     m_experiment = new GISASExperiment();
     m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    m_experiment->setSample(m_sample);
+    m_experiment->setSample(*m_sample);
 
     // variables below will be written in the tree
     double intens1(0), intens2(0), alpha_i(0), phi_i(0), alpha_f(0), phi_f(0);

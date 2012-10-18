@@ -46,7 +46,7 @@ public:
     friend std::ostream &operator<<(std::ostream &ostr, const ISample &m) { m.print(ostr); return ostr; }
 
     //! walk through composite sample and print content
-    virtual void walk_and_print();
+    virtual void print_structure();
 
     //! add parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;

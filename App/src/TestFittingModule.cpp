@@ -55,7 +55,7 @@ void TestFittingModule::execute()
     initializeExperiment();
     generateRealData(0.1);
 
-//    mp_sample->walk_and_print();
+//    mp_sample->print_structure();
 //    ParameterPool *pool = mp_sample->createParameterTree();
 //    std::cout << *pool << std::endl;
 //    return;
@@ -124,7 +124,7 @@ void TestFittingModule::initializeExperiment()
 
     delete mp_experiment;
     mp_experiment = new GISASExperiment();
-    mp_experiment->setSample(mp_sample);
+    mp_experiment->setSample(*mp_sample);
     mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
     mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     mp_experiment->setBeamIntensity(1e10);

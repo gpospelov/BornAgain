@@ -14,7 +14,7 @@ void TestIsGISAXS10::execute()
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS10_CylindersParacrystal1D"));
 
     GISASExperiment experiment;
-    experiment.setSample(sample);
+    experiment.setSample(*sample);
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 //    experiment.setBeamIntensity(1e7);

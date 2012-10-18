@@ -14,11 +14,15 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Aug 31, 2012
 
+#include "IFormFactor.h"
+
+
 class FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
 {
 public:
     FormFactorDecoratorDebyeWaller(IFormFactor *p_form_factor, double dw_factor);
     FormFactorDecoratorDebyeWaller(IFormFactor *p_form_factor, double dw_h_factor, double dw_r_factor);
+    FormFactorDecoratorDebyeWaller(const IFormFactor &p_form_factor, double dw_h_factor, double dw_r_factor);
     virtual FormFactorDecoratorDebyeWaller *clone() const;
     virtual ~FormFactorDecoratorDebyeWaller() {}
 
@@ -58,6 +62,16 @@ inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
     setName("FormFactorDecoratorDebyeWaller");
     init_parameters();
 }
+
+inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
+        const IFormFactor &p_form_factor, double dw_h_factor, double dw_r_factor)
+: IFormFactorDecorator(p_form_factor.clone())
+, m_h_dw_factor(dw_h_factor)
+, m_r_dw_factor(dw_r_factor){
+    setName("FormFactorDecoratorDebyeWaller");
+    init_parameters();
+}
+
 
 inline FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const
 {

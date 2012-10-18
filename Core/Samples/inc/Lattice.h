@@ -73,12 +73,18 @@ public:
     std::vector<double> collectBraggAngles(size_t size, double max_radius, const TRange<double> &phi_range, const TRange<double> &z_range) const;
 
     //! set a selection rule for the reciprocal vectors
-    void setSelectionRule(ISelectionRule *p_selection_rule) {
-        if (mp_selection_rule != p_selection_rule) {
-            delete mp_selection_rule;
-            mp_selection_rule = p_selection_rule;
-        }
+//    void setSelectionRule(ISelectionRule *p_selection_rule) {
+//        if (mp_selection_rule != p_selection_rule) {
+//            delete mp_selection_rule;
+//            mp_selection_rule = p_selection_rule;
+//        }
+//    }
+    void setSelectionRule(const ISelectionRule &p_selection_rule) {
+        delete mp_selection_rule;
+        mp_selection_rule = p_selection_rule.clone();
     }
+
+
 
     static Lattice createFCCLattice(double a);
 

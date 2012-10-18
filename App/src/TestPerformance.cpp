@@ -199,7 +199,7 @@ void PerfTest_Pyramid::initialise()
     m_experiment = new GISASExperiment;
     m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    m_experiment->setSample(m_sample);
+    m_experiment->setSample(*m_sample);
 }
 
 void PerfTest_Pyramid::execute()
@@ -222,7 +222,7 @@ void PerfTest_RotatedPyramid::initialise()
     m_experiment = new GISASExperiment;
     m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    m_experiment->setSample(m_sample);
+    m_experiment->setSample(*m_sample);
 }
 
 void PerfTest_RotatedPyramid::execute()
@@ -243,7 +243,7 @@ void PerfTest_MesoCrystal::initialise()
 
     // experiment
     m_experiment = new GISASExperiment;
-    m_experiment->setSample(m_sample);
+    m_experiment->setSample(*m_sample);
     m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     m_experiment->setBeamParameters(0.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
 

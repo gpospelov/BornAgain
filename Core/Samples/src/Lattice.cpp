@@ -32,7 +32,7 @@ Lattice::Lattice(const Lattice& lattice)
 , m_is_zero(false)
 {
     initialize();
-    if( lattice.mp_selection_rule ) setSelectionRule(lattice.mp_selection_rule->clone());
+    if( lattice.mp_selection_rule ) setSelectionRule(*lattice.mp_selection_rule);
 }
 
 Lattice::~Lattice()

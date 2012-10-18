@@ -24,7 +24,7 @@ void TestMultiLayerRoughness::execute()
     ISample *sample = SampleFactory::instance().createItem("MultilayerOffspecTestcase1a");
 
     std::cout << *sample << std::endl;
-    sample->walk_and_print();
+    sample->print_structure();
 
     int npoints=100;
     double alphaMax = 2.0;
@@ -43,7 +43,7 @@ void TestMultiLayerRoughness::execute()
 
         // setting experiment
         GISASExperiment experiment;
-        experiment.setSample(sample);
+        experiment.setSample(*sample);
         experiment.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree, false);
         experiment.setBeamParameters(1.54*Units::angstrom, -alpha_i, 0.0*Units::degree);
 

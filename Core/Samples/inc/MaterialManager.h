@@ -44,6 +44,9 @@ public:
     //! add material to the database
     const IMaterial *addHomogeneousMaterial(const std::string &name, complex_t refractive_index);
 
+    //! add material to the database
+    const IMaterial *addHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag);
+
     //! clean collection of material
     void clear();
 

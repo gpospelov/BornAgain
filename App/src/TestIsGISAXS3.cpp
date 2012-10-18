@@ -28,19 +28,19 @@ void TestIsGISAXS3::execute()
 
     // cylinder in BA
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderBA"));
-    experiment.setSample(sample);
+    experiment.setSample(*sample);
     experiment.runSimulation();
     IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_cylinder_BA.ima");
 
     // cylinder in BA with size distribution
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderBASize"));
-    experiment.setSample(sample);
+    experiment.setSample(*sample);
     experiment.runSimulation();
     IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_cylinder_BA_size.ima");
 
     // cylinder in DWBA
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderDWBA"));
-    experiment.setSample(sample);
+    experiment.setSample(*sample);
     experiment.runSimulation();
     IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_cylinder_DWBA.ima");
 }

@@ -59,7 +59,7 @@ void TestPerformance::execute()
 
         std::cout << "Running test: " << std::setw(20) << std::left << test_name << " ... ";
         std::cout.flush();
-        test_info->m_test->initialise();
+        test_info->m_test->initialise(mp_options);
         mb.Start( test_name.c_str() );
         for(int i=0; i<test_info->m_nrepetitions; i++){
             test_info->m_test->execute();
@@ -167,8 +167,9 @@ void TestPerformance::get_sysinfo()
 /* ************************************************************************* */
 // our test starts here:  PerfTest_FresnelCoeff
 /* ************************************************************************* */
-void PerfTest_FresnelCoeff::initialise()
+void PerfTest_FresnelCoeff::initialise(ProgramOptions *p_options)
 {
+    IFunctionalTest::initialise(p_options);
     if(m_sample) delete m_sample;
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("SimpleMultilayer"));
 }
@@ -188,15 +189,16 @@ void PerfTest_FresnelCoeff::execute()
 /* ************************************************************************* */
 // our test starts here:  PerfTest_Pyramid
 /* ************************************************************************* */
-void PerfTest_Pyramid::initialise()
+void PerfTest_Pyramid::initialise(ProgramOptions *p_options)
 {
+    IFunctionalTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
 
     // experiment
     if(m_experiment) delete m_experiment;
-    m_experiment = new GISASExperiment;
+    m_experiment = new GISASExperiment(mp_options);
     m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     m_experiment->setSample(*m_sample);
@@ -211,15 +213,16 @@ void PerfTest_Pyramid::execute()
 /* ************************************************************************* */
 // our test starts here:  PerfTest_RotatedPyramid
 /* ************************************************************************* */
-void PerfTest_RotatedPyramid::initialise()
+void PerfTest_RotatedPyramid::initialise(ProgramOptions *p_options)
 {
+    IFunctionalTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_RotatedPyramid"));
 
     // experiment
     if(m_experiment) delete m_experiment;
-    m_experiment = new GISASExperiment;
+    m_experiment = new GISASExperiment(mp_options);
     m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     m_experiment->setSample(*m_sample);
@@ -235,15 +238,16 @@ void PerfTest_RotatedPyramid::execute()
 /* ************************************************************************* */
 // our test starts here:  PerfTest_MesoCrystal
 /* ************************************************************************* */
-void PerfTest_MesoCrystal::initialise()
+void PerfTest_MesoCrystal::initialise(ProgramOptions *p_options)
 {
+    IFunctionalTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MesoCrystal1"));
 
     // experiment
     m_experiment = new GISASExperiment;
-    m_experiment->setSample(*m_sample);
+    m_experiment->setSample(m_sample);
     m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     m_experiment->setBeamParameters(0.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
 

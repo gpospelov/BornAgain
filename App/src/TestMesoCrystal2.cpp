@@ -29,19 +29,11 @@
 
 #include "TCanvas.h"
 #include "TH2D.h"
+#include "ResolutionFunction2DSimple.h"
 
 /* ************************************************************************* */
 // global functions
 /* ************************************************************************* */
-namespace {
-    double testResolutionFunction(double u, double v)
-    {
-        double sigma_u = 0.0002;
-        double sigma_v = 0.0002;
-        return MathFunctions::IntegratedGaussian(u, 0.0, sigma_u)
-                * MathFunctions::IntegratedGaussian(v, 0.0, sigma_v);
-    }
-}
 
 /* ************************************************************************* */
 // TestMesoCrystal2 member definitions
@@ -75,38 +67,52 @@ void TestMesoCrystal2::execute()
     std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
     OutputDataReader *reader = OutputDataIOFactory::instance().getReader(file_name);
     OutputData<double > *real_data = reader->getOutputData();
+    OutputData<double > *real_data_half = doubleBinSize(*real_data);
+//    OutputData<double > *real_data_quarter = doubleBinSize(*real_data_half);
+//    OutputData<double > *real_data_eighth = doubleBinSize(*real_data_quarter);
     delete reader;
     c1->cd(1); gPad->SetLogz();
-    IsGISAXSTools::drawOutputDataInPad(*real_data, "CONT4 Z", "experiment");
+    IsGISAXSTools::drawOutputDataInPad(*real_data_half, "CONT4 Z", "experiment");
     c1->Update();
 
     // initializing experiment using real data to have detector axises like in real_data
-    initializeExperiment(real_data);
+    initializeExperiment(real_data_half);
     mp_experiment->printParameters();
 
     // setting fitSuite
     FitSuite *fitSuite = new FitSuite();
     fitSuite->setExperiment(mp_experiment);
-    fitSuite->setRealData(*real_data);
+    fitSuite->setRealData(*real_data_half);
     fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    fitSuite->addFitParameter("*/lattice_length_a", 6.2*Units::nanometer, 0.1*Units::nanometer,
-            TRange<double>(2.0*Units::nanometer, 10.0*Units::nanometer) );
-    fitSuite->addFitParameter("*/nanoparticle_radius", 5.7*Units::nanometer, 0.1*Units::nanometer,
-            TRange<double>(2.0*Units::nanometer, 10.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/lattice_length_a", 6.2*Units::nanometer, 1.0*Units::nanometer,
+            TRange<double>(4.0*Units::nanometer, 8.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/nanoparticle_radius", 5.7*Units::nanometer, 1.0*Units::nanometer,
+            TRange<double>(2.0*Units::nanometer, 8.0*Units::nanometer) );
     fitSuite->addFitParameter("*/sigma_nanoparticle_radius", 0.1*Units::nanometer, 0.05*Units::nanometer,
             TRange<double>(0.01*Units::nanometer, 2.0*Units::nanometer) );
-    fitSuite->addFitParameter("*/sigma_meso_height", 4.0*Units::nanometer, 1.0*Units::nanometer,
-            TRange<double>(0.01*Units::nanometer, 200.0*Units::nanometer) );
-    fitSuite->addFitParameter("*/sigma_meso_radius", 50.0*Units::nanometer, 1.0*Units::nanometer,
-            TRange<double>(1.0*Units::nanometer, 500.0*Units::nanometer) );
-    fitSuite->addFitParameter("*/sigma_lattice_length_a", 1.5*Units::nanometer, 0.1*Units::nanometer,
+    fitSuite->addFitParameter("*/meso_height", 500.0*Units::nanometer, 100.0*Units::nanometer,
+            TRange<double>(100.0*Units::nanometer, 2000.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/meso_radius", 1000.0*Units::nanometer, 100.0*Units::nanometer,
+            TRange<double>(100.0*Units::nanometer, 5000.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/sigma_meso_height", 5.0*Units::nanometer, 1.0*Units::nanometer,
+            TRange<double>(10.0*Units::nanometer, 200.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/sigma_meso_radius", 50.0*Units::nanometer, 10.0*Units::nanometer,
+            TRange<double>(10.0*Units::nanometer, 500.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/sigma_lattice_length_a", 1.5*Units::nanometer, 0.5*Units::nanometer,
             TRange<double>(0.01*Units::nanometer, 4.0*Units::nanometer) );
-    fitSuite->addFitParameter("*/surface_filling_ratio", 0.25, 0.02,
+    fitSuite->addFitParameter("*/surface_filling_ratio", 0.25, 0.1,
             TRange<double>(0.1, 0.4) );
     fitSuite->addFitParameter("*/roughness", 1.0*Units::nanometer, 0.1*Units::nanometer,
             TRange<double>(0.01*Units::nanometer, 50.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/ResolutionFunction2D/sigma_x", 0.0002, 0.00001,
+            TRange<double>(0.0, 0.002) );
+    fitSuite->addFitParameter("*/ResolutionFunction2D/sigma_y", 0.0002, 0.00001,
+            TRange<double>(0.0, 0.002) );
 
     IsGISAXSTools::setMinimum(1e2);
+    std::string tree_file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/mesofit.tree";
+    FitSuiteObserverWriteTree *writeTreeObserver = new FitSuiteObserverWriteTree(tree_file_name);
+    fitSuite->attachObserver(writeTreeObserver);
     FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
     fitSuite->attachObserver(drawObserver);
 
@@ -124,11 +130,11 @@ void TestMesoCrystal2::initializeExperiment(const OutputData<double> *output_dat
 {
     delete mp_experiment;
 
-    mp_experiment = new GISASExperiment();
+    mp_experiment = new GISASExperiment(mp_options);
     mp_experiment->setSampleBuilder( mp_sample_builder );
     mp_experiment->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     mp_experiment->setBeamIntensity(8e12);
-    mp_experiment->setDetectorResolutionFunction(&testResolutionFunction);
+    mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
 
     if( !output_data ) {
         // initialize default detector

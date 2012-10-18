@@ -34,6 +34,9 @@ public:
 	void setDetectorResolution(IDetectorResolution *p_detector_resolution) { mp_detector_resolution = p_detector_resolution; }
 	void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
 
+	//! add parameters from local pool to external pool and call recursion over direct children
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
+
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();

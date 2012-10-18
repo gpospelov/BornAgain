@@ -15,8 +15,6 @@
 //! @date   21.09.2012
 
 
-#include "ISingleton.h"
-
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 #include <boost/program_options/options_description.hpp>
@@ -37,7 +35,7 @@ namespace bpo = boost::program_options;
 //! CoreOptionsDescription, AppOptionsDescription modules and then
 //! added to given class using add() method
 //- -------------------------------------------------------------------
-class ProgramOptions : public ISingleton<ProgramOptions>
+class ProgramOptions
 {
 public:
     typedef bpo::options_description Variables_t;
@@ -76,8 +74,8 @@ public:
 
 private:
     bool m_options_is_consistent;       //! true if options are consistent (no conflicts, no --help request)
-    bpo::options_description m_options; //! options desciption, to be filled with add() from different program modules
-    bpo::positional_options_description m_positional_options; //! positional options desciption, to be filled with addPositional() from main module
+    bpo::options_description m_options; //! options description, to be filled with add() from different program modules
+    bpo::positional_options_description m_positional_options; //! positional options description, to be filled with addPositional() from main module
     bpo::variables_map m_variables_map; //! parsed variables
 };
 

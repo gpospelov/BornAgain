@@ -34,6 +34,7 @@ SOURCES += \
     Algorithms/src/MultiLayerDWBASimulation.cpp \
     Algorithms/src/MultiLayerRoughnessDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
+    Algorithms/src/ResolutionFunction2DSimple.cpp \
     \
     FormFactors/src/FormFactorDWBA.cpp \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
@@ -126,16 +127,18 @@ HEADERS += \
     Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \
+    Algorithms/inc/IInterferenceFunctionStrategy.h \
+    Algorithms/inc/IResolutionFunction2D.h \
     Algorithms/inc/ISampleBuilder.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/ISquaredFunction.h \
-    Algorithms/inc/IInterferenceFunctionStrategy.h \
     Algorithms/inc/LayerDecoratorDWBASimulation.h \
     Algorithms/inc/LayerDWBASimulation.h \
     Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
     Algorithms/inc/MultiLayerDWBASimulation.h \
     Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
+    Algorithms/inc/ResolutionFunction2DSimple.h \
     \
     FormFactors/inc/FormFactorDWBA.h \
     FormFactors/inc/FormFactorDWBAConstZ.h \

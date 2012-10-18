@@ -9,20 +9,23 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
         cumulative_DF_1d res_function_1d)
 : m_dimension(1)
 , m_res_function_1d(res_function_1d)
-, m_res_function_2d(0)
+, mp_res_function_2d(0)
 {
+    setName("ConvolutionDetectorResolution");
 }
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(
-        cumulative_DF_2d res_function_2d)
+        IResolutionFunction2D *p_res_function_2d)
 : m_dimension(2)
 , m_res_function_1d(0)
-, m_res_function_2d(res_function_2d)
+, mp_res_function_2d(p_res_function_2d)
 {
+    setName("ConvolutionDetectorResolution");
 }
 
 ConvolutionDetectorResolution::~ConvolutionDetectorResolution()
 {
+    delete mp_res_function_2d;
 }
 
 void ConvolutionDetectorResolution::applyDetectorResolution(
@@ -42,6 +45,24 @@ void ConvolutionDetectorResolution::applyDetectorResolution(
     default:
         throw LogicErrorException("Class ConvolutionDetectorResolution must be initialized with dimension 1 or 2.");
     }
+}
+
+std::string ConvolutionDetectorResolution::addParametersToExternalPool(
+        std::string path, ParameterPool* external_pool, int copy_number) const
+{
+    // add own parameters
+    std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+
+    // add parameters of the 2D resolution function
+    if (mp_res_function_2d) {
+        mp_res_function_2d->addParametersToExternalPool(new_path, external_pool, -1);
+    }
+
+    return new_path;
+}
+
+void ConvolutionDetectorResolution::init_parameters()
+{
 }
 
 void ConvolutionDetectorResolution::apply1dConvolution(
@@ -83,7 +104,7 @@ void ConvolutionDetectorResolution::apply2dConvolution(
         const std::vector<NamedVectorBase*>& axes,
         OutputData<double>* p_intensity_map) const
 {
-    if (m_res_function_2d==0) {
+    if (mp_res_function_2d==0) {
         throw LogicErrorException("No 2d resolution function present for convolution of 2d data.");
     }
     if (axes.size() != 2) {
@@ -158,7 +179,7 @@ double ConvolutionDetectorResolution::getIntegratedPDF2d(double x,
     double xmax = x + halfstepx;
     double ymin = y - halfstepy;
     double ymax = y + halfstepy;
-    double result = m_res_function_2d(xmax, ymax) - m_res_function_2d(xmax, ymin)
-            - m_res_function_2d(xmin, ymax) + m_res_function_2d(xmin, ymin);
+    double result = mp_res_function_2d->evaluateCDF(xmax, ymax) - mp_res_function_2d->evaluateCDF(xmax, ymin)
+            - mp_res_function_2d->evaluateCDF(xmin, ymax) + mp_res_function_2d->evaluateCDF(xmin, ymin);
     return result;
 }

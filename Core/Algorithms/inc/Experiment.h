@@ -20,13 +20,15 @@
 #include "Beam.h"
 #include "Detector.h"
 
+class ProgramOptions;
+
 class Experiment : public IParameterized
 {
 public:
-	Experiment();
-    Experiment(const ISample &p_sample);
-    Experiment(const ISampleBuilder *p_sample_builder);
-    virtual ~Experiment() {delete mp_sample; }
+	Experiment(ProgramOptions *p_options=0);
+	Experiment(const ISample &p_sample, ProgramOptions *p_options=0);
+	Experiment(const ISampleBuilder *p_sample_builder, ProgramOptions *p_options=0);
+    virtual ~Experiment() {delete mp_sample;}
 
     //! run a simulation with the current parameter settings
     virtual void runSimulation();
@@ -77,6 +79,9 @@ public:
     //! add parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
+    //! set the program options
+    void setProgramOptions(ProgramOptions *p_options) { mp_options = p_options; }
+
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
@@ -94,6 +99,7 @@ protected:
     OutputData<double> m_intensity_map;
     OutputData<double> m_current_output_data_mask;
     bool m_is_normalized;
+    ProgramOptions *mp_options;
 };
 
 

@@ -4,19 +4,12 @@
 
 #include <boost/program_options/options_description.hpp>
 
-// performing automatic registration
-namespace {
-    static AppOptionsDescription application_options;
-}
-
 namespace bpo = boost::program_options;
 
-
-
 /* ************************************************************************* */
-// declaration of command line and config file options
+// add command line and config file options
 /* ************************************************************************* */
-AppOptionsDescription::AppOptionsDescription()
+void AddApplicationOptions(ProgramOptions* p_options)
 {
     // general options
     bpo::options_description general_options("General options");
@@ -40,8 +33,5 @@ AppOptionsDescription::AppOptionsDescription()
     }
 
     // adding options to the main option holder
-    ProgramOptions::instance().add(general_options).add(functional_test_options);
+    p_options->add(general_options).add(functional_test_options);
 }
-
-
-

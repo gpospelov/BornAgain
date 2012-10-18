@@ -14,19 +14,11 @@
 #include "MathFunctions.h"
 #include "Utils.h"
 #include "FormFactorDecoratorDebyeWaller.h"
+#include "ResolutionFunction2DSimple.h"
 
 /* ************************************************************************* */
 // global functions
 /* ************************************************************************* */
-namespace {
-    double testResolutionFunction(double u, double v)
-    {
-        double sigma_u = 0.0002;
-        double sigma_v = 0.0002;
-        return MathFunctions::IntegratedGaussian(u, 0.0, sigma_u)
-                * MathFunctions::IntegratedGaussian(v, 0.0, sigma_v);
-    }
-}
 
 /* ************************************************************************* */
 // TestMesoCrystal1 member definitions
@@ -47,13 +39,13 @@ TestMesoCrystal1::~TestMesoCrystal1()
 void TestMesoCrystal1::execute()
 {
     if (mp_intensity_output) delete mp_intensity_output;
-    GISASExperiment experiment;
+    GISASExperiment experiment(mp_options);
     experiment.setSampleBuilder(mp_sample_builder);
     experiment.setDetectorParameters(256, 0.3*Units::degree, 0.073
            , 256, -0.4*Units::degree, 0.066);
 //    experiment.setDetectorParameters(2, 0.96*Units::degree, 0.962*Units::degree
 //           , 2 , 0.376*Units::degree, 0.378*Units::degree);
-    experiment.setDetectorResolutionFunction(&testResolutionFunction);
+    experiment.setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
     experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     experiment.setBeamIntensity(8e12);
 
@@ -77,16 +69,26 @@ void TestMesoCrystal1::execute()
 // MesoCrystalBuilder member definitions
 /* ************************************************************************* */
 MesoCrystalBuilder::MesoCrystalBuilder()
-: m_meso_radius(1000*Units::nanometer)
-, m_surface_filling_ratio(0.25)
-, m_meso_height(0.5*Units::micrometer)
-, m_sigma_meso_height(4*Units::nanometer)
-, m_sigma_meso_radius(50*Units::nanometer)
-, m_lattice_length_a(6.2*Units::nanometer)
-, m_nanoparticle_radius(4.3*Units::nanometer)
-, m_sigma_nanoparticle_radius(0.14*Units::nanometer)
-, m_sigma_lattice_length_a(1.5*Units::nanometer)
-, m_roughness(1.0*Units::nanometer)
+//: m_meso_radius(1000*Units::nanometer)
+//, m_surface_filling_ratio(0.25)
+//, m_meso_height(0.5*Units::micrometer)
+//, m_sigma_meso_height(4*Units::nanometer)
+//, m_sigma_meso_radius(50*Units::nanometer)
+//, m_lattice_length_a(6.2*Units::nanometer)
+//, m_nanoparticle_radius(4.3*Units::nanometer)
+//, m_sigma_nanoparticle_radius(0.14*Units::nanometer)
+//, m_sigma_lattice_length_a(1.5*Units::nanometer)
+//, m_roughness(1.0*Units::nanometer)
+: m_meso_radius(570.103*Units::nanometer)
+, m_surface_filling_ratio(0.113898)
+, m_meso_height(423.33*Units::nanometer)
+, m_sigma_meso_height(10.0608*Units::nanometer)
+, m_sigma_meso_radius(10.0882*Units::nanometer)
+, m_lattice_length_a(6.21014*Units::nanometer)
+, m_nanoparticle_radius(5.99176*Units::nanometer)
+, m_sigma_nanoparticle_radius(0.0681535*Units::nanometer)
+, m_sigma_lattice_length_a(2.61389*Units::nanometer)
+, m_roughness(28.0626*Units::nanometer)
 {
     init_parameters();
 }

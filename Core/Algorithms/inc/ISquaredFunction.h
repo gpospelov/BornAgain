@@ -42,8 +42,8 @@ inline double DefaultSquaredFunction::calculateSquaredDifference(
 {
     double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
     if (diff_squared < Numeric::double_epsilon) return 0.0;
-//    double real_squared = real_value*real_value;
-    return diff_squared;
+    double normalization = std::max(std::abs(real_value), 1.0);
+    return diff_squared/normalization;
 }
 
 #endif /* ISQUAREDFUNCTION_H_ */

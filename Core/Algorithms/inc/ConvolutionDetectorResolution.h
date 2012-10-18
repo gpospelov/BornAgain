@@ -15,6 +15,7 @@
 //! @date   Jul 10, 2012
 
 #include "IDetectorResolution.h"
+#include "IResolutionFunction2D.h"
 
 //- -------------------------------------------------------------------
 //! @class ConvolutionDetectorResolution
@@ -26,20 +27,27 @@ class ConvolutionDetectorResolution : public IDetectorResolution
 {
 public:
     typedef double (*cumulative_DF_1d)(double);
-    typedef double (*cumulative_DF_2d)(double, double);
     //! Constructor taking a 1 dimensional resolution function as argument
     ConvolutionDetectorResolution(cumulative_DF_1d res_function_1d);
     //! Constructor taking a 2 dimensional resolution function as argument
-    ConvolutionDetectorResolution(cumulative_DF_2d res_function_2d);
+    ConvolutionDetectorResolution(IResolutionFunction2D *p_res_function_2d);
     //! Destructor
     virtual ~ConvolutionDetectorResolution();
 
     //! Apply the encapsulated resolution function to the given intensity map by using a convolution
     virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
+
+    //! add parameters from local pool to external pool and call recursion over direct children
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
+
+protected:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
 private:
     size_t m_dimension;
     cumulative_DF_1d m_res_function_1d;
-    cumulative_DF_2d m_res_function_2d;
+    IResolutionFunction2D *mp_res_function_2d;
     void apply1dConvolution(const std::vector<NamedVectorBase *> &axes, OutputData<double> *p_intensity_map) const;
     void apply2dConvolution(const std::vector<NamedVectorBase *> &axes, OutputData<double> *p_intensity_map) const;
     double getIntegratedPDF1d(double x, double step) const;

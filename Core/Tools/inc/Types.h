@@ -30,7 +30,7 @@ typedef std::pair<complex_t, complex_t > complexpair_t;
 
 
 /* ************************************************************************* */
-// container for holding kvectors with optimied location/deallocation
+// container for holding kvectors with optimised location/deallocation
 /* ************************************************************************* */
 class KVectorContainer {
 public:

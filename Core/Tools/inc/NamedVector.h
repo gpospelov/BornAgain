@@ -38,6 +38,7 @@ template <class T> class NamedVector : public NamedVectorBase
 public:
     NamedVector(std::string name) : NamedVectorBase(name) {}
     NamedVector(std::string name, T start, T end, size_t size);
+    NamedVector<T> *createDoubleBinSize() const;
     ~NamedVector();
 
     size_t getSize() const { return m_value_vector.size(); }
@@ -62,6 +63,26 @@ template <class T> NamedVector<T>::NamedVector(std::string name, T start, T end,
 template <class T> NamedVector<T>::~NamedVector()
 {
     m_value_vector.clear();
+}
+
+template <class T> NamedVector<T> *NamedVector<T>::createDoubleBinSize() const
+{
+    if (getSize() < 2) {
+        return clone();
+    }
+    NamedVector<T> *p_result = new NamedVector<T>(getName());
+    for (size_t source_index=0; source_index<getSize(); source_index+=2)
+    {
+        T value;
+        if (source_index==getSize()-1) {
+            value = (3.0*m_value_vector.at(source_index) - m_value_vector.at(source_index-1))/2.0;
+        }
+        else {
+            value =  (m_value_vector.at(source_index) + m_value_vector.at(source_index+1))/2.0;
+        }
+        p_result->push_back(value);
+    }
+    return p_result;
 }
 
 template <class T> NamedVector<T>* NamedVector<T>::clone() const

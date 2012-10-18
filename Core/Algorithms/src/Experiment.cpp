@@ -1,35 +1,29 @@
 #include "Experiment.h"
 
-Experiment::Experiment()
+Experiment::Experiment(ProgramOptions *p_options)
 : mp_sample(0)
 , mp_sample_builder(0)
 , m_is_normalized(false)
+, mp_options(p_options)
 {
     setName("Experiment");
     init_parameters();
 }
 
-//Experiment::Experiment(ISample* p_sample)
-//: mp_sample(p_sample)
-//, mp_sample_builder(0)
-//, m_is_normalized(false)
-//{
-//    init_parameters();
-//}
-
 Experiment::Experiment(const ISample &p_sample)
 : mp_sample(p_sample.clone())
 , mp_sample_builder(0)
 , m_is_normalized(false)
+, mp_options(p_options)
 {
     init_parameters();
 }
 
-
-Experiment::Experiment(const ISampleBuilder *p_sample_builder)
+Experiment::Experiment(const ISampleBuilder* p_sample_builder, ProgramOptions *p_options)
 : mp_sample(0)
 , mp_sample_builder(p_sample_builder)
 , m_is_normalized(false)
+, mp_options(p_options)
 {
     init_parameters();
 }
@@ -149,10 +143,6 @@ std::string Experiment::addParametersToExternalPool(std::string path,
         mp_sample->addParametersToExternalPool(sample_path, external_pool, -1);
     }
 
-    // Output parameterpool
-//    for(ParameterPool::iterator_t ip=external_pool->begin(); ip!=external_pool->end(); ip++) {
-//        std::cout << (*ip).first << " " << (*ip).second << std::endl;
-//    }
     return new_path;
 }
 

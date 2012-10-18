@@ -988,29 +988,6 @@ struct SimpleSelectionRule_wrapper : SimpleSelectionRule, bp::wrapper< SimpleSel
 
 void register_classes_3(){
 
-    bp::class_< Geometry::TranslateZ3D, bp::bases< Geometry::Translate3D > >( "TranslateZ3D", bp::init< >() )    
-        .def( bp::init< double >(( bp::arg("z") )) );
-
-    { //::IMaterial
-        typedef bp::class_< IMaterial > IMaterial_exposer_t;
-        IMaterial_exposer_t IMaterial_exposer = IMaterial_exposer_t( "IMaterial", bp::init< >() );
-        bp::scope IMaterial_scope( IMaterial_exposer );
-        IMaterial_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
-        IMaterial_exposer.def( bp::init< IMaterial const & >(( bp::arg("other") )) );
-        { //::IMaterial::operator=
-        
-            typedef ::IMaterial & ( ::IMaterial::*assign_function_type )( ::IMaterial const & ) ;
-            
-            IMaterial_exposer.def( 
-                "assign"
-                , assign_function_type( &::IMaterial::operator= )
-                , ( bp::arg("other") )
-                , bp::return_self< >() );
-        
-        }
-        IMaterial_exposer.def( bp::self_ns::str( bp::self ) );
-    }
-
     { //::HomogeneousMaterial
         typedef bp::class_< HomogeneousMaterial, bp::bases< IMaterial > > HomogeneousMaterial_exposer_t;
         HomogeneousMaterial_exposer_t HomogeneousMaterial_exposer = HomogeneousMaterial_exposer_t( "HomogeneousMaterial", bp::init< >() );
@@ -1763,5 +1740,9 @@ void register_classes_3(){
             , (bool ( ::SimpleSelectionRule::* )( ::Coordinate3D< int > const & ) const)(&::SimpleSelectionRule::coordinateSelected)
             , (bool ( SimpleSelectionRule_wrapper::* )( ::Coordinate3D< int > const & ) const)(&SimpleSelectionRule_wrapper::default_coordinateSelected)
             , ( bp::arg("coordinate") ) );
+
+    bp::class_< ReflectionTransmission >( "ReflectionTransmission" )    
+        .def_readwrite( "R", &ReflectionTransmission::R )    
+        .def_readwrite( "T", &ReflectionTransmission::T );
 
 }

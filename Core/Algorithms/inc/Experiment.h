@@ -25,8 +25,9 @@ class ProgramOptions;
 class Experiment : public IParameterized
 {
 public:
-	Experiment(ProgramOptions *p_options=0);
-	Experiment(const ISample &p_sample, ProgramOptions *p_options=0);
+    Experiment();
+    Experiment(ProgramOptions *p_options);
+    Experiment(const ISample &p_sample, ProgramOptions *p_options=0);
 	Experiment(const ISampleBuilder *p_sample_builder, ProgramOptions *p_options=0);
     virtual ~Experiment() {delete mp_sample;}
 

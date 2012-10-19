@@ -68,6 +68,7 @@ myFiles=[
   'OpticalFresnel.h',
   'ParameterPool.h',
   'ParticleInfo.h',
+  #'ProgramOptions.h',
   'DiffuseParticleInfo.h',
   'PythonOutputData.h',
   'PythonPlusplusHelper.h',
@@ -438,11 +439,23 @@ def RulesPoint3D(mb):
       #fun.call_policies = call_policies.return_internal_reference( )
 
 
+
+# -------------------------------------------------------------------
+# ProgramOptions.h
+# -------------------------------------------------------------------
+#def RulesProgramOptions(mb):
+  #cl = mb.class_( "ProgramOptions" )
+  #cl.member_functions( ).exclude() # excluding all member functions, leaving only constructors
+  #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
+
+  
 # -------------------------------------------------------------------
 # ParameterPool.h
 # -------------------------------------------------------------------
 def RulesParameterPool(mb):
   cl = mb.class_( "ParameterPool" )
+  cl.member_function("registerParameter").include()
+  cl.member_function("registerParameter").add_transformation( FT.from_address( 1 ) )
   #cl.member_function( "cloneWithPrefix" ).call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
 
 # -------------------------------------------------------------------
@@ -540,6 +553,7 @@ myRules = {
   #'OpticalFresnel.h'                 : RulesOpticalFresnel,
   'Point3D.h'                         : RulesPoint3D,
   'ParameterPool.h'                   : RulesParameterPool,
+  #'ProgramOptions.h'                  : RulesProgramOptions,
   'PythonOutputData.h'                : RulesPythonOutputData,
   'PythonPlusplusHelper.h'            : RulesPythonPlusplusHelper,
   'Transform3D.h'                     : RulesTransform3D,

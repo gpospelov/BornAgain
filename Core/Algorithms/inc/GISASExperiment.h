@@ -22,7 +22,8 @@
 class GISASExperiment : public Experiment
 {
 public:
-	GISASExperiment(ProgramOptions *p_options);
+    GISASExperiment();
+    GISASExperiment(ProgramOptions *p_options);
 
 	virtual void runSimulation();
 

@@ -1,16 +1,24 @@
 #include "Experiment.h"
 
+Experiment::Experiment()
+: mp_sample(0)
+, mp_sample_builder(0)
+, m_is_normalized(false)
+, mp_options(0)
+{
+    init_parameters();
+}
+
 Experiment::Experiment(ProgramOptions *p_options)
 : mp_sample(0)
 , mp_sample_builder(0)
 , m_is_normalized(false)
 , mp_options(p_options)
 {
-    setName("Experiment");
     init_parameters();
 }
 
-Experiment::Experiment(const ISample &p_sample)
+Experiment::Experiment(const ISample &p_sample, ProgramOptions *p_options)
 : mp_sample(p_sample.clone())
 , mp_sample_builder(0)
 , m_is_normalized(false)
@@ -148,6 +156,7 @@ std::string Experiment::addParametersToExternalPool(std::string path,
 
 void Experiment::init_parameters()
 {
+    setName("Experiment");
 }
 
 void Experiment::updateIntensityMapAxes()

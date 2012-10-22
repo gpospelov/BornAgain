@@ -1,4 +1,5 @@
 #include "ChiSquaredModule.h"
+#include <iostream>
 
 ChiSquaredModule::ChiSquaredModule(const OutputData<double>& real_data)
     : mp_simulation_data(0), m_chi2_value(0)

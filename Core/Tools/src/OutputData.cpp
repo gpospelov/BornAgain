@@ -231,6 +231,8 @@ void MultiIndex::clear()
 /* ************************************************************************* */
 const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<double> &right)
 {
+    if( &left == &right) throw LogicErrorException("OutputData &operator+=() -> Error. Left And right can't be the same");
+
     size_t total_size = left.getAllocatedSize();
     if (right.getAllocatedSize()!= total_size) {
         throw LogicErrorException("OutputData<double> &operator+=() -> Error! Cannot add OutputData objects of different size.");
@@ -250,6 +252,8 @@ const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<
 /* ************************************************************************* */
 const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<double> &right)
 {
+    if( &left == &right) throw LogicErrorException("OutputData &operator-=() -> Error. Left And right can't be the same");
+
     size_t total_size = left.getAllocatedSize();
     if (right.getAllocatedSize()!= total_size) {
         throw LogicErrorException("OutputData<double> &operator-=() -> Error! Cannot substract OutputData objects of different size.");
@@ -269,6 +273,8 @@ const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<
 /* ************************************************************************* */
 const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<double> &right)
 {
+    if( &left == &right) throw LogicErrorException("OutputData &operator/=() -> Error. Left And right can't be the same");
+
     size_t total_size = left.getAllocatedSize();
     if (right.getAllocatedSize()!= total_size) {
         throw LogicErrorException("OutputData<double> &operator/=() -> Error! Cannot substract OutputData objects of different size.");
@@ -287,6 +293,28 @@ const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<
             ratio = xleft/xright;
         }
         left.currentValue() = ratio;
+        left.next(); right.next();
+    }
+    return left;
+}
+
+/* ************************************************************************* */
+// multiplication-assignment operator for two output data
+/* ************************************************************************* */
+const OutputData<double> &operator*=(OutputData<double> &left, const OutputData<double> &right)
+{
+    if( &left == &right) throw LogicErrorException("OutputData &operator*=() -> Error. Left And right can't be the same");
+
+    size_t total_size = left.getAllocatedSize();
+    if (right.getAllocatedSize()!= total_size) {
+        throw LogicErrorException("OutputData<double> &operator/=() -> Error! Cannot substract OutputData objects of different size.");
+    }
+    left.resetIndex();
+    right.resetIndex();
+    while ( right.hasNext() ) {
+        double xleft = left.currentValue();
+        double xright = right.currentValue();
+        left.currentValue() = xleft*xright;
         left.next(); right.next();
     }
     return left;

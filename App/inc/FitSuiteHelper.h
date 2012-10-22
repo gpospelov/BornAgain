@@ -20,16 +20,27 @@
 
 
 //- -------------------------------------------------------------------
+//! @class FitSuiteObserverPrint
+//! @brief Print fit progress at the end of each FitSuite's iteration
+//- -------------------------------------------------------------------
+class FitSuiteObserverPrint : public IObserver
+{
+public:
+    FitSuiteObserverPrint() { }
+    void update(IObservable *subject);
+};
+
+
+//- -------------------------------------------------------------------
 //! @class FitSuiteObserverDraw
 //! @brief Draw fit progress at the end of each FitSuite's iteration
 //- -------------------------------------------------------------------
 class FitSuiteObserverDraw : public IObserver
 {
 public:
-    FitSuiteObserverDraw(std::string canvas_name) : m_ncall(0), m_canvas_name(canvas_name) {}
+    FitSuiteObserverDraw( const std::string &canvas_name = std::string("FitSuiteObserverDraw_c1") ) : m_canvas_name(canvas_name) {}
     void update(IObservable *subject);
 private:
-    int m_ncall; //! number of call of given observer
     std::string m_canvas_name; //! canvas name were to draw
 };
 
@@ -42,10 +53,9 @@ private:
 class FitSuiteObserverWriteTree : public IObserver
 {
 public:
-    FitSuiteObserverWriteTree(std::string file_name) : m_ncall(0), m_file_name(file_name) {}
+    FitSuiteObserverWriteTree(const std::string &file_name = std::string("fitsuite.root")) : m_file_name(file_name) {}
     void update(IObservable *subject);
 private:
-    int m_ncall;
     std::string m_file_name; //! canvas name were to draw
 };
 

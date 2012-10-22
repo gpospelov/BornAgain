@@ -7,18 +7,28 @@
 #include "ChiSquaredModule.h"
 
 
-FitSuite::FitSuite() : m_experiment(0), m_minimizer(0), m_chi2_module(0)
+FitSuite::FitSuite() : m_experiment(0), m_minimizer(0), m_chi2_module(0), m_is_last_iteration(false), m_n_call(0)
 {
 }
 
 
 FitSuite::~FitSuite()
 {
+    clear();
+}
+
+
+/* ************************************************************************* */
+// clear all and prepare for the next fit
+/* ************************************************************************* */
+void FitSuite::clear()
+{
     for(fitparameters_t::iterator it = m_fit_params.begin(); it!= m_fit_params.end(); ++it) {
         delete (*it);
     }
     delete m_minimizer;
     delete m_chi2_module;
+    m_is_last_iteration = false;
 }
 
 
@@ -102,6 +112,7 @@ void FitSuite::runFit()
     // seting parameters to the optimum values found by the minimizer
     for(size_t i=0; i<m_fit_params.size(); ++i) m_fit_params[i]->setValue(m_minimizer->getValueOfVariableAtMinimum(i));
 
+    m_is_last_iteration = true;
     notifyObservers();
 }
 
@@ -111,6 +122,10 @@ void FitSuite::runFit()
 /* ************************************************************************* */
 double FitSuite::functionToMinimize(const double *pars_current_values)
 {
+    if( m_fit_params.size() != m_minimizer->getNumberOfVariables() ) {
+        throw RuntimeErrorException("FitSuite::functionToMinimize() -> Error! Wrong number of parameters (probably missed FitSuite's initialization).");
+    }
+
     // set fitting parameters to values suggested by the minimizer
     for(size_t i=0; i<m_fit_params.size(); ++i) m_fit_params[i]->setValue(pars_current_values[i]);
 
@@ -120,9 +135,8 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
     const OutputData<double> *p_simulated_data = m_experiment->getOutputData();
     double chi_squared = m_chi2_module->calculateChiSquared(p_simulated_data);
 
-    std::cout << "chi squared = " << chi_squared << std::endl;
-
     notifyObservers();
+    m_n_call++;
     return chi_squared;
 }
 

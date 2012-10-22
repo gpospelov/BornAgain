@@ -46,7 +46,7 @@ void TestIsGISAXS11::finalise()
     c1->cd(3);
     IsGISAXSTools::setMinimum(-0.0001);
     IsGISAXSTools::setMaximum(0.0001);
-    IsGISAXSTools::drawOutputDataDifference2D(*our_data, *isgi_data, "CONT4 Z", "2D Difference map");
+    IsGISAXSTools::drawOutputDataRelativeDifference2D(*our_data, *isgi_data, "CONT4 Z", "2D Difference map");
 
     // difference
     c1->cd(4);

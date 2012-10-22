@@ -35,8 +35,12 @@ class FitSuite : public IObservable
 {
 public:
     typedef std::vector<FitMultiParameter *> fitparameters_t;
+
     FitSuite();
     virtual ~FitSuite();
+
+    //! clear all and prepare for the next fit
+    void clear();
 
     //! set experiment
     void setExperiment(Experiment *experiment) { m_experiment = experiment; }
@@ -71,11 +75,19 @@ public:
     //! get chi2 module
     const ChiSquaredModule *getChiSquaredModule() const { return m_chi2_module; }
 
+    //! if the last iteration is done
+    bool isLastIteration() { return m_is_last_iteration; }
+
+    //! get number of call
+    int getNCall() { return m_n_call; }
+
 private:
     Experiment *m_experiment; //! experiment with sample description
     IMinimizer  *m_minimizer; //! minimization engine
     ChiSquaredModule *m_chi2_module; //! module providing chi2 calculations
     fitparameters_t m_fit_params; //! vector of parameters to minimize
+    bool m_is_last_iteration;
+    int m_n_call;
 };
 
 #endif // FITSUITE_H

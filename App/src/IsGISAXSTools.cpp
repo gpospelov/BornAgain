@@ -241,7 +241,7 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
 /* ************************************************************************* */
 // draw relative difference of two 2D OutputData sets
 /* ************************************************************************* */
-void IsGISAXSTools::drawOutputDataDifference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
+void IsGISAXSTools::drawOutputDataRelativeDifference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
 {
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataDifference2D -> Error! No canvas exists.");
@@ -257,6 +257,31 @@ void IsGISAXSTools::drawOutputDataDifference2D(const OutputData<double> &left, c
 
     delete left_clone;
     delete right_clone;
+}
+
+
+/* ************************************************************************* */
+// draw relative chi2 difference of two 2D OutputData sets
+/* ************************************************************************* */
+void IsGISAXSTools::drawOutputDataChi2Difference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
+{
+    if(!gPad) {
+        throw NullPointerException("IsGISAXSTools::drawOutputDataDifference2D -> Error! No canvas exists.");
+    }
+    OutputData<double> *left_clone = left.clone();
+    OutputData<double> *right_clone = right.clone();
+
+    *left_clone -= *right_clone;
+    OutputData<double> *tmp = left_clone->clone();
+
+    *left_clone *= *tmp;
+    left_clone->scaleAll(1./left_clone->totalSum());
+
+    IsGISAXSTools::drawOutputDataInPad(*left_clone, draw_options, histogram_title);
+
+    delete left_clone;
+    delete right_clone;
+    delete tmp;
 }
 
 

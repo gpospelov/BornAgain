@@ -136,7 +136,7 @@ public:
     template <class U> U getCurrentValueOfAxis(std::string axis_name) const;
 
     //! get sum of all values in the data structure
-    T total() const;
+    T totalSum() const;
 
     // ---------
     // modifiers
@@ -182,6 +182,9 @@ const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<
 
 //! division-assignment operator for two output data
 const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<double> &right);
+
+//! multiplication-assignment operator for two output data
+const OutputData<double> &operator*=(OutputData<double> &left, const OutputData<double> &right);
 
 //! double the bin size for each dimension
 OutputData<double> *doubleBinSize(const OutputData<double> &source);
@@ -369,7 +372,7 @@ template <class U> inline U OutputData<T>::getCurrentValueOfAxis(std::string axi
 
 
 template<class T>
-inline T OutputData<T>::total() const
+inline T OutputData<T>::totalSum() const
 {
     T total = 0;
     for (size_t i=0; i<m_data_size; ++i) {

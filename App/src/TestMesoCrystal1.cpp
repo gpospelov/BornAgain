@@ -53,10 +53,10 @@ void TestMesoCrystal1::execute()
     std::cout << (*p_param_pool) << std::endl;
 
     experiment.runSimulation();
-    double count_before_normalize = experiment.getOutputData()->total();
+    double count_before_normalize = experiment.getOutputData()->totalSum();
     experiment.normalize();
     mp_intensity_output = experiment.getOutputDataClone();
-    double total_count = mp_intensity_output->total();
+    double total_count = mp_intensity_output->totalSum();
     std::cout << "Total count in detector: " << total_count << std::endl;
     std::cout << "Scattered percentage in detector: " << 100*total_count/experiment.getBeam().getIntensity() << std::endl;
     std::cout << "Total count in detector before normalize: " << count_before_normalize << std::endl;

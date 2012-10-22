@@ -1,6 +1,7 @@
 #include "ROOTMinimizer.h"
 #include "Exceptions.h"
-
+#include "Utils.h"
+#include <iomanip>
 
 ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type) : m_fcn(0)
 {
@@ -49,4 +50,25 @@ void ROOTMinimizer::setFunction(boost::function<double(const double *)> fcn, int
     m_fcn = new ROOT::Math::Functor(fcn, ndim);
     m_root_minimizer->SetFunction(*m_fcn);
 }
+
+
+/* ************************************************************************* */
+// print results
+/* ************************************************************************* */
+void ROOTMinimizer::printResults() const
+{
+    std::cout << "ROOTMinimizer::printResults() -> "
+    << " NumberOfVariables:" << getNumberOfVariables()
+    << " NCall:" << m_root_minimizer->NCalls()
+    << " Chi2:" << std::scientific << std::setprecision(8) << getMinValue() << std::endl;
+
+    for(size_t i=0; i<getNumberOfVariables(); ++i) {
+        std::cout << "   #" << i
+                  << " '" << Utils::AdjustStringLength(m_root_minimizer->VariableName(i), 30) << "' "
+                  << " value:" << getValueOfVariableAtMinimum(i)
+                  << " error:" << getErrorOfVariable(i) << std::endl;
+    }
+//    m_root_minimizer->PrintResults();
+}
+
 

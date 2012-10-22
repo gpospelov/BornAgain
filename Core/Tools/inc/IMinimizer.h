@@ -38,11 +38,21 @@ public:
     //! run minimization
     virtual void minimize() = 0;
 
+    //! get number of variables to fit
+    virtual size_t getNumberOfVariables() const = 0;
+
     //! return minimum function value
-    virtual double getMinValue() = 0;
+    virtual double getMinValue() const = 0;
 
     //! return pointer to the parameters values at the minimum
-    virtual double getValueOfVariableAtMinimum(size_t i) = 0;
+    virtual double getValueOfVariableAtMinimum(size_t i) const = 0;
+
+    //! return pointer to the parameters values at the minimum
+    virtual double getErrorOfVariable(size_t i) const = 0;
+
+    //! print fit results
+    virtual void printResults() const = 0;
+
 };
 
 #endif // IMINIMIZER_H

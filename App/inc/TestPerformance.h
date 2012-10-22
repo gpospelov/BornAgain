@@ -56,9 +56,6 @@ private:
     //! return delimeter between columns
     std::string get_delimeter() { return std::string(" | "); }
 
-    //! adjust string length to requested
-    std::string adjust_string_length(std::string name, int length);
-
     std::map<std::string, std::string > m_performance_info; //!< holds system information
     performance_tests_t m_tests; //!< list of tests for performance measurements
 

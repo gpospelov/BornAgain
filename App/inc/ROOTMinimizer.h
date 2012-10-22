@@ -41,14 +41,26 @@ public:
     //! return pointer to created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
 
+    //! get number of variables to fit
+    virtual size_t getNumberOfVariables() const { return m_root_minimizer->NDim(); }
+
     //! return minimum function value
-    virtual double getMinValue() { return m_root_minimizer->MinValue(); }
+    virtual double getMinValue() const { return m_root_minimizer->MinValue(); }
 
     //! return value of variable corresponding the minimum of the function
-    virtual double getValueOfVariableAtMinimum(size_t i) {
-        if(i >= m_root_minimizer->NDim() ) throw OutOfBoundsException("ROOTMinimizer::getVariableAtMinimum() -> Wrong number of the variable");
+    virtual double getValueOfVariableAtMinimum(size_t i) const {
+        if(i >= getNumberOfVariables() ) throw OutOfBoundsException("ROOTMinimizer::getValueOfVariableAtMinimum() -> Wrong number of the variable");
         return m_root_minimizer->X()[i];
     }
+
+    //! return value of variable corresponding the minimum of the function
+    virtual double getErrorOfVariable(size_t i) const {
+        if(i >= getNumberOfVariables() ) throw OutOfBoundsException("ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable");
+        return m_root_minimizer->Errors()[i];
+    }
+
+    //! printing results
+    virtual void printResults() const;
 
 private:
     ROOT::Math::Minimizer *m_root_minimizer;

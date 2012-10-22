@@ -103,11 +103,11 @@ void TestPerformance::write_performance()
     }
 
     file << m_performance_info["datime"] << get_delimeter();
-    file << std::left << adjust_string_length(m_performance_info["hostname"],10) << get_delimeter();
-    file << std::left << adjust_string_length(m_performance_info["sysinfo"],23) << get_delimeter();
+    file << std::left << Utils::AdjustStringLength(m_performance_info["hostname"],10) << get_delimeter();
+    file << std::left << Utils::AdjustStringLength(m_performance_info["sysinfo"],23) << get_delimeter();
     for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); it++) {
         std::string test_name = (*it)->m_test->getName();
-        file << std::left << adjust_string_length(m_performance_info[test_name],7) << get_delimeter();
+        file << std::left << Utils::AdjustStringLength(m_performance_info[test_name],7) << get_delimeter();
     }
     file<<std::endl;
 
@@ -115,18 +115,6 @@ void TestPerformance::write_performance()
 
     std::cout << "TestPerformance::write_performance() -> Info. File '" << filename << "' is updated." << std::endl;
 }
-
-
-/* ************************************************************************* */
-// adjust length of string
-/* ************************************************************************* */
-std::string TestPerformance::adjust_string_length(std::string name, int length)
-{
-    std::string newstring = name;
-    newstring.resize(length,' ');
-    return newstring;
-}
-
 
 
 /* ************************************************************************* */

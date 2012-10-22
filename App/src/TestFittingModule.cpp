@@ -25,8 +25,6 @@
 #include "TPaveText.h"
 
 
-
-
 TestFittingModule::TestFittingModule()
 : mp_exact_data(0)
 , mp_real_data(0)
@@ -49,28 +47,16 @@ TestFittingModule::~TestFittingModule()
 
 void TestFittingModule::execute()
 {
-
     // initializing data
     initializeSample();
     initializeExperiment();
     generateRealData(0.1);
 
-//    mp_sample->print_structure();
-//    ParameterPool *pool = mp_sample->createParameterTree();
-//    std::cout << *pool << std::endl;
-//    return;
-
     // drawing initial data
     std::string canvas_name("TestFittingModule_c1");
-    TCanvas *c1 = new TCanvas(canvas_name.c_str(), "Test of the fitting suite", 768, 1024);
-    c1->Divide(2,3);
-    IsGISAXSTools::setMinimum(1.);
-    // exact data
-    c1->cd(1); gPad->SetLogz();
+    TCanvas *c1 = new TCanvas(canvas_name.c_str(), "Test of the fitting suite", 800, 600);
+    c1->cd(); gPad->SetLogz();
     IsGISAXSTools::drawOutputDataInPad(*mp_exact_data, "CONT4 Z", "exact data");
-    // real data
-    c1->cd(2); gPad->SetLogz();
-    IsGISAXSTools::drawOutputDataInPad(*mp_real_data, "CONT4 Z", "real data");
 \
     // setting fitSuite
     FitSuite *fitSuite = new FitSuite();
@@ -80,39 +66,40 @@ void TestFittingModule::execute()
     fitSuite->addFitParameter("*/MultiLayer/Layer0/thickness", 12*Units::nanometer, 2*Units::nanometer, TRange<double>(1.0, 20.0) );
     fitSuite->addFitParameter("*/FormFactorCylinder/radius", 2*Units::nanometer, 2*Units::nanometer, TRange<double>(1.0, 20.0) );
 
-    FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
-    fitSuite->attachObserver(drawObserver);
-    FitSuiteObserverWriteTree *writeObserver = new FitSuiteObserverWriteTree("fitsuite.root");
-    fitSuite->attachObserver(writeObserver);
+    fitSuite->attachObserver( new FitSuiteObserverPrint() );
+    fitSuite->attachObserver( new FitSuiteObserverDraw() );
+    fitSuite->attachObserver( new FitSuiteObserverWriteTree() );
 
     fitSuite->runFit();
-    delete drawObserver;
-    delete writeObserver;
 
-    std::cout << "------ RESULTS ---------" << std::endl;
-    std::cout << "FitSuite > MinValue:" << fitSuite->getMinimizer()->getMinValue() << " " << fitSuite->getMinimizer()->getValueOfVariableAtMinimum(0) << std::endl;
-    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
-        std::cout << *(*it) << std::endl;
-    }
-    // another way to get results
-    std::cout << "ROOTMinimizer >" << std::endl;
-    ROOTMinimizer *min = dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer());
-    std::cout << min->getROOTMinimizer()->MinValue() << " " << min->getROOTMinimizer()->NCalls() << std::endl;
-    std::cout << min->getROOTMinimizer()->X()[0] << std::endl;
-    min->getROOTMinimizer()->PrintResults();
+    //    FitSuiteObserverWriteTree *writeObserver = new FitSuiteObserverWriteTree("fitsuite.root");
+//    delete drawObserver;
+//    delete writeObserver;
 
-    c1->cd(6);
-    TPaveText *pt = new TPaveText(.05,.1,.95,.8);
-    char str[256];
-    sprintf(str,"Results");
-    pt->AddText(str);
-    sprintf(str,"chi2 %e",fitSuite->getMinimizer()->getMinValue());
-    pt->AddText(str);
-    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
-        sprintf(str,"%s %f", (*it)->getName().c_str(),  (*it)->getValue());
-        pt->AddText(str);
-    }
-    pt->Draw();
+//    std::cout << "------ RESULTS ---------" << std::endl;
+//    std::cout << "FitSuite > MinValue:" << fitSuite->getMinimizer()->getMinValue() << " " << fitSuite->getMinimizer()->getValueOfVariableAtMinimum(0) << std::endl;
+//    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
+//        std::cout << *(*it) << std::endl;
+//    }
+//    // another way to get results
+//    std::cout << "ROOTMinimizer >" << std::endl;
+//    ROOTMinimizer *min = dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer());
+//    std::cout << min->getROOTMinimizer()->MinValue() << " " << min->getROOTMinimizer()->NCalls() << std::endl;
+//    std::cout << min->getROOTMinimizer()->X()[0] << std::endl;
+//    min->getROOTMinimizer()->PrintResults();
+
+//    c1->cd(6);
+//    TPaveText *pt = new TPaveText(.05,.1,.95,.8);
+//    char str[256];
+//    sprintf(str,"Results");
+//    pt->AddText(str);
+//    sprintf(str,"chi2 %e",fitSuite->getMinimizer()->getMinValue());
+//    pt->AddText(str);
+//    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
+//        sprintf(str,"%s %f", (*it)->getName().c_str(),  (*it)->getValue());
+//        pt->AddText(str);
+//    }
+//    pt->Draw();
 
 
 //    IsGISAXSTools::drawLogOutputData(*mp_exact_data, "c1_test_fitting", "fitting", "CONT4 Z", "fitting");

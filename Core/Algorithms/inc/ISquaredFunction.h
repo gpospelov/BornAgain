@@ -42,7 +42,8 @@ inline double DefaultSquaredFunction::calculateSquaredDifference(
 {
     double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
     if (diff_squared < Numeric::double_epsilon) return 0.0;
-    double normalization = std::max(std::abs(real_value), 1.0);
+    //double normalization = std::max(std::abs(real_value), 1.0);
+    double normalization = 1.0;
     return diff_squared/normalization;
 }
 

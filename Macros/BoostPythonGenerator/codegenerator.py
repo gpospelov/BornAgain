@@ -20,8 +20,6 @@ from pyplusplus import function_transformers as FT
 
 
 
-
-
 ModuleName = 'PythonInterface'
 nOutputFiles = 3 # generated code for classes will be splitted in this number of files
 OutputTempDir='output'
@@ -570,6 +568,7 @@ def GenerateCode():
   balanced_files_t.HEADER_EXT='.h'
   balanced_files_t.SOURCE_EXT='.cpp'
 
+
   myIncludes.append('/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7')
   myIncludes.append('/opt/local/include/')
   mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')
@@ -675,6 +674,7 @@ def GenerateCode():
 def InstallCode():
   files=glob.glob(OutputTempDir+"/*.h");
   files+= glob.glob(OutputTempDir+"/*.cpp");
+  files+= glob.glob(OutputTempDir+"/__call_policies.pypp.hpp");
 
   copycommand='cp '
 

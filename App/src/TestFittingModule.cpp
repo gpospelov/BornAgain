@@ -13,6 +13,7 @@
 #include "Exceptions.h"
 #include "DrawHelper.h"
 #include "FitSuiteHelper.h"
+#include "ResolutionFunction2DSimple.h"
 
 #include "IObserver.h"
 #include "FitSuite.h"
@@ -57,18 +58,27 @@ void TestFittingModule::execute()
     TCanvas *c1 = new TCanvas(canvas_name.c_str(), "Test of the fitting suite", 800, 600);
     c1->cd(); gPad->SetLogz();
     IsGISAXSTools::drawOutputDataInPad(*mp_exact_data, "CONT4 Z", "exact data");
+    c1->Update();
 \
     // setting fitSuite
     FitSuite *fitSuite = new FitSuite();
     fitSuite->setExperiment(mp_experiment);
     fitSuite->setRealData(*mp_real_data);
-    fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+
+//    ROOT::Math::Minimizer *m_minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();
+//    std::cout << m_minim->SetTolerance(0.00001) << std::endl;
+
+    //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "ConjugateFR") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "BFGS") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
+
     fitSuite->addFitParameter("*/MultiLayer/Layer0/thickness", 12*Units::nanometer, 2*Units::nanometer, TRange<double>(1.0, 20.0) );
     fitSuite->addFitParameter("*/FormFactorCylinder/radius", 2*Units::nanometer, 2*Units::nanometer, TRange<double>(1.0, 20.0) );
 
     fitSuite->attachObserver( new FitSuiteObserverPrint() );
     fitSuite->attachObserver( new FitSuiteObserverDraw() );
-    fitSuite->attachObserver( new FitSuiteObserverWriteTree() );
+    //fitSuite->attachObserver( new FitSuiteObserverWriteTree() );
 
     fitSuite->runFit();
 
@@ -115,6 +125,7 @@ void TestFittingModule::initializeExperiment()
     mp_experiment->setSample(*mp_sample);
     mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
     mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
     mp_experiment->setBeamIntensity(1e10);
 }
 
@@ -169,7 +180,7 @@ void TestFittingModule::generateRealData(double noise_factor)
     mp_real_data->resetIndex();
     while (mp_real_data->hasNext()) {
         double current = mp_real_data->currentValue();
-        double sigma = noise_factor*current;
+        double sigma = noise_factor*std::sqrt(current);
         double random = MathFunctions::GenerateNormalRandom(current, sigma);
         if (random<0.0) random = 0.0;
         mp_real_data->next() = random;

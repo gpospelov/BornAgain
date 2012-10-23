@@ -74,16 +74,20 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     gPad->SetLogz();
     gPad->SetLeftMargin(0.12);
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::setMinimum(10.);
+//    IsGISAXSTools::setMinimum(10.);
     IsGISAXSTools::drawOutputDataRelativeDifference2D(*fitSuite->getChiSquaredModule()->getSimulationData(), *fitSuite->getChiSquaredModule()->getRealData(), "COLZ", "relative difference");
     // chi2 difference
     c1->cd(4);
     gPad->SetLogz();
     gPad->SetLeftMargin(0.12);
+    OutputData<double > *diff_map = getDifferenceMap(fitSuite->getChiSquaredModule());
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::setMinimum(0.0000001);
-    IsGISAXSTools::setMaximum(1.0);
-    IsGISAXSTools::drawOutputDataChi2Difference2D(*fitSuite->getChiSquaredModule()->getSimulationData(), *fitSuite->getChiSquaredModule()->getRealData(), "COLZ", "relative chi2 difference");
+//    IsGISAXSTools::setMinimum(0.0000001);
+//    IsGISAXSTools::resetMinimumAndMaximum();
+//    IsGISAXSTools::setMaximum(1.0);
+//    IsGISAXSTools::setMinimum(0.000001);
+    IsGISAXSTools::drawOutputDataInPad(*diff_map, "COLZ", "chi2 difference map");
+    delete diff_map;
 
     c1->cd(5);
     TPaveText *pt = new TPaveText(.05,.1,.95,.8);
@@ -101,6 +105,38 @@ void FitSuiteObserverDraw::update(IObservable *subject)
 
 }
 
+// return output data which contains chi2 values from ChisSquaredModule of FitSuite
+OutputData<double > *FitSuiteObserverDraw::getDifferenceMap(const ChiSquaredModule *chi_module)
+{
+   const ISquaredFunction *squared_function = chi_module->getSquaredFunction();
+
+    const OutputData<double> *simu_data = chi_module->getSimulationData();
+    const OutputData<double> *real_data = chi_module->getRealData();
+
+    OutputData<double > *difference = simu_data->clone();
+    difference->setAllTo(0.0);
+
+    double norm(0);
+
+    simu_data->resetIndex();
+    real_data->resetIndex();
+    difference->resetIndex();
+    while (real_data->hasNext()) {
+        double value_simu = simu_data->currentValue();
+        double value_real = real_data->currentValue();
+        double squared_difference = squared_function->calculateSquaredDifference(value_real, value_simu);
+        difference->next() = squared_difference;
+        norm += squared_difference;
+        real_data->next(); simu_data->next();
+    }
+    //norm *= real_data->getAllocatedSize();
+    difference->scaleAll(1./norm);
+//    std::cout << "XXX " << aaa/real_data->getAllocatedSize() << " " << chi_module->getValue() << std::endl;
+
+    return difference;
+}
+
+
 
 /* ************************************************************************* */
 // Save results of each fit iteration to the disk in the form of ROOT tree
@@ -112,12 +148,6 @@ void FitSuiteObserverWriteTree::update(IObservable *subject)
     FitSuite *fitSuite = dynamic_cast<FitSuite *>(subject);
     if( !fitSuite ) throw NullPointerException("FitSuiteObserverWriteTree::update() -> Error! Can't cast FitSuite");
 
-    // printing parameter values
-    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
-        std::cout << " " << (*it)->getName() << " " << (*it)->getValue();
-        //            std::cout << *(*it);
-    }
-    std::cout << std::endl;
     // preparing root file for writing
     // if it is first call the file will be opened in 'recreate' mode, otherwise in 'update' mode
     TFile *top(0);

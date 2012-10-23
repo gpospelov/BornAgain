@@ -64,7 +64,7 @@ void ROOTMinimizer::printResults() const
 
     for(size_t i=0; i<getNumberOfVariables(); ++i) {
         std::cout << "   #" << i
-                  << " '" << Utils::AdjustStringLength(m_root_minimizer->VariableName(i), 30) << "' "
+                  << " " << Utils::AdjustStringLength(m_root_minimizer->VariableName(i), 30) << " "
                   << " value:" << getValueOfVariableAtMinimum(i)
                   << " error:" << getErrorOfVariable(i) << std::endl;
     }

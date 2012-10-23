@@ -97,8 +97,8 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
     TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(output, "p_hist2D");
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
-    gPad->SetRightMargin(0.115);
-    gPad->SetLeftMargin(0.115);
+//    gPad->SetRightMargin(0.115);
+//    gPad->SetLeftMargin(0.115);
     if( hasMinimum() ) h2->SetMinimum(m_hist_min);
     if( hasMaximum() ) h2->SetMaximum(m_hist_max);
     h2->SetTitle(histogram_title.c_str());

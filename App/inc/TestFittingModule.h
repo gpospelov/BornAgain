@@ -10,7 +10,7 @@
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
 //! @file   TestFittingModule.h
-//! @brief  Definition of
+//! @brief  Definition of TestFittingModule class
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 20, 2012
 
@@ -20,6 +20,7 @@
 #include "ChiSquaredModule.h"
 #include "FitMultiParameter.h"
 #include "GISASExperiment.h"
+
 
 class TestFittingModule : public IFunctionalTest
 {

@@ -43,6 +43,9 @@ public:
     //! return chi2 value (should be called after calculateChiSquared)
     virtual double getValue() const { return m_chi2_value; }
 
+    //! return squared function
+    const ISquaredFunction *getSquaredFunction() const { return mp_squared_function; }
+
 protected:
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulation_data;

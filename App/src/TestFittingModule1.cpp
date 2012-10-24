@@ -1,4 +1,4 @@
-#include "TestFittingModule.h"
+#include "TestFittingModule1.h"
 #include "Units.h"
 #include "MathFunctions.h"
 #include "GISASExperiment.h"
@@ -6,6 +6,7 @@
 #include "MultiLayer.h"
 #include "MaterialManager.h"
 #include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionNone.h"
 #include "ParticleDecoration.h"
 #include "LayerDecorator.h"
 #include "Particle.h"
@@ -14,6 +15,7 @@
 #include "DrawHelper.h"
 #include "FitSuiteHelper.h"
 #include "ResolutionFunction2DSimple.h"
+#include "AttLimits.h"
 
 #include "IObserver.h"
 #include "FitSuite.h"
@@ -26,7 +28,7 @@
 #include "TPaveText.h"
 
 
-TestFittingModule::TestFittingModule()
+TestFittingModule1::TestFittingModule1()
 : mp_exact_data(0)
 , mp_real_data(0)
 , mp_simulated_data(0)
@@ -36,7 +38,7 @@ TestFittingModule::TestFittingModule()
 }
 
 
-TestFittingModule::~TestFittingModule()
+TestFittingModule1::~TestFittingModule1()
 {
     delete mp_exact_data;
     delete mp_real_data;
@@ -46,10 +48,13 @@ TestFittingModule::~TestFittingModule()
 }
 
 
-void TestFittingModule::execute()
+void TestFittingModule1::execute()
 {
     // initializing data
-    initializeSample();
+    initializeSample2();
+    ParameterPool *pool = mp_sample->createParameterTree();
+    std::cout << *pool << std::endl;
+
     initializeExperiment();
     generateRealData(0.1);
 
@@ -64,20 +69,29 @@ void TestFittingModule::execute()
     FitSuite *fitSuite = new FitSuite();
     fitSuite->setExperiment(mp_experiment);
     fitSuite->setRealData(*mp_real_data);
-    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-
-//    ROOT::Math::Minimizer *m_minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();
-//    std::cout << m_minim->SetTolerance(0.00001) << std::endl;
-
+    fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Minimize") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") ); //doesn't work, Fumili wants special function with derivative
     //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "ConjugateFR") );
     //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "BFGS") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "SteepestDescent") );
     //fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
 
-    fitSuite->addFitParameter("*/MultiLayer/Layer0/thickness", 12*Units::nanometer, 2*Units::nanometer, TRange<double>(1.0, 20.0) );
-    fitSuite->addFitParameter("*/FormFactorCylinder/radius", 2*Units::nanometer, 2*Units::nanometer, TRange<double>(1.0, 20.0) );
+    // tuning minimizer
+    //ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();
+    //minim->SetTolerance(1000.0);
+//    minim->SetMaxFunctionCalls(50); // for Minuit
+//    minim->SetMaxIterations(50); // for GSL
+
+
+//    fitSuite->addFitParameter("*/MultiLayer/Layer0/thickness", 12*Units::nanometer, 2*Units::nanometer, AttLimits::limited(1.0, 20.0) );
+//    fitSuite->addFitParameter("*/FormFactorCylinder/radius", 2*Units::nanometer, 2*Units::nanometer, AttLimits::limited(1.0, 20.0) );
+    fitSuite->addFitParameter("*height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    fitSuite->addFitParameter("*radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 
     fitSuite->attachObserver( new FitSuiteObserverPrint() );
-    fitSuite->attachObserver( new FitSuiteObserverDraw() );
+    //fitSuite->attachObserver( new FitSuiteObserverDraw() );
     //fitSuite->attachObserver( new FitSuiteObserverWriteTree() );
 
     fitSuite->runFit();
@@ -117,13 +131,14 @@ void TestFittingModule::execute()
 }
 
 
-void TestFittingModule::initializeExperiment()
+void TestFittingModule1::initializeExperiment()
 {
 
     delete mp_experiment;
     mp_experiment = new GISASExperiment(mp_options);
     mp_experiment->setSample(*mp_sample);
     mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
+    //mp_experiment->setDetectorParameters(50, 0.0*Units::degree, 2.0*Units::degree, 50 , 0.0*Units::degree, 2.0*Units::degree);
     mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
     mp_experiment->setBeamIntensity(1e10);
@@ -131,7 +146,7 @@ void TestFittingModule::initializeExperiment()
 
 
 
-void TestFittingModule::initializeSample()
+void TestFittingModule1::initializeSample()
 {
     delete mp_sample;
     MultiLayer *p_multi_layer = new MultiLayer();
@@ -164,10 +179,29 @@ void TestFittingModule::initializeSample()
 }
 
 
+void TestFittingModule1::initializeSample2()
+{
+    delete mp_sample;
+
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    p_multi_layer->addLayer(air_layer_decorator);
+    mp_sample = p_multi_layer;
+}
+
+
+
 /* ************************************************************************* */
 // generate real data
 /* ************************************************************************* */
-void TestFittingModule::generateRealData(double noise_factor)
+void TestFittingModule1::generateRealData(double noise_factor)
 {
     if(mp_exact_data) delete mp_exact_data;
 

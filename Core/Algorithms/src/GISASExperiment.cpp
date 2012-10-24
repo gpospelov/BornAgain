@@ -162,17 +162,20 @@ void GISASExperiment::initializeAnglesIsgisaxs(NamedVector<double> *p_axis, doub
 
 double GISASExperiment::getCurrentSolidAngle() const
 {
-    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double>* >(m_intensity_map.getAxis("alpha_f"));
-    const NamedVector<double> *p_phi_axis = dynamic_cast<const NamedVector<double>* >(m_intensity_map.getAxis("phi_f"));
-    size_t alpha_index = m_intensity_map.getCurrentIndexOfAxis("alpha_f");
+    static std::string s_alpha_f("alpha_f");
+    static std::string s_phi_f("phi_f");
+
+    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double>* >(m_intensity_map.getAxis(s_alpha_f));
+    const NamedVector<double> *p_phi_axis = dynamic_cast<const NamedVector<double>* >(m_intensity_map.getAxis(s_phi_f));
+    size_t alpha_index = m_intensity_map.getCurrentIndexOfAxis(s_alpha_f);
     size_t alpha_size = p_alpha_axis->getSize();
-    size_t phi_index = m_intensity_map.getCurrentIndexOfAxis("phi_f");
+    size_t phi_index = m_intensity_map.getCurrentIndexOfAxis(s_phi_f);
     size_t phi_size = p_phi_axis->getSize();
     if (alpha_size<2 || phi_size<2) {
         // Cannot determine detector cell size!
         return 0.0;
     }
-    double alpha_f = m_intensity_map.getCurrentValueOfAxis<double>("alpha_f");
+    double alpha_f = m_intensity_map.getCurrentValueOfAxis<double>(s_alpha_f);
     double cos_alpha_f = std::cos(alpha_f);
     double dalpha, dphi;
     if (alpha_index==0) {

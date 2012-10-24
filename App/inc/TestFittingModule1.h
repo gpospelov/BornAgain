@@ -1,5 +1,5 @@
-#ifndef TESTFITTINGMODULE_H_
-#define TESTFITTINGMODULE_H_
+#ifndef TESTFITTINGMODULE1_H_
+#define TESTFITTINGMODULE1_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,7 +9,7 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestFittingModule.h
+//! @file   TestFittingModule1.h
 //! @brief  Definition of TestFittingModule class
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 20, 2012
@@ -22,15 +22,20 @@
 #include "GISASExperiment.h"
 
 
-class TestFittingModule : public IFunctionalTest
+//- -------------------------------------------------------------------
+//! @class TestFittingModule1
+//! @brief Testing of fitting module with simplified sample (layer + nanoparticles)
+//- -------------------------------------------------------------------
+class TestFittingModule1 : public IFunctionalTest
 {
 public:
-    TestFittingModule();
-    virtual ~TestFittingModule();
+    TestFittingModule1();
+    virtual ~TestFittingModule1();
     virtual void execute();
 
 private:
     void initializeSample();
+    void initializeSample2();
     void initializeExperiment();
     void generateRealData(double noise_factor);
 
@@ -43,4 +48,4 @@ private:
 
 
 
-#endif /* TESTFITTINGMODULE_H_ */
+#endif /* TESTFITTINGMODULE1_H_ */

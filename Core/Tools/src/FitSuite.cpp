@@ -35,19 +35,10 @@ void FitSuite::clear()
 /* ************************************************************************* */
 // add fit parameter
 /* ************************************************************************* */
-FitMultiParameter * FitSuite::addFitParameter(const std::string &name, double value, double step, double error)
+FitMultiParameter * FitSuite::addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim)
 {
     // making MultiFitParameter for later access to sample's parameters
-    FitMultiParameter *par = new FitMultiParameter(name, value, step, error);
-    m_fit_params.push_back( par );
-    return par;
-}
-
-FitMultiParameter * FitSuite::addFitParameter(const std::string &name, double value, double step, const TRange<double> &range)
-{
-    // making MultiFitParameter for later access to sample's parameters
-    FitMultiParameter *par = new FitMultiParameter(name, value, step);
-    par->setLimits(range.getMin(), range.getMax() );
+    FitMultiParameter *par = new FitMultiParameter(name, value, step, attlim);
     m_fit_params.push_back( par );
     return par;
 }
@@ -98,7 +89,10 @@ void FitSuite::setRealData(const OutputData<double> &data)
 /* ************************************************************************* */
 void FitSuite::runFit()
 {
-    if( !m_experiment || !m_minimizer || !m_chi2_module || m_fit_params.empty()) throw NullPointerException("FitSuite::runFit() -> Error! Something is wrong.");
+    if( !m_experiment ) throw NullPointerException("FitSuite::runFit() -> Error! Experiment is missed.");
+    if( !m_minimizer ) throw NullPointerException("FitSuite::runFit() -> Error! Minimizer is missed.");
+    if( !m_chi2_module ) throw NullPointerException("FitSuite::runFit() -> Error! Chi2 module is missed.");
+    if( m_fit_params.empty()) throw NullPointerException("FitSuite::runFit() -> Error! no fit parameters is defined.");
 
     // initializing fit parameters
     init_fit_parameters();

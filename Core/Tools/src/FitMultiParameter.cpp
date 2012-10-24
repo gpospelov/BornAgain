@@ -4,11 +4,11 @@
 
 FitMultiParameter::FitMultiParameter()
 {
-    setName("FitMultiParameter");
+
 }
 
 
-FitMultiParameter::FitMultiParameter(const std::string &name, double value, double step, double error) : FitParameter(name, value, step, error)
+FitMultiParameter::FitMultiParameter(const std::string &name, double value, double step, const AttLimits &attlim) : FitParameter(name, value, step, attlim)
 {
 
 }

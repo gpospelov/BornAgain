@@ -21,7 +21,7 @@ ROOTMinimizer::~ROOTMinimizer()
 
 void ROOTMinimizer::setVariable(int i, const FitParameter *par)
 {
-    if(par->hasDoubleBound() ) {
+    if(par->hasLowerAndUpperLimits() ) {
         m_root_minimizer->SetLimitedVariable(i, par->getName().c_str(), par->getValue(), par->getStep(), par->getLowerLimit(), par->getUpperLimit());
     } else if(par->hasLowerLimit() && !par->hasUpperLimit() ) {
         m_root_minimizer->SetLowerLimitedVariable(i, par->getName().c_str(), par->getValue(), par->getStep(), par->getLowerLimit());
@@ -61,6 +61,10 @@ void ROOTMinimizer::printResults() const
     << " NumberOfVariables:" << getNumberOfVariables()
     << " NCall:" << m_root_minimizer->NCalls()
     << " Chi2:" << std::scientific << std::setprecision(8) << getMinValue() << std::endl;
+
+    if( !m_root_minimizer->Errors() ) {
+        std::cout << "Warning! No access to parameter errors" << std::endl;
+    }
 
     for(size_t i=0; i<getNumberOfVariables(); ++i) {
         std::cout << "   #" << i

@@ -1,4 +1,4 @@
-#include "TestIsGISAXS4.h"
+#include "TestIsGISAXS8.h"
 #include "IsGISAXSTools.h"
 #include "Units.h"
 #include "Utils.h"
@@ -10,12 +10,12 @@
 #include "TCanvas.h"
 #include <gsl/gsl_errno.h>
 
-TestIsGISAXS4::TestIsGISAXS4() : IFunctionalTest("TestIsGISAXS4")
+TestIsGISAXS8::TestIsGISAXS8() : IFunctionalTest("TestIsGISAXS8")
 {
-    m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-4/");
+    m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-8/");
 }
 
-void TestIsGISAXS4::execute()
+void TestIsGISAXS8::execute()
 {
     gsl_set_error_handler_off();
 
@@ -26,7 +26,7 @@ void TestIsGISAXS4::execute()
     MultiLayer *p_sample(0);
 
     // 1DDL
-    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_1DDL"));
+    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS8_1DDL"));
     experiment.setSample(*p_sample);
     experiment.runSimulation();
     IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_1DDL.ima");
@@ -41,7 +41,7 @@ void TestIsGISAXS4::execute()
 }
 
 
-void TestIsGISAXS4::finalise()
+void TestIsGISAXS8::finalise()
 {
     std::vector< CompareStruct > tocompare;
     tocompare.push_back( CompareStruct("isgi_1DDL.ima",      "this_1DDL.ima",      "Cylinder 1DDL") );

@@ -15,6 +15,9 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Sep 13, 2012
 
+#include "IFormFactor.h"
+#include "FormFactorFullSphere.h"
+
 class FormFactorSphereGaussianRadius : public IFormFactorBorn
 {
 public:

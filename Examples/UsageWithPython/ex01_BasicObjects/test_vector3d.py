@@ -1,3 +1,5 @@
+# Example demonstrates arithmetic with kvectors
+
 import sys, os
 from numpy import linspace, array, zeros
 import pylab
@@ -5,7 +7,7 @@ from matplotlib.colors import LogNorm
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
-                '..', '..', 'lib')))
+                '..', '..', '..', 'lib')))
 
 from libScattCore import *
 

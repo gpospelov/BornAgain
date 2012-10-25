@@ -54,6 +54,12 @@ const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name
 }
 
 
+const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag)
+{
+    return addHomogeneousMaterial(name, complex_t(refractive_index_real, refractive_index_imag));
+}
+
+
 /* ************************************************************************* */
 // print content of material database on the screen
 /* ************************************************************************* */

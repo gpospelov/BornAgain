@@ -25,10 +25,11 @@ class ProgramOptions;
 class Experiment : public IParameterized
 {
 public:
-	Experiment(ProgramOptions *p_options=0);
-	Experiment(ISample *p_sample, ProgramOptions *p_options=0);
-	Experiment(ISampleBuilder *p_sample_builder, ProgramOptions *p_options=0);
-    virtual ~Experiment() {}
+    Experiment();
+    Experiment(ProgramOptions *p_options);
+    Experiment(const ISample &p_sample, ProgramOptions *p_options=0);
+	Experiment(const ISampleBuilder *p_sample_builder, ProgramOptions *p_options=0);
+    virtual ~Experiment() {delete mp_sample;}
 
     //! run a simulation with the current parameter settings
     virtual void runSimulation();
@@ -37,14 +38,16 @@ public:
     virtual void normalize();
 
     //! set the sample to be tested
-    void setSample(ISample *p_sample);
+    //void setSample(ISample *p_sample);
+    void setSample(const ISample &p_sample);
 
     //! get the sample
     ISample *getSample() { return mp_sample; }
     const ISample *getSample() const { return mp_sample; }
 
     //! set the sample builder
-    void setSampleBuilder(ISampleBuilder *p_sample_builder);
+    //void setSampleBuilder(ISampleBuilder *p_sample_builder);
+    void setSampleBuilder(const ISampleBuilder *p_sample_builder);
 
     //! get data structure that contains the intensity map on the detector for all scan parameters
     OutputData<double>* getOutputDataClone() const;
@@ -91,7 +94,7 @@ protected:
     void updateSample();
 
     ISample *mp_sample;
-    ISampleBuilder *mp_sample_builder;
+    const ISampleBuilder *mp_sample_builder;
     Detector m_detector;
     Beam m_beam;
     OutputData<double> m_intensity_map;

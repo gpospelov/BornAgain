@@ -195,6 +195,7 @@ MesoCrystal* MesoCrystalBuilder::createMesoCrystal(double stacking_radius, compl
     LatticeBasis basis(particle, pos_vector);
 
     Crystal npc(basis, *p_lat);
+    delete p_lat;
     double dw_factor = m_sigma_lattice_length_a*m_sigma_lattice_length_a/6.0;
     npc.setDWFactor(dw_factor);
     return new MesoCrystal(npc.clone(), p_meso_form_factor->clone());
@@ -203,7 +204,7 @@ MesoCrystal* MesoCrystalBuilder::createMesoCrystal(double stacking_radius, compl
 const Lattice *MesoCrystalBuilder::createLattice(double stacking_radius) const
 {
     Lattice *p_result = new Lattice(Lattice::createTrigonalLattice(stacking_radius*2.0, stacking_radius*2.0*2.3));
-    p_result->setSelectionRule(new SimpleSelectionRule(-1, 1, 1, 3));
+    p_result->setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
     return p_result;
 }
 

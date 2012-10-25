@@ -35,7 +35,7 @@ ISample *ISample::clone() const
     throw NotImplementedException("ISample::clone() -> Error! Method is not implemented");
 }
 
-void ISample::walk_and_print()
+void ISample::print_structure()
 {
     std::cout << getName() << " " << this << std::endl;
     if(getCompositeSample()) {

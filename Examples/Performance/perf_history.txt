@@ -133,4 +133,17 @@
 2012-10-10 18:04:45 | jcnsopc73  | macosx64, 2800 MHz      | 259740  | 14.1844 | 13.8889 | 5.26316 | 
 2012-10-10 18:05:12 | jcnsopc73  | macosx64, 2800 MHz      | 253165  | 13.986  | 13.4228 | 5.12821 | 
 2012-10-11 14:59:48 | jcnsopc73  | macosx64, 2800 MHz      | 270270  | 14.9254 | 14.5985 | 5.26316 |
+
+# after refactoring to DoubleToPairOfComplexMap
 2012-10-12 16:22:18 | jcnsopc73  | macosx64, 2800 MHz      | 256410  | 14.1844 | 13.8889 | 5.26316 | 
+
+# current status of the art
+2012-10-12 16:47:45 | jcnsopc73  | macosx64, 2800 MHz      | 253165  | 13.7931 | 13.5135 | 5       |
+
+# change frsenl coeff definition
+2012-10-15 14:33:42 | jcnsopc73  | macosx64, 2800 MHz      | 270270  | 14.7059 | 14.3885 | 5.40541 | 
+2012-10-17 17:41:34 | jcnsopc73  | macosx64, 2800 MHz      | 263158  | 14.3885 | 14.1844 | 5.26316 |
+
+# current status of the art
+2012-10-19 15:35:44 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 13.4228 | 13.245  | 5.26316 | 
+

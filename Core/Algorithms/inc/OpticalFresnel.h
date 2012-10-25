@@ -22,19 +22,6 @@
 
 
 /* ************************************************************************* */
-// helper to hold reflection and transmission coefficients simultaneously
-// not used
-/* ************************************************************************* */
-class ReflectionTransmission
-{
-public:
-    complex_t R;
-    complex_t T;
-};
-
-
-
-/* ************************************************************************* */
 // optical fresnel coefficients
 /* ************************************************************************* */
 class OpticalFresnel : public ISimulation
@@ -42,6 +29,7 @@ class OpticalFresnel : public ISimulation
 public:
     OpticalFresnel();
 
+    //! reflection/transmission fresnel coefficients
     class FresnelCoeff {
     public:
         FresnelCoeff() : kz(0), r(0), t(0), rb(0), tb(0), X(0), R(0), T(0) {}
@@ -59,16 +47,24 @@ public:
         //! operator is necessary to make pyplusplus/boost happy during exposing of FresnelCoeff to python using boost::vector_indexing_suite
         bool operator==(FresnelCoeff const &other) const;
     };
-    typedef std::vector<FresnelCoeff > MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
 
+    //! collection of fresnel coefficients for multi layer
     class MultiLayerCoeff
     {
     public:
-        FresnelCoeff &operator[](size_t i) { return m_data[i]; }
-        size_t size() const { return m_data.size(); }
-        MultiLayerCoeff_t m_data;
+        inline FresnelCoeff &operator[](size_t i) { return m_data[i]; }
+        inline const FresnelCoeff &operator[](size_t i) const { return m_data[i]; }
+        inline size_t size() const { return m_data.size(); }
+        inline void clear() { m_data.clear(); }
+        inline void resize(size_t size) { m_data.resize(size); }
+    private:
+        std::vector<FresnelCoeff > m_data;
     };
 
+    //typedef std::vector<FresnelCoeff > MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
+    typedef MultiLayerCoeff MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
+
+    //! calculate fresnel coefficients for given multi layer and kvector
     int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
 
 private:

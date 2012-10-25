@@ -1,17 +1,25 @@
 #include "Experiment.h"
 
+Experiment::Experiment()
+: mp_sample(0)
+, mp_sample_builder(0)
+, m_is_normalized(false)
+, mp_options(0)
+{
+    init_parameters();
+}
+
 Experiment::Experiment(ProgramOptions *p_options)
 : mp_sample(0)
 , mp_sample_builder(0)
 , m_is_normalized(false)
 , mp_options(p_options)
 {
-    setName("Experiment");
     init_parameters();
 }
 
-Experiment::Experiment(ISample* p_sample, ProgramOptions *p_options)
-: mp_sample(p_sample)
+Experiment::Experiment(const ISample &p_sample, ProgramOptions *p_options)
+: mp_sample(p_sample.clone())
 , mp_sample_builder(0)
 , m_is_normalized(false)
 , mp_options(p_options)
@@ -19,7 +27,7 @@ Experiment::Experiment(ISample* p_sample, ProgramOptions *p_options)
     init_parameters();
 }
 
-Experiment::Experiment(ISampleBuilder* p_sample_builder, ProgramOptions *p_options)
+Experiment::Experiment(const ISampleBuilder* p_sample_builder, ProgramOptions *p_options)
 : mp_sample(0)
 , mp_sample_builder(p_sample_builder)
 , m_is_normalized(false)
@@ -48,24 +56,29 @@ void Experiment::normalize()
 }
 
 //! The ISample object will not be owned by the Experiment object
-void Experiment::setSample(ISample* p_sample)
+void Experiment::setSample(const ISample &p_sample)
 {
-    if (mp_sample != p_sample) {
-        delete mp_sample;
-        mp_sample = p_sample;
-        delete mp_sample_builder;
-        mp_sample_builder = 0;
-    }
+//    if (mp_sample != p_sample) {
+//        delete mp_sample;
+//        mp_sample = p_sample;
+//        delete mp_sample_builder;
+//        mp_sample_builder = 0;
+//    }
+    delete mp_sample;
+    mp_sample = p_sample.clone();
 }
 
-void Experiment::setSampleBuilder(ISampleBuilder* p_sample_builder)
+void Experiment::setSampleBuilder(const ISampleBuilder *p_sample_builder)
 {
-    if (mp_sample_builder != p_sample_builder) {
-        delete mp_sample_builder;
-        mp_sample_builder = p_sample_builder;
-        delete mp_sample;
-        mp_sample = 0;
-    }
+//    if (mp_sample_builder != p_sample_builder) {
+//        delete mp_sample_builder;
+//        mp_sample_builder = p_sample_builder;
+//        delete mp_sample;
+//        mp_sample = 0;
+//    }
+    mp_sample_builder = p_sample_builder;
+    delete mp_sample;
+    mp_sample = 0;
 }
 
 OutputData<double>* Experiment::getOutputDataClone() const
@@ -143,6 +156,7 @@ std::string Experiment::addParametersToExternalPool(std::string path,
 
 void Experiment::init_parameters()
 {
+    setName("Experiment");
 }
 
 void Experiment::updateIntensityMapAxes()
@@ -161,9 +175,17 @@ void Experiment::updateSample()
 {
     if (mp_sample_builder) {
         ISample *p_new_sample = mp_sample_builder->buildSample();
-        if (mp_sample != p_new_sample) {
+        std::string builder_type = typeid(*mp_sample_builder).name();
+        if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
+            std::cout << "Experiment::updateSample() -> OMG, some body has called me from python, going to collapse in a second... " << std::endl;
             delete mp_sample;
-            mp_sample = p_new_sample;
+            mp_sample = p_new_sample->clone();
+            // p_new_sample belongs to python, don't delete it
+        } else {
+            if (mp_sample != p_new_sample) {
+                delete mp_sample;
+                mp_sample = p_new_sample;
+             }
         }
     }
 }

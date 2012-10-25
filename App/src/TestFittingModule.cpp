@@ -55,7 +55,7 @@ void TestFittingModule::execute()
     initializeExperiment();
     generateRealData(0.1);
 
-//    mp_sample->walk_and_print();
+//    mp_sample->print_structure();
 //    ParameterPool *pool = mp_sample->createParameterTree();
 //    std::cout << *pool << std::endl;
 //    return;
@@ -77,8 +77,8 @@ void TestFittingModule::execute()
     fitSuite->setExperiment(mp_experiment);
     fitSuite->setRealData(*mp_real_data);
     fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    fitSuite->addFitParameter("*/MultiLayer/Layer0/thickness", 12*Units::nanometer, 1*Units::nanometer, TRange<double>(1.0, 20.0) );
-    fitSuite->addFitParameter("*/FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, TRange<double>(1.0, 20.0) );
+    fitSuite->addFitParameter("*/MultiLayer/Layer0/thickness", 12*Units::nanometer, 2*Units::nanometer, TRange<double>(1.0, 20.0) );
+    fitSuite->addFitParameter("*/FormFactorCylinder/radius", 2*Units::nanometer, 2*Units::nanometer, TRange<double>(1.0, 20.0) );
 
     FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
     fitSuite->attachObserver(drawObserver);
@@ -99,6 +99,7 @@ void TestFittingModule::execute()
     ROOTMinimizer *min = dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer());
     std::cout << min->getROOTMinimizer()->MinValue() << " " << min->getROOTMinimizer()->NCalls() << std::endl;
     std::cout << min->getROOTMinimizer()->X()[0] << std::endl;
+    min->getROOTMinimizer()->PrintResults();
 
     c1->cd(6);
     TPaveText *pt = new TPaveText(.05,.1,.95,.8);
@@ -124,7 +125,7 @@ void TestFittingModule::initializeExperiment()
 
     delete mp_experiment;
     mp_experiment = new GISASExperiment(mp_options);
-    mp_experiment->setSample(mp_sample);
+    mp_experiment->setSample(*mp_sample);
     mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
     mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     mp_experiment->setBeamIntensity(1e10);

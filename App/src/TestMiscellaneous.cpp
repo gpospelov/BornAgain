@@ -34,13 +34,42 @@ TestMiscellaneous::TestMiscellaneous()
 
 void TestMiscellaneous::execute()
 {
-
-    test_KVectorContainer();
+    test_OutputDataTo2DArray();
+    //test_KVectorContainer();
     //test_OutputDataIOFactory();
     //test_FastSin();
     //test_DoubleToComplexInterpolatingFunction();
     //test_FormFactor();
     //test_DrawMesocrystal();
+}
+
+
+/* ************************************************************************* */
+// test of OutputData export to 2D array
+/* ************************************************************************* */
+void TestMiscellaneous::test_OutputDataTo2DArray()
+{
+    // [axis0][axis1]
+    int axis0_size = 2;
+    int axis1_size = 4;
+    OutputData<double> *output = new OutputData<double>;
+    output->addAxis(std::string("axis0"), 0.0, double(axis0_size), axis0_size);
+    output->addAxis(std::string("axis1"), 0.0, double(axis1_size), axis1_size);
+    output->setAllTo(0.0);
+
+    output->resetIndex();
+    int nn=0;
+    while (output->hasNext())
+    {
+        size_t index0 = output->getCurrentIndexOfAxis("x-axis");
+        size_t index1 = output->getCurrentIndexOfAxis("y-axis");
+        std::cout << " index0:" << index0 << " index1:" << index1 << std::endl;
+        output->next() = nn++;
+    }
+
+
+
+
 }
 
 

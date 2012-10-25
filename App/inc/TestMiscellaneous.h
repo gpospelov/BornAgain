@@ -47,6 +47,9 @@ public:
     //! test kvector container
     void test_KVectorContainer();
 
+    //! test of OutputData export to 2D array
+    void test_OutputDataTo2DArray();
+
 };
 
 #endif // TESTMISCELLANEOUS_H

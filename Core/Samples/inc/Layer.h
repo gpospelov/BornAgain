@@ -28,6 +28,7 @@ class Layer : public ICompositeSample
 {
 public:
     Layer();
+    Layer(const IMaterial* p_material, double thickness=0);
     virtual ~Layer();
 
     //! make layer's clone

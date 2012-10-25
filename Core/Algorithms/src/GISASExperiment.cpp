@@ -10,6 +10,14 @@
 #include <boost/thread.hpp>
 
 
+GISASExperiment::GISASExperiment()
+{
+    setName("GISASExperiment");
+    m_beam.setCentralK(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree); ///< Set default beam parameters
+    setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+            100, 0.0*Units::degree, 2.0*Units::degree);
+}
+
 GISASExperiment::GISASExperiment(ProgramOptions *p_options)
 : Experiment(p_options)
 {

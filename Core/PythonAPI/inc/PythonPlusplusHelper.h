@@ -23,8 +23,9 @@
 namespace pyplusplus {
     namespace aliases {
         typedef Geometry::BasicVector3D<double > kvector_t;
-        //typedef Geometry::BasicVector3D<std::complex<double> > cvector_t;
         typedef std::vector<kvector_t > vector_kvector_t;
+//        typedef Geometry::BasicVector3D<std::complex<double> > cvector_t;
+//        typedef std::vector<cvector_t > vector_cvector_t;
     }
 }
 
@@ -35,8 +36,9 @@ class PythonPlusplusHelper
 {
 public:
     size_t pyplusplus_boost_kvector() { return sizeof(kvector_t); }
-    //size_t pyplusplus_boost_cvector() { return sizeof(cvector_t); }
     size_t pyplusplus_boost_vectorof_kvector() { return sizeof(pyplusplus::aliases::vector_kvector_t); }
+//    size_t pyplusplus_boost_cvector() { return sizeof(cvector_t); }
+//    size_t pyplusplus_boost_vectorof_cvector() { return sizeof(pyplusplus::aliases::vector_cvector_t); }
 };
 
 #endif // PYTHONPLUSPLUSHELPER_H

@@ -6,11 +6,13 @@
 #include "Experiment.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
+#include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorFullSphere.h"
 #include "FormFactorGauss.h"
 #include "FormFactorLorentz.h"
 #include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
+#include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
 #include "IClusteredParticles.h"
@@ -23,6 +25,7 @@
 #include "IParameterized.h"
 #include "ISample.h"
 #include "ISampleBuilder.h"
+#include "ISelectionRule.h"
 #include "ISingleton.h"
 #include "Lattice.h"
 #include "LatticeBasis.h"
@@ -106,16 +109,16 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
         return ISample::clone( );
     }
 
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
         else{
-            this->ISample::walk_and_print(  );
+            this->ISample::print_structure(  );
         }
     }
     
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
+    void default_print_structure(  ) {
+        ISample::print_structure( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -165,16 +168,16 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
         return IParameterized::createParameterTree( );
     }
 
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
         else{
-            this->ISample::walk_and_print(  );
+            this->ISample::print_structure(  );
         }
     }
     
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
+    void default_print_structure(  ) {
+        ISample::print_structure( );
     }
 
 };
@@ -234,16 +237,16 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return IParameterized::createParameterTree( );
     }
 
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
         else{
-            this->ISample::walk_and_print(  );
+            this->ISample::print_structure(  );
         }
     }
     
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
+    void default_print_structure(  ) {
+        ISample::print_structure( );
     }
 
 };
@@ -324,16 +327,16 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return IParameterized::createParameterTree( );
     }
 
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
         else{
-            this->ISample::walk_and_print(  );
+            this->ISample::print_structure(  );
         }
     }
     
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
+    void default_print_structure(  ) {
+        ISample::print_structure( );
     }
 
 };
@@ -364,16 +367,16 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
         return IParameterized::createParameterTree( );
     }
 
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
         else{
-            this->ISample::walk_and_print(  );
+            this->ISample::print_structure(  );
         }
     }
     
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
+    void default_print_structure(  ) {
+        ISample::print_structure( );
     }
 
 };
@@ -404,21 +407,28 @@ struct DiffuseParticleInfo_wrapper : DiffuseParticleInfo, bp::wrapper< DiffusePa
         return IParameterized::createParameterTree( );
     }
 
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
         else{
-            this->ISample::walk_and_print(  );
+            this->ISample::print_structure(  );
         }
     }
     
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
+    void default_print_structure(  ) {
+        ISample::print_structure( );
     }
 
 };
 
 struct Experiment_wrapper : Experiment, bp::wrapper< Experiment > {
+
+    Experiment_wrapper( )
+    : Experiment( )
+      , bp::wrapper< Experiment >(){
+        // null constructor
+    
+    }
 
     virtual void normalize(  ) {
         if( bp::override func_normalize = this->get_override( "normalize" ) )
@@ -561,16 +571,16 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         return IParameterized::createParameterTree( );
     }
 
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
         else{
-            this->ISample::walk_and_print(  );
+            this->ISample::print_structure(  );
         }
     }
     
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
+    void default_print_structure(  ) {
+        ISample::print_structure( );
     }
 
 };
@@ -678,6 +688,18 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         return IFormFactor::isDistributedFormFactor( );
     }
 
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
+        else{
+            this->ISample::print_structure(  );
+        }
+    }
+    
+    void default_print_structure(  ) {
+        ISample::print_structure( );
+    }
+
     virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
             func_setAmbientRefractiveIndex( refractive_index );
@@ -688,18 +710,6 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
     
     void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         IFormFactor::setAmbientRefractiveIndex( refractive_index );
-    }
-
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
-        else{
-            this->ISample::walk_and_print(  );
-        }
-    }
-    
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
     }
 
 };
@@ -821,16 +831,16 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         return IFormFactor::isDistributedFormFactor( );
     }
 
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
         else{
-            this->ISample::walk_and_print(  );
+            this->ISample::print_structure(  );
         }
     }
     
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
+    void default_print_structure(  ) {
+        ISample::print_structure( );
     }
 
 };
@@ -940,6 +950,18 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         return IFormFactor::isDistributedFormFactor( );
     }
 
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
+        else{
+            this->ISample::print_structure(  );
+        }
+    }
+    
+    void default_print_structure(  ) {
+        ISample::print_structure( );
+    }
+
     virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
             func_setAmbientRefractiveIndex( refractive_index );
@@ -952,16 +974,252 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         IFormFactor::setAmbientRefractiveIndex( refractive_index );
     }
 
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
+};
+
+struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFactorDecorator > {
+
+    virtual ::IFormFactorDecorator * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
+    }
+
+    virtual double getHeight(  ) const  {
+        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
+            return func_getHeight(  );
         else{
-            this->ISample::walk_and_print(  );
+            return this->IFormFactorDecorator::getHeight(  );
         }
     }
     
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
+    double default_getHeight(  ) const  {
+        return IFormFactorDecorator::getHeight( );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
+    }
+
+    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
+            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        else{
+            this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        }
+    }
+    
+    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+        IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) const  {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->IParameterized::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) const  {
+        return IParameterized::createParameterTree( );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const {
+        bp::override func_evaluate = this->get_override( "evaluate" );
+        return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) const  {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->IFormFactor::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) const  {
+        return IFormFactor::getNumberOfStochasticParameters( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactor::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactor::getVolume( );
+    }
+
+    virtual bool isDistributedFormFactor(  ) const  {
+        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
+            return func_isDistributedFormFactor(  );
+        else{
+            return this->IFormFactor::isDistributedFormFactor(  );
+        }
+    }
+    
+    bool default_isDistributedFormFactor(  ) const  {
+        return IFormFactor::isDistributedFormFactor( );
+    }
+
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
+        else{
+            this->ISample::print_structure(  );
+        }
+    }
+    
+    void default_print_structure(  ) {
+        ISample::print_structure( );
+    }
+
+};
+
+struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, bp::wrapper< FormFactorDecoratorDebyeWaller > {
+
+    FormFactorDecoratorDebyeWaller_wrapper(FormFactorDecoratorDebyeWaller const & arg )
+    : FormFactorDecoratorDebyeWaller( arg )
+      , bp::wrapper< FormFactorDecoratorDebyeWaller >(){
+        // copy constructor
+        
+    }
+
+    FormFactorDecoratorDebyeWaller_wrapper(::IFormFactor const & p_form_factor, double dw_h_factor, double dw_r_factor )
+    : FormFactorDecoratorDebyeWaller( boost::ref(p_form_factor), dw_h_factor, dw_r_factor )
+      , bp::wrapper< FormFactorDecoratorDebyeWaller >(){
+        // constructor
+    
+    }
+
+    virtual ::FormFactorDecoratorDebyeWaller * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->FormFactorDecoratorDebyeWaller::clone(  );
+        }
+    }
+    
+    ::FormFactorDecoratorDebyeWaller * default_clone(  ) const  {
+        return FormFactorDecoratorDebyeWaller::clone( );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+        else{
+            return this->FormFactorDecoratorDebyeWaller::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+        }
+    }
+    
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+        return FormFactorDecoratorDebyeWaller::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) const  {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) const  {
+        return FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters( );
+    }
+
+    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
+            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        else{
+            this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        }
+    }
+    
+    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+        IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) const  {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->IParameterized::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) const  {
+        return IParameterized::createParameterTree( );
+    }
+
+    virtual double getHeight(  ) const  {
+        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
+            return func_getHeight(  );
+        else{
+            return this->IFormFactorDecorator::getHeight(  );
+        }
+    }
+    
+    double default_getHeight(  ) const  {
+        return IFormFactorDecorator::getHeight( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactor::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactor::getVolume( );
+    }
+
+    virtual bool isDistributedFormFactor(  ) const  {
+        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
+            return func_isDistributedFormFactor(  );
+        else{
+            return this->IFormFactor::isDistributedFormFactor(  );
+        }
+    }
+    
+    bool default_isDistributedFormFactor(  ) const  {
+        return IFormFactor::isDistributedFormFactor( );
+    }
+
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
+        else{
+            this->ISample::print_structure(  );
+        }
+    }
+    
+    void default_print_structure(  ) {
+        ISample::print_structure( );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
     }
 
 };
@@ -1078,6 +1336,18 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
         return IFormFactor::isDistributedFormFactor( );
     }
 
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
+        else{
+            this->ISample::print_structure(  );
+        }
+    }
+    
+    void default_print_structure(  ) {
+        ISample::print_structure( );
+    }
+
     virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
             func_setAmbientRefractiveIndex( refractive_index );
@@ -1088,18 +1358,6 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
     
     void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         IFormFactor::setAmbientRefractiveIndex( refractive_index );
-    }
-
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
-        else{
-            this->ISample::walk_and_print(  );
-        }
-    }
-    
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
     }
 
 };
@@ -1216,142 +1474,16 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         return IFormFactor::isDistributedFormFactor( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
         else{
-            this->IFormFactor::setAmbientRefractiveIndex( refractive_index );
+            this->ISample::print_structure(  );
         }
     }
     
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        IFormFactor::setAmbientRefractiveIndex( refractive_index );
-    }
-
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
-        else{
-            this->ISample::walk_and_print(  );
-        }
-    }
-    
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
-    }
-
-};
-
-struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLorentz > {
-
-    FormFactorLorentz_wrapper(double volume )
-    : FormFactorLorentz( volume )
-      , bp::wrapper< FormFactorLorentz >(){
-        // constructor
-    
-    }
-
-    FormFactorLorentz_wrapper(double height, double width )
-    : FormFactorLorentz( height, width )
-      , bp::wrapper< FormFactorLorentz >(){
-        // constructor
-    
-    }
-
-    virtual ::FormFactorLorentz * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->FormFactorLorentz::clone(  );
-        }
-    }
-    
-    ::FormFactorLorentz * default_clone(  ) const  {
-        return FormFactorLorentz::clone( );
-    }
-
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
-        else{
-            return this->FormFactorLorentz::getNumberOfStochasticParameters(  );
-        }
-    }
-    
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return FormFactorLorentz::getNumberOfStochasticParameters( );
-    }
-
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
-        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
-            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        else{
-            this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-        }
-    }
-    
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
-        IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
-    }
-
-    virtual ::ParameterPool * createParameterTree(  ) const  {
-        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
-            return func_createParameterTree(  );
-        else{
-            return this->IParameterized::createParameterTree(  );
-        }
-    }
-    
-    ::ParameterPool * default_createParameterTree(  ) const  {
-        return IParameterized::createParameterTree( );
-    }
-
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
-        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-        else{
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-        }
-    }
-    
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-    }
-
-    virtual double getHeight(  ) const  {
-        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
-            return func_getHeight(  );
-        else{
-            return this->IFormFactor::getHeight(  );
-        }
-    }
-    
-    double default_getHeight(  ) const  {
-        return IFormFactor::getHeight( );
-    }
-
-    virtual double getVolume(  ) const  {
-        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
-            return func_getVolume(  );
-        else{
-            return this->IFormFactor::getVolume(  );
-        }
-    }
-    
-    double default_getVolume(  ) const  {
-        return IFormFactor::getVolume( );
-    }
-
-    virtual bool isDistributedFormFactor(  ) const  {
-        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
-            return func_isDistributedFormFactor(  );
-        else{
-            return this->IFormFactor::isDistributedFormFactor(  );
-        }
-    }
-    
-    bool default_isDistributedFormFactor(  ) const  {
-        return IFormFactor::isDistributedFormFactor( );
+    void default_print_structure(  ) {
+        ISample::print_structure( );
     }
 
     virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
@@ -1364,18 +1496,6 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
     
     void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         IFormFactor::setAmbientRefractiveIndex( refractive_index );
-    }
-
-    virtual void walk_and_print(  ) {
-        if( bp::override func_walk_and_print = this->get_override( "walk_and_print" ) )
-            func_walk_and_print(  );
-        else{
-            this->ISample::walk_and_print(  );
-        }
-    }
-    
-    void default_walk_and_print(  ) {
-        ISample::walk_and_print( );
     }
 
 };
@@ -1387,13 +1507,6 @@ void register_classes_1(){
         vdouble1d_t_exposer_t vdouble1d_t_exposer = vdouble1d_t_exposer_t( "vdouble1d_t" );
         bp::scope vdouble1d_t_scope( vdouble1d_t_exposer );
         vdouble1d_t_exposer.def( bp::vector_indexing_suite< ::std::vector< double >, true >() );
-    }
-
-    { //::std::vector< OpticalFresnel::FresnelCoeff >
-        typedef bp::class_< std::vector< OpticalFresnel::FresnelCoeff > > MultiLayerCoeff_t_exposer_t;
-        MultiLayerCoeff_t_exposer_t MultiLayerCoeff_t_exposer = MultiLayerCoeff_t_exposer_t( "MultiLayerCoeff_t" );
-        bp::scope MultiLayerCoeff_t_scope( MultiLayerCoeff_t_exposer );
-        MultiLayerCoeff_t_exposer.def( bp::vector_indexing_suite< ::std::vector< OpticalFresnel::FresnelCoeff > >() );
     }
 
     { //::std::vector< IFormFactor* >
@@ -1495,15 +1608,15 @@ void register_classes_1(){
                 , bp::return_self< >() );
         
         }
-        { //::ISample::walk_and_print
+        { //::ISample::print_structure
         
-            typedef void ( ::ISample::*walk_and_print_function_type )(  ) ;
-            typedef void ( ISample_wrapper::*default_walk_and_print_function_type )(  ) ;
+            typedef void ( ::ISample::*print_structure_function_type )(  ) ;
+            typedef void ( ISample_wrapper::*default_print_structure_function_type )(  ) ;
             
             ISample_exposer.def( 
-                "walk_and_print"
-                , walk_and_print_function_type(&::ISample::walk_and_print)
-                , default_walk_and_print_function_type(&ISample_wrapper::default_walk_and_print) );
+                "print_structure"
+                , print_structure_function_type(&::ISample::print_structure)
+                , default_print_structure_function_type(&ISample_wrapper::default_print_structure) );
         
         }
         { //::IParameterized::createParameterTree
@@ -1533,9 +1646,9 @@ void register_classes_1(){
             , (::ParameterPool * ( ICompositeSample_wrapper::* )(  ) const)(&ICompositeSample_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_walk_and_print) );
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_print_structure) );
 
     bp::class_< IClusteredParticles_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "IClusteredParticles" )    
         .def( 
@@ -1564,9 +1677,9 @@ void register_classes_1(){
             , (::ParameterPool * ( IClusteredParticles_wrapper::* )(  ) const)(&IClusteredParticles_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( IClusteredParticles_wrapper::* )(  ) )(&IClusteredParticles_wrapper::default_walk_and_print) );
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( IClusteredParticles_wrapper::* )(  ) )(&IClusteredParticles_wrapper::default_print_structure) );
 
     bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles > >( "Crystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
         .def( 
@@ -1612,9 +1725,9 @@ void register_classes_1(){
             , (::ParameterPool * ( Crystal_wrapper::* )(  ) const)(&Crystal_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( Crystal_wrapper::* )(  ) )(&Crystal_wrapper::default_walk_and_print) );
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( Crystal_wrapper::* )(  ) )(&Crystal_wrapper::default_print_structure) );
 
     { //::Geometry::Transform3D
         typedef bp::class_< Geometry::Transform3D > Transform3D_exposer_t;
@@ -1833,9 +1946,9 @@ void register_classes_1(){
             , (::ParameterPool * ( ParticleInfo_wrapper::* )(  ) const)(&ParticleInfo_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( ParticleInfo_wrapper::* )(  ) )(&ParticleInfo_wrapper::default_walk_and_print) );
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( ParticleInfo_wrapper::* )(  ) )(&ParticleInfo_wrapper::default_print_structure) );
 
     bp::class_< DiffuseParticleInfo_wrapper, bp::bases< ParticleInfo >, boost::noncopyable >( "DiffuseParticleInfo", bp::no_init )    
         .def( 
@@ -1871,11 +1984,11 @@ void register_classes_1(){
             , (::ParameterPool * ( DiffuseParticleInfo_wrapper::* )(  ) const)(&DiffuseParticleInfo_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( DiffuseParticleInfo_wrapper::* )(  ) )(&DiffuseParticleInfo_wrapper::default_walk_and_print) );
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( DiffuseParticleInfo_wrapper::* )(  ) )(&DiffuseParticleInfo_wrapper::default_print_structure) );
 
-    bp::class_< Experiment_wrapper, bp::bases< IParameterized >, boost::noncopyable >( "Experiment", bp::no_init )    
+    bp::class_< Experiment_wrapper, bp::bases< IParameterized >, boost::noncopyable >( "Experiment", bp::init< >() )    
         .def( 
             "normalize"
             , (void ( ::Experiment::* )(  ) )(&::Experiment::normalize)
@@ -1894,8 +2007,12 @@ void register_classes_1(){
             , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) )    
         .def( 
             "setSample"
-            , (void ( ::Experiment::* )( ::ISample * ) )( &::Experiment::setSample )
+            , (void ( ::Experiment::* )( ::ISample const & ) )( &::Experiment::setSample )
             , ( bp::arg("p_sample") ) )    
+        .def( 
+            "setSampleBuilder"
+            , (void ( ::Experiment::* )( ::ISampleBuilder const * ) )( &::Experiment::setSampleBuilder )
+            , ( bp::arg("p_sample_builder") ) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
@@ -1944,9 +2061,9 @@ void register_classes_1(){
             , (::ParameterPool * ( IFormFactor_wrapper::* )(  ) const)(&IFormFactor_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( IFormFactor_wrapper::* )(  ) )(&IFormFactor_wrapper::default_walk_and_print) );
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( IFormFactor_wrapper::* )(  ) )(&IFormFactor_wrapper::default_print_structure) );
 
     bp::class_< IFormFactorBorn_wrapper, bp::bases< IFormFactor >, boost::noncopyable >( "IFormFactorBorn", bp::init< >() )    
         .def( 
@@ -1990,14 +2107,14 @@ void register_classes_1(){
             , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
             , (bool ( IFormFactorBorn_wrapper::* )(  ) const)(&IFormFactorBorn_wrapper::default_isDistributedFormFactor) )    
         .def( 
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( IFormFactorBorn_wrapper::* )(  ) )(&IFormFactorBorn_wrapper::default_print_structure) )    
+        .def( 
             "setAmbientRefractiveIndex"
             , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
             , (void ( IFormFactorBorn_wrapper::* )( ::complex_t ) )(&IFormFactorBorn_wrapper::default_setAmbientRefractiveIndex)
-            , ( bp::arg("refractive_index") ) )    
-        .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( IFormFactorBorn_wrapper::* )(  ) )(&IFormFactorBorn_wrapper::default_walk_and_print) );
+            , ( bp::arg("refractive_index") ) );
 
     bp::class_< FormFactorCrystal_wrapper, bp::bases< IFormFactorBorn > >( "FormFactorCrystal", bp::no_init )    
         .def( 
@@ -2043,9 +2160,9 @@ void register_classes_1(){
             , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
             , (bool ( FormFactorCrystal_wrapper::* )(  ) const)(&FormFactorCrystal_wrapper::default_isDistributedFormFactor) )    
         .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( FormFactorCrystal_wrapper::* )(  ) )(&FormFactorCrystal_wrapper::default_walk_and_print) );
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( FormFactorCrystal_wrapper::* )(  ) )(&FormFactorCrystal_wrapper::default_print_structure) );
 
     bp::class_< FormFactorCylinder_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorCylinder", bp::init< double, double >(( bp::arg("height"), bp::arg("radius") )) )    
         .def( 
@@ -2086,14 +2203,108 @@ void register_classes_1(){
             , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
             , (bool ( FormFactorCylinder_wrapper::* )(  ) const)(&FormFactorCylinder_wrapper::default_isDistributedFormFactor) )    
         .def( 
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( FormFactorCylinder_wrapper::* )(  ) )(&FormFactorCylinder_wrapper::default_print_structure) )    
+        .def( 
             "setAmbientRefractiveIndex"
             , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
             , (void ( FormFactorCylinder_wrapper::* )( ::complex_t ) )(&FormFactorCylinder_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) );
+
+    bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, boost::noncopyable >( "IFormFactorDecorator", bp::no_init )    
+        .def( 
+            "clone"
+            , bp::pure_virtual( (::IFormFactorDecorator * ( ::IFormFactorDecorator::* )(  ) const)(&::IFormFactorDecorator::clone) )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getHeight"
+            , (double ( ::IFormFactorDecorator::* )(  ) const)(&::IFormFactorDecorator::getHeight)
+            , (double ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getHeight) )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::IFormFactorDecorator::* )( ::complex_t ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
+            , (void ( IFormFactorDecorator_wrapper::* )( ::complex_t ) )(&IFormFactorDecorator_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
         .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( FormFactorCylinder_wrapper::* )(  ) )(&FormFactorCylinder_wrapper::default_walk_and_print) );
+            "createDistributedFormFactors"
+            , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
+            , (void ( IFormFactorDecorator_wrapper::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&IFormFactorDecorator_wrapper::default_createDistributedFormFactors)
+            , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
+            , (::ParameterPool * ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactor::evaluate) )
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)
+            , (int ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "getVolume"
+            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
+            , (double ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getVolume) )    
+        .def( 
+            "isDistributedFormFactor"
+            , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
+            , (bool ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_isDistributedFormFactor) )    
+        .def( 
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_print_structure) );
+
+    bp::class_< FormFactorDecoratorDebyeWaller_wrapper, bp::bases< IFormFactorDecorator > >( "FormFactorDecoratorDebyeWaller", bp::init< IFormFactor const &, double, double >(( bp::arg("p_form_factor"), bp::arg("dw_h_factor"), bp::arg("dw_r_factor") )) )    
+        .def( 
+            "clone"
+            , (::FormFactorDecoratorDebyeWaller * ( ::FormFactorDecoratorDebyeWaller::* )(  ) const)(&::FormFactorDecoratorDebyeWaller::clone)
+            , (::FormFactorDecoratorDebyeWaller * ( FormFactorDecoratorDebyeWaller_wrapper::* )(  ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , (::complex_t ( ::FormFactorDecoratorDebyeWaller::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::FormFactorDecoratorDebyeWaller::evaluate)
+            , (::complex_t ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_evaluate)
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::FormFactorDecoratorDebyeWaller::* )(  ) const)(&::FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters)
+            , (int ( FormFactorDecoratorDebyeWaller_wrapper::* )(  ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "createDistributedFormFactors"
+            , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
+            , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_createDistributedFormFactors)
+            , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
+            , (::ParameterPool * ( FormFactorDecoratorDebyeWaller_wrapper::* )(  ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getHeight"
+            , (double ( ::IFormFactorDecorator::* )(  ) const)(&::IFormFactorDecorator::getHeight)
+            , (double ( FormFactorDecoratorDebyeWaller_wrapper::* )(  ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_getHeight) )    
+        .def( 
+            "getVolume"
+            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
+            , (double ( FormFactorDecoratorDebyeWaller_wrapper::* )(  ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_getVolume) )    
+        .def( 
+            "isDistributedFormFactor"
+            , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
+            , (bool ( FormFactorDecoratorDebyeWaller_wrapper::* )(  ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_isDistributedFormFactor) )    
+        .def( 
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )(  ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_print_structure) )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::IFormFactorDecorator::* )( ::complex_t ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
+            , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::complex_t ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) );
 
     bp::class_< FormFactorFullSphere_wrapper, bp::bases< IFormFactorBorn > >( "FormFactorFullSphere", bp::init< double >(( bp::arg("radius") )) )    
         .def( 
@@ -2137,14 +2348,14 @@ void register_classes_1(){
             , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
             , (bool ( FormFactorFullSphere_wrapper::* )(  ) const)(&FormFactorFullSphere_wrapper::default_isDistributedFormFactor) )    
         .def( 
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( FormFactorFullSphere_wrapper::* )(  ) )(&FormFactorFullSphere_wrapper::default_print_structure) )    
+        .def( 
             "setAmbientRefractiveIndex"
             , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
             , (void ( FormFactorFullSphere_wrapper::* )( ::complex_t ) )(&FormFactorFullSphere_wrapper::default_setAmbientRefractiveIndex)
-            , ( bp::arg("refractive_index") ) )    
-        .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( FormFactorFullSphere_wrapper::* )(  ) )(&FormFactorFullSphere_wrapper::default_walk_and_print) );
+            , ( bp::arg("refractive_index") ) );
 
     bp::class_< FormFactorGauss_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorGauss", bp::init< double >(( bp::arg("volume") )) )    
         .def( bp::init< double, double >(( bp::arg("height"), bp::arg("width") )) )    
@@ -2186,62 +2397,13 @@ void register_classes_1(){
             , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
             , (bool ( FormFactorGauss_wrapper::* )(  ) const)(&FormFactorGauss_wrapper::default_isDistributedFormFactor) )    
         .def( 
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( FormFactorGauss_wrapper::* )(  ) )(&FormFactorGauss_wrapper::default_print_structure) )    
+        .def( 
             "setAmbientRefractiveIndex"
             , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
             , (void ( FormFactorGauss_wrapper::* )( ::complex_t ) )(&FormFactorGauss_wrapper::default_setAmbientRefractiveIndex)
-            , ( bp::arg("refractive_index") ) )    
-        .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( FormFactorGauss_wrapper::* )(  ) )(&FormFactorGauss_wrapper::default_walk_and_print) );
-
-    bp::class_< FormFactorLorentz_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorLorentz", bp::init< double >(( bp::arg("volume") )) )    
-        .def( bp::init< double, double >(( bp::arg("height"), bp::arg("width") )) )    
-        .def( 
-            "clone"
-            , (::FormFactorLorentz * ( ::FormFactorLorentz::* )(  ) const)(&::FormFactorLorentz::clone)
-            , (::FormFactorLorentz * ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_clone)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "getNumberOfStochasticParameters"
-            , (int ( ::FormFactorLorentz::* )(  ) const)(&::FormFactorLorentz::getNumberOfStochasticParameters)
-            , (int ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_getNumberOfStochasticParameters) )    
-        .def( 
-            "createDistributedFormFactors"
-            , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
-            , (void ( FormFactorLorentz_wrapper::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&FormFactorLorentz_wrapper::default_createDistributedFormFactors)
-            , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "createParameterTree"
-            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
-            , (::ParameterPool * ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_createParameterTree)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorLorentz_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorLorentz_wrapper::default_evaluate)
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
-        .def( 
-            "getHeight"
-            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getHeight)
-            , (double ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_getHeight) )    
-        .def( 
-            "getVolume"
-            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
-            , (double ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_getVolume) )    
-        .def( 
-            "isDistributedFormFactor"
-            , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
-            , (bool ( FormFactorLorentz_wrapper::* )(  ) const)(&FormFactorLorentz_wrapper::default_isDistributedFormFactor) )    
-        .def( 
-            "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
-            , (void ( FormFactorLorentz_wrapper::* )( ::complex_t ) )(&FormFactorLorentz_wrapper::default_setAmbientRefractiveIndex)
-            , ( bp::arg("refractive_index") ) )    
-        .def( 
-            "walk_and_print"
-            , (void ( ::ISample::* )(  ) )(&::ISample::walk_and_print)
-            , (void ( FormFactorLorentz_wrapper::* )(  ) )(&FormFactorLorentz_wrapper::default_walk_and_print) );
+            , ( bp::arg("refractive_index") ) );
 
 }

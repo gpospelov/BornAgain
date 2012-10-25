@@ -25,27 +25,27 @@ void TestIsGISAXS8::execute()
 
     MultiLayer *p_sample(0);
 
-    // 1DDL
-    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS8_1DDL"));
+    // 2DDL_lattice
+    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS8_2DDL_lattice"));
     experiment.setSample(*p_sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_1DDL.ima");
+    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDL_lattice.ima");
     delete p_sample;
 
     // 2DDL
-    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_2DDL"));
-    experiment.setSample(*p_sample);
-    experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDLh.ima");
-    delete p_sample;
+//    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_2DDL"));
+//    experiment.setSample(*p_sample);
+//    experiment.runSimulation();
+//    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDLh.ima");
+//    delete p_sample;
 }
 
 
 void TestIsGISAXS8::finalise()
 {
     std::vector< CompareStruct > tocompare;
-    tocompare.push_back( CompareStruct("isgi_1DDL.ima",      "this_1DDL.ima",      "Cylinder 1DDL") );
-    tocompare.push_back( CompareStruct("isgi_2DDLh.ima",      "this_2DDLh.ima",      "Cylinder 2DDL") );
+    tocompare.push_back( CompareStruct("isgi_2DDL_lattice.ima",      "this_2DDL_lattice.ima",      "Cylinder 2DDL lattice") );
+//    tocompare.push_back( CompareStruct("isgi_2DDLh.ima",      "this_2DDLh.ima",      "Cylinder 2DDL") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {
         OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].isginame );
@@ -60,11 +60,11 @@ void TestIsGISAXS8::finalise()
         IsGISAXSTools::setMinimum(1.);
         // our calculations
         c1->cd(1); gPad->SetLogz();
-        IsGISAXSTools::drawOutputDataInPad(*our_data, "CONT4 Z", "Our cylinder FF");
+        IsGISAXSTools::drawOutputDataInPad(*our_data, "CONT4 Z", "Our paracrystal lattice");
 
         // isgisaxs data
         c1->cd(2); gPad->SetLogz();
-        IsGISAXSTools::drawOutputDataInPad(*isgi_data, "CONT4 Z", "IsGisaxs mean FF");
+        IsGISAXSTools::drawOutputDataInPad(*isgi_data, "CONT4 Z", "IsGisaxs paracrystal lattice");
 
         // difference
         c1->cd(3);

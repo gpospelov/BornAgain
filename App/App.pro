@@ -34,6 +34,7 @@ SOURCES += \
     src/TestIsGISAXS2.cpp \
     src/TestIsGISAXS3.cpp \
     src/TestIsGISAXS4.cpp \
+    src/TestIsGISAXS8.cpp \
     src/TestIsGISAXS9.cpp \
     src/TestIsGISAXS10.cpp \
     src/TestIsGISAXS11.cpp \
@@ -69,6 +70,7 @@ HEADERS += \
     inc/TestIsGISAXS2.h \
     inc/TestIsGISAXS3.h \
     inc/TestIsGISAXS4.h \
+    inc/TestIsGISAXS8.h \
     inc/TestIsGISAXS9.h \
     inc/TestIsGISAXS10.h \
     inc/TestIsGISAXS11.h \

@@ -45,7 +45,7 @@ void TestMesoCrystal1::execute()
            , 256, -0.4*Units::degree, 0.066);
 //    experiment.setDetectorParameters(2, 0.96*Units::degree, 0.962*Units::degree
 //           , 2 , 0.376*Units::degree, 0.378*Units::degree);
-    experiment.setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
+    experiment.setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0004, 0.0004));
     experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     experiment.setBeamIntensity(8e12);
 
@@ -79,16 +79,16 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 //, m_sigma_nanoparticle_radius(0.14*Units::nanometer)
 //, m_sigma_lattice_length_a(1.5*Units::nanometer)
 //, m_roughness(1.0*Units::nanometer)
-: m_meso_radius(570.103*Units::nanometer)
-, m_surface_filling_ratio(0.113898)
-, m_meso_height(423.33*Units::nanometer)
-, m_sigma_meso_height(10.0608*Units::nanometer)
-, m_sigma_meso_radius(10.0882*Units::nanometer)
-, m_lattice_length_a(6.21014*Units::nanometer)
-, m_nanoparticle_radius(5.99176*Units::nanometer)
-, m_sigma_nanoparticle_radius(0.0681535*Units::nanometer)
-, m_sigma_lattice_length_a(2.61389*Units::nanometer)
-, m_roughness(28.0626*Units::nanometer)
+: m_meso_radius(1370*Units::nanometer)
+, m_surface_filling_ratio(0.114748)
+, m_meso_height(265.276*Units::nanometer)
+, m_sigma_meso_height(10.8148*Units::nanometer)
+, m_sigma_meso_radius(14.0738*Units::nanometer)
+, m_lattice_length_a(6.22525*Units::nanometer)
+, m_nanoparticle_radius(5.05257*Units::nanometer)
+, m_sigma_nanoparticle_radius(0.0877905*Units::nanometer)
+, m_sigma_lattice_length_a(1.95504*Units::nanometer)
+, m_roughness(0.13464*Units::nanometer)
 {
     init_parameters();
 }

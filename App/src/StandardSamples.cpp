@@ -13,6 +13,7 @@
 #include "Crystal.h"
 #include "MesoCrystal.h"
 #include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunction2DParaCrystal.h"
 #include "FormFactorWeighted.h"
 #include "StochasticGaussian.h"
 #include "Numeric.h"
@@ -389,6 +390,54 @@ ISample *StandardSamples::IsGISAXS3_CylinderBASize()
     return p_multi_layer;
 }
 
+/* ************************************************************************* */
+// IsGISAXS4 functional test: cylinders with 1DDL structure factor
+/* ************************************************************************* */
+ISample *StandardSamples::IsGISAXS4_1DDL()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e3*Units::nanometer);
+    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+// IsGISAXS4 functional test: cylinders with 2DDL structure factor
+ISample *StandardSamples::IsGISAXS4_2DDL()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    IInterferenceFunction *p_interference_function = InterferenceFunction2DParaCrystal::createHexagonal(20.0*Units::nanometer,1.0*Units::nanometer, 0.0,
+            20.0*Units::micrometer, 20.0*Units::micrometer);
+    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
 
 /* ************************************************************************* */
 // IsGISAXS9 functional test: pyramid
@@ -466,9 +515,9 @@ ISample *StandardSamples::IsGISAXS10_CylindersParacrystal1D()
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e7*Units::nanometer);
+    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e7*Units::nanometer);
     ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(p_interference_funtion);
+    particle_decoration.addInterferenceFunction(p_interference_function);
     //    particle_decoration.setTotalParticleSurfaceDensity(1.0/(20.0*Units::nanometer*20.0*Units::nanometer));
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
@@ -541,13 +590,13 @@ ISample *StandardSamples::MesoCrystal1()
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-//    IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
-    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
+//    IInterferenceFunction *p_interference_function = new InterferenceFunctionNone();
+    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(800.0*Units::nanometer,
         50*Units::nanometer, 1e7*Units::nanometer);
     ParticleDecoration particle_decoration;
     particle_decoration.addParticle(meso.clone(), 0.0, 0.5);
     particle_decoration.addParticle(meso2.clone(), 0.0, 0.5);
-    particle_decoration.addInterferenceFunction(p_interference_funtion);
+    particle_decoration.addInterferenceFunction(p_interference_function);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer_decorator);
@@ -587,7 +636,7 @@ ISample *StandardSamples::MesoCrystal2()
     avg_layer.setThickness(0.2*Units::micrometer);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
+    IInterferenceFunction *p_interference_function = new InterferenceFunctionNone();
     ParticleDecoration particle_decoration;
 
     //
@@ -612,7 +661,7 @@ ISample *StandardSamples::MesoCrystal2()
     particle_decoration.addParticle(meso_crystal, 0.2*Units::micrometer);
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
-    particle_decoration.addInterferenceFunction(p_interference_funtion);
+    particle_decoration.addInterferenceFunction(p_interference_function);
     LayerDecorator avg_layer_decorator(avg_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer);

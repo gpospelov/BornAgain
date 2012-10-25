@@ -192,3 +192,13 @@ std::vector<complex_t> MathFunctions::ConvolveFFT(const std::vector<double> &sig
     std::vector<complex_t > result = MathFunctions::FastFourierTransform(fft_prod, MathFunctions::BackwardFFT);
     return result;
 }
+
+double MathFunctions::Integrate1D(gsl_function *p_function, double start,
+        double end)
+{
+    gsl_integration_workspace *ws = gsl_integration_workspace_alloc(200);
+    double result, error;
+    gsl_integration_qag(p_function, start, end, 1e-10, 1e-8, 50, 1, ws, &result, &error);
+    gsl_integration_workspace_free(ws);
+    return result;
+}

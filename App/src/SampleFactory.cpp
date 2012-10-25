@@ -36,6 +36,10 @@ SampleFactory::SampleFactory()
     registerItem("IsGISAXS3_CylinderBA", StandardSamples::IsGISAXS3_CylinderBA);
     registerItem("IsGISAXS3_CylinderBASize", StandardSamples::IsGISAXS3_CylinderBASize);
 
+    // IsGISAXS4 example: cylinders on top of substrate with paracrystal structure factors
+    registerItem("IsGISAXS4_1DDL", StandardSamples::IsGISAXS4_1DDL);
+    registerItem("IsGISAXS4_2DDL", StandardSamples::IsGISAXS4_2DDL);
+
     // IsGISAXS9 example: pyramid and rotated pyramid
     registerItem("IsGISAXS9_Pyramid", StandardSamples::IsGISAXS9_Pyramid);
     registerItem("IsGISAXS9_RotatedPyramid", StandardSamples::IsGISAXS9_RotatedPyramid);

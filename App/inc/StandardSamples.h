@@ -19,6 +19,8 @@ ISample *IsGISAXS2_CylindersMixture();
 ISample *IsGISAXS3_CylinderDWBA();
 ISample *IsGISAXS3_CylinderBA();
 ISample *IsGISAXS3_CylinderBASize();
+ISample *IsGISAXS4_1DDL();
+ISample *IsGISAXS4_2DDL();
 ISample *IsGISAXS9_Pyramid();
 ISample *IsGISAXS9_RotatedPyramid();
 ISample *IsGISAXS10_CylindersParacrystal1D();

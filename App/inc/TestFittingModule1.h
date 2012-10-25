@@ -22,6 +22,8 @@
 #include "GISASExperiment.h"
 
 
+class FitSuite;
+
 //- -------------------------------------------------------------------
 //! @class TestFittingModule1
 //! @brief Testing of fitting module with simplified sample (layer + nanoparticles)
@@ -36,6 +38,7 @@ public:
 private:
     void initializeSample();
     void initializeSample2();
+    void initializeSample3();
     void initializeExperiment();
     void generateRealData(double noise_factor);
 
@@ -44,6 +47,7 @@ private:
     OutputData<double> *mp_simulated_data;
     GISASExperiment *mp_experiment;
     ISample *mp_sample;
+    FitSuite *m_fitSuite;
 };
 
 

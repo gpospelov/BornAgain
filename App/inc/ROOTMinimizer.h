@@ -62,6 +62,9 @@ public:
     //! printing results
     virtual void printResults() const;
 
+    //! printing minimizer description
+    virtual void printOptions() const;
+
 private:
     ROOT::Math::Minimizer *m_root_minimizer;
     ROOT::Math::Functor *m_fcn;

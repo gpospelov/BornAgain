@@ -11,6 +11,9 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "Utils.h"
+#include "TGraph.h"
+#include "TPolyMarker.h"
+
 
 #include <iomanip>
 
@@ -37,6 +40,8 @@ void FitSuiteObserverPrint::update(IObservable *subject)
     }
 
     if(fitSuite->isLastIteration()) {
+        std::cout << std::endl;
+        std::cout << "FitSuiteObserverPrint::update() -> Info. Printing results" << std::endl;
         fitSuite->getMinimizer()->printResults();
     }
 }
@@ -49,6 +54,8 @@ void FitSuiteObserverDraw::update(IObservable *subject)
 {
     FitSuite *fitSuite = dynamic_cast<FitSuite *>(subject);
     if( !fitSuite ) throw NullPointerException("FitSuiteObserverDraw::update() -> Error! Can't cast FitSuite");
+
+    if( !fitSuite->isLastIteration() && (fitSuite->getNCall() % m_draw_every_nth != 0) ) return;
 
     TCanvas *c1 = dynamic_cast<TCanvas *>( gROOT->FindObject(m_canvas_name.c_str()) );
     if(!c1) {
@@ -102,6 +109,35 @@ void FitSuiteObserverDraw::update(IObservable *subject)
         pt->AddText(str);
     }
     pt->Draw();
+
+    if(fitSuite->isLastIteration()) {
+//        TCanvas *c2 = new TCanvas("FitSuiteObserverDraw_c2", "FitSuiteObserverDraw_c2", 1024, 768);
+//        c2->Divide(2,2);
+//        ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();
+//        if(!minim) {
+//            throw NullPointerException("FitSuiteObserverDraw::update() -> Can't get right minimizer from FitSuite");
+//        }
+//        int npad=1;
+//        for(unsigned int i=0; i<minim->NDim(); ++i) {
+//            for(unsigned int j=0; j<i; ++j) {
+//                if(i != j) {
+//                    c2->cd(npad++);
+//                    unsigned int np=50;
+//                    std::vector<double> x;
+//                    std::vector<double> y;
+//                    x.resize(np, 0);
+//                    y.resize(np, 0);
+//                    minim->Contour(i,j, np,&x[0], &y[0]);
+//                    x.push_back(x.front());
+//                    y.push_back(y.front());
+//                    TGraph *gr = new TGraph(np+1, &x[0], &y[0]);
+//                    gr->Draw("apl");
+//                }
+//            }
+//        }
+//        std::cout << "Last iteration " << std::endl;
+    }
+
 
 }
 

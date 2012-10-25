@@ -94,6 +94,8 @@ void FitSuite::runFit()
     if( !m_chi2_module ) throw NullPointerException("FitSuite::runFit() -> Error! Chi2 module is missed.");
     if( m_fit_params.empty()) throw NullPointerException("FitSuite::runFit() -> Error! no fit parameters is defined.");
 
+    m_is_last_iteration = false;
+
     // initializing fit parameters
     init_fit_parameters();
 
@@ -129,7 +131,7 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
     const OutputData<double> *p_simulated_data = m_experiment->getOutputData();
     double chi_squared = m_chi2_module->calculateChiSquared(p_simulated_data);
 
-    notifyObservers();
+    if(!m_is_last_iteration) notifyObservers();
     m_n_call++;
     return chi_squared;
 }

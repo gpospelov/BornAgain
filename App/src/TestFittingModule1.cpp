@@ -34,6 +34,7 @@ TestFittingModule1::TestFittingModule1()
 , mp_simulated_data(0)
 , mp_experiment(0)
 , mp_sample(0)
+, m_fitSuite(0)
 {
 }
 
@@ -50,8 +51,11 @@ TestFittingModule1::~TestFittingModule1()
 
 void TestFittingModule1::execute()
 {
+    // creating fit suite
+    m_fitSuite = new FitSuite();
+
     // initializing data
-    initializeSample2();
+    initializeSample3();
     ParameterPool *pool = mp_sample->createParameterTree();
     std::cout << *pool << std::endl;
 
@@ -65,11 +69,10 @@ void TestFittingModule1::execute()
     IsGISAXSTools::drawOutputDataInPad(*mp_exact_data, "CONT4 Z", "exact data");
     c1->Update();
 \
-    // setting fitSuite
-    FitSuite *fitSuite = new FitSuite();
-    fitSuite->setExperiment(mp_experiment);
-    fitSuite->setRealData(*mp_real_data);
-    fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    // setting up fitSuite
+    m_fitSuite->setExperiment(mp_experiment);
+    m_fitSuite->setRealData(*mp_real_data);
+    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
     //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Minimize") );
     //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
     //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") ); //doesn't work, Fumili wants special function with derivative
@@ -77,6 +80,7 @@ void TestFittingModule1::execute()
     //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "BFGS") );
     //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "SteepestDescent") );
     //fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("Genetic", "") );
 
     // tuning minimizer
     //ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();
@@ -85,49 +89,14 @@ void TestFittingModule1::execute()
 //    minim->SetMaxIterations(50); // for GSL
 
 
-//    fitSuite->addFitParameter("*/MultiLayer/Layer0/thickness", 12*Units::nanometer, 2*Units::nanometer, AttLimits::limited(1.0, 20.0) );
-//    fitSuite->addFitParameter("*/FormFactorCylinder/radius", 2*Units::nanometer, 2*Units::nanometer, AttLimits::limited(1.0, 20.0) );
-    fitSuite->addFitParameter("*height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    fitSuite->addFitParameter("*radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-
-    fitSuite->attachObserver( new FitSuiteObserverPrint() );
-    //fitSuite->attachObserver( new FitSuiteObserverDraw() );
+    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
+    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
     //fitSuite->attachObserver( new FitSuiteObserverWriteTree() );
 
-    fitSuite->runFit();
+    m_fitSuite->runFit();
 
-    //    FitSuiteObserverWriteTree *writeObserver = new FitSuiteObserverWriteTree("fitsuite.root");
 //    delete drawObserver;
 //    delete writeObserver;
-
-//    std::cout << "------ RESULTS ---------" << std::endl;
-//    std::cout << "FitSuite > MinValue:" << fitSuite->getMinimizer()->getMinValue() << " " << fitSuite->getMinimizer()->getValueOfVariableAtMinimum(0) << std::endl;
-//    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
-//        std::cout << *(*it) << std::endl;
-//    }
-//    // another way to get results
-//    std::cout << "ROOTMinimizer >" << std::endl;
-//    ROOTMinimizer *min = dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer());
-//    std::cout << min->getROOTMinimizer()->MinValue() << " " << min->getROOTMinimizer()->NCalls() << std::endl;
-//    std::cout << min->getROOTMinimizer()->X()[0] << std::endl;
-//    min->getROOTMinimizer()->PrintResults();
-
-//    c1->cd(6);
-//    TPaveText *pt = new TPaveText(.05,.1,.95,.8);
-//    char str[256];
-//    sprintf(str,"Results");
-//    pt->AddText(str);
-//    sprintf(str,"chi2 %e",fitSuite->getMinimizer()->getMinValue());
-//    pt->AddText(str);
-//    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
-//        sprintf(str,"%s %f", (*it)->getName().c_str(),  (*it)->getValue());
-//        pt->AddText(str);
-//    }
-//    pt->Draw();
-
-
-//    IsGISAXSTools::drawLogOutputData(*mp_exact_data, "c1_test_fitting", "fitting", "CONT4 Z", "fitting");
-//    IsGISAXSTools::writeOutputDataToFile(*mp_real_data, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-10/para1dcyl.ima");
 }
 
 
@@ -176,6 +145,14 @@ void TestFittingModule1::initializeSample()
     p_multi_layer->addLayer(layer_layer);
     p_multi_layer->addLayer(substrate_layer);
     mp_sample = p_multi_layer;
+
+    // defining parameters for minimization
+    if( !m_fitSuite ) {
+        throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
+    }
+    m_fitSuite->addFitParameter("*/MultiLayer/Layer0/thickness", 12*Units::nanometer, 2*Units::nanometer, AttLimits::limited(1.0, 20.0) );
+    m_fitSuite->addFitParameter("*/FormFactorCylinder/radius", 2*Units::nanometer, 2*Units::nanometer, AttLimits::limited(1.0, 20.0) );
+
 }
 
 
@@ -194,6 +171,49 @@ void TestFittingModule1::initializeSample2()
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     p_multi_layer->addLayer(air_layer_decorator);
     mp_sample = p_multi_layer;
+
+    // defining parameters for minimization
+    if( !m_fitSuite ) {
+        throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
+    }
+    m_fitSuite->addFitParameter("*height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+}
+
+
+void TestFittingModule1::initializeSample3()
+{
+    delete mp_sample;
+
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration;
+    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),0.0, 0.5);
+    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)), 0.0, 0.5);
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+
+    mp_sample = p_multi_layer;
+
+    // defining parameters for minimization
+    if( !m_fitSuite ) {
+        throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
+    }
+    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 }
 
 

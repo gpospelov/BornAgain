@@ -14,10 +14,12 @@
 #include "TestMesoCrystal1.h"
 #include "TestMesoCrystal2.h"
 #include "TestRootTree.h"
-#include "TestFittingModule.h"
+#include "TestFittingModule1.h"
+#include "TestFittingModule2.h"
 #include "TestPerformance.h"
 #include "TestMultiLayerRoughness.h"
 #include "TestMiscellaneous.h"
+#include "TestFittingBenchmark.h"
 
 
 #include "TBenchmark.h"
@@ -58,14 +60,18 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: mesocrystal fit");
     registerItem("roottree",    IFactoryCreateFunction<TestRootTree, IFunctionalTest>,
                  "functional test: using root trees to read/write data from/to disk");
-    registerItem("fitting",     IFactoryCreateFunction<TestFittingModule, IFunctionalTest>,
-                 "functional test: fit module");
+    registerItem("fitting1",     IFactoryCreateFunction<TestFittingModule1, IFunctionalTest>,
+                 "functional test: fit module 2 params");
+    registerItem("fitting2",     IFactoryCreateFunction<TestFittingModule2, IFunctionalTest>,
+                 "functional test: fit module 5 params");
     registerItem("performance", IFactoryCreateFunction<TestPerformance, IFunctionalTest>,
                  "functional test: run performance test for several predefined tasks");
     registerItem("roughdwba",   IFactoryCreateFunction<TestMultiLayerRoughness, IFunctionalTest>,
                  "functional test: diffuse scattering from multi layer with roughness");
     registerItem("testmisc",    IFactoryCreateFunction<TestMiscellaneous, IFunctionalTest>,
                  "functional test: test of different miscellaneous issues");
+    registerItem("fitbench",    IFactoryCreateFunction<TestFittingBenchmark, IFunctionalTest>,
+                 "functional test: test of minimizers with hard-to-minimize test functions");
 
     m_benchmark = new TBenchmark();
 }

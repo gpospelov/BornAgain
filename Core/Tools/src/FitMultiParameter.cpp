@@ -4,11 +4,11 @@
 
 FitMultiParameter::FitMultiParameter()
 {
-    setName("FitMultiParameter");
+
 }
 
 
-FitMultiParameter::FitMultiParameter(const std::string &name, double value, double step, double error) : FitParameter(name, value, step, error)
+FitMultiParameter::FitMultiParameter(const std::string &name, double value, double step, const AttLimits &attlim) : FitParameter(name, value, step, attlim)
 {
 
 }
@@ -51,7 +51,14 @@ void FitMultiParameter::addMatchedParametersFromPool(std::string wildcards, cons
             n_added_pars++;
         }
     }
-    if(n_added_pars==0) std::cout << "FitMultiParameter::addMatchedParametersFromPool() -> Warning! No parameters satisfying  criteria'" << wildcards << "' have been found" << std::endl;
+    if(n_added_pars==0) {
+        std::cout << "FitMultiParameter::addMatchedParametersFromPool() -> Warning! No parameters satisfying  criteria '" << wildcards << "' have been found" << std::endl;
+        std::cout << "Existing keys are:" << std::endl;
+        for(ParameterPool::const_iterator_t it=pool->begin(); it!= pool->end(); ++it) {
+            std::cout << (*it).first << std::endl;
+        }
+        throw LogicErrorException("FitMultiParameter::addMatchedParametersFromPool() -> Error! No parameters with given wildcard.");
+    }
 }
 
 

@@ -1,5 +1,5 @@
-#ifndef TESTFITTINGMODULE_H_
-#define TESTFITTINGMODULE_H_
+#ifndef TESTFITTINGBENCHMARK_H
+#define TESTFITTINGBENCHMARK_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,38 +9,25 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestFittingModule.h
-//! @brief  Definition of TestFittingModule class
+//! @file   TestFittingBenchmark.h
+//! @brief  Definition of TestFittingBenchmark class
 //! @author Scientific Computing Group at FRM II
-//! @date   Jul 20, 2012
+//! @date   October 22, 2012
 
 #include "IFunctionalTest.h"
-#include "OutputData.h"
-#include "ISample.h"
-#include "ChiSquaredModule.h"
-#include "FitMultiParameter.h"
-#include "GISASExperiment.h"
 
 
-class TestFittingModule : public IFunctionalTest
+//- -------------------------------------------------------------------
+//! @class TestFittingBenchmark
+//! @brief Test of minimizers with hard-to-minimize test functions
+//- -------------------------------------------------------------------
+class TestFittingBenchmark : public IFunctionalTest
 {
 public:
-    TestFittingModule();
-    virtual ~TestFittingModule();
+    TestFittingBenchmark();
+    virtual ~TestFittingBenchmark(){}
     virtual void execute();
 
-private:
-    void initializeSample();
-    void initializeExperiment();
-    void generateRealData(double noise_factor);
-
-    OutputData<double> *mp_exact_data;
-    OutputData<double> *mp_real_data;
-    OutputData<double> *mp_simulated_data;
-    GISASExperiment *mp_experiment;
-    ISample *mp_sample;
 };
 
-
-
-#endif /* TESTFITTINGMODULE_H_ */
+#endif // TESTFITTINGBENCHMARK_H

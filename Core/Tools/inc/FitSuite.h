@@ -17,7 +17,7 @@
 
 #include "IObserver.h"
 #include "OutputData.h"
-#include "TRange.h"
+#include "AttLimits.h"
 #include "FitMultiParameter.h"
 #include <string>
 
@@ -51,8 +51,7 @@ public:
     IMinimizer *getMinimizer() { return m_minimizer; }
 
     //! add fit parameter
-    FitMultiParameter *addFitParameter(const std::string &name, double value, double step, double error=0.0);
-    FitMultiParameter *addFitParameter(const std::string &name, double value, double step, const TRange<double> &range);
+    FitMultiParameter *addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless());
 
     //! initialize fitting parameters
     virtual void init_fit_parameters();

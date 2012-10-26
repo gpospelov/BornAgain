@@ -35,7 +35,7 @@ void GISASExperiment::runSimulation()
     int n_threads_total=0;
     if (mp_options) {
         n_threads_total = (*mp_options)["threads"].as<int>();
-        std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads defined in program options " << n_threads_total << std::endl;
+        //std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads defined in program options " << n_threads_total << std::endl;
     }
 
     m_intensity_map.setAllTo(0.0);
@@ -50,7 +50,9 @@ void GISASExperiment::runSimulation()
         // if n_threads=0, take optimal number of threads from the hardware
         if(n_threads_total == 0 )  {
             n_threads_total = boost::thread::hardware_concurrency();
-            std::cout << "GISASExperiment::runSimulation() -> Info. Hardware concurrency: " << n_threads_total << std::endl;
+            std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads " << n_threads_total << " (taken from hardware concurrency)" << std::endl;
+        }else {
+            std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads " << n_threads_total << " (hardware concurrency: " << boost::thread::hardware_concurrency() << " )"<< std::endl;
         }
         std::vector<boost::thread *> threads;
         std::vector<DWBASimulation *> simulations;
@@ -162,17 +164,20 @@ void GISASExperiment::initializeAnglesIsgisaxs(NamedVector<double> *p_axis, doub
 
 double GISASExperiment::getCurrentSolidAngle() const
 {
-    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double>* >(m_intensity_map.getAxis("alpha_f"));
-    const NamedVector<double> *p_phi_axis = dynamic_cast<const NamedVector<double>* >(m_intensity_map.getAxis("phi_f"));
-    size_t alpha_index = m_intensity_map.getCurrentIndexOfAxis("alpha_f");
+    static std::string s_alpha_f("alpha_f");
+    static std::string s_phi_f("phi_f");
+
+    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double>* >(m_intensity_map.getAxis(s_alpha_f));
+    const NamedVector<double> *p_phi_axis = dynamic_cast<const NamedVector<double>* >(m_intensity_map.getAxis(s_phi_f));
+    size_t alpha_index = m_intensity_map.getCurrentIndexOfAxis(s_alpha_f);
     size_t alpha_size = p_alpha_axis->getSize();
-    size_t phi_index = m_intensity_map.getCurrentIndexOfAxis("phi_f");
+    size_t phi_index = m_intensity_map.getCurrentIndexOfAxis(s_phi_f);
     size_t phi_size = p_phi_axis->getSize();
     if (alpha_size<2 || phi_size<2) {
         // Cannot determine detector cell size!
         return 0.0;
     }
-    double alpha_f = m_intensity_map.getCurrentValueOfAxis<double>("alpha_f");
+    double alpha_f = m_intensity_map.getCurrentValueOfAxis<double>(s_alpha_f);
     double cos_alpha_f = std::cos(alpha_f);
     double dalpha, dphi;
     if (alpha_index==0) {

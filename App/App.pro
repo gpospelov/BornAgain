@@ -27,7 +27,9 @@ SOURCES += \
     src/TestConvolution.cpp \
     src/TestDetectorResolution.cpp \
     src/TestDiffuseReflection.cpp \
-    src/TestFittingModule.cpp \
+    src/TestFittingBenchmark.cpp \
+    src/TestFittingModule1.cpp \
+    src/TestFittingModule2.cpp \
     src/TestFormFactor.cpp \
     src/TestFresnelCoeff.cpp \
     src/TestIsGISAXS1.cpp \
@@ -61,7 +63,9 @@ HEADERS += \
     inc/TestConvolution.h \
     inc/TestDetectorResolution.h \
     inc/TestDiffuseReflection.h \
-    inc/TestFittingModule.h \
+    inc/TestFittingBenchmark.h \
+    inc/TestFittingModule1.h \
+    inc/TestFittingModule2.h \
     inc/TestFormFactor.h \
     inc/TestFresnelCoeff.h \
     inc/TestIsGISAXS1.h \

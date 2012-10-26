@@ -76,6 +76,7 @@ void Experiment::setSampleBuilder(const ISampleBuilder *p_sample_builder)
 //        delete mp_sample;
 //        mp_sample = 0;
 //    }
+    if( !p_sample_builder ) throw NullPointerException("Experiment::setSampleBuilder() -> Error! Attempt to set null sample builder.");
     mp_sample_builder = p_sample_builder;
     delete mp_sample;
     mp_sample = 0;
@@ -178,14 +179,10 @@ void Experiment::updateSample()
         std::string builder_type = typeid(*mp_sample_builder).name();
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
             std::cout << "Experiment::updateSample() -> OMG, some body has called me from python, going to collapse in a second... " << std::endl;
-            delete mp_sample;
-            mp_sample = p_new_sample->clone();
-            // p_new_sample belongs to python, don't delete it
+            setSample(*p_new_sample); // p_new_sample belongs to python, don't delete it
         } else {
-            if (mp_sample != p_new_sample) {
-                delete mp_sample;
-                mp_sample = p_new_sample;
-             }
+            delete mp_sample;
+            mp_sample = p_new_sample;
         }
     }
 }

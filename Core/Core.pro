@@ -243,7 +243,8 @@ HEADERS += \
     PythonAPI/inc/PythonModule.h \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h \
-    PythonAPI/inc/IPythonWrapper.h
+    PythonAPI/inc/IPythonWrapper.h \
+    Tools/inc/AttLimits.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

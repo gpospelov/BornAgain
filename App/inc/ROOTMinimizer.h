@@ -56,11 +56,14 @@ public:
     //! return value of variable corresponding the minimum of the function
     virtual double getErrorOfVariable(size_t i) const {
         if(i >= getNumberOfVariables() ) throw OutOfBoundsException("ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable");
-        return m_root_minimizer->Errors()[i];
+        return (m_root_minimizer->Errors() == 0? 0 : m_root_minimizer->Errors()[i]);
     }
 
     //! printing results
     virtual void printResults() const;
+
+    //! printing minimizer description
+    virtual void printOptions() const;
 
 private:
     ROOT::Math::Minimizer *m_root_minimizer;

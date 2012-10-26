@@ -19,7 +19,7 @@
 #include "OutputData.h"
 #include "ChiSquaredModule.h"
 #include <string>
-
+#include <vector>
 
 //- -------------------------------------------------------------------
 //! @class FitSuiteObserverPrint
@@ -40,13 +40,14 @@ public:
 class FitSuiteObserverDraw : public IObserver
 {
 public:
-    FitSuiteObserverDraw( const std::string &canvas_name = std::string("FitSuiteObserverDraw_c1") ) : m_canvas_name(canvas_name) {}
+    FitSuiteObserverDraw( const std::string &canvas_name = std::string("FitSuiteObserverDraw_c1") ) : m_canvas_name(canvas_name) , m_draw_every_nth(10) {}
     void update(IObservable *subject);
 
     //! return output data which contains chi2 values from ChisSquaredModule of FitSuite
     OutputData<double > *getDifferenceMap(const ChiSquaredModule *chi_module);
 private:
     std::string m_canvas_name; //! canvas name were to draw
+    int m_draw_every_nth;
 };
 
 

@@ -11,6 +11,9 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "Utils.h"
+#include "TGraph.h"
+#include "TPolyMarker.h"
+
 
 #include <iomanip>
 
@@ -31,12 +34,14 @@ void FitSuiteObserverPrint::update(IObservable *subject)
     int npar(0);
     for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it, ++npar) {
         std::cout << "   # "<< npar << " ";
-        std::cout << Utils::AdjustStringLength((*it)->getName(), 30)
+        std::cout << Utils::AdjustStringLength((*it)->getName(), 40)
                   << " value:" << std::scientific << std::setprecision(8) << (*it)->getValue()
                   << std::endl;
     }
 
     if(fitSuite->isLastIteration()) {
+        std::cout << std::endl;
+        std::cout << "FitSuiteObserverPrint::update() -> Info. Printing results" << std::endl;
         fitSuite->getMinimizer()->printResults();
     }
 }
@@ -49,6 +54,8 @@ void FitSuiteObserverDraw::update(IObservable *subject)
 {
     FitSuite *fitSuite = dynamic_cast<FitSuite *>(subject);
     if( !fitSuite ) throw NullPointerException("FitSuiteObserverDraw::update() -> Error! Can't cast FitSuite");
+
+    if( !fitSuite->isLastIteration() && (fitSuite->getNCall() % m_draw_every_nth != 0) ) return;
 
     TCanvas *c1 = dynamic_cast<TCanvas *>( gROOT->FindObject(m_canvas_name.c_str()) );
     if(!c1) {
@@ -74,7 +81,6 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     gPad->SetLogz();
     gPad->SetLeftMargin(0.12);
     gPad->SetRightMargin(0.12);
-//    IsGISAXSTools::setMinimum(10.);
     IsGISAXSTools::drawOutputDataRelativeDifference2D(*fitSuite->getChiSquaredModule()->getSimulationData(), *fitSuite->getChiSquaredModule()->getRealData(), "COLZ", "relative difference");
     // chi2 difference
     c1->cd(4);
@@ -82,10 +88,6 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     gPad->SetLeftMargin(0.12);
     OutputData<double > *diff_map = getDifferenceMap(fitSuite->getChiSquaredModule());
     gPad->SetRightMargin(0.12);
-//    IsGISAXSTools::setMinimum(0.0000001);
-//    IsGISAXSTools::resetMinimumAndMaximum();
-//    IsGISAXSTools::setMaximum(1.0);
-//    IsGISAXSTools::setMinimum(0.000001);
     IsGISAXSTools::drawOutputDataInPad(*diff_map, "COLZ", "chi2 difference map");
     delete diff_map;
 
@@ -102,6 +104,35 @@ void FitSuiteObserverDraw::update(IObservable *subject)
         pt->AddText(str);
     }
     pt->Draw();
+
+    if(fitSuite->isLastIteration()) {
+//        TCanvas *c2 = new TCanvas("FitSuiteObserverDraw_c2", "FitSuiteObserverDraw_c2", 1024, 768);
+//        c2->Divide(2,2);
+//        ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();
+//        if(!minim) {
+//            throw NullPointerException("FitSuiteObserverDraw::update() -> Can't get right minimizer from FitSuite");
+//        }
+//        int npad=1;
+//        for(unsigned int i=0; i<minim->NDim(); ++i) {
+//            for(unsigned int j=0; j<i; ++j) {
+//                if(i != j) {
+//                    c2->cd(npad++);
+//                    unsigned int np=50;
+//                    std::vector<double> x;
+//                    std::vector<double> y;
+//                    x.resize(np, 0);
+//                    y.resize(np, 0);
+//                    minim->Contour(i,j, np,&x[0], &y[0]);
+//                    x.push_back(x.front());
+//                    y.push_back(y.front());
+//                    TGraph *gr = new TGraph(np+1, &x[0], &y[0]);
+//                    gr->Draw("apl");
+//                }
+//            }
+//        }
+//        std::cout << "Last iteration " << std::endl;
+    }
+
 
 }
 

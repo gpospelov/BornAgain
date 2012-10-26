@@ -16,6 +16,7 @@
 
 #include "FitParameter.h"
 #include "ParameterPool.h"
+#include "AttLimits.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -33,7 +34,7 @@ public:
     typedef std::vector<parameter_t > parametercoll_t;
 
     FitMultiParameter();
-    FitMultiParameter(const std::string &name, double value, double step, double error=0.0);
+    FitMultiParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless());
 
     virtual void setValue(double value)
     {

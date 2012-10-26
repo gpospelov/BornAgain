@@ -63,6 +63,7 @@ SOURCES += \
     Samples/src/ICompositeSample.cpp \
     Samples/src/IMaterial.cpp \
     Samples/src/InterferenceFunction1DParaCrystal.cpp \
+    Samples/src/InterferenceFunction2DParaCrystal.cpp \
     Samples/src/IRoughness.cpp \
     Samples/src/ISample.cpp \
     Samples/src/Lattice.cpp \
@@ -180,6 +181,7 @@ HEADERS += \
     Samples/inc/IInterferenceFunction.h \
     Samples/inc/IMaterial.h \
     Samples/inc/InterferenceFunction1DParaCrystal.h \
+    Samples/inc/InterferenceFunction2DParaCrystal.h \
     Samples/inc/InterferenceFunctionNone.h \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \

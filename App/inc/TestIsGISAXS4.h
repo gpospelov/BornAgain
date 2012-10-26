@@ -1,5 +1,5 @@
-#ifndef TESTISGISAXS3_H_
-#define TESTISGISAXS3_H_
+#ifndef TESTISGISAXS4_H_
+#define TESTISGISAXS4_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,29 +9,25 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestIsGISAXS3.h
-//! @brief  Definition of TestIsGISAXS3 class for IsGISAXS validation
-//! @author herk
-//! @date   02.05.2012
+//! @file   TestIsGISAXS4.h
+//! @brief  Definition of TestIsGISAXS4 class for IsGISAXS validation
+//! @author Scientific Computing Group at FRM II
+//! @date   Oct 17, 2012
 
 #include "IFunctionalTest.h"
-#include "OutputData.h"
-#include "ISample.h"
-
-#include <string>
 
 //- -------------------------------------------------------------------
-//! @class TestIsGISAXS3
-//! @brief Comparison with IsGISAXS ex-3: cylinder on top of substrate
+//! @class TestIsGISAXS4
+//! @brief Comparison with IsGISAXS ex-4: cylinder with interference 1DDL or 2DDL
 //- -------------------------------------------------------------------
-class TestIsGISAXS3 : public IFunctionalTest
+class TestIsGISAXS4 : public IFunctionalTest
 {
 public:
-    TestIsGISAXS3();
-    virtual ~TestIsGISAXS3(){}
+    TestIsGISAXS4();
+    virtual ~TestIsGISAXS4(){}
+
     virtual void execute();
     virtual void finalise();
-
 private:
     // structure to hold info over several compare cases
     struct CompareStruct
@@ -44,4 +40,6 @@ private:
 
     std::string m_data_path;
 };
-#endif /* TESTISGISAXS3_H_ */
+
+
+#endif /* TESTISGISAXS4_H_ */

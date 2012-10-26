@@ -11,7 +11,7 @@
 // ********************************************************************
 //! @file   InterferenceFunction1DParaCrystal.h
 //! @brief  Definition of InterferenceFunction1DParaCrystal class
-//! @author herck
+//! @author Scientific Computing Group at FRM II
 //! @date   19.06.2012
 
 #include "IInterferenceFunction.h"
@@ -39,7 +39,7 @@ private:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-	// replace these with strategy pattern for different algorithms
+	//TODO: replace these with strategy pattern for different algorithms
 	complex_t FTGaussianCorrLength(double qpar) const;
 };
 

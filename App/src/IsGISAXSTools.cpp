@@ -201,7 +201,6 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
 
     *left_clone -= *right_clone;
     *left_clone /= *right_clone;
-    left_clone->scaleAll(100.0);
 
     std::string histo_name = histogram_title;
     if (histo_name.empty()) {
@@ -209,7 +208,7 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
     }
 
     TH1D h1_spect("difference", histo_name.c_str(), 40, -20.0, 20.0);
-    h1_spect.GetXaxis()->SetTitle("log10( 100*(we-isgi)/isgi )");
+    h1_spect.GetXaxis()->SetTitle("log10( (we-isgi)/isgi )");
 
     left_clone->resetIndex();
     while (left_clone->hasNext())

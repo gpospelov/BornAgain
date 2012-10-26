@@ -5,11 +5,8 @@
 
 ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type) : m_fcn(0)
 {
-    std::cout << "XXX 1.0 " << std::endl;
     m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name.c_str(), algo_type.c_str() );
-    std::cout << "XXX 1.1 " << std::endl;
     printOptions();
-    std::cout << "XXX 1.2 " << std::endl;
     if( m_root_minimizer == 0 ) {
         throw NullPointerException("ROOTMinimizer::ROOTMinimizer() -> Error! Can't build minimizer");
     }
@@ -37,7 +34,6 @@ void ROOTMinimizer::setVariable(int i, const FitParameter *par)
         throw LogicErrorException("ROOTMinimizer::setVariable() -> Strange place... I wish I knew how I got here.");
     }
 }
-
 
 
 void ROOTMinimizer::minimize()
@@ -106,13 +102,13 @@ void ROOTMinimizer::printResults() const
     std::cout << std::endl;
     std::cout << "  Variables at minimum:" << std::endl;
     std::cout << "      " << std::setw(5) << std::left << "Npar"
-              << std::setw(28) << std::left << " Name"
+              << std::setw(39) << std::left << " Name"
               << std::setw(14) << "Value"
               << std::setw(14) << "Error"
               << std::setw(14) << "GlobalCC" << std::endl;
     for(size_t i=0; i<getNumberOfVariables(); ++i) {
         std::cout << "      " << std::setw(5) << std::left << i
-                  << std::setw(28) << std::left << Utils::AdjustStringLength(m_root_minimizer->VariableName(i), 28)
+                  << std::setw(38) << std::left << Utils::AdjustStringLength(m_root_minimizer->VariableName(i), 38) << " "
                   << std::setw(14) << std::left << std::scientific << std::setprecision(6) << std::left << getValueOfVariableAtMinimum(i)
                   << std::setw(14) << std::left << std::scientific << std::setprecision(6) << std::left << getErrorOfVariable(i)
                   << std::setw(14) << std::left << std::scientific << std::setprecision(6) << std::left << m_root_minimizer->GlobalCC(i) << std::endl;
@@ -139,7 +135,6 @@ void ROOTMinimizer::printResults() const
 /* ************************************************************************* */
 void ROOTMinimizer::printOptions() const
 {
-    std::cout << "XXX 1.3 " << std::endl;
     std::cout << "--- ROOTMinimizer::printOptions() -------------- " << std::endl;
     //std::cout << typeid(m_root_minimizer).name() << std::endl;
     // minimizer options
@@ -154,7 +149,6 @@ void ROOTMinimizer::printOptions() const
     std::cout << std::setw(25) << std::left << "  ErrorDefinition"    << ": " << opt.ErrorDef() << " (1-chi2, 0.5 likelihood)" << std::endl;
     std::cout << std::setw(25) << std::left << "  ExtraOptions"       << ": " << opt.ExtraOptions() << std::endl;
     //opt.Print();
-    std::cout << "XXX 1.4 " << std::endl;
 }
 
 

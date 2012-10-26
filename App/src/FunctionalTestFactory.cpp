@@ -15,6 +15,7 @@
 #include "TestMesoCrystal2.h"
 #include "TestRootTree.h"
 #include "TestFittingModule1.h"
+#include "TestFittingModule2.h"
 #include "TestPerformance.h"
 #include "TestMultiLayerRoughness.h"
 #include "TestMiscellaneous.h"
@@ -60,7 +61,9 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
     registerItem("roottree",    IFactoryCreateFunction<TestRootTree, IFunctionalTest>,
                  "functional test: using root trees to read/write data from/to disk");
     registerItem("fitting1",     IFactoryCreateFunction<TestFittingModule1, IFunctionalTest>,
-                 "functional test: fit module");
+                 "functional test: fit module 2 params");
+    registerItem("fitting2",     IFactoryCreateFunction<TestFittingModule2, IFunctionalTest>,
+                 "functional test: fit module 5 params");
     registerItem("performance", IFactoryCreateFunction<TestPerformance, IFunctionalTest>,
                  "functional test: run performance test for several predefined tasks");
     registerItem("roughdwba",   IFactoryCreateFunction<TestMultiLayerRoughness, IFunctionalTest>,

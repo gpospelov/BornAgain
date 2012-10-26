@@ -35,7 +35,7 @@ void GISASExperiment::runSimulation()
     int n_threads_total=0;
     if (mp_options) {
         n_threads_total = (*mp_options)["threads"].as<int>();
-        std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads defined in program options " << n_threads_total << std::endl;
+        //std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads defined in program options " << n_threads_total << std::endl;
     }
 
     m_intensity_map.setAllTo(0.0);
@@ -50,7 +50,9 @@ void GISASExperiment::runSimulation()
         // if n_threads=0, take optimal number of threads from the hardware
         if(n_threads_total == 0 )  {
             n_threads_total = boost::thread::hardware_concurrency();
-            std::cout << "GISASExperiment::runSimulation() -> Info. Hardware concurrency: " << n_threads_total << std::endl;
+            std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads " << n_threads_total << " (taken from hardware concurrency)" << std::endl;
+        }else {
+            std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads " << n_threads_total << " (hardware concurrency: " << boost::thread::hardware_concurrency() << " )"<< std::endl;
         }
         std::vector<boost::thread *> threads;
         std::vector<DWBASimulation *> simulations;

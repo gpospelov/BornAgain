@@ -55,7 +55,7 @@ void TestFittingModule1::execute()
     m_fitSuite = new FitSuite();
 
     // initializing data
-    initializeSample3();
+    initializeSample2();
     ParameterPool *pool = mp_sample->createParameterTree();
     std::cout << *pool << std::endl;
 
@@ -81,82 +81,43 @@ void TestFittingModule1::execute()
     //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "SteepestDescent") );
     //fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
     //fitSuite->setMinimizer( new ROOTMinimizer("Genetic", "") );
-
     // tuning minimizer
     //ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();
     //minim->SetTolerance(1000.0);
-//    minim->SetMaxFunctionCalls(50); // for Minuit
-//    minim->SetMaxIterations(50); // for GSL
-
+    //minim->SetMaxFunctionCalls(50); // for Minuit
+    //minim->SetMaxIterations(50); // for GSL
 
     m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
     m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
     //fitSuite->attachObserver( new FitSuiteObserverWriteTree() );
 
     m_fitSuite->runFit();
-
-//    delete drawObserver;
-//    delete writeObserver;
 }
 
 
+/* ************************************************************************* */
+// initializing experiment
+/* ************************************************************************* */
 void TestFittingModule1::initializeExperiment()
 {
-
+    if( !mp_sample ) {
+        throw NullPointerException("TestFittingModule1::initializeExperiment() -> No sample defined");
+    }
     delete mp_experiment;
     mp_experiment = new GISASExperiment(mp_options);
     mp_experiment->setSample(*mp_sample);
     mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
-    //mp_experiment->setDetectorParameters(50, 0.0*Units::degree, 2.0*Units::degree, 50 , 0.0*Units::degree, 2.0*Units::degree);
     mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
     mp_experiment->setBeamIntensity(1e10);
 }
 
 
-
+/* ************************************************************************* */
+// simple sample - cylinders in BA
+// 2 fit parameters
+/* ************************************************************************* */
 void TestFittingModule1::initializeSample()
-{
-    delete mp_sample;
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_layer(1.0-2e-6, 2e-8);
-    complex_t n_substrate(1.0-5e-6, 2e-8);
-    complex_t n_particle(1.0-5e-5, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_layer_material = MaterialManager::instance().addHomogeneousMaterial("Layer", n_layer);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer layer_layer;
-    layer_layer.setMaterial(p_layer_material);
-    layer_layer.setThickness(10.0*Units::nanometer);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
-            7*Units::nanometer, 1e7*Units::nanometer);
-    ParticleDecoration particle_decoration(
-                new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),
-                0*Units::nanometer, 1.0);
-    particle_decoration.addInterferenceFunction(p_interference_funtion);
-    LayerDecorator layer_decorator(air_layer, particle_decoration);
-
-    p_multi_layer->addLayer(layer_decorator);
-    p_multi_layer->addLayer(layer_layer);
-    p_multi_layer->addLayer(substrate_layer);
-    mp_sample = p_multi_layer;
-
-    // defining parameters for minimization
-    if( !m_fitSuite ) {
-        throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
-    }
-    m_fitSuite->addFitParameter("*/MultiLayer/Layer0/thickness", 12*Units::nanometer, 2*Units::nanometer, AttLimits::limited(1.0, 20.0) );
-    m_fitSuite->addFitParameter("*/FormFactorCylinder/radius", 2*Units::nanometer, 2*Units::nanometer, AttLimits::limited(1.0, 20.0) );
-
-}
-
-
-void TestFittingModule1::initializeSample2()
 {
     delete mp_sample;
 
@@ -181,9 +142,14 @@ void TestFittingModule1::initializeSample2()
 }
 
 
-void TestFittingModule1::initializeSample3()
+void TestFittingModule1::initializeSample2()
 {
     delete mp_sample;
+
+    double cylinder_height = 5.0*Units::nanometer;
+    double cylinder_radius = 5.0*Units::nanometer;
+    double prism3_half_side = 5.0*Units::nanometer;
+    double prism3_height = 5.0*Units::nanometer;
 
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
@@ -196,8 +162,8 @@ void TestFittingModule1::initializeSample3()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),0.0, 0.5);
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)), 0.0, 0.5);
+    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(cylinder_height, cylinder_radius)),0.0, 0.5);
+    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(prism3_half_side, prism3_height)), 0.0, 0.5);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
@@ -205,7 +171,6 @@ void TestFittingModule1::initializeSample3()
     p_multi_layer->addLayer(substrate_layer);
 
     mp_sample = p_multi_layer;
-
     // defining parameters for minimization
     if( !m_fitSuite ) {
         throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
@@ -215,6 +180,7 @@ void TestFittingModule1::initializeSample3()
     m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 }
+
 
 
 

@@ -34,7 +34,7 @@ void FitSuiteObserverPrint::update(IObservable *subject)
     int npar(0);
     for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it, ++npar) {
         std::cout << "   # "<< npar << " ";
-        std::cout << Utils::AdjustStringLength((*it)->getName(), 30)
+        std::cout << Utils::AdjustStringLength((*it)->getName(), 40)
                   << " value:" << std::scientific << std::setprecision(8) << (*it)->getValue()
                   << std::endl;
     }
@@ -81,7 +81,6 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     gPad->SetLogz();
     gPad->SetLeftMargin(0.12);
     gPad->SetRightMargin(0.12);
-//    IsGISAXSTools::setMinimum(10.);
     IsGISAXSTools::drawOutputDataRelativeDifference2D(*fitSuite->getChiSquaredModule()->getSimulationData(), *fitSuite->getChiSquaredModule()->getRealData(), "COLZ", "relative difference");
     // chi2 difference
     c1->cd(4);
@@ -89,10 +88,6 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     gPad->SetLeftMargin(0.12);
     OutputData<double > *diff_map = getDifferenceMap(fitSuite->getChiSquaredModule());
     gPad->SetRightMargin(0.12);
-//    IsGISAXSTools::setMinimum(0.0000001);
-//    IsGISAXSTools::resetMinimumAndMaximum();
-//    IsGISAXSTools::setMaximum(1.0);
-//    IsGISAXSTools::setMinimum(0.000001);
     IsGISAXSTools::drawOutputDataInPad(*diff_map, "COLZ", "chi2 difference map");
     delete diff_map;
 

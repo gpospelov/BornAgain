@@ -79,7 +79,7 @@ void MathFunctions::Convolve::fftconvolve(const double2d_t &source, const double
 {
     // set default convolution mode, if not defined
     if(m_mode == FFTW_UNDEFINED) {
-        std::cout << "MathFunctions::Convolve::fftconvolve() -> Info. Setting FFTW_LINEAR_SAME convolution mode." << std::endl;
+        //std::cout << "MathFunctions::Convolve::fftconvolve() -> Info. Setting FFTW_LINEAR_SAME convolution mode." << std::endl;
         setMode(FFTW_LINEAR_SAME);
     }
 

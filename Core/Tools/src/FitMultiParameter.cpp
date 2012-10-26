@@ -51,7 +51,14 @@ void FitMultiParameter::addMatchedParametersFromPool(std::string wildcards, cons
             n_added_pars++;
         }
     }
-    if(n_added_pars==0) std::cout << "FitMultiParameter::addMatchedParametersFromPool() -> Warning! No parameters satisfying  criteria'" << wildcards << "' have been found" << std::endl;
+    if(n_added_pars==0) {
+        std::cout << "FitMultiParameter::addMatchedParametersFromPool() -> Warning! No parameters satisfying  criteria '" << wildcards << "' have been found" << std::endl;
+        std::cout << "Existing keys are:" << std::endl;
+        for(ParameterPool::const_iterator_t it=pool->begin(); it!= pool->end(); ++it) {
+            std::cout << (*it).first << std::endl;
+        }
+        throw LogicErrorException("FitMultiParameter::addMatchedParametersFromPool() -> Error! No parameters with given wildcard.");
+    }
 }
 
 

@@ -16,7 +16,6 @@
 
 #include "IFunctionalTest.h"
 
-class TF2;
 
 //- -------------------------------------------------------------------
 //! @class TestFittingBenchmark

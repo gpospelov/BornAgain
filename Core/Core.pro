@@ -80,7 +80,6 @@ SOURCES += \
     Samples/src/ParticleDecoration.cpp \
     Samples/src/ParticleInfo.cpp \
     \
-    Tools/src/BenchmarkFunctions.cpp \
     Tools/src/Convolve.cpp \
     Tools/src/CoreOptionsDescription.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
@@ -200,7 +199,6 @@ HEADERS += \
     Samples/inc/ParticleDecoration.h \
     Samples/inc/ParticleInfo.h \
     \
-    Tools/inc/BenchmarkFunctions.h \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \

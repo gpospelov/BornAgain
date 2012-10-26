@@ -1,5 +1,5 @@
-#ifndef TESTFITTINGMODULE1_H_
-#define TESTFITTINGMODULE1_H_
+#ifndef TESTFITTINGMODULE2_H
+#define TESTFITTINGMODULE2_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,10 +9,10 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestFittingModule1.h
-//! @brief  Definition of TestFittingModule class
+//! @file   TestFittingModule2.h
+//! @brief  Definition of TestFittingModule2 class
 //! @author Scientific Computing Group at FRM II
-//! @date   Jul 20, 2012
+//! @date   25.10.2012
 
 
 #include "IFunctionalTest.h"
@@ -27,19 +27,34 @@
 class FitSuite;
 
 //- -------------------------------------------------------------------
-//! @class TestFittingModule1
-//! @brief Testing of fitting module with simplified sample (layer + nanoparticles), 2 parameters
+//! @class TestFittingModule2
+//! @brief Testing of fitting module with 5 parameters sample
 //- -------------------------------------------------------------------
-class TestFittingModule1 : public IFunctionalTest
+class TestFittingModule2 : public IFunctionalTest
 {
 public:
-    TestFittingModule1();
-    virtual ~TestFittingModule1();
+    TestFittingModule2();
+    virtual ~TestFittingModule2();
     virtual void execute();
 
+    //! builds sample for fitter testing
+    class TestSampleBuilder : public ISampleBuilder
+    {
+    public:
+        TestSampleBuilder();
+        virtual ~TestSampleBuilder(){}
+        virtual ISample *buildSample() const;
+    protected:
+        virtual void init_parameters();
+    private:
+        double m_cylinder_height;
+        double m_cylinder_radius;
+        double m_prism3_half_side;
+        double m_prism3_height;
+        double m_cylinder_ratio;
+    };
+
 private:
-    void initializeSample();
-    void initializeSample2();
     void initializeExperiment();
     void generateRealData(double noise_factor);
 
@@ -47,9 +62,9 @@ private:
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulated_data;
     GISASExperiment *mp_experiment;
-    ISample *mp_sample;
+    ISampleBuilder *mp_sample_builder;
     FitSuite *m_fitSuite;
 };
 
 
-#endif /* TESTFITTINGMODULE1_H_ */
+#endif // TESTFITTINGMODULE2_H

@@ -25,31 +25,43 @@ isEqual(env_debug_variable, "yes") {
 # -----------------------------------------------------------------------------
 # general external libraries
 # -----------------------------------------------------------------------------
-#macx {
-#  # we expect all libraries installed via macport
-#  WHERE_TO_LOOK_PREFIX=/opt/local
-#  INCLUDEPATH = /opt/local/include
-#  LIBS = -L/opt/local/lib
-#}
-#!macx:unix{
-#  WHERE_TO_LOOK_PREFIX=/usr/local
-#  INCLUDEPATH = /usr/local/include
-#  LIBS = -L/usr/local/lib -L/usr/lib64
-#}
 
-#educated guess about main directory with general libraries
-exists(/opt/local/include/boost) {
-    GENERAL_EXTERNALS_DIR = /opt/local
-} else {
-    exists(/usr/local/include/boost) {
-        GENERAL_EXTERNALS_DIR = /usr/local
-    } else {
-        error("Neither of /usr/local/include/boost or /opt/local/include/boost exist")
-    }
+# checking fftw3 header
+FFTW3_HEADERFILE = fftw3.h
+FFTW3_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+for(dir, FFTW3_HEADER_LOCATIONS): isEmpty(FFTW3_INCLUDE): exists($${dir}/$${FFTW3_HEADERFILE}): FFTW3_INCLUDE = $${dir}
+isEmpty(FFTW3_INCLUDE): error("Can't find" $${FFTW3_HEADERFILE})
+#message($${FFTW3_HEADERFILE}" found in "$${FFTW3_INCLUDE})
+
+# checking boost header
+BOOST_HEADERFILE = boost/version.hpp
+BOOST_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+for(dir, BOOST_HEADER_LOCATIONS): isEmpty(BOOST_INCLUDE): exists($${dir}/$${BOOST_HEADERFILE}): BOOST_INCLUDE = $${dir}
+isEmpty(BOOST_INCLUDE): error("Can't find" $${BOOST_HEADERFILE})
+#message($${BOOST_HEADERFILE}" found in "$${BOOST_INCLUDE})
+
+# checking boost library
+BOOST_LIBFILE = libboost*
+BOOST_LIB_LOCATIONS = /opt/local/lib /usr/local/lib /usr/lib64 /usr/lib
+for(dir, BOOST_LIB_LOCATIONS): isEmpty(BOOST_LIB) {
+  NumberOfSuchFiles=$$system(ls $${dir}/$${BOOST_LIBFILE} 2> /dev/null | wc -l)
+  !isEqual(NumberOfSuchFiles, 0): BOOST_LIB = $${dir}
 }
+isEmpty(BOOST_LIB): error("Can't find" $${BOOST_HEADER})
+#message($${BOOST_LIBFILE}" found in "$${BOOST_LIB})
 
-INCLUDEPATH = $${GENERAL_EXTERNALS_DIR}/include
-LIBS = -L$${GENERAL_EXTERNALS_DIR}/lib
+# TODO - implement check for following files
+# gsl/gsl_sf_bessel.h
+# numpy/arrayobject.h (numpy_devel, blas_devel, lapack)
+# TObject.h
+
+
+
+
+#INCLUDEPATH = $${GENERAL_EXTERNALS_DIR}/include
+#LIBS = -L$${GENERAL_EXTERNALS_DIR}/lib
+INCLUDEPATH = $${FFTW3_HEADER} $${BOOST_HEADER}
+LIBS = -L$${FFTW3_LIB} $${BOOST_LIB}
 
 !macx:unix{
   # it's a linux
@@ -70,15 +82,11 @@ CONFIG(JCNS) {
 }
 
 # checking special case when system doesn't have libboost_thread library but have libbost_thread-mt
-NumberOfSuchFiles=$$system(ls $${GENERAL_EXTERNALS_DIR}/lib/libboost_thread-mt* 2> /dev/null | wc -l)
+NumberOfSuchFiles=$$system(ls $${BOOST_LIB}/libboost_thread-mt* 2> /dev/null | wc -l)
 !isEqual(NumberOfSuchFiles, 0) {
   # library libboost_thread-mt exists
   LIBS -= -lboost_thread
   LIBS += -lboost_thread-mt
-} else {
-  # library libboost_thread-mt doesn't exist, but may be libboost_thread exist?
-  NumberOfSuchFiles=$$system(ls $${GENERAL_EXTERNALS_DIR}/lib/libboost_thread* 2> /dev/null | wc -l)
-  isEqual(NumberOfSuchFiles, 0):error("Neither of libboost_thread or libboost_thread-mt have been found")
 }
 
 

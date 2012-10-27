@@ -353,7 +353,7 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
         fresnelCalculator.execute(*sample, kvec, coeffs);
         complex_t R = m_RR[i_layer_sel]->evaluate(angle);
         std::cout << i_point << " " << angle << " true R:" << coeffs[i_layer_sel].R << " interp:" << R << " " << std::abs(R - coeffs[i_layer_sel].R) << std::endl;
-        complex_t r = coeffs[i_layer_sel].R;
+//        complex_t r = coeffs[i_layer_sel].R;
 //        std::cout << "RRR " << r << " abs:" << std::abs(r) << " arg:" << std::arg(r) << " " << Units::rad2deg(std::arg(r)) << std::endl << std::endl;
         gr1_exact->SetPoint(i_point, angle, std::abs(coeffs[i_layer_sel].R) );
         gr2_interp->SetPoint(i_point, angle, std::abs(R) );

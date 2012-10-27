@@ -22,6 +22,8 @@ External libraries
 * App depend on: _ROOT_
 * _python>=2.6 and Qt>=4.5_
 
+ (numpy_devel, blas_devel, lapack)
+ 
 ------------------
 Installation
 ------------------

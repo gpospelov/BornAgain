@@ -375,8 +375,8 @@ void TestRootTree::initializeMesoCrystal(double meso_alpha, double meso_phi, dou
     complex_t n_particle(1.0-1.55e-5, 1.37e-6);
     complex_t avg_n_squared_meso = 0.7886*n_particle*n_particle + 0.2114;
     complex_t n_avg = std::sqrt(surface_filling_ratio*avg_n_squared_meso + 1.0 - surface_filling_ratio);
-    complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
-    FormFactorCylinder ff_meso(0.2*Units::micrometer, meso_radius);
+//    complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
+//    FormFactorCylinder ff_meso(0.2*Units::micrometer, meso_radius);
 
     // Create multilayer
     MultiLayer *p_multi_layer = new MultiLayer();

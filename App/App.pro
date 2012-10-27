@@ -108,21 +108,21 @@ for(dep, MY_DEPENDENCY_LIB) {
 # -----------------------------------------------------------------------------
 # adding ROOT libraries
 # -----------------------------------------------------------------------------
-exists($$(ROOTSYS)/bin/root-config){
-  INCLUDEPATH += $$system($ROOTSYS/bin/root-config --incdir)
-  #LIBS += $$system($ROOTSYS/bin/root-config --glibs)
-  #LIBS += -L$$system($ROOTSYS/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lThread -lpthread -lm -ldl
-  LIBS += -L$$system($ROOTSYS/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
-
-  MYROOTCINT = ${ROOTSYS}/bin/rootcint
+MYROOT = $$(ROOTSYS)
+isEmpty(MYROOT) {
+  message("Warning, ROOTSYS environment variable doesn't exist, trying to guess location")
+  # FIXME
+  #INCLUDEPATH += /opt/local/include/root
+  #LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
+  #MYROOTCINT = /opt/local/bin/rootcint
+  error("can't guess ROOT location")
 }
-# if it doesn't exist, try to do something
-!exists($$(ROOTSYS)/bin/root-config){
-  INCLUDEPATH += /opt/local/include/root
-  LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
-  MYROOTCINT = /opt/local/bin/rootcint
+!isEmpty(MYROOT) {
+  !exists($${MYROOT}/bin/root-config): error("No config file "$${MYROOT}/bin/root-config)
+  INCLUDEPATH += $$system($${MYROOT}/bin/root-config --incdir)
+  LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
+  MYROOTCINT = $${MYROOT}/bin/rootcint
 }
-
 
 
 # -----------------------------------------------------------------------------

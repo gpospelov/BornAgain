@@ -20,6 +20,7 @@ int main(int argc, char **argv)
     // setting graphics environment
     TApplication *theApp(0);
     if( command_line_options.find("batch") ) {
+        (void)theApp;
         gROOT->SetBatch(true);
     } else {
         theApp = new TApplication("theApp", 0, 0);

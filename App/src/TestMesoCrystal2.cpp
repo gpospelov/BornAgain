@@ -84,38 +84,42 @@ void TestMesoCrystal2::execute()
     FitSuite *fitSuite = new FitSuite();
     fitSuite->setExperiment(mp_experiment);
     fitSuite->setRealData(*real_data_quarter);
-    fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-//    fitSuite->addFitParameter("*/lattice_length_a", 6.2*Units::nanometer, 1.0*Units::nanometer,
-//            AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
+    fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
+    fitSuite->addFitParameter("*/lattice_length_a", 6.2*Units::nanometer, 1.0*Units::nanometer,
+            AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
     fitSuite->addFitParameter("*/nanoparticle_radius", 5.7*Units::nanometer, 1.0*Units::nanometer,
             AttLimits::limited(2.0*Units::nanometer, 8.0*Units::nanometer) );
-    fitSuite->addFitParameter("*/sigma_nanoparticle_radius", 0.1*Units::nanometer, 0.05*Units::nanometer,
-            AttLimits::limited(0.01*Units::nanometer, 2.0*Units::nanometer) );
-//    fitSuite->addFitParameter("*/meso_height", 500.0*Units::nanometer, 100.0*Units::nanometer,
-//            AttLimits::limited(100.0*Units::nanometer, 2000.0*Units::nanometer) );
-//    fitSuite->addFitParameter("*/meso_radius", 1000.0*Units::nanometer, 100.0*Units::nanometer,
-//            AttLimits::limited(100.0*Units::nanometer, 5000.0*Units::nanometer) );
+//    fitSuite->addFitParameter("*/sigma_nanoparticle_radius", 0.1*Units::nanometer, 0.05*Units::nanometer,
+//            AttLimits::limited(0.01*Units::nanometer, 2.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/meso_height", 500.0*Units::nanometer, 100.0*Units::nanometer,
+            AttLimits::limited(100.0*Units::nanometer, 2000.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/meso_radius", 1000.0*Units::nanometer, 100.0*Units::nanometer,
+            AttLimits::limited(100.0*Units::nanometer, 5000.0*Units::nanometer) );
 //    fitSuite->addFitParameter("*/sigma_meso_height", 5.0*Units::nanometer, 1.0*Units::nanometer,
 //            AttLimits::limited(10.0*Units::nanometer, 200.0*Units::nanometer) );
 //    fitSuite->addFitParameter("*/sigma_meso_radius", 50.0*Units::nanometer, 10.0*Units::nanometer,
 //            AttLimits::limited(10.0*Units::nanometer, 500.0*Units::nanometer) );
 //    fitSuite->addFitParameter("*/sigma_lattice_length_a", 1.5*Units::nanometer, 0.5*Units::nanometer,
 //            AttLimits::limited(0.01*Units::nanometer, 4.0*Units::nanometer) );
-//    fitSuite->addFitParameter("*/surface_filling_ratio", 0.25, 0.1,
-//            AttLimits::limited(0.1, 0.4) );
-//    fitSuite->addFitParameter("*/roughness", 1.0*Units::nanometer, 0.1*Units::nanometer,
-//            AttLimits::limited(0.01*Units::nanometer, 50.0*Units::nanometer) );
+    fitSuite->addFitParameter("*/surface_filling_ratio", 0.25, 0.1,
+            AttLimits::limited(0.1, 0.4) );
+    fitSuite->addFitParameter("*/roughness", 1.0*Units::nanometer, 0.1*Units::nanometer,
+            AttLimits::limited(0.01*Units::nanometer, 50.0*Units::nanometer) );
 //    fitSuite->addFitParameter("*/ResolutionFunction2D/sigma_x", 0.0002, 0.00001,
 //            AttLimits::limited(0.0, 0.002) );
 //    fitSuite->addFitParameter("*/ResolutionFunction2D/sigma_y", 0.0002, 0.00001,
 //            AttLimits::limited(0.0, 0.002) );
 
-    IsGISAXSTools::setMinimum(1e2);
-    std::string tree_file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/mesofit.tree";
-    FitSuiteObserverWriteTree *writeTreeObserver = new FitSuiteObserverWriteTree(tree_file_name);
-    fitSuite->attachObserver(writeTreeObserver);
-    FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
-    fitSuite->attachObserver(drawObserver);
+//    IsGISAXSTools::setMinimum(1e2);
+//    std::string tree_file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/mesofit.tree";
+//    FitSuiteObserverWriteTree *writeTreeObserver = new FitSuiteObserverWriteTree(tree_file_name);
+//    fitSuite->attachObserver(writeTreeObserver);
+//    FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
+//    fitSuite->attachObserver(drawObserver);
+
+    fitSuite->attachObserver( new FitSuiteObserverPrint() );
+    fitSuite->attachObserver( new FitSuiteObserverDraw() );
+    fitSuite->attachObserver( new FitSuiteObserverWriteTree() );
 
     fitSuite->runFit();
 

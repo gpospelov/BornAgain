@@ -90,7 +90,7 @@ NumberOfSuchFiles=$$system(ls $${GENERAL_EXTERNALS_DIR}/lib/libboost_thread-mt* 
 QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which option control warning
 #QMAKE_CXXFLAGS_RELEASE += -O3 -ffast-math -msse3
 QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -O3  -ffast-math
+QMAKE_CXXFLAGS_RELEASE += -g -O3 -ffast-math
 # uncommenting line below produces non-stripped (very large) libraries
 #QMAKE_STRIP=:
 

@@ -21,7 +21,7 @@ class InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
 public:
     InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi=0.0, double corr_length=0.0);
-    virtual ~InterferenceFunction2DParaCrystal() {}
+    virtual ~InterferenceFunction2DParaCrystal();
     virtual InterferenceFunction2DParaCrystal *clone() const {
         InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(m_lattice_lengths[0], m_lattice_lengths[1], m_alpha_lattice, m_xi, m_corr_length);
         p_new->setDomainSizes(m_domain_sizes[0], m_domain_sizes[1]);
@@ -45,6 +45,8 @@ public:
 
     virtual double evaluate(const cvector_t &q) const;
 
+    //! add parameters from local pool to external pool and call recursion over direct children
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 protected:
     void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double &q_pa_1, double &q_pa_2) const;
     double m_lattice_lengths[2];

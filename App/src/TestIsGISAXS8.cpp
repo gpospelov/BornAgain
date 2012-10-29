@@ -27,6 +27,8 @@ void TestIsGISAXS8::execute()
 
     // 2DDL_lattice
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS8_2DDL_lattice"));
+//    ParameterPool *p_pool = p_sample->createParameterTree();
+//    std::cout << (*p_pool);
     experiment.setSample(*p_sample);
     experiment.runSimulation();
     IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDL_lattice.ima");

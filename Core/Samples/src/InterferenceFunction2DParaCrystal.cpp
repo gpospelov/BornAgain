@@ -31,6 +31,13 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double leng
     init_parameters();
 }
 
+InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal()
+{
+    for (size_t i=0; i<2; ++i) {
+        if (m_pdfs[i]) delete m_pdfs[i];
+    }
+}
+
 void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
         const IFTDistribution2D& pdf_1, const IFTDistribution2D& pdf_2)
 {
@@ -45,12 +52,34 @@ double InterferenceFunction2DParaCrystal::evaluate(const cvector_t &q) const
 {
     m_qx = q.x().real();
     m_qy = q.y().real();
-    std::binder1st<std::const_mem_fun1_t<double, InterferenceFunction2DParaCrystal, double> > f_base = std::bind1st(std::mem_fun(&InterferenceFunction2DParaCrystal::interferenceForXi), this);
-    gsl_function f;
-    f.function = &wrapFunctionForGSL;
-    f.params = &f_base;
-    double result = MathFunctions::Integrate1D(&f, 0.0, M_PI)/M_PI;
+    double result;
+    if (m_integrate_xi) {
+        std::binder1st<std::const_mem_fun1_t<double, InterferenceFunction2DParaCrystal, double> > f_base = std::bind1st(std::mem_fun(&InterferenceFunction2DParaCrystal::interferenceForXi), this);
+        gsl_function f;
+        f.function = &wrapFunctionForGSL;
+        f.params = &f_base;
+        result = MathFunctions::Integrate1D(&f, 0.0, M_PI)/M_PI;
+    }
+    else {
+        result = interferenceForXi(m_xi);
+    }
     return result;
+}
+
+std::string InterferenceFunction2DParaCrystal::addParametersToExternalPool(std::string path,
+        ParameterPool* external_pool, int copy_number) const
+{
+    // add own parameters
+    std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+
+    // add parameters of the probability density functions
+    if (m_pdfs[0]) {
+        m_pdfs[0]->addParametersToExternalPool(new_path, external_pool, 0);
+    }
+    if (m_pdfs[1]) {
+        m_pdfs[1]->addParametersToExternalPool(new_path, external_pool, 1);
+    }
+    return new_path;
 }
 
 void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(double qx,
@@ -63,8 +92,13 @@ void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(double qx,
 void InterferenceFunction2DParaCrystal::init_parameters()
 {
     getParameterPool()->clear();
-//    getParameterPool()->registerParameter("peak_distance", &m_peak_distance);
+    getParameterPool()->registerParameter("lattice_length_1", &m_lattice_lengths[0]);
+    getParameterPool()->registerParameter("lattice_length_2", &m_lattice_lengths[1]);
+    getParameterPool()->registerParameter("lattice_angle", &m_alpha_lattice);
+    getParameterPool()->registerParameter("lattice_orientation", &m_xi);
     getParameterPool()->registerParameter("corr_length", &m_corr_length);
+    getParameterPool()->registerParameter("domain_size_1", &m_domain_sizes[0]);
+    getParameterPool()->registerParameter("domain_size_2", &m_domain_sizes[1]);
 }
 
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createSquare(

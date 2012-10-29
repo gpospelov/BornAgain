@@ -14,6 +14,8 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Oct 26, 2012
 
+#include "IParameterized.h"
+#include "ParameterPool.h"
 #include <cmath>
 
 class IFTDistribution1D
@@ -27,7 +29,7 @@ protected:
     double m_omega;
 };
 
-class IFTDistribution2D
+class IFTDistribution2D : public IParameterized
 {
 public:
     IFTDistribution2D(double omega_x, double omega_y) : m_omega_x(omega_x), m_omega_y(omega_y),
@@ -55,6 +57,8 @@ public:
     virtual FTDistribution2DCauchy *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
+protected:
+    virtual void init_parameters();
 };
 
 #endif /* FTDISTRIBUTIONS_H_ */

@@ -131,7 +131,9 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy, double 
     complex_t phase = std::exp(complex_t(0.0, 1.0)*qa);
     // transform q to principal axes:
     double qp1, qp2;
-    transformToPrincipalAxes(qx, qy, xi, M_PI/2, qp1, qp2);
+    double gamma = xi + m_pdfs[index]->getGamma();
+    double delta = m_pdfs[index]->getDelta();
+    transformToPrincipalAxes(qx, qy, gamma, delta, qp1, qp2);
     double amplitude = m_pdfs[index]->evaluate(qp1, qp2);
     complex_t result = phase*amplitude;
     if (m_use_corr_length) {

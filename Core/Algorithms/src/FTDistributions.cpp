@@ -1,5 +1,4 @@
 #include "FTDistributions.h"
-#include <cmath>
 
 FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y)
 : IFTDistribution2D(omega_x, omega_y)

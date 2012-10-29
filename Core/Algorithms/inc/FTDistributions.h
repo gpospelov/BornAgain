@@ -31,6 +31,8 @@ public:
     IFTDistribution2D(double omega_x, double omega_y) : m_omega_x(omega_x), m_omega_y(omega_y) {}
     virtual ~IFTDistribution2D() {}
 
+    virtual IFTDistribution2D *clone() const=0;
+
     virtual double evaluate(double qx, double qy) const=0;
 protected:
     double m_omega_x;
@@ -42,6 +44,8 @@ class FTDistribution2DCauchy : public IFTDistribution2D
 public:
     FTDistribution2DCauchy(double omega_x, double omega_y);
     virtual ~FTDistribution2DCauchy() {}
+
+    virtual FTDistribution2DCauchy *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
 };

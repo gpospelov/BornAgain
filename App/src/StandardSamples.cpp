@@ -428,8 +428,10 @@ ISample *StandardSamples::IsGISAXS4_2DDL()
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    IInterferenceFunction *p_interference_function = InterferenceFunction2DParaCrystal::createHexagonal(20.0*Units::nanometer,1.0*Units::nanometer, 0.0,
+    InterferenceFunction2DParaCrystal *p_interference_function = InterferenceFunction2DParaCrystal::createHexagonal(20.0*Units::nanometer, 0.0,
             20.0*Units::micrometer, 20.0*Units::micrometer);
+    FTDistribution2DCauchy pdf(1.0*Units::nanometer, 1.0*Units::nanometer);
+    p_interference_function->setProbabilityDistributions(pdf, pdf);
     ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);

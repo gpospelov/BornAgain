@@ -1,5 +1,6 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "MathFunctions.h"
+#include "Exceptions.h"
 
 #include <functional>
 
@@ -10,15 +11,19 @@ double wrapFunctionForGSL(double xi, void* p_unary_function)
     return (*p_f)(xi);
 }
 
-InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double peak_distance, double alpha_lattice, double width, double corr_length)
-: m_peak_distance(peak_distance)
-, m_alpha_lattice(alpha_lattice)
-, m_width(width)
+InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi, double corr_length)
+: m_alpha_lattice(alpha_lattice)
+, m_xi(xi)
+, m_integrate_xi(false)
 , m_corr_length(corr_length)
 , m_use_corr_length(true)
-, m_domain_size_1(0.0)
-, m_domain_size_2(0.0)
 {
+    m_lattice_lengths[0] = length_1;
+    m_lattice_lengths[1] = length_2;
+    m_pdfs[0] = 0;
+    m_pdfs[1] = 0;
+    m_domain_sizes[0] = 0.0;
+    m_domain_sizes[1] = 0.0;
     setName("InterferenceFunction2DParaCrystal");
     if (m_corr_length==0.0) {
         m_use_corr_length = false;
@@ -26,11 +31,20 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double peak
     init_parameters();
 }
 
+void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
+        const IFTDistribution2D& pdf_1, const IFTDistribution2D& pdf_2)
+{
+    for (size_t i=0; i<2; ++i) {
+        if (m_pdfs[i]) delete m_pdfs[i];
+    }
+    m_pdfs[0] = pdf_1.clone();
+    m_pdfs[1] = pdf_2.clone();
+}
+
 double InterferenceFunction2DParaCrystal::evaluate(const cvector_t &q) const
 {
-    double qxr = q.x().real();
-    double qyr = q.y().real();
-    m_qpar = std::sqrt(qxr*qxr + qyr*qyr);
+    m_qx = q.x().real();
+    m_qy = q.y().real();
     std::binder1st<std::const_mem_fun1_t<double, InterferenceFunction2DParaCrystal, double> > f_base = std::bind1st(std::mem_fun(&InterferenceFunction2DParaCrystal::interferenceForXi), this);
     gsl_function f;
     f.function = &wrapFunctionForGSL;
@@ -39,28 +53,56 @@ double InterferenceFunction2DParaCrystal::evaluate(const cvector_t &q) const
     return result;
 }
 
+void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(double qx,
+        double qy, double gamma, double delta, double& q_pa_1, double& q_pa_2) const
+{
+    q_pa_1 = qx*std::cos(gamma) + qy*std::sin(gamma);
+    q_pa_2 = qx*std::cos(gamma+delta) + qy*std::sin(gamma+delta);
+}
+
 void InterferenceFunction2DParaCrystal::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("peak_distance", &m_peak_distance);
-    getParameterPool()->registerParameter("width", &m_width);
+//    getParameterPool()->registerParameter("peak_distance", &m_peak_distance);
     getParameterPool()->registerParameter("corr_length", &m_corr_length);
 }
 
+InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createSquare(
+        double peak_distance, double corr_length, double domain_size_1, double domain_size_2)
+{
+    InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(peak_distance, peak_distance, M_PI/2.0, 0.0, corr_length);
+    p_new->setDomainSizes(domain_size_1, domain_size_2);
+    p_new->setIntegrationOverXi(true);
+    return p_new;
+}
+
+InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createHexagonal(
+        double peak_distance, double corr_length, double domain_size_1, double domain_size_2)
+{
+    InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(peak_distance, peak_distance, 2.0*M_PI/3.0, 0.0, corr_length);
+    p_new->setDomainSizes(domain_size_1, domain_size_2);
+    p_new->setIntegrationOverXi(true);
+    return p_new;
+}
 
 double InterferenceFunction2DParaCrystal::interferenceForXi(double xi) const
 {
-    double result = interference1D(m_qpar, xi, m_domain_size_1)*interference1D(m_qpar, xi + m_alpha_lattice, m_domain_size_2);
+    double result = interference1D(m_qx, m_qy, xi, 0)*interference1D(m_qx, m_qy, xi + m_alpha_lattice, 1);
     return result;
 }
 
-double InterferenceFunction2DParaCrystal::interference1D(double qpar,
-        double xi, double domain_size) const
+double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy, double xi, size_t index) const
 {
+    if (index > 1) {
+        throw OutOfBoundsException("Index of interference function probability must be < 2");
+    }
+    if (!m_pdfs[0] || !m_pdfs[1]) {
+        throw NullPointerException("Probability distributions for interference funtion not properly initialized");
+    }
     double result;
-    int n = (int)std::abs(domain_size/m_peak_distance);
+    int n = (int)std::abs(m_domain_sizes[index]/m_lattice_lengths[index]);
     double nd = (double)n;
-    complex_t fp = FTCauchyDistribution(qpar, xi);
+    complex_t fp = FTPDF(qx, qy, xi, index);
     if (n<1) {
         result = ((1.0 + fp)/(1.0 - fp)).real();
     }
@@ -76,7 +118,6 @@ double InterferenceFunction2DParaCrystal::interference1D(double qpar,
             else {
                 tmp = std::pow(fp,n-1);
             }
-            // TODO: remove factor 2.0 in second term
             double intermediate = ((1.0-1.0/nd)*fp/(1.0-fp) - fp*fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp)).real();
             result = 1.0 + 2.0*intermediate;
         }
@@ -84,13 +125,17 @@ double InterferenceFunction2DParaCrystal::interference1D(double qpar,
     return result;
 }
 
-complex_t InterferenceFunction2DParaCrystal::FTCauchyDistribution(double qpar, double xi) const
+complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy, double xi, size_t index) const
 {
-    complex_t phase = std::exp(complex_t(0.0, 1.0)*qpar*m_peak_distance*std::cos(xi));
-    double amplitude = std::pow(1.0+qpar*qpar*m_width*m_width, -1.5);
+    double qa = qx*m_lattice_lengths[index]*std::cos(xi) + qy*m_lattice_lengths[index]*std::sin(xi);
+    complex_t phase = std::exp(complex_t(0.0, 1.0)*qa);
+    // transform q to principal axes:
+    double qp1, qp2;
+    transformToPrincipalAxes(qx, qy, xi, M_PI/2, qp1, qp2);
+    double amplitude = m_pdfs[index]->evaluate(qp1, qp2);
     complex_t result = phase*amplitude;
     if (m_use_corr_length) {
-        result *= std::exp(-m_peak_distance/m_corr_length);
+        result *= std::exp(-m_lattice_lengths[index]/m_corr_length);
     }
     return result;
 }

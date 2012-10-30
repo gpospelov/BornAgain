@@ -26,6 +26,7 @@ SOURCES += \
     Algorithms/src/DWBADiffuseReflection.cpp \
     Algorithms/src/DWBASimulation.cpp \
     Algorithms/src/Experiment.cpp \
+    Algorithms/src/FTDistributions.cpp \
     Algorithms/src/GISASExperiment.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
@@ -126,6 +127,7 @@ HEADERS += \
     Algorithms/inc/DWBADiffuseReflection.h \
     Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/Experiment.h \
+    Algorithms/inc/FTDistributions.h \
     Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \

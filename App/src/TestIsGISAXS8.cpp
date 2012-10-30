@@ -1,4 +1,4 @@
-#include "TestIsGISAXS4.h"
+#include "TestIsGISAXS8.h"
 #include "IsGISAXSTools.h"
 #include "Units.h"
 #include "Utils.h"
@@ -10,12 +10,12 @@
 #include "TCanvas.h"
 #include <gsl/gsl_errno.h>
 
-TestIsGISAXS4::TestIsGISAXS4() : IFunctionalTest("TestIsGISAXS4")
+TestIsGISAXS8::TestIsGISAXS8() : IFunctionalTest("TestIsGISAXS8")
 {
-    m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-4/");
+    m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-8/");
 }
 
-void TestIsGISAXS4::execute()
+void TestIsGISAXS8::execute()
 {
     gsl_set_error_handler_off();
 
@@ -25,27 +25,27 @@ void TestIsGISAXS4::execute()
 
     MultiLayer *p_sample(0);
 
-    // 1DDL
-    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_1DDL"));
+    // 2DDL_lattice
+    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS8_2DDL_lattice"));
     experiment.setSample(*p_sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_1DDL.ima");
+    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDL_lattice.ima");
     delete p_sample;
 
-    // 2DDL
-    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_2DDL"));
+    // 2DDL_lattice with isotropic pdfs
+    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS8_2DDL_lattice2"));
     experiment.setSample(*p_sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDLh.ima");
+    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDL_lattice2.ima");
     delete p_sample;
 }
 
 
-void TestIsGISAXS4::finalise()
+void TestIsGISAXS8::finalise()
 {
     std::vector< CompareStruct > tocompare;
-    tocompare.push_back( CompareStruct("isgi_1DDL.ima",      "this_1DDL.ima",      "Cylinder 1DDL") );
-    tocompare.push_back( CompareStruct("isgi_2DDLh.ima",      "this_2DDLh.ima",      "Cylinder 2DDL") );
+    tocompare.push_back( CompareStruct("isgi_2DDL_lattice.ima",      "this_2DDL_lattice.ima",      "Cylinder 2DDL lattice") );
+    tocompare.push_back( CompareStruct("isgi_2DDL_lattice2.ima",      "this_2DDL_lattice2.ima",      "Cylinder 2DDL lattice with isotropic pdfs") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {
         OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].isginame );
@@ -60,16 +60,16 @@ void TestIsGISAXS4::finalise()
         IsGISAXSTools::setMinimum(1.);
         // our calculations
         c1->cd(1); gPad->SetLogz();
-        IsGISAXSTools::drawOutputDataInPad(*our_data, "CONT4 Z", "Our cylinder FF");
+        IsGISAXSTools::drawOutputDataInPad(*our_data, "CONT4 Z", "Our paracrystal lattice");
 
         // isgisaxs data
         c1->cd(2); gPad->SetLogz();
-        IsGISAXSTools::drawOutputDataInPad(*isgi_data, "CONT4 Z", "IsGisaxs mean FF");
+        IsGISAXSTools::drawOutputDataInPad(*isgi_data, "CONT4 Z", "IsGisaxs paracrystal lattice");
 
         // difference
         c1->cd(3);
-        IsGISAXSTools::setMinimum(-0.0001);
-        IsGISAXSTools::setMaximum(0.0001);
+        IsGISAXSTools::setMinimum(-1e-4);
+        IsGISAXSTools::setMaximum(1e-4);
         IsGISAXSTools::drawOutputDataRelativeDifference2D(*our_data, *isgi_data, "CONT4 Z", "2D Difference map");
 
         // difference

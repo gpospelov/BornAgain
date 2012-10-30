@@ -2,6 +2,7 @@
 #include "Exceptions.h"
 #include "Utils.h"
 #include <iomanip>
+#include <sstream>
 
 ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type) : m_fcn(0)
 {
@@ -20,18 +21,28 @@ ROOTMinimizer::~ROOTMinimizer()
 }
 
 
-void ROOTMinimizer::setVariable(int i, const FitParameter *par)
+void ROOTMinimizer::setVariable(int index, const FitParameter *par)
 {
-    if(par->hasLowerAndUpperLimits() ) {
-        m_root_minimizer->SetLimitedVariable(i, par->getName().c_str(), par->getValue(), par->getStep(), par->getLowerLimit(), par->getUpperLimit());
+    bool success;
+    if( par->isFixed() ) {
+        success=m_root_minimizer->SetFixedVariable(index, par->getName().c_str(), par->getValue());
+    }else if(par->hasLowerAndUpperLimits() ) {
+        success=m_root_minimizer->SetLimitedVariable(index, par->getName().c_str(), par->getValue(), par->getStep(), par->getLowerLimit(), par->getUpperLimit());
     } else if(par->hasLowerLimit() && !par->hasUpperLimit() ) {
-        m_root_minimizer->SetLowerLimitedVariable(i, par->getName().c_str(), par->getValue(), par->getStep(), par->getLowerLimit());
+        success=m_root_minimizer->SetLowerLimitedVariable(index, par->getName().c_str(), par->getValue(), par->getStep(), par->getLowerLimit());
     } else if( par->hasUpperLimit() && !par->hasLowerLimit() ) {
-        m_root_minimizer->SetUpperLimitedVariable(i, par->getName().c_str(), par->getValue(), par->getStep(), par->getUpperLimit());
-    } else if( !par->hasUpperLimit() && !par->hasLowerLimit() ) {
-        m_root_minimizer->SetVariable(i, par->getName().c_str(), par->getValue(), par->getStep());
+        success=m_root_minimizer->SetUpperLimitedVariable(index, par->getName().c_str(), par->getValue(), par->getStep(), par->getUpperLimit());
+    } else if( !par->hasUpperLimit() && !par->hasLowerLimit() && !par->isFixed() ) {
+        success=m_root_minimizer->SetVariable(index, par->getName().c_str(), par->getValue(), par->getStep());
     } else {
         throw LogicErrorException("ROOTMinimizer::setVariable() -> Strange place... I wish I knew how I got here.");
+    }
+    if( !success ) {
+        std::ostringstream ostr;
+        ostr << "ROOTMinimizer::setVariable() -> Error! Minimizer returned false while setting the variable." << std::endl;
+        ostr << "                                Probably attempt to use wrond index for given variable name" << std::endl;
+        ostr << "                                Index:" << index << " name '" << par->getName().c_str() << std::endl;
+        throw LogicErrorException(ostr.str());
     }
 }
 

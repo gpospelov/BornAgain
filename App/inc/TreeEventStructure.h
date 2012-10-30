@@ -69,14 +69,16 @@ public:
     void clear();
 
     int niter; // number of iteration
+    int nstrategy; // number of strategy
     std::vector<std::vector<double > > real_data; // real data
     std::vector<std::vector<double > > fit_data; // current fit iteration data
-    std::vector<std::vector<double > > diff; // chi2 difference between real and fit data
+    //std::vector<std::vector<double > > diff; // chi2 difference between real and fit data
     std::vector<std::vector<double > > axis0; // values of phi_f (made in 2D for convenient drawing)
     std::vector<std::vector<double > > axis1; // values of alpha_f (made in 2D for convenient drawing)
     double chi2; // current value of the function to minimize
     std::vector<double> parvalues; // vector of minimization parameters
     std::vector<std::string> parnames; // names of parameters
+    std::vector<bool> parfixed; // contains fixed flag for parameters
 
     ClassDef(TreeEventFitData,1)
 };

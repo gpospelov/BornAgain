@@ -65,14 +65,14 @@ void FitMultiParameter::addMatchedParametersFromPool(std::string wildcards, cons
 
 void FitMultiParameter::print(std::ostream &ostr) const
 {
-    ostr << "FitMultiParameter '" << getName() << "'" << " value:" << m_value << " collsize:" << m_parametercoll.size();
-    if(m_parametercoll.size() ) {
-        ostr << " addresses: ";
-        for(parametercoll_t::const_iterator it=m_parametercoll.begin(); it!=m_parametercoll.end(); it++) {
-            parameter_t par = (*it);
-            ostr << par << " ";
-        }
-    }
-    ostr << std::endl;
+    FitParameter::print(ostr);
+//    ostr << "FitMultiParameter '" << getName() << "'" << " value:" << m_value << " collsize:" << m_parametercoll.size();
+//    if(m_parametercoll.size() ) {
+//        ostr << " addresses: ";
+//        for(parametercoll_t::const_iterator it=m_parametercoll.begin(); it!=m_parametercoll.end(); it++) {
+//            parameter_t par = (*it);
+//            ostr << par << " ";
+//        }
+//    }
 }
 

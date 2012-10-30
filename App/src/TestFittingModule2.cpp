@@ -21,6 +21,7 @@
 #include "FitSuite.h"
 #include "ChiSquaredModule.h"
 #include "ROOTMinimizer.h"
+#include "FitSuiteStrategy.h"
 
 #include "TROOT.h"
 #include "TCanvas.h"
@@ -60,11 +61,30 @@ void TestFittingModule2::execute()
 
     // creating fit suite
     m_fitSuite = new FitSuite();
+
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",   12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.5, 0.01, AttLimits::limited(0.01, 0.99) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side",12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",    2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.2, 0.01, AttLimits::limited(0.01, 0.99));
+
+
+//    FitSuiteStrategyAdjustParameters *strategy1 = new FitSuiteStrategyAdjustParameters("strategy1");
+//    strategy1->fix_all().release("*SampleBuilder/m_cylinder_height").release("*SampleBuilder/m_cylinder_radius").release("*SampleBuilder/m_prism3_height").release("*SampleBuilder/m_prism3_half_side");
+//    m_fitSuite->addFitStrategy(strategy1);
+
+////    FitSuiteStrategyAdjustParameters *strategy2 = new FitSuiteStrategyAdjustParameters();
+////    strategy2->fix_all().release("*SampleBuilder/m_prism3_height").release("*SampleBuilder/m_prism3_half_side");
+////    m_fitSuite->addFitStrategy(strategy2);
+
+//    FitSuiteStrategyAdjustParameters *strategy2 = new FitSuiteStrategyAdjustParameters("strategy2");
+//    strategy2->fix_all().release("*SampleBuilder/m_cylinder_ratio");
+//    m_fitSuite->addFitStrategy(strategy2);
+
+//    FitSuiteStrategyAdjustParameters *strategy3 = new FitSuiteStrategyAdjustParameters("strategy3");
+//    strategy3->release_all();
+//    m_fitSuite->addFitStrategy(strategy3);
+
 
     initializeExperiment();
     generateRealData(0.1);
@@ -80,6 +100,7 @@ void TestFittingModule2::execute()
     m_fitSuite->setExperiment(mp_experiment);
     m_fitSuite->setRealData(*mp_real_data);
     m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
+
 
     m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
     m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
@@ -120,7 +141,7 @@ TestFittingModule2::TestSampleBuilder::TestSampleBuilder()
     , m_cylinder_radius(5.0*Units::nanometer)
     , m_prism3_half_side(5.0*Units::nanometer)
     , m_prism3_height(5.0*Units::nanometer)
-    , m_cylinder_ratio(0.5)
+    , m_cylinder_ratio(0.2)
 {
     init_parameters();
 }

@@ -82,10 +82,11 @@ void TestFittingModule1::execute()
     //fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
     //fitSuite->setMinimizer( new ROOTMinimizer("Genetic", "") );
     // tuning minimizer
-    //ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();
+    //ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
     //minim->SetTolerance(1000.0);
     //minim->SetMaxFunctionCalls(50); // for Minuit
     //minim->SetMaxIterations(50); // for GSL
+    //minim->SetPrintLevel(4);
 
     m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
     m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
@@ -162,8 +163,8 @@ void TestFittingModule1::initializeSample2()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(cylinder_height, cylinder_radius)),0.0, 0.5);
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(prism3_half_side, prism3_height)), 0.0, 0.5);
+    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(cylinder_height, cylinder_radius)),0.0, 0.2);
+    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(prism3_half_side, prism3_height)), 0.0, 0.8);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 

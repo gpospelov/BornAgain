@@ -45,13 +45,15 @@ TreeEventFitData::TreeEventFitData()
 void TreeEventFitData::clear()
 {
     niter = 0;
+    nstrategy;
     real_data.clear();
     fit_data.clear();
-    diff.clear();
+    //diff.clear();
     axis0.clear();
     axis1.clear();
     chi2=0;
     parvalues.clear();
     parnames.clear();
+    parfixed.clear();
 }
 

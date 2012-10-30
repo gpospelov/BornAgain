@@ -16,6 +16,8 @@
 
 
 #include <iomanip>
+#include <sstream>
+
 
 /* ************************************************************************* */
 // print results of fit iteration
@@ -29,14 +31,19 @@ void FitSuiteObserverPrint::update(IObservable *subject)
     std::cout << "FitSuiteObserverPrint::update() -> Info."
               << " NumberOfVariables:" << fitSuite->getMinimizer()->getNumberOfVariables()
               << " NCall:" << fitSuite->getNCall()
+              << " NStrategy:" << fitSuite->getNStrategy()
               << " Chi2:" << std::scientific << std::setprecision(8) << fitSuite->getChiSquaredModule()->getValue() << std::endl;
+    timeval call_time;
+    gettimeofday(&call_time, 0);
+    clock_t call_clock = clock();
+    double timediff = (call_time.tv_sec - m_last_call_time.tv_sec) + double(call_time.tv_usec - m_last_call_time.tv_usec)/1e+06;
+    std::cout << "Time spend since last call, cpu:" << std::fixed << std::setprecision(2) << double(call_clock-m_last_call_clock)/CLOCKS_PER_SEC << " " << "sec, wall time " << timediff << "sec" << std::endl;
+    m_last_call_clock = call_clock;
+    m_last_call_time = call_time;
 
     int npar(0);
     for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it, ++npar) {
-        std::cout << "   # "<< npar << " ";
-        std::cout << Utils::AdjustStringLength((*it)->getName(), 40)
-                  << " value:" << std::scientific << std::setprecision(8) << (*it)->getValue()
-                  << std::endl;
+        std::cout << "   # "<< npar << " " << (*(*it)) << std::endl;
     }
 
     if(fitSuite->isLastIteration()) {
@@ -92,18 +99,23 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     delete diff_map;
 
     c1->cd(5);
-    TPaveText *pt = new TPaveText(.05,.1,.95,.8);
-    char str[256];
-    sprintf(str,"Iteration %d", fitSuite->getNCall());
-    pt->AddText(str);
-    sprintf(str,"chi2 %e",fitSuite->getChiSquaredModule()->getValue());
-    pt->AddText(str);
-    //pt->AddLine(.0,.5,1.,.5);
+    delete m_ptext;
+    m_ptext = new TPaveText(.05,.1,.95,.8);
+    m_ptext->SetTextAlign(11);
+    std::ostringstream ostr;
+    ostr << "Iteration " << fitSuite->getNCall() << " strategy " << fitSuite->getNStrategy();
+    m_ptext->AddText(ostr.str().c_str());
+    ostr.str(""); ostr.clear();
+    ostr << "chi2 " << fitSuite->getChiSquaredModule()->getValue() << std::endl;
+    m_ptext->AddText(ostr.str().c_str());
+
     for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
-        sprintf(str,"%s %f", (*it)->getName().c_str(),  (*it)->getValue());
-        pt->AddText(str);
+        ostr.str(""); ostr.clear();
+        ostr << (*it)->getName() << " " << (*it)->getValue();
+        if( (*it)->isFixed() ) ostr << " (F)";
+        m_ptext->AddText(ostr.str().c_str());
     }
-    pt->Draw();
+    m_ptext->Draw();
 
     if(fitSuite->isLastIteration()) {
 //        TCanvas *c2 = new TCanvas("FitSuiteObserverDraw_c2", "FitSuiteObserverDraw_c2", 1024, 768);
@@ -160,9 +172,7 @@ OutputData<double > *FitSuiteObserverDraw::getDifferenceMap(const ChiSquaredModu
         norm += squared_difference;
         real_data->next(); simu_data->next();
     }
-    //norm *= real_data->getAllocatedSize();
-    difference->scaleAll(1./norm);
-//    std::cout << "XXX " << aaa/real_data->getAllocatedSize() << " " << chi_module->getValue() << std::endl;
+    //difference->scaleAll(1./norm);
 
     return difference;
 }
@@ -214,8 +224,10 @@ void FitSuiteObserverWriteTree::update(IObservable *subject)
     for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
         event->parvalues.push_back( (*it)->getValue() );
         event->parnames.push_back( (*it)->getName().c_str() );
+        event->parfixed.push_back( (*it)->isFixed() );
     }
     event->niter = fitSuite->getNCall();
+    event->nstrategy = fitSuite->getNStrategy();
 
     // appending data to the tree
     tree->Fill();

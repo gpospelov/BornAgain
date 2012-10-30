@@ -3,7 +3,7 @@
 ###########################################
 
 # Base filename
-paracrystal_cut
+isgi_2DDL_lattice2
 ############################  Framework and beam  parameters ############################################
 # Framework   Diffuse,  Multilayer, Number of index slices, Polarization 
    DWBA         LMA          0             25               ss 
@@ -21,7 +21,7 @@ paracrystal_cut
 # Ewald mode
   T
 # Output angle (deg) :   Two theta min-max, Alphaf min-max,  n(1),   n(2)				
-                             0.1     2.1     0  0.2           300      1
+                             0.     2         0.    2           100      100
 # Output q(nm-1) :  Qx min-max, Qy min-max, Qz min-max,  n(1), n(2), n(3)
                      -1  1      -1   1      -2   0         200   200    1
 ##################################   Particle parameters #################################################

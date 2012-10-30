@@ -27,19 +27,17 @@ void TestIsGISAXS8::execute()
 
     // 2DDL_lattice
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS8_2DDL_lattice"));
-//    ParameterPool *p_pool = p_sample->createParameterTree();
-//    std::cout << (*p_pool);
     experiment.setSample(*p_sample);
     experiment.runSimulation();
     IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDL_lattice.ima");
     delete p_sample;
 
-    // 2DDL
-//    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_2DDL"));
-//    experiment.setSample(*p_sample);
-//    experiment.runSimulation();
-//    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDLh.ima");
-//    delete p_sample;
+    // 2DDL_lattice with isotropic pdfs
+    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS8_2DDL_lattice2"));
+    experiment.setSample(*p_sample);
+    experiment.runSimulation();
+    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDL_lattice2.ima");
+    delete p_sample;
 }
 
 
@@ -47,7 +45,7 @@ void TestIsGISAXS8::finalise()
 {
     std::vector< CompareStruct > tocompare;
     tocompare.push_back( CompareStruct("isgi_2DDL_lattice.ima",      "this_2DDL_lattice.ima",      "Cylinder 2DDL lattice") );
-//    tocompare.push_back( CompareStruct("isgi_2DDLh.ima",      "this_2DDLh.ima",      "Cylinder 2DDL") );
+    tocompare.push_back( CompareStruct("isgi_2DDL_lattice2.ima",      "this_2DDL_lattice2.ima",      "Cylinder 2DDL lattice with isotropic pdfs") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {
         OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].isginame );
@@ -70,8 +68,8 @@ void TestIsGISAXS8::finalise()
 
         // difference
         c1->cd(3);
-        IsGISAXSTools::setMinimum(-0.0001);
-        IsGISAXSTools::setMaximum(0.0001);
+        IsGISAXSTools::setMinimum(-1e-4);
+        IsGISAXSTools::setMaximum(1e-4);
         IsGISAXSTools::drawOutputDataRelativeDifference2D(*our_data, *isgi_data, "CONT4 Z", "2D Difference map");
 
         // difference

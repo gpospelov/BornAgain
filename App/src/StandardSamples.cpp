@@ -456,11 +456,10 @@ ISample *StandardSamples::IsGISAXS8_2DDL_lattice()
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    InterferenceFunction2DParaCrystal *p_interference_function = new InterferenceFunction2DParaCrystal(10.0*Units::nanometer, 10.0*Units::nanometer, M_PI/2.0,
-            0.0, 1e7*Units::nanometer);
+    InterferenceFunction2DParaCrystal *p_interference_function = new InterferenceFunction2DParaCrystal(10.0*Units::nanometer, 10.0*Units::nanometer, M_PI/2.0, 0.0, 0.0);
     p_interference_function->setDomainSizes(20.0*Units::micrometer, 20.0*Units::micrometer);
     FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 2.0*Units::nanometer);
-    FTDistribution2DCauchy pdf2(2.0*Units::nanometer, 0.5*Units::nanometer);
+    FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 2.0*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf1, pdf2);
     ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
@@ -471,29 +470,32 @@ ISample *StandardSamples::IsGISAXS8_2DDL_lattice()
     return p_multi_layer;
 }
 
-// IsGISAXS8 functional test:
-//ISample *StandardSamples::IsGISAXS4_2DDL()
-//{
-//    MultiLayer *p_multi_layer = new MultiLayer();
-//    complex_t n_air(1.0, 0.0);
-//    complex_t n_substrate(1.0-6e-6, 2e-8);
-//    complex_t n_particle(1.0-6e-4, 2e-8);
-//    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-//    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
-//    Layer air_layer;
-//    air_layer.setMaterial(p_air_material);
-//    Layer substrate_layer;
-//    substrate_layer.setMaterial(p_substrate_material);
-//    IInterferenceFunction *p_interference_function = InterferenceFunction2DParaCrystal::createHexagonal(20.0*Units::nanometer,1.0*Units::nanometer, 0.0,
-//            20.0*Units::micrometer, 20.0*Units::micrometer);
-//    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-//    particle_decoration.addInterferenceFunction(p_interference_function);
-//    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-//
-//    p_multi_layer->addLayer(air_layer_decorator);
-//    p_multi_layer->addLayer(substrate_layer);
-//    return p_multi_layer;
-//}
+// IsGISAXS8 functional test: 2D paracrystal lattice with isotropic pdfs
+ISample *StandardSamples::IsGISAXS8_2DDL_lattice2()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    InterferenceFunction2DParaCrystal *p_interference_function = new InterferenceFunction2DParaCrystal(10.0*Units::nanometer, 10.0*Units::nanometer, M_PI/2.0, 0.0, 0.0);
+    p_interference_function->setDomainSizes(20.0*Units::micrometer, 20.0*Units::micrometer);
+    FTDistribution2DCauchy pdf1(0.5*Units::nanometer, 0.5*Units::nanometer);
+    FTDistribution2DCauchy pdf2(0.5*Units::nanometer, 0.5*Units::nanometer);
+    p_interference_function->setProbabilityDistributions(pdf1, pdf2);
+    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
 
 /* ************************************************************************* */
 // IsGISAXS9 functional test: pyramid

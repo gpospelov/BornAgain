@@ -143,7 +143,7 @@ void FitSuite::runFit()
     } else {
         // round several minimization rounds as defined in concrete strategies
         for(fitstrategies_t::iterator it = m_fit_strategies.begin(); it!= m_fit_strategies.end(); ++it) {
-            std::cout << "FitSuite::runFit() -> Info. Running strategy '" << (*it)->getName() << "'" << std::endl;
+            std::cout << "FitSuite::runFit() -> Info. Running strategy #" << m_n_strategy << " '" << (*it)->getName() << "'" << std::endl;
             (*it)->execute();
             m_n_strategy++;
         }

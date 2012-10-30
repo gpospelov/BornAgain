@@ -100,6 +100,7 @@ void GISASExperiment::normalize()
     }
 }
 
+// TODO : refactor to the detector object
 void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
                                             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {

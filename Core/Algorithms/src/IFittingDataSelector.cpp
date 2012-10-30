@@ -9,7 +9,7 @@ void DefaultAllDataSelector::getFittingData(const OutputData<double>& real_data,
 {
     size_t data_size = real_data.getAllocatedSize();
     if (simulated_data.getAllocatedSize()!=data_size) {
-        throw RuntimeErrorException("Size of simulated data should equal size of real data.");
+        throw RuntimeErrorException("Size of simulated data should be equal to the size of real data.");
     }
     real_data_vector.resize(data_size);
     simulated_data_vector.resize(data_size);

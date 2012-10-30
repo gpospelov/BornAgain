@@ -164,7 +164,7 @@ void TestFittingModule1::initializeSample2()
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration;
     particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(cylinder_height, cylinder_radius)),0.0, 0.2);
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(prism3_half_side, prism3_height)), 0.0, 0.8);
+    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(prism3_height, prism3_half_side)), 0.0, 0.8);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 

@@ -26,6 +26,8 @@ public:
     ChiSquaredModule(const OutputData<double> &real_data);
     virtual ~ChiSquaredModule();
 
+    void setRealData(const OutputData<double> &real_data);
+
     void setSimulationData(const OutputData<double> &simulation_data);
 
     void setFittingDataSelector(const IFittingDataSelector &selector);

@@ -7,6 +7,7 @@
 ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type) : m_fcn(0)
 {
     m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name.c_str(), algo_type.c_str() );
+    m_root_minimizer->SetMaxFunctionCalls(5000);
     printOptions();
     if( m_root_minimizer == 0 ) {
         throw NullPointerException("ROOTMinimizer::ROOTMinimizer() -> Error! Can't build minimizer");
@@ -40,7 +41,7 @@ void ROOTMinimizer::setVariable(int index, const FitParameter *par)
     if( !success ) {
         std::ostringstream ostr;
         ostr << "ROOTMinimizer::setVariable() -> Error! Minimizer returned false while setting the variable." << std::endl;
-        ostr << "                                Probably attempt to use wrond index for given variable name" << std::endl;
+        ostr << "                                Probably given index has been already used for another variable name." << std::endl;
         ostr << "                                Index:" << index << " name '" << par->getName().c_str() << std::endl;
         throw LogicErrorException(ostr.str());
     }

@@ -76,13 +76,13 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     gPad->SetLogz();
     gPad->SetLeftMargin(0.12);
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::drawOutputDataInPad(*fitSuite->getChiSquaredModule()->getRealData(), "CONT4 Z", "Real data");
+    IsGISAXSTools::drawOutputDataInPad(*fitSuite->getChiSquaredModule()->getRealData(), "colz", "Real data");
     // drawing simulated data
     c1->cd(2);
     gPad->SetLogz();
     gPad->SetLeftMargin(0.12);
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::drawOutputDataInPad(*fitSuite->getChiSquaredModule()->getSimulationData(), "CONT4 Z", "current simulated data");
+    IsGISAXSTools::drawOutputDataInPad(*fitSuite->getChiSquaredModule()->getSimulationData(), "colz", "current simulated data");
     // simple difference
     c1->cd(3);
     gPad->SetLogz();

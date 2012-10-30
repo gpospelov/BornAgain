@@ -44,9 +44,35 @@ protected:
 
 
 //- -------------------------------------------------------------------
+//! @class FitSuiteStrategyDefault
+//! @brief Default fit strategy just let FitSuite to run it's minimization round
+//- -------------------------------------------------------------------
+class FitSuiteStrategyDefault : public IFitSuiteStrategy
+{
+public:
+    FitSuiteStrategyDefault() : IFitSuiteStrategy("FitSuiteStrategyDefault") { }
+    virtual void execute();
+};
+
+
+//- -------------------------------------------------------------------
+//! @class FitSuiteStrategyAdjustData
+//! @brief Strategy modifies data before running minimizing round
+//- -------------------------------------------------------------------
+class FitSuiteStrategyAdjustData : public IFitSuiteStrategy
+{
+public:
+    FitSuiteStrategyAdjustData(int power_of_two = 1) : IFitSuiteStrategy("FitSuiteStrategyAdjustData"), m_power_of_two(power_of_two) { }
+    virtual void execute();
+private:
+    size_t m_power_of_two;
+};
+
+
+
+//- -------------------------------------------------------------------
 //! @class FitSuiteStrategyAdjustParameters
-//! @brief Strategy which fix/release defined list of fit parameters and
-//! then call minimizer
+//! @brief Strategy which fixes/releases fit parameters and call minimizer
 //- -------------------------------------------------------------------
 class FitSuiteStrategyAdjustParameters : public IFitSuiteStrategy
 {

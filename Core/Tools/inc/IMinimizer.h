@@ -50,6 +50,9 @@ public:
     //! return pointer to the parameters values at the minimum
     virtual double getErrorOfVariable(size_t i) const = 0;
 
+    //! clear resources (parameters) for consecutives minimizations
+    virtual void clear() = 0;
+
     //! print fit results
     virtual void printResults() const = 0;
 

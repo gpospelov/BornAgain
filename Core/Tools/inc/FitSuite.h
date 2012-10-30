@@ -46,6 +46,7 @@ public:
 
     //! set experiment
     void setExperiment(Experiment *experiment) { m_experiment = experiment; }
+    Experiment *getExperiment() { return m_experiment; }
 
     //! set minimizer
     void setMinimizer(IMinimizer *minimizer) { m_minimizer = minimizer; }

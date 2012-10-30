@@ -62,6 +62,9 @@ public:
     //! printing results
     virtual void printResults() const;
 
+    //! clear resources (parameters) for consecutives minimizations
+    virtual void clear() { m_root_minimizer->Clear(); }
+
     //! printing minimizer description
     virtual void printOptions() const;
 

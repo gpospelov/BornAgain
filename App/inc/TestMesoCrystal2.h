@@ -28,7 +28,7 @@ class Lattice;
 
 //- -------------------------------------------------------------------
 //! @class TestMesoCrystal2
-//! @brief Simulation of 3D ordered particle assemblies
+//! @brief Simulation and fit of 3D ordered particle assemblies
 //- -------------------------------------------------------------------
 class TestMesoCrystal2 : public IFunctionalTest
 {

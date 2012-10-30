@@ -14,6 +14,8 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   05.10.2012
 
+#include <iostream>
+#include <iomanip>
 
 //- -------------------------------------------------------------------
 //! @class Limits
@@ -46,13 +48,15 @@ public:
     //! if has lower and upper limit
     virtual bool hasLowerAndUpperLimits() const { return (m_has_lower_limit && m_has_upper_limit); }
 
+    //! set object fixed
+    virtual void setFixed(bool is_fixed) { m_is_fixed = is_fixed; }
     //! if object is fixed at some value
     virtual bool isFixed() const { return m_is_fixed; }
 
     //! set lower and upper limits
     virtual void setLimits(double xmin, double xmax) { setLowerLimit(xmin); setUpperLimit(xmax); }
     //! remove limits
-    virtual void removeLimits() { removeLowerLimit(); removeUpperLimit(); m_is_fixed = false; }
+    virtual void removeLimits() { removeLowerLimit(); removeUpperLimit(); }
 
 
     // ---------
@@ -73,6 +77,9 @@ public:
     //! create a fixed value object
     static AttLimits fixed() { return AttLimits(false, false, true, 0.0, 0.0); }
 
+    //! print class
+    friend std::ostream &operator<<(std::ostream &ostr, const AttLimits &m) { m.print(ostr); return ostr; }
+
 protected:
     AttLimits(bool has_lower_limit, bool has_upper_limit, bool is_fixed, double lower_limit, double upper_limit)
         : m_has_lower_limit(has_lower_limit)
@@ -86,6 +93,24 @@ protected:
     bool   m_is_fixed; //! parameter is fixed
     double m_lower_limit; //! minimum allowed value
     double m_upper_limit; //! maximum allowed value
+
+    //! print class
+    void print(std::ostream &ostr) const
+    {
+        if(isFixed()) {
+            ostr << "fixed";
+        }else if(!hasLowerLimit() && !hasUpperLimit() ) {
+            ostr << "free";
+        } else if(hasLowerLimit() && !hasUpperLimit()) {
+            ostr << "lim("  << std::fixed <<std::setprecision(2) << m_lower_limit << ",)";
+        }else if(hasUpperLimit() && !hasLowerLimit()) {
+            ostr << "lim(," << std::fixed <<std::setprecision(2) << m_upper_limit << ",)";
+        }else if(hasLowerAndUpperLimits()) {
+            ostr << "lim(" << std::fixed <<std::setprecision(2) << m_lower_limit << "," << std::fixed <<std::setprecision(2) << m_upper_limit << ")";
+
+        }
+    }
+
 
 };
 

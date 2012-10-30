@@ -13,7 +13,7 @@ ProgramOptions::ProgramOptions() : m_options_is_consistent(false)
 
 
 /* ************************************************************************* */
-// access to variables
+// access  variables
 /* ************************************************************************* */
 const bpo::variable_value& ProgramOptions::operator[] (const std::string &s)
 {

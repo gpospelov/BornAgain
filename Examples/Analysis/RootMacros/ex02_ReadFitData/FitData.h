@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Wed Oct 10 15:14:35 2012 by ROOT version 5.34/01
+// Mon Oct 29 10:32:10 2012 by ROOT version 5.34/02
 // from TTree FitSuiteTree/Oh, my data
 // found on file: ../../../../fitsuite.root
 //////////////////////////////////////////////////////////
@@ -16,6 +16,10 @@
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
+#include <vector>
+#include <string>
+using namespace std;
+
 class FitData {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
@@ -30,7 +34,7 @@ public :
    vector<vector<double> > axis0;
    vector<vector<double> > axis1;
    Double_t        chi2;
-   vector<double>  params;
+   vector<double>  parvalues;
    vector<string>  parnames;
 
    // List of branches
@@ -41,7 +45,7 @@ public :
    TBranch        *b_Event_axis0;   //!
    TBranch        *b_Event_axis1;   //!
    TBranch        *b_Event_chi2;   //!
-   TBranch        *b_Event_params;   //!
+   TBranch        *b_Event_parvalues;   //!
    TBranch        *b_Event_parnames;   //!
 
    FitData(TTree *tree=0);
@@ -121,7 +125,7 @@ void FitData::Init(TTree *tree)
    fChain->SetBranchAddress("axis0", &axis0, &b_Event_axis0);
    fChain->SetBranchAddress("axis1", &axis1, &b_Event_axis1);
    fChain->SetBranchAddress("chi2", &chi2, &b_Event_chi2);
-   fChain->SetBranchAddress("params", &params, &b_Event_params);
+   fChain->SetBranchAddress("parvalues", &parvalues, &b_Event_parvalues);
    fChain->SetBranchAddress("parnames", &parnames, &b_Event_parnames);
    Notify();
 }
@@ -149,6 +153,7 @@ Int_t FitData::Cut(Long64_t entry)
 // This function may be called from Loop.
 // returns  1 if entry is accepted.
 // returns -1 otherwise.
+   (void)entry;
    return 1;
 }
 #endif // #ifdef FitData_cxx

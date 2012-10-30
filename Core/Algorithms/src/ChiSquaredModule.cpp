@@ -17,6 +17,13 @@ ChiSquaredModule::~ChiSquaredModule()
     delete mp_squared_function;
 }
 
+void ChiSquaredModule::setRealData(
+        const OutputData<double>& real_data)
+{
+    delete mp_real_data;
+    mp_real_data = real_data.clone();
+}
+
 void ChiSquaredModule::setSimulationData(
         const OutputData<double>& simulation_data)
 {

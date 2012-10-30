@@ -20,6 +20,11 @@
 #include "ChiSquaredModule.h"
 #include <string>
 #include <vector>
+#include <time.h>
+#include <sys/time.h>
+
+
+class TPaveText;
 
 //- -------------------------------------------------------------------
 //! @class FitSuiteObserverPrint
@@ -28,8 +33,12 @@
 class FitSuiteObserverPrint : public IObserver
 {
 public:
-    FitSuiteObserverPrint() { }
+    FitSuiteObserverPrint() : m_last_call_clock(clock()), m_last_call_time() { gettimeofday(&m_last_call_time, 0); }
     void update(IObservable *subject);
+private:
+    double m_wall_time;
+    clock_t m_last_call_clock;
+    timeval m_last_call_time;
 };
 
 
@@ -40,7 +49,7 @@ public:
 class FitSuiteObserverDraw : public IObserver
 {
 public:
-    FitSuiteObserverDraw( const std::string &canvas_name = std::string("FitSuiteObserverDraw_c1") ) : m_canvas_name(canvas_name) , m_draw_every_nth(10) {}
+    FitSuiteObserverDraw( const std::string &canvas_name = std::string("FitSuiteObserverDraw_c1") ) : m_canvas_name(canvas_name) , m_draw_every_nth(10), m_ptext(0) {}
     void update(IObservable *subject);
 
     //! return output data which contains chi2 values from ChisSquaredModule of FitSuite
@@ -48,6 +57,7 @@ public:
 private:
     std::string m_canvas_name; //! canvas name were to draw
     int m_draw_every_nth;
+    TPaveText *m_ptext;
 };
 
 

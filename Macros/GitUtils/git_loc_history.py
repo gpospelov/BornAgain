@@ -51,7 +51,7 @@ if extfolder:
 # parsing output of git log 
 wrong_ppp_file=False
 wrong_mmm_file=False
-for x in popen('git log master --reverse -p'):
+for x in popen('git log develop --reverse -p'):
     if x.startswith('commit'):
         pop()
         hsh=x[7:14];

@@ -21,6 +21,7 @@
 #include "FitSuite.h"
 #include "ChiSquaredModule.h"
 #include "ROOTMinimizer.h"
+#include "FitSuiteStrategy.h"
 
 #include "TROOT.h"
 #include "TCanvas.h"
@@ -60,11 +61,37 @@ void TestFittingModule2::execute()
 
     // creating fit suite
     m_fitSuite = new FitSuite();
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",   12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.5, 0.01, AttLimits::limited(0.01, 0.99) );
+
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(1) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",  2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(1) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(1) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",    2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(1) );
+
+    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",  12*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1,15) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",  2*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1,15) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1,15) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",    2*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1,15) );
+
+    //m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.5, 0.1, AttLimits::limited(0.1, 0.9));
+    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.2, 0.1, AttLimits::fixed());
+
+//    FitSuiteStrategyAdjustParameters *strategy0 = new FitSuiteStrategyAdjustParameters("strategy0");
+//    strategy0->fix_all().release("*SampleBuilder/m_cylinder_ratio");
+//    m_fitSuite->addFitStrategy(strategy0);
+
+//    FitSuiteStrategyAdjustParameters *strategy1 = new FitSuiteStrategyAdjustParameters("strategy1");
+//    strategy1->release_all().fix("*SampleBuilder/m_cylinder_ratio");
+//    m_fitSuite->addFitStrategy(strategy1);
+
+//    FitSuiteStrategyAdjustParameters *strategy2 = new FitSuiteStrategyAdjustParameters("strategy2");
+//    strategy2->release_all();
+//    m_fitSuite->addFitStrategy(strategy2);
+
+
+//    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(3));
+//    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(2));
+//    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(1));
+//    m_fitSuite->addFitStrategy(new FitSuiteStrategyDefault());
 
     initializeExperiment();
     generateRealData(0.1);
@@ -79,7 +106,16 @@ void TestFittingModule2::execute()
     // setting up fitSuite
     m_fitSuite->setExperiment(mp_experiment);
     m_fitSuite->setRealData(*mp_real_data);
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Minimize") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") ); //doesn't work, Fumili wants special function with derivative
+    //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "ConjugateFR") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "BFGS") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "SteepestDescent") );
+    m_fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
+    //fitSuite->setMinimizer( new ROOTMinimizer("Genetic", "") );
+
 
     m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
     m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
@@ -120,10 +156,11 @@ TestFittingModule2::TestSampleBuilder::TestSampleBuilder()
     , m_cylinder_radius(5.0*Units::nanometer)
     , m_prism3_half_side(5.0*Units::nanometer)
     , m_prism3_height(5.0*Units::nanometer)
-    , m_cylinder_ratio(0.5)
+    , m_cylinder_ratio(0.2)
 {
     init_parameters();
 }
+
 
 ISample *TestFittingModule2::TestSampleBuilder::buildSample() const
 {
@@ -139,7 +176,7 @@ ISample *TestFittingModule2::TestSampleBuilder::buildSample() const
     substrate_layer.setMaterial(p_substrate_material);
     ParticleDecoration particle_decoration;
     particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)),0.0, m_cylinder_ratio);
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(m_prism3_half_side, m_prism3_height)), 0.0, 1.0 - m_cylinder_ratio);
+    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(m_prism3_height, m_prism3_half_side)), 0.0, 1.0 - m_cylinder_ratio);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
@@ -183,4 +220,5 @@ void TestFittingModule2::generateRealData(double noise_factor)
     }
 
 }
+
 

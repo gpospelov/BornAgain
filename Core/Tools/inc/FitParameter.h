@@ -30,8 +30,6 @@ public:
     FitParameter();
     FitParameter(const AttLimits &limits);
     FitParameter(const std::string &name, double value, double step=0.0, const AttLimits &limits=AttLimits::limitless());
-//    FitParameter(const FitParameter &other);
-//    FitParameter &operator=(const FitParameter &other);
     virtual ~FitParameter(){}
 
     //! set value of parameter
@@ -43,6 +41,11 @@ public:
     virtual void setStep(double value) { m_step = value; }
     //! get parameter step for minimizer
     virtual double getStep() const { return m_step;}
+
+    //! set parameter error
+    virtual void setError(double value) { m_error = value; }
+    //! get parameter step for minimizer
+    virtual double getError() const { return m_error;}
 
     //! print class
     friend std::ostream &operator<<(std::ostream &ostr, const FitParameter &m) { m.print(ostr); return ostr; }

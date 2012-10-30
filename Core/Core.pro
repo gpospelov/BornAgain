@@ -113,7 +113,8 @@ SOURCES += \
     PythonAPI/src/PythonListConverter.cpp \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp \
-    PythonAPI/src/PythonOutputData.cpp
+    PythonAPI/src/PythonOutputData.cpp \
+    Tools/src/FitSuiteStrategy.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -246,7 +247,8 @@ HEADERS += \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h \
     PythonAPI/inc/IPythonWrapper.h \
-    Tools/inc/AttLimits.h
+    Tools/inc/AttLimits.h \
+    Tools/inc/FitSuiteStrategy.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

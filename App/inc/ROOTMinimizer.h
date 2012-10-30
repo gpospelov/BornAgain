@@ -34,7 +34,7 @@ public:
     ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type);
     virtual ~ROOTMinimizer();
 
-    virtual void setVariable(int i, const FitParameter *par) ;
+    virtual void setVariable(int index, const FitParameter *par) ;
     virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1);
     virtual void minimize();
 
@@ -61,6 +61,9 @@ public:
 
     //! printing results
     virtual void printResults() const;
+
+    //! clear resources (parameters) for consecutives minimizations
+    virtual void clear() { m_root_minimizer->Clear(); }
 
     //! printing minimizer description
     virtual void printOptions() const;

@@ -49,14 +49,17 @@ private:
 class FitSuiteObserverDraw : public IObserver
 {
 public:
-    FitSuiteObserverDraw( const std::string &canvas_name = std::string("FitSuiteObserverDraw_c1") ) : m_canvas_name(canvas_name) , m_draw_every_nth(10), m_ptext(0) {}
+    FitSuiteObserverDraw( int draw_every_nth = 20, const std::string &canvas_name = std::string("FitSuiteObserverDraw_c1") ) : m_draw_every_nth(draw_every_nth), m_canvas_name(canvas_name) , m_ptext(0) {}
     void update(IObservable *subject);
 
+    //! return output data which contains relative difference between simulation and real data
+    OutputData<double > *getRelativeDifferenceMap(const ChiSquaredModule *chi_module);
+
     //! return output data which contains chi2 values from ChisSquaredModule of FitSuite
-    OutputData<double > *getDifferenceMap(const ChiSquaredModule *chi_module);
+    OutputData<double > *getChi2DifferenceMap(const ChiSquaredModule *chi_module);
 private:
+    int m_draw_every_nth; //! update canvas every nth iteration
     std::string m_canvas_name; //! canvas name were to draw
-    int m_draw_every_nth;
     TPaveText *m_ptext;
 };
 

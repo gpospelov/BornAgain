@@ -22,7 +22,7 @@ void FitSuiteStrategyDefault::execute()
 
 
 /* ************************************************************************* */
-// Default fit strategy just let FitSuite to run it's minimization round
+// adjust data before running fit suite minimization round
 /* ************************************************************************* */
 void FitSuiteStrategyAdjustData::execute()
 {

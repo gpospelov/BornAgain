@@ -62,15 +62,15 @@ void TestFittingModule2::execute()
     // creating fit suite
     m_fitSuite = new FitSuite();
 
-//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(1) );
-//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",  2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(1) );
-//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(1) );
-//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",    2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(1) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",  2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",    2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",  12*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1,15) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",  2*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1,15) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1,15) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",    2*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1,15) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",  12*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1,15) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",  2*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1,15) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1,15) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",    2*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1,15) );
 
     //m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.5, 0.1, AttLimits::limited(0.1, 0.9));
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.2, 0.1, AttLimits::fixed());
@@ -106,15 +106,24 @@ void TestFittingModule2::execute()
     // setting up fitSuite
     m_fitSuite->setExperiment(mp_experiment);
     m_fitSuite->setRealData(*mp_real_data);
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Minimize") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") ); //doesn't work, Fumili wants special function with derivative
-    //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "ConjugateFR") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "BFGS") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "SteepestDescent") );
-    m_fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("Genetic", "") );
+    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Simplex") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Minimize") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") ); //doesn't work, Fumili wants special function with derivative
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "ConjugateFR") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "BFGS") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "SteepestDescent") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Genetic", "") );
+    // tuning minimizer
+    //ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
+    //minim->SetPrecision(0.00001);
+    //minim->SetTolerance(0.00001);
+    //minim->SetStrategy(2);
+    //minim->SetMaxFunctionCalls(50); // for Minuit
+    //minim->SetMaxIterations(50); // for GSL
+    //minim->SetPrintLevel(4);
 
 
     m_fitSuite->attachObserver( new FitSuiteObserverPrint() );

@@ -88,15 +88,20 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     gPad->SetLogz();
     gPad->SetLeftMargin(0.12);
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::drawOutputDataRelativeDifference2D(*fitSuite->getChiSquaredModule()->getSimulationData(), *fitSuite->getChiSquaredModule()->getRealData(), "COLZ", "relative difference");
+    //IsGISAXSTools::drawOutputDataRelativeDifference2D(*fitSuite->getChiSquaredModule()->getSimulationData(), *fitSuite->getChiSquaredModule()->getRealData(), "COLZ", "relative difference");
+    OutputData<double > *diff_map_relative = getRelativeDifferenceMap(fitSuite->getChiSquaredModule());
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::drawOutputDataInPad(*diff_map_relative, "COLZ", "relative difference map");
+    delete diff_map_relative;
+
     // chi2 difference
     c1->cd(4);
     gPad->SetLogz();
     gPad->SetLeftMargin(0.12);
-    OutputData<double > *diff_map = getDifferenceMap(fitSuite->getChiSquaredModule());
+    OutputData<double > *diff_map_chi2 = getChi2DifferenceMap(fitSuite->getChiSquaredModule());
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::drawOutputDataInPad(*diff_map, "COLZ", "chi2 difference map");
-    delete diff_map;
+    IsGISAXSTools::drawOutputDataInPad(*diff_map_chi2, "COLZ", "chi2 difference map");
+    delete diff_map_chi2;
 
     c1->cd(5);
     delete m_ptext;
@@ -148,8 +153,34 @@ void FitSuiteObserverDraw::update(IObservable *subject)
 
 }
 
+
+// return output data which contains relative difference between simulation and real data
+OutputData<double > *FitSuiteObserverDraw::getRelativeDifferenceMap(const ChiSquaredModule *chi_module)
+{
+    const OutputData<double> *simu_data = chi_module->getSimulationData();
+    const OutputData<double> *real_data = chi_module->getRealData();
+
+    OutputData<double > *difference_map = simu_data->clone();
+    difference_map->setAllTo(0.0);
+
+    simu_data->resetIndex();
+    real_data->resetIndex();
+    difference_map->resetIndex();
+    while (real_data->hasNext()) {
+        double value_simu = simu_data->currentValue();
+        double value_real = real_data->currentValue();
+        double value_diff(0);
+        if( value_real > 0) value_diff = std::abs(value_real - value_simu)/value_real;
+        difference_map->next() = value_diff;
+        real_data->next(); simu_data->next();
+    }
+
+    return difference_map;
+}
+
+
 // return output data which contains chi2 values from ChisSquaredModule of FitSuite
-OutputData<double > *FitSuiteObserverDraw::getDifferenceMap(const ChiSquaredModule *chi_module)
+OutputData<double > *FitSuiteObserverDraw::getChi2DifferenceMap(const ChiSquaredModule *chi_module)
 {
    const ISquaredFunction *squared_function = chi_module->getSquaredFunction();
 

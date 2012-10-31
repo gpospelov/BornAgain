@@ -38,17 +38,36 @@ public:
     virtual double calculateSquaredDifference(double real_value, double simulated_value) const;
 };
 
+//inline double DefaultSquaredFunction::calculateSquaredDifference(
+//        double real_value, double simulated_value) const
+//{
+//    double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
+//    if (diff_squared < Numeric::double_epsilon) {
+//        return 0.0;
+//    }
+////    double normalization = std::max(std::abs(real_value), 1.0);
+//    double normalization = 1.0;
+//    return diff_squared/normalization;
+//}
+
+
 inline double DefaultSquaredFunction::calculateSquaredDifference(
         double real_value, double simulated_value) const
 {
+//    real_value = std::max(real_value, 1.0);
+//    simulated_value = std::max(simulated_value, 1.0);
     double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
     if (diff_squared < Numeric::double_epsilon) {
         return 0.0;
     }
-//    double normalization = std::max(std::abs(real_value), 1.0);
-//    double normalization = std::max(std::sqrt(std::abs(real_value)), Numeric::double_epsilon);
-    double normalization = 1.0;
+    double sigma1 = std::max(real_value,1.0);
+    double sigma2 = std::max(simulated_value,1.0);
+    double sigma = std::sqrt(sigma1*sigma1 + sigma2*sigma2);
+    double normalization = sigma;
     return diff_squared/normalization;
 }
+
+
+
 
 #endif /* ISQUAREDFUNCTION_H_ */

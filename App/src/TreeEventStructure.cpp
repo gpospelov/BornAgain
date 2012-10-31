@@ -45,7 +45,7 @@ TreeEventFitData::TreeEventFitData()
 void TreeEventFitData::clear()
 {
     niter = 0;
-    nstrategy;
+    nstrategy = 0;
     real_data.clear();
     fit_data.clear();
     //diff.clear();

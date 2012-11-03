@@ -107,6 +107,8 @@ void FitSuite::init_fit_parameters()
 /* ************************************************************************* */
 void FitSuite::minimize()
 {
+    if( !m_minimizer ) throw NullPointerException("FitSuite::runFit() -> Error! Minimizer is missed.");
+
     // propagating fit parameters to the minimizer
     int index(0);
     for(fitparameters_t::iterator it = m_fit_params.begin(); it!= m_fit_params.end(); ++it) {
@@ -124,7 +126,6 @@ void FitSuite::minimize()
 void FitSuite::runFit()
 {
     if( !m_experiment ) throw NullPointerException("FitSuite::runFit() -> Error! Experiment is missed.");
-    if( !m_minimizer ) throw NullPointerException("FitSuite::runFit() -> Error! Minimizer is missed.");
     if( !m_chi2_module ) throw NullPointerException("FitSuite::runFit() -> Error! Chi2 module is missed.");
     if( m_fit_params.empty()) throw NullPointerException("FitSuite::runFit() -> Error! no fit parameters is defined.");
 
@@ -179,4 +180,6 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
     m_n_call++;
     return chi_squared;
 }
+
+
 

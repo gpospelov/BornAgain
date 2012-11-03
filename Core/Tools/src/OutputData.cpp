@@ -1,6 +1,7 @@
 #include "OutputData.h"
 #include "Exceptions.h"
 #include "Numeric.h"
+#include "MathFunctions.h"
 #include <cmath>
 
 
@@ -356,3 +357,35 @@ OutputData<double> *doubleBinSize(const OutputData<double> &source)
     }
     return p_result;
 }
+
+
+/* ************************************************************************* */
+// double the bin size for each dimension
+/* ************************************************************************* */
+OutputData<double> *generateNoisyData(double noise_factor, const OutputData<double> &source)
+{
+//    OutputData<double> *p_result = source.clone();
+//    p_result->resetIndex();
+//    while (p_result->hasNext()) {
+//        double current = p_result->currentValue();
+//        double sigma = noise_factor*std::sqrt(current);
+//        double random = MathFunctions::GenerateNormalRandom(current, sigma);
+//        if (random<0.0) random = 0.0;
+//        p_result->next() = random;
+//    }
+
+    OutputData<double> *p_result = source.clone();
+    p_result->resetIndex();
+    double random_factor = noise_factor*MathFunctions::GenerateNormalRandom(0.0, 1.0);
+
+    while (p_result->hasNext()) {
+        double current = p_result->currentValue();
+        double random = current + random_factor*current;
+        if (random<0.0) random = 0.0;
+        p_result->next() = random;
+        std::cout << random << " XXXXXX " << current << " " << random/current << std::endl;
+    }
+
+    return p_result;
+}
+

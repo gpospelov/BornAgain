@@ -16,6 +16,7 @@
 
 
 #include "INamed.h"
+#include "Types.h"
 class FitSuite;
 
 #include <string>
@@ -69,7 +70,6 @@ private:
 };
 
 
-
 //- -------------------------------------------------------------------
 //! @class FitSuiteStrategyAdjustParameters
 //! @brief Strategy which fixes/releases fit parameters and call minimizer
@@ -91,5 +91,45 @@ private:
     std::vector<std::string > m_pars_to_fix;
     std::vector<std::string > m_pars_to_release;
 };
+
+
+//- -------------------------------------------------------------------
+//! @class FitSuiteStrategyBootstrap
+//! @brief Helps minimizer get out of local minima by disturbing real data
+//- -------------------------------------------------------------------
+class FitSuiteStrategyBootstrap : public IFitSuiteStrategy
+{
+public:
+    FitSuiteStrategyBootstrap(int n_iterations = 5) : IFitSuiteStrategy("FitStrategyBootstrap"), m_n_iterations(n_iterations) { }
+    virtual ~FitSuiteStrategyBootstrap(){}
+    virtual void execute();
+
+    class FitResult {
+    public:
+        int niter;
+        double chi2_last;
+        double chi2_noisy;
+        double chi2_current;
+        vdouble1d_t param_values;
+        vdouble1d_t param_values_noisy;
+        vdouble1d_t param_values_last;
+        bool takethis;
+        void clear()
+        {
+            niter=-1;
+            chi2_last=0; chi2_noisy=0; chi2_current=0; param_values.clear(); param_values_noisy.clear(); param_values_last.clear();
+        }
+    };
+
+    //! get current values of all parameters defined in FitSuite
+    std::vector<double > getFitSuiteParameterValues();
+
+    //! set new values of all parameters defined in FitSuite
+    void setFitSuiteParameterValues(const std::vector<double > &parvalues);
+
+private:
+    int m_n_iterations;
+};
+
 
 #endif // FITSTRATEGY_H

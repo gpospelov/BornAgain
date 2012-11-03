@@ -82,6 +82,9 @@ public:
     //! return iterator to the end of vector of fit parameters
     fitparameters_t::iterator fitparams_end() { return m_fit_params.end(); }
 
+    //! return number of fit parameters
+    size_t fitparams_size() { return m_fit_params.size(); }
+
     //! get chi2 module
     const ChiSquaredModule *getChiSquaredModule() const { return m_chi2_module; }
 

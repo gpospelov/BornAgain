@@ -28,6 +28,7 @@ SOURCES += \
     Algorithms/src/Experiment.cpp \
     Algorithms/src/FTDistributions.cpp \
     Algorithms/src/GISASExperiment.cpp \
+    Algorithms/src/IChiSquaredModule.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
@@ -129,6 +130,7 @@ HEADERS += \
     Algorithms/inc/Experiment.h \
     Algorithms/inc/FTDistributions.h \
     Algorithms/inc/GISASExperiment.h \
+    Algorithms/inc/IChiSquaredModule.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \

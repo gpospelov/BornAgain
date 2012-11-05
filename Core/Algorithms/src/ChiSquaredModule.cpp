@@ -2,33 +2,14 @@
 #include <iostream>
 
 ChiSquaredModule::ChiSquaredModule(const OutputData<double>& real_data)
-    : mp_simulation_data(0), m_chi2_value(0)
+    : IChiSquaredModule(real_data)
 {
-    mp_real_data = real_data.clone();
     mp_data_selector = new DefaultAllDataSelector();
-    mp_squared_function = new DefaultSquaredFunction();
 }
 
 ChiSquaredModule::~ChiSquaredModule()
 {
-    delete mp_real_data;
-    delete mp_simulation_data;
     delete mp_data_selector;
-    delete mp_squared_function;
-}
-
-void ChiSquaredModule::setRealData(
-        const OutputData<double>& real_data)
-{
-    delete mp_real_data;
-    mp_real_data = real_data.clone();
-}
-
-void ChiSquaredModule::setSimulationData(
-        const OutputData<double>& simulation_data)
-{
-    delete mp_simulation_data;
-    mp_simulation_data = simulation_data.clone();
 }
 
 void ChiSquaredModule::setFittingDataSelector(

@@ -19,7 +19,6 @@
 
 #include "IObserver.h"
 #include "FitSuite.h"
-#include "ChiSquaredModule.h"
 #include "ROOTMinimizer.h"
 
 #include "TROOT.h"

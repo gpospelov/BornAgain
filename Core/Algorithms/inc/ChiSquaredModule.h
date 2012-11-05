@@ -36,6 +36,9 @@ public:
     //! return squared function
     const ISquaredFunction *getSquaredFunction() const { return mp_squared_function; }
 
+    //! return output data which contains chi^2 values
+    virtual OutputData<double > *getChi2DifferenceMap() const;
+
 protected:
     IFittingDataSelector *mp_data_selector;
 };

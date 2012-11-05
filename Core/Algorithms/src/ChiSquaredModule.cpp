@@ -48,3 +48,21 @@ double ChiSquaredModule::calculateChiSquared(
     m_chi2_value = result/data_size;
     return m_chi2_value;
 }
+
+OutputData<double>* ChiSquaredModule::getChi2DifferenceMap() const
+{
+    OutputData<double > *p_difference = mp_simulation_data->clone();
+    p_difference->setAllTo(0.0);
+
+    mp_simulation_data->resetIndex();
+    mp_real_data->resetIndex();
+    p_difference->resetIndex();
+    while (mp_real_data->hasNext()) {
+        double value_simu = mp_simulation_data->next();
+        double value_real = mp_real_data->next();
+        double squared_difference = mp_squared_function->calculateSquaredDifference(value_real, value_simu);
+        p_difference->next() = squared_difference;
+    }
+
+    return p_difference;
+}

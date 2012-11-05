@@ -4,26 +4,10 @@
 ChiSquaredModule::ChiSquaredModule(const OutputData<double>& real_data)
     : IChiSquaredModule(real_data)
 {
-    mp_data_selector = new DefaultAllDataSelector();
 }
 
 ChiSquaredModule::~ChiSquaredModule()
 {
-    delete mp_data_selector;
-}
-
-void ChiSquaredModule::setFittingDataSelector(
-        const IFittingDataSelector& selector)
-{
-    delete mp_data_selector;
-    mp_data_selector = selector.clone();
-}
-
-void ChiSquaredModule::setChiSquaredFunction(
-        const ISquaredFunction& squared_function)
-{
-    delete mp_squared_function;
-    mp_squared_function = squared_function.clone();
 }
 
 double ChiSquaredModule::calculateChiSquared(

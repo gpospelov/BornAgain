@@ -15,11 +15,6 @@
 //! @date   Jul 20, 2012
 
 #include "IChiSquaredModule.h"
-#include "OutputData.h"
-#include "IFittingDataSelector.h"
-#include "ISquaredFunction.h"
-
-#include <vector>
 
 class ChiSquaredModule : public IChiSquaredModule
 {
@@ -27,20 +22,10 @@ public:
     ChiSquaredModule(const OutputData<double> &real_data);
     virtual ~ChiSquaredModule();
 
-    virtual void setFittingDataSelector(const IFittingDataSelector &selector);
-
-    void setChiSquaredFunction(const ISquaredFunction &squared_function);
-
     virtual double calculateChiSquared(const OutputData<double> *p_simulation_data=0);
-
-    //! return squared function
-    const ISquaredFunction *getSquaredFunction() const { return mp_squared_function; }
 
     //! return output data which contains chi^2 values
     virtual OutputData<double > *getChi2DifferenceMap() const;
-
-protected:
-    IFittingDataSelector *mp_data_selector;
 };
 
 

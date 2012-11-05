@@ -5,6 +5,7 @@ IChiSquaredModule::IChiSquaredModule(const OutputData<double>& real_data)
 {
     mp_real_data = real_data.clone();
     mp_squared_function = new DefaultSquaredFunction();
+    mp_data_selector = new DefaultAllDataSelector();
 }
 
 IChiSquaredModule::~IChiSquaredModule()
@@ -12,6 +13,7 @@ IChiSquaredModule::~IChiSquaredModule()
     delete mp_real_data;
     delete mp_simulation_data;
     delete mp_squared_function;
+    delete mp_data_selector;
 }
 
 void IChiSquaredModule::setRealData(const OutputData<double>& real_data)
@@ -25,4 +27,18 @@ void IChiSquaredModule::setSimulationData(
 {
     delete mp_simulation_data;
     mp_simulation_data = simulation_data.clone();
+}
+
+void IChiSquaredModule::setFittingDataSelector(
+        const IFittingDataSelector& selector)
+{
+    delete mp_data_selector;
+    mp_data_selector = selector.clone();
+}
+
+void IChiSquaredModule::setChiSquaredFunction(
+        const ISquaredFunction& squared_function)
+{
+    delete mp_squared_function;
+    mp_squared_function = squared_function.clone();
 }

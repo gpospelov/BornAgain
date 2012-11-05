@@ -6,6 +6,7 @@
 #include "Experiment.h"
 #include "GISASExperiment.h"
 #include "IMinimizer.h"
+#include "MathFunctions.h"
 #include <iostream>
 
 
@@ -139,13 +140,12 @@ void FitSuiteStrategyBootstrap::execute()
 
     OutputData<double > *orig_data = m_fit_suite->getChiSquaredModule()->getRealData()->clone();
     for(int i_iter=0; i_iter<m_n_iterations; ++i_iter) {
-        OutputData<double > *noisy_data = generateNoisyData(1000, *orig_data);
+        OutputData<double > *noisy_data = generateNoisyData(100, *orig_data);
 
         fitResult.clear();
         fitResult.niter = i_iter;
         fitResult.chi2_last = chi2_last;
         fitResult.param_values = param_values;
-
 
         std::cout << "FitSuiteStrategyBootstrap::execute() -> 1.1 Iter: " << i_iter << " chi2_last:" << chi2_last;
         for(size_t i=0; i<param_values.size(); ++i) std::cout << " " << param_values[i];
@@ -155,7 +155,7 @@ void FitSuiteStrategyBootstrap::execute()
 
         // minimizing noisy data
         m_fit_suite->setRealData(*noisy_data);
-        //m_fit_suite->getMinimizer()->clear();
+        m_fit_suite->getMinimizer()->clear();
         m_fit_suite->minimize();
         double chi2_noisy = m_fit_suite->getMinimizer()->getMinValue();
         std::cout << "FitSuiteStrategyBootstrap::execute() -> 1.2 Iter: " << i_iter << " chi2_noisy:" << chi2_noisy;
@@ -166,7 +166,7 @@ void FitSuiteStrategyBootstrap::execute()
         // minimizing original data (last parameters will be used as a starting value)
         m_fit_suite->setRealData(*orig_data);
         setFitSuiteParameterValues(param_values_noisy);
-        //m_fit_suite->getMinimizer()->clear();
+        m_fit_suite->getMinimizer()->clear();
         m_fit_suite->minimize();
         double chi2_current = m_fit_suite->getMinimizer()->getMinValue();
 
@@ -174,7 +174,6 @@ void FitSuiteStrategyBootstrap::execute()
         vdouble1d_t param_values_last = getFitSuiteParameterValues();
         for(size_t i=0; i<param_values_last.size(); ++i) std::cout << " " << param_values_last[i];
         std::cout << std::endl;
-
 
         fitResult.takethis = false;
         if(chi2_current <= chi2_last) {
@@ -185,7 +184,6 @@ void FitSuiteStrategyBootstrap::execute()
             fitResult.takethis = true;
 
         }
-
 
         fitResult.chi2_current = chi2_current;
         fitResult.chi2_noisy = chi2_noisy;
@@ -233,7 +231,7 @@ std::vector<double > FitSuiteStrategyBootstrap::getFitSuiteParameterValues()
     return param_values;
 }
 
-// set new values of all parameters defined in FitSuite
+// set new values of all parameters in FitSuite
 void FitSuiteStrategyBootstrap::setFitSuiteParameterValues(const std::vector<double > &parvalues)
 {
     if(parvalues.size() != m_fit_suite->fitparams_size()) {
@@ -243,5 +241,34 @@ void FitSuiteStrategyBootstrap::setFitSuiteParameterValues(const std::vector<dou
     for(FitSuite::fitparameters_t::iterator it = m_fit_suite->fitparams_begin(); it!=m_fit_suite->fitparams_end(); ++it) {
         (*it)->setValue(parvalues[index++]);
     }
+}
+
+// generate noisy data
+OutputData<double> *FitSuiteStrategyBootstrap::generateNoisyData(double noise_factor, const OutputData<double> &source)
+{
+    OutputData<double> *p_result = source.clone();
+    p_result->resetIndex();
+    while (p_result->hasNext()) {
+        double current = p_result->currentValue();
+        double sigma = noise_factor*std::sqrt(current);
+        double random = MathFunctions::GenerateNormalRandom(current, sigma);
+        //std::cout << "XXX " << current << " " << random << " " << current/random << std::endl;
+        if (random<0.0) random = 0.0;
+        p_result->next() = random;
+    }
+
+//    OutputData<double> *p_result = source.clone();
+//    p_result->resetIndex();
+//    double random_factor = noise_factor*MathFunctions::GenerateNormalRandom(0.0, 1.0);
+
+//    while (p_result->hasNext()) {
+//        double current = p_result->currentValue();
+//        double random = current + random_factor*current;
+//        if (random<0.0) random = 0.0;
+//        p_result->next() = random;
+//        std::cout << random << " XXXXXX " << current << " " << random/current << std::endl;
+//    }
+
+    return p_result;
 }
 

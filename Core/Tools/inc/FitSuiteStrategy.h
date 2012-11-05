@@ -17,6 +17,7 @@
 
 #include "INamed.h"
 #include "Types.h"
+#include "OutputData.h"
 class FitSuite;
 
 #include <string>
@@ -104,6 +105,7 @@ public:
     virtual ~FitSuiteStrategyBootstrap(){}
     virtual void execute();
 
+    // to save results of minimization rounds
     class FitResult {
     public:
         int niter;
@@ -126,6 +128,9 @@ public:
 
     //! set new values of all parameters defined in FitSuite
     void setFitSuiteParameterValues(const std::vector<double > &parvalues);
+
+    //! generate noisy data
+    OutputData<double> *generateNoisyData(double noise_factor, const OutputData<double> &source);
 
 private:
     int m_n_iterations;

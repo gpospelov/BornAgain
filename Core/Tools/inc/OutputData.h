@@ -189,9 +189,6 @@ const OutputData<double> &operator*=(OutputData<double> &left, const OutputData<
 //! double the bin size for each dimension
 OutputData<double> *doubleBinSize(const OutputData<double> &source);
 
-//! generate noisy data
-OutputData<double> *generateNoisyData(double noise_factor, const OutputData<double> &source);
-
 
 /* ***************************************************************************/
 // definitions

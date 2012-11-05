@@ -113,11 +113,11 @@ for(dep, MY_DEPENDENCY_LIB) {
 MYROOT = $$(ROOTSYS)
 isEmpty(MYROOT) {
   message("Warning, ROOTSYS environment variable doesn't exist, trying to guess location")
-  # FIXME
-  #INCLUDEPATH += /opt/local/include/root
-  #LIBS +=  -L/opt/local/lib/root -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
-  #MYROOTCINT = /opt/local/bin/rootcint
-  error("can't guess ROOT location")
+  ROOT_CONFIG_FILE = root-config
+  ROOT_CONFIG_FILE_LOCATIONS = /opt/local /usr/local /usr
+  for(dir, ROOT_CONFIG_FILE_LOCATIONS): isEmpty(MYROOT): exists($${dir}/bin/$${ROOT_CONFIG_FILE}): MYROOT = $${dir}
+  isEmpty(MYROOT): error("Can't find" $${ROOT_CONFIG_FILE} "in" $${ROOT_CONFIG_FILE_LOCATIONS})
+  message("Probable ROOTSYS is" $${MYROOT})
 }
 !isEmpty(MYROOT) {
   !exists($${MYROOT}/bin/root-config): error("No config file "$${MYROOT}/bin/root-config)

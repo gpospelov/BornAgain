@@ -283,6 +283,9 @@ OBJECTS_DIR = obj
 # -----------------------------------------------------------------------------
 # checking python configuration
 # -----------------------------------------------------------------------------
+# TODO - implement check for following files
+# numpy/arrayobject.h
+
 CONFIG(BUILD_PYTHON_BOOST_MODULE) {
   # user wants to compile python module
 

@@ -25,39 +25,67 @@ isEqual(env_debug_variable, "yes") {
 # -----------------------------------------------------------------------------
 # general external libraries
 # -----------------------------------------------------------------------------
-#macx {
-#  # we expect all libraries installed via macport
-#  WHERE_TO_LOOK_PREFIX=/opt/local
-#  INCLUDEPATH = /opt/local/include
-#  LIBS = -L/opt/local/lib
-#}
-#!macx:unix{
-#  WHERE_TO_LOOK_PREFIX=/usr/local
-#  INCLUDEPATH = /usr/local/include
-#  LIBS = -L/usr/local/lib -L/usr/lib64
-#}
 
-#educated guess about main directory with general libraries
-exists(/opt/local/include/boost) {
-    GENERAL_EXTERNALS_DIR = /opt/local
-} else {
-    exists(/usr/local/include/boost) {
-        GENERAL_EXTERNALS_DIR = /usr/local
-    } else {
-        error("Neither of /usr/local/include/boost or /opt/local/include/boost exist")
-    }
+
+# --- checking gsl header ---
+GSL_HEADERFILE = gsl/gsl_sf_bessel.h
+GSL_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+for(dir, GSL_HEADER_LOCATIONS): isEmpty(GSL_INCLUDE): exists($${dir}/$${GSL_HEADERFILE}): GSL_INCLUDE = $${dir}
+isEmpty(GSL_INCLUDE): message("Can't find" $${GSL_HEADERFILE} "in" $${GSL_HEADER_LOCATIONS})
+GSL_LIB = $$replace(GSL_INCLUDE,"include","lib")
+INCLUDEPATH *=  $${GSL_HEADER}
+LIBS *= -L$${GSL_LIB}
+LIBS += -lgsl -lgslcblas
+
+# --- checking fftw3 ---
+FFTW3_HEADERFILE = fftw3.h
+FFTW3_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+for(dir, FFTW3_HEADER_LOCATIONS): isEmpty(FFTW3_INCLUDE): exists($${dir}/$${FFTW3_HEADERFILE}): FFTW3_INCLUDE = $${dir}
+isEmpty(FFTW3_INCLUDE): message("Can't find" $${FFTW3_HEADERFILE} "in" $${FFTW3_HEADER_LOCATIONS)
+FFTW3_LIB = $$replace(FFTW3_INCLUDE,"include","lib")
+INCLUDEPATH *=  $${FFTW3_HEADER}
+LIBS *= -L$${FFTW3_LIB}
+LIBS += -lfftw3
+
+# --- checking boost ---
+BOOST_HEADERFILE = boost/version.hpp
+BOOST_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+for(dir, BOOST_HEADER_LOCATIONS): isEmpty(BOOST_INCLUDE): exists($${dir}/$${BOOST_HEADERFILE}): BOOST_INCLUDE = $${dir}
+isEmpty(BOOST_INCLUDE): message("Can't find" $${BOOST_HEADERFILE} "in" $${BOOST_HEADER_LOCATIONS)
+BOOST_LIBFILES = libboost*
+BOOST_LIB_LOCATIONS = /opt/local/lib /usr/local/lib /usr/lib64 /usr/lib
+for(dir, BOOST_LIB_LOCATIONS): isEmpty(BOOST_LIB) {
+  NumberOfSuchFiles=$$system(ls $${dir}/$${BOOST_LIBFILES} 2> /dev/null | wc -l)
+  !isEqual(NumberOfSuchFiles, 0): BOOST_LIB = $${dir}
+}
+isEmpty(BOOST_LIB): message("Can't find" $${BOOST_LIBFILES} "in" $${BOOST_LIB_LOCATIONS})
+INCLUDEPATH *=  $${BOOST_HEADER}
+LIBS *= -L$${BOOST_LIB}
+LIBS += -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
+# checking special case when system doesn't have libboost_thread library but have libbost_thread-mt
+NumberOfSuchFiles=$$system(ls $${BOOST_LIB}/libboost_thread-mt* 2> /dev/null | wc -l)
+!isEqual(NumberOfSuchFiles, 0) {
+  # library libboost_thread-mt exists
+  LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
 }
 
-INCLUDEPATH = $${GENERAL_EXTERNALS_DIR}/include
-LIBS = -L$${GENERAL_EXTERNALS_DIR}/lib
 
-!macx:unix{
-  # it's a linux
-  LIBS += -L/usr/local/lib -L/usr/lib64
-}
+
+#message($${FFTW3_HEADERFILE}" found in "$${FFTW3_INCLUDE})
+#message($${BOOST_HEADERFILE}" found in "$${BOOST_INCLUDE})
+#message($${BOOST_LIBFILE}" found in "$${BOOST_LIB})
+#message($${GSL_HEADERFILE}" found in "$${GSL_INCLUDE})
+isEmpty(GSL_INCLUDE): error("missed dependency")
+isEmpty(FFTW3_INCLUDE): error("missed dependency")
+isEmpty(BOOST_INCLUDE): error("missed dependency")
+isEmpty(BOOST_LIB): error("missed dependency")
+
+
+#INCLUDEPATH =  $${GSL_HEADER} $${FFTW3_HEADER} $${BOOST_HEADER}
+#LIBS = -L$${GSL_LIB} $${FFTW3_LIB} $${BOOST_LIB}
 
 # adding libs we are depending on
-LIBS += -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
+#LIBS += -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
 
 # here is workaround since JCNS /usr/local doesn't have shared fftw3 (run with 'qmake CONFIG+=JCNS')
 env_jcns_variable = $$(GISASFW_JCNS)
@@ -69,17 +97,6 @@ CONFIG(JCNS) {
   LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
 }
 
-# checking special case when system doesn't have libboost_thread library but have libbost_thread-mt
-NumberOfSuchFiles=$$system(ls $${GENERAL_EXTERNALS_DIR}/lib/libboost_thread-mt* 2> /dev/null | wc -l)
-!isEqual(NumberOfSuchFiles, 0) {
-  # library libboost_thread-mt exists
-  LIBS -= -lboost_thread
-  LIBS += -lboost_thread-mt
-} else {
-  # library libboost_thread-mt doesn't exist, but may be libboost_thread exist?
-  NumberOfSuchFiles=$$system(ls $${GENERAL_EXTERNALS_DIR}/lib/libboost_thread* 2> /dev/null | wc -l)
-  isEqual(NumberOfSuchFiles, 0):error("Neither of libboost_thread or libboost_thread-mt have been found")
-}
 
 
 # -----------------------------------------------------------------------------
@@ -90,7 +107,7 @@ NumberOfSuchFiles=$$system(ls $${GENERAL_EXTERNALS_DIR}/lib/libboost_thread-mt* 
 QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which option control warning
 #QMAKE_CXXFLAGS_RELEASE += -O3 -ffast-math -msse3
 QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -O3  -ffast-math
+QMAKE_CXXFLAGS_RELEASE += -g -O3 -ffast-math
 # uncommenting line below produces non-stripped (very large) libraries
 #QMAKE_STRIP=:
 

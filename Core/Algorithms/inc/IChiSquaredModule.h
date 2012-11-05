@@ -10,7 +10,7 @@
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
 //! @file   IChiSquaredModule.h
-//! @brief  Definition of
+//! @brief  Definition of the IChiSquaredModule interface
 //! @author Scientific Computing Group at FRM II
 //! @date   Nov 5, 2012
 
@@ -49,14 +49,13 @@ public:
     virtual double getValue() const { return m_chi2_value; }
 
     //! return output data which contains chi^2 values
-    virtual OutputData<double > *getChi2DifferenceMap() const=0;
+    virtual OutputData<double > *createChi2DifferenceMap() const=0;
 
 protected:
+    void initWeights();
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulation_data;
-    std::vector<double> m_weights;
-    std::vector<double> m_real_data_vector;
-    std::vector<double> m_simulation_data_vector;
+    OutputData<double> *mp_weights;
     ISquaredFunction *mp_squared_function;
     IFittingDataSelector *mp_data_selector;
 

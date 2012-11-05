@@ -181,7 +181,7 @@ OutputData<double > *FitSuiteObserverDraw::getRelativeDifferenceMap(const IChiSq
 // return output data which contains chi2 values from ChiSquaredModule of FitSuite
 OutputData<double > *FitSuiteObserverDraw::getChi2DifferenceMap(const IChiSquaredModule *chi_module)
 {
-    return chi_module->getChi2DifferenceMap();
+    return chi_module->createChi2DifferenceMap();
 }
 
 

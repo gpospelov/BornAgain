@@ -25,7 +25,7 @@ public:
     virtual double calculateChiSquared(const OutputData<double> *p_simulation_data=0);
 
     //! return output data which contains chi^2 values
-    virtual OutputData<double > *getChi2DifferenceMap() const;
+    virtual OutputData<double > *createChi2DifferenceMap() const;
 };
 
 

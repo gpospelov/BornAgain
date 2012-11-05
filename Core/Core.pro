@@ -18,6 +18,7 @@ QMAKE_EXTENSION_SHLIB = so
 # -----------------------------------------------------------------------------
 SOURCES += \
     Algorithms/src/Beam.cpp \
+    Algorithms/src/ChiSquaredFrequency.cpp \
     Algorithms/src/ChiSquaredModule.cpp \
     Algorithms/src/ConvolutionDetectorResolution.cpp \
     Algorithms/src/DecouplingApproximationStrategy.cpp \
@@ -120,6 +121,7 @@ SOURCES += \
 
 HEADERS += \
     Algorithms/inc/Beam.h \
+    Algorithms/inc/ChiSquaredFrequency.h \
     Algorithms/inc/ChiSquaredModule.h \
     Algorithms/inc/ConvolutionDetectorResolution.h \
     Algorithms/inc/DecouplingApproximationStrategy.h \

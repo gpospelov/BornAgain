@@ -52,12 +52,14 @@ std::string Utils::FileSystem::GetHomePath()
     // we expect that variable m_relative_path (aka argv[0]) has been set from outside
     // and use boost::filesystem::system_complete() to get complete path to executable
 
-    std::string path = boost::filesystem::system_complete(m_relative_path.c_str()).string();
+    //std::string path = boost::filesystem::system_complete(m_relative_path.c_str()).string();
+    std::string path = boost::filesystem::canonical( m_relative_path.c_str() ).string(); // with automatic resolving of symlinks
     // at this point the value should be something like '/Users/jamesbond/development/git/./GISASFW/App/App'
+    //std::cout << "RRR GetHomePath() -> path '" << path << "'" << std::endl;
 
-    // lets strip everything after 'GISASFW' to get path to project home directory
+    // lets strip everything after 'GISASFW' to get path to project home directory    
     std::string project_name("GISASFW");
-    std::string::size_type pos = path.find_first_of(project_name);
+    std::string::size_type pos = path.rfind(project_name);
     if(pos == std::string::npos) {
         throw LogicErrorException("Utils::FileSystem::GetHomePath() -> Error. Cant parse path to application from line '"+path+"'");
     }

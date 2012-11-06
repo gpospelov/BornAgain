@@ -33,6 +33,9 @@ void ProgramOptions::parseCommandLine(int argc, char **argv)
 {
     // saving relative path to the application for later usage
     Utils::FileSystem::SetRelativePath(argv[0]);
+//    std::cout << "RRR argv[0] '" << argv[0] << "'" << std::endl;
+//    std::cout << "RRR '" << Utils::FileSystem::GetWorkingPath() << "'" << std::endl;
+//    std::cout << "RRR '" << Utils::FileSystem::GetHomePath() << "'" << std::endl;
 
     // parsing command line arguments
     try {

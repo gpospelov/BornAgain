@@ -41,6 +41,7 @@
 
 
 DrawHelper::DrawHelper() : m_default_canvas_xsize(1024), m_default_canvas_ysize(768)
+//DrawHelper::DrawHelper() : m_default_canvas_xsize(1600), m_default_canvas_ysize(1200)
 {
 
 }
@@ -68,7 +69,7 @@ void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
     TPad *pad = c->Pick(px, py, 0);
     TPad *pad_new = (TPad *) pad->Clone();
     pad_new->SetPad(0.0, 0.0, 1.0, 1.0);
-    TCanvas *c1 = new TCanvas(cname, cname, 800, 600);
+    TCanvas *c1 = new TCanvas(cname, cname, 1600, 1200);
     c1->cd();
     pad_new->SetEditable(kTRUE);
     pad_new->Draw();

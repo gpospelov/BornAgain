@@ -6,6 +6,7 @@
 #include "Experiment.h"
 #include "GISASExperiment.h"
 #include "IMinimizer.h"
+#include "MathFunctions.h"
 #include <iostream>
 
 
@@ -15,20 +16,31 @@
 /* ************************************************************************* */
 void FitSuiteStrategyDefault::execute()
 {
+    if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyDefault::execute() -> FitSuite doesn't exists");
+
     // calling minimization
     m_fit_suite->minimize();
 }
 
 
-
 /* ************************************************************************* */
-// adjust data before running fit suite minimization round
+// adjust (rebin) data before running fit suite minimization round
 /* ************************************************************************* */
 void FitSuiteStrategyAdjustData::execute()
 {
+    if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyAdjustData::execute() -> FitSuite doesn't exists");
+
+    // if no data rediction was requested, just call FitSuite's minimization
+    if( m_power_of_two == 0 ) {
+        if(m_call_minimize) {
+            m_fit_suite->minimize();
+        }
+        return;
+    }
+
     // saving original data
     OutputData<double > *orig_data = m_fit_suite->getChiSquaredModule()->getRealData()->clone();
-
+    // create adjusted data which will have doubled (2,4,8,...) bin size
     OutputData<double> *adjusted_data = orig_data;
     for(size_t i=0; i<m_power_of_two; ++i) {
         OutputData<double> *new_data = doubleBinSize(*adjusted_data);
@@ -49,21 +61,22 @@ void FitSuiteStrategyAdjustData::execute()
     experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
 
     // calling minimization
-    m_fit_suite->getMinimizer()->clear();
+    if(m_call_minimize) {
+        m_fit_suite->getMinimizer()->clear(); // clear minimizer's parameters and error matrixes
+        m_fit_suite->minimize();
+    }
 
-    m_fit_suite->minimize();
-
-    // returning back original data
-    m_fit_suite->setRealData(*orig_data);
-    axis0 = reinterpret_cast<const NamedVector<double>*>(orig_data->getAxes()[0]);
-    axis1 = reinterpret_cast<const NamedVector<double>*>(orig_data->getAxes()[1]);
-    experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
+    // setting back original data
+    if(m_preserve_original_data) {
+        m_fit_suite->setRealData(*orig_data);
+        axis0 = reinterpret_cast<const NamedVector<double>*>(orig_data->getAxes()[0]);
+        axis1 = reinterpret_cast<const NamedVector<double>*>(orig_data->getAxes()[1]);
+        experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
+    }
 
     delete orig_data;
     delete adjusted_data;
 }
-
-
 
 
 /* ************************************************************************* */
@@ -71,7 +84,7 @@ void FitSuiteStrategyAdjustData::execute()
 /* ************************************************************************* */
 void FitSuiteStrategyAdjustParameters::execute()
 {
-    if( !m_fit_suite ) throw NullPointerException("IFitSuiteStrategy::execute() -> FitSuite doesn't exists");
+    if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
 
     // fixing all parameters at they current values
     if( m_fix_all ) {
@@ -101,6 +114,154 @@ void FitSuiteStrategyAdjustParameters::execute()
         m_fit_suite->getFitParameter((*it))->setFixed(false);
     }
 
+
+    std::vector<double > original_param_values;
+    for(FitSuite::fitparameters_t::iterator it = m_fit_suite->fitparams_begin(); it!=m_fit_suite->fitparams_end(); ++it) {
+        original_param_values.push_back( (*it)->getValue() );
+    }
+
     // calling minimization
     m_fit_suite->minimize();
+
+    if(m_preserve_original_values) {
+        int index(0);
+        for(FitSuite::fitparameters_t::iterator it = m_fit_suite->fitparams_begin(); it!=m_fit_suite->fitparams_end(); ++it) {
+            (*it)->setValue(original_param_values[index++]);
+        }
+    }
 }
+
+
+/* ************************************************************************* */
+// Helps minimizer get out of local minima by disturbing real data
+/* ************************************************************************* */
+void FitSuiteStrategyBootstrap::execute()
+{
+    if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyBootsrap::execute() -> FitSuite doesn't exists");
+
+    std::vector<FitResult > fitHistory;
+
+    // minimizing first time and saving initial parameters
+    m_fit_suite->getMinimizer()->clear();
+    m_fit_suite->minimize();
+
+    vdouble1d_t param_values = getFitSuiteParameterValues();
+    double chi2_last = m_fit_suite->getMinimizer()->getMinValue();
+
+    FitResult fitResult;
+    OutputData<double > *orig_data = m_fit_suite->getChiSquaredModule()->getRealData()->clone();
+    for(int i_iter=0; i_iter<m_n_iterations; ++i_iter) {
+        OutputData<double > *noisy_data = generateNoisyData(10, *orig_data);
+
+        fitResult.clear();
+        fitResult.niter = i_iter;
+        fitResult.chi2_last = chi2_last;
+        fitResult.param_values = param_values;
+
+        std::cout << "FitSuiteStrategyBootstrap::execute() -> 1.1 Iter: " << i_iter << " chi2_last:" << chi2_last;
+        for(size_t i=0; i<param_values.size(); ++i) std::cout << " " << param_values[i];
+        std::cout << std::endl;
+
+        setFitSuiteParameterValues(param_values);
+
+        // minimizing noisy data
+        m_fit_suite->setRealData(*noisy_data);
+        m_fit_suite->getMinimizer()->clear();
+        m_fit_suite->minimize();
+        double chi2_noisy = m_fit_suite->getMinimizer()->getMinValue();
+        std::cout << "FitSuiteStrategyBootstrap::execute() -> 1.2 Iter: " << i_iter << " chi2_noisy:" << chi2_noisy;
+        vdouble1d_t param_values_noisy = getFitSuiteParameterValues();
+        for(size_t i=0; i<param_values_noisy.size(); ++i) std::cout << " " << param_values_noisy[i];
+        std::cout << std::endl;
+
+        // minimizing original data (last parameters will be used as a starting value)
+        m_fit_suite->setRealData(*orig_data);
+        setFitSuiteParameterValues(param_values_noisy);
+        m_fit_suite->getMinimizer()->clear();
+        m_fit_suite->minimize();
+        double chi2_current = m_fit_suite->getMinimizer()->getMinValue();
+
+        std::cout << "FitSuiteStrategyBootstrap::execute() -> 1.3 Iter: " << i_iter << " chi2_last:" << chi2_last << " chi2_noisy:" << chi2_noisy << " chi2_current:" << chi2_current;
+        vdouble1d_t param_values_last = getFitSuiteParameterValues();
+        for(size_t i=0; i<param_values_last.size(); ++i) std::cout << " " << param_values_last[i];
+        std::cout << std::endl;
+
+        fitResult.takethis = false;
+        if(chi2_current <= chi2_last) {
+            param_values = getFitSuiteParameterValues();
+            std::cout << "FitSuiteStrategyBootstrap::execute() -> 1.4 Iter: " << i_iter << " TAKING PARS:";
+            for(size_t i=0; i<param_values.size(); ++i) std::cout << " " << param_values[i];
+            std::cout << std::endl;
+            fitResult.takethis = true;
+
+        }
+
+        fitResult.chi2_current = chi2_current;
+        fitResult.chi2_noisy = chi2_noisy;
+        fitResult.param_values_noisy = param_values_noisy;
+        fitResult.param_values_last = param_values_last;
+        fitHistory.push_back(fitResult);
+
+        chi2_last = chi2_current;
+
+        delete noisy_data;
+    }
+
+    std::cout << "FitSuiteStrategyBootstrap::execute() -> Results" << std::endl;
+    for(size_t i=0; i<fitHistory.size(); ++i) {
+        std::cout << "i:" << i << " niter:" << fitHistory[i].niter << std::endl;
+        std::cout << " chi2_last   :" << fitHistory[i].chi2_last << " |  ";
+        for(size_t j=0; j<fitHistory[i].param_values.size(); ++j) std::cout << fitHistory[i].param_values[j] << " ";
+        std::cout << std::endl;
+
+        std::cout << " chi2_noisy  :" << fitHistory[i].chi2_noisy << " |  ";
+        for(size_t j=0; j<fitHistory[i].param_values_noisy.size(); ++j) std::cout << fitHistory[i].param_values_noisy[j] << " ";
+        std::cout << std::endl;
+
+        std::cout << " chi2_current:" << fitHistory[i].chi2_current << " |  ";
+        for(size_t j=0; j<fitHistory[i].param_values_last.size(); ++j) std::cout << fitHistory[i].param_values_last[j] << " ";
+        std::cout << std::endl;
+        std::cout << " take this:" << fitHistory[i].takethis << std::endl;
+        std::cout << "--------------" << std::endl;
+    }
+
+}
+
+// get current values of all parameters defined in FitSuite
+std::vector<double > FitSuiteStrategyBootstrap::getFitSuiteParameterValues()
+{
+    std::vector<double > param_values;
+    for(FitSuite::fitparameters_t::iterator it = m_fit_suite->fitparams_begin(); it!=m_fit_suite->fitparams_end(); ++it) {
+        param_values.push_back( (*it)->getValue() );
+    }
+    return param_values;
+}
+
+// set new values of all parameters in FitSuite
+void FitSuiteStrategyBootstrap::setFitSuiteParameterValues(const std::vector<double > &parvalues)
+{
+    if(parvalues.size() != m_fit_suite->fitparams_size()) {
+        throw LogicErrorException("FitSuiteStrategyBootstrap::setFitSuiteParameterValues() -> Number of parameters in FitSuite doesn't coincide with request");
+    }
+    int index(0);
+    for(FitSuite::fitparameters_t::iterator it = m_fit_suite->fitparams_begin(); it!=m_fit_suite->fitparams_end(); ++it) {
+        (*it)->setValue(parvalues[index++]);
+    }
+}
+
+// generate noisy data
+OutputData<double> *FitSuiteStrategyBootstrap::generateNoisyData(double noise_factor, const OutputData<double> &source)
+{
+    OutputData<double> *p_result = source.clone();
+    p_result->resetIndex();
+    while (p_result->hasNext()) {
+        double current = p_result->currentValue();
+        double sigma = noise_factor*std::sqrt(current);
+        double random = MathFunctions::GenerateNormalRandom(current, sigma);
+        if (random<0.0) random = 0.0;
+        p_result->next() = random;
+    }
+
+    return p_result;
+}
+

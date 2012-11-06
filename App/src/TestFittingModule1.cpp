@@ -73,17 +73,20 @@ void TestFittingModule1::execute()
     m_fitSuite->setExperiment(mp_experiment);
     m_fitSuite->setRealData(*mp_real_data);
     m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Minimize") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") ); //doesn't work, Fumili wants special function with derivative
-    //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "ConjugateFR") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "BFGS") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "SteepestDescent") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
-    //fitSuite->setMinimizer( new ROOTMinimizer("Genetic", "") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Simplex") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Minimize") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") ); //doesn't work, Fumili wants special function with derivative
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "ConjugateFR") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "BFGS") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "SteepestDescent") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Genetic", "") );
     // tuning minimizer
     //ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
-    //minim->SetTolerance(1000.0);
+    //minim->SetPrecision(0.00001);
+    //minim->SetTolerance(0.00001);
+    //minim->SetStrategy(2);
     //minim->SetMaxFunctionCalls(50); // for Minuit
     //minim->SetMaxIterations(50); // for GSL
     //minim->SetPrintLevel(4);

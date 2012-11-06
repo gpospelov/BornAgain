@@ -20,10 +20,12 @@
 #include "AttLimits.h"
 #include "FitMultiParameter.h"
 #include "FitSuiteStrategy.h"
+#include "IMinimizer.h"
 #include <string>
 
+
+
 class Experiment;
-class IMinimizer;
 class ParameterPool;
 class ChiSquaredModule;
 
@@ -49,7 +51,7 @@ public:
     Experiment *getExperiment() { return m_experiment; }
 
     //! set minimizer
-    void setMinimizer(IMinimizer *minimizer) { m_minimizer = minimizer; }
+    void setMinimizer(IMinimizer *minimizer) { delete m_minimizer;  m_minimizer = minimizer; }
     //! get minimizer
     IMinimizer *getMinimizer() { return m_minimizer; }
 
@@ -81,6 +83,9 @@ public:
 
     //! return iterator to the end of vector of fit parameters
     fitparameters_t::iterator fitparams_end() { return m_fit_params.end(); }
+
+    //! return number of fit parameters
+    size_t fitparams_size() { return m_fit_params.size(); }
 
     //! get chi2 module
     const ChiSquaredModule *getChiSquaredModule() const { return m_chi2_module; }

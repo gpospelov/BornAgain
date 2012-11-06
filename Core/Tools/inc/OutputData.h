@@ -190,7 +190,6 @@ const OutputData<double> &operator*=(OutputData<double> &left, const OutputData<
 OutputData<double> *doubleBinSize(const OutputData<double> &source);
 
 
-
 /* ***************************************************************************/
 // definitions
 /* ***************************************************************************/

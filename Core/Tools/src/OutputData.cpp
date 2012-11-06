@@ -1,6 +1,7 @@
 #include "OutputData.h"
 #include "Exceptions.h"
 #include "Numeric.h"
+#include "MathFunctions.h"
 #include <cmath>
 
 
@@ -356,3 +357,4 @@ OutputData<double> *doubleBinSize(const OutputData<double> &source)
     }
     return p_result;
 }
+

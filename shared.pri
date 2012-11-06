@@ -33,7 +33,7 @@ GSL_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
 for(dir, GSL_HEADER_LOCATIONS): isEmpty(GSL_INCLUDE): exists($${dir}/$${GSL_HEADERFILE}): GSL_INCLUDE = $${dir}
 isEmpty(GSL_INCLUDE): message("Can't find" $${GSL_HEADERFILE} "in" $${GSL_HEADER_LOCATIONS})
 GSL_LIB = $$replace(GSL_INCLUDE,"include","lib")
-INCLUDEPATH *=  $${GSL_HEADER}
+INCLUDEPATH *=  $${GSL_INCLUDE}
 LIBS *= -L$${GSL_LIB}
 LIBS += -lgsl -lgslcblas
 
@@ -43,7 +43,7 @@ FFTW3_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
 for(dir, FFTW3_HEADER_LOCATIONS): isEmpty(FFTW3_INCLUDE): exists($${dir}/$${FFTW3_HEADERFILE}): FFTW3_INCLUDE = $${dir}
 isEmpty(FFTW3_INCLUDE): message("Can't find" $${FFTW3_HEADERFILE} "in" $${FFTW3_HEADER_LOCATIONS)
 FFTW3_LIB = $$replace(FFTW3_INCLUDE,"include","lib")
-INCLUDEPATH *=  $${FFTW3_HEADER}
+INCLUDEPATH *=  $${FFTW3_INCLUDE}
 LIBS *= -L$${FFTW3_LIB}
 LIBS += -lfftw3
 
@@ -59,7 +59,7 @@ for(dir, BOOST_LIB_LOCATIONS): isEmpty(BOOST_LIB) {
   !isEqual(NumberOfSuchFiles, 0): BOOST_LIB = $${dir}
 }
 isEmpty(BOOST_LIB): message("Can't find" $${BOOST_LIBFILES} "in" $${BOOST_LIB_LOCATIONS})
-INCLUDEPATH *=  $${BOOST_HEADER}
+INCLUDEPATH *=  $${BOOST_INCLUDE}
 LIBS *= -L$${BOOST_LIB}
 LIBS += -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
 # checking special case when system doesn't have libboost_thread library but have libbost_thread-mt

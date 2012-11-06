@@ -107,6 +107,12 @@ void FitSuite::init_fit_parameters()
 /* ************************************************************************* */
 void FitSuite::minimize()
 {
+    if( !m_minimizer ) throw NullPointerException("FitSuite::runFit() -> Error! Minimizer is missed.");
+
+    // initializing minimizer with fcn function belonging to given class
+    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), m_fit_params.size() );
+
+
     // propagating fit parameters to the minimizer
     int index(0);
     for(fitparameters_t::iterator it = m_fit_params.begin(); it!= m_fit_params.end(); ++it) {
@@ -124,7 +130,6 @@ void FitSuite::minimize()
 void FitSuite::runFit()
 {
     if( !m_experiment ) throw NullPointerException("FitSuite::runFit() -> Error! Experiment is missed.");
-    if( !m_minimizer ) throw NullPointerException("FitSuite::runFit() -> Error! Minimizer is missed.");
     if( !m_chi2_module ) throw NullPointerException("FitSuite::runFit() -> Error! Chi2 module is missed.");
     if( m_fit_params.empty()) throw NullPointerException("FitSuite::runFit() -> Error! no fit parameters is defined.");
 
@@ -133,8 +138,8 @@ void FitSuite::runFit()
     // initializing fit parameters
     init_fit_parameters();
 
-    // initializing minimizer with fcn function belonging to given class
-    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), m_fit_params.size() );
+//    // initializing minimizer with fcn function belonging to given class
+//    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), m_fit_params.size() );
 
     // running minimizer
     if( m_fit_strategies.empty() ) {
@@ -179,4 +184,6 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
     m_n_call++;
     return chi_squared;
 }
+
+
 

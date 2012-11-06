@@ -22,6 +22,7 @@
 #include "FitMultiParameter.h"
 #include "GISASExperiment.h"
 #include "ISampleBuilder.h"
+#include "FitSuiteStrategy.h"
 
 
 class FitSuite;

@@ -75,26 +75,26 @@ void TestFittingModule2::execute()
     //m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.5, 0.1, AttLimits::limited(0.1, 0.9));
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.2, 0.1, AttLimits::fixed());
 
+    // Applying fit strategy4: fixing/releasing parameters
 //    FitSuiteStrategyAdjustParameters *strategy0 = new FitSuiteStrategyAdjustParameters("strategy0");
 //    strategy0->fix_all().release("*SampleBuilder/m_cylinder_ratio");
 //    m_fitSuite->addFitStrategy(strategy0);
-
 //    FitSuiteStrategyAdjustParameters *strategy1 = new FitSuiteStrategyAdjustParameters("strategy1");
 //    strategy1->release_all().fix("*SampleBuilder/m_cylinder_ratio");
 //    m_fitSuite->addFitStrategy(strategy1);
-
 //    FitSuiteStrategyAdjustParameters *strategy2 = new FitSuiteStrategyAdjustParameters("strategy2");
 //    strategy2->release_all();
 //    m_fitSuite->addFitStrategy(strategy2);
 
 
+    // Applying fit strategy: resizing real data
 //    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(3));
 //    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(2));
 //    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(1));
 //    m_fitSuite->addFitStrategy(new FitSuiteStrategyDefault());
 
+    // Applying fit strategy: disturning data to get out of local minima
     m_fitSuite->addFitStrategy(new FitSuiteStrategyBootstrap());
-
 
     initializeExperiment();
     generateRealData(0.1);
@@ -110,24 +110,6 @@ void TestFittingModule2::execute()
     m_fitSuite->setExperiment(mp_experiment);
     m_fitSuite->setRealData(*mp_real_data);
     m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Simplex") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Minimize") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") ); //doesn't work, Fumili wants special function with derivative
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "ConjugateFR") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "BFGS") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "SteepestDescent") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Genetic", "") );
-    // tuning minimizer
-    //ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
-    //minim->SetPrecision(0.00001);
-    //minim->SetTolerance(0.00001);
-    //minim->SetStrategy(2);
-    //minim->SetMaxFunctionCalls(50); // for Minuit
-    //minim->SetMaxIterations(50); // for GSL
-    //minim->SetPrintLevel(4);
-
 
     m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
     m_fitSuite->attachObserver( new FitSuiteObserverDraw() );

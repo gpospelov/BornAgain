@@ -109,6 +109,10 @@ void FitSuite::minimize()
 {
     if( !m_minimizer ) throw NullPointerException("FitSuite::runFit() -> Error! Minimizer is missed.");
 
+    // initializing minimizer with fcn function belonging to given class
+    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), m_fit_params.size() );
+
+
     // propagating fit parameters to the minimizer
     int index(0);
     for(fitparameters_t::iterator it = m_fit_params.begin(); it!= m_fit_params.end(); ++it) {
@@ -134,8 +138,8 @@ void FitSuite::runFit()
     // initializing fit parameters
     init_fit_parameters();
 
-    // initializing minimizer with fcn function belonging to given class
-    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), m_fit_params.size() );
+//    // initializing minimizer with fcn function belonging to given class
+//    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), m_fit_params.size() );
 
     // running minimizer
     if( m_fit_strategies.empty() ) {

@@ -34,6 +34,8 @@ class FitSuite;
 class IFitSuiteStrategy : public INamed
 {
 public:
+    // TODO refactor all strategies (decorator, policies?) to change the way of calling FitSuite's minimizer: simple call, clear parameters/matrices before the call, no call at all, see FitSuiteStrategyAdjustData
+
     IFitSuiteStrategy() : m_fit_suite(0) {}
     IFitSuiteStrategy(const std::string &name) : INamed(name), m_fit_suite(0) {}
 
@@ -59,15 +61,19 @@ public:
 
 //- -------------------------------------------------------------------
 //! @class FitSuiteStrategyAdjustData
-//! @brief Strategy modifies data before running minimizing round
+//! @brief Strategy modifies data before running minimization round
 //- -------------------------------------------------------------------
 class FitSuiteStrategyAdjustData : public IFitSuiteStrategy
 {
 public:
-    FitSuiteStrategyAdjustData(int power_of_two = 1) : IFitSuiteStrategy("FitSuiteStrategyAdjustData"), m_power_of_two(power_of_two) { }
+    FitSuiteStrategyAdjustData(int power_of_two = 1, bool preserve_original=true, bool call_minimize=true) : IFitSuiteStrategy("FitSuiteStrategyAdjustData"), m_power_of_two(power_of_two), m_preserve_original_data(preserve_original), m_call_minimize(call_minimize) { }
+    void setPreserveOriginalData(bool preserve_original) { m_preserve_original_data = preserve_original; }
+    void setCallMinimize(bool call_minimize) { m_call_minimize = call_minimize; }
     virtual void execute();
 private:
     size_t m_power_of_two;
+    bool m_preserve_original_data; //! if it is true, strategy will restore original data in FitSuite before exiting
+    bool m_call_minimize; //! if it's true, modify data and then call FitSuite's minimizer, if false - simply modify the data
 };
 
 
@@ -78,19 +84,21 @@ private:
 class FitSuiteStrategyAdjustParameters : public IFitSuiteStrategy
 {
 public:
-    FitSuiteStrategyAdjustParameters(const std::string &name) : IFitSuiteStrategy(name), m_fix_all(false), m_release_all(false) { }
-    FitSuiteStrategyAdjustParameters() : IFitSuiteStrategy("FitSuiteStrategyAdjustParameters"), m_fix_all(false), m_release_all(false) { }
+    FitSuiteStrategyAdjustParameters(const std::string &name) : IFitSuiteStrategy(name), m_fix_all(false), m_release_all(false), m_preserve_original_values(false) { }
+    FitSuiteStrategyAdjustParameters() : IFitSuiteStrategy("FitSuiteStrategyAdjustParameters"), m_fix_all(false), m_release_all(false), m_preserve_original_values(false)  { }
     virtual ~FitSuiteStrategyAdjustParameters(){}
     virtual void execute();
     FitSuiteStrategyAdjustParameters &fix_all() { m_fix_all = true; return *this; }
     FitSuiteStrategyAdjustParameters &release_all() { m_release_all = true; return *this; }
     FitSuiteStrategyAdjustParameters &fix(std::string parname ) { m_pars_to_fix.push_back(parname); return *this; }
     FitSuiteStrategyAdjustParameters &release(std::string parname ) { m_pars_to_release.push_back(parname); return *this; }
+    void setPreserveOriginalValues(bool preserve_values) { m_preserve_original_values = preserve_values; }
 private:
     bool m_fix_all;
     bool m_release_all;
     std::vector<std::string > m_pars_to_fix;
     std::vector<std::string > m_pars_to_release;
+    bool m_preserve_original_values; //! if it's true, strategy will set back values of parameters as they were before minimization round
 };
 
 

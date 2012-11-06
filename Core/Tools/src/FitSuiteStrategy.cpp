@@ -32,13 +32,15 @@ void FitSuiteStrategyAdjustData::execute()
 
     // if no data rediction was requested, just call FitSuite's minimization
     if( m_power_of_two == 0 ) {
-        m_fit_suite->minimize();
+        if(m_call_minimize) {
+            m_fit_suite->minimize();
+        }
         return;
     }
 
     // saving original data
     OutputData<double > *orig_data = m_fit_suite->getChiSquaredModule()->getRealData()->clone();
-    // create adjusted data which will have doubled (4,8,...) bin size
+    // create adjusted data which will have doubled (2,4,8,...) bin size
     OutputData<double> *adjusted_data = orig_data;
     for(size_t i=0; i<m_power_of_two; ++i) {
         OutputData<double> *new_data = doubleBinSize(*adjusted_data);
@@ -59,14 +61,18 @@ void FitSuiteStrategyAdjustData::execute()
     experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
 
     // calling minimization
-    m_fit_suite->getMinimizer()->clear(); // clear minimizer's parameters and error matrixes
-    m_fit_suite->minimize();
+    if(m_call_minimize) {
+        m_fit_suite->getMinimizer()->clear(); // clear minimizer's parameters and error matrixes
+        m_fit_suite->minimize();
+    }
 
-    // returning back original data
-    m_fit_suite->setRealData(*orig_data);
-    axis0 = reinterpret_cast<const NamedVector<double>*>(orig_data->getAxes()[0]);
-    axis1 = reinterpret_cast<const NamedVector<double>*>(orig_data->getAxes()[1]);
-    experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
+    // setting back original data
+    if(m_preserve_original_data) {
+        m_fit_suite->setRealData(*orig_data);
+        axis0 = reinterpret_cast<const NamedVector<double>*>(orig_data->getAxes()[0]);
+        axis1 = reinterpret_cast<const NamedVector<double>*>(orig_data->getAxes()[1]);
+        experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
+    }
 
     delete orig_data;
     delete adjusted_data;
@@ -108,8 +114,21 @@ void FitSuiteStrategyAdjustParameters::execute()
         m_fit_suite->getFitParameter((*it))->setFixed(false);
     }
 
+
+    std::vector<double > original_param_values;
+    for(FitSuite::fitparameters_t::iterator it = m_fit_suite->fitparams_begin(); it!=m_fit_suite->fitparams_end(); ++it) {
+        original_param_values.push_back( (*it)->getValue() );
+    }
+
     // calling minimization
     m_fit_suite->minimize();
+
+    if(m_preserve_original_values) {
+        int index(0);
+        for(FitSuite::fitparameters_t::iterator it = m_fit_suite->fitparams_begin(); it!=m_fit_suite->fitparams_end(); ++it) {
+            (*it)->setValue(original_param_values[index++]);
+        }
+    }
 }
 
 
@@ -130,17 +149,9 @@ void FitSuiteStrategyBootstrap::execute()
     double chi2_last = m_fit_suite->getMinimizer()->getMinValue();
 
     FitResult fitResult;
-//    fitResult.chi2 = m_fit_suite->getMinimizer()->getMinValue();
-//    for(FitSuite::fitparameters_t::iterator it = m_fit_suite->fitparams_begin(); it!=m_fit_suite->fitparams_end(); ++it) {
-//        fitResult.param_values.push_back( (*it)->getValue());
-//        param_values.push_back( (*it)->getValue() );
-//    }
-//    fitHistory.push_back(fitResult);
-
-
     OutputData<double > *orig_data = m_fit_suite->getChiSquaredModule()->getRealData()->clone();
     for(int i_iter=0; i_iter<m_n_iterations; ++i_iter) {
-        OutputData<double > *noisy_data = generateNoisyData(100, *orig_data);
+        OutputData<double > *noisy_data = generateNoisyData(10, *orig_data);
 
         fitResult.clear();
         fitResult.niter = i_iter;
@@ -198,12 +209,7 @@ void FitSuiteStrategyBootstrap::execute()
 
     std::cout << "FitSuiteStrategyBootstrap::execute() -> Results" << std::endl;
     for(size_t i=0; i<fitHistory.size(); ++i) {
-        std::cout << "i:" << i
-                  << " niter:" << fitHistory[i].niter
-//                  << " chi2_last:" << fitHistory[i].chi2_last
-//                  << " chi2_noisy:" << fitHistory[i].chi2_noisy
-//                  << " chi2_current:" << fitHistory[i].chi2_current
-                  << std::endl;
+        std::cout << "i:" << i << " niter:" << fitHistory[i].niter << std::endl;
         std::cout << " chi2_last   :" << fitHistory[i].chi2_last << " |  ";
         for(size_t j=0; j<fitHistory[i].param_values.size(); ++j) std::cout << fitHistory[i].param_values[j] << " ";
         std::cout << std::endl;
@@ -252,22 +258,9 @@ OutputData<double> *FitSuiteStrategyBootstrap::generateNoisyData(double noise_fa
         double current = p_result->currentValue();
         double sigma = noise_factor*std::sqrt(current);
         double random = MathFunctions::GenerateNormalRandom(current, sigma);
-        //std::cout << "XXX " << current << " " << random << " " << current/random << std::endl;
         if (random<0.0) random = 0.0;
         p_result->next() = random;
     }
-
-//    OutputData<double> *p_result = source.clone();
-//    p_result->resetIndex();
-//    double random_factor = noise_factor*MathFunctions::GenerateNormalRandom(0.0, 1.0);
-
-//    while (p_result->hasNext()) {
-//        double current = p_result->currentValue();
-//        double random = current + random_factor*current;
-//        if (random<0.0) random = 0.0;
-//        p_result->next() = random;
-//        std::cout << random << " XXXXXX " << current << " " << random/current << std::endl;
-//    }
 
     return p_result;
 }

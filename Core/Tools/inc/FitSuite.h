@@ -20,10 +20,12 @@
 #include "AttLimits.h"
 #include "FitMultiParameter.h"
 #include "FitSuiteStrategy.h"
+#include "IMinimizer.h"
 #include <string>
 
+
+
 class Experiment;
-class IMinimizer;
 class ParameterPool;
 class ChiSquaredModule;
 
@@ -49,7 +51,7 @@ public:
     Experiment *getExperiment() { return m_experiment; }
 
     //! set minimizer
-    void setMinimizer(IMinimizer *minimizer) { m_minimizer = minimizer; }
+    void setMinimizer(IMinimizer *minimizer) { delete m_minimizer;  m_minimizer = minimizer; }
     //! get minimizer
     IMinimizer *getMinimizer() { return m_minimizer; }
 

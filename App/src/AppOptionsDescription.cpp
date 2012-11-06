@@ -20,6 +20,7 @@ void AddApplicationOptions(ProgramOptions* p_options)
             ("all",     "run all registered functional test")
             ("profile", "profile specified test")
             ("config,c", bpo::value<std::string>()->default_value("gisasfw.cfg"),"config file name")
+            ("fitmode", bpo::value<int>()->default_value(1), "used in TestMesocrystal2")
     ;
 
     // there is no positional options (without '--' or '-' signs) at the moment
@@ -35,3 +36,4 @@ void AddApplicationOptions(ProgramOptions* p_options)
     // adding options to the main option holder
     p_options->add(general_options).add(functional_test_options);
 }
+

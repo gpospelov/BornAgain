@@ -7,7 +7,8 @@
 ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type) : m_fcn(0)
 {
     m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name.c_str(), algo_type.c_str() );
-    m_root_minimizer->SetMaxFunctionCalls(5000);
+    m_root_minimizer->SetMaxFunctionCalls(20000);
+    m_root_minimizer->SetMaxIterations(20000);
     printOptions();
     if( m_root_minimizer == 0 ) {
         throw NullPointerException("ROOTMinimizer::ROOTMinimizer() -> Error! Can't build minimizer");

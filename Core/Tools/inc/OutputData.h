@@ -16,7 +16,10 @@
 
 #include "NamedVector.h"
 #include "Exceptions.h"
+#include "Types.h"
 #include <map>
+#include <string>
+#include <sstream>
 
 template <class T> class OutputData;
 
@@ -104,6 +107,9 @@ public:
     //! return copy of raw data vector
     std::vector<T> getRawDataVector() const { return m_data_vector; }
 
+    //! fill raw array with data
+    void fillRawDataArray(T *destination) const;
+
     //! return multi index
     MultiIndex& getIndex() const;
 
@@ -151,8 +157,14 @@ public:
     //! multiply every item of this output data by value
     void scaleAll(const T& value);
 
+    //! add <rank> axes with indicated sizes
+    void setAxisSizes(size_t rank, int *n_dims);
+
     //! set new values to raw data vector
     void setRawDataVector(const std::vector<T> &data_vector);
+
+    //! set new values to raw data array
+    void setRawDataArray(const T *source);
 
 private:
     //! hidden copy constructor and assignment operators
@@ -189,6 +201,9 @@ const OutputData<double> &operator*=(OutputData<double> &left, const OutputData<
 //! double the bin size for each dimension
 OutputData<double> *doubleBinSize(const OutputData<double> &source);
 
+//! unnormalized Fourier transformations for real data
+void fourierTransform(const OutputData<double> &source, OutputData<complex_t> *p_destination);
+void fourierTransformR(const OutputData<complex_t> &source, OutputData<double> *p_destination);
 
 
 /* ***************************************************************************/
@@ -285,7 +300,7 @@ template <class U> void OutputData<T>::addAxis(std::string name, U start, U end,
     addAxis(p_new_axis);
 }
 
-template <class T> const NamedVectorBase* OutputData<T>::getAxis(std::string label) const
+template <class T> const NamedVectorBase *OutputData<T>::getAxis(std::string label) const
 {
     for (std::vector<NamedVectorBase*>::const_iterator it = m_value_axes.begin(); it != m_value_axes.end(); ++it)
     {
@@ -297,10 +312,20 @@ template <class T> const NamedVectorBase* OutputData<T>::getAxis(std::string lab
     return 0;
 }
 
-template <class T> const NamedVectorBase* OutputData<T>::getAxis(size_t index) const
+template <class T> const NamedVectorBase *OutputData<T>::getAxis(size_t index) const
 {
     return m_value_axes.at(index);
 }
+
+//! fill raw array with data
+template <class T> void OutputData<T>::fillRawDataArray(T *destination) const
+{
+    for (size_t i=0; i<m_data_size; ++i) {
+        destination[i] = m_data_vector[i];
+    }
+    return;
+}
+
 
 // return multi index
 template <class T> inline MultiIndex& OutputData<T>::getIndex() const
@@ -412,6 +437,18 @@ template <class T> void OutputData<T>::scaleAll(const T &value)
     }
 }
 
+// add <rank> axes with indicated sizes
+template <class T> void OutputData<T>::setAxisSizes(size_t rank, int *n_dims)
+{
+    clear();
+    std::string basename("axis");
+    for (size_t i=0; i<rank; ++i) {
+        std::ostringstream name;
+        name << basename << i;
+        addAxis(name.str(), 0, n_dims[i]-1, n_dims[i]);
+    }
+}
+
 
 template <class T> void OutputData<T>::allocate()
 {
@@ -430,6 +467,14 @@ template<class T> inline void OutputData<T>::setRawDataVector(const std::vector<
         throw RuntimeErrorException("setRawDataVector can only be called with a data vector of the correct size.");
     }
     m_data_vector = data_vector;
+}
+
+// set new values to raw data array
+template<class T> inline void OutputData<T>::setRawDataArray(const T *source)
+{
+    for (size_t i=0; i<m_data_vector.size(); ++i) {
+        m_data_vector[i] = source[i];
+    }
 }
 
 #endif // OUTPUTDATA_H

@@ -430,8 +430,10 @@ void fourierTransformR(const OutputData<complex_t>& source, OutputData<double> *
 
     // execute the plan
     fftw_execute(plan);
-    // put output into result map
+    // put output into result map and rescale
     p_destination->setRawDataArray(output);
+    double scaling_factor = 1.0/p_destination->getAllocatedSize();
+    p_destination->scaleAll(scaling_factor);
 
     // free allocated objects
     fftw_destroy_plan(plan);
@@ -439,6 +441,48 @@ void fourierTransformR(const OutputData<complex_t>& source, OutputData<double> *
     fftw_free(output);
     delete[] n_real_dims;
     delete[] n_complex_dims;
+}
+
+OutputData<double> *getRealPart(const OutputData<complex_t> &source)
+{
+    OutputData<double> *p_result = new OutputData<double>();
+    for (size_t i=0; i<source.getDimension(); ++i) {
+        p_result->addAxis(source.getAxis(i)->clone());
+    }
+    source.resetIndex();
+    p_result->resetIndex();
+    while (source.hasNext()) {
+        p_result->next() = source.next().real();
+    }
+    return p_result;
+}
+
+OutputData<double>* getImagPart(const OutputData<complex_t>& source)
+{
+    OutputData<double> *p_result = new OutputData<double>();
+    for (size_t i=0; i<source.getDimension(); ++i) {
+        p_result->addAxis(source.getAxis(i)->clone());
+    }
+    source.resetIndex();
+    p_result->resetIndex();
+    while (source.hasNext()) {
+        p_result->next() = source.next().imag();
+    }
+    return p_result;
+}
+
+OutputData<double>* getModulusPart(const OutputData<complex_t>& source)
+{
+    OutputData<double> *p_result = new OutputData<double>();
+    for (size_t i=0; i<source.getDimension(); ++i) {
+        p_result->addAxis(source.getAxis(i)->clone());
+    }
+    source.resetIndex();
+    p_result->resetIndex();
+    while (source.hasNext()) {
+        p_result->next() = std::abs(source.next());
+    }
+    return p_result;
 }
 
 void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination)
@@ -456,3 +500,4 @@ void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination)
         destination[i].imag() = source[i][1];
     }
 }
+

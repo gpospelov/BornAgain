@@ -31,6 +31,7 @@ SOURCES += \
     src/TestFittingModule1.cpp \
     src/TestFittingModule2.cpp \
     src/TestFormFactor.cpp \
+    src/TestFourier.cpp \
     src/TestFresnelCoeff.cpp \
     src/TestIsGISAXS1.cpp \
     src/TestIsGISAXS2.cpp \
@@ -69,6 +70,7 @@ HEADERS += \
     inc/TestFittingModule1.h \
     inc/TestFittingModule2.h \
     inc/TestFormFactor.h \
+    inc/TestFourier.h \
     inc/TestFresnelCoeff.h \
     inc/TestIsGISAXS1.h \
     inc/TestIsGISAXS2.h \

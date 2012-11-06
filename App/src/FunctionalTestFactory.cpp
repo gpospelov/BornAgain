@@ -22,6 +22,7 @@
 #include "TestMultiLayerRoughness.h"
 #include "TestMiscellaneous.h"
 #include "TestFittingBenchmark.h"
+#include "TestFourier.h"
 
 
 #include "TBenchmark.h"
@@ -78,6 +79,8 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: test of different miscellaneous issues");
     registerItem("fitbench",    IFactoryCreateFunction<TestFittingBenchmark, IFunctionalTest>,
                  "functional test: test of minimizers with hard-to-minimize test functions");
+    registerItem("fourier",    IFactoryCreateFunction<TestFourier, IFunctionalTest>,
+                 "functional test: test of Fourier transformation of OutputData maps");
 
     m_benchmark = new TBenchmark();
 }

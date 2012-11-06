@@ -205,6 +205,9 @@ OutputData<double> *doubleBinSize(const OutputData<double> &source);
 void fourierTransform(const OutputData<double> &source, OutputData<complex_t> *p_destination);
 void fourierTransformR(const OutputData<complex_t> &source, OutputData<double> *p_destination);
 
+OutputData<double> *getRealPart(const OutputData<complex_t> &source);
+OutputData<double> *getImagPart(const OutputData<complex_t> &source);
+OutputData<double> *getModulusPart(const OutputData<complex_t> &source);
 
 /* ***************************************************************************/
 // definitions
@@ -445,7 +448,7 @@ template <class T> void OutputData<T>::setAxisSizes(size_t rank, int *n_dims)
     for (size_t i=0; i<rank; ++i) {
         std::ostringstream name;
         name << basename << i;
-        addAxis(name.str(), 0, n_dims[i]-1, n_dims[i]);
+        addAxis(name.str(), 0.0, (double)(n_dims[i]-1), n_dims[i]);
     }
 }
 

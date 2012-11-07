@@ -24,8 +24,18 @@ public:
 
     virtual double calculateChiSquared(const OutputData<double> *p_simulation_data=0);
 
+    void setCutoff(double cutoff) {
+        if (cutoff>=0.0 && cutoff<=1.0) m_cutoff = cutoff;
+    }
+    double getCutoff() { return m_cutoff; }
+
     //! return output data which contains chi^2 values
     virtual OutputData<double > *createChi2DifferenceMap() const;
+protected:
+    virtual void initWeights();
+    OutputData<complex_t> *mp_real_ft;
+    OutputData<complex_t> *mp_simulation_ft;
+    double m_cutoff;
 };
 
 

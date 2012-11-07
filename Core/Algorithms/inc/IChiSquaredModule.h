@@ -52,7 +52,7 @@ public:
     virtual OutputData<double > *createChi2DifferenceMap() const=0;
 
 protected:
-    void initWeights();
+    virtual void initWeights();
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulation_data;
     OutputData<double> *mp_weights;

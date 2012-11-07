@@ -43,8 +43,11 @@ OutputData<double>* ChiSquaredFrequency::createChi2DifferenceMap() const
     mp_real_ft->resetIndex();
 
     while (p_difference->hasNext()) {
-        complex_t diff = mp_simulation_ft->next() - mp_real_ft->next();
-        double squared_difference = std::norm(diff);
+        complex_t real = mp_real_ft->next();
+        complex_t simu = mp_simulation_ft->next();
+        complex_t diff = real - simu;
+//        double sum_norms = std::max(std::norm(real), 1.0);
+        double squared_difference = std::norm(diff); // /std::sqrt(sum_norms);
         p_difference->next() = squared_difference;
     }
 

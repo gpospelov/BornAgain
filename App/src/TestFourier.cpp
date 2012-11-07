@@ -41,18 +41,18 @@ void TestFourier::execute()
     fourierTransformR(fft_map, mp_intensity_output);
     IsGISAXSTools::drawOutputData(*p_real_fft_map, "c1_four", "Fourier transform",
             "CONT4 Z", "Fourier transform");
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/fourier.ima");
+    IsGISAXSTools::writeOutputDataToFile(*p_real_fft_map, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/fourier.ima");
+}
+
+void TestFourier::initializeSample()
+{
+    delete mp_sample;
+    mp_sample = SampleFactory::createSample("IsGISAXS11_CoreShellParticle");
 }
 
 //void TestFourier::initializeSample()
 //{
 //    delete mp_sample;
-//    mp_sample = SampleFactory::createSample("IsGISAXS11_CoreShellParticle");
+//    MesoCrystalBuilder builder;
+//    mp_sample = builder.buildSample();
 //}
-//
-void TestFourier::initializeSample()
-{
-    delete mp_sample;
-    MesoCrystalBuilder builder;
-    mp_sample = builder.buildSample();
-}

@@ -309,7 +309,7 @@ void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
         //throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing.");
     }
     output.resetIndex();
-    size_t row_length = output.getAxes()[0]->getSize();
+    size_t row_length = output.getAxes()[1]->getSize();
     int counter = 1;
     while(output.hasNext()) {
         double z_value = output.next();

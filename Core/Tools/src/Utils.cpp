@@ -52,10 +52,19 @@ std::string Utils::FileSystem::GetHomePath()
     // we expect that variable m_relative_path (aka argv[0]) has been set from outside
     // and use boost::filesystem::system_complete() to get complete path to executable
 
-    //std::string path = boost::filesystem::system_complete(m_relative_path.c_str()).string();
-    std::string path = boost::filesystem::canonical( m_relative_path.c_str() ).string(); // with automatic resolving of symlinks
+    //std::string path = boost::filesystem::system_complete(m_relative_path.c_str()).string(); // without resolving symlinks
+    //std::string path = boost::filesystem::canonical( m_relative_path.c_str() ).string(); // with automatic resolving of symlinks, boost>= 1.48
+
+    // for boost 1.46 lets use another way
+    std::string path;
+    if( boost::filesystem::is_symlink(m_relative_path.c_str()) ) {
+        path = boost::filesystem::read_symlink( m_relative_path.c_str() ).string();
+    } else {
+        path = boost::filesystem::system_complete(m_relative_path.c_str()).string();
+    }
+
     // at this point the value should be something like '/Users/jamesbond/development/git/./GISASFW/App/App'
-    //std::cout << "RRR GetHomePath() -> path '" << path << "'" << std::endl;
+    //std::cout << "Utils::FileSystem::GetHomePath() -> path '" << path << "'" << std::endl;
 
     // lets strip everything after 'GISASFW' to get path to project home directory    
     std::string project_name("GISASFW");

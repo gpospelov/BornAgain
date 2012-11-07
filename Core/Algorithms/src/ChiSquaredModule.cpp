@@ -1,48 +1,12 @@
 #include "ChiSquaredModule.h"
-#include <iostream>
 
 ChiSquaredModule::ChiSquaredModule(const OutputData<double>& real_data)
-    : mp_simulation_data(0), m_chi2_value(0)
+    : IChiSquaredModule(real_data)
 {
-    mp_real_data = real_data.clone();
-    mp_data_selector = new DefaultAllDataSelector();
-    mp_squared_function = new DefaultSquaredFunction();
 }
 
 ChiSquaredModule::~ChiSquaredModule()
 {
-    delete mp_real_data;
-    delete mp_simulation_data;
-    delete mp_data_selector;
-    delete mp_squared_function;
-}
-
-void ChiSquaredModule::setRealData(
-        const OutputData<double>& real_data)
-{
-    delete mp_real_data;
-    mp_real_data = real_data.clone();
-}
-
-void ChiSquaredModule::setSimulationData(
-        const OutputData<double>& simulation_data)
-{
-    delete mp_simulation_data;
-    mp_simulation_data = simulation_data.clone();
-}
-
-void ChiSquaredModule::setFittingDataSelector(
-        const IFittingDataSelector& selector)
-{
-    delete mp_data_selector;
-    mp_data_selector = selector.clone();
-}
-
-void ChiSquaredModule::setChiSquaredFunction(
-        const ISquaredFunction& squared_function)
-{
-    delete mp_squared_function;
-    mp_squared_function = squared_function.clone();
 }
 
 double ChiSquaredModule::calculateChiSquared(
@@ -54,16 +18,34 @@ double ChiSquaredModule::calculateChiSquared(
     if (mp_simulation_data==0) {
         throw LogicErrorException("No simulation data present for calculating chi squared.");
     }
-    mp_data_selector->getFittingData(*mp_real_data, *mp_simulation_data,
-            m_real_data_vector, m_simulation_data_vector, m_weights);
     double result = 0.0;
-    size_t data_size = m_real_data_vector.size();
-    for (size_t index=0; index<data_size; ++index) {
-        double squared_value = mp_squared_function->calculateSquaredDifference(m_real_data_vector[index],
-                m_simulation_data_vector[index]);
-        result += squared_value*m_weights[index];
+    size_t data_size = mp_real_data->getAllocatedSize();
+    initWeights();
+    OutputData<double> *p_difference = createChi2DifferenceMap();
+    mp_weights->resetIndex();
+    p_difference->resetIndex();
+    while(p_difference->hasNext()) {
+        result += p_difference->next()*mp_weights->next();
     }
-
+    delete p_difference;
     m_chi2_value = result/data_size;
     return m_chi2_value;
+}
+
+OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
+{
+    OutputData<double > *p_difference = mp_simulation_data->clone();
+    p_difference->setAllTo(0.0);
+
+    mp_simulation_data->resetIndex();
+    mp_real_data->resetIndex();
+    p_difference->resetIndex();
+    while (mp_real_data->hasNext()) {
+        double value_simu = mp_simulation_data->next();
+        double value_real = mp_real_data->next();
+        double squared_difference = mp_squared_function->calculateSquaredDifference(value_real, value_simu);
+        p_difference->next() = squared_difference;
+    }
+
+    return p_difference;
 }

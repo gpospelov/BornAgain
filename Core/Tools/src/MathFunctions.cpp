@@ -3,9 +3,7 @@
 #include <cmath>
 #include <stdexcept>
 #include <fftw3.h>
-#include <string.h>
-
-#include "gsl/gsl_sf_erf.h"
+#include <gsl/gsl_sf_erf.h>
 
 double MathFunctions::Gaussian(double value, double average, double std_dev)
 {

@@ -25,8 +25,13 @@ class TH2D;
 //- -------------------------------------------------------------------
 class IsGISAXSTools {
 public:
-    //! draw 2D histogram representing OutputData (in new canvas)
+    //! draw 2D histogram representing logarithm of OutputData (in new canvas)
     static void drawLogOutputData(const OutputData<double> &output, const std::string &canvas_name,
+            const std::string &canvas_title, const std::string &draw_options,
+            const std::string &histogram_title);
+
+    //! draw 2D histogram representing OutputData (in new canvas)
+    static void drawOutputData(const OutputData<double> &output, const std::string &canvas_name,
             const std::string &canvas_title, const std::string &draw_options,
             const std::string &histogram_title);
 

@@ -27,7 +27,7 @@
 
 class Experiment;
 class ParameterPool;
-class ChiSquaredModule;
+class IChiSquaredModule;
 
 
 //- -------------------------------------------------------------------
@@ -88,7 +88,7 @@ public:
     size_t fitparams_size() { return m_fit_params.size(); }
 
     //! get chi2 module
-    const ChiSquaredModule *getChiSquaredModule() const { return m_chi2_module; }
+    const IChiSquaredModule *getChiSquaredModule() const { return m_chi2_module; }
 
     //! if the last iteration is done
     bool isLastIteration() { return m_is_last_iteration; }
@@ -102,7 +102,7 @@ public:
 private:
     Experiment *m_experiment; //! experiment with sample description
     IMinimizer  *m_minimizer; //! minimization engine
-    ChiSquaredModule *m_chi2_module; //! module providing chi2 calculations
+    IChiSquaredModule *m_chi2_module; //! module providing chi2 calculations
     fitparameters_t m_fit_params; //! vector of parameters to minimize
     bool m_is_last_iteration; //! set to true after last iteration complete
     int m_n_call;

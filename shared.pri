@@ -26,7 +26,6 @@ isEqual(env_debug_variable, "yes") {
 # general external libraries
 # -----------------------------------------------------------------------------
 
-
 # --- checking gsl header ---
 GSL_HEADERFILE = gsl/gsl_sf_bessel.h
 GSL_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include

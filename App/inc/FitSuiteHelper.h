@@ -17,7 +17,7 @@
 
 #include "IObserver.h"
 #include "OutputData.h"
-#include "ChiSquaredModule.h"
+#include "IChiSquaredModule.h"
 #include <string>
 #include <vector>
 #include <time.h>
@@ -33,7 +33,9 @@ class TPaveText;
 class FitSuiteObserverPrint : public IObserver
 {
 public:
-    FitSuiteObserverPrint() : m_last_call_clock(clock()), m_last_call_time() { gettimeofday(&m_last_call_time, 0); }
+    FitSuiteObserverPrint() : m_wall_time(0.0), m_last_call_clock(clock()), m_last_call_time() {
+        gettimeofday(&m_last_call_time, 0);
+    }
     void update(IObservable *subject);
 private:
     double m_wall_time;
@@ -53,10 +55,10 @@ public:
     void update(IObservable *subject);
 
     //! return output data which contains relative difference between simulation and real data
-    OutputData<double > *getRelativeDifferenceMap(const ChiSquaredModule *chi_module);
+    OutputData<double > *getRelativeDifferenceMap(const IChiSquaredModule *chi_module);
 
     //! return output data which contains chi2 values from ChisSquaredModule of FitSuite
-    OutputData<double > *getChi2DifferenceMap(const ChiSquaredModule *chi_module);
+    OutputData<double > *getChi2DifferenceMap(const IChiSquaredModule *chi_module);
 private:
     int m_draw_every_nth; //! update canvas every nth iteration
     std::string m_canvas_name; //! canvas name were to draw

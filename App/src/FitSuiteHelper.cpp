@@ -6,7 +6,6 @@
 
 #include "TCanvas.h"
 #include "TPaveText.h"
-#include "ChiSquaredModule.h"
 #include "TROOT.h"
 #include "TFile.h"
 #include "TTree.h"
@@ -155,7 +154,7 @@ void FitSuiteObserverDraw::update(IObservable *subject)
 
 
 // return output data which contains relative difference between simulation and real data
-OutputData<double > *FitSuiteObserverDraw::getRelativeDifferenceMap(const ChiSquaredModule *chi_module)
+OutputData<double > *FitSuiteObserverDraw::getRelativeDifferenceMap(const IChiSquaredModule *chi_module)
 {
     const OutputData<double> *simu_data = chi_module->getSimulationData();
     const OutputData<double> *real_data = chi_module->getRealData();
@@ -179,33 +178,10 @@ OutputData<double > *FitSuiteObserverDraw::getRelativeDifferenceMap(const ChiSqu
 }
 
 
-// return output data which contains chi2 values from ChisSquaredModule of FitSuite
-OutputData<double > *FitSuiteObserverDraw::getChi2DifferenceMap(const ChiSquaredModule *chi_module)
+// return output data which contains chi2 values from ChiSquaredModule of FitSuite
+OutputData<double > *FitSuiteObserverDraw::getChi2DifferenceMap(const IChiSquaredModule *chi_module)
 {
-   const ISquaredFunction *squared_function = chi_module->getSquaredFunction();
-
-    const OutputData<double> *simu_data = chi_module->getSimulationData();
-    const OutputData<double> *real_data = chi_module->getRealData();
-
-    OutputData<double > *difference = simu_data->clone();
-    difference->setAllTo(0.0);
-
-    double norm(0);
-
-    simu_data->resetIndex();
-    real_data->resetIndex();
-    difference->resetIndex();
-    while (real_data->hasNext()) {
-        double value_simu = simu_data->currentValue();
-        double value_real = real_data->currentValue();
-        double squared_difference = squared_function->calculateSquaredDifference(value_real, value_simu);
-        difference->next() = squared_difference;
-        norm += squared_difference;
-        real_data->next(); simu_data->next();
-    }
-    //difference->scaleAll(1./norm);
-
-    return difference;
+    return chi_module->createChi2DifferenceMap();
 }
 
 

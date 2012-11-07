@@ -22,7 +22,7 @@ bool   IsGISAXSTools::m_has_max = false;
 
 
 /* ************************************************************************* */
-// draw 2D histogram representing OutputData (in new canvas)
+// draw 2D histogram representing logarithm of OutputData (in new canvas)
 /* ************************************************************************* */
 void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
         const std::string& canvas_name, const std::string& canvas_title,
@@ -35,6 +35,17 @@ void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
     drawOutputDataInPad(output, draw_options, histogram_title);
 }
 
+/* ************************************************************************* */
+// draw 2D histogram representing OutputData (in new canvas)
+/* ************************************************************************* */
+void IsGISAXSTools::drawOutputData(const OutputData<double>& output,
+        const std::string& canvas_name, const std::string& canvas_title,
+        const std::string& draw_options, const std::string &histogram_title)
+{
+    TCanvas *c1 = new TCanvas(canvas_name.c_str(), canvas_title.c_str(), 0, 0, 1024, 768);
+    c1->cd();
+    drawOutputDataInPad(output, draw_options, histogram_title);
+}
 
 /* ************************************************************************* */
 // draw 2D histogram representing OutputData (in current gPad)
@@ -298,7 +309,7 @@ void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
         //throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing.");
     }
     output.resetIndex();
-    size_t row_length = output.getAxes()[0]->getSize();
+    size_t row_length = output.getAxes()[1]->getSize();
     int counter = 1;
     while(output.hasNext()) {
         double z_value = output.next();

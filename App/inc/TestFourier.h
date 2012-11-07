@@ -1,5 +1,5 @@
-#ifndef CHISQUAREDMODULE_H_
-#define CHISQUAREDMODULE_H_
+#ifndef TESTFOURIER_H_
+#define TESTFOURIER_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,24 +9,27 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   ChiSquaredModule.h
-//! @brief  Definition of ChiSquaredModule class
+//! @file   TestFourier.h
+//! @brief  Definition of TestFourier functional test class
 //! @author Scientific Computing Group at FRM II
-//! @date   Jul 20, 2012
+//! @date   Nov 6, 2012
 
-#include "IChiSquaredModule.h"
+#include "IFunctionalTest.h"
+#include "OutputData.h"
+#include "ISample.h"
 
-class ChiSquaredModule : public IChiSquaredModule
+class TestFourier : public IFunctionalTest
 {
 public:
-    ChiSquaredModule(const OutputData<double> &real_data);
-    virtual ~ChiSquaredModule();
+    TestFourier();
+    virtual ~TestFourier();
+    virtual void execute();
 
-    virtual double calculateChiSquared(const OutputData<double> *p_simulation_data=0);
-
-    //! return output data which contains chi^2 values
-    virtual OutputData<double > *createChi2DifferenceMap() const;
+private:
+    void initializeSample();
+    OutputData<double> *mp_intensity_output;
+    ISample *mp_sample;
 };
 
 
-#endif /* CHISQUAREDMODULE_H_ */
+#endif /* TESTFOURIER_H_ */

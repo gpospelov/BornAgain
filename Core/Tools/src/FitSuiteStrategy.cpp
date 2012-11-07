@@ -2,7 +2,7 @@
 #include "FitSuite.h"
 #include "Exceptions.h"
 #include "OutputData.h"
-#include "ChiSquaredModule.h"
+#include "IChiSquaredModule.h"
 #include "Experiment.h"
 #include "GISASExperiment.h"
 #include "IMinimizer.h"

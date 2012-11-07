@@ -22,6 +22,7 @@
 #include "TestMultiLayerRoughness.h"
 #include "TestMiscellaneous.h"
 #include "TestFittingBenchmark.h"
+#include "TestFourier.h"
 
 
 #include "TBenchmark.h"
@@ -40,17 +41,17 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: some formfactor");
     registerItem("diffuse",     IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest>,
                  "functional test: diffuse scattering from multi layer with roughness (obsolete)");
-    registerItem("isgisaxs1",   IFactoryCreateFunction<TestIsGISAXS1, IFunctionalTest>,
+    registerItem("isgisaxs01",   IFactoryCreateFunction<TestIsGISAXS1, IFunctionalTest>,
                  "functional test: isgisaxs ex-1 (2 types of particles without inteference on top of substrate)");
-    registerItem("isgisaxs2",   IFactoryCreateFunction<TestIsGISAXS2, IFunctionalTest>,
+    registerItem("isgisaxs02",   IFactoryCreateFunction<TestIsGISAXS2, IFunctionalTest>,
                  "functional test: isgisaxs ex-2 (mean form factors for particles with shape size distribution)");
-    registerItem("isgisaxs3",   IFactoryCreateFunction<TestIsGISAXS3, IFunctionalTest>,
+    registerItem("isgisaxs03",   IFactoryCreateFunction<TestIsGISAXS3, IFunctionalTest>,
                  "functional test: isgisaxs ex-3 (cylinder FF)");
-    registerItem("isgisaxs4",   IFactoryCreateFunction<TestIsGISAXS4, IFunctionalTest>,
+    registerItem("isgisaxs04",   IFactoryCreateFunction<TestIsGISAXS4, IFunctionalTest>,
                  "functional test: isgisaxs ex-4 (paracrystal 1d structure factors)");
-    registerItem("isgisaxs8",   IFactoryCreateFunction<TestIsGISAXS8, IFunctionalTest>,
+    registerItem("isgisaxs08",   IFactoryCreateFunction<TestIsGISAXS8, IFunctionalTest>,
                  "functional test: isgisaxs ex-8 (paracrystal lattice structure factors)");
-    registerItem("isgisaxs9",   IFactoryCreateFunction<TestIsGISAXS9, IFunctionalTest>,
+    registerItem("isgisaxs09",   IFactoryCreateFunction<TestIsGISAXS9, IFunctionalTest>,
                  "functional test: isgisaxs ex-9 (rotated pyramid FF)");
     registerItem("isgisaxs10",  IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest>,
                  "functional test: isgisaxs ex-10 (cylinders with interference on top of substrate)");
@@ -78,6 +79,8 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: test of different miscellaneous issues");
     registerItem("fitbench",    IFactoryCreateFunction<TestFittingBenchmark, IFunctionalTest>,
                  "functional test: test of minimizers with hard-to-minimize test functions");
+    registerItem("fourier",    IFactoryCreateFunction<TestFourier, IFunctionalTest>,
+                 "functional test: test of Fourier transformation of OutputData maps");
 
     m_benchmark = new TBenchmark();
 }

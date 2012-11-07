@@ -18,6 +18,7 @@ QMAKE_EXTENSION_SHLIB = so
 # -----------------------------------------------------------------------------
 SOURCES += \
     Algorithms/src/Beam.cpp \
+    Algorithms/src/ChiSquaredFrequency.cpp \
     Algorithms/src/ChiSquaredModule.cpp \
     Algorithms/src/ConvolutionDetectorResolution.cpp \
     Algorithms/src/DecouplingApproximationStrategy.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
     Algorithms/src/Experiment.cpp \
     Algorithms/src/FTDistributions.cpp \
     Algorithms/src/GISASExperiment.cpp \
+    Algorithms/src/IChiSquaredModule.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
@@ -119,6 +121,7 @@ SOURCES += \
 
 HEADERS += \
     Algorithms/inc/Beam.h \
+    Algorithms/inc/ChiSquaredFrequency.h \
     Algorithms/inc/ChiSquaredModule.h \
     Algorithms/inc/ConvolutionDetectorResolution.h \
     Algorithms/inc/DecouplingApproximationStrategy.h \
@@ -129,6 +132,7 @@ HEADERS += \
     Algorithms/inc/Experiment.h \
     Algorithms/inc/FTDistributions.h \
     Algorithms/inc/GISASExperiment.h \
+    Algorithms/inc/IChiSquaredModule.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
@@ -252,8 +256,8 @@ HEADERS += \
     Tools/inc/AttLimits.h \
     Tools/inc/FitSuiteStrategy.h
 
-INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
-DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
+INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
+DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 
 # excluding files with python interface to not to expose library in python
 !contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {

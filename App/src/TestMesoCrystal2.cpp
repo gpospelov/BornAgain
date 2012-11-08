@@ -60,9 +60,12 @@ TestMesoCrystal2::~TestMesoCrystal2()
 /* ************************************************************************* */
 void TestMesoCrystal2::execute()
 {
-    std::string canvas_name("TestMesoCrystal2_c1");
-    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas(canvas_name.c_str(), canvas_name.c_str(), 768, 1024);
-    c1->Divide(2,3);
+    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("c1_test_meso_crystal", "mesocrystal");
+    c1->cd(); gPad->SetLogz();
+    gPad->SetRightMargin(0.115);
+    gPad->SetLeftMargin(0.115);
+    IsGISAXSTools::setMinimum(100.);
+    IsGISAXSTools::setMaximum(1e7);
 
     // reading data file
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
@@ -73,7 +76,6 @@ void TestMesoCrystal2::execute()
 //    OutputData<double > *real_data_half = doubleBinSize(*real_data);
 //    OutputData<double > *real_data_quarter = doubleBinSize(*real_data_half);
 //    OutputData<double > *real_data_eighth = doubleBinSize(*real_data_quarter);
-    c1->cd(1); gPad->SetLogz();
     IsGISAXSTools::drawOutputDataInPad(*real_data, "CONT4 Z", "experiment");
     c1->Update();
 
@@ -223,7 +225,7 @@ void TestMesoCrystal2::initializeExperiment(const OutputData<double> *output_dat
         // if there is output_data as input parameter, build detector using output_data axises
         const NamedVector<double> *axis0 = reinterpret_cast<const NamedVector<double>*>(output_data->getAxes()[0]);
         const NamedVector<double> *axis1 = reinterpret_cast<const NamedVector<double>*>(output_data->getAxes()[1]);
-
+        //std::cout << axis0->getSize() << " " << axis0->getMin() << " " << axis0->getMax() << " " << axis1->getSize() << " " << axis1->getMin() << " " << axis1->getMax() << std::endl;
         mp_experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
     }
 }

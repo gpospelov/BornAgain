@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Mon Oct 29 10:32:10 2012 by ROOT version 5.34/02
+// Wed Nov  7 10:30:49 2012 by ROOT version 5.34/02
 // from TTree FitSuiteTree/Oh, my data
-// found on file: ../../../../fitsuite.root
+// found on file: /Users/pospelov/nest/analysis/batch/b03_11param_PreserveValues/fitsuite.root
 //////////////////////////////////////////////////////////
 
 #ifndef FitData_h
@@ -20,6 +20,7 @@
 #include <string>
 using namespace std;
 
+
 class FitData {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
@@ -28,25 +29,27 @@ public :
    // Declaration of leaf types
  //TreeEventFitData *Event;
    Int_t           niter;
+   Int_t           nstrategy;
    vector<vector<double> > real_data;
    vector<vector<double> > fit_data;
-   vector<vector<double> > diff;
    vector<vector<double> > axis0;
    vector<vector<double> > axis1;
    Double_t        chi2;
    vector<double>  parvalues;
    vector<string>  parnames;
+   vector<bool>    parfixed;
 
    // List of branches
    TBranch        *b_Event_niter;   //!
+   TBranch        *b_Event_nstrategy;   //!
    TBranch        *b_Event_real_data;   //!
    TBranch        *b_Event_fit_data;   //!
-   TBranch        *b_Event_diff;   //!
    TBranch        *b_Event_axis0;   //!
    TBranch        *b_Event_axis1;   //!
    TBranch        *b_Event_chi2;   //!
    TBranch        *b_Event_parvalues;   //!
    TBranch        *b_Event_parnames;   //!
+   TBranch        *b_Event_parfixed;   //!
 
    FitData(TTree *tree=0);
    virtual ~FitData();
@@ -67,9 +70,9 @@ FitData::FitData(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("../../../../fitsuite.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/Users/pospelov/nest/analysis/batch/b03_11param_PreserveValues/fitsuite.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("../../../../fitsuite.root");
+         f = new TFile("/Users/pospelov/nest/analysis/batch/b03_11param_PreserveValues/fitsuite.root");
       }
       f->GetObject("FitSuiteTree",tree);
 
@@ -119,14 +122,15 @@ void FitData::Init(TTree *tree)
    fChain->SetMakeClass(1);
 
    fChain->SetBranchAddress("niter", &niter, &b_Event_niter);
+   fChain->SetBranchAddress("nstrategy", &nstrategy, &b_Event_nstrategy);
    fChain->SetBranchAddress("real_data", &real_data, &b_Event_real_data);
    fChain->SetBranchAddress("fit_data", &fit_data, &b_Event_fit_data);
-   fChain->SetBranchAddress("diff", &diff, &b_Event_diff);
    fChain->SetBranchAddress("axis0", &axis0, &b_Event_axis0);
    fChain->SetBranchAddress("axis1", &axis1, &b_Event_axis1);
    fChain->SetBranchAddress("chi2", &chi2, &b_Event_chi2);
    fChain->SetBranchAddress("parvalues", &parvalues, &b_Event_parvalues);
    fChain->SetBranchAddress("parnames", &parnames, &b_Event_parnames);
+   fChain->SetBranchAddress("parfixed", &parfixed, &b_Event_parfixed);
    Notify();
 }
 
@@ -150,10 +154,10 @@ void FitData::Show(Long64_t entry)
 }
 Int_t FitData::Cut(Long64_t entry)
 {
+  (void)entry;
 // This function may be called from Loop.
 // returns  1 if entry is accepted.
 // returns -1 otherwise.
-   (void)entry;
    return 1;
 }
 #endif // #ifdef FitData_cxx

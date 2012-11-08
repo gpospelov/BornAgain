@@ -106,6 +106,7 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
 //    //delete p_output;
 
     TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(output, "p_hist2D");
+    h2->SetContour(99);
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
 //    gPad->SetRightMargin(0.115);

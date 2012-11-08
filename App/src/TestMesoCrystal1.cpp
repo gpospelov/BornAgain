@@ -15,6 +15,9 @@
 #include "Utils.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "ResolutionFunction2DSimple.h"
+#include "DrawHelper.h"
+
+#include "TCanvas.h"
 
 /* ************************************************************************* */
 // global functions
@@ -43,6 +46,7 @@ void TestMesoCrystal1::execute()
     experiment.setSampleBuilder(mp_sample_builder);
     experiment.setDetectorParameters(256, 0.3*Units::degree, 0.073
            , 256, -0.4*Units::degree, 0.066);
+//    experiment.setDetectorParameters(218, 0.0201647, 0.0599528, 218, 0.00010879, 0.0399347); // values as in experimental sample from TestMesoCrystal2
 //    experiment.setDetectorParameters(2, 0.96*Units::degree, 0.962*Units::degree
 //           , 2 , 0.376*Units::degree, 0.378*Units::degree);
     experiment.setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0004, 0.0004));
@@ -60,8 +64,18 @@ void TestMesoCrystal1::execute()
     std::cout << "Total count in detector: " << total_count << std::endl;
     std::cout << "Scattered percentage in detector: " << 100*total_count/experiment.getBeam().getIntensity() << std::endl;
     std::cout << "Total count in detector before normalize: " << count_before_normalize << std::endl;
-    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
-            "CONT4 Z", "mesocrystal");
+
+//    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
+//            "CONT4 Z", "mesocrystal");
+    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("c1_test_meso_crystal", "mesocrystal");
+    c1->cd(); gPad->SetLogz();
+    gPad->SetRightMargin(0.115);
+    gPad->SetLeftMargin(0.115);
+
+    IsGISAXSTools::setMinimum(100.);
+    IsGISAXSTools::setMaximum(1e7);
+    IsGISAXSTools::drawOutputDataInPad(*mp_intensity_output, "CONT4 Z", "meso");
+
     IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/ex01_spheres/mesocrystal.ima");
 }
 
@@ -69,26 +83,38 @@ void TestMesoCrystal1::execute()
 // MesoCrystalBuilder member definitions
 /* ************************************************************************* */
 MesoCrystalBuilder::MesoCrystalBuilder()
-//: m_meso_radius(1000*Units::nanometer)
-//, m_surface_filling_ratio(0.25)
-//, m_meso_height(0.5*Units::micrometer)
-//, m_sigma_meso_height(4*Units::nanometer)
-//, m_sigma_meso_radius(50*Units::nanometer)
-//, m_lattice_length_a(6.2*Units::nanometer)
-//, m_nanoparticle_radius(4.3*Units::nanometer)
-//, m_sigma_nanoparticle_radius(0.14*Units::nanometer)
-//, m_sigma_lattice_length_a(1.5*Units::nanometer)
-//, m_roughness(1.0*Units::nanometer)
-: m_meso_radius(1370*Units::nanometer)
-, m_surface_filling_ratio(0.114748)
-, m_meso_height(265.276*Units::nanometer)
-, m_sigma_meso_height(10.8148*Units::nanometer)
-, m_sigma_meso_radius(14.0738*Units::nanometer)
-, m_lattice_length_a(6.22525*Units::nanometer)
-, m_nanoparticle_radius(5.05257*Units::nanometer)
-, m_sigma_nanoparticle_radius(0.0877905*Units::nanometer)
-, m_sigma_lattice_length_a(1.95504*Units::nanometer)
-, m_roughness(0.13464*Units::nanometer)
+: m_meso_radius(1000*Units::nanometer)
+, m_surface_filling_ratio(0.25)
+, m_meso_height(0.5*Units::micrometer)
+, m_sigma_meso_height(5*Units::nanometer)
+, m_sigma_meso_radius(50*Units::nanometer)
+, m_lattice_length_a(6.2*Units::nanometer)
+, m_nanoparticle_radius(5.7*Units::nanometer)
+, m_sigma_nanoparticle_radius(0.1*Units::nanometer)
+, m_sigma_lattice_length_a(1.5*Units::nanometer)
+, m_roughness(1.0*Units::nanometer)
+// attempt 0
+//: m_meso_radius(1370*Units::nanometer)
+//, m_surface_filling_ratio(0.114748)
+//, m_meso_height(265.276*Units::nanometer)
+//, m_sigma_meso_height(10.8148*Units::nanometer)
+//, m_sigma_meso_radius(14.0738*Units::nanometer)
+//, m_lattice_length_a(6.22525*Units::nanometer)
+//, m_nanoparticle_radius(5.05257*Units::nanometer)
+//, m_sigma_nanoparticle_radius(0.0877905*Units::nanometer)
+//, m_sigma_lattice_length_a(1.95504*Units::nanometer)
+//, m_roughness(0.13464*Units::nanometer)
+// attempt II
+//: m_meso_radius(9.4639e+02*Units::nanometer)
+//, m_surface_filling_ratio(0.159)
+//, m_meso_height(1.2470e+02*Units::nanometer)
+//, m_sigma_meso_height(10*Units::nanometer)
+//, m_sigma_meso_radius(10*Units::nanometer)
+//, m_lattice_length_a(6.212*Units::nanometer)
+//, m_nanoparticle_radius(5.947*Units::nanometer)
+//, m_sigma_nanoparticle_radius(6.8688e-02*Units::nanometer)
+//, m_sigma_lattice_length_a(2.3596*Units::nanometer)
+//, m_roughness(0.6517*Units::nanometer)
 {
     init_parameters();
 }

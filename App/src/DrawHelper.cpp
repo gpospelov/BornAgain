@@ -69,7 +69,7 @@ void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
     TPad *pad = c->Pick(px, py, 0);
     TPad *pad_new = (TPad *) pad->Clone();
     pad_new->SetPad(0.0, 0.0, 1.0, 1.0);
-    TCanvas *c1 = new TCanvas(cname, cname, 1600, 1200);
+    TCanvas *c1 = new TCanvas(cname, cname, 1024, 768);
     c1->cd();
     pad_new->SetEditable(kTRUE);
     pad_new->Draw();

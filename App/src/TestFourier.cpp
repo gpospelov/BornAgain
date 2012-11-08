@@ -37,7 +37,6 @@ void TestFourier::execute()
     OutputData<complex_t> fft_map;
     fourierTransform(*mp_intensity_output, &fft_map);
     OutputData<double> *p_real_fft_map = getModulusPart(fft_map);
-    std::cout << p_real_fft_map->getAllocatedSize();
     fourierTransformR(fft_map, mp_intensity_output);
     IsGISAXSTools::drawOutputData(*p_real_fft_map, "c1_four", "Fourier transform",
             "CONT4 Z", "Fourier transform");

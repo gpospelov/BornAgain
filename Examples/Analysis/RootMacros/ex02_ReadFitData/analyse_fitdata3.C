@@ -1,13 +1,16 @@
 // Drawing of fit data stored in the FitSuiteTree (using FitData class)
 // (data produced by FitSuiteObserverWriteTree un TestFittingModule)
+//
+// With keyboard handle:
+// 'p' - pause, '1','2','3' - set loop through tree entries every 1,10,100 events, 'q' - draw one step nack, 'w' - draw one step forward
 // Usage:
 //
 // Way #1 (script mode)
-// > root -l analyse_fitdata2.C
+// > root -l analyse_fitdata3.C
 //
 // Way #2 (precompiled mode)
 // > root -l
-// > .L analyse_fitdata2.C++
+// > .L analyse_fitdata3.C++
 // analyse_fitdata2("../fitsuit.root")
 
 #include <iostream>
@@ -36,11 +39,19 @@ void getRelativeDifference(const vdouble2d_t &fit_data, const vdouble2d_t &real_
 void getChi2Difference(const vdouble2d_t &fit_data, const vdouble2d_t &real_data, vdouble2d_t &difference);
 void drawParametersInfo(TPaveText &pt, FitData *event);
 
+void HandleKeyboard(int,int,int,TObject*);
+
+
+bool pausa_flag = false;
+bool draw_this_flag = true;
+int i_entry(0);
+int i_step(1);
+
 
 /* ************************************************************************* */
 // main analysis: read all fit iterations and nicely draw real/fit data
 /* ************************************************************************* */
-void analyse_fitdata2(const char *file_name = "../../../../fitsuite.root")
+void analyse_fitdata3(const char *file_name = "../../../../fitsuite.root")
 {
     const char *tree_name = "FitSuiteTree";
     TChain *chain = new TChain(tree_name);
@@ -58,62 +69,77 @@ void analyse_fitdata2(const char *file_name = "../../../../fitsuite.root")
     TH2D *histChi2Diff = create_histogram("histChi2Diff", "chi2 diff", event);
 
     TCanvas *c1 = new TCanvas("c1","c1", 768, 1024);
+    c1->Connect("ProcessedEvent(Int_t,Int_t,Int_t,TObject*)", 0, 0, "HandleKeyboard(int,int,int,TObject*)");
+
     c1->Divide(2,3);
-    // loop over entries
-    std::cout << "Number of entries: " << chain->GetEntries() << std::endl;
-    int i_entry(0);
-    while(chain->GetEntry(i_entry++)){
-        histReal->Reset();
-        histFit->Reset();
-        histRelativeDiff->Reset();
-        histChi2Diff->Reset();
 
-        vdouble2d_t relative_diff;
-        getRelativeDifference(event->fit_data, event->real_data, relative_diff);
-        vdouble2d_t chi2_diff;
-        getChi2Difference(event->fit_data, event->real_data, chi2_diff);
+    pausa_flag = false;
+    draw_this_flag = true;
+    i_entry = 0;
+    while( !gSystem->ProcessEvents() ) {
 
-        for(size_t i=0; i<event->real_data.size(); i++){
-            for(size_t j=0; j<event->real_data[i].size(); j++) {
-                histReal->Fill(event->axis0[i][j], event->axis1[i][j], event->real_data[i][j]);
-                histFit->Fill(event->axis0[i][j], event->axis1[i][j], event->fit_data[i][j]);
-                histRelativeDiff->Fill(event->axis0[i][j], event->axis1[i][j], relative_diff[i][j]);
-                histChi2Diff->Fill(event->axis0[i][j], event->axis1[i][j], chi2_diff[i][j]);
-             }
+        if( draw_this_flag ) {
+            if(i_entry >= chain->GetEntries() ) {
+                std::cout << "Mo more events in tree " << chain->GetEntries() << std::endl;
+            } else {
+                std::cout << "drawing entry " << i_entry << std::endl;
+                chain->GetEntry(i_entry);
+                std::cout << i_entry << std::endl;
+                histReal->Reset();
+                histFit->Reset();
+                histRelativeDiff->Reset();
+                histChi2Diff->Reset();
+
+                vdouble2d_t relative_diff;
+                getRelativeDifference(event->fit_data, event->real_data, relative_diff);
+                vdouble2d_t chi2_diff;
+                getChi2Difference(event->fit_data, event->real_data, chi2_diff);
+
+                for(size_t i=0; i<event->real_data.size(); i++){
+                    for(size_t j=0; j<event->real_data[i].size(); j++) {
+                        histReal->Fill(event->axis0[i][j], event->axis1[i][j], event->real_data[i][j]);
+                        histFit->Fill(event->axis0[i][j], event->axis1[i][j], event->fit_data[i][j]);
+                        histRelativeDiff->Fill(event->axis0[i][j], event->axis1[i][j], relative_diff[i][j]);
+                        histChi2Diff->Fill(event->axis0[i][j], event->axis1[i][j], chi2_diff[i][j]);
+                    }
+                }
+
+                c1->cd(1); gPad->SetLogz();
+                histReal->SetMinimum(100);
+                histReal->DrawCopy("colz");
+
+                c1->cd(2); gPad->SetLogz();
+                histFit->SetMinimum(100);
+                histFit->SetMaximum(histReal->GetMaximum());
+                histFit->DrawCopy("colz");
+
+                c1->cd(3); gPad->SetLogz();
+                histRelativeDiff->SetMinimum(0.01);
+                histRelativeDiff->DrawCopy("colz");
+
+                c1->cd(4); gPad->SetLogz();
+                histChi2Diff->SetMinimum(0.01);
+                histChi2Diff->DrawCopy("colz");
+
+                // printing parameters
+                c1->cd(5);
+                TPaveText pt(.05,.1,.95,.8);
+                drawParametersInfo(pt, event);
+
+                c1->Update();
+                if(!pausa_flag) i_entry = i_entry + i_step;
+            }
+            if(pausa_flag) {
+                std::cout << "was on paus" << std::endl;
+                draw_this_flag = false;
+            }
         }
-//         histProf->Fill(event->parvalues[0], event->parvalues[1],event->chi2);
 
-        c1->cd(1); gPad->SetLogz();
-        histReal->SetMinimum(100);
-        histReal->DrawCopy("colz");
 
-        c1->cd(2); gPad->SetLogz();
-        histFit->SetMinimum(100);
-        histFit->SetMaximum(histReal->GetMaximum());
-        histFit->DrawCopy("colz");
+        gSystem->Sleep(5);
+    }
 
-        c1->cd(3); gPad->SetLogz();
-        histRelativeDiff->SetMinimum(0.01);
-        histRelativeDiff->DrawCopy("colz");
-
-        c1->cd(4); gPad->SetLogz();
-        histChi2Diff->SetMinimum(0.01);
-        histChi2Diff->DrawCopy("colz");
-
-        // printing parameters
-        c1->cd(5);
-        TPaveText pt(.05,.1,.95,.8);
-        drawParametersInfo(pt, event);
-
-        if((i_entry-1)%10==0) c1->Update();
-
-        if( gSystem->ProcessEvents() ) {
-            std::cout << "Ctrl-c inside TCanvas has been detected" << std::endl;
-            break; // ctr-c inside canvas will terminate the loop
-        }
-
-    } // loop over recorder events
-
+    
 
     // initial parameters
     c1->cd(5);
@@ -235,5 +261,55 @@ void drawParametersInfo(TPaveText &pt, FitData *event)
     }
     pt.Draw();
 
+}
+
+
+/* ************************************************************************* */
+// draw parameters info
+/* ************************************************************************* */
+void HandleKeyboard(int event, int px, int py, TObject *sel)
+{
+    (void)py;
+    (void)sel;
+
+    if ( event == kKeyPress ) {
+        switch(px) {
+            case 'p':
+                if(pausa_flag) {
+                    pausa_flag = false; // switch pausa off if it was already on pause
+                    draw_this_flag = true;
+                } else {
+                    pausa_flag=true;
+                    draw_this_flag = false;
+                }
+                break;
+            case 'q':
+                // step back
+                std::cout << "i_entry:" << i_entry << " -i_step:" << i_step << " -> ";
+                i_entry = i_entry - i_step;
+                std::cout << i_entry << std::endl;
+                draw_this_flag = true;
+                break;
+            case 'w':
+                // step forward
+                std::cout << "i_entry:" << i_entry << " +i_step:" << i_step << " -> ";
+                i_entry = i_entry + i_step;
+                std::cout << i_entry << std::endl;
+                draw_this_flag = true;
+                break;
+            case '1':
+                i_step=1;
+                break;
+            case '2':
+                i_step=10;
+                break;
+            case '3':
+                i_step=100;
+                break;
+            default:
+                break;
+               //std::cout << "XXX " << px << " " << py << std::endl;
+        }
+    }
 }
 

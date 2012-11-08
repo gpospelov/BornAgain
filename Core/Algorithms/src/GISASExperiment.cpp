@@ -57,13 +57,17 @@ void GISASExperiment::runSimulation()
         std::vector<boost::thread *> threads;
         std::vector<DWBASimulation *> simulations;
 
+        // first make sure every thread's objects are properly initialized...
         for(int i_thread=0; i_thread<n_threads_total; ++i_thread){
             setOutputDataMask(n_threads_total, i_thread);
             DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
             if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
             p_dwba_simulation->init(*this);
             simulations.push_back(p_dwba_simulation);
-            threads.push_back( new boost::thread(boost::bind(&DWBASimulation::run, p_dwba_simulation)) );
+        }
+        // ... and then execute the threads
+        for (std::vector<DWBASimulation *>::iterator it=simulations.begin(); it!=simulations.end(); ++it) {
+            threads.push_back( new boost::thread(boost::bind(&DWBASimulation::run, *it)) );
         }
 
         // waiting for threads to be complete

@@ -27,7 +27,7 @@ template <class T> class LLData
 {
 public:
     // construction, destruction and assignment
-    LLData(size_t rank, int *dimensions);
+    LLData(size_t rank, const int *dimensions);
     LLData(const LLData<T> &right);
     ~LLData();
 
@@ -56,7 +56,7 @@ public:
     T getTotalSum() const;
 
 private:
-    void allocate(size_t rank, int *dimensions);
+    void allocate(size_t rank, const int *dimensions);
     void clear();
     int checkPositiveDimension(int dimension) const;
     size_t convertCoordinate(int *coordinate) const;
@@ -76,7 +76,7 @@ template <class T> bool HaveSameDimensions(const LLData<T> &left, const LLData<T
 
 
 template<class T>
-inline LLData<T>::LLData(size_t rank, int* dimensions)
+inline LLData<T>::LLData(size_t rank, const int* dimensions)
 : m_rank(0)
 , m_dims(0)
 , m_data_array(0)
@@ -206,7 +206,7 @@ inline T LLData<T>::getTotalSum() const
 }
 
 template<class T>
-inline void LLData<T>::allocate(size_t rank, int* dimensions)
+inline void LLData<T>::allocate(size_t rank, const int* dimensions)
 {
     clear();
     m_rank = rank;

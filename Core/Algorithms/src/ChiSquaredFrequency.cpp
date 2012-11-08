@@ -67,7 +67,7 @@ void ChiSquaredFrequency::initWeights()
     fourierTransform(*mp_simulation_data, mp_simulation_ft);
     delete mp_weights;
     mp_weights = new OutputData<double>();
-    size_t rank = mp_simulation_ft->getDimension();
+    size_t rank = mp_simulation_ft->getRank();
     int *n_dims = new int[rank];
     for (size_t i=0; i<rank; ++i) {
         n_dims[i] = mp_simulation_ft->getAxis(i)->getSize();

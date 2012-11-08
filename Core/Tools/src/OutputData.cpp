@@ -244,8 +244,7 @@ const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<
     left.resetIndex();
     right.resetIndex();
     while (right.hasNext()) {
-        left.currentValue() += right.currentValue();
-        left.next(); right.next();
+        left.next() += right.next();
     }
     return left;
 }
@@ -265,8 +264,7 @@ const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<
     left.resetIndex();
     right.resetIndex();
     while (right.hasNext()) {
-        left.currentValue() -= right.currentValue();
-        left.next(); right.next();
+        left.next() -= right.next();
     }
     return left;
 }
@@ -287,7 +285,7 @@ const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<
     right.resetIndex();
     while ( right.hasNext() ) {
         double xleft = left.currentValue();
-        double xright = right.currentValue();
+        double xright = right.next();
         double ratio(0);
         if( fabs(xleft) <= Numeric::double_epsilon && fabs(xright) <= Numeric::double_epsilon) {
             ratio = 0.0;
@@ -296,8 +294,7 @@ const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<
         } else {
             ratio = xleft/xright;
         }
-        left.currentValue() = ratio;
-        left.next(); right.next();
+        left.next() = ratio;
     }
     return left;
 }
@@ -316,10 +313,7 @@ const OutputData<double> &operator*=(OutputData<double> &left, const OutputData<
     left.resetIndex();
     right.resetIndex();
     while ( right.hasNext() ) {
-        double xleft = left.currentValue();
-        double xright = right.currentValue();
-        left.currentValue() = xleft*xright;
-        left.next(); right.next();
+        left.next() *= right.next();
     }
     return left;
 }
@@ -330,7 +324,7 @@ const OutputData<double> &operator*=(OutputData<double> &left, const OutputData<
 OutputData<double> *doubleBinSize(const OutputData<double> &source)
 {
     OutputData<double> *p_result = new OutputData<double>;
-    size_t dimension = source.getDimension();
+    size_t dimension = source.getRank();
     std::vector<size_t> source_sizes = source.getAllSizes();
     std::vector<bool> needs_resizing;
     // create new axes
@@ -446,7 +440,7 @@ void fourierTransformR(const OutputData<complex_t>& source, OutputData<double> *
 OutputData<double> *getRealPart(const OutputData<complex_t> &source)
 {
     OutputData<double> *p_result = new OutputData<double>();
-    for (size_t i=0; i<source.getDimension(); ++i) {
+    for (size_t i=0; i<source.getRank(); ++i) {
         p_result->addAxis(source.getAxis(i)->clone());
     }
     source.resetIndex();
@@ -460,7 +454,7 @@ OutputData<double> *getRealPart(const OutputData<complex_t> &source)
 OutputData<double>* getImagPart(const OutputData<complex_t>& source)
 {
     OutputData<double> *p_result = new OutputData<double>();
-    for (size_t i=0; i<source.getDimension(); ++i) {
+    for (size_t i=0; i<source.getRank(); ++i) {
         p_result->addAxis(source.getAxis(i)->clone());
     }
     source.resetIndex();
@@ -474,7 +468,7 @@ OutputData<double>* getImagPart(const OutputData<complex_t>& source)
 OutputData<double>* getModulusPart(const OutputData<complex_t>& source)
 {
     OutputData<double> *p_result = new OutputData<double>();
-    for (size_t i=0; i<source.getDimension(); ++i) {
+    for (size_t i=0; i<source.getRank(); ++i) {
         p_result->addAxis(source.getAxis(i)->clone());
     }
     source.resetIndex();

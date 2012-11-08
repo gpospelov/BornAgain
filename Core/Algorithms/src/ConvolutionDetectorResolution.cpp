@@ -31,7 +31,7 @@ ConvolutionDetectorResolution::~ConvolutionDetectorResolution()
 void ConvolutionDetectorResolution::applyDetectorResolution(
         OutputData<double>* p_intensity_map) const
 {
-    if (p_intensity_map->getDimension() != m_dimension) {
+    if (p_intensity_map->getRank() != m_dimension) {
         throw RuntimeErrorException("Intensity map must have same dimension as detector resolution function.");
     }
     std::vector<NamedVectorBase*> axes = p_intensity_map->getAxes();

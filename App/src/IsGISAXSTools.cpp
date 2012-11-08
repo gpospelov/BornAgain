@@ -123,7 +123,7 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
 /* ************************************************************************* */
 TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const std::string &histo_name)
 {
-    if (output.getDimension() != 2) {
+    if (output.getRank() != 2) {
         std::cout << "IsGISAXSTools::getOutputDataTH2D() -> Warning! Wrong number of dimensions " << std::endl;
         return 0;
     }
@@ -336,7 +336,7 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
     std::ifstream fin;
     fin.open(filename.c_str(), std::ios::in);
     if( !fin.is_open() ) {
-        throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for reading.");
+        throw FileNotIsOpenException("IsGISAXSTools::readOutputDataFromFile() -> Error. Can't open file '"+filename+"' for reading.");
     }
 
     typedef std::vector<double > double1d_t;
@@ -363,7 +363,7 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
         double1d_t buff_1d;
         std::istringstream iss(sline);
         std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(), back_inserter(buff_1d));
-        if( !buff_1d.size() ) LogicErrorException("IsGISAXSTools::readOutputDataFromFile() -> Error. Null size of vector");
+        if( !buff_1d.size() ) LogicErrorException("IsGISAXSTools::readOutputDataFromFile() -> Error. Null size of vector; file: "+filename);
         buff_2d.push_back(buff_1d);
     }
     if ( fin.bad() ) {
@@ -397,7 +397,7 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
                                         , std::vector<std::vector<double > > &v_axis0
                                         , std::vector<std::vector<double > > &v_axis1)
 {
-    if (output_data.getDimension() != 2) return;
+    if (output_data.getRank() != 2) return;
 
     output_data.resetIndex();
     const NamedVector<double> *p_axis0 = dynamic_cast<const NamedVector<double>*>(output_data.getAxes()[0]);

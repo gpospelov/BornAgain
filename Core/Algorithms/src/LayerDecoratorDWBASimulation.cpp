@@ -88,14 +88,14 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunct
     resetIndex();
     while ( hasNext() )
     {
-        if( (int)m_output_data_mask.currentValue() !=1 ) {
+        if( !m_output_data_mask.currentValue() ) {
             next();
             continue;
         }
         double phi_f = getDWBAIntensity().getCurrentValueOfAxis<double>("phi_f");
         double alpha_f = getDWBAIntensity().getCurrentValueOfAxis<double>("alpha_f");
         if (alpha_f<0) {
-            next() = 0.0;
+            next();
             continue;
         }
         cvector_t k_f;

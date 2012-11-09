@@ -45,11 +45,10 @@ void MultiLayerRoughnessDWBASimulation::run()
 {
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     double lambda = 2.0*M_PI/m_ki_real.mag();
-    m_dwba_intensity.setAllTo(0.0);
     resetIndex();
     while ( hasNext() )
     {
-        if( (int)m_output_data_mask.currentValue() !=1 ) {
+        if( !m_output_data_mask.currentValue() ) {
             next();
             continue;
         }

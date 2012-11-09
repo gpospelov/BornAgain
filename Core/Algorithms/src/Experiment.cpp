@@ -110,13 +110,12 @@ void Experiment::setOutputDataMask(size_t n_chunks_total, size_t n_chunk )
     // copying topology from intensity data
     m_current_output_data_mask.copyFrom(m_intensity_map);
     // setting mask
-    m_current_output_data_mask.setAllTo(0.0);
     m_current_output_data_mask.resetIndex();
     while(m_current_output_data_mask.hasNext()) {
         if(m_current_output_data_mask.getIndex().getPosition() % n_chunks_total == n_chunk) {
-            m_current_output_data_mask.next() = 1;
+            m_current_output_data_mask.next() = 1.0;
         } else {
-            m_current_output_data_mask.next();
+            m_current_output_data_mask.next() = 0.0;
         }
     }
 

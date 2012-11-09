@@ -440,6 +440,8 @@ template <class T> void OutputData<T>::allocate()
         dims[i] = getAxis(i)->getSize();
     }
     mp_ll_data = new LLData<T>(rank, dims);
+    T default_value = T();
+    mp_ll_data->setAll(default_value);
     delete[] dims;
     m_index.init(m_value_axes);
 }
@@ -454,7 +456,6 @@ template<class T> inline void OutputData<T>::setRawDataVector(const std::vector<
     for (size_t i=0; i<getAllocatedSize(); ++i) {
         (*mp_ll_data)[i] = data_vector[i];
     }
-
 }
 
 // set new values to raw data array

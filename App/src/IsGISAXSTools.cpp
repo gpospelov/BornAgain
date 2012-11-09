@@ -359,9 +359,6 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
             }
             sline = newline;
         }
-        if(precision!=6) {
-            std::cout << "Precision: " << precision << std::endl;
-        }
 
         double1d_t buff_1d;
         std::istringstream iss(sline);

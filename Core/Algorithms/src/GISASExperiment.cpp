@@ -60,7 +60,6 @@ void GISASExperiment::runSimulation()
         // first make sure every thread's objects are properly initialized...
         for(int i_thread=0; i_thread<n_threads_total; ++i_thread){
             setOutputDataMask(n_threads_total, i_thread);
-            std::cout << "Thread: " << i_thread << " mask sum: " << m_current_output_data_mask.totalSum() << std::endl;
             DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
             if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
             p_dwba_simulation->init(*this);

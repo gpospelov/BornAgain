@@ -29,10 +29,8 @@ public:
     // construction, destruction and assignment
     LLData(size_t rank, const int *dimensions);
     LLData(const LLData<T> &right);
-    ~LLData();
-
-    //! assignment operator uses copy construction
     LLData<T> &operator=(const LLData<T> &right);
+    ~LLData();
 
     // accessors
     T &operator[](size_t i);
@@ -63,7 +61,7 @@ private:
     void swapContents(LLData<T> &other);
     size_t m_rank;
     int *m_dims;
-    T *m_data_array;
+    std::vector<T> m_data_array;
 };
 
 // Global helper functions for arithmetic
@@ -79,7 +77,6 @@ template<class T>
 inline LLData<T>::LLData(size_t rank, const int* dimensions)
 : m_rank(0)
 , m_dims(0)
-, m_data_array(0)
 {
     allocate(rank, dimensions);
 }
@@ -87,7 +84,6 @@ inline LLData<T>::LLData(size_t rank, const int* dimensions)
 template<class T> LLData<T>::LLData(const LLData<T>& right)
 : m_rank(0)
 , m_dims(0)
-, m_data_array(0)
 {
     allocate(right.getRank(), right.getDimensions());
     for (size_t i=0; i<getTotalSize(); ++i) {
@@ -102,8 +98,11 @@ template<class T> LLData<T>::~LLData()
 
 template<class T> LLData<T> &LLData<T>::operator=(const LLData<T> &right)
 {
-    LLData<T> copy(right);
-    swapContents(copy);
+    clear();
+    allocate(right.getRank(), right.getDimensions());
+    for (size_t i=0; i<getTotalSize(); ++i) {
+        m_data_array[i] = right[i];
+    }
     return *this;
 }
 
@@ -206,7 +205,7 @@ template<class T> void LLData<T>::allocate(size_t rank, const int* dimensions)
         for (size_t i=0; i<m_rank; ++i) {
             m_dims[i] = checkPositiveDimension(dimensions[i]);
         }
-        m_data_array = new T[getTotalSize()];
+        m_data_array.resize(getTotalSize());
     }
 }
 
@@ -214,9 +213,9 @@ template<class T> void LLData<T>::clear()
 {
     if (m_rank>0) {
         m_rank = 0;
-        delete[] m_data_array;
         delete[] m_dims;
     }
+    m_data_array.clear();
 }
 
 template<class T>

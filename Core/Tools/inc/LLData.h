@@ -242,15 +242,9 @@ inline size_t LLData<T>::convertCoordinate(int* coordinate) const
 
 template<class T> void LLData<T>::swapContents(LLData<T> &other)
 {
-    size_t rank = other.m_rank;
-    int *dims = other.m_dims;
-    T *data_array = other.m_data_array;
-    other.m_rank = this->m_rank;
-    other.m_dims = this->m_dims;
-    other.m_data_array = this->m_data_array;
-    this->m_rank = rank;
-    this->m_dims = dims;
-    this->m_data_array = data_array;
+    std::swap(this->m_rank, other.m_rank);
+    std::swap(this->m_dims, other.m_dims);
+    std::swap(this->m_data_array, other.m_data_array);
 }
 
 template<class T> LLData<T> &operator+(const LLData<T>& left, const LLData<T>& right)

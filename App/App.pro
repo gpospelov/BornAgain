@@ -41,6 +41,7 @@ SOURCES += \
     src/TestIsGISAXS9.cpp \
     src/TestIsGISAXS10.cpp \
     src/TestIsGISAXS11.cpp \
+    src/TestIsGISAXS12.cpp \
     src/TestMesoCrystal1.cpp \
     src/TestMesoCrystal2.cpp \
     src/TestMiscellaneous.cpp \
@@ -80,6 +81,7 @@ HEADERS += \
     inc/TestIsGISAXS9.h \
     inc/TestIsGISAXS10.h \
     inc/TestIsGISAXS11.h \
+    inc/TestIsGISAXS12.h \
     inc/TestMesoCrystal1.h \
     inc/TestMesoCrystal2.h \
     inc/TestMiscellaneous.h \

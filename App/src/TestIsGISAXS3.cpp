@@ -20,6 +20,8 @@ TestIsGISAXS3::TestIsGISAXS3() : IFunctionalTest("TestIsGISAXS3")
 
 void TestIsGISAXS3::execute()
 {
+    int d;
+    std::cout << d;
     GISASExperiment experiment(mp_options);
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);

@@ -243,7 +243,7 @@ const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<
     }
     left.resetIndex();
     right.resetIndex();
-    while (right.hasNext()) {
+    while (left.hasNext()) {
         left.next() += right.next();
     }
     return left;

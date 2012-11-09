@@ -94,13 +94,16 @@ public:
     const NamedVectorBase *getAxis(size_t index) const;
 
     //! return number of dimensions
-    size_t getRank() const { return mp_ll_data->getRank(); }
+    size_t getRank() const { return m_value_axes.size(); }
 
     //! return number of dimensions (same as above)
     size_t getNdimensions() const { return getRank(); }
 
     //! return total size of data buffer (product of bin number in every dimension)
-    size_t getAllocatedSize() const { return mp_ll_data->getTotalSize(); }
+    size_t getAllocatedSize() const {
+        if (mp_ll_data) return mp_ll_data->getTotalSize();
+        return 0;
+    }
 
     //! return all sizes of its axes
     std::vector<size_t> getAllSizes() const;
@@ -288,7 +291,8 @@ inline std::vector<size_t> OutputData<T>::getAllSizes() const
 {
     std::vector<size_t> result;
     for (size_t i=0; i<getRank(); ++i) {
-        result.push_back(mp_ll_data->getDimensions()[i]);
+        int dim = mp_ll_data->getDimensions()[i];
+        result.push_back(dim);
     }
     return result;
 }

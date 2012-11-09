@@ -359,11 +359,17 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
             }
             sline = newline;
         }
+        if(precision!=6) {
+            std::cout << "Precision: " << precision << std::endl;
+        }
 
         double1d_t buff_1d;
         std::istringstream iss(sline);
         std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(), back_inserter(buff_1d));
-        if( !buff_1d.size() ) LogicErrorException("IsGISAXSTools::readOutputDataFromFile() -> Error. Null size of vector; file: "+filename);
+        if( !buff_1d.size() ) {
+            std::cout << "'" << sline << "'" << std::endl;
+            LogicErrorException("IsGISAXSTools::readOutputDataFromFile() -> Error. Null size of vector; file: "+filename);
+        }
         buff_2d.push_back(buff_1d);
     }
     if ( fin.bad() ) {

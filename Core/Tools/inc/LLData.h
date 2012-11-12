@@ -252,21 +252,21 @@ template<class T> void LLData<T>::swapContents(LLData<T> &other)
 
 template<class T> LLData<T> &operator+(const LLData<T>& left, const LLData<T>& right)
 {
-    LLData<T> *p_result = left.clone();
+    LLData<T> *p_result = new LLData<T>(left);
     (*p_result) += right;
     return *p_result;
 }
 
 template<class T> LLData<T> &operator-(const LLData<T>& left, const LLData<T>& right)
 {
-    LLData<T> *p_result = left.clone();
+    LLData<T> *p_result = new LLData<T>(left);
     (*p_result) -= right;
     return *p_result;
 }
 
 template<class T> LLData<T> &operator*(const LLData<T>& left, const LLData<T>& right)
 {
-    LLData<T> *p_result = left.clone();
+    LLData<T> *p_result = new LLData<T>(left);
     (*p_result) *= right;
     return *p_result;
 }

@@ -231,6 +231,7 @@ HEADERS += \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
     Tools/inc/OutputDataIOFactory.h \
+    Tools/inc/OutputDataIterator.h \
     Tools/inc/OutputDataReader.h \
     Tools/inc/OutputDataWriter.h \
     Tools/inc/ParameterPool.h \

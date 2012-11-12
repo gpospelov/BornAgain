@@ -18,6 +18,8 @@
 #include "Exceptions.h"
 #include "Types.h"
 #include "LLData.h"
+#include "OutputDataIterator.h"
+
 #include <map>
 #include <string>
 #include <sstream>
@@ -118,6 +120,31 @@ public:
     MultiIndex& getIndex() const;
 
     // ---------------------------------
+    // external iterators
+    // ---------------------------------
+
+    friend class OutputDataIterator<T, OutputData<T> >;
+    friend class OutputDataIterator<const T, const OutputData<T> >;
+
+    //! read/write iterator type
+    typedef OutputDataIterator<T, OutputData<T> > iterator;
+
+    //! read-only iterator type
+    typedef OutputDataIterator<const T, const OutputData<T> > const_iterator;
+
+    //! return a read/write iterator that points to the first element
+    iterator begin() { return iterator(this); }
+
+    //! return a read-only iterator that points to the first element
+    const_iterator begin() const { return const_iterator(this); }
+
+    //! return a read/write iterator that points to the one past last element
+    iterator end() { return iterator(this, getAllocatedSize()); }
+
+    //! return a read-only iterator that points to the one past last element
+    const_iterator end() const  { return const_iterator(this, getAllocatedSize()); }
+
+    // ---------------------------------
     // navigation and access to stored elements
     // ---------------------------------
 
@@ -178,6 +205,12 @@ private:
     //! memory allocation for current dimensions configuration
     void allocate();
 
+    //! accessors for iterators
+    T &operator[](size_t index) {
+        if (mp_ll_data) return (*mp_ll_data)[index];
+        throw ClassInitializationException("Low-level data objects was not yet initialized");
+    }
+
     std::vector<NamedVectorBase*> m_value_axes;
     mutable MultiIndex m_index;
     LLData<T> *mp_ll_data;
@@ -185,7 +218,7 @@ private:
 
 
 /* **************** */
-// global arithmetics
+// specialized OutputData functions: global arithmetics
 /* **************** */
 
 //! addition-assignment operator for two output data

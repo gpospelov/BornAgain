@@ -27,6 +27,10 @@ public:
 
 	virtual void runSimulation();
 
+	//! normalize the calculated intensity
+
+    //! This normalization assumes that the intensity map contains total differential scattering cross sections
+    //! (so not the cross section per scattering particle as is usual)
     virtual void normalize();
 
     void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,

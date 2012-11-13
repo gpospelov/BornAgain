@@ -142,8 +142,16 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
             }
             histo_axises[i_axis].push_back( (*axis)[i_bin] - dx/2.);
         }
-        histo_axises[i_axis].push_back((*axis)[axis->getSize()-1] + dx/2.); // right bin edge of last bin
+        histo_axises[i_axis].push_back((*axis)[axis->getSize()-1] + dx/2.); // right bin edge of last bin, so for 100 bins size of vector will be 101
     }
+
+//    for(size_t i_axis=0; i_axis<2; ++i_axis) {
+//        std::cout << "axis " << i_axis << " size:" << histo_axises[i_axis].size() << std::endl;
+//        for(size_t i_bin=0; i_bin<histo_axises[i_axis].size(); ++i_bin) {
+//            std::cout << histo_axises[i_axis][i_bin] << " ";
+//        }
+//        std::cout << std::endl;
+//    }
 
     // creation of 2D histogram with variable bin size
     const NamedVector<double> *axis0 = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[0]);
@@ -162,7 +170,7 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
     }
     h2->SetContour(50);
     h2->SetStats(0);
-    h2->GetYaxis()->SetTitleOffset(1.3);
+    h2->GetYaxis()->SetTitleOffset(1.1);
 
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);

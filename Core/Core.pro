@@ -5,7 +5,7 @@ TARGET   = ScattCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)
@@ -224,12 +224,14 @@ HEADERS += \
     Tools/inc/IParameterized.h \
     Tools/inc/ISingleton.h \
     Tools/inc/IStochasticParameter.h \
+    Tools/inc/LLData.h \
     Tools/inc/Macros.h \
     Tools/inc/MathFunctions.h \
     Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
     Tools/inc/OutputDataIOFactory.h \
+    Tools/inc/OutputDataIterator.h \
     Tools/inc/OutputDataReader.h \
     Tools/inc/OutputDataWriter.h \
     Tools/inc/ParameterPool.h \

@@ -81,12 +81,12 @@ void TestDiffuseReflection::execute()
         m_data_offspec->addAxis(std::string("alpha_i"), m_alphaMin, m_alphaMax, m_npoints);
         m_data_offspec->addAxis(std::string("alpha_f"), m_alphaMin, m_alphaMax, m_npoints);
 
-        m_data_offspec->resetIndex();
-        while (m_data_offspec->hasNext()) {
-            double alpha_i = m_data_offspec->getCurrentValueOfAxis<double>("alpha_i");
-            double alpha_f = m_data_offspec->getCurrentValueOfAxis<double>("alpha_f");
-            size_t index_alpha_i = m_data_offspec->getCurrentIndexOfAxis("alpha_i");
-            size_t index_alpha_f = m_data_offspec->getCurrentIndexOfAxis("alpha_f");
+        OutputData<double>::iterator it = m_data_offspec->begin();
+        while (it != m_data_offspec->end()) {
+            double alpha_i = m_data_offspec->getValueOfAxis<double>("alpha_i", it.getIndex());
+            double alpha_f = m_data_offspec->getValueOfAxis<double>("alpha_f", it.getIndex());
+            size_t index_alpha_i = m_data_offspec->getIndexOfAxis("alpha_i", it.getIndex());
+            size_t index_alpha_f = m_data_offspec->getIndexOfAxis("alpha_f", it.getIndex());
             ki.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
             kf.setLambdaAlphaPhi(1.54*Units::angstrom, alpha_f, 0.0);
             calc.execute(*m_sample, ki, kf);
@@ -98,7 +98,8 @@ void TestDiffuseReflection::execute()
             }
             //double intensity = rdwba.evaluate(ki, kf);
             //std::cout << "alpha_i " << alpha_i << " alpha_f " << alpha_f << " phi_f " << 0.0 << " inten " << intensity << std::endl;
-            m_data_offspec->next() = intensity;
+            *it = intensity;
+            ++it;
         }
 
         draw();
@@ -173,13 +174,14 @@ void TestDiffuseReflection::draw()
     h2.SetContour(50);
 //    h2.SetMinimum(0.001);
     h2.SetStats(0);
-    m_data_offspec->resetIndex();
-    while (m_data_offspec->hasNext()) {
-        double alpha_i = m_data_offspec->getCurrentValueOfAxis<double>("alpha_i");
-        double alpha_f = m_data_offspec->getCurrentValueOfAxis<double>("alpha_f");
-        size_t index_alpha_i = m_data_offspec->getCurrentIndexOfAxis("alpha_i");
-        size_t index_alpha_f = m_data_offspec->getCurrentIndexOfAxis("alpha_f");
-        double r = m_data_offspec->next();
+
+    OutputData<double>::const_iterator it = m_data_offspec->begin();
+    while (it != m_data_offspec->end()) {
+        double alpha_i = m_data_offspec->getValueOfAxis<double>("alpha_i", it.getIndex());
+        double alpha_f = m_data_offspec->getValueOfAxis<double>("alpha_f", it.getIndex());
+        size_t index_alpha_i = m_data_offspec->getIndexOfAxis("alpha_i", it.getIndex());
+        size_t index_alpha_f = m_data_offspec->getIndexOfAxis("alpha_f", it.getIndex());
+        double r = *it++;
         hspect.Fill(r);
         if(index_alpha_i==5) {
 

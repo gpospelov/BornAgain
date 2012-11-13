@@ -22,18 +22,18 @@ void DiffuseDWBASimulation::run()
     initDiffuseFormFactorTerms(diffuse_terms, nbr_heights, samples_per_particle);
     double wavevector_scattering_factor = M_PI/getWaveLength()/getWaveLength();
 
-    resetIndex();
-    while ( hasNext() ) {
-        if( (int)m_output_data_mask.currentValue() !=1 ) {
-            next();
+    OutputData<double>::const_iterator it_mask = m_output_data_mask.begin();
+    OutputData<double>::iterator it_intensity = m_dwba_intensity.begin();
+    while ( it_intensity != m_dwba_intensity.end() ) {
+        if( !(*it_mask) ) {
+            ++it_mask, ++it_intensity;
             continue;
         }
 
-        double phi_f = getDWBAIntensity().getCurrentValueOfAxis<double>("phi_f");
-        double alpha_f = getDWBAIntensity().getCurrentValueOfAxis<double>("alpha_f");
+        double phi_f = getDWBAIntensity().getValueOfAxis<double>("phi_f", it_intensity.getIndex());
+        double alpha_f = getDWBAIntensity().getValueOfAxis<double>("alpha_f", it_intensity.getIndex());
         if (alpha_f<0) {
-            // m_dwba_intensity.next() = 0.0;
-            next() = 0.0;
+            ++it_mask, ++it_intensity;
             continue;
         }
         cvector_t k_f;
@@ -52,7 +52,8 @@ void DiffuseDWBASimulation::run()
             }
             total_intensity += p_diffuse_term->m_factor*(intensity - std::norm(amplitude));
         }
-        next() = total_intensity*wavevector_scattering_factor*wavevector_scattering_factor;
+        *it_intensity = total_intensity*wavevector_scattering_factor*wavevector_scattering_factor;
+        ++it_intensity, ++it_mask;
     }
 
     for (size_t i=0; i<diffuse_terms.size(); ++i) delete diffuse_terms[i];

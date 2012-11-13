@@ -200,13 +200,14 @@ void TestFittingModule1::generateRealData(double noise_factor)
     if (mp_real_data) delete mp_real_data;
 
     mp_real_data = mp_exact_data->clone();
-    mp_real_data->resetIndex();
-    while (mp_real_data->hasNext()) {
-        double current = mp_real_data->currentValue();
+    OutputData<double>::iterator it = mp_real_data->begin();
+    while (it != mp_real_data->end()) {
+        double current = *it;
         double sigma = noise_factor*std::sqrt(current);
         double random = MathFunctions::GenerateNormalRandom(current, sigma);
         if (random<0.0) random = 0.0;
-        mp_real_data->next() = random;
+        *it = random;
+        ++it;
     }
 }
 

@@ -43,15 +43,8 @@ private:
     //! draw result of the test
     void draw_roughness_set();
 
-    MultiLayer *m_sample; //!< pointer to multilayer sample
-    OutputData<OpticalFresnel::MultiLayerCoeff_t  > *m_coeffs; //!< output data structure
+    MultiLayer *mp_sample; //!< pointer to multilayer sample
+    OutputData<OpticalFresnel::MultiLayerCoeff_t  > *mp_coeffs; //!< output data structure
 };
-
-
-
-
-
-
-
 
 #endif // TESTFRESNELCOEFF_H

@@ -25,11 +25,11 @@ OutputDataTest::OutputDataTest()
     db_data_3d.addAxis(new NamedVector<double>("angle", 0.0, 0.1, 20));
     db_data_3d.addAxis(new NamedVector<double>("length", 0.0, 0.5, 10));
     db_data_3d.addAxis(new NamedVector<int>("index", 10, 1, 10));
-    MultiIndex &db_data_index = db_data_3d.getIndex();
+    OutputData<double>::iterator it = db_data_3d.begin();
     for (size_t i=0; i<2000; ++i)
     {
-        db_data_3d.currentValue() = (double)i;
-        ++db_data_index;
+        *it = (double)i;
+        ++it;
     }
 }
 

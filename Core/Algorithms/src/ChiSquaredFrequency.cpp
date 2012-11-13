@@ -25,10 +25,10 @@ double ChiSquaredFrequency::calculateChiSquared(
     initWeights();
     size_t data_size = mp_weights->getAllocatedSize();
     OutputData<double> *p_difference = createChi2DifferenceMap();
-    mp_weights->resetIndex();
-    p_difference->resetIndex();
-    while(p_difference->hasNext()) {
-        result += p_difference->next()*mp_weights->next();
+    OutputData<double>::const_iterator it_weights = mp_weights->begin();
+    OutputData<double>::const_iterator it_diff = p_difference->begin();
+    while(it_diff != p_difference->end()) {
+        result += (*it_diff++)*(*it_weights++);
     }
     delete p_difference;
     m_chi2_value = result/data_size;
@@ -38,17 +38,18 @@ OutputData<double>* ChiSquaredFrequency::createChi2DifferenceMap() const
 {
     OutputData<double> *p_difference = mp_weights->clone();
 
-    p_difference->resetIndex();
-    mp_simulation_ft->resetIndex();
-    mp_real_ft->resetIndex();
+    OutputData<double>::iterator it_diff = p_difference->begin();
+    OutputData<complex_t>::const_iterator it_sim = mp_simulation_ft->begin();
+    OutputData<complex_t>::const_iterator it_real = mp_real_ft->begin();
 
-    while (p_difference->hasNext()) {
-        complex_t real = mp_real_ft->next();
-        complex_t simu = mp_simulation_ft->next();
+    while (it_diff != p_difference->end()) {
+        complex_t real = *it_real++;
+        complex_t simu = *it_sim++;
         complex_t diff = real - simu;
 //        double sum_norms = std::max(std::norm(real), 1.0);
         double squared_difference = std::norm(diff); // /std::sqrt(sum_norms);
-        p_difference->next() = squared_difference;
+        *it_diff = squared_difference;
+        ++it_diff;
     }
 
     return p_difference;
@@ -67,28 +68,28 @@ void ChiSquaredFrequency::initWeights()
     fourierTransform(*mp_simulation_data, mp_simulation_ft);
     delete mp_weights;
     mp_weights = new OutputData<double>();
-    size_t rank = mp_simulation_ft->getDimension();
+    size_t rank = mp_simulation_ft->getRank();
     int *n_dims = new int[rank];
     for (size_t i=0; i<rank; ++i) {
         n_dims[i] = mp_simulation_ft->getAxis(i)->getSize();
     }
     mp_weights->setAxisSizes(rank, n_dims);
     delete n_dims;
-    mp_weights->resetIndex();
+    OutputData<double>::iterator it_weights = mp_weights->begin();
     size_t nbr_rows = mp_weights->getAllSizes()[0];
     size_t row_length = mp_weights->getAllSizes()[1];
     size_t row_number = 0;
-    size_t counter = 0;
-    while (mp_weights->hasNext()) {
+    while (it_weights != mp_weights->end()) {
         double weight = 0.0;
-        size_t column_index = counter%row_length;
+        size_t linear_index = it_weights.getIndex();
+        size_t column_index = linear_index%row_length;
         int shift = (column_index>=row_length/2 ? -(int)row_length : 0);
         int centered_column_index = (int)column_index - shift;
         if (row_number<m_cutoff*nbr_rows && centered_column_index < m_cutoff*row_length/2.0) {
             weight = 1.0;
         }
-        mp_weights->next() = weight;
-        ++counter;
-        if (counter%row_length==0) ++row_number;
+        *it_weights = weight;
+        if (linear_index%row_length==0) ++row_number;
+        ++it_weights;
     }
 }

@@ -96,19 +96,19 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
     NamedVector<double> *yaxis = new NamedVector<double>("y-axis");
     for(size_t i=0; i<buff_yaxis.size(); ++i) yaxis->push_back(buff_yaxis[i]);
 
-    OutputData<double > *output = new OutputData<double >;
-    output->addAxis(xaxis);
-    output->addAxis(yaxis);
-    output->setAllTo(0.0);
-    output->resetIndex();
-    while (output->hasNext())
+    OutputData<double > *p_result = new OutputData<double>;
+    p_result->addAxis(xaxis);
+    p_result->addAxis(yaxis);
+    p_result->setAllTo(0.0);
+    OutputData<double>::iterator it = p_result->begin();
+    while (it != p_result->end())
     {
-        size_t index_x = output->getCurrentIndexOfAxis("x-axis");
-        size_t index_y = output->getCurrentIndexOfAxis("y-axis");
-        output->next() = buff_data[index_y][index_x];
+        size_t index_x = p_result->toCoordinates(it.getIndex())[0];
+        size_t index_y = p_result->toCoordinates(it.getIndex())[1];
+        *it = buff_data[index_y][index_x];
+        ++it;
     }
-
-    return output;
+    return p_result;
 }
 
 

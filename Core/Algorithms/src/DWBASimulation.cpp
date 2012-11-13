@@ -15,7 +15,7 @@ void DWBASimulation::init(const Experiment& experiment)
     Detector detector = experiment.getDetector();
     size_t detector_dimension = detector.getDimension();
     for (size_t dim=0; dim<detector_dimension; ++dim) {
-        m_dwba_intensity.addAxis(new NamedVector<double>(detector.getAxis(dim)));
+        m_dwba_intensity.addAxis(detector.getAxis(dim).clone());
     }
     Beam beam = experiment.getBeam();
     m_ki = beam.getCentralK();
@@ -25,8 +25,6 @@ void DWBASimulation::init(const Experiment& experiment)
     // initialising mask
     m_output_data_mask.copyFrom(*experiment.getOutputDataMask());
 }
-
-
 
 DWBASimulation *DWBASimulation::clone()
 {
@@ -44,30 +42,3 @@ double DWBASimulation::getWaveLength() const
     kvector_t real_ki(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     return 2.0*M_PI/real_ki.mag();
 }
-
-
-void DWBASimulation::resetIndex()
-{
-    m_output_data_mask.resetIndex();
-    m_dwba_intensity.resetIndex();
-}
-
-
-bool DWBASimulation::hasNext() const
-{
-    return m_dwba_intensity.hasNext();
-}
-
-
-const double &DWBASimulation::next() const
-{
-    m_output_data_mask.next();
-    return m_dwba_intensity.next();
-}
-
-double &DWBASimulation::next()
-{
-    m_output_data_mask.next();
-    return m_dwba_intensity.next();
-}
-

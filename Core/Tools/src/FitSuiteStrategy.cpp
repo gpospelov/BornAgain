@@ -253,15 +253,15 @@ void FitSuiteStrategyBootstrap::setFitSuiteParameterValues(const std::vector<dou
 OutputData<double> *FitSuiteStrategyBootstrap::generateNoisyData(double noise_factor, const OutputData<double> &source)
 {
     OutputData<double> *p_result = source.clone();
-    p_result->resetIndex();
-    while (p_result->hasNext()) {
-        double current = p_result->currentValue();
+    OutputData<double>::iterator it = p_result->begin();
+    while (it != p_result->end()) {
+        double current = *it;
         double sigma = noise_factor*std::sqrt(current);
         double random = MathFunctions::GenerateNormalRandom(current, sigma);
         if (random<0.0) random = 0.0;
-        p_result->next() = random;
+        *it = random;
+        ++it;
     }
-
     return p_result;
 }
 

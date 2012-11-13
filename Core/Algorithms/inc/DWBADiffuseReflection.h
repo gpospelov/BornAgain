@@ -37,8 +37,6 @@ public:
 
     double getDiffuseCrosscorr() const { return m_diffuse_crosscorr; }
 
-    //static double execute0(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf);
-
     void setKvectors(const kvector_t &ki, const kvector_t &kf);
 private:
     void diffuse_autocorr();

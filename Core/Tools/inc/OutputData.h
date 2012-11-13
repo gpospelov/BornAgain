@@ -17,57 +17,12 @@
 #include "NamedVector.h"
 #include "Exceptions.h"
 #include "Types.h"
+#include "LLData.h"
+#include "OutputDataIterator.h"
+
 #include <map>
 #include <string>
 #include <sstream>
-
-template <class T> class OutputData;
-
-
-//- -------------------------------------------------------------------
-//! @class MultiIndex
-//! @brief Definition of MultiIndex class to navigate trough OutputData
-//- -------------------------------------------------------------------
-class MultiIndex
-{
-    template <class T> friend class OutputData;
-public:
-    std::vector<std::string> getLabels() { return m_labels; }
-    std::vector<size_t> getCurrentIndices();
-    size_t getCurrentIndexOfAxis(std::string axis_name);
-    size_t getPosition() const { return m_current_position; }
-    size_t getSize() const { return m_total_size; }
-    std::vector<size_t> getAllSizes() { return m_axis_sizes; }
-    void reset();
-    void setIndexOfAxis(std::string axis_name, size_t value);
-    void setAllIndices(std::vector<size_t> indices);
-    void incrementIndexOfAxis(std::string axis_name);
-    void decrementIndexOfAxis(std::string axis_name);
-    MultiIndex& operator++();
-    bool endPassed() { return m_end_passed; }
-private:
-    MultiIndex();
-    ~MultiIndex();
-    // Disabling copy constructor and assignment
-    MultiIndex(const MultiIndex& source);
-    MultiIndex operator=(const MultiIndex& source);
-    void updateCurrentIndices();
-    void updateCurrentPosition();
-    void setPosition(size_t position);
-
-    void init(const std::vector<NamedVectorBase*>& value_axes);
-    void clear();
-    std::vector<std::string> m_labels;
-    std::map<std::string, size_t> m_label_index_map;
-    size_t m_dimension;
-    size_t m_total_size;
-    size_t m_current_position;
-    std::vector<size_t> m_axis_sizes;
-    std::vector<size_t> m_current_coordinate;
-    std::vector<size_t> m_steps;
-    bool m_end_passed;
-};
-
 
 //- -------------------------------------------------------------------
 //! @class OutputData
@@ -82,7 +37,6 @@ public:
     //! make object clone
     OutputData* clone() const;
 
-//    void copyInto(OutputData<T> &x) const;
     void copyFrom(const OutputData<T> &x);
 
     void addAxis(NamedVectorBase* p_new_axis);
@@ -92,57 +46,74 @@ public:
     const NamedVectorBase *getAxis(std::string label) const;
     const NamedVectorBase *getAxis(size_t index) const;
 
+    // ---------------------------------
+    // retrieve basic info
+    // ---------------------------------
+
     //! return number of dimensions
-    size_t getDimension() const { return m_dimension; }
+    size_t getRank() const { return m_value_axes.size(); }
 
     //! return number of dimensions (same as above)
-    size_t getNdimensions() const { return m_dimension; }
+    size_t getNdimensions() const { return getRank(); }
 
     //! return total size of data buffer (product of bin number in every dimension)
-    size_t getAllocatedSize() const { return m_data_vector.size(); }
+    size_t getAllocatedSize() const {
+        if (mp_ll_data) return mp_ll_data->getTotalSize();
+        return 0;
+    }
 
     //! return all sizes of its axes
-    std::vector<size_t> getAllSizes() const { return m_index.getAllSizes(); }
+    std::vector<size_t> getAllSizes() const;
 
     //! return copy of raw data vector
-    std::vector<T> getRawDataVector() const { return m_data_vector; }
+    std::vector<T> getRawDataVector() const;
 
     //! fill raw array with data
     void fillRawDataArray(T *destination) const;
 
-    //! return multi index
-    MultiIndex& getIndex() const;
-
-    // ---------------------------------
-    // navigation and access to stored elements
-    // ---------------------------------
-
-    //! reset index to point to the beginning of data structure
-    void resetIndex() const;
-
-    //! return true if next element exists
-    bool hasNext() const;
-
-    //! return const reference to current value and increment index
-    const T& next() const;
-
-    //! return reference to current value and increment index
-    T& next();
-
-    //! return const reference to current value
-    const T& currentValue() const;
-
-    //! return reference to current value
-    T& currentValue();
-
-    //! return current index of axis with given name
-    size_t getCurrentIndexOfAxis(std::string axis_name) const;
-
-    //! return current value of axis with given name
-    template <class U> U getCurrentValueOfAxis(std::string axis_name) const;
-
     //! get sum of all values in the data structure
     T totalSum() const;
+
+    // ---------------------------------
+    // external iterators
+    // ---------------------------------
+
+    friend class OutputDataIterator<T, OutputData<T> >;
+    friend class OutputDataIterator<const T, const OutputData<T> >;
+
+    //! read/write iterator type
+    typedef OutputDataIterator<T, OutputData<T> > iterator;
+
+    //! read-only iterator type
+    typedef OutputDataIterator<const T, const OutputData<T> > const_iterator;
+
+    //! return a read/write iterator that points to the first element
+    iterator begin() { return iterator(this); }
+
+    //! return a read-only iterator that points to the first element
+    const_iterator begin() const { return const_iterator(this); }
+
+    //! return a read/write iterator that points to the one past last element
+    const iterator end() { return iterator(this, getAllocatedSize()); }
+
+    //! return a read-only iterator that points to the one past last element
+    const const_iterator end() const  { return const_iterator(this, getAllocatedSize()); }
+
+    // ---------------------------------
+    // coordinate and index functions
+    // ---------------------------------
+
+    //! return vector of coordinates for given index
+    std::vector<int> toCoordinates(size_t index) const;
+
+    //! return index for specified coordinates
+    size_t toIndex(std::vector<int> coordinates) const;
+
+    //! return index of axis with given name for given total index
+    size_t getIndexOfAxis(std::string axis_name, size_t total_index) const;
+
+    //! return value of axis with given name at given index
+    template <class U> U getValueOfAxis(std::string axis_name, size_t index) const;
 
     // ---------
     // modifiers
@@ -155,7 +126,7 @@ public:
     void setAllTo(const T& value);
 
     //! multiply every item of this output data by value
-    void scaleAll(const T& value);
+    void scaleAll(const T& factor);
 
     //! add <rank> axes with indicated sizes
     void setAxisSizes(size_t rank, int *n_dims);
@@ -166,6 +137,19 @@ public:
     //! set new values to raw data array
     void setRawDataArray(const T *source);
 
+    //! addition-assignment operator for two output data
+    const OutputData<T> &operator+=(const OutputData<T> &right);
+
+    //! substraction-assignment operator for two output data
+    const OutputData<T> &operator-=(const OutputData<T> &right);
+
+    //! division-assignment operator for two output data
+    const OutputData<T> &operator/=(const OutputData<T> &right);
+
+    //! multiplication-assignment operator for two output data
+    const OutputData<T> &operator*=(const OutputData<T> &right);
+
+
 private:
     //! hidden copy constructor and assignment operators
     OutputData(const OutputData& source);
@@ -174,35 +158,33 @@ private:
     //! memory allocation for current dimensions configuration
     void allocate();
 
-    size_t m_dimension;
-    size_t m_data_size;
+    //! accessor for iterators
+    T &operator[](size_t index) {
+        if (mp_ll_data) return (*mp_ll_data)[index];
+        throw ClassInitializationException("Low-level data objects was not yet initialized");
+    }
+
+    //! constant accessor for iterators
+    const T &operator[](size_t index) const {
+        if (mp_ll_data) return (*mp_ll_data)[index];
+        throw ClassInitializationException("Low-level data objects was not yet initialized");
+    }
+
     std::vector<NamedVectorBase*> m_value_axes;
-    mutable MultiIndex m_index;
-    std::vector<T> m_data_vector;
+    LLData<T> *mp_ll_data;
 };
 
 
 /* **************** */
-// global arithmetics
+// specialized OutputData functions: global arithmetics
 /* **************** */
-
-//! addition-assignment operator for two output data
-const OutputData<double> &operator+=(OutputData<double> &left, const OutputData<double> &right);
-
-//! substraction-assignment operator for two output data
-const OutputData<double> &operator-=(OutputData<double> &left, const OutputData<double> &right);
-
-//! division-assignment operator for two output data
-const OutputData<double> &operator/=(OutputData<double> &left, const OutputData<double> &right);
-
-//! multiplication-assignment operator for two output data
-const OutputData<double> &operator*=(OutputData<double> &left, const OutputData<double> &right);
 
 //! double the bin size for each dimension
 OutputData<double> *doubleBinSize(const OutputData<double> &source);
 
-//! unnormalized Fourier transformations for real data
+//! unnormalized Fourier transformation for real data
 void fourierTransform(const OutputData<double> &source, OutputData<complex_t> *p_destination);
+//! unnormalized reverse Fourier transformation for real data
 void fourierTransformR(const OutputData<complex_t> &source, OutputData<double> *p_destination);
 
 OutputData<double> *getRealPart(const OutputData<complex_t> &source);
@@ -213,74 +195,37 @@ OutputData<double> *getModulusPart(const OutputData<complex_t> &source);
 // definitions
 /* ***************************************************************************/
 
-// default constructor
 template <class T> OutputData<T>::OutputData()
-    : m_dimension(0)
-    , m_data_size(1)
+: mp_ll_data(0)
 {
     allocate();
 }
 
-// destructor
 template <class T> OutputData<T>::~OutputData()
 {
-    for (size_t i=0; i<m_dimension; ++i)
-    {
-        delete m_value_axes[i];
-    }
+    clear();
 }
 
-// make object clone
 template <class T> OutputData<T>* OutputData<T>::clone() const
 {
 	OutputData<T>* p_result = new OutputData<T>();
-    for (size_t i=0; i<m_dimension; ++i)
+    for (size_t i=0; i<getRank(); ++i)
     {
-        p_result->addAxis(m_value_axes[i]->clone());
+        p_result->addAxis(getAxis(i)->clone());
     }
-	p_result->resetIndex();
-	size_t source_index = 0;
-	size_t source_size = this->getAllocatedSize();
-	while (p_result->hasNext() && source_index<source_size) {
-	    p_result->next() = m_data_vector[source_index];
-	    ++source_index;
-	}
+    (*p_result->mp_ll_data) = *mp_ll_data;
+
 	return p_result;
 }
-
-
-//template <class T> void OutputData<T>::copyInto(OutputData<T> &other) const
-//{
-//    other.clear();
-//    for (size_t i=0; i<m_dimension; ++i)
-//    {
-//        other.addAxis(m_value_axes[i]->clone());
-//    }
-//    other.resetIndex();
-//    size_t source_index = 0;
-//    size_t source_size = this->getAllocatedSize();
-//    while (other.hasNext() && source_index<source_size) {
-//        other.next() = m_data_vector[source_index];
-//        ++source_index;
-//    }
-
-//}
-
 
 template <class T> void OutputData<T>::copyFrom(const OutputData<T> &other)
 {
     clear();
     for (size_t i=0; i<other.getNdimensions(); ++i)
     {
-        const NamedVector<T> *axis = dynamic_cast<const NamedVector<T>*>(other.getAxes()[i]);
-        addAxis(axis->clone());
+        addAxis(other.getAxis(i)->clone());
     }
-    resetIndex();
-    other.resetIndex();
-    while (other.hasNext()) {
-        currentValue() = other.currentValue();
-        next(); other.next();
-    }
+    (*mp_ll_data) = *other.mp_ll_data;
 }
 
 
@@ -289,8 +234,6 @@ template <class T> void OutputData<T>::addAxis(NamedVectorBase* p_new_axis)
 {
     if (p_new_axis->getSize()>0)
     {
-        ++m_dimension;
-        m_data_size *= p_new_axis->getSize();
         m_value_axes.push_back(p_new_axis);
         allocate();
     }
@@ -320,127 +263,124 @@ template <class T> const NamedVectorBase *OutputData<T>::getAxis(size_t index) c
     return m_value_axes.at(index);
 }
 
-//! fill raw array with data
+template<class T>
+inline std::vector<size_t> OutputData<T>::getAllSizes() const
+{
+    std::vector<size_t> result;
+    for (size_t i=0; i<getRank(); ++i) {
+        int dim = mp_ll_data->getDimensions()[i];
+        result.push_back(dim);
+    }
+    return result;
+}
+
+template<class T>
+inline std::vector<T> OutputData<T>::getRawDataVector() const
+{
+    std::vector<T> result;
+    for (size_t i=0; i<getAllocatedSize(); ++i) {
+        result.push_back((*mp_ll_data)[i]);
+    }
+    return result;
+}
+
 template <class T> void OutputData<T>::fillRawDataArray(T *destination) const
 {
-    for (size_t i=0; i<m_data_size; ++i) {
-        destination[i] = m_data_vector[i];
+    for (size_t i=0; i<getAllocatedSize(); ++i) {
+        destination[i] = (*mp_ll_data)[i];
     }
     return;
 }
 
-
-// return multi index
-template <class T> inline MultiIndex& OutputData<T>::getIndex() const
+template<class T> std::vector<int> OutputData<T>::toCoordinates(size_t index) const
 {
-    return m_index;
+    size_t remainder = index;
+    std::vector<int> result;
+    result.resize(mp_ll_data->getRank());
+    for (size_t i=0; i<mp_ll_data->getRank(); ++i)
+    {
+        result[mp_ll_data->getRank()-1-i] = remainder % m_value_axes[mp_ll_data->getRank()-1-i]->getSize();
+        remainder /= m_value_axes[mp_ll_data->getRank()-1-i]->getSize();
+    }
+    return result;
+}
+
+template <class T> size_t OutputData<T>::toIndex(std::vector<int> coordinates) const
+{
+    if (coordinates.size() != mp_ll_data->getRank()) {
+        throw LogicErrorException("Number of coordinates must match rank of data structure");
+    }
+    size_t result = 0;
+    int step_size = 1;
+    for (size_t i=mp_ll_data->getRank(); i>0; --i)
+    {
+        result += coordinates[i-1]*step_size;
+        step_size *= m_value_axes[i-1]->getSize();
+    }
+    return result;
+}
+
+template <class T> size_t OutputData<T>::getIndexOfAxis(std::string axis_name, size_t total_index) const
+{
+    std::vector<int> coordinates = toCoordinates(total_index);
+    const NamedVectorBase *p_axis;
+    for (size_t i=0; i<m_value_axes.size(); ++i) {
+        p_axis = m_value_axes[i];
+        if (p_axis->getName() == axis_name) {
+            return coordinates[i];
+        }
+    }
+    throw LogicErrorException("Axis with given name not found");
 }
 
 
-// reset index to point to the beginning of data structure
-template <class T> inline void OutputData<T>::resetIndex() const
-{
-    m_index.reset();
-}
-
-
-// return true if next element exists
-template <class T> inline bool OutputData<T>::hasNext() const
-{
-    return !m_index.endPassed();
-}
-
-
-// return const reference to current value and increment index
-template <class T> inline const T& OutputData<T>::next() const
-{
-    const T &temp = currentValue();
-    ++m_index;
-    return temp;
-}
-
-
-// return reference to current value and increment index
-template <class T> inline T& OutputData<T>::next()
-{
-    T &temp = currentValue();
-    ++m_index;
-    return temp;
-}
-
-
-// return const reference to current value
-template <class T> inline const T& OutputData<T>::currentValue() const
-{
-    return m_data_vector[m_index.m_current_position];
-}
-
-
-// return reference to current value
-template <class T> inline T& OutputData<T>::currentValue()
-{
-    return m_data_vector[m_index.m_current_position];
-}
-
-
-template <class T> inline size_t OutputData<T>::getCurrentIndexOfAxis(std::string axis_name) const
-{
-    return m_index.getCurrentIndexOfAxis(axis_name);
-}
-
-
-// return current value of axis with given name
 template <class T>
-template <class U> inline U OutputData<T>::getCurrentValueOfAxis(std::string axis_name) const
+template<class U> U OutputData<T>::getValueOfAxis(std::string axis_name, size_t index) const
 {
-    const NamedVector<U> *p_axis = dynamic_cast<const NamedVector<U>*>(getAxis(axis_name));
-    size_t index = getCurrentIndexOfAxis(axis_name);
-    return (*p_axis)[index];
+    std::vector<int> coordinates = toCoordinates(index);
+    const NamedVectorBase *p_axis;
+    const NamedVector<U> *p_derived = 0;
+    size_t axis_index = 0;
+    for (size_t i=0; i<m_value_axes.size(); ++i) {
+        p_axis = m_value_axes[i];
+        if (p_axis->getName() == axis_name) {
+            p_derived = dynamic_cast<const NamedVector<U>*>(getAxis(axis_name));
+            axis_index = i;
+        }
+    }
+    if (p_derived == 0) {
+        throw LogicErrorException("Axis with given name not found");
+    }
+    return (*p_derived)[coordinates[axis_index]];
 }
-
 
 template<class T>
 inline T OutputData<T>::totalSum() const
 {
-    T total = 0;
-    for (size_t i=0; i<m_data_size; ++i) {
-        total += m_data_vector[i];
-    }
-    return total;
+    return mp_ll_data->getTotalSum();
 }
 
-// set object into initial state (no dimensions, data)
 template <class T> void OutputData<T>::clear()
 {
-    for (size_t i=0; i<m_dimension; ++i)
+    for (size_t i=0; i<getRank(); ++i)
     {
         delete m_value_axes[i];
     }
     m_value_axes.clear();
-    m_dimension = 0;
-    m_data_size = 1;
-    allocate();
+    delete mp_ll_data;
+    mp_ll_data = 0;
 }
 
-
-// set content of output data to specific value
 template <class T> void OutputData<T>::setAllTo(const T &value)
 {
-    for (size_t index=0; index<m_data_size; ++index) {
-        m_data_vector[index] = value;
-    }
+    mp_ll_data->setAll(value);
 }
 
-
-// multiply every item of this output data by value
-template <class T> void OutputData<T>::scaleAll(const T &value)
+template <class T> void OutputData<T>::scaleAll(const T &factor)
 {
-    for (size_t index=0; index<m_data_size; ++index) {
-        m_data_vector[index] *= value;
-    }
+    mp_ll_data->scaleAll(factor);
 }
 
-// add <rank> axes with indicated sizes
 template <class T> void OutputData<T>::setAxisSizes(size_t rank, int *n_dims)
 {
     clear();
@@ -452,31 +392,58 @@ template <class T> void OutputData<T>::setAxisSizes(size_t rank, int *n_dims)
     }
 }
 
+template<class T> const OutputData<T> &OutputData<T>::operator+=(const OutputData<T>& right)
+{
+    *this->mp_ll_data += *right.mp_ll_data;
+    return *this;
+}
+
+template<class T> const OutputData<T> &OutputData<T>::operator-=(const OutputData<T>& right)
+{
+    *this->mp_ll_data -= *right.mp_ll_data;
+    return *this;
+}
+
+template<class T> const OutputData<T> &OutputData<T>::operator*=(const OutputData<T>& right)
+{
+    *this->mp_ll_data *= *right.mp_ll_data;
+    return *this;
+}
+
+template<class T> const OutputData<T> &OutputData<T>::operator/=(const OutputData<T>& right)
+{
+    *this->mp_ll_data /= *right.mp_ll_data;
+    return *this;
+}
 
 template <class T> void OutputData<T>::allocate()
 {
-    m_index.init(m_value_axes );
-    if (m_data_vector.size() != m_data_size)
-    {
-        m_data_vector.resize(m_data_size);
+    delete mp_ll_data;
+    size_t rank = m_value_axes.size();
+    int *dims =  new int[rank];
+    for (size_t i=0; i<rank; ++i) {
+        dims[i] = getAxis(i)->getSize();
     }
+    mp_ll_data = new LLData<T>(rank, dims);
+    T default_value = T();
+    mp_ll_data->setAll(default_value);
+    delete[] dims;
 }
 
-
-// set new values to raw data vector
 template<class T> inline void OutputData<T>::setRawDataVector(const std::vector<T> &data_vector)
 {
-    if (data_vector.size() != m_data_size) {
+    if (data_vector.size() != getAllocatedSize()) {
         throw RuntimeErrorException("setRawDataVector can only be called with a data vector of the correct size.");
     }
-    m_data_vector = data_vector;
+    for (size_t i=0; i<getAllocatedSize(); ++i) {
+        (*mp_ll_data)[i] = data_vector[i];
+    }
 }
 
-// set new values to raw data array
 template<class T> inline void OutputData<T>::setRawDataArray(const T *source)
 {
-    for (size_t i=0; i<m_data_vector.size(); ++i) {
-        m_data_vector[i] = source[i];
+    for (size_t i=0; i<getAllocatedSize(); ++i) {
+        (*mp_ll_data)[i] = source[i];
     }
 }
 

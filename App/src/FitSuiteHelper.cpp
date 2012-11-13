@@ -156,25 +156,25 @@ void FitSuiteObserverDraw::update(IObservable *subject)
 // return output data which contains relative difference between simulation and real data
 OutputData<double > *FitSuiteObserverDraw::getRelativeDifferenceMap(const IChiSquaredModule *chi_module)
 {
-    const OutputData<double> *simu_data = chi_module->getSimulationData();
-    const OutputData<double> *real_data = chi_module->getRealData();
+    const OutputData<double> *p_simu_data = chi_module->getSimulationData();
+    const OutputData<double> *p_real_data = chi_module->getRealData();
 
-    OutputData<double > *difference_map = simu_data->clone();
-    difference_map->setAllTo(0.0);
+    OutputData<double > *p_difference_map = p_simu_data->clone();
+    p_difference_map->setAllTo(0.0);
 
-    simu_data->resetIndex();
-    real_data->resetIndex();
-    difference_map->resetIndex();
-    while (real_data->hasNext()) {
-        double value_simu = simu_data->currentValue();
-        double value_real = real_data->currentValue();
+    OutputData<double>::const_iterator it_sim = p_simu_data->begin();
+    OutputData<double>::const_iterator it_real = p_real_data->begin();
+    OutputData<double>::iterator it_diff = p_difference_map->begin();
+
+    while (it_sim != p_simu_data->end()) {
+        double value_simu = *it_sim++;
+        double value_real = *it_real++;
         double value_diff(0);
         if( value_real > 0) value_diff = std::abs(value_real - value_simu)/value_real;
-        difference_map->next() = value_diff;
-        real_data->next(); simu_data->next();
+        *it_diff = value_diff;
+        ++it_diff;
     }
-
-    return difference_map;
+    return p_difference_map;
 }
 
 

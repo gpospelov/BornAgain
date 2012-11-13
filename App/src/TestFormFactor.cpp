@@ -26,23 +26,23 @@ TestFormFactor::~TestFormFactor()
 
 void TestFormFactor::execute()
 {
-    MultiIndex& index = mp_intensity_output->getIndex();
+    OutputData<double>::iterator it = mp_intensity_output->begin();
     const NamedVector<double> *p_y_axis = dynamic_cast<const  NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
     const NamedVector<double> *p_z_axis = dynamic_cast<const  NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
     double lambda = 1.0;
     double alpha_i = 0.2*M_PI/180.0;
     cvector_t k_i;
     k_i.setLambdaAlphaPhi(lambda, -alpha_i, 0.0);
-    while (!index.endPassed())
+    while (it != mp_intensity_output->end())
     {
-        size_t index_y = index.getCurrentIndexOfAxis("detector y-axis");
-        size_t index_z = index.getCurrentIndexOfAxis("detector z-axis");
+        size_t index_y = mp_intensity_output->getIndexOfAxis("detector y-axis", it.getIndex());
+        size_t index_z = mp_intensity_output->getIndexOfAxis("detector z-axis", it.getIndex());
         double phi_f = M_PI*(*p_y_axis)[index_y]/180.0;
         double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        mp_intensity_output->currentValue() = std::pow(std::abs(m_ff.evaluate(k_i, k_f, alpha_i, alpha_f)),2);
-        ++index;
+        *it = std::pow(std::abs(m_ff.evaluate(k_i, k_f, alpha_i, alpha_f)),2);
+        ++it;
     }
     draw();
 }
@@ -53,8 +53,6 @@ void TestFormFactor::draw()
     TCanvas *c1 = new TCanvas("c1_test_formfactor", "Cylinder Formfactor", 0, 0, 1024, 768);
     (void)c1;
 
-    MultiIndex& index = mp_intensity_output->getIndex();
-    index.reset();
     const NamedVector<double> *p_y_axis = dynamic_cast<const NamedVector<double>*>(mp_intensity_output->getAxis("detector y-axis"));
     const NamedVector<double> *p_z_axis = dynamic_cast<const NamedVector<double>*>(mp_intensity_output->getAxis("detector z-axis"));
     size_t y_size = p_y_axis->getSize();
@@ -68,15 +66,16 @@ void TestFormFactor::draw()
     p_hist2D->GetXaxis()->SetTitle("phi_f");
     p_hist2D->GetYaxis()->SetTitle("alpha_f");
 
-    while (!index.endPassed())
+    OutputData<double>::const_iterator it = mp_intensity_output->begin();
+    while (it != mp_intensity_output->end())
     {
-        size_t index_y = index.getCurrentIndexOfAxis("detector y-axis");
-        size_t index_z = index.getCurrentIndexOfAxis("detector z-axis");
+        size_t index_y = mp_intensity_output->getIndexOfAxis("detector y-axis", it.getIndex());
+        size_t index_z = mp_intensity_output->getIndexOfAxis("detector z-axis", it.getIndex());
         double x_value = (*p_y_axis)[index_y];
         double y_value = (*p_z_axis)[index_z];
-        double z_value = std::log(mp_intensity_output->currentValue());
+        double z_value = std::log(*it);
         p_hist2D->Fill(x_value, y_value, z_value);
-        ++index;
+        ++it;
     }
     p_hist2D->SetContour(50);
     gStyle->SetPalette(51);

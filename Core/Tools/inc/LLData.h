@@ -179,7 +179,7 @@ template<class T> LLData<T>& LLData<T>::operator/=(const LLData& right)
         } else {
             ratio = m_data_array[i]/right[i];
         }
-        m_data_array[i] /= ratio;
+        m_data_array[i] = ratio;
     }
     return *this;
 }

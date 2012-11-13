@@ -15,6 +15,7 @@
 //! @date   Nov 7, 2012
 
 #include "Exceptions.h"
+#include "Numeric.h"
 
 #include <algorithm>
 
@@ -42,6 +43,7 @@ public:
     LLData<T> &operator+=(const LLData<T> &right);
     LLData<T> &operator-=(const LLData<T> &right);
     LLData<T> &operator*=(const LLData<T> &right);
+    LLData<T> &operator/=(const LLData<T> &right);
 
     // initialization, scaling
     void setAll(const T &value);
@@ -68,6 +70,7 @@ private:
 template <class T> LLData<T> &operator+(const LLData<T> &left, const LLData<T> &right);
 template <class T> LLData<T> &operator-(const LLData<T> &left, const LLData<T> &right);
 template <class T> LLData<T> &operator*(const LLData<T> &left, const LLData<T> &right);
+template <class T> LLData<T> &operator/(const LLData<T> &left, const LLData<T> &right);
 
 // Global helper functions for comparison
 template <class T> bool HaveSameDimensions(const LLData<T> &left, const LLData<T> &right);
@@ -158,6 +161,25 @@ template<class T> LLData<T>& LLData<T>::operator*=(const LLData& right)
     }
     for (size_t i=0; i<getTotalSize(); ++i) {
         m_data_array[i] *= right[i];
+    }
+    return *this;
+}
+
+template<class T> LLData<T>& LLData<T>::operator/=(const LLData& right)
+{
+    if (!HaveSameDimensions(*this, right)) {
+        throw RuntimeErrorException("Operation /= on LLData requires both operands to have the same dimensions");
+    }
+    for (size_t i=0; i<getTotalSize(); ++i) {
+        double ratio(0);
+        if( std::abs(m_data_array[i]) <= Numeric::double_epsilon && std::abs(right[i]) <= Numeric::double_epsilon) {
+            ratio = 0.0;
+        } else if (std::abs(right[i]) <= Numeric::double_epsilon) {
+            ratio = m_data_array[i]/Numeric::double_epsilon;
+        } else {
+            ratio = m_data_array[i]/right[i];
+        }
+        m_data_array[i] /= ratio;
     }
     return *this;
 }
@@ -268,6 +290,13 @@ template<class T> LLData<T> &operator*(const LLData<T>& left, const LLData<T>& r
 {
     LLData<T> *p_result = new LLData<T>(left);
     (*p_result) *= right;
+    return *p_result;
+}
+
+template<class T> LLData<T> &operator/(const LLData<T>& left, const LLData<T>& right)
+{
+    LLData<T> *p_result = new LLData<T>(left);
+    (*p_result) /= right;
     return *p_result;
 }
 

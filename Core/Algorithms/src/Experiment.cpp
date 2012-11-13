@@ -48,10 +48,10 @@ void Experiment::normalize()
 {
     double incident_intensity = m_beam.getIntensity();
     if (!m_is_normalized && incident_intensity!=1.0) {
-        m_intensity_map.resetIndex();
-        while (m_intensity_map.hasNext()) {
-            double old_value = m_intensity_map.currentValue();
-            m_intensity_map.next() = incident_intensity*old_value;
+        OutputData<double>::iterator it = m_intensity_map.begin();
+        while (it != m_intensity_map.end()) {
+            *it *= incident_intensity;
+            ++it;
         }
         m_is_normalized = true;
     }
@@ -110,13 +110,14 @@ void Experiment::setOutputDataMask(size_t n_chunks_total, size_t n_chunk )
     // copying topology from intensity data
     m_current_output_data_mask.copyFrom(m_intensity_map);
     // setting mask
-    m_current_output_data_mask.resetIndex();
-    while(m_current_output_data_mask.hasNext()) {
-        if(m_current_output_data_mask.getIndex().getPosition() % n_chunks_total == n_chunk) {
-            m_current_output_data_mask.next() = 1.0;
+    OutputData<double>::iterator it_mask = m_current_output_data_mask.begin();
+    while(it_mask != m_current_output_data_mask.end()) {
+        if(it_mask.getIndex() % n_chunks_total == n_chunk) {
+            *it_mask = 1.0;
         } else {
-            m_current_output_data_mask.next() = 0.0;
+            *it_mask = 0.0;
         }
+        ++it_mask;
     }
 
 }

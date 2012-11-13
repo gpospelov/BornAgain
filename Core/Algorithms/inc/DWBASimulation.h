@@ -41,12 +41,6 @@ public:
     virtual DWBASimulation *clone();
 
 protected:
-
-    virtual void resetIndex();
-    virtual bool hasNext() const;
-    virtual const double &next() const;
-    virtual double &next();
-
     OutputData<double> m_dwba_intensity;
     OutputData<double> m_output_data_mask;
     cvector_t m_ki;

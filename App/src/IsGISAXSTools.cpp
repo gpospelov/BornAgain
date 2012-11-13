@@ -151,12 +151,12 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
     h2->GetXaxis()->SetTitle( axis0->getName().c_str() );
     h2->GetYaxis()->SetTitle( axis1->getName().c_str() );
 
-    output.resetIndex();
-    while (output.hasNext())
+    OutputData<double>::const_iterator it = output.begin();
+    while (it != output.end())
     {
-        double x_value = output.getCurrentValueOfAxis<double>( axis0->getName().c_str() );
-        double y_value = output.getCurrentValueOfAxis<double>( axis1->getName().c_str() );
-        double z_value = output.next();
+        double x_value = output.getValueOfAxis<double>( axis0->getName().c_str(), it.getIndex() );
+        double y_value = output.getValueOfAxis<double>( axis1->getName().c_str(), it.getIndex() );
+        double z_value = *it++;
         h2->Fill(x_value, y_value, z_value);
     }
     h2->SetContour(50);
@@ -188,10 +188,10 @@ void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double> &outpu
     TH1::SetDefaultBufferSize(5000);
     TH1D h1_spect("h1_spect", histo_name.c_str(), 200, 1.0, -1.0); // xmin > xmax as a sign of automatic binning
 
-    output.resetIndex();
-    while (output.hasNext())
+    OutputData<double>::const_iterator it = output.begin();
+    while (it != output.end())
     {
-        h1_spect.Fill( output.next() );
+        h1_spect.Fill( *it++ );
     }
 
     h1_spect.DrawCopy(draw_options.c_str());
@@ -221,14 +221,14 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
     TH1D h1_spect("difference", histo_name.c_str(), 40, -20.0, 20.0);
     h1_spect.GetXaxis()->SetTitle("log10( (we-isgi)/isgi )");
 
-    left_clone->resetIndex();
-    while (left_clone->hasNext())
+    OutputData<double>::const_iterator it = left_clone->begin();
+    while (it != left_clone->end())
     {
-        double x = left_clone->next();
+        double x = *it++;
         if(x!=0) {
             x = log10(fabs(x));
         } else {
-            // lets put the cases then the difference is exactly 0 to underflow bin
+            // lets put the cases when the difference is exactly 0 to underflow bin
             x = -21.;
         }
         h1_spect.Fill( x );
@@ -308,16 +308,14 @@ void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
         return;
         //throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing.");
     }
-    output.resetIndex();
     size_t row_length = output.getAxes()[1]->getSize();
-    int counter = 1;
-    while(output.hasNext()) {
-        double z_value = output.next();
+    OutputData<double>::const_iterator it = output.begin();
+    while(it != output.end()) {
+        double z_value = *it++;
         file << std::scientific << std::setprecision(precision) << z_value << "    ";
-        if(counter%row_length==0) {
+        if(it.getIndex()%row_length==0) {
             file << std::endl;
         }
-        ++counter;
     }
     if ( file.bad() ) {
         throw FileIsBadException("IsGISAXSTools::writeOutputDataToFile() -> Error! File is bad, probably it is a directory.");
@@ -377,21 +375,21 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
     // creating new OutputData and filling it with values from buffer_2d
     int y_size = buff_2d.size();
     int x_size = buff_2d.size() ? buff_2d[0].size() : 0;
-    OutputData<double> *output = new OutputData<double>;
-    output->addAxis(std::string("x-axis"), 0.0, double(x_size), x_size);
-    output->addAxis(std::string("y-axis"), 0.0, double(y_size), y_size);
-    output->setAllTo(0.0);
+    OutputData<double> *p_result = new OutputData<double>;
+    p_result->addAxis(std::string("x-axis"), 0.0, double(x_size), x_size);
+    p_result->addAxis(std::string("y-axis"), 0.0, double(y_size), y_size);
+    p_result->setAllTo(0.0);
 
-    output->resetIndex();
-    while (output->hasNext())
+    OutputData<double>::iterator it = p_result->begin();
+    while (it != p_result->end())
     {
-        size_t index_x = output->getCurrentIndexOfAxis("x-axis");
-        size_t index_y = output->getCurrentIndexOfAxis("y-axis");
-        //output->next() = buff_2d[index_y][index_x];
-        output->next() = buff_2d[index_x][index_y]; // strange
+        size_t index_x = p_result->toCoordinates(it.getIndex())[0];
+        size_t index_y = p_result->toCoordinates(it.getIndex())[1];
+        *it = buff_2d[index_x][index_y];
+        ++it;
     }
 
-    return output;
+    return p_result;
 }
 
 
@@ -402,7 +400,6 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
 {
     if (output_data.getRank() != 2) return;
 
-    output_data.resetIndex();
     const NamedVector<double> *p_axis0 = dynamic_cast<const NamedVector<double>*>(output_data.getAxes()[0]);
     const NamedVector<double> *p_axis1 = dynamic_cast<const NamedVector<double>*>(output_data.getAxes()[1]);
     std::string axis0_name = p_axis0->getName();
@@ -424,13 +421,14 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
         v_axis1[i].resize(axis1_size,0.0);
     }
 
-    while (output_data.hasNext())
+    OutputData<double>::const_iterator it = output_data.begin();
+    while (it != output_data.end())
     {
-        size_t axis0_index = output_data.getCurrentIndexOfAxis(axis0_name.c_str());
-        size_t axis1_index = output_data.getCurrentIndexOfAxis(axis1_name.c_str());
+        size_t axis0_index = output_data.toCoordinates(it.getIndex())[0];
+        size_t axis1_index = output_data.toCoordinates(it.getIndex())[1];
         double axis0_value = (*p_axis0)[axis0_index];
         double axis1_value = (*p_axis1)[axis1_index];
-        double intensity = output_data.next();
+        double intensity = *it++;
 
         v_data[axis0_index][axis1_index] = intensity;
         v_axis0[axis0_index][axis1_index] = axis0_value;

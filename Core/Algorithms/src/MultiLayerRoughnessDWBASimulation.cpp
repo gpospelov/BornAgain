@@ -45,19 +45,22 @@ void MultiLayerRoughnessDWBASimulation::run()
 {
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     double lambda = 2.0*M_PI/m_ki_real.mag();
-    resetIndex();
-    while ( hasNext() )
+
+    OutputData<double>::const_iterator it_mask = m_output_data_mask.begin();
+    OutputData<double>::iterator it_intensity = m_dwba_intensity.begin();
+    while ( it_intensity != m_dwba_intensity.end() )
     {
-        if( !m_output_data_mask.currentValue() ) {
-            next();
+        if( !(*it_mask) ) {
+            ++it_mask, ++it_intensity;
             continue;
         }
 
-        double phi_f = getDWBAIntensity().getCurrentValueOfAxis<double>("phi_f");
-        double alpha_f = getDWBAIntensity().getCurrentValueOfAxis<double>("alpha_f");
+        double phi_f = getDWBAIntensity().getValueOfAxis<double>("phi_f", it_intensity.getIndex());
+        double alpha_f = getDWBAIntensity().getValueOfAxis<double>("alpha_f", it_intensity.getIndex());
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        next() = evaluate(m_ki, k_f, -m_alpha_i, alpha_f);
+        *it_intensity = evaluate(m_ki, k_f, -m_alpha_i, alpha_f);
+        ++it_mask, ++it_intensity;
     }
 
 }

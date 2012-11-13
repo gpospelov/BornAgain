@@ -26,8 +26,6 @@ void DWBASimulation::init(const Experiment& experiment)
     m_output_data_mask.copyFrom(*experiment.getOutputDataMask());
 }
 
-
-
 DWBASimulation *DWBASimulation::clone()
 {
     DWBASimulation *sim = new DWBASimulation();
@@ -44,30 +42,3 @@ double DWBASimulation::getWaveLength() const
     kvector_t real_ki(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     return 2.0*M_PI/real_ki.mag();
 }
-
-
-void DWBASimulation::resetIndex()
-{
-    m_output_data_mask.resetIndex();
-    m_dwba_intensity.resetIndex();
-}
-
-
-bool DWBASimulation::hasNext() const
-{
-    return m_dwba_intensity.hasNext();
-}
-
-
-const double &DWBASimulation::next() const
-{
-    m_output_data_mask.next();
-    return m_dwba_intensity.next();
-}
-
-double &DWBASimulation::next()
-{
-    m_output_data_mask.next();
-    return m_dwba_intensity.next();
-}
-

@@ -44,12 +44,12 @@ private:
     virtual void init_parameters();
 
 	void initializeAnglesIsgisaxs(NamedVector<double> *p_axis, double start, double end, size_t size);
-	double getCurrentSolidAngle() const;
+	double getSolidAngle(size_t index) const;
 	double deltaAlpha(double alpha, double zeta) const;
 	double deltaPhi(double alpha, double phi, double zeta);
 	void createZetaAndProbVectors(std::vector<double> &zetas, std::vector<double> &probs, size_t nbr_zetas, double zeta_sigma);
 	void addToIntensityMap(double alpha, double phi, double value);
-	size_t findClosestIndex(const NamedVector<double> *p_axis, double value);
+	int findClosestIndex(const NamedVector<double> *p_axis, double value);
 };
 
 #endif /* GISASEXPERIMENT_H_ */

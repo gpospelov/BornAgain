@@ -37,11 +37,12 @@ TEST_F(OutputDataTest, SizeAfterAddingAxes)
 
 TEST_F(OutputDataTest, DataInitialization)
 {
-    MultiIndex &db_data_index = db_data_3d.getIndex();
-    db_data_index.setIndexOfAxis("angle", 11);
-    db_data_index.setIndexOfAxis("length", 4);
-    db_data_index.setIndexOfAxis("index", 3);
-    EXPECT_DOUBLE_EQ((double)1143, db_data_3d.currentValue());
+    OutputData<double>::const_iterator it = db_data_3d.begin();
+    std::vector<int> coordinates;
+    coordinates.push_back(11);
+    coordinates.push_back(4);
+    coordinates.push_back(3);
+    EXPECT_DOUBLE_EQ((double)1143, it[db_data_3d.toIndex(coordinates)]);
 }
 
 int main(int argc, char** argv)

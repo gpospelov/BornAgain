@@ -22,10 +22,10 @@ double ChiSquaredModule::calculateChiSquared(
     size_t data_size = mp_real_data->getAllocatedSize();
     initWeights();
     OutputData<double> *p_difference = createChi2DifferenceMap();
-    mp_weights->resetIndex();
-    p_difference->resetIndex();
-    while(p_difference->hasNext()) {
-        result += p_difference->next()*mp_weights->next();
+    OutputData<double>::const_iterator it_weights = mp_weights->begin();
+    OutputData<double>::const_iterator it_diff = p_difference->begin();
+    while(it_diff != p_difference->end()) {
+        result += (*it_diff++)*(*it_weights++);
     }
     delete p_difference;
     m_chi2_value = result/data_size;
@@ -37,14 +37,16 @@ OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
     OutputData<double > *p_difference = mp_simulation_data->clone();
     p_difference->setAllTo(0.0);
 
-    mp_simulation_data->resetIndex();
-    mp_real_data->resetIndex();
-    p_difference->resetIndex();
-    while (mp_real_data->hasNext()) {
-        double value_simu = mp_simulation_data->next();
-        double value_real = mp_real_data->next();
+    OutputData<double>::iterator it_diff = p_difference->begin();
+    OutputData<double>::const_iterator it_sim = mp_simulation_data->begin();
+    OutputData<double>::const_iterator it_real = mp_real_data->begin();
+
+    while (it_diff != p_difference->end()) {
+        double value_simu = *it_sim++;
+        double value_real = *it_real++;
         double squared_difference = mp_squared_function->calculateSquaredDifference(value_real, value_simu);
-        p_difference->next() = squared_difference;
+        *it_diff = squared_difference;
+        ++it_diff;
     }
 
     return p_difference;

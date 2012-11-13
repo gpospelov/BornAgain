@@ -14,8 +14,6 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Nov 12, 2012
 
-template <class T> class OutputData;
-
 template <class TValue> class IIterator
 {
 public:
@@ -27,14 +25,6 @@ public:
         TValue *p_new = new TValue();
         return *p_new;
     }
-
-    // comparison
-    bool operator==(const IIterator<TValue> &other) const {
-        return typeid(*this)==typeid(other) && equal(other);
-    }
-    bool operator!=(const IIterator<TValue> &other) const { return !(*this == other); }
-protected:
-    virtual bool equal(const IIterator<TValue> &other) const { (void)other; return true; }
 };
 
 template <class TValue, class TContainer> class OutputDataIterator : public IIterator<TValue>
@@ -45,24 +35,43 @@ public:
         m_current_index(start_at_index), mp_output_data(p_output_data) {}
 
     //! templated copy construction
-    template<class TValue2, class TContainer2> OutputDataIterator(const OutputDataIterator<TValue2, TContainer2> &other);
+    template<class TValue2, class TContainer2> OutputDataIterator(
+            const OutputDataIterator<TValue2, TContainer2> &other);
 
     //! templated copy assignment
-    template<class TValue2, class TContainer2> OutputDataIterator<TValue, TContainer> &operator=(const OutputDataIterator<TValue2, TContainer2> &right);
+    template<class TValue2, class TContainer2> OutputDataIterator<TValue, TContainer> &operator=(
+            const OutputDataIterator<TValue2, TContainer2> &right);
 
     virtual ~OutputDataIterator();
 
-    //! unary increment
+    //! prefix increment
     OutputDataIterator<TValue, TContainer> &operator++();
+
+    //! postfix increment
+    OutputDataIterator<const TValue, TContainer> operator++(int);
 
     //! retrieve current element
     virtual TValue &operator*() const;
 
+    //! pointer access
+    virtual TValue* operator->() const;
+
     //! retrieve indexed element
     TValue &operator[](size_t index) const;
 
+    //! get current index
+    const size_t getIndex() const { return m_current_index; }
+
+    //! get container pointer
+    TContainer *const getContainer() const { return mp_output_data; }
+
+    //! comparison
+    template <class TValue2, class TContainer2> bool operator==(
+            const OutputDataIterator<TValue2, TContainer2> &other);
+    template <class TValue2, class TContainer2> bool operator!=(
+            const OutputDataIterator<TValue2, TContainer2> &other) { return !(*this == other); }
+
 protected:
-    virtual bool equal(const IIterator<TValue> &other) const;
     virtual void swapContents(OutputDataIterator<TValue, TContainer> &other);
     size_t m_current_index;
     TContainer *mp_output_data;
@@ -74,8 +83,8 @@ OutputDataIterator<TValue, TContainer>::OutputDataIterator(const OutputDataItera
 : m_current_index(0)
 , mp_output_data(0)
 {
-    mp_output_data = other.mp_output_data;
-    m_current_index = other.m_current_index;
+    mp_output_data = other.getContainer();
+    m_current_index = other.getIndex();
 }
 
 template<class TValue, class TContainer>
@@ -97,9 +106,22 @@ template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer> 
     return *this;
 }
 
+template<class TValue, class TContainer> OutputDataIterator<const TValue, TContainer> OutputDataIterator<TValue, TContainer>::operator ++(int dummy)
+{
+    (void)dummy;
+    OutputDataIterator<const TValue, TContainer> result = *this;
+    ++(*this);
+    return result;
+}
+
 template<class TValue, class TContainer> TValue &OutputDataIterator<TValue, TContainer>::operator*() const
 {
     return (*this)[m_current_index];
+}
+
+template<class TValue, class TContainer> TValue* OutputDataIterator<TValue, TContainer>::operator ->() const
+{
+    return &((*this)[m_current_index]);
 }
 
 template<class TValue, class TContainer> TValue &OutputDataIterator<TValue, TContainer>::operator[](size_t index) const
@@ -107,10 +129,12 @@ template<class TValue, class TContainer> TValue &OutputDataIterator<TValue, TCon
     return (*mp_output_data)[index];
 }
 
-template<class TValue, class TContainer> bool OutputDataIterator<TValue, TContainer>::equal(const IIterator<TValue>& other) const
+template<class TValue, class TContainer>
+template<class TValue2, class TContainer2>
+bool OutputDataIterator<TValue, TContainer>::operator ==(
+        const OutputDataIterator<TValue2, TContainer2>& other)
 {
-    const OutputDataIterator<TValue, TContainer> &other_cast = static_cast<const OutputDataIterator<TValue, TContainer> &>(other);
-    return m_current_index==other_cast.m_current_index;
+    return mp_output_data==other.getContainer() && m_current_index==other.getIndex();
 }
 
 template<class TValue, class TContainer> void OutputDataIterator<TValue, TContainer>::swapContents(OutputDataIterator<TValue, TContainer>& other)

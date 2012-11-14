@@ -95,7 +95,7 @@ const ParticleInfo* ParticleDecoration::getParticleInfo(size_t index) const
     if (index<m_particles.size()) {
         return m_particles[index];
     }
-    throw OutOfBoundsException("Not so many interference functions in this decoration.");
+    throw OutOfBoundsException("ParticleDecoration::getParticleInfo() -> Error! Not so many interference functions in this decoration.");
 }
 
 double ParticleDecoration::getAbundanceFractionOfParticle(size_t index) const
@@ -122,7 +122,7 @@ const IInterferenceFunction* ParticleDecoration::getInterferenceFunction(size_t 
     if (index<m_interference_functions.size()) {
         return m_interference_functions[index];
     }
-    throw OutOfBoundsException("Not so many interference functions in this decoration.");
+    throw OutOfBoundsException("ParticleDecoration::getInterferenceFunction() -> Not so many interference functions in this decoration.");
 }
 
 
@@ -146,7 +146,10 @@ IInterferenceFunctionStrategy* ParticleDecoration::createStrategy(
         p_strategy = new LocalMonodisperseApproximationStrategy();
     }
     else {
-        throw ClassInitializationException("Could not create interference function strategy with given parameters.");
+        std::ostringstream ostr;
+        ostr << "ParticleDecoration::createStrategy() -> Error! Could not create interference function strategy with given parameters  ";
+        ostr << "n_particles:" << n_particles << " n_interference_function:" << n_ifs << ".";
+        throw ClassInitializationException(ostr.str());
     }
     p_strategy->init(form_factors, fractions, m_interference_functions);
     return p_strategy;

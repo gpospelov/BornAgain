@@ -30,11 +30,14 @@ public:
 
     virtual void init(const Experiment &experiment);
 
+    //! Set thread information for masking
+    virtual void setThreadInfo(const ThreadInfo &thread_info);
+
     virtual void run();
 protected:
     std::map<size_t, LayerDWBASimulation*> m_layer_dwba_simulation_map;
     MultiLayer *mp_multi_layer;
-    MultiLayerRoughnessDWBASimulation *m_roughness_dwba_simulation;
+    MultiLayerRoughnessDWBASimulation *mp_roughness_dwba_simulation;
 };
 
 

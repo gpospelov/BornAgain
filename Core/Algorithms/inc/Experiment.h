@@ -38,7 +38,6 @@ public:
     virtual void normalize();
 
     //! set the sample to be tested
-    //void setSample(ISample *p_sample);
     void setSample(const ISample &p_sample);
 
     //! get the sample
@@ -46,17 +45,12 @@ public:
     const ISample *getSample() const { return mp_sample; }
 
     //! set the sample builder
-    //void setSampleBuilder(ISampleBuilder *p_sample_builder);
     void setSampleBuilder(const ISampleBuilder *p_sample_builder);
 
     //! get data structure that contains the intensity map on the detector for all scan parameters
     OutputData<double>* getOutputDataClone() const;
 
     const OutputData<double>* getOutputData() const;
-
-    const OutputData<double>* getOutputDataMask() const;
-
-    void setOutputDataMask(size_t n_chunks_total=1, size_t n_chunk=0);
 
     Beam getBeam() const
     {
@@ -98,7 +92,6 @@ protected:
     Detector m_detector;
     Beam m_beam;
     OutputData<double> m_intensity_map;
-    OutputData<double> m_current_output_data_mask;
     bool m_is_normalized;
     ProgramOptions *mp_options;
 };

@@ -14,6 +14,10 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Nov 12, 2012
 
+//- -------------------------------------------------------------------
+//! @class IIterator
+//! @brief Basic iterator interface
+//- -------------------------------------------------------------------
 template <class TValue> class IIterator
 {
 public:
@@ -27,6 +31,10 @@ public:
     }
 };
 
+//- -------------------------------------------------------------------
+//! @class OutputDataIterator
+//! @brief Definition of iterator for underlying OutputData container
+//- -------------------------------------------------------------------
 template <class TValue, class TContainer> class OutputDataIterator : public IIterator<TValue>
 {
 public:
@@ -45,10 +53,10 @@ public:
     virtual ~OutputDataIterator();
 
     //! prefix increment
-    OutputDataIterator<TValue, TContainer> &operator++();
+    virtual OutputDataIterator<TValue, TContainer> &operator++();
 
     //! postfix increment
-    OutputDataIterator<const TValue, TContainer> operator++(int);
+    virtual OutputDataIterator<const TValue, const TContainer> operator++(int);
 
     //! retrieve current element
     virtual TValue &operator*() const;
@@ -57,7 +65,7 @@ public:
     virtual TValue* operator->() const;
 
     //! retrieve indexed element
-    TValue &operator[](size_t index) const;
+    virtual TValue &operator[](size_t index) const;
 
     //! get current index
     const size_t getIndex() const { return m_current_index; }
@@ -106,10 +114,10 @@ template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer> 
     return *this;
 }
 
-template<class TValue, class TContainer> OutputDataIterator<const TValue, TContainer> OutputDataIterator<TValue, TContainer>::operator ++(int dummy)
+template<class TValue, class TContainer> OutputDataIterator<const TValue, const TContainer> OutputDataIterator<TValue, TContainer>::operator ++(int dummy)
 {
     (void)dummy;
-    OutputDataIterator<const TValue, TContainer> result = *this;
+    OutputDataIterator<const TValue, const TContainer> result = *this;
     ++(*this);
     return result;
 }
@@ -119,7 +127,7 @@ template<class TValue, class TContainer> TValue &OutputDataIterator<TValue, TCon
     return (*this)[m_current_index];
 }
 
-template<class TValue, class TContainer> TValue* OutputDataIterator<TValue, TContainer>::operator ->() const
+template<class TValue, class TContainer> TValue* OutputDataIterator<TValue, TContainer>::operator->() const
 {
     return &((*this)[m_current_index]);
 }

@@ -6,6 +6,7 @@
 #include "MathFunctions.h"
 #include "ProgramOptions.h"
 #include "ConvolutionDetectorResolution.h"
+#include "MaskedOutputDataIterator.h"
 
 #include <boost/thread.hpp>
 
@@ -58,11 +59,14 @@ void GISASExperiment::runSimulation()
         std::vector<DWBASimulation *> simulations;
 
         // first make sure every thread's objects are properly initialized...
+        ThreadInfo thread_info;
+        thread_info.n_threads = n_threads_total;
         for(int i_thread=0; i_thread<n_threads_total; ++i_thread){
-            setOutputDataMask(n_threads_total, i_thread);
             DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
             if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
             p_dwba_simulation->init(*this);
+            thread_info.i_thread = i_thread;
+            p_dwba_simulation->setThreadInfo(thread_info);
             simulations.push_back(p_dwba_simulation);
         }
         // ... and then execute the threads

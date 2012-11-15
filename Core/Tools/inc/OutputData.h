@@ -148,6 +148,18 @@ public:
     //! multiplication-assignment operator for two output data
     const OutputData<T> &operator*=(const OutputData<T> &right);
 
+    //! indexed accessor
+    T &operator[](size_t index) {
+        if (mp_ll_data) return (*mp_ll_data)[index];
+        throw ClassInitializationException("Low-level data object was not yet initialized");
+    }
+
+    //! indexed accessor (const)
+    const T &operator[](size_t index) const {
+        if (mp_ll_data) return (*mp_ll_data)[index];
+        throw ClassInitializationException("Low-level data object was not yet initialized");
+    }
+
 
 private:
     //! hidden copy constructor and assignment operators
@@ -156,18 +168,6 @@ private:
 
     //! memory allocation for current dimensions configuration
     void allocate();
-
-    //! accessor for iterators
-    T &operator[](size_t index) {
-        if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("Low-level data objects was not yet initialized");
-    }
-
-    //! constant accessor for iterators
-    const T &operator[](size_t index) const {
-        if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("Low-level data objects was not yet initialized");
-    }
 
     std::vector<NamedVectorBase*> m_value_axes;
     LLData<T> *mp_ll_data;

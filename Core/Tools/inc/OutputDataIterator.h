@@ -47,9 +47,6 @@ public:
     //! pointer access
     virtual TValue* operator->() const;
 
-    //! retrieve indexed element
-    virtual TValue &operator[](size_t index) const;
-
     //! get current index
     const size_t getIndex() const { return m_current_index; }
 
@@ -97,7 +94,7 @@ template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer> 
     return *this;
 }
 
-template<class TValue, class TContainer> OutputDataIterator<const TValue, const TContainer> OutputDataIterator<TValue, TContainer>::operator ++(int dummy)
+template<class TValue, class TContainer> OutputDataIterator<const TValue, const TContainer> OutputDataIterator<TValue, TContainer>::operator++(int dummy)
 {
     (void)dummy;
     OutputDataIterator<const TValue, const TContainer> result = *this;
@@ -107,17 +104,12 @@ template<class TValue, class TContainer> OutputDataIterator<const TValue, const 
 
 template<class TValue, class TContainer> TValue &OutputDataIterator<TValue, TContainer>::operator*() const
 {
-    return (*this)[m_current_index];
+    return (*mp_output_data)[m_current_index];
 }
 
 template<class TValue, class TContainer> TValue* OutputDataIterator<TValue, TContainer>::operator->() const
 {
-    return &((*this)[m_current_index]);
-}
-
-template<class TValue, class TContainer> TValue &OutputDataIterator<TValue, TContainer>::operator[](size_t index) const
-{
-    return (*mp_output_data)[index];
+    return &((*mp_output_data)[m_current_index]);
 }
 
 template<class TValue, class TContainer>

@@ -42,8 +42,7 @@ DWBASimulation::masked_iterator DWBASimulation::begin()
         m_thread_info.i_thread = 0;
     }
     masked_iterator result(m_dwba_intensity.begin());
-    OutputDataMaskStrategyIndexModulus strategy(
-            m_dwba_intensity.getAllocatedSize(), m_thread_info.n_threads, m_thread_info.i_thread);
+    OutputDataMaskStrategyIndexModulus strategy(m_thread_info.n_threads, m_thread_info.i_thread);
     result.setStrategy(strategy);
     return result;
 }
@@ -57,8 +56,7 @@ DWBASimulation::const_masked_iterator DWBASimulation::begin() const
         i_thread = 0;
     }
     const_masked_iterator result(m_dwba_intensity.begin());
-    OutputDataMaskStrategyIndexModulus strategy(
-            m_dwba_intensity.getAllocatedSize(), n_threads, i_thread);
+    OutputDataMaskStrategyIndexModulus strategy(n_threads, i_thread);
     result.setStrategy(strategy);
     return result;
 }

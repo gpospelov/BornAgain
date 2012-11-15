@@ -53,6 +53,8 @@ public:
     const strategy_t *getStrategy() const { return mp_strategy; }
 
 protected:
+    //! indicate if the current data element is not masked
+    virtual bool isSelected() const;
     virtual void swapContents(MaskedOutputDataIterator<TValue, TContainer> &other);
     strategy_t* mp_strategy;
 };
@@ -92,8 +94,8 @@ MaskedOutputDataIterator<TValue, TContainer> &MaskedOutputDataIterator<TValue, T
 template<class TValue, class TContainer>
 MaskedOutputDataIterator<TValue, TContainer>& MaskedOutputDataIterator<TValue, TContainer>::operator++()
 {
-    while (!mp_strategy->isSelected(base_t::operator++().getIndex()))
-        ;
+    base_t::operator ++();
+    while (!isSelected()) base_t::operator ++();
     return *this;
 }
 
@@ -110,7 +112,7 @@ template<class TValue, class TContainer>
 TValue& MaskedOutputDataIterator<TValue, TContainer>::operator[](size_t index) const
 {
     OutputDataIterator<TValue, TContainer> it(this->getContainer(), index);
-    if (!mp_strategy->isSelected(index)) {
+    if (!isSelected()) {
         throw LogicErrorException("Accessing a masked value through its masked iterator is not allowed");
     }
     return *it;
@@ -122,8 +124,13 @@ void MaskedOutputDataIterator<TValue, TContainer>::setStrategy(const strategy_t&
     if (mp_strategy != &strategy) {
         delete mp_strategy;
         mp_strategy = strategy.clone();
-        while (!mp_strategy->isSelected(this->getIndex())) ++(*this);
+        if (!isSelected()) ++(*this);
     }
+}
+
+template<class TValue, class TContainer> inline bool MaskedOutputDataIterator<TValue, TContainer>::isSelected() const
+{
+    return (mp_strategy->isSelected(this->getIndex())) || (this->getIndex() == this->getContainer()->getAllocatedSize());
 }
 
 template<class TValue, class TContainer>

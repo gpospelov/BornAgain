@@ -138,8 +138,7 @@ template<class TValue, class TContainer> TValue &OutputDataIterator<TValue, TCon
 }
 
 template<class TValue, class TContainer>
-template<class TValue2, class TContainer2>
-bool OutputDataIterator<TValue, TContainer>::operator ==(
+template<class TValue2, class TContainer2> bool OutputDataIterator<TValue, TContainer>::operator==(
         const OutputDataIterator<TValue2, TContainer2>& other)
 {
     return mp_output_data==other.getContainer() && m_current_index==other.getIndex();

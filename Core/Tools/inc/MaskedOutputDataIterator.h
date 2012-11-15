@@ -95,7 +95,7 @@ template<class TValue, class TContainer>
 MaskedOutputDataIterator<TValue, TContainer>& MaskedOutputDataIterator<TValue, TContainer>::operator++()
 {
     base_t::operator ++();
-    while (!isSelected()) base_t::operator ++();
+    while (!isSelected()) base_t::operator++();
     return *this;
 }
 

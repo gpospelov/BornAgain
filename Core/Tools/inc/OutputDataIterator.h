@@ -15,32 +15,15 @@
 //! @date   Nov 12, 2012
 
 //- -------------------------------------------------------------------
-//! @class IIterator
-//! @brief Basic iterator interface
-//- -------------------------------------------------------------------
-template <class TValue> class IIterator
-{
-public:
-    // construction/destruction
-    IIterator() {}
-    virtual ~IIterator() {}
-    virtual IIterator &operator++() { return *this; }
-    virtual TValue &operator*() const {
-        TValue *p_new = new TValue();
-        return *p_new;
-    }
-};
-
-//- -------------------------------------------------------------------
 //! @class OutputDataIterator
 //! @brief Definition of iterator for underlying OutputData container
 //- -------------------------------------------------------------------
-template <class TValue, class TContainer> class OutputDataIterator : public IIterator<TValue>
+template <class TValue, class TContainer> class OutputDataIterator
 {
 public:
     //! constructor
-    OutputDataIterator(TContainer *p_output_data, size_t start_at_index=0): IIterator<TValue>(),
-        m_current_index(start_at_index), mp_output_data(p_output_data) {}
+    OutputDataIterator(TContainer *p_output_data, size_t start_at_index=0)
+        : m_current_index(start_at_index), mp_output_data(p_output_data) {}
 
     //! templated copy construction
     template<class TValue2, class TContainer2> OutputDataIterator(

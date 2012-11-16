@@ -76,5 +76,6 @@ MaskIndexModulus* MaskIndexModulus::clone() const
 
 bool MaskIndexModulus::isMasked(size_t total_index) const
 {
-    return m_mask_index % m_modulus == m_remainder;
+    (void)total_index;
+    return m_mask_index % m_modulus != m_remainder;
 }

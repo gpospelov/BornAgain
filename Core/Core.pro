@@ -229,14 +229,12 @@ HEADERS += \
     Tools/inc/IStochasticParameter.h \
     Tools/inc/LLData.h \
     Tools/inc/Macros.h \
-    Tools/inc/MaskedOutputDataIterator.h \
     Tools/inc/MathFunctions.h \
     Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
     Tools/inc/OutputDataIOFactory.h \
     Tools/inc/OutputDataIterator.h \
-    Tools/inc/OutputDataMaskStrategies.h \
     Tools/inc/OutputDataReader.h \
     Tools/inc/OutputDataWriter.h \
     Tools/inc/ParameterPool.h \

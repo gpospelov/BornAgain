@@ -35,19 +35,21 @@ DWBASimulation *DWBASimulation::clone()
     return p_result;
 }
 
-DWBASimulation::masked_iterator DWBASimulation::begin()
+DWBASimulation::iterator DWBASimulation::begin()
 {
     if (m_thread_info.n_threads<2) {
         m_thread_info.n_threads = 1;
         m_thread_info.i_thread = 0;
     }
-    masked_iterator result(m_dwba_intensity.begin());
-    OutputDataMaskStrategyIndexModulus strategy(m_thread_info.n_threads, m_thread_info.i_thread);
-    result.setStrategy(strategy);
+    iterator result(m_dwba_intensity.begin());
+    if (m_thread_info.n_threads>1) {
+        MaskIndexModulus thread_mask(m_thread_info.n_threads, m_thread_info.i_thread);
+        result.addMask(thread_mask);
+    }
     return result;
 }
 
-DWBASimulation::const_masked_iterator DWBASimulation::begin() const
+DWBASimulation::const_iterator DWBASimulation::begin() const
 {
     size_t n_threads = m_thread_info.n_threads;
     size_t i_thread = m_thread_info.i_thread;
@@ -55,9 +57,11 @@ DWBASimulation::const_masked_iterator DWBASimulation::begin() const
         n_threads = 1;
         i_thread = 0;
     }
-    const_masked_iterator result(m_dwba_intensity.begin());
-    OutputDataMaskStrategyIndexModulus strategy(n_threads, i_thread);
-    result.setStrategy(strategy);
+    const_iterator result(m_dwba_intensity.begin());
+    if (n_threads>1) {
+        MaskIndexModulus thread_mask(n_threads, i_thread);
+        result.addMask(thread_mask);
+    }
     return result;
 }
 

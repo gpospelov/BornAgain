@@ -84,7 +84,7 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunct
     double wavelength = getWaveLength();
     double total_surface_density = mp_layer_decorator->getTotalParticleSurfaceDensity();
 
-    DWBASimulation::masked_iterator it_intensity = begin();
+    DWBASimulation::iterator it_intensity = begin();
     while ( it_intensity != end() )
     {
         double phi_f = getDWBAIntensity().getValueOfAxis<double>("phi_f", it_intensity.getIndex());

@@ -6,7 +6,6 @@
 #include "MathFunctions.h"
 #include "ProgramOptions.h"
 #include "ConvolutionDetectorResolution.h"
-#include "MaskedOutputDataIterator.h"
 
 #include <boost/thread.hpp>
 

@@ -22,6 +22,7 @@
 class Mask
 {
 public:
+    template <class TValue, class TContainer> friend class OutputDataIterator;
     Mask(Mask *p_submask=0);
     virtual ~Mask() { delete mp_submask; }
     virtual Mask *clone() const;

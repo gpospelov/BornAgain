@@ -1,5 +1,17 @@
 #include "IChiSquaredModule.h"
 
+
+IChiSquaredModule::IChiSquaredModule()
+: mp_real_data(0)
+, mp_simulation_data(0)
+, mp_weights(0)
+, m_chi2_value(0)
+{
+    mp_squared_function = new DefaultSquaredFunction();
+    mp_data_selector = new DefaultAllDataSelector();
+}
+
+
 IChiSquaredModule::IChiSquaredModule(const OutputData<double>& real_data)
 : mp_simulation_data(0)
 , mp_weights(0)

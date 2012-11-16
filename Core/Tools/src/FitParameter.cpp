@@ -21,9 +21,9 @@ FitParameter::FitParameter(const std::string &name, double value, double step, c
 
 void FitParameter::print(std::ostream &ostr) const
 {
-    const int w(40);
+    const int max_length_of_name(40);
     std::string adjusted_name = getName();
-    adjusted_name.resize(w,' ');
-    ostr << std::setw(w) << adjusted_name << std::scientific << std::setprecision(8) << m_value << "  ";
+    adjusted_name.resize(max_length_of_name,' ');
+    ostr << adjusted_name << std::scientific << std::setprecision(8) << m_value << "  ";
     AttLimits::print(ostr);
 }

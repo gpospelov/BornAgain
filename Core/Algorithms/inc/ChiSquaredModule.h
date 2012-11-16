@@ -19,6 +19,7 @@
 class ChiSquaredModule : public IChiSquaredModule
 {
 public:
+    ChiSquaredModule(){}
     ChiSquaredModule(const OutputData<double> &real_data);
     virtual ~ChiSquaredModule();
 

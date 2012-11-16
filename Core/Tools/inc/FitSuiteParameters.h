@@ -1,0 +1,80 @@
+#ifndef FITSUITEPARAMETERS_H
+#define FITSUITEPARAMETERS_H
+// ********************************************************************
+// * The BornAgain project                                            *
+// * Simulation of neutron and x-ray scattering at grazing incidence  *
+// *                                                                  *
+// * LICENSE AND DISCLAIMER                                           *
+// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
+// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
+// * mollis quis. Mauris commodo rhoncus porttitor.                   *
+// ********************************************************************
+//! @file   FitSuiteParameters.h
+//! @brief  Definition of FitSuiteParameters class
+//! @author Scientific Computing Group at FRM II
+//! @date   15.11.2012
+
+#include "Exceptions.h"
+#include "FitMultiParameter.h"
+#include <vector>
+
+class Experiment;
+
+//- -------------------------------------------------------------------
+//! @class FitSuiteParameters
+//! @brief Class holds vector of parameters for FitSuite
+//- -------------------------------------------------------------------
+class FitSuiteParameters
+{
+public:
+    typedef std::vector<FitMultiParameter *> parameters_t;
+    typedef parameters_t::iterator iterator;
+    typedef parameters_t::const_iterator const_iterator;
+
+    FitSuiteParameters();
+    virtual ~FitSuiteParameters();
+
+    //! clear all defined parameters
+    void clear();
+
+    //! add fit parameter
+    void addParameter(const std::string &name, double value, double step, const AttLimits &attlim);
+
+    //! return fit parameter with given name
+    const FitMultiParameter *getParameter(const std::string &name) const;
+    FitMultiParameter *getParameter(const std::string &name);
+
+    //! set values for all defined parameters
+    void setValues(const double *pars_values);
+
+    //! return number of parameters
+    size_t size() const { return m_parameters.size(); }
+
+    //! return begin of container
+    iterator begin() { return m_parameters.begin(); }
+    const_iterator begin() const { return m_parameters.begin(); }
+
+    //! return end of container
+    iterator end() { return m_parameters.end(); }
+    const_iterator end() const { return m_parameters.end(); }
+
+    //! access to parameters
+    const FitMultiParameter *operator[](int index) const { return m_parameters[check_index(index)]; }
+    FitMultiParameter *operator[](int index) { return m_parameters[check_index(index)]; }
+    const FitMultiParameter *operator[](std::string name) const { return getParameter(name); }
+    FitMultiParameter *operator[](std::string name) { return getParameter(name); }
+
+
+    //! link fit parameters to parameters defined in experiment
+    void link_to_experiment(const Experiment *experiment);
+
+private:
+    //! disabled copy constructor and assignment operator
+    FitSuiteParameters &operator=(const FitSuiteParameters &other);
+    FitSuiteParameters(const FitSuiteParameters &other);
+
+    inline size_t check_index(size_t index) const { return (index < m_parameters.size() ? index : throw  OutOfBoundsException("FitSuiteParameters::check_index() -> Index out of bounds") ); }
+    parameters_t m_parameters; //! collection of fit parameters
+};
+
+#endif // FITSUITEPARAMETERS_H

@@ -117,7 +117,8 @@ SOURCES += \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp \
     PythonAPI/src/PythonOutputData.cpp \
-    Tools/src/FitSuiteStrategy.cpp
+    Tools/src/FitSuiteStrategy.cpp \
+    Tools/src/FitSuiteParameters.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -208,6 +209,7 @@ HEADERS += \
     Samples/inc/ParticleDecoration.h \
     Samples/inc/ParticleInfo.h \
     \
+    Tools/inc/AttLimits.h \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
@@ -216,6 +218,8 @@ HEADERS += \
     Tools/inc/FitMultiParameter.h \
     Tools/inc/FitParameter.h \
     Tools/inc/FitSuite.h \
+    Tools/inc/FitSuiteKit.h \
+    Tools/inc/FitSuiteStrategy.h \
     Tools/inc/IDoubleToComplexFunction.h \
     Tools/inc/IFactory.h \
     Tools/inc/IMinimizer.h \
@@ -255,8 +259,7 @@ HEADERS += \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h \
     PythonAPI/inc/IPythonWrapper.h \
-    Tools/inc/AttLimits.h \
-    Tools/inc/FitSuiteStrategy.h
+    Tools/inc/FitSuiteParameters.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

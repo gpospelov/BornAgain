@@ -85,8 +85,10 @@ void TestMesoCrystal2::execute()
 
     // setting fitSuite
     FitSuite *fitSuite = new FitSuite();
-    fitSuite->setExperiment(mp_experiment);
-    fitSuite->setRealData(*real_data);
+//    fitSuite->setExperiment(mp_experiment);
+//    fitSuite->setRealData(*real_data);
+    fitSuite->addExperimentAndRealData(mp_experiment, real_data);
+
     fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
     ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();
     minim->SetStrategy(2); // 0- not accurate, 1 - normal, 2 - acurate (maximum FCN calls)
@@ -200,7 +202,7 @@ void TestMesoCrystal2::execute()
 
     fitSuite->runFit();
 
-    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
+    for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it) {
         std::cout << (*it) << std::endl;
     }
 }

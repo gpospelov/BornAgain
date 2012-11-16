@@ -7,8 +7,9 @@
 #include "ChiSquaredModule.h"
 
 
-FitSuite::FitSuite() : m_experiment(0), m_minimizer(0), m_chi2_module(0), m_is_last_iteration(false), m_n_call(0), m_n_strategy(0)
+FitSuite::FitSuite() : m_minimizer(0), m_chi2_module(0), m_is_last_iteration(false), m_n_call(0), m_n_strategy(0)
 {
+    m_chi2_module = new ChiSquaredModule();
 }
 
 
@@ -19,46 +20,53 @@ FitSuite::~FitSuite()
 
 
 /* ************************************************************************* */
-// clear all and prepare for the next fit
+// clear all data completely
 /* ************************************************************************* */
 void FitSuite::clear()
 {
-    for(fitparameters_t::iterator it = m_fit_params.begin(); it!= m_fit_params.end(); ++it) {
-        delete (*it);
-    }
-    m_fit_params.clear();
-    for(fitstrategies_t::iterator it = m_fit_strategies.begin(); it!= m_fit_strategies.end(); ++it) {
-        delete (*it);
-    }
+    m_suite_kit.clear();
+    m_fit_parameters.clear();
+    for(fitstrategies_t::iterator it = m_fit_strategies.begin(); it!= m_fit_strategies.end(); ++it) delete (*it);
     m_fit_strategies.clear();
     delete m_minimizer;
+    m_minimizer = 0;
     delete m_chi2_module;
+    m_chi2_module = 0;
     m_is_last_iteration = false;
+    m_n_call = 0;
+    m_n_strategy = 0;
+}
+
+
+/* ************************************************************************* */
+// add pair of (experiment, real data) for consecutive simulation
+/* ************************************************************************* */
+void FitSuite::addExperimentAndRealData(Experiment *experiment, const OutputData<double > *real_data)
+{
+    m_suite_kit.add(experiment, real_data);
 }
 
 
 /* ************************************************************************* */
 // add fit parameter
 /* ************************************************************************* */
-FitMultiParameter * FitSuite::addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim)
+void FitSuite::addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim)
 {
-    // making MultiFitParameter for later access to sample's parameters
-    FitMultiParameter *par = new FitMultiParameter(name, value, step, attlim);
-    m_fit_params.push_back( par );
-    return par;
+
+    m_fit_parameters.addParameter(name, value, step, attlim);
 }
 
 
-/* ************************************************************************* */
-// get fit parameter
-/* ************************************************************************* */
-FitMultiParameter * FitSuite::getFitParameter(const std::string &name)
-{
-    for(fitparameters_t::iterator it = m_fit_params.begin(); it!= m_fit_params.end(); ++it) {
-        if( (*it)->getName() == name ) return (*it);
-    }
-    throw LogicErrorException("FitSuite::getFitParameter() -> No parameter with name '"+name+std::string("'"));
-}
+///* ************************************************************************* */
+//// get fit parameter
+///* ************************************************************************* */
+//FitMultiParameter * FitSuite::getFitParameter(const std::string &name)
+//{
+//    for(fitparameters_t::iterator it = m_fit_params.begin(); it!= m_fit_params.end(); ++it) {
+//        if( (*it)->getName() == name ) return (*it);
+//    }
+//    throw LogicErrorException("FitSuite::getFitParameter() -> No parameter with name '"+name+std::string("'"));
+//}
 
 
 /* ************************************************************************* */
@@ -74,31 +82,22 @@ void FitSuite::addFitStrategy(IFitSuiteStrategy *strategy)
 /* ************************************************************************* */
 // set real data (create chi2 module owning real data)
 /* ************************************************************************* */
-void FitSuite::setRealData(const OutputData<double> &data)
-{
-    delete m_chi2_module;
-    m_chi2_module = new ChiSquaredModule(data);
-}
+//void FitSuite::setRealData(const OutputData<double> &data)
+//{
+//    delete m_chi2_module;
+//    m_chi2_module = new ChiSquaredModule(data);
+//}
 
 
 /* ************************************************************************* */
-// Linking defined FitMultiParameters with sample parameters from pool.
-// Initialising minimiser's fit parameters.
+// Linking defined FitMultiParameters with experiment parameters
 /* ************************************************************************* */
 void FitSuite::init_fit_parameters()
 {
-    if( !m_experiment ) throw NullPointerException("FitSuite::init_fit_parameters() -> Error! Experiment is absent.");
-    if( !m_minimizer ) throw NullPointerException("FitSuite::init_fit_parameters() -> Error! Minimizer is absent.");
-    if( m_fit_params.empty() ) throw NullPointerException("FitSuite::init_fit_parameters() -> Error! No fit parameters defined");
-
-    // Linking FitMultiParameters with sample parameters from parameter pool.
-    ParameterPool *pool = m_experiment->createParameterTree();
-    for(fitparameters_t::iterator it = m_fit_params.begin(); it!= m_fit_params.end(); ++it) {
-        FitMultiParameter *par = (*it);
-        // name of FitMultiParameter is used to find in the pool links to sample's parameters
-        par->addMatchedParametersFromPool(par->getName(), pool);
+    for(size_t i_exp = 0; i_exp<m_suite_kit.size(); ++i_exp)
+    {
+        m_fit_parameters.link_to_experiment(m_suite_kit.getExperiment(i_exp));
     }
-    delete pool;
 }
 
 
@@ -107,17 +106,15 @@ void FitSuite::init_fit_parameters()
 /* ************************************************************************* */
 void FitSuite::minimize()
 {
-    if( !m_minimizer ) throw NullPointerException("FitSuite::runFit() -> Error! Minimizer is missed.");
-
     // initializing minimizer with fcn function belonging to given class
-    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), m_fit_params.size() );
+    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), m_fit_parameters.size() );
 
-
-    // propagating fit parameters to the minimizer
+    // propagating local fit parameters to the minimizer's internal list of parameters
     int index(0);
-    for(fitparameters_t::iterator it = m_fit_params.begin(); it!= m_fit_params.end(); ++it) {
+    for(FitSuiteParameters::const_iterator it = m_fit_parameters.begin(); it!= m_fit_parameters.end(); ++it) {
         m_minimizer->setVariable(index++, (*it) );
     }
+    if( index==0 ) std::cout << "FitSuite::minimize() -> Warning. No parameters has been propagated to the minimizer " << std::endl;
 
     // minimizing
     m_minimizer->minimize();
@@ -129,24 +126,17 @@ void FitSuite::minimize()
 /* ************************************************************************* */
 void FitSuite::runFit()
 {
-    if( !m_experiment ) throw NullPointerException("FitSuite::runFit() -> Error! Experiment is missed.");
-    if( !m_chi2_module ) throw NullPointerException("FitSuite::runFit() -> Error! Chi2 module is missed.");
-    if( m_fit_params.empty()) throw NullPointerException("FitSuite::runFit() -> Error! no fit parameters is defined.");
-
     m_is_last_iteration = false;
 
     // initializing fit parameters
     init_fit_parameters();
-
-//    // initializing minimizer with fcn function belonging to given class
-//    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), m_fit_params.size() );
 
     // running minimizer
     if( m_fit_strategies.empty() ) {
         // running single minimization round
         minimize();
     } else {
-        // round several minimization rounds as defined in concrete strategies
+        // execute several minimization rounds as defined in concrete strategies
         for(fitstrategies_t::iterator it = m_fit_strategies.begin(); it!= m_fit_strategies.end(); ++it) {
             std::cout << "FitSuite::runFit() -> Info. Running strategy #" << m_n_strategy << " '" << (*it)->getName() << "'" << std::endl;
             (*it)->execute();
@@ -155,7 +145,7 @@ void FitSuite::runFit()
     }
 
     // seting parameters to the optimum values found by the minimizer
-    for(size_t i=0; i<m_fit_params.size(); ++i) m_fit_params[i]->setValue(m_minimizer->getValueOfVariableAtMinimum(i));
+    for(size_t i=0; i<m_fit_parameters.size(); ++i) m_fit_parameters[i]->setValue(m_minimizer->getValueOfVariableAtMinimum(i));
 
     m_is_last_iteration = true;
     notifyObservers();
@@ -167,18 +157,20 @@ void FitSuite::runFit()
 /* ************************************************************************* */
 double FitSuite::functionToMinimize(const double *pars_current_values)
 {
-    if( m_fit_params.size() != m_minimizer->getNumberOfVariables() ) {
-        throw RuntimeErrorException("FitSuite::functionToMinimize() -> Error! Wrong number of parameters (probably missed FitSuite's initialization).");
-    }
-
     // set fitting parameters to values suggested by the minimizer
-    for(size_t i=0; i<m_fit_params.size(); ++i) m_fit_params[i]->setValue(pars_current_values[i]);
+    m_fit_parameters.setValues(pars_current_values);
 
-    m_experiment->runSimulation();
-    m_experiment->normalize();
+    // run simulations
+    m_suite_kit.runSimulation();
 
-    const OutputData<double> *p_simulated_data = m_experiment->getOutputData();
-    double chi_squared = m_chi2_module->calculateChiSquared(p_simulated_data);
+    double chi_squared(0);
+    for(size_t i_exp = 0; i_exp<m_suite_kit.size(); ++i_exp)
+    {
+        const OutputData<double> *simulated_data = m_suite_kit.getSimulatedData(i_exp);
+        const OutputData<double> *real_data = m_suite_kit.getRealData(i_exp);
+        m_chi2_module->setRealData(*real_data);
+        chi_squared += m_chi2_module->calculateChiSquared(simulated_data);
+    }
 
     notifyObservers();
     m_n_call++;

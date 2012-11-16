@@ -36,6 +36,7 @@ public:
     FitMultiParameter();
     FitMultiParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless());
 
+    //! set given value for all binded parameters
     virtual void setValue(double value)
     {
         FitParameter::setValue(value);

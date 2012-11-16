@@ -3,6 +3,7 @@
 #include "TreeEventStructure.h"
 #include "IsGISAXSTools.h"
 #include "ROOTMinimizer.h"
+#include "FitSuiteParameters.h"
 
 #include "TCanvas.h"
 #include "TPaveText.h"
@@ -41,7 +42,7 @@ void FitSuiteObserverPrint::update(IObservable *subject)
     m_last_call_time = call_time;
 
     int npar(0);
-    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it, ++npar) {
+    for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it, ++npar) {
         std::cout << "   # "<< npar << " " << (*(*it)) << std::endl;
     }
 
@@ -113,7 +114,7 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     ostr << "chi2 " << fitSuite->getChiSquaredModule()->getValue() << std::endl;
     m_ptext->AddText(ostr.str().c_str());
 
-    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
+    for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it) {
         ostr.str(""); ostr.clear();
         ostr << (*it)->getName() << " " << (*it)->getValue();
         if( (*it)->isFixed() ) ostr << " (F)";
@@ -228,7 +229,7 @@ void FitSuiteObserverWriteTree::update(IObservable *subject)
     IsGISAXSTools::exportOutputDataInVectors2D(*real_data, event->real_data, event->axis0, event->axis1);
     IsGISAXSTools::exportOutputDataInVectors2D(*simu_data, event->fit_data, event->axis0, event->axis1);
     event->chi2 = fitSuite->getChiSquaredModule()->getValue();
-    for(FitSuite::fitparameters_t::iterator it = fitSuite->fitparams_begin(); it!=fitSuite->fitparams_end(); ++it) {
+    for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it) {
         event->parvalues.push_back( (*it)->getValue() );
         event->parnames.push_back( (*it)->getName().c_str() );
         event->parfixed.push_back( (*it)->isFixed() );

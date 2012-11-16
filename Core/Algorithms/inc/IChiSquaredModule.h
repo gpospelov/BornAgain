@@ -23,6 +23,7 @@
 class IChiSquaredModule
 {
 public:
+    IChiSquaredModule();
     IChiSquaredModule(const OutputData<double> &real_data);
     virtual ~IChiSquaredModule();
 

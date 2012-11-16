@@ -11,6 +11,7 @@
 #include "Numeric.h"
 #include "ICompositeIterator.h"
 #include "MaterialManager.h"
+#include "FitParameterLinked.h"
 #include "TStyle.h"
 
 #include <iostream>
@@ -23,7 +24,6 @@
 #include "TApplication.h"
 #include "TLatex.h"
 #include "TLegend.h"
-#include "FitMultiParameter.h"
 
 
 TestFresnelCoeff::TestFresnelCoeff()
@@ -225,7 +225,7 @@ void TestFresnelCoeff::test_roughness_set()
     ParameterPool *newpool = mp_sample->createParameterTree();
     std::cout << *newpool << std::endl;
 
-    FitMultiParameter multipar;
+    FitParameterLinked multipar;
 
     multipar.addMatchedParametersFromPool("/*/*/*/sigma",newpool);
     std::cout << "multipar: " << multipar << std::endl;

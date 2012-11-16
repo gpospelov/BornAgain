@@ -17,6 +17,7 @@
 #include "Exceptions.h"
 #include <string>
 #include <map>
+#include <vector>
 #include <iostream>
 
 
@@ -42,8 +43,6 @@ public:
 
     //! definition of parameter type and parameter container
     typedef std::map<std::string, RealPar > parametermap_t;
-    typedef parametermap_t::iterator iterator_t;
-    typedef parametermap_t::const_iterator const_iterator_t;
 
     ParameterPool();
     virtual ~ParameterPool();
@@ -69,16 +68,19 @@ public:
     //! add parameter to the pool
     bool addParameter(const std::string &name, RealPar par);
 
-    //! access to parameter container
-    iterator_t begin() { return m_map.begin(); }
-    iterator_t end() { return m_map.end(); }
+//    //! access to parameter container
+//    iterator_t begin() { return m_map.begin(); }
+//    iterator_t end() { return m_map.end(); }
 
-    //! const access to parameter container
-    const_iterator_t begin() const { return m_map.begin(); }
-    const_iterator_t end() const { return m_map.end(); }
+//    //! const access to parameter container
+//    const_iterator_t begin() const { return m_map.begin(); }
+//    const_iterator_t end() const { return m_map.end(); }
 
     //! return parameter with given name
     RealPar getParameter(const std::string &name) const;
+
+    //! return vector of parameters which fit pattern
+    std::vector<RealPar > getMatchedParameters(const std::string &wildcards) const;
 
     //! set parameter value, return true in the case of success
     bool setParameterValue(const std::string &name, double value);
@@ -93,9 +95,9 @@ public:
     }
 
 protected:
-    //! hiding copy constructors and assignment operators to allow only conscious cloning
-    ParameterPool(const ParameterPool &other);
-    ParameterPool &operator=(const ParameterPool &other);
+    //! disabled copy constructors and assignment operator
+    ParameterPool(const ParameterPool &);
+    ParameterPool &operator=(const ParameterPool &);
 
     //! print parameter pool content
     virtual void print(std::ostream &ostr) const;

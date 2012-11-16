@@ -18,7 +18,6 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
-#include "FitMultiParameter.h"
 #include "GISASExperiment.h"
 #include "ISampleBuilder.h"
 #include "FitSuiteStrategy.h"

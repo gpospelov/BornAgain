@@ -14,9 +14,7 @@ FitSuiteParameters::~FitSuiteParameters()
 }
 
 
-/* ************************************************************************* */
 // clear all defined parameters
-/* ************************************************************************* */
 void FitSuiteParameters::clear()
 {
     for(parameters_t::iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
@@ -26,22 +24,18 @@ void FitSuiteParameters::clear()
 }
 
 
-/* ************************************************************************* */
 // add fit parameter
-/* ************************************************************************* */
 void FitSuiteParameters::addParameter(const std::string &name, double value, double step, const AttLimits &attlim)
 {
     for(parameters_t::const_iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( (*it)->getName() == name ) throw LogicErrorException("FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
     }
-    m_parameters.push_back(new FitMultiParameter(name, value, step, attlim) );
+    m_parameters.push_back(new FitParameterLinked(name, value, step, attlim) );
 }
 
 
-/* ************************************************************************* */
-// return fit parameter with given name
-/* ************************************************************************* */
-const FitMultiParameter *FitSuiteParameters::getParameter(const std::string &name) const
+// return const fit parameter with given name
+const FitParameter *FitSuiteParameters::getParameter(const std::string &name) const
 {
     for(parameters_t::const_iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( (*it)->getName() == name ) return (*it);
@@ -49,7 +43,8 @@ const FitMultiParameter *FitSuiteParameters::getParameter(const std::string &nam
     throw LogicErrorException("FitSuiteParameters::getFitParameter() -> Error. No parameter with name '"+name+"'");
 }
 
-FitMultiParameter *FitSuiteParameters::getParameter(const std::string &name)
+// return fit parameter with given name
+FitParameter *FitSuiteParameters::getParameter(const std::string &name)
 {
     for(parameters_t::iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( (*it)->getName() == name ) return (*it);
@@ -58,10 +53,7 @@ FitMultiParameter *FitSuiteParameters::getParameter(const std::string &name)
 }
 
 
-/* ************************************************************************* */
 // set values for all defined parameters
-// they will be propagated further
-/* ************************************************************************* */
 void FitSuiteParameters::setValues(const double *pars_values)
 {
     int index(0);
@@ -77,15 +69,13 @@ void FitSuiteParameters::link_to_experiment(const Experiment *experiment)
     // accessing parameter pool of the sample
     ParameterPool *pool = experiment->createParameterTree();
 
-    // linking FitParameter
-    int index(0);
+    // linking fit parameter with whose pool parameters which match name of fit parameter
+    // going through all fit parameters defined
     for(parameters_t::iterator it = m_parameters.begin(); it!= m_parameters.end(); ++it) {
-        FitMultiParameter *par = (*it);
-        // name of FitMultiParameter is used to find in the pool links to sample's parameters
-        par->addMatchedParametersFromPool(par->getName(), pool);
-        index++;
+        FitParameterLinked *par = dynamic_cast<FitParameterLinked *>((*it));
+        if( !par ) throw LogicErrorException("FitSuiteParameters::link_to_experiment() -> Error! Can't cast to FitParameterLinked.");
+        par->addMatchedParametersFromPool(pool);
     }
-    if( index==0 ) std::cout << "FitSuiteParameters::link_to_experiment() -> Warning. No parameters has been propagated to the minimizer " << std::endl;
 
     delete pool;
 }

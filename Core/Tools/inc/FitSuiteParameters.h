@@ -15,7 +15,7 @@
 //! @date   15.11.2012
 
 #include "Exceptions.h"
-#include "FitMultiParameter.h"
+#include "FitParameterLinked.h"
 #include <vector>
 
 class Experiment;
@@ -27,7 +27,7 @@ class Experiment;
 class FitSuiteParameters
 {
 public:
-    typedef std::vector<FitMultiParameter *> parameters_t;
+    typedef std::vector<FitParameter *> parameters_t;
     typedef parameters_t::iterator iterator;
     typedef parameters_t::const_iterator const_iterator;
 
@@ -41,8 +41,8 @@ public:
     void addParameter(const std::string &name, double value, double step, const AttLimits &attlim);
 
     //! return fit parameter with given name
-    const FitMultiParameter *getParameter(const std::string &name) const;
-    FitMultiParameter *getParameter(const std::string &name);
+    const FitParameter *getParameter(const std::string &name) const;
+    FitParameter *getParameter(const std::string &name);
 
     //! set values for all defined parameters
     void setValues(const double *pars_values);
@@ -59,11 +59,10 @@ public:
     const_iterator end() const { return m_parameters.end(); }
 
     //! access to parameters
-    const FitMultiParameter *operator[](int index) const { return m_parameters[check_index(index)]; }
-    FitMultiParameter *operator[](int index) { return m_parameters[check_index(index)]; }
-    const FitMultiParameter *operator[](std::string name) const { return getParameter(name); }
-    FitMultiParameter *operator[](std::string name) { return getParameter(name); }
-
+    const FitParameter *operator[](int index) const { return m_parameters[check_index(index)]; }
+    FitParameter *operator[](int index) { return m_parameters[check_index(index)]; }
+    const FitParameter *operator[](std::string name) const { return getParameter(name); }
+    FitParameter *operator[](std::string name) { return getParameter(name); }
 
     //! link fit parameters to parameters defined in experiment
     void link_to_experiment(const Experiment *experiment);

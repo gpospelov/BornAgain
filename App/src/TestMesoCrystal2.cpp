@@ -23,7 +23,6 @@
 #include "FitSuite.h"
 #include "ROOTMinimizer.h"
 #include "SampleFactory.h"
-#include "FitMultiParameter.h"
 #include "TRange.h"
 #include "FitSuiteHelper.h"
 #include "AttLimits.h"

@@ -1,6 +1,6 @@
 #include "FitSuite.h"
 #include "Exceptions.h"
-#include "FitMultiParameter.h"
+#include "FitParameterLinked.h"
 #include "ParameterPool.h"
 #include "Experiment.h"
 #include "IMinimizer.h"

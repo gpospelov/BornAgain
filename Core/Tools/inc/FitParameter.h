@@ -60,4 +60,5 @@ protected:
 };
 
 
+
 #endif // FITPARAMETER_H

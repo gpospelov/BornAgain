@@ -1,14 +1,14 @@
-#include "FitMultiParameter.h"
+#include "FitParameterLinked.h"
 #include "Utils.h"
 
 
-FitMultiParameter::FitMultiParameter()
+FitParameterLinked::FitParameterLinked()
 {
 
 }
 
 
-FitMultiParameter::FitMultiParameter(const std::string &name, double value, double step, const AttLimits &attlim) : FitParameter(name, value, step, attlim)
+FitParameterLinked::FitParameterLinked(const std::string &name, double value, double step, const AttLimits &attlim) : FitParameter(name, value, step, attlim)
 {
 
 }
@@ -17,7 +17,7 @@ FitMultiParameter::FitMultiParameter(const std::string &name, double value, doub
 /* ************************************************************************* */
 //! add real parameter to the collection
 /* ************************************************************************* */
-void FitMultiParameter::addParameter(parameter_t par)
+void FitParameterLinked::addParameter(PoolParameter_t par)
 {
     if( !par.isNull() ) {
         m_parametercoll.push_back(par);
@@ -28,45 +28,35 @@ void FitMultiParameter::addParameter(parameter_t par)
 
 
 /* ************************************************************************* */
-//! add real parameter with given name from the pool to the collection of parameters
-/* ************************************************************************* */
-void FitMultiParameter::addParameterFromPool(std::string parkey, const ParameterPool *pool)
-{
-    addParameter(pool->getParameter(parkey));
-}
-
-
-/* ************************************************************************* */
 //! add all real parameters which match given pattern ('*?' wildcards) to the collection of parameters
 /* ************************************************************************* */
-void FitMultiParameter::addMatchedParametersFromPool(std::string wildcards, const ParameterPool *pool)
+void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool)
 {
-    // loop over all parameters in the pool
-    int n_added_pars(0);
-    for(ParameterPool::const_iterator_t it=pool->begin(); it!= pool->end(); it++) {
-        // (*it).first - parameter key, (*it).second - parameter itself
-        // parameters whose key match pattern is added to the FitMultiParameter container
-        if( Utils::StringMatchText::WildcardPattern( (*it).first, wildcards ) ) {
-            addParameter((*it).second);
-            n_added_pars++;
-        }
+    std::vector<ParameterPool::RealPar > matched_pars = pool->getMatchedParameters(getName());
+    m_parametercoll.insert(m_parametercoll.end(), matched_pars.begin(), matched_pars.end());
+
+    if( matched_pars.empty() ) {
+        throw LogicErrorException("FitMultiParameter::addMatchedParametersFromPool() -> Error! Failed to add anything from pool using own name '"+getName()+"'");
     }
-    if(n_added_pars==0) {
-        std::cout << "FitMultiParameter::addMatchedParametersFromPool() -> Warning! No parameters satisfying  criteria '" << wildcards << "' have been found" << std::endl;
-        std::cout << "Existing keys are:" << std::endl;
-        for(ParameterPool::const_iterator_t it=pool->begin(); it!= pool->end(); ++it) {
-            std::cout << (*it).first << std::endl;
-        }
-        throw LogicErrorException("FitMultiParameter::addMatchedParametersFromPool() -> Error! No parameters with given wildcard.");
+}
+
+
+void FitParameterLinked::addMatchedParametersFromPool(const std::string &wildcard, const ParameterPool *pool)
+{
+    std::vector<ParameterPool::RealPar > matched_pars = pool->getMatchedParameters(wildcard);
+    m_parametercoll.insert(m_parametercoll.end(), matched_pars.begin(), matched_pars.end());
+
+    if( matched_pars.empty() ) {
+        throw LogicErrorException("FitMultiParameter::addMatchedParametersFromPool() -> Error! Failed to add anything from pool using wildcard '"+wildcard+"'");
     }
 }
 
 
 
-void FitMultiParameter::print(std::ostream &ostr) const
+void FitParameterLinked::print(std::ostream &ostr) const
 {
     FitParameter::print(ostr);
-//    ostr << "FitMultiParameter '" << getName() << "'" << " value:" << m_value << " collsize:" << m_parametercoll.size();
+    ostr << "FitParameterLinked '" << getName() << "'" << " value:" << m_value << " collsize:" << m_parametercoll.size();
 //    if(m_parametercoll.size() ) {
 //        ostr << " addresses: ";
 //        for(parametercoll_t::const_iterator it=m_parametercoll.begin(); it!=m_parametercoll.end(); it++) {

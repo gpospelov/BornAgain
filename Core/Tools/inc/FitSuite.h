@@ -18,7 +18,7 @@
 #include "IObserver.h"
 #include "OutputData.h"
 #include "AttLimits.h"
-#include "FitMultiParameter.h"
+#include "FitParameterLinked.h"
 #include "FitSuiteStrategy.h"
 #include "FitSuiteKit.h"
 #include "FitSuiteParameters.h"
@@ -38,7 +38,7 @@ class ParameterPool;
 class FitSuite : public IObservable
 {
 public:
-    typedef std::vector<FitMultiParameter *> fitparameters_t;
+    typedef std::vector<FitParameterLinked *> fitparameters_t;
     typedef std::vector<IFitSuiteStrategy *> fitstrategies_t;
 
     FitSuite();
@@ -96,7 +96,7 @@ public:
     size_t getNumberOfFitParameters() const { return m_fit_parameters.size(); }
 
     //! get fit parameter
-    FitMultiParameter *getFitParameter(const std::string &name) { return m_fit_parameters.getParameter(name); }
+    FitParameter *getFitParameter(const std::string &name) { return m_fit_parameters.getParameter(name); }
 
     //! return reference to fit parameters
     FitSuiteParameters *getFitParameters() { return &m_fit_parameters; }

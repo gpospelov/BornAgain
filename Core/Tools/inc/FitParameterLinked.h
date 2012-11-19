@@ -49,12 +49,8 @@ public:
     //! add real parameter to the collection
     virtual void addParameter(PoolParameter_t par);
 
-    //! add parameters from pool which match own name
-    virtual void addMatchedParametersFromPool(const ParameterPool *pool);
-
-    //! add parameters from pool which match given name
-    virtual void addMatchedParametersFromPool(const std::string &wildcard, const ParameterPool *pool);
-
+    //! add parameters from pool which match given wildcard
+    virtual void addMatchedParametersFromPool(const ParameterPool *pool, const std::string &wildcard = std::string());
 
     //! print class
     friend std::ostream &operator<<(std::ostream &ostr, const FitParameterLinked &m) { m.print(ostr); return ostr; }

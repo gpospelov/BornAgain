@@ -245,11 +245,12 @@ std::vector<double > FitSuiteStrategyBootstrap::getFitSuiteParameterValues()
 // set new values of all parameters in FitSuite
 void FitSuiteStrategyBootstrap::setFitSuiteParameterValues(const std::vector<double > &parvalues)
 {
-    if(parvalues.size() != m_fit_suite->getFitParameters()->size()) {
+    FitSuiteParameters *fitpars = m_fit_suite->getFitParameters();
+    if(parvalues.size() != fitpars->size()) {
         throw LogicErrorException("FitSuiteStrategyBootstrap::setFitSuiteParameterValues() -> Number of parameters in FitSuite doesn't coincide with request");
     }
     int index(0);
-    for(FitSuiteParameters::iterator it = m_fit_suite->getFitParameters()->begin(); it!=m_fit_suite->getFitParameters()->end(); ++it) {
+    for(FitSuiteParameters::iterator it = fitpars->begin(); it!=fitpars->end(); ++it) {
         (*it)->setValue(parvalues[index++]);
     }
 }

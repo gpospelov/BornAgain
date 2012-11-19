@@ -122,6 +122,18 @@ void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, doub
     updateIntensityMapAxes();
 }
 
+
+void GISASExperiment::setDetectorParameters(const OutputData<double > &output_data)
+{
+    for(size_t i_axis=0; i_axis<output_data.getNdimensions(); ++i_axis) {
+        const NamedVector<double> *axis = reinterpret_cast<const NamedVector<double>*>(output_data.getAxes()[i_axis]);
+        m_detector.addAxis(*axis);
+    }
+    updateIntensityMapAxes();
+}
+
+
+
 void GISASExperiment::setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function)
 {
     m_detector.setDetectorResolution(new ConvolutionDetectorResolution(p_resolution_function));

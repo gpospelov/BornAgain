@@ -17,73 +17,74 @@
 
 #include "Experiment.h"
 #include "OutputData.h"
+#include "ChiSquaredModule.h"
 
 #include <vector>
 
 
 //- -------------------------------------------------------------------
 //! @class FitSuiteKit
-//! @brief Class containing vector of pairs  (experiment, real data) for fit.
-//! It doesn't own what it holds
+//! @brief Class containing vector of pairs  (experiment, real data) for fit and chi2 module.
 //- -------------------------------------------------------------------
 class FitSuiteKit
 {
 public:
 
-    //! represent experiment and corresponding real data
+    //! represent experiment, corresponding real data and chi2 module to calculate the difference
     class KitItem {
     public:
+        KitItem(Experiment *experiment, const OutputData<double > *real_data, const IChiSquaredModule *chi2_module);
+        ~KitItem();
         friend class FitSuiteKit;
-        KitItem() : m_experiment(0), m_real_data(0){}
-        KitItem(Experiment *experiment, const OutputData<double > *real_data) : m_experiment(experiment), m_real_data(real_data) {}
     private:
-        Experiment *m_experiment;
-        const OutputData<double > *m_real_data;
+        KitItem(const KitItem &);
+        KitItem &operator=(const KitItem &);
+        Experiment *m_experiment; //! external experiment (not owned by this)
+        OutputData<double > *m_real_data; //! real data
+        IChiSquaredModule *m_chi2_module; //! chi2 module
     };
-    typedef std::vector<KitItem > KitItemVector_t;
+    typedef std::vector<KitItem *> KitItemVector_t;
 
-    FitSuiteKit() {}
-    virtual ~FitSuiteKit() { clear(); }
+    FitSuiteKit(){}
+    virtual ~FitSuiteKit(){}
 
     //! clear all data
-    void clear() { m_kit.clear(); }
-
-    //! add to kit pair of (experiment, real data) for consecutive simulation
-    void add(Experiment *experiment, const OutputData<double > *real_data) { m_kit.push_back(KitItem(experiment, real_data)); }
-
-    //! loop through all defined experiments and run they simulation
-    void runSimulation()
-    {
-        for(KitItemVector_t::iterator it = m_kit.begin(); it!= m_kit.end(); ++it) {
-            (*it).m_experiment->runSimulation();
-            (*it).m_experiment->normalize();
-        }
-    }
+    void clear();
 
     //! return number of items
     size_t size() const { return m_kit.size(); }
 
-    //! get simulated data
-    const OutputData<double> * getSimulatedData(int i_item = 0) const { return m_kit[check_index(i_item)].m_experiment->getOutputData(); }
+    //! add to kit pair of (experiment, real data) for consecutive simulation and chi2 module
+    void add(Experiment *experiment, const OutputData<double > *real_data, const IChiSquaredModule *chi2_module);
 
-    //! get real data
-    const OutputData<double> * getRealData(int i_item = 0) const { return m_kit[check_index(i_item)].m_real_data; }
-    //! set real data
-    void setRealData(const OutputData<double > *real_data, int i_item = 0) { m_kit[check_index(i_item)].m_real_data = real_data; }
+    //! loop through all defined experiments and run they simulation
+    void runSimulation();
+
+    //! get chi squared value calculated for all pairs of (experiment, real data)
+    double getChiSquaredValue();
 
     //! get experiment
-    const Experiment *getExperiment(int i_item = 0) const { return m_kit[check_index(i_item)].m_experiment; }
+    const Experiment *getExperiment(int i_item = 0) const { return m_kit[check_index(i_item)]->m_experiment; }
+
+    //! get real data
+    const OutputData<double> * getRealData(int i_item = 0) const { return m_kit[check_index(i_item)]->m_real_data; }
+
+    //! get chi2 module
+    const IChiSquaredModule *getChiSquaredModule(int i_item = 0) const { return m_kit[check_index(i_item)]->m_chi2_module; }
+    IChiSquaredModule *getChiSquaredModule(int i_item = 0) { return m_kit[check_index(i_item)]->m_chi2_module; }
+
+    //! get simulated data
+    const OutputData<double> * getSimulatedData(int i_item = 0) const { return m_kit[check_index(i_item)]->m_experiment->getOutputData(); }
 
 private:
     //! disabled copy constructor and assignment operator
-    FitSuiteKit &operator=(const FitSuiteKit &other);
-    FitSuiteKit(const FitSuiteKit &other);
+    FitSuiteKit &operator=(const FitSuiteKit &);
+    FitSuiteKit(const FitSuiteKit &);
 
     //! check if index inside vector bounds
     inline size_t check_index(size_t index) const { return index < m_kit.size() ? index : throw OutOfBoundsException("FitSuiteKit::check() -> Index outside of range"); }
 
-    KitItemVector_t m_kit; //  set of experiment and
-
+    KitItemVector_t m_kit; //  set of experiments and corresponding real data
 };
 
 

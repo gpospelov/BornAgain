@@ -25,7 +25,10 @@ class IChiSquaredModule
 public:
     IChiSquaredModule();
     IChiSquaredModule(const OutputData<double> &real_data);
+    IChiSquaredModule(const IChiSquaredModule &other);
     virtual ~IChiSquaredModule();
+
+    virtual IChiSquaredModule *clone() const = 0;
 
     void setRealData(const OutputData<double> &real_data);
 
@@ -53,6 +56,9 @@ public:
     virtual OutputData<double > *createChi2DifferenceMap() const=0;
 
 protected:
+    // assignment operator
+    IChiSquaredModule &operator=(const IChiSquaredModule &);
+
     virtual void initWeights();
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulation_data;

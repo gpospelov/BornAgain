@@ -1,5 +1,11 @@
 #include "ChiSquaredModule.h"
 
+
+ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other) : IChiSquaredModule(other)
+{
+}
+
+
 ChiSquaredModule::ChiSquaredModule(const OutputData<double>& real_data)
     : IChiSquaredModule(real_data)
 {
@@ -8,6 +14,12 @@ ChiSquaredModule::ChiSquaredModule(const OutputData<double>& real_data)
 ChiSquaredModule::~ChiSquaredModule()
 {
 }
+
+ChiSquaredModule *ChiSquaredModule::clone() const
+{
+    return new ChiSquaredModule(*this);
+}
+
 
 double ChiSquaredModule::calculateChiSquared(
         const OutputData<double>* p_simulation_data)

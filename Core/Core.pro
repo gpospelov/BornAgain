@@ -118,7 +118,8 @@ SOURCES += \
     PythonAPI/src/PythonOutputData.cpp \
     Tools/src/FitSuiteStrategy.cpp \
     Tools/src/FitSuiteParameters.cpp \
-    Tools/src/FitParameterLinked.cpp
+    Tools/src/FitParameterLinked.cpp \
+    Tools/src/FitSuiteKit.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \

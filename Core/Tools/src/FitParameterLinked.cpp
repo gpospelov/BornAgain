@@ -28,26 +28,18 @@ void FitParameterLinked::addParameter(PoolParameter_t par)
 
 
 /* ************************************************************************* */
-//! add all real parameters which match given pattern ('*?' wildcards) to the collection of parameters
+//! add parameters from pool which match given wildcard
 /* ************************************************************************* */
-void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool)
+void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string &wildcard)
 {
-    std::vector<ParameterPool::RealPar > matched_pars = pool->getMatchedParameters(getName());
+    std::string wildcard_to_use = getName();
+    if( !wildcard.empty()) wildcard_to_use = wildcard;
+
+    std::vector<ParameterPool::RealPar > matched_pars = pool->getMatchedParameters(wildcard_to_use);
     m_parametercoll.insert(m_parametercoll.end(), matched_pars.begin(), matched_pars.end());
 
     if( matched_pars.empty() ) {
-        throw LogicErrorException("FitMultiParameter::addMatchedParametersFromPool() -> Error! Failed to add anything from pool using own name '"+getName()+"'");
-    }
-}
-
-
-void FitParameterLinked::addMatchedParametersFromPool(const std::string &wildcard, const ParameterPool *pool)
-{
-    std::vector<ParameterPool::RealPar > matched_pars = pool->getMatchedParameters(wildcard);
-    m_parametercoll.insert(m_parametercoll.end(), matched_pars.begin(), matched_pars.end());
-
-    if( matched_pars.empty() ) {
-        throw LogicErrorException("FitMultiParameter::addMatchedParametersFromPool() -> Error! Failed to add anything from pool using wildcard '"+wildcard+"'");
+        throw LogicErrorException("FitMultiParameter::addMatchedParametersFromPool() -> Error! Failed to add anything from pool using wildcard '"+wildcard_to_use+"'");
     }
 }
 

@@ -227,7 +227,7 @@ void TestFresnelCoeff::test_roughness_set()
 
     FitParameterLinked multipar;
 
-    multipar.addMatchedParametersFromPool("/*/*/*/sigma",newpool);
+    multipar.addMatchedParametersFromPool(newpool, "/*/*/*/sigma");
     std::cout << "multipar: " << multipar << std::endl;
 
     std::cout << *mp_sample << std::endl;

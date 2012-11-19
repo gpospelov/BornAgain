@@ -55,10 +55,8 @@ public:
     void update(IObservable *subject);
 
     //! return output data which contains relative difference between simulation and real data
-    OutputData<double > *getRelativeDifferenceMap(const IChiSquaredModule *chi_module);
+    OutputData<double > *getRelativeDifferenceMap(const OutputData<double> *p_simu_data, const OutputData<double> *p_real_data);
 
-    //! return output data which contains chi2 values from ChisSquaredModule of FitSuite
-    OutputData<double > *getChi2DifferenceMap(const IChiSquaredModule *chi_module);
 private:
     int m_draw_every_nth; //! update canvas every nth iteration
     std::string m_canvas_name; //! canvas name were to draw

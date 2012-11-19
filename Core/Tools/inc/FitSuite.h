@@ -38,7 +38,6 @@ class ParameterPool;
 class FitSuite : public IObservable
 {
 public:
-    typedef std::vector<FitParameterLinked *> fitparameters_t;
     typedef std::vector<IFitSuiteStrategy *> fitstrategies_t;
 
     FitSuite();
@@ -47,9 +46,8 @@ public:
     //! clear all and prepare for the next fit
     void clear();
 
-
     //! add pair of (experiment, real data) for consecutive simulation
-    void addExperimentAndRealData(Experiment *experiment, const OutputData<double > *real_data);
+    void addExperimentAndRealData(Experiment *experiment, const OutputData<double > *real_data, const IChiSquaredModule *chi2_module = 0);
 
     //! add fit parameter
     void addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless());
@@ -62,11 +60,8 @@ public:
     //! get minimizer
     IMinimizer *getMinimizer() { return m_minimizer; }
 
-    //! set chisquared modul
-    void setChiSquaredModule(IChiSquaredModule *chi2_module){ delete m_chi2_module; m_chi2_module = chi2_module; }
-
     //! initialize fitting parameters
-    virtual void init_fit_parameters();
+    virtual void link_fit_parameters();
 
     //! run single minimization round
     virtual void minimize();
@@ -76,9 +71,6 @@ public:
 
     //! function to minimize
     double functionToMinimize(const double *pars_current_values);
-
-    //! get chi2 module
-    const IChiSquaredModule *getChiSquaredModule() const { return m_chi2_module; }
 
     //! if the last iteration is done (used by observers to print summary)
     bool isLastIteration() { return m_is_last_iteration; }
@@ -90,7 +82,7 @@ public:
     int getNStrategy() { return m_n_strategy; }
 
     //! return reference to the kit with data
-    FitSuiteKit *getSuitKit() { return &m_suite_kit; }
+    FitSuiteKit *getSuiteKit() { return &m_suite_kit; }
 
     //! return number of fit parameters
     size_t getNumberOfFitParameters() const { return m_fit_parameters.size(); }
@@ -103,14 +95,13 @@ public:
 
 private:
     //! disabled copy constructor and assignment operator
-    FitSuite &operator=(const FitSuite &other);
-    FitSuite(const FitSuite &other);
+    FitSuite &operator=(const FitSuite &);
+    FitSuite(const FitSuite &);
 
     FitSuiteKit m_suite_kit; //! kit which contains pairs of <experiment,real_data> to fit
     FitSuiteParameters m_fit_parameters; //! collection of fit parameters
     fitstrategies_t m_fit_strategies; //! collection of strategies which are executed before every minimization round
     IMinimizer  *m_minimizer; //! minimization engine
-    IChiSquaredModule *m_chi2_module; //! module providing chi2 calculations
 
     bool m_is_last_iteration; //! set to true after last iteration complete
     int m_n_call; //! current number of minimization function call

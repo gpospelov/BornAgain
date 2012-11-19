@@ -70,8 +70,7 @@ void TestFittingModule1::execute()
 \
     // setting up fitSuite
     m_fitSuite->addExperimentAndRealData(mp_experiment, mp_real_data);
-//    m_fitSuite->setExperiment(mp_experiment);
-//    m_fitSuite->setRealData(*mp_real_data);
+
     m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Simplex") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Minimize") );

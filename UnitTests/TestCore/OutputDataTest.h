@@ -3,6 +3,8 @@
 
 #include "OutputData.h"
 
+#include "gtest/gtest.h"
+
 class OutputDataTest : public ::testing::Test
 {
 protected:
@@ -35,6 +37,27 @@ OutputDataTest::OutputDataTest()
 
 OutputDataTest::~OutputDataTest()
 {
+}
+
+TEST_F(OutputDataTest, SingleElementAfterConstruction)
+{
+    EXPECT_EQ((size_t)1, int_data_0d.getAllocatedSize());
+}
+
+TEST_F(OutputDataTest, SizeAfterAddingAxes)
+{
+    EXPECT_EQ((size_t)1, int_data_0d.getAllocatedSize());
+    EXPECT_EQ((size_t)20, fl_data_1d.getAllocatedSize());
+    EXPECT_EQ((size_t)2000, db_data_3d.getAllocatedSize());
+}
+
+TEST_F(OutputDataTest, DataInitialization)
+{
+    std::vector<int> coordinates;
+    coordinates.push_back(11);
+    coordinates.push_back(4);
+    coordinates.push_back(3);
+    EXPECT_DOUBLE_EQ((double)1143, db_data_3d[db_data_3d.toIndex(coordinates)]);
 }
 
 #endif // OUTPUTDATATEST_H

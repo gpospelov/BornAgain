@@ -16,7 +16,6 @@
 
 #include "ISimulation.h"
 #include "OutputData.h"
-#include "MaskedOutputDataIterator.h"
 #include "ThreadInfo.h"
 #include "Types.h"
 
@@ -53,14 +52,12 @@ public:
 
     typedef OutputDataIterator<double, OutputData<double> > iterator;
     typedef OutputDataIterator<const double, const OutputData<double> > const_iterator;
-    typedef MaskedOutputDataIterator<double, OutputData<double> > masked_iterator;
-    typedef MaskedOutputDataIterator<const double, const OutputData<double> > const_masked_iterator;
 
     //! return a read/write iterator that points to the first element
-    masked_iterator begin();
+    iterator begin();
 
     //! return a read-only iterator that points to the first element
-    const_masked_iterator begin() const;
+    const_iterator begin() const;
 
     //! return a read/write iterator that points to the one past last element
     const iterator end() { return m_dwba_intensity.end(); }

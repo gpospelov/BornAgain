@@ -6,7 +6,6 @@
 #include "MathFunctions.h"
 #include "ProgramOptions.h"
 #include "ConvolutionDetectorResolution.h"
-#include "MaskedOutputDataIterator.h"
 
 #include <boost/thread.hpp>
 
@@ -85,7 +84,6 @@ void GISASExperiment::runSimulation()
             delete simulations[i];
             delete threads[i];
         }
-
     }
     m_detector.applyDetectorResolution(&m_intensity_map);
 }
@@ -246,13 +244,12 @@ void GISASExperiment::createZetaAndProbVectors(std::vector<double>& zetas,
 
 void GISASExperiment::addToIntensityMap(double alpha, double phi, double value)
 {
-    OutputData<double>::iterator it = m_intensity_map.begin();
     const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(m_intensity_map.getAxis("alpha_f"));
     const NamedVector<double> *p_phi_axis = dynamic_cast<const NamedVector<double> *>(m_intensity_map.getAxis("phi_f"));
     std::vector<int> coordinates;
     coordinates.push_back(findClosestIndex(p_alpha_axis, alpha));
     coordinates.push_back(findClosestIndex(p_phi_axis, phi));
-    it[m_intensity_map.toIndex(coordinates)] += value;
+    m_intensity_map[m_intensity_map.toIndex(coordinates)] += value;
 }
 
 int GISASExperiment::findClosestIndex(const NamedVector<double> *p_axis, double value)

@@ -25,7 +25,6 @@ OutputData<double> *doubleBinSize(const OutputData<double> &source)
     }
     // calculate new data content
     OutputData<double>::const_iterator it_source = source.begin();
-    OutputData<double>::iterator it_result = p_result->begin();
     while (it_source != source.end()) {
         std::vector<int> source_indices = source.toCoordinates(it_source.getIndex());
         std::vector<int> dest_indices;
@@ -38,7 +37,7 @@ OutputData<double> *doubleBinSize(const OutputData<double> &source)
                 boundary_factor *= 2.0;
             }
         }
-        it_result[p_result->toIndex(dest_indices)] = boundary_factor*(*it_source++);
+        (*p_result)[p_result->toIndex(dest_indices)] = boundary_factor*(*it_source++);
     }
     return p_result;
 }

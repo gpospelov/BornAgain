@@ -22,7 +22,7 @@ void DiffuseDWBASimulation::run()
     initDiffuseFormFactorTerms(diffuse_terms, nbr_heights, samples_per_particle);
     double wavevector_scattering_factor = M_PI/getWaveLength()/getWaveLength();
 
-    DWBASimulation::masked_iterator it_intensity = begin();
+    DWBASimulation::iterator it_intensity = begin();
     while ( it_intensity != end() ) {
         double phi_f = getDWBAIntensity().getValueOfAxis<double>("phi_f", it_intensity.getIndex());
         double alpha_f = getDWBAIntensity().getValueOfAxis<double>("alpha_f", it_intensity.getIndex());

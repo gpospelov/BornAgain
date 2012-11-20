@@ -12,8 +12,10 @@ include($$PWD/../../shared.pri)
 SOURCES += main.cpp
 
 HEADERS += \
+	MaskTest.h \
     NamedVectorTest.h \
-    OutputDataTest.h
+    OutputDataTest.h \
+    OutputDataIteratorTest.h \
 
 OBJECTS_DIR = obj
 

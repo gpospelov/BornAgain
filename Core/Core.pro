@@ -34,6 +34,8 @@ SOURCES += \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
+    Algorithms/src/Mask.cpp \
+    Algorithms/src/MaskCoordinateFunction.cpp \
     Algorithms/src/MultiLayerDWBASimulation.cpp \
     Algorithms/src/MultiLayerRoughnessDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
@@ -143,6 +145,8 @@ HEADERS += \
     Algorithms/inc/LayerDecoratorDWBASimulation.h \
     Algorithms/inc/LayerDWBASimulation.h \
     Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
+    Algorithms/inc/Mask.h \
+    Algorithms/inc/MaskCoordinateFunction.h \
     Algorithms/inc/MultiLayerDWBASimulation.h \
     Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
@@ -227,14 +231,12 @@ HEADERS += \
     Tools/inc/IStochasticParameter.h \
     Tools/inc/LLData.h \
     Tools/inc/Macros.h \
-    Tools/inc/MaskedOutputDataIterator.h \
     Tools/inc/MathFunctions.h \
     Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
     Tools/inc/OutputDataIOFactory.h \
     Tools/inc/OutputDataIterator.h \
-    Tools/inc/OutputDataMaskStrategies.h \
     Tools/inc/OutputDataReader.h \
     Tools/inc/OutputDataWriter.h \
     Tools/inc/ParameterPool.h \

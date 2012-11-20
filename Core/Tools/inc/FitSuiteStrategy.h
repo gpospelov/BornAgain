@@ -131,12 +131,6 @@ public:
         }
     };
 
-    //! get current values of all parameters defined in FitSuite
-    std::vector<double > getFitSuiteParameterValues();
-
-    //! set new values of all parameters defined in FitSuite
-    void setFitSuiteParameterValues(const std::vector<double > &parvalues);
-
     //! generate noisy data
     OutputData<double> *generateNoisyData(double noise_factor, const OutputData<double> &source);
 

@@ -148,6 +148,15 @@ public:
     //! multiplication-assignment operator for two output data
     const OutputData<T> &operator*=(const OutputData<T> &right);
 
+    // --------
+    // helpers
+    // --------
+
+    //! return true if object have same dimensions
+    bool hasSameDimensions(const OutputData<T> &right) const;
+
+    //! return true if object have same dimensions and shape of axises
+    bool hasSameShape(const OutputData<T> &right) const;
 
 private:
     //! hidden copy constructor and assignment operators
@@ -231,6 +240,7 @@ template <class T> void OutputData<T>::copyFrom(const OutputData<T> &other)
 
 template <class T> void OutputData<T>::addAxis(NamedVectorBase* p_new_axis)
 {
+    if( getAxis(p_new_axis->getName()) ) throw LogicErrorException("OutputData<T>::addAxis(NamedVectorBase *) -> Error! Attempt to add axis with already existing name '"+p_new_axis->getName()+std::string("'"));
     if (p_new_axis->getSize()>0)
     {
         m_value_axes.push_back(p_new_axis);
@@ -241,9 +251,12 @@ template <class T> void OutputData<T>::addAxis(NamedVectorBase* p_new_axis)
 template <class T>
 template <class U> void OutputData<T>::addAxis(std::string name, U start, U end, size_t size)
 {
+    if( getAxis(name) ) throw LogicErrorException("OutputData<T>::addAxis(std::string name) -> Error! Attempt to add axis with already existing name '"+name+std::string("'"));
     NamedVector<U> *p_new_axis = new NamedVector<U>(name, start, end, size);
     addAxis(p_new_axis);
 }
+
+
 
 template <class T> const NamedVectorBase *OutputData<T>::getAxis(std::string label) const
 {
@@ -445,5 +458,35 @@ template<class T> inline void OutputData<T>::setRawDataArray(const T *source)
         (*mp_ll_data)[i] = source[i];
     }
 }
+
+
+//! return true if object have same dimensions
+template<class T> inline bool OutputData<T>::hasSameDimensions(const OutputData<T> &right) const
+{
+    if(!mp_ll_data || !right.mp_ll_data ) return false;
+    return HaveSameDimensions(*mp_ll_data, *right.mp_ll_data);
+}
+
+//! return true if object have same dimensions and shape of axis
+// TODO: replace axises with NamedVector<double> or get rid from templates
+template<class T>
+bool OutputData<T>::hasSameShape(const OutputData<T> &right) const
+{
+    if(!hasSameDimensions(right)) return false;
+
+    // TODO: move check of consistency between dimensions of LLData and NamedVector into UNIT test
+    if( (mp_ll_data->getRank() != m_value_axes.size()) || (right.mp_ll_data->getRank() != right.m_value_axes.size()) ) {
+        throw LogicErrorException("OutputData<T>::hasSameShape() -> Panic! Inconsistent dimensions in LLData and axes");
+    }
+    for (size_t i=0; i<m_value_axes.size(); ++i) {
+        const NamedVector<double > *axis_left = dynamic_cast<const NamedVector<double> *>(m_value_axes[i]);
+        const NamedVector<double > *axis_right = dynamic_cast<const NamedVector<double> *>(right.m_value_axes[i]);
+
+        if(!axis_left || !axis_right ) return false;
+        if( !HaveSameNameAndShape(*axis_left, *axis_right)) return false;
+    }
+    return true;
+}
+
 
 #endif // OUTPUTDATA_H

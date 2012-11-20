@@ -32,7 +32,7 @@ void ConvolutionDetectorResolution::applyDetectorResolution(
         OutputData<double>* p_intensity_map) const
 {
     if (p_intensity_map->getRank() != m_dimension) {
-        throw RuntimeErrorException("Intensity map must have same dimension as detector resolution function.");
+        throw RuntimeErrorException("ConvolutionDetectorResolution::applyDetectorResolution() -> Error! Intensity map must have same dimension as detector resolution function.");
     }
     std::vector<NamedVectorBase*> axes = p_intensity_map->getAxes();
     switch (m_dimension) {
@@ -43,7 +43,7 @@ void ConvolutionDetectorResolution::applyDetectorResolution(
         apply2dConvolution(axes, p_intensity_map);
         break;
     default:
-        throw LogicErrorException("Class ConvolutionDetectorResolution must be initialized with dimension 1 or 2.");
+        throw LogicErrorException("ConvolutionDetectorResolution::applyDetectorResolution() -> Error! Class ConvolutionDetectorResolution must be initialized with dimension 1 or 2.");
     }
 }
 
@@ -70,10 +70,10 @@ void ConvolutionDetectorResolution::apply1dConvolution(
         OutputData<double>* p_intensity_map) const
 {
     if (m_res_function_1d==0) {
-        throw LogicErrorException("No 1d resolution function present for convolution of 1d data.");
+        throw LogicErrorException("ConvolutionDetectorResolution::apply1dConvolution() -> Error! No 1d resolution function present for convolution of 1d data.");
     }
     if (axes.size() != 1) {
-        throw LogicErrorException("Number of axes for intensity map does not correspond to the dimension of the map.");
+        throw LogicErrorException("ConvolutionDetectorResolution::apply1dConvolution() -> Error! Number of axes for intensity map does not correspond to the dimension of the map.");
     }
     NamedVector<double> *p_axis = dynamic_cast<NamedVector<double> *>(axes[0]);
     // Construct source vector from original intensity map
@@ -84,7 +84,7 @@ void ConvolutionDetectorResolution::apply1dConvolution(
     }
     // Construct kernel vector from resolution function
     if (p_axis->getSize() != data_size) {
-        throw LogicErrorException("Size of axis for intensity map does not correspond to the size of the data in the map.");
+        throw LogicErrorException("ConvolutionDetectorResolution::apply1dConvolution() -> Error! Size of axis for intensity map does not correspond to the size of the data in the map.");
     }
     double step_size = std::abs((*p_axis)[0]-(*p_axis)[p_axis->getSize()-1])/(data_size-1);
     double mid_value = (*p_axis)[p_axis->getSize()/2];  // Needed because Convolve class expects zero at midpoint
@@ -105,10 +105,10 @@ void ConvolutionDetectorResolution::apply2dConvolution(
         OutputData<double>* p_intensity_map) const
 {
     if (mp_res_function_2d==0) {
-        throw LogicErrorException("No 2d resolution function present for convolution of 2d data.");
+        throw LogicErrorException("ConvolutionDetectorResolution::apply2dConvolution() -> Error! No 2d resolution function present for convolution of 2d data.");
     }
     if (axes.size() != 2) {
-        throw LogicErrorException("Number of axes for intensity map does not correspond to the dimension of the map.");
+        throw LogicErrorException("ConvolutionDetectorResolution::apply2dConvolution() -> Error! Number of axes for intensity map does not correspond to the dimension of the map.");
     }
     NamedVector<double> *p_axis_1 = dynamic_cast<NamedVector<double> *>(axes[0]);
     NamedVector<double> *p_axis_2 = dynamic_cast<NamedVector<double> *>(axes[1]);
@@ -122,7 +122,7 @@ void ConvolutionDetectorResolution::apply2dConvolution(
     std::vector<std::vector<double> > source;
     size_t raw_data_size = raw_source_vector.size();
     if (raw_data_size != axis_size_1*axis_size_2) {
-        throw LogicErrorException("Intensity map data size does not match the product of its axes' sizes");
+        throw LogicErrorException("ConvolutionDetectorResolution::apply2dConvolution() -> Error! Intensity map data size does not match the product of its axes' sizes");
     }
     for (std::vector<double>::const_iterator it=raw_source_vector.begin(); it != raw_source_vector.end();it+=axis_size_2) {
         std::vector<double> row_vector(it, it+axis_size_2);

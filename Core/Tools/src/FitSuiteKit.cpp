@@ -2,6 +2,8 @@
 
 
 
+
+
 /* ************************************************************************* */
 // KitItem c-tors
 /* ************************************************************************* */
@@ -16,12 +18,32 @@ FitSuiteKit::KitItem::KitItem(Experiment *experiment, const OutputData<double > 
     } else {
         m_chi2_module = new ChiSquaredModule();
     }
+    // check if experiment's detector and real data has same shape
+
 }
 
 FitSuiteKit::KitItem::~KitItem()
 {
     delete m_real_data;
     delete m_chi2_module;
+}
+
+
+/* ************************************************************************* */
+// set real data
+/* ************************************************************************* */
+void FitSuiteKit::KitItem::setRealData(const OutputData<double > *real_data)
+{
+    delete m_real_data;
+    m_real_data = real_data->clone();
+    if( m_experiment) {
+        if( !m_real_data->hasSameShape(*m_experiment->getOutputData()) ) {
+            std::cout << "FitSuiteKit::KitItem::setRealData() -> Real data and the detector have different shape. Adjusting detector..." << std::endl;
+        } else {
+            std::cout << "FitSuiteKit::KitItem::setRealData() -> Real data and the detector have same shape. No nedd to adjust detector." << std::endl;
+        }
+        m_experiment->setDetectorParameters(*m_real_data);
+    }
 }
 
 

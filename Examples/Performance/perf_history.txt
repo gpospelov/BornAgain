@@ -147,3 +147,6 @@
 # current status of the art
 2012-10-19 15:35:44 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 13.4228 | 13.245  | 5.26316 | 
 
+# current status of the art
+2012-11-19 16:17:56 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 15.2672 | 15.0376 | 5.26316 | 
+2012-11-19 16:22:25 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 14.9254 | 14.5985 | 5.26316 | 

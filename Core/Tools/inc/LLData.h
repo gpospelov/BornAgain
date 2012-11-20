@@ -241,6 +241,8 @@ template<class T> void LLData<T>::clear()
         delete[] m_dims;
         m_data_array = 0;
         m_dims = 0;
+    } else {
+        delete[] m_data_array;
     }
 }
 

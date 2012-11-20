@@ -60,7 +60,7 @@ public:
     //! get minimizer
     IMinimizer *getMinimizer() { return m_minimizer; }
 
-    //! initialize fitting parameters
+    //! link fitting parameters to parameters defined in experiments
     virtual void link_fit_parameters();
 
     //! run single minimization round
@@ -72,26 +72,20 @@ public:
     //! function to minimize
     double functionToMinimize(const double *pars_current_values);
 
+    //! return reference to the kit with data
+    FitSuiteKit *getSuiteKit() { return &m_suite_kit; }
+
+    //! return reference to fit parameters
+    FitSuiteParameters *getFitParameters() { return &m_fit_parameters; }
+
     //! if the last iteration is done (used by observers to print summary)
     bool isLastIteration() { return m_is_last_iteration; }
 
-    //! get current number of minimization function call (number of iteration)
+    //! get current number of minimization function calls
     int getNCall() { return m_n_call; }
 
     //! get the number of current strategy
     int getNStrategy() { return m_n_strategy; }
-
-    //! return reference to the kit with data
-    FitSuiteKit *getSuiteKit() { return &m_suite_kit; }
-
-    //! return number of fit parameters
-    size_t getNumberOfFitParameters() const { return m_fit_parameters.size(); }
-
-    //! get fit parameter
-    FitParameter *getFitParameter(const std::string &name) { return m_fit_parameters.getParameter(name); }
-
-    //! return reference to fit parameters
-    FitSuiteParameters *getFitParameters() { return &m_fit_parameters; }
 
 private:
     //! disabled copy constructor and assignment operator

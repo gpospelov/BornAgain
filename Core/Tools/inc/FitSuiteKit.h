@@ -36,6 +36,7 @@ public:
         KitItem(Experiment *experiment, const OutputData<double > *real_data, const IChiSquaredModule *chi2_module);
         ~KitItem();
         friend class FitSuiteKit;
+        void setRealData(const OutputData<double > *real_data);
     private:
         KitItem(const KitItem &);
         KitItem &operator=(const KitItem &);
@@ -68,6 +69,8 @@ public:
 
     //! get real data
     const OutputData<double> * getRealData(int i_item = 0) const { return m_kit[check_index(i_item)]->m_real_data; }
+    //! set real data
+    void setRealData(const OutputData<double > *real_data, int i_item = 0) { m_kit[check_index(i_item)]->setRealData(real_data);}
 
     //! get chi2 module
     const IChiSquaredModule *getChiSquaredModule(int i_item = 0) const { return m_kit[check_index(i_item)]->m_chi2_module; }

@@ -61,6 +61,25 @@ void FitSuiteParameters::setValues(const double *pars_values)
 }
 
 
+void FitSuiteParameters::setValues(const std::vector<double> &pars_values)
+{
+    if(pars_values.size() != m_parameters.size() ) throw OutOfBoundsException("FitSuiteParameters::setValues() -> Wrong size of array with parameter values");
+    setValues(&pars_values[0]);
+}
+
+std::vector<double > FitSuiteParameters::getValues() const
+{
+    std::vector<double > buff;
+    buff.resize(m_parameters.size(), 0);
+    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it)
+    {
+        buff.push_back((*it)->getValue());
+    }
+    return buff;
+}
+
+
+
 /* ************************************************************************* */
 // link fit parameters to parameters defined in experiment
 /* ************************************************************************* */

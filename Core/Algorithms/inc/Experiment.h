@@ -83,6 +83,9 @@ public:
     //! set the program options
     void setProgramOptions(ProgramOptions *p_options) { mp_options = p_options; }
 
+    //! set detector parameters using axes of output data
+    void setDetectorParameters(const OutputData<double > &output_data);
+
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();

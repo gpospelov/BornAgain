@@ -76,6 +76,7 @@ void TestMesoCrystal2::execute()
 //    OutputData<double > *real_data_quarter = doubleBinSize(*real_data_half);
 //    OutputData<double > *real_data_eighth = doubleBinSize(*real_data_quarter);
     IsGISAXSTools::drawOutputDataInPad(*real_data, "CONT4 Z", "experiment");
+//    IsGISAXSTools::drawOutputDataInPad(*real_data_quarter, "CONT4 Z", "experiment");
     c1->Update();
 
     // initializing experiment using real data to have detector axises like in real_data
@@ -87,6 +88,7 @@ void TestMesoCrystal2::execute()
 //    fitSuite->setExperiment(mp_experiment);
 //    fitSuite->setRealData(*real_data);
     fitSuite->addExperimentAndRealData(mp_experiment, real_data);
+//    fitSuite->addExperimentAndRealData(mp_experiment, real_data_quarter);
 
     fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
     ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();

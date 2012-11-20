@@ -50,8 +50,35 @@ TestFittingModule2::~TestFittingModule2()
 }
 
 
+//template<class T> const bool haveSameDimensions(const OutputData<T>& left, const OutputData<T>& right)
+//{
+
+//    return true;
+//}
+
+
 void TestFittingModule2::execute()
 {
+//    OutputData<double > *data1 = new OutputData<double>;
+//    data1->addAxis(std::string("a1"), 0., 10., 100);
+//    data1->addAxis(std::string("a2"), 0., 10., 100);
+
+//    OutputData<double > *data2 = new OutputData<double>;
+//    data2->addAxis(std::string("a1"), 0., 10., 100);
+//    data2->addAxis(std::string("a2"), 0., 10., 99.9999999999999999999);
+
+//    if( data1->hasSameDimensions(*data2) ) {
+//        std::cout << "Same dimensions " << std::endl;
+//    } else {
+//        std::cout << "Not Same dimensions " << std::endl;
+
+//    }
+//    if( data1->hasSameShape(*data2) ) {
+//        std::cout << "Same shape " << std::endl;
+//    } else {
+//        std::cout << "Not Same shape " << std::endl;
+//    }
+
     // new sample builder
     mp_sample_builder = new TestSampleBuilder();
     ParameterPool *pool = mp_sample_builder->createParameterTree();
@@ -74,7 +101,7 @@ void TestFittingModule2::execute()
     //m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.5, 0.1, AttLimits::limited(0.1, 0.9));
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.2, 0.1, AttLimits::fixed());
 
-    // Applying fit strategy4: fixing/releasing parameters
+    // Applying fit strategy: fixing/releasing parameters
 //    FitSuiteStrategyAdjustParameters *strategy0 = new FitSuiteStrategyAdjustParameters("strategy0");
 //    strategy0->fix_all().release("*SampleBuilder/m_cylinder_ratio");
 //    m_fitSuite->addFitStrategy(strategy0);
@@ -87,13 +114,13 @@ void TestFittingModule2::execute()
 
 
     // Applying fit strategy: resizing real data
-//    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(3));
+    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(3));
 //    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(2));
 //    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(1));
 //    m_fitSuite->addFitStrategy(new FitSuiteStrategyDefault());
 
     // Applying fit strategy: disturning data to get out of local minima
-    m_fitSuite->addFitStrategy(new FitSuiteStrategyBootstrap());
+    //m_fitSuite->addFitStrategy(new FitSuiteStrategyBootstrap());
 
     initializeExperiment();
     generateRealData(0.1);

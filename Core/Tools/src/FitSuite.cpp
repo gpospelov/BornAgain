@@ -100,7 +100,7 @@ void FitSuite::runFit()
 {
     m_is_last_iteration = false;
 
-    // linking fit parameters with parameters defined in experiment
+    // linking fit parameters with parameters defined in the experiment
     link_fit_parameters();
 
     // running minimizer

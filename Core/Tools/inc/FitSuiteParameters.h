@@ -46,6 +46,10 @@ public:
 
     //! set values for all defined parameters
     void setValues(const double *pars_values);
+    void setValues(const std::vector<double > &pars_values);
+
+    //! get values of all defined parameters
+    std::vector<double > getValues() const;
 
     //! return number of parameters
     size_t size() const { return m_parameters.size(); }

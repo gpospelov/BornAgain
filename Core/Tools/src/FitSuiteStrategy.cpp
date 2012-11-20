@@ -29,56 +29,52 @@ void FitSuiteStrategyDefault::execute()
 /* ************************************************************************* */
 void FitSuiteStrategyAdjustData::execute()
 {
-    throw NotImplementedException("FitSuiteStrategyAdjustData::execute() -> Under constructions");
+    // TODO: refactor this all
+    if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyAdjustData::execute() -> FitSuite doesn't exists");
 
-//    if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyAdjustData::execute() -> FitSuite doesn't exists");
+    // if no data rediction was requested, just call FitSuite's minimization
+    if( m_power_of_two == 0 ) {
+        if(m_call_minimize) {
+            m_fit_suite->minimize();
+        }
+        return;
+    }
 
-//    // if no data rediction was requested, just call FitSuite's minimization
-//    if( m_power_of_two == 0 ) {
-//        if(m_call_minimize) {
-//            m_fit_suite->minimize();
-//        }
-//        return;
-//    }
+    // adjusting real data for every experiment defined
+    std::vector<OutputData<double > *> original_data_collection;
+    for(size_t i_exp = 0; i_exp<m_fit_suite->getSuiteKit()->size(); ++i_exp) {
+        // saving original data
+        OutputData<double > *orig_data = m_fit_suite->getSuiteKit()->getRealData()->clone();
+        original_data_collection.push_back(orig_data);
 
-//    // saving original data
-//    OutputData<double > *orig_data = m_fit_suite->getChiSquaredModule()->getRealData()->clone();
-//    // create adjusted data which will have doubled (2,4,8,...) bin size
-//    OutputData<double> *adjusted_data = orig_data;
-//    for(size_t i=0; i<m_power_of_two; ++i) {
-//        OutputData<double> *new_data = doubleBinSize(*adjusted_data);
-//        if(i!=0) {
-//            delete adjusted_data;
-//        }
-//        adjusted_data = new_data;
-//    }
+        // create adjusted data which will have doubled (2,4,8,...) bin size
+        OutputData<double> *adjusted_data = orig_data;
+        for(size_t i=0; i<m_power_of_two; ++i) {
+            OutputData<double> *new_data = doubleBinSize(*adjusted_data);
+            if(i!=0) {
+                delete adjusted_data;
+            }
+            adjusted_data = new_data;
+        }
+        m_fit_suite->getSuiteKit()->setRealData(adjusted_data, i_exp);
+        delete adjusted_data;
+    }
 
-//    // setting all up with new data
-//    m_fit_suite->getSuitKit()->setRealData(*adjusted_data);
-//    const NamedVector<double> *axis0 = reinterpret_cast<const NamedVector<double>*>(adjusted_data->getAxes()[0]);
-//    const NamedVector<double> *axis1 = reinterpret_cast<const NamedVector<double>*>(adjusted_data->getAxes()[1]);
-//    GISASExperiment *experiment = dynamic_cast<GISASExperiment *>(m_fit_suite->getExperiment());
-//    if( !experiment ) {
-//        throw NullPointerException("FitSuiteStrategyAdjustData::execute() -> Error! Can't get GISASExperiment.");
-//    }
-//    experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
+    // calling minimization
+    if(m_call_minimize) {
+        m_fit_suite->getMinimizer()->clear(); // clear minimizer's parameters and error matrixes
+        m_fit_suite->minimize();
+    }
 
-//    // calling minimization
-//    if(m_call_minimize) {
-//        m_fit_suite->getMinimizer()->clear(); // clear minimizer's parameters and error matrixes
-//        m_fit_suite->minimize();
-//    }
+    // setting back original data
+    if(m_preserve_original_data) {
+        std::cout << "FitSuiteStrategyAdjustData::execute() -> Info. Returning original data back " << std::endl;
+        for(size_t i_exp = 0; i_exp<m_fit_suite->getSuiteKit()->size(); ++i_exp) {
+            m_fit_suite->getSuiteKit()->setRealData(original_data_collection[i_exp], i_exp);
+            delete original_data_collection[i_exp];
+        }
+    }
 
-//    // setting back original data
-//    if(m_preserve_original_data) {
-//        m_fit_suite->setRealData(*orig_data);
-//        axis0 = reinterpret_cast<const NamedVector<double>*>(orig_data->getAxes()[0]);
-//        axis1 = reinterpret_cast<const NamedVector<double>*>(orig_data->getAxes()[1]);
-//        experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
-//    }
-
-//    delete orig_data;
-//    delete adjusted_data;
 }
 
 
@@ -88,10 +84,11 @@ void FitSuiteStrategyAdjustData::execute()
 void FitSuiteStrategyAdjustParameters::execute()
 {
     if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
+    FitSuiteParameters *fitParameters = m_fit_suite->getFitParameters();
 
     // fixing all parameters at they current values
     if( m_fix_all ) {
-        for(FitSuiteParameters::iterator it = m_fit_suite->getFitParameters()->begin(); it!=m_fit_suite->getFitParameters()->end(); ++it) {
+        for(FitSuiteParameters::iterator it = fitParameters->begin(); it!=fitParameters->end(); ++it) {
             std::cout << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << (*it)->getName() << std::endl;
             (*it)->setFixed(true);
         }
@@ -99,7 +96,7 @@ void FitSuiteStrategyAdjustParameters::execute()
 
     // releasing all parameters
     if( m_release_all ) {
-        for(FitSuiteParameters::iterator it = m_fit_suite->getFitParameters()->begin(); it!=m_fit_suite->getFitParameters()->end(); ++it) {
+        for(FitSuiteParameters::iterator it = fitParameters->begin(); it!=fitParameters->end(); ++it) {
             std::cout << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it)->getName() << std::endl;
             (*it)->setFixed(false);
         }
@@ -108,29 +105,24 @@ void FitSuiteStrategyAdjustParameters::execute()
     // fixing dedicated list of fit parameters
     for(std::vector<std::string >::iterator it = m_pars_to_fix.begin(); it!= m_pars_to_fix.end(); ++it) {
         std::cout << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << (*it) << std::endl;
-        m_fit_suite->getFitParameter(*it)->setFixed(true);
+        fitParameters->getParameter((*it))->setFixed(true);
     }
 
     // releasing dedicated list of fit parameters
     for(std::vector<std::string >::iterator it = m_pars_to_release.begin(); it!= m_pars_to_release.end(); ++it) {
         std::cout << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it) << std::endl;
-        m_fit_suite->getFitParameter((*it))->setFixed(false);
+        fitParameters->getParameter((*it))->setFixed(false);
     }
 
-
-    std::vector<double > original_param_values;
-    for(FitSuiteParameters::iterator it = m_fit_suite->getFitParameters()->begin(); it!=m_fit_suite->getFitParameters()->end(); ++it) {
-        original_param_values.push_back( (*it)->getValue() );
-    }
+    // saving original param values
+    std::vector<double > original_param_values = fitParameters->getValues();
 
     // calling minimization
     m_fit_suite->minimize();
 
+    // returning parameters to original values as they were before minimization
     if(m_preserve_original_values) {
-        int index(0);
-        for(FitSuiteParameters::iterator it = m_fit_suite->getFitParameters()->begin(); it!=m_fit_suite->getFitParameters()->end(); ++it) {
-            (*it)->setValue(original_param_values[index++]);
-        }
+        fitParameters->setValues(original_param_values);
     }
 }
 
@@ -232,28 +224,6 @@ void FitSuiteStrategyBootstrap::execute()
 
 }
 
-// get current values of all parameters defined in FitSuite
-std::vector<double > FitSuiteStrategyBootstrap::getFitSuiteParameterValues()
-{
-    std::vector<double > param_values;
-    for(FitSuiteParameters::iterator it = m_fit_suite->getFitParameters()->begin(); it!=m_fit_suite->getFitParameters()->end(); ++it) {
-        param_values.push_back( (*it)->getValue() );
-    }
-    return param_values;
-}
-
-// set new values of all parameters in FitSuite
-void FitSuiteStrategyBootstrap::setFitSuiteParameterValues(const std::vector<double > &parvalues)
-{
-    FitSuiteParameters *fitpars = m_fit_suite->getFitParameters();
-    if(parvalues.size() != fitpars->size()) {
-        throw LogicErrorException("FitSuiteStrategyBootstrap::setFitSuiteParameterValues() -> Number of parameters in FitSuite doesn't coincide with request");
-    }
-    int index(0);
-    for(FitSuiteParameters::iterator it = fitpars->begin(); it!=fitpars->end(); ++it) {
-        (*it)->setValue(parvalues[index++]);
-    }
-}
 
 // generate noisy data
 OutputData<double> *FitSuiteStrategyBootstrap::generateNoisyData(double noise_factor, const OutputData<double> &source)

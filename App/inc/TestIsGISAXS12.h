@@ -18,9 +18,10 @@
 #include "OutputData.h"
 #include "ISample.h"
 #include "ISampleBuilder.h"
-#include "GISASExperiment.h"
-
 #include <string>
+
+class GISASExperiment;
+class FitSuite;
 
 //- -------------------------------------------------------------------
 //! @class TestIsGISAXS12
@@ -82,13 +83,32 @@ private:
         double getFixedAngle() { return (fixed_phif ? isgiDataVector.at(0).phif : isgiDataVector.at(0).alphaf); }
     };
 
+    //! initialize experiment
+    void initialiseExperiment();
+
+    //! run standard isgisaxs comparison for the sample of that kind
+    void run_isgisaxs_comparison();
+
+    //! run test fit
+    void run_test_fit();
+
+    //! run isgisaxs ex-12 style fit
+    void run_isgisaxs_fit();
+
+    //! generate test real data
+    OutputData<double > *createNoisyData(const OutputData<double> &exact_data, double noise_factor = 0.1);
+
     //!  read special isgisaxs *.dat file with data to fit
     void read_isgisaxs_datfile(const std::string &filename);
+
 
     std::string m_data_path;
     //! represent content of isgisaxs *.dat file (in given ex-12 case, two scans - one with fixed alpha_f and another with fixed phi_f, which called in isgisaxs "2theta_f")
     std::vector<IsgiScan > m_isgiCrossSections;
     GISASExperiment *m_experiment;
+    ISampleBuilder *m_sample_builder;
+    FitSuite *m_fitSuite;
+
 };
 
 

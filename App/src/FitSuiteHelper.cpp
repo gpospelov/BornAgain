@@ -27,30 +27,31 @@ void FitSuiteObserverPrint::update(IObservable *subject)
     FitSuite *fitSuite = dynamic_cast<FitSuite *>(subject);
     if( !fitSuite ) throw NullPointerException("FitSuiteObserverPrint::update() -> Error! Can't cast FitSuite");
 
-    // printing parameter values
-    std::cout << "FitSuiteObserverPrint::update() -> Info."
-              << " NumberOfVariables:" << fitSuite->getMinimizer()->getNumberOfVariables()
-              << " NCall:" << fitSuite->getNCall()
-              << " NStrategy:" << fitSuite->getNStrategy()
-              << " Chi2:" << std::scientific << std::setprecision(8) << fitSuite->getSuiteKit()->getChiSquaredModule()->getValue() << std::endl;
-    timeval call_time;
-    gettimeofday(&call_time, 0);
-    clock_t call_clock = clock();
-    double timediff = (call_time.tv_sec - m_last_call_time.tv_sec) + double(call_time.tv_usec - m_last_call_time.tv_usec)/1e+06;
-    std::cout << "Time spend since last call, cpu:" << std::fixed << std::setprecision(2) << double(call_clock-m_last_call_clock)/CLOCKS_PER_SEC << " " << "sec, wall time " << timediff << "sec" << std::endl;
-    m_last_call_clock = call_clock;
-    m_last_call_time = call_time;
-
-    int npar(0);
-    for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it, ++npar) {
-        std::cout << "   # "<< npar << " " << (*(*it)) << std::endl;
-    }
-
     if(fitSuite->isLastIteration()) {
         std::cout << std::endl;
         std::cout << "FitSuiteObserverPrint::update() -> Info. Printing results" << std::endl;
         fitSuite->getMinimizer()->printResults();
+    } else {
+        // printing parameter values
+        std::cout << "FitSuiteObserverPrint::update() -> Info."
+                  << " NumberOfVariables:" << fitSuite->getMinimizer()->getNumberOfVariables()
+                  << " NCall:" << fitSuite->getNCall()
+                << " NStrategy:" << fitSuite->getNStrategy()
+                 << " Chi2:" << std::scientific << std::setprecision(8) << fitSuite->getSuiteKit()->getChiSquaredModule()->getValue() << std::endl;
+        timeval call_time;
+        gettimeofday(&call_time, 0);
+        clock_t call_clock = clock();
+        double timediff = (call_time.tv_sec - m_last_call_time.tv_sec) + double(call_time.tv_usec - m_last_call_time.tv_usec)/1e+06;
+        std::cout << "Time spend since last call, cpu:" << std::fixed << std::setprecision(2) << double(call_clock-m_last_call_clock)/CLOCKS_PER_SEC << " " << "sec, wall time " << timediff << "sec" << std::endl;
+        m_last_call_clock = call_clock;
+        m_last_call_time = call_time;
+
+        int npar(0);
+        for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it, ++npar) {
+            std::cout << "   # "<< npar << " " << (*(*it)) << std::endl;
+        }
     }
+
 }
 
 
@@ -62,7 +63,8 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     FitSuite *fitSuite = dynamic_cast<FitSuite *>(subject);
     if( !fitSuite ) throw NullPointerException("FitSuiteObserverDraw::update() -> Error! Can't cast FitSuite");
 
-    if( !fitSuite->isLastIteration() && (fitSuite->getNCall() % m_draw_every_nth != 0) ) return;
+    if( fitSuite->isLastIteration()) return;
+    if( (fitSuite->getNCall() % m_draw_every_nth != 0) && fitSuite->getNCall()!=0) return;
 
     TCanvas *c1 = dynamic_cast<TCanvas *>( gROOT->FindObject(m_canvas_name.c_str()) );
     if(!c1) {
@@ -94,6 +96,12 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     IsGISAXSTools::drawOutputDataInPad(*diff_map_relative, "COLZ", "relative difference map");
     delete diff_map_relative;
 
+    std::cout << "FitSuiteObserverDraw::update() -> debug " << std::endl;
+    const OutputData<double > *real = fitSuite->getSuiteKit()->getRealData();
+    const OutputData<double > *simul = fitSuite->getSuiteKit()->getSimulatedData();
+    std::cout << " real: " << real->getAllocatedSize() << " " << real->getNdimensions() << " "  << std::endl;
+    std::cout << " real: " << simul->getAllocatedSize() << " " << simul->getNdimensions() << " "  << std::endl;
+
     // chi2 difference
     c1->cd(4);
     gPad->SetLogz();
@@ -121,35 +129,6 @@ void FitSuiteObserverDraw::update(IObservable *subject)
         m_ptext->AddText(ostr.str().c_str());
     }
     m_ptext->Draw();
-
-    if(fitSuite->isLastIteration()) {
-//        TCanvas *c2 = new TCanvas("FitSuiteObserverDraw_c2", "FitSuiteObserverDraw_c2", 1024, 768);
-//        c2->Divide(2,2);
-//        ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();
-//        if(!minim) {
-//            throw NullPointerException("FitSuiteObserverDraw::update() -> Can't get right minimizer from FitSuite");
-//        }
-//        int npad=1;
-//        for(unsigned int i=0; i<minim->NDim(); ++i) {
-//            for(unsigned int j=0; j<i; ++j) {
-//                if(i != j) {
-//                    c2->cd(npad++);
-//                    unsigned int np=50;
-//                    std::vector<double> x;
-//                    std::vector<double> y;
-//                    x.resize(np, 0);
-//                    y.resize(np, 0);
-//                    minim->Contour(i,j, np,&x[0], &y[0]);
-//                    x.push_back(x.front());
-//                    y.push_back(y.front());
-//                    TGraph *gr = new TGraph(np+1, &x[0], &y[0]);
-//                    gr->Draw("apl");
-//                }
-//            }
-//        }
-//        std::cout << "Last iteration " << std::endl;
-    }
-
 
 }
 

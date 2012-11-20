@@ -17,6 +17,7 @@
 
 #include <string>
 
+class TH1;
 class TH2D;
 
 //- -------------------------------------------------------------------
@@ -25,6 +26,12 @@ class TH2D;
 //- -------------------------------------------------------------------
 class IsGISAXSTools {
 public:
+    struct AxisStructure {
+        int nbins;
+        std::vector<double> xbins;
+        std::string name;
+    };
+
     //! draw 2D histogram representing logarithm of OutputData (in new canvas)
     static void drawLogOutputData(const OutputData<double> &output, const std::string &canvas_name,
             const std::string &canvas_title, const std::string &draw_options,
@@ -83,8 +90,14 @@ public:
                                             , std::vector<std::vector<double > > &v_axis0
                                             , std::vector<std::vector<double > > &v_axis1);
 
-    //! create TH2D from OutputData
+    //! create two-dimensional TH2D from OutputData
     static TH2D *getOutputDataTH2D(const OutputData<double>& output, const std::string &histo_name);
+
+    //! create one, thwo, three-dimensional histograms from OutputData
+    static TH1 *getOutputDataTH123D(const OutputData<double>& output, const std::string &histo_name);
+
+    //! slice 2D output data into 1D having fixed axes value on one of the axes
+    static OutputData<double> *sliceOutputData(const OutputData<double > &data, const std::string &fixed_axes, double fixed_axis_value);
 
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

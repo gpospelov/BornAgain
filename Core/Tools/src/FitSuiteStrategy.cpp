@@ -27,9 +27,9 @@ void FitSuiteStrategyDefault::execute()
 /* ************************************************************************* */
 // adjust (rebin) data before running fit suite minimization round
 /* ************************************************************************* */
+// TODO: refactor this all
 void FitSuiteStrategyAdjustData::execute()
 {
-    // TODO: refactor this all
     if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyAdjustData::execute() -> FitSuite doesn't exists");
 
     // if no data rediction was requested, just call FitSuite's minimization

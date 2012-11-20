@@ -474,7 +474,7 @@ bool OutputData<T>::hasSameShape(const OutputData<T> &right) const
 {
     if(!hasSameDimensions(right)) return false;
 
-    // TODO: move check of consistency between dimensions of LLData and NamedVector into UNIT test
+    // TODO: move check of consistency between dimensions of LLData and NamedVector into UNIT test, if it's not there
     if( (mp_ll_data->getRank() != m_value_axes.size()) || (right.mp_ll_data->getRank() != right.m_value_axes.size()) ) {
         throw LogicErrorException("OutputData<T>::hasSameShape() -> Panic! Inconsistent dimensions in LLData and axes");
     }

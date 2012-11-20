@@ -83,7 +83,6 @@ void GISASExperiment::runSimulation()
         }
 
     }
-    std::cout << "OOO " << getOutputData()->getNdimensions() << " " << getOutputData()->getAllocatedSize() << std::endl;
     m_detector.applyDetectorResolution(&m_intensity_map);
 }
 

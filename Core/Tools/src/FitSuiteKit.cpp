@@ -12,6 +12,9 @@ FitSuiteKit::KitItem::KitItem(Experiment *experiment, const OutputData<double > 
     , m_real_data(0)
     , m_chi2_module(0)
 {
+    if(!m_experiment) {
+        throw LogicErrorException("FitSuiteKit::KitItem::KitItem -> Error! Experiment can't be 0");
+    }
     if(real_data) m_real_data = real_data->clone();
     if(chi2_module) {
         m_chi2_module = chi2_module->clone();

@@ -70,6 +70,7 @@ void FitSuite::link_fit_parameters()
 {
     // loop over all experiments defined
     for(size_t i_exp = 0; i_exp<m_suite_kit.size(); ++i_exp) {
+        std::cout << "XXX 1.1" << i_exp << std::endl;
         m_fit_parameters.link_to_experiment(m_suite_kit.getExperiment(i_exp));
     }
 }
@@ -87,6 +88,7 @@ void FitSuite::minimize()
     for(size_t i_par = 0; i_par<m_fit_parameters.size(); i_par++) {
         m_minimizer->setVariable(i_par, m_fit_parameters[i_par] );
     }
+    if( m_fit_parameters.size() != m_minimizer->getNumberOfVariables())  std::cout << "FitSuite::minimize() -> Warning. Something unexpected" << std::endl;
 
     // minimizing
     m_minimizer->minimize();
@@ -96,8 +98,23 @@ void FitSuite::minimize()
 /* ************************************************************************* */
 // run fit
 /* ************************************************************************* */
+bool FitSuite::check_prerequisites()
+{
+    if( !m_minimizer ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No minimizer found.");
+    if( !m_suite_kit.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No experiment defined");
+    if( !m_fit_parameters.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No fit parameters defined");
+    return true;
+}
+
+
+/* ************************************************************************* */
+// run fit
+/* ************************************************************************* */
 void FitSuite::runFit()
 {
+    // check if all prerequisites are fullfilled before starting minimization
+    check_prerequisites();
+
     m_is_last_iteration = false;
 
     // linking fit parameters with parameters defined in the experiment

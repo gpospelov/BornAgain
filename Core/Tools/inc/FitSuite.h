@@ -92,6 +92,9 @@ private:
     FitSuite &operator=(const FitSuite &);
     FitSuite(const FitSuite &);
 
+    //! check if all prerequisites to run fit fit are filled
+    bool check_prerequisites();
+
     FitSuiteKit m_suite_kit; //! kit which contains pairs of <experiment,real_data> to fit
     FitSuiteParameters m_fit_parameters; //! collection of fit parameters
     fitstrategies_t m_fit_strategies; //! collection of strategies which are executed before every minimization round

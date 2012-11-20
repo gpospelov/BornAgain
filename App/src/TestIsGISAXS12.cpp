@@ -17,6 +17,11 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "GISASExperiment.h"
 #include "DrawHelper.h"
+#include "FitSuite.h"
+#include "FitSuiteHelper.h"
+#include "ResolutionFunction2DSimple.h"
+#include "MathFunctions.h"
+#include "ROOTMinimizer.h"
 
 #include <iostream>
 #include <fstream>
@@ -30,7 +35,10 @@
 
 
 
-TestIsGISAXS12::TestIsGISAXS12() : IFunctionalTest("TestIsGISAXS12"), m_experiment(0)
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
+TestIsGISAXS12::TestIsGISAXS12() : IFunctionalTest("TestIsGISAXS12"), m_experiment(0), m_sample_builder(0), m_fitSuite(0)
 {
     std::cout << "TestIsGISAXS12::TestIsGISAXS12() -> Info" << std::endl;
     m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-12/");
@@ -40,35 +48,48 @@ TestIsGISAXS12::TestIsGISAXS12() : IFunctionalTest("TestIsGISAXS12"), m_experime
 TestIsGISAXS12::~TestIsGISAXS12()
 {
     delete m_experiment;
+    delete m_sample_builder;
+    delete m_fitSuite;
 }
 
 
+/* ************************************************************************* */
+// execute
+/* ************************************************************************* */
 void TestIsGISAXS12::execute()
 {
-    read_isgisaxs_datfile(m_data_path+"isgi_fitconstraints.dat");
+    // initializing experiment and sample builder
+    initialiseExperiment();
 
-    m_experiment = new GISASExperiment(mp_options);
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    // run standard isgisaxs comparison for the sample we have
+    //run_isgisaxs_comparison();
 
-    TestSampleBuilder builder;
+    // run test of our style fit
+    //run_test_fit();
 
-    // run simulation for default sample parameters
-    m_experiment->setSampleBuilder(&builder);
-    m_experiment->runSimulation();
+    // run isgisaxs ex-12 style fit
+    run_isgisaxs_fit();
 
-
-    IsGISAXSTools::writeOutputDataToFile(*(m_experiment->getOutputData()), m_data_path+"this_fitconstraints.ima");
 }
 
 
-void TestIsGISAXS12::finalise()
+
+/* ************************************************************************* */
+// standard ixgisaxs comparison
+/* ************************************************************************* */
+void TestIsGISAXS12::run_isgisaxs_comparison()
 {
-    // ---------------------------------------
+    // run simulation for default sample parameters
+    m_experiment->runSimulation();
+    IsGISAXSTools::writeOutputDataToFile(*(m_experiment->getOutputData()), m_data_path+"this_fitconstraints.ima");
+
     // plotting results of comparison we/isgisaxs for the sample with default parameters
     std::string isgi_file(m_data_path+"isgi_fitconstraints.ima");
     std::string this_file(m_data_path+"this_fitconstraints.ima");
 
+    // -------------
+    // plot results
+    // -------------
     OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_file);
     OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_file);
 
@@ -100,6 +121,83 @@ void TestIsGISAXS12::finalise()
     delete isgi_data;
     delete our_data;
 
+}
+
+
+/* ************************************************************************* */
+// run test fitting
+/* ************************************************************************* */
+void TestIsGISAXS12::run_test_fit()
+{
+    m_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
+    m_experiment->setBeamIntensity(1e10);
+    m_experiment->runSimulation();
+    m_experiment->normalize();
+    OutputData<double > *test_real_data = createNoisyData( *m_experiment->getOutputData() );
+
+    // creating fit suite
+    m_fitSuite = new FitSuite();
+    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+
+    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+
+    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
+    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
+
+    m_fitSuite->addExperimentAndRealData(m_experiment, test_real_data);
+
+    m_fitSuite->runFit();
+
+    delete test_real_data;
+}
+
+
+/* ************************************************************************* */
+// run isgisaxs ex-12 style fit
+/* ************************************************************************* */
+void TestIsGISAXS12::run_isgisaxs_fit()
+{
+    //    read_isgisaxs_datfile(m_data_path+"isgi_fitconstraints.dat");
+
+    // run simulation for default sample parameters
+    m_experiment->runSimulation();
+
+    TCanvas *c2 = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS12_c2", "ex-12: Mixture of cylindrical particles with different size distribution");
+
+    c2->Divide(2,2);
+
+    IsGISAXSTools::setMinimum(1.);
+    // our calculations
+    c2->cd(1); gPad->SetLogz();
+    TH2D *hist1 = dynamic_cast<TH2D* >(IsGISAXSTools::getOutputDataTH123D(*m_experiment->getOutputData(), "hist1"));
+    hist1->SetMinimum(1.0);
+    hist1->Draw("CONT4 Z");
+
+    OutputData<double > *sliced_data = IsGISAXSTools::sliceOutputData(*m_experiment->getOutputData(), "phi_f", 0.01);
+    std::cout << "XXX " << sliced_data->getAllocatedSize() << std::endl;
+    c2->cd(2);
+    TH1D *hist2 = dynamic_cast<TH1D* >(IsGISAXSTools::getOutputDataTH123D(*sliced_data, "hist2"));
+    hist2->SetMinimum(1.0);
+    hist2->Draw();
+
+}
+
+
+
+/* ************************************************************************* */
+//
+/* ************************************************************************* */
+void TestIsGISAXS12::finalise()
+{
+    return;
     // ----------------------------------------------------------
     // plotting isgisaxs "experimental data" together with projections of our output_data for default sample parameters
     TCanvas *c2 = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS12_c2", "ex-12: experimental data to fit");
@@ -173,6 +271,43 @@ void TestIsGISAXS12::finalise()
 
 
 
+}
+
+
+/* ************************************************************************* */
+// initialize experiment
+/* ************************************************************************* */
+void TestIsGISAXS12::initialiseExperiment()
+{
+    delete m_sample_builder;
+    m_sample_builder = new TestSampleBuilder();
+    delete m_experiment;
+    m_experiment = new GISASExperiment(mp_options);
+    m_experiment->setSampleBuilder(m_sample_builder);
+    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    // no resolution function defined yet, since we want to run comparison with isgisaxs fitst
+}
+
+
+/* ************************************************************************* */
+// add noise to data
+/* ************************************************************************* */
+OutputData<double > *TestIsGISAXS12::createNoisyData(const OutputData<double> &exact_data, double noise_factor)
+{
+    OutputData<double > *real_data = exact_data.clone();
+
+    OutputData<double>::iterator it = real_data->begin();
+    while (it != real_data->end()) {
+        double current = *it;
+        double sigma = noise_factor*std::sqrt(current);
+        double random = MathFunctions::GenerateNormalRandom(current, sigma);
+        if (random<0.0) random = 0.0;
+        *it = random;
+        ++it;
+    }
+
+    return real_data;
 }
 
 

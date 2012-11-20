@@ -3,7 +3,9 @@
 #include "Exceptions.h"
 
 #include "TCanvas.h"
+#include "TH1.h"
 #include "TH2.h"
+#include "TH3.h"
 #include "TStyle.h"
 
 #include <iostream>
@@ -48,7 +50,7 @@ void IsGISAXSTools::drawOutputData(const OutputData<double>& output,
 }
 
 /* ************************************************************************* */
-// draw 2D histogram representing OutputData (in current gPad)
+// draw 1D or 2D histograms representing OutputData (in current gPad)
 /* ************************************************************************* */
 void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         const std::string& draw_options, const std::string &histogram_title)
@@ -57,65 +59,20 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         throw NullPointerException("IsGISAXSTools::drawOutputDataInPad() -> Error! No canvas exists.");
     }
 
-//    if (output.getDimension() != 2) return;
-
-//    // creation of 2D histogram from calculated intensities
-//    output.resetIndex();
-//    const NamedVector<double> *p_y_axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[0]);
-//    const NamedVector<double> *p_z_axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[1]);
-//    std::string y_axis_name = p_y_axis->getName();
-//    std::string z_axis_name = p_z_axis->getName();
-//    size_t y_size = p_y_axis->getSize();
-//    size_t z_size = p_z_axis->getSize();
-//    double y_start = (*p_y_axis)[0]/Units::degree;
-//    double y_end = (*p_y_axis)[y_size-1]/Units::degree;
-//    double z_start = (*p_z_axis)[0]/Units::degree;
-//    double z_end = (*p_z_axis)[z_size-1]/Units::degree;
-//    std::string histo_name = histogram_title;
-//    if (histo_name.empty()) {
-//        histo_name = gPad->GetTitle();
-//    }
-//    TH2D p_hist2D("p_hist2D", histo_name.c_str(), y_size, y_start, y_end, z_size, z_start, z_end);
-//    //p_hist2D->UseCurrentStyle();
-//    p_hist2D.GetXaxis()->SetTitle(y_axis_name.c_str());
-//    p_hist2D.GetYaxis()->SetTitle(z_axis_name.c_str());
-
-//    while (output.hasNext())
-//    {
-//        size_t index_y = output.getCurrentIndexOfAxis(y_axis_name.c_str());
-//        size_t index_z = output.getCurrentIndexOfAxis(z_axis_name.c_str());
-//        //std::cout << "!!! " << index_y << " " << index_z << std::endl;
-//        double x_value = (*p_y_axis)[index_y]/Units::degree;
-//        double y_value = (*p_z_axis)[index_z]/Units::degree;
-//        double z_value = output.next();
-//        p_hist2D.Fill(x_value, y_value, z_value);
-//    }
-//    p_hist2D.SetContour(50);
-//    p_hist2D.SetStats(0);
-//    p_hist2D.GetYaxis()->SetTitleOffset(1.3);
-
-//    gStyle->SetPalette(1);
-//    gStyle->SetOptStat(0);
-////    gPad->SetLogz();
-//    gPad->SetRightMargin(0.115);
-//    gPad->SetLeftMargin(0.115);
-//    if( hasMinimum() ) p_hist2D.SetMinimum(m_hist_min);
-//    if( hasMaximum() ) p_hist2D.SetMaximum(m_hist_max);
-
-//    p_hist2D.DrawCopy(draw_options.c_str());
-//    //delete p_output;
-
-    TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(output, "p_hist2D");
-    h2->SetContour(99);
+    TH1 *hist(0);
+    if(output.getNdimensions() == 2 ) {
+        hist = IsGISAXSTools::getOutputDataTH2D(output, "p_hist1D");
+    } else {
+        hist = IsGISAXSTools::getOutputDataTH123D(output, "p_hist1D");
+    }
+    hist->SetContour(99);
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
-//    gPad->SetRightMargin(0.115);
-//    gPad->SetLeftMargin(0.115);
-    if( hasMinimum() ) h2->SetMinimum(m_hist_min);
-    if( hasMaximum() ) h2->SetMaximum(m_hist_max);
-    h2->SetTitle(histogram_title.c_str());
-    h2->DrawCopy(draw_options.c_str());
-    delete h2;
+    if( hasMinimum() ) hist->SetMinimum(m_hist_min);
+    if( hasMaximum() ) hist->SetMaximum(m_hist_max);
+    hist->SetTitle(histogram_title.c_str());
+    hist->DrawCopy(draw_options.c_str());
+    delete hist;
 }
 
 
@@ -176,6 +133,86 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
     gStyle->SetOptStat(0);
     return h2;
 }
+
+
+
+/* ************************************************************************* */
+// create TH1D, TH2D or TH3D from OutputData
+/* ************************************************************************* */
+TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const std::string &histo_name)
+{
+    if (output.getNdimensions() >3) {
+        std::cout << "IsGISAXSTools::getOutputDataTH123D() -> Warning! Expected number of dimensions should be not more than 3" << std::endl;
+        return 0;
+    }
+
+    std::vector<AxisStructure > haxises;
+    haxises.resize(output.getNdimensions());
+
+    // we assume variable bin size and prepare [nbins+1] array of low edges of each bin
+    for(size_t i_axis=0; i_axis<output.getNdimensions(); ++i_axis) {
+        const NamedVector<double> *axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[i_axis]);
+        double dx(0);
+        haxises[i_axis].nbins = axis->getSize();
+        haxises[i_axis].name = axis->getName();
+        for(size_t i_bin=0; i_bin<axis->getSize(); ++i_bin) {
+            if(i_bin == 0) {
+                dx = (*axis)[1]-(*axis)[0];
+            } else {
+                dx = (*axis)[i_bin] - (*axis)[i_bin-1];
+            }
+            haxises[i_axis].xbins.push_back( (*axis)[i_bin] - dx/2.);
+        }
+        haxises[i_axis].xbins.push_back((*axis)[axis->getSize()-1] + dx/2.); // right bin edge of last bin, so for 100 bins size of vector will be 101
+    }
+
+//    for(size_t i_axis=0; i_axis<2; ++i_axis) {
+//        std::cout << "axis " << i_axis << " size:" << histo_axises[i_axis].size() << std::endl;
+//        for(size_t i_bin=0; i_bin<histo_axises[i_axis].size(); ++i_bin) {
+//            std::cout << histo_axises[i_axis][i_bin] << " ";
+//        }
+//        std::cout << std::endl;
+//    }
+
+    // creation of 2D histogram with variable bin size
+    TH1 *hist;
+    if(output.getNdimensions() == 1) {
+        hist = new TH1D(histo_name.c_str(), histo_name.c_str(), haxises[0].nbins, &haxises[0].xbins[0]);
+        hist->GetXaxis()->SetTitle( haxises[0].name.c_str() );
+    } else if(output.getNdimensions() == 2) {
+        hist = new TH2D(histo_name.c_str(), histo_name.c_str(), haxises[0].nbins, &haxises[0].xbins[0], haxises[1].nbins, &haxises[1].xbins[0]);
+        hist->GetXaxis()->SetTitle( haxises[0].name.c_str() );
+        hist->GetYaxis()->SetTitle( haxises[1].name.c_str() );
+    } else if(output.getNdimensions() == 3) {
+        hist = new TH3D(histo_name.c_str(), histo_name.c_str(), haxises[0].nbins, &haxises[0].xbins[0], haxises[1].nbins, &haxises[1].xbins[0], haxises[1].nbins, &haxises[1].xbins[0]);
+        hist->GetXaxis()->SetTitle( haxises[0].name.c_str() );
+        hist->GetYaxis()->SetTitle( haxises[1].name.c_str() );
+        hist->GetZaxis()->SetTitle( haxises[2].name.c_str() );
+    } else {
+        throw LogicErrorException("IsGISAXSTools::getOutputDataTH123D() -> Warning! Wrong number of dimensions.");
+    }
+
+    OutputData<double>::const_iterator it = output.begin();
+    while (it != output.end())
+    {
+        std::vector<double > xyz;
+        for(size_t i_axis=0; i_axis<haxises.size(); ++i_axis) {
+            xyz.push_back(output.getValueOfAxis<double>( haxises[i_axis].name, it.getIndex() ) );
+        }
+        double value = *it++;
+        if(output.getNdimensions() == 1) dynamic_cast<TH1D *>(hist)->Fill(xyz[0], value);
+        if(output.getNdimensions() == 2) dynamic_cast<TH2D *>(hist)->Fill(xyz[0], xyz[1], value);
+        if(output.getNdimensions() == 3) dynamic_cast<TH3D *>(hist)->Fill(xyz[0], xyz[1], xyz[2], value);
+    }
+    hist->SetContour(50);
+    hist->SetStats(0);
+    hist->GetYaxis()->SetTitleOffset(1.1);
+
+    gStyle->SetPalette(1);
+    gStyle->SetOptStat(0);
+    return hist;
+}
+
 
 
 /* ************************************************************************* */
@@ -444,6 +481,65 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
         v_axis1[axis0_index][axis1_index] = axis1_value;
     }
 
+}
+
+
+// TODO re-implement sliceOutputData 1) using iterators 2) as a projection along of one axis having x1,x2 range defined for another axes 3) have sum (or sum averaged) within this [x1,x2] range
+// TODO implement creation of OutputData as a subset of bigger OutputData using [alphamin, alphamax][phimin,phimax] window
+/* ************************************************************************* */
+// slice 2D output data into 1D having fixed axes value on one of the axes
+/* ************************************************************************* */
+OutputData<double> *IsGISAXSTools::sliceOutputData(const OutputData<double > &data, const std::string &fixed_axis_name, double fixed_axis_value)
+{
+    if (data.getNdimensions() != 2) {
+        throw LogicErrorException("IsGISAXSTools::sliceOutputData() -> Error. Number of dimensions should be 2");
+    }
+    if( !data.getAxis(fixed_axis_name) ) {
+        throw LogicErrorException("IsGISAXSTools::sliceOutputData() -> Error. No axis with name "+fixed_axis_name);
+    }
+
+    OutputData<double > *sliced_data = new OutputData<double >;
+
+    const NamedVector<double> *fixed_axis(0);
+    int fixed_axis_index(-1);
+    for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
+        const NamedVector<double> *axis = dynamic_cast<const NamedVector<double>*>(data.getAxes()[i_axis]);
+        if( axis->getName() != fixed_axis_name ) {
+            sliced_data->addAxis(axis->clone());
+        } else {
+            fixed_axis = axis;
+            fixed_axis_index = i_axis;
+        }
+    }
+
+    // finding bin number on fixed_axis which is closest to fixed_axis_value
+    std::vector<double > buff;
+    buff.resize(fixed_axis->getSize(), 0);
+    for(size_t i=0; i<fixed_axis->getSize(); ++i) {
+        buff[i]= (*fixed_axis)[i];
+    }
+    std::vector<double >::iterator before = std::lower_bound(buff.begin(), buff.end(), fixed_axis_value);
+    int nbin(0);
+    if(before == buff.end() ) --before;
+    if(before == buff.begin() ) ++before;
+    std::vector<double >::iterator after = before;
+    --before;
+    ( *after-fixed_axis_value) < (fixed_axis_value - *before) ? nbin = std::distance(buff.begin(), after) : nbin = std::distance(buff.begin(), before);
+
+    // filling sliced data structure
+    OutputData<double>::const_iterator it_data = data.begin();
+    OutputData<double>::iterator it_sliced = sliced_data->begin();
+    while (it_data != data.end())
+    {
+        size_t fixed_axis_nbin = data.toCoordinates(it_data.getIndex())[fixed_axis_index];
+        if((int)fixed_axis_nbin == nbin) {
+            *it_sliced = *it_data;
+            ++it_sliced;
+        }
+        ++it_data;
+    }
+
+    return sliced_data;
 }
 
 

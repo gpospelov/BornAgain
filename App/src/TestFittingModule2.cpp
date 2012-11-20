@@ -115,9 +115,9 @@ void TestFittingModule2::execute()
 
     // Applying fit strategy: resizing real data
     m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(3));
-//    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(2));
-//    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(1));
-//    m_fitSuite->addFitStrategy(new FitSuiteStrategyDefault());
+    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(2));
+    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(1));
+    m_fitSuite->addFitStrategy(new FitSuiteStrategyDefault());
 
     // Applying fit strategy: disturning data to get out of local minima
     //m_fitSuite->addFitStrategy(new FitSuiteStrategyBootstrap());

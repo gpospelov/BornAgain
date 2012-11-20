@@ -39,6 +39,8 @@ void GISASExperiment::runSimulation()
     }
 
     m_intensity_map.setAllTo(0.0);
+//    MaskCoordinates circle_mask;
+//    m_intensity_map.addMask(circle_mask);
     if(n_threads_total<0) {
         DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
         if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
@@ -84,8 +86,8 @@ void GISASExperiment::runSimulation()
             delete simulations[i];
             delete threads[i];
         }
-
     }
+//    m_intensity_map.removeAllMasks();
     m_detector.applyDetectorResolution(&m_intensity_map);
 }
 

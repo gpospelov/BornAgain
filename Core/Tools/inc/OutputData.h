@@ -61,6 +61,13 @@ public:
         return 0;
     }
 
+    //! return total size of data buffer (product of bin number in every dimension)
+    //!
+    //! copy of getAllocatedSize() for use in OutputDataIterator
+    size_t size() const {
+        return getAllocatedSize();
+    }
+
     //! return all sizes of its axes
     std::vector<size_t> getAllSizes() const;
 

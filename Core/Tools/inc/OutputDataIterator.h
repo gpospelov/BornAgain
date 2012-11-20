@@ -154,7 +154,7 @@ template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer> 
         m_current_index = mp_mask->getNextIndex(m_current_index);
     }
     else {
-        if (m_current_index<mp_output_data->getAllocatedSize()) {
+        if (m_current_index<mp_output_data->size()) {
             ++m_current_index;
         }
     }
@@ -184,7 +184,7 @@ template<class TValue, class TContainer> void OutputDataIterator<TValue, TContai
     if (mp_mask != &mask) {
         delete mp_mask;
         mp_mask = mask.clone();
-        mp_mask->setMaxIndex(mp_output_data->getAllocatedSize());
+        mp_mask->setMaxIndex(mp_output_data->size());
     }
     m_current_index = mp_mask->getFirstValidIndex();
 }
@@ -197,7 +197,7 @@ template<class TValue, class TContainer> void OutputDataIterator<TValue, TContai
     Mask *p_old_mask = getMask();
     mp_mask = mask.clone();
     mp_mask->mp_submask = p_old_mask;
-    mp_mask->setMaxIndex(mp_output_data->getAllocatedSize());
+    mp_mask->setMaxIndex(mp_output_data->size());
     m_current_index = mp_mask->getFirstValidIndex();
 }
 

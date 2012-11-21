@@ -15,7 +15,16 @@ FitSuiteKit::KitItem::KitItem(Experiment *experiment, const OutputData<double > 
     if(!m_experiment) {
         throw LogicErrorException("FitSuiteKit::KitItem::KitItem -> Error! Experiment can't be 0");
     }
-    if(real_data) m_real_data = real_data->clone();
+    if(real_data) {
+        m_real_data = real_data->clone();
+        if( !m_real_data->hasSameShape(*m_experiment->getOutputData()) ) {
+            std::cout << "FitSuiteKit::KitItem::KitItem() -> Real data and the detector have different shape. Adjusting detector..." << std::endl;
+        } else {
+            std::cout << "FitSuiteKit::KitItem::KitItem() -> Real data and the detector have same shape. No nedd to adjust detector." << std::endl;
+        }
+        m_experiment->setDetectorParameters(*m_real_data);
+
+    }
     if(chi2_module) {
         m_chi2_module = chi2_module->clone();
     } else {

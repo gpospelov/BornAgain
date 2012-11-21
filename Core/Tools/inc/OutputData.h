@@ -169,13 +169,13 @@ private:
     //! accessor for iterators
     T &operator[](size_t index) {
         if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("Low-level data objects was not yet initialized");
+        throw ClassInitializationException("OutputData::operator[] -> Error! Low-level data objects was not yet initialized");
     }
 
     //! constant accessor for iterators
     const T &operator[](size_t index) const {
         if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("Low-level data objects was not yet initialized");
+        throw ClassInitializationException("OutputData::operator[] -> Error! Low-level data objects was not yet initialized");
     }
 
     std::vector<NamedVectorBase*> m_value_axes;
@@ -320,7 +320,7 @@ template<class T> std::vector<int> OutputData<T>::toCoordinates(size_t index) co
 template <class T> size_t OutputData<T>::toIndex(std::vector<int> coordinates) const
 {
     if (coordinates.size() != mp_ll_data->getRank()) {
-        throw LogicErrorException("Number of coordinates must match rank of data structure");
+        throw LogicErrorException("size_t OutputData<T>::toIndex() -> Error! Number of coordinates must match rank of data structure");
     }
     size_t result = 0;
     int step_size = 1;
@@ -342,7 +342,7 @@ template <class T> size_t OutputData<T>::getIndexOfAxis(std::string axis_name, s
             return coordinates[i];
         }
     }
-    throw LogicErrorException("Axis with given name not found");
+    throw LogicErrorException("OutputData<T>::getIndexOfAxis() -> Error! Axis with given name not found '"+axis_name+std::string("'"));
 }
 
 
@@ -361,7 +361,7 @@ template<class U> U OutputData<T>::getValueOfAxis(std::string axis_name, size_t 
         }
     }
     if (p_derived == 0) {
-        throw LogicErrorException("Axis with given name not found");
+        throw LogicErrorException("OutputData<T>::getValueOfAxis() -> Error! Axis with given name not found '"+axis_name+std::string("'"));
     }
     return (*p_derived)[coordinates[axis_index]];
 }
@@ -445,7 +445,7 @@ template <class T> void OutputData<T>::allocate()
 template<class T> inline void OutputData<T>::setRawDataVector(const std::vector<T> &data_vector)
 {
     if (data_vector.size() != getAllocatedSize()) {
-        throw RuntimeErrorException("setRawDataVector can only be called with a data vector of the correct size.");
+        throw RuntimeErrorException("OutputData<T>::setRawDataVector() -> Error! setRawDataVector can only be called with a data vector of the correct size.");
     }
     for (size_t i=0; i<getAllocatedSize(); ++i) {
         (*mp_ll_data)[i] = data_vector[i];

@@ -188,6 +188,27 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     hist2->SetMinimum(1.0);
     hist2->Draw();
 
+    m_fitSuite = new FitSuite();
+    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+
+    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+
+    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
+    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
+
+    m_fitSuite->addExperimentAndRealData(m_experiment, sliced_data);
+
+    m_fitSuite->runFit();
+
+
 }
 
 

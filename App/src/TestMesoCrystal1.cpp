@@ -47,9 +47,9 @@ void TestMesoCrystal1::execute()
 //    experiment.setDetectorParameters(256, 0.3*Units::degree, 0.073
 //           , 256, -0.4*Units::degree, 0.066);
 //    experiment.setDetectorParameters(218, 0.0201647, 0.0599528, 218, 0.00010879, 0.0399347); // values as in experimental sample from TestMesoCrystal2
-    experiment.setDetectorParameters(100, -std::sqrt(M_PI)*Units::degree, 2.0*Units::degree
-           , 100 , 0.5*Units::degree, 3.5*Units::degree);
-    experiment.setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.00017, 0.00017));
+    experiment.setDetectorParameters(200, 0.5*Units::degree, 2.0*Units::degree
+           , 200 , 0.1*Units::degree, 1.6*Units::degree);
+//    experiment.setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.00017, 0.00017));
     experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     experiment.setBeamIntensity(8e12);
 
@@ -85,8 +85,8 @@ void TestMesoCrystal1::execute()
 MesoCrystalBuilder::MesoCrystalBuilder()
 : m_meso_radius(1000.0*Units::nanometer)
 , m_surface_filling_ratio(0.25)
-, m_meso_height(0.5*Units::micrometer)
-, m_sigma_meso_height(5.0*Units::nanometer)
+, m_meso_height(0.1*Units::micrometer)
+, m_sigma_meso_height(0.0*Units::nanometer)
 , m_sigma_meso_radius(50.0*Units::nanometer)
 , m_lattice_length_a(6.15*Units::nanometer)
 , m_nanoparticle_radius(4.3*Units::nanometer)

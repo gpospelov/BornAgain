@@ -61,6 +61,13 @@ public:
         return 0;
     }
 
+    //! return total size of data buffer (product of bin number in every dimension)
+    //!
+    //! copy of getAllocatedSize() for use in OutputDataIterator
+    size_t size() const {
+        return getAllocatedSize();
+    }
+
     //! return all sizes of its axes
     std::vector<size_t> getAllSizes() const;
 
@@ -74,7 +81,7 @@ public:
     T totalSum() const;
 
     // ---------------------------------
-    // external iterators
+    // external iterators (with their possible masking)
     // ---------------------------------
 
     friend class OutputDataIterator<T, OutputData<T> >;
@@ -87,16 +94,28 @@ public:
     typedef OutputDataIterator<const T, const OutputData<T> > const_iterator;
 
     //! return a read/write iterator that points to the first element
-    iterator begin() { return iterator(this); }
+    iterator begin();
 
     //! return a read-only iterator that points to the first element
-    const_iterator begin() const { return const_iterator(this); }
+    const_iterator begin() const;
 
     //! return a read/write iterator that points to the one past last element
-    const iterator end() { return iterator(this, getAllocatedSize()); }
+    iterator end() { return iterator(this, getAllocatedSize()); }
 
     //! return a read-only iterator that points to the one past last element
-    const const_iterator end() const  { return const_iterator(this, getAllocatedSize()); }
+    const_iterator end() const  { return const_iterator(this, getAllocatedSize()); }
+
+    //! get mask that will be used by iterators
+    Mask *getMask() const { return mp_mask; }
+
+    //! set mask (or a stack of masks)
+    void setMask(const Mask &mask);
+
+    //! add mask that will be used by iterators
+    void addMask(const Mask &mask);
+
+    //! remove all masks
+    void removeAllMasks();
 
     // ---------------------------------
     // coordinate and index functions
@@ -148,6 +167,18 @@ public:
     //! multiplication-assignment operator for two output data
     const OutputData<T> &operator*=(const OutputData<T> &right);
 
+   //! indexed accessor
+    T &operator[](size_t index) {
+        if (mp_ll_data) return (*mp_ll_data)[index];
+        throw ClassInitializationException("Low-level data object was not yet initialized");
+    }
+
+    //! indexed accessor (const)
+    const T &operator[](size_t index) const {
+        if (mp_ll_data) return (*mp_ll_data)[index];
+        throw ClassInitializationException("Low-level data object was not yet initialized");
+    }
+
     // --------
     // helpers
     // --------
@@ -157,7 +188,6 @@ public:
 
     //! return true if object have same dimensions and shape of axises
     bool hasSameShape(const OutputData<T> &right) const;
-
 private:
     //! hidden copy constructor and assignment operators
     OutputData(const OutputData& source);
@@ -169,17 +199,18 @@ private:
     //! accessor for iterators
     T &operator[](size_t index) {
         if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("OutputData::operator[] -> Error! Low-level data objects was not yet initialized");
+        throw ClassInitializationException("Low-level data objects was not yet initialized");
     }
 
     //! constant accessor for iterators
     const T &operator[](size_t index) const {
         if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("OutputData::operator[] -> Error! Low-level data objects was not yet initialized");
+        throw ClassInitializationException("Low-level data objects was not yet initialized");
     }
 
     std::vector<NamedVectorBase*> m_value_axes;
     LLData<T> *mp_ll_data;
+    Mask *mp_mask;
 };
 
 
@@ -205,6 +236,7 @@ OutputData<double> *getModulusPart(const OutputData<complex_t> &source);
 
 template <class T> OutputData<T>::OutputData()
 : mp_ll_data(0)
+, mp_mask(0)
 {
     allocate();
 }
@@ -223,6 +255,10 @@ template <class T> OutputData<T>* OutputData<T>::clone() const
     }
     (*p_result->mp_ll_data) = *mp_ll_data;
 
+    if (mp_mask) {
+        p_result->mp_mask = mp_mask->clone();
+    }
+
 	return p_result;
 }
 
@@ -234,6 +270,9 @@ template <class T> void OutputData<T>::copyFrom(const OutputData<T> &other)
         addAxis(other.getAxis(i)->clone());
     }
     (*mp_ll_data) = *other.mp_ll_data;
+    if (other.getMask()) {
+        mp_mask = other.getMask()->clone();
+    }
 }
 
 
@@ -286,7 +325,7 @@ inline std::vector<size_t> OutputData<T>::getAllSizes() const
     return result;
 }
 
-template<class T>
+template <class T>
 inline std::vector<T> OutputData<T>::getRawDataVector() const
 {
     std::vector<T> result;
@@ -302,6 +341,50 @@ template <class T> void OutputData<T>::fillRawDataArray(T *destination) const
         destination[i] = (*mp_ll_data)[i];
     }
     return;
+}
+
+template <class T> typename OutputData<T>::iterator OutputData<T>::begin()
+{
+    typename OutputData<T>::iterator result(this);
+    if (mp_mask) {
+        result.setMask(*mp_mask);
+    }
+    return result;
+}
+
+template <class T> typename OutputData<T>::const_iterator OutputData<T>::begin() const
+{
+    typename OutputData<T>::const_iterator result(this);
+    if (mp_mask) {
+        result.setMask(*mp_mask);
+    }
+    return result;
+}
+
+template <class T> void OutputData<T>::setMask(const Mask &mask)
+{
+    if (mp_mask != &mask) {
+        delete mp_mask;
+        mp_mask = mask.clone();
+        mp_mask->setMaxIndex(getAllocatedSize());
+    }
+}
+
+template <class T> void OutputData<T>::addMask(const Mask &mask)
+{
+    if (mask.mp_submask) {
+        throw RuntimeErrorException("One can only add single masks to OutputDataIterator at a time");
+    }
+    Mask *p_old_mask = getMask();
+    mp_mask = mask.clone();
+    mp_mask->mp_submask = p_old_mask;
+    mp_mask->setMaxIndex(getAllocatedSize());
+}
+
+template<class T> void OutputData<T>::removeAllMasks()
+{
+    delete mp_mask;
+    mp_mask = 0;
 }
 
 template<class T> std::vector<int> OutputData<T>::toCoordinates(size_t index) const
@@ -381,6 +464,8 @@ template <class T> void OutputData<T>::clear()
     m_value_axes.clear();
     delete mp_ll_data;
     mp_ll_data = 0;
+    delete mp_mask;
+    mp_mask = 0;
 }
 
 template <class T> void OutputData<T>::setAllTo(const T &value)

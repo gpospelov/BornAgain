@@ -16,6 +16,7 @@
 
 #include "ISimulation.h"
 #include "OutputData.h"
+#include "ThreadInfo.h"
 #include "Types.h"
 
 //- -------------------------------------------------------------------
@@ -31,6 +32,11 @@ public:
     //! Initialize the simulation with the parameters from experiment
     virtual void init(const Experiment &experiment);
 
+    //! Set thread information for masking
+    virtual void setThreadInfo(const ThreadInfo &thread_info) {
+        m_thread_info = thread_info;
+    }
+
     //! return output data containing calculated intensity
     const OutputData<double> &getDWBAIntensity() const;
 
@@ -40,12 +46,31 @@ public:
     //! clone DWBA simulation
     virtual DWBASimulation *clone();
 
+    // ---------------------------------
+    // external iterators (possibly masked)
+    // ---------------------------------
+
+    typedef OutputDataIterator<double, OutputData<double> > iterator;
+    typedef OutputDataIterator<const double, const OutputData<double> > const_iterator;
+
+    //! return a read/write iterator that points to the first element
+    iterator begin();
+
+    //! return a read-only iterator that points to the first element
+    const_iterator begin() const;
+
+    //! return a read/write iterator that points to the one past last element
+    const iterator end() { return m_dwba_intensity.end(); }
+
+    //! return a read-only iterator that points to the one past last element
+    const const_iterator end() const  { return m_dwba_intensity.end(); }
+
 protected:
     OutputData<double> m_dwba_intensity;
-    OutputData<double> m_output_data_mask;
     cvector_t m_ki;
     double m_alpha_i;
     double getWaveLength() const;
+    ThreadInfo m_thread_info;
 
 private:
     //! copy constructor and assignment operator are hidden

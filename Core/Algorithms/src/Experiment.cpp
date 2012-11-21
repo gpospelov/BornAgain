@@ -60,24 +60,12 @@ void Experiment::normalize()
 //! The ISample object will not be owned by the Experiment object
 void Experiment::setSample(const ISample &p_sample)
 {
-//    if (mp_sample != p_sample) {
-//        delete mp_sample;
-//        mp_sample = p_sample;
-//        delete mp_sample_builder;
-//        mp_sample_builder = 0;
-//    }
     delete mp_sample;
     mp_sample = p_sample.clone();
 }
 
 void Experiment::setSampleBuilder(const ISampleBuilder *p_sample_builder)
 {
-//    if (mp_sample_builder != p_sample_builder) {
-//        delete mp_sample_builder;
-//        mp_sample_builder = p_sample_builder;
-//        delete mp_sample;
-//        mp_sample = 0;
-//    }
     if( !p_sample_builder ) throw NullPointerException("Experiment::setSampleBuilder() -> Error! Attempt to set null sample builder.");
     mp_sample_builder = p_sample_builder;
     delete mp_sample;
@@ -92,34 +80,6 @@ OutputData<double>* Experiment::getOutputDataClone() const
 const OutputData<double>* Experiment::getOutputData() const
 {
     return &m_intensity_map;
-}
-
-
-const OutputData<double>* Experiment::getOutputDataMask() const
-{
-    return &m_current_output_data_mask;
-}
-
-/* ************************************************************************* */
-// setting mask on output data: every 'n_chunk'th out of n_chunks_total
-// if n_chunks_total=1, then all elements will be set to '1'
-/* ************************************************************************* */
-void Experiment::setOutputDataMask(size_t n_chunks_total, size_t n_chunk )
-{
-    if(n_chunks_total==0) throw RuntimeErrorException("Experiment::setOutputDataMask() -> Error! Number of chunks can not be zero");
-    // copying topology from intensity data
-    m_current_output_data_mask.copyFrom(m_intensity_map);
-    // setting mask
-    OutputData<double>::iterator it_mask = m_current_output_data_mask.begin();
-    while(it_mask != m_current_output_data_mask.end()) {
-        if(it_mask.getIndex() % n_chunks_total == n_chunk) {
-            *it_mask = 1.0;
-        } else {
-            *it_mask = 0.0;
-        }
-        ++it_mask;
-    }
-
 }
 
 void Experiment::setBeamParameters(double lambda, double alpha_i, double phi_i)
@@ -170,8 +130,6 @@ void Experiment::updateIntensityMapAxes()
         m_intensity_map.addAxis(new NamedVector<double>(m_detector.getAxis(dim)));
     }
     m_intensity_map.setAllTo(0.0);
-    // setting mask on output data
-    setOutputDataMask();
 }
 
 void Experiment::updateSample()

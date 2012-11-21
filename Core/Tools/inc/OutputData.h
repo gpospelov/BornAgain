@@ -196,18 +196,6 @@ private:
     //! memory allocation for current dimensions configuration
     void allocate();
 
-    //! accessor for iterators
-    T &operator[](size_t index) {
-        if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("Low-level data objects was not yet initialized");
-    }
-
-    //! constant accessor for iterators
-    const T &operator[](size_t index) const {
-        if (mp_ll_data) return (*mp_ll_data)[index];
-        throw ClassInitializationException("Low-level data objects was not yet initialized");
-    }
-
     std::vector<NamedVectorBase*> m_value_axes;
     LLData<T> *mp_ll_data;
     Mask *mp_mask;

@@ -31,7 +31,7 @@ void LayerDecoratorDWBASimulation::run()
     IInterferenceFunctionStrategy *p_strategy = createAndInitStrategy();
 
     calculateCoherentIntensity(p_strategy);
-    calculateInCoherentIntensity();
+//    calculateInCoherentIntensity();
 
     delete p_strategy;
 

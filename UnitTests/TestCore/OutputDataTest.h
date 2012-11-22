@@ -60,4 +60,41 @@ TEST_F(OutputDataTest, DataInitialization)
     EXPECT_DOUBLE_EQ((double)1143, db_data_3d[db_data_3d.toIndex(coordinates)]);
 }
 
+TEST_F(OutputDataTest, DataCopying)
+{
+    OutputData<double> data1;
+    OutputData<double> data2;
+    data1.addAxis("axis1",0.,10.,10);
+    data2.addAxis("axis1",0.,10.,10);
+    EXPECT_TRUE( data1.hasSameDimensions(data2));
+    EXPECT_TRUE( data1.hasSameShape(data2));
+
+    data1.addAxis("axis2",0.,10.,10);
+    data2.addAxis("axis2",1.,10.,10);
+    EXPECT_TRUE( data1.hasSameDimensions(data2));
+    EXPECT_FALSE( data1.hasSameShape(data2));
+
+    data2.copyFrom(data1);
+    EXPECT_TRUE( data1.hasSameDimensions(data2));
+    EXPECT_TRUE( data1.hasSameShape(data2));
+
+    data1.addAxis("axis3",0.,10.,10);
+    data2.addAxis("axis3another",0.,10.,10);
+    EXPECT_TRUE( data1.hasSameDimensions(data2));
+    EXPECT_FALSE( data1.hasSameShape(data2));
+
+    data1.setAllTo(10);
+    data2.copyFrom(data1);
+    EXPECT_TRUE( data1.totalSum() == data2.totalSum() );
+    EXPECT_TRUE( data1.hasSameDimensions(data2));
+    EXPECT_TRUE( data1.hasSameShape(data2));
+    EXPECT_TRUE( data2.hasSameDimensions(data1));
+    EXPECT_TRUE( data2.hasSameShape(data1));
+    EXPECT_TRUE( data1.hasSameDimensions(data1));
+    EXPECT_TRUE( data1.hasSameShape(data1));
+    EXPECT_TRUE( data2.hasSameDimensions(data2));
+    EXPECT_TRUE( data2.hasSameShape(data2));
+
+}
+
 #endif // OUTPUTDATATEST_H

@@ -189,9 +189,9 @@ public:
     //! return true if object have same dimensions and shape of axises
     bool hasSameShape(const OutputData<T> &right) const;
 private:
-    //! hidden copy constructor and assignment operators
-    OutputData(const OutputData& source);
-    const OutputData& operator=(const OutputData& right);
+    //! disabled copy constructor and assignment operators
+    OutputData(const OutputData &);
+    const OutputData& operator=(const OutputData &);
 
     //! memory allocation for current dimensions configuration
     void allocate();
@@ -257,7 +257,11 @@ template <class T> void OutputData<T>::copyFrom(const OutputData<T> &other)
     {
         addAxis(other.getAxis(i)->clone());
     }
-    (*mp_ll_data) = *other.mp_ll_data;
+    delete mp_ll_data;
+    mp_ll_data = 0;
+    if(other.mp_ll_data) {
+        mp_ll_data = new LLData<T>(*other.mp_ll_data);
+    }
     if (other.getMask()) {
         mp_mask = other.getMask()->clone();
     }

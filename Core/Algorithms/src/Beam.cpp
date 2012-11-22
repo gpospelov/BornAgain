@@ -1,12 +1,40 @@
 #include "Beam.h"
 
-Beam::Beam()
-: m_intensity(1.0)
+
+/* ************************************************************************* */
+// c-tors, assignment operators, swap
+/* ************************************************************************* */
+Beam::Beam() : m_intensity(1.0)
 {
     setName("Beam");
     init_parameters();
 }
 
+Beam::Beam(const Beam &other) : IParameterized()
+{
+    setName(other.getName());
+    m_central_k = other.m_central_k;
+    m_intensity = other.m_intensity;
+    init_parameters();
+}
+
+Beam &Beam::operator=(const Beam &other)
+{
+    Beam tmp(other);
+    tmp.swapContent(*this);
+    return *this;
+}
+
+void Beam::swapContent(Beam &other)
+{
+    std::swap(this->m_central_k, other.m_central_k);
+    std::swap(this->m_intensity, other.m_intensity);
+}
+
+
+/* ************************************************************************* */
+// c-tors, assignment operators, swap
+/* ************************************************************************* */
 void Beam::setCentralK(const cvector_t& k_i)
 {
     m_central_k = k_i;

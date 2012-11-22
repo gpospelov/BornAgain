@@ -37,7 +37,7 @@ void FitSuiteObserverPrint::update(IObservable *subject)
                   << " NumberOfVariables:" << fitSuite->getMinimizer()->getNumberOfVariables()
                   << " NCall:" << fitSuite->getNCall()
                 << " NStrategy:" << fitSuite->getNStrategy()
-                 << " Chi2:" << std::scientific << std::setprecision(8) << fitSuite->getSuiteKit()->getChiSquaredModule()->getValue() << std::endl;
+                 << " Chi2:" << std::scientific << std::setprecision(8) << fitSuite->getFitObjects()->getChiSquaredModule()->getValue() << std::endl;
         timeval call_time;
         gettimeofday(&call_time, 0);
         clock_t call_clock = clock();
@@ -78,27 +78,27 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     gPad->SetLogz();
     gPad->SetLeftMargin(0.12);
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::drawOutputDataInPad(*fitSuite->getSuiteKit()->getRealData(), "colz", "Real data");
+    IsGISAXSTools::drawOutputDataInPad(*fitSuite->getFitObjects()->getRealData(), "colz", "Real data");
     // drawing simulated data
     c1->cd(2);
     gPad->SetLogz();
     gPad->SetLeftMargin(0.12);
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::drawOutputDataInPad(*fitSuite->getSuiteKit()->getSimulatedData(), "colz", "current simulated data");
+    IsGISAXSTools::drawOutputDataInPad(*fitSuite->getFitObjects()->getSimulatedData(), "colz", "current simulated data");
     // simple difference
     c1->cd(3);
     gPad->SetLogz();
     gPad->SetLeftMargin(0.12);
     gPad->SetRightMargin(0.12);
     //IsGISAXSTools::drawOutputDataRelativeDifference2D(*fitSuite->getChiSquaredModule()->getSimulationData(), *fitSuite->getChiSquaredModule()->getRealData(), "COLZ", "relative difference");
-    OutputData<double > *diff_map_relative = getRelativeDifferenceMap(fitSuite->getSuiteKit()->getSimulatedData(), fitSuite->getSuiteKit()->getRealData());
+    OutputData<double > *diff_map_relative = getRelativeDifferenceMap(fitSuite->getFitObjects()->getSimulatedData(), fitSuite->getFitObjects()->getRealData());
     gPad->SetRightMargin(0.12);
     IsGISAXSTools::drawOutputDataInPad(*diff_map_relative, "COLZ", "relative difference map");
     delete diff_map_relative;
 
     std::cout << "FitSuiteObserverDraw::update() -> debug " << std::endl;
-    const OutputData<double > *real = fitSuite->getSuiteKit()->getRealData();
-    const OutputData<double > *simul = fitSuite->getSuiteKit()->getSimulatedData();
+    const OutputData<double > *real = fitSuite->getFitObjects()->getRealData();
+    const OutputData<double > *simul = fitSuite->getFitObjects()->getSimulatedData();
     std::cout << " real: " << real->getAllocatedSize() << " " << real->getNdimensions() << " "  << std::endl;
     std::cout << " real: " << simul->getAllocatedSize() << " " << simul->getNdimensions() << " "  << std::endl;
 
@@ -106,7 +106,7 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     c1->cd(4);
     gPad->SetLogz();
     gPad->SetLeftMargin(0.12);
-    OutputData<double > *diff_map_chi2 = fitSuite->getSuiteKit()->getChiSquaredModule()->createChi2DifferenceMap();
+    OutputData<double > *diff_map_chi2 = fitSuite->getFitObjects()->getChiSquaredModule()->createChi2DifferenceMap();
     gPad->SetRightMargin(0.12);
     IsGISAXSTools::drawOutputDataInPad(*diff_map_chi2, "COLZ", "chi2 difference map");
     delete diff_map_chi2;
@@ -119,7 +119,7 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     ostr << "Iteration " << fitSuite->getNCall() << " strategy " << fitSuite->getNStrategy();
     m_ptext->AddText(ostr.str().c_str());
     ostr.str(""); ostr.clear();
-    ostr << "chi2 " << fitSuite->getSuiteKit()->getChiSquaredModule()->getValue() << std::endl;
+    ostr << "chi2 " << fitSuite->getFitObjects()->getChiSquaredModule()->getValue() << std::endl;
     m_ptext->AddText(ostr.str().c_str());
 
     for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it) {
@@ -192,11 +192,11 @@ void FitSuiteObserverWriteTree::update(IObservable *subject)
     }
 
     // filling data object with data from FitSuite
-    const OutputData<double > *real_data = fitSuite->getSuiteKit()->getRealData();
-    const OutputData<double > *simu_data = fitSuite->getSuiteKit()->getSimulatedData();
+    const OutputData<double > *real_data = fitSuite->getFitObjects()->getRealData();
+    const OutputData<double > *simu_data = fitSuite->getFitObjects()->getSimulatedData();
     IsGISAXSTools::exportOutputDataInVectors2D(*real_data, event->real_data, event->axis0, event->axis1);
     IsGISAXSTools::exportOutputDataInVectors2D(*simu_data, event->fit_data, event->axis0, event->axis1);
-    event->chi2 = fitSuite->getSuiteKit()->getChiSquaredModule()->getValue();
+    event->chi2 = fitSuite->getFitObjects()->getChiSquaredModule()->getValue();
     for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it) {
         event->parvalues.push_back( (*it)->getValue() );
         event->parnames.push_back( (*it)->getName().c_str() );

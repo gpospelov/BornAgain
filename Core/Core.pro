@@ -94,7 +94,7 @@ SOURCES += \
     Tools/src/FitParameter.cpp \
     Tools/src/FitParameterLinked.cpp \
     Tools/src/FitSuite.cpp \
-    Tools/src/FitSuiteKit.cpp \
+    Tools/src/FitSuiteObjects.cpp \
     Tools/src/FitSuiteParameters.cpp \
     Tools/src/FitSuiteStrategy.cpp \
     Tools/src/IFactory.cpp \
@@ -226,7 +226,7 @@ HEADERS += \
     Tools/inc/FitParameter.h \
     Tools/inc/FitParameterLinked.h \
     Tools/inc/FitSuite.h \
-    Tools/inc/FitSuiteKit.h \
+    Tools/inc/FitSuiteObjects.h \
     Tools/inc/FitSuiteParameters.h \
     Tools/inc/FitSuiteStrategy.h \
     Tools/inc/IDoubleToComplexFunction.h \

@@ -42,9 +42,9 @@ void FitSuiteStrategyAdjustData::execute()
 
     // adjusting real data for every experiment defined
     std::vector<OutputData<double > *> original_data_collection;
-    for(size_t i_exp = 0; i_exp<m_fit_suite->getSuiteKit()->size(); ++i_exp) {
+    for(size_t i_exp = 0; i_exp<m_fit_suite->getFitObjects()->size(); ++i_exp) {
         // saving original data
-        OutputData<double > *orig_data = m_fit_suite->getSuiteKit()->getRealData()->clone();
+        OutputData<double > *orig_data = m_fit_suite->getFitObjects()->getRealData()->clone();
         original_data_collection.push_back(orig_data);
 
         // create adjusted data which will have doubled (2,4,8,...) bin size
@@ -56,7 +56,7 @@ void FitSuiteStrategyAdjustData::execute()
             }
             adjusted_data = new_data;
         }
-        m_fit_suite->getSuiteKit()->setRealData(adjusted_data, i_exp);
+        m_fit_suite->getFitObjects()->setRealData(*adjusted_data, i_exp);
         delete adjusted_data;
     }
 
@@ -69,8 +69,8 @@ void FitSuiteStrategyAdjustData::execute()
     // setting back original data
     if(m_preserve_original_data) {
         std::cout << "FitSuiteStrategyAdjustData::execute() -> Info. Returning original data back " << std::endl;
-        for(size_t i_exp = 0; i_exp<m_fit_suite->getSuiteKit()->size(); ++i_exp) {
-            m_fit_suite->getSuiteKit()->setRealData(original_data_collection[i_exp], i_exp);
+        for(size_t i_exp = 0; i_exp<m_fit_suite->getFitObjects()->size(); ++i_exp) {
+            m_fit_suite->getFitObjects()->setRealData(*original_data_collection[i_exp], i_exp);
             delete original_data_collection[i_exp];
         }
     }

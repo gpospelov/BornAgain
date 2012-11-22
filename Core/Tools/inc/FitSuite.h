@@ -20,10 +20,10 @@
 #include "AttLimits.h"
 #include "FitParameterLinked.h"
 #include "FitSuiteStrategy.h"
-#include "FitSuiteKit.h"
+#include "FitSuiteObjects.h"
 #include "FitSuiteParameters.h"
 #include "IMinimizer.h"
-#include "IChiSquaredModule.h"
+#include "ChiSquaredModule.h"
 #include <string>
 
 class Experiment;
@@ -47,7 +47,7 @@ public:
     void clear();
 
     //! add pair of (experiment, real data) for consecutive simulation
-    void addExperimentAndRealData(Experiment *experiment, const OutputData<double > *real_data, const IChiSquaredModule *chi2_module = 0);
+    void addExperimentAndRealData(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule());
 
     //! add fit parameter
     void addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless());
@@ -73,7 +73,7 @@ public:
     double functionToMinimize(const double *pars_current_values);
 
     //! return reference to the kit with data
-    FitSuiteKit *getSuiteKit() { return &m_suite_kit; }
+    FitSuiteObjects *getFitObjects() { return &m_fit_objects; }
 
     //! return reference to fit parameters
     FitSuiteParameters *getFitParameters() { return &m_fit_parameters; }
@@ -95,7 +95,7 @@ private:
     //! check if all prerequisites to run fit fit are filled
     bool check_prerequisites();
 
-    FitSuiteKit m_suite_kit; //! kit which contains pairs of <experiment,real_data> to fit
+    FitSuiteObjects m_fit_objects; //! kit which contains pairs of <experiment,real_data> to fit
     FitSuiteParameters m_fit_parameters; //! collection of fit parameters
     fitstrategies_t m_fit_strategies; //! collection of strategies which are executed before every minimization round
     IMinimizer  *m_minimizer; //! minimization engine

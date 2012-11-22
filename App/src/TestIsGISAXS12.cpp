@@ -153,7 +153,7 @@ void TestIsGISAXS12::run_test_fit()
     m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
     m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
 
-    m_fitSuite->addExperimentAndRealData(m_experiment, test_real_data);
+    m_fitSuite->addExperimentAndRealData(*m_experiment, *test_real_data);
 
     m_fitSuite->runFit();
 
@@ -205,7 +205,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
     m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
 
-    m_fitSuite->addExperimentAndRealData(m_experiment, sliced_data);
+    m_fitSuite->addExperimentAndRealData(*m_experiment, *sliced_data);
 
     m_fitSuite->runFit();
 

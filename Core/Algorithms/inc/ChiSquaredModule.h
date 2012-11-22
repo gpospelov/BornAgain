@@ -20,6 +20,7 @@ class ChiSquaredModule : public IChiSquaredModule
 {
 public:
     ChiSquaredModule(){}
+    ChiSquaredModule(const ChiSquaredModule &other);
     ChiSquaredModule(const OutputData<double> &real_data);
     virtual ~ChiSquaredModule();
 
@@ -31,8 +32,7 @@ public:
     //! return output data which contains chi^2 values
     virtual OutputData<double > *createChi2DifferenceMap() const;
 private:
-    // hiding copy constructor and disabling assignment operator
-    ChiSquaredModule(const ChiSquaredModule &other);
+    // disabling assignment operator
     ChiSquaredModule &operator=(const ChiSquaredModule &);
 };
 

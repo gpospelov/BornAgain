@@ -16,6 +16,8 @@
 
 #include "Mask.h"
 
+#include <iterator>
+
 //- -------------------------------------------------------------------
 //! @class OutputDataIterator
 //! @brief Definition of iterator for underlying OutputData container
@@ -23,6 +25,9 @@
 template <class TValue, class TContainer> class OutputDataIterator
 {
 public:
+    //! Empty constructor to comply with stl forward iterators
+    OutputDataIterator();
+
     //! constructor
     OutputDataIterator(TContainer *p_output_data, size_t start_at_index=0);
 
@@ -69,6 +74,13 @@ public:
     //! add mask (also resets index to first available element)
     void addMask(const Mask &mask);
 
+    // typedefs for std::iterator_traits
+    typedef std::forward_iterator_tag iterator_category;
+    typedef TValue value_type;
+    typedef ptrdiff_t difference_type;
+    typedef TValue* pointer_type;
+    typedef TValue& reference_type;
+
 protected:
     virtual void swapContents(OutputDataIterator<TValue, TContainer> &other);
     size_t m_current_index;
@@ -87,6 +99,13 @@ template <class TValue1, class TContainer1, class TValue2, class TContainer2> bo
         const OutputDataIterator<TValue1, TContainer1> &left,
         const OutputDataIterator<TValue2, TContainer2> &right) {
     return !(left == right);
+}
+
+template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer>::OutputDataIterator()
+: m_current_index(0)
+, mp_output_data(0)
+, mp_mask(0)
+{
 }
 
 template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer>::OutputDataIterator(

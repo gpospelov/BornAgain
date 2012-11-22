@@ -23,9 +23,16 @@ public:
     virtual ~ResolutionFunction2DSimple();
 
     virtual double evaluateCDF(double x, double y) const;
+
+    ResolutionFunction2DSimple *clone() const;
+
 protected:
     virtual void init_parameters();
 private:
+    //! hiding copy constructor and disabling assignment operator
+    ResolutionFunction2DSimple(const ResolutionFunction2DSimple &other);
+    ResolutionFunction2DSimple &operator=(const ResolutionFunction2DSimple &);
+
     double m_sigma_x;
     double m_sigma_y;
 };

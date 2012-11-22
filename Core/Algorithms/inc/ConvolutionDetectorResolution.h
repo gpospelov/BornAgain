@@ -40,18 +40,26 @@ public:
     //! add parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
+    //! clone object
+    virtual ConvolutionDetectorResolution *clone() const;
+
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
 private:
-    size_t m_dimension;
-    cumulative_DF_1d m_res_function_1d;
-    IResolutionFunction2D *mp_res_function_2d;
+    //! hiding copy constructor and disabling assignment operator
+    ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other);
+    ConvolutionDetectorResolution &operator=(const ConvolutionDetectorResolution &);
+
     void apply1dConvolution(const std::vector<NamedVectorBase *> &axes, OutputData<double> *p_intensity_map) const;
     void apply2dConvolution(const std::vector<NamedVectorBase *> &axes, OutputData<double> *p_intensity_map) const;
     double getIntegratedPDF1d(double x, double step) const;
     double getIntegratedPDF2d(double x, double step_x, double y, double step_y) const;
+
+    size_t m_dimension;
+    cumulative_DF_1d m_res_function_1d;
+    IResolutionFunction2D *mp_res_function_2d;
 };
 
 

@@ -58,6 +58,7 @@ TestIsGISAXS12::~TestIsGISAXS12()
 /* ************************************************************************* */
 void TestIsGISAXS12::execute()
 {
+
     // initializing experiment and sample builder
     initialiseExperiment();
 

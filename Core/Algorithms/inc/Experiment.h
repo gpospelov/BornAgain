@@ -26,10 +26,13 @@ class Experiment : public IParameterized
 {
 public:
     Experiment();
-    Experiment(ProgramOptions *p_options);
-    Experiment(const ISample &p_sample, ProgramOptions *p_options=0);
-	Experiment(const ISampleBuilder *p_sample_builder, ProgramOptions *p_options=0);
+    Experiment(const ProgramOptions *p_options);
+    Experiment(const ISample &p_sample, const ProgramOptions *p_options=0);
+    Experiment(const ISampleBuilder *p_sample_builder, const ProgramOptions *p_options=0);
     virtual ~Experiment() {delete mp_sample;}
+
+    //! clon method fot the experiment
+    virtual Experiment *clone() const;
 
     //! run a simulation with the current parameter settings
     virtual void runSimulation();
@@ -81,6 +84,10 @@ public:
     void setDetectorParameters(const OutputData<double > &output_data);
 
 protected:
+    // hiding copy constructor and disabling assignment operator
+    Experiment(const Experiment &other);
+    Experiment &operator=(const Experiment &);
+
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
@@ -96,7 +103,7 @@ protected:
     Beam m_beam;
     OutputData<double> m_intensity_map;
     bool m_is_normalized;
-    ProgramOptions *mp_options;
+    const ProgramOptions *mp_options;
 };
 
 

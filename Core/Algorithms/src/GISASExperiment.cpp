@@ -10,6 +10,9 @@
 #include <boost/thread.hpp>
 
 
+/* ************************************************************************* */
+// c-tors
+/* ************************************************************************* */
 GISASExperiment::GISASExperiment()
 {
     setName("GISASExperiment");
@@ -27,6 +30,24 @@ GISASExperiment::GISASExperiment(ProgramOptions *p_options)
             100, 0.0*Units::degree, 2.0*Units::degree);
 }
 
+GISASExperiment::GISASExperiment(const GISASExperiment &other) : Experiment(other)
+{
+
+}
+
+
+/* ************************************************************************* */
+// clone method
+/* ************************************************************************* */
+GISASExperiment *GISASExperiment::clone() const
+{
+    return new GISASExperiment(*this);
+}
+
+
+/* ************************************************************************* */
+// run simulation
+/* ************************************************************************* */
 void GISASExperiment::runSimulation()
 {
     Experiment::runSimulation();
@@ -127,7 +148,7 @@ void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, doub
 
 void GISASExperiment::setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function)
 {
-    m_detector.setDetectorResolution(new ConvolutionDetectorResolution(p_resolution_function));
+    m_detector.setDetectorResolution( new ConvolutionDetectorResolution(p_resolution_function) );
 }
 
 void GISASExperiment::smearIntensityFromZAxisTilting()

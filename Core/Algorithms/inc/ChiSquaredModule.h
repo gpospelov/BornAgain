@@ -31,7 +31,7 @@ public:
     //! return output data which contains chi^2 values
     virtual OutputData<double > *createChi2DifferenceMap() const;
 private:
-    // disabling copy constructor and assignment operator
+    // hiding copy constructor and disabling assignment operator
     ChiSquaredModule(const ChiSquaredModule &other);
     ChiSquaredModule &operator=(const ChiSquaredModule &);
 };

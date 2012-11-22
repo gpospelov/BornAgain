@@ -1,2 +1,0 @@
-#include "INamed.h"
-

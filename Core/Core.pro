@@ -98,7 +98,6 @@ SOURCES += \
     Tools/src/FitSuiteParameters.cpp \
     Tools/src/FitSuiteStrategy.cpp \
     Tools/src/IFactory.cpp \
-    Tools/src/INamed.cpp \
     Tools/src/IObserver.cpp \
     Tools/src/IParameterized.cpp \
     Tools/src/ISingleton.cpp \

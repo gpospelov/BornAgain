@@ -114,10 +114,10 @@ void TestFittingModule2::execute()
 
 
     // Applying fit strategy: resizing real data
-    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(3));
-    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(2));
-    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(1));
-    m_fitSuite->addFitStrategy(new FitSuiteStrategyDefault());
+//    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(3));
+//    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(2));
+//    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(1));
+//    m_fitSuite->addFitStrategy(new FitSuiteStrategyDefault());
 
     // Applying fit strategy: disturning data to get out of local minima
     //m_fitSuite->addFitStrategy(new FitSuiteStrategyBootstrap());
@@ -135,7 +135,7 @@ void TestFittingModule2::execute()
     // setting up fitSuite
 //    m_fitSuite->setExperiment(mp_experiment);
 //    m_fitSuite->setRealData(*mp_real_data);
-    m_fitSuite->addExperimentAndRealData(mp_experiment, mp_real_data);
+    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data);
 
     m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
 

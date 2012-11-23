@@ -94,11 +94,10 @@ SOURCES += \
     Tools/src/FitParameter.cpp \
     Tools/src/FitParameterLinked.cpp \
     Tools/src/FitSuite.cpp \
-    Tools/src/FitSuiteKit.cpp \
+    Tools/src/FitSuiteObjects.cpp \
     Tools/src/FitSuiteParameters.cpp \
     Tools/src/FitSuiteStrategy.cpp \
     Tools/src/IFactory.cpp \
-    Tools/src/INamed.cpp \
     Tools/src/IObserver.cpp \
     Tools/src/IParameterized.cpp \
     Tools/src/ISingleton.cpp \
@@ -122,7 +121,8 @@ SOURCES += \
     PythonAPI/src/PythonListConverter.cpp \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp \
-    PythonAPI/src/PythonOutputData.cpp
+    PythonAPI/src/PythonOutputData.cpp \
+    Tools/src/OutputDataFunctions.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -226,7 +226,7 @@ HEADERS += \
     Tools/inc/FitParameter.h \
     Tools/inc/FitParameterLinked.h \
     Tools/inc/FitSuite.h \
-    Tools/inc/FitSuiteKit.h \
+    Tools/inc/FitSuiteObjects.h \
     Tools/inc/FitSuiteParameters.h \
     Tools/inc/FitSuiteStrategy.h \
     Tools/inc/IDoubleToComplexFunction.h \
@@ -267,7 +267,8 @@ HEADERS += \
     PythonAPI/inc/PythonModule.h \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h \
-    PythonAPI/inc/IPythonWrapper.h
+    PythonAPI/inc/IPythonWrapper.h \
+    Tools/inc/OutputDataFunctions.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

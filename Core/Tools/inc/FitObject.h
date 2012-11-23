@@ -21,14 +21,20 @@
 
 //- -------------------------------------------------------------------
 //! @class FitObject
-//! @brief Class to hold experiment description, real data and chi2 module
-//! to be used by FitSuite
+//! @brief Class to hold single experiment description, real data and chi2 module
+//! Used by FitSuite
 //- -------------------------------------------------------------------
 class FitObject
 {
 public:
     FitObject(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule());
     ~FitObject();
+
+    //! get experiment
+    const Experiment *getExperiment() const { return m_experiment; }
+    Experiment *getExperiment() { return m_experiment; }
+    //! set experiment
+    void setExperiment(const Experiment &experiment) { delete m_experiment; m_experiment = experiment.clone(); }
 
     //! get real data
     const OutputData<double > *getRealData() const { return m_real_data; }
@@ -40,6 +46,7 @@ public:
 
     //! get chi2 module
     const IChiSquaredModule *getChiSquaredModule() const {return m_chi2_module; }
+    IChiSquaredModule *getChiSquaredModule() {return m_chi2_module; }
     //! set chi2 module
     void setChiSquaredModule(const IChiSquaredModule &chi2_module) { delete m_chi2_module; m_chi2_module = chi2_module.clone(); }
 

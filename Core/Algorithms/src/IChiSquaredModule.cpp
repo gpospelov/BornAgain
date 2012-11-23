@@ -40,9 +40,8 @@ IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule &other)
     if(other.mp_simulation_data) mp_simulation_data = other.mp_simulation_data->clone();
     if(other.mp_weights) mp_weights = other.mp_weights->clone();
     if(other.mp_squared_function) mp_squared_function = other.mp_squared_function->clone();
-    if(other.mp_data_selector) mp_data_selector = mp_data_selector->clone();
+    if(other.mp_data_selector) mp_data_selector = other.mp_data_selector->clone();
 }
-
 
 
 IChiSquaredModule::~IChiSquaredModule()

@@ -22,6 +22,7 @@
 #include "ResolutionFunction2DSimple.h"
 #include "MathFunctions.h"
 #include "ROOTMinimizer.h"
+#include "OutputDataFunctions.h"
 
 #include <iostream>
 #include <fstream>
@@ -180,34 +181,43 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     c2->cd(1); gPad->SetLogz();
     TH2D *hist1 = dynamic_cast<TH2D* >(IsGISAXSTools::getOutputDataTH123D(*m_experiment->getOutputData(), "hist1"));
     hist1->SetMinimum(1.0);
-    hist1->Draw("CONT4 Z");
+    hist1->Draw("COLZ");
 
-    OutputData<double > *sliced_data = IsGISAXSTools::sliceOutputData(*m_experiment->getOutputData(), "phi_f", 0.01);
-    std::cout << "XXX " << sliced_data->getAllocatedSize() << std::endl;
+    OutputData<double > *sliced_data = OutputDataFunctions::sliceAccrossOneAxis(*m_experiment->getOutputData(), "phi_f", 0.01);
     c2->cd(2);
     TH1D *hist2 = dynamic_cast<TH1D* >(IsGISAXSTools::getOutputDataTH123D(*sliced_data, "hist2"));
     hist2->SetMinimum(1.0);
     hist2->Draw();
 
-    m_fitSuite = new FitSuite();
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    OutputData<double > *ranged_data = OutputDataFunctions::selectRangeOnOneAxis(*m_experiment->getOutputData(), "phi_f", 0.01, 0.01);
+    c2->cd(3); gPad->SetLogz();
+    TH2D *hist3 = dynamic_cast<TH2D* >(IsGISAXSTools::getOutputDataTH123D(*ranged_data, "hist3"));
+    if( !hist3 ) throw LogicErrorException("TestIsGISAXS12::run_isgisaxs_fit() -> Can't get histogram");
+    hist3->SetMinimum(1.0);
+    TH1D *hproj = hist3->ProjectionY("h_proj");
+    hproj->SetLineColor(kRed);
+    hproj->Draw();
 
-    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite = new FitSuite();
+//    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
 
-    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
-    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
+//    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 
-    m_fitSuite->addExperimentAndRealData(*m_experiment, *sliced_data);
+//    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
+//    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
 
-    m_fitSuite->runFit();
+//    m_fitSuite->addExperimentAndRealData(*m_experiment, *sliced_data);
+
+
+    //m_fitSuite->runFit();
 
 
 }
@@ -307,6 +317,7 @@ void TestIsGISAXS12::initialiseExperiment()
     m_experiment = new GISASExperiment(mp_options);
     m_experiment->setSampleBuilder(m_sample_builder);
     m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    //m_experiment->setDetectorParameters(6, 0.01, 0.06, 6, 0.01, 0.06, false);
     m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     // no resolution function defined yet, since we want to run comparison with isgisaxs fitst
 }

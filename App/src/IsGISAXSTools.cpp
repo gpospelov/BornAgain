@@ -152,29 +152,39 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
     // we assume variable bin size and prepare [nbins+1] array of low edges of each bin
     for(size_t i_axis=0; i_axis<output.getNdimensions(); ++i_axis) {
         const NamedVector<double> *axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[i_axis]);
+        if( !axis ) throw("IsGISAXSTools::getOutputDataTH123D() -> Error! Can't cast axis");
         double dx(0);
         haxises[i_axis].nbins = axis->getSize();
         haxises[i_axis].name = axis->getName();
-        for(size_t i_bin=0; i_bin<axis->getSize(); ++i_bin) {
-            if(i_bin == 0) {
-                dx = (*axis)[1]-(*axis)[0];
-            } else {
-                dx = (*axis)[i_bin] - (*axis)[i_bin-1];
+        if( axis->getSize() == 0) {
+            throw LogicErrorException("IsGISAXSTools::getOutputDataTH123D() -> Error! Axis with zero size.");
+        }else if( axis->getSize() == 1 ) {
+            // only one bin, let's invent fake bin size
+            dx = 0.1*(*axis)[0];
+            haxises[i_axis].xbins.push_back((*axis)[0]-dx/2.);
+            haxises[i_axis].xbins.push_back((*axis)[0]+dx/2.);
+        }else {
+            for(size_t i_bin=0; i_bin<axis->getSize(); ++i_bin) {
+                if(i_bin == 0) {
+                    dx = (*axis)[1]-(*axis)[0];
+                } else {
+                    dx = (*axis)[i_bin] - (*axis)[i_bin-1];
+                }
+                haxises[i_axis].xbins.push_back( (*axis)[i_bin] - dx/2.);
             }
-            haxises[i_axis].xbins.push_back( (*axis)[i_bin] - dx/2.);
-        }
         haxises[i_axis].xbins.push_back((*axis)[axis->getSize()-1] + dx/2.); // right bin edge of last bin, so for 100 bins size of vector will be 101
+        }
     }
 
-//    for(size_t i_axis=0; i_axis<2; ++i_axis) {
-//        std::cout << "axis " << i_axis << " size:" << histo_axises[i_axis].size() << std::endl;
-//        for(size_t i_bin=0; i_bin<histo_axises[i_axis].size(); ++i_bin) {
-//            std::cout << histo_axises[i_axis][i_bin] << " ";
-//        }
-//        std::cout << std::endl;
+//    for(size_t i_axis=0; i_axis<output.getNdimensions(); ++i_axis) {
+//       std::cout << "axis " << i_axis << " size:" << haxises[i_axis].xbins.size() << std::endl;
+//       for(size_t i_bin=0; i_bin<haxises[i_axis].xbins.size(); ++i_bin) {
+//           std::cout << haxises[i_axis].xbins[i_bin] << " ";
+//       }
+//       std::cout << std::endl;
 //    }
 
-    // creation of 2D histogram with variable bin size
+    // creation of 1D, 2D or 3D histogram with variable bin size
     TH1 *hist;
     if(output.getNdimensions() == 1) {
         hist = new TH1D(histo_name.c_str(), histo_name.c_str(), haxises[0].nbins, &haxises[0].xbins[0]);
@@ -189,7 +199,7 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
         hist->GetYaxis()->SetTitle( haxises[1].name.c_str() );
         hist->GetZaxis()->SetTitle( haxises[2].name.c_str() );
     } else {
-        throw LogicErrorException("IsGISAXSTools::getOutputDataTH123D() -> Warning! Wrong number of dimensions.");
+        throw LogicErrorException("IsGISAXSTools::getOutputDataTH123D() -> Error! Wrong number of dimensions.");
     }
 
     OutputData<double>::const_iterator it = output.begin();
@@ -481,65 +491,6 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
         v_axis1[axis0_index][axis1_index] = axis1_value;
     }
 
-}
-
-
-// TODO re-implement sliceOutputData 1) using iterators 2) as a projection along of one axis having x1,x2 range defined for another axes 3) have sum (or sum averaged) within this [x1,x2] range
-// TODO implement creation of OutputData as a subset of bigger OutputData using [alphamin, alphamax][phimin,phimax] window
-/* ************************************************************************* */
-// slice 2D output data into 1D having fixed axes value on one of the axes
-/* ************************************************************************* */
-OutputData<double> *IsGISAXSTools::sliceOutputData(const OutputData<double > &data, const std::string &fixed_axis_name, double fixed_axis_value)
-{
-    if (data.getNdimensions() != 2) {
-        throw LogicErrorException("IsGISAXSTools::sliceOutputData() -> Error. Number of dimensions should be 2");
-    }
-    if( !data.getAxis(fixed_axis_name) ) {
-        throw LogicErrorException("IsGISAXSTools::sliceOutputData() -> Error. No axis with name "+fixed_axis_name);
-    }
-
-    OutputData<double > *sliced_data = new OutputData<double >;
-
-    const NamedVector<double> *fixed_axis(0);
-    int fixed_axis_index(-1);
-    for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
-        const NamedVector<double> *axis = dynamic_cast<const NamedVector<double>*>(data.getAxes()[i_axis]);
-        if( axis->getName() != fixed_axis_name ) {
-            sliced_data->addAxis(axis->clone());
-        } else {
-            fixed_axis = axis;
-            fixed_axis_index = i_axis;
-        }
-    }
-
-    // finding bin number on fixed_axis which is closest to fixed_axis_value
-    std::vector<double > buff;
-    buff.resize(fixed_axis->getSize(), 0);
-    for(size_t i=0; i<fixed_axis->getSize(); ++i) {
-        buff[i]= (*fixed_axis)[i];
-    }
-    std::vector<double >::iterator before = std::lower_bound(buff.begin(), buff.end(), fixed_axis_value);
-    int nbin(0);
-    if(before == buff.end() ) --before;
-    if(before == buff.begin() ) ++before;
-    std::vector<double >::iterator after = before;
-    --before;
-    ( *after-fixed_axis_value) < (fixed_axis_value - *before) ? nbin = std::distance(buff.begin(), after) : nbin = std::distance(buff.begin(), before);
-
-    // filling sliced data structure
-    OutputData<double>::const_iterator it_data = data.begin();
-    OutputData<double>::iterator it_sliced = sliced_data->begin();
-    while (it_data != data.end())
-    {
-        size_t fixed_axis_nbin = data.toCoordinates(it_data.getIndex())[fixed_axis_index];
-        if((int)fixed_axis_nbin == nbin) {
-            *it_sliced = *it_data;
-            ++it_sliced;
-        }
-        ++it_data;
-    }
-
-    return sliced_data;
 }
 
 

@@ -77,8 +77,6 @@ TEST_F(NamedVectorTest, FindClosestIndex)
     EXPECT_EQ( size_t(1), vec_size11.findClosestIndex(0.51));
     EXPECT_EQ( size_t(9), vec_size11.findClosestIndex(9.01));
     EXPECT_EQ( size_t(10), vec_size11.findClosestIndex(100.));
-
-
 }
 
 

@@ -8,6 +8,7 @@
 #include "GISASExperiment.h"
 #include "IMinimizer.h"
 #include "MathFunctions.h"
+#include "OutputDataFunctions.h"
 #include <iostream>
 
 
@@ -50,7 +51,7 @@ void FitSuiteStrategyAdjustData::execute()
         // create adjusted data which will have doubled (2,4,8,...) bin size
         OutputData<double> *adjusted_data = orig_data;
         for(size_t i=0; i<m_power_of_two; ++i) {
-            OutputData<double> *new_data = doubleBinSize(*adjusted_data);
+            OutputData<double> *new_data = OutputDataFunctions::doubleBinSize(*adjusted_data);
             if(i!=0) {
                 delete adjusted_data;
             }

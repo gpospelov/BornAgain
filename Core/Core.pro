@@ -121,7 +121,8 @@ SOURCES += \
     PythonAPI/src/PythonListConverter.cpp \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp \
-    PythonAPI/src/PythonOutputData.cpp
+    PythonAPI/src/PythonOutputData.cpp \
+    Tools/src/OutputDataFunctions.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -266,7 +267,8 @@ HEADERS += \
     PythonAPI/inc/PythonModule.h \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h \
-    PythonAPI/inc/IPythonWrapper.h
+    PythonAPI/inc/IPythonWrapper.h \
+    Tools/inc/OutputDataFunctions.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

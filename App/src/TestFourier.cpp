@@ -6,6 +6,7 @@
 #include "IsGISAXSTools.h"
 #include "SampleFactory.h"
 #include "TestMesoCrystal1.h"
+#include "OutputDataFunctions.h"
 
 TestFourier::TestFourier()
 : mp_intensity_output(0)
@@ -35,9 +36,9 @@ void TestFourier::execute()
 
     mp_intensity_output = experiment.getOutputDataClone();
     OutputData<complex_t> fft_map;
-    fourierTransform(*mp_intensity_output, &fft_map);
-    OutputData<double> *p_real_fft_map = getModulusPart(fft_map);
-    fourierTransformR(fft_map, mp_intensity_output);
+    OutputDataFunctions::fourierTransform(*mp_intensity_output, &fft_map);
+    OutputData<double> *p_real_fft_map = OutputDataFunctions::getModulusPart(fft_map);
+    OutputDataFunctions::fourierTransformR(fft_map, mp_intensity_output);
     IsGISAXSTools::drawOutputData(*p_real_fft_map, "c1_four", "Fourier transform",
             "CONT4 Z", "Fourier transform");
     IsGISAXSTools::writeOutputDataToFile(*p_real_fft_map, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/fourier.ima");

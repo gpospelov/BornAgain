@@ -183,11 +183,11 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     hist1->SetMinimum(1.0);
     hist1->Draw("COLZ");
 
-    OutputData<double > *sliced_data = OutputDataFunctions::sliceAccrossOneAxis(*m_experiment->getOutputData(), "phi_f", 0.01);
-    c2->cd(2);
-    TH1D *hist2 = dynamic_cast<TH1D* >(IsGISAXSTools::getOutputDataTH123D(*sliced_data, "hist2"));
-    hist2->SetMinimum(1.0);
-    hist2->Draw();
+//    OutputData<double > *sliced_data = OutputDataFunctions::sliceAccrossOneAxis(*m_experiment->getOutputData(), "phi_f", 0.01);
+//    c2->cd(2);
+//    TH1D *hist2 = dynamic_cast<TH1D* >(IsGISAXSTools::getOutputDataTH123D(*sliced_data, "hist2"));
+//    hist2->SetMinimum(1.0);
+//    hist2->Draw();
 
     OutputData<double > *ranged_data = OutputDataFunctions::selectRangeOnOneAxis(*m_experiment->getOutputData(), "phi_f", 0.01, 0.01);
     c2->cd(3); gPad->SetLogz();
@@ -198,26 +198,26 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     hproj->SetLineColor(kRed);
     hproj->Draw();
 
-//    m_fitSuite = new FitSuite();
-//    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    m_fitSuite = new FitSuite();
+    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
 
-//    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 
-//    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
-//    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
+    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
+    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
 
-//    m_fitSuite->addExperimentAndRealData(*m_experiment, *sliced_data);
+    m_fitSuite->addExperimentAndRealData(*m_experiment, *ranged_data);
 
 
-    //m_fitSuite->runFit();
+    m_fitSuite->runFit();
 
 
 }

@@ -66,8 +66,8 @@ public:
     const OutputData<double> * getSimulatedData(int i_item = 0) const { return m_fit_objects[check_index(i_item)]->getSimulatedData(); }
 
     //! get fit object
-    const FitObject *getFitObject(int i_item = 0) const { return m_fit_objects[check_index(i_item)]; }
-    FitObject *getFitObject(int i_item = 0) { return m_fit_objects[check_index(i_item)]; }
+    const FitObject *getObject(int i_item = 0) const { return m_fit_objects[check_index(i_item)]; }
+    FitObject *getObject(int i_item = 0) { return m_fit_objects[check_index(i_item)]; }
 private:
     //! disabled copy constructor and assignment operator
     FitSuiteObjects &operator=(const FitSuiteObjects &);

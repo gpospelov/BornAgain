@@ -93,7 +93,7 @@ public:
     //! create two-dimensional TH2D from OutputData
     static TH2D *getOutputDataTH2D(const OutputData<double>& output, const std::string &histo_name);
 
-    //! create one, thwo, three-dimensional histograms from OutputData
+    //! create one, two, three-dimensional histograms from OutputData
     static TH1 *getOutputDataTH123D(const OutputData<double>& output, const std::string &histo_name);
 
 private:

@@ -46,8 +46,11 @@ double FitSuiteObjects::getChiSquaredValue()
         IChiSquaredModule *chi2_module = getChiSquaredModule(i_exp);
 
         chi2_module->setRealData(*real_data);
-        chi_squared += chi2_module->calculateChiSquared(simulated_data);
+        double value = chi2_module->calculateChiSquared(simulated_data);
+//        std::cout << " QQQ chi_squared " << i_exp << value << std::endl;
+        chi_squared += value;
     }
+//    std::cout << "QQQ chi_squared_sum " << chi_squared << std::endl;
     return chi_squared;
 }
 

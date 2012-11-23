@@ -253,6 +253,10 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
         throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! No axis with name "+selected_axis_name);
     }
 
+    if(axis_value2 < axis_value1) {
+        throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! Axis range xmax<xmin. ");
+    }
+
     int selected_axis_index = data.getAxisIndex(selected_axis_name);
     int nbin1 = selected_axis->findClosestIndex(axis_value1);
     int nbin2 = selected_axis->findClosestIndex(axis_value2);

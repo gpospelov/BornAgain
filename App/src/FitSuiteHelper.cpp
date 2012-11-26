@@ -117,33 +117,30 @@ void FitSuiteObserverDraw::update(IObservable *subject)
         data2draw.push_back( fitObject->getChiSquaredModule()->createChi2DifferenceMap() );
 
         // drawing
-        double maximum_of_real_signal(0);
         for(size_t i_hist=0; i_hist<data2draw.size(); ++i_hist)  {
             c1->cd(i_hist+1);
             gPad->SetLogz();
             gPad->SetLeftMargin(0.12);
             gPad->SetRightMargin(0.12);
+
             TH1 *hist = get_histogram(*data2draw[i_hist], hnames[i_hist]);
             // same maximum and minimum for real and simulated data
             if( i_hist == kReal || i_hist == kSimul ) hist->SetMinimum(1);
-//            if(i_hist == kReal) maximum_of_real_signal = hist->GetMaximum();
-
-//            if( i_hist == kSimul || i_hist==kReal) {
-//                std::cout << "AAA setting max " << i_hist << " " << maximum_of_real_signal << std::endl;
-//                //hist->SetMaximum(maximum_of_real_signal*1.1);
-//            }
             if( dynamic_cast<TH1D *>(hist)) {
                 hist->DrawCopy();
             } else {
                 hist->DrawCopy("COLZ");
             }
+            delete hist;
         }
         for(size_t i_hist=0; i_hist<data2draw.size(); ++i_hist) delete data2draw[i_hist];
         data2draw.clear();
         c1->Update();
     }
 
+    // -----------------------------
     // plotting parameter statistic
+    // -----------------------------
     m_stat_canvas->cd(1);
     delete m_ptext;
     m_ptext = new TPaveText(.05,.1,.95,.8);

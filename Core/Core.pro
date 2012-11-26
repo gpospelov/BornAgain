@@ -31,6 +31,7 @@ SOURCES += \
     Algorithms/src/GISASExperiment.cpp \
     Algorithms/src/IChiSquaredModule.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
+    Algorithms/src/IOutputDataNormalizer.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
@@ -103,6 +104,7 @@ SOURCES += \
     Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
     Tools/src/OutputData.cpp \
+    Tools/src/OutputDataFunctions.cpp \
     Tools/src/OutputDataIOFactory.cpp \
     Tools/src/OutputDataReader.cpp \
     Tools/src/OutputDataWriter.cpp \
@@ -121,8 +123,7 @@ SOURCES += \
     PythonAPI/src/PythonListConverter.cpp \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp \
-    PythonAPI/src/PythonOutputData.cpp \
-    Tools/src/OutputDataFunctions.cpp
+    PythonAPI/src/PythonOutputData.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -141,6 +142,7 @@ HEADERS += \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
+    Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
     Algorithms/inc/ISampleBuilder.h \
     Algorithms/inc/ISimulation.h \
@@ -234,6 +236,7 @@ HEADERS += \
     Tools/inc/IMinimizer.h \
     Tools/inc/INamed.h \
     Tools/inc/IObserver.h \
+    Tools/inc/OutputDataFunctions.h \
     Tools/inc/IParameterized.h \
     Tools/inc/ISingleton.h \
     Tools/inc/IStochasticParameter.h \
@@ -267,8 +270,7 @@ HEADERS += \
     PythonAPI/inc/PythonModule.h \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h \
-    PythonAPI/inc/IPythonWrapper.h \
-    Tools/inc/OutputDataFunctions.h
+    PythonAPI/inc/IPythonWrapper.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

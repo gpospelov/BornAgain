@@ -16,6 +16,7 @@
 #include "FitSuiteHelper.h"
 #include "ResolutionFunction2DSimple.h"
 #include "AttLimits.h"
+#include "ISquaredFunction.h"
 
 #include "IObserver.h"
 #include "FitSuite.h"
@@ -69,7 +70,9 @@ void TestFittingModule1::execute()
     c1->Update();
 \
     // setting up fitSuite
-    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data);
+    ChiSquaredModule chiModule;
+    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
+    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data, chiModule);
 
     m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Simplex") );
@@ -111,7 +114,7 @@ void TestFittingModule1::initializeExperiment()
     mp_experiment->setSample(*mp_sample);
     mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
     mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
+    //mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
     mp_experiment->setBeamIntensity(1e10);
 }
 

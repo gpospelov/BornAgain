@@ -87,6 +87,8 @@ void FitSuiteParameters::link_to_experiment(const Experiment *experiment)
 {
     // accessing parameter pool of the sample
     ParameterPool *pool = experiment->createParameterTree();
+    std::cout << " XXX " << std::endl;
+    std::cout << *pool << std::endl;
 
     // linking fit parameter with whose pool parameters which match name of fit parameter
     // going through all fit parameters defined

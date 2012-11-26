@@ -1,6 +1,5 @@
 #ifndef IDETECTORRESOLUTION_H_
 #define IDETECTORRESOLUTION_H_
-
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *

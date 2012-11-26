@@ -67,6 +67,27 @@ inline double DefaultSquaredFunction::calculateSquaredDifference(
 //}
 
 
+class SquaredFunctionWithSystematicError : public ISquaredFunction
+{
+public:
+    SquaredFunctionWithSystematicError(double epsilon = 0.08) : m_epsilon(epsilon){}
+    virtual ~SquaredFunctionWithSystematicError() {}
+    virtual SquaredFunctionWithSystematicError *clone() const { return new SquaredFunctionWithSystematicError(*this); }
+
+    virtual inline double calculateSquaredDifference(double real_value, double simulated_value) const
+    {
+        double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
+        double sigma_squared = std::fabs(real_value) + (m_epsilon*real_value)*(m_epsilon*real_value);
+        sigma_squared = std::max(sigma_squared, 1.0);
+        return diff_squared/sigma_squared;
+    }
+private:
+    double m_epsilon;
+};
+
+
+
+
 
 
 #endif /* ISQUAREDFUNCTION_H_ */

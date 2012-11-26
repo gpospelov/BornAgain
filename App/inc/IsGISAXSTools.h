@@ -18,7 +18,9 @@
 #include <string>
 
 class TH1;
+class TH1D;
 class TH2D;
+class TLine;
 
 //- -------------------------------------------------------------------
 //! @class IsGISAXSTools
@@ -95,6 +97,12 @@ public:
 
     //! create one, two, three-dimensional histograms from OutputData
     static TH1 *getOutputDataTH123D(const OutputData<double>& output, const std::string &histo_name);
+
+    //! Create TLine for displaying of one-dimensional data scan
+    static TLine *getOutputDataScanLine(const OutputData<double> &data);
+
+    //! Create TH1D for displaying of one-dimensional data scan
+    static TH1D *getOutputDataScanHist(const OutputData<double> &data, const std::string &hname=std::string("scan_hist"));
 
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

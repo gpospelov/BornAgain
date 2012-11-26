@@ -2,6 +2,7 @@
 #define OUTPUTDATATEST_H
 
 #include "OutputData.h"
+#include <algorithm>
 
 #include "gtest/gtest.h"
 
@@ -96,5 +97,20 @@ TEST_F(OutputDataTest, DataCopying)
     EXPECT_TRUE( data2.hasSameShape(data2));
 
 }
+
+
+TEST_F(OutputDataTest, MaxElement)
+{
+    OutputData<double > data;
+    data.addAxis("axis1",0.,10.,10);
+    data.addAxis("axis2",0.,10.,2);
+    data.setAllTo(1.0);
+
+    OutputData<double >::iterator it = data.begin();
+    for (size_t i=0; i<data.getAllocatedSize(); ++i) if(i==10) (*it)=10.0;
+    OutputData<double >::const_iterator cit = std::max_element(data.begin(), data.end());
+    EXPECT_EQ( double(10.0), (*cit));
+}
+
 
 #endif // OUTPUTDATATEST_H

@@ -17,6 +17,7 @@
 #include "OutputData.h"
 #include "IFittingDataSelector.h"
 #include "ISquaredFunction.h"
+#include "IOutputDataNormalizer.h"
 
 #include <vector>
 
@@ -65,6 +66,7 @@ protected:
     OutputData<double> *mp_weights;
     ISquaredFunction *mp_squared_function;
     IFittingDataSelector *mp_data_selector;
+    IOutputDataNormalizer *mp_data_normalizer;
 
     double m_chi2_value;
 };

@@ -7,6 +7,7 @@ IChiSquaredModule::IChiSquaredModule()
     , mp_weights(0)
     , mp_squared_function(0)
     , mp_data_selector(0)
+    , mp_data_normalizer(0)
     , m_chi2_value(0)
 {
     mp_squared_function = new DefaultSquaredFunction();
@@ -20,6 +21,7 @@ IChiSquaredModule::IChiSquaredModule(const OutputData<double>& real_data)
     , mp_weights(0)
     , mp_squared_function(0)
     , mp_data_selector(0)
+    , mp_data_normalizer(0)
     , m_chi2_value(0)
 {
     mp_real_data = real_data.clone();
@@ -34,6 +36,7 @@ IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule &other)
     , mp_weights(0)
     , mp_squared_function(0)
     , mp_data_selector(0)
+    , mp_data_normalizer(0)
     , m_chi2_value(0)
 {
     if(other.mp_real_data) mp_real_data = other.mp_real_data->clone();
@@ -41,6 +44,7 @@ IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule &other)
     if(other.mp_weights) mp_weights = other.mp_weights->clone();
     if(other.mp_squared_function) mp_squared_function = other.mp_squared_function->clone();
     if(other.mp_data_selector) mp_data_selector = other.mp_data_selector->clone();
+    if(other.mp_data_normalizer) mp_data_normalizer = other.mp_data_normalizer->clone();
 }
 
 
@@ -51,6 +55,7 @@ IChiSquaredModule::~IChiSquaredModule()
     delete mp_weights;
     delete mp_squared_function;
     delete mp_data_selector;
+    delete mp_data_normalizer;
 }
 
 void IChiSquaredModule::setRealData(const OutputData<double>& real_data)

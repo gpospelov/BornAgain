@@ -3,10 +3,11 @@
 #include "Exceptions.h"
 
 #include "TCanvas.h"
-#include "TH1.h"
-#include "TH2.h"
-#include "TH3.h"
+#include "TH1D.h"
+#include "TH2D.h"
+#include "TH3D.h"
 #include "TStyle.h"
+#include "TLine.h"
 
 #include <iostream>
 #include <fstream>
@@ -492,5 +493,72 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
     }
 
 }
+
+
+/* ************************************************************************* */
+// Create TLine for displaying of one-dimensional data scan
+// OutputData should be 2D, and one of two dimensions should have number of bins == 1
+/* ************************************************************************* */
+TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double> &data)
+{
+    if(data.getNdimensions() != 2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanLine() -> Error! Number of dimensions should be 2");
+    double x1(0), x2(0), y1(0), y2(0);
+    if( data.getAxis("alpha_f") && data.getAxis("alpha_f")->getSize() == 1) {
+        // horizontal line
+        x1 = dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMin();
+        x2 = dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMax();
+        y1 = y2 = dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMin();
+    }else if( data.getAxis("phi_f") && data.getAxis("phi_f")->getSize() == 1 ) {
+        // it's vertical line
+        x1 = x2 = dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMin();
+        y1 = dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMin();
+        y2 = dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMax();
+    } else {
+        throw LogicErrorException("IsGISAXSTools::getOutputDataScanLine() -> Error! Can't handle these axes.");
+    }
+    TLine *line = new TLine(x1,y1,x2,y2);
+    line->SetLineColor(kRed);
+    line->SetLineStyle(1);
+    line->SetLineWidth(2);
+    return line;
+}
+
+
+/* ************************************************************************* */
+// Create TH1D for displaying of one-dimensional data scan
+// OutputData should be 2D, and one of two dimensions should have number of bins == 1
+/* ************************************************************************* */
+TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const std::string &hname)
+{
+    if(data.getNdimensions() != 2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Number of dimensions should be 2");
+    // on of axis should have dimension 1
+    if( (data.getAxis("alpha_f") && data.getAxis("alpha_f")->getSize() != 1) && (data.getAxis("phi_f") && data.getAxis("phi_f")->getSize() != 1))
+    {
+        std::cout << "IsGISAXSTools::getOutputDataScanHist() -> Info. Can't create 1D histogram from these axes" << std::endl;
+        return 0;
+    }
+
+    TH2D *hist2 = dynamic_cast<TH2D *>(IsGISAXSTools::getOutputDataTH123D( data, "real_data"));
+    if( !hist2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Can't create 2D histogram from the data.");
+
+    TH1D *hist1(0);
+    std::ostringstream ostr;
+    std::string hname_proj = hname;
+    if( data.getAxis("alpha_f") && data.getAxis("alpha_f")->getSize() == 1) {
+        hname_proj += std::string(" proj_on_phi");
+        hist1 = hist2->ProjectionX(hname_proj.c_str());
+        ostr << hname_proj << ", alpha_f=" << dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMin();
+    }else if( data.getAxis("phi_f") && data.getAxis("phi_f")->getSize() == 1 ) {
+        hname_proj += std::string(" proj_on_alpha");
+        hist1 = hist2->ProjectionY(hname_proj.c_str());
+        ostr << hname_proj << ", phi_f=" << dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMin();
+    } else {
+        throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Unexpected place");
+    }
+    hist1->SetTitle(ostr.str().c_str());
+    delete hist2;
+    return hist1;
+}
+
 
 

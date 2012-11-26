@@ -36,6 +36,7 @@ public:
     virtual void finalise();
 
 private:
+    typedef std::vector<OutputData<double > *> DataScan_t;
 
     //! builds sample for fitter testing
     class TestSampleBuilder : public ISampleBuilder

@@ -46,7 +46,7 @@ private:
     virtual void init_parameters();
 
     //! approximation to radial function for integration
-    double iTilde(double qR) const;
+    double iTilde(double qR, void *params) const;
 
     //! print class
     void print(std::ostream &ostr) const;

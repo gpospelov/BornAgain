@@ -43,6 +43,13 @@ FormFactorBigCylinder* FormFactorBigCylinder::clone() const
     return p_clone;
 }
 
+double FormFactorBigCylinder::calculateBinSize(double lambda, double phi_range,
+        size_t n_phi)
+{
+    double k = 2.0*M_PI/lambda;
+    return k*phi_range/(n_phi-1.0);
+}
+
 complex_t FormFactorBigCylinder::evaluate_for_q(const cvector_t &q) const
 {
     double R = m_radius;

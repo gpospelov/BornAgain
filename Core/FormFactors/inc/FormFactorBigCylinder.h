@@ -32,6 +32,8 @@ public:
 
     void setBinSize(double bin_size) { m_bin_size = bin_size; }
 
+    static double calculateBinSize(double lambda, double phi_range, size_t n_phi);
+
 protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 

@@ -2,14 +2,8 @@
 #include "StochasticDiracDelta.h"
 
 #include "MathFunctions.h"
+#include "MemberFunctionIntegrator.h"
 #include "Numeric.h"
-
-double wrapFunctionForGSL2(double qR, void* p_unary_function)
-{
-    std::binder1st<std::const_mem_fun1_t<double, FormFactorBigCylinder, double> > *p_f =
-            (std::binder1st<std::const_mem_fun1_t<double, FormFactorBigCylinder, double> > *)p_unary_function;
-    return (*p_f)(qR);
-}
 
 FormFactorBigCylinder::FormFactorBigCylinder(double height, double radius)
 : m_bin_size(1.0)
@@ -63,12 +57,9 @@ complex_t FormFactorBigCylinder::evaluate_for_q(const cvector_t &q) const
     double qRmin = qrR - effective_bin_size/2.0;
     double qRmax = qrR + effective_bin_size/2.0;
 
-    std::binder1st<std::const_mem_fun1_t<double, FormFactorBigCylinder, double> >
-        f_base = std::bind1st(std::mem_fun(&FormFactorBigCylinder::iTilde), this);
-    gsl_function f;
-    f.function = &wrapFunctionForGSL2;
-    f.params = &f_base;
-    double average_intensity = MathFunctions::Integrate1D(&f, qRmin, qRmax)/effective_bin_size;
+    MemberFunctionIntegrator<FormFactorBigCylinder>::mem_function p_mf = &FormFactorBigCylinder::iTilde;
+    MemberFunctionIntegrator<FormFactorBigCylinder> integrator(p_mf, this);
+    double average_intensity = integrator.integrate(qRmin, qRmax, (void*)0);
 
     double J1_qrR_div_qrR = std::sqrt(average_intensity);
     double radial_part = 2.0*M_PI*R*R*J1_qrR_div_qrR;
@@ -76,8 +67,9 @@ complex_t FormFactorBigCylinder::evaluate_for_q(const cvector_t &q) const
     return radial_part*z_part;
 }
 
-double FormFactorBigCylinder::iTilde(double qR) const
+double FormFactorBigCylinder::iTilde(double qR, void *params) const
 {
+    (void)params;
     static double a = 1.0/4.0;
     static double b = std::sqrt(M_PI/3.0/std::sqrt(3.0));
 

@@ -1,15 +1,9 @@
 #include "InterferenceFunction2DParaCrystal.h"
 #include "MathFunctions.h"
+#include "MemberFunctionIntegrator.h"
 #include "Exceptions.h"
 
 #include <functional>
-
-double wrapFunctionForGSL(double xi, void* p_unary_function)
-{
-    std::binder1st<std::const_mem_fun1_t<double, InterferenceFunction2DParaCrystal, double> > *p_f =
-            (std::binder1st<std::const_mem_fun1_t<double, InterferenceFunction2DParaCrystal, double> > *)p_unary_function;
-    return (*p_f)(xi);
-}
 
 InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi, double corr_length)
 : m_alpha_lattice(alpha_lattice)
@@ -54,14 +48,12 @@ double InterferenceFunction2DParaCrystal::evaluate(const cvector_t &q) const
     m_qy = q.y().real();
     double result;
     if (m_integrate_xi) {
-        std::binder1st<std::const_mem_fun1_t<double, InterferenceFunction2DParaCrystal, double> > f_base = std::bind1st(std::mem_fun(&InterferenceFunction2DParaCrystal::interferenceForXi), this);
-        gsl_function f;
-        f.function = &wrapFunctionForGSL;
-        f.params = &f_base;
-        result = MathFunctions::Integrate1D(&f, 0.0, M_PI)/M_PI;
-    }
+        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>::mem_function p_member_function = &InterferenceFunction2DParaCrystal::interferenceForXi;
+        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal> integrator(p_member_function, this);
+        result = integrator.integrate(0.0, M_PI, (void*)0);
+   }
     else {
-        result = interferenceForXi(m_xi);
+        result = interferenceForXi(m_xi, (void*)0);
     }
     return result;
 }
@@ -119,8 +111,9 @@ void InterferenceFunction2DParaCrystal::init_parameters()
     getParameterPool()->registerParameter("domain_size_2", &m_domain_sizes[1]);
 }
 
-double InterferenceFunction2DParaCrystal::interferenceForXi(double xi) const
+double InterferenceFunction2DParaCrystal::interferenceForXi(double xi, void *params) const
 {
+    (void)params;
     double result = interference1D(m_qx, m_qy, xi, 0)*interference1D(m_qx, m_qy, xi + m_alpha_lattice, 1);
     return result;
 }

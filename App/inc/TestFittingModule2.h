@@ -27,7 +27,8 @@ class FitSuite;
 
 //- -------------------------------------------------------------------
 //! @class TestFittingModule2
-//! @brief Testing of fitting module with 5 parameters sample
+//! @brief Testing of fitting module with 5 parameters sample using different
+//! fit strategies
 //- -------------------------------------------------------------------
 class TestFittingModule2 : public IFunctionalTest
 {

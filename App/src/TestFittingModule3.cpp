@@ -67,6 +67,13 @@ void TestFittingModule3::execute()
 //    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 //    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 
+
+//    // setting up fitSuite
+//    ChiSquaredModule chiModule;
+//    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
+//    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data, chiModule);
+
+
     // putting scans
     for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
         m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it));

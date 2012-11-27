@@ -95,7 +95,7 @@ private:
     //! check if all prerequisites to run fit fit are filled
     bool check_prerequisites();
 
-    FitSuiteObjects m_fit_objects; //! kit which contains pairs of <experiment,real_data> to fit
+    FitSuiteObjects m_fit_objects; //! kit which contains sets of <experiment,real_data,chi_module> to fit
     FitSuiteParameters m_fit_parameters; //! collection of fit parameters
     fitstrategies_t m_fit_strategies; //! collection of strategies which are executed before every minimization round
     IMinimizer  *m_minimizer; //! minimization engine

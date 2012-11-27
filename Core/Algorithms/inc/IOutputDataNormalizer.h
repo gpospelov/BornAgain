@@ -28,10 +28,6 @@ public:
 
     virtual OutputData<double> *createNormalizedData(const OutputData<double > &data) const=0;
 
-protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters(){}
-
 };
 
 
@@ -40,11 +36,13 @@ class OutputDataNormalizerScaleAndShift : public IOutputDataNormalizer
 {
 public:
     OutputDataNormalizerScaleAndShift();
+    OutputDataNormalizerScaleAndShift(double scale, double shift);
+    OutputDataNormalizerScaleAndShift(const OutputDataNormalizerScaleAndShift &other);
     virtual ~OutputDataNormalizerScaleAndShift() {}
 
     virtual OutputData<double> *createNormalizedData(const OutputData<double > &data) const;
 
-    virtual OutputDataNormalizerScaleAndShift *clone() const { return new OutputDataNormalizerScaleAndShift(*this); }
+    virtual OutputDataNormalizerScaleAndShift *clone() const;
 
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool

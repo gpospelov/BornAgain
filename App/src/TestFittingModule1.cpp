@@ -17,6 +17,7 @@
 #include "ResolutionFunction2DSimple.h"
 #include "AttLimits.h"
 #include "ISquaredFunction.h"
+#include "IOutputDataNormalizer.h"
 
 #include "IObserver.h"
 #include "FitSuite.h"
@@ -56,8 +57,6 @@ void TestFittingModule1::execute()
 
     // initializing data
     initializeSample2();
-    ParameterPool *pool = mp_sample->createParameterTree();
-    std::cout << *pool << std::endl;
 
     initializeExperiment();
     generateRealData(0.1);
@@ -72,6 +71,7 @@ void TestFittingModule1::execute()
     // setting up fitSuite
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
+    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift(1e10,0) );
     m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data, chiModule);
 
     m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );

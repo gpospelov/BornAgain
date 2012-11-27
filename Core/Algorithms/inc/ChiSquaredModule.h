@@ -21,16 +21,16 @@ class ChiSquaredModule : public IChiSquaredModule
 public:
     ChiSquaredModule(){}
     ChiSquaredModule(const ChiSquaredModule &other);
-    ChiSquaredModule(const OutputData<double> &real_data);
     virtual ~ChiSquaredModule();
 
     virtual ChiSquaredModule *clone() const;
 
     //! calculate chi squared volume over experimental and simulated data
-    virtual double calculateChiSquared(const OutputData<double> *p_simulation_data=0);
+    virtual double calculateChiSquared();
 
     //! return output data which contains chi^2 values
     virtual OutputData<double > *createChi2DifferenceMap() const;
+
 private:
     // disabling assignment operator
     ChiSquaredModule &operator=(const ChiSquaredModule &);

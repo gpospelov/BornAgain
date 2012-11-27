@@ -68,10 +68,12 @@ void FitSuite::addFitStrategy(IFitSuiteStrategy *strategy)
 /* ************************************************************************* */
 void FitSuite::link_fit_parameters()
 {
-    // loop over all experiments defined
-    for(size_t i_exp = 0; i_exp<m_fit_objects.size(); ++i_exp) {
-        m_fit_parameters.link_to_experiment(m_fit_objects.getExperiment(i_exp));
-    }
+    ParameterPool *pool = m_fit_objects.createParameterTree();
+    m_fit_parameters.link_to_pool(pool);
+    std::cout << "XXXXXX FitSuite::link_fit_parameters() -> " << std::endl;
+    std::cout << *pool << std::endl;
+    std::cout << "----------------" << std::endl;
+    delete pool;
 }
 
 

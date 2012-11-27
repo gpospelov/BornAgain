@@ -104,6 +104,9 @@ public:
     //! Create TH1D for displaying of one-dimensional data scan
     static TH1D *getOutputDataScanHist(const OutputData<double> &data, const std::string &hname=std::string("scan_hist"));
 
+    //! create noisy data
+    static OutputData<double > *createNoisyData(const OutputData<double> &exact_data, double noise_factor = 0.1);
+
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)
     static double m_hist_max; // maximum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

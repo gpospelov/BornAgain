@@ -1,6 +1,7 @@
 #include "IsGISAXSTools.h"
 #include "Units.h"
 #include "Exceptions.h"
+#include "MathFunctions.h"
 
 #include "TCanvas.h"
 #include "TH1D.h"
@@ -563,11 +564,29 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const
     if( !hist1 ) throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Failed to make projection, existing name?");
 
     hist1->SetTitle(ostr_title.str().c_str());
-    // FIXME remove this trick to bypass weared bug with DrawCopy of TH2D's projection
+    // FIXME remove this trick to bypass weared bug with DrawCopy of TH1D projection of TH1D histohgrams
     TH1D *h1 = (TH1D*)hist1->Clone();
     delete hist1;
     return h1;
 }
 
+
+/* ************************************************************************* */
+// add noise to data
+/* ************************************************************************* */
+OutputData<double > *IsGISAXSTools::createNoisyData(const OutputData<double> &exact_data, double noise_factor)
+{
+    OutputData<double > *real_data = exact_data.clone();
+    OutputData<double>::iterator it = real_data->begin();
+    while (it != real_data->end()) {
+        double current = *it;
+        double sigma = noise_factor*std::sqrt(current);
+        double random = MathFunctions::GenerateNormalRandom(current, sigma);
+        if (random<0.0) random = 0.0;
+        *it = random;
+        ++it;
+    }
+    return real_data;
+}
 
 

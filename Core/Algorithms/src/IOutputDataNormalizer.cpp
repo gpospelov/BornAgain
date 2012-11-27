@@ -47,7 +47,6 @@ OutputData<double> *OutputDataNormalizerScaleAndShift::createNormalizedData(cons
 
     OutputData<double >::const_iterator cit = std::max_element(data.begin(), data.end());
     double max_intensity = (*cit);
-    std::cout << "QQQ before " << data.totalSum() << std::endl;
     if(max_intensity) {
         OutputData<double >::iterator it = normalized_data->begin();
         while(it!=normalized_data->end()) {
@@ -55,7 +54,6 @@ OutputData<double> *OutputDataNormalizerScaleAndShift::createNormalizedData(cons
             (*it) = m_scale*(value/max_intensity) + m_shift;
             ++it;
         }
-        std::cout << "QQQ after " << normalized_data->totalSum() << std::endl;
     } else {
         std::cout << "OutputDataNormalizerScaleAndShift::createNormalizedData() -> Warning! Zero maximum intensity" << std::endl;
     }

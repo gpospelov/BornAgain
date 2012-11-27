@@ -102,7 +102,7 @@ void TestFittingModule3::initializeExperiment()
     m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
 //    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 1, 0.01, 0.011);
     m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    m_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
+    //m_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
     m_experiment->setBeamIntensity(1e10);
 
 }
@@ -150,7 +150,7 @@ void TestFittingModule3::initializeRealData()
     m_experiment->runSimulation();
     m_experiment->normalize();
     delete m_real_data;
-    m_real_data = createNoisyData(*m_experiment->getOutputData());
+    m_real_data = IsGISAXSTools::createNoisyData(*m_experiment->getOutputData());
 
     // setting up 1d scans by making slices on real data
     for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
@@ -158,7 +158,7 @@ void TestFittingModule3::initializeRealData()
     }
     m_data_scans.clear();
     m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "alpha_f", 0.012, 0.012) );
-//    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "phi_f", 0.011, 0.011) );
+    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "phi_f", 0.011, 0.011) );
 
     // drawing data and scans
     TCanvas *c1 = new TCanvas("c1","c1",1024, 768);
@@ -184,22 +184,4 @@ void TestFittingModule3::initializeRealData()
 }
 
 
-/* ************************************************************************* */
-// add noise to data
-/* ************************************************************************* */
-OutputData<double > *TestFittingModule3::createNoisyData(const OutputData<double> &exact_data, double noise_factor)
-{
-    OutputData<double > *real_data = exact_data.clone();
-    OutputData<double>::iterator it = real_data->begin();
-    while (it != real_data->end()) {
-        double current = *it;
-        double sigma = noise_factor*std::sqrt(current);
-        double random = MathFunctions::GenerateNormalRandom(current, sigma);
-        if (random<0.0) random = 0.0;
-//        *it = random;
-        *it=current;
-        ++it;
-    }
-    return real_data;
-}
 

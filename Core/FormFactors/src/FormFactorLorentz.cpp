@@ -50,14 +50,13 @@ void FormFactorLorentz::init_parameters()
 
 FormFactorLorentz* FormFactorLorentz::clone() const
 {
-    return new FormFactorLorentz(m_height, m_width);
-//    return new FormFactorLorentz(mp_height->clone(), mp_radius->clone());
+    FormFactorLorentz *p_clone = new FormFactorLorentz(m_height, m_width);
+    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
+    return p_clone;
 }
 
 complex_t FormFactorLorentz::evaluate_for_q(const cvector_t &q) const
 {
-//    double R = mp_radius->getCurrent();
-//    double H = mp_height->getCurrent();
     static const double sigma2 = 4.0*std::pow(M_PI, 2.0/3.0);
     double R = m_width;
     double H = m_height;

@@ -47,15 +47,13 @@ void FormFactorPyramid::init_parameters()
 
 FormFactorPyramid* FormFactorPyramid::clone() const
 {
-    return new FormFactorPyramid(m_height, m_half_side, m_alpha);
-//    return new FormFactorPyramid(mp_height->clone(), mp_half_side->clone(), mp_alpha->clone());
+    FormFactorPyramid *p_clone = new FormFactorPyramid(m_height, m_half_side, m_alpha);
+    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
+    return p_clone;
 }
 
 complex_t FormFactorPyramid::evaluate_for_q(const cvector_t &q) const
 {
-//    double H = mp_height->getCurrent();
-//    double R = mp_half_side->getCurrent();
-//    double tga = std::tan(mp_alpha->getCurrent());
 
     double H = m_height;
     double R = m_half_side;

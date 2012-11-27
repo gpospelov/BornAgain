@@ -30,6 +30,9 @@ public:
     virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const;
+
+    //! propagate the bin sizes to the form factor to possibly enable large bin size approximations
+    virtual void setBinSizes(double delta_qy, double delta_qz);
 protected:
     std::vector<IFormFactor *> m_form_factors;
     std::vector<double> m_weights;

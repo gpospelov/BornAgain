@@ -41,14 +41,13 @@ void FormFactorPrism3::init_parameters()
 
 FormFactorPrism3* FormFactorPrism3::clone() const
 {
-    return new FormFactorPrism3(m_height, m_half_side );
-//    return new FormFactorPrism3(mp_height->clone(), mp_half_side->clone());
+    FormFactorPrism3 *p_clone = new FormFactorPrism3(m_height, m_half_side );
+    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
+    return p_clone;
 }
 
 complex_t FormFactorPrism3::evaluate_for_q(const cvector_t &q) const
 {
-//    double R = mp_half_side->getCurrent();
-//    double H = mp_height->getCurrent();
     complex_t qz = q.z();
     double R = m_half_side;
     double H = m_height;

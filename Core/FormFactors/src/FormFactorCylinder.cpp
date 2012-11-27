@@ -40,14 +40,13 @@ void FormFactorCylinder::init_parameters()
 
 FormFactorCylinder* FormFactorCylinder::clone() const
 {
-    return new FormFactorCylinder(m_height, m_radius);
-//    return new FormFactorCylinder(mp_height->clone(), mp_radius->clone());
+    FormFactorCylinder *p_clone = new FormFactorCylinder(m_height, m_radius);
+    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
+    return p_clone;
 }
 
 complex_t FormFactorCylinder::evaluate_for_q(const cvector_t &q) const
 {
-//    double R = mp_radius->getCurrent();
-//    double H = mp_height->getCurrent();
     double R = m_radius;
     double H = m_height;
 

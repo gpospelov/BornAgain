@@ -23,6 +23,7 @@
 
 #include "gsl/gsl_sf_bessel.h"
 #include "gsl/gsl_sf_trig.h"
+#include "gsl/gsl_sf_expint.h"
 #include "gsl/gsl_integration.h"
 
 namespace MathFunctions
@@ -39,12 +40,16 @@ double GenerateStandardNormalRandom();
 
 double GenerateUniformRandom();
 
+//! Bessel function of the first kind and order 1
 double Bessel_J1(double value);
 
-//complex_t Bessel_J1(complex_t value);
+//! Sine integral function: \f$Si(x)\equiv\int_0^x du \sin(u)/u\f$
+double Si(double value);
 
+//! Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
 double Sinc(double value);
 
+//! Complex Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
 complex_t Sinc(complex_t value);
 
 complex_t Laue(complex_t value, size_t N);
@@ -90,6 +95,11 @@ inline double MathFunctions::GenerateUniformRandom()
 inline double MathFunctions::Bessel_J1(double value)
 {
     return gsl_sf_bessel_J1(value);
+}
+
+inline double MathFunctions::Si(double value)  // int_0^x du Sin(u)/u
+{
+    return gsl_sf_Si(value);
 }
 
 inline double MathFunctions::Sinc(double value)  // Sin(x)/x

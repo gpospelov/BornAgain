@@ -53,3 +53,10 @@ int FormFactorWeighted::getNumberOfStochasticParameters() const
     }
     return result;
 }
+
+void FormFactorWeighted::setBinSizes(double delta_qy, double delta_qz)
+{
+    for (size_t index=0; index<m_form_factors.size(); ++index) {
+        m_form_factors[index]->setBinSizes(delta_qy, delta_qz);
+    }
+}

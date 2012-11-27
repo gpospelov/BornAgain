@@ -13,7 +13,9 @@ FormFactorParallelepiped::~FormFactorParallelepiped()
 
 FormFactorParallelepiped* FormFactorParallelepiped::clone() const
 {
-    return new FormFactorParallelepiped(m_height, m_radius);
+    FormFactorParallelepiped *p_clone = new FormFactorParallelepiped(m_height, m_radius);
+    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
+    return p_clone;
 }
 
 complex_t FormFactorParallelepiped::evaluate_for_q(const cvector_t& q) const

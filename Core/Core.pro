@@ -41,7 +41,6 @@ SOURCES += \
     Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
     \
-    FormFactors/src/FormFactorBigCylinder.cpp \
     FormFactors/src/FormFactorDWBA.cpp \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
     FormFactors/src/FormFactorDecoratorTransformation.cpp \
@@ -54,6 +53,7 @@ SOURCES += \
     FormFactors/src/FormFactorLorentz.cpp \
     FormFactors/src/FormFactorWeighted.cpp \
     FormFactors/src/FormFactorCrystal.cpp \
+    FormFactors/src/IFormFactor.cpp \
     \
     Geometry/src/BasicVector3D.cpp \
     Geometry/src/Normal3D.cpp \
@@ -157,7 +157,6 @@ HEADERS += \
     Algorithms/inc/ResolutionFunction2DSimple.h \
     Algorithms/inc/ThreadInfo.h \
     \
-    FormFactors/inc/FormFactorBigCylinder.h \
     FormFactors/inc/FormFactorDWBA.h \
     FormFactors/inc/FormFactorDWBAConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \

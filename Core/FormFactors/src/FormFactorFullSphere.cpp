@@ -20,7 +20,6 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
 
 FormFactorFullSphere::~FormFactorFullSphere()
 {
-//    delete mp_radius;
 }
 
 /* ************************************************************************* */
@@ -35,13 +34,13 @@ void FormFactorFullSphere::init_parameters()
 
 FormFactorFullSphere* FormFactorFullSphere::clone() const
 {
-    return new FormFactorFullSphere(m_radius);
-//    return new FormFactorFullSphere(mp_radius->clone());
+    FormFactorFullSphere *p_clone = new FormFactorFullSphere(m_radius);
+    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
+    return p_clone;
 }
 
 complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t &q) const
 {
-//    double R = mp_radius->getCurrent();
     complex_t qz = q.z();
     double R = m_radius;
 

@@ -19,6 +19,7 @@
 #include "IFittingDataSelector.h"
 #include "ISquaredFunction.h"
 #include "IOutputDataNormalizer.h"
+#include "IIntensityFunction.h"
 
 #include <vector>
 
@@ -60,6 +61,11 @@ public:
     //! set data normalizer
     virtual void setOutputDataNormalizer(const IOutputDataNormalizer &data_normalizer);
 
+    //! get data normalizer
+    virtual const IIntensityFunction *getIntensityFunction() const {return mp_intensity_function; }
+    //! set data normalizer
+    virtual void setIntensityFunction(const IIntensityFunction &intensity_function);
+
     //! return last calculated chi squared value
     virtual double getValue() const { return m_chi2_value; }
 
@@ -74,6 +80,7 @@ protected:
     ISquaredFunction *mp_squared_function;
     IFittingDataSelector *mp_data_selector;
     IOutputDataNormalizer *mp_data_normalizer;
+    IIntensityFunction  *mp_intensity_function;
 
     double m_chi2_value;
 };

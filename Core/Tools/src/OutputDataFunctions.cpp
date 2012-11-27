@@ -319,3 +319,17 @@ void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination)
     }
 }
 
+
+//! apply intensity function to values stored in output data
+void OutputDataFunctions::applyFunction(OutputData<double> &data, const IIntensityFunction *func)
+{
+    OutputData<double>::iterator it = data.begin();
+    while (it != data.end())
+    {
+        double value = *it;
+        *it = func->evaluate(value);
+        ++it;
+    }
+}
+
+

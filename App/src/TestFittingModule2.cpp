@@ -16,6 +16,7 @@
 #include "FitSuiteHelper.h"
 #include "ResolutionFunction2DSimple.h"
 #include "AttLimits.h"
+#include "IIntensityFunction.h"
 
 #include "IObserver.h"
 #include "FitSuite.h"
@@ -97,18 +98,23 @@ void TestFittingModule2::fit_example_basics()
 void TestFittingModule2::fit_example_chimodule()
 {
     initializeExperiment();
+    //mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
     initializeRealData();
+
 
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",  2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",    2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*Normalizer/scale", 1e10, 1e3, AttLimits::limited(1e8, 1e12));
+//    m_fitSuite->addFitParameter("*Normalizer/scale", 1e10, 1e3, AttLimits::limited(1e8, 1e12));
 
     // setting up fitSuite
     ChiSquaredModule chiModule;
+    //chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
-    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift(1e10,0) );
+    //chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() ); // it works only with resolution function, without it fit doesn't converge
+    //chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift(1e10,0) );
+    chiModule.setIntensityFunction( IntensityFunctionLog() );
     m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data, chiModule);
 
     m_fitSuite->runFit();

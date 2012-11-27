@@ -1,4 +1,5 @@
 #include "ChiSquaredModule.h"
+#include "OutputDataFunctions.h"
 
 
 ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other) : IChiSquaredModule(other)
@@ -25,6 +26,11 @@ double ChiSquaredModule::calculateChiSquared()
     double result = 0.0;
     size_t data_size = mp_real_data->getAllocatedSize();
     initWeights();
+
+    if( mp_intensity_function ) {
+        OutputDataFunctions::applyFunction(*mp_simulation_data, mp_intensity_function);
+        OutputDataFunctions::applyFunction(*mp_real_data, mp_intensity_function);
+    }
 
     if(mp_data_normalizer) {
         OutputData<double > *normalized_simulation = mp_data_normalizer->createNormalizedData(*mp_simulation_data);

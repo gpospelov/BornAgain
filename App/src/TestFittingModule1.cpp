@@ -68,11 +68,7 @@ void TestFittingModule1::execute()
     IsGISAXSTools::drawOutputDataInPad(*mp_exact_data, "CONT4 Z", "exact data");
     c1->Update();
 \
-    // setting up fitSuite
-    ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
-    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift(1e10,0) );
-    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data, chiModule);
+    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data);
 
     m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Simplex") );

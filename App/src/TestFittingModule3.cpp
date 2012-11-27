@@ -158,7 +158,7 @@ void TestFittingModule3::initializeRealData()
     }
     m_data_scans.clear();
     m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "alpha_f", 0.012, 0.012) );
-    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "phi_f", 0.011, 0.011) );
+//    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "phi_f", 0.011, 0.011) );
 
     // drawing data and scans
     TCanvas *c1 = new TCanvas("c1","c1",1024, 768);

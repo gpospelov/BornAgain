@@ -108,31 +108,37 @@ void FitSuiteObserverDraw::update(IObservable *subject)
         const FitObject *fitObject = fitSuite->getFitObjects()->getObject(i_fit_object);
 
         // preparing data to draw
-        const char *hnames[]={ "RealData", "SimulatedData", "RelativeDifference","Chi2Map"};
+        const char *hname[]={ "RealData", "SimulatedData", "RelativeDifference","Chi2Map"};
         enum hist_keys {kReal, kSimul, kDiff, kChi2};
         std::vector<OutputData<double > *> data2draw;
         data2draw.push_back( fitObject->getRealData()->clone() );
-//        data2draw.push_back( fitObject->getSimulationData()->clone() );
         data2draw.push_back( fitObject->getChiSquaredModule()->getSimulationData()->clone() ); //chi module have normalized simulation
         data2draw.push_back( getRelativeDifferenceMap(fitObject->getChiSquaredModule()->getSimulationData(), fitObject->getRealData() ) );
         data2draw.push_back( fitObject->getChiSquaredModule()->createChi2DifferenceMap() );
 
         // drawing
         for(size_t i_hist=0; i_hist<data2draw.size(); ++i_hist)  {
+            const OutputData<double > *data = data2draw[i_hist];
+            if( !data->getAxis("alpha_f") || !data->getAxis("phi_f") ) throw LogicErrorException("FitSuiteObserverDraw::update() -> Error! Can't handle axis");
+
             c1->cd(i_hist+1);
             gPad->SetLogz();
             gPad->SetLeftMargin(0.12);
             gPad->SetRightMargin(0.12);
 
-            TH1 *hist = get_histogram(*data2draw[i_hist], hnames[i_hist]);
-            // same maximum and minimum for real and simulated data
-            if( i_hist == kReal || i_hist == kSimul ) hist->SetMinimum(1);
-            if( dynamic_cast<TH1D *>(hist)) {
-                hist->DrawCopy();
-            } else {
-                hist->DrawCopy("COLZ");
+            if( data->getAxis("alpha_f")->getSize() != 1 && data->getAxis("phi_f")->getSize() != 1)
+            {
+                TH2D *hist2 = IsGISAXSTools::getOutputDataTH2D( *data, hname[i_hist]);
+                if( i_hist == kReal || i_hist == kSimul ) hist2->SetMinimum(1);
+                hist2->DrawCopy("COLZ");
+                delete hist2;
+            } else if(data->getAxis("alpha_f")->getSize() == 1 || data->getAxis("phi_f")->getSize() == 1){
+                TH1D *hist1 =  IsGISAXSTools::getOutputDataScanHist(*data, hname[i_hist]);
+                if( i_hist == kReal || i_hist == kSimul ) hist1->SetMinimum(1);
+                hist1->DrawCopy();
+                delete hist1;
             }
-            delete hist;
+
         }
         for(size_t i_hist=0; i_hist<data2draw.size(); ++i_hist) delete data2draw[i_hist];
         data2draw.clear();
@@ -167,24 +173,6 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     }
     m_stat_canvas->Update();
 
-}
-
-
-/* ************************************************************************* */
-// function converts 2D OutputData in 2D histogram, if both axis has size >1
-// and in 1D histogram if one the axis has size 1
-/* ************************************************************************* */
-TH1 *FitSuiteObserverDraw::get_histogram(const OutputData<double> &data, const std::string &hname)
-{
-    if( data.getAxis("alpha_f") && data.getAxis("phi_f") ) {
-        if( data.getAxis("alpha_f")->getSize() != 1 && data.getAxis("phi_f")->getSize() != 1)
-        {
-            return IsGISAXSTools::getOutputDataTH123D( data, hname);
-        } else if(data.getAxis("alpha_f")->getSize() == 1 || data.getAxis("phi_f")->getSize() == 1){
-            return IsGISAXSTools::getOutputDataScanHist(data, hname);
-        }
-    }
-    throw LogicErrorException("FitSuiteObserverDraw::get_histogram()-> Error! Can't handle axis");
 }
 
 

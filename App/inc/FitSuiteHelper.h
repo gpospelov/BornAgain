@@ -62,9 +62,6 @@ public:
     //! return output data which contains relative difference between simulation and real data
     OutputData<double > *getRelativeDifferenceMap(const OutputData<double> *p_simu_data, const OutputData<double> *p_real_data);
 
-    //! function converts 2D OutputData in 2D histogram, if both axis has size >1, and in 1D histogram if one the axis has size 1
-    TH1 *get_histogram(const OutputData<double> &data, const std::string &hname);
-
 private:
     int m_draw_every_nth; //! update canvas every nth iteration
     std::string m_canvas_base_name; //! canvas name were to draw

@@ -60,7 +60,7 @@ public:
     virtual TValue* operator->() const;
 
     //! get current index
-    const size_t getIndex() const { return m_current_index; }
+    size_t getIndex() const { return m_current_index; }
 
     //! get container pointer
     TContainer *getContainer() const { return mp_output_data; }

@@ -1,6 +1,7 @@
 #include "MathFunctions.h"
 
 #include <cmath>
+#include <cstring>
 #include <stdexcept>
 #include <fftw3.h>
 #include <gsl/gsl_sf_erf.h>

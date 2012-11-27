@@ -50,13 +50,6 @@ TestFittingModule2::~TestFittingModule2()
 }
 
 
-//template<class T> const bool haveSameDimensions(const OutputData<T>& left, const OutputData<T>& right)
-//{
-
-//    return true;
-//}
-
-
 void TestFittingModule2::execute()
 {
     // new sample builder
@@ -115,7 +108,13 @@ void TestFittingModule2::execute()
     // setting up fitSuite
 //    m_fitSuite->setExperiment(mp_experiment);
 //    m_fitSuite->setRealData(*mp_real_data);
-    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data);
+
+    // setting up fitSuite
+    ChiSquaredModule chiModule;
+    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
+    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift(1e10,0) );
+
+    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data, chiModule);
 
     m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
 
@@ -143,7 +142,7 @@ void TestFittingModule2::initializeExperiment()
     mp_experiment->setSampleBuilder(mp_sample_builder);
     mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
     mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
+    //mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
     mp_experiment->setBeamIntensity(1e10);
 }
 

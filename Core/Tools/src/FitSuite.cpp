@@ -81,11 +81,11 @@ void FitSuite::link_fit_parameters()
 void FitSuite::minimize()
 {
     // initializing minimizer with fcn function belonging to given class
-    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), m_fit_parameters.size() );
+    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), (int)m_fit_parameters.size() );
 
     // propagating local fit parameters to the minimizer's internal list of parameters
     for(size_t i_par = 0; i_par<m_fit_parameters.size(); i_par++) {
-        m_minimizer->setVariable(i_par, m_fit_parameters[i_par] );
+        m_minimizer->setVariable((int)i_par, m_fit_parameters[i_par] );
     }
     if( m_fit_parameters.size() != m_minimizer->getNumberOfVariables())  std::cout << "FitSuite::minimize() -> Warning. Something unexpected" << std::endl;
 

@@ -34,7 +34,7 @@ public:
 
     // set T and R functions for given layer
 //    void setTAndRFunctions(int i, const IDoubleToComplexFunction &T_function, const IDoubleToComplexFunction &R_function);
-    void setReflectionTransmissionFunction(int i_layer, const IDoubleToPairOfComplexMap &RT_function);
+    void setReflectionTransmissionFunction(size_t i_layer, const IDoubleToPairOfComplexMap &RT_function);
 
     // evaluate
     virtual double evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f);
@@ -43,8 +43,8 @@ protected:
     MultiLayerRoughnessDWBASimulation(const MultiLayerRoughnessDWBASimulation &);
     MultiLayerRoughnessDWBASimulation &operator=(const MultiLayerRoughnessDWBASimulation &);
 
-    complex_t get_refractive_term(int ilayer);
-    complex_t get_sum4terms(int ilayer, const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f);
+    complex_t get_refractive_term(size_t ilayer);
+    complex_t get_sum4terms(size_t ilayer, const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f);
 
 //    std::vector<IDoubleToComplexFunction *> mp_T_function;
 //    std::vector<IDoubleToComplexFunction *> mp_R_function;

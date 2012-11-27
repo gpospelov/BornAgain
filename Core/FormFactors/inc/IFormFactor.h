@@ -149,7 +149,7 @@ protected:
     virtual double getVolume() const;
 private:
     double bigRadialPart(double qR, void *params) const;
-    double bigZPart(double qH2, void *params) const;
+    double bigZPart(double qH2) const;
 };
 
 inline complex_t IFormFactorBorn::evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const
@@ -179,8 +179,8 @@ inline complex_t IFormFactorBorn::evaluateForLargeBins(const cvector_t& q) const
     complex_t z_phase = std::exp(complex_t(0.0, 1.0)*qzH2);
 
     // modulus of the height of the particle
-    double z_average_intensity = (bigZPart(qzH2_d + effective_bin_size_h/2.0, (void *)0)
-            - bigZPart(qzH2_d - effective_bin_size_h/2.0, (void *)0))/effective_bin_size_h;
+    double z_average_intensity = (bigZPart(qzH2_d + effective_bin_size_h/2.0)
+            - bigZPart(qzH2_d - effective_bin_size_h/2.0))/effective_bin_size_h;
     double z_modulus = std::sqrt(z_average_intensity);
 
     // modulus of the radial part

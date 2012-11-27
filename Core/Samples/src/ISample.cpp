@@ -45,7 +45,7 @@ void ISample::print_structure()
         {
             ISample *smp = it.get_current();
             if(smp) {
-                int nlevel = it.get_level();
+                int nlevel = (int)it.get_level();
                 for(int i=0; i<nlevel; i++) std::cout << "... ";
                 std::cout << (*smp) << std::endl;
             } else {

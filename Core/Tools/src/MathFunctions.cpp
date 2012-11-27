@@ -53,10 +53,10 @@ std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<co
     switch (ftCase)
     {
         case MathFunctions::ForwardFFT:
-            plan = fftw_plan_dft_1d( npx, ftData, ftResult, FFTW_FORWARD, FFTW_ESTIMATE );
+            plan = fftw_plan_dft_1d( (int)npx, ftData, ftResult, FFTW_FORWARD, FFTW_ESTIMATE );
             break;
         case MathFunctions::BackwardFFT:
-            plan = fftw_plan_dft_1d( npx, ftData, ftResult, FFTW_BACKWARD, FFTW_ESTIMATE );
+            plan = fftw_plan_dft_1d( (int)npx, ftData, ftResult, FFTW_BACKWARD, FFTW_ESTIMATE );
             scale = 1./double(npx);
             break;
         default:
@@ -188,15 +188,5 @@ std::vector<complex_t> MathFunctions::ConvolveFFT(const std::vector<double> &sig
     }
 
     std::vector<complex_t > result = MathFunctions::FastFourierTransform(fft_prod, MathFunctions::BackwardFFT);
-    return result;
-}
-
-double MathFunctions::Integrate1D(gsl_function *p_function, double start,
-        double end)
-{
-    gsl_integration_workspace *ws = gsl_integration_workspace_alloc(200);
-    double result, error;
-    gsl_integration_qag(p_function, start, end, 1e-10, 1e-8, 50, 1, ws, &result, &error);
-    gsl_integration_workspace_free(ws);
     return result;
 }

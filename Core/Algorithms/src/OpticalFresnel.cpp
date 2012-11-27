@@ -119,7 +119,7 @@ void OpticalFresnel::calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coe
 {
     // ratio of amplitudes of outgoing and incoming waves
     coeff[coeff.size()-1].X = complex_t(0, 0);
-    for(int i=coeff.size()-2; i>=0; --i) {
+    for(int i=(int)coeff.size()-2; i>=0; --i) {
         double z = sample.getLayerBottomZ(i);
         coeff[i].X = std::exp(complex_t(0,-2)*coeff[i].kz*z) *
             (coeff[i].r + coeff[i+1].X*std::exp(complex_t(0,2)*coeff[i+1].kz*z) ) /
@@ -131,7 +131,7 @@ void OpticalFresnel::calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &co
 {
     // ratio of amplitudes of outgoing and incoming waves in alternative conventions
     coeff[coeff.size()-1].X = complex_t(0, 0);
-    for(int i=coeff.size()-2; i>=0; --i) {
+    for(int i=(int)coeff.size()-2; i>=0; --i) {
         // first check for infinity
         if(std::abs(coeff[i].r*coeff[i+1].X + complex_t(1,0)) < Numeric::double_epsilon) {
             throw DivisionByZeroException("Division by zer during calculation of X_i");

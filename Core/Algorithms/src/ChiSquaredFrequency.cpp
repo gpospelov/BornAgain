@@ -72,7 +72,7 @@ void ChiSquaredFrequency::initWeights()
     size_t rank = mp_simulation_ft->getRank();
     int *n_dims = new int[rank];
     for (size_t i=0; i<rank; ++i) {
-        n_dims[i] = mp_simulation_ft->getAxis(i)->getSize();
+        n_dims[i] = (int)mp_simulation_ft->getAxis(i)->getSize();
     }
     mp_weights->setAxisSizes(rank, n_dims);
     delete n_dims;

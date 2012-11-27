@@ -542,8 +542,7 @@ ISample *StandardSamples::IsGISAXS9_RotatedPyramid()
 
     Particle *pyramid = new Particle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73)) );
 
-    Geometry::Transform3D *transform = new Geometry::Transform3D();
-    *transform = Geometry::RotateZ3D(angle_around_z);
+    Geometry::Transform3D *transform = new Geometry::RotateZ3D(angle_around_z);
 
     ParticleDecoration particle_decoration;
 

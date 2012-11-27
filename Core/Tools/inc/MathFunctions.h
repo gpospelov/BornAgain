@@ -76,9 +76,6 @@ complex_t FastCos(const complex_t &x);
 //! simultaneous complex sine and cosine calculations
 void FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos);
 
-//! numerical integration
-double Integrate1D(gsl_function *p_function, double start, double end);
-
 } // Namespace MathFunctions
 
 inline double MathFunctions::GenerateNormalRandom(double average, double std_dev)

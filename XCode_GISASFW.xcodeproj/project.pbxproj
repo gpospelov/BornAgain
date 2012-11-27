@@ -67,10 +67,8 @@
 		62224878160CB853008205AC /* Convolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222230B160CB745008205AC /* Convolve.cpp */; };
 		62224879160CB853008205AC /* DoubleToComplexInterpolatingFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222230C160CB745008205AC /* DoubleToComplexInterpolatingFunction.cpp */; };
 		6222487A160CB853008205AC /* Exceptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222230D160CB745008205AC /* Exceptions.cpp */; };
-		6222487B160CB853008205AC /* FitMultiParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222230E160CB745008205AC /* FitMultiParameter.cpp */; };
 		6222487C160CB853008205AC /* FitParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222230F160CB745008205AC /* FitParameter.cpp */; };
 		6222487D160CB853008205AC /* IFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222310160CB745008205AC /* IFactory.cpp */; };
-		6222487E160CB853008205AC /* INamed.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222311160CB745008205AC /* INamed.cpp */; };
 		6222487F160CB853008205AC /* ISingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222312160CB745008205AC /* ISingleton.cpp */; };
 		62224880160CB853008205AC /* MathFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222313160CB745008205AC /* MathFunctions.cpp */; };
 		62224881160CB853008205AC /* OutputData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222314160CB745008205AC /* OutputData.cpp */; };
@@ -93,7 +91,6 @@
 		62224896160CC1E6008205AC /* TestConvolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222222F160CB745008205AC /* TestConvolution.cpp */; };
 		62224897160CC1E6008205AC /* TestDetectorResolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222230160CB745008205AC /* TestDetectorResolution.cpp */; };
 		62224898160CC1E6008205AC /* TestDiffuseReflection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222231160CB745008205AC /* TestDiffuseReflection.cpp */; };
-		62224899160CC1E6008205AC /* TestFittingModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222232160CB745008205AC /* TestFittingModule.cpp */; };
 		6222489A160CC1E6008205AC /* TestFormFactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222233160CB745008205AC /* TestFormFactor.cpp */; };
 		6222489B160CC1E6008205AC /* TestFresnelCoeff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222234160CB745008205AC /* TestFresnelCoeff.cpp */; };
 		6222489C160CC1E6008205AC /* TestIsGISAXS1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222235160CB745008205AC /* TestIsGISAXS1.cpp */; };
@@ -150,6 +147,28 @@
 		627C2FDA160B515D004C1B11 /* libGISASFW.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
 		62BD93501619D05D0008A768 /* ParticleCoreShell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */; };
+		62CC09711665047E00A5B720 /* ChiSquaredFrequency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096B1665047E00A5B720 /* ChiSquaredFrequency.cpp */; };
+		62CC09721665047E00A5B720 /* FTDistributions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096C1665047E00A5B720 /* FTDistributions.cpp */; };
+		62CC09731665047E00A5B720 /* IChiSquaredModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096D1665047E00A5B720 /* IChiSquaredModule.cpp */; };
+		62CC09741665047E00A5B720 /* Mask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096E1665047E00A5B720 /* Mask.cpp */; };
+		62CC09751665047E00A5B720 /* MaskCoordinateFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096F1665047E00A5B720 /* MaskCoordinateFunction.cpp */; };
+		62CC09761665047E00A5B720 /* ResolutionFunction2DSimple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09701665047E00A5B720 /* ResolutionFunction2DSimple.cpp */; };
+		62CC09781665049900A5B720 /* IFormFactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09771665049900A5B720 /* IFormFactor.cpp */; };
+		62CC097B166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC097A166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp */; };
+		62CC098D166504E700A5B720 /* FitObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC0986166504E700A5B720 /* FitObject.cpp */; };
+		62CC098E166504E700A5B720 /* FitParameterLinked.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC0987166504E700A5B720 /* FitParameterLinked.cpp */; };
+		62CC098F166504E700A5B720 /* FitSuiteObjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC0988166504E700A5B720 /* FitSuiteObjects.cpp */; };
+		62CC0990166504E700A5B720 /* FitSuiteParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC0989166504E700A5B720 /* FitSuiteParameters.cpp */; };
+		62CC0991166504E700A5B720 /* FitSuiteStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC098A166504E700A5B720 /* FitSuiteStrategy.cpp */; };
+		62CC0992166504E700A5B720 /* OutputDataFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */; };
+		62CC09A41665055E00A5B720 /* TestFittingBenchmark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC099C1665055E00A5B720 /* TestFittingBenchmark.cpp */; };
+		62CC09A51665055E00A5B720 /* TestFittingModule1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC099D1665055E00A5B720 /* TestFittingModule1.cpp */; };
+		62CC09A61665055E00A5B720 /* TestFittingModule2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC099E1665055E00A5B720 /* TestFittingModule2.cpp */; };
+		62CC09A71665055E00A5B720 /* TestFittingModule3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC099F1665055E00A5B720 /* TestFittingModule3.cpp */; };
+		62CC09A81665055E00A5B720 /* TestFourier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09A01665055E00A5B720 /* TestFourier.cpp */; };
+		62CC09A91665055E00A5B720 /* TestIsGISAXS4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09A11665055E00A5B720 /* TestIsGISAXS4.cpp */; };
+		62CC09AA1665055E00A5B720 /* TestIsGISAXS8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09A21665055E00A5B720 /* TestIsGISAXS8.cpp */; };
+		62CC09AB1665055E00A5B720 /* TestIsGISAXS12.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09A31665055E00A5B720 /* TestIsGISAXS12.cpp */; };
 		62EA737B1628422200656B41 /* FitSuite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73741628422200656B41 /* FitSuite.cpp */; };
 		62EA737C1628422200656B41 /* IObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73751628422200656B41 /* IObserver.cpp */; };
 		62EA737D1628422200656B41 /* IParameterized.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73761628422200656B41 /* IParameterized.cpp */; };
@@ -220,7 +239,6 @@
 		622221F4160CB745008205AC /* TestConvolution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestConvolution.h; sourceTree = "<group>"; };
 		622221F5160CB745008205AC /* TestDetectorResolution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestDetectorResolution.h; sourceTree = "<group>"; };
 		622221F6160CB745008205AC /* TestDiffuseReflection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestDiffuseReflection.h; sourceTree = "<group>"; };
-		622221F7160CB745008205AC /* TestFittingModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFittingModule.h; sourceTree = "<group>"; };
 		622221F8160CB745008205AC /* TestFormFactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFormFactor.h; sourceTree = "<group>"; };
 		622221F9160CB745008205AC /* TestFresnelCoeff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFresnelCoeff.h; sourceTree = "<group>"; };
 		622221FA160CB745008205AC /* TestIsGISAXS1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS1.h; sourceTree = "<group>"; };
@@ -245,7 +263,6 @@
 		6222222F160CB745008205AC /* TestConvolution.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestConvolution.cpp; sourceTree = "<group>"; };
 		62222230160CB745008205AC /* TestDetectorResolution.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestDetectorResolution.cpp; sourceTree = "<group>"; };
 		62222231160CB745008205AC /* TestDiffuseReflection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestDiffuseReflection.cpp; sourceTree = "<group>"; };
-		62222232160CB745008205AC /* TestFittingModule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestFittingModule.cpp; sourceTree = "<group>"; };
 		62222233160CB745008205AC /* TestFormFactor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestFormFactor.cpp; sourceTree = "<group>"; };
 		62222234160CB745008205AC /* TestFresnelCoeff.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestFresnelCoeff.cpp; sourceTree = "<group>"; };
 		62222235160CB745008205AC /* TestIsGISAXS1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS1.cpp; sourceTree = "<group>"; };
@@ -413,7 +430,6 @@
 		622222F4160CB745008205AC /* Coordinate3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Coordinate3D.h; sourceTree = "<group>"; };
 		622222F5160CB745008205AC /* DoubleToComplexInterpolatingFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubleToComplexInterpolatingFunction.h; sourceTree = "<group>"; };
 		622222F7160CB745008205AC /* Exceptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Exceptions.h; sourceTree = "<group>"; };
-		622222F8160CB745008205AC /* FitMultiParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FitMultiParameter.h; sourceTree = "<group>"; };
 		622222F9160CB745008205AC /* FitParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FitParameter.h; sourceTree = "<group>"; };
 		622222FA160CB745008205AC /* IDoubleToComplexFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDoubleToComplexFunction.h; sourceTree = "<group>"; };
 		622222FB160CB745008205AC /* IFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFactory.h; sourceTree = "<group>"; };
@@ -434,10 +450,8 @@
 		6222230B160CB745008205AC /* Convolve.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Convolve.cpp; sourceTree = "<group>"; };
 		6222230C160CB745008205AC /* DoubleToComplexInterpolatingFunction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DoubleToComplexInterpolatingFunction.cpp; sourceTree = "<group>"; };
 		6222230D160CB745008205AC /* Exceptions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Exceptions.cpp; sourceTree = "<group>"; };
-		6222230E160CB745008205AC /* FitMultiParameter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FitMultiParameter.cpp; sourceTree = "<group>"; };
 		6222230F160CB745008205AC /* FitParameter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FitParameter.cpp; sourceTree = "<group>"; };
 		62222310160CB745008205AC /* IFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IFactory.cpp; sourceTree = "<group>"; };
-		62222311160CB745008205AC /* INamed.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = INamed.cpp; sourceTree = "<group>"; };
 		62222312160CB745008205AC /* ISingleton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ISingleton.cpp; sourceTree = "<group>"; };
 		62222313160CB745008205AC /* MathFunctions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MathFunctions.cpp; sourceTree = "<group>"; };
 		62222314160CB745008205AC /* OutputData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OutputData.cpp; sourceTree = "<group>"; };
@@ -1056,6 +1070,56 @@
 		627C3031160B69D7004C1B11 /* libfftw3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfftw3.3.dylib; path = ../../../../../../opt/local/lib/libfftw3.3.dylib; sourceTree = "<group>"; };
 		62AE01631619C72E00A83353 /* ParticleCoreShell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleCoreShell.h; sourceTree = "<group>"; };
 		62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleCoreShell.cpp; sourceTree = "<group>"; };
+		62CC09631665046C00A5B720 /* ChiSquaredFrequency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChiSquaredFrequency.h; sourceTree = "<group>"; };
+		62CC09641665046C00A5B720 /* FTDistributions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDistributions.h; sourceTree = "<group>"; };
+		62CC09651665046C00A5B720 /* IChiSquaredModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChiSquaredModule.h; sourceTree = "<group>"; };
+		62CC09661665046C00A5B720 /* IResolutionFunction2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IResolutionFunction2D.h; sourceTree = "<group>"; };
+		62CC09671665046C00A5B720 /* Mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mask.h; sourceTree = "<group>"; };
+		62CC09681665046C00A5B720 /* MaskCoordinateFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskCoordinateFunction.h; sourceTree = "<group>"; };
+		62CC09691665046C00A5B720 /* ResolutionFunction2DSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResolutionFunction2DSimple.h; sourceTree = "<group>"; };
+		62CC096A1665046C00A5B720 /* ThreadInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadInfo.h; sourceTree = "<group>"; };
+		62CC096B1665047E00A5B720 /* ChiSquaredFrequency.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChiSquaredFrequency.cpp; sourceTree = "<group>"; };
+		62CC096C1665047E00A5B720 /* FTDistributions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FTDistributions.cpp; sourceTree = "<group>"; };
+		62CC096D1665047E00A5B720 /* IChiSquaredModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IChiSquaredModule.cpp; sourceTree = "<group>"; };
+		62CC096E1665047E00A5B720 /* Mask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mask.cpp; sourceTree = "<group>"; };
+		62CC096F1665047E00A5B720 /* MaskCoordinateFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaskCoordinateFunction.cpp; sourceTree = "<group>"; };
+		62CC09701665047E00A5B720 /* ResolutionFunction2DSimple.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResolutionFunction2DSimple.cpp; sourceTree = "<group>"; };
+		62CC09771665049900A5B720 /* IFormFactor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IFormFactor.cpp; sourceTree = "<group>"; };
+		62CC0979166504B600A5B720 /* InterferenceFunction2DParaCrystal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterferenceFunction2DParaCrystal.h; sourceTree = "<group>"; };
+		62CC097A166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InterferenceFunction2DParaCrystal.cpp; sourceTree = "<group>"; };
+		62CC097C166504D600A5B720 /* AttLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttLimits.h; sourceTree = "<group>"; };
+		62CC097D166504D600A5B720 /* FitObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitObject.h; sourceTree = "<group>"; };
+		62CC097E166504D600A5B720 /* FitParameterLinked.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitParameterLinked.h; sourceTree = "<group>"; };
+		62CC097F166504D600A5B720 /* FitSuiteObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteObjects.h; sourceTree = "<group>"; };
+		62CC0980166504D600A5B720 /* FitSuiteParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteParameters.h; sourceTree = "<group>"; };
+		62CC0981166504D600A5B720 /* FitSuiteStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteStrategy.h; sourceTree = "<group>"; };
+		62CC0982166504D600A5B720 /* LLData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLData.h; sourceTree = "<group>"; };
+		62CC0983166504D600A5B720 /* MemberFunctionIntegrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberFunctionIntegrator.h; sourceTree = "<group>"; };
+		62CC0984166504D600A5B720 /* OutputDataFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputDataFunctions.h; sourceTree = "<group>"; };
+		62CC0985166504D600A5B720 /* OutputDataIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputDataIterator.h; sourceTree = "<group>"; };
+		62CC0986166504E700A5B720 /* FitObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitObject.cpp; sourceTree = "<group>"; };
+		62CC0987166504E700A5B720 /* FitParameterLinked.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitParameterLinked.cpp; sourceTree = "<group>"; };
+		62CC0988166504E700A5B720 /* FitSuiteObjects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteObjects.cpp; sourceTree = "<group>"; };
+		62CC0989166504E700A5B720 /* FitSuiteParameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteParameters.cpp; sourceTree = "<group>"; };
+		62CC098A166504E700A5B720 /* FitSuiteStrategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteStrategy.cpp; sourceTree = "<group>"; };
+		62CC098B166504E700A5B720 /* OutputData.cpp.orig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OutputData.cpp.orig; sourceTree = "<group>"; };
+		62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataFunctions.cpp; sourceTree = "<group>"; };
+		62CC09941665053C00A5B720 /* TestFittingBenchmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFittingBenchmark.h; sourceTree = "<group>"; };
+		62CC09951665053C00A5B720 /* TestFittingModule1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFittingModule1.h; sourceTree = "<group>"; };
+		62CC09961665053C00A5B720 /* TestFittingModule2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFittingModule2.h; sourceTree = "<group>"; };
+		62CC09971665053C00A5B720 /* TestFittingModule3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFittingModule3.h; sourceTree = "<group>"; };
+		62CC09981665053C00A5B720 /* TestFourier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFourier.h; sourceTree = "<group>"; };
+		62CC09991665053C00A5B720 /* TestIsGISAXS4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS4.h; sourceTree = "<group>"; };
+		62CC099A1665053C00A5B720 /* TestIsGISAXS8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS8.h; sourceTree = "<group>"; };
+		62CC099B1665053C00A5B720 /* TestIsGISAXS12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS12.h; sourceTree = "<group>"; };
+		62CC099C1665055E00A5B720 /* TestFittingBenchmark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFittingBenchmark.cpp; sourceTree = "<group>"; };
+		62CC099D1665055E00A5B720 /* TestFittingModule1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFittingModule1.cpp; sourceTree = "<group>"; };
+		62CC099E1665055E00A5B720 /* TestFittingModule2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFittingModule2.cpp; sourceTree = "<group>"; };
+		62CC099F1665055E00A5B720 /* TestFittingModule3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFittingModule3.cpp; sourceTree = "<group>"; };
+		62CC09A01665055E00A5B720 /* TestFourier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFourier.cpp; sourceTree = "<group>"; };
+		62CC09A11665055E00A5B720 /* TestIsGISAXS4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS4.cpp; sourceTree = "<group>"; };
+		62CC09A21665055E00A5B720 /* TestIsGISAXS8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS8.cpp; sourceTree = "<group>"; };
+		62CC09A31665055E00A5B720 /* TestIsGISAXS12.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS12.cpp; sourceTree = "<group>"; };
 		62EA736B1628421000656B41 /* FitSuite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FitSuite.h; sourceTree = "<group>"; };
 		62EA736C1628421000656B41 /* IMinimizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMinimizer.h; sourceTree = "<group>"; };
 		62EA736D1628421000656B41 /* IObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IObserver.h; sourceTree = "<group>"; };
@@ -1178,6 +1242,14 @@
 		622221E9160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62CC09941665053C00A5B720 /* TestFittingBenchmark.h */,
+				62CC09951665053C00A5B720 /* TestFittingModule1.h */,
+				62CC09961665053C00A5B720 /* TestFittingModule2.h */,
+				62CC09971665053C00A5B720 /* TestFittingModule3.h */,
+				62CC09981665053C00A5B720 /* TestFourier.h */,
+				62CC09991665053C00A5B720 /* TestIsGISAXS4.h */,
+				62CC099A1665053C00A5B720 /* TestIsGISAXS8.h */,
+				62CC099B1665053C00A5B720 /* TestIsGISAXS12.h */,
 				62F3A3B5162D99D5007FEE73 /* FitSuiteHelper.h */,
 				62F3A3B6162D99D5007FEE73 /* ROOTMinimizer.h */,
 				62F3A3B7162D99D5007FEE73 /* TreeEventStructure.h */,
@@ -1197,7 +1269,6 @@
 				622221F4160CB745008205AC /* TestConvolution.h */,
 				622221F5160CB745008205AC /* TestDetectorResolution.h */,
 				622221F6160CB745008205AC /* TestDiffuseReflection.h */,
-				622221F7160CB745008205AC /* TestFittingModule.h */,
 				622221F8160CB745008205AC /* TestFormFactor.h */,
 				622221F9160CB745008205AC /* TestFresnelCoeff.h */,
 				622221FA160CB745008205AC /* TestIsGISAXS1.h */,
@@ -1217,6 +1288,14 @@
 		62222224160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62CC099C1665055E00A5B720 /* TestFittingBenchmark.cpp */,
+				62CC099D1665055E00A5B720 /* TestFittingModule1.cpp */,
+				62CC099E1665055E00A5B720 /* TestFittingModule2.cpp */,
+				62CC099F1665055E00A5B720 /* TestFittingModule3.cpp */,
+				62CC09A01665055E00A5B720 /* TestFourier.cpp */,
+				62CC09A11665055E00A5B720 /* TestIsGISAXS4.cpp */,
+				62CC09A21665055E00A5B720 /* TestIsGISAXS8.cpp */,
+				62CC09A31665055E00A5B720 /* TestIsGISAXS12.cpp */,
 				62F3A3B8162D99E4007FEE73 /* FitSuiteHelper.cpp */,
 				62F3A3B9162D99E4007FEE73 /* ROOTMinimizer.cpp */,
 				62F3A3BA162D99E4007FEE73 /* TreeEventStructure.cpp */,
@@ -1236,7 +1315,6 @@
 				6222222F160CB745008205AC /* TestConvolution.cpp */,
 				62222230160CB745008205AC /* TestDetectorResolution.cpp */,
 				62222231160CB745008205AC /* TestDiffuseReflection.cpp */,
-				62222232160CB745008205AC /* TestFittingModule.cpp */,
 				62222233160CB745008205AC /* TestFormFactor.cpp */,
 				62222234160CB745008205AC /* TestFresnelCoeff.cpp */,
 				62222235160CB745008205AC /* TestIsGISAXS1.cpp */,
@@ -1280,6 +1358,14 @@
 		62222245160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62CC09631665046C00A5B720 /* ChiSquaredFrequency.h */,
+				62CC09641665046C00A5B720 /* FTDistributions.h */,
+				62CC09651665046C00A5B720 /* IChiSquaredModule.h */,
+				62CC09661665046C00A5B720 /* IResolutionFunction2D.h */,
+				62CC09671665046C00A5B720 /* Mask.h */,
+				62CC09681665046C00A5B720 /* MaskCoordinateFunction.h */,
+				62CC09691665046C00A5B720 /* ResolutionFunction2DSimple.h */,
+				62CC096A1665046C00A5B720 /* ThreadInfo.h */,
 				62EA73821628425600656B41 /* ISampleBuilder.h */,
 				62222246160CB745008205AC /* Beam.h */,
 				62222247160CB745008205AC /* ChiSquaredModule.h */,
@@ -1309,6 +1395,12 @@
 		6222225C160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62CC096B1665047E00A5B720 /* ChiSquaredFrequency.cpp */,
+				62CC096C1665047E00A5B720 /* FTDistributions.cpp */,
+				62CC096D1665047E00A5B720 /* IChiSquaredModule.cpp */,
+				62CC096E1665047E00A5B720 /* Mask.cpp */,
+				62CC096F1665047E00A5B720 /* MaskCoordinateFunction.cpp */,
+				62CC09701665047E00A5B720 /* ResolutionFunction2DSimple.cpp */,
 				6222225D160CB745008205AC /* Beam.cpp */,
 				6222225E160CB745008205AC /* ChiSquaredModule.cpp */,
 				6222225F160CB745008205AC /* ConvolutionDetectorResolution.cpp */,
@@ -1369,6 +1461,7 @@
 		62222285160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62CC09771665049900A5B720 /* IFormFactor.cpp */,
 				6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */,
 				62222286160CB745008205AC /* FormFactorCrystal.cpp */,
 				62222287160CB745008205AC /* FormFactorCylinder.cpp */,
@@ -1474,6 +1567,7 @@
 		622222B8160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62CC0979166504B600A5B720 /* InterferenceFunction2DParaCrystal.h */,
 				62AE01631619C72E00A83353 /* ParticleCoreShell.h */,
 				622222B9160CB745008205AC /* Crystal.h */,
 				622222BA160CB745008205AC /* DiffuseParticleInfo.h */,
@@ -1510,6 +1604,7 @@
 		622222D9160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62CC097A166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp */,
 				62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */,
 				622222DA160CB745008205AC /* Crystal.cpp */,
 				622222DB160CB745008205AC /* DiffuseParticleInfo.cpp */,
@@ -1549,6 +1644,16 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62CC097C166504D600A5B720 /* AttLimits.h */,
+				62CC097D166504D600A5B720 /* FitObject.h */,
+				62CC097E166504D600A5B720 /* FitParameterLinked.h */,
+				62CC097F166504D600A5B720 /* FitSuiteObjects.h */,
+				62CC0980166504D600A5B720 /* FitSuiteParameters.h */,
+				62CC0981166504D600A5B720 /* FitSuiteStrategy.h */,
+				62CC0982166504D600A5B720 /* LLData.h */,
+				62CC0983166504D600A5B720 /* MemberFunctionIntegrator.h */,
+				62CC0984166504D600A5B720 /* OutputDataFunctions.h */,
+				62CC0985166504D600A5B720 /* OutputDataIterator.h */,
 				62F7B50B162C63BF008B8E1D /* DoubleToComplexMap.h */,
 				62EA736B1628421000656B41 /* FitSuite.h */,
 				62EA736C1628421000656B41 /* IMinimizer.h */,
@@ -1565,7 +1670,6 @@
 				622222F4160CB745008205AC /* Coordinate3D.h */,
 				622222F5160CB745008205AC /* DoubleToComplexInterpolatingFunction.h */,
 				622222F7160CB745008205AC /* Exceptions.h */,
-				622222F8160CB745008205AC /* FitMultiParameter.h */,
 				622222F9160CB745008205AC /* FitParameter.h */,
 				622222FA160CB745008205AC /* IDoubleToComplexFunction.h */,
 				622222FB160CB745008205AC /* IFactory.h */,
@@ -1590,6 +1694,13 @@
 		6222230A160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62CC0986166504E700A5B720 /* FitObject.cpp */,
+				62CC0987166504E700A5B720 /* FitParameterLinked.cpp */,
+				62CC0988166504E700A5B720 /* FitSuiteObjects.cpp */,
+				62CC0989166504E700A5B720 /* FitSuiteParameters.cpp */,
+				62CC098A166504E700A5B720 /* FitSuiteStrategy.cpp */,
+				62CC098B166504E700A5B720 /* OutputData.cpp.orig */,
+				62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */,
 				62EA73741628422200656B41 /* FitSuite.cpp */,
 				62EA73751628422200656B41 /* IObserver.cpp */,
 				62EA73761628422200656B41 /* IParameterized.cpp */,
@@ -1602,10 +1713,8 @@
 				6222230B160CB745008205AC /* Convolve.cpp */,
 				6222230C160CB745008205AC /* DoubleToComplexInterpolatingFunction.cpp */,
 				6222230D160CB745008205AC /* Exceptions.cpp */,
-				6222230E160CB745008205AC /* FitMultiParameter.cpp */,
 				6222230F160CB745008205AC /* FitParameter.cpp */,
 				62222310160CB745008205AC /* IFactory.cpp */,
-				62222311160CB745008205AC /* INamed.cpp */,
 				62222312160CB745008205AC /* ISingleton.cpp */,
 				62222313160CB745008205AC /* MathFunctions.cpp */,
 				62222314160CB745008205AC /* OutputData.cpp */,
@@ -68404,7 +68513,6 @@
 				62224896160CC1E6008205AC /* TestConvolution.cpp in Sources */,
 				62224897160CC1E6008205AC /* TestDetectorResolution.cpp in Sources */,
 				62224898160CC1E6008205AC /* TestDiffuseReflection.cpp in Sources */,
-				62224899160CC1E6008205AC /* TestFittingModule.cpp in Sources */,
 				6222489A160CC1E6008205AC /* TestFormFactor.cpp in Sources */,
 				6222489B160CC1E6008205AC /* TestFresnelCoeff.cpp in Sources */,
 				6222489C160CC1E6008205AC /* TestIsGISAXS1.cpp in Sources */,
@@ -68427,6 +68535,14 @@
 				62F3A3BB162D99E4007FEE73 /* FitSuiteHelper.cpp in Sources */,
 				62F3A3BC162D99E4007FEE73 /* ROOTMinimizer.cpp in Sources */,
 				62F3A3BD162D99E4007FEE73 /* TreeEventStructure.cpp in Sources */,
+				62CC09A41665055E00A5B720 /* TestFittingBenchmark.cpp in Sources */,
+				62CC09A51665055E00A5B720 /* TestFittingModule1.cpp in Sources */,
+				62CC09A61665055E00A5B720 /* TestFittingModule2.cpp in Sources */,
+				62CC09A71665055E00A5B720 /* TestFittingModule3.cpp in Sources */,
+				62CC09A81665055E00A5B720 /* TestFourier.cpp in Sources */,
+				62CC09A91665055E00A5B720 /* TestIsGISAXS4.cpp in Sources */,
+				62CC09AA1665055E00A5B720 /* TestIsGISAXS8.cpp in Sources */,
+				62CC09AB1665055E00A5B720 /* TestIsGISAXS12.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68495,10 +68611,8 @@
 				62224878160CB853008205AC /* Convolve.cpp in Sources */,
 				62224879160CB853008205AC /* DoubleToComplexInterpolatingFunction.cpp in Sources */,
 				6222487A160CB853008205AC /* Exceptions.cpp in Sources */,
-				6222487B160CB853008205AC /* FitMultiParameter.cpp in Sources */,
 				6222487C160CB853008205AC /* FitParameter.cpp in Sources */,
 				6222487D160CB853008205AC /* IFactory.cpp in Sources */,
-				6222487E160CB853008205AC /* INamed.cpp in Sources */,
 				6222487F160CB853008205AC /* ISingleton.cpp in Sources */,
 				62224880160CB853008205AC /* MathFunctions.cpp in Sources */,
 				62224881160CB853008205AC /* OutputData.cpp in Sources */,
@@ -68515,6 +68629,20 @@
 				62EA737F1628422200656B41 /* OutputDataReader.cpp in Sources */,
 				62EA73801628422200656B41 /* OutputDataWriter.cpp in Sources */,
 				62EA73811628422200656B41 /* ParameterPool.cpp in Sources */,
+				62CC09711665047E00A5B720 /* ChiSquaredFrequency.cpp in Sources */,
+				62CC09721665047E00A5B720 /* FTDistributions.cpp in Sources */,
+				62CC09731665047E00A5B720 /* IChiSquaredModule.cpp in Sources */,
+				62CC09741665047E00A5B720 /* Mask.cpp in Sources */,
+				62CC09751665047E00A5B720 /* MaskCoordinateFunction.cpp in Sources */,
+				62CC09761665047E00A5B720 /* ResolutionFunction2DSimple.cpp in Sources */,
+				62CC09781665049900A5B720 /* IFormFactor.cpp in Sources */,
+				62CC097B166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp in Sources */,
+				62CC098D166504E700A5B720 /* FitObject.cpp in Sources */,
+				62CC098E166504E700A5B720 /* FitParameterLinked.cpp in Sources */,
+				62CC098F166504E700A5B720 /* FitSuiteObjects.cpp in Sources */,
+				62CC0990166504E700A5B720 /* FitSuiteParameters.cpp in Sources */,
+				62CC0991166504E700A5B720 /* FitSuiteStrategy.cpp in Sources */,
+				62CC0992166504E700A5B720 /* OutputDataFunctions.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68794,7 +68922,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GTEST_INCLUDE = "$(SRCROOT)/ThirdParty/gtest/gtest-1.6.0/include";
 				GTEST_LIB = "$(SRCROOT)/lib";
-				HEADER_SEARCH_PATHS = "${GTEST_INCLUDE}";
+				HEADER_SEARCH_PATHS = (
+					"${GTEST_INCLUDE}",
+					/opt/local/include,
+					/opt/local/include/boost,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${GTEST_LIB}",
@@ -68826,7 +68958,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GTEST_INCLUDE = "$(SRCROOT)/ThirdParty/gtest/gtest-1.6.0/include";
 				GTEST_LIB = "$(SRCROOT)/lib";
-				HEADER_SEARCH_PATHS = "${GTEST_INCLUDE}";
+				HEADER_SEARCH_PATHS = (
+					"${GTEST_INCLUDE}",
+					/opt/local/include,
+					/opt/local/include/boost,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${GTEST_LIB}",

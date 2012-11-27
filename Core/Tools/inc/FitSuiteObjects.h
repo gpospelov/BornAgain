@@ -51,23 +51,23 @@ public:
     double getChiSquaredValue();
 
     //! get experiment
-    const Experiment *getExperiment(int i_item = 0) const { return m_fit_objects[check_index(i_item)]->getExperiment(); }
+    const Experiment *getExperiment(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getExperiment(); }
 
     //! get real data
-    const OutputData<double> * getRealData(int i_item = 0) const { return m_fit_objects[check_index(i_item)]->getRealData(); }
+    const OutputData<double> * getRealData(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getRealData(); }
     //! set real data
-    void setRealData(const OutputData<double > &real_data, int i_item = 0) { m_fit_objects[check_index(i_item)]->setRealData(real_data);}
+    void setRealData(const OutputData<double > &real_data, size_t i_item = 0) { m_fit_objects[check_index(i_item)]->setRealData(real_data);}
 
     //! get chi2 module
-    const IChiSquaredModule *getChiSquaredModule(int i_item = 0) const { return m_fit_objects[check_index(i_item)]->getChiSquaredModule(); }
-    IChiSquaredModule *getChiSquaredModule(int i_item = 0) { return m_fit_objects[check_index(i_item)]->getChiSquaredModule(); }
+    const IChiSquaredModule *getChiSquaredModule(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getChiSquaredModule(); }
+    IChiSquaredModule *getChiSquaredModule(size_t i_item = 0) { return m_fit_objects[check_index(i_item)]->getChiSquaredModule(); }
 
     //! get simulated data
-    const OutputData<double> * getSimulatedData(int i_item = 0) const { return m_fit_objects[check_index(i_item)]->getSimulatedData(); }
+    const OutputData<double> * getSimulatedData(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getSimulatedData(); }
 
     //! get fit object
-    const FitObject *getObject(int i_item = 0) const { return m_fit_objects[check_index(i_item)]; }
-    FitObject *getObject(int i_item = 0) { return m_fit_objects[check_index(i_item)]; }
+    const FitObject *getObject(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]; }
+    FitObject *getObject(size_t i_item = 0) { return m_fit_objects[check_index(i_item)]; }
 private:
     //! disabled copy constructor and assignment operator
     FitSuiteObjects &operator=(const FitSuiteObjects &);

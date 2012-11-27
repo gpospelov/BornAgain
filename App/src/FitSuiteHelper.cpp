@@ -119,7 +119,7 @@ void FitSuiteObserverDraw::update(IObservable *subject)
         // drawing
 //        double maximum_of_real_signal(0);
         for(size_t i_hist=0; i_hist<data2draw.size(); ++i_hist)  {
-            c1->cd(i_hist+1);
+            c1->cd((int)i_hist+1);
             gPad->SetLogz();
             gPad->SetLeftMargin(0.12);
             gPad->SetRightMargin(0.12);

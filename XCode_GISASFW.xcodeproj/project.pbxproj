@@ -1102,7 +1102,6 @@
 		62CC0988166504E700A5B720 /* FitSuiteObjects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteObjects.cpp; sourceTree = "<group>"; };
 		62CC0989166504E700A5B720 /* FitSuiteParameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteParameters.cpp; sourceTree = "<group>"; };
 		62CC098A166504E700A5B720 /* FitSuiteStrategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteStrategy.cpp; sourceTree = "<group>"; };
-		62CC098B166504E700A5B720 /* OutputData.cpp.orig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OutputData.cpp.orig; sourceTree = "<group>"; };
 		62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataFunctions.cpp; sourceTree = "<group>"; };
 		62CC09941665053C00A5B720 /* TestFittingBenchmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFittingBenchmark.h; sourceTree = "<group>"; };
 		62CC09951665053C00A5B720 /* TestFittingModule1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFittingModule1.h; sourceTree = "<group>"; };
@@ -1699,7 +1698,6 @@
 				62CC0988166504E700A5B720 /* FitSuiteObjects.cpp */,
 				62CC0989166504E700A5B720 /* FitSuiteParameters.cpp */,
 				62CC098A166504E700A5B720 /* FitSuiteStrategy.cpp */,
-				62CC098B166504E700A5B720 /* OutputData.cpp.orig */,
 				62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */,
 				62EA73741628422200656B41 /* FitSuite.cpp */,
 				62EA73751628422200656B41 /* IObserver.cpp */,

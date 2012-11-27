@@ -62,7 +62,7 @@ void DrawHelper::SetMagnifier(TCanvas *canvas)
 void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
 {
   (void)sel;
-  if ( (event == kButton1Double) ) {
+  if ( event == kButton1Double ) {
     TCanvas *c = (TCanvas *) gTQSender;
     char cname[256];
     sprintf(cname,"%s_%d",c->GetTitle(),(int)time(0));

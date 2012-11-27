@@ -94,7 +94,7 @@ void TestConvolution::test_convolve1d()
     // building kernel
     std::vector<double> kernel;
     kernel.resize(npoints);
-    TGraph *gr_kernel = new TGraph(npoints);
+    TGraph *gr_kernel = new TGraph((int)npoints);
 //    for(size_t i=0; i<npoints/2; i++) {
 //        double x = i*dx;
 //        double y = std::exp(-x*x/sigma_measure/sigma_measure);
@@ -105,7 +105,7 @@ void TestConvolution::test_convolve1d()
         double x = -(xmax-xmin)/2.+i*dx;
         double y = std::exp(-x*x/sigmax/sigmax);
         kernel[i] = y;
-        gr_kernel->SetPoint(i,x,kernel[i]);
+        gr_kernel->SetPoint((int)i,x,kernel[i]);
     }
 
 
@@ -119,7 +119,7 @@ void TestConvolution::test_convolve1d()
     // drawing signal
     c1->cd(1);
     gPad->SetTopMargin(0.1);
-    TH1F *href = new TH1F("h","test", npoints-1, xmin, xmax);
+    TH1F *href = new TH1F("h","test", (int)npoints-1, xmin, xmax);
     href->SetMinimum(0.0);
     href->SetMaximum(2.0);
     href->SetStats(0);
@@ -154,7 +154,7 @@ void TestConvolution::test_convolve1d()
         MathFunctions::Convolve::Mode mode = m_modes[i_mode].second;
 
         // result
-        TGraph *gr_result = new TGraph(npoints);
+        TGraph *gr_result = new TGraph((int)npoints);
         benchmark.Start(sname.c_str());
 
         MathFunctions::Convolve cv;
@@ -168,9 +168,9 @@ void TestConvolution::test_convolve1d()
         //benchmark.Show(sname.c_str());
         for(size_t i=0; i<result.size(); i++) {
             double x = xmin + i*dx;
-            gr_result->SetPoint(i,x,result[i]);
+            gr_result->SetPoint((int)i,x,result[i]);
         }
-        c1->cd(4+i_mode);
+        c1->cd(4+(int)i_mode);
         gPad->SetTopMargin(0.1);
         href->SetMaximum(20.0);
         href->SetTitle(sname.c_str());
@@ -217,7 +217,7 @@ void TestConvolution::test_convolve2d()
         } // iy
     } // ix
     // filling signal histogram with values from signal array
-    TH2F *h2_signal = new TH2F("h2_signal","h2_signal", npx, xmin, xmax, npy, ymin, ymax);
+    TH2F *h2_signal = new TH2F("h2_signal","h2_signal", (int)npx, xmin, xmax, (int)npy, ymin, ymax);
     h2_signal->SetStats(0);
     h2_signal->SetMinimum(0);
     h2_signal->SetMaximum(3.0);
@@ -234,7 +234,7 @@ void TestConvolution::test_convolve2d()
     fres->SetParameters(1,xmin+(xmax-xmin)/2.,sigmax, ymin + (ymax-ymin)/2., sigmay);
     // preparing resolution kernel and histogram
     std::vector<std::vector<double> > kernel;
-    TH2F *h2_kernel = new TH2F("h2_kernel","h2_kernel", npx, xmin, xmax, npy, ymin, ymax);
+    TH2F *h2_kernel = new TH2F("h2_kernel","h2_kernel", (int)npx, xmin, xmax, (int)npy, ymin, ymax);
     h2_kernel->SetStats(0);
     kernel.resize(npx);
     for(size_t ix=0; ix<npx; ix++) {
@@ -248,7 +248,7 @@ void TestConvolution::test_convolve2d()
     }
 
     // simulation of measurements with smearing measurement with resolution function
-    TH2F *h2_measured = new TH2F("h2_measured","h2_measured", npx, xmin, xmax, npy, ymin, ymax);
+    TH2F *h2_measured = new TH2F("h2_measured","h2_measured", (int)npx, xmin, xmax, (int)npy, ymin, ymax);
     h2_measured->SetStats(0);
     TRandom mr;
     for(int i_meas=0; i_meas<1000000; i_meas++) {
@@ -302,10 +302,10 @@ void TestConvolution::test_convolve2d()
         benchmark.Stop(sname.c_str());
 
         // drawing results of last convolution
-        c1->cd(5+i_mode);
+        c1->cd(5+(int)i_mode);
         gPad->SetRightMargin(0.12);
         gPad->SetTopMargin(0.1);
-        TH2F h2_result("h2_result","h2_result", npx, xmin, xmax, npy, ymin, ymax);
+        TH2F h2_result("h2_result","h2_result", (int)npx, xmin, xmax, (int)npy, ymin, ymax);
         h2_result.SetStats(0);
         for(size_t ix=0; ix<npx; ix++) {
             double x = xmin +  dx*ix;

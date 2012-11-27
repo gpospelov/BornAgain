@@ -282,7 +282,7 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
     while (it_data != data.end())
     {
         std::vector<int > orig_coord = data.toCoordinates(it_data.getIndex());
-        int xbin = orig_coord[selected_axis_index];
+        size_t xbin = orig_coord[selected_axis_index];
         if( xbin>=nbin1 && xbin <= nbin2 ) {
 //            std::vector<int > new_coord = orig_coord;
 //            new_coord[selected_axis_index] = xbin - nbin1;

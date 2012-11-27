@@ -103,7 +103,7 @@ template <class T> NamedVector<T>* NamedVector<T>::clone() const
 template <class T> void NamedVector<T>::initElements(T start, T end, size_t size)
 {
 	T step = size>1 ? (end - start)/(size-1) : end;
-    for (int i=0; i<size; ++i)
+    for (size_t i=0; i<size; ++i)
     {
         push_back(start + step*i);
     }

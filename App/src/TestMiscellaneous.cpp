@@ -228,9 +228,9 @@ void TestMiscellaneous::test_FormFactor()
         double y = p_data->getValueOfAxis<double>("qy", it.getIndex());
         double z = p_data->getValueOfAxis<double>("qz", it.getIndex());
 
-        int ix = p_data->getIndexOfAxis("qx", it.getIndex());
-        int iy = p_data->getIndexOfAxis("qy", it.getIndex());
-        int iz = p_data->getIndexOfAxis("qz", it.getIndex());
+        int ix = (int)p_data->getIndexOfAxis("qx", it.getIndex());
+        int iy = (int)p_data->getIndexOfAxis("qy", it.getIndex());
+        int iz = (int)p_data->getIndexOfAxis("qz", it.getIndex());
 
         cvector_t q(x,y,z);
         cvector_t q0(0,0,0);

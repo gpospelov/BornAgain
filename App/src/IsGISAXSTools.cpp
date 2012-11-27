@@ -113,7 +113,7 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
     // creation of 2D histogram with variable bin size
     const NamedVector<double> *axis0 = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[0]);
     const NamedVector<double> *axis1 = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[1]);
-    TH2D *h2 = new TH2D(histo_name.c_str(), histo_name.c_str(), axis0->getSize(), &histo_axises[0][0], axis1->getSize(), &histo_axises[1][0]);
+    TH2D *h2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)axis0->getSize(), &histo_axises[0][0], (int)axis1->getSize(), &histo_axises[1][0]);
     h2->GetXaxis()->SetTitle( axis0->getName().c_str() );
     h2->GetYaxis()->SetTitle( axis1->getName().c_str() );
 
@@ -187,14 +187,14 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
     // creation of 1D, 2D or 3D histogram with variable bin size
     TH1 *hist;
     if(output.getNdimensions() == 1) {
-        hist = new TH1D(histo_name.c_str(), histo_name.c_str(), haxises[0].nbins, &haxises[0].xbins[0]);
+        hist = new TH1D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0]);
         hist->GetXaxis()->SetTitle( haxises[0].name.c_str() );
     } else if(output.getNdimensions() == 2) {
-        hist = new TH2D(histo_name.c_str(), histo_name.c_str(), haxises[0].nbins, &haxises[0].xbins[0], haxises[1].nbins, &haxises[1].xbins[0]);
+        hist = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
         hist->GetXaxis()->SetTitle( haxises[0].name.c_str() );
         hist->GetYaxis()->SetTitle( haxises[1].name.c_str() );
     } else if(output.getNdimensions() == 3) {
-        hist = new TH3D(histo_name.c_str(), histo_name.c_str(), haxises[0].nbins, &haxises[0].xbins[0], haxises[1].nbins, &haxises[1].xbins[0], haxises[1].nbins, &haxises[1].xbins[0]);
+        hist = new TH3D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
         hist->GetXaxis()->SetTitle( haxises[0].name.c_str() );
         hist->GetYaxis()->SetTitle( haxises[1].name.c_str() );
         hist->GetZaxis()->SetTitle( haxises[2].name.c_str() );
@@ -429,8 +429,8 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
     fin.close();
 
     // creating new OutputData and filling it with values from buffer_2d
-    int y_size = buff_2d.size();
-    int x_size = buff_2d.size() ? buff_2d[0].size() : 0;
+    int y_size = (int)buff_2d.size();
+    int x_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
     OutputData<double> *p_result = new OutputData<double>;
     p_result->addAxis(std::string("x-axis"), 0.0, double(x_size), x_size);
     p_result->addAxis(std::string("y-axis"), 0.0, double(y_size), y_size);

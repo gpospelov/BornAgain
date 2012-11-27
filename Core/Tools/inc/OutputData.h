@@ -382,7 +382,7 @@ template<class T> std::vector<int> OutputData<T>::toCoordinates(size_t index) co
     size_t remainder = index;
     std::vector<int> result;
     result.resize(mp_ll_data->getRank());
-    for (int i=0; i<mp_ll_data->getRank(); ++i)
+    for (size_t i=0; i<mp_ll_data->getRank(); ++i)
     {
         result[mp_ll_data->getRank()-1-i] = (int)(remainder % m_value_axes[mp_ll_data->getRank()-1-i]->getSize());
         remainder /= m_value_axes[mp_ll_data->getRank()-1-i]->getSize();

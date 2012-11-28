@@ -222,8 +222,6 @@ void TestRoughness::GetProfileXZ_FFTMethod()
     std::vector<complex_t > ft_cov = MathFunctions::FastFourierTransform(cov, MathFunctions::ForwardFFT);
     std::vector<complex_t> ft_z = MathFunctions::FastFourierTransform(m_vzuncorr, MathFunctions::ForwardFFT);
 
-    double dx(0);
-    if(m_vx.size() > 1) dx = std::abs(m_vx[0]-m_vx[1]);
     std::vector<complex_t > ft_result;
     ft_result.resize(npx);
     for(size_t i=0; i<npx; i++) {

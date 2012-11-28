@@ -105,7 +105,7 @@ template <class T> void NamedVector<T>::initElements(T start, T end, size_t size
 	T step = size>1 ? (end - start)/(size-1) : end;
     for (size_t i=0; i<size; ++i)
     {
-        push_back(start + step*i);
+        push_back(start + step*(int)i);
     }
 }
 

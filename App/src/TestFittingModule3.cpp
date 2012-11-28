@@ -235,8 +235,7 @@ OutputData<double > *TestFittingModule3::createNoisyData(const OutputData<double
         double sigma = noise_factor*std::sqrt(current);
         double random = MathFunctions::GenerateNormalRandom(current, sigma);
         if (random<0.0) random = 0.0;
-//        *it = random;
-        *it=current;
+        *it = random;
         ++it;
     }
     return real_data;

@@ -178,6 +178,7 @@ HEADERS += \
     FormFactors/inc/FormFactorWeighted.h \
     FormFactors/inc/IFormFactor.h \
     FormFactors/inc/IFormFactorBorn.h \
+    FormFactors/inc/IFormFactorBornSeparable.h \
     FormFactors/inc/IFormFactorDecorator.h \
     \
     Geometry/inc/BasicVector3D.h \

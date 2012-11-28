@@ -72,7 +72,7 @@ void Detector::applyDetectorResolution(OutputData<double>* p_intensity_map) cons
     if (mp_detector_resolution) {
         mp_detector_resolution->applyDetectorResolution(p_intensity_map);
     } else {
-        std::cout << "Detector::applyDetectorResolution() -> Warning! No detector resolution function found" << std::endl;
+//        std::cout << "Detector::applyDetectorResolution() -> Warning! No detector resolution function found" << std::endl;
     }
 }
 

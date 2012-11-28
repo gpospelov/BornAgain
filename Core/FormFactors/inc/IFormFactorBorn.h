@@ -16,7 +16,6 @@
 
 #include "IFormFactor.h"
 
-
 //- -------------------------------------------------------------------
 //! @class IFormFactorBorn
 //! @brief Definition of IFormFactorBorn interface
@@ -35,8 +34,6 @@ public:
 
     virtual void setBinSizes(double delta_qy, double delta_qz);
 
-    //! evaluate scattering amplitude for large bin sizes
-    virtual complex_t evaluateForLargeBins(const cvector_t &q) const;
 protected:
     //! evaluate scattering amplitude for complex wavevector
     //! @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
@@ -45,12 +42,21 @@ protected:
     //! override volume getter to avoid infinite loop caused by big bin approximation
     virtual double getVolume() const;
 
+    //! calculate radial part of scattering amplitude for large bins
+    double bigRadialPart(const cvector_t& q) const;
+
+    //! calculate z-part of scattering amplitude for large bins
+    complex_t bigZPart(const cvector_t& q) const;
+
     bool m_use_large_bin_approximation_radial;  //!< indicates if large bin size approximation should be used in the qx-qy direction
     bool m_use_large_bin_approximation_z;  //!< indicates if large bin size approximation should be used in the qz direction
     double m_bin_qy, m_bin_qz;  //!< the sizes of the bins in q space
 private:
-    double bigRadialPart(double qR, void *params) const;
-    double bigZPart(double qH2) const;
+    //! calculates an approximate intensity that does not contain rapid oscillations
+    double bigRadialIntegrand(double qR, void *params) const;
+
+    //! calculates the integrated intensity along the z-direction
+    double bigZPartIntegral(double qH2) const;
 };
 
 inline complex_t IFormFactorBorn::evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const
@@ -58,39 +64,10 @@ inline complex_t IFormFactorBorn::evaluate(const cvector_t &k_i, const cvector_t
     (void)alpha_i;
     (void)alpha_f;
     if (m_use_large_bin_approximation_radial || m_use_large_bin_approximation_z) {
-        return evaluateForLargeBins(k_i - k_f);
+        cvector_t q = k_i - k_f;
+        return getVolume()*bigZPart(q)*bigRadialPart(q);
     }
     return evaluate_for_q(k_i - k_f);
-}
-
-inline complex_t IFormFactorBorn::evaluateForLargeBins(const cvector_t& q) const
-{
-    // z parameters
-    complex_t qzH2 = q.z()*getHeight()/2.0;
-    double qzH2_d = std::abs(qzH2);
-    double effective_bin_size_h = m_bin_qz*getHeight();
-
-    // radial parameters
-    double qrR = std::abs(q.magxy())*getRadius();
-    double effective_bin_size_r = m_bin_qy*getRadius();
-    double qRmin = qrR - effective_bin_size_r/2.0;
-    double qRmax = qrR + effective_bin_size_r/2.0;
-
-    // phase from the height of the particle
-    complex_t z_phase = std::exp(complex_t(0.0, 1.0)*qzH2);
-
-    // modulus of the height of the particle
-    double z_average_intensity = (bigZPart(qzH2_d + effective_bin_size_h/2.0)
-            - bigZPart(qzH2_d - effective_bin_size_h/2.0))/effective_bin_size_h;
-    double z_modulus = std::sqrt(z_average_intensity);
-
-    // modulus of the radial part
-    MemberFunctionIntegrator<IFormFactorBorn>::mem_function p_mf = &IFormFactorBorn::bigRadialPart;
-    MemberFunctionIntegrator<IFormFactorBorn> integrator(p_mf, this);
-    double average_intensity = integrator.integrate(qRmin, qRmax, (void*)0)/effective_bin_size_r;
-    double radial_part = std::sqrt(average_intensity);
-
-    return getVolume()*radial_part*z_modulus*z_phase;
 }
 
 inline double IFormFactorBorn::getVolume() const
@@ -98,7 +75,5 @@ inline double IFormFactorBorn::getVolume() const
     cvector_t zero;
     return std::abs(evaluate_for_q(zero));
 }
-
-
 
 #endif /* IFORMFACTORBORN_H_ */

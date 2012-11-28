@@ -180,7 +180,7 @@ void Experiment::updateSample()
 
 void Experiment::setDetectorParameters(const OutputData<double > &output_data)
 {
-    std::cout << "Experiment::setDetectorParameters() -> Info. Adjusting detector to have shape as in given output data" << std::endl;
+//    std::cout << "Experiment::setDetectorParameters() -> Info. Adjusting detector to have shape as in given output data" << std::endl;
     m_detector.clear();
     for(size_t i_axis=0; i_axis<output_data.getNdimensions(); ++i_axis) {
         const NamedVector<double> *axis = reinterpret_cast<const NamedVector<double>*>(output_data.getAxes()[i_axis]);

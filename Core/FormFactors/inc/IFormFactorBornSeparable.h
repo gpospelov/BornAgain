@@ -36,7 +36,7 @@ public:
 protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-//! evaluate radial part of scattering amplitude for complex wavevector
+    //! evaluate radial part of scattering amplitude for complex wavevector
     virtual complex_t evaluate_for_q_radial(const cvector_t &q) const=0;
 
     //! evaluate z-part of scattering amplitude for complex wavevector

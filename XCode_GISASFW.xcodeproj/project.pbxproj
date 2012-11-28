@@ -144,6 +144,8 @@
 		6222D087160C8513008205AC /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03C160C690A008205AC /* libboost_regex.dylib */; };
 		6222D088160C8513008205AC /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03D160C690A008205AC /* libboost_system.dylib */; };
 		6222D089160C8513008205AC /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03E160C690A008205AC /* libboost_thread-mt.dylib */; };
+		6254C2651666652E0098EE7E /* IFormFactorBorn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */; };
+		626378A416666CFC00D1BD00 /* App in CopyFiles */ = {isa = PBXBuildFile; fileRef = 627C2EC3160B4E8F004C1B11 /* App */; };
 		627C2FDA160B515D004C1B11 /* libGISASFW.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
 		62BD93501619D05D0008A768 /* ParticleCoreShell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */; };
@@ -153,7 +155,6 @@
 		62CC09741665047E00A5B720 /* Mask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096E1665047E00A5B720 /* Mask.cpp */; };
 		62CC09751665047E00A5B720 /* MaskCoordinateFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096F1665047E00A5B720 /* MaskCoordinateFunction.cpp */; };
 		62CC09761665047E00A5B720 /* ResolutionFunction2DSimple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09701665047E00A5B720 /* ResolutionFunction2DSimple.cpp */; };
-		62CC09781665049900A5B720 /* IFormFactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09771665049900A5B720 /* IFormFactor.cpp */; };
 		62CC097B166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC097A166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp */; };
 		62CC098D166504E700A5B720 /* FitObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC0986166504E700A5B720 /* FitObject.cpp */; };
 		62CC098E166504E700A5B720 /* FitParameterLinked.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC0987166504E700A5B720 /* FitParameterLinked.cpp */; };
@@ -216,6 +217,16 @@
 			dstSubfolderSpec = 0;
 			files = (
 				6222D04B160C6C2C008205AC /* libGISASFW.Core.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		626378A316666C5A00D1BD00 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /Users/herck/Development/git/GISASFW/App;
+			dstSubfolderSpec = 0;
+			files = (
+				626378A416666CFC00D1BD00 /* App in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1064,7 +1075,11 @@
 		6222D07F160C83F4008205AC /* libm.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libm.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libm.dylib; sourceTree = DEVELOPER_DIR; };
 		6222D082160C840C008205AC /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libpthread.dylib; sourceTree = DEVELOPER_DIR; };
 		6222D090160C8E59008205AC /* GISASFW.CL.All */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GISASFW.CL.All; sourceTree = BUILT_PRODUCTS_DIR; };
-		627C2EC3160B4E8F004C1B11 /* GISASFW.App */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GISASFW.App; sourceTree = BUILT_PRODUCTS_DIR; };
+		6254C2601666651F0098EE7E /* IFormFactorBorn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorBorn.h; sourceTree = "<group>"; };
+		6254C2611666651F0098EE7E /* IFormFactorBornSeparable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorBornSeparable.h; sourceTree = "<group>"; };
+		6254C2621666651F0098EE7E /* IFormFactorDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorDecorator.h; sourceTree = "<group>"; };
+		6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IFormFactorBorn.cpp; sourceTree = "<group>"; };
+		627C2EC3160B4E8F004C1B11 /* App */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = App; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGISASFW.Core.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GISASFW.TestCore; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C3031160B69D7004C1B11 /* libfftw3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfftw3.3.dylib; path = ../../../../../../opt/local/lib/libfftw3.3.dylib; sourceTree = "<group>"; };
@@ -1084,7 +1099,6 @@
 		62CC096E1665047E00A5B720 /* Mask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mask.cpp; sourceTree = "<group>"; };
 		62CC096F1665047E00A5B720 /* MaskCoordinateFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaskCoordinateFunction.cpp; sourceTree = "<group>"; };
 		62CC09701665047E00A5B720 /* ResolutionFunction2DSimple.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResolutionFunction2DSimple.cpp; sourceTree = "<group>"; };
-		62CC09771665049900A5B720 /* IFormFactor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IFormFactor.cpp; sourceTree = "<group>"; };
 		62CC0979166504B600A5B720 /* InterferenceFunction2DParaCrystal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterferenceFunction2DParaCrystal.h; sourceTree = "<group>"; };
 		62CC097A166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InterferenceFunction2DParaCrystal.cpp; sourceTree = "<group>"; };
 		62CC097C166504D600A5B720 /* AttLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttLimits.h; sourceTree = "<group>"; };
@@ -1433,6 +1447,9 @@
 		62222271160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				6254C2601666651F0098EE7E /* IFormFactorBorn.h */,
+				6254C2611666651F0098EE7E /* IFormFactorBornSeparable.h */,
+				6254C2621666651F0098EE7E /* IFormFactorDecorator.h */,
 				6218B463161B2562007FFA5C /* FormFactorParallelepiped.h */,
 				62222272160CB745008205AC /* FormFactorCrystal.h */,
 				62222273160CB745008205AC /* FormFactorCylinder.h */,
@@ -1460,7 +1477,7 @@
 		62222285160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
-				62CC09771665049900A5B720 /* IFormFactor.cpp */,
+				6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */,
 				6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */,
 				62222286160CB745008205AC /* FormFactorCrystal.cpp */,
 				62222287160CB745008205AC /* FormFactorCylinder.cpp */,
@@ -68359,7 +68376,7 @@
 		627C2EC4160B4E8F004C1B11 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				627C2EC3160B4E8F004C1B11 /* GISASFW.App */,
+				627C2EC3160B4E8F004C1B11 /* App */,
 				627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */,
 				627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */,
 				6222D090160C8E59008205AC /* GISASFW.CL.All */,
@@ -68392,6 +68409,7 @@
 				6222D09A160C8E67008205AC /* ShellScript */,
 				627C2EBF160B4E8F004C1B11 /* Sources */,
 				627C2EC0160B4E8F004C1B11 /* Frameworks */,
+				626378A316666C5A00D1BD00 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -68400,7 +68418,7 @@
 			);
 			name = GISASFW.App;
 			productName = GISASFW.App;
-			productReference = 627C2EC3160B4E8F004C1B11 /* GISASFW.App */;
+			productReference = 627C2EC3160B4E8F004C1B11 /* App */;
 			productType = "com.apple.product-type.tool";
 		};
 		627C2F06160B4F98004C1B11 /* GISASFW.Core */ = {
@@ -68633,7 +68651,6 @@
 				62CC09741665047E00A5B720 /* Mask.cpp in Sources */,
 				62CC09751665047E00A5B720 /* MaskCoordinateFunction.cpp in Sources */,
 				62CC09761665047E00A5B720 /* ResolutionFunction2DSimple.cpp in Sources */,
-				62CC09781665049900A5B720 /* IFormFactor.cpp in Sources */,
 				62CC097B166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp in Sources */,
 				62CC098D166504E700A5B720 /* FitObject.cpp in Sources */,
 				62CC098E166504E700A5B720 /* FitParameterLinked.cpp in Sources */,
@@ -68641,6 +68658,7 @@
 				62CC0990166504E700A5B720 /* FitSuiteParameters.cpp in Sources */,
 				62CC0991166504E700A5B720 /* FitSuiteStrategy.cpp in Sources */,
 				62CC0992166504E700A5B720 /* OutputDataFunctions.cpp in Sources */,
+				6254C2651666652E0098EE7E /* IFormFactorBorn.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68742,7 +68760,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CONFIGURATION_BUILD_DIR = "";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -68769,7 +68787,7 @@
 					/opt/local/lib,
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = App;
 				ROOT_INCLUDE = /opt/local/include/root;
 				ROOT_LIB = /opt/local/lib/root;
 				SDKROOT = macosx;
@@ -68783,7 +68801,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CONFIGURATION_BUILD_DIR = "";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DSTROOT = /;
@@ -68803,7 +68821,7 @@
 					"${ROOT_LIB}",
 					/opt/local/lib,
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = App;
 				ROOT_INCLUDE = /opt/local/include/root;
 				ROOT_LIB = /opt/local/lib/root;
 				SDKROOT = macosx;

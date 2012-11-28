@@ -27,11 +27,13 @@
 class IFormFactorBorn : public IFormFactor
 {
 public:
-    IFormFactorBorn() {}
+    IFormFactorBorn();
     virtual ~IFormFactorBorn() {}
     virtual IFormFactorBorn *clone() const=0;
 
     virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
+
+    virtual void setBinSizes(double delta_qy, double delta_qz);
 
     //! evaluate scattering amplitude for large bin sizes
     virtual complex_t evaluateForLargeBins(const cvector_t &q) const;
@@ -42,6 +44,10 @@ protected:
 
     //! override volume getter to avoid infinite loop caused by big bin approximation
     virtual double getVolume() const;
+
+    bool m_use_large_bin_approximation_radial;  //!< indicates if large bin size approximation should be used in the qx-qy direction
+    bool m_use_large_bin_approximation_z;  //!< indicates if large bin size approximation should be used in the qz direction
+    double m_bin_qy, m_bin_qz;  //!< the sizes of the bins in q space
 private:
     double bigRadialPart(double qR, void *params) const;
     double bigZPart(double qH2) const;
@@ -51,7 +57,7 @@ inline complex_t IFormFactorBorn::evaluate(const cvector_t &k_i, const cvector_t
 {
     (void)alpha_i;
     (void)alpha_f;
-    if (m_use_large_bin_approximation) {
+    if (m_use_large_bin_approximation_radial || m_use_large_bin_approximation_z) {
         return evaluateForLargeBins(k_i - k_f);
     }
     return evaluate_for_q(k_i - k_f);

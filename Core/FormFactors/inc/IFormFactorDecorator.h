@@ -56,8 +56,7 @@ inline void IFormFactorDecorator::setAmbientRefractiveIndex(complex_t refractive
 
 inline void IFormFactorDecorator::setBinSizes(double delta_qy, double delta_qz)
 {
-    IFormFactor::setBinSizes(delta_qy, delta_qz);
-    mp_form_factor->setBinSizes(delta_qy, delta_qz);
+    if (mp_form_factor) mp_form_factor->setBinSizes(delta_qy, delta_qz);
 }
 
 inline double IFormFactorDecorator::getVolume() const

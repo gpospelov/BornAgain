@@ -33,9 +33,7 @@ public:
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);
 
-    //! propagate the bin sizes to the form factor to possibly enable large bin size approximations
     virtual void setBinSizes(double delta_qy, double delta_qz) {
-        IFormFactor::setBinSizes(delta_qy, delta_qz);
         mp_basis_form_factor->setBinSizes(delta_qy, delta_qz);
         mp_meso_form_factor->setBinSizes(delta_qy, delta_qz);
     }

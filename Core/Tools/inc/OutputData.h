@@ -44,6 +44,7 @@ public:
 
     const NamedVectorBase *getAxis(std::string label) const;
     const NamedVectorBase *getAxis(size_t index) const;
+    size_t getAxisIndex(const std::string &label) const;
 
     // ---------------------------------
     // retrieve basic info
@@ -189,9 +190,9 @@ public:
     //! return true if object have same dimensions and shape of axises
     bool hasSameShape(const OutputData<T> &right) const;
 private:
-    //! hidden copy constructor and assignment operators
-    OutputData(const OutputData& source);
-    const OutputData& operator=(const OutputData& right);
+    //! disabled copy constructor and assignment operators
+    OutputData(const OutputData &);
+    const OutputData& operator=(const OutputData &);
 
     //! memory allocation for current dimensions configuration
     void allocate();
@@ -201,22 +202,6 @@ private:
     Mask *mp_mask;
 };
 
-
-/* **************** */
-// specialized OutputData functions: global arithmetics
-/* **************** */
-
-//! double the bin size for each dimension
-OutputData<double> *doubleBinSize(const OutputData<double> &source);
-
-//! unnormalized Fourier transformation for real data
-void fourierTransform(const OutputData<double> &source, OutputData<complex_t> *p_destination);
-//! unnormalized reverse Fourier transformation for real data
-void fourierTransformR(const OutputData<complex_t> &source, OutputData<double> *p_destination);
-
-OutputData<double> *getRealPart(const OutputData<complex_t> &source);
-OutputData<double> *getImagPart(const OutputData<complex_t> &source);
-OutputData<double> *getModulusPart(const OutputData<complex_t> &source);
 
 /* ***************************************************************************/
 // definitions
@@ -257,7 +242,11 @@ template <class T> void OutputData<T>::copyFrom(const OutputData<T> &other)
     {
         addAxis(other.getAxis(i)->clone());
     }
-    (*mp_ll_data) = *other.mp_ll_data;
+    delete mp_ll_data;
+    mp_ll_data = 0;
+    if(other.mp_ll_data) {
+        mp_ll_data = new LLData<T>(*other.mp_ll_data);
+    }
     if (other.getMask()) {
         mp_mask = other.getMask()->clone();
     }
@@ -296,6 +285,19 @@ template <class T> const NamedVectorBase *OutputData<T>::getAxis(std::string lab
     }
     return 0;
 }
+
+// return index of axis
+template <class T> size_t OutputData<T>::getAxisIndex(const std::string &label) const
+{
+    size_t index(0);
+    for (std::vector<NamedVectorBase*>::const_iterator it = m_value_axes.begin(); it != m_value_axes.end(); ++it, ++index)
+    {
+        if ((*it)->getName() == label) return index;
+    }
+    throw LogicErrorException("OutputData<T>::getIndexOfAxis() -> Error! Axis with given name not found '"+label+std::string("'"));
+}
+
+
 
 template <class T> const NamedVectorBase *OutputData<T>::getAxis(size_t index) const
 {
@@ -541,13 +543,11 @@ template<class T> inline bool OutputData<T>::hasSameDimensions(const OutputData<
 }
 
 //! return true if object have same dimensions and shape of axis
-// TODO: replace axises with NamedVector<double> or get rid from templates
 template<class T>
 bool OutputData<T>::hasSameShape(const OutputData<T> &right) const
 {
     if(!hasSameDimensions(right)) return false;
 
-    // TODO: move check of consistency between dimensions of LLData and NamedVector into UNIT test, if it's not there
     if( (mp_ll_data->getRank() != m_value_axes.size()) || (right.mp_ll_data->getRank() != right.m_value_axes.size()) ) {
         throw LogicErrorException("OutputData<T>::hasSameShape() -> Panic! Inconsistent dimensions in LLData and axes");
     }

@@ -5,7 +5,7 @@ TARGET   = ScattCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+# CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)
@@ -41,6 +41,7 @@ SOURCES += \
     Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
     \
+    FormFactors/src/FormFactorBigCylinder.cpp \
     FormFactors/src/FormFactorDWBA.cpp \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
     FormFactors/src/FormFactorDecoratorTransformation.cpp \
@@ -90,10 +91,14 @@ SOURCES += \
     Tools/src/CoreOptionsDescription.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
     Tools/src/Exceptions.cpp \
+    Tools/src/FitObject.cpp \
     Tools/src/FitParameter.cpp \
+    Tools/src/FitParameterLinked.cpp \
     Tools/src/FitSuite.cpp \
+    Tools/src/FitSuiteObjects.cpp \
+    Tools/src/FitSuiteParameters.cpp \
+    Tools/src/FitSuiteStrategy.cpp \
     Tools/src/IFactory.cpp \
-    Tools/src/INamed.cpp \
     Tools/src/IObserver.cpp \
     Tools/src/IParameterized.cpp \
     Tools/src/ISingleton.cpp \
@@ -118,10 +123,7 @@ SOURCES += \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp \
     PythonAPI/src/PythonOutputData.cpp \
-    Tools/src/FitSuiteStrategy.cpp \
-    Tools/src/FitSuiteParameters.cpp \
-    Tools/src/FitParameterLinked.cpp \
-    Tools/src/FitSuiteKit.cpp
+    Tools/src/OutputDataFunctions.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -155,6 +157,7 @@ HEADERS += \
     Algorithms/inc/ResolutionFunction2DSimple.h \
     Algorithms/inc/ThreadInfo.h \
     \
+    FormFactors/inc/FormFactorBigCylinder.h \
     FormFactors/inc/FormFactorDWBA.h \
     FormFactors/inc/FormFactorDWBAConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
@@ -221,9 +224,12 @@ HEADERS += \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
     Tools/inc/DoubleToComplexMap.h \
     Tools/inc/Exceptions.h \
+    Tools/inc/FitObject.h \
     Tools/inc/FitParameter.h \
+    Tools/inc/FitParameterLinked.h \
     Tools/inc/FitSuite.h \
-    Tools/inc/FitSuiteKit.h \
+    Tools/inc/FitSuiteObjects.h \
+    Tools/inc/FitSuiteParameters.h \
     Tools/inc/FitSuiteStrategy.h \
     Tools/inc/IDoubleToComplexFunction.h \
     Tools/inc/IFactory.h \
@@ -236,6 +242,7 @@ HEADERS += \
     Tools/inc/LLData.h \
     Tools/inc/Macros.h \
     Tools/inc/MathFunctions.h \
+    Tools/inc/MemberFunctionIntegrator.h \
     Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
@@ -264,8 +271,7 @@ HEADERS += \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h \
     PythonAPI/inc/IPythonWrapper.h \
-    Tools/inc/FitSuiteParameters.h \
-    Tools/inc/FitParameterLinked.h
+    Tools/inc/OutputDataFunctions.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

@@ -23,7 +23,7 @@ FitSuite::~FitSuite()
 /* ************************************************************************* */
 void FitSuite::clear()
 {
-    m_suite_kit.clear();
+    m_fit_objects.clear();
     m_fit_parameters.clear();
     for(fitstrategies_t::iterator it = m_fit_strategies.begin(); it!= m_fit_strategies.end(); ++it) delete (*it);
     m_fit_strategies.clear();
@@ -38,9 +38,9 @@ void FitSuite::clear()
 /* ************************************************************************* */
 // add pair of (experiment, real data) for consecutive simulation
 /* ************************************************************************* */
-void FitSuite::addExperimentAndRealData(Experiment *experiment, const OutputData<double > *real_data, const IChiSquaredModule *chi2_module)
+void FitSuite::addExperimentAndRealData(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module)
 {
-    m_suite_kit.add(experiment, real_data, chi2_module);
+    m_fit_objects.add(experiment, real_data, chi2_module);
 }
 
 
@@ -69,9 +69,8 @@ void FitSuite::addFitStrategy(IFitSuiteStrategy *strategy)
 void FitSuite::link_fit_parameters()
 {
     // loop over all experiments defined
-    for(size_t i_exp = 0; i_exp<m_suite_kit.size(); ++i_exp) {
-        std::cout << "XXX 1.1" << i_exp << std::endl;
-        m_fit_parameters.link_to_experiment(m_suite_kit.getExperiment(i_exp));
+    for(size_t i_exp = 0; i_exp<m_fit_objects.size(); ++i_exp) {
+        m_fit_parameters.link_to_experiment(m_fit_objects.getExperiment(i_exp));
     }
 }
 
@@ -101,7 +100,7 @@ void FitSuite::minimize()
 bool FitSuite::check_prerequisites()
 {
     if( !m_minimizer ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No minimizer found.");
-    if( !m_suite_kit.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No experiment defined");
+    if( !m_fit_objects.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No experiment defined");
     if( !m_fit_parameters.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No fit parameters defined");
     return true;
 }
@@ -151,10 +150,10 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
     m_fit_parameters.setValues(pars_current_values);
 
     // run simulations
-    m_suite_kit.runSimulation();
+    m_fit_objects.runSimulation();
 
     // caclulate chi2 value
-    double chi_squared = m_suite_kit.getChiSquaredValue();
+    double chi_squared = m_fit_objects.getChiSquaredValue();
 
     notifyObservers();
     m_n_call++;

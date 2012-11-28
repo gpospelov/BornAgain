@@ -87,7 +87,7 @@ void TestMesoCrystal2::execute()
     FitSuite *fitSuite = new FitSuite();
 //    fitSuite->setExperiment(mp_experiment);
 //    fitSuite->setRealData(*real_data);
-    fitSuite->addExperimentAndRealData(mp_experiment, real_data);
+    fitSuite->addExperimentAndRealData(*mp_experiment, *real_data);
 //    fitSuite->addExperimentAndRealData(mp_experiment, real_data_quarter);
 
     fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );

@@ -21,31 +21,40 @@
 
 #include <vector>
 
+//- -------------------------------------------------------------------
+//! @class Detector
+//! @brief Definition of Detector with axes and resolution function
+//- -------------------------------------------------------------------
 class Detector : public IParameterized
 {
 public:
 	Detector();
+    Detector(const Detector &other);
+    Detector &operator=(const Detector &other);
+
 	virtual ~Detector();
 
 	void addAxis(const NamedVector<double> &axis);
 	NamedVector<double> getAxis(size_t index) const;
 	size_t getDimension() const { return m_axes.size(); }
 	void clear();
-	void setDetectorResolution(IDetectorResolution *p_detector_resolution) { mp_detector_resolution = p_detector_resolution; }
+    void setDetectorResolution(IDetectorResolution *p_detector_resolution) { delete mp_detector_resolution; mp_detector_resolution = p_detector_resolution; }
 	void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
+    const IDetectorResolution *getDetectorResolutionFunction() const { return mp_detector_resolution; }
 
 	//! add parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters();
-
+    virtual void init_parameters();    
 	bool isCorrectAxisIndex(size_t index) const { return index<getDimension(); }
 private:
+    //! swap function
+    void swapContent(Detector &other);
+
 	std::vector<NamedVector<double> > m_axes;
 	IDetectorResolution *mp_detector_resolution;
-
 };
 
 #endif /* DETECTOR_H_ */

@@ -5,6 +5,10 @@
 #include <cmath>
 #include <iostream>
 
+
+/* ************************************************************************* */
+// c-tors
+/* ************************************************************************* */
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(
         cumulative_DF_1d res_function_1d)
 : m_dimension(1)
@@ -27,6 +31,28 @@ ConvolutionDetectorResolution::~ConvolutionDetectorResolution()
 {
     delete mp_res_function_2d;
 }
+
+
+ConvolutionDetectorResolution::ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other) : IDetectorResolution(other)
+{
+    m_dimension = other.m_dimension;
+    // FIXME is it ok to assign pointer to function like that ?
+    m_res_function_1d=other.m_res_function_1d;
+    mp_res_function_2d = other.mp_res_function_2d->clone();
+}
+
+
+/* ************************************************************************* */
+// clone
+/* ************************************************************************* */
+//! clone object
+ConvolutionDetectorResolution *ConvolutionDetectorResolution::clone() const
+{
+    return new ConvolutionDetectorResolution(*this);
+}
+
+
+
 
 void ConvolutionDetectorResolution::applyDetectorResolution(
         OutputData<double>* p_intensity_map) const

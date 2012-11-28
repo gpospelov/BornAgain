@@ -56,7 +56,7 @@ public:
     virtual OutputData<double > *createChi2DifferenceMap() const=0;
 
 protected:
-    // assignment operator
+    // disabling assignment operator
     IChiSquaredModule &operator=(const IChiSquaredModule &);
 
     virtual void initWeights();

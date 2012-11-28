@@ -99,6 +99,7 @@ void MultiLayerDWBASimulation::run()
             LayerDWBASimulation *p_layer_dwba_sim = pos->second;
             p_layer_dwba_sim->setKzAndRTFunctions(Kz_map, RT_map);
             p_layer_dwba_sim->run();
+
             addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
         }
 

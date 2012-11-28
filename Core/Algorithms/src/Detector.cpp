@@ -1,6 +1,10 @@
 #include "Detector.h"
 #include "Exceptions.h"
 
+
+/* ************************************************************************* */
+// c-tors, assignment operators, swap
+/* ************************************************************************* */
 Detector::Detector()
 : mp_detector_resolution(0)
 {
@@ -8,10 +12,40 @@ Detector::Detector()
     init_parameters();
 }
 
-Detector::~Detector()
+
+Detector::Detector(const Detector &other) : IParameterized()
+, mp_detector_resolution(0)
 {
+    setName(other.getName());
+    m_axes = other.m_axes;
+    if(other.mp_detector_resolution) mp_detector_resolution = other.mp_detector_resolution->clone();
+    init_parameters();
 }
 
+
+Detector::~Detector()
+{
+    delete mp_detector_resolution;
+}
+
+Detector &Detector::operator=(const Detector &other)
+{
+    Detector tmp(other);
+    tmp.swapContent(*this);
+    return *this;
+}
+
+
+void Detector::swapContent(Detector &other)
+{
+    std::swap(this->m_axes, other.m_axes);
+    std::swap(this->mp_detector_resolution, other.mp_detector_resolution);
+}
+
+
+/* ************************************************************************* */
+// other methods
+/* ************************************************************************* */
 void Detector::addAxis(const NamedVector<double> &axis)
 {
 	m_axes.push_back(axis);
@@ -30,11 +64,15 @@ void Detector::clear()
     m_axes.clear();
 }
 
-void Detector::applyDetectorResolution(
-        OutputData<double>* p_intensity_map) const
+void Detector::applyDetectorResolution(OutputData<double>* p_intensity_map) const
 {
+    if(!p_intensity_map) {
+        throw NullPointerException("Detector::applyDetectorResolution() -> Error! Null pointer to intensity map");
+    }
     if (mp_detector_resolution) {
         mp_detector_resolution->applyDetectorResolution(p_intensity_map);
+    } else {
+        std::cout << "Detector::applyDetectorResolution() -> Warning! No detector resolution function found" << std::endl;
     }
 }
 

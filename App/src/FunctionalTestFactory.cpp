@@ -19,6 +19,7 @@
 #include "TestRootTree.h"
 #include "TestFittingModule1.h"
 #include "TestFittingModule2.h"
+#include "TestFittingModule3.h"
 #include "TestPerformance.h"
 #include "TestMultiLayerRoughness.h"
 #include "TestMiscellaneous.h"
@@ -74,6 +75,8 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: fit module 2 params");
     registerItem("fitting2",     IFactoryCreateFunction<TestFittingModule2, IFunctionalTest>,
                  "functional test: fit module 5 params");
+    registerItem("fitting3",     IFactoryCreateFunction<TestFittingModule3, IFunctionalTest>,
+                 "functional test: fit module 4 params, 1d scans");
     registerItem("performance", IFactoryCreateFunction<TestPerformance, IFunctionalTest>,
                  "functional test: run performance test for several predefined tasks");
     registerItem("roughdwba",   IFactoryCreateFunction<TestMultiLayerRoughness, IFunctionalTest>,

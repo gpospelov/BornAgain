@@ -26,6 +26,7 @@ IParameterized &IParameterized::operator=(const IParameterized &other)
     return *this;
 }
 
+
 /* ************************************************************************* */
 // create new parameter pool which contains all local parameter and  parameters of children
 // user have to delete it

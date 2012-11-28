@@ -93,11 +93,8 @@ public:
     //! create two-dimensional TH2D from OutputData
     static TH2D *getOutputDataTH2D(const OutputData<double>& output, const std::string &histo_name);
 
-    //! create one, thwo, three-dimensional histograms from OutputData
+    //! create one, two, three-dimensional histograms from OutputData
     static TH1 *getOutputDataTH123D(const OutputData<double>& output, const std::string &histo_name);
-
-    //! slice 2D output data into 1D having fixed axes value on one of the axes
-    static OutputData<double> *sliceOutputData(const OutputData<double > &data, const std::string &fixed_axes, double fixed_axis_value);
 
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

@@ -1,5 +1,9 @@
 #include "gtest/gtest.h"
 
+#include "BeamTest.h"
+#include "DetectorTest.h"
+#include "ExperimentTest.h"
+#include "GISASExperimentTest.h"
 #include "MaskTest.h"
 #include "NamedVectorTest.h"
 #include "OutputDataTest.h"

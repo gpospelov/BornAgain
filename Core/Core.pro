@@ -53,7 +53,7 @@ SOURCES += \
     FormFactors/src/FormFactorLorentz.cpp \
     FormFactors/src/FormFactorWeighted.cpp \
     FormFactors/src/FormFactorCrystal.cpp \
-    FormFactors/src/IFormFactor.cpp \
+    FormFactors/src/IFormFactorBorn.cpp \
     \
     Geometry/src/BasicVector3D.cpp \
     Geometry/src/Normal3D.cpp \
@@ -174,9 +174,11 @@ HEADERS += \
     FormFactors/inc/FormFactorLorentz.h \
     FormFactors/inc/FormFactors.h \
     FormFactors/inc/FormFactorSphereGaussianRadius.h \
-    FormFactors/inc/IFormFactor.h \
     FormFactors/inc/FormFactorCrystal.h \
     FormFactors/inc/FormFactorWeighted.h \
+    FormFactors/inc/IFormFactor.h \
+    FormFactors/inc/IFormFactorBorn.h \
+    FormFactors/inc/IFormFactorDecorator.h \
     \
     Geometry/inc/BasicVector3D.h \
     Geometry/inc/Normal3D.h \

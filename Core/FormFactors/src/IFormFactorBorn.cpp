@@ -1,4 +1,4 @@
-#include "IFormFactor.h"
+#include "IFormFactorBorn.h"
 
 double IFormFactorBorn::bigRadialPart(double qR, void *params) const
 {

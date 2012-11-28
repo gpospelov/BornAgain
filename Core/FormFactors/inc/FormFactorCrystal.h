@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 12, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorBorn.h"
 #include "Crystal.h"
 #include "Types.h"
 

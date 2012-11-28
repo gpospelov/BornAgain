@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Oct 1, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
 class FormFactorParallelepiped : public IFormFactorBorn

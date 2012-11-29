@@ -23,6 +23,7 @@
 #include "MathFunctions.h"
 #include "ROOTMinimizer.h"
 #include "OutputDataFunctions.h"
+#include "NamedVector.h"
 
 #include <iostream>
 #include <fstream>
@@ -39,7 +40,12 @@
 /* ************************************************************************* */
 //
 /* ************************************************************************* */
-TestIsGISAXS12::TestIsGISAXS12() : IFunctionalTest("TestIsGISAXS12"), m_experiment(0), m_sample_builder(0), m_fitSuite(0)
+TestIsGISAXS12::TestIsGISAXS12() : IFunctionalTest("TestIsGISAXS12")
+  , m_experiment(0)
+  , m_sample_builder(0)
+  , m_fitSuite(0)
+  , m_isgi_fixed_alphaf(0)
+  , m_isgi_fixed_phif(0)
 {
     std::cout << "TestIsGISAXS12::TestIsGISAXS12() -> Info" << std::endl;
     m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-12/");
@@ -51,6 +57,9 @@ TestIsGISAXS12::~TestIsGISAXS12()
     delete m_experiment;
     delete m_sample_builder;
     delete m_fitSuite;
+    for(DataScan_t::iterator it=m_isgi_scans.begin(); it!=m_isgi_scans.end(); ++it) {
+        delete (*it);
+    }
 }
 
 
@@ -63,14 +72,14 @@ void TestIsGISAXS12::execute()
     // initializing experiment and sample builder
     initialiseExperiment();
 
-    // run standard isgisaxs comparison for the sample we have
-    //run_isgisaxs_comparison();
+    // run our standard isgisaxs comparison for given sample
+    run_isgisaxs_comparison();
 
-    // run test of our style fit
-    run_test_fit();
+    // run test fit
+    //run_test_fit();
 
     // run isgisaxs ex-12 style fit
-    //run_isgisaxs_fit();
+    run_isgisaxs_fit();
 
 }
 
@@ -136,7 +145,8 @@ void TestIsGISAXS12::run_test_fit()
     m_experiment->setBeamIntensity(1e10);
     m_experiment->runSimulation();
     m_experiment->normalize();
-    OutputData<double > *real_data = createNoisyData( *m_experiment->getOutputData() );
+
+    OutputData<double > *real_data = IsGISAXSTools::createNoisyData( *m_experiment->getOutputData() );
 
     // setting up 1d scans by making slices on real data
     DataScan_t data_scans;
@@ -164,11 +174,11 @@ void TestIsGISAXS12::run_test_fit()
     }
     c1->Update();
 
-
-
     // creating fit suite
     m_fitSuite = new FitSuite();
     m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
+    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
 
 //    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 //    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
@@ -190,10 +200,6 @@ void TestIsGISAXS12::run_test_fit()
     m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  3*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  3*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 
-    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
-    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
-
-//    m_fitSuite->addExperimentAndRealData(*m_experiment, *real_data);
     for(DataScan_t::iterator it=data_scans.begin(); it!= data_scans.end(); ++it) {
         m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it));
     }
@@ -201,9 +207,7 @@ void TestIsGISAXS12::run_test_fit()
     m_fitSuite->runFit();
 
     delete real_data;
-    // setting up 1d scans by making slices on real data
     for(DataScan_t::iterator it=data_scans.begin(); it!= data_scans.end(); ++it) delete (*it);
-
 }
 
 
@@ -212,57 +216,65 @@ void TestIsGISAXS12::run_test_fit()
 /* ************************************************************************* */
 void TestIsGISAXS12::run_isgisaxs_fit()
 {
-    //    read_isgisaxs_datfile(m_data_path+"isgi_fitconstraints.dat");
+    // reading info about two 1D scans defined in isgisaxs example
+    read_isgisaxs_datfile(m_data_path+"isgi_fitconstraints.dat");
 
-    // run simulation for default sample parameters
-    m_experiment->runSimulation();
+    // making some plots together with test simulation
+    plot_isgisaxs_data();
+//    return;
 
-    TCanvas *c2 = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS12_c2", "ex-12: Mixture of cylindrical particles with different size distribution");
-
-    c2->Divide(2,2);
-
-    IsGISAXSTools::setMinimum(1.);
-    // our calculations
-    c2->cd(1); gPad->SetLogz();
-    TH2D *hist1 = dynamic_cast<TH2D* >(IsGISAXSTools::getOutputDataTH123D(*m_experiment->getOutputData(), "hist1"));
-    hist1->SetMinimum(1.0);
-    hist1->Draw("COLZ");
-
-//    OutputData<double > *sliced_data = OutputDataFunctions::sliceAccrossOneAxis(*m_experiment->getOutputData(), "phi_f", 0.01);
-//    c2->cd(2);
-//    TH1D *hist2 = dynamic_cast<TH1D* >(IsGISAXSTools::getOutputDataTH123D(*sliced_data, "hist2"));
-//    hist2->SetMinimum(1.0);
-//    hist2->Draw();
-
-    OutputData<double > *ranged_data = OutputDataFunctions::selectRangeOnOneAxis(*m_experiment->getOutputData(), "phi_f", 0.01, 0.01);
-    c2->cd(3); gPad->SetLogz();
-    TH2D *hist3 = dynamic_cast<TH2D* >(IsGISAXSTools::getOutputDataTH123D(*ranged_data, "hist3"));
-    if( !hist3 ) throw LogicErrorException("TestIsGISAXS12::run_isgisaxs_fit() -> Can't get histogram");
-    hist3->SetMinimum(1.0);
-    TH1D *hproj = hist3->ProjectionY("h_proj");
-    hproj->SetLineColor(kRed);
-    hproj->Draw();
-
+    // creating fit suite
     m_fitSuite = new FitSuite();
     m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "SteepestDescent") );
+    m_fitSuite->attachObserver( new FitSuiteObserverPrint(10) );
+    m_fitSuite->attachObserver( new FitSuiteObserverDraw(50) );
 
-    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  0.8*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability",  12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
+    minim->SetStrategy(1);
+//    minim->SetPrecision(1.);
 
-    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
-    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
+    m_fitSuite->addFitParameter("*Normalizer/scale", 1e5, 100, AttLimits::limited(1e4, 2e5));
+    m_fitSuite->addFitParameter("*Normalizer/shift", 10, 1, AttLimits::limited(1., 20.));
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability",  0.4, 0.1, AttLimits::limited(0.01, 1.0) );
 
-    m_fitSuite->addExperimentAndRealData(*m_experiment, *ranged_data);
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1., 10.) );
+    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2, 0.1, AttLimits::limited(0.01, 1.) );
+    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  0.8, 0.1, AttLimits::limited(0.01, 10.) );
 
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  4*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1., 10.) );
+    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2, 0.1, AttLimits::limited(0.01, 1.) );
+    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  0.8, 0.1, AttLimits::limited(0.01, 10.) );
+
+    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 1*Units::nanometer, AttLimits::limited(0.01, 50.0) );
+    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 1*Units::nanometer, AttLimits::limited(0.01, 10.) );
+
+    // setting up fitSuite
+    ChiSquaredModule chiModule;
+    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
+    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
+
+    for(DataScan_t::iterator it=m_isgi_scans.begin(); it!= m_isgi_scans.end(); ++it) {
+        m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it), chiModule);
+    }
 
     m_fitSuite->runFit();
+
+    // drawing results
+    TCanvas *c2 = new TCanvas("c2","c2",800,600);
+    c2->Divide(2,2);
+    for(size_t i=0; i<m_fitSuite->getFitObjects()->size(); ++i) {
+        c2->cd(i+1);
+        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i);
+        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"real");
+        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"simul");
+        hreal->SetLineColor(kBlue);
+        gPad->SetLogy();
+        hreal->DrawCopy();
+        hsimul->DrawCopy("same");
+        delete hreal;
+        delete hsimul;
+    }
 
 
 }
@@ -270,84 +282,67 @@ void TestIsGISAXS12::run_isgisaxs_fit()
 
 
 /* ************************************************************************* */
-//
+// plot isgisaxs data together with test simulation
 /* ************************************************************************* */
-void TestIsGISAXS12::finalise()
+void TestIsGISAXS12::plot_isgisaxs_data()
 {
-    return;
-    // ----------------------------------------------------------
-    // plotting isgisaxs "experimental data" together with projections of our output_data for default sample parameters
-    TCanvas *c2 = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS12_c2", "ex-12: experimental data to fit");
-    c2->Divide(2,2);
+    if(m_isgi_scans.size() != 2) throw LogicErrorException("TestIsGISAXS12::plot_isgisaxs_data() -> Load isgisaxs scans first");
 
-    // drawing projection of output data (calculated for initial parameter values) on top of isgisaxs experimental data
-    TH2D *h2_data = IsGISAXSTools::getOutputDataTH2D(*(m_experiment->getOutputData()),"h2_our_data");
-    c2->cd(1);
-    gPad->SetLogz();
-    h2_data->SetMinimum(1.);
-    h2_data->Draw("colz");
-    TLine line;
-    line.SetLineColor(kRed);
-    line.SetLineStyle(1);
-    line.SetLineWidth(2);
-    for(size_t i_scan=0; i_scan<m_isgiCrossSections.size(); ++i_scan) {
-        IsgiScan &scan = m_isgiCrossSections[i_scan];
-        if( scan.fixed_alphaf ) {
-            double x1 = h2_data->GetXaxis()->GetXmin();
-            double x2 = h2_data->GetXaxis()->GetXmax();
-            double y = scan.getFixedAngle();
-            line.DrawLine(x1,y,x2,y);
-            std::cout << "line fixed_alphaf " << x1 << " " << y << " " << x2 << " " << y << std::endl;
-        }else if( scan.fixed_phif ) {
-            double x = scan.getFixedAngle();
-            double y1 = h2_data->GetYaxis()->GetXmin();
-            double y2 = h2_data->GetYaxis()->GetXmax();
-            line.DrawLine(x,y1,x,y2);
-            std::cout << "line fixed_phif " << x << " " << y1 << " " << x << " " << y2 << std::endl;
-        } else {
-            throw LogicErrorException("TestIsGISAXS12::finalise() -> Error.");
-        }
+    enum isgisaxs_scans {kFixedAlphaf, kFixedPhif };
 
+    // making 2d OutputData with axes like in two isgisaxs scans
+    OutputData<double > *data_as_isgisaxs = new OutputData<double>;
+    const NamedVector<double > *axis_phif_scan = dynamic_cast<const NamedVector<double> *>(m_isgi_scans[kFixedAlphaf]->getAxis("phi_f"));
+    const NamedVector<double > *axis_alphaf_scan = dynamic_cast<const NamedVector<double> *>(m_isgi_scans[kFixedPhif]->getAxis("alpha_f"));
+    if( !axis_phif_scan || !axis_phif_scan ) throw NullPointerException("TestIsGISAXS12::plot_isgisaxs_data() -> Error. Can'get get axis");
+    data_as_isgisaxs->addAxis(axis_phif_scan->clone());
+    data_as_isgisaxs->addAxis(axis_alphaf_scan->clone());
+    data_as_isgisaxs->setAllTo(0.0);
+    std::cout << axis_phif_scan->getSize() << " " << axis_alphaf_scan->getSize() << " " << data_as_isgisaxs->getAllocatedSize() << std::endl;
+
+    // running 2d simulation
+    m_experiment->setDetectorParameters(*data_as_isgisaxs);
+    delete data_as_isgisaxs;
+//    m_experiment->setBeamIntensity(1e10);
+    m_experiment->runSimulation();
+//    m_experiment->normalize();
+
+    // setting up 1d scans by making slices on just simulated data
+    DataScan_t data_scans;
+    data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_experiment->getOutputData(), "alpha_f", m_isgi_fixed_alphaf, m_isgi_fixed_alphaf  ));
+    data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_experiment->getOutputData(), "phi_f", m_isgi_fixed_phif, m_isgi_fixed_phif ));
+
+    // drawing data and scans
+    TCanvas *c1 = new TCanvas("c1","c1",1024, 768);
+    c1->Divide(2,3);
+    c1->cd(1); gPad->SetLogz();
+    TH2D *hist1 = dynamic_cast<TH2D *>(IsGISAXSTools::getOutputDataTH123D( *m_experiment->getOutputData(), "real_data"));
+    hist1->Draw("COLZ");
+    for(DataScan_t::const_iterator it=data_scans.begin(); it!= data_scans.end(); ++it) {
+        TLine *line = IsGISAXSTools::getOutputDataScanLine(*(*it));
+        line->DrawClone();
+        delete line;
+    }
+    int npad(3);
+    for(DataScan_t::iterator it=data_scans.begin(); it!= data_scans.end(); ++it, ++npad) {
+        c1->cd(npad);
+        TH1D *hist = IsGISAXSTools::getOutputDataScanHist(*(*it), "sim");
+        hist->DrawCopy();
+        delete hist;
     }
 
-
-    for(size_t i_scan=0; i_scan<m_isgiCrossSections.size(); ++i_scan) {
-        c2->cd(3+i_scan); gPad->SetLogy();
-        IsgiScan &scan = m_isgiCrossSections[i_scan];
-
-        // drawing isgisaxs experimental data
-        TGraph *gr = new TGraph(scan.size());
-        for(size_t i_point=0; i_point < scan.size(); ++i_point) {
-
-            gr->SetPoint(i_point, scan.getAngle(i_point), scan.getIntensity(i_point) );
-        }
-        gr->Draw("apl");
-        std::ostringstream ostr;
-        if(scan.fixed_phif) ostr << "fixed_phif at " << scan.getFixedAngle();
-        if(scan.fixed_alphaf) ostr << "fixed_alphaf at " << scan.getFixedAngle();
-        gr->SetTitle(ostr.str().c_str());
-
-        TH1D *hprojection(0);
-        if( scan.fixed_alphaf ) {
-            double alphaf_fixed = scan.getFixedAngle();
-            int biny = h2_data->GetYaxis()->FindBin(alphaf_fixed);
-            std::cout << "fixed alphaf: " << alphaf_fixed << " biny:" << biny << std::endl;
-            hprojection = h2_data->ProjectionX("fixed_alphaf",biny,biny); // along binx
-        }else if( scan.fixed_phif ) {
-            double phif_fixed = scan.getFixedAngle();
-            int binx = h2_data->GetXaxis()->FindBin(phif_fixed);
-            std::cout << "fixed phif: " << phif_fixed << " binx:" << binx << std::endl;
-            hprojection = h2_data->ProjectionY("fixed_phif",binx,binx); // along binx
-        } else {
-            throw LogicErrorException("TestIsGISAXS12::finalise() -> Error.");
-
-        }
-        hprojection->SetLineColor(kBlue);
-        hprojection->Draw("same");
+    // drawing isgi scans
+    npad=5;
+    for(DataScan_t::iterator it=m_isgi_scans.begin(); it!= m_isgi_scans.end(); ++it, ++npad) {
+        c1->cd(npad);
+        TH1D *hist = IsGISAXSTools::getOutputDataScanHist(*(*it),"isgi");
+        hist->SetLineColor(kBlue);
+        hist->DrawCopy();
+        delete hist;
     }
+    c1->Update();
 
-
-
+    for(DataScan_t::iterator it=data_scans.begin(); it!= data_scans.end(); ++it) delete (*it);
 }
 
 
@@ -362,31 +357,10 @@ void TestIsGISAXS12::initialiseExperiment()
     m_experiment = new GISASExperiment(mp_options);
     m_experiment->setSampleBuilder(m_sample_builder);
     m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    //m_experiment->setDetectorParameters(6, 0.01, 0.06, 6, 0.01, 0.06, false);
     m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    // no resolution function defined yet, since we want to run comparison with isgisaxs fitst
 }
 
 
-/* ************************************************************************* */
-// add noise to data
-/* ************************************************************************* */
-OutputData<double > *TestIsGISAXS12::createNoisyData(const OutputData<double> &exact_data, double noise_factor)
-{
-    OutputData<double > *real_data = exact_data.clone();
-
-    OutputData<double>::iterator it = real_data->begin();
-    while (it != real_data->end()) {
-        double current = *it;
-        double sigma = noise_factor*std::sqrt(current);
-        double random = MathFunctions::GenerateNormalRandom(current, sigma);
-        if (random<0.0) random = 0.0;
-        *it = random;
-        ++it;
-    }
-
-    return real_data;
-}
 
 
 /* ************************************************************************* */
@@ -394,8 +368,6 @@ OutputData<double > *TestIsGISAXS12::createNoisyData(const OutputData<double> &e
 /* ************************************************************************* */
 void TestIsGISAXS12::read_isgisaxs_datfile(const std::string &filename)
 {
-    m_isgiCrossSections.clear();
-
     // opening ASCII file
     std::ifstream fin;
     fin.open(filename.c_str(), std::ios::in);
@@ -403,7 +375,7 @@ void TestIsGISAXS12::read_isgisaxs_datfile(const std::string &filename)
         throw FileNotIsOpenException("TestIsGISAXS12::read_isgisaxs_datfile() -> Error. Can't open file '"+filename+"' for reading.");
     }
 
-    IsgiScan isgiScan; // one isgisaxs scan from *.dat file
+    std::vector<IsgiData > isgiScan;
 
     std::string sline;
     int n_dataset_line(0);
@@ -413,9 +385,11 @@ void TestIsGISAXS12::read_isgisaxs_datfile(const std::string &filename)
         std::string::size_type pos=sline.find("################################################");
         if( pos!= std::string::npos ) {
             n_dataset_line = 0; // it's a beginning of new data set ("cross-section" in isgisaxs terminology)
-            if( !isgiScan.isgiDataVector.empty() ) {
-                m_isgiCrossSections.push_back(isgiScan);
-                isgiScan.isgiDataVector.clear();
+            if( !isgiScan.empty() ) {
+                OutputData<double > *data = convert_isgi_scan(isgiScan);
+                m_isgi_scans.push_back(data);
+                std::cout << "YYY " << isgiScan.size() << std::endl;
+                isgiScan.clear();
             }
         }
         if(n_dataset_line > 9) {
@@ -426,9 +400,11 @@ void TestIsGISAXS12::read_isgisaxs_datfile(const std::string &filename)
             if ( !(iss >> ctmp >> isgiData.phif >> isgiData.alphaf >> isgiData.intensity) ) throw FormatErrorException("TestIsGISAXS12::read_isgisaxs_datfile() -> Error!");
             iss >> isgiData.err; // column with errors can be absent in file, so no check for success here
             ctmp == 'T' ? isgiData.use_it = true : isgiData.use_it = false;
-            isgiData.phif = std::asin(isgiData.phif); // because isgisax in fact stores in *.dat file sin(phif), and sin(alphaf) instead of phif, alphaf
-            isgiData.alphaf = std::asin(isgiData.alphaf);  // because isgisax in fact stores in *.dat file sin(phif), and sin(alphaf) instead of phif, alphaf
-            isgiScan.isgiDataVector.push_back(isgiData);
+            if(isgiData.phif > .0001) {
+                isgiData.phif = std::asin(isgiData.phif); // because isgisax in fact stores in *.dat file sin(phif), and sin(alphaf) instead of phif, alphaf
+                isgiData.alphaf = std::asin(isgiData.alphaf);  // because isgisax in fact stores in *.dat file sin(phif), and sin(alphaf) instead of phif, alphaf
+                isgiScan.push_back(isgiData);
+            }
         }
 
         n_dataset_line++;
@@ -438,31 +414,68 @@ void TestIsGISAXS12::read_isgisaxs_datfile(const std::string &filename)
     }
     fin.close();
 
-    // let's understand which scan has which parameter fixed
-    for(size_t i_scan=0; i_scan<m_isgiCrossSections.size(); ++i_scan){
-        IsgiScan &scan = m_isgiCrossSections[i_scan];
-        scan.fixed_phif = scan.fixed_alphaf = true;
-        // if values of phif accross data points are chainging, then phif is not fixed
-        for(size_t i_point=0; i_point<scan.isgiDataVector.size()-1; ++i_point) {
-            if( scan.isgiDataVector[i_point].phif != scan.isgiDataVector[i_point+1].phif ) {
-                scan.fixed_phif = false;
-                break;
-            }
-        }
-        // if values of alphaf accross data points are chainging, then alphaf is not fixed
-        for(size_t i_point=0; i_point<scan.isgiDataVector.size()-1; ++i_point) {
-            if( scan.isgiDataVector[i_point].alphaf != scan.isgiDataVector[i_point+1].alphaf ) {
-                scan.fixed_alphaf = false;
-                break;
-            }
-        }
-        if(scan.fixed_phif == scan.fixed_alphaf) {
-            std::cout << " scan " << i_scan << " fixed_phif " << scan.fixed_phif << " fixed_alphaf:" << scan.fixed_alphaf << std::endl;
-            throw LogicErrorException("TestIsGISAXS12::read_isgisaxs_datfile -> Error. Scan can't have both angle phif,alphaf fixed");
-        }
-    }
 }
 
+
+/* ************************************************************************* */
+// convert isgisaxs 1d scan to output data 2d object
+/* ************************************************************************* */
+OutputData<double> *TestIsGISAXS12::convert_isgi_scan(std::vector<IsgiData > &isgi_data)
+{
+    if(isgi_data.size() <2 ) throw LogicErrorException("TestIsGISAXS12::convert_isgi_scan() -> Error! Too short vector.");
+
+    // check if it is scan with fixed phi_f or with fixed alpha_f
+    bool fixed_phif(true);
+    bool fixed_alphaf(true);
+    // if values of phif accross data points are chainging, then phif is not fixed
+    for(size_t i_point=0; i_point<isgi_data.size()-1; ++i_point) {
+        if( isgi_data[i_point].phif != isgi_data[i_point+1].phif ) {
+            fixed_phif = false;
+            break;
+        }
+    }
+    // if values of alphaf accross data points are chainging, then alphaf is not fixed
+    for(size_t i_point=0; i_point<isgi_data.size()-1; ++i_point) {
+        if( isgi_data[i_point].alphaf != isgi_data[i_point+1].alphaf ) {
+            fixed_alphaf = false;
+            break;
+        }
+    }
+    if(fixed_phif == fixed_alphaf) {
+        throw LogicErrorException("TestIsGISAXS12::convert_isgi_scan() -> Error! Scan can't have both angle phif,alphaf fixed");
+    }
+
+    NamedVector<double> *phi_axis = new NamedVector<double>("phi_f");
+    NamedVector<double> *alpha_axis = new NamedVector<double>("alpha_f");
+    if( fixed_phif) {
+        m_isgi_fixed_phif = isgi_data.back().phif;
+        phi_axis->push_back(isgi_data.back().phif);
+        std::cout << "fixed phi " << isgi_data.back().phif << std::endl;
+        for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
+            alpha_axis->push_back(isgi_data[i_point].alphaf);
+        }
+    }else {
+        m_isgi_fixed_alphaf = isgi_data.back().alphaf;
+        alpha_axis->push_back(isgi_data.back().alphaf);
+        for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
+            phi_axis->push_back(isgi_data[i_point].phif);
+        }
+
+    }
+    OutputData<double > * data = new OutputData<double >;
+    data->addAxis(phi_axis);
+    data->addAxis(alpha_axis);
+    data->setAllTo(0.0);
+    OutputData<double>::iterator it = data->begin();
+    int i_point(0);
+    while( it!= data->end()) {
+        (*it) = isgi_data[i_point].intensity;
+        ++i_point;
+        ++it;
+    }
+
+    return data;
+}
 
 
 /* ************************************************************************* */

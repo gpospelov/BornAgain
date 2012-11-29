@@ -36,11 +36,12 @@ class TCanvas;
 class FitSuiteObserverPrint : public IObserver
 {
 public:
-    FitSuiteObserverPrint() : m_wall_time(0.0), m_last_call_clock(clock()), m_last_call_time() {
+    FitSuiteObserverPrint(int print_every_nth = 1) : m_print_every_nth(print_every_nth), m_wall_time(0.0), m_last_call_clock(clock()), m_last_call_time() {
         gettimeofday(&m_last_call_time, 0);
     }
     void update(IObservable *subject);
 private:
+    int m_print_every_nth;
     double m_wall_time;
     clock_t m_last_call_clock;
     timeval m_last_call_time;

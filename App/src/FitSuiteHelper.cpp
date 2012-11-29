@@ -34,6 +34,9 @@ void FitSuiteObserverPrint::update(IObservable *subject)
         std::cout << "FitSuiteObserverPrint::update() -> Info. Printing results" << std::endl;
         fitSuite->getMinimizer()->printResults();
     } else {
+        if( (fitSuite->getNCall() % m_print_every_nth != 0) && fitSuite->getNCall()!=0) return; // draw first iteration and then every n'th
+
+
         // printing parameter values
         std::cout << "FitSuiteObserverPrint::update() -> Info."
                   << " NumberOfVariables:" << fitSuite->getMinimizer()->getNumberOfVariables()

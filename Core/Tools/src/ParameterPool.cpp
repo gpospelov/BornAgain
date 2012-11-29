@@ -101,6 +101,8 @@ void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool 
 }
 
 /* ************************************************************************* */
+// return parameter with given name
+/* ************************************************************************* */
 ParameterPool::RealPar ParameterPool::getParameter(const std::string &name) const
 {
     parametermap_t::const_iterator it = m_map.find(name);
@@ -111,6 +113,32 @@ ParameterPool::RealPar ParameterPool::getParameter(const std::string &name) cons
         return RealPar(0);
     }
 }
+
+
+/* ************************************************************************* */
+// return vector of parameters which fit pattern
+/* ************************************************************************* */
+std::vector<ParameterPool::RealPar >  ParameterPool::getMatchedParameters(const std::string &wildcards) const
+{
+    std::vector<ParameterPool::RealPar > selected_parameters;
+    // loop over all parameters in the pool
+    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); it++) {
+        // (*it).first - parameter key, (*it).second - parameter itself
+        // parameters whose key match pattern is added to the FitMultiParameter container
+        if( Utils::StringMatchText::WildcardPattern( (*it).first, wildcards ) ) {
+            selected_parameters.push_back((*it).second);
+        }
+    }
+    if( selected_parameters.empty() ) {
+        std::cout << "ParameterPool::getMatchedParameters() -> Warning! No parameters satisfying  criteria '" << wildcards << "' have been found" << std::endl;
+        std::cout << "Existing keys are:" << std::endl;
+        for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) std::cout << (*it).first << std::endl;
+        throw LogicErrorException("ParameterPool::getMatchedParameters() -> Error! No parameters with given wildcard.");
+    }
+    return selected_parameters;
+}
+
+
 
 /* ************************************************************************* */
 // set parameter value
@@ -133,7 +161,7 @@ bool ParameterPool::setParameterValue(const std::string &name, double value)
 int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
 {
     int npars(0);
-    for(iterator_t it=begin(); it!= end(); it++) {
+    for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); it++) {
         if( Utils::StringMatchText::WildcardPattern( (*it).first, wildcards ) ) {
             (*it).second.setValue(value);
             npars++;

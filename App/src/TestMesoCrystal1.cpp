@@ -15,6 +15,9 @@
 #include "Utils.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "ResolutionFunction2DSimple.h"
+#include "DrawHelper.h"
+
+#include "TCanvas.h"
 
 /* ************************************************************************* */
 // global functions
@@ -41,11 +44,11 @@ void TestMesoCrystal1::execute()
     if (mp_intensity_output) delete mp_intensity_output;
     GISASExperiment experiment(mp_options);
     experiment.setSampleBuilder(mp_sample_builder);
-    experiment.setDetectorParameters(256, 0.3*Units::degree, 0.073
-           , 256, -0.4*Units::degree, 0.066);
-//    experiment.setDetectorParameters(2, 0.96*Units::degree, 0.962*Units::degree
-//           , 2 , 0.376*Units::degree, 0.378*Units::degree);
-    experiment.setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0004, 0.0004));
+//    experiment.setDetectorParameters(256, 0.3*Units::degree, 0.073
+//           , 256, -0.4*Units::degree, 0.066);
+//    experiment.setDetectorParameters(218, 0.0201647, 0.0599528, 218, 0.00010879, 0.0399347); // values as in experimental sample from TestMesoCrystal2
+    experiment.setDetectorParameters(80, -0.025, 0.026, 80 , 0.0, 0.05);
+//    experiment.setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.00017, 0.00017));
     experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     experiment.setBeamIntensity(8e12);
 
@@ -53,15 +56,25 @@ void TestMesoCrystal1::execute()
     std::cout << (*p_param_pool) << std::endl;
 
     experiment.runSimulation();
-    double count_before_normalize = experiment.getOutputData()->totalSum();
+//    double count_before_normalize = experiment.getOutputData()->totalSum();
     experiment.normalize();
     mp_intensity_output = experiment.getOutputDataClone();
-    double total_count = mp_intensity_output->totalSum();
-    std::cout << "Total count in detector: " << total_count << std::endl;
-    std::cout << "Scattered percentage in detector: " << 100*total_count/experiment.getBeam().getIntensity() << std::endl;
-    std::cout << "Total count in detector before normalize: " << count_before_normalize << std::endl;
-    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
-            "CONT4 Z", "mesocrystal");
+//    double total_count = mp_intensity_output->totalSum();
+//    std::cout << "Total count in detector: " << total_count << std::endl;
+//    std::cout << "Scattered percentage in detector: " << 100*total_count/experiment.getBeam().getIntensity() << std::endl;
+//    std::cout << "Total count in detector before normalize: " << count_before_normalize << std::endl;
+
+//    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
+//            "CONT4 Z", "mesocrystal");
+    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("c1_test_meso_crystal", "mesocrystal");
+    c1->cd(); gPad->SetLogz();
+    gPad->SetRightMargin(0.115);
+    gPad->SetLeftMargin(0.115);
+
+    IsGISAXSTools::setMinimum(100.);
+    IsGISAXSTools::setMaximum(1e7);
+    IsGISAXSTools::drawOutputDataInPad(*mp_intensity_output, "CONT4 Z", "meso");
+
     IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/ex01_spheres/mesocrystal.ima");
 }
 
@@ -69,26 +82,38 @@ void TestMesoCrystal1::execute()
 // MesoCrystalBuilder member definitions
 /* ************************************************************************* */
 MesoCrystalBuilder::MesoCrystalBuilder()
-//: m_meso_radius(1000*Units::nanometer)
-//, m_surface_filling_ratio(0.25)
-//, m_meso_height(0.5*Units::micrometer)
-//, m_sigma_meso_height(4*Units::nanometer)
-//, m_sigma_meso_radius(50*Units::nanometer)
-//, m_lattice_length_a(6.2*Units::nanometer)
-//, m_nanoparticle_radius(4.3*Units::nanometer)
-//, m_sigma_nanoparticle_radius(0.14*Units::nanometer)
-//, m_sigma_lattice_length_a(1.5*Units::nanometer)
-//, m_roughness(1.0*Units::nanometer)
-: m_meso_radius(1370*Units::nanometer)
-, m_surface_filling_ratio(0.114748)
-, m_meso_height(265.276*Units::nanometer)
-, m_sigma_meso_height(10.8148*Units::nanometer)
-, m_sigma_meso_radius(14.0738*Units::nanometer)
-, m_lattice_length_a(6.22525*Units::nanometer)
-, m_nanoparticle_radius(5.05257*Units::nanometer)
-, m_sigma_nanoparticle_radius(0.0877905*Units::nanometer)
-, m_sigma_lattice_length_a(1.95504*Units::nanometer)
-, m_roughness(0.13464*Units::nanometer)
+: m_meso_radius(1000.0*Units::nanometer)
+, m_surface_filling_ratio(0.25)
+, m_meso_height(200.0*Units::nanometer)
+, m_sigma_meso_height(20.0*Units::nanometer)
+, m_sigma_meso_radius(50.0*Units::nanometer)
+, m_lattice_length_a(6.15*Units::nanometer)
+, m_nanoparticle_radius(4.3*Units::nanometer)
+, m_sigma_nanoparticle_radius(0.14*Units::nanometer)
+, m_sigma_lattice_length_a(1.5*Units::nanometer)
+, m_roughness(0.0*Units::nanometer)
+// attempt 0
+//: m_meso_radius(1370*Units::nanometer)
+//, m_surface_filling_ratio(0.114748)
+//, m_meso_height(265.276*Units::nanometer)
+//, m_sigma_meso_height(10.8148*Units::nanometer)
+//, m_sigma_meso_radius(14.0738*Units::nanometer)
+//, m_lattice_length_a(6.22525*Units::nanometer)
+//, m_nanoparticle_radius(5.05257*Units::nanometer)
+//, m_sigma_nanoparticle_radius(0.0877905*Units::nanometer)
+//, m_sigma_lattice_length_a(1.95504*Units::nanometer)
+//, m_roughness(0.13464*Units::nanometer)
+// attempt II
+//: m_meso_radius(9.4639e+02*Units::nanometer)
+//, m_surface_filling_ratio(0.159)
+//, m_meso_height(1.2470e+02*Units::nanometer)
+//, m_sigma_meso_height(10*Units::nanometer)
+//, m_sigma_meso_radius(10*Units::nanometer)
+//, m_lattice_length_a(6.212*Units::nanometer)
+//, m_nanoparticle_radius(5.947*Units::nanometer)
+//, m_sigma_nanoparticle_radius(6.8688e-02*Units::nanometer)
+//, m_sigma_lattice_length_a(2.3596*Units::nanometer)
+//, m_roughness(0.6517*Units::nanometer)
 {
     init_parameters();
 }
@@ -107,6 +132,10 @@ ISample* MesoCrystalBuilder::buildSample() const
     complex_t n_avg = std::sqrt(m_surface_filling_ratio*avg_n_squared_meso + 1.0 - m_surface_filling_ratio);
     complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
     FormFactorCylinder ff_cyl(m_meso_height, m_meso_radius);
+//    FormFactorBigCylinder ff_cyl(m_meso_height, m_meso_radius);
+//    double bin_size = FormFactorBigCylinder::calculateBinSize(1.77*Units::angstrom, 0.051, 80);
+//    std::cout << "Bin size: " << bin_size << std::endl;
+//    ff_cyl.setBinSize(bin_size);
     FormFactorDecoratorDebyeWaller ff_meso(ff_cyl.clone(), m_sigma_meso_height*m_sigma_meso_height/2.0,
             m_sigma_meso_radius*m_sigma_meso_radius/2.0);
 
@@ -155,9 +184,9 @@ ISample* MesoCrystalBuilder::buildSample() const
     p_multi_layer->addLayer(avg_layer_decorator);
     p_multi_layer->addLayerWithTopRoughness(substrate_layer, roughness);
 
-    std::cout << "Average layer index: " << n_avg << std::endl;
-    std::cout << "Adapted particle index: " << n_particle_adapted << std::endl;
-    std::cout << "Substrate layer index: " << n_substrate << std::endl;
+//    std::cout << "Average layer index: " << n_avg << std::endl;
+//    std::cout << "Adapted particle index: " << n_particle_adapted << std::endl;
+//    std::cout << "Substrate layer index: " << n_substrate << std::endl;
 
     return p_multi_layer;
 }

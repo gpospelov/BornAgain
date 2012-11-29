@@ -12,13 +12,20 @@ include($$PWD/../../shared.pri)
 SOURCES += main.cpp
 
 HEADERS += \
+    BeamTest.h \
+    DetectorTest.h \
+    ExperimentTest.h \
+    MaskTest.h \
     NamedVectorTest.h \
-    OutputDataTest.h
+    OutputDataTest.h \
+    OutputDataIteratorTest.h \
+    GISASExperimentTest.h
 
 OBJECTS_DIR = obj
 
-INCLUDEPATH += ../../Core/Algorithms/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
-DEPENDPATH += ../../Core/Algorithms/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
+INCLUDEPATH += ../../Core/Algorithms/inc ../../Core/FormFactors/inc ../../Core/Geometry/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
+DEPENDPATH += ../../Core/Algorithms/inc ../../Core/FormFactors/inc ../../Core/Geometry/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
+DEPENDPATH += $$PWD/.
 
 LIBS = -L/opt/local/lib -lfftw3
 

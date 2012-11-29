@@ -14,45 +14,26 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 20, 2012
 
-#include "OutputData.h"
-#include "IFittingDataSelector.h"
-#include "ISquaredFunction.h"
+#include "IChiSquaredModule.h"
 
-#include <vector>
-
-class ChiSquaredModule
+class ChiSquaredModule : public IChiSquaredModule
 {
 public:
-    ChiSquaredModule(const OutputData<double> &real_data);
+    ChiSquaredModule(){}
+    ChiSquaredModule(const ChiSquaredModule &other);
     virtual ~ChiSquaredModule();
 
-    void setSimulationData(const OutputData<double> &simulation_data);
+    virtual ChiSquaredModule *clone() const;
 
-    void setFittingDataSelector(const IFittingDataSelector &selector);
+    //! calculate chi squared volume over experimental and simulated data
+    virtual double calculateChiSquared();
 
-    void setChiSquaredFunction(const ISquaredFunction &squared_function);
+    //! return output data which contains chi^2 values
+    virtual OutputData<double > *createChi2DifferenceMap() const;
 
-    virtual double calculateChiSquared(const OutputData<double> *p_simulation_data=0);
-
-    //! return real data
-    const OutputData<double> *getRealData() const { return mp_real_data; }
-
-    //! return simulation data
-    const OutputData<double> *getSimulationData() const { return mp_simulation_data; }
-
-    //! return chi2 value (should be called after calculateChiSquared)
-    virtual double getValue() const { return m_chi2_value; }
-
-protected:
-    OutputData<double> *mp_real_data;
-    OutputData<double> *mp_simulation_data;
-    std::vector<double> m_weights;
-    std::vector<double> m_real_data_vector;
-    std::vector<double> m_simulation_data_vector;
-    IFittingDataSelector *mp_data_selector;
-    ISquaredFunction *mp_squared_function;
-
-    double m_chi2_value;
+private:
+    // disabling assignment operator
+    ChiSquaredModule &operator=(const ChiSquaredModule &);
 };
 
 

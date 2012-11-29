@@ -49,7 +49,7 @@ public:
     ProgramOptions  &addPositional(std::string option_name, int num_occurencies) { m_positional_options.add(option_name.c_str(), num_occurencies); return *this;}
 
     //! access to variable with given name defined in variables container
-    const bpo::variable_value& operator[] (const std::string &s);
+    const bpo::variable_value& operator[] (const std::string &s) const;
 
     //! return true if option with given name has been set
     bool find(std::string name){ return (m_variables_map.count(name.c_str()) ? true : false); }

@@ -56,9 +56,9 @@ private:
 
     void initializeMesoCrystal(double meso_alpha, double meso_phi, double nanopart_radius);
 
-    ISample *m_sample;
-    GISASExperiment *m_experiment;
-    OutputData<double> *m_data;
+    ISample *mp_sample;
+    GISASExperiment *mp_experiment;
+    OutputData<double> *mp_data;
 };
 
 

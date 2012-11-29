@@ -25,8 +25,6 @@ isEqual(env_debug_variable, "yes") {
 # -----------------------------------------------------------------------------
 # general external libraries
 # -----------------------------------------------------------------------------
-
-
 # --- checking gsl header ---
 GSL_HEADERFILE = gsl/gsl_sf_bessel.h
 GSL_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
@@ -68,8 +66,6 @@ NumberOfSuchFiles=$$system(ls $${BOOST_LIB}/libboost_thread-mt* 2> /dev/null | w
   # library libboost_thread-mt exists
   LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
 }
-
-
 
 #message($${FFTW3_HEADERFILE}" found in "$${FFTW3_INCLUDE})
 #message($${BOOST_HEADERFILE}" found in "$${BOOST_INCLUDE})

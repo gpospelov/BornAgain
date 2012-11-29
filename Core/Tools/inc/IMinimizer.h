@@ -30,7 +30,7 @@ public:
     virtual ~IMinimizer(){}
 
     //! set variable
-    virtual void setVariable(int i, const FitParameter *par) = 0;
+    virtual void setVariable(int index, const FitParameter *par) = 0;
 
     //! set function to minimize
     virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1) = 0;
@@ -49,6 +49,9 @@ public:
 
     //! return pointer to the parameters values at the minimum
     virtual double getErrorOfVariable(size_t i) const = 0;
+
+    //! clear resources (parameters) for consecutives minimizations
+    virtual void clear() = 0;
 
     //! print fit results
     virtual void printResults() const = 0;

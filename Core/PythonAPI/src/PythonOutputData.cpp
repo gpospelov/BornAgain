@@ -85,9 +85,9 @@ PyObject *ExportOutputData(const OutputData<double > &output_data)
     double *array_buffer = (double *)PyArray_DATA(pyarray);
 
     // filling numpy array with output_data
-    output_data.resetIndex();
-    while(output_data.hasNext() ) {
-        *array_buffer++ = output_data.next();
+    OutputData<double>::const_iterator it = output_data.begin();
+    while(it != output_data.end() ) {
+        *array_buffer++ = *it++;
     }
 
     return pyarray;

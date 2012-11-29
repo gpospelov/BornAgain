@@ -70,8 +70,6 @@ std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors()
         }
 
         FormFactorDWBAConstZ dwba_z(ff_transformed, depth);
-//        dwba_z.setReflectionFunction(*mp_R_function);
-//        dwba_z.setTransmissionFunction(*mp_T_function);
         dwba_z.setReflectionTransmissionFunction(*mp_RT_function);
         FormFactorDecoratorFactor *p_ff = new FormFactorDecoratorFactor(dwba_z.clone(), wavevector_scattering_factor);
         result.push_back(p_ff);
@@ -85,23 +83,21 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunct
     //std::cout << "Calculating coherent scattering..." << std::endl;
     double wavelength = getWaveLength();
     double total_surface_density = mp_layer_decorator->getTotalParticleSurfaceDensity();
-    resetIndex();
-    while ( hasNext() )
+
+    DWBASimulation::iterator it_intensity = begin();
+    while ( it_intensity != end() )
     {
-        if( (int)m_output_data_mask.currentValue() !=1 ) {
-            next();
-            continue;
-        }
-        double phi_f = getDWBAIntensity().getCurrentValueOfAxis<double>("phi_f");
-        double alpha_f = getDWBAIntensity().getCurrentValueOfAxis<double>("alpha_f");
+        double phi_f = getDWBAIntensity().getValueOfAxis<double>("phi_f", it_intensity.getIndex());
+        double alpha_f = getDWBAIntensity().getValueOfAxis<double>("alpha_f", it_intensity.getIndex());
         if (alpha_f<0) {
-            next() = 0.0;
+            ++it_intensity;
             continue;
         }
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(wavelength, alpha_f, phi_f);
         k_f.setZ(mp_kz_function->evaluate(alpha_f));
-        next() = p_strategy->evaluate(m_ki, k_f, -m_alpha_i, alpha_f)*total_surface_density;
+        *it_intensity = p_strategy->evaluate(m_ki, k_f, -m_alpha_i, alpha_f)*total_surface_density;
+        ++it_intensity;
     }
 }
 
@@ -109,9 +105,9 @@ void LayerDecoratorDWBASimulation::calculateInCoherentIntensity()
 {
     //std::cout << "Calculating incoherent scattering..." << std::endl;
     if (mp_diffuseDWBA) {
-        //mp_diffuseDWBA->setKzTAndRFunctions(*mp_kz_function, *mp_T_function, *mp_R_function);
         mp_diffuseDWBA->setReflectionTransmissionFunction( *mp_RT_function);
         mp_diffuseDWBA->setKzFunction( *mp_kz_function);
+        mp_diffuseDWBA->setThreadInfo(m_thread_info);
         mp_diffuseDWBA->run();
         addDWBAIntensity( mp_diffuseDWBA->getDWBAIntensity() );
     }

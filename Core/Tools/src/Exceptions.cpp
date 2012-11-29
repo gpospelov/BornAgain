@@ -92,6 +92,12 @@ FileIsBadException::FileIsBadException(const std::string &message)
     LogExceptionMessage(message);
 }
 
+FormatErrorException::FormatErrorException(const std::string &message)
+    : std::runtime_error(message)
+{
+    LogExceptionMessage(message);
+}
+
 
 }
 

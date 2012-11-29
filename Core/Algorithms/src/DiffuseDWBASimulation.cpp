@@ -22,18 +22,12 @@ void DiffuseDWBASimulation::run()
     initDiffuseFormFactorTerms(diffuse_terms, nbr_heights, samples_per_particle);
     double wavevector_scattering_factor = M_PI/getWaveLength()/getWaveLength();
 
-    resetIndex();
-    while ( hasNext() ) {
-        if( (int)m_output_data_mask.currentValue() !=1 ) {
-            next();
-            continue;
-        }
-
-        double phi_f = getDWBAIntensity().getCurrentValueOfAxis<double>("phi_f");
-        double alpha_f = getDWBAIntensity().getCurrentValueOfAxis<double>("alpha_f");
+    DWBASimulation::iterator it_intensity = begin();
+    while ( it_intensity != end() ) {
+        double phi_f = getDWBAIntensity().getValueOfAxis<double>("phi_f", it_intensity.getIndex());
+        double alpha_f = getDWBAIntensity().getValueOfAxis<double>("alpha_f", it_intensity.getIndex());
         if (alpha_f<0) {
-            // m_dwba_intensity.next() = 0.0;
-            next() = 0.0;
+            ++it_intensity;
             continue;
         }
         cvector_t k_f;
@@ -52,7 +46,8 @@ void DiffuseDWBASimulation::run()
             }
             total_intensity += p_diffuse_term->m_factor*(intensity - std::norm(amplitude));
         }
-        next() = total_intensity*wavevector_scattering_factor*wavevector_scattering_factor;
+        *it_intensity = total_intensity*wavevector_scattering_factor*wavevector_scattering_factor;
+        ++it_intensity;
     }
 
     for (size_t i=0; i<diffuse_terms.size(); ++i) delete diffuse_terms[i];
@@ -92,8 +87,6 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
                 p_particle->setSimpleFormFactor(form_factors[ff_index]);
                 IFormFactor *ff_particle = p_particle->createFormFactor();
                 FormFactorDWBAConstZ *p_dwba_z = new FormFactorDWBAConstZ(ff_particle, depth);
-//                p_dwba_z->setReflectionFunction(*mp_R_function);
-//                p_dwba_z->setTransmissionFunction(*mp_T_function);
                 p_dwba_z->setReflectionTransmissionFunction(*mp_RT_function);
 
                 p_diffuse_term->m_form_factors.push_back(p_dwba_z);

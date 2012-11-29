@@ -17,7 +17,10 @@
 
 #include <string>
 
+class TH1;
+class TH1D;
 class TH2D;
+class TLine;
 
 //- -------------------------------------------------------------------
 //! @class IsGISAXSTools
@@ -25,8 +28,19 @@ class TH2D;
 //- -------------------------------------------------------------------
 class IsGISAXSTools {
 public:
-    //! draw 2D histogram representing OutputData (in new canvas)
+    struct AxisStructure {
+        int nbins;
+        std::vector<double> xbins;
+        std::string name;
+    };
+
+    //! draw 2D histogram representing logarithm of OutputData (in new canvas)
     static void drawLogOutputData(const OutputData<double> &output, const std::string &canvas_name,
+            const std::string &canvas_title, const std::string &draw_options,
+            const std::string &histogram_title);
+
+    //! draw 2D histogram representing OutputData (in new canvas)
+    static void drawOutputData(const OutputData<double> &output, const std::string &canvas_name,
             const std::string &canvas_title, const std::string &draw_options,
             const std::string &histogram_title);
 
@@ -78,8 +92,20 @@ public:
                                             , std::vector<std::vector<double > > &v_axis0
                                             , std::vector<std::vector<double > > &v_axis1);
 
-    //! create TH2D from OutputData
+    //! create two-dimensional TH2D from OutputData
     static TH2D *getOutputDataTH2D(const OutputData<double>& output, const std::string &histo_name);
+
+    //! create one, two, three-dimensional histograms from OutputData
+    static TH1 *getOutputDataTH123D(const OutputData<double>& output, const std::string &histo_name);
+
+    //! Create TLine for displaying of one-dimensional data scan
+    static TLine *getOutputDataScanLine(const OutputData<double> &data);
+
+    //! Create TH1D for displaying of one-dimensional data scan
+    static TH1D *getOutputDataScanHist(const OutputData<double> &data, const std::string &hname=std::string("scan_hist"));
+
+    //! create noisy data
+    static OutputData<double > *createNoisyData(const OutputData<double> &exact_data, double noise_factor = 0.1);
 
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

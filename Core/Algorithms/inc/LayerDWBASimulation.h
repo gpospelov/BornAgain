@@ -23,23 +23,11 @@ public:
     LayerDWBASimulation();
     virtual ~LayerDWBASimulation();
 
-//    void setKzFunction(const IDoubleToComplexFunction &kz_function);
-//    void setTFunction(const IDoubleToComplexFunction &T_function);
-//    void setRFunction(const IDoubleToComplexFunction &R_function);
-
-//    void setKzTAndRFunctions(const IDoubleToComplexFunction &kz_function,
-//            const IDoubleToComplexFunction &T_function,
-//            const IDoubleToComplexFunction &R_function);
-
-       void setKzFunction(const IDoubleToComplexMap &kz_function);
-       void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap &rt_map);
-       void setKzAndRTFunctions(const IDoubleToComplexMap &kz_function, const IDoubleToPairOfComplexMap &rt_map);
-
+   void setKzFunction(const IDoubleToComplexMap &kz_function);
+   void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap &rt_map);
+   void setKzAndRTFunctions(const IDoubleToComplexMap &kz_function, const IDoubleToPairOfComplexMap &rt_map);
 
 protected:
-//    IDoubleToComplexFunction *mp_kz_function;
-//    IDoubleToComplexFunction *mp_T_function;
-//    IDoubleToComplexFunction *mp_R_function;
     IDoubleToComplexMap *mp_kz_function;
     IDoubleToPairOfComplexMap *mp_RT_function;
 
@@ -48,6 +36,5 @@ private:
     LayerDWBASimulation(const LayerDWBASimulation &);
     LayerDWBASimulation &operator=(const LayerDWBASimulation &);
 };
-
 
 #endif /* LAYERDWBASIMULATION_H_ */

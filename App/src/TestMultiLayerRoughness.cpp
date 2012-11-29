@@ -33,12 +33,12 @@ void TestMultiLayerRoughness::execute()
     TH2D *h2 = new TH2D ("h2","h2", npoints, alphaMin-dalpha/2., alphaMax+dalpha/2., npoints, alphaMin-dalpha/2., alphaMax+dalpha/2. );
     h2->SetContour(50);
 
-    OutputData<double > *data_alpha_i = new OutputData<double >;
-    data_alpha_i->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, npoints);
-    data_alpha_i->resetIndex();
-    while (data_alpha_i->hasNext()) {
-        double alpha_i = data_alpha_i->getCurrentValueOfAxis<double>("alpha_i");
-        size_t index_alpha_i = data_alpha_i->getCurrentIndexOfAxis("alpha_i");
+    OutputData<double> *p_data_alpha_i = new OutputData<double>();
+    p_data_alpha_i->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, npoints);
+    OutputData<double>::const_iterator it_alpha_i = p_data_alpha_i->begin();
+    while (it_alpha_i != p_data_alpha_i->end()) {
+        double alpha_i = p_data_alpha_i->getValueOfAxis<double>("alpha_i", it_alpha_i.getIndex());
+        size_t index_alpha_i = p_data_alpha_i->getIndexOfAxis("alpha_i", it_alpha_i.getIndex());
         if(index_alpha_i%10 == 0) std::cout << index_alpha_i << " of " << npoints << std::endl;
 
         // setting experiment
@@ -50,19 +50,16 @@ void TestMultiLayerRoughness::execute()
         experiment.runSimulation();
 
         const OutputData<double> *output = experiment.getOutputData();
-        output->resetIndex();
-        while (output->hasNext()) {
-            double phi_f = output->getCurrentValueOfAxis<double>("phi_f");
-            double alpha_f = output->getCurrentValueOfAxis<double>("alpha_f");
-            //size_t index_phi = output->getCurrentIndexOfAxis("phi_f");
-            double intensity = output->next();
-            //std::cout << "alpha_i " << alpha_i << " alpha_f " << alpha_f << " phi_f " << phi_f << " inten " << intensity << std::endl;
+        OutputData<double>::const_iterator it_output = output->begin();
+        while (it_output != output->end()) {
+            double phi_f = output->getValueOfAxis<double>("phi_f", it_output.getIndex());
+            double alpha_f = output->getValueOfAxis<double>("alpha_f", it_output.getIndex());
+            double intensity = *it_output++;
             if(phi_f == 0) {
                 h2->Fill(Units::rad2deg(alpha_i), Units::rad2deg(alpha_f), intensity);
             }
         }
-
-        data_alpha_i->next();
+        ++it_alpha_i;
     }
 
     gStyle->SetPalette(1);

@@ -11,6 +11,7 @@
 #include "Numeric.h"
 #include "ICompositeIterator.h"
 #include "MaterialManager.h"
+#include "FitParameterLinked.h"
 #include "TStyle.h"
 
 #include <iostream>
@@ -23,10 +24,11 @@
 #include "TApplication.h"
 #include "TLatex.h"
 #include "TLegend.h"
-#include "FitMultiParameter.h"
 
 
 TestFresnelCoeff::TestFresnelCoeff()
+: mp_sample(0)
+, mp_coeffs(0)
 {
     std::cout << "TestFresnelCoeff::TestFresnelCoeff() -> Info." << std::endl;
 }
@@ -62,29 +64,29 @@ void TestFresnelCoeff::test_standard_samples()
 
     // loop over standard samples defined in SampleFactory and StandardSamples
     for(size_t i_sample=0; i_sample<snames.size(); i_sample++){
-        m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample(snames[i_sample]));
+        mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample(snames[i_sample]));
 
-        m_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
-        m_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 2000);
-        m_coeffs->resetIndex();
-        while (m_coeffs->hasNext()) {
-            double alpha_i = m_coeffs->getCurrentValueOfAxis<double>("alpha_i");
+        mp_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
+        mp_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 2000);
+        OutputData<OpticalFresnel::MultiLayerCoeff_t >::iterator it = mp_coeffs->begin();
+        while (it != mp_coeffs->end()) {
+            double alpha_i = mp_coeffs->getValueOfAxis<double>("alpha_i", it.getIndex());
             kvector_t kvec;
             kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 
             OpticalFresnel::MultiLayerCoeff_t coeffs;
             OpticalFresnel fresnelCalculator;
-            fresnelCalculator.execute(*m_sample, kvec, coeffs);
+            fresnelCalculator.execute(*mp_sample, kvec, coeffs);
 
-            m_coeffs->next() = coeffs;
+            *it = coeffs;
+            ++it;
 
         } // alpha_i
 
         draw_standard_samples();
 
-        delete m_sample;
-        delete m_coeffs;
-        //break;
+        delete mp_sample;
+        delete mp_coeffs;
     } // i_sample
 }
 
@@ -96,7 +98,7 @@ void TestFresnelCoeff::draw_standard_samples()
 {
     static int ncall = 0;
 
-    size_t nlayers = m_sample->getNumberOfLayers();
+    size_t nlayers = mp_sample->getNumberOfLayers();
 
     // graphics for R,T coefficients in layers as a function of alpha_i
     size_t ncoeffs = 2;
@@ -114,32 +116,11 @@ void TestFresnelCoeff::draw_standard_samples()
     }
     TGraph *gr_absSum = new TGraph(); // |R_top|+|T_bottom|
 
-    m_coeffs->resetIndex();
+    OutputData<OpticalFresnel::MultiLayerCoeff_t >::const_iterator it = mp_coeffs->begin();
     int i_point = 0;
-    while (m_coeffs->hasNext())
-    {
-        double alpha_i = m_coeffs->getCurrentValueOfAxis<double>("alpha_i");
-        OpticalFresnel::MultiLayerCoeff_t coeffs = m_coeffs->next();
-
-        // debug printing
-//        size_t index_alpha = i_point;
-//        if( index_alpha%100==0 ) {
-//            std::cout << "alpha_i: " << index_alpha << " " <<std::setprecision(20) << alpha_i << std::endl;
-//            for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
-//                std::cout << std::setprecision(12) << " L:" << i_layer
-//                          << " kz:" << coeffs[i_layer].kz/10.
-//                          << " rt:"
-//                          << coeffs[i_layer].r
-//                          << coeffs[i_layer].t
-//                          << coeffs[i_layer].rb
-//                          << coeffs[i_layer].tb
-//                          << "X:" << coeffs[i_layer].X
-//                          << "R:" << coeffs[i_layer].R
-//                          << "T:" << coeffs[i_layer].T
-//                          << std::endl;
-//                //if(index_alpha%100==0) std::cout << " L:" << i_layer << " R:" << coeffs[i_layer].R << " T:" << coeffs[i_layer].T << std::endl;
-//            }
-//        }
+    while (it != mp_coeffs->end()) {
+        double alpha_i = mp_coeffs->getValueOfAxis<double>("alpha_i", it.getIndex());
+        const OpticalFresnel::MultiLayerCoeff_t coeffs = *it++;
 
         // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
@@ -158,7 +139,6 @@ void TestFresnelCoeff::draw_standard_samples()
             std::cout << " and Re(k_{z,N+1}) = " << coeffs[nlast].kz.real() << std::endl;
         }
         gr_absSum->SetPoint(i_point++, Units::rad2deg(alpha_i), sum);
-
     }
 
     // create name of canvas different for each new call of this method
@@ -230,58 +210,47 @@ void TestFresnelCoeff::draw_standard_samples()
 
     // drawing sample geometry
     c1->cd(nlayers+1);
-    DrawHelper::instance().DrawMultilayer(m_sample);
+    DrawHelper::instance().DrawMultilayer(mp_sample);
 }
-
-
 
 /* ************************************************************************* */
 //! calculate fresnel coefficients .vs. alpha_i for set of roughnesses
 /* ************************************************************************* */
 void TestFresnelCoeff::test_roughness_set()
 {
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerOffspecTestcase1a"));
-//    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("SubstrateOnSubstrate"));
+    mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerOffspecTestcase1a"));
 
-    std::cout << *m_sample << std::endl;
+    std::cout << *mp_sample << std::endl;
     std::cout << "-----" << std::endl;
-    ParameterPool *newpool = m_sample->createParameterTree();
+    ParameterPool *newpool = mp_sample->createParameterTree();
     std::cout << *newpool << std::endl;
 
-//    std::cout << "-----" << std::endl;
-    FitMultiParameter multipar;
-//    double x = 9.0;
-//    FitMultiParameter::parameter_t p(&x);
-//    std::cout << p  << " " << &x << std::endl;
-//    multipar.addParameter(p);
+    FitParameterLinked multipar;
 
-//    multipar.addMatchedParametersFromPool("/multilayer/interface0/roughness/sigma",newpool);
-    multipar.addMatchedParametersFromPool("/*/*/*/sigma",newpool);
+    multipar.addMatchedParametersFromPool(newpool, "/*/*/*/sigma");
     std::cout << "multipar: " << multipar << std::endl;
-//    multipar.setValue(0.0);
 
-    std::cout << *m_sample << std::endl;
+    std::cout << *mp_sample << std::endl;
 
-    m_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
-    m_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 1000);
-    m_coeffs->addAxis(std::string("roughness"), 0.0, 12.0*Units::nanometer, 6);
-    m_coeffs->resetIndex();
-    while (m_coeffs->hasNext()) {
-        double alpha_i = m_coeffs->getCurrentValueOfAxis<double>("alpha_i");
-        double roughness = m_coeffs->getCurrentValueOfAxis<double>("roughness");
+    mp_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
+    mp_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 1000);
+    mp_coeffs->addAxis(std::string("roughness"), 0.0, 12.0*Units::nanometer, 6);
+    OutputData<OpticalFresnel::MultiLayerCoeff_t >::iterator it = mp_coeffs->begin();
+    while (it != mp_coeffs->end()) {
+        double alpha_i = mp_coeffs->getValueOfAxis<double>("alpha_i", it.getIndex());
+        double roughness = mp_coeffs->getValueOfAxis<double>("roughness", it.getIndex());
         multipar.setValue(roughness);
 
         kvector_t kvec;
         kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
         OpticalFresnel fresnelCalculator;
-        fresnelCalculator.execute(*m_sample, kvec, coeffs);
-        m_coeffs->next() = coeffs;
-        //std::cout << alpha_i << " " << roughness << " " << coeffs[0].R << std::endl;
+        fresnelCalculator.execute(*mp_sample, kvec, coeffs);
+        *it = coeffs;
+        ++it;
     }
 
     draw_roughness_set();
-
 }
 
 
@@ -293,16 +262,13 @@ void TestFresnelCoeff::draw_roughness_set()
 {
     static int ncall = 0;
 
-    size_t nlayers = m_sample->getNumberOfLayers();
+    size_t nlayers = mp_sample->getNumberOfLayers();
 
     // graphics for R,T coefficients in layers as a function of alpha_i
     size_t ncoeffs = 2;
     enum key_coeffs { kCoeffR, kCoeffT};
 
-    m_coeffs->resetIndex();
-    MultiIndex& index = m_coeffs->getIndex();
-    //NamedVector<double> *p_alpha = dynamic_cast<NamedVector<double>*>(m_coeffs->getAxis("alpha_i"));
-    const NamedVector<double> *p_rough = dynamic_cast<const NamedVector<double>*>(m_coeffs->getAxis("roughness"));
+    const NamedVector<double> *p_rough = dynamic_cast<const NamedVector<double>*>(mp_coeffs->getAxis("roughness"));
     size_t nroughness = p_rough->getSize();
 
 
@@ -317,36 +283,21 @@ void TestFresnelCoeff::draw_roughness_set()
             }
         }
     }
-//    TGraph *gr_absSum = new TGraph(); // |R_top|+|T_bottom|
 
+    OutputData<OpticalFresnel::MultiLayerCoeff_t >::const_iterator it = mp_coeffs->begin();
+    while (it != mp_coeffs->end()) {
+        double alpha_i = mp_coeffs->getValueOfAxis<double>("alpha_i", it.getIndex());
+        size_t i_alpha = mp_coeffs->getIndexOfAxis("alpha_i", it.getIndex());
+        size_t i_rough = mp_coeffs->getIndexOfAxis("roughness", it.getIndex());
 
-    while (!index.endPassed())
-    {
-        double alpha_i = m_coeffs->getCurrentValueOfAxis<double>("alpha_i");
-        //double roughness = m_coeffs->getCurrentValueOfAxis<double>("roughness");
-        size_t i_alpha = index.getCurrentIndexOfAxis("alpha_i");
-        size_t i_rough = index.getCurrentIndexOfAxis("roughness");
-
-        OpticalFresnel::MultiLayerCoeff_t coeffs = m_coeffs->currentValue();
+        OpticalFresnel::MultiLayerCoeff_t coeffs = *it;
 
         // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
             gr_coeff[i_layer][kCoeffR][i_rough]->SetPoint(i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R) );
             gr_coeff[i_layer][kCoeffT][i_rough]->SetPoint(i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T) );
         }
-
-//        // Filling graphics for |R|+|T| as a function of alpha_i taking R from the top and T from the bottom layers
-//        int nlast = nlayers - 1;
-//        double sum;
-//        if(coeffs[0].kz.real()!=0.0) {
-//            sum = std::norm(coeffs[0].R) + std::norm(coeffs[nlast].T)*coeffs[nlast].kz.real()/coeffs[0].kz.real();
-//        } else {
-//            sum = 1.0;
-//            std::cout << "Re(k_{z,0}) = 0 for alpha_i = " << alpha_i << std::endl;
-//            std::cout << " and Re(k_{z,N+1}) = " << coeffs[nlast].kz.real() << std::endl;
-//        }
-//        gr_absSum->SetPoint(i_point++, Units::rad2deg(alpha_i), sum);
-        ++index;
+        ++it;
     }
 
     // create name of canvas different for each new call of this method
@@ -385,7 +336,6 @@ void TestFresnelCoeff::draw_roughness_set()
         h1ref.GetYaxis()->SetTitle("|R|, |T|");
         h1ref.DrawCopy();
 
-//        TLegend *leg = new TLegend(0.725,0.7,0.89,0.88);
         TLegend *leg = new TLegend(0.18,0.20,0.28,0.69);
         leg->SetTextSize(0.04);
         leg->SetBorderSize(1);
@@ -407,21 +357,9 @@ void TestFresnelCoeff::draw_roughness_set()
         }
         leg->Draw();
     }
-////    TGraph *gr = gr_absSum;
-////    gr->SetMarkerStyle(21);
-////    gr->SetMarkerSize(0.2);
-////    gr->SetLineColor(kMagenta);
-////    gr->SetMarkerColor(kMagenta);
-////    gr->Draw("pl same");
-//    TLegend *leg = new TLegend(0.625,0.6,0.89,0.69);
-//    leg->SetTextSize(0.04);
-//    leg->SetBorderSize(0);
-//    leg->SetFillStyle(0);
-//    leg->AddEntry(gr, "|R_top|+|T_bottom|","pl");
-//    leg->Draw();
 
     // drawing sample geometry
     c1->cd(nlayers+1);
-    DrawHelper::instance().DrawMultilayer(m_sample);
+    DrawHelper::instance().DrawMultilayer(mp_sample);
 }
 

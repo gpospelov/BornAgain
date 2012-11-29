@@ -105,6 +105,12 @@ namespace Exceptions {
         FileIsBadException(const std::string& message);
     };
 
+    class FormatErrorException : public std::runtime_error
+    {
+    public:
+        FormatErrorException(const std::string& message);
+    };
+
     void LogExceptionMessage(const std::string &message);
 
 }

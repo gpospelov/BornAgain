@@ -20,9 +20,8 @@
 #include "FitData.h"
 
 
-void analyse_fitdata1()
+void analyse_fitdata1(const char *file_name = "../../../../fitsuite.root")
 {
-    const char *file_name ="../../../../fitsuite.root";
     const char *tree_name = "FitSuiteTree";
 
     // opening root file

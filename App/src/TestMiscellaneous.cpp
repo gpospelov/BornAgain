@@ -52,19 +52,20 @@ void TestMiscellaneous::test_OutputDataTo2DArray()
     // [axis0][axis1]
     int axis0_size = 2;
     int axis1_size = 4;
-    OutputData<double> *output = new OutputData<double>;
-    output->addAxis(std::string("axis0"), 0.0, double(axis0_size), axis0_size);
-    output->addAxis(std::string("axis1"), 0.0, double(axis1_size), axis1_size);
-    output->setAllTo(0.0);
+    OutputData<double> *p_output = new OutputData<double>;
+    p_output->addAxis(std::string("axis0"), 0.0, double(axis0_size), axis0_size);
+    p_output->addAxis(std::string("axis1"), 0.0, double(axis1_size), axis1_size);
+    p_output->setAllTo(0.0);
 
-    output->resetIndex();
+    OutputData<double>::iterator it = p_output->begin();
     int nn=0;
-    while (output->hasNext())
+    while (it != p_output->end())
     {
-        size_t index0 = output->getCurrentIndexOfAxis("x-axis");
-        size_t index1 = output->getCurrentIndexOfAxis("y-axis");
+        size_t index0 = p_output->getIndexOfAxis("x-axis", it.getIndex());
+        size_t index1 = p_output->getIndexOfAxis("y-axis", it.getIndex());
         std::cout << " index0:" << index0 << " index1:" << index1 << std::endl;
-        output->next() = nn++;
+        *it = nn++;
+        ++it;
     }
 
 
@@ -217,28 +218,24 @@ void TestMiscellaneous::test_FormFactor()
     }
 
 
-    OutputData<double > *data1 = new OutputData<double >;
-    data1->addAxis(std::string("qx"), qmin, qmax, nbins);
-    data1->addAxis(std::string("qy"), qmin, qmax, nbins);
-    data1->addAxis(std::string("qz"), qmin, qmax, nbins);
-    data1->resetIndex();
-    while (data1->hasNext()) {
-        double x = data1->getCurrentValueOfAxis<double>("qx");
-        double y = data1->getCurrentValueOfAxis<double>("qy");
-        double z = data1->getCurrentValueOfAxis<double>("qz");
+    OutputData<double> *p_data = new OutputData<double>();
+    p_data->addAxis(std::string("qx"), qmin, qmax, nbins);
+    p_data->addAxis(std::string("qy"), qmin, qmax, nbins);
+    p_data->addAxis(std::string("qz"), qmin, qmax, nbins);
+    OutputData<double>::const_iterator it = p_data->begin();
+    while (it != p_data->end()) {
+        double x = p_data->getValueOfAxis<double>("qx", it.getIndex());
+        double y = p_data->getValueOfAxis<double>("qy", it.getIndex());
+        double z = p_data->getValueOfAxis<double>("qz", it.getIndex());
 
-        int ix = data1->getCurrentIndexOfAxis("qx");
-        int iy = data1->getCurrentIndexOfAxis("qy");
-        int iz = data1->getCurrentIndexOfAxis("qz");
+        int ix = p_data->getIndexOfAxis("qx", it.getIndex());
+        int iy = p_data->getIndexOfAxis("qy", it.getIndex());
+        int iz = p_data->getIndexOfAxis("qz", it.getIndex());
 
         cvector_t q(x,y,z);
         cvector_t q0(0,0,0);
         double value = std::abs(ff.evaluate(q,q0, 0.0, 0.0));
-//        complex_t qz(z,0.0);
-//        std::cout << q << " " << std::abs(ff.evaluate(q,q0)) << std::endl;
         if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0, 0.0, 0.0)));
-        //if(iy==0) h2->Fill(x,z,std::abs(ff.evaluate(q,q0)));
-        //if(ix==0) h2->Fill(z,y,std::abs(ff.evaluate(q,q0)));
 
         h3->Fill(x,y,z,std::abs(ff.evaluate(q,q0, 0.0, 0.0)));
 
@@ -255,7 +252,7 @@ void TestMiscellaneous::test_FormFactor()
         vh2_xz[iy] ->Fill(x,z,value);
         vh2_yz[ix] ->Fill(y,z,value);
 
-        data1->next();
+        ++it;
     }
 
     TCanvas *c1_xy = new TCanvas("c1_xy","c1_xy",1024,768);
@@ -353,7 +350,7 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
         fresnelCalculator.execute(*sample, kvec, coeffs);
         complex_t R = m_RR[i_layer_sel]->evaluate(angle);
         std::cout << i_point << " " << angle << " true R:" << coeffs[i_layer_sel].R << " interp:" << R << " " << std::abs(R - coeffs[i_layer_sel].R) << std::endl;
-        complex_t r = coeffs[i_layer_sel].R;
+//        complex_t r = coeffs[i_layer_sel].R;
 //        std::cout << "RRR " << r << " abs:" << std::abs(r) << " arg:" << std::arg(r) << " " << Units::rad2deg(std::arg(r)) << std::endl << std::endl;
         gr1_exact->SetPoint(i_point, angle, std::abs(coeffs[i_layer_sel].R) );
         gr2_interp->SetPoint(i_point, angle, std::abs(R) );

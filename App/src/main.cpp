@@ -20,6 +20,7 @@ int main(int argc, char **argv)
     // setting graphics environment
     TApplication *theApp(0);
     if( command_line_options.find("batch") ) {
+        (void)theApp;
         gROOT->SetBatch(true);
     } else {
         theApp = new TApplication("theApp", 0, 0);
@@ -49,9 +50,9 @@ int main(int argc, char **argv)
     if( !command_line_options.isConsistent() ) return 0;
 
     // holding graphics if it exists
-    if( gApplication ) {
+    if( theApp ) {
         std::cout << "main() -> Info. Holding graphics, press ctrl-C to exit..." << std::endl;
-        gApplication->Run();
+        theApp->Run();
     }
 
     return 0;

@@ -27,25 +27,38 @@ public:
 
 	virtual void runSimulation();
 
+	//! normalize the calculated intensity
+
+    //! This normalization assumes that the intensity map contains total differential scattering cross sections
+    //! (so not the cross section per scattering particle as is usual)
     virtual void normalize();
 
+    using Experiment::setDetectorParameters;
     void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style=false);
 
 	void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
 
 	void smearIntensityFromZAxisTilting();
+
+    virtual GISASExperiment *clone() const;
+
+protected:
+    // hiding copy constructor and disabling assignment operator
+    GISASExperiment(const GISASExperiment &other);
+    GISASExperiment &operator=(const GISASExperiment &);
+
 private:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
 	void initializeAnglesIsgisaxs(NamedVector<double> *p_axis, double start, double end, size_t size);
-	double getCurrentSolidAngle() const;
+	double getSolidAngle(size_t index) const;
 	double deltaAlpha(double alpha, double zeta) const;
 	double deltaPhi(double alpha, double phi, double zeta);
 	void createZetaAndProbVectors(std::vector<double> &zetas, std::vector<double> &probs, size_t nbr_zetas, double zeta_sigma);
 	void addToIntensityMap(double alpha, double phi, double value);
-	size_t findClosestIndex(const NamedVector<double> *p_axis, double value);
+	int findClosestIndex(const NamedVector<double> *p_axis, double value);
 };
 
 #endif /* GISASEXPERIMENT_H_ */

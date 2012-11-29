@@ -27,16 +27,22 @@ SOURCES += \
     src/TestConvolution.cpp \
     src/TestDetectorResolution.cpp \
     src/TestDiffuseReflection.cpp \
-    src/TestFittingModule.cpp \
+    src/TestFittingBenchmark.cpp \
+    src/TestFittingModule1.cpp \
+    src/TestFittingModule2.cpp \
+    src/TestFittingModule3.cpp \
     src/TestFormFactor.cpp \
+    src/TestFourier.cpp \
     src/TestFresnelCoeff.cpp \
     src/TestIsGISAXS1.cpp \
     src/TestIsGISAXS2.cpp \
     src/TestIsGISAXS3.cpp \
     src/TestIsGISAXS4.cpp \
+    src/TestIsGISAXS8.cpp \
     src/TestIsGISAXS9.cpp \
     src/TestIsGISAXS10.cpp \
     src/TestIsGISAXS11.cpp \
+    src/TestIsGISAXS12.cpp \
     src/TestMesoCrystal1.cpp \
     src/TestMesoCrystal2.cpp \
     src/TestMiscellaneous.cpp \
@@ -62,16 +68,22 @@ HEADERS += \
     inc/TestConvolution.h \
     inc/TestDetectorResolution.h \
     inc/TestDiffuseReflection.h \
-    inc/TestFittingModule.h \
+    inc/TestFittingBenchmark.h \
+    inc/TestFittingModule1.h \
+    inc/TestFittingModule2.h \
+    inc/TestFittingModule3.h \
     inc/TestFormFactor.h \
+    inc/TestFourier.h \
     inc/TestFresnelCoeff.h \
     inc/TestIsGISAXS1.h \
     inc/TestIsGISAXS2.h \
     inc/TestIsGISAXS3.h \
     inc/TestIsGISAXS4.h \
+    inc/TestIsGISAXS8.h \
     inc/TestIsGISAXS9.h \
     inc/TestIsGISAXS10.h \
     inc/TestIsGISAXS11.h \
+    inc/TestIsGISAXS12.h \
     inc/TestMesoCrystal1.h \
     inc/TestMesoCrystal2.h \
     inc/TestMiscellaneous.h \

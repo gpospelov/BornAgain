@@ -8,35 +8,67 @@ Experiment::Experiment()
 , m_is_normalized(false)
 , mp_options(0)
 {
+    setName("Experiment");
     init_parameters();
 }
 
-Experiment::Experiment(ProgramOptions *p_options)
+Experiment::Experiment(const Experiment &other) : IParameterized(other)
+, mp_sample(0)
+, mp_sample_builder(0)
+, m_is_normalized(false)
+, mp_options(0)
+{
+    if(other.mp_sample) mp_sample = other.mp_sample->clone();
+    mp_sample_builder = other.mp_sample_builder; // sample builder owned by the user
+    m_detector = other.m_detector;
+    m_beam = other.m_beam;
+
+    m_intensity_map.copyFrom(other.m_intensity_map);
+    m_is_normalized = other.m_is_normalized;
+    mp_options = other.mp_options; // program options are owned by the user
+    init_parameters();
+}
+
+
+Experiment::Experiment(const ProgramOptions *p_options)
 : mp_sample(0)
 , mp_sample_builder(0)
 , m_is_normalized(false)
 , mp_options(p_options)
 {
+    setName("Experiment");
     init_parameters();
 }
 
-Experiment::Experiment(const ISample &p_sample, ProgramOptions *p_options)
+Experiment::Experiment(const ISample &p_sample, const ProgramOptions *p_options)
 : mp_sample(p_sample.clone())
 , mp_sample_builder(0)
 , m_is_normalized(false)
 , mp_options(p_options)
 {
+    setName("Experiment");
     init_parameters();
 }
 
-Experiment::Experiment(const ISampleBuilder* p_sample_builder, ProgramOptions *p_options)
+Experiment::Experiment(const ISampleBuilder* p_sample_builder, const ProgramOptions *p_options)
 : mp_sample(0)
 , mp_sample_builder(p_sample_builder)
 , m_is_normalized(false)
 , mp_options(p_options)
 {
+    setName("Experiment");
     init_parameters();
 }
+
+
+/* ************************************************************************* */
+// clone method
+/* ************************************************************************* */
+Experiment *Experiment::clone() const
+{
+    return new Experiment(*this);
+}
+
 
 void Experiment::runSimulation()
 {
@@ -48,10 +80,10 @@ void Experiment::normalize()
 {
     double incident_intensity = m_beam.getIntensity();
     if (!m_is_normalized && incident_intensity!=1.0) {
-        m_intensity_map.resetIndex();
-        while (m_intensity_map.hasNext()) {
-            double old_value = m_intensity_map.currentValue();
-            m_intensity_map.next() = incident_intensity*old_value;
+        OutputData<double>::iterator it = m_intensity_map.begin();
+        while (it != m_intensity_map.end()) {
+            *it *= incident_intensity;
+            ++it;
         }
         m_is_normalized = true;
     }
@@ -60,24 +92,13 @@ void Experiment::normalize()
 //! The ISample object will not be owned by the Experiment object
 void Experiment::setSample(const ISample &p_sample)
 {
-//    if (mp_sample != p_sample) {
-//        delete mp_sample;
-//        mp_sample = p_sample;
-//        delete mp_sample_builder;
-//        mp_sample_builder = 0;
-//    }
     delete mp_sample;
     mp_sample = p_sample.clone();
 }
 
 void Experiment::setSampleBuilder(const ISampleBuilder *p_sample_builder)
 {
-//    if (mp_sample_builder != p_sample_builder) {
-//        delete mp_sample_builder;
-//        mp_sample_builder = p_sample_builder;
-//        delete mp_sample;
-//        mp_sample = 0;
-//    }
+    if( !p_sample_builder ) throw NullPointerException("Experiment::setSampleBuilder() -> Error! Attempt to set null sample builder.");
     mp_sample_builder = p_sample_builder;
     delete mp_sample;
     mp_sample = 0;
@@ -91,34 +112,6 @@ OutputData<double>* Experiment::getOutputDataClone() const
 const OutputData<double>* Experiment::getOutputData() const
 {
     return &m_intensity_map;
-}
-
-
-const OutputData<double>* Experiment::getOutputDataMask() const
-{
-    return &m_current_output_data_mask;
-}
-
-/* ************************************************************************* */
-// setting mask on output data: every 'n_chunk'th out of n_chunks_total
-// if n_chunks_total=1, then all elements will be set to '1'
-/* ************************************************************************* */
-void Experiment::setOutputDataMask(size_t n_chunks_total, size_t n_chunk )
-{
-    if(n_chunks_total==0) throw RuntimeErrorException("Experiment::setOutputDataMask() -> Error! Number of chunks can not be zero");
-    // copying topology from intensity data
-    m_current_output_data_mask.copyFrom(m_intensity_map);
-    // setting mask
-    m_current_output_data_mask.setAllTo(0.0);
-    m_current_output_data_mask.resetIndex();
-    while(m_current_output_data_mask.hasNext()) {
-        if(m_current_output_data_mask.getIndex().getPosition() % n_chunks_total == n_chunk) {
-            m_current_output_data_mask.next() = 1;
-        } else {
-            m_current_output_data_mask.next();
-        }
-    }
-
 }
 
 void Experiment::setBeamParameters(double lambda, double alpha_i, double phi_i)
@@ -149,8 +142,9 @@ std::string Experiment::addParametersToExternalPool(std::string path,
     }
     // add parameters of the sample (only in the case without sample builder)
     else if (mp_sample) {
-        std::string sample_path = new_path + mp_sample->getName();
-        mp_sample->addParametersToExternalPool(sample_path, external_pool, -1);
+//        std::string sample_path = new_path + mp_sample->getName();
+//        mp_sample->addParametersToExternalPool(sample_path, external_pool, -1);
+        mp_sample->addParametersToExternalPool(new_path, external_pool, -1);
     }
 
     return new_path;
@@ -158,7 +152,6 @@ std::string Experiment::addParametersToExternalPool(std::string path,
 
 void Experiment::init_parameters()
 {
-    setName("Experiment");
 }
 
 void Experiment::updateIntensityMapAxes()
@@ -169,8 +162,6 @@ void Experiment::updateIntensityMapAxes()
         m_intensity_map.addAxis(new NamedVector<double>(m_detector.getAxis(dim)));
     }
     m_intensity_map.setAllTo(0.0);
-    // setting mask on output data
-    setOutputDataMask();
 }
 
 void Experiment::updateSample()
@@ -180,14 +171,23 @@ void Experiment::updateSample()
         std::string builder_type = typeid(*mp_sample_builder).name();
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
             std::cout << "Experiment::updateSample() -> OMG, some body has called me from python, going to collapse in a second... " << std::endl;
-            delete mp_sample;
-            mp_sample = p_new_sample->clone();
-            // p_new_sample belongs to python, don't delete it
+            setSample(*p_new_sample); // p_new_sample belongs to python, don't delete it
         } else {
-            if (mp_sample != p_new_sample) {
-                delete mp_sample;
-                mp_sample = p_new_sample;
-             }
+            delete mp_sample;
+            mp_sample = p_new_sample;
         }
     }
 }
+
+void Experiment::setDetectorParameters(const OutputData<double > &output_data)
+{
+    std::cout << "Experiment::setDetectorParameters() -> Info. Adjusting detector to have shape as in given output data" << std::endl;
+    m_detector.clear();
+    for(size_t i_axis=0; i_axis<output_data.getNdimensions(); ++i_axis) {
+        const NamedVector<double> *axis = reinterpret_cast<const NamedVector<double>*>(output_data.getAxes()[i_axis]);
+        m_detector.addAxis(*axis);
+    }
+    updateIntensityMapAxes();
+}
+
+

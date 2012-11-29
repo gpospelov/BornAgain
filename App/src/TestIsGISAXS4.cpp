@@ -25,7 +25,7 @@ void TestIsGISAXS4::execute()
 
     MultiLayer *p_sample(0);
 
-//    // 1DDL
+    // 1DDL
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_1DDL"));
     experiment.setSample(*p_sample);
     experiment.runSimulation();

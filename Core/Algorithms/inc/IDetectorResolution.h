@@ -1,6 +1,5 @@
 #ifndef IDETECTORRESOLUTION_H_
 #define IDETECTORRESOLUTION_H_
-
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -25,6 +24,9 @@ public:
     virtual ~IDetectorResolution() {}
     //! Apply the resolution function to the intensity data
     virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const=0;
+    virtual IDetectorResolution *clone() const = 0;
+private:
+    IDetectorResolution &operator=(const IDetectorResolution &);
 };
 
 

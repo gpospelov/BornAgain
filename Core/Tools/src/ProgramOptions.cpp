@@ -1,5 +1,6 @@
 #include "ProgramOptions.h"
 #include "Utils.h"
+#include "Exceptions.h"
 
 #include <boost/program_options/config.hpp>
 #include <boost/program_options/parsers.hpp>
@@ -13,14 +14,15 @@ ProgramOptions::ProgramOptions() : m_options_is_consistent(false)
 
 
 /* ************************************************************************* */
-// access to variables
+// access  variables
 /* ************************************************************************* */
-const bpo::variable_value& ProgramOptions::operator[] (const std::string &s)
+const bpo::variable_value& ProgramOptions::operator[] (const std::string &s) const
 {
     if( !m_options_is_consistent ) {
         // no consistent options, there reason might be that no call to parseConfigFile
         // has been made (for example due to the absence of main())
-        parseConfigFile();
+        //parseConfigFile();
+        throw LogicErrorException("ProgramOptions::operator[] -> FixMe! No config file parsed yet.");
     }
     return m_variables_map[s.c_str()];
 }
@@ -33,6 +35,9 @@ void ProgramOptions::parseCommandLine(int argc, char **argv)
 {
     // saving relative path to the application for later usage
     Utils::FileSystem::SetRelativePath(argv[0]);
+//    std::cout << "RRR argv[0] '" << argv[0] << "'" << std::endl;
+//    std::cout << "RRR '" << Utils::FileSystem::GetWorkingPath() << "'" << std::endl;
+//    std::cout << "RRR '" << Utils::FileSystem::GetHomePath() << "'" << std::endl;
 
     // parsing command line arguments
     try {

@@ -1,61 +1,71 @@
 #include "ChiSquaredModule.h"
-#include <iostream>
+#include "OutputDataFunctions.h"
 
-ChiSquaredModule::ChiSquaredModule(const OutputData<double>& real_data)
-    : mp_simulation_data(0), m_chi2_value(0)
+
+ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other) : IChiSquaredModule(other)
 {
-    mp_real_data = real_data.clone();
-    mp_data_selector = new DefaultAllDataSelector();
-    mp_squared_function = new DefaultSquaredFunction();
 }
+
 
 ChiSquaredModule::~ChiSquaredModule()
 {
-    delete mp_real_data;
-    delete mp_simulation_data;
-    delete mp_data_selector;
-    delete mp_squared_function;
 }
 
-void ChiSquaredModule::setSimulationData(
-        const OutputData<double>& simulation_data)
+
+ChiSquaredModule *ChiSquaredModule::clone() const
 {
-    delete mp_simulation_data;
-    mp_simulation_data = simulation_data.clone();
+    return new ChiSquaredModule(*this);
 }
 
-void ChiSquaredModule::setFittingDataSelector(
-        const IFittingDataSelector& selector)
-{
-    delete mp_data_selector;
-    mp_data_selector = selector.clone();
-}
 
-void ChiSquaredModule::setChiSquaredFunction(
-        const ISquaredFunction& squared_function)
+double ChiSquaredModule::calculateChiSquared()
 {
-    delete mp_squared_function;
-    mp_squared_function = squared_function.clone();
-}
+    if( !mp_real_data ) throw NullPointerException("ChiSquaredModule::calculateChiSquared() -> Error! No real data has been set");
+    if( !mp_simulation_data ) throw NullPointerException("ChiSquaredModule::calculateChiSquared() -> Error! No simulated data has been set");
 
-double ChiSquaredModule::calculateChiSquared(
-        const OutputData<double>* p_simulation_data)
-{
-    if (p_simulation_data!=0) {
-        setSimulationData(*p_simulation_data);
-    }
-    if (mp_simulation_data==0) {
-        throw LogicErrorException("No simulation data present for calculating chi squared.");
-    }
-    mp_data_selector->getFittingData(*mp_real_data, *mp_simulation_data,
-            m_real_data_vector, m_simulation_data_vector, m_weights);
     double result = 0.0;
-    size_t data_size = m_real_data_vector.size();
-    for (size_t index=0; index<data_size; ++index) {
-        double squared_value = mp_squared_function->calculateSquaredDifference(m_real_data_vector[index],
-                m_simulation_data_vector[index]);
-        result += squared_value*m_weights[index];
+    size_t data_size = mp_real_data->getAllocatedSize();
+    initWeights();
+
+    if( mp_intensity_function ) {
+        OutputDataFunctions::applyFunction(*mp_simulation_data, mp_intensity_function);
+        OutputDataFunctions::applyFunction(*mp_real_data, mp_intensity_function);
     }
+
+    if(mp_data_normalizer) {
+        OutputData<double > *normalized_simulation = mp_data_normalizer->createNormalizedData(*mp_simulation_data);
+        delete mp_simulation_data;
+        mp_simulation_data = normalized_simulation;
+    }
+
+    OutputData<double> *p_difference = createChi2DifferenceMap();
+    OutputData<double>::const_iterator it_weights = mp_weights->begin();
+    OutputData<double>::const_iterator it_diff = p_difference->begin();
+    while(it_diff != p_difference->end()) {
+        result += (*it_diff++)*(*it_weights++);
+    }
+    delete p_difference;
     m_chi2_value = result/data_size;
     return m_chi2_value;
+}
+
+
+OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
+{
+    OutputData<double > *p_difference = mp_simulation_data->clone();
+    p_difference->setAllTo(0.0);
+
+    OutputData<double>::iterator it_diff = p_difference->begin();
+    OutputData<double>::const_iterator it_sim = mp_simulation_data->begin();
+    OutputData<double>::const_iterator it_real = mp_real_data->begin();
+
+    while (it_diff != p_difference->end()) {
+        double value_simu = *it_sim++;
+        double value_real = *it_real++;
+        double squared_difference = mp_squared_function->calculateSquaredDifference(value_real, value_simu);
+        *it_diff = squared_difference;
+        ++it_diff;
+    }
+
+    return p_difference;
 }

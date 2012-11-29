@@ -16,7 +16,17 @@
 
 
 #include "IObserver.h"
+#include "OutputData.h"
+#include "IChiSquaredModule.h"
 #include <string>
+#include <vector>
+#include <map>
+#include <time.h>
+#include <sys/time.h>
+#include "TH1.h"
+
+class TPaveText;
+class TCanvas;
 
 
 //- -------------------------------------------------------------------
@@ -26,8 +36,15 @@
 class FitSuiteObserverPrint : public IObserver
 {
 public:
-    FitSuiteObserverPrint() { }
+    FitSuiteObserverPrint(int print_every_nth = 1) : m_print_every_nth(print_every_nth), m_wall_time(0.0), m_last_call_clock(clock()), m_last_call_time() {
+        gettimeofday(&m_last_call_time, 0);
+    }
     void update(IObservable *subject);
+private:
+    int m_print_every_nth;
+    double m_wall_time;
+    clock_t m_last_call_clock;
+    timeval m_last_call_time;
 };
 
 
@@ -38,10 +55,20 @@ public:
 class FitSuiteObserverDraw : public IObserver
 {
 public:
-    FitSuiteObserverDraw( const std::string &canvas_name = std::string("FitSuiteObserverDraw_c1") ) : m_canvas_name(canvas_name) {}
+    FitSuiteObserverDraw( int draw_every_nth = 20, const std::string &canvas_base_name = std::string("FitSuiteObserverDraw") );
+    ~FitSuiteObserverDraw();
+
     void update(IObservable *subject);
+
+    //! return output data which contains relative difference between simulation and real data
+    OutputData<double > *getRelativeDifferenceMap(const OutputData<double> *p_simu_data, const OutputData<double> *p_real_data);
+
 private:
-    std::string m_canvas_name; //! canvas name were to draw
+    int m_draw_every_nth; //! update canvas every nth iteration
+    std::string m_canvas_base_name; //! canvas name were to draw
+    TPaveText *m_ptext;
+    TCanvas *m_stat_canvas;
+    std::vector<TCanvas *> m_data_canvas;
 };
 
 

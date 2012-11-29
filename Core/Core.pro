@@ -18,6 +18,7 @@ QMAKE_EXTENSION_SHLIB = so
 # -----------------------------------------------------------------------------
 SOURCES += \
     Algorithms/src/Beam.cpp \
+    Algorithms/src/ChiSquaredFrequency.cpp \
     Algorithms/src/ChiSquaredModule.cpp \
     Algorithms/src/ConvolutionDetectorResolution.cpp \
     Algorithms/src/DecouplingApproximationStrategy.cpp \
@@ -26,16 +27,22 @@ SOURCES += \
     Algorithms/src/DWBADiffuseReflection.cpp \
     Algorithms/src/DWBASimulation.cpp \
     Algorithms/src/Experiment.cpp \
+    Algorithms/src/FTDistributions.cpp \
     Algorithms/src/GISASExperiment.cpp \
+    Algorithms/src/IChiSquaredModule.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
+    Algorithms/src/IOutputDataNormalizer.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
+    Algorithms/src/Mask.cpp \
+    Algorithms/src/MaskCoordinateFunction.cpp \
     Algorithms/src/MultiLayerDWBASimulation.cpp \
     Algorithms/src/MultiLayerRoughnessDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
     \
+    FormFactors/src/FormFactorBigCylinder.cpp \
     FormFactors/src/FormFactorDWBA.cpp \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
     FormFactors/src/FormFactorDecoratorTransformation.cpp \
@@ -85,16 +92,20 @@ SOURCES += \
     Tools/src/CoreOptionsDescription.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
     Tools/src/Exceptions.cpp \
-    Tools/src/FitMultiParameter.cpp \
+    Tools/src/FitObject.cpp \
     Tools/src/FitParameter.cpp \
+    Tools/src/FitParameterLinked.cpp \
     Tools/src/FitSuite.cpp \
+    Tools/src/FitSuiteObjects.cpp \
+    Tools/src/FitSuiteParameters.cpp \
+    Tools/src/FitSuiteStrategy.cpp \
     Tools/src/IFactory.cpp \
-    Tools/src/INamed.cpp \
     Tools/src/IObserver.cpp \
     Tools/src/IParameterized.cpp \
     Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
     Tools/src/OutputData.cpp \
+    Tools/src/OutputDataFunctions.cpp \
     Tools/src/OutputDataIOFactory.cpp \
     Tools/src/OutputDataReader.cpp \
     Tools/src/OutputDataWriter.cpp \
@@ -117,6 +128,7 @@ SOURCES += \
 
 HEADERS += \
     Algorithms/inc/Beam.h \
+    Algorithms/inc/ChiSquaredFrequency.h \
     Algorithms/inc/ChiSquaredModule.h \
     Algorithms/inc/ConvolutionDetectorResolution.h \
     Algorithms/inc/DecouplingApproximationStrategy.h \
@@ -125,10 +137,13 @@ HEADERS += \
     Algorithms/inc/DWBADiffuseReflection.h \
     Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/Experiment.h \
+    Algorithms/inc/FTDistributions.h \
     Algorithms/inc/GISASExperiment.h \
+    Algorithms/inc/IChiSquaredModule.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
+    Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
     Algorithms/inc/ISampleBuilder.h \
     Algorithms/inc/ISimulation.h \
@@ -136,11 +151,15 @@ HEADERS += \
     Algorithms/inc/LayerDecoratorDWBASimulation.h \
     Algorithms/inc/LayerDWBASimulation.h \
     Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
+    Algorithms/inc/Mask.h \
+    Algorithms/inc/MaskCoordinateFunction.h \
     Algorithms/inc/MultiLayerDWBASimulation.h \
     Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     Algorithms/inc/ResolutionFunction2DSimple.h \
+    Algorithms/inc/ThreadInfo.h \
     \
+    FormFactors/inc/FormFactorBigCylinder.h \
     FormFactors/inc/FormFactorDWBA.h \
     FormFactors/inc/FormFactorDWBAConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
@@ -201,28 +220,37 @@ HEADERS += \
     Samples/inc/ParticleDecoration.h \
     Samples/inc/ParticleInfo.h \
     \
+    Tools/inc/AttLimits.h \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
     Tools/inc/DoubleToComplexMap.h \
     Tools/inc/Exceptions.h \
-    Tools/inc/FitMultiParameter.h \
+    Tools/inc/FitObject.h \
     Tools/inc/FitParameter.h \
+    Tools/inc/FitParameterLinked.h \
     Tools/inc/FitSuite.h \
+    Tools/inc/FitSuiteObjects.h \
+    Tools/inc/FitSuiteParameters.h \
+    Tools/inc/FitSuiteStrategy.h \
     Tools/inc/IDoubleToComplexFunction.h \
     Tools/inc/IFactory.h \
     Tools/inc/IMinimizer.h \
     Tools/inc/INamed.h \
     Tools/inc/IObserver.h \
+    Tools/inc/OutputDataFunctions.h \
     Tools/inc/IParameterized.h \
     Tools/inc/ISingleton.h \
     Tools/inc/IStochasticParameter.h \
+    Tools/inc/LLData.h \
     Tools/inc/Macros.h \
     Tools/inc/MathFunctions.h \
+    Tools/inc/MemberFunctionIntegrator.h \
     Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
     Tools/inc/OutputDataIOFactory.h \
+    Tools/inc/OutputDataIterator.h \
     Tools/inc/OutputDataReader.h \
     Tools/inc/OutputDataWriter.h \
     Tools/inc/ParameterPool.h \
@@ -245,10 +273,11 @@ HEADERS += \
     PythonAPI/inc/PythonModule.h \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h \
-    PythonAPI/inc/IPythonWrapper.h
+    PythonAPI/inc/IPythonWrapper.h \
+    Algorithms/inc/IIntensityFunction.h
 
-INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
-DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc/ ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
+INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
+DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 
 # excluding files with python interface to not to expose library in python
 !contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {

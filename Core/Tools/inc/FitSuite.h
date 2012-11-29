@@ -17,14 +17,18 @@
 
 #include "IObserver.h"
 #include "OutputData.h"
-#include "TRange.h"
-#include "FitMultiParameter.h"
+#include "AttLimits.h"
+#include "FitParameterLinked.h"
+#include "FitSuiteStrategy.h"
+#include "FitSuiteObjects.h"
+#include "FitSuiteParameters.h"
+#include "IMinimizer.h"
+#include "ChiSquaredModule.h"
 #include <string>
 
 class Experiment;
-class IMinimizer;
 class ParameterPool;
-class ChiSquaredModule;
+
 
 
 //- -------------------------------------------------------------------
@@ -34,7 +38,7 @@ class ChiSquaredModule;
 class FitSuite : public IObservable
 {
 public:
-    typedef std::vector<FitMultiParameter *> fitparameters_t;
+    typedef std::vector<IFitSuiteStrategy *> fitstrategies_t;
 
     FitSuite();
     virtual ~FitSuite();
@@ -42,52 +46,63 @@ public:
     //! clear all and prepare for the next fit
     void clear();
 
-    //! set experiment
-    void setExperiment(Experiment *experiment) { m_experiment = experiment; }
+    //! add pair of (experiment, real data) for consecutive simulation
+    void addExperimentAndRealData(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule());
+
+    //! add fit parameter
+    void addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless());
+
+    //! add fit strategy
+    void addFitStrategy(IFitSuiteStrategy *strategy);
 
     //! set minimizer
-    void setMinimizer(IMinimizer *minimizer) { m_minimizer = minimizer; }
+    void setMinimizer(IMinimizer *minimizer) { delete m_minimizer;  m_minimizer = minimizer; }
     //! get minimizer
     IMinimizer *getMinimizer() { return m_minimizer; }
 
-    //! add fit parameter
-    FitMultiParameter *addFitParameter(const std::string &name, double value, double step, double error=0.0);
-    FitMultiParameter *addFitParameter(const std::string &name, double value, double step, const TRange<double> &range);
+    //! link fitting parameters to parameters defined in experiments
+    virtual void link_fit_parameters();
 
-    //! initialize fitting parameters
-    virtual void init_fit_parameters();
+    //! run single minimization round
+    virtual void minimize();
 
-    //! set real data
-    void setRealData(const OutputData<double> &data);
-
-    //! run fit
+    //! run fitting which may consist of several minimization rounds
     virtual void runFit();
 
     //! function to minimize
     double functionToMinimize(const double *pars_current_values);
 
-    //! return iterator to the begin of vector of fit parameters
-    fitparameters_t::iterator fitparams_begin() { return m_fit_params.begin(); }
+    //! return reference to the kit with data
+    FitSuiteObjects *getFitObjects() { return &m_fit_objects; }
 
-    //! return iterator to the end of vector of fit parameters
-    fitparameters_t::iterator fitparams_end() { return m_fit_params.end(); }
+    //! return reference to fit parameters
+    FitSuiteParameters *getFitParameters() { return &m_fit_parameters; }
 
-    //! get chi2 module
-    const ChiSquaredModule *getChiSquaredModule() const { return m_chi2_module; }
-
-    //! if the last iteration is done
+    //! if the last iteration is done (used by observers to print summary)
     bool isLastIteration() { return m_is_last_iteration; }
 
-    //! get number of call
+    //! get current number of minimization function calls
     int getNCall() { return m_n_call; }
 
+    //! get the number of current strategy
+    int getNStrategy() { return m_n_strategy; }
+
 private:
-    Experiment *m_experiment; //! experiment with sample description
+    //! disabled copy constructor and assignment operator
+    FitSuite &operator=(const FitSuite &);
+    FitSuite(const FitSuite &);
+
+    //! check if all prerequisites to run fit fit are filled
+    bool check_prerequisites();
+
+    FitSuiteObjects m_fit_objects; //! kit which contains sets of <experiment,real_data,chi_module> to fit
+    FitSuiteParameters m_fit_parameters; //! collection of fit parameters
+    fitstrategies_t m_fit_strategies; //! collection of strategies which are executed before every minimization round
     IMinimizer  *m_minimizer; //! minimization engine
-    ChiSquaredModule *m_chi2_module; //! module providing chi2 calculations
-    fitparameters_t m_fit_params; //! vector of parameters to minimize
-    bool m_is_last_iteration;
-    int m_n_call;
+
+    bool m_is_last_iteration; //! set to true after last iteration complete
+    int m_n_call; //! current number of minimization function call
+    int m_n_strategy; //! current number of fit strategy
 };
 
 #endif // FITSUITE_H

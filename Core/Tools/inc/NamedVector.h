@@ -16,7 +16,9 @@
 
 #include <string>
 #include <vector>
-
+#include <cmath>
+#include <algorithm>
+#include "Numeric.h"
 
 class NamedVectorBase
 {
@@ -28,7 +30,6 @@ public:
     std::string getName() const { return m_name; }
     void setName(std::string name) { m_name = name; }
     virtual NamedVectorBase* clone() const=0;
-
 private:
     std::string m_name;
 };
@@ -37,6 +38,8 @@ template <class T> class NamedVector : public NamedVectorBase
 {
 public:
     NamedVector(std::string name) : NamedVectorBase(name) {}
+    // TODO: remove templates from NamedVector constructor to protect from occasional creation of axes of that kine (0,10,10) instead of (0.,10.,10)
+    // TODO: change the order from (xmin, xmax, nbin) to (nbin, xmin, xmax)
     NamedVector(std::string name, T start, T end, size_t size);
     NamedVector<T> *createDoubleBinSize() const;
     ~NamedVector();
@@ -50,9 +53,14 @@ public:
     T getMin() const { return m_value_vector.front(); }
     T getMax() const { return m_value_vector.back(); }
 
+    //! find number of bin which is closest to given value
+    size_t findClosestIndex(T value) const;
 private:
     std::vector<T> m_value_vector;
 };
+
+// global helper function for comparison
+template <class T> bool HaveSameNameAndShape(const NamedVector<T> &left, const NamedVector<T> &right);
 
 template <class T> NamedVector<T>::NamedVector(std::string name, T start, T end, size_t size)
     : NamedVectorBase(name)
@@ -99,6 +107,29 @@ template <class T> void NamedVector<T>::initElements(T start, T end, size_t size
     {
         push_back(start + step*i);
     }
+}
+
+// find number of bin which is closest to given value
+template <class T> size_t NamedVector<T>::findClosestIndex(T value) const
+{
+    if(m_value_vector.size()<2) return 0;
+    typename std::vector<T >::const_iterator before = std::lower_bound(m_value_vector.begin(), m_value_vector.end(), value);
+    if(before == m_value_vector.end() ) --before;
+    if(before == m_value_vector.begin() ) ++before;
+    typename std::vector<T >::const_iterator after = before;
+    --before;
+    size_t nbin(0);
+    ( *after-value) < (value - *before) ? nbin = std::distance(m_value_vector.begin(), after) : nbin = std::distance(m_value_vector.begin(), before);
+    return nbin;
+}
+
+// global helper function for comparison of named vector shape
+template <class T> bool HaveSameNameAndShape(const NamedVector<T> &left, const NamedVector<T> &right)
+{
+    if(left.getSize() != right.getSize()) return false;
+    if(left.getName() != right.getName()) return false;
+    for(size_t i=0; i<left.getSize(); ++i) if( std::fabs(left[i] - right[i]) > Numeric::double_epsilon)  return false;
+    return true;
 }
 
 #endif // NAMEDVECTOR_H

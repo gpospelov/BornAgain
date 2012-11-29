@@ -34,7 +34,7 @@ public:
     ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type);
     virtual ~ROOTMinimizer();
 
-    virtual void setVariable(int i, const FitParameter *par) ;
+    virtual void setVariable(int index, const FitParameter *par) ;
     virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1);
     virtual void minimize();
 
@@ -56,11 +56,17 @@ public:
     //! return value of variable corresponding the minimum of the function
     virtual double getErrorOfVariable(size_t i) const {
         if(i >= getNumberOfVariables() ) throw OutOfBoundsException("ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable");
-        return m_root_minimizer->Errors()[i];
+        return (m_root_minimizer->Errors() == 0? 0 : m_root_minimizer->Errors()[i]);
     }
 
     //! printing results
     virtual void printResults() const;
+
+    //! clear resources (parameters) for consecutives minimizations
+    virtual void clear() { m_root_minimizer->Clear(); }
+
+    //! printing minimizer description
+    virtual void printOptions() const;
 
 private:
     ROOT::Math::Minimizer *m_root_minimizer;

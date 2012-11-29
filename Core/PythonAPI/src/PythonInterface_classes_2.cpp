@@ -585,6 +585,18 @@ struct GISASExperiment_wrapper : GISASExperiment, bp::wrapper< GISASExperiment >
     
     }
 
+    virtual ::GISASExperiment * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->GISASExperiment::clone(  );
+        }
+    }
+    
+    ::GISASExperiment * default_clone(  ) const  {
+        return GISASExperiment::clone( );
+    }
+
     virtual void normalize(  ) {
         if( bp::override func_normalize = this->get_override( "normalize" ) )
             func_normalize(  );
@@ -813,6 +825,11 @@ void register_classes_2(){
             , ( bp::arg("refractive_index") ) );
 
     bp::class_< GISASExperiment_wrapper, bp::bases< Experiment >, boost::noncopyable >( "GISASExperiment", bp::init< >() )    
+        .def( 
+            "clone"
+            , (::GISASExperiment * ( ::GISASExperiment::* )(  ) const)(&::GISASExperiment::clone)
+            , (::GISASExperiment * ( GISASExperiment_wrapper::* )(  ) const)(&GISASExperiment_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "normalize"
             , (void ( ::GISASExperiment::* )(  ) )(&::GISASExperiment::normalize)

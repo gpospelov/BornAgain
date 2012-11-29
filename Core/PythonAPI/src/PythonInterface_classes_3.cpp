@@ -1594,24 +1594,6 @@ void register_classes_3(){
                 , ( bp::arg("name"), bp::arg("par") ) );
         
         }
-        { //::ParameterPool::begin
-        
-            typedef ::std::_Rb_tree_iterator< std::pair< std::string const, ParameterPool::RealPar > > ( ::ParameterPool::*begin_function_type )(  ) ;
-            
-            ParameterPool_exposer.def( 
-                "begin"
-                , begin_function_type( &::ParameterPool::begin ) );
-        
-        }
-        { //::ParameterPool::begin
-        
-            typedef ::std::_Rb_tree_const_iterator< std::pair< std::string const, ParameterPool::RealPar > > ( ::ParameterPool::*begin_function_type )(  ) const;
-            
-            ParameterPool_exposer.def( 
-                "begin"
-                , begin_function_type( &::ParameterPool::begin ) );
-        
-        }
         { //::ParameterPool::clear
         
             typedef void ( ::ParameterPool::*clear_function_type )(  ) ;
@@ -1640,24 +1622,6 @@ void register_classes_3(){
                 , cloneWithPrefix_function_type( &::ParameterPool::cloneWithPrefix )
                 , ( bp::arg("prefix") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::ParameterPool::end
-        
-            typedef ::std::_Rb_tree_iterator< std::pair< std::string const, ParameterPool::RealPar > > ( ::ParameterPool::*end_function_type )(  ) ;
-            
-            ParameterPool_exposer.def( 
-                "end"
-                , end_function_type( &::ParameterPool::end ) );
-        
-        }
-        { //::ParameterPool::end
-        
-            typedef ::std::_Rb_tree_const_iterator< std::pair< std::string const, ParameterPool::RealPar > > ( ::ParameterPool::*end_function_type )(  ) const;
-            
-            ParameterPool_exposer.def( 
-                "end"
-                , end_function_type( &::ParameterPool::end ) );
         
         }
         { //::ParameterPool::getParameter

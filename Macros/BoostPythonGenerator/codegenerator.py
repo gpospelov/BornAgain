@@ -454,6 +454,7 @@ def RulesParameterPool(mb):
   cl = mb.class_( "ParameterPool" )
   cl.member_function("registerParameter").include()
   cl.member_function("registerParameter").add_transformation( FT.from_address( 1 ) )
+  cl.member_function("getMatchedParameters").exclude()
   #cl.member_function( "cloneWithPrefix" ).call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
 
 # -------------------------------------------------------------------

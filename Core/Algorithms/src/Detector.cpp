@@ -30,11 +30,12 @@ Detector::~Detector()
 
 Detector &Detector::operator=(const Detector &other)
 {
-    Detector tmp(other);
-    tmp.swapContent(*this);
+    if( this != &other) {
+        Detector tmp(other);
+        tmp.swapContent(*this);
+    }
     return *this;
 }
-
 
 void Detector::swapContent(Detector &other)
 {

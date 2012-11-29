@@ -15,10 +15,10 @@
 //! @date   15.11.2012
 
 
+#include "IParameterized.h"
 #include "Experiment.h"
 #include "OutputData.h"
 #include "FitObject.h"
-
 
 #include <vector>
 
@@ -27,12 +27,12 @@
 //! @class FitSuiteObjects
 //! @brief Class containing vector FitObject's (experiment and real data) to fit
 //- -------------------------------------------------------------------
-class FitSuiteObjects
+class FitSuiteObjects : public IParameterized
 {
 public:
     typedef std::vector<FitObject *> FitObjects_t;
 
-    FitSuiteObjects(){}
+    FitSuiteObjects();
     virtual ~FitSuiteObjects(){}
 
     //! clear all data
@@ -63,11 +63,19 @@ public:
     IChiSquaredModule *getChiSquaredModule(int i_item = 0) { return m_fit_objects[check_index(i_item)]->getChiSquaredModule(); }
 
     //! get simulated data
-    const OutputData<double> * getSimulatedData(int i_item = 0) const { return m_fit_objects[check_index(i_item)]->getSimulatedData(); }
+    const OutputData<double> * getSimulationData(int i_item = 0) const { return m_fit_objects[check_index(i_item)]->getSimulationData(); }
 
     //! get fit object
     const FitObject *getObject(int i_item = 0) const { return m_fit_objects[check_index(i_item)]; }
     FitObject *getObject(int i_item = 0) { return m_fit_objects[check_index(i_item)]; }
+
+    //! add parameters from local pool to external pool and call recursion over direct children
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
+
+protected:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
 private:
     //! disabled copy constructor and assignment operator
     FitSuiteObjects &operator=(const FitSuiteObjects &);

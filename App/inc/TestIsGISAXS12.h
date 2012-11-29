@@ -33,9 +33,9 @@ public:
     TestIsGISAXS12();
     virtual ~TestIsGISAXS12();
     virtual void execute();
-    virtual void finalise();
 
 private:
+    typedef std::vector<OutputData<double > *> DataScan_t;
 
     //! builds sample for fitter testing
     class TestSampleBuilder : public ISampleBuilder
@@ -70,23 +70,10 @@ private:
         double err;
     };
 
-    //! represent single scan in isgisaxs *.dat file (called there "cross-section"). Can have fixed either phif(known in isgisaxs as 2thetaf) or alphaf.
-    class IsgiScan {
-    public:
-        IsgiScan() : fixed_phif(true), fixed_alphaf(true){}
-        bool fixed_phif;
-        bool fixed_alphaf;
-        std::vector<IsgiData > isgiDataVector;
-        size_t size() { return isgiDataVector.size(); }
-        double getIntensity(size_t i) { return isgiDataVector[i].intensity; }
-        double getAngle(size_t i) { return (fixed_phif ? isgiDataVector.at(i).alphaf : isgiDataVector.at(i).phif); }
-        double getFixedAngle() { return (fixed_phif ? isgiDataVector.at(0).phif : isgiDataVector.at(0).alphaf); }
-    };
-
     //! initialize experiment
     void initialiseExperiment();
 
-    //! run standard isgisaxs comparison for the sample of that kind
+    //! run standard isgisaxs comparison for the given sample
     void run_isgisaxs_comparison();
 
     //! run test fit
@@ -95,20 +82,23 @@ private:
     //! run isgisaxs ex-12 style fit
     void run_isgisaxs_fit();
 
-    //! generate test real data
-    OutputData<double > *createNoisyData(const OutputData<double> &exact_data, double noise_factor = 0.1);
+    //! plot isgisaxs data together with test simulation
+    void plot_isgisaxs_data();
 
     //!  read special isgisaxs *.dat file with data to fit
     void read_isgisaxs_datfile(const std::string &filename);
 
+    //! convert isgisaxs 1d scan to output data 2d object
+    OutputData<double> *convert_isgi_scan(std::vector<IsgiData > &isgi_data);
 
     std::string m_data_path;
-    //! represent content of isgisaxs *.dat file (in given ex-12 case, two scans - one with fixed alpha_f and another with fixed phi_f, which called in isgisaxs "2theta_f")
-    std::vector<IsgiScan > m_isgiCrossSections;
     GISASExperiment *m_experiment;
     ISampleBuilder *m_sample_builder;
     FitSuite *m_fitSuite;
 
+    DataScan_t m_isgi_scans; //! vector of OutputData's representing isgisaxs scans
+    double m_isgi_fixed_alphaf;
+    double m_isgi_fixed_phif;
 };
 
 

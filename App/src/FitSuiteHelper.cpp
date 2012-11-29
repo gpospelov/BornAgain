@@ -34,6 +34,9 @@ void FitSuiteObserverPrint::update(IObservable *subject)
         std::cout << "FitSuiteObserverPrint::update() -> Info. Printing results" << std::endl;
         fitSuite->getMinimizer()->printResults();
     } else {
+        if( (fitSuite->getNCall() % m_print_every_nth != 0) && fitSuite->getNCall()!=0) return; // draw first iteration and then every n'th
+
+
         // printing parameter values
         std::cout << "FitSuiteObserverPrint::update() -> Info."
                   << " NumberOfVariables:" << fitSuite->getMinimizer()->getNumberOfVariables()
@@ -108,42 +111,46 @@ void FitSuiteObserverDraw::update(IObservable *subject)
         const FitObject *fitObject = fitSuite->getFitObjects()->getObject(i_fit_object);
 
         // preparing data to draw
-        const char *hnames[]={ "RealData", "SimulatedData", "RelativeDifference","Chi2Map"};
+        const char *hname[]={ "RealData", "SimulatedData", "RelativeDifference","Chi2Map"};
         enum hist_keys {kReal, kSimul, kDiff, kChi2};
         std::vector<OutputData<double > *> data2draw;
-        data2draw.push_back( fitObject->getRealData()->clone() );
-        data2draw.push_back( fitObject->getSimulatedData()->clone() );
-        data2draw.push_back( getRelativeDifferenceMap(fitObject->getSimulatedData(), fitObject->getRealData() ) );
+        data2draw.push_back( fitObject->getChiSquaredModule()->getRealData()->clone() );
+        data2draw.push_back( fitObject->getChiSquaredModule()->getSimulationData()->clone() ); //chi module have normalized simulation
+        data2draw.push_back( getRelativeDifferenceMap(fitObject->getChiSquaredModule()->getSimulationData(), fitObject->getRealData() ) );
         data2draw.push_back( fitObject->getChiSquaredModule()->createChi2DifferenceMap() );
 
         // drawing
-        double maximum_of_real_signal(0);
         for(size_t i_hist=0; i_hist<data2draw.size(); ++i_hist)  {
+            const OutputData<double > *data = data2draw[i_hist];
+            if( !data->getAxis("alpha_f") || !data->getAxis("phi_f") ) throw LogicErrorException("FitSuiteObserverDraw::update() -> Error! Can't handle axis");
+
             c1->cd(i_hist+1);
             gPad->SetLogz();
             gPad->SetLeftMargin(0.12);
             gPad->SetRightMargin(0.12);
-            TH1 *hist = get_histogram(*data2draw[i_hist], hnames[i_hist]);
-            // same maximum and minimum for real and simulated data
-            if( i_hist == kReal || i_hist == kSimul ) hist->SetMinimum(1);
-//            if(i_hist == kReal) maximum_of_real_signal = hist->GetMaximum();
 
-//            if( i_hist == kSimul || i_hist==kReal) {
-//                std::cout << "AAA setting max " << i_hist << " " << maximum_of_real_signal << std::endl;
-//                //hist->SetMaximum(maximum_of_real_signal*1.1);
-//            }
-            if( dynamic_cast<TH1D *>(hist)) {
-                hist->DrawCopy();
-            } else {
-                hist->DrawCopy("COLZ");
+            if( data->getAxis("alpha_f")->getSize() != 1 && data->getAxis("phi_f")->getSize() != 1)
+            {
+                TH2D *hist2 = IsGISAXSTools::getOutputDataTH2D( *data, hname[i_hist]);
+//                if( i_hist == kReal || i_hist == kSimul ) hist2->SetMinimum(1);
+                hist2->DrawCopy("COLZ");
+                delete hist2;
+            } else if(data->getAxis("alpha_f")->getSize() == 1 || data->getAxis("phi_f")->getSize() == 1){
+                TH1D *hist1 =  IsGISAXSTools::getOutputDataScanHist(*data, hname[i_hist]);
+//                if( i_hist == kReal || i_hist == kSimul ) hist1->SetMinimum(1);
+                hist1->DrawCopy();
+                delete hist1;
             }
+
         }
         for(size_t i_hist=0; i_hist<data2draw.size(); ++i_hist) delete data2draw[i_hist];
         data2draw.clear();
         c1->Update();
     }
 
+    // -----------------------------
     // plotting parameter statistic
+    // -----------------------------
     m_stat_canvas->cd(1);
     delete m_ptext;
     m_ptext = new TPaveText(.05,.1,.95,.8);
@@ -169,41 +176,6 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     }
     m_stat_canvas->Update();
 
-}
-
-
-/* ************************************************************************* */
-// function converts 2D OutputData in 2D histogram, if both axis has size >1
-// and in 1D histogram if one the axis has size 1
-/* ************************************************************************* */
-TH1 *FitSuiteObserverDraw::get_histogram(const OutputData<double> &data, const std::string &hname)
-{
-    TH2D *hist2 = dynamic_cast<TH2D *>(IsGISAXSTools::getOutputDataTH123D( data, hname.c_str()));
-    if(!hist2) throw LogicErrorException("FitSuiteObserverDraw::get_histogram() -> Error! Can't cast histogram");
-
-    if( data.getAxis("alpha_f")->getSize() > 1 && data.getAxis("phi_f")->getSize() > 1) {
-        return hist2;
-    }
-
-    TH1D *hist1(0);
-    std::ostringstream ostr;
-    std::string hname_proj = hname;
-    if( data.getAxis("alpha_f")->getSize() == 1) {
-        hname_proj += std::string(" proj_on_phi");
-        hist1 = hist2->ProjectionX(hname_proj.c_str());
-        ostr << hname_proj << ", alpha_f=" << dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMin();
-    }else if( data.getAxis("phi_f")->getSize() == 1 ) {
-        hname_proj += std::string(" proj_on_alpha");
-        hist1 = hist2->ProjectionY(hname_proj.c_str());
-        ostr << hname_proj << ", phi_f=" << dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMin();
-    } else {
-        throw LogicErrorException("FitSuiteObserverDraw::get_histogram() -> Error! Unexpected place");
-    }
-    if( !hist1 ) throw LogicErrorException("FitSuiteObserverDraw::get_histogram() -> Error! Can't profile 2D histogram into 1D");
-    hist1->SetTitle(ostr.str().c_str());
-    delete hist2;
-
-    return hist1;
 }
 
 
@@ -267,7 +239,7 @@ void FitSuiteObserverWriteTree::update(IObservable *subject)
 
     // filling data object with data from FitSuite
     const OutputData<double > *real_data = fitSuite->getFitObjects()->getRealData();
-    const OutputData<double > *simu_data = fitSuite->getFitObjects()->getSimulatedData();
+    const OutputData<double > *simu_data = fitSuite->getFitObjects()->getSimulationData();
     IsGISAXSTools::exportOutputDataInVectors2D(*real_data, event->real_data, event->axis0, event->axis1);
     IsGISAXSTools::exportOutputDataInVectors2D(*simu_data, event->fit_data, event->axis0, event->axis1);
     event->chi2 = fitSuite->getFitObjects()->getChiSquaredModule()->getValue();

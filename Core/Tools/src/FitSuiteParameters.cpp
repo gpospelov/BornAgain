@@ -81,13 +81,10 @@ std::vector<double > FitSuiteParameters::getValues() const
 
 
 /* ************************************************************************* */
-// link fit parameters to parameters defined in experiment
+// linking fit parameters with pool parameters
 /* ************************************************************************* */
-void FitSuiteParameters::link_to_experiment(const Experiment *experiment)
+void FitSuiteParameters::link_to_pool(const ParameterPool *pool)
 {
-    // accessing parameter pool of the sample
-    ParameterPool *pool = experiment->createParameterTree();
-
     // linking fit parameter with whose pool parameters which match name of fit parameter
     // going through all fit parameters defined
     for(parameters_t::iterator it = m_parameters.begin(); it!= m_parameters.end(); ++it) {
@@ -95,8 +92,6 @@ void FitSuiteParameters::link_to_experiment(const Experiment *experiment)
         if( !par ) throw LogicErrorException("FitSuiteParameters::link_to_experiment() -> Error! Can't cast to FitParameterLinked.");
         par->addMatchedParametersFromPool(pool);
     }
-
-    delete pool;
 }
 
 

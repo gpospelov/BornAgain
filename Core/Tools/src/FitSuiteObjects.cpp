@@ -2,6 +2,13 @@
 
 
 
+FitSuiteObjects::FitSuiteObjects()
+{
+    setName("FitSuiteObjects");
+    init_parameters();
+}
+
+
 /* ************************************************************************* */
 // clear all data
 /* ************************************************************************* */
@@ -39,18 +46,37 @@ void FitSuiteObjects::runSimulation()
 double FitSuiteObjects::getChiSquaredValue()
 {
     double chi_squared(0);
-    for(size_t i_exp = 0; i_exp<m_fit_objects.size(); ++i_exp) {
-        const OutputData<double> *simulated_data = getSimulatedData(i_exp);
-        const OutputData<double> *real_data = getRealData(i_exp);
-
-        IChiSquaredModule *chi2_module = getChiSquaredModule(i_exp);
-
-        chi2_module->setRealData(*real_data);
-        double value = chi2_module->calculateChiSquared(simulated_data);
-//        std::cout << " QQQ chi_squared " << i_exp << value << std::endl;
-        chi_squared += value;
+    for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+        chi_squared += (*it)->calculateChiSquared();
     }
-//    std::cout << "QQQ chi_squared_sum " << chi_squared << std::endl;
     return chi_squared;
+}
+
+
+/* ************************************************************************* */
+// add parameters from local pool to external pool
+/* ************************************************************************* */
+std::string FitSuiteObjects::addParametersToExternalPool(std::string path,
+        ParameterPool* external_pool, int copy_number) const
+{
+    (void)copy_number;
+    // add own parameters
+    // so far it is top object in our chain, and its without parameters, lets exclude its name from path
+    //std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+    std::string new_path = path;
+
+    int ncopy(0);
+    if(m_fit_objects.size()==1) ncopy=-1; // if we have only one object, lets get rid from copy number
+    for(FitObjects_t::const_iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it, ++ncopy) {
+        (*it)->addParametersToExternalPool(new_path, external_pool, ncopy);
+    }
+
+    return new_path;
+}
+
+
+void FitSuiteObjects::init_parameters()
+{
+
 }
 

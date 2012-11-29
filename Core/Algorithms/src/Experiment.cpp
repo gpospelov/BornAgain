@@ -142,8 +142,9 @@ std::string Experiment::addParametersToExternalPool(std::string path,
     }
     // add parameters of the sample (only in the case without sample builder)
     else if (mp_sample) {
-        std::string sample_path = new_path + mp_sample->getName();
-        mp_sample->addParametersToExternalPool(sample_path, external_pool, -1);
+//        std::string sample_path = new_path + mp_sample->getName();
+//        mp_sample->addParametersToExternalPool(sample_path, external_pool, -1);
+        mp_sample->addParametersToExternalPool(new_path, external_pool, -1);
     }
 
     return new_path;

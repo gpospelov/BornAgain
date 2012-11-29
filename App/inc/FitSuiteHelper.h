@@ -36,11 +36,12 @@ class TCanvas;
 class FitSuiteObserverPrint : public IObserver
 {
 public:
-    FitSuiteObserverPrint() : m_wall_time(0.0), m_last_call_clock(clock()), m_last_call_time() {
+    FitSuiteObserverPrint(int print_every_nth = 1) : m_print_every_nth(print_every_nth), m_wall_time(0.0), m_last_call_clock(clock()), m_last_call_time() {
         gettimeofday(&m_last_call_time, 0);
     }
     void update(IObservable *subject);
 private:
+    int m_print_every_nth;
     double m_wall_time;
     clock_t m_last_call_clock;
     timeval m_last_call_time;
@@ -61,9 +62,6 @@ public:
 
     //! return output data which contains relative difference between simulation and real data
     OutputData<double > *getRelativeDifferenceMap(const OutputData<double> *p_simu_data, const OutputData<double> *p_real_data);
-
-    //! function converts 2D OutputData in 2D histogram, if both axis has size >1, and in 1D histogram if one the axis has size 1
-    TH1 *get_histogram(const OutputData<double> &data, const std::string &hname);
 
 private:
     int m_draw_every_nth; //! update canvas every nth iteration

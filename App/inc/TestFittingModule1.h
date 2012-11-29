@@ -26,7 +26,7 @@ class FitSuite;
 
 //- -------------------------------------------------------------------
 //! @class TestFittingModule1
-//! @brief Testing of fitting module with simplified sample (layer + nanoparticles), 2 parameters
+//! @brief Testing of fitting module with simple samples
 //- -------------------------------------------------------------------
 class TestFittingModule1 : public IFunctionalTest
 {
@@ -36,12 +36,14 @@ public:
     virtual void execute();
 
 private:
-    void initializeSample();
+    //! initialize sample: layer + nanoparticles, 2 parameters
+    void initializeSample1();
+    //! initialize sample: layer + substrate + nanoparticles, 4 parameters
     void initializeSample2();
-    void initializeExperiment();
-    void generateRealData(double noise_factor);
 
-    OutputData<double> *mp_exact_data;
+    void initializeExperiment();
+    void initializeRealData();
+
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulated_data;
     GISASExperiment *mp_experiment;

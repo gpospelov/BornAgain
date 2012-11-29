@@ -16,6 +16,8 @@
 #include "FitSuiteHelper.h"
 #include "ResolutionFunction2DSimple.h"
 #include "AttLimits.h"
+#include "ISquaredFunction.h"
+#include "IOutputDataNormalizer.h"
 
 #include "IObserver.h"
 #include "FitSuite.h"
@@ -28,19 +30,17 @@
 
 
 TestFittingModule1::TestFittingModule1()
-: mp_exact_data(0)
-, mp_real_data(0)
-, mp_simulated_data(0)
-, mp_experiment(0)
-, mp_sample(0)
-, m_fitSuite(0)
+    : mp_real_data(0)
+    , mp_simulated_data(0)
+    , mp_experiment(0)
+    , mp_sample(0)
+    , m_fitSuite(0)
 {
 }
 
 
 TestFittingModule1::~TestFittingModule1()
 {
-    delete mp_exact_data;
     delete mp_real_data;
     delete mp_simulated_data;
     delete mp_experiment;
@@ -55,20 +55,9 @@ void TestFittingModule1::execute()
 
     // initializing data
     initializeSample2();
-    ParameterPool *pool = mp_sample->createParameterTree();
-    std::cout << *pool << std::endl;
-
     initializeExperiment();
-    generateRealData(0.1);
+    initializeRealData();
 
-    // drawing initial data
-    std::string canvas_name("TestFittingModule_c1");
-    TCanvas *c1 = new TCanvas(canvas_name.c_str(), "Test of the fitting suite", 800, 600);
-    c1->cd(); gPad->SetLogz();
-    IsGISAXSTools::drawOutputDataInPad(*mp_exact_data, "CONT4 Z", "exact data");
-    c1->Update();
-\
-    // setting up fitSuite
     m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data);
 
     m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
@@ -111,16 +100,15 @@ void TestFittingModule1::initializeExperiment()
     mp_experiment->setSample(*mp_sample);
     mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
     mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
+    //mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
     mp_experiment->setBeamIntensity(1e10);
 }
 
 
 /* ************************************************************************* */
-// simple sample - cylinders in BA
-// 2 fit parameters
+// initialize sample: layer + nanoparticles, 2 parameters
 /* ************************************************************************* */
-void TestFittingModule1::initializeSample()
+void TestFittingModule1::initializeSample1()
 {
     delete mp_sample;
 
@@ -145,6 +133,9 @@ void TestFittingModule1::initializeSample()
 }
 
 
+/* ************************************************************************* */
+// initialize sample: layer + substrate + nanoparticles, 4 parameters
+/* ************************************************************************* */
 void TestFittingModule1::initializeSample2()
 {
     delete mp_sample;
@@ -183,36 +174,21 @@ void TestFittingModule1::initializeSample2()
     m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1.,15.) );
-//    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1.,15.) );
-//    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1.,15.) );
-//    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2*Units::nanometer, 1*Units::nanometer, AttLimits::limited(1.,15.) );
 }
 
 
 
-
 /* ************************************************************************* */
-// generate real data
+// initializing real data
 /* ************************************************************************* */
-void TestFittingModule1::generateRealData(double noise_factor)
+void TestFittingModule1::initializeRealData()
 {
-    if(mp_exact_data) delete mp_exact_data;
+    if( !mp_experiment ) throw NullPointerException("TestFittingModule2::initializeRealData() -> Error! No experiment o sample defined ");
 
     mp_experiment->runSimulation();
     mp_experiment->normalize();
-    mp_exact_data = mp_experiment->getOutputDataClone();
-    if (mp_real_data) delete mp_real_data;
-
-    mp_real_data = mp_exact_data->clone();
-    OutputData<double>::iterator it = mp_real_data->begin();
-    while (it != mp_real_data->end()) {
-        double current = *it;
-        double sigma = noise_factor*std::sqrt(current);
-        double random = MathFunctions::GenerateNormalRandom(current, sigma);
-        if (random<0.0) random = 0.0;
-        *it = random;
-        ++it;
-    }
+    delete mp_real_data;
+    mp_real_data = IsGISAXSTools::createNoisyData(*mp_experiment->getOutputData());
 }
+
 

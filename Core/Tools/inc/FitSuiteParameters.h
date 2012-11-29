@@ -18,7 +18,8 @@
 #include "FitParameterLinked.h"
 #include <vector>
 
-class Experiment;
+//class Experiment;
+class ParameterPool;
 
 //- -------------------------------------------------------------------
 //! @class FitSuiteParameters
@@ -68,8 +69,8 @@ public:
     const FitParameter *operator[](std::string name) const { return getParameter(name); }
     FitParameter *operator[](std::string name) { return getParameter(name); }
 
-    //! link fit parameters to parameters defined in experiment
-    void link_to_experiment(const Experiment *experiment);
+    //! linking fit parameters with pool parameters
+    void link_to_pool(const ParameterPool *pool);
 
 private:
     //! disabled copy constructor and assignment operator

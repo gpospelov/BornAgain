@@ -20,8 +20,11 @@ Beam::Beam(const Beam &other) : IParameterized()
 
 Beam &Beam::operator=(const Beam &other)
 {
-    Beam tmp(other);
-    tmp.swapContent(*this);
+    if( this != &other)
+    {
+        Beam tmp(other);
+        tmp.swapContent(*this);
+    }
     return *this;
 }
 

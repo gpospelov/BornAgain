@@ -67,6 +67,13 @@ void TestFittingModule3::execute()
 //    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 //    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 
+
+//    // setting up fitSuite
+//    ChiSquaredModule chiModule;
+//    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
+//    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data, chiModule);
+
+
     // putting scans
     for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
         m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it));
@@ -95,7 +102,7 @@ void TestFittingModule3::initializeExperiment()
     m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
 //    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 1, 0.01, 0.011);
     m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    m_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
+    //m_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
     m_experiment->setBeamIntensity(1e10);
 
 }
@@ -143,7 +150,7 @@ void TestFittingModule3::initializeRealData()
     m_experiment->runSimulation();
     m_experiment->normalize();
     delete m_real_data;
-    m_real_data = createNoisyData(*m_experiment->getOutputData());
+    m_real_data = IsGISAXSTools::createNoisyData(*m_experiment->getOutputData());
 
     // setting up 1d scans by making slices on real data
     for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
@@ -159,86 +166,22 @@ void TestFittingModule3::initializeRealData()
     c1->cd(1); gPad->SetLogz();
     TH2D *hist1 = dynamic_cast<TH2D *>(IsGISAXSTools::getOutputDataTH123D( *m_real_data, "real_data"));
     hist1->Draw("COLZ");
-    for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) draw_scan_line(*(*it));
+    for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
+        TLine *line = IsGISAXSTools::getOutputDataScanLine(*(*it));
+        line->DrawClone();
+        delete line;
+    }
 
     int npad(2);
     for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it, ++npad) {
         c1->cd(npad);
-        draw_scan_hist(*(*it));
+        TH1D *hist = IsGISAXSTools::getOutputDataScanHist(*(*it));
+        hist->DrawCopy();
+        delete hist;
     }
 
     c1->Update();
 }
 
 
-/* ************************************************************************* */
-// drawing line representing scan
-/* ************************************************************************* */
-void TestFittingModule3::draw_scan_line(const OutputData<double> &data)
-{
-    TLine line;
-    line.SetLineColor(kRed);
-    line.SetLineStyle(1);
-    line.SetLineWidth(2);
-    double x1(0), x2(0), y1(0), y2(0);
-    if( data.getAxis("alpha_f")->getSize() == 1) {
-        // horizontal line
-        x1 = dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMin();
-        x2 = dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMax();
-        y1 = y2 = dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMin();
-    }else if( data.getAxis("phi_f")->getSize() == 1 ) {
-        // it's vertical line
-        x1 = x2 = dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMin();
-        y1 = dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMin();
-        y2 = dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMax();
-    } else {
-        throw LogicErrorException("TestFittingModule3::draw_scan_line() -> Something wrong");
-    }
-    line.DrawLine(x1,y1,x2,y2);
-}
-
-
-/* ************************************************************************* */
-// drawing histogram representing scan
-/* ************************************************************************* */
-void TestFittingModule3::draw_scan_hist(const OutputData<double> &data)
-{
-    TH2D *hist2 = dynamic_cast<TH2D *>(IsGISAXSTools::getOutputDataTH123D( data, "real_data"));
-    TH1D *hist1(0);
-    std::ostringstream ostr;
-    if( !hist2) throw LogicErrorException("TestFittingModule3::draw_scan_hist() -> Something wrong");
-    if( data.getAxis("alpha_f")->getSize() == 1) {
-        hist1 = hist2->ProjectionX("proj_on_phi");
-        ostr << "ProjOnPhi, alpha_f=" << dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMin();
-    }else if( data.getAxis("phi_f")->getSize() == 1 ) {
-        hist1 = hist2->ProjectionY("proj_on_alpha");
-        ostr << "ProjOnAlpha, phi_f=" << dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMin();
-    } else {
-        throw LogicErrorException("TestFittingModule3::draw_scan_hist() -> Something wrong");
-    }
-    hist1->SetTitle(ostr.str().c_str());
-    hist1->DrawCopy();
-    delete hist1;
-    delete hist2;
-}
-
-
-/* ************************************************************************* */
-// add noise to data
-/* ************************************************************************* */
-OutputData<double > *TestFittingModule3::createNoisyData(const OutputData<double> &exact_data, double noise_factor)
-{
-    OutputData<double > *real_data = exact_data.clone();
-    OutputData<double>::iterator it = real_data->begin();
-    while (it != real_data->end()) {
-        double current = *it;
-        double sigma = noise_factor*std::sqrt(current);
-        double random = MathFunctions::GenerateNormalRandom(current, sigma);
-        if (random<0.0) random = 0.0;
-//        *it = random;
-        *it=current;
-        ++it;
-    }
-    return real_data;
-}
 

@@ -1,13 +1,14 @@
 #include "ChiSquaredFrequency.h"
 #include "OutputDataFunctions.h"
 
-ChiSquaredFrequency::ChiSquaredFrequency(const OutputData<double>& real_data)
-: IChiSquaredModule(real_data)
-, mp_real_ft(0)
+ChiSquaredFrequency::ChiSquaredFrequency()
+    : mp_real_ft(0)
 , mp_simulation_ft(0)
 , m_cutoff(1.0)
 {
+
 }
+
 
 ChiSquaredFrequency::~ChiSquaredFrequency()
 {
@@ -15,12 +16,32 @@ ChiSquaredFrequency::~ChiSquaredFrequency()
     delete mp_simulation_ft;
 }
 
-double ChiSquaredFrequency::calculateChiSquared(
-        const OutputData<double>* p_simulation_data)
+//double ChiSquaredFrequency::calculateChiSquared(
+//        const OutputData<double>* p_simulation_data)
+//{
+//    if (p_simulation_data!=0) {
+//        setSimulationData(*p_simulation_data);
+//    }
+
+//    double result = 0.0;
+//    initWeights();
+//    size_t data_size = mp_weights->getAllocatedSize();
+//    OutputData<double> *p_difference = createChi2DifferenceMap();
+//    OutputData<double>::const_iterator it_weights = mp_weights->begin();
+//    OutputData<double>::const_iterator it_diff = p_difference->begin();
+//    while(it_diff != p_difference->end()) {
+//        result += (*it_diff++)*(*it_weights++);
+//    }
+//    delete p_difference;
+//    m_chi2_value = result/data_size;
+//    return m_chi2_value;
+//}
+
+
+double ChiSquaredFrequency::calculateChiSquared()
 {
-    if (p_simulation_data!=0) {
-        setSimulationData(*p_simulation_data);
-    }
+    if( !mp_real_data ) throw NullPointerException("ChiSquaredFrequency::calculateChiSquared() -> Error! No real data has been set");
+    if( !mp_simulation_data ) throw NullPointerException("ChiSquaredFrequency::calculateChiSquared() -> Error! No simulated data has been set");
 
     double result = 0.0;
     initWeights();
@@ -33,7 +54,9 @@ double ChiSquaredFrequency::calculateChiSquared(
     }
     delete p_difference;
     m_chi2_value = result/data_size;
-    return m_chi2_value;}
+    return m_chi2_value;
+}
+
 
 OutputData<double>* ChiSquaredFrequency::createChi2DifferenceMap() const
 {

@@ -41,9 +41,6 @@ private:
     void initializeSample();
     void initializeExperiment();
     void initializeRealData();
-    OutputData<double > *createNoisyData(const OutputData<double> &exact_data, double noise_factor = 0.1);
-    void draw_scan_line(const OutputData<double> &data);
-    void draw_scan_hist(const OutputData<double> &data);
 
     GISASExperiment *m_experiment;
     ISample *m_sample;

@@ -10,6 +10,7 @@ FitObject::FitObject(const Experiment &experiment, const OutputData<double > &re
     , m_real_data(real_data.clone())
     , m_chi2_module(chi2_module.clone())
 {
+    setName("FitObject");
     if( !m_real_data->hasSameShape(*m_experiment->getOutputData()) ) {
         std::cout << "FitObject::FitObject() -> Info. Real data and output data in the experiment have different shape. Adjusting experiment's detector." << std::endl;
     } else {
@@ -40,3 +41,41 @@ void FitObject::setRealData(const OutputData<double > &real_data)
     }
 }
 
+
+/* ************************************************************************* */
+// calculate chi squared value
+/* ************************************************************************* */
+double FitObject::calculateChiSquared()
+{
+    m_chi2_module->setRealAndSimulatedData(*m_real_data, *m_experiment->getOutputData());
+    return m_chi2_module->calculateChiSquared();
+}
+
+
+/* ************************************************************************* */
+// add parameters from local pool to external pool
+/* ************************************************************************* */
+std::string FitObject::addParametersToExternalPool(std::string path,
+        ParameterPool* external_pool, int copy_number) const
+{
+    // add own parameters
+    std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+
+    // add parameters of the experiment
+    if(m_experiment) m_experiment->addParametersToExternalPool(new_path, external_pool, -1);
+
+    if(m_chi2_module) {
+        const IOutputDataNormalizer *data_normalizer = m_chi2_module->getOutputDataNormalizer();
+        if(data_normalizer) {
+            data_normalizer->addParametersToExternalPool(new_path, external_pool, -1);
+        }
+    }
+
+    return new_path;
+}
+
+
+void FitObject::init_parameters()
+{
+
+}

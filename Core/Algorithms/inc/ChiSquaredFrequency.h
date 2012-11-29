@@ -19,10 +19,10 @@
 class ChiSquaredFrequency : public IChiSquaredModule
 {
 public:
-    ChiSquaredFrequency(const OutputData<double> &real_data);
+    ChiSquaredFrequency();
     virtual ~ChiSquaredFrequency();
 
-    virtual double calculateChiSquared(const OutputData<double> *p_simulation_data=0);
+    virtual double calculateChiSquared();
 
     void setCutoff(double cutoff) {
         if (cutoff>=0.0 && cutoff<=1.0) m_cutoff = cutoff;

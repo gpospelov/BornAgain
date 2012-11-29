@@ -25,7 +25,6 @@ isEqual(env_debug_variable, "yes") {
 # -----------------------------------------------------------------------------
 # general external libraries
 # -----------------------------------------------------------------------------
-
 # --- checking gsl header ---
 GSL_HEADERFILE = gsl/gsl_sf_bessel.h
 GSL_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
@@ -68,8 +67,6 @@ NumberOfSuchFiles=$$system(ls $${BOOST_LIB}/libboost_thread-mt* 2> /dev/null | w
   LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
 }
 
-
-
 #message($${FFTW3_HEADERFILE}" found in "$${FFTW3_INCLUDE})
 #message($${BOOST_HEADERFILE}" found in "$${BOOST_INCLUDE})
 #message($${BOOST_LIBFILE}" found in "$${BOOST_LIB})
@@ -93,6 +90,8 @@ isEqual(env_jcns_variable, "yes") {
   CONFIG += JCNS
 }
 CONFIG(JCNS) {
+  message("Special config for JCNS")
+  INCLUDEPATH += /usr/users/jcns/pospelov/software/include
   LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
 }
 

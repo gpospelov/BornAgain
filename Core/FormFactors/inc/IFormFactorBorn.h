@@ -63,11 +63,11 @@ inline complex_t IFormFactorBorn::evaluate(const cvector_t &k_i, const cvector_t
 {
     (void)alpha_i;
     (void)alpha_f;
+    cvector_t q = k_i - k_f;
     if (m_use_large_bin_approximation_radial || m_use_large_bin_approximation_z) {
-        cvector_t q = k_i - k_f;
         return getVolume()*bigZPart(q)*bigRadialPart(q);
     }
-    return evaluate_for_q(k_i - k_f);
+    return evaluate_for_q(q);
 }
 
 inline double IFormFactorBorn::getVolume() const

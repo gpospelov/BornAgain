@@ -66,7 +66,7 @@ private:
     virtual void init_parameters();
 
     //! Calculate interference function for fixed rotation xi
-    double interferenceForXi(double xi) const;
+    double interferenceForXi(double xi, void *params) const;
 
     //! calculate interference function for fixed xi in 1d
     double interference1D(double qx, double qy, double xi, size_t index) const;

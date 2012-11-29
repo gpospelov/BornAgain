@@ -5,7 +5,7 @@ TARGET   = ScattCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+# CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)
@@ -41,6 +41,7 @@ SOURCES += \
     Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
     \
+    FormFactors/src/FormFactorBigCylinder.cpp \
     FormFactors/src/FormFactorDWBA.cpp \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
     FormFactors/src/FormFactorDecoratorTransformation.cpp \
@@ -156,6 +157,7 @@ HEADERS += \
     Algorithms/inc/ResolutionFunction2DSimple.h \
     Algorithms/inc/ThreadInfo.h \
     \
+    FormFactors/inc/FormFactorBigCylinder.h \
     FormFactors/inc/FormFactorDWBA.h \
     FormFactors/inc/FormFactorDWBAConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
@@ -240,6 +242,7 @@ HEADERS += \
     Tools/inc/LLData.h \
     Tools/inc/Macros.h \
     Tools/inc/MathFunctions.h \
+    Tools/inc/MemberFunctionIntegrator.h \
     Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \

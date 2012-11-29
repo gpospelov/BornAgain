@@ -90,6 +90,8 @@ isEqual(env_jcns_variable, "yes") {
   CONFIG += JCNS
 }
 CONFIG(JCNS) {
+  message("Special config for JCNS")
+  INCLUDEPATH += /usr/users/jcns/pospelov/software/include
   LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
 }
 

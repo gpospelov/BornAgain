@@ -14,7 +14,7 @@
 //! @author herck
 //! @date   01.05.2012
 
-#include "IFormFactor.h"
+#include "IFormFactorDecorator.h"
 #include "IDoubleToComplexFunction.h"
 
 

@@ -64,8 +64,8 @@ public:
     const_iterator end() const { return m_parameters.end(); }
 
     //! access to parameters
-    const FitParameter *operator[](int index) const { return m_parameters[check_index(index)]; }
-    FitParameter *operator[](int index) { return m_parameters[check_index(index)]; }
+    const FitParameter *operator[](size_t index) const { return m_parameters[check_index(index)]; }
+    FitParameter *operator[](size_t index) { return m_parameters[check_index(index)]; }
     const FitParameter *operator[](std::string name) const { return getParameter(name); }
     FitParameter *operator[](std::string name) { return getParameter(name); }
 

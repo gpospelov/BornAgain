@@ -15,7 +15,7 @@ MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation()
     delete mp_multi_layer;
 }
 
-void MultiLayerRoughnessDWBASimulation::setReflectionTransmissionFunction(int i_layer, const IDoubleToPairOfComplexMap &RT_function)
+void MultiLayerRoughnessDWBASimulation::setReflectionTransmissionFunction(size_t i_layer, const IDoubleToPairOfComplexMap &RT_function)
 {
     delete mp_RT_function[i_layer];
     mp_RT_function[i_layer] = RT_function.clone();
@@ -80,14 +80,14 @@ double MultiLayerRoughnessDWBASimulation::evaluate(const cvector_t &k_i, const c
     return (autocorr+crosscorr.real())*k_i.mag2().real()/16./M_PI;
 }
 
-complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(int ilayer)
+complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(size_t ilayer)
 {
     complex_t n1 = mp_multi_layer->getLayer(ilayer)->getRefractiveIndex();
     complex_t n2 = mp_multi_layer->getLayer(ilayer+1)->getRefractiveIndex();
     return n1*n1-n2*n2;
 }
 
-complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(int ilayer, const cvector_t &k_i, const cvector_t &k_f,
+complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(size_t ilayer, const cvector_t &k_i, const cvector_t &k_f,
         double alpha_i, double alpha_f)
 {
     complex_t qz1 =  k_i.z() + k_f.z();

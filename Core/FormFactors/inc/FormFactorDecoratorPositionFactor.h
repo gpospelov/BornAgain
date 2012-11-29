@@ -15,7 +15,7 @@
 //! @date   Jul 17, 2012
 
 #include "Types.h"
-#include "IFormFactor.h"
+#include "IFormFactorDecorator.h"
 
 #include <cmath>
 #include "Units.h"

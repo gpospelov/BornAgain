@@ -51,6 +51,140 @@
 
 namespace bp = boost::python;
 
+struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
+
+    IFormFactor_wrapper( )
+    : IFormFactor( )
+      , bp::wrapper< IFormFactor >(){
+        // null constructor
+    
+    }
+
+    virtual ::IFormFactor * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
+    }
+
+    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+        if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
+            func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        else{
+            this->IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+        }
+    }
+    
+    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+        IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const {
+        bp::override func_evaluate = this->get_override( "evaluate" );
+        return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+    }
+
+    virtual double getHeight(  ) const  {
+        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
+            return func_getHeight(  );
+        else{
+            return this->IFormFactor::getHeight(  );
+        }
+    }
+    
+    double default_getHeight(  ) const  {
+        return IFormFactor::getHeight( );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) const  {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->IFormFactor::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) const  {
+        return IFormFactor::getNumberOfStochasticParameters( );
+    }
+
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else{
+            return this->IFormFactor::getRadius(  );
+        }
+    }
+    
+    double default_getRadius(  ) const  {
+        return IFormFactor::getRadius( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactor::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactor::getVolume( );
+    }
+
+    virtual bool isDistributedFormFactor(  ) const  {
+        if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
+            return func_isDistributedFormFactor(  );
+        else{
+            return this->IFormFactor::isDistributedFormFactor(  );
+        }
+    }
+    
+    bool default_isDistributedFormFactor(  ) const  {
+        return IFormFactor::isDistributedFormFactor( );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( refractive_index );
+        else{
+            this->IFormFactor::setAmbientRefractiveIndex( refractive_index );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+        IFormFactor::setAmbientRefractiveIndex( refractive_index );
+    }
+
+    virtual void setBinSizes( double delta_qy, double delta_qz ){
+        bp::override func_setBinSizes = this->get_override( "setBinSizes" );
+        func_setBinSizes( delta_qy, delta_qz );
+    }
+
+    virtual ::ParameterPool * createParameterTree(  ) const  {
+        if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
+            return func_createParameterTree(  );
+        else{
+            return this->IParameterized::createParameterTree(  );
+        }
+    }
+    
+    ::ParameterPool * default_createParameterTree(  ) const  {
+        return IParameterized::createParameterTree( );
+    }
+
+    virtual void print_structure(  ) {
+        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
+            func_print_structure(  );
+        else{
+            this->ISample::print_structure(  );
+        }
+    }
+    
+    void default_print_structure(  ) {
+        ISample::print_structure( );
+    }
+
+};
+
 struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInterferenceFunction > {
 
     IInterferenceFunction_wrapper()
@@ -801,6 +935,18 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
     
     }
 
+    virtual ::IFormFactor * createFormFactor(  ) const  {
+        if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
+            return func_createFormFactor(  );
+        else{
+            return this->Particle::createFormFactor(  );
+        }
+    }
+    
+    ::IFormFactor * default_createFormFactor(  ) const  {
+        return Particle::createFormFactor( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -898,7 +1044,7 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
 
 };
 
-static boost::python::object registerParameter_42aac450584ec1a35a1b3a450dfcae38( ::ParameterPool & inst, ::std::string const & name, size_t parpointer ){
+static boost::python::object registerParameter_42aac450584ec1a35a1b3a450dfcae38( ::ParameterPool & inst, ::std::string const & name, unsigned int parpointer ){
     bool result = inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
     return bp::object( result );
 }
@@ -994,9 +1140,6 @@ struct SimpleSelectionRule_wrapper : SimpleSelectionRule, bp::wrapper< SimpleSel
 
 void register_classes_3(){
 
-    bp::class_< Geometry::TranslateZ3D, bp::bases< Geometry::Translate3D > >( "TranslateZ3D", bp::init< >() )    
-        .def( bp::init< double >(( bp::arg("z") )) );
-
     { //::IMaterial
         typedef bp::class_< IMaterial > IMaterial_exposer_t;
         IMaterial_exposer_t IMaterial_exposer = IMaterial_exposer_t( "IMaterial", bp::init< >() );
@@ -1056,6 +1199,65 @@ void register_classes_3(){
         
         }
     }
+
+    bp::class_< IFormFactor_wrapper, bp::bases< ISample >, boost::noncopyable >( "IFormFactor", bp::init< >() )    
+        .def( 
+            "CalculateBinSize"
+            , (double (*)( double,double,::size_t ))( &::IFormFactor::CalculateBinSize )
+            , ( bp::arg("lambda"), bp::arg("phi_range"), bp::arg("n_phi") ) )    
+        .def( 
+            "clone"
+            , bp::pure_virtual( (::IFormFactor * ( ::IFormFactor::* )(  ) const)(&::IFormFactor::clone) )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "createDistributedFormFactors"
+            , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
+            , (void ( IFormFactor_wrapper::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&IFormFactor_wrapper::default_createDistributedFormFactors)
+            , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactor::evaluate) )
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+        .def( 
+            "getHeight"
+            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getHeight)
+            , (double ( IFormFactor_wrapper::* )(  ) const)(&IFormFactor_wrapper::default_getHeight) )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)
+            , (int ( IFormFactor_wrapper::* )(  ) const)(&IFormFactor_wrapper::default_getNumberOfStochasticParameters) )    
+        .def( 
+            "getRadius"
+            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getRadius)
+            , (double ( IFormFactor_wrapper::* )(  ) const)(&IFormFactor_wrapper::default_getRadius) )    
+        .def( 
+            "getVolume"
+            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getVolume)
+            , (double ( IFormFactor_wrapper::* )(  ) const)(&IFormFactor_wrapper::default_getVolume) )    
+        .def( 
+            "isDistributedFormFactor"
+            , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
+            , (bool ( IFormFactor_wrapper::* )(  ) const)(&IFormFactor_wrapper::default_isDistributedFormFactor) )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
+            , (void ( IFormFactor_wrapper::* )( ::complex_t ) )(&IFormFactor_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "setBinSizes"
+            , bp::pure_virtual( (void ( ::IFormFactor::* )( double,double ) )(&::IFormFactor::setBinSizes) )
+            , ( bp::arg("delta_qy"), bp::arg("delta_qz") ) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
+            , (::ParameterPool * ( IFormFactor_wrapper::* )(  ) const)(&IFormFactor_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( IFormFactor_wrapper::* )(  ) )(&IFormFactor_wrapper::default_print_structure) )    
+        .staticmethod( "CalculateBinSize" );
 
     bp::class_< IInterferenceFunction_wrapper, bp::bases< ISample >, boost::noncopyable >( "IInterferenceFunction" )    
         .def( 
@@ -1476,6 +1678,11 @@ void register_classes_3(){
 
     bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) )    
         .def( 
+            "createFormFactor"
+            , (::IFormFactor * ( ::Particle::* )(  ) const)(&::Particle::createFormFactor)
+            , (::IFormFactor * ( MesoCrystal_wrapper::* )(  ) const)(&MesoCrystal_wrapper::default_createFormFactor)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( MesoCrystal_wrapper::* )(  ) const)(&MesoCrystal_wrapper::default_createParameterTree)
@@ -1636,7 +1843,7 @@ void register_classes_3(){
         }
         { //::ParameterPool::registerParameter
         
-            typedef boost::python::object ( *registerParameter_function_type )( ::ParameterPool &,::std::string const &,size_t );
+            typedef boost::python::object ( *registerParameter_function_type )( ::ParameterPool &,::std::string const &,unsigned int );
             
             ParameterPool_exposer.def( 
                 "registerParameter"

@@ -127,9 +127,9 @@ void TestRoughness::DrawProfile()
     for(size_t i_method=0; i_method<nmethods; i_method++){
         for(size_t i_set=0; i_set<nsets; i_set++) {
             if(i_set<3) {
-                c1->cd(1+i_set*2); // i_set=0,1,2 will be on the left side of canvas
+                c1->cd(1+(int)i_set*2); // i_set=0,1,2 will be on the left side of canvas
             }else{
-                c1->cd(2+(i_set-3)*2); // i_set=3,4,5 will be on the right side of canvas
+                c1->cd(2+((int)i_set-3)*2); // i_set=3,4,5 will be on the right side of canvas
             }
 
             if(i_method==0) { // draw reference histogram per set only once
@@ -163,7 +163,7 @@ void TestRoughness::DrawProfile()
 /* ************************************************************************* */
 void TestRoughness::GetProfileXZ_MatrixMethod()
 {
-    int npx = m_vx.size();
+    int npx = (int)m_vx.size();
     m_vzcorr.clear();
     m_vzcorr.resize(npx, 0);
 
@@ -222,8 +222,6 @@ void TestRoughness::GetProfileXZ_FFTMethod()
     std::vector<complex_t > ft_cov = MathFunctions::FastFourierTransform(cov, MathFunctions::ForwardFFT);
     std::vector<complex_t> ft_z = MathFunctions::FastFourierTransform(m_vzuncorr, MathFunctions::ForwardFFT);
 
-    double dx(0);
-    if(m_vx.size() > 1) dx = std::abs(m_vx[0]-m_vx[1]);
     std::vector<complex_t > ft_result;
     ft_result.resize(npx);
     for(size_t i=0; i<npx; i++) {
@@ -273,14 +271,14 @@ void TestRoughness::test_FFT()
     double df1 = 1/(2.*dx1*(npx-1));
     TF1 *fcor = new TF1("fcor","exp(-x*x*[0])", xmin, xmax);
     fcor->SetParameter(0, lambda);
-    fcor->SetNpx(npx);
+    fcor->SetNpx((int)npx);
     fcor->Draw();
 
     double fmin(-1./2./dx1), fmax(1./2./dx1);
     TF1 *FT_fcor = new TF1("FT_fcor","0.5*sqrt(3.1415926/[0])*exp(-(2*3.1415926*x)*(2*3.1415926*x)/4/[0])", fmin, fmax); //  0.5*sqrt(pi/a)*exp(-(2.*pi*f)**2/(4.*a))
     lambda=1;
     FT_fcor->SetParameter(0, lambda);
-    FT_fcor->SetNpx(npx);
+    FT_fcor->SetNpx((int)npx);
     c1->cd(2);
     FT_fcor->Draw();
 
@@ -300,8 +298,8 @@ void TestRoughness::test_FFT()
     }
 
     std::cout << "forward" << std::endl;
-    plan_forward  = fftw_plan_dft_1d( npx, data, fft_result, FFTW_FORWARD, FFTW_ESTIMATE );
-    plan_backward = fftw_plan_dft_1d( npx, fft_result, ifft_result, FFTW_BACKWARD, FFTW_ESTIMATE );
+    plan_forward  = fftw_plan_dft_1d( (int)npx, data, fft_result, FFTW_FORWARD, FFTW_ESTIMATE );
+    plan_backward = fftw_plan_dft_1d( (int)npx, fft_result, ifft_result, FFTW_BACKWARD, FFTW_ESTIMATE );
 
     fftw_execute(plan_forward);
 
@@ -313,7 +311,7 @@ void TestRoughness::test_FFT()
     TGraph *gr_fftw_fcor = new TGraph();
     for(size_t i=0; i<npx; i++){
         complex_t c_out(fft_result[i][0]/sqrt(npx), fft_result[i][1]/sqrt(npx));
-        gr_fftw_fcor->SetPoint(i, double(i)*df1, std::abs(c_out));
+        gr_fftw_fcor->SetPoint((int)i, double(i)*df1, std::abs(c_out));
     }
     c1->cd(3);
     gr_fftw_fcor->Draw("apl");
@@ -329,7 +327,7 @@ void TestRoughness::test_FFT()
     TGraph *gr_ifftw_fcor = new TGraph();
     for(size_t i=0; i<npx; i++){
         complex_t c_out(ifft_result[i][0]/npx, ifft_result[i][1]/npx);
-        gr_ifftw_fcor->SetPoint(i, double(i), std::abs(c_out));
+        gr_ifftw_fcor->SetPoint((int)i, double(i), std::abs(c_out));
     }
     c1->cd(4);
     gr_ifftw_fcor->Draw("apl");

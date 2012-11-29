@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 12, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorBorn.h"
 #include "Crystal.h"
 #include "Types.h"
 
@@ -32,6 +32,11 @@ public:
     virtual FormFactorCrystal *clone() const;
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);
+
+    virtual void setBinSizes(double delta_qy, double delta_qz) {
+        mp_basis_form_factor->setBinSizes(delta_qy, delta_qz);
+        mp_meso_form_factor->setBinSizes(delta_qy, delta_qz);
+    }
 
 protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;

@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Aug 31, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorDecorator.h"
 
 
 class FormFactorDecoratorDebyeWaller : public IFormFactorDecorator

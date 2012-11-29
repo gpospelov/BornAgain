@@ -264,7 +264,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     TCanvas *c2 = new TCanvas("c2","c2",800,600);
     c2->Divide(2,2);
     for(size_t i=0; i<m_fitSuite->getFitObjects()->size(); ++i) {
-        c2->cd(i+1);
+        c2->cd((int)i+1);
         const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i);
         TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"real");
         TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"simul");

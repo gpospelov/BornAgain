@@ -68,7 +68,7 @@ void OutputDataFunctions::fourierTransform(const OutputData<double>& source, Out
     //  initialize temporary arrays
     double *input = fftw_alloc_real(total_real_size);
     fftw_complex *output = fftw_alloc_complex(total_complex_size);
-    fftw_plan plan = fftw_plan_dft_r2c(rank, n_real_dims, input, output, FFTW_ESTIMATE);
+    fftw_plan plan = fftw_plan_dft_r2c((int)rank, n_real_dims, input, output, FFTW_ESTIMATE);
     source.fillRawDataArray(input);
 
     // execute the plan
@@ -112,7 +112,7 @@ void OutputDataFunctions::fourierTransformR(const OutputData<complex_t>& source,
     //  initialize temporary arrays
     double *output = fftw_alloc_real(total_real_size);
     fftw_complex *input = fftw_alloc_complex(total_complex_size);
-    fftw_plan plan = fftw_plan_dft_c2r(rank, n_real_dims, input, output, FFTW_ESTIMATE);
+    fftw_plan plan = fftw_plan_dft_c2r((int)rank, n_real_dims, input, output, FFTW_ESTIMATE);
     complex_t *input2 = new complex_t[total_complex_size];
     source.fillRawDataArray(input2);
     toFftw3Array(input2, total_complex_size, input);
@@ -214,7 +214,7 @@ OutputData<double> *OutputDataFunctions::sliceAccrossOneAxis(const OutputData<do
             sliced_data->addAxis(axis->clone());
         } else {
             fixed_axis = axis;
-            fixed_axis_index = i_axis;
+            fixed_axis_index = (int)i_axis;
         }
     }
 
@@ -257,9 +257,9 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
         throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! Axis range xmax<xmin. ");
     }
 
-    int selected_axis_index = data.getAxisIndex(selected_axis_name);
-    int nbin1 = selected_axis->findClosestIndex(axis_value1);
-    int nbin2 = selected_axis->findClosestIndex(axis_value2);
+    size_t selected_axis_index = data.getAxisIndex(selected_axis_name);
+    size_t nbin1 = selected_axis->findClosestIndex(axis_value1);
+    size_t nbin2 = selected_axis->findClosestIndex(axis_value2);
     double x1 = (*selected_axis)[nbin1];
     double x2 = (*selected_axis)[nbin2];
 
@@ -282,7 +282,7 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
     while (it_data != data.end())
     {
         std::vector<int > orig_coord = data.toCoordinates(it_data.getIndex());
-        int xbin = orig_coord[selected_axis_index];
+        size_t xbin = orig_coord[selected_axis_index];
         if( xbin>=nbin1 && xbin <= nbin2 ) {
 //            std::vector<int > new_coord = orig_coord;
 //            new_coord[selected_axis_index] = xbin - nbin1;

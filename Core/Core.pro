@@ -42,7 +42,6 @@ SOURCES += \
     Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
     \
-    FormFactors/src/FormFactorBigCylinder.cpp \
     FormFactors/src/FormFactorDWBA.cpp \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
     FormFactors/src/FormFactorDecoratorTransformation.cpp \
@@ -55,6 +54,7 @@ SOURCES += \
     FormFactors/src/FormFactorLorentz.cpp \
     FormFactors/src/FormFactorWeighted.cpp \
     FormFactors/src/FormFactorCrystal.cpp \
+    FormFactors/src/IFormFactorBorn.cpp \
     \
     Geometry/src/BasicVector3D.cpp \
     Geometry/src/Normal3D.cpp \
@@ -159,7 +159,6 @@ HEADERS += \
     Algorithms/inc/ResolutionFunction2DSimple.h \
     Algorithms/inc/ThreadInfo.h \
     \
-    FormFactors/inc/FormFactorBigCylinder.h \
     FormFactors/inc/FormFactorDWBA.h \
     FormFactors/inc/FormFactorDWBAConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
@@ -177,9 +176,12 @@ HEADERS += \
     FormFactors/inc/FormFactorLorentz.h \
     FormFactors/inc/FormFactors.h \
     FormFactors/inc/FormFactorSphereGaussianRadius.h \
-    FormFactors/inc/IFormFactor.h \
     FormFactors/inc/FormFactorCrystal.h \
     FormFactors/inc/FormFactorWeighted.h \
+    FormFactors/inc/IFormFactor.h \
+    FormFactors/inc/IFormFactorBorn.h \
+    FormFactors/inc/IFormFactorBornSeparable.h \
+    FormFactors/inc/IFormFactorDecorator.h \
     \
     Geometry/inc/BasicVector3D.h \
     Geometry/inc/Normal3D.h \

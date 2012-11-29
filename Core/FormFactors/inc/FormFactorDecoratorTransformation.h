@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jun 29, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorDecorator.h"
 #include "Transform3D.h"
 
 

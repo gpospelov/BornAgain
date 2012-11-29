@@ -121,18 +121,18 @@ void ROOTMinimizer::printResults() const
               << std::setw(14) << "GlobalCC" << std::endl;
     for(size_t i=0; i<getNumberOfVariables(); ++i) {
         std::cout << "      " << std::setw(5) << std::left << i
-                  << std::setw(38) << std::left << Utils::AdjustStringLength(m_root_minimizer->VariableName(i), 38) << " "
+                  << std::setw(38) << std::left << Utils::AdjustStringLength(m_root_minimizer->VariableName((int)i), 38) << " "
                   << std::setw(14) << std::left << std::scientific << std::setprecision(6) << std::left << getValueOfVariableAtMinimum(i)
                   << std::setw(14) << std::left << std::scientific << std::setprecision(6) << std::left << getErrorOfVariable(i)
-                  << std::setw(14) << std::left << std::scientific << std::setprecision(6) << std::left << m_root_minimizer->GlobalCC(i) << std::endl;
+                  << std::setw(14) << std::left << std::scientific << std::setprecision(6) << std::left << m_root_minimizer->GlobalCC((int)i) << std::endl;
     }
 
     // correlation between parameters
     std::cout << std::endl;
     std::cout << "  Correlation between variables:" << std::endl;
-    for(size_t i=0; i<getNumberOfVariables(); ++i) {
+    for(unsigned int i=0; i<getNumberOfVariables(); ++i) {
         std::cout << "      ";
-        for(size_t j=0; j<getNumberOfVariables(); ++j) {
+        for(unsigned int j=0; j<getNumberOfVariables(); ++j) {
             std::cout << std::setw(14) << std::scientific << std::setprecision(6)  << m_root_minimizer->Correlation(i,j);
         }
         std::cout << std::endl;

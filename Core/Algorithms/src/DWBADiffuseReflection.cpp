@@ -78,7 +78,7 @@ void DWBADiffuseReflection::diffuse_crosscorr()
 }
 
 
-complex_t DWBADiffuseReflection::get_refractive_term(int ilayer)
+complex_t DWBADiffuseReflection::get_refractive_term(size_t ilayer)
 {
     complex_t n1 = m_sample->getLayer(ilayer)->getRefractiveIndex();
     complex_t n2 = m_sample->getLayer(ilayer+1)->getRefractiveIndex();
@@ -86,7 +86,7 @@ complex_t DWBADiffuseReflection::get_refractive_term(int ilayer)
 }
 
 
-complex_t DWBADiffuseReflection::get_sum4terms(int ilayer)
+complex_t DWBADiffuseReflection::get_sum4terms(size_t ilayer)
 {
     double sigma2 = -0.5*std::pow(m_sample->getLayerBottomInterface(ilayer)->getRoughness()->getSigma(), 2);
     complex_t term1 = m_fcoeff_i[ilayer+1].T * m_fcoeff_f[ilayer+1].T * std::exp( sigma2*m_qz1 );

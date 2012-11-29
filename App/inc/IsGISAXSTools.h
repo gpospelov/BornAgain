@@ -29,7 +29,7 @@ class TLine;
 class IsGISAXSTools {
 public:
     struct AxisStructure {
-        int nbins;
+        size_t nbins;
         std::vector<double> xbins;
         std::string name;
     };

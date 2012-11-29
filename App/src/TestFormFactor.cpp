@@ -61,7 +61,7 @@ void TestFormFactor::draw()
     double y_end = (*p_y_axis)[y_size-1];
     double z_start = (*p_z_axis)[0];
     double z_end = (*p_z_axis)[z_size-1];
-    TH2D *p_hist2D = new TH2D("p_hist2D", "Cylinder Formfactor", y_size, y_start, y_end, z_size, z_start, z_end);
+    TH2D *p_hist2D = new TH2D("p_hist2D", "Cylinder Formfactor", (int)y_size, y_start, y_end, (int)z_size, z_start, z_end);
     p_hist2D->UseCurrentStyle();
     p_hist2D->GetXaxis()->SetTitle("phi_f");
     p_hist2D->GetYaxis()->SetTitle("alpha_f");

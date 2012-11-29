@@ -295,7 +295,7 @@ int GISASExperiment::findClosestIndex(const NamedVector<double> *p_axis, double 
     for (size_t i=1; i<p_axis->getSize(); ++i) {
         double new_diff = std::abs(value-(*p_axis)[i]);
         if (new_diff > smallest_diff) break;
-        result = i;
+        result = (int)i;
         smallest_diff = new_diff;
     }
     return result;

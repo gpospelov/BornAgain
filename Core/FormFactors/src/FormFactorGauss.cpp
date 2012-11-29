@@ -20,8 +20,6 @@ FormFactorGauss::FormFactorGauss(double height, double width)
     m_height = height;
     m_width = width;
     init_parameters();
-    //    mp_height = new StochasticDiracDelta<double>(height);
-    //    mp_width = new StochasticDiracDelta<double>(width);
 }
 
 //FormFactorGauss::FormFactorGauss(StochasticParameter<double> *p_height, StochasticParameter<double> *p_width)
@@ -32,8 +30,6 @@ FormFactorGauss::FormFactorGauss(double height, double width)
 
 FormFactorGauss::~FormFactorGauss()
 {
-//    delete mp_height;
-//    delete mp_width;
 }
 
 
@@ -50,18 +46,16 @@ void FormFactorGauss::init_parameters()
 
 FormFactorGauss* FormFactorGauss::clone() const
 {
-    return new FormFactorGauss(m_height, m_width);
-//    return new FormFactorGauss(mp_height->clone(), mp_radius->clone());
+    FormFactorGauss *p_clone = new FormFactorGauss(m_height, m_width);
+    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
+    return p_clone;
 }
 
 complex_t FormFactorGauss::evaluate_for_q(const cvector_t &q) const
 {
-//    double R = mp_width->getCurrent();
-//    double H = mp_height->getCurrent();
     double R = m_width;
     double H = m_height;
 
-//    complex_t z_phase = std::exp(complex_t(0.0, 1.0)*q.z()*H/2.0);
     complex_t z_part = H*std::exp(-q.z()*q.z()*H*H/8.0/M_PI);
 
     complex_t radial_part = R*R*std::exp(-(q.x()*q.x()+q.y()*q.y())*R*R/8.0/M_PI);

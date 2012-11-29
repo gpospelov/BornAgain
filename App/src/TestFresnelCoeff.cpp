@@ -129,7 +129,7 @@ void TestFresnelCoeff::draw_standard_samples()
         }
 
         // Filling graphics for |R|+|T| as a function of alpha_i taking R from the top and T from the bottom layers
-        int nlast = nlayers - 1;
+        int nlast = (int)nlayers - 1;
         double sum;
         if(coeffs[0].kz.real()!=0.0) {
             sum = std::norm(coeffs[0].R) + std::norm(coeffs[nlast].T)*coeffs[nlast].kz.real()/coeffs[0].kz.real();
@@ -154,7 +154,7 @@ void TestFresnelCoeff::draw_standard_samples()
     c1->Divide(ndiv,ndiv);
 
     for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
-        c1->cd(i_layer+1);
+        c1->cd((int)i_layer+1);
         gPad->SetLogy();
 
         // calculating histogram limits common for all graphs on given pad
@@ -209,7 +209,7 @@ void TestFresnelCoeff::draw_standard_samples()
     leg->Draw();
 
     // drawing sample geometry
-    c1->cd(nlayers+1);
+    c1->cd((int)nlayers+1);
     DrawHelper::instance().DrawMultilayer(mp_sample);
 }
 
@@ -294,8 +294,8 @@ void TestFresnelCoeff::draw_roughness_set()
 
         // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
-            gr_coeff[i_layer][kCoeffR][i_rough]->SetPoint(i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R) );
-            gr_coeff[i_layer][kCoeffT][i_rough]->SetPoint(i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T) );
+            gr_coeff[i_layer][kCoeffR][i_rough]->SetPoint((int)i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R) );
+            gr_coeff[i_layer][kCoeffT][i_rough]->SetPoint((int)i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T) );
         }
         ++it;
     }
@@ -314,7 +314,7 @@ void TestFresnelCoeff::draw_roughness_set()
 
     int i_coeff_sel = kCoeffR;
     for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
-        c1->cd(i_layer+1);
+        c1->cd((int)i_layer+1);
         gPad->SetLogy();
 
         // calculating histogram limits common for all graphs on given pad
@@ -359,7 +359,7 @@ void TestFresnelCoeff::draw_roughness_set()
     }
 
     // drawing sample geometry
-    c1->cd(nlayers+1);
+    c1->cd((int)nlayers+1);
     DrawHelper::instance().DrawMultilayer(mp_sample);
 }
 

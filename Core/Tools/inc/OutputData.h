@@ -384,7 +384,7 @@ template<class T> std::vector<int> OutputData<T>::toCoordinates(size_t index) co
     result.resize(mp_ll_data->getRank());
     for (size_t i=0; i<mp_ll_data->getRank(); ++i)
     {
-        result[mp_ll_data->getRank()-1-i] = remainder % m_value_axes[mp_ll_data->getRank()-1-i]->getSize();
+        result[mp_ll_data->getRank()-1-i] = (int)(remainder % m_value_axes[mp_ll_data->getRank()-1-i]->getSize());
         remainder /= m_value_axes[mp_ll_data->getRank()-1-i]->getSize();
     }
     return result;
@@ -509,7 +509,7 @@ template <class T> void OutputData<T>::allocate()
     size_t rank = m_value_axes.size();
     int *dims =  new int[rank];
     for (size_t i=0; i<rank; ++i) {
-        dims[i] = getAxis(i)->getSize();
+        dims[i] = (int)getAxis(i)->getSize();
     }
     mp_ll_data = new LLData<T>(rank, dims);
     T default_value = T();

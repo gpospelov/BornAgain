@@ -78,8 +78,4 @@ private:
 
 };
 
-double wrapFunctionForGSL(double xi, void* p_unary_function);
-
-
-
 #endif /* INTERFERENCEFUNCTION2DPARACRYSTAL_H_ */

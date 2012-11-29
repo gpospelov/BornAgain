@@ -25,9 +25,9 @@ class StochasticSampledParameter : public StochasticParameter<double>
 {
 public:
     //! constructor with nbins, xmin, xmax
-    StochasticSampledParameter(const StochasticParameter<double> &par, int nbins, double xmin, double xmax);
+    StochasticSampledParameter(const StochasticParameter<double> &par, size_t nbins, double xmin, double xmax);
     //! constructor with nbin and nfwhm to derive xmin and xmax
-    StochasticSampledParameter(const StochasticParameter<double> &par, int nbins, int nfwhm=3);
+    StochasticSampledParameter(const StochasticParameter<double> &par, size_t nbins, int nfwhm=3);
     virtual ~StochasticSampledParameter();
 
     //! return radom value of stochastic parameter
@@ -47,7 +47,7 @@ public:
     }
 
     //! return probability value for given bin
-    double probabilityBinDensity(int ibin) const { return m_stochastic_parameter->probabilityDensity(getBinValue(ibin)); }
+    double probabilityBinDensity(size_t ibin) const { return m_stochastic_parameter->probabilityDensity(getBinValue(ibin)); }
 
     //! return number of bins
     size_t getNbins() const { return m_nbins; }

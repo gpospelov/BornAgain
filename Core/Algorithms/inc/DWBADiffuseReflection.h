@@ -43,9 +43,9 @@ private:
 
     void diffuse_crosscorr();
 
-    complex_t get_refractive_term(int ilayer);
+    complex_t get_refractive_term(size_t ilayer);
 
-    complex_t get_sum4terms(int ilayer);
+    complex_t get_sum4terms(size_t ilayer);
 
     const MultiLayer *m_sample;
     OpticalFresnel::MultiLayerCoeff_t m_fcoeff_i;

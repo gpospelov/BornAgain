@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Sep 11, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorDecorator.h"
 
 class FormFactorDecoratorMultiPositionFactor : public IFormFactorDecorator
 {

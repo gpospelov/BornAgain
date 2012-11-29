@@ -124,7 +124,7 @@ void FitSuiteObserverDraw::update(IObservable *subject)
             const OutputData<double > *data = data2draw[i_hist];
             if( !data->getAxis("alpha_f") || !data->getAxis("phi_f") ) throw LogicErrorException("FitSuiteObserverDraw::update() -> Error! Can't handle axis");
 
-            c1->cd(i_hist+1);
+            c1->cd((int)i_hist+1);
             gPad->SetLogz();
             gPad->SetLeftMargin(0.12);
             gPad->SetRightMargin(0.12);

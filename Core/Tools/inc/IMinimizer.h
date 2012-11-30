@@ -17,6 +17,8 @@
 
 #include "FitParameter.h"
 #include <boost/function.hpp>
+#include <map>
+#include "Exceptions.h"
 
 
 //- -------------------------------------------------------------------
@@ -57,5 +59,70 @@ public:
     virtual void printResults() const = 0;
 
 };
+
+
+
+//- -------------------------------------------------------------------
+//! @class TestMinimizer
+//! @brief Minimizer which calls minimization function once to test whole chain
+//- -------------------------------------------------------------------
+class TestMinimizer : public IMinimizer
+{
+public:
+    TestMinimizer(){}
+    virtual ~TestMinimizer(){}
+
+    //! set variable
+    virtual void setVariable(int index, const FitParameter *par) { m_values[index] = par->getValue(); }
+
+    //! set function to minimize
+    virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1) { m_fcn = fcn, m_ndim = ndim; }
+
+    //! run minimization
+    virtual void minimize()
+    {
+        std::vector<double > buffer;
+        buffer.resize(m_values.size(), 0.0);
+        for(std::map<int, double >::iterator it=m_values.begin(); it!= m_values.end(); ++it ) {
+            buffer[it->first] = it->second;
+            std::cout << " minimize(): " << it->first << " " << it->second << std::endl;
+        }
+        std::cout << "TestMinimizer::minimize() -> Info. Calling fcn" << std::endl;
+        m_fcn(&buffer[0]);
+    }
+
+    //! get number of variables to fit
+    virtual size_t getNumberOfVariables() const { return m_values.size(); }
+
+    //! return minimum function value
+    virtual double getMinValue() const { throw NotImplementedException("TestMinimizer::getMinValue() -> Not implemented. "); return 0.0; }
+
+    //! return pointer to the parameters values at the minimum
+    virtual double getValueOfVariableAtMinimum(size_t i) const
+    {
+        std::map<int, double >::const_iterator pos = m_values.find(i);
+        if(pos != m_values.end()){
+            return pos->second;
+        } else {
+            throw LogicErrorException("TestMinimizer::getValueOfVariableAtMinimum() -> Not found!");
+        }
+    }
+
+    //! return pointer to the parameters values at the minimum
+    virtual double getErrorOfVariable(size_t /* i*/)  const { throw NotImplementedException("TestMinimizer::getMinValue() -> Not implemented. "); return 0.0; }
+
+    //! clear resources (parameters) for consecutives minimizations
+    virtual void clear()  { throw NotImplementedException("TestMinimizer::getMinValue() -> Not implemented. "); }
+
+    //! print fit results
+    virtual void printResults() const  { throw NotImplementedException("TestMinimizer::getMinValue() -> Not implemented. "); }
+
+private:
+    std::map<int, double > m_values;
+    boost::function<double(const double *)> m_fcn;
+    int m_ndim;
+};
+
+
 
 #endif // IMINIMIZER_H

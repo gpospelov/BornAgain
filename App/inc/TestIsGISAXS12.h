@@ -35,7 +35,10 @@ public:
     virtual void execute();
 
 private:
-    typedef std::vector<OutputData<double > *> DataScan_t;
+//    typedef std::vector<OutputData<double > *> DataScan_t;
+//    enum isgisaxs_scans {kFixedAlphaf, kFixedPhif };
+
+
 
     //! builds sample for fitter testing
     class TestSampleBuilder : public ISampleBuilder
@@ -50,13 +53,44 @@ private:
         virtual void init_parameters();
         double m_particle_probability;
         double m_particle_radius1;
-        double m_particle_radius2;
         double m_dispersion_radius1;
-        double m_dispersion_radius2;
         double m_height_aspect_ratio1;
+        double m_particle_radius2;
+        double m_dispersion_radius2;
         double m_height_aspect_ratio2;
         double m_interf_distance;
         double m_interf_width;
+    };
+
+    //! represent collection of OutputData object's
+    class DataSet {
+    public:
+        typedef std::vector<OutputData<double > *> dataset_t;
+        typedef std::vector<OutputData<double > *>::iterator iterator;
+        typedef std::vector<OutputData<double > *>::const_iterator const_iterator;
+        DataSet(){}
+        ~DataSet() {  clear(); }
+        void clear() {for(size_t i=0; i<m_data.size(); ++i) delete m_data[i]; m_data.clear(); }
+        DataSet(const DataSet &other)
+        {
+            for(size_t i=0; i<other.m_data.size(); ++i) m_data.push_back(other.m_data[i]->clone());
+        }
+        DataSet &operator=(const DataSet &other)
+        {
+            if( this != &other ) {
+                clear();
+                for(size_t i=0; i<other.m_data.size(); ++i) m_data.push_back(other.m_data[i]->clone());
+            }
+            return *this;
+        }
+        void push_back(OutputData<double > *data) { m_data.push_back(data); }
+        dataset_t::iterator begin() { return m_data.begin(); }
+        dataset_t::iterator end() { return m_data.end(); }
+        size_t size() { return m_data.size(); }
+        const OutputData<double> *operator[](int index) const { return m_data[index]; }
+        OutputData<double> *operator[](int index) { return m_data[index]; }
+
+        dataset_t m_data;
     };
 
     //! represent single line stored in isgisaxs *.dat file with data to fit
@@ -76,9 +110,6 @@ private:
     //! run standard isgisaxs comparison for the given sample
     void run_isgisaxs_comparison();
 
-    //! run test fit
-    void run_test_fit();
-
     //! run isgisaxs ex-12 style fit
     void run_isgisaxs_fit();
 
@@ -86,17 +117,26 @@ private:
     void plot_isgisaxs_data();
 
     //!  read special isgisaxs *.dat file with data to fit
-    void read_isgisaxs_datfile(const std::string &filename);
+    void read_isgisaxs_datfile(const std::string &filename, DataSet &dataset);
+
+    //!  read special isgisaxs *.out file with isgisaxs results
+    void read_isgisaxs_outfile(const std::string &filename, DataSet &dataset, bool read_fit_results = false);
 
     //! convert isgisaxs 1d scan to output data 2d object
     OutputData<double> *convert_isgi_scan(std::vector<IsgiData > &isgi_data);
+
+    //! run test fit
+    void run_test_fit();
+
+    void print_axes(DataSet &data);
+
 
     std::string m_data_path;
     GISASExperiment *m_experiment;
     ISampleBuilder *m_sample_builder;
     FitSuite *m_fitSuite;
 
-    DataScan_t m_isgi_scans; //! vector of OutputData's representing isgisaxs scans
+//    DataScan_t m_isgi_scans; //! vector of OutputData's representing isgisaxs scans
     double m_isgi_fixed_alphaf;
     double m_isgi_fixed_phif;
 };

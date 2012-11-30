@@ -71,6 +71,7 @@ public:
 private:
     ROOT::Math::Minimizer *m_root_minimizer;
     ROOT::Math::Functor *m_fcn;
+    //ROOT::Math::GradFunctor *m_fcn;
 };
 
 #endif // ROOTMINIMIZER_H

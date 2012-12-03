@@ -348,6 +348,7 @@ Mask* OutputDataFunctions::CreateRectangularMask(const OutputData<double>& data,
         dims_i[i] = (int)p_axis->getSize();
     }
     MaskCoordinateRectangleFunction *p_rectangle_function = new MaskCoordinateRectangleFunction(rank, minima_i, maxima_i);
+    p_rectangle_function->setInvertFlag(true);
     delete[] minima_i;
     delete[] maxima_i;
     MaskCoordinates *p_result = new MaskCoordinates(rank, dims_i);
@@ -371,6 +372,7 @@ Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double>& data,
         dims_i[i] = (int)p_axis->getSize();
     }
     MaskCoordinateEllipseFunction *p_ellipse_function = new MaskCoordinateEllipseFunction(rank, center_i, radii_i);
+    p_ellipse_function->setInvertFlag(true);
     delete[] center_i;
     delete[] radii_i;
     MaskCoordinates *p_result = new MaskCoordinates(rank, dims_i);

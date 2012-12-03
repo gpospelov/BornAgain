@@ -72,7 +72,7 @@ private:
 class MaskCoordinates : public Mask
 {
 public:
-    MaskCoordinates(size_t rank, int *dims, Mask *p_submask=0);
+    MaskCoordinates(size_t rank, const int *dims, Mask *p_submask=0);
     virtual ~MaskCoordinates();
     virtual MaskCoordinates *clone() const;
 

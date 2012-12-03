@@ -97,6 +97,7 @@ bool MaskCoordinateEllipseFunction::isInStandardMaskedArea(const int* coordinate
     double weighted_squares = 0.0;
     for (size_t i=0; i<m_rank; ++i) {
         double dist = (double)coordinates[i] - (double)m_center[i];
+        if (dist==0.0) continue;
         double d_radius = (double)m_radii[i];
         weighted_squares += dist*dist/d_radius/d_radius;
     }

@@ -1,6 +1,8 @@
 #include "OutputDataFunctions.h"
 #include "Exceptions.h"
 #include "Numeric.h"
+
+
 #include <cmath>
 #include <fftw3.h>
 
@@ -332,4 +334,47 @@ void OutputDataFunctions::applyFunction(OutputData<double> &data, const IIntensi
     }
 }
 
+Mask* OutputDataFunctions::CreateRectangularMask(const OutputData<double>& data,
+        const double* minima, const double* maxima)
+{
+    size_t rank = data.getRank();
+    int *minima_i = new int[rank];
+    int *maxima_i = new int[rank];
+    int *dims_i = new int[rank];
+    for (size_t i=0; i<rank; ++i) {
+        const NamedVector<double> *p_axis = dynamic_cast<const NamedVector<double> *>(data.getAxis(i));
+        minima_i[i] = (int)p_axis->getLowerBoundIndex(minima[i]);
+        maxima_i[i] = (int)p_axis->getUpperBoundIndex(maxima[i]);
+        dims_i[i] = (int)p_axis->getSize();
+    }
+    MaskCoordinateRectangleFunction *p_rectangle_function = new MaskCoordinateRectangleFunction(rank, minima_i, maxima_i);
+    delete[] minima_i;
+    delete[] maxima_i;
+    MaskCoordinates *p_result = new MaskCoordinates(rank, dims_i);
+    delete[] dims_i;
+    p_result->setMaskCoordinateFunction(p_rectangle_function);
+    return p_result;
+}
 
+Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double>& data,
+        const double* center, const double* radii)
+{
+    size_t rank = data.getRank();
+    int *center_i = new int[rank];
+    int *radii_i = new int[rank];
+    int *dims_i = new int[rank];
+    for (size_t i=0; i<rank; ++i) {
+        const NamedVector<double> *p_axis = dynamic_cast<const NamedVector<double> *>(data.getAxis(i));
+        center_i[i] = (int)p_axis->getLowerBoundIndex(center[i]);
+        int lower_index = (int)p_axis->getLowerBoundIndex((*p_axis)[center_i[i]] - radii[i]);
+        radii_i[i] = center_i[i] - lower_index;
+        dims_i[i] = (int)p_axis->getSize();
+    }
+    MaskCoordinateEllipseFunction *p_ellipse_function = new MaskCoordinateEllipseFunction(rank, center_i, radii_i);
+    delete[] center_i;
+    delete[] radii_i;
+    MaskCoordinates *p_result = new MaskCoordinates(rank, dims_i);
+    delete[] dims_i;
+    p_result->setMaskCoordinateFunction(p_ellipse_function);
+    return p_result;
+}

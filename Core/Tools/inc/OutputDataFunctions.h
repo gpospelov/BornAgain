@@ -17,6 +17,7 @@
 #include "Types.h"
 #include "OutputData.h"
 #include "IIntensityFunction.h"
+#include "Mask.h"
 
 //- -------------------------------------------------------------------
 //! @namespace OutputDataFunctions
@@ -47,6 +48,11 @@ namespace OutputDataFunctions
     //! apply intensity function to values stored in output data
     void applyFunction(OutputData<double> &data, const IIntensityFunction *func);
 
+    //! create a rectangular mask based on the given OutputData object and limits
+    Mask *CreateRectangularMask(const OutputData<double> &data, const double *minima, const double *maxima);
+
+    //! create a elliptic mask based on the given OutputData object and limits
+    Mask *CreateEllipticMask(const OutputData<double> &data, const double *center, const double *radii);
 }
 
 

@@ -35,7 +35,7 @@ void FitSuiteObjects::runSimulation()
 {
     for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         (*it)->getExperiment()->runSimulation();
-        (*it)->getExperiment()->normalize();
+        //(*it)->getExperiment()->normalize();
     }
 }
 
@@ -45,11 +45,27 @@ void FitSuiteObjects::runSimulation()
 /* ************************************************************************* */
 double FitSuiteObjects::getChiSquaredValue()
 {
-    double chi_squared(0);
+    // determining maximum intensity in all datasets
+    double max_intensity(0);
     for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        chi_squared += (*it)->calculateChiSquared();
+        const OutputData<double > *data = (*it)->getExperiment()->getOutputData();
+        OutputData<double >::const_iterator cit = std::max_element(data->begin(), data->end());
+        max_intensity = std::max(max_intensity, *cit);
     }
-    return chi_squared;
+
+    double chi_sum(0);
+    for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+
+        // normalizing datasets to the maximum intensity and scale, if Chi squared module have normalizer module defined
+        OutputDataNormalizerScaleAndShift *data_normalizer =  dynamic_cast<OutputDataNormalizerScaleAndShift *>((*it)->getChiSquaredModule()->getOutputDataNormalizer());
+        if( data_normalizer) {
+           data_normalizer->setMaximumIntensity(max_intensity);
+        }
+        double chi_squared = (*it)->calculateChiSquared();
+        chi_sum += chi_squared;
+        std::cout << " chi " << chi_squared << " chi_sum:" << chi_sum << std::endl;
+    }
+    return chi_sum;
 }
 
 

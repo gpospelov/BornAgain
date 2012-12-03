@@ -51,10 +51,11 @@ private:
     protected:
         //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
         virtual void init_parameters();
-        double m_particle_probability;
+        double m_particle_probability1;
         double m_particle_radius1;
         double m_dispersion_radius1;
         double m_height_aspect_ratio1;
+        double m_particle_probability2;
         double m_particle_radius2;
         double m_dispersion_radius2;
         double m_height_aspect_ratio2;
@@ -125,8 +126,8 @@ private:
     //! convert isgisaxs 1d scan to output data 2d object
     OutputData<double> *convert_isgi_scan(std::vector<IsgiData > &isgi_data);
 
-    //! run test fit
-    void run_test_fit();
+    //! run test minimizer to check whole chain
+    void run_test_minimizer();
 
     void print_axes(DataSet &data);
 

@@ -58,6 +58,7 @@ public:
 
     //! get data normalizer
     virtual const IOutputDataNormalizer *getOutputDataNormalizer() const {return mp_data_normalizer; }
+    virtual IOutputDataNormalizer *getOutputDataNormalizer() {return mp_data_normalizer; }
     //! set data normalizer
     virtual void setOutputDataNormalizer(const IOutputDataNormalizer &data_normalizer);
 
@@ -68,6 +69,9 @@ public:
 
     //! return last calculated chi squared value
     virtual double getValue() const { return m_chi2_value; }
+
+    //! set number of free parameters
+    virtual void setNfreeParameters(int nfree_parameters) { m_nfree_parameters = nfree_parameters; }
 
 protected:
     // disabling assignment operator
@@ -81,6 +85,7 @@ protected:
     IFittingDataSelector *mp_data_selector;
     IOutputDataNormalizer *mp_data_normalizer;
     IIntensityFunction  *mp_intensity_function;
+    int m_nfree_parameters;
 
     double m_chi2_value;
 };

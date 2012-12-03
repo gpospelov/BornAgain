@@ -121,6 +121,12 @@ void FitSuite::runFit()
     // linking fit parameters with parameters defined in the experiment
     link_fit_parameters();
 
+    // FIXME (find better place) propagating number of free parameters
+    for(size_t i=0; i<m_fit_objects.size();  ++i) {
+        m_fit_objects.getChiSquaredModule(i)->setNfreeParameters(m_fit_parameters.getNfreeParameters());
+    }
+
+
     // running minimizer
     if( m_fit_strategies.empty() ) {
         // running single minimization round

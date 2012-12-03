@@ -237,9 +237,12 @@ double GISASExperiment::getSolidAngle(size_t index) const
     } else {
         //std::cout << "GISASExperiment::getSolidAngle() -> Warning! Only one bin on phi_f axis, size of the bin will be taken from alpha_f axis" << std::endl;
     }
-    if(!dalpha) dalpha=dphi;
-    if(!dphi) dphi=dalpha;
-    return cos_alpha_f*dalpha*dphi;
+    if(!dalpha || !dphi) {
+        std::cout << "GISASExperiment::getSolidAngle() -> Warning! Not defined normalization" << std::endl;
+        return 1;
+    } else {
+        return cos_alpha_f*dalpha*dphi;
+    }
 }
 
 

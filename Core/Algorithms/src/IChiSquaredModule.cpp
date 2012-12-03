@@ -9,6 +9,7 @@ IChiSquaredModule::IChiSquaredModule()
     , mp_data_selector(0)
     , mp_data_normalizer(0)
     , mp_intensity_function(0)
+    , m_nfree_parameters(0)
     , m_chi2_value(0)
 {
     mp_squared_function = new SquaredFunctionDefault();
@@ -24,6 +25,7 @@ IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule &other)
     , mp_data_selector(0)
     , mp_data_normalizer(0)
     , mp_intensity_function(0)
+    , m_nfree_parameters(0)
     , m_chi2_value(0)
 {
     if(other.mp_real_data) mp_real_data = other.mp_real_data;
@@ -33,6 +35,7 @@ IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule &other)
     if(other.mp_data_selector) mp_data_selector = other.mp_data_selector->clone();
     if(other.mp_data_normalizer) mp_data_normalizer = other.mp_data_normalizer->clone();
     if(other.mp_intensity_function) mp_intensity_function = other.mp_intensity_function->clone();
+    m_nfree_parameters = other.m_nfree_parameters;
 }
 
 

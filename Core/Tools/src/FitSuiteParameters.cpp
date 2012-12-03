@@ -79,6 +79,18 @@ std::vector<double > FitSuiteParameters::getValues() const
 }
 
 
+size_t FitSuiteParameters::getNfreeParameters() const
+{
+    size_t n_free(0);
+    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it)
+    {
+        if( !(*it)->isFixed() ) n_free++;
+    }
+    std::cout << "XXX FitSuiteParameters::getNfreeParameters() " << n_free;
+    return n_free;
+}
+
+
 
 /* ************************************************************************* */
 // linking fit parameters with pool parameters

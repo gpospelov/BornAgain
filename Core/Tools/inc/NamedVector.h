@@ -14,11 +14,13 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
+#include "Numeric.h"
+#include "Exceptions.h"
+
 #include <string>
 #include <vector>
 #include <cmath>
 #include <algorithm>
-#include "Numeric.h"
 
 class NamedVectorBase
 {
@@ -55,6 +57,12 @@ public:
 
     //! find number of bin which is closest to given value
     size_t findClosestIndex(T value) const;
+
+    //! find the index that corresponds to the given lower bound (index is inclusive)
+    size_t getLowerBoundIndex(T value) const;
+
+    //! find the index that corresponds to the given upper bound (index is inclusive)
+    size_t getUpperBoundIndex(T value) const;
 private:
     std::vector<T> m_value_vector;
 };
@@ -121,6 +129,23 @@ template <class T> size_t NamedVector<T>::findClosestIndex(T value) const
     size_t nbin(0);
     ( *after-value) < (value - *before) ? nbin = std::distance(m_value_vector.begin(), after) : nbin = std::distance(m_value_vector.begin(), before);
     return nbin;
+}
+
+template<class T> size_t NamedVector<T>::getLowerBoundIndex(T value) const
+{
+    if(m_value_vector.size()<2) return 0;
+    typename std::vector<T >::const_iterator lbound_it = std::lower_bound(m_value_vector.begin(), m_value_vector.end(), value);
+    if(lbound_it == m_value_vector.end() ) {
+        throw RuntimeErrorException("Given lower bound higher than highest present value");
+    }
+    return lbound_it - m_value_vector.begin();
+}
+
+template<class T> size_t NamedVector<T>::getUpperBoundIndex(T value) const
+{
+    if(m_value_vector.size()<2) return 0;
+    typename std::vector<T >::const_iterator lbound_it = std::upper_bound(m_value_vector.begin(), m_value_vector.end(), value);
+    return (lbound_it - m_value_vector.begin()) - 1;
 }
 
 // global helper function for comparison of named vector shape

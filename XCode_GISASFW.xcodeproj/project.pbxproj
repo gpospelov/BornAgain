@@ -1041,7 +1041,6 @@
 		622245E6160CB74C008205AC /* git_loc_history.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = git_loc_history.py; sourceTree = "<group>"; };
 		622245E7160CB74C008205AC /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		622245E8160CB74C008205AC /* shared.pri */ = {isa = PBXFileReference; lastKnownFileType = text; path = shared.pri; sourceTree = "<group>"; };
-		62224793160CB74C008205AC /* NamedVectorTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NamedVectorTest.h; sourceTree = "<group>"; };
 		62224794160CB74C008205AC /* OutputDataTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputDataTest.h; sourceTree = "<group>"; };
 		62224797160CB74C008205AC /* TestCore.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestCore.pro; sourceTree = "<group>"; };
 		62224798160CB74C008205AC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -1139,6 +1138,13 @@
 		62CC09A31665055E00A5B720 /* TestIsGISAXS12.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS12.cpp; sourceTree = "<group>"; };
 		62D7A934166E3F81009A45CE /* AxisDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisDouble.h; sourceTree = "<group>"; };
 		62D7A935166E3F8D009A45CE /* AxisDouble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisDouble.cpp; sourceTree = "<group>"; };
+		62D7A937166E561E009A45CE /* AxisDoubleTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisDoubleTest.h; sourceTree = "<group>"; };
+		62D7A938166E561E009A45CE /* BeamTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeamTest.h; sourceTree = "<group>"; };
+		62D7A939166E561E009A45CE /* DetectorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectorTest.h; sourceTree = "<group>"; };
+		62D7A93A166E561E009A45CE /* ExperimentTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperimentTest.h; sourceTree = "<group>"; };
+		62D7A93B166E561E009A45CE /* GISASExperimentTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GISASExperimentTest.h; sourceTree = "<group>"; };
+		62D7A93C166E561E009A45CE /* MaskTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskTest.h; sourceTree = "<group>"; };
+		62D7A93D166E561E009A45CE /* OutputDataIteratorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputDataIteratorTest.h; sourceTree = "<group>"; };
 		62EA736B1628421000656B41 /* FitSuite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FitSuite.h; sourceTree = "<group>"; };
 		62EA736C1628421000656B41 /* IMinimizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMinimizer.h; sourceTree = "<group>"; };
 		62EA736D1628421000656B41 /* IObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IObserver.h; sourceTree = "<group>"; };
@@ -68322,7 +68328,13 @@
 		6222478F160CB74C008205AC /* TestCore */ = {
 			isa = PBXGroup;
 			children = (
-				62224793160CB74C008205AC /* NamedVectorTest.h */,
+				62D7A937166E561E009A45CE /* AxisDoubleTest.h */,
+				62D7A938166E561E009A45CE /* BeamTest.h */,
+				62D7A939166E561E009A45CE /* DetectorTest.h */,
+				62D7A93A166E561E009A45CE /* ExperimentTest.h */,
+				62D7A93B166E561E009A45CE /* GISASExperimentTest.h */,
+				62D7A93C166E561E009A45CE /* MaskTest.h */,
+				62D7A93D166E561E009A45CE /* OutputDataIteratorTest.h */,
 				62224794160CB74C008205AC /* OutputDataTest.h */,
 				62224797160CB74C008205AC /* TestCore.pro */,
 				62224798160CB74C008205AC /* main.cpp */,

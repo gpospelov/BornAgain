@@ -5,7 +5,7 @@
 #include "ExperimentTest.h"
 #include "GISASExperimentTest.h"
 #include "MaskTest.h"
-#include "NamedVectorTest.h"
+#include "AxisDoubleTest.h"
 #include "OutputDataTest.h"
 #include "OutputDataIteratorTest.h"
 

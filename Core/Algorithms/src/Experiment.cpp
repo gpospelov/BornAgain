@@ -159,7 +159,7 @@ void Experiment::updateIntensityMapAxes()
     m_intensity_map.clear();
     size_t detector_dimension = m_detector.getDimension();
     for (size_t dim=0; dim<detector_dimension; ++dim) {
-        m_intensity_map.addAxis(new NamedVector<double>(m_detector.getAxis(dim)));
+        m_intensity_map.addAxis(new AxisDouble(m_detector.getAxis(dim)));
     }
     m_intensity_map.setAllTo(0.0);
 }
@@ -184,7 +184,7 @@ void Experiment::setDetectorParameters(const OutputData<double > &output_data)
 //    std::cout << "Experiment::setDetectorParameters() -> Info. Adjusting detector to have shape as in given output data" << std::endl;
     m_detector.clear();
     for(size_t i_axis=0; i_axis<output_data.getNdimensions(); ++i_axis) {
-        const NamedVector<double> *axis = reinterpret_cast<const NamedVector<double>*>(output_data.getAxes()[i_axis]);
+        const AxisDouble *axis = output_data.getAxes()[i_axis];
         m_detector.addAxis(*axis);
     }
     updateIntensityMapAxes();

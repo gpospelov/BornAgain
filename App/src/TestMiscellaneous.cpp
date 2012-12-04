@@ -300,7 +300,7 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
 
     OpticalFresnel fresnelCalculator;
 
-    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(data_alpha->getAxis("alpha_f"));
+    const AxisDouble *p_alpha_axis = data_alpha->getAxis("alpha_f");
     std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
         double angle = (*p_alpha_axis)[i];

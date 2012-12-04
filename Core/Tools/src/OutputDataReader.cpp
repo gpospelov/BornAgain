@@ -91,9 +91,9 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
     }
 
     // creating output data
-    NamedVector<double> *xaxis = new NamedVector<double>("x-axis");
+    AxisDouble *xaxis = new AxisDouble("x-axis");
     for(size_t i=0; i<buff_xaxis.size(); ++i) xaxis->push_back(buff_xaxis[i]);
-    NamedVector<double> *yaxis = new NamedVector<double>("y-axis");
+    AxisDouble *yaxis = new AxisDouble("y-axis");
     for(size_t i=0; i<buff_yaxis.size(); ++i) yaxis->push_back(buff_yaxis[i]);
 
     OutputData<double > *p_result = new OutputData<double>;

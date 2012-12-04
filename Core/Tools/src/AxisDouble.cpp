@@ -1,5 +1,8 @@
 #include "AxisDouble.h"
+#include "Numeric.h"
 #include "Exceptions.h"
+
+#include <cmath>
 
 AxisDouble::AxisDouble(std::string name)
 : m_name(name)
@@ -76,4 +79,12 @@ size_t AxisDouble::getUpperBoundIndex(double value) const
     if(m_value_vector.size()<2) return 0;
     std::vector<double>::const_iterator lbound_it = std::upper_bound(m_value_vector.begin(), m_value_vector.end(), value);
     return (lbound_it - m_value_vector.begin()) - 1;
+}
+
+bool HaveSameNameAndShape(const AxisDouble& left, const AxisDouble& right)
+{
+    if(left.getSize() != right.getSize()) return false;
+    if(left.getName() != right.getName()) return false;
+    for(size_t i=0; i<left.getSize(); ++i) if( std::abs(left[i] - right[i]) > Numeric::double_epsilon)  return false;
+    return true;
 }

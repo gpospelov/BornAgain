@@ -18,7 +18,6 @@
 #include "AttLimits.h"
 #include "OutputDataFunctions.h"
 #include "TLine.h"
-#include "NamedVector.h"
 
 #include "IObserver.h"
 #include "FitSuite.h"

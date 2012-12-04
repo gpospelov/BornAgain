@@ -23,7 +23,7 @@ OutputData<double> *OutputDataFunctions::doubleBinSize(const OutputData<double> 
     // create new axes
     for (size_t i=0; i<dimension; ++i) {
         needs_resizing.push_back(source_sizes[i] > 1);
-        const NamedVector<double> *source_axis = dynamic_cast<const NamedVector<double> *>(source.getAxis(i));
+        const AxisDouble *source_axis = source.getAxis(i);
         p_result->addAxis(source_axis->createDoubleBinSize());
     }
     // calculate new data content
@@ -208,10 +208,10 @@ OutputData<double> *OutputDataFunctions::sliceAccrossOneAxis(const OutputData<do
 
     OutputData<double > *sliced_data = new OutputData<double >;
 
-    const NamedVector<double> *fixed_axis(0);
+    const AxisDouble *fixed_axis(0);
     int fixed_axis_index(-1);
     for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
-        const NamedVector<double> *axis = dynamic_cast<const NamedVector<double>*>(data.getAxes()[i_axis]);
+        const AxisDouble *axis = data.getAxes()[i_axis];
         if( axis->getName() != fixed_axis_name ) {
             sliced_data->addAxis(axis->clone());
         } else {
@@ -250,7 +250,7 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
         throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! It was checked only with number of dimensions equal 2.");
     }
 
-    const NamedVector<double> *selected_axis = dynamic_cast<const NamedVector<double> *>(data.getAxis(selected_axis_name));
+    const AxisDouble *selected_axis = data.getAxis(selected_axis_name);
     if( !selected_axis ) {
         throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! No axis with name "+selected_axis_name);
     }
@@ -268,12 +268,12 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
     // preparing new data with modified axes
     OutputData<double > *new_data = new OutputData<double >;
     for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
-        const NamedVector<double> *axis = dynamic_cast<const NamedVector<double>*>(data.getAxes()[i_axis]);
+        const AxisDouble *axis = data.getAxes()[i_axis];
         if( !axis) throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! Can't cast axis");
         if( axis->getName() != selected_axis_name ) {
             new_data->addAxis(axis->clone());
         } else {
-            new_data->addAxis(new NamedVector<double>(selected_axis->getName(), x1, x2, nbin2-nbin1+1));
+            new_data->addAxis(new AxisDouble(selected_axis->getName(), x1, x2, nbin2-nbin1+1));
         }
     }
     new_data->setAllTo(0.0);
@@ -342,7 +342,7 @@ Mask* OutputDataFunctions::CreateRectangularMask(const OutputData<double>& data,
     int *maxima_i = new int[rank];
     int *dims_i = new int[rank];
     for (size_t i=0; i<rank; ++i) {
-        const NamedVector<double> *p_axis = dynamic_cast<const NamedVector<double> *>(data.getAxis(i));
+        const AxisDouble *p_axis = data.getAxis(i);
         minima_i[i] = (int)p_axis->getLowerBoundIndex(minima[i]);
         maxima_i[i] = (int)p_axis->getUpperBoundIndex(maxima[i]);
         dims_i[i] = (int)p_axis->getSize();
@@ -365,7 +365,7 @@ Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double>& data,
     int *radii_i = new int[rank];
     int *dims_i = new int[rank];
     for (size_t i=0; i<rank; ++i) {
-        const NamedVector<double> *p_axis = dynamic_cast<const NamedVector<double> *>(data.getAxis(i));
+        const AxisDouble *p_axis = data.getAxis(i);
         center_i[i] = (int)p_axis->getLowerBoundIndex(center[i]);
         int lower_index = (int)p_axis->getLowerBoundIndex((*p_axis)[center_i[i]] - radii[i]);
         radii_i[i] = center_i[i] - lower_index;

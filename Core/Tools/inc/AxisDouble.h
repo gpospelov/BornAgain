@@ -26,6 +26,7 @@ class AxisDouble
 public:
     //! constructors
     AxisDouble(std::string name);
+    // TODO: change the order from (xmin, xmax, nbin) to (nbin, xmin, xmax)
     AxisDouble(std::string name, double start, double end, size_t size);
 
     //! clone function
@@ -76,5 +77,10 @@ private:
     std::string m_name;  //!< axis label
     std::vector<double> m_value_vector;  //!< vector containing the axis points
 };
+
+//! global helper function for comparison of axes
+bool HaveSameNameAndShape(const AxisDouble &left, const AxisDouble &right);
+
+
 
 #endif /* AXISDOUBLE_H_ */

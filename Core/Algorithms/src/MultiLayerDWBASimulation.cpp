@@ -60,7 +60,7 @@ void MultiLayerDWBASimulation::run()
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
 
     m_dwba_intensity.setAllTo(0.0);
-    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(getDWBAIntensity().getAxis("alpha_f"));
+    const AxisDouble *p_alpha_axis = getDWBAIntensity().getAxis("alpha_f");
     double lambda = 2.0*M_PI/m_ki_real.mag();
 
     typedef std::pair<double, OpticalFresnel::MultiLayerCoeff_t > doublefresnel_t;

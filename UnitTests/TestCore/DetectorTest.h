@@ -27,8 +27,8 @@ protected:
 DetectorTest::DetectorTest()
 {
     originalDetector = new Detector();
-    NamedVector<double > axis0("axis0", 0.0, 10.0, 10);
-    NamedVector<double > axis1("axis1", 0.0, 20.0, 20);
+    AxisDouble axis0("axis0", 0.0, 10.0, 10);
+    AxisDouble axis1("axis1", 0.0, 20.0, 20);
     originalDetector->addAxis(axis0);
     originalDetector->addAxis(axis1);
     originalDetector->setDetectorResolution(new ConvolutionDetectorResolution( new ResolutionFunction2DSimple(1,1)));
@@ -53,13 +53,13 @@ TEST_F(DetectorTest, InitialDetectorState)
 TEST_F(DetectorTest, DetectorConstruction)
 {
     // pushing two axes
-    NamedVector<double > axis0("axis0", 0.0, 10.0, 10);
-    NamedVector<double > axis1("axis1", 0.0, 20.0, 20);
+    AxisDouble axis0("axis0", 0.0, 10.0, 10);
+    AxisDouble axis1("axis1", 0.0, 20.0, 20);
     constructedDetector.addAxis(axis0);
     constructedDetector.addAxis(axis1);
     EXPECT_EQ((size_t)2, constructedDetector.getDimension());
-    NamedVector<double> axis0copy = constructedDetector.getAxis(0);
-    NamedVector<double> axis1copy = constructedDetector.getAxis(1);
+    AxisDouble axis0copy = constructedDetector.getAxis(0);
+    AxisDouble axis1copy = constructedDetector.getAxis(1);
     ASSERT_TRUE(axis0.getMin() == axis0copy.getMin() );
     ASSERT_TRUE(axis0.getMax() == axis0copy.getMax() );
     ASSERT_TRUE(axis0.getName() == axis0copy.getName() );

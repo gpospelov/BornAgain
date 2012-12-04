@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
-#include "NamedVector.h"
+#include "AxisDouble.h"
 #include "Exceptions.h"
 #include "Types.h"
 #include "LLData.h"
@@ -38,12 +38,12 @@ public:
 
     void copyFrom(const OutputData<T> &x);
 
-    void addAxis(NamedVectorBase* p_new_axis);
-    template <class U> void addAxis(std::string name, U start, U end, size_t size);
-    std::vector<NamedVectorBase*> getAxes() const { return m_value_axes; }
+    void addAxis(AxisDouble* p_new_axis);
+    void addAxis(std::string name, double start, double end, size_t size);
+    std::vector<AxisDouble*> getAxes() const { return m_value_axes; }
 
-    const NamedVectorBase *getAxis(std::string label) const;
-    const NamedVectorBase *getAxis(size_t index) const;
+    const AxisDouble *getAxis(std::string label) const;
+    const AxisDouble *getAxis(size_t index) const;
     size_t getAxisIndex(const std::string &label) const;
 
     // ---------------------------------
@@ -197,7 +197,7 @@ private:
     //! memory allocation for current dimensions configuration
     void allocate();
 
-    std::vector<NamedVectorBase*> m_value_axes;
+    std::vector<AxisDouble*> m_value_axes;
     LLData<T> *mp_ll_data;
     Mask *mp_mask;
 };
@@ -254,9 +254,9 @@ template <class T> void OutputData<T>::copyFrom(const OutputData<T> &other)
 
 
 
-template <class T> void OutputData<T>::addAxis(NamedVectorBase* p_new_axis)
+template <class T> void OutputData<T>::addAxis(AxisDouble* p_new_axis)
 {
-    if( getAxis(p_new_axis->getName()) ) throw LogicErrorException("OutputData<T>::addAxis(NamedVectorBase *) -> Error! Attempt to add axis with already existing name '"+p_new_axis->getName()+std::string("'"));
+    if( getAxis(p_new_axis->getName()) ) throw LogicErrorException("OutputData<T>::addAxis(AxisDouble *) -> Error! Attempt to add axis with already existing name '"+p_new_axis->getName()+std::string("'"));
     if (p_new_axis->getSize()>0)
     {
         m_value_axes.push_back(p_new_axis);
@@ -265,18 +265,18 @@ template <class T> void OutputData<T>::addAxis(NamedVectorBase* p_new_axis)
 }
 
 template <class T>
-template <class U> void OutputData<T>::addAxis(std::string name, U start, U end, size_t size)
+void OutputData<T>::addAxis(std::string name, double start, double end, size_t size)
 {
     if( getAxis(name) ) throw LogicErrorException("OutputData<T>::addAxis(std::string name) -> Error! Attempt to add axis with already existing name '"+name+std::string("'"));
-    NamedVector<U> *p_new_axis = new NamedVector<U>(name, start, end, size);
+    AxisDouble *p_new_axis = new AxisDouble(name, start, end, size);
     addAxis(p_new_axis);
 }
 
 
 
-template <class T> const NamedVectorBase *OutputData<T>::getAxis(std::string label) const
+template <class T> const AxisDouble *OutputData<T>::getAxis(std::string label) const
 {
-    for (std::vector<NamedVectorBase*>::const_iterator it = m_value_axes.begin(); it != m_value_axes.end(); ++it)
+    for (std::vector<AxisDouble*>::const_iterator it = m_value_axes.begin(); it != m_value_axes.end(); ++it)
     {
         if ((*it)->getName() == label)
         {
@@ -290,7 +290,7 @@ template <class T> const NamedVectorBase *OutputData<T>::getAxis(std::string lab
 template <class T> size_t OutputData<T>::getAxisIndex(const std::string &label) const
 {
     size_t index(0);
-    for (std::vector<NamedVectorBase*>::const_iterator it = m_value_axes.begin(); it != m_value_axes.end(); ++it, ++index)
+    for (std::vector<AxisDouble*>::const_iterator it = m_value_axes.begin(); it != m_value_axes.end(); ++it, ++index)
     {
         if ((*it)->getName() == label) return index;
     }
@@ -299,7 +299,7 @@ template <class T> size_t OutputData<T>::getAxisIndex(const std::string &label) 
 
 
 
-template <class T> const NamedVectorBase *OutputData<T>::getAxis(size_t index) const
+template <class T> const AxisDouble *OutputData<T>::getAxis(size_t index) const
 {
     return m_value_axes.at(index);
 }
@@ -408,7 +408,7 @@ template <class T> size_t OutputData<T>::toIndex(std::vector<int> coordinates) c
 template <class T> size_t OutputData<T>::getIndexOfAxis(std::string axis_name, size_t total_index) const
 {
     std::vector<int> coordinates = toCoordinates(total_index);
-    const NamedVectorBase *p_axis;
+    const AxisDouble *p_axis;
     for (size_t i=0; i<m_value_axes.size(); ++i) {
         p_axis = m_value_axes[i];
         if (p_axis->getName() == axis_name) {
@@ -423,20 +423,14 @@ template <class T>
 template<class U> U OutputData<T>::getValueOfAxis(std::string axis_name, size_t index) const
 {
     std::vector<int> coordinates = toCoordinates(index);
-    const NamedVectorBase *p_axis;
-    const NamedVector<U> *p_derived = 0;
-    size_t axis_index = 0;
+    const AxisDouble *p_axis;
     for (size_t i=0; i<m_value_axes.size(); ++i) {
         p_axis = m_value_axes[i];
         if (p_axis->getName() == axis_name) {
-            p_derived = dynamic_cast<const NamedVector<U>*>(getAxis(axis_name));
-            axis_index = i;
+            return (*p_axis)[coordinates[i]];
         }
     }
-    if (p_derived == 0) {
-        throw LogicErrorException("OutputData<T>::getValueOfAxis() -> Error! Axis with given name not found '"+axis_name+std::string("'"));
-    }
-    return (*p_derived)[coordinates[axis_index]];
+    throw LogicErrorException("OutputData<T>::getValueOfAxis() -> Error! Axis with given name not found '"+axis_name+std::string("'"));
 }
 
 template<class T>
@@ -552,8 +546,8 @@ bool OutputData<T>::hasSameShape(const OutputData<T> &right) const
         throw LogicErrorException("OutputData<T>::hasSameShape() -> Panic! Inconsistent dimensions in LLData and axes");
     }
     for (size_t i=0; i<m_value_axes.size(); ++i) {
-        const NamedVector<double > *axis_left = dynamic_cast<const NamedVector<double> *>(m_value_axes[i]);
-        const NamedVector<double > *axis_right = dynamic_cast<const NamedVector<double> *>(right.m_value_axes[i]);
+        const AxisDouble *axis_left = m_value_axes[i];
+        const AxisDouble *axis_right = right.m_value_axes[i];
 
         if(!axis_left || !axis_right ) return false;
         if( !HaveSameNameAndShape(*axis_left, *axis_right)) return false;

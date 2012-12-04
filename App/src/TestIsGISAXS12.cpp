@@ -23,7 +23,6 @@
 #include "MathFunctions.h"
 #include "ROOTMinimizer.h"
 #include "OutputDataFunctions.h"
-#include "NamedVector.h"
 
 #include <iostream>
 #include <fstream>
@@ -292,8 +291,8 @@ void TestIsGISAXS12::plot_isgisaxs_data()
 
     // making 2d OutputData with axes like in two isgisaxs scans
     OutputData<double > *data_as_isgisaxs = new OutputData<double>;
-    const NamedVector<double > *axis_phif_scan = dynamic_cast<const NamedVector<double> *>(m_isgi_scans[kFixedAlphaf]->getAxis("phi_f"));
-    const NamedVector<double > *axis_alphaf_scan = dynamic_cast<const NamedVector<double> *>(m_isgi_scans[kFixedPhif]->getAxis("alpha_f"));
+    const AxisDouble *axis_phif_scan = m_isgi_scans[kFixedAlphaf]->getAxis("phi_f");
+    const AxisDouble *axis_alphaf_scan = m_isgi_scans[kFixedPhif]->getAxis("alpha_f");
     if( !axis_phif_scan || !axis_phif_scan ) throw NullPointerException("TestIsGISAXS12::plot_isgisaxs_data() -> Error. Can'get get axis");
     data_as_isgisaxs->addAxis(axis_phif_scan->clone());
     data_as_isgisaxs->addAxis(axis_alphaf_scan->clone());
@@ -445,8 +444,8 @@ OutputData<double> *TestIsGISAXS12::convert_isgi_scan(std::vector<IsgiData > &is
         throw LogicErrorException("TestIsGISAXS12::convert_isgi_scan() -> Error! Scan can't have both angle phif,alphaf fixed");
     }
 
-    NamedVector<double> *phi_axis = new NamedVector<double>("phi_f");
-    NamedVector<double> *alpha_axis = new NamedVector<double>("alpha_f");
+    AxisDouble *phi_axis = new AxisDouble("phi_f");
+    AxisDouble *alpha_axis = new AxisDouble("alpha_f");
     if( fixed_phif) {
         m_isgi_fixed_phif = isgi_data.back().phif;
         phi_axis->push_back(isgi_data.back().phif);

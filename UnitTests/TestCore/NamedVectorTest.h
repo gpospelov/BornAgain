@@ -1,72 +1,72 @@
-#ifndef NAMEDVECTORTEST_H
-#define NAMEDVECTORTEST_H
+#ifndef AXISDOUBLETEST_H
+#define AXISDOUBLETEST_H
 
-#include "NamedVector.h"
+#include "AxisDouble.h"
 
 #include "gtest/gtest.h"
 
-class NamedVectorTest : public ::testing::Test
+class AxisDoubleTest : public ::testing::Test
 {
 protected:
-    NamedVectorTest();
+    AxisDoubleTest();
 
-    NamedVector<float> floatAngleVector;
-    NamedVector<double> doubleLengthVector;
+    AxisDouble angleAxis;
+    AxisDouble lengthAxis;
 
 };
 
-NamedVectorTest::NamedVectorTest()
-    : floatAngleVector("angle")
-    , doubleLengthVector("length", 0.0, 9.9, 100)
+AxisDoubleTest::AxisDoubleTest()
+: angleAxis("angle")
+, lengthAxis("length", 0.0, 9.9, 100)
 {
 }
 
-TEST_F(NamedVectorTest, DefaultIsEmpty)
+TEST_F(AxisDoubleTest, DefaultIsEmpty)
 {
-    EXPECT_EQ((size_t)0, floatAngleVector.getSize());
+    EXPECT_EQ((size_t)0, angleAxis.getSize());
 }
 
-TEST_F(NamedVectorTest, AddElementsToEmpty)
+TEST_F(AxisDoubleTest, AddElementsToEmpty)
 {
-    floatAngleVector.push_back(1.0f);
-    ASSERT_EQ((size_t)1, floatAngleVector.getSize());
-    EXPECT_FLOAT_EQ(1.0f, floatAngleVector[0]);
+    angleAxis.push_back(1.0f);
+    ASSERT_EQ((size_t)1, angleAxis.getSize());
+    EXPECT_FLOAT_EQ(1.0f, angleAxis[0]);
 }
 
-TEST_F(NamedVectorTest, ExtendedConstructor)
+TEST_F(AxisDoubleTest, ExtendedConstructor)
 {
-    ASSERT_EQ((size_t)100, doubleLengthVector.getSize());
-    EXPECT_DOUBLE_EQ(0.0, doubleLengthVector[0]);
-    EXPECT_DOUBLE_EQ(0.1, doubleLengthVector[1]);
-    EXPECT_DOUBLE_EQ(6.5, doubleLengthVector[65]);
-    EXPECT_DOUBLE_EQ(9.9, doubleLengthVector[99]);
+    ASSERT_EQ((size_t)100, lengthAxis.getSize());
+    EXPECT_DOUBLE_EQ(0.0, lengthAxis[0]);
+    EXPECT_DOUBLE_EQ(0.1, lengthAxis[1]);
+    EXPECT_DOUBLE_EQ(6.5, lengthAxis[65]);
+    EXPECT_DOUBLE_EQ(9.9, lengthAxis[99]);
 }
 
-TEST_F(NamedVectorTest, VectorOfUnitLength)
+TEST_F(AxisDoubleTest, VectorOfUnitLength)
 {
-    NamedVector<double> vec("name", 1.0, 2.0, 1);
+    AxisDouble vec("name", 1.0, 2.0, 1);
     EXPECT_EQ((size_t)1, vec.getSize());
     EXPECT_EQ(double(1), vec.getMin());
     EXPECT_EQ(double(1), vec.getMax());
 }
 
 
-TEST_F(NamedVectorTest, FindClosestIndex)
+TEST_F(AxisDoubleTest, FindClosestIndex)
 {
-    NamedVector<double> vec_size1("name", 2.0, 4.0, 1);
+    AxisDouble vec_size1("name", 2.0, 4.0, 1);
     EXPECT_EQ( size_t(1), vec_size1.getSize());
     EXPECT_EQ( size_t(0), vec_size1.findClosestIndex(1.0));
     EXPECT_EQ( size_t(0), vec_size1.findClosestIndex(3.0));
     EXPECT_EQ( size_t(0), vec_size1.findClosestIndex(5.0));
 
-    NamedVector<double> vec_size2("name", 2.0, 4.0, 2);
+    AxisDouble vec_size2("name", 2.0, 4.0, 2);
     EXPECT_EQ( size_t(2), vec_size2.getSize() );
     EXPECT_EQ( size_t(0), vec_size2.findClosestIndex(1.0));
     EXPECT_EQ( size_t(0), vec_size2.findClosestIndex(2.9));
     EXPECT_EQ( size_t(1), vec_size2.findClosestIndex(3.1));
     EXPECT_EQ( size_t(1), vec_size2.findClosestIndex(4.1));
 
-    NamedVector<double> vec_size11("name", 0.0, 10.0, 11);
+    AxisDouble vec_size11("name", 0.0, 10.0, 11);
     EXPECT_EQ( size_t(11), vec_size11.getSize());
     EXPECT_DOUBLE_EQ(double(0), vec_size11[0]);
     EXPECT_DOUBLE_EQ(double(10), vec_size11[10]);
@@ -81,4 +81,4 @@ TEST_F(NamedVectorTest, FindClosestIndex)
 
 
 
-#endif // NAMEDVECTORTEST_H
+#endif // AXISDOUBLETEST_H

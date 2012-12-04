@@ -40,7 +40,6 @@ template <class T> class NamedVector : public NamedVectorBase
 {
 public:
     NamedVector(std::string name) : NamedVectorBase(name) {}
-    // TODO: remove templates from NamedVector constructor to protect from occasional creation of axes of that kine (0,10,10) instead of (0.,10.,10)
     // TODO: change the order from (xmin, xmax, nbin) to (nbin, xmin, xmax)
     NamedVector(std::string name, T start, T end, size_t size);
     NamedVector<T> *createDoubleBinSize() const;

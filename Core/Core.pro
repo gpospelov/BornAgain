@@ -88,6 +88,7 @@ SOURCES += \
     Samples/src/ParticleDecoration.cpp \
     Samples/src/ParticleInfo.cpp \
     \
+    Tools/src/Axisdouble.cpp \
     Tools/src/Convolve.cpp \
     Tools/src/CoreOptionsDescription.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
@@ -223,6 +224,7 @@ HEADERS += \
     Samples/inc/ParticleInfo.h \
     \
     Tools/inc/AttLimits.h \
+    Tools/inc/Axisdouble.h \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \

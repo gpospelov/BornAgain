@@ -86,7 +86,6 @@ size_t FitSuiteParameters::getNfreeParameters() const
     {
         if( !(*it)->isFixed() ) n_free++;
     }
-    std::cout << "XXX FitSuiteParameters::getNfreeParameters() " << n_free;
     return n_free;
 }
 

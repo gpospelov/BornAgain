@@ -121,12 +121,6 @@ void FitSuite::runFit()
     // linking fit parameters with parameters defined in the experiment
     link_fit_parameters();
 
-    // FIXME (find better place) propagating number of free parameters
-    for(size_t i=0; i<m_fit_objects.size();  ++i) {
-        m_fit_objects.getChiSquaredModule(i)->setNfreeParameters(m_fit_parameters.getNfreeParameters());
-    }
-
-
     // running minimizer
     if( m_fit_strategies.empty() ) {
         // running single minimization round
@@ -161,7 +155,7 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
     m_fit_objects.runSimulation();
 
     // caclulate chi2 value
-    double chi_squared = m_fit_objects.getChiSquaredValue();
+    double chi_squared = m_fit_objects.getChiSquaredValue(m_fit_parameters.getNfreeParameters());
 
     notifyObservers();
     m_n_call++;

@@ -129,6 +129,9 @@ private:
     //! run test minimizer to check whole chain
     void run_test_minimizer();
 
+    //! run chi module test on isgisaxs data/result pair to check module numericaly
+    void run_test_chimodule();
+
     void print_axes(DataSet &data);
 
 

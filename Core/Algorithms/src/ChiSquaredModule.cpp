@@ -23,8 +23,6 @@ double ChiSquaredModule::calculateChiSquared()
     if( !mp_real_data ) throw NullPointerException("ChiSquaredModule::calculateChiSquared() -> Error! No real data has been set");
     if( !mp_simulation_data ) throw NullPointerException("ChiSquaredModule::calculateChiSquared() -> Error! No simulated data has been set");
 
-    double result = 0.0;
-    size_t data_size = mp_real_data->getAllocatedSize() - m_nfree_parameters;
     initWeights();
 
     if(mp_data_normalizer) {
@@ -41,17 +39,24 @@ double ChiSquaredModule::calculateChiSquared()
     OutputData<double> *p_difference = createChi2DifferenceMap();
     OutputData<double>::const_iterator it_weights = mp_weights->begin();
     OutputData<double>::const_iterator it_diff = p_difference->begin();
+    double result(0);
     while(it_diff != p_difference->end()) {
         result += (*it_diff++)*(*it_weights++);
     }
     delete p_difference;
-    m_chi2_value = result/(double)data_size;
+
+    double fnorm(0);
+    m_ndegree_of_freedom > 0 ? fnorm=double(m_ndegree_of_freedom) : fnorm = double(mp_real_data->getAllocatedSize());
+    m_chi2_value = result/fnorm;
     return m_chi2_value;
 }
 
 
 OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
 {
+    if( !mp_real_data ) throw NullPointerException("ChiSquaredModule::calculateChiSquared() -> Error! No real data has been set");
+    if( !mp_simulation_data ) throw NullPointerException("ChiSquaredModule::calculateChiSquared() -> Error! No simulated data has been set");
+
     OutputData<double > *p_difference = mp_simulation_data->clone();
     p_difference->setAllTo(0.0);
 

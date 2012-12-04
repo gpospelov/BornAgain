@@ -70,8 +70,8 @@ public:
     //! return last calculated chi squared value
     virtual double getValue() const { return m_chi2_value; }
 
-    //! set number of free parameters
-    virtual void setNfreeParameters(int nfree_parameters) { m_nfree_parameters = nfree_parameters; }
+    //! set number of degree of freedom
+    void setNdegreeOfFreedom(int ndegree_of_freedom) { m_ndegree_of_freedom = ndegree_of_freedom; }
 
 protected:
     // disabling assignment operator
@@ -85,7 +85,7 @@ protected:
     IFittingDataSelector *mp_data_selector;
     IOutputDataNormalizer *mp_data_normalizer;
     IIntensityFunction  *mp_intensity_function;
-    int m_nfree_parameters;
+    int m_ndegree_of_freedom;
 
     double m_chi2_value;
 };

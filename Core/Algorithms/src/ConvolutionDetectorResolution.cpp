@@ -60,13 +60,12 @@ void ConvolutionDetectorResolution::applyDetectorResolution(
     if (p_intensity_map->getRank() != m_dimension) {
         throw RuntimeErrorException("ConvolutionDetectorResolution::applyDetectorResolution() -> Error! Intensity map must have same dimension as detector resolution function.");
     }
-    std::vector<AxisDouble*> axes = p_intensity_map->getAxes();
     switch (m_dimension) {
     case 1:
-        apply1dConvolution(axes, p_intensity_map);
+        apply1dConvolution(p_intensity_map);
         break;
     case 2:
-        apply2dConvolution(axes, p_intensity_map);
+        apply2dConvolution(p_intensity_map);
         break;
     default:
         throw LogicErrorException("ConvolutionDetectorResolution::applyDetectorResolution() -> Error! Class ConvolutionDetectorResolution must be initialized with dimension 1 or 2.");
@@ -91,16 +90,15 @@ void ConvolutionDetectorResolution::init_parameters()
 {
 }
 
-void ConvolutionDetectorResolution::apply1dConvolution(
-        const std::vector<AxisDouble*> &axes, OutputData<double>* p_intensity_map) const
+void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_intensity_map) const
 {
     if (m_res_function_1d==0) {
         throw LogicErrorException("ConvolutionDetectorResolution::apply1dConvolution() -> Error! No 1d resolution function present for convolution of 1d data.");
     }
-    if (axes.size() != 1) {
+    if (p_intensity_map->getRank() != 1) {
         throw LogicErrorException("ConvolutionDetectorResolution::apply1dConvolution() -> Error! Number of axes for intensity map does not correspond to the dimension of the map.");
     }
-    AxisDouble *p_axis = axes[0];
+    const AxisDouble *p_axis = p_intensity_map->getAxis(0);
     // Construct source vector from original intensity map
     std::vector<double> source_vector = p_intensity_map->getRawDataVector();
     size_t data_size = source_vector.size();
@@ -125,18 +123,16 @@ void ConvolutionDetectorResolution::apply1dConvolution(
     p_intensity_map->setRawDataVector(result);
 }
 
-void ConvolutionDetectorResolution::apply2dConvolution(
-        const std::vector<AxisDouble*> &axes,
-        OutputData<double>* p_intensity_map) const
+void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_intensity_map) const
 {
     if (mp_res_function_2d==0) {
         throw LogicErrorException("ConvolutionDetectorResolution::apply2dConvolution() -> Error! No 2d resolution function present for convolution of 2d data.");
     }
-    if (axes.size() != 2) {
+    if (p_intensity_map->getRank() != 2) {
         throw LogicErrorException("ConvolutionDetectorResolution::apply2dConvolution() -> Error! Number of axes for intensity map does not correspond to the dimension of the map.");
     }
-    AxisDouble *p_axis_1 = axes[0];
-    AxisDouble *p_axis_2 = axes[1];
+    const AxisDouble *p_axis_1 = p_intensity_map->getAxis(0);
+    const AxisDouble *p_axis_2 = p_intensity_map->getAxis(1);
     size_t axis_size_1 = p_axis_1->getSize();
     size_t axis_size_2 = p_axis_2->getSize();
     if (axis_size_1 < 2 || axis_size_2 < 2) {

@@ -33,7 +33,7 @@ public:
     AxisDouble* clone() const;
 
     //! create a new axis with half the number of bins
-    AxisDouble *createDoubleBinSize() const;
+    AxisDouble createDoubleBinSize() const;
 
     //! destructor
     ~AxisDouble() {}

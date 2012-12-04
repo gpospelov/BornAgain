@@ -259,8 +259,8 @@ void TestRootTree::simple_write()
 
         mp_data = mp_experiment->getOutputDataClone();
         // accessing to scattering data
-        AxisDouble *axis0 = mp_data->getAxes()[0];
-        AxisDouble *axis1 = mp_data->getAxes()[1];
+        const AxisDouble *axis0 = mp_data->getAxis(0);
+        const AxisDouble *axis1 = mp_data->getAxis(1);
         std::string axis0_name = axis0->getName();
         std::string axis1_name = axis1->getName();
 

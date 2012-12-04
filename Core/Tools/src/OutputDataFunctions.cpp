@@ -143,7 +143,7 @@ OutputData<double> *OutputDataFunctions::getRealPart(const OutputData<complex_t>
 {
     OutputData<double> *p_result = new OutputData<double>();
     for (size_t i=0; i<source.getRank(); ++i) {
-        p_result->addAxis(source.getAxis(i)->clone());
+        p_result->addAxis(*source.getAxis(i));
     }
     OutputData<complex_t>::const_iterator it_source = source.begin();
     OutputData<double>::iterator it_result = p_result->begin();
@@ -162,7 +162,7 @@ OutputData<double>* getImagPart(const OutputData<complex_t>& source)
 {
     OutputData<double> *p_result = new OutputData<double>();
     for (size_t i=0; i<source.getRank(); ++i) {
-        p_result->addAxis(source.getAxis(i)->clone());
+        p_result->addAxis(*source.getAxis(i));
     }
     OutputData<complex_t>::const_iterator it_source = source.begin();
     OutputData<double>::iterator it_result = p_result->begin();
@@ -181,7 +181,7 @@ OutputData<double>* OutputDataFunctions::getModulusPart(const OutputData<complex
 {
     OutputData<double> *p_result = new OutputData<double>();
     for (size_t i=0; i<source.getRank(); ++i) {
-        p_result->addAxis(source.getAxis(i)->clone());
+        p_result->addAxis(*source.getAxis(i));
     }
     OutputData<complex_t>::const_iterator it_source = source.begin();
     OutputData<double>::iterator it_result = p_result->begin();
@@ -211,9 +211,9 @@ OutputData<double> *OutputDataFunctions::sliceAccrossOneAxis(const OutputData<do
     const AxisDouble *fixed_axis(0);
     int fixed_axis_index(-1);
     for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
-        const AxisDouble *axis = data.getAxes()[i_axis];
+        const AxisDouble *axis = data.getAxis(i_axis);
         if( axis->getName() != fixed_axis_name ) {
-            sliced_data->addAxis(axis->clone());
+            sliced_data->addAxis(*axis);
         } else {
             fixed_axis = axis;
             fixed_axis_index = (int)i_axis;
@@ -268,12 +268,11 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
     // preparing new data with modified axes
     OutputData<double > *new_data = new OutputData<double >;
     for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
-        const AxisDouble *axis = data.getAxes()[i_axis];
-        if( !axis) throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! Can't cast axis");
+        const AxisDouble *axis = data.getAxis(i_axis);
         if( axis->getName() != selected_axis_name ) {
-            new_data->addAxis(axis->clone());
+            new_data->addAxis(*axis);
         } else {
-            new_data->addAxis(new AxisDouble(selected_axis->getName(), x1, x2, nbin2-nbin1+1));
+            new_data->addAxis(selected_axis->getName(), x1, x2, nbin2-nbin1+1);
         }
     }
     new_data->setAllTo(0.0);

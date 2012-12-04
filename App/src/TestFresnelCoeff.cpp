@@ -70,7 +70,7 @@ void TestFresnelCoeff::test_standard_samples()
         mp_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 2000);
         OutputData<OpticalFresnel::MultiLayerCoeff_t >::iterator it = mp_coeffs->begin();
         while (it != mp_coeffs->end()) {
-            double alpha_i = mp_coeffs->getValueOfAxis<double>("alpha_i", it.getIndex());
+            double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
             kvector_t kvec;
             kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 
@@ -119,7 +119,7 @@ void TestFresnelCoeff::draw_standard_samples()
     OutputData<OpticalFresnel::MultiLayerCoeff_t >::const_iterator it = mp_coeffs->begin();
     int i_point = 0;
     while (it != mp_coeffs->end()) {
-        double alpha_i = mp_coeffs->getValueOfAxis<double>("alpha_i", it.getIndex());
+        double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
         const OpticalFresnel::MultiLayerCoeff_t coeffs = *it++;
 
         // Filling graphics for R,T as a function of alpha_i
@@ -237,8 +237,8 @@ void TestFresnelCoeff::test_roughness_set()
     mp_coeffs->addAxis(std::string("roughness"), 0.0, 12.0*Units::nanometer, 6);
     OutputData<OpticalFresnel::MultiLayerCoeff_t >::iterator it = mp_coeffs->begin();
     while (it != mp_coeffs->end()) {
-        double alpha_i = mp_coeffs->getValueOfAxis<double>("alpha_i", it.getIndex());
-        double roughness = mp_coeffs->getValueOfAxis<double>("roughness", it.getIndex());
+        double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
+        double roughness = mp_coeffs->getValueOfAxis("roughness", it.getIndex());
         multipar.setValue(roughness);
 
         kvector_t kvec;
@@ -286,7 +286,7 @@ void TestFresnelCoeff::draw_roughness_set()
 
     OutputData<OpticalFresnel::MultiLayerCoeff_t >::const_iterator it = mp_coeffs->begin();
     while (it != mp_coeffs->end()) {
-        double alpha_i = mp_coeffs->getValueOfAxis<double>("alpha_i", it.getIndex());
+        double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
         size_t i_alpha = mp_coeffs->getIndexOfAxis("alpha_i", it.getIndex());
         size_t i_rough = mp_coeffs->getIndexOfAxis("roughness", it.getIndex());
 

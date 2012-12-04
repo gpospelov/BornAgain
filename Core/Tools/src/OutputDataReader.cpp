@@ -91,10 +91,10 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
     }
 
     // creating output data
-    AxisDouble *xaxis = new AxisDouble("x-axis");
-    for(size_t i=0; i<buff_xaxis.size(); ++i) xaxis->push_back(buff_xaxis[i]);
-    AxisDouble *yaxis = new AxisDouble("y-axis");
-    for(size_t i=0; i<buff_yaxis.size(); ++i) yaxis->push_back(buff_yaxis[i]);
+    AxisDouble xaxis("x-axis");
+    for(size_t i=0; i<buff_xaxis.size(); ++i) xaxis.push_back(buff_xaxis[i]);
+    AxisDouble yaxis("y-axis");
+    for(size_t i=0; i<buff_yaxis.size(); ++i) yaxis.push_back(buff_yaxis[i]);
 
     OutputData<double > *p_result = new OutputData<double>;
     p_result->addAxis(xaxis);

@@ -23,11 +23,14 @@ OutputDataTest::OutputDataTest()
     zero_3d_coordinate.push_back(0);
     zero_3d_coordinate.push_back(0);
     zero_3d_coordinate.push_back(0);
-    fl_data_1d.addAxis(new AxisDouble("angle", 0.0, 0.1, 20));
+    AxisDouble angle_axis("angle", 0.0, 0.1, 20);
+    AxisDouble length_axis("length", 0.0, 0.5, 10);
+    AxisDouble index_axis("index", 10, 1, 10);
+    fl_data_1d.addAxis(angle_axis);
 
-    db_data_3d.addAxis(new AxisDouble("angle", 0.0, 0.1, 20));
-    db_data_3d.addAxis(new AxisDouble("length", 0.0, 0.5, 10));
-    db_data_3d.addAxis(new AxisDouble("index", 10, 1, 10));
+    db_data_3d.addAxis(angle_axis);
+    db_data_3d.addAxis(length_axis);
+    db_data_3d.addAxis(index_axis);
     OutputData<double>::iterator it = db_data_3d.begin();
     for (size_t i=0; i<2000; ++i)
     {

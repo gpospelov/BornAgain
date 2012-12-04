@@ -22,12 +22,12 @@ AxisDouble* AxisDouble::clone() const
     return p_clone;
 }
 
-AxisDouble* AxisDouble::createDoubleBinSize() const
+AxisDouble AxisDouble::createDoubleBinSize() const
 {
     if (getSize() < 2) {
-        return clone();
+        return *this;
     }
-    AxisDouble *p_result = new AxisDouble(getName());
+    AxisDouble result(getName());
     for (size_t source_index=0; source_index<getSize(); source_index+=2)
     {
         double value;
@@ -37,9 +37,9 @@ AxisDouble* AxisDouble::createDoubleBinSize() const
         else {
             value =  (m_value_vector.at(source_index) + m_value_vector.at(source_index+1))/2.0;
         }
-        p_result->push_back(value);
+        result.push_back(value);
     }
-    return p_result;
+    return result;
 }
 
 void AxisDouble::initElements(double start, double end, size_t size)

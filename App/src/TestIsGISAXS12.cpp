@@ -294,8 +294,8 @@ void TestIsGISAXS12::plot_isgisaxs_data()
     const AxisDouble *axis_phif_scan = m_isgi_scans[kFixedAlphaf]->getAxis("phi_f");
     const AxisDouble *axis_alphaf_scan = m_isgi_scans[kFixedPhif]->getAxis("alpha_f");
     if( !axis_phif_scan || !axis_phif_scan ) throw NullPointerException("TestIsGISAXS12::plot_isgisaxs_data() -> Error. Can'get get axis");
-    data_as_isgisaxs->addAxis(axis_phif_scan->clone());
-    data_as_isgisaxs->addAxis(axis_alphaf_scan->clone());
+    data_as_isgisaxs->addAxis(*axis_phif_scan);
+    data_as_isgisaxs->addAxis(*axis_alphaf_scan);
     data_as_isgisaxs->setAllTo(0.0);
     std::cout << axis_phif_scan->getSize() << " " << axis_alphaf_scan->getSize() << " " << data_as_isgisaxs->getAllocatedSize() << std::endl;
 
@@ -444,20 +444,20 @@ OutputData<double> *TestIsGISAXS12::convert_isgi_scan(std::vector<IsgiData > &is
         throw LogicErrorException("TestIsGISAXS12::convert_isgi_scan() -> Error! Scan can't have both angle phif,alphaf fixed");
     }
 
-    AxisDouble *phi_axis = new AxisDouble("phi_f");
-    AxisDouble *alpha_axis = new AxisDouble("alpha_f");
+    AxisDouble phi_axis("phi_f");
+    AxisDouble alpha_axis("alpha_f");
     if( fixed_phif) {
         m_isgi_fixed_phif = isgi_data.back().phif;
-        phi_axis->push_back(isgi_data.back().phif);
+        phi_axis.push_back(isgi_data.back().phif);
         std::cout << "fixed phi " << isgi_data.back().phif << std::endl;
         for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
-            alpha_axis->push_back(isgi_data[i_point].alphaf);
+            alpha_axis.push_back(isgi_data[i_point].alphaf);
         }
     }else {
         m_isgi_fixed_alphaf = isgi_data.back().alphaf;
-        alpha_axis->push_back(isgi_data.back().alphaf);
+        alpha_axis.push_back(isgi_data.back().alphaf);
         for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
-            phi_axis->push_back(isgi_data[i_point].phif);
+            phi_axis.push_back(isgi_data[i_point].phif);
         }
 
     }

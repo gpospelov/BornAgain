@@ -163,8 +163,8 @@ void GISASExperiment::smearIntensityFromZAxisTilting()
     m_intensity_map.setAllTo(0.0);
     OutputData<double>::const_iterator it_clone = p_clone->begin();
     while (it_clone != p_clone->end()) {
-        double old_phi = p_clone->getValueOfAxis<double>("phi_f", it_clone.getIndex());
-        double old_alpha = p_clone->getValueOfAxis<double>("alpha_f", it_clone.getIndex());
+        double old_phi = p_clone->getValueOfAxis("phi_f", it_clone.getIndex());
+        double old_alpha = p_clone->getValueOfAxis("alpha_f", it_clone.getIndex());
         for (size_t zeta_index=0; zeta_index<zetas.size(); ++zeta_index) {
             double newphi = old_phi + deltaPhi(old_alpha, old_phi, zetas[zeta_index]);
             double newalpha = old_alpha + deltaAlpha(old_alpha, zetas[zeta_index]);
@@ -206,7 +206,7 @@ double GISASExperiment::getSolidAngle(size_t index) const
     }
     double dalpha(0), dphi(0);
 
-    double alpha_f = m_intensity_map.getValueOfAxis<double>(s_alpha_f, index);
+    double alpha_f = m_intensity_map.getValueOfAxis(s_alpha_f, index);
     double cos_alpha_f = std::cos(alpha_f);
 
     if(alpha_size>1) {

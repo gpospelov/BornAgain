@@ -16,7 +16,7 @@ void DWBASimulation::init(const Experiment& experiment)
     Detector detector = experiment.getDetector();
     size_t detector_dimension = detector.getDimension();
     for (size_t dim=0; dim<detector_dimension; ++dim) {
-        m_dwba_intensity.addAxis(detector.getAxis(dim).clone());
+        m_dwba_intensity.addAxis(detector.getAxis(dim));
     }
     if (experiment.getOutputData()->getMask()) {
         m_dwba_intensity.setMask(*experiment.getOutputData()->getMask());

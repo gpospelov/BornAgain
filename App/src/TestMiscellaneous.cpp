@@ -224,9 +224,9 @@ void TestMiscellaneous::test_FormFactor()
     p_data->addAxis(std::string("qz"), qmin, qmax, nbins);
     OutputData<double>::const_iterator it = p_data->begin();
     while (it != p_data->end()) {
-        double x = p_data->getValueOfAxis<double>("qx", it.getIndex());
-        double y = p_data->getValueOfAxis<double>("qy", it.getIndex());
-        double z = p_data->getValueOfAxis<double>("qz", it.getIndex());
+        double x = p_data->getValueOfAxis("qx", it.getIndex());
+        double y = p_data->getValueOfAxis("qy", it.getIndex());
+        double z = p_data->getValueOfAxis("qz", it.getIndex());
 
         int ix = (int)p_data->getIndexOfAxis("qx", it.getIndex());
         int iy = (int)p_data->getIndexOfAxis("qy", it.getIndex());

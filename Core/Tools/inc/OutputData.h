@@ -39,7 +39,7 @@ public:
     void copyFrom(const OutputData<T> &x);
 
     void addAxis(const AxisDouble &new_axis);
-    void addAxis(std::string name, double start, double end, size_t size);
+    void addAxis(std::string name, size_t size, double start, double end);
 
     const AxisDouble *getAxis(size_t index) const;
     const AxisDouble *getAxis(std::string label) const;
@@ -258,10 +258,10 @@ template <class T> void OutputData<T>::addAxis(const AxisDouble &new_axis)
 }
 
 template <class T>
-void OutputData<T>::addAxis(std::string name, double start, double end, size_t size)
+void OutputData<T>::addAxis(std::string name, size_t size, double start, double end)
 {
     if( getAxis(name) ) throw LogicErrorException("OutputData<T>::addAxis(std::string name) -> Error! Attempt to add axis with already existing name '"+name+std::string("'"));
-    AxisDouble new_axis(name, start, end, size);
+    AxisDouble new_axis(name, size, start, end);
     addAxis(new_axis);
 }
 
@@ -451,7 +451,7 @@ template <class T> void OutputData<T>::setAxisSizes(size_t rank, int *n_dims)
     for (size_t i=0; i<rank; ++i) {
         std::ostringstream name;
         name << basename << i;
-        addAxis(name.str(), 0.0, (double)(n_dims[i]-1), n_dims[i]);
+        addAxis(name.str(), n_dims[i], 0.0, (double)(n_dims[i]-1));
     }
 }
 

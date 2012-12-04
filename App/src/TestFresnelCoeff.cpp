@@ -67,7 +67,7 @@ void TestFresnelCoeff::test_standard_samples()
         mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample(snames[i_sample]));
 
         mp_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
-        mp_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 2000);
+        mp_coeffs->addAxis(std::string("alpha_i"), 2000, 0.0*Units::degree, 2.0*Units::degree);
         OutputData<OpticalFresnel::MultiLayerCoeff_t >::iterator it = mp_coeffs->begin();
         while (it != mp_coeffs->end()) {
             double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
@@ -233,8 +233,8 @@ void TestFresnelCoeff::test_roughness_set()
     std::cout << *mp_sample << std::endl;
 
     mp_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
-    mp_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 1000);
-    mp_coeffs->addAxis(std::string("roughness"), 0.0, 12.0*Units::nanometer, 6);
+    mp_coeffs->addAxis(std::string("alpha_i"), 1000, 0.0*Units::degree, 2.0*Units::degree);
+    mp_coeffs->addAxis(std::string("roughness"), 6, 0.0, 12.0*Units::nanometer);
     OutputData<OpticalFresnel::MultiLayerCoeff_t >::iterator it = mp_coeffs->begin();
     while (it != mp_coeffs->end()) {
         double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());

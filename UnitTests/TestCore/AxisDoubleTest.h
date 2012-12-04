@@ -17,7 +17,7 @@ protected:
 
 AxisDoubleTest::AxisDoubleTest()
 : angleAxis("angle")
-, lengthAxis("length", 0.0, 9.9, 100)
+, lengthAxis("length", 100, 0.0, 9.9)
 {
 }
 
@@ -44,29 +44,28 @@ TEST_F(AxisDoubleTest, ExtendedConstructor)
 
 TEST_F(AxisDoubleTest, VectorOfUnitLength)
 {
-    AxisDouble vec("name", 1.0, 2.0, 1);
+    AxisDouble vec("name", 1, 1.0, 2.0);
     EXPECT_EQ((size_t)1, vec.getSize());
     EXPECT_EQ(double(1), vec.getMin());
     EXPECT_EQ(double(1), vec.getMax());
 }
 
-
 TEST_F(AxisDoubleTest, FindClosestIndex)
 {
-    AxisDouble vec_size1("name", 2.0, 4.0, 1);
+    AxisDouble vec_size1("name", 1, 2.0, 4.0);
     EXPECT_EQ( size_t(1), vec_size1.getSize());
     EXPECT_EQ( size_t(0), vec_size1.findClosestIndex(1.0));
     EXPECT_EQ( size_t(0), vec_size1.findClosestIndex(3.0));
     EXPECT_EQ( size_t(0), vec_size1.findClosestIndex(5.0));
 
-    AxisDouble vec_size2("name", 2.0, 4.0, 2);
+    AxisDouble vec_size2("name", 2, 2.0, 4.0);
     EXPECT_EQ( size_t(2), vec_size2.getSize() );
     EXPECT_EQ( size_t(0), vec_size2.findClosestIndex(1.0));
     EXPECT_EQ( size_t(0), vec_size2.findClosestIndex(2.9));
     EXPECT_EQ( size_t(1), vec_size2.findClosestIndex(3.1));
     EXPECT_EQ( size_t(1), vec_size2.findClosestIndex(4.1));
 
-    AxisDouble vec_size11("name", 0.0, 10.0, 11);
+    AxisDouble vec_size11("name", 11, 0.0, 10.0);
     EXPECT_EQ( size_t(11), vec_size11.getSize());
     EXPECT_DOUBLE_EQ(double(0), vec_size11[0]);
     EXPECT_DOUBLE_EQ(double(10), vec_size11[10]);
@@ -78,7 +77,5 @@ TEST_F(AxisDoubleTest, FindClosestIndex)
     EXPECT_EQ( size_t(9), vec_size11.findClosestIndex(9.01));
     EXPECT_EQ( size_t(10), vec_size11.findClosestIndex(100.));
 }
-
-
 
 #endif // AXISDOUBLETEST_H

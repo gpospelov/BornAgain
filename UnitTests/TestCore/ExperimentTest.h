@@ -33,8 +33,8 @@ protected:
 
 ExperimentTest::ExperimentTest()
 {
-    test_data.addAxis("phi_f",0., 10., 10);
-    test_data.addAxis("theta_f",0., 20., 20);
+    test_data.addAxis("phi_f", 10, 0., 10.);
+    test_data.addAxis("theta_f", 20, 0., 20.);
     test_data.setAllTo(2.0);
 
 }

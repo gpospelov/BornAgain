@@ -78,8 +78,8 @@ void TestDiffuseReflection::execute()
 
         // offspecular reflectivity
         m_data_offspec = new OutputData<double >;
-        m_data_offspec->addAxis(std::string("alpha_i"), m_alphaMin, m_alphaMax, m_npoints);
-        m_data_offspec->addAxis(std::string("alpha_f"), m_alphaMin, m_alphaMax, m_npoints);
+        m_data_offspec->addAxis(std::string("alpha_i"), m_npoints, m_alphaMin, m_alphaMax);
+        m_data_offspec->addAxis(std::string("alpha_f"), m_npoints, m_alphaMin, m_alphaMax);
 
         OutputData<double>::iterator it = m_data_offspec->begin();
         while (it != m_data_offspec->end()) {

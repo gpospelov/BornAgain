@@ -53,8 +53,8 @@ void TestMiscellaneous::test_OutputDataTo2DArray()
     int axis0_size = 2;
     int axis1_size = 4;
     OutputData<double> *p_output = new OutputData<double>;
-    p_output->addAxis(std::string("axis0"), 0.0, double(axis0_size), axis0_size);
-    p_output->addAxis(std::string("axis1"), 0.0, double(axis1_size), axis1_size);
+    p_output->addAxis(std::string("axis0"), axis0_size, 0.0, double(axis0_size));
+    p_output->addAxis(std::string("axis1"), axis1_size, 0.0, double(axis1_size));
     p_output->setAllTo(0.0);
 
     OutputData<double>::iterator it = p_output->begin();
@@ -219,9 +219,9 @@ void TestMiscellaneous::test_FormFactor()
 
 
     OutputData<double> *p_data = new OutputData<double>();
-    p_data->addAxis(std::string("qx"), qmin, qmax, nbins);
-    p_data->addAxis(std::string("qy"), qmin, qmax, nbins);
-    p_data->addAxis(std::string("qz"), qmin, qmax, nbins);
+    p_data->addAxis(std::string("qx"), nbins, qmin, qmax);
+    p_data->addAxis(std::string("qy"), nbins, qmin, qmax);
+    p_data->addAxis(std::string("qz"), nbins, qmin, qmax);
     OutputData<double>::const_iterator it = p_data->begin();
     while (it != p_data->end()) {
         double x = p_data->getValueOfAxis("qx", it.getIndex());
@@ -296,7 +296,7 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MultilayerOffspecTestcase1a"));
 
     OutputData<double > *data_alpha = new OutputData<double >;
-    data_alpha->addAxis(std::string("alpha_f"), 0.0*Units::degree, 2.0*Units::degree, 200);
+    data_alpha->addAxis(std::string("alpha_f"), 200, 0.0*Units::degree, 2.0*Units::degree);
 
     OpticalFresnel fresnelCalculator;
 

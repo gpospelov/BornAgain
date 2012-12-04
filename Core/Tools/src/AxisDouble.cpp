@@ -9,10 +9,10 @@ AxisDouble::AxisDouble(std::string name)
 {
 }
 
-AxisDouble::AxisDouble(std::string name, double start, double end, size_t size)
+AxisDouble::AxisDouble(std::string name, size_t size, double start, double end)
 : m_name(name)
 {
-    initElements(start, end, size);
+    initElements(size, start, end);
 }
 
 AxisDouble* AxisDouble::clone() const
@@ -42,7 +42,7 @@ AxisDouble AxisDouble::createDoubleBinSize() const
     return result;
 }
 
-void AxisDouble::initElements(double start, double end, size_t size)
+void AxisDouble::initElements(size_t size, double start, double end)
 {
     double step = size>1 ? (end - start)/(size-1) : end;
     for (size_t i=0; i<size; ++i)

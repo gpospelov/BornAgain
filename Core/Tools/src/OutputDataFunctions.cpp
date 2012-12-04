@@ -272,7 +272,7 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
         if( axis->getName() != selected_axis_name ) {
             new_data->addAxis(*axis);
         } else {
-            new_data->addAxis(selected_axis->getName(), x1, x2, nbin2-nbin1+1);
+            new_data->addAxis(selected_axis->getName(), nbin2-nbin1+1, x1, x2);
         }
     }
     new_data->setAllTo(0.0);

@@ -125,7 +125,7 @@ void GISASExperiment::normalize()
     }
 }
 
-// TODO : refactor to the detector object
+// TODO : refactor to take detector parameter object
 void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
                                             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {
@@ -137,8 +137,8 @@ void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, doub
         initializeAnglesIsgisaxs(&alpha_axis, alpha_f_min, alpha_f_max, n_alpha);
     }
     else {
-        phi_axis.initElements(phi_f_min, phi_f_max, n_phi);
-        alpha_axis.initElements(alpha_f_min, alpha_f_max, n_alpha);
+        phi_axis.initElements(n_phi, phi_f_min, phi_f_max);
+        alpha_axis.initElements(n_alpha, alpha_f_min, alpha_f_max);
     }
     m_detector.addAxis(phi_axis);
     m_detector.addAxis(alpha_axis);

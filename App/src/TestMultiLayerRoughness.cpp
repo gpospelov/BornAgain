@@ -34,7 +34,7 @@ void TestMultiLayerRoughness::execute()
     h2->SetContour(50);
 
     OutputData<double> *p_data_alpha_i = new OutputData<double>();
-    p_data_alpha_i->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, npoints);
+    p_data_alpha_i->addAxis(std::string("alpha_i"), npoints, 0.0*Units::degree, 2.0*Units::degree);
     OutputData<double>::const_iterator it_alpha_i = p_data_alpha_i->begin();
     while (it_alpha_i != p_data_alpha_i->end()) {
         double alpha_i = p_data_alpha_i->getValueOfAxis("alpha_i", it_alpha_i.getIndex());

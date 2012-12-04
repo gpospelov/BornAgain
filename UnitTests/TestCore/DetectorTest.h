@@ -27,8 +27,8 @@ protected:
 DetectorTest::DetectorTest()
 {
     originalDetector = new Detector();
-    AxisDouble axis0("axis0", 0.0, 10.0, 10);
-    AxisDouble axis1("axis1", 0.0, 20.0, 20);
+    AxisDouble axis0("axis0", 10, 0.0, 10.0);
+    AxisDouble axis1("axis1", 20, 0.0, 20.0);
     originalDetector->addAxis(axis0);
     originalDetector->addAxis(axis1);
     originalDetector->setDetectorResolution(new ConvolutionDetectorResolution( new ResolutionFunction2DSimple(1,1)));
@@ -53,8 +53,8 @@ TEST_F(DetectorTest, InitialDetectorState)
 TEST_F(DetectorTest, DetectorConstruction)
 {
     // pushing two axes
-    AxisDouble axis0("axis0", 0.0, 10.0, 10);
-    AxisDouble axis1("axis1", 0.0, 20.0, 20);
+    AxisDouble axis0("axis0", 10, 0.0, 10.0);
+    AxisDouble axis1("axis1", 20, 0.0, 20.0);
     constructedDetector.addAxis(axis0);
     constructedDetector.addAxis(axis1);
     EXPECT_EQ((size_t)2, constructedDetector.getDimension());

@@ -27,7 +27,7 @@ public:
     //! constructors
     AxisDouble(std::string name);
     // TODO: change the order from (xmin, xmax, nbin) to (nbin, xmin, xmax)
-    AxisDouble(std::string name, double start, double end, size_t size);
+    AxisDouble(std::string name, size_t size, double start, double end);
 
     //! clone function
     AxisDouble* clone() const;
@@ -37,9 +37,6 @@ public:
 
     //! destructor
     ~AxisDouble() {}
-
-    //! initialize axis points
-    void initElements(double start, double end, size_t size);
 
     //! retrieve the number of bins
     size_t getSize() const { return m_value_vector.size(); }
@@ -64,6 +61,9 @@ public:
 
     //! get value of last point of axis
     double getMax() const { return m_value_vector.back(); }
+
+    //! initialize axis points
+    void initElements(size_t size, double start, double end);
 
     //! find number of bin which is closest to given value
     size_t findClosestIndex(double value) const;

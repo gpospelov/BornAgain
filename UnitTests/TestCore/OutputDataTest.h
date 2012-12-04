@@ -23,8 +23,8 @@ OutputDataTest::OutputDataTest()
     zero_3d_coordinate.push_back(0);
     zero_3d_coordinate.push_back(0);
     zero_3d_coordinate.push_back(0);
-    AxisDouble angle_axis("angle", 0.0, 0.1, 20);
-    AxisDouble length_axis("length", 0.0, 0.5, 10);
+    AxisDouble angle_axis("angle", 20, 0.0, 0.1);
+    AxisDouble length_axis("length", 10, 0.0, 0.5);
     AxisDouble index_axis("index", 10, 1, 10);
     fl_data_1d.addAxis(angle_axis);
 
@@ -68,13 +68,13 @@ TEST_F(OutputDataTest, DataCopying)
 {
     OutputData<double> data1;
     OutputData<double> data2;
-    data1.addAxis("axis1",0.,10.,10);
-    data2.addAxis("axis1",0.,10.,10);
+    data1.addAxis("axis1", 10, 0., 10.);
+    data2.addAxis("axis1", 10, 0., 10.);
     EXPECT_TRUE( data1.hasSameDimensions(data2));
     EXPECT_TRUE( data1.hasSameShape(data2));
 
-    data1.addAxis("axis2",0.,10.,10);
-    data2.addAxis("axis2",1.,10.,10);
+    data1.addAxis("axis2", 10, 0., 10.);
+    data2.addAxis("axis2", 10, 1., 10.);
     EXPECT_TRUE( data1.hasSameDimensions(data2));
     EXPECT_FALSE( data1.hasSameShape(data2));
 
@@ -82,8 +82,8 @@ TEST_F(OutputDataTest, DataCopying)
     EXPECT_TRUE( data1.hasSameDimensions(data2));
     EXPECT_TRUE( data1.hasSameShape(data2));
 
-    data1.addAxis("axis3",0.,10.,10);
-    data2.addAxis("axis3another",0.,10.,10);
+    data1.addAxis("axis3", 10, 0., 10.);
+    data2.addAxis("axis3another", 10, 0., 10.);
     EXPECT_TRUE( data1.hasSameDimensions(data2));
     EXPECT_FALSE( data1.hasSameShape(data2));
 
@@ -101,12 +101,11 @@ TEST_F(OutputDataTest, DataCopying)
 
 }
 
-
 TEST_F(OutputDataTest, MaxElement)
 {
     OutputData<double > data;
-    data.addAxis("axis1",0.,10.,10);
-    data.addAxis("axis2",0.,10.,2);
+    data.addAxis("axis1", 10, 0., 10.);
+    data.addAxis("axis2", 2, 0., 10.);
     data.setAllTo(1.0);
 
     OutputData<double >::iterator it = data.begin();
@@ -114,6 +113,5 @@ TEST_F(OutputDataTest, MaxElement)
     OutputData<double >::const_iterator cit = std::max_element(data.begin(), data.end());
     EXPECT_EQ( double(10.0), (*cit));
 }
-
 
 #endif // OUTPUTDATATEST_H

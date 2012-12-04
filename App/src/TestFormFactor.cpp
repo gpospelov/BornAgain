@@ -13,8 +13,8 @@ TestFormFactor::TestFormFactor()
     : m_ff(50.0, 50.0)
 {
     mp_intensity_output = new OutputData<double>();
-    AxisDouble y_axis(std::string("detector y-axis"), -4.0, 4.0, 200);
-    AxisDouble z_axis(std::string("detector z-axis"), 0.0, 4.0, 200);
+    AxisDouble y_axis(std::string("detector y-axis"), 200, -4.0, 4.0);
+    AxisDouble z_axis(std::string("detector z-axis"), 200, 0.0, 4.0);
     mp_intensity_output->addAxis(y_axis);
     mp_intensity_output->addAxis(z_axis);
 }

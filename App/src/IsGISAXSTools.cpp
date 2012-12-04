@@ -441,8 +441,8 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
     int y_size = (int)buff_2d.size();
     int x_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
     OutputData<double> *p_result = new OutputData<double>;
-    p_result->addAxis(std::string("x-axis"), 0.0, double(x_size), x_size);
-    p_result->addAxis(std::string("y-axis"), 0.0, double(y_size), y_size);
+    p_result->addAxis(std::string("x-axis"), x_size, 0.0, double(x_size));
+    p_result->addAxis(std::string("y-axis"), y_size, 0.0, double(y_size));
     p_result->setAllTo(0.0);
 
     OutputData<double>::iterator it = p_result->begin();
@@ -564,7 +564,7 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const
     if( !hist1 ) throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Failed to make projection, existing name?");
 
     hist1->SetTitle(ostr_title.str().c_str());
-    // FIXME remove this trick to bypass weared bug with DrawCopy of TH1D projection of TH1D histohgrams
+    // FIXME remove this trick to bypass weird bug with DrawCopy of TH1D projection of TH1D histograms
     TH1D *h1 = (TH1D*)hist1->Clone();
     delete hist1;
     return h1;

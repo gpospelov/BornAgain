@@ -2,7 +2,7 @@
 
 
 
-FitSuiteObjects::FitSuiteObjects()
+FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_experiment_normalize(false)
 {
     setName("FitSuiteObjects");
     init_parameters();
@@ -22,9 +22,10 @@ void FitSuiteObjects::clear()
 /* ************************************************************************* */
 // add to kit pair of (experiment, real data) for consecutive simulation and chi2 module
 /* ************************************************************************* */
-void FitSuiteObjects::add(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module)
+void FitSuiteObjects::add(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module, double weight)
 {
-    m_fit_objects.push_back(new FitObject(experiment, real_data, chi2_module));
+    m_total_weight += weight;
+    m_fit_objects.push_back(new FitObject(experiment, real_data, chi2_module, weight));
 }
 
 
@@ -35,21 +36,47 @@ void FitSuiteObjects::runSimulation()
 {
     for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         (*it)->getExperiment()->runSimulation();
-        (*it)->getExperiment()->normalize();
+        if(m_experiment_normalize) (*it)->getExperiment()->normalize();
     }
 }
 
 
 /* ************************************************************************* */
-// loop through all defined experiments and run they simulation
+// get sum of chi squared values for all fit objects
+// FIXME: refactor FitSuiteObjects::getChiSquaredValue()
 /* ************************************************************************* */
-double FitSuiteObjects::getChiSquaredValue()
+double FitSuiteObjects::getChiSquaredValue(int n_free_fit_parameters)
 {
-    double chi_squared(0);
+    double chi_sum(0);
     for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        chi_squared += (*it)->calculateChiSquared();
+        IChiSquaredModule *chi = (*it)->getChiSquaredModule();
+
+        chi->setNdegreeOfFreedom( m_fit_objects.size() * (*it)->getRealData()->getAllocatedSize() - n_free_fit_parameters);
+        // normalizing datasets to the maximum intensity over all fit objects defined
+        OutputDataNormalizerScaleAndShift *data_normalizer =  dynamic_cast<OutputDataNormalizerScaleAndShift *>(chi->getOutputDataNormalizer());
+        if( data_normalizer) data_normalizer->setMaximumIntensity( getSimulationMaxIntensity() );
+
+        double weight = (*it)->getWeight()/m_total_weight;
+        double chi_squared = (weight*weight) * (*it)->calculateChiSquared();
+        chi_sum += chi_squared;
+//        std::cout << " chi " << chi_squared << " chi_sum:" << chi_sum << std::endl;
     }
-    return chi_squared;
+    return chi_sum;
+}
+
+
+/* ************************************************************************* */
+// calculate maximum intensity in simulated data over all fir objects defined
+/* ************************************************************************* */
+double FitSuiteObjects::getSimulationMaxIntensity()
+{
+    double max_intensity(0);
+    for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+        const OutputData<double > *data = (*it)->getExperiment()->getOutputData();
+        OutputData<double >::const_iterator cit = std::max_element(data->begin(), data->end());
+        max_intensity = std::max(max_intensity, *cit);
+    }
+    return max_intensity;
 }
 
 

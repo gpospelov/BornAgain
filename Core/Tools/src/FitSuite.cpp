@@ -70,7 +70,7 @@ void FitSuite::link_fit_parameters()
 {
     ParameterPool *pool = m_fit_objects.createParameterTree();
     m_fit_parameters.link_to_pool(pool);
-    std::cout << "XXXXXX FitSuite::link_fit_parameters() -> " << std::endl;
+    std::cout << "FitSuite::link_fit_parameters() -> Parameter pool:" << std::endl;
     std::cout << *pool << std::endl;
     std::cout << "----------------" << std::endl;
     delete pool;
@@ -155,7 +155,7 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
     m_fit_objects.runSimulation();
 
     // caclulate chi2 value
-    double chi_squared = m_fit_objects.getChiSquaredValue();
+    double chi_squared = m_fit_objects.getChiSquaredValue(m_fit_parameters.getNfreeParameters());
 
     notifyObservers();
     m_n_call++;

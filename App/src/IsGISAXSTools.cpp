@@ -299,7 +299,7 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
         h1_spect.Fill( x );
     }
 
-    gPad->SetLogy();
+//    gPad->SetLogy();
     gPad->SetRightMargin(0.115);
     gPad->SetLeftMargin(0.115);
     h1_spect.SetStats(1);

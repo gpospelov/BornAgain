@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "BeamTest.h"
+#include "ChiSquaredModuleTest.h"
 #include "DetectorTest.h"
 #include "ExperimentTest.h"
 #include "GISASExperimentTest.h"

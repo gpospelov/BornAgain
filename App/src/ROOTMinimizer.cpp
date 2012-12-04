@@ -61,6 +61,7 @@ void ROOTMinimizer::minimize()
 void ROOTMinimizer::setFunction(boost::function<double(const double *)> fcn, int ndim)
 {
     m_fcn = new ROOT::Math::Functor(fcn, ndim);
+//    m_fcn = new ROOT::Math::GradFunctor(fcn, ndim);
     m_root_minimizer->SetFunction(*m_fcn);
 }
 

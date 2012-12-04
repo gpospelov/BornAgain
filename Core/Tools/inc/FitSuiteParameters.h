@@ -72,6 +72,9 @@ public:
     //! linking fit parameters with pool parameters
     void link_to_pool(const ParameterPool *pool);
 
+    //! return number of free parameters
+    size_t getNfreeParameters() const;
+
 private:
     //! disabled copy constructor and assignment operator
     FitSuiteParameters &operator=(const FitSuiteParameters &other);

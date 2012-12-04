@@ -19,7 +19,8 @@ HEADERS += \
     NamedVectorTest.h \
     OutputDataTest.h \
     OutputDataIteratorTest.h \
-    GISASExperimentTest.h
+    GISASExperimentTest.h \
+    ChiSquaredModuleTest.h
 
 OBJECTS_DIR = obj
 
@@ -68,4 +69,4 @@ for(dep, MY_DEPENDENCY_LIB) {
 ###############################################################################
 # runs automatically tests right after linking
 ###############################################################################
-QMAKE_POST_LINK = ./$(TARGET)
+QMAKE_POST_LINK = ./$(TARGET) 2> /dev/null

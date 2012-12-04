@@ -28,7 +28,7 @@
 class FitObject : public IParameterized
 {
 public:
-    FitObject(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule());
+    FitObject(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule(), double weight = 1.0);
     ~FitObject();
 
     //! get experiment
@@ -57,6 +57,9 @@ public:
     //! add parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
+    //! return weight of data set in chi2 calculations
+    double getWeight() const { return m_weight; }
+
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
@@ -68,6 +71,7 @@ private:
     Experiment *m_experiment; //! external experiment (not owned by this)
     OutputData<double > *m_real_data; //! real data
     IChiSquaredModule *m_chi2_module; //! chi2 module
+    double m_weight; //! weight of data set in chi2 calculations
 
 };
 

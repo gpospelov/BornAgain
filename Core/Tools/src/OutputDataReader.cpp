@@ -14,7 +14,12 @@
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/iostreams/copy.hpp>
+
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
 #include <boost/iostreams/filter/gzip.hpp>
+GCC_DIAG_ON(unused-parameter);
+
 
 
 OutputData<double > *OutputDataReader::getOutputData(const std::string &file_name)

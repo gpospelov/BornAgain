@@ -171,6 +171,7 @@
 		62CC09A91665055E00A5B720 /* TestIsGISAXS4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09A11665055E00A5B720 /* TestIsGISAXS4.cpp */; };
 		62CC09AA1665055E00A5B720 /* TestIsGISAXS8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09A21665055E00A5B720 /* TestIsGISAXS8.cpp */; };
 		62CC09AB1665055E00A5B720 /* TestIsGISAXS12.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09A31665055E00A5B720 /* TestIsGISAXS12.cpp */; };
+		62D7A936166E3F8D009A45CE /* AxisDouble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62D7A935166E3F8D009A45CE /* AxisDouble.cpp */; };
 		62EA737B1628422200656B41 /* FitSuite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73741628422200656B41 /* FitSuite.cpp */; };
 		62EA737C1628422200656B41 /* IObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73751628422200656B41 /* IObserver.cpp */; };
 		62EA737D1628422200656B41 /* IParameterized.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73761628422200656B41 /* IParameterized.cpp */; };
@@ -234,7 +235,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6204B7941667A3D1003BF358 /* FitSuiteObjects.h.orig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FitSuiteObjects.h.orig; sourceTree = "<group>"; };
 		6204B7961667A3FC003BF358 /* IIntensityFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIntensityFunction.h; sourceTree = "<group>"; };
 		6204B7971667A3FC003BF358 /* IOutputDataNormalizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOutputDataNormalizer.h; sourceTree = "<group>"; };
 		6204B7981667A407003BF358 /* IOutputDataNormalizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOutputDataNormalizer.cpp; sourceTree = "<group>"; };
@@ -453,7 +453,6 @@
 		622222FD160CB745008205AC /* ISingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISingleton.h; sourceTree = "<group>"; };
 		622222FE160CB745008205AC /* IStochasticParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IStochasticParameter.h; sourceTree = "<group>"; };
 		622222FF160CB745008205AC /* MathFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathFunctions.h; sourceTree = "<group>"; };
-		62222300160CB745008205AC /* NamedVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NamedVector.h; sourceTree = "<group>"; };
 		62222301160CB745008205AC /* Numeric.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Numeric.h; sourceTree = "<group>"; };
 		62222302160CB745008205AC /* OutputData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputData.h; sourceTree = "<group>"; };
 		62222303160CB745008205AC /* StochasticDiracDelta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StochasticDiracDelta.h; sourceTree = "<group>"; };
@@ -1138,6 +1137,8 @@
 		62CC09A11665055E00A5B720 /* TestIsGISAXS4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS4.cpp; sourceTree = "<group>"; };
 		62CC09A21665055E00A5B720 /* TestIsGISAXS8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS8.cpp; sourceTree = "<group>"; };
 		62CC09A31665055E00A5B720 /* TestIsGISAXS12.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS12.cpp; sourceTree = "<group>"; };
+		62D7A934166E3F81009A45CE /* AxisDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisDouble.h; sourceTree = "<group>"; };
+		62D7A935166E3F8D009A45CE /* AxisDouble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisDouble.cpp; sourceTree = "<group>"; };
 		62EA736B1628421000656B41 /* FitSuite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FitSuite.h; sourceTree = "<group>"; };
 		62EA736C1628421000656B41 /* IMinimizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMinimizer.h; sourceTree = "<group>"; };
 		62EA736D1628421000656B41 /* IObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IObserver.h; sourceTree = "<group>"; };
@@ -1668,7 +1669,7 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
-				6204B7941667A3D1003BF358 /* FitSuiteObjects.h.orig */,
+				62D7A934166E3F81009A45CE /* AxisDouble.h */,
 				62CC097C166504D600A5B720 /* AttLimits.h */,
 				62CC097D166504D600A5B720 /* FitObject.h */,
 				62CC097E166504D600A5B720 /* FitParameterLinked.h */,
@@ -1702,7 +1703,6 @@
 				622222FD160CB745008205AC /* ISingleton.h */,
 				622222FE160CB745008205AC /* IStochasticParameter.h */,
 				622222FF160CB745008205AC /* MathFunctions.h */,
-				62222300160CB745008205AC /* NamedVector.h */,
 				62222301160CB745008205AC /* Numeric.h */,
 				62222302160CB745008205AC /* OutputData.h */,
 				62222303160CB745008205AC /* StochasticDiracDelta.h */,
@@ -1719,6 +1719,7 @@
 		6222230A160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62D7A935166E3F8D009A45CE /* AxisDouble.cpp */,
 				62CC0986166504E700A5B720 /* FitObject.cpp */,
 				62CC0987166504E700A5B720 /* FitParameterLinked.cpp */,
 				62CC0988166504E700A5B720 /* FitSuiteObjects.cpp */,
@@ -68669,6 +68670,7 @@
 				62CC0992166504E700A5B720 /* OutputDataFunctions.cpp in Sources */,
 				6254C2651666652E0098EE7E /* IFormFactorBorn.cpp in Sources */,
 				6204B7991667A408003BF358 /* IOutputDataNormalizer.cpp in Sources */,
+				62D7A936166E3F8D009A45CE /* AxisDouble.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,6 +5,7 @@
 #include "Experiment.h"
 #include "IMinimizer.h"
 #include "ChiSquaredModule.h"
+#include <boost/bind.hpp>
 
 
 FitSuite::FitSuite() : m_minimizer(0), m_is_last_iteration(false), m_n_call(0), m_n_strategy(0)
@@ -83,7 +84,12 @@ void FitSuite::link_fit_parameters()
 void FitSuite::minimize()
 {
     // initializing minimizer with fcn function belonging to given class
-    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), (int)m_fit_parameters.size() );
+    //m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), (int)m_fit_parameters.size() );
+    m_minimizer->setFunction( boost::bind(&FitSuite::functionToMinimize, this, _1), (int)m_fit_parameters.size() );
+
+//    m_minimizer->setFunctionAndGradient(boost::bind(&FitSuite::functionToMinimize, this, _1),
+//                                        boost::bind(&FitSuite::functionGradient, this, _1, _2),
+//                                        (int)m_fit_parameters.size() );
 
     // propagating local fit parameters to the minimizer's internal list of parameters
     for(size_t i_par = 0; i_par<m_fit_parameters.size(); i_par++) {
@@ -148,6 +154,8 @@ void FitSuite::runFit()
 /* ************************************************************************* */
 double FitSuite::functionToMinimize(const double *pars_current_values)
 {
+    std::cout << " functionToMinimize "  << std::endl;
+
     // set fitting parameters to values suggested by the minimizer
     m_fit_parameters.setValues(pars_current_values);
 
@@ -163,4 +171,9 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
 }
 
 
+//double FitSuite::functionGradient(const double *pars, int icoord)
+//{
+//    std::cout << " functionGradient " << icoord << std::endl;
+//    return 0.0;
+//}
 

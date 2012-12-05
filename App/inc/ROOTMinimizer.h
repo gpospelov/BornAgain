@@ -36,6 +36,7 @@ public:
 
     virtual void setVariable(int index, const FitParameter *par) ;
     virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1);
+//    virtual void setFunctionAndGradient(boost::function<double(const double *)> fcn, boost::function<double(const double *, int)> fcn_deriv, int ndim=1);
     virtual void minimize();
 
     //! return pointer to created minimizer
@@ -70,8 +71,8 @@ public:
 
 private:
     ROOT::Math::Minimizer *m_root_minimizer;
-    ROOT::Math::Functor *m_fcn;
-    //ROOT::Math::GradFunctor *m_fcn;
+    ROOT::Math::Functor *m_fcn; //! function to minimize
+//    ROOT::Math::GradFunctor *m_fcn_grad; //! gradient of function to minimize
 };
 
 #endif // ROOTMINIMIZER_H

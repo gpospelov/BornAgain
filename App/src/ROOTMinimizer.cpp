@@ -61,9 +61,16 @@ void ROOTMinimizer::minimize()
 void ROOTMinimizer::setFunction(boost::function<double(const double *)> fcn, int ndim)
 {
     m_fcn = new ROOT::Math::Functor(fcn, ndim);
-//    m_fcn = new ROOT::Math::GradFunctor(fcn, ndim);
     m_root_minimizer->SetFunction(*m_fcn);
 }
+
+
+//void ROOTMinimizer::setFunctionAndGradient(boost::function<double(const double *)> fcn, boost::function<double(const double *, int)> fcn_deriv, int ndim)
+//{
+//    m_fcn_grad = new ROOT::Math::GradFunctor(fcn, fcn_deriv, ndim);
+//    m_root_minimizer->SetFunction(*m_fcn_grad);
+//    m_root_minimizer->SetFunction(*m_fcn_grad);
+//}
 
 
 /* ************************************************************************* */

@@ -26,7 +26,6 @@ class AxisDouble
 public:
     //! constructors
     AxisDouble(std::string name);
-    // TODO: change the order from (xmin, xmax, nbin) to (nbin, xmin, xmax)
     AxisDouble(std::string name, size_t size, double start, double end);
 
     //! clone function

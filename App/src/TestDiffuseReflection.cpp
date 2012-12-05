@@ -78,13 +78,13 @@ void TestDiffuseReflection::execute()
 
         // offspecular reflectivity
         m_data_offspec = new OutputData<double >;
-        m_data_offspec->addAxis(std::string("alpha_i"), m_alphaMin, m_alphaMax, m_npoints);
-        m_data_offspec->addAxis(std::string("alpha_f"), m_alphaMin, m_alphaMax, m_npoints);
+        m_data_offspec->addAxis(std::string("alpha_i"), m_npoints, m_alphaMin, m_alphaMax);
+        m_data_offspec->addAxis(std::string("alpha_f"), m_npoints, m_alphaMin, m_alphaMax);
 
         OutputData<double>::iterator it = m_data_offspec->begin();
         while (it != m_data_offspec->end()) {
-            double alpha_i = m_data_offspec->getValueOfAxis<double>("alpha_i", it.getIndex());
-            double alpha_f = m_data_offspec->getValueOfAxis<double>("alpha_f", it.getIndex());
+            double alpha_i = m_data_offspec->getValueOfAxis("alpha_i", it.getIndex());
+            double alpha_f = m_data_offspec->getValueOfAxis("alpha_f", it.getIndex());
             size_t index_alpha_i = m_data_offspec->getIndexOfAxis("alpha_i", it.getIndex());
             size_t index_alpha_f = m_data_offspec->getIndexOfAxis("alpha_f", it.getIndex());
             ki.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
@@ -177,8 +177,8 @@ void TestDiffuseReflection::draw()
 
     OutputData<double>::const_iterator it = m_data_offspec->begin();
     while (it != m_data_offspec->end()) {
-        double alpha_i = m_data_offspec->getValueOfAxis<double>("alpha_i", it.getIndex());
-        double alpha_f = m_data_offspec->getValueOfAxis<double>("alpha_f", it.getIndex());
+        double alpha_i = m_data_offspec->getValueOfAxis("alpha_i", it.getIndex());
+        double alpha_f = m_data_offspec->getValueOfAxis("alpha_f", it.getIndex());
         size_t index_alpha_i = m_data_offspec->getIndexOfAxis("alpha_i", it.getIndex());
         size_t index_alpha_f = m_data_offspec->getIndexOfAxis("alpha_f", it.getIndex());
         double r = *it++;

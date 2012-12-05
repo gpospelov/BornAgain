@@ -24,8 +24,8 @@ void DiffuseDWBASimulation::run()
 
     DWBASimulation::iterator it_intensity = begin();
     while ( it_intensity != end() ) {
-        double phi_f = getDWBAIntensity().getValueOfAxis<double>("phi_f", it_intensity.getIndex());
-        double alpha_f = getDWBAIntensity().getValueOfAxis<double>("alpha_f", it_intensity.getIndex());
+        double phi_f = getDWBAIntensity().getValueOfAxis("phi_f", it_intensity.getIndex());
+        double alpha_f = getDWBAIntensity().getValueOfAxis("alpha_f", it_intensity.getIndex());
         if (alpha_f<0) {
             ++it_intensity;
             continue;

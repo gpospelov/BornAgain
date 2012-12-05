@@ -23,8 +23,6 @@
 #include "MathFunctions.h"
 #include "ROOTMinimizer.h"
 #include "OutputDataFunctions.h"
-#include "NamedVector.h"
-#include "Types.h"
 
 #include <iostream>
 #include <fstream>
@@ -634,20 +632,20 @@ OutputData<double> *TestIsGISAXS12::convert_isgi_scan(std::vector<IsgiData > &is
         throw LogicErrorException("TestIsGISAXS12::convert_isgi_scan() -> Error! Scan can't have both angle phif,alphaf fixed");
     }
 
-    NamedVector<double> *phi_axis = new NamedVector<double>("phi_f");
-    NamedVector<double> *alpha_axis = new NamedVector<double>("alpha_f");
+    AxisDouble phi_axis("phi_f");
+    AxisDouble alpha_axis("alpha_f");
     if( fixed_phif) {
         m_isgi_fixed_phif = isgi_data.back().phif;
-        phi_axis->push_back(isgi_data.back().phif);
+        phi_axis.push_back(isgi_data.back().phif);
         std::cout << "fixed phi " << isgi_data.back().phif << std::endl;
         for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
-            alpha_axis->push_back(isgi_data[i_point].alphaf);
+            alpha_axis.push_back(isgi_data[i_point].alphaf);
         }
     }else {
         m_isgi_fixed_alphaf = isgi_data.back().alphaf;
-        alpha_axis->push_back(isgi_data.back().alphaf);
+        alpha_axis.push_back(isgi_data.back().alphaf);
         for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
-            phi_axis->push_back(isgi_data[i_point].phif);
+            phi_axis.push_back(isgi_data[i_point].phif);
         }
 
     }
@@ -767,8 +765,7 @@ void TestIsGISAXS12::print_axes(DataSet &data)
     for(size_t i_set=0; i_set<data.size(); ++i_set) {
         std::cout << "scan #" << i_set << "  ";
         for(size_t i_axis=0; i_axis<data[i_set]->getNdimensions(); ++i_axis) {
-            const NamedVector<double > *axis = dynamic_cast<const NamedVector<double > *>(data[i_set]->getAxis(i_axis));
-            if( !axis) throw NullPointerException("TestIsGISAXS12::plot_isgisaxs_data() -> Error! Can't get axis");
+            const AxisDouble *axis = data[i_set]->getAxis(i_axis);
             std::cout << "( " << axis->getName() << ", " << axis->getSize() << ", " << axis->getMin() << ", " << axis->getMax() << " )   ";
         }
         std::cout << std::endl;

@@ -12,11 +12,11 @@ include($$PWD/../../shared.pri)
 SOURCES += main.cpp
 
 HEADERS += \
+	AxisDoubleTest.h \
     BeamTest.h \
     DetectorTest.h \
     ExperimentTest.h \
     MaskTest.h \
-    NamedVectorTest.h \
     OutputDataTest.h \
     OutputDataIteratorTest.h \
     GISASExperimentTest.h \

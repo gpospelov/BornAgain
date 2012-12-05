@@ -90,7 +90,7 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
 
     // we assume variable bin size and prepare [nbins+1] array of left edges of each bin plus right edge of the last bin
     for(size_t i_axis=0; i_axis<output.getNdimensions(); ++i_axis) {
-        const NamedVector<double> *axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[i_axis]);
+        const AxisDouble *axis = output.getAxis(i_axis);
         if( !axis ) throw("IsGISAXSTools::getOutputDataTH123D() -> Error! Can't cast axis");
         double dx(0);
         haxises[i_axis].nbins = axis->getSize();
@@ -123,8 +123,8 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
     OutputData<double>::const_iterator it = output.begin();
     while (it != output.end())
     {
-        double x = output.getValueOfAxis<double>( haxises[0].name, it.getIndex() );
-        double y = output.getValueOfAxis<double>( haxises[1].name, it.getIndex() );
+        double x = output.getValueOfAxis( haxises[0].name, it.getIndex() );
+        double y = output.getValueOfAxis( haxises[1].name, it.getIndex() );
         double value = *it++;
         hist2->Fill(x, y, value);
     }
@@ -154,7 +154,7 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
 
     // we assume variable bin size and prepare [nbins+1] array of left edges of each bin plus right edge of the last bin
     for(size_t i_axis=0; i_axis<output.getNdimensions(); ++i_axis) {
-        const NamedVector<double> *axis = reinterpret_cast<const NamedVector<double>*>(output.getAxes()[i_axis]);
+        const AxisDouble *axis = output.getAxis(i_axis);
         if( !axis ) throw("IsGISAXSTools::getOutputDataTH123D() -> Error! Can't cast axis");
         double dx(0);
         haxises[i_axis].nbins = axis->getSize();
@@ -216,7 +216,7 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
     {
         std::vector<double > xyz;
         for(size_t i_axis=0; i_axis<haxises.size(); ++i_axis) {
-            xyz.push_back(output.getValueOfAxis<double>( haxises[i_axis].name, it.getIndex() ) );
+            xyz.push_back(output.getValueOfAxis( haxises[i_axis].name, it.getIndex() ) );
         }
         double value = *it++;
         if(hist1) hist1->Fill(xyz[0], value);
@@ -373,7 +373,7 @@ void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
         return;
         //throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing.");
     }
-    size_t row_length = output.getAxes()[1]->getSize();
+    size_t row_length = output.getAxis(1)->getSize();
     OutputData<double>::const_iterator it = output.begin();
     while(it != output.end()) {
         double z_value = *it++;
@@ -441,8 +441,8 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
     int y_size = (int)buff_2d.size();
     int x_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
     OutputData<double> *p_result = new OutputData<double>;
-    p_result->addAxis(std::string("x-axis"), 0.0, double(x_size), x_size);
-    p_result->addAxis(std::string("y-axis"), 0.0, double(y_size), y_size);
+    p_result->addAxis(std::string("x-axis"), x_size, 0.0, double(x_size));
+    p_result->addAxis(std::string("y-axis"), y_size, 0.0, double(y_size));
     p_result->setAllTo(0.0);
 
     OutputData<double>::iterator it = p_result->begin();
@@ -465,8 +465,8 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
 {
     if (output_data.getRank() != 2) return;
 
-    const NamedVector<double> *p_axis0 = dynamic_cast<const NamedVector<double>*>(output_data.getAxes()[0]);
-    const NamedVector<double> *p_axis1 = dynamic_cast<const NamedVector<double>*>(output_data.getAxes()[1]);
+    const AxisDouble *p_axis0 = output_data.getAxis(0);
+    const AxisDouble *p_axis1 = output_data.getAxis(1);
     std::string axis0_name = p_axis0->getName();
     std::string axis1_name = p_axis1->getName();
     size_t axis0_size = p_axis0->getSize();
@@ -513,14 +513,14 @@ TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double> &data)
     double x1(0), x2(0), y1(0), y2(0);
     if( data.getAxis("alpha_f") && data.getAxis("alpha_f")->getSize() == 1) {
         // horizontal line
-        x1 = dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMin();
-        x2 = dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMax();
-        y1 = y2 = dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMin();
+        x1 = data.getAxis("phi_f")->getMin();
+        x2 = data.getAxis("phi_f")->getMax();
+        y1 = y2 = data.getAxis("alpha_f")->getMin();
     }else if( data.getAxis("phi_f") && data.getAxis("phi_f")->getSize() == 1 ) {
         // it's vertical line
-        x1 = x2 = dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMin();
-        y1 = dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMin();
-        y2 = dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMax();
+        x1 = x2 = data.getAxis("phi_f")->getMin();
+        y1 = data.getAxis("alpha_f")->getMin();
+        y2 = data.getAxis("alpha_f")->getMax();
     } else {
         throw LogicErrorException("IsGISAXSTools::getOutputDataScanLine() -> Error! Can't handle these axes.");
     }
@@ -553,10 +553,10 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const
     std::ostringstream ostr_title;
     if( data.getAxis("alpha_f") && data.getAxis("alpha_f")->getSize() == 1) {
         hist1 = hist2->ProjectionX();
-        ostr_title << hname << ", alpha_f=" << dynamic_cast<const NamedVector<double >*>(data.getAxis("alpha_f"))->getMin();
+        ostr_title << hname << ", alpha_f=" << data.getAxis("alpha_f")->getMin();
     }else if( data.getAxis("phi_f") && data.getAxis("phi_f")->getSize() == 1 ) {
         hist1 = hist2->ProjectionY();
-        ostr_title << hname << ", phi_f=" << dynamic_cast<const NamedVector<double >*>(data.getAxis("phi_f"))->getMin();
+        ostr_title << hname << ", phi_f=" << data.getAxis("phi_f")->getMin();
     } else {
         throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Unexpected place");
     }
@@ -564,7 +564,7 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const
     if( !hist1 ) throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Failed to make projection, existing name?");
 
     hist1->SetTitle(ostr_title.str().c_str());
-    // FIXME remove this trick to bypass weared bug with DrawCopy of TH1D projection of TH1D histohgrams
+    // FIXME remove this trick to bypass weird bug with DrawCopy of TH1D projection of TH1D histograms
     TH1D *h1 = (TH1D*)hist1->Clone();
     delete hist1;
     return h1;

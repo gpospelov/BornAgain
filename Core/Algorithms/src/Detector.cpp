@@ -47,12 +47,12 @@ void Detector::swapContent(Detector &other)
 /* ************************************************************************* */
 // other methods
 /* ************************************************************************* */
-void Detector::addAxis(const NamedVector<double> &axis)
+void Detector::addAxis(const AxisDouble &axis)
 {
 	m_axes.push_back(axis);
 }
 
-NamedVector<double> Detector::getAxis(size_t index) const
+AxisDouble Detector::getAxis(size_t index) const
 {
 	if (isCorrectAxisIndex(index)) {
 		return m_axes[index];

@@ -21,7 +21,7 @@
 //! @class Bin
 //! @brief Definition of Bin class that stores the bounds of a bin
 //- -------------------------------------------------------------------
-struct Bin
+struct Bin1D
 {
     double m_lower;  //!< lower bound of the bin
     double m_upper;  //!< upper bound of the bin
@@ -29,10 +29,10 @@ struct Bin
 };
 
 //! equality operator for bins
-bool operator==(const Bin &left, const Bin &right);
+bool operator==(const Bin1D &left, const Bin1D &right);
 
 //! inequality operator for bins
-bool operator!=(const Bin &left, const Bin &right) {
+bool operator!=(const Bin1D &left, const Bin1D &right) {
     return !(left==right);
 }
 
@@ -69,10 +69,10 @@ public:
     void push_back(double limit) { m_value_vector.push_back(limit); }
 
     //! indexed accessor retrieves midpoint of given bin
-    Bin operator[](size_t index);
+    Bin1D operator[](size_t index);
 
     //! const indexed accessor retrieves midpoint of given bin
-    const Bin operator[](size_t index) const;
+    const Bin1D operator[](size_t index) const;
 
     //! get minimum value of axis
     double getMin() const { return m_value_vector.front(); }
@@ -87,7 +87,7 @@ public:
     size_t findMatchingBinIndex(double value) const;
 
     //! find the bin that contains the given value
-    Bin findMatchingBin(double value) const;
+    Bin1D findMatchingBin(double value) const;
 
 private:
     std::string m_name;  //!< axis label

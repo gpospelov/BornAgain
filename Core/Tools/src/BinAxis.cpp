@@ -4,7 +4,7 @@
 
 #include <cmath>
 
-bool operator==(const Bin &left, const Bin &right)
+bool operator==(const Bin1D &left, const Bin1D &right)
 {
     if (std::abs(left.m_lower - right.m_lower) > Numeric::double_epsilon) return false;
     if (std::abs(left.m_upper - right.m_upper) > Numeric::double_epsilon) return false;
@@ -51,15 +51,15 @@ size_t BinAxis::getSize() const
     return m_value_vector.size()-1;
 }
 
-Bin BinAxis::operator[](size_t index)
+Bin1D BinAxis::operator[](size_t index)
 {
-    Bin result = { m_value_vector.at(index), m_value_vector.at(index+1) };
+    Bin1D result = { m_value_vector.at(index), m_value_vector.at(index+1) };
     return result;
 }
 
-const Bin BinAxis::operator[](size_t index) const
+const Bin1D BinAxis::operator[](size_t index) const
 {
-    Bin result = { m_value_vector.at(index), m_value_vector.at(index+1) };
+    Bin1D result = { m_value_vector.at(index), m_value_vector.at(index+1) };
     return result;
 }
 
@@ -86,7 +86,7 @@ size_t BinAxis::findMatchingBinIndex(double value) const
     return nbin;
 }
 
-Bin BinAxis::findMatchingBin(double value) const
+Bin1D BinAxis::findMatchingBin(double value) const
 {
     return (*this)[findMatchingBinIndex(value)];
 }

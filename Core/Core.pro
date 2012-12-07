@@ -89,6 +89,7 @@ SOURCES += \
     Samples/src/ParticleInfo.cpp \
     \
     Tools/src/Axisdouble.cpp \
+    Tools/src/BinAxis.cpp \
     Tools/src/Convolve.cpp \
     Tools/src/CoreOptionsDescription.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
@@ -225,6 +226,7 @@ HEADERS += \
     \
     Tools/inc/AttLimits.h \
     Tools/inc/Axisdouble.h \
+    Tools/inc/BinAxis.h \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \

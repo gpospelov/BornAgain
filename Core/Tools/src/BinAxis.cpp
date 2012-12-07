@@ -72,9 +72,11 @@ void BinAxis::initBins(size_t nbr_bins, double start, double end)
     }
 }
 
-size_t BinAxis::findClosestIndex(double value) const
+size_t BinAxis::findMatchingBinIndex(double value) const
 {
-    if(m_value_vector.size()<3) return 0;
+    if(m_value_vector.size()<2) {
+        throw ClassInitializationException("BinAxis not (yet) correctly initialized");
+    }
     if (value < getMin() || value > getMax()) {
         throw OutOfBoundsException("Given value not in any bin");
     }
@@ -84,13 +86,10 @@ size_t BinAxis::findClosestIndex(double value) const
     return nbin;
 }
 
-//size_t BinAxis::getLowerBoundIndex(double value) const
-//{
-//}
-//
-//size_t BinAxis::getUpperBoundIndex(double value) const
-//{
-//}
+Bin BinAxis::findMatchingBin(double value) const
+{
+    return (*this)[findMatchingBinIndex(value)];
+}
 
 bool HaveSameNameAndShape(const BinAxis& left, const BinAxis& right)
 {

@@ -84,13 +84,11 @@ public:
     void initBins(size_t nbr_bins, double start, double end);
 
     //! find number of bin for the given value
-    size_t findClosestIndex(double value) const;
+    size_t findMatchingBinIndex(double value) const;
 
-//    //! find the index that corresponds to the given lower bound (index is inclusive)
-//    size_t getLowerBoundIndex(double value) const;
-//
-//    //! find the index that corresponds to the given upper bound (index is inclusive)
-//    size_t getUpperBoundIndex(double value) const;
+    //! find the bin that contains the given value
+    Bin findMatchingBin(double value) const;
+
 private:
     std::string m_name;  //!< axis label
     std::vector<double> m_value_vector;  //!< vector containing the bin limits

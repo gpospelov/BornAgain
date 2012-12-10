@@ -38,7 +38,7 @@ public:
         void checkNull() const { if(!m_data) throw NullPointerException("ParameterPool::RealPar::getValue() -> Attempt to access uninitialised pointer."); }
         friend std::ostream &operator<<(std::ostream &ostr, const RealPar &p) { ostr << p.m_data; return ostr; }
     private:
-        double *m_data;
+        volatile double *m_data;
     };
 
     //! definition of parameter type and parameter container

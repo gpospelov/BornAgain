@@ -152,12 +152,12 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     m_fitSuite = new FitSuite();
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit", "") );
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") );
+    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
     m_fitSuite->attachObserver( new FitSuiteObserverPrint(10) );
     m_fitSuite->attachObserver( new FitSuiteObserverDraw(50) );
 
-    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
-    minim->SetStrategy(1);
+//    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
+//    minim->SetStrategy(1);
 //    minim->SetPrecision(1.);
 
     m_fitSuite->addFitParameter("*Normalizer/scale", 1e5, 1, AttLimits::limited(1e4, 2e5));

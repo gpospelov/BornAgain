@@ -34,6 +34,7 @@ SOURCES += \
     src/TestFormFactor.cpp \
     src/TestFourier.cpp \
     src/TestFresnelCoeff.cpp \
+    src/TestFumiliLMA.cpp \
     src/TestIsGISAXS1.cpp \
     src/TestIsGISAXS2.cpp \
     src/TestIsGISAXS3.cpp \
@@ -75,6 +76,7 @@ HEADERS += \
     inc/TestFormFactor.h \
     inc/TestFourier.h \
     inc/TestFresnelCoeff.h \
+    inc/TestFumiliLMA.h \
     inc/TestIsGISAXS1.h \
     inc/TestIsGISAXS2.h \
     inc/TestIsGISAXS3.h \

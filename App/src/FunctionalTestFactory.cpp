@@ -2,6 +2,7 @@
 #include "TestRoughness.h"
 #include "TestFresnelCoeff.h"
 #include "TestFormFactor.h"
+#include "TestFumiliLMA.h"
 #include "TestDiffuseReflection.h"
 #include "TestIsGISAXS1.h"
 #include "TestIsGISAXS2.h"
@@ -87,6 +88,8 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: test of minimizers with hard-to-minimize test functions");
     registerItem("fourier",    IFactoryCreateFunction<TestFourier, IFunctionalTest>,
                  "functional test: test of Fourier transformation of OutputData maps");
+    registerItem("fumili",    IFactoryCreateFunction<TestFumiliLMA, IFunctionalTest>,
+                 "functional test: test of ROOT's LMA-based minimizers Fumili and GSLMultiFit");
 
     m_benchmark = new TBenchmark();
 }

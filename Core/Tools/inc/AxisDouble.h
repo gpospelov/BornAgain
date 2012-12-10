@@ -17,6 +17,9 @@
 #include <string>
 #include <vector>
 
+// Forward declaration of BinAxis class, as needed for conversion constructor
+class BinAxis;
+
 //- -------------------------------------------------------------------
 //! @class AxisDouble
 //! @brief Definition of AxisDouble class that stores the points of an axis
@@ -27,6 +30,10 @@ public:
     //! constructors
     AxisDouble(std::string name);
     AxisDouble(std::string name, size_t size, double start, double end);
+
+    //! explicit conversion from BinAxis
+    //TODO: make explicit
+    AxisDouble(const BinAxis &source);
 
     //! clone function
     AxisDouble* clone() const;

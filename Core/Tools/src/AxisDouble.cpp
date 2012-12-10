@@ -1,4 +1,5 @@
 #include "AxisDouble.h"
+#include "BinAxis.h"
 #include "Numeric.h"
 #include "Exceptions.h"
 
@@ -13,6 +14,14 @@ AxisDouble::AxisDouble(std::string name, size_t size, double start, double end)
 : m_name(name)
 {
     initElements(size, start, end);
+}
+
+AxisDouble::AxisDouble(const BinAxis& source)
+: m_name(source.getName())
+{
+    for (size_t i=0; i<source.getSize(); ++i) {
+        m_value_vector.push_back(source[i].getMidPoint());
+    }
 }
 
 AxisDouble* AxisDouble::clone() const

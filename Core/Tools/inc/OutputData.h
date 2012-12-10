@@ -32,7 +32,7 @@ template <class T> class OutputData
 {
 public:
     OutputData();
-    virtual ~OutputData();
+    ~OutputData();
     //! make object clone
     OutputData* clone() const;
 

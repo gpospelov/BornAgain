@@ -14,17 +14,19 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Dec 4, 2012
 
+#include "IAxis.h"
+
 #include <string>
 #include <vector>
 
 // Forward declaration of BinAxis class, as needed for conversion constructor
-class BinAxis;
+class AxisBin;
 
 //- -------------------------------------------------------------------
 //! @class AxisDouble
 //! @brief Definition of AxisDouble class that stores the points of an axis
 //- -------------------------------------------------------------------
-class AxisDouble
+class AxisDouble : public IAxis
 {
 public:
     //! constructors
@@ -33,46 +35,35 @@ public:
 
     //! explicit conversion from BinAxis
     //TODO: make explicit
-    AxisDouble(const BinAxis &source);
+    AxisDouble(const AxisBin &source);
 
-    //! clone function
-    AxisDouble* clone() const;
+    virtual AxisDouble *clone() const;
 
-    //! create a new axis with half the number of bins
-    AxisDouble createDoubleBinSize() const;
+    virtual AxisDouble *createDoubleBinSize() const;
 
     //! destructor
-    ~AxisDouble() {}
+    virtual ~AxisDouble() {}
 
-    //! retrieve the number of bins
-    size_t getSize() const { return m_value_vector.size(); }
-
-    //! retrieve the label of the axis
-    std::string getName() const { return m_name; }
-
-    //! set the axis label
-    void setName(std::string name) { m_name = name; }
+    virtual size_t getSize() const { return m_sample_vector.size(); }
 
     //! add point to the end of the axis
-    void push_back(double element) { m_value_vector.push_back(element); }
+    void push_back(double element) { m_sample_vector.push_back(element); }
 
-    //! indexed accessor
-    double& operator[](size_t index) { return m_value_vector.at(index); }
+    virtual double operator[](size_t index) const { return m_sample_vector[index]; }
 
-    //! const indexed accessor
-    const double& operator[](size_t index) const { return m_value_vector.at(index); }
+    virtual Bin1D getBin(size_t index) const;
 
     //! get value of first point of axis
-    double getMin() const { return m_value_vector.front(); }
+    virtual double getMin() const { return m_sample_vector.front(); }
 
     //! get value of last point of axis
-    double getMax() const { return m_value_vector.back(); }
+    virtual double getMax() const { return m_sample_vector.back(); }
 
     //! initialize axis points
     void initElements(size_t size, double start, double end);
 
     //! find number of bin which is closest to given value
-    size_t findClosestIndex(double value) const;
+    virtual size_t findClosestIndex(double value) const;
 
     //! find the index that corresponds to the given lower bound (index is inclusive)
     size_t getLowerBoundIndex(double value) const;
@@ -80,13 +71,9 @@ public:
     //! find the index that corresponds to the given upper bound (index is inclusive)
     size_t getUpperBoundIndex(double value) const;
 private:
-    std::string m_name;  //!< axis label
-    std::vector<double> m_value_vector;  //!< vector containing the axis points
+    virtual bool equals(const IAxis &other) const;
+    std::vector<double> m_sample_vector;  //!< vector containing the axis points
+    double m_bin_size;
 };
-
-//! global helper function for comparison of axes
-bool HaveSameNameAndShape(const AxisDouble &left, const AxisDouble &right);
-
-
 
 #endif /* AXISDOUBLE_H_ */

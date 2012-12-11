@@ -90,7 +90,7 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
 
     // we assume variable bin size and prepare [nbins+1] array of left edges of each bin plus right edge of the last bin
     for(size_t i_axis=0; i_axis<output.getNdimensions(); ++i_axis) {
-        const AxisDouble *axis = output.getAxis(i_axis);
+        const IAxis *axis = output.getAxis(i_axis);
         if( !axis ) throw("IsGISAXSTools::getOutputDataTH123D() -> Error! Can't cast axis");
         double dx(0);
         haxises[i_axis].nbins = axis->getSize();
@@ -154,7 +154,7 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
 
     // we assume variable bin size and prepare [nbins+1] array of left edges of each bin plus right edge of the last bin
     for(size_t i_axis=0; i_axis<output.getNdimensions(); ++i_axis) {
-        const AxisDouble *axis = output.getAxis(i_axis);
+        const IAxis *axis = output.getAxis(i_axis);
         if( !axis ) throw("IsGISAXSTools::getOutputDataTH123D() -> Error! Can't cast axis");
         double dx(0);
         haxises[i_axis].nbins = axis->getSize();
@@ -465,8 +465,8 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
 {
     if (output_data.getRank() != 2) return;
 
-    const AxisDouble *p_axis0 = output_data.getAxis(0);
-    const AxisDouble *p_axis1 = output_data.getAxis(1);
+    const IAxis *p_axis0 = output_data.getAxis(0);
+    const IAxis *p_axis1 = output_data.getAxis(1);
     std::string axis0_name = p_axis0->getName();
     std::string axis1_name = p_axis1->getName();
     size_t axis0_size = p_axis0->getSize();

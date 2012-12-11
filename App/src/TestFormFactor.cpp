@@ -27,8 +27,8 @@ TestFormFactor::~TestFormFactor()
 void TestFormFactor::execute()
 {
     OutputData<double>::iterator it = mp_intensity_output->begin();
-    const AxisDouble *p_y_axis = mp_intensity_output->getAxis("detector y-axis");
-    const AxisDouble *p_z_axis = mp_intensity_output->getAxis("detector z-axis");
+    const IAxis *p_y_axis = mp_intensity_output->getAxis("detector y-axis");
+    const IAxis *p_z_axis = mp_intensity_output->getAxis("detector z-axis");
     double lambda = 1.0;
     double alpha_i = 0.2*M_PI/180.0;
     cvector_t k_i;
@@ -53,8 +53,8 @@ void TestFormFactor::draw()
     TCanvas *c1 = new TCanvas("c1_test_formfactor", "Cylinder Formfactor", 0, 0, 1024, 768);
     (void)c1;
 
-    const AxisDouble *p_y_axis = mp_intensity_output->getAxis("detector y-axis");
-    const AxisDouble *p_z_axis = mp_intensity_output->getAxis("detector z-axis");
+    const IAxis *p_y_axis = mp_intensity_output->getAxis("detector y-axis");
+    const IAxis *p_z_axis = mp_intensity_output->getAxis("detector z-axis");
     size_t y_size = p_y_axis->getSize();
     size_t z_size = p_z_axis->getSize();
     double y_start = (*p_y_axis)[0];

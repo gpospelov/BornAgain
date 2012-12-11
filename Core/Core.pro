@@ -88,8 +88,8 @@ SOURCES += \
     Samples/src/ParticleDecoration.cpp \
     Samples/src/ParticleInfo.cpp \
     \
-    Tools/src/Axisdouble.cpp \
-    Tools/src/BinAxis.cpp \
+    Tools/src/AxisBin.cpp \
+    Tools/src/AxisDouble.cpp \
     Tools/src/Convolve.cpp \
     Tools/src/CoreOptionsDescription.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
@@ -224,9 +224,10 @@ HEADERS += \
     Samples/inc/ParticleDecoration.h \
     Samples/inc/ParticleInfo.h \
     \
+    Tools/inc/AxisBin.h \
+    Tools/inc/AxisDouble.h \
     Tools/inc/AttLimits.h \
-    Tools/inc/Axisdouble.h \
-    Tools/inc/BinAxis.h \
+    Tools/inc/Bin.h \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
@@ -239,6 +240,7 @@ HEADERS += \
     Tools/inc/FitSuiteObjects.h \
     Tools/inc/FitSuiteParameters.h \
     Tools/inc/FitSuiteStrategy.h \
+    Tools/inc/IAxis.h \
     Tools/inc/IDoubleToComplexFunction.h \
     Tools/inc/IFactory.h \
     Tools/inc/IMinimizer.h \

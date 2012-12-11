@@ -104,7 +104,7 @@ public:
     //! return pointer to the parameters values at the minimum
     virtual double getValueOfVariableAtMinimum(size_t i) const
     {
-        std::map<int, double >::const_iterator pos = m_values.find(i);
+        std::map<int, double >::const_iterator pos = m_values.find((int)i);
         if(pos != m_values.end()){
             return pos->second;
         } else {

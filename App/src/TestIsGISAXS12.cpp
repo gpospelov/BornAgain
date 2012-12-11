@@ -235,7 +235,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
         OutputData<double > *real = obj->getChiSquaredModule()->getRealData()->clone();
         OutputData<double > *simul = obj->getChiSquaredModule()->getSimulationData()->clone();
 
-        c2->cd(i_set+3);
+        c2->cd((int)(i_set+3));
         *simul /= *real;
         TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"gisasfw_real_simul_ratio");
         hratio->DrawCopy();
@@ -766,7 +766,7 @@ void TestIsGISAXS12::print_axes(DataSet &data)
     for(size_t i_set=0; i_set<data.size(); ++i_set) {
         std::cout << "scan #" << i_set << "  ";
         for(size_t i_axis=0; i_axis<data[i_set]->getNdimensions(); ++i_axis) {
-            const AxisDouble *axis = data[i_set]->getAxis(i_axis);
+            const IAxis *axis = data[i_set]->getAxis(i_axis);
             std::cout << "( " << axis->getName() << ", " << axis->getSize() << ", " << axis->getMin() << ", " << axis->getMax() << " )   ";
         }
         std::cout << std::endl;

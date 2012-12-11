@@ -58,7 +58,7 @@ private:
 	double deltaPhi(double alpha, double phi, double zeta);
 	void createZetaAndProbVectors(std::vector<double> &zetas, std::vector<double> &probs, size_t nbr_zetas, double zeta_sigma);
 	void addToIntensityMap(double alpha, double phi, double value);
-	int findClosestIndex(const AxisDouble *p_axis, double value);
+//	int findClosestIndex(const AxisDouble *p_axis, double value);
 };
 
 #endif /* GISASEXPERIMENT_H_ */

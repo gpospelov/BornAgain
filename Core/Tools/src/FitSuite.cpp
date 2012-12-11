@@ -163,7 +163,7 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
     m_fit_objects.runSimulation();
 
     // caclulate chi2 value
-    double chi_squared = m_fit_objects.getChiSquaredValue(m_fit_parameters.getNfreeParameters());
+    double chi_squared = m_fit_objects.getChiSquaredValue((int)m_fit_parameters.getNfreeParameters());
 
     notifyObservers();
     m_n_call++;

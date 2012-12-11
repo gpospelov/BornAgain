@@ -194,8 +194,8 @@ double GISASExperiment::getSolidAngle(size_t index) const
     const std::string s_alpha_f("alpha_f");
     const std::string s_phi_f("phi_f");
 
-    const AxisDouble *p_alpha_axis = m_intensity_map.getAxis(s_alpha_f);
-    const AxisDouble *p_phi_axis = m_intensity_map.getAxis(s_phi_f);
+    const IAxis *p_alpha_axis = m_intensity_map.getAxis(s_alpha_f);
+    const IAxis *p_phi_axis = m_intensity_map.getAxis(s_phi_f);
     size_t alpha_index = m_intensity_map.getIndexOfAxis(s_alpha_f, index);
     size_t alpha_size = p_alpha_axis->getSize();
     size_t phi_index = m_intensity_map.getIndexOfAxis(s_phi_f, index);
@@ -283,23 +283,23 @@ void GISASExperiment::createZetaAndProbVectors(std::vector<double>& zetas,
 
 void GISASExperiment::addToIntensityMap(double alpha, double phi, double value)
 {
-    const AxisDouble *p_alpha_axis = m_intensity_map.getAxis("alpha_f");
-    const AxisDouble *p_phi_axis = m_intensity_map.getAxis("phi_f");
+    const IAxis *p_alpha_axis = m_intensity_map.getAxis("alpha_f");
+    const IAxis *p_phi_axis = m_intensity_map.getAxis("phi_f");
     std::vector<int> coordinates;
-    coordinates.push_back(findClosestIndex(p_alpha_axis, alpha));
-    coordinates.push_back(findClosestIndex(p_phi_axis, phi));
+    coordinates.push_back((int)p_alpha_axis->findClosestIndex(alpha));
+    coordinates.push_back((int)p_phi_axis->findClosestIndex(phi));
     m_intensity_map[m_intensity_map.toIndex(coordinates)] += value;
 }
 
-int GISASExperiment::findClosestIndex(const AxisDouble *p_axis, double value)
-{
-    int result = 0;
-    double smallest_diff = std::abs(value-(*p_axis)[0]);
-    for (size_t i=1; i<p_axis->getSize(); ++i) {
-        double new_diff = std::abs(value-(*p_axis)[i]);
-        if (new_diff > smallest_diff) break;
-        result = (int)i;
-        smallest_diff = new_diff;
-    }
-    return result;
-}
+//int GISASExperiment::findClosestIndex(const AxisDouble *p_axis, double value)
+//{
+//    int result = 0;
+//    double smallest_diff = std::abs(value-(*p_axis)[0]);
+//    for (size_t i=1; i<p_axis->getSize(); ++i) {
+//        double new_diff = std::abs(value-(*p_axis)[i]);
+//        if (new_diff > smallest_diff) break;
+//        result = (int)i;
+//        smallest_diff = new_diff;
+//    }
+//    return result;
+//}

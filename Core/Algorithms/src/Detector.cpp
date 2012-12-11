@@ -47,15 +47,15 @@ void Detector::swapContent(Detector &other)
 /* ************************************************************************* */
 // other methods
 /* ************************************************************************* */
-void Detector::addAxis(const AxisDouble &axis)
+void Detector::addAxis(const IAxis &axis)
 {
-	m_axes.push_back(axis);
+	m_axes.push_back(axis.clone());
 }
 
-AxisDouble Detector::getAxis(size_t index) const
+const IAxis &Detector::getAxis(size_t index) const
 {
 	if (isCorrectAxisIndex(index)) {
-		return m_axes[index];
+		return *m_axes[index];
 	}
 	throw OutOfBoundsException("Not so many axes in this detector.");
 }

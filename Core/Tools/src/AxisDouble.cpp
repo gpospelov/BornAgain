@@ -3,6 +3,7 @@
 #include "Exceptions.h"
 
 #include <cmath>
+#include <algorithm>
 
 AxisDouble::AxisDouble(std::string name)
 : m_name(name)

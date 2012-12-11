@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		62027ED516775A7700A0D41C /* AxisBin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62027ED416775A7700A0D41C /* AxisBin.cpp */; };
 		6204B7991667A408003BF358 /* IOutputDataNormalizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6204B7981667A407003BF358 /* IOutputDataNormalizer.cpp */; };
 		6218B466161B2577007FFA5C /* FormFactorParallelepiped.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */; };
 		6218B469161B25BC007FFA5C /* TestIsGISAXS11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6218B468161B25BC007FFA5C /* TestIsGISAXS11.cpp */; };
@@ -235,6 +236,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		62027ECF16775A6B00A0D41C /* AxisBin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisBin.h; sourceTree = "<group>"; };
+		62027ED016775A6B00A0D41C /* Bin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bin.h; sourceTree = "<group>"; };
+		62027ED116775A6B00A0D41C /* IAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAxis.h; sourceTree = "<group>"; };
+		62027ED216775A6B00A0D41C /* SafePointerVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafePointerVector.h; sourceTree = "<group>"; };
+		62027ED416775A7700A0D41C /* AxisBin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisBin.cpp; sourceTree = "<group>"; };
 		6204B7961667A3FC003BF358 /* IIntensityFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIntensityFunction.h; sourceTree = "<group>"; };
 		6204B7971667A3FC003BF358 /* IOutputDataNormalizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOutputDataNormalizer.h; sourceTree = "<group>"; };
 		6204B7981667A407003BF358 /* IOutputDataNormalizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOutputDataNormalizer.cpp; sourceTree = "<group>"; };
@@ -1675,6 +1681,10 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62027ECF16775A6B00A0D41C /* AxisBin.h */,
+				62027ED016775A6B00A0D41C /* Bin.h */,
+				62027ED116775A6B00A0D41C /* IAxis.h */,
+				62027ED216775A6B00A0D41C /* SafePointerVector.h */,
 				62D7A934166E3F81009A45CE /* AxisDouble.h */,
 				62CC097C166504D600A5B720 /* AttLimits.h */,
 				62CC097D166504D600A5B720 /* FitObject.h */,
@@ -1725,6 +1735,7 @@
 		6222230A160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62027ED416775A7700A0D41C /* AxisBin.cpp */,
 				62D7A935166E3F8D009A45CE /* AxisDouble.cpp */,
 				62CC0986166504E700A5B720 /* FitObject.cpp */,
 				62CC0987166504E700A5B720 /* FitParameterLinked.cpp */,
@@ -68683,6 +68694,7 @@
 				6254C2651666652E0098EE7E /* IFormFactorBorn.cpp in Sources */,
 				6204B7991667A408003BF358 /* IOutputDataNormalizer.cpp in Sources */,
 				62D7A936166E3F8D009A45CE /* AxisDouble.cpp in Sources */,
+				62027ED516775A7700A0D41C /* AxisBin.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

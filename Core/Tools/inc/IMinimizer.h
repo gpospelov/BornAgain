@@ -37,9 +37,6 @@ public:
     //! set function to minimize
     virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1) = 0;
 
-//    //! set function and its gradient
-//    virtual void setFunctionAndGradient(boost::function<double(const double *)> fcn, boost::function<double(const double *, int)> fcn_deriv, int ndim = 1) = 0;
-
     //! run minimization
     virtual void minimize() = 0;
 
@@ -80,7 +77,6 @@ public:
 
     //! set function to minimize
     virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1) { m_fcn = fcn, m_ndim = ndim; }
-//    virtual void setFunctionAndGradient(boost::function<double(const double *)> fcn, boost::function<double(const double *, int)> fcn_deriv, int ndim = 1) { (void)fcn; (void)fcn_deriv; (void)ndim; throw NotImplementedException("TestMinimizer::setFunctionGradient"); }
 
     //! run minimization
     virtual void minimize()

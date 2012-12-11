@@ -106,6 +106,7 @@ public:
 
     //! create noisy data
     static OutputData<double > *createNoisyData(const OutputData<double> &exact_data, double noise_factor = 0.1);
+    static OutputData<double > *createDataWithGaussianNoise(const OutputData<double> &exact_data, double sigma);
 
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

@@ -590,3 +590,16 @@ OutputData<double > *IsGISAXSTools::createNoisyData(const OutputData<double> &ex
 }
 
 
+OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData<double> &exact_data, double sigma)
+{
+    OutputData<double > *real_data = exact_data.clone();
+    OutputData<double>::iterator it = real_data->begin();
+    while (it != real_data->end()) {
+        double current = *it;
+        double random = MathFunctions::GenerateNormalRandom(0.0, sigma);
+        *it = current+random;
+        ++it;
+    }
+    return real_data;
+}
+

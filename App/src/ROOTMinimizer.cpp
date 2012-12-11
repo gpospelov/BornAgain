@@ -6,6 +6,9 @@
 
 ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type) : m_fcn(0)
 {
+    if(minimizer_name == "Minuit2" && algo_type == "Fumili2") {
+        throw LogicErrorException("ROOTMinimizer::ROOTMinimizer() -> Error! Use word Fumili instead of 'Fumili2'");
+    }
     m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name.c_str(), algo_type.c_str() );
     m_root_minimizer->SetMaxFunctionCalls(20000);
     m_root_minimizer->SetMaxIterations(20000);

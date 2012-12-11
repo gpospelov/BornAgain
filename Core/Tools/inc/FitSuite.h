@@ -72,10 +72,6 @@ public:
     //! function to minimize
     double functionToMinimize(const double *pars_current_values);
 
-//    //! function gradient
-//    double functionGradient(const double *pars, int icoord);
-
-
     //! return reference to the kit with data
     FitSuiteObjects *getFitObjects() { return &m_fit_objects; }
 

@@ -47,7 +47,6 @@ public:
     double functionToMinimize(const double *pars);
 
 private:
-    OutputData<double > *createDataWithGaussianNoise(const OutputData<double> &exact_data, double sigma);
     void FillOutputDataFromFunction(OutputData<double> &data, TF2 *fun, int nbinsx=100, int nbinsy=100);
 
     ROOT::Math::Minimizer *m_root_minimizer; //! minimizer

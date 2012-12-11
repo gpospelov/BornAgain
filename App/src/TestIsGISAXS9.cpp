@@ -8,6 +8,7 @@
 #include "DrawHelper.h"
 
 #include "TCanvas.h"
+#include <gsl/gsl_errno.h>
 
 
 TestIsGISAXS9::TestIsGISAXS9()  : IFunctionalTest("TestIsGISAXS9")
@@ -22,9 +23,6 @@ TestIsGISAXS9::~TestIsGISAXS9()
 
 void TestIsGISAXS9::clear()
 {
-    for(std::vector<OutputData<double> *>::iterator it=m_results.begin(); it!=m_results.end(); it++) {
-        delete (*it);
-    }
     m_results.clear();
 }
 
@@ -32,28 +30,32 @@ void TestIsGISAXS9::clear()
 void TestIsGISAXS9::execute()
 {
     clear();
+    gsl_set_error_handler_off();
 
     // setting experiment
     GISASExperiment experiment(mp_options);
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
+    MultiLayer *p_sample;
+
     // pyramid
-    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
-    experiment.setSample(*sample);
+    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
+    experiment.setSample(*p_sample);
     experiment.runSimulation();
     OutputData<double> *data = experiment.getOutputDataClone();
     m_results.push_back( data );
     IsGISAXSTools::writeOutputDataToFile(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
+    delete p_sample;
 
     // rotated pyramid
-    sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_RotatedPyramid"));
-    experiment.setSample(*sample);
+    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_RotatedPyramid"));
+    experiment.setSample(*p_sample);
     experiment.runSimulation();
     data = experiment.getOutputDataClone();
     m_results.push_back( data );
     IsGISAXSTools::writeOutputDataToFile(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z45.ima");
-
+    delete p_sample;
 }
 
 

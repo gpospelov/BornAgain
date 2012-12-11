@@ -17,6 +17,7 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
+#include "SafePointerVector.h"
 
 
 //- -------------------------------------------------------------------
@@ -34,7 +35,7 @@ public:
 
     void clear();
 private:
-    std::vector<OutputData<double> *> m_results;
+    SafePointerVector<OutputData<double> > m_results;
 };
 
 

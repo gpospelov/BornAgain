@@ -95,13 +95,13 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t &q) const
         } else{
             qxy=qy;
         }
-        F=(4.*(qxy*tga*(-(qxy*qxy*R) + qz*tga*(complex_t(0,-2) + qz*R*tga))*std::cos(qxy*R) -
-               std::exp(im*H*qz)*qxy*(H*std::pow(qxy,2) - qxy*qxy*R*tga - qz*(complex_t(0,2) + H*qz)*std::pow(tga,2) +
+        F=(4.*(qxy*tga*(-(qxy*qxy*R) + qz*tga*(complex_t(0.0,-2.0) + qz*R*tga))*std::cos(qxy*R) -
+               std::exp(im*H*qz)*qxy*(H*std::pow(qxy,2) - qxy*qxy*R*tga - qz*(complex_t(0.0,2.0) + H*qz)*std::pow(tga,2) +
                   std::pow(qz,2)*R*std::pow(tga,3))*std::cos(qxy*(R - H/tga)) +
-               tga*(std::pow(qxy,2)*(1. - complex_t(0,1)*qz*R*tga) + std::pow(qz,2)*std::pow(tga,2)*(1. + complex_t(0,1)*qz*R*tga))*
-                std::sin(qxy*R) + complex_t(0,1)*std::exp(im*H*qz)*tga*
-                (std::pow(qz,2)*std::pow(tga,2)*(complex_t(0,1) + H*qz - qz*R*tga) +
-                  std::pow(qxy,2)*(complex_t(0,1) - H*qz + qz*R*tga))*std::sin(qxy*(R - H/tga))))/
+               tga*(std::pow(qxy,2)*(1. - complex_t(0.0,1.0)*qz*R*tga) + std::pow(qz,2)*std::pow(tga,2)*(1. + complex_t(0.0,1.0)*qz*R*tga))*
+                std::sin(qxy*R) + complex_t(0.0,1.0)*std::exp(im*H*qz)*tga*
+                (std::pow(qz,2)*std::pow(tga,2)*(complex_t(0.0,1.0) + H*qz - qz*R*tga) +
+                  std::pow(qxy,2)*(complex_t(0.0,1.0) - H*qz + qz*R*tga))*std::sin(qxy*(R - H/tga))))/
            (qxy*std::pow(qxy - qz*tga,2)*std::pow(qxy + qz*tga,2));
     }
     return F;

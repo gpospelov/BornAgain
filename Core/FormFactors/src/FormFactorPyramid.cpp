@@ -84,7 +84,7 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t &q) const
         K2 = -MathFunctions::Sinc(q1)*std::exp(im*q1)*im + MathFunctions::Sinc(q2)*std::exp(-im*q2)*im;
         K3 = MathFunctions::Sinc(q3)*std::exp(im*q3)    + MathFunctions::Sinc(q4)*std::exp(-im*q4);
         K4 = -MathFunctions::Sinc(q3)*std::exp(im*q3)*im + MathFunctions::Sinc(q4)*std::exp(-im*q4)*im;
-        F = K1*cos( (qx-qy)*R ) + K2*sin( (qx-qy)*R ) - K3*cos( (qx+qy)*R ) - K4*sin( (qx+qy)*R );
+        F = K1*std::cos( (qx-qy)*R ) + K2*std::sin( (qx-qy)*R ) - K3*std::cos( (qx+qy)*R ) - K4*std::sin( (qx+qy)*R );
         F = F*H/(qx*qy);
     } else if(std::abs(qx) <= Numeric::double_epsilon && std::abs(qy) <= Numeric::double_epsilon) {
         F=(4.*im*(-2./tga/tga - 2.*im*qz*R/tga + qz*qz*R*R - std::exp(im*H*qz) * ((-1.+im + H*qz)/tga - qz*R)*((1.+im + H*qz)/tga - qz*R)  ))/std::pow(qz,3);

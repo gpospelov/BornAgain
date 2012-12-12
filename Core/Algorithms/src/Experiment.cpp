@@ -80,11 +80,7 @@ void Experiment::normalize()
 {
     double incident_intensity = m_beam.getIntensity();
     if (!m_is_normalized && incident_intensity!=1.0) {
-        OutputData<double>::iterator it = m_intensity_map.begin();
-        while (it != m_intensity_map.end()) {
-            *it *= incident_intensity;
-            ++it;
-        }
+        m_intensity_map.scaleAll(incident_intensity);
         m_is_normalized = true;
     }
 }

@@ -23,14 +23,17 @@ void MultiLayerRoughnessDWBASimulation::setReflectionTransmissionFunction(size_t
 
 void MultiLayerRoughnessDWBASimulation::run()
 {
+    const std::string s_phi_f("phi_f");
+    const std::string s_alpha_f("alpha_f");
+
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     double lambda = 2.0*M_PI/m_ki_real.mag();
 
     DWBASimulation::iterator it_intensity = begin();
     while ( it_intensity != m_dwba_intensity.end() )
     {
-        double phi_f = getDWBAIntensity().getValueOfAxis("phi_f", it_intensity.getIndex());
-        double alpha_f = getDWBAIntensity().getValueOfAxis("alpha_f", it_intensity.getIndex());
+        double phi_f = getDWBAIntensity().getValueOfAxis(s_phi_f, it_intensity.getIndex());
+        double alpha_f = getDWBAIntensity().getValueOfAxis(s_alpha_f, it_intensity.getIndex());
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
         *it_intensity = evaluate(m_ki, k_f, -m_alpha_i, alpha_f);

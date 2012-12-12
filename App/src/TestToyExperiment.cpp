@@ -17,14 +17,17 @@ void ToyExperiment::runSimulation()
     m_func->SetParameters(&pars[0]);
     m_intensity_map.setAllTo(0.0);
     OutputData<double>::iterator it = m_intensity_map.begin();
+    const std::string s_phi_f("phi_f");
+    const std::string s_alpha_f("alpha_f");
     while( it!= m_intensity_map.end() ) {
-        double phi_f = m_intensity_map.getValueOfAxis("phi_f", it.getIndex());
-        double alpha_f = m_intensity_map.getValueOfAxis("alpha_f", it.getIndex());
+        double phi_f = m_intensity_map.getValueOfAxis(s_phi_f, it.getIndex());
+        double alpha_f = m_intensity_map.getValueOfAxis(s_alpha_f, it.getIndex());
         double value = m_func->Eval(phi_f, alpha_f);
         (*it) = value;
         ++it;
     }
 }
+
 
 void ToyExperiment::init_parameters()
 {
@@ -72,7 +75,8 @@ void TestToyExperiment::execute()
 
     // setting up fitSuite
     FitSuite *m_fitSuite = new FitSuite();
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit") );
     m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
     m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
 

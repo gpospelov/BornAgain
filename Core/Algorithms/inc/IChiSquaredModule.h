@@ -73,6 +73,9 @@ public:
     //! set number of degree of freedom
     void setNdegreeOfFreedom(int ndegree_of_freedom) { m_ndegree_of_freedom = ndegree_of_freedom; }
 
+    //! return residual between data and simulation for single element
+    virtual double getResidualValue(int /* index */ ) const { throw NotImplementedException("IChiSquaredModule::getResidualValue() -> Error! Not implemented."); }
+
 protected:
     // disabling assignment operator
     IChiSquaredModule &operator=(const IChiSquaredModule &);

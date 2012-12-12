@@ -72,6 +72,9 @@ public:
     //! function to minimize
     double functionToMinimize(const double *pars_current_values);
 
+    //! provides minimizer with gradients wrt parameters for single data element
+    double elementFunction(const double *pars_current_values, unsigned int index, double *deriv);
+
     //! return reference to the kit with data
     FitSuiteObjects *getFitObjects() { return &m_fit_objects; }
 

@@ -15,64 +15,58 @@
 //! @date   Dec 10, 2012
 
 
+#include "IMinimizer.h"
+#include "Math/Functor.h"
+#include "Math/FitMethodFunction.h"
 
-//#include "Math/Minimizer.h"
-//#include "Math/Factory.h"
-//#include "Math/FitMethodFunction.h"
-
-
-////- -------------------------------------------------------------------
-////! @class ROOTMinimizerFunction
-////! @brief
-////- -------------------------------------------------------------------
-
-//class ROOTMinimizerFunction : public ROOT::Math::FitMethodFunction
-//{
-//public:
-//    typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
-//    typedef boost::function<double(const double *)> function_eval_t;
-//    typedef boost::function<double(const double *, unsigned int, double *)> function_element_t;
-
-//    ROOTMinimizerFunction();
-//    virtual ~ROOTMinimizerFunction(){}
-
-//    Type_t Type() const { return ROOT::Math::FitMethodFunction::kLeastSquare; }
-//    ROOT::Math::IMultiGenFunction * Clone() const { return new MyChi2Function(m_test); }
-
-//    double DoEval(const double * par) const {
+//- -------------------------------------------------------------------
+//! @class ROOTMinimizerFunction
+//! @brief Basic minimizer function
+//- -------------------------------------------------------------------
+class ROOTMinimizerFunction : public ROOT::Math::Functor
+{
+public:
+    ROOTMinimizerFunction(IMinimizer::function_t fcn, int ndims ) : ROOT::Math::Functor(fcn, ndims), m_fcn(fcn) {}
+    virtual ~ROOTMinimizerFunction(){}
+    IMinimizer::function_t m_fcn;
+};
 
 
-//};
+//- -------------------------------------------------------------------
+//! @class ROOTMinimizerElementFunction
+//! @brief Minimizer function with access to single data element residuals.
+//! Required by Fumili, Fumili2 and GSLMultiMin minimizers
+//- -------------------------------------------------------------------
+class ROOTMinimizerElementFunction : public ROOT::Math::FitMethodFunction
+{
+public:
+    typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
 
+    ROOTMinimizerElementFunction(IMinimizer::function_t fcn, int ndims, IMinimizer::element_function_t element_fcn, int nelements)
+        : ROOT::Math::FitMethodFunction(ndims, nelements)
+        , m_fcn(fcn)
+        , m_element_fcn(element_fcn)
+        , m_ndims(ndims)
+        , m_nelements(nelements) { }
 
-//class MyChi2Function : public ROOT::Math::FitMethodFunction
-//{
-//public:
-//    typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
+    virtual ~ROOTMinimizerElementFunction(){}
 
-//    MyChi2Function(TestFumiliLMA *test) : ROOT::Math::FitMethodFunction(test->m_ndim, test->m_real_data->getAllocatedSize()), m_test(test) {}
-//    virtual ~MyChi2Function(){}
+    Type_t Type() const { return ROOT::Math::FitMethodFunction::kLeastSquare; }
+    ROOT::Math::IMultiGenFunction * Clone() const { return new ROOTMinimizerElementFunction(m_fcn, m_ndims, m_element_fcn, m_nelements); }
 
-//    Type_t Type() const { return ROOT::Math::FitMethodFunction::kLeastSquare; }
-//    ROOT::Math::IMultiGenFunction * Clone() const { return new MyChi2Function(m_test); }
+    //! evaluation of chi2
+    double DoEval(const double * par) const { return m_fcn(par); }
 
-//    // evaluation of the all chi2
-//    double DoEval(const double * par) const {
-//       int ndata = NPoints();
-//       std::cout << "DoEval: " << ndata << std::endl;
-//       double chi2 = 0;
-//       for (int i = 0; i <  ndata; ++i) {
-//          double res = DataElement( par, i);
-//          chi2 += res*res;
-//       }
-//       //std::cout << "DoEval: chi" << chi2/double(ndata) << std::endl;
-//       return chi2/double(ndata);
-//    }
+    //! evaluation of single data element residual
+    double DataElement(const double *par, unsigned int i, double *g = 0) const { return m_element_fcn(par,i,g); }
 
-//    double DataElement(const double *par, unsigned int i, double *g = 0) const;
+private:
+    IMinimizer::function_t m_fcn;
+    IMinimizer::element_function_t m_element_fcn;
+    int m_ndims;
+    int m_nelements;
+};
 
-//    TestFumiliLMA *m_test;
-//};
 
 
 

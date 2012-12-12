@@ -52,6 +52,16 @@ double ChiSquaredModule::calculateChiSquared()
 }
 
 
+// FIXME: ChiSquaredModule::getResidualValue() is implemented very quickly and very dirty (no weights, no protection against missed call to calculateChiSquared, against wrong index)
+double ChiSquaredModule::getResidualValue(int index ) const
+{
+    double value_real = (*mp_real_data)[index];
+    double value_simu  = (*mp_simulation_data)[index];
+    double squared_difference = mp_squared_function->calculateSquaredDifference(value_real, value_simu);
+    return (squared_difference > 0 ? std::sqrt(squared_difference) : 0.0);
+}
+
+
 OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
 {
     if( !mp_real_data ) throw NullPointerException("ChiSquaredModule::calculateChiSquared() -> Error! No real data has been set");

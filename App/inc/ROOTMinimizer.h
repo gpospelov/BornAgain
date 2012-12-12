@@ -17,6 +17,7 @@
 #include "IMinimizer.h"
 #include "OutputData.h"
 #include "Exceptions.h"
+#include "ROOTMinimizerFunction.h"
 #include <string>
 // from ROOT
 #include "Math/Minimizer.h"
@@ -31,12 +32,14 @@
 class ROOTMinimizer : public IMinimizer
 {
 public:
-    ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type);
+    ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type=std::string());
     virtual ~ROOTMinimizer();
 
     virtual void setVariable(int index, const FitParameter *par) ;
-    virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1);
-//    virtual void setFunctionAndGradient(boost::function<double(const double *)> fcn, boost::function<double(const double *, int)> fcn_deriv, int ndim=1);
+
+    virtual void setFunction(function_t fcn, int ndims, element_function_t element_fcn, int nelements);
+//    virtual void setElementFunction(element_function_t element_fcn, int ndims, int nelements) { m_element_fcn = element_fcn, m_ndims = ndims; m_nelements = nelements; }
+
     virtual void minimize();
 
     //! return pointer to created minimizer
@@ -71,8 +74,16 @@ public:
 
 private:
     ROOT::Math::Minimizer *m_root_minimizer;
-    ROOT::Math::Functor *m_fcn; //! function to minimize
+    ROOTMinimizerFunction * m_minfunc;
+    ROOTMinimizerElementFunction * m_minfunc_element;
+
+//    IMinimizerFunction *m_minimizer_function;
+//    ROOT::Math::Functor *m_fcn; //! function to minimize
 //    ROOT::Math::GradFunctor *m_fcn_grad; //! gradient of function to minimize
+//    function_t m_fcn;
+//    element_function_t m_element_fcn;
+//    int m_ndims;
+//    int m_nelements;
 };
 
 #endif // ROOTMINIMIZER_H

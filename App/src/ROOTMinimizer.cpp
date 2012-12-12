@@ -1,10 +1,13 @@
 #include "ROOTMinimizer.h"
 #include "Exceptions.h"
 #include "Utils.h"
+#include "ROOTMinimizerFunction.h"
 #include <iomanip>
 #include <sstream>
 
-ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type) : m_fcn(0)
+ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type)
+    : m_minfunc(0)
+    , m_minfunc_element(0)
 {
     if(minimizer_name == "Minuit2" && algo_type == "Fumili2") {
         throw LogicErrorException("ROOTMinimizer::ROOTMinimizer() -> Error! Use word Fumili instead of 'Fumili2'");
@@ -22,7 +25,8 @@ ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::strin
 ROOTMinimizer::~ROOTMinimizer()
 {
     delete m_root_minimizer;
-    delete m_fcn;
+    delete m_minfunc;
+    delete m_minfunc_element;
 }
 
 
@@ -61,19 +65,23 @@ void ROOTMinimizer::minimize()
 /* ************************************************************************* */
 // set fcn function for minimizer
 /* ************************************************************************* */
-void ROOTMinimizer::setFunction(boost::function<double(const double *)> fcn, int ndim)
+void ROOTMinimizer::setFunction(function_t fcn, int ndims, element_function_t element_fcn, int nelements)
 {
-    m_fcn = new ROOT::Math::Functor(fcn, ndim);
-    m_root_minimizer->SetFunction(*m_fcn);
+    if( fcn && element_fcn ) {
+        std::cout << " ROOTMinimizer::setFunction() -> XXX 1.1 making ROOTMinimizerElementFunction " << std::endl;
+        delete m_minfunc;
+        m_minfunc_element = new ROOTMinimizerElementFunction(fcn, ndims, element_fcn, nelements);
+        m_root_minimizer->SetFunction(*m_minfunc_element);
+    } else if( fcn ) {
+        std::cout << " ROOTMinimizer::setFunction() -> XXX 1.2 making ROOTMinimizerFunction" << std::endl;
+        delete m_minfunc;
+        m_minfunc = new ROOTMinimizerFunction(fcn, ndims);
+        m_root_minimizer->SetFunction(*m_minfunc);
+    } else {
+        throw LogicErrorException("ROOTMinimizer::minimize() -> Error! Can't guess minimization function type");
+    }
+
 }
-
-
-//void ROOTMinimizer::setFunctionAndGradient(boost::function<double(const double *)> fcn, boost::function<double(const double *, int)> fcn_deriv, int ndim)
-//{
-//    m_fcn_grad = new ROOT::Math::GradFunctor(fcn, fcn_deriv, ndim);
-//    m_root_minimizer->SetFunction(*m_fcn_grad);
-//    m_root_minimizer->SetFunction(*m_fcn_grad);
-//}
 
 
 /* ************************************************************************* */

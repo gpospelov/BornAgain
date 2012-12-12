@@ -84,13 +84,24 @@ void FitSuite::link_fit_parameters()
 void FitSuite::minimize()
 {
     // initializing minimizer with fcn function belonging to given class
-    m_minimizer->setFunction( boost::bind(&FitSuite::functionToMinimize, this, _1), (int)m_fit_parameters.size() );
+    IMinimizer::function_t fcn = boost::bind(&FitSuite::functionToMinimize, this, _1);
+    //m_minimizer->setFunction( fcn, (int)m_fit_parameters.size() );
+    // FIXME: FitSuite::minimize() where to get number of elements?
+    int nelements = m_fit_objects.getRealData()->getAllocatedSize();
+    IMinimizer::element_function_t element_fcn = boost::bind(&FitSuite::elementFunction, this, _1, _2, _3);
+    m_minimizer->setFunction( fcn, (int)m_fit_parameters.size(), element_fcn, nelements );
 
-    // propagating local fit parameters to the minimizer's internal list of parameters
+    // propagating values of local fit parameters to the minimizer's internal parameters
     for(size_t i_par = 0; i_par<m_fit_parameters.size(); i_par++) {
+        std::cout << " i_par " << i_par << std::endl;
         m_minimizer->setVariable((int)i_par, m_fit_parameters[i_par] );
     }
-    if( m_fit_parameters.size() != m_minimizer->getNumberOfVariables())  std::cout << "FitSuite::minimize() -> Warning. Something unexpected" << std::endl;
+    if( m_fit_parameters.size() != m_minimizer->getNumberOfVariables())  {
+        std::ostringstream ostr;
+        ostr << "FitSuite::minimize() -> Error! Number of variables defined in minimizer (" << m_minimizer->getNumberOfVariables() << ") ";
+        ostr << "doesn't coincide with number of FitSuite's parameters (" << m_fit_parameters.size() << ")";
+        throw LogicErrorException(ostr.str());
+    }
 
     // minimizing
     m_minimizer->minimize();
@@ -164,5 +175,33 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
     m_n_call++;
     return chi_squared;
 }
+
+
+/* ************************************************************************* */
+// provides minimizer with gradients wrt parameters for single data element
+/* ************************************************************************* */
+double FitSuite::elementFunction(const double *pars_current_values, unsigned int index, double *deriv)
+{
+    if(index%10 == 0) std::cout << "elementFunction "  << index << std::endl;
+
+    // set fitting parameters to values suggested by the minimizer
+    m_fit_parameters.setValues(pars_current_values);
+
+    // run simulations
+    m_fit_objects.runSimulation();
+
+    // caclulate residual value
+//    m_fit_objects.getChiSquaredValue(m_fit_parameters.getNfreeParameters());
+    double residual = m_fit_objects.getResidualValue(index);
+
+    if( deriv ) {
+        throw NotImplementedException("FitSuite::elementFunction() -> Error! Calculation of derivatives is not implemented");
+    }
+
+    if(index == 100 ) assert(0);
+
+    return residual;
+}
+
 
 

@@ -43,10 +43,11 @@ void FitSuiteObjects::runSimulation()
 
 /* ************************************************************************* */
 // get sum of chi squared values for all fit objects
-// FIXME: refactor FitSuiteObjects::getChiSquaredValue()
+// FIXME: refactor FitSuiteObjects::getChiSquaredValue() (the main problem is duplication calculateChiSquared() for ChiSquaredModule and FitObject)
 /* ************************************************************************* */
 double FitSuiteObjects::getChiSquaredValue(int n_free_fit_parameters)
 {
+    double max_intensity = getSimulationMaxIntensity();
     double chi_sum(0);
     for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         IChiSquaredModule *chi = (*it)->getChiSquaredModule();
@@ -54,7 +55,7 @@ double FitSuiteObjects::getChiSquaredValue(int n_free_fit_parameters)
         chi->setNdegreeOfFreedom( m_fit_objects.size() * (*it)->getRealData()->getAllocatedSize() - n_free_fit_parameters);
         // normalizing datasets to the maximum intensity over all fit objects defined
         OutputDataNormalizerScaleAndShift *data_normalizer =  dynamic_cast<OutputDataNormalizerScaleAndShift *>(chi->getOutputDataNormalizer());
-        if( data_normalizer) data_normalizer->setMaximumIntensity( getSimulationMaxIntensity() );
+        if( data_normalizer) data_normalizer->setMaximumIntensity( max_intensity );
 
         double weight = (*it)->getWeight()/m_total_weight;
         double chi_squared = (weight*weight) * (*it)->calculateChiSquared();
@@ -65,8 +66,28 @@ double FitSuiteObjects::getChiSquaredValue(int n_free_fit_parameters)
 }
 
 
+double FitSuiteObjects::getResidualValue(int index)
+{
+    double residual_sum(0);
+    for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+        IChiSquaredModule *chi = (*it)->getChiSquaredModule();
+        const OutputData<double> *data_real = (*it)->getRealData();
+        const OutputData<double> *data_simu = (*it)->getSimulationData();
+        double value_real = (*data_real)[index];
+        double value_simu = (*data_simu)[index];
+        double squared_difference = chi->getSquaredFunction()->calculateSquaredDifference(value_real, value_simu);
+        double weight = (*it)->getWeight()/m_total_weight;
+        double residual(0);
+        (squared_difference > 0 ? residual = weight*std::sqrt(squared_difference) : 0.0);
+        residual_sum += residual;
+    }
+    return residual_sum;
+}
+
+
+
 /* ************************************************************************* */
-// calculate maximum intensity in simulated data over all fir objects defined
+// calculate maximum intensity in simulated data over all fit objects defined
 /* ************************************************************************* */
 double FitSuiteObjects::getSimulationMaxIntensity()
 {

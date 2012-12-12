@@ -184,7 +184,7 @@ double MyChi2Function::DataElement(const double *pars, unsigned int i, double *g
 {
     double xx[2];
     std::cout << " DataElement() -> " << g << " " << i;
-    for(size_t i=0; i<m_test->m_func->GetNpar(); ++i) std::cout << " " << pars[i];
+    for(int i=0; i<m_test->m_func->GetNpar(); ++i) std::cout << " " << pars[i];
     std::cout << std::endl;
     const AxisDouble *xaxis = m_test->m_real_data->getAxis(0);
     const AxisDouble *yaxis = m_test->m_real_data->getAxis(1);

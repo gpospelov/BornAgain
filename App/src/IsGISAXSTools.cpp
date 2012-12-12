@@ -123,8 +123,8 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
     OutputData<double>::const_iterator it = output.begin();
     while (it != output.end())
     {
-        double x = output.getValueOfAxis( haxises[0].name, it.getIndex() );
-        double y = output.getValueOfAxis( haxises[1].name, it.getIndex() );
+        double x = output.getValueOfAxis( haxises[0].name.c_str(), it.getIndex() );
+        double y = output.getValueOfAxis( haxises[1].name.c_str(), it.getIndex() );
         double value = *it++;
         hist2->Fill(x, y, value);
     }
@@ -216,7 +216,7 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
     {
         std::vector<double > xyz;
         for(size_t i_axis=0; i_axis<haxises.size(); ++i_axis) {
-            xyz.push_back(output.getValueOfAxis( haxises[i_axis].name, it.getIndex() ) );
+            xyz.push_back(output.getValueOfAxis( haxises[i_axis].name.c_str(), it.getIndex() ) );
         }
         double value = *it++;
         if(hist1) hist1->Fill(xyz[0], value);

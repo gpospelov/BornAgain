@@ -209,13 +209,13 @@ double GISASExperiment::getSolidAngle(size_t index) const
 
     if(alpha_size>1) {
         if (alpha_index==0) {
-            dalpha = p_alpha_axis->operator[](1) - p_alpha_axis->operator[](0);
+            dalpha = (*p_alpha_axis)[1] - (*p_alpha_axis)[0];
         }
         else if (alpha_index==alpha_size-1) {
-            dalpha = p_alpha_axis->operator[](alpha_size-1) - p_alpha_axis->operator[](alpha_size-2);
+            dalpha = (*p_alpha_axis)[alpha_size-1] - (*p_alpha_axis)[alpha_size-2];
         }
         else {
-            dalpha = (p_alpha_axis->operator[](alpha_index+1) - p_alpha_axis->operator[](alpha_index-1))/2.0;
+            dalpha = ((*p_alpha_axis)[alpha_index+1] - (*p_alpha_axis)[alpha_index-1])/2.0;
         }
         dalpha = std::abs(dalpha);
     } else {
@@ -223,13 +223,13 @@ double GISASExperiment::getSolidAngle(size_t index) const
     }
     if(phi_size > 1) {
         if (phi_index==0) {
-            dphi = p_phi_axis->operator[](1) - p_phi_axis->operator[](0);
+            dphi = (*p_phi_axis)[1] - (*p_phi_axis)[0];
         }
         else if (phi_index==phi_size-1) {
-            dphi = p_phi_axis->operator[](phi_size-1) - p_phi_axis->operator[](phi_size-2);
+            dphi = (*p_phi_axis)[phi_size-1] - (*p_phi_axis)[phi_size-2];
         }
         else {
-            dphi = (p_phi_axis->operator[](phi_index+1) - p_phi_axis->operator[](phi_index-1))/2.0;
+            dphi = ((*p_phi_axis)[phi_index+1] - (*p_phi_axis)[phi_index-1])/2.0;
         }
         dphi = std::abs(dphi);
     } else {

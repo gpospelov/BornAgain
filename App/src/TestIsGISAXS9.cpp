@@ -30,7 +30,6 @@ void TestIsGISAXS9::clear()
 void TestIsGISAXS9::execute()
 {
     clear();
-    gsl_set_error_handler_off();
 
     // setting experiment
     GISASExperiment experiment(mp_options);

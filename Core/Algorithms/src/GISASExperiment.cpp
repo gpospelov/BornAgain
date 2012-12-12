@@ -35,6 +35,8 @@ GISASExperiment::GISASExperiment(const GISASExperiment &other) : Experiment(othe
 
 }
 
+const std::string GISASExperiment::PHI_AXIS_NAME = "phi_f";
+const std::string GISASExperiment::ALPHA_AXIS_NAME = "alpha_f";
 
 /* ************************************************************************* */
 // clone method
@@ -130,10 +132,10 @@ void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, doub
                                             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {
     AxisParameters phi_params;
-    phi_params.m_name = "phi_f";
+    phi_params.m_name = PHI_AXIS_NAME;
     phi_params.m_range = TSampledRange<double>(n_phi, phi_f_min, phi_f_max);
     AxisParameters alpha_params;
-    alpha_params.m_name = "alpha_f";
+    alpha_params.m_name = ALPHA_AXIS_NAME;
     alpha_params.m_range = TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
     if (isgisaxs_style) {
         phi_params.m_sample_method = AxisParameters::E_ISGISAXS;
@@ -172,8 +174,8 @@ void GISASExperiment::smearIntensityFromZAxisTilting()
     m_intensity_map.setAllTo(0.0);
     OutputData<double>::const_iterator it_clone = p_clone->begin();
     while (it_clone != p_clone->end()) {
-        double old_phi = p_clone->getValueOfAxis("phi_f", it_clone.getIndex());
-        double old_alpha = p_clone->getValueOfAxis("alpha_f", it_clone.getIndex());
+        double old_phi = p_clone->getValueOfAxis(PHI_AXIS_NAME, it_clone.getIndex());
+        double old_alpha = p_clone->getValueOfAxis(ALPHA_AXIS_NAME, it_clone.getIndex());
         for (size_t zeta_index=0; zeta_index<zetas.size(); ++zeta_index) {
             double newphi = old_phi + deltaPhi(old_alpha, old_phi, zetas[zeta_index]);
             double newalpha = old_alpha + deltaAlpha(old_alpha, zetas[zeta_index]);
@@ -189,14 +191,11 @@ void GISASExperiment::init_parameters()
 
 double GISASExperiment::getSolidAngle(size_t index) const
 {
-    const std::string s_alpha_f("alpha_f");
-    const std::string s_phi_f("phi_f");
-
-    const IAxis *p_alpha_axis = m_intensity_map.getAxis(s_alpha_f);
-    const IAxis *p_phi_axis = m_intensity_map.getAxis(s_phi_f);
-    size_t alpha_index = m_intensity_map.getIndexOfAxis(s_alpha_f, index);
+    const IAxis *p_alpha_axis = m_intensity_map.getAxis(ALPHA_AXIS_NAME);
+    const IAxis *p_phi_axis = m_intensity_map.getAxis(PHI_AXIS_NAME);
+    size_t alpha_index = m_intensity_map.getIndexOfAxis(ALPHA_AXIS_NAME, index);
     size_t alpha_size = p_alpha_axis->getSize();
-    size_t phi_index = m_intensity_map.getIndexOfAxis(s_phi_f, index);
+    size_t phi_index = m_intensity_map.getIndexOfAxis(PHI_AXIS_NAME, index);
     size_t phi_size = p_phi_axis->getSize();
     if (alpha_size<2 && phi_size<2) {
         // Cannot determine detector cell size!
@@ -204,7 +203,7 @@ double GISASExperiment::getSolidAngle(size_t index) const
     }
     double dalpha(0), dphi(0);
 
-    double alpha_f = m_intensity_map.getValueOfAxis(s_alpha_f, index);
+    double alpha_f = m_intensity_map.getValueOfAxis(ALPHA_AXIS_NAME, index);
     double cos_alpha_f = std::cos(alpha_f);
 
     if(alpha_size>1) {
@@ -281,8 +280,8 @@ void GISASExperiment::createZetaAndProbVectors(std::vector<double>& zetas,
 
 void GISASExperiment::addToIntensityMap(double alpha, double phi, double value)
 {
-    const IAxis *p_alpha_axis = m_intensity_map.getAxis("alpha_f");
-    const IAxis *p_phi_axis = m_intensity_map.getAxis("phi_f");
+    const IAxis *p_alpha_axis = m_intensity_map.getAxis(ALPHA_AXIS_NAME);
+    const IAxis *p_phi_axis = m_intensity_map.getAxis(PHI_AXIS_NAME);
     std::vector<int> coordinates;
     coordinates.push_back((int)p_alpha_axis->findClosestIndex(alpha));
     coordinates.push_back((int)p_phi_axis->findClosestIndex(phi));

@@ -139,9 +139,11 @@ void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, doub
     alpha_params.m_range = TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
     if (isgisaxs_style) {
         phi_params.m_sample_method = AxisParameters::E_ISGISAXS;
+        alpha_params.m_sample_method = AxisParameters::E_ISGISAXS;
     }
     else {
         phi_params.m_sample_method = AxisParameters::E_DEFAULT;
+        alpha_params.m_sample_method = AxisParameters::E_DEFAULT;
     }
     DetectorParameters detector_params = { phi_params, alpha_params };
     setDetectorParameters(detector_params);

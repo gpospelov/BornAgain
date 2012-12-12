@@ -160,8 +160,7 @@ void FitSuite::runFit()
 /* ************************************************************************* */
 double FitSuite::functionToMinimize(const double *pars_current_values)
 {
-    std::cout << " functionToMinimize "  << std::endl;
-
+    std::cout << " ffff " << std::endl;
     // set fitting parameters to values suggested by the minimizer
     m_fit_parameters.setValues(pars_current_values);
 
@@ -182,13 +181,11 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
 /* ************************************************************************* */
 double FitSuite::elementFunction(const double *pars_current_values, unsigned int index, double *deriv)
 {
-    if(index%10 == 0) std::cout << "elementFunction "  << index << std::endl;
-
     // set fitting parameters to values suggested by the minimizer
     m_fit_parameters.setValues(pars_current_values);
 
     // run simulations
-    m_fit_objects.runSimulation();
+    m_fit_objects.getExperiment()->runSimulationElement(index);
 
     // caclulate residual value
 //    m_fit_objects.getChiSquaredValue(m_fit_parameters.getNfreeParameters());
@@ -197,8 +194,6 @@ double FitSuite::elementFunction(const double *pars_current_values, unsigned int
     if( deriv ) {
         throw NotImplementedException("FitSuite::elementFunction() -> Error! Calculation of derivatives is not implemented");
     }
-
-    if(index == 100 ) assert(0);
 
     return residual;
 }

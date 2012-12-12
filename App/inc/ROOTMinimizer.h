@@ -72,7 +72,13 @@ public:
     //! printing minimizer description
     virtual void printOptions() const;
 
+    //! checking validity of the combination minimizer_name and algo_type
+    bool isValidNames(const std::string &minimizer_name, const std::string &algo_type);
+
 private:
+    std::string m_minimizer_name;
+    std::string m_algo_type;
+
     ROOT::Math::Minimizer *m_root_minimizer;
     ROOTMinimizerFunction * m_minfunc;
     ROOTMinimizerElementFunction * m_minfunc_element;

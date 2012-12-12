@@ -13,12 +13,12 @@
 void ToyExperiment::runSimulation()
 {
     if( !m_func ) throw NullPointerException("ToyExperiment::runSimulation() -> Error! No function is defined.");
+    const std::string s_phi_f("phi_f");
+    const std::string s_alpha_f("alpha_f");
 
     m_func->SetParameters(&pars[0]);
     m_intensity_map.setAllTo(0.0);
     OutputData<double>::iterator it = m_intensity_map.begin();
-    const std::string s_phi_f("phi_f");
-    const std::string s_alpha_f("alpha_f");
     while( it!= m_intensity_map.end() ) {
         double phi_f = m_intensity_map.getValueOfAxis(s_phi_f, it.getIndex());
         double alpha_f = m_intensity_map.getValueOfAxis(s_alpha_f, it.getIndex());
@@ -26,6 +26,19 @@ void ToyExperiment::runSimulation()
         (*it) = value;
         ++it;
     }
+}
+
+void ToyExperiment::runSimulationElement(size_t index)
+{
+    if( !m_func ) throw NullPointerException("ToyExperiment::runSimulation() -> Error! No function is defined.");
+
+    m_func->SetParameters(&pars[0]);
+    const std::string s_phi_f("phi_f");
+    const std::string s_alpha_f("alpha_f");
+    double phi_f = m_intensity_map.getValueOfAxis(s_phi_f, index);
+    double alpha_f = m_intensity_map.getValueOfAxis(s_alpha_f, index);
+    double value = m_func->Eval(phi_f, alpha_f);
+    m_intensity_map[index] = value;
 }
 
 
@@ -52,7 +65,8 @@ TestToyExperiment::TestToyExperiment()
 {
     m_sigma_noise = 0.01;
     m_func_object = new SincXSincYFunctionObject();
-    m_func = new TF2("sincxy", m_func_object, -5.,5., -5.,5., 3, "SincXSincYFunctionObject");
+//    m_func = new TF2("sincxy", m_func_object, -5.,5., -5.,5., 3, "SincXSincYFunctionObject");
+    m_func = new TF2("sincxy", m_func_object, -10.,10., -10.,10., 3, "SincXSincYFunctionObject");
     //m_func->SetParameters(1.0, 1.0, 0.5); // parameters we have to find
 }
 
@@ -109,9 +123,12 @@ void TestToyExperiment::initializeExperimentAndRealData()
 
     // generating real data
     delete m_real_data;
-    m_experiment->setParameter(0, 2.0);
-    m_experiment->setParameter(1, 1.0);
-    m_experiment->setParameter(2, 0.5);
+    m_experiment->setParameter(0, 1.0);
+    m_experiment->setParameter(1, -2.0);
+    m_experiment->setParameter(2, -2.5);
+//    m_experiment->setParameter(0, 2.0);
+//    m_experiment->setParameter(1, 1.0);
+//    m_experiment->setParameter(2, 0.5);
     m_experiment->runSimulation();
     m_real_data = IsGISAXSTools::createDataWithGaussianNoise(*m_experiment->getOutputData(), m_sigma_noise);
 }

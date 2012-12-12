@@ -47,7 +47,9 @@ public:
         , m_fcn(fcn)
         , m_element_fcn(element_fcn)
         , m_ndims(ndims)
-        , m_nelements(nelements) { }
+        , m_nelements(nelements)
+        , m_ncalls(0)
+        , m_ncalls_element(0) { }
 
     virtual ~ROOTMinimizerElementFunction(){}
 
@@ -55,16 +57,20 @@ public:
     ROOT::Math::IMultiGenFunction * Clone() const { return new ROOTMinimizerElementFunction(m_fcn, m_ndims, m_element_fcn, m_nelements); }
 
     //! evaluation of chi2
-    double DoEval(const double * par) const { return m_fcn(par); }
+    double DoEval(const double * par) const { ++m_ncalls; return m_fcn(par); }
 
     //! evaluation of single data element residual
-    double DataElement(const double *par, unsigned int i, double *g = 0) const { return m_element_fcn(par,i,g); }
+    double DataElement(const double *par, unsigned int i, double *g = 0) const { m_ncalls_element++; return m_element_fcn(par,i,g); }
 
+    virtual unsigned int NCalls() const { return m_ncalls; }
+    virtual unsigned int NCallsElement() const { return m_ncalls_element; }
 private:
     IMinimizer::function_t m_fcn;
     IMinimizer::element_function_t m_element_fcn;
     int m_ndims;
     int m_nelements;
+    mutable size_t m_ncalls;
+    mutable size_t m_ncalls_element;
 };
 
 

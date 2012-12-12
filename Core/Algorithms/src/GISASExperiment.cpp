@@ -110,6 +110,14 @@ void GISASExperiment::runSimulation()
 }
 
 
+
+void GISASExperiment::runSimulationElement(size_t index)
+{
+    (void)index;
+}
+
+
+
 void GISASExperiment::normalize()
 {
     // This normalization assumes that the intensity map contains total differential scattering cross sections

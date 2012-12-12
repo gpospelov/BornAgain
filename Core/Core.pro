@@ -135,6 +135,7 @@ HEADERS += \
     Algorithms/inc/ConvolutionDetectorResolution.h \
     Algorithms/inc/DecouplingApproximationStrategy.h \
     Algorithms/inc/Detector.h \
+    Algorithms/inc/DetectorParameters.h \
     Algorithms/inc/DiffuseDWBASimulation.h \
     Algorithms/inc/DWBADiffuseReflection.h \
     Algorithms/inc/DWBASimulation.h \

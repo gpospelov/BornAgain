@@ -16,6 +16,7 @@
 
 
 #include "Experiment.h"
+#include "DetectorParameters.h"
 #include "IResolutionFunction2D.h"
 
 
@@ -37,7 +38,9 @@ public:
     void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style=false);
 
-	void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
+    void setDetectorParameters(const DetectorParameters &params);
+
+    void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
 
 	void smearIntensityFromZAxisTilting();
 
@@ -52,7 +55,6 @@ private:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-	void initializeAnglesIsgisaxs(AxisDouble *p_axis, double start, double end, size_t size);
 	double getSolidAngle(size_t index) const;
 	double deltaAlpha(double alpha, double zeta) const;
 	double deltaPhi(double alpha, double phi, double zeta);

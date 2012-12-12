@@ -250,7 +250,7 @@ template <class T> void OutputData<T>::copyFrom(const OutputData<T> &other)
 
 template <class T> void OutputData<T>::addAxis(const IAxis &new_axis)
 {
-    if( getAxis(new_axis.getName()) ) throw LogicErrorException("OutputData<T>::addAxis(AxisDouble *) -> Error! Attempt to add axis with already existing name '"+ new_axis.getName()+std::string("'"));
+    if( getAxis(new_axis.getName()) ) throw LogicErrorException("OutputData<T>::addAxis(const IAxis &new_axis) -> Error! Attempt to add axis with already existing name '"+ new_axis.getName()+std::string("'"));
     if (new_axis.getSize()>0)
     {
         m_value_axes.push_back(new_axis.clone());

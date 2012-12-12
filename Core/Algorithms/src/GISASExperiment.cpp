@@ -129,22 +129,31 @@ void GISASExperiment::normalize()
 void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
                                             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {
-    m_detector.clear();
-    AxisDouble phi_axis("phi_f");
-    AxisDouble alpha_axis("alpha_f");
+    AxisParameters phi_params;
+    phi_params.m_name = "phi_f";
+    phi_params.m_range = TSampledRange<double>(n_phi, phi_f_min, phi_f_max);
+    AxisParameters alpha_params;
+    alpha_params.m_name = "alpha_f";
+    alpha_params.m_range = TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
     if (isgisaxs_style) {
-        initializeAnglesIsgisaxs(&phi_axis, phi_f_min, phi_f_max, n_phi);
-        initializeAnglesIsgisaxs(&alpha_axis, alpha_f_min, alpha_f_max, n_alpha);
+        phi_params.m_sample_method = AxisParameters::E_ISGISAXS;
     }
     else {
-        phi_axis.initElements(n_phi, phi_f_min, phi_f_max);
-        alpha_axis.initElements(n_alpha, alpha_f_min, alpha_f_max);
+        phi_params.m_sample_method = AxisParameters::E_DEFAULT;
     }
-    m_detector.addAxis(phi_axis);
-    m_detector.addAxis(alpha_axis);
-    updateIntensityMapAxes();
+    DetectorParameters detector_params = { phi_params, alpha_params };
+    setDetectorParameters(detector_params);
 }
 
+void GISASExperiment::setDetectorParameters(const DetectorParameters &params)
+{
+    m_detector.clear();
+
+    m_detector.addAxis(params.m_phi_params);
+    m_detector.addAxis(params.m_alpha_params);
+
+    updateIntensityMapAxes();
+}
 
 void GISASExperiment::setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function)
 {
@@ -177,17 +186,6 @@ void GISASExperiment::smearIntensityFromZAxisTilting()
 void GISASExperiment::init_parameters()
 {
 }
-
-void GISASExperiment::initializeAnglesIsgisaxs(AxisDouble *p_axis, double start, double end, size_t size) {
-    double start_sin = std::sin(start);
-    double end_sin = std::sin(end);
-    double step = (end_sin-start_sin)/(size-1);
-    for(size_t i=0; i<size; ++i) {
-        p_axis->push_back(std::asin(start_sin + step*i));
-    }
-    return;
-}
-
 
 double GISASExperiment::getSolidAngle(size_t index) const
 {

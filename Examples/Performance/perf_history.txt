@@ -159,3 +159,6 @@
 # fast-math is off; few performance changes in OutputData and BasicVector3D
 2012-12-13 10:06:39 | jcnsopc73  | macosx64, 2800 MHz      | 259740  | 19.802  | 19.2308 | 5.26316 | 
 
+# lots of refactoring in OutputData axis
+2012-12-13 14:15:58 | jcnsopc73  | macosx64, 2800 MHz      | 253165  | 20      | 19.0476 | 5.55556 | 
+2012-12-13 14:16:03 | jcnsopc73  | macosx64, 2800 MHz      | 259740  | 20.202  | 19.6078 | 5.55556 | 

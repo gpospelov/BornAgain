@@ -268,7 +268,7 @@ void TestFresnelCoeff::draw_roughness_set()
     size_t ncoeffs = 2;
     enum key_coeffs { kCoeffR, kCoeffT};
 
-    const AxisDouble *p_rough = mp_coeffs->getAxis("roughness");
+    const IAxis *p_rough = mp_coeffs->getAxis("roughness");
     size_t nroughness = p_rough->getSize();
 
 

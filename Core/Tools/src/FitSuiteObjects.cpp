@@ -52,7 +52,7 @@ double FitSuiteObjects::getChiSquaredValue(int n_free_fit_parameters)
     for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         IChiSquaredModule *chi = (*it)->getChiSquaredModule();
 
-        chi->setNdegreeOfFreedom( m_fit_objects.size() * (*it)->getRealData()->getAllocatedSize() - n_free_fit_parameters);
+        chi->setNdegreeOfFreedom( (int)(m_fit_objects.size() * (*it)->getRealData()->getAllocatedSize() - n_free_fit_parameters) );
         // normalizing datasets to the maximum intensity over all fit objects defined
         OutputDataNormalizerScaleAndShift *data_normalizer =  dynamic_cast<OutputDataNormalizerScaleAndShift *>(chi->getOutputDataNormalizer());
         if( data_normalizer) data_normalizer->setMaximumIntensity( max_intensity );

@@ -57,9 +57,10 @@ TEST_F(DetectorTest, DetectorConstruction)
     AxisDouble axis1("axis1", 20, 0.0, 20.0);
     constructedDetector.addAxis(axis0);
     constructedDetector.addAxis(axis1);
+
     EXPECT_EQ((size_t)2, constructedDetector.getDimension());
-    AxisDouble axis0copy = constructedDetector.getAxis(0);
-    AxisDouble axis1copy = constructedDetector.getAxis(1);
+    const IAxis &axis0copy = constructedDetector.getAxis(0);
+    const IAxis &axis1copy = constructedDetector.getAxis(1);
     ASSERT_TRUE(axis0.getMin() == axis0copy.getMin() );
     ASSERT_TRUE(axis0.getMax() == axis0copy.getMax() );
     ASSERT_TRUE(axis0.getName() == axis0copy.getName() );

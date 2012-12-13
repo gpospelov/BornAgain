@@ -23,8 +23,10 @@ OutputData<double> *OutputDataFunctions::doubleBinSize(const OutputData<double> 
     // create new axes
     for (size_t i=0; i<dimension; ++i) {
         needs_resizing.push_back(source_sizes[i] > 1);
-        const AxisDouble *source_axis = source.getAxis(i);
-        p_result->addAxis(source_axis->createDoubleBinSize());
+        const IAxis *source_axis = source.getAxis(i);
+        IAxis *p_new_axis = source_axis->createDoubleBinSize();
+        p_result->addAxis(*p_new_axis);
+        delete p_new_axis;
     }
     // calculate new data content
     OutputData<double>::const_iterator it_source = source.begin();
@@ -210,10 +212,10 @@ OutputData<double> *OutputDataFunctions::sliceAccrossOneAxis(const OutputData<do
 
     OutputData<double > *sliced_data = new OutputData<double >;
 
-    const AxisDouble *fixed_axis(0);
+    const IAxis *fixed_axis(0);
     int fixed_axis_index(-1);
     for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
-        const AxisDouble *axis = data.getAxis(i_axis);
+        const IAxis *axis = data.getAxis(i_axis);
         if( axis->getName() != fixed_axis_name ) {
             sliced_data->addAxis(*axis);
         } else {
@@ -252,7 +254,7 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
         throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! It was checked only with number of dimensions equal 2.");
     }
 
-    const AxisDouble *selected_axis = data.getAxis(selected_axis_name);
+    const IAxis *selected_axis = data.getAxis(selected_axis_name);
     if( !selected_axis ) {
         throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! No axis with name "+selected_axis_name);
     }
@@ -270,7 +272,7 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
     // preparing new data with modified axes
     OutputData<double > *new_data = new OutputData<double >;
     for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
-        const AxisDouble *axis = data.getAxis(i_axis);
+        const IAxis *axis = data.getAxis(i_axis);
         if( axis->getName() != selected_axis_name ) {
             new_data->addAxis(*axis);
         } else {
@@ -343,9 +345,9 @@ Mask* OutputDataFunctions::CreateRectangularMask(const OutputData<double>& data,
     int *maxima_i = new int[rank];
     int *dims_i = new int[rank];
     for (size_t i=0; i<rank; ++i) {
-        const AxisDouble *p_axis = data.getAxis(i);
-        minima_i[i] = (int)p_axis->getLowerBoundIndex(minima[i]);
-        maxima_i[i] = (int)p_axis->getUpperBoundIndex(maxima[i]);
+        const IAxis *p_axis = data.getAxis(i);
+        minima_i[i] = (int)p_axis->findClosestIndex(minima[i]);
+        maxima_i[i] = (int)p_axis->findClosestIndex(maxima[i]);
         dims_i[i] = (int)p_axis->getSize();
     }
     MaskCoordinateRectangleFunction *p_rectangle_function = new MaskCoordinateRectangleFunction(rank, minima_i, maxima_i);
@@ -366,9 +368,9 @@ Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double>& data,
     int *radii_i = new int[rank];
     int *dims_i = new int[rank];
     for (size_t i=0; i<rank; ++i) {
-        const AxisDouble *p_axis = data.getAxis(i);
-        center_i[i] = (int)p_axis->getLowerBoundIndex(center[i]);
-        int lower_index = (int)p_axis->getLowerBoundIndex((*p_axis)[center_i[i]] - radii[i]);
+        const IAxis *p_axis = data.getAxis(i);
+        center_i[i] = (int)p_axis->findClosestIndex(center[i]);
+        int lower_index = (int)p_axis->findClosestIndex((*p_axis)[center_i[i]] - radii[i]);
         radii_i[i] = center_i[i] - lower_index;
         dims_i[i] = (int)p_axis->getSize();
     }

@@ -87,11 +87,7 @@ void Experiment::normalize()
 {
     double incident_intensity = m_beam.getIntensity();
     if (!m_is_normalized && incident_intensity!=1.0) {
-        OutputData<double>::iterator it = m_intensity_map.begin();
-        while (it != m_intensity_map.end()) {
-            *it *= incident_intensity;
-            ++it;
-        }
+        m_intensity_map.scaleAll(incident_intensity);
         m_is_normalized = true;
     }
 }
@@ -191,7 +187,7 @@ void Experiment::setDetectorParameters(const OutputData<double > &output_data)
     //std::cout << "Experiment::setDetectorParameters() -> Info. Adjusting detector to have shape as in given output data" << std::endl;
     m_detector.clear();
     for(size_t i_axis=0; i_axis<output_data.getNdimensions(); ++i_axis) {
-        const AxisDouble *axis = output_data.getAxis(i_axis);
+        const IAxis *axis = output_data.getAxis(i_axis);
         m_detector.addAxis(*axis);
     }
     updateIntensityMapAxes();

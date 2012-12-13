@@ -105,8 +105,7 @@ CONFIG(JCNS) {
 QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which option control warning
 #QMAKE_CXXFLAGS_RELEASE += -O3 -ffast-math -msse3
 QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -g -O3
-#QMAKE_CXXFLAGS_RELEASE += -g -O3
+QMAKE_CXXFLAGS_RELEASE += -g -O3  # -ffast-math removed because of problems with NaNs
 # uncommenting line below produces non-stripped (very large) libraries
 #QMAKE_STRIP=:
 

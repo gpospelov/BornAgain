@@ -165,8 +165,8 @@ void TestFumiliLMA::FillOutputDataFromFunction(OutputData<double> &data, TF2 *fu
     data.setAllTo(0.0);
 
     OutputData<double>::iterator it=data.begin();
-    const AxisDouble *xaxis = data.getAxis(0);
-    const AxisDouble *yaxis = data.getAxis(1);
+    const IAxis *xaxis = data.getAxis(0);
+    const IAxis *yaxis = data.getAxis(1);
     while( it!= data.end() )
     {
         size_t index_x = data.toCoordinates(it.getIndex())[0];
@@ -185,8 +185,8 @@ double MyChi2Function::DataElement(const double *pars, unsigned int index, doubl
     std::cout << " DataElement() -> " << g << " " << index;
     for(int ipar=0; ipar<m_test->m_func->GetNpar(); ++ipar) std::cout << " p: (" << ipar << " " << pars[ipar] << ")";
     std::cout << std::endl;
-    const AxisDouble *xaxis = m_test->m_real_data->getAxis(0);
-    const AxisDouble *yaxis = m_test->m_real_data->getAxis(1);
+    const IAxis *xaxis = m_test->m_real_data->getAxis(0);
+    const IAxis *yaxis = m_test->m_real_data->getAxis(1);
     size_t index_x = m_test->m_real_data->toCoordinates(index)[0];
     size_t index_y = m_test->m_real_data->toCoordinates(index)[1];
     double x = (*xaxis)[index_x];

@@ -55,8 +55,8 @@ MaskCoordinateRectangleFunction* MaskCoordinateRectangleFunction::clone() const
 
 MaskCoordinateRectangleFunction::~MaskCoordinateRectangleFunction()
 {
-    delete m_minima;
-    delete m_maxima;
+    delete [] m_minima;
+    delete [] m_maxima;
 }
 
 bool MaskCoordinateRectangleFunction::isInStandardMaskedArea(const int* coordinates) const
@@ -88,8 +88,8 @@ MaskCoordinateEllipseFunction* MaskCoordinateEllipseFunction::clone() const
 
 MaskCoordinateEllipseFunction::~MaskCoordinateEllipseFunction()
 {
-    delete m_center;
-    delete m_radii;
+    delete [] m_center;
+    delete [] m_radii;
 }
 
 bool MaskCoordinateEllipseFunction::isInStandardMaskedArea(const int* coordinates) const

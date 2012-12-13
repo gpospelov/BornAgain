@@ -25,8 +25,8 @@ class INamed
 {
 public:
     INamed() {}
-    INamed(std::string name) { m_name = name; }
-    INamed(std::string name, std::string title) { m_name = name; m_title=title; }
+    INamed(const std::string &name) : m_name(name) { }
+    INamed(const std::string &name, const std::string &title) : m_name(name), m_title(title) { }
     virtual ~INamed(){}
 
     virtual void setName(std::string name) { m_name = name; }

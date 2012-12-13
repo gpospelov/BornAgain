@@ -90,4 +90,23 @@ private:
 };
 
 
+class SquaredFunctionWithGaussianError : public ISquaredFunction
+{
+public:
+    SquaredFunctionWithGaussianError(double sigma = 0.01) : m_sigma(sigma){}
+    virtual ~SquaredFunctionWithGaussianError() {}
+    virtual SquaredFunctionWithGaussianError *clone() const { return new SquaredFunctionWithGaussianError(*this); }
+
+    virtual inline double calculateSquaredDifference(double real_value, double simulated_value) const
+    {
+        double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
+        double sigma_squared = m_sigma*m_sigma;
+        return diff_squared/sigma_squared;
+    }
+private:
+    double m_sigma;
+};
+
+
+
 #endif /* ISQUAREDFUNCTION_H_ */

@@ -34,6 +34,7 @@ SOURCES += \
     src/TestFormFactor.cpp \
     src/TestFourier.cpp \
     src/TestFresnelCoeff.cpp \
+    src/TestFumiliLMA.cpp \
     src/TestIsGISAXS1.cpp \
     src/TestIsGISAXS2.cpp \
     src/TestIsGISAXS3.cpp \
@@ -50,7 +51,9 @@ SOURCES += \
     src/TestPerformance.cpp \
     src/TestRootTree.cpp \
     src/TestRoughness.cpp \
-    src/TreeEventStructure.cpp
+    src/TestToyExperiment.cpp \
+    src/TreeEventStructure.cpp \
+    src/ROOTMinimizerFunction.cpp
 
 HEADERS += \
     inc/App.h \
@@ -75,6 +78,7 @@ HEADERS += \
     inc/TestFormFactor.h \
     inc/TestFourier.h \
     inc/TestFresnelCoeff.h \
+    inc/TestFumiliLMA.h \
     inc/TestIsGISAXS1.h \
     inc/TestIsGISAXS2.h \
     inc/TestIsGISAXS3.h \
@@ -91,7 +95,9 @@ HEADERS += \
     inc/TestPerformance.h \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
-    inc/TreeEventStructure.h
+    inc/TestToyExperiment.h \
+    inc/TreeEventStructure.h \
+    inc/ROOTMinimizerFunction.h
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
 DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc

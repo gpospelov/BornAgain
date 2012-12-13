@@ -586,7 +586,7 @@ class Transform3D;
     return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z());
   }
 
-  inline BasicVector3D<double> CrossProduct(const BasicVector3D<double> vectorLeft, const BasicVector3D<double> vectorRight)
+  inline BasicVector3D<double> CrossProduct(const BasicVector3D<double> &vectorLeft, const BasicVector3D<double> &vectorRight)
   {
       double x = vectorLeft.y()*vectorRight.z() - vectorLeft.z()*vectorRight.y();
       double y = vectorLeft.z()*vectorRight.x() - vectorLeft.x()*vectorRight.z();
@@ -594,7 +594,7 @@ class Transform3D;
       return BasicVector3D<double> (x, y, z);
   }
 
-  inline double DotProduct(const BasicVector3D<double> left, const BasicVector3D<double> right)
+  inline double DotProduct(const BasicVector3D<double> &left, const BasicVector3D<double> &right)
   {
       return left.x()*right.x() + left.y()*right.y() + left.z()*right.z();
   }
@@ -716,7 +716,7 @@ class Transform3D;
     return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z());
   }
 
-  inline BasicVector3D<std::complex<double> > CrossProduct(const BasicVector3D<std::complex<double> > vectorLeft, const BasicVector3D<std::complex<double> > vectorRight)
+  inline BasicVector3D<std::complex<double> > CrossProduct(const BasicVector3D<std::complex<double> > &vectorLeft, const BasicVector3D<std::complex<double> > &vectorRight)
   {
       std::complex<double> x = vectorLeft.y()*vectorRight.z() - vectorLeft.z()*vectorRight.y();
       std::complex<double> y = vectorLeft.z()*vectorRight.x() - vectorLeft.x()*vectorRight.z();
@@ -724,7 +724,7 @@ class Transform3D;
       return BasicVector3D<std::complex<double> > (x, y, z);
   }
 
-  inline std::complex<double> DotProduct(const BasicVector3D<std::complex<double> > left, const BasicVector3D<std::complex<double> > right)
+  inline std::complex<double> DotProduct(const BasicVector3D<std::complex<double> > &left, const BasicVector3D<std::complex<double> > &right)
   {
       return left.x()*right.x() + left.y()*right.y() + left.z()*right.z();
   }

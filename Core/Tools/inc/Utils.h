@@ -92,7 +92,7 @@ public:
     static std::string GetHomePath();
 
     //! set relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
-    static void SetRelativePath(const std::string path) { m_relative_path = path; }
+    static void SetRelativePath(const std::string &path) { m_relative_path = path; }
 
 private:
     static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module

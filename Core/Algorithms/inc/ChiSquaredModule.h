@@ -31,6 +31,9 @@ public:
     //! return output data which contains chi^2 values
     virtual OutputData<double > *createChi2DifferenceMap() const;
 
+    //! return residual between data and simulation for single element
+    virtual double getResidualValue(int index ) const;
+
 private:
     // disabling assignment operator
     ChiSquaredModule &operator=(const ChiSquaredModule &);

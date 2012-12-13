@@ -38,28 +38,28 @@ public:
     ~AxisDouble() {}
 
     //! retrieve the number of bins
-    size_t getSize() const { return m_value_vector.size(); }
+    inline size_t getSize() const { return m_value_vector.size(); }
 
     //! retrieve the label of the axis
-    std::string getName() const { return m_name; }
+    inline std::string getName() const { return m_name; }
 
     //! set the axis label
-    void setName(std::string name) { m_name = name; }
+    inline void setName(std::string name) { m_name = name; }
 
     //! add point to the end of the axis
-    void push_back(double element) { m_value_vector.push_back(element); }
+    inline void push_back(double element) { m_value_vector.push_back(element); }
 
     //! indexed accessor
-    double& operator[](size_t index) { return m_value_vector.at(index); }
+    inline double& operator[](size_t index) { return m_value_vector.at(index); }
 
     //! const indexed accessor
-    const double& operator[](size_t index) const { return m_value_vector.at(index); }
+    inline const double& operator[](size_t index) const { return m_value_vector.at(index); }
 
     //! get value of first point of axis
-    double getMin() const { return m_value_vector.front(); }
+    inline double getMin() const { return m_value_vector.front(); }
 
     //! get value of last point of axis
-    double getMax() const { return m_value_vector.back(); }
+    inline double getMax() const { return m_value_vector.back(); }
 
     //! initialize axis points
     void initElements(size_t size, double start, double end);

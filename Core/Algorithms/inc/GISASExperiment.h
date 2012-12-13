@@ -27,6 +27,9 @@ public:
 
 	virtual void runSimulation();
 
+    virtual void runSimulationElement(size_t index);
+
+
 	//! normalize the calculated intensity
 
     //! This normalization assumes that the intensity map contains total differential scattering cross sections

@@ -124,14 +124,17 @@ public:
     //! return vector of coordinates for given index
     std::vector<int> toCoordinates(size_t index) const;
 
+    //! return coordinate for given index and axis number
+    int toCoordinate(size_t index, size_t i_selected_axis) const;
+
     //! return index for specified coordinates
     size_t toIndex(std::vector<int> coordinates) const;
 
     //! return index of axis with given name for given total index
-    size_t getIndexOfAxis(std::string axis_name, size_t total_index) const;
+    size_t getIndexOfAxis(const std::string &axis_name, size_t total_index) const;
 
     //! return value of axis with given name at given index
-    double getValueOfAxis(std::string axis_name, size_t index) const;
+    double getValueOfAxis(const std::string &axis_name, size_t index) const;
 
     // ---------
     // modifiers
@@ -380,6 +383,20 @@ template<class T> std::vector<int> OutputData<T>::toCoordinates(size_t index) co
     return result;
 }
 
+template<class T> int OutputData<T>::toCoordinate(size_t index, size_t i_selected_axis) const
+{
+    size_t remainder(index);
+    for (size_t i=0; i<mp_ll_data->getRank(); ++i)
+    {
+        size_t i_axis = mp_ll_data->getRank()-1-i;
+        int result = (int)(remainder % m_value_axes[i_axis].getSize());
+        if(i_selected_axis == i_axis ) return result;
+        remainder /= m_value_axes[i_axis].getSize();
+    }
+    throw LogicErrorException("OutputData<T>::toCoordinate() -> Error! No axis with given number");
+}
+
+
 template <class T> size_t OutputData<T>::toIndex(std::vector<int> coordinates) const
 {
     if (coordinates.size() != mp_ll_data->getRank()) {
@@ -395,7 +412,7 @@ template <class T> size_t OutputData<T>::toIndex(std::vector<int> coordinates) c
     return result;
 }
 
-template <class T> size_t OutputData<T>::getIndexOfAxis(std::string axis_name, size_t total_index) const
+template <class T> size_t OutputData<T>::getIndexOfAxis(const std::string &axis_name, size_t total_index) const
 {
     std::vector<int> coordinates = toCoordinates(total_index);
     for (size_t i=0; i<m_value_axes.size(); ++i) {
@@ -403,21 +420,35 @@ template <class T> size_t OutputData<T>::getIndexOfAxis(std::string axis_name, s
             return coordinates[i];
         }
     }
-    throw LogicErrorException("OutputData<T>::getIndexOfAxis() -> Error! Axis with given name not found '"+axis_name+std::string("'"));
+    throw LogicErrorException("OutputData<T>::getIndexOfAxis() -> Error! Axis with given name not found '"+std::string(axis_name)+std::string("'"));
 }
+
+//template <class T>
+//double OutputData<T>::getValueOfAxis(const char *axis_name, size_t index) const
+////double OutputData<T>::getValueOfAxis(std::string axis_name, size_t index) const
+//{
+//    std::vector<int> coordinates = toCoordinates(index);
+//    for (size_t i=0; i<m_value_axes.size(); ++i) {
+//        if (m_value_axes[i].getName() == axis_name) {
+//            return m_value_axes[i][coordinates[i]];
+//        }
+//    }
+//    throw LogicErrorException("OutputData<T>::getValueOfAxis() -> Error! Axis with given name not found '"+std::string(axis_name)+std::string("'"));
+//}
 
 
 template <class T>
-double OutputData<T>::getValueOfAxis(std::string axis_name, size_t index) const
+double OutputData<T>::getValueOfAxis(const std::string &axis_name, size_t index) const
 {
-    std::vector<int> coordinates = toCoordinates(index);
     for (size_t i=0; i<m_value_axes.size(); ++i) {
         if (m_value_axes[i].getName() == axis_name) {
-            return m_value_axes[i][coordinates[i]];
+            int axis_index = toCoordinate(index, i);
+            return m_value_axes[i][axis_index];
         }
     }
-    throw LogicErrorException("OutputData<T>::getValueOfAxis() -> Error! Axis with given name not found '"+axis_name+std::string("'"));
+    throw LogicErrorException("OutputData<T>::getValueOfAxis() -> Error! Axis with given name not found '"+std::string(axis_name)+std::string("'"));
 }
+
 
 template<class T>
 inline T OutputData<T>::totalSum() const

@@ -110,6 +110,24 @@ void GISASExperiment::runSimulation()
 }
 
 
+
+void GISASExperiment::runSimulationElement(size_t index)
+{
+    (void)index;
+    Experiment::runSimulation();
+    if( !mp_sample) throw NullPointerException( "GISASExperiment::runSimulation() -> Error! No sample set.");
+
+    m_intensity_map.setAllTo(0.0);
+    DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
+    if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
+    p_dwba_simulation->init(*this);
+    p_dwba_simulation->run();
+    m_intensity_map += p_dwba_simulation->getDWBAIntensity();
+    delete p_dwba_simulation;
+}
+
+
+
 void GISASExperiment::normalize()
 {
     // This normalization assumes that the intensity map contains total differential scattering cross sections
@@ -129,9 +147,12 @@ void GISASExperiment::normalize()
 void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
                                             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {
+    const std::string s_phi_f("phi_f");
+    const std::string s_alpha_f("alpha_f");
+
     m_detector.clear();
-    AxisDouble phi_axis("phi_f");
-    AxisDouble alpha_axis("alpha_f");
+    AxisDouble phi_axis(s_phi_f);
+    AxisDouble alpha_axis(s_alpha_f);
     if (isgisaxs_style) {
         initializeAnglesIsgisaxs(&phi_axis, phi_f_min, phi_f_max, n_phi);
         initializeAnglesIsgisaxs(&alpha_axis, alpha_f_min, alpha_f_max, n_alpha);
@@ -153,6 +174,9 @@ void GISASExperiment::setDetectorResolutionFunction(IResolutionFunction2D *p_res
 
 void GISASExperiment::smearIntensityFromZAxisTilting()
 {
+    const std::string s_phi_f("phi_f");
+    const std::string s_alpha_f("alpha_f");
+
     size_t nbr_zetas = 5;
     double zeta_sigma = 45.0*Units::degree;
     std::vector<double> zetas;
@@ -163,8 +187,8 @@ void GISASExperiment::smearIntensityFromZAxisTilting()
     m_intensity_map.setAllTo(0.0);
     OutputData<double>::const_iterator it_clone = p_clone->begin();
     while (it_clone != p_clone->end()) {
-        double old_phi = p_clone->getValueOfAxis("phi_f", it_clone.getIndex());
-        double old_alpha = p_clone->getValueOfAxis("alpha_f", it_clone.getIndex());
+        double old_phi = p_clone->getValueOfAxis(s_phi_f, it_clone.getIndex());
+        double old_alpha = p_clone->getValueOfAxis(s_alpha_f, it_clone.getIndex());
         for (size_t zeta_index=0; zeta_index<zetas.size(); ++zeta_index) {
             double newphi = old_phi + deltaPhi(old_alpha, old_phi, zetas[zeta_index]);
             double newalpha = old_alpha + deltaAlpha(old_alpha, zetas[zeta_index]);
@@ -191,8 +215,8 @@ void GISASExperiment::initializeAnglesIsgisaxs(AxisDouble *p_axis, double start,
 
 double GISASExperiment::getSolidAngle(size_t index) const
 {
-    const std::string s_alpha_f("alpha_f");
     const std::string s_phi_f("phi_f");
+    const std::string s_alpha_f("alpha_f");
 
     const AxisDouble *p_alpha_axis = m_intensity_map.getAxis(s_alpha_f);
     const AxisDouble *p_phi_axis = m_intensity_map.getAxis(s_phi_f);

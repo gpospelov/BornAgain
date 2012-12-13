@@ -30,7 +30,7 @@ HomogeneousMaterial::HomogeneousMaterial(const std::string &name, double refract
 
 HomogeneousMaterial::HomogeneousMaterial(const HomogeneousMaterial &other) : IMaterial(other)
 {
-    m_refractive_index = m_refractive_index;
+    m_refractive_index = other.m_refractive_index;
 }
 
 

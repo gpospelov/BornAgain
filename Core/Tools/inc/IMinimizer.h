@@ -28,6 +28,11 @@
 class IMinimizer
 {
 public:
+    //! signature of function to minimize
+    typedef boost::function<double(const double *)> function_t;
+    //! signature of function to minimize with acess to single element residual
+    typedef boost::function<double(const double *, unsigned int, double *)> element_function_t;
+
     IMinimizer(){}
     virtual ~IMinimizer(){}
 
@@ -35,10 +40,9 @@ public:
     virtual void setVariable(int index, const FitParameter *par) = 0;
 
     //! set function to minimize
-    virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1) = 0;
-
-//    //! set function and its gradient
-//    virtual void setFunctionAndGradient(boost::function<double(const double *)> fcn, boost::function<double(const double *, int)> fcn_deriv, int ndim = 1) = 0;
+//    virtual void setFunction(function_t fcn, int ndims) = 0;
+//    virtual void setElementFunction(element_function_t fcn, int ndims, int nelements) = 0;
+    virtual void setFunction(function_t fcn, int ndims, element_function_t element_fcn = element_function_t(), int nelements = 0) = 0;
 
     //! run minimization
     virtual void minimize() = 0;
@@ -79,8 +83,10 @@ public:
     virtual void setVariable(int index, const FitParameter *par) { m_values[index] = par->getValue(); }
 
     //! set function to minimize
-    virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1) { m_fcn = fcn, m_ndim = ndim; }
-//    virtual void setFunctionAndGradient(boost::function<double(const double *)> fcn, boost::function<double(const double *, int)> fcn_deriv, int ndim = 1) { (void)fcn; (void)fcn_deriv; (void)ndim; throw NotImplementedException("TestMinimizer::setFunctionGradient"); }
+    //virtual void setFunction(function_t fcn, int ndims) { m_fcn = fcn; (void)ndims; }
+    virtual void setFunction(function_t fcn, int /* ndims */, element_function_t /* element_fcn */, int /* nelements */ ) { m_fcn = fcn; }
+
+//    virtual void setElementFunction(element_function_t /* fcn */, int /* ndims */, int /* nelements */) { throw NotImplementedException("TestMinimizer::setGradientFunction"); }
 
     //! run minimization
     virtual void minimize()
@@ -123,8 +129,7 @@ public:
 
 private:
     std::map<int, double > m_values;
-    boost::function<double(const double *)> m_fcn;
-    int m_ndim;
+    function_t m_fcn;
 };
 
 

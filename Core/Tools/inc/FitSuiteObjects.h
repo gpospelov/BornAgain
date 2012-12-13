@@ -50,8 +50,12 @@ public:
     //! get sum of chi squared values for all fit objects
     double getChiSquaredValue(int n_free_fit_parameters = 0);
 
+    //! get residuals for single data element
+    double getResidualValue(int index);
+
     //! get experiment
     const Experiment *getExperiment(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getExperiment(); }
+    Experiment *getExperiment(size_t i_item = 0) { return m_fit_objects[check_index(i_item)]->getExperiment(); }
 
     //! get real data
     const OutputData<double> * getRealData(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getRealData(); }

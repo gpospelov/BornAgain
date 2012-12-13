@@ -89,7 +89,7 @@ public:
         m_callbacks.clear();
         if(m_own_objects) {
             typename std::vector<AbstractProduct *>::iterator it;
-            for(it=m_objects.begin(); it!=m_objects.end(); it++) {
+            for(it=m_objects.begin(); it!=m_objects.end(); ++it) {
                 delete (*it);
             }
         }

@@ -51,7 +51,7 @@ public:
 
     // retrieve basic info
     size_t getTotalSize() const;
-    size_t getRank() const { return m_rank; }
+    inline size_t getRank() const { return m_rank; }
     const int *getDimensions() const { return m_dims; }
     T getTotalSum() const;
 

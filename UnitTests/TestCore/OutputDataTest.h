@@ -114,4 +114,20 @@ TEST_F(OutputDataTest, MaxElement)
     EXPECT_EQ( double(10.0), (*cit));
 }
 
+TEST_F(OutputDataTest, ValueOfAxis)
+{
+    OutputData<double > data;
+    data.addAxis("axis1", 10, 0., 9.);
+    data.addAxis("axis2", 2, 0., 10.);
+    EXPECT_EQ( double(0.0), data.getValueOfAxis("axis1", 0));
+    EXPECT_EQ( double(0.0), data.getValueOfAxis("axis2", 0));
+    EXPECT_EQ( double(0.0), data.getValueOfAxis("axis1", 1));
+    EXPECT_EQ( double(10.0), data.getValueOfAxis("axis2", 1));
+    EXPECT_EQ( double(1.0), data.getValueOfAxis("axis1", 2));
+    EXPECT_EQ( double(0.0), data.getValueOfAxis("axis2", 2));
+    EXPECT_EQ( double(9.0), data.getValueOfAxis("axis1", 19));
+    EXPECT_EQ( double(10.0), data.getValueOfAxis("axis2", 19));
+}
+
+
 #endif // OUTPUTDATATEST_H

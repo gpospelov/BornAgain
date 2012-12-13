@@ -123,8 +123,8 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
     OutputData<double>::const_iterator it = output.begin();
     while (it != output.end())
     {
-        double x = output.getValueOfAxis( haxises[0].name, it.getIndex() );
-        double y = output.getValueOfAxis( haxises[1].name, it.getIndex() );
+        double x = output.getValueOfAxis( haxises[0].name.c_str(), it.getIndex() );
+        double y = output.getValueOfAxis( haxises[1].name.c_str(), it.getIndex() );
         double value = *it++;
         hist2->Fill(x, y, value);
     }
@@ -216,7 +216,7 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
     {
         std::vector<double > xyz;
         for(size_t i_axis=0; i_axis<haxises.size(); ++i_axis) {
-            xyz.push_back(output.getValueOfAxis( haxises[i_axis].name, it.getIndex() ) );
+            xyz.push_back(output.getValueOfAxis( haxises[i_axis].name.c_str(), it.getIndex() ) );
         }
         double value = *it++;
         if(hist1) hist1->Fill(xyz[0], value);
@@ -426,9 +426,9 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
         double1d_t buff_1d;
         std::istringstream iss(sline);
         std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(), back_inserter(buff_1d));
-        if( !buff_1d.size() ) {
+        if( buff_1d.empty() ) {
             std::cout << "'" << sline << "'" << std::endl;
-            LogicErrorException("IsGISAXSTools::readOutputDataFromFile() -> Error. Null size of vector; file: "+filename);
+            throw LogicErrorException("IsGISAXSTools::readOutputDataFromFile() -> Error. Null size of vector; file: "+filename);
         }
         buff_2d.push_back(buff_1d);
     }
@@ -467,8 +467,8 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
 
     const AxisDouble *p_axis0 = output_data.getAxis(0);
     const AxisDouble *p_axis1 = output_data.getAxis(1);
-    std::string axis0_name = p_axis0->getName();
-    std::string axis1_name = p_axis1->getName();
+    //std::string axis0_name = p_axis0->getName();
+    //std::string axis1_name = p_axis1->getName();
     size_t axis0_size = p_axis0->getSize();
     size_t axis1_size = p_axis1->getSize();
 
@@ -565,7 +565,7 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const
 
     hist1->SetTitle(ostr_title.str().c_str());
     // FIXME remove this trick to bypass weird bug with DrawCopy of TH1D projection of TH1D histograms
-    TH1D *h1 = (TH1D*)hist1->Clone();
+    TH1D *h1 = dynamic_cast<TH1D*>(hist1->Clone());
     delete hist1;
     return h1;
 }
@@ -589,4 +589,17 @@ OutputData<double > *IsGISAXSTools::createNoisyData(const OutputData<double> &ex
     return real_data;
 }
 
+
+OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData<double> &exact_data, double sigma)
+{
+    OutputData<double > *real_data = exact_data.clone();
+    OutputData<double>::iterator it = real_data->begin();
+    while (it != real_data->end()) {
+        double current = *it;
+        double random = MathFunctions::GenerateNormalRandom(0.0, sigma);
+        *it = current+random;
+        ++it;
+    }
+    return real_data;
+}
 

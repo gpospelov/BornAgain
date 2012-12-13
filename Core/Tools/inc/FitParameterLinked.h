@@ -41,7 +41,7 @@ public:
     virtual void setValue(double value)
     {
         FitParameter::setValue(value);
-        for(PoolParameterColl_t::iterator it=m_parametercoll.begin(); it!=m_parametercoll.end(); it++) {
+        for(PoolParameterColl_t::iterator it=m_parametercoll.begin(); it!=m_parametercoll.end(); ++it) {
             (*it).setValue(value); // setting value for all registered parameters
         }
     }

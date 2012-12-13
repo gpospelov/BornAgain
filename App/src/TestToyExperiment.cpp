@@ -62,6 +62,7 @@ TestToyExperiment::TestToyExperiment()
     , m_sigma_noise(0)
     , m_experiment(0)
     , m_real_data(0)
+    , m_fitSuite(0)
 {
     m_sigma_noise = 0.01;
     m_func_object = new SincXSincYFunctionObject();

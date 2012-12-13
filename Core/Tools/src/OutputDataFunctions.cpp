@@ -109,6 +109,8 @@ void OutputDataFunctions::fourierTransformR(const OutputData<complex_t>& source,
     }
     // allocate result
     if (source.getAllocatedSize() != total_complex_size) {
+        delete[] n_real_dims;
+        delete[] n_complex_dims;
         throw ClassInitializationException("Inverse Fourier transform requires properly allocated map sizes");
     }
     //  initialize temporary arrays

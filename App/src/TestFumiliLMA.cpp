@@ -180,27 +180,27 @@ void TestFumiliLMA::FillOutputDataFromFunction(OutputData<double> &data, TF2 *fu
 }
 
 
-double MyChi2Function::DataElement(const double *pars, unsigned int i, double *g ) const
+double MyChi2Function::DataElement(const double *pars, unsigned int index, double *g ) const
 {
-    double xx[2];
-    std::cout << " DataElement() -> " << g << " " << i;
-    for(int i=0; i<m_test->m_func->GetNpar(); ++i) std::cout << " " << pars[i];
+    std::cout << " DataElement() -> " << g << " " << index;
+    for(int ipar=0; ipar<m_test->m_func->GetNpar(); ++ipar) std::cout << " " << pars[ipar];
     std::cout << std::endl;
     const AxisDouble *xaxis = m_test->m_real_data->getAxis(0);
     const AxisDouble *yaxis = m_test->m_real_data->getAxis(1);
-    size_t index_x = m_test->m_real_data->toCoordinates(i)[0];
-    size_t index_y = m_test->m_real_data->toCoordinates(i)[1];
+    size_t index_x = m_test->m_real_data->toCoordinates(index)[0];
+    size_t index_y = m_test->m_real_data->toCoordinates(index)[1];
     double x = (*xaxis)[index_x];
     double y = (*yaxis)[index_y];
     m_test->m_func->SetParameters(pars);
     double value = m_test->m_func->Eval(x,y);
-    double real_value = (*m_test->m_real_data)[i];
+    double real_value = (*m_test->m_real_data)[index];
 //    std::cout << " DataElement " << i << " ix:" << index_x << " iy:" << index_y << " x:" << x << " y:" << y << " value:" << value << " real_val:" << real_value<< std::endl;
     double weight = 1./(m_test->m_sigma * m_test->m_sigma);
     double residual = weight * ( real_value - value ) ;
     if (g != 0)    {
 //        std::cout << " gradient ! " << std::endl;
         m_test->m_func->SetParameters(pars);
+        double xx[2];
         xx[0] = x;
         xx[1] = y;
         m_test->m_func->GradientPar( xx, g,1.E-9);

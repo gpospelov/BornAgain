@@ -114,6 +114,16 @@ void GISASExperiment::runSimulation()
 void GISASExperiment::runSimulationElement(size_t index)
 {
     (void)index;
+    Experiment::runSimulation();
+    if( !mp_sample) throw NullPointerException( "GISASExperiment::runSimulation() -> Error! No sample set.");
+
+    m_intensity_map.setAllTo(0.0);
+    DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
+    if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
+    p_dwba_simulation->init(*this);
+    p_dwba_simulation->run();
+    m_intensity_map += p_dwba_simulation->getDWBAIntensity();
+    delete p_dwba_simulation;
 }
 
 

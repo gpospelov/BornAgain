@@ -14,7 +14,7 @@ MultiLayerDWBASimulation::MultiLayerDWBASimulation(
 MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
 {
     delete mp_multi_layer;
-    for(std::map<size_t, LayerDWBASimulation*>::iterator it=m_layer_dwba_simulation_map.begin(); it!=m_layer_dwba_simulation_map.end(); it++)
+    for(std::map<size_t, LayerDWBASimulation*>::iterator it=m_layer_dwba_simulation_map.begin(); it!=m_layer_dwba_simulation_map.end(); ++it)
     {
         delete (*it).second;
     }

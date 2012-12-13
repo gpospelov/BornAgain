@@ -166,7 +166,7 @@ void FunctionalTestFactory::profile(std::string name, ProgramOptions *p_options)
 void FunctionalTestFactory::execute_all(ProgramOptions *p_options)
 {
     CallbackMap_t::const_iterator it;
-    for(it=m_callbacks.begin(); it != m_callbacks.end(); it++ ) {
+    for(it=m_callbacks.begin(); it != m_callbacks.end(); ++it ) {
         execute( it->first , p_options);
         //createItem( it->first )->execute();
     }
@@ -185,7 +185,7 @@ void FunctionalTestFactory::print_testnames()
     help += "List of available tests are below:";
     std::cout << help << std::endl;
     CallbackMap_t::const_iterator it;
-    for(it=m_callbacks.begin(); it != m_callbacks.end(); it++ ) {
+    for(it=m_callbacks.begin(); it != m_callbacks.end(); ++it ) {
         std::cout << it->first << std::endl;
     }
 }

@@ -40,10 +40,8 @@ public:
 protected:
     virtual void init_parameters();
 private:
-    ToyExperiment(const ToyExperiment &other) : Experiment(other)
+    ToyExperiment(const ToyExperiment &other) : Experiment(other), m_func(other.m_func), pars(other.pars)
     {
-        m_func = other.m_func;
-        pars = other.pars;
         setName("ToyExperiment");
         init_parameters();
     }

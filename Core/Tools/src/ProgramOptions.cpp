@@ -59,7 +59,7 @@ void ProgramOptions::parseCommandLine(int argc, char **argv)
         // we get here if there is unrecognized options
         std::cout << "ProgramOptions::parseCommanLine() -> Error. Unrecognized options in command line." << std::endl;
         std::cerr << "error: " << e.what() << "\n";
-        throw e; // throwing it further to terminate program
+        throw; // throwing it further to terminate program
     }
 
     // and now call parsing of config file
@@ -100,7 +100,7 @@ void ProgramOptions::parseConfigFile()
             // we get here if there is unrecognized options
             std::cout << "ProgramOptions::parseConfigFile() -> Error. Unrecognized options in file '" << config_file << "'" << std::endl;
             std::cerr << "error: " << e.what() << "\n";
-            throw e; // throwing it further to terminate program
+            throw; // throwing it further to terminate program
         }
     }
 

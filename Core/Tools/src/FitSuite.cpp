@@ -181,6 +181,7 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
 /* ************************************************************************* */
 double FitSuite::elementFunction(const double *pars_current_values, unsigned int index, double *deriv)
 {
+    if(index % 10 == 0) std::cout << " elementFunction " << index << std::endl;
     // set fitting parameters to values suggested by the minimizer
     m_fit_parameters.setValues(pars_current_values);
 

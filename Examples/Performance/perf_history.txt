@@ -154,4 +154,8 @@
 # current status of the art
 2012-11-29 11:09:34 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 14.7059 | 14.2857 | 5.26316 | 
 
-2012-11-29 11:14:27 | jcnsopc73  | macosx64, 2800 MHz      | 253165  | 14.3885 | 14.2857 | 5.40541 | 
+2012-11-29 11:14:27 | jcnsopc73  | macosx64, 2800 MHz      | 253165  | 14.3885 | 14.2857 | 5.40541 |
+
+# fast-math is off; few performance changes in OutputData and BasicVector3D
+2012-12-13 10:06:39 | jcnsopc73  | macosx64, 2800 MHz      | 259740  | 19.802  | 19.2308 | 5.26316 | 
+

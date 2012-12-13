@@ -151,8 +151,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     // creating fit suite
     m_fitSuite = new FitSuite();
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit", "") );
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit", "") );
     m_fitSuite->attachObserver( new FitSuiteObserverPrint(10) );
     m_fitSuite->attachObserver( new FitSuiteObserverDraw(50) );
 

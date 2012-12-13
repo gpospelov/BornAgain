@@ -6,7 +6,7 @@
 // cleaning material database
 /* ************************************************************************* */
 void MaterialManager::clear() {
-    for(materials_t::iterator it = m_materials.begin(); it!= m_materials.end(); it++) {
+    for(materials_t::iterator it = m_materials.begin(); it!= m_materials.end(); ++it) {
         if( (*it).second ) delete (*it).second;
     }
     m_materials.clear();
@@ -66,7 +66,7 @@ const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name
 void MaterialManager::print(std::ostream &ostr) const
 {
     ostr << typeid(*this).name() << " " << this << " nmaterials:" << m_materials.size() << std::endl;
-    for(materials_t::const_iterator it = m_materials.begin(); it!= m_materials.end(); it++) {
+    for(materials_t::const_iterator it = m_materials.begin(); it!= m_materials.end(); ++it) {
         const IMaterial *mat = (*it).second;
         ostr << *mat << std::endl;
     }

@@ -22,7 +22,7 @@ TestIsGISAXS9::~TestIsGISAXS9()
 
 void TestIsGISAXS9::clear()
 {
-    for(std::vector<OutputData<double> *>::iterator it=m_results.begin(); it!=m_results.end(); it++) {
+    for(std::vector<OutputData<double> *>::iterator it=m_results.begin(); it!=m_results.end(); ++it) {
         delete (*it);
     }
     m_results.clear();

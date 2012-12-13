@@ -35,6 +35,8 @@ GISASExperiment::GISASExperiment(const GISASExperiment &other) : Experiment(othe
 
 }
 
+const std::string GISASExperiment::PHI_AXIS_NAME = "phi_f";
+const std::string GISASExperiment::ALPHA_AXIS_NAME = "alpha_f";
 
 /* ************************************************************************* */
 // clone method
@@ -147,25 +149,33 @@ void GISASExperiment::normalize()
 void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
                                             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {
-    const std::string s_phi_f("phi_f");
-    const std::string s_alpha_f("alpha_f");
-
-    m_detector.clear();
-    AxisDouble phi_axis(s_phi_f);
-    AxisDouble alpha_axis(s_alpha_f);
+    AxisParameters phi_params;
+    phi_params.m_name = PHI_AXIS_NAME;
+    phi_params.m_range = TSampledRange<double>(n_phi, phi_f_min, phi_f_max);
+    AxisParameters alpha_params;
+    alpha_params.m_name = ALPHA_AXIS_NAME;
+    alpha_params.m_range = TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
     if (isgisaxs_style) {
-        initializeAnglesIsgisaxs(&phi_axis, phi_f_min, phi_f_max, n_phi);
-        initializeAnglesIsgisaxs(&alpha_axis, alpha_f_min, alpha_f_max, n_alpha);
+        phi_params.m_sample_method = AxisParameters::E_ISGISAXS;
+        alpha_params.m_sample_method = AxisParameters::E_ISGISAXS;
     }
     else {
-        phi_axis.initElements(n_phi, phi_f_min, phi_f_max);
-        alpha_axis.initElements(n_alpha, alpha_f_min, alpha_f_max);
+        phi_params.m_sample_method = AxisParameters::E_DEFAULT;
+        alpha_params.m_sample_method = AxisParameters::E_DEFAULT;
     }
-    m_detector.addAxis(phi_axis);
-    m_detector.addAxis(alpha_axis);
-    updateIntensityMapAxes();
+    DetectorParameters detector_params = { phi_params, alpha_params };
+    setDetectorParameters(detector_params);
 }
 
+void GISASExperiment::setDetectorParameters(const DetectorParameters &params)
+{
+    m_detector.clear();
+
+    m_detector.addAxis(params.m_phi_params);
+    m_detector.addAxis(params.m_alpha_params);
+
+    updateIntensityMapAxes();
+}
 
 void GISASExperiment::setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function)
 {
@@ -174,9 +184,6 @@ void GISASExperiment::setDetectorResolutionFunction(IResolutionFunction2D *p_res
 
 void GISASExperiment::smearIntensityFromZAxisTilting()
 {
-    const std::string s_phi_f("phi_f");
-    const std::string s_alpha_f("alpha_f");
-
     size_t nbr_zetas = 5;
     double zeta_sigma = 45.0*Units::degree;
     std::vector<double> zetas;
@@ -187,8 +194,8 @@ void GISASExperiment::smearIntensityFromZAxisTilting()
     m_intensity_map.setAllTo(0.0);
     OutputData<double>::const_iterator it_clone = p_clone->begin();
     while (it_clone != p_clone->end()) {
-        double old_phi = p_clone->getValueOfAxis(s_phi_f, it_clone.getIndex());
-        double old_alpha = p_clone->getValueOfAxis(s_alpha_f, it_clone.getIndex());
+        double old_phi = p_clone->getValueOfAxis(PHI_AXIS_NAME, it_clone.getIndex());
+        double old_alpha = p_clone->getValueOfAxis(ALPHA_AXIS_NAME, it_clone.getIndex());
         for (size_t zeta_index=0; zeta_index<zetas.size(); ++zeta_index) {
             double newphi = old_phi + deltaPhi(old_alpha, old_phi, zetas[zeta_index]);
             double newalpha = old_alpha + deltaAlpha(old_alpha, zetas[zeta_index]);
@@ -202,27 +209,13 @@ void GISASExperiment::init_parameters()
 {
 }
 
-void GISASExperiment::initializeAnglesIsgisaxs(AxisDouble *p_axis, double start, double end, size_t size) {
-    double start_sin = std::sin(start);
-    double end_sin = std::sin(end);
-    double step = (end_sin-start_sin)/(size-1);
-    for(size_t i=0; i<size; ++i) {
-        p_axis->push_back(std::asin(start_sin + step*i));
-    }
-    return;
-}
-
-
 double GISASExperiment::getSolidAngle(size_t index) const
 {
-    const std::string s_phi_f("phi_f");
-    const std::string s_alpha_f("alpha_f");
-
-    const AxisDouble *p_alpha_axis = m_intensity_map.getAxis(s_alpha_f);
-    const AxisDouble *p_phi_axis = m_intensity_map.getAxis(s_phi_f);
-    size_t alpha_index = m_intensity_map.getIndexOfAxis(s_alpha_f, index);
+    const IAxis *p_alpha_axis = m_intensity_map.getAxis(ALPHA_AXIS_NAME);
+    const IAxis *p_phi_axis = m_intensity_map.getAxis(PHI_AXIS_NAME);
+    size_t alpha_index = m_intensity_map.getIndexOfAxis(ALPHA_AXIS_NAME, index);
     size_t alpha_size = p_alpha_axis->getSize();
-    size_t phi_index = m_intensity_map.getIndexOfAxis(s_phi_f, index);
+    size_t phi_index = m_intensity_map.getIndexOfAxis(PHI_AXIS_NAME, index);
     size_t phi_size = p_phi_axis->getSize();
     if (alpha_size<2 && phi_size<2) {
         // Cannot determine detector cell size!
@@ -230,18 +223,18 @@ double GISASExperiment::getSolidAngle(size_t index) const
     }
     double dalpha(0), dphi(0);
 
-    double alpha_f = m_intensity_map.getValueOfAxis(s_alpha_f, index);
+    double alpha_f = m_intensity_map.getValueOfAxis(ALPHA_AXIS_NAME, index);
     double cos_alpha_f = std::cos(alpha_f);
 
     if(alpha_size>1) {
         if (alpha_index==0) {
-            dalpha = p_alpha_axis->operator[](1) - p_alpha_axis->operator[](0);
+            dalpha = (*p_alpha_axis)[1] - (*p_alpha_axis)[0];
         }
         else if (alpha_index==alpha_size-1) {
-            dalpha = p_alpha_axis->operator[](alpha_size-1) - p_alpha_axis->operator[](alpha_size-2);
+            dalpha = (*p_alpha_axis)[alpha_size-1] - (*p_alpha_axis)[alpha_size-2];
         }
         else {
-            dalpha = (p_alpha_axis->operator[](alpha_index+1) - p_alpha_axis->operator[](alpha_index-1))/2.0;
+            dalpha = ((*p_alpha_axis)[alpha_index+1] - (*p_alpha_axis)[alpha_index-1])/2.0;
         }
         dalpha = std::abs(dalpha);
     } else {
@@ -249,13 +242,13 @@ double GISASExperiment::getSolidAngle(size_t index) const
     }
     if(phi_size > 1) {
         if (phi_index==0) {
-            dphi = p_phi_axis->operator[](1) - p_phi_axis->operator[](0);
+            dphi = (*p_phi_axis)[1] - (*p_phi_axis)[0];
         }
         else if (phi_index==phi_size-1) {
-            dphi = p_phi_axis->operator[](phi_size-1) - p_phi_axis->operator[](phi_size-2);
+            dphi = (*p_phi_axis)[phi_size-1] - (*p_phi_axis)[phi_size-2];
         }
         else {
-            dphi = (p_phi_axis->operator[](phi_index+1) - p_phi_axis->operator[](phi_index-1))/2.0;
+            dphi = ((*p_phi_axis)[phi_index+1] - (*p_phi_axis)[phi_index-1])/2.0;
         }
         dphi = std::abs(dphi);
     } else {
@@ -307,23 +300,23 @@ void GISASExperiment::createZetaAndProbVectors(std::vector<double>& zetas,
 
 void GISASExperiment::addToIntensityMap(double alpha, double phi, double value)
 {
-    const AxisDouble *p_alpha_axis = m_intensity_map.getAxis("alpha_f");
-    const AxisDouble *p_phi_axis = m_intensity_map.getAxis("phi_f");
+    const IAxis *p_alpha_axis = m_intensity_map.getAxis(ALPHA_AXIS_NAME);
+    const IAxis *p_phi_axis = m_intensity_map.getAxis(PHI_AXIS_NAME);
     std::vector<int> coordinates;
-    coordinates.push_back(findClosestIndex(p_alpha_axis, alpha));
-    coordinates.push_back(findClosestIndex(p_phi_axis, phi));
+    coordinates.push_back((int)p_alpha_axis->findClosestIndex(alpha));
+    coordinates.push_back((int)p_phi_axis->findClosestIndex(phi));
     m_intensity_map[m_intensity_map.toIndex(coordinates)] += value;
 }
 
-int GISASExperiment::findClosestIndex(const AxisDouble *p_axis, double value)
-{
-    int result = 0;
-    double smallest_diff = std::abs(value-(*p_axis)[0]);
-    for (size_t i=1; i<p_axis->getSize(); ++i) {
-        double new_diff = std::abs(value-(*p_axis)[i]);
-        if (new_diff > smallest_diff) break;
-        result = (int)i;
-        smallest_diff = new_diff;
-    }
-    return result;
-}
+//int GISASExperiment::findClosestIndex(const AxisDouble *p_axis, double value)
+//{
+//    int result = 0;
+//    double smallest_diff = std::abs(value-(*p_axis)[0]);
+//    for (size_t i=1; i<p_axis->getSize(); ++i) {
+//        double new_diff = std::abs(value-(*p_axis)[i]);
+//        if (new_diff > smallest_diff) break;
+//        result = (int)i;
+//        smallest_diff = new_diff;
+//    }
+//    return result;
+//}

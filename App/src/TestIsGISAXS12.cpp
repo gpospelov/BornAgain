@@ -210,7 +210,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     leg1->SetBorderSize(1);
     leg1->SetFillStyle(0);
     for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
-        c2->cd(i_set+1);
+        c2->cd((int)i_set+1);
         const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
         TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"gisasfw_real");
         TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"gisasfw_simul");
@@ -234,7 +234,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
         OutputData<double > *real = obj->getChiSquaredModule()->getRealData()->clone();
         OutputData<double > *simul = obj->getChiSquaredModule()->getSimulationData()->clone();
 
-        c2->cd(i_set+3);
+        c2->cd((int)(i_set+3));
         *simul /= *real;
         TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"gisasfw_real_simul_ratio");
         hratio->DrawCopy();
@@ -271,7 +271,7 @@ void TestIsGISAXS12::run_test_chimodule()
     OutputDataNormalizerScaleAndShift normalizer(1.31159E+05, -8.10009E-02);
 
     double max_intensity(0);
-    for(size_t i=0; i<isgi_results.size(); ++i) {
+    for(int i=0; i<(int)isgi_results.size(); ++i) {
         OutputData<double>::const_iterator cit = std::max_element(isgi_results[i]->begin(), isgi_results[i]->end());
         max_intensity = std::max(max_intensity, *cit);
     }
@@ -281,10 +281,10 @@ void TestIsGISAXS12::run_test_chimodule()
     chiModule.setOutputDataNormalizer( normalizer );
 
     double chi_sum(0);
-    for(size_t i=0; i<isgi_scans.size(); ++i) {
+    for(int i=0; i<(int)isgi_scans.size(); ++i) {
         chiModule.setRealAndSimulatedData(*isgi_scans[i], *isgi_results[i]);
         std::cout << " AAA " << isgi_scans.size()*isgi_results[i]->getAllocatedSize() - 12 << std::endl;
-        chiModule.setNdegreeOfFreedom(isgi_scans.size()*isgi_results[i]->getAllocatedSize() - 12);
+        chiModule.setNdegreeOfFreedom((int)(isgi_scans.size()*isgi_results[i]->getAllocatedSize()) - 12);
         double chi = 0.5*0.5*chiModule.calculateChiSquared();
         chi_sum += chi;
         std::cout << "chi : " << chi << " chi_sum:" << chi_sum << std::endl;
@@ -322,7 +322,7 @@ void TestIsGISAXS12::plot_isgisaxs_data()
     leg1->SetBorderSize(1);
     leg1->SetFillStyle(0);
 
-    for(size_t i_set=0; i_set<isgi_scans.size(); ++i_set) {
+    for(int i_set=0; i_set<(int)isgi_scans.size(); ++i_set) {
         c1->cd(1+i_set); gPad->SetLogy();
         TH1D *hdata = IsGISAXSTools::getOutputDataScanHist(*isgi_scans[i_set], "data");
         hdata->DrawCopy();
@@ -339,7 +339,7 @@ void TestIsGISAXS12::plot_isgisaxs_data()
     TLegend *leg2 = new TLegend(0.5,0.6,0.85,0.85);
     leg2->SetBorderSize(1);
     leg2->SetFillStyle(0);
-    for(size_t i_set=0; i_set<isgi_scans.size(); ++i_set) {
+    for(int i_set=0; i_set<(int)isgi_scans.size(); ++i_set) {
         c1->cd(3+i_set); gPad->SetLogy();
         TH1D *hdata = IsGISAXSTools::getOutputDataScanHist(*isgi_results[i_set], "data");
         hdata->SetLineColor(kRed);
@@ -357,7 +357,7 @@ void TestIsGISAXS12::plot_isgisaxs_data()
     TLegend *leg3 = new TLegend(0.5,0.6,0.85,0.85);
     leg3->SetBorderSize(1);
     leg3->SetFillStyle(0);
-    for(size_t i_set=0; i_set<isgi_scans.size(); ++i_set) {
+    for(int i_set=0; i_set<(int)isgi_scans.size(); ++i_set) {
         c1->cd(5+i_set);
         *isgi_results[i_set] /= *isgi_scans_smoothed[i_set];
         TH1D *hdata = IsGISAXSTools::getOutputDataScanHist(*isgi_results[i_set], "isgisaxs_results_data");
@@ -426,7 +426,7 @@ void TestIsGISAXS12::run_test_minimizer()
     TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
     leg1->SetBorderSize(1);
     leg1->SetFillStyle(0);
-    for(size_t i_set=0; i_set<isgi_results.size(); ++i_set) {
+    for(int i_set=0; i_set<(int)isgi_results.size(); ++i_set) {
         c1->cd(1+i_set);
         gPad->SetLogy();
         TH1D *hdata = IsGISAXSTools::getOutputDataScanHist(*isgi_results[i_set], "data");
@@ -446,7 +446,7 @@ void TestIsGISAXS12::run_test_minimizer()
     TLegend *leg2 = new TLegend(0.5,0.6,0.85,0.85);
     leg2->SetBorderSize(1);
     leg2->SetFillStyle(0);
-    for(size_t i_set=0; i_set<isgi_results.size(); ++i_set) {
+    for(int i_set=0; i_set<(int)isgi_results.size(); ++i_set) {
         c1->cd(3+i_set);
         OutputData<double > *data = m_fitSuite->getFitObjects()->getObject(i_set)->getChiSquaredModule()->getSimulationData()->clone();
         *data /= *isgi_results[i_set];
@@ -764,8 +764,8 @@ void TestIsGISAXS12::print_axes(DataSet &data)
 {
     for(size_t i_set=0; i_set<data.size(); ++i_set) {
         std::cout << "scan #" << i_set << "  ";
-        for(size_t i_axis=0; i_axis<data[i_set]->getNdimensions(); ++i_axis) {
-            const AxisDouble *axis = data[i_set]->getAxis(i_axis);
+        for(size_t i_axis=0; i_axis<data[(int)i_set]->getNdimensions(); ++i_axis) {
+            const IAxis *axis = data[(int)i_set]->getAxis(i_axis);
             std::cout << "( " << axis->getName() << ", " << axis->getSize() << ", " << axis->getMin() << ", " << axis->getMax() << " )   ";
         }
         std::cout << std::endl;

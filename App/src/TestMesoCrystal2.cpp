@@ -226,8 +226,8 @@ void TestMesoCrystal2::initializeExperiment(const OutputData<double> *output_dat
         mp_experiment->setDetectorParameters(200, 0.3*Units::degree, 0.073, 200, -0.4*Units::degree, 0.066);
     } else {
         // if there is output_data as input parameter, build detector using output_data axises
-        const AxisDouble *axis0 = output_data->getAxis(0);
-        const AxisDouble *axis1 = output_data->getAxis(1);
+        const IAxis *axis0 = output_data->getAxis(0);
+        const IAxis *axis1 = output_data->getAxis(1);
         //std::cout << axis0->getSize() << " " << axis0->getMin() << " " << axis0->getMax() << " " << axis1->getSize() << " " << axis1->getMin() << " " << axis1->getMax() << std::endl;
         mp_experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
     }

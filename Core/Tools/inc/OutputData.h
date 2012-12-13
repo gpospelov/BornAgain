@@ -19,6 +19,7 @@
 #include "Types.h"
 #include "LLData.h"
 #include "OutputDataIterator.h"
+#include "SafePointerVector.h"
 
 #include <string>
 #include <sstream>
@@ -32,17 +33,17 @@ template <class T> class OutputData
 {
 public:
     OutputData();
-    virtual ~OutputData();
+    ~OutputData();
     //! make object clone
     OutputData* clone() const;
 
     void copyFrom(const OutputData<T> &x);
 
-    void addAxis(const AxisDouble &new_axis);
+    void addAxis(const IAxis &new_axis);
     void addAxis(std::string name, size_t size, double start, double end);
 
-    const AxisDouble *getAxis(size_t index) const;
-    const AxisDouble *getAxis(std::string label) const;
+    const IAxis *getAxis(size_t index) const;
+    const IAxis *getAxis(std::string label) const;
     size_t getAxisIndex(const std::string &label) const;
 
     // ---------------------------------
@@ -199,7 +200,7 @@ private:
     //! memory allocation for current dimensions configuration
     void allocate();
 
-    std::vector<AxisDouble> m_value_axes;
+    SafePointerVector<IAxis> m_value_axes;
     LLData<T> *mp_ll_data;
     Mask *mp_mask;
 };
@@ -250,12 +251,12 @@ template <class T> void OutputData<T>::copyFrom(const OutputData<T> &other)
 
 
 
-template <class T> void OutputData<T>::addAxis(const AxisDouble &new_axis)
+template <class T> void OutputData<T>::addAxis(const IAxis &new_axis)
 {
-    if( getAxis(new_axis.getName()) ) throw LogicErrorException("OutputData<T>::addAxis(AxisDouble *) -> Error! Attempt to add axis with already existing name '"+ new_axis.getName()+std::string("'"));
+    if( getAxis(new_axis.getName()) ) throw LogicErrorException("OutputData<T>::addAxis(const IAxis &new_axis) -> Error! Attempt to add axis with already existing name '"+ new_axis.getName()+std::string("'"));
     if (new_axis.getSize()>0)
     {
-        m_value_axes.push_back(new_axis);
+        m_value_axes.push_back(new_axis.clone());
         allocate();
     }
 }
@@ -268,18 +269,18 @@ void OutputData<T>::addAxis(std::string name, size_t size, double start, double 
     addAxis(new_axis);
 }
 
-template <class T> const AxisDouble *OutputData<T>::getAxis(size_t index) const
+template <class T> const IAxis *OutputData<T>::getAxis(size_t index) const
 {
-    return &m_value_axes.at(index);
+    return m_value_axes[index];
 }
 
-template <class T> const AxisDouble *OutputData<T>::getAxis(std::string label) const
+template <class T> const IAxis *OutputData<T>::getAxis(std::string label) const
 {
-    for (std::vector<AxisDouble>::const_iterator it = m_value_axes.begin(); it != m_value_axes.end(); ++it)
+    for (size_t i = 0; i < m_value_axes.size(); ++i)
     {
-        if (it->getName() == label)
+        if (m_value_axes[i]->getName() == label)
         {
-            return &(*it);
+            return m_value_axes[i];
         }
     }
     return 0;
@@ -288,10 +289,9 @@ template <class T> const AxisDouble *OutputData<T>::getAxis(std::string label) c
 // return index of axis
 template <class T> size_t OutputData<T>::getAxisIndex(const std::string &label) const
 {
-    size_t index(0);
-    for (std::vector<AxisDouble>::const_iterator it = m_value_axes.begin(); it != m_value_axes.end(); ++it, ++index)
+    for (size_t i = 0; i < m_value_axes.size(); ++i)
     {
-        if (it->getName() == label) return index;
+        if (m_value_axes[i]->getName() == label) return i;
     }
     throw LogicErrorException("OutputData<T>::getIndexOfAxis() -> Error! Axis with given name not found '"+label+std::string("'"));
 }
@@ -377,8 +377,8 @@ template<class T> std::vector<int> OutputData<T>::toCoordinates(size_t index) co
     result.resize(mp_ll_data->getRank());
     for (size_t i=0; i<mp_ll_data->getRank(); ++i)
     {
-        result[mp_ll_data->getRank()-1-i] = (int)(remainder % m_value_axes[mp_ll_data->getRank()-1-i].getSize());
-        remainder /= m_value_axes[mp_ll_data->getRank()-1-i].getSize();
+        result[mp_ll_data->getRank()-1-i] = (int)(remainder % m_value_axes[mp_ll_data->getRank()-1-i]->getSize());
+        remainder /= m_value_axes[mp_ll_data->getRank()-1-i]->getSize();
     }
     return result;
 }
@@ -389,9 +389,9 @@ template<class T> int OutputData<T>::toCoordinate(size_t index, size_t i_selecte
     for (size_t i=0; i<mp_ll_data->getRank(); ++i)
     {
         size_t i_axis = mp_ll_data->getRank()-1-i;
-        int result = (int)(remainder % m_value_axes[i_axis].getSize());
+        int result = (int)(remainder % m_value_axes[i_axis]->getSize());
         if(i_selected_axis == i_axis ) return result;
-        remainder /= m_value_axes[i_axis].getSize();
+        remainder /= m_value_axes[i_axis]->getSize();
     }
     throw LogicErrorException("OutputData<T>::toCoordinate() -> Error! No axis with given number");
 }
@@ -407,7 +407,7 @@ template <class T> size_t OutputData<T>::toIndex(std::vector<int> coordinates) c
     for (size_t i=mp_ll_data->getRank(); i>0; --i)
     {
         result += coordinates[i-1]*step_size;
-        step_size *= m_value_axes[i-1].getSize();
+        step_size *= m_value_axes[i-1]->getSize();
     }
     return result;
 }
@@ -416,34 +416,21 @@ template <class T> size_t OutputData<T>::getIndexOfAxis(const std::string &axis_
 {
     std::vector<int> coordinates = toCoordinates(total_index);
     for (size_t i=0; i<m_value_axes.size(); ++i) {
-        if (m_value_axes[i].getName() == axis_name) {
+        if (m_value_axes[i]->getName() == axis_name) {
             return coordinates[i];
         }
     }
     throw LogicErrorException("OutputData<T>::getIndexOfAxis() -> Error! Axis with given name not found '"+std::string(axis_name)+std::string("'"));
 }
 
-//template <class T>
-//double OutputData<T>::getValueOfAxis(const char *axis_name, size_t index) const
-////double OutputData<T>::getValueOfAxis(std::string axis_name, size_t index) const
-//{
-//    std::vector<int> coordinates = toCoordinates(index);
-//    for (size_t i=0; i<m_value_axes.size(); ++i) {
-//        if (m_value_axes[i].getName() == axis_name) {
-//            return m_value_axes[i][coordinates[i]];
-//        }
-//    }
-//    throw LogicErrorException("OutputData<T>::getValueOfAxis() -> Error! Axis with given name not found '"+std::string(axis_name)+std::string("'"));
-//}
-
 
 template <class T>
 double OutputData<T>::getValueOfAxis(const std::string &axis_name, size_t index) const
 {
     for (size_t i=0; i<m_value_axes.size(); ++i) {
-        if (m_value_axes[i].getName() == axis_name) {
+        if (m_value_axes[i]->getName() == axis_name) {
             int axis_index = toCoordinate(index, i);
-            return m_value_axes[i][axis_index];
+            return (*m_value_axes[i])[axis_index];
         }
     }
     throw LogicErrorException("OutputData<T>::getValueOfAxis() -> Error! Axis with given name not found '"+std::string(axis_name)+std::string("'"));
@@ -559,10 +546,10 @@ bool OutputData<T>::hasSameShape(const OutputData<T> &right) const
         throw LogicErrorException("OutputData<T>::hasSameShape() -> Panic! Inconsistent dimensions in LLData and axes");
     }
     for (size_t i=0; i<m_value_axes.size(); ++i) {
-        const AxisDouble axis_left = m_value_axes[i];
-        const AxisDouble axis_right = right.m_value_axes[i];
+        const IAxis *p_axis_left = m_value_axes[i];
+        const IAxis *p_axis_right = right.m_value_axes[i];
 
-        if( !HaveSameNameAndShape(axis_left, axis_right)) return false;
+        if( !HaveSameNameAndShape(*p_axis_left, *p_axis_right)) return false;
     }
     return true;
 }

@@ -84,7 +84,7 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t &q) const
         K2 = -MathFunctions::Sinc(q1)*std::exp(im*q1)*im + MathFunctions::Sinc(q2)*std::exp(-im*q2)*im;
         K3 = MathFunctions::Sinc(q3)*std::exp(im*q3)    + MathFunctions::Sinc(q4)*std::exp(-im*q4);
         K4 = -MathFunctions::Sinc(q3)*std::exp(im*q3)*im + MathFunctions::Sinc(q4)*std::exp(-im*q4)*im;
-        F = K1*cos( (qx-qy)*R ) + K2*sin( (qx-qy)*R ) - K3*cos( (qx+qy)*R ) - K4*sin( (qx+qy)*R );
+        F = K1*std::cos( (qx-qy)*R ) + K2*std::sin( (qx-qy)*R ) - K3*std::cos( (qx+qy)*R ) - K4*std::sin( (qx+qy)*R );
         F = F*H/(qx*qy);
     } else if(std::abs(qx) <= Numeric::double_epsilon && std::abs(qy) <= Numeric::double_epsilon) {
         F=(4.*im*(-2./tga/tga - 2.*im*qz*R/tga + qz*qz*R*R - std::exp(im*H*qz) * ((-1.+im + H*qz)/tga - qz*R)*((1.+im + H*qz)/tga - qz*R)  ))/std::pow(qz,3);
@@ -95,13 +95,13 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t &q) const
         } else{
             qxy=qy;
         }
-        F=(4.*(qxy*tga*(-(qxy*qxy*R) + qz*tga*(complex_t(0,-2) + qz*R*tga))*std::cos(qxy*R) -
-               std::exp(im*H*qz)*qxy*(H*std::pow(qxy,2) - qxy*qxy*R*tga - qz*(complex_t(0,2) + H*qz)*std::pow(tga,2) +
+        F=(4.*(qxy*tga*(-(qxy*qxy*R) + qz*tga*(complex_t(0.0,-2.0) + qz*R*tga))*std::cos(qxy*R) -
+               std::exp(im*H*qz)*qxy*(H*std::pow(qxy,2) - qxy*qxy*R*tga - qz*(complex_t(0.0,2.0) + H*qz)*std::pow(tga,2) +
                   std::pow(qz,2)*R*std::pow(tga,3))*std::cos(qxy*(R - H/tga)) +
-               tga*(std::pow(qxy,2)*(1. - complex_t(0,1)*qz*R*tga) + std::pow(qz,2)*std::pow(tga,2)*(1. + complex_t(0,1)*qz*R*tga))*
-                std::sin(qxy*R) + complex_t(0,1)*std::exp(im*H*qz)*tga*
-                (std::pow(qz,2)*std::pow(tga,2)*(complex_t(0,1) + H*qz - qz*R*tga) +
-                  std::pow(qxy,2)*(complex_t(0,1) - H*qz + qz*R*tga))*std::sin(qxy*(R - H/tga))))/
+               tga*(std::pow(qxy,2)*(1. - complex_t(0.0,1.0)*qz*R*tga) + std::pow(qz,2)*std::pow(tga,2)*(1. + complex_t(0.0,1.0)*qz*R*tga))*
+                std::sin(qxy*R) + complex_t(0.0,1.0)*std::exp(im*H*qz)*tga*
+                (std::pow(qz,2)*std::pow(tga,2)*(complex_t(0.0,1.0) + H*qz - qz*R*tga) +
+                  std::pow(qxy,2)*(complex_t(0.0,1.0) - H*qz + qz*R*tga))*std::sin(qxy*(R - H/tga))))/
            (qxy*std::pow(qxy - qz*tga,2)*std::pow(qxy + qz*tga,2));
     }
     return F;

@@ -28,4 +28,14 @@ private:
     T m_min, m_max;
 };
 
+template <class T> class TSampledRange : public TRange<T>
+{
+public:
+    TSampledRange(size_t n_samples, T min, T max) : TRange<T>(min, max), m_n_samples(n_samples) {}
+
+    size_t getNSamples() const { return m_n_samples; }
+private:
+    size_t m_n_samples;
+};
+
 #endif /* TRANGE_H_ */

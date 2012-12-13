@@ -183,7 +183,7 @@ void TestFumiliLMA::FillOutputDataFromFunction(OutputData<double> &data, TF2 *fu
 double MyChi2Function::DataElement(const double *pars, unsigned int index, double *g ) const
 {
     std::cout << " DataElement() -> " << g << " " << index;
-    for(int ipar=0; ipar<m_test->m_func->GetNpar(); ++ipar) std::cout << " " << pars[ipar];
+    for(int ipar=0; ipar<m_test->m_func->GetNpar(); ++ipar) std::cout << " p: (" << ipar << " " << pars[ipar] << ")";
     std::cout << std::endl;
     const AxisDouble *xaxis = m_test->m_real_data->getAxis(0);
     const AxisDouble *yaxis = m_test->m_real_data->getAxis(1);

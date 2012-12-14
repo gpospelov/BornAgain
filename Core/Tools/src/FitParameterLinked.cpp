@@ -17,7 +17,7 @@ FitParameterLinked::FitParameterLinked(const std::string &name, double value, do
 /* ************************************************************************* */
 //! add real parameter to the collection
 /* ************************************************************************* */
-void FitParameterLinked::addParameter(PoolParameter_t par)
+void FitParameterLinked::addParameter(ParameterPool::parameter_t par)
 {
     if( !par.isNull() ) {
         m_parametercoll.push_back(par);
@@ -35,7 +35,7 @@ void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool,
     std::string wildcard_to_use = getName();
     if( !wildcard.empty()) wildcard_to_use = wildcard;
 
-    std::vector<ParameterPool::RealPar > matched_pars = pool->getMatchedParameters(wildcard_to_use);
+    PoolParameterColl_t matched_pars = pool->getMatchedParameters(wildcard_to_use);
     m_parametercoll.insert(m_parametercoll.end(), matched_pars.begin(), matched_pars.end());
 
     if( matched_pars.empty() ) {

@@ -70,6 +70,7 @@ myFiles=[
   'DiffuseParticleInfo.h',
   'PythonOutputData.h',
   'PythonPlusplusHelper.h',
+  'RealParameterWrapper.h',
   'Transform3D.h',
   'Units.h',
   'Types.h',

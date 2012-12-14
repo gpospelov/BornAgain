@@ -59,7 +59,7 @@ for(dir, BOOST_LIB_LOCATIONS): isEmpty(BOOST_LIB) {
 isEmpty(BOOST_LIB): message("Can't find" $${BOOST_LIBFILES} "in" $${BOOST_LIB_LOCATIONS})
 INCLUDEPATH *=  $${BOOST_INCLUDE}
 LIBS *= -L$${BOOST_LIB}
-LIBS += -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
+LIBS += -lboost_program_options -lboost_iostreams -lboost_system -lboost_signals -lboost_filesystem -lboost_regex -lboost_thread
 # checking special case when system doesn't have libboost_thread library but have libbost_thread-mt
 NumberOfSuchFiles=$$system(ls $${BOOST_LIB}/libboost_thread-mt* 2> /dev/null | wc -l)
 !isEqual(NumberOfSuchFiles, 0) {
@@ -92,7 +92,7 @@ isEqual(env_jcns_variable, "yes") {
 CONFIG(JCNS) {
   message("Special config for JCNS")
   INCLUDEPATH += /usr/users/jcns/pospelov/software/include
-  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
+  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_signals  -lboost_filesystem -lboost_regex -lboost_thread
 }
 
 

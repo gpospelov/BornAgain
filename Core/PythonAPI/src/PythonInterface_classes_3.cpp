@@ -1776,24 +1776,24 @@ void register_classes_3(){
         typedef bp::class_< ParameterPool, boost::noncopyable > ParameterPool_exposer_t;
         ParameterPool_exposer_t ParameterPool_exposer = ParameterPool_exposer_t( "ParameterPool", bp::init< >() );
         bp::scope ParameterPool_scope( ParameterPool_exposer );
-        bp::class_< ParameterPool::RealPar >( "RealPar", bp::no_init )    
+        bp::class_< ParameterPool::RealParameterWrapper >( "RealPar", bp::no_init )    
             .def( 
                 "checkNull"
-                , (void ( ::ParameterPool::RealPar::* )(  ) const)( &::ParameterPool::RealPar::checkNull ) )    
+                , (void ( ::ParameterPool::RealPar::* )(  ) const)( &::ParameterPool::RealParameterWrapper::checkNull ) )    
             .def( 
                 "getValue"
-                , (double ( ::ParameterPool::RealPar::* )(  ) const)( &::ParameterPool::RealPar::getValue ) )    
+                , (double ( ::ParameterPool::RealPar::* )(  ) const)( &::ParameterPool::RealParameterWrapper::getValue ) )    
             .def( 
                 "isNull"
-                , (bool ( ::ParameterPool::RealPar::* )(  ) )( &::ParameterPool::RealPar::isNull ) )    
+                , (bool ( ::ParameterPool::RealPar::* )(  ) )( &::ParameterPool::RealParameterWrapper::isNull ) )    
             .def( 
                 "setValue"
-                , (void ( ::ParameterPool::RealPar::* )( double ) )( &::ParameterPool::RealPar::setValue )
+                , (void ( ::ParameterPool::RealPar::* )( double ) )( &::ParameterPool::RealParameterWrapper::setValue )
                 , ( bp::arg("value") ) )    
             .def( bp::self_ns::str( bp::self ) );
         { //::ParameterPool::addParameter
         
-            typedef bool ( ::ParameterPool::*addParameter_function_type )( ::std::string const &,::ParameterPool::RealPar ) ;
+            typedef bool ( ::ParameterPool::*addParameter_function_type )( ::std::string const &,::ParameterPool::RealParameterWrapper ) ;
             
             ParameterPool_exposer.def( 
                 "addParameter"
@@ -1833,7 +1833,7 @@ void register_classes_3(){
         }
         { //::ParameterPool::getParameter
         
-            typedef ::ParameterPool::RealPar ( ::ParameterPool::*getParameter_function_type )( ::std::string const & ) const;
+            typedef ::ParameterPool::RealParameterWrapper ( ::ParameterPool::*getParameter_function_type )( ::std::string const & ) const;
             
             ParameterPool_exposer.def( 
                 "getParameter"

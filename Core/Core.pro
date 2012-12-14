@@ -113,6 +113,7 @@ SOURCES += \
     Tools/src/OutputDataWriter.cpp \
     Tools/src/ParameterPool.cpp \
     Tools/src/ProgramOptions.cpp \
+    Tools/src/RealParameterWrapper.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
@@ -145,6 +146,7 @@ HEADERS += \
     Algorithms/inc/IChiSquaredModule.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \
+    Algorithms/inc/IIntensityFunction.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
     Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
@@ -263,6 +265,7 @@ HEADERS += \
     Tools/inc/OutputDataWriter.h \
     Tools/inc/ParameterPool.h \
     Tools/inc/ProgramOptions.h \
+    Tools/inc/RealParameterWrapper.h \
     Tools/inc/TRange.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticGaussian.h \
@@ -282,7 +285,7 @@ HEADERS += \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h \
     PythonAPI/inc/IPythonWrapper.h \
-    Algorithms/inc/IIntensityFunction.h
+    Tools/inc/IChangeable.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

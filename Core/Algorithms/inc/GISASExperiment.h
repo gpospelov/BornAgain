@@ -26,6 +26,8 @@ public:
     GISASExperiment();
     GISASExperiment(ProgramOptions *p_options);
 
+    virtual ~GISASExperiment() {}
+
 	virtual void runSimulation();
 
     virtual void runSimulationElement(size_t index);

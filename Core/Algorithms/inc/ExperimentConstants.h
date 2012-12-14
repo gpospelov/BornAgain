@@ -16,10 +16,10 @@
 
 #include <string>
 
-namespace NDetector2d {
-const std::string PHI_AXIS_NAME = "phi_f";
-const std::string ALPHA_AXIS_NAME = "alpha_f";
+namespace NDetector2d
+{
+    const std::string PHI_AXIS_NAME = "phi_f";
+    const std::string ALPHA_AXIS_NAME = "alpha_f";
 }
-
 
 #endif /* EXPERIMENTCONSTANTS_H_ */

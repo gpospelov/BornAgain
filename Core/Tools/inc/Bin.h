@@ -30,6 +30,18 @@ struct Bin1D
     double getMidPoint() const { return (m_lower + m_upper)/2.0; }
 };
 
+//- -------------------------------------------------------------------
+//! @class Bin1DCVector
+//! @brief Definition of Bin1DCVector class that stores a 1 dimensional
+//! range of cvector_t's
+//- -------------------------------------------------------------------
+struct Bin1DCVector
+{
+    cvector_t m_q_lower;  //!< lower bound of the bin
+    cvector_t m_q_upper;  //!< upper bound of the bin
+    cvector_t getMidPoint() const { return (m_q_lower + m_q_upper)/2.0; }
+};
+
 //! equality operator for bins
 inline bool operator==(const Bin1D &left, const Bin1D &right)
 {

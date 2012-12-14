@@ -41,8 +41,8 @@ public:
         complex_t rb;  // r = R/A - Fresnel reflection coefficient
         complex_t tb;  // t = T/A - Fresnel transmission coefficient
         complex_t X; //  ratio of amplitudes R/T of the outgoing to the incoming waves in layer
-        complex_t R; //  ratio of amplitudes R/T of the outgoing to the incoming waves in layer
-        complex_t T; //  ratio of amplitudes R/T of the outgoing to the incoming waves in layer
+        complex_t R; //  amplitude of the reflected wave in layer
+        complex_t T; //  amplitude of the transmitted wave in layer
 
         //! operator is necessary to make pyplusplus/boost happy during exposing of FresnelCoeff to python using boost::vector_indexing_suite
         bool operator==(FresnelCoeff const &other) const;

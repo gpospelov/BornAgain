@@ -1,6 +1,7 @@
 #include "AxisBin.h"
 #include "Numeric.h"
 #include "Exceptions.h"
+#include <algorithm>
 
 AxisBin::AxisBin(std::string name)
 : IAxis(name)

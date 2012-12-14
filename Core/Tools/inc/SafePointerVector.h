@@ -41,7 +41,7 @@ public:
     const_iterator end() const { return m_pointers.end(); }
 
     T *back() { return m_pointers.back(); }
-    T *const back() const { return m_pointers.back(); }
+    const T *back() const { return m_pointers.back(); }
     void clear();
 private:
     std::vector<T *> m_pointers;

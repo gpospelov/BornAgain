@@ -32,7 +32,7 @@ protected:
 
 GISASExperimentTest::GISASExperimentTest()
 {
-    test_data.addAxis("phi_f", 10, 0., 10.);
+    test_data.addAxis(NDetector2d::PHI_AXIS_NAME, 10, 0., 10.);
     test_data.addAxis("theta_f", 20, 0., 20.);
     test_data.setAllTo(2.0);
 
@@ -50,8 +50,8 @@ TEST_F(GISASExperimentTest, GISASExperimentInitialState)
     EXPECT_EQ( size_t(10000), emptyExperiment.getOutputData()->getAllocatedSize());
     EXPECT_EQ( size_t(2), emptyExperiment.getOutputData()->getNdimensions());
     EXPECT_TRUE(emptyExperiment.getOutputData()->getNdimensions() == emptyExperiment.getDetector().getDimension() );
-    EXPECT_TRUE(std::string("phi_f") == emptyExperiment.getDetector().getAxis(0).getName());
-    EXPECT_TRUE(std::string("alpha_f") == emptyExperiment.getDetector().getAxis(1).getName());
+    EXPECT_TRUE(std::string(NDetector2d::PHI_AXIS_NAME) == emptyExperiment.getDetector().getAxis(0).getName());
+    EXPECT_TRUE(std::string(NDetector2d::ALPHA_AXIS_NAME) == emptyExperiment.getDetector().getAxis(1).getName());
 }
 
 

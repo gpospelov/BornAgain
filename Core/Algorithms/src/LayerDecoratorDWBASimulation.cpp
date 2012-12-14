@@ -4,6 +4,7 @@
 #include "FormFactorDecoratorFactor.h"
 #include "Transform3D.h"
 #include "FormFactorDecoratorTransformation.h"
+#include "ExperimentConstants.h"
 
 LayerDecoratorDWBASimulation::LayerDecoratorDWBASimulation(
         const LayerDecorator *p_layer_decorator)
@@ -80,8 +81,8 @@ std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors()
 
 void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunctionStrategy *p_strategy)
 {
-    const std::string s_phi_f("phi_f");
-    const std::string s_alpha_f("alpha_f");
+    const std::string s_phi_f(NDetector2d::PHI_AXIS_NAME);
+    const std::string s_alpha_f(NDetector2d::ALPHA_AXIS_NAME);
     //std::cout << "Calculating coherent scattering..." << std::endl;
     double wavelength = getWaveLength();
     double total_surface_density = mp_layer_decorator->getTotalParticleSurfaceDensity();

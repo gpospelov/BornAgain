@@ -1937,7 +1937,7 @@ void register_classes_1(){
             "evaluate"
             , (::complex_t ( ::FormFactorDecoratorDebyeWaller::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::FormFactorDecoratorDebyeWaller::evaluate)
             , (::complex_t ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_evaluate)
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg(NDetector2d::ALPHA_AXIS_NAME) ) )    
         .def( 
             "getNumberOfStochasticParameters"
             , (int ( ::FormFactorDecoratorDebyeWaller::* )(  ) const)(&::FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters)

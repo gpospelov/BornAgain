@@ -17,6 +17,8 @@
 #include "OutputDataIOFactory.h"
 #include "Utils.h"
 #include "Types.h"
+#include "ExperimentConstants.h"
+
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -296,11 +298,11 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MultilayerOffspecTestcase1a"));
 
     OutputData<double > *data_alpha = new OutputData<double >;
-    data_alpha->addAxis(std::string("alpha_f"), 200, 0.0*Units::degree, 2.0*Units::degree);
+    data_alpha->addAxis(NDetector2d::ALPHA_AXIS_NAME, 200, 0.0*Units::degree, 2.0*Units::degree);
 
     OpticalFresnel fresnelCalculator;
 
-    const IAxis *p_alpha_axis = data_alpha->getAxis("alpha_f");
+    const IAxis *p_alpha_axis = data_alpha->getAxis(NDetector2d::ALPHA_AXIS_NAME);
     std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
         double angle = (*p_alpha_axis)[i];

@@ -1,5 +1,6 @@
 #include "DiffuseDWBASimulation.h"
 #include "FormFactorDWBAConstZ.h"
+#include "ExperimentConstants.h"
 
 DiffuseDWBASimulation::DiffuseDWBASimulation()
 : m_refractive_index(1.0, 0.0)
@@ -16,8 +17,8 @@ DiffuseDWBASimulation::~DiffuseDWBASimulation()
 
 void DiffuseDWBASimulation::run()
 {
-    const std::string s_phi_f("phi_f");
-    const std::string s_alpha_f("alpha_f");
+    const std::string s_phi_f(NDetector2d::PHI_AXIS_NAME);
+    const std::string s_alpha_f(NDetector2d::ALPHA_AXIS_NAME);
 
     std::vector<DiffuseFormFactorTerm *> diffuse_terms;
     size_t nbr_heights = 50;

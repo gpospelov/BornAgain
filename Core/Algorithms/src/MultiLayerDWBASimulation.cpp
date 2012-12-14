@@ -3,7 +3,7 @@
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "DoubleToComplexMap.h"
-
+#include "ExperimentConstants.h"
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(
         const MultiLayer* p_multi_layer) : mp_roughness_dwba_simulation(0)
@@ -60,7 +60,7 @@ void MultiLayerDWBASimulation::run()
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
 
     m_dwba_intensity.setAllTo(0.0);
-    const IAxis *p_alpha_axis = getDWBAIntensity().getAxis("alpha_f");
+    const IAxis *p_alpha_axis = getDWBAIntensity().getAxis(NDetector2d::ALPHA_AXIS_NAME);
     double lambda = 2.0*M_PI/m_ki_real.mag();
 
     typedef std::pair<double, OpticalFresnel::MultiLayerCoeff_t > doublefresnel_t;

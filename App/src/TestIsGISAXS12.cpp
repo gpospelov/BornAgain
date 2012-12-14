@@ -23,6 +23,7 @@
 #include "MathFunctions.h"
 #include "ROOTMinimizer.h"
 #include "OutputDataFunctions.h"
+#include "ExperimentConstants.h"
 
 #include <iostream>
 #include <fstream>
@@ -632,8 +633,8 @@ OutputData<double> *TestIsGISAXS12::convert_isgi_scan(std::vector<IsgiData > &is
         throw LogicErrorException("TestIsGISAXS12::convert_isgi_scan() -> Error! Scan can't have both angle phif,alphaf fixed");
     }
 
-    AxisDouble phi_axis("phi_f");
-    AxisDouble alpha_axis("alpha_f");
+    AxisDouble phi_axis(NDetector2d::PHI_AXIS_NAME);
+    AxisDouble alpha_axis(NDetector2d::ALPHA_AXIS_NAME);
     if( fixed_phif) {
         m_isgi_fixed_phif = isgi_data.back().phif;
         phi_axis.push_back(isgi_data.back().phif);

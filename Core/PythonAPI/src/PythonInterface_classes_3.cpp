@@ -1218,7 +1218,7 @@ void register_classes_3(){
         .def( 
             "evaluate"
             , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactor::evaluate) )
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg(NDetector2d::ALPHA_AXIS_NAME) ) )    
         .def( 
             "getHeight"
             , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getHeight)

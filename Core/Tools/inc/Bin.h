@@ -39,10 +39,13 @@ struct Bin1D
 struct Bin1DCVector
 {
     Bin1DCVector() {}
+    Bin1DCVector(const cvector_t &lower, const cvector_t &upper)
+        : m_q_lower(lower), m_q_upper(upper) {}
     Bin1DCVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin);
     cvector_t m_q_lower;  //!< lower bound of the bin
     cvector_t m_q_upper;  //!< upper bound of the bin
     cvector_t getMidPoint() const { return (m_q_lower + m_q_upper)/2.0; }
+    cvector_t getDelta() const { return m_q_upper - m_q_lower; }
 };
 
 //! equality operator for bins

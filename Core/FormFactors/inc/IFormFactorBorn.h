@@ -30,28 +30,31 @@ public:
     virtual ~IFormFactorBorn() {}
     virtual IFormFactorBorn *clone() const=0;
 
-    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 
     virtual void setBinSizes(double delta_qy, double delta_qz);
 
-protected:
     //! evaluate scattering amplitude for complex wavevector
     //! @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
     virtual complex_t evaluate_for_q(const cvector_t &q) const=0;
 
+protected:
     //! override volume getter to avoid infinite loop caused by big bin approximation
     virtual double getVolume() const;
 
     //! calculate radial part of scattering amplitude for large bins
-    double bigRadialPart(const cvector_t& q) const;
+    double bigRadialPart(const Bin1DCVector& q_bin) const;
 
     //! calculate z-part of scattering amplitude for large bins
-    complex_t bigZPart(const cvector_t& q) const;
+    complex_t bigZPart(const Bin1DCVector& q_bin) const;
 
     bool m_use_large_bin_approximation_radial;  //!< indicates if large bin size approximation should be used in the qx-qy direction
     bool m_use_large_bin_approximation_z;  //!< indicates if large bin size approximation should be used in the qz direction
     double m_bin_qy, m_bin_qz;  //!< the sizes of the bins in q space
 private:
+    //! determine if a large bin size approximation should be used
+    bool useLargeBinApproximation(const Bin1DCVector &q_bin) const;
+
     //! calculates an approximate intensity that does not contain rapid oscillations
     double bigRadialIntegrand(double qR, void *params) const;
 
@@ -59,21 +62,34 @@ private:
     double bigZPartIntegral(double qH2) const;
 };
 
-inline complex_t IFormFactorBorn::evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const
+inline complex_t IFormFactorBorn::evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
 {
     (void)alpha_i;
     (void)alpha_f;
-    cvector_t q = k_i - k_f;
-    if (m_use_large_bin_approximation_radial || m_use_large_bin_approximation_z) {
-        return getVolume()*bigZPart(q)*bigRadialPart(q);
+    Bin1DCVector q_bin(k_i - k_f_bin.m_q_lower, k_i - k_f_bin.m_q_upper);
+    if (useLargeBinApproximation(q_bin)) {
+        return getVolume()*bigZPart(q_bin)*bigRadialPart(q_bin);
     }
-    return evaluate_for_q(q);
+    return evaluate_for_q(q_bin.getMidPoint());
 }
 
 inline double IFormFactorBorn::getVolume() const
 {
     cvector_t zero;
     return std::abs(evaluate_for_q(zero));
+}
+
+inline bool IFormFactorBorn::useLargeBinApproximation(const Bin1DCVector &q_bin) const
+{
+    double delta_qr = std::abs( q_bin.getDelta().magxy() );
+    if ( delta_qr > M_PI/2.0/getRadius() ) {
+        return true;
+    }
+    double delta_qz = std::abs( q_bin.getDelta().z() );
+    if ( delta_qz > M_PI/2.0/getHeight() ) {
+        return true;
+    }
+    return false;
 }
 
 #endif /* IFORMFACTORBORN_H_ */

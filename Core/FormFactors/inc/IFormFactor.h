@@ -18,6 +18,7 @@
 #include "ISample.h"
 #include "MemberFunctionIntegrator.h"
 #include "MathFunctions.h"
+#include "Bin.h"
 
 
 //- -------------------------------------------------------------------
@@ -38,10 +39,19 @@ public:
     //! pass the refractive index of the ambient material in which this particle is embedded
     virtual void setAmbientRefractiveIndex(complex_t refractive_index) { (void)refractive_index; }
 
-    //! calculate scattering amplitude for complex wavevectors
+    //! calculate scattering amplitude for complex wavevector bin
     //! @param k_i   incoming wavevector
-    //! @param k_f   outgoing wavevector
-    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const=0;
+    //! @param k_f_bin   outgoing wavevector bin
+    //! @param alpha_i incident angle wrt scattering surface
+    //! @param alpha_f outgoing angle wrt scattering surface
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const=0;
+//    {
+//        (void)k_i;
+//        (void)k_f_bin;
+//        (void)alpha_i;
+//        (void)alpha_f;
+//        return complex_t(0.0, 0.0);
+//    }
 
     //! return number of variable/stochastic parameters
     virtual int getNumberOfStochasticParameters() const { return 0; }
@@ -76,7 +86,8 @@ public:
 inline double IFormFactor::getVolume() const
 {
     cvector_t zero;
-    return std::abs(evaluate(zero, zero, 0.0, 0.0));
+    Bin1DCVector zero_bin(zero, zero);
+    return std::abs(evaluate(zero, zero_bin, 0.0, 0.0));
 }
 
 inline double IFormFactor::getHeight() const

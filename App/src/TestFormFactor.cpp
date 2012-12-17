@@ -42,7 +42,8 @@ void TestFormFactor::execute()
         double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        *it = std::pow(std::abs(m_ff.evaluate(k_i, k_f, alpha_i, alpha_f)),2);
+        Bin1DCVector k_f_zero_bin(k_f, k_f);
+        *it = std::pow(std::abs(m_ff.evaluate(k_i, k_f_zero_bin, alpha_i, alpha_f)),2);
         ++it;
     }
     draw();

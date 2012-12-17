@@ -20,21 +20,22 @@
 class LayerDWBASimulation : public DWBASimulation
 {
 public:
-    LayerDWBASimulation();
-    virtual ~LayerDWBASimulation();
+   LayerDWBASimulation();
+   virtual ~LayerDWBASimulation();
 
    void setKzFunction(const IDoubleToComplexMap &kz_function);
    void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap &rt_map);
    void setKzAndRTFunctions(const IDoubleToComplexMap &kz_function, const IDoubleToPairOfComplexMap &rt_map);
 
 protected:
-    IDoubleToComplexMap *mp_kz_function;
-    IDoubleToPairOfComplexMap *mp_RT_function;
+   Bin1DCVector getKfBin(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin);
+   IDoubleToComplexMap *mp_kz_function;
+   IDoubleToPairOfComplexMap *mp_RT_function;
 
 private:
-    //! copy constructor and assignment operator are hidden
-    LayerDWBASimulation(const LayerDWBASimulation &);
-    LayerDWBASimulation &operator=(const LayerDWBASimulation &);
+   //! copy constructor and assignment operator are hidden
+   LayerDWBASimulation(const LayerDWBASimulation &);
+   LayerDWBASimulation &operator=(const LayerDWBASimulation &);
 };
 
 #endif /* LAYERDWBASIMULATION_H_ */

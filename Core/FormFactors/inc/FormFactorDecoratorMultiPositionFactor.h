@@ -23,7 +23,7 @@ public:
     virtual ~FormFactorDecoratorMultiPositionFactor() {};
     virtual FormFactorDecoratorMultiPositionFactor *clone() const;
 
-    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const {
         return mp_form_factor->getNumberOfStochasticParameters();
@@ -46,10 +46,11 @@ inline FormFactorDecoratorMultiPositionFactor* FormFactorDecoratorMultiPositionF
     return new FormFactorDecoratorMultiPositionFactor(*mp_form_factor, m_positions);
 }
 
-inline complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const
+inline complex_t FormFactorDecoratorMultiPositionFactor::evaluate(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
 {
-    cvector_t q = k_i - k_f;
-    return getPositionsFactor(q)*mp_form_factor->evaluate(k_i, k_f, alpha_i, alpha_f);
+    cvector_t q = k_i - k_f_bin.getMidPoint();
+    return getPositionsFactor(q)*mp_form_factor->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
 }
 
 inline complex_t FormFactorDecoratorMultiPositionFactor::getPositionsFactor(cvector_t q) const

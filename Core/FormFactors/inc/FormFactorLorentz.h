@@ -28,7 +28,6 @@ public:
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
-protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
 private:

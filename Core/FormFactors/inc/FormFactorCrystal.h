@@ -38,8 +38,13 @@ public:
         mp_meso_form_factor->setBinSizes(delta_qy, delta_qz);
     }
 
-protected:
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
+
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
+
+protected:
+    virtual double getVolume() const;
+
 private:
     void calculateLargestReciprocalDistance();
     Lattice m_lattice;

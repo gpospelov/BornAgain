@@ -32,14 +32,13 @@ public:
 
     virtual double getHeight() const { return p_ff_sphere->getHeight(); }
 
-protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 private:
     double calculateMeanR3() const;
     double m_mean; //!< This is the mean radius
     double m_sigma;
     double m_mean_r3; //!< This is the radius that gives the mean volume
-    IFormFactor *p_ff_sphere;
+    FormFactorFullSphere *p_ff_sphere;
     cvector_t m_zero_vector;
 };
 
@@ -75,7 +74,7 @@ inline complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t 
 {
     double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
     double dw = std::exp(-q2*m_sigma*m_sigma/2.0);
-    return dw*p_ff_sphere->evaluate(q, m_zero_vector, 0.0, 0.0);
+    return dw*p_ff_sphere->evaluate_for_q(q);
 }
 
 inline double FormFactorSphereGaussianRadius::calculateMeanR3() const

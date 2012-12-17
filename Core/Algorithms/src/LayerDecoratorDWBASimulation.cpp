@@ -81,8 +81,6 @@ std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors()
 
 void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunctionStrategy *p_strategy)
 {
-    const std::string s_phi_f(NDetector2d::PHI_AXIS_NAME);
-    const std::string s_alpha_f(NDetector2d::ALPHA_AXIS_NAME);
     //std::cout << "Calculating coherent scattering..." << std::endl;
     double wavelength = getWaveLength();
     double total_surface_density = mp_layer_decorator->getTotalParticleSurfaceDensity();
@@ -90,14 +88,15 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunct
     DWBASimulation::iterator it_intensity = begin();
     while ( it_intensity != end() )
     {
-        double phi_f = getDWBAIntensity().getValueOfAxis(s_phi_f, it_intensity.getIndex());
-        double alpha_f = getDWBAIntensity().getValueOfAxis(s_alpha_f, it_intensity.getIndex());
+        Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(NDetector2d::PHI_AXIS_NAME, it_intensity.getIndex());
+        Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(NDetector2d::ALPHA_AXIS_NAME, it_intensity.getIndex());
+        double alpha_f = alpha_bin.getMidPoint();
         if (alpha_f<0) {
             ++it_intensity;
             continue;
         }
-        cvector_t k_f;
-        k_f.setLambdaAlphaPhi(wavelength, alpha_f, phi_f);
+        Bin1DCVector k_f_bin(wavelength, alpha_bin, phi_bin);
+        cvector_t k_f = k_f_bin.getMidPoint();
         k_f.setZ(mp_kz_function->evaluate(alpha_f));
         *it_intensity = p_strategy->evaluate(m_ki, k_f, -m_alpha_i, alpha_f)*total_surface_density;
         ++it_intensity;

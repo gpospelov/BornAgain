@@ -25,7 +25,7 @@
 //- -------------------------------------------------------------------
 class RealParameterWrapper {
 public:
-    //! type of the signal given parameter can emmit
+    //! type of the signal parameter can emmit
     typedef boost::signal<void ()>  signal_t;
 
     explicit RealParameterWrapper(double *par) : m_data(par) {}

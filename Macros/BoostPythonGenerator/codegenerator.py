@@ -21,7 +21,7 @@ from pyplusplus import function_transformers as FT
 
 
 ModuleName = 'PythonInterface'
-nOutputFiles = 3 # generated code for classes will be splitted in this number of files
+nOutputFiles = 8 # generated code for classes will be splitted in this number of files
 OutputTempDir='output'
 InstallDir = '../../Core/PythonAPI'
 
@@ -43,6 +43,8 @@ myFiles=[
   'IClusteredParticles.h',
   'ICompositeSample.h',
   'IFormFactor.h',
+  'IFormFactorBorn.h',
+  'IFormFactorDecorator.h',
   'IInterferenceFunction.h',
   'InterferenceFunctionNone.h',
   'InterferenceFunction1DParaCrystal.h',
@@ -66,7 +68,6 @@ myFiles=[
   'OpticalFresnel.h',
   'ParameterPool.h',
   'ParticleInfo.h',
-  #'ProgramOptions.h',
   'DiffuseParticleInfo.h',
   'PythonOutputData.h',
   'PythonPlusplusHelper.h',
@@ -180,9 +181,9 @@ def RulesGISASExperiment(mb):
 # -------------------------------------------------------------------
 def RulesIClusteredParticles(mb):
   cl = mb.class_( "IClusteredParticles" )
-  #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
+  cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
   #cl.member_functions().exclude()
-  #cl.member_function("createTotalFormFactor").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
+  cl.member_function("createTotalFormFactor").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
 
 
 # -------------------------------------------------------------------
@@ -203,16 +204,24 @@ def RulesIFormFactor(mb):
   #cl.member_functions( ).exclude()
   #cl.member_function( "clone" ).include() # including one virtual function back to have wrappers properly generated
   #cl.member_functions("createTotalFormFactor").exclude()
-  
-  cl = mb.class_( "IFormFactorBorn" )
-  #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-  #cl.member_functions( ).exclude()
-  #cl.member_function( "clone" ).include() # including one virtual function back to have wrappers properly generated
 
+# -------------------------------------------------------------------
+# IFormFactorBorn.h
+# -------------------------------------------------------------------
+def RulesIFormFactorBorn(mb):
+  cl = mb.class_( "IFormFactorBorn" )
+
+# -------------------------------------------------------------------
+# IFormFactorBornSeparable.h
+# -------------------------------------------------------------------
+def RulesIFormFactorBornSeparable(mb):
+  cl = mb.class_( "IFormFactorBornSeparable" )
+
+# -------------------------------------------------------------------
+# IFormFactorDecorator.h
+# -------------------------------------------------------------------
+def RulesIFormFactorDecorator(mb):
   cl = mb.class_( "IFormFactorDecorator" )
-  #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-  #cl.member_functions( ).exclude()
-  #cl.member_function( "clone" ).include() # including one virtual function back to have wrappers properly generated
 
 # -------------------------------------------------------------------
 # IInterferenceFunction.h
@@ -481,6 +490,19 @@ def RulesPythonOutputData(mb):
 def RulesPythonPlusplusHelper(mb):
   mb.class_('PythonPlusplusHelper').exclude() # given class is only to teach pyplusplus to templates, but we do not need class itself to be visible in python, excluding it...
 
+
+# -------------------------------------------------------------------
+# RealParameterWrapper.h
+# -------------------------------------------------------------------
+def RulesRealParameterWrapper(mb):
+  cl = mb.class_('RealParameterWrapper') # given class is only to teach pyplusplus to templates, but we do not need class itself to be visible in python, excluding it...
+  cl.member_functions().exclude()
+  cl.member_function("setValue").include()
+  cl.member_function("getValue").include()
+  cl.member_function("isNull").include()
+
+
+
 # -------------------------------------------------------------------
 # Transform3D.h
 # -------------------------------------------------------------------
@@ -532,6 +554,9 @@ myRules = {
   'IClusteredParticles.h'             : RulesIClusteredParticles,
   'ICompositeSample.h'                : RulesICompositeSample,
   'IFormFactor.h'                     : RulesIFormFactor,
+  'IFormFactorBorn.h'                 : RulesIFormFactorBorn,
+  #'IFormFactorBornSeparable.h'        : RulesIFormFactorBornSeparable,
+  'IFormFactorDecorator.h'            : RulesIFormFactorDecorator,
   'IInterferenceFunction.h'           : RulesIInterferenceFunction,
   'InterferenceFunctionNone.h'        : RulesInterferenceFunctionNone,
   'InterferenceFunction1DParaCrystal' : RulesInterferenceFunction1DParaCrystal,
@@ -556,6 +581,7 @@ myRules = {
   #'ProgramOptions.h'                  : RulesProgramOptions,
   'PythonOutputData.h'                : RulesPythonOutputData,
   'PythonPlusplusHelper.h'            : RulesPythonPlusplusHelper,
+  'RealParameterWrapper.h'            : RulesRealParameterWrapper,
   'Transform3D.h'                     : RulesTransform3D,
   'Types.h'                           : RulesTypes,
   #'Units.h'                    : RulesUnits,
@@ -569,11 +595,17 @@ def GenerateCode():
   from pyplusplus.file_writers.balanced_files import balanced_files_t
   balanced_files_t.HEADER_EXT='.h'
   balanced_files_t.SOURCE_EXT='.cpp'
+  from pyplusplus.file_writers.multiple_files import multiple_files_t
+  multiple_files_t.HEADER_EXT='.pypp.h'
+  multiple_files_t.SOURCE_EXT='.pypp.cpp'
 
-
+  #GCCXML_COMPILER="/opt/local/bin/g++"
+  #GCCXML_CXXFLAGS=""
+  
   myIncludes.append('/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7')
-  myIncludes.append('/opt/local/include/')
-  mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')
+  #myIncludes.append('/opt/local/include/')
+  mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin', cflags="-m64")
+  #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')
 
   # ---------------------------------------------------------
   # common properties
@@ -664,7 +696,8 @@ def GenerateCode():
   mb.build_code_creator( module_name=ModuleName)
   mb.code_creator.user_defined_directories.append( os.path.abspath('./') )
   if nOutputFiles > 0:
-    mb.balanced_split_module( OutputTempDir, nOutputFiles)
+    mb.split_module( OutputTempDir)
+    #mb.balanced_split_module( OutputTempDir, nOutputFiles)
   else:
     mb.write_module( "tmp.cpp")
 
@@ -674,9 +707,101 @@ def GenerateCode():
 # InstallCode()
 #-------------------------------------------------------------
 def InstallCode():
-  files=glob.glob(OutputTempDir+"/*.h");
-  files+= glob.glob(OutputTempDir+"/*.cpp");
-  files+= glob.glob(OutputTempDir+"/__call_policies.pypp.hpp");
+  files_inc =glob.glob(OutputTempDir+"/*.pypp.h");
+  files_inc+= glob.glob(OutputTempDir+"/__call_policies.pypp.hpp");
+  files_src = glob.glob(OutputTempDir+"/*.pypp.cpp");
+
+  # generating python_module.pri
+  python_pri_file = OutputTempDir+"/python_module.pri"
+  fout = open(python_pri_file, 'w')
+  fout.write("HEADERS +=  \\ \n")
+  # existing files (written by human being)
+  fout.write("    PythonAPI/inc/PythonListConverter.h \\ \n")
+  fout.write("    PythonAPI/inc/PythonModule.h \\ \n")
+  fout.write("    PythonAPI/inc/PythonOutputData.h \\ \n")
+  fout.write("    PythonAPI/inc/PythonPlusplusHelper.h \\ \n")
+  # automatically generated files
+  for i_file in range(0,len(files_inc)):
+      delim = " \\"
+      if i_file == len(files_inc)-1:
+          delim = " "
+      ff = files_inc[i_file]
+      ff = ff.replace(OutputTempDir,"PythonAPI/inc")
+      fout.write("    "+ff+delim+"\n")
+  fout.write("\n")
+  fout.write("SOURCES +=  \\ \n")
+  # existing files (written by human being)
+  fout.write("    PythonAPI/src/PythonModule.cpp \\ \n")
+  fout.write("    PythonAPI/src/PythonListConverter.cpp \\ \n")
+  fout.write("    PythonAPI/src/PythonOutputData.cpp \\ \n")
+  fout.write("    PythonAPI/src/PythonPlusplusHelper.cpp \\ \n")
+  # automatically generated files
+  for i_file in range(0,len(files_src)):
+      delim = " \\"
+      if i_file == len(files_src)-1:
+          delim = " "
+      ff = files_src[i_file]
+      ff = ff.replace(OutputTempDir,"PythonAPI/src")
+      fout.write("    "+ff+delim+"\n")
+  fout.write("\n")
+
+  fout.write("INCLUDEPATH += ./PythonAPI/inc \n")
+  fout.write("DEPENDPATH  += ./PythonAPI/inc \n")
+  fout.close()
+
+  # generating own PythonInterface.cpp
+  python_module_file = OutputTempDir+"/PythonModule.cpp"
+  fout = open(python_module_file, 'w')
+  fout.write("#include \"Python.h\"\n")
+  fout.write("#define PY_ARRAY_UNIQUE_SYMBOL scatt_ARRAY_API \n")
+  fout.write("#include \"numpy/arrayobject.h\"\n")
+  fout.write("// the order of 3 guys above is important\n")
+  fout.write("\n")
+  #fout.write("#include \"PythonModule.h\"\n")
+  for ff in files_inc:
+      ff = ff.replace(OutputTempDir+"/","")
+      fout.write("#include \""+ff+"\" \n")
+  fout.write("\n")
+  fout.write("#include \"PythonListConverter.h\"\n")
+  fout.write("\n")
+  fout.write("BOOST_PYTHON_MODULE(libScattCore){\n")
+  fout.write("\n")
+  # adding register lines
+  #for ff in files_inc:
+    #fout2 = open(ff,'r')
+    #for line in fout2:
+      #if "register_" in line:
+        #line = line.replace("void ","    ")
+        #fout.write(line)
+
+  # adding register lines
+  old_python_module_file = OutputTempDir+"/PythonInterface.main.cpp"
+  fin = open(old_python_module_file,'r')
+  for line in fin:
+      if "register_" in line:
+          fout.write(line)
+  fin.close()
+
+  fout.write("\n")
+  fout.write("    register_python2cpp_converters();\n")
+  fout.write("\n")
+  fout.write("    import_array();\n")
+  fout.write("    /* IMPORTANT\n")
+  fout.write("    this is initialisation function from C-API of python-numpy package. It has to be called once in the\n")
+  fout.write("    initialisation section of the module (i.e. here), when module is going to use any of python numpy C-API.\n")
+  fout.write("    Additional rule: when initialisation of the module, and functions that use python-numpy C-API are located in\n")
+  fout.write("    different files (different compilation units) - and this is exactly our case - additional defines has\n")
+  fout.write("    to be inserted before #include \"numpy/arrayobject.h\". See explanations\n")
+  fout.write("    http://docs.scipy.org/doc/numpy/reference/c-api.array.html#import_array\n")
+  fout.write("    */\n")
+  fout.write("}\n")
+
+  fout.close()
+  
+
+  files = files_inc+files_src
+  files.append(python_pri_file)
+  files.append(python_module_file)
 
   copycommand='cp '
 
@@ -685,22 +810,22 @@ def InstallCode():
   for f in files:
     fileName = os.path.basename(f)
 
-    # we are skipping PythonInterface.main.cpp file since we have somewhere our own 
-    if 'main' in f:
-      continue
-
     # different output directory for source and headers
     outputName=''
     if '.cpp' in fileName:
       outputName=InstallDir+"/src/"+fileName
     elif '.h' in fileName:
       outputName=InstallDir+"/inc/"+fileName
+    elif '.pri' in fileName:
+      outputName=InstallDir+"/../"+fileName
+    print "XXX",f, outputName
 
     # check file existance
     if os.path.exists(outputName) and overwriteAnswer != 'a':
       prompt="File '"+outputName+"' exists, Overwrite? [y/a/n] "
       overwriteAnswer=raw_input(prompt)
-    if overwriteAnswer == 'y' or overwriteAnswer=='a':
+      
+    if (overwriteAnswer == 'y' or overwriteAnswer=='a') or not os.path.exists(outputName):
       command = copycommand + f + " " + outputName
       print command
       os.system(command)

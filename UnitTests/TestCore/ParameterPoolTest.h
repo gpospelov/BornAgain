@@ -81,8 +81,6 @@ TEST_F(ParameterPoolTest, CopyToExternalPool)
     EXPECT_EQ( double(2.0), external_pool.getParameter("Another/a_par2").getValue());
     EXPECT_EQ( double(3.0), external_pool.getParameter("Another/b_par3").getValue());
     EXPECT_EQ( double(4.0), external_pool.getParameter("par4").getValue());
-
-//    EXPECT_EQ( size_t(0), m_pool.size() );
 }
 
 

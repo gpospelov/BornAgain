@@ -28,9 +28,10 @@
 class IClusteredParticles : public ICompositeSample
 {
 public:
+    IClusteredParticles() {}
     virtual ~IClusteredParticles() {}
     //! clone method to allow for polymorphic copying
-    virtual IClusteredParticles *clone() const=0;
+    virtual IClusteredParticles *clone() const { throw NotImplementedException("IClusteredParticles::clone() -> Error! Not implemented exception"); }
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)=0;
 

@@ -3,6 +3,8 @@
 #include "Numeric.h"
 #include "Exceptions.h"
 
+#include <algorithm>
+
 AxisDouble::AxisDouble(std::string name)
 : IAxis(name)
 , m_bin_size(0)

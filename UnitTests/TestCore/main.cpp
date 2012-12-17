@@ -5,10 +5,13 @@
 #include "DetectorTest.h"
 #include "ExperimentTest.h"
 #include "GISASExperimentTest.h"
+#include "IParameterizedTest.h"
 #include "MaskTest.h"
 #include "AxisDoubleTest.h"
 #include "OutputDataTest.h"
 #include "OutputDataIteratorTest.h"
+#include "ParameterPoolTest.h"
+#include "RealParameterWrapperTest.h"
 
 int main(int argc, char** argv)
 {

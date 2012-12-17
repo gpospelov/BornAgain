@@ -20,7 +20,10 @@ HEADERS += \
     OutputDataTest.h \
     OutputDataIteratorTest.h \
     GISASExperimentTest.h \
-    ChiSquaredModuleTest.h
+    ChiSquaredModuleTest.h \
+    RealParameterWrapperTest.h \
+    IParameterizedTest.h \
+    ParameterPoolTest.h
 
 OBJECTS_DIR = obj
 
@@ -28,14 +31,14 @@ INCLUDEPATH += ../../Core/Algorithms/inc ../../Core/FormFactors/inc ../../Core/G
 DEPENDPATH += ../../Core/Algorithms/inc ../../Core/FormFactors/inc ../../Core/Geometry/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
 DEPENDPATH += $$PWD/.
 
-LIBS = -L/opt/local/lib -lfftw3
+#LIBS = -L/opt/local/lib -lfftw3
 
-CONFIG(JCNS) {
+#CONFIG(JCNS) {
   #LIBS -= -lfftw3
   #LIBS += -Bstatic -lfftw3 -Bdynamic # request for static (with fPIC option)
   # "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
-  LIBS = -L/usr/users/jcns/pospelov/software/lib -lfftw3
-}
+  #LIBS = -L/usr/users/jcns/pospelov/software/lib -lfftw3
+#}
 
 ###############################################################################
 # generating package dependency flags

@@ -16,7 +16,14 @@
 
 
 #include "Python.h"
+
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
+GCC_DIAG_OFF(missing-field-initializers);
 #include <boost/python.hpp>
+GCC_DIAG_ON(unused-parameter);
+GCC_DIAG_ON(missing-field-initializers);
+
 #include <vector>
 
 namespace bp = boost::python;

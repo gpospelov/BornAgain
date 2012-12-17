@@ -5,7 +5,7 @@ TARGET   = ScattCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)
@@ -113,20 +113,11 @@ SOURCES += \
     Tools/src/OutputDataWriter.cpp \
     Tools/src/ParameterPool.cpp \
     Tools/src/ProgramOptions.cpp \
+    Tools/src/RealParameterWrapper.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
-    Tools/src/Utils.cpp \
-    \
-    PythonAPI/src/PythonInterface_classes_1.cpp \
-    PythonAPI/src/PythonInterface_classes_2.cpp \
-    PythonAPI/src/PythonInterface_classes_3.cpp \
-    PythonAPI/src/PythonInterface_free_functions.cpp \
-    PythonAPI/src/PythonInterface_global_variables.cpp \
-    PythonAPI/src/PythonListConverter.cpp \
-    PythonAPI/src/PythonModule.cpp \
-    PythonAPI/src/PythonPlusplusHelper.cpp \
-    PythonAPI/src/PythonOutputData.cpp
+    Tools/src/Utils.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -145,6 +136,7 @@ HEADERS += \
     Algorithms/inc/IChiSquaredModule.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \
+    Algorithms/inc/IIntensityFunction.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
     Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
@@ -242,12 +234,12 @@ HEADERS += \
     Tools/inc/FitSuiteParameters.h \
     Tools/inc/FitSuiteStrategy.h \
     Tools/inc/IAxis.h \
+    Tools/inc/IChangeable.h \
     Tools/inc/IDoubleToComplexFunction.h \
     Tools/inc/IFactory.h \
     Tools/inc/IMinimizer.h \
     Tools/inc/INamed.h \
     Tools/inc/IObserver.h \
-    Tools/inc/OutputDataFunctions.h \
     Tools/inc/IParameterized.h \
     Tools/inc/ISingleton.h \
     Tools/inc/IStochasticParameter.h \
@@ -257,12 +249,14 @@ HEADERS += \
     Tools/inc/MemberFunctionIntegrator.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
+    Tools/inc/OutputDataFunctions.h \
     Tools/inc/OutputDataIOFactory.h \
     Tools/inc/OutputDataIterator.h \
     Tools/inc/OutputDataReader.h \
     Tools/inc/OutputDataWriter.h \
     Tools/inc/ParameterPool.h \
     Tools/inc/ProgramOptions.h \
+    Tools/inc/RealParameterWrapper.h \
     Tools/inc/TRange.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticGaussian.h \
@@ -270,50 +264,31 @@ HEADERS += \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
-    Tools/inc/CoreOptionsDescription.h \
-    \
-    PythonAPI/inc/PythonInterface_classes_1.h \
-    PythonAPI/inc/PythonInterface_classes_2.h \
-    PythonAPI/inc/PythonInterface_classes_3.h \
-    PythonAPI/inc/PythonInterface_free_functions.h \
-    PythonAPI/inc/PythonInterface_global_variables.h \
-    PythonAPI/inc/PythonListConverter.h \
-    PythonAPI/inc/PythonModule.h \
-    PythonAPI/inc/PythonOutputData.h \
-    PythonAPI/inc/PythonPlusplusHelper.h \
-    PythonAPI/inc/IPythonWrapper.h \
-    Algorithms/inc/IIntensityFunction.h
+    Tools/inc/CoreOptionsDescription.h
 
-INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
-DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
+INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
+DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
+
+contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
+   include($$PWD/python_module.pri)
+}
 
 # excluding files with python interface to not to expose library in python
-!contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
-  HEADERS -= \
-    PythonAPI/inc/PythonInterface_classes_1.h \
-    PythonAPI/inc/PythonInterface_classes_2.h \
-    PythonAPI/inc/PythonInterface_classes_3.h \
-    PythonAPI/inc/PythonInterface_free_functions.h \
-    PythonAPI/inc/PythonInterface_global_variables.h \
-    PythonAPI/inc/PythonListConverter.h \
-    PythonAPI/inc/PythonModule.h \
-    PythonAPI/inc/PythonOutputData.h \
-    PythonAPI/inc/PythonPlusplusHelper.h
+#!contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
+#  HEADERS -= \
+#    PythonAPI/inc/PythonListConverter.h \
+#    PythonAPI/inc/PythonModule.h \
+#    PythonAPI/inc/PythonOutputData.h \
+#    PythonAPI/inc/PythonPlusplusHelper.h
 
-  SOURCES -= \
-    PythonAPI/src/PythonInterface_classes_1.cpp \
-    PythonAPI/src/PythonInterface_classes_2.cpp \
-    PythonAPI/src/PythonInterface_classes_3.cpp \
-    PythonAPI/src/PythonInterface_free_functions.cpp \
-    PythonAPI/src/PythonInterface_global_variables.cpp \
-    PythonAPI/src/PythonListConverter.cpp \
-    PythonAPI/src/PythonModule.cpp \
-    PythonAPI/src/PythonOutputData.cpp \
-    PythonAPI/src/PythonPlusplusHelper.cpp
+#  SOURCES -= \
+#    PythonAPI/src/PythonListConverter.cpp \
+#    PythonAPI/src/PythonOutputData.cpp \
+#    PythonAPI/src/PythonPlusplusHelper.cpp
 
-  INCLUDEPATH -= ./PythonAPI/inc
-  DEPENDPATH -= ./PythonAPI/inc
-}
+#  INCLUDEPATH -= ./PythonAPI/inc
+#  DEPENDPATH -= ./PythonAPI/inc
+#}
 
 OBJECTS_DIR = obj
 
@@ -342,7 +317,8 @@ CONFIG(BUILD_PYTHON_BOOST_MODULE) {
     #message($$pythonsyslibdir)
     lessThan(pythonvers, 2.6): error("GISASFW requires python 2.6 or greater")
     INCLUDEPATH += $$pythonsysincdir
-    LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
+    #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
+    LIBS += -lboost_python -L$$pythonsyslibdir -lpython$$pythonvers
 
     # we need to know to location of numpy
     pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")

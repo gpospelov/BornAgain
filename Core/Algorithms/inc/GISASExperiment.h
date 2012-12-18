@@ -26,6 +26,8 @@ public:
     GISASExperiment();
     GISASExperiment(ProgramOptions *p_options);
 
+    virtual ~GISASExperiment() {}
+
 	virtual void runSimulation();
 
     virtual void runSimulationElement(size_t index);
@@ -48,9 +50,6 @@ public:
 	void smearIntensityFromZAxisTilting();
 
     virtual GISASExperiment *clone() const;
-
-    static const std::string PHI_AXIS_NAME;
-    static const std::string ALPHA_AXIS_NAME;
 protected:
     // hiding copy constructor and disabling assignment operator
     GISASExperiment(const GISASExperiment &other);

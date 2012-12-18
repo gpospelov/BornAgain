@@ -17,6 +17,7 @@
 #include "Types.h"
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
+#include "Bin.h"
 
 #include <vector>
 
@@ -27,7 +28,7 @@ public:
     virtual void init(const std::vector<IFormFactor *> &form_factors,
             const std::vector<double> &fractions,
             const std::vector<IInterferenceFunction *> &interference_functions);
-    virtual double evaluate(const cvector_t &k_i, const cvector_t &k_f,
+    virtual double evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
             double alpha_i, double alpha_f) const=0;
 protected:
     void deleteVectors();

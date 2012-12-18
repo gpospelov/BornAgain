@@ -18,6 +18,7 @@
 #include "AttLimits.h"
 #include "OutputDataFunctions.h"
 #include "TLine.h"
+#include "ExperimentConstants.h"
 
 #include "IObserver.h"
 #include "FitSuite.h"
@@ -156,8 +157,8 @@ void TestFittingModule3::initializeRealData()
         delete (*it);
     }
     m_data_scans.clear();
-    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "alpha_f", 0.012, 0.012) );
-    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "phi_f", 0.011, 0.011) );
+    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, NDetector2d::ALPHA_AXIS_NAME, 0.012, 0.012) );
+    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, NDetector2d::PHI_AXIS_NAME, 0.011, 0.011) );
 
     // drawing data and scans
     TCanvas *c1 = new TCanvas("c1","c1",1024, 768);

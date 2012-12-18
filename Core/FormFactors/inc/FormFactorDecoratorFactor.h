@@ -24,7 +24,7 @@ public:
     virtual FormFactorDecoratorFactor *clone() const;
     virtual ~FormFactorDecoratorFactor() {}
 
-    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const;
 
@@ -45,9 +45,9 @@ inline FormFactorDecoratorFactor* FormFactorDecoratorFactor::clone() const
     return new FormFactorDecoratorFactor(mp_form_factor->clone(), m_factor);
 }
 
-inline complex_t FormFactorDecoratorFactor::evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const
+inline complex_t FormFactorDecoratorFactor::evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
 {
-    return m_factor*mp_form_factor->evaluate(k_i, k_f, alpha_i, alpha_f);
+    return m_factor*mp_form_factor->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
 }
 
 inline int FormFactorDecoratorFactor::getNumberOfStochasticParameters() const

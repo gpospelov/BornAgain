@@ -150,6 +150,9 @@
 		626378A416666CFC00D1BD00 /* App in CopyFiles */ = {isa = PBXBuildFile; fileRef = 627C2EC3160B4E8F004C1B11 /* App */; };
 		627C2FDA160B515D004C1B11 /* libGISASFW.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
+		62861180167F6CCE00971496 /* ROOTMinimizerFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6286117D167F6CCE00971496 /* ROOTMinimizerFunction.cpp */; };
+		62861181167F6CCE00971496 /* TestFumiliLMA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6286117E167F6CCE00971496 /* TestFumiliLMA.cpp */; };
+		62861182167F6CCE00971496 /* TestToyExperiment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6286117F167F6CCE00971496 /* TestToyExperiment.cpp */; };
 		62BD93501619D05D0008A768 /* ParticleCoreShell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */; };
 		62CC09711665047E00A5B720 /* ChiSquaredFrequency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096B1665047E00A5B720 /* ChiSquaredFrequency.cpp */; };
 		62CC09721665047E00A5B720 /* FTDistributions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096C1665047E00A5B720 /* FTDistributions.cpp */; };
@@ -1092,6 +1095,14 @@
 		627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGISASFW.Core.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GISASFW.TestCore; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C3031160B69D7004C1B11 /* libfftw3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfftw3.3.dylib; path = ../../../../../../opt/local/lib/libfftw3.3.dylib; sourceTree = "<group>"; };
+		62861177167F6C6200971496 /* DetectorParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectorParameters.h; sourceTree = "<group>"; };
+		62861178167F6C6200971496 /* ExperimentConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperimentConstants.h; sourceTree = "<group>"; };
+		6286117A167F6CBD00971496 /* ROOTMinimizerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROOTMinimizerFunction.h; sourceTree = "<group>"; };
+		6286117B167F6CBD00971496 /* TestFumiliLMA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFumiliLMA.h; sourceTree = "<group>"; };
+		6286117C167F6CBD00971496 /* TestToyExperiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestToyExperiment.h; sourceTree = "<group>"; };
+		6286117D167F6CCE00971496 /* ROOTMinimizerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ROOTMinimizerFunction.cpp; sourceTree = "<group>"; };
+		6286117E167F6CCE00971496 /* TestFumiliLMA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFumiliLMA.cpp; sourceTree = "<group>"; };
+		6286117F167F6CCE00971496 /* TestToyExperiment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestToyExperiment.cpp; sourceTree = "<group>"; };
 		62AE01631619C72E00A83353 /* ParticleCoreShell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleCoreShell.h; sourceTree = "<group>"; };
 		62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleCoreShell.cpp; sourceTree = "<group>"; };
 		62CC09631665046C00A5B720 /* ChiSquaredFrequency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChiSquaredFrequency.h; sourceTree = "<group>"; };
@@ -1273,6 +1284,9 @@
 		622221E9160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				6286117A167F6CBD00971496 /* ROOTMinimizerFunction.h */,
+				6286117B167F6CBD00971496 /* TestFumiliLMA.h */,
+				6286117C167F6CBD00971496 /* TestToyExperiment.h */,
 				62CC09941665053C00A5B720 /* TestFittingBenchmark.h */,
 				62CC09951665053C00A5B720 /* TestFittingModule1.h */,
 				62CC09961665053C00A5B720 /* TestFittingModule2.h */,
@@ -1319,6 +1333,9 @@
 		62222224160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				6286117D167F6CCE00971496 /* ROOTMinimizerFunction.cpp */,
+				6286117E167F6CCE00971496 /* TestFumiliLMA.cpp */,
+				6286117F167F6CCE00971496 /* TestToyExperiment.cpp */,
 				62222225160CB745008205AC /* AppDict.cpp */,
 				62222226160CB745008205AC /* AppDict.h */,
 				62FDC0661615F26C00D28B08 /* AppOptionsDescription.cpp */,
@@ -1389,6 +1406,8 @@
 		62222245160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62861177167F6C6200971496 /* DetectorParameters.h */,
+				62861178167F6C6200971496 /* ExperimentConstants.h */,
 				6204B7961667A3FC003BF358 /* IIntensityFunction.h */,
 				6204B7971667A3FC003BF358 /* IOutputDataNormalizer.h */,
 				62CC09631665046C00A5B720 /* ChiSquaredFrequency.h */,
@@ -68592,6 +68611,9 @@
 				62CC09A91665055E00A5B720 /* TestIsGISAXS4.cpp in Sources */,
 				62CC09AA1665055E00A5B720 /* TestIsGISAXS8.cpp in Sources */,
 				62CC09AB1665055E00A5B720 /* TestIsGISAXS12.cpp in Sources */,
+				62861180167F6CCE00971496 /* ROOTMinimizerFunction.cpp in Sources */,
+				62861181167F6CCE00971496 /* TestFumiliLMA.cpp in Sources */,
+				62861182167F6CCE00971496 /* TestToyExperiment.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

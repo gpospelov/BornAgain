@@ -31,11 +31,11 @@ public:
     virtual ~IFormFactorBornSeparable() {}
     virtual IFormFactorBornSeparable *clone() const=0;
 
-    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 
-protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
+protected:
     //! evaluate radial part of scattering amplitude for complex wavevector
     virtual complex_t evaluate_for_q_radial(const cvector_t &q) const=0;
 
@@ -43,21 +43,24 @@ protected:
     virtual complex_t evaluate_for_q_z(const cvector_t &q) const=0;
 };
 
-inline complex_t IFormFactorBornSeparable::evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const
+inline complex_t IFormFactorBornSeparable::evaluate(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
 {
     (void)alpha_i;
     (void)alpha_f;
     complex_t radial, zpart;
-    cvector_t q = k_i - k_f;
-    if (m_use_large_bin_approximation_radial) {
-        radial = bigRadialPart(q);
+    Bin1DCVector q_bin(k_i - k_f_bin.m_q_lower, k_i - k_f_bin.m_q_upper);
+    double delta_qr = std::abs( q_bin.getDelta().magxy() );
+    if ( delta_qr > M_PI/2.0/getRadius() ) {
+        radial = bigRadialPart(q_bin);
     } else {
-        radial = evaluate_for_q_radial(q);
+    radial = evaluate_for_q_radial(q_bin.getMidPoint());
     }
-    if (m_use_large_bin_approximation_z) {
-        zpart = bigZPart(q);
+    double delta_qz = std::abs( q_bin.getDelta().z() );
+    if ( delta_qz > M_PI/2.0/getHeight() ) {
+        zpart = bigZPart(q_bin);
     } else {
-        zpart = evaluate_for_q_z(q);
+        zpart = evaluate_for_q_z(q_bin.getMidPoint());
     }
     return getVolume()*radial*zpart;
 }

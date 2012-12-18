@@ -41,7 +41,6 @@ void FormFactorCylinder::init_parameters()
 FormFactorCylinder* FormFactorCylinder::clone() const
 {
     FormFactorCylinder *p_clone = new FormFactorCylinder(m_height, m_radius);
-    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
     return p_clone;
 }
 

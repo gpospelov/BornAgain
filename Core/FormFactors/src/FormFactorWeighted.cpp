@@ -35,11 +35,11 @@ void FormFactorWeighted::setAmbientRefractiveIndex(complex_t refractive_index)
     }
 }
 
-complex_t FormFactorWeighted::evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const
+complex_t FormFactorWeighted::evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
 {
     complex_t result(0.0, 0.0);
     for (size_t index=0; index<m_form_factors.size(); ++index) {
-        complex_t ff_evaluate = m_form_factors[index]->evaluate(k_i, k_f, alpha_i, alpha_f);
+        complex_t ff_evaluate = m_form_factors[index]->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
         result += m_weights[index]*ff_evaluate;
     }
     return result;
@@ -52,11 +52,4 @@ int FormFactorWeighted::getNumberOfStochasticParameters() const
         result += m_form_factors[index]->getNumberOfStochasticParameters();
     }
     return result;
-}
-
-void FormFactorWeighted::setBinSizes(double delta_qy, double delta_qz)
-{
-    for (size_t index=0; index<m_form_factors.size(); ++index) {
-        m_form_factors[index]->setBinSizes(delta_qy, delta_qz);
-    }
 }

@@ -47,7 +47,6 @@ void FormFactorGauss::init_parameters()
 FormFactorGauss* FormFactorGauss::clone() const
 {
     FormFactorGauss *p_clone = new FormFactorGauss(m_height, m_width);
-    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
     return p_clone;
 }
 

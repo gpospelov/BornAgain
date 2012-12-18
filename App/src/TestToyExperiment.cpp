@@ -4,6 +4,8 @@
 #include "FitSuite.h"
 #include "FitSuiteHelper.h"
 #include "ROOTMinimizer.h"
+#include "ExperimentConstants.h"
+
 #include <iostream>
 
 
@@ -13,8 +15,8 @@
 void ToyExperiment::runSimulation()
 {
     if( !m_func ) throw NullPointerException("ToyExperiment::runSimulation() -> Error! No function is defined.");
-    const std::string s_phi_f("phi_f");
-    const std::string s_alpha_f("alpha_f");
+    const std::string s_phi_f(NDetector2d::PHI_AXIS_NAME);
+    const std::string s_alpha_f(NDetector2d::ALPHA_AXIS_NAME);
 
     m_func->SetParameters(&pars[0]);
     m_intensity_map.setAllTo(0.0);
@@ -33,8 +35,8 @@ void ToyExperiment::runSimulationElement(size_t index)
     if( !m_func ) throw NullPointerException("ToyExperiment::runSimulation() -> Error! No function is defined.");
 
     m_func->SetParameters(&pars[0]);
-    const std::string s_phi_f("phi_f");
-    const std::string s_alpha_f("alpha_f");
+    const std::string s_phi_f(NDetector2d::PHI_AXIS_NAME);
+    const std::string s_alpha_f(NDetector2d::ALPHA_AXIS_NAME);
     double phi_f = m_intensity_map.getValueOfAxis(s_phi_f, index);
     double alpha_f = m_intensity_map.getValueOfAxis(s_alpha_f, index);
     double value = m_func->Eval(phi_f, alpha_f);
@@ -118,8 +120,8 @@ void TestToyExperiment::initializeExperimentAndRealData()
     m_experiment = new ToyExperiment(m_func);
 
     OutputData<double > tmp;
-    tmp.addAxis("phi_f", 100, m_func->GetXmin(), m_func->GetXmax());
-    tmp.addAxis("alpha_f", 100, m_func->GetYmin(), m_func->GetYmax());
+    tmp.addAxis(NDetector2d::PHI_AXIS_NAME, 100, m_func->GetXmin(), m_func->GetXmax());
+    tmp.addAxis(NDetector2d::ALPHA_AXIS_NAME, 100, m_func->GetYmin(), m_func->GetYmax());
     m_experiment->setDetectorParameters(tmp);
 
     // generating real data

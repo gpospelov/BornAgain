@@ -32,8 +32,6 @@ public:
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);
 
-    virtual void setBinSizes(double delta_qy, double delta_qz);
-
     virtual double getVolume() const;
 
     virtual double getHeight() const;
@@ -52,11 +50,6 @@ inline IFormFactorDecorator::~IFormFactorDecorator()
 inline void IFormFactorDecorator::setAmbientRefractiveIndex(complex_t refractive_index)
 {
     if (mp_form_factor) mp_form_factor->setAmbientRefractiveIndex(refractive_index);
-}
-
-inline void IFormFactorDecorator::setBinSizes(double delta_qy, double delta_qz)
-{
-    if (mp_form_factor) mp_form_factor->setBinSizes(delta_qy, delta_qz);
 }
 
 inline double IFormFactorDecorator::getVolume() const

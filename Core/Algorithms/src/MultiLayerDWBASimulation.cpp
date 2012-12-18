@@ -3,7 +3,7 @@
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "DoubleToComplexMap.h"
-
+#include "ExperimentConstants.h"
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(
         const MultiLayer* p_multi_layer) : mp_roughness_dwba_simulation(0)
@@ -60,25 +60,23 @@ void MultiLayerDWBASimulation::run()
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
 
     m_dwba_intensity.setAllTo(0.0);
-    const IAxis *p_alpha_axis = getDWBAIntensity().getAxis("alpha_f");
     double lambda = 2.0*M_PI/m_ki_real.mag();
 
+    // collect all alpha angles and calculate Fresnel coefficients
     typedef std::pair<double, OpticalFresnel::MultiLayerCoeff_t > doublefresnel_t;
     std::vector<doublefresnel_t > doublefresnel_buffer;
-    doublefresnel_buffer.reserve(p_alpha_axis->getSize()+1);
+    std::set<double> alpha_set = getAlphaList();
+    doublefresnel_buffer.reserve(alpha_set.size());
 
-    for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
-        double angle = (*p_alpha_axis)[i];
-        kvector_t kvec;
+    double angle;
+    kvector_t kvec;
+    OpticalFresnel::MultiLayerCoeff_t coeffs;
+    for (std::set<double>::const_iterator it=alpha_set.begin(); it != alpha_set.end(); ++it) {
+        angle = *it;
         kvec.setLambdaAlphaPhi(lambda, -angle, 0.0);
-        OpticalFresnel::MultiLayerCoeff_t coeffs;
         fresnelCalculator.execute(*mp_multi_layer, kvec, coeffs);
         doublefresnel_buffer.push_back( doublefresnel_t(angle,coeffs) );
     }
-    // Also add input angle
-    OpticalFresnel::MultiLayerCoeff_t coeffs;
-    fresnelCalculator.execute(*mp_multi_layer, m_ki_real, coeffs);
-    doublefresnel_buffer.push_back( doublefresnel_t(-m_alpha_i,coeffs) );
 
     // run through layers and construct T,R functions
     for(size_t i_layer=0; i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
@@ -114,6 +112,19 @@ void MultiLayerDWBASimulation::run()
         mp_roughness_dwba_simulation->run();
         addDWBAIntensity( mp_roughness_dwba_simulation->getDWBAIntensity() );
     }
-
 }
 
+std::set<double> MultiLayerDWBASimulation::getAlphaList() const
+{
+    std::set<double> result;
+    const IAxis *p_alpha_axis = getDWBAIntensity().getAxis(NDetector2d::ALPHA_AXIS_NAME);
+    for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
+        Bin1D alpha_bin = p_alpha_axis->getBin(i);
+        result.insert(alpha_bin.m_lower);
+        result.insert(alpha_bin.getMidPoint());
+        result.insert(alpha_bin.m_upper);
+    }
+    // Also add input angle
+    result.insert(-m_alpha_i);
+    return result;
+}

@@ -26,20 +26,6 @@ public:
 
     virtual FormFactorDWBA *clone() const;
 
-//    void setTransmissionFunction(const IDoubleToComplexFunction &p_T)
-//    {
-//        mp_T = p_T.clone();
-//    }
-//    void setReflectionFunction(const IDoubleToComplexFunction &p_R)
-//    {
-//        mp_R = p_R.clone();
-//    }
-
-//    void setReflectionTransmissionFunction(const IDoubleToComplexFunction &p_rt)
-//    {
-//        mp_RT = p_rt.clone();
-//    }
-
     void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap &p_rt)
     {
         delete mp_RT;
@@ -47,39 +33,20 @@ public:
     }
 
 
-    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
+
 protected:
     //! copy constructor and assignment operator are hidden since there is a clone method
     FormFactorDWBA(const FormFactorDWBA &);
     FormFactorDWBA &operator=(const FormFactorDWBA &);
 
-//    complex_t getT(double alpha) const;
-//    complex_t getR(double alpha) const;
-//    complex_t getX(double alpha) const;
     const complexpair_t &getRT(double alpha) const;
-    void calculateTerms(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
+    void calculateTerms(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 
-//    IDoubleToComplexFunction *mp_T;
-//    IDoubleToComplexFunction *mp_R;
     IDoubleToPairOfComplexMap *mp_RT;
 
     mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
 };
-
-//inline complex_t FormFactorDWBA::getT(double alpha) const
-//{
-//    return mp_T->evaluate(alpha);
-//}
-
-//inline complex_t FormFactorDWBA::getR(double alpha) const
-//{
-//    return mp_R->evaluate(alpha);
-//}
-
-//inline complex_t FormFactorDWBA::getX(double alpha) const
-//{
-//    return getR(alpha)/getT(alpha);
-//}
 
 inline const complexpair_t &FormFactorDWBA::getRT(double alpha) const
 {

@@ -106,7 +106,7 @@ class MyChi2Function : public ROOT::Math::FitMethodFunction
 public:
     typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
 
-    MyChi2Function(TestFumiliLMA *test) : ROOT::Math::FitMethodFunction(test->m_ndim, test->m_real_data->getAllocatedSize()), m_test(test) {}
+    MyChi2Function(TestFumiliLMA *test) : ROOT::Math::FitMethodFunction((int)test->m_ndim, (int)test->m_real_data->getAllocatedSize()), m_test(test) {}
     virtual ~MyChi2Function(){}
 
     Type_t Type() const { return ROOT::Math::FitMethodFunction::kLeastSquare; }

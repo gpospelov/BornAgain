@@ -18,6 +18,7 @@
 #include "ISample.h"
 #include "MemberFunctionIntegrator.h"
 #include "MathFunctions.h"
+#include "Bin.h"
 
 
 //- -------------------------------------------------------------------
@@ -38,16 +39,23 @@ public:
     //! pass the refractive index of the ambient material in which this particle is embedded
     virtual void setAmbientRefractiveIndex(complex_t refractive_index) { (void)refractive_index; }
 
-    //! calculate scattering amplitude for complex wavevectors
+    //! calculate scattering amplitude for complex wavevector bin
     //! @param k_i   incoming wavevector
-    //! @param k_f   outgoing wavevector
-    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const=0;
+    //! @param k_f_bin   outgoing wavevector bin
+    //! @param alpha_i incident angle wrt scattering surface
+    //! @param alpha_f outgoing angle wrt scattering surface
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const=0;
+//    {
+//        (void)k_i;
+//        (void)k_f_bin;
+//        (void)alpha_i;
+//        (void)alpha_f;
+//        return complex_t(0.0, 0.0);
+//    }
 
     //! return number of variable/stochastic parameters
     virtual int getNumberOfStochasticParameters() const { return 0; }
 
-    //! propagate the bin sizes to the form factor to possibly enable large bin size approximations
-    virtual void setBinSizes(double delta_qy, double delta_qz)=0;
 
     //! get the total volume of the particle to which this formfactor belongs
     virtual double getVolume() const;
@@ -68,15 +76,13 @@ public:
         (void)probabilities;
         (void)nbr_samples;
     }
-
-    //! static method to calculate bin sizes in reciprocal space
-    static double CalculateBinSize(double lambda, double phi_range, size_t n_phi);
 };
 
 inline double IFormFactor::getVolume() const
 {
     cvector_t zero;
-    return std::abs(evaluate(zero, zero, 0.0, 0.0));
+    Bin1DCVector zero_bin(zero, zero);
+    return std::abs(evaluate(zero, zero_bin, 0.0, 0.0));
 }
 
 inline double IFormFactor::getHeight() const
@@ -89,13 +95,6 @@ inline double IFormFactor::getRadius() const
 {
     double result = std::sqrt(getVolume()/getHeight());
     return result;
-}
-
-inline double IFormFactor::CalculateBinSize(double lambda, double phi_range,
-        size_t n_phi)
-{
-    double k = 2.0*M_PI/lambda;
-    return k*phi_range/(n_phi-1.0);
 }
 
 #endif // IFORMFACTOR_H

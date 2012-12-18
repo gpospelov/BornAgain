@@ -17,6 +17,8 @@
 #include "OutputDataIOFactory.h"
 #include "Utils.h"
 #include "Types.h"
+#include "ExperimentConstants.h"
+
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -53,24 +55,20 @@ void TestMiscellaneous::test_OutputDataTo2DArray()
     int axis0_size = 2;
     int axis1_size = 4;
     OutputData<double> *p_output = new OutputData<double>;
-    p_output->addAxis(std::string("axis0"), axis0_size, 0.0, double(axis0_size));
-    p_output->addAxis(std::string("axis1"), axis1_size, 0.0, double(axis1_size));
+    p_output->addAxis(NDetector2d::PHI_AXIS_NAME, axis0_size, 0.0, double(axis0_size));
+    p_output->addAxis(NDetector2d::ALPHA_AXIS_NAME, axis1_size, 0.0, double(axis1_size));
     p_output->setAllTo(0.0);
 
     OutputData<double>::iterator it = p_output->begin();
     int nn=0;
     while (it != p_output->end())
     {
-        size_t index0 = p_output->getIndexOfAxis("x-axis", it.getIndex());
-        size_t index1 = p_output->getIndexOfAxis("y-axis", it.getIndex());
+        size_t index0 = p_output->getIndexOfAxis(NDetector2d::PHI_AXIS_NAME, it.getIndex());
+        size_t index1 = p_output->getIndexOfAxis(NDetector2d::ALPHA_AXIS_NAME, it.getIndex());
         std::cout << " index0:" << index0 << " index1:" << index1 << std::endl;
         *it = nn++;
         ++it;
     }
-
-
-
-
 }
 
 
@@ -234,18 +232,19 @@ void TestMiscellaneous::test_FormFactor()
 
         cvector_t q(x,y,z);
         cvector_t q0(0,0,0);
-        double value = std::abs(ff.evaluate(q,q0, 0.0, 0.0));
-        if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0, 0.0, 0.0)));
+        Bin1DCVector q0_bin(q0, q0);
+        double value = std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0));
+        if(iz==50) h2->Fill(x,y,std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0)));
 
-        h3->Fill(x,y,z,std::abs(ff.evaluate(q,q0, 0.0, 0.0)));
+        h3->Fill(x,y,z,std::abs(ff.evaluate(q,q0_bin, 0.0, 0.0)));
 
         if(iy==0 && iz==0) {
             cvector_t kx(x,1.0,1.0);
             cvector_t ky(1.0,x,1.0);
             cvector_t kz(1.0,1.0,x);
-            h1[0]->Fill(x, std::abs(ff.evaluate(kx,q0, 0.0, 0.0)));
-            h1[1]->Fill(x, std::abs(ff.evaluate(ky,q0, 0.0, 0.0)));
-            h1[2]->Fill(x, std::abs(ff.evaluate(kz,q0, 0.0, 0.0)));
+            h1[0]->Fill(x, std::abs(ff.evaluate(kx,q0_bin, 0.0, 0.0)));
+            h1[1]->Fill(x, std::abs(ff.evaluate(ky,q0_bin, 0.0, 0.0)));
+            h1[2]->Fill(x, std::abs(ff.evaluate(kz,q0_bin, 0.0, 0.0)));
         }
 
         vh2_xy[iz] ->Fill(x,y,value);
@@ -296,11 +295,11 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MultilayerOffspecTestcase1a"));
 
     OutputData<double > *data_alpha = new OutputData<double >;
-    data_alpha->addAxis(std::string("alpha_f"), 200, 0.0*Units::degree, 2.0*Units::degree);
+    data_alpha->addAxis(NDetector2d::ALPHA_AXIS_NAME, 200, 0.0*Units::degree, 2.0*Units::degree);
 
     OpticalFresnel fresnelCalculator;
 
-    const IAxis *p_alpha_axis = data_alpha->getAxis("alpha_f");
+    const IAxis *p_alpha_axis = data_alpha->getAxis(NDetector2d::ALPHA_AXIS_NAME);
     std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
         double angle = (*p_alpha_axis)[i];

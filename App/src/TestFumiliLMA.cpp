@@ -35,7 +35,7 @@ TestFumiliLMA::TestFumiliLMA()
     // "simulation"
     m_ndim = 3;
     m_func_object = new SincXSincYFunctionObject();
-    m_func = new TF2("sincxy", m_func_object, -50.,50., -50.,50., m_ndim, "SincXSincYFunctionObject");
+    m_func = new TF2("sincxy", m_func_object, -50.,50., -50.,50., (int)m_ndim, "SincXSincYFunctionObject");
     m_func->SetParameters(1.0, 1.0, 0.5); // parameters we have to find
 
 

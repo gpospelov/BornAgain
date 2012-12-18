@@ -137,6 +137,9 @@ public:
     //! return value of axis with given name at given index
     double getValueOfAxis(const std::string &axis_name, size_t index) const;
 
+    //! return bin of axis with given name and index
+    Bin1D getBinOfAxis(const std::string &axis_name, size_t index) const;
+
     // ---------
     // modifiers
     // ---------
@@ -293,7 +296,7 @@ template <class T> size_t OutputData<T>::getAxisIndex(const std::string &label) 
     {
         if (m_value_axes[i]->getName() == label) return i;
     }
-    throw LogicErrorException("OutputData<T>::getIndexOfAxis() -> Error! Axis with given name not found '"+label+std::string("'"));
+    throw LogicErrorException("OutputData<T>::getAxisIndex() -> Error! Axis with given name not found '"+label+std::string("'"));
 }
 
 
@@ -436,6 +439,17 @@ double OutputData<T>::getValueOfAxis(const std::string &axis_name, size_t index)
     throw LogicErrorException("OutputData<T>::getValueOfAxis() -> Error! Axis with given name not found '"+std::string(axis_name)+std::string("'"));
 }
 
+template <class T>
+Bin1D OutputData<T>::getBinOfAxis(const std::string &axis_name, size_t index) const
+{
+    for (size_t i=0; i<m_value_axes.size(); ++i) {
+        if (m_value_axes[i]->getName() == axis_name) {
+            int axis_index = toCoordinate(index, i);
+            return m_value_axes[i]->getBin(axis_index);
+        }
+    }
+    throw LogicErrorException("OutputData<T>::getBinOfAxis() -> Error! Axis with given name not found '"+std::string(axis_name)+std::string("'"));
+}
 
 template<class T>
 inline T OutputData<T>::totalSum() const

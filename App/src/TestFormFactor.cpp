@@ -1,5 +1,6 @@
 #include "TestFormFactor.h"
 #include "Types.h"
+#include "ExperimentConstants.h"
 
 #include "TCanvas.h"
 #include "TH2.h"
@@ -41,7 +42,8 @@ void TestFormFactor::execute()
         double alpha_f = M_PI*(*p_z_axis)[index_z]/180.0;
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
-        *it = std::pow(std::abs(m_ff.evaluate(k_i, k_f, alpha_i, alpha_f)),2);
+        Bin1DCVector k_f_zero_bin(k_f, k_f);
+        *it = std::pow(std::abs(m_ff.evaluate(k_i, k_f_zero_bin, alpha_i, alpha_f)),2);
         ++it;
     }
     draw();
@@ -63,8 +65,8 @@ void TestFormFactor::draw()
     double z_end = (*p_z_axis)[z_size-1];
     TH2D *p_hist2D = new TH2D("p_hist2D", "Cylinder Formfactor", (int)y_size, y_start, y_end, (int)z_size, z_start, z_end);
     p_hist2D->UseCurrentStyle();
-    p_hist2D->GetXaxis()->SetTitle("phi_f");
-    p_hist2D->GetYaxis()->SetTitle("alpha_f");
+    p_hist2D->GetXaxis()->SetTitle(NDetector2d::PHI_AXIS_NAME.c_str());
+    p_hist2D->GetYaxis()->SetTitle(NDetector2d::ALPHA_AXIS_NAME.c_str());
 
     OutputData<double>::const_iterator it = mp_intensity_output->begin();
     while (it != mp_intensity_output->end())

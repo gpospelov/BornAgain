@@ -56,8 +56,6 @@ public:
     //! return number of variable/stochastic parameters
     virtual int getNumberOfStochasticParameters() const { return 0; }
 
-    //! propagate the bin sizes to the form factor to possibly enable large bin size approximations
-    virtual void setBinSizes(double delta_qy, double delta_qz)=0;
 
     //! get the total volume of the particle to which this formfactor belongs
     virtual double getVolume() const;
@@ -78,9 +76,6 @@ public:
         (void)probabilities;
         (void)nbr_samples;
     }
-
-    //! static method to calculate bin sizes in reciprocal space
-    static double CalculateBinSize(double lambda, double phi_range, size_t n_phi);
 };
 
 inline double IFormFactor::getVolume() const
@@ -100,13 +95,6 @@ inline double IFormFactor::getRadius() const
 {
     double result = std::sqrt(getVolume()/getHeight());
     return result;
-}
-
-inline double IFormFactor::CalculateBinSize(double lambda, double phi_range,
-        size_t n_phi)
-{
-    double k = 2.0*M_PI/lambda;
-    return k*phi_range/(n_phi-1.0);
 }
 
 #endif // IFORMFACTOR_H

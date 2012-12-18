@@ -55,24 +55,20 @@ void TestMiscellaneous::test_OutputDataTo2DArray()
     int axis0_size = 2;
     int axis1_size = 4;
     OutputData<double> *p_output = new OutputData<double>;
-    p_output->addAxis(std::string("axis0"), axis0_size, 0.0, double(axis0_size));
-    p_output->addAxis(std::string("axis1"), axis1_size, 0.0, double(axis1_size));
+    p_output->addAxis(NDetector2d::PHI_AXIS_NAME, axis0_size, 0.0, double(axis0_size));
+    p_output->addAxis(NDetector2d::ALPHA_AXIS_NAME, axis1_size, 0.0, double(axis1_size));
     p_output->setAllTo(0.0);
 
     OutputData<double>::iterator it = p_output->begin();
     int nn=0;
     while (it != p_output->end())
     {
-        size_t index0 = p_output->getIndexOfAxis("x-axis", it.getIndex());
-        size_t index1 = p_output->getIndexOfAxis("y-axis", it.getIndex());
+        size_t index0 = p_output->getIndexOfAxis(NDetector2d::PHI_AXIS_NAME, it.getIndex());
+        size_t index1 = p_output->getIndexOfAxis(NDetector2d::ALPHA_AXIS_NAME, it.getIndex());
         std::cout << " index0:" << index0 << " index1:" << index1 << std::endl;
         *it = nn++;
         ++it;
     }
-
-
-
-
 }
 
 

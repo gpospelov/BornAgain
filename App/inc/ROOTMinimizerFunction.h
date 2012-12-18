@@ -62,8 +62,8 @@ public:
     //! evaluation of single data element residual
     double DataElement(const double *par, unsigned int i, double *g = 0) const { m_ncalls_element++; return m_element_fcn(par,i,g); }
 
-    virtual unsigned int NCalls() const { return m_ncalls; }
-    virtual unsigned int NCallsElement() const { return m_ncalls_element; }
+    virtual unsigned int NCalls() const { return (unsigned int)m_ncalls; }
+    virtual unsigned int NCallsElement() const { return (unsigned int)m_ncalls_element; }
 private:
     IMinimizer::function_t m_fcn;
     IMinimizer::element_function_t m_element_fcn;

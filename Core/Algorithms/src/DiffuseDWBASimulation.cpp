@@ -10,9 +10,6 @@ DiffuseDWBASimulation::DiffuseDWBASimulation()
 
 DiffuseDWBASimulation::~DiffuseDWBASimulation()
 {
-    for (size_t i=0; i<m_np_infos.size(); ++i) {
-        delete m_np_infos[i];
-    }
 }
 
 void DiffuseDWBASimulation::run()

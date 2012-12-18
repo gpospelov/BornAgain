@@ -87,7 +87,7 @@ void FitSuite::minimize()
     IMinimizer::function_t fcn = boost::bind(&FitSuite::functionToMinimize, this, _1);
     //m_minimizer->setFunction( fcn, (int)m_fit_parameters.size() );
     // FIXME: FitSuite::minimize() where to get number of elements?
-    int nelements = m_fit_objects.getRealData()->getAllocatedSize();
+    int nelements = (int)m_fit_objects.getRealData()->getAllocatedSize();
     IMinimizer::element_function_t element_fcn = boost::bind(&FitSuite::elementFunction, this, _1, _2, _3);
     m_minimizer->setFunction( fcn, (int)m_fit_parameters.size(), element_fcn, nelements );
 

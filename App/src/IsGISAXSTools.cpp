@@ -442,8 +442,8 @@ OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &fil
     int y_size = (int)buff_2d.size();
     int x_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
     OutputData<double> *p_result = new OutputData<double>;
-    p_result->addAxis(std::string("x-axis"), x_size, 0.0, double(x_size));
-    p_result->addAxis(std::string("y-axis"), y_size, 0.0, double(y_size));
+    p_result->addAxis(NDetector2d::PHI_AXIS_NAME, x_size, 0.0, double(x_size));
+    p_result->addAxis(NDetector2d::ALPHA_AXIS_NAME, y_size, 0.0, double(y_size));
     p_result->setAllTo(0.0);
 
     OutputData<double>::iterator it = p_result->begin();

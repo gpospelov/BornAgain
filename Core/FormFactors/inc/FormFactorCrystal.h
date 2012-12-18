@@ -33,11 +33,6 @@ public:
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);
 
-    virtual void setBinSizes(double delta_qy, double delta_qz) {
-        mp_basis_form_factor->setBinSizes(delta_qy, delta_qz);
-        mp_meso_form_factor->setBinSizes(delta_qy, delta_qz);
-    }
-
     virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;

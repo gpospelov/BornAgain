@@ -31,8 +31,6 @@ public:
 
     virtual int getNumberOfStochasticParameters() const;
 
-    //! propagate the bin sizes to the form factor to possibly enable large bin size approximations
-    virtual void setBinSizes(double delta_qy, double delta_qz);
 protected:
     std::vector<IFormFactor *> m_form_factors;
     std::vector<double> m_weights;

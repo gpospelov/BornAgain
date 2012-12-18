@@ -42,7 +42,6 @@ void FormFactorPrism3::init_parameters()
 FormFactorPrism3* FormFactorPrism3::clone() const
 {
     FormFactorPrism3 *p_clone = new FormFactorPrism3(m_height, m_half_side );
-    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
     return p_clone;
 }
 

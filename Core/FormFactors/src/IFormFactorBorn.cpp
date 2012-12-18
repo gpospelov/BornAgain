@@ -1,29 +1,7 @@
 #include "IFormFactorBorn.h"
 
 IFormFactorBorn::IFormFactorBorn()
-: m_use_large_bin_approximation_radial(false)
-, m_use_large_bin_approximation_z(false)
-, m_bin_qy(0.0)
-, m_bin_qz(0.0)
 {
-}
-
-void IFormFactorBorn::setBinSizes(double delta_qy, double delta_qz)
-{
-    m_bin_qy = delta_qy;
-    m_bin_qz = delta_qz;
-    if (m_bin_qy > M_PI/2.0/getRadius()) {
-        m_use_large_bin_approximation_radial = true;
-    }
-    else {
-        m_use_large_bin_approximation_radial = false;
-    }
-    if (m_bin_qz > M_PI/2.0/getHeight()) {
-        m_use_large_bin_approximation_z = true;
-    }
-    else {
-        m_use_large_bin_approximation_z = false;
-    }
 }
 
 double IFormFactorBorn::bigRadialPart(const Bin1DCVector& q_bin) const
@@ -41,6 +19,9 @@ complex_t IFormFactorBorn::bigZPart(const Bin1DCVector& q_bin) const
     complex_t qH2_c = q_bin.getMidPoint().z()*getHeight()/2.0;
     double qH2min = std::abs( q_bin.m_q_lower.z() )*getHeight()/2.0;
     double qH2max = std::abs( q_bin.m_q_upper.z() )*getHeight()/2.0;
+    if (qH2min > qH2max) {
+        std::swap(qH2min, qH2max);
+    }
     double effective_bin_size_h2 = std::abs(qH2max - qH2min);
 
     // phase from the height of the particle

@@ -296,7 +296,7 @@ template <class T> size_t OutputData<T>::getAxisIndex(const std::string &label) 
     {
         if (m_value_axes[i]->getName() == label) return i;
     }
-    throw LogicErrorException("OutputData<T>::getIndexOfAxis() -> Error! Axis with given name not found '"+label+std::string("'"));
+    throw LogicErrorException("OutputData<T>::getAxisIndex() -> Error! Axis with given name not found '"+label+std::string("'"));
 }
 
 
@@ -448,7 +448,7 @@ Bin1D OutputData<T>::getBinOfAxis(const std::string &axis_name, size_t index) co
             return m_value_axes[i]->getBin(axis_index);
         }
     }
-    throw LogicErrorException("OutputData<T>::getValueOfAxis() -> Error! Axis with given name not found '"+std::string(axis_name)+std::string("'"));
+    throw LogicErrorException("OutputData<T>::getBinOfAxis() -> Error! Axis with given name not found '"+std::string(axis_name)+std::string("'"));
 }
 
 template<class T>

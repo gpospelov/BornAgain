@@ -32,8 +32,6 @@ public:
 
     virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 
-    virtual void setBinSizes(double delta_qy, double delta_qz);
-
     //! evaluate scattering amplitude for complex wavevector
     //! @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
     virtual complex_t evaluate_for_q(const cvector_t &q) const=0;
@@ -48,9 +46,6 @@ protected:
     //! calculate z-part of scattering amplitude for large bins
     complex_t bigZPart(const Bin1DCVector& q_bin) const;
 
-    bool m_use_large_bin_approximation_radial;  //!< indicates if large bin size approximation should be used in the qx-qy direction
-    bool m_use_large_bin_approximation_z;  //!< indicates if large bin size approximation should be used in the qz direction
-    double m_bin_qy, m_bin_qz;  //!< the sizes of the bins in q space
 private:
     //! determine if a large bin size approximation should be used
     bool useLargeBinApproximation(const Bin1DCVector &q_bin) const;
@@ -81,6 +76,7 @@ inline double IFormFactorBorn::getVolume() const
 
 inline bool IFormFactorBorn::useLargeBinApproximation(const Bin1DCVector &q_bin) const
 {
+//    (void)q_bin;
     double delta_qr = std::abs( q_bin.getDelta().magxy() );
     if ( delta_qr > M_PI/2.0/getRadius() ) {
         return true;

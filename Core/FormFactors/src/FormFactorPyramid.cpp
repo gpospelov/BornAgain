@@ -48,7 +48,6 @@ void FormFactorPyramid::init_parameters()
 FormFactorPyramid* FormFactorPyramid::clone() const
 {
     FormFactorPyramid *p_clone = new FormFactorPyramid(m_height, m_half_side, m_alpha);
-    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
     return p_clone;
 }
 

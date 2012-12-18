@@ -35,7 +35,6 @@ void FormFactorFullSphere::init_parameters()
 FormFactorFullSphere* FormFactorFullSphere::clone() const
 {
     FormFactorFullSphere *p_clone = new FormFactorFullSphere(m_radius);
-    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
     return p_clone;
 }
 

@@ -51,7 +51,6 @@ void FormFactorLorentz::init_parameters()
 FormFactorLorentz* FormFactorLorentz::clone() const
 {
     FormFactorLorentz *p_clone = new FormFactorLorentz(m_height, m_width);
-    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
     return p_clone;
 }
 

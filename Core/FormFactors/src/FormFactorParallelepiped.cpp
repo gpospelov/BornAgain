@@ -14,7 +14,6 @@ FormFactorParallelepiped::~FormFactorParallelepiped()
 FormFactorParallelepiped* FormFactorParallelepiped::clone() const
 {
     FormFactorParallelepiped *p_clone = new FormFactorParallelepiped(m_height, m_radius);
-    p_clone->setBinSizes(m_bin_qy, m_bin_qz);
     return p_clone;
 }
 

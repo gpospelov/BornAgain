@@ -73,33 +73,21 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         return func_clone(  );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         else{
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
 
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const {
         bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" );
         return func_evaluate_for_q( boost::ref(q) );
-    }
-
-    virtual void setBinSizes( double delta_qy, double delta_qz ) {
-        if( bp::override func_setBinSizes = this->get_override( "setBinSizes" ) )
-            func_setBinSizes( delta_qy, delta_qz );
-        else{
-            this->IFormFactorBorn::setBinSizes( delta_qy, delta_qz );
-        }
-    }
-    
-    void default_setBinSizes( double delta_qy, double delta_qz ) {
-        IFormFactorBorn::setBinSizes( delta_qy, delta_qz );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -245,18 +233,13 @@ void register_IFormFactorBorn_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( IFormFactorBorn_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&IFormFactorBorn_wrapper::default_evaluate)
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( IFormFactorBorn_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&IFormFactorBorn_wrapper::default_evaluate)
+            , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "evaluate_for_q"
-            , (::complex_t ( IFormFactorBorn_wrapper::* )( ::cvector_t const & ) const)(&IFormFactorBorn_wrapper::evaluate_for_q)
+            , bp::pure_virtual( (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const & ) const)(&::IFormFactorBorn::evaluate_for_q) )
             , ( bp::arg("q") ) )    
-        .def( 
-            "setBinSizes"
-            , (void ( ::IFormFactorBorn::* )( double,double ) )(&::IFormFactorBorn::setBinSizes)
-            , (void ( IFormFactorBorn_wrapper::* )( double,double ) )(&IFormFactorBorn_wrapper::default_setBinSizes)
-            , ( bp::arg("delta_qy"), bp::arg("delta_qz") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

@@ -24,14 +24,13 @@ HEADERS +=  \
     PythonAPI/inc/IFormFactorDecorator.pypp.h \
     PythonAPI/inc/IInterferenceFunction.pypp.h \
     PythonAPI/inc/IMaterial.pypp.h \
-    PythonAPI/inc/InterferenceFunction1DParaCrystal.pypp.h \
-    PythonAPI/inc/InterferenceFunctionNone.pypp.h \
     PythonAPI/inc/IParameterized.pypp.h \
     PythonAPI/inc/ISample.pypp.h \
     PythonAPI/inc/ISampleBuilder.pypp.h \
     PythonAPI/inc/ISelectionRule.pypp.h \
     PythonAPI/inc/ISingleton_less__MaterialManager__greater_.pypp.h \
-    PythonAPI/inc/kvector_t.pypp.h \
+    PythonAPI/inc/InterferenceFunction1DParaCrystal.pypp.h \
+    PythonAPI/inc/InterferenceFunctionNone.pypp.h \
     PythonAPI/inc/Lattice.pypp.h \
     PythonAPI/inc/LatticeBasis.pypp.h \
     PythonAPI/inc/Layer.pypp.h \
@@ -66,6 +65,7 @@ HEADERS +=  \
     PythonAPI/inc/TranslateX3D.pypp.h \
     PythonAPI/inc/TranslateY3D.pypp.h \
     PythonAPI/inc/TranslateZ3D.pypp.h \
+    PythonAPI/inc/kvector_t.pypp.h \
     PythonAPI/inc/vdouble1d_t.pypp.h \
     PythonAPI/inc/vector_kvector_t.pypp.h \
     PythonAPI/inc/vector_less__DiffuseParticleInfo_ptr___greater_.pypp.h \
@@ -98,14 +98,13 @@ SOURCES +=  \
     PythonAPI/src/IFormFactorDecorator.pypp.cpp \
     PythonAPI/src/IInterferenceFunction.pypp.cpp \
     PythonAPI/src/IMaterial.pypp.cpp \
-    PythonAPI/src/InterferenceFunction1DParaCrystal.pypp.cpp \
-    PythonAPI/src/InterferenceFunctionNone.pypp.cpp \
     PythonAPI/src/IParameterized.pypp.cpp \
     PythonAPI/src/ISample.pypp.cpp \
     PythonAPI/src/ISampleBuilder.pypp.cpp \
     PythonAPI/src/ISelectionRule.pypp.cpp \
     PythonAPI/src/ISingleton_less__MaterialManager__greater_.pypp.cpp \
-    PythonAPI/src/kvector_t.pypp.cpp \
+    PythonAPI/src/InterferenceFunction1DParaCrystal.pypp.cpp \
+    PythonAPI/src/InterferenceFunctionNone.pypp.cpp \
     PythonAPI/src/Lattice.pypp.cpp \
     PythonAPI/src/LatticeBasis.pypp.cpp \
     PythonAPI/src/Layer.pypp.cpp \
@@ -140,6 +139,7 @@ SOURCES +=  \
     PythonAPI/src/TranslateX3D.pypp.cpp \
     PythonAPI/src/TranslateY3D.pypp.cpp \
     PythonAPI/src/TranslateZ3D.pypp.cpp \
+    PythonAPI/src/kvector_t.pypp.cpp \
     PythonAPI/src/vdouble1d_t.pypp.cpp \
     PythonAPI/src/vector_kvector_t.pypp.cpp \
     PythonAPI/src/vector_less__DiffuseParticleInfo_ptr___greater_.pypp.cpp \

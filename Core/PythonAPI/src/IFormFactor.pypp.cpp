@@ -85,9 +85,9 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
-        return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+        return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
 
     virtual double getHeight(  ) const  {
@@ -162,11 +162,6 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         IFormFactor::setAmbientRefractiveIndex( refractive_index );
     }
 
-    virtual void setBinSizes( double delta_qy, double delta_qz ){
-        bp::override func_setBinSizes = this->get_override( "setBinSizes" );
-        func_setBinSizes( delta_qy, delta_qz );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -233,10 +228,6 @@ void register_IFormFactor_class(){
 
     bp::class_< IFormFactor_wrapper, bp::bases< ISample >, boost::noncopyable >( "IFormFactor", bp::init< >() )    
         .def( 
-            "CalculateBinSize"
-            , (double (*)( double,double,::size_t ))( &::IFormFactor::CalculateBinSize )
-            , ( bp::arg("lambda"), bp::arg("phi_range"), bp::arg("n_phi") ) )    
-        .def( 
             "clone"
             , bp::pure_virtual( (::IFormFactor * ( ::IFormFactor::* )(  ) const)(&::IFormFactor::clone) )
             , bp::return_value_policy< bp::manage_new_object >() )    
@@ -248,8 +239,8 @@ void register_IFormFactor_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactor::evaluate) )
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::IFormFactor::evaluate) )
+            , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getHeight"
             , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getHeight)
@@ -276,10 +267,6 @@ void register_IFormFactor_class(){
             , (void ( IFormFactor_wrapper::* )( ::complex_t ) )(&IFormFactor_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
         .def( 
-            "setBinSizes"
-            , bp::pure_virtual( (void ( ::IFormFactor::* )( double,double ) )(&::IFormFactor::setBinSizes) )
-            , ( bp::arg("delta_qy"), bp::arg("delta_qz") ) )    
-        .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( IFormFactor_wrapper::* )(  ) )(&IFormFactor_wrapper::default_areParametersChanged) )    
@@ -299,7 +286,6 @@ void register_IFormFactor_class(){
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)
-            , (void ( IFormFactor_wrapper::* )(  ) )(&IFormFactor_wrapper::default_setParametersAreChanged) )    
-        .staticmethod( "CalculateBinSize" );
+            , (void ( IFormFactor_wrapper::* )(  ) )(&IFormFactor_wrapper::default_setParametersAreChanged) );
 
 }

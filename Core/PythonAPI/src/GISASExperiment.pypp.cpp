@@ -198,8 +198,6 @@ void register_GISASExperiment_class(){
         .def( 
             "smearIntensityFromZAxisTilting"
             , (void ( ::GISASExperiment::* )(  ) )( &::GISASExperiment::smearIntensityFromZAxisTilting ) )    
-        .def_readonly( "ALPHA_AXIS_NAME", GISASExperiment::ALPHA_AXIS_NAME )    
-        .def_readonly( "PHI_AXIS_NAME", GISASExperiment::PHI_AXIS_NAME )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

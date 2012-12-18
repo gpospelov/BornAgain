@@ -80,6 +80,30 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         return FormFactorCrystal::clone( );
     }
 
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+        else{
+            return this->FormFactorCrystal::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+        }
+    }
+    
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+        return FormFactorCrystal::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+    }
+
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
+        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
+            return func_evaluate_for_q( boost::ref(q) );
+        else{
+            return this->FormFactorCrystal::evaluate_for_q( boost::ref(q) );
+        }
+    }
+    
+    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
+        return FormFactorCrystal::evaluate_for_q( boost::ref(q) );
+    }
+
     virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
             func_setAmbientRefractiveIndex( refractive_index );
@@ -90,18 +114,6 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
     
     void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         FormFactorCrystal::setAmbientRefractiveIndex( refractive_index );
-    }
-
-    virtual void setBinSizes( double delta_qy, double delta_qz ) {
-        if( bp::override func_setBinSizes = this->get_override( "setBinSizes" ) )
-            func_setBinSizes( delta_qy, delta_qz );
-        else{
-            this->FormFactorCrystal::setBinSizes( delta_qy, delta_qz );
-        }
-    }
-    
-    void default_setBinSizes( double delta_qy, double delta_qz ) {
-        FormFactorCrystal::setBinSizes( delta_qy, delta_qz );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -138,18 +150,6 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
-    }
-
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
-        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-        else{
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
-        }
-    }
-    
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
     }
 
     virtual double getHeight(  ) const  {
@@ -247,15 +247,20 @@ void register_FormFactorCrystal_class(){
             , (::FormFactorCrystal * ( FormFactorCrystal_wrapper::* )(  ) const)(&FormFactorCrystal_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "evaluate"
+            , (::complex_t ( ::FormFactorCrystal::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::FormFactorCrystal::evaluate)
+            , (::complex_t ( FormFactorCrystal_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&FormFactorCrystal_wrapper::default_evaluate)
+            , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+        .def( 
+            "evaluate_for_q"
+            , (::complex_t ( ::FormFactorCrystal::* )( ::cvector_t const & ) const)(&::FormFactorCrystal::evaluate_for_q)
+            , (::complex_t ( FormFactorCrystal_wrapper::* )( ::cvector_t const & ) const)(&FormFactorCrystal_wrapper::default_evaluate_for_q)
+            , ( bp::arg("q") ) )    
+        .def( 
             "setAmbientRefractiveIndex"
             , (void ( ::FormFactorCrystal::* )( ::complex_t ) )(&::FormFactorCrystal::setAmbientRefractiveIndex)
             , (void ( FormFactorCrystal_wrapper::* )( ::complex_t ) )(&FormFactorCrystal_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
-        .def( 
-            "setBinSizes"
-            , (void ( ::FormFactorCrystal::* )( double,double ) )(&::FormFactorCrystal::setBinSizes)
-            , (void ( FormFactorCrystal_wrapper::* )( double,double ) )(&FormFactorCrystal_wrapper::default_setBinSizes)
-            , ( bp::arg("delta_qy"), bp::arg("delta_qz") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
@@ -271,11 +276,6 @@ void register_FormFactorCrystal_class(){
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( FormFactorCrystal_wrapper::* )(  ) const)(&FormFactorCrystal_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorCrystal_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorCrystal_wrapper::default_evaluate)
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getHeight"
             , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getHeight)

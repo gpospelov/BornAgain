@@ -603,7 +603,7 @@ def GenerateCode():
   #GCCXML_CXXFLAGS=""
   
   myIncludes.append('/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7')
-  #myIncludes.append('/opt/local/include/')
+  myIncludes.append('/opt/local/include/')
   mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin', cflags="-m64")
   #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')
 

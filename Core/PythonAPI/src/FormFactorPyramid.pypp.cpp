@@ -80,6 +80,18 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         return FormFactorPyramid::clone( );
     }
 
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
+        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
+            return func_evaluate_for_q( boost::ref(q) );
+        else{
+            return this->FormFactorPyramid::evaluate_for_q( boost::ref(q) );
+        }
+    }
+    
+    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
+        return FormFactorPyramid::evaluate_for_q( boost::ref(q) );
+    }
+
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
@@ -140,16 +152,16 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         else{
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
 
     virtual double getRadius(  ) const  {
@@ -212,18 +224,6 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         IFormFactor::setAmbientRefractiveIndex( refractive_index );
     }
 
-    virtual void setBinSizes( double delta_qy, double delta_qz ) {
-        if( bp::override func_setBinSizes = this->get_override( "setBinSizes" ) )
-            func_setBinSizes( delta_qy, delta_qz );
-        else{
-            this->IFormFactorBorn::setBinSizes( delta_qy, delta_qz );
-        }
-    }
-    
-    void default_setBinSizes( double delta_qy, double delta_qz ) {
-        IFormFactorBorn::setBinSizes( delta_qy, delta_qz );
-    }
-
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
@@ -246,6 +246,11 @@ void register_FormFactorPyramid_class(){
             , (::FormFactorPyramid * ( ::FormFactorPyramid::* )(  ) const)(&::FormFactorPyramid::clone)
             , (::FormFactorPyramid * ( FormFactorPyramid_wrapper::* )(  ) const)(&FormFactorPyramid_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate_for_q"
+            , (::complex_t ( ::FormFactorPyramid::* )( ::cvector_t const & ) const)(&::FormFactorPyramid::evaluate_for_q)
+            , (::complex_t ( FormFactorPyramid_wrapper::* )( ::cvector_t const & ) const)(&FormFactorPyramid_wrapper::default_evaluate_for_q)
+            , ( bp::arg("q") ) )    
         .def( 
             "getHeight"
             , (double ( ::FormFactorPyramid::* )(  ) const)(&::FormFactorPyramid::getHeight)
@@ -271,9 +276,9 @@ void register_FormFactorPyramid_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorPyramid_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorPyramid_wrapper::default_evaluate)
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorPyramid_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&FormFactorPyramid_wrapper::default_evaluate)
+            , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getRadius"
             , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getRadius)
@@ -295,11 +300,6 @@ void register_FormFactorPyramid_class(){
             , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
             , (void ( FormFactorPyramid_wrapper::* )( ::complex_t ) )(&FormFactorPyramid_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
-        .def( 
-            "setBinSizes"
-            , (void ( ::IFormFactorBorn::* )( double,double ) )(&::IFormFactorBorn::setBinSizes)
-            , (void ( FormFactorPyramid_wrapper::* )( double,double ) )(&FormFactorPyramid_wrapper::default_setBinSizes)
-            , ( bp::arg("delta_qy"), bp::arg("delta_qz") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

@@ -87,6 +87,18 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         return FormFactorGauss::clone( );
     }
 
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
+        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
+            return func_evaluate_for_q( boost::ref(q) );
+        else{
+            return this->FormFactorGauss::evaluate_for_q( boost::ref(q) );
+        }
+    }
+    
+    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
+        return FormFactorGauss::evaluate_for_q( boost::ref(q) );
+    }
+
     virtual int getNumberOfStochasticParameters(  ) const  {
         if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
             return func_getNumberOfStochasticParameters(  );
@@ -135,16 +147,16 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         else{
-            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
-        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
 
     virtual double getHeight(  ) const  {
@@ -219,18 +231,6 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         IFormFactor::setAmbientRefractiveIndex( refractive_index );
     }
 
-    virtual void setBinSizes( double delta_qy, double delta_qz ) {
-        if( bp::override func_setBinSizes = this->get_override( "setBinSizes" ) )
-            func_setBinSizes( delta_qy, delta_qz );
-        else{
-            this->IFormFactorBorn::setBinSizes( delta_qy, delta_qz );
-        }
-    }
-    
-    void default_setBinSizes( double delta_qy, double delta_qz ) {
-        IFormFactorBorn::setBinSizes( delta_qy, delta_qz );
-    }
-
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
@@ -255,6 +255,11 @@ void register_FormFactorGauss_class(){
             , (::FormFactorGauss * ( FormFactorGauss_wrapper::* )(  ) const)(&FormFactorGauss_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "evaluate_for_q"
+            , (::complex_t ( ::FormFactorGauss::* )( ::cvector_t const & ) const)(&::FormFactorGauss::evaluate_for_q)
+            , (::complex_t ( FormFactorGauss_wrapper::* )( ::cvector_t const & ) const)(&FormFactorGauss_wrapper::default_evaluate_for_q)
+            , ( bp::arg("q") ) )    
+        .def( 
             "getNumberOfStochasticParameters"
             , (int ( ::FormFactorGauss::* )(  ) const)(&::FormFactorGauss::getNumberOfStochasticParameters)
             , (int ( FormFactorGauss_wrapper::* )(  ) const)(&FormFactorGauss_wrapper::default_getNumberOfStochasticParameters) )    
@@ -275,9 +280,9 @@ void register_FormFactorGauss_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorGauss_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorGauss_wrapper::default_evaluate)
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorGauss_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&FormFactorGauss_wrapper::default_evaluate)
+            , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getHeight"
             , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getHeight)
@@ -303,11 +308,6 @@ void register_FormFactorGauss_class(){
             , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
             , (void ( FormFactorGauss_wrapper::* )( ::complex_t ) )(&FormFactorGauss_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
-        .def( 
-            "setBinSizes"
-            , (void ( ::IFormFactorBorn::* )( double,double ) )(&::IFormFactorBorn::setBinSizes)
-            , (void ( FormFactorGauss_wrapper::* )( double,double ) )(&FormFactorGauss_wrapper::default_setBinSizes)
-            , ( bp::arg("delta_qy"), bp::arg("delta_qz") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

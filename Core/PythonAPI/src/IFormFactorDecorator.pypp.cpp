@@ -114,18 +114,6 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
     }
 
-    virtual void setBinSizes( double delta_qy, double delta_qz ) {
-        if( bp::override func_setBinSizes = this->get_override( "setBinSizes" ) )
-            func_setBinSizes( delta_qy, delta_qz );
-        else{
-            this->IFormFactorDecorator::setBinSizes( delta_qy, delta_qz );
-        }
-    }
-    
-    void default_setBinSizes( double delta_qy, double delta_qz ) {
-        IFormFactorDecorator::setBinSizes( delta_qy, delta_qz );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -162,9 +150,9 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
-        return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+        return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -254,11 +242,6 @@ void register_IFormFactorDecorator_class(){
             , (void ( IFormFactorDecorator_wrapper::* )( ::complex_t ) )(&IFormFactorDecorator_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
         .def( 
-            "setBinSizes"
-            , (void ( ::IFormFactorDecorator::* )( double,double ) )(&::IFormFactorDecorator::setBinSizes)
-            , (void ( IFormFactorDecorator_wrapper::* )( double,double ) )(&IFormFactorDecorator_wrapper::default_setBinSizes)
-            , ( bp::arg("delta_qy"), bp::arg("delta_qz") ) )    
-        .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_areParametersChanged) )    
@@ -275,8 +258,8 @@ void register_IFormFactorDecorator_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::IFormFactor::evaluate) )
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::IFormFactor::evaluate) )
+            , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getNumberOfStochasticParameters"
             , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)

@@ -87,16 +87,16 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         return FormFactorDecoratorDebyeWaller::clone( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         else{
-            return this->FormFactorDecoratorDebyeWaller::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+            return this->FormFactorDecoratorDebyeWaller::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::cvector_t const & k_f, double alpha_i, double alpha_f ) const  {
-        return FormFactorDecoratorDebyeWaller::evaluate( boost::ref(k_i), boost::ref(k_f), alpha_i, alpha_f );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+        return FormFactorDecoratorDebyeWaller::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
 
     virtual int getNumberOfStochasticParameters(  ) const  {
@@ -231,18 +231,6 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
     }
 
-    virtual void setBinSizes( double delta_qy, double delta_qz ) {
-        if( bp::override func_setBinSizes = this->get_override( "setBinSizes" ) )
-            func_setBinSizes( delta_qy, delta_qz );
-        else{
-            this->IFormFactorDecorator::setBinSizes( delta_qy, delta_qz );
-        }
-    }
-    
-    void default_setBinSizes( double delta_qy, double delta_qz ) {
-        IFormFactorDecorator::setBinSizes( delta_qy, delta_qz );
-    }
-
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
@@ -267,9 +255,9 @@ void register_FormFactorDecoratorDebyeWaller_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::FormFactorDecoratorDebyeWaller::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&::FormFactorDecoratorDebyeWaller::evaluate)
-            , (::complex_t ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::cvector_t const &,::cvector_t const &,double,double ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_evaluate)
-            , ( bp::arg("k_i"), bp::arg("k_f"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+            , (::complex_t ( ::FormFactorDecoratorDebyeWaller::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::FormFactorDecoratorDebyeWaller::evaluate)
+            , (::complex_t ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_evaluate)
+            , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getNumberOfStochasticParameters"
             , (int ( ::FormFactorDecoratorDebyeWaller::* )(  ) const)(&::FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters)
@@ -318,11 +306,6 @@ void register_FormFactorDecoratorDebyeWaller_class(){
             , (void ( ::IFormFactorDecorator::* )( ::complex_t ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
             , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::complex_t ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
-        .def( 
-            "setBinSizes"
-            , (void ( ::IFormFactorDecorator::* )( double,double ) )(&::IFormFactorDecorator::setBinSizes)
-            , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )( double,double ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_setBinSizes)
-            , ( bp::arg("delta_qy"), bp::arg("delta_qz") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

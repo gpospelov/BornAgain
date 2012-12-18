@@ -76,7 +76,7 @@ TEST_F(ParameterPoolTest, CopyToExternalPool)
     ParameterPool external_pool;
     external_pool.registerParameter("par4",&m_real_par4);
     m_pool.copyToExternalPool("Another/",&external_pool);
-    std::cout << external_pool << std::endl;
+//    std::cout << external_pool << std::endl;
     EXPECT_EQ( double(1.0), external_pool.getParameter("Another/a_par1").getValue());
     EXPECT_EQ( double(2.0), external_pool.getParameter("Another/a_par2").getValue());
     EXPECT_EQ( double(3.0), external_pool.getParameter("Another/b_par3").getValue());

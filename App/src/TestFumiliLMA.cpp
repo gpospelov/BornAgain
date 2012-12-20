@@ -70,11 +70,11 @@ void TestFumiliLMA::execute()
 {
     std::cout << "TestFumiliLMA::execute() -> Hello world" << std::endl;
     //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Migrad" );
-    //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Fumili" ); // same as ("Fumili2")
+    m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Fumili" ); // same as ("Fumili2")
     //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Fumili2"); // same as ("Minuit2", "Fumili" )
     //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Fumili2" ); // same as ("Minuit2", "Migrad" ), i.e. Fumili2 is wrong key
     //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Fumili"); //
-    m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("GSLMultiFit");
+    //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("GSLMultiFit");
     m_root_minimizer->SetVariable(0, "p0", 2.0, 0.01);
     m_root_minimizer->SetVariable(1, "p1", 0.0, 0.01);
     m_root_minimizer->SetVariable(2, "p2", 0.0, 0.01);
@@ -184,7 +184,7 @@ double MyChi2Function::DataElement(const double *pars, unsigned int index, doubl
 {
     std::cout << " DataElement() -> " << g << " " << index;
     for(int ipar=0; ipar<m_test->m_func->GetNpar(); ++ipar) std::cout << " p: (" << ipar << " " << pars[ipar] << ")";
-    std::cout << std::endl;
+    std::cout << "g:" << g << std::endl;
     const IAxis *xaxis = m_test->m_real_data->getAxis(0);
     const IAxis *yaxis = m_test->m_real_data->getAxis(1);
     size_t index_x = m_test->m_real_data->toCoordinates(index)[0];
@@ -198,7 +198,7 @@ double MyChi2Function::DataElement(const double *pars, unsigned int index, doubl
     double weight = 1./(m_test->m_sigma * m_test->m_sigma);
     double residual = weight * ( real_value - value ) ;
     if (g != 0)    {
-//        std::cout << " gradient ! " << std::endl;
+        std::cout << " gradient ! " << std::endl;
         m_test->m_func->SetParameters(pars);
         double xx[2];
         xx[0] = x;

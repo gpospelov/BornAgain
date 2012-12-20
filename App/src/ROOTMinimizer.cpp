@@ -5,7 +5,7 @@
 #include <iomanip>
 #include <sstream>
 #include <boost/assign/list_of.hpp>
-
+#include "ROOTGSLNLSMinimizer.h"
 
 
 /* ************************************************************************* */
@@ -20,7 +20,12 @@ ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::strin
 
     if( !isValidNames(m_minimizer_name, m_algo_type) ) throw LogicErrorException("ROOTMinimizer::ROOTMinimizer() -> Error! Wrong minimizer initialization parameters.");
 
-    m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
+//    m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
+    if( m_minimizer_name == "GSLMultiFit") {
+        m_root_minimizer = new ROOT::Patch::GSLNLSMinimizer();
+    } else {
+        m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
+    }
     if( !m_root_minimizer  ) throw NullPointerException("ROOTMinimizer::ROOTMinimizer() -> Error! Can't create minimizer.");
 
     m_root_minimizer->SetMaxFunctionCalls(20000);
@@ -45,7 +50,7 @@ bool ROOTMinimizer::isValidNames(const std::string &minimizer_name, const std::s
     typedef std::map<std::string, std::vector<std::string > > algotypes_t;
     algotypes_t algoTypes;
     algoTypes["Minuit"]      = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan");
-    algoTypes["Minuit2"]     = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan")("fumili");
+    algoTypes["Minuit2"]     = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan")("Fumili");
     algoTypes["Fumili"]      = boost::assign::list_of("");
     algoTypes["GSLMultiMin"] = boost::assign::list_of("ConjugateFR")("ConjugatePR")("BFGS")("BFGS2")("SteepestDescent");
     algoTypes["GSLMultiFit"] = boost::assign::list_of("");
@@ -77,6 +82,15 @@ bool ROOTMinimizer::isValidNames(const std::string &minimizer_name, const std::s
 }
 
 
+/* ************************************************************************* */
+// check if type of algorithm is Levenberg-Marquardt or similar
+// (that means that it requires manual gradient calculations)
+/* ************************************************************************* */
+bool ROOTMinimizer::isGradientBasedAgorithm()
+{
+    if (m_algo_type == "Fumili" || m_minimizer_name == "Fumili" || m_minimizer_name == "GSLMultiFit" ) return true;
+    return false;
+}
 
 
 void ROOTMinimizer::setVariable(int index, const FitParameter *par)
@@ -114,22 +128,21 @@ void ROOTMinimizer::minimize()
 /* ************************************************************************* */
 // set fcn function for minimizer
 /* ************************************************************************* */
+// FIXME ROOTMinimizer::setFunction Implement Multiple inheretiance in ROOTMinimizerElementFunction ;)
 void ROOTMinimizer::setFunction(function_t fcn, int ndims, element_function_t element_fcn, int nelements)
 {
-    if( fcn && element_fcn ) {
+    if( isGradientBasedAgorithm() ) {
         std::cout << " ROOTMinimizer::setFunction() -> XXX 1.1 making ROOTMinimizerElementFunction " << std::endl;
-        delete m_minfunc;
+        delete m_minfunc_element;
         m_minfunc_element = new ROOTMinimizerElementFunction(fcn, ndims, element_fcn, nelements);
         m_root_minimizer->SetFunction(*m_minfunc_element);
-    } else if( fcn ) {
+
+    } else {
         std::cout << " ROOTMinimizer::setFunction() -> XXX 1.2 making ROOTMinimizerFunction" << std::endl;
         delete m_minfunc;
         m_minfunc = new ROOTMinimizerFunction(fcn, ndims);
         m_root_minimizer->SetFunction(*m_minfunc);
-    } else {
-        throw LogicErrorException("ROOTMinimizer::minimize() -> Error! Can't guess minimization function type");
     }
-
 }
 
 

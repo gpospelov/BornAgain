@@ -53,7 +53,8 @@ SOURCES += \
     src/TestRoughness.cpp \
     src/TestToyExperiment.cpp \
     src/TreeEventStructure.cpp \
-    src/ROOTMinimizerFunction.cpp
+    src/ROOTMinimizerFunction.cpp \
+    src/ROOTGSLNLSMinimizer.cpp
 
 HEADERS += \
     inc/App.h \
@@ -97,7 +98,8 @@ HEADERS += \
     inc/TestRoughness.h \
     inc/TestToyExperiment.h \
     inc/TreeEventStructure.h \
-    inc/ROOTMinimizerFunction.h
+    inc/ROOTMinimizerFunction.h \
+    inc/ROOTGSLNLSMinimizer.h
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
 DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc

@@ -39,7 +39,7 @@ LIBS += -lgsl -lgslcblas
 FFTW3_HEADERFILE = fftw3.h
 FFTW3_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
 for(dir, FFTW3_HEADER_LOCATIONS): isEmpty(FFTW3_INCLUDE): exists($${dir}/$${FFTW3_HEADERFILE}): FFTW3_INCLUDE = $${dir}
-isEmpty(FFTW3_INCLUDE): message("Can't find" $${FFTW3_HEADERFILE} "in" $${FFTW3_HEADER_LOCATIONS)
+isEmpty(FFTW3_INCLUDE): message("Can't find" $${FFTW3_HEADERFILE} "in" $${FFTW3_HEADER_LOCATIONS})
 FFTW3_LIB = $$replace(FFTW3_INCLUDE,"include","lib")
 INCLUDEPATH *=  $${FFTW3_INCLUDE}
 LIBS *= -L$${FFTW3_LIB}
@@ -49,7 +49,7 @@ LIBS += -lfftw3
 BOOST_HEADERFILE = boost/version.hpp
 BOOST_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
 for(dir, BOOST_HEADER_LOCATIONS): isEmpty(BOOST_INCLUDE): exists($${dir}/$${BOOST_HEADERFILE}): BOOST_INCLUDE = $${dir}
-isEmpty(BOOST_INCLUDE): message("Can't find" $${BOOST_HEADERFILE} "in" $${BOOST_HEADER_LOCATIONS)
+isEmpty(BOOST_INCLUDE): message("Can't find" $${BOOST_HEADERFILE} "in" $${BOOST_HEADER_LOCATIONS})
 BOOST_LIBFILES = libboost*
 BOOST_LIB_LOCATIONS = /opt/local/lib /usr/local/lib /usr/lib64 /usr/lib
 for(dir, BOOST_LIB_LOCATIONS): isEmpty(BOOST_LIB) {

@@ -75,6 +75,9 @@ public:
     //! checking validity of the combination minimizer_name and algo_type
     bool isValidNames(const std::string &minimizer_name, const std::string &algo_type);
 
+    //! check if type of algorithm is Levenberg-Marquardt or similar
+    bool isGradientBasedAgorithm();
+
 private:
     std::string m_minimizer_name;
     std::string m_algo_type;

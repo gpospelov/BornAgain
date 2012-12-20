@@ -48,8 +48,8 @@ file                1
           morif 
 #  Interference function :    Peak position D(nm),   w(nm), Statistics,  Eta_Voigt, Size-Distance coupling, Cut-off
                                20                     3      gau	      0.5            0            10000000
-# Pair correlation function :   Density(nm-2), D1(nm),  Hard core coverage, CxR
-                                   0.007         25          0.3             1.  
+# Pair correlation function :   Density(nm-2), D1(nm),  sigma(nm)
+                                   0.007         25      100   
 # Lattice parameters : L(1)(nm), L(2)(nm), Angle(deg,  Xi_fixed 
                         10       10          90.           F
                        Xi(deg), Xi_distribution, SigmaXi(deg), Ximin(deg),  Ximax(deg), nXi, xXi

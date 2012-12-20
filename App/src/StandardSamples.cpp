@@ -559,6 +559,24 @@ ISample *StandardSamples::IsGISAXS4_2DDL()
 }
 
 /* ************************************************************************* */
+// IsGISAXS7 functional test: particle mixture from morphology file
+/* ************************************************************************* */
+ISample *StandardSamples::IsGISAXS7_morphology()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    p_multi_layer->addLayer(air_layer_decorator);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
 // IsGISAXS8 functional test: 2D paracrystal lattice
 /* ************************************************************************* */
 ISample *StandardSamples::IsGISAXS8_2DDL_lattice()

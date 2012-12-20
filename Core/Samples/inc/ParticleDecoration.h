@@ -35,7 +35,6 @@ public:
 	/// Clone decoration
 	virtual ParticleDecoration *clone() const;
 
-
     /// add particle giving depth and transformation
     void addParticle(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=1.0);
     void addParticle(const Particle &p_particle, const Geometry::Transform3D &transform, double depth=0, double abundance=1.0);
@@ -56,14 +55,12 @@ public:
     /// Get abundance fraction of particle with index
     double getAbundanceFractionOfParticle(size_t index) const;
 
-
     /// Add interference function
     void addInterferenceFunction(IInterferenceFunction* p_interference_function);
     void addInterferenceFunction(const IInterferenceFunction &interference_function);
 
     /// Get interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;
-
 
     /// Create interference function strategy
     IInterferenceFunctionStrategy *createStrategy(const std::vector<IFormFactor *> &form_factors) const;
@@ -73,7 +70,6 @@ public:
 
     /// Set surface density of all particles
     void setTotalParticleSurfaceDensity(double surface_density) { m_total_particle_surface_density = surface_density; }
-
 private:
     /// copy constructor and assignment operator are hidden since there is a clone method
     ParticleDecoration(const ParticleDecoration &);
@@ -102,6 +98,5 @@ private:
     ///< To guarantee that fractions sum up to 1
     double m_total_particle_surface_density;
 };
-
 
 #endif // PARTICLEDECORATION_H

@@ -39,7 +39,7 @@ public:
     void clear();
 
     //! add fit parameter
-    void addParameter(const std::string &name, double value, double step, const AttLimits &attlim);
+    void addParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error=0.0);
 
     //! return fit parameter with given name
     const FitParameter *getParameter(const std::string &name) const;
@@ -75,6 +75,9 @@ public:
     //! return number of free parameters
     size_t getNfreeParameters() const;
 
+    //! return true if parameters have already given values
+    bool valuesAreDifferrent(const double *pars_valuers, double tolerance_factor=1.0) const;
+
 private:
     //! disabled copy constructor and assignment operator
     FitSuiteParameters &operator=(const FitSuiteParameters &other);
@@ -82,6 +85,8 @@ private:
 
     inline size_t check_index(size_t index) const { return (index < m_parameters.size() ? index : throw  OutOfBoundsException("FitSuiteParameters::check_index() -> Index out of bounds") ); }
     parameters_t m_parameters; //! collection of fit parameters
+
+    static double m_default_parameter_error;
 };
 
 #endif // FITSUITEPARAMETERS_H

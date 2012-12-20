@@ -15,6 +15,7 @@
 //! @date   Jul 20, 2012
 
 #include "Numeric.h"
+#include "Exceptions.h"
 
 #include <cmath>
 #include <iostream>
@@ -27,6 +28,7 @@ public:
     virtual ISquaredFunction *clone() const=0;
 
     virtual double calculateSquaredDifference(double real_value, double simulated_value) const=0;
+    virtual double calculateSquaredError(double real_value, double simulated_value = 0.0) const { (void)real_value; (void)simulated_value; throw NotImplementedException("ISquaredFunction::calculateError() -> Error! Not implemented."); }
 };
 
 
@@ -43,9 +45,15 @@ public:
         if (diff_squared < Numeric::double_epsilon) {
             return 0.0;
         }
-        double sigma = std::max(real_value,1.0);
-        return diff_squared/sigma;
+        double sigma_squared = std::max(real_value,1.0);
+        return diff_squared/sigma_squared;
     }
+
+    virtual inline double calculateSquaredError(double real_value, double /* simulated_value */) const
+    {
+        return std::max(real_value,1.0);
+    }
+
 };
 
 
@@ -85,6 +93,11 @@ public:
         sigma_squared = std::max(sigma_squared, 1.0);
         return diff_squared/sigma_squared;
     }
+    virtual inline double calculateSquaredError(double real_value, double /* simulated_value */) const
+    {
+        return std::max(std::fabs(real_value) + (m_epsilon*real_value)*(m_epsilon*real_value),1.0);
+    }
+
 private:
     double m_epsilon;
 };
@@ -103,6 +116,11 @@ public:
         double sigma_squared = m_sigma*m_sigma;
         return diff_squared/sigma_squared;
     }
+    virtual inline double calculateSquaredError(double /* real_value */, double /* simulated_value */) const
+    {
+        return m_sigma*m_sigma;
+    }
+
 private:
     double m_sigma;
 };

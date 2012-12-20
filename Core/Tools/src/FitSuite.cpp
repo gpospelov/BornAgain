@@ -10,6 +10,7 @@
 
 FitSuite::FitSuite() : m_minimizer(0), m_is_last_iteration(false), m_n_call(0), m_n_strategy(0)
 {
+    m_function_chi2.init(this);
 }
 
 
@@ -48,9 +49,9 @@ void FitSuite::addExperimentAndRealData(const Experiment &experiment, const Outp
 /* ************************************************************************* */
 // add fit parameter
 /* ************************************************************************* */
-void FitSuite::addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim)
+void FitSuite::addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error)
 {
-    m_fit_parameters.addParameter(name, value, step, attlim);
+    m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
 
@@ -83,25 +84,15 @@ void FitSuite::link_fit_parameters()
 /* ************************************************************************* */
 void FitSuite::minimize()
 {
-    // initializing minimizer with fcn function belonging to given class
-    IMinimizer::function_t fcn = boost::bind(&FitSuite::functionToMinimize, this, _1);
-    //m_minimizer->setFunction( fcn, (int)m_fit_parameters.size() );
-    // FIXME: FitSuite::minimize() where to get number of elements?
-    int nelements = m_fit_objects.getRealData()->getAllocatedSize();
-    IMinimizer::element_function_t element_fcn = boost::bind(&FitSuite::elementFunction, this, _1, _2, _3);
-    m_minimizer->setFunction( fcn, (int)m_fit_parameters.size(), element_fcn, nelements );
+    // initializing minimizer with fitting functions
+    //IMinimizer::function_chi2_t fun_chi2 = boost::bind(&FitSuite::fittingChiSquaredFunction, this, _1);
+    IMinimizer::function_chi2_t fun_chi2 = boost::bind(&FitSuiteChiSquaredFunction::evaluate, &m_function_chi2, _1);
 
-    // propagating values of local fit parameters to the minimizer's internal parameters
-    for(size_t i_par = 0; i_par<m_fit_parameters.size(); i_par++) {
-        std::cout << " i_par " << i_par << std::endl;
-        m_minimizer->setVariable((int)i_par, m_fit_parameters[i_par] );
-    }
-    if( m_fit_parameters.size() != m_minimizer->getNumberOfVariables())  {
-        std::ostringstream ostr;
-        ostr << "FitSuite::minimize() -> Error! Number of variables defined in minimizer (" << m_minimizer->getNumberOfVariables() << ") ";
-        ostr << "doesn't coincide with number of FitSuite's parameters (" << m_fit_parameters.size() << ")";
-        throw LogicErrorException(ostr.str());
-    }
+    IMinimizer::function_gradient_t fun_gradient = boost::bind(&FitSuite::fittingGradientFunction, this, _1, _2, _3);
+    m_minimizer->setFunction( fun_chi2, m_fit_parameters.size(), fun_gradient, m_fit_objects.getSizeOfDataSet() );
+
+    // initializing minimizer's parameters with the list of local fit parameters
+    m_minimizer->setParameters(m_fit_parameters);
 
     // minimizing
     m_minimizer->minimize();
@@ -158,7 +149,7 @@ void FitSuite::runFit()
 /* ************************************************************************* */
 // function to minimize
 /* ************************************************************************* */
-double FitSuite::functionToMinimize(const double *pars_current_values)
+double FitSuite::fittingChiSquaredFunction(const double *pars_current_values)
 {
     std::cout << "FitSuite::functionToMinimize() -> Info" << std::endl;
     // set fitting parameters to values suggested by the minimizer
@@ -179,8 +170,11 @@ double FitSuite::functionToMinimize(const double *pars_current_values)
 /* ************************************************************************* */
 // provides minimizer with gradients wrt parameters for single data element
 /* ************************************************************************* */
-double FitSuite::elementFunction(const double *pars_current_values, unsigned int index, double *deriv)
+double FitSuite::fittingGradientFunction(const double *pars_current_values, unsigned int index, double *deriv)
 {
+//    bool parameters_changed = m_fit_parameters.parametersDiffer(pars_current_values);
+
+    throw 1;
     (void)pars_current_values;
     (void) deriv;
 //    if(index % 10 == 0) std::cout << " elementFunction " << index << std::endl;

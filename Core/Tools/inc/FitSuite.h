@@ -24,6 +24,7 @@
 #include "FitSuiteParameters.h"
 #include "IMinimizer.h"
 #include "ChiSquaredModule.h"
+#include "FitSuiteFunctions.h"
 #include <string>
 
 class Experiment;
@@ -50,7 +51,7 @@ public:
     void addExperimentAndRealData(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule());
 
     //! add fit parameter
-    void addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless());
+    void addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless(), double error=0.0);
 
     //! add fit strategy
     void addFitStrategy(IFitSuiteStrategy *strategy);
@@ -70,10 +71,10 @@ public:
     virtual void runFit();
 
     //! function to minimize
-    double functionToMinimize(const double *pars_current_values);
+    double fittingChiSquaredFunction(const double *pars_current_values);
 
     //! provides minimizer with gradients wrt parameters for single data element
-    double elementFunction(const double *pars_current_values, unsigned int index, double *deriv);
+    double fittingGradientFunction(const double *pars_current_values, unsigned int index, double *deriv);
 
     //! return reference to the kit with data
     FitSuiteObjects *getFitObjects() { return &m_fit_objects; }
@@ -85,7 +86,8 @@ public:
     bool isLastIteration() { return m_is_last_iteration; }
 
     //! get current number of minimization function calls
-    int getNCall() { return m_n_call; }
+    //int getNCall() { return m_n_call; }
+    int getNCall() { return m_function_chi2.getNCall(); }
 
     //! get the number of current strategy
     int getNStrategy() { return m_n_strategy; }
@@ -106,6 +108,8 @@ private:
     bool m_is_last_iteration; //! set to true after last iteration complete
     int m_n_call; //! current number of minimization function call
     int m_n_strategy; //! current number of fit strategy
+
+    FitSuiteChiSquaredFunction m_function_chi2;
 };
 
 #endif // FITSUITE_H

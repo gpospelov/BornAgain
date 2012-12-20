@@ -33,26 +33,6 @@ double ROOTMinimizerElementFunction::DataElement(const double *pars, unsigned in
         std::cout << " gradient " << std::endl;
         if(i_selected_element == 0 || parameters_changed) {
             std::cout << "g!=0 parameters_changed " << parameters_changed << std::endl;
-            const double kEps = 1.0E-4;
-            for(size_t i_par=0; i_par<m_ndims; ++i_par ) {
-                std::vector<double > pars_deriv; // values of parameters for derivative calculation
-                pars_deriv.resize(m_ndims);
-                std::copy(pars, pars+m_ndims, pars_deriv.begin());
-                pars_deriv[i_par] += kEps;
-                m_fcn(&pars_deriv.front());
-                for(size_t j=0; j<pars_deriv.size(); ++j) {
-                    std::cout << "i_par:" << i_par << " j:" << j << " " << pars[j] << " " << pars_deriv[j] << std::endl;
-                }
-                std::vector<double> m_residuals2;
-                m_residuals2.resize(m_nelements);
-                for(size_t i_element=0; i_element<m_nelements; ++i_element) {
-                    m_residuals2[i_element] = m_element_fcn(&pars_deriv.front(), i_element, gradient);
-                }
-
-                for(size_t i_element=0; i_element <m_nelements; ++i_element) {
-                    m_gradients[i_par][i_element] = (m_residuals2[i_element] - m_residuals[i_element])/kEps;
-                }
-            }
         }
         for(size_t i_par=0; i_par<m_ndims; ++i_par) {
             gradient[i_par] = m_gradients[i_par][i_selected_element];

@@ -14,10 +14,12 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   05.10.2012
 
+
 #include "IMinimizer.h"
 #include "OutputData.h"
 #include "Exceptions.h"
 #include "ROOTMinimizerFunction.h"
+#include "FitSuiteParameters.h"
 #include <string>
 // from ROOT
 #include "Math/Minimizer.h"
@@ -35,14 +37,15 @@ public:
     ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type=std::string());
     virtual ~ROOTMinimizer();
 
-    virtual void setVariable(int index, const FitParameter *par) ;
+    virtual void setParameter(size_t index, const FitParameter *par);
+    virtual void setParameters(const FitSuiteParameters &parameters);
 
-    virtual void setFunction(function_t fcn, int ndims, element_function_t element_fcn, int nelements);
-//    virtual void setElementFunction(element_function_t element_fcn, int ndims, int nelements) { m_element_fcn = element_fcn, m_ndims = ndims; m_nelements = nelements; }
+
+    virtual void setFunction(function_chi2_t fun_chi2, size_t nparameters, function_gradient_t fun_gradient, size_t ndatasize);
 
     virtual void minimize();
 
-    //! return pointer to created minimizer
+    //! return created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
 
     //! get number of variables to fit

@@ -38,7 +38,7 @@ public:
     //! clear all data
     void clear();
 
-    //! return number of items
+    //! return number of fit items
     size_t size() const { return m_fit_objects.size(); }
 
     //! add to kit pair of (experiment, real data) for consecutive simulation and chi2 module
@@ -47,11 +47,15 @@ public:
     //! loop through all defined experiments and run they simulation
     void runSimulation();
 
+    //! get total number of data points
+    size_t getSizeOfDataSet() const;
+
     //! get sum of chi squared values for all fit objects
     double getChiSquaredValue(int n_free_fit_parameters = 0);
 
     //! get residuals for single data element
-    double getResidualValue(int index);
+    //! @pars global_index index accross all OutputData defined
+    double getResidualValue(int global_index);
 
     //! get experiment
     const Experiment *getExperiment(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getExperiment(); }
@@ -85,6 +89,9 @@ protected:
 
     //! calculate maximum intensity in simulated data
     double getSimulationMaxIntensity();
+
+    //! return object and calculate index of data element for given global data element index
+    const FitObject *getObjectForGlobalDataIndex(size_t global_index, size_t &local_index);
 
 private:
     //! disabled copy constructor and assignment operator

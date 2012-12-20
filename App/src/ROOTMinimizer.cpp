@@ -1,5 +1,6 @@
 #include "ROOTMinimizer.h"
 #include "Exceptions.h"
+#include "FitSuiteParameters.h"
 #include "Utils.h"
 #include "ROOTMinimizerFunction.h"
 #include <iomanip>
@@ -20,8 +21,12 @@ ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::strin
 
     if( !isValidNames(m_minimizer_name, m_algo_type) ) throw LogicErrorException("ROOTMinimizer::ROOTMinimizer() -> Error! Wrong minimizer initialization parameters.");
 
-//    m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
+    // see http://root.cern.ch/phpBB3/viewtopic.php?f=15&t=14230&p=61216&hilit=minimizer+precision#p61216
+    // see http://root.cern.ch/phpBB3/viewtopic.php?f=3&t=9181&hilit=precision+tolerance
+    //ROOT::Math::MinimizerOptions::SetDefaultTolerance(0.1);
+
     if( m_minimizer_name == "GSLMultiFit") {
+        // hacked version of ROOT's GSL Levenberg-Marquardt minimizer
         m_root_minimizer = new ROOT::Patch::GSLNLSMinimizer();
     } else {
         m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
@@ -30,6 +35,9 @@ ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::strin
 
     m_root_minimizer->SetMaxFunctionCalls(20000);
     m_root_minimizer->SetMaxIterations(20000);
+//    m_root_minimizer->SetPrintLevel(4);
+//    m_root_minimizer->SetTolerance(0.01);
+//    m_root_minimizer->SetPrecision(1e-6);
 }
 
 
@@ -57,13 +65,11 @@ bool ROOTMinimizer::isValidNames(const std::string &minimizer_name, const std::s
     algoTypes["GSLSimAn"]    = boost::assign::list_of("");
     algoTypes["Genetic"]     = boost::assign::list_of("");
 
-    // check if given minimizer names are valid
+    // check minimizers names
     algotypes_t::iterator it = algoTypes.find(minimizer_name);
     if(it != algoTypes.end() ) {
-        // if algo type exists
-        for(size_t i=0; i<it->second.size(); ++i ) {
-            if(it->second[i] == algo_type ) return true;
-        }
+        // check minimizer's algorithm type
+        for(size_t i=0; i<it->second.size(); ++i ) if(it->second[i] == algo_type ) return true;
     }
 
     // if not, print complaining and return false
@@ -93,7 +99,22 @@ bool ROOTMinimizer::isGradientBasedAgorithm()
 }
 
 
-void ROOTMinimizer::setVariable(int index, const FitParameter *par)
+void ROOTMinimizer::setParameters(const FitSuiteParameters &parameters)
+{
+    size_t index(0);
+    for(FitSuiteParameters::const_iterator it=parameters.begin(); it!=parameters.end(); ++it) {
+        setParameter(index++, (*it) );
+    }
+    if( parameters.size() != getNumberOfVariables())  {
+        std::ostringstream ostr;
+        ostr << "ROOTMinimizer::setParameters() -> Error! Number of variables defined in minimizer (" << getNumberOfVariables() << ") ";
+        ostr << "doesn't coincide with number of FitSuite's parameters (" << parameters.size() << ")";
+        throw LogicErrorException(ostr.str());
+    }
+}
+
+
+void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
 {
     bool success;
     if( par->isFixed() ) {
@@ -129,18 +150,18 @@ void ROOTMinimizer::minimize()
 // set fcn function for minimizer
 /* ************************************************************************* */
 // FIXME ROOTMinimizer::setFunction Implement Multiple inheretiance in ROOTMinimizerElementFunction ;)
-void ROOTMinimizer::setFunction(function_t fcn, int ndims, element_function_t element_fcn, int nelements)
+void ROOTMinimizer::setFunction(function_chi2_t fun_chi2, size_t nparameters, function_gradient_t fun_gradient, size_t ndatasize)
 {
     if( isGradientBasedAgorithm() ) {
         std::cout << " ROOTMinimizer::setFunction() -> XXX 1.1 making ROOTMinimizerElementFunction " << std::endl;
         delete m_minfunc_element;
-        m_minfunc_element = new ROOTMinimizerElementFunction(fcn, ndims, element_fcn, nelements);
+        m_minfunc_element = new ROOTMinimizerElementFunction(fun_chi2, nparameters, fun_gradient, ndatasize);
         m_root_minimizer->SetFunction(*m_minfunc_element);
 
     } else {
         std::cout << " ROOTMinimizer::setFunction() -> XXX 1.2 making ROOTMinimizerFunction" << std::endl;
         delete m_minfunc;
-        m_minfunc = new ROOTMinimizerFunction(fcn, ndims);
+        m_minfunc = new ROOTMinimizerFunction(fun_chi2, nparameters);
         m_root_minimizer->SetFunction(*m_minfunc);
     }
 }

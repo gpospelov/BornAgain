@@ -29,9 +29,9 @@
 class ROOTMinimizerFunction : public ROOT::Math::Functor
 {
 public:
-    ROOTMinimizerFunction(IMinimizer::function_t fcn, int ndims ) : ROOT::Math::Functor(fcn, ndims), m_fcn(fcn) {}
+    ROOTMinimizerFunction(IMinimizer::function_chi2_t fcn, int ndims ) : ROOT::Math::Functor(fcn, ndims), m_fcn(fcn) {}
     virtual ~ROOTMinimizerFunction(){}
-    IMinimizer::function_t m_fcn;
+    IMinimizer::function_chi2_t m_fcn;
 };
 
 
@@ -45,7 +45,7 @@ class ROOTMinimizerElementFunction : public ROOT::Math::FitMethodFunction
 public:
     typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
 
-    ROOTMinimizerElementFunction(IMinimizer::function_t fcn, size_t ndims, IMinimizer::element_function_t element_fcn, size_t nelements)
+    ROOTMinimizerElementFunction(IMinimizer::function_chi2_t fcn, size_t ndims, IMinimizer::function_gradient_t element_fcn, size_t nelements)
         : ROOT::Math::FitMethodFunction(ndims, nelements)
         , m_fcn(fcn)
         , m_element_fcn(element_fcn)
@@ -105,8 +105,8 @@ public:
 
 private:
 
-    IMinimizer::function_t m_fcn;
-    IMinimizer::element_function_t m_element_fcn;
+    IMinimizer::function_chi2_t m_fcn;
+    IMinimizer::function_gradient_t m_element_fcn;
     size_t m_ndims;
     size_t m_nelements;
     mutable std::vector<double > m_parameter_values;

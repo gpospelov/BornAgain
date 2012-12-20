@@ -72,4 +72,4 @@ for(dep, MY_DEPENDENCY_LIB) {
 ###############################################################################
 # runs automatically tests right after linking
 ###############################################################################
-QMAKE_POST_LINK = $(TARGET) 2> /dev/null
+QMAKE_POST_LINK = $$PWD/$(TARGET) 2> /dev/null

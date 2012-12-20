@@ -42,6 +42,19 @@ void FitSuiteObjects::runSimulation()
 
 
 /* ************************************************************************* */
+// get total number of data points
+/* ************************************************************************* */
+size_t FitSuiteObjects::getSizeOfDataSet() const
+{
+    size_t result(0);
+    for(FitObjects_t::const_iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+        result += (*it)->getSizeOfData();
+    }
+    return result;
+}
+
+
+/* ************************************************************************* */
 // get sum of chi squared values for all fit objects
 // FIXME: refactor FitSuiteObjects::getChiSquaredValue() (the main problem is duplication calculateChiSquared() for ChiSquaredModule and FitObject)
 /* ************************************************************************* */
@@ -66,22 +79,30 @@ double FitSuiteObjects::getChiSquaredValue(int n_free_fit_parameters)
 }
 
 
-double FitSuiteObjects::getResidualValue(int index)
+const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(size_t global_index, size_t &local_index)
 {
-    double residual_sum(0);
-    for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        IChiSquaredModule *chi = (*it)->getChiSquaredModule();
-        const OutputData<double> *data_real = (*it)->getRealData();
-        const OutputData<double> *data_simu = (*it)->getSimulationData();
-        double value_real = (*data_real)[index];
-        double value_simu = (*data_simu)[index];
-        double squared_difference = chi->getSquaredFunction()->calculateSquaredDifference(value_real, value_simu);
-        double weight = (*it)->getWeight()/m_total_weight;
-        double residual(0);
-        (squared_difference > 0 ? residual = weight*std::sqrt(squared_difference) : 0.0);
-        residual_sum += residual;
+    local_index = global_index;
+    for(FitObjects_t::const_iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+        if(local_index < (*it)->getSizeOfData() ) {
+            //std::cout << "FitSuiteObjects::getObjectForGlobalDataIndex() -> Found index " << global_index << " " << local_index << std::endl;
+            return (*it);
+        } else if(local_index == (*it)->getSizeOfData() ) {
+            local_index -= (*it)->getSizeOfData();
+        }
     }
-    return residual_sum;
+    throw LogicErrorException("FitSuiteObjects::getObjectForGlobalDataIndex() -> Error! Can't find fit object for given data index");
+}
+
+
+double FitSuiteObjects::getResidualValue(int global_index)
+{
+    size_t index(0);
+    const FitObject *fitObject = getObjectForGlobalDataIndex(global_index, index);
+    double value_real = (*fitObject->getRealData())[index];
+    double value_simu = (*fitObject->getSimulationData())[index];
+    double squared_error = fitObject->getChiSquaredModule()->getSquaredFunction()->calculateSquaredError(value_real, value_simu);
+    double residual = (value_real - value_simu)*(fitObject->getWeight()/m_total_weight)/std::sqrt(squared_error);
+    return residual;
 }
 
 
@@ -91,13 +112,13 @@ double FitSuiteObjects::getResidualValue(int index)
 /* ************************************************************************* */
 double FitSuiteObjects::getSimulationMaxIntensity()
 {
-    double max_intensity(0);
+    double result(0);
     for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         const OutputData<double > *data = (*it)->getExperiment()->getOutputData();
         OutputData<double >::const_iterator cit = std::max_element(data->begin(), data->end());
-        max_intensity = std::max(max_intensity, *cit);
+        result = std::max(result, *cit);
     }
-    return max_intensity;
+    return result;
 }
 
 
@@ -109,7 +130,7 @@ std::string FitSuiteObjects::addParametersToExternalPool(std::string path,
 {
     (void)copy_number;
     // add own parameters
-    // so far it is top object in our chain, and its without parameters, lets exclude its name from path
+    // so far it is top object in our chain, and its without parameters, lets not include its name in path
     //std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
     std::string new_path = path;
 

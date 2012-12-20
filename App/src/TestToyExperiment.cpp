@@ -97,12 +97,12 @@ void TestToyExperiment::execute()
 
     // setting up fitSuite
     FitSuite *m_fitSuite = new FitSuite();
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit") );
 
-    m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit") );
     m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
-    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
+//    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
 
     m_fitSuite->addFitParameter("*/par0",  1.0, 0.01);
     m_fitSuite->addFitParameter("*/par1",  0.0, 0.01);

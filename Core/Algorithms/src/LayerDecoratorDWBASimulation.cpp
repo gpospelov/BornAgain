@@ -94,7 +94,7 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunct
         Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(NDetector2d::PHI_AXIS_NAME, it_intensity.getIndex());
         Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(NDetector2d::ALPHA_AXIS_NAME, it_intensity.getIndex());
         double alpha_f = alpha_bin.getMidPoint();
-        if (alpha_f<0) {
+        if (std::abs(mp_RT_function->evaluate(alpha_f).first)!=0.0 && alpha_f<0) {
             ++it_intensity;
             continue;
         }

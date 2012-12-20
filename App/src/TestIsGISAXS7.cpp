@@ -1,5 +1,12 @@
 #include "TestIsGISAXS7.h"
 #include "TCanvas.h"
+#include "Utils.h"
+#include "Units.h"
+#include "GISASExperiment.h"
+#include "MultiLayer.h"
+#include "SampleFactory.h"
+#include "IsGISAXSTools.h"
+#include "DrawHelper.h"
 
 
 TestIsGISAXS7::TestIsGISAXS7() : IFunctionalTest("TestIsGISAXS7")
@@ -10,8 +17,8 @@ TestIsGISAXS7::TestIsGISAXS7() : IFunctionalTest("TestIsGISAXS7")
 void TestIsGISAXS7::execute()
 {
     GISASExperiment experiment(mp_options);
-    experiment.setDetectorParameters(100, -2.0*Units::degree, 2.0*Units::degree,
-            100, -2.0*Units::degree, 2.0*Units::degree, true);
+    experiment.setDetectorParameters(100, 0.0*Units::degree, 1.0*Units::degree,
+            100, 0.0*Units::degree, 1.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);
 
     // cylinder in BA

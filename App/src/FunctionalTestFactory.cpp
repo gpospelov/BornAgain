@@ -8,6 +8,7 @@
 #include "TestIsGISAXS2.h"
 #include "TestIsGISAXS3.h"
 #include "TestIsGISAXS4.h"
+#include "TestIsGISAXS7.h"
 #include "TestIsGISAXS8.h"
 #include "TestIsGISAXS9.h"
 #include "TestIsGISAXS10.h"
@@ -53,6 +54,8 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: isgisaxs ex-3 (cylinder FF)");
     registerItem("isgisaxs04",   IFactoryCreateFunction<TestIsGISAXS4, IFunctionalTest>,
                  "functional test: isgisaxs ex-4 (paracrystal 1d structure factors)");
+    registerItem("isgisaxs07",   IFactoryCreateFunction<TestIsGISAXS7, IFunctionalTest>,
+                 "functional test: isgisaxs ex-7 (particle mixture from morphology file)");
     registerItem("isgisaxs08",   IFactoryCreateFunction<TestIsGISAXS8, IFunctionalTest>,
                  "functional test: isgisaxs ex-8 (paracrystal lattice structure factors)");
     registerItem("isgisaxs09",   IFactoryCreateFunction<TestIsGISAXS9, IFunctionalTest>,

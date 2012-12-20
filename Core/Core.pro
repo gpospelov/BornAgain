@@ -5,7 +5,7 @@ TARGET   = ScattCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)
@@ -42,18 +42,22 @@ SOURCES += \
     Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
     \
+    FormFactors/src/FormFactorBox.cpp \
+    FormFactors/src/FormFactorCrystal.cpp \
+    FormFactors/src/FormFactorCylinder.cpp \
+    FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorDWBA.cpp \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
-    FormFactors/src/FormFactorDecoratorTransformation.cpp \
-    FormFactors/src/FormFactorCylinder.cpp \
+    FormFactors/src/FormFactorEllipsoid.cpp \
     FormFactors/src/FormFactorFullSphere.cpp \
     FormFactors/src/FormFactorGauss.cpp \
+    FormFactors/src/FormFactorLorentz.cpp \
     FormFactors/src/FormFactorParallelepiped.cpp \
     FormFactors/src/FormFactorPrism3.cpp \
+    FormFactors/src/FormFactorPrism6.cpp \
     FormFactors/src/FormFactorPyramid.cpp \
-    FormFactors/src/FormFactorLorentz.cpp \
+    FormFactors/src/FormFactorSphere.cpp \
     FormFactors/src/FormFactorWeighted.cpp \
-    FormFactors/src/FormFactorCrystal.cpp \
     FormFactors/src/IFormFactorBorn.cpp \
     \
     Geometry/src/BasicVector3D.cpp \
@@ -154,24 +158,28 @@ HEADERS += \
     Algorithms/inc/ResolutionFunction2DSimple.h \
     Algorithms/inc/ThreadInfo.h \
     \
-    FormFactors/inc/FormFactorDWBA.h \
-    FormFactors/inc/FormFactorDWBAConstZ.h \
+    FormFactors/inc/FormFactorBox.h \
+    FormFactors/inc/FormFactorCrystal.h \
+    FormFactors/inc/FormFactorCylinder.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
     FormFactors/inc/FormFactorDecoratorFactor.h \
     FormFactors/inc/FormFactorDecoratorMultiPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorRefractiveIndex.h \
     FormFactors/inc/FormFactorDecoratorTransformation.h \
-    FormFactors/inc/FormFactorCylinder.h \
+    FormFactors/inc/FormFactorDWBA.h \
+    FormFactors/inc/FormFactorDWBAConstZ.h \
+    FormFactors/inc/FormFactorEllipsoid.h \
     FormFactors/inc/FormFactorFullSphere.h \
     FormFactors/inc/FormFactorGauss.h \
+    FormFactors/inc/FormFactorLorentz.h \
     FormFactors/inc/FormFactorParallelepiped.h \
     FormFactors/inc/FormFactorPrism3.h \
+    FormFactors/inc/FormFactorPrism6.h \
     FormFactors/inc/FormFactorPyramid.h \
-    FormFactors/inc/FormFactorLorentz.h \
     FormFactors/inc/FormFactors.h \
+    FormFactors/inc/FormFactorSphere.h \
     FormFactors/inc/FormFactorSphereGaussianRadius.h \
-    FormFactors/inc/FormFactorCrystal.h \
     FormFactors/inc/FormFactorWeighted.h \
     FormFactors/inc/IFormFactor.h \
     FormFactors/inc/IFormFactorBorn.h \

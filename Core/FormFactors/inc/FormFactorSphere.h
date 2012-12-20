@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   03.07.2012
 
-#include "IFormFactor.h"
+#include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
 
@@ -36,7 +36,7 @@ public:
 
     virtual int getNumberOfStochasticParameters() const { return 3; }
 
-    virtual double getHeight() const { return m_radius, m_height; }
+    virtual double getHeight() const { return m_height; }
 
 protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;

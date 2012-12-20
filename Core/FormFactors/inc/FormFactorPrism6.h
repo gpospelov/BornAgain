@@ -13,7 +13,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jun 27, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
 

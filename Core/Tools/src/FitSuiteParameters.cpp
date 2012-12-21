@@ -61,7 +61,7 @@ FitParameter *FitSuiteParameters::getParameter(const std::string &name)
 void FitSuiteParameters::setValues(const double *pars_values)
 {
     if( !valuesAreDifferrent(pars_values) ) {
-        std::cout << "FitSuiteParameters::setValues() -> Warning! Small or absent variation of parameters" << std::endl;
+        std::cout << "FitSuiteParameters::setValues() -> Warning! Small or absent change in parameter values." << std::endl;
         for(size_t i=0; i<m_parameters.size(); i++)  std::cout << (m_parameters[i]->getValue() -pars_values[i]) << " " << Numeric::areAlmostEqual(m_parameters[i]->getValue(), pars_values[i]) << std::endl;
     }
     size_t index(0);

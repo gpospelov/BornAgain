@@ -101,7 +101,10 @@ double FitSuiteObjects::getResidualValue(int global_index)
     double value_real = (*fitObject->getRealData())[index];
     double value_simu = (*fitObject->getSimulationData())[index];
     double squared_error = fitObject->getChiSquaredModule()->getSquaredFunction()->calculateSquaredError(value_real, value_simu);
+    assert(squared_error);
     double residual = (value_real - value_simu)*(fitObject->getWeight()/m_total_weight)/std::sqrt(squared_error);
+    //double residual = (value_real - value_simu)*(fitObject->getWeight()/m_total_weight)/squared_error;
+    //std::cout << "AAA real:" << value_real << " simul:" << value_simu << " err:" << squared_error << " residual: " << std::endl;
     return residual;
 }
 

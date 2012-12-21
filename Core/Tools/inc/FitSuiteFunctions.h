@@ -58,10 +58,10 @@ public:
 class FitSuiteGradientFunction : public IFitSuiteFunction
 {
 public:
-    FitSuiteGradientFunction() : m_npars(0), m_ndatasize(0), m_prev_index(-1) {}
+    FitSuiteGradientFunction() : m_npars(0), m_ndatasize(0), m_prev_index(-1), m_ncycles(0) {}
     virtual ~FitSuiteGradientFunction(){}
     //! evaluate method for gradients and residuals called directly from the minimizer
-    double evaluate(const double *pars, unsigned int index, double *deriv);
+    double evaluate(const double *pars, unsigned int index, double *gradients);
 private:
     void verify_arrays();
     void verify_minimizer_logic(bool parameters_have_changed, int current_index);
@@ -73,6 +73,7 @@ private:
     int m_prev_index;
     std::vector<double > m_residuals; // [m_ndatasize]
     std::vector<std::vector<double> > m_gradients; // [m_npars][m_ndatasize]
+    size_t m_ncycles;
 };
 
 

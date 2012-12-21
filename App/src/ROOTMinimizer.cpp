@@ -155,7 +155,7 @@ void ROOTMinimizer::setFunction(function_chi2_t fun_chi2, size_t nparameters, fu
     if( isGradientBasedAgorithm() ) {
         std::cout << " ROOTMinimizer::setFunction() -> XXX 1.1 making ROOTMinimizerElementFunction " << std::endl;
         delete m_minfunc_element;
-        m_minfunc_element = new ROOTMinimizerElementFunction(fun_chi2, nparameters, fun_gradient, ndatasize);
+        m_minfunc_element = new ROOTMinimizerElementFunction(fun_gradient, nparameters, ndatasize);
         m_root_minimizer->SetFunction(*m_minfunc_element);
 
     } else {
@@ -205,7 +205,7 @@ void ROOTMinimizer::printResults() const
     std::cout << std::setw(25) << std::left << "  IsValidError     "      << ": " << m_root_minimizer->IsValidError() << " '" << validErrorStatus[m_root_minimizer->Status()] << "'" <<std::endl;
     std::cout << std::setw(25) << std::left << "  NCalls"                 << ": " << m_root_minimizer->NCalls() << std::endl;
     if(m_minfunc_element) {
-        std::cout << std::setw(25) << std::left << "  NCallsElement "                 << ": " << m_minfunc_element->NCallsElement() << std::endl;
+        std::cout << std::setw(25) << std::left << "  NCallsElement "                 << ": " << m_minfunc_element->NCalls() << std::endl;
     }
     std::cout << std::setw(25) << std::left << "  MinValue"               << ": " << std::scientific << std::setprecision(8) << getMinValue() << std::endl;
     std::cout << std::setw(25) << std::left << "  Edm"                    << ": " << std::scientific << std::setprecision(8) << m_root_minimizer->Edm() << std::endl;

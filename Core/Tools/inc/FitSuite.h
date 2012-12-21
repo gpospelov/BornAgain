@@ -71,10 +71,10 @@ public:
     virtual void runFit();
 
     //! function to minimize
-    double fittingChiSquaredFunction(const double *pars_current_values);
+    //double fittingChiSquaredFunction(const double *pars_current_values);
 
     //! provides minimizer with gradients wrt parameters for single data element
-    double fittingGradientFunction(const double *pars_current_values, unsigned int index, double *deriv);
+    //double fittingGradientFunction(const double *pars_current_values, unsigned int index, double *deriv);
 
     //! return reference to the kit with data
     FitSuiteObjects *getFitObjects() { return &m_fit_objects; }
@@ -110,6 +110,7 @@ private:
     int m_n_strategy; //! current number of fit strategy
 
     FitSuiteChiSquaredFunction m_function_chi2;
+    FitSuiteGradientFunction m_function_gradient;
 };
 
 #endif // FITSUITE_H

@@ -123,6 +123,7 @@ public:
        }
        //std::cout << "DoEval: chi" << chi2/double(ndata) << std::endl;
        return chi2/double(ndata);
+       //return chi2;
     }
 
     double DataElement(const double *par, unsigned int i, double *g = 0) const;

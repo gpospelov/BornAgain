@@ -11,6 +11,7 @@
 FitSuite::FitSuite() : m_minimizer(0), m_is_last_iteration(false), m_n_call(0), m_n_strategy(0)
 {
     m_function_chi2.init(this);
+    m_function_gradient.init(this);
 }
 
 
@@ -86,9 +87,11 @@ void FitSuite::minimize()
 {
     // initializing minimizer with fitting functions
     //IMinimizer::function_chi2_t fun_chi2 = boost::bind(&FitSuite::fittingChiSquaredFunction, this, _1);
-    IMinimizer::function_chi2_t fun_chi2 = boost::bind(&FitSuiteChiSquaredFunction::evaluate, &m_function_chi2, _1);
+    //IMinimizer::function_gradient_t fun_gradient = boost::bind(&FitSuite::fittingGradientFunction, this, _1, _2, _3);
 
-    IMinimizer::function_gradient_t fun_gradient = boost::bind(&FitSuite::fittingGradientFunction, this, _1, _2, _3);
+    IMinimizer::function_chi2_t fun_chi2 = boost::bind(&FitSuiteChiSquaredFunction::evaluate, &m_function_chi2, _1);
+    IMinimizer::function_gradient_t fun_gradient = boost::bind(&FitSuiteGradientFunction::evaluate, &m_function_gradient, _1, _2, _3);
+
     m_minimizer->setFunction( fun_chi2, m_fit_parameters.size(), fun_gradient, m_fit_objects.getSizeOfDataSet() );
 
     // initializing minimizer's parameters with the list of local fit parameters
@@ -149,51 +152,35 @@ void FitSuite::runFit()
 /* ************************************************************************* */
 // function to minimize
 /* ************************************************************************* */
-double FitSuite::fittingChiSquaredFunction(const double *pars_current_values)
-{
-    std::cout << "FitSuite::functionToMinimize() -> Info" << std::endl;
-    // set fitting parameters to values suggested by the minimizer
-    m_fit_parameters.setValues(pars_current_values);
+//double FitSuite::fittingChiSquaredFunction(const double *pars_current_values)
+//{
+//    std::cout << "FitSuite::functionToMinimize() -> Info" << std::endl;
+//    // set fitting parameters to values suggested by the minimizer
+//    m_fit_parameters.setValues(pars_current_values);
 
-    // run simulations
-    m_fit_objects.runSimulation();
+//    // run simulations
+//    m_fit_objects.runSimulation();
 
-    // caclulate chi2 value
-    double chi_squared = m_fit_objects.getChiSquaredValue((int)m_fit_parameters.getNfreeParameters());
+//    // caclulate chi2 value
+//    double chi_squared = m_fit_objects.getChiSquaredValue((int)m_fit_parameters.getNfreeParameters());
 
-    notifyObservers();
-    m_n_call++;
-    return chi_squared;
-}
+//    notifyObservers();
+//    m_n_call++;
+//    return chi_squared;
+//}
 
 
 /* ************************************************************************* */
 // provides minimizer with gradients wrt parameters for single data element
 /* ************************************************************************* */
-double FitSuite::fittingGradientFunction(const double *pars_current_values, unsigned int index, double *deriv)
-{
-//    bool parameters_changed = m_fit_parameters.parametersDiffer(pars_current_values);
-
-    throw 1;
-    (void)pars_current_values;
-    (void) deriv;
-//    if(index % 10 == 0) std::cout << " elementFunction " << index << std::endl;
-    // set fitting parameters to values suggested by the minimizer
-    //m_fit_parameters.setValues(pars_current_values);
-
-    // run simulations
-    //m_fit_objects.getExperiment()->runSimulationElement(index);
-
-    // caclulate residual value
-//    m_fit_objects.getChiSquaredValue(m_fit_parameters.getNfreeParameters());
-    double residual = m_fit_objects.getResidualValue(index);
-
-//    if( deriv ) {
-//        throw NotImplementedException("FitSuite::elementFunction() -> Error! Calculation of derivatives is not implemented");
-//    }
-
-    return residual;
-}
+//double FitSuite::fittingGradientFunction(const double *pars_current_values, unsigned int index, double *deriv)
+//{
+//    throw 1;
+//    (void)pars_current_values;
+//    (void) deriv;
+//    double residual = m_fit_objects.getResidualValue(index);
+//    return residual;
+//}
 
 
 

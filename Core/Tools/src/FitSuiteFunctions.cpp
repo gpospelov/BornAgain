@@ -113,7 +113,8 @@ void FitSuiteGradientFunction::calculate_residuals(const double *pars)
 void FitSuiteGradientFunction::calculate_gradients(const double *pars)
 {
     std::cout << " FitSuiteGradientFunction::calculate_gradients() -> Info. " << std::endl;
-    const double kEps = 1.0E-4;
+    const double kEps = 1.0E-9; // Good for Fumili
+    //const double kEps = 1.0E-5;
     for(size_t i_par=0; i_par<m_npars; ++i_par ) {
         std::vector<double > pars_deriv; // values of parameters for derivative calculation
         pars_deriv.resize(m_npars);
@@ -136,6 +137,7 @@ void FitSuiteGradientFunction::calculate_gradients(const double *pars)
     }
     // returning back old parameters
     m_fit_suite->getFitParameters()->setValues(pars);
+    runSimulation(pars);
 
 }
 

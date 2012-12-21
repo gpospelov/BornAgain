@@ -54,20 +54,6 @@ public:
     Type_t Type() const { return ROOT::Math::FitMethodFunction::kLeastSquare; }
     ROOT::Math::IMultiGenFunction * Clone() const { return new ROOTMinimizerElementFunction(m_fun_gradient, NDim(), NPoints()); }
 
-    //! evaluation of chi2
-    double DoEval(const double * pars) const
-    {
-        std::cout << "ROOTMinimizerFuncion::DoEval() -> 1.1 ndim:" <<NDim() <<" npoint:" << NPoints() << std::endl;
-        double chi2 = 0.0;
-        for(size_t i_data=0; i_data<NPoints(); ++i_data) {
-            double  res = DataElement(pars, i_data);
-            chi2 += res*res;
-        }
-        std::cout << "ROOTMinimizerFuncion::DoEval() -> 1.2  chi:" <<chi2 << " ndim:" << NDim() << " np:" << NPoints() << std::endl;
-        return chi2/double(NPoints());
-        //return chi2;
-    }
-
     //! evaluation of single data element residual
     double DataElement(const double *pars, unsigned int i_data, double *gradient = 0) const
     {
@@ -75,6 +61,21 @@ public:
     }
 
 private:
+    //! evaluation of chi2
+    double DoEval(const double * pars) const
+    {
+        //std::cout << "ROOTMinimizerFuncion::DoEval() -> 1.1 ndim:" <<NDim() <<" npoint:" << NPoints() << std::endl;
+        double chi2 = 0.0;
+        for(size_t i_data=0; i_data<NPoints(); ++i_data) {
+            double  res = DataElement(pars, i_data);
+            chi2 += res*res;
+        }
+        //std::cout << "ROOTMinimizerFuncion::DoEval() -> 1.2  chi:" <<chi2 << " ndim:" << NDim() << " np:" << NPoints() << std::endl;
+        return chi2/double(NPoints());
+        //return chi2;
+    }
+
+
     IMinimizer::function_gradient_t m_fun_gradient;
 };
 

@@ -27,7 +27,7 @@ ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::strin
 
     if( m_minimizer_name == "GSLMultiFit") {
         // hacked version of ROOT's GSL Levenberg-Marquardt minimizer
-        m_root_minimizer = new ROOT::Patch::GSLNLSMinimizer();
+        m_root_minimizer = new ROOT::Patch::GSLNLSMinimizer(2);
     } else {
         m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
     }

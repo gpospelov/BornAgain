@@ -89,12 +89,11 @@ public:
     virtual inline double calculateSquaredDifference(double real_value, double simulated_value) const
     {
         double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-        double sigma_squared = std::fabs(real_value) + (m_epsilon*real_value)*(m_epsilon*real_value);
-        sigma_squared = std::max(sigma_squared, 1.0);
-        return diff_squared/sigma_squared;
+        return diff_squared/calculateSquaredError(real_value);
     }
-    virtual inline double calculateSquaredError(double real_value, double /* simulated_value */) const
+    virtual inline double calculateSquaredError(double real_value, double simulated_value  = 0.0) const
     {
+        (void)simulated_value;
         return std::max(std::fabs(real_value) + (m_epsilon*real_value)*(m_epsilon*real_value),1.0);
     }
 

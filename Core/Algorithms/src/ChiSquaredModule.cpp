@@ -64,7 +64,8 @@ double ChiSquaredModule::getResidualValue(size_t index ) const
     double squared_error = getSquaredFunction()->calculateSquaredError(value_real, value_simu);
     assert(squared_error);
     assert(weight);
-    double residual = std::sqrt(weight)*(value_real - value_simu)/std::sqrt(squared_error);
+    //double residual = std::sqrt(weight)*(value_real - value_simu)/std::sqrt(squared_error);
+    double residual = std::sqrt(weight)*(value_simu - value_real)/std::sqrt(squared_error);
     return residual;
 }
 

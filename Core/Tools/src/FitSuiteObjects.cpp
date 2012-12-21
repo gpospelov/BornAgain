@@ -53,6 +53,21 @@ size_t FitSuiteObjects::getSizeOfDataSet() const
     return result;
 }
 
+const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(size_t global_index, size_t &local_index)
+{
+    local_index = global_index;
+    for(FitObjects_t::const_iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+        if(local_index < (*it)->getSizeOfData() ) {
+            return (*it);
+        } else if(local_index >= (*it)->getSizeOfData() ) {
+            local_index -= (*it)->getSizeOfData();
+        }
+    }
+    std::ostringstream ostr;
+    ostr << "FitSuiteObjects::getObjectForGlobalDataIndex() -> Error! Can't find fit object for given global data index " << global_index;
+    throw LogicErrorException(ostr.str());
+}
+
 
 /* ************************************************************************* */
 // get sum of chi squared values for all fit objects
@@ -68,29 +83,15 @@ double FitSuiteObjects::getChiSquaredValue(int n_free_fit_parameters)
         chi->setNdegreeOfFreedom( (int)(m_fit_objects.size() * (*it)->getRealData()->getAllocatedSize() - n_free_fit_parameters) );
         // normalizing datasets to the maximum intensity over all fit objects defined
         OutputDataNormalizerScaleAndShift *data_normalizer =  dynamic_cast<OutputDataNormalizerScaleAndShift *>(chi->getOutputDataNormalizer());
-        if( data_normalizer) data_normalizer->setMaximumIntensity( max_intensity );
+        if( data_normalizer) {
+            data_normalizer->setMaximumIntensity( max_intensity );
+        }
 
         double weight = (*it)->getWeight()/m_total_weight;
         double chi_squared = (weight*weight) * (*it)->calculateChiSquared();
         chi_sum += chi_squared;
-//        std::cout << " chi " << chi_squared << " chi_sum:" << chi_sum << std::endl;
     }
     return chi_sum;
-}
-
-
-const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(size_t global_index, size_t &local_index)
-{
-    local_index = global_index;
-    for(FitObjects_t::const_iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        if(local_index < (*it)->getSizeOfData() ) {
-            //std::cout << "FitSuiteObjects::getObjectForGlobalDataIndex() -> Found index " << global_index << " " << local_index << std::endl;
-            return (*it);
-        } else if(local_index == (*it)->getSizeOfData() ) {
-            local_index -= (*it)->getSizeOfData();
-        }
-    }
-    throw LogicErrorException("FitSuiteObjects::getObjectForGlobalDataIndex() -> Error! Can't find fit object for given data index");
 }
 
 

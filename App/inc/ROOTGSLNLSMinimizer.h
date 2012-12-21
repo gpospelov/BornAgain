@@ -378,24 +378,26 @@ public:
    }
 
    void FdF (const double * x, double & f, double * g) const {
-       std::cout << "LSResidual::Fdf " << std::endl;
+//       std::cout << "LSResidual::Fdf " << std::endl;
 //      unsigned int n = NDim();
 //      std::copy(x,x+n,fX2.begin());
 //      const double kEps = 1.0E-4;
-      f = DoEval(x);
+//      f = DoEval(x);
 //      for (unsigned int i = 0; i < n; ++i) {
 //         fX2[i] += kEps;
 //         g[i] =  ( DoEval(&fX2.front()) - f )/kEps;
 //         fX2[i] = x[i];
 //      }
-       fChi2->DataElement(x, fIndex, g);
+//      std::cout << "XXXX LSResiduals " << g << std::endl;
+      f = DoEval(x);
+      fChi2->DataElement(x, fIndex, g);
    }
 
 
 private:
 
    double DoEval (const double * x) const {
-       std::cout << "LSResidual::DoEval " << std::endl;
+      //std::cout << "LSResidual::DoEval " << std::endl;
       return fChi2->DataElement(x, fIndex);
    }
 

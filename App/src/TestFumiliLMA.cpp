@@ -35,8 +35,9 @@ TestFumiliLMA::TestFumiliLMA()
     // "simulation"
     m_ndim = 3;
     m_func_object = new SincXSincYFunctionObject();
-    m_func = new TF2("sincxy", m_func_object, -50.,50., -50.,50., (int)m_ndim, "SincXSincYFunctionObject");
-    m_func->SetParameters(1.0, 1.0, 0.5); // parameters we have to find
+    //m_func = new TF2("sincxy", m_func_object, -50.,50., -50.,50., m_ndim, "SincXSincYFunctionObject");
+    m_func = new TF2("sincxy", m_func_object, -10.,10., -10.,10., 3, "SincXSincYFunctionObject");
+    m_func->SetParameters(1.0, -2.0, -2.5); // parameters we have to find
 
 
     // chi module
@@ -73,9 +74,9 @@ void TestFumiliLMA::execute()
     //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Fumili" ); // same as ("Fumili2")
     //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Fumili2"); // same as ("Minuit2", "Fumili" )
     //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Fumili2" ); // same as ("Minuit2", "Migrad" ), i.e. Fumili2 is wrong key
-    //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Fumili"); //
-    m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("GSLMultiFit");
-    m_root_minimizer->SetVariable(0, "p0", 2.0, 0.01);
+    m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("Fumili"); //
+    //m_root_minimizer = ROOT::Math::Factory::CreateMinimizer("GSLMultiFit");
+    m_root_minimizer->SetVariable(0, "p0", 1.0, 0.01);
     m_root_minimizer->SetVariable(1, "p1", 0.0, 0.01);
     m_root_minimizer->SetVariable(2, "p2", 0.0, 0.01);
 //    m_root_minimizer->SetVariable(0, "p0", 5.0, 0.01);
@@ -87,7 +88,7 @@ void TestFumiliLMA::execute()
     m_c1->Divide(2,2);
 
     m_c1->cd(1);
-    m_func->Draw("SURF");
+    m_func->DrawCopy("SURF");
 
     TH2D *h2_real = IsGISAXSTools::getOutputDataTH2D(*m_real_data, "real_data");
     m_c1->cd(2);
@@ -182,23 +183,31 @@ void TestFumiliLMA::FillOutputDataFromFunction(OutputData<double> &data, TF2 *fu
 
 double MyChi2Function::DataElement(const double *pars, unsigned int index, double *g ) const
 {
+    m_test->m_func->SetParameters(pars);
     std::cout << " DataElement() -> " << g << " " << index;
     for(int ipar=0; ipar<m_test->m_func->GetNpar(); ++ipar) std::cout << " p: (" << ipar << " " << pars[ipar] << ")";
-    std::cout << std::endl;
+    std::cout << "g:" << g << std::endl;
     const IAxis *xaxis = m_test->m_real_data->getAxis(0);
     const IAxis *yaxis = m_test->m_real_data->getAxis(1);
     size_t index_x = m_test->m_real_data->toCoordinates(index)[0];
     size_t index_y = m_test->m_real_data->toCoordinates(index)[1];
     double x = (*xaxis)[index_x];
     double y = (*yaxis)[index_y];
-    m_test->m_func->SetParameters(pars);
     double value = m_test->m_func->Eval(x,y);
+
+    if(index==0) {
+        m_test->m_c1->cd(3);
+        m_test->m_func->Draw("SURF");
+        m_test->m_c1->Update();
+    }
+
     double real_value = (*m_test->m_real_data)[index];
 //    std::cout << " DataElement " << i << " ix:" << index_x << " iy:" << index_y << " x:" << x << " y:" << y << " value:" << value << " real_val:" << real_value<< std::endl;
-    double weight = 1./(m_test->m_sigma * m_test->m_sigma);
+    double weight = 1./( m_test->m_sigma);
+    //double weight = 1./(m_test->m_sigma * m_test->m_sigma);
     double residual = weight * ( real_value - value ) ;
     if (g != 0)    {
-//        std::cout << " gradient ! " << std::endl;
+        std::cout << " gradient ! " << std::endl;
         m_test->m_func->SetParameters(pars);
         double xx[2];
         xx[0] = x;
@@ -206,7 +215,8 @@ double MyChi2Function::DataElement(const double *pars, unsigned int index, doubl
         m_test->m_func->GradientPar( xx, g,1.E-9);
         // need to mutiply by -1*weight
         for (int ipar = 0; ipar < m_test->m_func->GetNpar(); ++ipar) {
-           g[ipar] *= -1 * weight;
+            //g[ipar] *= -1 * weight;
+            g[ipar] *= -1.0;
         }
     }
     return residual;

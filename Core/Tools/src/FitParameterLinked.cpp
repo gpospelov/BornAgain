@@ -8,7 +8,7 @@ FitParameterLinked::FitParameterLinked()
 }
 
 
-FitParameterLinked::FitParameterLinked(const std::string &name, double value, double step, const AttLimits &attlim) : FitParameter(name, value, step, attlim)
+FitParameterLinked::FitParameterLinked(const std::string &name, double value, double step, const AttLimits &attlim, double error) : FitParameter(name, value, step, attlim, error)
 {
 
 }

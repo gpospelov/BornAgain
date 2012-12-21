@@ -60,6 +60,9 @@ public:
     //! return weight of data set in chi2 calculations
     double getWeight() const { return m_weight; }
 
+    //! return size of data
+    size_t getSizeOfData() const { return m_real_data->getAllocatedSize(); }
+
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();

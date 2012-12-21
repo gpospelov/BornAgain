@@ -16,6 +16,7 @@
 
 
 #include "FitParameter.h"
+#include "FitSuiteParameters.h"
 #include <boost/function.hpp>
 #include <map>
 #include "Exceptions.h"
@@ -29,20 +30,19 @@ class IMinimizer
 {
 public:
     //! signature of function to minimize
-    typedef boost::function<double(const double *)> function_t;
-    //! signature of function to minimize with acess to single element residual
-    typedef boost::function<double(const double *, unsigned int, double *)> element_function_t;
+    typedef boost::function<double(const double *)> function_chi2_t;
+    //! signature of function to minimize with acess to single element residual and gradient
+    typedef boost::function<double(const double *, unsigned int, double *)> function_gradient_t;
 
     IMinimizer(){}
     virtual ~IMinimizer(){}
 
-    //! set variable
-    virtual void setVariable(int index, const FitParameter *par) = 0;
+    //! set parameter
+    virtual void setParameter(size_t index, const FitParameter *par) = 0;
+    virtual void setParameters(const FitSuiteParameters &parameters) = 0;
 
     //! set function to minimize
-//    virtual void setFunction(function_t fcn, int ndims) = 0;
-//    virtual void setElementFunction(element_function_t fcn, int ndims, int nelements) = 0;
-    virtual void setFunction(function_t fcn, int ndims, element_function_t element_fcn = element_function_t(), int nelements = 0) = 0;
+    virtual void setFunction(function_chi2_t fun_chi2, size_t nparameters, function_gradient_t fun_gradient = function_gradient_t(), size_t ndatasize = 0) = 0;
 
     //! run minimization
     virtual void minimize() = 0;
@@ -80,13 +80,11 @@ public:
     virtual ~TestMinimizer(){}
 
     //! set variable
-    virtual void setVariable(int index, const FitParameter *par) { m_values[index] = par->getValue(); }
+    virtual void setParameter(size_t index, const FitParameter *par) { m_values[index] = par->getValue(); }
+    virtual void setParameters(const FitSuiteParameters  &/*parameters */) { throw NotImplementedException("TestMinimizer::setParameters() -> Error! Not implemented."); }
 
     //! set function to minimize
-    //virtual void setFunction(function_t fcn, int ndims) { m_fcn = fcn; (void)ndims; }
-    virtual void setFunction(function_t fcn, int /* ndims */, element_function_t /* element_fcn */, int /* nelements */ ) { m_fcn = fcn; }
-
-//    virtual void setElementFunction(element_function_t /* fcn */, int /* ndims */, int /* nelements */) { throw NotImplementedException("TestMinimizer::setGradientFunction"); }
+    virtual void setFunction(function_chi2_t fun_chi2, size_t /* nparameters */, function_gradient_t /* fun_gradient */, size_t /* ndatasize */ ) { m_fcn = fun_chi2; }
 
     //! run minimization
     virtual void minimize()
@@ -129,7 +127,7 @@ public:
 
 private:
     std::map<int, double > m_values;
-    function_t m_fcn;
+    function_chi2_t m_fcn;
 };
 
 

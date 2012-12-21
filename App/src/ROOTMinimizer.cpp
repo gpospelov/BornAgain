@@ -1,11 +1,12 @@
 #include "ROOTMinimizer.h"
 #include "Exceptions.h"
+#include "FitSuiteParameters.h"
 #include "Utils.h"
 #include "ROOTMinimizerFunction.h"
 #include <iomanip>
 #include <sstream>
 #include <boost/assign/list_of.hpp>
-
+#include "ROOTGSLNLSMinimizer.h"
 
 
 /* ************************************************************************* */
@@ -20,11 +21,23 @@ ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::strin
 
     if( !isValidNames(m_minimizer_name, m_algo_type) ) throw LogicErrorException("ROOTMinimizer::ROOTMinimizer() -> Error! Wrong minimizer initialization parameters.");
 
-    m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
+    // see http://root.cern.ch/phpBB3/viewtopic.php?f=15&t=14230&p=61216&hilit=minimizer+precision#p61216
+    // see http://root.cern.ch/phpBB3/viewtopic.php?f=3&t=9181&hilit=precision+tolerance
+    //ROOT::Math::MinimizerOptions::SetDefaultTolerance(0.1);
+
+    if( m_minimizer_name == "GSLMultiFit") {
+        // hacked version of ROOT's GSL Levenberg-Marquardt minimizer
+        m_root_minimizer = new ROOT::Patch::GSLNLSMinimizer(2);
+    } else {
+        m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
+    }
     if( !m_root_minimizer  ) throw NullPointerException("ROOTMinimizer::ROOTMinimizer() -> Error! Can't create minimizer.");
 
     m_root_minimizer->SetMaxFunctionCalls(20000);
     m_root_minimizer->SetMaxIterations(20000);
+//    m_root_minimizer->SetPrintLevel(4);
+//    m_root_minimizer->SetTolerance(0.01);
+//    m_root_minimizer->SetPrecision(1e-6);
 }
 
 
@@ -45,20 +58,18 @@ bool ROOTMinimizer::isValidNames(const std::string &minimizer_name, const std::s
     typedef std::map<std::string, std::vector<std::string > > algotypes_t;
     algotypes_t algoTypes;
     algoTypes["Minuit"]      = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan");
-    algoTypes["Minuit2"]     = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan")("fumili");
+    algoTypes["Minuit2"]     = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan")("Fumili");
     algoTypes["Fumili"]      = boost::assign::list_of("");
     algoTypes["GSLMultiMin"] = boost::assign::list_of("ConjugateFR")("ConjugatePR")("BFGS")("BFGS2")("SteepestDescent");
     algoTypes["GSLMultiFit"] = boost::assign::list_of("");
     algoTypes["GSLSimAn"]    = boost::assign::list_of("");
     algoTypes["Genetic"]     = boost::assign::list_of("");
 
-    // check if given minimizer names are valid
+    // check minimizers names
     algotypes_t::iterator it = algoTypes.find(minimizer_name);
     if(it != algoTypes.end() ) {
-        // if algo type exists
-        for(size_t i=0; i<it->second.size(); ++i ) {
-            if(it->second[i] == algo_type ) return true;
-        }
+        // check minimizer's algorithm type
+        for(size_t i=0; i<it->second.size(); ++i ) if(it->second[i] == algo_type ) return true;
     }
 
     // if not, print complaining and return false
@@ -77,9 +88,33 @@ bool ROOTMinimizer::isValidNames(const std::string &minimizer_name, const std::s
 }
 
 
+/* ************************************************************************* */
+// check if type of algorithm is Levenberg-Marquardt or similar
+// (that means that it requires manual gradient calculations)
+/* ************************************************************************* */
+bool ROOTMinimizer::isGradientBasedAgorithm()
+{
+    if (m_algo_type == "Fumili" || m_minimizer_name == "Fumili" || m_minimizer_name == "GSLMultiFit" ) return true;
+    return false;
+}
 
 
-void ROOTMinimizer::setVariable(int index, const FitParameter *par)
+void ROOTMinimizer::setParameters(const FitSuiteParameters &parameters)
+{
+    size_t index(0);
+    for(FitSuiteParameters::const_iterator it=parameters.begin(); it!=parameters.end(); ++it) {
+        setParameter(index++, (*it) );
+    }
+    if( parameters.size() != getNumberOfVariables())  {
+        std::ostringstream ostr;
+        ostr << "ROOTMinimizer::setParameters() -> Error! Number of variables defined in minimizer (" << getNumberOfVariables() << ") ";
+        ostr << "doesn't coincide with number of FitSuite's parameters (" << parameters.size() << ")";
+        throw LogicErrorException(ostr.str());
+    }
+}
+
+
+void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
 {
     bool success;
     if( par->isFixed() ) {
@@ -114,22 +149,21 @@ void ROOTMinimizer::minimize()
 /* ************************************************************************* */
 // set fcn function for minimizer
 /* ************************************************************************* */
-void ROOTMinimizer::setFunction(function_t fcn, int ndims, element_function_t element_fcn, int nelements)
+// FIXME ROOTMinimizer::setFunction Implement Multiple inheretiance in ROOTMinimizerElementFunction ;)
+void ROOTMinimizer::setFunction(function_chi2_t fun_chi2, size_t nparameters, function_gradient_t fun_gradient, size_t ndatasize)
 {
-    if( fcn && element_fcn ) {
+    if( isGradientBasedAgorithm() ) {
         std::cout << " ROOTMinimizer::setFunction() -> XXX 1.1 making ROOTMinimizerElementFunction " << std::endl;
-        delete m_minfunc;
-        m_minfunc_element = new ROOTMinimizerElementFunction(fcn, ndims, element_fcn, nelements);
+        delete m_minfunc_element;
+        m_minfunc_element = new ROOTMinimizerElementFunction(fun_gradient, nparameters, ndatasize);
         m_root_minimizer->SetFunction(*m_minfunc_element);
-    } else if( fcn ) {
+
+    } else {
         std::cout << " ROOTMinimizer::setFunction() -> XXX 1.2 making ROOTMinimizerFunction" << std::endl;
         delete m_minfunc;
-        m_minfunc = new ROOTMinimizerFunction(fcn, ndims);
+        m_minfunc = new ROOTMinimizerFunction(fun_chi2, nparameters);
         m_root_minimizer->SetFunction(*m_minfunc);
-    } else {
-        throw LogicErrorException("ROOTMinimizer::minimize() -> Error! Can't guess minimization function type");
     }
-
 }
 
 
@@ -171,7 +205,7 @@ void ROOTMinimizer::printResults() const
     std::cout << std::setw(25) << std::left << "  IsValidError     "      << ": " << m_root_minimizer->IsValidError() << " '" << validErrorStatus[m_root_minimizer->Status()] << "'" <<std::endl;
     std::cout << std::setw(25) << std::left << "  NCalls"                 << ": " << m_root_minimizer->NCalls() << std::endl;
     if(m_minfunc_element) {
-        std::cout << std::setw(25) << std::left << "  NCallsElement "                 << ": " << m_minfunc_element->NCallsElement() << std::endl;
+        std::cout << std::setw(25) << std::left << "  NCallsElement "                 << ": " << m_minfunc_element->NCalls() << std::endl;
     }
     std::cout << std::setw(25) << std::left << "  MinValue"               << ": " << std::scientific << std::setprecision(8) << getMinValue() << std::endl;
     std::cout << std::setw(25) << std::left << "  Edm"                    << ": " << std::scientific << std::setprecision(8) << m_root_minimizer->Edm() << std::endl;

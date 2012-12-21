@@ -121,7 +121,8 @@ SOURCES += \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
-    Tools/src/Utils.cpp
+    Tools/src/Utils.cpp \
+    Tools/src/FitSuiteFunctions.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -272,7 +273,8 @@ HEADERS += \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
-    Tools/inc/CoreOptionsDescription.h
+    Tools/inc/CoreOptionsDescription.h \
+    Tools/inc/FitSuiteFunctions.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc

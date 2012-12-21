@@ -52,13 +52,21 @@ double ChiSquaredModule::calculateChiSquared()
 }
 
 
-// FIXME: ChiSquaredModule::getResidualValue() is implemented very quickly and very dirty (no weights, no protection against missed call to calculateChiSquared, against wrong index)
-double ChiSquaredModule::getResidualValue(int index ) const
+double ChiSquaredModule::getResidualValue(size_t index ) const
 {
+    assert(mp_real_data);
+    assert(mp_simulation_data);
+    assert(mp_weights);
+    assert(index < mp_real_data->getAllocatedSize() );
     double value_real = (*mp_real_data)[index];
     double value_simu  = (*mp_simulation_data)[index];
-    double squared_difference = mp_squared_function->calculateSquaredDifference(value_real, value_simu);
-    return (squared_difference > 0 ? std::sqrt(squared_difference) : 0.0);
+    double weight = (*mp_weights)[index];
+    double squared_error = getSquaredFunction()->calculateSquaredError(value_real, value_simu);
+    assert(squared_error);
+    assert(weight);
+    //double residual = std::sqrt(weight)*(value_real - value_simu)/std::sqrt(squared_error);
+    double residual = std::sqrt(weight)*(value_simu - value_real)/std::sqrt(squared_error);
+    return residual;
 }
 
 

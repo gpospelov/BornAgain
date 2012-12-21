@@ -33,7 +33,7 @@ public:
     typedef std::vector<ParameterPool::parameter_t > PoolParameterColl_t;
 
     FitParameterLinked();
-    FitParameterLinked(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless());
+    FitParameterLinked(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless(), double error=0.0);
     virtual ~FitParameterLinked(){}
 
     //! set given value for all binded parameters

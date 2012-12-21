@@ -22,6 +22,9 @@ FitObject::FitObject(const Experiment &experiment, const OutputData<double > &re
 
 FitObject::~FitObject()
 {
+    delete m_experiment;
+    delete m_real_data;
+    delete m_chi2_module;
 }
 
 

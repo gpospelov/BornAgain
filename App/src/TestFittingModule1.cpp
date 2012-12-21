@@ -54,13 +54,18 @@ void TestFittingModule1::execute()
     m_fitSuite = new FitSuite();
 
     // initializing data
-    initializeSample2();
+    initializeSample1();
     initializeExperiment();
     initializeRealData();
 
     m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data);
 
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit", "") );
+    m_fitSuite->setMinimizer( new ROOTMinimizer("Fumili", "") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") );
+
+
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Simplex") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Minimize") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
@@ -128,8 +133,10 @@ void TestFittingModule1::initializeSample1()
     if( !m_fitSuite ) {
         throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
     }
-    m_fitSuite->addFitParameter("*height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 }
 
 

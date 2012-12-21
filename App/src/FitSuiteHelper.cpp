@@ -110,6 +110,10 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     for(size_t i_fit_object=0; i_fit_object<fitSuite->getFitObjects()->size(); ++i_fit_object) {
         TCanvas *c1 = m_data_canvas[i_fit_object];
         const FitObject *fitObject = fitSuite->getFitObjects()->getObject(i_fit_object);
+        assert(fitObject);
+        assert(fitObject->getChiSquaredModule());
+        assert(fitObject->getChiSquaredModule()->getRealData());
+        assert(fitObject->getChiSquaredModule()->getSimulationData());
 
         // preparing data to draw
         const char *hname[]={ "RealData", "SimulatedData", "RelativeDifference","Chi2Map"};

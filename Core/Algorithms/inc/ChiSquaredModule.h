@@ -32,7 +32,7 @@ public:
     virtual OutputData<double > *createChi2DifferenceMap() const;
 
     //! return residual between data and simulation for single element
-    virtual double getResidualValue(int index ) const;
+    virtual double getResidualValue(size_t index ) const;
 
 private:
     // disabling assignment operator

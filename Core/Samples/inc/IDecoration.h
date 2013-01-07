@@ -15,11 +15,17 @@
 //! @date   Jun 22, 2012
 
 #include "ICompositeSample.h"
+#include "IInterferenceFunctionStrategy.h"
+#include "IFormFactor.h"
 
 class IDecoration : public ICompositeSample
 {
 public:
     virtual ~IDecoration() {}
+
+    virtual IDecoration *clone() const=0;
+    virtual IInterferenceFunctionStrategy *createStrategy(
+            const std::vector<IFormFactor *> &form_factors) const=0;
 };
 
 #endif /* IDECORATION_H_ */

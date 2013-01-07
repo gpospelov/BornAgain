@@ -49,7 +49,7 @@ public:
     double getDepth() const { return m_depth;}
 
     //! set particle depth
-    virtual void setDepth(double depth) { m_depth = depth; }
+    void setDepth(double depth) { m_depth = depth; }
 
     //! return particle abundance
     double getAbundance() const { return m_abundance; }

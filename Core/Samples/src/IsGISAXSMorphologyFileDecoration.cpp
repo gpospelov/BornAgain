@@ -1,4 +1,5 @@
 #include "IsGISAXSMorphologyFileDecoration.h"
+#include "IsGISAXSMorphologyFileStrategy.h"
 
 IsGISAXSMorphologyFileDecoration::IsGISAXSMorphologyFileDecoration()
 : m_total_abundance(0.0)
@@ -15,7 +16,15 @@ IsGISAXSMorphologyFileDecoration* IsGISAXSMorphologyFileDecoration::clone() cons
 {
     IsGISAXSMorphologyFileDecoration *p_clone = new IsGISAXSMorphologyFileDecoration();
     p_clone->setName(getName());
-    //TODO: add members
+    for (SafePointerVector<PositionParticleInfo>::const_iterator it = m_particles.begin();
+            it != m_particles.end(); ++it) {
+        p_clone->addParticleInfo(*(*it));
+    }
+    for (SafePointerVector<IInterferenceFunction>::const_iterator it = m_interference_functions.begin();
+            it != m_interference_functions.end(); ++it) {
+        p_clone->addInterferenceFunction(*(*it));
+    }
+    p_clone->setTotalParticleSurfaceDensity(m_total_particle_surface_density);
     return p_clone;
 }
 
@@ -86,4 +95,11 @@ const IInterferenceFunction* IsGISAXSMorphologyFileDecoration::getInterferenceFu
 IInterferenceFunctionStrategy* IsGISAXSMorphologyFileDecoration::createStrategy(
         const std::vector<IFormFactor*>& form_factors) const
 {
+    std::vector<double> fractions;
+    for (size_t i=0; i<m_particles.size(); ++i) {
+        fractions.push_back(m_particles[i]->getAbundance());
+    }
+    IsGISAXSMorphologyFileStrategy *p_strategy = new IsGISAXSMorphologyFileStrategy();
+    p_strategy->init(form_factors, fractions, m_interference_functions.getSTLVector());
+    return p_strategy;
 }

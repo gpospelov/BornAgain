@@ -16,7 +16,7 @@
 
 #include "IDecoration.h"
 #include "Particle.h"
-#include "ParticleInfo.h"
+#include "PositionParticleInfo.h"
 #include "IInterferenceFunction.h"
 #include "IInterferenceFunctionStrategy.h"
 #include "Transform3D.h"
@@ -87,6 +87,9 @@ private:
     //! adding interference function with simultaneous registration in parent class
     void addAndRegisterInterferenceFunction(IInterferenceFunction *child)
     {
+        if (m_interference_functions.size() > 0) {
+            throw ClassInitializationException("IsGISAXSMorphologyFileDecoration does not allow more than one interference function");
+        }
         m_interference_functions.push_back(child);
         registerChild(child);
     }
@@ -99,6 +102,5 @@ private:
     ///< To guarantee that fractions sum up to 1
     double m_total_particle_surface_density;
 };
-
 
 #endif /* ISGISAXSMORPHOLOGYFILEDECORATION_H_ */

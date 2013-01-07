@@ -37,13 +37,10 @@ public:
     const Particle *getParticle() const { return mp_particle; }
 
     //! return particle position
-    kvector_t getPosition() { return m_position; }
+    kvector_t getPosition() { return kvector_t(m_pos_x, m_pos_y, -m_depth); }
 
     //! set particle position
-    void setPosition(kvector_t position) { m_position = position; }
-
-    //! set particle depth
-    virtual void setDepth(double depth);
+    void setPosition(kvector_t position);
 
 protected:
     PositionParticleInfo &operator=(const PositionParticleInfo &right);
@@ -51,8 +48,8 @@ protected:
 
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
-
-    kvector_t m_position;
+    double m_pos_x;
+    double m_pos_y;
 };
 
 

@@ -32,6 +32,7 @@ SOURCES += \
     Algorithms/src/IChiSquaredModule.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
     Algorithms/src/IOutputDataNormalizer.cpp \
+    Algorithms/src/IsGISAXSMorphologyFileInterferenceFunction.cpp \
     Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
@@ -148,6 +149,7 @@ HEADERS += \
     Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
     Algorithms/inc/ISampleBuilder.h \
+    Algorithms/inc/IsGISAXSMorphologyFileInterferenceFunction.h \
     Algorithms/inc/IsGISAXSMorphologyFileStrategy.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/ISquaredFunction.h \

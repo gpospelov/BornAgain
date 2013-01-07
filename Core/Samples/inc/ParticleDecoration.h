@@ -63,7 +63,8 @@ public:
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;
 
     /// Create interference function strategy
-    IInterferenceFunctionStrategy *createStrategy(const std::vector<IFormFactor *> &form_factors) const;
+    virtual IInterferenceFunctionStrategy *createStrategy(
+            const std::vector<IFormFactor *> &form_factors) const;
 
     /// Get surface density of all particles
     double getTotalParticleSurfaceDensity() const { return m_total_particle_surface_density; }

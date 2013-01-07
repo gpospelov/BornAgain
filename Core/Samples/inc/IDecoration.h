@@ -20,8 +20,6 @@ class IDecoration : public ICompositeSample
 {
 public:
     virtual ~IDecoration() {}
-
-
 };
 
 #endif /* IDECORATION_H_ */

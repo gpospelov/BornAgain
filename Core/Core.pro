@@ -32,6 +32,7 @@ SOURCES += \
     Algorithms/src/IChiSquaredModule.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
     Algorithms/src/IOutputDataNormalizer.cpp \
+    Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
@@ -77,6 +78,7 @@ SOURCES += \
     Samples/src/InterferenceFunction2DParaCrystal.cpp \
     Samples/src/IRoughness.cpp \
     Samples/src/ISample.cpp \
+    Samples/src/IsGISAXSMorphologyFileDecoration.cpp \
     Samples/src/Lattice.cpp \
     Samples/src/LatticeBasis.cpp \
     Samples/src/Layer.cpp \
@@ -91,6 +93,7 @@ SOURCES += \
     Samples/src/ParticleCoreShell.cpp \
     Samples/src/ParticleDecoration.cpp \
     Samples/src/ParticleInfo.cpp \
+    Samples/src/PositionParticleInfo.cpp \
     \
     Tools/src/AxisBin.cpp \
     Tools/src/AxisDouble.cpp \
@@ -145,6 +148,7 @@ HEADERS += \
     Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
     Algorithms/inc/ISampleBuilder.h \
+    Algorithms/inc/IsGISAXSMorphologyFileStrategy.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/ISquaredFunction.h \
     Algorithms/inc/LayerDecoratorDWBASimulation.h \
@@ -210,6 +214,7 @@ HEADERS += \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \
     Samples/inc/ISelectionRule.h \
+    Samples/inc/IsGISAXSMorphologyFileDecoration.h \
     Samples/inc/Lattice.h \
     Samples/inc/LatticeBasis.h \
     Samples/inc/Layer.h \
@@ -224,6 +229,7 @@ HEADERS += \
     Samples/inc/ParticleCoreShell.h \
     Samples/inc/ParticleDecoration.h \
     Samples/inc/ParticleInfo.h \
+    Samples/inc/PositionParticleInfo.h \
     \
     Tools/inc/AxisBin.h \
     Tools/inc/AxisDouble.h \

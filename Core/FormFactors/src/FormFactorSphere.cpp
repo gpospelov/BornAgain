@@ -1,9 +1,8 @@
-
 #include "FormFactorSphere.h"
-#include "StochasticDiracDelta.h"
-#include "Numeric.h"
+//#include "StochasticDiracDelta.h"
+//#include "Numeric.h"
 #include "MathFunctions.h"
-#include <cmath>
+//#include <cmath>
 
 FormFactorSphere::FormFactorSphere(double radius, double height)
 {

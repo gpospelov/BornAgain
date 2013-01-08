@@ -40,10 +40,10 @@ void ParameterPool::clear()
 // Registering parameter with given name. Name should be different for each
 // register.
 /* ************************************************************************* */
-bool ParameterPool::registerParameter(const std::string &name, double *parameter_address)
+void ParameterPool::registerParameter(const std::string &name, double *parameter_address)
 {
     parameter_t par(parameter_address);
-    return addParameter(name, par);
+    if( !addParameter(name, par) ) throw RuntimeErrorException("ParameterPool::registerParameter() -> Error! Can't register parameter");
 }
 
 bool ParameterPool::addParameter(const std::string &name, parameter_t par)

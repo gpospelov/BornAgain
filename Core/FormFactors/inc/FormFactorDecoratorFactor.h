@@ -30,6 +30,10 @@ public:
 
 protected:
     complex_t m_factor;
+
+private:
+    FormFactorDecoratorFactor(const FormFactorDecoratorFactor &);
+    FormFactorDecoratorFactor &operator=(const FormFactorDecoratorFactor &);
 };
 
 inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(

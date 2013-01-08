@@ -16,7 +16,7 @@
 
 #include "IFormFactorBorn.h"
 #include "Crystal.h"
-#include "Types.h"
+//#include "Types.h"
 
 //- -------------------------------------------------------------------
 //! @class FormFactorCrystal
@@ -26,7 +26,7 @@ class FormFactorCrystal : public IFormFactorBorn
 {
 public:
     FormFactorCrystal(const Crystal *p_crystal,
-            const IFormFactor &meso_crystal_form_factor, complex_t ambient_refractive_index);
+            const IFormFactor &meso_crystal_form_factor, const complex_t &ambient_refractive_index);
     virtual ~FormFactorCrystal();
 
     virtual FormFactorCrystal *clone() const;
@@ -37,11 +37,14 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-protected:
     virtual double getVolume() const;
 
 private:
+    FormFactorCrystal(const FormFactorCrystal &);
+    FormFactorCrystal &operator=(const FormFactorCrystal &);
+
     void calculateLargestReciprocalDistance();
+
     Lattice m_lattice;
     Particle *mp_particle;
     IFormFactor *mp_basis_form_factor;

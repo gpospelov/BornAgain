@@ -14,10 +14,10 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
-#include "Types.h"
+//#include "Types.h"
 #include "ISample.h"
 #include "MemberFunctionIntegrator.h"
-#include "MathFunctions.h"
+//#include "MathFunctions.h"
 #include "Bin.h"
 
 

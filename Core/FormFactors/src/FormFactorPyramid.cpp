@@ -1,10 +1,10 @@
 #include "FormFactorPyramid.h"
 #include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
-#include "Numeric.h"
-#include "Units.h"
-#include "Exceptions.h"
-#include <iostream>
+//#include "Numeric.h"
+//#include "Units.h"
+//#include "Exceptions.h"
+//#include <iostream>
 
 
 FormFactorPyramid::FormFactorPyramid(double height, double half_side, double alpha)

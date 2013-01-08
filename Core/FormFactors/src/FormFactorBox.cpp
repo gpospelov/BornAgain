@@ -38,7 +38,7 @@ void FormFactorBox::init_parameters()
 
 }
 
-void FormFactorBox::print(std::ostream& ostr) const
-{
-    ISample::print(ostr);
-}
+//void FormFactorBox::print(std::ostream& ostr) const
+//{
+//    ISample::print(ostr);
+//}

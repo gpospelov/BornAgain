@@ -29,15 +29,14 @@ public:
     INamed(const std::string &name, const std::string &title) : m_name(name), m_title(title) { }
     virtual ~INamed(){}
 
-    virtual void setName(std::string name) { m_name = name; }
-    virtual std::string getName() const { return m_name; }
+    void setName(std::string name) { m_name = name; }
+    std::string getName() const { return m_name; }
 
-    virtual std::string getTitle() const { return m_title; }
-    virtual void setTitle(std::string title) { m_title = title; }
+    std::string getTitle() const { return m_title; }
+    void setTitle(std::string title) { m_title = title; }
 
 protected:
     std::string m_name;
-
     std::string m_title;
 };
 

@@ -53,7 +53,7 @@ public:
     size_t size() const { return m_map.size(); }
 
     //! main method to register data address in the pool
-    bool registerParameter(const std::string &name, double *parpointer);
+    void registerParameter(const std::string &name, double *parpointer);
 
     //! add parameter to the pool
     bool addParameter(const std::string &name, parameter_t par);

@@ -1,4 +1,5 @@
 #include "IFormFactorBorn.h"
+#include "MathFunctions.h"
 
 IFormFactorBorn::IFormFactorBorn()
 {

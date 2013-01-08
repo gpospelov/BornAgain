@@ -31,10 +31,6 @@ public:
     virtual int getNumberOfStochasticParameters() const;
 
 protected:
-    double m_h_dw_factor; //!< the Debye-Waller factor in the z-direction
-    double m_r_dw_factor; //!< the Debye-Waller factor in the radial direction
-
-private:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters() {
         getParameterPool()->clear();
@@ -42,6 +38,12 @@ private:
         getParameterPool()->registerParameter("rfactor", &m_r_dw_factor);
     }
 
+private:
+    FormFactorDecoratorDebyeWaller(const FormFactorDecoratorDebyeWaller &);
+    FormFactorDecoratorDebyeWaller &operator=(const FormFactorDecoratorDebyeWaller &);
+
+    double m_h_dw_factor; //!< the Debye-Waller factor in the z-direction
+    double m_r_dw_factor; //!< the Debye-Waller factor in the radial direction
 };
 
 inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
@@ -58,7 +60,8 @@ inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
         IFormFactor* p_form_factor, double dw_h_factor, double dw_r_factor)
 : IFormFactorDecorator(p_form_factor)
 , m_h_dw_factor(dw_h_factor)
-, m_r_dw_factor(dw_r_factor){
+, m_r_dw_factor(dw_r_factor)
+{
     setName("FormFactorDecoratorDebyeWaller");
     init_parameters();
 }
@@ -67,7 +70,8 @@ inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
         const IFormFactor &p_form_factor, double dw_h_factor, double dw_r_factor)
 : IFormFactorDecorator(p_form_factor.clone())
 , m_h_dw_factor(dw_h_factor)
-, m_r_dw_factor(dw_r_factor){
+, m_r_dw_factor(dw_r_factor)
+{
     setName("FormFactorDecoratorDebyeWaller");
     init_parameters();
 }

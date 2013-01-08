@@ -11,7 +11,7 @@
 
 int main(int argc, char **argv)
 {
-    std::cout << "Hello Brave New World!" << std::endl;
+    std::cout << "Hello Brave New World! It's me." << std::endl;
     ProgramOptions command_line_options;
     AddApplicationOptions(&command_line_options);
     AddCoreOptions(&command_line_options);

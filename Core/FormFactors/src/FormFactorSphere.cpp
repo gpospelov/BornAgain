@@ -104,16 +104,6 @@ complex_t FormFactorSphere::evaluate_for_q(const cvector_t &q) const
 }
 
 
-/* ************************************************************************* */
-// print class
-/* ************************************************************************* */
-void FormFactorSphere::print(std::ostream &ostr) const
-{
-    ISample::print(ostr);
-//    ostr << " " << "(radius:"<<m_radius << ")";
-}
-
-
 //for (zk=0;zk<=2;zk+0.01) {
 //
 //    k[zk]=zk

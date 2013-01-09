@@ -31,7 +31,7 @@ class IntensityFunctionLog : public IIntensityFunction
 public:
     virtual ~IntensityFunctionLog() {}
     virtual IntensityFunctionLog *clone() const { return new IntensityFunctionLog(); }
-    virtual inline double evaluate(double value) const { return (value > 0 ? std::log(value) : 0); }
+    virtual double evaluate(double value) const { return (value > 0 ? std::log(value) : 0); }
 };
 
 

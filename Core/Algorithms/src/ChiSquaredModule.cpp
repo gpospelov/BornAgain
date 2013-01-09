@@ -54,9 +54,9 @@ double ChiSquaredModule::calculateChiSquared()
 
 double ChiSquaredModule::getResidualValue(size_t index ) const
 {
-    assert(mp_real_data);
-    assert(mp_simulation_data);
-    assert(mp_weights);
+    assert(mp_real_data != NULL );
+    assert(mp_simulation_data != NULL);
+    assert(mp_weights != NULL);
     assert(index < mp_real_data->getAllocatedSize() );
     double value_real = (*mp_real_data)[index];
     double value_simu  = (*mp_simulation_data)[index];

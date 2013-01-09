@@ -37,13 +37,13 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-private:
-
+protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    //! print class
-    void print(std::ostream &ostr) const;
+private:
+    FormFactorParallelepiped(const FormFactorParallelepiped &);
+    FormFactorParallelepiped &operator=(const FormFactorParallelepiped &);
 
     double m_height;
     double m_radius;

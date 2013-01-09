@@ -21,7 +21,7 @@
 #include "OutputDataIterator.h"
 #include "SafePointerVector.h"
 
-#include <string>
+//#include <string>
 #include <sstream>
 
 //- -------------------------------------------------------------------

@@ -2,7 +2,7 @@
 #include "LayerDecorator.h"
 #include "FormFactorDWBAConstZ.h"
 #include "FormFactorDecoratorFactor.h"
-#include "Transform3D.h"
+//#include "Transform3D.h"
 #include "FormFactorDecoratorTransformation.h"
 #include "ExperimentConstants.h"
 
@@ -79,7 +79,7 @@ std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors()
     return result;
 }
 
-void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunctionStrategy *p_strategy)
+void LayerDecoratorDWBASimulation::calculateCoherentIntensity(const IInterferenceFunctionStrategy *p_strategy)
 {
     //std::cout << "Calculating coherent scattering..." << std::endl;
     double wavelength = getWaveLength();

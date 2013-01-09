@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include "OpticalFresnel.h"
+//#include "MultiLayer.h"
 #include "Numeric.h"
 
 
@@ -10,7 +11,7 @@ OpticalFresnel::OpticalFresnel() : m_use_roughness(false)
 }
 
 
-int OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, MultiLayerCoeff_t &coeff)
+void OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, MultiLayerCoeff_t &coeff)
 {
     coeff.clear();
     coeff.resize(sample.getNumberOfLayers());
@@ -35,7 +36,6 @@ int OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, Mul
 
     calculateRT2(sample, coeff);
 
-    return 0;
 }
 
 void OpticalFresnel::calculateKZ(const MultiLayer &sample, const kvector_t &kvec, MultiLayerCoeff_t &coeff)

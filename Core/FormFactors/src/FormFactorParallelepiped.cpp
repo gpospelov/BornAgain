@@ -34,8 +34,3 @@ void FormFactorParallelepiped::init_parameters()
     getParameterPool()->registerParameter("height", &m_height);
     getParameterPool()->registerParameter("radius", &m_radius);
 }
-
-void FormFactorParallelepiped::print(std::ostream& ostr) const
-{
-    ISample::print(ostr);
-}

@@ -1,7 +1,6 @@
 #include "Detector.h"
 #include "AxisBin.h"
 #include "AxisDouble.h"
-#include "Exceptions.h"
 
 
 /* ************************************************************************* */

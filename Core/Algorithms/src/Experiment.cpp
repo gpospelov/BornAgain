@@ -1,7 +1,5 @@
 #include "Experiment.h"
 
-#include <typeinfo>
-
 Experiment::Experiment()
 : mp_sample(0)
 , mp_sample_builder(0)

@@ -24,7 +24,7 @@ class GISASExperiment : public Experiment
 {
 public:
     GISASExperiment();
-    GISASExperiment(ProgramOptions *p_options);
+    GISASExperiment(const ProgramOptions *p_options);
 
     virtual ~GISASExperiment() {}
 
@@ -61,8 +61,8 @@ private:
 
 	double getSolidAngle(size_t index) const;
 	double deltaAlpha(double alpha, double zeta) const;
-	double deltaPhi(double alpha, double phi, double zeta);
-	void createZetaAndProbVectors(std::vector<double> &zetas, std::vector<double> &probs, size_t nbr_zetas, double zeta_sigma);
+    double deltaPhi(double alpha, double phi, double zeta) const;
+    void createZetaAndProbVectors(std::vector<double> &zetas, std::vector<double> &probs, size_t nbr_zetas, double zeta_sigma) const;
 	void addToIntensityMap(double alpha, double phi, double value);
 };
 

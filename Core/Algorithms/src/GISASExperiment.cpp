@@ -22,7 +22,7 @@ GISASExperiment::GISASExperiment()
             100, 0.0*Units::degree, 2.0*Units::degree);
 }
 
-GISASExperiment::GISASExperiment(ProgramOptions *p_options)
+GISASExperiment::GISASExperiment(const ProgramOptions *p_options)
 : Experiment(p_options)
 {
     setName("GISASExperiment");
@@ -70,7 +70,7 @@ void GISASExperiment::runSimulation()
     } else {
         // if n_threads=0, take optimal number of threads from the hardware
         if(n_threads_total == 0 )  {
-            n_threads_total = boost::thread::hardware_concurrency();
+            n_threads_total = (int)boost::thread::hardware_concurrency();
             std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads " << n_threads_total << " (taken from hardware concurrency)" << std::endl;
         }else {
             std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads " << n_threads_total << " (hardware concurrency: " << boost::thread::hardware_concurrency() << " )"<< std::endl;
@@ -266,14 +266,14 @@ double GISASExperiment::deltaAlpha(double alpha, double zeta) const
     return std::sin(alpha)*(1.0/std::cos(zeta)-1.0);
 }
 
-double GISASExperiment::deltaPhi(double alpha, double phi, double zeta)
+double GISASExperiment::deltaPhi(double alpha, double phi, double zeta) const
 {
     double qy2 = std::sin(phi)*std::sin(phi) - std::sin(alpha)*std::sin(alpha)*std::tan(zeta)*std::tan(zeta);
     return std::sqrt(qy2) - std::sin(phi);
 }
 
 void GISASExperiment::createZetaAndProbVectors(std::vector<double>& zetas,
-        std::vector<double>& probs, size_t nbr_zetas, double zeta_sigma)
+        std::vector<double>& probs, size_t nbr_zetas, double zeta_sigma) const
 {
     double zeta_step;
     if (nbr_zetas<2) {
@@ -291,6 +291,7 @@ void GISASExperiment::createZetaAndProbVectors(std::vector<double>& zetas,
         probs.push_back(prob);
         prob_total += prob;
     }
+    assert(prob_total != 0);
     for (size_t i=0; i<nbr_zetas; ++i) {
         probs[i] /= prob_total;
     }

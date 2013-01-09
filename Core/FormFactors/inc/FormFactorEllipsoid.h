@@ -45,8 +45,8 @@ protected:
     virtual void init_parameters();
 
 private:
-    //! print class
-    void print(std::ostream &ostr) const;
+    FormFactorEllipsoid(const FormFactorEllipsoid &);
+    FormFactorEllipsoid &operator=(const FormFactorEllipsoid &);
 
     double m_radius;
     double m_width;

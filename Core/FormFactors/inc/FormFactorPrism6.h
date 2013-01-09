@@ -29,27 +29,19 @@ public:
 
     virtual double getHeight() const { return m_height; }
 
-
-protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    FormFactorPrism6(const FormFactorPrism6 &);
-    FormFactorPrism6 &operator=(const FormFactorPrism6 &);
-
+protected:    
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    //! print class
-    void print(std::ostream &ostr) const;
+private:
+    FormFactorPrism6(const FormFactorPrism6 &);
+    FormFactorPrism6 &operator=(const FormFactorPrism6 &);
 
     double m_height;
     double m_half_side;
-//    StochasticParameter<double> *mp_height;
-//    StochasticParameter<double> *mp_half_side;
-    // Cached value of square root of 3
-    double m_root3;
+    double m_root3; // Cached value of square root of 3
 };
 
 #endif // FORMFACTORPRISM6_H

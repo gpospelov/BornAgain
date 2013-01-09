@@ -30,19 +30,15 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
+protected:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
 private:
     //! copy constructor and assignment operator are hidden since there is a clone method
     FormFactorGauss(const FormFactorGauss &);
     FormFactorGauss &operator=(const FormFactorGauss &);
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters();
-
-    //! print class
-    void print(std::ostream &ostr) const;
-
-//    StochasticParameter<double> *mp_height;
-//    StochasticParameter<double> *mp_width;
     double m_height;
     double m_width;
 };

@@ -20,20 +20,11 @@ FormFactorLorentz::FormFactorLorentz(double height, double width)
     m_height = height;
     m_width = width;
     init_parameters();
-    //    mp_height = new StochasticDiracDelta<double>(height);
-    //    mp_width = new StochasticDiracDelta<double>(width);
 }
 
-//FormFactorLorentz::FormFactorLorentz(StochasticParameter<double> *p_height, StochasticParameter<double> *p_width)
-//    : mp_height(p_height)
-//    , mp_width(p_width)
-//{
-//}
 
 FormFactorLorentz::~FormFactorLorentz()
 {
-//    delete mp_height;
-//    delete mp_width;
 }
 
 
@@ -69,11 +60,3 @@ complex_t FormFactorLorentz::evaluate_for_q(const cvector_t &q) const
     return result;
 }
 
-/* ************************************************************************* */
-// print class
-/* ************************************************************************* */
-void FormFactorLorentz::print(std::ostream &ostr) const
-{
-    ISample::print(ostr);
-//    ostr << " (height:"<<m_height << " width:"<<m_width << ")";
-}

@@ -20,6 +20,7 @@
 #include "MultiLayer.h"
 
 
+//class MultiLayer;
 
 /* ************************************************************************* */
 // optical fresnel coefficients
@@ -65,7 +66,7 @@ public:
     typedef MultiLayerCoeff MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
 
     //! calculate fresnel coefficients for given multi layer and kvector
-    int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
+    void execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
 
 private:
     bool m_use_roughness;

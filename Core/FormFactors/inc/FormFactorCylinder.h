@@ -15,7 +15,7 @@
 //! @date   01.05.2012
 
 #include "IFormFactorBorn.h"
-#include "IStochasticParameter.h"
+//#include "IStochasticParameter.h"
 
 
 class FormFactorCylinder : public IFormFactorBorn

@@ -60,6 +60,9 @@ double ChiSquaredFrequency::calculateChiSquared()
 
 OutputData<double>* ChiSquaredFrequency::createChi2DifferenceMap() const
 {
+    assert(mp_simulation_ft != NULL);
+    assert(mp_real_ft != NULL);
+
     OutputData<double> *p_difference = mp_weights->clone();
 
     OutputData<double>::iterator it_diff = p_difference->begin();

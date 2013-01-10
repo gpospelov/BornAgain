@@ -1,10 +1,10 @@
 #include "FormFactorCrystal.h"
-#include "Units.h"
+//#include "Units.h"
 
 FormFactorCrystal::FormFactorCrystal(
         const Crystal* p_crystal,
         const IFormFactor& meso_crystal_form_factor,
-        complex_t ambient_refractive_index)
+        const complex_t &ambient_refractive_index)
 : m_lattice(p_crystal->getLattice())
 , m_ambient_refractive_index(ambient_refractive_index)
 , m_max_rec_length(0.0)
@@ -32,7 +32,7 @@ FormFactorCrystal* FormFactorCrystal::clone() const
 }
 
 void FormFactorCrystal::setAmbientRefractiveIndex(
-        complex_t refractive_index)
+        const complex_t &refractive_index)
 {
     mp_particle->setAmbientRefractiveIndex(refractive_index);
     mp_basis_form_factor->setAmbientRefractiveIndex(refractive_index);

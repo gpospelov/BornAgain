@@ -22,12 +22,6 @@ FormFactorGauss::FormFactorGauss(double height, double width)
     init_parameters();
 }
 
-//FormFactorGauss::FormFactorGauss(StochasticParameter<double> *p_height, StochasticParameter<double> *p_width)
-//    : mp_height(p_height)
-//    , mp_width(p_width)
-//{
-//}
-
 FormFactorGauss::~FormFactorGauss()
 {
 }
@@ -62,11 +56,3 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t &q) const
     return radial_part*z_part;
 }
 
-/* ************************************************************************* */
-// print class
-/* ************************************************************************* */
-void FormFactorGauss::print(std::ostream &ostr) const
-{
-    ISample::print(ostr);
-//    ostr << " (height:"<<m_height << " width:"<<m_width << ")";
-}

@@ -14,7 +14,7 @@
 #ifndef GEOMETRY_POINT3D_H
 #define GEOMETRY_POINT3D_H
 
-#include <iosfwd>
+//#include <iosfwd>
 //#include "CLHEP/Geometry/defs.h"
 //#include "CLHEP/Vector/ThreeVector.h"
 //#include "CLHEP/Geometry/BasicVector3D.h"

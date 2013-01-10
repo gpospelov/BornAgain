@@ -52,10 +52,10 @@ public:
     const bpo::variable_value& operator[] (const std::string &s) const;
 
     //! return true if option with given name has been set
-    bool find(std::string name){ return (m_variables_map.count(name.c_str()) ? true : false); }
+    bool find(std::string name) const { return (m_variables_map.count(name.c_str()) ? true : false); }
 
     //! return true if options are consistent (no conflicting options, no --help request, config file is parsed)
-    bool isConsistent() { return m_options_is_consistent; }
+    bool isConsistent() const { return m_options_is_consistent; }
 
     //! parsing command line arguments
     void parseCommandLine(int argc, char **argv);

@@ -33,8 +33,13 @@ public:
     virtual double getHeight() const { return p_ff_sphere->getHeight(); }
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
+
 private:
+    FormFactorSphereGaussianRadius(const FormFactorSphereGaussianRadius &);
+    FormFactorSphereGaussianRadius &operator=(const FormFactorSphereGaussianRadius &);
+
     double calculateMeanR3() const;
+
     double m_mean; //!< This is the mean radius
     double m_sigma;
     double m_mean_r3; //!< This is the radius that gives the mean volume
@@ -87,7 +92,7 @@ inline void FormFactorSphereGaussianRadius::createDistributedFormFactors(
 {
     double sigma_range = 2.0*m_sigma;
     double step = 2.0*sigma_range/(nbr_samples-1.0);
-    double radius_start = m_mean-step*(nbr_samples/2);
+    double radius_start = m_mean-step*(nbr_samples/2); // 2 and not 2. is on purpose
     double total_prob = 0.0;
     for (size_t i=0; i<nbr_samples; ++i) {
         double radius = radius_start + (double)i*step;
@@ -96,6 +101,7 @@ inline void FormFactorSphereGaussianRadius::createDistributedFormFactors(
         probabilities.push_back(probability);
         total_prob += probability;
     }
+    assert(total_prob);
     for (size_t i=0; i<probabilities.size(); ++i) {
         probabilities[i] /= total_prob;
     }

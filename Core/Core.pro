@@ -75,7 +75,6 @@ SOURCES += \
     Samples/src/IMaterial.cpp \
     Samples/src/InterferenceFunction1DParaCrystal.cpp \
     Samples/src/InterferenceFunction2DParaCrystal.cpp \
-    Samples/src/IRoughness.cpp \
     Samples/src/ISample.cpp \
     Samples/src/Lattice.cpp \
     Samples/src/LatticeBasis.cpp \
@@ -274,7 +273,8 @@ HEADERS += \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
     Tools/inc/CoreOptionsDescription.h \
-    Tools/inc/FitSuiteFunctions.h
+    Tools/inc/FitSuiteFunctions.h \
+    Tools/inc/ICloneable.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc

@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
-#include <complex>
+//#include <complex>
 #include <vector>
 #include "BasicVector3D.h"
 #include "Exceptions.h"
@@ -39,7 +39,7 @@ public:
     KVectorContainer(int buff_size = 3) : m_current_position(0), m_max_buff_size(buff_size)
     {
         m_buffer.reserve(m_max_buff_size);
-        for(size_t i=0; i<m_max_buff_size; ++i) m_buffer.push_back(kvector_t(0,0,0));
+        for(size_t i=0; i<m_max_buff_size; ++i) m_buffer.push_back(kvector_t(0.0, 0.0, 0.0));
     }
 
     inline void push_back(const kvector_t &k) {

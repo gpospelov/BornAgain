@@ -1,5 +1,6 @@
 #include "MultiLayerDWBASimulation.h"
 #include "OpticalFresnel.h"
+#include "MultiLayer.h"
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "DoubleToComplexMap.h"

@@ -1,5 +1,4 @@
 #include "IFittingDataSelector.h"
-#include "Exceptions.h"
 
 OutputData<double> *DefaultAllDataSelector::createWeightMap(const OutputData<double>& real_data,
         const OutputData<double>& simulated_data) const

@@ -33,28 +33,28 @@ public:
     //! return width of Box
     double getwidth() const { return m_width; }
 
+    virtual complex_t evaluate_for_q(const cvector_t &q) const;
+
     virtual double getVolume() const {
         return 4.0*m_height*m_radius*m_width;
     }
 
     virtual double getHeight() const { return m_height; }
 
-
 protected:
-    virtual complex_t evaluate_for_q(const cvector_t &q) const;
-
-private:
-
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    //! print class
-    void print(std::ostream &ostr) const;
+private:
+    FormFactorBox(const FormFactorBox &);
+    FormFactorBox &operator=(const FormFactorBox &);
+
+//    //! print class
+//    void print(std::ostream &ostr) const;
 
     double m_radius;
     double m_width;
     double m_height;
-
 };
 
 

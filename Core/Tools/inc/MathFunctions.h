@@ -50,9 +50,9 @@ double Si(double value);
 double Sinc(double value);
 
 //! Complex Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
-complex_t Sinc(complex_t value);
+complex_t Sinc(const complex_t &value);
 
-complex_t Laue(complex_t value, size_t N);
+complex_t Laue(const complex_t &value, size_t N);
 
 enum TransformCase { ForwardFFT, BackwardFFT };
 std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, TransformCase tcase);
@@ -104,7 +104,7 @@ inline double MathFunctions::Sinc(double value)  // Sin(x)/x
     return gsl_sf_sinc(value/M_PI);
 }
 
-inline complex_t MathFunctions::Sinc(complex_t value)  // Sin(x)/x
+inline complex_t MathFunctions::Sinc(const complex_t &value)  // Sin(x)/x
 {
 	if(std::abs(value)<Numeric::double_epsilon) {
 		return complex_t(1.0, 0.0);
@@ -112,7 +112,7 @@ inline complex_t MathFunctions::Sinc(complex_t value)  // Sin(x)/x
     return std::sin(value)/value;
 }
 
-inline complex_t MathFunctions::Laue(complex_t value, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
+inline complex_t MathFunctions::Laue(const complex_t &value, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
 {
     if (N==0) {
         return complex_t(1.0, 0.0);

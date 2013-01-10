@@ -33,7 +33,7 @@ const IMaterial *MaterialManager::getMaterial(const std::string &name)
 // identifier. If such material already exists, return it. If such material
 // already exist, but its propery are different from users order, throw exception
 /* ************************************************************************* */
-const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name, complex_t refractive_index)
+const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
 {
     const IMaterial *mat = getMaterial(name);
     if( mat ) {

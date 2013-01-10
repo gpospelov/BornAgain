@@ -43,7 +43,7 @@ private:
 
     void diffuse_crosscorr();
 
-    complex_t get_refractive_term(size_t ilayer);
+    complex_t get_refractive_term(size_t ilayer) const;
 
     complex_t get_sum4terms(size_t ilayer);
 

@@ -32,6 +32,9 @@ public:
 protected:
     Geometry::Transform3D *mp_transform;
     Geometry::Transform3D *mp_inverse_transform;
+private:
+    FormFactorDecoratorTransformation(const FormFactorDecoratorTransformation &);
+    FormFactorDecoratorTransformation &operator=(const FormFactorDecoratorTransformation &);
 };
 
 inline FormFactorDecoratorTransformation::FormFactorDecoratorTransformation(

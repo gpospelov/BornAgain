@@ -29,7 +29,6 @@ protected:
     double m_depth;
 
 private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
     FormFactorDWBAConstZ(const FormFactorDWBAConstZ &);
     FormFactorDWBAConstZ &operator=(const FormFactorDWBAConstZ &);
 
@@ -38,8 +37,6 @@ private:
         complex_t exponent = -complex_t(0.0,1.0)*q_z*m_depth; // Minus sign for depth (m_depth > 0)
         return std::exp(exponent);
     }
-
-
 
 };
 

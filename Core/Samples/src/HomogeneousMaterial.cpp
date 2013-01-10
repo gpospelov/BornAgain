@@ -7,14 +7,14 @@ HomogeneousMaterial::HomogeneousMaterial()
 }
 
 
-HomogeneousMaterial::HomogeneousMaterial(complex_t refractive_index)
+HomogeneousMaterial::HomogeneousMaterial(const complex_t &refractive_index)
     : IMaterial("noname"), m_refractive_index(refractive_index)
 {
 
 }
 
 
-HomogeneousMaterial::HomogeneousMaterial(const std::string &name, complex_t refractive_index)
+HomogeneousMaterial::HomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
     : IMaterial(name), m_refractive_index(refractive_index)
 {
 

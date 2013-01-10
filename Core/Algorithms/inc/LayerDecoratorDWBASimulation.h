@@ -43,7 +43,7 @@ private:
 
     IInterferenceFunctionStrategy *createAndInitStrategy() const;
     std::vector<IFormFactor *> createDWBAFormFactors() const;
-    void calculateCoherentIntensity(IInterferenceFunctionStrategy *p_strategy);
+    void calculateCoherentIntensity(const IInterferenceFunctionStrategy *p_strategy);
     void calculateInCoherentIntensity();
 
 };

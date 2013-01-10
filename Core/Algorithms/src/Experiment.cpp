@@ -1,22 +1,21 @@
 #include "Experiment.h"
 
-#include <typeinfo>
-
 Experiment::Experiment()
-: mp_sample(0)
-, mp_sample_builder(0)
-, m_is_normalized(false)
-, mp_options(0)
-{
-    setName("Experiment");
-    init_parameters();
-}
-
-Experiment::Experiment(const Experiment &other) : IParameterized(other)
+: IParameterized("Experiment")
 , mp_sample(0)
 , mp_sample_builder(0)
 , m_is_normalized(false)
 , mp_options(0)
+{
+    //setName("Experiment");
+    init_parameters();
+}
+
+Experiment::Experiment(const Experiment &other) : IParameterized(other)
+    , mp_sample(0)
+    , mp_sample_builder(0)
+    , m_is_normalized(false)
+    , mp_options(0)
 {
     if(other.mp_sample) mp_sample = other.mp_sample->clone();
     mp_sample_builder = other.mp_sample_builder; // sample builder owned by the user
@@ -31,32 +30,35 @@ Experiment::Experiment(const Experiment &other) : IParameterized(other)
 
 
 Experiment::Experiment(const ProgramOptions *p_options)
-: mp_sample(0)
+: IParameterized("Experiment")
+, mp_sample(0)
 , mp_sample_builder(0)
 , m_is_normalized(false)
 , mp_options(p_options)
 {
-    setName("Experiment");
+//    setName("Experiment");
     init_parameters();
 }
 
 Experiment::Experiment(const ISample &p_sample, const ProgramOptions *p_options)
-: mp_sample(p_sample.clone())
+: IParameterized("Experiment")
+, mp_sample(p_sample.clone())
 , mp_sample_builder(0)
 , m_is_normalized(false)
 , mp_options(p_options)
 {
-    setName("Experiment");
+//    setName("Experiment");
     init_parameters();
 }
 
 Experiment::Experiment(const ISampleBuilder* p_sample_builder, const ProgramOptions *p_options)
-: mp_sample(0)
+: IParameterized("Experiment")
+, mp_sample(0)
 , mp_sample_builder(p_sample_builder)
 , m_is_normalized(false)
 , mp_options(p_options)
 {
-    setName("Experiment");
+    //setName("Experiment");
     init_parameters();
 }
 
@@ -69,6 +71,20 @@ Experiment *Experiment::clone() const
     return new Experiment(*this);
 }
 
+//Experiment *Experiment::clone() const
+//{
+//    Experiment *result = new Experiment();
+//    if(this->mp_sample) result->mp_sample = this->mp_sample->clone();
+//    result->mp_sample_builder = this->mp_sample_builder; // sample builder owned by the user
+//    result->m_detector = this->m_detector;
+//    result->m_beam = this->m_beam;
+//    result->m_intensity_map.copyFrom(this->m_intensity_map);
+//    result->m_is_normalized = this->m_is_normalized;
+//    result->mp_options = this->mp_options; // program options are owned by the user
+//    result->init_parameters();
+//    return result;
+//}
+
 
 void Experiment::runSimulation()
 {
@@ -76,11 +92,11 @@ void Experiment::runSimulation()
     updateSample();
 }
 
+
 void Experiment::runSimulationElement(size_t /* index */)
 {
     throw NotImplementedException("Experiment::runSimulationElement() -> Error! Not implemented.");
 }
-
 
 
 void Experiment::normalize()
@@ -91,6 +107,7 @@ void Experiment::normalize()
         m_is_normalized = true;
     }
 }
+
 
 //! The ISample object will not be owned by the Experiment object
 void Experiment::setSample(const ISample &p_sample)

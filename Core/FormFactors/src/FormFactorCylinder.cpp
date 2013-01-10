@@ -58,11 +58,12 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t &q) const
 
     return radial_part*z_part;
 }
+
 /* ************************************************************************* */
 // print class
 /* ************************************************************************* */
-void FormFactorCylinder::print(std::ostream &ostr) const
-{
-    ISample::print(ostr);
-//    ostr << " (height:"<<m_height << " radius:"<<m_radius << ")";
-}
+//void FormFactorCylinder::print(std::ostream &ostr) const
+//{
+//    ISample::print(ostr);
+////    ostr << " (height:"<<m_height << " radius:"<<m_radius << ")";
+//}

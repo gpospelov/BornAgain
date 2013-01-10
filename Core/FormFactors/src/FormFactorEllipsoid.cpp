@@ -38,11 +38,7 @@ void FormFactorEllipsoid::init_parameters()
 {
     getParameterPool()->clear();
     getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter( "width",  &m_width);
+    getParameterPool()->registerParameter("width",  &m_width);
     getParameterPool()->registerParameter("height", &m_height);
-}
-void FormFactorEllipsoid::print(std::ostream& ostr) const
-{
-    ISample::print(ostr);
 }
 

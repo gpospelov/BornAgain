@@ -105,7 +105,7 @@ void FitSuite::minimize()
 /* ************************************************************************* */
 // run fit
 /* ************************************************************************* */
-bool FitSuite::check_prerequisites()
+bool FitSuite::check_prerequisites() const
 {
     if( !m_minimizer ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No minimizer found.");
     if( !m_fit_objects.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No experiment defined");

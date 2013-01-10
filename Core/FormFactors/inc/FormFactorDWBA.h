@@ -32,21 +32,21 @@ public:
         mp_RT = p_rt.clone();
     }
 
-
     virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 
 protected:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    FormFactorDWBA(const FormFactorDWBA &);
-    FormFactorDWBA &operator=(const FormFactorDWBA &);
-
     const complexpair_t &getRT(double alpha) const;
     void calculateTerms(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 
     IDoubleToPairOfComplexMap *mp_RT;
 
     mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
+
+private:
+    FormFactorDWBA(const FormFactorDWBA &);
+    FormFactorDWBA &operator=(const FormFactorDWBA &);
 };
+
 
 inline const complexpair_t &FormFactorDWBA::getRT(double alpha) const
 {

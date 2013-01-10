@@ -16,7 +16,7 @@
 
 #include "MaskCoordinateFunction.h"
 
-#include <cstddef>
+//#include <cstddef>
 
 //- -------------------------------------------------------------------
 //! @class Mask
@@ -59,8 +59,10 @@ public:
     virtual ~MaskIndexModulus() {}
     virtual MaskIndexModulus *clone() const;
 
-private:
+protected:
     virtual bool isMasked(size_t total_index) const;
+
+private:
     size_t m_modulus;
     size_t m_remainder;
 };
@@ -78,8 +80,10 @@ public:
 
     void setMaskCoordinateFunction(MaskCoordinateFunction *p_mask_function);
 
-private:
+protected:
     virtual bool isMasked(size_t total_index) const;
+
+private:
     void setCachedCoordinates(size_t index) const;
     size_t m_rank;
     int *m_dims;

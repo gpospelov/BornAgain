@@ -16,7 +16,7 @@
 //#include "CLHEP/Geometry/defs.h"
 //#include "CLHEP/Vector/ThreeVector.h"
 #include <cmath>
-#include <iostream>
+//#include <iostream>
 #include <complex>
 
 namespace Geometry {
@@ -40,7 +40,7 @@ class Transform3D;
      * Default constructor.
      * It is protected - this class should not be instantiated directly.
      */
-    BasicVector3D() { v_[0] = 0; v_[1] = 0; v_[2] = 0; }
+    BasicVector3D() { v_[0] = 0.0; v_[1] = 0.0; v_[2] = 0.0; }
 
     /**
      * Safe indexing of the coordinates when using with matrices, arrays, etc.
@@ -55,7 +55,7 @@ class Transform3D;
 
     /**
      * Constructor from three numbers. */
-    BasicVector3D(T x1, T y1, T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+    BasicVector3D(const T &x1, const T &y1, const T &z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
 //    /**
 //     * Copy constructor.
@@ -155,18 +155,18 @@ class Transform3D;
 
     /**
      * Sets x-component in cartesian coordinate system. */
-    inline void setX(T a) { v_[0] = a; }
+    inline void setX(const T &a) { v_[0] = a; }
     /**
      * Sets y-component in cartesian coordinate system. */
-    inline void setY(T a) { v_[1] = a; }
+    inline void setY(const T &a) { v_[1] = a; }
     /**
      * Sets z-component in cartesian coordinate system. */
-    inline void setZ(T a) { v_[2] = a; }
+    inline void setZ(const T &a) { v_[2] = a; }
 
     /**
      * Sets components in cartesian coordinate system.  */
-    inline void set(T x1, T y1, T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
-    inline void setXYZ(T x1, T y1, T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+    inline void set(const T &x1, const T &y1, const T &z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+    inline void setXYZ(const T &x1, const T &y1, const T &z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     // ------------------------------------------
     // Cylindrical coordinate system: rho, phi, z
@@ -354,12 +354,12 @@ class Transform3D;
     // Specific
     // ---------
 
-    inline void setLambdaAlphaPhi(T lambda, T alpha, T phi)
+    inline void setLambdaAlphaPhi(const T &_lambda, const T &_alpha, const T &_phi)
     {
-        T k = 2.*M_PI/lambda;
-        v_[0] = k*std::cos(alpha) * std::cos(phi);
-        v_[1] = k*std::cos(alpha) * std::sin(phi);
-        v_[2] = k*std::sin(alpha);
+        T k = 2.*M_PI/_lambda;
+        v_[0] = k*std::cos(_alpha) * std::cos(_phi);
+        v_[1] = k*std::cos(_alpha) * std::sin(_phi);
+        v_[2] = k*std::sin(_alpha);
      }
 
     /**
@@ -665,7 +665,7 @@ class Transform3D;
    * @relates BasicVector3D
    */
   inline BasicVector3D<std::complex<double> >
-  operator*(const BasicVector3D<std::complex<double> > & v, std::complex<double> a) {
+  operator*(const BasicVector3D<const std::complex<double> > & v, const std::complex<double> &a) {
     return BasicVector3D<std::complex<double> >(v.x()*a, v.y()*a, v.z()*a);
   }
 
@@ -683,7 +683,7 @@ class Transform3D;
    * @relates BasicVector3D
    */
   inline BasicVector3D<std::complex<double> >
-  operator*(std::complex<double>  a, const BasicVector3D<std::complex<double> > & v) {
+  operator*(const std::complex<double>  &a, const BasicVector3D<std::complex<double> > & v) {
     return BasicVector3D<std::complex<double> >(a*v.x(), a*v.y(), a*v.z());
   }
 
@@ -692,7 +692,7 @@ class Transform3D;
    * @relates BasicVector3D
    */
   inline BasicVector3D<std::complex<double> >
-  operator/(const BasicVector3D<std::complex<double> > & v, std::complex<double> a) {
+  operator/(const BasicVector3D<std::complex<double> > & v, const std::complex<double> &a) {
     return BasicVector3D<std::complex<double> >(v.x()/a, v.y()/a, v.z()/a);
   }
 

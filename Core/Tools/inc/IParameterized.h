@@ -23,6 +23,7 @@ class IParameterized : public INamed
 {
 public:
     IParameterized();
+    IParameterized(const std::string &name) : INamed(name){}
     IParameterized(const IParameterized &other);
     IParameterized &operator=(const IParameterized &other);
     virtual ~IParameterized() {}

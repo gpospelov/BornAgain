@@ -8,23 +8,43 @@
 /* ************************************************************************* */
 // constructors
 /* ************************************************************************* */
-ParameterPool::ParameterPool()
+//ParameterPool::ParameterPool()
+//{
+//}
+
+//ParameterPool::~ParameterPool()
+//{
+//    clear();
+//}
+
+//ParameterPool::ParameterPool(const ParameterPool &other)
+//{
+//    m_map = other.m_map;
+//}
+
+//ParameterPool *ParameterPool::clone() const
+//{
+//    ParameterPool *new_pool = new ParameterPool(*this);
+//    return new_pool;
+//}
+
+ParameterPool *ParameterPool::clone() const
 {
+    ParameterPool *new_pool = new ParameterPool();
+    new_pool->m_map = m_map;
+    return new_pool;
 }
 
-ParameterPool::~ParameterPool()
+/* ************************************************************************* */
+// Clone method that adds a prefix to parameter's keys
+/* ************************************************************************* */
+ParameterPool *ParameterPool::cloneWithPrefix(const std::string &prefix) const
 {
-    clear();
-}
-
-ParameterPool::ParameterPool(const ParameterPool &other)
-{
-    m_map = other.m_map;
-}
-
-ParameterPool *ParameterPool::clone()
-{
-    ParameterPool *new_pool = new ParameterPool(*this);
+    ParameterPool *new_pool = new ParameterPool();
+    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it)
+    {
+        new_pool->addParameter(prefix+it->first, it->second);
+    }
     return new_pool;
 }
 
@@ -40,10 +60,10 @@ void ParameterPool::clear()
 // Registering parameter with given name. Name should be different for each
 // register.
 /* ************************************************************************* */
-bool ParameterPool::registerParameter(const std::string &name, double *parameter_address)
+void ParameterPool::registerParameter(const std::string &name, double *parameter_address)
 {
     parameter_t par(parameter_address);
-    return addParameter(name, par);
+    if( !addParameter(name, par) ) throw RuntimeErrorException("ParameterPool::registerParameter() -> Error! Can't register parameter");
 }
 
 bool ParameterPool::addParameter(const std::string &name, parameter_t par)
@@ -56,19 +76,6 @@ bool ParameterPool::addParameter(const std::string &name, parameter_t par)
         throw RuntimeErrorException(os.str());
     }
     return m_map.insert(parametermap_t::value_type(name, par ) ).second;
-}
-
-/* ************************************************************************* */
-// Clone method that adds a prefix to parameter's keys
-/* ************************************************************************* */
-ParameterPool *ParameterPool::cloneWithPrefix(const std::string &prefix)
-{
-    ParameterPool *new_pool = new ParameterPool;
-    for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it)
-    {
-        new_pool->addParameter(prefix+it->first, it->second);
-    }
-    return new_pool;
 }
 
 /* ************************************************************************* */

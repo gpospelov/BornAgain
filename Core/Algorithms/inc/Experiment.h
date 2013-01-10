@@ -22,7 +22,7 @@
 
 class ProgramOptions;
 
-class Experiment : public IParameterized
+class Experiment : public IParameterized, public ICloneable
 {
 public:
     Experiment();
@@ -31,7 +31,7 @@ public:
     Experiment(const ISampleBuilder *p_sample_builder, const ProgramOptions *p_options=0);
     virtual ~Experiment() {delete mp_sample;}
 
-    //! clon method fot the experiment
+    //! clone method fot the experiment
     virtual Experiment *clone() const;
 
     //! run a simulation with the current parameter settings
@@ -87,9 +87,7 @@ public:
     void setDetectorParameters(const OutputData<double > &output_data);
 
 protected:
-    // hiding copy constructor and disabling assignment operator
     Experiment(const Experiment &other);
-    Experiment &operator=(const Experiment &);
 
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();

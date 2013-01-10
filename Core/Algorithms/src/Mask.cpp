@@ -114,8 +114,8 @@ MaskCoordinates::MaskCoordinates(size_t rank, const int* dims, Mask* p_submask)
 
 MaskCoordinates::~MaskCoordinates()
 {
-    delete m_dims;
-    delete m_coordinates;
+    delete [] m_dims;
+    delete [] m_coordinates;
     if (mp_mask_function) delete mp_mask_function;
 }
 

@@ -17,8 +17,8 @@
 #include "Types.h"
 #include "IFormFactorDecorator.h"
 
-#include <cmath>
-#include "Units.h"
+//#include <cmath>
+//#include "Units.h"
 
 class FormFactorDecoratorPositionFactor : public IFormFactorDecorator
 {
@@ -34,6 +34,10 @@ public:
     }
 protected:
     kvector_t m_position;
+
+private:
+    FormFactorDecoratorPositionFactor(const FormFactorDecoratorPositionFactor &);
+    FormFactorDecoratorPositionFactor &operator=(const FormFactorDecoratorPositionFactor &);
 };
 
 inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(

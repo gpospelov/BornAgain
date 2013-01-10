@@ -1,5 +1,5 @@
-#ifndef OUTPUTDATAIOFACTORY_H
-#define OUTPUTDATAIOFACTORY_H
+#ifndef ICLONEABLE_H
+#define ICLONEABLE_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,30 +9,29 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   OutputDataIOFactory.h
-//! @brief  Definition of OutputDataIOFactory class
+//! @file   ICloneable.h
+//! @brief  Definition of ICloneable class
 //! @author Scientific Computing Group at FRM II
-//! @date   01.10.2012
+//! @date   10.01.2013
 
-
-//#include "IFactory.h"
-#include "ISingleton.h"
-#include "OutputDataReader.h"
-#include "OutputDataWriter.h"
-#include <string>
+#include "Exceptions.h"
 
 
 //- -------------------------------------------------------------------
-//! @class OutputDataIOFactory
-//! @brief Define number o
+//! @class ICloneable
+//! @brief Cloneable interface for objects with clone method defined
+//! and with disabled copy constructor and assignment operators
 //- -------------------------------------------------------------------
-//class OutputDataIOFactory : public ISingleton<OutputDataIOFactory >, public IFactory<std::string, IOutputDataReadStrategy>
-class OutputDataIOFactory : public ISingleton<OutputDataIOFactory >
+class ICloneable
 {
 public:
-    OutputDataIOFactory();
+    ICloneable(){}
+    virtual ~ICloneable() {}
+    virtual ICloneable *clone() const = 0;
 
-    OutputDataReader *getReader(const std::string &file_name) const;
+private:
+    ICloneable(const ICloneable &) { throw NotImplementedException("ICloneable(const ICloneable &) -> Error: not implemented."); }
+    ICloneable &operator=(const ICloneable &) { throw NotImplementedException("ICloneable &operator=(const ICloneable &) -> Error: not implemented."); }
 };
 
-#endif // OUTPUTDATAIOFACTORY_H
+#endif // ICLONEABLE_H

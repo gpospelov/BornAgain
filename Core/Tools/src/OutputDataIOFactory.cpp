@@ -8,7 +8,7 @@ OutputDataIOFactory::OutputDataIOFactory()
 
 
 
-OutputDataReader *OutputDataIOFactory::getReader(const std::string &file_name)
+OutputDataReader *OutputDataIOFactory::getReader(const std::string &file_name) const
 {
     OutputDataReader *reader = new OutputDataReader( file_name );
     if( file_name.find(".txt.gz") != std::string::npos ) {

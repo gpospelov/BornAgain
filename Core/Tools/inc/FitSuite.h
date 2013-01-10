@@ -83,14 +83,14 @@ public:
     FitSuiteParameters *getFitParameters() { return &m_fit_parameters; }
 
     //! if the last iteration is done (used by observers to print summary)
-    bool isLastIteration() { return m_is_last_iteration; }
+    bool isLastIteration() const { return m_is_last_iteration; }
 
     //! get current number of minimization function calls
     //int getNCall() { return m_n_call; }
-    int getNCall() { return m_function_chi2.getNCall(); }
+    size_t getNCall() const { return m_function_chi2.getNCall(); }
 
     //! get the number of current strategy
-    int getNStrategy() { return m_n_strategy; }
+    size_t getNStrategy() const { return m_n_strategy; }
 
 private:
     //! disabled copy constructor and assignment operator
@@ -98,7 +98,7 @@ private:
     FitSuite(const FitSuite &);
 
     //! check if all prerequisites to run fit fit are filled
-    bool check_prerequisites();
+    bool check_prerequisites() const;
 
     FitSuiteObjects m_fit_objects; //! kit which contains sets of <experiment,real_data,chi_module> to fit
     FitSuiteParameters m_fit_parameters; //! collection of fit parameters
@@ -106,8 +106,8 @@ private:
     IMinimizer  *m_minimizer; //! minimization engine
 
     bool m_is_last_iteration; //! set to true after last iteration complete
-    int m_n_call; //! current number of minimization function call
-    int m_n_strategy; //! current number of fit strategy
+    size_t m_n_call; //! current number of minimization function call
+    size_t m_n_strategy; //! current number of fit strategy
 
     FitSuiteChiSquaredFunction m_function_chi2;
     FitSuiteGradientFunction m_function_gradient;

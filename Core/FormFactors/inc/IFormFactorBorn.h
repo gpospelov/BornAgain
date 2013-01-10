@@ -36,10 +36,10 @@ public:
     //! @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
     virtual complex_t evaluate_for_q(const cvector_t &q) const=0;
 
-protected:
     //! override volume getter to avoid infinite loop caused by big bin approximation
     virtual double getVolume() const;
 
+protected:
     //! calculate radial part of scattering amplitude for large bins
     double bigRadialPart(const Bin1DCVector& q_bin) const;
 
@@ -78,11 +78,11 @@ inline bool IFormFactorBorn::useLargeBinApproximation(const Bin1DCVector &q_bin)
 {
 //    (void)q_bin;
     double delta_qr = std::abs( q_bin.getDelta().magxy() );
-    if ( delta_qr > M_PI/2.0/getRadius() ) {
+    if ( delta_qr > M_PI/(2.0*getRadius()) ) {
         return true;
     }
     double delta_qz = std::abs( q_bin.getDelta().z() );
-    if ( delta_qz > M_PI/2.0/getHeight() ) {
+    if ( delta_qz > M_PI/(2.0*getHeight()) ) {
         return true;
     }
     return false;

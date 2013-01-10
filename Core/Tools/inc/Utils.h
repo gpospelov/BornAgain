@@ -57,7 +57,7 @@ public:
     int &operator[](std::string name) { return m_nstringmap[name]; }
 
     //! get current string
-    std::string get_current() { return m_current_string; }
+    std::string get_current() const { return m_current_string; }
 
 private:
     std::string m_current_string;

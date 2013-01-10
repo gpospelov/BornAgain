@@ -16,7 +16,7 @@
 
 #include "Bin.h"
 
-#include <string>
+//#include <string>
 
 //- -------------------------------------------------------------------
 //! @class IAxis

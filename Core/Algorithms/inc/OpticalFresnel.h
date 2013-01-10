@@ -20,6 +20,7 @@
 #include "MultiLayer.h"
 
 
+//class MultiLayer;
 
 /* ************************************************************************* */
 // optical fresnel coefficients
@@ -65,18 +66,18 @@ public:
     typedef MultiLayerCoeff MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
 
     //! calculate fresnel coefficients for given multi layer and kvector
-    int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
+    void execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
 
 private:
     bool m_use_roughness;
 
-    void calculateKZ(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
-    void calculateFresnelCoefficients(MultiLayerCoeff_t &coeff);
-    void calculateFresnelCoefficientsWithRoughness(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
-    void calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
-    void calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
-    void calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
-    void calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
+    void calculateKZ(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff) const;
+    void calculateFresnelCoefficients(MultiLayerCoeff_t &coeff) const;
+    void calculateFresnelCoefficientsWithRoughness(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
+    void calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
+    void calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
+    void calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
+    void calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
 };
 
 

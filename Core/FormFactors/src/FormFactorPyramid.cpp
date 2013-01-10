@@ -1,10 +1,10 @@
 #include "FormFactorPyramid.h"
 #include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
-#include "Numeric.h"
-#include "Units.h"
-#include "Exceptions.h"
-#include <iostream>
+//#include "Numeric.h"
+//#include "Units.h"
+//#include "Exceptions.h"
+//#include <iostream>
 
 
 FormFactorPyramid::FormFactorPyramid(double height, double half_side, double alpha)
@@ -14,17 +14,8 @@ FormFactorPyramid::FormFactorPyramid(double height, double half_side, double alp
     m_half_side = half_side;
     m_alpha = alpha;
     init_parameters();
-//    mp_height = new StochasticDiracDelta<double>(height);
-//    mp_half_side = new StochasticDiracDelta<double>(half_side);
-//    mp_alpha = new StochasticDiracDelta<double>(alpha);
 }
 
-//FormFactorPyramid::FormFactorPyramid(StochasticParameter<double> *p_height, StochasticParameter<double> *p_half_side, StochasticParameter<double> *p_alpha)
-//    : mp_height(p_height)
-//    , mp_half_side(p_half_side)
-//    , mp_alpha(p_alpha)
-//{
-//}
 
 FormFactorPyramid::~FormFactorPyramid()
 {
@@ -32,6 +23,7 @@ FormFactorPyramid::~FormFactorPyramid()
 //    delete mp_half_side;
 //    delete mp_alpha;
 }
+
 
 /* ************************************************************************* */
 // initialize pool parameters, i.e. register some of class members for later access via parameter pool
@@ -104,15 +96,5 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t &q) const
            (qxy*std::pow(qxy - qz*tga,2)*std::pow(qxy + qz*tga,2));
     }
     return F;
-}
-
-
-/* ************************************************************************* */
-// print class
-/* ************************************************************************* */
-void FormFactorPyramid::print(std::ostream &ostr) const
-{
-    ISample::print(ostr);
-//    ostr << " (height:"<< m_height << " half_side:"<<m_half_side << " " << "alpha: " << m_alpha << ")";
 }
 

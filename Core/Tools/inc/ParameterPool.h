@@ -14,12 +14,9 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   18.06.2012
 
-#include "Exceptions.h"
+#include "ICloneable.h"
 #include "RealParameterWrapper.h"
-#include <string>
 #include <map>
-#include <vector>
-#include <iostream>
 
 
 //- -------------------------------------------------------------------
@@ -27,21 +24,21 @@
 //! @brief Definition of ParameterPool to hold map of pointers to parameters
 //! Names of parameters should be the different, otherwise exception is thrown
 //- -------------------------------------------------------------------
-class ParameterPool
+class ParameterPool : public ICloneable
 {
 public:
     //! definition of parameter type and parameter container
     typedef RealParameterWrapper parameter_t;
     typedef std::map<std::string, parameter_t > parametermap_t;
 
-    ParameterPool();
-    virtual ~ParameterPool();
+    ParameterPool() {}
+    virtual ~ParameterPool() {}
 
     //! simple clone
-    ParameterPool *clone();
+    ParameterPool *clone() const;
 
     //! clone with adding preffix to every parameter key
-    ParameterPool *cloneWithPrefix(const std::string &prefix);
+    ParameterPool *cloneWithPrefix(const std::string &prefix) const;
 
     //! copy parameters of given pool to the external pool while adding prefix to local parameter keys
     void copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const;
@@ -53,7 +50,7 @@ public:
     size_t size() const { return m_map.size(); }
 
     //! main method to register data address in the pool
-    bool registerParameter(const std::string &name, double *parpointer);
+    void registerParameter(const std::string &name, double *parpointer);
 
     //! add parameter to the pool
     bool addParameter(const std::string &name, parameter_t par);
@@ -74,9 +71,9 @@ public:
     friend std::ostream &operator<<(std::ostream &ostr, const ParameterPool &obj) { obj.print(ostr); return ostr; }
 
 protected:
-    //! disabling assignment operator, hiding copy constructor
-    ParameterPool(const ParameterPool &other);
-    ParameterPool &operator=(const ParameterPool &);
+//    //! disabling assignment operator, hiding copy constructor
+//    ParameterPool(const ParameterPool &other);
+//    ParameterPool &operator=(const ParameterPool &);
 
     //! print parameter pool content
     virtual void print(std::ostream &ostr) const;

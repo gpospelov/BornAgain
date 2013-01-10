@@ -29,7 +29,7 @@ class Layer : public ICompositeSample
 public:
     Layer();
     Layer(const IMaterial* p_material, double thickness=0);
-    virtual ~Layer();
+    virtual ~Layer() { }
 
     //! make layer's clone
     virtual Layer *clone() const;
@@ -62,12 +62,13 @@ public:
     virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
 
 protected:
-    Layer &operator=(const Layer &other);
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
+//    Layer &operator=(const Layer &other);
     Layer(const Layer &other);
 
 private:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters();
 
     //! print class
     void print(std::ostream &ostr) const;

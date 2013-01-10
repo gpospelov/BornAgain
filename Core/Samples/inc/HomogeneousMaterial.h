@@ -26,8 +26,8 @@ class HomogeneousMaterial : public IMaterial
 {
 public:
     HomogeneousMaterial();
-    HomogeneousMaterial(complex_t refractive_index);
-    HomogeneousMaterial(const std::string &name, complex_t refractive_index);
+    HomogeneousMaterial(const complex_t &refractive_index);
+    HomogeneousMaterial(const std::string &name, const complex_t &refractive_index);
     HomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag );
     HomogeneousMaterial(const HomogeneousMaterial &other);
     HomogeneousMaterial &operator=(const HomogeneousMaterial &other);

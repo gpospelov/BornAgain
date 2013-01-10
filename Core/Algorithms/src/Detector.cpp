@@ -1,7 +1,6 @@
 #include "Detector.h"
 #include "AxisBin.h"
 #include "AxisDouble.h"
-#include "Exceptions.h"
 
 
 /* ************************************************************************* */
@@ -121,7 +120,7 @@ void Detector::init_parameters()
 {
 }
 
-void Detector::initializeAnglesIsgisaxs(AxisDouble* p_axis, const TSampledRange<double>& axis_range)
+void Detector::initializeAnglesIsgisaxs(AxisDouble* p_axis, const TSampledRange<double>& axis_range) const
 {
     double start_sin = std::sin(axis_range.getMin());
     double end_sin = std::sin(axis_range.getMax());

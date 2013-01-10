@@ -1,9 +1,8 @@
-
 #include "FormFactorSphere.h"
-#include "StochasticDiracDelta.h"
-#include "Numeric.h"
+//#include "StochasticDiracDelta.h"
+//#include "Numeric.h"
 #include "MathFunctions.h"
-#include <cmath>
+//#include <cmath>
 
 FormFactorSphere::FormFactorSphere(double radius, double height)
 {
@@ -102,16 +101,6 @@ complex_t FormFactorSphere::evaluate_for_q(const cvector_t &q) const
     (void)q;
     return complex_t(0.0, 0.0);
 
-}
-
-
-/* ************************************************************************* */
-// print class
-/* ************************************************************************* */
-void FormFactorSphere::print(std::ostream &ostr) const
-{
-    ISample::print(ostr);
-//    ostr << " " << "(radius:"<<m_radius << ")";
 }
 
 

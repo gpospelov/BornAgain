@@ -3,42 +3,53 @@
 #include <iostream>
 #include <iomanip>
 
-LayerRoughness::LayerRoughness() : m_sigma(0), m_hurstParameter(0), m_latteralCorrLength(0)
+
+LayerRoughness::LayerRoughness()
+: m_sigma(0)
+, m_hurstParameter(0)
+, m_latteralCorrLength(0)
 {
     setName("roughness");
     init_parameters();
 }
 
 
-LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength) :
-    m_sigma(sigma), m_hurstParameter(hurstParameter), m_latteralCorrLength(latteralCorrLength)
+LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength)
+: m_sigma(sigma)
+, m_hurstParameter(hurstParameter)
+, m_latteralCorrLength(latteralCorrLength)
 {
     setName("roughness");
     init_parameters();
 }
 
 
-LayerRoughness::LayerRoughness(const LayerRoughness &other) : IRoughness(other)
-{
-    m_sigma = other.m_sigma;
-    m_hurstParameter = other.m_hurstParameter;
-    m_latteralCorrLength = other.m_latteralCorrLength;
-    init_parameters();
-}
+//LayerRoughness::LayerRoughness(const LayerRoughness &other) : IRoughness(other)
+//{
+//    m_sigma = other.m_sigma;
+//    m_hurstParameter = other.m_hurstParameter;
+//    m_latteralCorrLength = other.m_latteralCorrLength;
+//    init_parameters();
+//}
 
 
-LayerRoughness &LayerRoughness::operator=(const LayerRoughness &other)
+LayerRoughness *LayerRoughness::clone() const
 {
-    if( this != &other)
-    {
-        IRoughness::operator=(other);
-        m_sigma = other.m_sigma;
-        m_hurstParameter = other.m_hurstParameter;
-        m_latteralCorrLength = other.m_latteralCorrLength;
-        init_parameters();
-    }
-    return *this;
+    return new LayerRoughness(m_sigma, m_hurstParameter, m_latteralCorrLength);
 }
+
+//LayerRoughness &LayerRoughness::operator=(const LayerRoughness &other)
+//{
+//    if( this != &other)
+//    {
+//        IRoughness::operator=(other);
+//        m_sigma = other.m_sigma;
+//        m_hurstParameter = other.m_hurstParameter;
+//        m_latteralCorrLength = other.m_latteralCorrLength;
+//        init_parameters();
+//    }
+//    return *this;
+//}
 
 
 void LayerRoughness::init_parameters()

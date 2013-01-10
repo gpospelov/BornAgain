@@ -30,19 +30,14 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    FormFactorLorentz(const FormFactorLorentz &);
-    FormFactorLorentz &operator=(const FormFactorLorentz &);
-
+protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    //! print class
-    void print(std::ostream &ostr) const;
+private:
+    FormFactorLorentz(const FormFactorLorentz &);
+    FormFactorLorentz &operator=(const FormFactorLorentz &);
 
-//    StochasticParameter<double> *mp_height;
-//    StochasticParameter<double> *mp_width;
     double m_height;
     double m_width;
 };

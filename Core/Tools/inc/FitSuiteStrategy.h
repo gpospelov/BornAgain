@@ -132,7 +132,7 @@ public:
     };
 
     //! generate noisy data
-    OutputData<double> *generateNoisyData(double noise_factor, const OutputData<double> &source);
+    OutputData<double> *generateNoisyData(double noise_factor, const OutputData<double> &source) const;
 
 private:
     int m_n_iterations;

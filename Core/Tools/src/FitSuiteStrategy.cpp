@@ -227,7 +227,7 @@ void FitSuiteStrategyBootstrap::execute()
 
 
 // generate noisy data
-OutputData<double> *FitSuiteStrategyBootstrap::generateNoisyData(double noise_factor, const OutputData<double> &source)
+OutputData<double> *FitSuiteStrategyBootstrap::generateNoisyData(double noise_factor, const OutputData<double> &source) const
 {
     OutputData<double> *p_result = source.clone();
     OutputData<double>::iterator it = p_result->begin();

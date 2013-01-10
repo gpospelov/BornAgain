@@ -16,8 +16,8 @@
 
 #include "IAxis.h"
 
-#include <string>
-#include <vector>
+//#include <string>
+//#include <vector>
 
 // Forward declaration of BinAxis class, as needed for conversion constructor
 class AxisBin;
@@ -70,8 +70,11 @@ public:
 
     //! find the index that corresponds to the given upper bound (index is inclusive)
     size_t getUpperBoundIndex(double value) const;
-private:
+
+protected:
     virtual bool equals(const IAxis &other) const;
+
+private:
     std::vector<double> m_sample_vector;  //!< vector containing the axis points
     double m_bin_size;
 };

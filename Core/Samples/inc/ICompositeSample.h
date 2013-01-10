@@ -33,7 +33,10 @@ public:
     typedef samples_t::iterator iterator_t;
     typedef samples_t::const_iterator const_iterator_t;
 
-    ICompositeSample();
+    ICompositeSample() { }
+    virtual ~ICompositeSample() { }
+
+    ICompositeSample *clone() const;
 
     //! to confirm compound nature of given class
     virtual ICompositeSample *getCompositeSample() { return this; }
@@ -57,11 +60,8 @@ public:
     //! create general iterator to walk through the tree of registered composite children
     ICompositeIterator createIterator();
 
-protected:
-    ICompositeSample(const ICompositeSample &other);
-
 private:
-    ICompositeSample &operator=(const ICompositeSample &other);
+//    ICompositeSample &operator=(const ICompositeSample &other);
 
     //! check index of child
     //inline size_t check_index(size_t index) const { return index < m_samples.size() ? index : throw OutOfBoundsException("ICompositeSample::check_index() -> Error! Index is out of bounds"); }

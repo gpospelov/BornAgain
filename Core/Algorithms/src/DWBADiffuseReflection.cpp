@@ -1,5 +1,4 @@
 #include "DWBADiffuseReflection.h"
-#include "OpticalFresnel.h"
 #include "LayerRoughness.h"
 
 
@@ -78,7 +77,7 @@ void DWBADiffuseReflection::diffuse_crosscorr()
 }
 
 
-complex_t DWBADiffuseReflection::get_refractive_term(size_t ilayer)
+complex_t DWBADiffuseReflection::get_refractive_term(size_t ilayer) const
 {
     complex_t n1 = m_sample->getLayer(ilayer)->getRefractiveIndex();
     complex_t n2 = m_sample->getLayer(ilayer+1)->getRefractiveIndex();

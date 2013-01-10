@@ -38,8 +38,8 @@ public:
 
     virtual IFTDistribution2D *clone() const=0;
 
-    double getGamma() { return m_gamma; }
-    double getDelta() { return m_delta; }
+    double getGamma() const { return m_gamma; }
+    double getDelta() const { return m_delta; }
     virtual double evaluate(double qx, double qy) const=0;
 protected:
     double m_omega_x;

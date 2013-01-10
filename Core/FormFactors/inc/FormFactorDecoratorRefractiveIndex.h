@@ -29,7 +29,7 @@ private:
     FormFactorDecoratorRefractiveIndex(const FormFactorDecoratorRefractiveIndex &);
     FormFactorDecoratorRefractiveIndex &operator=(const FormFactorDecoratorRefractiveIndex &);
 
-    complex_t getRefractiveIndexFactor(const complex_t &ambient_index, const complex_t &particle_index);
+    complex_t getRefractiveIndexFactor(const complex_t &ambient_index, const complex_t &particle_index) const;
 
     complex_t m_refractive_index;
 };
@@ -62,7 +62,7 @@ inline void FormFactorDecoratorRefractiveIndex::setAmbientRefractiveIndex(
 }
 
 inline complex_t FormFactorDecoratorRefractiveIndex::getRefractiveIndexFactor(
-        const complex_t &ambient_index, const complex_t &particle_index)
+        const complex_t &ambient_index, const complex_t &particle_index) const
 {
     return (ambient_index*ambient_index - particle_index*particle_index);
 }

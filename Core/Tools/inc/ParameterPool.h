@@ -14,12 +14,9 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   18.06.2012
 
-//#include "Exceptions.h"
+#include "ICloneable.h"
 #include "RealParameterWrapper.h"
-//#include <string>
 #include <map>
-//#include <vector>
-//#include <iostream>
 
 
 //- -------------------------------------------------------------------
@@ -27,15 +24,15 @@
 //! @brief Definition of ParameterPool to hold map of pointers to parameters
 //! Names of parameters should be the different, otherwise exception is thrown
 //- -------------------------------------------------------------------
-class ParameterPool
+class ParameterPool : public ICloneable
 {
 public:
     //! definition of parameter type and parameter container
     typedef RealParameterWrapper parameter_t;
     typedef std::map<std::string, parameter_t > parametermap_t;
 
-    ParameterPool();
-    virtual ~ParameterPool();
+    ParameterPool() {}
+    virtual ~ParameterPool() {}
 
     //! simple clone
     ParameterPool *clone() const;
@@ -74,9 +71,9 @@ public:
     friend std::ostream &operator<<(std::ostream &ostr, const ParameterPool &obj) { obj.print(ostr); return ostr; }
 
 protected:
-    //! disabling assignment operator, hiding copy constructor
-    ParameterPool(const ParameterPool &other);
-    ParameterPool &operator=(const ParameterPool &);
+//    //! disabling assignment operator, hiding copy constructor
+//    ParameterPool(const ParameterPool &other);
+//    ParameterPool &operator=(const ParameterPool &);
 
     //! print parameter pool content
     virtual void print(std::ostream &ostr) const;

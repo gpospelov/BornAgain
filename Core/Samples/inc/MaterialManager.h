@@ -42,7 +42,7 @@ public:
     const IMaterial *getMaterial(const std::string &name);
 
     //! add material to the database
-    const IMaterial *addHomogeneousMaterial(const std::string &name, complex_t refractive_index);
+    const IMaterial *addHomogeneousMaterial(const std::string &name, const complex_t &refractive_index);
 
     //! add material to the database
     const IMaterial *addHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag);

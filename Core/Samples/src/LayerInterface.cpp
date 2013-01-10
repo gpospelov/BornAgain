@@ -1,9 +1,12 @@
 #include "LayerInterface.h"
-
 #include <iostream>
 #include <iomanip>
 
-LayerInterface::LayerInterface() : m_roughness(0), m_LayerTop(0), m_LayerBottom(0)
+
+LayerInterface::LayerInterface()
+: m_roughness(0)
+, m_LayerTop(0)
+, m_LayerBottom(0)
 {
     setName("LayerInterface");
 }
@@ -11,7 +14,7 @@ LayerInterface::LayerInterface() : m_roughness(0), m_LayerTop(0), m_LayerBottom(
 
 LayerInterface::~LayerInterface()
 {
-    if(m_roughness) delete m_roughness;
+    delete m_roughness;
 }
 
 
@@ -42,7 +45,8 @@ void LayerInterface::setRoughness(const LayerRoughness &roughness)
         delete m_roughness;
         m_roughness=0;
     }
-    m_roughness = new LayerRoughness(roughness);
+    //m_roughness = new LayerRoughness(roughness);
+    m_roughness = roughness.clone();
     registerChild(m_roughness);
 }
 

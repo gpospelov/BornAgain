@@ -31,11 +31,9 @@ class Layer;
 class LayerInterface : public ICompositeSample
 {
 public:
-    ~LayerInterface();
-
+    virtual ~LayerInterface();
     //! create smooth interface between two layers
     static LayerInterface* createSmoothInterface(const Layer *p_layer_top, const Layer *p_layer_bottom);
-
     //! create rough interface between two layers
     static LayerInterface* createRoughInterface(const Layer *p_layer_top, const Layer *p_layer_bottom, const LayerRoughness &roughness);
 
@@ -69,9 +67,6 @@ protected:
 
 private:
     LayerInterface();
-    LayerInterface(const LayerInterface &);
-    LayerInterface &operator=(const LayerInterface &);
-
 
     LayerRoughness *m_roughness;   //!< roughness of the interface
     const Layer *m_LayerTop;       //!< pointer to the layer above interface

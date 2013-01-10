@@ -29,7 +29,7 @@ class Layer : public ICompositeSample
 public:
     Layer();
     Layer(const IMaterial* p_material, double thickness=0);
-    virtual ~Layer();
+    virtual ~Layer() { }
 
     //! make layer's clone
     virtual Layer *clone() const;
@@ -65,7 +65,7 @@ protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    Layer &operator=(const Layer &other);
+//    Layer &operator=(const Layer &other);
     Layer(const Layer &other);
 
 private:

@@ -84,7 +84,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(const cvector_t &k_i, const c
     return (autocorr+crosscorr.real())*k_i.mag2().real()/16./M_PI;
 }
 
-complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(size_t ilayer)
+complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(size_t ilayer) const
 {
     complex_t n1 = mp_multi_layer->getLayer(ilayer)->getRefractiveIndex();
     complex_t n2 = mp_multi_layer->getLayer(ilayer+1)->getRefractiveIndex();

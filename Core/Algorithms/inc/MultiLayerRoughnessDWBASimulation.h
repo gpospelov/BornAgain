@@ -43,7 +43,7 @@ protected:
     MultiLayerRoughnessDWBASimulation(const MultiLayerRoughnessDWBASimulation &);
     MultiLayerRoughnessDWBASimulation &operator=(const MultiLayerRoughnessDWBASimulation &);
 
-    complex_t get_refractive_term(size_t ilayer);
+    complex_t get_refractive_term(size_t ilayer) const;
     complex_t get_sum4terms(size_t ilayer, const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f);
 
 //    std::vector<IDoubleToComplexFunction *> mp_T_function;

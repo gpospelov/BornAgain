@@ -3,32 +3,32 @@
 #include "ICompositeIterator.h"
 #include "Utils.h"
 
-ISample::ISample()
-{
-}
+//ISample::ISample()
+//{
+//}
 
 /* ************************************************************************* */
 // default copy constructor
 /* ************************************************************************* */
-ISample::ISample(const ISample &other) : IParameterized(other)
-{
-}
+//ISample::ISample(const ISample &other) : IParameterized(other)
+//{
+//}
 
-/* ************************************************************************* */
-// default assignment operator
-/* ************************************************************************* */
-ISample &ISample::operator=(const ISample &other)
-{
-    if( this != &other)
-    {
-        IParameterized::operator=(other);
-    }
-    return *this;
-}
+///* ************************************************************************* */
+//// default assignment operator
+///* ************************************************************************* */
+//ISample &ISample::operator=(const ISample &other)
+//{
+//    if( this != &other)
+//    {
+//        IParameterized::operator=(other);
+//    }
+//    return *this;
+//}
 
-ISample::~ISample()
-{
-}
+//ISample::~ISample()
+//{
+//}
 
 ISample *ISample::clone() const
 {
@@ -91,7 +91,7 @@ std::string ISample::addParametersToExternalPool(std::string path, ParameterPool
 }
 
 /* ************************************************************************* */
-// same as above
+// another example of how to make same as above using iterators
 // return new parameter pool which contains all local parameter as well as all
 // parameters from CompositeSample; tree user has to take to delete it
 //

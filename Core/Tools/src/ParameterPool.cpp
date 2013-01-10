@@ -8,23 +8,30 @@
 /* ************************************************************************* */
 // constructors
 /* ************************************************************************* */
-ParameterPool::ParameterPool()
-{
-}
+//ParameterPool::ParameterPool()
+//{
+//}
 
-ParameterPool::~ParameterPool()
-{
-    clear();
-}
+//ParameterPool::~ParameterPool()
+//{
+//    clear();
+//}
 
-ParameterPool::ParameterPool(const ParameterPool &other)
-{
-    m_map = other.m_map;
-}
+//ParameterPool::ParameterPool(const ParameterPool &other)
+//{
+//    m_map = other.m_map;
+//}
+
+//ParameterPool *ParameterPool::clone() const
+//{
+//    ParameterPool *new_pool = new ParameterPool(*this);
+//    return new_pool;
+//}
 
 ParameterPool *ParameterPool::clone() const
 {
-    ParameterPool *new_pool = new ParameterPool(*this);
+    ParameterPool *new_pool = new ParameterPool();
+    new_pool->m_map = m_map;
     return new_pool;
 }
 
@@ -33,7 +40,7 @@ ParameterPool *ParameterPool::clone() const
 /* ************************************************************************* */
 ParameterPool *ParameterPool::cloneWithPrefix(const std::string &prefix) const
 {
-    ParameterPool *new_pool = new ParameterPool;
+    ParameterPool *new_pool = new ParameterPool();
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it)
     {
         new_pool->addParameter(prefix+it->first, it->second);

@@ -32,7 +32,6 @@ public:
 
     virtual void runSimulationElement(size_t index);
 
-
 	//! normalize the calculated intensity
 
     //! This normalization assumes that the intensity map contains total differential scattering cross sections
@@ -51,13 +50,10 @@ public:
 
     virtual GISASExperiment *clone() const;
 protected:
-    // hiding copy constructor and disabling assignment operator
     GISASExperiment(const GISASExperiment &other);
-    GISASExperiment &operator=(const GISASExperiment &);
 
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
-
 
 private:
 

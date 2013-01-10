@@ -24,8 +24,8 @@
 class IRoughness : public ISample
 {
 public:
-    IRoughness();
-    virtual ~IRoughness(){}
+    IRoughness() { }
+    virtual ~IRoughness() { }
 };
 
 #endif // IROUGHNESS_H

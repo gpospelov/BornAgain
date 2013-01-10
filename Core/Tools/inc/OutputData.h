@@ -235,7 +235,7 @@ template <class T> OutputData<T>* OutputData<T>::clone() const
         p_result->mp_mask = mp_mask->clone();
     }
 
-	return p_result;
+    return p_result;
 }
 
 template <class T> void OutputData<T>::copyFrom(const OutputData<T> &other)

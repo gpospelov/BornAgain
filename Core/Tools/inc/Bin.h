@@ -17,8 +17,6 @@
 #include "Numeric.h"
 #include "Types.h"
 
-#include <cmath>
-
 //- -------------------------------------------------------------------
 //! @class Bin1D
 //! @brief Definition of Bin1D class that stores the bounds of a

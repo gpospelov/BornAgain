@@ -103,8 +103,10 @@ template<class T> LLData<T>::~LLData()
 
 template<class T> LLData<T> &LLData<T>::operator=(const LLData<T> &right)
 {
-    LLData<T> copy(right);
-    swapContents(copy);
+    if( this != &right) {
+        LLData<T> copy(right);
+        swapContents(copy);
+    }
     return *this;
 }
 

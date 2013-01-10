@@ -63,13 +63,15 @@ public:
     //! print class
     friend std::ostream &operator<<(std::ostream &ostr, const LayerInterface &m) { m.print(ostr); return ostr; }
 
+protected:
+    //! print class
+    void print(std::ostream &ostr) const;
+
 private:
     LayerInterface();
     LayerInterface(const LayerInterface &);
     LayerInterface &operator=(const LayerInterface &);
 
-    //! print class
-    void print(std::ostream &ostr) const;
 
     LayerRoughness *m_roughness;   //!< roughness of the interface
     const Layer *m_LayerTop;       //!< pointer to the layer above interface

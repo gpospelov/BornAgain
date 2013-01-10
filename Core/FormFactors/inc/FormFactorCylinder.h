@@ -32,14 +32,15 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
+protected:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
 
 
 private:
     FormFactorCylinder(const FormFactorCylinder &);
     FormFactorCylinder &operator=(const FormFactorCylinder &);
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters();
 
 //    //! print class
 //    void print(std::ostream &ostr) const;

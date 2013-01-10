@@ -62,12 +62,13 @@ public:
     virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
 
 protected:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
     Layer &operator=(const Layer &other);
     Layer(const Layer &other);
 
 private:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters();
 
     //! print class
     void print(std::ostream &ostr) const;

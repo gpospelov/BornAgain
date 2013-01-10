@@ -28,8 +28,8 @@ class ParticleInfo;
 class Particle : public ICompositeSample
 {
 public:
-    Particle(complex_t refractive_index, IFormFactor* p_form_factor = 0);
-    Particle(complex_t refractive_index, const IFormFactor &p_form_factor);
+    Particle(const complex_t &refractive_index, IFormFactor* p_form_factor = 0);
+    Particle(const complex_t &refractive_index, const IFormFactor &p_form_factor);
     virtual ~Particle();
     virtual Particle *clone() const;
 

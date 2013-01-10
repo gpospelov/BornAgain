@@ -38,7 +38,7 @@ void OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, Mu
 
 }
 
-void OpticalFresnel::calculateKZ(const MultiLayer &sample, const kvector_t &kvec, MultiLayerCoeff_t &coeff)
+void OpticalFresnel::calculateKZ(const MultiLayer &sample, const kvector_t &kvec, MultiLayerCoeff_t &coeff) const
 {
     // z-component of reflected wave vector inside each layer
     // Q_{z,j} &= 2k_{z,j} = 2\cdot \sqrt{ k^2 n_j^2 - k_x^2 }
@@ -50,7 +50,7 @@ void OpticalFresnel::calculateKZ(const MultiLayer &sample, const kvector_t &kvec
     }
 }
 
-void OpticalFresnel::calculateFresnelCoefficients(MultiLayerCoeff_t &coeff)
+void OpticalFresnel::calculateFresnelCoefficients(MultiLayerCoeff_t &coeff) const
 {
     // calculation of reflection/transmission Fresnel coefficients
     for(size_t i=0; i<coeff.size() - 1; i++) {
@@ -76,7 +76,7 @@ void OpticalFresnel::calculateFresnelCoefficients(MultiLayerCoeff_t &coeff)
 }
 
 
-void OpticalFresnel::calculateFresnelCoefficientsWithRoughness(const MultiLayer &sample, MultiLayerCoeff_t &coeff)
+void OpticalFresnel::calculateFresnelCoefficientsWithRoughness(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const
 {
     double picoeff = std::pow(M_PI/2., 1.5);
 
@@ -115,7 +115,7 @@ void OpticalFresnel::calculateFresnelCoefficientsWithRoughness(const MultiLayer 
 }
 
 
-void OpticalFresnel::calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coeff)
+void OpticalFresnel::calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const
 {
     // ratio of amplitudes of outgoing and incoming waves
     coeff[coeff.size()-1].X = complex_t(0, 0);
@@ -127,7 +127,7 @@ void OpticalFresnel::calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coe
     }
 }
 
-void OpticalFresnel::calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &coeff)
+void OpticalFresnel::calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const
 {
     // ratio of amplitudes of outgoing and incoming waves in alternative conventions
     coeff[coeff.size()-1].X = complex_t(0, 0);
@@ -149,7 +149,7 @@ void OpticalFresnel::calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &co
     }
 }
 
-void OpticalFresnel::calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &coeff)
+void OpticalFresnel::calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const
 {
     coeff[0].R = coeff[0].X;
     coeff[0].T = 1;
@@ -163,7 +163,7 @@ void OpticalFresnel::calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &co
     }
 }
 
-void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff)
+void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const
 {
     //complex_t ct0(0,0);
 

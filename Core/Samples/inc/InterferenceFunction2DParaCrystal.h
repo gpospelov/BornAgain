@@ -48,6 +48,9 @@ public:
     //! add parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 protected:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+
     void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double &q_pa_1, double &q_pa_2) const;
     double m_lattice_lengths[2];
     double m_alpha_lattice; //!< Angle between lattice basis vectors
@@ -61,9 +64,6 @@ private:
     //! copy constructor and assignment operator are hidden since there is a clone method
     InterferenceFunction2DParaCrystal(const InterferenceFunction2DParaCrystal &);
     InterferenceFunction2DParaCrystal &operator=(const InterferenceFunction2DParaCrystal &);
-
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters();
 
     //! Calculate interference function for fixed rotation xi
     double interferenceForXi(double xi, void *params) const;

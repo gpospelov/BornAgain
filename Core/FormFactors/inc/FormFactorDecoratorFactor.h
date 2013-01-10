@@ -20,7 +20,7 @@
 class FormFactorDecoratorFactor : public IFormFactorDecorator
 {
 public:
-    FormFactorDecoratorFactor(IFormFactor *p_form_factor, complex_t factor);
+    FormFactorDecoratorFactor(IFormFactor *p_form_factor, const complex_t &factor);
     virtual FormFactorDecoratorFactor *clone() const;
     virtual ~FormFactorDecoratorFactor() {}
 
@@ -37,7 +37,7 @@ private:
 };
 
 inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(
-        IFormFactor* p_form_factor, complex_t factor)
+        IFormFactor* p_form_factor, const complex_t &factor)
 : IFormFactorDecorator(p_form_factor)
 , m_factor(factor)
 {

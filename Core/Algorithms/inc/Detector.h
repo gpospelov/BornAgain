@@ -56,7 +56,7 @@ private:
     void swapContent(Detector &other);
 
     //! initialize axis the way IsGISAXS does
-    void initializeAnglesIsgisaxs(AxisDouble *p_axis, const TSampledRange<double> &axis_range);
+    void initializeAnglesIsgisaxs(AxisDouble *p_axis, const TSampledRange<double> &axis_range) const;
 
     SafePointerVector<IAxis> m_axes;
 	IDetectorResolution *mp_detector_resolution;

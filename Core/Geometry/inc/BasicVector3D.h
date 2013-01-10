@@ -16,7 +16,7 @@
 //#include "CLHEP/Geometry/defs.h"
 //#include "CLHEP/Vector/ThreeVector.h"
 #include <cmath>
-#include <iostream>
+//#include <iostream>
 #include <complex>
 
 namespace Geometry {
@@ -155,18 +155,18 @@ class Transform3D;
 
     /**
      * Sets x-component in cartesian coordinate system. */
-    inline void setX(T a) { v_[0] = a; }
+    inline void setX(const T &a) { v_[0] = a; }
     /**
      * Sets y-component in cartesian coordinate system. */
-    inline void setY(T a) { v_[1] = a; }
+    inline void setY(const T &a) { v_[1] = a; }
     /**
      * Sets z-component in cartesian coordinate system. */
-    inline void setZ(T a) { v_[2] = a; }
+    inline void setZ(const T &a) { v_[2] = a; }
 
     /**
      * Sets components in cartesian coordinate system.  */
-    inline void set(T x1, T y1, T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
-    inline void setXYZ(T x1, T y1, T z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+    inline void set(const T &x1, const T &y1, const T &z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+    inline void setXYZ(const T &x1, const T &y1, const T &z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     // ------------------------------------------
     // Cylindrical coordinate system: rho, phi, z

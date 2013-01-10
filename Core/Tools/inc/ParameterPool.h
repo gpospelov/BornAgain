@@ -38,10 +38,10 @@ public:
     virtual ~ParameterPool();
 
     //! simple clone
-    ParameterPool *clone();
+    ParameterPool *clone() const;
 
     //! clone with adding preffix to every parameter key
-    ParameterPool *cloneWithPrefix(const std::string &prefix);
+    ParameterPool *cloneWithPrefix(const std::string &prefix) const;
 
     //! copy parameters of given pool to the external pool while adding prefix to local parameter keys
     void copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const;

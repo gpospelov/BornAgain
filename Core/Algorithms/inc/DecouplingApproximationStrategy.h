@@ -29,7 +29,7 @@ public:
     virtual double evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
             double alpha_i, double alpha_f) const;
 private:
-    bool checkVectorSizes();
+    bool checkVectorSizes() const;
 };
 
 

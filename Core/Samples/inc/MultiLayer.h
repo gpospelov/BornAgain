@@ -100,6 +100,13 @@ public:
     //! look for the presence of DWBA terms (e.g. included particles) and return ISimulation if needed
     virtual MultiLayerDWBASimulation *createDWBASimulation() const;
 
+protected:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+    //! print class
+    void print(std::ostream &ostr) const;
+
+
 private:
     //! copy constructor and assignment operator are hidden since there is a clone method
     MultiLayer(const MultiLayer &);
@@ -125,11 +132,6 @@ private:
     //! check index of interface w.r.t. vector length
     inline size_t check_interface_index(size_t i_interface) const { return i_interface < m_interfaces.size() ? i_interface : throw OutOfBoundsException("Interface index is out of bounds"); }
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters();
-
-    //! print class
-    void print(std::ostream &ostr) const;
 
     std::vector<Layer *> m_layers;                ///< stack of layers [nlayers]
     std::vector<double > m_layers_z;              ///< coordinate of layer's bottoms [nlayers]

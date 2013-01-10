@@ -32,7 +32,7 @@ FormFactorCrystal* FormFactorCrystal::clone() const
 }
 
 void FormFactorCrystal::setAmbientRefractiveIndex(
-        complex_t refractive_index)
+        const complex_t &refractive_index)
 {
     mp_particle->setAmbientRefractiveIndex(refractive_index);
     mp_basis_form_factor->setAmbientRefractiveIndex(refractive_index);

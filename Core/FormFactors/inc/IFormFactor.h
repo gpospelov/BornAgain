@@ -37,7 +37,7 @@ public:
     virtual IFormFactor *clone() const=0;
 
     //! pass the refractive index of the ambient material in which this particle is embedded
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index) { (void)refractive_index; }
+    virtual void setAmbientRefractiveIndex(const complex_t &refractive_index) { (void)refractive_index; }
 
     //! calculate scattering amplitude for complex wavevector bin
     //! @param k_i   incoming wavevector

@@ -22,9 +22,22 @@ ParameterPool::ParameterPool(const ParameterPool &other)
     m_map = other.m_map;
 }
 
-ParameterPool *ParameterPool::clone()
+ParameterPool *ParameterPool::clone() const
 {
     ParameterPool *new_pool = new ParameterPool(*this);
+    return new_pool;
+}
+
+/* ************************************************************************* */
+// Clone method that adds a prefix to parameter's keys
+/* ************************************************************************* */
+ParameterPool *ParameterPool::cloneWithPrefix(const std::string &prefix) const
+{
+    ParameterPool *new_pool = new ParameterPool;
+    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it)
+    {
+        new_pool->addParameter(prefix+it->first, it->second);
+    }
     return new_pool;
 }
 
@@ -56,19 +69,6 @@ bool ParameterPool::addParameter(const std::string &name, parameter_t par)
         throw RuntimeErrorException(os.str());
     }
     return m_map.insert(parametermap_t::value_type(name, par ) ).second;
-}
-
-/* ************************************************************************* */
-// Clone method that adds a prefix to parameter's keys
-/* ************************************************************************* */
-ParameterPool *ParameterPool::cloneWithPrefix(const std::string &prefix)
-{
-    ParameterPool *new_pool = new ParameterPool;
-    for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it)
-    {
-        new_pool->addParameter(prefix+it->first, it->second);
-    }
-    return new_pool;
 }
 
 /* ************************************************************************* */

@@ -32,7 +32,7 @@ double DecouplingApproximationStrategy::evaluate(const cvector_t& k_i,
     return intensity + amplitude_norm*(itf_function-1.0);
 }
 
-bool DecouplingApproximationStrategy::checkVectorSizes()
+bool DecouplingApproximationStrategy::checkVectorSizes() const
 {
     size_t n_ffs = m_form_factors.size();
     size_t n_frs = m_fractions.size();

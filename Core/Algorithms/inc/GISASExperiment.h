@@ -55,9 +55,11 @@ protected:
     GISASExperiment(const GISASExperiment &other);
     GISASExperiment &operator=(const GISASExperiment &);
 
-private:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
+
+
+private:
 
 	double getSolidAngle(size_t index) const;
 	double deltaAlpha(double alpha, double zeta) const;

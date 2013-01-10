@@ -1,5 +1,7 @@
 #include "IsGISAXSMorphologyFileStrategy.h"
 
+#include <algorithm>
+
 IsGISAXSMorphologyFileStrategy::IsGISAXSMorphologyFileStrategy()
 : m_win_x(0.0)
 , m_win_y(0.0)
@@ -24,10 +26,10 @@ void IsGISAXSMorphologyFileStrategy::initPositions(
     m_x_positions = x_positions;
     m_y_positions = y_positions;
     // init window sizes for Hann function
-    double x_min = std::min_element(m_x_positions.begin(), m_x_positions.end());
-    double x_max = std::max_element(m_x_positions.begin(), m_x_positions.end());
-    double y_min = std::min_element(m_y_positions.begin(), m_y_positions.end());
-    double y_max = std::max_element(m_y_positions.begin(), m_y_positions.end());
+    double x_min = *std::min_element(m_x_positions.begin(), m_x_positions.end());
+    double x_max = *std::max_element(m_x_positions.begin(), m_x_positions.end());
+    double y_min = *std::min_element(m_y_positions.begin(), m_y_positions.end());
+    double y_max = *std::max_element(m_y_positions.begin(), m_y_positions.end());
     m_win_x = x_max - x_min;
     m_win_y = y_max - y_min;
     if (m_win_x <= 0.0 || m_win_y <= 0.0) {

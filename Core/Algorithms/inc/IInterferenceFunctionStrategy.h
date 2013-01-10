@@ -18,6 +18,7 @@
 #include "IFormFactor.h"
 #include "IInterferenceFunction.h"
 #include "Bin.h"
+#include "SafePointerVector.h"
 
 #include <vector>
 

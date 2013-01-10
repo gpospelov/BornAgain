@@ -101,5 +101,15 @@ IInterferenceFunctionStrategy* IsGISAXSMorphologyFileDecoration::createStrategy(
     }
     IsGISAXSMorphologyFileStrategy *p_strategy = new IsGISAXSMorphologyFileStrategy();
     p_strategy->init(form_factors, fractions, m_interference_functions.getSTLVector());
+
+    // particle positions
+    std::vector<double> x_positions;
+    std::vector<double> y_positions;
+    for (size_t i=0; i<m_particles.size(); ++i) {
+        kvector_t position = m_particles[i]->getPosition();
+        x_positions.push_back(position.x());
+        y_positions.push_back(position.y());
+    }
+    p_strategy->initPositions(x_positions, y_positions);
     return p_strategy;
 }

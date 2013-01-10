@@ -37,7 +37,7 @@ public:
     const Particle *getParticle() const { return mp_particle; }
 
     //! return particle position
-    kvector_t getPosition() { return kvector_t(m_pos_x, m_pos_y, -m_depth); }
+    kvector_t getPosition() const { return kvector_t(m_pos_x, m_pos_y, -m_depth); }
 
     //! set particle position
     void setPosition(kvector_t position);

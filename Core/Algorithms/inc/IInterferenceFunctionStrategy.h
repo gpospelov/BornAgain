@@ -32,14 +32,13 @@ public:
             double alpha_i, double alpha_f) const=0;
 protected:
     void deleteVectors();
-    std::vector<IFormFactor*> m_form_factors; //!< Includes Scattering Length Density
+    SafePointerVector<IFormFactor> m_form_factors; //!< Includes Scattering Length Density
     std::vector<double> m_fractions;
-    std::vector<IInterferenceFunction*> m_interference_functions;
+    SafePointerVector<IInterferenceFunction> m_interference_functions;
 };
 
 inline IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
 {
-    deleteVectors();
 }
 
 inline void IInterferenceFunctionStrategy::init(
@@ -47,28 +46,15 @@ inline void IInterferenceFunctionStrategy::init(
         const std::vector<double>& fractions,
         const std::vector<IInterferenceFunction*>& interference_functions)
 {
-    deleteVectors();
     m_fractions = fractions;
+    m_form_factors.clear();
     for (size_t i=0; i<form_factors.size(); ++i) {
         m_form_factors.push_back(form_factors[i]->clone());
     }
+    m_interference_functions.clear();
     for (size_t i=0; i<interference_functions.size(); ++i) {
         m_interference_functions.push_back(interference_functions[i]->clone());
     }
 }
-
-inline void IInterferenceFunctionStrategy::deleteVectors()
-{
-    for (size_t i=0; i<m_form_factors.size(); ++i) {
-        delete m_form_factors[i];
-    }
-    for (size_t i=0; i<m_interference_functions.size(); ++i) {
-        delete m_interference_functions[i];
-    }
-    m_form_factors.clear();
-    m_interference_functions.clear();
-}
-
-
 
 #endif /* IINTERFERENCEFUNCTIONSTRATEGY_H_ */

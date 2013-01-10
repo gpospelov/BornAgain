@@ -99,7 +99,7 @@ private:
     SafePointerVector<IInterferenceFunction> m_interference_functions;
     ///< Currently only a scalar interference function (instead of matrix)
     double m_total_abundance;
-    ///< To guarantee that fractions sum up to 1
+    ///< Sum of individual fractions (does not need to be 1)
     double m_total_particle_surface_density;
 };
 

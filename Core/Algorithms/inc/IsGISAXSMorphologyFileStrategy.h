@@ -31,10 +31,16 @@ public:
     virtual void init(const std::vector<IFormFactor *> &form_factors,
             const std::vector<double> &fractions,
             const std::vector<IInterferenceFunction *> &interference_functions);
+    void initPositions(const std::vector<double> &x_positions, const std::vector<double> &y_positions);
     virtual double evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
             double alpha_i, double alpha_f) const;
 private:
     bool checkVectorSizes();
+    std::vector<double> m_x_positions;
+    std::vector<double> m_y_positions;
+    double m_win_x, m_win_y;
+    //! Hann function
+    double hannFunction(double x, double y) const;
 };
 
 

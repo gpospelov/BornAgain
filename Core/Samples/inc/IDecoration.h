@@ -17,15 +17,33 @@
 #include "ICompositeSample.h"
 #include "IInterferenceFunctionStrategy.h"
 #include "IFormFactor.h"
+#include "ParticleInfo.h"
 
 class IDecoration : public ICompositeSample
 {
 public:
+    IDecoration() : m_total_particle_surface_density(1.0) {}
     virtual ~IDecoration() {}
 
     virtual IDecoration *clone() const=0;
     virtual IInterferenceFunctionStrategy *createStrategy(
             const std::vector<IFormFactor *> &form_factors) const=0;
+
+    /// Get number of particles
+    virtual size_t getNumberOfParticles() const=0;
+
+    /// get information about particle with index
+    virtual const ParticleInfo *getParticleInfo(size_t index) const=0;
+
+    /// Get surface density of all particles
+    double getTotalParticleSurfaceDensity() const { return m_total_particle_surface_density; }
+
+    /// Set surface density of all particles
+    void setTotalParticleSurfaceDensity(double surface_density) { m_total_particle_surface_density = surface_density; }
+
+private:
+    ///< To guarantee that fractions sum up to 1
+    double m_total_particle_surface_density;
 };
 
 #endif /* IDECORATION_H_ */

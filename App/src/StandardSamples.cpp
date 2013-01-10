@@ -21,6 +21,7 @@
 #include "ParticleBuilder.h"
 #include "StochasticSampledParameter.h"
 #include "ParticleCoreShell.h"
+#include "IsGISAXSMorphologyFileDecoration.h"
 
 
 /* ************************************************************************* */

@@ -48,10 +48,10 @@ public:
     void addParticleInfo(const PositionParticleInfo &info);
 
     /// Get number of particles
-    size_t getNumberOfParticles() const { return m_particles.size(); }
+    virtual size_t getNumberOfParticles() const { return m_particles.size(); }
 
     /// get information about particle with index
-    const PositionParticleInfo *getParticleInfo(size_t index) const;
+    virtual const PositionParticleInfo *getParticleInfo(size_t index) const;
 
     /// Get abundance fraction of particle with index
     double getAbundanceFractionOfParticle(size_t index) const;

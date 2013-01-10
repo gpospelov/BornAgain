@@ -51,7 +51,7 @@ IInterferenceFunctionStrategy *LayerDecoratorDWBASimulation::createAndInitStrate
 std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors() const
 {
     std::vector<IFormFactor *> result;
-    const ParticleDecoration *p_decoration = mp_layer_decorator->getDecoration();
+    const IDecoration *p_decoration = mp_layer_decorator->getDecoration();
     complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {

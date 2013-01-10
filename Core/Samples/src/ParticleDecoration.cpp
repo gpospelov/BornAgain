@@ -6,14 +6,12 @@
 /* ************************************************************************* */
 ParticleDecoration::ParticleDecoration()
 : m_total_abundance(0.0)
-, m_total_particle_surface_density(1.0)
 {
     setName("ParticleDecoration");
 }
 
 ParticleDecoration::ParticleDecoration(Particle* p_particle, double depth, double abundance)
 : m_total_abundance(0.0)
-, m_total_particle_surface_density(1.0)
 {
     setName("ParticleDecoration");
     addParticle(p_particle, 0, depth, abundance);
@@ -45,7 +43,7 @@ ParticleDecoration* ParticleDecoration::clone() const
     }
 
     p_new->m_total_abundance = m_total_abundance;
-    p_new->setTotalParticleSurfaceDensity(m_total_particle_surface_density);
+    p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
 
     return p_new;
 }

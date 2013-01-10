@@ -47,10 +47,10 @@ public:
     void addParticleInfo(const ParticleInfo &info);
 
 	/// Get number of particles
-	size_t getNumberOfParticles() const { return m_particles.size(); }
+	virtual size_t getNumberOfParticles() const { return m_particles.size(); }
 
     /// get information about particle with index
-    const ParticleInfo *getParticleInfo(size_t index) const;
+    virtual const ParticleInfo *getParticleInfo(size_t index) const;
 
     /// Get abundance fraction of particle with index
     double getAbundanceFractionOfParticle(size_t index) const;
@@ -66,11 +66,6 @@ public:
     virtual IInterferenceFunctionStrategy *createStrategy(
             const std::vector<IFormFactor *> &form_factors) const;
 
-    /// Get surface density of all particles
-    double getTotalParticleSurfaceDensity() const { return m_total_particle_surface_density; }
-
-    /// Set surface density of all particles
-    void setTotalParticleSurfaceDensity(double surface_density) { m_total_particle_surface_density = surface_density; }
 private:
     /// copy constructor and assignment operator are hidden since there is a clone method
     ParticleDecoration(const ParticleDecoration &);
@@ -96,8 +91,6 @@ private:
     std::vector<IInterferenceFunction *> m_interference_functions;
     ///< Currently only a scalar interference function (instead of matrix)
     double m_total_abundance;
-    ///< To guarantee that fractions sum up to 1
-    double m_total_particle_surface_density;
 };
 
 #endif // PARTICLEDECORATION_H

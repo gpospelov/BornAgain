@@ -27,7 +27,7 @@ void DWBASimulation::init(const Experiment& experiment)
     m_alpha_i = std::asin(ki_real.z()/ki_real.mag());
 }
 
-DWBASimulation *DWBASimulation::clone()
+DWBASimulation *DWBASimulation::clone() const
 {
     DWBASimulation *p_result = new DWBASimulation();
     p_result->m_dwba_intensity.copyFrom(m_dwba_intensity);

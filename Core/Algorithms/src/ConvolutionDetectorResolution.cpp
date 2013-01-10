@@ -31,12 +31,15 @@ ConvolutionDetectorResolution::~ConvolutionDetectorResolution()
 }
 
 
-ConvolutionDetectorResolution::ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other) : IDetectorResolution(other)
+ConvolutionDetectorResolution::ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other)
+//    : IDetectorResolution(other)
 {
     m_dimension = other.m_dimension;
     // FIXME is it ok to assign pointer to function like that ?
     m_res_function_1d=other.m_res_function_1d;
     mp_res_function_2d = other.mp_res_function_2d->clone();
+    setName(other.getName());
+
 }
 
 

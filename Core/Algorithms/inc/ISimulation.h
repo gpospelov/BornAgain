@@ -14,14 +14,14 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
-#include "Experiment.h"
-#include "Exceptions.h"
+#include "ICloneable.h"
 
-class ISimulation
+class ISimulation : public ICloneable
 {
 public:
-    virtual ~ISimulation() {}
-    virtual void run() {}
+    virtual ~ISimulation() { }
+    ISimulation *clone() const { throw NotImplementedException("ISimulation::clone() -> Error: not implemented exception."); }
+    virtual void run() { }
 };
 
 #endif // ISIMULATION_H

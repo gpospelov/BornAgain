@@ -34,10 +34,6 @@ public:
     }
 protected:
     kvector_t m_position;
-
-private:
-    FormFactorDecoratorPositionFactor(const FormFactorDecoratorPositionFactor &);
-    FormFactorDecoratorPositionFactor &operator=(const FormFactorDecoratorPositionFactor &);
 };
 
 inline FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(

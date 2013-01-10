@@ -35,9 +35,6 @@ protected:
     virtual void init_parameters();
 
 private:
-    FormFactorLorentz(const FormFactorLorentz &);
-    FormFactorLorentz &operator=(const FormFactorLorentz &);
-
     double m_height;
     double m_width;
 };

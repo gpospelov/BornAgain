@@ -21,12 +21,11 @@ OutputDataNormalizerScaleAndShift::OutputDataNormalizerScaleAndShift(double scal
     init_parameters();
 }
 
-OutputDataNormalizerScaleAndShift::OutputDataNormalizerScaleAndShift(const OutputDataNormalizerScaleAndShift &other) : IOutputDataNormalizer(other)
+OutputDataNormalizerScaleAndShift::OutputDataNormalizerScaleAndShift(const OutputDataNormalizerScaleAndShift &other)
 {
     m_scale = other.m_scale;
     m_shift = other.m_shift;
     m_max_intensity = other.m_max_intensity;
-    init_parameters();
 }
 
 
@@ -34,7 +33,6 @@ OutputDataNormalizerScaleAndShift *OutputDataNormalizerScaleAndShift::clone() co
 {
     return new OutputDataNormalizerScaleAndShift(*this);
 }
-
 
 void  OutputDataNormalizerScaleAndShift::init_parameters()
 {

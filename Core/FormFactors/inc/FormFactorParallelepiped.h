@@ -42,9 +42,6 @@ protected:
     virtual void init_parameters();
 
 private:
-    FormFactorParallelepiped(const FormFactorParallelepiped &);
-    FormFactorParallelepiped &operator=(const FormFactorParallelepiped &);
-
     double m_height;
     double m_radius;
 };

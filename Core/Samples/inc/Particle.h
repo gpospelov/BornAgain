@@ -81,12 +81,6 @@ protected:
     complex_t m_refractive_index;
     IFormFactor* mp_form_factor;
     //!< pointer to the form factor
-
-private:
-    //! copy constructor and assignment operator are absent
-    Particle(const Particle &);
-    Particle &operator=(const Particle &);
-
 };
 
 #endif // PARTICLE_H

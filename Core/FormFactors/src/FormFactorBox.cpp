@@ -2,10 +2,9 @@
 #include "MathFunctions.h"
 
 FormFactorBox::FormFactorBox(double radius, double width, double height)
-
- :m_radius(radius)
- ,m_width(width)
- ,m_height(height)
+:m_radius(radius)
+,m_width(width)
+,m_height(height)
 {
 }
 

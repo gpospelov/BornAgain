@@ -34,9 +34,6 @@ public:
     //! return residual between data and simulation for single element
     virtual double getResidualValue(size_t index ) const;
 
-private:
-    // disabling assignment operator
-    ChiSquaredModule &operator=(const ChiSquaredModule &);
 };
 
 

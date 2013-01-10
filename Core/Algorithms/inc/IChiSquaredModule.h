@@ -14,20 +14,19 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Nov 5, 2012
 
-#include "IParameterized.h"
+//#include "IParameterized.h"
+#include "ICloneable.h"
 #include "OutputData.h"
 #include "IFittingDataSelector.h"
 #include "ISquaredFunction.h"
 #include "IOutputDataNormalizer.h"
 #include "IIntensityFunction.h"
+//#include <vector>
 
-#include <vector>
-
-class IChiSquaredModule
+class IChiSquaredModule : public ICloneable
 {
 public:
     IChiSquaredModule();
-    IChiSquaredModule(const IChiSquaredModule &other);
     virtual ~IChiSquaredModule();
 
     //! clone method
@@ -77,8 +76,7 @@ public:
     virtual double getResidualValue(size_t /* index */) const { throw NotImplementedException("IChiSquaredModule::getResidualValue() -> Error! Not implemented."); }
 
 protected:
-    // disabling assignment operator
-    IChiSquaredModule &operator=(const IChiSquaredModule &);
+    IChiSquaredModule(const IChiSquaredModule &other);
 
     virtual void initWeights();
     OutputData<double> *mp_real_data;

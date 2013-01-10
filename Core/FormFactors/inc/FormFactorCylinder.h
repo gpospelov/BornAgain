@@ -22,7 +22,6 @@ class FormFactorCylinder : public IFormFactorBorn
 {
 public:
     FormFactorCylinder(double height, double radius);
-//    FormFactorCylinder(StochasticParameter<double> *p_height, StochasticParameter<double> *p_radius);
     ~FormFactorCylinder();
     virtual FormFactorCylinder *clone() const;
 
@@ -36,17 +35,7 @@ protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-
 private:
-    FormFactorCylinder(const FormFactorCylinder &);
-    FormFactorCylinder &operator=(const FormFactorCylinder &);
-
-
-//    //! print class
-//    void print(std::ostream &ostr) const;
-
-//    StochasticParameter<double> *mp_height;
-//    StochasticParameter<double> *mp_radius;
     double m_height;
     double m_radius;
 };

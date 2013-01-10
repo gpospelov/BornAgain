@@ -29,8 +29,6 @@ class ISample : public IParameterized, public ICloneable
 public:
     ISample() { }
     virtual ~ISample() { }
-//    ISample(const ISample &other);
-//    ISample &operator=(const ISample &other);
 
     //! return pointer to "this", if it is composite sample (to overload)
     virtual ICompositeSample *getCompositeSample() { return 0; }

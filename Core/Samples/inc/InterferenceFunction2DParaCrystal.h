@@ -61,9 +61,6 @@ protected:
     bool m_use_corr_length;
     double m_domain_sizes[2];
 private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    InterferenceFunction2DParaCrystal(const InterferenceFunction2DParaCrystal &);
-    InterferenceFunction2DParaCrystal &operator=(const InterferenceFunction2DParaCrystal &);
 
     //! Calculate interference function for fixed rotation xi
     double interferenceForXi(double xi, void *params) const;

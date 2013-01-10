@@ -35,7 +35,6 @@ public:
 	/// Clone decoration
 	virtual ParticleDecoration *clone() const;
 
-
     /// add particle giving depth and transformation
     void addParticle(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=1.0);
     void addParticle(const Particle &p_particle, const Geometry::Transform3D &transform, double depth=0, double abundance=1.0);
@@ -56,7 +55,6 @@ public:
     /// Get abundance fraction of particle with index
     double getAbundanceFractionOfParticle(size_t index) const;
 
-
     /// Add interference function
     void addInterferenceFunction(IInterferenceFunction* p_interference_function);
     void addInterferenceFunction(const IInterferenceFunction &interference_function);
@@ -75,10 +73,6 @@ public:
     void setTotalParticleSurfaceDensity(double surface_density) { m_total_particle_surface_density = surface_density; }
 
 private:
-    /// copy constructor and assignment operator are hidden since there is a clone method
-    ParticleDecoration(const ParticleDecoration &);
-    ParticleDecoration &operator=(const ParticleDecoration &);
-
     //! adding particle information with simultaneous registration in parent class
     void addAndRegisterParticleInfo(ParticleInfo *child)
     {

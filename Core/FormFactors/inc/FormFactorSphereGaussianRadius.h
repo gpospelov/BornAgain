@@ -35,9 +35,6 @@ public:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
 private:
-    FormFactorSphereGaussianRadius(const FormFactorSphereGaussianRadius &);
-    FormFactorSphereGaussianRadius &operator=(const FormFactorSphereGaussianRadius &);
-
     double calculateMeanR3() const;
 
     double m_mean; //!< This is the mean radius

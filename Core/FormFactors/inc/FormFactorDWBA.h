@@ -41,10 +41,6 @@ protected:
     IDoubleToPairOfComplexMap *mp_RT;
 
     mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
-
-private:
-    FormFactorDWBA(const FormFactorDWBA &);
-    FormFactorDWBA &operator=(const FormFactorDWBA &);
 };
 
 

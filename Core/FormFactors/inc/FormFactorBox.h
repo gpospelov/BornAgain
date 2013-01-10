@@ -46,12 +46,6 @@ protected:
     virtual void init_parameters();
 
 private:
-    FormFactorBox(const FormFactorBox &);
-    FormFactorBox &operator=(const FormFactorBox &);
-
-//    //! print class
-//    void print(std::ostream &ostr) const;
-
     double m_radius;
     double m_width;
     double m_height;

@@ -36,9 +36,6 @@ protected:
     virtual void init_parameters();
 
 private:
-    FormFactorPrism6(const FormFactorPrism6 &);
-    FormFactorPrism6 &operator=(const FormFactorPrism6 &);
-
     double m_height;
     double m_half_side;
     double m_root3; // Cached value of square root of 3

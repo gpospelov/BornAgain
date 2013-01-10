@@ -26,9 +26,6 @@ public:
 
     virtual void setAmbientRefractiveIndex(const complex_t &ambient_refractive_index);
 private:
-    FormFactorDecoratorRefractiveIndex(const FormFactorDecoratorRefractiveIndex &);
-    FormFactorDecoratorRefractiveIndex &operator=(const FormFactorDecoratorRefractiveIndex &);
-
     complex_t getRefractiveIndexFactor(const complex_t &ambient_index, const complex_t &particle_index) const;
 
     complex_t m_refractive_index;

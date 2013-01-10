@@ -36,10 +36,6 @@ protected:
     virtual void init_parameters();
 
 private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    FormFactorPrism3(const FormFactorPrism3 &);
-    FormFactorPrism3 &operator=(const FormFactorPrism3 &);
-
     double m_height;
     double m_half_side;    
     double m_root3; // Cached value of square root of 3

@@ -45,17 +45,6 @@ for(dep, MY_DEPENDENCY_LIB) {
 #    INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
 }
 
-
-###############################################################################
-# attempt to compile project dependencies not from the top
-###############################################################################
-#PRE_TARGETDEPS += $$PWD/../../ThirdParty/gtest/libgtest.a
-#makelibs.target = $$PWD/../../ThirdParty/gtest/libgtest.a
-#makelibs.commands = (cd $$PWD/../../ThirdParty/gtest; qmake; make)
-#makelibs.depends = FORCE
-#QMAKE_EXTRA_TARGETS += makelibs
-
-
 ###############################################################################
 # runs automatically tests right after linking
 ###############################################################################

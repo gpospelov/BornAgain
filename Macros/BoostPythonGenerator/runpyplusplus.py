@@ -31,6 +31,7 @@ myFiles=[
   #'FormFactorSphereGaussianRadius.h',
   #'GISASExperiment.h',
   #'HomogeneousMaterial.h',
+  #'ICloneable.h',
   #'IClusteredParticles.h',
   #'ICompositeSample.h',
   #'IFormFactor.h',
@@ -80,9 +81,29 @@ def AdditionalRules(mb):
   # --- BasicVector3D.h -----------------------------------------------
   if "BasicVector3D.h" in myFiles:
     ##cl = mb.class_("BasicVector3D<std::complex<double> >")
-    mb.classes(lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
-    mb.free_operators( lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
-    mb.free_functions( lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
+    #mb.classes(lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
+    #mb.free_operators( lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
+    #mb.free_functions( lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
+    mb.classes(lambda decl: 'Geometry::BasicVector3D<std::complex<double> const>' in decl.decl_string ).exclude()
+    mb.free_operators( lambda decl: 'Geometry::BasicVector3D<std::complex<double> const>' in decl.decl_string ).exclude()
+    #mb.free_functions( lambda decl: 'Geometry::BasicVector3D<std::complex<double> const>' in decl.decl_string ).exclude()
+    classes = mb.classes()
+    # here we have to exclude all templated methods which are not defined complex<double>, otherwise py++ will try to generate wrappers
+    MethodsWhichAreNotSuitable=[
+        "phi", "theta", "cosTheta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",
+        "setMag", "perp", "perp2", "setPerp", "angle", "unit", "orthogonal",
+        "rotate","rotateX","rotateY","rotateZ"
+    ]
+    for cl in classes:
+      if "BasicVector3D<std::complex<double> >" in cl.decl_string:
+        for fun in cl.member_functions(allow_empty=True):
+          MethodIsBad = False
+          for x in MethodsWhichAreNotSuitable:
+            if fun.name == x:
+              MethodIsBad = True
+          if MethodIsBad:
+            fun.exclude()
+
 
   # --- Experiment.h --------------------------------------------------
   if "Experiment.h" in myFiles:
@@ -132,10 +153,11 @@ def AdditionalRules(mb):
     #cl.member_function("createTotalFormFactor").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
 
   # --- ICompositeSample.h --------------------------------------------
-  #if "ICompositeSample.h" in myFiles:
-    #cl = mb.class_( "ICompositeSample" )
+  if "ICompositeSample.h" in myFiles:
+    cl = mb.class_( "ICompositeSample" )
     #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
     #cl.member_functions().exclude()
+    cl.member_function( "createIterator" ).exclude()
 
   # --- IFormFactor.h -------------------------------------------------
   #if "IFormFactor.h" in myFiles:

@@ -4,6 +4,7 @@ HEADERS +=  \
     PythonAPI/inc/PythonOutputData.h \ 
     PythonAPI/inc/PythonPlusplusHelper.h \ 
     PythonAPI/inc/Crystal.pypp.h \
+    PythonAPI/inc/cvector_t.pypp.h \
     PythonAPI/inc/DiffuseParticleInfo.pypp.h \
     PythonAPI/inc/Experiment.pypp.h \
     PythonAPI/inc/FormFactorCrystal.pypp.h \
@@ -17,6 +18,7 @@ HEADERS +=  \
     PythonAPI/inc/FormFactorSphereGaussianRadius.pypp.h \
     PythonAPI/inc/GISASExperiment.pypp.h \
     PythonAPI/inc/HomogeneousMaterial.pypp.h \
+    PythonAPI/inc/ICloneable.pypp.h \
     PythonAPI/inc/IClusteredParticles.pypp.h \
     PythonAPI/inc/ICompositeSample.pypp.h \
     PythonAPI/inc/IFormFactor.pypp.h \
@@ -24,19 +26,20 @@ HEADERS +=  \
     PythonAPI/inc/IFormFactorDecorator.pypp.h \
     PythonAPI/inc/IInterferenceFunction.pypp.h \
     PythonAPI/inc/IMaterial.pypp.h \
+    PythonAPI/inc/InterferenceFunction1DParaCrystal.pypp.h \
+    PythonAPI/inc/InterferenceFunctionNone.pypp.h \
     PythonAPI/inc/IParameterized.pypp.h \
     PythonAPI/inc/ISample.pypp.h \
     PythonAPI/inc/ISampleBuilder.pypp.h \
     PythonAPI/inc/ISelectionRule.pypp.h \
-    PythonAPI/inc/ISingleton_less__MaterialManager__greater_.pypp.h \
-    PythonAPI/inc/InterferenceFunction1DParaCrystal.pypp.h \
-    PythonAPI/inc/InterferenceFunctionNone.pypp.h \
+    PythonAPI/inc/kvector_t.pypp.h \
     PythonAPI/inc/Lattice.pypp.h \
     PythonAPI/inc/LatticeBasis.pypp.h \
     PythonAPI/inc/Layer.pypp.h \
     PythonAPI/inc/LayerDecorator.pypp.h \
     PythonAPI/inc/LayerRoughness.pypp.h \
     PythonAPI/inc/MaterialManager.pypp.h \
+    PythonAPI/inc/MaterialManagerSingleton_t.pypp.h \
     PythonAPI/inc/MesoCrystal.pypp.h \
     PythonAPI/inc/MultiLayer.pypp.h \
     PythonAPI/inc/OpticalFresnel.pypp.h \
@@ -65,11 +68,10 @@ HEADERS +=  \
     PythonAPI/inc/TranslateX3D.pypp.h \
     PythonAPI/inc/TranslateY3D.pypp.h \
     PythonAPI/inc/TranslateZ3D.pypp.h \
-    PythonAPI/inc/kvector_t.pypp.h \
     PythonAPI/inc/vdouble1d_t.pypp.h \
+    PythonAPI/inc/vector_DiffuseParticleInfoPtr_t.pypp.h \
+    PythonAPI/inc/vector_IFormFactorPtr_t.pypp.h \
     PythonAPI/inc/vector_kvector_t.pypp.h \
-    PythonAPI/inc/vector_less__DiffuseParticleInfo_ptr___greater_.pypp.h \
-    PythonAPI/inc/vector_less__IFormFactor_ptr___greater_.pypp.h \
     PythonAPI/inc/__call_policies.pypp.hpp 
 
 SOURCES +=  \ 
@@ -78,6 +80,7 @@ SOURCES +=  \
     PythonAPI/src/PythonOutputData.cpp \ 
     PythonAPI/src/PythonPlusplusHelper.cpp \ 
     PythonAPI/src/Crystal.pypp.cpp \
+    PythonAPI/src/cvector_t.pypp.cpp \
     PythonAPI/src/DiffuseParticleInfo.pypp.cpp \
     PythonAPI/src/Experiment.pypp.cpp \
     PythonAPI/src/FormFactorCrystal.pypp.cpp \
@@ -91,6 +94,7 @@ SOURCES +=  \
     PythonAPI/src/FormFactorSphereGaussianRadius.pypp.cpp \
     PythonAPI/src/GISASExperiment.pypp.cpp \
     PythonAPI/src/HomogeneousMaterial.pypp.cpp \
+    PythonAPI/src/ICloneable.pypp.cpp \
     PythonAPI/src/IClusteredParticles.pypp.cpp \
     PythonAPI/src/ICompositeSample.pypp.cpp \
     PythonAPI/src/IFormFactor.pypp.cpp \
@@ -98,19 +102,20 @@ SOURCES +=  \
     PythonAPI/src/IFormFactorDecorator.pypp.cpp \
     PythonAPI/src/IInterferenceFunction.pypp.cpp \
     PythonAPI/src/IMaterial.pypp.cpp \
+    PythonAPI/src/InterferenceFunction1DParaCrystal.pypp.cpp \
+    PythonAPI/src/InterferenceFunctionNone.pypp.cpp \
     PythonAPI/src/IParameterized.pypp.cpp \
     PythonAPI/src/ISample.pypp.cpp \
     PythonAPI/src/ISampleBuilder.pypp.cpp \
     PythonAPI/src/ISelectionRule.pypp.cpp \
-    PythonAPI/src/ISingleton_less__MaterialManager__greater_.pypp.cpp \
-    PythonAPI/src/InterferenceFunction1DParaCrystal.pypp.cpp \
-    PythonAPI/src/InterferenceFunctionNone.pypp.cpp \
+    PythonAPI/src/kvector_t.pypp.cpp \
     PythonAPI/src/Lattice.pypp.cpp \
     PythonAPI/src/LatticeBasis.pypp.cpp \
     PythonAPI/src/Layer.pypp.cpp \
     PythonAPI/src/LayerDecorator.pypp.cpp \
     PythonAPI/src/LayerRoughness.pypp.cpp \
     PythonAPI/src/MaterialManager.pypp.cpp \
+    PythonAPI/src/MaterialManagerSingleton_t.pypp.cpp \
     PythonAPI/src/MesoCrystal.pypp.cpp \
     PythonAPI/src/MultiLayer.pypp.cpp \
     PythonAPI/src/OpticalFresnel.pypp.cpp \
@@ -139,11 +144,10 @@ SOURCES +=  \
     PythonAPI/src/TranslateX3D.pypp.cpp \
     PythonAPI/src/TranslateY3D.pypp.cpp \
     PythonAPI/src/TranslateZ3D.pypp.cpp \
-    PythonAPI/src/kvector_t.pypp.cpp \
     PythonAPI/src/vdouble1d_t.pypp.cpp \
-    PythonAPI/src/vector_kvector_t.pypp.cpp \
-    PythonAPI/src/vector_less__DiffuseParticleInfo_ptr___greater_.pypp.cpp \
-    PythonAPI/src/vector_less__IFormFactor_ptr___greater_.pypp.cpp 
+    PythonAPI/src/vector_DiffuseParticleInfoPtr_t.pypp.cpp \
+    PythonAPI/src/vector_IFormFactorPtr_t.pypp.cpp \
+    PythonAPI/src/vector_kvector_t.pypp.cpp 
 
 INCLUDEPATH += ./PythonAPI/inc 
 DEPENDPATH  += ./PythonAPI/inc 

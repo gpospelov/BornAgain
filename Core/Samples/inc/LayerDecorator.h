@@ -21,7 +21,7 @@
 class LayerDecorator : public Layer
 {
 public:
-    LayerDecorator(const Layer &layer, const ParticleDecoration &decoration);
+    LayerDecorator(const Layer &layer, const IDecoration &decoration);
     virtual ~LayerDecorator();
 
     /// make layer's clone
@@ -60,7 +60,7 @@ public:
     virtual void init_parameters();
 
     const Layer* getDecoratedLayer() const { return mp_decorated_layer; }
-    const ParticleDecoration* getDecoration() const { return mp_decoration; }
+    const IDecoration* getDecoration() const { return mp_decoration; }
 
     virtual bool hasDWBASimulation() const { return true; }
 
@@ -86,7 +86,7 @@ public:
 
 protected:
     Layer *mp_decorated_layer;
-    ParticleDecoration *mp_decoration;
+    IDecoration *mp_decoration;
 
 private:
     //! assignment operator hidden since there is a clone method

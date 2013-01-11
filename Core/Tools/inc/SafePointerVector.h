@@ -20,6 +20,8 @@
 //! @class SafePointerVector
 //! @brief Definition of SafePointerVector<T> template for safe handling
 //! of vectors of pointers that are owned by the vector
+//!
+//! The template class should implement a clone() function
 //- -------------------------------------------------------------------
 template <class T> class SafePointerVector
 {
@@ -39,6 +41,8 @@ public:
     const_iterator begin() const { return m_pointers.begin(); }
     iterator end() { return m_pointers.end(); }
     const_iterator end() const { return m_pointers.end(); }
+
+    std::vector<T *> getSTLVector() const { return m_pointers; }
 
     T *back() { return m_pointers.back(); }
     const T *back() const { return m_pointers.back(); }

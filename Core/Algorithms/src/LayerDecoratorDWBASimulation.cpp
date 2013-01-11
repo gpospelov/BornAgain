@@ -51,7 +51,7 @@ IInterferenceFunctionStrategy *LayerDecoratorDWBASimulation::createAndInitStrate
 std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors() const
 {
     std::vector<IFormFactor *> result;
-    const ParticleDecoration *p_decoration = mp_layer_decorator->getDecoration();
+    const IDecoration *p_decoration = mp_layer_decorator->getDecoration();
     complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
@@ -94,7 +94,7 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(const IInterferenc
         Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(NDetector2d::PHI_AXIS_NAME, it_intensity.getIndex());
         Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(NDetector2d::ALPHA_AXIS_NAME, it_intensity.getIndex());
         double alpha_f = alpha_bin.getMidPoint();
-        if (alpha_f<0) {
+        if (std::abs(mp_RT_function->evaluate(alpha_f).first)!=0.0 && alpha_f<0) {
             ++it_intensity;
             continue;
         }

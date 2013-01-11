@@ -41,6 +41,9 @@ SampleFactory::SampleFactory()
     registerItem("IsGISAXS4_1DDL", StandardSamples::IsGISAXS4_1DDL);
     registerItem("IsGISAXS4_2DDL", StandardSamples::IsGISAXS4_2DDL);
 
+    // IsGISAXS7 example: particle mixture from morphology file
+    registerItem("IsGISAXS7_mor", StandardSamples::IsGISAXS7_morphology);
+
     // IsGISAXS8 example: cylinders on top of substrate with paracrystal lattice structure
     registerItem("IsGISAXS8_2DDL_lattice", StandardSamples::IsGISAXS8_2DDL_lattice);
     registerItem("IsGISAXS8_2DDL_lattice2", StandardSamples::IsGISAXS8_2DDL_lattice2);

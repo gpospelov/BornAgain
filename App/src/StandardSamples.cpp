@@ -21,6 +21,7 @@
 #include "ParticleBuilder.h"
 #include "StochasticSampledParameter.h"
 #include "ParticleCoreShell.h"
+#include "IsGISAXSMorphologyFileDecoration.h"
 
 
 /* ************************************************************************* */
@@ -555,6 +556,82 @@ ISample *StandardSamples::IsGISAXS4_2DDL()
 
     p_multi_layer->addLayer(air_layer_decorator);
     p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
+// IsGISAXS7 functional test: particle mixture from morphology file
+/* ************************************************************************* */
+ISample *StandardSamples::IsGISAXS7_morphology()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    IsGISAXSMorphologyFileDecoration particle_decoration;
+    // add particle number 1:
+    FormFactorBox ff1(1.0*Units::nanometer, 1.0*Units::nanometer,1.0*Units::nanometer);
+    kvector_t pos1(0.0*Units::nanometer, 0.0*Units::nanometer, 0.0);
+    particle_decoration.addParticle(new Particle(n_particle, ff1), 0, pos1, 0.5);
+    // add particle number 2:
+    FormFactorBox ff2(1.0*Units::nanometer, 2.0*Units::nanometer,1.0*Units::nanometer);
+    kvector_t pos2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
+    Geometry::RotateZ3D rot2(10*Units::degree);
+    Particle particle2(n_particle, ff2);
+    particle_decoration.addParticle(particle2, rot2, pos2, 0.5);
+    // add particle number 3:
+    FormFactorBox ff3(1.0*Units::nanometer, 3.0*Units::nanometer,1.0*Units::nanometer);
+    kvector_t pos3(-5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
+    Geometry::RotateZ3D rot3(20*Units::degree);
+    Particle particle3(n_particle, ff3);
+    particle_decoration.addParticle(particle3, rot3, pos3, 0.5);
+    // add particle number 4:
+    FormFactorBox ff4(1.0*Units::nanometer, 4.0*Units::nanometer,1.0*Units::nanometer);
+    kvector_t pos4(5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
+    Geometry::RotateZ3D rot4(30*Units::degree);
+    Particle particle4(n_particle, ff4);
+    particle_decoration.addParticle(particle4, rot4, pos4, 0.5);
+    // add particle number 5:
+    FormFactorBox ff5(1.0*Units::nanometer, 5.0*Units::nanometer,1.0*Units::nanometer);
+    kvector_t pos5(-5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
+    Geometry::RotateZ3D rot5(40*Units::degree);
+    Particle particle5(n_particle, ff5);
+    particle_decoration.addParticle(particle5, rot5, pos5, 0.5);
+    // add particle number 6:
+    FormFactorBox ff6(1.0*Units::nanometer, 1.0*Units::nanometer,1.0*Units::nanometer);
+    kvector_t pos6(0.0*Units::nanometer, 0.0*Units::nanometer, 0.0);
+    Geometry::RotateZ3D rot6(50*Units::degree);
+    Particle particle6(n_particle, ff6);
+    particle_decoration.addParticle(particle6, rot6, pos6, 0.5);
+    // add particle number 7:
+    FormFactorBox ff7(1.0*Units::nanometer, 2.0*Units::nanometer,1.0*Units::nanometer);
+    kvector_t pos7(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
+    Geometry::RotateZ3D rot7(60*Units::degree);
+    Particle particle7(n_particle, ff7);
+    particle_decoration.addParticle(particle7, rot7, pos7, 0.5);
+    // add particle number 8:
+    FormFactorBox ff8(1.0*Units::nanometer, 3.0*Units::nanometer,1.0*Units::nanometer);
+    kvector_t pos8(-5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
+    Geometry::RotateZ3D rot8(70*Units::degree);
+    Particle particle8(n_particle, ff8);
+    particle_decoration.addParticle(particle8, rot8, pos8, 0.5);
+    // add particle number 9:
+    FormFactorBox ff9(1.0*Units::nanometer, 4.0*Units::nanometer,1.0*Units::nanometer);
+    kvector_t pos9(5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
+    Geometry::RotateZ3D rot9(80*Units::degree);
+    Particle particle9(n_particle, ff9);
+    particle_decoration.addParticle(particle9, rot9, pos9, 0.5);
+    // add particle number 10:
+    FormFactorBox ff10(1.0*Units::nanometer, 5.0*Units::nanometer,1.0*Units::nanometer);
+    kvector_t pos10(-5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
+    Geometry::RotateZ3D rot10(90*Units::degree);
+    Particle particle10(n_particle, ff10);
+    particle_decoration.addParticle(particle10, rot10, pos10, 0.5);
+
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    p_multi_layer->addLayer(air_layer_decorator);
     return p_multi_layer;
 }
 

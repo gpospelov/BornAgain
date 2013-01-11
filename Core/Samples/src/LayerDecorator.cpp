@@ -1,7 +1,7 @@
 #include "LayerDecorator.h"
 
 LayerDecorator::LayerDecorator(const Layer &layer,
-        const ParticleDecoration &decoration)
+        const IDecoration &decoration)
 : mp_decorated_layer(layer.clone())
 , mp_decoration(decoration.clone())
 {

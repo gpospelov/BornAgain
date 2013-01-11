@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -55,17 +56,17 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Transform3D.h"
 #include "Units.h"
 #include "Types.h"
-#include "vector_less__IFormFactor_ptr___greater_.pypp.h"
+#include "MaterialManagerSingleton_t.pypp.h"
 
 namespace bp = boost::python;
 
-void register_vector_less__IFormFactor_ptr___greater__class(){
+void register_MaterialManagerSingleton_t_class(){
 
-    { //::std::vector< IFormFactor* >
-        typedef bp::class_< std::vector< IFormFactor* > > vector_less__IFormFactor_ptr___greater__exposer_t;
-        vector_less__IFormFactor_ptr___greater__exposer_t vector_less__IFormFactor_ptr___greater__exposer = vector_less__IFormFactor_ptr___greater__exposer_t( "vector_less__IFormFactor_ptr___greater_" );
-        bp::scope vector_less__IFormFactor_ptr___greater__scope( vector_less__IFormFactor_ptr___greater__exposer );
-        vector_less__IFormFactor_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< IFormFactor* > >() );
-    }
+    bp::class_< ISingleton< MaterialManager >, boost::noncopyable >( "MaterialManagerSingleton_t", bp::no_init )    
+        .def( 
+            "instance"
+            , (::MaterialManager & (*)(  ))( &::ISingleton< MaterialManager >::instance )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .staticmethod( "instance" );
 
 }

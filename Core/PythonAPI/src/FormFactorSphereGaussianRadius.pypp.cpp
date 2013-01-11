@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -60,13 +61,6 @@ GCC_DIAG_ON(missing-field-initializers);
 namespace bp = boost::python;
 
 struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, bp::wrapper< FormFactorSphereGaussianRadius > {
-
-    FormFactorSphereGaussianRadius_wrapper(FormFactorSphereGaussianRadius const & arg )
-    : FormFactorSphereGaussianRadius( arg )
-      , bp::wrapper< FormFactorSphereGaussianRadius >(){
-        // copy constructor
-        
-    }
 
     FormFactorSphereGaussianRadius_wrapper(double mean, double sigma )
     : FormFactorSphereGaussianRadius( mean, sigma )
@@ -183,6 +177,18 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         return IFormFactor::getRadius( );
     }
 
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactorBorn::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactorBorn::getVolume( );
+    }
+
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -207,16 +213,16 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         ISample::print_structure( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
+            func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
         else{
-            this->IFormFactor::setAmbientRefractiveIndex( refractive_index );
+            this->IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
         }
     }
     
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        IFormFactor::setAmbientRefractiveIndex( refractive_index );
+    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+        IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
     }
 
     virtual void setParametersAreChanged(  ) {
@@ -235,7 +241,7 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
 
 void register_FormFactorSphereGaussianRadius_class(){
 
-    bp::class_< FormFactorSphereGaussianRadius_wrapper, bp::bases< IFormFactorBorn > >( "FormFactorSphereGaussianRadius", bp::init< double, double >(( bp::arg("mean"), bp::arg("sigma") )) )    
+    bp::class_< FormFactorSphereGaussianRadius_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorSphereGaussianRadius", bp::init< double, double >(( bp::arg("mean"), bp::arg("sigma") )) )    
         .def( 
             "clone"
             , (::FormFactorSphereGaussianRadius * ( ::FormFactorSphereGaussianRadius::* )(  ) const)(&::FormFactorSphereGaussianRadius::clone)
@@ -277,6 +283,10 @@ void register_FormFactorSphereGaussianRadius_class(){
             , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getRadius)
             , (double ( FormFactorSphereGaussianRadius_wrapper::* )(  ) const)(&FormFactorSphereGaussianRadius_wrapper::default_getRadius) )    
         .def( 
+            "getVolume"
+            , (double ( ::IFormFactorBorn::* )(  ) const)(&::IFormFactorBorn::getVolume)
+            , (double ( FormFactorSphereGaussianRadius_wrapper::* )(  ) const)(&FormFactorSphereGaussianRadius_wrapper::default_getVolume) )    
+        .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
             , (void ( FormFactorSphereGaussianRadius_wrapper::* )(  ) const)(&FormFactorSphereGaussianRadius_wrapper::default_printParameters) )    
@@ -286,8 +296,8 @@ void register_FormFactorSphereGaussianRadius_class(){
             , (void ( FormFactorSphereGaussianRadius_wrapper::* )(  ) )(&FormFactorSphereGaussianRadius_wrapper::default_print_structure) )    
         .def( 
             "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
-            , (void ( FormFactorSphereGaussianRadius_wrapper::* )( ::complex_t ) )(&FormFactorSphereGaussianRadius_wrapper::default_setAmbientRefractiveIndex)
+            , (void ( ::IFormFactor::* )( ::complex_t const & ) )(&::IFormFactor::setAmbientRefractiveIndex)
+            , (void ( FormFactorSphereGaussianRadius_wrapper::* )( ::complex_t const & ) )(&FormFactorSphereGaussianRadius_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "setParametersAreChanged"

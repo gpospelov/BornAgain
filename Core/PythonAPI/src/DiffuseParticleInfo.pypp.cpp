@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -61,6 +62,18 @@ namespace bp = boost::python;
 
 struct DiffuseParticleInfo_wrapper : DiffuseParticleInfo, bp::wrapper< DiffuseParticleInfo > {
 
+    virtual ::DiffuseParticleInfo * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->DiffuseParticleInfo::clone(  );
+        }
+    }
+    
+    ::DiffuseParticleInfo * default_clone(  ) const  {
+        return DiffuseParticleInfo::clone( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -73,18 +86,6 @@ struct DiffuseParticleInfo_wrapper : DiffuseParticleInfo, bp::wrapper< DiffusePa
         return IParameterized::areParametersChanged( );
     }
 
-    virtual ::ParticleInfo * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->ParticleInfo::clone(  );
-        }
-    }
-    
-    ::ParticleInfo * default_clone(  ) const  {
-        return ParticleInfo::clone( );
-    }
-
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -95,6 +96,30 @@ struct DiffuseParticleInfo_wrapper : DiffuseParticleInfo, bp::wrapper< DiffusePa
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
+    }
+
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else{
+            return this->ICompositeSample::getCompositeSample(  );
+        }
+    }
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else{
+            return this->ICompositeSample::getCompositeSample(  );
+        }
+    }
+    
+    ::ICompositeSample const * default_getCompositeSample(  ) const  {
+        return ICompositeSample::getCompositeSample( );
     }
 
     virtual void printParameters(  ) const  {
@@ -133,11 +158,28 @@ struct DiffuseParticleInfo_wrapper : DiffuseParticleInfo, bp::wrapper< DiffusePa
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual ::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else{
+            return this->ICompositeSample::size(  );
+        }
+    }
+    
+    ::size_t default_size(  ) const  {
+        return ICompositeSample::size( );
+    }
+
 };
 
 void register_DiffuseParticleInfo_class(){
 
     bp::class_< DiffuseParticleInfo_wrapper, bp::bases< ParticleInfo >, boost::noncopyable >( "DiffuseParticleInfo", bp::no_init )    
+        .def( 
+            "clone"
+            , (::DiffuseParticleInfo * ( ::DiffuseParticleInfo::* )(  ) const)(&::DiffuseParticleInfo::clone)
+            , (::DiffuseParticleInfo * ( DiffuseParticleInfo_wrapper::* )(  ) const)(&DiffuseParticleInfo_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getHeightRange"
             , (double ( ::DiffuseParticleInfo::* )(  ) const)( &::DiffuseParticleInfo::getHeightRange ) )    
@@ -165,15 +207,20 @@ void register_DiffuseParticleInfo_class(){
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( DiffuseParticleInfo_wrapper::* )(  ) )(&DiffuseParticleInfo_wrapper::default_areParametersChanged) )    
         .def( 
-            "clone"
-            , (::ParticleInfo * ( ::ParticleInfo::* )(  ) const)(&::ParticleInfo::clone)
-            , (::ParticleInfo * ( DiffuseParticleInfo_wrapper::* )(  ) const)(&DiffuseParticleInfo_wrapper::default_clone)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( DiffuseParticleInfo_wrapper::* )(  ) const)(&DiffuseParticleInfo_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getCompositeSample"
+            , (::ICompositeSample * ( ::ICompositeSample::* )(  ) )(&::ICompositeSample::getCompositeSample)
+            , (::ICompositeSample * ( DiffuseParticleInfo_wrapper::* )(  ) )(&DiffuseParticleInfo_wrapper::default_getCompositeSample)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getCompositeSample"
+            , (::ICompositeSample const * ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::getCompositeSample)
+            , (::ICompositeSample const * ( DiffuseParticleInfo_wrapper::* )(  ) const)(&DiffuseParticleInfo_wrapper::default_getCompositeSample)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
@@ -185,6 +232,10 @@ void register_DiffuseParticleInfo_class(){
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)
-            , (void ( DiffuseParticleInfo_wrapper::* )(  ) )(&DiffuseParticleInfo_wrapper::default_setParametersAreChanged) );
+            , (void ( DiffuseParticleInfo_wrapper::* )(  ) )(&DiffuseParticleInfo_wrapper::default_setParametersAreChanged) )    
+        .def( 
+            "size"
+            , (::size_t ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::size)
+            , (::size_t ( DiffuseParticleInfo_wrapper::* )(  ) const)(&DiffuseParticleInfo_wrapper::default_size) );
 
 }

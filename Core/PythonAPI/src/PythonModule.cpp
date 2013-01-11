@@ -4,6 +4,7 @@
 // the order of 3 guys above is important
 
 #include "Crystal.pypp.h" 
+#include "cvector_t.pypp.h" 
 #include "DiffuseParticleInfo.pypp.h" 
 #include "Experiment.pypp.h" 
 #include "FormFactorCrystal.pypp.h" 
@@ -17,6 +18,7 @@
 #include "FormFactorSphereGaussianRadius.pypp.h" 
 #include "GISASExperiment.pypp.h" 
 #include "HomogeneousMaterial.pypp.h" 
+#include "ICloneable.pypp.h" 
 #include "IClusteredParticles.pypp.h" 
 #include "ICompositeSample.pypp.h" 
 #include "IFormFactor.pypp.h" 
@@ -24,19 +26,20 @@
 #include "IFormFactorDecorator.pypp.h" 
 #include "IInterferenceFunction.pypp.h" 
 #include "IMaterial.pypp.h" 
+#include "InterferenceFunction1DParaCrystal.pypp.h" 
+#include "InterferenceFunctionNone.pypp.h" 
 #include "IParameterized.pypp.h" 
 #include "ISample.pypp.h" 
 #include "ISampleBuilder.pypp.h" 
 #include "ISelectionRule.pypp.h" 
-#include "ISingleton_less__MaterialManager__greater_.pypp.h" 
-#include "InterferenceFunction1DParaCrystal.pypp.h" 
-#include "InterferenceFunctionNone.pypp.h" 
+#include "kvector_t.pypp.h" 
 #include "Lattice.pypp.h" 
 #include "LatticeBasis.pypp.h" 
 #include "Layer.pypp.h" 
 #include "LayerDecorator.pypp.h" 
 #include "LayerRoughness.pypp.h" 
 #include "MaterialManager.pypp.h" 
+#include "MaterialManagerSingleton_t.pypp.h" 
 #include "MesoCrystal.pypp.h" 
 #include "MultiLayer.pypp.h" 
 #include "OpticalFresnel.pypp.h" 
@@ -65,11 +68,10 @@
 #include "TranslateX3D.pypp.h" 
 #include "TranslateY3D.pypp.h" 
 #include "TranslateZ3D.pypp.h" 
-#include "kvector_t.pypp.h" 
 #include "vdouble1d_t.pypp.h" 
+#include "vector_DiffuseParticleInfoPtr_t.pypp.h" 
+#include "vector_IFormFactorPtr_t.pypp.h" 
 #include "vector_kvector_t.pypp.h" 
-#include "vector_less__DiffuseParticleInfo_ptr___greater_.pypp.h" 
-#include "vector_less__IFormFactor_ptr___greater_.pypp.h" 
 #include "__call_policies.pypp.hpp" 
 
 #include "PythonListConverter.h"
@@ -77,9 +79,10 @@
 BOOST_PYTHON_MODULE(libScattCore){
 
     register_vdouble1d_t_class();
-    register_vector_less__IFormFactor_ptr___greater__class();
+    register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
-    register_vector_less__DiffuseParticleInfo_ptr___greater__class();
+    register_vector_DiffuseParticleInfoPtr_t_class();
+    register_ICloneable_class();
     register_IParameterized_class();
     register_ISample_class();
     register_ICompositeSample_class();
@@ -103,6 +106,7 @@ BOOST_PYTHON_MODULE(libScattCore){
     register_FormFactorSphereGaussianRadius_class();
     register_GISASExperiment_class();
     register_kvector_t_class();
+    register_cvector_t_class();
     register_Reflect3D_class();
     register_ReflectX3D_class();
     register_ReflectY3D_class();
@@ -124,7 +128,7 @@ BOOST_PYTHON_MODULE(libScattCore){
     register_IInterferenceFunction_class();
     register_ISampleBuilder_class();
     register_ISelectionRule_class();
-    register_ISingleton_less__MaterialManager__greater__class();
+    register_MaterialManagerSingleton_t_class();
     register_InterferenceFunction1DParaCrystal_class();
     register_InterferenceFunctionNone_class();
     register_Lattice_class();

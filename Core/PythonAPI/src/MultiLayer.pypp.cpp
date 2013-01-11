@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -92,6 +93,30 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
         return IParameterized::createParameterTree( );
     }
 
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else{
+            return this->ICompositeSample::getCompositeSample(  );
+        }
+    }
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else{
+            return this->ICompositeSample::getCompositeSample(  );
+        }
+    }
+    
+    ::ICompositeSample const * default_getCompositeSample(  ) const  {
+        return ICompositeSample::getCompositeSample( );
+    }
+
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -128,6 +153,18 @@ struct MultiLayer_wrapper : MultiLayer, bp::wrapper< MultiLayer > {
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual ::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else{
+            return this->ICompositeSample::size(  );
+        }
+    }
+    
+    ::size_t default_size(  ) const  {
+        return ICompositeSample::size( );
+    }
+
 };
 
 void register_MultiLayer_class(){
@@ -151,6 +188,16 @@ void register_MultiLayer_class(){
             , (::ParameterPool * ( MultiLayer_wrapper::* )(  ) const)(&MultiLayer_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "getCompositeSample"
+            , (::ICompositeSample * ( ::ICompositeSample::* )(  ) )(&::ICompositeSample::getCompositeSample)
+            , (::ICompositeSample * ( MultiLayer_wrapper::* )(  ) )(&MultiLayer_wrapper::default_getCompositeSample)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getCompositeSample"
+            , (::ICompositeSample const * ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::getCompositeSample)
+            , (::ICompositeSample const * ( MultiLayer_wrapper::* )(  ) const)(&MultiLayer_wrapper::default_getCompositeSample)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
             , (void ( MultiLayer_wrapper::* )(  ) const)(&MultiLayer_wrapper::default_printParameters) )    
@@ -162,6 +209,10 @@ void register_MultiLayer_class(){
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)
             , (void ( MultiLayer_wrapper::* )(  ) )(&MultiLayer_wrapper::default_setParametersAreChanged) )    
+        .def( 
+            "size"
+            , (::size_t ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::size)
+            , (::size_t ( MultiLayer_wrapper::* )(  ) const)(&MultiLayer_wrapper::default_size) )    
         .def( bp::self_ns::str( bp::self ) );
 
 }

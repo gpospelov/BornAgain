@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -60,13 +61,6 @@ GCC_DIAG_ON(missing-field-initializers);
 namespace bp = boost::python;
 
 struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
-
-    Crystal_wrapper(Crystal const & arg )
-    : Crystal( arg )
-      , bp::wrapper< Crystal >(){
-        // copy constructor
-        
-    }
 
     Crystal_wrapper(::LatticeBasis const & lattice_basis, ::Lattice const & lattice )
     : Crystal( boost::ref(lattice_basis), boost::ref(lattice) )
@@ -147,6 +141,30 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return IParameterized::createParameterTree( );
     }
 
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else{
+            return this->ICompositeSample::getCompositeSample(  );
+        }
+    }
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else{
+            return this->ICompositeSample::getCompositeSample(  );
+        }
+    }
+    
+    ::ICompositeSample const * default_getCompositeSample(  ) const  {
+        return ICompositeSample::getCompositeSample( );
+    }
+
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -183,11 +201,23 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual ::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else{
+            return this->ICompositeSample::size(  );
+        }
+    }
+    
+    ::size_t default_size(  ) const  {
+        return ICompositeSample::size( );
+    }
+
 };
 
 void register_Crystal_class(){
 
-    bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles > >( "Crystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
+    bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, boost::noncopyable >( "Crystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
         .def( 
             "clone"
             , (::Crystal * ( ::Crystal::* )(  ) const)(&::Crystal::clone)
@@ -235,6 +265,16 @@ void register_Crystal_class(){
             , (::ParameterPool * ( Crystal_wrapper::* )(  ) const)(&Crystal_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "getCompositeSample"
+            , (::ICompositeSample * ( ::ICompositeSample::* )(  ) )(&::ICompositeSample::getCompositeSample)
+            , (::ICompositeSample * ( Crystal_wrapper::* )(  ) )(&Crystal_wrapper::default_getCompositeSample)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getCompositeSample"
+            , (::ICompositeSample const * ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::getCompositeSample)
+            , (::ICompositeSample const * ( Crystal_wrapper::* )(  ) const)(&Crystal_wrapper::default_getCompositeSample)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
             , (void ( Crystal_wrapper::* )(  ) const)(&Crystal_wrapper::default_printParameters) )    
@@ -245,6 +285,10 @@ void register_Crystal_class(){
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)
-            , (void ( Crystal_wrapper::* )(  ) )(&Crystal_wrapper::default_setParametersAreChanged) );
+            , (void ( Crystal_wrapper::* )(  ) )(&Crystal_wrapper::default_setParametersAreChanged) )    
+        .def( 
+            "size"
+            , (::size_t ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::size)
+            , (::size_t ( Crystal_wrapper::* )(  ) const)(&Crystal_wrapper::default_size) );
 
 }

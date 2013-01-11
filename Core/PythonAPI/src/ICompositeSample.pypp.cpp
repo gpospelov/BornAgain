@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -68,6 +69,54 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     
     }
 
+    virtual ::ICompositeSample * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->ICompositeSample::clone(  );
+        }
+    }
+    
+    ::ICompositeSample * default_clone(  ) const  {
+        return ICompositeSample::clone( );
+    }
+
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else{
+            return this->ICompositeSample::getCompositeSample(  );
+        }
+    }
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else{
+            return this->ICompositeSample::getCompositeSample(  );
+        }
+    }
+    
+    ::ICompositeSample const * default_getCompositeSample(  ) const  {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else{
+            return this->ICompositeSample::size(  );
+        }
+    }
+    
+    ::size_t default_size(  ) const  {
+        return ICompositeSample::size( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -78,18 +127,6 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
-    }
-
-    virtual ::ISample * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->ISample::clone(  );
-        }
-    }
-    
-    ::ISample * default_clone(  ) const  {
-        return ISample::clone( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -146,14 +183,40 @@ void register_ICompositeSample_class(){
 
     bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, boost::noncopyable >( "ICompositeSample", bp::init< >() )    
         .def( 
+            "begin_shallow"
+            , (::std::_List_iterator< ISample* > ( ::ICompositeSample::* )(  ) )( &::ICompositeSample::begin_shallow ) )    
+        .def( 
+            "begin_shallow"
+            , (::std::_List_const_iterator< ISample* > ( ::ICompositeSample::* )(  ) const)( &::ICompositeSample::begin_shallow ) )    
+        .def( 
+            "clone"
+            , (::ICompositeSample * ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::clone)
+            , (::ICompositeSample * ( ICompositeSample_wrapper::* )(  ) const)(&ICompositeSample_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "end_shallow"
+            , (::std::_List_iterator< ISample* > ( ::ICompositeSample::* )(  ) )( &::ICompositeSample::end_shallow ) )    
+        .def( 
+            "end_shallow"
+            , (::std::_List_const_iterator< ISample* > ( ::ICompositeSample::* )(  ) const)( &::ICompositeSample::end_shallow ) )    
+        .def( 
+            "getCompositeSample"
+            , (::ICompositeSample * ( ::ICompositeSample::* )(  ) )(&::ICompositeSample::getCompositeSample)
+            , (::ICompositeSample * ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_getCompositeSample)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getCompositeSample"
+            , (::ICompositeSample const * ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::getCompositeSample)
+            , (::ICompositeSample const * ( ICompositeSample_wrapper::* )(  ) const)(&ICompositeSample_wrapper::default_getCompositeSample)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "size"
+            , (::size_t ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::size)
+            , (::size_t ( ICompositeSample_wrapper::* )(  ) const)(&ICompositeSample_wrapper::default_size) )    
+        .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( ICompositeSample_wrapper::* )(  ) )(&ICompositeSample_wrapper::default_areParametersChanged) )    
-        .def( 
-            "clone"
-            , (::ISample * ( ::ISample::* )(  ) const)(&::ISample::clone)
-            , (::ISample * ( ICompositeSample_wrapper::* )(  ) const)(&ICompositeSample_wrapper::default_clone)
-            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)

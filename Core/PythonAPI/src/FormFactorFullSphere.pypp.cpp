@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -60,13 +61,6 @@ GCC_DIAG_ON(missing-field-initializers);
 namespace bp = boost::python;
 
 struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFactorFullSphere > {
-
-    FormFactorFullSphere_wrapper(FormFactorFullSphere const & arg )
-    : FormFactorFullSphere( arg )
-      , bp::wrapper< FormFactorFullSphere >(){
-        // copy constructor
-        
-    }
 
     FormFactorFullSphere_wrapper(double radius )
     : FormFactorFullSphere( radius )
@@ -183,6 +177,18 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
 
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactorBorn::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactorBorn::getVolume( );
+    }
+
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
@@ -219,16 +225,16 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
         ISample::print_structure( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
+            func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
         else{
-            this->IFormFactor::setAmbientRefractiveIndex( refractive_index );
+            this->IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
         }
     }
     
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        IFormFactor::setAmbientRefractiveIndex( refractive_index );
+    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+        IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
     }
 
     virtual void setParametersAreChanged(  ) {
@@ -247,7 +253,7 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
 
 void register_FormFactorFullSphere_class(){
 
-    bp::class_< FormFactorFullSphere_wrapper, bp::bases< IFormFactorBorn > >( "FormFactorFullSphere", bp::init< double >(( bp::arg("radius") )) )    
+    bp::class_< FormFactorFullSphere_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorFullSphere", bp::init< double >(( bp::arg("radius") )) )    
         .def( 
             "clone"
             , (::FormFactorFullSphere * ( ::FormFactorFullSphere::* )(  ) const)(&::FormFactorFullSphere::clone)
@@ -291,6 +297,10 @@ void register_FormFactorFullSphere_class(){
             , (::complex_t ( FormFactorFullSphere_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&FormFactorFullSphere_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
+            "getVolume"
+            , (double ( ::IFormFactorBorn::* )(  ) const)(&::IFormFactorBorn::getVolume)
+            , (double ( FormFactorFullSphere_wrapper::* )(  ) const)(&FormFactorFullSphere_wrapper::default_getVolume) )    
+        .def( 
             "isDistributedFormFactor"
             , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
             , (bool ( FormFactorFullSphere_wrapper::* )(  ) const)(&FormFactorFullSphere_wrapper::default_isDistributedFormFactor) )    
@@ -304,8 +314,8 @@ void register_FormFactorFullSphere_class(){
             , (void ( FormFactorFullSphere_wrapper::* )(  ) )(&FormFactorFullSphere_wrapper::default_print_structure) )    
         .def( 
             "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
-            , (void ( FormFactorFullSphere_wrapper::* )( ::complex_t ) )(&FormFactorFullSphere_wrapper::default_setAmbientRefractiveIndex)
+            , (void ( ::IFormFactor::* )( ::complex_t const & ) )(&::IFormFactor::setAmbientRefractiveIndex)
+            , (void ( FormFactorFullSphere_wrapper::* )( ::complex_t const & ) )(&FormFactorFullSphere_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "setParametersAreChanged"

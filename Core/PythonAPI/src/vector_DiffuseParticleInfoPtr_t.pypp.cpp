@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -55,17 +56,17 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Transform3D.h"
 #include "Units.h"
 #include "Types.h"
-#include "ISingleton_less__MaterialManager__greater_.pypp.h"
+#include "vector_DiffuseParticleInfoPtr_t.pypp.h"
 
 namespace bp = boost::python;
 
-void register_ISingleton_less__MaterialManager__greater__class(){
+void register_vector_DiffuseParticleInfoPtr_t_class(){
 
-    bp::class_< ISingleton< MaterialManager >, boost::noncopyable >( "ISingleton_less__MaterialManager__greater_", bp::no_init )    
-        .def( 
-            "instance"
-            , (::MaterialManager & (*)(  ))( &::ISingleton< MaterialManager >::instance )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .staticmethod( "instance" );
+    { //::std::vector< DiffuseParticleInfo* >
+        typedef bp::class_< std::vector< DiffuseParticleInfo* > > vector_DiffuseParticleInfoPtr_t_exposer_t;
+        vector_DiffuseParticleInfoPtr_t_exposer_t vector_DiffuseParticleInfoPtr_t_exposer = vector_DiffuseParticleInfoPtr_t_exposer_t( "vector_DiffuseParticleInfoPtr_t" );
+        bp::scope vector_DiffuseParticleInfoPtr_t_scope( vector_DiffuseParticleInfoPtr_t_exposer );
+        vector_DiffuseParticleInfoPtr_t_exposer.def( bp::vector_indexing_suite< ::std::vector< DiffuseParticleInfo* > >() );
+    }
 
 }

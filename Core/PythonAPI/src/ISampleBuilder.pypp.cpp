@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -144,7 +145,7 @@ void register_ISampleBuilder_class(){
             "buildSample"
             , (::ISample * ( ::ISampleBuilder::* )(  ) const)(&::ISampleBuilder::buildSample)
             , (::ISample * ( ISampleBuilder_wrapper::* )(  ) const)(&ISampleBuilder_wrapper::default_buildSample)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
+            , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

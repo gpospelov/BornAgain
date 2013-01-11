@@ -56,13 +56,32 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Transform3D.h"
 #include "Units.h"
 #include "Types.h"
-#include "RotateZ3D.pypp.h"
+#include "ICloneable.pypp.h"
 
 namespace bp = boost::python;
 
-void register_RotateZ3D_class(){
+struct ICloneable_wrapper : ICloneable, bp::wrapper< ICloneable > {
 
-    bp::class_< Geometry::RotateZ3D, bp::bases< Geometry::Rotate3D > >( "RotateZ3D", bp::init< >() )    
-        .def( bp::init< double >(( bp::arg("a") )) );
+    ICloneable_wrapper( )
+    : ICloneable( )
+      , bp::wrapper< ICloneable >(){
+        // null constructor
+    
+    }
+
+    virtual ::ICloneable * clone(  ) const {
+        bp::override func_clone = this->get_override( "clone" );
+        return func_clone(  );
+    }
+
+};
+
+void register_ICloneable_class(){
+
+    bp::class_< ICloneable_wrapper, boost::noncopyable >( "ICloneable", bp::init< >() )    
+        .def( 
+            "clone"
+            , bp::pure_virtual( (::ICloneable * ( ::ICloneable::* )(  ) const)(&::ICloneable::clone) )
+            , bp::return_value_policy< bp::manage_new_object >() );
 
 }

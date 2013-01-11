@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -65,13 +66,6 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
     : ISample( )
       , bp::wrapper< ISample >(){
         // null constructor
-    
-    }
-
-    ISample_wrapper(::ISample const & other )
-    : ISample( boost::ref(other) )
-      , bp::wrapper< ISample >(){
-        // copy constructor
     
     }
 
@@ -151,91 +145,33 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
 
 void register_ISample_class(){
 
-    { //::ISample
-        typedef bp::class_< ISample_wrapper, bp::bases< IParameterized > > ISample_exposer_t;
-        ISample_exposer_t ISample_exposer = ISample_exposer_t( "ISample", bp::init< >() );
-        bp::scope ISample_scope( ISample_exposer );
-        ISample_exposer.def( bp::init< ISample const & >(( bp::arg("other") )) );
-        { //::ISample::clone
-        
-            typedef ::ISample * ( ::ISample::*clone_function_type )(  ) const;
-            typedef ::ISample * ( ISample_wrapper::*default_clone_function_type )(  ) const;
-            
-            ISample_exposer.def( 
-                "clone"
-                , clone_function_type(&::ISample::clone)
-                , default_clone_function_type(&ISample_wrapper::default_clone)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::ISample::operator=
-        
-            typedef ::ISample & ( ::ISample::*assign_function_type )( ::ISample const & ) ;
-            
-            ISample_exposer.def( 
-                "assign"
-                , assign_function_type( &::ISample::operator= )
-                , ( bp::arg("other") )
-                , bp::return_self< >() );
-        
-        }
-        { //::ISample::print_structure
-        
-            typedef void ( ::ISample::*print_structure_function_type )(  ) ;
-            typedef void ( ISample_wrapper::*default_print_structure_function_type )(  ) ;
-            
-            ISample_exposer.def( 
-                "print_structure"
-                , print_structure_function_type(&::ISample::print_structure)
-                , default_print_structure_function_type(&ISample_wrapper::default_print_structure) );
-        
-        }
-        { //::IParameterized::areParametersChanged
-        
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( ISample_wrapper::*default_areParametersChanged_function_type )(  ) ;
-            
-            ISample_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&ISample_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::IParameterized::createParameterTree
-        
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( ISample_wrapper::*default_createParameterTree_function_type )(  ) const;
-            
-            ISample_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&ISample_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( ISample_wrapper::*default_printParameters_function_type )(  ) const;
-            
-            ISample_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&ISample_wrapper::default_printParameters) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( ISample_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
-            
-            ISample_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&ISample_wrapper::default_setParametersAreChanged) );
-        
-        }
-        ISample_exposer.def( bp::self_ns::str( bp::self ) );
-    }
+    bp::class_< ISample_wrapper, bp::bases< IParameterized, ICloneable >, boost::noncopyable >( "ISample", bp::init< >() )    
+        .def( 
+            "clone"
+            , (::ISample * ( ::ISample::* )(  ) const)(&::ISample::clone)
+            , (::ISample * ( ISample_wrapper::* )(  ) const)(&ISample_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( ISample_wrapper::* )(  ) )(&ISample_wrapper::default_print_structure) )    
+        .def( 
+            "areParametersChanged"
+            , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
+            , (bool ( ISample_wrapper::* )(  ) )(&ISample_wrapper::default_areParametersChanged) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
+            , (::ParameterPool * ( ISample_wrapper::* )(  ) const)(&ISample_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "printParameters"
+            , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
+            , (void ( ISample_wrapper::* )(  ) const)(&ISample_wrapper::default_printParameters) )    
+        .def( 
+            "setParametersAreChanged"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)
+            , (void ( ISample_wrapper::* )(  ) )(&ISample_wrapper::default_setParametersAreChanged) )    
+        .def( bp::self_ns::str( bp::self ) );
 
 }

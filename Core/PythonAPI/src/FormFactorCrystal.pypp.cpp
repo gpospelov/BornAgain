@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -61,13 +62,6 @@ namespace bp = boost::python;
 
 struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCrystal > {
 
-    FormFactorCrystal_wrapper(FormFactorCrystal const & arg )
-    : FormFactorCrystal( arg )
-      , bp::wrapper< FormFactorCrystal >(){
-        // copy constructor
-        
-    }
-
     virtual ::FormFactorCrystal * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -104,16 +98,28 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
         return FormFactorCrystal::evaluate_for_q( boost::ref(q) );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
         else{
-            this->FormFactorCrystal::setAmbientRefractiveIndex( refractive_index );
+            return this->FormFactorCrystal::getVolume(  );
         }
     }
     
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        FormFactorCrystal::setAmbientRefractiveIndex( refractive_index );
+    double default_getVolume(  ) const  {
+        return FormFactorCrystal::getVolume( );
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
+        else{
+            this->FormFactorCrystal::setAmbientRefractiveIndex( boost::ref(refractive_index) );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+        FormFactorCrystal::setAmbientRefractiveIndex( boost::ref(refractive_index) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -240,7 +246,7 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
 
 void register_FormFactorCrystal_class(){
 
-    bp::class_< FormFactorCrystal_wrapper, bp::bases< IFormFactorBorn > >( "FormFactorCrystal", bp::no_init )    
+    bp::class_< FormFactorCrystal_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorCrystal", bp::no_init )    
         .def( 
             "clone"
             , (::FormFactorCrystal * ( ::FormFactorCrystal::* )(  ) const)(&::FormFactorCrystal::clone)
@@ -257,9 +263,13 @@ void register_FormFactorCrystal_class(){
             , (::complex_t ( FormFactorCrystal_wrapper::* )( ::cvector_t const & ) const)(&FormFactorCrystal_wrapper::default_evaluate_for_q)
             , ( bp::arg("q") ) )    
         .def( 
+            "getVolume"
+            , (double ( ::FormFactorCrystal::* )(  ) const)(&::FormFactorCrystal::getVolume)
+            , (double ( FormFactorCrystal_wrapper::* )(  ) const)(&FormFactorCrystal_wrapper::default_getVolume) )    
+        .def( 
             "setAmbientRefractiveIndex"
-            , (void ( ::FormFactorCrystal::* )( ::complex_t ) )(&::FormFactorCrystal::setAmbientRefractiveIndex)
-            , (void ( FormFactorCrystal_wrapper::* )( ::complex_t ) )(&FormFactorCrystal_wrapper::default_setAmbientRefractiveIndex)
+            , (void ( ::FormFactorCrystal::* )( ::complex_t const & ) )(&::FormFactorCrystal::setAmbientRefractiveIndex)
+            , (void ( FormFactorCrystal_wrapper::* )( ::complex_t const & ) )(&FormFactorCrystal_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "areParametersChanged"

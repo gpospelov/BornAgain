@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -150,16 +151,16 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         return IFormFactor::isDistributedFormFactor( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
+            func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
         else{
-            this->IFormFactor::setAmbientRefractiveIndex( refractive_index );
+            this->IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
         }
     }
     
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        IFormFactor::setAmbientRefractiveIndex( refractive_index );
+    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+        IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -263,8 +264,8 @@ void register_IFormFactor_class(){
             , (bool ( IFormFactor_wrapper::* )(  ) const)(&IFormFactor_wrapper::default_isDistributedFormFactor) )    
         .def( 
             "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
-            , (void ( IFormFactor_wrapper::* )( ::complex_t ) )(&IFormFactor_wrapper::default_setAmbientRefractiveIndex)
+            , (void ( ::IFormFactor::* )( ::complex_t const & ) )(&::IFormFactor::setAmbientRefractiveIndex)
+            , (void ( IFormFactor_wrapper::* )( ::complex_t const & ) )(&IFormFactor_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "areParametersChanged"

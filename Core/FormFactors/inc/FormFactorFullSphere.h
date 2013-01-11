@@ -39,9 +39,6 @@ protected:
     virtual void init_parameters();
 
 private:
-    FormFactorFullSphere(const FormFactorFullSphere &);
-    FormFactorFullSphere &operator=(const FormFactorFullSphere &);
-
     double m_radius;
 };
 

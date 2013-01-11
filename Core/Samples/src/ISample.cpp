@@ -3,33 +3,6 @@
 #include "ICompositeIterator.h"
 #include "Utils.h"
 
-//ISample::ISample()
-//{
-//}
-
-/* ************************************************************************* */
-// default copy constructor
-/* ************************************************************************* */
-//ISample::ISample(const ISample &other) : IParameterized(other)
-//{
-//}
-
-///* ************************************************************************* */
-//// default assignment operator
-///* ************************************************************************* */
-//ISample &ISample::operator=(const ISample &other)
-//{
-//    if( this != &other)
-//    {
-//        IParameterized::operator=(other);
-//    }
-//    return *this;
-//}
-
-//ISample::~ISample()
-//{
-//}
-
 ISample *ISample::clone() const
 {
     throw NotImplementedException("ISample::clone() -> Error! Method is not implemented");

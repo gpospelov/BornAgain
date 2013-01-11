@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -64,7 +65,7 @@ void register_MaterialManager_class(){
     bp::class_< MaterialManager, bp::bases< ISingleton< MaterialManager > >, boost::noncopyable >( "MaterialManager", bp::no_init )    
         .def( 
             "addHomogeneousMaterial"
-            , (::IMaterial const * ( ::MaterialManager::* )( ::std::string const &,::complex_t ) )( &::MaterialManager::addHomogeneousMaterial )
+            , (::IMaterial const * ( ::MaterialManager::* )( ::std::string const &,::complex_t const & ) )( &::MaterialManager::addHomogeneousMaterial )
             , ( bp::arg("name"), bp::arg("refractive_index") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 

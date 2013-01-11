@@ -15,13 +15,13 @@
 //! @date   27.04.2012
 
 #include "Types.h"
-
+#include "ICloneable.h"
 
 //- -------------------------------------------------------------------
 //! @class IDoubleToComplexFunction
 //! @brief Base class for double to complex interpolators
 //- -------------------------------------------------------------------
-class IDoubleToComplexFunction
+class IDoubleToComplexFunction : public ICloneable
 {
 public:
 	virtual ~IDoubleToComplexFunction() {}
@@ -35,7 +35,7 @@ public:
 //! @class IDoubleToComplexMap
 //! @brief Base class for double to complex map
 //- -------------------------------------------------------------------
-class IDoubleToComplexMap
+class IDoubleToComplexMap : public ICloneable
 {
 public:
     virtual ~IDoubleToComplexMap() {}
@@ -49,7 +49,7 @@ public:
 //! @class IDoubleToPairOfComplexMap
 //! @brief Base class for double to complexpair_t map
 //- -------------------------------------------------------------------
-class IDoubleToPairOfComplexMap
+class IDoubleToPairOfComplexMap : public ICloneable
 {
 public:
     virtual ~IDoubleToPairOfComplexMap() {}
@@ -71,10 +71,6 @@ public:
 	virtual complex_t evaluate(double value) { return m_function(value); }
 
 private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    DoubleToComplexFunctionWrapper(const DoubleToComplexFunctionWrapper &);
-    DoubleToComplexFunctionWrapper &operator=(const DoubleToComplexFunctionWrapper &);
-
 	double_to_complex_t m_function;
 };
 

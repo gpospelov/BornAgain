@@ -46,9 +46,6 @@ protected:
     virtual void init_parameters();
 
 private:
-    FormFactorEllipsoid(const FormFactorEllipsoid &);
-    FormFactorEllipsoid &operator=(const FormFactorEllipsoid &);
-
     double m_radius;
     double m_width;
     double m_height;

@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -188,6 +189,30 @@ struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
         return IParameterized::createParameterTree( );
     }
 
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else{
+            return this->ICompositeSample::getCompositeSample(  );
+        }
+    }
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else{
+            return this->ICompositeSample::getCompositeSample(  );
+        }
+    }
+    
+    ::ICompositeSample const * default_getCompositeSample(  ) const  {
+        return ICompositeSample::getCompositeSample( );
+    }
+
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -222,6 +247,18 @@ struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
     
     void default_setParametersAreChanged(  ) {
         IParameterized::setParametersAreChanged( );
+    }
+
+    virtual ::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else{
+            return this->ICompositeSample::size(  );
+        }
+    }
+    
+    ::size_t default_size(  ) const  {
+        return ICompositeSample::size( );
     }
 
 };
@@ -282,6 +319,16 @@ void register_LayerDecorator_class(){
             , (::ParameterPool * ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "getCompositeSample"
+            , (::ICompositeSample * ( ::ICompositeSample::* )(  ) )(&::ICompositeSample::getCompositeSample)
+            , (::ICompositeSample * ( LayerDecorator_wrapper::* )(  ) )(&LayerDecorator_wrapper::default_getCompositeSample)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getCompositeSample"
+            , (::ICompositeSample const * ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::getCompositeSample)
+            , (::ICompositeSample const * ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getCompositeSample)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
             , (void ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_printParameters) )    
@@ -292,6 +339,10 @@ void register_LayerDecorator_class(){
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)
-            , (void ( LayerDecorator_wrapper::* )(  ) )(&LayerDecorator_wrapper::default_setParametersAreChanged) );
+            , (void ( LayerDecorator_wrapper::* )(  ) )(&LayerDecorator_wrapper::default_setParametersAreChanged) )    
+        .def( 
+            "size"
+            , (::size_t ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::size)
+            , (::size_t ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_size) );
 
 }

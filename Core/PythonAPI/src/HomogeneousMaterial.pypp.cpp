@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -65,8 +66,8 @@ void register_HomogeneousMaterial_class(){
         typedef bp::class_< HomogeneousMaterial, bp::bases< IMaterial > > HomogeneousMaterial_exposer_t;
         HomogeneousMaterial_exposer_t HomogeneousMaterial_exposer = HomogeneousMaterial_exposer_t( "HomogeneousMaterial", bp::init< >() );
         bp::scope HomogeneousMaterial_scope( HomogeneousMaterial_exposer );
-        HomogeneousMaterial_exposer.def( bp::init< complex_t >(( bp::arg("refractive_index") )) );
-        HomogeneousMaterial_exposer.def( bp::init< std::string const &, complex_t >(( bp::arg("name"), bp::arg("refractive_index") )) );
+        HomogeneousMaterial_exposer.def( bp::init< complex_t const & >(( bp::arg("refractive_index") )) );
+        HomogeneousMaterial_exposer.def( bp::init< std::string const &, complex_t const & >(( bp::arg("name"), bp::arg("refractive_index") )) );
         HomogeneousMaterial_exposer.def( bp::init< std::string const &, double, double >(( bp::arg("name"), bp::arg("refractive_index_real"), bp::arg("refractive_index_imag") )) );
         HomogeneousMaterial_exposer.def( bp::init< HomogeneousMaterial const & >(( bp::arg("other") )) );
         { //::HomogeneousMaterial::getRefractiveIndex

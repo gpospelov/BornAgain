@@ -23,34 +23,10 @@ LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double latte
     init_parameters();
 }
 
-
-//LayerRoughness::LayerRoughness(const LayerRoughness &other) : IRoughness(other)
-//{
-//    m_sigma = other.m_sigma;
-//    m_hurstParameter = other.m_hurstParameter;
-//    m_latteralCorrLength = other.m_latteralCorrLength;
-//    init_parameters();
-//}
-
-
 LayerRoughness *LayerRoughness::clone() const
 {
     return new LayerRoughness(m_sigma, m_hurstParameter, m_latteralCorrLength);
 }
-
-//LayerRoughness &LayerRoughness::operator=(const LayerRoughness &other)
-//{
-//    if( this != &other)
-//    {
-//        IRoughness::operator=(other);
-//        m_sigma = other.m_sigma;
-//        m_hurstParameter = other.m_hurstParameter;
-//        m_latteralCorrLength = other.m_latteralCorrLength;
-//        init_parameters();
-//    }
-//    return *this;
-//}
-
 
 void LayerRoughness::init_parameters()
 {

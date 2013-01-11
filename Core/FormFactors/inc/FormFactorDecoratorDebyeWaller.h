@@ -39,9 +39,6 @@ protected:
     }
 
 private:
-    FormFactorDecoratorDebyeWaller(const FormFactorDecoratorDebyeWaller &);
-    FormFactorDecoratorDebyeWaller &operator=(const FormFactorDecoratorDebyeWaller &);
-
     double m_h_dw_factor; //!< the Debye-Waller factor in the z-direction
     double m_r_dw_factor; //!< the Debye-Waller factor in the radial direction
 };

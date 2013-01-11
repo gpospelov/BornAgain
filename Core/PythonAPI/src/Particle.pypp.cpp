@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -61,8 +62,8 @@ namespace bp = boost::python;
 
 struct Particle_wrapper : Particle, bp::wrapper< Particle > {
 
-    Particle_wrapper(::complex_t refractive_index, ::IFormFactor const & p_form_factor )
-    : Particle( refractive_index, boost::ref(p_form_factor) )
+    Particle_wrapper(::complex_t const & refractive_index, ::IFormFactor const & p_form_factor )
+    : Particle( boost::ref(refractive_index), boost::ref(p_form_factor) )
       , bp::wrapper< Particle >(){
         // constructor
     
@@ -164,6 +165,30 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         return IParameterized::createParameterTree( );
     }
 
+    virtual ::ICompositeSample * getCompositeSample(  ) {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else{
+            return this->ICompositeSample::getCompositeSample(  );
+        }
+    }
+    
+    ::ICompositeSample * default_getCompositeSample(  ) {
+        return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
+        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
+            return func_getCompositeSample(  );
+        else{
+            return this->ICompositeSample::getCompositeSample(  );
+        }
+    }
+    
+    ::ICompositeSample const * default_getCompositeSample(  ) const  {
+        return ICompositeSample::getCompositeSample( );
+    }
+
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -200,11 +225,23 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
         IParameterized::setParametersAreChanged( );
     }
 
+    virtual ::size_t size(  ) const  {
+        if( bp::override func_size = this->get_override( "size" ) )
+            return func_size(  );
+        else{
+            return this->ICompositeSample::size(  );
+        }
+    }
+    
+    ::size_t default_size(  ) const  {
+        return ICompositeSample::size( );
+    }
+
 };
 
 void register_Particle_class(){
 
-    bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Particle", bp::init< complex_t, IFormFactor const & >(( bp::arg("refractive_index"), bp::arg("p_form_factor") )) )    
+    bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Particle", bp::init< complex_t const &, IFormFactor const & >(( bp::arg("refractive_index"), bp::arg("p_form_factor") )) )    
         .def( 
             "clone"
             , (::Particle * ( ::Particle::* )(  ) const)(&::Particle::clone)
@@ -243,6 +280,16 @@ void register_Particle_class(){
             , (::ParameterPool * ( Particle_wrapper::* )(  ) const)(&Particle_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "getCompositeSample"
+            , (::ICompositeSample * ( ::ICompositeSample::* )(  ) )(&::ICompositeSample::getCompositeSample)
+            , (::ICompositeSample * ( Particle_wrapper::* )(  ) )(&Particle_wrapper::default_getCompositeSample)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getCompositeSample"
+            , (::ICompositeSample const * ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::getCompositeSample)
+            , (::ICompositeSample const * ( Particle_wrapper::* )(  ) const)(&Particle_wrapper::default_getCompositeSample)
+            , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
             , (void ( Particle_wrapper::* )(  ) const)(&Particle_wrapper::default_printParameters) )    
@@ -253,6 +300,10 @@ void register_Particle_class(){
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)
-            , (void ( Particle_wrapper::* )(  ) )(&Particle_wrapper::default_setParametersAreChanged) );
+            , (void ( Particle_wrapper::* )(  ) )(&Particle_wrapper::default_setParametersAreChanged) )    
+        .def( 
+            "size"
+            , (::size_t ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::size)
+            , (::size_t ( Particle_wrapper::* )(  ) const)(&Particle_wrapper::default_size) );
 
 }

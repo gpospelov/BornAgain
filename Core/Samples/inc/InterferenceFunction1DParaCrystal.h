@@ -32,10 +32,6 @@ protected:
 	double m_corr_length;
 	bool m_use_corr_length;
 private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    InterferenceFunction1DParaCrystal(const InterferenceFunction1DParaCrystal &);
-    InterferenceFunction1DParaCrystal &operator=(const InterferenceFunction1DParaCrystal &);
-
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 

@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -55,17 +56,17 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Transform3D.h"
 #include "Units.h"
 #include "Types.h"
-#include "vector_less__DiffuseParticleInfo_ptr___greater_.pypp.h"
+#include "vector_IFormFactorPtr_t.pypp.h"
 
 namespace bp = boost::python;
 
-void register_vector_less__DiffuseParticleInfo_ptr___greater__class(){
+void register_vector_IFormFactorPtr_t_class(){
 
-    { //::std::vector< DiffuseParticleInfo* >
-        typedef bp::class_< std::vector< DiffuseParticleInfo* > > vector_less__DiffuseParticleInfo_ptr___greater__exposer_t;
-        vector_less__DiffuseParticleInfo_ptr___greater__exposer_t vector_less__DiffuseParticleInfo_ptr___greater__exposer = vector_less__DiffuseParticleInfo_ptr___greater__exposer_t( "vector_less__DiffuseParticleInfo_ptr___greater_" );
-        bp::scope vector_less__DiffuseParticleInfo_ptr___greater__scope( vector_less__DiffuseParticleInfo_ptr___greater__exposer );
-        vector_less__DiffuseParticleInfo_ptr___greater__exposer.def( bp::vector_indexing_suite< ::std::vector< DiffuseParticleInfo* > >() );
+    { //::std::vector< IFormFactor* >
+        typedef bp::class_< std::vector< IFormFactor* > > vector_IFormFactorPtr_t_exposer_t;
+        vector_IFormFactorPtr_t_exposer_t vector_IFormFactorPtr_t_exposer = vector_IFormFactorPtr_t_exposer_t( "vector_IFormFactorPtr_t" );
+        bp::scope vector_IFormFactorPtr_t_scope( vector_IFormFactorPtr_t_exposer );
+        vector_IFormFactorPtr_t_exposer.def( bp::vector_indexing_suite< ::std::vector< IFormFactor* > >() );
     }
 
 }

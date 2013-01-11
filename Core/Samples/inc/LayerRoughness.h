@@ -32,7 +32,6 @@ class LayerRoughness : public IRoughness
 public:
     LayerRoughness();
     LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
-//    LayerRoughness &operator=(const LayerRoughness &other);
 
     LayerRoughness *clone() const;
 

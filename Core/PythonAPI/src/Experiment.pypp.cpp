@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -144,7 +145,7 @@ struct Experiment_wrapper : Experiment, bp::wrapper< Experiment > {
 
 void register_Experiment_class(){
 
-    bp::class_< Experiment_wrapper, bp::bases< IParameterized >, boost::noncopyable >( "Experiment", bp::init< >() )    
+    bp::class_< Experiment_wrapper, bp::bases< IParameterized, ICloneable >, boost::noncopyable >( "Experiment", bp::init< >() )    
         .def( 
             "normalize"
             , (void ( ::Experiment::* )(  ) )(&::Experiment::normalize)

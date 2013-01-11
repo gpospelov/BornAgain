@@ -67,10 +67,6 @@ public:
             const std::vector<IFormFactor *> &form_factors) const;
 
 private:
-    /// copy constructor and assignment operator are hidden since there is a clone method
-    ParticleDecoration(const ParticleDecoration &);
-    ParticleDecoration &operator=(const ParticleDecoration &);
-
     //! adding particle information with simultaneous registration in parent class
     void addAndRegisterParticleInfo(ParticleInfo *child)
     {

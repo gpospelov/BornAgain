@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -88,6 +89,18 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
     virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const {
         bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" );
         return func_evaluate_for_q( boost::ref(q) );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactorBorn::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactorBorn::getVolume( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -198,16 +211,16 @@ struct IFormFactorBorn_wrapper : IFormFactorBorn, bp::wrapper< IFormFactorBorn >
         ISample::print_structure( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
+            func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
         else{
-            this->IFormFactor::setAmbientRefractiveIndex( refractive_index );
+            this->IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
         }
     }
     
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        IFormFactor::setAmbientRefractiveIndex( refractive_index );
+    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+        IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
     }
 
     virtual void setParametersAreChanged(  ) {
@@ -240,6 +253,10 @@ void register_IFormFactorBorn_class(){
             "evaluate_for_q"
             , bp::pure_virtual( (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const & ) const)(&::IFormFactorBorn::evaluate_for_q) )
             , ( bp::arg("q") ) )    
+        .def( 
+            "getVolume"
+            , (double ( ::IFormFactorBorn::* )(  ) const)(&::IFormFactorBorn::getVolume)
+            , (double ( IFormFactorBorn_wrapper::* )(  ) const)(&IFormFactorBorn_wrapper::default_getVolume) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
@@ -281,8 +298,8 @@ void register_IFormFactorBorn_class(){
             , (void ( IFormFactorBorn_wrapper::* )(  ) )(&IFormFactorBorn_wrapper::default_print_structure) )    
         .def( 
             "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
-            , (void ( IFormFactorBorn_wrapper::* )( ::complex_t ) )(&IFormFactorBorn_wrapper::default_setAmbientRefractiveIndex)
+            , (void ( ::IFormFactor::* )( ::complex_t const & ) )(&::IFormFactor::setAmbientRefractiveIndex)
+            , (void ( IFormFactorBorn_wrapper::* )( ::complex_t const & ) )(&IFormFactorBorn_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "setParametersAreChanged"

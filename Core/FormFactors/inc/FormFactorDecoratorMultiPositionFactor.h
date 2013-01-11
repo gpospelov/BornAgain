@@ -30,9 +30,6 @@ public:
     }
 
 private:
-    FormFactorDecoratorMultiPositionFactor(const FormFactorDecoratorMultiPositionFactor &);
-    FormFactorDecoratorMultiPositionFactor &operator=(const FormFactorDecoratorMultiPositionFactor &);
-
     complex_t getPositionsFactor(cvector_t q) const;
     std::vector<kvector_t> m_positions;
 };

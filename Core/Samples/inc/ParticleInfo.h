@@ -58,8 +58,8 @@ public:
     void setAbundance(double abundance) { m_abundance = abundance; }
 
 protected:
-    ParticleInfo &operator=(const ParticleInfo &right);
-    ParticleInfo(const ParticleInfo &source);
+//    ParticleInfo &operator=(const ParticleInfo &right);
+//    ParticleInfo(const ParticleInfo &source);
 
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();

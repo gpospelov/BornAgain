@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -183,6 +184,18 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         return IFormFactor::getRadius( );
     }
 
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactorBorn::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactorBorn::getVolume( );
+    }
+
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
@@ -219,16 +232,16 @@ struct FormFactorGauss_wrapper : FormFactorGauss, bp::wrapper< FormFactorGauss >
         ISample::print_structure( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
+            func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
         else{
-            this->IFormFactor::setAmbientRefractiveIndex( refractive_index );
+            this->IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
         }
     }
     
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        IFormFactor::setAmbientRefractiveIndex( refractive_index );
+    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+        IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
     }
 
     virtual void setParametersAreChanged(  ) {
@@ -292,6 +305,10 @@ void register_FormFactorGauss_class(){
             , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getRadius)
             , (double ( FormFactorGauss_wrapper::* )(  ) const)(&FormFactorGauss_wrapper::default_getRadius) )    
         .def( 
+            "getVolume"
+            , (double ( ::IFormFactorBorn::* )(  ) const)(&::IFormFactorBorn::getVolume)
+            , (double ( FormFactorGauss_wrapper::* )(  ) const)(&FormFactorGauss_wrapper::default_getVolume) )    
+        .def( 
             "isDistributedFormFactor"
             , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
             , (bool ( FormFactorGauss_wrapper::* )(  ) const)(&FormFactorGauss_wrapper::default_isDistributedFormFactor) )    
@@ -305,8 +322,8 @@ void register_FormFactorGauss_class(){
             , (void ( FormFactorGauss_wrapper::* )(  ) )(&FormFactorGauss_wrapper::default_print_structure) )    
         .def( 
             "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactor::* )( ::complex_t ) )(&::IFormFactor::setAmbientRefractiveIndex)
-            , (void ( FormFactorGauss_wrapper::* )( ::complex_t ) )(&FormFactorGauss_wrapper::default_setAmbientRefractiveIndex)
+            , (void ( ::IFormFactor::* )( ::complex_t const & ) )(&::IFormFactor::setAmbientRefractiveIndex)
+            , (void ( FormFactorGauss_wrapper::* )( ::complex_t const & ) )(&FormFactorGauss_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "setParametersAreChanged"

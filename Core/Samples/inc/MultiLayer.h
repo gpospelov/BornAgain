@@ -108,10 +108,6 @@ protected:
 
 
 private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    MultiLayer(const MultiLayer &);
-    MultiLayer &operator=(const MultiLayer &);
-
     //! adding the layer with simultaneous registration in parent class
     void addAndRegisterLayer(Layer *child)
     {

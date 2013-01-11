@@ -10,22 +10,11 @@ FormFactorCylinder::FormFactorCylinder(double height, double radius)
     m_height = height;
     m_radius = radius;
     init_parameters();
-    //    mp_height = new StochasticDiracDelta<double>(height);
-    //    mp_radius = new StochasticDiracDelta<double>(radius);
 }
-
-//FormFactorCylinder::FormFactorCylinder(StochasticParameter<double> *p_height, StochasticParameter<double> *p_radius)
-//    : mp_height(p_height)
-//    , mp_radius(p_radius)
-//{
-//}
 
 FormFactorCylinder::~FormFactorCylinder()
 {
-//    delete mp_height;
-//    delete mp_radius;
 }
-
 
 /* ************************************************************************* */
 // initialize pool parameters, i.e. register some of class members for later access via parameter pool
@@ -37,11 +26,9 @@ void FormFactorCylinder::init_parameters()
     getParameterPool()->registerParameter("radius", &m_radius);
 }
 
-
 FormFactorCylinder* FormFactorCylinder::clone() const
 {
-    FormFactorCylinder *p_clone = new FormFactorCylinder(m_height, m_radius);
-    return p_clone;
+    return new FormFactorCylinder(m_height, m_radius);
 }
 
 complex_t FormFactorCylinder::evaluate_for_q(const cvector_t &q) const

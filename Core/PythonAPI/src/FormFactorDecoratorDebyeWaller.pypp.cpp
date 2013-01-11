@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -60,13 +61,6 @@ GCC_DIAG_ON(missing-field-initializers);
 namespace bp = boost::python;
 
 struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, bp::wrapper< FormFactorDecoratorDebyeWaller > {
-
-    FormFactorDecoratorDebyeWaller_wrapper(FormFactorDecoratorDebyeWaller const & arg )
-    : FormFactorDecoratorDebyeWaller( arg )
-      , bp::wrapper< FormFactorDecoratorDebyeWaller >(){
-        // copy constructor
-        
-    }
 
     FormFactorDecoratorDebyeWaller_wrapper(::IFormFactor const & p_form_factor, double dw_h_factor, double dw_r_factor )
     : FormFactorDecoratorDebyeWaller( boost::ref(p_form_factor), dw_h_factor, dw_r_factor )
@@ -219,16 +213,16 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         ISample::print_structure( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
+    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
+            func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
         else{
-            this->IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
+            this->IFormFactorDecorator::setAmbientRefractiveIndex( boost::ref(refractive_index) );
         }
     }
     
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        IFormFactorDecorator::setAmbientRefractiveIndex( refractive_index );
+    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+        IFormFactorDecorator::setAmbientRefractiveIndex( boost::ref(refractive_index) );
     }
 
     virtual void setParametersAreChanged(  ) {
@@ -247,7 +241,7 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
 
 void register_FormFactorDecoratorDebyeWaller_class(){
 
-    bp::class_< FormFactorDecoratorDebyeWaller_wrapper, bp::bases< IFormFactorDecorator > >( "FormFactorDecoratorDebyeWaller", bp::init< IFormFactor const &, double, double >(( bp::arg("p_form_factor"), bp::arg("dw_h_factor"), bp::arg("dw_r_factor") )) )    
+    bp::class_< FormFactorDecoratorDebyeWaller_wrapper, bp::bases< IFormFactorDecorator >, boost::noncopyable >( "FormFactorDecoratorDebyeWaller", bp::init< IFormFactor const &, double, double >(( bp::arg("p_form_factor"), bp::arg("dw_h_factor"), bp::arg("dw_r_factor") )) )    
         .def( 
             "clone"
             , (::FormFactorDecoratorDebyeWaller * ( ::FormFactorDecoratorDebyeWaller::* )(  ) const)(&::FormFactorDecoratorDebyeWaller::clone)
@@ -303,8 +297,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
             , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )(  ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_print_structure) )    
         .def( 
             "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactorDecorator::* )( ::complex_t ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
-            , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::complex_t ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_setAmbientRefractiveIndex)
+            , (void ( ::IFormFactorDecorator::* )( ::complex_t const & ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
+            , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::complex_t const & ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "setParametersAreChanged"

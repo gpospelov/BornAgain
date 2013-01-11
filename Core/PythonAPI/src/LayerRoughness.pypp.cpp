@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -75,11 +76,16 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
     
     }
 
-    LayerRoughness_wrapper(::LayerRoughness const & other )
-    : LayerRoughness( boost::ref(other) )
-      , bp::wrapper< LayerRoughness >(){
-        // copy constructor
+    virtual ::LayerRoughness * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->LayerRoughness::clone(  );
+        }
+    }
     
+    ::LayerRoughness * default_clone(  ) const  {
+        return LayerRoughness::clone( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -92,18 +98,6 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
-    }
-
-    virtual ::ISample * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->ISample::clone(  );
-        }
-    }
-    
-    ::ISample * default_clone(  ) const  {
-        return ISample::clone( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -158,149 +152,55 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
 
 void register_LayerRoughness_class(){
 
-    { //::LayerRoughness
-        typedef bp::class_< LayerRoughness_wrapper > LayerRoughness_exposer_t;
-        LayerRoughness_exposer_t LayerRoughness_exposer = LayerRoughness_exposer_t( "LayerRoughness", bp::init< >() );
-        bp::scope LayerRoughness_scope( LayerRoughness_exposer );
-        LayerRoughness_exposer.def( bp::init< double, double, double >(( bp::arg("sigma"), bp::arg("hurstParameter"), bp::arg("latteralCorrLength") )) );
-        LayerRoughness_exposer.def( bp::init< LayerRoughness const & >(( bp::arg("other") )) );
-        { //::LayerRoughness::getHurstParameter
-        
-            typedef double ( ::LayerRoughness::*getHurstParameter_function_type )(  ) const;
-            
-            LayerRoughness_exposer.def( 
-                "getHurstParameter"
-                , getHurstParameter_function_type( &::LayerRoughness::getHurstParameter ) );
-        
-        }
-        { //::LayerRoughness::getLatteralCorrLength
-        
-            typedef double ( ::LayerRoughness::*getLatteralCorrLength_function_type )(  ) const;
-            
-            LayerRoughness_exposer.def( 
-                "getLatteralCorrLength"
-                , getLatteralCorrLength_function_type( &::LayerRoughness::getLatteralCorrLength ) );
-        
-        }
-        { //::LayerRoughness::getSigma
-        
-            typedef double ( ::LayerRoughness::*getSigma_function_type )(  ) const;
-            
-            LayerRoughness_exposer.def( 
-                "getSigma"
-                , getSigma_function_type( &::LayerRoughness::getSigma ) );
-        
-        }
-        { //::LayerRoughness::operator=
-        
-            typedef ::LayerRoughness & ( ::LayerRoughness::*assign_function_type )( ::LayerRoughness const & ) ;
-            
-            LayerRoughness_exposer.def( 
-                "assign"
-                , assign_function_type( &::LayerRoughness::operator= )
-                , ( bp::arg("other") )
-                , bp::return_self< >() );
-        
-        }
-        { //::LayerRoughness::setHurstParameter
-        
-            typedef void ( ::LayerRoughness::*setHurstParameter_function_type )( double ) ;
-            
-            LayerRoughness_exposer.def( 
-                "setHurstParameter"
-                , setHurstParameter_function_type( &::LayerRoughness::setHurstParameter )
-                , ( bp::arg("hurstParameter") ) );
-        
-        }
-        { //::LayerRoughness::setLatteralCorrLength
-        
-            typedef void ( ::LayerRoughness::*setLatteralCorrLength_function_type )( double ) ;
-            
-            LayerRoughness_exposer.def( 
-                "setLatteralCorrLength"
-                , setLatteralCorrLength_function_type( &::LayerRoughness::setLatteralCorrLength )
-                , ( bp::arg("latteralCorrLength") ) );
-        
-        }
-        { //::LayerRoughness::setSigma
-        
-            typedef void ( ::LayerRoughness::*setSigma_function_type )( double ) ;
-            
-            LayerRoughness_exposer.def( 
-                "setSigma"
-                , setSigma_function_type( &::LayerRoughness::setSigma )
-                , ( bp::arg("sigma") ) );
-        
-        }
-        { //::IParameterized::areParametersChanged
-        
-            typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
-            typedef bool ( LayerRoughness_wrapper::*default_areParametersChanged_function_type )(  ) ;
-            
-            LayerRoughness_exposer.def( 
-                "areParametersChanged"
-                , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
-                , default_areParametersChanged_function_type(&LayerRoughness_wrapper::default_areParametersChanged) );
-        
-        }
-        { //::ISample::clone
-        
-            typedef ::ISample * ( ::ISample::*clone_function_type )(  ) const;
-            typedef ::ISample * ( LayerRoughness_wrapper::*default_clone_function_type )(  ) const;
-            
-            LayerRoughness_exposer.def( 
-                "clone"
-                , clone_function_type(&::ISample::clone)
-                , default_clone_function_type(&LayerRoughness_wrapper::default_clone)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::IParameterized::createParameterTree
-        
-            typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
-            typedef ::ParameterPool * ( LayerRoughness_wrapper::*default_createParameterTree_function_type )(  ) const;
-            
-            LayerRoughness_exposer.def( 
-                "createParameterTree"
-                , createParameterTree_function_type(&::IParameterized::createParameterTree)
-                , default_createParameterTree_function_type(&LayerRoughness_wrapper::default_createParameterTree)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::IParameterized::printParameters
-        
-            typedef void ( ::IParameterized::*printParameters_function_type )(  ) const;
-            typedef void ( LayerRoughness_wrapper::*default_printParameters_function_type )(  ) const;
-            
-            LayerRoughness_exposer.def( 
-                "printParameters"
-                , printParameters_function_type(&::IParameterized::printParameters)
-                , default_printParameters_function_type(&LayerRoughness_wrapper::default_printParameters) );
-        
-        }
-        { //::ISample::print_structure
-        
-            typedef void ( ::ISample::*print_structure_function_type )(  ) ;
-            typedef void ( LayerRoughness_wrapper::*default_print_structure_function_type )(  ) ;
-            
-            LayerRoughness_exposer.def( 
-                "print_structure"
-                , print_structure_function_type(&::ISample::print_structure)
-                , default_print_structure_function_type(&LayerRoughness_wrapper::default_print_structure) );
-        
-        }
-        { //::IParameterized::setParametersAreChanged
-        
-            typedef void ( ::IParameterized::*setParametersAreChanged_function_type )(  ) ;
-            typedef void ( LayerRoughness_wrapper::*default_setParametersAreChanged_function_type )(  ) ;
-            
-            LayerRoughness_exposer.def( 
-                "setParametersAreChanged"
-                , setParametersAreChanged_function_type(&::IParameterized::setParametersAreChanged)
-                , default_setParametersAreChanged_function_type(&LayerRoughness_wrapper::default_setParametersAreChanged) );
-        
-        }
-        LayerRoughness_exposer.def( bp::self_ns::str( bp::self ) );
-    }
+    bp::class_< LayerRoughness_wrapper, boost::noncopyable >( "LayerRoughness", bp::init< >() )    
+        .def( bp::init< double, double, double >(( bp::arg("sigma"), bp::arg("hurstParameter"), bp::arg("latteralCorrLength") )) )    
+        .def( 
+            "clone"
+            , (::LayerRoughness * ( ::LayerRoughness::* )(  ) const)(&::LayerRoughness::clone)
+            , (::LayerRoughness * ( LayerRoughness_wrapper::* )(  ) const)(&LayerRoughness_wrapper::default_clone)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getHurstParameter"
+            , (double ( ::LayerRoughness::* )(  ) const)( &::LayerRoughness::getHurstParameter ) )    
+        .def( 
+            "getLatteralCorrLength"
+            , (double ( ::LayerRoughness::* )(  ) const)( &::LayerRoughness::getLatteralCorrLength ) )    
+        .def( 
+            "getSigma"
+            , (double ( ::LayerRoughness::* )(  ) const)( &::LayerRoughness::getSigma ) )    
+        .def( 
+            "setHurstParameter"
+            , (void ( ::LayerRoughness::* )( double ) )( &::LayerRoughness::setHurstParameter )
+            , ( bp::arg("hurstParameter") ) )    
+        .def( 
+            "setLatteralCorrLength"
+            , (void ( ::LayerRoughness::* )( double ) )( &::LayerRoughness::setLatteralCorrLength )
+            , ( bp::arg("latteralCorrLength") ) )    
+        .def( 
+            "setSigma"
+            , (void ( ::LayerRoughness::* )( double ) )( &::LayerRoughness::setSigma )
+            , ( bp::arg("sigma") ) )    
+        .def( 
+            "areParametersChanged"
+            , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
+            , (bool ( LayerRoughness_wrapper::* )(  ) )(&LayerRoughness_wrapper::default_areParametersChanged) )    
+        .def( 
+            "createParameterTree"
+            , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
+            , (::ParameterPool * ( LayerRoughness_wrapper::* )(  ) const)(&LayerRoughness_wrapper::default_createParameterTree)
+            , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "printParameters"
+            , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
+            , (void ( LayerRoughness_wrapper::* )(  ) const)(&LayerRoughness_wrapper::default_printParameters) )    
+        .def( 
+            "print_structure"
+            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
+            , (void ( LayerRoughness_wrapper::* )(  ) )(&LayerRoughness_wrapper::default_print_structure) )    
+        .def( 
+            "setParametersAreChanged"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)
+            , (void ( LayerRoughness_wrapper::* )(  ) )(&LayerRoughness_wrapper::default_setParametersAreChanged) )    
+        .def( bp::self_ns::str( bp::self ) );
 
 }

@@ -85,16 +85,12 @@ public:
     }
 
 protected:
+    LayerDecorator(const LayerDecorator &layer);
+
     Layer *mp_decorated_layer;
     IDecoration *mp_decoration;
 
 private:
-    //! assignment operator hidden since there is a clone method
-    LayerDecorator &operator=(const LayerDecorator &other);
-
-    //! private copy constructor used by clone method
-    LayerDecorator(const LayerDecorator &layer);
-
     //! print class
     void print(std::ostream &ostr) const;
 

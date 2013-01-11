@@ -16,8 +16,9 @@
 
 #include "OutputData.h"
 #include "IParameterized.h"
+#include "ICloneable.h"
 
-class IDetectorResolution : public IParameterized
+class IDetectorResolution : public IParameterized, public ICloneable
 {
 public:
     //! Destructor
@@ -25,8 +26,6 @@ public:
     //! Apply the resolution function to the intensity data
     virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const=0;
     virtual IDetectorResolution *clone() const = 0;
-private:
-    IDetectorResolution &operator=(const IDetectorResolution &);
 };
 
 

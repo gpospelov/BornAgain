@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -63,12 +64,34 @@ void register_free_functions(){
 
     { //::Geometry::CrossProduct
     
+        typedef ::Geometry::BasicVector3D< std::complex< double > > ( *CrossProduct_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const &,::Geometry::BasicVector3D< std::complex< double > > const & );
+        
+        bp::def( 
+            "CrossProduct"
+            , CrossProduct_function_type( &::Geometry::CrossProduct )
+            , ( bp::arg("vectorLeft"), bp::arg("vectorRight") ) );
+    
+    }
+
+    { //::Geometry::CrossProduct
+    
         typedef ::Geometry::BasicVector3D< double > ( *CrossProduct_function_type )( ::Geometry::BasicVector3D< double > const &,::Geometry::BasicVector3D< double > const & );
         
         bp::def( 
             "CrossProduct"
             , CrossProduct_function_type( &::Geometry::CrossProduct )
             , ( bp::arg("vectorLeft"), bp::arg("vectorRight") ) );
+    
+    }
+
+    { //::Geometry::DotProduct
+    
+        typedef ::std::complex< double > ( *DotProduct_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const &,::Geometry::BasicVector3D< std::complex< double > > const & );
+        
+        bp::def( 
+            "DotProduct"
+            , DotProduct_function_type( &::Geometry::DotProduct )
+            , ( bp::arg("left"), bp::arg("right") ) );
     
     }
 

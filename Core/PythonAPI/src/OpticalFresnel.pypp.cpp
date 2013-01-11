@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -62,7 +63,7 @@ namespace bp = boost::python;
 void register_OpticalFresnel_class(){
 
     { //::OpticalFresnel
-        typedef bp::class_< OpticalFresnel > OpticalFresnel_exposer_t;
+        typedef bp::class_< OpticalFresnel, boost::noncopyable > OpticalFresnel_exposer_t;
         OpticalFresnel_exposer_t OpticalFresnel_exposer = OpticalFresnel_exposer_t( "OpticalFresnel", bp::init< >() );
         bp::scope OpticalFresnel_scope( OpticalFresnel_exposer );
         bp::class_< OpticalFresnel::FresnelCoeff >( "FresnelCoeff", bp::init< >() )    
@@ -98,7 +99,7 @@ void register_OpticalFresnel_class(){
                 , (::size_t ( ::OpticalFresnel::MultiLayerCoeff::* )(  ) const)( &::OpticalFresnel::MultiLayerCoeff::size ) );
         { //::OpticalFresnel::execute
         
-            typedef int ( ::OpticalFresnel::*execute_function_type )( ::MultiLayer const &,::kvector_t const &,::OpticalFresnel::MultiLayerCoeff & ) ;
+            typedef void ( ::OpticalFresnel::*execute_function_type )( ::MultiLayer const &,::kvector_t const &,::OpticalFresnel::MultiLayerCoeff & ) ;
             
             OpticalFresnel_exposer.def( 
                 "execute"

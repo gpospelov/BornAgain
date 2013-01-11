@@ -21,6 +21,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -60,14 +61,36 @@ GCC_DIAG_ON(missing-field-initializers);
 
 namespace bp = boost::python;
 
-static boost::python::object registerParameter_42aac450584ec1a35a1b3a450dfcae38( ::ParameterPool & inst, ::std::string const & name, unsigned int parpointer ){
-    bool result = inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
-    return bp::object( result );
-}
+struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
+
+    ParameterPool_wrapper( )
+    : ParameterPool( )
+      , bp::wrapper< ParameterPool >(){
+        // null constructor
+    
+    }
+
+    virtual ::ParameterPool * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->ParameterPool::clone(  );
+        }
+    }
+    
+    ::ParameterPool * default_clone(  ) const  {
+        return ParameterPool::clone( );
+    }
+
+    static void registerParameter( ::ParameterPool & inst, ::std::string const & name, unsigned int parpointer ){
+        inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+    }
+
+};
 
 void register_ParameterPool_class(){
 
-    bp::class_< ParameterPool, boost::noncopyable >( "ParameterPool", bp::init< >() )    
+    bp::class_< ParameterPool_wrapper, bp::bases< ICloneable >, boost::noncopyable >( "ParameterPool", bp::init< >() )    
         .def( 
             "addParameter"
             , (bool ( ::ParameterPool::* )( ::std::string const &,::RealParameterWrapper ) )( &::ParameterPool::addParameter )
@@ -77,11 +100,12 @@ void register_ParameterPool_class(){
             , (void ( ::ParameterPool::* )(  ) )( &::ParameterPool::clear ) )    
         .def( 
             "clone"
-            , (::ParameterPool * ( ::ParameterPool::* )(  ) )( &::ParameterPool::clone )
+            , (::ParameterPool * ( ::ParameterPool::* )(  ) const)(&::ParameterPool::clone)
+            , (::ParameterPool * ( ParameterPool_wrapper::* )(  ) const)(&ParameterPool_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "cloneWithPrefix"
-            , (::ParameterPool * ( ::ParameterPool::* )( ::std::string const & ) )( &::ParameterPool::cloneWithPrefix )
+            , (::ParameterPool * ( ::ParameterPool::* )( ::std::string const & ) const)( &::ParameterPool::cloneWithPrefix )
             , ( bp::arg("prefix") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
@@ -90,7 +114,7 @@ void register_ParameterPool_class(){
             , ( bp::arg("name") ) )    
         .def( 
             "registerParameter"
-            , (boost::python::object (*)( ::ParameterPool &,::std::string const &,unsigned int ))( &registerParameter_42aac450584ec1a35a1b3a450dfcae38 )
+            , (void (*)( ::ParameterPool &,::std::string const &,unsigned int ))( &ParameterPool_wrapper::registerParameter )
             , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
         .def( 
             "setMatchedParametersValue"

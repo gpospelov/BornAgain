@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -65,6 +66,13 @@ struct IParameterized_wrapper : IParameterized, bp::wrapper< IParameterized > {
     : IParameterized( )
       , bp::wrapper< IParameterized >(){
         // null constructor
+    
+    }
+
+    IParameterized_wrapper(::std::string const & name )
+    : IParameterized( name )
+      , bp::wrapper< IParameterized >(){
+        // constructor
     
     }
 
@@ -129,9 +137,9 @@ void register_IParameterized_class(){
 
     { //::IParameterized
         typedef bp::class_< IParameterized_wrapper > IParameterized_exposer_t;
-        IParameterized_exposer_t IParameterized_exposer = IParameterized_exposer_t( "IParameterized", bp::no_init );
+        IParameterized_exposer_t IParameterized_exposer = IParameterized_exposer_t( "IParameterized", bp::init< >() );
         bp::scope IParameterized_scope( IParameterized_exposer );
-        IParameterized_exposer.def( bp::init< >() );
+        IParameterized_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
         IParameterized_exposer.def( bp::init< IParameterized const & >(( bp::arg("other") )) );
         { //::IParameterized::areParametersChanged
         

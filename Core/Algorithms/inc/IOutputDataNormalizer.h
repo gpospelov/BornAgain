@@ -20,14 +20,13 @@
 /* ************************************************************************* */
 // Normalize output data
 /* ************************************************************************* */
-class IOutputDataNormalizer : public IParameterized
+class IOutputDataNormalizer : public IParameterized, public ICloneable
 {
 public:
     virtual ~IOutputDataNormalizer() {}
     virtual IOutputDataNormalizer*clone() const=0;
 
     virtual OutputData<double> *createNormalizedData(const OutputData<double > &data) const=0;
-
 };
 
 
@@ -47,13 +46,11 @@ public:
     void setMaximumIntensity(double max_intensity) { m_max_intensity = max_intensity; }
 
 protected:
+
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
 private:
-    // disable assignment operator
-    OutputDataNormalizerScaleAndShift &operator=(const OutputDataNormalizerScaleAndShift &);
-
     double m_scale;
     double m_shift;
     double m_max_intensity;

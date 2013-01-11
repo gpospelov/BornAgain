@@ -20,6 +20,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorSphereGaussianRadius.h"
 #include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
+#include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -70,7 +71,7 @@ void register_kvector_t_class(){
         bp::scope().attr("Z") = (int)Geometry::BasicVector3D<double>::Z;
         bp::scope().attr("NUM_COORDINATES") = (int)Geometry::BasicVector3D<double>::NUM_COORDINATES;
         bp::scope().attr("SIZE") = (int)Geometry::BasicVector3D<double>::SIZE;
-        kvector_t_exposer.def( bp::init< double, double, double >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
+        kvector_t_exposer.def( bp::init< double const &, double const &, double const & >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
         { //::Geometry::BasicVector3D< double >::angle
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
@@ -346,7 +347,7 @@ void register_kvector_t_class(){
         { //::Geometry::BasicVector3D< double >::set
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*set_function_type )( double,double,double ) ;
+            typedef void ( exported_class_t::*set_function_type )( double const &,double const &,double const & ) ;
             
             kvector_t_exposer.def( 
                 "set"
@@ -357,12 +358,12 @@ void register_kvector_t_class(){
         { //::Geometry::BasicVector3D< double >::setLambdaAlphaPhi
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setLambdaAlphaPhi_function_type )( double,double,double ) ;
+            typedef void ( exported_class_t::*setLambdaAlphaPhi_function_type )( double const &,double const &,double const & ) ;
             
             kvector_t_exposer.def( 
                 "setLambdaAlphaPhi"
                 , setLambdaAlphaPhi_function_type( &::Geometry::BasicVector3D< double >::setLambdaAlphaPhi )
-                , ( bp::arg("lambda"), bp::arg("alpha"), bp::arg("phi") ) );
+                , ( bp::arg("_lambda"), bp::arg("_alpha"), bp::arg("_phi") ) );
         
         }
         { //::Geometry::BasicVector3D< double >::setMag
@@ -423,7 +424,7 @@ void register_kvector_t_class(){
         { //::Geometry::BasicVector3D< double >::setX
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setX_function_type )( double ) ;
+            typedef void ( exported_class_t::*setX_function_type )( double const & ) ;
             
             kvector_t_exposer.def( 
                 "setX"
@@ -434,7 +435,7 @@ void register_kvector_t_class(){
         { //::Geometry::BasicVector3D< double >::setXYZ
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setXYZ_function_type )( double,double,double ) ;
+            typedef void ( exported_class_t::*setXYZ_function_type )( double const &,double const &,double const & ) ;
             
             kvector_t_exposer.def( 
                 "setXYZ"
@@ -445,7 +446,7 @@ void register_kvector_t_class(){
         { //::Geometry::BasicVector3D< double >::setY
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setY_function_type )( double ) ;
+            typedef void ( exported_class_t::*setY_function_type )( double const & ) ;
             
             kvector_t_exposer.def( 
                 "setY"
@@ -456,7 +457,7 @@ void register_kvector_t_class(){
         { //::Geometry::BasicVector3D< double >::setZ
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setZ_function_type )( double ) ;
+            typedef void ( exported_class_t::*setZ_function_type )( double const & ) ;
             
             kvector_t_exposer.def( 
                 "setZ"

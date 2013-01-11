@@ -15,3 +15,8 @@ install:
 
 clean:
 	rm -r -f output
+	rm -f *~
+	rm -f named_tuple.py
+	rm -f *.pyc
+	rm -f exposed_decl.pypp.txt
+	

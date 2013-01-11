@@ -7,12 +7,12 @@ CONFIG  += console build_all
 QT      -= core gui
 
 # including common project properties
-include($$PWD/../../shared.pri)
+include($$PWD/../../../shared.pri)
 
 SOURCES += main.cpp
 
 HEADERS += \
-	AxisDoubleTest.h \
+    AxisDoubleTest.h \
     BeamTest.h \
     DetectorTest.h \
     ExperimentTest.h \
@@ -27,24 +27,16 @@ HEADERS += \
 
 OBJECTS_DIR = obj
 
-INCLUDEPATH += ../../Core/Algorithms/inc ../../Core/FormFactors/inc ../../Core/Geometry/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
-DEPENDPATH += ../../Core/Algorithms/inc ../../Core/FormFactors/inc ../../Core/Geometry/inc ../../Core/Samples/inc ../../Core/Tools/inc ../../ThirdParty/gtest/gtest-1.6.0/include
-DEPENDPATH += $$PWD/.
-
-#LIBS = -L/opt/local/lib -lfftw3
-
-#CONFIG(JCNS) {
-  #LIBS -= -lfftw3
-  #LIBS += -Bstatic -lfftw3 -Bdynamic # request for static (with fPIC option)
-  # "-lfftw3f" - with fPIC option, "-lfftw3" - without fPIC option
-  #LIBS = -L/usr/users/jcns/pospelov/software/lib -lfftw3
-#}
+CORE = $$PWD/../../../Core
+CORE_HEADERS = $${CORE}/Algorithms/inc $${CORE}/FormFactors/inc $${CORE}/Geometry/inc $${CORE}/Samples/inc $${CORE}/Tools/inc $${CORE}/../ThirdParty/gtest/gtest-1.6.0/include
+INCLUDEPATH += $${CORE_HEADERS}
+DEPENDPATH += $${CORE_HEADERS} $PWD
 
 ###############################################################################
 # generating package dependency flags
 ###############################################################################
 MY_DEPENDENCY_LIB = gtest ScattCore
-MY_DEPENDENCY_DEST =$$PWD/../..
+MY_DEPENDENCY_DEST =$$PWD/../../..
 SONAME = so
 # INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc
 for(dep, MY_DEPENDENCY_LIB) {
@@ -53,11 +45,6 @@ for(dep, MY_DEPENDENCY_LIB) {
 #    INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
 }
 
-
-# some hack that might be required for linux... under investigation
-#LIBS += -lpthread
-#LDFLAGS = -L/lib64
-#QMAKE_CXXFLAGS += -pthread
 
 ###############################################################################
 # attempt to compile project dependencies not from the top

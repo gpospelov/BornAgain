@@ -97,7 +97,7 @@ IInterferenceFunctionStrategy* IsGISAXSMorphologyFileDecoration::createStrategy(
 {
     std::vector<double> fractions;
     for (size_t i=0; i<m_particles.size(); ++i) {
-        fractions.push_back(m_particles[i]->getAbundance());
+        fractions.push_back(m_particles[i]->getAbundance()/m_total_abundance);
     }
     IsGISAXSMorphologyFileStrategy *p_strategy = new IsGISAXSMorphologyFileStrategy();
     p_strategy->init(form_factors, fractions, m_interference_functions.getSTLVector());

@@ -21,7 +21,6 @@ void TestIsGISAXS7::execute()
             100, 0.0*Units::degree, 1.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);
 
-    // cylinder in BA
     MultiLayer *sample = dynamic_cast<MultiLayer *>(
             SampleFactory::instance().createItem("IsGISAXS7_mor"));
     experiment.setSample(*sample);

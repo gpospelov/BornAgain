@@ -41,10 +41,13 @@ double IsGISAXSMorphologyFileStrategy::evaluate(const cvector_t& k_i,
         const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
+    complex_t mean_ff = complex_t(0.0, 0.0);
+
     // calculate form factors
     std::vector<complex_t> ff_values;
     for (size_t i=0; i<m_form_factors.size(); ++i) {
         ff_values.push_back(m_form_factors[i]->evaluate(k_i, k_f_bin, alpha_i, alpha_f));
+        mean_ff += m_fractions[i]*ff_values[i];
     }
 
     // coherent part
@@ -68,6 +71,16 @@ double IsGISAXSMorphologyFileStrategy::evaluate(const cvector_t& k_i,
             diffuse_intensity += m_fractions[i]*m_fractions[j]*2.0*(ff_values[i]*std::conj(ff_values[j])*std::exp( complex_t(0.0, 1.0)*phase )).real();
         }
     }
+//    // diffuse part from IsGISAXS --> seems to be wrong (contains only one probability in cross-products and lacks the factor 2)
+//    double diffuse_intensity = 0.0;
+//    for (size_t i=0; i<m_form_factors.size(); ++i) {
+//        for (size_t j=i; j<m_form_factors.size(); ++j) {
+//            double x_diff = m_x_positions[i]-m_x_positions[j];
+//            double y_diff = m_y_positions[i]-m_y_positions[j];
+//            complex_t phase = q.x()*x_diff + q.y()*y_diff;
+//            diffuse_intensity += m_fractions[i]*((ff_values[i]-mean_ff)*std::conj(ff_values[j]-mean_ff)*std::exp( complex_t(0.0, 1.0)*phase )).real();
+//        }
+//    }
     return coherent_intensity + diffuse_intensity;
 }
 

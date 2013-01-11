@@ -23,7 +23,7 @@
 							<builder buildPath="${workspace_loc:/GISASFW}" cleanBuildTarget="distclean" command="make" id="cdt.managedbuild.target.gnu.builder.macosx.base.1780058782" incrementalBuildTarget="" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="false" superClass="cdt.managedbuild.target.gnu.builder.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.macosx.c.linker.macosx.base.2076947871" name="MacOS X C Linker" superClass="cdt.managedbuild.tool.macosx.c.linker.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.2050732830" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
-								<option id="macosx.cpp.link.option.paths.102310300" name="Library search path (-L)" superClass="macosx.cpp.link.option.paths" valueType="libPaths"/>
+								<option id="macosx.cpp.link.option.paths.102310300" name="Library search path (-L)" superClass="macosx.cpp.link.option.paths"/>
 								<inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.984077648" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -55,7 +55,7 @@
 									<listOptionValue builtIn="false" value="/opt/local/include/root"/>
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
-								<option id="gnu.c.compiler.option.preprocessor.def.symbols.934278396" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
+								<option id="gnu.c.compiler.option.preprocessor.def.symbols.934278396" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/GISASFW/lib"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.44052800" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>

@@ -21,6 +21,7 @@
 #include "ICloneable.pypp.h" 
 #include "IClusteredParticles.pypp.h" 
 #include "ICompositeSample.pypp.h" 
+#include "IDecoration.pypp.h" 
 #include "IFormFactor.pypp.h" 
 #include "IFormFactorBorn.pypp.h" 
 #include "IFormFactorDecorator.pypp.h" 
@@ -125,6 +126,7 @@ BOOST_PYTHON_MODULE(libScattCore){
     register_TranslateZ3D_class();
     register_IMaterial_class();
     register_HomogeneousMaterial_class();
+    register_IDecoration_class();
     register_IInterferenceFunction_class();
     register_ISampleBuilder_class();
     register_ISelectionRule_class();

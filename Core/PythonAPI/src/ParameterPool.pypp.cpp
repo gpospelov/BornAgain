@@ -24,6 +24,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
+#include "IDecoration.h"
 #include "IFormFactor.h"
 #include "IFormFactorBorn.h"
 #include "IFormFactorDecorator.h"

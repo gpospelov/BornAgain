@@ -23,6 +23,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
+#include "IDecoration.h"
 #include "IFormFactor.h"
 #include "IFormFactorBorn.h"
 #include "IFormFactorDecorator.h"
@@ -62,7 +63,7 @@ namespace bp = boost::python;
 
 struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
 
-    LayerDecorator_wrapper(::Layer const & layer, ::ParticleDecoration const & decoration )
+    LayerDecorator_wrapper(::Layer const & layer, ::IDecoration const & decoration )
     : LayerDecorator( boost::ref(layer), boost::ref(decoration) )
       , bp::wrapper< LayerDecorator >(){
         // constructor
@@ -265,7 +266,7 @@ struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
 
 void register_LayerDecorator_class(){
 
-    bp::class_< LayerDecorator_wrapper, bp::bases< Layer >, boost::noncopyable >( "LayerDecorator", bp::init< Layer const &, ParticleDecoration const & >(( bp::arg("layer"), bp::arg("decoration") )) )    
+    bp::class_< LayerDecorator_wrapper, bp::bases< Layer >, boost::noncopyable >( "LayerDecorator", bp::init< Layer const &, IDecoration const & >(( bp::arg("layer"), bp::arg("decoration") )) )    
         .def( 
             "clone"
             , (::LayerDecorator * ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::clone)
@@ -277,7 +278,7 @@ void register_LayerDecorator_class(){
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getDecoration"
-            , (::ParticleDecoration const * ( ::LayerDecorator::* )(  ) const)( &::LayerDecorator::getDecoration )
+            , (::IDecoration const * ( ::LayerDecorator::* )(  ) const)( &::LayerDecorator::getDecoration )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getMaterial"

@@ -21,6 +21,7 @@ HEADERS +=  \
     PythonAPI/inc/ICloneable.pypp.h \
     PythonAPI/inc/IClusteredParticles.pypp.h \
     PythonAPI/inc/ICompositeSample.pypp.h \
+    PythonAPI/inc/IDecoration.pypp.h \
     PythonAPI/inc/IFormFactor.pypp.h \
     PythonAPI/inc/IFormFactorBorn.pypp.h \
     PythonAPI/inc/IFormFactorDecorator.pypp.h \
@@ -97,6 +98,7 @@ SOURCES +=  \
     PythonAPI/src/ICloneable.pypp.cpp \
     PythonAPI/src/IClusteredParticles.pypp.cpp \
     PythonAPI/src/ICompositeSample.pypp.cpp \
+    PythonAPI/src/IDecoration.pypp.cpp \
     PythonAPI/src/IFormFactor.pypp.cpp \
     PythonAPI/src/IFormFactorBorn.pypp.cpp \
     PythonAPI/src/IFormFactorDecorator.pypp.cpp \

@@ -23,6 +23,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
+#include "IDecoration.h"
 #include "IFormFactor.h"
 #include "IFormFactorBorn.h"
 #include "IFormFactorDecorator.h"
@@ -62,8 +63,8 @@ namespace bp = boost::python;
 
 struct Particle_wrapper : Particle, bp::wrapper< Particle > {
 
-    Particle_wrapper(::complex_t const & refractive_index, ::IFormFactor const & p_form_factor )
-    : Particle( boost::ref(refractive_index), boost::ref(p_form_factor) )
+    Particle_wrapper(::complex_t const & refractive_index, ::IFormFactor const & form_factor )
+    : Particle( boost::ref(refractive_index), boost::ref(form_factor) )
       , bp::wrapper< Particle >(){
         // constructor
     
@@ -241,7 +242,7 @@ struct Particle_wrapper : Particle, bp::wrapper< Particle > {
 
 void register_Particle_class(){
 
-    bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Particle", bp::init< complex_t const &, IFormFactor const & >(( bp::arg("refractive_index"), bp::arg("p_form_factor") )) )    
+    bp::class_< Particle_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Particle", bp::init< complex_t const &, IFormFactor const & >(( bp::arg("refractive_index"), bp::arg("form_factor") )) )    
         .def( 
             "clone"
             , (::Particle * ( ::Particle::* )(  ) const)(&::Particle::clone)

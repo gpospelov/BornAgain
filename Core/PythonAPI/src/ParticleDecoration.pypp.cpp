@@ -23,6 +23,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
 #include "ICompositeSample.h"
+#include "IDecoration.h"
 #include "IFormFactor.h"
 #include "IFormFactorBorn.h"
 #include "IFormFactorDecorator.h"
@@ -79,6 +80,30 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     
     ::ParticleDecoration * default_clone(  ) const  {
         return ParticleDecoration::clone( );
+    }
+
+    virtual ::size_t getNumberOfParticles(  ) const  {
+        if( bp::override func_getNumberOfParticles = this->get_override( "getNumberOfParticles" ) )
+            return func_getNumberOfParticles(  );
+        else{
+            return this->ParticleDecoration::getNumberOfParticles(  );
+        }
+    }
+    
+    ::size_t default_getNumberOfParticles(  ) const  {
+        return ParticleDecoration::getNumberOfParticles( );
+    }
+
+    virtual ::ParticleInfo const * getParticleInfo( ::size_t index ) const  {
+        if( bp::override func_getParticleInfo = this->get_override( "getParticleInfo" ) )
+            return func_getParticleInfo( index );
+        else{
+            return this->ParticleDecoration::getParticleInfo( index );
+        }
+    }
+    
+    ::ParticleInfo const * default_getParticleInfo( ::size_t index ) const  {
+        return ParticleDecoration::getParticleInfo( index );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -181,7 +206,7 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
 
 void register_ParticleDecoration_class(){
 
-    bp::class_< ParticleDecoration_wrapper, boost::noncopyable >( "ParticleDecoration", bp::init< >() )    
+    bp::class_< ParticleDecoration_wrapper, bp::bases< IDecoration >, boost::noncopyable >( "ParticleDecoration", bp::init< >() )    
         .def( 
             "addInterferenceFunction"
             , (void ( ::ParticleDecoration::* )( ::IInterferenceFunction const & ) )( &::ParticleDecoration::addInterferenceFunction )
@@ -189,15 +214,15 @@ void register_ParticleDecoration_class(){
         .def( 
             "addParticle"
             , (void ( ::ParticleDecoration::* )( ::Particle const &,::Geometry::Transform3D const &,double,double ) )( &::ParticleDecoration::addParticle )
-            , ( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=1.0e+0 ) )    
+            , ( bp::arg("particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=1.0e+0 ) )    
         .def( 
             "addParticle"
             , (void ( ::ParticleDecoration::* )( ::Particle const &,double,double ) )( &::ParticleDecoration::addParticle )
-            , ( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) )    
+            , ( bp::arg("particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) )    
         .def( 
             "addParticleInfo"
             , (void ( ::ParticleDecoration::* )( ::ParticleInfo const & ) )( &::ParticleDecoration::addParticleInfo )
-            , ( bp::arg("p_info") ) )    
+            , ( bp::arg("info") ) )    
         .def( 
             "clone"
             , (::ParticleDecoration * ( ::ParticleDecoration::* )(  ) const)(&::ParticleDecoration::clone)
@@ -214,19 +239,14 @@ void register_ParticleDecoration_class(){
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getNumberOfParticles"
-            , (::size_t ( ::ParticleDecoration::* )(  ) const)( &::ParticleDecoration::getNumberOfParticles ) )    
+            , (::size_t ( ::ParticleDecoration::* )(  ) const)(&::ParticleDecoration::getNumberOfParticles)
+            , (::size_t ( ParticleDecoration_wrapper::* )(  ) const)(&ParticleDecoration_wrapper::default_getNumberOfParticles) )    
         .def( 
             "getParticleInfo"
-            , (::ParticleInfo const * ( ::ParticleDecoration::* )( ::size_t ) const)( &::ParticleDecoration::getParticleInfo )
+            , (::ParticleInfo const * ( ::ParticleDecoration::* )( ::size_t ) const)(&::ParticleDecoration::getParticleInfo)
+            , (::ParticleInfo const * ( ParticleDecoration_wrapper::* )( ::size_t ) const)(&ParticleDecoration_wrapper::default_getParticleInfo)
             , ( bp::arg("index") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTotalParticleSurfaceDensity"
-            , (double ( ::ParticleDecoration::* )(  ) const)( &::ParticleDecoration::getTotalParticleSurfaceDensity ) )    
-        .def( 
-            "setTotalParticleSurfaceDensity"
-            , (void ( ::ParticleDecoration::* )( double ) )( &::ParticleDecoration::setTotalParticleSurfaceDensity )
-            , ( bp::arg("surface_density") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

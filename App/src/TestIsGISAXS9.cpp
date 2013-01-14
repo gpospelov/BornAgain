@@ -22,9 +22,6 @@ TestIsGISAXS9::~TestIsGISAXS9()
 
 void TestIsGISAXS9::clear()
 {
-    for(std::vector<OutputData<double> *>::iterator it=m_results.begin(); it!=m_results.end(); it++) {
-        delete (*it);
-    }
     m_results.clear();
 }
 
@@ -38,22 +35,25 @@ void TestIsGISAXS9::execute()
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
+    MultiLayer *p_sample;
+
     // pyramid
-    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
-    experiment.setSample(*sample);
+    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
+    experiment.setSample(*p_sample);
     experiment.runSimulation();
     OutputData<double> *data = experiment.getOutputDataClone();
     m_results.push_back( data );
     IsGISAXSTools::writeOutputDataToFile(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
+    delete p_sample;
 
     // rotated pyramid
-    sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_RotatedPyramid"));
-    experiment.setSample(*sample);
+    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_RotatedPyramid"));
+    experiment.setSample(*p_sample);
     experiment.runSimulation();
     data = experiment.getOutputDataClone();
     m_results.push_back( data );
     IsGISAXSTools::writeOutputDataToFile(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z45.ima");
-
+    delete p_sample;
 }
 
 
@@ -67,13 +67,11 @@ void TestIsGISAXS9::finalise()
     this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
     this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z45.ima");
 
-    int ncomparison = m_results.size();
-
     TCanvas *canvaces[2];
     canvaces[0] = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS9_c1", "Pyramid DWBA formfactor");
     canvaces[1] = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS9_c2", "Pyramid DWBA formfactor");
 
-    for(int i_comparison=0; i_comparison<ncomparison; i_comparison++) {
+    for(int i_comparison=0; i_comparison<2; i_comparison++) {
         OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_files[i_comparison], 10);
         OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_files[i_comparison], 10);
 

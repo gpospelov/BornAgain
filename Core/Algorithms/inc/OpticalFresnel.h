@@ -20,6 +20,7 @@
 #include "MultiLayer.h"
 
 
+//class MultiLayer;
 
 /* ************************************************************************* */
 // optical fresnel coefficients
@@ -41,8 +42,8 @@ public:
         complex_t rb;  // r = R/A - Fresnel reflection coefficient
         complex_t tb;  // t = T/A - Fresnel transmission coefficient
         complex_t X; //  ratio of amplitudes R/T of the outgoing to the incoming waves in layer
-        complex_t R; //  ratio of amplitudes R/T of the outgoing to the incoming waves in layer
-        complex_t T; //  ratio of amplitudes R/T of the outgoing to the incoming waves in layer
+        complex_t R; //  amplitude of the reflected wave in layer
+        complex_t T; //  amplitude of the transmitted wave in layer
 
         //! operator is necessary to make pyplusplus/boost happy during exposing of FresnelCoeff to python using boost::vector_indexing_suite
         bool operator==(FresnelCoeff const &other) const;
@@ -65,18 +66,18 @@ public:
     typedef MultiLayerCoeff MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
 
     //! calculate fresnel coefficients for given multi layer and kvector
-    int execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
+    void execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
 
 private:
     bool m_use_roughness;
 
-    void calculateKZ(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
-    void calculateFresnelCoefficients(MultiLayerCoeff_t &coeff);
-    void calculateFresnelCoefficientsWithRoughness(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
-    void calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
-    void calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
-    void calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
-    void calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff);
+    void calculateKZ(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff) const;
+    void calculateFresnelCoefficients(MultiLayerCoeff_t &coeff) const;
+    void calculateFresnelCoefficientsWithRoughness(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
+    void calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
+    void calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
+    void calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
+    void calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
 };
 
 

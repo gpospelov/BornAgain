@@ -10,6 +10,7 @@
 #include "InterferenceFunctionNone.h"
 #include "SampleFactory.h"
 #include "IsGISAXSTools.h"
+#include "ExperimentConstants.h"
 
 #include "TFile.h"
 #include "TTree.h"
@@ -235,8 +236,8 @@ void TestRootTree::simple_write()
     tree->Branch("intens1",&intens1, "intens1/D");
     tree->Branch("intens2",&intens2, "intens2/D");
     tree->Branch("alpha_i",&alpha_i, "alpha_i/D");
-    tree->Branch("alpha_f",&alpha_f, "alpha_f/D");
-    tree->Branch("phi_f",&phi_f, "phi_f/D");
+    tree->Branch(NDetector2d::ALPHA_AXIS_NAME.c_str(),&alpha_f, "alpha_f/D");
+    tree->Branch(NDetector2d::PHI_AXIS_NAME.c_str(),&phi_f, "phi_f/D");
     tree->Branch("nev",&nev, "nev/I");
     //somevector = new std::vector<double>;
     //tree->Branch("somevector","vector<double >", &somevector);
@@ -259,8 +260,8 @@ void TestRootTree::simple_write()
 
         mp_data = mp_experiment->getOutputDataClone();
         // accessing to scattering data
-        NamedVector<double> *axis0 = dynamic_cast<NamedVector<double>*>(mp_data->getAxes()[0]);
-        NamedVector<double> *axis1 = dynamic_cast<NamedVector<double>*>(mp_data->getAxes()[1]);
+        const IAxis *axis0 = mp_data->getAxis(0);
+        const IAxis *axis1 = mp_data->getAxis(1);
         std::string axis0_name = axis0->getName();
         std::string axis1_name = axis1->getName();
 
@@ -344,8 +345,8 @@ void TestRootTree::simple_read()
     tree->SetBranchAddress("intens1",&intens1);
     tree->SetBranchAddress("intens2",&intens2);
     tree->SetBranchAddress("alpha_i",&alpha_i);
-    tree->SetBranchAddress("alpha_f",&alpha_f);
-    tree->SetBranchAddress("phi_f",&phi_f);
+    tree->SetBranchAddress(NDetector2d::ALPHA_AXIS_NAME.c_str(),&alpha_f);
+    tree->SetBranchAddress(NDetector2d::PHI_AXIS_NAME.c_str(),&phi_f);
     tree->SetBranchAddress("nev",&nev);
 
     // loop over all records stored in the tree

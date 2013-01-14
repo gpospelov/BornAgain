@@ -33,7 +33,7 @@ TestPerformance::TestPerformance()
 
 TestPerformance::~TestPerformance()
 {
-    for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); it++) {
+    for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); ++it) {
         delete (*it);
     }
 
@@ -53,7 +53,7 @@ void TestPerformance::execute()
 
     // run tests
     TBenchmark mb;
-    for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); it++) {
+    for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); ++it) {
         PerformanceTestInfo *test_info = (*it);
         std::string test_name = test_info->m_test->getName();
 
@@ -105,7 +105,7 @@ void TestPerformance::write_performance()
     file << m_performance_info["datime"] << get_delimeter();
     file << std::left << Utils::AdjustStringLength(m_performance_info["hostname"],10) << get_delimeter();
     file << std::left << Utils::AdjustStringLength(m_performance_info["sysinfo"],23) << get_delimeter();
-    for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); it++) {
+    for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); ++it) {
         std::string test_name = (*it)->m_test->getName();
         file << std::left << Utils::AdjustStringLength(m_performance_info[test_name],7) << get_delimeter();
     }
@@ -136,7 +136,7 @@ void TestPerformance::get_sysinfo()
     m_performance_info["hostname"] = hostname;
 
     // saving hardware information
-    std::string sysinfo;
+    //std::string sysinfo;
     SysInfo_t sys_info;
     int status = gSystem->GetSysInfo(&sys_info);
     if( status == -1) {
@@ -169,7 +169,7 @@ void PerfTest_FresnelCoeff::execute()
     kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
     OpticalFresnel::MultiLayerCoeff_t coeffs;
     OpticalFresnel fresnelCalculator;
-    MultiLayer *ml = (MultiLayer *) m_sample;
+    MultiLayer *ml = dynamic_cast<MultiLayer *>(m_sample);
     fresnelCalculator.execute(*ml, kvec, coeffs);
 }
 

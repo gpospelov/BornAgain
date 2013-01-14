@@ -26,10 +26,8 @@ void TestIsGISAXS2::execute()
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
-    MultiLayer *sample(0);
-
     // cylinders of two types
-    sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS2_CylindersMixture"));
+    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS2_CylindersMixture"));
     experiment.setSample(*sample);
     experiment.runSimulation();
     IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_bimodal.ima");
@@ -67,7 +65,6 @@ void TestIsGISAXS2::finalise()
     // difference
     c1->cd(4);
     IsGISAXSTools::resetMinimumAndMaximum();
-    IsGISAXSTools::setMinimum(1);
     IsGISAXSTools::drawOutputDataDifference1D(*our_data, *isgi_data, "", "Difference spectra");
 
     delete isgi_data;

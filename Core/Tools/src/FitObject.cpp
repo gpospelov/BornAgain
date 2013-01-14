@@ -5,10 +5,11 @@
 /* ************************************************************************* */
 // FitObject c-tors
 /* ************************************************************************* */
-FitObject::FitObject(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module)
+FitObject::FitObject(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module, double weight)
     : m_experiment(experiment.clone())
     , m_real_data(real_data.clone())
     , m_chi2_module(chi2_module.clone())
+    , m_weight(weight)
 {
     setName("FitObject");
     if( !m_real_data->hasSameShape(*m_experiment->getOutputData()) ) {
@@ -21,6 +22,9 @@ FitObject::FitObject(const Experiment &experiment, const OutputData<double > &re
 
 FitObject::~FitObject()
 {
+    delete m_experiment;
+    delete m_real_data;
+    delete m_chi2_module;
 }
 
 
@@ -33,9 +37,9 @@ void FitObject::setRealData(const OutputData<double > &real_data)
     m_real_data = real_data.clone();
     if( m_experiment) {
         if( !m_real_data->hasSameShape(*m_experiment->getOutputData()) ) {
-            std::cout << "FitSuiteKit::KitItem::setRealData() -> Real data and the detector have different shape. Adjusting detector..." << std::endl;
+            std::cout << "FitObject::setRealData() -> Real data and the detector have different shape. Adjusting detector..." << std::endl;
         } else {
-            std::cout << "FitSuiteKit::KitItem::setRealData() -> Real data and the detector have same shape. No nedd to adjust detector." << std::endl;
+            std::cout << "FitObject::setRealData() -> Real data and the detector have same shape. No need to adjust detector." << std::endl;
         }
         m_experiment->setDetectorParameters(*m_real_data);
     }

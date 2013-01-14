@@ -27,7 +27,7 @@ public:
     void setCutoff(double cutoff) {
         if (cutoff>=0.0 && cutoff<=1.0) m_cutoff = cutoff;
     }
-    double getCutoff() { return m_cutoff; }
+    double getCutoff() const { return m_cutoff; }
 
     //! return output data which contains chi^2 values
     virtual OutputData<double > *createChi2DifferenceMap() const;

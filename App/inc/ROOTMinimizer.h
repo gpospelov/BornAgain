@@ -14,9 +14,12 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   05.10.2012
 
+
 #include "IMinimizer.h"
 #include "OutputData.h"
 #include "Exceptions.h"
+#include "ROOTMinimizerFunction.h"
+#include "FitSuiteParameters.h"
 #include <string>
 // from ROOT
 #include "Math/Minimizer.h"
@@ -31,14 +34,18 @@
 class ROOTMinimizer : public IMinimizer
 {
 public:
-    ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type);
+    ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type=std::string());
     virtual ~ROOTMinimizer();
 
-    virtual void setVariable(int index, const FitParameter *par) ;
-    virtual void setFunction(boost::function<double(const double *)> fcn, int ndim=1);
+    virtual void setParameter(size_t index, const FitParameter *par);
+    virtual void setParameters(const FitSuiteParameters &parameters);
+
+
+    virtual void setFunction(function_chi2_t fun_chi2, size_t nparameters, function_gradient_t fun_gradient, size_t ndatasize);
+
     virtual void minimize();
 
-    //! return pointer to created minimizer
+    //! return created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
 
     //! get number of variables to fit
@@ -68,9 +75,27 @@ public:
     //! printing minimizer description
     virtual void printOptions() const;
 
+    //! checking validity of the combination minimizer_name and algo_type
+    bool isValidNames(const std::string &minimizer_name, const std::string &algo_type);
+
+    //! check if type of algorithm is Levenberg-Marquardt or similar
+    bool isGradientBasedAgorithm();
+
 private:
+    std::string m_minimizer_name;
+    std::string m_algo_type;
+
     ROOT::Math::Minimizer *m_root_minimizer;
-    ROOT::Math::Functor *m_fcn;
+    ROOTMinimizerFunction * m_minfunc;
+    ROOTMinimizerElementFunction * m_minfunc_element;
+
+//    IMinimizerFunction *m_minimizer_function;
+//    ROOT::Math::Functor *m_fcn; //! function to minimize
+//    ROOT::Math::GradFunctor *m_fcn_grad; //! gradient of function to minimize
+//    function_t m_fcn;
+//    element_function_t m_element_fcn;
+//    int m_ndims;
+//    int m_nelements;
 };
 
 #endif // ROOTMINIMIZER_H

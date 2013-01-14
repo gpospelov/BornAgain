@@ -14,50 +14,75 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
-#include "Types.h"
+//#include "Types.h"
 #include "ISample.h"
+#include "MemberFunctionIntegrator.h"
+//#include "MathFunctions.h"
+#include "Bin.h"
 
 
 //- -------------------------------------------------------------------
 //! @class IFormFactor
 //! @brief Definition of IFormfactor interface
+//!
+//! IFormFactor declares the basic interface for formfactors
 //- -------------------------------------------------------------------
 class IFormFactor : public ISample
 {
 public:
-    IFormFactor(){}
+    IFormFactor() {}
     virtual ~IFormFactor() {}
+
+    //! create a clone of this formfactor
     virtual IFormFactor *clone() const=0;
 
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index) { (void)refractive_index; }
+    //! pass the refractive index of the ambient material in which this particle is embedded
+    virtual void setAmbientRefractiveIndex(const complex_t &refractive_index) { (void)refractive_index; }
 
-    /// calculate scattering amplitude for complex wavevectors
-    /// @param k_i   incoming wavevector
-    /// @param k_f   outgoing wavevector
-    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const=0;
+    //! calculate scattering amplitude for complex wavevector bin
+    //! @param k_i   incoming wavevector
+    //! @param k_f_bin   outgoing wavevector bin
+    //! @param alpha_i incident angle wrt scattering surface
+    //! @param alpha_f outgoing angle wrt scattering surface
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const=0;
+//    {
+//        (void)k_i;
+//        (void)k_f_bin;
+//        (void)alpha_i;
+//        (void)alpha_f;
+//        return complex_t(0.0, 0.0);
+//    }
 
-    /// return number of variable/stochastic parameters
+    //! return number of variable/stochastic parameters
     virtual int getNumberOfStochasticParameters() const { return 0; }
 
+
+    //! get the total volume of the particle to which this formfactor belongs
     virtual double getVolume() const;
 
+    //! get the total height of the particle to which this formfactor belongs
     virtual double getHeight() const;
 
+    //! get the total radial size of the particle to which this formfactor belongs
+    virtual double getRadius() const;
+
+    //! find out if the formfactor is constructed as an average over multiple simple ones
     virtual bool isDistributedFormFactor() const { return false; }
 
+    //! retrieve a list of simple formfactors and their probabilities when the formfactor is a distributed one
     virtual void createDistributedFormFactors(std::vector<IFormFactor *> &form_factors,
             std::vector<double> &probabilities, size_t nbr_samples) const {
         (void)form_factors;
         (void)probabilities;
         (void)nbr_samples;
     }
-
 };
 
 inline double IFormFactor::getVolume() const
 {
     cvector_t zero;
-    return std::abs(evaluate(zero, zero, 0.0, 0.0));
+    Bin1DCVector zero_bin(zero, zero);
+    return std::abs(evaluate(zero, zero_bin, 0.0, 0.0));
 }
 
 inline double IFormFactor::getHeight() const
@@ -66,45 +91,10 @@ inline double IFormFactor::getHeight() const
     return result;
 }
 
-class IFormFactorDecorator : public IFormFactor
+inline double IFormFactor::getRadius() const
 {
-public:
-    IFormFactorDecorator(IFormFactor *p_form_factor) : mp_form_factor(p_form_factor) {}
-    virtual ~IFormFactorDecorator();
-    virtual IFormFactorDecorator *clone() const=0;
-
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index) { if (mp_form_factor) mp_form_factor->setAmbientRefractiveIndex(refractive_index); }
-
-    virtual double getHeight() const { return mp_form_factor->getHeight(); }
-
-protected:
-    IFormFactor *mp_form_factor;
-};
-
-inline IFormFactorDecorator::~IFormFactorDecorator()
-{
-    delete mp_form_factor;
-}
-
-class IFormFactorBorn : public IFormFactor
-{
-public:
-    IFormFactorBorn(){}
-    virtual ~IFormFactorBorn() {}
-	virtual IFormFactorBorn *clone() const=0;
-
-	virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
-protected:
-    /// evaluate scattering amplitude for complex wavevector
-    /// @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
-    virtual complex_t evaluate_for_q(const cvector_t &q) const=0;
-};
-
-inline complex_t IFormFactorBorn::evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const
-{
-    (void)alpha_i;
-    (void)alpha_f;
-    return evaluate_for_q(k_i - k_f);
+    double result = std::sqrt(getVolume()/getHeight());
+    return result;
 }
 
 #endif // IFORMFACTOR_H

@@ -6,7 +6,7 @@ SUBDIRS += \
     Core \
     ThirdParty/gtest \
     App \
-    UnitTests/TestCore
+    Tests/UnitTests/TestCore
 
 TestCore.depends = ThirdParty/gtest
 

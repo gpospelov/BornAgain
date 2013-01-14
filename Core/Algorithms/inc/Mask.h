@@ -16,13 +16,11 @@
 
 #include "MaskCoordinateFunction.h"
 
-#include <cstddef>
-
 //- -------------------------------------------------------------------
 //! @class Mask
 //! @brief Definition of base class for masking OutputData elements
 //- -------------------------------------------------------------------
-class Mask
+class Mask : public ICloneable
 {
 public:
     template <class TValue, class TContainer> friend class OutputDataIterator;
@@ -59,8 +57,10 @@ public:
     virtual ~MaskIndexModulus() {}
     virtual MaskIndexModulus *clone() const;
 
-private:
+protected:
     virtual bool isMasked(size_t total_index) const;
+
+private:
     size_t m_modulus;
     size_t m_remainder;
 };
@@ -72,14 +72,16 @@ private:
 class MaskCoordinates : public Mask
 {
 public:
-    MaskCoordinates(size_t rank, int *dims, Mask *p_submask=0);
+    MaskCoordinates(size_t rank, const int *dims, Mask *p_submask=0);
     virtual ~MaskCoordinates();
     virtual MaskCoordinates *clone() const;
 
     void setMaskCoordinateFunction(MaskCoordinateFunction *p_mask_function);
 
-private:
+protected:
     virtual bool isMasked(size_t total_index) const;
+
+private:
     void setCachedCoordinates(size_t index) const;
     size_t m_rank;
     int *m_dims;

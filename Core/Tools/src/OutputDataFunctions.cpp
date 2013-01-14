@@ -1,6 +1,8 @@
 #include "OutputDataFunctions.h"
 #include "Exceptions.h"
 #include "Numeric.h"
+
+
 #include <cmath>
 #include <fftw3.h>
 
@@ -21,8 +23,10 @@ OutputData<double> *OutputDataFunctions::doubleBinSize(const OutputData<double> 
     // create new axes
     for (size_t i=0; i<dimension; ++i) {
         needs_resizing.push_back(source_sizes[i] > 1);
-        const NamedVector<double> *source_axis = dynamic_cast<const NamedVector<double> *>(source.getAxis(i));
-        p_result->addAxis(source_axis->createDoubleBinSize());
+        const IAxis *source_axis = source.getAxis(i);
+        IAxis *p_new_axis = source_axis->createDoubleBinSize();
+        p_result->addAxis(*p_new_axis);
+        delete p_new_axis;
     }
     // calculate new data content
     OutputData<double>::const_iterator it_source = source.begin();
@@ -68,7 +72,7 @@ void OutputDataFunctions::fourierTransform(const OutputData<double>& source, Out
     //  initialize temporary arrays
     double *input = fftw_alloc_real(total_real_size);
     fftw_complex *output = fftw_alloc_complex(total_complex_size);
-    fftw_plan plan = fftw_plan_dft_r2c(rank, n_real_dims, input, output, FFTW_ESTIMATE);
+    fftw_plan plan = fftw_plan_dft_r2c((int)rank, n_real_dims, input, output, FFTW_ESTIMATE);
     source.fillRawDataArray(input);
 
     // execute the plan
@@ -107,12 +111,14 @@ void OutputDataFunctions::fourierTransformR(const OutputData<complex_t>& source,
     }
     // allocate result
     if (source.getAllocatedSize() != total_complex_size) {
+        delete[] n_real_dims;
+        delete[] n_complex_dims;
         throw ClassInitializationException("Inverse Fourier transform requires properly allocated map sizes");
     }
     //  initialize temporary arrays
     double *output = fftw_alloc_real(total_real_size);
     fftw_complex *input = fftw_alloc_complex(total_complex_size);
-    fftw_plan plan = fftw_plan_dft_c2r(rank, n_real_dims, input, output, FFTW_ESTIMATE);
+    fftw_plan plan = fftw_plan_dft_c2r((int)rank, n_real_dims, input, output, FFTW_ESTIMATE);
     complex_t *input2 = new complex_t[total_complex_size];
     source.fillRawDataArray(input2);
     toFftw3Array(input2, total_complex_size, input);
@@ -141,7 +147,7 @@ OutputData<double> *OutputDataFunctions::getRealPart(const OutputData<complex_t>
 {
     OutputData<double> *p_result = new OutputData<double>();
     for (size_t i=0; i<source.getRank(); ++i) {
-        p_result->addAxis(source.getAxis(i)->clone());
+        p_result->addAxis(*source.getAxis(i));
     }
     OutputData<complex_t>::const_iterator it_source = source.begin();
     OutputData<double>::iterator it_result = p_result->begin();
@@ -160,7 +166,7 @@ OutputData<double>* getImagPart(const OutputData<complex_t>& source)
 {
     OutputData<double> *p_result = new OutputData<double>();
     for (size_t i=0; i<source.getRank(); ++i) {
-        p_result->addAxis(source.getAxis(i)->clone());
+        p_result->addAxis(*source.getAxis(i));
     }
     OutputData<complex_t>::const_iterator it_source = source.begin();
     OutputData<double>::iterator it_result = p_result->begin();
@@ -179,7 +185,7 @@ OutputData<double>* OutputDataFunctions::getModulusPart(const OutputData<complex
 {
     OutputData<double> *p_result = new OutputData<double>();
     for (size_t i=0; i<source.getRank(); ++i) {
-        p_result->addAxis(source.getAxis(i)->clone());
+        p_result->addAxis(*source.getAxis(i));
     }
     OutputData<complex_t>::const_iterator it_source = source.begin();
     OutputData<double>::iterator it_result = p_result->begin();
@@ -206,15 +212,15 @@ OutputData<double> *OutputDataFunctions::sliceAccrossOneAxis(const OutputData<do
 
     OutputData<double > *sliced_data = new OutputData<double >;
 
-    const NamedVector<double> *fixed_axis(0);
+    const IAxis *fixed_axis(0);
     int fixed_axis_index(-1);
     for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
-        const NamedVector<double> *axis = dynamic_cast<const NamedVector<double>*>(data.getAxes()[i_axis]);
+        const IAxis *axis = data.getAxis(i_axis);
         if( axis->getName() != fixed_axis_name ) {
-            sliced_data->addAxis(axis->clone());
+            sliced_data->addAxis(*axis);
         } else {
             fixed_axis = axis;
-            fixed_axis_index = i_axis;
+            fixed_axis_index = (int)i_axis;
         }
     }
 
@@ -248,7 +254,7 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
         throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! It was checked only with number of dimensions equal 2.");
     }
 
-    const NamedVector<double> *selected_axis = dynamic_cast<const NamedVector<double> *>(data.getAxis(selected_axis_name));
+    const IAxis *selected_axis = data.getAxis(selected_axis_name);
     if( !selected_axis ) {
         throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! No axis with name "+selected_axis_name);
     }
@@ -257,21 +263,20 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
         throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! Axis range xmax<xmin. ");
     }
 
-    int selected_axis_index = data.getAxisIndex(selected_axis_name);
-    int nbin1 = selected_axis->findClosestIndex(axis_value1);
-    int nbin2 = selected_axis->findClosestIndex(axis_value2);
+    size_t selected_axis_index = data.getAxisIndex(selected_axis_name);
+    size_t nbin1 = selected_axis->findClosestIndex(axis_value1);
+    size_t nbin2 = selected_axis->findClosestIndex(axis_value2);
     double x1 = (*selected_axis)[nbin1];
     double x2 = (*selected_axis)[nbin2];
 
     // preparing new data with modified axes
     OutputData<double > *new_data = new OutputData<double >;
     for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
-        const NamedVector<double> *axis = dynamic_cast<const NamedVector<double>*>(data.getAxes()[i_axis]);
-        if( !axis) throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! Can't cast axis");
+        const IAxis *axis = data.getAxis(i_axis);
         if( axis->getName() != selected_axis_name ) {
-            new_data->addAxis(axis->clone());
+            new_data->addAxis(*axis);
         } else {
-            new_data->addAxis(new NamedVector<double>(selected_axis->getName(), x1, x2, nbin2-nbin1+1));
+            new_data->addAxis(selected_axis->getName(), nbin2-nbin1+1, x1, x2);
         }
     }
     new_data->setAllTo(0.0);
@@ -282,7 +287,7 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
     while (it_data != data.end())
     {
         std::vector<int > orig_coord = data.toCoordinates(it_data.getIndex());
-        int xbin = orig_coord[selected_axis_index];
+        size_t xbin = orig_coord[selected_axis_index];
         if( xbin>=nbin1 && xbin <= nbin2 ) {
 //            std::vector<int > new_coord = orig_coord;
 //            new_coord[selected_axis_index] = xbin - nbin1;
@@ -332,4 +337,49 @@ void OutputDataFunctions::applyFunction(OutputData<double> &data, const IIntensi
     }
 }
 
+Mask* OutputDataFunctions::CreateRectangularMask(const OutputData<double>& data,
+        const double* minima, const double* maxima)
+{
+    size_t rank = data.getRank();
+    int *minima_i = new int[rank];
+    int *maxima_i = new int[rank];
+    int *dims_i = new int[rank];
+    for (size_t i=0; i<rank; ++i) {
+        const IAxis *p_axis = data.getAxis(i);
+        minima_i[i] = (int)p_axis->findClosestIndex(minima[i]);
+        maxima_i[i] = (int)p_axis->findClosestIndex(maxima[i]);
+        dims_i[i] = (int)p_axis->getSize();
+    }
+    MaskCoordinateRectangleFunction *p_rectangle_function = new MaskCoordinateRectangleFunction(rank, minima_i, maxima_i);
+    p_rectangle_function->setInvertFlag(true);
+    delete[] minima_i;
+    delete[] maxima_i;
+    MaskCoordinates *p_result = new MaskCoordinates(rank, dims_i);
+    delete[] dims_i;
+    p_result->setMaskCoordinateFunction(p_rectangle_function);
+    return p_result;
+}
 
+Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double>& data,
+        const double* center, const double* radii)
+{
+    size_t rank = data.getRank();
+    int *center_i = new int[rank];
+    int *radii_i = new int[rank];
+    int *dims_i = new int[rank];
+    for (size_t i=0; i<rank; ++i) {
+        const IAxis *p_axis = data.getAxis(i);
+        center_i[i] = (int)p_axis->findClosestIndex(center[i]);
+        int lower_index = (int)p_axis->findClosestIndex((*p_axis)[center_i[i]] - radii[i]);
+        radii_i[i] = center_i[i] - lower_index;
+        dims_i[i] = (int)p_axis->getSize();
+    }
+    MaskCoordinateEllipseFunction *p_ellipse_function = new MaskCoordinateEllipseFunction(rank, center_i, radii_i);
+    p_ellipse_function->setInvertFlag(true);
+    delete[] center_i;
+    delete[] radii_i;
+    MaskCoordinates *p_result = new MaskCoordinates(rank, dims_i);
+    delete[] dims_i;
+    p_result->setMaskCoordinateFunction(p_ellipse_function);
+    return p_result;
+}

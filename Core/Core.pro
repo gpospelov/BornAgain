@@ -32,6 +32,7 @@ SOURCES += \
     Algorithms/src/IChiSquaredModule.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
     Algorithms/src/IOutputDataNormalizer.cpp \
+    Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
@@ -42,19 +43,23 @@ SOURCES += \
     Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
     \
-    FormFactors/src/FormFactorBigCylinder.cpp \
+    FormFactors/src/FormFactorBox.cpp \
+    FormFactors/src/FormFactorCrystal.cpp \
+    FormFactors/src/FormFactorCylinder.cpp \
+    FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorDWBA.cpp \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
-    FormFactors/src/FormFactorDecoratorTransformation.cpp \
-    FormFactors/src/FormFactorCylinder.cpp \
+    FormFactors/src/FormFactorEllipsoid.cpp \
     FormFactors/src/FormFactorFullSphere.cpp \
     FormFactors/src/FormFactorGauss.cpp \
+    FormFactors/src/FormFactorLorentz.cpp \
     FormFactors/src/FormFactorParallelepiped.cpp \
     FormFactors/src/FormFactorPrism3.cpp \
+    FormFactors/src/FormFactorPrism6.cpp \
     FormFactors/src/FormFactorPyramid.cpp \
-    FormFactors/src/FormFactorLorentz.cpp \
+    FormFactors/src/FormFactorSphere.cpp \
     FormFactors/src/FormFactorWeighted.cpp \
-    FormFactors/src/FormFactorCrystal.cpp \
+    FormFactors/src/IFormFactorBorn.cpp \
     \
     Geometry/src/BasicVector3D.cpp \
     Geometry/src/Normal3D.cpp \
@@ -71,8 +76,8 @@ SOURCES += \
     Samples/src/IMaterial.cpp \
     Samples/src/InterferenceFunction1DParaCrystal.cpp \
     Samples/src/InterferenceFunction2DParaCrystal.cpp \
-    Samples/src/IRoughness.cpp \
     Samples/src/ISample.cpp \
+    Samples/src/IsGISAXSMorphologyFileDecoration.cpp \
     Samples/src/Lattice.cpp \
     Samples/src/LatticeBasis.cpp \
     Samples/src/Layer.cpp \
@@ -87,7 +92,10 @@ SOURCES += \
     Samples/src/ParticleCoreShell.cpp \
     Samples/src/ParticleDecoration.cpp \
     Samples/src/ParticleInfo.cpp \
+    Samples/src/PositionParticleInfo.cpp \
     \
+    Tools/src/AxisBin.cpp \
+    Tools/src/AxisDouble.cpp \
     Tools/src/Convolve.cpp \
     Tools/src/CoreOptionsDescription.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
@@ -96,6 +104,7 @@ SOURCES += \
     Tools/src/FitParameter.cpp \
     Tools/src/FitParameterLinked.cpp \
     Tools/src/FitSuite.cpp \
+    Tools/src/FitSuiteFunctions.cpp \
     Tools/src/FitSuiteObjects.cpp \
     Tools/src/FitSuiteParameters.cpp \
     Tools/src/FitSuiteStrategy.cpp \
@@ -111,20 +120,11 @@ SOURCES += \
     Tools/src/OutputDataWriter.cpp \
     Tools/src/ParameterPool.cpp \
     Tools/src/ProgramOptions.cpp \
+    Tools/src/RealParameterWrapper.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
-    Tools/src/Utils.cpp \
-    \
-    PythonAPI/src/PythonInterface_classes_1.cpp \
-    PythonAPI/src/PythonInterface_classes_2.cpp \
-    PythonAPI/src/PythonInterface_classes_3.cpp \
-    PythonAPI/src/PythonInterface_free_functions.cpp \
-    PythonAPI/src/PythonInterface_global_variables.cpp \
-    PythonAPI/src/PythonListConverter.cpp \
-    PythonAPI/src/PythonModule.cpp \
-    PythonAPI/src/PythonPlusplusHelper.cpp \
-    PythonAPI/src/PythonOutputData.cpp
+    Tools/src/Utils.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -133,6 +133,7 @@ HEADERS += \
     Algorithms/inc/ConvolutionDetectorResolution.h \
     Algorithms/inc/DecouplingApproximationStrategy.h \
     Algorithms/inc/Detector.h \
+    Algorithms/inc/DetectorParameters.h \
     Algorithms/inc/DiffuseDWBASimulation.h \
     Algorithms/inc/DWBADiffuseReflection.h \
     Algorithms/inc/DWBASimulation.h \
@@ -142,10 +143,12 @@ HEADERS += \
     Algorithms/inc/IChiSquaredModule.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \
+    Algorithms/inc/IIntensityFunction.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
     Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
     Algorithms/inc/ISampleBuilder.h \
+    Algorithms/inc/IsGISAXSMorphologyFileStrategy.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/ISquaredFunction.h \
     Algorithms/inc/LayerDecoratorDWBASimulation.h \
@@ -159,27 +162,33 @@ HEADERS += \
     Algorithms/inc/ResolutionFunction2DSimple.h \
     Algorithms/inc/ThreadInfo.h \
     \
-    FormFactors/inc/FormFactorBigCylinder.h \
-    FormFactors/inc/FormFactorDWBA.h \
-    FormFactors/inc/FormFactorDWBAConstZ.h \
+    FormFactors/inc/FormFactorBox.h \
+    FormFactors/inc/FormFactorCrystal.h \
+    FormFactors/inc/FormFactorCylinder.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
     FormFactors/inc/FormFactorDecoratorFactor.h \
     FormFactors/inc/FormFactorDecoratorMultiPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorRefractiveIndex.h \
     FormFactors/inc/FormFactorDecoratorTransformation.h \
-    FormFactors/inc/FormFactorCylinder.h \
+    FormFactors/inc/FormFactorDWBA.h \
+    FormFactors/inc/FormFactorDWBAConstZ.h \
+    FormFactors/inc/FormFactorEllipsoid.h \
     FormFactors/inc/FormFactorFullSphere.h \
     FormFactors/inc/FormFactorGauss.h \
+    FormFactors/inc/FormFactorLorentz.h \
     FormFactors/inc/FormFactorParallelepiped.h \
     FormFactors/inc/FormFactorPrism3.h \
+    FormFactors/inc/FormFactorPrism6.h \
     FormFactors/inc/FormFactorPyramid.h \
-    FormFactors/inc/FormFactorLorentz.h \
     FormFactors/inc/FormFactors.h \
+    FormFactors/inc/FormFactorSphere.h \
     FormFactors/inc/FormFactorSphereGaussianRadius.h \
-    FormFactors/inc/IFormFactor.h \
-    FormFactors/inc/FormFactorCrystal.h \
     FormFactors/inc/FormFactorWeighted.h \
+    FormFactors/inc/IFormFactor.h \
+    FormFactors/inc/IFormFactorBorn.h \
+    FormFactors/inc/IFormFactorBornSeparable.h \
+    FormFactors/inc/IFormFactorDecorator.h \
     \
     Geometry/inc/BasicVector3D.h \
     Geometry/inc/Normal3D.h \
@@ -205,6 +214,7 @@ HEADERS += \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \
     Samples/inc/ISelectionRule.h \
+    Samples/inc/IsGISAXSMorphologyFileDecoration.h \
     Samples/inc/Lattice.h \
     Samples/inc/LatticeBasis.h \
     Samples/inc/Layer.h \
@@ -219,10 +229,15 @@ HEADERS += \
     Samples/inc/ParticleCoreShell.h \
     Samples/inc/ParticleDecoration.h \
     Samples/inc/ParticleInfo.h \
+    Samples/inc/PositionParticleInfo.h \
     \
+    Tools/inc/AxisBin.h \
+    Tools/inc/AxisDouble.h \
     Tools/inc/AttLimits.h \
+    Tools/inc/Bin.h \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \
+    Tools/inc/CoreOptionsDescription.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
     Tools/inc/DoubleToComplexMap.h \
     Tools/inc/Exceptions.h \
@@ -230,15 +245,18 @@ HEADERS += \
     Tools/inc/FitParameter.h \
     Tools/inc/FitParameterLinked.h \
     Tools/inc/FitSuite.h \
+    Tools/inc/FitSuiteFunctions.h \
     Tools/inc/FitSuiteObjects.h \
     Tools/inc/FitSuiteParameters.h \
     Tools/inc/FitSuiteStrategy.h \
+    Tools/inc/IAxis.h \
+    Tools/inc/IChangeable.h \
+    Tools/inc/ICloneable.h \
     Tools/inc/IDoubleToComplexFunction.h \
     Tools/inc/IFactory.h \
     Tools/inc/IMinimizer.h \
     Tools/inc/INamed.h \
     Tools/inc/IObserver.h \
-    Tools/inc/OutputDataFunctions.h \
     Tools/inc/IParameterized.h \
     Tools/inc/ISingleton.h \
     Tools/inc/IStochasticParameter.h \
@@ -246,66 +264,49 @@ HEADERS += \
     Tools/inc/Macros.h \
     Tools/inc/MathFunctions.h \
     Tools/inc/MemberFunctionIntegrator.h \
-    Tools/inc/NamedVector.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
+    Tools/inc/OutputDataFunctions.h \
     Tools/inc/OutputDataIOFactory.h \
     Tools/inc/OutputDataIterator.h \
     Tools/inc/OutputDataReader.h \
     Tools/inc/OutputDataWriter.h \
     Tools/inc/ParameterPool.h \
     Tools/inc/ProgramOptions.h \
-    Tools/inc/TRange.h \
+    Tools/inc/RealParameterWrapper.h \
+    Tools/inc/SafePointerVector.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticGaussian.h \
     Tools/inc/StochasticSampledParameter.h \
+    Tools/inc/TRange.h \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
-    Tools/inc/CoreOptionsDescription.h \
-    \
-    PythonAPI/inc/PythonInterface_classes_1.h \
-    PythonAPI/inc/PythonInterface_classes_2.h \
-    PythonAPI/inc/PythonInterface_classes_3.h \
-    PythonAPI/inc/PythonInterface_free_functions.h \
-    PythonAPI/inc/PythonInterface_global_variables.h \
-    PythonAPI/inc/PythonListConverter.h \
-    PythonAPI/inc/PythonModule.h \
-    PythonAPI/inc/PythonOutputData.h \
-    PythonAPI/inc/PythonPlusplusHelper.h \
-    PythonAPI/inc/IPythonWrapper.h \
-    Algorithms/inc/IIntensityFunction.h
+    Tools/inc/FastVector.h
 
-INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
-DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
+INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
+DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
+
+contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
+   include($$PWD/python_module.pri)
+}
 
 # excluding files with python interface to not to expose library in python
-!contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
-  HEADERS -= \
-    PythonAPI/inc/PythonInterface_classes_1.h \
-    PythonAPI/inc/PythonInterface_classes_2.h \
-    PythonAPI/inc/PythonInterface_classes_3.h \
-    PythonAPI/inc/PythonInterface_free_functions.h \
-    PythonAPI/inc/PythonInterface_global_variables.h \
-    PythonAPI/inc/PythonListConverter.h \
-    PythonAPI/inc/PythonModule.h \
-    PythonAPI/inc/PythonOutputData.h \
-    PythonAPI/inc/PythonPlusplusHelper.h
+#!contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
+#  HEADERS -= \
+#    PythonAPI/inc/PythonListConverter.h \
+#    PythonAPI/inc/PythonModule.h \
+#    PythonAPI/inc/PythonOutputData.h \
+#    PythonAPI/inc/PythonPlusplusHelper.h
 
-  SOURCES -= \
-    PythonAPI/src/PythonInterface_classes_1.cpp \
-    PythonAPI/src/PythonInterface_classes_2.cpp \
-    PythonAPI/src/PythonInterface_classes_3.cpp \
-    PythonAPI/src/PythonInterface_free_functions.cpp \
-    PythonAPI/src/PythonInterface_global_variables.cpp \
-    PythonAPI/src/PythonListConverter.cpp \
-    PythonAPI/src/PythonModule.cpp \
-    PythonAPI/src/PythonOutputData.cpp \
-    PythonAPI/src/PythonPlusplusHelper.cpp
+#  SOURCES -= \
+#    PythonAPI/src/PythonListConverter.cpp \
+#    PythonAPI/src/PythonOutputData.cpp \
+#    PythonAPI/src/PythonPlusplusHelper.cpp
 
-  INCLUDEPATH -= ./PythonAPI/inc
-  DEPENDPATH -= ./PythonAPI/inc
-}
+#  INCLUDEPATH -= ./PythonAPI/inc
+#  DEPENDPATH -= ./PythonAPI/inc
+#}
 
 OBJECTS_DIR = obj
 
@@ -334,7 +335,8 @@ CONFIG(BUILD_PYTHON_BOOST_MODULE) {
     #message($$pythonsyslibdir)
     lessThan(pythonvers, 2.6): error("GISASFW requires python 2.6 or greater")
     INCLUDEPATH += $$pythonsysincdir
-    LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
+    #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
+    LIBS += -lboost_python -L$$pythonsyslibdir -lpython$$pythonvers
 
     # we need to know to location of numpy
     pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")

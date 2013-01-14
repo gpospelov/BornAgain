@@ -14,17 +14,17 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jun 29, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorDecorator.h"
 
 
 class FormFactorDecoratorFactor : public IFormFactorDecorator
 {
 public:
-    FormFactorDecoratorFactor(IFormFactor *p_form_factor, complex_t factor);
+    FormFactorDecoratorFactor(IFormFactor *p_form_factor, const complex_t &factor);
     virtual FormFactorDecoratorFactor *clone() const;
     virtual ~FormFactorDecoratorFactor() {}
 
-    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const;
 
@@ -33,7 +33,7 @@ protected:
 };
 
 inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(
-        IFormFactor* p_form_factor, complex_t factor)
+        IFormFactor* p_form_factor, const complex_t &factor)
 : IFormFactorDecorator(p_form_factor)
 , m_factor(factor)
 {
@@ -45,9 +45,9 @@ inline FormFactorDecoratorFactor* FormFactorDecoratorFactor::clone() const
     return new FormFactorDecoratorFactor(mp_form_factor->clone(), m_factor);
 }
 
-inline complex_t FormFactorDecoratorFactor::evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const
+inline complex_t FormFactorDecoratorFactor::evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
 {
-    return m_factor*mp_form_factor->evaluate(k_i, k_f, alpha_i, alpha_f);
+    return m_factor*mp_form_factor->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
 }
 
 inline int FormFactorDecoratorFactor::getNumberOfStochasticParameters() const

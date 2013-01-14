@@ -32,7 +32,7 @@ class OutputDataIOFactory : public ISingleton<OutputDataIOFactory >
 public:
     OutputDataIOFactory();
 
-    OutputDataReader *getReader(const std::string &file_name);
+    OutputDataReader *getReader(const std::string &file_name) const;
 };
 
 #endif // OUTPUTDATAIOFACTORY_H

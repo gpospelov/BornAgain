@@ -15,8 +15,9 @@
 //! @date   Jul 20, 2012
 
 #include "Numeric.h"
+#include "Exceptions.h"
 
-#include <cmath>
+//#include <cmath>
 #include <iostream>
 
 
@@ -27,6 +28,7 @@ public:
     virtual ISquaredFunction *clone() const=0;
 
     virtual double calculateSquaredDifference(double real_value, double simulated_value) const=0;
+    virtual double calculateSquaredError(double real_value, double simulated_value = 0.0) const { (void)real_value; (void)simulated_value; throw NotImplementedException("ISquaredFunction::calculateError() -> Error! Not implemented."); }
 };
 
 
@@ -37,15 +39,21 @@ public:
     virtual ~SquaredFunctionDefault() {}
     virtual SquaredFunctionDefault *clone() const { return new SquaredFunctionDefault(); }
 
-    virtual inline double calculateSquaredDifference(double real_value, double simulated_value) const
+    virtual double calculateSquaredDifference(double real_value, double simulated_value) const
     {
         double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
         if (diff_squared < Numeric::double_epsilon) {
             return 0.0;
         }
-        double sigma = std::max(real_value,1.0);
-        return diff_squared/sigma;
+        double sigma_squared = std::max(real_value,1.0);
+        return diff_squared/sigma_squared;
     }
+
+    virtual double calculateSquaredError(double real_value, double /* simulated_value */) const
+    {
+        return std::max(real_value,1.0);
+    }
+
 };
 
 
@@ -56,7 +64,7 @@ public:
     virtual ~SquaredFunctionWhichOnlyWorks() {}
     virtual SquaredFunctionWhichOnlyWorks *clone() const { return new SquaredFunctionWhichOnlyWorks(*this); }
 
-    virtual inline double calculateSquaredDifference(double real_value, double simulated_value) const
+    virtual double calculateSquaredDifference(double real_value, double simulated_value) const
     {
         double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
         if (diff_squared < Numeric::double_epsilon) {
@@ -78,16 +86,44 @@ public:
     virtual ~SquaredFunctionWithSystematicError() {}
     virtual SquaredFunctionWithSystematicError *clone() const { return new SquaredFunctionWithSystematicError(*this); }
 
-    virtual inline double calculateSquaredDifference(double real_value, double simulated_value) const
+    virtual double calculateSquaredDifference(double real_value, double simulated_value) const
     {
         double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
-        double sigma_squared = std::fabs(real_value) + (m_epsilon*real_value)*(m_epsilon*real_value);
-        sigma_squared = std::max(sigma_squared, 1.0);
-        return diff_squared/sigma_squared;
+        return diff_squared/calculateSquaredError(real_value);
     }
+    virtual double calculateSquaredError(double real_value, double simulated_value  = 0.0) const
+    {
+        (void)simulated_value;
+        return std::max(std::fabs(real_value) + (m_epsilon*real_value)*(m_epsilon*real_value),1.0);
+    }
+
 private:
     double m_epsilon;
 };
+
+
+class SquaredFunctionWithGaussianError : public ISquaredFunction
+{
+public:
+    SquaredFunctionWithGaussianError(double sigma = 0.01) : m_sigma(sigma){}
+    virtual ~SquaredFunctionWithGaussianError() {}
+    virtual SquaredFunctionWithGaussianError *clone() const { return new SquaredFunctionWithGaussianError(*this); }
+
+    virtual double calculateSquaredDifference(double real_value, double simulated_value) const
+    {
+        double diff_squared = (simulated_value-real_value)*(simulated_value-real_value);
+        double sigma_squared = m_sigma*m_sigma;
+        return diff_squared/sigma_squared;
+    }
+    virtual double calculateSquaredError(double /* real_value */, double /* simulated_value */) const
+    {
+        return m_sigma*m_sigma;
+    }
+
+private:
+    double m_sigma;
+};
+
 
 
 #endif /* ISQUAREDFUNCTION_H_ */

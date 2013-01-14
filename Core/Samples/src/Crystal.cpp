@@ -44,17 +44,14 @@ std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
 {
     std::vector<DiffuseParticleInfo *> *p_result = new std::vector<DiffuseParticleInfo *>(
             mp_lattice_basis->createDiffuseParticleInfos());
-    if (p_result->size()==0) {
-        return p_result;
-    }
+    if (p_result->empty()) return p_result;
+
     double primitive_cell_volume = m_lattice.getVolume();
     double parent_volume = parent_info.getParticle()->getSimpleFormFactor()->getVolume();
     double parent_height = parent_info.getParticle()->getSimpleFormFactor()->getHeight();
     double parent_depth = parent_info.getDepth();
 
-    Geometry::Transform3D *p_new_transform(0);
     const Geometry::Transform3D *p_parent_transform = parent_info.getTransform3D();
-    if(p_parent_transform) p_new_transform = new Geometry::Transform3D(*p_parent_transform);
 
     double nbr_unit_cells = parent_volume/primitive_cell_volume;
 

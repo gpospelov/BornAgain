@@ -2,6 +2,7 @@
 #include "Experiment.h"
 
 
+double FitSuiteParameters::m_default_parameter_error=0.001;
 
 FitSuiteParameters::FitSuiteParameters()
 {
@@ -25,12 +26,14 @@ void FitSuiteParameters::clear()
 
 
 // add fit parameter
-void FitSuiteParameters::addParameter(const std::string &name, double value, double step, const AttLimits &attlim)
+void FitSuiteParameters::addParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error)
 {
     for(parameters_t::const_iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( (*it)->getName() == name ) throw LogicErrorException("FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
     }
-    m_parameters.push_back(new FitParameterLinked(name, value, step, attlim) );
+    // defining default parameter error
+    if(error == 0.0) error = value*m_default_parameter_error;
+    m_parameters.push_back(new FitParameterLinked(name, value, step, attlim, error) );
 }
 
 
@@ -54,9 +57,14 @@ FitParameter *FitSuiteParameters::getParameter(const std::string &name)
 
 
 // set values for all defined parameters
+// FIXME FitSuiteParameters::setValues  remove check for attempt to set parameter values
 void FitSuiteParameters::setValues(const double *pars_values)
 {
-    int index(0);
+    if( !valuesAreDifferrent(pars_values) ) {
+        std::cout << "FitSuiteParameters::setValues() -> Warning! Small or absent change in parameter values." << std::endl;
+        for(size_t i=0; i<m_parameters.size(); i++)  std::cout << (m_parameters[i]->getValue() -pars_values[i]) << " " << Numeric::areAlmostEqual(m_parameters[i]->getValue(), pars_values[i]) << std::endl;
+    }
+    size_t index(0);
     for(parameters_t::iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) (*it)->setValue(pars_values[index++]);
 }
 
@@ -69,13 +77,23 @@ void FitSuiteParameters::setValues(const std::vector<double> &pars_values)
 
 std::vector<double > FitSuiteParameters::getValues() const
 {
-    std::vector<double > buff;
-    buff.resize(m_parameters.size(), 0);
+    std::vector<double > result;
     for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it)
     {
-        buff.push_back((*it)->getValue());
+        result.push_back((*it)->getValue());
     }
-    return buff;
+    return result;
+}
+
+
+size_t FitSuiteParameters::getNfreeParameters() const
+{
+    size_t result(0);
+    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it)
+    {
+        if( !(*it)->isFixed() ) result++;
+    }
+    return result;
 }
 
 
@@ -93,5 +111,16 @@ void FitSuiteParameters::link_to_pool(const ParameterPool *pool)
         par->addMatchedParametersFromPool(pool);
     }
 }
+
+
+bool FitSuiteParameters::valuesAreDifferrent(const double *pars_values, double tolerance_factor) const
+{
+    size_t index(0);
+    for(parameters_t::const_iterator it=m_parameters.begin(); it!=m_parameters.end(); ++it) {
+        if( !Numeric::areAlmostEqual(pars_values[index++], (*it)->getValue(), tolerance_factor )) return true;
+    }
+    return false;
+}
+
 
 

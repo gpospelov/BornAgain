@@ -67,10 +67,10 @@ void TestFresnelCoeff::test_standard_samples()
         mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample(snames[i_sample]));
 
         mp_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
-        mp_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 2000);
+        mp_coeffs->addAxis(std::string("alpha_i"), 2000, 0.0*Units::degree, 2.0*Units::degree);
         OutputData<OpticalFresnel::MultiLayerCoeff_t >::iterator it = mp_coeffs->begin();
         while (it != mp_coeffs->end()) {
-            double alpha_i = mp_coeffs->getValueOfAxis<double>("alpha_i", it.getIndex());
+            double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
             kvector_t kvec;
             kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 
@@ -119,7 +119,7 @@ void TestFresnelCoeff::draw_standard_samples()
     OutputData<OpticalFresnel::MultiLayerCoeff_t >::const_iterator it = mp_coeffs->begin();
     int i_point = 0;
     while (it != mp_coeffs->end()) {
-        double alpha_i = mp_coeffs->getValueOfAxis<double>("alpha_i", it.getIndex());
+        double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
         const OpticalFresnel::MultiLayerCoeff_t coeffs = *it++;
 
         // Filling graphics for R,T as a function of alpha_i
@@ -129,7 +129,7 @@ void TestFresnelCoeff::draw_standard_samples()
         }
 
         // Filling graphics for |R|+|T| as a function of alpha_i taking R from the top and T from the bottom layers
-        int nlast = nlayers - 1;
+        int nlast = (int)nlayers - 1;
         double sum;
         if(coeffs[0].kz.real()!=0.0) {
             sum = std::norm(coeffs[0].R) + std::norm(coeffs[nlast].T)*coeffs[nlast].kz.real()/coeffs[0].kz.real();
@@ -154,7 +154,7 @@ void TestFresnelCoeff::draw_standard_samples()
     c1->Divide(ndiv,ndiv);
 
     for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
-        c1->cd(i_layer+1);
+        c1->cd((int)i_layer+1);
         gPad->SetLogy();
 
         // calculating histogram limits common for all graphs on given pad
@@ -209,7 +209,7 @@ void TestFresnelCoeff::draw_standard_samples()
     leg->Draw();
 
     // drawing sample geometry
-    c1->cd(nlayers+1);
+    c1->cd((int)nlayers+1);
     DrawHelper::instance().DrawMultilayer(mp_sample);
 }
 
@@ -233,12 +233,12 @@ void TestFresnelCoeff::test_roughness_set()
     std::cout << *mp_sample << std::endl;
 
     mp_coeffs = new OutputData<OpticalFresnel::MultiLayerCoeff_t >;
-    mp_coeffs->addAxis(std::string("alpha_i"), 0.0*Units::degree, 2.0*Units::degree, 1000);
-    mp_coeffs->addAxis(std::string("roughness"), 0.0, 12.0*Units::nanometer, 6);
+    mp_coeffs->addAxis(std::string("alpha_i"), 1000, 0.0*Units::degree, 2.0*Units::degree);
+    mp_coeffs->addAxis(std::string("roughness"), 6, 0.0, 12.0*Units::nanometer);
     OutputData<OpticalFresnel::MultiLayerCoeff_t >::iterator it = mp_coeffs->begin();
     while (it != mp_coeffs->end()) {
-        double alpha_i = mp_coeffs->getValueOfAxis<double>("alpha_i", it.getIndex());
-        double roughness = mp_coeffs->getValueOfAxis<double>("roughness", it.getIndex());
+        double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
+        double roughness = mp_coeffs->getValueOfAxis("roughness", it.getIndex());
         multipar.setValue(roughness);
 
         kvector_t kvec;
@@ -268,7 +268,7 @@ void TestFresnelCoeff::draw_roughness_set()
     size_t ncoeffs = 2;
     enum key_coeffs { kCoeffR, kCoeffT};
 
-    const NamedVector<double> *p_rough = dynamic_cast<const NamedVector<double>*>(mp_coeffs->getAxis("roughness"));
+    const IAxis *p_rough = mp_coeffs->getAxis("roughness");
     size_t nroughness = p_rough->getSize();
 
 
@@ -286,7 +286,7 @@ void TestFresnelCoeff::draw_roughness_set()
 
     OutputData<OpticalFresnel::MultiLayerCoeff_t >::const_iterator it = mp_coeffs->begin();
     while (it != mp_coeffs->end()) {
-        double alpha_i = mp_coeffs->getValueOfAxis<double>("alpha_i", it.getIndex());
+        double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
         size_t i_alpha = mp_coeffs->getIndexOfAxis("alpha_i", it.getIndex());
         size_t i_rough = mp_coeffs->getIndexOfAxis("roughness", it.getIndex());
 
@@ -294,8 +294,8 @@ void TestFresnelCoeff::draw_roughness_set()
 
         // Filling graphics for R,T as a function of alpha_i
         for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
-            gr_coeff[i_layer][kCoeffR][i_rough]->SetPoint(i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R) );
-            gr_coeff[i_layer][kCoeffT][i_rough]->SetPoint(i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T) );
+            gr_coeff[i_layer][kCoeffR][i_rough]->SetPoint((int)i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R) );
+            gr_coeff[i_layer][kCoeffT][i_rough]->SetPoint((int)i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T) );
         }
         ++it;
     }
@@ -314,7 +314,7 @@ void TestFresnelCoeff::draw_roughness_set()
 
     int i_coeff_sel = kCoeffR;
     for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
-        c1->cd(i_layer+1);
+        c1->cd((int)i_layer+1);
         gPad->SetLogy();
 
         // calculating histogram limits common for all graphs on given pad
@@ -359,7 +359,7 @@ void TestFresnelCoeff::draw_roughness_set()
     }
 
     // drawing sample geometry
-    c1->cd(nlayers+1);
+    c1->cd((int)nlayers+1);
     DrawHelper::instance().DrawMultilayer(mp_sample);
 }
 

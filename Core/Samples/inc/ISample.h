@@ -14,23 +14,21 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
-#include "Exceptions.h"
 #include "IParameterized.h"
+#include "ICloneable.h"
 
 class ICompositeSample;
 class DWBASimulation;
 
 //- -------------------------------------------------------------------
 //! @class ISample
-//! @brief Definition of ISample which
+//! @brief Definition of ISample interface for objects related to scattering
 //- -------------------------------------------------------------------
-class ISample : public IParameterized
+class ISample : public IParameterized, public ICloneable
 {
 public:
-    ISample();
-    ISample(const ISample &other);
-    ISample &operator=(const ISample &other);
-    virtual ~ISample();
+    ISample() { }
+    virtual ~ISample() { }
 
     //! return pointer to "this", if it is composite sample (to overload)
     virtual ICompositeSample *getCompositeSample() { return 0; }

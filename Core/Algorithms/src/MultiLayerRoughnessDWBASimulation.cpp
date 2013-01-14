@@ -2,6 +2,7 @@
 #include "MultiLayer.h"
 #include "OpticalFresnel.h"
 #include "DWBADiffuseReflection.h"
+#include "ExperimentConstants.h"
 
 MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(const MultiLayer *p_multi_layer)
 {
@@ -15,7 +16,7 @@ MultiLayerRoughnessDWBASimulation::~MultiLayerRoughnessDWBASimulation()
     delete mp_multi_layer;
 }
 
-void MultiLayerRoughnessDWBASimulation::setReflectionTransmissionFunction(int i_layer, const IDoubleToPairOfComplexMap &RT_function)
+void MultiLayerRoughnessDWBASimulation::setReflectionTransmissionFunction(size_t i_layer, const IDoubleToPairOfComplexMap &RT_function)
 {
     delete mp_RT_function[i_layer];
     mp_RT_function[i_layer] = RT_function.clone();
@@ -23,14 +24,17 @@ void MultiLayerRoughnessDWBASimulation::setReflectionTransmissionFunction(int i_
 
 void MultiLayerRoughnessDWBASimulation::run()
 {
+    const std::string s_phi_f(NDetector2d::PHI_AXIS_NAME);
+    const std::string s_alpha_f(NDetector2d::ALPHA_AXIS_NAME);
+
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     double lambda = 2.0*M_PI/m_ki_real.mag();
 
     DWBASimulation::iterator it_intensity = begin();
     while ( it_intensity != m_dwba_intensity.end() )
     {
-        double phi_f = getDWBAIntensity().getValueOfAxis<double>("phi_f", it_intensity.getIndex());
-        double alpha_f = getDWBAIntensity().getValueOfAxis<double>("alpha_f", it_intensity.getIndex());
+        double phi_f = getDWBAIntensity().getValueOfAxis(s_phi_f, it_intensity.getIndex());
+        double alpha_f = getDWBAIntensity().getValueOfAxis(s_alpha_f, it_intensity.getIndex());
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
         *it_intensity = evaluate(m_ki, k_f, -m_alpha_i, alpha_f);
@@ -80,14 +84,14 @@ double MultiLayerRoughnessDWBASimulation::evaluate(const cvector_t &k_i, const c
     return (autocorr+crosscorr.real())*k_i.mag2().real()/16./M_PI;
 }
 
-complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(int ilayer)
+complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(size_t ilayer) const
 {
     complex_t n1 = mp_multi_layer->getLayer(ilayer)->getRefractiveIndex();
     complex_t n2 = mp_multi_layer->getLayer(ilayer+1)->getRefractiveIndex();
     return n1*n1-n2*n2;
 }
 
-complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(int ilayer, const cvector_t &k_i, const cvector_t &k_f,
+complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(size_t ilayer, const cvector_t &k_i, const cvector_t &k_f,
         double alpha_i, double alpha_f)
 {
     complex_t qz1 =  k_i.z() + k_f.z();

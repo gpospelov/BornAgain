@@ -14,14 +14,27 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jun 27, 2012
 
-#include "FormFactorBigCylinder.h"
-#include "FormFactorPyramid.h"
+#include "FormFactorBox.h"
+#include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
-#include "FormFactorPrism3.h"
+#include "FormFactorDecoratorDebyeWaller.h"
+#include "FormFactorDecoratorFactor.h"
+#include "FormFactorDecoratorMultiPositionFactor.h"
+#include "FormFactorDecoratorPositionFactor.h"
+#include "FormFactorDecoratorRefractiveIndex.h"
+#include "FormFactorDecoratorTransformation.h"
+#include "FormFactorDWBA.h"
+#include "FormFactorDWBAConstZ.h"
+#include "FormFactorEllipsoid.h"
 #include "FormFactorFullSphere.h"
-#include "FormFactorLorentz.h"
 #include "FormFactorGauss.h"
-#include "FormFactorSphereGaussianRadius.h"
+#include "FormFactorLorentz.h"
 #include "FormFactorParallelepiped.h"
+#include "FormFactorPrism3.h"
+#include "FormFactorPrism6.h"
+#include "FormFactorPyramid.h"
+#include "FormFactorSphere.h"
+#include "FormFactorSphereGaussianRadius.h"
+#include "FormFactorWeighted.h"
 
 #endif /* FORMFACTORS_H_ */

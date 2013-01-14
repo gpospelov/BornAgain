@@ -61,7 +61,8 @@ PyObject *ExportOutputData(const OutputData<double > &output_data)
     // getting size of dimensions from output_data
     std::vector<int > dimensions;
     for(size_t i=0; i<output_data.getNdimensions(); i++) {
-        const NamedVector<double> *axis = dynamic_cast<const NamedVector<double>*>(output_data.getAxes()[i]);
+        //const AxisDouble *axis = output_data.getAxis(i);
+        const IAxis *axis = output_data.getAxis(i);
         dimensions.push_back( axis->getSize() );
     }
 
@@ -103,7 +104,7 @@ PyObject *ExportOutputDataAxis(const OutputData<double > &output_data, int naxis
     // getting size of dimensions from output_data
     std::vector<int > dimensions;
     for(size_t i=0; i<output_data.getNdimensions(); i++) {
-        const NamedVector<double> *axis = dynamic_cast<const NamedVector<double>*>(output_data.getAxes()[i]);
+        const IAxis *axis = output_data.getAxis(i);
         dimensions.push_back( axis->getSize() );
     }
     size_t nbins(0);
@@ -129,7 +130,7 @@ PyObject *ExportOutputDataAxis(const OutputData<double > &output_data, int naxis
     double *array_buffer = (double *)PyArray_DATA(pyarray);
 
     // filling numpy array with output_data
-    const NamedVector<double> *axis = dynamic_cast<const NamedVector<double>*>(output_data.getAxes()[naxis]);
+    const IAxis *axis = output_data.getAxis(naxis);
     for(size_t i=0; i<nbins; i++) {
         *array_buffer++ = (*axis)[i];
     }

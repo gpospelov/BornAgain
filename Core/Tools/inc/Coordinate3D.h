@@ -136,7 +136,7 @@ template <class T> Coordinate3D<T> operator*(const T &factor, const Coordinate3D
     return right*factor;
 }
 
-template <class T> T GetDistanceBetweenPoints(const Coordinate3D<T> left, const Coordinate3D<T> right)
+template <class T> T GetDistanceBetweenPoints(const Coordinate3D<T> &left, const Coordinate3D<T> &right)
 {
     Coordinate3D<T> connectingVector = left - right;
     return connectingVector.norm();

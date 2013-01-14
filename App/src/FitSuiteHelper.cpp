@@ -4,6 +4,7 @@
 #include "IsGISAXSTools.h"
 #include "ROOTMinimizer.h"
 #include "FitSuiteParameters.h"
+#include "ExperimentConstants.h"
 
 #include "TCanvas.h"
 #include "TPaveText.h"
@@ -109,6 +110,10 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     for(size_t i_fit_object=0; i_fit_object<fitSuite->getFitObjects()->size(); ++i_fit_object) {
         TCanvas *c1 = m_data_canvas[i_fit_object];
         const FitObject *fitObject = fitSuite->getFitObjects()->getObject(i_fit_object);
+        assert(fitObject);
+        assert(fitObject->getChiSquaredModule());
+        assert(fitObject->getChiSquaredModule()->getRealData());
+        assert(fitObject->getChiSquaredModule()->getSimulationData());
 
         // preparing data to draw
         const char *hname[]={ "RealData", "SimulatedData", "RelativeDifference","Chi2Map"};
@@ -122,20 +127,20 @@ void FitSuiteObserverDraw::update(IObservable *subject)
         // drawing
         for(size_t i_hist=0; i_hist<data2draw.size(); ++i_hist)  {
             const OutputData<double > *data = data2draw[i_hist];
-            if( !data->getAxis("alpha_f") || !data->getAxis("phi_f") ) throw LogicErrorException("FitSuiteObserverDraw::update() -> Error! Can't handle axis");
+            if( !data->getAxis(NDetector2d::ALPHA_AXIS_NAME) || !data->getAxis(NDetector2d::PHI_AXIS_NAME) ) throw LogicErrorException("FitSuiteObserverDraw::update() -> Error! Can't handle axis");
 
-            c1->cd(i_hist+1);
+            c1->cd((int)i_hist+1);
             gPad->SetLogz();
             gPad->SetLeftMargin(0.12);
             gPad->SetRightMargin(0.12);
 
-            if( data->getAxis("alpha_f")->getSize() != 1 && data->getAxis("phi_f")->getSize() != 1)
+            if( data->getAxis(NDetector2d::ALPHA_AXIS_NAME)->getSize() != 1 && data->getAxis(NDetector2d::PHI_AXIS_NAME)->getSize() != 1)
             {
                 TH2D *hist2 = IsGISAXSTools::getOutputDataTH2D( *data, hname[i_hist]);
 //                if( i_hist == kReal || i_hist == kSimul ) hist2->SetMinimum(1);
                 hist2->DrawCopy("COLZ");
                 delete hist2;
-            } else if(data->getAxis("alpha_f")->getSize() == 1 || data->getAxis("phi_f")->getSize() == 1){
+            } else if(data->getAxis(NDetector2d::ALPHA_AXIS_NAME)->getSize() == 1 || data->getAxis(NDetector2d::PHI_AXIS_NAME)->getSize() == 1){
                 TH1D *hist1 =  IsGISAXSTools::getOutputDataScanHist(*data, hname[i_hist]);
 //                if( i_hist == kReal || i_hist == kSimul ) hist1->SetMinimum(1);
                 hist1->DrawCopy();

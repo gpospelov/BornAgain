@@ -99,7 +99,7 @@ protected:
 class ICompositeIterator
 {
 public:
-    ICompositeIterator(ICompositeSample *root) : m_root(root) { }
+    ICompositeIterator(ICompositeSample *root) : m_root(root), m_done(false) { }
     virtual ~ICompositeIterator() { }
 
     void first();

@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   03.07.2012
 
-#include "IFormFactor.h"
+#include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
 
@@ -30,7 +30,7 @@ public:
     //! @param half_side half of pyramid's base
     //! @param angle in radians between base and facet
     FormFactorPyramid(double height, double half_side, double alpha);
-//    FormFactorPyramid(StochasticParameter<double> *p_height, StochasticParameter<double> *p_half_side, StochasticParameter<double> *p_alpha);
+
     ~FormFactorPyramid();
     virtual FormFactorPyramid *clone() const;
 
@@ -38,26 +38,16 @@ public:
 
     virtual double getHeight() const { return m_height; }
 
-protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    FormFactorPyramid(const FormFactorPyramid &);
-    FormFactorPyramid &operator=(const FormFactorPyramid &);
-
+protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    //! print class
-    void print(std::ostream &ostr) const;
-
+private:
     double m_height;
     double m_half_side;
     double m_alpha;
-//    StochasticParameter<double> *mp_height;
-//    StochasticParameter<double> *mp_half_side;
-//    StochasticParameter<double> *mp_alpha;
 };
 
 

@@ -1,12 +1,13 @@
 #include "Detector.h"
-#include "Exceptions.h"
+#include "AxisBin.h"
+#include "AxisDouble.h"
 
 
 /* ************************************************************************* */
 // c-tors, assignment operators, swap
 /* ************************************************************************* */
 Detector::Detector()
-: mp_detector_resolution(0)
+: m_axes(), mp_detector_resolution(0)
 {
     setName("Detector");
     init_parameters();
@@ -14,10 +15,9 @@ Detector::Detector()
 
 
 Detector::Detector(const Detector &other) : IParameterized()
-, mp_detector_resolution(0)
+, m_axes(other.m_axes), mp_detector_resolution(0)
 {
     setName(other.getName());
-    m_axes = other.m_axes;
     if(other.mp_detector_resolution) mp_detector_resolution = other.mp_detector_resolution->clone();
     init_parameters();
 }
@@ -47,15 +47,39 @@ void Detector::swapContent(Detector &other)
 /* ************************************************************************* */
 // other methods
 /* ************************************************************************* */
-void Detector::addAxis(const NamedVector<double> &axis)
+void Detector::addAxis(const IAxis &axis)
 {
-	m_axes.push_back(axis);
+	m_axes.push_back(axis.clone());
 }
 
-NamedVector<double> Detector::getAxis(size_t index) const
+void Detector::addAxis(const AxisParameters &axis_params)
+{
+    IAxis *p_new_axis(0);
+    switch (axis_params.m_sample_method)
+    {
+    case AxisParameters::E_DEFAULT:
+    {
+        p_new_axis = new AxisBin(axis_params.m_name, axis_params.m_range.getNSamples(),
+                axis_params.m_range.getMin(), axis_params.m_range.getMax());
+        break;
+    }
+    case AxisParameters::E_ISGISAXS:
+    {
+        AxisDouble *p_axis = new AxisDouble(axis_params.m_name);
+        initializeAnglesIsgisaxs(p_axis, axis_params.m_range);
+        p_new_axis = p_axis;
+        break;
+    }
+    default:
+        throw RuntimeErrorException("Invalid sample method for axis.");
+    }
+    if (p_new_axis) m_axes.push_back(p_new_axis);
+}
+
+const IAxis &Detector::getAxis(size_t index) const
 {
 	if (isCorrectAxisIndex(index)) {
-		return m_axes[index];
+		return *m_axes[index];
 	}
 	throw OutOfBoundsException("Not so many axes in this detector.");
 }
@@ -73,7 +97,7 @@ void Detector::applyDetectorResolution(OutputData<double>* p_intensity_map) cons
     if (mp_detector_resolution) {
         mp_detector_resolution->applyDetectorResolution(p_intensity_map);
     } else {
-        std::cout << "Detector::applyDetectorResolution() -> Warning! No detector resolution function found" << std::endl;
+//        std::cout << "Detector::applyDetectorResolution() -> Warning! No detector resolution function found" << std::endl;
     }
 }
 
@@ -93,4 +117,14 @@ std::string Detector::addParametersToExternalPool(std::string path,
 
 void Detector::init_parameters()
 {
+}
+
+void Detector::initializeAnglesIsgisaxs(AxisDouble* p_axis, const TSampledRange<double>& axis_range) const
+{
+    double start_sin = std::sin(axis_range.getMin());
+    double end_sin = std::sin(axis_range.getMax());
+    double step = (end_sin-start_sin)/(axis_range.getNSamples()-1);
+    for(size_t i=0; i<axis_range.getNSamples(); ++i) {
+        p_axis->push_back(std::asin(start_sin + step*i));
+    }
 }

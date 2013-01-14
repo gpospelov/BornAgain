@@ -16,6 +16,7 @@
 
 #include "LayerDWBASimulation.h"
 
+#include <set>
 #include <map>
 
 class MultiLayer;
@@ -28,6 +29,8 @@ public:
     MultiLayerDWBASimulation(const MultiLayer *p_multi_layer);
     virtual ~MultiLayerDWBASimulation();
 
+    MultiLayerDWBASimulation *clone() const { throw NotImplementedException("MultiLayerDWBASimulation::clone() -> Error: not implemented"); }
+
     virtual void init(const Experiment &experiment);
 
     //! Set thread information for masking
@@ -35,6 +38,7 @@ public:
 
     virtual void run();
 protected:
+    std::set<double> getAlphaList() const;
     std::map<size_t, LayerDWBASimulation*> m_layer_dwba_simulation_map;
     MultiLayer *mp_multi_layer;
     MultiLayerRoughnessDWBASimulation *mp_roughness_dwba_simulation;

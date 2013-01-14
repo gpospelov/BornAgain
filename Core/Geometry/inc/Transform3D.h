@@ -240,7 +240,7 @@ namespace Geometry {
      * Virtual for now as some persistency mechanism needs that,
      * in future releases this might go away again.
      */
-    ~Transform3D() { /* nop */ }
+    virtual ~Transform3D() { /* nop */ }
 
     /**
      * Returns object of the helper class for C-style subscripting r[i][j] */
@@ -438,7 +438,7 @@ namespace Geometry {
      * Constructs a rotation around x-axis by angle a. */
     RotateX3D(double a) {
       double cosa = std::cos(a), sina = std::sin(a); 
-      setTransform(1,0,0,0,  0,cosa,-sina,0,  0,sina,cosa,0);
+      setTransform(1.0,0.0,0.0,0.0,  0.0,cosa,-sina,0.0,  0.0,sina,cosa,0.0);
     }
   };
 
@@ -466,7 +466,7 @@ namespace Geometry {
      * Constructs a rotation around y-axis by angle a. */
     RotateY3D(double a) {
       double cosa = std::cos(a), sina = std::sin(a); 
-      setTransform(cosa,0,sina,0,  0,1,0,0,  -sina,0,cosa,0);
+      setTransform(cosa,0.0,sina,0.0,  0.0,1.0,0.0,0.0,  -sina,0.0,cosa,0.0);
     }
   };
 
@@ -494,7 +494,7 @@ namespace Geometry {
      * Constructs a rotation around z-axis by angle a. */
     RotateZ3D(double a) {
       double cosa = std::cos(a), sina = std::sin(a); 
-      setTransform(cosa,-sina,0,0,  sina,cosa,0,0,  0,0,1,0);
+      setTransform(cosa,-sina,0.0,0.0,  sina,cosa,0.0,0.0,  0.0,0.0,1.0,0.0);
     }
   };
 
@@ -527,7 +527,7 @@ namespace Geometry {
     /**
      * Constructor from three numbers. */
     Translate3D(double x, double y, double z)
-      : Transform3D(1,0,0,x, 0,1,0,y, 0,0,1,z) {}
+      : Transform3D(1.0,0.0,0.0,x, 0.0,1.0,0.0,y, 0.0,0.0,1.0,z) {}
   };
 
   /**
@@ -552,7 +552,7 @@ namespace Geometry {
     
     /**
      * Constructor from a number. */
-    TranslateX3D(double x) : Translate3D(x, 0, 0) {}
+    TranslateX3D(double x) : Translate3D(x, 0.0, 0.0) {}
   };
 
   /**
@@ -577,7 +577,7 @@ namespace Geometry {
 
     /**
      * Constructor from a number. */
-    TranslateY3D(double y) : Translate3D(0, y, 0) {}
+    TranslateY3D(double y) : Translate3D(0.0, y, 0.0) {}
   };
 
   /**
@@ -602,7 +602,7 @@ namespace Geometry {
 
     /**
      * Constructor from a number. */
-    TranslateZ3D(double z) : Translate3D(0, 0, z) {}
+    TranslateZ3D(double z) : Translate3D(0.0, 0.0, z) {}
   };
 
   //   R E F L E C T I O N S
@@ -663,7 +663,7 @@ namespace Geometry {
   public:
     /**
      * Constructor from a number. */
-    ReflectX3D(double x=0) : Reflect3D(-1,0,0,x+x, 0,1,0,0, 0,0,1,0) {}
+    ReflectX3D(double x=0) : Reflect3D(-1.0,0.0,0.0,x+x, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0) {}
   };
  
   /**
@@ -684,7 +684,7 @@ namespace Geometry {
   public:
     /**
      * Constructor from a number. */
-    ReflectY3D(double y=0) : Reflect3D(1,0,0,0, 0,-1,0,y+y, 0,0,1,0) {}
+    ReflectY3D(double y=0) : Reflect3D(1.0,0.0,0.0,0.0, 0.0,-1.0,0.0,y+y, 0.0,0.0,1.0,0.0) {}
   };
  
   /**
@@ -705,7 +705,7 @@ namespace Geometry {
   public:
     /**
      *  Constructor from a number. */
-    ReflectZ3D(double z=0) : Reflect3D(1,0,0,0, 0,1,0,0, 0,0,-1,z+z) {}
+    ReflectZ3D(double z=0) : Reflect3D(1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,-1.0,z+z) {}
   };
  
   //   S C A L I N G S
@@ -734,12 +734,12 @@ namespace Geometry {
      * Constructor from three numbers - scale factors in different directions.
      */
     Scale3D(double x, double y, double z)
-      : Transform3D(x,0,0,0, 0,y,0,0, 0,0,z,0) {}
+      : Transform3D(x,0.0,0.0,0.0, 0.0,y,0.0,0.0, 0.0,0.0,z,0.0) {}
 
     /**
      * Constructor from a number: sets uniform scaling in all directions. */
     Scale3D(double s)
-      : Transform3D(s,0,0,0, 0,s,0,0, 0,0,s,0) {}
+      : Transform3D(s,0.0,0.0,0.0, 0.0,s,0.0,0.0, 0.0,0.0,s,0.0) {}
   };
 
   /**
@@ -764,7 +764,7 @@ namespace Geometry {
 
     /**
      * Constructor from a number (scale factor in x-direction). */
-    ScaleX3D(double x) : Scale3D(x, 1, 1) {}
+    ScaleX3D(double x) : Scale3D(x, 1.0, 1.0) {}
   };
 
   /**
@@ -789,7 +789,7 @@ namespace Geometry {
 
     /**
      * Constructor from a number (scale factor in y-direction). */
-    ScaleY3D(double y) : Scale3D(1, y, 1) {}
+    ScaleY3D(double y) : Scale3D(1.0, y, 1.0) {}
   };
 
   /**
@@ -813,7 +813,7 @@ namespace Geometry {
     ScaleZ3D() : Scale3D() {}
     /**
      * Constructor from a number (scale factor in z-direction). */
-    ScaleZ3D(double z) : Scale3D(1, 1, z) {}
+    ScaleZ3D(double z) : Scale3D(1.0, 1.0, z) {}
   };
 } /* namespace Geometry */
 

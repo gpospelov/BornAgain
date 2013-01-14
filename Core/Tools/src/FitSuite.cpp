@@ -5,10 +5,13 @@
 #include "Experiment.h"
 #include "IMinimizer.h"
 #include "ChiSquaredModule.h"
+#include <boost/bind.hpp>
 
 
 FitSuite::FitSuite() : m_minimizer(0), m_is_last_iteration(false), m_n_call(0), m_n_strategy(0)
 {
+    m_function_chi2.init(this);
+    m_function_gradient.init(this);
 }
 
 
@@ -47,9 +50,9 @@ void FitSuite::addExperimentAndRealData(const Experiment &experiment, const Outp
 /* ************************************************************************* */
 // add fit parameter
 /* ************************************************************************* */
-void FitSuite::addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim)
+void FitSuite::addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error)
 {
-    m_fit_parameters.addParameter(name, value, step, attlim);
+    m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
 
@@ -70,7 +73,7 @@ void FitSuite::link_fit_parameters()
 {
     ParameterPool *pool = m_fit_objects.createParameterTree();
     m_fit_parameters.link_to_pool(pool);
-    std::cout << "XXXXXX FitSuite::link_fit_parameters() -> " << std::endl;
+    std::cout << "FitSuite::link_fit_parameters() -> Parameter pool:" << std::endl;
     std::cout << *pool << std::endl;
     std::cout << "----------------" << std::endl;
     delete pool;
@@ -82,14 +85,17 @@ void FitSuite::link_fit_parameters()
 /* ************************************************************************* */
 void FitSuite::minimize()
 {
-    // initializing minimizer with fcn function belonging to given class
-    m_minimizer->setFunction( std::bind1st(std::mem_fun(&FitSuite::functionToMinimize), this), m_fit_parameters.size() );
+    // initializing minimizer with fitting functions
+    //IMinimizer::function_chi2_t fun_chi2 = boost::bind(&FitSuite::fittingChiSquaredFunction, this, _1);
+    //IMinimizer::function_gradient_t fun_gradient = boost::bind(&FitSuite::fittingGradientFunction, this, _1, _2, _3);
 
-    // propagating local fit parameters to the minimizer's internal list of parameters
-    for(size_t i_par = 0; i_par<m_fit_parameters.size(); i_par++) {
-        m_minimizer->setVariable(i_par, m_fit_parameters[i_par] );
-    }
-    if( m_fit_parameters.size() != m_minimizer->getNumberOfVariables())  std::cout << "FitSuite::minimize() -> Warning. Something unexpected" << std::endl;
+    IMinimizer::function_chi2_t fun_chi2 = boost::bind(&FitSuiteChiSquaredFunction::evaluate, &m_function_chi2, _1);
+    IMinimizer::function_gradient_t fun_gradient = boost::bind(&FitSuiteGradientFunction::evaluate, &m_function_gradient, _1, _2, _3);
+
+    m_minimizer->setFunction( fun_chi2, m_fit_parameters.size(), fun_gradient, m_fit_objects.getSizeOfDataSet() );
+
+    // initializing minimizer's parameters with the list of local fit parameters
+    m_minimizer->setParameters(m_fit_parameters);
 
     // minimizing
     m_minimizer->minimize();
@@ -99,7 +105,7 @@ void FitSuite::minimize()
 /* ************************************************************************* */
 // run fit
 /* ************************************************************************* */
-bool FitSuite::check_prerequisites()
+bool FitSuite::check_prerequisites() const
 {
     if( !m_minimizer ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No minimizer found.");
     if( !m_fit_objects.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No experiment defined");
@@ -146,21 +152,35 @@ void FitSuite::runFit()
 /* ************************************************************************* */
 // function to minimize
 /* ************************************************************************* */
-double FitSuite::functionToMinimize(const double *pars_current_values)
-{
-    // set fitting parameters to values suggested by the minimizer
-    m_fit_parameters.setValues(pars_current_values);
+//double FitSuite::fittingChiSquaredFunction(const double *pars_current_values)
+//{
+//    std::cout << "FitSuite::functionToMinimize() -> Info" << std::endl;
+//    // set fitting parameters to values suggested by the minimizer
+//    m_fit_parameters.setValues(pars_current_values);
 
-    // run simulations
-    m_fit_objects.runSimulation();
+//    // run simulations
+//    m_fit_objects.runSimulation();
 
-    // caclulate chi2 value
-    double chi_squared = m_fit_objects.getChiSquaredValue();
+//    // caclulate chi2 value
+//    double chi_squared = m_fit_objects.getChiSquaredValue((int)m_fit_parameters.getNfreeParameters());
 
-    notifyObservers();
-    m_n_call++;
-    return chi_squared;
-}
+//    notifyObservers();
+//    m_n_call++;
+//    return chi_squared;
+//}
+
+
+/* ************************************************************************* */
+// provides minimizer with gradients wrt parameters for single data element
+/* ************************************************************************* */
+//double FitSuite::fittingGradientFunction(const double *pars_current_values, unsigned int index, double *deriv)
+//{
+//    throw 1;
+//    (void)pars_current_values;
+//    (void) deriv;
+//    double residual = m_fit_objects.getResidualValue(index);
+//    return residual;
+//}
 
 
 

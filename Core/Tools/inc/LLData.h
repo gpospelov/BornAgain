@@ -51,7 +51,7 @@ public:
 
     // retrieve basic info
     size_t getTotalSize() const;
-    size_t getRank() const { return m_rank; }
+    inline size_t getRank() const { return m_rank; }
     const int *getDimensions() const { return m_dims; }
     T getTotalSum() const;
 
@@ -67,10 +67,10 @@ private:
 };
 
 // Global helper functions for arithmetic
-template <class T> LLData<T> &operator+(const LLData<T> &left, const LLData<T> &right);
-template <class T> LLData<T> &operator-(const LLData<T> &left, const LLData<T> &right);
-template <class T> LLData<T> &operator*(const LLData<T> &left, const LLData<T> &right);
-template <class T> LLData<T> &operator/(const LLData<T> &left, const LLData<T> &right);
+template <class T> LLData<T> operator+(const LLData<T> &left, const LLData<T> &right);
+template <class T> LLData<T> operator-(const LLData<T> &left, const LLData<T> &right);
+template <class T> LLData<T> operator*(const LLData<T> &left, const LLData<T> &right);
+template <class T> LLData<T> operator/(const LLData<T> &left, const LLData<T> &right);
 
 // Global helper functions for comparison
 template <class T> bool HaveSameDimensions(const LLData<T> &left, const LLData<T> &right);
@@ -103,8 +103,10 @@ template<class T> LLData<T>::~LLData()
 
 template<class T> LLData<T> &LLData<T>::operator=(const LLData<T> &right)
 {
-    LLData<T> copy(right);
-    swapContents(copy);
+    if( this != &right) {
+        LLData<T> copy(right);
+        swapContents(copy);
+    }
     return *this;
 }
 
@@ -274,28 +276,28 @@ template<class T> void LLData<T>::swapContents(LLData<T> &other)
     std::swap(this->m_data_array, other.m_data_array);
 }
 
-template<class T> LLData<T> &operator+(const LLData<T>& left, const LLData<T>& right)
+template<class T> LLData<T> operator+(const LLData<T>& left, const LLData<T>& right)
 {
     LLData<T> *p_result = new LLData<T>(left);
     (*p_result) += right;
     return *p_result;
 }
 
-template<class T> LLData<T> &operator-(const LLData<T>& left, const LLData<T>& right)
+template<class T> LLData<T> operator-(const LLData<T>& left, const LLData<T>& right)
 {
     LLData<T> *p_result = new LLData<T>(left);
     (*p_result) -= right;
     return *p_result;
 }
 
-template<class T> LLData<T> &operator*(const LLData<T>& left, const LLData<T>& right)
+template<class T> LLData<T> operator*(const LLData<T>& left, const LLData<T>& right)
 {
     LLData<T> *p_result = new LLData<T>(left);
     (*p_result) *= right;
     return *p_result;
 }
 
-template<class T> LLData<T> &operator/(const LLData<T>& left, const LLData<T>& right)
+template<class T> LLData<T> operator/(const LLData<T>& left, const LLData<T>& right)
 {
     LLData<T> *p_result = new LLData<T>(left);
     (*p_result) /= right;

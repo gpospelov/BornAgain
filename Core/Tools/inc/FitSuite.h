@@ -24,6 +24,7 @@
 #include "FitSuiteParameters.h"
 #include "IMinimizer.h"
 #include "ChiSquaredModule.h"
+#include "FitSuiteFunctions.h"
 #include <string>
 
 class Experiment;
@@ -50,7 +51,7 @@ public:
     void addExperimentAndRealData(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule());
 
     //! add fit parameter
-    void addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless());
+    void addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless(), double error=0.0);
 
     //! add fit strategy
     void addFitStrategy(IFitSuiteStrategy *strategy);
@@ -70,7 +71,10 @@ public:
     virtual void runFit();
 
     //! function to minimize
-    double functionToMinimize(const double *pars_current_values);
+    //double fittingChiSquaredFunction(const double *pars_current_values);
+
+    //! provides minimizer with gradients wrt parameters for single data element
+    //double fittingGradientFunction(const double *pars_current_values, unsigned int index, double *deriv);
 
     //! return reference to the kit with data
     FitSuiteObjects *getFitObjects() { return &m_fit_objects; }
@@ -79,13 +83,14 @@ public:
     FitSuiteParameters *getFitParameters() { return &m_fit_parameters; }
 
     //! if the last iteration is done (used by observers to print summary)
-    bool isLastIteration() { return m_is_last_iteration; }
+    bool isLastIteration() const { return m_is_last_iteration; }
 
     //! get current number of minimization function calls
-    int getNCall() { return m_n_call; }
+    //int getNCall() { return m_n_call; }
+    size_t getNCall() const { return m_function_chi2.getNCall(); }
 
     //! get the number of current strategy
-    int getNStrategy() { return m_n_strategy; }
+    size_t getNStrategy() const { return m_n_strategy; }
 
 private:
     //! disabled copy constructor and assignment operator
@@ -93,7 +98,7 @@ private:
     FitSuite(const FitSuite &);
 
     //! check if all prerequisites to run fit fit are filled
-    bool check_prerequisites();
+    bool check_prerequisites() const;
 
     FitSuiteObjects m_fit_objects; //! kit which contains sets of <experiment,real_data,chi_module> to fit
     FitSuiteParameters m_fit_parameters; //! collection of fit parameters
@@ -101,8 +106,11 @@ private:
     IMinimizer  *m_minimizer; //! minimization engine
 
     bool m_is_last_iteration; //! set to true after last iteration complete
-    int m_n_call; //! current number of minimization function call
-    int m_n_strategy; //! current number of fit strategy
+    size_t m_n_call; //! current number of minimization function call
+    size_t m_n_strategy; //! current number of fit strategy
+
+    FitSuiteChiSquaredFunction m_function_chi2;
+    FitSuiteGradientFunction m_function_gradient;
 };
 
 #endif // FITSUITE_H

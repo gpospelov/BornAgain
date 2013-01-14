@@ -60,6 +60,9 @@ double ChiSquaredFrequency::calculateChiSquared()
 
 OutputData<double>* ChiSquaredFrequency::createChi2DifferenceMap() const
 {
+    assert(mp_simulation_ft != NULL);
+    assert(mp_real_ft != NULL);
+
     OutputData<double> *p_difference = mp_weights->clone();
 
     OutputData<double>::iterator it_diff = p_difference->begin();
@@ -95,10 +98,10 @@ void ChiSquaredFrequency::initWeights()
     size_t rank = mp_simulation_ft->getRank();
     int *n_dims = new int[rank];
     for (size_t i=0; i<rank; ++i) {
-        n_dims[i] = mp_simulation_ft->getAxis(i)->getSize();
+        n_dims[i] = (int)mp_simulation_ft->getAxis(i)->getSize();
     }
     mp_weights->setAxisSizes(rank, n_dims);
-    delete n_dims;
+    delete [] n_dims;
     OutputData<double>::iterator it_weights = mp_weights->begin();
     size_t nbr_rows = mp_weights->getAllSizes()[0];
     size_t row_length = mp_weights->getAllSizes()[1];

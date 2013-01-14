@@ -3,18 +3,25 @@
 #include "Utils.h"
 #include <vector>
 #include <sstream>
+#include "Exceptions.h"
 
 
 
-ICompositeSample::ICompositeSample()
+//ICompositeSample::ICompositeSample()
+//{
+
+//}
+
+
+//ICompositeSample::ICompositeSample(const ICompositeSample &other) : ISample(other)
+//{
+
+//}
+
+
+ICompositeSample *ICompositeSample::clone() const
 {
-
-}
-
-
-ICompositeSample::ICompositeSample(const ICompositeSample &other) : ISample(other)
-{
-
+    throw NotImplementedException("ICompositeSample::clone() -> Error: not implemented");
 }
 
 

@@ -21,6 +21,7 @@ ISample *IsGISAXS3_CylinderBA();
 ISample *IsGISAXS3_CylinderBASize();
 ISample *IsGISAXS4_1DDL();
 ISample *IsGISAXS4_2DDL();
+ISample *IsGISAXS7_morphology();
 ISample *IsGISAXS8_2DDL_lattice();
 ISample *IsGISAXS8_2DDL_lattice2();
 ISample *IsGISAXS9_Pyramid();

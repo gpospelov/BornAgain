@@ -5,7 +5,7 @@ namespace Exceptions {
 
 void LogExceptionMessage(const std::string &message)
 {
-    std::cout << message << std::endl;
+    std::cerr << message << std::endl;
 }
 
 NotImplementedException::NotImplementedException(const std::string &message)

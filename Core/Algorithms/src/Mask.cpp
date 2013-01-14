@@ -95,7 +95,7 @@ bool MaskIndexModulus::isMasked(size_t total_index) const
     return m_own_index % m_modulus != m_remainder;
 }
 
-MaskCoordinates::MaskCoordinates(size_t rank, int* dims, Mask* p_submask)
+MaskCoordinates::MaskCoordinates(size_t rank, const int* dims, Mask* p_submask)
 : Mask(p_submask)
 , m_rank(rank)
 , m_dims(0)
@@ -114,8 +114,8 @@ MaskCoordinates::MaskCoordinates(size_t rank, int* dims, Mask* p_submask)
 
 MaskCoordinates::~MaskCoordinates()
 {
-    delete m_dims;
-    delete m_coordinates;
+    delete [] m_dims;
+    delete [] m_coordinates;
     if (mp_mask_function) delete mp_mask_function;
 }
 

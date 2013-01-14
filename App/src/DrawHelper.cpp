@@ -62,12 +62,12 @@ void DrawHelper::SetMagnifier(TCanvas *canvas)
 void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
 {
   (void)sel;
-  if ( (event == kButton1Double) ) {
-    TCanvas *c = (TCanvas *) gTQSender;
+  if ( event == kButton1Double ) {
+    TCanvas *c = (TCanvas *)gTQSender;
     char cname[256];
     sprintf(cname,"%s_%d",c->GetTitle(),(int)time(0));
     TPad *pad = c->Pick(px, py, 0);
-    TPad *pad_new = (TPad *) pad->Clone();
+    TPad *pad_new = dynamic_cast<TPad *>(pad->Clone());
     pad_new->SetPad(0.0, 0.0, 1.0, 1.0);
     TCanvas *c1 = new TCanvas(cname, cname, 1024, 768);
     c1->cd();
@@ -274,11 +274,10 @@ void DrawHelper::DrawMultilayer(const MultiLayer *sample)
         double thickness = layer->getThickness();
 
         //calculating size of box representing layer
-        double x1(0), x2(0), y1(0), y2(0);
-        x1 = -size*0.5;
-        x2 = size*0.5;
-        y1 = z;
-        y2 = z+thickness;
+        double x1 = -size*0.5;
+        double x2 = size*0.5;
+        double y1 = z;
+        double y2 = z+thickness;
         // but top and bottom layers need special treatment, since they thickness==0
         if(i_layer==0) { // ambience normally doesn't have thickness
             y1=z;
@@ -358,7 +357,7 @@ void DrawHelper::saveReport()
     std::string stmpname = pdffilename + "[";
     cmaster->Print(stmpname.c_str()); // create new file
 
-    for(std::vector<TCanvas *>::iterator it=m_registered_canvases.begin(); it!=m_registered_canvases.end(); it++) {
+    for(std::vector<TCanvas *>::iterator it=m_registered_canvases.begin(); it!=m_registered_canvases.end(); ++it) {
         TCanvas *c1 = (*it);
 
         double xlow(0.05), ylow(0), xup(0.95), yup(0.95);
@@ -391,7 +390,7 @@ void DrawHelper::saveReport()
     //std::string rootfilename(Utils::FileSystem::GetHomePath()+std::string("./Examples/Reports/report_")+datime+std::string(".root"));
     std::string rootfilename(std::string("./report_")+datime+std::string(".root"));
     TFile *top = new TFile(rootfilename.c_str(), "RECREATE");
-    for(std::vector<TCanvas *>::iterator it=m_registered_canvases.begin(); it!=m_registered_canvases.end(); it++) {
+    for(std::vector<TCanvas *>::iterator it=m_registered_canvases.begin(); it!=m_registered_canvases.end(); ++it) {
         TCanvas *c1 = (*it);
         c1->Write();
     }

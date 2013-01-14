@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jun 29, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorDecorator.h"
 #include "Transform3D.h"
 
 
@@ -25,7 +25,8 @@ public:
     virtual FormFactorDecoratorTransformation *clone() const;
     virtual ~FormFactorDecoratorTransformation();
 
-    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
+
     virtual int getNumberOfStochasticParameters() const;
 
 protected:
@@ -55,14 +56,17 @@ inline FormFactorDecoratorTransformation::~FormFactorDecoratorTransformation()
     delete mp_inverse_transform;
 }
 
-inline complex_t FormFactorDecoratorTransformation::evaluate(const cvector_t &k_i, const cvector_t &k_f,
+inline complex_t FormFactorDecoratorTransformation::evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
         double alpha_i, double alpha_f) const
 {
-    cvector_t newki(k_i);
-    cvector_t newkf(k_f);
-    newki.transform(*mp_inverse_transform);
-    newkf.transform(*mp_inverse_transform);
-    return mp_form_factor->evaluate(newki, newkf, alpha_i, alpha_f);
+    cvector_t new_ki(k_i);
+    cvector_t new_kf_lower(k_f_bin.m_q_lower);
+    cvector_t new_kf_upper(k_f_bin.m_q_upper);
+    new_ki.transform(*mp_inverse_transform);
+    new_kf_lower.transform(*mp_inverse_transform);
+    new_kf_upper.transform(*mp_inverse_transform);
+    Bin1DCVector new_kf_bin(new_kf_lower, new_kf_upper);
+    return mp_form_factor->evaluate(new_ki, new_kf_bin, alpha_i, alpha_f);
 }
 
 inline int FormFactorDecoratorTransformation::getNumberOfStochasticParameters() const

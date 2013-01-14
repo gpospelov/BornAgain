@@ -39,7 +39,7 @@ public:
     void clear();
 
     //! add fit parameter
-    void addParameter(const std::string &name, double value, double step, const AttLimits &attlim);
+    void addParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error=0.0);
 
     //! return fit parameter with given name
     const FitParameter *getParameter(const std::string &name) const;
@@ -64,13 +64,19 @@ public:
     const_iterator end() const { return m_parameters.end(); }
 
     //! access to parameters
-    const FitParameter *operator[](int index) const { return m_parameters[check_index(index)]; }
-    FitParameter *operator[](int index) { return m_parameters[check_index(index)]; }
+    const FitParameter *operator[](size_t index) const { return m_parameters[check_index(index)]; }
+    FitParameter *operator[](size_t index) { return m_parameters[check_index(index)]; }
     const FitParameter *operator[](std::string name) const { return getParameter(name); }
     FitParameter *operator[](std::string name) { return getParameter(name); }
 
     //! linking fit parameters with pool parameters
     void link_to_pool(const ParameterPool *pool);
+
+    //! return number of free parameters
+    size_t getNfreeParameters() const;
+
+    //! return true if parameters have already given values
+    bool valuesAreDifferrent(const double *pars_valuers, double tolerance_factor=1.0) const;
 
 private:
     //! disabled copy constructor and assignment operator
@@ -79,6 +85,8 @@ private:
 
     inline size_t check_index(size_t index) const { return (index < m_parameters.size() ? index : throw  OutOfBoundsException("FitSuiteParameters::check_index() -> Index out of bounds") ); }
     parameters_t m_parameters; //! collection of fit parameters
+
+    static double m_default_parameter_error;
 };
 
 #endif // FITSUITEPARAMETERS_H

@@ -1,4 +1,5 @@
 #include "GISASExperiment.h"
+#include "ExperimentConstants.h"
 #include "Units.h"
 #include "MultiLayer.h"
 #include "OpticalFresnel.h"
@@ -21,7 +22,7 @@ GISASExperiment::GISASExperiment()
             100, 0.0*Units::degree, 2.0*Units::degree);
 }
 
-GISASExperiment::GISASExperiment(ProgramOptions *p_options)
+GISASExperiment::GISASExperiment(const ProgramOptions *p_options)
 : Experiment(p_options)
 {
     setName("GISASExperiment");
@@ -34,7 +35,6 @@ GISASExperiment::GISASExperiment(const GISASExperiment &other) : Experiment(othe
 {
 
 }
-
 
 /* ************************************************************************* */
 // clone method
@@ -70,7 +70,7 @@ void GISASExperiment::runSimulation()
     } else {
         // if n_threads=0, take optimal number of threads from the hardware
         if(n_threads_total == 0 )  {
-            n_threads_total = boost::thread::hardware_concurrency();
+            n_threads_total = (int)boost::thread::hardware_concurrency();
             std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads " << n_threads_total << " (taken from hardware concurrency)" << std::endl;
         }else {
             std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads " << n_threads_total << " (hardware concurrency: " << boost::thread::hardware_concurrency() << " )"<< std::endl;
@@ -110,6 +110,24 @@ void GISASExperiment::runSimulation()
 }
 
 
+
+void GISASExperiment::runSimulationElement(size_t index)
+{
+    (void)index;
+    Experiment::runSimulation();
+    if( !mp_sample) throw NullPointerException( "GISASExperiment::runSimulation() -> Error! No sample set.");
+
+    m_intensity_map.setAllTo(0.0);
+    DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
+    if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
+    p_dwba_simulation->init(*this);
+    p_dwba_simulation->run();
+    m_intensity_map += p_dwba_simulation->getDWBAIntensity();
+    delete p_dwba_simulation;
+}
+
+
+
 void GISASExperiment::normalize()
 {
     // This normalization assumes that the intensity map contains total differential scattering cross sections
@@ -125,26 +143,37 @@ void GISASExperiment::normalize()
     }
 }
 
-// TODO : refactor to the detector object
+// TODO : refactor to take detector parameter object
 void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
                                             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {
-    m_detector.clear();
-    NamedVector<double> phi_axis("phi_f");
-    NamedVector<double> alpha_axis("alpha_f");
+    AxisParameters phi_params;
+    phi_params.m_name = NDetector2d::PHI_AXIS_NAME;
+    phi_params.m_range = TSampledRange<double>(n_phi, phi_f_min, phi_f_max);
+    AxisParameters alpha_params;
+    alpha_params.m_name = NDetector2d::ALPHA_AXIS_NAME;
+    alpha_params.m_range = TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
     if (isgisaxs_style) {
-        initializeAnglesIsgisaxs(&phi_axis, phi_f_min, phi_f_max, n_phi);
-        initializeAnglesIsgisaxs(&alpha_axis, alpha_f_min, alpha_f_max, n_alpha);
+        phi_params.m_sample_method = AxisParameters::E_ISGISAXS;
+        alpha_params.m_sample_method = AxisParameters::E_ISGISAXS;
     }
     else {
-        phi_axis.initElements(phi_f_min, phi_f_max, n_phi);
-        alpha_axis.initElements(alpha_f_min, alpha_f_max, n_alpha);
+        phi_params.m_sample_method = AxisParameters::E_DEFAULT;
+        alpha_params.m_sample_method = AxisParameters::E_DEFAULT;
     }
-    m_detector.addAxis(phi_axis);
-    m_detector.addAxis(alpha_axis);
-    updateIntensityMapAxes();
+    DetectorParameters detector_params = { phi_params, alpha_params };
+    setDetectorParameters(detector_params);
 }
 
+void GISASExperiment::setDetectorParameters(const DetectorParameters &params)
+{
+    m_detector.clear();
+
+    m_detector.addAxis(params.m_phi_params);
+    m_detector.addAxis(params.m_alpha_params);
+
+    updateIntensityMapAxes();
+}
 
 void GISASExperiment::setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function)
 {
@@ -163,8 +192,8 @@ void GISASExperiment::smearIntensityFromZAxisTilting()
     m_intensity_map.setAllTo(0.0);
     OutputData<double>::const_iterator it_clone = p_clone->begin();
     while (it_clone != p_clone->end()) {
-        double old_phi = p_clone->getValueOfAxis<double>("phi_f", it_clone.getIndex());
-        double old_alpha = p_clone->getValueOfAxis<double>("alpha_f", it_clone.getIndex());
+        double old_phi = p_clone->getValueOfAxis(NDetector2d::PHI_AXIS_NAME, it_clone.getIndex());
+        double old_alpha = p_clone->getValueOfAxis(NDetector2d::ALPHA_AXIS_NAME, it_clone.getIndex());
         for (size_t zeta_index=0; zeta_index<zetas.size(); ++zeta_index) {
             double newphi = old_phi + deltaPhi(old_alpha, old_phi, zetas[zeta_index]);
             double newalpha = old_alpha + deltaAlpha(old_alpha, zetas[zeta_index]);
@@ -178,27 +207,13 @@ void GISASExperiment::init_parameters()
 {
 }
 
-void GISASExperiment::initializeAnglesIsgisaxs(NamedVector<double> *p_axis, double start, double end, size_t size) {
-    double start_sin = std::sin(start);
-    double end_sin = std::sin(end);
-    double step = (end_sin-start_sin)/(size-1);
-    for(size_t i=0; i<size; ++i) {
-        p_axis->push_back(std::asin(start_sin + step*i));
-    }
-    return;
-}
-
-
 double GISASExperiment::getSolidAngle(size_t index) const
 {
-    const std::string s_alpha_f("alpha_f");
-    const std::string s_phi_f("phi_f");
-
-    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double>* >(m_intensity_map.getAxis(s_alpha_f));
-    const NamedVector<double> *p_phi_axis = dynamic_cast<const NamedVector<double>* >(m_intensity_map.getAxis(s_phi_f));
-    size_t alpha_index = m_intensity_map.getIndexOfAxis(s_alpha_f, index);
+    const IAxis *p_alpha_axis = m_intensity_map.getAxis(NDetector2d::ALPHA_AXIS_NAME);
+    const IAxis *p_phi_axis = m_intensity_map.getAxis(NDetector2d::PHI_AXIS_NAME);
+    size_t alpha_index = m_intensity_map.getIndexOfAxis(NDetector2d::ALPHA_AXIS_NAME, index);
     size_t alpha_size = p_alpha_axis->getSize();
-    size_t phi_index = m_intensity_map.getIndexOfAxis(s_phi_f, index);
+    size_t phi_index = m_intensity_map.getIndexOfAxis(NDetector2d::PHI_AXIS_NAME, index);
     size_t phi_size = p_phi_axis->getSize();
     if (alpha_size<2 && phi_size<2) {
         // Cannot determine detector cell size!
@@ -206,18 +221,18 @@ double GISASExperiment::getSolidAngle(size_t index) const
     }
     double dalpha(0), dphi(0);
 
-    double alpha_f = m_intensity_map.getValueOfAxis<double>(s_alpha_f, index);
+    double alpha_f = m_intensity_map.getValueOfAxis(NDetector2d::ALPHA_AXIS_NAME, index);
     double cos_alpha_f = std::cos(alpha_f);
 
     if(alpha_size>1) {
         if (alpha_index==0) {
-            dalpha = p_alpha_axis->operator[](1) - p_alpha_axis->operator[](0);
+            dalpha = (*p_alpha_axis)[1] - (*p_alpha_axis)[0];
         }
         else if (alpha_index==alpha_size-1) {
-            dalpha = p_alpha_axis->operator[](alpha_size-1) - p_alpha_axis->operator[](alpha_size-2);
+            dalpha = (*p_alpha_axis)[alpha_size-1] - (*p_alpha_axis)[alpha_size-2];
         }
         else {
-            dalpha = (p_alpha_axis->operator[](alpha_index+1) - p_alpha_axis->operator[](alpha_index-1))/2.0;
+            dalpha = ((*p_alpha_axis)[alpha_index+1] - (*p_alpha_axis)[alpha_index-1])/2.0;
         }
         dalpha = std::abs(dalpha);
     } else {
@@ -225,21 +240,24 @@ double GISASExperiment::getSolidAngle(size_t index) const
     }
     if(phi_size > 1) {
         if (phi_index==0) {
-            dphi = p_phi_axis->operator[](1) - p_phi_axis->operator[](0);
+            dphi = (*p_phi_axis)[1] - (*p_phi_axis)[0];
         }
         else if (phi_index==phi_size-1) {
-            dphi = p_phi_axis->operator[](phi_size-1) - p_phi_axis->operator[](phi_size-2);
+            dphi = (*p_phi_axis)[phi_size-1] - (*p_phi_axis)[phi_size-2];
         }
         else {
-            dphi = (p_phi_axis->operator[](phi_index+1) - p_phi_axis->operator[](phi_index-1))/2.0;
+            dphi = ((*p_phi_axis)[phi_index+1] - (*p_phi_axis)[phi_index-1])/2.0;
         }
         dphi = std::abs(dphi);
     } else {
         //std::cout << "GISASExperiment::getSolidAngle() -> Warning! Only one bin on phi_f axis, size of the bin will be taken from alpha_f axis" << std::endl;
     }
-    if(!dalpha) dalpha=dphi;
-    if(!dphi) dphi=dalpha;
-    return cos_alpha_f*dalpha*dphi;
+    if(!dalpha || !dphi) {
+        std::cout << "GISASExperiment::getSolidAngle() -> Warning! Not defined normalization" << std::endl;
+        return 1;
+    } else {
+        return cos_alpha_f*dalpha*dphi;
+    }
 }
 
 
@@ -248,14 +266,14 @@ double GISASExperiment::deltaAlpha(double alpha, double zeta) const
     return std::sin(alpha)*(1.0/std::cos(zeta)-1.0);
 }
 
-double GISASExperiment::deltaPhi(double alpha, double phi, double zeta)
+double GISASExperiment::deltaPhi(double alpha, double phi, double zeta) const
 {
     double qy2 = std::sin(phi)*std::sin(phi) - std::sin(alpha)*std::sin(alpha)*std::tan(zeta)*std::tan(zeta);
     return std::sqrt(qy2) - std::sin(phi);
 }
 
 void GISASExperiment::createZetaAndProbVectors(std::vector<double>& zetas,
-        std::vector<double>& probs, size_t nbr_zetas, double zeta_sigma)
+        std::vector<double>& probs, size_t nbr_zetas, double zeta_sigma) const
 {
     double zeta_step;
     if (nbr_zetas<2) {
@@ -273,6 +291,7 @@ void GISASExperiment::createZetaAndProbVectors(std::vector<double>& zetas,
         probs.push_back(prob);
         prob_total += prob;
     }
+    assert(prob_total != 0);
     for (size_t i=0; i<nbr_zetas; ++i) {
         probs[i] /= prob_total;
     }
@@ -280,23 +299,10 @@ void GISASExperiment::createZetaAndProbVectors(std::vector<double>& zetas,
 
 void GISASExperiment::addToIntensityMap(double alpha, double phi, double value)
 {
-    const NamedVector<double> *p_alpha_axis = dynamic_cast<const NamedVector<double> *>(m_intensity_map.getAxis("alpha_f"));
-    const NamedVector<double> *p_phi_axis = dynamic_cast<const NamedVector<double> *>(m_intensity_map.getAxis("phi_f"));
+    const IAxis *p_alpha_axis = m_intensity_map.getAxis(NDetector2d::ALPHA_AXIS_NAME);
+    const IAxis *p_phi_axis = m_intensity_map.getAxis(NDetector2d::PHI_AXIS_NAME);
     std::vector<int> coordinates;
-    coordinates.push_back(findClosestIndex(p_alpha_axis, alpha));
-    coordinates.push_back(findClosestIndex(p_phi_axis, phi));
+    coordinates.push_back((int)p_alpha_axis->findClosestIndex(alpha));
+    coordinates.push_back((int)p_phi_axis->findClosestIndex(phi));
     m_intensity_map[m_intensity_map.toIndex(coordinates)] += value;
-}
-
-int GISASExperiment::findClosestIndex(const NamedVector<double> *p_axis, double value)
-{
-    int result = 0;
-    double smallest_diff = std::abs(value-(*p_axis)[0]);
-    for (size_t i=1; i<p_axis->getSize(); ++i) {
-        double new_diff = std::abs(value-(*p_axis)[i]);
-        if (new_diff > smallest_diff) break;
-        result = i;
-        smallest_diff = new_diff;
-    }
-    return result;
 }

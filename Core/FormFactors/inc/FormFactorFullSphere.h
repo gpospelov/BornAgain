@@ -14,37 +14,32 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 13, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
 class FormFactorFullSphere : public IFormFactorBorn
 {
 public:
     FormFactorFullSphere(double radius);
-//    FormFactorFullSphere(StochasticParameter<double> *p_radius);
     ~FormFactorFullSphere();
     virtual FormFactorFullSphere *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 1; }
 
     //! return radius of sphere
-    double getRadius() const { return m_radius; }
+    virtual double getRadius() const { return m_radius; }
 
+    //! return diameter of sphere
     virtual double getHeight() const { return 2.0*m_radius; }
 
-protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-private:
-
+protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    //! print class
-    void print(std::ostream &ostr) const;
-
+private:
     double m_radius;
-//    StochasticParameter<double> *mp_radius;
 };
 
 

@@ -23,10 +23,8 @@ void TestIsGISAXS4::execute()
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
-    MultiLayer *p_sample(0);
-
     // 1DDL
-    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_1DDL"));
+    MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_1DDL"));
     experiment.setSample(*p_sample);
     experiment.runSimulation();
     IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_1DDL.ima");

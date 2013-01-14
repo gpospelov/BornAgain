@@ -14,20 +14,19 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Nov 5, 2012
 
-#include "IParameterized.h"
+//#include "IParameterized.h"
+#include "ICloneable.h"
 #include "OutputData.h"
 #include "IFittingDataSelector.h"
 #include "ISquaredFunction.h"
 #include "IOutputDataNormalizer.h"
 #include "IIntensityFunction.h"
+//#include <vector>
 
-#include <vector>
-
-class IChiSquaredModule
+class IChiSquaredModule : public ICloneable
 {
 public:
     IChiSquaredModule();
-    IChiSquaredModule(const IChiSquaredModule &other);
     virtual ~IChiSquaredModule();
 
     //! clone method
@@ -58,6 +57,7 @@ public:
 
     //! get data normalizer
     virtual const IOutputDataNormalizer *getOutputDataNormalizer() const {return mp_data_normalizer; }
+    virtual IOutputDataNormalizer *getOutputDataNormalizer() {return mp_data_normalizer; }
     //! set data normalizer
     virtual void setOutputDataNormalizer(const IOutputDataNormalizer &data_normalizer);
 
@@ -69,9 +69,14 @@ public:
     //! return last calculated chi squared value
     virtual double getValue() const { return m_chi2_value; }
 
+    //! set number of degree of freedom
+    void setNdegreeOfFreedom(int ndegree_of_freedom) { m_ndegree_of_freedom = ndegree_of_freedom; }
+
+    //! return residual between data and simulation for single element
+    virtual double getResidualValue(size_t /* index */) const { throw NotImplementedException("IChiSquaredModule::getResidualValue() -> Error! Not implemented."); }
+
 protected:
-    // disabling assignment operator
-    IChiSquaredModule &operator=(const IChiSquaredModule &);
+    IChiSquaredModule(const IChiSquaredModule &other);
 
     virtual void initWeights();
     OutputData<double> *mp_real_data;
@@ -81,6 +86,7 @@ protected:
     IFittingDataSelector *mp_data_selector;
     IOutputDataNormalizer *mp_data_normalizer;
     IIntensityFunction  *mp_intensity_function;
+    int m_ndegree_of_freedom;
 
     double m_chi2_value;
 };

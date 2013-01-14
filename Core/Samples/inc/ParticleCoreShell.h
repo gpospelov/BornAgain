@@ -62,7 +62,6 @@ protected:
     Particle *mp_shell;
     Particle *mp_core;
     kvector_t m_relative_core_position;
-private:
 };
 
 #endif // PARTICLECORESHELL_H

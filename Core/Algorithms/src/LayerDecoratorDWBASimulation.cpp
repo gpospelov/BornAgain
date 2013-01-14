@@ -2,8 +2,9 @@
 #include "LayerDecorator.h"
 #include "FormFactorDWBAConstZ.h"
 #include "FormFactorDecoratorFactor.h"
-#include "Transform3D.h"
+//#include "Transform3D.h"
 #include "FormFactorDecoratorTransformation.h"
+#include "ExperimentConstants.h"
 
 LayerDecoratorDWBASimulation::LayerDecoratorDWBASimulation(
         const LayerDecorator *p_layer_decorator)
@@ -50,7 +51,7 @@ IInterferenceFunctionStrategy *LayerDecoratorDWBASimulation::createAndInitStrate
 std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors() const
 {
     std::vector<IFormFactor *> result;
-    const ParticleDecoration *p_decoration = mp_layer_decorator->getDecoration();
+    const IDecoration *p_decoration = mp_layer_decorator->getDecoration();
     complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
     size_t number_of_particles = p_decoration->getNumberOfParticles();
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
@@ -78,25 +79,27 @@ std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors()
     return result;
 }
 
-void LayerDecoratorDWBASimulation::calculateCoherentIntensity(IInterferenceFunctionStrategy *p_strategy)
+void LayerDecoratorDWBASimulation::calculateCoherentIntensity(const IInterferenceFunctionStrategy *p_strategy)
 {
     //std::cout << "Calculating coherent scattering..." << std::endl;
     double wavelength = getWaveLength();
     double total_surface_density = mp_layer_decorator->getTotalParticleSurfaceDensity();
 
+    cvector_t k_ij = m_ki;
+    k_ij.setZ(-mp_kz_function->evaluate(-m_alpha_i));
+
     DWBASimulation::iterator it_intensity = begin();
     while ( it_intensity != end() )
     {
-        double phi_f = getDWBAIntensity().getValueOfAxis<double>("phi_f", it_intensity.getIndex());
-        double alpha_f = getDWBAIntensity().getValueOfAxis<double>("alpha_f", it_intensity.getIndex());
-        if (alpha_f<0) {
+        Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(NDetector2d::PHI_AXIS_NAME, it_intensity.getIndex());
+        Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(NDetector2d::ALPHA_AXIS_NAME, it_intensity.getIndex());
+        double alpha_f = alpha_bin.getMidPoint();
+        if (std::abs(mp_RT_function->evaluate(alpha_f).first)!=0.0 && alpha_f<0) {
             ++it_intensity;
             continue;
         }
-        cvector_t k_f;
-        k_f.setLambdaAlphaPhi(wavelength, alpha_f, phi_f);
-        k_f.setZ(mp_kz_function->evaluate(alpha_f));
-        *it_intensity = p_strategy->evaluate(m_ki, k_f, -m_alpha_i, alpha_f)*total_surface_density;
+        Bin1DCVector k_f_bin = getKfBin(wavelength, alpha_bin, phi_bin);
+        *it_intensity = p_strategy->evaluate(k_ij, k_f_bin, -m_alpha_i, alpha_f)*total_surface_density;
         ++it_intensity;
     }
 }

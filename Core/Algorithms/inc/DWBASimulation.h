@@ -15,6 +15,7 @@
 //! @date   Jun 26, 2012
 
 #include "ISimulation.h"
+#include "Experiment.h"
 #include "OutputData.h"
 #include "ThreadInfo.h"
 #include "Types.h"
@@ -44,7 +45,7 @@ public:
     void addDWBAIntensity(const OutputData<double > &data_to_add);
 
     //! clone DWBA simulation
-    virtual DWBASimulation *clone();
+    virtual DWBASimulation *clone() const;
 
     // ---------------------------------
     // external iterators (possibly masked)
@@ -71,11 +72,6 @@ protected:
     double m_alpha_i;
     double getWaveLength() const;
     ThreadInfo m_thread_info;
-
-private:
-    //! copy constructor and assignment operator are hidden
-    DWBASimulation(const DWBASimulation &);
-    DWBASimulation &operator=(const DWBASimulation &);
 
 };
 

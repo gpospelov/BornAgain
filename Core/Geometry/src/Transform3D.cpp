@@ -71,6 +71,9 @@ namespace Geometry {
 			   const Point3D<double> & to0,
 			   const Point3D<double> & to1,
 			   const Point3D<double> & to2)
+      : xx_(1), xy_(0), xz_(0), dx_(0),
+        yx_(0), yy_(1), yz_(0), dy_(0),
+        zx_(0), zy_(0), zz_(1), dz_(0)
   /***********************************************************************
    *                                                                     *
    * Name: Transform3D::Transform3D              Date:    24.09.96 *
@@ -198,11 +201,11 @@ namespace Geometry {
     if (xx_*(yy_*zz_-yz_*zy_) -
 	xy_*(yx_*zz_-yz_*zx_) +
 	xz_*(yx_*zy_-yy_*zx_) < 0) sz = -sz;
-    scale.setTransform(sx,0,0,0,  0,sy,0,0, 0,0,sz,0);
-    rotation.setTransform(xx_/sx,xy_/sy,xz_/sz,0,
-			  yx_/sx,yy_/sy,yz_/sz,0,
-			  zx_/sx,zy_/sy,zz_/sz,0); 
-    translation.setTransform(1,0,0,dx_, 0,1,0,dy_, 0,0,1,dz_);
+    scale.setTransform(sx,0.0,0.0,0.0,  0.0,sy,0.0,0.0, 0.0,0.0,sz,0.0);
+    rotation.setTransform(xx_/sx,xy_/sy,xz_/sz,0.0,
+              yx_/sx,yy_/sy,yz_/sz,0.0,
+              zx_/sx,zy_/sy,zz_/sz,0.0);
+    translation.setTransform(1.0,0.0,0.0,dx_, 0.0,1.0,0.0,dy_, 0.0,0.0,1.0,dz_);
   }
 
   // -------------------------------------------------------------------------
@@ -215,7 +218,7 @@ namespace Geometry {
 	     (std::abs(yx_ - t.yx_) <= tolerance) &&
 	     (std::abs(yy_ - t.yy_) <= tolerance) &&
 	     (std::abs(yz_ - t.yz_) <= tolerance) &&
-	     (std::abs(dy_ - t.dy_) <= tolerance) &&
+         (std::abs(dy_ - t.dy_) <= tolerance) &&
 	     (std::abs(zx_ - t.zx_) <= tolerance) &&
 	     (std::abs(zy_ - t.zy_) <= tolerance) &&
 	     (std::abs(zz_ - t.zz_) <= tolerance) &&

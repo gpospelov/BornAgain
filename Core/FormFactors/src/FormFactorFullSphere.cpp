@@ -1,27 +1,22 @@
 #include "FormFactorFullSphere.h"
 #include "StochasticDiracDelta.h"
-#include "Numeric.h"
+//#include "Numeric.h"
 #include "MathFunctions.h"
 
-#include <cmath>
+//#include <cmath>
 
 FormFactorFullSphere::FormFactorFullSphere(double radius)
 {
     setName("FormFactorFullSphere");
     m_radius = radius;
     init_parameters();
-//    mp_radius = new StochasticDiracDelta<double>(radius);
 }
 
-//FormFactorFullSphere::FormFactorFullSphere(StochasticParameter<double> *p_radius)
-//    : mp_radius(p_radius)
-//{
-//}
 
 FormFactorFullSphere::~FormFactorFullSphere()
 {
-//    delete mp_radius;
 }
+
 
 /* ************************************************************************* */
 // initialize pool parameters, i.e. register some of class members for later access via parameter pool
@@ -35,13 +30,12 @@ void FormFactorFullSphere::init_parameters()
 
 FormFactorFullSphere* FormFactorFullSphere::clone() const
 {
-    return new FormFactorFullSphere(m_radius);
-//    return new FormFactorFullSphere(mp_radius->clone());
+    FormFactorFullSphere *p_clone = new FormFactorFullSphere(m_radius);
+    return p_clone;
 }
 
 complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t &q) const
 {
-//    double R = mp_radius->getCurrent();
     complex_t qz = q.z();
     double R = m_radius;
 
@@ -70,12 +64,3 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t &q) const
     return radial*z_part;
 }
 
-
-/* ************************************************************************* */
-// print class
-/* ************************************************************************* */
-void FormFactorFullSphere::print(std::ostream &ostr) const
-{
-    ISample::print(ostr);
-//    ostr << " " << "(radius:"<<m_radius << ")";
-}

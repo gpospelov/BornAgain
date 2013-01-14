@@ -4,17 +4,15 @@
 /* ************************************************************************* */
 // c-tors, assignment operators, swap
 /* ************************************************************************* */
-Beam::Beam() : m_intensity(1.0)
+Beam::Beam() : m_central_k(), m_intensity(1.0)
 {
     setName("Beam");
     init_parameters();
 }
 
-Beam::Beam(const Beam &other) : IParameterized()
+Beam::Beam(const Beam &other) : IParameterized(), m_central_k(other.m_central_k), m_intensity(other.m_intensity)
 {
     setName(other.getName());
-    m_central_k = other.m_central_k;
-    m_intensity = other.m_intensity;
     init_parameters();
 }
 

@@ -14,9 +14,9 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jul 12, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorBorn.h"
 #include "Crystal.h"
-#include "Types.h"
+//#include "Types.h"
 
 //- -------------------------------------------------------------------
 //! @class FormFactorCrystal
@@ -25,18 +25,22 @@
 class FormFactorCrystal : public IFormFactorBorn
 {
 public:
-    FormFactorCrystal(const Crystal *p_crystal,
-            const IFormFactor &meso_crystal_form_factor, complex_t ambient_refractive_index);
+    FormFactorCrystal(const Crystal *p_crystal, const IFormFactor &meso_crystal_form_factor, const complex_t &ambient_refractive_index);
     virtual ~FormFactorCrystal();
 
     virtual FormFactorCrystal *clone() const;
 
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index);
+    virtual void setAmbientRefractiveIndex(const complex_t &refractive_index);
 
-protected:
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
+
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
+
+    virtual double getVolume() const;
+
 private:
     void calculateLargestReciprocalDistance();
+
     Lattice m_lattice;
     Particle *mp_particle;
     IFormFactor *mp_basis_form_factor;

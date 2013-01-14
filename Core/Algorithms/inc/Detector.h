@@ -14,9 +14,10 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jun 21, 2012
 
-#include "NamedVector.h"
 #include "IDetectorResolution.h"
+#include "DetectorParameters.h"
 #include "IParameterized.h"
+#include "SafePointerVector.h"
 
 
 #include <vector>
@@ -34,8 +35,9 @@ public:
 
 	virtual ~Detector();
 
-	void addAxis(const NamedVector<double> &axis);
-	NamedVector<double> getAxis(size_t index) const;
+	void addAxis(const IAxis &axis);
+	void addAxis(const AxisParameters &axis_params);
+	const IAxis &getAxis(size_t index) const;
 	size_t getDimension() const { return m_axes.size(); }
 	void clear();
     void setDetectorResolution(IDetectorResolution *p_detector_resolution) { delete mp_detector_resolution; mp_detector_resolution = p_detector_resolution; }
@@ -47,13 +49,16 @@ public:
 
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters();    
+    virtual void init_parameters();
 	bool isCorrectAxisIndex(size_t index) const { return index<getDimension(); }
 private:
     //! swap function
     void swapContent(Detector &other);
 
-	std::vector<NamedVector<double> > m_axes;
+    //! initialize axis the way IsGISAXS does
+    void initializeAnglesIsgisaxs(AxisDouble *p_axis, const TSampledRange<double> &axis_range) const;
+
+    SafePointerVector<IAxis> m_axes;
 	IDetectorResolution *mp_detector_resolution;
 };
 

@@ -21,37 +21,43 @@ TestIsGISAXS3::TestIsGISAXS3() : IFunctionalTest("TestIsGISAXS3")
 void TestIsGISAXS3::execute()
 {
     GISASExperiment experiment(mp_options);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+            100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
-    MultiLayer *sample(0);
-
     // cylinder in BA
-    sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderBA"));
+    MultiLayer *sample = dynamic_cast<MultiLayer *>(
+            SampleFactory::instance().createItem("IsGISAXS3_CylinderBA"));
     experiment.setSample(*sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_cylinder_BA.ima");
+    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(),
+            m_data_path+"this_cylinder_BA.ima");
 
     // cylinder in BA with size distribution
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderBASize"));
     experiment.setSample(*sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_cylinder_BA_size.ima");
+    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(),
+            m_data_path+"this_cylinder_BA_size.ima");
 
     // cylinder in DWBA
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderDWBA"));
     experiment.setSample(*sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_cylinder_DWBA.ima");
+    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(),
+            m_data_path+"this_cylinder_DWBA.ima");
 }
 
 
 void TestIsGISAXS3::finalise()
 {
     std::vector< CompareStruct > tocompare;
-    tocompare.push_back( CompareStruct("isgi_cylinder_BA.ima",      "this_cylinder_BA.ima",      "Cylinder BA Formfactor") );
-    tocompare.push_back( CompareStruct("isgi_cylinder_BA_size.ima", "this_cylinder_BA_size.ima", "Cylinder BA Formfactor with size distribution") );
-    tocompare.push_back( CompareStruct("isgi_cylinder_DWBA.ima",    "this_cylinder_DWBA.ima",    "Cylinder DWBA Formfactor") );
+    tocompare.push_back( CompareStruct("isgi_cylinder_BA.ima",      "this_cylinder_BA.ima",
+            "Cylinder BA Formfactor") );
+    tocompare.push_back( CompareStruct("isgi_cylinder_BA_size.ima", "this_cylinder_BA_size.ima",
+            "Cylinder BA Formfactor with size distribution") );
+    tocompare.push_back( CompareStruct("isgi_cylinder_DWBA.ima",    "this_cylinder_DWBA.ima",
+            "Cylinder DWBA Formfactor") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {
         OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].isginame );
@@ -88,5 +94,4 @@ void TestIsGISAXS3::finalise()
         delete isgi_data;
         delete our_data;
     }
-
 }

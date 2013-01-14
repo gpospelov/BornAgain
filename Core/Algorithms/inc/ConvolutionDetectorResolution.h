@@ -44,16 +44,17 @@ public:
     virtual ConvolutionDetectorResolution *clone() const;
 
 protected:
+    ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other);
+
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
 private:
-    //! hiding copy constructor and disabling assignment operator
-    ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other);
-    ConvolutionDetectorResolution &operator=(const ConvolutionDetectorResolution &);
+//    //! hiding copy constructor and disabling assignment operator
+//    ConvolutionDetectorResolution &operator=(const ConvolutionDetectorResolution &);
 
-    void apply1dConvolution(const std::vector<NamedVectorBase *> &axes, OutputData<double> *p_intensity_map) const;
-    void apply2dConvolution(const std::vector<NamedVectorBase *> &axes, OutputData<double> *p_intensity_map) const;
+    void apply1dConvolution(OutputData<double> *p_intensity_map) const;
+    void apply2dConvolution(OutputData<double> *p_intensity_map) const;
     double getIntegratedPDF1d(double x, double step) const;
     double getIntegratedPDF2d(double x, double step_x, double y, double step_y) const;
 

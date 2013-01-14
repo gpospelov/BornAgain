@@ -19,7 +19,8 @@
 #include <map>
 #include <iostream>
 #include <sstream>
-
+#include "Exceptions.h"
+#include <boost/unordered_map.hpp>
 
 namespace Utils {
 
@@ -57,7 +58,7 @@ public:
     int &operator[](std::string name) { return m_nstringmap[name]; }
 
     //! get current string
-    std::string get_current() { return m_current_string; }
+    std::string get_current() const { return m_current_string; }
 
 private:
     std::string m_current_string;
@@ -92,7 +93,7 @@ public:
     static std::string GetHomePath();
 
     //! set relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
-    static void SetRelativePath(const std::string path) { m_relative_path = path; }
+    static void SetRelativePath(const std::string &path) { m_relative_path = path; }
 
 private:
     static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module
@@ -108,6 +109,44 @@ inline std::string AdjustStringLength(std::string name, int length)
     newstring.resize(length,' ');
     return newstring;
 }
+
+
+/* ************************************************************************* */
+// unordered map of values
+/* ************************************************************************* */
+template<class Key, class Object >
+class UnorderedMap
+{
+public:
+    typedef boost::unordered_map<Key, Object > container_t;
+    typedef typename container_t::iterator iterator;
+    typedef typename container_t::const_iterator const_iterator;
+
+    UnorderedMap() {}
+    virtual ~UnorderedMap(){}
+
+    //UnorderedMap *clone() { return new UnorderedMap(m_value_map); }
+
+    const_iterator begin() { return m_value_map.begin(); }
+    const_iterator end() { return m_value_map.end(); }
+    const Object &find(const Key &key) const
+    {
+        const_iterator pos = m_value_map.find(key);
+        if(pos != m_value_map.end() ) {
+            return (*pos).second;
+        } else {
+            throw RuntimeErrorException("UnorderedMap::find() -> Error! Can't find the object");
+        }
+    }
+
+    size_t size() { return m_value_map.size(); }
+    Object & operator[] (const Key &key) { return m_value_map[key]; }
+
+private:
+    UnorderedMap &operator=(const UnorderedMap &);
+
+    container_t m_value_map;
+};
 
 
 }

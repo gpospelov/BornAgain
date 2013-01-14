@@ -89,7 +89,7 @@ public:
     //double getCrossCorrFun(const kvector_t &k, int j, int k) const;
 
     //! fourier transform of the correlation function of roughnesses between the interfaces
-    double getCrossCorrSpectralFun(const kvector_t &kvec, int j, int k) const;
+    double getCrossCorrSpectralFun(const kvector_t &kvec, size_t j, size_t k) const;
 
     //! change thickness of layer
     void setLayerThickness(size_t i_layer, double thickness);
@@ -100,11 +100,14 @@ public:
     //! look for the presence of DWBA terms (e.g. included particles) and return ISimulation if needed
     virtual MultiLayerDWBASimulation *createDWBASimulation() const;
 
-private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    MultiLayer(const MultiLayer &);
-    MultiLayer &operator=(const MultiLayer &);
+protected:
+    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    virtual void init_parameters();
+    //! print class
+    void print(std::ostream &ostr) const;
 
+
+private:
     //! adding the layer with simultaneous registration in parent class
     void addAndRegisterLayer(Layer *child)
     {
@@ -125,11 +128,6 @@ private:
     //! check index of interface w.r.t. vector length
     inline size_t check_interface_index(size_t i_interface) const { return i_interface < m_interfaces.size() ? i_interface : throw OutOfBoundsException("Interface index is out of bounds"); }
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters();
-
-    //! print class
-    void print(std::ostream &ostr) const;
 
     std::vector<Layer *> m_layers;                ///< stack of layers [nlayers]
     std::vector<double > m_layers_z;              ///< coordinate of layer's bottoms [nlayers]

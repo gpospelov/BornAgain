@@ -1,27 +1,28 @@
 #include "IParameterized.h"
 #include "Utils.h"
 
-IParameterized::IParameterized()
+
+/* ************************************************************************* */
+// c-tors
+/* ************************************************************************* */
+IParameterized::IParameterized() : m_parameters(), m_status()
 {
 }
 
-/* ************************************************************************* */
-// copy constructor
-// we are consciously not copying parameter pool, it should be done in derived class
-/* ************************************************************************* */
-IParameterized::IParameterized(const IParameterized &other) : INamed(other)
+IParameterized::IParameterized(const std::string &name) : INamed(name), m_parameters(), m_status()
 {
 }
 
-/* ************************************************************************* */
-// assignment operator
-// we are consciously not copying parameter pool, it should be done in derived class
-/* ************************************************************************* */
+IParameterized::IParameterized(const IParameterized &other) : INamed(other), m_parameters(), m_status()
+{
+}
+
 IParameterized &IParameterized::operator=(const IParameterized &other)
 {
     if( this != &other)
     {
         INamed::operator=(other);
+        // parameters are not copied
     }
     return *this;
 }

@@ -132,10 +132,6 @@ ISample* MesoCrystalBuilder::buildSample() const
     complex_t n_avg = std::sqrt(m_surface_filling_ratio*avg_n_squared_meso + 1.0 - m_surface_filling_ratio);
     complex_t n_particle_adapted = std::sqrt(n_avg*n_avg + n_particle*n_particle - 1.0);
     FormFactorCylinder ff_cyl(m_meso_height, m_meso_radius);
-//    FormFactorBigCylinder ff_cyl(m_meso_height, m_meso_radius);
-//    double bin_size = FormFactorBigCylinder::calculateBinSize(1.77*Units::angstrom, 0.051, 80);
-//    std::cout << "Bin size: " << bin_size << std::endl;
-//    ff_cyl.setBinSize(bin_size);
     FormFactorDecoratorDebyeWaller ff_meso(ff_cyl.clone(), m_sigma_meso_height*m_sigma_meso_height/2.0,
             m_sigma_meso_radius*m_sigma_meso_radius/2.0);
 

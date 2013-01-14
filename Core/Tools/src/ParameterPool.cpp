@@ -5,35 +5,47 @@
 #include <sstream>
 
 
-ParameterPool::ParameterPool()
+/* ************************************************************************* */
+// constructors
+/* ************************************************************************* */
+//ParameterPool::ParameterPool()
+//{
+//}
+
+//ParameterPool::~ParameterPool()
+//{
+//    clear();
+//}
+
+//ParameterPool::ParameterPool(const ParameterPool &other)
+//{
+//    m_map = other.m_map;
+//}
+
+//ParameterPool *ParameterPool::clone() const
+//{
+//    ParameterPool *new_pool = new ParameterPool(*this);
+//    return new_pool;
+//}
+
+ParameterPool *ParameterPool::clone() const
 {
+    ParameterPool *new_pool = new ParameterPool();
+    new_pool->m_map = m_map;
+    return new_pool;
 }
 
-ParameterPool::~ParameterPool()
+/* ************************************************************************* */
+// Clone method that adds a prefix to parameter's keys
+/* ************************************************************************* */
+ParameterPool *ParameterPool::cloneWithPrefix(const std::string &prefix) const
 {
-    clear();
-}
-
-/* ************************************************************************* */
-// copy constructor for completeness
-// declared private, to avoid unconscious copying of parameters that point to previous owner
-/* ************************************************************************* */
-ParameterPool::ParameterPool(const ParameterPool &other)
-{
-    m_map = other.m_map;
-}
-
-/* ************************************************************************* */
-// assignment operator for completeness
-// declared private, to avoid unconscious copying of parameters that point to previous owner
-/* ************************************************************************* */
-ParameterPool &ParameterPool::operator=(const ParameterPool &other)
-{
-    if( this != &other)
+    ParameterPool *new_pool = new ParameterPool();
+    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it)
     {
-        m_map = other.m_map;
+        new_pool->addParameter(prefix+it->first, it->second);
     }
-    return *this;
+    return new_pool;
 }
 
 /* ************************************************************************* */
@@ -48,13 +60,13 @@ void ParameterPool::clear()
 // Registering parameter with given name. Name should be different for each
 // register.
 /* ************************************************************************* */
-bool ParameterPool::registerParameter(const std::string &name, double *parameter_address)
+void ParameterPool::registerParameter(const std::string &name, double *parameter_address)
 {
-    RealPar par(parameter_address);
-    return addParameter(name, par);
+    parameter_t par(parameter_address);
+    if( !addParameter(name, par) ) throw RuntimeErrorException("ParameterPool::registerParameter() -> Error! Can't register parameter");
 }
 
-bool ParameterPool::addParameter(const std::string &name, RealPar par)
+bool ParameterPool::addParameter(const std::string &name, parameter_t par)
 {
     parametermap_t::iterator it = m_map.find(name);
     if( it!=m_map.end() ) {
@@ -64,29 +76,6 @@ bool ParameterPool::addParameter(const std::string &name, RealPar par)
         throw RuntimeErrorException(os.str());
     }
     return m_map.insert(parametermap_t::value_type(name, par ) ).second;
-}
-
-/* ************************************************************************* */
-// Clone method. Clones everything.
-/* ************************************************************************* */
-ParameterPool *ParameterPool::clone()
-{
-    ParameterPool *new_pool = new ParameterPool;
-    new_pool->m_map = m_map;
-    return new_pool;
-}
-
-/* ************************************************************************* */
-// Clone method that adds a prefix to parameter's keys
-/* ************************************************************************* */
-ParameterPool *ParameterPool::cloneWithPrefix(const std::string &prefix)
-{
-    ParameterPool *new_pool = new ParameterPool;
-    for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it)
-    {
-        new_pool->addParameter(prefix+it->first, it->second);
-    }
-    return new_pool;
 }
 
 /* ************************************************************************* */
@@ -103,14 +92,15 @@ void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool 
 /* ************************************************************************* */
 // return parameter with given name
 /* ************************************************************************* */
-ParameterPool::RealPar ParameterPool::getParameter(const std::string &name) const
+ParameterPool::parameter_t ParameterPool::getParameter(const std::string &name) const
 {
     parametermap_t::const_iterator it = m_map.find(name);
     if( it!=m_map.end() ) {
         return (*it).second;
     } else {
-        std::cout << "ParameterPool::getParameter() -> Warning. No parameter with name '" << name << std::endl;
-        return RealPar(0);
+//        std::cout << "ParameterPool::getParameter() -> Warning. No parameter with name '" << name << std::endl;
+//        return parameter_t(0);
+        throw LogicErrorException("ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
     }
 }
 
@@ -118,11 +108,11 @@ ParameterPool::RealPar ParameterPool::getParameter(const std::string &name) cons
 /* ************************************************************************* */
 // return vector of parameters which fit pattern
 /* ************************************************************************* */
-std::vector<ParameterPool::RealPar >  ParameterPool::getMatchedParameters(const std::string &wildcards) const
+std::vector<ParameterPool::parameter_t >  ParameterPool::getMatchedParameters(const std::string &wildcards) const
 {
-    std::vector<ParameterPool::RealPar > selected_parameters;
+    std::vector<ParameterPool::parameter_t > selected_parameters;
     // loop over all parameters in the pool
-    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); it++) {
+    for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         // (*it).first - parameter key, (*it).second - parameter itself
         // parameters whose key match pattern is added to the FitMultiParameter container
         if( Utils::StringMatchText::WildcardPattern( (*it).first, wildcards ) ) {
@@ -145,7 +135,7 @@ std::vector<ParameterPool::RealPar >  ParameterPool::getMatchedParameters(const 
 /* ************************************************************************* */
 bool ParameterPool::setParameterValue(const std::string &name, double value)
 {
-    RealPar x = getParameter(name);
+    parameter_t x = getParameter(name);
     if( x.isNull() ) {
         std::cout << "ParameterPool::setParameterValue() -> Warning. No parameter with name '" << name << "'" << std::endl;
         throw LogicErrorException("ParameterPool::setParameterValue() -> Warning. No such parameter");
@@ -161,7 +151,7 @@ bool ParameterPool::setParameterValue(const std::string &name, double value)
 int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
 {
     int npars(0);
-    for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); it++) {
+    for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         if( Utils::StringMatchText::WildcardPattern( (*it).first, wildcards ) ) {
             (*it).second.setValue(value);
             npars++;
@@ -175,26 +165,21 @@ int ParameterPool::setMatchedParametersValue(const std::string &wildcards, doubl
 /* ************************************************************************* */
 void ParameterPool::print(std::ostream &ostr) const
 {
-    // output depends on size of the pool
-    size_t nsize = m_map.size();
-
-    if(nsize) {
+    const size_t number_of_pars_in_line(4);
+    if( m_map.size() ) {
         // printing in one line
-        if(nsize < 4) {
-            ostr << "POOL_" << nsize;
+        if(m_map.size() < number_of_pars_in_line) {
+            ostr << "POOL_" << m_map.size();
             ostr << "(";
-            for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); it++) {
+            for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
                 std::cout << "'" << (*it).first << "'" << ":" << it->second.getValue() << " " ;
             }
             ostr << ")";
-
         // printing in several lines
         } else {
-            for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); it++) {
+            for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
                 std::cout << "'" << (*it).first << "'" << ":" << it->second.getValue() << std::endl;
             }
         }
-
-
     }
 }

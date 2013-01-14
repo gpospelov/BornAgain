@@ -154,4 +154,19 @@
 # current status of the art
 2012-11-29 11:09:34 | jcnsopc73  | macosx64, 2800 MHz      | 266667  | 14.7059 | 14.2857 | 5.26316 | 
 
-2012-11-29 11:14:27 | jcnsopc73  | macosx64, 2800 MHz      | 253165  | 14.3885 | 14.2857 | 5.40541 | 
+2012-11-29 11:14:27 | jcnsopc73  | macosx64, 2800 MHz      | 253165  | 14.3885 | 14.2857 | 5.40541 |
+
+# fast-math is off; few performance changes in OutputData and BasicVector3D
+2012-12-13 10:06:39 | jcnsopc73  | macosx64, 2800 MHz      | 259740  | 19.802  | 19.2308 | 5.26316 | 
+
+# lots of refactoring in OutputData axis
+2012-12-13 14:15:58 | jcnsopc73  | macosx64, 2800 MHz      | 253165  | 20      | 19.0476 | 5.55556 | 
+2012-12-13 14:16:03 | jcnsopc73  | macosx64, 2800 MHz      | 259740  | 20.202  | 19.6078 | 5.55556 | 
+
+# tons of minor changes followint static code analysis
+2013-01-10 13:48:20 | jcnsopc73  | macosx64, 2800 MHz      | 289855  | 22.4719 | 22.4719 | 5.26316 | 
+2013-01-10 13:48:42 | jcnsopc73  | macosx64, 2800 MHz      | 285714  | 22.9885 | 22.2222 | 5.40541 | 
+2013-01-14 14:03:24 | jcnsopc73  | macosx64, 2800 MHz      | 78740.2 | 2.23214 | 1.78891 | 0.38095 | 
+2013-01-14 14:12:19 | jcnsopc73  | macosx64, 2800 MHz      | 90497.7 | 4.33839 | 3.71058 | 0.77519 | 
+2013-01-14 14:17:29 | jcnsopc73  | macosx64, 2800 MHz      | 281690  | 21.0526 | 20.6186 | 5.12821 | 
+2013-01-14 14:17:39 | jcnsopc73  | macosx64, 2800 MHz      | 281690  | 21.0526 | 21.0526 | 5.12821 | 

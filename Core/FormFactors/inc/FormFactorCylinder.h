@@ -14,15 +14,14 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.05.2012
 
-#include "IFormFactor.h"
-#include "IStochasticParameter.h"
+#include "IFormFactorBorn.h"
+//#include "IStochasticParameter.h"
 
 
 class FormFactorCylinder : public IFormFactorBorn
 {
 public:
     FormFactorCylinder(double height, double radius);
-//    FormFactorCylinder(StochasticParameter<double> *p_height, StochasticParameter<double> *p_radius);
     ~FormFactorCylinder();
     virtual FormFactorCylinder *clone() const;
 
@@ -30,22 +29,13 @@ public:
 
     virtual double getHeight() const { return m_height; }
 
-protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    FormFactorCylinder(const FormFactorCylinder &);
-    FormFactorCylinder &operator=(const FormFactorCylinder &);
-
+protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    //! print class
-    void print(std::ostream &ostr) const;
-
-//    StochasticParameter<double> *mp_height;
-//    StochasticParameter<double> *mp_radius;
+private:
     double m_height;
     double m_radius;
 };

@@ -83,10 +83,10 @@ void MathFunctions::Convolve::fftconvolve(const double2d_t &source, const double
         setMode(FFTW_LINEAR_SAME);
     }
 
-    size_t h_src = source.size();
-    size_t w_src = (source.size() ? source[0].size() : 0);
-    size_t h_kernel = kernel.size();
-    size_t w_kernel = (kernel.size() ? kernel[0].size() : 0);
+    int h_src = (int)source.size();
+    int w_src = (int)(source.size() ? source[0].size() : 0);
+    int h_kernel = (int)kernel.size();
+    int w_kernel = (kernel.size() ? (int)kernel[0].size() : 0);
 
     // initialisation
     init(h_src, w_src, h_kernel, w_kernel);

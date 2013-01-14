@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Jun 27, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
 
@@ -22,7 +22,6 @@ class FormFactorPrism3 : public IFormFactorBorn
 {
 public:
     FormFactorPrism3(double height, double half_side);
-//    FormFactorPrism3(StochasticParameter<double> *p_height, StochasticParameter<double> *p_half_side);
     ~FormFactorPrism3();
     virtual FormFactorPrism3 *clone() const;
 
@@ -30,27 +29,16 @@ public:
 
     virtual double getHeight() const { return m_height; }
 
-
-protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    FormFactorPrism3(const FormFactorPrism3 &);
-    FormFactorPrism3 &operator=(const FormFactorPrism3 &);
-
+protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    //! print class
-    void print(std::ostream &ostr) const;
-
+private:
     double m_height;
-    double m_half_side;
-//    StochasticParameter<double> *mp_height;
-//    StochasticParameter<double> *mp_half_side;
-    // Cached value of square root of 3
-    double m_root3;
+    double m_half_side;    
+    double m_root3; // Cached value of square root of 3
 };
 
 

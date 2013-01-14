@@ -53,7 +53,7 @@ template<class C> MemberFunctionIntegrator<C>::MemberFunctionIntegrator(
 {
 }
 
-template<class C> inline double MemberFunctionIntegrator<C>::integrate(
+template<class C> double MemberFunctionIntegrator<C>::integrate(
         double lmin, double lmax, void* params)
 {
     CallBackHolder cb = { mp_object, m_member_function, params };

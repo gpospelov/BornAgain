@@ -18,6 +18,7 @@ template <class T> class TRange
 {
 public:
     TRange(T min, T max) : m_min(min), m_max(max) {}
+    virtual ~TRange(){}
 
     T getMin() const { return m_min; }
     T getMax() const { return m_max; }
@@ -26,6 +27,16 @@ public:
     bool inRange(T value) const { return value >= m_min && value < m_max; }
 private:
     T m_min, m_max;
+};
+
+template <class T> class TSampledRange : public TRange<T>
+{
+public:
+    TSampledRange(size_t n_samples, T min, T max) : TRange<T>(min, max), m_n_samples(n_samples) {}
+
+    size_t getNSamples() const { return m_n_samples; }
+private:
+    size_t m_n_samples;
 };
 
 #endif /* TRANGE_H_ */

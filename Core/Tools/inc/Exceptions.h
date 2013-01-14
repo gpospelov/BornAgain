@@ -15,7 +15,6 @@
 //! @date   01.05.2012
 
 #include <stdexcept>
-#include <string>
 
 
 namespace Exceptions {

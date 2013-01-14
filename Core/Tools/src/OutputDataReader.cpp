@@ -1,6 +1,7 @@
 #include "OutputDataReader.h"
 #include "Types.h"
 #include "Exceptions.h"
+#include "ExperimentConstants.h"
 
 #include <iostream>
 #include <fstream>
@@ -14,7 +15,13 @@
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/iostreams/copy.hpp>
+
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
 #include <boost/iostreams/filter/gzip.hpp>
+#include <string>
+GCC_DIAG_ON(unused-parameter);
+
 
 
 OutputData<double > *OutputDataReader::getOutputData(const std::string &file_name)
@@ -91,10 +98,10 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
     }
 
     // creating output data
-    NamedVector<double> *xaxis = new NamedVector<double>("x-axis");
-    for(size_t i=0; i<buff_xaxis.size(); ++i) xaxis->push_back(buff_xaxis[i]);
-    NamedVector<double> *yaxis = new NamedVector<double>("y-axis");
-    for(size_t i=0; i<buff_yaxis.size(); ++i) yaxis->push_back(buff_yaxis[i]);
+    AxisDouble xaxis(NDetector2d::PHI_AXIS_NAME);
+    for(size_t i=0; i<buff_xaxis.size(); ++i) xaxis.push_back(buff_xaxis[i]);
+    AxisDouble yaxis(NDetector2d::ALPHA_AXIS_NAME);
+    for(size_t i=0; i<buff_yaxis.size(); ++i) yaxis.push_back(buff_yaxis[i]);
 
     OutputData<double > *p_result = new OutputData<double>;
     p_result->addAxis(xaxis);

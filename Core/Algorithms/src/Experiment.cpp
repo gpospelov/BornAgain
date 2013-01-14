@@ -1,62 +1,71 @@
 #include "Experiment.h"
 
-#include <typeinfo>
 
 Experiment::Experiment()
-: mp_sample(0)
-, mp_sample_builder(0)
-, m_is_normalized(false)
-, mp_options(0)
+    : IParameterized("Experiment")
+    , mp_sample(0)
+    , mp_sample_builder(0)
+    , m_detector()
+    , m_beam()
+    , m_intensity_map()
+    , m_is_normalized(false)
+    , mp_options(0)
 {
-    setName("Experiment");
+    //setName("Experiment");
     init_parameters();
 }
 
-Experiment::Experiment(const Experiment &other) : IParameterized(other)
-, mp_sample(0)
-, mp_sample_builder(0)
-, m_is_normalized(false)
-, mp_options(0)
+Experiment::Experiment(const Experiment &other)
+    : IParameterized(other), ICloneable()
+    , mp_sample(0)
+    , mp_sample_builder(other.mp_sample_builder)
+    , m_detector(other.m_detector)
+    , m_beam(other.m_beam)
+    , m_intensity_map()
+    , m_is_normalized(other.m_is_normalized)
+    , mp_options(other.mp_options)
 {
     if(other.mp_sample) mp_sample = other.mp_sample->clone();
-    mp_sample_builder = other.mp_sample_builder; // sample builder owned by the user
-    m_detector = other.m_detector;
-    m_beam = other.m_beam;
-
     m_intensity_map.copyFrom(other.m_intensity_map);
-    m_is_normalized = other.m_is_normalized;
-    mp_options = other.mp_options; // program options are owned by the user
     init_parameters();
 }
 
-
 Experiment::Experiment(const ProgramOptions *p_options)
-: mp_sample(0)
-, mp_sample_builder(0)
-, m_is_normalized(false)
-, mp_options(p_options)
+    : IParameterized("Experiment")
+    , mp_sample(0)
+    , mp_sample_builder(0)
+    , m_detector()
+    , m_beam()
+    , m_intensity_map()
+    , m_is_normalized(false)
+    , mp_options(p_options)
 {
-    setName("Experiment");
     init_parameters();
 }
 
 Experiment::Experiment(const ISample &p_sample, const ProgramOptions *p_options)
-: mp_sample(p_sample.clone())
-, mp_sample_builder(0)
-, m_is_normalized(false)
-, mp_options(p_options)
+    : IParameterized("Experiment")
+    , mp_sample(p_sample.clone())
+    , mp_sample_builder(0)
+    , m_detector()
+    , m_beam()
+    , m_intensity_map()
+    , m_is_normalized(false)
+    , mp_options(p_options)
 {
-    setName("Experiment");
     init_parameters();
 }
 
 Experiment::Experiment(const ISampleBuilder* p_sample_builder, const ProgramOptions *p_options)
-: mp_sample(0)
-, mp_sample_builder(p_sample_builder)
-, m_is_normalized(false)
-, mp_options(p_options)
+    : IParameterized("Experiment")
+    , mp_sample(0)
+    , mp_sample_builder(p_sample_builder)
+    , m_detector()
+    , m_beam()
+    , m_intensity_map()
+    , m_is_normalized(false)
+    , mp_options(p_options)
 {
-    setName("Experiment");
     init_parameters();
 }
 
@@ -69,6 +78,20 @@ Experiment *Experiment::clone() const
     return new Experiment(*this);
 }
 
+//Experiment *Experiment::clone() const
+//{
+//    Experiment *result = new Experiment();
+//    if(this->mp_sample) result->mp_sample = this->mp_sample->clone();
+//    result->mp_sample_builder = this->mp_sample_builder; // sample builder owned by the user
+//    result->m_detector = this->m_detector;
+//    result->m_beam = this->m_beam;
+//    result->m_intensity_map.copyFrom(this->m_intensity_map);
+//    result->m_is_normalized = this->m_is_normalized;
+//    result->mp_options = this->mp_options; // program options are owned by the user
+//    result->init_parameters();
+//    return result;
+//}
+
 
 void Experiment::runSimulation()
 {
@@ -76,18 +99,22 @@ void Experiment::runSimulation()
     updateSample();
 }
 
+
+void Experiment::runSimulationElement(size_t /* index */)
+{
+    throw NotImplementedException("Experiment::runSimulationElement() -> Error! Not implemented.");
+}
+
+
 void Experiment::normalize()
 {
     double incident_intensity = m_beam.getIntensity();
     if (!m_is_normalized && incident_intensity!=1.0) {
-        OutputData<double>::iterator it = m_intensity_map.begin();
-        while (it != m_intensity_map.end()) {
-            *it *= incident_intensity;
-            ++it;
-        }
+        m_intensity_map.scaleAll(incident_intensity);
         m_is_normalized = true;
     }
 }
+
 
 //! The ISample object will not be owned by the Experiment object
 void Experiment::setSample(const ISample &p_sample)
@@ -159,7 +186,7 @@ void Experiment::updateIntensityMapAxes()
     m_intensity_map.clear();
     size_t detector_dimension = m_detector.getDimension();
     for (size_t dim=0; dim<detector_dimension; ++dim) {
-        m_intensity_map.addAxis(new NamedVector<double>(m_detector.getAxis(dim)));
+        m_intensity_map.addAxis(m_detector.getAxis(dim));
     }
     m_intensity_map.setAllTo(0.0);
 }
@@ -181,10 +208,10 @@ void Experiment::updateSample()
 
 void Experiment::setDetectorParameters(const OutputData<double > &output_data)
 {
-    std::cout << "Experiment::setDetectorParameters() -> Info. Adjusting detector to have shape as in given output data" << std::endl;
+    //std::cout << "Experiment::setDetectorParameters() -> Info. Adjusting detector to have shape as in given output data" << std::endl;
     m_detector.clear();
     for(size_t i_axis=0; i_axis<output_data.getNdimensions(); ++i_axis) {
-        const NamedVector<double> *axis = reinterpret_cast<const NamedVector<double>*>(output_data.getAxes()[i_axis]);
+        const IAxis *axis = output_data.getAxis(i_axis);
         m_detector.addAxis(*axis);
     }
     updateIntensityMapAxes();

@@ -9,6 +9,7 @@ IChiSquaredModule::IChiSquaredModule()
     , mp_data_selector(0)
     , mp_data_normalizer(0)
     , mp_intensity_function(0)
+    , m_ndegree_of_freedom(0)
     , m_chi2_value(0)
 {
     mp_squared_function = new SquaredFunctionDefault();
@@ -17,22 +18,25 @@ IChiSquaredModule::IChiSquaredModule()
 
 
 IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule &other)
-    : mp_real_data(0)
+    : ICloneable()
+    , mp_real_data(0)
     , mp_simulation_data(0)
     , mp_weights(0)
     , mp_squared_function(0)
     , mp_data_selector(0)
     , mp_data_normalizer(0)
     , mp_intensity_function(0)
+    , m_ndegree_of_freedom(0)
     , m_chi2_value(0)
 {
-    if(other.mp_real_data) mp_real_data = other.mp_real_data;
-    if(other.mp_simulation_data) mp_simulation_data = other.mp_simulation_data;
+    if(other.mp_real_data) mp_real_data = other.mp_real_data->clone();
+    if(other.mp_simulation_data) mp_simulation_data = other.mp_simulation_data->clone();
     if(other.mp_weights) mp_weights = other.mp_weights->clone();
     if(other.mp_squared_function) mp_squared_function = other.mp_squared_function->clone();
     if(other.mp_data_selector) mp_data_selector = other.mp_data_selector->clone();
     if(other.mp_data_normalizer) mp_data_normalizer = other.mp_data_normalizer->clone();
     if(other.mp_intensity_function) mp_intensity_function = other.mp_intensity_function->clone();
+    m_ndegree_of_freedom = other.m_ndegree_of_freedom;
 }
 
 

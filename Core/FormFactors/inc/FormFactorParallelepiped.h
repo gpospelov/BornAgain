@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   Oct 1, 2012
 
-#include "IFormFactor.h"
+#include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
 class FormFactorParallelepiped : public IFormFactorBorn
@@ -35,18 +35,13 @@ public:
 
     virtual double getHeight() const { return m_height; }
 
-
-protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-private:
-
+protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    //! print class
-    void print(std::ostream &ostr) const;
-
+private:
     double m_height;
     double m_radius;
 };

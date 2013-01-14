@@ -21,14 +21,12 @@ bool MaskCoordinateFunction::isMasked(size_t rank, const int* coordinates) const
     if (rank != m_rank) {
         throw LogicErrorException("Mask function must have same rank as data structure");
     }
-    switch (m_invert)
-    {
-    case true:
+    if (m_invert) {
         return !isInStandardMaskedArea(coordinates);
-    case false:
+    }
+    else {
         return isInStandardMaskedArea(coordinates);
     }
-    throw LogicErrorException("Invalid instruction point");
 }
 
 bool MaskCoordinateFunction::isInStandardMaskedArea(const int* coordinates) const
@@ -57,8 +55,8 @@ MaskCoordinateRectangleFunction* MaskCoordinateRectangleFunction::clone() const
 
 MaskCoordinateRectangleFunction::~MaskCoordinateRectangleFunction()
 {
-    delete m_minima;
-    delete m_maxima;
+    delete [] m_minima;
+    delete [] m_maxima;
 }
 
 bool MaskCoordinateRectangleFunction::isInStandardMaskedArea(const int* coordinates) const
@@ -90,8 +88,8 @@ MaskCoordinateEllipseFunction* MaskCoordinateEllipseFunction::clone() const
 
 MaskCoordinateEllipseFunction::~MaskCoordinateEllipseFunction()
 {
-    delete m_center;
-    delete m_radii;
+    delete [] m_center;
+    delete [] m_radii;
 }
 
 bool MaskCoordinateEllipseFunction::isInStandardMaskedArea(const int* coordinates) const
@@ -99,6 +97,7 @@ bool MaskCoordinateEllipseFunction::isInStandardMaskedArea(const int* coordinate
     double weighted_squares = 0.0;
     for (size_t i=0; i<m_rank; ++i) {
         double dist = (double)coordinates[i] - (double)m_center[i];
+        if (dist==0.0) continue;
         double d_radius = (double)m_radii[i];
         weighted_squares += dist*dist/d_radius/d_radius;
     }

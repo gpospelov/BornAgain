@@ -25,11 +25,12 @@ public:
 
     void addFormFactor(const IFormFactor &form_factor, double weight=1.0);
 
-    virtual void setAmbientRefractiveIndex(complex_t refractive_index);
+    virtual void setAmbientRefractiveIndex(const complex_t &refractive_index);
 
-    virtual complex_t evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const;
+
 protected:
     std::vector<IFormFactor *> m_form_factors;
     std::vector<double> m_weights;

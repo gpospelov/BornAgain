@@ -14,11 +14,9 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   18.06.2012
 
-#include "Exceptions.h"
-#include <string>
+#include "ICloneable.h"
+#include "RealParameterWrapper.h"
 #include <map>
-#include <vector>
-#include <iostream>
 
 
 //- -------------------------------------------------------------------
@@ -26,32 +24,21 @@
 //! @brief Definition of ParameterPool to hold map of pointers to parameters
 //! Names of parameters should be the different, otherwise exception is thrown
 //- -------------------------------------------------------------------
-class ParameterPool
+class ParameterPool : public ICloneable
 {
 public:
-    class RealPar {
-    public:
-        explicit RealPar(double *par) : m_data(par) {}
-        void setValue(double value) { checkNull(); *m_data = value; }
-        double getValue() const { checkNull(); return *m_data; }
-        bool isNull() { return (m_data ? false : true); }
-        void checkNull() const { if(!m_data) throw NullPointerException("ParameterPool::RealPar::getValue() -> Attempt to access uninitialised pointer."); }
-        friend std::ostream &operator<<(std::ostream &ostr, const RealPar &p) { ostr << p.m_data; return ostr; }
-    private:
-        double *m_data;
-    };
-
     //! definition of parameter type and parameter container
-    typedef std::map<std::string, RealPar > parametermap_t;
+    typedef RealParameterWrapper parameter_t;
+    typedef std::map<std::string, parameter_t > parametermap_t;
 
-    ParameterPool();
-    virtual ~ParameterPool();
+    ParameterPool() : m_map() {}
+    virtual ~ParameterPool() {}
 
     //! simple clone
-    ParameterPool *clone();
+    ParameterPool *clone() const;
 
     //! clone with adding preffix to every parameter key
-    ParameterPool *cloneWithPrefix(const std::string &prefix);
+    ParameterPool *cloneWithPrefix(const std::string &prefix) const;
 
     //! copy parameters of given pool to the external pool while adding prefix to local parameter keys
     void copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const;
@@ -63,24 +50,16 @@ public:
     size_t size() const { return m_map.size(); }
 
     //! main method to register data address in the pool
-    bool registerParameter(const std::string &name, double *parpointer);
+    void registerParameter(const std::string &name, double *parpointer);
 
     //! add parameter to the pool
-    bool addParameter(const std::string &name, RealPar par);
-
-//    //! access to parameter container
-//    iterator_t begin() { return m_map.begin(); }
-//    iterator_t end() { return m_map.end(); }
-
-//    //! const access to parameter container
-//    const_iterator_t begin() const { return m_map.begin(); }
-//    const_iterator_t end() const { return m_map.end(); }
+    bool addParameter(const std::string &name, parameter_t par);
 
     //! return parameter with given name
-    RealPar getParameter(const std::string &name) const;
+    parameter_t getParameter(const std::string &name) const;
 
     //! return vector of parameters which fit pattern
-    std::vector<RealPar > getMatchedParameters(const std::string &wildcards) const;
+    std::vector<parameter_t > getMatchedParameters(const std::string &wildcards) const;
 
     //! set parameter value, return true in the case of success
     bool setParameterValue(const std::string &name, double value);
@@ -89,15 +68,12 @@ public:
     int setMatchedParametersValue(const std::string &wildcards, double value);
 
     //! print parameter pool
-    friend std::ostream &operator<<(std::ostream &ostr, const ParameterPool &obj)
-    {
-        obj.print(ostr); return ostr;
-    }
+    friend std::ostream &operator<<(std::ostream &ostr, const ParameterPool &obj) { obj.print(ostr); return ostr; }
 
 protected:
-    //! disabled copy constructors and assignment operator
-    ParameterPool(const ParameterPool &);
-    ParameterPool &operator=(const ParameterPool &);
+//    //! disabling assignment operator, hiding copy constructor
+//    ParameterPool(const ParameterPool &other);
+//    ParameterPool &operator=(const ParameterPool &);
 
     //! print parameter pool content
     virtual void print(std::ostream &ostr) const;

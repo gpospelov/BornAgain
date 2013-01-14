@@ -8,7 +8,13 @@
 #ifndef call_policies_pyplusplus_hpp__
 #define call_policies_pyplusplus_hpp__
 
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
+GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
+#include "boost/python/suite/indexing/vector_indexing_suite.hpp"
+GCC_DIAG_ON(unused-parameter);
+GCC_DIAG_ON(missing-field-initializers);
 #include "boost/cstdint.hpp"
 #include "boost/mpl/int.hpp"
 #include "boost/function.hpp"

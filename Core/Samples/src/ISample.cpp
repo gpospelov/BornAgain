@@ -3,33 +3,6 @@
 #include "ICompositeIterator.h"
 #include "Utils.h"
 
-ISample::ISample()
-{
-}
-
-/* ************************************************************************* */
-// default copy constructor
-/* ************************************************************************* */
-ISample::ISample(const ISample &other) : IParameterized(other)
-{
-}
-
-/* ************************************************************************* */
-// default assignment operator
-/* ************************************************************************* */
-ISample &ISample::operator=(const ISample &other)
-{
-    if( this != &other)
-    {
-        IParameterized::operator=(other);
-    }
-    return *this;
-}
-
-ISample::~ISample()
-{
-}
-
 ISample *ISample::clone() const
 {
     throw NotImplementedException("ISample::clone() -> Error! Method is not implemented");
@@ -45,7 +18,7 @@ void ISample::print_structure()
         {
             ISample *smp = it.get_current();
             if(smp) {
-                int nlevel = it.get_level();
+                int nlevel = (int)it.get_level();
                 for(int i=0; i<nlevel; i++) std::cout << "... ";
                 std::cout << (*smp) << std::endl;
             } else {
@@ -91,7 +64,7 @@ std::string ISample::addParametersToExternalPool(std::string path, ParameterPool
 }
 
 /* ************************************************************************* */
-// same as above
+// another example of how to make same as above using iterators
 // return new parameter pool which contains all local parameter as well as all
 // parameters from CompositeSample; tree user has to take to delete it
 //

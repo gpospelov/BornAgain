@@ -23,6 +23,7 @@
 
 #include "gsl/gsl_sf_bessel.h"
 #include "gsl/gsl_sf_trig.h"
+#include "gsl/gsl_sf_expint.h"
 #include "gsl/gsl_integration.h"
 
 namespace MathFunctions
@@ -39,15 +40,19 @@ double GenerateStandardNormalRandom();
 
 double GenerateUniformRandom();
 
+//! Bessel function of the first kind and order 1
 double Bessel_J1(double value);
 
-//complex_t Bessel_J1(complex_t value);
+//! Sine integral function: \f$Si(x)\equiv\int_0^x du \sin(u)/u\f$
+double Si(double value);
 
+//! Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
 double Sinc(double value);
 
-complex_t Sinc(complex_t value);
+//! Complex Sinc function: \f$Sinc(x)\equiv\sin(x)/x\f$
+complex_t Sinc(const complex_t &value);
 
-complex_t Laue(complex_t value, size_t N);
+complex_t Laue(const complex_t &value, size_t N);
 
 enum TransformCase { ForwardFFT, BackwardFFT };
 std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, TransformCase tcase);
@@ -71,9 +76,6 @@ complex_t FastCos(const complex_t &x);
 //! simultaneous complex sine and cosine calculations
 void FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos);
 
-//! numerical integration
-double Integrate1D(gsl_function *p_function, double start, double end);
-
 } // Namespace MathFunctions
 
 inline double MathFunctions::GenerateNormalRandom(double average, double std_dev)
@@ -92,12 +94,17 @@ inline double MathFunctions::Bessel_J1(double value)
     return gsl_sf_bessel_J1(value);
 }
 
+inline double MathFunctions::Si(double value)  // int_0^x du Sin(u)/u
+{
+    return gsl_sf_Si(value);
+}
+
 inline double MathFunctions::Sinc(double value)  // Sin(x)/x
 {
     return gsl_sf_sinc(value/M_PI);
 }
 
-inline complex_t MathFunctions::Sinc(complex_t value)  // Sin(x)/x
+inline complex_t MathFunctions::Sinc(const complex_t &value)  // Sin(x)/x
 {
 	if(std::abs(value)<Numeric::double_epsilon) {
 		return complex_t(1.0, 0.0);
@@ -105,7 +112,7 @@ inline complex_t MathFunctions::Sinc(complex_t value)  // Sin(x)/x
     return std::sin(value)/value;
 }
 
-inline complex_t MathFunctions::Laue(complex_t value, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
+inline complex_t MathFunctions::Laue(const complex_t &value, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
 {
     if (N==0) {
         return complex_t(1.0, 0.0);

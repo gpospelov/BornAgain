@@ -51,7 +51,6 @@ void TestIsGISAXS11::finalise()
     // difference
     c1->cd(4);
     IsGISAXSTools::resetMinimumAndMaximum();
-    IsGISAXSTools::setMinimum(1);
     IsGISAXSTools::drawOutputDataDifference1D(*our_data, *isgi_data, "", "Difference spectra");
 
     delete isgi_data;

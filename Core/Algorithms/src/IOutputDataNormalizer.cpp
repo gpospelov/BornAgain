@@ -21,7 +21,7 @@ OutputDataNormalizerScaleAndShift::OutputDataNormalizerScaleAndShift(double scal
     init_parameters();
 }
 
-OutputDataNormalizerScaleAndShift::OutputDataNormalizerScaleAndShift(const OutputDataNormalizerScaleAndShift &other)
+OutputDataNormalizerScaleAndShift::OutputDataNormalizerScaleAndShift(const OutputDataNormalizerScaleAndShift &other) : IOutputDataNormalizer()
 {
     m_scale = other.m_scale;
     m_shift = other.m_shift;

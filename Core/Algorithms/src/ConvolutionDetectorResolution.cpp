@@ -31,7 +31,7 @@ ConvolutionDetectorResolution::~ConvolutionDetectorResolution()
 }
 
 
-ConvolutionDetectorResolution::ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other)
+ConvolutionDetectorResolution::ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other) : IDetectorResolution()
 //    : IDetectorResolution(other)
 {
     m_dimension = other.m_dimension;

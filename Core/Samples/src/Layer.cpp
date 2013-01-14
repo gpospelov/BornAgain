@@ -20,7 +20,7 @@ Layer::Layer(const IMaterial* p_material, double thickness) : mp_material(0), m_
 }
 
 
-Layer::Layer(const Layer &other)
+Layer::Layer(const Layer &other) : ICompositeSample()
 {
     mp_material = other.mp_material;
     m_thickness = other.m_thickness;

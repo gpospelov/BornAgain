@@ -11,7 +11,7 @@ Experiment::Experiment()
     init_parameters();
 }
 
-Experiment::Experiment(const Experiment &other) : IParameterized(other)
+Experiment::Experiment(const Experiment &other) : IParameterized(other), ICloneable()
     , mp_sample(0)
     , mp_sample_builder(0)
     , m_is_normalized(false)

@@ -165,7 +165,7 @@ int ParameterPool::setMatchedParametersValue(const std::string &wildcards, doubl
 /* ************************************************************************* */
 void ParameterPool::print(std::ostream &ostr) const
 {
-    const int number_of_pars_in_line(4);
+    const size_t number_of_pars_in_line(4);
     if( m_map.size() ) {
         // printing in one line
         if(m_map.size() < number_of_pars_in_line) {

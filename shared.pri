@@ -116,6 +116,11 @@ CONFIG(GPERFTOOLS) {
   LIBS += -L/opt/local/lib -lprofiler -ltcmalloc
 }
 
+CONFIG+=PEDANTIC
+CONFIG(PEDANTIC) {
+  QMAKE_CXXFLAGS_RELEASE += -Weffc++
+  QMAKE_CXXFLAGS_DEBUG += -Weffc++
+}
 
 
 # hints

@@ -35,6 +35,7 @@ protected:
     double m_surface_density;
     SafePointerVector<DiffuseParticleInfo> m_np_infos;
     struct DiffuseFormFactorTerm {
+        DiffuseFormFactorTerm() : m_form_factors(), m_probabilities(), m_factor(0.0) { }
         ~DiffuseFormFactorTerm();
         std::vector<IFormFactor *> m_form_factors;
         std::vector<double> m_probabilities;

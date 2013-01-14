@@ -214,7 +214,8 @@ private:
 /* ***************************************************************************/
 
 template <class T> OutputData<T>::OutputData()
-: mp_ll_data(0)
+: m_value_axes()
+, mp_ll_data(0)
 , mp_mask(0)
 {
     allocate();

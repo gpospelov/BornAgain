@@ -31,7 +31,7 @@ public:
     typedef RealParameterWrapper parameter_t;
     typedef std::map<std::string, parameter_t > parametermap_t;
 
-    ParameterPool() {}
+    ParameterPool() : m_map() {}
     virtual ~ParameterPool() {}
 
     //! simple clone

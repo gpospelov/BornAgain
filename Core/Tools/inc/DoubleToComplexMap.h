@@ -1,8 +1,9 @@
 #ifndef DOUBLETOCOMPLEXUNORDEREDMAP_H
 #define DOUBLETOCOMPLEXUNORDEREDMAP_H
 
-#include "Exceptions.h"
-#include "Types.h"
+//#include "Exceptions.h"
+//#include "Types.h"
+#include "Utils.h"
 #include "IDoubleToComplexFunction.h"
 
 
@@ -14,7 +15,7 @@
 class DoubleToComplexMap : public IDoubleToComplexMap
 {
 public:
-    typedef UnorderedMap<double, complex_t> container_t;
+    typedef Utils::UnorderedMap<double, complex_t> container_t;
 
     DoubleToComplexMap(){}
     DoubleToComplexMap(const container_t &value_map) : m_value_map(value_map) {}
@@ -34,7 +35,7 @@ private:
 class DoubleToPairOfComplexMap : public IDoubleToPairOfComplexMap
 {
 public:
-    typedef UnorderedMap<double, complexpair_t> container_t;
+    typedef Utils::UnorderedMap<double, complexpair_t> container_t;
 
     DoubleToPairOfComplexMap(){}
     DoubleToPairOfComplexMap(const container_t &value_map) : m_value_map(value_map) {}

@@ -18,6 +18,7 @@ template <class T> class TRange
 {
 public:
     TRange(T min, T max) : m_min(min), m_max(max) {}
+    virtual ~TRange(){}
 
     T getMin() const { return m_min; }
     T getMax() const { return m_max; }

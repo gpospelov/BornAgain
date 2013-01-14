@@ -16,13 +16,11 @@
 
 #include "MaskCoordinateFunction.h"
 
-//#include <cstddef>
-
 //- -------------------------------------------------------------------
 //! @class Mask
 //! @brief Definition of base class for masking OutputData elements
 //- -------------------------------------------------------------------
-class Mask
+class Mask : public ICloneable
 {
 public:
     template <class TValue, class TContainer> friend class OutputDataIterator;

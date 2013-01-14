@@ -104,6 +104,7 @@ SOURCES += \
     Tools/src/FitParameter.cpp \
     Tools/src/FitParameterLinked.cpp \
     Tools/src/FitSuite.cpp \
+    Tools/src/FitSuiteFunctions.cpp \
     Tools/src/FitSuiteObjects.cpp \
     Tools/src/FitSuiteParameters.cpp \
     Tools/src/FitSuiteStrategy.cpp \
@@ -123,8 +124,7 @@ SOURCES += \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
-    Tools/src/Utils.cpp \
-    Tools/src/FitSuiteFunctions.cpp
+    Tools/src/Utils.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -237,6 +237,7 @@ HEADERS += \
     Tools/inc/Bin.h \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \
+    Tools/inc/CoreOptionsDescription.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
     Tools/inc/DoubleToComplexMap.h \
     Tools/inc/Exceptions.h \
@@ -244,11 +245,13 @@ HEADERS += \
     Tools/inc/FitParameter.h \
     Tools/inc/FitParameterLinked.h \
     Tools/inc/FitSuite.h \
+    Tools/inc/FitSuiteFunctions.h \
     Tools/inc/FitSuiteObjects.h \
     Tools/inc/FitSuiteParameters.h \
     Tools/inc/FitSuiteStrategy.h \
     Tools/inc/IAxis.h \
     Tools/inc/IChangeable.h \
+    Tools/inc/ICloneable.h \
     Tools/inc/IDoubleToComplexFunction.h \
     Tools/inc/IFactory.h \
     Tools/inc/IMinimizer.h \
@@ -271,16 +274,15 @@ HEADERS += \
     Tools/inc/ParameterPool.h \
     Tools/inc/ProgramOptions.h \
     Tools/inc/RealParameterWrapper.h \
-    Tools/inc/TRange.h \
+    Tools/inc/SafePointerVector.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticGaussian.h \
     Tools/inc/StochasticSampledParameter.h \
+    Tools/inc/TRange.h \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
-    Tools/inc/CoreOptionsDescription.h \
-    Tools/inc/FitSuiteFunctions.h \
-    Tools/inc/ICloneable.h
+    Tools/inc/FastVector.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc

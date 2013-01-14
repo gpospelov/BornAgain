@@ -16,6 +16,8 @@
 
 
 #include <vector>
+#include <cstddef>
+using std::size_t;
 
 class FitSuite;
 

@@ -15,8 +15,9 @@
 //! @date   Nov 20, 2012
 
 #include <cstddef>
+#include "ICloneable.h"
 
-class MaskCoordinateFunction
+class MaskCoordinateFunction : public ICloneable
 {
 public:
     MaskCoordinateFunction(size_t rank);

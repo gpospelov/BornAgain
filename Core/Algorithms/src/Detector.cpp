@@ -7,7 +7,7 @@
 // c-tors, assignment operators, swap
 /* ************************************************************************* */
 Detector::Detector()
-: mp_detector_resolution(0)
+: m_axes(), mp_detector_resolution(0)
 {
     setName("Detector");
     init_parameters();
@@ -15,10 +15,9 @@ Detector::Detector()
 
 
 Detector::Detector(const Detector &other) : IParameterized()
-, mp_detector_resolution(0)
+, m_axes(other.m_axes), mp_detector_resolution(0)
 {
     setName(other.getName());
-    m_axes = other.m_axes;
     if(other.mp_detector_resolution) mp_detector_resolution = other.mp_detector_resolution->clone();
     init_parameters();
 }

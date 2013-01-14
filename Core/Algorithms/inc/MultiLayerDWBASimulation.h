@@ -16,6 +16,7 @@
 
 #include "LayerDWBASimulation.h"
 
+#include <set>
 #include <map>
 
 class MultiLayer;

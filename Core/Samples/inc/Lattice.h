@@ -18,6 +18,7 @@
 #include "Coordinate3D.h"
 #include "ISelectionRule.h"
 #include "TRange.h"
+#include "FastVector.h"
 
 #include <vector>
 

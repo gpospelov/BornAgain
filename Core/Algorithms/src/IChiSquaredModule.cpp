@@ -18,7 +18,8 @@ IChiSquaredModule::IChiSquaredModule()
 
 
 IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule &other)
-    : mp_real_data(0)
+    : ICloneable()
+    , mp_real_data(0)
     , mp_simulation_data(0)
     , mp_weights(0)
     , mp_squared_function(0)

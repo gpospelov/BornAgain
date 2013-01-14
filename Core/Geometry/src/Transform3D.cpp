@@ -71,6 +71,9 @@ namespace Geometry {
 			   const Point3D<double> & to0,
 			   const Point3D<double> & to1,
 			   const Point3D<double> & to2)
+      : xx_(1), xy_(0), xz_(0), dx_(0),
+        yx_(0), yy_(1), yz_(0), dy_(0),
+        zx_(0), zy_(0), zz_(1), dz_(0)
   /***********************************************************************
    *                                                                     *
    * Name: Transform3D::Transform3D              Date:    24.09.96 *

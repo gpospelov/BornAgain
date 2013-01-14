@@ -3,7 +3,7 @@
 #include "Numeric.h"
 #include "Exceptions.h"
 
-//#include <algorithm>
+#include <algorithm>
 
 AxisDouble::AxisDouble(std::string name)
 : IAxis(name)

@@ -24,8 +24,8 @@
 class INamed
 {
 public:
-    INamed() {}
-    INamed(const std::string &name) : m_name(name) { }
+    INamed() : m_name(), m_title() {}
+    INamed(const std::string &name) : m_name(name), m_title() { }
     INamed(const std::string &name, const std::string &title) : m_name(name), m_title(title) { }
     virtual ~INamed(){}
 

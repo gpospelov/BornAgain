@@ -19,7 +19,8 @@
 #include <map>
 #include <iostream>
 #include <sstream>
-
+#include "Exceptions.h"
+#include <boost/unordered_map.hpp>
 
 namespace Utils {
 
@@ -108,6 +109,44 @@ inline std::string AdjustStringLength(std::string name, int length)
     newstring.resize(length,' ');
     return newstring;
 }
+
+
+/* ************************************************************************* */
+// unordered map of values
+/* ************************************************************************* */
+template<class Key, class Object >
+class UnorderedMap
+{
+public:
+    typedef boost::unordered_map<Key, Object > container_t;
+    typedef typename container_t::iterator iterator;
+    typedef typename container_t::const_iterator const_iterator;
+
+    UnorderedMap() {}
+    virtual ~UnorderedMap(){}
+
+    //UnorderedMap *clone() { return new UnorderedMap(m_value_map); }
+
+    const_iterator begin() { return m_value_map.begin(); }
+    const_iterator end() { return m_value_map.end(); }
+    const Object &find(const Key &key) const
+    {
+        const_iterator pos = m_value_map.find(key);
+        if(pos != m_value_map.end() ) {
+            return (*pos).second;
+        } else {
+            throw RuntimeErrorException("UnorderedMap::find() -> Error! Can't find the object");
+        }
+    }
+
+    size_t size() { return m_value_map.size(); }
+    Object & operator[] (const Key &key) { return m_value_map[key]; }
+
+private:
+    UnorderedMap &operator=(const UnorderedMap &);
+
+    container_t m_value_map;
+};
 
 
 }

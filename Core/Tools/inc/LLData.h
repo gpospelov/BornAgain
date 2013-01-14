@@ -67,10 +67,10 @@ private:
 };
 
 // Global helper functions for arithmetic
-template <class T> LLData<T> &operator+(const LLData<T> &left, const LLData<T> &right);
-template <class T> LLData<T> &operator-(const LLData<T> &left, const LLData<T> &right);
-template <class T> LLData<T> &operator*(const LLData<T> &left, const LLData<T> &right);
-template <class T> LLData<T> &operator/(const LLData<T> &left, const LLData<T> &right);
+template <class T> LLData<T> operator+(const LLData<T> &left, const LLData<T> &right);
+template <class T> LLData<T> operator-(const LLData<T> &left, const LLData<T> &right);
+template <class T> LLData<T> operator*(const LLData<T> &left, const LLData<T> &right);
+template <class T> LLData<T> operator/(const LLData<T> &left, const LLData<T> &right);
 
 // Global helper functions for comparison
 template <class T> bool HaveSameDimensions(const LLData<T> &left, const LLData<T> &right);
@@ -276,28 +276,28 @@ template<class T> void LLData<T>::swapContents(LLData<T> &other)
     std::swap(this->m_data_array, other.m_data_array);
 }
 
-template<class T> LLData<T> &operator+(const LLData<T>& left, const LLData<T>& right)
+template<class T> LLData<T> operator+(const LLData<T>& left, const LLData<T>& right)
 {
     LLData<T> *p_result = new LLData<T>(left);
     (*p_result) += right;
     return *p_result;
 }
 
-template<class T> LLData<T> &operator-(const LLData<T>& left, const LLData<T>& right)
+template<class T> LLData<T> operator-(const LLData<T>& left, const LLData<T>& right)
 {
     LLData<T> *p_result = new LLData<T>(left);
     (*p_result) -= right;
     return *p_result;
 }
 
-template<class T> LLData<T> &operator*(const LLData<T>& left, const LLData<T>& right)
+template<class T> LLData<T> operator*(const LLData<T>& left, const LLData<T>& right)
 {
     LLData<T> *p_result = new LLData<T>(left);
     (*p_result) *= right;
     return *p_result;
 }
 
-template<class T> LLData<T> &operator/(const LLData<T>& left, const LLData<T>& right)
+template<class T> LLData<T> operator/(const LLData<T>& left, const LLData<T>& right)
 {
     LLData<T> *p_result = new LLData<T>(left);
     (*p_result) /= right;

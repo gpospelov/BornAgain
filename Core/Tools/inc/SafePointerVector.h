@@ -51,7 +51,7 @@ private:
     std::vector<T *> m_pointers;
 };
 
-template<class T> SafePointerVector<T>::SafePointerVector()
+template<class T> SafePointerVector<T>::SafePointerVector() : m_pointers()
 {
 }
 

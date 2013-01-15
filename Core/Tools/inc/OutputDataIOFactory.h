@@ -14,25 +14,24 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.10.2012
 
-
-//#include "IFactory.h"
-#include "ISingleton.h"
 #include "OutputDataReader.h"
 #include "OutputDataWriter.h"
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 
 //- -------------------------------------------------------------------
 //! @class OutputDataIOFactory
-//! @brief Define number o
+//! @brief Reads OutputData from files in different format
 //- -------------------------------------------------------------------
-//class OutputDataIOFactory : public ISingleton<OutputDataIOFactory >, public IFactory<std::string, IOutputDataReadStrategy>
-class OutputDataIOFactory : public ISingleton<OutputDataIOFactory >
+class OutputDataIOFactory
 {
 public:
+    typedef boost::shared_ptr<OutputDataReader > OutputDataReader_t;
     OutputDataIOFactory();
 
-    OutputDataReader *getReader(const std::string &file_name) const;
+    static OutputData<double > *getOutputData(const std::string &file_name);
+    static OutputDataReader_t getReader(const std::string &file_name);
 };
 
 #endif // OUTPUTDATAIOFACTORY_H

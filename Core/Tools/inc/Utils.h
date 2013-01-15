@@ -14,12 +14,13 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   19.06.2012
 
-#include <string>
-#include <vector>
-#include <map>
-#include <iostream>
-#include <sstream>
-#include "Exceptions.h"
+#include "Types.h"
+//#include <string>
+//#include <vector>
+//#include <map>
+//#include <iostream>
+//#include <sstream>
+//#include "Exceptions.h"
 #include <boost/unordered_map.hpp>
 
 namespace Utils {
@@ -148,6 +149,13 @@ private:
     container_t m_value_map;
 };
 
+
+class String
+{
+public:
+    static std::string round_doubles(const std::string &str, int precision);
+    static vdouble1d_t parse_doubles(const std::string &str);
+};
 
 }
 

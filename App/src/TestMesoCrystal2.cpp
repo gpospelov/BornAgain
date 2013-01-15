@@ -69,9 +69,9 @@ void TestMesoCrystal2::execute()
     // reading data file
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
     std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
-    OutputDataReader *reader = OutputDataIOFactory::instance().getReader(file_name);
-    OutputData<double > *real_data = reader->getOutputData();
-    delete reader;
+
+    OutputData<double > *real_data = OutputDataIOFactory::getOutputData(file_name);
+
 //    OutputData<double > *real_data_half = doubleBinSize(*real_data);
 //    OutputData<double > *real_data_quarter = doubleBinSize(*real_data_half);
 //    OutputData<double > *real_data_eighth = doubleBinSize(*real_data_quarter);

@@ -3,6 +3,7 @@
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
+#include <iomanip>
 
 std::string Utils::FileSystem::m_relative_path = "in the middle of nowhere";
 
@@ -76,4 +77,39 @@ std::string Utils::FileSystem::GetHomePath()
     path += "/";
     return path;
 }
+
+
+/* ************************************************************************* */
+// double numbers in string will be rounded according to the precision
+// if precision is 6, then 7.2908527770e+03 -> 7.290853e+03
+// (this method is used to compare IsGisaxs and our ASCII files at equal precision)
+/* ************************************************************************* */
+std::string Utils::String::round_doubles(const std::string &str, int precision)
+{
+    std::string newline;
+    std::istringstream is0(str.c_str());
+    double number;
+    while( is0 >> number ) {
+        std::ostringstream os;
+        os << std::scientific << std::setprecision(precision) << number;
+        newline += os.str() + std::string("    ");
+    }
+    return newline;
+}
+
+
+/* ************************************************************************* */
+// parse double values from string to vector of double
+/* ************************************************************************* */
+vdouble1d_t Utils::String::parse_doubles(const std::string &str)
+{
+    vdouble1d_t buff_1d;
+    std::istringstream iss(str);
+    std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(), back_inserter(buff_1d));
+    if( buff_1d.empty() ) {
+        std::cout << "OutputDataReadFileASCII::parse_doubles() -> Warning! No parsed values in 1d vector of doubles." << std::endl;
+    }
+    return buff_1d;
+}
+
 

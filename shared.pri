@@ -76,13 +76,6 @@ isEmpty(FFTW3_INCLUDE): error("missed dependency")
 isEmpty(BOOST_INCLUDE): error("missed dependency")
 isEmpty(BOOST_LIB): error("missed dependency")
 
-
-#INCLUDEPATH =  $${GSL_HEADER} $${FFTW3_HEADER} $${BOOST_HEADER}
-#LIBS = -L$${GSL_LIB} $${FFTW3_LIB} $${BOOST_LIB}
-
-# adding libs we are depending on
-#LIBS += -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread
-
 # here is workaround since JCNS /usr/local doesn't have shared fftw3 (run with 'qmake CONFIG+=JCNS')
 env_jcns_variable = $$(GISASFW_JCNS)
 isEqual(env_jcns_variable, "yes") {
@@ -100,14 +93,12 @@ CONFIG(JCNS) {
 # -----------------------------------------------------------------------------
 # options testing and performance issues
 # -----------------------------------------------------------------------------
-
 # optimization flag used in release builds (the -O2 is the default used by qmake)
 QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which option control warning
 #QMAKE_CXXFLAGS_RELEASE += -O3 -ffast-math -msse3
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -g -O3  # -ffast-math removed because of problems with NaNs
-# uncommenting line below produces non-stripped (very large) libraries
-#QMAKE_STRIP=:
+#QMAKE_STRIP=: # produces non-stripped (very large) libraries
 
 # to compile with GPERFTOOLS support for code profiling
 #CONFIG+=GPERFTOOLS

@@ -55,7 +55,8 @@ SOURCES += \
     src/TestToyExperiment.cpp \
     src/TreeEventStructure.cpp \
     src/ROOTMinimizerFunction.cpp \
-    src/ROOTGSLNLSMinimizer.cpp
+    src/ROOTGSLNLSMinimizer.cpp \
+    ../Tests/FunctionalTests/TestCore/IsGISAXS01/IsGISAXS01.cpp
 
 HEADERS += \
     inc/App.h \
@@ -101,7 +102,8 @@ HEADERS += \
     inc/TestToyExperiment.h \
     inc/TreeEventStructure.h \
     inc/ROOTMinimizerFunction.h \
-    inc/ROOTGSLNLSMinimizer.h
+    inc/ROOTGSLNLSMinimizer.h \
+    ../Tests/FunctionalTests/TestCore/IsGISAXS01/IsGISAXS01.h
 
 INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
 DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc

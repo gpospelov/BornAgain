@@ -93,9 +93,7 @@ void TestMiscellaneous::test_KVectorContainer()
 void TestMiscellaneous::test_OutputDataIOFactory()
 {
     std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
-    OutputDataReader *reader = OutputDataIOFactory::instance().getReader(file_name);
-    OutputData<double > *data = reader->getOutputData();
-    delete reader;
+    OutputData<double > *data = OutputDataIOFactory::getOutputData(file_name);
 
     TCanvas *c1 = new TCanvas("c1","c1",800, 800);
     c1->cd(); gPad->SetRightMargin(0.14);

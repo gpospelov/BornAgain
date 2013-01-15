@@ -5,7 +5,7 @@ TARGET   = ScattCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)
@@ -124,7 +124,8 @@ SOURCES += \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
-    Tools/src/Utils.cpp
+    Tools/src/Utils.cpp \
+    Tools/src/OutputDataReadStrategy.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -282,7 +283,8 @@ HEADERS += \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
-    Tools/inc/FastVector.h
+    Tools/inc/FastVector.h \
+    Tools/inc/OutputDataReadStrategy.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
@@ -290,23 +292,6 @@ DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc .
 contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
    include($$PWD/python_module.pri)
 }
-
-# excluding files with python interface to not to expose library in python
-#!contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
-#  HEADERS -= \
-#    PythonAPI/inc/PythonListConverter.h \
-#    PythonAPI/inc/PythonModule.h \
-#    PythonAPI/inc/PythonOutputData.h \
-#    PythonAPI/inc/PythonPlusplusHelper.h
-
-#  SOURCES -= \
-#    PythonAPI/src/PythonListConverter.cpp \
-#    PythonAPI/src/PythonOutputData.cpp \
-#    PythonAPI/src/PythonPlusplusHelper.cpp
-
-#  INCLUDEPATH -= ./PythonAPI/inc
-#  DEPENDPATH -= ./PythonAPI/inc
-#}
 
 OBJECTS_DIR = obj
 

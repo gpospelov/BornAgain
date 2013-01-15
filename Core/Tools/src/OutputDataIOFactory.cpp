@@ -1,14 +1,14 @@
 #include "OutputDataIOFactory.h"
 #include "Exceptions.h"
 
-OutputDataIOFactory::OutputDataIOFactory()
+
+
+OutputData<double > *OutputDataIOFactory::getOutputData(const std::string &file_name)
 {
+    return getReader(file_name)->getOutputData();
 }
 
-
-
-
-OutputDataReader *OutputDataIOFactory::getReader(const std::string &file_name) const
+OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(const std::string &file_name)
 {
     OutputDataReader *reader = new OutputDataReader( file_name );
     if( file_name.find(".txt.gz") != std::string::npos ) {
@@ -19,5 +19,5 @@ OutputDataReader *OutputDataIOFactory::getReader(const std::string &file_name) c
         std::string info("OutputDataIOFactory::getReader() -> Error. Don't know how to read file '" + file_name+std::string("'"));
         throw LogicErrorException(info);
     }
-    return reader;
+    return OutputDataReader_t(reader);
 }

@@ -364,31 +364,31 @@ void IsGISAXSTools::drawOutputDataChi2Difference2D(const OutputData<double> &lef
 /* ************************************************************************* */
 // write output data (1D or 2D) in ASCII file
 /* ************************************************************************* */
-void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
-        const std::string &filename, int precision)
-{
-    std::ofstream file;
-    file.open(filename.c_str(), std::ios::out);
-    if( !file.is_open() ) {
-        std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing." << std::endl;
-        return;
-        //throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing.");
-    }
-    size_t row_length = output.getAxis(1)->getSize();
-    OutputData<double>::const_iterator it = output.begin();
-    while(it != output.end()) {
-        double z_value = *it++;
-        file << std::scientific << std::setprecision(precision) << z_value << "    ";
-        if(it.getIndex()%row_length==0) {
-            file << std::endl;
-        }
-    }
-    if ( file.bad() ) {
-        throw FileIsBadException("IsGISAXSTools::writeOutputDataToFile() -> Error! File is bad, probably it is a directory.");
-    }
-    file.close();
-    std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Info. File '" << filename << "' successfully created." << std::endl;
-}
+//void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
+//        const std::string &filename, int precision)
+//{
+//    std::ofstream file;
+//    file.open(filename.c_str(), std::ios::out);
+//    if( !file.is_open() ) {
+//        std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing." << std::endl;
+//        return;
+//        //throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing.");
+//    }
+//    size_t row_length = output.getAxis(1)->getSize();
+//    OutputData<double>::const_iterator it = output.begin();
+//    while(it != output.end()) {
+//        double z_value = *it++;
+//        file << std::scientific << std::setprecision(precision) << z_value << "    ";
+//        if(it.getIndex()%row_length==0) {
+//            file << std::endl;
+//        }
+//    }
+//    if ( file.bad() ) {
+//        throw FileIsBadException("IsGISAXSTools::writeOutputDataToFile() -> Error! File is bad, probably it is a directory.");
+//    }
+//    file.close();
+//    std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Info. File '" << filename << "' successfully created." << std::endl;
+//}
 
 
 ///* ************************************************************************* */

@@ -59,8 +59,8 @@ public:
     //! draw relative difference of two 2D OutputData sets
     static void drawOutputDataChi2Difference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title = std::string());
 
-    //! write output data (1D or 2D) in ASCII file
-    static void writeOutputDataToFile(const OutputData<double> &output, const std::string &filename, int precision=10);
+//    // write output data (1D or 2D) in ASCII file
+//    static void writeOutputDataToFile(const OutputData<double> &output, const std::string &filename, int precision=10);
 
 //    // read data from ASCII file (2D assumed) and fill newly created OutputData with it
 //    static OutputData<double> *readOutputDataFromFile(const std::string &filename, int precision=6);

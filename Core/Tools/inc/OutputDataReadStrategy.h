@@ -9,8 +9,8 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   OutputDataReader.h
-//! @brief  Definition of classes from OutputDataReader family
+//! @file   OutputDataReadStrategy.h
+//! @brief  Definition of classes from OutputDataReadStrategy family
 //! @author Scientific Computing Group at FRM II
 //! @date   15.01.2013
 
@@ -22,7 +22,7 @@
 
 //- -------------------------------------------------------------------
 //! @class IOutputDataReadStrategy
-//! @brief Define interface for the strategy of reading OututData from file
+//! @brief Define interface for reading strategy of OutputData from file
 //- -------------------------------------------------------------------
 class IOutputDataReadStrategy
 {
@@ -37,7 +37,7 @@ private:
 
 //- -------------------------------------------------------------------
 //! @class IOutputDataReadStrategyDecorator
-//! @brief Interface for decoration of read strategies with, for example, gzip compression
+//! @brief Interface for decoration of read strategies (e.g. gzip compression)
 //- -------------------------------------------------------------------
 class IOutputDataReadStrategyDecorator : public IOutputDataReadStrategy
 {
@@ -65,7 +65,7 @@ public:
 
 //- -------------------------------------------------------------------
 //! @class OutputDataReadStreamIMA
-//! @brief Define strategy to read OutputData from IsGisaxs *.ima files
+//! @brief Define strategy to read OutputData from IsGISAXS *.ima files
 //! which contains 2D array in the form of [nX] lines of [nY] size
 //- -------------------------------------------------------------------
 class OutputDataReadStreamIMA : public IOutputDataReadStrategy

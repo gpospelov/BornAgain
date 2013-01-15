@@ -16,6 +16,7 @@
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "ResolutionFunction2DSimple.h"
 #include "DrawHelper.h"
+#include "OutputDataIOFactory.h"
 
 #include "TCanvas.h"
 
@@ -75,7 +76,7 @@ void TestMesoCrystal1::execute()
     IsGISAXSTools::setMaximum(1e7);
     IsGISAXSTools::drawOutputDataInPad(*mp_intensity_output, "CONT4 Z", "meso");
 
-    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/ex01_spheres/mesocrystal.ima");
+    OutputDataIOFactory::writeOutputData(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/ex01_spheres/mesocrystal.ima");
 }
 
 /* ************************************************************************* */

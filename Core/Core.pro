@@ -125,7 +125,8 @@ SOURCES += \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
     Tools/src/Utils.cpp \
-    Tools/src/OutputDataReadStrategy.cpp
+    Tools/src/OutputDataReadStrategy.cpp \
+    Tools/src/OutputDataWriteStrategy.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -284,7 +285,8 @@ HEADERS += \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
     Tools/inc/FastVector.h \
-    Tools/inc/OutputDataReadStrategy.h
+    Tools/inc/OutputDataReadStrategy.h \
+    Tools/inc/OutputDataWriteStrategy.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc

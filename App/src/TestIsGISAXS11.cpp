@@ -20,7 +20,7 @@ void TestIsGISAXS11::execute()
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     experiment.runSimulation();
     OutputData<double > *mp_intensity_output = experiment.getOutputDataClone();
-    IsGISAXSTools::writeOutputDataToFile(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-11/this_core_shell_qxqy.ima");
+    OutputDataIOFactory::writeOutputData(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-11/this_core_shell_qxqy.ima");
 }
 
 void TestIsGISAXS11::finalise()

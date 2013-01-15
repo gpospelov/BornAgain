@@ -10,7 +10,7 @@
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
 //! @file   OutputDataReader.h
-//! @brief  Definition of classes from OutputDataReader family
+//! @brief  Definition of OutputDataReader class
 //! @author Scientific Computing Group at FRM II
 //! @date   01.10.2012
 
@@ -32,16 +32,17 @@ public:
     OutputDataReader(IOutputDataReadStrategy *read_strategy) : m_read_strategy(read_strategy) {}
     virtual ~OutputDataReader() { delete m_read_strategy; }
 
-    //! read output data from file
-    OutputData<double > *getOutputData(const std::string &file_name);
-
     //! read output data from file (file name was set already from OutputDataIOFactory)
-    OutputData<double > *getOutputData() { return getOutputData(m_file_name); }
+//    OutputData<double > *getOutputData() { return getOutputData(m_file_name); }
+    OutputData<double > *getOutputData();
 
     //! set concrete reading strategy
     void setStrategy(IOutputDataReadStrategy *read_strategy) { delete m_read_strategy; m_read_strategy = read_strategy; }
 
 private:
+//    //! read output data from file
+//    OutputData<double > *getOutputData(const std::string &file_name);
+
     std::string m_file_name;
     IOutputDataReadStrategy *m_read_strategy;
 };

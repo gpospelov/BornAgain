@@ -7,6 +7,7 @@
 #include "SampleFactory.h"
 #include "TestMesoCrystal1.h"
 #include "OutputDataFunctions.h"
+#include "OutputDataIOFactory.h"
 
 TestFourier::TestFourier()
 : mp_intensity_output(0)
@@ -41,8 +42,9 @@ void TestFourier::execute()
     OutputDataFunctions::fourierTransformR(fft_map, mp_intensity_output);
     IsGISAXSTools::drawOutputData(*p_real_fft_map, "c1_four", "Fourier transform",
             "CONT4 Z", "Fourier transform");
-    IsGISAXSTools::writeOutputDataToFile(*p_real_fft_map, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/fourier.ima");
+    OutputDataIOFactory::writeOutputData(*p_real_fft_map, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/fourier.ima");
 }
+
 
 void TestFourier::initializeSample()
 {

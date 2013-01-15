@@ -28,10 +28,17 @@ class OutputDataIOFactory
 {
 public:
     typedef boost::shared_ptr<OutputDataReader > OutputDataReader_t;
+    typedef boost::shared_ptr<OutputDataWriter > OutputDataWriter_t;
+
     OutputDataIOFactory();
 
     static OutputData<double > *getOutputData(const std::string &file_name);
     static OutputDataReader_t getReader(const std::string &file_name);
+
+    static void writeOutputData(const OutputData<double> &data, const std::string &file_name);
+    static OutputDataWriter_t getWriter(const std::string &file_name);
+
+
 };
 
 #endif // OUTPUTDATAIOFACTORY_H

@@ -44,7 +44,7 @@ void TestIsGISAXS9::execute()
     experiment.runSimulation();
     OutputData<double> *data = experiment.getOutputDataClone();
     m_results.push_back( data );
-    IsGISAXSTools::writeOutputDataToFile(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
+    OutputDataIOFactory::writeOutputData(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
     delete p_sample;
 
     // rotated pyramid
@@ -53,7 +53,7 @@ void TestIsGISAXS9::execute()
     experiment.runSimulation();
     data = experiment.getOutputDataClone();
     m_results.push_back( data );
-    IsGISAXSTools::writeOutputDataToFile(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z45.ima");
+    OutputDataIOFactory::writeOutputData(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z45.ima");
     delete p_sample;
 }
 

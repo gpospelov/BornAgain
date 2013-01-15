@@ -29,14 +29,14 @@ void TestIsGISAXS4::execute()
     MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_1DDL"));
     experiment.setSample(*p_sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_1DDL.ima");
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_1DDL.ima");
     delete p_sample;
 
     // 2DDL
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_2DDL"));
     experiment.setSample(*p_sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDLh.ima");
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_2DDLh.ima");
     delete p_sample;
 }
 

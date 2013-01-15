@@ -97,7 +97,7 @@ void TestIsGISAXS12::run_isgisaxs_comparison()
 {
     // run simulation for default sample parameters
     m_experiment->runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*(m_experiment->getOutputData()), m_data_path+"this_fitconstraints.ima");
+    OutputDataIOFactory::writeOutputData(*(m_experiment->getOutputData()), m_data_path+"this_fitconstraints.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters
     std::string isgi_file(m_data_path+"isgi_fitconstraints_optimal.ima.gz");

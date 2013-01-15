@@ -26,7 +26,7 @@ void TestIsGISAXS7::execute()
             SampleFactory::instance().createItem("IsGISAXS7_mor"));
     experiment.setSample(*sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_morphology.ima");
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_morphology.ima");
 }
 
 void TestIsGISAXS7::finalise()

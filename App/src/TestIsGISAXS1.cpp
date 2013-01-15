@@ -38,7 +38,7 @@ void TestIsGISAXS1::execute()
 
 void TestIsGISAXS1::finalise()
 {
-    std::string isgi_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/isgi_2-types-of-islands-ewald.ima");
+    std::string isgi_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/isgi_2-types-of-islands-ewald.ima.gz");
     std::string this_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/this_2-types-of-islands-ewald.ima");
 
 //    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_file);

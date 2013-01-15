@@ -25,6 +25,19 @@
 
 namespace Utils {
 
+//- -------------------------------------------------------------------
+//! @class String
+//! @brief Collection of utilities for std::string
+//- -------------------------------------------------------------------
+class String
+{
+public:
+    //! parse double values from string to vector of double
+    static vdouble1d_t parse_doubles(const std::string &str);
+    //! assuming that string consist of doubles return new string where doubles are rounded according to the precision
+    static std::string round_doubles(const std::string &str, int precision);
+};
+
 
 //- -------------------------------------------------------------------
 //! @class StringUsageMap
@@ -96,6 +109,14 @@ public:
     //! set relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
     static void SetRelativePath(const std::string &path) { m_relative_path = path; }
 
+    //! return file extension
+    static std::string GetFileExtension(const std::string &name);
+
+    //! return true if name contains *.gz extension
+    static bool isGZipped(const std::string &name);
+
+    //! return file extension after stripping '.gz' if any
+    static std::string GetFileMainExtension(const std::string &name);
 private:
     static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module
 };
@@ -150,12 +171,6 @@ private:
 };
 
 
-class String
-{
-public:
-    static std::string round_doubles(const std::string &str, int precision);
-    static vdouble1d_t parse_doubles(const std::string &str);
-};
 
 }
 

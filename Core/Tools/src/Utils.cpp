@@ -5,7 +5,41 @@
 #include <boost/filesystem.hpp>
 #include <iomanip>
 
-std::string Utils::FileSystem::m_relative_path = "in the middle of nowhere";
+std::string Utils::FileSystem::m_relative_path = "relative path is undefined";
+
+
+/* ************************************************************************* */
+// parse double values from string to vector of double
+/* ************************************************************************* */
+vdouble1d_t Utils::String::parse_doubles(const std::string &str)
+{
+    vdouble1d_t buff_1d;
+    std::istringstream iss(str);
+    std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(), back_inserter(buff_1d));
+    if( buff_1d.empty() ) {
+        std::cout << "OutputDataReadFileASCII::parse_doubles() -> Warning! No parsed values in 1d vector of doubles." << std::endl;
+    }
+    return buff_1d;
+}
+
+
+/* ************************************************************************* */
+// double numbers in string will be rounded according to the precision
+// if precision is 6, then 7.2908527770e+03 -> 7.290853e+03
+// (this method is used to compare IsGisaxs and our ASCII files at equal precision)
+/* ************************************************************************* */
+std::string Utils::String::round_doubles(const std::string &str, int precision)
+{
+    std::string newline;
+    std::istringstream is0(str.c_str());
+    double number;
+    while( is0 >> number ) {
+        std::ostringstream os;
+        os << std::scientific << std::setprecision(precision) << number;
+        newline += os.str() + std::string("    ");
+    }
+    return newline;
+}
 
 
 //! return true if text matches wildcards
@@ -39,14 +73,14 @@ bool Utils::StringMatchText::WildcardPattern(const std::string &text, std::strin
 }
 
 
-//! return path to the current (working) directory
+// return path to the current (working) directory
 std::string Utils::FileSystem::GetWorkingPath()
 {
     return boost::filesystem::current_path().string();
 }
 
 
-//! return path to GISASFW home directory
+// return path to GISASFW home directory
 std::string Utils::FileSystem::GetHomePath()
 {
     // the path to executable module is: boost::filesystem::current_path() + argv[0]
@@ -79,37 +113,28 @@ std::string Utils::FileSystem::GetHomePath()
 }
 
 
-/* ************************************************************************* */
-// double numbers in string will be rounded according to the precision
-// if precision is 6, then 7.2908527770e+03 -> 7.290853e+03
-// (this method is used to compare IsGisaxs and our ASCII files at equal precision)
-/* ************************************************************************* */
-std::string Utils::String::round_doubles(const std::string &str, int precision)
+// return file extension
+std::string Utils::FileSystem::GetFileExtension(const std::string &name)
 {
-    std::string newline;
-    std::istringstream is0(str.c_str());
-    double number;
-    while( is0 >> number ) {
-        std::ostringstream os;
-        os << std::scientific << std::setprecision(precision) << number;
-        newline += os.str() + std::string("    ");
-    }
-    return newline;
+    return boost::filesystem::extension(name.c_str());
 }
 
-
-/* ************************************************************************* */
-// parse double values from string to vector of double
-/* ************************************************************************* */
-vdouble1d_t Utils::String::parse_doubles(const std::string &str)
+// return true if name contains *.gz extension
+bool Utils::FileSystem::isGZipped(const std::string &name)
 {
-    vdouble1d_t buff_1d;
-    std::istringstream iss(str);
-    std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(), back_inserter(buff_1d));
-    if( buff_1d.empty() ) {
-        std::cout << "OutputDataReadFileASCII::parse_doubles() -> Warning! No parsed values in 1d vector of doubles." << std::endl;
-    }
-    return buff_1d;
+    static const std::string gzip_extension(".gz");
+    if ( Utils::FileSystem::GetFileExtension(name) == gzip_extension) return true;
+    return false;
 }
 
+// return file main extension (without .gz)
+std::string Utils::FileSystem::GetFileMainExtension(const std::string &name)
+{
+    if( !isGZipped(name) ) {
+        return Utils::FileSystem::GetFileExtension(name);
+    } else {
+        std::string stripped_name = name.substr(0, name.size()-3);
+        return Utils::FileSystem::GetFileExtension(stripped_name);
+    }
+}
 

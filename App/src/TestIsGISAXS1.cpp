@@ -16,12 +16,6 @@
 
 
 
-////std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
-//std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
-//OutputDataReader *reader = OutputDataIOFactory::instance().getReader(file_name);
-//OutputData<double > *real_data = reader->getOutputData();
-
-
 void TestIsGISAXS1::execute()
 {
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS1_CylinderAndPrism"));
@@ -41,8 +35,6 @@ void TestIsGISAXS1::finalise()
     std::string isgi_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/isgi_2-types-of-islands-ewald.ima.gz");
     std::string this_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/this_2-types-of-islands-ewald.ima");
 
-//    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_file);
-//    OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_file);
     OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
     OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
 

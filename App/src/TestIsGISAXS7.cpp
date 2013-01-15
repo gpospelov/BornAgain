@@ -7,6 +7,7 @@
 #include "SampleFactory.h"
 #include "IsGISAXSTools.h"
 #include "DrawHelper.h"
+#include "OutputDataIOFactory.h"
 
 
 TestIsGISAXS7::TestIsGISAXS7() : IFunctionalTest("TestIsGISAXS7")
@@ -31,12 +32,12 @@ void TestIsGISAXS7::execute()
 void TestIsGISAXS7::finalise()
 {
     std::vector< CompareStruct > tocompare;
-     tocompare.push_back( CompareStruct("isgi_morphology.ima", "this_morphology.ima",
+     tocompare.push_back( CompareStruct("isgi_morphology.ima.gz", "this_morphology.ima",
              "Morphology file") );
 
      for(size_t i=0; i<tocompare.size(); ++i) {
-         OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].isginame );
-         OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].thisname );
+         OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].isginame);
+         OutputData<double> *our_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].thisname);
 
          std::ostringstream os;
          os<<i;

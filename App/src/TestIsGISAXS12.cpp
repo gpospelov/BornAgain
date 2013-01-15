@@ -24,6 +24,7 @@
 #include "ROOTMinimizer.h"
 #include "OutputDataFunctions.h"
 #include "ExperimentConstants.h"
+#include "OutputDataIOFactory.h"
 
 #include <iostream>
 #include <fstream>
@@ -99,14 +100,14 @@ void TestIsGISAXS12::run_isgisaxs_comparison()
     IsGISAXSTools::writeOutputDataToFile(*(m_experiment->getOutputData()), m_data_path+"this_fitconstraints.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters
-    std::string isgi_file(m_data_path+"isgi_fitconstraints_optimal.ima");
+    std::string isgi_file(m_data_path+"isgi_fitconstraints_optimal.ima.gz");
     std::string this_file(m_data_path+"this_fitconstraints.ima");
 
     // -------------
     // plot results
     // -------------
-    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_file);
-    OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
 
     TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS12_c1", "ex-12: Mixture of cylindrical particles with different size distribution");
     c1->Divide(2,2);

@@ -6,6 +6,7 @@
 #include "MultiLayer.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
+#include "OutputDataIOFactory.h"
 
 #include "TCanvas.h"
 
@@ -32,11 +33,11 @@ void TestIsGISAXS10::execute()
 
 void TestIsGISAXS10::finalise()
 {
-    std::string isgi_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-10/isgi_para1dcyl.ima");
+    std::string isgi_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-10/isgi_para1dcyl.ima.gz");
     std::string this_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-10/this_para1dcyl.ima");
 
-    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_file);
-    OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
 
     //TCanvas *c1 = new TCanvas("TestIsGISAXS10_c1", "1D paracrystal cylinder islands", 1024, 768);
     TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS10_c1", "1D paracrystal cylinder islands");

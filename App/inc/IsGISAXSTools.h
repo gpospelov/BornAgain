@@ -62,8 +62,8 @@ public:
     //! write output data (1D or 2D) in ASCII file
     static void writeOutputDataToFile(const OutputData<double> &output, const std::string &filename, int precision=10);
 
-    //! read data from ASCII file (2D assumed) and fill newly created OutputData with it
-    static OutputData<double> *readOutputDataFromFile(const std::string &filename, int precision=6);
+//    // read data from ASCII file (2D assumed) and fill newly created OutputData with it
+//    static OutputData<double> *readOutputDataFromFile(const std::string &filename, int precision=6);
 
     //! set minimum and maximum values of y-axis (for 1D histogram), or z-axis (for 2D histograms)
     static void setMinimum(double hist_min) { m_hist_min = hist_min; m_has_min = true; }

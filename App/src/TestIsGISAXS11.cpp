@@ -6,6 +6,7 @@
 #include "MultiLayer.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
+#include "OutputDataIOFactory.h"
 
 #include "TCanvas.h"
 
@@ -24,11 +25,11 @@ void TestIsGISAXS11::execute()
 
 void TestIsGISAXS11::finalise()
 {
-    std::string isgi_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-11/isgi_core_shell_qxqy.ima");
+    std::string isgi_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-11/isgi_core_shell_qxqy.ima.gz");
     std::string this_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-11/this_core_shell_qxqy.ima");
 
-    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_file);
-    OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
 
     TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS11_c1", "Core shell parallelepiped islands");
     c1->Divide(2,2);

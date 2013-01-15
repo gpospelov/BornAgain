@@ -49,7 +49,7 @@ OutputData<double > *OutputDataReadStreamIMA::readOutputData(std::istream &input
 
     while( std::getline(input_stream, sline))
     {
-        std::string str = Utils::String::round_doubles(sline, 6);
+        std::string str = Utils::String::round_doubles(sline, 10);
         vdouble1d_t buff = Utils::String::parse_doubles(str);
 
         buff_2d.push_back(buff);

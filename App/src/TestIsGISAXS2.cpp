@@ -8,6 +8,7 @@
 #include "MultiLayer.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
+#include "OutputDataIOFactory.h"
 
 
 #include "TCanvas.h"
@@ -37,11 +38,11 @@ void TestIsGISAXS2::execute()
 
 void TestIsGISAXS2::finalise()
 {
-    std::string isgi_file(m_data_path+"isgi_bimodal.ima");
+    std::string isgi_file(m_data_path+"isgi_bimodal.ima.gz");
     std::string this_file(m_data_path+"this_bimodal.ima");
 
-    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_file);
-    OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
 
     TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS2_c1", "Mixture of cylindrical particles with different size distribution");
 

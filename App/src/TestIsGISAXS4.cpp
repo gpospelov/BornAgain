@@ -6,6 +6,8 @@
 #include "GISASExperiment.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
+#include "OutputDataIOFactory.h"
+
 
 #include "TCanvas.h"
 #include <gsl/gsl_errno.h>
@@ -42,12 +44,12 @@ void TestIsGISAXS4::execute()
 void TestIsGISAXS4::finalise()
 {
     std::vector< CompareStruct > tocompare;
-    tocompare.push_back( CompareStruct("isgi_1DDL.ima",      "this_1DDL.ima",      "Cylinder 1DDL") );
-    tocompare.push_back( CompareStruct("isgi_2DDLh.ima",      "this_2DDLh.ima",      "Cylinder 2DDL") );
+    tocompare.push_back( CompareStruct("isgi_1DDL.ima.gz",      "this_1DDL.ima",      "Cylinder 1DDL") );
+    tocompare.push_back( CompareStruct("isgi_2DDLh.ima.gz",      "this_2DDLh.ima",      "Cylinder 2DDL") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].isginame );
-        OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].thisname );
+        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].isginame);
+        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].thisname);
 
         std::ostringstream os;
         os<<i;

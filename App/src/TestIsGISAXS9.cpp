@@ -6,6 +6,7 @@
 #include "GISASExperiment.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
+#include "OutputDataIOFactory.h"
 
 #include "TCanvas.h"
 
@@ -60,8 +61,8 @@ void TestIsGISAXS9::execute()
 void TestIsGISAXS9::finalise()
 {
     std::vector<std::string > isgi_files;
-    isgi_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/isgi_pyramid_Z0.ima");
-    isgi_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/isgi_pyramid_Z45.ima");
+    isgi_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/isgi_pyramid_Z0.ima.gz");
+    isgi_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/isgi_pyramid_Z45.ima.gz");
 
     std::vector<std::string > this_files;
     this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
@@ -72,8 +73,10 @@ void TestIsGISAXS9::finalise()
     canvaces[1] = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS9_c2", "Pyramid DWBA formfactor");
 
     for(int i_comparison=0; i_comparison<2; i_comparison++) {
-        OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_files[i_comparison], 10);
-        OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_files[i_comparison], 10);
+        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_files[i_comparison]);
+        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_files[i_comparison]);
+//        OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_files[i_comparison], 10);
+//        OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_files[i_comparison], 10);
 
         TCanvas *c1 = canvaces[i_comparison];
         c1->Divide(2,2);

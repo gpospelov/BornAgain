@@ -12,21 +12,27 @@
 #include "TStyle.h"
 #include "OutputDataIOFactory.h"
 
+#include "IsGISAXS01.h"
 #include <fstream>
 
 
 
 void TestIsGISAXS1::execute()
 {
-    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS1_CylinderAndPrism"));
+//    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS1_CylinderAndPrism"));
 
-    GISASExperiment experiment(mp_options);
-    experiment.setSample(*sample);
-    experiment.setDetectorParameters(100,-1.0*Units::degree, 1.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    experiment.runSimulation();
+//    GISASExperiment experiment(mp_options);
+//    experiment.setSample(*sample);
+//    experiment.setDetectorParameters(100,-1.0*Units::degree, 1.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+//    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+//    experiment.runSimulation();
 
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/this_2-types-of-islands-ewald.ima");
+//    FunctionalTests::IsGISAXS01 test;
+
+    FunctionalTests::IsGISAXS01 test;
+    test.run();
+
+    OutputDataIOFactory::writeOutputData(*test.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/this_2-types-of-islands-ewald.ima");
 }
 
 
@@ -69,6 +75,8 @@ void TestIsGISAXS1::finalise()
 }
 
 
+
+
 //void TestIsGISAXS1::execute()
 //{
 //    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS1_CylinderAndPrism"));
@@ -79,17 +87,17 @@ void TestIsGISAXS1::finalise()
 //    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 //    experiment.runSimulation();
 
-//    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/this_2-types-of-islands-ewald.ima");
+//    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/this_2-types-of-islands-ewald.ima");
 //}
 
 
 //void TestIsGISAXS1::finalise()
 //{
-//    std::string isgi_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/isgi_2-types-of-islands-ewald.ima");
+//    std::string isgi_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/isgi_2-types-of-islands-ewald.ima.gz");
 //    std::string this_file(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-1/this_2-types-of-islands-ewald.ima");
 
-//    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_file);
-//    OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_file);
+//    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
+//    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
 
 //    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS1_c1", "Two particles mean DWBA Formfactor");
 
@@ -120,3 +128,5 @@ void TestIsGISAXS1::finalise()
 //    delete our_data;
 
 //}
+
+

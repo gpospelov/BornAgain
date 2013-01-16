@@ -8,6 +8,7 @@ QT      -= core gui
 
 include($$PWD/../shared.pri)
 
+FUNCTIONAL_TESTS = $$PWD/../Tests/FunctionalTests/TestCore
 
 # -----------------------------------------------------------------------------
 # Our source and headers
@@ -56,7 +57,7 @@ SOURCES += \
     src/TreeEventStructure.cpp \
     src/ROOTMinimizerFunction.cpp \
     src/ROOTGSLNLSMinimizer.cpp \
-    ../Tests/FunctionalTests/TestCore/IsGISAXS01/IsGISAXS01.cpp
+    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp
 
 HEADERS += \
     inc/App.h \
@@ -103,13 +104,16 @@ HEADERS += \
     inc/TreeEventStructure.h \
     inc/ROOTMinimizerFunction.h \
     inc/ROOTGSLNLSMinimizer.h \
-    ../Tests/FunctionalTests/TestCore/IsGISAXS01/IsGISAXS01.h
+    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h
 
-INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
-DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
+#INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
+#DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
+
+LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01
+INCLUDEPATH += $${LOCATIONS}
+DEPENDPATH  += $${LOCATIONS}
 
 OBJECTS_DIR = obj
-
 
 # -----------------------------------------------------------------------------
 # generating package dependency flags

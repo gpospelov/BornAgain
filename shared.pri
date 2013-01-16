@@ -1,5 +1,3 @@
-# common configuration for all packages
-
 # -----------------------------------------------------------------------------
 # checking common prerequisites
 # -----------------------------------------------------------------------------
@@ -11,10 +9,8 @@ lessThan(QT_VERSION, 4.5) {
   error("Unknown operation system")
 }
 
-
 # -----------------------------------------------------------------------------
-# to compile in debug mode
-# 'export GISASFW_DEBUG=yes' to have automatic compilation in debug mode
+# to compile in debug mode define environment variable 'export GISASFW_DEBUG=yes'
 # -----------------------------------------------------------------------------
 env_debug_variable = $$(GISASFW_DEBUG)
 isEqual(env_debug_variable, "yes") {
@@ -25,6 +21,7 @@ isEqual(env_debug_variable, "yes") {
 # -----------------------------------------------------------------------------
 # general external libraries
 # -----------------------------------------------------------------------------
+
 # --- checking gsl header ---
 GSL_HEADERFILE = gsl/gsl_sf_bessel.h
 GSL_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
@@ -88,10 +85,15 @@ CONFIG(JCNS) {
   LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_signals  -lboost_filesystem -lboost_regex -lboost_thread
 }
 
-
+# -----------------------------------------------------------------------------
+# general include path
+# -----------------------------------------------------------------------------
+LOCATIONS = $$PWD/Core/Algorithms/inc $$PWD/Core/FormFactors/inc $$PWD/Core/Geometry/inc $$PWD/Core/Samples/inc $$PWD/Core/Tools/inc $$PWD/Core/PythonAPI/inc
+INCLUDEPATH += $${LOCATIONS}
+DEPENDPATH  += $${LOCATIONS}
 
 # -----------------------------------------------------------------------------
-# options testing and performance issues
+# options for testing and performance issues
 # -----------------------------------------------------------------------------
 # optimization flag used in release builds (the -O2 is the default used by qmake)
 QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which option control warning

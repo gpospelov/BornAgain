@@ -288,8 +288,8 @@ HEADERS += \
     Tools/inc/OutputDataReadStrategy.h \
     Tools/inc/OutputDataWriteStrategy.h
 
-INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
-DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
+#INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
+#DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
 
 contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
    include($$PWD/python_module.pri)

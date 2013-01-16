@@ -15,9 +15,6 @@
 //! @date   Jun 28, 2012
 
 #include "IFunctionalTest.h"
-#include "OutputData.h"
-#include "ISample.h"
-
 
 //- -------------------------------------------------------------------
 //! @class TestIsGISAXS1
@@ -26,12 +23,11 @@
 class TestIsGISAXS1 : public IFunctionalTest
 {
 public:
-    TestIsGISAXS1(){}
-    virtual ~TestIsGISAXS1(){}
+    TestIsGISAXS1() { }
+    virtual ~TestIsGISAXS1() { }
 
     virtual void execute();
     virtual void finalise();
-
 };
 
 

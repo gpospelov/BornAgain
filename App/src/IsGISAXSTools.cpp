@@ -3,6 +3,7 @@
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "ExperimentConstants.h"
+#include "DrawHelper.h"
 
 #include "TCanvas.h"
 #include "TH1D.h"
@@ -604,3 +605,35 @@ OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData
     return real_data;
 }
 
+
+void IsGISAXSTools::drawOutputDataComparisonResults(const OutputData<double> &data, const OutputData<double> &reference, const std::string &name, const std::string &title)
+{
+    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas(name, title);
+    c1->Divide(2,2);
+
+    // our calculations
+    c1->cd(1); gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::setMinimum(1.0);
+    IsGISAXSTools::drawOutputDataInPad(data, "CONT4 Z", "this");
+
+    // isgisaxs data
+    c1->cd(2); gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::drawOutputDataInPad(reference, "CONT4 Z", "isgi");
+
+    // difference
+    c1->cd(3);
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::setMinimum(-0.0001);
+    IsGISAXSTools::setMaximum(0.0001);
+    IsGISAXSTools::drawOutputDataRelativeDifference2D(data, reference, "CONT4 Z", "2D Difference map");
+
+    // difference
+    c1->cd(4);
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::resetMinimumAndMaximum();
+    IsGISAXSTools::setMinimum(1);
+    IsGISAXSTools::drawOutputDataDifference1D(data, reference, "", "Difference spectra");
+
+}

@@ -16,6 +16,8 @@ def run_command(command):
 
 # parse stdout, stderr for test description and test result
 def parse_output(testName, stdout, stderr):
+    # normally the message from test looks like "IsGISAXS01 Mixture of cylinders and prisms [OK]"
+    # we want to find status (FAILED or OK) and extract description "Mixture of cylinders and prisms"
     status="OK"
     for line in stderr:
         status="FAILED" # test failed, if there are some non empty stderr messages

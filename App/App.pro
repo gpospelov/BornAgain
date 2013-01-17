@@ -2,9 +2,7 @@ TEMPLATE = app
 CONFIG  += console
 CONFIG  -= qt
 CONFIG  -= app_bundle
-#CONFIG  += debug
 QT      -= core gui
-#CONFIG += GPERFTOOLS # to compile with GPERFTOOLS support for code profiling
 
 include($$PWD/../shared.pri)
 
@@ -40,6 +38,7 @@ SOURCES += \
     src/TestIsGISAXS2.cpp \
     src/TestIsGISAXS3.cpp \
     src/TestIsGISAXS4.cpp \
+    src/TestIsGISAXS5.cpp \
     src/TestIsGISAXS7.cpp \
     src/TestIsGISAXS8.cpp \
     src/TestIsGISAXS9.cpp \
@@ -57,7 +56,8 @@ SOURCES += \
     src/TreeEventStructure.cpp \
     src/ROOTMinimizerFunction.cpp \
     src/ROOTGSLNLSMinimizer.cpp \
-    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp
+    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp \
+    src/IsGISAXSData.cpp
 
 HEADERS += \
     inc/App.h \
@@ -87,6 +87,7 @@ HEADERS += \
     inc/TestIsGISAXS2.h \
     inc/TestIsGISAXS3.h \
     inc/TestIsGISAXS4.h \
+    inc/TestIsGISAXS5.h \
     inc/TestIsGISAXS7.h \
     inc/TestIsGISAXS8.h \
     inc/TestIsGISAXS9.h \
@@ -104,11 +105,10 @@ HEADERS += \
     inc/TreeEventStructure.h \
     inc/ROOTMinimizerFunction.h \
     inc/ROOTGSLNLSMinimizer.h \
-    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h
+    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
+    inc/IsGISAXSData.h
 
-#INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
-#DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
-
+# additional locations
 LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}
@@ -121,13 +121,10 @@ OBJECTS_DIR = obj
 MY_DEPENDENCY_LIB = ScattCore
 MY_DEPENDENCY_DEST =$$PWD/..
 SONAME = so
-#INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc
 for(dep, MY_DEPENDENCY_LIB) {
     LIBS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
     PRE_TARGETDEPS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-#    INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
 }
-
 
 # -----------------------------------------------------------------------------
 # adding ROOT libraries
@@ -147,7 +144,6 @@ isEmpty(MYROOT) {
   LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
   MYROOTCINT = $${MYROOT}/bin/rootcint
 }
-
 
 # -----------------------------------------------------------------------------
 # Hand made addition to generate root dictionaries in the

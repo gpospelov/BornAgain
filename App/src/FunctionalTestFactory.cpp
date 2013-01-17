@@ -14,6 +14,7 @@
 #include "TestIsGISAXS10.h"
 #include "TestIsGISAXS11.h"
 #include "TestIsGISAXS12.h"
+#include "TestIsGISAXS15.h"
 #include "TestConvolution.h"
 #include "TestDetectorResolution.h"
 #include "TestMesoCrystal1.h"
@@ -66,6 +67,8 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: isgisaxs ex-11 (core shell parallelopiped islands on top of substrate)");
     registerItem("isgisaxs12",  IFactoryCreateFunction<TestIsGISAXS12, IFunctionalTest>,
                  "functional test: isgisaxs ex-12 (constrained fit example)");
+    registerItem("isgisaxs15",  IFactoryCreateFunction<TestIsGISAXS15, IFunctionalTest>,
+                 "functional test: isgisaxs ex-15 (size-spacing correlation approximation)");
     registerItem("convolution", IFactoryCreateFunction<TestConvolution, IFunctionalTest>,
                  "functional test: test of convolution via fft");
     registerItem("detectorresolution", IFactoryCreateFunction<TestDetectorResolution, IFunctionalTest>,

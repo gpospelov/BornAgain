@@ -818,7 +818,8 @@ ISample *StandardSamples::IsGISAXS15_SSCA()
     Particle particle_prototype(n_particle, new FormFactorCylinder(5.0*Units::nanometer, 5.0*Units::nanometer));
     StochasticSampledParameter stochastic_radius(StochasticDoubleGaussian(5.0*Units::nanometer, 1.25*Units::nanometer),
             30, 2);
-    ParticleBuilder particle_builder(particle_prototype, "radius", stochastic_radius);
+    ParticleBuilder particle_builder;
+    particle_builder.setPrototype(particle_prototype, "/Particle/FormFactorCylinder/radius", stochastic_radius);
     particle_builder.plantParticles(particle_decoration);
     particle_decoration.addInterferenceFunction(p_interference_function);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);

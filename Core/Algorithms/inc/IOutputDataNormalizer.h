@@ -35,8 +35,7 @@ class OutputDataNormalizerScaleAndShift : public IOutputDataNormalizer
 {
 public:
     OutputDataNormalizerScaleAndShift();
-    OutputDataNormalizerScaleAndShift(double scale, double shift);
-    OutputDataNormalizerScaleAndShift(const OutputDataNormalizerScaleAndShift &other);
+    OutputDataNormalizerScaleAndShift(double scale, double shift, double max_intensity=0);
     virtual ~OutputDataNormalizerScaleAndShift() {}
 
     virtual OutputData<double> *createNormalizedData(const OutputData<double > &data) const;

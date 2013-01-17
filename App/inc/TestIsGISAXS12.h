@@ -66,18 +66,21 @@ private:
     //! run standard isgisaxs comparison
     void run_isgisaxs_comparison();
 
-    //! run isgisaxs ex-12 style fit
-    void run_isgisaxs_fit();
-
     //! plot IsGISAXS data and IsGISAXS fit results
     void plot_isgisaxs_fit_results();
 
-    //! run test minimizer to check whole chain
-    void run_test_minimizer();
+    //! run isgisaxs ex-12 style fit
+    void run_isgisaxs_fit();
+
+    // -------------------------------
+    // additional tests for debugging
+    // -------------------------------
 
     //! run chi module test on isgisaxs data/result pair to check module numericaly
     void run_test_chimodule();
-
+    //! run test minimizer to check whole chain
+    void run_test_minimizer();
+    //!  print axes
     void print_axes(IsGISAXSData::DataSet_t &data);
 
     GISASExperiment *m_experiment;

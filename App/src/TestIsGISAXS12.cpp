@@ -75,16 +75,15 @@ void TestIsGISAXS12::execute()
 //    run_isgisaxs_comparison();
 
     // plot IsGISAXS data and IsGISAXS fit results
-    plot_isgisaxs_fit_results();
+//    plot_isgisaxs_fit_results();
 
-    // run test fit
-//    run_test_minimizer();
 
     // run isgisaxs ex-12 style fit
-//   run_isgisaxs_fit();
+   //run_isgisaxs_fit();
 
-//    run_test_chimodule();
-
+    // additional tests for debugging
+    //run_test_minimizer(); // run test minimizer
+    run_test_chimodule(); // run test
 }
 
 
@@ -115,169 +114,6 @@ void TestIsGISAXS12::run_isgisaxs_comparison()
 
 
 /* ************************************************************************* */
-// run isgisaxs ex-12 style fit
-/* ************************************************************************* */
-void TestIsGISAXS12::run_isgisaxs_fit()
-{
-    // reading info about two 1D scans defined in isgisaxs example
-    IsGISAXSData::DataSet_t isgi_scans;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans);
-
-    // creating fit suite
-    m_fitSuite = new FitSuite();
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit", "") );
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Fumili", "") );
-    m_fitSuite->attachObserver( new FitSuiteObserverPrint(10) );
-    m_fitSuite->attachObserver( new FitSuiteObserverDraw(10) );
-
-    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
-    minim->SetPrintLevel(4);
-    minim->SetMaxIterations(400);
-    minim->SetTolerance(0.1);
-
-    //minim->SetPrecision(0.004);
-//    minim->SetStrategy(1);
-//    minim->SetPrecision(1.);
-
-    m_fitSuite->addFitParameter("*Normalizer/scale", 1e5, 1, AttLimits::limited(1e4, 2e5));
-    m_fitSuite->addFitParameter("*Normalizer/shift", 10, 0.01, AttLimits::limited(1., 20.));
-
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability1",  0.4, 0.01, AttLimits::limited(0.01, 1.0) );
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(1., 10.) );
-    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2, 0.01, AttLimits::limited(0.01, 1.) );
-    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  0.8, 0.01, AttLimits::limited(0.01, 10.) );
-
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability2",  0.6, 0.01, AttLimits::limited(0.01, 1.0) );
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  4*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(1., 10.) );
-    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2, 0.01, AttLimits::limited(0.01, 1.) );
-    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  0.8, 0.01, AttLimits::limited(0.01, 10.) );
-
-    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(0.01, 50.0) );
-    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(0.01, 10.) );
-
-
-//      m_fitSuite->addFitParameter("*Normalizer/scale", 1.31159E+05, 100, AttLimits::limited(1e4, 2e5));
-//      m_fitSuite->addFitParameter("*Normalizer/shift", -8.10009E-02, 1, AttLimits::limited(-10., 20.));
-
-//      m_fitSuite->addFitParameter("*SampleBuilder/particle_probability1",  5.34055E-01, 0.1, AttLimits::limited(0.01, 1.0) );
-//      m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4.90801E+00, 1*Units::nanometer, AttLimits::limited(1., 10.) );
-//      m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  1.90651E-01, 0.1, AttLimits::limited(0.01, 1.) );
-//      m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  1.00193E+00, 0.1, AttLimits::limited(0.01, 10.) );
-
-//      m_fitSuite->addFitParameter("*SampleBuilder/particle_probability2",  4.70783E-01, 0.1, AttLimits::limited(0.01, 1.0) );
-//      m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  5.16801E+00, 1*Units::nanometer, AttLimits::limited(1., 10.) );
-//      m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  2.03908E-01, 0.1, AttLimits::limited(0.01, 1.) );
-//      m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  9.77402E-01, 0.1, AttLimits::limited(0.01, 10.) );
-
-//      m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  1.49681E+01, 1*Units::nanometer, AttLimits::limited(0.01, 50.0) );
-//      m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  3.03315E+00, 1*Units::nanometer, AttLimits::limited(0.01, 10.) );
-
-    // setting up fitSuite
-    ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
-    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
-
-    for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
-        m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it), chiModule);
-    }
-
-    m_fitSuite->runFit();
-
-    // drawing results
-    TCanvas *c2 = new TCanvas("c2","GISASFW fit results",800,600);
-    c2->Divide(2,2);
-    TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
-    leg1->SetBorderSize(1);
-    leg1->SetFillStyle(0);
-    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
-        c2->cd((int)i_set+1);
-        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
-        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"gisasfw_real");
-        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"gisasfw_simul");
-        hreal->SetLineColor(kBlue);
-        gPad->SetLogy();
-        hreal->DrawCopy();
-        hsimul->DrawCopy("same");
-        if(i_set==0) leg1->AddEntry(hreal,"GISASFW data","lp");
-        if(i_set==0) leg1->AddEntry(hsimul,"GISASFW simul","lp");
-    }
-    c2->cd(1); leg1->Draw();
-    c2->cd(2); leg1->Draw();
-
-    // drawing ratio
-    TLegend *leg2 = new TLegend(0.5,0.6,0.85,0.85);
-    leg2->SetBorderSize(1);
-    leg2->SetFillStyle(0);
-    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
-        c2->cd(3+1);
-        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
-        OutputData<double > *real = obj->getChiSquaredModule()->getRealData()->clone();
-        OutputData<double > *simul = obj->getChiSquaredModule()->getSimulationData()->clone();
-
-        c2->cd((int)(i_set+3));
-        *simul /= *real;
-        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"gisasfw_real_simul_ratio");
-        hratio->DrawCopy();
-        if(i_set==0) {
-            leg2->AddEntry(hratio,"GISASFW simul/real","lp");
-        }
-        delete real;
-        delete simul;
-    }
-    c2->cd(3); leg2->Draw();
-    c2->cd(4); leg2->Draw();
-
-
-    c2->Update();
-}
-
-
-/* ************************************************************************* */
-// run chi module test on isgisaxs data/result pair to check module numericaly
-/* ************************************************************************* */
-void TestIsGISAXS12::run_test_chimodule()
-{
-    IsGISAXSData::DataSet_t isgi_scans;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans);
-
-    IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, true);
-
-    // setting up fitSuite
-    ChiSquaredModule chiModule;
-    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
-    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
-
-    OutputDataNormalizerScaleAndShift normalizer(1.31159E+05, -8.10009E-02);
-
-    double max_intensity(0);
-    for(int i=0; i<(int)isgi_results.size(); ++i) {
-        OutputData<double>::const_iterator cit = std::max_element(isgi_results[i]->begin(), isgi_results[i]->end());
-        max_intensity = std::max(max_intensity, *cit);
-    }
-    std::cout << "XXX " << max_intensity << std::endl;
-    normalizer.setMaximumIntensity(max_intensity);
-
-    chiModule.setOutputDataNormalizer( normalizer );
-
-    double chi_sum(0);
-    for(int i=0; i<(int)isgi_scans.size(); ++i) {
-        chiModule.setRealAndSimulatedData(*isgi_scans[i], *isgi_results[i]);
-        std::cout << " AAA " << isgi_scans.size()*isgi_results[i]->getAllocatedSize() - 12 << std::endl;
-        chiModule.setNdegreeOfFreedom((int)(isgi_scans.size()*isgi_results[i]->getAllocatedSize()) - 12);
-        double chi = 0.5*0.5*chiModule.calculateChiSquared();
-        chi_sum += chi;
-        std::cout << "chi : " << chi << " chi_sum:" << chi_sum << std::endl;
-    }
-    std::cout << "chi_sum " << chi_sum << std::endl;
-
-    return;
-}
-
-
-/* ************************************************************************* */
 // plot IsGISAXS data (*.dat file) and IsGISAXS fit results (*.out file)
 /* ************************************************************************* */
 void TestIsGISAXS12::plot_isgisaxs_fit_results()
@@ -288,9 +124,9 @@ void TestIsGISAXS12::plot_isgisaxs_fit_results()
 
     // reading isgisaxs scans which actually have been used for a fit together with fit results (100 points/scan)
     IsGISAXSData::DataSet_t isgi_scans_smoothed;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed, IsGISAXSData::kData2fit);
     IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, true);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::kSimResult);
 
     print_axes(isgi_scans);
     print_axes(isgi_scans_smoothed);
@@ -356,16 +192,175 @@ void TestIsGISAXS12::plot_isgisaxs_fit_results()
 
 
 /* ************************************************************************* */
-// run test minimizer to check the whole chain
+// run isgisaxs ex-12 style fit
 /* ************************************************************************* */
+void TestIsGISAXS12::run_isgisaxs_fit()
+{
+    // reading info about two 1D scans defined in isgisaxs example
+    IsGISAXSData::DataSet_t isgi_scans;
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::kData2fit);
+
+    // creating fit suite
+    m_fitSuite = new FitSuite();
+    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit", "") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Fumili", "") );
+    m_fitSuite->attachObserver( new FitSuiteObserverPrint(10) );
+    m_fitSuite->attachObserver( new FitSuiteObserverDraw(10) );
+
+//    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
+//    minim->SetPrintLevel(4);
+//    minim->SetMaxIterations(400);
+//    minim->SetTolerance(0.1);
+    //minim->SetPrecision(0.004);
+//    minim->SetStrategy(1);
+//    minim->SetPrecision(1.);
+
+    m_fitSuite->addFitParameter("*Normalizer/scale", 1e5, 1, AttLimits::limited(1e4, 2e5));
+    m_fitSuite->addFitParameter("*Normalizer/shift", 10, 0.01, AttLimits::limited(1., 20.));
+
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability1",  0.4, 0.01, AttLimits::limited(0.01, 1.0) );
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(1., 10.) );
+    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  0.2, 0.01, AttLimits::limited(0.01, 1.) );
+    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  0.8, 0.01, AttLimits::limited(0.01, 10.) );
+
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_probability2",  0.6, 0.01, AttLimits::limited(0.01, 1.0) );
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  4*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(1., 10.) );
+    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  0.2, 0.01, AttLimits::limited(0.01, 1.) );
+    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  0.8, 0.01, AttLimits::limited(0.01, 10.) );
+
+    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(0.01, 50.0) );
+    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(0.01, 10.) );
+
+    //      m_fitSuite->addFitParameter("*Normalizer/scale", 1.31159E+05, 100, AttLimits::limited(1e4, 2e5));
+    //      m_fitSuite->addFitParameter("*Normalizer/shift", -8.10009E-02, 1, AttLimits::limited(-10., 20.));
+
+    //      m_fitSuite->addFitParameter("*SampleBuilder/particle_probability1",  5.34055E-01, 0.1, AttLimits::limited(0.01, 1.0) );
+    //      m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4.90801E+00, 1*Units::nanometer, AttLimits::limited(1., 10.) );
+    //      m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  1.90651E-01, 0.1, AttLimits::limited(0.01, 1.) );
+    //      m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  1.00193E+00, 0.1, AttLimits::limited(0.01, 10.) );
+
+    //      m_fitSuite->addFitParameter("*SampleBuilder/particle_probability2",  4.70783E-01, 0.1, AttLimits::limited(0.01, 1.0) );
+    //      m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  5.16801E+00, 1*Units::nanometer, AttLimits::limited(1., 10.) );
+    //      m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  2.03908E-01, 0.1, AttLimits::limited(0.01, 1.) );
+    //      m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  9.77402E-01, 0.1, AttLimits::limited(0.01, 10.) );
+
+    //      m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  1.49681E+01, 1*Units::nanometer, AttLimits::limited(0.01, 50.0) );
+    //      m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  3.03315E+00, 1*Units::nanometer, AttLimits::limited(0.01, 10.) );
+
+
+    // setting up fitSuite
+    ChiSquaredModule chiModule;
+    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
+    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
+
+    for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
+        m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it), chiModule);
+    }
+
+    m_fitSuite->runFit();
+
+    // drawing results
+    TCanvas *c2 = new TCanvas("c2","GISASFW fit results",800,600);
+    c2->Divide(2,2);
+    TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
+    leg1->SetBorderSize(1);
+    leg1->SetFillStyle(0);
+    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
+        c2->cd((int)i_set+1);
+        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
+        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"gisasfw_real");
+        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"gisasfw_simul");
+        hreal->SetLineColor(kBlue);
+        gPad->SetLogy();
+        hreal->DrawCopy();
+        hsimul->DrawCopy("same");
+        if(i_set==0) leg1->AddEntry(hreal,"GISASFW data","lp");
+        if(i_set==0) leg1->AddEntry(hsimul,"GISASFW simul","lp");
+    }
+    c2->cd(1); leg1->Draw();
+    c2->cd(2); leg1->Draw();
+
+    // drawing ratio
+    TLegend *leg2 = new TLegend(0.5,0.6,0.85,0.85);
+    leg2->SetBorderSize(1);
+    leg2->SetFillStyle(0);
+    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
+        c2->cd(3+1);
+        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
+        OutputData<double > *real = obj->getChiSquaredModule()->getRealData()->clone();
+        OutputData<double > *simul = obj->getChiSquaredModule()->getSimulationData()->clone();
+
+        c2->cd((int)(i_set+3));
+        *simul /= *real;
+        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"gisasfw_real_simul_ratio");
+        hratio->DrawCopy();
+        if(i_set==0) {
+            leg2->AddEntry(hratio,"GISASFW simul/real","lp");
+        }
+        delete real;
+        delete simul;
+    }
+    c2->cd(3); leg2->Draw();
+    c2->cd(4); leg2->Draw();
+
+    c2->Update();
+}
+
+
+/* ************************************************************************* */
+// Various debugging
+/* ************************************************************************* */
+
+// run chi module test on isgisaxs data/result pair to check module numericaly
+void TestIsGISAXS12::run_test_chimodule()
+{
+    IsGISAXSData::DataSet_t isgi_scans;
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::kData2fit);
+
+    IsGISAXSData::DataSet_t isgi_results;
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::kSimResult);
+
+    // setting up fitSuite
+    ChiSquaredModule chiModule;
+    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
+
+    OutputDataNormalizerScaleAndShift normalizer(1.31159E+05, -8.10009E-02);
+
+    double max_intensity(0);
+    for(int i=0; i<(int)isgi_results.size(); ++i) {
+        OutputData<double>::const_iterator cit = std::max_element(isgi_results[i]->begin(), isgi_results[i]->end());
+        max_intensity = std::max(max_intensity, *cit);
+    }
+    std::cout << "XXX " << max_intensity << std::endl;
+    normalizer.setMaximumIntensity(max_intensity);
+//    chiModule.setOutputDataNormalizer( normalizer );
+
+    double chi_sum(0);
+    for(int i=0; i<(int)isgi_scans.size(); ++i) {
+        chiModule.setRealAndSimulatedData(*isgi_scans[i], *isgi_results[i]);
+        std::cout << " AAA " << isgi_scans.size()*isgi_results[i]->getAllocatedSize() - 12 << std::endl;
+        chiModule.setNdegreeOfFreedom((int)(isgi_scans.size()*isgi_results[i]->getAllocatedSize()) - 12);
+        double chi = 0.5*0.5*chiModule.calculateChiSquared();
+        chi_sum += chi;
+        std::cout << "chi : " << chi << " chi_sum:" << chi_sum << std::endl;
+    }
+    std::cout << "chi_sum " << chi_sum << std::endl;
+
+    return;
+}
+
+
+// run test minimizer to check the whole chain
 void TestIsGISAXS12::run_test_minimizer()
 {
     // reading isgisaxs real data
     IsGISAXSData::DataSet_t isgi_scans_smoothed;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans_smoothed, IsGISAXSData::kData2fit);
     // isgisaxs fit results
     IsGISAXSData::DataSet_t isgi_results;
-    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, true);
+    IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_results, IsGISAXSData::kSimResult);
 
     // Putting parameters found by isgisaxs into our sample and run FitSuite once with the help of TestMinimizer to see if
     // our simulation produces numerically same results
@@ -459,7 +454,7 @@ void TestIsGISAXS12::initialiseExperiment()
 
 
 /* ************************************************************************* */
-//
+// Sample Builder
 /* ************************************************************************* */
 TestIsGISAXS12::TestSampleBuilder::TestSampleBuilder()
 // optimal parameters as found by isgisaxs

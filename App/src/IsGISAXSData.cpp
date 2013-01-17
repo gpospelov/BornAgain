@@ -63,9 +63,8 @@ void IsGISAXSData::read_datfile(const std::string &filename, DataSet_t &dataset)
 // if read_fit_results == false, then it loads isgisaxs data to fit
 // if read_fit_results == true, then it loads isgisaxs fit results
 /* ************************************************************************* */
-void IsGISAXSData::read_outfile(const std::string &filename, DataSet_t &dataset, bool read_fit_results)
+void IsGISAXSData::read_outfile(const std::string &filename, DataSet_t &dataset, ItemToRead item)
 {
-
     dataset.clear();
 
     // opening ASCII file
@@ -101,8 +100,7 @@ void IsGISAXSData::read_outfile(const std::string &filename, DataSet_t &dataset,
 
             isgiData.phif = std::asin(buff[kSin_twotheta]);
             isgiData.alphaf = std::asin(buff[kSin_alphaf]);
-            isgiData.intensity = buff[kData2fit];
-            if( read_fit_results ) isgiData.intensity = buff[kGISAXS];
+            isgiData.intensity = buff[item];
 
             isgiScan.push_back(isgiData);
         }

@@ -19,6 +19,7 @@
 #include "ISampleBuilder.h"
 
 class GISASExperiment;
+class FitSuite;
 
 //- -------------------------------------------------------------------
 //! @class TestIsGISAXS5
@@ -31,7 +32,6 @@ public:
     virtual ~TestIsGISAXS5() { }
 
     virtual void execute();
-    virtual void finalise();
 
 private:
 
@@ -57,8 +57,15 @@ private:
     //! run standard isgisaxs comparison
     void run_isgisaxs_comparison();
 
+    //! plot IsGISAXS data and IsGISAXS fit results
+    void plot_isgisaxs_fit_results();
+
+    //! run isgisaxs ex-5 style fit
+    void run_isgisaxs_fit();
+
     GISASExperiment *m_experiment;
     ISampleBuilder *m_sample_builder;
+    FitSuite *m_fitSuite;
 };
 
 #endif // TESTISGISAXS5_H

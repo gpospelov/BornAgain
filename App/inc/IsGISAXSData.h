@@ -27,7 +27,7 @@ class IsGISAXSData
 {
 public:
     typedef SafePointerVector<OutputData<double> >  DataSet_t;
-    enum isgisaxs_keys_outfile {kSin_twotheta, kSin_alphaf, kQx, kQy, kQz, kGISAXS, kData2fit, kErrorbar, kIobs_Icalc, kFitted };
+    enum ItemToRead {kSin_twotheta, kSin_alphaf, kQx, kQy, kQz, kSimResult, kData2fit, kErrorbar, kIobs_Icalc, kFitted };
 
     IsGISAXSData(){}
     ~IsGISAXSData(){}
@@ -43,7 +43,7 @@ public:
     static void read_datfile(const std::string &filename, DataSet_t &dataset);
 
     //!  read special isgisaxs *.out file with isgisaxs fit results
-    static void read_outfile(const std::string &filename, DataSet_t &dataset, bool read_fit_results = false);
+    static void read_outfile(const std::string &filename, DataSet_t &dataset, ItemToRead item = kData2fit);
 
 private:
     //! convert isgisaxs 1d scan to output data 2d object

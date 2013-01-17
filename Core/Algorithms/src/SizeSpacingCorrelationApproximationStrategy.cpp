@@ -1,4 +1,5 @@
 #include "SizeSpacingCorrelationApproximationStrategy.h"
+#include "InterferenceFunction1DParaCrystal.h"
 
 SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy(
         double kappa)
@@ -74,7 +75,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getMeanConjCharacteristic
 complex_t SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribution(
         double qp) const
 {
-    InterferenceFunction1DParaCrystal *p_iff = dynamic_cast<InterferenceFunction1DParaCrystal *>(
+    const InterferenceFunction1DParaCrystal *p_iff = dynamic_cast<const InterferenceFunction1DParaCrystal *>(
             m_interference_functions[0]);
     if (p_iff==0) {
         throw ClassInitializationException("Wrong interference function for SSCA");

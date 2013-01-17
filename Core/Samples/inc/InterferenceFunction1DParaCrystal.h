@@ -26,6 +26,8 @@ public:
 	}
 
     virtual double evaluate(const cvector_t &q) const;
+    //TODO: replace these with strategy pattern for different algorithms
+    complex_t FTGaussianCorrLength(double qpar) const;
 protected:
 	double m_peak_distance;
 	double m_width;
@@ -34,9 +36,6 @@ protected:
 private:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
-
-	//TODO: replace these with strategy pattern for different algorithms
-	complex_t FTGaussianCorrLength(double qpar) const;
 };
 
 

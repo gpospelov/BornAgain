@@ -29,7 +29,7 @@ public:
 
     double getStdDev() const { return m_std_dev; }
 
-    virtual double getFWHM() const { return 2.*m_std_dev*std::sqrt(2.*std::log(2)); }
+    virtual double getFWHM() const { return 2.*m_std_dev*std::sqrt(2.*std::log(2.)); }
 
 private:
     double m_std_dev;

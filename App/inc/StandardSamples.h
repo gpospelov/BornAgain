@@ -28,6 +28,7 @@ ISample *IsGISAXS9_Pyramid();
 ISample *IsGISAXS9_RotatedPyramid();
 ISample *IsGISAXS10_CylindersParacrystal1D();
 ISample *IsGISAXS11_CoreShellParticles();
+ISample *IsGISAXS15_SSCA();
 ISample *MesoCrystal1();
 ISample *MesoCrystal2();
 

@@ -65,7 +65,7 @@ public:
 
     static int F( const gsl_vector * x, void * p, gsl_vector * f ) {
         // p is a pointer to an iterator of functions
-        unsigned int n = f->size;
+        unsigned int n = (unsigned)f->size;
         // need to copy iterator otherwise next time the function is called it wont work
         FuncVector  & funcVec = *( reinterpret_cast< FuncVector *> (p) );
         if (n == 0) return -1;
@@ -79,8 +79,8 @@ public:
     static int Df(  const gsl_vector * x, void * p, gsl_matrix * h) {
 
         // p is a pointer to an iterator of functions
-        unsigned int n = h->size1;
-        unsigned int npar = h->size2;
+        unsigned int n = (unsigned)h->size1;
+        unsigned int npar = (unsigned)h->size2;
         if (n == 0) return -1;
         if (npar == 0) return -2;
         FuncVector  & funcVec = *( reinterpret_cast< FuncVector *> (p) );
@@ -96,8 +96,8 @@ public:
     static int FDf(  const gsl_vector * x, void * p,  gsl_vector * f, gsl_matrix * h) {
         // should be implemented in the function
         // p is a pointer to an iterator of functions
-        unsigned int n = h->size1;
-        unsigned int npar = h->size2;
+        unsigned int n = (unsigned)h->size1;
+        unsigned int npar = (unsigned)h->size2;
         if (n == 0) return -1;
         if (npar == 0) return -2;
         FuncVector  & funcVec = *( reinterpret_cast< FuncVector *> (p) );
@@ -223,7 +223,7 @@ public:
    int Set(const std::vector<Func> & funcVec, const double * x) {
       // create a vector of the fit contributions
       // create function wrapper from an iterator of functions
-      unsigned int npts = funcVec.size();
+      unsigned int npts = (unsigned)funcVec.size();
       if (npts == 0) return -1;
 
       unsigned int npar = funcVec[0].NDim();
@@ -268,7 +268,7 @@ public:
    const double * CovarMatrix() const {
       if (fSolver == 0) return 0;
       if (fCov != 0) gsl_matrix_free(fCov);
-      unsigned int npar = fSolver->fdf->p;
+      unsigned int npar = (unsigned)fSolver->fdf->p;
       fCov = gsl_matrix_alloc( npar, npar );
       static double kEpsrel = 0.0001;
       int ret = gsl_multifit_covar(fSolver->J, kEpsrel, fCov);

@@ -253,8 +253,8 @@ void FitSuiteObserverWriteTree::update(IObservable *subject)
         event->parnames.push_back( (*it)->getName().c_str() );
         event->parfixed.push_back( (*it)->isFixed() );
     }
-    event->niter = fitSuite->getNCall();
-    event->nstrategy = fitSuite->getNStrategy();
+    event->niter = (int)fitSuite->getNCall();
+    event->nstrategy = (int)fitSuite->getNStrategy();
 
     // appending data to the tree
     tree->Fill();

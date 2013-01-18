@@ -17,7 +17,7 @@ double FitSuiteChiSquaredFunction::evaluate(const double *pars)
     m_fit_suite->getFitObjects()->runSimulation();
 
     // caclulate chi2 value
-    int n_free_pars = m_fit_suite->getFitParameters()->getNfreeParameters();
+    int n_free_pars = (int)m_fit_suite->getFitParameters()->getNfreeParameters();
     double chi_squared = m_fit_suite->getFitObjects()->getChiSquaredValue(n_free_pars);
 
     m_fit_suite->notifyObservers();
@@ -104,7 +104,7 @@ void FitSuiteGradientFunction::calculate_residuals(const double *pars)
     //std::cout << " FitSuiteGradientFunction::calculate_residuals() -> Info. " << std::endl;
     runSimulation(pars);
     for(size_t i_data=0; i_data<m_ndatasize; ++i_data) {
-        m_residuals[i_data] = m_fit_suite->getFitObjects()->getResidualValue(i_data);
+        m_residuals[(int)i_data] = m_fit_suite->getFitObjects()->getResidualValue((int)i_data);
         //std::cout << i_data << " " << m_residuals[i_data] << std::endl;
     }
 
@@ -127,7 +127,7 @@ void FitSuiteGradientFunction::calculate_gradients(const double *pars)
         std::vector<double> residuals2;
         residuals2.resize(m_ndatasize);
         for(size_t i_data=0; i_data<m_ndatasize; ++i_data) {
-            residuals2[i_data] = m_fit_suite->getFitObjects()->getResidualValue(i_data);
+            residuals2[i_data] = m_fit_suite->getFitObjects()->getResidualValue((int)i_data);
         }
 
         for(size_t i_data=0; i_data <m_ndatasize; ++i_data) {
@@ -147,7 +147,7 @@ void FitSuiteGradientFunction::runSimulation(const double *pars){
     //std::cout << "XXX simulation " << pars[0] << " " << pars[1] << " " << pars[2] << std::endl;
     m_fit_suite->getFitParameters()->setValues(pars);
     m_fit_suite->getFitObjects()->runSimulation();
-    int n_free_pars = m_fit_suite->getFitParameters()->getNfreeParameters();
+    int n_free_pars = (int)m_fit_suite->getFitParameters()->getNfreeParameters();
     m_fit_suite->getFitObjects()->getChiSquaredValue(n_free_pars);
 }
 

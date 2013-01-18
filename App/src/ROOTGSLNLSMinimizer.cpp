@@ -255,7 +255,7 @@ bool GSLNLSMinimizer::Minimize() {
       return false;
    }
 
-   unsigned int npar = fValues.size();
+   unsigned int npar = (unsigned)fValues.size();
    if (npar == 0 || npar < fDim) {
        MATH_ERROR_MSGVAL("GSLNLSMinimizer::Minimize","Wrong number of parameters",npar);
        return false;
@@ -313,7 +313,7 @@ bool GSLNLSMinimizer::Minimize() {
          std::cout << "----------> Iteration " << iter << " / " << MaxIterations() << " status " << gsl_strerror(status)  << std::endl;
          const double * x = fGSLMultiFit->X();
          if (trFunc.get()) x = trFunc->Transformation(x);
-         int pr = std::cout.precision(18);
+         int pr = (int)std::cout.precision(18);
          std::cout << "            FVAL = " << (*fObjFunc)(x) << std::endl;
          std::cout.precision(pr);
          std::cout << "            X Values : ";
@@ -395,7 +395,7 @@ bool GSLNLSMinimizer::Minimize() {
 
       if (debugLevel >=1 ) {
          std::cout << "GSLNLSMinimizer: Minimum Found" << std::endl;
-         int pr = std::cout.precision(18);
+         int pr = (int)std::cout.precision(18);
          std::cout << "FVAL         = " << fMinVal << std::endl;
          std::cout << "Edm          = " << fEdm    << std::endl;
          std::cout.precision(pr);

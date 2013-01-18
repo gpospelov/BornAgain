@@ -1,5 +1,5 @@
-#ifndef TESTISGISAXS5_H
-#define TESTISGISAXS5_H
+#ifndef TESTISGISAXS13_H
+#define TESTISGISAXS13_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,10 +9,10 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestIsGISAXS5.h
-//! @brief  Definition of TestIsGISAXS5 class for IsGISAXS validation
+//! @file   TestIsGISAXS13.h
+//! @brief  Definition of TestIsGISAXS13 class for IsGISAXS validation
 //! @author Scientific Computing Group at FRM II
-//! @date   16.01.2013
+//! @date   18.01.2013
 
 
 #include "IFunctionalTest.h"
@@ -23,35 +23,18 @@ class FitSuite;
 
 //- -------------------------------------------------------------------
 //! @class TestIsGISAXS
-//! @brief Comparison with IsGISAXS ex-5: LMA fitting of cylinders with
-//! size distribution and 1D paracrystal inderference function.
+//! @brief Comparison with IsGISAXS ex-13: simulating annealing
+//! (cylinders with size distribution and 1D paracrystal inderference function)
 //- -------------------------------------------------------------------
-class TestIsGISAXS5 : public IFunctionalTest
+class TestIsGISAXS13 : public IFunctionalTest
 {
 public:
-    TestIsGISAXS5();
-    virtual ~TestIsGISAXS5() { }
+    TestIsGISAXS13();
+    virtual ~TestIsGISAXS13() { }
 
     virtual void execute();
 
-    //! IsGISAXS ex-5 sample builder
-    class SampleBuilder : public ISampleBuilder
-    {
-    public:
-        SampleBuilder();
-        virtual ISample *buildSample() const;
-    protected:
-        //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-        virtual void init_parameters();
-        double m_particle_radius;
-        double m_dispersion_radius;
-        double m_height_aspect_ratio;
-        double m_interf_distance;
-        double m_interf_width;
-    };
-
 private:
-
     //! initialize experiment
     void initialiseExperiment();
 
@@ -61,7 +44,7 @@ private:
     //! plot IsGISAXS data and IsGISAXS fit results
     void plot_isgisaxs_fit_results();
 
-    //! run isgisaxs ex-5 style fit
+    //! run isgisaxs ex-13 style fit
     void run_isgisaxs_fit();
 
     GISASExperiment *m_experiment;
@@ -69,4 +52,4 @@ private:
     FitSuite *m_fitSuite;
 };
 
-#endif // TESTISGISAXS5_H
+#endif // TESTISGISAXS13_H

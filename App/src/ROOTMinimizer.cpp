@@ -33,8 +33,8 @@ ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::strin
     }
     if( !m_root_minimizer  ) throw NullPointerException("ROOTMinimizer::ROOTMinimizer() -> Error! Can't create minimizer.");
 
-    m_root_minimizer->SetMaxFunctionCalls(20000);
-    m_root_minimizer->SetMaxIterations(20000);
+//    m_root_minimizer->SetMaxFunctionCalls(20000);
+//    m_root_minimizer->SetMaxIterations(20000);
 //    m_root_minimizer->SetPrintLevel(4);
 //    m_root_minimizer->SetTolerance(0.01);
 //    m_root_minimizer->SetPrecision(1e-6);

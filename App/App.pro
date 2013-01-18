@@ -18,6 +18,7 @@ SOURCES += \
     src/FitSuiteHelper.cpp \
     src/FunctionalTestFactory.cpp \
     src/IFunctionalTest.cpp \
+    src/IsGISAXSData.cpp \
     src/IsGISAXSTools.cpp \
     src/main.cpp \
     src/ROOTMinimizer.cpp \
@@ -45,6 +46,7 @@ SOURCES += \
     src/TestIsGISAXS10.cpp \
     src/TestIsGISAXS11.cpp \
     src/TestIsGISAXS12.cpp \
+    src/TestIsGISAXS13.cpp \
     src/TestMesoCrystal1.cpp \
     src/TestMesoCrystal2.cpp \
     src/TestMiscellaneous.cpp \
@@ -56,8 +58,7 @@ SOURCES += \
     src/TreeEventStructure.cpp \
     src/ROOTMinimizerFunction.cpp \
     src/ROOTGSLNLSMinimizer.cpp \
-    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp \
-    src/IsGISAXSData.cpp
+    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp
 
 HEADERS += \
     inc/App.h \
@@ -68,6 +69,7 @@ HEADERS += \
     inc/FitSuiteHelper.h \
     inc/FunctionalTestFactory.h \
     inc/IFunctionalTest.h \
+    inc/IsGISAXSData.h \
     inc/IsGISAXSTools.h \
     inc/ROOTMinimizer.h \
     inc/SampleFactory.h \
@@ -94,6 +96,7 @@ HEADERS += \
     inc/TestIsGISAXS10.h \
     inc/TestIsGISAXS11.h \
     inc/TestIsGISAXS12.h \
+    inc/TestIsGISAXS13.h \
     inc/TestMesoCrystal1.h \
     inc/TestMesoCrystal2.h \
     inc/TestMiscellaneous.h \
@@ -105,8 +108,7 @@ HEADERS += \
     inc/TreeEventStructure.h \
     inc/ROOTMinimizerFunction.h \
     inc/ROOTGSLNLSMinimizer.h \
-    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
-    inc/IsGISAXSData.h
+    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h
 
 # additional locations
 LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01

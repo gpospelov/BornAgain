@@ -88,7 +88,7 @@ CONFIG(JCNS) {
 # -----------------------------------------------------------------------------
 # general include path
 # -----------------------------------------------------------------------------
-LOCATIONS = $$PWD/Core/Algorithms/inc $$PWD/Core/FormFactors/inc $$PWD/Core/Geometry/inc $$PWD/Core/Samples/inc $$PWD/Core/Tools/inc $$PWD/Core/PythonAPI/inc
+LOCATIONS = $$PWD/Core/Algorithms/inc $$PWD/Core/Fitting/inc $$PWD/Core/FormFactors/inc $$PWD/Core/Geometry/inc $$PWD/Core/Samples/inc $$PWD/Core/Tools/inc $$PWD/Core/PythonAPI/inc
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}
 

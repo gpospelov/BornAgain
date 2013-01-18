@@ -43,6 +43,15 @@ SOURCES += \
     Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
     \
+    Fitting/src/FitObject.cpp \
+    Fitting/src/FitParameter.cpp \
+    Fitting/src/FitParameterLinked.cpp \
+    Fitting/src/FitSuiteObjects.cpp \
+    Fitting/src/FitSuiteStrategy.cpp \
+    Fitting/src/FitSuite.cpp \
+    Fitting/src/FitSuiteFunctions.cpp \
+    Fitting/src/FitSuiteParameters.cpp \
+    \
     FormFactors/src/FormFactorBox.cpp \
     FormFactors/src/FormFactorCrystal.cpp \
     FormFactors/src/FormFactorCylinder.cpp \
@@ -100,14 +109,6 @@ SOURCES += \
     Tools/src/CoreOptionsDescription.cpp \
     Tools/src/DoubleToComplexInterpolatingFunction.cpp \
     Tools/src/Exceptions.cpp \
-    Tools/src/FitObject.cpp \
-    Tools/src/FitParameter.cpp \
-    Tools/src/FitParameterLinked.cpp \
-    Tools/src/FitSuite.cpp \
-    Tools/src/FitSuiteFunctions.cpp \
-    Tools/src/FitSuiteObjects.cpp \
-    Tools/src/FitSuiteParameters.cpp \
-    Tools/src/FitSuiteStrategy.cpp \
     Tools/src/IFactory.cpp \
     Tools/src/IObserver.cpp \
     Tools/src/IParameterized.cpp \
@@ -163,6 +164,17 @@ HEADERS += \
     Algorithms/inc/OpticalFresnel.h \
     Algorithms/inc/ResolutionFunction2DSimple.h \
     Algorithms/inc/ThreadInfo.h \
+    \
+    Fitting/inc/AttLimits.h \
+    Fitting/inc/FitObject.h \
+    Fitting/inc/FitParameter.h \
+    Fitting/inc/FitParameterLinked.h \
+    Fitting/inc/FitSuite.h \
+    Fitting/inc/FitSuiteFunctions.h \
+    Fitting/inc/FitSuiteObjects.h \
+    Fitting/inc/FitSuiteParameters.h \
+    Fitting/inc/FitSuiteStrategy.h \
+    Fitting/inc/IMinimizer.h \
     \
     FormFactors/inc/FormFactorBox.h \
     FormFactors/inc/FormFactorCrystal.h \
@@ -235,7 +247,6 @@ HEADERS += \
     \
     Tools/inc/AxisBin.h \
     Tools/inc/AxisDouble.h \
-    Tools/inc/AttLimits.h \
     Tools/inc/Bin.h \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \
@@ -243,20 +254,11 @@ HEADERS += \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
     Tools/inc/DoubleToComplexMap.h \
     Tools/inc/Exceptions.h \
-    Tools/inc/FitObject.h \
-    Tools/inc/FitParameter.h \
-    Tools/inc/FitParameterLinked.h \
-    Tools/inc/FitSuite.h \
-    Tools/inc/FitSuiteFunctions.h \
-    Tools/inc/FitSuiteObjects.h \
-    Tools/inc/FitSuiteParameters.h \
-    Tools/inc/FitSuiteStrategy.h \
     Tools/inc/IAxis.h \
     Tools/inc/IChangeable.h \
     Tools/inc/ICloneable.h \
     Tools/inc/IDoubleToComplexFunction.h \
     Tools/inc/IFactory.h \
-    Tools/inc/IMinimizer.h \
     Tools/inc/INamed.h \
     Tools/inc/IObserver.h \
     Tools/inc/IParameterized.h \

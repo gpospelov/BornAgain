@@ -821,10 +821,16 @@ ISample *StandardSamples::IsGISAXS15_SSCA()
     ParticleBuilder particle_builder;
     particle_builder.setPrototype(particle_prototype, "/Particle/FormFactorCylinder/radius", stochastic_radius);
     particle_builder.plantParticles(particle_decoration);
+
+    // Set height of each particle to its radius (H/R fixed)
+    ParameterPool *p_parameters = particle_decoration.createParameterTree();
+    int nbr_replacements = p_parameters->fixRatioBetweenParameters("height", "radius", 1.0);
+    std::cout << "Number of replacements: " << nbr_replacements << std::endl;
+//    std::cout << *p_parameters << std::endl;
+
     particle_decoration.addInterferenceFunction(p_interference_function);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     p_multi_layer->addLayer(air_layer_decorator);
-
     return p_multi_layer;
 }
 

@@ -80,7 +80,7 @@ public:
     virtual ~TestMinimizer(){}
 
     //! set variable
-    virtual void setParameter(size_t index, const FitParameter *par) { m_values[index] = par->getValue(); }
+    virtual void setParameter(size_t index, const FitParameter *par) { m_values[(int)index] = par->getValue(); }
     virtual void setParameters(const FitSuiteParameters  &/*parameters */) { throw NotImplementedException("TestMinimizer::setParameters() -> Error! Not implemented."); }
 
     //! set function to minimize

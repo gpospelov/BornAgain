@@ -93,7 +93,7 @@ inline double IFormFactor::getHeight() const
 
 inline double IFormFactor::getRadius() const
 {
-    double result = std::sqrt(getVolume()/getHeight());
+    double result = std::sqrt(getVolume()/getHeight()/M_PI);
     return result;
 }
 

@@ -118,15 +118,15 @@ void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
 {
     bool success;
     if( par->isFixed() ) {
-        success=m_root_minimizer->SetFixedVariable(index, par->getName().c_str(), par->getValue());
+        success=m_root_minimizer->SetFixedVariable((int)index, par->getName().c_str(), par->getValue());
     }else if(par->hasLowerAndUpperLimits() ) {
-        success=m_root_minimizer->SetLimitedVariable(index, par->getName().c_str(), par->getValue(), par->getStep(), par->getLowerLimit(), par->getUpperLimit());
+        success=m_root_minimizer->SetLimitedVariable((int)index, par->getName().c_str(), par->getValue(), par->getStep(), par->getLowerLimit(), par->getUpperLimit());
     } else if(par->hasLowerLimit() && !par->hasUpperLimit() ) {
-        success=m_root_minimizer->SetLowerLimitedVariable(index, par->getName().c_str(), par->getValue(), par->getStep(), par->getLowerLimit());
+        success=m_root_minimizer->SetLowerLimitedVariable((int)index, par->getName().c_str(), par->getValue(), par->getStep(), par->getLowerLimit());
     } else if( par->hasUpperLimit() && !par->hasLowerLimit() ) {
-        success=m_root_minimizer->SetUpperLimitedVariable(index, par->getName().c_str(), par->getValue(), par->getStep(), par->getUpperLimit());
+        success=m_root_minimizer->SetUpperLimitedVariable((int)index, par->getName().c_str(), par->getValue(), par->getStep(), par->getUpperLimit());
     } else if( !par->hasUpperLimit() && !par->hasLowerLimit() && !par->isFixed() ) {
-        success=m_root_minimizer->SetVariable(index, par->getName().c_str(), par->getValue(), par->getStep());
+        success=m_root_minimizer->SetVariable((int)index, par->getName().c_str(), par->getValue(), par->getStep());
     } else {
         throw LogicErrorException("ROOTMinimizer::setVariable() -> Strange place... I wish I knew how I got here.");
     }
@@ -161,7 +161,7 @@ void ROOTMinimizer::setFunction(function_chi2_t fun_chi2, size_t nparameters, fu
     } else {
         std::cout << " ROOTMinimizer::setFunction() -> XXX 1.2 making ROOTMinimizerFunction" << std::endl;
         delete m_minfunc;
-        m_minfunc = new ROOTMinimizerFunction(fun_chi2, nparameters);
+        m_minfunc = new ROOTMinimizerFunction(fun_chi2, (int)nparameters);
         m_root_minimizer->SetFunction(*m_minfunc);
     }
 }

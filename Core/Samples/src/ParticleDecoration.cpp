@@ -141,7 +141,7 @@ IInterferenceFunctionStrategy* ParticleDecoration::createStrategy(
     if (n_ifs==1) {
         InterferenceFunction1DParaCrystal *p_iff = dynamic_cast<InterferenceFunction1DParaCrystal *>(
                 m_interference_functions[0]);
-        if (p_iff == 0) {
+        if (p_iff == 0 || p_iff->getKappa() == 0.0) {
             p_strategy = new DecouplingApproximationStrategy();
         }
         else {

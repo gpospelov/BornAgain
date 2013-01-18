@@ -46,7 +46,7 @@ public:
     typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
 
     ROOTMinimizerElementFunction(IMinimizer::function_gradient_t fun_gradient, size_t npars, size_t ndatasize)
-        : ROOT::Math::FitMethodFunction(npars, ndatasize)
+        : ROOT::Math::FitMethodFunction((int)npars, (int)ndatasize)
         , m_fun_gradient(fun_gradient) { }
 
     virtual ~ROOTMinimizerElementFunction(){}
@@ -67,7 +67,7 @@ private:
         //std::cout << "ROOTMinimizerFuncion::DoEval() -> 1.1 ndim:" <<NDim() <<" npoint:" << NPoints() << std::endl;
         double chi2 = 0.0;
         for(size_t i_data=0; i_data<NPoints(); ++i_data) {
-            double  res = DataElement(pars, i_data);
+            double  res = DataElement(pars, (unsigned)i_data);
             chi2 += res*res;
         }
         //std::cout << "ROOTMinimizerFuncion::DoEval() -> 1.2  chi:" <<chi2 << " ndim:" << NDim() << " np:" << NPoints() << std::endl;

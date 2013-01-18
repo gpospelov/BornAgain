@@ -67,6 +67,11 @@ public:
     //! set parameter value, return number of changed parameters
     int setMatchedParametersValue(const std::string &wildcards, double value);
 
+    //! link first parameter to second parameter times a scale factor and return number of changed parameters
+    //! note that the parameters to be linked should match:
+    //! prefix/to_change --> prefix/source
+    int fixRatioBetweenParameters(const std::string &to_change, const std::string &source, double ratio);
+
     //! print parameter pool
     friend std::ostream &operator<<(std::ostream &ostr, const ParameterPool &obj) { obj.print(ostr); return ostr; }
 

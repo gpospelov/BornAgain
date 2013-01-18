@@ -22,7 +22,9 @@ public:
 	InterferenceFunction1DParaCrystal(double peak_distance, double width, double corr_length=0.0);
 	virtual ~InterferenceFunction1DParaCrystal() {}
 	virtual InterferenceFunction1DParaCrystal *clone() const {
-	    return new InterferenceFunction1DParaCrystal(m_peak_distance, m_width, m_corr_length);
+	    InterferenceFunction1DParaCrystal *p_clone = new InterferenceFunction1DParaCrystal(m_peak_distance, m_width, m_corr_length);
+	    p_clone->setKappa(m_kappa);
+	    return p_clone;
 	}
 
 	void setKappa(double kappa) { m_kappa = kappa; }

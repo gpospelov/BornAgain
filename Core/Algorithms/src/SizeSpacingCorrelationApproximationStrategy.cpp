@@ -34,8 +34,8 @@ double SizeSpacingCorrelationApproximationStrategy::evaluate(const cvector_t& k_
     complex_t mcffc = getMeanConjCharacteristicFF(k_i, k_f_bin, alpha_i, alpha_f);
     complex_t p2kappa = getCharacteristicSizeCoupling(qp, 2.0*m_kappa);
     complex_t omega = getCharacteristicDistribution(qp);
-    double interference_intensity = 2.0*( mcff*mcffc*omega/((1.0 - p2kappa*omega)) ).real();
-    return /*diffuse_intensity +*/ interference_intensity;
+    double interference_intensity = 2.0*( mcff*mcffc*omega/(1.0 - p2kappa*omega) ).real();
+    return diffuse_intensity + interference_intensity;
 }
 
 bool SizeSpacingCorrelationApproximationStrategy::checkVectorSizes() const

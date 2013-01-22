@@ -70,12 +70,6 @@ public:
     //! run fitting which may consist of several minimization rounds
     virtual void runFit();
 
-    //! function to minimize
-    //double fittingChiSquaredFunction(const double *pars_current_values);
-
-    //! provides minimizer with gradients wrt parameters for single data element
-    //double fittingGradientFunction(const double *pars_current_values, unsigned int index, double *deriv);
-
     //! return reference to the kit with data
     FitSuiteObjects *getFitObjects() { return &m_fit_objects; }
 

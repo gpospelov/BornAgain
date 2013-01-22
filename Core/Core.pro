@@ -51,6 +51,8 @@ SOURCES += \
     Fitting/src/FitSuite.cpp \
     Fitting/src/FitSuiteFunctions.cpp \
     Fitting/src/FitSuiteParameters.cpp \
+    Fitting/src/MinimizerTest.cpp \
+    Fitting/src/MinimizerScan.cpp \
     \
     FormFactors/src/FormFactorBox.cpp \
     FormFactors/src/FormFactorCrystal.cpp \
@@ -175,6 +177,8 @@ HEADERS += \
     Fitting/inc/FitSuiteParameters.h \
     Fitting/inc/FitSuiteStrategy.h \
     Fitting/inc/IMinimizer.h \
+    Fitting/inc/MinimizerTest.h \
+    Fitting/inc/MinimizerScan.h \
     \
     FormFactors/inc/FormFactorBox.h \
     FormFactors/inc/FormFactorCrystal.h \

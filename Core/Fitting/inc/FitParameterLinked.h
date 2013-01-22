@@ -30,18 +30,17 @@
 class FitParameterLinked : public FitParameter
 {
 public:
-    typedef std::vector<ParameterPool::parameter_t > PoolParameterColl_t;
+    typedef std::vector<ParameterPool::parameter_t > pool_parameters_t;
 
     FitParameterLinked();
     FitParameterLinked(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless(), double error=0.0);
     virtual ~FitParameterLinked(){}
 
     //! set given value for all binded parameters
-    virtual void setValue(double value)
-    {
+    virtual void setValue(double value) {
         FitParameter::setValue(value);
-        for(PoolParameterColl_t::iterator it=m_parametercoll.begin(); it!=m_parametercoll.end(); ++it) {
-            (*it).setValue(value); // setting value for all registered parameters
+        for(pool_parameters_t::iterator it=m_pool_parameters.begin(); it!=m_pool_parameters.end(); ++it) {
+            (*it).setValue(value);
         }
     }
 
@@ -55,14 +54,14 @@ public:
     friend std::ostream &operator<<(std::ostream &ostr, const FitParameterLinked &m) { m.print(ostr); return ostr; }
 
 protected:
-    // disabled copy constructor and assignment operator
-    FitParameterLinked(const FitParameterLinked &other);
-    FitParameterLinked &operator=(const FitParameterLinked &other);
-
     //! print class
     void print(std::ostream &ostr) const;
 
-    PoolParameterColl_t m_parametercoll; //! collection of parameters from parameter pools
+    pool_parameters_t m_pool_parameters; //! collection of parameters from parameter pools
+
+private:
+    FitParameterLinked(const FitParameterLinked &);
+    FitParameterLinked &operator=(const FitParameterLinked &);
 };
 
 #endif // FITMULTIPARAMETER_H

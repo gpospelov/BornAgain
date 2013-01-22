@@ -14,12 +14,11 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   05.10.2012
 
-
-#include "FitParameter.h"
-#include "FitSuiteParameters.h"
 #include <boost/function.hpp>
-#include <map>
 #include "Exceptions.h"
+
+class FitParameter;
+class FitSuiteParameters;
 
 
 //- -------------------------------------------------------------------
@@ -29,107 +28,108 @@
 class IMinimizer
 {
 public:
-    //! signature of function to minimize
+    //! signature of chi squared function to minimize
     typedef boost::function<double(const double *)> function_chi2_t;
-    //! signature of function to minimize with acess to single element residual and gradient
+
+    //! signature of gradient to minimize with acess to single data element residuals
     typedef boost::function<double(const double *, unsigned int, double *)> function_gradient_t;
 
-    IMinimizer(){}
-    virtual ~IMinimizer(){}
-
-    //! set parameter
-    virtual void setParameter(size_t index, const FitParameter *par) = 0;
-    virtual void setParameters(const FitSuiteParameters &parameters) = 0;
-
-    //! set function to minimize
-    virtual void setFunction(function_chi2_t fun_chi2, size_t nparameters, function_gradient_t fun_gradient = function_gradient_t(), size_t ndatasize = 0) = 0;
+    IMinimizer() { }
+    virtual ~IMinimizer() { }
 
     //! run minimization
     virtual void minimize() = 0;
 
+    //! set internal minimizer parameter
+    virtual void setParameter(size_t index, const FitParameter *par);
+
+    //! set internal minimizer parameters using external parameter list
+    virtual void setParameters(const FitSuiteParameters &parameters);
+
+    //! set chi squared function to minimize
+    virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters);
+
+    //! set gradient function to minimize
+    virtual void setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
+
     //! get number of variables to fit
-    virtual size_t getNumberOfVariables() const = 0;
+    virtual size_t getNumberOfVariables() const;
 
     //! return minimum function value
-    virtual double getMinValue() const = 0;
+    virtual double getMinValue() const;
 
     //! return pointer to the parameters values at the minimum
-    virtual double getValueOfVariableAtMinimum(size_t i) const = 0;
+    virtual double getValueOfVariableAtMinimum(size_t i) const;
 
     //! return pointer to the parameters values at the minimum
-    virtual double getErrorOfVariable(size_t i) const = 0;
+    virtual double getErrorOfVariable(size_t i) const;
 
     //! clear resources (parameters) for consecutives minimizations
-    virtual void clear() = 0;
+    virtual void clear();
 
     //! print fit results
-    virtual void printResults() const = 0;
-
+    virtual void printResults() const;
 };
 
 
-
-//- -------------------------------------------------------------------
-//! @class TestMinimizer
-//! @brief Minimizer which calls minimization function once to test whole chain
-//- -------------------------------------------------------------------
-class TestMinimizer : public IMinimizer
+inline void IMinimizer::setParameter(size_t index, const FitParameter *par)
 {
-public:
-    TestMinimizer(){}
-    virtual ~TestMinimizer(){}
+    (void)index;
+    (void)par;
+    throw NotImplementedException("IMinimizer::setParameter() -> Not implemented.");
+}
 
-    //! set variable
-    virtual void setParameter(size_t index, const FitParameter *par) { m_values[index] = par->getValue(); }
-    virtual void setParameters(const FitSuiteParameters  &/*parameters */) { throw NotImplementedException("TestMinimizer::setParameters() -> Error! Not implemented."); }
+inline void IMinimizer::setParameters(const FitSuiteParameters &parameters)
+{
+    (void)parameters;
+    throw NotImplementedException("IMinimizer::setParameters() -> Not implemented.");
+}
 
-    //! set function to minimize
-    virtual void setFunction(function_chi2_t fun_chi2, size_t /* nparameters */, function_gradient_t /* fun_gradient */, size_t /* ndatasize */ ) { m_fcn = fun_chi2; }
+inline void IMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
+{
+    (void)fun_chi2;
+    (void)nparameters;
+    throw NotImplementedException("IMinimizer::setChiSquaredFunction() -> Not implemented.");
+}
 
-    //! run minimization
-    virtual void minimize()
-    {
-        std::vector<double > buffer;
-        buffer.resize(m_values.size(), 0.0);
-        for(std::map<int, double >::iterator it=m_values.begin(); it!= m_values.end(); ++it ) {
-            buffer[it->first] = it->second;
-            std::cout << " minimize(): " << it->first << " " << it->second << std::endl;
-        }
-        std::cout << "TestMinimizer::minimize() -> Info. Calling fcn" << std::endl;
-        m_fcn(&buffer[0]);
-    }
+inline void IMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+{
+    (void)fun_gradient;
+    (void)nparameters;
+    (void)ndatasize;
+    throw NotImplementedException("IMinimizer::setGradientFunction() -> Not implemented.");
+}
 
-    //! get number of variables to fit
-    virtual size_t getNumberOfVariables() const { return m_values.size(); }
+inline size_t IMinimizer::getNumberOfVariables() const
+{
+    throw NotImplementedException("IMinimizer::getNumberOfVariables() -> Not implemented.");
+}
 
-    //! return minimum function value
-    virtual double getMinValue() const { throw NotImplementedException("TestMinimizer::getMinValue() -> Not implemented. "); return 0.0; }
+inline double IMinimizer::getMinValue() const
+{
+    throw NotImplementedException("IMinimizer::getMinValue() -> Not implemented.");
+}
 
-    //! return pointer to the parameters values at the minimum
-    virtual double getValueOfVariableAtMinimum(size_t i) const
-    {
-        std::map<int, double >::const_iterator pos = m_values.find((int)i);
-        if(pos != m_values.end()){
-            return pos->second;
-        } else {
-            throw LogicErrorException("TestMinimizer::getValueOfVariableAtMinimum() -> Not found!");
-        }
-    }
+inline double IMinimizer::getValueOfVariableAtMinimum(size_t index) const
+{
+    (void)index;
+    throw NotImplementedException("IMinimizer::getValueOfVariableAtMinimum() -> Not implemented.");
+}
 
-    //! return pointer to the parameters values at the minimum
-    virtual double getErrorOfVariable(size_t /* i*/)  const { throw NotImplementedException("TestMinimizer::getMinValue() -> Not implemented. "); return 0.0; }
+inline double IMinimizer::getErrorOfVariable(size_t index) const
+{
+    (void)index;
+    throw NotImplementedException("IMinimizer::getErrorOfVariable() -> Not implemented.");
+}
 
-    //! clear resources (parameters) for consecutives minimizations
-    virtual void clear()  { throw NotImplementedException("TestMinimizer::getMinValue() -> Not implemented. "); }
+inline void IMinimizer::clear()
+{
+    throw NotImplementedException("IMinimizer::clear() -> Not implemented.");
+}
 
-    //! print fit results
-    virtual void printResults() const  { throw NotImplementedException("TestMinimizer::getMinValue() -> Not implemented. "); }
-
-private:
-    std::map<int, double > m_values;
-    function_chi2_t m_fcn;
-};
-
-
+inline void IMinimizer::printResults() const
+{
+    throw NotImplementedException("IMinimizer::printResults() -> Not implemented.");
+}
 
 #endif // IMINIMIZER_H

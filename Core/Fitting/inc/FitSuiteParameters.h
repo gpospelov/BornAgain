@@ -15,28 +15,30 @@
 //! @date   15.11.2012
 
 #include "Exceptions.h"
+#include "SafePointerVector.h"
 #include "FitParameterLinked.h"
 #include <vector>
 
 //class Experiment;
 class ParameterPool;
 
+
 //- -------------------------------------------------------------------
 //! @class FitSuiteParameters
 //! @brief Class holds vector of parameters for FitSuite
 //- -------------------------------------------------------------------
-class FitSuiteParameters
+class FitSuiteParameters : public SafePointerVector<FitParameter >
 {
 public:
-    typedef std::vector<FitParameter *> parameters_t;
-    typedef parameters_t::iterator iterator;
-    typedef parameters_t::const_iterator const_iterator;
+//    typedef std::vector<FitParameter *> parameters_t;
+//    typedef parameters_t::iterator iterator;
+//    typedef parameters_t::const_iterator const_iterator;
 
-    FitSuiteParameters();
-    virtual ~FitSuiteParameters();
+    FitSuiteParameters() {}
+    virtual ~FitSuiteParameters(){}
 
-    //! clear all defined parameters
-    void clear();
+//    //! clear all defined parameters
+//    void clear();
 
     //! add fit parameter
     void addParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error=0.0);
@@ -52,22 +54,22 @@ public:
     //! get values of all defined parameters
     std::vector<double > getValues() const;
 
-    //! return number of parameters
-    size_t size() const { return m_parameters.size(); }
+//    //! return number of parameters
+//    size_t size() const { return m_parameters.size(); }
 
-    //! return begin of container
-    iterator begin() { return m_parameters.begin(); }
-    const_iterator begin() const { return m_parameters.begin(); }
+//    //! return begin of container
+//    iterator begin() { return m_parameters.begin(); }
+//    const_iterator begin() const { return m_parameters.begin(); }
 
-    //! return end of container
-    iterator end() { return m_parameters.end(); }
-    const_iterator end() const { return m_parameters.end(); }
+//    //! return end of container
+//    iterator end() { return m_parameters.end(); }
+//    const_iterator end() const { return m_parameters.end(); }
 
-    //! access to parameters
-    const FitParameter *operator[](size_t index) const { return m_parameters[check_index(index)]; }
-    FitParameter *operator[](size_t index) { return m_parameters[check_index(index)]; }
-    const FitParameter *operator[](std::string name) const { return getParameter(name); }
-    FitParameter *operator[](std::string name) { return getParameter(name); }
+//    //! access to parameters
+//    const FitParameter *operator[](size_t index) const { return m_parameters[check_index(index)]; }
+//    FitParameter *operator[](size_t index) { return m_parameters[check_index(index)]; }
+//    const FitParameter *operator[](std::string name) const { return getParameter(name); }
+//    FitParameter *operator[](std::string name) { return getParameter(name); }
 
     //! linking fit parameters with pool parameters
     void link_to_pool(const ParameterPool *pool);
@@ -80,13 +82,13 @@ public:
 
 private:
     //! disabled copy constructor and assignment operator
-    FitSuiteParameters &operator=(const FitSuiteParameters &other);
-    FitSuiteParameters(const FitSuiteParameters &other);
+//    FitSuiteParameters &operator=(const FitSuiteParameters &);
+//    FitSuiteParameters(const FitSuiteParameters &);
 
-    inline size_t check_index(size_t index) const { return (index < m_parameters.size() ? index : throw  OutOfBoundsException("FitSuiteParameters::check_index() -> Index out of bounds") ); }
-    parameters_t m_parameters; //! collection of fit parameters
+//    inline size_t check_index(size_t index) const { return (index < m_parameters.size() ? index : throw  OutOfBoundsException("FitSuiteParameters::check_index() -> Index out of bounds") ); }
+//    parameters_t m_parameters; //! collection of fit parameters
 
-    static double m_default_parameter_error;
+//    static double m_default_parameter_error;
 };
 
 #endif // FITSUITEPARAMETERS_H

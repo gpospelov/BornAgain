@@ -37,43 +37,32 @@ public:
     ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type=std::string());
     virtual ~ROOTMinimizer();
 
+    virtual void minimize();
+
     virtual void setParameter(size_t index, const FitParameter *par);
+
     virtual void setParameters(const FitSuiteParameters &parameters);
 
+    virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters);
 
-    virtual void setFunction(function_chi2_t fun_chi2, size_t nparameters, function_gradient_t fun_gradient, size_t ndatasize);
+    virtual void setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
 
-    virtual void minimize();
+    virtual size_t getNumberOfVariables() const { return m_root_minimizer->NDim(); }
+
+    virtual double getMinValue() const { return m_root_minimizer->MinValue(); }
+
+    virtual double getValueOfVariableAtMinimum(size_t i) const {return m_root_minimizer->X()[check_index(i)]; }
+
+    virtual double getErrorOfVariable(size_t i) const { return (m_root_minimizer->Errors() == 0? 0 : m_root_minimizer->Errors()[check_index(i)]); }
+
+    virtual void printResults() const;
+
+    virtual void clear() { m_root_minimizer->Clear(); }
+
+    virtual void printOptions() const;
 
     //! return created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
-
-    //! get number of variables to fit
-    virtual size_t getNumberOfVariables() const { return m_root_minimizer->NDim(); }
-
-    //! return minimum function value
-    virtual double getMinValue() const { return m_root_minimizer->MinValue(); }
-
-    //! return value of variable corresponding the minimum of the function
-    virtual double getValueOfVariableAtMinimum(size_t i) const {
-        if(i >= getNumberOfVariables() ) throw OutOfBoundsException("ROOTMinimizer::getValueOfVariableAtMinimum() -> Wrong number of the variable");
-        return m_root_minimizer->X()[i];
-    }
-
-    //! return value of variable corresponding the minimum of the function
-    virtual double getErrorOfVariable(size_t i) const {
-        if(i >= getNumberOfVariables() ) throw OutOfBoundsException("ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable");
-        return (m_root_minimizer->Errors() == 0? 0 : m_root_minimizer->Errors()[i]);
-    }
-
-    //! printing results
-    virtual void printResults() const;
-
-    //! clear resources (parameters) for consecutives minimizations
-    virtual void clear() { m_root_minimizer->Clear(); }
-
-    //! printing minimizer description
-    virtual void printOptions() const;
 
     //! checking validity of the combination minimizer_name and algo_type
     bool isValidNames(const std::string &minimizer_name, const std::string &algo_type);
@@ -82,20 +71,16 @@ public:
     bool isGradientBasedAgorithm();
 
 private:
+    ROOTMinimizer(const ROOTMinimizer &);
+    ROOTMinimizer &operator=(const ROOTMinimizer &);
+
+    size_t check_index(size_t index) const { return index<getNumberOfVariables() ? index : throw OutOfBoundsException("ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable"); }
+
     std::string m_minimizer_name;
     std::string m_algo_type;
-
     ROOT::Math::Minimizer *m_root_minimizer;
-    ROOTMinimizerFunction * m_minfunc;
-    ROOTMinimizerElementFunction * m_minfunc_element;
-
-//    IMinimizerFunction *m_minimizer_function;
-//    ROOT::Math::Functor *m_fcn; //! function to minimize
-//    ROOT::Math::GradFunctor *m_fcn_grad; //! gradient of function to minimize
-//    function_t m_fcn;
-//    element_function_t m_element_fcn;
-//    int m_ndims;
-//    int m_nelements;
+    ROOTMinimizerChiSquaredFunction *m_chi2_func;
+    ROOTMinimizerGradientFunction *m_gradient_func;
 };
 
 #endif // ROOTMINIMIZER_H

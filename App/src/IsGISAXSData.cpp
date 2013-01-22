@@ -162,7 +162,6 @@ OutputData<double> *IsGISAXSData::convert_isgi_scan(std::vector<IsgiData > &isgi
         for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
             phi_axis.push_back(isgi_data[i_point].phif);
         }
-
     }
     OutputData<double > * data = new OutputData<double >;
     data->addAxis(phi_axis);

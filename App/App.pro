@@ -56,7 +56,6 @@ SOURCES += \
     src/TestRoughness.cpp \
     src/TestToyExperiment.cpp \
     src/TreeEventStructure.cpp \
-    src/ROOTMinimizerFunction.cpp \
     src/ROOTGSLNLSMinimizer.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp
 

@@ -28,6 +28,7 @@
 #include "ExperimentConstants.h"
 #include "OutputDataIOFactory.h"
 #include "IsGISAXSData.h"
+#include "MinimizerScan.h"
 
 #include <iostream>
 #include <fstream>
@@ -80,18 +81,22 @@ void TestIsGISAXS13::run_isgisaxs_fit()
     //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit", "") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Fumili", "") );
 
-    m_fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn") );
-
-    m_fitSuite->attachObserver( new FitSuiteObserverPrint(10) );
-    m_fitSuite->attachObserver( new FitSuiteObserverDraw(10) );
-    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
-    minim->SetPrintLevel(4);
-    minim->SetMaxIterations(400);
-    minim->SetMaxFunctionCalls(1000);
-    minim->SetTolerance(0.1);
+//    m_fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn") );
+//    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
+//    minim->SetPrintLevel(4);
+//    minim->SetMaxIterations(400);
+//    minim->SetMaxFunctionCalls(1000);
+//    minim->SetTolerance(0.1);
     //minim->SetPrecision(0.004);
 //    minim->SetStrategy(1);
 //    minim->SetPrecision(1.);
+
+
+    m_fitSuite->setMinimizer( new MinimizerScan(20) );
+
+
+//    m_fitSuite->attachObserver( new FitSuiteObserverPrint(10) );
+//    m_fitSuite->attachObserver( new FitSuiteObserverDraw(10) );
 
 
     // Migrad
@@ -125,9 +130,10 @@ void TestIsGISAXS13::run_isgisaxs_fit()
 //    m_fitSuite->addFitParameter("*Normalizer/shift", 10, 10, AttLimits::limited(0., 20.));
     m_fitSuite->addFitParameter("*Normalizer/scale", 1.333150e+05, 1e5, AttLimits::fixed());
     m_fitSuite->addFitParameter("*Normalizer/shift", 1.212894e+00, 10, AttLimits::fixed());
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius", 4.0e+00*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(1., 10.) );
+    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius", 4.0e+00*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(2.0, 8.0) );
     m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius",  1.991729e-01, 0.2, AttLimits::fixed() );
-    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio",  9.937262e-01, 1.0, AttLimits::fixed() );
+    //m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio",  9.937262e-01, 1.0, AttLimits::fixed() );
+    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio",  9.937262e-01, 1.0, AttLimits::limited(0.5, 1.5) );
     m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  1.497518e+01*Units::nanometer, 15.*Units::nanometer, AttLimits::fixed() );
     m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  3.023607e+00*Units::nanometer, 3.0*Units::nanometer, AttLimits::fixed() );
 
@@ -145,51 +151,73 @@ void TestIsGISAXS13::run_isgisaxs_fit()
 
     m_fitSuite->runFit();
 
-    // drawing results
-    TCanvas *c2 = new TCanvas("c2","GISASFW fit results",800,600);
-    c2->Divide(2,2);
-    TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
-    leg1->SetBorderSize(1);
-    leg1->SetFillStyle(0);
-    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
-        c2->cd((int)i_set+1);
-        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
-        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"gisasfw_real");
-        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"gisasfw_simul");
-        hreal->SetLineColor(kBlue);
+    TCanvas *c1 = new TCanvas("c1","c1",1024,768);
+    c1->cd();
+
+    MinimizerScan *minim = dynamic_cast<MinimizerScan *>(m_fitSuite->getMinimizer());
+    std::cout << "Results " << minim->getMinValue() << std::endl;
+    for(size_t i=0; i<minim->getNumberOfVariables(); ++i) {
+        std::cout << i << " " << minim->getValueOfVariableAtMinimum(i) << std::endl;
+    }
+
+    const OutputData<double> *data = minim->getOutputData();
+    if(data->getNdimensions()==1) {
+        TH1 * h1 = IsGISAXSTools::getOutputDataTH123D(*data,"hist");
+        h1->Draw();
         gPad->SetLogy();
-        hreal->DrawCopy();
-        hsimul->DrawCopy("same");
-        if(i_set==0) leg1->AddEntry(hreal,"GISASFW data","lp");
-        if(i_set==0) leg1->AddEntry(hsimul,"GISASFW simul","lp");
+    } else {
+        TH2D *hist = IsGISAXSTools::getOutputDataTH2D( *data, "hist");
+        hist->Draw("colz");
+        gPad->SetLogz();
     }
-    c2->cd(1); leg1->Draw();
-    c2->cd(2); leg1->Draw();
 
-    // drawing ratio
-    TLegend *leg2 = new TLegend(0.5,0.6,0.85,0.85);
-    leg2->SetBorderSize(1);
-    leg2->SetFillStyle(0);
-    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
-        c2->cd(3+1);
-        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
-        OutputData<double > *real = obj->getChiSquaredModule()->getRealData()->clone();
-        OutputData<double > *simul = obj->getChiSquaredModule()->getSimulationData()->clone();
 
-        c2->cd((int)(i_set+3));
-        *simul /= *real;
-        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"gisasfw_real_simul_ratio");
-        hratio->DrawCopy();
-        if(i_set==0) {
-            leg2->AddEntry(hratio,"GISASFW simul/real","lp");
-        }
-        delete real;
-        delete simul;
-    }
-    c2->cd(3); leg2->Draw();
-    c2->cd(4); leg2->Draw();
 
-    c2->Update();
+//    // drawing results
+//    TCanvas *c2 = new TCanvas("c2","GISASFW fit results",800,600);
+//    c2->Divide(2,2);
+//    TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
+//    leg1->SetBorderSize(1);
+//    leg1->SetFillStyle(0);
+//    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
+//        c2->cd((int)i_set+1);
+//        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
+//        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"gisasfw_real");
+//        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"gisasfw_simul");
+//        hreal->SetLineColor(kBlue);
+//        gPad->SetLogy();
+//        hreal->DrawCopy();
+//        hsimul->DrawCopy("same");
+//        if(i_set==0) leg1->AddEntry(hreal,"GISASFW data","lp");
+//        if(i_set==0) leg1->AddEntry(hsimul,"GISASFW simul","lp");
+//    }
+//    c2->cd(1); leg1->Draw();
+//    c2->cd(2); leg1->Draw();
+
+//    // drawing ratio
+//    TLegend *leg2 = new TLegend(0.5,0.6,0.85,0.85);
+//    leg2->SetBorderSize(1);
+//    leg2->SetFillStyle(0);
+//    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
+//        c2->cd(3+1);
+//        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
+//        OutputData<double > *real = obj->getChiSquaredModule()->getRealData()->clone();
+//        OutputData<double > *simul = obj->getChiSquaredModule()->getSimulationData()->clone();
+
+//        c2->cd((int)(i_set+3));
+//        *simul /= *real;
+//        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"gisasfw_real_simul_ratio");
+//        hratio->DrawCopy();
+//        if(i_set==0) {
+//            leg2->AddEntry(hratio,"GISASFW simul/real","lp");
+//        }
+//        delete real;
+//        delete simul;
+//    }
+//    c2->cd(3); leg2->Draw();
+//    c2->cd(4); leg2->Draw();
+
+//    c2->Update();
 }
 
 

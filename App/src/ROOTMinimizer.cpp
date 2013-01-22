@@ -10,20 +10,19 @@
 
 
 /* ************************************************************************* */
+// ROOTMinimizer c-tor
 //
+// some usefull staff
+// see http://root.cern.ch/phpBB3/viewtopic.php?f=15&t=14230&p=61216&hilit=minimizer+precision#p61216
+// see http://root.cern.ch/phpBB3/viewtopic.php?f=3&t=9181&hilit=precision+tolerance
 /* ************************************************************************* */
 ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type)
     : m_minimizer_name(minimizer_name)
     , m_algo_type(algo_type)
-    , m_minfunc(0)
-    , m_minfunc_element(0)
+    , m_chi2_func(0)
+    , m_gradient_func(0)
 {
-
     if( !isValidNames(m_minimizer_name, m_algo_type) ) throw LogicErrorException("ROOTMinimizer::ROOTMinimizer() -> Error! Wrong minimizer initialization parameters.");
-
-    // see http://root.cern.ch/phpBB3/viewtopic.php?f=15&t=14230&p=61216&hilit=minimizer+precision#p61216
-    // see http://root.cern.ch/phpBB3/viewtopic.php?f=3&t=9181&hilit=precision+tolerance
-    //ROOT::Math::MinimizerOptions::SetDefaultTolerance(0.1);
 
     if( m_minimizer_name == "GSLMultiFit") {
         // hacked version of ROOT's GSL Levenberg-Marquardt minimizer
@@ -32,20 +31,14 @@ ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::strin
         m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
     }
     if( !m_root_minimizer  ) throw NullPointerException("ROOTMinimizer::ROOTMinimizer() -> Error! Can't create minimizer.");
-
-//    m_root_minimizer->SetMaxFunctionCalls(20000);
-//    m_root_minimizer->SetMaxIterations(20000);
-//    m_root_minimizer->SetPrintLevel(4);
-//    m_root_minimizer->SetTolerance(0.01);
-//    m_root_minimizer->SetPrecision(1e-6);
 }
 
 
 ROOTMinimizer::~ROOTMinimizer()
 {
     delete m_root_minimizer;
-    delete m_minfunc;
-    delete m_minfunc_element;
+    delete m_chi2_func;
+    delete m_gradient_func;
 }
 
 
@@ -149,21 +142,18 @@ void ROOTMinimizer::minimize()
 /* ************************************************************************* */
 // set fcn function for minimizer
 /* ************************************************************************* */
-// FIXME ROOTMinimizer::setFunction Implement Multiple inheretiance in ROOTMinimizerElementFunction ;)
-void ROOTMinimizer::setFunction(function_chi2_t fun_chi2, size_t nparameters, function_gradient_t fun_gradient, size_t ndatasize)
+void ROOTMinimizer::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
 {
-    if( isGradientBasedAgorithm() ) {
-        std::cout << " ROOTMinimizer::setFunction() -> XXX 1.1 making ROOTMinimizerElementFunction " << std::endl;
-        delete m_minfunc_element;
-        m_minfunc_element = new ROOTMinimizerElementFunction(fun_gradient, nparameters, ndatasize);
-        m_root_minimizer->SetFunction(*m_minfunc_element);
+    delete m_chi2_func;
+    m_chi2_func = new ROOTMinimizerChiSquaredFunction(fun_chi2, nparameters);
+    if( !isGradientBasedAgorithm() ) m_root_minimizer->SetFunction(*m_chi2_func);
+}
 
-    } else {
-        std::cout << " ROOTMinimizer::setFunction() -> XXX 1.2 making ROOTMinimizerFunction" << std::endl;
-        delete m_minfunc;
-        m_minfunc = new ROOTMinimizerFunction(fun_chi2, nparameters);
-        m_root_minimizer->SetFunction(*m_minfunc);
-    }
+void ROOTMinimizer::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+{
+    delete m_gradient_func;
+    m_gradient_func = new ROOTMinimizerGradientFunction(fun_gradient, nparameters, ndatasize);
+    if( isGradientBasedAgorithm() ) m_root_minimizer->SetFunction(*m_gradient_func);
 }
 
 
@@ -204,8 +194,8 @@ void ROOTMinimizer::printResults() const
     std::cout << std::setw(25) << std::left << "  Status           "      << ": " << m_root_minimizer->Status() << " '" << minimizerStatus[m_root_minimizer->Status()] << "'" << std::endl;
     std::cout << std::setw(25) << std::left << "  IsValidError     "      << ": " << m_root_minimizer->IsValidError() << " '" << validErrorStatus[m_root_minimizer->Status()] << "'" <<std::endl;
     std::cout << std::setw(25) << std::left << "  NCalls"                 << ": " << m_root_minimizer->NCalls() << std::endl;
-    if(m_minfunc_element) {
-        std::cout << std::setw(25) << std::left << "  NCallsElement "                 << ": " << m_minfunc_element->NCalls() << std::endl;
+    if(m_gradient_func) {
+        std::cout << std::setw(25) << std::left << "  NCallsElement "                 << ": " << m_gradient_func->NCalls() << std::endl;
     }
     std::cout << std::setw(25) << std::left << "  MinValue"               << ": " << std::scientific << std::setprecision(8) << getMinValue() << std::endl;
     std::cout << std::setw(25) << std::left << "  Edm"                    << ": " << std::scientific << std::setprecision(8) << m_root_minimizer->Edm() << std::endl;

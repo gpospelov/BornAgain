@@ -23,6 +23,7 @@
 #include "ResolutionFunction2DSimple.h"
 #include "MathFunctions.h"
 #include "ROOTMinimizer.h"
+#include "MinimizerTest.h"
 #include "OutputDataFunctions.h"
 #include "ExperimentConstants.h"
 #include "OutputDataIOFactory.h"
@@ -366,7 +367,7 @@ void TestIsGISAXS12::run_test_minimizer()
     // our simulation produces numerically same results
 
     m_fitSuite = new FitSuite();
-    m_fitSuite->setMinimizer( new TestMinimizer() );
+    m_fitSuite->setMinimizer( new MinimizerTest() );
 
     m_fitSuite->addFitParameter("*Normalizer/scale", 1.31159E+05, 100, AttLimits::limited(1e4, 2e5));
     m_fitSuite->addFitParameter("*Normalizer/shift", -8.10009E-02, 1, AttLimits::limited(-10., 20.));

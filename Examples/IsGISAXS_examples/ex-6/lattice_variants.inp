@@ -19,9 +19,9 @@ lattice_variants
             6.E-04          2.e-8         0         8.E-04          2.e-8
 ################################# Grid parameters ######################################################
 # Ewald mode
-  F
+  T
 # Output angle (deg) :   Two theta min-max, Alphaf min-max,  n(1),   n(2)				
-                             0.     2         0  0.2           100      1
+                             0.     2         0.    2        100     100
 # Output q(nm-1) :  Qx min-max, Qy min-max, Qz min-max,  n(1), n(2), n(3)
                      -1  1      -1   1      -2   0         200   200    1
 ##################################   Particle parameters #################################################

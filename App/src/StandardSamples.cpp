@@ -560,6 +560,100 @@ ISample *StandardSamples::IsGISAXS4_2DDL()
 }
 
 /* ************************************************************************* */
+// IsGISAXS6 functional test: cylinders with lattice interference function
+/* ************************************************************************* */
+ISample *StandardSamples::IsGISAXS6_lattice()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e3*Units::nanometer);
+    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+// IsGISAXS6 functional test: cylinders lattice centered
+ISample *StandardSamples::IsGISAXS6_centered()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e3*Units::nanometer);
+    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+// IsGISAXS6 functional test: cylinders lattice rotated
+ISample *StandardSamples::IsGISAXS6_rotated()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e3*Units::nanometer);
+    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+// IsGISAXS6 functional test: cylinders lattice variants
+ISample *StandardSamples::IsGISAXS6_variants()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e3*Units::nanometer);
+    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
 // IsGISAXS7 functional test: particle mixture from morphology file
 /* ************************************************************************* */
 ISample *StandardSamples::IsGISAXS7_morphology()

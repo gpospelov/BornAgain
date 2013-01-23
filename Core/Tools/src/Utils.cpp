@@ -4,13 +4,14 @@
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
 #include <iomanip>
+#include <boost/algorithm/string.hpp>
 
 std::string Utils::FileSystem::m_relative_path = "relative path is undefined";
 
 
-/* ************************************************************************* */
+//-----------------------------------------------------------------------------
 // parse double values from string to vector of double
-/* ************************************************************************* */
+//-----------------------------------------------------------------------------
 vdouble1d_t Utils::String::parse_doubles(const std::string &str)
 {
     vdouble1d_t buff_1d;
@@ -22,12 +23,11 @@ vdouble1d_t Utils::String::parse_doubles(const std::string &str)
     return buff_1d;
 }
 
-
-/* ************************************************************************* */
+//-----------------------------------------------------------------------------
 // double numbers in string will be rounded according to the precision
 // if precision is 6, then 7.2908527770e+03 -> 7.290853e+03
 // (this method is used to compare IsGisaxs and our ASCII files at equal precision)
-/* ************************************************************************* */
+//-----------------------------------------------------------------------------
 std::string Utils::String::round_doubles(const std::string &str, int precision)
 {
     std::string newline;
@@ -41,9 +41,10 @@ std::string Utils::String::round_doubles(const std::string &str, int precision)
     return newline;
 }
 
-
-//! return true if text matches wildcards
-bool Utils::StringMatchText::WildcardPattern(const std::string &text, std::string wildcardPattern)
+//-----------------------------------------------------------------------------
+// return true if text matches pattern with wildcards '*' and '?'
+//-----------------------------------------------------------------------------
+bool Utils::String::MatchPattern(const std::string &text, std::string wildcardPattern)
 {
     bool caseSensitive = false;
 
@@ -70,6 +71,16 @@ bool Utils::StringMatchText::WildcardPattern(const std::string &text, std::strin
 
     // applaying match
     return boost::regex_match(text, pattern);
+}
+
+//-----------------------------------------------------------------------------
+// split string into vector of string using delimeter
+//-----------------------------------------------------------------------------
+std::vector<std::string> Utils::String::Split(const std::string &text, const std::string &delimeter)
+{
+    std::vector<std::string> tokens;
+    boost::split(tokens, text, boost::is_any_of(delimeter));
+    return tokens;
 }
 
 

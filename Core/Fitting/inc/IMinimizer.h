@@ -70,7 +70,7 @@ public:
     //! print fit results
     virtual void printResults() const;
 
-    //! set minimizer command
+    //! set minimizer option
     virtual void setOptions(const std::string &option);
 };
 

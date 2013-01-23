@@ -1,13 +1,13 @@
-#include "TestToyExperiment.h"
 #include "Exceptions.h"
-#include "IsGISAXSTools.h"
+#include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
-#include "ExperimentConstants.h"
+#include "IsGISAXSTools.h"
+#include "MinimizerFactory.h"
 #include "ROOTGSLSimAnMinimizer.h"
+#include "TestToyExperiment.h"
 
 #include <iostream>
-#include "MinimizerFactory.h"
 
 /* ************************************************************************* */
 //
@@ -41,7 +41,6 @@ void ToyExperiment::init_parameters()
     }
 }
 
-//#include "ROOTMinimizerFunction.h"
 
 /* ************************************************************************* */
 //
@@ -49,19 +48,13 @@ void ToyExperiment::init_parameters()
 TestToyExperiment::TestToyExperiment()
     : m_func_object(0)
     , m_func(0)
-    , m_sigma_noise(0)
+    , m_sigma_noise(0.01)
     , m_experiment(0)
     , m_real_data(0)
     , m_fitSuite(0)
 {
-
-    m_sigma_noise = 0.01;
     m_func_object = new SincXSincYFunctionObject();
-//    m_func = new TF2("sincxy", m_func_object, -5.,5., -5.,5., 3, "SincXSincYFunctionObject");
     m_func = new TF2("sincxy", m_func_object, -10.,10., -10.,10., 3, "SincXSincYFunctionObject");
-    //m_func->SetParameters(1.0, 1.0, 0.5); // parameters we have to find
-
-
 }
 
 
@@ -78,56 +71,29 @@ TestToyExperiment::~TestToyExperiment()
 void TestToyExperiment::execute()
 {
     std::cout << "TestToyExperiment()::execute() -> Hello World!"   << std::endl;
-
-    MinimizerFactory::print_catalogue();
-    return;
-
-
-
     initializeExperimentAndRealData();
 
     // setting up fitSuite
-    FitSuite *m_fitSuite = new FitSuite();
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Fumili") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit") );
+    m_fitSuite = new FitSuite();
+
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLMultiFit") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
-
-//    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
-//    if( !minim ) throw NullPointerException("TestToyExperiment::execute() -> Can't cast minimizer #1");
-//    ROOT::Patch::GSLSimAnMinimizer *siman = dynamic_cast<ROOT::Patch::GSLSimAnMinimizer *>(minim);
-//    if( !siman ) throw NullPointerException("TestToyExperiment::execute() -> Can't cast minimizer #2");
-//    ROOT::Math::GSLSimAnParams &pars = siman->getSolver().Params();
-//    siman->SetPrintLevel(2);
-//    pars.n_tries = 100;
-//    pars.iters_fixed_T = 10;
-//    pars.step_size = 1.0;
-//    pars.k = 1;
-//    pars.t_initial = 50;
-//    pars.mu = 1.05;
-//    pars.t_min = 0.1;
-
-
-
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Genetic") );
-
-
-
+    m_fitSuite->getMinimizer()->setOptions("ntries=100:niters=10:step_size=1.0:k=1:t_initial=50.0:mu=1.05:t_min=0.1");
 
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
 //    m_fitSuite->attachObserver( ObserverFactory::createDrawObserver() );
 
-
     m_fitSuite->addFitParameter("*/par0",  1.0, 0.01, AttLimits::limited(0.5, 1.5));
     m_fitSuite->addFitParameter("*/par1",  0.0, 0.01, AttLimits::limited(0.0, 3.0));
     m_fitSuite->addFitParameter("*/par2",  0.0, 0.01, AttLimits::limited(0.0, 3.0));
-    //m_fitSuite->addFitParameter("*/par2",  -2.5, 0.01, AttLimits::fixed());
 
     ChiSquaredModule chi_module;
     chi_module.setChiSquaredFunction(SquaredFunctionWithGaussianError(m_sigma_noise) );
     m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data, chi_module);
-//    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data);
     m_fitSuite->runFit();
 
 }
@@ -152,9 +118,7 @@ void TestToyExperiment::initializeExperimentAndRealData()
     m_experiment->setParameter(0, 1.0);
     m_experiment->setParameter(1, 2.0);
     m_experiment->setParameter(2, 2.5);
-//    m_experiment->setParameter(0, 2.0);
-//    m_experiment->setParameter(1, 1.0);
-//    m_experiment->setParameter(2, 0.5);
+
     m_experiment->runSimulation();
     m_real_data = IsGISAXSTools::createDataWithGaussianNoise(*m_experiment->getOutputData(), m_sigma_noise);
 }

@@ -59,7 +59,8 @@ SOURCES += \
     $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp \
     src/ROOTGSLSimAnMinimizer.cpp \
     src/FitSuiteObserverFactory.cpp \
-    src/MinimizerFactory.cpp
+    src/MinimizerFactory.cpp \
+    src/ROOTMinimizerOptionsHelper.cpp
 
 HEADERS += \
     inc/App.h \
@@ -111,7 +112,8 @@ HEADERS += \
     $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
     inc/ROOTGSLSimAnMinimizer.h \
     inc/FitSuiteObserverFactory.h \
-    inc/MinimizerFactory.h
+    inc/MinimizerFactory.h \
+    inc/ROOTMinimizerOptionsHelper.h
 
 # additional locations
 LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01

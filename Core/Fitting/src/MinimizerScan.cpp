@@ -18,7 +18,7 @@ void MinimizerScan::minimize()
             m_fit_parameters.getParameter(parname)->setValue(value);
         }
         std::vector<double> current_values=m_fit_parameters.getValues();
-        (*it) = m_fcn(&current_values[0]);
+        (*it) = m_fcn(&current_values[0]); // running simulation
     }
 
     set_parvalues_to_minimum();
@@ -54,7 +54,6 @@ void MinimizerScan::set_parvalues_to_minimum()
         std::string parname = m_parameter_map->getAxis(i_axis)->getName();
         m_fit_parameters.getParameter(parname)->setValue(value);
     }
-
 }
 
 

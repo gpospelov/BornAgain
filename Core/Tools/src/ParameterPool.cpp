@@ -115,7 +115,7 @@ std::vector<ParameterPool::parameter_t >  ParameterPool::getMatchedParameters(co
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         // (*it).first - parameter key, (*it).second - parameter itself
         // parameters whose key match pattern is added to the FitMultiParameter container
-        if( Utils::StringMatchText::WildcardPattern( (*it).first, wildcards ) ) {
+        if( Utils::String::MatchPattern( (*it).first, wildcards ) ) {
             selected_parameters.push_back((*it).second);
         }
     }
@@ -152,7 +152,7 @@ int ParameterPool::setMatchedParametersValue(const std::string &wildcards, doubl
 {
     int npars(0);
     for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it) {
-        if( Utils::StringMatchText::WildcardPattern( (*it).first, wildcards ) ) {
+        if( Utils::String::MatchPattern( (*it).first, wildcards ) ) {
             (*it).second.setValue(value);
             npars++;
         }

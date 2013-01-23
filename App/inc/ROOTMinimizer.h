@@ -61,6 +61,8 @@ public:
 
     virtual void printOptions() const;
 
+    virtual void setOptions(const std::string &options);
+
     //! return created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
 

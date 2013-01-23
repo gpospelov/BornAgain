@@ -14,11 +14,10 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   21.01.2013
 
-
 #include "IMinimizer.h"
 #include "FitSuiteParameters.h"
-#include "SafePointerVector.h"
 #include "OutputData.h"
+
 
 //- -------------------------------------------------------------------
 //! @class MinimizerScan
@@ -46,8 +45,8 @@ public:
 
     virtual void printResults() const;
 
-
     void setNbins(int nbins) { m_nbins = nbins; }
+
     size_t getNbins() const { return m_nbins; }
 
     const OutputData<double > *getOutputData() { return m_parameter_map; }
@@ -59,7 +58,6 @@ private:
 
     OutputData<double > *m_parameter_map;
     size_t m_nbins; //! number of bins per one parameter
-    //SafePointerVector<FitParameter > m_fit_parameters;
     FitSuiteParameters m_fit_parameters;
     std::vector<double> m_parvalues_at_minimum;
     function_chi2_t m_fcn;

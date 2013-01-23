@@ -7,7 +7,7 @@
 /* ************************************************************************* */
 double FitSuiteChiSquaredFunction::evaluate(const double *pars)
 {
-    std::cout << "FitSuiteChiSquaredFunction::evaluate() -> Info" << std::endl;
+    //std::cout << "FitSuiteChiSquaredFunction::evaluate() -> Info" << std::endl;
     assert(m_fit_suite != NULL);
 
     // set fitting parameters to values suggested by the minimizer

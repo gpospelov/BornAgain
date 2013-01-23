@@ -36,6 +36,10 @@ public:
     static vdouble1d_t parse_doubles(const std::string &str);
     //! assuming that string consist of doubles return new string where doubles are rounded according to the precision
     static std::string round_doubles(const std::string &str, int precision);
+    //! return true if text matches pattern with wildcards '*' and '?'
+    static bool MatchPattern(const std::string &text, std::string wildcardPattern);
+    //! split string into vector of string using delimeter
+    static std::vector<std::string> Split(const std::string &text, const std::string &delimeter);
 };
 
 
@@ -77,19 +81,6 @@ public:
 private:
     std::string m_current_string;
     nstringmap_t m_nstringmap;
-};
-
-
-//- -------------------------------------------------------------------
-//! @class StringMatchText
-//! @brief Definition of StringMatchText class to perform simple '*' and '?'
-//! wilcard matching
-//- -------------------------------------------------------------------
-class StringMatchText
-{
-public:
-    //! return true if text matches wildcards
-    static bool WildcardPattern(const std::string &text, std::string wildcardPattern);
 };
 
 

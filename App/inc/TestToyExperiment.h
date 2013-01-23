@@ -49,8 +49,6 @@ private:
 };
 
 
-
-
 //- -------------------------------------------------------------------
 //! @class TestToyExperiment
 //! @brief Test of fitting chain using toy experiment
@@ -71,11 +69,6 @@ private:
     ToyExperiment *m_experiment;
     OutputData<double > *m_real_data;
     FitSuite *m_fitSuite;
-
 };
-
-
-
-
 
 #endif // TESTTOYEXPERIMENT_H

@@ -8,7 +8,7 @@
 #include <boost/assign/list_of.hpp>
 #include "ROOTGSLNLSMinimizer.h"
 #include "ROOTGSLSimAnMinimizer.h"
-
+#include "ROOTMinimizerOptionsHelper.h"
 
 /* ************************************************************************* */
 // ROOTMinimizer c-tor
@@ -29,6 +29,8 @@ ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::strin
     }else if( m_minimizer_name == "GSLSimAn") {
         // hacked version of ROOT's GSL Simulated annealing minimizer
         m_root_minimizer = new ROOT::Patch::GSLSimAnMinimizer();
+        // changing default options to more appropriate
+        setOptions("ntries=100:niters=10:step_size=1.0:k=1:t_initial=50.0:mu=1.05:t_min=0.1");
     } else {
         m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
     }
@@ -49,7 +51,9 @@ ROOTMinimizer::~ROOTMinimizer()
 /* ************************************************************************* */
 bool ROOTMinimizer::isGradientBasedAgorithm()
 {
-    if (m_algo_type == "Fumili" || m_minimizer_name == "Fumili" || m_minimizer_name == "GSLMultiFit" ) return true;
+    if (m_minimizer_name == "Fumili" ||
+        m_minimizer_name == "GSLMultiFit" ||
+        (m_minimizer_name == "Minuit2" && m_algo_type == "Fumili") ) return true;
     return false;
 }
 
@@ -221,5 +225,14 @@ void ROOTMinimizer::printOptions() const
     std::cout << std::setw(25) << std::left << "  ExtraOptions"       << ": " << opt.ExtraOptions() << std::endl;
 }
 
+
+// ----------------------------------------------------------------------------
+// set option of minimizer
+// TODO: refactor ROOTMinimizer::setOptions
+// ----------------------------------------------------------------------------
+void ROOTMinimizer::setOptions(const std::string &options)
+{
+    ROOTMinimizerOptionsHelper::setOptions(m_root_minimizer, options);
+}
 
 

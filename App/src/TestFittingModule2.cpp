@@ -13,15 +13,15 @@
 #include "FormFactors.h"
 #include "Exceptions.h"
 #include "DrawHelper.h"
-#include "FitSuiteHelper.h"
+#include "FitSuiteObserverFactory.h"
 #include "ResolutionFunction2DSimple.h"
 #include "AttLimits.h"
 #include "IIntensityFunction.h"
 
 #include "IObserver.h"
 #include "FitSuite.h"
-#include "ROOTMinimizer.h"
 #include "FitSuiteStrategy.h"
+#include "MinimizerFactory.h"
 
 #include "TROOT.h"
 #include "TCanvas.h"
@@ -41,9 +41,9 @@ TestFittingModule2::TestFittingModule2()
 
     // setting up fitSuite
     m_fitSuite = new FitSuite();
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
-    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
 }
 
 
@@ -163,7 +163,7 @@ void TestFittingModule2::fit_example_strategies()
 
     m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data);
 
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
 
     m_fitSuite->runFit();
 

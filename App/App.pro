@@ -15,7 +15,6 @@ SOURCES += \
     src/AppOptionsDescription.cpp \
     src/CommandLine.cpp \
     src/DrawHelper.cpp \
-    src/FitSuiteHelper.cpp \
     src/FunctionalTestFactory.cpp \
     src/IFunctionalTest.cpp \
     src/IsGISAXSData.cpp \
@@ -57,7 +56,10 @@ SOURCES += \
     src/TestToyExperiment.cpp \
     src/TreeEventStructure.cpp \
     src/ROOTGSLNLSMinimizer.cpp \
-    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp
+    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp \
+    src/ROOTGSLSimAnMinimizer.cpp \
+    src/FitSuiteObserverFactory.cpp \
+    src/MinimizerFactory.cpp
 
 HEADERS += \
     inc/App.h \
@@ -65,7 +67,6 @@ HEADERS += \
     inc/AppOptionsDescription.h \
     inc/CommandLine.h \
     inc/DrawHelper.h \
-    inc/FitSuiteHelper.h \
     inc/FunctionalTestFactory.h \
     inc/IFunctionalTest.h \
     inc/IsGISAXSData.h \
@@ -107,7 +108,10 @@ HEADERS += \
     inc/TreeEventStructure.h \
     inc/ROOTMinimizerFunction.h \
     inc/ROOTGSLNLSMinimizer.h \
-    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h
+    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
+    inc/ROOTGSLSimAnMinimizer.h \
+    inc/FitSuiteObserverFactory.h \
+    inc/MinimizerFactory.h
 
 # additional locations
 LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01

@@ -13,7 +13,7 @@
 #include "FormFactors.h"
 #include "Exceptions.h"
 #include "DrawHelper.h"
-#include "FitSuiteHelper.h"
+#include "FitSuiteObserverFactory.h"
 #include "ResolutionFunction2DSimple.h"
 #include "AttLimits.h"
 #include "OutputDataFunctions.h"
@@ -22,7 +22,7 @@
 
 #include "IObserver.h"
 #include "FitSuite.h"
-#include "ROOTMinimizer.h"
+#include "MinimizerFactory.h"
 
 #include "TROOT.h"
 #include "TCanvas.h"
@@ -79,9 +79,9 @@ void TestFittingModule3::execute()
         m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it));
     }
 
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
-    m_fitSuite->attachObserver( new FitSuiteObserverDraw(1) );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver(1) );
 
     m_fitSuite->runFit();
 

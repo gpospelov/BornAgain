@@ -1,8 +1,7 @@
 #include "FitSuite.h"
-#include "FitSuiteHelper.h"
+#include "FitSuiteObserverFactory.h"
 #include "TreeEventStructure.h"
 #include "IsGISAXSTools.h"
-#include "ROOTMinimizer.h"
 #include "FitSuiteParameters.h"
 #include "ExperimentConstants.h"
 

@@ -23,6 +23,7 @@
 #include <map>
 #include <time.h>
 #include <sys/time.h>
+#include <boost/shared_ptr.hpp>
 #include "TH1.h"
 
 class TPaveText;
@@ -86,6 +87,26 @@ private:
     std::string m_file_name; //! canvas name were to draw
 };
 
+
+class FitSuiteObserverFactory
+{
+public:
+    typedef boost::shared_ptr<FitSuiteObserverPrint > observer_print_t;
+    typedef boost::shared_ptr<FitSuiteObserverDraw > observer_draw_t;
+    typedef boost::shared_ptr<FitSuiteObserverWriteTree > observer_tree_t;
+
+    static observer_print_t createPrintObserver(int run_every_nth=20) {
+        return observer_print_t( new FitSuiteObserverPrint(run_every_nth) );
+    }
+
+    static observer_draw_t createDrawObserver(int run_every_nth=20) {
+        return observer_draw_t( new FitSuiteObserverDraw(run_every_nth) );
+    }
+
+    static observer_tree_t createTreeObserver() {
+        return observer_tree_t( new FitSuiteObserverWriteTree() );
+    }
+};
 
 
 

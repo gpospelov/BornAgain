@@ -64,9 +64,6 @@ public:
     //! return created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
 
-    //! checking validity of the combination minimizer_name and algo_type
-    bool isValidNames(const std::string &minimizer_name, const std::string &algo_type);
-
     //! check if type of algorithm is Levenberg-Marquardt or similar
     bool isGradientBasedAgorithm();
 

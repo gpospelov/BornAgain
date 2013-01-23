@@ -16,6 +16,8 @@
 
 #include "Exceptions.h"
 #include <list>
+#include <boost/shared_ptr.hpp>
+
 class IObservable;
 
 //- -------------------------------------------------------------------
@@ -25,16 +27,16 @@ class IObservable;
 //- -------------------------------------------------------------------
 class IObserver {
 public:
-    //! destructor detach observer from observed subject
-    virtual ~IObserver();
+//    IObserver() : m_observed_subject(0) {}
+    virtual ~IObserver() {}
+
     //! method which is used by observable subject to notify change in status
     virtual void update (IObservable *subject) = 0;
-    //! set pointer to observed subject
-    virtual void setObservedSubject(IObservable *subject);
-protected:
-    IObserver() : m_observed_subject(0) {}
-private:
-    IObservable *m_observed_subject;
+
+//    //! set pointer to observed subject
+//    virtual void setObservedSubject(IObservable *subject);
+//private:
+//    IObservable *m_observed_subject;
 };
 
 
@@ -45,22 +47,19 @@ private:
 //- -------------------------------------------------------------------
 class IObservable {
 public:
-    typedef std::list<IObserver *> observers_t;
+    typedef boost::shared_ptr<IObserver > observer_t;
+    typedef std::list<observer_t > observerlist_t;
+
     virtual ~IObservable(){}
 
     //! attach observer to the list of observers
-    virtual void attachObserver(IObserver *obj);
-
-    //! detach observer from observers list
-    virtual void detachObserver(IObserver *obj);
+    virtual void attachObserver(observer_t obj);
 
     //! notify observers about change in status
     virtual void notifyObservers();
 
-protected:
-    IObservable(){}
 private:
-    observers_t m_observers;
+    observerlist_t m_observers;
 };
 
 

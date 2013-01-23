@@ -2,12 +2,12 @@
 #include "Exceptions.h"
 #include "IsGISAXSTools.h"
 #include "FitSuite.h"
-#include "FitSuiteHelper.h"
-#include "ROOTMinimizer.h"
+#include "FitSuiteObserverFactory.h"
 #include "ExperimentConstants.h"
+#include "ROOTGSLSimAnMinimizer.h"
 
 #include <iostream>
-
+#include "MinimizerFactory.h"
 
 /* ************************************************************************* */
 //
@@ -28,22 +28,6 @@ void ToyExperiment::runSimulation()
         (*it) = value;
         ++it;
     }
-}
-
-void ToyExperiment::runSimulationElement(size_t index)
-{
-    (void)index;
-//    if( !m_func ) throw NullPointerException("ToyExperiment::runSimulation() -> Error! No function is defined.");
-
-//    m_func->SetParameters(&pars[0]);
-//    const std::string s_phi_f("phi_f");
-//    const std::string s_alpha_f("alpha_f");
-//    double phi_f = m_intensity_map.getValueOfAxis(s_phi_f, index);
-//    double alpha_f = m_intensity_map.getValueOfAxis(s_alpha_f, index);
-//    double value = m_func->Eval(phi_f, alpha_f);
-//    m_intensity_map[index] = value;
-
-    throw NotImplementedException("ToyExperiment::runSimulationElement");
 }
 
 
@@ -71,13 +55,13 @@ TestToyExperiment::TestToyExperiment()
     , m_fitSuite(0)
 {
 
-
-//    return;
     m_sigma_noise = 0.01;
     m_func_object = new SincXSincYFunctionObject();
 //    m_func = new TF2("sincxy", m_func_object, -5.,5., -5.,5., 3, "SincXSincYFunctionObject");
     m_func = new TF2("sincxy", m_func_object, -10.,10., -10.,10., 3, "SincXSincYFunctionObject");
     //m_func->SetParameters(1.0, 1.0, 0.5); // parameters we have to find
+
+
 }
 
 
@@ -95,21 +79,49 @@ void TestToyExperiment::execute()
 {
     std::cout << "TestToyExperiment()::execute() -> Hello World!"   << std::endl;
 
+    MinimizerFactory::print_catalogue();
+    return;
+
+
+
     initializeExperimentAndRealData();
 
     // setting up fitSuite
     FitSuite *m_fitSuite = new FitSuite();
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") );
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Fumili") );
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Fumili") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit") );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
 
-//    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
-//    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
+//    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
+//    if( !minim ) throw NullPointerException("TestToyExperiment::execute() -> Can't cast minimizer #1");
+//    ROOT::Patch::GSLSimAnMinimizer *siman = dynamic_cast<ROOT::Patch::GSLSimAnMinimizer *>(minim);
+//    if( !siman ) throw NullPointerException("TestToyExperiment::execute() -> Can't cast minimizer #2");
+//    ROOT::Math::GSLSimAnParams &pars = siman->getSolver().Params();
+//    siman->SetPrintLevel(2);
+//    pars.n_tries = 100;
+//    pars.iters_fixed_T = 10;
+//    pars.step_size = 1.0;
+//    pars.k = 1;
+//    pars.t_initial = 50;
+//    pars.mu = 1.05;
+//    pars.t_min = 0.1;
 
-    m_fitSuite->addFitParameter("*/par0",  1.0, 0.01);
-    m_fitSuite->addFitParameter("*/par1",  0.0, 0.01);
-    m_fitSuite->addFitParameter("*/par2",  0.0, 0.01);
+
+
+    //m_fitSuite->setMinimizer( new ROOTMinimizer("Genetic") );
+
+
+
+
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
+//    m_fitSuite->attachObserver( ObserverFactory::createDrawObserver() );
+
+
+    m_fitSuite->addFitParameter("*/par0",  1.0, 0.01, AttLimits::limited(0.5, 1.5));
+    m_fitSuite->addFitParameter("*/par1",  0.0, 0.01, AttLimits::limited(0.0, 3.0));
+    m_fitSuite->addFitParameter("*/par2",  0.0, 0.01, AttLimits::limited(0.0, 3.0));
     //m_fitSuite->addFitParameter("*/par2",  -2.5, 0.01, AttLimits::fixed());
 
     ChiSquaredModule chi_module;
@@ -138,8 +150,8 @@ void TestToyExperiment::initializeExperimentAndRealData()
     // generating real data
     delete m_real_data;
     m_experiment->setParameter(0, 1.0);
-    m_experiment->setParameter(1, -2.0);
-    m_experiment->setParameter(2, -2.5);
+    m_experiment->setParameter(1, 2.0);
+    m_experiment->setParameter(2, 2.5);
 //    m_experiment->setParameter(0, 2.0);
 //    m_experiment->setParameter(1, 1.0);
 //    m_experiment->setParameter(2, 0.5);

@@ -7,6 +7,7 @@
 #include <sstream>
 #include <boost/assign/list_of.hpp>
 #include "ROOTGSLNLSMinimizer.h"
+#include "ROOTGSLSimAnMinimizer.h"
 
 
 /* ************************************************************************* */
@@ -22,15 +23,15 @@ ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::strin
     , m_chi2_func(0)
     , m_gradient_func(0)
 {
-    if( !isValidNames(m_minimizer_name, m_algo_type) ) throw LogicErrorException("ROOTMinimizer::ROOTMinimizer() -> Error! Wrong minimizer initialization parameters.");
-
     if( m_minimizer_name == "GSLMultiFit") {
         // hacked version of ROOT's GSL Levenberg-Marquardt minimizer
         m_root_minimizer = new ROOT::Patch::GSLNLSMinimizer(2);
+    }else if( m_minimizer_name == "GSLSimAn") {
+        // hacked version of ROOT's GSL Simulated annealing minimizer
+        m_root_minimizer = new ROOT::Patch::GSLSimAnMinimizer();
     } else {
         m_root_minimizer = ROOT::Math::Factory::CreateMinimizer(minimizer_name, algo_type );
     }
-    if( !m_root_minimizer  ) throw NullPointerException("ROOTMinimizer::ROOTMinimizer() -> Error! Can't create minimizer.");
 }
 
 
@@ -39,45 +40,6 @@ ROOTMinimizer::~ROOTMinimizer()
     delete m_root_minimizer;
     delete m_chi2_func;
     delete m_gradient_func;
-}
-
-
-/* ************************************************************************* */
-// checking validity of the combination minimizer_name and algo_type
-/* ************************************************************************* */
-bool ROOTMinimizer::isValidNames(const std::string &minimizer_name, const std::string &algo_type)
-{
-    // valid minimizer names and algo types
-    typedef std::map<std::string, std::vector<std::string > > algotypes_t;
-    algotypes_t algoTypes;
-    algoTypes["Minuit"]      = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan");
-    algoTypes["Minuit2"]     = boost::assign::list_of("Migrad")("Simplex")("Combined")("Scan")("Fumili");
-    algoTypes["Fumili"]      = boost::assign::list_of("");
-    algoTypes["GSLMultiMin"] = boost::assign::list_of("ConjugateFR")("ConjugatePR")("BFGS")("BFGS2")("SteepestDescent");
-    algoTypes["GSLMultiFit"] = boost::assign::list_of("");
-    algoTypes["GSLSimAn"]    = boost::assign::list_of("");
-    algoTypes["Genetic"]     = boost::assign::list_of("");
-
-    // check minimizers names
-    algotypes_t::iterator it = algoTypes.find(minimizer_name);
-    if(it != algoTypes.end() ) {
-        // check minimizer's algorithm type
-        for(size_t i=0; i<it->second.size(); ++i ) if(it->second[i] == algo_type ) return true;
-    }
-
-    // if not, print complaining and return false
-    std::cout << "ROOTMinimizer::isValidNames() -> Warning! Wrong minimizer name '" << minimizer_name << "' and/or algorithm type '" << algo_type << "'." << std::endl;
-    std::cout << "List of allowed minimizers (and algos)" << std::endl;
-    for(it = algoTypes.begin(); it!= algoTypes.end(); ++it) {
-        std::cout << std::setw(20) << std::left<< it->first << "  : ";
-        for(size_t i=0; i<it->second.size(); ++i ) {
-            std::cout << it->second[i] << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-
-    return false;
 }
 
 

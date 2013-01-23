@@ -37,9 +37,6 @@ public:
     //! run a simulation with the current parameter settings
     virtual void runSimulation();
 
-    //! run a simulation with the current parameter settings for single OutputData element (temp)
-    virtual void runSimulationElement(size_t index);
-
     //! normalize the detector counts
     virtual void normalize();
 

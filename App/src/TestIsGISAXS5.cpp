@@ -19,10 +19,10 @@
 #include "GISASExperiment.h"
 #include "DrawHelper.h"
 #include "FitSuite.h"
-#include "FitSuiteHelper.h"
+#include "FitSuiteObserverFactory.h"
 #include "ResolutionFunction2DSimple.h"
 #include "MathFunctions.h"
-#include "ROOTMinimizer.h"
+#include "MinimizerFactory.h"
 #include "OutputDataFunctions.h"
 #include "ExperimentConstants.h"
 #include "OutputDataIOFactory.h"
@@ -156,12 +156,14 @@ void TestIsGISAXS5::run_isgisaxs_fit()
 
     // creating fit suite
     m_fitSuite = new FitSuite();
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit", "") );
     //m_fitSuite->setMinimizer( new ROOTMinimizer("Fumili", "") );
-    m_fitSuite->attachObserver( new FitSuiteObserverPrint(10) );
-    m_fitSuite->attachObserver( new FitSuiteObserverDraw(10) );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(10) );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver(10) );
+
+
 //    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
 //    minim->SetPrintLevel(4);
 //    minim->SetMaxIterations(400);

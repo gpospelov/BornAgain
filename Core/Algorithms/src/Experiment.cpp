@@ -100,12 +100,6 @@ void Experiment::runSimulation()
 }
 
 
-void Experiment::runSimulationElement(size_t /* index */)
-{
-    throw NotImplementedException("Experiment::runSimulationElement() -> Error! Not implemented.");
-}
-
-
 void Experiment::normalize()
 {
     double incident_intensity = m_beam.getIntensity();

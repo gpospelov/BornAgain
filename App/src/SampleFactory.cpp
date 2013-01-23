@@ -8,8 +8,7 @@
 
 SampleFactory::SampleFactory()
 {
-    // Experiment will take care about samples
-    setOwnObjects(true);
+    setOwnObjects(true); //factory will take care about samples
 
     // samples used for fresnel coefficients validation
     registerItem("AirOnSubstrate", StandardSamples::AirOnSubstrate);

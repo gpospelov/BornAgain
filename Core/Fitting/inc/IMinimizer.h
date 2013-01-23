@@ -69,6 +69,9 @@ public:
 
     //! print fit results
     virtual void printResults() const;
+
+    //! set minimizer command
+    virtual void setOptions(const std::string &option);
 };
 
 
@@ -130,6 +133,12 @@ inline void IMinimizer::clear()
 inline void IMinimizer::printResults() const
 {
     throw NotImplementedException("IMinimizer::printResults() -> Not implemented.");
+}
+
+inline void IMinimizer::setOptions(const std::string &options)
+{
+    (void)options;
+    throw NotImplementedException("IMinimizer::setOptions() -> Not implemented.");
 }
 
 #endif // IMINIMIZER_H

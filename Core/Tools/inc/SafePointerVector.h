@@ -34,6 +34,7 @@ public:
 
     SafePointerVector &operator=(const SafePointerVector &right);
     size_t size() const;
+    bool empty() const;
     void push_back(T *pointer);
     T *operator[](size_t index);
     const T *operator[](size_t index) const;
@@ -84,6 +85,12 @@ template<class T>
 inline size_t SafePointerVector<T>::size() const
 {
     return m_pointers.size();
+}
+
+template<class T>
+inline bool SafePointerVector<T>::empty() const
+{
+    return m_pointers.empty();
 }
 
 template<class T>

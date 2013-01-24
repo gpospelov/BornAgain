@@ -14,12 +14,8 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   05.10.2012
 
-
 #include "IObserver.h"
-#include "OutputData.h"
-#include "AttLimits.h"
-#include "FitParameterLinked.h"
-#include "FitSuiteStrategy.h"
+#include "FitSuiteStrategies.h"
 #include "FitSuiteObjects.h"
 #include "FitSuiteParameters.h"
 #include "IMinimizer.h"
@@ -31,7 +27,6 @@ class Experiment;
 class ParameterPool;
 
 
-
 //- -------------------------------------------------------------------
 //! @class FitSuite
 //! @brief Main class to perform fitting
@@ -39,8 +34,6 @@ class ParameterPool;
 class FitSuite : public IObservable
 {
 public:
-    typedef std::vector<IFitSuiteStrategy *> fitstrategies_t;
-
     FitSuite();
     virtual ~FitSuite();
 
@@ -64,11 +57,11 @@ public:
     //! link fitting parameters to parameters defined in experiments
     virtual void link_fit_parameters();
 
-    //! run single minimization round
-    virtual void minimize();
-
     //! run fitting which may consist of several minimization rounds
     virtual void runFit();
+
+    //! run single minimization round
+    virtual void minimize();
 
     //! return reference to the kit with data
     FitSuiteObjects *getFitObjects() { return &m_fit_objects; }
@@ -80,11 +73,13 @@ public:
     bool isLastIteration() const { return m_is_last_iteration; }
 
     //! get current number of minimization function calls
-    //int getNCall() { return m_n_call; }
-    size_t getNCall() const { return m_function_chi2.getNCall(); }
+    size_t getNCall() const;
 
     //! get the number of current strategy
-    size_t getNStrategy() const { return m_n_strategy; }
+    size_t getNStrategy() const { return m_fit_strategies.getNStrategy(); }
+
+    //! print results of the screen
+    void printResults() const;
 
 private:
     //! disabled copy constructor and assignment operator
@@ -96,15 +91,12 @@ private:
 
     FitSuiteObjects m_fit_objects; //! kit which contains sets of <experiment,real_data,chi_module> to fit
     FitSuiteParameters m_fit_parameters; //! collection of fit parameters
-    fitstrategies_t m_fit_strategies; //! collection of strategies which are executed before every minimization round
+    FitSuiteStrategies m_fit_strategies; //! collection of strategies which are executed before every minimization round
     IMinimizer  *m_minimizer; //! minimization engine
-
-    bool m_is_last_iteration; //! set to true after last iteration complete
-    size_t m_n_call; //! current number of minimization function call
-    size_t m_n_strategy; //! current number of fit strategy
-
     FitSuiteChiSquaredFunction m_function_chi2;
     FitSuiteGradientFunction m_function_gradient;
+
+    bool m_is_last_iteration; //! set to true after last iteration complete
 };
 
 #endif // FITSUITE_H

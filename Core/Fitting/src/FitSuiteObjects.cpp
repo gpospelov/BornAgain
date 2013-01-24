@@ -14,7 +14,6 @@ FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_experiment_normalize(f
 /* ************************************************************************* */
 void FitSuiteObjects::clear()
 {
-    for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) delete (*it);
     m_fit_objects.clear();
 }
 

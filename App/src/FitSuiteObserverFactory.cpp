@@ -32,7 +32,7 @@ void FitSuiteObserverPrint::update(IObservable *subject)
     if(fitSuite->isLastIteration()) {
         std::cout << std::endl;
         std::cout << "FitSuiteObserverPrint::update() -> Info. Printing results" << std::endl;
-        fitSuite->getMinimizer()->printResults();
+        fitSuite->printResults();
     } else {
         if( (fitSuite->getNCall() % m_print_every_nth != 0) && fitSuite->getNCall()!=0) return; // draw first iteration and then every n'th
 
@@ -51,10 +51,7 @@ void FitSuiteObserverPrint::update(IObservable *subject)
         m_last_call_clock = call_clock;
         m_last_call_time = call_time;
 
-        int npar(0);
-        for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it, ++npar) {
-            std::cout << "   # "<< npar << " " << (*(*it)) << std::endl;
-        }
+        fitSuite->getFitParameters()->printParameters();
     }
 
 }

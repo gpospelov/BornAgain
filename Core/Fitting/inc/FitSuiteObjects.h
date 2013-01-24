@@ -19,6 +19,7 @@
 #include "Experiment.h"
 #include "OutputData.h"
 #include "FitObject.h"
+#include "SafePointerVector.h"
 
 #include <vector>
 
@@ -30,7 +31,7 @@
 class FitSuiteObjects : public IParameterized
 {
 public:
-    typedef std::vector<FitObject *> FitObjects_t;
+    typedef SafePointerVector<FitObject > FitObjects_t;
 
     FitSuiteObjects();
     virtual ~FitSuiteObjects(){}

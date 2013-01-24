@@ -1,37 +1,36 @@
 #include "TestIsGISAXS12.h"
-#include "Utils.h"
-#include "OutputData.h"
-#include "IsGISAXSTools.h"
-#include "IsGISAXSData.h"
-#include "MultiLayer.h"
-#include "Layer.h"
-#include "MaterialManager.h"
-#include "Particle.h"
-#include "ParticleDecoration.h"
-#include "FormFactorCylinder.h"
-#include "StochasticSampledParameter.h"
-#include "ParticleBuilder.h"
-#include "LayerDecorator.h"
-#include "Units.h"
-#include "StochasticGaussian.h"
-#include "InterferenceFunctionNone.h"
-#include "InterferenceFunction1DParaCrystal.h"
-#include "GISASExperiment.h"
 #include "DrawHelper.h"
+#include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
-#include "ResolutionFunction2DSimple.h"
+#include "FormFactorCylinder.h"
+#include "GISASExperiment.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionNone.h"
+#include "IsGISAXSData.h"
+#include "IsGISAXSTools.h"
+#include "Layer.h"
+#include "LayerDecorator.h"
+#include "MaterialManager.h"
 #include "MathFunctions.h"
-#include "MinimizerTest.h"
-#include "OutputDataFunctions.h"
-#include "ExperimentConstants.h"
-#include "OutputDataIOFactory.h"
 #include "MinimizerFactory.h"
+#include "MinimizerTest.h"
+#include "MultiLayer.h"
+#include "OutputData.h"
+#include "OutputDataFunctions.h"
+#include "OutputDataIOFactory.h"
+#include "Particle.h"
+#include "ParticleBuilder.h"
+#include "ParticleDecoration.h"
+#include "ResolutionFunction2DSimple.h"
+#include "StochasticGaussian.h"
+#include "StochasticSampledParameter.h"
+#include "Units.h"
+#include "Utils.h"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
 #include "TCanvas.h"
 #include "TGraph.h"
 #include "TH1D.h"
@@ -39,7 +38,6 @@
 #include "TLine.h"
 #include "TROOT.h"
 #include "TLegend.h"
-
 
 
 /* ************************************************************************* */
@@ -73,18 +71,17 @@ void TestIsGISAXS12::execute()
     initialiseExperiment();
 
     // run our standard isgisaxs comparison for given sample
-//    run_isgisaxs_comparison();
+    //run_isgisaxs_comparison();
 
     // plot IsGISAXS data and IsGISAXS fit results
-//    plot_isgisaxs_fit_results();
-
+    //plot_isgisaxs_fit_results();
 
     // run isgisaxs ex-12 style fit
-   //run_isgisaxs_fit();
+   run_isgisaxs_fit();
 
     // additional tests for debugging
     //run_test_minimizer(); // run test minimizer
-    run_test_chimodule(); // run test
+    //run_test_chimodule(); // run test
 }
 
 
@@ -197,28 +194,15 @@ void TestIsGISAXS12::plot_isgisaxs_fit_results()
 /* ************************************************************************* */
 void TestIsGISAXS12::run_isgisaxs_fit()
 {
-    // reading info about two 1D scans defined in isgisaxs example
+    // reading 1D data scans defined in isgisaxs example
     IsGISAXSData::DataSet_t isgi_scans;
     IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitconstraints.out", isgi_scans, IsGISAXSData::kData2fit);
 
     // creating fit suite
     m_fitSuite = new FitSuite();
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
-
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit", "") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Fumili", "") );
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(10) );
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver(10) );
-
-
-//    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
-//    minim->SetPrintLevel(4);
-//    minim->SetMaxIterations(400);
-//    minim->SetTolerance(0.1);
-    //minim->SetPrecision(0.004);
-//    minim->SetStrategy(1);
-//    minim->SetPrecision(1.);
 
     m_fitSuite->addFitParameter("*Normalizer/scale", 1e5, 1, AttLimits::limited(1e4, 2e5));
     m_fitSuite->addFitParameter("*Normalizer/shift", 10, 0.01, AttLimits::limited(1., 20.));
@@ -235,22 +219,6 @@ void TestIsGISAXS12::run_isgisaxs_fit()
 
     m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(0.01, 50.0) );
     m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(0.01, 10.) );
-
-    //      m_fitSuite->addFitParameter("*Normalizer/scale", 1.31159E+05, 100, AttLimits::limited(1e4, 2e5));
-    //      m_fitSuite->addFitParameter("*Normalizer/shift", -8.10009E-02, 1, AttLimits::limited(-10., 20.));
-
-    //      m_fitSuite->addFitParameter("*SampleBuilder/particle_probability1",  5.34055E-01, 0.1, AttLimits::limited(0.01, 1.0) );
-    //      m_fitSuite->addFitParameter("*SampleBuilder/particle_radius1",  4.90801E+00, 1*Units::nanometer, AttLimits::limited(1., 10.) );
-    //      m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius1",  1.90651E-01, 0.1, AttLimits::limited(0.01, 1.) );
-    //      m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio1",  1.00193E+00, 0.1, AttLimits::limited(0.01, 10.) );
-
-    //      m_fitSuite->addFitParameter("*SampleBuilder/particle_probability2",  4.70783E-01, 0.1, AttLimits::limited(0.01, 1.0) );
-    //      m_fitSuite->addFitParameter("*SampleBuilder/particle_radius2",  5.16801E+00, 1*Units::nanometer, AttLimits::limited(1., 10.) );
-    //      m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius2",  2.03908E-01, 0.1, AttLimits::limited(0.01, 1.) );
-    //      m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio2",  9.77402E-01, 0.1, AttLimits::limited(0.01, 10.) );
-
-    //      m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  1.49681E+01, 1*Units::nanometer, AttLimits::limited(0.01, 50.0) );
-    //      m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  3.03315E+00, 1*Units::nanometer, AttLimits::limited(0.01, 10.) );
 
 
     // setting up fitSuite

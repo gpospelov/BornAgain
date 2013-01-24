@@ -81,8 +81,8 @@ void TestToyExperiment::execute()
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLMultiFit") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
-    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
-    m_fitSuite->getMinimizer()->setOptions("ntries=100:niters=10:step_size=1.0:k=1:t_initial=50.0:mu=1.05:t_min=0.1");
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
+    //m_fitSuite->getMinimizer()->setOptions("ntries=100:niters=10:step_size=1.0:k=1:t_initial=50.0:mu=1.05:t_min=0.1");
 
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
 //    m_fitSuite->attachObserver( ObserverFactory::createDrawObserver() );

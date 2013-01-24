@@ -37,7 +37,7 @@ double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index
     assert(m_fit_suite != NULL);
 
     bool parameters_changed(true);
-    if(m_ncall != 0) parameters_changed = m_fit_suite->getFitParameters()->valuesAreDifferrent(pars, 2);
+    if(m_ncall_total != 0) parameters_changed = m_fit_suite->getFitParameters()->valuesAreDifferrent(pars, 2);
 
     verify_arrays();
     verify_minimizer_logic(parameters_changed, (int)index);
@@ -50,16 +50,19 @@ double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index
     if(parameters_changed) calculate_residuals(pars);
 
     if(gradients) {
-        if(index == 0 || parameters_changed ) calculate_gradients(pars);
+        if(index == 0 || parameters_changed ) {
+            calculate_gradients(pars);
+            m_ncall_gradient++;
+        }
         for(size_t i_par=0; i_par<m_npars; ++i_par) {
             gradients[i_par] = m_gradients[i_par][index];
         }
     }
 
-    m_ncall++;
-    if(index == 0 ) {
+    m_ncall_total++;
+    if(index == 0 && !gradients) {
         m_fit_suite->notifyObservers();
-        m_ncycles++;
+        m_ncall++;
     }
     //std::cout << "XXX 1.2 " << m_residuals[index] << std::endl;
     return m_residuals[index];

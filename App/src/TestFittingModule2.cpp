@@ -1,27 +1,26 @@
 #include "TestFittingModule2.h"
-#include "Units.h"
-#include "MathFunctions.h"
+#include "AttLimits.h"
+#include "DrawHelper.h"
+#include "Exceptions.h"
+#include "FitSuite.h"
+#include "FitSuiteObserverFactory.h"
+#include "IFitSuiteStrategy.h"
+#include "FormFactors.h"
 #include "GISASExperiment.h"
-#include "IsGISAXSTools.h"
-#include "MultiLayer.h"
-#include "MaterialManager.h"
+#include "IIntensityFunction.h"
+#include "IObserver.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
-#include "ParticleDecoration.h"
+#include "IsGISAXSTools.h"
 #include "LayerDecorator.h"
-#include "Particle.h"
-#include "FormFactors.h"
-#include "Exceptions.h"
-#include "DrawHelper.h"
-#include "FitSuiteObserverFactory.h"
-#include "ResolutionFunction2DSimple.h"
-#include "AttLimits.h"
-#include "IIntensityFunction.h"
-
-#include "IObserver.h"
-#include "FitSuite.h"
-#include "FitSuiteStrategy.h"
+#include "MaterialManager.h"
+#include "MathFunctions.h"
 #include "MinimizerFactory.h"
+#include "MultiLayer.h"
+#include "Particle.h"
+#include "ParticleDecoration.h"
+#include "ResolutionFunction2DSimple.h"
+#include "Units.h"
 
 #include "TROOT.h"
 #include "TCanvas.h"
@@ -37,7 +36,7 @@ TestFittingModule2::TestFittingModule2()
     , mp_sample_builder(0)
     , m_fitSuite(0)
 {
-    mp_sample_builder = new TestSampleBuilder();
+    mp_sample_builder = new SampleBuilder();
 
     // setting up fitSuite
     m_fitSuite = new FitSuite();
@@ -216,7 +215,7 @@ void TestFittingModule2::initializeRealData()
 // builder via ISampleBuilder
 // 5 fit parameters
 /* ************************************************************************* */
-TestFittingModule2::TestSampleBuilder::TestSampleBuilder()
+TestFittingModule2::SampleBuilder::SampleBuilder()
     : m_cylinder_height(5.0*Units::nanometer)
     , m_cylinder_radius(5.0*Units::nanometer)
     , m_prism3_half_side(5.0*Units::nanometer)
@@ -227,7 +226,7 @@ TestFittingModule2::TestSampleBuilder::TestSampleBuilder()
 }
 
 
-ISample *TestFittingModule2::TestSampleBuilder::buildSample() const
+ISample *TestFittingModule2::SampleBuilder::buildSample() const
 {
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
@@ -251,7 +250,7 @@ ISample *TestFittingModule2::TestSampleBuilder::buildSample() const
     return p_multi_layer;
 }
 
-void TestFittingModule2::TestSampleBuilder::init_parameters()
+void TestFittingModule2::SampleBuilder::init_parameters()
 {
     getParameterPool()->clear();
     getParameterPool()->registerParameter("m_cylinder_height", &m_cylinder_height);

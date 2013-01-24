@@ -16,6 +16,7 @@
 
 #include <boost/function.hpp>
 #include "Exceptions.h"
+#include <vector>
 
 class FitParameter;
 class FitSuiteParameters;
@@ -58,8 +59,11 @@ public:
     //! return minimum function value
     virtual double getMinValue() const;
 
-    //! return pointer to the parameters values at the minimum
+    //! return value of the parameter at the minimum
     virtual double getValueOfVariableAtMinimum(size_t i) const;
+
+    //! return values of parameters at the minimum
+    virtual std::vector<double > getValueOfVariablesAtMinimum() const;
 
     //! return pointer to the parameters values at the minimum
     virtual double getErrorOfVariable(size_t i) const;
@@ -117,6 +121,11 @@ inline double IMinimizer::getValueOfVariableAtMinimum(size_t index) const
 {
     (void)index;
     throw NotImplementedException("IMinimizer::getValueOfVariableAtMinimum() -> Not implemented.");
+}
+
+inline std::vector<double > IMinimizer::getValueOfVariablesAtMinimum() const
+{
+    throw NotImplementedException("IMinimizer::getVariablesAtMinimum() -> Not implemented.");
 }
 
 inline double IMinimizer::getErrorOfVariable(size_t index) const

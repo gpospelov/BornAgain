@@ -21,11 +21,11 @@ SOURCES += \
     Algorithms/src/ChiSquaredFrequency.cpp \
     Algorithms/src/ChiSquaredModule.cpp \
     Algorithms/src/ConvolutionDetectorResolution.cpp \
+    Algorithms/src/DWBADiffuseReflection.cpp \
+    Algorithms/src/DWBASimulation.cpp \
     Algorithms/src/DecouplingApproximationStrategy.cpp \
     Algorithms/src/Detector.cpp \
     Algorithms/src/DiffuseDWBASimulation.cpp \
-    Algorithms/src/DWBADiffuseReflection.cpp \
-    Algorithms/src/DWBASimulation.cpp \
     Algorithms/src/Experiment.cpp \
     Algorithms/src/FTDistributions.cpp \
     Algorithms/src/GISASExperiment.cpp \
@@ -33,8 +33,8 @@ SOURCES += \
     Algorithms/src/IFittingDataSelector.cpp \
     Algorithms/src/IOutputDataNormalizer.cpp \
     Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
-    Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
+    Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
     Algorithms/src/Mask.cpp \
     Algorithms/src/MaskCoordinateFunction.cpp \
@@ -46,20 +46,21 @@ SOURCES += \
     Fitting/src/FitObject.cpp \
     Fitting/src/FitParameter.cpp \
     Fitting/src/FitParameterLinked.cpp \
-    Fitting/src/FitSuiteObjects.cpp \
-    Fitting/src/FitSuiteStrategy.cpp \
     Fitting/src/FitSuite.cpp \
     Fitting/src/FitSuiteFunctions.cpp \
+    Fitting/src/FitSuiteObjects.cpp \
     Fitting/src/FitSuiteParameters.cpp \
-    Fitting/src/MinimizerTest.cpp \
+    Fitting/src/FitSuiteStrategies.cpp \
+    Fitting/src/IFitSuiteStrategy.cpp \
     Fitting/src/MinimizerScan.cpp \
+    Fitting/src/MinimizerTest.cpp \
     \
     FormFactors/src/FormFactorBox.cpp \
     FormFactors/src/FormFactorCrystal.cpp \
     FormFactors/src/FormFactorCylinder.cpp \
-    FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorDWBA.cpp \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
+    FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorEllipsoid.cpp \
     FormFactors/src/FormFactorFullSphere.cpp \
     FormFactors/src/FormFactorGauss.cpp \
@@ -85,9 +86,9 @@ SOURCES += \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
     Samples/src/IMaterial.cpp \
+    Samples/src/ISample.cpp \
     Samples/src/InterferenceFunction1DParaCrystal.cpp \
     Samples/src/InterferenceFunction2DParaCrystal.cpp \
-    Samples/src/ISample.cpp \
     Samples/src/IsGISAXSMorphologyFileDecoration.cpp \
     Samples/src/Lattice.cpp \
     Samples/src/LatticeBasis.cpp \
@@ -119,7 +120,9 @@ SOURCES += \
     Tools/src/OutputData.cpp \
     Tools/src/OutputDataFunctions.cpp \
     Tools/src/OutputDataIOFactory.cpp \
+    Tools/src/OutputDataReadStrategy.cpp \
     Tools/src/OutputDataReader.cpp \
+    Tools/src/OutputDataWriteStrategy.cpp \
     Tools/src/OutputDataWriter.cpp \
     Tools/src/ParameterPool.cpp \
     Tools/src/ProgramOptions.cpp \
@@ -127,21 +130,19 @@ SOURCES += \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
-    Tools/src/Utils.cpp \
-    Tools/src/OutputDataReadStrategy.cpp \
-    Tools/src/OutputDataWriteStrategy.cpp
+    Tools/src/Utils.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
     Algorithms/inc/ChiSquaredFrequency.h \
     Algorithms/inc/ChiSquaredModule.h \
     Algorithms/inc/ConvolutionDetectorResolution.h \
+    Algorithms/inc/DWBADiffuseReflection.h \
+    Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/DecouplingApproximationStrategy.h \
     Algorithms/inc/Detector.h \
     Algorithms/inc/DetectorParameters.h \
     Algorithms/inc/DiffuseDWBASimulation.h \
-    Algorithms/inc/DWBADiffuseReflection.h \
-    Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/Experiment.h \
     Algorithms/inc/FTDistributions.h \
     Algorithms/inc/GISASExperiment.h \
@@ -153,11 +154,11 @@ HEADERS += \
     Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
     Algorithms/inc/ISampleBuilder.h \
-    Algorithms/inc/IsGISAXSMorphologyFileStrategy.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/ISquaredFunction.h \
-    Algorithms/inc/LayerDecoratorDWBASimulation.h \
+    Algorithms/inc/IsGISAXSMorphologyFileStrategy.h \
     Algorithms/inc/LayerDWBASimulation.h \
+    Algorithms/inc/LayerDecoratorDWBASimulation.h \
     Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
     Algorithms/inc/Mask.h \
     Algorithms/inc/MaskCoordinateFunction.h \
@@ -175,22 +176,23 @@ HEADERS += \
     Fitting/inc/FitSuiteFunctions.h \
     Fitting/inc/FitSuiteObjects.h \
     Fitting/inc/FitSuiteParameters.h \
-    Fitting/inc/FitSuiteStrategy.h \
+    Fitting/inc/FitSuiteStrategies.h \
+    Fitting/inc/IFitSuiteStrategy.h \
     Fitting/inc/IMinimizer.h \
-    Fitting/inc/MinimizerTest.h \
     Fitting/inc/MinimizerScan.h \
+    Fitting/inc/MinimizerTest.h \
     \
     FormFactors/inc/FormFactorBox.h \
     FormFactors/inc/FormFactorCrystal.h \
     FormFactors/inc/FormFactorCylinder.h \
+    FormFactors/inc/FormFactorDWBA.h \
+    FormFactors/inc/FormFactorDWBAConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
     FormFactors/inc/FormFactorDecoratorFactor.h \
     FormFactors/inc/FormFactorDecoratorMultiPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorRefractiveIndex.h \
     FormFactors/inc/FormFactorDecoratorTransformation.h \
-    FormFactors/inc/FormFactorDWBA.h \
-    FormFactors/inc/FormFactorDWBAConstZ.h \
     FormFactors/inc/FormFactorEllipsoid.h \
     FormFactors/inc/FormFactorFullSphere.h \
     FormFactors/inc/FormFactorGauss.h \
@@ -199,10 +201,10 @@ HEADERS += \
     FormFactors/inc/FormFactorPrism3.h \
     FormFactors/inc/FormFactorPrism6.h \
     FormFactors/inc/FormFactorPyramid.h \
-    FormFactors/inc/FormFactors.h \
     FormFactors/inc/FormFactorSphere.h \
     FormFactors/inc/FormFactorSphereGaussianRadius.h \
     FormFactors/inc/FormFactorWeighted.h \
+    FormFactors/inc/FormFactors.h \
     FormFactors/inc/IFormFactor.h \
     FormFactors/inc/IFormFactorBorn.h \
     FormFactors/inc/IFormFactorBornSeparable.h \
@@ -226,12 +228,12 @@ HEADERS += \
     Samples/inc/IDispersalState.h \
     Samples/inc/IInterferenceFunction.h \
     Samples/inc/IMaterial.h \
-    Samples/inc/InterferenceFunction1DParaCrystal.h \
-    Samples/inc/InterferenceFunction2DParaCrystal.h \
-    Samples/inc/InterferenceFunctionNone.h \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \
     Samples/inc/ISelectionRule.h \
+    Samples/inc/InterferenceFunction1DParaCrystal.h \
+    Samples/inc/InterferenceFunction2DParaCrystal.h \
+    Samples/inc/InterferenceFunctionNone.h \
     Samples/inc/IsGISAXSMorphologyFileDecoration.h \
     Samples/inc/Lattice.h \
     Samples/inc/LatticeBasis.h \
@@ -249,8 +251,8 @@ HEADERS += \
     Samples/inc/ParticleInfo.h \
     Samples/inc/PositionParticleInfo.h \
     \
-    Tools/inc/AxisBin.h \
     Tools/inc/AxisDouble.h \
+    Tools/inc/AxisBin.h \
     Tools/inc/Bin.h \
     Tools/inc/Convolve.h \
     Tools/inc/Coordinate3D.h \
@@ -258,6 +260,7 @@ HEADERS += \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
     Tools/inc/DoubleToComplexMap.h \
     Tools/inc/Exceptions.h \
+    Tools/inc/FastVector.h \
     Tools/inc/IAxis.h \
     Tools/inc/IChangeable.h \
     Tools/inc/ICloneable.h \
@@ -277,7 +280,9 @@ HEADERS += \
     Tools/inc/OutputDataFunctions.h \
     Tools/inc/OutputDataIOFactory.h \
     Tools/inc/OutputDataIterator.h \
+    Tools/inc/OutputDataReadStrategy.h \
     Tools/inc/OutputDataReader.h \
+    Tools/inc/OutputDataWriteStrategy.h \
     Tools/inc/OutputDataWriter.h \
     Tools/inc/ParameterPool.h \
     Tools/inc/ProgramOptions.h \
@@ -289,13 +294,7 @@ HEADERS += \
     Tools/inc/TRange.h \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
-    Tools/inc/Utils.h \
-    Tools/inc/FastVector.h \
-    Tools/inc/OutputDataReadStrategy.h \
-    Tools/inc/OutputDataWriteStrategy.h
-
-#INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
-#DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc
+    Tools/inc/Utils.h
 
 contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
    include($$PWD/python_module.pri)

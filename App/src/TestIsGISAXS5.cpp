@@ -1,37 +1,35 @@
 #include "TestIsGISAXS5.h"
-
-#include "Utils.h"
-#include "OutputData.h"
-#include "IsGISAXSTools.h"
-#include "MultiLayer.h"
-#include "Layer.h"
-#include "MaterialManager.h"
-#include "Particle.h"
-#include "ParticleDecoration.h"
-#include "FormFactorCylinder.h"
-#include "StochasticSampledParameter.h"
-#include "ParticleBuilder.h"
-#include "LayerDecorator.h"
-#include "Units.h"
-#include "StochasticGaussian.h"
-#include "InterferenceFunctionNone.h"
-#include "InterferenceFunction1DParaCrystal.h"
-#include "GISASExperiment.h"
 #include "DrawHelper.h"
+#include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
-#include "ResolutionFunction2DSimple.h"
+#include "FormFactorCylinder.h"
+#include "GISASExperiment.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunctionNone.h"
+#include "IsGISAXSData.h"
+#include "IsGISAXSTools.h"
+#include "Layer.h"
+#include "LayerDecorator.h"
+#include "MaterialManager.h"
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
+#include "MultiLayer.h"
+#include "OutputData.h"
 #include "OutputDataFunctions.h"
-#include "ExperimentConstants.h"
 #include "OutputDataIOFactory.h"
-#include "IsGISAXSData.h"
+#include "Particle.h"
+#include "ParticleBuilder.h"
+#include "ParticleDecoration.h"
+#include "ResolutionFunction2DSimple.h"
+#include "StochasticGaussian.h"
+#include "StochasticSampledParameter.h"
+#include "Units.h"
+#include "Utils.h"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
 #include "TCanvas.h"
 #include "TGraph.h"
 #include "TH1D.h"
@@ -149,28 +147,12 @@ void TestIsGISAXS5::plot_isgisaxs_fit_results()
 /* ************************************************************************* */
 void TestIsGISAXS5::run_isgisaxs_fit()
 {
-    // reading info about two 1D scans defined in isgisaxs example
-    IsGISAXSData::DataSet_t isgi_scans;
-    //IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitexample.out", isgi_scans, IsGISAXSData::kData2fit);
-    IsGISAXSData::read_datfile(getOutputPath()+"isgi_fitexample.dat", isgi_scans);
-
     // creating fit suite
     m_fitSuite = new FitSuite();
+
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit", "") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Fumili", "") );
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(10) );
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver(10) );
-
-
-//    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
-//    minim->SetPrintLevel(4);
-//    minim->SetMaxIterations(400);
-//    minim->SetTolerance(0.1);
-    //minim->SetPrecision(0.004);
-//    minim->SetStrategy(1);
-//    minim->SetPrecision(1.);
 
     m_fitSuite->addFitParameter("*Normalizer/scale", 1e5, 1, AttLimits::limited(1e4, 2e5));
     m_fitSuite->addFitParameter("*Normalizer/shift", 10, 0.01, AttLimits::limited(1., 20.));
@@ -179,6 +161,10 @@ void TestIsGISAXS5::run_isgisaxs_fit()
     m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio",  0.8, 0.01, AttLimits::limited(0.01, 10.) );
     m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  12*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(0.01, 50.0) );
     m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  6*Units::nanometer, 0.01*Units::nanometer, AttLimits::limited(0.01, 10.) );
+
+    // reading 1D data scans defined in isgisaxs example
+    IsGISAXSData::DataSet_t isgi_scans;
+    IsGISAXSData::read_datfile(getOutputPath()+"isgi_fitexample.dat", isgi_scans);
 
     // setting up fitSuite
     ChiSquaredModule chiModule;

@@ -1,30 +1,28 @@
 #include "TestFittingModule3.h"
-#include "Units.h"
-#include "MathFunctions.h"
+#include "AttLimits.h"
+#include "DrawHelper.h"
+#include "Exceptions.h"
+#include "ExperimentConstants.h"
+#include "FitSuite.h"
+#include "FitSuiteObserverFactory.h"
+#include "FormFactors.h"
 #include "GISASExperiment.h"
-#include "IsGISAXSTools.h"
-#include "MultiLayer.h"
-#include "MaterialManager.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
-#include "ParticleDecoration.h"
+#include "IsGISAXSTools.h"
 #include "LayerDecorator.h"
-#include "Particle.h"
-#include "FormFactors.h"
-#include "Exceptions.h"
-#include "DrawHelper.h"
-#include "FitSuiteObserverFactory.h"
-#include "ResolutionFunction2DSimple.h"
-#include "AttLimits.h"
-#include "OutputDataFunctions.h"
-#include "TLine.h"
-#include "ExperimentConstants.h"
-
-#include "IObserver.h"
-#include "FitSuite.h"
+#include "MaterialManager.h"
+#include "MathFunctions.h"
 #include "MinimizerFactory.h"
+#include "MultiLayer.h"
+#include "OutputDataFunctions.h"
+#include "Particle.h"
+#include "ParticleDecoration.h"
+#include "ResolutionFunction2DSimple.h"
+#include "Units.h"
 
 #include "TROOT.h"
+#include "TLine.h"
 #include "TCanvas.h"
 #include "TLatex.h"
 #include "TH2D.h"
@@ -66,7 +64,6 @@ void TestFittingModule3::execute()
 //    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 //    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 //    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-
 
 //    // setting up fitSuite
 //    ChiSquaredModule chiModule;

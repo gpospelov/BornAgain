@@ -12,15 +12,20 @@ FUNCTIONAL_TESTS = $$PWD/../Tests/FunctionalTests/TestCore
 # Our source and headers
 # -----------------------------------------------------------------------------
 SOURCES += \
+    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp \
     src/AppOptionsDescription.cpp \
     src/CommandLine.cpp \
     src/DrawHelper.cpp \
+    src/FitSuiteObserverFactory.cpp \
     src/FunctionalTestFactory.cpp \
     src/IFunctionalTest.cpp \
     src/IsGISAXSData.cpp \
     src/IsGISAXSTools.cpp \
-    src/main.cpp \
+    src/MinimizerFactory.cpp \
+    src/ROOTGSLNLSMinimizer.cpp \
+    src/ROOTGSLSimAnMinimizer.cpp \
     src/ROOTMinimizer.cpp \
+    src/ROOTMinimizerHelper.cpp \
     src/SampleFactory.cpp \
     src/StandardSamples.cpp \
     src/TestConvolution.cpp \
@@ -35,6 +40,10 @@ SOURCES += \
     src/TestFresnelCoeff.cpp \
     src/TestFumiliLMA.cpp \
     src/TestIsGISAXS1.cpp \
+    src/TestIsGISAXS10.cpp \
+    src/TestIsGISAXS11.cpp \
+    src/TestIsGISAXS12.cpp \
+    src/TestIsGISAXS13.cpp \
     src/TestIsGISAXS2.cpp \
     src/TestIsGISAXS3.cpp \
     src/TestIsGISAXS4.cpp \
@@ -42,10 +51,6 @@ SOURCES += \
     src/TestIsGISAXS7.cpp \
     src/TestIsGISAXS8.cpp \
     src/TestIsGISAXS9.cpp \
-    src/TestIsGISAXS10.cpp \
-    src/TestIsGISAXS11.cpp \
-    src/TestIsGISAXS12.cpp \
-    src/TestIsGISAXS13.cpp \
     src/TestMesoCrystal1.cpp \
     src/TestMesoCrystal2.cpp \
     src/TestMiscellaneous.cpp \
@@ -55,24 +60,26 @@ SOURCES += \
     src/TestRoughness.cpp \
     src/TestToyExperiment.cpp \
     src/TreeEventStructure.cpp \
-    src/ROOTGSLNLSMinimizer.cpp \
-    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp \
-    src/ROOTGSLSimAnMinimizer.cpp \
-    src/FitSuiteObserverFactory.cpp \
-    src/MinimizerFactory.cpp \
-    src/ROOTMinimizerOptionsHelper.cpp
+    src/main.cpp
 
 HEADERS += \
+    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
     inc/App.h \
     inc/AppLinkDef.h \
     inc/AppOptionsDescription.h \
     inc/CommandLine.h \
     inc/DrawHelper.h \
+    inc/FitSuiteObserverFactory.h \
     inc/FunctionalTestFactory.h \
     inc/IFunctionalTest.h \
     inc/IsGISAXSData.h \
     inc/IsGISAXSTools.h \
+    inc/MinimizerFactory.h \
+    inc/ROOTGSLNLSMinimizer.h \
+    inc/ROOTGSLSimAnMinimizer.h \
     inc/ROOTMinimizer.h \
+    inc/ROOTMinimizerFunction.h \
+    inc/ROOTMinimizerHelper.h \
     inc/SampleFactory.h \
     inc/StandardSamples.h \
     inc/TestConvolution.h \
@@ -87,6 +94,10 @@ HEADERS += \
     inc/TestFresnelCoeff.h \
     inc/TestFumiliLMA.h \
     inc/TestIsGISAXS1.h \
+    inc/TestIsGISAXS10.h \
+    inc/TestIsGISAXS11.h \
+    inc/TestIsGISAXS12.h \
+    inc/TestIsGISAXS13.h \
     inc/TestIsGISAXS2.h \
     inc/TestIsGISAXS3.h \
     inc/TestIsGISAXS4.h \
@@ -94,10 +105,6 @@ HEADERS += \
     inc/TestIsGISAXS7.h \
     inc/TestIsGISAXS8.h \
     inc/TestIsGISAXS9.h \
-    inc/TestIsGISAXS10.h \
-    inc/TestIsGISAXS11.h \
-    inc/TestIsGISAXS12.h \
-    inc/TestIsGISAXS13.h \
     inc/TestMesoCrystal1.h \
     inc/TestMesoCrystal2.h \
     inc/TestMiscellaneous.h \
@@ -106,14 +113,7 @@ HEADERS += \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
     inc/TestToyExperiment.h \
-    inc/TreeEventStructure.h \
-    inc/ROOTMinimizerFunction.h \
-    inc/ROOTGSLNLSMinimizer.h \
-    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
-    inc/ROOTGSLSimAnMinimizer.h \
-    inc/FitSuiteObserverFactory.h \
-    inc/MinimizerFactory.h \
-    inc/ROOTMinimizerOptionsHelper.h
+    inc/TreeEventStructure.h
 
 # additional locations
 LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01

@@ -1,4 +1,4 @@
-#include "FitSuiteStrategy.h"
+#include "IFitSuiteStrategy.h"
 #include "FitSuite.h"
 #include "FitSuiteParameters.h"
 #include "Exceptions.h"
@@ -90,7 +90,6 @@ void FitSuiteStrategyAdjustParameters::execute()
     // fixing all parameters at they current values
     if( m_fix_all ) {
         for(FitSuiteParameters::iterator it = fitParameters->begin(); it!=fitParameters->end(); ++it) {
-            std::cout << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << (*it)->getName() << std::endl;
             (*it)->setFixed(true);
         }
     }

@@ -8,10 +8,11 @@
 #include <boost/bind.hpp>
 
 
-FitSuite::FitSuite() : m_minimizer(0), m_is_last_iteration(false), m_n_call(0), m_n_strategy(0)
+FitSuite::FitSuite() : m_minimizer(0), m_is_last_iteration(false)
 {
     m_function_chi2.init(this);
     m_function_gradient.init(this);
+    m_fit_strategies.init(this);
 }
 
 
@@ -21,54 +22,50 @@ FitSuite::~FitSuite()
 }
 
 
-/* ************************************************************************* */
-// clear all data completely
-/* ************************************************************************* */
+// ----------------------------------------------------------------------------
+// clear all data
+// ----------------------------------------------------------------------------
 void FitSuite::clear()
 {
     m_fit_objects.clear();
     m_fit_parameters.clear();
-    for(fitstrategies_t::iterator it = m_fit_strategies.begin(); it!= m_fit_strategies.end(); ++it) delete (*it);
     m_fit_strategies.clear();
     delete m_minimizer;
     m_minimizer = 0;
     m_is_last_iteration = false;
-    m_n_call = 0;
-    m_n_strategy = 0;
 }
 
 
-/* ************************************************************************* */
+// ----------------------------------------------------------------------------
 // add pair of (experiment, real data) for consecutive simulation
-/* ************************************************************************* */
+// ----------------------------------------------------------------------------
 void FitSuite::addExperimentAndRealData(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module)
 {
     m_fit_objects.add(experiment, real_data, chi2_module);
 }
 
 
-/* ************************************************************************* */
+// ----------------------------------------------------------------------------
 // add fit parameter
-/* ************************************************************************* */
+// ----------------------------------------------------------------------------
 void FitSuite::addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error)
 {
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
 
-/* ************************************************************************* */
+// ----------------------------------------------------------------------------
 // add fit strategy
-/* ************************************************************************* */
+// ----------------------------------------------------------------------------
 void FitSuite::addFitStrategy(IFitSuiteStrategy *strategy)
 {
-    strategy->init(this);
-    m_fit_strategies.push_back(strategy);
+    m_fit_strategies.addStrategy(strategy);
 }
 
 
-/* ************************************************************************* */
-// Link defined FitMultiParameters with experiment parameters
-/* ************************************************************************* */
+// ----------------------------------------------------------------------------
+// Link FitMultiParameters with experiment parameters
+// ----------------------------------------------------------------------------
 void FitSuite::link_fit_parameters()
 {
     ParameterPool *pool = m_fit_objects.createParameterTree();
@@ -80,9 +77,46 @@ void FitSuite::link_fit_parameters()
 }
 
 
-/* ************************************************************************* */
-// run single minimization round
-/* ************************************************************************* */
+// ----------------------------------------------------------------------------
+// run fit
+// ----------------------------------------------------------------------------
+bool FitSuite::check_prerequisites() const
+{
+    if( !m_minimizer ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No minimizer found.");
+    if( !m_fit_objects.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No experiment/data description defined");
+    if( !m_fit_parameters.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No fit parameters defined");
+    return true;
+}
+
+
+// ----------------------------------------------------------------------------
+// run fit
+// ----------------------------------------------------------------------------
+void FitSuite::runFit()
+{
+    // check if all prerequisites are fullfilled before starting minimization
+    check_prerequisites();
+
+    m_is_last_iteration = false;
+
+    // linking fit parameters with parameters defined in the experiment
+    link_fit_parameters();
+
+    // running minimization using strategies
+    m_fit_strategies.minimize();
+
+    // seting parameters to the optimum values found by the minimizer
+    m_fit_parameters.setValues(m_minimizer->getValueOfVariablesAtMinimum());
+
+    // calling observers to let them to get results
+    m_is_last_iteration = true;
+    notifyObservers();
+}
+
+
+// ----------------------------------------------------------------------------
+// run single minimization round (called by FitSuiteStrategy)
+// ----------------------------------------------------------------------------
 void FitSuite::minimize()
 {
     // initializing minimizer with fitting functions
@@ -100,50 +134,27 @@ void FitSuite::minimize()
 }
 
 
-/* ************************************************************************* */
-// run fit
-/* ************************************************************************* */
-bool FitSuite::check_prerequisites() const
+// get current number of minimization function calls
+size_t FitSuite::getNCall() const
 {
-    if( !m_minimizer ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No minimizer found.");
-    if( !m_fit_objects.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No experiment/data description defined");
-    if( !m_fit_parameters.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No fit parameters defined");
-    return true;
+    // I don't know which function Minimizer calls (chi2 or gradient)
+    return (m_function_chi2.getNCall() ? m_function_chi2.getNCall() : m_function_gradient.getNCall());
 }
 
 
-/* ************************************************************************* */
-// run fit
-/* ************************************************************************* */
-void FitSuite::runFit()
+// ----------------------------------------------------------------------------
+//
+// ----------------------------------------------------------------------------
+void FitSuite::printResults() const
 {
-    // check if all prerequisites are fullfilled before starting minimization
-    check_prerequisites();
-
-    m_is_last_iteration = false;
-
-    // linking fit parameters with parameters defined in the experiment
-    link_fit_parameters();
-
-    // running minimizer
-    if( m_fit_strategies.empty() ) {
-        // running single minimization round
-        minimize();
-    } else {
-        // execute several minimization rounds as defined in concrete strategies
-        for(fitstrategies_t::iterator it = m_fit_strategies.begin(); it!= m_fit_strategies.end(); ++it) {
-            std::cout << "FitSuite::runFit() -> Info. Running strategy #" << m_n_strategy << " '" << (*it)->getName() << "'" << std::endl;
-            (*it)->execute();
-            m_n_strategy++;
-        }
-    }
-
-    // seting parameters to the optimum values found by the minimizer
-    for(size_t i=0; i<m_fit_parameters.size(); ++i) m_fit_parameters[i]->setValue(m_minimizer->getValueOfVariableAtMinimum(i));
-
-    // calling observers again to let them to get results
-    m_is_last_iteration = true;
-    notifyObservers();
+    std::cout << std::endl;
+    std::cout << "--- FitSuite::printResults --------------------------" << std::endl;
+    std::cout << " Chi2:" << std::scientific << std::setprecision(8) << m_fit_objects.getChiSquaredModule()->getValue()
+              << "    chi2.NCall:" << m_function_chi2.getNCall()
+              << "  grad.NCall:" << m_function_gradient.getNCall() << ","
+              << m_function_gradient.getNCallGradient() << ","
+              << m_function_gradient.getNCallTotal() << " (neval, ngrad, total)" << std::endl;
+    m_fit_parameters.printParameters();
+    m_minimizer->printResults();
 }
-
 

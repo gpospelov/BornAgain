@@ -1,6 +1,5 @@
 #include "FormFactorCylinder.h"
 #include "StochasticDiracDelta.h"
-
 #include "MathFunctions.h"
 #include "Numeric.h"
 
@@ -10,20 +9,10 @@ FormFactorCylinder::FormFactorCylinder(double height, double radius)
     m_height = height;
     m_radius = radius;
     init_parameters();
-    //    mp_height = new StochasticDiracDelta<double>(height);
-    //    mp_radius = new StochasticDiracDelta<double>(radius);
 }
-
-//FormFactorCylinder::FormFactorCylinder(StochasticParameter<double> *p_height, StochasticParameter<double> *p_radius)
-//    : mp_height(p_height)
-//    , mp_radius(p_radius)
-//{
-//}
 
 FormFactorCylinder::~FormFactorCylinder()
 {
-//    delete mp_height;
-//    delete mp_radius;
 }
 
 
@@ -41,13 +30,10 @@ void FormFactorCylinder::init_parameters()
 FormFactorCylinder* FormFactorCylinder::clone() const
 {
     return new FormFactorCylinder(m_height, m_radius);
-//    return new FormFactorCylinder(mp_height->clone(), mp_radius->clone());
 }
 
 complex_t FormFactorCylinder::evaluate_for_q(const cvector_t &q) const
 {
-//    double R = mp_radius->getCurrent();
-//    double H = mp_height->getCurrent();
     double R = m_radius;
     double H = m_height;
 
@@ -66,5 +52,4 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t &q) const
 void FormFactorCylinder::print(std::ostream &ostr) const
 {
     ISample::print(ostr);
-//    ostr << " (height:"<<m_height << " radius:"<<m_radius << ")";
 }

@@ -10,17 +10,10 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
     setName("FormFactorFullSphere");
     m_radius = radius;
     init_parameters();
-//    mp_radius = new StochasticDiracDelta<double>(radius);
 }
-
-//FormFactorFullSphere::FormFactorFullSphere(StochasticParameter<double> *p_radius)
-//    : mp_radius(p_radius)
-//{
-//}
 
 FormFactorFullSphere::~FormFactorFullSphere()
 {
-//    delete mp_radius;
 }
 
 /* ************************************************************************* */
@@ -36,12 +29,10 @@ void FormFactorFullSphere::init_parameters()
 FormFactorFullSphere* FormFactorFullSphere::clone() const
 {
     return new FormFactorFullSphere(m_radius);
-//    return new FormFactorFullSphere(mp_radius->clone());
 }
 
 complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t &q) const
 {
-//    double R = mp_radius->getCurrent();
     complex_t qz = q.z();
     double R = m_radius;
 

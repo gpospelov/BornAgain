@@ -16,6 +16,9 @@
 #include "TestDetectorResolution.h"
 #include "TestMesoCrystal1.h"
 #include "TestMesoCrystal2.h"
+
+#include "TestFormFactors.h"
+
 #include "TestRootTree.h"
 #include "TestFittingModule1.h"
 #include "TestFittingModule2.h"
@@ -87,6 +90,9 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: test of minimizers with hard-to-minimize test functions");
     registerItem("fourier",    IFactoryCreateFunction<TestFourier, IFunctionalTest>,
                  "functional test: test of Fourier transformation of OutputData maps");
+
+    registerItem("FormFactors", IFactoryCreateFunction<TestFormFactors, IFunctionalTest>,
+                 "functional test: FormFactors");
 
     m_benchmark = new TBenchmark();
 }

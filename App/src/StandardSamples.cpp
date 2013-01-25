@@ -21,6 +21,17 @@
 #include "ParticleBuilder.h"
 #include "StochasticSampledParameter.h"
 #include "ParticleCoreShell.h"
+#include "FormFactorBox.h"
+#include "FormFactorCone.h"
+#include "FormFactorSphere.h"
+#include "FormFactorEllipsoid.h"
+#include "FormFactorFullSpheroid.h"
+#include "FormFactorHemiSpheroid.h"
+#include "FormFactorFullSphere.h"
+#include "FormFactorPrism3.h"
+
+#include "Particle.h"
+
 
 
 /* ************************************************************************* */
@@ -728,3 +739,274 @@ ISample *StandardSamples::MesoCrystal2()
     return p_multi_layer;
 
 }
+
+/* ************************************************************************* */
+// functional test: Box
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Box()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorBox(5*Units::nanometer, 5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
+//  functional test: Form Factor Cone
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Cone()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorCone(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ))));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+
+/* ************************************************************************* */
+//  functional test: Form Factor Sphere
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Sphere()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorSphere(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
+//  functional test: Form Factor Ellipsoid
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Ellipsoid()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorEllipsoid(5*Units::nanometer, 5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ))));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+
+/* ************************************************************************* */
+//  functional test: Form Factor Full Spheroid
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_FullSpheroid()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-5, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorFullSpheroid(5*Units::nanometer, 7*Units::nanometer )));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+
+/* ************************************************************************* */
+//  functional test: Form Factor Hemi Spheroid
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_HemiSpheroid()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-7, 2e-8);
+    complex_t n_particle(1.0-6e-5, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorHemiSpheroid(5*Units::nanometer, 4*Units::nanometer, 2*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
+// functional test: Form Factor parallelepiped
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Parallelpiped()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_particle_shell(1.0-1e-4, 2e-8);
+    complex_t n_particle_core(1.0-6e-5, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air11", n_air);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Particle shell_particle(n_particle_shell, new FormFactorParallelepiped(8*Units::nanometer, 8*Units::nanometer));
+    Particle core_particle(n_particle_core, new FormFactorParallelepiped(7*Units::nanometer, 6*Units::nanometer));
+    kvector_t core_position(0.0, 0.0, 0.0);
+    ParticleCoreShell particle(shell_particle, core_particle, core_position);
+    ParticleDecoration particle_decoration(particle.clone());
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    return p_multi_layer;
+}
+
+
+/* ************************************************************************* */
+// functional test: Form Factor Cylinder
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Cylinder()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_particle_shell(1.0-1e-4, 2e-8);
+    complex_t n_particle_core(1.0-6e-5, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air11", n_air);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Particle shell_particle(n_particle_shell, new FormFactorCylinder(8*Units::nanometer, 8*Units::nanometer));
+    Particle core_particle(n_particle_core, new FormFactorCylinder(7*Units::nanometer, 6*Units::nanometer));
+    kvector_t core_position(0.0, 0.0, 0.0);
+    ParticleCoreShell particle(shell_particle, core_particle, core_position);
+    ParticleDecoration particle_decoration(particle.clone());
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
+// Functional test: Pyramid
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Pyramid()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(
+                new Particle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ) ) ) );
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+
+/* ************************************************************************* */
+// functional test: Prism3
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Prism3()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-7e-6, 2e-8);
+    complex_t n_particle(1.0-8e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+ /************************************************************************** */
+ // Functional test: Full Sphere
+ /************************************************************************** */
+    ISample *StandardSamples::FormFactor_FullSphere()
+     {
+     MultiLayer *p_multi_layer = new MultiLayer();
+     complex_t n_air(1.0, 0.0);
+     complex_t n_substrate(1.0-6e-6, 2e-8);
+     complex_t n_particle(1.0-6e-4, 2e-8);
+     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+     const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+     Layer air_layer;
+     air_layer.setMaterial(p_air_material);
+     Layer substrate_layer;
+     substrate_layer.setMaterial(p_substrate_material);
+     ParticleDecoration particle_decoration(
+                 new Particle(n_particle, new FormFactorFullSphere(5*Units::nanometer ) ) );
+     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+     p_multi_layer->addLayer(air_layer_decorator);
+     p_multi_layer->addLayer(substrate_layer);
+     return p_multi_layer;
+     }

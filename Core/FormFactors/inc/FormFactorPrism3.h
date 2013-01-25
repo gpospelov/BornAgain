@@ -47,9 +47,7 @@ private:
 
     double m_height;
     double m_half_side;
-//    StochasticParameter<double> *mp_height;
-//    StochasticParameter<double> *mp_half_side;
-    // Cached value of square root of 3
+
     double m_root3;
 };
 

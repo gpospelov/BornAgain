@@ -21,7 +21,7 @@ class FormFactorFullSphere : public IFormFactorBorn
 {
 public:
     FormFactorFullSphere(double radius);
-//    FormFactorFullSphere(StochasticParameter<double> *p_radius);
+
     ~FormFactorFullSphere();
     virtual FormFactorFullSphere *clone() const;
 
@@ -44,7 +44,7 @@ private:
     void print(std::ostream &ostr) const;
 
     double m_radius;
-//    StochasticParameter<double> *mp_radius;
+
 };
 
 

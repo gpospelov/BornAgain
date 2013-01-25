@@ -5,7 +5,7 @@ TARGET   = ScattCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)
@@ -124,7 +124,13 @@ SOURCES += \
     PythonAPI/src/PythonListConverter.cpp \
     PythonAPI/src/PythonModule.cpp \
     PythonAPI/src/PythonPlusplusHelper.cpp \
-    PythonAPI/src/PythonOutputData.cpp
+    PythonAPI/src/PythonOutputData.cpp \
+    FormFactors/src/FormFactorBox.cpp \
+    FormFactors/src/FormFactorEllipsoid.cpp \
+    FormFactors/src/FormFactorCone.cpp \
+    FormFactors/src/FormFactorHemiSpheroid.cpp \
+    FormFactors/src/FormFactorFullSpheroid.cpp \
+    FormFactors/src/FormFactorSphere.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -274,7 +280,13 @@ HEADERS += \
     PythonAPI/inc/PythonOutputData.h \
     PythonAPI/inc/PythonPlusplusHelper.h \
     PythonAPI/inc/IPythonWrapper.h \
-    Algorithms/inc/IIntensityFunction.h
+    Algorithms/inc/IIntensityFunction.h \
+    FormFactors/inc/FormFactorBox.h \
+    FormFactors/inc/FormFactorEllipsoid.h \
+    FormFactors/inc/FormFactorCone.h \
+    FormFactors/inc/FormFactorHemiSpheroid.h \
+    FormFactors/inc/FormFactorFullSpheroid.h \
+    FormFactors/inc/FormFactorSphere.h
 
 INCLUDEPATH += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc
 DEPENDPATH  += ./Algorithms/inc ./FormFactors/inc ./Geometry/inc ./Samples/inc ./Tools/inc ./PythonAPI/inc

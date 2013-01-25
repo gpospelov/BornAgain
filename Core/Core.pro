@@ -76,6 +76,7 @@ SOURCES += \
     Samples/src/ICompositeSample.cpp \
     Samples/src/IMaterial.cpp \
     Samples/src/InterferenceFunction1DParaCrystal.cpp \
+    Samples/src/InterferenceFunction2DLattice.cpp \
     Samples/src/InterferenceFunction2DParaCrystal.cpp \
     Samples/src/ISample.cpp \
     Samples/src/IsGISAXSMorphologyFileDecoration.cpp \
@@ -163,7 +164,9 @@ HEADERS += \
     Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     Algorithms/inc/ResolutionFunction2DSimple.h \
+    Algorithms/inc/SimulationParameters.h \
     Algorithms/inc/SizeSpacingCorrelationApproximationStrategy.h \
+    Algorithms/inc/StrategyBuilder.h \
     Algorithms/inc/ThreadInfo.h \
     \
     FormFactors/inc/FormFactorBox.h \
@@ -213,6 +216,7 @@ HEADERS += \
     Samples/inc/IInterferenceFunction.h \
     Samples/inc/IMaterial.h \
     Samples/inc/InterferenceFunction1DParaCrystal.h \
+    Samples/inc/InterferenceFunction2DLattice.h \
     Samples/inc/InterferenceFunction2DParaCrystal.h \
     Samples/inc/InterferenceFunctionNone.h \
     Samples/inc/IRoughness.h \
@@ -220,6 +224,7 @@ HEADERS += \
     Samples/inc/ISelectionRule.h \
     Samples/inc/IsGISAXSMorphologyFileDecoration.h \
     Samples/inc/Lattice.h \
+    Samples/inc/Lattice2DIFParameters.h \
     Samples/inc/LatticeBasis.h \
     Samples/inc/Layer.h \
     Samples/inc/LayerDecorator.h \

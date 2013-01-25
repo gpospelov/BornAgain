@@ -13,6 +13,7 @@
 #include "Crystal.h"
 #include "MesoCrystal.h"
 #include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "FormFactorWeighted.h"
 #include "StochasticGaussian.h"
@@ -574,9 +575,27 @@ ISample *StandardSamples::IsGISAXS6_lattice()
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e3*Units::nanometer);
-    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    Lattice2DIFParameters lattice_params = {
+            10.0*Units::nanometer,       // L1
+            10.0*Units::nanometer,       // L2
+            90.0*Units::degree,          // lattice angle
+            0.0*Units::degree,           // lattice orientation
+            20000.0*Units::nanometer,    // domain size 1
+            20000.0*Units::nanometer,    // domain size 2
+            300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+            100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+    };
+    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    p_interference_function->setProbabilityDistribution(pdf);
+
+    FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+    ParticleDecoration particle_decoration( new Particle(n_particle, ff_cyl.clone()));
     particle_decoration.addInterferenceFunction(p_interference_function);
+    kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
+    Particle *p_particle_2 = new Particle(n_particle, new FormFactorDecoratorPositionFactor(ff_cyl, position_2));
+    particle_decoration.addParticle( p_particle_2, 0.0, 1.0 );
+    particle_decoration.addInterferenceFunction(p_interference_function->clone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer_decorator);

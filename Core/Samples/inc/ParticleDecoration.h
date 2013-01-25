@@ -55,6 +55,16 @@ public:
     /// Get abundance fraction of particle with index
     double getAbundanceFractionOfParticle(size_t index) const;
 
+    //! get number of interference functions
+    virtual size_t getNumberOfInterferenceFunctions() const {
+        return m_interference_functions.size();
+    }
+
+    //! get interference functions
+    virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const {
+        return m_interference_functions;
+    }
+
     /// Add interference function
     void addInterferenceFunction(IInterferenceFunction* p_interference_function);
     void addInterferenceFunction(const IInterferenceFunction &interference_function);
@@ -82,9 +92,10 @@ private:
         registerChild(child);
     }
 
+    //TODO: replace with SafePointerVector
     std::vector<ParticleInfo *> m_particles;
     ///< Vector of the types of particles
-    std::vector<IInterferenceFunction *> m_interference_functions;
+    SafePointerVector<IInterferenceFunction> m_interference_functions;
     ///< Currently only a scalar interference function (instead of matrix)
     double m_total_abundance;
 };

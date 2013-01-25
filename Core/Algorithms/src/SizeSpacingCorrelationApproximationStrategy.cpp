@@ -42,7 +42,7 @@ bool SizeSpacingCorrelationApproximationStrategy::checkVectorSizes() const
 {
     size_t n_ffs = m_form_factors.size();
     size_t n_frs = m_fractions.size();
-    size_t n_ifs = m_interference_functions.size();
+    size_t n_ifs = m_ifs.size();
     return (n_ffs==n_frs && n_ifs==1);
 }
 
@@ -76,7 +76,7 @@ complex_t SizeSpacingCorrelationApproximationStrategy::getCharacteristicDistribu
         double qp) const
 {
     const InterferenceFunction1DParaCrystal *p_iff = dynamic_cast<const InterferenceFunction1DParaCrystal *>(
-            m_interference_functions[0]);
+            m_ifs[0]);
     if (p_iff==0) {
         throw ClassInitializationException("Wrong interference function for SSCA");
     }

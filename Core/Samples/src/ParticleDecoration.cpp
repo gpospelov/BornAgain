@@ -24,10 +24,6 @@ ParticleDecoration::~ParticleDecoration()
     for (size_t i=0; i<m_particles.size(); ++i) {
         delete m_particles[i];
     }
-
-    for (size_t i=0; i<m_interference_functions.size(); ++i) {
-        delete m_interference_functions[i];
-    }
 }
 
 
@@ -139,7 +135,7 @@ IInterferenceFunctionStrategy* ParticleDecoration::createStrategy(
     size_t n_particles = m_particles.size();
     size_t n_ifs = m_interference_functions.size();
     if (n_ifs==1) {
-        InterferenceFunction1DParaCrystal *p_iff = dynamic_cast<InterferenceFunction1DParaCrystal *>(
+        const InterferenceFunction1DParaCrystal *p_iff = dynamic_cast<const InterferenceFunction1DParaCrystal *>(
                 m_interference_functions[0]);
         if (p_iff == 0 || p_iff->getKappa() == 0.0) {
             p_strategy = new DecouplingApproximationStrategy();
@@ -157,7 +153,7 @@ IInterferenceFunctionStrategy* ParticleDecoration::createStrategy(
         ostr << "n_particles:" << n_particles << " n_interference_function:" << n_ifs << ".";
         throw ClassInitializationException(ostr.str());
     }
-    p_strategy->init(form_factors, fractions, m_interference_functions);
+    p_strategy->init(form_factors, fractions, m_interference_functions.getSTLVector());
     return p_strategy;
 }
 

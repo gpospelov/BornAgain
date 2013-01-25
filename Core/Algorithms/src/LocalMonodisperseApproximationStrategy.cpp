@@ -22,7 +22,7 @@ double LocalMonodisperseApproximationStrategy::evaluate(const cvector_t& k_i,
     double intensity = 0.0;
     for (size_t i=0; i<m_form_factors.size(); ++i) {
         complex_t ff = m_form_factors[i]->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
-        double itf_function = m_interference_functions[i]->evaluate(k_i-k_f_bin.getMidPoint());
+        double itf_function = m_ifs[i]->evaluate(k_i-k_f_bin.getMidPoint());
         double fraction = m_fractions[i];
         intensity += fraction*(itf_function*std::norm(ff));
     }
@@ -33,6 +33,6 @@ bool LocalMonodisperseApproximationStrategy::checkVectorSizes()
 {
     size_t n_ffs = m_form_factors.size();
     size_t n_frs = m_fractions.size();
-    size_t n_ifs = m_interference_functions.size();
+    size_t n_ifs = m_ifs.size();
     return (n_ffs==n_frs && n_ifs==n_ffs);
 }

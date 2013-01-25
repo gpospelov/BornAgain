@@ -88,7 +88,7 @@ bool IsGISAXSMorphologyFileStrategy::checkVectorSizes()
 {
     size_t n_ffs = m_form_factors.size();
     size_t n_frs = m_fractions.size();
-    size_t n_ifs = m_interference_functions.size();
+    size_t n_ifs = m_ifs.size();
     return (n_ffs==n_frs && n_ifs==0);
 }
 

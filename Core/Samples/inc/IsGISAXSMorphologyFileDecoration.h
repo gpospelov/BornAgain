@@ -44,32 +44,42 @@ public:
     void addParticle(const Particle &particle, kvector_t position, double abundance=1.0);
     void addParticle(Particle *p_particle, kvector_t position, double abundance=1.0);
 
-    /// Add particle info
+    /// add particle info
     void addParticleInfo(const PositionParticleInfo &info);
 
-    /// Get number of particles
+    /// get number of particles
     virtual size_t getNumberOfParticles() const { return m_particles.size(); }
 
     /// get information about particle with index
     virtual const PositionParticleInfo *getParticleInfo(size_t index) const;
 
-    /// Get abundance fraction of particle with index
+    /// get abundance fraction of particle with index
     double getAbundanceFractionOfParticle(size_t index) const;
 
-    /// Add interference function
+    /// add interference function
     void addInterferenceFunction(IInterferenceFunction* p_interference_function);
     void addInterferenceFunction(const IInterferenceFunction &interference_function);
 
-    /// Get interference function with index
+    //! get number of interference functions
+    virtual size_t getNumberOfInterferenceFunctions() const {
+        return m_interference_functions.size();
+    }
+
+    //! get interference functions
+    virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const {
+        return m_interference_functions;
+    }
+
+    /// get interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;
 
-    /// Create interference function strategy
+    /// create interference function strategy
     IInterferenceFunctionStrategy *createStrategy(const std::vector<IFormFactor *> &form_factors) const;
 
-    /// Get surface density of all particles
+    /// get surface density of all particles
     double getTotalParticleSurfaceDensity() const { return m_total_particle_surface_density; }
 
-    /// Set surface density of all particles
+    /// set surface density of all particles
     void setTotalParticleSurfaceDensity(double surface_density) { m_total_particle_surface_density = surface_density; }
 private:
     /// copy constructor and assignment operator are hidden since there is a clone method

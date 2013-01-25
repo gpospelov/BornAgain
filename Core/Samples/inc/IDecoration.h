@@ -15,9 +15,12 @@
 //! @date   Jun 22, 2012
 
 #include "ICompositeSample.h"
-#include "IInterferenceFunctionStrategy.h"
 #include "IFormFactor.h"
 #include "ParticleInfo.h"
+#include "SafePointerVector.h"
+
+class IInterferenceFunctionStrategy;
+class IInterferenceFunction;
 
 class IDecoration : public ICompositeSample
 {
@@ -29,16 +32,22 @@ public:
     virtual IInterferenceFunctionStrategy *createStrategy(
             const std::vector<IFormFactor *> &form_factors) const=0;
 
-    /// Get number of particles
+    //! Get number of particles
     virtual size_t getNumberOfParticles() const=0;
 
-    /// get information about particle with index
+    //! get information about particle with index
     virtual const ParticleInfo *getParticleInfo(size_t index) const=0;
 
-    /// Get surface density of all particles
+    //! get number of interference functions
+    virtual size_t getNumberOfInterferenceFunctions() const { return 0; }
+
+    //! get interference functions
+    virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const=0;
+
+    //! get surface density of all particles
     double getTotalParticleSurfaceDensity() const { return m_total_particle_surface_density; }
 
-    /// Set surface density of all particles
+    //! set surface density of all particles
     void setTotalParticleSurfaceDensity(double surface_density) { m_total_particle_surface_density = surface_density; }
 
 private:

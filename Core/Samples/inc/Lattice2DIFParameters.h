@@ -1,5 +1,5 @@
-#ifndef IINTERFERENCEFUNCTION_H_
-#define IINTERFERENCEFUNCTION_H_
+#ifndef LATTICE2DIFPARAMETERS_H_
+#define LATTICE2DIFPARAMETERS_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,23 +9,21 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   IInterferenceFunction.h
-//! @brief  Definition of IInterferenceFunction interface
-//! @author herck
-//! @date   18.06.2012
+//! @file   Lattice2DIFParameters.h
+//! @brief  Definition of Lattice2DIFParameters
+//! @author Scientific Computing Group at FRM II
+//! @date   Jan 22, 2013
 
-#include "Types.h"
-#include "ISample.h"
+#include "IParameterized.h"
 
-class IInterferenceFunction : public ISample
+struct Lattice2DIFParameters //: public IParameterized
 {
-public:
-	virtual ~IInterferenceFunction() {}
-
-    virtual double evaluate(const cvector_t &q) const=0;
-	virtual IInterferenceFunction *clone() const=0;
-    virtual double getKappa() const { return 0.0; }
+    double m_length_1, m_length_2;
+    double m_angle;
+    double m_xi;
+    double m_domain_size_1, m_domain_size_2;
+    double m_corr_length_1, m_corr_length_2;
 };
 
 
-#endif /* IINTERFERENCEFUNCTION_H_ */
+#endif /* LATTICE2DIFPARAMETERS_H_ */

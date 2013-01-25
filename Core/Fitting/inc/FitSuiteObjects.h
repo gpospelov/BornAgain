@@ -59,7 +59,7 @@ public:
 
     //! get residuals for single data element
     //! @pars global_index index accross all OutputData defined
-    double getResidualValue(int global_index);
+    double getResidualValue(size_t global_index);
 
     //! get experiment
     const Experiment *getExperiment(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getExperiment(); }

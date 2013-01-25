@@ -102,6 +102,9 @@ QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which opt
 QMAKE_CXXFLAGS_RELEASE += -g  # -ffast-math removed because of problems with NaNs
 #QMAKE_STRIP=: # produces non-stripped (very large) libraries
 
+#QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wswitch-default -Wundef -Werror -Wno-unused
+#QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Werror -Wno-unused
+
 # to compile with GPERFTOOLS support for code profiling
 #CONFIG+=GPERFTOOLS
 CONFIG(GPERFTOOLS) {

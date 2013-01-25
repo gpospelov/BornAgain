@@ -43,7 +43,7 @@ public:
     typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
 
     ROOTMinimizerGradientFunction(IMinimizer::function_gradient_t fun_gradient, size_t npars, size_t ndatasize)
-        : ROOT::Math::FitMethodFunction(npars, ndatasize)
+        : ROOT::Math::FitMethodFunction((int)npars, (int)ndatasize)
         , m_fun_gradient(fun_gradient) { }
 
     virtual ~ROOTMinimizerGradientFunction(){}
@@ -61,7 +61,7 @@ private:
     double DoEval(const double * pars) const {
         double chi2 = 0.0;
         for(size_t i_data=0; i_data<NPoints(); ++i_data) {
-            double  res = DataElement(pars, i_data);
+            double  res = DataElement(pars, (unsigned)i_data);
             chi2 += res*res;
         }
         return chi2/double(NPoints());

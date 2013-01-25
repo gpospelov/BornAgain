@@ -94,7 +94,7 @@ double FitSuiteObjects::calculateChiSquaredValue()
 }
 
 
-double FitSuiteObjects::getResidualValue(int global_index)
+double FitSuiteObjects::getResidualValue(size_t global_index)
 {
     size_t index(0);
     const FitObject *fitObject = getObjectForGlobalDataIndex(global_index, index);

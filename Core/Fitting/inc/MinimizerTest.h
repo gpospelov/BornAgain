@@ -26,26 +26,33 @@
 class MinimizerTest : public IMinimizer
 {
 public:
-    MinimizerTest(){}
+    MinimizerTest() : m_min_value(0) {}
     virtual ~MinimizerTest(){}
 
-    //! run minimization
     virtual void minimize();
 
-    //! set variable
-    virtual void setParameter(size_t index, const FitParameter *par) { m_values[index] = par->getValue(); }
+    virtual void setParameters(const FitSuiteParameters &parameters);
 
-    //! set function to minimize
     virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters) { (void)nparameters, m_fcn = fun_chi2; }
 
-    //! get number of variables to fit
-    virtual size_t getNumberOfVariables() const { return m_values.size(); }
+    virtual void setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
+    {
+        (void)fun_gradient;
+        (void)nparameters;
+        (void)ndatasize;
+    }
 
-    //! return pointer to the parameters values at the minimum
+    virtual size_t getNumberOfVariables() const { return m_parameters.size(); }
+
     virtual double getValueOfVariableAtMinimum(size_t index) const;
 
+    virtual std::vector<double > getValueOfVariablesAtMinimum() const;
+
+    virtual void printResults() const;
+
 private:
-    std::map<int, double > m_values;
+    double m_min_value;
+    FitSuiteParameters m_parameters; //! minimizer parameters
     function_chi2_t m_fcn;
 };
 

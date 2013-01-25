@@ -21,13 +21,13 @@
 
 //- -------------------------------------------------------------------
 //! @class MinimizerScan
-//! @brief Simple scan minimizer
+//! @brief Simple scan minimizer looks for minimum of chi2 function on the grid
 //- -------------------------------------------------------------------
 class MinimizerScan : public IMinimizer
 {
 public:
-    MinimizerScan(int nbins = 10) : m_parameter_map(0), m_nbins(nbins) { }
-    virtual ~MinimizerScan() { delete m_parameter_map; }
+    MinimizerScan(int nbins = 10) : m_fcnvalues_map(0), m_nbins(nbins), m_ncall(0) { }
+    virtual ~MinimizerScan() { delete m_fcnvalues_map; }
 
     virtual void minimize();
 
@@ -37,7 +37,7 @@ public:
 
     virtual void setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
 
-    virtual size_t getNumberOfVariables() const { return m_fit_parameters.size(); }
+    virtual size_t getNumberOfVariables() const { return m_parameters.size(); }
 
     virtual double getMinValue() const;
 
@@ -49,18 +49,21 @@ public:
 
     size_t getNbins() const { return m_nbins; }
 
-    const OutputData<double > *getOutputData() { return m_parameter_map; }
+    const OutputData<double > *getOutputData() { return m_fcnvalues_map; }
+
+    virtual std::vector<double > getValueOfVariablesAtMinimum() const;
 
 private:
 
-    void construct_parameter_map();
+    void construct_fcnvalues_map();
     void set_parvalues_to_minimum();
 
-    OutputData<double > *m_parameter_map;
+    OutputData<double > *m_fcnvalues_map; //! values of minimized function on the grid, axes are limited parameters
     size_t m_nbins; //! number of bins per one parameter
-    FitSuiteParameters m_fit_parameters;
-    std::vector<double> m_parvalues_at_minimum;
+    FitSuiteParameters m_parameters; //! minimizer parameters
     function_chi2_t m_fcn;
+
+    size_t m_ncall;
 };
 
 #endif // MINIMIZERSCAN_H

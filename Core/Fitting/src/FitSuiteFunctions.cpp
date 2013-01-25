@@ -7,19 +7,11 @@
 /* ************************************************************************* */
 double FitSuiteChiSquaredFunction::evaluate(const double *pars)
 {
-    //std::cout << "FitSuiteChiSquaredFunction::evaluate() -> Info" << std::endl;
     assert(m_fit_suite != NULL);
 
-    // set fitting parameters to values suggested by the minimizer
     m_fit_suite->getFitParameters()->setValues(pars);
-
-    // run simulations
     m_fit_suite->getFitObjects()->runSimulation();
-
-    // caclulate chi2 value
-    int n_free_pars = m_fit_suite->getFitParameters()->getNfreeParameters();
-    double chi_squared = m_fit_suite->getFitObjects()->getChiSquaredValue(n_free_pars);
-
+    double chi_squared = m_fit_suite->getFitObjects()->getChiSquaredValue();
     m_fit_suite->notifyObservers();
     m_ncall++;
     return chi_squared;
@@ -33,40 +25,34 @@ double FitSuiteChiSquaredFunction::evaluate(const double *pars)
 /* ************************************************************************* */
 double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index, double *gradients)
 {
-    //std::cout << "FitSuiteGradientFunction::evaluate() -> Info  index:" << index << " ncycle:" << m_ncycles << std::endl;
     assert(m_fit_suite != NULL);
 
     bool parameters_changed(true);
-    if(m_ncall_total != 0) parameters_changed = m_fit_suite->getFitParameters()->valuesAreDifferrent(pars, 2);
+    if(m_ncalls_total != 0) parameters_changed = m_fit_suite->getFitParameters()->valuesAreDifferrent(pars, 2);
 
     verify_arrays();
     verify_minimizer_logic(parameters_changed, (int)index);
-
-    //std::vector<double> oldvalues=m_fit_suite->getFitParameters()->getValues();
-    //std::cout << "XXX 1.2 param_changed:" << parameters_changed << std::endl;
-    //for(size_t i=0; i<m_npars; ++i) std::cout << " i:"<< i << " " << pars[i] << " diff" << (pars[i]-oldvalues[i]) << " | ";
-    //std::cout << std::endl;
 
     if(parameters_changed) calculate_residuals(pars);
 
     if(gradients) {
         if(index == 0 || parameters_changed ) {
             calculate_gradients(pars);
-            m_ncall_gradient++;
+            m_ncalls_gradient++;
         }
         for(size_t i_par=0; i_par<m_npars; ++i_par) {
             gradients[i_par] = m_gradients[i_par][index];
         }
     }
 
-    m_ncall_total++;
+    m_ncalls_total++;
     if(index == 0 && !gradients) {
         m_fit_suite->notifyObservers();
         m_ncall++;
     }
-    //std::cout << "XXX 1.2 " << m_residuals[index] << std::endl;
     return m_residuals[index];
 }
+
 
 void FitSuiteGradientFunction::verify_arrays()
 {
@@ -116,6 +102,7 @@ void FitSuiteGradientFunction::calculate_residuals(const double *pars)
 void FitSuiteGradientFunction::calculate_gradients(const double *pars)
 {
     std::cout << " FitSuiteGradientFunction::calculate_gradients() -> Info. " << std::endl;
+    // FIXME get kEps from outside fit_suite->getMinimizer()->getPrecision();
     const double kEps = 1.0E-9; // Good for Fumili
     //const double kEps = 1.0E-5;
     for(size_t i_par=0; i_par<m_npars; ++i_par ) {
@@ -147,11 +134,9 @@ void FitSuiteGradientFunction::calculate_gradients(const double *pars)
 
 void FitSuiteGradientFunction::runSimulation(const double *pars){
     assert(m_fit_suite);
-    //std::cout << "XXX simulation " << pars[0] << " " << pars[1] << " " << pars[2] << std::endl;
     m_fit_suite->getFitParameters()->setValues(pars);
     m_fit_suite->getFitObjects()->runSimulation();
-    int n_free_pars = m_fit_suite->getFitParameters()->getNfreeParameters();
-    m_fit_suite->getFitObjects()->getChiSquaredValue(n_free_pars);
+    //m_fit_suite->getFitObjects()->getChiSquaredValue();
 }
 
 

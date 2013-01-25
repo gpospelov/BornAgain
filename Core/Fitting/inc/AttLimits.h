@@ -58,7 +58,6 @@ public:
     //! remove limits
     virtual void removeLimits() { removeLowerLimit(); removeUpperLimit(); }
 
-
     // ---------
     // static creation methods
 

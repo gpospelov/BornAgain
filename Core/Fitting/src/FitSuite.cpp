@@ -129,16 +129,20 @@ void FitSuite::minimize()
     // initializing minimizer's parameters with the list of local fit parameters
     m_minimizer->setParameters(m_fit_parameters);
 
+    // setting number of free parameters for propper chi2 normalization
+    m_fit_objects.setNfreeParameters(m_fit_parameters.getNfreeParameters());
+
     // minimizing
     m_minimizer->minimize();
 }
 
 
 // get current number of minimization function calls
-size_t FitSuite::getNCall() const
+size_t FitSuite::getNCalls() const
 {
+    //return m_minimizer->getNCalls();
     // I don't know which function Minimizer calls (chi2 or gradient)
-    return (m_function_chi2.getNCall() ? m_function_chi2.getNCall() : m_function_gradient.getNCall());
+    return (m_function_chi2.getNCalls() ? m_function_chi2.getNCalls() : m_function_gradient.getNCalls());
 }
 
 
@@ -149,11 +153,11 @@ void FitSuite::printResults() const
 {
     std::cout << std::endl;
     std::cout << "--- FitSuite::printResults --------------------------" << std::endl;
-    std::cout << " Chi2:" << std::scientific << std::setprecision(8) << m_fit_objects.getChiSquaredModule()->getValue()
-              << "    chi2.NCall:" << m_function_chi2.getNCall()
-              << "  grad.NCall:" << m_function_gradient.getNCall() << ","
-              << m_function_gradient.getNCallGradient() << ","
-              << m_function_gradient.getNCallTotal() << " (neval, ngrad, total)" << std::endl;
+    std::cout << " Chi2:" << std::scientific << std::setprecision(8) << m_fit_objects.getChiSquaredValue()
+              << "    chi2.NCall:" << m_function_chi2.getNCalls()
+              << "  grad.NCall:" << m_function_gradient.getNCalls() << ","
+              << m_function_gradient.getNCallsGradient() << ","
+              << m_function_gradient.getNCallsTotal() << " (neval, ngrad, total)" << std::endl;
     m_fit_parameters.printParameters();
     m_minimizer->printResults();
 }

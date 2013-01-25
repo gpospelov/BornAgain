@@ -45,7 +45,7 @@ ROOTMinimizer::~ROOTMinimizer()
 }
 
 
-// check algorithm needs gradient (Levenberg-Marquardt, Fumili)
+// check if algorithm needs gradient function (Levenberg-Marquardt, Fumili)
 bool ROOTMinimizer::isGradientBasedAgorithm()
 {
     if (m_minimizer_name == "Fumili" ||
@@ -86,11 +86,20 @@ void ROOTMinimizer::setParameter(size_t index, const FitParameter *par)
     } else {
         throw LogicErrorException("ROOTMinimizer::setVariable() -> Strange place... I wish I knew how I got here.");
     }
+
+    if( m_minimizer_name == "Genetic" && (!par->isFixed() && !par->hasLowerAndUpperLimits()) ) {
+        std::ostringstream ostr;
+        ostr << "ROOTMinimizdr::setParameter() -> Error! ";
+        ostr << "Genetic minimizer requires either fixed or limited AttLimits::limited(left,right) parameter. ";
+        ostr << " Parameter name '" << par->getName() << "', isFixed():" << par->isFixed() << " hasLowerandUpperLimits:" << par->hasLowerAndUpperLimits();
+        throw LogicErrorException(ostr.str());
+    }
+
     if( !success ) {
         std::ostringstream ostr;
         ostr << "ROOTMinimizer::setVariable() -> Error! Minimizer returned false while setting the variable." << std::endl;
         ostr << "                                Probably given index has been already used for another variable name." << std::endl;
-        ostr << "                                Index:" << index << " name '" << par->getName().c_str() << std::endl;
+        ostr << "                                Index:" << index << " name '" << par->getName() << "'" << std::endl;
         throw LogicErrorException(ostr.str());
     }
 }
@@ -138,5 +147,8 @@ void ROOTMinimizer::setOptions(const std::string &options)
     ROOTMinimizerHelper::setOptions(m_root_minimizer, options);
 }
 
-
+size_t ROOTMinimizer::getNCalls() const
+{
+    return m_root_minimizer->NCalls();
+}
 

@@ -76,20 +76,23 @@ void TestToyExperiment::execute()
     // setting up fitSuite
     m_fitSuite = new FitSuite();
 
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLMultiFit") );
-    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
     //m_fitSuite->getMinimizer()->setOptions("ntries=100:niters=10:step_size=1.0:k=1:t_initial=50.0:mu=1.05:t_min=0.1");
 
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
 //    m_fitSuite->attachObserver( ObserverFactory::createDrawObserver() );
 
-    m_fitSuite->addFitParameter("*/par0",  1.0, 0.01, AttLimits::limited(0.5, 1.5));
-    m_fitSuite->addFitParameter("*/par1",  0.0, 0.01, AttLimits::limited(0.0, 3.0));
-    m_fitSuite->addFitParameter("*/par2",  0.0, 0.01, AttLimits::limited(0.0, 3.0));
+//    m_fitSuite->addFitParameter("*/par0",  1.0, 0.01, AttLimits::limited(0.5, 1.5));
+//    m_fitSuite->addFitParameter("*/par1",  0.0, 0.01, AttLimits::limited(0.0, 3.0));
+//    m_fitSuite->addFitParameter("*/par2",  0.0, 0.01, AttLimits::limited(0.0, 3.0));
+    m_fitSuite->addFitParameter("*/par0",  1.0, 0.01, AttLimits::lowerLimited(0.0));
+    m_fitSuite->addFitParameter("*/par1",  0.0, 0.01, AttLimits::lowerLimited(0.0));
+    m_fitSuite->addFitParameter("*/par2",  0.0, 0.01, AttLimits::lowerLimited(0.0));
 
     ChiSquaredModule chi_module;
     chi_module.setChiSquaredFunction(SquaredFunctionWithGaussianError(m_sigma_noise) );

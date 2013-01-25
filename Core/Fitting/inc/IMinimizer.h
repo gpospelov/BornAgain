@@ -60,13 +60,13 @@ public:
     virtual double getMinValue() const;
 
     //! return value of the parameter at the minimum
-    virtual double getValueOfVariableAtMinimum(size_t i) const;
+    virtual double getValueOfVariableAtMinimum(size_t index) const;
 
     //! return values of parameters at the minimum
     virtual std::vector<double > getValueOfVariablesAtMinimum() const;
 
     //! return pointer to the parameters values at the minimum
-    virtual double getErrorOfVariable(size_t i) const;
+    virtual double getErrorOfVariable(size_t index) const;
 
     //! clear resources (parameters) for consecutives minimizations
     virtual void clear();
@@ -76,6 +76,9 @@ public:
 
     //! set minimizer option
     virtual void setOptions(const std::string &option);
+
+    //! return number of calls of minimized function
+    virtual size_t getNCalls() const;
 };
 
 
@@ -125,7 +128,7 @@ inline double IMinimizer::getValueOfVariableAtMinimum(size_t index) const
 
 inline std::vector<double > IMinimizer::getValueOfVariablesAtMinimum() const
 {
-    throw NotImplementedException("IMinimizer::getVariablesAtMinimum() -> Not implemented.");
+    throw NotImplementedException("IMinimizer::getValueOfVariablesAtMinimum() -> Not implemented.");
 }
 
 inline double IMinimizer::getErrorOfVariable(size_t index) const
@@ -149,5 +152,11 @@ inline void IMinimizer::setOptions(const std::string &options)
     (void)options;
     throw NotImplementedException("IMinimizer::setOptions() -> Not implemented.");
 }
+
+inline size_t IMinimizer::getNCalls() const
+{
+    throw NotImplementedException("IMinimizer::getNCalls() -> Not implemented.");
+}
+
 
 #endif // IMINIMIZER_H

@@ -73,7 +73,7 @@ public:
     bool isLastIteration() const { return m_is_last_iteration; }
 
     //! get current number of minimization function calls
-    size_t getNCall() const;
+    size_t getNCalls() const;
 
     //! get the number of current strategy
     size_t getNStrategy() const { return m_fit_strategies.getNStrategy(); }

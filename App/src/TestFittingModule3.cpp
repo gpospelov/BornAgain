@@ -43,7 +43,6 @@ TestFittingModule3::~TestFittingModule3()
     delete m_experiment;
     delete m_sample;
     delete m_real_data;
-    for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) delete (*it);
 }
 
 
@@ -56,10 +55,14 @@ void TestFittingModule3::execute()
 
     // setting up fitSuite
     m_fitSuite = new FitSuite();
-    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 2.13438715e+01*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 2.13438715e+01*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 5.52767780e+01*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2.00000000e+00*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 //    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 //    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 //    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
@@ -76,9 +79,16 @@ void TestFittingModule3::execute()
         m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it));
     }
 
-    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver(1) );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Test") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+//    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(1) );
+//    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver(1) );
+
+
+//       2.13438715e+01
+//       2.13438715e+01
+//       7.82767780e+01
+//       2.00000000e+00
 
     m_fitSuite->runFit();
 
@@ -111,10 +121,19 @@ void TestFittingModule3::initializeExperiment()
 void TestFittingModule3::initializeSample()
 {
     delete m_sample;
-    double cylinder_height = 5.0*Units::nanometer;
-    double cylinder_radius = 5.0*Units::nanometer;
-    double prism3_half_side = 5.0*Units::nanometer;
-    double prism3_height = 5.0*Units::nanometer;
+    //       2.13438715e+01
+    //       2.13438715e+01
+    //       7.82767780e+01
+    //       2.00000000e+00
+
+    double cylinder_height = 2.13438715e+01;
+    double cylinder_radius = 2.13438715e+01;
+    double prism3_half_side = 7.82767780e+01;
+    double prism3_height = 2.00000000e+00;
+//    double cylinder_height = 5.0*Units::nanometer;
+//    double cylinder_radius = 5.0*Units::nanometer;
+//    double prism3_half_side = 5.0*Units::nanometer;
+//    double prism3_height = 5.0*Units::nanometer;
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
@@ -150,9 +169,6 @@ void TestFittingModule3::initializeRealData()
     m_real_data = IsGISAXSTools::createNoisyData(*m_experiment->getOutputData());
 
     // setting up 1d scans by making slices on real data
-    for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
-        delete (*it);
-    }
     m_data_scans.clear();
     m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, NDetector2d::ALPHA_AXIS_NAME, 0.012, 0.012) );
     m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, NDetector2d::PHI_AXIS_NAME, 0.011, 0.011) );

@@ -3,25 +3,29 @@
 
 
 /* ************************************************************************* */
-//
+// Scan minimizer find minimum of chi2 function by equidistant scanning of fit parameters.
+// Only parameters with defined limits (i.e. AttLimits::limited(left, right) )
+// are scanned
 /* ************************************************************************* */
 void MinimizerScan::minimize()
 {
-    construct_parameter_map();
+    construct_fcnvalues_map();
 
     // scanning values of fit parameters
-    for(OutputData<double>::iterator it = m_parameter_map->begin(); it!=m_parameter_map->end(); ++it) {
-        for(size_t i_axis=0; i_axis<m_parameter_map->getNdimensions(); ++i_axis) {
-            size_t xbin = m_parameter_map->toCoordinate(it.getIndex(), i_axis);
-            double value = (*m_parameter_map->getAxis(i_axis))[xbin];
-            std::string parname = m_parameter_map->getAxis(i_axis)->getName();
-            m_fit_parameters.getParameter(parname)->setValue(value);
+    for(OutputData<double>::iterator it = m_fcnvalues_map->begin(); it!=m_fcnvalues_map->end(); ++it) {
+        for(size_t i_axis=0; i_axis<m_fcnvalues_map->getNdimensions(); ++i_axis) {
+            size_t xbin = m_fcnvalues_map->toCoordinate(it.getIndex(), i_axis);
+            double value = (*m_fcnvalues_map->getAxis(i_axis))[xbin];
+            std::string parname = m_fcnvalues_map->getAxis(i_axis)->getName();
+            m_parameters.getParameter(parname)->setValue(value);
         }
-        std::vector<double> current_values=m_fit_parameters.getValues();
+        std::vector<double> current_values=m_parameters.getValues();
         (*it) = m_fcn(&current_values[0]); // running simulation
     }
 
     set_parvalues_to_minimum();
+    std::vector<double> current_values=m_parameters.getValues();
+    m_fcn(&current_values[0]); // running simulation once again at optimum values
 }
 
 
@@ -29,38 +33,41 @@ void MinimizerScan::minimize()
 // Construct N dimensional space over all fit parameters with lower and upper limits
 // defined.
 /* ************************************************************************* */
-void MinimizerScan::construct_parameter_map()
+void MinimizerScan::construct_fcnvalues_map()
 {
-    delete m_parameter_map;
-    m_parameter_map = new OutputData<double>;
-    for(size_t i_par=0; i_par < m_fit_parameters.size(); i_par++ ) {
-        const FitParameter *par = m_fit_parameters[i_par];
+    delete m_fcnvalues_map;
+    m_fcnvalues_map = new OutputData<double>;
+    for(size_t i_par=0; i_par < m_parameters.size(); i_par++ ) {
+        const FitParameter *par = m_parameters[i_par];
         if( par->hasLowerLimit() && par->hasUpperLimit() ) {
             AxisDouble axis(par->getName(), m_nbins, par->getLowerLimit(), par->getUpperLimit());
-            m_parameter_map->addAxis(axis);
+            m_fcnvalues_map->addAxis(axis);
         }
     }
-    m_parameter_map->setAllTo(0.0);
+    if( !m_fcnvalues_map->getNdimensions() ) {
+        throw LogicErrorException("MinimizerScan::construct_parameter_map() -> Error! No parameters with TAttLimit::limited(left,right) attribute were found.");
+    }
+    m_fcnvalues_map->setAllTo(0.0);
 }
 
 
 void MinimizerScan::set_parvalues_to_minimum()
 {
-    assert(m_parameter_map);
-    OutputData<double>::iterator it = std::min_element(m_parameter_map->begin(), m_parameter_map->end());
-    for(size_t i_axis=0; i_axis<m_parameter_map->getNdimensions(); ++i_axis) {
-        size_t xbin = m_parameter_map->toCoordinate(it.getIndex(), i_axis);
-        double value = (*m_parameter_map->getAxis(i_axis))[xbin];
-        std::string parname = m_parameter_map->getAxis(i_axis)->getName();
-        m_fit_parameters.getParameter(parname)->setValue(value);
+    assert(m_fcnvalues_map);
+    OutputData<double>::iterator it = std::min_element(m_fcnvalues_map->begin(), m_fcnvalues_map->end());
+    for(size_t i_axis=0; i_axis<m_fcnvalues_map->getNdimensions(); ++i_axis) {
+        size_t xbin = m_fcnvalues_map->toCoordinate(it.getIndex(), i_axis);
+        double value = (*m_fcnvalues_map->getAxis(i_axis))[xbin];
+        std::string parname = m_fcnvalues_map->getAxis(i_axis)->getName();
+        m_parameters.getParameter(parname)->setValue(value);
     }
 }
 
 
 double MinimizerScan::getMinValue() const
 {
-    assert(m_parameter_map);
-    return *std::min_element(m_parameter_map->begin(), m_parameter_map->end());
+    assert(m_fcnvalues_map);
+    return *std::min_element(m_fcnvalues_map->begin(), m_fcnvalues_map->end());
 }
 
 
@@ -74,13 +81,17 @@ void MinimizerScan::setGradientFunction(function_gradient_t fun_gradient, size_t
 
 double MinimizerScan::getValueOfVariableAtMinimum(size_t index) const
 {
-    return m_fit_parameters[index]->getValue();
+    return m_parameters[index]->getValue();
 }
 
 
 void MinimizerScan::printResults() const
 {
-    std::cout << "MinimizerScan::printResults() -> Info" << std::endl;
+    std::cout << "--- MinimizerScan ------------------------------------" << std::endl;
+    std::cout << std::setw(25) << std::left << " nbins"      << ": " << m_nbins << std::endl;
+    std::cout << std::setw(25) << std::left << " Minimum value"      << ": " << getMinValue() << std::endl;
+    std::cout << " Best parameters:" << std::endl;
+    m_parameters.printParameters();
 }
 
 
@@ -93,8 +104,14 @@ void MinimizerScan::setChiSquaredFunction(function_chi2_t fun_chi2, size_t npara
 
 void MinimizerScan::setParameters(const FitSuiteParameters &parameters)
 {
-    m_fit_parameters.clear();
+    m_parameters.clear();
     for(size_t i_par = 0; i_par<parameters.size(); ++i_par) {
-        m_fit_parameters.push_back(new FitParameter( *parameters[i_par] ) );
+        m_parameters.push_back(new FitParameter( *parameters[i_par] ) );
     }
 }
+
+std::vector<double > MinimizerScan::getValueOfVariablesAtMinimum() const
+{
+    return m_parameters.getValues();
+}
+

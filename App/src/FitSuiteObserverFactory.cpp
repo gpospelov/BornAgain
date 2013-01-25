@@ -34,15 +34,15 @@ void FitSuiteObserverPrint::update(IObservable *subject)
         std::cout << "FitSuiteObserverPrint::update() -> Info. Printing results" << std::endl;
         fitSuite->printResults();
     } else {
-        if( (fitSuite->getNCall() % m_print_every_nth != 0) && fitSuite->getNCall()!=0) return; // draw first iteration and then every n'th
+        if( (fitSuite->getNCalls() % m_print_every_nth != 0) && fitSuite->getNCalls()!=0) return; // draw first iteration and then every n'th
 
 
         // printing parameter values
         std::cout << "FitSuiteObserverPrint::update() -> Info."
                   << " NumberOfVariables:" << fitSuite->getMinimizer()->getNumberOfVariables()
-                  << " NCall:" << fitSuite->getNCall()
+                  << " NCall:" << fitSuite->getNCalls()
                 << " NStrategy:" << fitSuite->getNStrategy()
-                 << " Chi2:" << std::scientific << std::setprecision(8) << fitSuite->getFitObjects()->getChiSquaredModule()->getValue() << std::endl;
+                 << " Chi2:" << std::scientific << std::setprecision(8) << fitSuite->getFitObjects()->getChiSquaredValue() << std::endl;
         timeval call_time;
         gettimeofday(&call_time, 0);
         clock_t call_clock = clock();
@@ -83,7 +83,7 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     if( !fitSuite ) throw NullPointerException("FitSuiteObserverDraw::update() -> Error! Can't cast FitSuite");
 
     if( fitSuite->isLastIteration()) return;
-    if( (fitSuite->getNCall() % m_draw_every_nth != 0) && fitSuite->getNCall()!=0) return; // draw first iteration and then every n'th
+    if( (fitSuite->getNCalls() % m_draw_every_nth != 0) && fitSuite->getNCalls()!=0) return; // draw first iteration and then every n'th
 
     if(!m_stat_canvas) {
         //std::cout << " FitSuiteObserverDraw::update() -> Info. No canvas with name '" << m_canvas_name << "', creating one" << std::endl;
@@ -157,10 +157,10 @@ void FitSuiteObserverDraw::update(IObservable *subject)
     m_ptext = new TPaveText(.05,.1,.95,.8);
     m_ptext->SetTextAlign(11);
     std::ostringstream ostr;
-    ostr << "Iteration " << fitSuite->getNCall() << " strategy " << fitSuite->getNStrategy();
+    ostr << "Iteration " << fitSuite->getNCalls() << " strategy " << fitSuite->getNStrategy();
     m_ptext->AddText(ostr.str().c_str());
     ostr.str(""); ostr.clear();
-    ostr << "chi2 " << fitSuite->getFitObjects()->getChiSquaredModule()->getValue() << std::endl;
+    ostr << "chi2 " << fitSuite->getFitObjects()->getChiSquaredValue() << std::endl;
     m_ptext->AddText(ostr.str().c_str());
 
     for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it) {
@@ -215,7 +215,7 @@ void FitSuiteObserverWriteTree::update(IObservable *subject)
     // preparing root file for writing
     // if it is first call the file will be opened in 'recreate' mode, otherwise in 'update' mode
     TFile *top(0);
-    if(fitSuite->getNCall() == 0) {
+    if(fitSuite->getNCalls() == 0) {
         top = new TFile(m_file_name.c_str(),"RECREATE");
     } else {
         top = new TFile(m_file_name.c_str(),"UPDATE");
@@ -243,13 +243,13 @@ void FitSuiteObserverWriteTree::update(IObservable *subject)
     const OutputData<double > *simu_data = fitSuite->getFitObjects()->getSimulationData();
     IsGISAXSTools::exportOutputDataInVectors2D(*real_data, event->real_data, event->axis0, event->axis1);
     IsGISAXSTools::exportOutputDataInVectors2D(*simu_data, event->fit_data, event->axis0, event->axis1);
-    event->chi2 = fitSuite->getFitObjects()->getChiSquaredModule()->getValue();
+    event->chi2 = fitSuite->getFitObjects()->getChiSquaredValue();
     for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it) {
         event->parvalues.push_back( (*it)->getValue() );
         event->parnames.push_back( (*it)->getName().c_str() );
         event->parfixed.push_back( (*it)->isFixed() );
     }
-    event->niter = fitSuite->getNCall();
+    event->niter = fitSuite->getNCalls();
     event->nstrategy = fitSuite->getNStrategy();
 
     // appending data to the tree

@@ -52,7 +52,10 @@ public:
     size_t getSizeOfDataSet() const;
 
     //! get sum of chi squared values for all fit objects
-    double getChiSquaredValue(int n_free_fit_parameters = 0);
+    double getChiSquaredValue() const { return m_chi_squared_value; }
+
+    //! calculate sum of chi squared values for all fit objects
+    double calculateChiSquaredValue();
 
     //! get residuals for single data element
     //! @pars global_index index accross all OutputData defined
@@ -68,8 +71,8 @@ public:
     void setRealData(const OutputData<double > &real_data, size_t i_item = 0) { m_fit_objects[check_index(i_item)]->setRealData(real_data);}
 
     //! get chi2 module
-    const IChiSquaredModule *getChiSquaredModule(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getChiSquaredModule(); }
-    IChiSquaredModule *getChiSquaredModule(size_t i_item = 0) { return m_fit_objects[check_index(i_item)]->getChiSquaredModule(); }
+//    const IChiSquaredModule *getChiSquaredModule(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getChiSquaredModule(); }
+//    IChiSquaredModule *getChiSquaredModule(size_t i_item = 0) { return m_fit_objects[check_index(i_item)]->getChiSquaredModule(); }
 
     //! get simulated data
     const OutputData<double> * getSimulationData(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getSimulationData(); }
@@ -83,6 +86,8 @@ public:
 
     //! set experiment normalize flag
     void setExperimentNormalize(bool experiment_normalize) { m_experiment_normalize = experiment_normalize; }
+
+    void setNfreeParameters(int nfree_parameters ) { m_nfree_parameters = nfree_parameters; }
 
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
@@ -105,6 +110,8 @@ private:
     FitObjects_t m_fit_objects; //!  set of experiments and corresponding real data
     double m_total_weight; //! sum of weights of fit sets
     bool m_experiment_normalize;
+    int m_nfree_parameters; //! number of freefit parameters for normalization
+    double m_chi_squared_value;
 };
 
 

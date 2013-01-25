@@ -10,7 +10,7 @@
 
 MinimizerFactory::Catalogue MinimizerFactory::m_catalogue = MinimizerFactory::Catalogue();
 
-
+// constructing map of minimizer names holding list of defined algorithms for every minimizer
 MinimizerFactory::Catalogue::Catalogue()
 {
     // our minimizers

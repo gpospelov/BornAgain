@@ -63,6 +63,8 @@ public:
 
     virtual void setOptions(const std::string &options);
 
+    virtual size_t getNCalls() const;
+
     //! return created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
 

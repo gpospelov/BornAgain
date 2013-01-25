@@ -2,7 +2,7 @@
 
 
 
-FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_experiment_normalize(false)
+FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_experiment_normalize(false), m_nfree_parameters(0), m_chi_squared_value(0)
 {
     setName("FitSuiteObjects");
     init_parameters();
@@ -37,6 +37,7 @@ void FitSuiteObjects::runSimulation()
         (*it)->getExperiment()->runSimulation();
         if(m_experiment_normalize) (*it)->getExperiment()->normalize();
     }
+    m_chi_squared_value = calculateChiSquaredValue();
 }
 
 
@@ -70,16 +71,15 @@ const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(size_t global_inde
 
 /* ************************************************************************* */
 // get sum of chi squared values for all fit objects
-// FIXME: refactor FitSuiteObjects::getChiSquaredValue() (the main problem is duplication calculateChiSquared() for ChiSquaredModule and FitObject)
 /* ************************************************************************* */
-double FitSuiteObjects::getChiSquaredValue(int n_free_fit_parameters)
+double FitSuiteObjects::calculateChiSquaredValue()
 {
+    double result(0);
     double max_intensity = getSimulationMaxIntensity();
-    double chi_sum(0);
     for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         IChiSquaredModule *chi = (*it)->getChiSquaredModule();
 
-        chi->setNdegreeOfFreedom( (int)(m_fit_objects.size() * (*it)->getRealData()->getAllocatedSize() - n_free_fit_parameters) );
+        chi->setNdegreeOfFreedom( (int)(m_fit_objects.size() * (*it)->getRealData()->getAllocatedSize() - m_nfree_parameters) );
         // normalizing datasets to the maximum intensity over all fit objects defined
         OutputDataNormalizerScaleAndShift *data_normalizer =  dynamic_cast<OutputDataNormalizerScaleAndShift *>(chi->getOutputDataNormalizer());
         if( data_normalizer) {
@@ -88,9 +88,9 @@ double FitSuiteObjects::getChiSquaredValue(int n_free_fit_parameters)
 
         double weight = (*it)->getWeight()/m_total_weight;
         double chi_squared = (weight*weight) * (*it)->calculateChiSquared();
-        chi_sum += chi_squared;
+        result += chi_squared;
     }
-    return chi_sum;
+    return result;
 }
 
 

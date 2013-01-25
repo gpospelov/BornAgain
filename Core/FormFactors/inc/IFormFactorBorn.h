@@ -76,12 +76,12 @@ inline double IFormFactorBorn::getVolume() const
 
 inline bool IFormFactorBorn::useLargeBinApproximation(const Bin1DCVector &q_bin) const
 {
-//    (void)q_bin;
     double delta_qr = std::abs( q_bin.getDelta().magxy() );
+    double delta_qz = std::abs( q_bin.getDelta().z() );
+    if(delta_qr == 0 || delta_qz == 0) return false;
     if ( delta_qr > M_PI/(2.0*getRadius()) ) {
         return true;
     }
-    double delta_qz = std::abs( q_bin.getDelta().z() );
     if ( delta_qz > M_PI/(2.0*getHeight()) ) {
         return true;
     }

@@ -100,7 +100,6 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(const IInterferenc
         }
         Bin1DCVector k_f_bin = getKfBin(wavelength, alpha_bin, phi_bin);
         *it_intensity = p_strategy->evaluate(k_ij, k_f_bin, -m_alpha_i, alpha_f)*total_surface_density;
-        std::cout << "XXX " << *it_intensity << std::endl;
         ++it_intensity;
     }
 }

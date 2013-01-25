@@ -1,5 +1,11 @@
 #include "Experiment.h"
 
+//#ifdef DEBUG_FPE
+//#include <fenv.h>
+//#include "fp_exception_glibc_extension.h"
+//#endif
+
+
 
 Experiment::Experiment()
     : IParameterized("Experiment")

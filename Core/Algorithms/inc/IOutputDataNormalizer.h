@@ -20,7 +20,7 @@
 /* ************************************************************************* */
 // Normalize output data
 /* ************************************************************************* */
-class IOutputDataNormalizer : public IParameterized, public ICloneable
+class IOutputDataNormalizer : public IParameterized
 {
 public:
     virtual ~IOutputDataNormalizer() {}

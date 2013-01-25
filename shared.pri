@@ -115,6 +115,13 @@ CONFIG(PEDANTIC) {
   QMAKE_CXXFLAGS_DEBUG += -Weffc++
 }
 
+# floating point exception handling
+#CONFIG+=DEBUG_FPE
+CONFIG(DEBUG_FPE) {
+    QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
+    !macx { QMAKE_CXXFLAGS_DEBUG += -DLINUX }
+}
+
 
 # hints
 # $${VAR} to access .pro variables, $$(VAR) to access environment variables

@@ -15,6 +15,7 @@
 //! @date   Dec 10, 2012
 
 #include <vector>
+using std::size_t;
 
 //- -------------------------------------------------------------------
 //! @class SafePointerVector

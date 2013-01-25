@@ -58,13 +58,12 @@ void TestFittingModule1::execute()
     initializeRealData();
     m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data);
 
-//    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
-//    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
-//    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
-//    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLMultiFit") ); // LMA
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLMultiFit") ); // LMA
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
-    // FIXME BUG genetic minimizer crashes when there are no upper limits on parameters
-    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );
 
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );

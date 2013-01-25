@@ -115,6 +115,15 @@ HEADERS += \
     inc/TestToyExperiment.h \
     inc/TreeEventStructure.h
 
+# to through exception in the case floating point exception (gcc only)
+CONFIG(DEBUG_FPE) {
+    HEADERS += inc/fp_exception_glibc_extension.h
+    SOURCES += src/fp_exception_glibc_extension.c
+}
+
+
+
+
 # additional locations
 LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01
 INCLUDEPATH += $${LOCATIONS}

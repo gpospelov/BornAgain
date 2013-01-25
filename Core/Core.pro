@@ -300,6 +300,13 @@ contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
    include($$PWD/python_module.pri)
 }
 
+## to through exception in the case floating point exception (gcc only)
+#CONFIG(DEBUG_FPE) {
+#    HEADERS += Tools/inc/fp_exception_glibc_extension.h
+#    SOURCES += Tools/src/fp_exception_glibc_extension.c
+#}
+
+
 OBJECTS_DIR = obj
 
 # -----------------------------------------------------------------------------

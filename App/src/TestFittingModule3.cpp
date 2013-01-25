@@ -57,10 +57,10 @@ void TestFittingModule3::execute()
 
     // setting up fitSuite
     m_fitSuite = new FitSuite();
-    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 5.1*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 5.1*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 5.1*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 5.1*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
 //    // setting up fitSuite
 //    ChiSquaredModule chiModule;
 //    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
@@ -139,7 +139,7 @@ void TestFittingModule3::initializeRealData()
 
     // generating 2D "real" data
     m_experiment->runSimulation();
-    m_experiment->normalize();
+    //m_experiment->normalize();
     delete m_real_data;
     m_real_data = IsGISAXSTools::createNoisyData(*m_experiment->getOutputData());
 

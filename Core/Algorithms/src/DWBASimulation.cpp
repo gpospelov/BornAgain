@@ -3,15 +3,21 @@
 DWBASimulation::DWBASimulation()
 : m_alpha_i(0)
 , m_thread_info()
+, mp_experiment(0)
 {
 }
 
 DWBASimulation::~DWBASimulation()
 {
+    delete mp_experiment;
 }
 
 void DWBASimulation::init(const Experiment& experiment)
 {
+    if (mp_experiment != &experiment) {
+        delete mp_experiment;
+        mp_experiment = experiment.clone();
+    }
     m_dwba_intensity.clear();
     Detector detector = experiment.getDetector();
     size_t detector_dimension = detector.getDimension();
@@ -25,6 +31,7 @@ void DWBASimulation::init(const Experiment& experiment)
     m_ki = beam.getCentralK();
     kvector_t ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     m_alpha_i = std::asin(ki_real.z()/ki_real.mag());
+    m_sim_params = experiment.getSimulationParameters();
 }
 
 DWBASimulation *DWBASimulation::clone() const
@@ -34,6 +41,7 @@ DWBASimulation *DWBASimulation::clone() const
     p_result->m_ki = m_ki;
     p_result->m_alpha_i = m_alpha_i;
     p_result->m_thread_info = m_thread_info;
+    if (mp_experiment) p_result->mp_experiment = mp_experiment->clone();
 
     return p_result;
 }

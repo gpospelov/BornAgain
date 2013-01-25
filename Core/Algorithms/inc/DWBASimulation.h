@@ -72,7 +72,8 @@ protected:
     double m_alpha_i;
     double getWaveLength() const;
     ThreadInfo m_thread_info;
-
+    SimulationParameters m_sim_params;
+    Experiment *mp_experiment;
 };
 
 inline const OutputData<double> &DWBASimulation::getDWBAIntensity() const {

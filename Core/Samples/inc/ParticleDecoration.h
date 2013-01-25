@@ -72,10 +72,6 @@ public:
     /// Get interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;
 
-    /// Create interference function strategy
-    virtual IInterferenceFunctionStrategy *createStrategy(
-            const std::vector<IFormFactor *> &form_factors) const;
-
 private:
     //! adding particle information with simultaneous registration in parent class
     void addAndRegisterParticleInfo(ParticleInfo *child)

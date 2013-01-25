@@ -16,13 +16,17 @@
 
 #include "SimulationParameters.h"
 #include "SafePointerVector.h"
+#include "ICloneable.h"
+#include "Types.h"
 
-struct FormFactorInfo;
+class FormFactorInfo;
+class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
 class LayerDecorator;
 class Experiment;
 class IDoubleToPairOfComplexMap;
 class ParticleInfo;
+class IFormFactor;
 
 //- -------------------------------------------------------------------
 //! @class LayerDecoratorStrategyBuilder
@@ -62,8 +66,9 @@ private:
     SafePointerVector<IInterferenceFunction> m_ifs;
 };
 
-struct FormFactorInfo : public ICloneable
+class FormFactorInfo : public ICloneable
 {
+public:
     FormFactorInfo();
     ~FormFactorInfo();
     virtual FormFactorInfo *clone() const;

@@ -34,6 +34,7 @@ SOURCES += \
     Algorithms/src/IOutputDataNormalizer.cpp \
     Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
+    Algorithms/src/StrategyBuilder.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
     Algorithms/src/Mask.cpp \
@@ -149,6 +150,7 @@ HEADERS += \
     Algorithms/inc/IFittingDataSelector.h \
     Algorithms/inc/IIntensityFunction.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
+    Algorithms/inc/InterferenceFunctionStrategies.h \
     Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
     Algorithms/inc/ISampleBuilder.h \
@@ -215,6 +217,7 @@ HEADERS += \
     Samples/inc/IDispersalState.h \
     Samples/inc/IInterferenceFunction.h \
     Samples/inc/IMaterial.h \
+    Samples/inc/InterferenceFunctions.h \
     Samples/inc/InterferenceFunction1DParaCrystal.h \
     Samples/inc/InterferenceFunction2DLattice.h \
     Samples/inc/InterferenceFunction2DParaCrystal.h \

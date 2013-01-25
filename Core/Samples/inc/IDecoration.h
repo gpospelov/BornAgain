@@ -29,8 +29,6 @@ public:
     virtual ~IDecoration() {}
 
     virtual IDecoration *clone() const=0;
-    virtual IInterferenceFunctionStrategy *createStrategy(
-            const std::vector<IFormFactor *> &form_factors) const=0;
 
     //! Get number of particles
     virtual size_t getNumberOfParticles() const=0;

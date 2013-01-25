@@ -1,4 +1,11 @@
 #include "StrategyBuilder.h"
+#include "LayerDecorator.h"
+#include "Experiment.h"
+#include "IDoubleToComplexFunction.h"
+#include "InterferenceFunctions.h"
+#include "InterferenceFunctionStrategies.h"
+#include "FormFactors.h"
+#include "PositionParticleInfo.h"
 
 #include <cmath>
 
@@ -32,7 +39,6 @@ IInterferenceFunctionStrategy* LayerDecoratorStrategyBuilder::createStrategy()
 {
     collectFormFactorInfos();
     collectInterferenceFunctions();
-    size_t n_particles = m_ff_infos.size();
     size_t n_ifs = m_ifs.size();
     IInterferenceFunctionStrategy *p_result(0);
     switch (m_sim_params.me_if_approx)
@@ -44,7 +50,8 @@ IInterferenceFunctionStrategy* LayerDecoratorStrategyBuilder::createStrategy()
         p_result = new LocalMonodisperseApproximationStrategy();
         break;
     case SimulationParameters::SSCA:
-        if (n_ifs<2) {
+    {
+        if (n_ifs<1) {
             throw Exceptions::ClassInitializationException(
                     "SSCA requires an interference function");
         }
@@ -55,6 +62,7 @@ IInterferenceFunctionStrategy* LayerDecoratorStrategyBuilder::createStrategy()
         }
         p_result = new SizeSpacingCorrelationApproximationStrategy(kappa);
         break;
+    }
     default:
         throw Exceptions::ClassInitializationException(
                 "Unknown interference function approximation");
@@ -125,6 +133,7 @@ FormFactorInfo *LayerDecoratorStrategyBuilder::createFormFactorInfo(
         p_ff_framework = ff_transformed;
         break;
     case SimulationParameters::DWBA:  // Distorted Wave Born Approximation
+    {
         if (mp_RT_function==0) {
             throw Exceptions::ClassInitializationException(
                     "R and T coefficients are necessary for DWBA");
@@ -134,6 +143,7 @@ FormFactorInfo *LayerDecoratorStrategyBuilder::createFormFactorInfo(
         p_dwba_ff->setReflectionTransmissionFunction(*mp_RT_function);
         p_ff_framework = p_dwba_ff;
         break;
+    }
     default:
         throw Exceptions::RuntimeErrorException("Framework must be BA or DWBA");
     }

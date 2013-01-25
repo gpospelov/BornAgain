@@ -73,9 +73,6 @@ public:
     /// get interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;
 
-    /// create interference function strategy
-    IInterferenceFunctionStrategy *createStrategy(const std::vector<IFormFactor *> &form_factors) const;
-
     /// get surface density of all particles
     double getTotalParticleSurfaceDensity() const { return m_total_particle_surface_density; }
 
@@ -103,6 +100,10 @@ private:
         m_interference_functions.push_back(child);
         registerChild(child);
     }
+
+    //! initialize form factor infos
+    void initializeFormFactorInfos(SafePointerVector<FormFactorInfo> &ff_infos,
+            const std::vector<IFormFactor*>& form_factors) const;
 
     SafePointerVector<PositionParticleInfo> m_particles;
     ///< Vector of the types of particles

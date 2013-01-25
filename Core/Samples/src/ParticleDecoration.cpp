@@ -2,6 +2,8 @@
 #include "InterferenceFunctionNone.h"
 #include "DecouplingApproximationStrategy.h"
 #include "LocalMonodisperseApproximationStrategy.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "SizeSpacingCorrelationApproximationStrategy.h"
 
 /* ************************************************************************* */
 ParticleDecoration::ParticleDecoration()
@@ -123,7 +125,6 @@ const IInterferenceFunction* ParticleDecoration::getInterferenceFunction(size_t 
     throw OutOfBoundsException("ParticleDecoration::getInterferenceFunction() -> Not so many interference functions in this decoration.");
 }
 
-
 /* ************************************************************************* */
 // create strategy
 /* ************************************************************************* */
@@ -138,7 +139,14 @@ IInterferenceFunctionStrategy* ParticleDecoration::createStrategy(
     size_t n_particles = m_particles.size();
     size_t n_ifs = m_interference_functions.size();
     if (n_ifs==1) {
-        p_strategy = new DecouplingApproximationStrategy();
+        InterferenceFunction1DParaCrystal *p_iff = dynamic_cast<InterferenceFunction1DParaCrystal *>(
+                m_interference_functions[0]);
+        if (p_iff == 0 || p_iff->getKappa() == 0.0) {
+            p_strategy = new DecouplingApproximationStrategy();
+        }
+        else {
+            p_strategy = new SizeSpacingCorrelationApproximationStrategy(p_iff->getKappa());
+        }
     }
     else if (n_ifs==n_particles) {
         p_strategy = new LocalMonodisperseApproximationStrategy();

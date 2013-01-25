@@ -42,6 +42,7 @@ SOURCES += \
     Algorithms/src/MultiLayerRoughnessDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
+    Algorithms/src/SizeSpacingCorrelationApproximationStrategy.cpp \
     \
     Fitting/src/FitObject.cpp \
     Fitting/src/FitParameter.cpp \
@@ -166,6 +167,7 @@ HEADERS += \
     Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     Algorithms/inc/ResolutionFunction2DSimple.h \
+    Algorithms/inc/SizeSpacingCorrelationApproximationStrategy.h \
     Algorithms/inc/ThreadInfo.h \
     \
     Fitting/inc/AttLimits.h \

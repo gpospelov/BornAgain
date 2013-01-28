@@ -1,7 +1,8 @@
 #include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
 
-DecouplingApproximationStrategy::DecouplingApproximationStrategy()
+DecouplingApproximationStrategy::DecouplingApproximationStrategy(SimulationParameters sim_params)
+: IInterferenceFunctionStrategy(sim_params)
 {
 }
 

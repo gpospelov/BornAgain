@@ -2,8 +2,9 @@
 #include "InterferenceFunction1DParaCrystal.h"
 
 SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximationStrategy(
-        double kappa)
-: m_mean_radius(0.0)
+        SimulationParameters sim_params, double kappa)
+: IInterferenceFunctionStrategy(sim_params)
+, m_mean_radius(0.0)
 , m_kappa(kappa)
 {
 }
@@ -14,7 +15,8 @@ void SizeSpacingCorrelationApproximationStrategy::init(
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, ifs);
     if (!checkVectorSizes()) {
-        throw ClassInitializationException("Wrong number of formfactors or interference functions for Decoupling Approximation.");
+        throw ClassInitializationException("Wrong number of formfactors"
+                " or interference functions for Size-Spacing Correlation Approximation.");
     }
     initMeanRadius();
 }

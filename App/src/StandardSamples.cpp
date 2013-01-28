@@ -595,7 +595,6 @@ ISample *StandardSamples::IsGISAXS6_lattice()
     kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
     Particle *p_particle_2 = new Particle(n_particle, new FormFactorDecoratorPositionFactor(ff_cyl, position_2));
     particle_decoration.addParticle( p_particle_2, 0.0, 1.0 );
-    particle_decoration.addInterferenceFunction(p_interference_function->clone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer_decorator);

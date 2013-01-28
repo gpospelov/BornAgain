@@ -25,7 +25,7 @@
 class IsGISAXSMorphologyFileStrategy : public IInterferenceFunctionStrategy
 {
 public:
-    IsGISAXSMorphologyFileStrategy();
+    IsGISAXSMorphologyFileStrategy(SimulationParameters sim_params);
     virtual ~IsGISAXSMorphologyFileStrategy() {}
 
     virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,

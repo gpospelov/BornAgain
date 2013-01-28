@@ -25,6 +25,12 @@ void TestIsGISAXS6::execute()
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
+    SimulationParameters sim_params;
+    sim_params.me_framework = SimulationParameters::DWBA;
+    sim_params.me_if_approx = SimulationParameters::LMA;
+    sim_params.me_lattice_type = SimulationParameters::LATTICE;
+
+    experiment.setSimulationParameters(sim_params);
     // normal lattice
     MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_lattice"));
     experiment.setSample(*p_sample);

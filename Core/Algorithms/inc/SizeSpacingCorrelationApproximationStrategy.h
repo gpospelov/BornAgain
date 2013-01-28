@@ -20,7 +20,7 @@
 class SizeSpacingCorrelationApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
-    SizeSpacingCorrelationApproximationStrategy(double kappa);
+    SizeSpacingCorrelationApproximationStrategy(SimulationParameters sim_params, double kappa);
     virtual ~SizeSpacingCorrelationApproximationStrategy() {}
 
     virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,

@@ -20,7 +20,7 @@
 class DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
-    DecouplingApproximationStrategy();
+    DecouplingApproximationStrategy(SimulationParameters sim_params);
     virtual ~DecouplingApproximationStrategy() {}
 
     virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,

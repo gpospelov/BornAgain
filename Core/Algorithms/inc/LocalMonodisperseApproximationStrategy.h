@@ -19,7 +19,7 @@
 class LocalMonodisperseApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
-    LocalMonodisperseApproximationStrategy();
+    LocalMonodisperseApproximationStrategy(SimulationParameters sim_params);
     virtual ~LocalMonodisperseApproximationStrategy() {}
 
     virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,

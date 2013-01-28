@@ -2,8 +2,9 @@
 
 #include <algorithm>
 
-IsGISAXSMorphologyFileStrategy::IsGISAXSMorphologyFileStrategy()
-: m_win_x(0.0)
+IsGISAXSMorphologyFileStrategy::IsGISAXSMorphologyFileStrategy(SimulationParameters sim_params)
+: IInterferenceFunctionStrategy(sim_params)
+, m_win_x(0.0)
 , m_win_y(0.0)
 {
 }

@@ -44,10 +44,10 @@ IInterferenceFunctionStrategy* LayerDecoratorStrategyBuilder::createStrategy()
     switch (m_sim_params.me_if_approx)
     {
     case SimulationParameters::DA:
-        p_result = new DecouplingApproximationStrategy();
+        p_result = new DecouplingApproximationStrategy(m_sim_params);
         break;
     case SimulationParameters::LMA:
-        p_result = new LocalMonodisperseApproximationStrategy();
+        p_result = new LocalMonodisperseApproximationStrategy(m_sim_params);
         break;
     case SimulationParameters::SSCA:
     {
@@ -60,7 +60,7 @@ IInterferenceFunctionStrategy* LayerDecoratorStrategyBuilder::createStrategy()
             throw Exceptions::ClassInitializationException(
                     "SSCA requires a strictly positive coupling value");
         }
-        p_result = new SizeSpacingCorrelationApproximationStrategy(kappa);
+        p_result = new SizeSpacingCorrelationApproximationStrategy(m_sim_params, kappa);
         break;
     }
     default:

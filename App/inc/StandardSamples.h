@@ -32,9 +32,17 @@ ISample *IsGISAXS14_LayeredSpheresOnGradedInterface();
 ISample *IsGISAXS15_SSCA();
 ISample *MesoCrystal1();
 ISample *MesoCrystal2();
+ISample *FormFactor_Box();
+ISample *FormFactor_Cone();
+ISample *FormFactor_Sphere();
+ISample *FormFactor_Ellipsoid();
+ISample *FormFactor_FullSpheroid();
+ISample *FormFactor_HemiSpheroid();
+ISample *FormFactor_Parallelpiped();
+ISample *FormFactor_Cylinder();
+ISample *FormFactor_Pyramid();
+ISample *FormFactor_FullSphere();
+ISample *FormFactor_Prism3();
 
 }
-
-
-
 #endif // STANDARDSAMPLES_H

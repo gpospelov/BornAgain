@@ -36,6 +36,7 @@ SOURCES += \
     src/TestFittingModule2.cpp \
     src/TestFittingModule3.cpp \
     src/TestFormFactor.cpp \
+    src/TestFormFactors.cpp \
     src/TestFourier.cpp \
     src/TestFresnelCoeff.cpp \
     src/TestFumiliLMA.cpp \
@@ -92,6 +93,7 @@ HEADERS += \
     inc/TestFittingModule2.h \
     inc/TestFittingModule3.h \
     inc/TestFormFactor.h \
+    inc/TestFormFactors.h \
     inc/TestFourier.h \
     inc/TestFresnelCoeff.h \
     inc/TestFumiliLMA.h \

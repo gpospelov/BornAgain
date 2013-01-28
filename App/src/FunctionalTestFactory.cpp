@@ -22,6 +22,9 @@
 #include "TestDetectorResolution.h"
 #include "TestMesoCrystal1.h"
 #include "TestMesoCrystal2.h"
+
+#include "TestFormFactors.h"
+
 #include "TestRootTree.h"
 #include "TestFittingModule1.h"
 #include "TestFittingModule2.h"
@@ -108,6 +111,9 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: test of ROOT's LMA-based minimizers Fumili and GSLMultiFit");
     registerItem("toyexp",    IFactoryCreateFunction<TestToyExperiment, IFunctionalTest>,
                  "functional test: test fitting algorithms with toy experiment");
+
+    registerItem("FormFactors", IFactoryCreateFunction<TestFormFactors, IFunctionalTest>,
+                 "functional test: FormFactors");
 
     m_benchmark = new TBenchmark();
 }

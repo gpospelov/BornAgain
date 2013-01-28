@@ -113,7 +113,7 @@ bool ROOTMinimizerHelper::processCommandGSLSimAn(ROOT::Patch::GSLSimAnMinimizer 
 
 
 // ----------------------------------------------------------------------------
-// Printing minimizer options on the screen
+// Printing minimizer results on the screen
 // ----------------------------------------------------------------------------
 void ROOTMinimizerHelper::printResults(ROOT::Math::Minimizer *minimizer, const std::string &minimizer_name, const std::string &algo_type)
 {

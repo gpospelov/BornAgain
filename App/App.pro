@@ -187,6 +187,7 @@ rootcint.depends      = $$CREATE_ROOT_DICT_FOR_CLASSES
 rootcintecho.commands = @echo "Generating dictionary $$rootcint.target for $$CREATE_ROOT_DICT_FOR_CLASSES classes"
 QMAKE_EXTRA_TARGETS += rootcintecho rootcint
 QMAKE_CLEAN       +=  src/$${ROOT_CINT_TARGET}Dict.cpp src/$${ROOT_CINT_TARGET}Dict.h
+QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 
 
 

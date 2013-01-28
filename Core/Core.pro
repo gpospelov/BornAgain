@@ -368,6 +368,6 @@ INSTALLS += target
 #QMAKE_DISTCLEAN += -r $$includes.path
 #QMAKE_DISTCLEAN += $$MYPREFIX/inc/ScattCore
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
-
+QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 QMAKE_POST_LINK = (make install)
 

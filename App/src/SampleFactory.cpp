@@ -26,7 +26,7 @@ SampleFactory::SampleFactory()
     registerItem("MultilayerOffspecTestcase2b", StandardSamples::MultilayerOffspecTestcase2b);
 
     // IsGISAXS1 example: cylinder and prism
-    registerItem("IsGISAXS1_CylinderAndPrism", StandardSamples::IsGISAXS1_CylinderAndPrism);
+    //registerItem("IsGISAXS1_CylinderAndPrism", StandardSamples::IsGISAXS1_CylinderAndPrism);
 
     // IsGISAXS2 example: mixture of cylindrical particles with two size distribution
     registerItem("IsGISAXS2_CylindersMixture", StandardSamples::IsGISAXS2_CylindersMixture);
@@ -56,6 +56,9 @@ SampleFactory::SampleFactory()
 
     // IsGISAXS11 example: core shell parallelepipeds
     registerItem("IsGISAXS11_CoreShellParticle", StandardSamples::IsGISAXS11_CoreShellParticles);
+
+    // IsGISAXS14 example: layered sphere on graded interface
+    registerItem("IsGISAXS14_LayeredSpheresOnGradedInterface", StandardSamples::IsGISAXS14_LayeredSpheresOnGradedInterface);
 
     // IsGISAXS15 example: Size-Spacing Correlation Approximation
     registerItem("IsGISAXS15_SSCA", StandardSamples::IsGISAXS15_SSCA);

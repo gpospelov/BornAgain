@@ -350,35 +350,31 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
 //
 
 
-
-
-
-
 /* ************************************************************************* */
 // IsGISAXS1 functional test: cylinder and prism
 /* ************************************************************************* */
-ISample *StandardSamples::IsGISAXS1_CylinderAndPrism()
-{
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),0.0, 0.5);
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)), 0.0, 0.5);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+//ISample *StandardSamples::IsGISAXS1_CylinderAndPrism()
+//{
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-6e-6, 2e-8);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+//    Layer air_layer;
+//    air_layer.setMaterial(p_air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(p_substrate_material);
+//    ParticleDecoration particle_decoration;
+//    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),0.0, 0.5);
+//    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)), 0.0, 0.5);
+//    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+//    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
-    p_multi_layer->addLayer(substrate_layer);
-    return p_multi_layer;
-}
+//    p_multi_layer->addLayer(air_layer_decorator);
+//    p_multi_layer->addLayer(substrate_layer);
+//    return p_multi_layer;
+//}
 
 
 /* ************************************************************************* */
@@ -798,6 +794,33 @@ ISample *StandardSamples::IsGISAXS11_CoreShellParticles()
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer_decorator);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
+// IsGISAXS14 functional test: layered sphere on graded interface
+/* ************************************************************************* */
+ISample *StandardSamples::IsGISAXS14_LayeredSpheresOnGradedInterface()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-5, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air10", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate10", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,5*Units::nanometer, 1e7*Units::nanometer);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorSphere(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    //    particle_decoration.setTotalParticleSurfaceDensity(1.0/(20.0*Units::nanometer*20.0*Units::nanometer));
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+
     return p_multi_layer;
 }
 

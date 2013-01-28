@@ -16,6 +16,7 @@
 #include "TestIsGISAXS11.h"
 #include "TestIsGISAXS12.h"
 #include "TestIsGISAXS13.h"
+#include "TestIsGISAXS14.h"
 #include "TestIsGISAXS15.h"
 #include "TestConvolution.h"
 #include "TestDetectorResolution.h"
@@ -73,6 +74,8 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: isgisaxs ex-12 (constrained fit example)");
     registerItem("isgisaxs13",  IFactoryCreateFunction<TestIsGISAXS13, IFunctionalTest>,
                  "functional test: isgisaxs ex-13 (simulated annealing fit)");
+    registerItem("isgisaxs14",  IFactoryCreateFunction<TestIsGISAXS14, IFunctionalTest>,
+                 "functional test: isgisaxs ex-14 (multilayered sphere on graded interface)");
     registerItem("isgisaxs15",  IFactoryCreateFunction<TestIsGISAXS15, IFunctionalTest>,
                  "functional test: isgisaxs ex-15 (size-spacing correlation approximation)");
     registerItem("convolution", IFactoryCreateFunction<TestConvolution, IFunctionalTest>,

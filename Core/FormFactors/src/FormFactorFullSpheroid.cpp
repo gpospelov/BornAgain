@@ -70,10 +70,3 @@ double FormFactorFullSpheroid::FullSpheroidIntegral(double Z, void* params) cons
          return   4.0* M_PI *Rz*Rz* J1_qrRz_div_qrRz * std::cos(qz.real()*Z);
 
    }
-/* ************************************************************************* */
-// print class
-/* ************************************************************************* */
-void FormFactorFullSpheroid::print(std::ostream &ostr) const
-{
-    ISample::print(ostr);
-}

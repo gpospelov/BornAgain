@@ -111,9 +111,3 @@ double FormFactorHemiSpheroid::evaluate_for_q_real() const
      return 2.0* M_PI* complex_t(0.0, 1.0)*evaluate_for_q_imag() + evaluate_for_q_real();
  }
 
-
-
-    void FormFactorHemiSpheroid::print(std::ostream &ostr) const
-    {
-        ISample::print(ostr);
-            }

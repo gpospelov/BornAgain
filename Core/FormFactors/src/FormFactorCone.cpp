@@ -104,8 +104,3 @@ double FormFactorCone::evaluate_for_q_real() const
 
 
 
-    void FormFactorCone::print(std::ostream &ostr) const
-    {
-        ISample::print(ostr);
-        //     ostr << " (height:"<< m_height << " radius:"<<m_radius << " " << "alpha: " << m_alpha << ")";
-    }

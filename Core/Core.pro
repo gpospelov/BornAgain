@@ -57,6 +57,7 @@ SOURCES += \
     Fitting/src/MinimizerTest.cpp \
     \
     FormFactors/src/FormFactorBox.cpp \
+    FormFactors/src/FormFactorCone.cpp \
     FormFactors/src/FormFactorCrystal.cpp \
     FormFactors/src/FormFactorCylinder.cpp \
     FormFactors/src/FormFactorDWBA.cpp \
@@ -64,7 +65,9 @@ SOURCES += \
     FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorEllipsoid.cpp \
     FormFactors/src/FormFactorFullSphere.cpp \
+    FormFactors/src/FormFactorFullSpheroid.cpp \
     FormFactors/src/FormFactorGauss.cpp \
+    FormFactors/src/FormFactorHemiSpheroid.cpp \
     FormFactors/src/FormFactorLorentz.cpp \
     FormFactors/src/FormFactorParallelepiped.cpp \
     FormFactors/src/FormFactorPrism3.cpp \
@@ -185,6 +188,7 @@ HEADERS += \
     Fitting/inc/MinimizerTest.h \
     \
     FormFactors/inc/FormFactorBox.h \
+    FormFactors/inc/FormFactorCone.h \
     FormFactors/inc/FormFactorCrystal.h \
     FormFactors/inc/FormFactorCylinder.h \
     FormFactors/inc/FormFactorDWBA.h \
@@ -197,7 +201,9 @@ HEADERS += \
     FormFactors/inc/FormFactorDecoratorTransformation.h \
     FormFactors/inc/FormFactorEllipsoid.h \
     FormFactors/inc/FormFactorFullSphere.h \
+    FormFactors/inc/FormFactorFullSpheroid.h \
     FormFactors/inc/FormFactorGauss.h \
+    FormFactors/inc/FormFactorHemiSpheroid.h \
     FormFactors/inc/FormFactorLorentz.h \
     FormFactors/inc/FormFactorParallelepiped.h \
     FormFactors/inc/FormFactorPrism3.h \

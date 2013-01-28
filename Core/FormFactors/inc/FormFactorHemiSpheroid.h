@@ -14,7 +14,7 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   03.07.2012
 
-#include "IFormFactor.h"
+#include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
 //- -------------------------------------------------------------------
@@ -42,10 +42,6 @@ protected:
     virtual complex_t evaluate_for_q (const cvector_t &q) const;
 
 private:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    FormFactorHemiSpheroid(const FormFactorHemiSpheroid &);
-    FormFactorHemiSpheroid &operator=(const FormFactorHemiSpheroid &);
-
     double evaluate_for_q_real() const;
     complex_t evaluate_for_q_imag() const;
     double HemiSpheroidIntegralReal(double Z, void* params) const;
@@ -55,14 +51,10 @@ private:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    //! print class
-    void print(std::ostream &ostr) const;
-
     double m_radius;
     double m_width;
     double m_height;
     mutable cvector_t m_q;
-
 };
 
 

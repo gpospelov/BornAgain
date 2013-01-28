@@ -21,12 +21,12 @@
 #include "OutputDataReader.h"
 #include "OutputDataIOFactory.h"
 #include "FitSuite.h"
-#include "ROOTMinimizer.h"
 #include "SampleFactory.h"
 #include "TRange.h"
-#include "FitSuiteHelper.h"
+#include "FitSuiteObserverFactory.h"
 #include "AttLimits.h"
 #include "ProgramOptions.h"
+#include "MinimizerFactory.h"
 
 #include "TCanvas.h"
 #include "TH2D.h"
@@ -90,9 +90,11 @@ void TestMesoCrystal2::execute()
     fitSuite->addExperimentAndRealData(*mp_experiment, *real_data);
 //    fitSuite->addExperimentAndRealData(mp_experiment, real_data_quarter);
 
-    fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
-    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();
-    minim->SetStrategy(2); // 0- not accurate, 1 - normal, 2 - acurate (maximum FCN calls)
+    fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Combined") );
+//    ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(fitSuite->getMinimizer()))->getROOTMinimizer();
+//    minim->SetStrategy(2); // 0- not accurate, 1 - normal, 2 - acurate (maximum FCN calls)
+
+
 
     fitSuite->addFitParameter("*/lattice_length_a", 6.2*Units::nanometer, 1.0*Units::nanometer,
             AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
@@ -197,9 +199,9 @@ void TestMesoCrystal2::execute()
 //    FitSuiteObserverDraw *drawObserver = new FitSuiteObserverDraw(canvas_name);
 //    fitSuite->attachObserver(drawObserver);
 
-    fitSuite->attachObserver( new FitSuiteObserverPrint() );
-    fitSuite->attachObserver( new FitSuiteObserverDraw() );
-    fitSuite->attachObserver( new FitSuiteObserverWriteTree() );
+    fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
+    fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
+    fitSuite->attachObserver( FitSuiteObserverFactory::createTreeObserver() );
 
     fitSuite->runFit();
 

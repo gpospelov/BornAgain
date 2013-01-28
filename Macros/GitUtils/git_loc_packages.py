@@ -60,6 +60,8 @@ def filetype(x):
         file_type = 0
     elif "Core/Tools" in x and (".h" in x or ".cpp" in x):
         file_type = 0
+    if "Core/Fitting" in x and (".h" in x or ".cpp" in x):
+        file_type = 0
     elif "Core/inc" in x and (".h" in x):
         file_type = 0
     elif "Core/src" in x and (".cpp" in x):
@@ -67,6 +69,8 @@ def filetype(x):
     elif "App" in x and (".h" in x or ".cpp" in x):
         file_type = 1
     elif "UnitTests" in x and (".h" in x or ".cpp" in x):
+        file_type = 2
+    elif "FunctionalTests" in x and (".h" in x or ".cpp" in x):
         file_type = 2
     elif ".py" in x and not "ThirdParty" in x and not "Core/PythonAPI" in x:
         file_type = 3

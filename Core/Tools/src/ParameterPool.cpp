@@ -1,6 +1,8 @@
 #include "ParameterPool.h"
 #include "Exceptions.h"
 #include "Utils.h"
+
+#include <boost/algorithm/string/replace.hpp>
 #include <iostream>
 #include <sstream>
 
@@ -115,7 +117,7 @@ std::vector<ParameterPool::parameter_t >  ParameterPool::getMatchedParameters(co
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         // (*it).first - parameter key, (*it).second - parameter itself
         // parameters whose key match pattern is added to the FitMultiParameter container
-        if( Utils::StringMatchText::WildcardPattern( (*it).first, wildcards ) ) {
+        if( Utils::String::MatchPattern( (*it).first, wildcards ) ) {
             selected_parameters.push_back((*it).second);
         }
     }
@@ -152,9 +154,28 @@ int ParameterPool::setMatchedParametersValue(const std::string &wildcards, doubl
 {
     int npars(0);
     for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it) {
-        if( Utils::StringMatchText::WildcardPattern( (*it).first, wildcards ) ) {
+        if( Utils::String::MatchPattern( (*it).first, wildcards ) ) {
             (*it).second.setValue(value);
             npars++;
+        }
+    }
+    return npars;
+}
+
+int ParameterPool::fixRatioBetweenParameters(const std::string& to_change,
+        const std::string& source, double ratio)
+{
+    int npars(0);
+    std::string wildcard = (to_change[0] == '*' ? to_change : "*" + to_change);
+    for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it) {
+        if( Utils::String::MatchPattern( (*it).first, wildcard ) ) {
+            std::string parametername = it->first;
+            boost::algorithm::replace_last(parametername, to_change, source);
+            try {
+                parameter_t source = getParameter(parametername);
+                (*it).second.setValue(source.getValue()*ratio);
+                npars++;
+            } catch (Exceptions::LogicErrorException &e) {}
         }
     }
     return npars;
@@ -172,13 +193,13 @@ void ParameterPool::print(std::ostream &ostr) const
             ostr << "POOL_" << m_map.size();
             ostr << "(";
             for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
-                std::cout << "'" << (*it).first << "'" << ":" << it->second.getValue() << " " ;
+                ostr << "'" << (*it).first << "'" << ":" << it->second.getValue() << " " ;
             }
             ostr << ")";
         // printing in several lines
         } else {
             for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
-                std::cout << "'" << (*it).first << "'" << ":" << it->second.getValue() << std::endl;
+                ostr << "'" << (*it).first << "'" << ":" << it->second.getValue() << std::endl;
             }
         }
     }

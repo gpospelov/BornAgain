@@ -1,34 +1,33 @@
 #include "TestFittingModule3.h"
-#include "Units.h"
-#include "MathFunctions.h"
+#include "AttLimits.h"
+#include "DrawHelper.h"
+#include "Exceptions.h"
+#include "ExperimentConstants.h"
+#include "FitSuite.h"
+#include "FitSuiteObserverFactory.h"
+#include "FormFactors.h"
 #include "GISASExperiment.h"
-#include "IsGISAXSTools.h"
-#include "MultiLayer.h"
-#include "MaterialManager.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
-#include "ParticleDecoration.h"
+#include "IsGISAXSTools.h"
 #include "LayerDecorator.h"
-#include "Particle.h"
-#include "FormFactors.h"
-#include "Exceptions.h"
-#include "DrawHelper.h"
-#include "FitSuiteHelper.h"
-#include "ResolutionFunction2DSimple.h"
-#include "AttLimits.h"
+#include "MaterialManager.h"
+#include "MathFunctions.h"
+#include "MinimizerFactory.h"
+#include "MultiLayer.h"
 #include "OutputDataFunctions.h"
-#include "TLine.h"
-#include "ExperimentConstants.h"
-
-#include "IObserver.h"
-#include "FitSuite.h"
-#include "ROOTMinimizer.h"
+#include "Particle.h"
+#include "ParticleDecoration.h"
+#include "ResolutionFunction2DSimple.h"
+#include "Units.h"
 
 #include "TROOT.h"
+#include "TLine.h"
 #include "TCanvas.h"
 #include "TLatex.h"
 #include "TH2D.h"
 #include "TPaveText.h"
+
 
 
 TestFittingModule3::TestFittingModule3()
@@ -45,7 +44,7 @@ TestFittingModule3::~TestFittingModule3()
     delete m_experiment;
     delete m_sample;
     delete m_real_data;
-    for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) delete (*it);
+    delete m_fitSuite;
 }
 
 
@@ -58,33 +57,25 @@ void TestFittingModule3::execute()
 
     // setting up fitSuite
     m_fitSuite = new FitSuite();
-    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 5.0001*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-
-
+    m_fitSuite->addFitParameter("*FormFactorCylinder/height", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*FormFactorPrism3/height", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
 //    // setting up fitSuite
 //    ChiSquaredModule chiModule;
 //    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
 //    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data, chiModule);
-
 
     // putting scans
     for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
         m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it));
     }
 
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
-    m_fitSuite->attachObserver( new FitSuiteObserverDraw(1) );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
 
     m_fitSuite->runFit();
-
 }
 
 
@@ -148,14 +139,11 @@ void TestFittingModule3::initializeRealData()
 
     // generating 2D "real" data
     m_experiment->runSimulation();
-    m_experiment->normalize();
+    //m_experiment->normalize();
     delete m_real_data;
     m_real_data = IsGISAXSTools::createNoisyData(*m_experiment->getOutputData());
 
     // setting up 1d scans by making slices on real data
-    for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
-        delete (*it);
-    }
     m_data_scans.clear();
     m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, NDetector2d::ALPHA_AXIS_NAME, 0.012, 0.012) );
     m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, NDetector2d::PHI_AXIS_NAME, 0.011, 0.011) );

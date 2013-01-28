@@ -8,8 +8,7 @@
 
 SampleFactory::SampleFactory()
 {
-    // Experiment will take care about samples
-    setOwnObjects(true);
+    setOwnObjects(true); //factory will take care about samples
 
     // samples used for fresnel coefficients validation
     registerItem("AirOnSubstrate", StandardSamples::AirOnSubstrate);
@@ -57,6 +56,9 @@ SampleFactory::SampleFactory()
 
     // IsGISAXS11 example: core shell parallelepipeds
     registerItem("IsGISAXS11_CoreShellParticle", StandardSamples::IsGISAXS11_CoreShellParticles);
+
+    // IsGISAXS15 example: Size-Spacing Correlation Approximation
+    registerItem("IsGISAXS15_SSCA", StandardSamples::IsGISAXS15_SSCA);
 
     // mesocrystal's
     registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);

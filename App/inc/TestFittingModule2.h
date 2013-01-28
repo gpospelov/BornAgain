@@ -20,7 +20,6 @@
 #include "ISample.h"
 #include "GISASExperiment.h"
 #include "ISampleBuilder.h"
-#include "FitSuiteStrategy.h"
 
 
 class FitSuite;
@@ -38,11 +37,11 @@ public:
     virtual void execute();
 
     //! builds sample for fitter testing
-    class TestSampleBuilder : public ISampleBuilder
+    class SampleBuilder : public ISampleBuilder
     {
     public:
-        TestSampleBuilder();
-        virtual ~TestSampleBuilder(){}
+        SampleBuilder();
+        virtual ~SampleBuilder(){}
         virtual ISample *buildSample() const;
     protected:
         virtual void init_parameters();

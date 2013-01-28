@@ -13,7 +13,9 @@
 //! @brief  Definition of functions and classes for IsGISAXS validation
 //! @author herck
 //! @date   19.06.2012
+
 #include "OutputData.h"
+#include "SafePointerVector.h"
 
 #include <string>
 
@@ -107,6 +109,9 @@ public:
     //! create noisy data
     static OutputData<double > *createNoisyData(const OutputData<double> &exact_data, double noise_factor = 0.1);
     static OutputData<double > *createDataWithGaussianNoise(const OutputData<double> &exact_data, double sigma);
+
+    //! draw standard IsGISAXS comparison canvas
+    static void drawOutputDataComparisonResults(const OutputData<double> &data, const OutputData<double> &reference, const std::string &name=std::string("noname"), const std::string &title=std::string("no title") );
 
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

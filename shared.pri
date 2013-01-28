@@ -88,7 +88,7 @@ CONFIG(JCNS) {
 # -----------------------------------------------------------------------------
 # general include path
 # -----------------------------------------------------------------------------
-LOCATIONS = $$PWD/Core/Algorithms/inc $$PWD/Core/FormFactors/inc $$PWD/Core/Geometry/inc $$PWD/Core/Samples/inc $$PWD/Core/Tools/inc $$PWD/Core/PythonAPI/inc
+LOCATIONS = $$PWD/Core/Algorithms/inc $$PWD/Core/Fitting/inc $$PWD/Core/FormFactors/inc $$PWD/Core/Geometry/inc $$PWD/Core/Samples/inc $$PWD/Core/Tools/inc $$PWD/Core/PythonAPI/inc
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}
 
@@ -98,9 +98,12 @@ DEPENDPATH  += $${LOCATIONS}
 # optimization flag used in release builds (the -O2 is the default used by qmake)
 QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which option control warning
 #QMAKE_CXXFLAGS_RELEASE += -O3 -ffast-math -msse3
-QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -g -O3  # -ffast-math removed because of problems with NaNs
+#QMAKE_CXXFLAGS_RELEASE -= -O2
+QMAKE_CXXFLAGS_RELEASE += -g  # -ffast-math removed because of problems with NaNs
 #QMAKE_STRIP=: # produces non-stripped (very large) libraries
+
+#QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wswitch-default -Wundef -Werror -Wno-unused
+#QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Werror -Wno-unused
 
 # to compile with GPERFTOOLS support for code profiling
 #CONFIG+=GPERFTOOLS
@@ -113,6 +116,13 @@ CONFIG(GPERFTOOLS) {
 CONFIG(PEDANTIC) {
   QMAKE_CXXFLAGS_RELEASE += -Weffc++
   QMAKE_CXXFLAGS_DEBUG += -Weffc++
+}
+
+# floating point exception handling
+#CONFIG+=DEBUG_FPE
+CONFIG(DEBUG_FPE) {
+    QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
+    !macx { QMAKE_CXXFLAGS_DEBUG += -DLINUX }
 }
 
 

@@ -122,18 +122,18 @@ void TestFormFactors::finalise()
 
 
 
-    int ncomparison = this_files.size();
+    size_t ncomparison = this_files.size();
     //canvaces[0] = DrawHelper::instance().createAndRegisterCanvas("Form Factors", "TestFormFactors");
     TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("Form Factors", "TestFormFactors");
     c1->Divide(4,5);
 
-    for(int i=0; i<ncomparison; i++) {
+    for(size_t i=0; i<ncomparison; i++) {
             OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_files[i], 10);
 
 
             IsGISAXSTools::setMinimum(1.);
             // our calculations
-            c1->cd(i+1); gPad->SetLogz();
+            c1->cd((int)i+1); gPad->SetLogz();
             IsGISAXSTools::drawOutputDataInPad(*our_data, "CONT4 Z", "Our pyramid FF");
 
             IsGISAXSTools::resetMinimum(); IsGISAXSTools::resetMaximum();

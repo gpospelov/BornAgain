@@ -1,5 +1,11 @@
 #include "Experiment.h"
 
+//#ifdef DEBUG_FPE
+//#include <fenv.h>
+//#include "fp_exception_glibc_extension.h"
+//#endif
+
+
 
 Experiment::Experiment()
     : IParameterized("Experiment")
@@ -97,12 +103,6 @@ void Experiment::runSimulation()
 {
     m_is_normalized = false;
     updateSample();
-}
-
-
-void Experiment::runSimulationElement(size_t /* index */)
-{
-    throw NotImplementedException("Experiment::runSimulationElement() -> Error! Not implemented.");
 }
 
 

@@ -1,27 +1,25 @@
 #include "TestFittingModule1.h"
-#include "Units.h"
-#include "MathFunctions.h"
+#include "AttLimits.h"
+#include "DrawHelper.h"
+#include "Exceptions.h"
+#include "FitSuite.h"
+#include "FitSuiteObserverFactory.h"
+#include "FormFactors.h"
 #include "GISASExperiment.h"
-#include "IsGISAXSTools.h"
-#include "MultiLayer.h"
-#include "MaterialManager.h"
+#include "IOutputDataNormalizer.h"
+#include "ISquaredFunction.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
-#include "ParticleDecoration.h"
+#include "IsGISAXSTools.h"
 #include "LayerDecorator.h"
+#include "MaterialManager.h"
+#include "MathFunctions.h"
+#include "MinimizerFactory.h"
+#include "MultiLayer.h"
 #include "Particle.h"
-#include "FormFactors.h"
-#include "Exceptions.h"
-#include "DrawHelper.h"
-#include "FitSuiteHelper.h"
+#include "ParticleDecoration.h"
 #include "ResolutionFunction2DSimple.h"
-#include "AttLimits.h"
-#include "ISquaredFunction.h"
-#include "IOutputDataNormalizer.h"
-
-#include "IObserver.h"
-#include "FitSuite.h"
-#include "ROOTMinimizer.h"
+#include "Units.h"
 
 #include "TROOT.h"
 #include "TCanvas.h"
@@ -36,6 +34,7 @@ TestFittingModule1::TestFittingModule1()
     , mp_sample(0)
     , m_fitSuite(0)
 {
+
 }
 
 
@@ -57,36 +56,19 @@ void TestFittingModule1::execute()
     initializeSample1();
     initializeExperiment();
     initializeRealData();
-
     m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data);
 
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Migrad") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiFit", "") );
-    m_fitSuite->setMinimizer( new ROOTMinimizer("Fumili", "") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLMultiFit") ); // LMA
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Genetic") );
+    //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );
 
-
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Simplex") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Minimize") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Combined") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Minuit2", "Fumili") ); //doesn't work, Fumili wants special function with derivative
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "ConjugateFR") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "BFGS") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLMultiMin", "SteepestDescent") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("GSLSimAn", "") );
-    //m_fitSuite->setMinimizer( new ROOTMinimizer("Genetic", "") );
-    // tuning minimizer
-    //ROOT::Math::Minimizer *minim = (dynamic_cast<ROOTMinimizer *>(m_fitSuite->getMinimizer()))->getROOTMinimizer();
-    //minim->SetPrecision(0.00001);
-    //minim->SetTolerance(0.00001);
-    //minim->SetStrategy(2);
-    //minim->SetMaxFunctionCalls(50); // for Minuit
-    //minim->SetMaxIterations(50); // for GSL
-    //minim->SetPrintLevel(4);
-
-    m_fitSuite->attachObserver( new FitSuiteObserverPrint() );
-    m_fitSuite->attachObserver( new FitSuiteObserverDraw() );
-    //fitSuite->attachObserver( new FitSuiteObserverWriteTree() );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
+    //fitSuite->attachObserver( ObserverFactory::createTreeObserver() );
 
     m_fitSuite->runFit();
 }
@@ -133,10 +115,11 @@ void TestFittingModule1::initializeSample1()
     if( !m_fitSuite ) {
         throw NullPointerException("TestFittingModule::initializeSample() -> Error! No FitSuite is defined");
     }
-//    m_fitSuite->addFitParameter("*height", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    m_fitSuite->addFitParameter("*radius", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+
+    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::lowerLimited(0.01) );
+//    m_fitSuite->addFitParameter("*height", 4.*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(0.01, 10.) );
+//    m_fitSuite->addFitParameter("*radius", 6.*Units::nanometer, 0.06*Units::nanometer, AttLimits::limited(0.01, 10.) );
 }
 
 

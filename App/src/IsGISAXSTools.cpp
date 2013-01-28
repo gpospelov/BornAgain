@@ -3,6 +3,7 @@
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "ExperimentConstants.h"
+#include "DrawHelper.h"
 
 #include "TCanvas.h"
 #include "TH1D.h"
@@ -19,6 +20,7 @@
 #include <iomanip>
 #include <cmath>
 #include <algorithm>
+#include <cassert>
 
 double IsGISAXSTools::m_hist_min = 0;
 double IsGISAXSTools::m_hist_max = 0;
@@ -33,6 +35,7 @@ void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
         const std::string& canvas_name, const std::string& canvas_title,
         const std::string& draw_options, const std::string &histogram_title)
 {
+    assert(&output);
     TCanvas *c1 = new TCanvas(canvas_name.c_str(), canvas_title.c_str(), 0, 0, 1024, 768);
     IsGISAXSTools::setMinimum(1.);
     c1->cd();
@@ -47,6 +50,7 @@ void IsGISAXSTools::drawOutputData(const OutputData<double>& output,
         const std::string& canvas_name, const std::string& canvas_title,
         const std::string& draw_options, const std::string &histogram_title)
 {
+    assert(&output);
     TCanvas *c1 = new TCanvas(canvas_name.c_str(), canvas_title.c_str(), 0, 0, 1024, 768);
     c1->cd();
     drawOutputDataInPad(output, draw_options, histogram_title);
@@ -58,6 +62,7 @@ void IsGISAXSTools::drawOutputData(const OutputData<double>& output,
 void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         const std::string& draw_options, const std::string &histogram_title)
 {
+    assert(&output);
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataInPad() -> Error! No canvas exists.");
     }
@@ -84,6 +89,7 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
 /* ************************************************************************* */
 TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const std::string &histo_name)
 {
+    assert(&output);
     if (output.getNdimensions() !=2) throw( "IsGISAXSTools::getOutputDataTH2D() -> Warning! Expected number of dimensiobs is 2.");
 
     std::vector<AxisStructure > haxises;
@@ -145,6 +151,7 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
 /* ************************************************************************* */
 TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const std::string &histo_name)
 {
+    assert(&output);
     if (output.getNdimensions() >3) {
         std::cout << "IsGISAXSTools::getOutputDataTH123D() -> Warning! Expected number of dimensions should be not more than 3" << std::endl;
         return 0;
@@ -269,6 +276,8 @@ void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double> &outpu
 /* ************************************************************************* */
 void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
 {
+    assert(&left);
+    assert(&right);
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataDifference1D() -> Error! No canvas exists.");
     }
@@ -319,6 +328,8 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
 /* ************************************************************************* */
 void IsGISAXSTools::drawOutputDataRelativeDifference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
 {
+    assert(&left);
+    assert(&right);
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataDifference2D -> Error! No canvas exists.");
     }
@@ -341,6 +352,8 @@ void IsGISAXSTools::drawOutputDataRelativeDifference2D(const OutputData<double> 
 /* ************************************************************************* */
 void IsGISAXSTools::drawOutputDataChi2Difference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
 {
+    assert(&left);
+    assert(&right);
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataDifference2D -> Error! No canvas exists.");
     }
@@ -464,6 +477,7 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
                                         , std::vector<std::vector<double > > &v_axis0
                                         , std::vector<std::vector<double > > &v_axis1)
 {
+    assert(&output_data);
     if (output_data.getRank() != 2) return;
 
     const IAxis *p_axis0 = output_data.getAxis(0);
@@ -510,6 +524,8 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
 /* ************************************************************************* */
 TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double> &data)
 {
+    assert(&data);
+
     if(data.getNdimensions() != 2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanLine() -> Error! Number of dimensions should be 2");
     double x1(0), x2(0), y1(0), y2(0);
     if( data.getAxis(NDetector2d::ALPHA_AXIS_NAME) && data.getAxis(NDetector2d::ALPHA_AXIS_NAME)->getSize() == 1) {
@@ -539,6 +555,8 @@ TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double> &data)
 /* ************************************************************************* */
 TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const std::string &hname)
 {
+    assert(&data);
+
     if(data.getNdimensions() != 2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Number of dimensions should be 2");
     // one of axis should have dimension 1
     if( (data.getAxis(NDetector2d::ALPHA_AXIS_NAME) && data.getAxis(NDetector2d::ALPHA_AXIS_NAME)->getSize() != 1) && (data.getAxis(NDetector2d::PHI_AXIS_NAME) && data.getAxis(NDetector2d::PHI_AXIS_NAME)->getSize() != 1))
@@ -577,6 +595,7 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const
 /* ************************************************************************* */
 OutputData<double > *IsGISAXSTools::createNoisyData(const OutputData<double> &exact_data, double noise_factor)
 {
+    assert(&exact_data);
     OutputData<double > *real_data = exact_data.clone();
     OutputData<double>::iterator it = real_data->begin();
     while (it != real_data->end()) {
@@ -593,6 +612,7 @@ OutputData<double > *IsGISAXSTools::createNoisyData(const OutputData<double> &ex
 
 OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData<double> &exact_data, double sigma)
 {
+    assert(&exact_data);
     OutputData<double > *real_data = exact_data.clone();
     OutputData<double>::iterator it = real_data->begin();
     while (it != real_data->end()) {
@@ -604,3 +624,37 @@ OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData
     return real_data;
 }
 
+
+void IsGISAXSTools::drawOutputDataComparisonResults(const OutputData<double> &data, const OutputData<double> &reference, const std::string &name, const std::string &title)
+{
+    assert(&data);
+    assert(&reference);
+    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas(name, title);
+    c1->Divide(2,2);
+
+    // our calculations
+    c1->cd(1); gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::setMinimum(1.0);
+    IsGISAXSTools::drawOutputDataInPad(data, "CONT4 Z", "this");
+
+    // isgisaxs data
+    c1->cd(2); gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::drawOutputDataInPad(reference, "CONT4 Z", "isgi");
+
+    // difference
+    c1->cd(3);
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::setMinimum(-0.0001);
+    IsGISAXSTools::setMaximum(0.0001);
+    IsGISAXSTools::drawOutputDataRelativeDifference2D(data, reference, "CONT4 Z", "2D Difference map");
+
+    // difference
+    c1->cd(4);
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::resetMinimumAndMaximum();
+    IsGISAXSTools::setMinimum(1);
+    IsGISAXSTools::drawOutputDataDifference1D(data, reference, "", "Difference spectra");
+
+}

@@ -9,9 +9,19 @@
 #include "TROOT.h"
 #include "TApplication.h"
 
+#ifdef DEBUG_FPE
+#include <fenv.h>
+#include "fp_exception_glibc_extension.h"
+#endif
+
 int main(int argc, char **argv)
 {
-    std::cout << "Hello Brave New World! It's me." << std::endl;
+#ifdef DEBUG_FPE
+    std::cout << "main() -> Enabling floating point exception debugging" << std::endl;
+    feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
+#endif
+
+    std::cout << "Hello Brave New World!" << std::endl;
     ProgramOptions command_line_options;
     AddApplicationOptions(&command_line_options);
     AddCoreOptions(&command_line_options);

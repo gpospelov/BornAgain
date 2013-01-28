@@ -589,12 +589,18 @@ ISample *StandardSamples::IsGISAXS6_lattice()
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);
 
+    ParticleDecoration particle_decoration;
+    // particle 1
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
-    ParticleDecoration particle_decoration( new Particle(n_particle, ff_cyl.clone()));
-    particle_decoration.addInterferenceFunction(p_interference_function);
+    kvector_t position(0.0, 0.0, 0.0);
+    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    particle_decoration.addParticleInfo(particle_info);
+    // particle 2
     kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Particle *p_particle_2 = new Particle(n_particle, new FormFactorDecoratorPositionFactor(ff_cyl, position_2));
-    particle_decoration.addParticle( p_particle_2, 0.0, 1.0 );
+    particle_info.setPosition(position_2);
+    particle_decoration.addParticleInfo(particle_info);
+
+    particle_decoration.addInterferenceFunction(p_interference_function);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     p_multi_layer->addLayer(air_layer_decorator);

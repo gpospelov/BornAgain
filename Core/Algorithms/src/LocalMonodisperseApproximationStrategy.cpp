@@ -23,11 +23,12 @@ double LocalMonodisperseApproximationStrategy::evaluate(const cvector_t& k_i,
     cvector_t q = getQ(k_i, k_f_bin);
     if (m_sim_params.me_lattice_type==SimulationParameters::LATTICE) {
         complex_t amplitude(0.0, 0.0);
-        double mean_squared_ff = meanSquaredFormFactor(k_i, k_f_bin, alpha_i, alpha_f);
+        //double mean_squared_ff = meanSquaredFormFactor(k_i, k_f_bin, alpha_i, alpha_f);
         for (SafePointerVector<FormFactorInfo>::const_iterator it=m_ff_infos.begin();
                 it != m_ff_infos.end(); ++it) {
+            complex_t ff = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
             complex_t phase = q.x()*(*it)->m_pos_x + q.y()*(*it)->m_pos_y;
-            amplitude += std::sqrt(mean_squared_ff)*std::exp(complex_t(0.0, 1.0)*phase);
+            amplitude += std::abs(ff)*std::exp(complex_t(0.0, 1.0)*phase);
         }
         intensity = std::norm(amplitude)*m_ifs[0]->evaluate(k_i-k_f_bin.getMidPoint());
     }

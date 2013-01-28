@@ -110,7 +110,8 @@ HEADERS += \
     inc/ROOTMinimizerFunction.h \
     inc/ROOTGSLNLSMinimizer.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
-    inc/IsGISAXSData.h
+    inc/IsGISAXSData.h \
+    inc/Version.h \
 
 # additional locations
 LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01

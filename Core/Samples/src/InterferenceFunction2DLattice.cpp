@@ -10,10 +10,15 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
     initialize_rec_vectors();
 }
 
+InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
+{
+    delete mp_pdf;
+}
+
 void InterferenceFunction2DLattice::setProbabilityDistribution(
         const IFTDistribution2D& pdf)
 {
-    if (mp_pdf) delete mp_pdf;
+    if (mp_pdf != &pdf) delete mp_pdf;
     mp_pdf = pdf.clone();
 }
 
@@ -24,8 +29,8 @@ double InterferenceFunction2DLattice::evaluate(const cvector_t& q) const
     double qyr = q.y().real();
     double qx_frac, qy_frac;
     calculateReciprocalVectorFraction(qxr, qyr, qx_frac, qy_frac);
-    int na = 40;
-    int nb = 40;
+    int na = 20;
+    int nb = 20;
     for (int i=-na-1; i<na+2; ++i)
     {
         for (int j=-nb-1; j<nb+2; ++j)

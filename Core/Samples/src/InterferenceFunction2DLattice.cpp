@@ -4,6 +4,9 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(
         const Lattice2DIFParameters& lattice_params)
 : m_lattice_params(lattice_params)
 , mp_pdf(0)
+, m_prefactor(1.0)
+, m_na(0)
+, m_nb(0)
 {
     setName("InterferenceFunction2DLattice");
     init_parameters();
@@ -20,6 +23,7 @@ void InterferenceFunction2DLattice::setProbabilityDistribution(
 {
     if (mp_pdf != &pdf) delete mp_pdf;
     mp_pdf = pdf.clone();
+    initialize_calc_factors();
 }
 
 double InterferenceFunction2DLattice::evaluate(const cvector_t& q) const
@@ -29,24 +33,17 @@ double InterferenceFunction2DLattice::evaluate(const cvector_t& q) const
     double qyr = q.y().real();
     double qx_frac, qy_frac;
     calculateReciprocalVectorFraction(qxr, qyr, qx_frac, qy_frac);
-    double qa_max, qb_max;
-    mp_pdf->transformToStarBasis(nmax/m_lattice_params.m_corr_length_1,
-            nmax/m_lattice_params.m_corr_length_2, m_lattice_params.m_angle,
-            m_lattice_params.m_length_1, m_lattice_params.m_length_2, qa_max, qb_max);
-    int na = (int)(std::abs(qa_max)+0.5);
-    int nb = (int)(std::abs(qb_max)+0.5);
-    for (int i=-na-1; i<na+2; ++i)
+
+    for (int i=-m_na-1; i<m_na+2; ++i)
     {
-        for (int j=-nb-1; j<nb+2; ++j)
+        for (int j=-m_nb-1; j<m_nb+2; ++j)
         {
             double qx = qx_frac + i*m_asx + j*m_bsx;
             double qy = qy_frac + i*m_asy + j*m_bsy;
             result += interferenceAtOneRecLatticePoint(qx, qy);
         }
     }
-    double prefactor = 2.0*M_PI*m_lattice_params.m_corr_length_1*m_lattice_params.m_corr_length_2;
-    prefactor /= m_lattice_params.m_length_1*m_lattice_params.m_length_2;
-    return prefactor*result;
+    return m_prefactor*result;
 }
 
 double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(
@@ -95,4 +92,21 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
     m_asy = -ainv*std::cos(xialpha);
     m_bsx = -binv*std::sin(xi);
     m_bsy = binv*std::cos(xi);
+}
+
+void InterferenceFunction2DLattice::initialize_calc_factors()
+{
+    // constant prefactor
+    //TODO: for non cauchy distributions: check if this still applies
+    m_prefactor = 2.0*M_PI*m_lattice_params.m_corr_length_1*m_lattice_params.m_corr_length_2;
+    double denominator = m_lattice_params.m_length_1*m_lattice_params.m_length_2*std::sin(m_lattice_params.m_angle);
+    m_prefactor /= denominator;
+
+    // number of reciprocal lattice points to use
+    double qa_max, qb_max;
+    mp_pdf->transformToStarBasis(nmax/m_lattice_params.m_corr_length_1,
+            nmax/m_lattice_params.m_corr_length_2, m_lattice_params.m_angle,
+            m_lattice_params.m_length_1, m_lattice_params.m_length_2, qa_max, qb_max);
+    m_na = (int)(std::abs(qa_max)+0.5);
+    m_nb = (int)(std::abs(qb_max)+0.5);
 }

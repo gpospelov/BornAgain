@@ -56,9 +56,14 @@ private:
     //! initialize the x,y coordinates of the a*,b* reciprocal bases
     void initialize_rec_vectors();
 
+    //! initialize factors needed in each calculation
+    void initialize_calc_factors();
+
     double m_asx, m_asy; //!< x,y coordinates of a*
     double m_bsx, m_bsy; //!< x,y coordinates of b*
     int m_n_a, m_n_b; //!< limits for reciprocal lattice sum
+    double m_prefactor; //!< fixed prefactor for normalization
+    int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
 };
 
 #endif /* INTERFERENCEFUNCTION2DLATTICE_H_ */

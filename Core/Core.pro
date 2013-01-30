@@ -302,7 +302,8 @@ HEADERS += \
     Tools/inc/TRange.h \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
-    Tools/inc/Utils.h
+    Tools/inc/Utils.h \
+    Tools/inc/MemberComplexFunctionIntegrator.h
 
 contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
    include($$PWD/python_module.pri)

@@ -45,16 +45,20 @@ protected:
     //! bounding the reciprocal unit cell to which q belongs
     void calculateReciprocalVectorFraction(double qx, double qy,
             double &qx_frac, double &qy_frac) const;
+
     Lattice2DIFParameters m_lattice_params;
     IFTDistribution2D *mp_pdf;
+    static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
 private:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
     //! initialize the x,y coordinates of the a*,b* reciprocal bases
     void initialize_rec_vectors();
+
     double m_asx, m_asy; //!< x,y coordinates of a*
     double m_bsx, m_bsy; //!< x,y coordinates of b*
+    int m_n_a, m_n_b; //!< limits for reciprocal lattice sum
 };
 
 #endif /* INTERFERENCEFUNCTION2DLATTICE_H_ */

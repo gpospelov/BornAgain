@@ -20,7 +20,7 @@ void TestFormFactors::execute()
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     experiment.runSimulation();
     //m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/");
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Box.ima");
+//    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Box.ima");
 
 
 
@@ -61,14 +61,14 @@ void TestFormFactors::execute()
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS_CoreShellParticles"));
     experiment.setSample(*sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-3/this_core_shell_qxqy.ima");
+//    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-3/this_core_shell_qxqy.ima");
 
 
     //cylinder and prism
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS_CylinderAndPrism"));
     experiment.setSample(*sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_2-types-of-islands-ewald.ima");
+//    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_2-types-of-islands-ewald.ima");
 
 
 
@@ -77,13 +77,13 @@ void TestFormFactors::execute()
     experiment.setSample(*sample);
     experiment.runSimulation();
     //IsGISAXSTools::writeOutputDataToFile(*this_files, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-3/this_Ellipsoid.ima");
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Ellipsoid.ima");
+//    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Ellipsoid.ima");
 
     //prism6
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS_Prism6"));
     experiment.setSample(*sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Prism6.ima");
+//    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Prism6.ima");
 
 
 
@@ -91,7 +91,7 @@ void TestFormFactors::execute()
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS_FullSphere"));
     experiment.setSample(*sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSphere.ima");
+//    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSphere.ima");
 
 
 
@@ -128,16 +128,16 @@ void TestFormFactors::finalise()
     c1->Divide(4,5);
 
     for(size_t i=0; i<ncomparison; i++) {
-            OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_files[i], 10);
+//            OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_files[i], 10);
 
 
             IsGISAXSTools::setMinimum(1.);
             // our calculations
             c1->cd((int)i+1); gPad->SetLogz();
-            IsGISAXSTools::drawOutputDataInPad(*our_data, "CONT4 Z", "Our pyramid FF");
+//            IsGISAXSTools::drawOutputDataInPad(*our_data, "CONT4 Z", "Our pyramid FF");
 
             IsGISAXSTools::resetMinimum(); IsGISAXSTools::resetMaximum();
-            delete our_data;
+//            delete our_data;
         }
     }
 

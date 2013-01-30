@@ -75,7 +75,7 @@ inline complex_t IInterferenceFunctionStrategy::meanFormFactor(const cvector_t &
 inline double IInterferenceFunctionStrategy::meanSquaredFormFactor(const cvector_t &k_i,
         const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const
 {
-    double result;
+    double result=0.0;
     for (SafePointerVector<FormFactorInfo>::const_iterator it=m_ff_infos.begin();
             it != m_ff_infos.end(); ++it) {
         complex_t ff_value = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);

@@ -590,14 +590,10 @@ ISample *StandardSamples::IsGISAXS6_lattice()
     p_interference_function->setProbabilityDistribution(pdf);
 
     ParticleDecoration particle_decoration;
-    // particle 1
+    // particle
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
     PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
-    particle_decoration.addParticleInfo(particle_info);
-    // particle 2
-    kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    particle_info.setPosition(position_2);
     particle_decoration.addParticleInfo(particle_info);
 
     particle_decoration.addInterferenceFunction(p_interference_function);

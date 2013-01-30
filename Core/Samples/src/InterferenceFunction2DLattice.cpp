@@ -29,8 +29,12 @@ double InterferenceFunction2DLattice::evaluate(const cvector_t& q) const
     double qyr = q.y().real();
     double qx_frac, qy_frac;
     calculateReciprocalVectorFraction(qxr, qyr, qx_frac, qy_frac);
-    int na = 20;
-    int nb = 20;
+    double qa_max, qb_max;
+    mp_pdf->transformToStarBasis(nmax/m_lattice_params.m_corr_length_1,
+            nmax/m_lattice_params.m_corr_length_2, m_lattice_params.m_angle,
+            m_lattice_params.m_length_1, m_lattice_params.m_length_2, qa_max, qb_max);
+    int na = (int)(std::abs(qa_max)+0.5);
+    int nb = (int)(std::abs(qb_max)+0.5);
     for (int i=-na-1; i<na+2; ++i)
     {
         for (int j=-nb-1; j<nb+2; ++j)
@@ -40,8 +44,9 @@ double InterferenceFunction2DLattice::evaluate(const cvector_t& q) const
             result += interferenceAtOneRecLatticePoint(qx, qy);
         }
     }
-//    double prefactor = 2.0*M_PI*m_lattice_params.m_corr_length_1*m_lattice_params.m_corr_length_2;
-    return result;
+    double prefactor = 2.0*M_PI*m_lattice_params.m_corr_length_1*m_lattice_params.m_corr_length_2;
+    prefactor /= m_lattice_params.m_length_1*m_lattice_params.m_length_2;
+    return prefactor*result;
 }
 
 double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(

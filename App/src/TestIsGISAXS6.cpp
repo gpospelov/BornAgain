@@ -29,8 +29,8 @@ void TestIsGISAXS6::execute()
     sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
     sim_params.me_lattice_type = SimulationParameters::LATTICE;
-
     experiment.setSimulationParameters(sim_params);
+
     // normal lattice
     MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_lattice"));
     experiment.setSample(*p_sample);

@@ -38,22 +38,22 @@ void TestIsGISAXS6::execute()
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_lattice.ima");
     delete p_sample;
 
-//    // centered lattice
-//    MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_centered"));
-//    experiment.setSample(*p_sample);
-//    experiment.runSimulation();
-//    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_centered.ima");
-//    delete p_sample;
-//
+    // centered lattice
+    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_centered"));
+    experiment.setSample(*p_sample);
+    experiment.runSimulation();
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_centered.ima");
+    delete p_sample;
+
 //    // rotated lattice
-//    MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_rotated"));
+//    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_rotated"));
 //    experiment.setSample(*p_sample);
 //    experiment.runSimulation();
 //    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_rotated.ima");
 //    delete p_sample;
 //
 //    // lattice variants
-//    MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_variants"));
+//    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_variants"));
 //    experiment.setSample(*p_sample);
 //    experiment.runSimulation();
 //    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_variants.ima");
@@ -66,7 +66,7 @@ void TestIsGISAXS6::finalise()
 {
     std::vector< CompareStruct > tocompare;
     tocompare.push_back( CompareStruct("isgi_lattice.ima.gz",      "this_lattice.ima",      "Cylinder 2D lattice") );
-//    tocompare.push_back( CompareStruct("isgi_centered.ima.gz",      "this_centered.ima",      "Cylinder 2D lattice centered") );
+    tocompare.push_back( CompareStruct("isgi_centered.ima.gz",      "this_centered.ima",      "Cylinder 2D lattice centered") );
 //    tocompare.push_back( CompareStruct("isgi_rotated.ima.gz",      "this_rotated.ima",      "Cylinder 2D lattice rotated") );
 //    tocompare.push_back( CompareStruct("isgi_variants.ima.gz",      "this_variants.ima",      "Cylinder 2D lattice variants") );
 

@@ -75,9 +75,26 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
         return func_clone(  );
     }
 
-    virtual ::IInterferenceFunctionStrategy * createStrategy( ::std::vector< IFormFactor* > const & form_factors ) const {
-        bp::override func_createStrategy = this->get_override( "createStrategy" );
-        return func_createStrategy( boost::ref(form_factors) );
+    virtual double getAbundanceFractionOfParticle( ::size_t index ) const {
+        bp::override func_getAbundanceFractionOfParticle = this->get_override( "getAbundanceFractionOfParticle" );
+        return func_getAbundanceFractionOfParticle( index );
+    }
+
+    virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const {
+        bp::override func_getInterferenceFunctions = this->get_override( "getInterferenceFunctions" );
+        return func_getInterferenceFunctions(  );
+    }
+
+    virtual ::size_t getNumberOfInterferenceFunctions(  ) const  {
+        if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
+            return func_getNumberOfInterferenceFunctions(  );
+        else{
+            return this->IDecoration::getNumberOfInterferenceFunctions(  );
+        }
+    }
+    
+    ::size_t default_getNumberOfInterferenceFunctions(  ) const  {
+        return IDecoration::getNumberOfInterferenceFunctions( );
     }
 
     virtual ::size_t getNumberOfParticles(  ) const {
@@ -196,10 +213,16 @@ void register_IDecoration_class(){
             , bp::pure_virtual( (::IDecoration * ( ::IDecoration::* )(  ) const)(&::IDecoration::clone) )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
-            "createStrategy"
-            , bp::pure_virtual( (::IInterferenceFunctionStrategy * ( ::IDecoration::* )( ::std::vector< IFormFactor* > const & ) const)(&::IDecoration::createStrategy) )
-            , ( bp::arg("form_factors") )
-            , bp::return_value_policy< bp::manage_new_object >() )    
+            "getAbundanceFractionOfParticle"
+            , bp::pure_virtual( (double ( ::IDecoration::* )( ::size_t ) const)(&::IDecoration::getAbundanceFractionOfParticle) )
+            , ( bp::arg("index") ) )    
+        .def( 
+            "getInterferenceFunctions"
+            , bp::pure_virtual( (::SafePointerVector< IInterferenceFunction > ( ::IDecoration::* )(  ) const)(&::IDecoration::getInterferenceFunctions) ) )    
+        .def( 
+            "getNumberOfInterferenceFunctions"
+            , (::size_t ( ::IDecoration::* )(  ) const)(&::IDecoration::getNumberOfInterferenceFunctions)
+            , (::size_t ( IDecoration_wrapper::* )(  ) const)(&IDecoration_wrapper::default_getNumberOfInterferenceFunctions) )    
         .def( 
             "getNumberOfParticles"
             , bp::pure_virtual( (::size_t ( ::IDecoration::* )(  ) const)(&::IDecoration::getNumberOfParticles) ) )    

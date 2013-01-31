@@ -70,102 +70,6 @@ struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
     
     }
 
-    virtual ::LayerDecorator * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->LayerDecorator::clone(  );
-        }
-    }
-    
-    ::LayerDecorator * default_clone(  ) const  {
-        return LayerDecorator::clone( );
-    }
-
-    virtual ::IMaterial const * getMaterial(  ) const  {
-        if( bp::override func_getMaterial = this->get_override( "getMaterial" ) )
-            return func_getMaterial(  );
-        else{
-            return this->LayerDecorator::getMaterial(  );
-        }
-    }
-    
-    ::IMaterial const * default_getMaterial(  ) const  {
-        return LayerDecorator::getMaterial( );
-    }
-
-    virtual ::complex_t getRefractiveIndex(  ) const  {
-        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
-            return func_getRefractiveIndex(  );
-        else{
-            return this->LayerDecorator::getRefractiveIndex(  );
-        }
-    }
-    
-    ::complex_t default_getRefractiveIndex(  ) const  {
-        return LayerDecorator::getRefractiveIndex( );
-    }
-
-    virtual double getThickness(  ) const  {
-        if( bp::override func_getThickness = this->get_override( "getThickness" ) )
-            return func_getThickness(  );
-        else{
-            return this->LayerDecorator::getThickness(  );
-        }
-    }
-    
-    double default_getThickness(  ) const  {
-        return LayerDecorator::getThickness( );
-    }
-
-    virtual double getTotalParticleSurfaceDensity(  ) const  {
-        if( bp::override func_getTotalParticleSurfaceDensity = this->get_override( "getTotalParticleSurfaceDensity" ) )
-            return func_getTotalParticleSurfaceDensity(  );
-        else{
-            return this->LayerDecorator::getTotalParticleSurfaceDensity(  );
-        }
-    }
-    
-    double default_getTotalParticleSurfaceDensity(  ) const  {
-        return LayerDecorator::getTotalParticleSurfaceDensity( );
-    }
-
-    virtual bool hasDWBASimulation(  ) const  {
-        if( bp::override func_hasDWBASimulation = this->get_override( "hasDWBASimulation" ) )
-            return func_hasDWBASimulation(  );
-        else{
-            return this->LayerDecorator::hasDWBASimulation(  );
-        }
-    }
-    
-    bool default_hasDWBASimulation(  ) const  {
-        return LayerDecorator::hasDWBASimulation( );
-    }
-
-    virtual void init_parameters(  ) {
-        if( bp::override func_init_parameters = this->get_override( "init_parameters" ) )
-            func_init_parameters(  );
-        else{
-            this->LayerDecorator::init_parameters(  );
-        }
-    }
-    
-    void default_init_parameters(  ) {
-        LayerDecorator::init_parameters( );
-    }
-
-    virtual void setThickness( double thickness ) {
-        if( bp::override func_setThickness = this->get_override( "setThickness" ) )
-            func_setThickness( thickness );
-        else{
-            this->LayerDecorator::setThickness( thickness );
-        }
-    }
-    
-    void default_setThickness( double thickness ) {
-        LayerDecorator::setThickness( thickness );
-    }
-
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -212,6 +116,18 @@ struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
     
     ::ICompositeSample const * default_getCompositeSample(  ) const  {
         return ICompositeSample::getCompositeSample( );
+    }
+
+    virtual ::complex_t getRefractiveIndex(  ) const  {
+        if( bp::override func_getRefractiveIndex = this->get_override( "getRefractiveIndex" ) )
+            return func_getRefractiveIndex(  );
+        else{
+            return this->Layer::getRefractiveIndex(  );
+        }
+    }
+    
+    ::complex_t default_getRefractiveIndex(  ) const  {
+        return Layer::getRefractiveIndex( );
     }
 
     virtual void printParameters(  ) const  {
@@ -268,49 +184,6 @@ void register_LayerDecorator_class(){
 
     bp::class_< LayerDecorator_wrapper, bp::bases< Layer >, boost::noncopyable >( "LayerDecorator", bp::init< Layer const &, IDecoration const & >(( bp::arg("layer"), bp::arg("decoration") )) )    
         .def( 
-            "clone"
-            , (::LayerDecorator * ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::clone)
-            , (::LayerDecorator * ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_clone)
-            , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "getDecoratedLayer"
-            , (::Layer const * ( ::LayerDecorator::* )(  ) const)( &::LayerDecorator::getDecoratedLayer )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getDecoration"
-            , (::IDecoration const * ( ::LayerDecorator::* )(  ) const)( &::LayerDecorator::getDecoration )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getMaterial"
-            , (::IMaterial const * ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::getMaterial)
-            , (::IMaterial const * ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getMaterial)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getRefractiveIndex"
-            , (::complex_t ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::getRefractiveIndex)
-            , (::complex_t ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getRefractiveIndex) )    
-        .def( 
-            "getThickness"
-            , (double ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::getThickness)
-            , (double ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getThickness) )    
-        .def( 
-            "getTotalParticleSurfaceDensity"
-            , (double ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::getTotalParticleSurfaceDensity)
-            , (double ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getTotalParticleSurfaceDensity) )    
-        .def( 
-            "hasDWBASimulation"
-            , (bool ( ::LayerDecorator::* )(  ) const)(&::LayerDecorator::hasDWBASimulation)
-            , (bool ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_hasDWBASimulation) )    
-        .def( 
-            "init_parameters"
-            , (void ( ::LayerDecorator::* )(  ) )(&::LayerDecorator::init_parameters)
-            , (void ( LayerDecorator_wrapper::* )(  ) )(&LayerDecorator_wrapper::default_init_parameters) )    
-        .def( 
-            "setThickness"
-            , (void ( ::LayerDecorator::* )( double ) )(&::LayerDecorator::setThickness)
-            , (void ( LayerDecorator_wrapper::* )( double ) )(&LayerDecorator_wrapper::default_setThickness)
-            , ( bp::arg("thickness") ) )    
-        .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( LayerDecorator_wrapper::* )(  ) )(&LayerDecorator_wrapper::default_areParametersChanged) )    
@@ -329,6 +202,10 @@ void register_LayerDecorator_class(){
             , (::ICompositeSample const * ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::getCompositeSample)
             , (::ICompositeSample const * ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getCompositeSample)
             , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getRefractiveIndex"
+            , (::complex_t ( ::Layer::* )(  ) const)(&::Layer::getRefractiveIndex)
+            , (::complex_t ( LayerDecorator_wrapper::* )(  ) const)(&LayerDecorator_wrapper::default_getRefractiveIndex) )    
         .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)

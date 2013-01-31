@@ -18,7 +18,6 @@
 #include "Particle.h"
 #include "ParticleInfo.h"
 #include "IInterferenceFunction.h"
-#include "IInterferenceFunctionStrategy.h"
 #include "Transform3D.h"
 
 //- -------------------------------------------------------------------

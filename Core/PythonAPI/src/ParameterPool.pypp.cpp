@@ -110,6 +110,10 @@ void register_ParameterPool_class(){
             , ( bp::arg("prefix") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
+            "fixRatioBetweenParameters"
+            , (int ( ::ParameterPool::* )( ::std::string const &,::std::string const &,double ) )( &::ParameterPool::fixRatioBetweenParameters )
+            , ( bp::arg("to_change"), bp::arg("source"), bp::arg("ratio") ) )    
+        .def( 
             "getParameter"
             , (::RealParameterWrapper ( ::ParameterPool::* )( ::std::string const & ) const)( &::ParameterPool::getParameter )
             , ( bp::arg("name") ) )    

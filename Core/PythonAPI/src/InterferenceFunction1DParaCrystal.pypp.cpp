@@ -94,6 +94,18 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
         return InterferenceFunction1DParaCrystal::evaluate( boost::ref(q) );
     }
 
+    virtual double getKappa(  ) const  {
+        if( bp::override func_getKappa = this->get_override( "getKappa" ) )
+            return func_getKappa(  );
+        else{
+            return this->InterferenceFunction1DParaCrystal::getKappa(  );
+        }
+    }
+    
+    double default_getKappa(  ) const  {
+        return InterferenceFunction1DParaCrystal::getKappa( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -160,6 +172,10 @@ void register_InterferenceFunction1DParaCrystal_class(){
 
     bp::class_< InterferenceFunction1DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunction1DParaCrystal", bp::init< double, double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("width"), bp::arg("corr_length")=0.0 )) )    
         .def( 
+            "FTGaussianCorrLength"
+            , (::complex_t ( ::InterferenceFunction1DParaCrystal::* )( double ) const)( &::InterferenceFunction1DParaCrystal::FTGaussianCorrLength )
+            , ( bp::arg("qpar") ) )    
+        .def( 
             "clone"
             , (::InterferenceFunction1DParaCrystal * ( ::InterferenceFunction1DParaCrystal::* )(  ) const)(&::InterferenceFunction1DParaCrystal::clone)
             , (::InterferenceFunction1DParaCrystal * ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_clone)
@@ -169,6 +185,14 @@ void register_InterferenceFunction1DParaCrystal_class(){
             , (double ( ::InterferenceFunction1DParaCrystal::* )( ::cvector_t const & ) const)(&::InterferenceFunction1DParaCrystal::evaluate)
             , (double ( InterferenceFunction1DParaCrystal_wrapper::* )( ::cvector_t const & ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_evaluate)
             , ( bp::arg("q") ) )    
+        .def( 
+            "getKappa"
+            , (double ( ::InterferenceFunction1DParaCrystal::* )(  ) const)(&::InterferenceFunction1DParaCrystal::getKappa)
+            , (double ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_getKappa) )    
+        .def( 
+            "setKappa"
+            , (void ( ::InterferenceFunction1DParaCrystal::* )( double ) )( &::InterferenceFunction1DParaCrystal::setKappa )
+            , ( bp::arg("kappa") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

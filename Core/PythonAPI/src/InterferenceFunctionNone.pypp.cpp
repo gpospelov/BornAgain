@@ -118,6 +118,18 @@ struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper<
         return IParameterized::createParameterTree( );
     }
 
+    virtual double getKappa(  ) const  {
+        if( bp::override func_getKappa = this->get_override( "getKappa" ) )
+            return func_getKappa(  );
+        else{
+            return this->IInterferenceFunction::getKappa(  );
+        }
+    }
+    
+    double default_getKappa(  ) const  {
+        return IInterferenceFunction::getKappa( );
+    }
+
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -178,6 +190,10 @@ void register_InterferenceFunctionNone_class(){
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( InterferenceFunctionNone_wrapper::* )(  ) const)(&InterferenceFunctionNone_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getKappa"
+            , (double ( ::IInterferenceFunction::* )(  ) const)(&::IInterferenceFunction::getKappa)
+            , (double ( InterferenceFunctionNone_wrapper::* )(  ) const)(&InterferenceFunctionNone_wrapper::default_getKappa) )    
         .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)

@@ -32,10 +32,11 @@ void TestIsGISAXS14::execute()
 
 void TestIsGISAXS14::finalise()
 {
-    std::string isgi_file(getOutputPath()+"isgi_normal_sphere_H2.0.ima");
-//    std::string isgi_file(getOutputPath()+"test_this_fullsphere.ima");
+    //std::string isgi_file(getOutputPath()+"isgi_normal_sphere_H2.0.ima");
+    std::string isgi_file(getOutputPath()+"test_this_fullsphere.ima");
 //    std::string isgi_file(getOutputPath()+"isgi_normal_sphere_H2.0_nocorr.ima");
 //    std::string isgi_file(getOutputPath()+"isgi_normal_fullsphere_nocorr.ima");
+//    std::string this_file(getOutputPath()+"this_multilayer_sphere_nocorr.ima");
     std::string this_file(getOutputPath()+"this_multilayer_sphere.ima");
 
     OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);

@@ -825,9 +825,9 @@ ISample *StandardSamples::IsGISAXS14_LayeredSpheresOnGradedInterface()
     substrate_layer.setMaterial(p_substrate_material);
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,5*Units::nanometer, 1e7*Units::nanometer);
     ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorSphere(5*Units::nanometer, 5.*2.0*Units::nanometer)));
-//    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorFullSphere(5.0*Units::nanometer)));
+    //ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorFullSphere(5.0*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_function);
-//    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    //particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     //    particle_decoration.setTotalParticleSurfaceDensity(1.0/(20.0*Units::nanometer*20.0*Units::nanometer));
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 

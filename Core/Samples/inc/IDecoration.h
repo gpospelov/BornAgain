@@ -36,6 +36,9 @@ public:
     //! get information about particle with index
     virtual const ParticleInfo *getParticleInfo(size_t index) const=0;
 
+    /// Get abundance fraction of particle with index
+    virtual double getAbundanceFractionOfParticle(size_t index) const=0;
+
     //! get number of interference functions
     virtual size_t getNumberOfInterferenceFunctions() const { return 0; }
 

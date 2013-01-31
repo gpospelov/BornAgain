@@ -87,6 +87,7 @@ void LayerDecoratorStrategyBuilder::collectFormFactorInfos()
         const ParticleInfo *p_particle_info = p_decoration->getParticleInfo(particle_index);
         FormFactorInfo *p_ff_info = createFormFactorInfo(p_particle_info, n_layer,
                 wavevector_scattering_factor);
+        p_ff_info->m_abundance = p_decoration->getAbundanceFractionOfParticle(particle_index);
         m_ff_infos.push_back(p_ff_info);
     }
     return;

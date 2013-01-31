@@ -26,9 +26,10 @@ double LocalMonodisperseApproximationStrategy::evaluate(const cvector_t& k_i,
         //double mean_squared_ff = meanSquaredFormFactor(k_i, k_f_bin, alpha_i, alpha_f);
         for (SafePointerVector<FormFactorInfo>::const_iterator it=m_ff_infos.begin();
                 it != m_ff_infos.end(); ++it) {
+            double fraction = (*it)->m_abundance;
             complex_t ff = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
             complex_t phase = q.x()*(*it)->m_pos_x + q.y()*(*it)->m_pos_y;
-            amplitude += std::abs(ff)*std::exp(complex_t(0.0, 1.0)*phase);
+            amplitude += fraction*std::abs(ff)*std::exp(complex_t(0.0, 1.0)*phase);
         }
         intensity = std::norm(amplitude)*m_ifs[0]->evaluate(k_i-k_f_bin.getMidPoint());
     }

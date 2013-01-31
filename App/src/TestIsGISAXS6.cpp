@@ -7,10 +7,19 @@
 #include "SampleFactory.h"
 #include "DrawHelper.h"
 #include "OutputDataIOFactory.h"
-
+#include "StochasticDoubleGate.h"
+#include "StochasticSampledParameter.h"
+#include "MaterialManager.h"
+#include "Lattice2DIFParameters.h"
+#include "InterferenceFunction2DLattice.h"
+#include "ParticleDecoration.h"
+#include "FormFactorCylinder.h"
+#include "PositionParticleInfo.h"
+#include "LayerDecorator.h"
 
 #include "TCanvas.h"
 #include <gsl/gsl_errno.h>
+
 
 TestIsGISAXS6::TestIsGISAXS6() : IFunctionalTest("TestIsGISAXS6")
 {
@@ -45,20 +54,35 @@ void TestIsGISAXS6::execute()
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_centered.ima");
     delete p_sample;
 
-//    // rotated lattice
-//    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_rotated"));
-//    experiment.setSample(*p_sample);
-//    experiment.runSimulation();
-//    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_rotated.ima");
-//    delete p_sample;
-//
-//    // lattice variants
-//    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_variants"));
-//    experiment.setSample(*p_sample);
-//    experiment.runSimulation();
-//    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_variants.ima");
-//    delete p_sample;
+    // rotated lattice
+    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_rotated"));
+    experiment.setSample(*p_sample);
+    experiment.runSimulation();
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_rotated.ima");
+    delete p_sample;
 
+    // lattice variants
+    OutputData<double> *p_total = experiment.getOutputDataClone();
+    p_total->setAllTo(0.0);
+    int nbins = 3;
+    double xi_min = 0.0*Units::degree;
+    double xi_max = 240.0*Units::degree;
+    StochasticSampledParameter xi(StochasticDoubleGate(xi_min, xi_max), nbins, xi_min, xi_max);
+    for (size_t i=0; i<xi.getNbins(); ++i) {
+        double xi_value = xi.getBinValue(i);
+        double probability = xi.getNormalizedProbability(i);
+        m_builder.setXi(xi_value);
+        p_sample = dynamic_cast<MultiLayer *>(m_builder.buildSample());
+        experiment.setSample(*p_sample);
+        experiment.runSimulation();
+        delete p_sample;
+        OutputData<double> *p_single_output = experiment.getOutputDataClone();
+        p_single_output->scaleAll(probability);
+        *p_total += *p_single_output;
+        delete p_single_output;
+    }
+    OutputDataIOFactory::writeOutputData(*p_total, m_data_path+"this_variants.ima");
+    delete p_total;
 }
 
 
@@ -67,8 +91,8 @@ void TestIsGISAXS6::finalise()
     std::vector< CompareStruct > tocompare;
     tocompare.push_back( CompareStruct("isgi_lattice.ima.gz",      "this_lattice.ima",      "Cylinder 2D lattice") );
     tocompare.push_back( CompareStruct("isgi_centered.ima.gz",      "this_centered.ima",      "Cylinder 2D lattice centered") );
-//    tocompare.push_back( CompareStruct("isgi_rotated.ima.gz",      "this_rotated.ima",      "Cylinder 2D lattice rotated") );
-//    tocompare.push_back( CompareStruct("isgi_variants.ima.gz",      "this_variants.ima",      "Cylinder 2D lattice variants") );
+    tocompare.push_back( CompareStruct("isgi_rotated.ima.gz",      "this_rotated.ima",      "Cylinder 2D lattice rotated") );
+    tocompare.push_back( CompareStruct("isgi_variants.ima.gz",      "this_variants.ima",      "Cylinder 2D lattice variants") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {
         OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].isginame);
@@ -105,4 +129,46 @@ void TestIsGISAXS6::finalise()
         delete isgi_data;
         delete our_data;
     }
+}
+
+// IsGISAXS6 functional test sample builder for varying xi angle
+ISample* TestIsGISAXS6::LatticeVariantBuilder::buildSample() const
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    Lattice2DIFParameters lattice_params = {
+            10.0*Units::nanometer,       // L1
+            10.0*Units::nanometer,       // L2
+            90.0*Units::degree,          // lattice angle
+            m_xi,           // lattice orientation
+            20000.0*Units::nanometer,    // domain size 1
+            20000.0*Units::nanometer,    // domain size 2
+            300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+            100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+    };
+    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    p_interference_function->setProbabilityDistribution(pdf);
+
+    ParticleDecoration particle_decoration;
+    // particle
+    FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+    kvector_t position(0.0, 0.0, 0.0);
+    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    particle_decoration.addParticleInfo(particle_info);
+
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
 }

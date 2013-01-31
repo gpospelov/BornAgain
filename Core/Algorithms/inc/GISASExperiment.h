@@ -28,7 +28,7 @@ public:
 
     virtual ~GISASExperiment() {}
 
-	virtual void runSimulation();
+    virtual void runSimulation();
 
     virtual void runSimulationElement(size_t index);
 
@@ -46,7 +46,7 @@ public:
 
     void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
 
-	void smearIntensityFromZAxisTilting();
+    void smearIntensityFromZAxisTilting();
 
     virtual GISASExperiment *clone() const;
 protected:

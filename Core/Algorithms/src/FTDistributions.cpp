@@ -9,7 +9,9 @@ FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y)
 
 FTDistribution2DCauchy* FTDistribution2DCauchy::clone() const
 {
-    return new FTDistribution2DCauchy(m_omega_x, m_omega_y);
+    FTDistribution2DCauchy *p_clone = new FTDistribution2DCauchy(m_omega_x, m_omega_y);
+    p_clone->setGamma(m_gamma);
+    return p_clone;
 }
 
 double FTDistribution2DCauchy::evaluate(double qx, double qy) const

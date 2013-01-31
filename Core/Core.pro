@@ -288,6 +288,7 @@ HEADERS += \
     Tools/inc/RealParameterWrapper.h \
     Tools/inc/SafePointerVector.h \
     Tools/inc/StochasticDiracDelta.h \
+    Tools/inc/StochasticDoubleGate.h \
     Tools/inc/StochasticGaussian.h \
     Tools/inc/StochasticSampledParameter.h \
     Tools/inc/TRange.h \

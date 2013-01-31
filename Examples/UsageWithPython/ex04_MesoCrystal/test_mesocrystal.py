@@ -11,7 +11,7 @@ sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],
                 '..', '..', '..', 'lib')))
 
-from libScattCore import *
+from libBornAgainCore import *
 
 M_PI = pi
 m_meso_radius = 1000*nanometer

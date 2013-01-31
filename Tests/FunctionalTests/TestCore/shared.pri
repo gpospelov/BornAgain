@@ -13,7 +13,7 @@ include($$PWD/../../../shared.pri)
 ###############################################################################
 # generating package dependency flags
 ###############################################################################
-MY_DEPENDENCY_LIB = ScattCore
+MY_DEPENDENCY_LIB = BornAgainCore
 MY_DEPENDENCY_DEST =$$PWD/../../..
 SONAME = so
 for(dep, MY_DEPENDENCY_LIB) {

@@ -39,7 +39,7 @@ INCLUDEPATH += $${PWD}/../../../ThirdParty/gtest/gtest-1.6.0/include
 ###############################################################################
 # generating package dependency flags
 ###############################################################################
-MY_DEPENDENCY_LIB = gtest ScattCore
+MY_DEPENDENCY_LIB = gtest BornAgainCore
 MY_DEPENDENCY_DEST =$$PWD/../../..
 SONAME = so
 # INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc

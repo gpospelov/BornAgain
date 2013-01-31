@@ -49,6 +49,8 @@ public:
     //! return probability value for given bin
     double probabilityBinDensity(size_t ibin) const { return m_stochastic_parameter->probabilityDensity(getBinValue(ibin)); }
 
+    //! get the normalized probability for the given bin
+    double getNormalizedProbability(size_t ibin) const;
     //! return number of bins
     size_t getNbins() const { return m_nbins; }
 

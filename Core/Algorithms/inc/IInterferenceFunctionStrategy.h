@@ -19,43 +19,75 @@
 #include "IInterferenceFunction.h"
 #include "Bin.h"
 #include "SafePointerVector.h"
+#include "StrategyBuilder.h"
 
 #include <vector>
 
 class IInterferenceFunctionStrategy
 {
 public:
-    virtual ~IInterferenceFunctionStrategy();
-    virtual void init(const std::vector<IFormFactor *> &form_factors,
-            const std::vector<double> &fractions,
-            const std::vector<IInterferenceFunction *> &interference_functions);
+    IInterferenceFunctionStrategy(SimulationParameters sim_params)
+        : m_sim_params(sim_params) {};
+    virtual ~IInterferenceFunctionStrategy() {}
+    virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
+            const SafePointerVector<IInterferenceFunction> &ifs);
     virtual double evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
             double alpha_i, double alpha_f) const=0;
 protected:
-    void deleteVectors();
-    SafePointerVector<IFormFactor> m_form_factors; //!< Includes Scattering Length Density
-    std::vector<double> m_fractions;
-    SafePointerVector<IInterferenceFunction> m_interference_functions;
+    //! calculate mean form factor, possibly including their position information
+    complex_t meanFormFactor(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+            double alpha_i, double alpha_f, bool use_position=false) const;
+    //! calculate mean squared form factor
+    double meanSquaredFormFactor(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+            double alpha_i, double alpha_f) const;
+    //! get q-vector from k_i and the bin of k_f
+    cvector_t getQ(const cvector_t &k_i, const Bin1DCVector &k_f_bin) const;
+    SafePointerVector<FormFactorInfo> m_ff_infos; //!< form factor info
+    SafePointerVector<IInterferenceFunction> m_ifs; //!< interference functions
+    SimulationParameters m_sim_params; //!< simulation parameters
 };
 
-inline IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
+inline void IInterferenceFunctionStrategy::init(
+        const SafePointerVector<FormFactorInfo> &form_factor_infos,
+        const SafePointerVector<IInterferenceFunction> &ifs)
 {
+    m_ff_infos = form_factor_infos;
+    m_ifs = ifs;
 }
 
-inline void IInterferenceFunctionStrategy::init(
-        const std::vector<IFormFactor*>& form_factors,
-        const std::vector<double>& fractions,
-        const std::vector<IInterferenceFunction*>& interference_functions)
+inline complex_t IInterferenceFunctionStrategy::meanFormFactor(const cvector_t &k_i,
+        const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f, bool use_position) const
 {
-    m_fractions = fractions;
-    m_form_factors.clear();
-    for (size_t i=0; i<form_factors.size(); ++i) {
-        m_form_factors.push_back(form_factors[i]->clone());
+    complex_t result;
+    for (SafePointerVector<FormFactorInfo>::const_iterator it=m_ff_infos.begin();
+            it != m_ff_infos.end(); ++it) {
+        complex_t ff_value = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
+        if (use_position) {
+            cvector_t q = getQ(k_i, k_f_bin);
+            complex_t phase = q.x()*(*it)->m_pos_x + q.y()*(*it)->m_pos_y;
+            ff_value *= std::exp(complex_t(0.0, 1.0)*phase);
+        }
+        result += ff_value;
     }
-    m_interference_functions.clear();
-    for (size_t i=0; i<interference_functions.size(); ++i) {
-        m_interference_functions.push_back(interference_functions[i]->clone());
+    return result;
+}
+
+inline double IInterferenceFunctionStrategy::meanSquaredFormFactor(const cvector_t &k_i,
+        const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const
+{
+    double result=0.0;
+    for (SafePointerVector<FormFactorInfo>::const_iterator it=m_ff_infos.begin();
+            it != m_ff_infos.end(); ++it) {
+        complex_t ff_value = (*it)->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
+        result += std::norm(ff_value);
     }
+    return result;
+}
+
+inline cvector_t IInterferenceFunctionStrategy::getQ(const cvector_t& k_i,
+        const Bin1DCVector& k_f_bin) const
+{
+    return k_i - k_f_bin.getMidPoint();
 }
 
 #endif /* IINTERFERENCEFUNCTIONSTRATEGY_H_ */

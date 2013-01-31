@@ -92,24 +92,38 @@ const IInterferenceFunction* IsGISAXSMorphologyFileDecoration::getInterferenceFu
     throw OutOfBoundsException("IsGISAXSMorphologyFileDecoration::getInterferenceFunction() -> Not so many interference functions in this decoration.");
 }
 
-IInterferenceFunctionStrategy* IsGISAXSMorphologyFileDecoration::createStrategy(
+//IInterferenceFunctionStrategy* IsGISAXSMorphologyFileDecoration::createStrategy(
+//        const std::vector<IFormFactor*>& form_factors) const
+//{
+//    SafePointerVector<FormFactorInfo> ff_infos;
+//    initializeFormFactorInfos(ff_infos, form_factors);
+//    IsGISAXSMorphologyFileStrategy *p_strategy = new IsGISAXSMorphologyFileStrategy();
+//    p_strategy->init(ff_infos, m_interference_functions);
+//
+//    // particle positions
+//    std::vector<double> x_positions;
+//    std::vector<double> y_positions;
+//    for (size_t i=0; i<m_particles.size(); ++i) {
+//        kvector_t position = m_particles[i]->getPosition();
+//        x_positions.push_back(position.x());
+//        y_positions.push_back(position.y());
+//    }
+//    p_strategy->initPositions(x_positions, y_positions);
+//    return p_strategy;
+//}
+
+void IsGISAXSMorphologyFileDecoration::initializeFormFactorInfos(
+        SafePointerVector<FormFactorInfo>& ff_infos,
         const std::vector<IFormFactor*>& form_factors) const
 {
-    std::vector<double> fractions;
+    if (ff_infos.size()) ff_infos.clear();
     for (size_t i=0; i<m_particles.size(); ++i) {
-        fractions.push_back(m_particles[i]->getAbundance()/m_total_abundance);
-    }
-    IsGISAXSMorphologyFileStrategy *p_strategy = new IsGISAXSMorphologyFileStrategy();
-    p_strategy->init(form_factors, fractions, m_interference_functions.getSTLVector());
-
-    // particle positions
-    std::vector<double> x_positions;
-    std::vector<double> y_positions;
-    for (size_t i=0; i<m_particles.size(); ++i) {
+        FormFactorInfo *p_ff_info = new FormFactorInfo();
+        p_ff_info->m_abundance = m_particles[i]->getAbundance()/m_total_abundance;
+        p_ff_info->mp_ff = form_factors[i]->clone();
         kvector_t position = m_particles[i]->getPosition();
-        x_positions.push_back(position.x());
-        y_positions.push_back(position.y());
+        p_ff_info->m_pos_x = position.x();
+        p_ff_info->m_pos_y = position.y();
+        ff_infos.push_back(p_ff_info);
     }
-    p_strategy->initPositions(x_positions, y_positions);
-    return p_strategy;
 }

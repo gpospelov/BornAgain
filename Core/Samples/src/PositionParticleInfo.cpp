@@ -33,6 +33,13 @@ PositionParticleInfo* PositionParticleInfo::clone() const
     return new PositionParticleInfo(mp_particle->clone(), p_transform, position, m_abundance);
 }
 
+void PositionParticleInfo::setPosition(kvector_t position)
+{
+    m_pos_x = position.x();
+    m_pos_y = position.y();
+    m_depth = position.z();
+}
+
 void PositionParticleInfo::init_parameters()
 {
     getParameterPool()->clear();

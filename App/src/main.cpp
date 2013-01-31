@@ -3,6 +3,7 @@
 #include "ProgramOptions.h"
 #include "AppOptionsDescription.h"
 #include "CoreOptionsDescription.h"
+#include "Version.h"
 
 #include <iostream>
 #include <string>
@@ -20,8 +21,8 @@ int main(int argc, char **argv)
     std::cout << "main() -> Enabling floating point exception debugging" << std::endl;
     feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
 #endif
-
-    std::cout << "Hello Brave New World!" << std::endl;
+    std::cout << AppVersion::g_app_name << " "
+            << AppVersion::g_app_version_number << std::endl;
     ProgramOptions command_line_options;
     AddApplicationOptions(&command_line_options);
     AddCoreOptions(&command_line_options);

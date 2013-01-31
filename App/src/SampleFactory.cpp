@@ -40,6 +40,11 @@ SampleFactory::SampleFactory()
     registerItem("IsGISAXS4_1DDL", StandardSamples::IsGISAXS4_1DDL);
     registerItem("IsGISAXS4_2DDL", StandardSamples::IsGISAXS4_2DDL);
 
+    // IsGISAXS6 example: cylinders with lattice interference function
+    registerItem("IsGISAXS6_lattice", StandardSamples::IsGISAXS6_lattice);
+    registerItem("IsGISAXS6_centered", StandardSamples::IsGISAXS6_centered);
+    registerItem("IsGISAXS6_rotated", StandardSamples::IsGISAXS6_rotated);
+
     // IsGISAXS7 example: particle mixture from morphology file
     registerItem("IsGISAXS7_mor", StandardSamples::IsGISAXS7_morphology);
 

@@ -130,7 +130,7 @@ void FitSuite::minimize()
     m_minimizer->setParameters(m_fit_parameters);
 
     // setting number of free parameters for propper chi2 normalization
-    m_fit_objects.setNfreeParameters(m_fit_parameters.getNfreeParameters());
+    m_fit_objects.setNfreeParameters((int)m_fit_parameters.getNfreeParameters());
 
     // minimizing
     m_minimizer->minimize();

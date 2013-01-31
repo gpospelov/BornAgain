@@ -1,5 +1,5 @@
-#ifndef IINTERFERENCEFUNCTION_H_
-#define IINTERFERENCEFUNCTION_H_
+#ifndef INTERFERENCEFUNCTIONS_H_
+#define INTERFERENCEFUNCTIONS_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,23 +9,16 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   IInterferenceFunction.h
-//! @brief  Definition of IInterferenceFunction interface
-//! @author herck
-//! @date   18.06.2012
+//! @file   InterferenceFunctions.h
+//! @brief  Includes interference functions headers
+//! @author Scientific Computing Group at FRM II
+//! @date   Jan 25, 2013
 
-#include "Types.h"
-#include "ISample.h"
-
-class IInterferenceFunction : public ISample
-{
-public:
-	virtual ~IInterferenceFunction() {}
-
-    virtual double evaluate(const cvector_t &q) const=0;
-	virtual IInterferenceFunction *clone() const=0;
-    virtual double getKappa() const { return 0.0; }
-};
+#include "IInterferenceFunction.h"
+#include "InterferenceFunctionNone.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunction2DLattice.h"
+#include "InterferenceFunction2DParaCrystal.h"
 
 
-#endif /* IINTERFERENCEFUNCTION_H_ */
+#endif /* INTERFERENCEFUNCTIONS_H_ */

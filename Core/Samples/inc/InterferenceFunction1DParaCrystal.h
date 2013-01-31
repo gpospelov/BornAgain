@@ -28,7 +28,7 @@ public:
 	}
 
 	void setKappa(double kappa) { m_kappa = kappa; }
-	double getKappa() const { return m_kappa; }
+	virtual double getKappa() const { return m_kappa; }
     virtual double evaluate(const cvector_t &q) const;
     //TODO: replace these with strategy pattern for different algorithms
     complex_t FTGaussianCorrLength(double qpar) const;
@@ -42,7 +42,5 @@ private:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 };
-
-
 
 #endif /* INTERFERENCEFUNCTION1DPARACRYSTAL_H_ */

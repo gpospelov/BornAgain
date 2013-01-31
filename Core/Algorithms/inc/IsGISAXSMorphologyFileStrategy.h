@@ -25,12 +25,11 @@
 class IsGISAXSMorphologyFileStrategy : public IInterferenceFunctionStrategy
 {
 public:
-    IsGISAXSMorphologyFileStrategy();
+    IsGISAXSMorphologyFileStrategy(SimulationParameters sim_params);
     virtual ~IsGISAXSMorphologyFileStrategy() {}
 
-    virtual void init(const std::vector<IFormFactor *> &form_factors,
-            const std::vector<double> &fractions,
-            const std::vector<IInterferenceFunction *> &interference_functions);
+    virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
+            const SafePointerVector<IInterferenceFunction> &ifs);
     void initPositions(const std::vector<double> &x_positions, const std::vector<double> &y_positions);
     virtual double evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
             double alpha_i, double alpha_f) const;

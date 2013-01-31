@@ -1,5 +1,5 @@
-#ifndef IINTERFERENCEFUNCTION_H_
-#define IINTERFERENCEFUNCTION_H_
+#ifndef INTERFERENCEFUNCTIONSTRATEGIES_H_
+#define INTERFERENCEFUNCTIONSTRATEGIES_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,23 +9,16 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   IInterferenceFunction.h
-//! @brief  Definition of IInterferenceFunction interface
-//! @author herck
-//! @date   18.06.2012
+//! @file   InterferenceFunctionStrategies.h
+//! @brief  Includes all interference function strategies
+//! @author Scientific Computing Group at FRM II
+//! @date   Jan 25, 2013
 
-#include "Types.h"
-#include "ISample.h"
-
-class IInterferenceFunction : public ISample
-{
-public:
-	virtual ~IInterferenceFunction() {}
-
-    virtual double evaluate(const cvector_t &q) const=0;
-	virtual IInterferenceFunction *clone() const=0;
-    virtual double getKappa() const { return 0.0; }
-};
+#include "IInterferenceFunctionStrategy.h"
+#include "DecouplingApproximationStrategy.h"
+#include "IsGISAXSMorphologyFileStrategy.h"
+#include "LocalMonodisperseApproximationStrategy.h"
+#include "SizeSpacingCorrelationApproximationStrategy.h"
 
 
-#endif /* IINTERFERENCEFUNCTION_H_ */
+#endif /* INTERFERENCEFUNCTIONSTRATEGIES_H_ */

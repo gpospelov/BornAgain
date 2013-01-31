@@ -19,6 +19,7 @@
 #include "OutputData.h"
 #include "Beam.h"
 #include "Detector.h"
+#include "SimulationParameters.h"
 
 class ProgramOptions;
 
@@ -83,6 +84,14 @@ public:
     //! set detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double > &output_data);
 
+    //! get simulation parameters
+    SimulationParameters getSimulationParameters() const { return m_sim_params; }
+
+    //! set simulation parameters
+    void setSimulationParameters(const SimulationParameters &sim_params) {
+        m_sim_params = sim_params;
+    }
+
 protected:
     Experiment(const Experiment &other);
 
@@ -102,6 +111,7 @@ protected:
     OutputData<double> m_intensity_map;
     bool m_is_normalized;
     const ProgramOptions *mp_options;
+    SimulationParameters m_sim_params;
 };
 
 

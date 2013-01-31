@@ -77,13 +77,6 @@ public:
         return 0.0;
     }
 
-    virtual IInterferenceFunctionStrategy *createStrategy(const std::vector<IFormFactor *> &form_factors) const {
-        if (mp_decoration) {
-            return mp_decoration->createStrategy(form_factors);
-        }
-        throw NullPointerException("No decoration present in LaeyerDecorator.");
-    }
-
 protected:
     LayerDecorator(const LayerDecorator &layer);
 

@@ -40,11 +40,9 @@ void LayerDecoratorDWBASimulation::run()
 
 IInterferenceFunctionStrategy *LayerDecoratorDWBASimulation::createAndInitStrategy() const
 {
-    std::vector<IFormFactor *> form_factors = createDWBAFormFactors();
-    IInterferenceFunctionStrategy *p_strategy = mp_layer_decorator->createStrategy(form_factors);
-    for (size_t i=0; i<form_factors.size(); ++i) {
-        delete form_factors[i];
-    }
+    LayerDecoratorStrategyBuilder builder(*mp_layer_decorator, *mp_experiment, m_sim_params);
+    if (mp_RT_function) builder.setReflectionTransmissionFunction(*mp_RT_function);
+    IInterferenceFunctionStrategy *p_strategy = builder.createStrategy();
     return p_strategy;
 }
 

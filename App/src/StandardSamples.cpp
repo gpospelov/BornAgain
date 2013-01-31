@@ -13,6 +13,7 @@
 #include "Crystal.h"
 #include "MesoCrystal.h"
 #include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "FormFactorWeighted.h"
 #include "StochasticGaussian.h"
@@ -558,6 +559,139 @@ ISample *StandardSamples::IsGISAXS4_2DDL()
     FTDistribution2DCauchy pdf(1.0*Units::nanometer, 1.0*Units::nanometer);
     p_interference_function->setProbabilityDistributions(pdf, pdf);
     ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
+// IsGISAXS6 functional test: cylinders with lattice interference function
+/* ************************************************************************* */
+ISample *StandardSamples::IsGISAXS6_lattice()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    Lattice2DIFParameters lattice_params = {
+            10.0*Units::nanometer,       // L1
+            10.0*Units::nanometer,       // L2
+            90.0*Units::degree,          // lattice angle
+            0.0*Units::degree,           // lattice orientation
+            20000.0*Units::nanometer,    // domain size 1
+            20000.0*Units::nanometer,    // domain size 2
+            300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+            100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+    };
+    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    p_interference_function->setProbabilityDistribution(pdf);
+
+    ParticleDecoration particle_decoration;
+    // particle
+    FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+    kvector_t position(0.0, 0.0, 0.0);
+    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    particle_decoration.addParticleInfo(particle_info);
+
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+// IsGISAXS6 functional test: cylinders lattice centered
+ISample *StandardSamples::IsGISAXS6_centered()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    Lattice2DIFParameters lattice_params = {
+            10.0*Units::nanometer,       // L1
+            10.0*Units::nanometer,       // L2
+            90.0*Units::degree,          // lattice angle
+            0.0*Units::degree,           // lattice orientation
+            20000.0*Units::nanometer,    // domain size 1
+            20000.0*Units::nanometer,    // domain size 2
+            300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+            100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+    };
+    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    p_interference_function->setProbabilityDistribution(pdf);
+
+    ParticleDecoration particle_decoration;
+    // particle 1
+    FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+    kvector_t position(0.0, 0.0, 0.0);
+    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    particle_decoration.addParticleInfo(particle_info);
+    // particle 2
+    kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
+    particle_info.setPosition(position_2);
+    particle_decoration.addParticleInfo(particle_info);
+
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+// IsGISAXS6 functional test: cylinders lattice rotated
+ISample *StandardSamples::IsGISAXS6_rotated()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    Lattice2DIFParameters lattice_params = {
+            10.0*Units::nanometer,       // L1
+            10.0*Units::nanometer,       // L2
+            90.0*Units::degree,          // lattice angle
+            30.0*Units::degree,           // lattice orientation
+            20000.0*Units::nanometer,    // domain size 1
+            20000.0*Units::nanometer,    // domain size 2
+            300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+            100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+    };
+    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    pdf.setGamma(30.0*Units::degree);
+    p_interference_function->setProbabilityDistribution(pdf);
+
+    ParticleDecoration particle_decoration;
+    // particle
+    FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+    kvector_t position(0.0, 0.0, 0.0);
+    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    particle_decoration.addParticleInfo(particle_info);
+
     particle_decoration.addInterferenceFunction(p_interference_function);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 

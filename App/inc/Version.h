@@ -1,5 +1,5 @@
-#ifndef IINTERFERENCEFUNCTION_H_
-#define IINTERFERENCEFUNCTION_H_
+#ifndef VERSION_H_
+#define VERSION_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,23 +9,15 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   IInterferenceFunction.h
-//! @brief  Definition of IInterferenceFunction interface
-//! @author herck
-//! @date   18.06.2012
+//! @file   Version.h
+//! @brief  Definition of version information
+//! @author Scientific Computing Group at FRM II
+//! @date   Jan 28, 2013
 
-#include "Types.h"
-#include "ISample.h"
-
-class IInterferenceFunction : public ISample
-{
-public:
-	virtual ~IInterferenceFunction() {}
-
-    virtual double evaluate(const cvector_t &q) const=0;
-	virtual IInterferenceFunction *clone() const=0;
-    virtual double getKappa() const { return 0.0; }
-};
+namespace AppVersion {
+const std::string g_app_name = "Born Again Functional tests";
+const std::string g_app_version_number = "v0.3";
+}
 
 
-#endif /* IINTERFERENCEFUNCTION_H_ */
+#endif /* VERSION_H_ */

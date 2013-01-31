@@ -97,7 +97,7 @@ void TestFormFactors::finalise()
     this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSphere.ima");
     this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Prism3.ima");
 
-    int ncomparison = this_files.size();
+    int ncomparison = (int)this_files.size();
     TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("Form Factors", "TestFormFactors");
     c1->Divide(4,5);
 
@@ -110,7 +110,7 @@ void TestFormFactors::finalise()
             IsGISAXSTools::drawOutputDataInPad(*our_data, "CONT4 Z", "Our Form Factors");
 
             IsGISAXSTools::resetMinimum(); IsGISAXSTools::resetMaximum();
-            delete our_data;
+//            delete our_data;
         }
     }
 

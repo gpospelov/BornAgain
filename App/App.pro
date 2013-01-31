@@ -51,6 +51,7 @@ SOURCES += \
     src/TestIsGISAXS3.cpp \
     src/TestIsGISAXS4.cpp \
     src/TestIsGISAXS5.cpp \
+    src/TestIsGISAXS6.cpp \
     src/TestIsGISAXS7.cpp \
     src/TestIsGISAXS8.cpp \
     src/TestIsGISAXS9.cpp \
@@ -108,6 +109,7 @@ HEADERS += \
     inc/TestIsGISAXS3.h \
     inc/TestIsGISAXS4.h \
     inc/TestIsGISAXS5.h \
+    inc/TestIsGISAXS6.h \
     inc/TestIsGISAXS7.h \
     inc/TestIsGISAXS8.h \
     inc/TestIsGISAXS9.h \
@@ -119,7 +121,8 @@ HEADERS += \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
     inc/TestToyExperiment.h \
-    inc/TreeEventStructure.h
+    inc/TreeEventStructure.h \
+    inc/Version.h \
 
 # to through exception in the case floating point exception (gcc only)
 CONFIG(DEBUG_FPE) {

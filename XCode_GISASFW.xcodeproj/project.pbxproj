@@ -1144,6 +1144,7 @@
 		6254C2611666651F0098EE7E /* IFormFactorBornSeparable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorBornSeparable.h; sourceTree = "<group>"; };
 		6254C2621666651F0098EE7E /* IFormFactorDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorDecorator.h; sourceTree = "<group>"; };
 		6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IFormFactorBorn.cpp; sourceTree = "<group>"; };
+		625A16FF16BAA7EC004943DB /* StochasticDoubleGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StochasticDoubleGate.h; sourceTree = "<group>"; };
 		627C2EC3160B4E8F004C1B11 /* App */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = App; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGISASFW.Core.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GISASFW.TestCore; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1834,6 +1835,7 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				625A16FF16BAA7EC004943DB /* StochasticDoubleGate.h */,
 				62EA20EF16B929A100184E9A /* OutputDataReadStrategy.h */,
 				62EA20F016B929A100184E9A /* OutputDataWriteStrategy.h */,
 				621D0BD916A9855D00134391 /* FastVector.h */,

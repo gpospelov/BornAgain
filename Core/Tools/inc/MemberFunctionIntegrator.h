@@ -30,10 +30,16 @@ public:
     };
 
     //! constructor taking a member function and the object whose member function to integrate
+    MemberFunctionIntegrator();
     MemberFunctionIntegrator(mem_function p_member_function, const C *const p_object);
+    ~MemberFunctionIntegrator();
 
     //! perform the actual integration over the range [lmin, lmax]
     double integrate(double lmin, double lmax, void *params);
+
+    //! set integrand
+    void setIntegrand(mem_function member_function) { m_member_function = member_function; }
+    void setIntegrand(mem_function member_function, const C *const p_object) { m_member_function = member_function; mp_object = p_object; }
 
 private:
     //! static function that can be passed to gsl integrator
@@ -44,28 +50,52 @@ private:
     }
     mem_function m_member_function; //!< the member function to integrate
     const C *mp_object; //!< the object whose member function to integrate
+    gsl_integration_workspace *m_gsl_workspace;
 };
 
 template<class C> MemberFunctionIntegrator<C>::MemberFunctionIntegrator(
         mem_function p_member_function, const C *const p_object)
 : m_member_function(p_member_function)
 , mp_object(p_object)
+, m_gsl_workspace(0)
 {
+    m_gsl_workspace = gsl_integration_workspace_alloc(200);
 }
+
+template<class C> MemberFunctionIntegrator<C>::MemberFunctionIntegrator()
+: m_member_function(0)
+, mp_object(0)
+, m_gsl_workspace(0)
+{
+    m_gsl_workspace = gsl_integration_workspace_alloc(200);
+}
+
+template<class C> MemberFunctionIntegrator<C>::~MemberFunctionIntegrator()
+{
+    gsl_integration_workspace_free(m_gsl_workspace);
+}
+
+
 
 template<class C> double MemberFunctionIntegrator<C>::integrate(
         double lmin, double lmax, void* params)
 {
+    assert(mp_object);
+    assert(m_member_function);
+
     CallBackHolder cb = { mp_object, m_member_function, params };
 
     gsl_function f;
     f.function = StaticCallBack;
     f.params = &cb;
 
-    gsl_integration_workspace *ws = gsl_integration_workspace_alloc(200);
+//    gsl_integration_workspace *ws = gsl_integration_workspace_alloc(200);
+//    double result, error;
+//    gsl_integration_qag(&f, lmin, lmax, 1e-10, 1e-8, 50, 1, ws, &result, &error);
+//    gsl_integration_workspace_free(ws);
+
     double result, error;
-    gsl_integration_qag(&f, lmin, lmax, 1e-10, 1e-8, 50, 1, ws, &result, &error);
-    gsl_integration_workspace_free(ws);
+    gsl_integration_qag(&f, lmin, lmax, 1e-10, 1e-8, 50, 1, m_gsl_workspace, &result, &error);
 
     return result;
 }

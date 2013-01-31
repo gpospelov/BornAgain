@@ -16,6 +16,7 @@
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
+#include "MemberComplexFunctionIntegrator.h"
 
 
 class FormFactorSphere : public IFormFactorBorn
@@ -35,18 +36,21 @@ protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
 private:
+    complex_t Integrand(double Z, void* params) const;
 
-    double evaluate_for_q_real() const;
-    complex_t evaluate_for_q_imag() const;
-    double SphereIntegralImaginary(double Z, void* params) const;
-    double SphereIntegralReal(double Z, void* params) const;
+//    double evaluate_for_q_real() const;
+//    double evaluate_for_q_imag() const;
+//    double SphereIntegralImaginary(double Z, void* params) const;
+//    double SphereIntegralReal(double Z, void* params) const;
 
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-    double m_height;
     double m_radius;
+    double m_height;
     mutable cvector_t m_q;
+
+    MemberComplexFunctionIntegrator<FormFactorSphere> *m_integrator;
 };
 
 

@@ -23,7 +23,9 @@ HEADERS += \
     ChiSquaredModuleTest.h \
     RealParameterWrapperTest.h \
     IParameterizedTest.h \
-    ParameterPoolTest.h
+    ParameterPoolTest.h \
+    KVectorTest.h \
+    CVectorTest.h
 
 OBJECTS_DIR = obj
 

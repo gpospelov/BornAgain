@@ -36,6 +36,7 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t &q) const
 
 {
     double H = m_height;
+    //double R = m_radius;
     m_q = q;
 
     complex_t qz = m_q.z();

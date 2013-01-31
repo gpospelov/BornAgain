@@ -85,17 +85,17 @@ void TestFormFactors::execute()
 void TestFormFactors::finalise()
 {
     std::vector<std::string > this_files;
-    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Box.ima");
-    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cone.ima");
+//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Box.ima");
+//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cone.ima");
     this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Sphere.ima");
-    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Ellipsoid.ima");
-    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSpheroid.ima");
-    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_HemiSpheroid.ima");
-    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Parallelpiped.ima");
-    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cylinder.ima");
-    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Pyramid.ima");
+//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Ellipsoid.ima");
+//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSpheroid.ima");
+//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_HemiSpheroid.ima");
+//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Parallelpiped.ima");
+//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cylinder.ima");
+//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Pyramid.ima");
     this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSphere.ima");
-    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Prism3.ima");
+//    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Prism3.ima");
 
     int ncomparison = (int)this_files.size();
     TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("Form Factors", "TestFormFactors");

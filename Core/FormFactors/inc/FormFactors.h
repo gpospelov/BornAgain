@@ -15,6 +15,7 @@
 //! @date   Jun 27, 2012
 
 #include "FormFactorBox.h"
+#include "FormFactorCone.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
@@ -27,7 +28,9 @@
 #include "FormFactorDWBAConstZ.h"
 #include "FormFactorEllipsoid.h"
 #include "FormFactorFullSphere.h"
+#include "FormFactorFullSpheroid.h"
 #include "FormFactorGauss.h"
+#include "FormFactorHemiSpheroid.h"
 #include "FormFactorLorentz.h"
 #include "FormFactorParallelepiped.h"
 #include "FormFactorPrism3.h"

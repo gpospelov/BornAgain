@@ -21,6 +21,9 @@ void TestIsGISAXS7::execute()
     experiment.setDetectorParameters(100, 0.0*Units::degree, 1.0*Units::degree,
             100, 0.0*Units::degree, 1.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);
+    SimulationParameters sim_params;
+    sim_params.me_if_approx = SimulationParameters::ISGISAXSMOR;
+    experiment.setSimulationParameters(sim_params);
 
     MultiLayer *sample = dynamic_cast<MultiLayer *>(
             SampleFactory::instance().createItem("IsGISAXS7_mor"));

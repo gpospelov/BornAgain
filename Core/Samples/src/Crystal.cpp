@@ -1,9 +1,7 @@
 #include "Crystal.h"
-#include "FormFactorCrystal.h"
-#include "FormFactorDecoratorDebyeWaller.h"
+#include "FormFactors.h"
 #include "Units.h"
 #include "MathFunctions.h"
-#include "FormFactorFullSphere.h"
 #include "DiffuseParticleInfo.h"
 
 Crystal::Crystal(const LatticeBasis& lattice_basis,

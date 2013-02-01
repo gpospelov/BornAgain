@@ -46,6 +46,8 @@ public:
     size_t pyplusplus_boost_vectorof_kvector() { return sizeof(pyplusplus::aliases::vector_kvector_t); }
     size_t pyplusplus_boost_cvector() { return sizeof(cvector_t); }
     size_t pyplusplus_boost_vectorof_cvector() { return sizeof(pyplusplus::aliases::vector_cvector_t); }
+    size_t pyplusplus_boost_vectorof_DiffuseParticleInfoPtr() { return sizeof(pyplusplus::aliases::vector_DiffuseParticleInfoPtr_t); }
+
 };
 
 #endif // PYTHONPLUSPLUSHELPER_H

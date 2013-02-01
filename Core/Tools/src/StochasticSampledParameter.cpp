@@ -33,6 +33,14 @@ StochasticSampledParameter::~StochasticSampledParameter()
     delete m_stochastic_parameter;
 }
 
+double StochasticSampledParameter::getNormalizedProbability(size_t ibin) const
+{
+    double total_prob = 0.0;
+    for (size_t i=0; i<getNbins(); ++i) {
+        total_prob += probabilityBinDensity(i);
+    }
+    return probabilityBinDensity(ibin)/total_prob;
+}
 
 StochasticSampledParameter *StochasticSampledParameter::clone() const
 {

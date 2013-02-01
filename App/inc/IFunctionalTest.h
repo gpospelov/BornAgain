@@ -37,8 +37,11 @@ public:
     }
     virtual void execute();
     virtual void finalise() {}
+    std::string getOutputPath() const { return m_output_path; }
+    void setOutputPath(const std::string &output_path) { m_output_path = output_path; }
 protected:
     ProgramOptions *mp_options;
+    std::string m_output_path;
 };
 
 #endif // IFUNCTIONALTEST_H

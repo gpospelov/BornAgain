@@ -1,10 +1,6 @@
 #include "FormFactorPyramid.h"
 #include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
-//#include "Numeric.h"
-//#include "Units.h"
-//#include "Exceptions.h"
-//#include <iostream>
 
 
 FormFactorPyramid::FormFactorPyramid(double height, double half_side, double alpha)
@@ -19,9 +15,6 @@ FormFactorPyramid::FormFactorPyramid(double height, double half_side, double alp
 
 FormFactorPyramid::~FormFactorPyramid()
 {
-//    delete mp_height;
-//    delete mp_half_side;
-//    delete mp_alpha;
 }
 
 

@@ -35,7 +35,7 @@ namespace Geometry {
   Point3D<double> &
   Point3D<double>::transform(const Transform3D & m) {
     double vx = x(), vy = y(), vz = z();
-    set(m.xx()*vx + m.xy()*vy + m.xz()*vz + m.dx(),
+    setXYZ(m.xx()*vx + m.xy()*vy + m.xz()*vz + m.dx(),
 	m.yx()*vx + m.yy()*vy + m.yz()*vz + m.dy(),
 	m.zx()*vx + m.zy()*vy + m.zz()*vz + m.dz());
     return *this;

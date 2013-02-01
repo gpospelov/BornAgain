@@ -6,6 +6,8 @@
 #include "GISASExperiment.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
+#include "OutputDataIOFactory.h"
+
 
 #include "TCanvas.h"
 #include <gsl/gsl_errno.h>
@@ -25,14 +27,14 @@ void TestIsGISAXS8::execute()
     MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS8_2DDL_lattice"));
     experiment.setSample(*p_sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDL_lattice.ima");
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_2DDL_lattice.ima");
     delete p_sample;
 
     // 2DDL_lattice with isotropic pdfs
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS8_2DDL_lattice2"));
     experiment.setSample(*p_sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_2DDL_lattice2.ima");
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_2DDL_lattice2.ima");
     delete p_sample;
 }
 
@@ -40,12 +42,12 @@ void TestIsGISAXS8::execute()
 void TestIsGISAXS8::finalise()
 {
     std::vector< CompareStruct > tocompare;
-    tocompare.push_back( CompareStruct("isgi_2DDL_lattice.ima",      "this_2DDL_lattice.ima",      "Cylinder 2DDL lattice") );
-    tocompare.push_back( CompareStruct("isgi_2DDL_lattice2.ima",      "this_2DDL_lattice2.ima",      "Cylinder 2DDL lattice with isotropic pdfs") );
+    tocompare.push_back( CompareStruct("isgi_2DDL_lattice.ima.gz",      "this_2DDL_lattice.ima",      "Cylinder 2DDL lattice") );
+    tocompare.push_back( CompareStruct("isgi_2DDL_lattice2.ima.gz",      "this_2DDL_lattice2.ima",      "Cylinder 2DDL lattice with isotropic pdfs") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].isginame );
-        OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].thisname );
+        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].isginame);
+        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].thisname);
 
         std::ostringstream os;
         os<<i;

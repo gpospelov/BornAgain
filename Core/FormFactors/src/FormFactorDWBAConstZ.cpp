@@ -21,6 +21,7 @@ complex_t FormFactorDWBAConstZ::evaluate(const cvector_t &k_i, const Bin1DCVecto
 	m_term_RS *= getDepthPhase(-k_iz-k_fz);
 	m_term_SR *= getDepthPhase(k_iz+k_fz);
 	m_term_RSR *= getDepthPhase(-k_iz+k_fz);
+
 	return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
 }
 

@@ -1,17 +1,26 @@
 This folder contains example data from IsGISAXS for comparison with GISASFW
 
 In each subdirectory, one finds:
-- one or multiple .inp files, used to generate IsGISAXS simulations and describing the simulation parameters
-- the simulation output (.ima ascii files, containing the scattered intensity)
-- a text file (sim.txt) describing how to reproduce this simulation with GISASFW
-- the simulation output from GISASFW (same format as for IsGISAXS)
+- README with example description
+- one or multiple .inp files, containing IsGISAXS model description
+- isgi_*.ima files with simulated intensity produced by IsGISAXS
 
 List of examples:
-ex-1  2 types of particles (cylinder, prism3) on top of substrate. No interference function.
-ex-3  cylinder form factor
-ex-9  pyramid form factor
-ex-10 cylinders with interference on top of substrate
-
+ex-1   Mixture of cylinders and prisms without interference.
+ex-2   Two gaussian size cylinder distribution.
+ex-3   Cylinder formfactor in BA and DWBA.
+ex-4   1D and 2D paracrystal.
+ex-5   1D paracrystal fit example.
+ex-6   2D lattice with different disorders.
+ex-7   Mixture of different particles defined in morphology file.
+ex-8   2DDL paracrystal 
+ex-9   Rotated pyramids on top of substrate.
+ex-10  Cylinders with interference on top of substrate.
+ex-11  Core shell nano particles.
+ex-12  Constrained fit example: mixture of two cylinder types
+ex-13  Simulated annealing fit example.
+ex-14  Layered spheres on graded interface.
+ex-15  Size spacing correlation approximation
 
 Some notes:
 -Since polarization (x-ray) is not yet included in GISASFW, this feature should be disabled in IsGISAXS by returning 1._wp from function PolFac in Reflectivity_mod.f90

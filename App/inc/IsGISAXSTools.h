@@ -13,7 +13,9 @@
 //! @brief  Definition of functions and classes for IsGISAXS validation
 //! @author herck
 //! @date   19.06.2012
+
 #include "OutputData.h"
+#include "SafePointerVector.h"
 
 #include <string>
 
@@ -59,11 +61,11 @@ public:
     //! draw relative difference of two 2D OutputData sets
     static void drawOutputDataChi2Difference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title = std::string());
 
-    //! write output data (1D or 2D) in ASCII file
-    static void writeOutputDataToFile(const OutputData<double> &output, const std::string &filename, int precision=10);
+//    // write output data (1D or 2D) in ASCII file
+//    static void writeOutputDataToFile(const OutputData<double> &output, const std::string &filename, int precision=10);
 
-    //! read data from ASCII file (2D assumed) and fill newly created OutputData with it
-    static OutputData<double> *readOutputDataFromFile(const std::string &filename, int precision=6);
+//    // read data from ASCII file (2D assumed) and fill newly created OutputData with it
+//    static OutputData<double> *readOutputDataFromFile(const std::string &filename, int precision=6);
 
     //! set minimum and maximum values of y-axis (for 1D histogram), or z-axis (for 2D histograms)
     static void setMinimum(double hist_min) { m_hist_min = hist_min; m_has_min = true; }
@@ -107,6 +109,9 @@ public:
     //! create noisy data
     static OutputData<double > *createNoisyData(const OutputData<double> &exact_data, double noise_factor = 0.1);
     static OutputData<double > *createDataWithGaussianNoise(const OutputData<double> &exact_data, double sigma);
+
+    //! draw standard IsGISAXS comparison canvas
+    static void drawOutputDataComparisonResults(const OutputData<double> &data, const OutputData<double> &reference, const std::string &name=std::string("noname"), const std::string &title=std::string("no title") );
 
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

@@ -8,16 +8,24 @@
 #include "TestIsGISAXS2.h"
 #include "TestIsGISAXS3.h"
 #include "TestIsGISAXS4.h"
+#include "TestIsGISAXS5.h"
+#include "TestIsGISAXS6.h"
 #include "TestIsGISAXS7.h"
 #include "TestIsGISAXS8.h"
 #include "TestIsGISAXS9.h"
 #include "TestIsGISAXS10.h"
 #include "TestIsGISAXS11.h"
 #include "TestIsGISAXS12.h"
+#include "TestIsGISAXS13.h"
+#include "TestIsGISAXS14.h"
+#include "TestIsGISAXS15.h"
 #include "TestConvolution.h"
 #include "TestDetectorResolution.h"
 #include "TestMesoCrystal1.h"
 #include "TestMesoCrystal2.h"
+
+#include "TestFormFactors.h"
+
 #include "TestRootTree.h"
 #include "TestFittingModule1.h"
 #include "TestFittingModule2.h"
@@ -54,6 +62,10 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: isgisaxs ex-3 (cylinder FF)");
     registerItem("isgisaxs04",   IFactoryCreateFunction<TestIsGISAXS4, IFunctionalTest>,
                  "functional test: isgisaxs ex-4 (paracrystal 1d structure factors)");
+    registerItem("isgisaxs05",   IFactoryCreateFunction<TestIsGISAXS5, IFunctionalTest>,
+                 "functional test: isgisaxs ex-5 (fit with paracrystal 1d structure factor)");
+    registerItem("isgisaxs06",   IFactoryCreateFunction<TestIsGISAXS6, IFunctionalTest>,
+                 "functional test: isgisaxs ex-6 (cylinders with lattice interference function)");
     registerItem("isgisaxs07",   IFactoryCreateFunction<TestIsGISAXS7, IFunctionalTest>,
                  "functional test: isgisaxs ex-7 (particle mixture from morphology file)");
     registerItem("isgisaxs08",   IFactoryCreateFunction<TestIsGISAXS8, IFunctionalTest>,
@@ -66,6 +78,12 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: isgisaxs ex-11 (core shell parallelopiped islands on top of substrate)");
     registerItem("isgisaxs12",  IFactoryCreateFunction<TestIsGISAXS12, IFunctionalTest>,
                  "functional test: isgisaxs ex-12 (constrained fit example)");
+    registerItem("isgisaxs13",  IFactoryCreateFunction<TestIsGISAXS13, IFunctionalTest>,
+                 "functional test: isgisaxs ex-13 (simulated annealing fit)");
+    registerItem("isgisaxs14",  IFactoryCreateFunction<TestIsGISAXS14, IFunctionalTest>,
+                 "functional test: isgisaxs ex-14 (multilayered sphere on graded interface)");
+    registerItem("isgisaxs15",  IFactoryCreateFunction<TestIsGISAXS15, IFunctionalTest>,
+                 "functional test: isgisaxs ex-15 (size-spacing correlation approximation)");
     registerItem("convolution", IFactoryCreateFunction<TestConvolution, IFunctionalTest>,
                  "functional test: test of convolution via fft");
     registerItem("detectorresolution", IFactoryCreateFunction<TestDetectorResolution, IFunctionalTest>,
@@ -96,6 +114,9 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: test of ROOT's LMA-based minimizers Fumili and GSLMultiFit");
     registerItem("toyexp",    IFactoryCreateFunction<TestToyExperiment, IFunctionalTest>,
                  "functional test: test fitting algorithms with toy experiment");
+
+    registerItem("FormFactors", IFactoryCreateFunction<TestFormFactors, IFunctionalTest>,
+                 "functional test: FormFactors");
 
     m_benchmark = new TBenchmark();
 }

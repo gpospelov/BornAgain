@@ -4,9 +4,9 @@
 #include "Utils.h"
 #include "MultiLayer.h"
 #include "GISASExperiment.h"
-#include "FormFactors.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
+#include "OutputDataIOFactory.h"
 
 #include <sstream>
 #include "TCanvas.h"
@@ -30,38 +30,35 @@ void TestIsGISAXS3::execute()
             SampleFactory::instance().createItem("IsGISAXS3_CylinderBA"));
     experiment.setSample(*sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(),
-            m_data_path+"this_cylinder_BA.ima");
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),m_data_path+"this_cylinder_BA.ima");
 
     // cylinder in BA with size distribution
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderBASize"));
     experiment.setSample(*sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(),
-            m_data_path+"this_cylinder_BA_size.ima");
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),m_data_path+"this_cylinder_BA_size.ima");
 
     // cylinder in DWBA
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderDWBA"));
     experiment.setSample(*sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(),
-            m_data_path+"this_cylinder_DWBA.ima");
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),m_data_path+"this_cylinder_DWBA.ima");
 }
 
 
 void TestIsGISAXS3::finalise()
 {
     std::vector< CompareStruct > tocompare;
-    tocompare.push_back( CompareStruct("isgi_cylinder_BA.ima",      "this_cylinder_BA.ima",
+    tocompare.push_back( CompareStruct("isgi_cylinder_BA.ima.gz",      "this_cylinder_BA.ima",
             "Cylinder BA Formfactor") );
-    tocompare.push_back( CompareStruct("isgi_cylinder_BA_size.ima", "this_cylinder_BA_size.ima",
+    tocompare.push_back( CompareStruct("isgi_cylinder_BA_size.ima.gz", "this_cylinder_BA_size.ima",
             "Cylinder BA Formfactor with size distribution") );
-    tocompare.push_back( CompareStruct("isgi_cylinder_DWBA.ima",    "this_cylinder_DWBA.ima",
+    tocompare.push_back( CompareStruct("isgi_cylinder_DWBA.ima.gz",    "this_cylinder_DWBA.ima",
             "Cylinder DWBA Formfactor") );
 
     for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].isginame );
-        OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile( m_data_path+tocompare[i].thisname );
+        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].isginame);
+        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].thisname);
 
         std::ostringstream os;
         os<<i;

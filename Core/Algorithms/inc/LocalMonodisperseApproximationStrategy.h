@@ -19,12 +19,11 @@
 class LocalMonodisperseApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
-    LocalMonodisperseApproximationStrategy();
+    LocalMonodisperseApproximationStrategy(SimulationParameters sim_params);
     virtual ~LocalMonodisperseApproximationStrategy() {}
 
-    virtual void init(const std::vector<IFormFactor *> &form_factors,
-            const std::vector<double> &fractions,
-            const std::vector<IInterferenceFunction *> &interference_functions);
+    virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
+            const SafePointerVector<IInterferenceFunction> &ifs);
     virtual double evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
             double alpha_i, double alpha_f) const;
 private:

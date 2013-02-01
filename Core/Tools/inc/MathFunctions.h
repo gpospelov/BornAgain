@@ -43,6 +43,9 @@ double GenerateUniformRandom();
 //! Bessel function of the first kind and order 1
 double Bessel_J1(double value);
 
+//! Bessel function  Bessel_J1(x)/x
+inline double Bessel_C1(double value);
+
 //! Sine integral function: \f$Si(x)\equiv\int_0^x du \sin(u)/u\f$
 double Si(double value);
 
@@ -92,6 +95,11 @@ inline double MathFunctions::GenerateUniformRandom()
 inline double MathFunctions::Bessel_J1(double value)
 {
     return gsl_sf_bessel_J1(value);
+}
+
+inline double MathFunctions::Bessel_C1(double value)
+{
+    return ( value > Numeric::double_epsilon ? gsl_sf_bessel_J1(value)/value : 0.5);
 }
 
 inline double MathFunctions::Si(double value)  // int_0^x du Sin(u)/u

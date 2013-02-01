@@ -3,8 +3,13 @@
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 GCC_DIAG_OFF(missing-field-initializers);
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
+GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
+GCC_DIAG_ON(unused-parameter);
+GCC_DIAG_ON(missing-field-initializers);
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 #include "BasicVector3D.h"
@@ -80,6 +85,18 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
         return func_evaluate( boost::ref(q) );
     }
 
+    virtual double getKappa(  ) const  {
+        if( bp::override func_getKappa = this->get_override( "getKappa" ) )
+            return func_getKappa(  );
+        else{
+            return this->IInterferenceFunction::getKappa(  );
+        }
+    }
+    
+    double default_getKappa(  ) const  {
+        return IInterferenceFunction::getKappa( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -153,6 +170,10 @@ void register_IInterferenceFunction_class(){
             "evaluate"
             , bp::pure_virtual( (double ( ::IInterferenceFunction::* )( ::cvector_t const & ) const)(&::IInterferenceFunction::evaluate) )
             , ( bp::arg("q") ) )    
+        .def( 
+            "getKappa"
+            , (double ( ::IInterferenceFunction::* )(  ) const)(&::IInterferenceFunction::getKappa)
+            , (double ( IInterferenceFunction_wrapper::* )(  ) const)(&IInterferenceFunction_wrapper::default_getKappa) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

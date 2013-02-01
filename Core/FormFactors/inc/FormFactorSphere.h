@@ -1,6 +1,6 @@
 #ifndef FORMFACTORSPHERE_H
 #define FORMFACTORSPHERE_H
-//********************************************************************
+// ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
 // *                                                                  *
@@ -12,41 +12,46 @@
 //! @file   FormFactorSphere.h
 //! @brief  Definition of FormFactorSphere
 //! @author Scientific Computing Group at FRM II
-//! @date   03.07.2012
+//! @date   01.05.2012
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
+#include "MemberComplexFunctionIntegrator.h"
 
 
-//- -------------------------------------------------------------------
-//! @class FormFactorSphere
-//! @brief Form factor of Sphere
-//- -------------------------------------------------------------------
 class FormFactorSphere : public IFormFactorBorn
 {
 public:
-    //! @brief Sphere constructor
-    //! @param height of Sphere
-    //! @param radius half of Sphere's base
-    //! @param angle in radians between base and facet
     FormFactorSphere(double radius, double height);
-//    FormFactorSphere(StochasticParameter<double> *p_height, StochasticParameter<double> *p_half_side, StochasticParameter<double> *p_alpha);
+    double SphereIntegral(double Z, void* params) const;
+
     ~FormFactorSphere();
     virtual FormFactorSphere *clone() const;
 
-    virtual int getNumberOfStochasticParameters() const { return 3; }
+    virtual int getNumberOfStochasticParameters() const { return 2; }
 
     virtual double getHeight() const { return m_height; }
 
+protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-protected:
+private:
+    complex_t Integrand(double Z, void* params) const;
+
+//    double evaluate_for_q_real() const;
+//    double evaluate_for_q_imag() const;
+//    double SphereIntegralImaginary(double Z, void* params) const;
+//    double SphereIntegralReal(double Z, void* params) const;
+
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-private:
     double m_radius;
     double m_height;
+    mutable cvector_t m_q;
+
+    MemberComplexFunctionIntegrator<FormFactorSphere> *m_integrator;
 };
+
 
 #endif // FORMFACTORSPHERE_H

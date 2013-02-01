@@ -11,6 +11,21 @@
 		6204B7991667A408003BF358 /* IOutputDataNormalizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6204B7981667A407003BF358 /* IOutputDataNormalizer.cpp */; };
 		6218B466161B2577007FFA5C /* FormFactorParallelepiped.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */; };
 		6218B469161B25BC007FFA5C /* TestIsGISAXS11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6218B468161B25BC007FFA5C /* TestIsGISAXS11.cpp */; };
+		621D0BCF16A9850000134391 /* ROOTGSLNLSMinimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BCB16A9850000134391 /* ROOTGSLNLSMinimizer.cpp */; };
+		621D0BD016A9850000134391 /* TestFormFactors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BCC16A9850000134391 /* TestFormFactors.cpp */; };
+		621D0BD116A9850000134391 /* TestIsGISAXS7.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BCD16A9850000134391 /* TestIsGISAXS7.cpp */; };
+		621D0BD216A9850000134391 /* TestIsGISAXS15.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BCE16A9850000134391 /* TestIsGISAXS15.cpp */; };
+		621D0BD716A9852A00134391 /* IsGISAXSMorphologyFileStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BD516A9852A00134391 /* IsGISAXSMorphologyFileStrategy.cpp */; };
+		621D0BD816A9852A00134391 /* SizeSpacingCorrelationApproximationStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BD616A9852A00134391 /* SizeSpacingCorrelationApproximationStrategy.cpp */; };
+		621D0BE116A9857B00134391 /* RealParameterWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BDF16A9857A00134391 /* RealParameterWrapper.cpp */; };
+		621D0BE616A985D100134391 /* IsGISAXSMorphologyFileDecoration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BE416A985D100134391 /* IsGISAXSMorphologyFileDecoration.cpp */; };
+		621D0BE716A985D100134391 /* PositionParticleInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BE516A985D100134391 /* PositionParticleInfo.cpp */; };
+		621D0BE916A986CB00134391 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D0BE816A986CB00134391 /* libboost_signals.dylib */; };
+		621D0BF216A9883500134391 /* FormFactorBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BEE16A9883500134391 /* FormFactorBox.cpp */; };
+		621D0BF316A9883500134391 /* FormFactorEllipsoid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BEF16A9883500134391 /* FormFactorEllipsoid.cpp */; };
+		621D0BF416A9883500134391 /* FormFactorPrism6.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BF016A9883500134391 /* FormFactorPrism6.cpp */; };
+		621D0BF516A9883500134391 /* FormFactorSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BF116A9883500134391 /* FormFactorSphere.cpp */; };
+		621D0BF616A9886C00134391 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D0BE816A986CB00134391 /* libboost_signals.dylib */; };
 		622247D9160CB853008205AC /* Beam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222225D160CB745008205AC /* Beam.cpp */; };
 		622247DA160CB853008205AC /* ChiSquaredModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222225E160CB745008205AC /* ChiSquaredModule.cpp */; };
 		622247DB160CB853008205AC /* ConvolutionDetectorResolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222225F160CB745008205AC /* ConvolutionDetectorResolution.cpp */; };
@@ -50,7 +65,6 @@
 		6222484D160CB853008205AC /* ICompositeIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222DD160CB745008205AC /* ICompositeIterator.cpp */; };
 		6222484E160CB853008205AC /* ICompositeSample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222DE160CB745008205AC /* ICompositeSample.cpp */; };
 		6222484F160CB853008205AC /* IMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222DF160CB745008205AC /* IMaterial.cpp */; };
-		62224850160CB853008205AC /* IRoughness.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222E0160CB745008205AC /* IRoughness.cpp */; };
 		62224851160CB853008205AC /* ISample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222E1160CB745008205AC /* ISample.cpp */; };
 		62224852160CB853008205AC /* InterferenceFunction1DParaCrystal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222E2160CB745008205AC /* InterferenceFunction1DParaCrystal.cpp */; };
 		62224853160CB853008205AC /* Lattice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 622222E3160CB745008205AC /* Lattice.cpp */; };
@@ -69,7 +83,6 @@
 		62224878160CB853008205AC /* Convolve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222230B160CB745008205AC /* Convolve.cpp */; };
 		62224879160CB853008205AC /* DoubleToComplexInterpolatingFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222230C160CB745008205AC /* DoubleToComplexInterpolatingFunction.cpp */; };
 		6222487A160CB853008205AC /* Exceptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222230D160CB745008205AC /* Exceptions.cpp */; };
-		6222487C160CB853008205AC /* FitParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222230F160CB745008205AC /* FitParameter.cpp */; };
 		6222487D160CB853008205AC /* IFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222310160CB745008205AC /* IFactory.cpp */; };
 		6222487F160CB853008205AC /* ISingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222312160CB745008205AC /* ISingleton.cpp */; };
 		62224880160CB853008205AC /* MathFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222313160CB745008205AC /* MathFunctions.cpp */; };
@@ -81,7 +94,6 @@
 		62224886160CBA43008205AC /* BasicVector3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6222229B160CB745008205AC /* BasicVector3D.cpp */; };
 		62224887160CBD55008205AC /* libgsl.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03F160C690A008205AC /* libgsl.0.dylib */; };
 		62224888160CBD55008205AC /* libgslcblas.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D040160C690A008205AC /* libgslcblas.0.dylib */; };
-		62224889160CC191008205AC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62224798160CB74C008205AC /* main.cpp */; };
 		6222488D160CC1E6008205AC /* AppDict.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222225160CB745008205AC /* AppDict.cpp */; };
 		6222488E160CC1E6008205AC /* CommandLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222227160CB745008205AC /* CommandLine.cpp */; };
 		6222488F160CC1E6008205AC /* DrawHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222228160CB745008205AC /* DrawHelper.cpp */; };
@@ -147,10 +159,30 @@
 		6222D088160C8513008205AC /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03D160C690A008205AC /* libboost_system.dylib */; };
 		6222D089160C8513008205AC /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03E160C690A008205AC /* libboost_thread-mt.dylib */; };
 		6254C2651666652E0098EE7E /* IFormFactorBorn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */; };
+		625A171B16BAACF9004943DB /* FitObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171016BAACF9004943DB /* FitObject.cpp */; };
+		625A171C16BAACF9004943DB /* FitParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171116BAACF9004943DB /* FitParameter.cpp */; };
+		625A171D16BAACF9004943DB /* FitParameterLinked.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171216BAACF9004943DB /* FitParameterLinked.cpp */; };
+		625A171E16BAACF9004943DB /* FitSuite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171316BAACF9004943DB /* FitSuite.cpp */; };
+		625A171F16BAACF9004943DB /* FitSuiteFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171416BAACF9004943DB /* FitSuiteFunctions.cpp */; };
+		625A172016BAACF9004943DB /* FitSuiteObjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171516BAACF9004943DB /* FitSuiteObjects.cpp */; };
+		625A172116BAACF9004943DB /* FitSuiteParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171616BAACF9004943DB /* FitSuiteParameters.cpp */; };
+		625A172216BAACF9004943DB /* FitSuiteStrategies.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171716BAACF9004943DB /* FitSuiteStrategies.cpp */; };
+		625A172316BAACF9004943DB /* IFitSuiteStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171816BAACF9004943DB /* IFitSuiteStrategy.cpp */; };
+		625A172416BAACF9004943DB /* MinimizerScan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171916BAACF9004943DB /* MinimizerScan.cpp */; };
+		625A172516BAACF9004943DB /* MinimizerTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171A16BAACF9004943DB /* MinimizerTest.cpp */; };
+		625A173416BAAE3B004943DB /* FitSuiteObserverFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A172D16BAAE3B004943DB /* FitSuiteObserverFactory.cpp */; };
+		625A173516BAAE3B004943DB /* fp_exception_glibc_extension.c in Sources */ = {isa = PBXBuildFile; fileRef = 625A172E16BAAE3B004943DB /* fp_exception_glibc_extension.c */; };
+		625A173616BAAE3B004943DB /* MinimizerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A172F16BAAE3B004943DB /* MinimizerFactory.cpp */; };
+		625A173716BAAE3B004943DB /* ROOTGSLSimAnMinimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173016BAAE3B004943DB /* ROOTGSLSimAnMinimizer.cpp */; };
+		625A173816BAAE3B004943DB /* ROOTMinimizerHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173116BAAE3B004943DB /* ROOTMinimizerHelper.cpp */; };
+		625A173916BAAE3B004943DB /* TestIsGISAXS13.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173216BAAE3B004943DB /* TestIsGISAXS13.cpp */; };
+		625A173A16BAAE3B004943DB /* TestIsGISAXS14.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173316BAAE3B004943DB /* TestIsGISAXS14.cpp */; };
+		625A174116BAAE77004943DB /* FormFactorCone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173E16BAAE77004943DB /* FormFactorCone.cpp */; };
+		625A174216BAAE77004943DB /* FormFactorFullSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */; };
+		625A174316BAAE77004943DB /* FormFactorHemiSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */; };
 		626378A416666CFC00D1BD00 /* App in CopyFiles */ = {isa = PBXBuildFile; fileRef = 627C2EC3160B4E8F004C1B11 /* App */; };
 		627C2FDA160B515D004C1B11 /* libGISASFW.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
-		62861180167F6CCE00971496 /* ROOTMinimizerFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6286117D167F6CCE00971496 /* ROOTMinimizerFunction.cpp */; };
 		62861181167F6CCE00971496 /* TestFumiliLMA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6286117E167F6CCE00971496 /* TestFumiliLMA.cpp */; };
 		62861182167F6CCE00971496 /* TestToyExperiment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6286117F167F6CCE00971496 /* TestToyExperiment.cpp */; };
 		62BD93501619D05D0008A768 /* ParticleCoreShell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */; };
@@ -161,11 +193,6 @@
 		62CC09751665047E00A5B720 /* MaskCoordinateFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096F1665047E00A5B720 /* MaskCoordinateFunction.cpp */; };
 		62CC09761665047E00A5B720 /* ResolutionFunction2DSimple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09701665047E00A5B720 /* ResolutionFunction2DSimple.cpp */; };
 		62CC097B166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC097A166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp */; };
-		62CC098D166504E700A5B720 /* FitObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC0986166504E700A5B720 /* FitObject.cpp */; };
-		62CC098E166504E700A5B720 /* FitParameterLinked.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC0987166504E700A5B720 /* FitParameterLinked.cpp */; };
-		62CC098F166504E700A5B720 /* FitSuiteObjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC0988166504E700A5B720 /* FitSuiteObjects.cpp */; };
-		62CC0990166504E700A5B720 /* FitSuiteParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC0989166504E700A5B720 /* FitSuiteParameters.cpp */; };
-		62CC0991166504E700A5B720 /* FitSuiteStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC098A166504E700A5B720 /* FitSuiteStrategy.cpp */; };
 		62CC0992166504E700A5B720 /* OutputDataFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */; };
 		62CC09A41665055E00A5B720 /* TestFittingBenchmark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC099C1665055E00A5B720 /* TestFittingBenchmark.cpp */; };
 		62CC09A51665055E00A5B720 /* TestFittingModule1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC099D1665055E00A5B720 /* TestFittingModule1.cpp */; };
@@ -176,7 +203,17 @@
 		62CC09AA1665055E00A5B720 /* TestIsGISAXS8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09A21665055E00A5B720 /* TestIsGISAXS8.cpp */; };
 		62CC09AB1665055E00A5B720 /* TestIsGISAXS12.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC09A31665055E00A5B720 /* TestIsGISAXS12.cpp */; };
 		62D7A936166E3F8D009A45CE /* AxisDouble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62D7A935166E3F8D009A45CE /* AxisDouble.cpp */; };
-		62EA737B1628422200656B41 /* FitSuite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73741628422200656B41 /* FitSuite.cpp */; };
+		62EA20E916B9296C00184E9A /* StrategyBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA20E816B9296C00184E9A /* StrategyBuilder.cpp */; };
+		62EA20EE16B9299100184E9A /* InterferenceFunction2DLattice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA20ED16B9299100184E9A /* InterferenceFunction2DLattice.cpp */; };
+		62EA20F316B929AD00184E9A /* OutputDataReadStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA20F116B929AD00184E9A /* OutputDataReadStrategy.cpp */; };
+		62EA20F416B929AD00184E9A /* OutputDataWriteStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA20F216B929AD00184E9A /* OutputDataWriteStrategy.cpp */; };
+		62EA20FC16B929DE00184E9A /* IsGISAXSData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA20F916B929DE00184E9A /* IsGISAXSData.cpp */; };
+		62EA20FD16B929DE00184E9A /* TestIsGISAXS5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA20FA16B929DE00184E9A /* TestIsGISAXS5.cpp */; };
+		62EA20FE16B929DE00184E9A /* TestIsGISAXS6.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA20FB16B929DE00184E9A /* TestIsGISAXS6.cpp */; };
+		62EA212B16B92D7500184E9A /* IsGISAXS01.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA210E16B92C7600184E9A /* IsGISAXS01.cpp */; };
+		62EA212C16B92D7500184E9A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA212816B92C7600184E9A /* main.cpp */; };
+		62EA212D16B9307000184E9A /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D0BE816A986CB00134391 /* libboost_signals.dylib */; };
+		62EA212E16B9310000184E9A /* IsGISAXS01.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA210E16B92C7600184E9A /* IsGISAXS01.cpp */; };
 		62EA737C1628422200656B41 /* IObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73751628422200656B41 /* IObserver.cpp */; };
 		62EA737D1628422200656B41 /* IParameterized.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73761628422200656B41 /* IParameterized.cpp */; };
 		62EA737E1628422200656B41 /* OutputDataIOFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73771628422200656B41 /* OutputDataIOFactory.cpp */; };
@@ -184,7 +221,6 @@
 		62EA73801628422200656B41 /* OutputDataWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA73791628422200656B41 /* OutputDataWriter.cpp */; };
 		62EA73811628422200656B41 /* ParameterPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62EA737A1628422200656B41 /* ParameterPool.cpp */; };
 		62F3A3B4162D9966007FEE73 /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F3A3B3162D9966007FEE73 /* libboost_iostreams.dylib */; };
-		62F3A3BB162D99E4007FEE73 /* FitSuiteHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62F3A3B8162D99E4007FEE73 /* FitSuiteHelper.cpp */; };
 		62F3A3BC162D99E4007FEE73 /* ROOTMinimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62F3A3B9162D99E4007FEE73 /* ROOTMinimizer.cpp */; };
 		62F3A3BD162D99E4007FEE73 /* TreeEventStructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62F3A3BA162D99E4007FEE73 /* TreeEventStructure.cpp */; };
 		62F77E261619992B00C8F15E /* TestMesoCrystal1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62F77E241619992B00C8F15E /* TestMesoCrystal1.cpp */; };
@@ -251,6 +287,36 @@
 		6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorParallelepiped.cpp; sourceTree = "<group>"; };
 		6218B467161B25B2007FFA5C /* TestIsGISAXS11.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS11.h; sourceTree = "<group>"; };
 		6218B468161B25BC007FFA5C /* TestIsGISAXS11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS11.cpp; sourceTree = "<group>"; };
+		621D0BC616A984EE00134391 /* ROOTGSLNLSMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROOTGSLNLSMinimizer.h; sourceTree = "<group>"; };
+		621D0BC716A984EE00134391 /* TestFormFactors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFormFactors.h; sourceTree = "<group>"; };
+		621D0BC816A984EE00134391 /* TestIsGISAXS7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS7.h; sourceTree = "<group>"; };
+		621D0BC916A984EE00134391 /* TestIsGISAXS15.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS15.h; sourceTree = "<group>"; };
+		621D0BCB16A9850000134391 /* ROOTGSLNLSMinimizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ROOTGSLNLSMinimizer.cpp; sourceTree = "<group>"; };
+		621D0BCC16A9850000134391 /* TestFormFactors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFormFactors.cpp; sourceTree = "<group>"; };
+		621D0BCD16A9850000134391 /* TestIsGISAXS7.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS7.cpp; sourceTree = "<group>"; };
+		621D0BCE16A9850000134391 /* TestIsGISAXS15.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS15.cpp; sourceTree = "<group>"; };
+		621D0BD316A9851500134391 /* IsGISAXSMorphologyFileStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsGISAXSMorphologyFileStrategy.h; sourceTree = "<group>"; };
+		621D0BD416A9851500134391 /* SizeSpacingCorrelationApproximationStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SizeSpacingCorrelationApproximationStrategy.h; sourceTree = "<group>"; };
+		621D0BD516A9852A00134391 /* IsGISAXSMorphologyFileStrategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXSMorphologyFileStrategy.cpp; sourceTree = "<group>"; };
+		621D0BD616A9852A00134391 /* SizeSpacingCorrelationApproximationStrategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SizeSpacingCorrelationApproximationStrategy.cpp; sourceTree = "<group>"; };
+		621D0BD916A9855D00134391 /* FastVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastVector.h; sourceTree = "<group>"; };
+		621D0BDB16A9855D00134391 /* IChangeable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChangeable.h; sourceTree = "<group>"; };
+		621D0BDC16A9855D00134391 /* ICloneable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICloneable.h; sourceTree = "<group>"; };
+		621D0BDD16A9855D00134391 /* RealParameterWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealParameterWrapper.h; sourceTree = "<group>"; };
+		621D0BDF16A9857A00134391 /* RealParameterWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RealParameterWrapper.cpp; sourceTree = "<group>"; };
+		621D0BE216A985BB00134391 /* IsGISAXSMorphologyFileDecoration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsGISAXSMorphologyFileDecoration.h; sourceTree = "<group>"; };
+		621D0BE316A985BB00134391 /* PositionParticleInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionParticleInfo.h; sourceTree = "<group>"; };
+		621D0BE416A985D100134391 /* IsGISAXSMorphologyFileDecoration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXSMorphologyFileDecoration.cpp; sourceTree = "<group>"; };
+		621D0BE516A985D100134391 /* PositionParticleInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PositionParticleInfo.cpp; sourceTree = "<group>"; };
+		621D0BE816A986CB00134391 /* libboost_signals.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_signals.dylib; path = ../../../../../opt/local/lib/libboost_signals.dylib; sourceTree = "<group>"; };
+		621D0BEA16A9882900134391 /* FormFactorBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorBox.h; sourceTree = "<group>"; };
+		621D0BEB16A9882900134391 /* FormFactorEllipsoid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorEllipsoid.h; sourceTree = "<group>"; };
+		621D0BEC16A9882900134391 /* FormFactorPrism6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorPrism6.h; sourceTree = "<group>"; };
+		621D0BED16A9882900134391 /* FormFactorSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorSphere.h; sourceTree = "<group>"; };
+		621D0BEE16A9883500134391 /* FormFactorBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorBox.cpp; sourceTree = "<group>"; };
+		621D0BEF16A9883500134391 /* FormFactorEllipsoid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorEllipsoid.cpp; sourceTree = "<group>"; };
+		621D0BF016A9883500134391 /* FormFactorPrism6.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorPrism6.cpp; sourceTree = "<group>"; };
+		621D0BF116A9883500134391 /* FormFactorSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorSphere.cpp; sourceTree = "<group>"; };
 		622221E7160CB745008205AC /* App.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = App.pro; sourceTree = "<group>"; };
 		622221EA160CB745008205AC /* App.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
 		622221EB160CB745008205AC /* AppLinkDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppLinkDef.h; sourceTree = "<group>"; };
@@ -435,7 +501,6 @@
 		622222DD160CB745008205AC /* ICompositeIterator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ICompositeIterator.cpp; sourceTree = "<group>"; };
 		622222DE160CB745008205AC /* ICompositeSample.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ICompositeSample.cpp; sourceTree = "<group>"; };
 		622222DF160CB745008205AC /* IMaterial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IMaterial.cpp; sourceTree = "<group>"; };
-		622222E0160CB745008205AC /* IRoughness.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IRoughness.cpp; sourceTree = "<group>"; };
 		622222E1160CB745008205AC /* ISample.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ISample.cpp; sourceTree = "<group>"; };
 		622222E2160CB745008205AC /* InterferenceFunction1DParaCrystal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InterferenceFunction1DParaCrystal.cpp; sourceTree = "<group>"; };
 		622222E3160CB745008205AC /* Lattice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Lattice.cpp; sourceTree = "<group>"; };
@@ -455,7 +520,6 @@
 		622222F4160CB745008205AC /* Coordinate3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Coordinate3D.h; sourceTree = "<group>"; };
 		622222F5160CB745008205AC /* DoubleToComplexInterpolatingFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubleToComplexInterpolatingFunction.h; sourceTree = "<group>"; };
 		622222F7160CB745008205AC /* Exceptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Exceptions.h; sourceTree = "<group>"; };
-		622222F9160CB745008205AC /* FitParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FitParameter.h; sourceTree = "<group>"; };
 		622222FA160CB745008205AC /* IDoubleToComplexFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDoubleToComplexFunction.h; sourceTree = "<group>"; };
 		622222FB160CB745008205AC /* IFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFactory.h; sourceTree = "<group>"; };
 		622222FC160CB745008205AC /* INamed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INamed.h; sourceTree = "<group>"; };
@@ -474,7 +538,6 @@
 		6222230B160CB745008205AC /* Convolve.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Convolve.cpp; sourceTree = "<group>"; };
 		6222230C160CB745008205AC /* DoubleToComplexInterpolatingFunction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DoubleToComplexInterpolatingFunction.cpp; sourceTree = "<group>"; };
 		6222230D160CB745008205AC /* Exceptions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Exceptions.cpp; sourceTree = "<group>"; };
-		6222230F160CB745008205AC /* FitParameter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FitParameter.cpp; sourceTree = "<group>"; };
 		62222310160CB745008205AC /* IFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IFactory.cpp; sourceTree = "<group>"; };
 		62222312160CB745008205AC /* ISingleton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ISingleton.cpp; sourceTree = "<group>"; };
 		62222313160CB745008205AC /* MathFunctions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MathFunctions.cpp; sourceTree = "<group>"; };
@@ -1050,9 +1113,6 @@
 		622245E6160CB74C008205AC /* git_loc_history.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = git_loc_history.py; sourceTree = "<group>"; };
 		622245E7160CB74C008205AC /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		622245E8160CB74C008205AC /* shared.pri */ = {isa = PBXFileReference; lastKnownFileType = text; path = shared.pri; sourceTree = "<group>"; };
-		62224794160CB74C008205AC /* OutputDataTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputDataTest.h; sourceTree = "<group>"; };
-		62224797160CB74C008205AC /* TestCore.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestCore.pro; sourceTree = "<group>"; };
-		62224798160CB74C008205AC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		622248A8160CC56B008205AC /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = "ThirdParty/gtest/gtest-1.6.0/xcode/build/Release/gtest.framework"; sourceTree = "<group>"; };
 		6222D037160C683B008205AC /* libboost_python.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_python.dylib; path = ../../../../../../opt/local/lib/libboost_python.dylib; sourceTree = "<group>"; };
 		6222D039160C685A008205AC /* Python */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = Python; path = ../../../../../../opt/local/Library/Frameworks/Python.framework/Versions/2.7/Python; sourceTree = "<group>"; };
@@ -1091,6 +1151,51 @@
 		6254C2611666651F0098EE7E /* IFormFactorBornSeparable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorBornSeparable.h; sourceTree = "<group>"; };
 		6254C2621666651F0098EE7E /* IFormFactorDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorDecorator.h; sourceTree = "<group>"; };
 		6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IFormFactorBorn.cpp; sourceTree = "<group>"; };
+		625A16FF16BAA7EC004943DB /* StochasticDoubleGate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StochasticDoubleGate.h; sourceTree = "<group>"; };
+		625A170216BAACF9004943DB /* AttLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttLimits.h; sourceTree = "<group>"; };
+		625A170316BAACF9004943DB /* FitObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitObject.h; sourceTree = "<group>"; };
+		625A170416BAACF9004943DB /* FitParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitParameter.h; sourceTree = "<group>"; };
+		625A170516BAACF9004943DB /* FitParameterLinked.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitParameterLinked.h; sourceTree = "<group>"; };
+		625A170616BAACF9004943DB /* FitSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuite.h; sourceTree = "<group>"; };
+		625A170716BAACF9004943DB /* FitSuiteFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteFunctions.h; sourceTree = "<group>"; };
+		625A170816BAACF9004943DB /* FitSuiteObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteObjects.h; sourceTree = "<group>"; };
+		625A170916BAACF9004943DB /* FitSuiteParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteParameters.h; sourceTree = "<group>"; };
+		625A170A16BAACF9004943DB /* FitSuiteStrategies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteStrategies.h; sourceTree = "<group>"; };
+		625A170B16BAACF9004943DB /* IFitSuiteStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFitSuiteStrategy.h; sourceTree = "<group>"; };
+		625A170C16BAACF9004943DB /* IMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMinimizer.h; sourceTree = "<group>"; };
+		625A170D16BAACF9004943DB /* MinimizerScan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimizerScan.h; sourceTree = "<group>"; };
+		625A170E16BAACF9004943DB /* MinimizerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimizerTest.h; sourceTree = "<group>"; };
+		625A171016BAACF9004943DB /* FitObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitObject.cpp; sourceTree = "<group>"; };
+		625A171116BAACF9004943DB /* FitParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitParameter.cpp; sourceTree = "<group>"; };
+		625A171216BAACF9004943DB /* FitParameterLinked.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitParameterLinked.cpp; sourceTree = "<group>"; };
+		625A171316BAACF9004943DB /* FitSuite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuite.cpp; sourceTree = "<group>"; };
+		625A171416BAACF9004943DB /* FitSuiteFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteFunctions.cpp; sourceTree = "<group>"; };
+		625A171516BAACF9004943DB /* FitSuiteObjects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteObjects.cpp; sourceTree = "<group>"; };
+		625A171616BAACF9004943DB /* FitSuiteParameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteParameters.cpp; sourceTree = "<group>"; };
+		625A171716BAACF9004943DB /* FitSuiteStrategies.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteStrategies.cpp; sourceTree = "<group>"; };
+		625A171816BAACF9004943DB /* IFitSuiteStrategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IFitSuiteStrategy.cpp; sourceTree = "<group>"; };
+		625A171916BAACF9004943DB /* MinimizerScan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinimizerScan.cpp; sourceTree = "<group>"; };
+		625A171A16BAACF9004943DB /* MinimizerTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinimizerTest.cpp; sourceTree = "<group>"; };
+		625A172616BAAE23004943DB /* FitSuiteObserverFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteObserverFactory.h; sourceTree = "<group>"; };
+		625A172716BAAE23004943DB /* fp_exception_glibc_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fp_exception_glibc_extension.h; sourceTree = "<group>"; };
+		625A172816BAAE23004943DB /* MinimizerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinimizerFactory.h; sourceTree = "<group>"; };
+		625A172916BAAE23004943DB /* ROOTGSLSimAnMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROOTGSLSimAnMinimizer.h; sourceTree = "<group>"; };
+		625A172A16BAAE23004943DB /* ROOTMinimizerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROOTMinimizerHelper.h; sourceTree = "<group>"; };
+		625A172B16BAAE23004943DB /* TestIsGISAXS13.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS13.h; sourceTree = "<group>"; };
+		625A172C16BAAE23004943DB /* TestIsGISAXS14.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS14.h; sourceTree = "<group>"; };
+		625A172D16BAAE3B004943DB /* FitSuiteObserverFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteObserverFactory.cpp; sourceTree = "<group>"; };
+		625A172E16BAAE3B004943DB /* fp_exception_glibc_extension.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fp_exception_glibc_extension.c; sourceTree = "<group>"; };
+		625A172F16BAAE3B004943DB /* MinimizerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinimizerFactory.cpp; sourceTree = "<group>"; };
+		625A173016BAAE3B004943DB /* ROOTGSLSimAnMinimizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ROOTGSLSimAnMinimizer.cpp; sourceTree = "<group>"; };
+		625A173116BAAE3B004943DB /* ROOTMinimizerHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ROOTMinimizerHelper.cpp; sourceTree = "<group>"; };
+		625A173216BAAE3B004943DB /* TestIsGISAXS13.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS13.cpp; sourceTree = "<group>"; };
+		625A173316BAAE3B004943DB /* TestIsGISAXS14.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS14.cpp; sourceTree = "<group>"; };
+		625A173B16BAAE69004943DB /* FormFactorCone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorCone.h; sourceTree = "<group>"; };
+		625A173C16BAAE69004943DB /* FormFactorFullSpheroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorFullSpheroid.h; sourceTree = "<group>"; };
+		625A173D16BAAE69004943DB /* FormFactorHemiSpheroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorHemiSpheroid.h; sourceTree = "<group>"; };
+		625A173E16BAAE77004943DB /* FormFactorCone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorCone.cpp; sourceTree = "<group>"; };
+		625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorFullSpheroid.cpp; sourceTree = "<group>"; };
+		625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorHemiSpheroid.cpp; sourceTree = "<group>"; };
 		627C2EC3160B4E8F004C1B11 /* App */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = App; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGISASFW.Core.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GISASFW.TestCore; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1100,7 +1205,6 @@
 		6286117A167F6CBD00971496 /* ROOTMinimizerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROOTMinimizerFunction.h; sourceTree = "<group>"; };
 		6286117B167F6CBD00971496 /* TestFumiliLMA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFumiliLMA.h; sourceTree = "<group>"; };
 		6286117C167F6CBD00971496 /* TestToyExperiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestToyExperiment.h; sourceTree = "<group>"; };
-		6286117D167F6CCE00971496 /* ROOTMinimizerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ROOTMinimizerFunction.cpp; sourceTree = "<group>"; };
 		6286117E167F6CCE00971496 /* TestFumiliLMA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFumiliLMA.cpp; sourceTree = "<group>"; };
 		6286117F167F6CCE00971496 /* TestToyExperiment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestToyExperiment.cpp; sourceTree = "<group>"; };
 		62AE01631619C72E00A83353 /* ParticleCoreShell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleCoreShell.h; sourceTree = "<group>"; };
@@ -1121,21 +1225,10 @@
 		62CC09701665047E00A5B720 /* ResolutionFunction2DSimple.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResolutionFunction2DSimple.cpp; sourceTree = "<group>"; };
 		62CC0979166504B600A5B720 /* InterferenceFunction2DParaCrystal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterferenceFunction2DParaCrystal.h; sourceTree = "<group>"; };
 		62CC097A166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InterferenceFunction2DParaCrystal.cpp; sourceTree = "<group>"; };
-		62CC097C166504D600A5B720 /* AttLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttLimits.h; sourceTree = "<group>"; };
-		62CC097D166504D600A5B720 /* FitObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitObject.h; sourceTree = "<group>"; };
-		62CC097E166504D600A5B720 /* FitParameterLinked.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitParameterLinked.h; sourceTree = "<group>"; };
-		62CC097F166504D600A5B720 /* FitSuiteObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteObjects.h; sourceTree = "<group>"; };
-		62CC0980166504D600A5B720 /* FitSuiteParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteParameters.h; sourceTree = "<group>"; };
-		62CC0981166504D600A5B720 /* FitSuiteStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteStrategy.h; sourceTree = "<group>"; };
 		62CC0982166504D600A5B720 /* LLData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLData.h; sourceTree = "<group>"; };
 		62CC0983166504D600A5B720 /* MemberFunctionIntegrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberFunctionIntegrator.h; sourceTree = "<group>"; };
 		62CC0984166504D600A5B720 /* OutputDataFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputDataFunctions.h; sourceTree = "<group>"; };
 		62CC0985166504D600A5B720 /* OutputDataIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputDataIterator.h; sourceTree = "<group>"; };
-		62CC0986166504E700A5B720 /* FitObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitObject.cpp; sourceTree = "<group>"; };
-		62CC0987166504E700A5B720 /* FitParameterLinked.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitParameterLinked.cpp; sourceTree = "<group>"; };
-		62CC0988166504E700A5B720 /* FitSuiteObjects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteObjects.cpp; sourceTree = "<group>"; };
-		62CC0989166504E700A5B720 /* FitSuiteParameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteParameters.cpp; sourceTree = "<group>"; };
-		62CC098A166504E700A5B720 /* FitSuiteStrategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteStrategy.cpp; sourceTree = "<group>"; };
 		62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataFunctions.cpp; sourceTree = "<group>"; };
 		62CC09941665053C00A5B720 /* TestFittingBenchmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFittingBenchmark.h; sourceTree = "<group>"; };
 		62CC09951665053C00A5B720 /* TestFittingModule1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFittingModule1.h; sourceTree = "<group>"; };
@@ -1155,14 +1248,53 @@
 		62CC09A31665055E00A5B720 /* TestIsGISAXS12.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS12.cpp; sourceTree = "<group>"; };
 		62D7A934166E3F81009A45CE /* AxisDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisDouble.h; sourceTree = "<group>"; };
 		62D7A935166E3F8D009A45CE /* AxisDouble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AxisDouble.cpp; sourceTree = "<group>"; };
-		62D7A937166E561E009A45CE /* AxisDoubleTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxisDoubleTest.h; sourceTree = "<group>"; };
-		62D7A938166E561E009A45CE /* BeamTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeamTest.h; sourceTree = "<group>"; };
-		62D7A939166E561E009A45CE /* DetectorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectorTest.h; sourceTree = "<group>"; };
-		62D7A93A166E561E009A45CE /* ExperimentTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperimentTest.h; sourceTree = "<group>"; };
-		62D7A93B166E561E009A45CE /* GISASExperimentTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GISASExperimentTest.h; sourceTree = "<group>"; };
-		62D7A93C166E561E009A45CE /* MaskTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskTest.h; sourceTree = "<group>"; };
-		62D7A93D166E561E009A45CE /* OutputDataIteratorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputDataIteratorTest.h; sourceTree = "<group>"; };
-		62EA736B1628421000656B41 /* FitSuite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FitSuite.h; sourceTree = "<group>"; };
+		62EA20E516B9295C00184E9A /* InterferenceFunctionStrategies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterferenceFunctionStrategies.h; sourceTree = "<group>"; };
+		62EA20E616B9295C00184E9A /* SimulationParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulationParameters.h; sourceTree = "<group>"; };
+		62EA20E716B9295C00184E9A /* StrategyBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StrategyBuilder.h; sourceTree = "<group>"; };
+		62EA20E816B9296C00184E9A /* StrategyBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StrategyBuilder.cpp; sourceTree = "<group>"; };
+		62EA20EA16B9298400184E9A /* InterferenceFunction2DLattice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterferenceFunction2DLattice.h; sourceTree = "<group>"; };
+		62EA20EB16B9298400184E9A /* InterferenceFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterferenceFunctions.h; sourceTree = "<group>"; };
+		62EA20EC16B9298400184E9A /* Lattice2DIFParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lattice2DIFParameters.h; sourceTree = "<group>"; };
+		62EA20ED16B9299100184E9A /* InterferenceFunction2DLattice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InterferenceFunction2DLattice.cpp; sourceTree = "<group>"; };
+		62EA20EF16B929A100184E9A /* OutputDataReadStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputDataReadStrategy.h; sourceTree = "<group>"; };
+		62EA20F016B929A100184E9A /* OutputDataWriteStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputDataWriteStrategy.h; sourceTree = "<group>"; };
+		62EA20F116B929AD00184E9A /* OutputDataReadStrategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataReadStrategy.cpp; sourceTree = "<group>"; };
+		62EA20F216B929AD00184E9A /* OutputDataWriteStrategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataWriteStrategy.cpp; sourceTree = "<group>"; };
+		62EA20F516B929CF00184E9A /* IsGISAXSData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsGISAXSData.h; sourceTree = "<group>"; };
+		62EA20F616B929CF00184E9A /* TestIsGISAXS5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS5.h; sourceTree = "<group>"; };
+		62EA20F716B929CF00184E9A /* TestIsGISAXS6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIsGISAXS6.h; sourceTree = "<group>"; };
+		62EA20F816B929CF00184E9A /* Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Version.h; sourceTree = "<group>"; };
+		62EA20F916B929DE00184E9A /* IsGISAXSData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXSData.cpp; sourceTree = "<group>"; };
+		62EA20FA16B929DE00184E9A /* TestIsGISAXS5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS5.cpp; sourceTree = "<group>"; };
+		62EA20FB16B929DE00184E9A /* TestIsGISAXS6.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestIsGISAXS6.cpp; sourceTree = "<group>"; };
+		62EA210B16B92C7600184E9A /* FunctionalTests.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = FunctionalTests.pro; sourceTree = "<group>"; };
+		62EA210C16B92C7600184E9A /* FunctionalTests.pro.user */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FunctionalTests.pro.user; sourceTree = "<group>"; };
+		62EA210E16B92C7600184E9A /* IsGISAXS01.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXS01.cpp; sourceTree = "<group>"; };
+		62EA210F16B92C7600184E9A /* IsGISAXS01.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IsGISAXS01.h; sourceTree = "<group>"; };
+		62EA211016B92C7600184E9A /* IsGISAXS01.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = IsGISAXS01.pro; sourceTree = "<group>"; };
+		62EA211116B92C7600184E9A /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		62EA211216B92C7600184E9A /* isgisaxs01_reference.ima.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = isgisaxs01_reference.ima.gz; sourceTree = "<group>"; };
+		62EA211316B92C7600184E9A /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		62EA211416B92C7600184E9A /* shared.pri */ = {isa = PBXFileReference; lastKnownFileType = text; path = shared.pri; sourceTree = "<group>"; };
+		62EA211516B92C7600184E9A /* test_all.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test_all.py; sourceTree = "<group>"; };
+		62EA211816B92C7600184E9A /* AxisDoubleTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AxisDoubleTest.h; sourceTree = "<group>"; };
+		62EA211916B92C7600184E9A /* BeamTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BeamTest.h; sourceTree = "<group>"; };
+		62EA211A16B92C7600184E9A /* ChiSquaredModuleTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChiSquaredModuleTest.h; sourceTree = "<group>"; };
+		62EA211B16B92C7600184E9A /* DetectorTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetectorTest.h; sourceTree = "<group>"; };
+		62EA211C16B92C7600184E9A /* ExperimentTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExperimentTest.h; sourceTree = "<group>"; };
+		62EA211D16B92C7600184E9A /* GISASExperimentTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GISASExperimentTest.h; sourceTree = "<group>"; };
+		62EA211E16B92C7600184E9A /* IParameterizedTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IParameterizedTest.h; sourceTree = "<group>"; };
+		62EA211F16B92C7600184E9A /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		62EA212016B92C7600184E9A /* MaskTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaskTest.h; sourceTree = "<group>"; };
+		62EA212116B92C7600184E9A /* OutputDataIteratorTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputDataIteratorTest.h; sourceTree = "<group>"; };
+		62EA212216B92C7600184E9A /* OutputDataTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputDataTest.h; sourceTree = "<group>"; };
+		62EA212316B92C7600184E9A /* ParameterPoolTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParameterPoolTest.h; sourceTree = "<group>"; };
+		62EA212416B92C7600184E9A /* RealParameterWrapperTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealParameterWrapperTest.h; sourceTree = "<group>"; };
+		62EA212516B92C7600184E9A /* TestCore */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = TestCore; sourceTree = "<group>"; };
+		62EA212616B92C7600184E9A /* TestCore.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestCore.pro; sourceTree = "<group>"; };
+		62EA212716B92C7600184E9A /* TestCore.pro.user */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TestCore.pro.user; sourceTree = "<group>"; };
+		62EA212816B92C7600184E9A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		62EA212A16B92C7600184E9A /* main.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = main.o; sourceTree = "<group>"; };
 		62EA736C1628421000656B41 /* IMinimizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMinimizer.h; sourceTree = "<group>"; };
 		62EA736D1628421000656B41 /* IObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IObserver.h; sourceTree = "<group>"; };
 		62EA736E1628421000656B41 /* IParameterized.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IParameterized.h; sourceTree = "<group>"; };
@@ -1170,7 +1302,6 @@
 		62EA73701628421000656B41 /* OutputDataReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputDataReader.h; sourceTree = "<group>"; };
 		62EA73711628421000656B41 /* OutputDataWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputDataWriter.h; sourceTree = "<group>"; };
 		62EA73721628421000656B41 /* ParameterPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParameterPool.h; sourceTree = "<group>"; };
-		62EA73741628422200656B41 /* FitSuite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuite.cpp; sourceTree = "<group>"; };
 		62EA73751628422200656B41 /* IObserver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IObserver.cpp; sourceTree = "<group>"; };
 		62EA73761628422200656B41 /* IParameterized.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IParameterized.cpp; sourceTree = "<group>"; };
 		62EA73771628422200656B41 /* OutputDataIOFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputDataIOFactory.cpp; sourceTree = "<group>"; };
@@ -1179,10 +1310,8 @@
 		62EA737A1628422200656B41 /* ParameterPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterPool.cpp; sourceTree = "<group>"; };
 		62EA73821628425600656B41 /* ISampleBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISampleBuilder.h; sourceTree = "<group>"; };
 		62F3A3B3162D9966007FEE73 /* libboost_iostreams.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_iostreams.dylib; path = ../../../../../opt/local/lib/libboost_iostreams.dylib; sourceTree = "<group>"; };
-		62F3A3B5162D99D5007FEE73 /* FitSuiteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FitSuiteHelper.h; sourceTree = "<group>"; };
 		62F3A3B6162D99D5007FEE73 /* ROOTMinimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROOTMinimizer.h; sourceTree = "<group>"; };
 		62F3A3B7162D99D5007FEE73 /* TreeEventStructure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeEventStructure.h; sourceTree = "<group>"; };
-		62F3A3B8162D99E4007FEE73 /* FitSuiteHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitSuiteHelper.cpp; sourceTree = "<group>"; };
 		62F3A3B9162D99E4007FEE73 /* ROOTMinimizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ROOTMinimizer.cpp; sourceTree = "<group>"; };
 		62F3A3BA162D99E4007FEE73 /* TreeEventStructure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TreeEventStructure.cpp; sourceTree = "<group>"; };
 		62F77E241619992B00C8F15E /* TestMesoCrystal1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMesoCrystal1.cpp; sourceTree = "<group>"; };
@@ -1205,6 +1334,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				621D0BF616A9886C00134391 /* libboost_signals.dylib in Frameworks */,
 				62FDC0681615F2B700D28B08 /* libboost_program_options.dylib in Frameworks */,
 				6222D086160C8513008205AC /* libboost_filesystem.dylib in Frameworks */,
 				6222D087160C8513008205AC /* libboost_regex.dylib in Frameworks */,
@@ -1245,6 +1375,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				621D0BE916A986CB00134391 /* libboost_signals.dylib in Frameworks */,
 				62F3A3B4162D9966007FEE73 /* libboost_iostreams.dylib in Frameworks */,
 				62FDC0641615F1CB00D28B08 /* libboost_program_options.dylib in Frameworks */,
 				62224887160CBD55008205AC /* libgsl.0.dylib in Frameworks */,
@@ -1263,6 +1394,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62EA212D16B9307000184E9A /* libboost_signals.dylib in Frameworks */,
 				622248A9160CC56B008205AC /* gtest.framework in Frameworks */,
 				627C2FDA160B515D004C1B11 /* libGISASFW.Core.dylib in Frameworks */,
 			);
@@ -1284,6 +1416,21 @@
 		622221E9160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				625A172616BAAE23004943DB /* FitSuiteObserverFactory.h */,
+				625A172716BAAE23004943DB /* fp_exception_glibc_extension.h */,
+				625A172816BAAE23004943DB /* MinimizerFactory.h */,
+				625A172916BAAE23004943DB /* ROOTGSLSimAnMinimizer.h */,
+				625A172A16BAAE23004943DB /* ROOTMinimizerHelper.h */,
+				625A172B16BAAE23004943DB /* TestIsGISAXS13.h */,
+				625A172C16BAAE23004943DB /* TestIsGISAXS14.h */,
+				62EA20F516B929CF00184E9A /* IsGISAXSData.h */,
+				62EA20F616B929CF00184E9A /* TestIsGISAXS5.h */,
+				62EA20F716B929CF00184E9A /* TestIsGISAXS6.h */,
+				62EA20F816B929CF00184E9A /* Version.h */,
+				621D0BC616A984EE00134391 /* ROOTGSLNLSMinimizer.h */,
+				621D0BC716A984EE00134391 /* TestFormFactors.h */,
+				621D0BC816A984EE00134391 /* TestIsGISAXS7.h */,
+				621D0BC916A984EE00134391 /* TestIsGISAXS15.h */,
 				6286117A167F6CBD00971496 /* ROOTMinimizerFunction.h */,
 				6286117B167F6CBD00971496 /* TestFumiliLMA.h */,
 				6286117C167F6CBD00971496 /* TestToyExperiment.h */,
@@ -1295,7 +1442,6 @@
 				62CC09991665053C00A5B720 /* TestIsGISAXS4.h */,
 				62CC099A1665053C00A5B720 /* TestIsGISAXS8.h */,
 				62CC099B1665053C00A5B720 /* TestIsGISAXS12.h */,
-				62F3A3B5162D99D5007FEE73 /* FitSuiteHelper.h */,
 				62F3A3B6162D99D5007FEE73 /* ROOTMinimizer.h */,
 				62F3A3B7162D99D5007FEE73 /* TreeEventStructure.h */,
 				6218B467161B25B2007FFA5C /* TestIsGISAXS11.h */,
@@ -1333,7 +1479,20 @@
 		62222224160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
-				6286117D167F6CCE00971496 /* ROOTMinimizerFunction.cpp */,
+				625A172D16BAAE3B004943DB /* FitSuiteObserverFactory.cpp */,
+				625A172E16BAAE3B004943DB /* fp_exception_glibc_extension.c */,
+				625A172F16BAAE3B004943DB /* MinimizerFactory.cpp */,
+				625A173016BAAE3B004943DB /* ROOTGSLSimAnMinimizer.cpp */,
+				625A173116BAAE3B004943DB /* ROOTMinimizerHelper.cpp */,
+				625A173216BAAE3B004943DB /* TestIsGISAXS13.cpp */,
+				625A173316BAAE3B004943DB /* TestIsGISAXS14.cpp */,
+				62EA20F916B929DE00184E9A /* IsGISAXSData.cpp */,
+				62EA20FA16B929DE00184E9A /* TestIsGISAXS5.cpp */,
+				62EA20FB16B929DE00184E9A /* TestIsGISAXS6.cpp */,
+				621D0BCB16A9850000134391 /* ROOTGSLNLSMinimizer.cpp */,
+				621D0BCC16A9850000134391 /* TestFormFactors.cpp */,
+				621D0BCD16A9850000134391 /* TestIsGISAXS7.cpp */,
+				621D0BCE16A9850000134391 /* TestIsGISAXS15.cpp */,
 				6286117E167F6CCE00971496 /* TestFumiliLMA.cpp */,
 				6286117F167F6CCE00971496 /* TestToyExperiment.cpp */,
 				62222225160CB745008205AC /* AppDict.cpp */,
@@ -1341,7 +1500,6 @@
 				62FDC0661615F26C00D28B08 /* AppOptionsDescription.cpp */,
 				62222227160CB745008205AC /* CommandLine.cpp */,
 				62222228160CB745008205AC /* DrawHelper.cpp */,
-				62F3A3B8162D99E4007FEE73 /* FitSuiteHelper.cpp */,
 				6222222A160CB745008205AC /* FunctionalTestFactory.cpp */,
 				6222222B160CB745008205AC /* IFunctionalTest.cpp */,
 				6222222C160CB745008205AC /* IsGISAXSTools.cpp */,
@@ -1383,6 +1541,7 @@
 		62222241160CB745008205AC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				625A170016BAACF9004943DB /* Fitting */,
 				62222244160CB745008205AC /* Algorithms */,
 				6222226E160CB745008205AC /* Core.pro */,
 				62222270160CB745008205AC /* FormFactors */,
@@ -1406,6 +1565,11 @@
 		62222245160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62EA20E516B9295C00184E9A /* InterferenceFunctionStrategies.h */,
+				62EA20E616B9295C00184E9A /* SimulationParameters.h */,
+				62EA20E716B9295C00184E9A /* StrategyBuilder.h */,
+				621D0BD316A9851500134391 /* IsGISAXSMorphologyFileStrategy.h */,
+				621D0BD416A9851500134391 /* SizeSpacingCorrelationApproximationStrategy.h */,
 				62861177167F6C6200971496 /* DetectorParameters.h */,
 				62861178167F6C6200971496 /* ExperimentConstants.h */,
 				6204B7961667A3FC003BF358 /* IIntensityFunction.h */,
@@ -1447,6 +1611,9 @@
 		6222225C160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62EA20E816B9296C00184E9A /* StrategyBuilder.cpp */,
+				621D0BD516A9852A00134391 /* IsGISAXSMorphologyFileStrategy.cpp */,
+				621D0BD616A9852A00134391 /* SizeSpacingCorrelationApproximationStrategy.cpp */,
 				6204B7981667A407003BF358 /* IOutputDataNormalizer.cpp */,
 				62CC096B1665047E00A5B720 /* ChiSquaredFrequency.cpp */,
 				62CC096C1665047E00A5B720 /* FTDistributions.cpp */,
@@ -1487,6 +1654,13 @@
 		62222271160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				625A173B16BAAE69004943DB /* FormFactorCone.h */,
+				625A173C16BAAE69004943DB /* FormFactorFullSpheroid.h */,
+				625A173D16BAAE69004943DB /* FormFactorHemiSpheroid.h */,
+				621D0BEA16A9882900134391 /* FormFactorBox.h */,
+				621D0BEB16A9882900134391 /* FormFactorEllipsoid.h */,
+				621D0BEC16A9882900134391 /* FormFactorPrism6.h */,
+				621D0BED16A9882900134391 /* FormFactorSphere.h */,
 				6254C2601666651F0098EE7E /* IFormFactorBorn.h */,
 				6254C2611666651F0098EE7E /* IFormFactorBornSeparable.h */,
 				6254C2621666651F0098EE7E /* IFormFactorDecorator.h */,
@@ -1517,6 +1691,13 @@
 		62222285160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				625A173E16BAAE77004943DB /* FormFactorCone.cpp */,
+				625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */,
+				625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */,
+				621D0BEE16A9883500134391 /* FormFactorBox.cpp */,
+				621D0BEF16A9883500134391 /* FormFactorEllipsoid.cpp */,
+				621D0BF016A9883500134391 /* FormFactorPrism6.cpp */,
+				621D0BF116A9883500134391 /* FormFactorSphere.cpp */,
 				6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */,
 				6218B465161B2577007FFA5C /* FormFactorParallelepiped.cpp */,
 				62222286160CB745008205AC /* FormFactorCrystal.cpp */,
@@ -1623,6 +1804,11 @@
 		622222B8160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				62EA20EA16B9298400184E9A /* InterferenceFunction2DLattice.h */,
+				62EA20EB16B9298400184E9A /* InterferenceFunctions.h */,
+				62EA20EC16B9298400184E9A /* Lattice2DIFParameters.h */,
+				621D0BE216A985BB00134391 /* IsGISAXSMorphologyFileDecoration.h */,
+				621D0BE316A985BB00134391 /* PositionParticleInfo.h */,
 				62CC0979166504B600A5B720 /* InterferenceFunction2DParaCrystal.h */,
 				62AE01631619C72E00A83353 /* ParticleCoreShell.h */,
 				622222B9160CB745008205AC /* Crystal.h */,
@@ -1660,6 +1846,9 @@
 		622222D9160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62EA20ED16B9299100184E9A /* InterferenceFunction2DLattice.cpp */,
+				621D0BE416A985D100134391 /* IsGISAXSMorphologyFileDecoration.cpp */,
+				621D0BE516A985D100134391 /* PositionParticleInfo.cpp */,
 				62CC097A166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp */,
 				62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */,
 				622222DA160CB745008205AC /* Crystal.cpp */,
@@ -1668,7 +1857,6 @@
 				622222DD160CB745008205AC /* ICompositeIterator.cpp */,
 				622222DE160CB745008205AC /* ICompositeSample.cpp */,
 				622222DF160CB745008205AC /* IMaterial.cpp */,
-				622222E0160CB745008205AC /* IRoughness.cpp */,
 				622222E1160CB745008205AC /* ISample.cpp */,
 				622222E2160CB745008205AC /* InterferenceFunction1DParaCrystal.cpp */,
 				622222E3160CB745008205AC /* Lattice.cpp */,
@@ -1700,23 +1888,23 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				625A16FF16BAA7EC004943DB /* StochasticDoubleGate.h */,
+				62EA20EF16B929A100184E9A /* OutputDataReadStrategy.h */,
+				62EA20F016B929A100184E9A /* OutputDataWriteStrategy.h */,
+				621D0BD916A9855D00134391 /* FastVector.h */,
+				621D0BDB16A9855D00134391 /* IChangeable.h */,
+				621D0BDC16A9855D00134391 /* ICloneable.h */,
+				621D0BDD16A9855D00134391 /* RealParameterWrapper.h */,
 				62027ECF16775A6B00A0D41C /* AxisBin.h */,
 				62027ED016775A6B00A0D41C /* Bin.h */,
 				62027ED116775A6B00A0D41C /* IAxis.h */,
 				62027ED216775A6B00A0D41C /* SafePointerVector.h */,
 				62D7A934166E3F81009A45CE /* AxisDouble.h */,
-				62CC097C166504D600A5B720 /* AttLimits.h */,
-				62CC097D166504D600A5B720 /* FitObject.h */,
-				62CC097E166504D600A5B720 /* FitParameterLinked.h */,
-				62CC097F166504D600A5B720 /* FitSuiteObjects.h */,
-				62CC0980166504D600A5B720 /* FitSuiteParameters.h */,
-				62CC0981166504D600A5B720 /* FitSuiteStrategy.h */,
 				62CC0982166504D600A5B720 /* LLData.h */,
 				62CC0983166504D600A5B720 /* MemberFunctionIntegrator.h */,
 				62CC0984166504D600A5B720 /* OutputDataFunctions.h */,
 				62CC0985166504D600A5B720 /* OutputDataIterator.h */,
 				62F7B50B162C63BF008B8E1D /* DoubleToComplexMap.h */,
-				62EA736B1628421000656B41 /* FitSuite.h */,
 				62EA736C1628421000656B41 /* IMinimizer.h */,
 				62EA736D1628421000656B41 /* IObserver.h */,
 				62EA736E1628421000656B41 /* IParameterized.h */,
@@ -1731,7 +1919,6 @@
 				622222F4160CB745008205AC /* Coordinate3D.h */,
 				622222F5160CB745008205AC /* DoubleToComplexInterpolatingFunction.h */,
 				622222F7160CB745008205AC /* Exceptions.h */,
-				622222F9160CB745008205AC /* FitParameter.h */,
 				622222FA160CB745008205AC /* IDoubleToComplexFunction.h */,
 				622222FB160CB745008205AC /* IFactory.h */,
 				622222FC160CB745008205AC /* INamed.h */,
@@ -1754,15 +1941,12 @@
 		6222230A160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				62EA20F116B929AD00184E9A /* OutputDataReadStrategy.cpp */,
+				62EA20F216B929AD00184E9A /* OutputDataWriteStrategy.cpp */,
+				621D0BDF16A9857A00134391 /* RealParameterWrapper.cpp */,
 				62027ED416775A7700A0D41C /* AxisBin.cpp */,
 				62D7A935166E3F8D009A45CE /* AxisDouble.cpp */,
-				62CC0986166504E700A5B720 /* FitObject.cpp */,
-				62CC0987166504E700A5B720 /* FitParameterLinked.cpp */,
-				62CC0988166504E700A5B720 /* FitSuiteObjects.cpp */,
-				62CC0989166504E700A5B720 /* FitSuiteParameters.cpp */,
-				62CC098A166504E700A5B720 /* FitSuiteStrategy.cpp */,
 				62CC098C166504E700A5B720 /* OutputDataFunctions.cpp */,
-				62EA73741628422200656B41 /* FitSuite.cpp */,
 				62EA73751628422200656B41 /* IObserver.cpp */,
 				62EA73761628422200656B41 /* IParameterized.cpp */,
 				62EA73771628422200656B41 /* OutputDataIOFactory.cpp */,
@@ -1774,7 +1958,6 @@
 				6222230B160CB745008205AC /* Convolve.cpp */,
 				6222230C160CB745008205AC /* DoubleToComplexInterpolatingFunction.cpp */,
 				6222230D160CB745008205AC /* Exceptions.cpp */,
-				6222230F160CB745008205AC /* FitParameter.cpp */,
 				62222310160CB745008205AC /* IFactory.cpp */,
 				62222312160CB745008205AC /* ISingleton.cpp */,
 				62222313160CB745008205AC /* MathFunctions.cpp */,
@@ -68347,34 +68530,58 @@
 			path = ThirdParty;
 			sourceTree = "<group>";
 		};
-		6222478E160CB74C008205AC /* UnitTests */ = {
+		625A170016BAACF9004943DB /* Fitting */ = {
 			isa = PBXGroup;
 			children = (
-				6222478F160CB74C008205AC /* TestCore */,
+				625A170116BAACF9004943DB /* inc */,
+				625A170F16BAACF9004943DB /* src */,
 			);
-			path = UnitTests;
+			path = Fitting;
 			sourceTree = "<group>";
 		};
-		6222478F160CB74C008205AC /* TestCore */ = {
+		625A170116BAACF9004943DB /* inc */ = {
 			isa = PBXGroup;
 			children = (
-				62D7A937166E561E009A45CE /* AxisDoubleTest.h */,
-				62D7A938166E561E009A45CE /* BeamTest.h */,
-				62D7A939166E561E009A45CE /* DetectorTest.h */,
-				62D7A93A166E561E009A45CE /* ExperimentTest.h */,
-				62D7A93B166E561E009A45CE /* GISASExperimentTest.h */,
-				62D7A93C166E561E009A45CE /* MaskTest.h */,
-				62D7A93D166E561E009A45CE /* OutputDataIteratorTest.h */,
-				62224794160CB74C008205AC /* OutputDataTest.h */,
-				62224797160CB74C008205AC /* TestCore.pro */,
-				62224798160CB74C008205AC /* main.cpp */,
+				625A170216BAACF9004943DB /* AttLimits.h */,
+				625A170316BAACF9004943DB /* FitObject.h */,
+				625A170416BAACF9004943DB /* FitParameter.h */,
+				625A170516BAACF9004943DB /* FitParameterLinked.h */,
+				625A170616BAACF9004943DB /* FitSuite.h */,
+				625A170716BAACF9004943DB /* FitSuiteFunctions.h */,
+				625A170816BAACF9004943DB /* FitSuiteObjects.h */,
+				625A170916BAACF9004943DB /* FitSuiteParameters.h */,
+				625A170A16BAACF9004943DB /* FitSuiteStrategies.h */,
+				625A170B16BAACF9004943DB /* IFitSuiteStrategy.h */,
+				625A170C16BAACF9004943DB /* IMinimizer.h */,
+				625A170D16BAACF9004943DB /* MinimizerScan.h */,
+				625A170E16BAACF9004943DB /* MinimizerTest.h */,
 			);
-			path = TestCore;
+			path = inc;
+			sourceTree = "<group>";
+		};
+		625A170F16BAACF9004943DB /* src */ = {
+			isa = PBXGroup;
+			children = (
+				625A171016BAACF9004943DB /* FitObject.cpp */,
+				625A171116BAACF9004943DB /* FitParameter.cpp */,
+				625A171216BAACF9004943DB /* FitParameterLinked.cpp */,
+				625A171316BAACF9004943DB /* FitSuite.cpp */,
+				625A171416BAACF9004943DB /* FitSuiteFunctions.cpp */,
+				625A171516BAACF9004943DB /* FitSuiteObjects.cpp */,
+				625A171616BAACF9004943DB /* FitSuiteParameters.cpp */,
+				625A171716BAACF9004943DB /* FitSuiteStrategies.cpp */,
+				625A171816BAACF9004943DB /* IFitSuiteStrategy.cpp */,
+				625A171916BAACF9004943DB /* MinimizerScan.cpp */,
+				625A171A16BAACF9004943DB /* MinimizerTest.cpp */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		627C2C58160B4937004C1B11 = {
 			isa = PBXGroup;
 			children = (
+				62EA210816B92C7500184E9A /* Tests */,
+				621D0BE816A986CB00134391 /* libboost_signals.dylib */,
 				62F3A3B3162D9966007FEE73 /* libboost_iostreams.dylib */,
 				62FDC0631615F1CB00D28B08 /* libboost_program_options.dylib */,
 				622248A8160CC56B008205AC /* gtest.framework */,
@@ -68387,7 +68594,6 @@
 				622245E7160CB74C008205AC /* README */,
 				622245E8160CB74C008205AC /* shared.pri */,
 				622245E9160CB74C008205AC /* ThirdParty */,
-				6222478E160CB74C008205AC /* UnitTests */,
 				6222D082160C840C008205AC /* libpthread.dylib */,
 				6222D07E160C83F4008205AC /* libdl.dylib */,
 				6222D07F160C83F4008205AC /* libm.dylib */,
@@ -68434,6 +68640,89 @@
 				6222D090160C8E59008205AC /* GISASFW.CL.All */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		62EA210816B92C7500184E9A /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				62EA210916B92C7500184E9A /* FunctionalTests */,
+				62EA211616B92C7600184E9A /* UnitTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		62EA210916B92C7500184E9A /* FunctionalTests */ = {
+			isa = PBXGroup;
+			children = (
+				62EA210A16B92C7500184E9A /* TestCore */,
+			);
+			path = FunctionalTests;
+			sourceTree = "<group>";
+		};
+		62EA210A16B92C7500184E9A /* TestCore */ = {
+			isa = PBXGroup;
+			children = (
+				62EA210B16B92C7600184E9A /* FunctionalTests.pro */,
+				62EA210C16B92C7600184E9A /* FunctionalTests.pro.user */,
+				62EA210D16B92C7600184E9A /* IsGISAXS01 */,
+				62EA211316B92C7600184E9A /* README */,
+				62EA211416B92C7600184E9A /* shared.pri */,
+				62EA211516B92C7600184E9A /* test_all.py */,
+			);
+			path = TestCore;
+			sourceTree = "<group>";
+		};
+		62EA210D16B92C7600184E9A /* IsGISAXS01 */ = {
+			isa = PBXGroup;
+			children = (
+				62EA210E16B92C7600184E9A /* IsGISAXS01.cpp */,
+				62EA210F16B92C7600184E9A /* IsGISAXS01.h */,
+				62EA211016B92C7600184E9A /* IsGISAXS01.pro */,
+				62EA211116B92C7600184E9A /* README */,
+				62EA211216B92C7600184E9A /* isgisaxs01_reference.ima.gz */,
+			);
+			path = IsGISAXS01;
+			sourceTree = "<group>";
+		};
+		62EA211616B92C7600184E9A /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				62EA211716B92C7600184E9A /* TestCore */,
+			);
+			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		62EA211716B92C7600184E9A /* TestCore */ = {
+			isa = PBXGroup;
+			children = (
+				62EA211816B92C7600184E9A /* AxisDoubleTest.h */,
+				62EA211916B92C7600184E9A /* BeamTest.h */,
+				62EA211A16B92C7600184E9A /* ChiSquaredModuleTest.h */,
+				62EA211B16B92C7600184E9A /* DetectorTest.h */,
+				62EA211C16B92C7600184E9A /* ExperimentTest.h */,
+				62EA211D16B92C7600184E9A /* GISASExperimentTest.h */,
+				62EA211E16B92C7600184E9A /* IParameterizedTest.h */,
+				62EA211F16B92C7600184E9A /* Makefile */,
+				62EA212016B92C7600184E9A /* MaskTest.h */,
+				62EA212116B92C7600184E9A /* OutputDataIteratorTest.h */,
+				62EA212216B92C7600184E9A /* OutputDataTest.h */,
+				62EA212316B92C7600184E9A /* ParameterPoolTest.h */,
+				62EA212416B92C7600184E9A /* RealParameterWrapperTest.h */,
+				62EA212516B92C7600184E9A /* TestCore */,
+				62EA212616B92C7600184E9A /* TestCore.pro */,
+				62EA212716B92C7600184E9A /* TestCore.pro.user */,
+				62EA212816B92C7600184E9A /* main.cpp */,
+				62EA212916B92C7600184E9A /* obj */,
+			);
+			path = TestCore;
+			sourceTree = "<group>";
+		};
+		62EA212916B92C7600184E9A /* obj */ = {
+			isa = PBXGroup;
+			children = (
+				62EA212A16B92C7600184E9A /* main.o */,
+			);
+			path = obj;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -68600,7 +68889,6 @@
 				62F77E261619992B00C8F15E /* TestMesoCrystal1.cpp in Sources */,
 				62F77E271619992B00C8F15E /* TestMesoCrystal2.cpp in Sources */,
 				6218B469161B25BC007FFA5C /* TestIsGISAXS11.cpp in Sources */,
-				62F3A3BB162D99E4007FEE73 /* FitSuiteHelper.cpp in Sources */,
 				62F3A3BC162D99E4007FEE73 /* ROOTMinimizer.cpp in Sources */,
 				62F3A3BD162D99E4007FEE73 /* TreeEventStructure.cpp in Sources */,
 				62CC09A41665055E00A5B720 /* TestFittingBenchmark.cpp in Sources */,
@@ -68611,9 +68899,23 @@
 				62CC09A91665055E00A5B720 /* TestIsGISAXS4.cpp in Sources */,
 				62CC09AA1665055E00A5B720 /* TestIsGISAXS8.cpp in Sources */,
 				62CC09AB1665055E00A5B720 /* TestIsGISAXS12.cpp in Sources */,
-				62861180167F6CCE00971496 /* ROOTMinimizerFunction.cpp in Sources */,
 				62861181167F6CCE00971496 /* TestFumiliLMA.cpp in Sources */,
 				62861182167F6CCE00971496 /* TestToyExperiment.cpp in Sources */,
+				621D0BCF16A9850000134391 /* ROOTGSLNLSMinimizer.cpp in Sources */,
+				621D0BD016A9850000134391 /* TestFormFactors.cpp in Sources */,
+				621D0BD116A9850000134391 /* TestIsGISAXS7.cpp in Sources */,
+				621D0BD216A9850000134391 /* TestIsGISAXS15.cpp in Sources */,
+				62EA20FC16B929DE00184E9A /* IsGISAXSData.cpp in Sources */,
+				62EA20FD16B929DE00184E9A /* TestIsGISAXS5.cpp in Sources */,
+				62EA20FE16B929DE00184E9A /* TestIsGISAXS6.cpp in Sources */,
+				62EA212E16B9310000184E9A /* IsGISAXS01.cpp in Sources */,
+				625A173416BAAE3B004943DB /* FitSuiteObserverFactory.cpp in Sources */,
+				625A173516BAAE3B004943DB /* fp_exception_glibc_extension.c in Sources */,
+				625A173616BAAE3B004943DB /* MinimizerFactory.cpp in Sources */,
+				625A173716BAAE3B004943DB /* ROOTGSLSimAnMinimizer.cpp in Sources */,
+				625A173816BAAE3B004943DB /* ROOTMinimizerHelper.cpp in Sources */,
+				625A173916BAAE3B004943DB /* TestIsGISAXS13.cpp in Sources */,
+				625A173A16BAAE3B004943DB /* TestIsGISAXS14.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68663,7 +68965,6 @@
 				6222484D160CB853008205AC /* ICompositeIterator.cpp in Sources */,
 				6222484E160CB853008205AC /* ICompositeSample.cpp in Sources */,
 				6222484F160CB853008205AC /* IMaterial.cpp in Sources */,
-				62224850160CB853008205AC /* IRoughness.cpp in Sources */,
 				62224851160CB853008205AC /* ISample.cpp in Sources */,
 				62224852160CB853008205AC /* InterferenceFunction1DParaCrystal.cpp in Sources */,
 				62224853160CB853008205AC /* Lattice.cpp in Sources */,
@@ -68682,7 +68983,6 @@
 				62224878160CB853008205AC /* Convolve.cpp in Sources */,
 				62224879160CB853008205AC /* DoubleToComplexInterpolatingFunction.cpp in Sources */,
 				6222487A160CB853008205AC /* Exceptions.cpp in Sources */,
-				6222487C160CB853008205AC /* FitParameter.cpp in Sources */,
 				6222487D160CB853008205AC /* IFactory.cpp in Sources */,
 				6222487F160CB853008205AC /* ISingleton.cpp in Sources */,
 				62224880160CB853008205AC /* MathFunctions.cpp in Sources */,
@@ -68693,7 +68993,6 @@
 				62224885160CB853008205AC /* Utils.cpp in Sources */,
 				62BD93501619D05D0008A768 /* ParticleCoreShell.cpp in Sources */,
 				6218B466161B2577007FFA5C /* FormFactorParallelepiped.cpp in Sources */,
-				62EA737B1628422200656B41 /* FitSuite.cpp in Sources */,
 				62EA737C1628422200656B41 /* IObserver.cpp in Sources */,
 				62EA737D1628422200656B41 /* IParameterized.cpp in Sources */,
 				62EA737E1628422200656B41 /* OutputDataIOFactory.cpp in Sources */,
@@ -68707,16 +69006,38 @@
 				62CC09751665047E00A5B720 /* MaskCoordinateFunction.cpp in Sources */,
 				62CC09761665047E00A5B720 /* ResolutionFunction2DSimple.cpp in Sources */,
 				62CC097B166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp in Sources */,
-				62CC098D166504E700A5B720 /* FitObject.cpp in Sources */,
-				62CC098E166504E700A5B720 /* FitParameterLinked.cpp in Sources */,
-				62CC098F166504E700A5B720 /* FitSuiteObjects.cpp in Sources */,
-				62CC0990166504E700A5B720 /* FitSuiteParameters.cpp in Sources */,
-				62CC0991166504E700A5B720 /* FitSuiteStrategy.cpp in Sources */,
 				62CC0992166504E700A5B720 /* OutputDataFunctions.cpp in Sources */,
 				6254C2651666652E0098EE7E /* IFormFactorBorn.cpp in Sources */,
 				6204B7991667A408003BF358 /* IOutputDataNormalizer.cpp in Sources */,
 				62D7A936166E3F8D009A45CE /* AxisDouble.cpp in Sources */,
 				62027ED516775A7700A0D41C /* AxisBin.cpp in Sources */,
+				621D0BD716A9852A00134391 /* IsGISAXSMorphologyFileStrategy.cpp in Sources */,
+				621D0BD816A9852A00134391 /* SizeSpacingCorrelationApproximationStrategy.cpp in Sources */,
+				621D0BE116A9857B00134391 /* RealParameterWrapper.cpp in Sources */,
+				621D0BE616A985D100134391 /* IsGISAXSMorphologyFileDecoration.cpp in Sources */,
+				621D0BE716A985D100134391 /* PositionParticleInfo.cpp in Sources */,
+				621D0BF216A9883500134391 /* FormFactorBox.cpp in Sources */,
+				621D0BF316A9883500134391 /* FormFactorEllipsoid.cpp in Sources */,
+				621D0BF416A9883500134391 /* FormFactorPrism6.cpp in Sources */,
+				621D0BF516A9883500134391 /* FormFactorSphere.cpp in Sources */,
+				62EA20E916B9296C00184E9A /* StrategyBuilder.cpp in Sources */,
+				62EA20EE16B9299100184E9A /* InterferenceFunction2DLattice.cpp in Sources */,
+				62EA20F316B929AD00184E9A /* OutputDataReadStrategy.cpp in Sources */,
+				62EA20F416B929AD00184E9A /* OutputDataWriteStrategy.cpp in Sources */,
+				625A171B16BAACF9004943DB /* FitObject.cpp in Sources */,
+				625A171C16BAACF9004943DB /* FitParameter.cpp in Sources */,
+				625A171D16BAACF9004943DB /* FitParameterLinked.cpp in Sources */,
+				625A171E16BAACF9004943DB /* FitSuite.cpp in Sources */,
+				625A171F16BAACF9004943DB /* FitSuiteFunctions.cpp in Sources */,
+				625A172016BAACF9004943DB /* FitSuiteObjects.cpp in Sources */,
+				625A172116BAACF9004943DB /* FitSuiteParameters.cpp in Sources */,
+				625A172216BAACF9004943DB /* FitSuiteStrategies.cpp in Sources */,
+				625A172316BAACF9004943DB /* IFitSuiteStrategy.cpp in Sources */,
+				625A172416BAACF9004943DB /* MinimizerScan.cpp in Sources */,
+				625A172516BAACF9004943DB /* MinimizerTest.cpp in Sources */,
+				625A174116BAAE77004943DB /* FormFactorCone.cpp in Sources */,
+				625A174216BAAE77004943DB /* FormFactorFullSpheroid.cpp in Sources */,
+				625A174316BAAE77004943DB /* FormFactorHemiSpheroid.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68724,7 +69045,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62224889160CC191008205AC /* main.cpp in Sources */,
+				62EA212B16B92D7500184E9A /* IsGISAXS01.cpp in Sources */,
+				62EA212C16B92D7500184E9A /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69006,6 +69328,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${GTEST_LIB}",
+					/opt/local/lib,
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -69042,6 +69365,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${GTEST_LIB}",
+					/opt/local/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

@@ -1,13 +1,13 @@
 #include "TestIsGISAXS2.h"
 #include "GISASExperiment.h"
 #include "OutputData.h"
-#include "FormFactorCylinder.h"
 #include "Units.h"
 #include "IsGISAXSTools.h"
 #include "Utils.h"
 #include "MultiLayer.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
+#include "OutputDataIOFactory.h"
 
 
 #include "TCanvas.h"
@@ -30,18 +30,17 @@ void TestIsGISAXS2::execute()
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS2_CylindersMixture"));
     experiment.setSample(*sample);
     experiment.runSimulation();
-    IsGISAXSTools::writeOutputDataToFile(*experiment.getOutputData(), m_data_path+"this_bimodal.ima");
-
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_bimodal.ima");
 }
 
 
 void TestIsGISAXS2::finalise()
 {
-    std::string isgi_file(m_data_path+"isgi_bimodal.ima");
+    std::string isgi_file(m_data_path+"isgi_bimodal.ima.gz");
     std::string this_file(m_data_path+"this_bimodal.ima");
 
-    OutputData<double> *isgi_data = IsGISAXSTools::readOutputDataFromFile(isgi_file);
-    OutputData<double> *our_data = IsGISAXSTools::readOutputDataFromFile(this_file);
+    OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(isgi_file);
+    OutputData<double> *our_data = OutputDataIOFactory::getOutputData(this_file);
 
     TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("TestIsGISAXS2_c1", "Mixture of cylindrical particles with different size distribution");
 

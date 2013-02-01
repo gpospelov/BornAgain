@@ -79,7 +79,7 @@ namespace Geometry {
     double zz = cosa + (1-cosa)*cz*cz;
 
     cx = x(); cy = y(); cz = z();
-    set(xx*cx+xy*cy+xz*cz, yx*cx+yy*cy+yz*cz, zx*cx+zy*cy+zz*cz);
+    setXYZ(xx*cx+xy*cy+xz*cz, yx*cx+yy*cy+yz*cz, zx*cx+zy*cy+zz*cz);
     return *this;
   }
 
@@ -156,7 +156,7 @@ namespace Geometry {
   BasicVector3D<double> &
   BasicVector3D<double>::transform(const Transform3D & m) {
     double vx = x(), vy = y(), vz = z();
-    set(m.xx()*vx + m.xy()*vy + m.xz()*vz,
+    setXYZ(m.xx()*vx + m.xy()*vy + m.xz()*vz,
     m.yx()*vx + m.yy()*vy + m.yz()*vz,
     m.zx()*vx + m.zy()*vy + m.zz()*vz);
     return *this;
@@ -166,7 +166,7 @@ namespace Geometry {
   BasicVector3D<std::complex<double> > &
   BasicVector3D<std::complex<double> >::transform(const Transform3D & m) {
     std::complex<double> vx = x(), vy = y(), vz = z();
-    set(m.xx()*vx + m.xy()*vy + m.xz()*vz,
+    setXYZ(m.xx()*vx + m.xy()*vy + m.xz()*vz,
     m.yx()*vx + m.yy()*vy + m.yz()*vz,
     m.zx()*vx + m.zy()*vy + m.zz()*vz);
     return *this;

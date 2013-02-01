@@ -176,7 +176,7 @@ namespace Geometry {
     /**
      * Assignment. */
     Point3D<double> & operator=(const Point3D<double> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
+      setXYZ(v.x(),v.y(),v.z()); return *this;
     }
 
 //    /**
@@ -188,7 +188,7 @@ namespace Geometry {
     /**
      * Assignment from BasicVector3D<double>. */
     Point3D<double> & operator=(const BasicVector3D<double> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
+      setXYZ(v.x(),v.y(),v.z()); return *this;
     }
 
     /**

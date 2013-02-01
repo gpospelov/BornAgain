@@ -20,7 +20,7 @@
 class FormFactorEllipsoid : public IFormFactorBorn
 {
 public:
-    FormFactorEllipsoid(double radius, double width, double height );
+    FormFactorEllipsoid( double radius, double width, double height, double alpha);
     ~FormFactorEllipsoid();
     virtual FormFactorEllipsoid *clone() const;
 
@@ -33,7 +33,7 @@ public:
     double getWidth() const { return m_width; }
 
     virtual double getVolume() const {
-        return 4.0*m_radius*m_width*m_height;
+        return 2.0*m_height*m_radius*m_width;
     }
 
     virtual double getHeight() const { return m_height; }
@@ -49,6 +49,7 @@ private:
     double m_radius;
     double m_width;
     double m_height;
+    double m_alpha;
 };
 
 #endif // FORMFACTORELLIPSOID_H

@@ -1,6 +1,5 @@
 #include "LatticeBasis.h"
-#include "FormFactorWeighted.h"
-#include "FormFactorDecoratorMultiPositionFactor.h"
+#include "FormFactors.h"
 #include "DiffuseParticleInfo.h"
 
 LatticeBasis::LatticeBasis()

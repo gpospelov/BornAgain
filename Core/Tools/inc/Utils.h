@@ -14,15 +14,33 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   19.06.2012
 
-#include <string>
-#include <vector>
-#include <map>
-#include <iostream>
-#include <sstream>
-#include "Exceptions.h"
+#include "Types.h"
+//#include <string>
+//#include <vector>
+//#include <map>
+//#include <iostream>
+//#include <sstream>
+//#include "Exceptions.h"
 #include <boost/unordered_map.hpp>
 
 namespace Utils {
+
+//- -------------------------------------------------------------------
+//! @class String
+//! @brief Collection of utilities for std::string
+//- -------------------------------------------------------------------
+class String
+{
+public:
+    //! parse double values from string to vector of double
+    static vdouble1d_t parse_doubles(const std::string &str);
+    //! assuming that string consist of doubles return new string where doubles are rounded according to the precision
+    static std::string round_doubles(const std::string &str, int precision);
+    //! return true if text matches pattern with wildcards '*' and '?'
+    static bool MatchPattern(const std::string &text, std::string wildcardPattern);
+    //! split string into vector of string using delimeter
+    static std::vector<std::string> Split(const std::string &text, const std::string &delimeter);
+};
 
 
 //- -------------------------------------------------------------------
@@ -67,19 +85,6 @@ private:
 
 
 //- -------------------------------------------------------------------
-//! @class StringMatchText
-//! @brief Definition of StringMatchText class to perform simple '*' and '?'
-//! wilcard matching
-//- -------------------------------------------------------------------
-class StringMatchText
-{
-public:
-    //! return true if text matches wildcards
-    static bool WildcardPattern(const std::string &text, std::string wildcardPattern);
-};
-
-
-//- -------------------------------------------------------------------
 //! @class FileSystem
 //! @brief different utilities to deal with file system
 //- -------------------------------------------------------------------
@@ -95,6 +100,14 @@ public:
     //! set relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
     static void SetRelativePath(const std::string &path) { m_relative_path = path; }
 
+    //! return file extension
+    static std::string GetFileExtension(const std::string &name);
+
+    //! return true if name contains *.gz extension
+    static bool isGZipped(const std::string &name);
+
+    //! return file extension after stripping '.gz' if any
+    static std::string GetFileMainExtension(const std::string &name);
 private:
     static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module
 };
@@ -147,6 +160,7 @@ private:
 
     container_t m_value_map;
 };
+
 
 
 }

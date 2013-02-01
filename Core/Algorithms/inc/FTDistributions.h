@@ -38,9 +38,21 @@ public:
 
     virtual IFTDistribution2D *clone() const=0;
 
+    // set angle between first lattice vector and X-axis of distribution (both in direct space)
+    void setGamma(double gamma) { m_gamma = gamma; }
+
+    // get angle between first lattice vector and X-axis of distribution (both in direct space)
     double getGamma() const { return m_gamma; }
+
+    // get angle between X- and Y-axis of distribution (in direct space)
     double getDelta() const { return m_delta; }
+
+    //! evaluate IF for q in X,Y coordinates
     virtual double evaluate(double qx, double qy) const=0;
+
+    //! transform back to a*, b* basis:
+    virtual void transformToStarBasis(double qX, double qY,
+            double alpha, double a, double b, double &qa, double &qb) const=0;
 protected:
     double m_omega_x;
     double m_omega_y;
@@ -57,6 +69,9 @@ public:
     virtual FTDistribution2DCauchy *clone() const;
 
     virtual double evaluate(double qx, double qy) const;
+
+    virtual void transformToStarBasis(double qX, double qY,
+            double alpha, double a, double b, double &qa, double &qb) const;
 protected:
     virtual void init_parameters();
 };

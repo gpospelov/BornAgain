@@ -2,26 +2,30 @@ TEMPLATE = app
 CONFIG  += console
 CONFIG  -= qt
 CONFIG  -= app_bundle
-#CONFIG  += debug
 QT      -= core gui
-#CONFIG += GPERFTOOLS # to compile with GPERFTOOLS support for code profiling
 
 include($$PWD/../shared.pri)
 
+FUNCTIONAL_TESTS = $$PWD/../Tests/FunctionalTests/TestCore
 
 # -----------------------------------------------------------------------------
 # Our source and headers
 # -----------------------------------------------------------------------------
 SOURCES += \
+    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp \
     src/AppOptionsDescription.cpp \
     src/CommandLine.cpp \
     src/DrawHelper.cpp \
-    src/FitSuiteHelper.cpp \
+    src/FitSuiteObserverFactory.cpp \
     src/FunctionalTestFactory.cpp \
     src/IFunctionalTest.cpp \
+    src/IsGISAXSData.cpp \
     src/IsGISAXSTools.cpp \
-    src/main.cpp \
+    src/MinimizerFactory.cpp \
+    src/ROOTGSLNLSMinimizer.cpp \
+    src/ROOTGSLSimAnMinimizer.cpp \
     src/ROOTMinimizer.cpp \
+    src/ROOTMinimizerHelper.cpp \
     src/SampleFactory.cpp \
     src/StandardSamples.cpp \
     src/TestConvolution.cpp \
@@ -32,19 +36,25 @@ SOURCES += \
     src/TestFittingModule2.cpp \
     src/TestFittingModule3.cpp \
     src/TestFormFactor.cpp \
+    src/TestFormFactors.cpp \
     src/TestFourier.cpp \
     src/TestFresnelCoeff.cpp \
     src/TestFumiliLMA.cpp \
     src/TestIsGISAXS1.cpp \
-    src/TestIsGISAXS2.cpp \
-    src/TestIsGISAXS3.cpp \
-    src/TestIsGISAXS4.cpp \
-    src/TestIsGISAXS7.cpp \
-    src/TestIsGISAXS8.cpp \
-    src/TestIsGISAXS9.cpp \
     src/TestIsGISAXS10.cpp \
     src/TestIsGISAXS11.cpp \
     src/TestIsGISAXS12.cpp \
+    src/TestIsGISAXS13.cpp \
+    src/TestIsGISAXS14.cpp \
+    src/TestIsGISAXS15.cpp \
+    src/TestIsGISAXS2.cpp \
+    src/TestIsGISAXS3.cpp \
+    src/TestIsGISAXS4.cpp \
+    src/TestIsGISAXS5.cpp \
+    src/TestIsGISAXS6.cpp \
+    src/TestIsGISAXS7.cpp \
+    src/TestIsGISAXS8.cpp \
+    src/TestIsGISAXS9.cpp \
     src/TestMesoCrystal1.cpp \
     src/TestMesoCrystal2.cpp \
     src/TestMiscellaneous.cpp \
@@ -54,20 +64,26 @@ SOURCES += \
     src/TestRoughness.cpp \
     src/TestToyExperiment.cpp \
     src/TreeEventStructure.cpp \
-    src/ROOTMinimizerFunction.cpp \
-    src/ROOTGSLNLSMinimizer.cpp
+    src/main.cpp
 
 HEADERS += \
+    $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
     inc/App.h \
     inc/AppLinkDef.h \
     inc/AppOptionsDescription.h \
     inc/CommandLine.h \
     inc/DrawHelper.h \
-    inc/FitSuiteHelper.h \
+    inc/FitSuiteObserverFactory.h \
     inc/FunctionalTestFactory.h \
     inc/IFunctionalTest.h \
+    inc/IsGISAXSData.h \
     inc/IsGISAXSTools.h \
+    inc/MinimizerFactory.h \
+    inc/ROOTGSLNLSMinimizer.h \
+    inc/ROOTGSLSimAnMinimizer.h \
     inc/ROOTMinimizer.h \
+    inc/ROOTMinimizerFunction.h \
+    inc/ROOTMinimizerHelper.h \
     inc/SampleFactory.h \
     inc/StandardSamples.h \
     inc/TestConvolution.h \
@@ -78,19 +94,25 @@ HEADERS += \
     inc/TestFittingModule2.h \
     inc/TestFittingModule3.h \
     inc/TestFormFactor.h \
+    inc/TestFormFactors.h \
     inc/TestFourier.h \
     inc/TestFresnelCoeff.h \
     inc/TestFumiliLMA.h \
     inc/TestIsGISAXS1.h \
-    inc/TestIsGISAXS2.h \
-    inc/TestIsGISAXS3.h \
-    inc/TestIsGISAXS4.h \
-    inc/TestIsGISAXS7.h \
-    inc/TestIsGISAXS8.h \
-    inc/TestIsGISAXS9.h \
     inc/TestIsGISAXS10.h \
     inc/TestIsGISAXS11.h \
     inc/TestIsGISAXS12.h \
+    inc/TestIsGISAXS13.h \
+    inc/TestIsGISAXS14.h \
+    inc/TestIsGISAXS15.h \
+    inc/TestIsGISAXS2.h \
+    inc/TestIsGISAXS3.h \
+    inc/TestIsGISAXS4.h \
+    inc/TestIsGISAXS5.h \
+    inc/TestIsGISAXS6.h \
+    inc/TestIsGISAXS7.h \
+    inc/TestIsGISAXS8.h \
+    inc/TestIsGISAXS9.h \
     inc/TestMesoCrystal1.h \
     inc/TestMesoCrystal2.h \
     inc/TestMiscellaneous.h \
@@ -100,28 +122,31 @@ HEADERS += \
     inc/TestRoughness.h \
     inc/TestToyExperiment.h \
     inc/TreeEventStructure.h \
-    inc/ROOTMinimizerFunction.h \
-    inc/ROOTGSLNLSMinimizer.h
+    inc/Version.h \
 
-INCLUDEPATH += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
-DEPENDPATH  += ./inc ../Core/Algorithms/inc ../Core/FormFactors/inc ../Core/Geometry/inc ../Core/Samples/inc ../Core/Tools/inc ../Core/PythonAPI/inc
+# to through exception in the case floating point exception (gcc only)
+CONFIG(DEBUG_FPE) {
+    HEADERS += inc/fp_exception_glibc_extension.h
+    SOURCES += src/fp_exception_glibc_extension.c
+}
+
+# additional locations
+LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01
+INCLUDEPATH += $${LOCATIONS}
+DEPENDPATH  += $${LOCATIONS}
 
 OBJECTS_DIR = obj
-
 
 # -----------------------------------------------------------------------------
 # generating package dependency flags
 # -----------------------------------------------------------------------------
-MY_DEPENDENCY_LIB = ScattCore
+MY_DEPENDENCY_LIB = BornAgainCore
 MY_DEPENDENCY_DEST =$$PWD/..
 SONAME = so
-#INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc
 for(dep, MY_DEPENDENCY_LIB) {
     LIBS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
     PRE_TARGETDEPS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-#    INCLUDEPATH += $${MY_DEPENDENCY_DEST}/inc/$${dep}
 }
-
 
 # -----------------------------------------------------------------------------
 # adding ROOT libraries
@@ -141,7 +166,6 @@ isEmpty(MYROOT) {
   LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
   MYROOTCINT = $${MYROOT}/bin/rootcint
 }
-
 
 # -----------------------------------------------------------------------------
 # Hand made addition to generate root dictionaries in the
@@ -166,6 +190,7 @@ rootcint.depends      = $$CREATE_ROOT_DICT_FOR_CLASSES
 rootcintecho.commands = @echo "Generating dictionary $$rootcint.target for $$CREATE_ROOT_DICT_FOR_CLASSES classes"
 QMAKE_EXTRA_TARGETS += rootcintecho rootcint
 QMAKE_CLEAN       +=  src/$${ROOT_CINT_TARGET}Dict.cpp src/$${ROOT_CINT_TARGET}Dict.h
+QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 
 
 

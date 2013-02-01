@@ -2,6 +2,8 @@
 #include "InterferenceFunctionNone.h"
 #include "DecouplingApproximationStrategy.h"
 #include "LocalMonodisperseApproximationStrategy.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "SizeSpacingCorrelationApproximationStrategy.h"
 
 /* ************************************************************************* */
 ParticleDecoration::ParticleDecoration()
@@ -21,10 +23,6 @@ ParticleDecoration::~ParticleDecoration()
 {
     for (size_t i=0; i<m_particles.size(); ++i) {
         delete m_particles[i];
-    }
-
-    for (size_t i=0; i<m_interference_functions.size(); ++i) {
-        delete m_interference_functions[i];
     }
 }
 
@@ -122,34 +120,3 @@ const IInterferenceFunction* ParticleDecoration::getInterferenceFunction(size_t 
     }
     throw OutOfBoundsException("ParticleDecoration::getInterferenceFunction() -> Not so many interference functions in this decoration.");
 }
-
-
-/* ************************************************************************* */
-// create strategy
-/* ************************************************************************* */
-IInterferenceFunctionStrategy* ParticleDecoration::createStrategy(
-        const std::vector<IFormFactor*>& form_factors) const
-{
-    std::vector<double> fractions;
-    for (size_t i=0; i<m_particles.size(); ++i) {
-        fractions.push_back(getAbundanceFractionOfParticle(i));
-    }
-    IInterferenceFunctionStrategy *p_strategy;
-    size_t n_particles = m_particles.size();
-    size_t n_ifs = m_interference_functions.size();
-    if (n_ifs==1) {
-        p_strategy = new DecouplingApproximationStrategy();
-    }
-    else if (n_ifs==n_particles) {
-        p_strategy = new LocalMonodisperseApproximationStrategy();
-    }
-    else {
-        std::ostringstream ostr;
-        ostr << "ParticleDecoration::createStrategy() -> Error! Could not create interference function strategy with given parameters  ";
-        ostr << "n_particles:" << n_particles << " n_interference_function:" << n_ifs << ".";
-        throw ClassInitializationException(ostr.str());
-    }
-    p_strategy->init(form_factors, fractions, m_interference_functions);
-    return p_strategy;
-}
-

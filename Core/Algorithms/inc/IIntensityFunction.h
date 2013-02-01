@@ -34,6 +34,14 @@ public:
     virtual double evaluate(double value) const { return (value > 0 ? std::log(value) : 0); }
 };
 
+class IntensityFunctionSqrt : public IIntensityFunction
+{
+public:
+    virtual ~IntensityFunctionSqrt() {}
+    virtual IntensityFunctionSqrt *clone() const { return new IntensityFunctionSqrt(); }
+    virtual double evaluate(double value) const { return (value > 0 ? std::sqrt(value) : 0); }
+};
+
 
 
 #endif // IINTENSITYFUNCTION_H

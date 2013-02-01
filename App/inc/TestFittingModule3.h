@@ -20,6 +20,7 @@
 #include "ISample.h"
 #include "GISASExperiment.h"
 #include "ISampleBuilder.h"
+#include "SafePointerVector.h"
 #include <vector>
 
 class FitSuite;
@@ -31,7 +32,7 @@ class FitSuite;
 class TestFittingModule3 : public IFunctionalTest
 {
 public:
-    typedef std::vector<OutputData<double > *> DataScan_t;
+    typedef SafePointerVector<OutputData<double> >  DataScan_t;
 
     TestFittingModule3();
     virtual ~TestFittingModule3();

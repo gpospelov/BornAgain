@@ -12,17 +12,17 @@
 #include "LatticeBasis.h"
 #include "Crystal.h"
 #include "MesoCrystal.h"
-#include "InterferenceFunction1DParaCrystal.h"
-#include "InterferenceFunction2DParaCrystal.h"
-#include "FormFactorWeighted.h"
+#include "InterferenceFunctions.h"
 #include "StochasticGaussian.h"
+
 #include "Numeric.h"
 #include "MathFunctions.h"
 #include "ParticleBuilder.h"
 #include "StochasticSampledParameter.h"
 #include "ParticleCoreShell.h"
-#include "IsGISAXSMorphologyFileDecoration.h"
 
+#include "Particle.h"
+#include "PositionParticleInfo.h"
 
 /* ************************************************************************* */
 // 10 nm of ambience on top of substrate.
@@ -350,35 +350,31 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
 //
 
 
-
-
-
-
 /* ************************************************************************* */
 // IsGISAXS1 functional test: cylinder and prism
 /* ************************************************************************* */
-ISample *StandardSamples::IsGISAXS1_CylinderAndPrism()
-{
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),0.0, 0.5);
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)), 0.0, 0.5);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+//ISample *StandardSamples::IsGISAXS1_CylinderAndPrism()
+//{
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-6e-6, 2e-8);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+//    Layer air_layer;
+//    air_layer.setMaterial(p_air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(p_substrate_material);
+//    ParticleDecoration particle_decoration;
+//    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),0.0, 0.5);
+//    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)), 0.0, 0.5);
+//    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+//    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
-    p_multi_layer->addLayer(substrate_layer);
-    return p_multi_layer;
-}
+//    p_multi_layer->addLayer(air_layer_decorator);
+//    p_multi_layer->addLayer(substrate_layer);
+//    return p_multi_layer;
+//}
 
 
 /* ************************************************************************* */
@@ -560,6 +556,139 @@ ISample *StandardSamples::IsGISAXS4_2DDL()
 }
 
 /* ************************************************************************* */
+// IsGISAXS6 functional test: cylinders with lattice interference function
+/* ************************************************************************* */
+ISample *StandardSamples::IsGISAXS6_lattice()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    Lattice2DIFParameters lattice_params = {
+            10.0*Units::nanometer,       // L1
+            10.0*Units::nanometer,       // L2
+            90.0*Units::degree,          // lattice angle
+            0.0*Units::degree,           // lattice orientation
+            20000.0*Units::nanometer,    // domain size 1
+            20000.0*Units::nanometer,    // domain size 2
+            300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+            100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+    };
+    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    p_interference_function->setProbabilityDistribution(pdf);
+
+    ParticleDecoration particle_decoration;
+    // particle
+    FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+    kvector_t position(0.0, 0.0, 0.0);
+    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    particle_decoration.addParticleInfo(particle_info);
+
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+// IsGISAXS6 functional test: cylinders lattice centered
+ISample *StandardSamples::IsGISAXS6_centered()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    Lattice2DIFParameters lattice_params = {
+            10.0*Units::nanometer,       // L1
+            10.0*Units::nanometer,       // L2
+            90.0*Units::degree,          // lattice angle
+            0.0*Units::degree,           // lattice orientation
+            20000.0*Units::nanometer,    // domain size 1
+            20000.0*Units::nanometer,    // domain size 2
+            300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+            100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+    };
+    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    p_interference_function->setProbabilityDistribution(pdf);
+
+    ParticleDecoration particle_decoration;
+    // particle 1
+    FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+    kvector_t position(0.0, 0.0, 0.0);
+    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    particle_decoration.addParticleInfo(particle_info);
+    // particle 2
+    kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
+    particle_info.setPosition(position_2);
+    particle_decoration.addParticleInfo(particle_info);
+
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+// IsGISAXS6 functional test: cylinders lattice rotated
+ISample *StandardSamples::IsGISAXS6_rotated()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    Lattice2DIFParameters lattice_params = {
+            10.0*Units::nanometer,       // L1
+            10.0*Units::nanometer,       // L2
+            90.0*Units::degree,          // lattice angle
+            30.0*Units::degree,           // lattice orientation
+            20000.0*Units::nanometer,    // domain size 1
+            20000.0*Units::nanometer,    // domain size 2
+            300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+            100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+    };
+    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    pdf.setGamma(30.0*Units::degree);
+    p_interference_function->setProbabilityDistribution(pdf);
+
+    ParticleDecoration particle_decoration;
+    // particle
+    FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+    kvector_t position(0.0, 0.0, 0.0);
+    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    particle_decoration.addParticleInfo(particle_info);
+
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
 // IsGISAXS7 functional test: particle mixture from morphology file
 /* ************************************************************************* */
 ISample *StandardSamples::IsGISAXS7_morphology()
@@ -570,65 +699,66 @@ ISample *StandardSamples::IsGISAXS7_morphology()
     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
-    IsGISAXSMorphologyFileDecoration particle_decoration;
+    ParticleDecoration particle_decoration;
     // add particle number 1:
     FormFactorBox ff1(1.0*Units::nanometer, 1.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos1(0.0*Units::nanometer, 0.0*Units::nanometer, 0.0);
-    particle_decoration.addParticle(new Particle(n_particle, ff1), 0, pos1, 0.5);
+    PositionParticleInfo particle_info1(new Particle(n_particle, ff1), 0, pos1, 0.5);
+    particle_decoration.addParticleInfo(particle_info1);
     // add particle number 2:
     FormFactorBox ff2(1.0*Units::nanometer, 2.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot2(10*Units::degree);
-    Particle particle2(n_particle, ff2);
-    particle_decoration.addParticle(particle2, rot2, pos2, 0.5);
+    Geometry::RotateZ3D *p_rot2 = new Geometry::RotateZ3D(10*Units::degree);
+    PositionParticleInfo particle_info2(new Particle(n_particle, ff2), p_rot2, pos2, 0.5);
+    particle_decoration.addParticleInfo(particle_info2);
     // add particle number 3:
     FormFactorBox ff3(1.0*Units::nanometer, 3.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos3(-5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot3(20*Units::degree);
-    Particle particle3(n_particle, ff3);
-    particle_decoration.addParticle(particle3, rot3, pos3, 0.5);
+    Geometry::RotateZ3D *p_rot3 = new Geometry::RotateZ3D(20*Units::degree);
+    PositionParticleInfo particle_info3(new Particle(n_particle, ff3), p_rot3, pos3, 0.5);
+    particle_decoration.addParticleInfo(particle_info3);
     // add particle number 4:
     FormFactorBox ff4(1.0*Units::nanometer, 4.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos4(5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot4(30*Units::degree);
-    Particle particle4(n_particle, ff4);
-    particle_decoration.addParticle(particle4, rot4, pos4, 0.5);
+    Geometry::RotateZ3D *p_rot4 = new Geometry::RotateZ3D(30*Units::degree);
+    PositionParticleInfo particle_info4(new Particle(n_particle, ff4), p_rot4, pos4, 0.5);
+    particle_decoration.addParticleInfo(particle_info4);
     // add particle number 5:
     FormFactorBox ff5(1.0*Units::nanometer, 5.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos5(-5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot5(40*Units::degree);
-    Particle particle5(n_particle, ff5);
-    particle_decoration.addParticle(particle5, rot5, pos5, 0.5);
+    Geometry::RotateZ3D *p_rot5 = new Geometry::RotateZ3D(40*Units::degree);
+    PositionParticleInfo particle_info5(new Particle(n_particle, ff5), p_rot5, pos5, 0.5);
+    particle_decoration.addParticleInfo(particle_info5);
     // add particle number 6:
     FormFactorBox ff6(1.0*Units::nanometer, 1.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos6(0.0*Units::nanometer, 0.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot6(50*Units::degree);
-    Particle particle6(n_particle, ff6);
-    particle_decoration.addParticle(particle6, rot6, pos6, 0.5);
+    Geometry::RotateZ3D *p_rot6 = new Geometry::RotateZ3D(50*Units::degree);
+    PositionParticleInfo particle_info6(new Particle(n_particle, ff6), p_rot6, pos6, 0.5);
+    particle_decoration.addParticleInfo(particle_info6);
     // add particle number 7:
     FormFactorBox ff7(1.0*Units::nanometer, 2.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos7(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot7(60*Units::degree);
-    Particle particle7(n_particle, ff7);
-    particle_decoration.addParticle(particle7, rot7, pos7, 0.5);
+    Geometry::RotateZ3D *p_rot7 = new Geometry::RotateZ3D(60*Units::degree);
+    PositionParticleInfo particle_info7(new Particle(n_particle, ff7), p_rot7, pos7, 0.5);
+    particle_decoration.addParticleInfo(particle_info7);
     // add particle number 8:
     FormFactorBox ff8(1.0*Units::nanometer, 3.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos8(-5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot8(70*Units::degree);
-    Particle particle8(n_particle, ff8);
-    particle_decoration.addParticle(particle8, rot8, pos8, 0.5);
+    Geometry::RotateZ3D *p_rot8 = new Geometry::RotateZ3D(70*Units::degree);
+    PositionParticleInfo particle_info8(new Particle(n_particle, ff8), p_rot8, pos8, 0.5);
+    particle_decoration.addParticleInfo(particle_info8);
     // add particle number 9:
     FormFactorBox ff9(1.0*Units::nanometer, 4.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos9(5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot9(80*Units::degree);
-    Particle particle9(n_particle, ff9);
-    particle_decoration.addParticle(particle9, rot9, pos9, 0.5);
+    Geometry::RotateZ3D *p_rot9 = new Geometry::RotateZ3D(80*Units::degree);
+    PositionParticleInfo particle_info9(new Particle(n_particle, ff9), p_rot9, pos9, 0.5);
+    particle_decoration.addParticleInfo(particle_info9);
     // add particle number 10:
     FormFactorBox ff10(1.0*Units::nanometer, 5.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos10(-5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot10(90*Units::degree);
-    Particle particle10(n_particle, ff10);
-    particle_decoration.addParticle(particle10, rot10, pos10, 0.5);
+    Geometry::RotateZ3D *p_rot10 = new Geometry::RotateZ3D(90*Units::degree);
+    PositionParticleInfo particle_info10(new Particle(n_particle, ff10), p_rot10, pos10, 0.5);
+    particle_decoration.addParticleInfo(particle_info10);
 
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     p_multi_layer->addLayer(air_layer_decorator);
@@ -802,6 +932,68 @@ ISample *StandardSamples::IsGISAXS11_CoreShellParticles()
 }
 
 /* ************************************************************************* */
+// IsGISAXS14 functional test: layered sphere on graded interface
+/* ************************************************************************* */
+ISample *StandardSamples::IsGISAXS14_LayeredSpheresOnGradedInterface()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-5, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air10", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate10", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,5*Units::nanometer, 1e7*Units::nanometer);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorSphere(5*Units::nanometer, 5.*2.0*Units::nanometer)));
+    //ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorFullSphere(5.0*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    //particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    //    particle_decoration.setTotalParticleSurfaceDensity(1.0/(20.0*Units::nanometer*20.0*Units::nanometer));
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
+// IsGISAXS15 functional test: size-spacing correlation approximation
+/* ************************************************************************* */
+ISample *StandardSamples::IsGISAXS15_SSCA()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    InterferenceFunction1DParaCrystal *p_interference_function = new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,5*Units::nanometer, 1e3*Units::nanometer);
+    p_interference_function->setKappa(4.02698);
+    ParticleDecoration particle_decoration;
+    Particle particle_prototype(n_particle, new FormFactorCylinder(5.0*Units::nanometer, 5.0*Units::nanometer));
+    StochasticSampledParameter stochastic_radius(StochasticDoubleGaussian(5.0*Units::nanometer, 1.25*Units::nanometer),
+            30, 2);
+    ParticleBuilder particle_builder;
+    particle_builder.setPrototype(particle_prototype, "/Particle/FormFactorCylinder/radius", stochastic_radius);
+    particle_builder.plantParticles(particle_decoration);
+
+    // Set height of each particle to its radius (H/R fixed)
+    ParameterPool *p_parameters = particle_decoration.createParameterTree();
+    int nbr_replacements = p_parameters->fixRatioBetweenParameters("height", "radius", 1.0);
+    std::cout << "Number of replacements: " << nbr_replacements << std::endl;
+//    std::cout << *p_parameters << std::endl;
+
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    p_multi_layer->addLayer(air_layer_decorator);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
 // first mesco crystal test
 /* ************************************************************************* */
 ISample *StandardSamples::MesoCrystal1()
@@ -921,3 +1113,274 @@ ISample *StandardSamples::MesoCrystal2()
     return p_multi_layer;
 
 }
+
+/* ************************************************************************* */
+// functional test: Box
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Box()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorBox(5*Units::nanometer, 5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
+//  functional test: Form Factor Cone
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Cone()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorCone(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ))));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+
+/* ************************************************************************* */
+//  functional test: Form Factor Sphere
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Sphere()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorSphere(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
+//  functional test: Form Factor Ellipsoid
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Ellipsoid()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorEllipsoid(5*Units::nanometer, 5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ))));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+
+/* ************************************************************************* */
+//  functional test: Form Factor Full Spheroid
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_FullSpheroid()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-5, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorFullSpheroid(5*Units::nanometer, 7*Units::nanometer )));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+
+/* ************************************************************************* */
+//  functional test: Form Factor Hemi Spheroid
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_HemiSpheroid()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-7, 2e-8);
+    complex_t n_particle(1.0-6e-5, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorHemiSpheroid(5*Units::nanometer, 4*Units::nanometer, 2*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
+// functional test: Form Factor parallelepiped
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Parallelpiped()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_particle_shell(1.0-1e-4, 2e-8);
+    complex_t n_particle_core(1.0-6e-5, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air11", n_air);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Particle shell_particle(n_particle_shell, new FormFactorParallelepiped(8*Units::nanometer, 8*Units::nanometer));
+    Particle core_particle(n_particle_core, new FormFactorParallelepiped(7*Units::nanometer, 6*Units::nanometer));
+    kvector_t core_position(0.0, 0.0, 0.0);
+    ParticleCoreShell particle(shell_particle, core_particle, core_position);
+    ParticleDecoration particle_decoration(particle.clone());
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    return p_multi_layer;
+}
+
+
+/* ************************************************************************* */
+// functional test: Form Factor Cylinder
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Cylinder()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_particle_shell(1.0-1e-4, 2e-8);
+    complex_t n_particle_core(1.0-6e-5, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air11", n_air);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Particle shell_particle(n_particle_shell, new FormFactorCylinder(8*Units::nanometer, 8*Units::nanometer));
+    Particle core_particle(n_particle_core, new FormFactorCylinder(7*Units::nanometer, 6*Units::nanometer));
+    kvector_t core_position(0.0, 0.0, 0.0);
+    ParticleCoreShell particle(shell_particle, core_particle, core_position);
+    ParticleDecoration particle_decoration(particle.clone());
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    return p_multi_layer;
+}
+
+/* ************************************************************************* */
+// Functional test: Pyramid
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Pyramid()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(
+                new Particle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ) ) ) );
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+
+/* ************************************************************************* */
+// functional test: Prism3
+/* ************************************************************************* */
+ISample *StandardSamples::FormFactor_Prism3()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-7e-6, 2e-8);
+    complex_t n_particle(1.0-8e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
+}
+
+ /************************************************************************** */
+ // Functional test: Full Sphere
+ /************************************************************************** */
+    ISample *StandardSamples::FormFactor_FullSphere()
+     {
+     MultiLayer *p_multi_layer = new MultiLayer();
+     complex_t n_air(1.0, 0.0);
+     complex_t n_substrate(1.0-6e-6, 2e-8);
+     complex_t n_particle(1.0-6e-4, 2e-8);
+     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+     const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+     Layer air_layer;
+     air_layer.setMaterial(p_air_material);
+     Layer substrate_layer;
+     substrate_layer.setMaterial(p_substrate_material);
+     ParticleDecoration particle_decoration(
+                 new Particle(n_particle, new FormFactorFullSphere(5*Units::nanometer ) ) );
+     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+     p_multi_layer->addLayer(air_layer_decorator);
+     p_multi_layer->addLayer(substrate_layer);
+     return p_multi_layer;
+     }

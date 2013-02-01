@@ -3,6 +3,7 @@
 #include "Exceptions.h"
 #include "MathFunctions.h"
 #include "ExperimentConstants.h"
+#include "DrawHelper.h"
 
 #include "TCanvas.h"
 #include "TH1D.h"
@@ -19,6 +20,7 @@
 #include <iomanip>
 #include <cmath>
 #include <algorithm>
+#include <cassert>
 
 double IsGISAXSTools::m_hist_min = 0;
 double IsGISAXSTools::m_hist_max = 0;
@@ -33,6 +35,7 @@ void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
         const std::string& canvas_name, const std::string& canvas_title,
         const std::string& draw_options, const std::string &histogram_title)
 {
+    assert(&output);
     TCanvas *c1 = new TCanvas(canvas_name.c_str(), canvas_title.c_str(), 0, 0, 1024, 768);
     IsGISAXSTools::setMinimum(1.);
     c1->cd();
@@ -47,6 +50,7 @@ void IsGISAXSTools::drawOutputData(const OutputData<double>& output,
         const std::string& canvas_name, const std::string& canvas_title,
         const std::string& draw_options, const std::string &histogram_title)
 {
+    assert(&output);
     TCanvas *c1 = new TCanvas(canvas_name.c_str(), canvas_title.c_str(), 0, 0, 1024, 768);
     c1->cd();
     drawOutputDataInPad(output, draw_options, histogram_title);
@@ -58,6 +62,7 @@ void IsGISAXSTools::drawOutputData(const OutputData<double>& output,
 void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         const std::string& draw_options, const std::string &histogram_title)
 {
+    assert(&output);
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataInPad() -> Error! No canvas exists.");
     }
@@ -84,6 +89,7 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
 /* ************************************************************************* */
 TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const std::string &histo_name)
 {
+    assert(&output);
     if (output.getNdimensions() !=2) throw( "IsGISAXSTools::getOutputDataTH2D() -> Warning! Expected number of dimensiobs is 2.");
 
     std::vector<AxisStructure > haxises;
@@ -145,6 +151,7 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
 /* ************************************************************************* */
 TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const std::string &histo_name)
 {
+    assert(&output);
     if (output.getNdimensions() >3) {
         std::cout << "IsGISAXSTools::getOutputDataTH123D() -> Warning! Expected number of dimensions should be not more than 3" << std::endl;
         return 0;
@@ -269,6 +276,8 @@ void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double> &outpu
 /* ************************************************************************* */
 void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
 {
+    assert(&left);
+    assert(&right);
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataDifference1D() -> Error! No canvas exists.");
     }
@@ -319,6 +328,8 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
 /* ************************************************************************* */
 void IsGISAXSTools::drawOutputDataRelativeDifference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
 {
+    assert(&left);
+    assert(&right);
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataDifference2D -> Error! No canvas exists.");
     }
@@ -341,6 +352,8 @@ void IsGISAXSTools::drawOutputDataRelativeDifference2D(const OutputData<double> 
 /* ************************************************************************* */
 void IsGISAXSTools::drawOutputDataChi2Difference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
 {
+    assert(&left);
+    assert(&right);
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataDifference2D -> Error! No canvas exists.");
     }
@@ -364,99 +377,99 @@ void IsGISAXSTools::drawOutputDataChi2Difference2D(const OutputData<double> &lef
 /* ************************************************************************* */
 // write output data (1D or 2D) in ASCII file
 /* ************************************************************************* */
-void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
-        const std::string &filename, int precision)
-{
-    std::ofstream file;
-    file.open(filename.c_str(), std::ios::out);
-    if( !file.is_open() ) {
-        std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing." << std::endl;
-        return;
-        //throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing.");
-    }
-    size_t row_length = output.getAxis(1)->getSize();
-    OutputData<double>::const_iterator it = output.begin();
-    while(it != output.end()) {
-        double z_value = *it++;
-        file << std::scientific << std::setprecision(precision) << z_value << "    ";
-        if(it.getIndex()%row_length==0) {
-            file << std::endl;
-        }
-    }
-    if ( file.bad() ) {
-        throw FileIsBadException("IsGISAXSTools::writeOutputDataToFile() -> Error! File is bad, probably it is a directory.");
-    }
-    file.close();
-    std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Info. File '" << filename << "' successfully created." << std::endl;
-}
+//void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
+//        const std::string &filename, int precision)
+//{
+//    std::ofstream file;
+//    file.open(filename.c_str(), std::ios::out);
+//    if( !file.is_open() ) {
+//        std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing." << std::endl;
+//        return;
+//        //throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing.");
+//    }
+//    size_t row_length = output.getAxis(1)->getSize();
+//    OutputData<double>::const_iterator it = output.begin();
+//    while(it != output.end()) {
+//        double z_value = *it++;
+//        file << std::scientific << std::setprecision(precision) << z_value << "    ";
+//        if(it.getIndex()%row_length==0) {
+//            file << std::endl;
+//        }
+//    }
+//    if ( file.bad() ) {
+//        throw FileIsBadException("IsGISAXSTools::writeOutputDataToFile() -> Error! File is bad, probably it is a directory.");
+//    }
+//    file.close();
+//    std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Info. File '" << filename << "' successfully created." << std::endl;
+//}
 
 
-/* ************************************************************************* */
-// read data from ASCII file (2D assumed) and fill newly created OutputData with it
-/* ************************************************************************* */
-OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &filename, int precision)
-{
-    // opening ASCII file
-    std::ifstream fin;
-    fin.open(filename.c_str(), std::ios::in);
-    if( !fin.is_open() ) {
-        throw FileNotIsOpenException("IsGISAXSTools::readOutputDataFromFile() -> Error. Can't open file '"+filename+"' for reading.");
-    }
+///* ************************************************************************* */
+//// read data from ASCII file (2D assumed) and fill newly created OutputData with it
+///* ************************************************************************* */
+//OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &filename, int precision)
+//{
+//    // opening ASCII file
+//    std::ifstream fin;
+//    fin.open(filename.c_str(), std::ios::in);
+//    if( !fin.is_open() ) {
+//        throw FileNotIsOpenException("IsGISAXSTools::readOutputDataFromFile() -> Error. Can't open file '"+filename+"' for reading.");
+//    }
 
-    typedef std::vector<double > double1d_t;
-    typedef std::vector<double1d_t > double2d_t;
-    std::string sline;
-    double2d_t buff_2d;
-    // reading file line by line, every line is parsed into vector of double, so at the end we have buffer_2d of doubles
+//    typedef std::vector<double > double1d_t;
+//    typedef std::vector<double1d_t > double2d_t;
+//    std::string sline;
+//    double2d_t buff_2d;
+//    // reading file line by line, every line is parsed into vector of double, so at the end we have buffer_2d of doubles
 
-    while( std::getline(fin, sline))
-    {
-        // here we mimic different precision in numbers contained in string, if precision is say 6, than 7.2908527770e+03 -> 7.290853e+03
-        if(precision > 0) {
-            std::string newline;
-            std::istringstream is0(sline.c_str());
-            double number;
-            while( is0 >> number ) {
-                std::ostringstream os;
-                os << std::scientific << std::setprecision(precision) << number;
-                newline += os.str() + std::string("    ");
-            }
-            sline = newline;
-        }
+//    while( std::getline(fin, sline))
+//    {
+//        // here we mimic different precision in numbers contained in string, if precision is say 6, than 7.2908527770e+03 -> 7.290853e+03
+//        if(precision > 0) {
+//            std::string newline;
+//            std::istringstream is0(sline.c_str());
+//            double number;
+//            while( is0 >> number ) {
+//                std::ostringstream os;
+//                os << std::scientific << std::setprecision(precision) << number;
+//                newline += os.str() + std::string("    ");
+//            }
+//            sline = newline;
+//        }
 
-        double1d_t buff_1d;
-        std::istringstream iss(sline);
-        std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(), back_inserter(buff_1d));
-        if( buff_1d.empty() ) {
-            std::cout << "'" << sline << "'" << std::endl;
-            throw LogicErrorException("IsGISAXSTools::readOutputDataFromFile() -> Error. Null size of vector; file: "+filename);
-        }
-        buff_2d.push_back(buff_1d);
-    }
-    if ( fin.bad() ) {
-        throw FileIsBadException("IsGISAXSTools::readOutputDataFromFile() -> Error! File is bad after readline(), probably it is a directory.");
-    }
-    fin.close();
+//        double1d_t buff_1d;
+//        std::istringstream iss(sline);
+//        std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(), back_inserter(buff_1d));
+//        if( buff_1d.empty() ) {
+//            std::cout << "'" << sline << "'" << std::endl;
+//            throw LogicErrorException("IsGISAXSTools::readOutputDataFromFile() -> Error. Null size of vector; file: "+filename);
+//        }
+//        buff_2d.push_back(buff_1d);
+//    }
+//    if ( fin.bad() ) {
+//        throw FileIsBadException("IsGISAXSTools::readOutputDataFromFile() -> Error! File is bad after readline(), probably it is a directory.");
+//    }
+//    fin.close();
 
-    // creating new OutputData and filling it with values from buffer_2d
-    int y_size = (int)buff_2d.size();
-    int x_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
-    OutputData<double> *p_result = new OutputData<double>;
-    p_result->addAxis(NDetector2d::PHI_AXIS_NAME, x_size, 0.0, double(x_size));
-    p_result->addAxis(NDetector2d::ALPHA_AXIS_NAME, y_size, 0.0, double(y_size));
-    p_result->setAllTo(0.0);
+//    // creating new OutputData and filling it with values from buffer_2d
+//    int y_size = (int)buff_2d.size();
+//    int x_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
+//    OutputData<double> *p_result = new OutputData<double>;
+//    p_result->addAxis(NDetector2d::PHI_AXIS_NAME, x_size, 0.0, double(x_size));
+//    p_result->addAxis(NDetector2d::ALPHA_AXIS_NAME, y_size, 0.0, double(y_size));
+//    p_result->setAllTo(0.0);
 
-    OutputData<double>::iterator it = p_result->begin();
-    while (it != p_result->end())
-    {
-        size_t index_x = p_result->toCoordinates(it.getIndex())[0];
-        size_t index_y = p_result->toCoordinates(it.getIndex())[1];
-        *it = buff_2d[index_x][index_y];
-        ++it;
-    }
+//    OutputData<double>::iterator it = p_result->begin();
+//    while (it != p_result->end())
+//    {
+//        size_t index_x = p_result->toCoordinates(it.getIndex())[0];
+//        size_t index_y = p_result->toCoordinates(it.getIndex())[1];
+//        *it = buff_2d[index_x][index_y];
+//        ++it;
+//    }
 
-    return p_result;
-}
+//    return p_result;
+//}
 
 
 void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output_data
@@ -464,6 +477,7 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
                                         , std::vector<std::vector<double > > &v_axis0
                                         , std::vector<std::vector<double > > &v_axis1)
 {
+    assert(&output_data);
     if (output_data.getRank() != 2) return;
 
     const IAxis *p_axis0 = output_data.getAxis(0);
@@ -510,6 +524,8 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
 /* ************************************************************************* */
 TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double> &data)
 {
+    assert(&data);
+
     if(data.getNdimensions() != 2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanLine() -> Error! Number of dimensions should be 2");
     double x1(0), x2(0), y1(0), y2(0);
     if( data.getAxis(NDetector2d::ALPHA_AXIS_NAME) && data.getAxis(NDetector2d::ALPHA_AXIS_NAME)->getSize() == 1) {
@@ -539,6 +555,8 @@ TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double> &data)
 /* ************************************************************************* */
 TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const std::string &hname)
 {
+    assert(&data);
+
     if(data.getNdimensions() != 2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Number of dimensions should be 2");
     // one of axis should have dimension 1
     if( (data.getAxis(NDetector2d::ALPHA_AXIS_NAME) && data.getAxis(NDetector2d::ALPHA_AXIS_NAME)->getSize() != 1) && (data.getAxis(NDetector2d::PHI_AXIS_NAME) && data.getAxis(NDetector2d::PHI_AXIS_NAME)->getSize() != 1))
@@ -577,6 +595,7 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const
 /* ************************************************************************* */
 OutputData<double > *IsGISAXSTools::createNoisyData(const OutputData<double> &exact_data, double noise_factor)
 {
+    assert(&exact_data);
     OutputData<double > *real_data = exact_data.clone();
     OutputData<double>::iterator it = real_data->begin();
     while (it != real_data->end()) {
@@ -593,6 +612,7 @@ OutputData<double > *IsGISAXSTools::createNoisyData(const OutputData<double> &ex
 
 OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData<double> &exact_data, double sigma)
 {
+    assert(&exact_data);
     OutputData<double > *real_data = exact_data.clone();
     OutputData<double>::iterator it = real_data->begin();
     while (it != real_data->end()) {
@@ -604,3 +624,37 @@ OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData
     return real_data;
 }
 
+
+void IsGISAXSTools::drawOutputDataComparisonResults(const OutputData<double> &data, const OutputData<double> &reference, const std::string &name, const std::string &title)
+{
+    assert(&data);
+    assert(&reference);
+    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas(name, title);
+    c1->Divide(2,2);
+
+    // our calculations
+    c1->cd(1); gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::setMinimum(1.0);
+    IsGISAXSTools::drawOutputDataInPad(data, "CONT4 Z", "this");
+
+    // isgisaxs data
+    c1->cd(2); gPad->SetLogz();
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::drawOutputDataInPad(reference, "CONT4 Z", "isgi");
+
+    // difference
+    c1->cd(3);
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::setMinimum(-0.0001);
+    IsGISAXSTools::setMaximum(0.0001);
+    IsGISAXSTools::drawOutputDataRelativeDifference2D(data, reference, "CONT4 Z", "2D Difference map");
+
+    // difference
+    c1->cd(4);
+    gPad->SetRightMargin(0.12);
+    IsGISAXSTools::resetMinimumAndMaximum();
+    IsGISAXSTools::setMinimum(1);
+    IsGISAXSTools::drawOutputDataDifference1D(data, reference, "", "Difference spectra");
+
+}

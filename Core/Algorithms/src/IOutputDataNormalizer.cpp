@@ -12,26 +12,26 @@ OutputDataNormalizerScaleAndShift::OutputDataNormalizerScaleAndShift()
     init_parameters();
 }
 
-OutputDataNormalizerScaleAndShift::OutputDataNormalizerScaleAndShift(double scale, double shift)
+OutputDataNormalizerScaleAndShift::OutputDataNormalizerScaleAndShift(double scale, double shift, double max_intensity)
     : m_scale(scale)
     , m_shift(shift)
-    , m_max_intensity(0)
+    , m_max_intensity(max_intensity)
 {
     setName("Normalizer");
     init_parameters();
 }
 
-OutputDataNormalizerScaleAndShift::OutputDataNormalizerScaleAndShift(const OutputDataNormalizerScaleAndShift &other) : IOutputDataNormalizer()
-{
-    m_scale = other.m_scale;
-    m_shift = other.m_shift;
-    m_max_intensity = other.m_max_intensity;
-}
+//OutputDataNormalizerScaleAndShift::OutputDataNormalizerScaleAndShift(const OutputDataNormalizerScaleAndShift &other) : IOutputDataNormalizer()
+//{
+//    m_scale = other.m_scale;
+//    m_shift = other.m_shift;
+//    m_max_intensity = other.m_max_intensity;
+//}
 
 
 OutputDataNormalizerScaleAndShift *OutputDataNormalizerScaleAndShift::clone() const
 {
-    return new OutputDataNormalizerScaleAndShift(*this);
+    return new OutputDataNormalizerScaleAndShift(m_scale, m_shift, m_max_intensity);
 }
 
 void  OutputDataNormalizerScaleAndShift::init_parameters()
@@ -52,12 +52,9 @@ OutputData<double> *OutputDataNormalizerScaleAndShift::createNormalizedData(cons
         max_intensity = (*cit);
     }
     if(max_intensity == 0) throw LogicErrorException("OutputDataNormalizerScaleAndShift::createNormalizedData() -> Error! Zero maximum intensity");
-    OutputData<double >::iterator it = normalized_data->begin();
-    while(it!=normalized_data->end()) {
+    for(OutputData<double >::iterator it = normalized_data->begin(); it!=normalized_data->end(); ++it) {
         double value = (*it);
         (*it) = m_scale*(value/max_intensity) + m_shift;
-        ++it;
     }
-
     return normalized_data;
 }

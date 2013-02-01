@@ -56,7 +56,7 @@ def GenerateModuleFile(OutputTempDir, files_inc, files_src):
   python_module_file = OutputTempDir+"/PythonModule.cpp"
   fout = open(python_module_file, 'w')
   fout.write("#include \"Python.h\"\n")
-  fout.write("#define PY_ARRAY_UNIQUE_SYMBOL scatt_ARRAY_API \n")
+  fout.write("#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY \n")
   fout.write("#include \"numpy/arrayobject.h\"\n")
   fout.write("// the order of 3 guys above is important\n")
   fout.write("\n")
@@ -67,7 +67,7 @@ def GenerateModuleFile(OutputTempDir, files_inc, files_src):
   fout.write("\n")
   fout.write("#include \"PythonListConverter.h\"\n")
   fout.write("\n")
-  fout.write("BOOST_PYTHON_MODULE(libScattCore){\n")
+  fout.write("BOOST_PYTHON_MODULE(libBornAgainCore){\n")
   fout.write("\n")
   # adding register lines
   #for ff in files_inc:

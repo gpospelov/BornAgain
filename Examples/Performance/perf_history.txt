@@ -175,6 +175,13 @@
 2013-01-23 17:35:45 | jcnsopc73  | macosx64, 2800 MHz      | 273973  | 22.2222 | 21.7391 | 5.26316 | 
 2013-01-23 17:35:51 | jcnsopc73  | macosx64, 2800 MHz      | 273973  | 22.2222 | 21.978  | 5.40541 | 
 
-# status of the art, -O2 (compilation time = 2min 21 sec)
+# status of the art, clang -O2 (compilation time = 2min 21 sec)
 2013-01-23 17:40:29 | jcnsopc73  | macosx64, 2800 MHz      | 281690  | 21.978  | 21.978  | 5.40541 | 
-2013-01-23 17:40:36 | jcnsopc73  | macosx64, 2800 MHz      | 281690  | 21.978  | 21.978  | 5.40541 | 
+2013-01-23 17:40:36 | jcnsopc73  | macosx64, 2800 MHz      | 281690  | 21.978  | 21.978  | 5.40541 |
+
+# status of the art, clang -O2 (user time 2.25, cpu time 2.16)
+2013-01-31 15:54:17 | jcnsopc73  | macosx64, 2800 MHz      | 289855  | 24.3902 | 24.0964 | 6.06061 | 
+2013-01-31 15:57:45 | jcnsopc73  | macosx64, 2800 MHz      | 289855  | 24.0964 | 24.0964 | 5.88235 | 
+# clang -O2,g (user 2.55, cpu 2.43)
+2013-01-31 16:02:03 | jcnsopc73  | macosx64, 2800 MHz      | 281690  | 24.3902 | 24.0964 | 5.88235 | 
+

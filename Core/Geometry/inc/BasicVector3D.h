@@ -220,7 +220,7 @@ class Transform3D;
     /**
      * Gets polar angle. */
     inline T theta() const {
-      return x() == 0.0 && y() == 0.0 && z() == 0.0 ? 0.0 : std::atan2(perp(),z());
+      return x() == 0.0 && y() == 0.0 && z() == 0.0 ? 0.0 : std::atan2(magxy(),z());
     }
     /**
      * Gets cosine of polar angle. */
@@ -255,7 +255,7 @@ class Transform3D;
     inline void setTheta(T th) {
       T ma = mag();
       T ph = phi();
-      set(ma*std::sin(th)*std::cos(ph), ma*std::sin(th)*std::sin(ph), ma*std::cos(th));
+      setXYZ(ma*std::sin(th)*std::cos(ph), ma*std::sin(th)*std::sin(ph), ma*std::cos(th));
     }
 
     // ---------------

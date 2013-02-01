@@ -1,36 +1,34 @@
-#
+# run all tests
+
 import sys
 import os
 import subprocess
 import time
 
-#Tests = ["IsGISAXS01", "IsGISAXS02", "IsGISAXS07", "IsGISAXS010", "IsGISAXS011"]
-Tests = ["IsGISAXS01", "IsGISAXS02"]
+import isgisaxs01
+
+
+Tests = {
+    "IsGISAXS01": isgisaxs01.RunTest,
+    "IsGISAXS02": isgisaxs01.RunTest
+}
+
 test_info = []
 
-
-# run system command and catch multiline stdout and stderr
-def run_command(command):
-    p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    return iter(p.stdout.readline, b''), iter(p.stderr.readline, b'')
-
-
 # parse stdout, stderr for test description and test result
-def parse_output(testName, stdout, stderr):
+def parse_output(testName, test_result):
     # normally the message from test looks like "IsGISAXS01 Mixture of cylinders and prisms [OK]"
     # we want to find status (FAILED or OK) and extract description "Mixture of cylinders and prisms"
     status="OK"
-    for line in stderr:
-        status="FAILED" # test failed, if there are some non empty stderr messages
     descr=""
-    for line in stdout:
-        if testName in line:
-            if "FAILED" in line:
-                status="FAILED"
-            descr=line.strip(testName).strip("\n")
-            descr=descr.strip("[OK]")
-            descr=descr.strip("[FAILED]")
-
+    if testName in test_result:
+        if "FAILED" in test_result:
+            status="FAILED"
+        descr=test_result.strip(testName).strip("\n")
+        descr=descr.strip("[OK]")
+        descr=descr.strip("[FAILED]")
+    else:
+       descr = "Can't parse the description"
     descr = descr[:55]
     descr = descr.ljust(55)
     return descr, status
@@ -39,13 +37,13 @@ def parse_output(testName, stdout, stderr):
 # run tests one by one
 def runTests():
     for testName in Tests:
-        command = testName+"/"+testName # i.e. "path/executable" like "IsGISAXS01/IsGISAXS01"
         print "Running test ", testName
         start_time = time.time()
-        stdout, stderr = run_command(command)
+        result = Tests[testName]()
         total_time = time.time() - start_time
-        descr, status = parse_output(testName, stdout, stderr)
+        descr, status = parse_output(testName, result)
         test_info.append((testName, descr, total_time, status))
+
 
 # print test results
 def printResults():

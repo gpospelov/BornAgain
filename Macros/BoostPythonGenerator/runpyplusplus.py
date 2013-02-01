@@ -250,9 +250,10 @@ def AdditionalRules(mb):
   # --- LayerDecorator.h ----------------------------------------------
   if "LayerDecorator.h" in myFiles:
     cl = mb.class_( "LayerDecorator" )
-    cl.member_function( "createDiffuseDWBASimulation").exclude()
-    cl.member_function( "createDWBASimulation").exclude()
-    cl.member_function( "createStrategy").exclude()
+    cl.member_functions().exclude()
+    #cl.member_function( "createDiffuseDWBASimulation").exclude()
+    #cl.member_function( "createDWBASimulation").exclude()
+    #cl.member_function( "createStrategy").exclude()
 
   # --- LayerRoughness.h ----------------------------------------------
   if "LayerRoughness.h" in myFiles:
@@ -292,7 +293,7 @@ def AdditionalRules(mb):
   if "ParticleDecoration.h" in myFiles:
     cl = mb.class_( "ParticleDecoration" )
     cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-    cl.member_function("createStrategy").exclude()
+    #cl.member_function("createStrategy").exclude()
 
   # --- OpticalFresnel.h ----------------------------------------------
   #if "OpticalFresnel.h" in myFiles:

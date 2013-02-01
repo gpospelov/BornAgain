@@ -1,11 +1,11 @@
 ###############################################################################
 # qmake project file to compile shared library
 ###############################################################################
-TARGET   = ScattCore
+TARGET   = BornAgainCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)
@@ -368,13 +368,13 @@ MYPREFIX = $$PWD/.. # place to install library and headers
 target.path = $$MYPREFIX/lib
 INSTALLS += target
 #includes.files = $$PWD/inc/*.h
-#includes.path = $$MYPREFIX/inc/ScattCore
+#includes.path = $$MYPREFIX/inc/BornAgainCore
 #INSTALLS += includes
 # there is a soft bug here in qmake, it looks like flag '-r' works
 # only when it appears at the beginning of QMAKE_DISTCLEAN variable
 # i.e. the order below is important
 #QMAKE_DISTCLEAN += -r $$includes.path
-#QMAKE_DISTCLEAN += $$MYPREFIX/inc/ScattCore
+#QMAKE_DISTCLEAN += $$MYPREFIX/inc/BornAgainCore
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 QMAKE_POST_LINK = (make install)

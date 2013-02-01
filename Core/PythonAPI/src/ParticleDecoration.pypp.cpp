@@ -3,8 +3,13 @@
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 GCC_DIAG_OFF(missing-field-initializers);
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
+GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
+GCC_DIAG_ON(unused-parameter);
+GCC_DIAG_ON(missing-field-initializers);
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 #include "BasicVector3D.h"
@@ -80,6 +85,42 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     
     ::ParticleDecoration * default_clone(  ) const  {
         return ParticleDecoration::clone( );
+    }
+
+    virtual double getAbundanceFractionOfParticle( ::size_t index ) const  {
+        if( bp::override func_getAbundanceFractionOfParticle = this->get_override( "getAbundanceFractionOfParticle" ) )
+            return func_getAbundanceFractionOfParticle( index );
+        else{
+            return this->ParticleDecoration::getAbundanceFractionOfParticle( index );
+        }
+    }
+    
+    double default_getAbundanceFractionOfParticle( ::size_t index ) const  {
+        return ParticleDecoration::getAbundanceFractionOfParticle( index );
+    }
+
+    virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const  {
+        if( bp::override func_getInterferenceFunctions = this->get_override( "getInterferenceFunctions" ) )
+            return func_getInterferenceFunctions(  );
+        else{
+            return this->ParticleDecoration::getInterferenceFunctions(  );
+        }
+    }
+    
+    ::SafePointerVector< IInterferenceFunction > default_getInterferenceFunctions(  ) const  {
+        return ParticleDecoration::getInterferenceFunctions( );
+    }
+
+    virtual ::size_t getNumberOfInterferenceFunctions(  ) const  {
+        if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
+            return func_getNumberOfInterferenceFunctions(  );
+        else{
+            return this->ParticleDecoration::getNumberOfInterferenceFunctions(  );
+        }
+    }
+    
+    ::size_t default_getNumberOfInterferenceFunctions(  ) const  {
+        return ParticleDecoration::getNumberOfInterferenceFunctions( );
     }
 
     virtual ::size_t getNumberOfParticles(  ) const  {
@@ -230,13 +271,22 @@ void register_ParticleDecoration_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getAbundanceFractionOfParticle"
-            , (double ( ::ParticleDecoration::* )( ::size_t ) const)( &::ParticleDecoration::getAbundanceFractionOfParticle )
+            , (double ( ::ParticleDecoration::* )( ::size_t ) const)(&::ParticleDecoration::getAbundanceFractionOfParticle)
+            , (double ( ParticleDecoration_wrapper::* )( ::size_t ) const)(&ParticleDecoration_wrapper::default_getAbundanceFractionOfParticle)
             , ( bp::arg("index") ) )    
         .def( 
             "getInterferenceFunction"
             , (::IInterferenceFunction const * ( ::ParticleDecoration::* )( ::size_t ) const)( &::ParticleDecoration::getInterferenceFunction )
             , ( bp::arg("index") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "getInterferenceFunctions"
+            , (::SafePointerVector< IInterferenceFunction > ( ::ParticleDecoration::* )(  ) const)(&::ParticleDecoration::getInterferenceFunctions)
+            , (::SafePointerVector< IInterferenceFunction > ( ParticleDecoration_wrapper::* )(  ) const)(&ParticleDecoration_wrapper::default_getInterferenceFunctions) )    
+        .def( 
+            "getNumberOfInterferenceFunctions"
+            , (::size_t ( ::ParticleDecoration::* )(  ) const)(&::ParticleDecoration::getNumberOfInterferenceFunctions)
+            , (::size_t ( ParticleDecoration_wrapper::* )(  ) const)(&ParticleDecoration_wrapper::default_getNumberOfInterferenceFunctions) )    
         .def( 
             "getNumberOfParticles"
             , (::size_t ( ::ParticleDecoration::* )(  ) const)(&::ParticleDecoration::getNumberOfParticles)

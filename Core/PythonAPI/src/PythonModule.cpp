@@ -1,5 +1,5 @@
 #include "Python.h"
-#define PY_ARRAY_UNIQUE_SYMBOL scatt_ARRAY_API 
+#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #include "numpy/arrayobject.h"
 // the order of 3 guys above is important
 
@@ -77,7 +77,7 @@
 
 #include "PythonListConverter.h"
 
-BOOST_PYTHON_MODULE(libScattCore){
+BOOST_PYTHON_MODULE(libBornAgainCore){
 
     register_vdouble1d_t_class();
     register_vector_IFormFactorPtr_t_class();

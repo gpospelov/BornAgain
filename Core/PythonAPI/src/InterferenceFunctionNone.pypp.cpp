@@ -3,8 +3,13 @@
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 GCC_DIAG_OFF(missing-field-initializers);
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
+GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
+GCC_DIAG_ON(unused-parameter);
+GCC_DIAG_ON(missing-field-initializers);
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 #include "BasicVector3D.h"
@@ -118,6 +123,18 @@ struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper<
         return IParameterized::createParameterTree( );
     }
 
+    virtual double getKappa(  ) const  {
+        if( bp::override func_getKappa = this->get_override( "getKappa" ) )
+            return func_getKappa(  );
+        else{
+            return this->IInterferenceFunction::getKappa(  );
+        }
+    }
+    
+    double default_getKappa(  ) const  {
+        return IInterferenceFunction::getKappa( );
+    }
+
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -178,6 +195,10 @@ void register_InterferenceFunctionNone_class(){
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( InterferenceFunctionNone_wrapper::* )(  ) const)(&InterferenceFunctionNone_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "getKappa"
+            , (double ( ::IInterferenceFunction::* )(  ) const)(&::IInterferenceFunction::getKappa)
+            , (double ( InterferenceFunctionNone_wrapper::* )(  ) const)(&InterferenceFunctionNone_wrapper::default_getKappa) )    
         .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)

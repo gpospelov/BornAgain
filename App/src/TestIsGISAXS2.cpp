@@ -1,7 +1,6 @@
 #include "TestIsGISAXS2.h"
 #include "GISASExperiment.h"
 #include "OutputData.h"
-#include "FormFactorCylinder.h"
 #include "Units.h"
 #include "IsGISAXSTools.h"
 #include "Utils.h"

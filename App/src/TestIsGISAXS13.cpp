@@ -3,7 +3,6 @@
 #include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
-#include "FormFactorCylinder.h"
 #include "GISASExperiment.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
@@ -42,9 +41,10 @@
 
 
 TestIsGISAXS13::TestIsGISAXS13()
-    : IFunctionalTest("TestIsGISAXS13")
-    , m_experiment(0)
-    , m_sample_builder(0)
+: IFunctionalTest("TestIsGISAXS13")
+, mp_experiment(0)
+, mp_sample_builder(0)
+, mp_fitSuite(0)
 
 {
     setOutputPath(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-13/");
@@ -67,10 +67,10 @@ void TestIsGISAXS13::execute()
 void TestIsGISAXS13::run_isgisaxs_fit()
 {
 
-    m_fitSuite = new FitSuite();
+    mp_fitSuite = new FitSuite();
 
     // minimizer
-    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
+    mp_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("GSLSimAn") );
     // m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
     // m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
     // m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
@@ -79,17 +79,17 @@ void TestIsGISAXS13::run_isgisaxs_fit()
     // m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Scan") );
 
     // observers
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(10) );
-    m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver(50) );
+    mp_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver(10) );
+    mp_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver(50) );
 
     // fit parameters
-    m_fitSuite->addFitParameter("*Normalizer/scale", 1e5, 1e3, AttLimits::limited(1e4, 2e5));
-    m_fitSuite->addFitParameter("*Normalizer/shift", 10, 0.1, AttLimits::limited(0., 20.));
-    m_fitSuite->addFitParameter("*SampleBuilder/particle_radius", 4.0e+00*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(2.0, 8.0) );
-    m_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius",  0.2, 0.002, AttLimits::limited(0.01, 1.0) );
-    m_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio",  0.8, 0.08, AttLimits::limited(0.5, 1.5) );
-    m_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  15*Units::nanometer, 0.015*Units::nanometer, AttLimits::limited(0.01, 50.0) );
-    m_fitSuite->addFitParameter("*SampleBuilder/interf_width",  3*Units::nanometer, 0.03*Units::nanometer, AttLimits::limited(0.01, 10.) );
+    mp_fitSuite->addFitParameter("*Normalizer/scale", 1e5, 1e3, AttLimits::limited(1e4, 2e5));
+    mp_fitSuite->addFitParameter("*Normalizer/shift", 10, 0.1, AttLimits::limited(0., 20.));
+    mp_fitSuite->addFitParameter("*SampleBuilder/particle_radius", 4.0e+00*Units::nanometer, 0.04*Units::nanometer, AttLimits::limited(2.0, 8.0) );
+    mp_fitSuite->addFitParameter("*SampleBuilder/dispersion_radius",  0.2, 0.002, AttLimits::limited(0.01, 1.0) );
+    mp_fitSuite->addFitParameter("*SampleBuilder/height_aspect_ratio",  0.8, 0.08, AttLimits::limited(0.5, 1.5) );
+    mp_fitSuite->addFitParameter("*SampleBuilder/interf_distance",  15*Units::nanometer, 0.015*Units::nanometer, AttLimits::limited(0.01, 50.0) );
+    mp_fitSuite->addFitParameter("*SampleBuilder/interf_width",  3*Units::nanometer, 0.03*Units::nanometer, AttLimits::limited(0.01, 10.) );
 
     // reading 1D data scans defined in isgisaxs example
     IsGISAXSData::DataSet_t isgi_scans;
@@ -101,10 +101,10 @@ void TestIsGISAXS13::run_isgisaxs_fit()
     chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
     //chiModule.setIntensityFunction( IntensityFunctionLog() );
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
-        m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it), chiModule);
+        mp_fitSuite->addExperimentAndRealData(*mp_experiment, *(*it), chiModule);
     }
 
-    m_fitSuite->runFit();
+    mp_fitSuite->runFit();
 
     // Scan Minimizer
 //    TCanvas *c1 = new TCanvas("c1","c1",1024,768);
@@ -131,9 +131,9 @@ void TestIsGISAXS13::run_isgisaxs_fit()
     TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
     leg1->SetBorderSize(1);
     leg1->SetFillStyle(0);
-    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
+    for(size_t i_set=0; i_set<mp_fitSuite->getFitObjects()->size(); ++i_set) {
         c2->cd((int)i_set+1);
-        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
+        const FitObject *obj = mp_fitSuite->getFitObjects()->getObject(i_set);
         TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"gisasfw_real");
         TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"gisasfw_simul");
         hreal->SetLineColor(kBlue);
@@ -150,9 +150,9 @@ void TestIsGISAXS13::run_isgisaxs_fit()
     TLegend *leg2 = new TLegend(0.5,0.6,0.85,0.85);
     leg2->SetBorderSize(1);
     leg2->SetFillStyle(0);
-    for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
+    for(size_t i_set=0; i_set<mp_fitSuite->getFitObjects()->size(); ++i_set) {
         c2->cd(3+1);
-        const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
+        const FitObject *obj = mp_fitSuite->getFitObjects()->getObject(i_set);
         OutputData<double > *real = obj->getChiSquaredModule()->getRealData()->clone();
         OutputData<double > *simul = obj->getChiSquaredModule()->getSimulationData()->clone();
 
@@ -178,13 +178,13 @@ void TestIsGISAXS13::run_isgisaxs_fit()
 /* ************************************************************************* */
 void TestIsGISAXS13::initialiseExperiment()
 {
-    delete m_sample_builder;
-    m_sample_builder = new TestIsGISAXS5::SampleBuilder();
-    delete m_experiment;
-    m_experiment = new GISASExperiment(mp_options);
-    m_experiment->setSampleBuilder(m_sample_builder);
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    delete mp_sample_builder;
+    mp_sample_builder = new TestIsGISAXS5::SampleBuilder();
+    delete mp_experiment;
+    mp_experiment = new GISASExperiment(mp_options);
+    mp_experiment->setSampleBuilder(mp_sample_builder);
+    mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 }
 
 

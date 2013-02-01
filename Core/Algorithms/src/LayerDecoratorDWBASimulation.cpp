@@ -1,9 +1,6 @@
 #include "LayerDecoratorDWBASimulation.h"
 #include "LayerDecorator.h"
-#include "FormFactorDWBAConstZ.h"
-#include "FormFactorDecoratorFactor.h"
-//#include "Transform3D.h"
-#include "FormFactorDecoratorTransformation.h"
+#include "FormFactors.h"
 #include "ExperimentConstants.h"
 
 LayerDecoratorDWBASimulation::LayerDecoratorDWBASimulation(

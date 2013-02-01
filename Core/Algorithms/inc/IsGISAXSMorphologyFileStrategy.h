@@ -30,10 +30,10 @@ public:
 
     virtual void init(const SafePointerVector<FormFactorInfo> &form_factor_infos,
             const SafePointerVector<IInterferenceFunction> &ifs);
-    void initPositions(const std::vector<double> &x_positions, const std::vector<double> &y_positions);
     virtual double evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
             double alpha_i, double alpha_f) const;
 private:
+    void initPositions();
     bool checkVectorSizes();
     std::vector<double> m_x_positions;
     std::vector<double> m_y_positions;

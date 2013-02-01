@@ -18,13 +18,18 @@ void IsGISAXSMorphologyFileStrategy::init(
         throw ClassInitializationException(
                 "Wrong number of formfactors or interference functions for IsGISAXS morphology file strategy.");
     }
+    initPositions();
 }
 
-void IsGISAXSMorphologyFileStrategy::initPositions(
-        const std::vector<double> &x_positions, const std::vector<double> &y_positions)
+void IsGISAXSMorphologyFileStrategy::initPositions()
 {
-    m_x_positions = x_positions;
-    m_y_positions = y_positions;
+    m_x_positions.clear();
+    m_y_positions.clear();
+    for (SafePointerVector<FormFactorInfo>::const_iterator it = m_ff_infos.begin();
+            it != m_ff_infos.end(); ++it) {
+        m_x_positions.push_back((*it)->m_pos_x);
+        m_y_positions.push_back((*it)->m_pos_y);
+    }
     // init window sizes for Hann function
     double x_min = *std::min_element(m_x_positions.begin(), m_x_positions.end());
     double x_max = *std::max_element(m_x_positions.begin(), m_x_positions.end());
@@ -90,7 +95,7 @@ bool IsGISAXSMorphologyFileStrategy::checkVectorSizes()
 {
     size_t n_ffs = m_ff_infos.size();
     size_t n_ifs = m_ifs.size();
-    return (n_ffs>0 && n_ifs==0);
+    return (n_ffs>0 && n_ifs==1);
 }
 
 double IsGISAXSMorphologyFileStrategy::hannFunction(double x, double y) const

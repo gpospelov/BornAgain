@@ -95,7 +95,6 @@ SOURCES += \
     Samples/src/InterferenceFunction2DLattice.cpp \
     Samples/src/InterferenceFunction2DParaCrystal.cpp \
     Samples/src/ISample.cpp \
-    Samples/src/IsGISAXSMorphologyFileDecoration.cpp \
     Samples/src/Lattice.cpp \
     Samples/src/LatticeBasis.cpp \
     Samples/src/Layer.cpp \
@@ -249,7 +248,6 @@ HEADERS += \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \
     Samples/inc/ISelectionRule.h \
-    Samples/inc/IsGISAXSMorphologyFileDecoration.h \
     Samples/inc/Lattice.h \
     Samples/inc/Lattice2DIFParameters.h \
     Samples/inc/LatticeBasis.h \

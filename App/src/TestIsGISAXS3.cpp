@@ -4,7 +4,6 @@
 #include "Utils.h"
 #include "MultiLayer.h"
 #include "GISASExperiment.h"
-#include "FormFactors.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
 #include "OutputDataIOFactory.h"

@@ -24,7 +24,7 @@ class SimulationParameters
 public:
     SimulationParameters();
     enum EFramework { DWBA, BA } me_framework;
-    enum EInterferenceApproximation { DA, LMA, SSCA } me_if_approx;
+    enum EInterferenceApproximation { DA, LMA, SSCA, ISGISAXSMOR } me_if_approx;
     enum ELatticeType { NONE, LATTICE, PARA1D, PARA1DFINITE } me_lattice_type;
 };
 

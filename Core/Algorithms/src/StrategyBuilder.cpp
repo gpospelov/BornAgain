@@ -63,6 +63,9 @@ IInterferenceFunctionStrategy* LayerDecoratorStrategyBuilder::createStrategy()
         p_result = new SizeSpacingCorrelationApproximationStrategy(m_sim_params, kappa);
         break;
     }
+    case SimulationParameters::ISGISAXSMOR:
+        p_result = new IsGISAXSMorphologyFileStrategy(m_sim_params);
+        break;
     default:
         throw Exceptions::ClassInitializationException(
                 "Unknown interference function approximation");

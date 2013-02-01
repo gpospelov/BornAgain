@@ -16,7 +16,7 @@
 
 namespace AppVersion {
 const std::string g_app_name = "Born Again Functional tests";
-const std::string g_app_version_number = "v0.3";
+const std::string g_app_version_number = "v0.4";
 }
 
 

@@ -98,8 +98,8 @@ DEPENDPATH  += $${LOCATIONS}
 # optimization flag used in release builds (the -O2 is the default used by qmake)
 QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which option control warning
 #QMAKE_CXXFLAGS_RELEASE += -O3 -ffast-math -msse3
-QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -O0  # -ffast-math removed because of problems with NaNs
+#QMAKE_CXXFLAGS_RELEASE -= -O2
+#QMAKE_CXXFLAGS_RELEASE += -O0  # -ffast-math removed because of problems with NaNs
 #QMAKE_CXXFLAGS_RELEASE += -g  # -ffast-math removed because of problems with NaNs
 #QMAKE_STRIP=: # produces non-stripped (very large) libraries
 

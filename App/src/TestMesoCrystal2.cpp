@@ -85,6 +85,8 @@ void TestMesoCrystal2::execute()
 
     // setting fitSuite
     FitSuite *fitSuite = new FitSuite();
+    fitSuite->getFitObjects()->setExperimentNormalize(true);
+
 //    fitSuite->setExperiment(mp_experiment);
 //    fitSuite->setRealData(*real_data);
     fitSuite->addExperimentAndRealData(*mp_experiment, *real_data);

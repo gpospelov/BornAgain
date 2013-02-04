@@ -32,11 +32,11 @@ def RunSimulation():
     particle_decoration.addInterferenceFunction(interference)
     # air layer with particles and substrate form multi layer
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration);
+    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
     substrate_layer = Layer(mSubstrate, 0)
     multi_layer = MultiLayer()
-    multi_layer.addLayer(air_layer_decorator);
-    multi_layer.addLayer(substrate_layer);
+    multi_layer.addLayer(air_layer_decorator)
+    multi_layer.addLayer(substrate_layer)
     # build and run experiment
     experiment = GISASExperiment()
     experiment.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
@@ -77,7 +77,6 @@ def GetDifference(data, reference):
             diff += abs(v1/epsilon)
         else:
             diff += abs(v1/v2)
-
     return diff/data.size
 
 

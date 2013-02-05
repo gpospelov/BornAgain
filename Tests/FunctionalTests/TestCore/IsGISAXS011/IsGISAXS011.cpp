@@ -9,22 +9,8 @@
 #include "InterferenceFunctionNone.h"
 #include "FormFactorParallelepiped.h"
 #include "MaterialManager.h"
-#include "Units.h" //kvector_t
+#include "Units.h"
 #include "Utils.h"
-
-/*#include "Particle.h"
-#include "FormFactors.h"
-#include "Transform3D.h"
-#include "LayerDecorator.h"
-#include "Lattice.h"
-#include "LatticeBasis.h"
-#include "Crystal.h"
-#include "MesoCrystal.h"
-#include "FormFactorWeighted.h"
-#include "Numeric.h"
-#include "MathFunctions.h"
-#include "StochasticSampledParameter.h"
-#include "IsGISAXSMorphologyFileDecoration.h"*/
 
 
 #include <iostream>

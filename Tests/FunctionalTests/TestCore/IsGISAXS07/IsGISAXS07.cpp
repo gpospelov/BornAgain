@@ -34,7 +34,7 @@ void FunctionalTests::IsGISAXS07::run()
     // add particle number 1:
     FormFactorBox ff1(1.0*Units::nanometer, 1.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos1(0.0*Units::nanometer, 0.0*Units::nanometer, 0.0);
-    particle_decoration.addParticle(new Particle(n_particle, ff1), 0, pos1, 0.5);
+    particle_decoration.addParticle(new Particle(n_particle, ff1), 0, pos1, 0.5); 
     // add particle number 2:
     FormFactorBox ff2(1.0*Units::nanometer, 2.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
@@ -53,7 +53,7 @@ void FunctionalTests::IsGISAXS07::run()
     Geometry::RotateZ3D rot4(30*Units::degree);
     Particle particle4(n_particle, ff4);
     particle_decoration.addParticle(particle4, rot4, pos4, 0.5);
-    // add particle number 5:
+    // add particle number 5:   
     FormFactorBox ff5(1.0*Units::nanometer, 5.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos5(-5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
     Geometry::RotateZ3D rot5(40*Units::degree);
@@ -64,7 +64,7 @@ void FunctionalTests::IsGISAXS07::run()
     kvector_t pos6(0.0*Units::nanometer, 0.0*Units::nanometer, 0.0);
     Geometry::RotateZ3D rot6(50*Units::degree);
     Particle particle6(n_particle, ff6);
-    particle_decoration.addParticle(particle6, rot6, pos6, 0.5);
+    particle_decoration.addParticle(particle6, rot6, pos6, 0.5); 
     // add particle number 7:
     FormFactorBox ff7(1.0*Units::nanometer, 2.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos7(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
@@ -92,7 +92,6 @@ void FunctionalTests::IsGISAXS07::run()
 
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     multi_layer.addLayer(air_layer_decorator);
-
     // ---------------------
     // building experiment
     // ---------------------
@@ -121,6 +120,20 @@ int FunctionalTests::IsGISAXS07::analyseResults()
     std::string filename = Utils::FileSystem::GetHomePath() + "/Tests/FunctionalTests/TestCore/IsGISAXS07/isgisaxs07_reference.ima.gz";
     OutputData<double > *reference = OutputDataIOFactory::getOutputData(filename);
 
+    /*
+     std::vector< CompareStruct > tocompare;
+     tocompare.push_back( CompareStruct("isgi_morphology.ima.gz") );
+
+     for(size_t i=0; i<tocompare.size(); ++i) {
+         OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].isginame);
+         OutputData<double> *our_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].thisname);
+
+         std::ostringstream os;
+         os<<i;
+         std::string cname = getName()+"_c"+os.str();
+        }
+*/
+
     // calculating average relative difference
     *m_result -= *reference;
     *m_result /= *reference;
@@ -135,6 +148,8 @@ int FunctionalTests::IsGISAXS07::analyseResults()
 
     std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (int)status_ok;
+
+
 }
 
 

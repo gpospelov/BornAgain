@@ -69,6 +69,9 @@ public:
     //! return reference to fit parameters
     FitSuiteParameters *getFitParameters() { return &m_fit_parameters; }
 
+    //! return reference to fit parameters
+    FitSuiteStrategies *getFitStrategies() { return &m_fit_strategies; }
+
     //! if the last iteration is done (used by observers to print summary)
     bool isLastIteration() const { return m_is_last_iteration; }
 

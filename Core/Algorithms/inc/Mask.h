@@ -25,7 +25,7 @@ class Mask : public ICloneable
 public:
     template <class TValue, class TContainer> friend class OutputDataIterator;
     template <class TValue> friend class OutputData;
-    Mask(Mask *p_submask=0);
+    explicit Mask(Mask *p_submask=0);
     virtual ~Mask() { delete mp_submask; }
     virtual Mask *clone() const;
 

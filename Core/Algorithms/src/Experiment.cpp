@@ -215,7 +215,10 @@ void Experiment::setDetectorParameters(const OutputData<double > &output_data)
         const IAxis *axis = output_data.getAxis(i_axis);
         m_detector.addAxis(*axis);
     }
-    updateIntensityMapAxes();
+    //updateIntensityMapAxes();
+    m_intensity_map.clear();
+    m_intensity_map.copyFrom(output_data); // to copy mask too
+    m_intensity_map.setAllTo(0.0);
 }
 
 

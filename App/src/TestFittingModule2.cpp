@@ -17,6 +17,7 @@
 #include "MathFunctions.h"
 #include "MinimizerFactory.h"
 #include "MultiLayer.h"
+#include "OutputDataFunctions.h"
 #include "Particle.h"
 #include "ParticleDecoration.h"
 #include "ResolutionFunction2DSimple.h"
@@ -62,10 +63,13 @@ void TestFittingModule2::execute()
     //fit_example_basics();
 
     // fit example with normalizer
-    fit_example_chimodule();
+    //fit_example_chimodule();
 
     // fit example with strategies
     //fit_example_strategies();
+
+    // fit example with data masking
+    fit_example_mask();
 }
 
 
@@ -163,6 +167,65 @@ void TestFittingModule2::fit_example_strategies()
     m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data);
 
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+
+    m_fitSuite->runFit();
+
+}
+
+
+// ----------------------------------------------------------------------------
+// fit example with data masking
+// ----------------------------------------------------------------------------
+void TestFittingModule2::fit_example_mask()
+{
+    initializeExperiment();
+    initializeRealData();
+
+    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("c1_test_meso_crystal", "mesocrystal");
+    c1->cd(); gPad->SetLogz();
+    c1->Divide(2,2);
+
+    c1->cd(1);
+    gPad->SetLogz();
+    gPad->SetRightMargin(0.115);
+    gPad->SetLeftMargin(0.115);
+    IsGISAXSTools::setMinimum(1.0);
+    IsGISAXSTools::setMaximum(1e10);
+    IsGISAXSTools::drawOutputDataInPad(*mp_real_data, "COLZ", "real_data");
+    c1->Update();
+
+//    const double minima[]={0.005, 0.002};
+//    const double maxima[]={0.012, 0.007};
+    const double minima[]={0.005, 0.006};
+    const double maxima[]={0.012, 0.014};
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*mp_real_data, minima, maxima);
+
+//    const double center[]={0.012, 0.027};
+//    const double radii[]={0.01, 0.005};
+//    Mask *mask2 = OutputDataFunctions::CreateEllipticMask(*mp_real_data, center, radii);
+//    Mask *mask2 = OutputDataFunctions::CreateRectangularMask(*mp_real_data, minima, maxima);
+
+    mp_real_data->setMask(*mask1);
+
+//    mp_real_data->addMask(*mask2);
+
+//    std::cout << "mask2 " << mask2->
+
+    c1->cd(2);
+    gPad->SetLogz();
+    gPad->SetRightMargin(0.115);
+    gPad->SetLeftMargin(0.115);
+    IsGISAXSTools::drawOutputDataInPad(*mp_real_data, "COLZ", "real_data");
+    c1->Update();
+
+    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",  4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",    4*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    //m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.5, 0.1, AttLimits::limited(0.1, 0.9));
+    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.2, 0.1, AttLimits::fixed());
+
+    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data);
 
     m_fitSuite->runFit();
 

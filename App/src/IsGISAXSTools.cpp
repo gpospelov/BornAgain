@@ -11,6 +11,7 @@
 #include "TH3D.h"
 #include "TStyle.h"
 #include "TLine.h"
+#include "TPolyMarker.h"
 
 #include <iostream>
 #include <fstream>
@@ -62,7 +63,7 @@ void IsGISAXSTools::drawOutputData(const OutputData<double>& output,
 void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         const std::string& draw_options, const std::string &histogram_title)
 {
-    assert(&output);
+    if( !&output) throw NullPointerException("IsGISAXSTools::drawOutputDataInPad() -> Error! Null output data");
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataInPad() -> Error! No canvas exists.");
     }
@@ -80,6 +81,23 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
     if( hasMaximum() ) hist->SetMaximum(m_hist_max);
     hist->SetTitle(histogram_title.c_str());
     hist->DrawCopy(draw_options.c_str());
+
+    // dealing with masks
+    if(output.getMask()) {
+        TPolyMarker *poly = new TPolyMarker();
+        const IAxis *p_axis0 = output.getAxis(0);
+        const IAxis *p_axis1 = output.getAxis(1);
+        int i_point(0);
+        for(OutputData<double>::const_iterator it = output.begin(); it!= output.end(); ++it) {
+            size_t axis0_index = output.toCoordinate(it.getIndex(), 0);
+            size_t axis1_index = output.toCoordinate(it.getIndex(), 1);
+            double axis0_value = (*p_axis0)[axis0_index];
+            double axis1_value = (*p_axis1)[axis1_index];
+            poly->SetPoint(i_point++, axis0_value, axis1_value);
+        }
+        poly->Draw("same");
+    }
+
     delete hist;
 }
 

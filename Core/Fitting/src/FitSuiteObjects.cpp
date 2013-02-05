@@ -2,7 +2,7 @@
 
 
 
-FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_experiment_normalize(false), m_nfree_parameters(0), m_chi_squared_value(0)
+FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_experiment_normalize(true), m_nfree_parameters(0), m_chi_squared_value(0)
 {
     setName("FitSuiteObjects");
     init_parameters();

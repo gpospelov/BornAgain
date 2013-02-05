@@ -26,8 +26,8 @@ class FitSuite;
 
 //- -------------------------------------------------------------------
 //! @class TestFittingModule2
-//! @brief Testing of fitting module with 5 parameters sample using
-//! sample builder, different fit strategies and chi2 modules
+//! @brief Testing different fitting approaches on 5 parameter sample
+//! a) sample builder b) chi2 module c) different fit strategies d) mask on data
 //- -------------------------------------------------------------------
 class TestFittingModule2 : public IFunctionalTest
 {
@@ -61,6 +61,9 @@ public:
 
     //! fit example with strategies
     void fit_example_strategies();
+
+    //! fit example with data masking
+    void fit_example_mask();
 
 private:
     void initializeExperiment();

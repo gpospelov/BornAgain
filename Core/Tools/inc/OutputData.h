@@ -360,7 +360,7 @@ template <class T> void OutputData<T>::setMask(const Mask &mask)
 template <class T> void OutputData<T>::addMask(const Mask &mask)
 {
     if (mask.mp_submask) {
-        throw RuntimeErrorException("One can only add single masks to OutputDataIterator at a time");
+        throw RuntimeErrorException("OutputData<T>::addMask() -> Error! One can only add single masks to OutputDataIterator at a time");
     }
     Mask *p_old_mask = getMask();
     mp_mask = mask.clone();

@@ -66,10 +66,13 @@ void AxisBin::initBins(size_t nbr_bins, double start, double end)
 size_t AxisBin::findClosestIndex(double value) const
 {
     if(m_value_vector.size()<2) {
-        throw ClassInitializationException("AxisBin not (yet) correctly initialized");
+        throw ClassInitializationException("AxisBin::findClosestIndex() -> Error! AxisBin not (yet) correctly initialized");
     }
     if (value < getMin() || value > getMax()) {
-        throw OutOfBoundsException("Given value not in any bin");
+        std::ostringstream ostr;
+        ostr << "AxisBin::findClosestIndex() -> Error! Given value not in any bin. ";
+        ostr << "value:" << value << " name:" << getName() << " min:" << getMin() << " max:" << getMax();
+        throw OutOfBoundsException(ostr.str());
     }
     std::vector<double>::const_iterator top_limit = std::lower_bound(m_value_vector.begin(), m_value_vector.end(), value);
     if(top_limit != m_value_vector.begin() ) --top_limit;

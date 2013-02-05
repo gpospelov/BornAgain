@@ -76,7 +76,6 @@ void TestMesoCrystal2::execute()
 
     // setting fitSuite
     m_fitSuite = new FitSuite();
-    m_fitSuite->getFitObjects()->setExperimentNormalize(true);
     m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data);
 
     int fitmode = (*mp_options)["fitmode"].as<int>();
@@ -204,7 +203,7 @@ void TestMesoCrystal2::fitsuite_setup(int nconfig)
 
 // ----------------------------------------------------------------------------
 // FitSuite configuration #1
-//
+// 7 fit iterations with different sets of fixed/release parameters
 // ----------------------------------------------------------------------------
 void TestMesoCrystal2::fitsuite_config1()
 {
@@ -225,7 +224,6 @@ void TestMesoCrystal2::fitsuite_config1()
 
     typedef std::vector<std::vector<std::string > > fixplan_t;
     fixplan_t fixplan;
-
     fixplan.resize(7);
     fixplan[0] = boost::assign::list_of("*/lattice_length_a")("*/nanoparticle_radius");
     fixplan[1] = boost::assign::list_of("*/meso_height")("*/meso_radius");
@@ -254,6 +252,11 @@ void TestMesoCrystal2::fitsuite_config1()
 }
 
 
+// ----------------------------------------------------------------------------
+// FitSuite configuration #2
+// Same as configuration #1, except that evey concequent fit uses optimal parameters
+// from previous fit
+// ----------------------------------------------------------------------------
 void TestMesoCrystal2::fitsuite_config2()
 {
     std::cout << "1.1" << std::endl;

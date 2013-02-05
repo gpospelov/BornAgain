@@ -88,6 +88,7 @@ TEST_F(ExperimentTest, ExperimentConstruction)
     constructedExperiment.setSampleBuilder(&sample_builder);
     EXPECT_EQ( NULL, constructedExperiment.getSample());
     constructedExperiment.runSimulation();
+
     EXPECT_FALSE( NULL == constructedExperiment.getSample());
     EXPECT_EQ( std::string("Layer"), constructedExperiment.getSample()->getName());
     EXPECT_EQ( double(0), dynamic_cast<Layer *>(constructedExperiment.getSample())->getThickness());

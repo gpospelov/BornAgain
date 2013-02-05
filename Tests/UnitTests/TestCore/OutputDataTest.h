@@ -3,6 +3,7 @@
 
 #include "OutputData.h"
 #include <algorithm>
+#include "OutputDataFunctions.h"
 
 #include "gtest/gtest.h"
 
@@ -128,6 +129,50 @@ TEST_F(OutputDataTest, ValueOfAxis)
     EXPECT_EQ( double(9.0), data.getValueOfAxis("axis1", 19));
     EXPECT_EQ( double(10.0), data.getValueOfAxis("axis2", 19));
 }
+
+
+TEST_F(OutputDataTest, SetRectangularMask)
+{
+    OutputData<double > data;
+    data.addAxis("x", 10, 0., 9.);
+    data.addAxis("y", 6, 0., 5.);
+    data.setAllTo(0.0);
+    const double minima[]={0.6, 0.6};
+    const double maxima[]={2.6, 2.6};
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(data, minima, maxima);
+    data.setMask(*mask1);
+    int index(0);
+    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
+        double x = data.getValueOfAxis("x", it.getIndex());
+        double y = data.getValueOfAxis("y", it.getIndex());
+        EXPECT_EQ( x, double(index/3+1) );
+        EXPECT_EQ( y, double(index%3+1) );
+        ++index;
+    }
+    data.removeAllMasks();
+    index=0;
+    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
+        EXPECT_EQ( int(index++), int(it.getIndex()) );
+    }
+}
+
+TEST_F(OutputDataTest, SetEllipticMask)
+{
+    OutputData<double > data;
+    data.addAxis("x", 10, 0., 9.);
+    data.addAxis("y", 6, 0., 5.);
+    data.setAllTo(0.0);
+    const double center[]={2., 3.};
+    const double radii[]={1., 2.};
+    Mask *mask1 = OutputDataFunctions::CreateEllipticMask(data, center, radii);
+    data.setMask(*mask1);
+    int index(0);
+    const int reference[]={9,13,14,15,16,17,21};
+    for(OutputData<double>::iterator it = data.begin(); it!=data.end(); ++it) {
+        EXPECT_EQ( int(reference[index++]), int(it.getIndex()) );
+    }
+}
+
 
 
 #endif // OUTPUTDATATEST_H

@@ -14,14 +14,12 @@
 //! @date   Jun 27, 2012
 
 #include "IFormFactorBorn.h"
-#include "IStochasticParameter.h"
 
 
 class FormFactorPrism6 : public IFormFactorBorn
 {
 public:
     FormFactorPrism6(double height, double half_side);
-//    FormFactorPrism6(StochasticParameter<double> *p_height, StochasticParameter<double> *p_half_side);
     ~FormFactorPrism6();
     virtual FormFactorPrism6 *clone() const;
 

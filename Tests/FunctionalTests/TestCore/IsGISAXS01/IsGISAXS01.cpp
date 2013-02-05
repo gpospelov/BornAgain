@@ -67,7 +67,6 @@ void FunctionalTests::IsGISAXS01::run()
 
 }
 
-
 int FunctionalTests::IsGISAXS01::analyseResults()
 {
     const double threshold(1e-10);
@@ -79,6 +78,7 @@ int FunctionalTests::IsGISAXS01::analyseResults()
     // calculating average relative difference
     *m_result -= *reference;
     *m_result /= *reference;
+
     double diff(0);
     for(OutputData<double>::const_iterator it=m_result->begin(); it!=m_result->end(); ++it) {
         diff+= std::fabs(*it);

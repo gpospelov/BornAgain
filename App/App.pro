@@ -36,6 +36,7 @@ SOURCES += \
     src/TestFittingModule2.cpp \
     src/TestFittingModule3.cpp \
     src/TestFormFactor.cpp \
+    src/TestFormFactors.cpp \
     src/TestFourier.cpp \
     src/TestFresnelCoeff.cpp \
     src/TestFumiliLMA.cpp \
@@ -44,11 +45,13 @@ SOURCES += \
     src/TestIsGISAXS11.cpp \
     src/TestIsGISAXS12.cpp \
     src/TestIsGISAXS13.cpp \
+    src/TestIsGISAXS14.cpp \
     src/TestIsGISAXS15.cpp \
     src/TestIsGISAXS2.cpp \
     src/TestIsGISAXS3.cpp \
     src/TestIsGISAXS4.cpp \
     src/TestIsGISAXS5.cpp \
+    src/TestIsGISAXS6.cpp \
     src/TestIsGISAXS7.cpp \
     src/TestIsGISAXS8.cpp \
     src/TestIsGISAXS9.cpp \
@@ -91,6 +94,7 @@ HEADERS += \
     inc/TestFittingModule2.h \
     inc/TestFittingModule3.h \
     inc/TestFormFactor.h \
+    inc/TestFormFactors.h \
     inc/TestFourier.h \
     inc/TestFresnelCoeff.h \
     inc/TestFumiliLMA.h \
@@ -99,11 +103,13 @@ HEADERS += \
     inc/TestIsGISAXS11.h \
     inc/TestIsGISAXS12.h \
     inc/TestIsGISAXS13.h \
+    inc/TestIsGISAXS14.h \
     inc/TestIsGISAXS15.h \
     inc/TestIsGISAXS2.h \
     inc/TestIsGISAXS3.h \
     inc/TestIsGISAXS4.h \
     inc/TestIsGISAXS5.h \
+    inc/TestIsGISAXS6.h \
     inc/TestIsGISAXS7.h \
     inc/TestIsGISAXS8.h \
     inc/TestIsGISAXS9.h \
@@ -115,16 +121,14 @@ HEADERS += \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
     inc/TestToyExperiment.h \
-    inc/TreeEventStructure.h
+    inc/TreeEventStructure.h \
+    inc/Version.h \
 
 # to through exception in the case floating point exception (gcc only)
 CONFIG(DEBUG_FPE) {
     HEADERS += inc/fp_exception_glibc_extension.h
     SOURCES += src/fp_exception_glibc_extension.c
 }
-
-
-
 
 # additional locations
 LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01
@@ -136,7 +140,7 @@ OBJECTS_DIR = obj
 # -----------------------------------------------------------------------------
 # generating package dependency flags
 # -----------------------------------------------------------------------------
-MY_DEPENDENCY_LIB = ScattCore
+MY_DEPENDENCY_LIB = BornAgainCore
 MY_DEPENDENCY_DEST =$$PWD/..
 SONAME = so
 for(dep, MY_DEPENDENCY_LIB) {
@@ -186,6 +190,7 @@ rootcint.depends      = $$CREATE_ROOT_DICT_FOR_CLASSES
 rootcintecho.commands = @echo "Generating dictionary $$rootcint.target for $$CREATE_ROOT_DICT_FOR_CLASSES classes"
 QMAKE_EXTRA_TARGETS += rootcintecho rootcint
 QMAKE_CLEAN       +=  src/$${ROOT_CINT_TARGET}Dict.cpp src/$${ROOT_CINT_TARGET}Dict.h
+QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 
 
 

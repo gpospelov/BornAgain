@@ -3,8 +3,13 @@
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 GCC_DIAG_OFF(missing-field-initializers);
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
+GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
+GCC_DIAG_ON(unused-parameter);
+GCC_DIAG_ON(missing-field-initializers);
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 #include "BasicVector3D.h"
@@ -118,6 +123,18 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         return FormFactorCylinder::getNumberOfStochasticParameters( );
     }
 
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else{
+            return this->FormFactorCylinder::getRadius(  );
+        }
+    }
+    
+    double default_getRadius(  ) const  {
+        return FormFactorCylinder::getRadius( );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -164,18 +181,6 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     
     ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
-    }
-
-    virtual double getRadius(  ) const  {
-        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
-            return func_getRadius(  );
-        else{
-            return this->IFormFactor::getRadius(  );
-        }
-    }
-    
-    double default_getRadius(  ) const  {
-        return IFormFactor::getRadius( );
     }
 
     virtual double getVolume(  ) const  {
@@ -274,6 +279,10 @@ void register_FormFactorCylinder_class(){
             , (int ( ::FormFactorCylinder::* )(  ) const)(&::FormFactorCylinder::getNumberOfStochasticParameters)
             , (int ( FormFactorCylinder_wrapper::* )(  ) const)(&FormFactorCylinder_wrapper::default_getNumberOfStochasticParameters) )    
         .def( 
+            "getRadius"
+            , (double ( ::FormFactorCylinder::* )(  ) const)(&::FormFactorCylinder::getRadius)
+            , (double ( FormFactorCylinder_wrapper::* )(  ) const)(&FormFactorCylinder_wrapper::default_getRadius) )    
+        .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( FormFactorCylinder_wrapper::* )(  ) )(&FormFactorCylinder_wrapper::default_areParametersChanged) )    
@@ -293,10 +302,6 @@ void register_FormFactorCylinder_class(){
             , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::IFormFactorBorn::evaluate)
             , (::complex_t ( FormFactorCylinder_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&FormFactorCylinder_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
-        .def( 
-            "getRadius"
-            , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getRadius)
-            , (double ( FormFactorCylinder_wrapper::* )(  ) const)(&FormFactorCylinder_wrapper::default_getRadius) )    
         .def( 
             "getVolume"
             , (double ( ::IFormFactorBorn::* )(  ) const)(&::IFormFactorBorn::getVolume)

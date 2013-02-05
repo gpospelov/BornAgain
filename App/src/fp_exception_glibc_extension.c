@@ -249,6 +249,7 @@ static const char *fe_code_name[] = {
 void
 fhdl ( int sig, siginfo_t *sip, ucontext_t *scp )
 {
+  (void)scp;
   int fe_code = sip->si_code;
   unsigned int excepts = fetestexcept (FE_ALL_EXCEPT);
 

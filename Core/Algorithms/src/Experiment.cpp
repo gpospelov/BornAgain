@@ -22,14 +22,15 @@ Experiment::Experiment()
 }
 
 Experiment::Experiment(const Experiment &other)
-    : IParameterized(other), ICloneable()
-    , mp_sample(0)
-    , mp_sample_builder(other.mp_sample_builder)
-    , m_detector(other.m_detector)
-    , m_beam(other.m_beam)
-    , m_intensity_map()
-    , m_is_normalized(other.m_is_normalized)
-    , mp_options(other.mp_options)
+: IParameterized(other), ICloneable()
+, mp_sample(0)
+, mp_sample_builder(other.mp_sample_builder)
+, m_detector(other.m_detector)
+, m_beam(other.m_beam)
+, m_intensity_map()
+, m_is_normalized(other.m_is_normalized)
+, mp_options(other.mp_options)
+, m_sim_params(other.m_sim_params)
 {
     if(other.mp_sample) mp_sample = other.mp_sample->clone();
     m_intensity_map.copyFrom(other.m_intensity_map);
@@ -37,40 +38,40 @@ Experiment::Experiment(const Experiment &other)
 }
 
 Experiment::Experiment(const ProgramOptions *p_options)
-    : IParameterized("Experiment")
-    , mp_sample(0)
-    , mp_sample_builder(0)
-    , m_detector()
-    , m_beam()
-    , m_intensity_map()
-    , m_is_normalized(false)
-    , mp_options(p_options)
+: IParameterized("Experiment")
+, mp_sample(0)
+, mp_sample_builder(0)
+, m_detector()
+, m_beam()
+, m_intensity_map()
+, m_is_normalized(false)
+, mp_options(p_options)
 {
     init_parameters();
 }
 
 Experiment::Experiment(const ISample &p_sample, const ProgramOptions *p_options)
-    : IParameterized("Experiment")
-    , mp_sample(p_sample.clone())
-    , mp_sample_builder(0)
-    , m_detector()
-    , m_beam()
-    , m_intensity_map()
-    , m_is_normalized(false)
-    , mp_options(p_options)
+: IParameterized("Experiment")
+, mp_sample(p_sample.clone())
+, mp_sample_builder(0)
+, m_detector()
+, m_beam()
+, m_intensity_map()
+, m_is_normalized(false)
+, mp_options(p_options)
 {
     init_parameters();
 }
 
 Experiment::Experiment(const ISampleBuilder* p_sample_builder, const ProgramOptions *p_options)
-    : IParameterized("Experiment")
-    , mp_sample(0)
-    , mp_sample_builder(p_sample_builder)
-    , m_detector()
-    , m_beam()
-    , m_intensity_map()
-    , m_is_normalized(false)
-    , mp_options(p_options)
+: IParameterized("Experiment")
+, mp_sample(0)
+, mp_sample_builder(p_sample_builder)
+, m_detector()
+, m_beam()
+, m_intensity_map()
+, m_is_normalized(false)
+, mp_options(p_options)
 {
     init_parameters();
 }

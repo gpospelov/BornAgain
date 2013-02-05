@@ -64,9 +64,9 @@ private:
     //! run isgisaxs ex-5 style fit
     void run_isgisaxs_fit();
 
-    GISASExperiment *m_experiment;
-    ISampleBuilder *m_sample_builder;
-    FitSuite *m_fitSuite;
+    GISASExperiment *mp_experiment;
+    ISampleBuilder *mp_sample_builder;
+    FitSuite *mp_fitSuite;
 };
 
 #endif // TESTISGISAXS5_H

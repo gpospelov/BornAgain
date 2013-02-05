@@ -932,6 +932,13 @@
 					../include/,
 				);
 				PRODUCT_NAME = gtest;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wno-sign-compare",
+					"-Wshadow",
+				);
 			};
 			name = Debug;
 		};
@@ -948,6 +955,13 @@
 					../include/,
 				);
 				PRODUCT_NAME = gtest;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wno-sign-compare",
+					"-Wshadow",
+				);
 			};
 			name = Release;
 		};
@@ -1030,6 +1044,13 @@
 				INFOPLIST_PREPROCESS = YES;
 				PRODUCT_NAME = gtest;
 				VERSIONING_SYSTEM = "apple-generic";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wno-sign-compare",
+					"-Wshadow",
+				);
 			};
 			name = Debug;
 		};
@@ -1050,6 +1071,13 @@
 				INFOPLIST_PREPROCESS = YES;
 				PRODUCT_NAME = gtest;
 				VERSIONING_SYSTEM = "apple-generic";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wno-sign-compare",
+					"-Wshadow",
+				);
 			};
 			name = Release;
 		};
@@ -1057,7 +1085,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40D4CDF10E30E07400294801 /* DebugProject.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				GCC_WARN_UNUSED_VALUE = YES;
 				SDKROOT = macosx;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wno-sign-compare",
+					"-Wshadow",
+				);
 			};
 			name = Debug;
 		};
@@ -1065,7 +1102,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40D4CDF40E30E07400294801 /* ReleaseProject.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				GCC_WARN_UNUSED_VALUE = YES;
+				OTHER_CPLUSPLUSFLAGS = "-DNDEBUG=1";
 				SDKROOT = macosx;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wno-sign-compare",
+					"-Wshadow",
+				);
 			};
 			name = Release;
 		};

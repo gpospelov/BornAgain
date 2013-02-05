@@ -3,8 +3,13 @@
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 GCC_DIAG_OFF(missing-field-initializers);
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
+GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
+GCC_DIAG_ON(unused-parameter);
+GCC_DIAG_ON(missing-field-initializers);
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 #include "__call_policies.pypp.hpp"
@@ -109,6 +114,10 @@ void register_ParameterPool_class(){
             , (::ParameterPool * ( ::ParameterPool::* )( ::std::string const & ) const)( &::ParameterPool::cloneWithPrefix )
             , ( bp::arg("prefix") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
+        .def( 
+            "fixRatioBetweenParameters"
+            , (int ( ::ParameterPool::* )( ::std::string const &,::std::string const &,double ) )( &::ParameterPool::fixRatioBetweenParameters )
+            , ( bp::arg("to_change"), bp::arg("source"), bp::arg("ratio") ) )    
         .def( 
             "getParameter"
             , (::RealParameterWrapper ( ::ParameterPool::* )( ::std::string const & ) const)( &::ParameterPool::getParameter )

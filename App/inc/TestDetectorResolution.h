@@ -17,7 +17,6 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "FormFactors.h"
-#include "FormFactorDWBA.h"
 #include "ISample.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"

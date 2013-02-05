@@ -166,7 +166,7 @@ class Transform3D;
 
     /**
      * Sets components in cartesian coordinate system.  */
-    inline void set(const T &x1, const T &y1, const T &z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+//    inline void set(const T &x1, const T &y1, const T &z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
     inline void setXYZ(const T &x1, const T &y1, const T &z1) { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     // ------------------------------------------
@@ -175,26 +175,29 @@ class Transform3D;
 
     /**
      * Gets transverse component squared. */
-    inline T perp2() const { return x()*x()+y()*y(); }
+//    inline T perp2() const { return x()*x()+y()*y(); }
     /**
      * Gets transverse component. */
-    inline T perp() const { return std::sqrt(perp2()); }
+//    inline T perp() const { return std::sqrt(perp2()); }
     /**
      * Gets rho-component in cylindrical coordinate system */
-    inline T rho() const { return perp(); }
+    //inline T rho() const { return perp(); }
+    inline T rho() const { return magxy(); }
 
     /**
      * Gets rho-component in cylindrical coordinate system */
-    inline T magxy() const { return perp(); }
+    inline T magxy2() const { return x()*x()+y()*y(); }
+
+    inline T magxy() const { return std::sqrt(magxy2()); }
 
     /**
      * Sets transverse component keeping phi and z constant. */
-    inline void setPerp(T rh) {
-      T factor = perp();
-      if (factor > 0.0) {
-	factor = rh/factor; v_[0] *= factor; v_[1] *= factor;
-      }
-    }
+//    inline void setPerp(T rh) {
+//      T factor = perp();
+//      if (factor > 0.0) {
+//	factor = rh/factor; v_[0] *= factor; v_[1] *= factor;
+//      }
+//    }
 
     // ------------------------------------------
     // Spherical coordinate system: r, phi, theta
@@ -217,20 +220,20 @@ class Transform3D;
     /**
      * Gets polar angle. */
     inline T theta() const {
-      return x() == 0.0 && y() == 0.0 && z() == 0.0 ? 0.0 : std::atan2(perp(),z());
+      return x() == 0.0 && y() == 0.0 && z() == 0.0 ? 0.0 : std::atan2(magxy(),z());
     }
     /**
      * Gets cosine of polar angle. */
     inline T cosTheta() const { T ma = mag(); return std::abs(ma) == 0 ? 1 : z()/ma; }
     /**
      * Gets r-component in spherical coordinate system */
-    inline T getR() const { return r(); }
+    //inline T getR() const { return r(); }
     /**
      * Gets phi-component in spherical coordinate system */
-    inline T getPhi() const { return phi(); }
+    //inline T getPhi() const { return phi(); }
     /**
      * Gets theta-component in spherical coordinate system */
-    inline T getTheta() const { return theta(); }
+    //inline T getTheta() const { return theta(); }
 
     /**
      * Sets magnitude. */
@@ -245,13 +248,14 @@ class Transform3D;
     inline void setR(T ma) { setMag(ma); }
     /**
      * Sets phi-component in spherical coordinate system. */
-    inline void setPhi(T ph) { T xy = perp(); setX(xy*std::cos(ph)); setY(xy*std::sin(ph)); }
+    //inline void setPhi(T ph) { T xy = perp(); setX(xy*std::cos(ph)); setY(xy*std::sin(ph)); }
+    inline void setPhi(T ph) { T xy = magxy(); setX(xy*std::cos(ph)); setY(xy*std::sin(ph)); }
     /**
      * Sets theta-component in spherical coordinate system. */
     inline void setTheta(T th) {
       T ma = mag();
       T ph = phi();
-      set(ma*std::sin(th)*std::cos(ph), ma*std::sin(th)*std::sin(ph), ma*std::cos(th));
+      setXYZ(ma*std::sin(th)*std::cos(ph), ma*std::sin(th)*std::sin(ph), ma*std::cos(th));
     }
 
     // ---------------

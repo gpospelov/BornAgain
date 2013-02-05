@@ -1,6 +1,5 @@
 #include "ParticleCoreShell.h"
-#include "FormFactorWeighted.h"
-#include "FormFactorDecoratorPositionFactor.h"
+#include "FormFactors.h"
 
 ParticleCoreShell::ParticleCoreShell(const Particle &shell, const Particle &core, kvector_t relative_core_position)
 : Particle(shell.getRefractiveIndex())

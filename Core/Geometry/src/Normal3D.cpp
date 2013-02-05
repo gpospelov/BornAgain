@@ -43,7 +43,7 @@ namespace Geometry {
     double xx = m.xx(), xy = m.xy(), xz = m.xz();
     double yx = m.yx(), yy = m.yy(), yz = m.yz();
     double zx = m.zx(), zy = m.zy(), zz = m.zz();
-    set((yy*zz-yz*zy)*vx+(yz*zx-yx*zz)*vy+(yx*zy-yy*zx)*vz,
+    setXYZ((yy*zz-yz*zy)*vx+(yz*zx-yx*zz)*vy+(yx*zy-yy*zx)*vz,
 	(zy*xz-zz*xy)*vx+(zz*xx-zx*xz)*vy+(zx*xy-zy*xx)*vz,
 	(xy*yz-xz*yy)*vx+(xz*yx-xx*yz)*vy+(xx*yy-xy*yx)*vz);
     return *this;

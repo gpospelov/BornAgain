@@ -12,5 +12,4 @@ SUBDIRS += \
     IsGISAXS011
 
 
-
 CONFIG += ordered

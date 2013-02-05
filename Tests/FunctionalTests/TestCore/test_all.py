@@ -4,7 +4,8 @@ import os
 import subprocess
 import time
 
-Tests = ["IsGISAXS01", "IsGISAXS02", "IsGISAXS07", "IsGISAXS010", "IsGISAXS011"]
+#Tests = ["IsGISAXS01", "IsGISAXS02", "IsGISAXS07", "IsGISAXS010", "IsGISAXS011"]
+Tests = ["IsGISAXS01", "IsGISAXS02"]
 test_info = []
 
 
@@ -30,6 +31,8 @@ def parse_output(testName, stdout, stderr):
             descr=descr.strip("[OK]")
             descr=descr.strip("[FAILED]")
 
+    descr = descr[:55]
+    descr = descr.ljust(55)
     return descr, status
 
 

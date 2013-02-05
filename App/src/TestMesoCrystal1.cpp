@@ -19,6 +19,7 @@
 #include "OutputDataIOFactory.h"
 
 #include "TCanvas.h"
+#include "TH2D.h"
 
 /* ************************************************************************* */
 // global functions
@@ -47,9 +48,9 @@ void TestMesoCrystal1::execute()
     experiment.setSampleBuilder(mp_sample_builder);
 //    experiment.setDetectorParameters(256, 0.3*Units::degree, 0.073
 //           , 256, -0.4*Units::degree, 0.066);
-//    experiment.setDetectorParameters(218, 0.0201647, 0.0599528, 218, 0.00010879, 0.0399347); // values as in experimental sample from TestMesoCrystal2
-    experiment.setDetectorParameters(80, -0.025, 0.026, 80 , 0.0, 0.05);
-//    experiment.setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.00017, 0.00017));
+    experiment.setDetectorParameters(218, 0.0201647, 0.0599528, 218, 0.00010879, 0.0399347); // values as in experimental sample from TestMesoCrystal2
+//    experiment.setDetectorParameters(80, -0.025, 0.026, 80 , 0.0, 0.05);
+    experiment.setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.00017, 0.00017));
     experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     experiment.setBeamIntensity(8e12);
 
@@ -67,32 +68,65 @@ void TestMesoCrystal1::execute()
 
 //    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
 //            "CONT4 Z", "mesocrystal");
-    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("c1_test_meso_crystal", "mesocrystal");
+    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("sim_meso_crystal", "mesocrystal", 1024, 768);
     c1->cd(); gPad->SetLogz();
     gPad->SetRightMargin(0.115);
-    gPad->SetLeftMargin(0.115);
+    gPad->SetLeftMargin(0.13);
 
-    IsGISAXSTools::setMinimum(100.);
-    IsGISAXSTools::setMaximum(1e7);
-    IsGISAXSTools::drawOutputDataInPad(*mp_intensity_output, "CONT4 Z", "meso");
+    TH2D *h2 = IsGISAXSTools::getOutputDataTH2D(*mp_intensity_output, "mesocrystal");
+    h2->SetTitle("");
+    h2->SetMinimum(100.);
+    h2->GetXaxis()->SetTitle("#phi_{f}");
+    h2->GetYaxis()->SetTitle("#alpha_{f}");
+    h2->GetXaxis()->SetTitleOffset(0.9);
+    h2->GetYaxis()->SetTitleOffset(1.0);
+    h2->SetMaximum(1e5);
+    h2->Draw("CONT4 Z");
+
+
+//    IsGISAXSTools::setMinimum(100.);
+//    IsGISAXSTools::setMaximum(1e7);
+//    IsGISAXSTools::drawOutputDataInPad(*mp_intensity_output, "CONT4 Z", "meso");
 
     OutputDataIOFactory::writeOutputData(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/MesoCrystals/ex01_spheres/mesocrystal.ima");
+
+    std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
+    OutputData<double > *real_data = OutputDataIOFactory::getOutputData(file_name);
+    TCanvas *c2 = DrawHelper::instance().createAndRegisterCanvas("exp_meso_crystal", "mesocrystal", 1024, 768);
+    c2->cd(); gPad->SetLogz();
+    gPad->SetRightMargin(0.115);
+    gPad->SetLeftMargin(0.13);
+
+    TH2D *h2b = IsGISAXSTools::getOutputDataTH2D(*real_data, "mesocrystal");
+    h2b->SetTitle("");
+    h2b->SetMinimum(100.);
+    h2b->SetMaximum(1e5);
+    h2b->GetXaxis()->SetTitle("#phi_{f}");
+    h2b->GetYaxis()->SetTitle("#alpha_{f}");
+    h2b->GetXaxis()->SetTitleOffset(0.9);
+    h2b->GetYaxis()->SetTitleOffset(1.2);
+    h2b->GetYaxis()->SetRangeUser(0.0,0.039);
+    h2b->GetXaxis()->SetRangeUser(0.0,0.059);
+    h2b->Draw("COLZ Z");
+
+
+
 }
 
 /* ************************************************************************* */
 // MesoCrystalBuilder member definitions
 /* ************************************************************************* */
 MesoCrystalBuilder::MesoCrystalBuilder()
-: m_meso_radius(1000.0*Units::nanometer)
-, m_surface_filling_ratio(0.25)
-, m_meso_height(200.0*Units::nanometer)
-, m_sigma_meso_height(20.0*Units::nanometer)
-, m_sigma_meso_radius(50.0*Units::nanometer)
-, m_lattice_length_a(6.15*Units::nanometer)
-, m_nanoparticle_radius(4.3*Units::nanometer)
-, m_sigma_nanoparticle_radius(0.14*Units::nanometer)
-, m_sigma_lattice_length_a(1.5*Units::nanometer)
-, m_roughness(0.0*Units::nanometer)
+//: m_meso_radius(1000.0*Units::nanometer)
+//, m_surface_filling_ratio(0.25)
+//, m_meso_height(200.0*Units::nanometer)
+//, m_sigma_meso_height(20.0*Units::nanometer)
+//, m_sigma_meso_radius(50.0*Units::nanometer)
+//, m_lattice_length_a(6.15*Units::nanometer)
+//, m_nanoparticle_radius(4.3*Units::nanometer)
+//, m_sigma_nanoparticle_radius(0.14*Units::nanometer)
+//, m_sigma_lattice_length_a(1.5*Units::nanometer)
+//, m_roughness(0.0*Units::nanometer)
 // attempt 0
 //: m_meso_radius(1370*Units::nanometer)
 //, m_surface_filling_ratio(0.114748)
@@ -105,16 +139,16 @@ MesoCrystalBuilder::MesoCrystalBuilder()
 //, m_sigma_lattice_length_a(1.95504*Units::nanometer)
 //, m_roughness(0.13464*Units::nanometer)
 // attempt II
-//: m_meso_radius(9.4639e+02*Units::nanometer)
-//, m_surface_filling_ratio(0.159)
-//, m_meso_height(1.2470e+02*Units::nanometer)
-//, m_sigma_meso_height(10*Units::nanometer)
-//, m_sigma_meso_radius(10*Units::nanometer)
-//, m_lattice_length_a(6.212*Units::nanometer)
-//, m_nanoparticle_radius(5.947*Units::nanometer)
-//, m_sigma_nanoparticle_radius(6.8688e-02*Units::nanometer)
-//, m_sigma_lattice_length_a(2.3596*Units::nanometer)
-//, m_roughness(0.6517*Units::nanometer)
+: m_meso_radius(9.4639e+02*Units::nanometer)
+, m_surface_filling_ratio(0.159)
+, m_meso_height(1.2470e+02*Units::nanometer)
+, m_sigma_meso_height(10*Units::nanometer)
+, m_sigma_meso_radius(10*Units::nanometer)
+, m_lattice_length_a(6.212*Units::nanometer)
+, m_nanoparticle_radius(5.947*Units::nanometer)
+, m_sigma_nanoparticle_radius(6.8688e-02*Units::nanometer)
+, m_sigma_lattice_length_a(2.3596*Units::nanometer)
+, m_roughness(0.6517*Units::nanometer)
 {
     init_parameters();
 }

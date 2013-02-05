@@ -34,7 +34,7 @@ namespace Geometry {
   Vector3D<double> &
   Vector3D<double>::transform(const Transform3D & m) {
     double vx = x(), vy = y(), vz = z();
-    set(m.xx()*vx + m.xy()*vy + m.xz()*vz,
+    setXYZ(m.xx()*vx + m.xy()*vy + m.xz()*vz,
 	m.yx()*vx + m.yy()*vy + m.yz()*vz,
 	m.zx()*vx + m.zy()*vy + m.zz()*vz);
     return *this;

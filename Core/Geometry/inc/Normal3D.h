@@ -155,7 +155,7 @@ namespace Geometry {
     /**
      * Assignment. */
     Normal3D<double> & operator=(const Normal3D<double> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
+      setXYZ(v.x(),v.y(),v.z()); return *this;
     }
 
 //    /**
@@ -167,7 +167,7 @@ namespace Geometry {
     /**
      * Assignment from BasicVector3D<double>. */
     Normal3D<double> & operator=(const BasicVector3D<double> & v) {
-      set(v.x(),v.y(),v.z()); return *this;
+      setXYZ(v.x(),v.y(),v.z()); return *this;
     }
 
     /**

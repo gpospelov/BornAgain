@@ -26,7 +26,7 @@ SampleFactory::SampleFactory()
     registerItem("MultilayerOffspecTestcase2b", StandardSamples::MultilayerOffspecTestcase2b);
 
     // IsGISAXS1 example: cylinder and prism
-    registerItem("IsGISAXS1_CylinderAndPrism", StandardSamples::IsGISAXS1_CylinderAndPrism);
+    //registerItem("IsGISAXS1_CylinderAndPrism", StandardSamples::IsGISAXS1_CylinderAndPrism);
 
     // IsGISAXS2 example: mixture of cylindrical particles with two size distribution
     registerItem("IsGISAXS2_CylindersMixture", StandardSamples::IsGISAXS2_CylindersMixture);
@@ -39,6 +39,11 @@ SampleFactory::SampleFactory()
     // IsGISAXS4 example: cylinders on top of substrate with paracrystal structure factors
     registerItem("IsGISAXS4_1DDL", StandardSamples::IsGISAXS4_1DDL);
     registerItem("IsGISAXS4_2DDL", StandardSamples::IsGISAXS4_2DDL);
+
+    // IsGISAXS6 example: cylinders with lattice interference function
+    registerItem("IsGISAXS6_lattice", StandardSamples::IsGISAXS6_lattice);
+    registerItem("IsGISAXS6_centered", StandardSamples::IsGISAXS6_centered);
+    registerItem("IsGISAXS6_rotated", StandardSamples::IsGISAXS6_rotated);
 
     // IsGISAXS7 example: particle mixture from morphology file
     registerItem("IsGISAXS7_mor", StandardSamples::IsGISAXS7_morphology);
@@ -57,11 +62,25 @@ SampleFactory::SampleFactory()
     // IsGISAXS11 example: core shell parallelepipeds
     registerItem("IsGISAXS11_CoreShellParticle", StandardSamples::IsGISAXS11_CoreShellParticles);
 
+    // IsGISAXS14 example: layered sphere on graded interface
+    registerItem("IsGISAXS14_LayeredSpheresOnGradedInterface", StandardSamples::IsGISAXS14_LayeredSpheresOnGradedInterface);
+
     // IsGISAXS15 example: Size-Spacing Correlation Approximation
     registerItem("IsGISAXS15_SSCA", StandardSamples::IsGISAXS15_SSCA);
 
     // mesocrystal's
     registerItem("MesoCrystal1", StandardSamples::MesoCrystal1);
     registerItem("MesoCrystal2", StandardSamples::MesoCrystal2);
-}
 
+    registerItem("FormFactor_Box", StandardSamples::FormFactor_Box);
+    registerItem("FormFactor_Cone", StandardSamples::FormFactor_Cone);
+    registerItem("FormFactor_Sphere", StandardSamples::FormFactor_Sphere);
+    registerItem("FormFactor_Ellipsoid", StandardSamples::FormFactor_Ellipsoid);
+    registerItem("FormFactor_FullSpheroid", StandardSamples::FormFactor_FullSpheroid);
+    registerItem("FormFactor_HemiSpheroid", StandardSamples::FormFactor_HemiSpheroid);
+    registerItem("FormFactor_Parallelpiped", StandardSamples::FormFactor_Parallelpiped);
+    registerItem("FormFactor_Cylinder", StandardSamples::FormFactor_Cylinder);
+    registerItem("FormFactor_Pyramid", StandardSamples::FormFactor_Pyramid);
+    registerItem("FormFactor_FullSphere", StandardSamples::FormFactor_FullSphere);
+    registerItem("FormFactor_Prism3", StandardSamples::FormFactor_Prism3);
+}

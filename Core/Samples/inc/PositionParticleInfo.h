@@ -25,8 +25,11 @@ class PositionParticleInfo : public ParticleInfo
 {
 public:
     //! constructor for positioned particle info having transformation property, position and abundance
-    PositionParticleInfo(Particle *p_particle, Geometry::Transform3D *p_transform, kvector_t position, double abundance=0);
-    PositionParticleInfo(Particle *p_particle, kvector_t position, double abundance=0);
+    PositionParticleInfo(Particle *p_particle,
+            Geometry::Transform3D *p_transform, kvector_t position,
+            double abundance=0);
+    PositionParticleInfo(Particle *p_particle, kvector_t position,
+            double abundance=0);
 
     virtual ~PositionParticleInfo();
 

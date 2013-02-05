@@ -12,7 +12,6 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
     init_parameters();
 }
 
-
 FormFactorFullSphere::~FormFactorFullSphere()
 {
 }

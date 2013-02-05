@@ -32,7 +32,7 @@ public:
 
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream) = 0;
 protected:
-    size_t m_precision;
+    int m_precision;
 };
 
 

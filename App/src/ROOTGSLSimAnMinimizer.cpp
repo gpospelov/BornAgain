@@ -201,7 +201,7 @@ bool GSLSimAnMinimizer::Minimize() {
       else
          std::cout << "GSLSimAnMinimizer: Error in solving" << std::endl;
 
-      int pr = std::cout.precision(18);
+      int pr = (int)std::cout.precision(18);
       std::cout << "FVAL         = " << fMinVal << std::endl;
       std::cout.precision(pr);
       for (unsigned int i = 0; i < fDim; ++i)

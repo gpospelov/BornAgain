@@ -3,8 +3,13 @@
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 GCC_DIAG_OFF(missing-field-initializers);
+#include "Macros.h"
+GCC_DIAG_OFF(unused-parameter);
+GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
+GCC_DIAG_ON(unused-parameter);
+GCC_DIAG_ON(missing-field-initializers);
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 #include "BasicVector3D.h"
@@ -95,16 +100,6 @@ void register_cvector_t_class(){
                 , ( bp::arg("v") ) );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::getR
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*getR_function_type )(  ) const;
-            
-            cvector_t_exposer.def( 
-                "getR"
-                , getR_function_type( &::Geometry::BasicVector3D< std::complex< double > >::getR ) );
-        
-        }
         { //::Geometry::BasicVector3D< std::complex< double > >::mag
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
@@ -133,6 +128,16 @@ void register_cvector_t_class(){
             cvector_t_exposer.def( 
                 "magxy"
                 , magxy_function_type( &::Geometry::BasicVector3D< std::complex< double > >::magxy ) );
+        
+        }
+        { //::Geometry::BasicVector3D< std::complex< double > >::magxy2
+        
+            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
+            typedef ::std::complex< double > ( exported_class_t::*magxy2_function_type )(  ) const;
+            
+            cvector_t_exposer.def( 
+                "magxy2"
+                , magxy2_function_type( &::Geometry::BasicVector3D< std::complex< double > >::magxy2 ) );
         
         }
         cvector_t_exposer.def( bp::self *= bp::other< double >() );
@@ -192,17 +197,6 @@ void register_cvector_t_class(){
             cvector_t_exposer.def( 
                 "rho"
                 , rho_function_type( &::Geometry::BasicVector3D< std::complex< double > >::rho ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::set
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*set_function_type )( ::std::complex< double > const &,::std::complex< double > const &,::std::complex< double > const & ) ;
-            
-            cvector_t_exposer.def( 
-                "set"
-                , set_function_type( &::Geometry::BasicVector3D< std::complex< double > >::set )
-                , ( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::setLambdaAlphaPhi

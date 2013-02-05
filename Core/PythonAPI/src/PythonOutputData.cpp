@@ -1,5 +1,5 @@
 #include "Python.h"
-#define PY_ARRAY_UNIQUE_SYMBOL scatt_ARRAY_API
+#define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
 #include "numpy/arrayobject.h"
 // the order of 4 guys above is important, see explanation in PythonAPI/src/PythonModule.cpp

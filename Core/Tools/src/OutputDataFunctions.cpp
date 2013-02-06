@@ -360,6 +360,16 @@ Mask* OutputDataFunctions::CreateRectangularMask(const OutputData<double>& data,
     return p_result;
 }
 
+
+Mask* OutputDataFunctions::CreateRectangularMask(const OutputData<double>& data, double x1, double y1, double x2, double y2)
+{
+    if(data.getRank() != 2) throw LogicErrorException("OutputDataFunctions::CreateRectangularMask2D() -> Error! Number of dimensions should be 2");
+    const double minima[2]={x1, y1};
+    const double maxima[2]={x2, y2};
+    return OutputDataFunctions::CreateRectangularMask(data, minima, maxima);
+}
+
+
 Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double>& data,
         const double* center, const double* radii)
 {
@@ -383,3 +393,13 @@ Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double>& data,
     p_result->setMaskCoordinateFunction(p_ellipse_function);
     return p_result;
 }
+
+Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double> &data, double xc, double yc, double rx, double ry)
+{
+    if(data.getRank() != 2) throw LogicErrorException("OutputDataFunctions::CreateRectangularMask2D() -> Error! Number of dimensions should be 2");
+    const double center[2]={xc, yc};
+    const double radii[2]={rx, ry};
+    return OutputDataFunctions::CreateEllipticMask(data, center, radii);
+}
+
+

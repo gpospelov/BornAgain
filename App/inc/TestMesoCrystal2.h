@@ -34,6 +34,8 @@ class FitSuite;
 class TestMesoCrystal2 : public IFunctionalTest
 {
 public:
+    typedef std::vector<std::vector<std::string > > fixplan_t; // to hold sets of fit parameters to fix/release
+
     TestMesoCrystal2();
     virtual ~TestMesoCrystal2();
 
@@ -67,6 +69,7 @@ public:
     void fitsuite_setup(int nconfig);
     void fitsuite_config1();
     void fitsuite_config2();
+    void fitsuite_config3();
 
 private:
     void initializeRealData();

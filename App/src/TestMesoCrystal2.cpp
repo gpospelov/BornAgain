@@ -19,6 +19,7 @@
 #include "MultiLayer.h"
 #include "OutputDataIOFactory.h"
 #include "OutputDataReader.h"
+#include "OutputDataFunctions.h"
 #include "ParticleDecoration.h"
 #include "ProgramOptions.h"
 #include "ResolutionFunction2DSimple.h"
@@ -76,81 +77,12 @@ void TestMesoCrystal2::execute()
 
     // setting fitSuite
     m_fitSuite = new FitSuite();
+    m_fitSuite->getFitObjects()->setExperimentNormalize(true);
+
+    int fitconfig = (*mp_options)["fitconfig"].as<int>();
+    fitsuite_setup(fitconfig);
+
     m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data);
-
-    int fitmode = (*mp_options)["fitmode"].as<int>();
-    fitsuite_setup(fitmode);
-
-
-
-
-//    fitSuite->addFitParameter("*/lattice_length_a", 6.2*Units::nanometer, 1.0*Units::nanometer,
-//            AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
-//    fitSuite->addFitParameter("*/nanoparticle_radius", 5.7*Units::nanometer, 1.0*Units::nanometer,
-//            AttLimits::limited(2.0*Units::nanometer, 8.0*Units::nanometer) );
-//    fitSuite->addFitParameter("*/sigma_nanoparticle_radius", 0.1*Units::nanometer, 0.05*Units::nanometer,
-//            AttLimits::limited(0.01*Units::nanometer, 2.0*Units::nanometer) );
-//    fitSuite->addFitParameter("*/meso_height", 500.0*Units::nanometer, 100.0*Units::nanometer,
-//            AttLimits::limited(100.0*Units::nanometer, 2000.0*Units::nanometer) );
-//    fitSuite->addFitParameter("*/meso_radius", 1000.0*Units::nanometer, 100.0*Units::nanometer,
-//            AttLimits::limited(100.0*Units::nanometer, 5000.0*Units::nanometer) );
-//    fitSuite->addFitParameter("*/sigma_meso_height", 5.0*Units::nanometer, 1.0*Units::nanometer,
-//            AttLimits::limited(10.0*Units::nanometer, 200.0*Units::nanometer) );
-//    fitSuite->addFitParameter("*/sigma_meso_radius", 50.0*Units::nanometer, 10.0*Units::nanometer,
-//            AttLimits::limited(10.0*Units::nanometer, 500.0*Units::nanometer) );
-//    fitSuite->addFitParameter("*/sigma_lattice_length_a", 1.5*Units::nanometer, 0.5*Units::nanometer,
-//            AttLimits::limited(0.01*Units::nanometer, 4.0*Units::nanometer) );
-//    fitSuite->addFitParameter("*/surface_filling_ratio", 0.25, 0.1,
-//            AttLimits::limited(0.1, 0.4) );
-//    fitSuite->addFitParameter("*/roughness", 1.0*Units::nanometer, 0.1*Units::nanometer,
-//            AttLimits::limited(0.01*Units::nanometer, 50.0*Units::nanometer) );
-//    fitSuite->addFitParameter("*Beam/intensity", 8e12, 100, AttLimits::limited(8e11, 8e13) );
-////    fitSuite->addFitParameter("*/ResolutionFunction2D/sigma_x", 0.0002, 0.00001,
-////            AttLimits::limited(0.0, 0.002) );
-////    fitSuite->addFitParameter("*/ResolutionFunction2D/sigma_y", 0.0002, 0.00001,
-////            AttLimits::limited(0.0, 0.002) );
-
-
-////    // decrease number of bins in fit
-////    FitSuiteStrategyAdjustData *strategy0 = new FitSuiteStrategyAdjustData(3);
-////    strategy0->setCallMinimize(false);
-////    strategy0->setPreserveOriginalData(false);
-////    fitSuite->addFitStrategy(strategy0);
-
-//    typedef std::vector<std::string > parnames_t;
-//    std::vector<parnames_t > fixplan;
-
-//    parnames_t pars;
-//    pars.clear(); pars.push_back("*/lattice_length_a"); pars.push_back("*/nanoparticle_radius"); fixplan.push_back(pars);
-//    pars.clear(); pars.push_back("*/meso_height"); pars.push_back("*/meso_radius"); fixplan.push_back(pars);
-//    pars.clear(); pars.push_back("*Beam/intensity"); fixplan.push_back(pars);
-//    pars.clear(); pars.push_back("*/surface_filling_ratio"); fixplan.push_back(pars);
-//    pars.clear(); pars.push_back("*/roughness"); fixplan.push_back(pars);
-//    pars.clear(); pars.push_back("*/sigma_lattice_length_a"); pars.push_back("*/sigma_nanoparticle_radius"); fixplan.push_back(pars);
-//    pars.clear(); pars.push_back("*/sigma_meso_height"); pars.push_back("*/sigma_meso_radius"); fixplan.push_back(pars);
-
-//    // here we are fixing specific parameters before fit
-//    for( size_t i_plan=0; i_plan<fixplan.size(); ++i_plan) {
-//        std::ostringstream ostr;
-//        ostr << "strategy" <<i_plan;
-//        FitSuiteStrategyAdjustParameters *strategy = new FitSuiteStrategyAdjustParameters(ostr.str());
-//        strategy->fix_all();
-//        int fitmode  = (*mp_options)["fitmode"].as<int>();
-//        if(fitmode==1) {
-//            strategy->setPreserveOriginalValues(true); // initial values of parameters will be restored after each fit
-//        } else {
-//            strategy->setPreserveOriginalValues(false);
-//        }
-
-//        for(size_t i_par=0; i_par<fixplan[i_plan].size(); ++i_par) {
-//            strategy->release(fixplan[i_plan][i_par]);
-//        }
-//        fitSuite->addFitStrategy(strategy);
-//    }
-//    FitSuiteStrategyAdjustParameters *strategy_all = new FitSuiteStrategyAdjustParameters("strategy_all");
-//    strategy_all->release_all();
-//    fitSuite->addFitStrategy(strategy_all);
-
 
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
@@ -194,9 +126,86 @@ void TestMesoCrystal2::fitsuite_setup(int nconfig)
     case 2:
         fitsuite_config2();
         break;
+    case 3:
+        fitsuite_config3();
+        break;
     default:
         throw LogicErrorException("TestMesoCrystal2::fitsuite_setup() -> Error! Can't setup FitSuite");
         break;
+    }
+}
+
+
+// ----------------------------------------------------------------------------
+// FitSuite configuration #3
+// * Mask on fit data
+// * Several fit iterations with different set of fixed released parameters
+// * ChiSquaredModule with normalizer
+// ----------------------------------------------------------------------------
+void TestMesoCrystal2::fitsuite_config3()
+{
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Combined") );
+
+    m_fitSuite->getAttributes().setStepFactor(0.01);
+    m_fitSuite->addFitParameter("*/lattice_length_a",          6.2*Units::nanometer,    AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/nanoparticle_radius",       5.7*Units::nanometer,    AttLimits::limited(2.0*Units::nanometer, 8.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/sigma_nanoparticle_radius", 0.1*Units::nanometer,    AttLimits::limited(0.01*Units::nanometer, 2.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/meso_height",               500.0*Units::nanometer,  AttLimits::limited(100.0*Units::nanometer, 2000.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/meso_radius",               1000.0*Units::nanometer, AttLimits::limited(100.0*Units::nanometer, 5000.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/sigma_meso_height",         5.0*Units::nanometer,    AttLimits::limited(10.0*Units::nanometer, 200.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/sigma_meso_radius",         50.0*Units::nanometer,   AttLimits::limited(10.0*Units::nanometer, 500.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/sigma_lattice_length_a",    1.5*Units::nanometer,    AttLimits::limited(0.01*Units::nanometer, 4.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/surface_filling_ratio",     0.25,                    AttLimits::limited(0.1, 0.4) );
+    m_fitSuite->addFitParameter("*/roughness",                 1.0*Units::nanometer,    AttLimits::limited(0.01*Units::nanometer, 50.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*Beam/intensity",             8e12,                    AttLimits::limited(8e11, 8e13) );
+
+    fixplan_t fixplan;
+    fixplan.resize(7);
+    fixplan[0] = boost::assign::list_of("*/lattice_length_a")("*/nanoparticle_radius");
+    fixplan[1] = boost::assign::list_of("*/meso_height")("*/meso_radius");
+    fixplan[2] = boost::assign::list_of("*Beam/intensity");
+    fixplan[3] = boost::assign::list_of("*/surface_filling_ratio");
+    fixplan[4] = boost::assign::list_of("*/roughness");
+    fixplan[5] = boost::assign::list_of("*/sigma_lattice_length_a")("*/sigma_nanoparticle_radius");
+    fixplan[6] = boost::assign::list_of("*/sigma_meso_height")("*/sigma_meso_radius");
+
+    // here we are fixing specific parameters before fit
+    for( size_t i_plan=0; i_plan<fixplan.size(); ++i_plan) {
+        std::ostringstream ostr;
+        ostr << "strategy" <<i_plan;
+        FitSuiteStrategyAdjustParameters *strategy = new FitSuiteStrategyAdjustParameters(ostr.str());
+        strategy->fix_all();
+        strategy->setPreserveOriginalValues(true); // initial values of parameters will be restored after each fit
+        for(size_t i_par=0; i_par<fixplan[i_plan].size(); ++i_par) {
+            strategy->release(fixplan[i_plan][i_par]);
+        }
+        m_fitSuite->addFitStrategy(strategy);
+    }
+    FitSuiteStrategyAdjustParameters *strategy_all = new FitSuiteStrategyAdjustParameters("strategy_all");
+    strategy_all->release_all();
+    m_fitSuite->addFitStrategy(strategy_all);
+
+//    const double minima[]={0.042, 0.004};
+//    const double maxima[]={0.052, 0.03};
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.041, 0.003, 0.051, 0.03);
+    m_real_data->setMask(*mask1);
+
+
+}
+
+
+// ----------------------------------------------------------------------------
+// FitSuite configuration #2
+// Same as configuration #1, except that evey concequent fit uses optimal parameters
+// from previous fit
+// ----------------------------------------------------------------------------
+void TestMesoCrystal2::fitsuite_config2()
+{
+    fitsuite_config1();
+    for(FitSuiteStrategies::iterator it = m_fitSuite->getFitStrategies()->begin(); it!= m_fitSuite->getFitStrategies()->end(); ++it) {
+        FitSuiteStrategyAdjustParameters *strategy = dynamic_cast<FitSuiteStrategyAdjustParameters *>( (*it) );
+        assert(strategy);
+        strategy->setPreserveOriginalValues(false);
     }
 }
 
@@ -210,7 +219,7 @@ void TestMesoCrystal2::fitsuite_config1()
 
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Combined") );
 
-    m_fitSuite->addFitParameter("*/lattice_length_a",          6.2*Units::nanometer,    1.0*Units::nanometer,   AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/lattice_length_a",          6.2*Units::nanometer,    AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
     m_fitSuite->addFitParameter("*/nanoparticle_radius",       5.7*Units::nanometer,    1.0*Units::nanometer,   AttLimits::limited(2.0*Units::nanometer, 8.0*Units::nanometer) );
     m_fitSuite->addFitParameter("*/sigma_nanoparticle_radius", 0.1*Units::nanometer,    0.05*Units::nanometer,  AttLimits::limited(0.01*Units::nanometer, 2.0*Units::nanometer) );
     m_fitSuite->addFitParameter("*/meso_height",               500.0*Units::nanometer,  100.0*Units::nanometer, AttLimits::limited(100.0*Units::nanometer, 2000.0*Units::nanometer) );
@@ -222,7 +231,6 @@ void TestMesoCrystal2::fitsuite_config1()
     m_fitSuite->addFitParameter("*/roughness",                 1.0*Units::nanometer,    0.1*Units::nanometer,   AttLimits::limited(0.01*Units::nanometer, 50.0*Units::nanometer) );
     m_fitSuite->addFitParameter("*Beam/intensity",             8e12,                    100,                    AttLimits::limited(8e11, 8e13) );
 
-    typedef std::vector<std::vector<std::string > > fixplan_t;
     fixplan_t fixplan;
     fixplan.resize(7);
     fixplan[0] = boost::assign::list_of("*/lattice_length_a")("*/nanoparticle_radius");
@@ -250,26 +258,6 @@ void TestMesoCrystal2::fitsuite_config1()
     m_fitSuite->addFitStrategy(strategy_all);
 
 }
-
-
-// ----------------------------------------------------------------------------
-// FitSuite configuration #2
-// Same as configuration #1, except that evey concequent fit uses optimal parameters
-// from previous fit
-// ----------------------------------------------------------------------------
-void TestMesoCrystal2::fitsuite_config2()
-{
-    std::cout << "1.1" << std::endl;
-    fitsuite_config1();
-    std::cout << "1.2" << std::endl;
-    for(FitSuiteStrategies::iterator it = m_fitSuite->getFitStrategies()->begin(); it!= m_fitSuite->getFitStrategies()->end(); ++it) {
-        FitSuiteStrategyAdjustParameters *strategy = dynamic_cast<FitSuiteStrategyAdjustParameters *>( (*it) );
-        std::cout << "1.3" << strategy << std::endl;
-        assert(strategy);
-        strategy->setPreserveOriginalValues(false);
-    }
-}
-
 
 
 /* ************************************************************************* */

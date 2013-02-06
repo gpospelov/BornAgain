@@ -53,6 +53,14 @@ void FitSuite::addFitParameter(const std::string &name, double value, double ste
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
+void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim, double error)
+{
+    double step = value * getAttributes().getStepFactor();
+    std::cout << getAttributes().getStepFactor() << std::endl;
+    std::cout << "XXX " << name << " " << value << " " << step << std::endl;
+    m_fit_parameters.addParameter(name, value, step, attlim, error);
+}
+
 
 // ----------------------------------------------------------------------------
 // add fit strategy

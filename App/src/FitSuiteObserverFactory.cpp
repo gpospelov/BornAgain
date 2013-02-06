@@ -243,6 +243,11 @@ void FitSuiteObserverWriteTree::update(IObservable *subject)
     const OutputData<double > *simu_data = fitSuite->getFitObjects()->getSimulationData();
     IsGISAXSTools::exportOutputDataInVectors2D(*real_data, event->real_data, event->axis0, event->axis1);
     IsGISAXSTools::exportOutputDataInVectors2D(*simu_data, event->fit_data, event->axis0, event->axis1);
+    if( fitSuite->getNCalls() ) { // we have our axis saved only for the first event
+        event->axis0.clear();
+        event->axis1.clear();
+    }
+
     event->chi2 = fitSuite->getFitObjects()->getChiSquaredValue();
     for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it) {
         event->parvalues.push_back( (*it)->getValue() );

@@ -70,6 +70,7 @@ public:
     void fitsuite_config1();
     void fitsuite_config2();
     void fitsuite_config3();
+    void fitsuite_config4();
 
 private:
     void initializeRealData();

@@ -129,6 +129,9 @@ void TestMesoCrystal2::fitsuite_setup(int nconfig)
     case 3:
         fitsuite_config3();
         break;
+    case 4:
+        fitsuite_config4();
+        break;
     default:
         throw LogicErrorException("TestMesoCrystal2::fitsuite_setup() -> Error! Can't setup FitSuite");
         break;
@@ -185,11 +188,20 @@ void TestMesoCrystal2::fitsuite_config3()
     strategy_all->release_all();
     m_fitSuite->addFitStrategy(strategy_all);
 
-//    const double minima[]={0.042, 0.004};
-//    const double maxima[]={0.052, 0.03};
     Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.041, 0.003, 0.051, 0.03);
     m_real_data->setMask(*mask1);
 
+
+}
+
+void TestMesoCrystal2::fitsuite_config4()
+{
+    fitsuite_config3();
+    for(FitSuiteStrategies::iterator it = m_fitSuite->getFitStrategies()->begin(); it!= m_fitSuite->getFitStrategies()->end(); ++it) {
+        FitSuiteStrategyAdjustParameters *strategy = dynamic_cast<FitSuiteStrategyAdjustParameters *>( (*it) );
+        assert(strategy);
+        strategy->setPreserveOriginalValues(false);
+    }
 
 }
 

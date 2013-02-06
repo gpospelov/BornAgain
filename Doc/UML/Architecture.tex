@@ -1,0 +1,87 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{tikz-uml} 
+\usepackage{amsmath}
+
+
+%opening
+\title{}
+\author{}
+
+\begin{document}
+
+%\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+%\section{}
+
+\begin{tikzpicture}
+\begin{umlpackage}{Sample description} 
+% Code from official documentation goes here...
+\umlinterface{ISample}{
+}{
+  \umlvirt{+ clone() : ISample*} \\
+  \umlvirt{+ createDWBASimulation() : DWBASimulation*}
+}
+\umlclass[y=-4]{MultiLayer}{
+  -- m\_layers : std::vector<Layer *> \\
+  -- m\_interfaces : std::vector<LayerInterface *>
+}{
+  + getNumberOfLayers() : size\_t \\
+  + getNumberOfInterfaces() : size\_t \\
+  + addLayer(const Layer \&layer) : void
+}
+\umlclass[x=8,y=-4]{Layer}{
+  -- mp\_material : IMaterial* \\
+  -- m\_thickness : double
+}{
+  + getThickness() : double \\
+  + setThickness(double thickness) : void
+}
+\umlinherit[geometry=-|]{MultiLayer}{ISample}
+\umlinherit[geometry=|-]{Layer}{ISample}
+\umluniassoc[geometry=--, mult2=n]{MultiLayer}{Layer}
+\end{umlpackage}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\begin{umlpackage}{Simulation Data}
+\umlclass{Experiment}{
+  -- mp\_sample : ISample* \\
+  -- mp\_sample\_builder : ISampleBuilder* \\
+  -- m\_detector : Detector \\
+  -- m\_beam : Beam \\
+  -- m\_intensity\_map : OutputData<double> \\
+  -- m\_sim\_params : SimulationParameters
+}{
+  \umlvirt{+ clone() : Experiment*} \\
+  \umlvirt{+ runSimulation() : void} \\
+  \umlvirt{+ normalize() : void}
+}
+\umlemptyclass[x=7, y=0]{ISample}
+\umlemptyclass[x=7, y=-2]{Detector}
+\umlemptyclass[x=7, y=-4]{Beam}
+\umlemptyclass[x=7, y=-6]{SimulationParameters}
+\umlemptyclass[y=-4]{GISASExperiment}
+\umluniassoc[geometry=|-, anchor1=0]{Experiment}{ISample}
+\umluniassoc[geometry=|-, anchor1=0]{Experiment}{Detector}
+\umluniassoc[geometry=|-, anchor1=0]{Experiment}{Beam}
+\umluniassoc[geometry=|-, anchor1=0]{Experiment}{SimulationParameters}
+\umlinherit[geometry=--]{GISASExperiment}{Experiment}
+
+\umlnote[y=-6.5, width=6cm]{GISASExperiment}{
+  The ``runSimulation()'' method retrieves an ISimulation object
+  from the topmost ISample object and calls its ``run()'' method 
+  to perform the actual computations.
+}
+  
+\end{umlpackage}
+
+
+\end{tikzpicture}
+
+\end{document}

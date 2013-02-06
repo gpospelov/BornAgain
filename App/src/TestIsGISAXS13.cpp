@@ -98,7 +98,7 @@ void TestIsGISAXS13::run_isgisaxs_fit()
     // chi squared module
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
-    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
+    chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
     //chiModule.setIntensityFunction( IntensityFunctionLog() );
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
         mp_fitSuite->addExperimentAndRealData(*mp_experiment, *(*it), chiModule);

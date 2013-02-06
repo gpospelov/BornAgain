@@ -36,6 +36,8 @@ TestFittingModule3::TestFittingModule3()
     , m_fitSuite(0)
     , m_real_data(0)
 {
+    m_fitSuite = new FitSuite();
+
 }
 
 
@@ -56,7 +58,6 @@ void TestFittingModule3::execute()
     initializeRealData();
 
     // setting up fitSuite
-    m_fitSuite = new FitSuite();
     m_fitSuite->addFitParameter("*FormFactorCylinder/height", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );

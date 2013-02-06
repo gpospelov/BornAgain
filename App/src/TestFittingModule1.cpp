@@ -6,7 +6,6 @@
 #include "FitSuiteObserverFactory.h"
 #include "FormFactors.h"
 #include "GISASExperiment.h"
-#include "IOutputDataNormalizer.h"
 #include "ISquaredFunction.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
@@ -34,7 +33,7 @@ TestFittingModule1::TestFittingModule1()
     , mp_sample(0)
     , m_fitSuite(0)
 {
-
+    m_fitSuite = new FitSuite();
 }
 
 
@@ -49,9 +48,6 @@ TestFittingModule1::~TestFittingModule1()
 
 void TestFittingModule1::execute()
 {
-    // creating fit suite
-    m_fitSuite = new FitSuite();
-
     // initializing data
     initializeSample1();
     initializeExperiment();
@@ -177,6 +173,7 @@ void TestFittingModule1::initializeRealData()
 
     mp_experiment->runSimulation();
     mp_experiment->normalize();
+    m_fitSuite->getFitObjects()->setExperimentNormalize(true);
     delete mp_real_data;
     mp_real_data = IsGISAXSTools::createNoisyData(*mp_experiment->getOutputData());
 }

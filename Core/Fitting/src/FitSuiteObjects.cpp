@@ -2,7 +2,7 @@
 
 
 
-FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_experiment_normalize(true), m_nfree_parameters(0), m_chi_squared_value(0)
+FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_experiment_normalize(false), m_nfree_parameters(0), m_chi_squared_value(0)
 {
     setName("FitSuiteObjects");
     init_parameters();
@@ -81,9 +81,8 @@ double FitSuiteObjects::calculateChiSquaredValue()
 
         chi->setNdegreeOfFreedom( (int)(m_fit_objects.size() * (*it)->getRealData()->getAllocatedSize() - m_nfree_parameters) );
         // normalizing datasets to the maximum intensity over all fit objects defined
-        OutputDataNormalizerScaleAndShift *data_normalizer =  dynamic_cast<OutputDataNormalizerScaleAndShift *>(chi->getOutputDataNormalizer());
-        if( data_normalizer) {
-            data_normalizer->setMaximumIntensity( max_intensity );
+        if( chi->getOutputDataNormalizer() ) {
+            chi->getOutputDataNormalizer()->setMaximumIntensity(max_intensity);
         }
 
         double weight = (*it)->getWeight()/m_total_weight;

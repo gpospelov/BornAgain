@@ -220,7 +220,7 @@ void TestMesoCrystal2::fitsuite_config3()
     m_fitSuite->addFitParameter("*/surface_filling_ratio",     0.1,                    AttLimits::limited(0.05, 0.5) );
     m_fitSuite->addFitParameter("*/roughness",                 1.0*Units::nanometer,    AttLimits::limited(0.01*Units::nanometer, 50.0*Units::nanometer) );
 //    m_fitSuite->addFitParameter("*Beam/intensity",             8e12,                    AttLimits::fixed() );
-    m_fitSuite->addFitParameter("*Normalizer/scale",           1,                       AttLimits::limited(0.5,1.5) );
+    m_fitSuite->addFitParameter("*Normalizer/scale",           1,                       AttLimits::limited(0.05,10.) );
     m_fitSuite->addFitParameter("*Normalizer/shift",           1,                       AttLimits::limited(0.0,1000.) );
 
     fixplan_t fixplan;
@@ -229,7 +229,7 @@ void TestMesoCrystal2::fitsuite_config3()
     fixplan.push_back(boost::assign::list_of("*/lattice_length_a")("*/lattice_length_c")("*/nanoparticle_radius"));
 //    fixplan[1] = boost::assign::list_of("*/meso_height")("*/meso_radius");
 //    fixplan[2] = boost::assign::list_of("*Beam/intensity");
-    fixplan.push_back(boost::assign::list_of("*/surface_filling_ratio")("*/sigma_lattice_length_a")("*/sigma_nanoparticle_radius")("roughness"));
+    fixplan.push_back(boost::assign::list_of("*/surface_filling_ratio")("*/sigma_lattice_length_a")("*/sigma_nanoparticle_radius")("*/roughness"));
 
     // here we are fixing specific parameters before fit
     for( size_t i_plan=0; i_plan<fixplan.size(); ++i_plan) {

@@ -45,19 +45,16 @@ void FitSuite::addExperimentAndRealData(const Experiment &experiment, const Outp
 }
 
 
-// ----------------------------------------------------------------------------
 // add fit parameter
-// ----------------------------------------------------------------------------
 void FitSuite::addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error)
 {
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
+// add fit parameter, step is calculated from initial parameter value
 void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim, double error)
 {
     double step = value * getAttributes().getStepFactor();
-    std::cout << getAttributes().getStepFactor() << std::endl;
-    std::cout << "XXX " << name << " " << value << " " << step << std::endl;
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 

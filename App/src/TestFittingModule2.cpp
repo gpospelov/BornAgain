@@ -115,6 +115,7 @@ void TestFittingModule2::fit_example_chimodule()
     m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",    6*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*Normalizer/scale",    1, 0.01*Units::nanometer, AttLimits::limited(0.9,1.1) );
 
+
     // setting up fitSuite
     ChiSquaredModule chiModule;
     //chiModule.setChiSquaredFunction( SquaredFunctionDefault() );

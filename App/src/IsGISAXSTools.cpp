@@ -643,7 +643,7 @@ OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData
 }
 
 
-void IsGISAXSTools::drawOutputDataComparisonResults(const OutputData<double> &data, const OutputData<double> &reference, const std::string &name, const std::string &title)
+void IsGISAXSTools::drawOutputDataComparisonResults(const OutputData<double> &data, const OutputData<double> &reference, const std::string &name, const std::string &title, double hmin, double hmax, double hdiff)
 {
     assert(&data);
     assert(&reference);
@@ -653,7 +653,8 @@ void IsGISAXSTools::drawOutputDataComparisonResults(const OutputData<double> &da
     // our calculations
     c1->cd(1); gPad->SetLogz();
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::setMinimum(1.0);
+    IsGISAXSTools::setMinimum(hmin);
+    if(hmax>0) IsGISAXSTools::setMaximum(hmax);
     IsGISAXSTools::drawOutputDataInPad(data, "CONT4 Z", "this");
 
     // isgisaxs data
@@ -664,8 +665,8 @@ void IsGISAXSTools::drawOutputDataComparisonResults(const OutputData<double> &da
     // difference
     c1->cd(3);
     gPad->SetRightMargin(0.12);
-    IsGISAXSTools::setMinimum(-0.0001);
-    IsGISAXSTools::setMaximum(0.0001);
+    IsGISAXSTools::setMinimum(-hdiff);
+    IsGISAXSTools::setMaximum(hdiff);
     IsGISAXSTools::drawOutputDataRelativeDifference2D(data, reference, "CONT4 Z", "2D Difference map");
 
     // difference

@@ -111,7 +111,7 @@ public:
     static OutputData<double > *createDataWithGaussianNoise(const OutputData<double> &exact_data, double sigma);
 
     //! draw standard IsGISAXS comparison canvas
-    static void drawOutputDataComparisonResults(const OutputData<double> &data, const OutputData<double> &reference, const std::string &name=std::string("noname"), const std::string &title=std::string("no title") );
+    static void drawOutputDataComparisonResults(const OutputData<double> &data, const OutputData<double> &reference, const std::string &name=std::string("noname"), const std::string &title=std::string("no title"), double hmin=1., double hmax = -1., double hdiff=0.0001 );
 
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

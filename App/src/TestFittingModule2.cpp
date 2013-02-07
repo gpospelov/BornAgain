@@ -45,6 +45,8 @@ TestFittingModule2::TestFittingModule2()
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createTreeObserver() );
+
 }
 
 
@@ -67,10 +69,10 @@ void TestFittingModule2::execute()
     //fit_example_chimodule();
 
     // fit example with strategies
-    //fit_example_strategies();
+    fit_example_strategies();
 
     // fit example with data masking
-    fit_example_mask();
+    //fit_example_mask();
 }
 
 
@@ -158,8 +160,8 @@ void TestFittingModule2::fit_example_strategies()
 
     // Applying fit strategy: resizing real data
     m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(3));
-    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(2));
-    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(1));
+//    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(2));
+//    m_fitSuite->addFitStrategy(new FitSuiteStrategyAdjustData(1));
     m_fitSuite->addFitStrategy(new FitSuiteStrategyDefault());
 
     // Applying fit strategy: disturbing data to get out of local minima

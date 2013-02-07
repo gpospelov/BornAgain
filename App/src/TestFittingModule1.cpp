@@ -64,7 +64,7 @@ void TestFittingModule1::execute()
 
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
-    //fitSuite->attachObserver( ObserverFactory::createTreeObserver() );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createTreeObserver() );
 
     m_fitSuite->runFit();
 }

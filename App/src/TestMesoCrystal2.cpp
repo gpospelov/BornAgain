@@ -205,7 +205,7 @@ void TestMesoCrystal2::fitsuite_setup(int nconfig)
 // ----------------------------------------------------------------------------
 void TestMesoCrystal2::fitsuite_config3()
 {
-    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Combined") );
 
     m_fitSuite->getAttributes().setStepFactor(0.01);
     m_fitSuite->addFitParameter("*/lattice_length_a",          6.2*Units::nanometer,    AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );

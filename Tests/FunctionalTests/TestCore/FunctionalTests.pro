@@ -9,7 +9,9 @@ SUBDIRS += \
     IsGISAXS07 \
     IsGISAXS09 \
     IsGISAXS010 \
-    IsGISAXS011
-
+    IsGISAXS011 \
+    IsGISAXS08 \
+    IsGISAXS015 \
+    IsGISAXS06
 
 CONFIG += ordered

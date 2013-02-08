@@ -28,7 +28,6 @@ void FunctionalTests::IsGISAXS09::run()
     // ---------------------
     // building sample
     // ---------------------
-        MultiLayer multi_layer_pyramid;
         const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
         const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
         Layer air_layer;
@@ -39,6 +38,7 @@ void FunctionalTests::IsGISAXS09::run()
         complex_t n_particle(1.0-6e-4, 2e-8);
 
     //  Pyramid
+        MultiLayer multi_layer_pyramid;
         ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ) ) ) );
         particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
         LayerDecorator air_layer_decorator(air_layer, particle_decoration);
@@ -75,14 +75,13 @@ void FunctionalTests::IsGISAXS09::run()
     // ---------------------
     // running experiment
     // ---------------------
-   // experiment.setSample(multi_layer_pyramid);
+    experiment.setSample(multi_layer_pyramid);
+    experiment.runSimulation();
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_pyramid_Z0.ima");
+
     experiment.setSample(multi_layer_rotated_pyramid);
     experiment.runSimulation();
-
-    // ---------------------
-    // copying data
-    // ---------------------
-    m_result = experiment.getOutputDataClone();
+    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_pyramid_Z45.ima");
 
 }
 
@@ -90,12 +89,21 @@ int FunctionalTests::IsGISAXS09::analyseResults()
 {
     const double threshold(1e-10);
 
-    // retrieving reference data
+    // retrieving reference data and generated examples
+    std::vector< CompareStruct > tocompare;
+    m_data_path = Utils::FileSystem::GetHomePath()+"Tests/FunctionalTests/TestCore/IsGISAXS09/";
 
-   // std::string filename = Utils::FileSystem::GetHomePath() + "/Tests/FunctionalTests/TestCore/IsGISAXS09/isgi_pyramid_Z0.ima.gz";
-      std::string filename = Utils::FileSystem::GetHomePath() + "/Tests/FunctionalTests/TestCore/IsGISAXS09/isgi_pyramid_Z45.ima.gz";
+    tocompare.push_back( CompareStruct("isgi_pyramid_Z0.ima.gz", "this_pyramid_Z0.ima",
+            "Pyramid DWBA formfactor") );
+    tocompare.push_back( CompareStruct("isgi_pyramid_Z45.ima.gz", "this_pyramid_Z45.ima",
+            "Pyramid DWBA formfactor rotated") );
 
-    OutputData<double > *reference = OutputDataIOFactory::getOutputData(filename);
+    bool status_ok(true);
+
+    for(size_t i=0; i<tocompare.size(); ++i) {
+        OutputData<double> *reference = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].isginame);
+        OutputData<double> *m_result = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].thisname);
+        std::string descript  = tocompare[i].descr;
 
     // calculating average relative difference
     *m_result -= *reference;
@@ -105,9 +113,10 @@ int FunctionalTests::IsGISAXS09::analyseResults()
         diff+= std::fabs(*it);
     }
     diff /= m_result->getAllocatedSize();
-
-    bool status_ok(true);
     if( diff > threshold ) status_ok=false;
+
+    std::cout << descript << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
+    }
 
     std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (int)status_ok;

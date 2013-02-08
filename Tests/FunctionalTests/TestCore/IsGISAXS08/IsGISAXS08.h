@@ -1,5 +1,6 @@
-#ifndef FUNCTIONALTESTS_ISGISAXS09_H
-#define FUNCTIONALTESTS_ISGISAXS09_H
+#ifndef FUNCTIONALTESTS_ISGISAXS08_H
+#define FUNCTIONALTESTS_ISGISAXS08_H
+
 
 #include <string>
 #include "OutputData.h"
@@ -9,11 +10,11 @@ class GISASExperiment;
 
 namespace FunctionalTests {
 
-class IsGISAXS09
+class IsGISAXS08
 {
 public:
-    IsGISAXS09();
-    ~IsGISAXS09() { delete m_result; }
+    IsGISAXS08();
+    ~IsGISAXS08() { delete m_result; }
     void run();
     int analyseResults();
     const OutputData<double> *getOutputData() { return m_result;}
@@ -22,7 +23,7 @@ private:
     std::string m_description;
     OutputData<double> *m_result;
 
-   // SafePointerVector<OutputData<double> > m_results;
+   // structure to hold info over several compare cases
     struct CompareStruct
     {
         CompareStruct(std::string _isginame, std::string _thisname, std::string _descr) : isginame(_isginame), thisname(_thisname), descr(_descr){}
@@ -31,8 +32,7 @@ private:
         std::string descr;
     };
 
-   std::string m_data_path;
-
+    std::string m_data_path;
 };
 
 

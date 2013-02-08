@@ -205,17 +205,18 @@ void TestMesoCrystal2::fitsuite_setup(int nconfig)
 // ----------------------------------------------------------------------------
 void TestMesoCrystal2::fitsuite_config3()
 {
-    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Combined") );
+//    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Combined") );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
 
     m_fitSuite->getAttributes().setStepFactor(0.01);
     m_fitSuite->addFitParameter("*/lattice_length_a",          6.2*Units::nanometer,    AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
     m_fitSuite->addFitParameter("*/lattice_length_c",          6.2*Units::nanometer,    AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
-    m_fitSuite->addFitParameter("*/nanoparticle_radius",       5.7*Units::nanometer,    AttLimits::limited(3.0*Units::nanometer, 8.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/nanoparticle_radius",       5.7*Units::nanometer,    AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
     m_fitSuite->addFitParameter("*/sigma_nanoparticle_radius", 0.1*Units::nanometer,    AttLimits::limited(0.01*Units::nanometer, 2.0*Units::nanometer) );
-    m_fitSuite->addFitParameter("*/meso_height",               200.0*Units::nanometer,   AttLimits::limited(100.0*Units::nanometer, 2000.0*Units::nanometer) );
-    m_fitSuite->addFitParameter("*/meso_radius",               1000.0*Units::nanometer,   AttLimits::limited(100.0*Units::nanometer, 5000.0*Units::nanometer) );
-    m_fitSuite->addFitParameter("*/sigma_meso_height",         20.0*Units::nanometer,    AttLimits::limited(10.0*Units::nanometer, 200.0*Units::nanometer) );
-    m_fitSuite->addFitParameter("*/sigma_meso_radius",         100.0*Units::nanometer,   AttLimits::limited(10.0*Units::nanometer, 500.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/meso_height",               200.0*Units::nanometer,   AttLimits::limited(10.0*Units::nanometer, 2000.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/meso_radius",               1000.0*Units::nanometer,   AttLimits::limited(10.0*Units::nanometer, 5000.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/sigma_meso_height",         20.0*Units::nanometer,    AttLimits::limited(1.0*Units::nanometer, 200.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/sigma_meso_radius",         100.0*Units::nanometer,   AttLimits::limited(1.0*Units::nanometer, 500.0*Units::nanometer) );
     m_fitSuite->addFitParameter("*/sigma_lattice_length_a",    1.0*Units::nanometer,    AttLimits::limited(0.01*Units::nanometer, 4.0*Units::nanometer) );
     m_fitSuite->addFitParameter("*/surface_filling_ratio",     0.2,                      AttLimits::limited(0.05, 0.5) );
     m_fitSuite->addFitParameter("*/roughness",                 1.0*Units::nanometer,     AttLimits::limited(0.01*Units::nanometer, 50.0*Units::nanometer) );
@@ -251,15 +252,16 @@ void TestMesoCrystal2::fitsuite_config3()
     }
 
 //    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.041, 0.003, 0.051, 0.03);
-    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.024, 0.003, 0.051, 0.0375);
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
     m_real_data->setMask(*mask1);
 
-    //ChiSquaredModule chiModule;
-    //chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
+//    ChiSquaredModule chiModule;
+//    chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
     //chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() ); // it works only with resolution function, without it fit doesn't converge
     //chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
     //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
 
+//    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data, chiModule);
     m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data);
 
 }

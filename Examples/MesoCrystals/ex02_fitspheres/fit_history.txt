@@ -105,6 +105,30 @@ Concequent values:
 *Beam/intensity           8.0000e+12* 8.0000e+12* 8.0000e+12* 2.3581e+12  2.3581e+12* 2.3581e+12* 2.3581e+12* 2.3581e+12* 1.3817e+12
 chi2                      3.9797e+03  2.3431e+03  4.5058e+02  2.1688e+02  2.1077e+02  2.1074e+02  6.9696e+01  6.9872e+01  5.6002e+01
 
+//    pool->setMatchedParametersValue("*/lattice_length_a", 6.1944e+00);           // 6.2
+//    pool->setMatchedParametersValue("*/nanoparticle_radius", 5.7466e+00);        // 5.7
+//    pool->setMatchedParametersValue("*/sigma_nanoparticle_radius", 6.0667e-01);  // 0.1
+//    pool->setMatchedParametersValue("*/meso_height", 1.9882e+02);                // 500
+//    pool->setMatchedParametersValue("*/meso_radius", 9.9392e+02);                // 1000
+//    pool->setMatchedParametersValue("*/sigma_meso_height", 1.0016e+01);          // 5
+//    pool->setMatchedParametersValue("*/sigma_meso_radius", 1.2559e+02);          // 50
+//    pool->setMatchedParametersValue("*/sigma_lattice_length_a", 4.0529e-01);     // 1.5
+//    pool->setMatchedParametersValue("*/surface_filling_ratio", 1.0049e-01);      // 0.25
+//    pool->setMatchedParametersValue("*/roughness", 4.9986e+01);                  // 1.0
+//    m_experiment->setBeamIntensity(2.8826e+12);                                  // 8e12
+
+//    pool->setMatchedParametersValue("*/lattice_length_a", 6.1968e+00);           // 6.2
+//    pool->setMatchedParametersValue("*/nanoparticle_radius", 5.7667e+00);        // 5.7
+//    pool->setMatchedParametersValue("*/sigma_nanoparticle_radius", 6.0890e-01);  // 0.1
+//    pool->setMatchedParametersValue("*/meso_height", 1.5555e+02);                // 500
+//    pool->setMatchedParametersValue("*/meso_radius", 1.0913e+03);                // 1000
+//    pool->setMatchedParametersValue("*/sigma_meso_height", 1.0000e+01);          // 5
+//    pool->setMatchedParametersValue("*/sigma_meso_radius", 2.8631e+02);          // 50
+//    pool->setMatchedParametersValue("*/sigma_lattice_length_a", 1.6518e-02);     // 1.5
+//    pool->setMatchedParametersValue("*/surface_filling_ratio", 2.1160e-01);      // 0.25
+//    pool->setMatchedParametersValue("*/roughness", 3.8335e+01);                  // 1.0
+//    m_experiment->setBeamIntensity(1.3817e+12);                                  // 8e12
+
 
 -----------------------------------
 Attempt #3 (b9, b10)

@@ -1,13 +1,14 @@
 
 
 -----------------------------------
-Attempt #1.1
------------------------------------
+Attempt #1
 11 parameters, starting values in column 'Starting'
 Sequential fits S0-S6 with different groups of fixed parameters. Columns show parameter values after the fit. Fixed parameters marked '*'.
 Last fit S7 all parameters are released
 Before every fit values of parameters are returned to Starting values.
+-----------------------------------
 
+Preserved values:
                           Starting    S0          S1          S2          S3          S4          S5          S6          S7
 */lattice_length_a        6.2000e+00  6.2117e+00  6.2000e+00* 6.2000e+00* 6.2000e+00* 6.2000e+00* 6.2000e+00* 6.2000e+00* 6.8992e+00    lim(4.00,8.00)
 */nanoparticle_radius     5.7000e+00  6.2374e+00  5.7000e+00* 5.7000e+00* 5.7000e+00* 5.7000e+00* 5.7000e+00* 5.7000e+00* 6.3829e+00    lim(2.00,8.00)
@@ -23,11 +24,7 @@ Before every fit values of parameters are returned to Starting values.
 chi2                      4.2325e+03  1.5216e+03  1.2435e+03  2.1196e+03  2.1197e+03  4.2238e+03  1.0965e+03  1.6651e+03  8.2866e+02                         
 
 
------------------------------------
-Attempt #1.2
------------------------------------
-Same as Attempt #1.1, except that for every fit initial values of parameters are taken from previous fit.
-
+Concequent values
 */lattice_length_a        6.2000e+00  6.2117e+00  6.2117e+00* 6.2117e+00* 6.2117e+00* 6.2117e+00* 6.2117e+00* 6.2117e+00* 6.2124e+00   lim(4.00,8.00)
 */nanoparticle_radius     5.7000e+00  6.2374e+00  6.2374e+00* 6.2374e+00* 6.2374e+00* 6.2374e+00* 6.2374e+00* 6.2374e+00* 5.9471e+00   lim(2.00,8.00)
 */sigma_nanoparticle_radi 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0982e-01  1.0982e-01* 6.8688e-02   lim(0.01,2.00)
@@ -43,9 +40,10 @@ chi2                      4.2325e+03  1.5216e+03  1.1459e+03  1.1357e+03  1.1357
 
 
 -----------------------------------
-Attempt #1.1b 
+Attempt #1b 
+Same as attempt #1 but 3 months later
 -----------------------------------
-Same as attempt #1.1 but 3 months later
+Preserved values:
 */lattice_length_a        6.2000e+00  6.2076e+00  6.2000e+00* 6.2000e+00* 6.2000e+00* 6.2000e+00* 6.2000e+00* 6.2000e+00* 6.2027e+00
 */nanoparticle_radius     5.7000e+00  4.2479e+00  5.7000e+00* 5.7000e+00* 5.7000e+00* 5.7000e+00* 5.7000e+00* 5.7000e+00* 3.8243e+00
 */sigma_nanoparticle_radi 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 8.8483e-02  1.0000e-01* 6.3784e-01
@@ -59,11 +57,7 @@ Same as attempt #1.1 but 3 months later
 *Beam/intensity           8.0000e+12* 8.0000e+12* 8.0000e+12* 8.0000e+11  8.0000e+12* 8.0000e+12* 8.0000e+12* 8.0000e+12* 2.1165e+12
 chi2                      3.5785e+05  1.0533e+04  1.9132e+03  5.3503e+03  1.4385e+05  3.5674e+05  1.2402e+03  4.3271e+03  8.9479e+02
 
-
------------------------------------
-Attempt #1.2b
------------------------------------
-Same as attempt #1.2 but 3 months later
+Concequent values:
 */lattice_length_a        6.2000e+00  6.2076e+00  6.2076e+00* 6.2076e+00* 6.2076e+00* 6.2076e+00* 6.2076e+00* 6.2076e+00* 6.2098e+00
 */nanoparticle_radius     5.7000e+00  4.2479e+00  4.2479e+00* 4.2479e+00* 4.2479e+00* 4.2479e+00* 4.2479e+00* 4.2479e+00* 4.2249e+00
 */sigma_nanoparticle_radi 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 2.6216e-01  2.6216e-01* 9.3167e-02
@@ -79,10 +73,11 @@ chi2                      3.5785e+05  1.0533e+04  2.0320e+03  2.0319e+03  2.0037
 
 
 -----------------------------------
-Attempt #2.1 - preserved values
------------------------------------
-Almost as Attempt 1.1b
+Attempt #2
+Almost as Attempt 1b
 Mask(0.041, 0.003, 0.051, 0.03)
+-----------------------------------
+Preserved values:
 */lattice_length_a        6.2000e+00  6.1937e+00  6.2000e+00* 6.2000e+00* 6.2000e+00* 6.2000e+00* 6.2000e+00* 6.2000e+00* 6.1944e+00
 */nanoparticle_radius     5.7000e+00  5.8513e+00  5.7000e+00* 5.7000e+00* 5.7000e+00* 5.7000e+00* 5.7000e+00* 5.7000e+00* 5.7466e+00
 */sigma_nanoparticle_radi 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 9.2621e-02  1.0000e-01* 6.0667e-01
@@ -96,10 +91,7 @@ Mask(0.041, 0.003, 0.051, 0.03)
 *Beam/intensity           8.0000e+12* 8.0000e+12* 8.0000e+12* 8.0000e+11  8.0000e+12* 8.0000e+12* 8.0000e+12* 8.0000e+12* 2.8826e+12
 chi2                      3.9797e+03  2.3431e+03  3.1100e+02  2.3914e+02  3.4771e+02  3.9659e+03  1.0032e+02  1.0540e+02  5.2928e+01
 
-
------------------------------------
-Attempt #2.2 - concequent values
------------------------------------
+Concequent values:
 */lattice_length_a        6.2000e+00  6.1937e+00  6.1937e+00* 6.1937e+00* 6.1937e+00* 6.1937e+00* 6.1937e+00* 6.1937e+00* 6.1968e+00
 */nanoparticle_radius     5.7000e+00  5.8513e+00  5.8513e+00* 5.8513e+00* 5.8513e+00* 5.8513e+00* 5.8513e+00* 5.8513e+00* 5.7667e+00
 */sigma_nanoparticle_radi 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 3.0848e-01  3.0848e-01* 6.0890e-01
@@ -112,3 +104,35 @@ Attempt #2.2 - concequent values
 */roughness               1.0000e+00* 1.0000e+00* 1.0000e+00* 1.0000e+00* 1.0000e+00* 1.1747e-02  1.1747e-02* 1.1747e-02* 3.8335e+01
 *Beam/intensity           8.0000e+12* 8.0000e+12* 8.0000e+12* 2.3581e+12  2.3581e+12* 2.3581e+12* 2.3581e+12* 2.3581e+12* 1.3817e+12
 chi2                      3.9797e+03  2.3431e+03  4.5058e+02  2.1688e+02  2.1077e+02  2.1074e+02  6.9696e+01  6.9872e+01  5.6002e+01
+
+
+-----------------------------------
+Attempt #3 (b9, b10)
+9 parameters, 3 strategies, Mask (0.024, 0.003, 0.051, 0.0375)
+-----------------------------------
+("*Normalizer/scale")("*Normalizer/shift")
+("*/lattice_length_a")("*/lattice_length_c")("*/nanoparticle_radius")
+("*/surface_filling_ratio")("*/sigma_lattice_length_a")("*/sigma_nanoparticle_radius")("*/roughness")
+Preserved values:
+*/lattice_length_a        6.1900e+00* 6.1900e+00* 6.1750e+00  6.1900e+00* 6.1750e+00
+*/lattice_length_c        6.1900e+00* 6.1900e+00* 6.3772e+00  6.1900e+00* 6.4276e+00
+*/nanoparticle_radius     5.7500e+00* 5.7500e+00* 5.5673e+00  5.7500e+00* 6.2406e+00
+*/sigma_nanoparticle_radi 6.1000e-01* 6.1000e-01* 6.1000e-01* 2.4112e-01  7.2450e-01
+*/sigma_lattice_length_a  4.1000e-01* 4.1000e-01* 4.1000e-01* 2.8652e+00  1.6131e+00
+*/surface_filling_ratio   1.0000e-01* 1.0000e-01* 1.0000e-01* 5.0000e-02  6.0158e-02
+*/roughness               1.0000e+00* 1.0000e+00* 1.0000e+00* 4.9995e+01  5.0000e+01
+*Normalizer/scale         1.0000e+00  5.0000e-02  1.0000e+00* 1.0000e+00* 2.0581e-01
+*Normalizer/shift         1.0000e+00  6.8506e+02  1.0000e+00* 1.0000e+00* 7.2593e-03
+chi2                      2.8394e+06  7.7921e+03  5.4017e+04  9.6372e+02  7.1868e+02
+
+Concequent values:
+*/lattice_length_a        6.1900e+00* 6.1900e+00* 6.1763e+00  6.1763e+00* 6.1755e+00
+*/lattice_length_c        6.1900e+00* 6.1900e+00* 5.9402e+00  5.9402e+00* 5.9874e+00
+*/nanoparticle_radius     5.7500e+00* 5.7500e+00* 6.2761e+00  6.2761e+00* 6.3409e+00
+*/sigma_nanoparticle_radi 6.1000e-01* 6.1000e-01* 6.1000e-01* 8.1622e-01  7.3414e-01
+*/sigma_lattice_length_a  4.1000e-01* 4.1000e-01* 4.1000e-01* 1.1205e+00  1.3033e+00
+*/surface_filling_ratio   1.0000e-01* 1.0000e-01* 1.0000e-01* 1.2164e-01  1.4438e-01
+*/roughness               1.0000e+00* 1.0000e+00* 1.0000e+00* 1.0228e+00  1.9904e-02
+*Normalizer/scale         1.0000e+00  5.0000e-02  5.0000e-02* 5.0000e-02* 6.9367e-02
+*Normalizer/shift         1.0000e+00  6.8506e+02  6.8506e+02* 6.8506e+02* 8.2901e-03
+chi2                      2.8394e+06  7.7921e+03  9.0485e+02  8.0398e+02  7.2493e+02

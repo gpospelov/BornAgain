@@ -89,7 +89,7 @@ public:
     static void resetMinimumAndMaximum() { resetMinimum(); resetMaximum(); }
 
     //! export 2D output data in std::vectors (used for saving in ROOT tree)
-    static void exportOutputDataInVectors2D(const OutputData<double> &output_data
+    static void exportOutputDataInVectors2D(const OutputData<double> &input_data
                                             , std::vector<std::vector<double > > &v_data
                                             , std::vector<std::vector<double > > &v_axis0
                                             , std::vector<std::vector<double > > &v_axis1);

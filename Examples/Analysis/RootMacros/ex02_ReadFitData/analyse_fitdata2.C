@@ -57,6 +57,7 @@ void analyse_fitdata2(const char *file_name = "../../../../fitsuite.root")
     std::vector<std::vector<double> > axis0;
     std::vector<std::vector<double> > axis1;
     while(chain->GetEntry(i_entry++)){
+        std::cout << "size " << event->axis0.size() << std::endl;
         if(event->axis0.size()) { // recreating histogramgs when axis changed the size
             delete histReal;
             histReal = create_histogram("histReal", "real data", event);
@@ -176,29 +177,26 @@ TH2D *create_histogram(const char *name, const char *title, FitData *event)
 /* ************************************************************************* */
 void getRelativeDifference(const vdouble2d_t &fit_data, const vdouble2d_t &real_data, vdouble2d_t &difference)
 {
-  difference.clear();
-  if(real_data.size() != fit_data.size() ) {
-      std::cout << "getRelativeDifference() -> Unconsistent size of real and simulated data." << std::endl;
-      return;
-  }
-  difference.resize(real_data.size());
-  for(size_t i=0; i<real_data.size(); ++i) {
-      if(real_data[i].size() != fit_data[i].size() ) {
-          std::cout << "getRelativeDifference() -> Unconsistent size of real and simulated data." << std::endl;
-          return;
-      }
-      difference[i].resize(real_data[i].size(), 0.0);
-      for(size_t j = 0; j<real_data[i].size(); ++j) {
-          if(real_data[i][j] > 0) {
-            difference[i][j] = std::fabs((fit_data[i][j] - real_data[i][j]))/real_data[i][j];
-          } else {
-            difference[i][j] = 0.0;
-//             std::cout << "???" << std::endl;
-          }
-      }
-  }
-
-
+    difference.clear();
+    if(real_data.size() != fit_data.size() ) {
+        std::cout << "getRelativeDifference() -> Unconsistent size of real and simulated data." << std::endl;
+        return;
+    }
+    difference.resize(real_data.size());
+    for(size_t i=0; i<real_data.size(); ++i) {
+        if(real_data[i].size() != fit_data[i].size() ) {
+            std::cout << "getRelativeDifference() -> Unconsistent size of real and simulated data." << std::endl;
+            return;
+        }
+        difference[i].resize(real_data[i].size(), 0.0);
+        for(size_t j = 0; j<real_data[i].size(); ++j) {
+            if(real_data[i][j] > 0) {
+                difference[i][j] = std::fabs((fit_data[i][j] - real_data[i][j]))/real_data[i][j];
+            } else {
+                difference[i][j] = 0.0;
+            }
+        }
+    }
 }
 
 
@@ -207,24 +205,24 @@ void getRelativeDifference(const vdouble2d_t &fit_data, const vdouble2d_t &real_
 /* ************************************************************************* */
 void getChi2Difference(const vdouble2d_t &fit_data, const vdouble2d_t &real_data, vdouble2d_t &difference)
 {
-  difference.clear();
-  if(real_data.size() != fit_data.size() ) {
-      std::cout << "getRelativeDifference() -> Unconsistent size of real and simulated data." << std::endl;
-      return;
-  }
-  difference.resize(real_data.size());
-  for(size_t i=0; i<real_data.size(); ++i) {
-      if(real_data[i].size() != fit_data[i].size() ) {
-          std::cout << "getRelativeDifference() -> Unconsistent size of real and simulated data." << std::endl;
-          return;
-      }
-      difference[i].resize(real_data[i].size(), 0.0);
-      for(size_t j = 0; j<real_data[i].size(); ++j) {
-          //double normalization = std::max(std::abs(real_data[i][j]), 1.0);
-          double normalization = 1;
-          difference[i][j] = (fit_data[i][j] - real_data[i][j])*(fit_data[i][j] - real_data[i][j])/normalization;
-      }
-  }
+    difference.clear();
+    if(real_data.size() != fit_data.size() ) {
+        std::cout << "getRelativeDifference() -> Unconsistent size of real and simulated data." << std::endl;
+        return;
+    }
+    difference.resize(real_data.size());
+    for(size_t i=0; i<real_data.size(); ++i) {
+        if(real_data[i].size() != fit_data[i].size() ) {
+            std::cout << "getRelativeDifference() -> Unconsistent size of real and simulated data." << std::endl;
+            return;
+        }
+        difference[i].resize(real_data[i].size(), 0.0);
+        for(size_t j = 0; j<real_data[i].size(); ++j) {
+            //double normalization = std::max(std::abs(real_data[i][j]), 1.0);
+            double normalization = 1;
+            difference[i][j] = (fit_data[i][j] - real_data[i][j])*(fit_data[i][j] - real_data[i][j])/normalization;
+        }
+    }
 }
 
 

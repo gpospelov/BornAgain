@@ -392,116 +392,18 @@ void IsGISAXSTools::drawOutputDataChi2Difference2D(const OutputData<double> &lef
 }
 
 
-/* ************************************************************************* */
-// write output data (1D or 2D) in ASCII file
-/* ************************************************************************* */
-//void IsGISAXSTools::writeOutputDataToFile(const OutputData<double>& output,
-//        const std::string &filename, int precision)
-//{
-//    std::ofstream file;
-//    file.open(filename.c_str(), std::ios::out);
-//    if( !file.is_open() ) {
-//        std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing." << std::endl;
-//        return;
-//        //throw FileNotIsOpenException("IsGISAXSTools::writeOutputDataToFile() -> Error. Can't open file '"+filename+"' for writing.");
-//    }
-//    size_t row_length = output.getAxis(1)->getSize();
-//    OutputData<double>::const_iterator it = output.begin();
-//    while(it != output.end()) {
-//        double z_value = *it++;
-//        file << std::scientific << std::setprecision(precision) << z_value << "    ";
-//        if(it.getIndex()%row_length==0) {
-//            file << std::endl;
-//        }
-//    }
-//    if ( file.bad() ) {
-//        throw FileIsBadException("IsGISAXSTools::writeOutputDataToFile() -> Error! File is bad, probably it is a directory.");
-//    }
-//    file.close();
-//    std::cout << "IsGISAXSTools::writeOutputDataToFile() -> Info. File '" << filename << "' successfully created." << std::endl;
-//}
-
-
-///* ************************************************************************* */
-//// read data from ASCII file (2D assumed) and fill newly created OutputData with it
-///* ************************************************************************* */
-//OutputData<double> *IsGISAXSTools::readOutputDataFromFile(const std::string &filename, int precision)
-//{
-//    // opening ASCII file
-//    std::ifstream fin;
-//    fin.open(filename.c_str(), std::ios::in);
-//    if( !fin.is_open() ) {
-//        throw FileNotIsOpenException("IsGISAXSTools::readOutputDataFromFile() -> Error. Can't open file '"+filename+"' for reading.");
-//    }
-
-//    typedef std::vector<double > double1d_t;
-//    typedef std::vector<double1d_t > double2d_t;
-//    std::string sline;
-//    double2d_t buff_2d;
-//    // reading file line by line, every line is parsed into vector of double, so at the end we have buffer_2d of doubles
-
-//    while( std::getline(fin, sline))
-//    {
-//        // here we mimic different precision in numbers contained in string, if precision is say 6, than 7.2908527770e+03 -> 7.290853e+03
-//        if(precision > 0) {
-//            std::string newline;
-//            std::istringstream is0(sline.c_str());
-//            double number;
-//            while( is0 >> number ) {
-//                std::ostringstream os;
-//                os << std::scientific << std::setprecision(precision) << number;
-//                newline += os.str() + std::string("    ");
-//            }
-//            sline = newline;
-//        }
-
-//        double1d_t buff_1d;
-//        std::istringstream iss(sline);
-//        std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(), back_inserter(buff_1d));
-//        if( buff_1d.empty() ) {
-//            std::cout << "'" << sline << "'" << std::endl;
-//            throw LogicErrorException("IsGISAXSTools::readOutputDataFromFile() -> Error. Null size of vector; file: "+filename);
-//        }
-//        buff_2d.push_back(buff_1d);
-//    }
-//    if ( fin.bad() ) {
-//        throw FileIsBadException("IsGISAXSTools::readOutputDataFromFile() -> Error! File is bad after readline(), probably it is a directory.");
-//    }
-//    fin.close();
-
-//    // creating new OutputData and filling it with values from buffer_2d
-//    int y_size = (int)buff_2d.size();
-//    int x_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
-//    OutputData<double> *p_result = new OutputData<double>;
-//    p_result->addAxis(NDetector2d::PHI_AXIS_NAME, x_size, 0.0, double(x_size));
-//    p_result->addAxis(NDetector2d::ALPHA_AXIS_NAME, y_size, 0.0, double(y_size));
-//    p_result->setAllTo(0.0);
-
-//    OutputData<double>::iterator it = p_result->begin();
-//    while (it != p_result->end())
-//    {
-//        size_t index_x = p_result->toCoordinates(it.getIndex())[0];
-//        size_t index_y = p_result->toCoordinates(it.getIndex())[1];
-//        *it = buff_2d[index_x][index_y];
-//        ++it;
-//    }
-
-//    return p_result;
-//}
-
-
-void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output_data
+void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &input_data
                                         , std::vector<std::vector<double > > &v_data
                                         , std::vector<std::vector<double > > &v_axis0
                                         , std::vector<std::vector<double > > &v_axis1)
 {
-    assert(&output_data);
-    if (output_data.getRank() != 2) return;
+    assert(&input_data);
+    if (input_data.getRank() != 2) return;
 
-    const IAxis *p_axis0 = output_data.getAxis(0);
-    const IAxis *p_axis1 = output_data.getAxis(1);
-    //std::string axis0_name = p_axis0->getName();
-    //std::string axis1_name = p_axis1->getName();
+    OutputData<double> *data = input_data.clone();
+
+    const IAxis *p_axis0 = data->getAxis(0);
+    const IAxis *p_axis1 = data->getAxis(1);
     size_t axis0_size = p_axis0->getSize();
     size_t axis1_size = p_axis1->getSize();
 
@@ -519,18 +421,28 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &output
         v_axis1[i].resize(axis1_size,0.0);
     }
 
-    OutputData<double>::const_iterator it = output_data.begin();
-    while (it != output_data.end())
+    // saving data
+    OutputData<double>::const_iterator it = data->begin();
+    while (it != data->end())
     {
-        size_t axis0_index = output_data.toCoordinates(it.getIndex())[0];
-        size_t axis1_index = output_data.toCoordinates(it.getIndex())[1];
+        size_t axis0_index = data->toCoordinates(it.getIndex())[0];
+        size_t axis1_index = data->toCoordinates(it.getIndex())[1];
+        double intensity = *it++;
+        v_data[axis0_index][axis1_index] = intensity;
+    }
+
+    // saving axis
+    data->removeAllMasks();
+    it = data->begin();
+    while (it != data->end())
+    {
+        size_t axis0_index = data->toCoordinates(it.getIndex())[0];
+        size_t axis1_index = data->toCoordinates(it.getIndex())[1];
         double axis0_value = (*p_axis0)[axis0_index];
         double axis1_value = (*p_axis1)[axis1_index];
-        double intensity = *it++;
-
-        v_data[axis0_index][axis1_index] = intensity;
         v_axis0[axis0_index][axis1_index] = axis0_value;
         v_axis1[axis0_index][axis1_index] = axis1_value;
+        it++;
     }
 
 }

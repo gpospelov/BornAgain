@@ -25,9 +25,6 @@ private:
     OutputData<double> *m_result;
 };
 
-
 }
-
-
 
 #endif

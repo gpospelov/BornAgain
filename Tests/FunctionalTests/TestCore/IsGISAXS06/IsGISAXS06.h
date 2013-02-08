@@ -1,6 +1,5 @@
-#ifndef FUNCTIONALTESTS_ISGISAXS03_H
-#define FUNCTIONALTESTS_ISGISAXS03_H
-
+#ifndef FUNCTIONALTESTS_ISGISAXS06_H
+#define FUNCTIONALTESTS_ISGISAXS06_H
 
 #include <string>
 #include "OutputData.h"
@@ -8,13 +7,14 @@
 class MultiLayer;
 class GISASExperiment;
 
+
 namespace FunctionalTests {
 
-class IsGISAXS03
+class IsGISAXS06
 {
 public:
-    IsGISAXS03();
-    ~IsGISAXS03() { delete m_result; }
+    IsGISAXS06();
+    ~IsGISAXS06() { delete m_result; }
     void run();
     int analyseResults();
     const OutputData<double> *getOutputData() { return m_result;}
@@ -23,7 +23,6 @@ private:
     std::string m_description;
     OutputData<double> *m_result;
 
-   // structure to hold info over several compare cases
     struct CompareStruct
     {
         CompareStruct(std::string _isginame, std::string _thisname, std::string _descr) : isginame(_isginame), thisname(_thisname), descr(_descr){}
@@ -31,11 +30,23 @@ private:
         std::string thisname;
         std::string descr;
     };
+   /* class LatticeVariantBuilder : public ISampleBuilder {
+    public:
+        LatticeVariantBuilder() : m_xi(0.0) {}
+        virtual ~LatticeVariantBuilder() {}
 
+        virtual ISample *buildSample() const;
+
+        void setXi(double xi) { m_xi = xi; }
+    private:
+        double m_xi;
+    };
+    LatticeVariantBuilder m_builder;*/
     std::string m_data_path;
 };
 
 
 }
+
 
 #endif

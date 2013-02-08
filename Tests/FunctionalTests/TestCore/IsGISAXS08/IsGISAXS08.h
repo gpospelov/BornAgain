@@ -1,5 +1,5 @@
-#ifndef FUNCTIONALTESTS_ISGISAXS03_H
-#define FUNCTIONALTESTS_ISGISAXS03_H
+#ifndef FUNCTIONALTESTS_ISGISAXS08_H
+#define FUNCTIONALTESTS_ISGISAXS08_H
 
 
 #include <string>
@@ -10,11 +10,11 @@ class GISASExperiment;
 
 namespace FunctionalTests {
 
-class IsGISAXS03
+class IsGISAXS08
 {
 public:
-    IsGISAXS03();
-    ~IsGISAXS03() { delete m_result; }
+    IsGISAXS08();
+    ~IsGISAXS08() { delete m_result; }
     void run();
     int analyseResults();
     const OutputData<double> *getOutputData() { return m_result;}
@@ -37,5 +37,7 @@ private:
 
 
 }
+
+
 
 #endif

@@ -160,3 +160,51 @@ Concequent values:
 *Normalizer/scale         1.0000e+00  5.0000e-02  5.0000e-02* 5.0000e-02* 6.9367e-02
 *Normalizer/shift         1.0000e+00  6.8506e+02  6.8506e+02* 6.8506e+02* 8.2901e-03
 chi2                      2.8394e+06  7.7921e+03  9.0485e+02  8.0398e+02  7.2493e+02
+
+
+
+-----------------------------------
+Attempt #4 (b12, b13)
+12 parameters, 4 strategies, Mask (0.024, 0.003, 0.051, 0.0375)
+-----------------------------------
+    ("*Beam/intensity")("*/lattice_length_a")("*/lattice_length_c")("*/nanoparticle_radius")
+    ("*Beam/intensity")("*/meso_height")("*/meso_radius")
+    ("*Beam/intensity")("*/surface_filling_ratio")("*/roughness")
+    ("*Beam/intensity")("*/sigma_lattice_length_a")("*/sigma_nanoparticle_radius")("*/sigma_meso_height")("*/sigma_meso_radius")
+
+Preserved values (not converged)
+*/lattice_length_a        6.2000e+00  6.2089e+00  6.2000e+00* 6.2000e+00* 6.2000e+00* 6.2497e+00
+*/lattice_length_c        6.2000e+00  6.6380e+00  6.2000e+00* 6.2000e+00* 6.2000e+00* 6.6483e+00
+*/nanoparticle_radius     5.7000e+00  4.8285e+00  5.7000e+00* 5.7000e+00* 5.7000e+00* 4.2795e+00
+*/sigma_nanoparticle_radi 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 7.5539e-01  3.3912e-01
+*/meso_height             2.0000e+02* 2.0000e+02* 1.7642e+02  2.0000e+02* 2.0000e+02* 2.3999e+02
+*/meso_radius             1.0000e+03* 1.0000e+03* 1.5105e+03  1.0000e+03* 1.0000e+03* 1.3156e+02
+*/sigma_meso_height       2.0000e+01* 2.0000e+01* 2.0000e+01* 2.0000e+01* 1.0000e+01  1.0676e+01
+*/sigma_meso_radius       1.0000e+02* 1.0000e+02* 1.0000e+02* 1.0000e+02* 1.0000e+01  1.1531e+01
+*/sigma_lattice_length_a  1.0000e+00* 1.0000e+00* 1.0000e+00* 1.0000e+00* 1.7238e+00  2.1286e+00
+*/surface_filling_ratio   2.0000e-01* 2.0000e-01* 2.0000e-01* 5.0000e-02  2.0000e-01* 2.0220e-01
+*/roughness               1.0000e+00* 1.0000e+00* 1.0000e+00* 2.9854e-02  1.0000e+00* 1.0317e+01
+*Beam/intensity           8.0000e+12  2.5055e+12  8.0018e+11  8.0000e+11  8.0000e+11  3.3784e+12
+chi2                      3.8462e+05  1.4769e+03  1.7700e+03  2.1429e+03  9.6462e+02  6.3691e+02
+
+concequent values
+*/lattice_length_a        6.2000e+00  6.2089e+00  6.2089e+00* 6.2089e+00* 6.2089e+00* 6.2095e+00
+*/lattice_length_c        6.2000e+00  6.6380e+00  6.6380e+00* 6.6380e+00* 6.6380e+00* 6.3555e+00
+*/nanoparticle_radius     5.7000e+00  4.8285e+00  4.8285e+00* 4.8285e+00* 4.8285e+00* 4.3804e+00
+*/sigma_nanoparticle_radi 1.0000e-01* 1.0000e-01* 1.0000e-01* 1.0000e-01* 2.8486e-01  1.3160e-01
+*/meso_height             2.0000e+02* 2.0000e+02* 1.0000e+02  1.0000e+02* 1.0000e+02* 1.0000e+02
+*/meso_radius             1.0000e+03* 1.0000e+03* 9.9121e+02  9.9121e+02* 9.9121e+02* 9.5743e+02
+*/sigma_meso_height       2.0000e+01* 2.0000e+01* 2.0000e+01* 2.0000e+01* 1.0000e+01  1.0000e+01
+*/sigma_meso_radius       1.0000e+02* 1.0000e+02* 1.0000e+02* 1.0000e+02* 1.0000e+01  1.0000e+01
+*/sigma_lattice_length_a  1.0000e+00* 1.0000e+00* 1.0000e+00* 1.0000e+00* 1.2170e+00  2.0475e+00
+*/surface_filling_ratio   2.0000e-01* 2.0000e-01* 2.0000e-01* 2.0574e-01  2.0574e-01* 1.0910e-01
+*/roughness               1.0000e+00* 1.0000e+00* 1.0000e+00* 2.5553e-02  2.5553e-02* 4.9999e+01
+*Beam/intensity           8.0000e+12  2.5055e+12  7.4823e+12  7.3104e+12  5.6001e+12  8.0000e+13
+chi2                      3.8462e+05  1.4769e+03  1.3043e+03  1.3012e+03  7.1078e+02  5.4487e+02
+
+
+fumili
+b21  preserve=1 (../../../development/git/GISASFW/App/App --mesocrystal2 --batch --fitconfig=3 --fitpreserve=1 >& b21.txt &)
+b22  preserve=0 (../../../development/git/GISASFW/App/App --mesocrystal2 --batch --fitconfig=3 --fitpreserve=0 >& b22.txt &)
+
+

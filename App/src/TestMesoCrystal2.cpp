@@ -255,14 +255,14 @@ void TestMesoCrystal2::fitsuite_config3()
     Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
     m_real_data->setMask(*mask1);
 
-//    ChiSquaredModule chiModule;
+    ChiSquaredModule chiModule;
 //    chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
     //chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() ); // it works only with resolution function, without it fit doesn't converge
-    //chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
+    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
     //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
 
-//    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data, chiModule);
-    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data);
+    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data, chiModule);
+//    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data);
 
 }
 

@@ -141,6 +141,14 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
     }
 
     // creation of 2D with variable bin size
+//    std::cout << "XXX " << (int)haxises[0].nbins << " "  << (int)haxises[1].nbins;
+//    for(size_t i=0; i<haxises[0].xbins.size(); ++i) {
+//        std::cout << i << " axis0:" << haxises[0].xbins[i] << std::endl;
+//    }
+//    for(size_t i=0; i<haxises[1].xbins.size(); ++i) {
+//        std::cout << i << " axis1:" << haxises[1].xbins[i] << std::endl;
+//    }
+
     TH2D *hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
     hist2->GetXaxis()->SetTitle( haxises[0].name.c_str() );
     hist2->GetYaxis()->SetTitle( haxises[1].name.c_str() );

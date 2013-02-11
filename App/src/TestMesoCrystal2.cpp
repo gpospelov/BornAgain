@@ -75,44 +75,55 @@ void TestMesoCrystal2::draw_results()
 
     ParameterPool *pool = m_sample_builder->createParameterTree();
     std::cout << *pool << std::endl;
-    pool->setMatchedParametersValue("*/lattice_length_a", 6.19e+00);           // 6.2
-    pool->setMatchedParametersValue("*/lattice_length_c", 6.19e+00);           // 6.2
-    pool->setMatchedParametersValue("*/nanoparticle_radius", 5.75e+00);        // 5.7
-    pool->setMatchedParametersValue("*/sigma_nanoparticle_radius", 6.1e-01);  // 0.1
-    pool->setMatchedParametersValue("*/sigma_lattice_length_a", 4.1e-01);     // 1.5
-    pool->setMatchedParametersValue("*/surface_filling_ratio", 0.1);      // 0.25
-    pool->setMatchedParametersValue("*/roughness", 1.0);                      // 1.0
-    m_experiment->setBeamIntensity(8e+12);
+//    pool->setMatchedParametersValue("*/lattice_length_a", 6.2e+00);           // 6.2
+//    pool->setMatchedParametersValue("*/lattice_length_c", 6.2e+00);           // 6.2
+//    pool->setMatchedParametersValue("*/nanoparticle_radius", 5.7e+00);        // 5.7
+//    pool->setMatchedParametersValue("*/sigma_nanoparticle_radius", 1.0e-01);  // 0.1
+//    pool->setMatchedParametersValue("*/meso_height", 200);  // 0.1
+//    pool->setMatchedParametersValue("*/meso_radius", 1000);  // 0.1
+//    pool->setMatchedParametersValue("*/sigma_meso_height", 20);  // 0.1
+//    pool->setMatchedParametersValue("*/sigma_meso_radius", 100);  // 0.1
+//    pool->setMatchedParametersValue("*/sigma_lattice_length_a", 1.0);     // 1.5
+//    pool->setMatchedParametersValue("*/surface_filling_ratio", 0.2);      // 0.25
+//    pool->setMatchedParametersValue("*/roughness", 1.0);                      // 1.0
+//    m_experiment->setBeamIntensity(8e+12);
+//    m_experiment->runSimulation();
+//    m_experiment->normalize();
+
+//    IsGISAXSTools::drawOutputDataComparisonResults(*m_experiment->getOutputData(), *m_real_data, "initial", "initial params", 100, 1e6, 100);
+
+    pool->setMatchedParametersValue("*/lattice_length_a", 6.2091e+00);           // 6.2
+    pool->setMatchedParametersValue("*/lattice_length_c", 6.5677e+00);           // 6.2
+    pool->setMatchedParametersValue("*/nanoparticle_radius", 4.6976e+00);        // 5.7
+    pool->setMatchedParametersValue("*/sigma_nanoparticle_radius", 3.6720e-01);  // 0.1
+    pool->setMatchedParametersValue("*/meso_height", 1.1221e+02);  // 0.1
+    pool->setMatchedParametersValue("*/meso_radius", 9.4567e+02);  // 0.1
+    pool->setMatchedParametersValue("*/sigma_meso_height", 1.3310e+00);  // 0.1
+    pool->setMatchedParametersValue("*/sigma_meso_radius", 1.3863e+00);  // 0.1
+    pool->setMatchedParametersValue("*/sigma_lattice_length_a", 1.1601e+00);     // 1.5
+    pool->setMatchedParametersValue("*/surface_filling_ratio", 1.7286e-01);      // 0.25
+    pool->setMatchedParametersValue("*/roughness", 2.8746e+01);                      // 1.0
+    m_experiment->setBeamIntensity(5.0090e+12);
     m_experiment->runSimulation();
     m_experiment->normalize();
 
-//    TCanvas *c1 = new TCanvas("c1","c1",1024, 768);
-//    c1->cd();
-    IsGISAXSTools::drawOutputDataComparisonResults(*m_experiment->getOutputData(), *m_real_data, "initial", "initial params", 100, 1e6, 100);
-
-//    pool->setMatchedParametersValue("*/lattice_length_a", 6.175e+00);           // 6.2
-//    pool->setMatchedParametersValue("*/lattice_length_c", 6.428e+00);           // 6.2
-//    pool->setMatchedParametersValue("*/nanoparticle_radius", 6.241e+00);        // 5.7
-//    pool->setMatchedParametersValue("*/sigma_nanoparticle_radius", 7.245e-01);  // 0.1
-//    pool->setMatchedParametersValue("*/sigma_lattice_length_a", 1.613);     // 1.5
-//    pool->setMatchedParametersValue("*/surface_filling_ratio", 0.06);      // 0.25
-//    pool->setMatchedParametersValue("*/roughness", 50.0);                      // 1.0
-//    m_experiment->setBeamIntensity(0.206*8e+12);
-    pool->setMatchedParametersValue("*/lattice_length_a", 6.175e+00);           // 6.2
-    pool->setMatchedParametersValue("*/lattice_length_c", 5.987e+00);           // 6.2
-    pool->setMatchedParametersValue("*/nanoparticle_radius", 6.341e+00);        // 5.7
-    pool->setMatchedParametersValue("*/sigma_nanoparticle_radius", 0.734);  // 0.1
-    pool->setMatchedParametersValue("*/sigma_lattice_length_a", 1.303);     // 1.5
-    pool->setMatchedParametersValue("*/surface_filling_ratio", 0.14);      // 0.25
-    pool->setMatchedParametersValue("*/roughness", 0.0199);                      // 1.0
-    m_experiment->setBeamIntensity(6.98e-2*8e+12);
-    m_experiment->runSimulation();
-    m_experiment->normalize();
-
-//    TCanvas *c2 = new TCanvas("c2","c2",1024, 768);
-//    c2->cd();
     IsGISAXSTools::drawOutputDataComparisonResults(*m_experiment->getOutputData(), *m_real_data, "found", "founf params", 100, 1e6, 100);
 
+    TCanvas *c1 = new TCanvas("meso_real_data","meso_real_data",1024, 768);
+    c1->cd(); gPad->SetLogz();  gPad->SetRightMargin(0.12); gPad->SetLeftMargin(0.125);
+    TH2D *hist_real = IsGISAXSTools::getOutputDataTH2D(*m_real_data, "real_data");
+    hist_real->SetMinimum(100);
+    hist_real->SetMaximum(1e6);
+    hist_real->GetYaxis()->SetTitleOffset(1.35);
+    hist_real->DrawCopy("CONT4 Z");
+
+    TCanvas *c2 = new TCanvas("meso_simul_data","meso_simul_data",1024, 768);
+    c2->cd(); gPad->SetLogz(); gPad->SetRightMargin(0.12); gPad->SetLeftMargin(0.125);
+    TH2D *hist_simu = IsGISAXSTools::getOutputDataTH2D(*m_experiment->getOutputData(), "simul_data");
+    hist_simu->SetMinimum(100);
+    hist_simu->SetMaximum(1e6);
+    hist_simu->GetYaxis()->SetTitleOffset(1.35);
+    hist_simu->DrawCopy("CONT4 Z");
 
 }
 
@@ -190,10 +201,84 @@ void TestMesoCrystal2::fitsuite_setup(int nconfig)
     case 3:
         fitsuite_config3();
         break;
+    case 4:
+        fitsuite_config4();
+        break;
     default:
         throw LogicErrorException("TestMesoCrystal2::fitsuite_setup() -> Error! Can't setup FitSuite");
         break;
     }
+}
+
+
+
+// ----------------------------------------------------------------------------
+// FitSuite configuration #3
+// * Mask on fit data
+// * Several fit iterations with different set of fixed released parameters
+// * ChiSquaredModule with normalizer
+// ----------------------------------------------------------------------------
+void TestMesoCrystal2::fitsuite_config4()
+{
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Combined") );
+//    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Fumili") );
+
+    m_fitSuite->getAttributes().setStepFactor(0.01);
+    m_fitSuite->addFitParameter("*/lattice_length_a",          6.2091e+00*Units::nanometer,    AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/lattice_length_c",          6.5677e+00*Units::nanometer,    AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/nanoparticle_radius",       4.6976e+00*Units::nanometer,    AttLimits::limited(4.0*Units::nanometer, 8.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/sigma_nanoparticle_radius", 3.6720e-01*Units::nanometer,    AttLimits::limited(0.01*Units::nanometer, 2.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/meso_height",               1.1221e+02*Units::nanometer,   AttLimits::limited(10.0*Units::nanometer, 2000.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/meso_radius",               9.4567e+02*Units::nanometer,   AttLimits::limited(10.0*Units::nanometer, 5000.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/sigma_meso_height",         1.3310e+00*Units::nanometer,    AttLimits::limited(1.0*Units::nanometer, 200.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/sigma_meso_radius",         1.3863e+00*Units::nanometer,   AttLimits::limited(1.0*Units::nanometer, 500.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/sigma_lattice_length_a",    1.1601e+00*Units::nanometer,    AttLimits::limited(0.01*Units::nanometer, 4.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*/surface_filling_ratio",     1.7286e-01,                      AttLimits::limited(0.05, 0.5) );
+    m_fitSuite->addFitParameter("*/roughness",                 2.8746e+01*Units::nanometer,     AttLimits::limited(0.01*Units::nanometer, 50.0*Units::nanometer) );
+    m_fitSuite->addFitParameter("*Beam/intensity",             5.0090e+12,                     AttLimits::limited(8e11, 8e13) );
+
+    fixplan_t fixplan;
+    fixplan.push_back(boost::assign::list_of("*Beam/intensity")("*/lattice_length_a")("*/lattice_length_c")("*/nanoparticle_radius"));
+    fixplan.push_back(boost::assign::list_of("*Beam/intensity")("*/meso_height")("*/meso_radius"));
+    fixplan.push_back(boost::assign::list_of("*Beam/intensity")("*/surface_filling_ratio")("*/roughness"));
+    fixplan.push_back(boost::assign::list_of("*Beam/intensity")("*/sigma_lattice_length_a")("*/sigma_nanoparticle_radius")("*/sigma_meso_height")("*/sigma_meso_radius"));
+
+    // here we are fixing specific parameters before fit
+    for( size_t i_plan=0; i_plan<fixplan.size(); ++i_plan) {
+        std::ostringstream ostr;
+        ostr << "strategy" <<i_plan;
+        FitSuiteStrategyAdjustParameters *strategy = new FitSuiteStrategyAdjustParameters(ostr.str());
+        strategy->fix_all();
+        for(size_t i_par=0; i_par<fixplan[i_plan].size(); ++i_par) {
+            strategy->release(fixplan[i_plan][i_par]);
+        }
+        m_fitSuite->addFitStrategy(strategy);
+    }
+    FitSuiteStrategyAdjustParameters *strategy_all = new FitSuiteStrategyAdjustParameters("strategy_all");
+    strategy_all->release_all();
+    m_fitSuite->addFitStrategy(strategy_all);
+
+    // fitpreserve=1 - preserve original values
+    // fitpreserve=0 - return always to previous fit values
+    for(FitSuiteStrategies::iterator it = m_fitSuite->getFitStrategies()->begin(); it!= m_fitSuite->getFitStrategies()->end(); ++it) {
+        FitSuiteStrategyAdjustParameters *strategy = dynamic_cast<FitSuiteStrategyAdjustParameters *>( (*it) );
+        assert(strategy);
+        strategy->setPreserveOriginalValues( (*mp_options)["fitpreserve"].as<int>() );
+    }
+
+//    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.041, 0.003, 0.051, 0.03);
+    Mask *mask1 = OutputDataFunctions::CreateRectangularMask(*m_real_data, 0.025, 0.003, 0.051, 0.0375);
+    m_real_data->setMask(*mask1);
+
+    ChiSquaredModule chiModule;
+//    chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
+    //chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() ); // it works only with resolution function, without it fit doesn't converge
+    chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() );
+    //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
+
+    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data, chiModule);
+//    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data);
+
 }
 
 
@@ -411,8 +496,9 @@ void TestMesoCrystal2::initializeExperiment(const OutputData<double> *output_dat
         // if there is output_data as input parameter, build detector using output_data axises
         const IAxis *axis0 = output_data->getAxis(0);
         const IAxis *axis1 = output_data->getAxis(1);
-        //std::cout << axis0->getSize() << " " << axis0->getMin() << " " << axis0->getMax() << " " << axis1->getSize() << " " << axis1->getMin() << " " << axis1->getMax() << std::endl;
-        m_experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
+        std::cout << "Axis!!! " << axis0->getSize() << " " << axis0->getMin() << " " << axis0->getMax() << " " << axis1->getSize() << " " << axis1->getMin() << " " << axis1->getMax() << std::endl;
+        //m_experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
+        m_experiment->setDetectorParameters(*m_real_data);
     }
     m_experiment->printParameters();
 }

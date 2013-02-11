@@ -106,7 +106,7 @@ TEST_F(ChiSquaredModuleTest, IsGISAXSLikeModule)
         ++index; ++it_real; ++it_simul;
     }
     chi_isgisaxs.setRealAndSimulatedData(real_data, simul_data);
-    OutputDataNormalizerScaleAndShift normalizer(100., 0.0);
+    OutputDataNormalizer normalizer(100., 0.0);
     chi_isgisaxs.setOutputDataNormalizer( normalizer );
     EXPECT_FLOAT_EQ( double(0.0), chi_isgisaxs.calculateChiSquared());
 

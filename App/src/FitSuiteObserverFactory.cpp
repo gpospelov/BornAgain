@@ -243,6 +243,20 @@ void FitSuiteObserverWriteTree::update(IObservable *subject)
     const OutputData<double > *simu_data = fitSuite->getFitObjects()->getSimulationData();
     IsGISAXSTools::exportOutputDataInVectors2D(*real_data, event->real_data, event->axis0, event->axis1);
     IsGISAXSTools::exportOutputDataInVectors2D(*simu_data, event->fit_data, event->axis0, event->axis1);
+
+    // this block is to save axis information in the tree only if data shape has changed
+    if(m_prev_data == 0) {
+        m_prev_data = simu_data->clone();
+    } else {
+        if( !m_prev_data->hasSameShape(*simu_data) ) {
+            delete m_prev_data;
+            m_prev_data = simu_data->clone();
+        } else {
+            event->axis0.clear();
+            event->axis1.clear();
+        }
+    }
+
     event->chi2 = fitSuite->getFitObjects()->getChiSquaredValue();
     for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it) {
         event->parvalues.push_back( (*it)->getValue() );

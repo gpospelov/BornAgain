@@ -46,7 +46,8 @@ double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index
     }
 
     m_ncalls_total++;
-    if(index == 0 && !gradients) {
+    if(index == 0 ) {
+    //if(index == 0 && !gradients) {
         m_fit_suite->notifyObservers();
         m_ncall++;
     }

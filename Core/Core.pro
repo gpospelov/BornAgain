@@ -5,7 +5,7 @@ TARGET   = BornAgainCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)
@@ -310,7 +310,8 @@ HEADERS += \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
-    Tools/inc/MemberComplexFunctionIntegrator.h
+    Tools/inc/MemberComplexFunctionIntegrator.h \
+    Fitting/inc/AttFitting.h
 
 contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
    include($$PWD/python_module.pri)

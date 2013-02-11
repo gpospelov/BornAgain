@@ -81,10 +81,11 @@ private:
 class FitSuiteObserverWriteTree : public IObserver
 {
 public:
-    FitSuiteObserverWriteTree(const std::string &file_name = std::string("fitsuite.root")) : m_file_name(file_name) {}
+    FitSuiteObserverWriteTree(const std::string &file_name = std::string("fitsuite.root")) : m_file_name(file_name), m_prev_data(0) {}
     void update(IObservable *subject);
 private:
     std::string m_file_name; //! canvas name were to draw
+    OutputData<double> *m_prev_data;
 };
 
 

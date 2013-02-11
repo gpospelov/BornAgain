@@ -27,32 +27,48 @@ public:
     virtual IOutputDataNormalizer*clone() const=0;
 
     virtual OutputData<double> *createNormalizedData(const OutputData<double > &data) const=0;
+
+    virtual void setMaximumIntensity(double ) = 0;
+
 };
 
 
-
-class OutputDataNormalizerScaleAndShift : public IOutputDataNormalizer
+class OutputDataNormalizer : public IOutputDataNormalizer
 {
 public:
-    OutputDataNormalizerScaleAndShift();
-    OutputDataNormalizerScaleAndShift(double scale, double shift, double max_intensity=0);
-    virtual ~OutputDataNormalizerScaleAndShift() {}
+    OutputDataNormalizer(double scale=1.0, double shift=0.0);
+    virtual ~OutputDataNormalizer() {}
+
+    virtual OutputDataNormalizer *clone() const;
 
     virtual OutputData<double> *createNormalizedData(const OutputData<double > &data) const;
 
-    virtual OutputDataNormalizerScaleAndShift *clone() const;
-
-    void setMaximumIntensity(double max_intensity) { m_max_intensity = max_intensity; }
+    virtual void setMaximumIntensity(double max_intensity) { m_max_intensity = max_intensity; }
 
 protected:
-
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-private:
     double m_scale;
     double m_shift;
     double m_max_intensity;
+};
+
+
+class OutputDataSimpleNormalizer : public OutputDataNormalizer
+{
+public:
+    OutputDataSimpleNormalizer(double scale=1.0, double shift=0.0) : OutputDataNormalizer(scale, shift) {
+        m_max_intensity = 1.0;
+    }
+
+    virtual ~OutputDataSimpleNormalizer(){}
+    virtual void setMaximumIntensity(double max_intensity) {  (void)max_intensity; }
+    virtual OutputDataSimpleNormalizer *clone() const
+    {
+        return new OutputDataSimpleNormalizer(m_scale, m_shift);
+    }
+
 };
 
 

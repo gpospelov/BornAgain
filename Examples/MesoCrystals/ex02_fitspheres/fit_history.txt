@@ -329,4 +329,5 @@ b26 preserve=1
 
 Combined + SquaredFunctionWhiOnluWorks + default parameters from b22
 b27 preserve=1 (../../../development/git/GISASFW/App/App --mesocrystal2 --batch --fitconfig=4 --fitpreserve=1 >& b27.txt &)
+b28 preserve = 0 (../../../development/git/GISASFW/App/App --mesocrystal2 --batch --fitconfig=4 --fitpreserve=0 >& b28.txt &)
 

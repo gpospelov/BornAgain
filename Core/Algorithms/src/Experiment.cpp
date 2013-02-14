@@ -85,21 +85,6 @@ Experiment *Experiment::clone() const
     return new Experiment(*this);
 }
 
-//Experiment *Experiment::clone() const
-//{
-//    Experiment *result = new Experiment();
-//    if(this->mp_sample) result->mp_sample = this->mp_sample->clone();
-//    result->mp_sample_builder = this->mp_sample_builder; // sample builder owned by the user
-//    result->m_detector = this->m_detector;
-//    result->m_beam = this->m_beam;
-//    result->m_intensity_map.copyFrom(this->m_intensity_map);
-//    result->m_is_normalized = this->m_is_normalized;
-//    result->mp_options = this->mp_options; // program options are owned by the user
-//    result->init_parameters();
-//    return result;
-//}
-
-
 void Experiment::runExperiment()
 {
     m_is_normalized = false;

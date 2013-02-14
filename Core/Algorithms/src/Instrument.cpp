@@ -1,0 +1,67 @@
+#include "Instrument.h"
+
+#include "ExperimentConstants.h"
+
+Instrument::Instrument()
+{
+    setName("Instrument");
+    init_parameters();
+}
+
+void Instrument::matchDetectorParameters(const OutputData<double>& output_data)
+{
+    m_detector.clear();
+    for(size_t i_axis=0; i_axis<output_data.getNdimensions(); ++i_axis) {
+        const IAxis *axis = output_data.getAxis(i_axis);
+        m_detector.addAxis(*axis);
+    }
+}
+
+void Instrument::setDetectorParameters(size_t n_phi, double phi_f_min,
+        double phi_f_max, size_t n_alpha, double alpha_f_min,
+        double alpha_f_max, bool isgisaxs_style)
+{
+    AxisParameters phi_params;
+    phi_params.m_name = NDetector2d::PHI_AXIS_NAME;
+    phi_params.m_range = TSampledRange<double>(n_phi, phi_f_min, phi_f_max);
+    AxisParameters alpha_params;
+    alpha_params.m_name = NDetector2d::ALPHA_AXIS_NAME;
+    alpha_params.m_range = TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
+    if (isgisaxs_style) {
+        phi_params.m_sample_method = AxisParameters::E_ISGISAXS;
+        alpha_params.m_sample_method = AxisParameters::E_ISGISAXS;
+    }
+    else {
+        phi_params.m_sample_method = AxisParameters::E_DEFAULT;
+        alpha_params.m_sample_method = AxisParameters::E_DEFAULT;
+    }
+    DetectorParameters detector_params = { phi_params, alpha_params };
+    setDetectorParameters(detector_params);
+}
+
+void Instrument::setDetectorParameters(const DetectorParameters& params)
+{
+    m_detector.clear();
+
+    m_detector.addAxis(params.m_phi_params);
+    m_detector.addAxis(params.m_alpha_params);
+}
+
+std::string Instrument::addParametersToExternalPool(std::string path,
+        ParameterPool* external_pool, int copy_number) const
+{
+    // add own parameters
+    std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+
+    // add parameters of the beam
+    m_beam.addParametersToExternalPool(new_path, external_pool, -1);
+
+    // add parameters of the detector
+    m_detector.addParametersToExternalPool(new_path, external_pool, -1);
+
+    return new_path;
+}
+
+void Instrument::init_parameters()
+{
+}

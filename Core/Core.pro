@@ -31,6 +31,7 @@ SOURCES += \
     Algorithms/src/GISASExperiment.cpp \
     Algorithms/src/IChiSquaredModule.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
+    Algorithms/src/Instrument.cpp \
     Algorithms/src/IOutputDataNormalizer.cpp \
     Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
@@ -156,6 +157,7 @@ HEADERS += \
     Algorithms/inc/IFittingDataSelector.h \
     Algorithms/inc/IIntensityFunction.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
+    Algorithms/inc/Instrument.h \
     Algorithms/inc/InterferenceFunctionStrategies.h \
     Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \

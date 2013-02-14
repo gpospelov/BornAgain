@@ -16,6 +16,7 @@
 
 #include "Beam.h"
 #include "Detector.h"
+#include "IResolutionFunction2D.h"
 
 //- -------------------------------------------------------------------
 //! @class Instrument
@@ -26,6 +27,8 @@ class Instrument : public IParameterized
 {
 public:
     Instrument();
+    Instrument(const Instrument &other);
+
     ~Instrument() {}
 
     //! get the beam data
@@ -34,8 +37,23 @@ public:
     //! set the beam data
     void setBeam(Beam beam);
 
+    //! set the beam wavelength and incoming angles
+    void setBeamParameters(double lambda, double alpha_i, double phi_i);
+
+    //! set the beam's intensity
+    void setBeamIntensity(double intensity) { m_beam.setIntensity(intensity); }
+
+    //! get the beam's intensity
+    double getIntensity() const { return m_beam.getIntensity(); }
+
     //! get the detector data
     Detector getDetector() const;
+
+    //! get a detector axis
+    const IAxis &getDetectorAxis(size_t index) const;
+
+    //! get the detector's dimension
+    size_t getDetectorDimension() const { return m_detector.getDimension(); }
 
     //! set detector parameters using axes of output data
     void matchDetectorParameters(const OutputData<double > &output_data);
@@ -46,6 +64,12 @@ public:
 
     //! set detector parameters using parameter object
     void setDetectorParameters(const DetectorParameters &params);
+
+    //! set detector resolution function
+    void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
+
+    //! apply the detector resolution to the given intensity map
+    void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
 
     //! add parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
@@ -68,9 +92,20 @@ inline void Instrument::setBeam(Beam beam)
     m_beam = beam;
 }
 
+inline void Instrument::setBeamParameters(double lambda, double alpha_i, double phi_i)
+{
+    m_beam.setCentralK(lambda, alpha_i, phi_i);
+}
+
 inline Detector Instrument::getDetector() const
 {
     return m_detector;
 }
+
+inline const IAxis &Instrument::getDetectorAxis(size_t index) const
+{
+    return m_detector.getAxis(index);
+}
+
 
 #endif /* INSTRUMENT_H_ */

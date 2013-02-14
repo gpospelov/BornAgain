@@ -1,23 +1,14 @@
 #include "Experiment.h"
 
-//#ifdef DEBUG_FPE
-//#include <fenv.h>
-//#include "fp_exception_glibc_extension.h"
-//#endif
-
-
-
 Experiment::Experiment()
-    : IParameterized("Experiment")
-    , mp_sample(0)
-    , mp_sample_builder(0)
-    , m_detector()
-    , m_beam()
-    , m_intensity_map()
-    , m_is_normalized(false)
-    , mp_options(0)
+: IParameterized("Experiment")
+, mp_sample(0)
+, mp_sample_builder(0)
+, m_instrument()
+, m_intensity_map()
+, m_is_normalized(false)
+, mp_options(0)
 {
-    //setName("Experiment");
     init_parameters();
 }
 
@@ -25,8 +16,7 @@ Experiment::Experiment(const Experiment &other)
 : IParameterized(other), ICloneable()
 , mp_sample(0)
 , mp_sample_builder(other.mp_sample_builder)
-, m_detector(other.m_detector)
-, m_beam(other.m_beam)
+, m_instrument(other.m_instrument)
 , m_intensity_map()
 , m_is_normalized(other.m_is_normalized)
 , mp_options(other.mp_options)
@@ -41,8 +31,7 @@ Experiment::Experiment(const ProgramOptions *p_options)
 : IParameterized("Experiment")
 , mp_sample(0)
 , mp_sample_builder(0)
-, m_detector()
-, m_beam()
+, m_instrument()
 , m_intensity_map()
 , m_is_normalized(false)
 , mp_options(p_options)
@@ -54,8 +43,7 @@ Experiment::Experiment(const ISample &p_sample, const ProgramOptions *p_options)
 : IParameterized("Experiment")
 , mp_sample(p_sample.clone())
 , mp_sample_builder(0)
-, m_detector()
-, m_beam()
+, m_instrument()
 , m_intensity_map()
 , m_is_normalized(false)
 , mp_options(p_options)
@@ -67,8 +55,7 @@ Experiment::Experiment(const ISampleBuilder* p_sample_builder, const ProgramOpti
 : IParameterized("Experiment")
 , mp_sample(0)
 , mp_sample_builder(p_sample_builder)
-, m_detector()
-, m_beam()
+, m_instrument()
 , m_intensity_map()
 , m_is_normalized(false)
 , mp_options(p_options)
@@ -94,7 +81,7 @@ void Experiment::runExperiment()
 
 void Experiment::normalize()
 {
-    double incident_intensity = m_beam.getIntensity();
+    double incident_intensity = m_instrument.getIntensity();
     if (!m_is_normalized && incident_intensity!=1.0) {
         m_intensity_map.scaleAll(incident_intensity);
         m_is_normalized = true;
@@ -129,12 +116,12 @@ const OutputData<double>* Experiment::getOutputData() const
 
 void Experiment::setBeamParameters(double lambda, double alpha_i, double phi_i)
 {
-    m_beam.setCentralK(lambda, alpha_i, phi_i);
+    m_instrument.setBeamParameters(lambda, alpha_i, phi_i);
 }
 
 void Experiment::setBeamIntensity(double intensity)
 {
-    m_beam.setIntensity(intensity);
+    m_instrument.setBeamIntensity(intensity);
 }
 
 std::string Experiment::addParametersToExternalPool(std::string path,
@@ -143,11 +130,8 @@ std::string Experiment::addParametersToExternalPool(std::string path,
     // add own parameters
     std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
 
-    // add parameters of the beam
-    m_beam.addParametersToExternalPool(new_path, external_pool, -1);
-
-    // add parameters of the detector
-    m_detector.addParametersToExternalPool(new_path, external_pool, -1);
+    // add parameters of the instrument
+    m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
 
     // add parameters of the sample builder
     if (mp_sample_builder) {
@@ -170,9 +154,9 @@ void Experiment::init_parameters()
 void Experiment::updateIntensityMapAxes()
 {
     m_intensity_map.clear();
-    size_t detector_dimension = m_detector.getDimension();
+    size_t detector_dimension = m_instrument.getDetectorDimension();
     for (size_t dim=0; dim<detector_dimension; ++dim) {
-        m_intensity_map.addAxis(m_detector.getAxis(dim));
+        m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
     }
     m_intensity_map.setAllTo(0.0);
 }
@@ -194,12 +178,8 @@ void Experiment::updateSample()
 
 void Experiment::setDetectorParameters(const OutputData<double > &output_data)
 {
-    //std::cout << "Experiment::setDetectorParameters() -> Info. Adjusting detector to have shape as in given output data" << std::endl;
-    m_detector.clear();
-    for(size_t i_axis=0; i_axis<output_data.getNdimensions(); ++i_axis) {
-        const IAxis *axis = output_data.getAxis(i_axis);
-        m_detector.addAxis(*axis);
-    }
+    m_instrument.matchDetectorParameters(output_data);
+
     //updateIntensityMapAxes();
     m_intensity_map.clear();
     m_intensity_map.copyFrom(output_data); // to copy mask too

@@ -1,10 +1,20 @@
 #include "Instrument.h"
 
 #include "ExperimentConstants.h"
+#include "ConvolutionDetectorResolution.h"
 
 Instrument::Instrument()
+: IParameterized("Instrument")
 {
-    setName("Instrument");
+    init_parameters();
+}
+
+Instrument::Instrument(const Instrument& other)
+: IParameterized()
+, m_detector(other.m_detector)
+, m_beam(other.m_beam)
+{
+    setName(other.getName());
     init_parameters();
 }
 
@@ -60,6 +70,18 @@ std::string Instrument::addParametersToExternalPool(std::string path,
     m_detector.addParametersToExternalPool(new_path, external_pool, -1);
 
     return new_path;
+}
+
+void Instrument::setDetectorResolutionFunction(
+        IResolutionFunction2D* p_resolution_function)
+{
+    m_detector.setDetectorResolution( new ConvolutionDetectorResolution(p_resolution_function) );
+}
+
+void Instrument::applyDetectorResolution(
+        OutputData<double>* p_intensity_map) const
+{
+    m_detector.applyDetectorResolution(p_intensity_map);
 }
 
 void Instrument::init_parameters()

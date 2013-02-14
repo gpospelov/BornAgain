@@ -17,8 +17,7 @@
 #include "ISample.h"
 #include "ISampleBuilder.h"
 #include "OutputData.h"
-#include "Beam.h"
-#include "Detector.h"
+#include "Instrument.h"
 #include "SimulationParameters.h"
 
 class ProgramOptions;
@@ -58,17 +57,17 @@ public:
 
     Beam getBeam() const
     {
-        return m_beam;
+        return m_instrument.getBeam();
     }
 
     void setBeam(Beam beam)
     {
-        m_beam = beam;
+        m_instrument.setBeam(beam);
     }
 
     Detector getDetector() const
     {
-        return m_detector;
+        return m_instrument.getDetector();
     }
 
     void setBeamParameters(double lambda, double alpha_i, double phi_i);
@@ -106,8 +105,7 @@ protected:
 
     ISample *mp_sample;
     const ISampleBuilder *mp_sample_builder;
-    Detector m_detector;
-    Beam m_beam;
+    Instrument m_instrument;
     OutputData<double> m_intensity_map;
     bool m_is_normalized;
     const ProgramOptions *mp_options;

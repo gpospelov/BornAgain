@@ -17,7 +17,7 @@
 GISASExperiment::GISASExperiment()
 {
     setName("GISASExperiment");
-    m_beam.setCentralK(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree); ///< Set default beam parameters
+    m_instrument.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree); ///< Set default beam parameters
     setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
             100, 0.0*Units::degree, 2.0*Units::degree);
 }
@@ -26,7 +26,7 @@ GISASExperiment::GISASExperiment(const ProgramOptions *p_options)
 : Experiment(p_options)
 {
     setName("GISASExperiment");
-    m_beam.setCentralK(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree); ///< Set default beam parameters
+    m_instrument.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree); ///< Set default beam parameters
     setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
             100, 0.0*Units::degree, 2.0*Units::degree);
 }
@@ -106,7 +106,7 @@ void GISASExperiment::runExperiment()
             delete threads[i];
         }
     }
-    m_detector.applyDetectorResolution(&m_intensity_map);
+    m_instrument.applyDetectorResolution(&m_intensity_map);
 }
 
 
@@ -133,8 +133,8 @@ void GISASExperiment::normalize()
     // This normalization assumes that the intensity map contains total differential scattering cross sections
     // (so not the cross section per scattering particle as is usual)
     if (!m_is_normalized) {
-        double incident_intensity = m_beam.getIntensity(); // Actually, this is the total number of neutrons hitting the sample
-        double sin_alpha_i = std::abs(m_beam.getCentralK().cosTheta());
+        double incident_intensity = m_instrument.getIntensity(); // Actually, this is the total number of neutrons hitting the sample
+        double sin_alpha_i = std::abs(m_instrument.getBeam().getCentralK().cosTheta());
         for (OutputData<double>::iterator it = m_intensity_map.begin(); it != m_intensity_map.end(); ++it) {
             double factor = incident_intensity*getSolidAngle(it.getIndex())/sin_alpha_i;
             (*it) *= factor;
@@ -147,37 +147,19 @@ void GISASExperiment::normalize()
 void GISASExperiment::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
                                             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {
-    AxisParameters phi_params;
-    phi_params.m_name = NDetector2d::PHI_AXIS_NAME;
-    phi_params.m_range = TSampledRange<double>(n_phi, phi_f_min, phi_f_max);
-    AxisParameters alpha_params;
-    alpha_params.m_name = NDetector2d::ALPHA_AXIS_NAME;
-    alpha_params.m_range = TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
-    if (isgisaxs_style) {
-        phi_params.m_sample_method = AxisParameters::E_ISGISAXS;
-        alpha_params.m_sample_method = AxisParameters::E_ISGISAXS;
-    }
-    else {
-        phi_params.m_sample_method = AxisParameters::E_DEFAULT;
-        alpha_params.m_sample_method = AxisParameters::E_DEFAULT;
-    }
-    DetectorParameters detector_params = { phi_params, alpha_params };
-    setDetectorParameters(detector_params);
+    m_instrument.setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min, alpha_f_max, isgisaxs_style);
+    updateIntensityMapAxes();
 }
 
 void GISASExperiment::setDetectorParameters(const DetectorParameters &params)
 {
-    m_detector.clear();
-
-    m_detector.addAxis(params.m_phi_params);
-    m_detector.addAxis(params.m_alpha_params);
-
+    m_instrument.setDetectorParameters(params);
     updateIntensityMapAxes();
 }
 
 void GISASExperiment::setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function)
 {
-    m_detector.setDetectorResolution( new ConvolutionDetectorResolution(p_resolution_function) );
+    m_instrument.setDetectorResolutionFunction(p_resolution_function);
 }
 
 void GISASExperiment::smearIntensityFromZAxisTilting()

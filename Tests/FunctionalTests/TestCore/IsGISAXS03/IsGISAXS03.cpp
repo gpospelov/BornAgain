@@ -86,17 +86,17 @@ void FunctionalTests::IsGISAXS03::run()
     // ---------------------
     // cylinder DWBA
     experiment.setSample(multi_layer_CylinderDWBA);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_cylinder_DWBA.ima");
 
     // cylinder in the air
     experiment.setSample(multi_layer_CylinderBA);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_cylinder_BA.ima");
 
     // cylinder in BA with size distribution
     experiment.setSample(multi_layer_CylinderBA_size);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_cylinder_BA_size.ima");
 
 }

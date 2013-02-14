@@ -69,12 +69,12 @@ void FunctionalTests::IsGISAXS04::run()
      // ---------------------
      // 1DDL
         experiment.setSample(multi_layer_1DDL);
-        experiment.runSimulation();
+        experiment.runExperiment();
         OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_1DDL.ima");
 
      // 2DDL
         experiment.setSample(multi_layer_2DDL);
-        experiment.runSimulation();
+        experiment.runExperiment();
         OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_2DDLh.ima");
 }
 

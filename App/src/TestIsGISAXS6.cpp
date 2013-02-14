@@ -43,21 +43,21 @@ void TestIsGISAXS6::execute()
     // normal lattice
     MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_lattice"));
     experiment.setSample(*p_sample);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_lattice.ima");
     delete p_sample;
 
     // centered lattice
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_centered"));
     experiment.setSample(*p_sample);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_centered.ima");
     delete p_sample;
 
     // rotated lattice
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_rotated"));
     experiment.setSample(*p_sample);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_rotated.ima");
     delete p_sample;
 
@@ -74,7 +74,7 @@ void TestIsGISAXS6::execute()
         m_builder.setXi(xi_value);
         p_sample = dynamic_cast<MultiLayer *>(m_builder.buildSample());
         experiment.setSample(*p_sample);
-        experiment.runSimulation();
+        experiment.runExperiment();
         delete p_sample;
         OutputData<double> *p_single_output = experiment.getOutputDataClone();
         p_single_output->scaleAll(probability);

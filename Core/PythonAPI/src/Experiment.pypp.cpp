@@ -87,16 +87,16 @@ struct Experiment_wrapper : Experiment, bp::wrapper< Experiment > {
         Experiment::normalize( );
     }
 
-    virtual void runSimulation(  ) {
-        if( bp::override func_runSimulation = this->get_override( "runSimulation" ) )
-            func_runSimulation(  );
+    virtual void runExperiment(  ) {
+        if( bp::override func_runExperiment = this->get_override( "runExperiment" ) )
+            func_runExperiment(  );
         else{
-            this->Experiment::runSimulation(  );
+            this->Experiment::runExperiment(  );
         }
     }
     
-    void default_runSimulation(  ) {
-        Experiment::runSimulation( );
+    void default_runExperiment(  ) {
+        Experiment::runExperiment( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -157,9 +157,9 @@ void register_Experiment_class(){
             , (void ( ::Experiment::* )(  ) )(&::Experiment::normalize)
             , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_normalize) )    
         .def( 
-            "runSimulation"
-            , (void ( ::Experiment::* )(  ) )(&::Experiment::runSimulation)
-            , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_runSimulation) )    
+            "runExperiment"
+            , (void ( ::Experiment::* )(  ) )(&::Experiment::runExperiment)
+            , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_runExperiment) )    
         .def( 
             "setBeamIntensity"
             , (void ( ::Experiment::* )( double ) )( &::Experiment::setBeamIntensity )

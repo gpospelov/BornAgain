@@ -48,7 +48,7 @@ void TestMultiLayerRoughness::execute()
         experiment.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree, false);
         experiment.setBeamParameters(1.54*Units::angstrom, -alpha_i, 0.0*Units::degree);
 
-        experiment.runSimulation();
+        experiment.runExperiment();
 
         const OutputData<double> *output = experiment.getOutputData();
         OutputData<double>::const_iterator it_output = output->begin();

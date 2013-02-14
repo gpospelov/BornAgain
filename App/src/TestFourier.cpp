@@ -32,7 +32,7 @@ void TestFourier::execute()
     experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     experiment.setBeamIntensity(8e12);
 
-    experiment.runSimulation();
+    experiment.runExperiment();
     experiment.normalize();
 
     mp_intensity_output = experiment.getOutputDataClone();

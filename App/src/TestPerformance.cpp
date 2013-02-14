@@ -194,7 +194,7 @@ void PerfTest_Pyramid::initialise(ProgramOptions *p_options)
 
 void PerfTest_Pyramid::execute()
 {
-    m_experiment->runSimulation();
+    m_experiment->runExperiment();
 }
 
 
@@ -218,7 +218,7 @@ void PerfTest_RotatedPyramid::initialise(ProgramOptions *p_options)
 
 void PerfTest_RotatedPyramid::execute()
 {
-    m_experiment->runSimulation();
+    m_experiment->runExperiment();
 
 }
 
@@ -244,5 +244,5 @@ void PerfTest_MesoCrystal::initialise(ProgramOptions *p_options)
 
 void PerfTest_MesoCrystal::execute()
 {
-    m_experiment->runSimulation();
+    m_experiment->runExperiment();
 }

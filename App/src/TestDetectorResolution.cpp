@@ -45,7 +45,7 @@ void TestDetectorResolution::execute()
     IResolutionFunction2D *p_resolution_function = new ResolutionFunction2DSimple(0.001, 0.001);
     experiment.setDetectorResolutionFunction(p_resolution_function);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    experiment.runSimulation();
+    experiment.runExperiment();
     mp_intensity_output = experiment.getOutputDataClone();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_detector_resolution", "Detector resolution",
             "CONT4 Z", "Detector resolution");

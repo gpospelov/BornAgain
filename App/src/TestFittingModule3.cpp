@@ -139,7 +139,7 @@ void TestFittingModule3::initializeRealData()
     if( !m_experiment || !m_sample ) throw NullPointerException("TestFittingModule3::initializeRealData() -> Error! No experiment o sample defined ");
 
     // generating 2D "real" data
-    m_experiment->runSimulation();
+    m_experiment->runExperiment();
     //m_experiment->normalize();
     delete m_real_data;
     m_real_data = IsGISAXSTools::createNoisyData(*m_experiment->getOutputData());

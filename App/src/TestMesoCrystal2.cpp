@@ -87,7 +87,7 @@ void TestMesoCrystal2::draw_results()
 //    pool->setMatchedParametersValue("*/surface_filling_ratio", 0.2);      // 0.25
 //    pool->setMatchedParametersValue("*/roughness", 1.0);                      // 1.0
 //    m_experiment->setBeamIntensity(8e+12);
-//    m_experiment->runSimulation();
+//    m_experiment->runExperiment();
 //    m_experiment->normalize();
 
 //    IsGISAXSTools::drawOutputDataComparisonResults(*m_experiment->getOutputData(), *m_real_data, "initial", "initial params", 100, 1e6, 100);
@@ -104,7 +104,7 @@ void TestMesoCrystal2::draw_results()
     pool->setMatchedParametersValue("*/surface_filling_ratio", 1.7286e-01);      // 0.25
     pool->setMatchedParametersValue("*/roughness", 2.8746e+01);                      // 1.0
     m_experiment->setBeamIntensity(5.0090e+12);
-    m_experiment->runSimulation();
+    m_experiment->runExperiment();
     m_experiment->normalize();
 
     IsGISAXSTools::drawOutputDataComparisonResults(*m_experiment->getOutputData(), *m_real_data, "found", "founf params", 100, 1e6, 100);

@@ -48,21 +48,21 @@ GISASExperiment *GISASExperiment::clone() const
 /* ************************************************************************* */
 // run simulation
 /* ************************************************************************* */
-void GISASExperiment::runSimulation()
+void GISASExperiment::runExperiment()
 {
-    Experiment::runSimulation();
-    if( !mp_sample) throw NullPointerException( "GISASExperiment::runSimulation() -> Error! No sample set.");
+    Experiment::runExperiment();
+    if( !mp_sample) throw NullPointerException( "GISASExperiment::runExperiment() -> Error! No sample set.");
 
     int n_threads_total=0;
     if (mp_options) {
         n_threads_total = (*mp_options)["threads"].as<int>();
-        //std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads defined in program options " << n_threads_total << std::endl;
+        //std::cout << "GISASExperiment::runExperiment() -> Info. Number of threads defined in program options " << n_threads_total << std::endl;
     }
 
     m_intensity_map.setAllTo(0.0);
     if(n_threads_total<0) {
         DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-        if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
+        if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runExperiment() -> No dwba simulation");
         p_dwba_simulation->init(*this);
         p_dwba_simulation->run();
         m_intensity_map += p_dwba_simulation->getDWBAIntensity();
@@ -71,9 +71,9 @@ void GISASExperiment::runSimulation()
         // if n_threads=0, take optimal number of threads from the hardware
         if(n_threads_total == 0 )  {
             n_threads_total = (int)boost::thread::hardware_concurrency();
-            std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads " << n_threads_total << " (taken from hardware concurrency)" << std::endl;
+            std::cout << "GISASExperiment::runExperiment() -> Info. Number of threads " << n_threads_total << " (taken from hardware concurrency)" << std::endl;
         }else {
-            std::cout << "GISASExperiment::runSimulation() -> Info. Number of threads " << n_threads_total << " (hardware concurrency: " << boost::thread::hardware_concurrency() << " )"<< std::endl;
+            std::cout << "GISASExperiment::runExperiment() -> Info. Number of threads " << n_threads_total << " (hardware concurrency: " << boost::thread::hardware_concurrency() << " )"<< std::endl;
         }
         std::vector<boost::thread *> threads;
         std::vector<DWBASimulation *> simulations;
@@ -83,7 +83,7 @@ void GISASExperiment::runSimulation()
         thread_info.n_threads = n_threads_total;
         for(int i_thread=0; i_thread<n_threads_total; ++i_thread){
             DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-            if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
+            if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runExperiment() -> No dwba simulation");
             p_dwba_simulation->init(*this);
             thread_info.i_thread = i_thread;
             p_dwba_simulation->setThreadInfo(thread_info);
@@ -111,15 +111,15 @@ void GISASExperiment::runSimulation()
 
 
 
-void GISASExperiment::runSimulationElement(size_t index)
+void GISASExperiment::runExperimentElement(size_t index)
 {
     (void)index;
-    Experiment::runSimulation();
-    if( !mp_sample) throw NullPointerException( "GISASExperiment::runSimulation() -> Error! No sample set.");
+    Experiment::runExperiment();
+    if( !mp_sample) throw NullPointerException( "GISASExperiment::runExperiment() -> Error! No sample set.");
 
     m_intensity_map.setAllTo(0.0);
     DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-    if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runSimulation() -> No dwba simulation");
+    if (!p_dwba_simulation) throw NullPointerException("GISASExperiment::runExperiment() -> No dwba simulation");
     p_dwba_simulation->init(*this);
     p_dwba_simulation->run();
     m_intensity_map += p_dwba_simulation->getDWBAIntensity();

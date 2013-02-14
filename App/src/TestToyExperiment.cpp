@@ -12,9 +12,9 @@
 /* ************************************************************************* */
 //
 /* ************************************************************************* */
-void ToyExperiment::runSimulation()
+void ToyExperiment::runExperiment()
 {
-    if( !m_func ) throw NullPointerException("ToyExperiment::runSimulation() -> Error! No function is defined.");
+    if( !m_func ) throw NullPointerException("ToyExperiment::runExperiment() -> Error! No function is defined.");
     const std::string s_phi_f(NDetector2d::PHI_AXIS_NAME);
     const std::string s_alpha_f(NDetector2d::ALPHA_AXIS_NAME);
 
@@ -122,7 +122,7 @@ void TestToyExperiment::initializeExperimentAndRealData()
     m_experiment->setParameter(1, 2.0);
     m_experiment->setParameter(2, 2.5);
 
-    m_experiment->runSimulation();
+    m_experiment->runExperiment();
     m_real_data = IsGISAXSTools::createDataWithGaussianNoise(*m_experiment->getOutputData(), m_sigma_noise);
 }
 

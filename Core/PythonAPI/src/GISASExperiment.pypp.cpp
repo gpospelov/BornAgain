@@ -99,28 +99,28 @@ struct GISASExperiment_wrapper : GISASExperiment, bp::wrapper< GISASExperiment >
         GISASExperiment::normalize( );
     }
 
-    virtual void runSimulation(  ) {
-        if( bp::override func_runSimulation = this->get_override( "runSimulation" ) )
-            func_runSimulation(  );
+    virtual void runExperiment(  ) {
+        if( bp::override func_runExperiment = this->get_override( "runExperiment" ) )
+            func_runExperiment(  );
         else{
-            this->GISASExperiment::runSimulation(  );
+            this->GISASExperiment::runExperiment(  );
         }
     }
     
-    void default_runSimulation(  ) {
-        GISASExperiment::runSimulation( );
+    void default_runExperiment(  ) {
+        GISASExperiment::runExperiment( );
     }
 
-    virtual void runSimulationElement( ::size_t index ) {
-        if( bp::override func_runSimulationElement = this->get_override( "runSimulationElement" ) )
-            func_runSimulationElement( index );
+    virtual void runExperimentElement( ::size_t index ) {
+        if( bp::override func_runExperimentElement = this->get_override( "runExperimentElement" ) )
+            func_runExperimentElement( index );
         else{
-            this->GISASExperiment::runSimulationElement( index );
+            this->GISASExperiment::runExperimentElement( index );
         }
     }
     
-    void default_runSimulationElement( ::size_t index ) {
-        GISASExperiment::runSimulationElement( index );
+    void default_runExperimentElement( ::size_t index ) {
+        GISASExperiment::runExperimentElement( index );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -186,13 +186,13 @@ void register_GISASExperiment_class(){
             , (void ( ::GISASExperiment::* )(  ) )(&::GISASExperiment::normalize)
             , (void ( GISASExperiment_wrapper::* )(  ) )(&GISASExperiment_wrapper::default_normalize) )    
         .def( 
-            "runSimulation"
-            , (void ( ::GISASExperiment::* )(  ) )(&::GISASExperiment::runSimulation)
-            , (void ( GISASExperiment_wrapper::* )(  ) )(&GISASExperiment_wrapper::default_runSimulation) )    
+            "runExperiment"
+            , (void ( ::GISASExperiment::* )(  ) )(&::GISASExperiment::runExperiment)
+            , (void ( GISASExperiment_wrapper::* )(  ) )(&GISASExperiment_wrapper::default_runExperiment) )    
         .def( 
-            "runSimulationElement"
-            , (void ( ::GISASExperiment::* )( ::size_t ) )(&::GISASExperiment::runSimulationElement)
-            , (void ( GISASExperiment_wrapper::* )( ::size_t ) )(&GISASExperiment_wrapper::default_runSimulationElement)
+            "runExperimentElement"
+            , (void ( ::GISASExperiment::* )( ::size_t ) )(&::GISASExperiment::runExperimentElement)
+            , (void ( GISASExperiment_wrapper::* )( ::size_t ) )(&GISASExperiment_wrapper::default_runExperimentElement)
             , ( bp::arg("index") ) )    
         .def( 
             "setDetectorParameters"

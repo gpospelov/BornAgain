@@ -29,7 +29,7 @@ void TestIsGISAXS2::execute()
     // cylinders of two types
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS2_CylindersMixture"));
     experiment.setSample(*sample);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_bimodal.ima");
 }
 

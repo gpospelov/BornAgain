@@ -10,7 +10,7 @@ double FitSuiteChiSquaredFunction::evaluate(const double *pars)
     assert(m_fit_suite != NULL);
 
     m_fit_suite->getFitParameters()->setValues(pars);
-    m_fit_suite->getFitObjects()->runSimulation();
+    m_fit_suite->getFitObjects()->runExperiment();
     double chi_squared = m_fit_suite->getFitObjects()->getChiSquaredValue();
     m_fit_suite->notifyObservers();
     m_ncall++;
@@ -92,7 +92,7 @@ void FitSuiteGradientFunction::verify_minimizer_logic(bool parameters_have_chang
 void FitSuiteGradientFunction::calculate_residuals(const double *pars)
 {
     //std::cout << " FitSuiteGradientFunction::calculate_residuals() -> Info. " << std::endl;
-    runSimulation(pars);
+    runExperiment(pars);
     for(size_t i_data=0; i_data<m_ndatasize; ++i_data) {
         m_residuals[i_data] = m_fit_suite->getFitObjects()->getResidualValue(i_data);
         //std::cout << i_data << " " << m_residuals[i_data] << std::endl;
@@ -113,7 +113,7 @@ void FitSuiteGradientFunction::calculate_gradients(const double *pars)
         pars_deriv[i_par] += kEps;
 
         //std::cout << "   " << (pars[i_par]- pars_deriv[i_par]) << std::endl;
-        runSimulation(&pars_deriv.front());
+        runExperiment(&pars_deriv.front());
 
         std::vector<double> residuals2;
         residuals2.resize(m_ndatasize);
@@ -128,15 +128,15 @@ void FitSuiteGradientFunction::calculate_gradients(const double *pars)
     }
     // returning back old parameters
     m_fit_suite->getFitParameters()->setValues(pars);
-    runSimulation(pars);
+    runExperiment(pars);
 
 }
 
 
-void FitSuiteGradientFunction::runSimulation(const double *pars){
+void FitSuiteGradientFunction::runExperiment(const double *pars){
     assert(m_fit_suite);
     m_fit_suite->getFitParameters()->setValues(pars);
-    m_fit_suite->getFitObjects()->runSimulation();
+    m_fit_suite->getFitObjects()->runExperiment();
     //m_fit_suite->getFitObjects()->getChiSquaredValue();
 }
 

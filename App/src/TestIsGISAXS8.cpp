@@ -26,14 +26,14 @@ void TestIsGISAXS8::execute()
     // 2DDL_lattice
     MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS8_2DDL_lattice"));
     experiment.setSample(*p_sample);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_2DDL_lattice.ima");
     delete p_sample;
 
     // 2DDL_lattice with isotropic pdfs
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS8_2DDL_lattice2"));
     experiment.setSample(*p_sample);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_2DDL_lattice2.ima");
     delete p_sample;
 }

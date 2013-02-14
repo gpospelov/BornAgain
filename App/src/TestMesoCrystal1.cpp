@@ -54,7 +54,7 @@ void TestMesoCrystal1::execute()
     ParameterPool *p_param_pool = experiment.createParameterTree();
     std::cout << (*p_param_pool) << std::endl;
 
-    experiment.runSimulation();
+    experiment.runExperiment();
 //    double count_before_normalize = experiment.getOutputData()->totalSum();
     experiment.normalize();
     mp_intensity_output = experiment.getOutputDataClone();

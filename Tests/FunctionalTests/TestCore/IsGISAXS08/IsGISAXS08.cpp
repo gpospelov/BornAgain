@@ -72,12 +72,12 @@ void FunctionalTests::IsGISAXS08::run()
     // ---------------------
     // cylinder DWBA
     experiment.setSample(multi_layer_2DDL);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_2DDL_lattice.ima");
 
     // cylinder in the air
     experiment.setSample(multi_layer_2DDL2);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_2DDL_lattice2.ima");
 
 }

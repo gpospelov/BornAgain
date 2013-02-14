@@ -92,7 +92,7 @@ void TestIsGISAXS12::execute()
 void TestIsGISAXS12::run_isgisaxs_comparison()
 {
     // run simulation for default sample parameters
-    m_experiment->runSimulation();
+    m_experiment->runExperiment();
     OutputDataIOFactory::writeOutputData(*(m_experiment->getOutputData()), getOutputPath()+"this_fitconstraints.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters

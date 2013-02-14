@@ -28,7 +28,7 @@ void TestIsGISAXS7::execute()
     MultiLayer *sample = dynamic_cast<MultiLayer *>(
             SampleFactory::instance().createItem("IsGISAXS7_mor"));
     experiment.setSample(*sample);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_morphology.ima");
 }
 

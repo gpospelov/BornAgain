@@ -28,9 +28,9 @@ public:
 
     virtual ~GISASExperiment() {}
 
-    virtual void runSimulation();
+    virtual void runExperiment();
 
-    virtual void runSimulationElement(size_t index);
+    virtual void runExperimentElement(size_t index);
 
 	//! normalize the calculated intensity
 

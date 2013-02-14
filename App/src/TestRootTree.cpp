@@ -112,7 +112,7 @@ void TestRootTree::complex_write()
         experiment.setDetectorParameters(nphi_f, phi_f_min, phi_f_max, nalpha_f , alpha_f_min, alpha_f_max);
         experiment.setBeamParameters(1.77*Units::angstrom, -alpha_i, phi_i);
         experiment.setBeamIntensity(1e7);
-        experiment.runSimulation();
+        experiment.runExperiment();
         experiment.normalize();
 
         // saving experimental parameter in event structure
@@ -256,7 +256,7 @@ void TestRootTree::simple_write()
         nev = i_ev;
 
         mp_experiment->setBeamParameters(1.0*Units::angstrom, alpha_i*Units::degree, phi_i);
-        mp_experiment->runSimulation();
+        mp_experiment->runExperiment();
 
         mp_data = mp_experiment->getOutputDataClone();
         // accessing to scattering data

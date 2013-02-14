@@ -87,7 +87,7 @@ TEST_F(ExperimentTest, ExperimentConstruction)
     EXPECT_EQ( size_t(1), dynamic_cast<MultiLayer *>(constructedExperiment.getSample())->getNumberOfLayers());
     constructedExperiment.setSampleBuilder(&sample_builder);
     EXPECT_EQ( NULL, constructedExperiment.getSample());
-    constructedExperiment.runSimulation();
+    constructedExperiment.runExperiment();
 
     EXPECT_FALSE( NULL == constructedExperiment.getSample());
     EXPECT_EQ( std::string("Layer"), constructedExperiment.getSample()->getName());
@@ -117,7 +117,7 @@ TEST_F(ExperimentTest, ExperimentClone)
     EXPECT_TRUE( clonedExperiment->getOutputData()->hasSameShape(test_data));
     EXPECT_EQ( double(10), clonedExperiment->getBeam().getIntensity());
     EXPECT_TRUE( NULL == clonedExperiment->getSample());
-    clonedExperiment->runSimulation();
+    clonedExperiment->runExperiment();
     EXPECT_FALSE( NULL == clonedExperiment->getSample());
 
     delete clonedExperiment;

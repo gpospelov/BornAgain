@@ -100,7 +100,7 @@ Experiment *Experiment::clone() const
 //}
 
 
-void Experiment::runSimulation()
+void Experiment::runExperiment()
 {
     m_is_normalized = false;
     updateSample();

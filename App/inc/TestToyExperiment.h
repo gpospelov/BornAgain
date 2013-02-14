@@ -33,7 +33,7 @@ class ToyExperiment : public Experiment
 public:
     ToyExperiment(TF2 *func) : m_func(func) { pars.resize(func->GetNpar(), 0.0); setName("ToyExperiment"); init_parameters(); }
     virtual ~ToyExperiment() {}
-    virtual void runSimulation();
+    virtual void runExperiment();
     virtual ToyExperiment *clone() const { return new ToyExperiment(*this); }
     void setParameter(size_t i, double value) { pars[i] = value; }
 protected:

@@ -31,10 +31,10 @@ void FitSuiteObjects::add(const Experiment &experiment, const OutputData<double 
 /* ************************************************************************* */
 // loop through all defined experiments and run they simulation
 /* ************************************************************************* */
-void FitSuiteObjects::runSimulation()
+void FitSuiteObjects::runExperiment()
 {
     for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        (*it)->getExperiment()->runSimulation();
+        (*it)->getExperiment()->runExperiment();
         if(m_experiment_normalize) (*it)->getExperiment()->normalize();
     }
     m_chi_squared_value = calculateChiSquaredValue();

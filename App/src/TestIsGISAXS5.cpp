@@ -71,7 +71,7 @@ void TestIsGISAXS5::execute()
 void TestIsGISAXS5::run_isgisaxs_comparison()
 {
     // run simulation for default sample parameters
-    mp_experiment->runSimulation();
+    mp_experiment->runExperiment();
     OutputDataIOFactory::writeOutputData(*(mp_experiment->getOutputData()), getOutputPath()+"this_fitexample.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters

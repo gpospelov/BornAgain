@@ -46,7 +46,7 @@ public:
     void add(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module, double weight = 1.0);
 
     //! loop through all defined experiments and run they simulation
-    void runSimulation();
+    void runExperiment();
 
     //! get total number of data points
     size_t getSizeOfDataSet() const;

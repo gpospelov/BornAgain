@@ -55,7 +55,7 @@ void FunctionalTests::IsGISAXS011::run()
     // running experiment
     // ---------------------
     experiment.setSample(multi_layer);
-    experiment.runSimulation();
+    experiment.runExperiment();
     // ---------------------
     // copying data
     // ---------------------

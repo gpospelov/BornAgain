@@ -31,7 +31,7 @@ void TestIsGISAXS15::execute()
     // create sample and run simulation
     MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS15_SSCA"));
     experiment.setSample(*p_sample);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_SSCA.ima");
     delete p_sample;
 }

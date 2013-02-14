@@ -17,62 +17,62 @@ void TestFormFactors::execute()
     experiment.setSample(*sample);
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    experiment.runSimulation();
+    experiment.runExperiment();
     m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/");
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Box.ima");
 
      //Cone
      sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Cone"));
      experiment.setSample(*sample);
-     experiment.runSimulation();
+     experiment.runExperiment();
      OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cone.ima");
 
      //Ellipsoid
      sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Ellipsoid"));
      experiment.setSample(*sample);
-     experiment.runSimulation();
+     experiment.runExperiment();
      OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Ellipsoid.ima");
 
      //Sphere
      sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Sphere"));
      experiment.setSample(*sample);
-     experiment.runSimulation();
+     experiment.runExperiment();
      OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Sphere.ima");
 
      //Full Spheroid
      sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_FullSpheroid"));
      experiment.setSample(*sample);
-     experiment.runSimulation();
+     experiment.runExperiment();
      OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSpheroid.ima");
 
      //Hemi Spheroid
      sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_HemiSpheroid"));
      experiment.setSample(*sample);
-     experiment.runSimulation();
+     experiment.runExperiment();
      OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_HemiSpheroid.ima");
 
      //Pyramid
      sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Pyramid"));
      experiment.setSample(*sample);
-     experiment.runSimulation();
+     experiment.runExperiment();
      OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Pyramid.ima");
 
      //Cylinder
      sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Cylinder"));
      experiment.setSample(*sample);
-     experiment.runSimulation();
+     experiment.runExperiment();
      OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cylinder.ima");
 
      //Full Sphere
      sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_FullSphere"));
      experiment.setSample(*sample);
-     experiment.runSimulation();
+     experiment.runExperiment();
      OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSphere.ima");
 
      //Prism3
      sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Prism3"));
      experiment.setSample(*sample);
-     experiment.runSimulation();
+     experiment.runExperiment();
      OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Prism3.ima");
 
 

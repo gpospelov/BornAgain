@@ -76,11 +76,11 @@ void FunctionalTests::IsGISAXS09::run()
     // running experiment
     // ---------------------
     experiment.setSample(multi_layer_pyramid);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_pyramid_Z0.ima");
 
     experiment.setSample(multi_layer_rotated_pyramid);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_pyramid_Z45.ima");
 
 }

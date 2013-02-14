@@ -36,7 +36,7 @@ public:
     virtual Experiment *clone() const;
 
     //! run a simulation with the current parameter settings
-    virtual void runSimulation();
+    virtual void runExperiment();
 
     //! normalize the detector counts
     virtual void normalize();

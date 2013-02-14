@@ -260,7 +260,7 @@ void TestFittingModule2::initializeRealData()
     if( !mp_experiment ) throw NullPointerException("TestFittingModule2::initializeRealData() -> Error! No experiment o sample defined ");
 
     // generating "real" data
-    mp_experiment->runSimulation();
+    mp_experiment->runExperiment();
     mp_experiment->normalize();
     m_fitSuite->getFitObjects()->setExperimentNormalize(true);
     delete mp_real_data;

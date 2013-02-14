@@ -72,7 +72,7 @@ private:
     void verify_minimizer_logic(bool parameters_have_changed, int current_index);
     void calculate_residuals(const double *pars);
     void calculate_gradients(const double *pars);
-    void runSimulation(const double *pars);
+    void runExperiment(const double *pars);
 
     size_t m_npars;
     size_t m_ndatasize;

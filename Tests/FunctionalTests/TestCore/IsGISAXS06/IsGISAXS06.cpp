@@ -162,7 +162,7 @@ void FunctionalTests::IsGISAXS06::run()
         m_builder.setXi(xi_value);
         p_sample = dynamic_cast<MultiLayer *>(m_builder.buildSample());
         experiment.setSample(*p_sample);
-        experiment.runSimulation();
+        experiment.runExperiment();
         delete p_sample;
         OutputData<double> *p_single_output = experiment.getOutputDataClone();
         p_single_output->scaleAll(probability);
@@ -191,17 +191,17 @@ void FunctionalTests::IsGISAXS06::run()
     // ---------------------
     // normal lattice
     experiment.setSample(multi_layer_lattice);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_lattice.ima");
 
      // centered lattice
     experiment.setSample(multi_layer_centered);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_centered.ima");
 
      // rotated lattice
     experiment.setSample(multi_layer_rotated);
-    experiment.runSimulation();
+    experiment.runExperiment();
     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_rotated.ima");
 
      // lattice variants ??

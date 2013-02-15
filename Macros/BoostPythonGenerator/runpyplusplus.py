@@ -328,6 +328,9 @@ def AdditionalRules(mb):
     cl.member_function("getValue").include()
     cl.member_function("isNull").include()
 
+  if "Simulation.h" in myFiles:
+    mb.class_('DWBASimulation').exclude()
+
   # --- Transform3D.h -------------------------------------------------
   if "Transform3D.h" in myFiles:
     # removing mentioning of Point3D from constructors and member_functions

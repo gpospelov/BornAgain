@@ -4,7 +4,6 @@
 // the order of 3 guys above is important
 
 #include "Crystal.pypp.h" 
-#include "DWBASimulation.pypp.h" 
 #include "DiffuseDWBASimulation.pypp.h" 
 #include "DiffuseParticleInfo.pypp.h" 
 #include "FormFactorCrystal.pypp.h" 
@@ -94,8 +93,6 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ICompositeSample_class();
     register_IClusteredParticles_class();
     register_Crystal_class();
-    register_ISimulation_class();
-    register_DWBASimulation_class();
     register_LayerDWBASimulation_class();
     register_DiffuseDWBASimulation_class();
     register_Transform3D_class();
@@ -137,6 +134,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IInterferenceFunction_class();
     register_ISampleBuilder_class();
     register_ISelectionRule_class();
+    register_ISimulation_class();
     register_MaterialManagerSingleton_t_class();
     register_InterferenceFunction1DParaCrystal_class();
     register_InterferenceFunctionNone_class();

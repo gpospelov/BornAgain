@@ -4,7 +4,6 @@ HEADERS +=  \
     PythonAPI/inc/PythonOutputData.h \ 
     PythonAPI/inc/PythonPlusplusHelper.h \ 
     PythonAPI/inc/Crystal.pypp.h \
-    PythonAPI/inc/DWBASimulation.pypp.h \
     PythonAPI/inc/DiffuseDWBASimulation.pypp.h \
     PythonAPI/inc/DiffuseParticleInfo.pypp.h \
     PythonAPI/inc/FormFactorCrystal.pypp.h \
@@ -86,7 +85,6 @@ SOURCES +=  \
     PythonAPI/src/PythonOutputData.cpp \ 
     PythonAPI/src/PythonPlusplusHelper.cpp \ 
     PythonAPI/src/Crystal.pypp.cpp \
-    PythonAPI/src/DWBASimulation.pypp.cpp \
     PythonAPI/src/DiffuseDWBASimulation.pypp.cpp \
     PythonAPI/src/DiffuseParticleInfo.pypp.cpp \
     PythonAPI/src/FormFactorCrystal.pypp.cpp \

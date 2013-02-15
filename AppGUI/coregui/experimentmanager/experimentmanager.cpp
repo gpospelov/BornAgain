@@ -1,5 +1,14 @@
 #include "experimentmanager.h"
-#include <QtWidgets>
+//#include <QtWidgets>
+#include <QGroupBox>
+#include <QLabel>
+#include <QDateTime>
+#include <QLineEdit>
+#include <QCheckBox>
+#include <QSpinBox>
+#include <QPushButton>
+#include <QGridLayout>
+#include <QDateTimeEdit>
 
 ExperimentManager::ExperimentManager(QWidget *parent)
     : QWidget(parent)

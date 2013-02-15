@@ -1,5 +1,9 @@
 #include "welcomemanager.h"
-#include <QtWidgets>
+//#include <QtWidgets>
+#include <QGroupBox>
+#include <QLabel>
+#include <QComboBox>
+#include <QVBoxLayout>
 
 WelcomeManager::WelcomeManager(QWidget *parent)
     : QWidget(parent)

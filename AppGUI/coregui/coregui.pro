@@ -52,3 +52,21 @@ HEADERS  += \
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/experimentmanager $$PWD/simulationmanager $$PWD/fitmanager
 LIBS += $$PWD/../../lib/libqt-manhattan-style.so
 INCLUDEPATH += $$PWD/../externals/qt-manhattan-style
+
+#include(/opt/local/include/root/rootcint.pri)
+MYROOT = $$(ROOTSYS)
+isEmpty(MYROOT) {
+  message("Warning, ROOTSYS environment variable doesn't exist, trying to guess location")
+  ROOT_CONFIG_FILE = root-config
+  ROOT_CONFIG_FILE_LOCATIONS = /opt/local /usr/local /usr
+  for(dir, ROOT_CONFIG_FILE_LOCATIONS): isEmpty(MYROOT): exists($${dir}/bin/$${ROOT_CONFIG_FILE}): MYROOT = $${dir}
+  isEmpty(MYROOT): error("Can't find" $${ROOT_CONFIG_FILE} "in" $${ROOT_CONFIG_FILE_LOCATIONS})
+  message("Probable ROOTSYS is" $${MYROOT})
+}
+!isEmpty(MYROOT) {
+  !exists($${MYROOT}/bin/root-config): error("No config file "$${MYROOT}/bin/root-config)
+  INCLUDEPATH += $$system($${MYROOT}/bin/root-config --incdir)
+  LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lQtRoot -lThread -lpthread -lm -ldl
+  MYROOTCINT = $${MYROOT}/bin/rootcint
+}
+

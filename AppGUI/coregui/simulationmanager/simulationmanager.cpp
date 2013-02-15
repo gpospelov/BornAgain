@@ -1,6 +1,10 @@
 #include "simulationmanager.h"
-#include <QtWidgets>
-
+//#include <QtWidgets>
+#include <QGroupBox>
+#include <QCheckBox>
+#include <QListWidget>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 SimulationManager::SimulationManager(QWidget *parent)
     : QWidget(parent)

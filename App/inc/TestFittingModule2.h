@@ -18,7 +18,7 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "ISampleBuilder.h"
 
 
@@ -66,12 +66,12 @@ public:
     void fit_example_mask();
 
 private:
-    void initializeExperiment();
+    void initializeSimulation();
     void initializeRealData();
 
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulated_data;
-    GISASExperiment *mp_experiment;
+    Simulation *mp_simulation;
     ISampleBuilder *mp_sample_builder;
     FitSuite *m_fitSuite;
 };

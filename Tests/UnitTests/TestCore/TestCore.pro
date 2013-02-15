@@ -14,18 +14,18 @@ SOURCES += main.cpp
 HEADERS += \
     AxisDoubleTest.h \
     BeamTest.h \
+    ChiSquaredModuleTest.h \
+    CVectorTest.h \
     DetectorTest.h \
-    ExperimentTest.h \
+    InstrumentTest.h \
+    IParameterizedTest.h \
+    KVectorTest.h \
     MaskTest.h \
     OutputDataTest.h \
     OutputDataIteratorTest.h \
-    GISASExperimentTest.h \
-    ChiSquaredModuleTest.h \
-    RealParameterWrapperTest.h \
-    IParameterizedTest.h \
     ParameterPoolTest.h \
-    KVectorTest.h \
-    CVectorTest.h
+    RealParameterWrapperTest.h \
+    SimulationTest.h \
 
 OBJECTS_DIR = obj
 

@@ -4,7 +4,7 @@
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "FormFactorCylinder.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
@@ -45,7 +45,7 @@
 /* ************************************************************************* */
 TestIsGISAXS12::TestIsGISAXS12()
     : IFunctionalTest("TestIsGISAXS12")
-    , m_experiment(0)
+    , m_simulation(0)
     , m_sample_builder(0)
     , m_fitSuite(0)
 {
@@ -56,7 +56,7 @@ TestIsGISAXS12::TestIsGISAXS12()
 
 TestIsGISAXS12::~TestIsGISAXS12()
 {
-    delete m_experiment;
+    delete m_simulation;
     delete m_sample_builder;
     delete m_fitSuite;
 }
@@ -67,8 +67,8 @@ TestIsGISAXS12::~TestIsGISAXS12()
 /* ************************************************************************* */
 void TestIsGISAXS12::execute()
 {
-    // initializing experiment and sample builder
-    initialiseExperiment();
+    // initializing simulation and sample builder
+    initializeSimulation();
 
     // run our standard isgisaxs comparison for given sample
     //run_isgisaxs_comparison();
@@ -92,8 +92,8 @@ void TestIsGISAXS12::execute()
 void TestIsGISAXS12::run_isgisaxs_comparison()
 {
     // run simulation for default sample parameters
-    m_experiment->runSimulation();
-    OutputDataIOFactory::writeOutputData(*(m_experiment->getOutputData()), getOutputPath()+"this_fitconstraints.ima");
+    m_simulation->runSimulation();
+    OutputDataIOFactory::writeOutputData(*(m_simulation->getOutputData()), getOutputPath()+"this_fitconstraints.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters
     std::string isgi_file(getOutputPath()+"isgi_fitconstraints_optimal.ima.gz");
@@ -227,7 +227,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
 
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
-        m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it), chiModule);
+        m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it), chiModule);
     }
 
     m_fitSuite->runFit();
@@ -359,11 +359,8 @@ void TestIsGISAXS12::run_test_minimizer()
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
     chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
-//    for(DataSet::iterator it=isgi_results.begin(); it!= isgi_results.end(); ++it) {
-//        m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it), chiModule);
-//    }
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans_smoothed.begin(); it!= isgi_scans_smoothed.end(); ++it) {
-        m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it), chiModule);
+        m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it), chiModule);
     }
     m_fitSuite->runFit();
 
@@ -410,17 +407,17 @@ void TestIsGISAXS12::run_test_minimizer()
 
 
 /* ************************************************************************* */
-// initialize experiment
+// initialize simulation
 /* ************************************************************************* */
-void TestIsGISAXS12::initialiseExperiment()
+void TestIsGISAXS12::initializeSimulation()
 {
     delete m_sample_builder;
     m_sample_builder = new TestSampleBuilder();
-    delete m_experiment;
-    m_experiment = new GISASExperiment(mp_options);
-    m_experiment->setSampleBuilder(m_sample_builder);
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    delete m_simulation;
+    m_simulation = new Simulation(mp_options);
+    m_simulation->setSampleBuilder(m_sample_builder);
+    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 }
 
 

@@ -5,7 +5,7 @@
 #include "OutputData.h"
 
 class MultiLayer;
-class GISASExperiment;
+class Simulation;
 
 namespace FunctionalTests {
 

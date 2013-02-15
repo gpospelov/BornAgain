@@ -2,7 +2,7 @@
 #include "IsGISAXSTools.h"
 #include "Types.h"
 #include "Units.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "MultiLayer.h"
 #include "MaterialManager.h"
 #include "LayerDecorator.h"
@@ -41,26 +41,27 @@ TestMesoCrystal1::~TestMesoCrystal1()
 void TestMesoCrystal1::execute()
 {
     if (mp_intensity_output) delete mp_intensity_output;
-    GISASExperiment experiment(mp_options);
-    experiment.setSampleBuilder(mp_sample_builder);
-//    experiment.setDetectorParameters(256, 0.3*Units::degree, 0.073
-//           , 256, -0.4*Units::degree, 0.066);
-    experiment.setDetectorParameters(218, 0.0201647, 0.0599528, 218, 0.00010879, 0.0399347); // values as in experimental sample from TestMesoCrystal2
-//    experiment.setDetectorParameters(80, -0.025, 0.026, 80 , 0.0, 0.05);
-    experiment.setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.00017, 0.00017));
-    experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
-    experiment.setBeamIntensity(8e12);
+    Simulation simulation(mp_options);
+    simulation.setSampleBuilder(mp_sample_builder);
 
-    ParameterPool *p_param_pool = experiment.createParameterTree();
+//    simulation.setDetectorParameters(256, 0.3*Units::degree, 0.073
+//           , 256, -0.4*Units::degree, 0.066);
+    simulation.setDetectorParameters(218, 0.0201647, 0.0599528, 218, 0.00010879, 0.0399347); // values as in experimental sample from TestMesoCrystal2
+//    simulation.setDetectorParameters(80, -0.025, 0.026, 80 , 0.0, 0.05);
+    simulation.setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.00017, 0.00017));
+    simulation.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
+    simulation.setBeamIntensity(8e12);
+
+    ParameterPool *p_param_pool = simulation.createParameterTree();
     std::cout << (*p_param_pool) << std::endl;
 
-    experiment.runSimulation();
-//    double count_before_normalize = experiment.getOutputData()->totalSum();
-    experiment.normalize();
-    mp_intensity_output = experiment.getOutputDataClone();
+    simulation.runSimulation();
+//    double count_before_normalize = simulation.getOutputData()->totalSum();
+    simulation.normalize();
+    mp_intensity_output = simulation.getOutputDataClone();
 //    double total_count = mp_intensity_output->totalSum();
 //    std::cout << "Total count in detector: " << total_count << std::endl;
-//    std::cout << "Scattered percentage in detector: " << 100*total_count/experiment.getBeam().getIntensity() << std::endl;
+//    std::cout << "Scattered percentage in detector: " << 100*total_count/simulation.getBeam().getIntensity() << std::endl;
 //    std::cout << "Total count in detector before normalize: " << count_before_normalize << std::endl;
 
 //    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",

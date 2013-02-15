@@ -3,7 +3,7 @@
 #include "Units.h"
 #include "Utils.h"
 #include "MultiLayer.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
 #include "OutputDataIOFactory.h"
@@ -30,39 +30,39 @@ void TestIsGISAXS6::execute()
 {
     gsl_set_error_handler_off();
 
-    GISASExperiment experiment(mp_options);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    Simulation simulation(mp_options);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     SimulationParameters sim_params;
     sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
     sim_params.me_lattice_type = SimulationParameters::LATTICE;
-    experiment.setSimulationParameters(sim_params);
+    simulation.setSimulationParameters(sim_params);
 
     // normal lattice
     MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_lattice"));
-    experiment.setSample(*p_sample);
-    experiment.runSimulation();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_lattice.ima");
+    simulation.setSample(*p_sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), m_data_path+"this_lattice.ima");
     delete p_sample;
 
     // centered lattice
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_centered"));
-    experiment.setSample(*p_sample);
-    experiment.runSimulation();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_centered.ima");
+    simulation.setSample(*p_sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), m_data_path+"this_centered.ima");
     delete p_sample;
 
     // rotated lattice
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS6_rotated"));
-    experiment.setSample(*p_sample);
-    experiment.runSimulation();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_rotated.ima");
+    simulation.setSample(*p_sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), m_data_path+"this_rotated.ima");
     delete p_sample;
 
     // lattice variants
-    OutputData<double> *p_total = experiment.getOutputDataClone();
+    OutputData<double> *p_total = simulation.getOutputDataClone();
     p_total->setAllTo(0.0);
     int nbins = 3;
     double xi_min = 0.0*Units::degree;
@@ -73,10 +73,10 @@ void TestIsGISAXS6::execute()
         double probability = xi.getNormalizedProbability(i);
         m_builder.setXi(xi_value);
         p_sample = dynamic_cast<MultiLayer *>(m_builder.buildSample());
-        experiment.setSample(*p_sample);
-        experiment.runSimulation();
+        simulation.setSample(*p_sample);
+        simulation.runSimulation();
         delete p_sample;
-        OutputData<double> *p_single_output = experiment.getOutputDataClone();
+        OutputData<double> *p_single_output = simulation.getOutputDataClone();
         p_single_output->scaleAll(probability);
         *p_total += *p_single_output;
         delete p_single_output;

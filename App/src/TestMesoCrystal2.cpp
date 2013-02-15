@@ -6,7 +6,7 @@
 #include "FitSuiteObserverFactory.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactors.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
@@ -40,7 +40,7 @@
 TestMesoCrystal2::TestMesoCrystal2()
     : m_real_data(0)
     , m_sample_builder(0)
-    , m_experiment(0)
+    , m_simulation(0)
     , m_fitSuite(0)
 {
     m_sample_builder = new SampleBuilder;
@@ -51,7 +51,7 @@ TestMesoCrystal2::~TestMesoCrystal2()
 {
     delete m_real_data;
     delete m_sample_builder;
-    delete m_experiment;
+    delete m_simulation;
     delete m_fitSuite;
 }
 
@@ -71,7 +71,7 @@ void TestMesoCrystal2::execute()
 void TestMesoCrystal2::draw_results()
 {
     initializeRealData();
-    initializeExperiment(m_real_data);
+    initializeSimulation(m_real_data);
 
     ParameterPool *pool = m_sample_builder->createParameterTree();
     std::cout << *pool << std::endl;
@@ -86,11 +86,11 @@ void TestMesoCrystal2::draw_results()
 //    pool->setMatchedParametersValue("*/sigma_lattice_length_a", 1.0);     // 1.5
 //    pool->setMatchedParametersValue("*/surface_filling_ratio", 0.2);      // 0.25
 //    pool->setMatchedParametersValue("*/roughness", 1.0);                      // 1.0
-//    m_experiment->setBeamIntensity(8e+12);
-//    m_experiment->runSimulation();
-//    m_experiment->normalize();
+//    m_simulation->setBeamIntensity(8e+12);
+//    m_simulation->runSimulation();
+//    m_simulation->normalize();
 
-//    IsGISAXSTools::drawOutputDataComparisonResults(*m_experiment->getOutputData(), *m_real_data, "initial", "initial params", 100, 1e6, 100);
+//    IsGISAXSTools::drawOutputDataComparisonResults(*m_simulation->getOutputData(), *m_real_data, "initial", "initial params", 100, 1e6, 100);
 
     pool->setMatchedParametersValue("*/lattice_length_a", 6.2091e+00);           // 6.2
     pool->setMatchedParametersValue("*/lattice_length_c", 6.5677e+00);           // 6.2
@@ -103,11 +103,11 @@ void TestMesoCrystal2::draw_results()
     pool->setMatchedParametersValue("*/sigma_lattice_length_a", 1.1601e+00);     // 1.5
     pool->setMatchedParametersValue("*/surface_filling_ratio", 1.7286e-01);      // 0.25
     pool->setMatchedParametersValue("*/roughness", 2.8746e+01);                      // 1.0
-    m_experiment->setBeamIntensity(5.0090e+12);
-    m_experiment->runSimulation();
-    m_experiment->normalize();
+    m_simulation->setBeamIntensity(5.0090e+12);
+    m_simulation->runSimulation();
+    m_simulation->normalize();
 
-    IsGISAXSTools::drawOutputDataComparisonResults(*m_experiment->getOutputData(), *m_real_data, "found", "founf params", 100, 1e6, 100);
+    IsGISAXSTools::drawOutputDataComparisonResults(*m_simulation->getOutputData(), *m_real_data, "found", "founf params", 100, 1e6, 100);
 
     TCanvas *c1 = new TCanvas("meso_real_data","meso_real_data",1024, 768);
     c1->cd(); gPad->SetLogz();  gPad->SetRightMargin(0.12); gPad->SetLeftMargin(0.125);
@@ -119,7 +119,7 @@ void TestMesoCrystal2::draw_results()
 
     TCanvas *c2 = new TCanvas("meso_simul_data","meso_simul_data",1024, 768);
     c2->cd(); gPad->SetLogz(); gPad->SetRightMargin(0.12); gPad->SetLeftMargin(0.125);
-    TH2D *hist_simu = IsGISAXSTools::getOutputDataTH2D(*m_experiment->getOutputData(), "simul_data");
+    TH2D *hist_simu = IsGISAXSTools::getOutputDataTH2D(*m_simulation->getOutputData(), "simul_data");
     hist_simu->SetMinimum(100);
     hist_simu->SetMaximum(1e6);
     hist_simu->GetYaxis()->SetTitleOffset(1.35);
@@ -146,12 +146,12 @@ void TestMesoCrystal2::run_fit()
     IsGISAXSTools::drawOutputDataInPad(*m_real_data, "CONT4 Z", "experiment");
     c1->Update();
 
-    // initializing experiment using real data
-    initializeExperiment(m_real_data);
+    // initializing simulation using real data
+    initializeSimulation(m_real_data);
 
     // setting fitSuite
     m_fitSuite = new FitSuite();
-    m_fitSuite->getFitObjects()->setExperimentNormalize(true);
+    m_fitSuite->getFitObjects()->setSimulationNormalize(true);
 
     int fitconfig = (*mp_options)["fitconfig"].as<int>();
     fitsuite_setup(fitconfig);
@@ -276,8 +276,8 @@ void TestMesoCrystal2::fitsuite_config4()
     chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() );
     //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
 
-    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data, chiModule);
-//    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data);
+    m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data, chiModule);
+//    m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data);
 
 }
 
@@ -346,8 +346,8 @@ void TestMesoCrystal2::fitsuite_config3()
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
     //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer(1.0,0) );
 
-    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data, chiModule);
-//    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data);
+    m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data, chiModule);
+//    m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data);
 
 }
 
@@ -471,7 +471,7 @@ void TestMesoCrystal2::fitsuite_config1()
         strategy->setPreserveOriginalValues( (*mp_options)["fitpreserve"].as<int>() );
     }
 
-    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data);
+    m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data);
 
 }
 
@@ -479,28 +479,28 @@ void TestMesoCrystal2::fitsuite_config1()
 /* ************************************************************************* */
 //
 /* ************************************************************************* */
-void TestMesoCrystal2::initializeExperiment(const OutputData<double> *output_data)
+void TestMesoCrystal2::initializeSimulation(const OutputData<double> *output_data)
 {
-    delete m_experiment;
+    delete m_simulation;
 
-    m_experiment = new GISASExperiment(mp_options);
-    m_experiment->setSampleBuilder( m_sample_builder );
-    m_experiment->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
-    m_experiment->setBeamIntensity(8e12);
-    m_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
+    m_simulation = new Simulation(mp_options);
+    m_simulation->setSampleBuilder( m_sample_builder );
+    m_simulation->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
+    m_simulation->setBeamIntensity(8e12);
+    m_simulation->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
 
     if( !output_data ) {
         // initialize default detector
-        m_experiment->setDetectorParameters(200, 0.3*Units::degree, 0.073, 200, -0.4*Units::degree, 0.066);
+        m_simulation->setDetectorParameters(200, 0.3*Units::degree, 0.073, 200, -0.4*Units::degree, 0.066);
     } else {
         // if there is output_data as input parameter, build detector using output_data axises
         const IAxis *axis0 = output_data->getAxis(0);
         const IAxis *axis1 = output_data->getAxis(1);
         std::cout << "Axis!!! " << axis0->getSize() << " " << axis0->getMin() << " " << axis0->getMax() << " " << axis1->getSize() << " " << axis1->getMin() << " " << axis1->getMax() << std::endl;
-        //m_experiment->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
-        m_experiment->setDetectorParameters(*m_real_data);
+        //m_simulation->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
+        m_simulation->setDetectorParameters(*m_real_data);
     }
-    m_experiment->printParameters();
+    m_simulation->printParameters();
 }
 
 

@@ -4,7 +4,7 @@
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "FormFactorCylinder.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
@@ -41,7 +41,7 @@
 
 TestIsGISAXS5::TestIsGISAXS5()
 : IFunctionalTest("TestIsGISAXS5")
-, mp_experiment(0)
+, mp_simulation(0)
 , mp_sample_builder(0)
 , mp_fitSuite(0)
 {
@@ -51,8 +51,8 @@ TestIsGISAXS5::TestIsGISAXS5()
 
 void TestIsGISAXS5::execute()
 {
-    // initializing experiment and sample builder
-    initialiseExperiment();
+    // initializing simulation and sample builder
+    initializeSimulation();
 
     // run our standard isgisaxs comparison
     //run_isgisaxs_comparison();
@@ -71,8 +71,8 @@ void TestIsGISAXS5::execute()
 void TestIsGISAXS5::run_isgisaxs_comparison()
 {
     // run simulation for default sample parameters
-    mp_experiment->runSimulation();
-    OutputDataIOFactory::writeOutputData(*(mp_experiment->getOutputData()), getOutputPath()+"this_fitexample.ima");
+    mp_simulation->runSimulation();
+    OutputDataIOFactory::writeOutputData(*(mp_simulation->getOutputData()), getOutputPath()+"this_fitexample.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters
     std::string isgi_file(getOutputPath()+"isgi_fitexample.ima.gz");
@@ -174,7 +174,7 @@ void TestIsGISAXS5::run_isgisaxs_fit()
     chiModule.setIntensityFunction( IntensityFunctionSqrt() );
 
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
-        mp_fitSuite->addExperimentAndRealData(*mp_experiment, *(*it), chiModule);
+        mp_fitSuite->addSimulationAndRealData(*mp_simulation, *(*it), chiModule);
     }
 
     mp_fitSuite->runFit();
@@ -230,17 +230,17 @@ void TestIsGISAXS5::run_isgisaxs_fit()
 
 
 /* ************************************************************************* */
-// initialize experiment
+// initialize simulation
 /* ************************************************************************* */
-void TestIsGISAXS5::initialiseExperiment()
+void TestIsGISAXS5::initializeSimulation()
 {
     delete mp_sample_builder;
     mp_sample_builder = new SampleBuilder();
-    delete mp_experiment;
-    mp_experiment = new GISASExperiment(mp_options);
-    mp_experiment->setSampleBuilder(mp_sample_builder);
-    mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    delete mp_simulation;
+    mp_simulation = new Simulation(mp_options);
+    mp_simulation->setSampleBuilder(mp_sample_builder);
+    mp_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    mp_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 }
 
 

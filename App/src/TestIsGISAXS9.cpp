@@ -3,7 +3,7 @@
 #include "Units.h"
 #include "Utils.h"
 #include "MultiLayer.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
 #include "OutputDataIOFactory.h"
@@ -31,27 +31,27 @@ void TestIsGISAXS9::execute()
 {
     clear();
 
-    // setting experiment
-    GISASExperiment experiment(mp_options);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    // setting simulation
+    Simulation simulation(mp_options);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     MultiLayer *p_sample;
 
     // pyramid
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
-    experiment.setSample(*p_sample);
-    experiment.runSimulation();
-    OutputData<double> *data = experiment.getOutputDataClone();
+    simulation.setSample(*p_sample);
+    simulation.runSimulation();
+    OutputData<double> *data = simulation.getOutputDataClone();
     m_results.push_back( data );
     OutputDataIOFactory::writeOutputData(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z0.ima");
     delete p_sample;
 
     // rotated pyramid
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_RotatedPyramid"));
-    experiment.setSample(*p_sample);
-    experiment.runSimulation();
-    data = experiment.getOutputDataClone();
+    simulation.setSample(*p_sample);
+    simulation.runSimulation();
+    data = simulation.getOutputDataClone();
     m_results.push_back( data );
     OutputDataIOFactory::writeOutputData(*m_results.back(), Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-9/this_pyramid_Z45.ima");
     delete p_sample;

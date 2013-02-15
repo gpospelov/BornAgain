@@ -6,7 +6,7 @@
 #include "InterferenceFunctionNone.h"
 #include "FormFactorPyramid.h"
 #include "MaterialManager.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "Units.h"
 #include "MaterialManager.h"
 #include "OutputDataIOFactory.h"
@@ -66,22 +66,22 @@ void FunctionalTests::IsGISAXS09::run()
         multi_layer_rotated_pyramid.addLayer(substrate_layer);
 
     // ---------------------
-    // building experiment
+    // building simulation
     // ---------------------
-    GISASExperiment experiment;
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    Simulation simulation;
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // ---------------------
-    // running experiment
+    // running simulation
     // ---------------------
-    experiment.setSample(multi_layer_pyramid);
-    experiment.runSimulation();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_pyramid_Z0.ima");
+    simulation.setSample(multi_layer_pyramid);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_pyramid_Z0.ima");
 
-    experiment.setSample(multi_layer_rotated_pyramid);
-    experiment.runSimulation();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_pyramid_Z45.ima");
+    simulation.setSample(multi_layer_rotated_pyramid);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_pyramid_Z45.ima");
 
 }
 

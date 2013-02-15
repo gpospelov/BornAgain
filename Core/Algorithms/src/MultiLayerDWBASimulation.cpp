@@ -22,21 +22,21 @@ MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
     delete mp_roughness_dwba_simulation;
 }
 
-void MultiLayerDWBASimulation::init(const Experiment& experiment)
+void MultiLayerDWBASimulation::init(const Simulation& simulation)
 {
-    DWBASimulation::init(experiment);
+    DWBASimulation::init(simulation);
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         LayerDWBASimulation *p_layer_dwba_sim = mp_multi_layer->getLayer(i)->createDWBASimulation();
         if (p_layer_dwba_sim) {
             m_layer_dwba_simulation_map[i] = p_layer_dwba_sim;
-            p_layer_dwba_sim->init(experiment);
+            p_layer_dwba_sim->init(simulation);
         }
     }
     // scattering from rough surfaces in DWBA
     for (size_t i=0; i<mp_multi_layer->getNumberOfInterfaces(); ++i) {
         if(mp_multi_layer->getLayerInterface(i)->getRoughness() ) {
             mp_roughness_dwba_simulation = new MultiLayerRoughnessDWBASimulation(mp_multi_layer);
-            mp_roughness_dwba_simulation->init(experiment);
+            mp_roughness_dwba_simulation->init(simulation);
             break;
         }
     }

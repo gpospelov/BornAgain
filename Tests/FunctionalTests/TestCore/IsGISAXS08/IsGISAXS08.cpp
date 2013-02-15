@@ -5,7 +5,7 @@
 #include "ParticleBuilder.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "FormFactorCylinder.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "Units.h"
 #include "MaterialManager.h"
 #include "OutputDataIOFactory.h"
@@ -61,24 +61,24 @@ void FunctionalTests::IsGISAXS08::run()
             multi_layer_2DDL2.addLayer(substrate_layer);
 
     // ---------------------
-    // building experiment
+    // building simulation
     // ---------------------
-     GISASExperiment experiment;
-     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+     Simulation simulation;
+     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+     simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // ---------------------
-    // running experiment and copying data
+    // running simulation and copying data
     // ---------------------
     // cylinder DWBA
-    experiment.setSample(multi_layer_2DDL);
-    experiment.runSimulation();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_2DDL_lattice.ima");
+    simulation.setSample(multi_layer_2DDL);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_2DDL_lattice.ima");
 
     // cylinder in the air
-    experiment.setSample(multi_layer_2DDL2);
-    experiment.runSimulation();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_2DDL_lattice2.ima");
+    simulation.setSample(multi_layer_2DDL2);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_2DDL_lattice2.ima");
 
 }
 int FunctionalTests::IsGISAXS08::analyseResults()

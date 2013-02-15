@@ -5,7 +5,7 @@
 #include "ParticleBuilder.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "FormFactorCylinder.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "Units.h"
 #include "MaterialManager.h"
 #include "StochasticGaussian.h"
@@ -53,25 +53,25 @@ void FunctionalTests::IsGISAXS015::run()
         multi_layer.addLayer(air_layer_decorator);
 
     // ---------------------
-    // building experiment
+    // building simulation
     // ---------------------
-    GISASExperiment experiment;
-    experiment.setDetectorParameters(150, 0.05*Units::degree, 1.5*Units::degree, 150, 0.05*Units::degree, 1.5*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    Simulation simulation;
+    simulation.setDetectorParameters(150, 0.05*Units::degree, 1.5*Units::degree, 150, 0.05*Units::degree, 1.5*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     SimulationParameters sim_params;
     sim_params.me_if_approx = SimulationParameters::SSCA;
-    experiment.setSimulationParameters(sim_params);
+    simulation.setSimulationParameters(sim_params);
     // ---------------------
-    // running experiment
+    // running simulation
     // ---------------------
-    experiment.setSample(multi_layer);
-    experiment.runSimulation();
+    simulation.setSample(multi_layer);
+    simulation.runSimulation();
 
     // ---------------------
     // copying data
     // ---------------------
-    m_result = experiment.getOutputDataClone();
+    m_result = simulation.getOutputDataClone();
 
 }
 

@@ -18,7 +18,6 @@
 		621D0BD716A9852A00134391 /* IsGISAXSMorphologyFileStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BD516A9852A00134391 /* IsGISAXSMorphologyFileStrategy.cpp */; };
 		621D0BD816A9852A00134391 /* SizeSpacingCorrelationApproximationStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BD616A9852A00134391 /* SizeSpacingCorrelationApproximationStrategy.cpp */; };
 		621D0BE116A9857B00134391 /* RealParameterWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BDF16A9857A00134391 /* RealParameterWrapper.cpp */; };
-		621D0BE616A985D100134391 /* IsGISAXSMorphologyFileDecoration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BE416A985D100134391 /* IsGISAXSMorphologyFileDecoration.cpp */; };
 		621D0BE716A985D100134391 /* PositionParticleInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BE516A985D100134391 /* PositionParticleInfo.cpp */; };
 		621D0BE916A986CB00134391 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D0BE816A986CB00134391 /* libboost_signals.dylib */; };
 		621D0BF216A9883500134391 /* FormFactorBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621D0BEE16A9883500134391 /* FormFactorBox.cpp */; };
@@ -34,8 +33,6 @@
 		622247DE160CB853008205AC /* DecouplingApproximationStrategy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222262160CB745008205AC /* DecouplingApproximationStrategy.cpp */; };
 		622247DF160CB853008205AC /* Detector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222263160CB745008205AC /* Detector.cpp */; };
 		622247E0160CB853008205AC /* DiffuseDWBASimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222264160CB745008205AC /* DiffuseDWBASimulation.cpp */; };
-		622247E1160CB853008205AC /* Experiment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222265160CB745008205AC /* Experiment.cpp */; };
-		622247E2160CB853008205AC /* GISASExperiment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222266160CB745008205AC /* GISASExperiment.cpp */; };
 		622247E3160CB853008205AC /* IFittingDataSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222267160CB745008205AC /* IFittingDataSelector.cpp */; };
 		622247E4160CB853008205AC /* LayerDWBASimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222268160CB745008205AC /* LayerDWBASimulation.cpp */; };
 		622247E5160CB853008205AC /* LayerDecoratorDWBASimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62222269160CB745008205AC /* LayerDecoratorDWBASimulation.cpp */; };
@@ -158,6 +155,9 @@
 		6222D087160C8513008205AC /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03C160C690A008205AC /* libboost_regex.dylib */; };
 		6222D088160C8513008205AC /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03D160C690A008205AC /* libboost_system.dylib */; };
 		6222D089160C8513008205AC /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03E160C690A008205AC /* libboost_thread-mt.dylib */; };
+		6236DD0916CE708600ECED4F /* Instrument.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0816CE708600ECED4F /* Instrument.cpp */; };
+		6236DD0D16CE9EC600ECED4F /* Simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0C16CE9EC600ECED4F /* Simulation.cpp */; };
+		6236DD1016CE9F1800ECED4F /* TestToySimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6236DD0F16CE9F1800ECED4F /* TestToySimulation.cpp */; };
 		6254C2651666652E0098EE7E /* IFormFactorBorn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6254C2641666652E0098EE7E /* IFormFactorBorn.cpp */; };
 		625A171B16BAACF9004943DB /* FitObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171016BAACF9004943DB /* FitObject.cpp */; };
 		625A171C16BAACF9004943DB /* FitParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A171116BAACF9004943DB /* FitParameter.cpp */; };
@@ -184,7 +184,6 @@
 		627C2FDA160B515D004C1B11 /* libGISASFW.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
 		62861181167F6CCE00971496 /* TestFumiliLMA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6286117E167F6CCE00971496 /* TestFumiliLMA.cpp */; };
-		62861182167F6CCE00971496 /* TestToyExperiment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6286117F167F6CCE00971496 /* TestToyExperiment.cpp */; };
 		62BD93501619D05D0008A768 /* ParticleCoreShell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */; };
 		62CC09711665047E00A5B720 /* ChiSquaredFrequency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096B1665047E00A5B720 /* ChiSquaredFrequency.cpp */; };
 		62CC09721665047E00A5B720 /* FTDistributions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC096C1665047E00A5B720 /* FTDistributions.cpp */; };
@@ -304,9 +303,7 @@
 		621D0BDC16A9855D00134391 /* ICloneable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICloneable.h; sourceTree = "<group>"; };
 		621D0BDD16A9855D00134391 /* RealParameterWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealParameterWrapper.h; sourceTree = "<group>"; };
 		621D0BDF16A9857A00134391 /* RealParameterWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RealParameterWrapper.cpp; sourceTree = "<group>"; };
-		621D0BE216A985BB00134391 /* IsGISAXSMorphologyFileDecoration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsGISAXSMorphologyFileDecoration.h; sourceTree = "<group>"; };
 		621D0BE316A985BB00134391 /* PositionParticleInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionParticleInfo.h; sourceTree = "<group>"; };
-		621D0BE416A985D100134391 /* IsGISAXSMorphologyFileDecoration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IsGISAXSMorphologyFileDecoration.cpp; sourceTree = "<group>"; };
 		621D0BE516A985D100134391 /* PositionParticleInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PositionParticleInfo.cpp; sourceTree = "<group>"; };
 		621D0BE816A986CB00134391 /* libboost_signals.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_signals.dylib; path = ../../../../../opt/local/lib/libboost_signals.dylib; sourceTree = "<group>"; };
 		621D0BEA16A9882900134391 /* FormFactorBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormFactorBox.h; sourceTree = "<group>"; };
@@ -375,8 +372,6 @@
 		6222224B160CB745008205AC /* DecouplingApproximationStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecouplingApproximationStrategy.h; sourceTree = "<group>"; };
 		6222224C160CB745008205AC /* Detector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Detector.h; sourceTree = "<group>"; };
 		6222224D160CB745008205AC /* DiffuseDWBASimulation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiffuseDWBASimulation.h; sourceTree = "<group>"; };
-		6222224E160CB745008205AC /* Experiment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Experiment.h; sourceTree = "<group>"; };
-		62222250160CB745008205AC /* GISASExperiment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GISASExperiment.h; sourceTree = "<group>"; };
 		62222251160CB745008205AC /* IDetectorResolution.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDetectorResolution.h; sourceTree = "<group>"; };
 		62222252160CB745008205AC /* IFittingDataSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFittingDataSelector.h; sourceTree = "<group>"; };
 		62222253160CB745008205AC /* IInterferenceFunctionStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IInterferenceFunctionStrategy.h; sourceTree = "<group>"; };
@@ -396,8 +391,6 @@
 		62222262160CB745008205AC /* DecouplingApproximationStrategy.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DecouplingApproximationStrategy.cpp; sourceTree = "<group>"; };
 		62222263160CB745008205AC /* Detector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Detector.cpp; sourceTree = "<group>"; };
 		62222264160CB745008205AC /* DiffuseDWBASimulation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DiffuseDWBASimulation.cpp; sourceTree = "<group>"; };
-		62222265160CB745008205AC /* Experiment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Experiment.cpp; sourceTree = "<group>"; };
-		62222266160CB745008205AC /* GISASExperiment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GISASExperiment.cpp; sourceTree = "<group>"; };
 		62222267160CB745008205AC /* IFittingDataSelector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IFittingDataSelector.cpp; sourceTree = "<group>"; };
 		62222268160CB745008205AC /* LayerDWBASimulation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LayerDWBASimulation.cpp; sourceTree = "<group>"; };
 		62222269160CB745008205AC /* LayerDecoratorDWBASimulation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LayerDecoratorDWBASimulation.cpp; sourceTree = "<group>"; };
@@ -1147,6 +1140,13 @@
 		6222D07F160C83F4008205AC /* libm.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libm.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libm.dylib; sourceTree = DEVELOPER_DIR; };
 		6222D082160C840C008205AC /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libpthread.dylib; sourceTree = DEVELOPER_DIR; };
 		6222D090160C8E59008205AC /* GISASFW.CL.All */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GISASFW.CL.All; sourceTree = BUILT_PRODUCTS_DIR; };
+		6236DD0716CE707C00ECED4F /* Instrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instrument.h; sourceTree = "<group>"; };
+		6236DD0816CE708600ECED4F /* Instrument.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Instrument.cpp; sourceTree = "<group>"; };
+		6236DD0A16CE709400ECED4F /* MemberComplexFunctionIntegrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberComplexFunctionIntegrator.h; sourceTree = "<group>"; };
+		6236DD0B16CE9EBD00ECED4F /* Simulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Simulation.h; sourceTree = "<group>"; };
+		6236DD0C16CE9EC600ECED4F /* Simulation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Simulation.cpp; sourceTree = "<group>"; };
+		6236DD0E16CE9F0A00ECED4F /* TestToySimulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestToySimulation.h; sourceTree = "<group>"; };
+		6236DD0F16CE9F1800ECED4F /* TestToySimulation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestToySimulation.cpp; sourceTree = "<group>"; };
 		6254C2601666651F0098EE7E /* IFormFactorBorn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorBorn.h; sourceTree = "<group>"; };
 		6254C2611666651F0098EE7E /* IFormFactorBornSeparable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorBornSeparable.h; sourceTree = "<group>"; };
 		6254C2621666651F0098EE7E /* IFormFactorDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFormFactorDecorator.h; sourceTree = "<group>"; };
@@ -1204,9 +1204,7 @@
 		62861178167F6C6200971496 /* ExperimentConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperimentConstants.h; sourceTree = "<group>"; };
 		6286117A167F6CBD00971496 /* ROOTMinimizerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROOTMinimizerFunction.h; sourceTree = "<group>"; };
 		6286117B167F6CBD00971496 /* TestFumiliLMA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFumiliLMA.h; sourceTree = "<group>"; };
-		6286117C167F6CBD00971496 /* TestToyExperiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestToyExperiment.h; sourceTree = "<group>"; };
 		6286117E167F6CCE00971496 /* TestFumiliLMA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFumiliLMA.cpp; sourceTree = "<group>"; };
-		6286117F167F6CCE00971496 /* TestToyExperiment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestToyExperiment.cpp; sourceTree = "<group>"; };
 		62AE01631619C72E00A83353 /* ParticleCoreShell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleCoreShell.h; sourceTree = "<group>"; };
 		62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleCoreShell.cpp; sourceTree = "<group>"; };
 		62CC09631665046C00A5B720 /* ChiSquaredFrequency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChiSquaredFrequency.h; sourceTree = "<group>"; };
@@ -1295,7 +1293,6 @@
 		62EA212716B92C7600184E9A /* TestCore.pro.user */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TestCore.pro.user; sourceTree = "<group>"; };
 		62EA212816B92C7600184E9A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		62EA212A16B92C7600184E9A /* main.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = main.o; sourceTree = "<group>"; };
-		62EA736C1628421000656B41 /* IMinimizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMinimizer.h; sourceTree = "<group>"; };
 		62EA736D1628421000656B41 /* IObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IObserver.h; sourceTree = "<group>"; };
 		62EA736E1628421000656B41 /* IParameterized.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IParameterized.h; sourceTree = "<group>"; };
 		62EA736F1628421000656B41 /* OutputDataIOFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputDataIOFactory.h; sourceTree = "<group>"; };
@@ -1416,6 +1413,7 @@
 		622221E9160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				6236DD0E16CE9F0A00ECED4F /* TestToySimulation.h */,
 				625A172616BAAE23004943DB /* FitSuiteObserverFactory.h */,
 				625A172716BAAE23004943DB /* fp_exception_glibc_extension.h */,
 				625A172816BAAE23004943DB /* MinimizerFactory.h */,
@@ -1433,7 +1431,6 @@
 				621D0BC916A984EE00134391 /* TestIsGISAXS15.h */,
 				6286117A167F6CBD00971496 /* ROOTMinimizerFunction.h */,
 				6286117B167F6CBD00971496 /* TestFumiliLMA.h */,
-				6286117C167F6CBD00971496 /* TestToyExperiment.h */,
 				62CC09941665053C00A5B720 /* TestFittingBenchmark.h */,
 				62CC09951665053C00A5B720 /* TestFittingModule1.h */,
 				62CC09961665053C00A5B720 /* TestFittingModule2.h */,
@@ -1479,6 +1476,7 @@
 		62222224160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				6236DD0F16CE9F1800ECED4F /* TestToySimulation.cpp */,
 				625A172D16BAAE3B004943DB /* FitSuiteObserverFactory.cpp */,
 				625A172E16BAAE3B004943DB /* fp_exception_glibc_extension.c */,
 				625A172F16BAAE3B004943DB /* MinimizerFactory.cpp */,
@@ -1494,7 +1492,6 @@
 				621D0BCD16A9850000134391 /* TestIsGISAXS7.cpp */,
 				621D0BCE16A9850000134391 /* TestIsGISAXS15.cpp */,
 				6286117E167F6CCE00971496 /* TestFumiliLMA.cpp */,
-				6286117F167F6CCE00971496 /* TestToyExperiment.cpp */,
 				62222225160CB745008205AC /* AppDict.cpp */,
 				62222226160CB745008205AC /* AppDict.h */,
 				62FDC0661615F26C00D28B08 /* AppOptionsDescription.cpp */,
@@ -1565,6 +1562,8 @@
 		62222245160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				6236DD0B16CE9EBD00ECED4F /* Simulation.h */,
+				6236DD0716CE707C00ECED4F /* Instrument.h */,
 				62EA20E516B9295C00184E9A /* InterferenceFunctionStrategies.h */,
 				62EA20E616B9295C00184E9A /* SimulationParameters.h */,
 				62EA20E716B9295C00184E9A /* StrategyBuilder.h */,
@@ -1591,8 +1590,6 @@
 				6222224B160CB745008205AC /* DecouplingApproximationStrategy.h */,
 				6222224C160CB745008205AC /* Detector.h */,
 				6222224D160CB745008205AC /* DiffuseDWBASimulation.h */,
-				6222224E160CB745008205AC /* Experiment.h */,
-				62222250160CB745008205AC /* GISASExperiment.h */,
 				62222251160CB745008205AC /* IDetectorResolution.h */,
 				62222252160CB745008205AC /* IFittingDataSelector.h */,
 				62222253160CB745008205AC /* IInterferenceFunctionStrategy.h */,
@@ -1611,6 +1608,8 @@
 		6222225C160CB745008205AC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				6236DD0C16CE9EC600ECED4F /* Simulation.cpp */,
+				6236DD0816CE708600ECED4F /* Instrument.cpp */,
 				62EA20E816B9296C00184E9A /* StrategyBuilder.cpp */,
 				621D0BD516A9852A00134391 /* IsGISAXSMorphologyFileStrategy.cpp */,
 				621D0BD616A9852A00134391 /* SizeSpacingCorrelationApproximationStrategy.cpp */,
@@ -1629,8 +1628,6 @@
 				62222262160CB745008205AC /* DecouplingApproximationStrategy.cpp */,
 				62222263160CB745008205AC /* Detector.cpp */,
 				62222264160CB745008205AC /* DiffuseDWBASimulation.cpp */,
-				62222265160CB745008205AC /* Experiment.cpp */,
-				62222266160CB745008205AC /* GISASExperiment.cpp */,
 				62222267160CB745008205AC /* IFittingDataSelector.cpp */,
 				62222268160CB745008205AC /* LayerDWBASimulation.cpp */,
 				62222269160CB745008205AC /* LayerDecoratorDWBASimulation.cpp */,
@@ -1807,7 +1804,6 @@
 				62EA20EA16B9298400184E9A /* InterferenceFunction2DLattice.h */,
 				62EA20EB16B9298400184E9A /* InterferenceFunctions.h */,
 				62EA20EC16B9298400184E9A /* Lattice2DIFParameters.h */,
-				621D0BE216A985BB00134391 /* IsGISAXSMorphologyFileDecoration.h */,
 				621D0BE316A985BB00134391 /* PositionParticleInfo.h */,
 				62CC0979166504B600A5B720 /* InterferenceFunction2DParaCrystal.h */,
 				62AE01631619C72E00A83353 /* ParticleCoreShell.h */,
@@ -1847,7 +1843,6 @@
 			isa = PBXGroup;
 			children = (
 				62EA20ED16B9299100184E9A /* InterferenceFunction2DLattice.cpp */,
-				621D0BE416A985D100134391 /* IsGISAXSMorphologyFileDecoration.cpp */,
 				621D0BE516A985D100134391 /* PositionParticleInfo.cpp */,
 				62CC097A166504C100A5B720 /* InterferenceFunction2DParaCrystal.cpp */,
 				62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */,
@@ -1888,6 +1883,7 @@
 		622222F2160CB745008205AC /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				6236DD0A16CE709400ECED4F /* MemberComplexFunctionIntegrator.h */,
 				625A16FF16BAA7EC004943DB /* StochasticDoubleGate.h */,
 				62EA20EF16B929A100184E9A /* OutputDataReadStrategy.h */,
 				62EA20F016B929A100184E9A /* OutputDataWriteStrategy.h */,
@@ -1905,7 +1901,6 @@
 				62CC0984166504D600A5B720 /* OutputDataFunctions.h */,
 				62CC0985166504D600A5B720 /* OutputDataIterator.h */,
 				62F7B50B162C63BF008B8E1D /* DoubleToComplexMap.h */,
-				62EA736C1628421000656B41 /* IMinimizer.h */,
 				62EA736D1628421000656B41 /* IObserver.h */,
 				62EA736E1628421000656B41 /* IParameterized.h */,
 				62EA736F1628421000656B41 /* OutputDataIOFactory.h */,
@@ -68900,7 +68895,6 @@
 				62CC09AA1665055E00A5B720 /* TestIsGISAXS8.cpp in Sources */,
 				62CC09AB1665055E00A5B720 /* TestIsGISAXS12.cpp in Sources */,
 				62861181167F6CCE00971496 /* TestFumiliLMA.cpp in Sources */,
-				62861182167F6CCE00971496 /* TestToyExperiment.cpp in Sources */,
 				621D0BCF16A9850000134391 /* ROOTGSLNLSMinimizer.cpp in Sources */,
 				621D0BD016A9850000134391 /* TestFormFactors.cpp in Sources */,
 				621D0BD116A9850000134391 /* TestIsGISAXS7.cpp in Sources */,
@@ -68916,6 +68910,7 @@
 				625A173816BAAE3B004943DB /* ROOTMinimizerHelper.cpp in Sources */,
 				625A173916BAAE3B004943DB /* TestIsGISAXS13.cpp in Sources */,
 				625A173A16BAAE3B004943DB /* TestIsGISAXS14.cpp in Sources */,
+				6236DD1016CE9F1800ECED4F /* TestToySimulation.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68934,8 +68929,6 @@
 				622247DE160CB853008205AC /* DecouplingApproximationStrategy.cpp in Sources */,
 				622247DF160CB853008205AC /* Detector.cpp in Sources */,
 				622247E0160CB853008205AC /* DiffuseDWBASimulation.cpp in Sources */,
-				622247E1160CB853008205AC /* Experiment.cpp in Sources */,
-				622247E2160CB853008205AC /* GISASExperiment.cpp in Sources */,
 				622247E3160CB853008205AC /* IFittingDataSelector.cpp in Sources */,
 				622247E4160CB853008205AC /* LayerDWBASimulation.cpp in Sources */,
 				622247E5160CB853008205AC /* LayerDecoratorDWBASimulation.cpp in Sources */,
@@ -69014,7 +69007,6 @@
 				621D0BD716A9852A00134391 /* IsGISAXSMorphologyFileStrategy.cpp in Sources */,
 				621D0BD816A9852A00134391 /* SizeSpacingCorrelationApproximationStrategy.cpp in Sources */,
 				621D0BE116A9857B00134391 /* RealParameterWrapper.cpp in Sources */,
-				621D0BE616A985D100134391 /* IsGISAXSMorphologyFileDecoration.cpp in Sources */,
 				621D0BE716A985D100134391 /* PositionParticleInfo.cpp in Sources */,
 				621D0BF216A9883500134391 /* FormFactorBox.cpp in Sources */,
 				621D0BF316A9883500134391 /* FormFactorEllipsoid.cpp in Sources */,
@@ -69038,6 +69030,8 @@
 				625A174116BAAE77004943DB /* FormFactorCone.cpp in Sources */,
 				625A174216BAAE77004943DB /* FormFactorFullSpheroid.cpp in Sources */,
 				625A174316BAAE77004943DB /* FormFactorHemiSpheroid.cpp in Sources */,
+				6236DD0916CE708600ECED4F /* Instrument.cpp in Sources */,
+				6236DD0D16CE9EC600ECED4F /* Simulation.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

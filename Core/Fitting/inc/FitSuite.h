@@ -24,7 +24,7 @@
 #include "IObserver.h"
 #include <string>
 
-class Experiment;
+class Simulation;
 class ParameterPool;
 
 
@@ -41,8 +41,8 @@ public:
     //! clear all and prepare for the next fit
     void clear();
 
-    //! add pair of (experiment, real data) for consecutive simulation
-    void addExperimentAndRealData(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule());
+    //! add pair of (simulation, real data) for consecutive simulation
+    void addSimulationAndRealData(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule());
 
     //! add fit parameter
     void addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless(), double error=0.0);
@@ -56,7 +56,7 @@ public:
     //! get minimizer
     IMinimizer *getMinimizer() { return m_minimizer; }
 
-    //! link fitting parameters to parameters defined in experiments
+    //! link fitting parameters to parameters defined in simulations
     virtual void link_fit_parameters();
 
     //! run fitting which may consist of several minimization rounds
@@ -98,7 +98,7 @@ private:
     bool check_prerequisites() const;
 
     AttFitting m_fit_attributes; //! general fit attributes
-    FitSuiteObjects m_fit_objects; //! kit which contains sets of <experiment,real_data,chi_module> to fit
+    FitSuiteObjects m_fit_objects; //! kit which contains sets of <simulation,real_data,chi_module> to fit
     FitSuiteParameters m_fit_parameters; //! collection of fit parameters
     FitSuiteStrategies m_fit_strategies; //! collection of strategies which drives multiple minimization rounds
     IMinimizer  *m_minimizer; //! minimization engine

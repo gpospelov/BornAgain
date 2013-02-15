@@ -2,7 +2,7 @@
 #include "Exceptions.h"
 #include "FitParameterLinked.h"
 #include "ParameterPool.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "IMinimizer.h"
 #include "ChiSquaredModule.h"
 #include <boost/bind.hpp>
@@ -37,11 +37,11 @@ void FitSuite::clear()
 
 
 // ----------------------------------------------------------------------------
-// add pair of (experiment, real data) for consecutive simulation
+// add pair of (simulation, real data) for consecutive simulation
 // ----------------------------------------------------------------------------
-void FitSuite::addExperimentAndRealData(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module)
+void FitSuite::addSimulationAndRealData(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module)
 {
-    m_fit_objects.add(experiment, real_data, chi2_module);
+    m_fit_objects.add(simulation, real_data, chi2_module);
 }
 
 
@@ -69,7 +69,7 @@ void FitSuite::addFitStrategy(IFitSuiteStrategy *strategy)
 
 
 // ----------------------------------------------------------------------------
-// Link FitMultiParameters with experiment parameters
+// Link FitMultiParameters with simulation parameters
 // ----------------------------------------------------------------------------
 void FitSuite::link_fit_parameters()
 {
@@ -88,7 +88,7 @@ void FitSuite::link_fit_parameters()
 bool FitSuite::check_prerequisites() const
 {
     if( !m_minimizer ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No minimizer found.");
-    if( !m_fit_objects.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No experiment/data description defined");
+    if( !m_fit_objects.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No simulation/data description defined");
     if( !m_fit_parameters.size() ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No fit parameters defined");
     return true;
 }
@@ -104,7 +104,7 @@ void FitSuite::runFit()
 
     m_is_last_iteration = false;
 
-    // linking fit parameters with parameters defined in the experiment
+    // linking fit parameters with parameters defined in the simulation
     link_fit_parameters();
 
     // running minimization using strategies

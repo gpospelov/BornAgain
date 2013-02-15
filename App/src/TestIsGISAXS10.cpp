@@ -2,7 +2,7 @@
 #include "IsGISAXSTools.h"
 #include "Units.h"
 #include "Utils.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "MultiLayer.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
@@ -14,19 +14,12 @@ void TestIsGISAXS10::execute()
 {
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS10_CylindersParacrystal1D"));
 
-    GISASExperiment experiment(mp_options);
-    experiment.setSample(*sample);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-//    experiment.setBeamIntensity(1e7);
-    experiment.runSimulation();
-//    experiment.normalize();
-    OutputData<double > *mp_intensity_output = experiment.getOutputDataClone();
-//    double total_count = mp_intensity_output->total();
-//    std::cout << "Total count in detector: " << total_count << std::endl;
-//    std::cout << "Scattered percentage in detector: " << 100*total_count/experiment.getBeam().getIntensity() << std::endl;
-//    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_isgisaxs_10", "1D paracrystal islands",
-//            "CONT4 Z");
+    Simulation simulation(mp_options);
+    simulation.setSample(*sample);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.runSimulation();
+    OutputData<double > *mp_intensity_output = simulation.getOutputDataClone();
     OutputDataIOFactory::writeOutputData(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-10/this_para1dcyl.ima");
 }
 

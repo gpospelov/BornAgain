@@ -10,7 +10,7 @@ double FitSuiteChiSquaredFunction::evaluate(const double *pars)
     assert(m_fit_suite != NULL);
 
     m_fit_suite->getFitParameters()->setValues(pars);
-    m_fit_suite->getFitObjects()->runSimulation();
+    m_fit_suite->getFitObjects()->runSimulations();
     double chi_squared = m_fit_suite->getFitObjects()->getChiSquaredValue();
     m_fit_suite->notifyObservers();
     m_ncall++;
@@ -136,7 +136,7 @@ void FitSuiteGradientFunction::calculate_gradients(const double *pars)
 void FitSuiteGradientFunction::runSimulation(const double *pars){
     assert(m_fit_suite);
     m_fit_suite->getFitParameters()->setValues(pars);
-    m_fit_suite->getFitObjects()->runSimulation();
+    m_fit_suite->getFitObjects()->runSimulations();
     //m_fit_suite->getFitObjects()->getChiSquaredValue();
 }
 

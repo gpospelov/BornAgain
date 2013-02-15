@@ -3,17 +3,11 @@
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 GCC_DIAG_OFF(missing-field-initializers);
-#include "Macros.h"
-GCC_DIAG_OFF(unused-parameter);
-GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
-GCC_DIAG_ON(unused-parameter);
-GCC_DIAG_ON(missing-field-initializers);
 #include "BasicVector3D.h"
-#include "Experiment.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
@@ -23,7 +17,6 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include "GISASExperiment.h"
 #include "HomogeneousMaterial.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
@@ -59,6 +52,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Simulation.h"
 #include "Transform3D.h"
 #include "Units.h"
 #include "Types.h"
@@ -66,10 +60,45 @@ GCC_DIAG_ON(missing-field-initializers);
 
 namespace bp = boost::python;
 
+struct OpticalFresnel_wrapper : OpticalFresnel, bp::wrapper< OpticalFresnel > {
+
+    OpticalFresnel_wrapper( )
+    : OpticalFresnel( )
+      , bp::wrapper< OpticalFresnel >(){
+        // null constructor
+    
+    }
+
+    virtual ::ISimulation * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->ISimulation::clone(  );
+        }
+    }
+    
+    ::ISimulation * default_clone(  ) const  {
+        return ISimulation::clone( );
+    }
+
+    virtual void run(  ) {
+        if( bp::override func_run = this->get_override( "run" ) )
+            func_run(  );
+        else{
+            this->ISimulation::run(  );
+        }
+    }
+    
+    void default_run(  ) {
+        ISimulation::run( );
+    }
+
+};
+
 void register_OpticalFresnel_class(){
 
     { //::OpticalFresnel
-        typedef bp::class_< OpticalFresnel, boost::noncopyable > OpticalFresnel_exposer_t;
+        typedef bp::class_< OpticalFresnel_wrapper, bp::bases< ISimulation >, boost::noncopyable > OpticalFresnel_exposer_t;
         OpticalFresnel_exposer_t OpticalFresnel_exposer = OpticalFresnel_exposer_t( "OpticalFresnel", bp::init< >() );
         bp::scope OpticalFresnel_scope( OpticalFresnel_exposer );
         bp::class_< OpticalFresnel::FresnelCoeff >( "FresnelCoeff", bp::init< >() )    
@@ -111,6 +140,29 @@ void register_OpticalFresnel_class(){
                 "execute"
                 , execute_function_type( &::OpticalFresnel::execute )
                 , ( bp::arg("sample"), bp::arg("k"), bp::arg("coeff") ) );
+        
+        }
+        { //::ISimulation::clone
+        
+            typedef ::ISimulation * ( ::ISimulation::*clone_function_type )(  ) const;
+            typedef ::ISimulation * ( OpticalFresnel_wrapper::*default_clone_function_type )(  ) const;
+            
+            OpticalFresnel_exposer.def( 
+                "clone"
+                , clone_function_type(&::ISimulation::clone)
+                , default_clone_function_type(&OpticalFresnel_wrapper::default_clone)
+                , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::ISimulation::run
+        
+            typedef void ( ::ISimulation::*run_function_type )(  ) ;
+            typedef void ( OpticalFresnel_wrapper::*default_run_function_type )(  ) ;
+            
+            OpticalFresnel_exposer.def( 
+                "run"
+                , run_function_type(&::ISimulation::run)
+                , default_run_function_type(&OpticalFresnel_wrapper::default_run) );
         
         }
     }

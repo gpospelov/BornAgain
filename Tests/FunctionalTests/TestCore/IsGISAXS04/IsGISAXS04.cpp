@@ -5,7 +5,7 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "FormFactorCylinder.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "Units.h"
 #include "MaterialManager.h"
 #include "OutputDataIOFactory.h"
@@ -56,26 +56,26 @@ void FunctionalTests::IsGISAXS04::run()
         multi_layer_2DDL.addLayer(air_layer_decorator2D);
         multi_layer_2DDL.addLayer(substrate_layer);
     // ---------------------
-    // building experiment
+    // building simulation
     // ---------------------
         gsl_set_error_handler_off();
 
-        GISASExperiment experiment;
-        experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-        experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+        Simulation simulation;
+        simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+        simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
      // ---------------------
-     // running experiment and copying data
+     // running simulation and copying data
      // ---------------------
      // 1DDL
-        experiment.setSample(multi_layer_1DDL);
-        experiment.runSimulation();
-        OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_1DDL.ima");
+        simulation.setSample(multi_layer_1DDL);
+        simulation.runSimulation();
+        OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_1DDL.ima");
 
      // 2DDL
-        experiment.setSample(multi_layer_2DDL);
-        experiment.runSimulation();
-        OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_2DDLh.ima");
+        simulation.setSample(multi_layer_2DDL);
+        simulation.runSimulation();
+        OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_2DDLh.ima");
 }
 
 int FunctionalTests::IsGISAXS04::analyseResults()

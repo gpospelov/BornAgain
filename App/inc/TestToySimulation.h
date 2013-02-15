@@ -1,5 +1,5 @@
-#ifndef TESTTOYEXPERIMENT_H
-#define TESTTOYEXPERIMENT_H
+#ifndef TESTTOYSIMULATION_H
+#define TESTTOYSIMULATION_H
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,13 +9,13 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   TestToyExperiment.h
-//! @brief  Tests of fitting chain using toy experiment
+//! @file   TestToySimulation.h
+//! @brief  Tests of fitting chain using toy simulation
 //! @author Scientific Computing Group at FRM II
 //! @date   10.12.2012
 
 #include "IFunctionalTest.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "OutputData.h"
 #include "TestFumiliLMA.h"
 #include "FitSuite.h"
@@ -25,23 +25,23 @@
 
 
 //- -------------------------------------------------------------------
-//! @class ToyExperiment
-//! @brief Toy experiment to test whole fitting chain with simple 2D functions
+//! @class ToySimulation
+//! @brief Toy simulation to test whole fitting chain with simple 2D functions
 //- -------------------------------------------------------------------
-class ToyExperiment : public Experiment
+class ToySimulation : public Simulation
 {
 public:
-    ToyExperiment(TF2 *func) : m_func(func) { pars.resize(func->GetNpar(), 0.0); setName("ToyExperiment"); init_parameters(); }
-    virtual ~ToyExperiment() {}
+    ToySimulation(TF2 *func) : m_func(func) { pars.resize(func->GetNpar(), 0.0); setName("ToySimulation"); init_parameters(); }
+    virtual ~ToySimulation() {}
     virtual void runSimulation();
-    virtual ToyExperiment *clone() const { return new ToyExperiment(*this); }
+    virtual ToySimulation *clone() const { return new ToySimulation(*this); }
     void setParameter(size_t i, double value) { pars[i] = value; }
 protected:
     virtual void init_parameters();
 private:
-    ToyExperiment(const ToyExperiment &other) : Experiment(other), m_func(other.m_func), pars(other.pars)
+    ToySimulation(const ToySimulation &other) : Simulation(other), m_func(other.m_func), pars(other.pars)
     {
-        setName("ToyExperiment");
+        setName("ToySimulation");
         init_parameters();
     }
     TF2 *m_func;
@@ -50,25 +50,25 @@ private:
 
 
 //- -------------------------------------------------------------------
-//! @class TestToyExperiment
-//! @brief Test of fitting chain using toy experiment
+//! @class TestToySimulation
+//! @brief Test of fitting chain using toy simulation
 //- -------------------------------------------------------------------
-class TestToyExperiment : public IFunctionalTest
+class TestToySimulation : public IFunctionalTest
 {
 public:
-    TestToyExperiment();
-    virtual ~TestToyExperiment();
+    TestToySimulation();
+    virtual ~TestToySimulation();
     virtual void execute();
 
 private:
-    void initializeExperimentAndRealData();
+    void initializeSimulationAndRealData();
 
     IFunctionObject *m_func_object; //! simulation function
     TF2 *m_func; //! ROOT representation of the simulation function with min, max defined
     double m_sigma_noise;
-    ToyExperiment *m_experiment;
+    ToySimulation *m_simulation;
     OutputData<double > *m_real_data;
     FitSuite *m_fitSuite;
 };
 
-#endif // TESTTOYEXPERIMENT_H
+#endif // TESTTOYSIMULATION_H

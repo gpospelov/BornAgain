@@ -6,7 +6,7 @@
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "FormFactors.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
@@ -31,7 +31,7 @@
 
 
 TestFittingModule3::TestFittingModule3()
-    : m_experiment(0)
+    : m_simulation(0)
     , m_sample(0)
     , m_fitSuite(0)
     , m_real_data(0)
@@ -43,7 +43,7 @@ TestFittingModule3::TestFittingModule3()
 
 TestFittingModule3::~TestFittingModule3()
 {
-    delete m_experiment;
+    delete m_simulation;
     delete m_sample;
     delete m_real_data;
     delete m_fitSuite;
@@ -52,9 +52,9 @@ TestFittingModule3::~TestFittingModule3()
 
 void TestFittingModule3::execute()
 {
-    // initializing experiment, sample and data
+    // initializing simulation, sample and data
     initializeSample();
-    initializeExperiment();
+    initializeSimulation();
     initializeRealData();
 
     // setting up fitSuite
@@ -62,14 +62,10 @@ void TestFittingModule3::execute()
     m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorPrism3/height", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    // setting up fitSuite
-//    ChiSquaredModule chiModule;
-//    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
-//    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data, chiModule);
 
     // putting scans
     for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
-        m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it));
+        m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it));
     }
 
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
@@ -81,21 +77,19 @@ void TestFittingModule3::execute()
 
 
 /* ************************************************************************* */
-// initializing experiment
+// initializing simulation
 /* ************************************************************************* */
-void TestFittingModule3::initializeExperiment()
+void TestFittingModule3::initializeSimulation()
 {
     if( !m_sample ) {
-        throw NullPointerException("TestFittingModule3::initializeExperiment() -> No sample defined");
+        throw NullPointerException("TestFittingModule3::initializeSimulation() -> No sample defined");
     }
-    delete m_experiment;
-    m_experiment = new GISASExperiment(mp_options);
-    m_experiment->setSample(*m_sample);
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
-//    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 1, 0.01, 0.011);
-    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    //m_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
-    m_experiment->setBeamIntensity(1e10);
+    delete m_simulation;
+    m_simulation = new Simulation(mp_options);
+    m_simulation->setSample(*m_sample);
+    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
+    m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    m_simulation->setBeamIntensity(1e10);
 
 }
 
@@ -136,13 +130,12 @@ void TestFittingModule3::initializeSample()
 /* ************************************************************************* */
 void TestFittingModule3::initializeRealData()
 {
-    if( !m_experiment || !m_sample ) throw NullPointerException("TestFittingModule3::initializeRealData() -> Error! No experiment o sample defined ");
+    if( !m_simulation || !m_sample ) throw NullPointerException("TestFittingModule3::initializeRealData() -> Error! No simulation of sample defined ");
 
     // generating 2D "real" data
-    m_experiment->runSimulation();
-    //m_experiment->normalize();
+    m_simulation->runSimulation();
     delete m_real_data;
-    m_real_data = IsGISAXSTools::createNoisyData(*m_experiment->getOutputData());
+    m_real_data = IsGISAXSTools::createNoisyData(*m_simulation->getOutputData());
 
     // setting up 1d scans by making slices on real data
     m_data_scans.clear();

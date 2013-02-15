@@ -5,24 +5,24 @@
 /* ************************************************************************* */
 // FitObject c-tors
 /* ************************************************************************* */
-FitObject::FitObject(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module, double weight)
-    : m_experiment(experiment.clone())
+FitObject::FitObject(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module, double weight)
+    : m_simulation(simulation.clone())
     , m_real_data(real_data.clone())
     , m_chi2_module(chi2_module.clone())
     , m_weight(weight)
 {
     setName("FitObject");
-    if( !m_real_data->hasSameShape(*m_experiment->getOutputData()) ) {
-        std::cout << "FitObject::FitObject() -> Info. Real data and output data in the experiment have different shape. Adjusting experiment's detector." << std::endl;
+    if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
+        std::cout << "FitObject::FitObject() -> Info. Real data and output data in the simulation have different shape. Adjusting simulation's detector." << std::endl;
     } else {
-        std::cout << "FitObject::FitObject() -> Info. Real data and output data in the experiment have same shape. Ok." << std::endl;
+        std::cout << "FitObject::FitObject() -> Info. Real data and output data in the simulation have same shape. Ok." << std::endl;
     }
-    m_experiment->setDetectorParameters(*m_real_data);
+    m_simulation->setDetectorParameters(*m_real_data);
 }
 
 FitObject::~FitObject()
 {
-    delete m_experiment;
+    delete m_simulation;
     delete m_real_data;
     delete m_chi2_module;
 }
@@ -35,13 +35,13 @@ void FitObject::setRealData(const OutputData<double > &real_data)
 {
     delete m_real_data;
     m_real_data = real_data.clone();
-    if( m_experiment) {
-        if( !m_real_data->hasSameShape(*m_experiment->getOutputData()) ) {
+    if( m_simulation) {
+        if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
             std::cout << "FitObject::setRealData() -> Real data and the detector have different shape. Adjusting detector..." << std::endl;
         } else {
             std::cout << "FitObject::setRealData() -> Real data and the detector have same shape. No need to adjust detector." << std::endl;
         }
-        m_experiment->setDetectorParameters(*m_real_data);
+        m_simulation->setDetectorParameters(*m_real_data);
     }
 }
 
@@ -51,7 +51,7 @@ void FitObject::setRealData(const OutputData<double > &real_data)
 /* ************************************************************************* */
 double FitObject::calculateChiSquared()
 {
-    m_chi2_module->setRealAndSimulatedData(*m_real_data, *m_experiment->getOutputData());
+    m_chi2_module->setRealAndSimulatedData(*m_real_data, *m_simulation->getOutputData());
     return m_chi2_module->calculateChiSquared();
 }
 
@@ -65,8 +65,8 @@ std::string FitObject::addParametersToExternalPool(std::string path,
     // add own parameters
     std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
 
-    // add parameters of the experiment
-    if(m_experiment) m_experiment->addParametersToExternalPool(new_path, external_pool, -1);
+    // add parameters of the simulation
+    if(m_simulation) m_simulation->addParametersToExternalPool(new_path, external_pool, -1);
 
     if(m_chi2_module) {
         const IOutputDataNormalizer *data_normalizer = m_chi2_module->getOutputDataNormalizer();

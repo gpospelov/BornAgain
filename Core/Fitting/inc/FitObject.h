@@ -15,27 +15,27 @@
 //! @date   21.11.2012
 
 #include "IParameterized.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "OutputData.h"
 #include "ChiSquaredModule.h"
 
 
 //- -------------------------------------------------------------------
 //! @class FitObject
-//! @brief Class to hold single experiment description, real data and chi2 module
+//! @brief Class to hold single simulation description, real data and chi2 module
 //! Used by FitSuite
 //- -------------------------------------------------------------------
 class FitObject : public IParameterized
 {
 public:
-    FitObject(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule(), double weight = 1.0);
+    FitObject(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule(), double weight = 1.0);
     ~FitObject();
 
-    //! get experiment
-    const Experiment *getExperiment() const { return m_experiment; }
-    Experiment *getExperiment() { return m_experiment; }
-    //! set experiment
-    void setExperiment(const Experiment &experiment) { delete m_experiment; m_experiment = experiment.clone(); }
+    //! get simulation
+    const Simulation *getSimulation() const { return m_simulation; }
+    Simulation *getSimulation() { return m_simulation; }
+    //! set simulation
+    void setSimulation(const Simulation &simulation) { delete m_simulation; m_simulation = simulation.clone(); }
 
     //! get real data
     const OutputData<double > *getRealData() const { return m_real_data; }
@@ -43,7 +43,7 @@ public:
     void setRealData(const OutputData<double > &real_data);
 
     //! get simulated data
-    const OutputData<double > *getSimulationData() const { return m_experiment->getOutputData(); }
+    const OutputData<double > *getSimulationData() const { return m_simulation->getOutputData(); }
 
     //! get chi2 module
     const IChiSquaredModule *getChiSquaredModule() const {return m_chi2_module; }
@@ -71,7 +71,7 @@ private:
     FitObject(const FitObject &);
     FitObject &operator=(const FitObject &);
 
-    Experiment *m_experiment; //! external experiment (not owned by this)
+    Simulation *m_simulation; //! external simulation (not owned by this)
     OutputData<double > *m_real_data; //! real data
     IChiSquaredModule *m_chi2_module; //! chi2 module
     double m_weight; //! weight of data set in chi2 calculations

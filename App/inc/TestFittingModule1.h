@@ -18,7 +18,7 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "ISampleBuilder.h"
 
 
@@ -41,12 +41,12 @@ private:
     //! initialize sample: layer + substrate + nanoparticles, 4 parameters
     void initializeSample2();
 
-    void initializeExperiment();
+    void initializeSimulation();
     void initializeRealData();
 
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulated_data;
-    GISASExperiment *mp_experiment;
+    Simulation *mp_simulation;
     ISample *mp_sample;
     FitSuite *m_fitSuite;
 };

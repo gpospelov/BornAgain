@@ -19,7 +19,6 @@ nOutputFiles = 8 # generated code for classes will be splitted in this number of
 # list of files to analyse and corresponding functions with rules for analysis
 myFiles=[
   'BasicVector3D.h',
-  'Experiment.h',
   'FormFactorCrystal.h',
   'FormFactorCylinder.h',
   'FormFactorDecoratorDebyeWaller.h',
@@ -29,7 +28,6 @@ myFiles=[
   'FormFactorPrism3.h',
   'FormFactorPyramid.h',
   'FormFactorSphereGaussianRadius.h',
-  'GISASExperiment.h',
   'HomogeneousMaterial.h',
   'ICloneable.h',
   'IClusteredParticles.h',
@@ -65,6 +63,7 @@ myFiles=[
   'PythonOutputData.h',
   'PythonPlusplusHelper.h',
   'RealParameterWrapper.h',
+  'Simulation.h',
   'Transform3D.h',
   'Units.h',
   'Types.h',
@@ -328,6 +327,9 @@ def AdditionalRules(mb):
     cl.member_function("setValue").include()
     cl.member_function("getValue").include()
     cl.member_function("isNull").include()
+
+  if "Simulation.h" in myFiles:
+    mb.class_('DWBASimulation').exclude()
 
   # --- Transform3D.h -------------------------------------------------
   if "Transform3D.h" in myFiles:

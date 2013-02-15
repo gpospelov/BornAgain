@@ -5,7 +5,7 @@ TARGET   = BornAgainCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-#CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
+CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
 # including common project properties
 include($$PWD/../shared.pri)
@@ -26,7 +26,7 @@ SOURCES += \
     Algorithms/src/DiffuseDWBASimulation.cpp \
     Algorithms/src/DWBADiffuseReflection.cpp \
     Algorithms/src/DWBASimulation.cpp \
-    Algorithms/src/Experiment.cpp \
+    Algorithms/src/Simulation.cpp \
     Algorithms/src/FTDistributions.cpp \
     Algorithms/src/IChiSquaredModule.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
@@ -148,7 +148,7 @@ HEADERS += \
     Algorithms/inc/DiffuseDWBASimulation.h \
     Algorithms/inc/DWBADiffuseReflection.h \
     Algorithms/inc/DWBASimulation.h \
-    Algorithms/inc/Experiment.h \
+    Algorithms/inc/Simulation.h \
     Algorithms/inc/FTDistributions.h \
     Algorithms/inc/IChiSquaredModule.h \
     Algorithms/inc/IDetectorResolution.h \

@@ -5,7 +5,6 @@
 #include "OutputData.h"
 
 class MultiLayer;
-class Experiment;
 
 
 namespace FunctionalTests {

@@ -2,7 +2,7 @@
 #include "TCanvas.h"
 #include "Utils.h"
 #include "Units.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "MultiLayer.h"
 #include "SampleFactory.h"
 #include "IsGISAXSTools.h"
@@ -17,19 +17,19 @@ TestIsGISAXS7::TestIsGISAXS7() : IFunctionalTest("TestIsGISAXS7")
 
 void TestIsGISAXS7::execute()
 {
-    Experiment experiment(mp_options);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 1.0*Units::degree,
+    Simulation simulation(mp_options);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 1.0*Units::degree,
             100, 0.0*Units::degree, 1.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);
     SimulationParameters sim_params;
     sim_params.me_if_approx = SimulationParameters::ISGISAXSMOR;
-    experiment.setSimulationParameters(sim_params);
+    simulation.setSimulationParameters(sim_params);
 
     MultiLayer *sample = dynamic_cast<MultiLayer *>(
             SampleFactory::instance().createItem("IsGISAXS7_mor"));
-    experiment.setSample(*sample);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_morphology.ima");
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), m_data_path+"this_morphology.ima");
 }
 
 void TestIsGISAXS7::finalise()

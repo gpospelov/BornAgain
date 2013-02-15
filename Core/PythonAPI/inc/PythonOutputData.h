@@ -16,25 +16,20 @@
 
 #include <Python.h>
 #include "OutputData.h"
-#include "Experiment.h"
+#include "Simulation.h"
 
 #include <string>
 
 
 
-//! return number of dimensions in output data of Experiment
-int GetOutputDataNdimensions(const Experiment &experiment);
+//! return number of dimensions in output data of simulation
+int GetOutputDataNdimensions(const Simulation &simulation);
 
-//! export output data array of Experiment to python-numpy array object
-PyObject *GetOutputData(const Experiment &experiment);
+//! export output data array of simulation to python-numpy array object
+PyObject *GetOutputData(const Simulation &simulation);
 
 //! return one dimensional python-numpy array representing binning of the axis
-//! with given index of Experiment's oputput data
-PyObject *GetOutputDataAxis(const Experiment &experiment, int naxis);
-
-
-
-
-
+//! with given index of simulation output data
+PyObject *GetOutputDataAxis(const Simulation &simulation, int naxis);
 
 #endif // PYTHONOUTPUTDATA_H

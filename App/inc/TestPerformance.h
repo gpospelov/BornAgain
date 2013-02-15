@@ -16,7 +16,7 @@
 
 #include "IFunctionalTest.h"
 #include "ISample.h"
-#include "Experiment.h"
+#include "Simulation.h"
 
 #include <string>
 #include <vector>
@@ -79,12 +79,12 @@ public:
 class PerfTest_Pyramid : public IFunctionalTest
 {
 public:
-    PerfTest_Pyramid() : IFunctionalTest("Pyramid"), m_sample(0), m_experiment(0) {}
-    virtual ~PerfTest_Pyramid() { delete m_experiment; }
+    PerfTest_Pyramid() : IFunctionalTest("Pyramid"), m_sample(0), m_simulation(0) {}
+    virtual ~PerfTest_Pyramid() { delete m_simulation; }
     void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
-    Experiment *m_experiment;
+    Simulation *m_simulation;
 };
 
 //! @class PerfTest_RotatedPyramid
@@ -92,12 +92,12 @@ public:
 class PerfTest_RotatedPyramid : public IFunctionalTest
 {
 public:
-    PerfTest_RotatedPyramid() : IFunctionalTest("RotatedPyramid"), m_sample(0), m_experiment(0) {}
-    virtual ~PerfTest_RotatedPyramid() { delete m_experiment; }
+    PerfTest_RotatedPyramid() : IFunctionalTest("RotatedPyramid"), m_sample(0), m_simulation(0) {}
+    virtual ~PerfTest_RotatedPyramid() { delete m_simulation; }
     void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
-    Experiment *m_experiment;
+    Simulation *m_simulation;
 };
 
 
@@ -106,15 +106,12 @@ public:
 class PerfTest_MesoCrystal : public IFunctionalTest
 {
 public:
-    PerfTest_MesoCrystal() : IFunctionalTest("MesoCrystal"), m_sample(0), m_experiment(0) {}
-    virtual ~PerfTest_MesoCrystal() { delete m_experiment; }
+    PerfTest_MesoCrystal() : IFunctionalTest("MesoCrystal"), m_sample(0), m_simulation(0) {}
+    virtual ~PerfTest_MesoCrystal() { delete m_simulation; }
     void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
-    Experiment *m_experiment;
+    Simulation *m_simulation;
 };
-
-
-
 
 #endif // TESTPERFORMANCE_H

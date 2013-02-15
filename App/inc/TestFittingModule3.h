@@ -18,7 +18,7 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "ISampleBuilder.h"
 #include "SafePointerVector.h"
 #include <vector>
@@ -40,10 +40,10 @@ public:
 
 private:
     void initializeSample();
-    void initializeExperiment();
+    void initializeSimulation();
     void initializeRealData();
 
-    Experiment *m_experiment;
+    Simulation *m_simulation;
     ISample *m_sample;
     FitSuite *m_fitSuite;
     OutputData<double > *m_real_data;

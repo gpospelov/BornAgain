@@ -13,7 +13,7 @@ GCC_DIAG_ON(missing-field-initializers);
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 #include "BasicVector3D.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
@@ -23,7 +23,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "HomogeneousMaterial.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
@@ -66,11 +66,11 @@ GCC_DIAG_ON(missing-field-initializers);
 
 namespace bp = boost::python;
 
-struct Experiment_wrapper : Experiment, bp::wrapper< Experiment > {
+struct Experiment_wrapper : Simulation, bp::wrapper< Simulation > {
 
     Experiment_wrapper( )
-    : Experiment( )
-      , bp::wrapper< Experiment >(){
+    : Simulation( )
+      , bp::wrapper< Simulation >(){
         // null constructor
     
     }
@@ -79,24 +79,24 @@ struct Experiment_wrapper : Experiment, bp::wrapper< Experiment > {
         if( bp::override func_normalize = this->get_override( "normalize" ) )
             func_normalize(  );
         else{
-            this->Experiment::normalize(  );
+            this->Simulation::normalize(  );
         }
     }
     
     void default_normalize(  ) {
-        Experiment::normalize( );
+        Simulation::normalize( );
     }
 
     virtual void runExperiment(  ) {
         if( bp::override func_runExperiment = this->get_override( "runExperiment" ) )
             func_runExperiment(  );
         else{
-            this->Experiment::runExperiment(  );
+            this->Simulation::runSimulation(  );
         }
     }
     
     void default_runExperiment(  ) {
-        Experiment::runExperiment( );
+        Simulation::runSimulation( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -154,27 +154,27 @@ void register_Experiment_class(){
     bp::class_< Experiment_wrapper, bp::bases< IParameterized, ICloneable >, boost::noncopyable >( "Experiment", bp::init< >() )    
         .def( 
             "normalize"
-            , (void ( ::Experiment::* )(  ) )(&::Experiment::normalize)
+            , (void ( ::Simulation::* )(  ) )(&::Simulation::normalize)
             , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_normalize) )    
         .def( 
             "runExperiment"
-            , (void ( ::Experiment::* )(  ) )(&::Experiment::runExperiment)
+            , (void ( ::Simulation::* )(  ) )(&::Simulation::runSimulation)
             , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_runExperiment) )    
         .def( 
             "setBeamIntensity"
-            , (void ( ::Experiment::* )( double ) )( &::Experiment::setBeamIntensity )
+            , (void ( ::Simulation::* )( double ) )( &::Simulation::setBeamIntensity )
             , ( bp::arg("intensity") ) )    
         .def( 
             "setBeamParameters"
-            , (void ( ::Experiment::* )( double,double,double ) )( &::Experiment::setBeamParameters )
+            , (void ( ::Simulation::* )( double,double,double ) )( &::Simulation::setBeamParameters )
             , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) )    
         .def( 
             "setSample"
-            , (void ( ::Experiment::* )( ::ISample const & ) )( &::Experiment::setSample )
+            , (void ( ::Simulation::* )( ::ISample const & ) )( &::Simulation::setSample )
             , ( bp::arg("p_sample") ) )    
         .def( 
             "setSampleBuilder"
-            , (void ( ::Experiment::* )( ::ISampleBuilder const * ) )( &::Experiment::setSampleBuilder )
+            , (void ( ::Simulation::* )( ::ISampleBuilder const * ) )( &::Simulation::setSampleBuilder )
             , ( bp::arg("p_sample_builder") ) )    
         .def( 
             "areParametersChanged"

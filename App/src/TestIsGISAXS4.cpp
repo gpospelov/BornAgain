@@ -3,7 +3,7 @@
 #include "Units.h"
 #include "Utils.h"
 #include "MultiLayer.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
 #include "OutputDataIOFactory.h"
@@ -21,22 +21,22 @@ void TestIsGISAXS4::execute()
 {
     gsl_set_error_handler_off();
 
-    Experiment experiment(mp_options);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    Simulation simulation(mp_options);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // 1DDL
     MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_1DDL"));
-    experiment.setSample(*p_sample);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_1DDL.ima");
+    simulation.setSample(*p_sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), m_data_path+"this_1DDL.ima");
     delete p_sample;
 
     // 2DDL
     p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_2DDL"));
-    experiment.setSample(*p_sample);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_2DDLh.ima");
+    simulation.setSample(*p_sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), m_data_path+"this_2DDLh.ima");
     delete p_sample;
 }
 

@@ -62,7 +62,7 @@ SOURCES += \
     src/TestPerformance.cpp \
     src/TestRootTree.cpp \
     src/TestRoughness.cpp \
-    src/TestToyExperiment.cpp \
+    src/TestToySimulation.cpp \
     src/TreeEventStructure.cpp \
     src/main.cpp
 
@@ -120,7 +120,7 @@ HEADERS += \
     inc/TestPerformance.h \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
-    inc/TestToyExperiment.h \
+    inc/TestToySimulation.h \
     inc/TreeEventStructure.h \
     inc/Version.h \
 

@@ -2,7 +2,7 @@
 #include "IsGISAXSTools.h"
 #include "Units.h"
 #include "Utils.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "MultiLayer.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
@@ -14,12 +14,12 @@ void TestIsGISAXS11::execute()
 {
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS11_CoreShellParticle"));
 
-    Experiment experiment(mp_options);
-    experiment.setSample(*sample);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    experiment.runExperiment();
-    OutputData<double > *mp_intensity_output = experiment.getOutputDataClone();
+    Simulation simulation(mp_options);
+    simulation.setSample(*sample);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.runSimulation();
+    OutputData<double > *mp_intensity_output = simulation.getOutputDataClone();
     OutputDataIOFactory::writeOutputData(*mp_intensity_output, Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-11/this_core_shell_qxqy.ima");
 }
 

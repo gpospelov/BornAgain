@@ -5,7 +5,7 @@
 #include "ChiSquaredModuleTest.h"
 #include "CVectorTest.h"
 #include "DetectorTest.h"
-#include "ExperimentTest.h"
+#include "SimulationTest.h"
 #include "InstrumentTest.h"
 #include "IParameterizedTest.h"
 #include "KVectorTest.h"

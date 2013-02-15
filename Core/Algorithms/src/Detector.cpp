@@ -174,7 +174,7 @@ double Detector::getSolidAngle(OutputData<double>* p_data, size_t index) const
     size_t phi_size = p_phi_axis->getSize();
     if (alpha_size<2 && phi_size<2) {
         // Cannot determine detector cell size!
-        throw LogicErrorException("Experiment::getSolidAngle() -> Error! Can't determine size of detector cell.");
+        throw LogicErrorException("Simulation::getSolidAngle() -> Error! Can't determine size of detector cell.");
     }
     double dalpha(0), dphi(0);
 
@@ -193,7 +193,7 @@ double Detector::getSolidAngle(OutputData<double>* p_data, size_t index) const
         }
         dalpha = std::abs(dalpha);
     } else {
-        //std::cout << "Experiment::getSolidAngle() -> Warning! Only one bin on alpha_f axis, size of the bin will be taken from phi_f axis" << std::endl;
+        //std::cout << "Simulation::getSolidAngle() -> Warning! Only one bin on alpha_f axis, size of the bin will be taken from phi_f axis" << std::endl;
     }
     if(phi_size > 1) {
         if (phi_index==0) {
@@ -207,10 +207,10 @@ double Detector::getSolidAngle(OutputData<double>* p_data, size_t index) const
         }
         dphi = std::abs(dphi);
     } else {
-        //std::cout << "Experiment::getSolidAngle() -> Warning! Only one bin on phi_f axis, size of the bin will be taken from alpha_f axis" << std::endl;
+        //std::cout << "Simulation::getSolidAngle() -> Warning! Only one bin on phi_f axis, size of the bin will be taken from alpha_f axis" << std::endl;
     }
     if(!dalpha || !dphi) {
-        std::cout << "Experiment::getSolidAngle() -> Warning! Not defined normalization" << std::endl;
+        std::cout << "Simulation::getSolidAngle() -> Warning! Not defined normalization" << std::endl;
         return 1;
     } else {
         return cos_alpha_f*dalpha*dphi;

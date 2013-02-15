@@ -21,7 +21,7 @@
 #include "ISampleBuilder.h"
 #include <string>
 
-class Experiment;
+class Simulation;
 class FitSuite;
 
 //- -------------------------------------------------------------------
@@ -60,8 +60,8 @@ private:
         double m_interf_width;
     };
 
-    //! initialize experiment
-    void initialiseExperiment();
+    //! initialize simulation
+    void initializeSimulation();
 
     //! run standard isgisaxs comparison
     void run_isgisaxs_comparison();
@@ -83,7 +83,7 @@ private:
     //!  print axes
     void print_axes(IsGISAXSData::DataSet_t &data);
 
-    Experiment *m_experiment;
+    Simulation *m_simulation;
     ISampleBuilder *m_sample_builder;
     FitSuite *m_fitSuite;
 };

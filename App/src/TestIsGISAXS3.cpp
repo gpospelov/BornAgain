@@ -3,7 +3,7 @@
 #include "Units.h"
 #include "Utils.h"
 #include "MultiLayer.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
 #include "OutputDataIOFactory.h"
@@ -20,29 +20,29 @@ TestIsGISAXS3::TestIsGISAXS3() : IFunctionalTest("TestIsGISAXS3")
 
 void TestIsGISAXS3::execute()
 {
-    Experiment experiment(mp_options);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+    Simulation simulation(mp_options);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
             100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // cylinder in BA
     MultiLayer *sample = dynamic_cast<MultiLayer *>(
             SampleFactory::instance().createItem("IsGISAXS3_CylinderBA"));
-    experiment.setSample(*sample);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),m_data_path+"this_cylinder_BA.ima");
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),m_data_path+"this_cylinder_BA.ima");
 
     // cylinder in BA with size distribution
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderBASize"));
-    experiment.setSample(*sample);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),m_data_path+"this_cylinder_BA_size.ima");
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),m_data_path+"this_cylinder_BA_size.ima");
 
     // cylinder in DWBA
     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS3_CylinderDWBA"));
-    experiment.setSample(*sample);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),m_data_path+"this_cylinder_DWBA.ima");
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),m_data_path+"this_cylinder_DWBA.ima");
 }
 
 

@@ -13,7 +13,7 @@ GCC_DIAG_ON(missing-field-initializers);
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 #include "BasicVector3D.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
@@ -23,7 +23,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "HomogeneousMaterial.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
@@ -66,61 +66,61 @@ GCC_DIAG_ON(missing-field-initializers);
 
 namespace bp = boost::python;
 
-struct Experiment_wrapper : Experiment, bp::wrapper< Experiment > {
+struct Experiment_wrapper : Simulation, bp::wrapper< Simulation > {
 
     Experiment_wrapper( )
-    : Experiment( )
-      , bp::wrapper< Experiment >(){
+    : Simulation( )
+      , bp::wrapper< Simulation >(){
         // null constructor
     
     }
 
-    virtual ::Experiment * clone(  ) const  {
+    virtual ::Simulation * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else{
-            return this->Experiment::clone(  );
+            return this->Simulation::clone(  );
         }
     }
     
-    ::Experiment * default_clone(  ) const  {
-        return Experiment::clone( );
+    ::Simulation * default_clone(  ) const  {
+        return Simulation::clone( );
     }
 
     virtual void normalize(  ) {
         if( bp::override func_normalize = this->get_override( "normalize" ) )
             func_normalize(  );
         else{
-            this->Experiment::normalize(  );
+            this->Simulation::normalize(  );
         }
     }
     
     void default_normalize(  ) {
-        Experiment::normalize( );
+        Simulation::normalize( );
     }
 
     virtual void runExperiment(  ) {
         if( bp::override func_runExperiment = this->get_override( "runExperiment" ) )
             func_runExperiment(  );
         else{
-            this->Experiment::runExperiment(  );
+            this->Simulation::runSimulation(  );
         }
     }
     
     void default_runExperiment(  ) {
-        Experiment::runExperiment( );
+        Simulation::runSimulation( );
     }
 
     virtual void runExperimentElement( ::size_t index ) {
         if( bp::override func_runExperimentElement = this->get_override( "runExperimentElement" ) )
             func_runExperimentElement( index );
         else{
-            this->Experiment::runExperimentElement( index );
+            this->Simulation::runSimulationElement( index );
         }
     }
     
     void default_runExperimentElement( ::size_t index ) {
-        Experiment::runExperimentElement( index );
+        Simulation::runSimulationElement( index );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -175,36 +175,36 @@ struct Experiment_wrapper : Experiment, bp::wrapper< Experiment > {
 
 void register_Experiment_class(){
 
-    bp::class_< Experiment_wrapper, bp::bases< Experiment >, boost::noncopyable >( "Experiment", bp::init< >() )    
+    bp::class_< Experiment_wrapper, bp::bases< Simulation >, boost::noncopyable >( "Experiment", bp::init< >() )    
         .def( 
             "clone"
-            , (::Experiment * ( ::Experiment::* )(  ) const)(&::Experiment::clone)
-            , (::Experiment * ( Experiment_wrapper::* )(  ) const)(&Experiment_wrapper::default_clone)
+            , (::Simulation * ( ::Simulation::* )(  ) const)(&::Simulation::clone)
+            , (::Simulation * ( Experiment_wrapper::* )(  ) const)(&Experiment_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "normalize"
-            , (void ( ::Experiment::* )(  ) )(&::Experiment::normalize)
+            , (void ( ::Simulation::* )(  ) )(&::Simulation::normalize)
             , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_normalize) )    
         .def( 
             "runExperiment"
-            , (void ( ::Experiment::* )(  ) )(&::Experiment::runExperiment)
+            , (void ( ::Simulation::* )(  ) )(&::Simulation::runSimulation)
             , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_runExperiment) )    
         .def( 
             "runExperimentElement"
-            , (void ( ::Experiment::* )( ::size_t ) )(&::Experiment::runExperimentElement)
+            , (void ( ::Simulation::* )( ::size_t ) )(&::Simulation::runSimulationElement)
             , (void ( Experiment_wrapper::* )( ::size_t ) )(&Experiment_wrapper::default_runExperimentElement)
             , ( bp::arg("index") ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::Experiment::* )( ::size_t,double,double,::size_t,double,double,bool ) )( &::Experiment::setDetectorParameters )
+            , (void ( ::Simulation::* )( ::size_t,double,double,::size_t,double,double,bool ) )( &::Simulation::setDetectorParameters )
             , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::Experiment::* )( ::DetectorParameters const & ) )( &::Experiment::setDetectorParameters )
+            , (void ( ::Simulation::* )( ::DetectorParameters const & ) )( &::Simulation::setDetectorParameters )
             , ( bp::arg("params") ) )    
         .def( 
             "smearIntensityFromZAxisTilting"
-            , (void ( ::Experiment::* )(  ) )( &::Experiment::smearIntensityFromZAxisTilting ) )    
+            , (void ( ::Simulation::* )(  ) )( &::Simulation::smearIntensityFromZAxisTilting ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

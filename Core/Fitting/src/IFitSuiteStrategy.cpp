@@ -4,8 +4,8 @@
 #include "Exceptions.h"
 #include "OutputData.h"
 #include "IChiSquaredModule.h"
-#include "Experiment.h"
-#include "Experiment.h"
+#include "Simulation.h"
+#include "Simulation.h"
 #include "IMinimizer.h"
 #include "MathFunctions.h"
 #include "OutputDataFunctions.h"
@@ -41,7 +41,7 @@ void FitSuiteStrategyAdjustData::execute()
         return;
     }
 
-    // adjusting real data for every experiment defined
+    // adjusting real data for every simulation defined
     std::vector<OutputData<double > *> original_data_collection;
     for(size_t i_exp = 0; i_exp<m_fit_suite->getFitObjects()->size(); ++i_exp) {
         // saving original data

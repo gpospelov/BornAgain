@@ -1,5 +1,5 @@
-#ifndef EXPERIMENT_H_
-#define EXPERIMENT_H_
+#ifndef SIMULATION_H_
+#define SIMULATION_H_
 // ********************************************************************
 // * The BornAgain project                                            *
 // * Simulation of neutron and x-ray scattering at grazing incidence  *
@@ -9,8 +9,8 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   Experiment.h
-//! @brief  Definition of Experiment class
+//! @file   Simulation.h
+//! @brief  Definition of Simulation class
 //! @author Scientific Computing Group at FRM II
 //! @date   20.06.2012
 
@@ -22,26 +22,26 @@
 
 class ProgramOptions;
 
-class Experiment : public IParameterized, public ICloneable
+class Simulation : public IParameterized, public ICloneable
 {
 public:
-    Experiment();
-    Experiment(const ProgramOptions *p_options);
-    Experiment(const ISample &p_sample, const ProgramOptions *p_options=0);
-    Experiment(const ISampleBuilder *p_sample_builder, const ProgramOptions *p_options=0);
-    ~Experiment() {delete mp_sample;}
+    Simulation();
+    Simulation(const ProgramOptions *p_options);
+    Simulation(const ISample &p_sample, const ProgramOptions *p_options=0);
+    Simulation(const ISampleBuilder *p_sample_builder, const ProgramOptions *p_options=0);
+    ~Simulation() {delete mp_sample;}
 
-    //! clone method fot the experiment
-    Experiment *clone() const;
+    //! clone method for the simulation
+    Simulation *clone() const;
 
     //! put into a clean state for running a simulation
     void prepareSimulation();
 
     //! run a simulation with the current parameter settings
-    void runExperiment();
+    void runSimulation();
 
     //! calculate intensity for a single detector element
-    void runExperimentElement(size_t index);
+    void runSimulationElement(size_t index);
 
     //! normalize the detector counts
     void normalize();
@@ -100,7 +100,7 @@ public:
     //! apply smearing of intensity due to tilting of z-axis (DEPRECATED)
     void smearIntensityFromZAxisTilting();
 protected:
-    Experiment(const Experiment &other);
+    Simulation(const Simulation &other);
 
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     void init_parameters();
@@ -118,15 +118,12 @@ protected:
     bool m_is_normalized;
     const ProgramOptions *mp_options;
     SimulationParameters m_sim_params;
-    //TODO: move to private when Experiment is removed
+
+    //TODO: investigate usage:
     double deltaAlpha(double alpha, double zeta) const;
     double deltaPhi(double alpha, double phi, double zeta) const;
     void createZetaAndProbVectors(std::vector<double> &zetas, std::vector<double> &probs, size_t nbr_zetas, double zeta_sigma) const;
     void addToIntensityMap(double alpha, double phi, double value);
 };
 
-
-
-
-
-#endif /* EXPERIMENT_H_ */
+#endif /* SIMULATION_H_ */

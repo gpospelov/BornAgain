@@ -5,7 +5,7 @@
 #include "ParticleCoreShell.h"
 #include "LayerDecorator.h"
 #include "OutputDataIOFactory.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "InterferenceFunctionNone.h"
 #include "FormFactorParallelepiped.h"
 #include "MaterialManager.h"
@@ -45,21 +45,21 @@ void FunctionalTests::IsGISAXS011::run()
 
     multi_layer.addLayer(air_layer_decorator);
     // ---------------------
-    // building experiment
+    // building simulation
     // ---------------------
-     Experiment experiment;
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+     Simulation simulation;
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // ---------------------
-    // running experiment
+    // running simulation
     // ---------------------
-    experiment.setSample(multi_layer);
-    experiment.runExperiment();
+    simulation.setSample(multi_layer);
+    simulation.runSimulation();
     // ---------------------
     // copying data
     // ---------------------
-    m_result = experiment.getOutputDataClone();
+    m_result = simulation.getOutputDataClone();
 
 }
 

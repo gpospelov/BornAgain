@@ -1,5 +1,5 @@
 #include "TestMultiLayerRoughness.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "Units.h"
 #include "IsGISAXSTools.h"
 #include "SampleFactory.h"
@@ -42,15 +42,15 @@ void TestMultiLayerRoughness::execute()
         size_t index_alpha_i = p_data_alpha_i->getIndexOfAxis("alpha_i", it_alpha_i.getIndex());
         if(index_alpha_i%10 == 0) std::cout << index_alpha_i << " of " << npoints << std::endl;
 
-        // setting experiment
-        Experiment experiment(mp_options);
-        experiment.setSample(*sample);
-        experiment.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree, false);
-        experiment.setBeamParameters(1.54*Units::angstrom, -alpha_i, 0.0*Units::degree);
+        // setting simulation
+        Simulation simulation(mp_options);
+        simulation.setSample(*sample);
+        simulation.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree, false);
+        simulation.setBeamParameters(1.54*Units::angstrom, -alpha_i, 0.0*Units::degree);
 
-        experiment.runExperiment();
+        simulation.runSimulation();
 
-        const OutputData<double> *output = experiment.getOutputData();
+        const OutputData<double> *output = simulation.getOutputData();
         OutputData<double>::const_iterator it_output = output->begin();
         while (it_output != output->end()) {
             double phi_f = output->getValueOfAxis(NDetector2d::PHI_AXIS_NAME, it_output.getIndex());

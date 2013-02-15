@@ -4,7 +4,7 @@
 #include "FormFactorBox.h"
 #include "ParticleDecoration.h"
 #include "LayerDecorator.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "OutputDataIOFactory.h"
 #include "PositionParticleInfo.h"
 #include "Utils.h"
@@ -96,27 +96,27 @@ void FunctionalTests::IsGISAXS07::run()
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     multi_layer.addLayer(air_layer_decorator);
     // ---------------------
-    // building experiment
+    // building simulation
     // ---------------------
-    Experiment experiment;
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 1.0*Units::degree,
+    Simulation simulation;
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 1.0*Units::degree,
                 100, 0.0*Units::degree, 1.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);
 
     SimulationParameters sim_params;
     sim_params.me_if_approx = SimulationParameters::ISGISAXSMOR;
-    experiment.setSimulationParameters(sim_params);
+    simulation.setSimulationParameters(sim_params);
 
     // ---------------------
-    // running experiment
+    // running simulation
     // ---------------------
-    experiment.setSample(multi_layer);
-    experiment.runExperiment();
+    simulation.setSample(multi_layer);
+    simulation.runSimulation();
 
     // ---------------------
     // copying data
     // ---------------------
-    m_result = experiment.getOutputDataClone();
+    m_result = simulation.getOutputDataClone();
 }
 
 int FunctionalTests::IsGISAXS07::analyseResults()

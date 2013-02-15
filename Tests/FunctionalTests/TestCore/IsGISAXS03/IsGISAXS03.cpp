@@ -5,7 +5,7 @@
 #include "ParticleBuilder.h"
 #include "InterferenceFunctionNone.h"
 #include "FormFactorCylinder.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "Units.h"
@@ -74,30 +74,30 @@ void FunctionalTests::IsGISAXS03::run()
         multi_layer_CylinderBA_size.addLayer(air_layer_decorator_CylinderBA_size);
 
     // ---------------------
-    // building experiment
+    // building simulation
     // ---------------------
-    Experiment experiment;
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+    Simulation simulation;
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
             100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // ---------------------
-    // running experiment and copying data
+    // running simulation and copying data
     // ---------------------
     // cylinder DWBA
-    experiment.setSample(multi_layer_CylinderDWBA);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_cylinder_DWBA.ima");
+    simulation.setSample(multi_layer_CylinderDWBA);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_cylinder_DWBA.ima");
 
     // cylinder in the air
-    experiment.setSample(multi_layer_CylinderBA);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_cylinder_BA.ima");
+    simulation.setSample(multi_layer_CylinderBA);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_cylinder_BA.ima");
 
     // cylinder in BA with size distribution
-    experiment.setSample(multi_layer_CylinderBA_size);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_cylinder_BA_size.ima");
+    simulation.setSample(multi_layer_CylinderBA_size);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_cylinder_BA_size.ima");
 
 }
 int FunctionalTests::IsGISAXS03::analyseResults()

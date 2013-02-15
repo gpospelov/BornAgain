@@ -20,22 +20,22 @@ PyObject *ExportOutputDataAxis(const OutputData<double > &output, int naxis);
 
 
 /* ************************************************************************* */
-// return number of dimensions in output data of Experiment
+// return number of dimensions in output data of simulation
 /* ************************************************************************* */
-int GetOutputDataNdimensions(const Experiment &experiment)
+int GetOutputDataNdimensions(const Simulation &simulation)
 {
-    const OutputData<double > *data = experiment.getOutputData();
+    const OutputData<double > *data = simulation.getOutputData();
     int ndims = data->getNdimensions();
     return ndims;
 }
 
 
 /* ************************************************************************* */
-// export output data array of Experiment to python-numpy array object
+// export output data array of simulation to python-numpy array object
 /* ************************************************************************* */
-PyObject *GetOutputData(const Experiment &experiment)
+PyObject *GetOutputData(const Simulation &simulation)
 {
-    const OutputData<double > *data = experiment.getOutputData();
+    const OutputData<double > *data = simulation.getOutputData();
     PyObject *obj = ExportOutputData(*data);
     return obj;
 }
@@ -43,11 +43,11 @@ PyObject *GetOutputData(const Experiment &experiment)
 
 /* ************************************************************************* */
 // return one dimensional python-numpy array representing binning of the axis
-// with given index of Experiment's oputput data
+// with given index of simulation's output data
 /* ************************************************************************* */
-PyObject *GetOutputDataAxis(const Experiment &experiment, int naxis)
+PyObject *GetOutputDataAxis(const Simulation &simulation, int naxis)
 {
-    const OutputData<double > *data = experiment.getOutputData();
+    const OutputData<double > *data = simulation.getOutputData();
     PyObject *obj = ExportOutputDataAxis(*data, naxis);
     return obj;
 }

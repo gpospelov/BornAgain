@@ -18,7 +18,7 @@
 #include "IFunctionalTest.h"
 #include "ISampleBuilder.h"
 
-class Experiment;
+class Simulation;
 class FitSuite;
 
 //- -------------------------------------------------------------------
@@ -52,8 +52,8 @@ public:
 
 private:
 
-    //! initialize experiment
-    void initialiseExperiment();
+    //! initialize simulation
+    void initializeSimulation();
 
     //! run standard isgisaxs comparison
     void run_isgisaxs_comparison();
@@ -64,7 +64,7 @@ private:
     //! run isgisaxs ex-5 style fit
     void run_isgisaxs_fit();
 
-    Experiment *mp_experiment;
+    Simulation *mp_simulation;
     ISampleBuilder *mp_sample_builder;
     FitSuite *mp_fitSuite;
 };

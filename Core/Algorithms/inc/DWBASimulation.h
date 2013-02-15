@@ -15,7 +15,7 @@
 //! @date   Jun 26, 2012
 
 #include "ISimulation.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "OutputData.h"
 #include "ThreadInfo.h"
 #include "Types.h"
@@ -30,8 +30,8 @@ public:
     DWBASimulation();
     virtual ~DWBASimulation();
 
-    //! Initialize the simulation with the parameters from experiment
-    virtual void init(const Experiment &experiment);
+    //! Initialize the simulation with the parameters from simulation
+    virtual void init(const Simulation &simulation);
 
     //! Set thread information for masking
     virtual void setThreadInfo(const ThreadInfo &thread_info) {
@@ -73,7 +73,7 @@ protected:
     double getWaveLength() const;
     ThreadInfo m_thread_info;
     SimulationParameters m_sim_params;
-    Experiment *mp_experiment;
+    Simulation *mp_simulation;
 };
 
 inline const OutputData<double> &DWBASimulation::getDWBAIntensity() const {

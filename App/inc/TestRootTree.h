@@ -17,7 +17,7 @@
 #include "IFunctionalTest.h"
 #include "ISample.h"
 #include "OutputData.h"
-#include "Experiment.h"
+#include "Simulation.h"
 
 
 //- -------------------------------------------------------------------
@@ -57,7 +57,7 @@ private:
     void initializeMesoCrystal(double meso_alpha, double meso_phi, double nanopart_radius);
 
     ISample *mp_sample;
-    Experiment *mp_experiment;
+    Simulation *mp_simulation;
     OutputData<double> *mp_data;
 };
 

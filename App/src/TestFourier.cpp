@@ -1,6 +1,6 @@
 #include "TestFourier.h"
 
-#include "Experiment.h"
+#include "Simulation.h"
 #include "Units.h"
 #include "Utils.h"
 #include "IsGISAXSTools.h"
@@ -25,17 +25,17 @@ void TestFourier::execute()
 {
     if (mp_intensity_output) delete mp_intensity_output;
     initializeSample();
-    Experiment experiment(mp_options);
-    experiment.setSample(*mp_sample);
-    experiment.setDetectorParameters(256, 0.3*Units::degree, 10.0*Units::degree
+    Simulation simulation(mp_options);
+    simulation.setSample(*mp_sample);
+    simulation.setDetectorParameters(256, 0.3*Units::degree, 10.0*Units::degree
             ,256, 0.0*Units::degree, 10.0*Units::degree);
-    experiment.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
-    experiment.setBeamIntensity(8e12);
+    simulation.setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
+    simulation.setBeamIntensity(8e12);
 
-    experiment.runExperiment();
-    experiment.normalize();
+    simulation.runSimulation();
+    simulation.normalize();
 
-    mp_intensity_output = experiment.getOutputDataClone();
+    mp_intensity_output = simulation.getOutputDataClone();
     OutputData<complex_t> fft_map;
     OutputDataFunctions::fourierTransform(*mp_intensity_output, &fft_map);
     OutputData<double> *p_real_fft_map = OutputDataFunctions::getModulusPart(fft_map);

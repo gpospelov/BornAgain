@@ -35,7 +35,7 @@
 #include "TestMiscellaneous.h"
 #include "TestFittingBenchmark.h"
 #include "TestFourier.h"
-#include "TestToyExperiment.h"
+#include "TestToySimulation.h"
 
 
 #include "TBenchmark.h"
@@ -112,8 +112,8 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
                  "functional test: test of Fourier transformation of OutputData maps");
     registerItem("fumili",    IFactoryCreateFunction<TestFumiliLMA, IFunctionalTest>,
                  "functional test: test of ROOT's LMA-based minimizers Fumili and GSLMultiFit");
-    registerItem("toyexp",    IFactoryCreateFunction<TestToyExperiment, IFunctionalTest>,
-                 "functional test: test fitting algorithms with toy experiment");
+    registerItem("toyexp",    IFactoryCreateFunction<TestToySimulation, IFunctionalTest>,
+                 "functional test: test fitting algorithms with toy simulation");
 
     registerItem("FormFactors", IFactoryCreateFunction<TestFormFactors, IFunctionalTest>,
                  "functional test: FormFactors");

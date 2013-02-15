@@ -4,7 +4,7 @@
 #include "Units.h"
 #include "Utils.h"
 #include "MultiLayer.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
 
@@ -20,19 +20,19 @@ void TestIsGISAXS15::execute()
 {
     gsl_set_error_handler_off();
 
-    Experiment experiment(mp_options);
-    experiment.setDetectorParameters(150, 0.05*Units::degree, 1.5*Units::degree, 150, 0.05*Units::degree, 1.5*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    Simulation simulation(mp_options);
+    simulation.setDetectorParameters(150, 0.05*Units::degree, 1.5*Units::degree, 150, 0.05*Units::degree, 1.5*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     SimulationParameters sim_params;
     sim_params.me_if_approx = SimulationParameters::SSCA;
-    experiment.setSimulationParameters(sim_params);
+    simulation.setSimulationParameters(sim_params);
 
     // create sample and run simulation
     MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS15_SSCA"));
-    experiment.setSample(*p_sample);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_SSCA.ima");
+    simulation.setSample(*p_sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), m_data_path+"this_SSCA.ima");
     delete p_sample;
 }
 

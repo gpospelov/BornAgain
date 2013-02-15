@@ -5,7 +5,7 @@
 //#include "InterferenceFunctionNone.h"
 #include "FormFactorCylinder.h"
 //#include "FormFactorPrism3.h"
-//#include "Experiment.h"
+//#include "Simulation.h"
 #include "Units.h"
 #include "MaterialManager.h"
 #include "InterferenceFunction2DLattice.h"
@@ -150,7 +150,7 @@ void FunctionalTests::IsGISAXS06::run()
             multi_layer_variant.addLayer(air_layer_decorator_variant);
             multi_layer_variant.addLayer(substrate_layer);
 
-/*OutputData<double> *p_total = experiment.getOutputDataClone();
+/*OutputData<double> *p_total = simulation.getOutputDataClone();
     p_total->setAllTo(0.0);
     int nbins = 3;
     double xi_min = 0.0*Units::degree;
@@ -161,10 +161,10 @@ void FunctionalTests::IsGISAXS06::run()
         double probability = xi.getNormalizedProbability(i);
         m_builder.setXi(xi_value);
         p_sample = dynamic_cast<MultiLayer *>(m_builder.buildSample());
-        experiment.setSample(*p_sample);
-        experiment.runExperiment();
+        simulation.setSample(*p_sample);
+        simulation.runSimulation();
         delete p_sample;
-        OutputData<double> *p_single_output = experiment.getOutputDataClone();
+        OutputData<double> *p_single_output = simulation.getOutputDataClone();
         p_single_output->scaleAll(probability);
         *p_total += *p_single_output;
         delete p_single_output;
@@ -174,40 +174,40 @@ void FunctionalTests::IsGISAXS06::run()
 
 
     // ---------------------
-    // building experiment
+    // building simulation
     // ---------------------
-    Experiment experiment;
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    Simulation simulation;
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     SimulationParameters sim_params;
     sim_params.me_framework = SimulationParameters::DWBA;
     sim_params.me_if_approx = SimulationParameters::LMA;
     sim_params.me_lattice_type = SimulationParameters::LATTICE;
-    experiment.setSimulationParameters(sim_params);
+    simulation.setSimulationParameters(sim_params);
 
     // ---------------------
-    // running experiment and copying data
+    // running simulation and copying data
     // ---------------------
     // normal lattice
-    experiment.setSample(multi_layer_lattice);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_lattice.ima");
+    simulation.setSample(multi_layer_lattice);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_lattice.ima");
 
      // centered lattice
-    experiment.setSample(multi_layer_centered);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_centered.ima");
+    simulation.setSample(multi_layer_centered);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_centered.ima");
 
      // rotated lattice
-    experiment.setSample(multi_layer_rotated);
-    experiment.runExperiment();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_rotated.ima");
+    simulation.setSample(multi_layer_rotated);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_rotated.ima");
 
      // lattice variants ??
 
 
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(),"this_variants.ima");
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_variants.ima");
 }
 
 int FunctionalTests::IsGISAXS06::analyseResults()

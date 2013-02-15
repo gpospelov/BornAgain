@@ -1,4 +1,4 @@
-#include "Experiment.h"
+#include "Simulation.h"
 
 #include "ExperimentConstants.h"
 #include "MathFunctions.h"
@@ -8,8 +8,8 @@
 #include <boost/thread.hpp>
 
 
-Experiment::Experiment()
-: IParameterized("Experiment")
+Simulation::Simulation()
+: IParameterized("Simulation")
 , mp_sample(0)
 , mp_sample_builder(0)
 , m_instrument()
@@ -20,7 +20,7 @@ Experiment::Experiment()
     init_parameters();
 }
 
-Experiment::Experiment(const Experiment &other)
+Simulation::Simulation(const Simulation &other)
 : IParameterized(other), ICloneable()
 , mp_sample(0)
 , mp_sample_builder(other.mp_sample_builder)
@@ -35,8 +35,8 @@ Experiment::Experiment(const Experiment &other)
     init_parameters();
 }
 
-Experiment::Experiment(const ProgramOptions *p_options)
-: IParameterized("Experiment")
+Simulation::Simulation(const ProgramOptions *p_options)
+: IParameterized("Simulation")
 , mp_sample(0)
 , mp_sample_builder(0)
 , m_instrument()
@@ -47,8 +47,8 @@ Experiment::Experiment(const ProgramOptions *p_options)
     init_parameters();
 }
 
-Experiment::Experiment(const ISample &p_sample, const ProgramOptions *p_options)
-: IParameterized("Experiment")
+Simulation::Simulation(const ISample &p_sample, const ProgramOptions *p_options)
+: IParameterized("Simulation")
 , mp_sample(p_sample.clone())
 , mp_sample_builder(0)
 , m_instrument()
@@ -59,8 +59,8 @@ Experiment::Experiment(const ISample &p_sample, const ProgramOptions *p_options)
     init_parameters();
 }
 
-Experiment::Experiment(const ISampleBuilder* p_sample_builder, const ProgramOptions *p_options)
-: IParameterized("Experiment")
+Simulation::Simulation(const ISampleBuilder* p_sample_builder, const ProgramOptions *p_options)
+: IParameterized("Simulation")
 , mp_sample(0)
 , mp_sample_builder(p_sample_builder)
 , m_instrument()
@@ -75,12 +75,12 @@ Experiment::Experiment(const ISampleBuilder* p_sample_builder, const ProgramOpti
 /* ************************************************************************* */
 // clone method
 /* ************************************************************************* */
-Experiment *Experiment::clone() const
+Simulation *Simulation::clone() const
 {
-    return new Experiment(*this);
+    return new Simulation(*this);
 }
 
-void Experiment::prepareSimulation()
+void Simulation::prepareSimulation()
 {
     m_is_normalized = false;
     updateSample();
@@ -89,10 +89,10 @@ void Experiment::prepareSimulation()
 /* ************************************************************************* */
 // run simulation
 /* ************************************************************************* */
-void Experiment::runExperiment()
+void Simulation::runSimulation()
 {
     prepareSimulation();
-    if( !mp_sample) throw NullPointerException( "Experiment::runExperiment() -> Error! No sample set.");
+    if( !mp_sample) throw NullPointerException( "Simulation::runSimulation() -> Error! No sample set.");
 
     // retrieve threading information
     int n_threads_total=0;
@@ -103,7 +103,7 @@ void Experiment::runExperiment()
     m_intensity_map.setAllTo(0.0);
     if(n_threads_total<0) {
         DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-        if (!p_dwba_simulation) throw NullPointerException("Experiment::runExperiment() -> No dwba simulation");
+        if (!p_dwba_simulation) throw NullPointerException("Simulation::runSimulation() -> No dwba simulation");
         p_dwba_simulation->init(*this);
         p_dwba_simulation->run();
         m_intensity_map += p_dwba_simulation->getDWBAIntensity();
@@ -112,9 +112,9 @@ void Experiment::runExperiment()
         // if n_threads=0, take optimal number of threads from the hardware
         if(n_threads_total == 0 )  {
             n_threads_total = (int)boost::thread::hardware_concurrency();
-            std::cout << "Experiment::runExperiment() -> Info. Number of threads " << n_threads_total << " (taken from hardware concurrency)" << std::endl;
+            std::cout << "Simulation::runSimulation() -> Info. Number of threads " << n_threads_total << " (taken from hardware concurrency)" << std::endl;
         }else {
-            std::cout << "Experiment::runExperiment() -> Info. Number of threads " << n_threads_total << " (hardware concurrency: " << boost::thread::hardware_concurrency() << " )"<< std::endl;
+            std::cout << "Simulation::runSimulation() -> Info. Number of threads " << n_threads_total << " (hardware concurrency: " << boost::thread::hardware_concurrency() << " )"<< std::endl;
         }
         std::vector<boost::thread *> threads;
         std::vector<DWBASimulation *> simulations;
@@ -124,7 +124,7 @@ void Experiment::runExperiment()
         thread_info.n_threads = n_threads_total;
         for(int i_thread=0; i_thread<n_threads_total; ++i_thread){
             DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-            if (!p_dwba_simulation) throw NullPointerException("Experiment::runExperiment() -> No dwba simulation");
+            if (!p_dwba_simulation) throw NullPointerException("Simulation::runSimulation() -> No dwba simulation");
             p_dwba_simulation->init(*this);
             thread_info.i_thread = i_thread;
             p_dwba_simulation->setThreadInfo(thread_info);
@@ -150,24 +150,24 @@ void Experiment::runExperiment()
     m_instrument.applyDetectorResolution(&m_intensity_map);
 }
 
-void Experiment::runExperimentElement(size_t index)
+void Simulation::runSimulationElement(size_t index)
 {
     //TODO: use index
     (void)index;
     prepareSimulation();
 
-    if( !mp_sample) throw NullPointerException( "Experiment::runExperiment() -> Error! No sample set.");
+    if( !mp_sample) throw NullPointerException( "Simulation::runSimulation() -> Error! No sample set.");
 
     m_intensity_map.setAllTo(0.0);
     DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-    if (!p_dwba_simulation) throw NullPointerException("Experiment::runExperiment() -> No dwba simulation");
+    if (!p_dwba_simulation) throw NullPointerException("Simulation::runSimulation() -> No dwba simulation");
     p_dwba_simulation->init(*this);
     p_dwba_simulation->run();
     m_intensity_map += p_dwba_simulation->getDWBAIntensity();
     delete p_dwba_simulation;
 }
 
-void Experiment::normalize()
+void Simulation::normalize()
 {
     if (!m_is_normalized) {
         m_instrument.normalize(&m_intensity_map);
@@ -176,42 +176,42 @@ void Experiment::normalize()
 }
 
 
-//! The ISample object will not be owned by the Experiment object
-void Experiment::setSample(const ISample &p_sample)
+//! The ISample object will not be owned by the Simulation object
+void Simulation::setSample(const ISample &p_sample)
 {
     delete mp_sample;
     mp_sample = p_sample.clone();
 }
 
-void Experiment::setSampleBuilder(const ISampleBuilder *p_sample_builder)
+void Simulation::setSampleBuilder(const ISampleBuilder *p_sample_builder)
 {
-    if( !p_sample_builder ) throw NullPointerException("Experiment::setSampleBuilder() -> Error! Attempt to set null sample builder.");
+    if( !p_sample_builder ) throw NullPointerException("Simulation::setSampleBuilder() -> Error! Attempt to set null sample builder.");
     mp_sample_builder = p_sample_builder;
     delete mp_sample;
     mp_sample = 0;
 }
 
-OutputData<double>* Experiment::getOutputDataClone() const
+OutputData<double>* Simulation::getOutputDataClone() const
 {
 	return m_intensity_map.clone();
 }
 
-const OutputData<double>* Experiment::getOutputData() const
+const OutputData<double>* Simulation::getOutputData() const
 {
     return &m_intensity_map;
 }
 
-void Experiment::setBeamParameters(double lambda, double alpha_i, double phi_i)
+void Simulation::setBeamParameters(double lambda, double alpha_i, double phi_i)
 {
     m_instrument.setBeamParameters(lambda, alpha_i, phi_i);
 }
 
-void Experiment::setBeamIntensity(double intensity)
+void Simulation::setBeamIntensity(double intensity)
 {
     m_instrument.setBeamIntensity(intensity);
 }
 
-std::string Experiment::addParametersToExternalPool(std::string path,
+std::string Simulation::addParametersToExternalPool(std::string path,
         ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
@@ -234,7 +234,7 @@ std::string Experiment::addParametersToExternalPool(std::string path,
     return new_path;
 }
 
-void Experiment::smearIntensityFromZAxisTilting()
+void Simulation::smearIntensityFromZAxisTilting()
 {
     size_t nbr_zetas = 5;
     double zeta_sigma = 45.0*Units::degree;
@@ -257,11 +257,11 @@ void Experiment::smearIntensityFromZAxisTilting()
     }
 }
 
-void Experiment::init_parameters()
+void Simulation::init_parameters()
 {
 }
 
-void Experiment::updateIntensityMapAxes()
+void Simulation::updateIntensityMapAxes()
 {
     m_intensity_map.clear();
     size_t detector_dimension = m_instrument.getDetectorDimension();
@@ -271,13 +271,13 @@ void Experiment::updateIntensityMapAxes()
     m_intensity_map.setAllTo(0.0);
 }
 
-void Experiment::updateSample()
+void Simulation::updateSample()
 {
     if (mp_sample_builder) {
         ISample *p_new_sample = mp_sample_builder->buildSample();
         std::string builder_type = typeid(*mp_sample_builder).name();
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
-            std::cout << "Experiment::updateSample() -> OMG, some body has called me from python, going to collapse in a second... " << std::endl;
+            std::cout << "Simulation::updateSample() -> OMG, some body has called me from python, going to collapse in a second... " << std::endl;
             setSample(*p_new_sample); // p_new_sample belongs to python, don't delete it
         } else {
             delete mp_sample;
@@ -286,7 +286,7 @@ void Experiment::updateSample()
     }
 }
 
-void Experiment::setDetectorParameters(const OutputData<double > &output_data)
+void Simulation::setDetectorParameters(const OutputData<double > &output_data)
 {
     m_instrument.matchDetectorParameters(output_data);
 
@@ -296,36 +296,36 @@ void Experiment::setDetectorParameters(const OutputData<double > &output_data)
     m_intensity_map.setAllTo(0.0);
 }
 
-void Experiment::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
+void Simulation::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
                                             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {
     m_instrument.setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min, alpha_f_max, isgisaxs_style);
     updateIntensityMapAxes();
 }
 
-void Experiment::setDetectorParameters(const DetectorParameters &params)
+void Simulation::setDetectorParameters(const DetectorParameters &params)
 {
     m_instrument.setDetectorParameters(params);
     updateIntensityMapAxes();
 }
 
-void Experiment::setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function)
+void Simulation::setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function)
 {
     m_instrument.setDetectorResolutionFunction(p_resolution_function);
 }
 
-double Experiment::deltaAlpha(double alpha, double zeta) const
+double Simulation::deltaAlpha(double alpha, double zeta) const
 {
     return std::sin(alpha)*(1.0/std::cos(zeta)-1.0);
 }
 
-double Experiment::deltaPhi(double alpha, double phi, double zeta) const
+double Simulation::deltaPhi(double alpha, double phi, double zeta) const
 {
     double qy2 = std::sin(phi)*std::sin(phi) - std::sin(alpha)*std::sin(alpha)*std::tan(zeta)*std::tan(zeta);
     return std::sqrt(qy2) - std::sin(phi);
 }
 
-void Experiment::createZetaAndProbVectors(std::vector<double>& zetas,
+void Simulation::createZetaAndProbVectors(std::vector<double>& zetas,
         std::vector<double>& probs, size_t nbr_zetas, double zeta_sigma) const
 {
     double zeta_step;
@@ -350,7 +350,7 @@ void Experiment::createZetaAndProbVectors(std::vector<double>& zetas,
     }
 }
 
-void Experiment::addToIntensityMap(double alpha, double phi, double value)
+void Simulation::addToIntensityMap(double alpha, double phi, double value)
 {
     const IAxis *p_alpha_axis = m_intensity_map.getAxis(NDetector2d::ALPHA_AXIS_NAME);
     const IAxis *p_phi_axis = m_intensity_map.getAxis(NDetector2d::PHI_AXIS_NAME);

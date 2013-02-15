@@ -3,7 +3,7 @@
 #include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
@@ -42,7 +42,7 @@
 
 TestIsGISAXS13::TestIsGISAXS13()
 : IFunctionalTest("TestIsGISAXS13")
-, mp_experiment(0)
+, mp_simulation(0)
 , mp_sample_builder(0)
 , mp_fitSuite(0)
 
@@ -53,8 +53,8 @@ TestIsGISAXS13::TestIsGISAXS13()
 
 void TestIsGISAXS13::execute()
 {
-    // initializing experiment and sample builder
-    initialiseExperiment();
+    // initializing simulation and sample builder
+    initializeSimulation();
 
     // run isgisaxs ex-13 style fit
     run_isgisaxs_fit();
@@ -101,7 +101,7 @@ void TestIsGISAXS13::run_isgisaxs_fit()
     chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
     //chiModule.setIntensityFunction( IntensityFunctionLog() );
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
-        mp_fitSuite->addExperimentAndRealData(*mp_experiment, *(*it), chiModule);
+        mp_fitSuite->addSimulationAndRealData(*mp_simulation, *(*it), chiModule);
     }
 
     mp_fitSuite->runFit();
@@ -174,17 +174,17 @@ void TestIsGISAXS13::run_isgisaxs_fit()
 
 
 /* ************************************************************************* */
-// initialize experiment
+// initialize simulation
 /* ************************************************************************* */
-void TestIsGISAXS13::initialiseExperiment()
+void TestIsGISAXS13::initializeSimulation()
 {
     delete mp_sample_builder;
     mp_sample_builder = new TestIsGISAXS5::SampleBuilder();
-    delete mp_experiment;
-    mp_experiment = new Experiment(mp_options);
-    mp_experiment->setSampleBuilder(mp_sample_builder);
-    mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    delete mp_simulation;
+    mp_simulation = new Simulation(mp_options);
+    mp_simulation->setSampleBuilder(mp_sample_builder);
+    mp_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    mp_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 }
 
 

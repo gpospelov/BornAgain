@@ -5,16 +5,16 @@
 #include "IsGISAXSTools.h"
 #include "MinimizerFactory.h"
 #include "ROOTGSLSimAnMinimizer.h"
-#include "TestToyExperiment.h"
+#include "TestToySimulation.h"
 
 #include <iostream>
 
 /* ************************************************************************* */
 //
 /* ************************************************************************* */
-void ToyExperiment::runExperiment()
+void ToySimulation::runSimulation()
 {
-    if( !m_func ) throw NullPointerException("ToyExperiment::runExperiment() -> Error! No function is defined.");
+    if( !m_func ) throw NullPointerException("ToySimulation::runSimulation() -> Error! No function is defined.");
     const std::string s_phi_f(NDetector2d::PHI_AXIS_NAME);
     const std::string s_alpha_f(NDetector2d::ALPHA_AXIS_NAME);
 
@@ -31,7 +31,7 @@ void ToyExperiment::runExperiment()
 }
 
 
-void ToyExperiment::init_parameters()
+void ToySimulation::init_parameters()
 {
     getParameterPool()->clear();
     for(size_t i=0; i<pars.size(); ++i) {
@@ -45,11 +45,11 @@ void ToyExperiment::init_parameters()
 /* ************************************************************************* */
 //
 /* ************************************************************************* */
-TestToyExperiment::TestToyExperiment()
+TestToySimulation::TestToySimulation()
     : m_func_object(0)
     , m_func(0)
     , m_sigma_noise(0.01)
-    , m_experiment(0)
+    , m_simulation(0)
     , m_real_data(0)
     , m_fitSuite(0)
 {
@@ -58,20 +58,20 @@ TestToyExperiment::TestToyExperiment()
 }
 
 
-TestToyExperiment::~TestToyExperiment()
+TestToySimulation::~TestToySimulation()
 {
     delete m_func_object;
     delete m_func;
-    delete m_experiment;
+    delete m_simulation;
     delete m_real_data;
     delete m_fitSuite;
 }
 
 
-void TestToyExperiment::execute()
+void TestToySimulation::execute()
 {
-    std::cout << "TestToyExperiment()::execute() -> Hello World!"   << std::endl;
-    initializeExperimentAndRealData();
+    std::cout << "TestToySimulation()::execute() -> Hello World!"   << std::endl;
+    initializeSimulationAndRealData();
 
     // setting up fitSuite
     m_fitSuite = new FitSuite();
@@ -96,7 +96,7 @@ void TestToyExperiment::execute()
 
     ChiSquaredModule chi_module;
     chi_module.setChiSquaredFunction(SquaredFunctionWithGaussianError(m_sigma_noise) );
-    m_fitSuite->addExperimentAndRealData(*m_experiment, *m_real_data, chi_module);
+    m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data, chi_module);
     m_fitSuite->runFit();
 
 }
@@ -106,24 +106,24 @@ void TestToyExperiment::execute()
 /* ************************************************************************* */
 //
 /* ************************************************************************* */
-void TestToyExperiment::initializeExperimentAndRealData()
+void TestToySimulation::initializeSimulationAndRealData()
 {
-    delete m_experiment;
-    m_experiment = new ToyExperiment(m_func);
+    delete m_simulation;
+    m_simulation = new ToySimulation(m_func);
 
     OutputData<double > tmp;
     tmp.addAxis(NDetector2d::PHI_AXIS_NAME, 100, m_func->GetXmin(), m_func->GetXmax());
     tmp.addAxis(NDetector2d::ALPHA_AXIS_NAME, 100, m_func->GetYmin(), m_func->GetYmax());
-    m_experiment->setDetectorParameters(tmp);
+    m_simulation->setDetectorParameters(tmp);
 
     // generating real data
     delete m_real_data;
-    m_experiment->setParameter(0, 1.0);
-    m_experiment->setParameter(1, 2.0);
-    m_experiment->setParameter(2, 2.5);
+    m_simulation->setParameter(0, 1.0);
+    m_simulation->setParameter(1, 2.0);
+    m_simulation->setParameter(2, 2.5);
 
-    m_experiment->runExperiment();
-    m_real_data = IsGISAXSTools::createDataWithGaussianNoise(*m_experiment->getOutputData(), m_sigma_noise);
+    m_simulation->runSimulation();
+    m_real_data = IsGISAXSTools::createDataWithGaussianNoise(*m_simulation->getOutputData(), m_sigma_noise);
 }
 
 

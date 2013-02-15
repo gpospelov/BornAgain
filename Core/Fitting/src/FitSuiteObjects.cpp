@@ -2,7 +2,7 @@
 
 
 
-FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_experiment_normalize(false), m_nfree_parameters(0), m_chi_squared_value(0)
+FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_simulation_normalize(false), m_nfree_parameters(0), m_chi_squared_value(0)
 {
     setName("FitSuiteObjects");
     init_parameters();
@@ -19,23 +19,23 @@ void FitSuiteObjects::clear()
 
 
 /* ************************************************************************* */
-// add to kit pair of (experiment, real data) for consecutive simulation and chi2 module
+// add to kit pair of (simulation, real data) for consecutive simulation and chi2 module
 /* ************************************************************************* */
-void FitSuiteObjects::add(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module, double weight)
+void FitSuiteObjects::add(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module, double weight)
 {
     m_total_weight += weight;
-    m_fit_objects.push_back(new FitObject(experiment, real_data, chi2_module, weight));
+    m_fit_objects.push_back(new FitObject(simulation, real_data, chi2_module, weight));
 }
 
 
 /* ************************************************************************* */
-// loop through all defined experiments and run they simulation
+// loop through all defined simulations and run them
 /* ************************************************************************* */
-void FitSuiteObjects::runExperiment()
+void FitSuiteObjects::runSimulations()
 {
     for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        (*it)->getExperiment()->runExperiment();
-        if(m_experiment_normalize) (*it)->getExperiment()->normalize();
+        (*it)->getSimulation()->runSimulation();
+        if(m_simulation_normalize) (*it)->getSimulation()->normalize();
     }
     m_chi_squared_value = calculateChiSquaredValue();
 }
@@ -109,7 +109,7 @@ double FitSuiteObjects::getSimulationMaxIntensity()
 {
     double result(0);
     for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        const OutputData<double > *data = (*it)->getExperiment()->getOutputData();
+        const OutputData<double > *data = (*it)->getSimulation()->getOutputData();
         OutputData<double >::const_iterator cit = std::max_element(data->begin(), data->end());
         result = std::max(result, *cit);
     }

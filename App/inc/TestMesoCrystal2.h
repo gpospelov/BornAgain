@@ -19,7 +19,7 @@
 #include "OutputData.h"
 #include "ISampleBuilder.h"
 
-class Experiment;
+class Simulation;
 class ISample;
 class MesoCrystal;
 class IFormFactor;
@@ -80,11 +80,11 @@ public:
 
 private:
     void initializeRealData();
-    void initializeExperiment(const OutputData<double> *output_data=0);
+    void initializeSimulation(const OutputData<double> *output_data=0);
 
     OutputData<double> *m_real_data;
     ISampleBuilder *m_sample_builder;
-    Experiment *m_experiment;
+    Simulation *m_simulation;
     FitSuite *m_fitSuite;
 };
 

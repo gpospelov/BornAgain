@@ -32,7 +32,7 @@ public:
 
     LayerDecoratorDWBASimulation *clone() const { throw NotImplementedException("LayerDecoratorDWBASimulation::clone() -> Error: not implemented."); }
 
-    virtual void init(const Experiment &experiment);
+    virtual void init(const Simulation &simulation);
 
     virtual void run();
 protected:

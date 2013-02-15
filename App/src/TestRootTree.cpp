@@ -4,7 +4,7 @@
 #include "ParticleDecoration.h"
 #include "Particle.h"
 #include "LayerDecorator.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "FormFactors.h"
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
@@ -22,7 +22,7 @@
 
 #include <vector>
 
-TestRootTree::TestRootTree() : mp_sample(0), mp_experiment(0), mp_data(0)
+TestRootTree::TestRootTree() : mp_sample(0), mp_simulation(0), mp_data(0)
 {
 
 }
@@ -31,7 +31,7 @@ TestRootTree::TestRootTree() : mp_sample(0), mp_experiment(0), mp_data(0)
 TestRootTree::~TestRootTree()
 {
     delete mp_sample;
-    delete mp_experiment;
+    delete mp_simulation;
     delete mp_data;
 }
 
@@ -107,13 +107,13 @@ void TestRootTree::complex_write()
         double phi_f_min(0.3*Units::degree), phi_f_max(0.072);
         double alpha_f_min(-0.4*Units::degree), alpha_f_max(0.066);
 
-        Experiment experiment(mp_options);
-        experiment.setSample(*mp_sample);
-        experiment.setDetectorParameters(nphi_f, phi_f_min, phi_f_max, nalpha_f , alpha_f_min, alpha_f_max);
-        experiment.setBeamParameters(1.77*Units::angstrom, -alpha_i, phi_i);
-        experiment.setBeamIntensity(1e7);
-        experiment.runExperiment();
-        experiment.normalize();
+        Simulation simulation(mp_options);
+        simulation.setSample(*mp_sample);
+        simulation.setDetectorParameters(nphi_f, phi_f_min, phi_f_max, nalpha_f , alpha_f_min, alpha_f_max);
+        simulation.setBeamParameters(1.77*Units::angstrom, -alpha_i, phi_i);
+        simulation.setBeamIntensity(1e7);
+        simulation.runSimulation();
+        simulation.normalize();
 
         // saving experimental parameter in event structure
         event->alpha_i = Units::rad2deg(alpha_i);
@@ -130,7 +130,7 @@ void TestRootTree::complex_write()
         event->malpha = Units::rad2deg(meso_alpha);
         // copying output data into event frame
         delete mp_data;
-        mp_data = experiment.getOutputDataClone();
+        mp_data = simulation.getOutputDataClone();
         IsGISAXSTools::exportOutputDataInVectors2D(*mp_data, event->vi, event->vphi_f, event->valpha_f);
 
         // lets switch to degtrees
@@ -203,17 +203,17 @@ void TestRootTree::complex_read()
 /* ************************************************************************* */
 void TestRootTree::simple_write()
 {
-    delete mp_experiment;
+    delete mp_simulation;
     delete mp_sample;
     delete mp_data;
 
     mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
 
-    // setting experiment
-    mp_experiment = new Experiment(mp_options);
-    mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    mp_experiment->setSample(*mp_sample);
+    // setting simulation
+    mp_simulation = new Simulation(mp_options);
+    mp_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    mp_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    mp_simulation->setSample(*mp_sample);
 
     // variables below will be written in the tree
     double intens1(0), intens2(0), alpha_i(0), phi_i(0), alpha_f(0), phi_f(0);
@@ -255,10 +255,10 @@ void TestRootTree::simple_write()
         phi_i = 0;
         nev = i_ev;
 
-        mp_experiment->setBeamParameters(1.0*Units::angstrom, alpha_i*Units::degree, phi_i);
-        mp_experiment->runExperiment();
+        mp_simulation->setBeamParameters(1.0*Units::angstrom, alpha_i*Units::degree, phi_i);
+        mp_simulation->runSimulation();
 
-        mp_data = mp_experiment->getOutputDataClone();
+        mp_data = mp_simulation->getOutputDataClone();
         // accessing to scattering data
         const IAxis *axis0 = mp_data->getAxis(0);
         const IAxis *axis1 = mp_data->getAxis(1);

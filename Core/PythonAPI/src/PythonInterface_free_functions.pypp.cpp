@@ -3,17 +3,11 @@
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 GCC_DIAG_OFF(missing-field-initializers);
-#include "Macros.h"
-GCC_DIAG_OFF(unused-parameter);
-GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
-GCC_DIAG_ON(unused-parameter);
-GCC_DIAG_ON(missing-field-initializers);
 #include "BasicVector3D.h"
-#include "Experiment.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
@@ -23,7 +17,6 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include "Experiment.h"
 #include "HomogeneousMaterial.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
@@ -59,6 +52,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Simulation.h"
 #include "Transform3D.h"
 #include "Units.h"
 #include "Types.h"
@@ -114,34 +108,34 @@ void register_free_functions(){
 
     { //::GetOutputData
     
-        typedef ::PyObject * ( *GetOutputData_function_type )( ::Experiment const & );
+        typedef ::PyObject * ( *GetOutputData_function_type )( ::Simulation const & );
         
         bp::def( 
             "GetOutputData"
             , GetOutputData_function_type( &::GetOutputData )
-            , ( bp::arg("experiment") ) );
+            , ( bp::arg("simulation") ) );
     
     }
 
     { //::GetOutputDataAxis
     
-        typedef ::PyObject * ( *GetOutputDataAxis_function_type )( ::Experiment const &,int );
+        typedef ::PyObject * ( *GetOutputDataAxis_function_type )( ::Simulation const &,int );
         
         bp::def( 
             "GetOutputDataAxis"
             , GetOutputDataAxis_function_type( &::GetOutputDataAxis )
-            , ( bp::arg("experiment"), bp::arg("naxis") ) );
+            , ( bp::arg("simulation"), bp::arg("naxis") ) );
     
     }
 
     { //::GetOutputDataNdimensions
     
-        typedef int ( *GetOutputDataNdimensions_function_type )( ::Experiment const & );
+        typedef int ( *GetOutputDataNdimensions_function_type )( ::Simulation const & );
         
         bp::def( 
             "GetOutputDataNdimensions"
             , GetOutputDataNdimensions_function_type( &::GetOutputDataNdimensions )
-            , ( bp::arg("experiment") ) );
+            , ( bp::arg("simulation") ) );
     
     }
 

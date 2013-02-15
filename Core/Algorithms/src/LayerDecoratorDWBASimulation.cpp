@@ -16,11 +16,11 @@ LayerDecoratorDWBASimulation::~LayerDecoratorDWBASimulation()
     delete mp_diffuseDWBA;
 }
 
-void LayerDecoratorDWBASimulation::init(const Experiment& experiment)
+void LayerDecoratorDWBASimulation::init(const Simulation& simulation)
 {
-    DWBASimulation::init(experiment);
+    DWBASimulation::init(simulation);
     if (mp_diffuseDWBA) {
-        mp_diffuseDWBA->init(experiment);
+        mp_diffuseDWBA->init(simulation);
     }
 }
 
@@ -37,7 +37,7 @@ void LayerDecoratorDWBASimulation::run()
 
 IInterferenceFunctionStrategy *LayerDecoratorDWBASimulation::createAndInitStrategy() const
 {
-    LayerDecoratorStrategyBuilder builder(*mp_layer_decorator, *mp_experiment, m_sim_params);
+    LayerDecoratorStrategyBuilder builder(*mp_layer_decorator, *mp_simulation, m_sim_params);
     if (mp_RT_function) builder.setReflectionTransmissionFunction(*mp_RT_function);
     IInterferenceFunctionStrategy *p_strategy = builder.createStrategy();
     return p_strategy;

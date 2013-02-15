@@ -25,7 +25,7 @@
 //#include "FormFactorPrism3.h"
 //#include "FormFactorPyramid.h"
 //#include "FormFactorSphereGaussianRadius.h"
-//#include "GISASExperiment.h"
+//#include "Experiment.h"
 //#include "HomogeneousMaterial.h"
 //#include "IClusteredParticles.h"
 //#include "ICompositeSample.h"

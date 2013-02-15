@@ -6,7 +6,7 @@
 #include "FitSuiteObserverFactory.h"
 #include "IFitSuiteStrategy.h"
 #include "FormFactors.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "IIntensityFunction.h"
 #include "IObserver.h"
 #include "InterferenceFunction1DParaCrystal.h"
@@ -243,7 +243,7 @@ void TestFittingModule2::initializeExperiment()
         throw NullPointerException("TestFittingModule2::initializeExperiment() -> No sample builder defined");
     }
     delete mp_experiment;
-    mp_experiment = new GISASExperiment(mp_options);
+    mp_experiment = new Experiment(mp_options);
     mp_experiment->setSampleBuilder(mp_sample_builder);
     mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
     mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);

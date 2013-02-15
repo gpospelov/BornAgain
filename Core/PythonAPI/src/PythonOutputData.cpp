@@ -20,9 +20,9 @@ PyObject *ExportOutputDataAxis(const OutputData<double > &output, int naxis);
 
 
 /* ************************************************************************* */
-// return number of dimensions in output data of GISASExperiment
+// return number of dimensions in output data of Experiment
 /* ************************************************************************* */
-int GetOutputDataNdimensions(const GISASExperiment &experiment)
+int GetOutputDataNdimensions(const Experiment &experiment)
 {
     const OutputData<double > *data = experiment.getOutputData();
     int ndims = data->getNdimensions();
@@ -31,9 +31,9 @@ int GetOutputDataNdimensions(const GISASExperiment &experiment)
 
 
 /* ************************************************************************* */
-// export output data array of GISASExperiment to python-numpy array object
+// export output data array of Experiment to python-numpy array object
 /* ************************************************************************* */
-PyObject *GetOutputData(const GISASExperiment &experiment)
+PyObject *GetOutputData(const Experiment &experiment)
 {
     const OutputData<double > *data = experiment.getOutputData();
     PyObject *obj = ExportOutputData(*data);
@@ -43,9 +43,9 @@ PyObject *GetOutputData(const GISASExperiment &experiment)
 
 /* ************************************************************************* */
 // return one dimensional python-numpy array representing binning of the axis
-// with given index of GISASExperiment's oputput data
+// with given index of Experiment's oputput data
 /* ************************************************************************* */
-PyObject *GetOutputDataAxis(const GISASExperiment &experiment, int naxis)
+PyObject *GetOutputDataAxis(const Experiment &experiment, int naxis)
 {
     const OutputData<double > *data = experiment.getOutputData();
     PyObject *obj = ExportOutputDataAxis(*data, naxis);

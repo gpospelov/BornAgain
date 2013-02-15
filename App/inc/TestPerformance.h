@@ -16,7 +16,7 @@
 
 #include "IFunctionalTest.h"
 #include "ISample.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 
 #include <string>
 #include <vector>
@@ -84,7 +84,7 @@ public:
     void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
-    GISASExperiment *m_experiment;
+    Experiment *m_experiment;
 };
 
 //! @class PerfTest_RotatedPyramid
@@ -97,7 +97,7 @@ public:
     void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
-    GISASExperiment *m_experiment;
+    Experiment *m_experiment;
 };
 
 
@@ -111,7 +111,7 @@ public:
     void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
-    GISASExperiment *m_experiment;
+    Experiment *m_experiment;
 };
 
 

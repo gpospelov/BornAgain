@@ -3,7 +3,7 @@
 #include "Units.h"
 #include "Utils.h"
 #include "MultiLayer.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
 #include "OutputDataIOFactory.h"
@@ -20,7 +20,7 @@ TestIsGISAXS3::TestIsGISAXS3() : IFunctionalTest("TestIsGISAXS3")
 
 void TestIsGISAXS3::execute()
 {
-    GISASExperiment experiment(mp_options);
+    Experiment experiment(mp_options);
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
             100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);

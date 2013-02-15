@@ -19,7 +19,7 @@
 #include "OutputData.h"
 #include "ISampleBuilder.h"
 
-class GISASExperiment;
+class Experiment;
 class ISample;
 class MesoCrystal;
 class IFormFactor;
@@ -84,7 +84,7 @@ private:
 
     OutputData<double> *m_real_data;
     ISampleBuilder *m_sample_builder;
-    GISASExperiment *m_experiment;
+    Experiment *m_experiment;
     FitSuite *m_fitSuite;
 };
 

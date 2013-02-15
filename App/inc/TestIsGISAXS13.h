@@ -18,7 +18,7 @@
 #include "IFunctionalTest.h"
 #include "ISampleBuilder.h"
 
-class GISASExperiment;
+class Experiment;
 class FitSuite;
 
 //- -------------------------------------------------------------------
@@ -47,7 +47,7 @@ private:
     //! run isgisaxs ex-13 style fit
     void run_isgisaxs_fit();
 
-    GISASExperiment *mp_experiment;
+    Experiment *mp_experiment;
     ISampleBuilder *mp_sample_builder;
     FitSuite *mp_fitSuite;
 };

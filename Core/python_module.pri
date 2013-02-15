@@ -16,7 +16,7 @@ HEADERS +=  \
     PythonAPI/inc/FormFactorPrism3.pypp.h \
     PythonAPI/inc/FormFactorPyramid.pypp.h \
     PythonAPI/inc/FormFactorSphereGaussianRadius.pypp.h \
-    PythonAPI/inc/GISASExperiment.pypp.h \
+    PythonAPI/inc/Experiment.pypp.h \
     PythonAPI/inc/HomogeneousMaterial.pypp.h \
     PythonAPI/inc/ICloneable.pypp.h \
     PythonAPI/inc/IClusteredParticles.pypp.h \
@@ -93,7 +93,7 @@ SOURCES +=  \
     PythonAPI/src/FormFactorPrism3.pypp.cpp \
     PythonAPI/src/FormFactorPyramid.pypp.cpp \
     PythonAPI/src/FormFactorSphereGaussianRadius.pypp.cpp \
-    PythonAPI/src/GISASExperiment.pypp.cpp \
+    PythonAPI/src/Experiment.pypp.cpp \
     PythonAPI/src/HomogeneousMaterial.pypp.cpp \
     PythonAPI/src/ICloneable.pypp.cpp \
     PythonAPI/src/IClusteredParticles.pypp.cpp \

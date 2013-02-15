@@ -16,7 +16,7 @@
 #include "FormFactorPrism3.pypp.h" 
 #include "FormFactorPyramid.pypp.h" 
 #include "FormFactorSphereGaussianRadius.pypp.h" 
-#include "GISASExperiment.pypp.h" 
+#include "Experiment.pypp.h" 
 #include "HomogeneousMaterial.pypp.h" 
 #include "ICloneable.pypp.h" 
 #include "IClusteredParticles.pypp.h" 
@@ -105,7 +105,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorPrism3_class();
     register_FormFactorPyramid_class();
     register_FormFactorSphereGaussianRadius_class();
-    register_GISASExperiment_class();
+    register_Experiment_class();
     register_kvector_t_class();
     register_cvector_t_class();
     register_Reflect3D_class();

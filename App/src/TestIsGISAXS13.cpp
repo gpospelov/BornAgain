@@ -3,7 +3,7 @@
 #include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
@@ -181,7 +181,7 @@ void TestIsGISAXS13::initialiseExperiment()
     delete mp_sample_builder;
     mp_sample_builder = new TestIsGISAXS5::SampleBuilder();
     delete mp_experiment;
-    mp_experiment = new GISASExperiment(mp_options);
+    mp_experiment = new Experiment(mp_options);
     mp_experiment->setSampleBuilder(mp_sample_builder);
     mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);

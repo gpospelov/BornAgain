@@ -23,7 +23,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "HomogeneousMaterial.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
@@ -62,65 +62,65 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Transform3D.h"
 #include "Units.h"
 #include "Types.h"
-#include "GISASExperiment.pypp.h"
+#include "Experiment.pypp.h"
 
 namespace bp = boost::python;
 
-struct GISASExperiment_wrapper : GISASExperiment, bp::wrapper< GISASExperiment > {
+struct Experiment_wrapper : Experiment, bp::wrapper< Experiment > {
 
-    GISASExperiment_wrapper( )
-    : GISASExperiment( )
-      , bp::wrapper< GISASExperiment >(){
+    Experiment_wrapper( )
+    : Experiment( )
+      , bp::wrapper< Experiment >(){
         // null constructor
     
     }
 
-    virtual ::GISASExperiment * clone(  ) const  {
+    virtual ::Experiment * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else{
-            return this->GISASExperiment::clone(  );
+            return this->Experiment::clone(  );
         }
     }
     
-    ::GISASExperiment * default_clone(  ) const  {
-        return GISASExperiment::clone( );
+    ::Experiment * default_clone(  ) const  {
+        return Experiment::clone( );
     }
 
     virtual void normalize(  ) {
         if( bp::override func_normalize = this->get_override( "normalize" ) )
             func_normalize(  );
         else{
-            this->GISASExperiment::normalize(  );
+            this->Experiment::normalize(  );
         }
     }
     
     void default_normalize(  ) {
-        GISASExperiment::normalize( );
+        Experiment::normalize( );
     }
 
     virtual void runExperiment(  ) {
         if( bp::override func_runExperiment = this->get_override( "runExperiment" ) )
             func_runExperiment(  );
         else{
-            this->GISASExperiment::runExperiment(  );
+            this->Experiment::runExperiment(  );
         }
     }
     
     void default_runExperiment(  ) {
-        GISASExperiment::runExperiment( );
+        Experiment::runExperiment( );
     }
 
     virtual void runExperimentElement( ::size_t index ) {
         if( bp::override func_runExperimentElement = this->get_override( "runExperimentElement" ) )
             func_runExperimentElement( index );
         else{
-            this->GISASExperiment::runExperimentElement( index );
+            this->Experiment::runExperimentElement( index );
         }
     }
     
     void default_runExperimentElement( ::size_t index ) {
-        GISASExperiment::runExperimentElement( index );
+        Experiment::runExperimentElement( index );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -173,54 +173,54 @@ struct GISASExperiment_wrapper : GISASExperiment, bp::wrapper< GISASExperiment >
 
 };
 
-void register_GISASExperiment_class(){
+void register_Experiment_class(){
 
-    bp::class_< GISASExperiment_wrapper, bp::bases< Experiment >, boost::noncopyable >( "GISASExperiment", bp::init< >() )    
+    bp::class_< Experiment_wrapper, bp::bases< Experiment >, boost::noncopyable >( "Experiment", bp::init< >() )    
         .def( 
             "clone"
-            , (::GISASExperiment * ( ::GISASExperiment::* )(  ) const)(&::GISASExperiment::clone)
-            , (::GISASExperiment * ( GISASExperiment_wrapper::* )(  ) const)(&GISASExperiment_wrapper::default_clone)
+            , (::Experiment * ( ::Experiment::* )(  ) const)(&::Experiment::clone)
+            , (::Experiment * ( Experiment_wrapper::* )(  ) const)(&Experiment_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "normalize"
-            , (void ( ::GISASExperiment::* )(  ) )(&::GISASExperiment::normalize)
-            , (void ( GISASExperiment_wrapper::* )(  ) )(&GISASExperiment_wrapper::default_normalize) )    
+            , (void ( ::Experiment::* )(  ) )(&::Experiment::normalize)
+            , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_normalize) )    
         .def( 
             "runExperiment"
-            , (void ( ::GISASExperiment::* )(  ) )(&::GISASExperiment::runExperiment)
-            , (void ( GISASExperiment_wrapper::* )(  ) )(&GISASExperiment_wrapper::default_runExperiment) )    
+            , (void ( ::Experiment::* )(  ) )(&::Experiment::runExperiment)
+            , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_runExperiment) )    
         .def( 
             "runExperimentElement"
-            , (void ( ::GISASExperiment::* )( ::size_t ) )(&::GISASExperiment::runExperimentElement)
-            , (void ( GISASExperiment_wrapper::* )( ::size_t ) )(&GISASExperiment_wrapper::default_runExperimentElement)
+            , (void ( ::Experiment::* )( ::size_t ) )(&::Experiment::runExperimentElement)
+            , (void ( Experiment_wrapper::* )( ::size_t ) )(&Experiment_wrapper::default_runExperimentElement)
             , ( bp::arg("index") ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::GISASExperiment::* )( ::size_t,double,double,::size_t,double,double,bool ) )( &::GISASExperiment::setDetectorParameters )
+            , (void ( ::Experiment::* )( ::size_t,double,double,::size_t,double,double,bool ) )( &::Experiment::setDetectorParameters )
             , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::GISASExperiment::* )( ::DetectorParameters const & ) )( &::GISASExperiment::setDetectorParameters )
+            , (void ( ::Experiment::* )( ::DetectorParameters const & ) )( &::Experiment::setDetectorParameters )
             , ( bp::arg("params") ) )    
         .def( 
             "smearIntensityFromZAxisTilting"
-            , (void ( ::GISASExperiment::* )(  ) )( &::GISASExperiment::smearIntensityFromZAxisTilting ) )    
+            , (void ( ::Experiment::* )(  ) )( &::Experiment::smearIntensityFromZAxisTilting ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
-            , (bool ( GISASExperiment_wrapper::* )(  ) )(&GISASExperiment_wrapper::default_areParametersChanged) )    
+            , (bool ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_areParametersChanged) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
-            , (::ParameterPool * ( GISASExperiment_wrapper::* )(  ) const)(&GISASExperiment_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( Experiment_wrapper::* )(  ) const)(&Experiment_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
-            , (void ( GISASExperiment_wrapper::* )(  ) const)(&GISASExperiment_wrapper::default_printParameters) )    
+            , (void ( Experiment_wrapper::* )(  ) const)(&Experiment_wrapper::default_printParameters) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)
-            , (void ( GISASExperiment_wrapper::* )(  ) )(&GISASExperiment_wrapper::default_setParametersAreChanged) );
+            , (void ( Experiment_wrapper::* )(  ) )(&Experiment_wrapper::default_setParametersAreChanged) );
 
 }

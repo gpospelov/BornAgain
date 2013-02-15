@@ -6,7 +6,7 @@
 #include "InterferenceFunctionNone.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "Units.h"
 #include "MaterialManager.h"
 #include "OutputDataIOFactory.h"
@@ -50,7 +50,7 @@ void FunctionalTests::IsGISAXS01::run()
     // ---------------------
     // building experiment
     // ---------------------
-    GISASExperiment experiment;
+    Experiment experiment;
     experiment.setDetectorParameters(100,-1.0*Units::degree, 1.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 

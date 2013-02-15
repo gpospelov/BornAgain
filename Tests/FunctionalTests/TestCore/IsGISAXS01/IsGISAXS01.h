@@ -5,10 +5,6 @@
 #include <string>
 #include "OutputData.h"
 
-class MultiLayer;
-class GISASExperiment;
-
-
 namespace FunctionalTests {
 
 class IsGISAXS01
@@ -25,9 +21,6 @@ private:
     OutputData<double> *m_result;
 };
 
-
-}
-
-
+} // END namespace FunctionalTests
 
 #endif

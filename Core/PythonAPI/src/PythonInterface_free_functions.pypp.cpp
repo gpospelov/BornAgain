@@ -23,7 +23,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "HomogeneousMaterial.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
@@ -114,7 +114,7 @@ void register_free_functions(){
 
     { //::GetOutputData
     
-        typedef ::PyObject * ( *GetOutputData_function_type )( ::GISASExperiment const & );
+        typedef ::PyObject * ( *GetOutputData_function_type )( ::Experiment const & );
         
         bp::def( 
             "GetOutputData"
@@ -125,7 +125,7 @@ void register_free_functions(){
 
     { //::GetOutputDataAxis
     
-        typedef ::PyObject * ( *GetOutputDataAxis_function_type )( ::GISASExperiment const &,int );
+        typedef ::PyObject * ( *GetOutputDataAxis_function_type )( ::Experiment const &,int );
         
         bp::def( 
             "GetOutputDataAxis"
@@ -136,7 +136,7 @@ void register_free_functions(){
 
     { //::GetOutputDataNdimensions
     
-        typedef int ( *GetOutputDataNdimensions_function_type )( ::GISASExperiment const & );
+        typedef int ( *GetOutputDataNdimensions_function_type )( ::Experiment const & );
         
         bp::def( 
             "GetOutputDataNdimensions"

@@ -18,7 +18,6 @@ HEADERS += \
     CVectorTest.h \
     DetectorTest.h \
     ExperimentTest.h \
-    GISASExperimentTest.h \
     InstrumentTest.h \
     IParameterizedTest.h \
     KVectorTest.h \

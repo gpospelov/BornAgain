@@ -72,6 +72,18 @@ std::string Instrument::addParametersToExternalPool(std::string path,
     return new_path;
 }
 
+void Instrument::normalize(OutputData<double> *p_intensity) const
+{
+    // normalize by intensity, if strictly positive
+    if (getIntensity()>0.0) {
+        p_intensity->scaleAll(getIntensity());
+    }
+
+    // normalize by detector cell sizes
+    double sin_alpha_i = std::abs(getBeam().getCentralK().cosTheta());
+    m_detector.normalize(p_intensity, sin_alpha_i);
+}
+
 void Instrument::setDetectorResolutionFunction(
         IResolutionFunction2D* p_resolution_function)
 {

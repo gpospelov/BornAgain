@@ -4,7 +4,7 @@
 #include "ParticleDecoration.h"
 #include "Particle.h"
 #include "LayerDecorator.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "FormFactors.h"
 #include "Units.h"
 #include "InterferenceFunctionNone.h"
@@ -107,7 +107,7 @@ void TestRootTree::complex_write()
         double phi_f_min(0.3*Units::degree), phi_f_max(0.072);
         double alpha_f_min(-0.4*Units::degree), alpha_f_max(0.066);
 
-        GISASExperiment experiment(mp_options);
+        Experiment experiment(mp_options);
         experiment.setSample(*mp_sample);
         experiment.setDetectorParameters(nphi_f, phi_f_min, phi_f_max, nalpha_f , alpha_f_min, alpha_f_max);
         experiment.setBeamParameters(1.77*Units::angstrom, -alpha_i, phi_i);
@@ -210,7 +210,7 @@ void TestRootTree::simple_write()
     mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
 
     // setting experiment
-    mp_experiment = new GISASExperiment(mp_options);
+    mp_experiment = new Experiment(mp_options);
     mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     mp_experiment->setSample(*mp_sample);

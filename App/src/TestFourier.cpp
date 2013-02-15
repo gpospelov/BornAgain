@@ -1,6 +1,6 @@
 #include "TestFourier.h"
 
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "Units.h"
 #include "Utils.h"
 #include "IsGISAXSTools.h"
@@ -25,7 +25,7 @@ void TestFourier::execute()
 {
     if (mp_intensity_output) delete mp_intensity_output;
     initializeSample();
-    GISASExperiment experiment(mp_options);
+    Experiment experiment(mp_options);
     experiment.setSample(*mp_sample);
     experiment.setDetectorParameters(256, 0.3*Units::degree, 10.0*Units::degree
             ,256, 0.0*Units::degree, 10.0*Units::degree);

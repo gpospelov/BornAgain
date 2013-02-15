@@ -6,7 +6,7 @@
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "FormFactors.h"
 #include "DrawHelper.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "IsGISAXSTools.h"
 #include "Lattice.h"
 #include "LayerDecorator.h"

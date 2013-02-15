@@ -6,7 +6,6 @@
 #include "CVectorTest.h"
 #include "DetectorTest.h"
 #include "ExperimentTest.h"
-#include "GISASExperimentTest.h"
 #include "InstrumentTest.h"
 #include "IParameterizedTest.h"
 #include "KVectorTest.h"

@@ -21,7 +21,7 @@
 #include "ISampleBuilder.h"
 #include <string>
 
-class GISASExperiment;
+class Experiment;
 class FitSuite;
 
 //- -------------------------------------------------------------------
@@ -83,7 +83,7 @@ private:
     //!  print axes
     void print_axes(IsGISAXSData::DataSet_t &data);
 
-    GISASExperiment *m_experiment;
+    Experiment *m_experiment;
     ISampleBuilder *m_sample_builder;
     FitSuite *m_fitSuite;
 };

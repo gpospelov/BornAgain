@@ -6,7 +6,7 @@
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "FormFactors.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
@@ -89,7 +89,7 @@ void TestFittingModule3::initializeExperiment()
         throw NullPointerException("TestFittingModule3::initializeExperiment() -> No sample defined");
     }
     delete m_experiment;
-    m_experiment = new GISASExperiment(mp_options);
+    m_experiment = new Experiment(mp_options);
     m_experiment->setSample(*m_sample);
     m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
 //    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 1, 0.01, 0.011);

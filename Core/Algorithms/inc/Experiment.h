@@ -29,16 +29,22 @@ public:
     Experiment(const ProgramOptions *p_options);
     Experiment(const ISample &p_sample, const ProgramOptions *p_options=0);
     Experiment(const ISampleBuilder *p_sample_builder, const ProgramOptions *p_options=0);
-    virtual ~Experiment() {delete mp_sample;}
+    ~Experiment() {delete mp_sample;}
 
     //! clone method fot the experiment
-    virtual Experiment *clone() const;
+    Experiment *clone() const;
+
+    //! put into a clean state for running a simulation
+    void prepareSimulation();
 
     //! run a simulation with the current parameter settings
-    virtual void runExperiment();
+    void runExperiment();
+
+    //! calculate intensity for a single detector element
+    void runExperimentElement(size_t index);
 
     //! normalize the detector counts
-    virtual void normalize();
+    void normalize();
 
     //! set the sample to be tested
     void setSample(const ISample &p_sample);
@@ -68,8 +74,17 @@ public:
     //! set detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double > &output_data);
 
+    //! set detector parameters using angle ranges
+    void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
+            size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style=false);
+
+    //! set detector parameters using parameter object
+    void setDetectorParameters(const DetectorParameters &params);
     //! get simulation parameters
     SimulationParameters getSimulationParameters() const { return m_sim_params; }
+
+    //! define resolution function for detector
+    void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
 
     //! set simulation parameters
     void setSimulationParameters(const SimulationParameters &sim_params) {
@@ -80,16 +95,18 @@ public:
     void setProgramOptions(ProgramOptions *p_options) { mp_options = p_options; }
 
     //! add parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
+    std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
+    //! apply smearing of intensity due to tilting of z-axis (DEPRECATED)
+    void smearIntensityFromZAxisTilting();
 protected:
     Experiment(const Experiment &other);
 
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters();
+    void init_parameters();
 
     //! Default implementation only adds the detector axes
-    virtual void updateIntensityMapAxes();
+    void updateIntensityMapAxes();
 
     //! Update the sample by calling the sample builder, if present
     void updateSample();
@@ -101,6 +118,11 @@ protected:
     bool m_is_normalized;
     const ProgramOptions *mp_options;
     SimulationParameters m_sim_params;
+    //TODO: move to private when Experiment is removed
+    double deltaAlpha(double alpha, double zeta) const;
+    double deltaPhi(double alpha, double phi, double zeta) const;
+    void createZetaAndProbVectors(std::vector<double> &zetas, std::vector<double> &probs, size_t nbr_zetas, double zeta_sigma) const;
+    void addToIntensityMap(double alpha, double phi, double value);
 };
 
 

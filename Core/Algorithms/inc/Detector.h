@@ -47,16 +47,25 @@ public:
 	//! add parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
+    //! normalize intensity data with detector cell sizes
+    void normalize(OutputData<double> *p_data, double sin_alpha_i) const;
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 	bool isCorrectAxisIndex(size_t index) const { return index<getDimension(); }
+
+	//! check if data has a compatible format with the detector
+    bool dataShapeMatches(const OutputData<double> *p_data) const;
+
 private:
     //! swap function
     void swapContent(Detector &other);
 
     //! initialize axis the way IsGISAXS does
     void initializeAnglesIsgisaxs(AxisDouble *p_axis, const TSampledRange<double> &axis_range) const;
+
+    //! calculate the solid angle for the given data element
+    double getSolidAngle(OutputData<double> *p_data, size_t index) const;
 
     SafePointerVector<IAxis> m_axes;
 	IDetectorResolution *mp_detector_resolution;

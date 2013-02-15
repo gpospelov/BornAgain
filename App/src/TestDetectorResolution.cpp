@@ -3,7 +3,7 @@
 #include "IsGISAXSTools.h"
 #include "Types.h"
 #include "Units.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "MultiLayer.h"
 #include "MaterialManager.h"
 #include "LayerDecorator.h"
@@ -38,7 +38,7 @@ void TestDetectorResolution::execute()
 {
     if (mp_intensity_output) delete mp_intensity_output;
     initializeSample();
-    GISASExperiment experiment(mp_options);
+    Experiment experiment(mp_options);
     experiment.setSample(*mp_sample);
     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree
             ,100, 0.0*Units::degree, 2.0*Units::degree);

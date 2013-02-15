@@ -4,7 +4,7 @@
 #include "FormFactorBox.h"
 #include "ParticleDecoration.h"
 #include "LayerDecorator.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "OutputDataIOFactory.h"
 #include "PositionParticleInfo.h"
 #include "Utils.h"
@@ -98,7 +98,7 @@ void FunctionalTests::IsGISAXS07::run()
     // ---------------------
     // building experiment
     // ---------------------
-    GISASExperiment experiment;
+    Experiment experiment;
     experiment.setDetectorParameters(100, 0.0*Units::degree, 1.0*Units::degree,
                 100, 0.0*Units::degree, 1.0*Units::degree, true);
     experiment.setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);

@@ -18,7 +18,7 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "ISampleBuilder.h"
 #include "SafePointerVector.h"
 #include <vector>
@@ -43,7 +43,7 @@ private:
     void initializeExperiment();
     void initializeRealData();
 
-    GISASExperiment *m_experiment;
+    Experiment *m_experiment;
     ISample *m_sample;
     FitSuite *m_fitSuite;
     OutputData<double > *m_real_data;

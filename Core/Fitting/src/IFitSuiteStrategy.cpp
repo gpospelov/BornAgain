@@ -5,7 +5,7 @@
 #include "OutputData.h"
 #include "IChiSquaredModule.h"
 #include "Experiment.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "IMinimizer.h"
 #include "MathFunctions.h"
 #include "OutputDataFunctions.h"

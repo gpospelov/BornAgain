@@ -6,7 +6,7 @@
 #include "FitSuiteObserverFactory.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactors.h"
-#include "GISASExperiment.h"
+#include "Experiment.h"
 #include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
@@ -483,7 +483,7 @@ void TestMesoCrystal2::initializeExperiment(const OutputData<double> *output_dat
 {
     delete m_experiment;
 
-    m_experiment = new GISASExperiment(mp_options);
+    m_experiment = new Experiment(mp_options);
     m_experiment->setSampleBuilder( m_sample_builder );
     m_experiment->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     m_experiment->setBeamIntensity(8e12);

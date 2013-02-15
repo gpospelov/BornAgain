@@ -19,7 +19,7 @@ void DWBASimulation::init(const Experiment& experiment)
         mp_experiment = experiment.clone();
     }
     m_dwba_intensity.clear();
-    Detector detector = experiment.getDetector();
+    Detector detector = experiment.getInstrument().getDetector();
     size_t detector_dimension = detector.getDimension();
     for (size_t dim=0; dim<detector_dimension; ++dim) {
         m_dwba_intensity.addAxis(detector.getAxis(dim));
@@ -27,7 +27,7 @@ void DWBASimulation::init(const Experiment& experiment)
     if (experiment.getOutputData()->getMask()) {
         m_dwba_intensity.setMask(*experiment.getOutputData()->getMask());
     }
-    Beam beam = experiment.getBeam();
+    Beam beam = experiment.getInstrument().getBeam();
     m_ki = beam.getCentralK();
     kvector_t ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     m_alpha_i = std::asin(ki_real.z()/ki_real.mag());

@@ -107,7 +107,7 @@ void LayerDecoratorStrategyBuilder::collectInterferenceFunctions()
 
 double LayerDecoratorStrategyBuilder::getWavelength()
 {
-    cvector_t ki = mp_experiment->getBeam().getCentralK();
+    cvector_t ki = mp_experiment->getInstrument().getBeam().getCentralK();
     kvector_t ki_real(ki.x().real(), ki.y().real(), ki.z().real());
     return 2.0*M_PI/ki_real.mag();
 }

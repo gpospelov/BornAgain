@@ -55,30 +55,15 @@ public:
 
     const OutputData<double>* getOutputData() const;
 
-    Beam getBeam() const
-    {
-        return m_instrument.getBeam();
-    }
+    //! get the instrument containing beam and detector information
+    Instrument &getInstrument() { return m_instrument; }
+    const Instrument &getInstrument() const { return m_instrument; }
 
-    void setBeam(Beam beam)
-    {
-        m_instrument.setBeam(beam);
-    }
-
-    Detector getDetector() const
-    {
-        return m_instrument.getDetector();
-    }
-
+    //! set beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double lambda, double alpha_i, double phi_i);
 
+    //! set beam intensity from here (forwarded to Instrument)
     void setBeamIntensity(double intensity);
-
-    //! add parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
-
-    //! set the program options
-    void setProgramOptions(ProgramOptions *p_options) { mp_options = p_options; }
 
     //! set detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double > &output_data);
@@ -90,6 +75,12 @@ public:
     void setSimulationParameters(const SimulationParameters &sim_params) {
         m_sim_params = sim_params;
     }
+
+    //! set the program options
+    void setProgramOptions(ProgramOptions *p_options) { mp_options = p_options; }
+
+    //! add parameters from local pool to external pool and call recursion over direct children
+    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
 protected:
     Experiment(const Experiment &other);

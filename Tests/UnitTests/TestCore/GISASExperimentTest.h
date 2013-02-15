@@ -49,9 +49,9 @@ TEST_F(GISASExperimentTest, GISASExperimentInitialState)
     EXPECT_EQ( NULL, emptyExperiment.getSample());
     EXPECT_EQ( size_t(10000), emptyExperiment.getOutputData()->getAllocatedSize());
     EXPECT_EQ( size_t(2), emptyExperiment.getOutputData()->getNdimensions());
-    EXPECT_TRUE(emptyExperiment.getOutputData()->getNdimensions() == emptyExperiment.getDetector().getDimension() );
-    EXPECT_TRUE(std::string(NDetector2d::PHI_AXIS_NAME) == emptyExperiment.getDetector().getAxis(0).getName());
-    EXPECT_TRUE(std::string(NDetector2d::ALPHA_AXIS_NAME) == emptyExperiment.getDetector().getAxis(1).getName());
+    EXPECT_TRUE(emptyExperiment.getOutputData()->getNdimensions() == emptyExperiment.getInstrument().getDetectorDimension() );
+    EXPECT_TRUE(std::string(NDetector2d::PHI_AXIS_NAME) == emptyExperiment.getInstrument().getDetector().getAxis(0).getName());
+    EXPECT_TRUE(std::string(NDetector2d::ALPHA_AXIS_NAME) == emptyExperiment.getInstrument().getDetector().getAxis(1).getName());
 }
 
 
@@ -61,8 +61,8 @@ TEST_F(GISASExperimentTest, GISASExperimentInitialStateOfClone)
     EXPECT_EQ( NULL, emptyClonedExperiment->getSample());
     EXPECT_EQ( size_t(10000), emptyClonedExperiment->getOutputData()->getAllocatedSize());
     EXPECT_EQ( size_t(2), emptyClonedExperiment->getOutputData()->getNdimensions());
-    EXPECT_TRUE(emptyClonedExperiment->getOutputData()->getNdimensions() == emptyClonedExperiment->getDetector().getDimension() );
-    EXPECT_EQ( double(1), emptyClonedExperiment->getBeam().getIntensity());
+    EXPECT_TRUE(emptyClonedExperiment->getOutputData()->getNdimensions() == emptyClonedExperiment->getInstrument().getDetector().getDimension() );
+    EXPECT_EQ( double(1), emptyClonedExperiment->getInstrument().getIntensity());
     delete emptyClonedExperiment;
 }
 
@@ -76,7 +76,7 @@ TEST_F(GISASExperimentTest, GISASExperimentClone)
     delete originalExperiment;
 
     EXPECT_TRUE( clonedExperiment->getOutputData()->hasSameShape(test_data));
-    EXPECT_EQ( double(10), clonedExperiment->getBeam().getIntensity());
+    EXPECT_EQ( double(10), clonedExperiment->getInstrument().getIntensity());
     EXPECT_TRUE( NULL == clonedExperiment->getSample());
 
     delete clonedExperiment;

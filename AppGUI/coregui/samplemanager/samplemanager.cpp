@@ -4,16 +4,22 @@
 #include <QDockWidget>
 #include <QAbstractItemView>
 
-
 SampleManager::SampleManager(QWidget *parent)
-    : QMainWindow(parent)
+//    : QMainWindow(parent)
+    : Manhattan::FancyMainWindow(parent)
 {
 
-    setObjectName(QLatin1String("SampleManager"));
+    setObjectName(QLatin1String("EditorWidget"));
+//    setCentralWidget(m_stack);
     setDocumentMode(true);
     setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
     setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
     setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
+//    setObjectName(QLatin1String("SampleManager"));
+//    setDocumentMode(true);
+//    setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
+//    setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
+//    setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
     initSubWindows();
 
@@ -34,14 +40,17 @@ SampleManager::SampleManager(QWidget *parent)
 
 }
 
-QDockWidget *SampleManager::addDockForWidget(QWidget *w)
-{
-    QDockWidget *dock = new QDockWidget(tr("Customers"), this);
-    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    dock->setWidget(w);
-//    addDockWidget(Qt::RightDockWidgetArea, dock);
-    return dock;
-}
+
+
+
+//QDockWidget *SampleManager::addDockForWidget(QWidget *w)
+//{
+//    QDockWidget *dock = new QDockWidget(tr("Customers"), this);
+//    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+//    dock->setWidget(w);
+////    addDockWidget(Qt::RightDockWidgetArea, dock);
+//    return dock;
+//}
 
 
 void SampleManager::initSubWindows()
@@ -72,28 +81,51 @@ void SampleManager::initSubWindows()
 
 void SampleManager::resetToDefaultLayout()
 {
-//    setTrackingEnabled(false);
-//    QList<QDockWidget *> dockWidgetList = dockWidgets();
-//    return qFindChildren<QDockWidget *>(this);
-
-//    QList<QDockWidget *> dockWidgetList = findChildren<QDockWidget *>(this);
-//    foreach (QDockWidget *dockWidget, dockWidgetList) {
-//        dockWidget->setFloating(false);
-//        removeDockWidget(dockWidget);
-//    }
+    setTrackingEnabled(false);
+    QList<QDockWidget *> dockWidgetList = dockWidgets();
+    foreach (QDockWidget *dockWidget, dockWidgetList) {
+        dockWidget->setFloating(false);
+        removeDockWidget(dockWidget);
+    }
 
     addDockWidget(Qt::LeftDockWidgetArea, m_dockWidgets[WidgetBoxSubWindow]);
     addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[SampleInspectorSubWindow]);
     addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[PropertyEditorSubWindow]);
     addDockWidget(Qt::BottomDockWidgetArea, m_dockWidgets[SampleWorkspaceSubWindow]);
 
-//    tabifyDockWidget(m_dockWidgets[ActionEditorSubWindow],
-//                     m_dockWidgets[SignalSlotEditorSubWindow]);
+    tabifyDockWidget(m_dockWidgets[SampleInspectorSubWindow],
+                     m_dockWidgets[PropertyEditorSubWindow]);
 
-//    foreach (QDockWidget *dockWidget, dockWidgetList)
-//        dockWidget->show();
+    foreach (QDockWidget *dockWidget, dockWidgetList)
+        dockWidget->show();
 
-//    setTrackingEnabled(true);
+    setTrackingEnabled(true);
 }
+
+//void SampleManager::resetToDefaultLayout()
+//{
+////    setTrackingEnabled(false);
+////    QList<QDockWidget *> dockWidgetList = dockWidgets();
+////    return qFindChildren<QDockWidget *>(this);
+
+////    QList<QDockWidget *> dockWidgetList = findChildren<QDockWidget *>(this);
+////    foreach (QDockWidget *dockWidget, dockWidgetList) {
+////        dockWidget->setFloating(false);
+////        removeDockWidget(dockWidget);
+////    }
+
+//    addDockWidget(Qt::LeftDockWidgetArea, m_dockWidgets[WidgetBoxSubWindow]);
+//    addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[SampleInspectorSubWindow]);
+//    addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[PropertyEditorSubWindow]);
+//    addDockWidget(Qt::BottomDockWidgetArea, m_dockWidgets[SampleWorkspaceSubWindow]);
+
+////    tabifyDockWidget(m_dockWidgets[ActionEditorSubWindow],
+////                     m_dockWidgets[SignalSlotEditorSubWindow]);
+
+////    foreach (QDockWidget *dockWidget, dockWidgetList)
+////        dockWidget->show();
+
+////    setTrackingEnabled(true);
+//}
 
 

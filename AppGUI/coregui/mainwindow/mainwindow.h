@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-//#include "fancymainwindow.h"
+#include "fancymainwindow.h"
 
 namespace Manhattan {
     class FancyTabWidget;
@@ -15,8 +15,8 @@ class ExperimentManager;
 class SimulationManager;
 class FitManager;
 
-class MainWindow : public QMainWindow
-//class MainWindow : public FancyMainWindow
+//class MainWindow : public QMainWindow
+class MainWindow : public Manhattan::FancyMainWindow
 {
     Q_OBJECT
     

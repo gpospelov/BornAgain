@@ -850,7 +850,7 @@ Bool_t TGQt::Init(void* /*display*/)
 {
    //*-*-*-*-*-*-*-*-*-*-*-*-*-*Qt GUI initialization-*-*-*-*-*-*-*-*-*-*-*-*-*-*
    //*-*                        ========================                      *-*
-   fprintf(stderr,"** $Id: TGQt.cxx 42700 2012-01-18 14:33:18Z rdm $ this=%p\n",this);
+   //fprintf(stderr,"** $Id: TGQt.cxx 42700 2012-01-18 14:33:18Z rdm $ this=%p\n",this);
 #ifndef R__QTWIN32
    extern void qt_x11_set_global_double_buffer(bool);
 //   qt_x11_set_global_double_buffer(false);

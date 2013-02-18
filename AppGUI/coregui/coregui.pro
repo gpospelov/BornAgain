@@ -14,11 +14,11 @@ TEMPLATE = app
 
 # making standard shared library extension
 QMAKE_EXTENSION_SHLIB = so
-CONFIG  -= app_bundle
+#CONFIG  -= app_bundle
 OBJECTS_DIR = obj
-MOC_DIR = obj
-UI_DIR  = obj
-RCC_DIR = obj
+#MOC_DIR = obj
+#UI_DIR  = obj
+#RCC_DIR = obj
 
 SOURCES += \
     mainwindow/imode.cpp \
@@ -49,9 +49,12 @@ HEADERS  += \
     utils/ba_fancytabbar.h \
     utils/ba_stylehelper.h
 
+
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/experimentmanager $$PWD/simulationmanager $$PWD/fitmanager
 LIBS += $$PWD/../../lib/libqt-manhattan-style.so
 INCLUDEPATH += $$PWD/../externals/qt-manhattan-style
+LIBS += $$PWD/../../lib/libQtRoot.so $$PWD/../../lib/libGQt.so
+INCLUDEPATH += $$PWD/../externals/qt-root/inc
 
 #include(/opt/local/include/root/rootcint.pri)
 MYROOT = $$(ROOTSYS)
@@ -66,7 +69,9 @@ isEmpty(MYROOT) {
 !isEmpty(MYROOT) {
   !exists($${MYROOT}/bin/root-config): error("No config file "$${MYROOT}/bin/root-config)
   INCLUDEPATH += $$system($${MYROOT}/bin/root-config --incdir)
-  LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lQtRoot -lThread -lpthread -lm -ldl
+  #LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
+  #LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
+  LIBS += $$system($${MYROOT}/bin/root-config --glibs )
   MYROOTCINT = $${MYROOT}/bin/rootcint
 }
 

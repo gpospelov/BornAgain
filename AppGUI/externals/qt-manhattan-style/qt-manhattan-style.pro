@@ -1,10 +1,4 @@
-# taken from https://github.com/tegesoft/qt-manhattan
-
-#-------------------------------------------------
-#
-# Project created by QtCreator 2013-01-31T11:37:22
-#
-#-------------------------------------------------
+# Application visual style as in qt-creator, taken from https://github.com/tegesoft/qt-manhattan
 TARGET = qt-manhattan-style
 TEMPLATE = lib
 
@@ -14,12 +8,14 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 # making standard shared library extension
 QMAKE_EXTENSION_SHLIB = so
 OBJECTS_DIR = obj
+#UI_DIR = .ui
+#MOC_DIR = .moc
 CONFIG  += plugin # to remove versions from file name
 
 # The code still used some deprecated stuff
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x040900
 
-LIBS -= Users/pospelov/nest/software/Qt5.0.1/5.0.1/clang_64/qtbase/lib
+#LIBS -= U/sers/pospelov/nest/software/Qt5.0.1/5.0.1/clang_64/qtbase/lib
 
 DEFINES += QTMANHATTANSTYLE_LIBRARY
 
@@ -92,6 +88,6 @@ OTHER_FILES += \
 # -----------------------------------------------------------------------------
 target.path = $$PWD/../../../lib
 INSTALLS += target
-#QMAKE_DISTCLEAN += $$target.path/$(TARGET)
+QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 QMAKE_POST_LINK = (make install)

@@ -14,8 +14,9 @@
 #include <iostream>
 #include <QStatusBar>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
-//    : FancyMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent)
+//    : QMainWindow(parent)
+    : Manhattan::FancyMainWindow(parent)
     , m_tabWidget(0)
     , m_welcomeManager(0)
     , m_sampleManager(0)

@@ -33,7 +33,8 @@ SOURCES += \
     samplemanager/designercomponents.cpp \
     mainwindow/taskselectorwidget.cpp \
     utils/ba_fancytabbar.cpp \
-    utils/ba_stylehelper.cpp
+    utils/ba_stylehelper.cpp \
+    utils/rootcanvas.cpp
 
 HEADERS  += \
     mainwindow/imode.h \
@@ -47,7 +48,8 @@ HEADERS  += \
     samplemanager/designercomponents.h \
     mainwindow/taskselectorwidget.h \
     utils/ba_fancytabbar.h \
-    utils/ba_stylehelper.h
+    utils/ba_stylehelper.h \
+    utils/rootcanvas.h
 
 
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/experimentmanager $$PWD/simulationmanager $$PWD/fitmanager

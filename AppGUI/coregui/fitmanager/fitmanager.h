@@ -21,8 +21,8 @@ public slots:
     void print_something();
 
 private:
-    TQtWidget *m_qcanvas;
-    QLineEdit *m_lineEdit;
+//    TQtWidget *m_qcanvas;
+//    QLineEdit *m_lineEdit;
 };
 
 

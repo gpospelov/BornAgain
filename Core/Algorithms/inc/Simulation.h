@@ -111,13 +111,16 @@ protected:
     //! Update the sample by calling the sample builder, if present
     void updateSample();
 
+    // components describing an experiment and its simulation:
     ISample *mp_sample;
     const ISampleBuilder *mp_sample_builder;
     Instrument m_instrument;
+    SimulationParameters m_sim_params;
+
+
     OutputData<double> m_intensity_map;
     bool m_is_normalized;
     const ProgramOptions *mp_options;
-    SimulationParameters m_sim_params;
 
     //TODO: investigate usage:
     double deltaAlpha(double alpha, double zeta) const;

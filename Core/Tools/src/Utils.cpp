@@ -91,7 +91,7 @@ std::string Utils::FileSystem::GetWorkingPath()
 }
 
 
-// return path to GISASFW home directory
+// return path to BornAgain home directory
 std::string Utils::FileSystem::GetHomePath()
 {
     // the path to executable module is: boost::filesystem::current_path() + argv[0]
@@ -109,11 +109,11 @@ std::string Utils::FileSystem::GetHomePath()
         path = boost::filesystem::system_complete(m_relative_path.c_str()).string();
     }
 
-    // at this point the value should be something like '/Users/jamesbond/development/git/./GISASFW/App/App'
+    // at this point the value should be something like '/Users/jamesbond/development/git/./BornAgain/App/App'
     //std::cout << "Utils::FileSystem::GetHomePath() -> path '" << path << "'" << std::endl;
 
-    // lets strip everything after 'GISASFW' to get path to project home directory    
-    std::string project_name("GISASFW");
+    // lets strip everything after 'BornAgain' to get path to project home directory    
+    std::string project_name("BornAgain");
     std::string::size_type pos = path.rfind(project_name);
     if(pos == std::string::npos) {
         throw LogicErrorException("Utils::FileSystem::GetHomePath() -> Error. Cant parse path to application from line '"+path+"'");

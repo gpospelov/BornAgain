@@ -233,7 +233,7 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     m_fitSuite->runFit();
 
     // drawing results
-    TCanvas *c2 = new TCanvas("c2","GISASFW fit results",800,600);
+    TCanvas *c2 = new TCanvas("c2","BornAgain fit results",800,600);
     c2->Divide(2,2);
     TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
     leg1->SetBorderSize(1);
@@ -241,14 +241,14 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
         c2->cd((int)i_set+1);
         const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
-        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"gisasfw_real");
-        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"gisasfw_simul");
+        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"BornAgain_real");
+        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"BornAgain_simul");
         hreal->SetLineColor(kBlue);
         gPad->SetLogy();
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
-        if(i_set==0) leg1->AddEntry(hreal,"GISASFW data","lp");
-        if(i_set==0) leg1->AddEntry(hsimul,"GISASFW simul","lp");
+        if(i_set==0) leg1->AddEntry(hreal,"BornAgain data","lp");
+        if(i_set==0) leg1->AddEntry(hsimul,"BornAgain simul","lp");
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();
@@ -265,10 +265,10 @@ void TestIsGISAXS12::run_isgisaxs_fit()
 
         c2->cd((int)(i_set+3));
         *simul /= *real;
-        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"gisasfw_real_simul_ratio");
+        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"BornAgain_real_simul_ratio");
         hratio->DrawCopy();
         if(i_set==0) {
-            leg2->AddEntry(hratio,"GISASFW simul/real","lp");
+            leg2->AddEntry(hratio,"BornAgain simul/real","lp");
         }
         delete real;
         delete simul;
@@ -367,7 +367,7 @@ void TestIsGISAXS12::run_test_minimizer()
     TCanvas *c1 = new TCanvas("c1_test_minimizer","TestMinimizer", 800, 600);
     c1->Divide(2,2);
 
-    // drawing GISASFW simul on top of isgisaxs simul
+    // drawing BornAgain simul on top of isgisaxs simul
     TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
     leg1->SetBorderSize(1);
     leg1->SetFillStyle(0);
@@ -383,7 +383,7 @@ void TestIsGISAXS12::run_test_minimizer()
         simul_data->DrawCopy("same");
 
         if(i_set==0) leg1->AddEntry(hdata,"isgisaxs results","lp");
-        if(i_set==0) leg1->AddEntry(simul_data,"gisasfw simul","lp");
+        if(i_set==0) leg1->AddEntry(simul_data,"BornAgain simul","lp");
     }
     c1->cd(1); leg1->Draw();
     c1->cd(2); leg1->Draw();
@@ -395,11 +395,11 @@ void TestIsGISAXS12::run_test_minimizer()
         c1->cd(3+i_set);
         OutputData<double > *data = m_fitSuite->getFitObjects()->getObject(i_set)->getChiSquaredModule()->getSimulationData()->clone();
         *data /= *isgi_results[i_set];
-        TH1D *hdata = IsGISAXSTools::getOutputDataScanHist(*data, "gisasfw_isgisaxs_simul");
+        TH1D *hdata = IsGISAXSTools::getOutputDataScanHist(*data, "BornAgain_isgisaxs_simul");
         hdata->SetLineColor(kRed);
         hdata->DrawCopy();
         delete data;
-        if(i_set==0) leg2->AddEntry(hdata,"gisasfw/isgisaxs simul","lp");
+        if(i_set==0) leg2->AddEntry(hdata,"BornAgain/isgisaxs simul","lp");
     }
     c1->cd(3); leg1->Draw();
     c1->cd(4); leg1->Draw();

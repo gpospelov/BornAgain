@@ -122,8 +122,8 @@
 		6222D042160C690A008205AC /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03C160C690A008205AC /* libboost_regex.dylib */; };
 		6222D043160C690A008205AC /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03D160C690A008205AC /* libboost_system.dylib */; };
 		6222D044160C690A008205AC /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D03E160C690A008205AC /* libboost_thread-mt.dylib */; };
-		6222D04B160C6C2C008205AC /* libGISASFW.Core.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
-		6222D04C160C6C78008205AC /* libGISASFW.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
+		6222D04B160C6C2C008205AC /* libBornAgain.Core.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libBornAgain.Core.dylib */; };
+		6222D04C160C6C78008205AC /* libBornAgain.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libBornAgain.Core.dylib */; };
 		6222D068160C82CB008205AC /* libCint.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D053160C82CB008205AC /* libCint.5.34.so */; };
 		6222D069160C82CB008205AC /* libCore.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D054160C82CB008205AC /* libCore.5.34.so */; };
 		6222D06A160C82CB008205AC /* libEve.5.34.so in Frameworks */ = {isa = PBXBuildFile; fileRef = 6222D055160C82CB008205AC /* libEve.5.34.so */; };
@@ -181,7 +181,7 @@
 		625A174216BAAE77004943DB /* FormFactorFullSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */; };
 		625A174316BAAE77004943DB /* FormFactorHemiSpheroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */; };
 		626378A416666CFC00D1BD00 /* App in CopyFiles */ = {isa = PBXBuildFile; fileRef = 627C2EC3160B4E8F004C1B11 /* App */; };
-		627C2FDA160B515D004C1B11 /* libGISASFW.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */; };
+		627C2FDA160B515D004C1B11 /* libBornAgain.Core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C2F07160B4F98004C1B11 /* libBornAgain.Core.dylib */; };
 		627C3032160B69D7004C1B11 /* libfftw3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C3031160B69D7004C1B11 /* libfftw3.3.dylib */; };
 		62861181167F6CCE00971496 /* TestFumiliLMA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6286117E167F6CCE00971496 /* TestFumiliLMA.cpp */; };
 		62BD93501619D05D0008A768 /* ParticleCoreShell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62BD934F1619D05D0008A768 /* ParticleCoreShell.cpp */; };
@@ -257,7 +257,7 @@
 			dstPath = "${SRCROOT}/lib";
 			dstSubfolderSpec = 0;
 			files = (
-				6222D04B160C6C2C008205AC /* libGISASFW.Core.dylib in CopyFiles */,
+				6222D04B160C6C2C008205AC /* libBornAgain.Core.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1080,7 +1080,6 @@
 		622245C7160CB74C008205AC /* test_mesocrystal2.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test_mesocrystal2.py; sourceTree = "<group>"; };
 		622245C8160CB74C008205AC /* test_parameter_pool.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test_parameter_pool.py; sourceTree = "<group>"; };
 		622245C9160CB74C008205AC /* test_vector3d.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test_vector3d.py; sourceTree = "<group>"; };
-		622245CA160CB74C008205AC /* GISASFW.pro */ = {isa = PBXFileReference; lastKnownFileType = text; path = GISASFW.pro; sourceTree = "<group>"; };
 		622245CD160CB74C008205AC /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		622245CE160CB74C008205AC /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		622245CF160CB74C008205AC /* codegenerator.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = codegenerator.py; sourceTree = "<group>"; };
@@ -1197,7 +1196,7 @@
 		625A173F16BAAE77004943DB /* FormFactorFullSpheroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorFullSpheroid.cpp; sourceTree = "<group>"; };
 		625A174016BAAE77004943DB /* FormFactorHemiSpheroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FormFactorHemiSpheroid.cpp; sourceTree = "<group>"; };
 		627C2EC3160B4E8F004C1B11 /* App */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = App; sourceTree = BUILT_PRODUCTS_DIR; };
-		627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGISASFW.Core.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		627C2F07160B4F98004C1B11 /* libBornAgain.Core.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libBornAgain.Core.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GISASFW.TestCore; sourceTree = BUILT_PRODUCTS_DIR; };
 		627C3031160B69D7004C1B11 /* libfftw3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfftw3.3.dylib; path = ../../../../../../opt/local/lib/libfftw3.3.dylib; sourceTree = "<group>"; };
 		62861177167F6C6200971496 /* DetectorParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectorParameters.h; sourceTree = "<group>"; };
@@ -1364,7 +1363,7 @@
 				6222D07A160C82CB008205AC /* libRIO.5.34.so in Frameworks */,
 				6222D07B160C82CB008205AC /* libThread.5.34.so in Frameworks */,
 				6222D07C160C82CB008205AC /* libTree.5.34.so in Frameworks */,
-				6222D04C160C6C78008205AC /* libGISASFW.Core.dylib in Frameworks */,
+				6222D04C160C6C78008205AC /* libBornAgain.Core.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1393,7 +1392,7 @@
 			files = (
 				62EA212D16B9307000184E9A /* libboost_signals.dylib in Frameworks */,
 				622248A9160CC56B008205AC /* gtest.framework in Frameworks */,
-				627C2FDA160B515D004C1B11 /* libGISASFW.Core.dylib in Frameworks */,
+				627C2FDA160B515D004C1B11 /* libBornAgain.Core.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68584,7 +68583,6 @@
 				62222241160CB745008205AC /* Core */,
 				62222379160CB745008205AC /* Doc */,
 				62224580160CB74C008205AC /* Examples */,
-				622245CA160CB74C008205AC /* GISASFW.pro */,
 				622245CB160CB74C008205AC /* Macros */,
 				622245E7160CB74C008205AC /* README */,
 				622245E8160CB74C008205AC /* shared.pri */,
@@ -68630,7 +68628,7 @@
 			isa = PBXGroup;
 			children = (
 				627C2EC3160B4E8F004C1B11 /* App */,
-				627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */,
+				627C2F07160B4F98004C1B11 /* libBornAgain.Core.dylib */,
 				627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */,
 				6222D090160C8E59008205AC /* GISASFW.CL.All */,
 			);
@@ -68723,9 +68721,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6222D08F160C8E59008205AC /* GISASFW.CL.All */ = {
+		6222D08F160C8E59008205AC /* BornAgain.CL.All */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6222D097160C8E59008205AC /* Build configuration list for PBXNativeTarget "GISASFW.CL.All" */;
+			buildConfigurationList = 6222D097160C8E59008205AC /* Build configuration list for PBXNativeTarget "BornAgain.CL.All" */;
 			buildPhases = (
 				6222D09B160C8EF0008205AC /* ShellScript */,
 			);
@@ -68733,14 +68731,14 @@
 			);
 			dependencies = (
 			);
-			name = GISASFW.CL.All;
+			name = BornAgain.CL.All;
 			productName = GISASFW.CL.All;
 			productReference = 6222D090160C8E59008205AC /* GISASFW.CL.All */;
 			productType = "com.apple.product-type.tool";
 		};
-		627C2EC2160B4E8F004C1B11 /* GISASFW.App */ = {
+		627C2EC2160B4E8F004C1B11 /* BornAgain.App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 627C2ECB160B4E8F004C1B11 /* Build configuration list for PBXNativeTarget "GISASFW.App" */;
+			buildConfigurationList = 627C2ECB160B4E8F004C1B11 /* Build configuration list for PBXNativeTarget "BornAgain.App" */;
 			buildPhases = (
 				6222D09A160C8E67008205AC /* ShellScript */,
 				627C2EBF160B4E8F004C1B11 /* Sources */,
@@ -68752,14 +68750,14 @@
 			dependencies = (
 				627C2FE5160B5900004C1B11 /* PBXTargetDependency */,
 			);
-			name = GISASFW.App;
+			name = BornAgain.App;
 			productName = GISASFW.App;
 			productReference = 627C2EC3160B4E8F004C1B11 /* App */;
 			productType = "com.apple.product-type.tool";
 		};
-		627C2F06160B4F98004C1B11 /* GISASFW.Core */ = {
+		627C2F06160B4F98004C1B11 /* BornAgain.Core */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 627C2F08160B4F99004C1B11 /* Build configuration list for PBXNativeTarget "GISASFW.Core" */;
+			buildConfigurationList = 627C2F08160B4F99004C1B11 /* Build configuration list for PBXNativeTarget "BornAgain.Core" */;
 			buildPhases = (
 				627C2F03160B4F98004C1B11 /* Sources */,
 				627C2F04160B4F98004C1B11 /* Frameworks */,
@@ -68769,14 +68767,14 @@
 			);
 			dependencies = (
 			);
-			name = GISASFW.Core;
+			name = BornAgain.Core;
 			productName = GISASFW.Core;
-			productReference = 627C2F07160B4F98004C1B11 /* libGISASFW.Core.dylib */;
+			productReference = 627C2F07160B4F98004C1B11 /* libBornAgain.Core.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
-		627C2FCA160B50D6004C1B11 /* GISASFW.TestCore */ = {
+		627C2FCA160B50D6004C1B11 /* BornAgain.TestCore */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 627C2FD2160B50D6004C1B11 /* Build configuration list for PBXNativeTarget "GISASFW.TestCore" */;
+			buildConfigurationList = 627C2FD2160B50D6004C1B11 /* Build configuration list for PBXNativeTarget "BornAgain.TestCore" */;
 			buildPhases = (
 				627C2FC7160B50D6004C1B11 /* Sources */,
 				627C2FC8160B50D6004C1B11 /* Frameworks */,
@@ -68786,7 +68784,7 @@
 			dependencies = (
 				627C2FD9160B5149004C1B11 /* PBXTargetDependency */,
 			);
-			name = GISASFW.TestCore;
+			name = BornAgain.TestCore;
 			productName = GISASFW.TestCore;
 			productReference = 627C2FCB160B50D6004C1B11 /* GISASFW.TestCore */;
 			productType = "com.apple.product-type.tool";
@@ -68799,7 +68797,7 @@
 			attributes = {
 				LastUpgradeCheck = 0440;
 			};
-			buildConfigurationList = 627C2C5D160B4937004C1B11 /* Build configuration list for PBXProject "XCode_GISASFW" */;
+			buildConfigurationList = 627C2C5D160B4937004C1B11 /* Build configuration list for PBXProject "XCode_BornAgain" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -68811,10 +68809,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				627C2EC2160B4E8F004C1B11 /* GISASFW.App */,
-				627C2F06160B4F98004C1B11 /* GISASFW.Core */,
-				627C2FCA160B50D6004C1B11 /* GISASFW.TestCore */,
-				6222D08F160C8E59008205AC /* GISASFW.CL.All */,
+				627C2EC2160B4E8F004C1B11 /* BornAgain.App */,
+				627C2F06160B4F98004C1B11 /* BornAgain.Core */,
+				627C2FCA160B50D6004C1B11 /* BornAgain.TestCore */,
+				6222D08F160C8E59008205AC /* BornAgain.CL.All */,
 			);
 		};
 /* End PBXProject section */
@@ -69049,12 +69047,12 @@
 /* Begin PBXTargetDependency section */
 		627C2FD9160B5149004C1B11 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 627C2F06160B4F98004C1B11 /* GISASFW.Core */;
+			target = 627C2F06160B4F98004C1B11 /* BornAgain.Core */;
 			targetProxy = 627C2FD8160B5149004C1B11 /* PBXContainerItemProxy */;
 		};
 		627C2FE5160B5900004C1B11 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 627C2F06160B4F98004C1B11 /* GISASFW.Core */;
+			target = 627C2F06160B4F98004C1B11 /* BornAgain.Core */;
 			targetProxy = 627C2FE4160B5900004C1B11 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -69369,7 +69367,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6222D097160C8E59008205AC /* Build configuration list for PBXNativeTarget "GISASFW.CL.All" */ = {
+		6222D097160C8E59008205AC /* Build configuration list for PBXNativeTarget "BornAgain.CL.All" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6222D098160C8E59008205AC /* Debug */,
@@ -69378,7 +69376,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		627C2C5D160B4937004C1B11 /* Build configuration list for PBXProject "XCode_GISASFW" */ = {
+		627C2C5D160B4937004C1B11 /* Build configuration list for PBXProject "XCode_BornAgain" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				627C2C5F160B4937004C1B11 /* Debug */,
@@ -69387,7 +69385,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		627C2ECB160B4E8F004C1B11 /* Build configuration list for PBXNativeTarget "GISASFW.App" */ = {
+		627C2ECB160B4E8F004C1B11 /* Build configuration list for PBXNativeTarget "BornAgain.App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				627C2ECC160B4E8F004C1B11 /* Debug */,
@@ -69396,7 +69394,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		627C2F08160B4F99004C1B11 /* Build configuration list for PBXNativeTarget "GISASFW.Core" */ = {
+		627C2F08160B4F99004C1B11 /* Build configuration list for PBXNativeTarget "BornAgain.Core" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				627C2F09160B4F99004C1B11 /* Debug */,
@@ -69405,7 +69403,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		627C2FD2160B50D6004C1B11 /* Build configuration list for PBXNativeTarget "GISASFW.TestCore" */ = {
+		627C2FD2160B50D6004C1B11 /* Build configuration list for PBXNativeTarget "BornAgain.TestCore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				627C2FD3160B50D6004C1B11 /* Debug */,

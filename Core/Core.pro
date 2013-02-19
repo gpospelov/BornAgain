@@ -349,7 +349,7 @@ CONFIG(BUILD_PYTHON_BOOST_MODULE) {
     #message($$pythonvers)
     #message($$pythonsysincdir)
     #message($$pythonsyslibdir)
-    lessThan(pythonvers, 2.6): error("GISASFW requires python 2.6 or greater")
+    lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
     INCLUDEPATH += $$pythonsysincdir
     #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
     LIBS += -lboost_python -L$$pythonsyslibdir -lpython$$pythonvers

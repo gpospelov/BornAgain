@@ -25,10 +25,10 @@ Simulation::Simulation(const Simulation &other)
 , mp_sample(0)
 , mp_sample_builder(other.mp_sample_builder)
 , m_instrument(other.m_instrument)
+, m_sim_params(other.m_sim_params)
 , m_intensity_map()
 , m_is_normalized(other.m_is_normalized)
 , mp_options(other.mp_options)
-, m_sim_params(other.m_sim_params)
 {
     if(other.mp_sample) mp_sample = other.mp_sample->clone();
     m_intensity_map.copyFrom(other.m_intensity_map);

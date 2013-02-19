@@ -180,7 +180,7 @@ void TestIsGISAXS5::run_isgisaxs_fit()
     mp_fitSuite->runFit();
 
     // drawing results
-    TCanvas *c2 = new TCanvas("c2","GISASFW fit results",800,600);
+    TCanvas *c2 = new TCanvas("c2","BornAgain fit results",800,600);
     c2->Divide(2,2);
     TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
     leg1->SetBorderSize(1);
@@ -188,14 +188,14 @@ void TestIsGISAXS5::run_isgisaxs_fit()
     for(size_t i_set=0; i_set<mp_fitSuite->getFitObjects()->size(); ++i_set) {
         c2->cd((int)i_set+1);
         const FitObject *obj = mp_fitSuite->getFitObjects()->getObject(i_set);
-        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"gisasfw_real");
-        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"gisasfw_simul");
+        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"BornAgain_real");
+        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"BornAgain_simul");
         hreal->SetLineColor(kBlue);
         gPad->SetLogy();
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
-        if(i_set==0) leg1->AddEntry(hreal,"GISASFW data","lp");
-        if(i_set==0) leg1->AddEntry(hsimul,"GISASFW simul","lp");
+        if(i_set==0) leg1->AddEntry(hreal,"BornAgain data","lp");
+        if(i_set==0) leg1->AddEntry(hsimul,"BornAgain simul","lp");
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();
@@ -212,10 +212,10 @@ void TestIsGISAXS5::run_isgisaxs_fit()
 
         c2->cd((int)(i_set+3));
         *simul /= *real;
-        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"gisasfw_real_simul_ratio");
+        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"BornAgain_real_simul_ratio");
         hratio->DrawCopy();
         if(i_set==0) {
-            leg2->AddEntry(hratio,"GISASFW simul/real","lp");
+            leg2->AddEntry(hratio,"BornAgain simul/real","lp");
         }
         delete real;
         delete simul;

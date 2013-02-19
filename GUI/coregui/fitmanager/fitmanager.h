@@ -3,10 +3,6 @@
 
 #include <QWidget>
 
-class TQtWidget;
-class QLineEdit;
-class TObject;
-class TCanvas;
 
 class FitManager : public QWidget
 {
@@ -16,13 +12,6 @@ public:
     FitManager(QWidget *parent = 0);
     virtual ~FitManager(){}
 
-public slots:
-    void CanvasEvent(TObject *obj,unsigned int event,TCanvas *);
-    void print_something();
-
-private:
-//    TQtWidget *m_qcanvas;
-//    QLineEdit *m_lineEdit;
 };
 
 

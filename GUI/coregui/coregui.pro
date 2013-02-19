@@ -4,13 +4,12 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui designer designercomponents
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = coregui
 TEMPLATE = app
-
 
 # making standard shared library extension
 QMAKE_EXTENSION_SHLIB = so
@@ -34,7 +33,9 @@ SOURCES += \
     mainwindow/taskselectorwidget.cpp \
     utils/ba_fancytabbar.cpp \
     utils/ba_stylehelper.cpp \
-    utils/rootcanvas.cpp
+    utils/rootcanvas.cpp \
+    samplemanager/sampleeditor.cpp \
+    samplemanager/sampleeditorstack.cpp
 
 HEADERS  += \
     mainwindow/imode.h \
@@ -49,16 +50,24 @@ HEADERS  += \
     mainwindow/taskselectorwidget.h \
     utils/ba_fancytabbar.h \
     utils/ba_stylehelper.h \
-    utils/rootcanvas.h
-
+    utils/rootcanvas.h \
+    samplemanager/sampleeditor.h \
+    samplemanager/sampleeditorstack.h
 
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/experimentmanager $$PWD/simulationmanager $$PWD/fitmanager
+
+# visual style "Manhattan"
 LIBS += $$PWD/../../lib/libqt-manhattan-style.so
 INCLUDEPATH += $$PWD/../externals/qt-manhattan-style
+
+# ROOT libraries integration
 LIBS += $$PWD/../../lib/libQtRoot.so $$PWD/../../lib/libGQt.so
 INCLUDEPATH += $$PWD/../externals/qt-root/inc
 
-#include(/opt/local/include/root/rootcint.pri)
+# qt-designer components
+INCLUDEPATH += $$QMAKE_INCDIR_QT/QtDesigner
+
+# ROOT libraries
 MYROOT = $$(ROOTSYS)
 isEmpty(MYROOT) {
   message("Warning, ROOTSYS environment variable doesn't exist, trying to guess location")
@@ -76,4 +85,7 @@ isEmpty(MYROOT) {
   LIBS += $$system($${MYROOT}/bin/root-config --glibs )
   MYROOTCINT = $${MYROOT}/bin/rootcint
 }
+
+FORMS += \
+    testform.ui
 

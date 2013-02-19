@@ -2,10 +2,13 @@
 #define SAMPLEMANAGER_H
 
 #include "fancymainwindow.h"
+#include "sampleeditorstack.h"
 #include <QWidget>
 #include <QMainWindow>
 #include <QDockWidget>
-//namespace SampleManager {
+
+
+#include <QDesignerFormEditorInterface>
 
 class SampleManager : public Manhattan::FancyMainWindow
 {
@@ -30,18 +33,15 @@ public slots:
 
 private:
     void initSubWindows();
-//    QDockWidget *addDockForWidget(QWidget *w);
 
+    QDesignerFormEditorInterface *m_sampleEditor;
 
-    //FormEditorStack *m_stack;
+    SampleEditorStack *m_sampleEditorStack;
 
     QWidget *m_subWindows[NumberOfSubWindows];
-
-
     QDockWidget *m_dockWidgets[NumberOfSubWindows];
 
 };
 
-//}
 
 #endif // SAMPLEMANAGER_H

@@ -1,25 +1,40 @@
 #include "samplemanager.h"
 #include "designercomponents.h"
-//#include <QtWidgets>
+#include "sampleeditor.h"
+
 #include <QDockWidget>
 #include <QAbstractItemView>
 
+//#include <QDesignerFormEditorPluginInterface>
+
+#include <QDesignerComponents>
+#include <QDesignerWidgetBoxInterface>
+#include <QDesignerFormEditorInterface>
+
+
 SampleManager::SampleManager(QWidget *parent)
-//    : QMainWindow(parent)
     : Manhattan::FancyMainWindow(parent)
+    , m_sampleEditor(0)
+    , m_sampleEditorStack(0)
+//    , m_formeditor(QDesignerComponents::createFormEditor(0))
+
 {
 
+    QWidget *widget = new QWidget(this);
+
+    m_sampleEditorStack = new SampleEditorStack(this); // in Qt-creator it belongs to whole application
+    m_sampleEditorStack->addWidget(widget);
+
     setObjectName(QLatin1String("EditorWidget"));
-//    setCentralWidget(m_stack);
+    setCentralWidget(m_sampleEditorStack);
     setDocumentMode(true);
     setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
     setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
     setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
-//    setObjectName(QLatin1String("SampleManager"));
-//    setDocumentMode(true);
-//    setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
-//    setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
-//    setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
+
+
+//    m_formeditor = new qdesigner_internal::FormEditor(parent);
+ //   m_sampleEditor = new SampleEditor(parent);
 
     initSubWindows();
 
@@ -42,25 +57,21 @@ SampleManager::SampleManager(QWidget *parent)
 
 
 
-
-//QDockWidget *SampleManager::addDockForWidget(QWidget *w)
-//{
-//    QDockWidget *dock = new QDockWidget(tr("Customers"), this);
-//    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-//    dock->setWidget(w);
-////    addDockWidget(Qt::RightDockWidgetArea, dock);
-//    return dock;
-//}
-
-
 void SampleManager::initSubWindows()
 {
     qFill(m_subWindows, m_subWindows + NumberOfSubWindows, static_cast<QWidget*>(0));
 
     DesignerWidgetBoxInterface *wb = DesignerComponents::createWidgetBox(this);
+//    wb->setWindowTitle(tr("Widget Box"));
+//    wb->setObjectName(QLatin1String("WidgetBox"));
+//    m_subWindows[WidgetBoxSubWindow] = wb;
+
+//    QDesignerWidgetBoxInterface *wb = QDesignerComponents::createWidgetBox(m_sampleEditor, 0);
     wb->setWindowTitle(tr("Widget Box"));
     wb->setObjectName(QLatin1String("WidgetBox"));
+    //m_sampleEditor->setWidgetBox(wb);
     m_subWindows[WidgetBoxSubWindow] = wb;
+
 
     DesignerSampleInspectorInterface *oi = DesignerComponents::createSampleInspector(this);
     oi->setWindowTitle(tr("Object Inspector"));
@@ -93,39 +104,12 @@ void SampleManager::resetToDefaultLayout()
     addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[PropertyEditorSubWindow]);
     addDockWidget(Qt::BottomDockWidgetArea, m_dockWidgets[SampleWorkspaceSubWindow]);
 
-    tabifyDockWidget(m_dockWidgets[SampleInspectorSubWindow],
-                     m_dockWidgets[PropertyEditorSubWindow]);
+//    tabifyDockWidget(m_dockWidgets[SampleInspectorSubWindow],
+//                     m_dockWidgets[PropertyEditorSubWindow]);
 
     foreach (QDockWidget *dockWidget, dockWidgetList)
         dockWidget->show();
 
     setTrackingEnabled(true);
 }
-
-//void SampleManager::resetToDefaultLayout()
-//{
-////    setTrackingEnabled(false);
-////    QList<QDockWidget *> dockWidgetList = dockWidgets();
-////    return qFindChildren<QDockWidget *>(this);
-
-////    QList<QDockWidget *> dockWidgetList = findChildren<QDockWidget *>(this);
-////    foreach (QDockWidget *dockWidget, dockWidgetList) {
-////        dockWidget->setFloating(false);
-////        removeDockWidget(dockWidget);
-////    }
-
-//    addDockWidget(Qt::LeftDockWidgetArea, m_dockWidgets[WidgetBoxSubWindow]);
-//    addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[SampleInspectorSubWindow]);
-//    addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[PropertyEditorSubWindow]);
-//    addDockWidget(Qt::BottomDockWidgetArea, m_dockWidgets[SampleWorkspaceSubWindow]);
-
-////    tabifyDockWidget(m_dockWidgets[ActionEditorSubWindow],
-////                     m_dockWidgets[SignalSlotEditorSubWindow]);
-
-////    foreach (QDockWidget *dockWidget, dockWidgetList)
-////        dockWidget->show();
-
-////    setTrackingEnabled(true);
-//}
-
 

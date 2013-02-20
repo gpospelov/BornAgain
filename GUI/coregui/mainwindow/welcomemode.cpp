@@ -1,5 +1,5 @@
 #include "welcomemode.h"
-#include "welcomemanager.h"
+#include "WelcomeView.h"
 
 WelcomeMode::WelcomeMode()
 {

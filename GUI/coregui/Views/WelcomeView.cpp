@@ -1,5 +1,5 @@
-#include "welcomemanager.h"
-//#include <QtWidgets>
+#include "WelcomeView.h"
+
 #include <QGroupBox>
 #include <QLabel>
 #include <QComboBox>

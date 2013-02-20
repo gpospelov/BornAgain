@@ -1,4 +1,4 @@
-#include "instrumentmanager.h"
+#include "InstrumentView.h"
 
 #include <QGroupBox>
 #include <QPushButton>

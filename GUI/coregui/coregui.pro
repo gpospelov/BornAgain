@@ -25,41 +25,47 @@ SOURCES += \
     mainwindow/main.cpp \
     mainwindow/mainwindow.cpp \
     mainwindow/welcomemode.cpp \
-    fitmanager/fitmanager.cpp \
-    samplemanager/samplemanager.cpp \
-    simulationmanager/simulationmanager.cpp \
-    welcomemanager/welcomemanager.cpp \
-    samplemanager/designercomponents.cpp \
+    Views/designercomponents.cpp \
     mainwindow/taskselectorwidget.cpp \
     utils/ba_fancytabbar.cpp \
     utils/ba_stylehelper.cpp \
     utils/rootcanvas.cpp \
-    instrumentmanager/instrumentmanager.cpp \
-    models/SimulationDataModel.cpp
+    Models/SimulationDataModel.cpp \
+    Views/InstrumentView.cpp \
+    Views/FitView.cpp \
+    Views/SampleView.cpp \
+    Views/SimulationView.cpp \
+    Views/WelcomeView.cpp
 
 HEADERS  += \
     mainwindow/imode.h \
     mainwindow/mainwindow.h \
     mainwindow/welcomemode.h \
-    fitmanager/fitmanager.h \
-    samplemanager/samplemanager.h \
-    simulationmanager/simulationmanager.h \
-    welcomemanager/welcomemanager.h \
-    samplemanager/designercomponents.h \
+    Views/designercomponents.h \
     mainwindow/taskselectorwidget.h \
     utils/ba_fancytabbar.h \
     utils/ba_stylehelper.h \
     utils/rootcanvas.h \
-    instrumentmanager/instrumentmanager.h \
-    models/SimulationDataModel.h \
-    models/SelectionListModel.h
+    Models/SimulationDataModel.h \
+    Models/SelectionListModel.h \
+    Views/FitView.h \
+    Views/InstrumentView.h \
+    Views/SampleView.h \
+    Views/SimulationView.h \
+    Views/WelcomeView.h
 
 
-INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/instrumentmanager $$PWD/simulationmanager $$PWD/fitmanager
+INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/Views $$PWD/Models
 LIBS += $$PWD/../../lib/libqt-manhattan-style.so
 INCLUDEPATH += $$PWD/../externals/qt-manhattan-style
 LIBS += $$PWD/../../lib/libQtRoot.so $$PWD/../../lib/libGQt.so
 INCLUDEPATH += $$PWD/../externals/qt-root/inc
+INCLUDEPATH += $$PWD/../../Core/Algorithms/inc \
+    $$PWD/../../Core/Fitting/inc \
+    $$PWD/../../Core/FormFactors/inc \
+    $$PWD/../../Core/Geometry/inc \
+    $$PWD/../../Core/Samples/inc \
+    $$PWD/../../Core/Tools/inc
 
 #include(/opt/local/include/root/rootcint.pri)
 MYROOT = $$(ROOTSYS)

@@ -1,4 +1,4 @@
-#include "simulationmanager.h"
+#include "SimulationView.h"
 
 #include <QGroupBox>
 #include <QPushButton>

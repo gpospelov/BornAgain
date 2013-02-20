@@ -1,46 +1,69 @@
 #include "simulationmanager.h"
-//#include <QtWidgets>
+
 #include <QGroupBox>
-#include <QCheckBox>
-#include <QListWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QComboBox>
+#include <QLabel>
+#include <QGridLayout>
 
 SimulationManager::SimulationManager(QWidget *parent)
     : QWidget(parent)
 {
-    QGroupBox *updateGroup = new QGroupBox(tr("Package selection"));
-    QCheckBox *systemCheckBox = new QCheckBox(tr("Update system"));
-    QCheckBox *appsCheckBox = new QCheckBox(tr("Update applications"));
-    QCheckBox *docsCheckBox = new QCheckBox(tr("Update documentation"));
+    // selection of input parameters
+    QGroupBox *inputDataGroup = new QGroupBox(tr("Data selection"));
+      // instrument selection
+    QLabel *instrumentSelectionLabel = new QLabel(tr("Select Instrument:"));
+    QComboBox *instrumentSelectionBox = new QComboBox;
+      // sample selection
+    QLabel *sampleSelectionLabel = new QLabel(tr("Select Sample:"));
+    QComboBox *sampleSelectionBox = new QComboBox;
+      // layout
+    QGridLayout *dataSelectionLayout = new QGridLayout;
+    dataSelectionLayout->addWidget(instrumentSelectionLabel, 0, 0);
+    dataSelectionLayout->addWidget(instrumentSelectionBox, 0, 1);
+    dataSelectionLayout->addWidget(sampleSelectionLabel, 1, 0);
+    dataSelectionLayout->addWidget(sampleSelectionBox, 1, 1);
+    inputDataGroup->setLayout(dataSelectionLayout);
 
-    QGroupBox *packageGroup = new QGroupBox(tr("Existing packages"));
+    // selection of simulation parameters
+    QGroupBox *simulationParametersGroup = new QGroupBox(tr("Simulation Parameters"));
+       // framework (DWBA - BA)
+    QLabel *frameworkLabel = new QLabel(tr("Select Framework:"));
+    QComboBox *frameworkSelectionBox = new QComboBox;
+    frameworkSelectionBox->addItem(tr("DWBA"));
+    frameworkSelectionBox->addItem(tr("BA"));
+      // interference function (DA - LMA - SSCA - ISGISAXSMOR)
+    QLabel *interferenceLabel = new QLabel(tr("Select Interference Function Approximation:"));
+    QComboBox *interferenceFunctionSelectionBox = new QComboBox;
+    interferenceFunctionSelectionBox->addItem(tr("DA"));
+    interferenceFunctionSelectionBox->addItem(tr("LMA"));
+    interferenceFunctionSelectionBox->addItem(tr("SSCA"));
+      // lattice type (None - Lattice - Para1D - Para1DFinite)
+    QLabel *latticeTypeLabel = new QLabel(tr("Select Lattice Type:"));
+    QComboBox *latticeTypeSelectionBox = new QComboBox;
+    latticeTypeSelectionBox->addItem(tr("None"));
+    latticeTypeSelectionBox->addItem(tr("Lattice"));
+    latticeTypeSelectionBox->addItem(tr("Para1D"));
+    latticeTypeSelectionBox->addItem(tr("Para1DFinite"));
+      // layout
+    QGridLayout *simulationParametersLayout = new QGridLayout;
+    simulationParametersLayout->addWidget(frameworkLabel, 0, 0);
+    simulationParametersLayout->addWidget(frameworkSelectionBox, 0, 1);
+    simulationParametersLayout->addWidget(interferenceLabel, 1, 0);
+    simulationParametersLayout->addWidget(interferenceFunctionSelectionBox, 1, 1);
+    simulationParametersLayout->addWidget(latticeTypeLabel, 2, 0);
+    simulationParametersLayout->addWidget(latticeTypeSelectionBox, 2, 1);
+    simulationParametersGroup->setLayout(simulationParametersLayout);
 
-    QListWidget *packageList = new QListWidget;
-    QListWidgetItem *qtItem = new QListWidgetItem(packageList);
-    qtItem->setText(tr("Qt"));
-    QListWidgetItem *qsaItem = new QListWidgetItem(packageList);
-    qsaItem->setText(tr("QSA"));
-    QListWidgetItem *teamBuilderItem = new QListWidgetItem(packageList);
-    teamBuilderItem->setText(tr("Teambuilder"));
+    // run simulation button
+    QPushButton *runSimulationButton = new QPushButton(tr("Run Simulation"));
 
-    QPushButton *startUpdateButton = new QPushButton(tr("Start update"));
-
-    QVBoxLayout *updateLayout = new QVBoxLayout;
-    updateLayout->addWidget(systemCheckBox);
-    updateLayout->addWidget(appsCheckBox);
-    updateLayout->addWidget(docsCheckBox);
-    updateGroup->setLayout(updateLayout);
-
-    QVBoxLayout *packageLayout = new QVBoxLayout;
-    packageLayout->addWidget(packageList);
-    packageGroup->setLayout(packageLayout);
-
+    // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(updateGroup);
-    mainLayout->addWidget(packageGroup);
-    mainLayout->addSpacing(12);
-    mainLayout->addWidget(startUpdateButton);
-    mainLayout->addStretch(1);
+    mainLayout->addWidget(inputDataGroup);
+    mainLayout->addWidget(simulationParametersGroup);
+    mainLayout->addWidget(runSimulationButton);
+    mainLayout->addStretch();
     setLayout(mainLayout);
 }

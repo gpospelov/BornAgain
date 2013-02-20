@@ -10,8 +10,8 @@ namespace Manhattan {
 
 class TaskSelectorWidget;
 class WelcomeManager;
+class InstrumentManager;
 class SampleManager;
-class ExperimentManager;
 class SimulationManager;
 class FitManager;
 
@@ -28,8 +28,8 @@ private:
     //TaskSelectorWidget *m_tabWidget;
     Manhattan::FancyTabWidget  *m_tabWidget;
     WelcomeManager *m_welcomeManager;
+    InstrumentManager *m_instrumentManager;
     SampleManager *m_sampleManager;
-    ExperimentManager *m_expManager;
     SimulationManager *m_simulManager;
     FitManager * m_fitManager;
 };

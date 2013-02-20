@@ -25,7 +25,6 @@ SOURCES += \
     mainwindow/main.cpp \
     mainwindow/mainwindow.cpp \
     mainwindow/welcomemode.cpp \
-    experimentmanager/experimentmanager.cpp \
     fitmanager/fitmanager.cpp \
     samplemanager/samplemanager.cpp \
     simulationmanager/simulationmanager.cpp \
@@ -34,13 +33,13 @@ SOURCES += \
     mainwindow/taskselectorwidget.cpp \
     utils/ba_fancytabbar.cpp \
     utils/ba_stylehelper.cpp \
-    utils/rootcanvas.cpp
+    utils/rootcanvas.cpp \
+    instrumentmanager/instrumentmanager.cpp
 
 HEADERS  += \
     mainwindow/imode.h \
     mainwindow/mainwindow.h \
     mainwindow/welcomemode.h \
-    experimentmanager/experimentmanager.h \
     fitmanager/fitmanager.h \
     samplemanager/samplemanager.h \
     simulationmanager/simulationmanager.h \
@@ -49,10 +48,11 @@ HEADERS  += \
     mainwindow/taskselectorwidget.h \
     utils/ba_fancytabbar.h \
     utils/ba_stylehelper.h \
-    utils/rootcanvas.h
+    utils/rootcanvas.h \
+    instrumentmanager/instrumentmanager.h
 
 
-INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/experimentmanager $$PWD/simulationmanager $$PWD/fitmanager
+INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/instrumentmanager $$PWD/simulationmanager $$PWD/fitmanager
 LIBS += $$PWD/../../lib/libqt-manhattan-style.so
 INCLUDEPATH += $$PWD/../externals/qt-manhattan-style
 LIBS += $$PWD/../../lib/libQtRoot.so $$PWD/../../lib/libGQt.so

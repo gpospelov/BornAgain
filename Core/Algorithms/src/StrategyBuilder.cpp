@@ -1,6 +1,6 @@
 #include "StrategyBuilder.h"
 #include "LayerDecorator.h"
-#include "Experiment.h"
+#include "Simulation.h"
 #include "IDoubleToComplexFunction.h"
 #include "InterferenceFunctions.h"
 #include "InterferenceFunctionStrategies.h"
@@ -10,10 +10,10 @@
 #include <cmath>
 
 LayerDecoratorStrategyBuilder::LayerDecoratorStrategyBuilder(
-        const LayerDecorator &decorated_layer, const Experiment &experiment,
+        const LayerDecorator &decorated_layer, const Simulation &simulation,
         const SimulationParameters &sim_params)
 : mp_layer_decorator(decorated_layer.clone())
-, mp_experiment(experiment.clone())
+, mp_simulation(simulation.clone())
 , m_sim_params(sim_params)
 , mp_RT_function(0)
 {
@@ -22,7 +22,7 @@ LayerDecoratorStrategyBuilder::LayerDecoratorStrategyBuilder(
 LayerDecoratorStrategyBuilder::~LayerDecoratorStrategyBuilder()
 {
     delete mp_layer_decorator;
-    delete mp_experiment;
+    delete mp_simulation;
     delete mp_RT_function;
 }
 
@@ -107,7 +107,7 @@ void LayerDecoratorStrategyBuilder::collectInterferenceFunctions()
 
 double LayerDecoratorStrategyBuilder::getWavelength()
 {
-    cvector_t ki = mp_experiment->getBeam().getCentralK();
+    cvector_t ki = mp_simulation->getInstrument().getBeam().getCentralK();
     kvector_t ki_real(ki.x().real(), ki.y().real(), ki.z().real());
     return 2.0*M_PI/ki_real.mag();
 }

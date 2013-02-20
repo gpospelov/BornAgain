@@ -23,7 +23,7 @@ class FormFactorInfo;
 class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
 class LayerDecorator;
-class Experiment;
+class Simulation;
 class IDoubleToPairOfComplexMap;
 class ParticleInfo;
 class IFormFactor;
@@ -37,7 +37,7 @@ class LayerDecoratorStrategyBuilder
 {
 public:
     LayerDecoratorStrategyBuilder(const LayerDecorator &decorated_layer,
-            const Experiment &experiment, const SimulationParameters &sim_params);
+            const Simulation &simulation, const SimulationParameters &sim_params);
     virtual ~LayerDecoratorStrategyBuilder();
 
     //! set R and T coefficient map for DWBA simulation
@@ -47,7 +47,7 @@ public:
     virtual IInterferenceFunctionStrategy *createStrategy();
 protected:
     LayerDecorator *mp_layer_decorator;         //!< decorated layer
-    Experiment *mp_experiment;                  //!< experiment
+    Simulation *mp_simulation;                  //!< simulation
     SimulationParameters m_sim_params;          //!< simulation parameters
     IDoubleToPairOfComplexMap *mp_RT_function;  //!< R and T coefficients for DWBA
 private:
@@ -56,7 +56,7 @@ private:
     void collectFormFactorInfos();
     //! collect the interference functions
     void collectInterferenceFunctions();
-    //! retrieve wavelength from experiment
+    //! retrieve wavelength from simulation
     double getWavelength();
     //! create formfactor info for single particle
     FormFactorInfo *createFormFactorInfo(const ParticleInfo *p_particle_info,

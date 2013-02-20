@@ -1,5 +1,5 @@
 #include "FitSuiteParameters.h"
-#include "Experiment.h"
+#include "Simulation.h"
 
 
 // clear all defined parameters
@@ -107,7 +107,7 @@ void FitSuiteParameters::link_to_pool(const ParameterPool *pool)
     // going through all fit parameters defined
     for(parameters_t::iterator it = m_parameters.begin(); it!= m_parameters.end(); ++it) {
         FitParameterLinked *par = dynamic_cast<FitParameterLinked *>((*it));
-        if( !par ) throw LogicErrorException("FitSuiteParameters::link_to_experiment() -> Error! Can't cast to FitParameterLinked.");
+        if( !par ) throw LogicErrorException("FitSuiteParameters::link_to_pool() -> Error! Can't cast to FitParameterLinked.");
         par->addMatchedParametersFromPool(pool);
     }
 }

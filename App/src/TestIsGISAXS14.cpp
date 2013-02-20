@@ -3,7 +3,7 @@
 #include "OutputDataIOFactory.h"
 #include "Utils.h"
 
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "MultiLayer.h"
 #include "SampleFactory.h"
 #include "Units.h"
@@ -21,12 +21,12 @@ void TestIsGISAXS14::execute()
 {
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS14_LayeredSpheresOnGradedInterface"));
 
-    GISASExperiment experiment(mp_options);
-    experiment.setSample(*sample);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    experiment.runSimulation();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputDataClone(), getOutputPath() + "this_multilayer_sphere.ima");
+    Simulation simulation(mp_options);
+    simulation.setSample(*sample);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputDataClone(), getOutputPath() + "this_multilayer_sphere.ima");
 }
 
 

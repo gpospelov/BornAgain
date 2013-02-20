@@ -19,8 +19,9 @@ void AddApplicationOptions(ProgramOptions* p_options)
             ("report",  "write functional tests report in pdf file")
             ("all",     "run all registered functional test")
             ("profile", "profile specified test")
-            ("config,c", bpo::value<std::string>()->default_value("gisasfw.cfg"),"config file name")
-            ("fitmode", bpo::value<int>()->default_value(1), "used in TestMesocrystal2")
+            ("config,c", bpo::value<std::string>()->default_value("bornagain.cfg"),"config file name")
+            ("fitconfig", bpo::value<int>()->default_value(1), "used in TestMesocrystal2")
+            ("fitpreserve", bpo::value<int>()->default_value(1), "used in TestMesocrystal2")
     ;
 
     // there is no positional options (without '--' or '-' signs) at the moment

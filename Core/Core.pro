@@ -26,11 +26,11 @@ SOURCES += \
     Algorithms/src/DiffuseDWBASimulation.cpp \
     Algorithms/src/DWBADiffuseReflection.cpp \
     Algorithms/src/DWBASimulation.cpp \
-    Algorithms/src/Experiment.cpp \
+    Algorithms/src/Simulation.cpp \
     Algorithms/src/FTDistributions.cpp \
-    Algorithms/src/GISASExperiment.cpp \
     Algorithms/src/IChiSquaredModule.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
+    Algorithms/src/Instrument.cpp \
     Algorithms/src/IOutputDataNormalizer.cpp \
     Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
     Algorithms/src/LayerDecoratorDWBASimulation.cpp \
@@ -148,14 +148,14 @@ HEADERS += \
     Algorithms/inc/DiffuseDWBASimulation.h \
     Algorithms/inc/DWBADiffuseReflection.h \
     Algorithms/inc/DWBASimulation.h \
-    Algorithms/inc/Experiment.h \
+    Algorithms/inc/Simulation.h \
     Algorithms/inc/FTDistributions.h \
-    Algorithms/inc/GISASExperiment.h \
     Algorithms/inc/IChiSquaredModule.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \
     Algorithms/inc/IIntensityFunction.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
+    Algorithms/inc/Instrument.h \
     Algorithms/inc/InterferenceFunctionStrategies.h \
     Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
@@ -310,7 +310,8 @@ HEADERS += \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
-    Tools/inc/MemberComplexFunctionIntegrator.h
+    Tools/inc/MemberComplexFunctionIntegrator.h \
+    Fitting/inc/AttFitting.h
 
 contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
    include($$PWD/python_module.pri)
@@ -348,7 +349,7 @@ CONFIG(BUILD_PYTHON_BOOST_MODULE) {
     #message($$pythonvers)
     #message($$pythonsysincdir)
     #message($$pythonsyslibdir)
-    lessThan(pythonvers, 2.6): error("GISASFW requires python 2.6 or greater")
+    lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
     INCLUDEPATH += $$pythonsysincdir
     #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
     LIBS += -lboost_python -L$$pythonsyslibdir -lpython$$pythonvers

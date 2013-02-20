@@ -36,40 +36,37 @@ public:
     virtual ~TestMesoCrystal1();
     virtual void execute();
 
+    class SampleBuilder : public ISampleBuilder
+    {
+    public:
+        SampleBuilder();
+        virtual ~SampleBuilder(){}
+
+        virtual ISample *buildSample() const;
+    protected:
+        //! initialize pool parameters
+        virtual void init_parameters();
+    private:
+        MesoCrystal *createMesoCrystal(double particle_radius, complex_t n_particle,
+                const IFormFactor *p_meso_form_factor) const;
+        const Lattice *createLattice(double stacking_radius) const;
+        double m_meso_radius;
+        double m_surface_filling_ratio;
+        double m_meso_height;
+        double m_sigma_meso_height;
+        double m_sigma_meso_radius;
+        double m_lattice_length_a;
+        double m_nanoparticle_radius;
+        double m_sigma_nanoparticle_radius;
+        double m_sigma_lattice_length_a;
+        double m_roughness;
+    };
+
 private:
     OutputData<double> *mp_intensity_output;
     ISampleBuilder *mp_sample_builder;
 };
 
-//- -------------------------------------------------------------------
-//! @class MesoCrystalBuilder
-//! @brief The sample builder for TestMesoCrystal1
-//- -------------------------------------------------------------------
-class MesoCrystalBuilder : public ISampleBuilder
-{
-public:
-    MesoCrystalBuilder();
-    virtual ~MesoCrystalBuilder();
-
-    virtual ISample *buildSample() const;
-protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)
-    virtual void init_parameters();
-private:
-    MesoCrystal *createMesoCrystal(double particle_radius, complex_t n_particle,
-            const IFormFactor *p_meso_form_factor) const;
-    const Lattice *createLattice(double stacking_radius) const;
-    double m_meso_radius;
-    double m_surface_filling_ratio;
-    double m_meso_height;
-    double m_sigma_meso_height;
-    double m_sigma_meso_radius;
-    double m_lattice_length_a;
-    double m_nanoparticle_radius;
-    double m_sigma_nanoparticle_radius;
-    double m_sigma_lattice_length_a;
-    double m_roughness;
-};
 
 
 #endif /* TESTMESOCRYSTAL1_H_ */

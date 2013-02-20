@@ -16,25 +16,20 @@
 
 #include <Python.h>
 #include "OutputData.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 
 #include <string>
 
 
 
-//! return number of dimensions in output data of GISASExperiment
-int GetOutputDataNdimensions(const GISASExperiment &experiment);
+//! return number of dimensions in output data of simulation
+int GetOutputDataNdimensions(const Simulation &simulation);
 
-//! export output data array of GISASExperiment to python-numpy array object
-PyObject *GetOutputData(const GISASExperiment &experiment);
+//! export output data array of simulation to python-numpy array object
+PyObject *GetOutputData(const Simulation &simulation);
 
 //! return one dimensional python-numpy array representing binning of the axis
-//! with given index of GISASExperiment's oputput data
-PyObject *GetOutputDataAxis(const GISASExperiment &experiment, int naxis);
-
-
-
-
-
+//! with given index of simulation output data
+PyObject *GetOutputDataAxis(const Simulation &simulation, int naxis);
 
 #endif // PYTHONOUTPUTDATA_H

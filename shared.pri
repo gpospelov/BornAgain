@@ -2,7 +2,7 @@
 # checking common prerequisites
 # -----------------------------------------------------------------------------
 lessThan(QT_VERSION, 4.5) {
-    error("GISASFW requires Qt 4.5 or greater")
+    error("BornAgain requires Qt 4.5 or greater")
 }
 
 !macx:!unix {
@@ -10,9 +10,9 @@ lessThan(QT_VERSION, 4.5) {
 }
 
 # -----------------------------------------------------------------------------
-# to compile in debug mode define environment variable 'export GISASFW_DEBUG=yes'
+# to compile in debug mode define environment variable 'export BORNAGAIN_DEBUG=yes'
 # -----------------------------------------------------------------------------
-env_debug_variable = $$(GISASFW_DEBUG)
+env_debug_variable = $$(BORNAGAIN_DEBUG)
 isEqual(env_debug_variable, "yes") {
   #message("Compiling with DEBUG option")
   CONFIG += debug
@@ -74,7 +74,7 @@ isEmpty(BOOST_INCLUDE): error("missed dependency")
 isEmpty(BOOST_LIB): error("missed dependency")
 
 # here is workaround since JCNS /usr/local doesn't have shared fftw3 (run with 'qmake CONFIG+=JCNS')
-env_jcns_variable = $$(GISASFW_JCNS)
+env_jcns_variable = $$(BORNAGAIN_JCNS)
 isEqual(env_jcns_variable, "yes") {
   #message("Compiling with DEBUG option")
   CONFIG += JCNS

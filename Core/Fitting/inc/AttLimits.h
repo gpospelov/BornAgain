@@ -9,7 +9,7 @@
 // * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
 // * mollis quis. Mauris commodo rhoncus porttitor.                   *
 // ********************************************************************
-//! @file   Limits.h
+//! @file   AttLimits.h
 //! @brief  Definition of Limits class
 //! @author Scientific Computing Group at FRM II
 //! @date   05.10.2012
@@ -18,7 +18,7 @@
 #include <iomanip>
 
 //- -------------------------------------------------------------------
-//! @class Limits
+//! @class AttLimits
 //! @brief Defines limits for fit parameters
 //- -------------------------------------------------------------------
 class AttLimits

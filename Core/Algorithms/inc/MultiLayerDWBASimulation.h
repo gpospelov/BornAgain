@@ -31,7 +31,7 @@ public:
 
     MultiLayerDWBASimulation *clone() const { throw NotImplementedException("MultiLayerDWBASimulation::clone() -> Error: not implemented"); }
 
-    virtual void init(const Experiment &experiment);
+    virtual void init(const Simulation &simulation);
 
     //! Set thread information for masking
     virtual void setThreadInfo(const ThreadInfo &thread_info);

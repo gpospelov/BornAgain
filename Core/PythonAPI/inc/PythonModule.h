@@ -15,7 +15,7 @@
 //! @date   22.06.2012
 
 //#include "BasicVector3D.h"
-//#include "Experiment.h"
+//#include "Simulation.h"
 //#include "FormFactorCrystal.h"
 //#include "FormFactorCylinder.h"
 //#include "FormFactorDecoratorDebyeWaller.h"
@@ -25,7 +25,7 @@
 //#include "FormFactorPrism3.h"
 //#include "FormFactorPyramid.h"
 //#include "FormFactorSphereGaussianRadius.h"
-//#include "GISASExperiment.h"
+//#include "Simulation.h"
 //#include "HomogeneousMaterial.h"
 //#include "IClusteredParticles.h"
 //#include "ICompositeSample.h"

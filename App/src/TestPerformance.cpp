@@ -184,17 +184,17 @@ void PerfTest_Pyramid::initialise(ProgramOptions *p_options)
     if(m_sample) delete m_sample;
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
 
-    // experiment
-    if(m_experiment) delete m_experiment;
-    m_experiment = new GISASExperiment(mp_options);
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    m_experiment->setSample(*m_sample);
+    // simulation
+    if(m_simulation) delete m_simulation;
+    m_simulation = new Simulation(mp_options);
+    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    m_simulation->setSample(*m_sample);
 }
 
 void PerfTest_Pyramid::execute()
 {
-    m_experiment->runSimulation();
+    m_simulation->runSimulation();
 }
 
 
@@ -208,17 +208,17 @@ void PerfTest_RotatedPyramid::initialise(ProgramOptions *p_options)
     if(m_sample) delete m_sample;
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_RotatedPyramid"));
 
-    // experiment
-    if(m_experiment) delete m_experiment;
-    m_experiment = new GISASExperiment(p_options);
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    m_experiment->setSample(*m_sample);
+    // simulation
+    if(m_simulation) delete m_simulation;
+    m_simulation = new Simulation(p_options);
+    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    m_simulation->setSample(*m_sample);
 }
 
 void PerfTest_RotatedPyramid::execute()
 {
-    m_experiment->runSimulation();
+    m_simulation->runSimulation();
 
 }
 
@@ -233,16 +233,16 @@ void PerfTest_MesoCrystal::initialise(ProgramOptions *p_options)
     if(m_sample) delete m_sample;
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MesoCrystal1"));
 
-    // experiment
-    m_experiment = new GISASExperiment(p_options);
-    m_experiment->setSample(*m_sample);
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_experiment->setBeamParameters(0.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
+    // simulation
+    m_simulation = new Simulation(p_options);
+    m_simulation->setSample(*m_sample);
+    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    m_simulation->setBeamParameters(0.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
 
 }
 
 
 void PerfTest_MesoCrystal::execute()
 {
-    m_experiment->runSimulation();
+    m_simulation->runSimulation();
 }

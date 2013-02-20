@@ -14,16 +14,17 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   05.10.2012
 
-#include "IObserver.h"
-#include "FitSuiteStrategies.h"
-#include "FitSuiteObjects.h"
-#include "FitSuiteParameters.h"
-#include "IMinimizer.h"
+#include "AttFitting.h"
 #include "ChiSquaredModule.h"
 #include "FitSuiteFunctions.h"
+#include "FitSuiteObjects.h"
+#include "FitSuiteParameters.h"
+#include "FitSuiteStrategies.h"
+#include "IMinimizer.h"
+#include "IObserver.h"
 #include <string>
 
-class Experiment;
+class Simulation;
 class ParameterPool;
 
 
@@ -40,11 +41,12 @@ public:
     //! clear all and prepare for the next fit
     void clear();
 
-    //! add pair of (experiment, real data) for consecutive simulation
-    void addExperimentAndRealData(const Experiment &experiment, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule());
+    //! add pair of (simulation, real data) for consecutive simulation
+    void addSimulationAndRealData(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule());
 
     //! add fit parameter
     void addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless(), double error=0.0);
+    void addFitParameter(const std::string &name, double value, const AttLimits &attlim=AttLimits::limitless(), double error=0.0);
 
     //! add fit strategy
     void addFitStrategy(IFitSuiteStrategy *strategy);
@@ -54,7 +56,7 @@ public:
     //! get minimizer
     IMinimizer *getMinimizer() { return m_minimizer; }
 
-    //! link fitting parameters to parameters defined in experiments
+    //! link fitting parameters to parameters defined in simulations
     virtual void link_fit_parameters();
 
     //! run fitting which may consist of several minimization rounds
@@ -69,6 +71,9 @@ public:
     //! return reference to fit parameters
     FitSuiteParameters *getFitParameters() { return &m_fit_parameters; }
 
+    //! return reference to fit parameters
+    FitSuiteStrategies *getFitStrategies() { return &m_fit_strategies; }
+
     //! if the last iteration is done (used by observers to print summary)
     bool isLastIteration() const { return m_is_last_iteration; }
 
@@ -81,6 +86,9 @@ public:
     //! print results of the screen
     void printResults() const;
 
+    AttFitting &getAttributes() { return m_fit_attributes; }
+    void setAttributes(const AttFitting &fit_attributes) { m_fit_attributes = fit_attributes; }
+
 private:
     //! disabled copy constructor and assignment operator
     FitSuite &operator=(const FitSuite &);
@@ -89,9 +97,10 @@ private:
     //! check if all prerequisites to run fit fit are filled
     bool check_prerequisites() const;
 
-    FitSuiteObjects m_fit_objects; //! kit which contains sets of <experiment,real_data,chi_module> to fit
+    AttFitting m_fit_attributes; //! general fit attributes
+    FitSuiteObjects m_fit_objects; //! kit which contains sets of <simulation,real_data,chi_module> to fit
     FitSuiteParameters m_fit_parameters; //! collection of fit parameters
-    FitSuiteStrategies m_fit_strategies; //! collection of strategies which are executed before every minimization round
+    FitSuiteStrategies m_fit_strategies; //! collection of strategies which drives multiple minimization rounds
     IMinimizer  *m_minimizer; //! minimization engine
     FitSuiteChiSquaredFunction m_function_chi2;
     FitSuiteGradientFunction m_function_gradient;

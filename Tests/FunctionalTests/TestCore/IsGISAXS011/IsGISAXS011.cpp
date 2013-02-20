@@ -5,26 +5,12 @@
 #include "ParticleCoreShell.h"
 #include "LayerDecorator.h"
 #include "OutputDataIOFactory.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "InterferenceFunctionNone.h"
 #include "FormFactorParallelepiped.h"
 #include "MaterialManager.h"
-#include "Units.h" //kvector_t
+#include "Units.h"
 #include "Utils.h"
-
-/*#include "Particle.h"
-#include "FormFactors.h"
-#include "Transform3D.h"
-#include "LayerDecorator.h"
-#include "Lattice.h"
-#include "LatticeBasis.h"
-#include "Crystal.h"
-#include "MesoCrystal.h"
-#include "FormFactorWeighted.h"
-#include "Numeric.h"
-#include "MathFunctions.h"
-#include "StochasticSampledParameter.h"
-#include "IsGISAXSMorphologyFileDecoration.h"*/
 
 
 #include <iostream>
@@ -59,21 +45,21 @@ void FunctionalTests::IsGISAXS011::run()
 
     multi_layer.addLayer(air_layer_decorator);
     // ---------------------
-    // building experiment
+    // building simulation
     // ---------------------
-     GISASExperiment experiment;
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+     Simulation simulation;
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // ---------------------
-    // running experiment
+    // running simulation
     // ---------------------
-    experiment.setSample(multi_layer);
-    experiment.runSimulation();
+    simulation.setSample(multi_layer);
+    simulation.runSimulation();
     // ---------------------
     // copying data
     // ---------------------
-    m_result = experiment.getOutputDataClone();
+    m_result = simulation.getOutputDataClone();
 
 }
 

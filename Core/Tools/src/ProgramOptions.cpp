@@ -75,7 +75,7 @@ void ProgramOptions::parseConfigFile()
     //std::cout << "ProgramOptions::parseConfigFile" << std::endl;
 
     // default config file name
-    std::string config_file("gisasfw.cfg");
+    std::string config_file("bornagain.cfg");
 
     // definition of config file name in command line options overrides default name
     if (m_variables_map.count("config") ) {

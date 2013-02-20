@@ -3,7 +3,7 @@
 #include "IsGISAXSTools.h"
 #include "Types.h"
 #include "Units.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "MultiLayer.h"
 #include "MaterialManager.h"
 #include "LayerDecorator.h"
@@ -38,15 +38,15 @@ void TestDetectorResolution::execute()
 {
     if (mp_intensity_output) delete mp_intensity_output;
     initializeSample();
-    GISASExperiment experiment(mp_options);
-    experiment.setSample(*mp_sample);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree
+    Simulation simulation(mp_options);
+    simulation.setSample(*mp_sample);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree
             ,100, 0.0*Units::degree, 2.0*Units::degree);
     IResolutionFunction2D *p_resolution_function = new ResolutionFunction2DSimple(0.001, 0.001);
-    experiment.setDetectorResolutionFunction(p_resolution_function);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    experiment.runSimulation();
-    mp_intensity_output = experiment.getOutputDataClone();
+    simulation.setDetectorResolutionFunction(p_resolution_function);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.runSimulation();
+    mp_intensity_output = simulation.getOutputDataClone();
     IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_detector_resolution", "Detector resolution",
             "CONT4 Z", "Detector resolution");
 }

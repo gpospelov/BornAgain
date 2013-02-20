@@ -1,5 +1,5 @@
 #include "TestIsGISAXS2.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "OutputData.h"
 #include "Units.h"
 #include "IsGISAXSTools.h"
@@ -22,15 +22,15 @@ TestIsGISAXS2::TestIsGISAXS2() : IFunctionalTest("TestIsGISAXS2")
 
 void TestIsGISAXS2::execute()
 {
-    GISASExperiment experiment(mp_options);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    Simulation simulation(mp_options);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // cylinders of two types
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS2_CylindersMixture"));
-    experiment.setSample(*sample);
-    experiment.runSimulation();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), m_data_path+"this_bimodal.ima");
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), m_data_path+"this_bimodal.ima");
 }
 
 

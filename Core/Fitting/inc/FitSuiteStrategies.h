@@ -28,6 +28,7 @@ class FitSuiteStrategies
 {
 public:
     typedef SafePointerVector<IFitSuiteStrategy > strategies_t;
+    typedef strategies_t::iterator iterator;
 
     FitSuiteStrategies();
     virtual ~FitSuiteStrategies();
@@ -39,6 +40,9 @@ public:
     void minimize();
 
     size_t getNStrategy() const { return m_current_strategy_index; }
+
+    iterator begin() { return m_strategies.begin(); }
+    iterator end() { return m_strategies.end(); }
 
     void clear();
 private:

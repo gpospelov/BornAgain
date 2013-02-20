@@ -22,7 +22,6 @@
 //! @class IAxis
 //! @brief Definition of IAxis interface for 1d axes
 //- -------------------------------------------------------------------
-
 class IAxis
 {
 public:
@@ -67,11 +66,6 @@ public:
         return left.equals(right);
     }
 
-//    //! find the index that corresponds to the given lower bound (index is inclusive)
-//    virtual size_t getLowerBoundIndex(double value) const=0;
-//
-//    //! find the index that corresponds to the given upper bound (index is inclusive)
-//    virtual size_t getUpperBoundIndex(double value) const=0;
 protected:
     virtual bool equals(const IAxis &other) const;
     std::string m_name;  //!< axis label
@@ -84,7 +78,7 @@ inline bool IAxis::equals(const IAxis& other) const
 
 //! test for inequality
 inline bool operator!=(const IAxis &left, const IAxis &right) {
-    return !(left ==  right);
+    return !(left == right);
 }
 
 //! global helper function for comparison of axes

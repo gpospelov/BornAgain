@@ -17,13 +17,14 @@
 #include "IFunctionalTest.h"
 #include "Types.h"
 #include "OutputData.h"
+#include "ISampleBuilder.h"
 
-class GISASExperiment;
+class Simulation;
 class ISample;
-class ISampleBuilder;
 class MesoCrystal;
 class IFormFactor;
 class Lattice;
+class FitSuite;
 
 
 //- -------------------------------------------------------------------
@@ -33,19 +34,58 @@ class Lattice;
 class TestMesoCrystal2 : public IFunctionalTest
 {
 public:
+    typedef std::vector<std::vector<std::string > > fixplan_t; // to hold sets of fit parameters to fix/release
+
     TestMesoCrystal2();
     virtual ~TestMesoCrystal2();
 
     virtual void execute();
 
+    class SampleBuilder : public ISampleBuilder
+    {
+    public:
+        SampleBuilder();
+        virtual ~SampleBuilder(){}
+
+        virtual ISample *buildSample() const;
+    protected:
+        //! initialize pool parameters
+        virtual void init_parameters();
+    private:
+//        MesoCrystal *createMesoCrystal(double particle_radius, complex_t n_particle, const IFormFactor *p_meso_form_factor) const;
+//        const Lattice *createLattice(double stacking_radius) const;
+        MesoCrystal *createMesoCrystal(double stacking_radius_a, double stacking_radius_c, complex_t n_particle, const IFormFactor *p_meso_form_factor) const;
+        const Lattice *createLattice(double stacking_radius_a, double stacking_radius_c) const;
+        double m_meso_radius;
+        double m_surface_filling_ratio;
+        double m_meso_height;
+        double m_sigma_meso_height;
+        double m_sigma_meso_radius;
+        double m_lattice_length_a;
+        double m_lattice_length_c;
+        double m_nanoparticle_radius;
+        double m_sigma_nanoparticle_radius;
+        double m_sigma_lattice_length_a;
+        double m_roughness;
+    };
+
+    void draw_results(); // plot fit results
+    void run_fit(); // run fit
+
+    void fitsuite_setup(int nconfig);
+    void fitsuite_config1();
+    void fitsuite_config2();
+    void fitsuite_config3();
+    void fitsuite_config4();
+
 private:
-    void initializeExperiment(const OutputData<double> *output_data=0);
+    void initializeRealData();
+    void initializeSimulation(const OutputData<double> *output_data=0);
 
-//    MesoCrystal* createMesoCrystal(double stacking_radius, complex_t n_particle, const IFormFactor* p_meso_form_factor);
-//    const Lattice *createLattice(double stacking_radius);
-
-    ISampleBuilder *mp_sample_builder;
-    GISASExperiment *mp_experiment;
+    OutputData<double> *m_real_data;
+    ISampleBuilder *m_sample_builder;
+    Simulation *m_simulation;
+    FitSuite *m_fitSuite;
 };
 
 #endif // TESTMESOCRYSTAL2_H

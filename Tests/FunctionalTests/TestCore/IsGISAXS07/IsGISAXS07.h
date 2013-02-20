@@ -6,7 +6,7 @@
 #include "OutputData.h"
 
 class MultiLayer;
-class GISASExperiment;
+class Simulation;
 
 
 namespace FunctionalTests {
@@ -25,9 +25,6 @@ private:
     OutputData<double> *m_result;
 };
 
-
 }
-
-
 
 #endif

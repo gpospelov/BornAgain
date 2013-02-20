@@ -4,7 +4,7 @@
 #include "LayerDecorator.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "FormFactorCylinder.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "MaterialManager.h"
 #include "OutputDataIOFactory.h"
 #include "Units.h"
@@ -34,33 +34,32 @@ void FunctionalTests::IsGISAXS010::run()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
 
-   // IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e7*Units::nanometer);
+    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e7*Units::nanometer);
     complex_t n_particle(1.0-5e-5, 2e-8);
     ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-    //particle_decoration.addInterferenceFunction(p_interference_function);
-    particle_decoration.addInterferenceFunction(new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e7*Units::nanometer));
+    particle_decoration.addInterferenceFunction(p_interference_function);
 
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
     multi_layer.addLayer(air_layer_decorator);
     multi_layer.addLayer(substrate_layer);
     // ---------------------
-    // building experiment
+    // building simulation
     // ---------------------
-    GISASExperiment experiment;
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    Simulation simulation;
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // ---------------------
-    // running experiment
+    // running simulation
     // ---------------------
-    experiment.setSample(multi_layer);
-    experiment.runSimulation();
+    simulation.setSample(multi_layer);
+    simulation.runSimulation();
 
     // ---------------------
     // copying data
     // ---------------------
-    m_result = experiment.getOutputDataClone();
+    m_result = simulation.getOutputDataClone();
 
 }
 

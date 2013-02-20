@@ -89,7 +89,7 @@ public:
     static void resetMinimumAndMaximum() { resetMinimum(); resetMaximum(); }
 
     //! export 2D output data in std::vectors (used for saving in ROOT tree)
-    static void exportOutputDataInVectors2D(const OutputData<double> &output_data
+    static void exportOutputDataInVectors2D(const OutputData<double> &input_data
                                             , std::vector<std::vector<double > > &v_data
                                             , std::vector<std::vector<double > > &v_axis0
                                             , std::vector<std::vector<double > > &v_axis1);
@@ -111,7 +111,7 @@ public:
     static OutputData<double > *createDataWithGaussianNoise(const OutputData<double> &exact_data, double sigma);
 
     //! draw standard IsGISAXS comparison canvas
-    static void drawOutputDataComparisonResults(const OutputData<double> &data, const OutputData<double> &reference, const std::string &name=std::string("noname"), const std::string &title=std::string("no title") );
+    static void drawOutputDataComparisonResults(const OutputData<double> &data, const OutputData<double> &reference, const std::string &name=std::string("noname"), const std::string &title=std::string("no title"), double hmin=1., double hmax = -1., double hdiff=0.0001 );
 
 private:
     static double m_hist_min; // minimum value of y-axis (for 1D histograms), or z-axis (for 2D histograms)

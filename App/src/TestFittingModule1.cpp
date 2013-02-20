@@ -5,8 +5,7 @@
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "FormFactors.h"
-#include "GISASExperiment.h"
-#include "IOutputDataNormalizer.h"
+#include "Simulation.h"
 #include "ISquaredFunction.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
@@ -30,11 +29,11 @@
 TestFittingModule1::TestFittingModule1()
     : mp_real_data(0)
     , mp_simulated_data(0)
-    , mp_experiment(0)
+    , mp_simulation(0)
     , mp_sample(0)
     , m_fitSuite(0)
 {
-
+    m_fitSuite = new FitSuite();
 }
 
 
@@ -42,21 +41,18 @@ TestFittingModule1::~TestFittingModule1()
 {
     delete mp_real_data;
     delete mp_simulated_data;
-    delete mp_experiment;
+    delete mp_simulation;
     delete mp_sample;
 }
 
 
 void TestFittingModule1::execute()
 {
-    // creating fit suite
-    m_fitSuite = new FitSuite();
-
     // initializing data
     initializeSample1();
-    initializeExperiment();
+    initializeSimulation();
     initializeRealData();
-    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data);
+    m_fitSuite->addSimulationAndRealData(*mp_simulation, *mp_real_data);
 
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
@@ -68,27 +64,26 @@ void TestFittingModule1::execute()
 
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
-    //fitSuite->attachObserver( ObserverFactory::createTreeObserver() );
+    m_fitSuite->attachObserver( FitSuiteObserverFactory::createTreeObserver() );
 
     m_fitSuite->runFit();
 }
 
 
 /* ************************************************************************* */
-// initializing experiment
+// initializing simulation
 /* ************************************************************************* */
-void TestFittingModule1::initializeExperiment()
+void TestFittingModule1::initializeSimulation()
 {
     if( !mp_sample ) {
-        throw NullPointerException("TestFittingModule1::initializeExperiment() -> No sample defined");
+        throw NullPointerException("TestFittingModule1::initializeSimulation() -> No sample defined");
     }
-    delete mp_experiment;
-    mp_experiment = new GISASExperiment(mp_options);
-    mp_experiment->setSample(*mp_sample);
-    mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
-    mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    //mp_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
-    mp_experiment->setBeamIntensity(1e10);
+    delete mp_simulation;
+    mp_simulation = new Simulation(mp_options);
+    mp_simulation->setSample(*mp_sample);
+    mp_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
+    mp_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    mp_simulation->setBeamIntensity(1e10);
 }
 
 
@@ -173,12 +168,13 @@ void TestFittingModule1::initializeSample2()
 /* ************************************************************************* */
 void TestFittingModule1::initializeRealData()
 {
-    if( !mp_experiment ) throw NullPointerException("TestFittingModule2::initializeRealData() -> Error! No experiment o sample defined ");
+    if( !mp_simulation ) throw NullPointerException("TestFittingModule2::initializeRealData() -> Error! No simulation of sample defined ");
 
-    mp_experiment->runSimulation();
-    //mp_experiment->normalize();
+    mp_simulation->runSimulation();
+    mp_simulation->normalize();
+    m_fitSuite->getFitObjects()->setSimulationNormalize(true);
     delete mp_real_data;
-    mp_real_data = IsGISAXSTools::createNoisyData(*mp_experiment->getOutputData());
+    mp_real_data = IsGISAXSTools::createNoisyData(*mp_simulation->getOutputData());
 }
 
 

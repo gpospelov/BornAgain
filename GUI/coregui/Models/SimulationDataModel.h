@@ -20,6 +20,9 @@
 #include "Instrument.h"
 #include "SimulationParameters.h"
 
+#include <QMap>
+#include <QString>
+
 //- -------------------------------------------------------------------
 //! @class SimulationDataModel
 //! @brief Definition of SimulationDataModel that holds lists of samples,
@@ -33,36 +36,36 @@ public:
 
     //! retrieve a list of the contained samples
     //! \return a list containing the ISample objects
-    SelectionListModel<ISample> &getSampleList() { return m_samples; }
+    QMap<QString, ISample*> getSampleList() { return m_samples; }
 
     //! retrieve a list of the contained sample builders
     //! \return a list containing the ISampleBuilder objects
-    SelectionListModel<ISampleBuilder> &getSampleBuilderList() { return m_sample_builders; }
+    QMap<QString, ISampleBuilder*> getSampleBuilderList() { return m_sample_builders; }
 
     //! retrieve a list of the contained instruments
     //! \return a list containing the Instrument objects
-    SelectionListModel<Instrument> &getInstrumentList() { return m_instruments; }
+    QMap<QString, Instrument*> getInstrumentList() { return m_instruments; }
 
     //! retrieve a list of the contained simulation parameters
     //! \return a list containing the SimulationParamters objects
-    SelectionListModel<SimulationParameters> &getSimulationParameterList() { return m_simulation_parameters; }
+    QMap<QString, SimulationParameters*> getSimulationParameterList() { return m_simulation_parameters; }
 
     //! add sample to sample list
-    void addSample(ISample *p_sample);
+    void addSample(QString name, ISample *p_sample);
 
     //! add sample builder to list
-    void addSampleBuilder(ISampleBuilder *p_sample_builder);
+    void addSampleBuilder(QString name, ISampleBuilder *p_sample_builder);
 
     //! add instrument to list
-    void addInstrument(Instrument *p_instrument);
+    void addInstrument(QString name, Instrument *p_instrument);
 
     //! add simulation parameters to list
-    void addSimulationParameters(SimulationParameters *p_simulation_parameters);
+    void addSimulationParameters(QString name, SimulationParameters *p_simulation_parameters);
 private:
-    SelectionListModel<ISample> m_samples;
-    SelectionListModel<ISampleBuilder> m_sample_builders;
-    SelectionListModel<Instrument> m_instruments;
-    SelectionListModel<SimulationParameters> m_simulation_parameters;
+    QMap<QString, ISample*> m_samples;
+    QMap<QString, ISampleBuilder*> m_sample_builders;
+    QMap<QString, Instrument*> m_instruments;
+    QMap<QString, SimulationParameters*> m_simulation_parameters;
 };
 
 

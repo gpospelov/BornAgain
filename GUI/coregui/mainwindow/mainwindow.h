@@ -14,6 +14,8 @@ class InstrumentManager;
 class SampleManager;
 class SimulationManager;
 class FitManager;
+class SimulationDataModel;
+class Instrument;
 
 //class MainWindow : public QMainWindow
 class MainWindow : public Manhattan::FancyMainWindow
@@ -23,6 +25,8 @@ class MainWindow : public Manhattan::FancyMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    SimulationDataModel *getSimulationDataModel() { return m_sim_data_model; }
     
 private:
     //TaskSelectorWidget *m_tabWidget;
@@ -32,6 +36,12 @@ private:
     SampleManager *m_sampleView;
     SimulationManager *m_simulationView;
     FitManager * m_fitView;
+
+    SimulationDataModel *m_sim_data_model;
+    // dummy simulation model initializer for test purposes
+    void initSimModel();
+    // dummy instrument creator
+    Instrument *createDefaultInstrument();
 };
 
 #endif // MAINWINDOW_H

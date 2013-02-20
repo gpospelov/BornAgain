@@ -16,7 +16,7 @@ TEMPLATE = app
 QMAKE_EXTENSION_SHLIB = so
 #CONFIG  -= app_bundle
 OBJECTS_DIR = obj
-#MOC_DIR = obj
+MOC_DIR = obj
 #UI_DIR  = obj
 #RCC_DIR = obj
 

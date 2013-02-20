@@ -6,6 +6,7 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QGridLayout>
+#include <QMessageBox>
 
 SimulationManager::SimulationManager(QWidget *parent)
     : QWidget(parent)
@@ -29,18 +30,18 @@ SimulationManager::SimulationManager(QWidget *parent)
     // selection of simulation parameters
     QGroupBox *simulationParametersGroup = new QGroupBox(tr("Simulation Parameters"));
        // framework (DWBA - BA)
-    QLabel *frameworkLabel = new QLabel(tr("Select Framework:"));
+    QLabel *frameworkLabel = new QLabel(tr("Framework:"));
     QComboBox *frameworkSelectionBox = new QComboBox;
     frameworkSelectionBox->addItem(tr("DWBA"));
     frameworkSelectionBox->addItem(tr("BA"));
       // interference function (DA - LMA - SSCA - ISGISAXSMOR)
-    QLabel *interferenceLabel = new QLabel(tr("Select Interference Function Approximation:"));
+    QLabel *interferenceLabel = new QLabel(tr("Interference Function Approximation:"));
     QComboBox *interferenceFunctionSelectionBox = new QComboBox;
     interferenceFunctionSelectionBox->addItem(tr("DA"));
     interferenceFunctionSelectionBox->addItem(tr("LMA"));
     interferenceFunctionSelectionBox->addItem(tr("SSCA"));
       // lattice type (None - Lattice - Para1D - Para1DFinite)
-    QLabel *latticeTypeLabel = new QLabel(tr("Select Lattice Type:"));
+    QLabel *latticeTypeLabel = new QLabel(tr("Lattice Type:"));
     QComboBox *latticeTypeSelectionBox = new QComboBox;
     latticeTypeSelectionBox->addItem(tr("None"));
     latticeTypeSelectionBox->addItem(tr("Lattice"));
@@ -57,7 +58,7 @@ SimulationManager::SimulationManager(QWidget *parent)
     simulationParametersGroup->setLayout(simulationParametersLayout);
 
     // run simulation button
-    QPushButton *runSimulationButton = new QPushButton(tr("Run Simulation"));
+    runSimulationButton = new QPushButton(tr("Run Simulation"));
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -66,4 +67,14 @@ SimulationManager::SimulationManager(QWidget *parent)
     mainLayout->addWidget(runSimulationButton);
     mainLayout->addStretch();
     setLayout(mainLayout);
+
+    // signal and slots
+    connect(runSimulationButton, SIGNAL(clicked()), this, SLOT(onRunSimulation()));
+}
+
+void SimulationManager::onRunSimulation()
+{
+    // initialize a Simulation object and run it
+    QMessageBox::information(this, tr("Pushed \"Run Simulation\"-button"),
+                             tr("You pushed a button."));
 }

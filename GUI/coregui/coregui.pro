@@ -34,7 +34,8 @@ SOURCES += \
     utils/ba_fancytabbar.cpp \
     utils/ba_stylehelper.cpp \
     utils/rootcanvas.cpp \
-    instrumentmanager/instrumentmanager.cpp
+    instrumentmanager/instrumentmanager.cpp \
+    models/SimulationDataModel.cpp
 
 HEADERS  += \
     mainwindow/imode.h \
@@ -49,7 +50,9 @@ HEADERS  += \
     utils/ba_fancytabbar.h \
     utils/ba_stylehelper.h \
     utils/rootcanvas.h \
-    instrumentmanager/instrumentmanager.h
+    instrumentmanager/instrumentmanager.h \
+    models/SimulationDataModel.h \
+    models/SelectionListModel.h
 
 
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/instrumentmanager $$PWD/simulationmanager $$PWD/fitmanager

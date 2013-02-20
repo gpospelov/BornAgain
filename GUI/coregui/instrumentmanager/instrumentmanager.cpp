@@ -31,9 +31,9 @@ InstrumentManager::InstrumentManager(QWidget *parent)
     QLabel *beamIntensityLabel = new QLabel(tr("Intensity (1/s):"));
     QDoubleSpinBox *beamIntensityEdit = new QDoubleSpinBox;
       // incoming angles
-    QLabel *beamAlphaInLabel = new QLabel(tr("Inclination angle (degrees):"));
+    QLabel *beamAlphaInLabel = new QLabel(tr("Inclination Angle (degrees):"));
     QDoubleSpinBox *beamAlphaInEdit = new QDoubleSpinBox;
-    QLabel *beamPhiInLabel = new QLabel(tr("Azimuthal angle (degrees):"));
+    QLabel *beamPhiInLabel = new QLabel(tr("Azimuthal Angle (degrees):"));
     QDoubleSpinBox *beamPhiInEdit = new QDoubleSpinBox;
       // layout
     QGridLayout *beamParamsLayout = new QGridLayout;
@@ -52,8 +52,8 @@ InstrumentManager::InstrumentManager(QWidget *parent)
     QLabel *endRangeLabel = new QLabel(tr("End"));
     QLabel *nbrValuesRangeLabel = new QLabel(tr("# values"));
       // angle labels
-    QLabel *detectorAlphaRangeLabel = new QLabel(tr("Inclination range (degrees):"));
-    QLabel *detectorPhiRangeLabel = new QLabel(tr("Azimuthal range (degrees):"));
+    QLabel *detectorAlphaRangeLabel = new QLabel(tr("Inclination Range (degrees):"));
+    QLabel *detectorPhiRangeLabel = new QLabel(tr("Azimuthal Range (degrees):"));
       // range input edits
     QDoubleSpinBox *detectorAlphaStartEdit = new QDoubleSpinBox;
     QDoubleSpinBox *detectorAlphaEndEdit = new QDoubleSpinBox;
@@ -62,7 +62,7 @@ InstrumentManager::InstrumentManager(QWidget *parent)
     QDoubleSpinBox *detectorPhiEndEdit = new QDoubleSpinBox;
     QSpinBox *detectorPhiValuesEdit = new QSpinBox;
       // checkbox for IsGISAXS angle initialization
-    QCheckBox *detectorAnglesIsGISAXSBox = new QCheckBox(tr("IsGISAXS Angle Initialization:"));
+    QCheckBox *detectorAnglesIsGISAXSBox = new QCheckBox(tr("IsGISAXS Angle Initialization"));
       // layout
     QGridLayout *detectorParamsLayout = new QGridLayout;
     detectorParamsLayout->addWidget(startRangeLabel, 0, 1);

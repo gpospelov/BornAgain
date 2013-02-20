@@ -18,11 +18,11 @@ MainWindow::MainWindow(QWidget *parent)
 //    : QMainWindow(parent)
     : Manhattan::FancyMainWindow(parent)
     , m_tabWidget(0)
-    , m_welcomeManager(0)
-    , m_instrumentManager(0)
-    , m_sampleManager(0)
-    , m_simulManager(0)
-    , m_fitManager(0)
+    , m_welcomeView(0)
+    , m_instrumentView(0)
+    , m_sampleView(0)
+    , m_simulationView(0)
+    , m_fitView(0)
 {
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
@@ -41,23 +41,22 @@ MainWindow::MainWindow(QWidget *parent)
 
     //m_tabWidget = new TaskSelectorWidget(this);
     m_tabWidget = new Manhattan::FancyTabWidget(this);
-    m_welcomeManager = new WelcomeManager();
-    m_instrumentManager = new InstrumentManager();
-    m_sampleManager = new SampleManager();
-    m_simulManager = new SimulationManager();
-    m_fitManager = new FitManager();
+    m_welcomeView = new WelcomeManager(this);
+    m_instrumentView = new InstrumentManager(this);
+    m_sampleView = new SampleManager(this);
+    m_simulationView = new SimulationManager(this);
+    m_fitView = new FitManager(this);
 
-    m_tabWidget->insertTab(0, m_welcomeManager, QIcon("./images/mode_welcome.png"), "Welcome");
-    m_tabWidget->insertTab(1, m_instrumentManager, QIcon("./images/mode_exp.png"), "Instrument");
-    m_tabWidget->insertTab(2, m_sampleManager, QIcon("./images/mode_sample.png"), "Sample");
-    m_tabWidget->insertTab(3, m_simulManager, QIcon("./images/mode_simul.png"), "Simulation");
-    m_tabWidget->insertTab(4, m_fitManager, QIcon("./images/mode_fit.png"), "Fit");
+    m_tabWidget->insertTab(0, m_welcomeView, QIcon("./images/mode_welcome.png"), "Welcome");
+    m_tabWidget->insertTab(1, m_instrumentView, QIcon("./images/mode_exp.png"), "Instrument");
+    m_tabWidget->insertTab(2, m_sampleView, QIcon("./images/mode_sample.png"), "Sample");
+    m_tabWidget->insertTab(3, m_simulationView, QIcon("./images/mode_simul.png"), "Simulation");
+    m_tabWidget->insertTab(4, m_fitView, QIcon("./images/mode_fit.png"), "Fit");
 
     setCentralWidget(m_tabWidget);
 
 //    m_tabWidget->statusBar()->setProperty("p_styled", true);
     setAcceptDrops(true);
-
 }
 
 MainWindow::~MainWindow()

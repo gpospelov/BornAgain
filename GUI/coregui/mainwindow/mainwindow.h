@@ -27,11 +27,11 @@ public:
 private:
     //TaskSelectorWidget *m_tabWidget;
     Manhattan::FancyTabWidget  *m_tabWidget;
-    WelcomeManager *m_welcomeManager;
-    InstrumentManager *m_instrumentManager;
-    SampleManager *m_sampleManager;
-    SimulationManager *m_simulManager;
-    FitManager * m_fitManager;
+    WelcomeManager *m_welcomeView;
+    InstrumentManager *m_instrumentView;
+    SampleManager *m_sampleView;
+    SimulationManager *m_simulationView;
+    FitManager * m_fitView;
 };
 
 #endif // MAINWINDOW_H

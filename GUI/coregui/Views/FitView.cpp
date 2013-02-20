@@ -1,4 +1,4 @@
-#include "fitmanager.h"
+#include "FitView.h"
 #include "rootcanvas.h"
 
 #include <QWidget>

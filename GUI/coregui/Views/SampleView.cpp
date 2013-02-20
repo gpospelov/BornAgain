@@ -1,6 +1,6 @@
-#include "samplemanager.h"
+#include "SampleView.h"
 #include "designercomponents.h"
-//#include <QtWidgets>
+
 #include <QDockWidget>
 #include <QAbstractItemView>
 

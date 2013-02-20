@@ -66,7 +66,7 @@ inline void SelectionListModel<T>::setSelection(size_t index)
 template<class T>
 inline bool SelectionListModel<T>::indexInAllowedRange(size_t index) const
 {
-    return index < size();
+    return index < this->size();
 }
 
 #endif /* SELECTIONLISTMODEL_H_ */

@@ -15,7 +15,7 @@ TEMPLATE = app
 QMAKE_EXTENSION_SHLIB = so
 #CONFIG  -= app_bundle
 OBJECTS_DIR = obj
-MOC_DIR = obj
+MOC_DIR = moc
 #UI_DIR  = obj
 #RCC_DIR = obj
 
@@ -28,16 +28,15 @@ SOURCES += \
     mainwindow/taskselectorwidget.cpp \
     utils/ba_fancytabbar.cpp \
     utils/ba_stylehelper.cpp \
-    utils/rootcanvas.cpp
     utils/rootcanvas.cpp \
     Models/SimulationDataModel.cpp \
     Views/InstrumentView.cpp \
     Views/FitView.cpp \
     Views/SampleView.cpp \
     Views/SimulationView.cpp \
-    Views/WelcomeView.cpp
-    samplemanager/sampleeditor.cpp \
-    samplemanager/sampleeditorstack.cpp
+    Views/WelcomeView.cpp \
+    Views/sampleeditor.cpp \
+    Views/sampleeditorstack.cpp
 
 HEADERS  += \
     mainwindow/imode.h \
@@ -47,7 +46,6 @@ HEADERS  += \
     mainwindow/taskselectorwidget.h \
     utils/ba_fancytabbar.h \
     utils/ba_stylehelper.h \
-    utils/rootcanvas.h
     utils/rootcanvas.h \
     Models/SimulationDataModel.h \
     Models/SelectionListModel.h \
@@ -55,14 +53,13 @@ HEADERS  += \
     Views/InstrumentView.h \
     Views/SampleView.h \
     Views/SimulationView.h \
-    Views/WelcomeView.h
-    samplemanager/sampleeditor.h \
-    samplemanager/sampleeditorstack.h
-
-INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/experimentmanager $$PWD/simulationmanager $$PWD/fitmanager
+    Views/WelcomeView.h \
+    Views/sampleeditor.h \
+    Views/sampleeditorstack.h
 
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/experimentmanager $$PWD/simulationmanager $$PWD/fitmanager
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/Views $$PWD/Models
+
 # visual style "Manhattan"
 LIBS += $$PWD/../../lib/libqt-manhattan-style.so
 INCLUDEPATH += $$PWD/../externals/qt-manhattan-style
@@ -70,6 +67,7 @@ INCLUDEPATH += $$PWD/../externals/qt-manhattan-style
 # ROOT libraries integration
 LIBS += $$PWD/../../lib/libQtRoot.so $$PWD/../../lib/libGQt.so
 INCLUDEPATH += $$PWD/../externals/qt-root/inc
+
 INCLUDEPATH += $$PWD/../../Core/Algorithms/inc \
     $$PWD/../../Core/Fitting/inc \
     $$PWD/../../Core/FormFactors/inc \
@@ -78,7 +76,7 @@ INCLUDEPATH += $$PWD/../../Core/Algorithms/inc \
     $$PWD/../../Core/Tools/inc
 
 # qt-designer components
-INCLUDEPATH += $$QMAKE_INCDIR_QT/QtDesigner
+#INCLUDEPATH += $$QMAKE_INCDIR_QT/QtDesigner
 
 # ROOT libraries
 MYROOT = $$(ROOTSYS)
@@ -99,6 +97,6 @@ isEmpty(MYROOT) {
   MYROOTCINT = $${MYROOT}/bin/rootcint
 }
 
-FORMS += \
-    testform.ui
+#FORMS += \
+#    testform.ui
 

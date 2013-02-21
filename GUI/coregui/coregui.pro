@@ -19,6 +19,8 @@ MOC_DIR = moc
 #UI_DIR  = obj
 #RCC_DIR = obj
 
+#include($$PWD/Views/Components/widgetbox/widgetbox.pri)
+
 SOURCES += \
     mainwindow/imode.cpp \
     mainwindow/main.cpp \

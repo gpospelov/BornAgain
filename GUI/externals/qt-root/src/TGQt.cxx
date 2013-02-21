@@ -40,6 +40,8 @@
 #include <QPicture>
 #include <QDebug>
 
+#include <QString>
+
 #include <qpixmap.h>
 #include <qcursor.h>
 #include <qdesktopwidget.h>
@@ -982,6 +984,7 @@ Bool_t TGQt::Init(void* /*display*/)
         // create a custom codec
         new QSymbolCodec();
     }
+//    if (symbolFontFound) TQtPadFont::SetSymbolFontFamily(fontFamily.toLatin1());
 //    if (symbolFontFound) TQtPadFont::SetSymbolFontFamily(fontFamily.toAscii().data());
     if (symbolFontFound) TQtPadFont::SetSymbolFontFamily(fontFamily.toStdString().c_str());
 #endif

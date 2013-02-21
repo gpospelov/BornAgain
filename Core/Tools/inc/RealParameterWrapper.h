@@ -15,6 +15,8 @@
 //! @date   14.12.2012
 
 #include "Exceptions.h"
+
+#include <ostream>
 //#include <boost/signal.hpp>
 
 

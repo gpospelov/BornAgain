@@ -2,6 +2,10 @@
 
 #include <QMessageBox>
 
+SimulationDataModel::SimulationDataModel()
+{
+}
+
 void SimulationDataModel::addSample(QString name, ISample *p_sample)
 {
     if (!m_samples.contains(name)) {

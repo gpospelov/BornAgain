@@ -45,6 +45,9 @@ public:
     }
 };
 
+//class QDesignerWidgetBoxInterface;
+//class QDesignerFormEditorInterface;
+
 class DesignerComponents
 {
 public:
@@ -53,6 +56,7 @@ public:
     static DesignerPropertyEditorInterface *createPropertyEditor(QWidget *parent);
     static DesignerSampleInspectorInterface *createSampleInspector(QWidget *parent);
     static DesignerSampleWorkspaceInterface *createSampleWorkspace(QWidget *parent);
+//    static QDesignerWidgetBoxInterface *createDesignerWidgetBox(QDesignerFormEditorInterface *core, QWidget *parent);
 
 };
 

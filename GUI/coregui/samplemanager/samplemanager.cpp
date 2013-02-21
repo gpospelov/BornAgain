@@ -19,9 +19,9 @@ SampleManager::SampleManager(QWidget *parent)
 //    , m_formeditor(QDesignerComponents::createFormEditor(0))
 
 {
+    m_sampleEditor = new SampleEditor(parent);
 
     QWidget *widget = new QWidget(this);
-
     m_sampleEditorStack = new SampleEditorStack(this); // in Qt-creator it belongs to whole application
     m_sampleEditorStack->addWidget(widget);
 
@@ -33,8 +33,6 @@ SampleManager::SampleManager(QWidget *parent)
     setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
 
-//    m_formeditor = new qdesigner_internal::FormEditor(parent);
- //   m_sampleEditor = new SampleEditor(parent);
 
     initSubWindows();
 
@@ -66,7 +64,7 @@ void SampleManager::initSubWindows()
 //    wb->setObjectName(QLatin1String("WidgetBox"));
 //    m_subWindows[WidgetBoxSubWindow] = wb;
 
-//    QDesignerWidgetBoxInterface *wb = QDesignerComponents::createWidgetBox(m_sampleEditor, 0);
+    //QDesignerWidgetBoxInterface *wb = QDesignerComponents::createWidgetBox(m_sampleEditor, this);
     wb->setWindowTitle(tr("Widget Box"));
     wb->setObjectName(QLatin1String("WidgetBox"));
     //m_sampleEditor->setWidgetBox(wb);

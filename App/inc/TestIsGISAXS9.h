@@ -17,7 +17,7 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
-#include "SafePointerVector.h"
+//#include "SafePointerVector.h"
 
 
 //- -------------------------------------------------------------------
@@ -28,14 +28,15 @@ class TestIsGISAXS9 : public IFunctionalTest
 {
 public:
     TestIsGISAXS9();
-    virtual ~TestIsGISAXS9();
+    //virtual ~TestIsGISAXS9();
+     virtual ~TestIsGISAXS9() { }
 
     virtual void execute();
     virtual void finalise();
 
-    void clear();
-private:
-    SafePointerVector<OutputData<double> > m_results;
+   // void clear();
+//private:
+//    SafePointerVector<OutputData<double> > m_results;
 };
 
 

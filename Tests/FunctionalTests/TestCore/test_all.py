@@ -4,8 +4,7 @@ import os
 import subprocess
 import time
 
-#Tests = ["IsGISAXS01", "IsGISAXS02", "IsGISAXS07", "IsGISAXS010", "IsGISAXS011"]
-Tests = ["IsGISAXS01", "IsGISAXS02"]
+Tests = ["IsGISAXS01", "IsGISAXS02", "IsGISAXS03", "IsGISAXS04", "IsGISAXS06", "IsGISAXS07", "IsGISAXS08", "IsGISAXS09", "IsGISAXS010", "IsGISAXS011"]
 test_info = []
 
 

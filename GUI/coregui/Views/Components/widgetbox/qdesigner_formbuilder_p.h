@@ -83,6 +83,14 @@ public:
     QDesignerFormBuilder(QDesignerFormEditorInterface *core,
                          const DeviceProfile &deviceProfile = DeviceProfile());
 
+    // XXX Gena's hack
+    enum Mode {
+      DisableScripts,
+        EnableScripts
+    };
+    QDesignerFormBuilder(QDesignerFormEditorInterface *core, Mode mode,
+                         const DeviceProfile &deviceProfile = DeviceProfile());
+
     virtual QWidget *createWidget(DomWidget *ui_widget, QWidget *parentWidget = 0)
     { return QFormBuilder::create(ui_widget, parentWidget); }
 

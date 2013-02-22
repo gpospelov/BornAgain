@@ -117,5 +117,6 @@ RESOURCES   += coregui.qrc
 
 
 lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtXml
+#lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtScript -lQtXml
 
 

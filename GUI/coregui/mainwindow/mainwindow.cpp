@@ -31,8 +31,6 @@ MainWindow::MainWindow(QWidget *parent)
 //    Manhattan::Utils::StyleHelper::setBaseColor(QColor(0xCC6600));
     Manhattan::Utils::StyleHelper::setBaseColor(QColor(0x086FA1));
 
-//    BornAgain::Utils::StyleHelper::setBaseColor(QColor(0xCC6600));
-
 
     setDockNestingEnabled(true);
 
@@ -47,11 +45,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_simulationView = new SimulationManager(this);
     m_fitView = new FitManager(this);
 
-    m_tabWidget->insertTab(0, m_welcomeView, QIcon("./images/mode_welcome.png"), "Welcome");
-    m_tabWidget->insertTab(1, m_instrumentView, QIcon("./images/mode_exp.png"), "Instrument");
-    m_tabWidget->insertTab(2, m_sampleView, QIcon("./images/mode_sample.png"), "Sample");
-    m_tabWidget->insertTab(3, m_simulationView, QIcon("./images/mode_simul.png"), "Simulation");
-    m_tabWidget->insertTab(4, m_fitView, QIcon("./images/mode_fit.png"), "Fit");
+    m_tabWidget->insertTab(0, m_welcomeView, QIcon(":/images/mode_welcome.png"), "Welcome");
+    m_tabWidget->insertTab(1, m_instrumentView, QIcon(":/images/mode_exp.png"), "Instrument");
+    m_tabWidget->insertTab(2, m_sampleView, QIcon(":/images/mode_sample.png"), "Sample");
+    m_tabWidget->insertTab(3, m_simulationView, QIcon(":/images/mode_simul.png"), "Simulation");
+    m_tabWidget->insertTab(4, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
 
     setCentralWidget(m_tabWidget);
 

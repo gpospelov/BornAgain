@@ -1,8 +1,10 @@
 #include "designercomponents.h"
 
 
-#include <QDesignerWidgetBoxInterface>
-#include <QDesignerFormEditorInterface>
+#include <QtDesigner/QDesignerFormEditorInterface>
+#include <QtDesigner/QDesignerWidgetBoxInterface>
+//#include <QDesignerWidgetBoxInterface>
+//#include <QDesignerFormEditorInterface>
 
 
 DesignerWidgetBoxInterface *DesignerComponents::createWidgetBox(QWidget *parent)

@@ -8,7 +8,8 @@
 #include <QDockWidget>
 
 
-#include <QDesignerFormEditorInterface>
+//#include <QDesignerFormEditorInterface>
+#include <QtDesigner/QDesignerFormEditorInterface>
 
 class SampleManager : public Manhattan::FancyMainWindow
 {

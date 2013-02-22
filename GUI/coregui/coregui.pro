@@ -8,18 +8,18 @@ QT       += core gui designer designercomponents
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+
 TARGET = coregui
 TEMPLATE = app
 
 # making standard shared library extension
 QMAKE_EXTENSION_SHLIB = so
 #CONFIG  -= app_bundle
-OBJECTS_DIR = obj
-MOC_DIR = moc
-#UI_DIR  = obj
-#RCC_DIR = obj
+OBJECTS_DIR = .obj
+MOC_DIR = .moc
+RCC_DIR = .rcc
 
-#include($$PWD/Views/Components/widgetbox/widgetbox.pri)
+include($$PWD/Views/Components/widgetbox/widgetbox.pri)
 
 SOURCES += \
     mainwindow/imode.cpp \
@@ -101,4 +101,10 @@ isEmpty(MYROOT) {
 
 #FORMS += \
 #    testform.ui
+
+RESOURCES   += coregui.qrc
+
+
+lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtXml
+
 

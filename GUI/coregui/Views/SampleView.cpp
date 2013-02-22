@@ -8,9 +8,18 @@
 
 //#include <QDesignerFormEditorPluginInterface>
 
-#include <QDesignerComponents>
-#include <QDesignerWidgetBoxInterface>
-#include <QDesignerFormEditorInterface>
+//#include <QDesignerComponents>
+//#include <QDesignerWidgetBoxInterface>
+//#include <QDesignerFormEditorInterface>
+#include <QtDesigner/QDesignerComponents>
+#include <QtDesigner/QDesignerWidgetBoxInterface>
+#include <QtDesigner/QDesignerFormEditorInterface>
+#include "widgetbox.h"
+
+
+#if QT_VERSION < 0x050000
+#define QStringLiteral QString
+#endif
 
 
 SampleManager::SampleManager(QWidget *parent)
@@ -60,12 +69,16 @@ void SampleManager::initSubWindows()
 {
     qFill(m_subWindows, m_subWindows + NumberOfSubWindows, static_cast<QWidget*>(0));
 
-    DesignerWidgetBoxInterface *wb = DesignerComponents::createWidgetBox(this);
+//    DesignerWidgetBoxInterface *wb = DesignerComponents::createWidgetBox(this);
 //    wb->setWindowTitle(tr("Widget Box"));
 //    wb->setObjectName(QLatin1String("WidgetBox"));
 //    m_subWindows[WidgetBoxSubWindow] = wb;
 
-    //QDesignerWidgetBoxInterface *wb = QDesignerComponents::createWidgetBox(m_sampleEditor, this);
+//    QDesignerWidgetBoxInterface *wb = QDesignerComponents::createWidgetBox(m_sampleEditor, this);
+    QDesignerWidgetBoxInterface *wb = new qdesigner_internal::WidgetBox(m_sampleEditor, this);
+    wb->setFileName(QStringLiteral(":/widgetbox/widgetbox.xml"));
+    wb->load();
+
     wb->setWindowTitle(tr("Widget Box"));
     wb->setObjectName(QLatin1String("WidgetBox"));
     //m_sampleEditor->setWidgetBox(wb);

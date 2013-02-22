@@ -96,10 +96,18 @@ protected:
     virtual void createCustomWidgets(DomCustomWidgets *);
 };
 
+
+#if QT_VERSION >= 0x050000
 WidgetBoxResource::WidgetBoxResource(QDesignerFormEditorInterface *core) :
     QDesignerFormBuilder(core, currentDeviceProfile(core))
 {
 }
+#else
+WidgetBoxResource::WidgetBoxResource(QDesignerFormEditorInterface *core) :
+    QDesignerFormBuilder(core, QDesignerFormBuilder::EnableScripts, currentDeviceProfile(core))
+{
+}
+#endif
 
 
 QWidget *WidgetBoxResource::createWidget(const QString &widgetName, QWidget *parentWidget, const QString &name)

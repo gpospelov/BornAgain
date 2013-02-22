@@ -14,7 +14,8 @@ class IsGISAXS09
 public:
     IsGISAXS09();
     ~IsGISAXS09() { delete m_result; }
-    void run();
+    //void run();
+    void runpyramidZ0(), runpyramidZ45();
     int analyseResults();
     const OutputData<double> *getOutputData() { return m_result;}
 private:

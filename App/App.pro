@@ -13,6 +13,16 @@ FUNCTIONAL_TESTS = $$PWD/../Tests/FunctionalTests/TestCore
 # -----------------------------------------------------------------------------
 SOURCES += \
     $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS02/IsGISAXS02.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS03/IsGISAXS03.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS04/IsGISAXS04.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS06/IsGISAXS06.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS07/IsGISAXS07.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS08/IsGISAXS08.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS09/IsGISAXS09.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS010/IsGISAXS010.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS011/IsGISAXS011.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS015/IsGISAXS015.cpp \
     src/AppOptionsDescription.cpp \
     src/CommandLine.cpp \
     src/DrawHelper.cpp \
@@ -68,6 +78,16 @@ SOURCES += \
 
 HEADERS += \
     $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS02/IsGISAXS02.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS03/IsGISAXS03.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS04/IsGISAXS04.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS06/IsGISAXS06.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS07/IsGISAXS07.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS08/IsGISAXS08.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS09/IsGISAXS09.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS010/IsGISAXS010.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS011/IsGISAXS011.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS015/IsGISAXS015.h \
     inc/App.h \
     inc/AppLinkDef.h \
     inc/AppOptionsDescription.h \
@@ -131,9 +151,34 @@ CONFIG(DEBUG_FPE) {
 }
 
 # additional locations
-LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01
-INCLUDEPATH += $${LOCATIONS}
-DEPENDPATH  += $${LOCATIONS}
+#LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01
+#INCLUDEPATH += $${LOCATIONS}
+#DEPENDPATH  += $${LOCATIONS}
+
+LOCATIONS = ./inc $${FUNCTIONAL_TESTS}
+INCLUDEPATH += $${LOCATIONS}/IsGISAXS01 \
+               $${LOCATIONS}/IsGISAXS02 \
+               $${LOCATIONS}/IsGISAXS03 \
+               $${LOCATIONS}/IsGISAXS04 \
+               $${LOCATIONS}/IsGISAXS06 \
+               $${LOCATIONS}/IsGISAXS07 \
+               $${LOCATIONS}/IsGISAXS08 \
+               $${LOCATIONS}/IsGISAXS09 \
+               $${LOCATIONS}/IsGISAXS010 \
+               $${LOCATIONS}/IsGISAXS011 \
+               $${LOCATIONS}/IsGISAXS015 \
+
+DEPENDPATH  += $${LOCATIONS}/IsGISAXS01 \
+               $${LOCATIONS}/IsGISAXS02 \
+               $${LOCATIONS}/IsGISAXS03 \
+               $${LOCATIONS}/IsGISAXS04 \
+               $${LOCATIONS}/IsGISAXS06 \
+               $${LOCATIONS}/IsGISAXS07 \
+               $${LOCATIONS}/IsGISAXS08 \
+               $${LOCATIONS}/IsGISAXS09 \
+               $${LOCATIONS}/IsGISAXS010 \
+               $${LOCATIONS}/IsGISAXS011 \
+               $${LOCATIONS}/IsGISAXS015 \
 
 OBJECTS_DIR = obj
 

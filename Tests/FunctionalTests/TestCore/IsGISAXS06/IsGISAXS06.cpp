@@ -2,38 +2,35 @@
 #include "MultiLayer.h"
 #include "ParticleDecoration.h"
 #include "LayerDecorator.h"
-//#include "InterferenceFunctionNone.h"
 #include "FormFactorCylinder.h"
-//#include "FormFactorPrism3.h"
-//#include "Simulation.h"
+#include "Simulation.h"
 #include "Units.h"
 #include "MaterialManager.h"
 #include "InterferenceFunction2DLattice.h"
 #include "PositionParticleInfo.h"
-//#include "OutputDataIOFactory.h"
-//#include "Utils.h"
+#include "OutputDataIOFactory.h"
+#include "StochasticSampledParameter.h"
+#include "StochasticDoubleGate.h"
+#include "Utils.h"
 
 #include <iostream>
 #include <cmath>
-
 
 FunctionalTests::IsGISAXS06::IsGISAXS06()
     : m_name("IsGISAXS06")
     , m_description("2D lattice with different disorder")
     , m_result(0)
-{ }
+{}
 
-
-void FunctionalTests::IsGISAXS06::run()
+//-----------------------------------------------------
+//IsGISAXS6_lattice()
+//-----------------------------------------------------
+void FunctionalTests::IsGISAXS06::runlattice()
 {
     // ---------------------
     // building sample
     // ---------------------
-
-    //IsGISAXS6_lattice()
-
-        MultiLayer multi_layer_lattice;
-
+        MultiLayer multi_layer;
         complex_t n_particle(1.0-6e-4, 2e-8);
         const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
         const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
@@ -66,12 +63,48 @@ void FunctionalTests::IsGISAXS06::run()
         particle_decoration.addInterferenceFunction(p_interference_function);
         LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-        multi_layer_lattice.addLayer(air_layer_decorator);
-        multi_layer_lattice.addLayer(substrate_layer);
+        multi_layer.addLayer(air_layer_decorator);
+        multi_layer.addLayer(substrate_layer);
+        // ---------------------
+        // building simulation
+        // ---------------------
+        Simulation simulation;
+        simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+        simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
-    // IsGISAXS6 functional test: cylinders lattice centered
-        MultiLayer multi_layer_centered;
-        Lattice2DIFParameters lattice_params_centered = {
+        SimulationParameters sim_params;
+        sim_params.me_framework = SimulationParameters::DWBA;
+        sim_params.me_if_approx = SimulationParameters::LMA;
+        sim_params.me_lattice_type = SimulationParameters::LATTICE;
+        simulation.setSimulationParameters(sim_params);
+
+        // ---------------------
+        // running simulation and copying data
+        // ---------------------
+        simulation.setSample(multi_layer);
+        simulation.runSimulation();
+        m_result = simulation.getOutputDataClone();
+        OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_lattice.ima");
+ }
+
+//-----------------------------------------------------
+// IsGISAXS6 functional test: cylinders lattice centered
+//-----------------------------------------------------
+void FunctionalTests::IsGISAXS06::runcentered()
+{
+    // ---------------------
+    // building sample
+    // ---------------------
+        MultiLayer multi_layer;
+        complex_t n_particle(1.0-6e-4, 2e-8);
+        const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air",  1.0, 0.0);
+        const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+        Layer air_layer;
+        air_layer.setMaterial(p_air_material);
+        Layer substrate_layer;
+        substrate_layer.setMaterial(p_substrate_material);
+
+        Lattice2DIFParameters lattice_params = {
                 10.0*Units::nanometer,       // L1
                 10.0*Units::nanometer,       // L2
                 90.0*Units::degree,          // lattice angle
@@ -81,26 +114,64 @@ void FunctionalTests::IsGISAXS06::run()
                 300.0*Units::nanometer/2.0/M_PI, // correlation length 1
                 100.0*Units::nanometer/2.0/M_PI  // correlation length 2
         };
-        InterferenceFunction2DLattice *p_interference_function_centered = new InterferenceFunction2DLattice(lattice_params_centered);
-        p_interference_function_centered->setProbabilityDistribution(pdf);
+        InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
+        FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+        p_interference_function->setProbabilityDistribution(pdf);
 
-        ParticleDecoration particle_decoration_centered;
+        ParticleDecoration particle_decoration;
         // particle 1
-        particle_decoration_centered.addParticleInfo(particle_info);
+        FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+        kvector_t position(0.0, 0.0, 0.0);
+        PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+        particle_decoration.addParticleInfo(particle_info);
         // particle 2
         kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
         particle_info.setPosition(position_2);
-        particle_decoration_centered.addParticleInfo(particle_info);
+        particle_decoration.addParticleInfo(particle_info);
 
-        particle_decoration_centered.addInterferenceFunction(p_interference_function_centered);
-        LayerDecorator air_layer_decorator_centered(air_layer, particle_decoration_centered);
+        particle_decoration.addInterferenceFunction(p_interference_function);
+        LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-        multi_layer_centered.addLayer(air_layer_decorator_centered);
-        multi_layer_centered.addLayer(substrate_layer);
+        multi_layer.addLayer(air_layer_decorator);
+        multi_layer.addLayer(substrate_layer);
 
-        // IsGISAXS6 functional test: cylinders lattice rotated
-        MultiLayer multi_layer_rotated;
-        Lattice2DIFParameters lattice_params_rotated = {
+        // ---------------------
+        // building simulation
+        // ---------------------
+        Simulation simulation;
+        simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+        simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+
+        SimulationParameters sim_params;
+        sim_params.me_framework = SimulationParameters::DWBA;
+        sim_params.me_if_approx = SimulationParameters::LMA;
+        sim_params.me_lattice_type = SimulationParameters::LATTICE;
+        simulation.setSimulationParameters(sim_params);
+
+        // ---------------------
+        // running simulation and copying data
+        // ---------------------
+        simulation.setSample(multi_layer);
+        simulation.runSimulation();
+        m_result = simulation.getOutputDataClone();
+        OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_centered.ima");
+}
+
+//-----------------------------------------------------
+// IsGISAXS6 functional test: cylinders lattice rotated
+//-----------------------------------------------------
+void FunctionalTests::IsGISAXS06::runrotated()
+{
+        MultiLayer multi_layer;
+        complex_t n_particle(1.0-6e-4, 2e-8);
+        const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
+        const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+        Layer air_layer;
+        air_layer.setMaterial(p_air_material);
+        Layer substrate_layer;
+        substrate_layer.setMaterial(p_substrate_material);
+
+        Lattice2DIFParameters lattice_params = {
                 10.0*Units::nanometer,       // L1
                 10.0*Units::nanometer,       // L2
                 90.0*Units::degree,          // lattice angle
@@ -110,69 +181,50 @@ void FunctionalTests::IsGISAXS06::run()
                 300.0*Units::nanometer/2.0/M_PI, // correlation length 1
                 100.0*Units::nanometer/2.0/M_PI  // correlation length 2
         };
-        InterferenceFunction2DLattice *p_interference_function_rotated = new InterferenceFunction2DLattice(lattice_params_rotated);
-       // FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+        InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
+        FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
         pdf.setGamma(30.0*Units::degree);
-        p_interference_function_rotated->setProbabilityDistribution(pdf);
+        p_interference_function->setProbabilityDistribution(pdf);
 
-        ParticleDecoration particle_decoration_rotated;
+        ParticleDecoration particle_decoration;
         // particle
-        particle_decoration_rotated.addParticleInfo(particle_info);
-        particle_decoration_rotated.addInterferenceFunction(p_interference_function_rotated);
-        LayerDecorator air_layer_decorator_rotated(air_layer, particle_decoration_rotated);
+        FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+        kvector_t position(0.0, 0.0, 0.0);
+        PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+        particle_decoration.addParticleInfo(particle_info);
+        particle_decoration.addInterferenceFunction(p_interference_function);
+        LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-        multi_layer_rotated.addLayer(air_layer_decorator_rotated);
-        multi_layer_rotated.addLayer(substrate_layer);
+        multi_layer.addLayer(air_layer_decorator);
+        multi_layer.addLayer(substrate_layer);
 
-      //  LatticeVariantBuilder
+        // ---------------------
+        // building simulation
+        // ---------------------
+        Simulation simulation;
+        simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+        simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
-            MultiLayer multi_layer_variant;
-            Lattice2DIFParameters lattice_params_variant = {
-                    10.0*Units::nanometer,       // L1
-                    10.0*Units::nanometer,       // L2
-                    90.0*Units::degree,          // lattice angle
-                    m_xi,           // lattice orientation
-                    20000.0*Units::nanometer,    // domain size 1
-                    20000.0*Units::nanometer,    // domain size 2
-                    300.0*Units::nanometer/2.0/M_PI, // correlation length 1
-                    100.0*Units::nanometer/2.0/M_PI  // correlation length 2
-            };
-            InterferenceFunction2DLattice *p_interference_function_variant = new InterferenceFunction2DLattice(lattice_params_variant);
-            FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
-            p_interference_function_variant->setProbabilityDistribution(pdf);
+        SimulationParameters sim_params;
+        sim_params.me_framework = SimulationParameters::DWBA;
+        sim_params.me_if_approx = SimulationParameters::LMA;
+        sim_params.me_lattice_type = SimulationParameters::LATTICE;
+        simulation.setSimulationParameters(sim_params);
 
-            ParticleDecoration particle_decoration_variant;
-            // particle
-            particle_decoration_variant.addParticleInfo(particle_info);
-            particle_decoration_variant.addInterferenceFunction(p_interference_function);
-            LayerDecorator air_layer_decorator_variant(air_layer, particle_decoration_variant);
-
-            multi_layer_variant.addLayer(air_layer_decorator_variant);
-            multi_layer_variant.addLayer(substrate_layer);
-
-/*OutputData<double> *p_total = simulation.getOutputDataClone();
-    p_total->setAllTo(0.0);
-    int nbins = 3;
-    double xi_min = 0.0*Units::degree;
-    double xi_max = 240.0*Units::degree;
-    StochasticSampledParameter xi(StochasticDoubleGate(xi_min, xi_max), nbins, xi_min, xi_max);
-    for (size_t i=0; i<xi.getNbins(); ++i) {
-        double xi_value = xi.getBinValue(i);
-        double probability = xi.getNormalizedProbability(i);
-        m_builder.setXi(xi_value);
-        p_sample = dynamic_cast<MultiLayer *>(m_builder.buildSample());
-        simulation.setSample(*p_sample);
+        // ---------------------
+        // running simulation and copying data
+        // ---------------------
+        simulation.setSample(multi_layer);
         simulation.runSimulation();
-        delete p_sample;
-        OutputData<double> *p_single_output = simulation.getOutputDataClone();
-        p_single_output->scaleAll(probability);
-        *p_total += *p_single_output;
-        delete p_single_output;
-    }
-    OutputDataIOFactory::writeOutputData(*p_total, m_data_path+"this_variants.ima");
-    delete p_total;*/
+        m_result = simulation.getOutputDataClone();
+        OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_rotated.ima");
+}
 
-
+//-----------------------------------------------------
+// lattice variants
+//-----------------------------------------------------
+void FunctionalTests::IsGISAXS06::runvariants()
+{
     // ---------------------
     // building simulation
     // ---------------------
@@ -189,25 +241,69 @@ void FunctionalTests::IsGISAXS06::run()
     // ---------------------
     // running simulation and copying data
     // ---------------------
-    // normal lattice
-    simulation.setSample(multi_layer_lattice);
-    simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_lattice.ima");
+    OutputData<double> *p_total = simulation.getOutputDataClone();
+    p_total->setAllTo(0.0);
+    int nbins = 3;
+    double xi_min = 0.0*Units::degree;
+    double xi_max = 240.0*Units::degree;
+    StochasticSampledParameter xi(StochasticDoubleGate(xi_min, xi_max), nbins, xi_min, xi_max);
+    for (size_t i=0; i<xi.getNbins(); ++i) {
+        double xi_value = xi.getBinValue(i);
+        double probability = xi.getNormalizedProbability(i);
+        m_builder.setXi(xi_value);
+        MultiLayer *p_sample = dynamic_cast<MultiLayer *>(m_builder.buildSample());
+        simulation.setSample(*p_sample);
+        simulation.runSimulation();
+        delete p_sample;
+        OutputData<double> *p_single_output = simulation.getOutputDataClone();
+        p_single_output->scaleAll(probability);
+        *p_total += *p_single_output;
+        delete p_single_output;
+    }
 
-     // centered lattice
-    simulation.setSample(multi_layer_centered);
-    simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_centered.ima");
+    OutputDataIOFactory::writeOutputData(*p_total,"this_variants.ima");
+    m_result = OutputDataIOFactory::getOutputData("this_variants.ima");
+    delete p_total;
+}
 
-     // rotated lattice
-    simulation.setSample(multi_layer_rotated);
-    simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_rotated.ima");
+// IsGISAXS6 functional test sample builder for varying xi angle
+ISample* FunctionalTests::IsGISAXS06::LatticeVariantBuilder::buildSample() const
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0,0.0);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    Lattice2DIFParameters lattice_params = {
+            10.0*Units::nanometer,       // L1
+            10.0*Units::nanometer,       // L2
+            90.0*Units::degree,          // lattice angle
+            m_xi,           // lattice orientation
+            20000.0*Units::nanometer,    // domain size 1
+            20000.0*Units::nanometer,    // domain size 2
+            300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+            100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+    };
+    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    p_interference_function->setProbabilityDistribution(pdf);
 
-     // lattice variants ??
+    ParticleDecoration particle_decoration;
+    // particle
+    FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
+    kvector_t position(0.0, 0.0, 0.0);
+    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    particle_decoration.addParticleInfo(particle_info);
 
+    particle_decoration.addInterferenceFunction(p_interference_function);
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),"this_variants.ima");
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
 }
 
 int FunctionalTests::IsGISAXS06::analyseResults()
@@ -215,13 +311,11 @@ int FunctionalTests::IsGISAXS06::analyseResults()
     const double threshold(1e-10);
 
     std::vector< CompareStruct > tocompare;
-    m_data_path = Utils::FileSystem::GetHomePath()+"Tests/FunctionalTests/TestCore/IsGISAXS06/";
 
-    tocompare.push_back( CompareStruct("isgi_lattice.ima.gz",      "this_lattice.ima",      "Cylinder 2D lattice") );
-    tocompare.push_back( CompareStruct("isgi_centered.ima.gz",      "this_centered.ima",      "Cylinder 2D lattice centered") );
-    tocompare.push_back( CompareStruct("isgi_rotated.ima.gz",      "this_rotated.ima",      "Cylinder 2D lattice rotated") );
-    tocompare.push_back( CompareStruct("isgi_variants.ima.gz",      "this_variants.ima",      "Cylinder 2D lattice variants") );
-
+    tocompare.push_back( CompareStruct("isgisaxs06_reference_lattice.ima.gz",      "this_lattice.ima",      "Cylinder 2D lattice") );
+    tocompare.push_back( CompareStruct("isgisaxs06_reference_centered.ima.gz",     "this_centered.ima",      "Cylinder 2D lattice centered") );
+    tocompare.push_back( CompareStruct("isgisaxs06_reference_rotated.ima.gz",      "this_rotated.ima",      "Cylinder 2D lattice rotated") );
+    tocompare.push_back( CompareStruct("isgisaxs06_reference_variants.ima.gz",     "this_variants.ima",      "Cylinder 2D lattice variants") );
 
     bool status_ok(true);
 
@@ -254,7 +348,11 @@ int FunctionalTests::IsGISAXS06::analyseResults()
 int main()
 {
     FunctionalTests::IsGISAXS06 test;
-    test.run();
+    //test.run();
+    test.runlattice();
+    test.runcentered();
+    test.runrotated();
+    test.runvariants();
 
     return test.analyseResults();
 }

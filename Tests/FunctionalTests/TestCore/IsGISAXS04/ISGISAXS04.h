@@ -14,13 +14,15 @@ class IsGISAXS04
 public:
     IsGISAXS04();
     ~IsGISAXS04() { delete m_result; }
-    void run();
+    //void run();
+    void run1DDL(), run2DDL();
     int analyseResults();
     const OutputData<double> *getOutputData() { return m_result;}
+
 private:
     std::string m_name;
     std::string m_description;
-    OutputData<double> *m_result;
+     OutputData<double> *m_result;
 
     // structure to hold info over several compare cases
     struct CompareStruct

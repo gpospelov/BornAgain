@@ -16,7 +16,7 @@
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
-#include "ISample.h"
+//#include "ISample.h"
 
 #include <string>
 

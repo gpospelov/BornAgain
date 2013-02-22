@@ -1,85 +1,43 @@
 #include "TestIsGISAXS4.h"
+#include "IsGISAXS04.h"
 #include "IsGISAXSTools.h"
-#include "Units.h"
-#include "Utils.h"
-#include "MultiLayer.h"
-#include "Simulation.h"
-#include "SampleFactory.h"
-#include "DrawHelper.h"
 #include "OutputDataIOFactory.h"
+#include "Utils.h"
 
+#include <fstream>
 
-#include "TCanvas.h"
-#include <gsl/gsl_errno.h>
 
 TestIsGISAXS4::TestIsGISAXS4() : IFunctionalTest("TestIsGISAXS4")
 {
-    m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-4/");
+    setOutputPath(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-4/" );
 }
+
 
 void TestIsGISAXS4::execute()
 {
-    gsl_set_error_handler_off();
-
-    Simulation simulation(mp_options);
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-
-    // 1DDL
-    MultiLayer *p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_1DDL"));
-    simulation.setSample(*p_sample);
-    simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), m_data_path+"this_1DDL.ima");
-    delete p_sample;
-
-    // 2DDL
-    p_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS4_2DDL"));
-    simulation.setSample(*p_sample);
-    simulation.runSimulation();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), m_data_path+"this_2DDLh.ima");
-    delete p_sample;
+    FunctionalTests::IsGISAXS04 test;
+    test.run1DDL();
+     OutputDataIOFactory::writeOutputData(*test.getOutputData(), getOutputPath()+"this_1DDL.ima");
+    test.run2DDL();
+     OutputDataIOFactory::writeOutputData(*test.getOutputData(), getOutputPath()+"this_2DDLh.ima");
 }
 
 
 void TestIsGISAXS4::finalise()
 {
-    std::vector< CompareStruct > tocompare;
-    tocompare.push_back( CompareStruct("isgi_1DDL.ima.gz",      "this_1DDL.ima",      "Cylinder 1DDL") );
-    tocompare.push_back( CompareStruct("isgi_2DDLh.ima.gz",      "this_2DDLh.ima",      "Cylinder 2DDL") );
+        std::vector< CompareStruct > tocompare;
 
-    for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].isginame);
-        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].thisname);
+        tocompare.push_back( CompareStruct(getOutputPath()+"isgi_1DDL.ima.gz",  getOutputPath()+"this_1DDL.ima", "Cylinder 1DDL") );
+        tocompare.push_back( CompareStruct(getOutputPath()+"isgi_2DDLh.ima.gz", getOutputPath()+"this_2DDLh.ima", "Cylinder 2DDL") );
 
-        std::ostringstream os;
-        os<<i;
-        std::string cname = getName()+"_c"+os.str();
-        TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas(cname.c_str(), tocompare[i].descr);
-        c1->Divide(2,2);
+        for(size_t i=0; i<tocompare.size(); ++i) {
+            OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(tocompare[i].isginame);
+            OutputData<double> *our_data = OutputDataIOFactory::getOutputData(tocompare[i].thisname);
 
-        IsGISAXSTools::setMinimum(1.);
-        // our calculations
-        c1->cd(1); gPad->SetLogz();
-        IsGISAXSTools::drawOutputDataInPad(*our_data, "CONT4 Z", "Our cylinder FF");
+            IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, tocompare[i].descr, tocompare[i].descr);
 
-        // isgisaxs data
-        c1->cd(2); gPad->SetLogz();
-        IsGISAXSTools::drawOutputDataInPad(*isgi_data, "CONT4 Z", "IsGisaxs mean FF");
+            delete isgi_data;
+            delete our_data;
+        }
 
-        // difference
-        c1->cd(3);
-        IsGISAXSTools::setMinimum(-0.0001);
-        IsGISAXSTools::setMaximum(0.0001);
-        IsGISAXSTools::drawOutputDataRelativeDifference2D(*our_data, *isgi_data, "CONT4 Z", "2D Difference map");
-
-        // difference
-        c1->cd(4);
-        IsGISAXSTools::resetMinimumAndMaximum();
-        //IsGISAXSTools::setMinimum(1);
-        IsGISAXSTools::drawOutputDataDifference1D(*our_data, *isgi_data, "", "Difference spectra");
-
-        IsGISAXSTools::resetMinimum(); IsGISAXSTools::resetMaximum();
-        delete isgi_data;
-        delete our_data;
-    }
 }

@@ -58,6 +58,7 @@ public:
     //! throw exception if parameter was not initialized with proper value
     void checkNull() const { if(isNull()) throw NullPointerException("RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer."); }
 
+    //! print the parameter's address to an output stream
     friend std::ostream &operator<<(std::ostream &ostr, const RealParameterWrapper &p) { ostr << p.m_data; return ostr; }
 private:
     //! swap function

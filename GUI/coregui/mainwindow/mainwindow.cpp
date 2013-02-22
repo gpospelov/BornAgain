@@ -26,8 +26,11 @@ MainWindow::MainWindow(QWidget *parent)
     , m_sampleView(0)
     , m_simulationView(0)
     , m_fitView(0)
-    , m_sim_data_model(0)
+    , mp_sim_data_model(0)
 {
+    // initialize simulation data model first:
+    initSimModel();
+
     QString baseName = QApplication::style()->objectName();
     qApp->setStyle(new ManhattanStyle(baseName));
 
@@ -46,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
     //m_tabWidget = new TaskSelectorWidget(this);
     m_tabWidget = new Manhattan::FancyTabWidget(this);
     m_welcomeView = new WelcomeManager(this);
-    m_instrumentView = new InstrumentManager(this);
+    m_instrumentView = new InstrumentView(mp_sim_data_model, this);
     m_sampleView = new SampleManager(this);
     m_simulationView = new SimulationManager(this);
     m_fitView = new FitManager(this);
@@ -61,9 +64,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 //    m_tabWidget->statusBar()->setProperty("p_styled", true);
     setAcceptDrops(true);
-
-    // initialize simulation data model
-    initSimModel();
 }
 
 MainWindow::~MainWindow()
@@ -72,9 +72,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::initSimModel()
 {
-    if (m_sim_data_model) delete m_sim_data_model;
-    m_sim_data_model = new SimulationDataModel;
-    m_sim_data_model->addInstrument(tr("Default GISAS"), createDefaultInstrument());
+    if (mp_sim_data_model) delete mp_sim_data_model;
+    mp_sim_data_model = new SimulationDataModel;
+    mp_sim_data_model->addInstrument(tr("Default GISAS"), createDefaultInstrument());
 }
 
 Instrument *MainWindow::createDefaultInstrument()
@@ -82,7 +82,7 @@ Instrument *MainWindow::createDefaultInstrument()
     Instrument *p_result = new Instrument;
     p_result->setBeamParameters(0.1*Units::nanometer, 0.4*Units::degree, 0.0);
     p_result->setBeamIntensity(1e7);
-    p_result->setDetectorParameters(100, 0.0, 3.0*Units::degree,
+    p_result->setDetectorParameters(100, 0.0, 6.0*Units::degree,
                                     100, 0.0, 3.0*Units::degree);
     return p_result;
 }

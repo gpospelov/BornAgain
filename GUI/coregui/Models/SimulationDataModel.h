@@ -59,6 +59,9 @@ public:
     //! add instrument to list
     void addInstrument(QString name, Instrument *p_instrument);
 
+    //! replace instrument with given name
+    void changeInstrument(QString name, Instrument *p_instrument);
+
     //! add simulation parameters to list
     void addSimulationParameters(QString name, SimulationParameters *p_simulation_parameters);
 private:

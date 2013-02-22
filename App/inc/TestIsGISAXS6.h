@@ -15,7 +15,7 @@
 //! @date   Jan 22, 2013
 
 #include "IFunctionalTest.h"
-#include "ISampleBuilder.h"
+//#include "ISampleBuilder.h"
 
 //- -------------------------------------------------------------------
 //! @class TestIsGISAXS6
@@ -39,18 +39,18 @@ private:
         std::string thisname;
         std::string descr;
     };
-    class LatticeVariantBuilder : public ISampleBuilder {
-    public:
-        LatticeVariantBuilder() : m_xi(0.0) {}
-        virtual ~LatticeVariantBuilder() {}
+   // class LatticeVariantBuilder : public ISampleBuilder {
+   // public:
+     //   LatticeVariantBuilder() : m_xi(0.0) {}
+     //   virtual ~LatticeVariantBuilder() {}
 
-        virtual ISample *buildSample() const;
+    //    virtual ISample *buildSample() const;
 
-        void setXi(double xi) { m_xi = xi; }
-    private:
-        double m_xi;
-    };
-    LatticeVariantBuilder m_builder;
+   //     void setXi(double xi) { m_xi = xi; }
+   // private:
+   //     double m_xi;
+  //  };
+  //  LatticeVariantBuilder m_builder;
     std::string m_data_path;
 };
 

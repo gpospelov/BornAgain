@@ -15,8 +15,10 @@ class IsGISAXS03
 public:
     IsGISAXS03();
     ~IsGISAXS03() { delete m_result; }
-    void run();
+    //void run();
+    void runDWBA() , runBA(), runBA_Size();
     int analyseResults();
+   // int analyseResultsDWBA(), analyseResultsBA(), analyseResultsBA_Size();
     const OutputData<double> *getOutputData() { return m_result;}
 private:
     std::string m_name;
@@ -32,7 +34,7 @@ private:
         std::string descr;
     };
 
-    std::string m_data_path;
+    std::string  m_data_path;
 };
 
 

@@ -23,13 +23,12 @@
 class TestIsGISAXS10 : public IFunctionalTest
 {
 public:
-    TestIsGISAXS10(){}
+    TestIsGISAXS10();
     virtual ~TestIsGISAXS10(){}
 
     virtual void execute();
     virtual void finalise();
 
-    //void initializeSample2();
 };
 
 #endif /* TESTISGISAXS10_H_ */

@@ -15,7 +15,8 @@ class IsGISAXS08
 public:
     IsGISAXS08();
     ~IsGISAXS08() { delete m_result; }
-    void run();
+    //void run();
+    void run2DDL(), run2DDL2();
     int analyseResults();
     const OutputData<double> *getOutputData() { return m_result;}
 private:

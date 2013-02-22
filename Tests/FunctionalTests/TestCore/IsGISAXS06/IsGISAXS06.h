@@ -4,6 +4,8 @@
 #include <string>
 #include "OutputData.h"
 
+#include "ISampleBuilder.h"
+
 class MultiLayer;
 class GISASExperiment;
 
@@ -15,7 +17,8 @@ class IsGISAXS06
 public:
     IsGISAXS06();
     ~IsGISAXS06() { delete m_result; }
-    void run();
+    //void run();
+    void runlattice(), runcentered(), runrotated(), runvariants();
     int analyseResults();
     const OutputData<double> *getOutputData() { return m_result;}
 private:
@@ -30,7 +33,8 @@ private:
         std::string thisname;
         std::string descr;
     };
-   /* class LatticeVariantBuilder : public ISampleBuilder {
+
+    class LatticeVariantBuilder : public ISampleBuilder {
     public:
         LatticeVariantBuilder() : m_xi(0.0) {}
         virtual ~LatticeVariantBuilder() {}
@@ -41,7 +45,7 @@ private:
     private:
         double m_xi;
     };
-    LatticeVariantBuilder m_builder;*/
+    LatticeVariantBuilder m_builder;
     std::string m_data_path;
 };
 

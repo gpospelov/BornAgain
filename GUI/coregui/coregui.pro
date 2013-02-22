@@ -77,6 +77,17 @@ INCLUDEPATH += $$PWD/../../Core/Algorithms/inc \
     $$PWD/../../Core/Samples/inc \
     $$PWD/../../Core/Tools/inc
 
+# -----------------------------------------------------------------------------
+# generating package dependency flags
+# -----------------------------------------------------------------------------
+MY_DEPENDENCY_LIB = BornAgainCore
+MY_DEPENDENCY_DEST =$$PWD/../..
+SONAME = so
+for(dep, MY_DEPENDENCY_LIB) {
+    LIBS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
+#    PRE_TARGETDEPS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
+}
+
 # qt-designer components
 #INCLUDEPATH += $$QMAKE_INCDIR_QT/QtDesigner
 

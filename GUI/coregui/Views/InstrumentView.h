@@ -29,6 +29,7 @@ private:
     void setToInstrumentData(Instrument *p_instrument);
     void initInstrumentFromForm(Instrument *p_instrument);
     void removeInstrumentName(QString name);
+    void setSignalBlock(bool block);
     SimulationDataModel *mp_simulation_data_model;
     Instrument *mp_cached_instrument;
     QString m_cached_name;

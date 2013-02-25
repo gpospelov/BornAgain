@@ -2,6 +2,8 @@
 
 #include "SimulationDataModel.h"
 #include "Simulation.h"
+#include "JobModel.h"
+#include "mainwindow.h"
 
 #include <QGroupBox>
 #include <QPushButton>
@@ -104,8 +106,16 @@ void SimulationView::onRunSimulation()
     Simulation *p_sim = new Simulation;
     p_sim->setSample(*p_sample);
     p_sim->setInstrument(*p_instrument);
-    p_sim->runSimulation();
+    JobModel *p_new_job = new JobModel(p_sim);
+    connect(p_new_job, SIGNAL(finished()), this, SLOT(onJobFinished()));
+    p_new_job->start();
     // initialize a Simulation object and run it
-    QMessageBox::information(this, tr("Simulation Done"),
-                             tr("The simulation is done calculating."));
+    QMessageBox::information(this, tr("Simulation Started"),
+                             tr("The simulation is now calculating."));
+}
+
+void SimulationView::onJobFinished()
+{
+    QMessageBox::information(this, tr("Simulation Job Finished"),
+                             tr("A simulation job has finished."));
 }

@@ -48,12 +48,12 @@ MainWindow::MainWindow(QWidget *parent)
     setCorner(Qt::BottomRightCorner, Qt::BottomDockWidgetArea);
 
     //m_tabWidget = new TaskSelectorWidget(this);
-    m_tabWidget = new Manhattan::FancyTabWidget(this);
-    m_welcomeView = new WelcomeManager(this);
-    m_instrumentView = new InstrumentView(mp_sim_data_model, this);
-    m_sampleView = new SampleManager(this);
-    m_simulationView = new SimulationView(mp_sim_data_model, this);
-    m_fitView = new FitManager(this);
+    m_tabWidget = new Manhattan::FancyTabWidget();
+    m_welcomeView = new WelcomeManager();
+    m_instrumentView = new InstrumentView(mp_sim_data_model);
+    m_sampleView = new SampleManager();
+    m_simulationView = new SimulationView(mp_sim_data_model);
+    m_fitView = new FitManager();
 
     m_tabWidget->insertTab(0, m_welcomeView, QIcon(":/images/mode_welcome.png"), "Welcome");
     m_tabWidget->insertTab(1, m_instrumentView, QIcon(":/images/mode_exp.png"), "Instrument");
@@ -77,6 +77,7 @@ MainWindow::~MainWindow()
 void MainWindow::onChangeTabWidget(int index)
 {
     // update views which depend on others
+    (void)index;
     m_simulationView->updateViewElements();
 }
 

@@ -31,8 +31,9 @@ if len(args) == 1:
 
 fc=0
 locs=0
-locs_type=[0,0,0,0,0,0,0,0]
-descr=["Core","App","UnitTests","*.py","macros","PyAPI","Third","Undef"]
+locs_type=[0,0,0,0,0,0,0,0,0]
+#       0      1     2           3      4        5       6     7       8
+descr=["Core","Functional Tests","Unit Tests","*.py","macros","GUI", "PyAPI","Third","Undef"]
 adds=None
 cmt=None
 prev_time = datetime(2000,1,1)
@@ -49,37 +50,46 @@ def pop():
         history.append((d,locs,atmp,adds,dels,hsh,who,cmt))
 
 def filetype(x):
-    file_type=7
-    if "Core/Algorithms" in x and (".h" in x or ".cpp" in x):
+    file_type=8
+    if "/Core/Algorithms/" in x and (".h" in x or ".cpp" in x):
         file_type = 0
-    elif "Core/FormFactors" in x and (".h" in x or ".cpp" in x):
+    elif "/Core/FormFactors/" in x and (".h" in x or ".cpp" in x):
         file_type = 0
-    elif "Core/Geometry" in x and (".h" in x or ".cpp" in x):
+    elif "/Core/Geometry/" in x and (".h" in x or ".cpp" in x):
         file_type = 0
-    elif "Core/Samples" in x and (".h" in x or ".cpp" in x):
+    elif "/Core/Samples/" in x and (".h" in x or ".cpp" in x):
         file_type = 0
-    elif "Core/Tools" in x and (".h" in x or ".cpp" in x):
+    elif "/Core/Tools/" in x and (".h" in x or ".cpp" in x):
         file_type = 0
-    if "Core/Fitting" in x and (".h" in x or ".cpp" in x):
+    if "/Core/Fitting/" in x and (".h" in x or ".cpp" in x):
         file_type = 0
-    elif "Core/inc" in x and (".h" in x):
+    elif "/Core/inc/" in x and (".h" in x):
         file_type = 0
-    elif "Core/src" in x and (".cpp" in x):
+    elif "/Core/src/" in x and (".cpp" in x):
         file_type = 0
-    elif "App" in x and (".h" in x or ".cpp" in x):
+    elif "/App/" in x and (".h" in x or ".cpp" in x):
         file_type = 1
-    elif "UnitTests" in x and (".h" in x or ".cpp" in x):
+    elif "/Tests/FunctionalTests/TestCore" in x and (".h" in x or ".cpp" in x):
+        file_type = 1
+    elif "/UnitTests/" in x and (".h" in x or ".cpp" in x):
         file_type = 2
-    elif "FunctionalTests" in x and (".h" in x or ".cpp" in x):
+    elif "/Tests/UnitTests/TestCore/" in x and (".h" in x or ".cpp" in x):
         file_type = 2
     elif ".py" in x and not "ThirdParty" in x and not "Core/PythonAPI" in x:
         file_type = 3
-    elif ".C" in x or ".pro" in x or ".pri" in x or "*.sh" in x and not "ThirdParty" in x:
+    elif ".C" in x or ".pro" in x or ".pri" in x or "*.sh" in x and not "ThirdParty" in x and not "pro.user" in x:
         file_type = 4
-    elif "Core/PythonAPI" in x and (".h" in x or ".cpp" in x):
+        print x
+    elif "/GUI/coregui" in x and (".h" in x or ".cpp" in x) and not "widgetbox" in x:
         file_type = 5
-    elif "ThirdParty" in x:
+    elif "/AppGUI/coregui" in x and (".h" in x or ".cpp" in x):
+        file_type = 5
+    elif "/BASuite" in x and (".h" in x or ".cpp" in x):
+        file_type = 5
+    elif "Core/PythonAPI" in x and (".h" in x or ".cpp" in x):
         file_type = 6
+    elif "ThirdParty" in x:
+        file_type = 7
     return file_type
 
 prevfolder = os.getcwd()
@@ -87,8 +97,8 @@ if extfolder:
     os.chdir(targetfolder)
 
 # parsing output of git log 
-file_type_ppp = 7
-file_type_mmm = 7
+file_type_ppp = 8
+file_type_mmm = 8
 for x in popen('git log develop --reverse -p'):
     if x.startswith('commit'):
         pop()
@@ -157,11 +167,11 @@ for i in range(0, len(xbins)):
     xtmp.append(xbins[i])
 
 # creating histograms
-nhistograms=6
+nhistograms=7
 a_histograms = []
 hstack = THStack("hstack","Number of Lines of Code")
-a_colors=[kBlue, kCyan, kRed, kOrange, kMagenta, kGreen]
-legend = TLegend(0.15,0.65,0.35,0.85)
+a_colors=[kBlue, kCyan, kRed, kOrange, kMagenta, kBlue-9, kGreen]
+legend = TLegend(0.15,0.55,0.38,0.85)
 legend.SetBorderSize(1);
 legend.SetFillStyle(1);
 for i_hist in range(0,nhistograms):

@@ -29,9 +29,7 @@ InstrumentView::InstrumentView(SimulationDataModel *p_simulation_data_model, QWi
       // instrument combo box
     QLabel *nameLabel = new QLabel(tr("Select Instrument:"));
     instrumentBox = new QComboBox;
-    if (parent) {
-        instrumentBox->addItems(mp_simulation_data_model->getInstrumentList().keys());
-    }
+    instrumentBox->addItems(mp_simulation_data_model->getInstrumentList().keys());
     addInstrumentButton = new QPushButton(tr("Add..."));
     saveInstrumentButton = new QPushButton(tr("Save"));
     saveInstrumentButton->setEnabled(false);

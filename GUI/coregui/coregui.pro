@@ -38,7 +38,8 @@ SOURCES += \
     Views/SimulationView.cpp \
     Views/WelcomeView.cpp \
     Views/sampleeditor.cpp \
-    Views/sampleeditorstack.cpp
+    Views/sampleeditorstack.cpp \
+    Models/JobModel.cpp
 
 HEADERS  += \
     mainwindow/imode.h \
@@ -57,7 +58,8 @@ HEADERS  += \
     Views/SimulationView.h \
     Views/WelcomeView.h \
     Views/sampleeditor.h \
-    Views/sampleeditorstack.h
+    Views/sampleeditorstack.h \
+    Models/JobModel.h
 
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/experimentmanager $$PWD/simulationmanager $$PWD/fitmanager
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/Views $$PWD/Models

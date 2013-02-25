@@ -1,5 +1,10 @@
 #include "SimulationView.h"
 
+#include "SimulationDataModel.h"
+#include "Simulation.h"
+#include "JobModel.h"
+#include "mainwindow.h"
+
 #include <QGroupBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -8,17 +13,18 @@
 #include <QGridLayout>
 #include <QMessageBox>
 
-SimulationManager::SimulationManager(QWidget *parent)
+SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     : QWidget(parent)
+    , mp_simulation_data_model(p_simulation_data_model)
 {
     // selection of input parameters
     QGroupBox *inputDataGroup = new QGroupBox(tr("Data selection"));
       // instrument selection
     QLabel *instrumentSelectionLabel = new QLabel(tr("Select Instrument:"));
-    QComboBox *instrumentSelectionBox = new QComboBox;
+    instrumentSelectionBox = new QComboBox;
       // sample selection
     QLabel *sampleSelectionLabel = new QLabel(tr("Select Sample:"));
-    QComboBox *sampleSelectionBox = new QComboBox;
+    sampleSelectionBox = new QComboBox;
       // layout
     QGridLayout *dataSelectionLayout = new QGridLayout;
     dataSelectionLayout->addWidget(instrumentSelectionLabel, 0, 0);
@@ -26,6 +32,7 @@ SimulationManager::SimulationManager(QWidget *parent)
     dataSelectionLayout->addWidget(sampleSelectionLabel, 1, 0);
     dataSelectionLayout->addWidget(sampleSelectionBox, 1, 1);
     inputDataGroup->setLayout(dataSelectionLayout);
+    updateViewElements();
 
     // selection of simulation parameters
     QGroupBox *simulationParametersGroup = new QGroupBox(tr("Simulation Parameters"));
@@ -72,9 +79,43 @@ SimulationManager::SimulationManager(QWidget *parent)
     connect(runSimulationButton, SIGNAL(clicked()), this, SLOT(onRunSimulation()));
 }
 
-void SimulationManager::onRunSimulation()
+void SimulationView::updateViewElements()
 {
+    instrumentSelectionBox->clear();
+    instrumentSelectionBox->addItems(mp_simulation_data_model->getInstrumentList().keys());
+    sampleSelectionBox->clear();
+    sampleSelectionBox->addItems(mp_simulation_data_model->getSampleList().keys());
+}
+
+void SimulationView::onRunSimulation()
+{
+    Instrument *p_instrument = mp_simulation_data_model->getInstrumentList().value(
+                instrumentSelectionBox->currentText(), 0);
+    if (!p_instrument) {
+        QMessageBox::warning(this, tr("No Instrument Selected"),
+                             tr("You must select an instrument first."));
+        return;
+    }
+    ISample *p_sample = mp_simulation_data_model->getSampleList().value(
+                sampleSelectionBox->currentText(), 0);
+    if (!p_sample) {
+        QMessageBox::warning(this, tr("No Sample Selected"),
+                             tr("You must select a sample first."));
+        return;
+    }
+    Simulation *p_sim = new Simulation;
+    p_sim->setSample(*p_sample);
+    p_sim->setInstrument(*p_instrument);
+    JobModel *p_new_job = new JobModel(p_sim);
+    connect(p_new_job, SIGNAL(finished()), this, SLOT(onJobFinished()));
+    p_new_job->start();
     // initialize a Simulation object and run it
-    QMessageBox::information(this, tr("Pushed \"Run Simulation\"-button"),
-                             tr("You pushed a button."));
+    QMessageBox::information(this, tr("Simulation Started"),
+                             tr("The simulation is now calculating."));
+}
+
+void SimulationView::onJobFinished()
+{
+    QMessageBox::information(this, tr("Simulation Job Finished"),
+                             tr("A simulation job has finished."));
 }

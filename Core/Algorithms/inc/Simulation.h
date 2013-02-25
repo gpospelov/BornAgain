@@ -47,7 +47,7 @@ public:
     void normalize();
 
     //! set the sample to be tested
-    void setSample(const ISample &p_sample);
+    void setSample(const ISample &sample);
 
     //! get the sample
     ISample *getSample() { return mp_sample; }
@@ -60,6 +60,9 @@ public:
     OutputData<double>* getOutputDataClone() const;
 
     const OutputData<double>* getOutputData() const;
+
+    //! set the instrument containing beam and detector information
+    void setInstrument(const Instrument &instrument);
 
     //! get the instrument containing beam and detector information
     Instrument &getInstrument() { return m_instrument; }

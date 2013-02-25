@@ -177,10 +177,10 @@ void Simulation::normalize()
 
 
 //! The ISample object will not be owned by the Simulation object
-void Simulation::setSample(const ISample &p_sample)
+void Simulation::setSample(const ISample &sample)
 {
     delete mp_sample;
-    mp_sample = p_sample.clone();
+    mp_sample = sample.clone();
 }
 
 void Simulation::setSampleBuilder(const ISampleBuilder *p_sample_builder)
@@ -199,6 +199,12 @@ OutputData<double>* Simulation::getOutputDataClone() const
 const OutputData<double>* Simulation::getOutputData() const
 {
     return &m_intensity_map;
+}
+
+void Simulation::setInstrument(const Instrument &instrument)
+{
+    m_instrument = instrument;
+    updateIntensityMapAxes();
 }
 
 void Simulation::setBeamParameters(double lambda, double alpha_i, double phi_i)

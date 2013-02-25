@@ -12,6 +12,9 @@
 #include "SimulationDataModel.h"
 #include "Instrument.h"
 #include "Units.h"
+#include "Samples.h"
+#include "InterferenceFunctions.h"
+#include "FormFactors.h"
 
 #include <QApplication>
 #include <iostream>
@@ -45,12 +48,12 @@ MainWindow::MainWindow(QWidget *parent)
     setCorner(Qt::BottomRightCorner, Qt::BottomDockWidgetArea);
 
     //m_tabWidget = new TaskSelectorWidget(this);
-    m_tabWidget = new Manhattan::FancyTabWidget(this);
-    m_welcomeView = new WelcomeManager(this);
-    m_instrumentView = new InstrumentView(mp_sim_data_model, this);
-    m_sampleView = new SampleManager(this);
-    m_simulationView = new SimulationManager(this);
-    m_fitView = new FitManager(this);
+    m_tabWidget = new Manhattan::FancyTabWidget();
+    m_welcomeView = new WelcomeManager();
+    m_instrumentView = new InstrumentView(mp_sim_data_model);
+    m_sampleView = new SampleManager();
+    m_simulationView = new SimulationView(mp_sim_data_model);
+    m_fitView = new FitManager();
 
     m_tabWidget->insertTab(0, m_welcomeView, QIcon(":/images/mode_welcome.png"), "Welcome");
     m_tabWidget->insertTab(1, m_instrumentView, QIcon(":/images/mode_exp.png"), "Instrument");
@@ -62,10 +65,20 @@ MainWindow::MainWindow(QWidget *parent)
 
 //    m_tabWidget->statusBar()->setProperty("p_styled", true);
     setAcceptDrops(true);
+
+    // signals/slots
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(onChangeTabWidget(int)));
 }
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::onChangeTabWidget(int index)
+{
+    // update views which depend on others
+    (void)index;
+    m_simulationView->updateViewElements();
 }
 
 void MainWindow::initSimModel()
@@ -73,6 +86,7 @@ void MainWindow::initSimModel()
     if (mp_sim_data_model) delete mp_sim_data_model;
     mp_sim_data_model = new SimulationDataModel;
     mp_sim_data_model->addInstrument(tr("Default GISAS"), createDefaultInstrument());
+    mp_sim_data_model->addSample(tr("Default cylinder single layer"), createDefaultSample());
 }
 
 Instrument *MainWindow::createDefaultInstrument()
@@ -83,4 +97,25 @@ Instrument *MainWindow::createDefaultInstrument()
     p_result->setDetectorParameters(100, 0.0, 6.0*Units::degree,
                                     100, 0.0, 3.0*Units::degree);
     return p_result;
+}
+
+ISample *MainWindow::createDefaultSample()
+{
+    MultiLayer *p_multi_layer = new MultiLayer();
+    complex_t n_air(1.0, 0.0);
+    complex_t n_substrate(1.0-6e-6, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
+    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+
+    p_multi_layer->addLayer(air_layer_decorator);
+    p_multi_layer->addLayer(substrate_layer);
+    return p_multi_layer;
 }

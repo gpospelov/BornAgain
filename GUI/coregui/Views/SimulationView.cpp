@@ -1,5 +1,7 @@
 #include "SimulationView.h"
 
+#include "SimulationDataModel.h"
+
 #include <QGroupBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -8,17 +10,18 @@
 #include <QGridLayout>
 #include <QMessageBox>
 
-SimulationManager::SimulationManager(QWidget *parent)
+SimulationManager::SimulationManager(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     : QWidget(parent)
+    , mp_simulation_data_model(p_simulation_data_model)
 {
     // selection of input parameters
     QGroupBox *inputDataGroup = new QGroupBox(tr("Data selection"));
       // instrument selection
     QLabel *instrumentSelectionLabel = new QLabel(tr("Select Instrument:"));
-    QComboBox *instrumentSelectionBox = new QComboBox;
+    instrumentSelectionBox = new QComboBox;
       // sample selection
     QLabel *sampleSelectionLabel = new QLabel(tr("Select Sample:"));
-    QComboBox *sampleSelectionBox = new QComboBox;
+    sampleSelectionBox = new QComboBox;
       // layout
     QGridLayout *dataSelectionLayout = new QGridLayout;
     dataSelectionLayout->addWidget(instrumentSelectionLabel, 0, 0);
@@ -26,6 +29,7 @@ SimulationManager::SimulationManager(QWidget *parent)
     dataSelectionLayout->addWidget(sampleSelectionLabel, 1, 0);
     dataSelectionLayout->addWidget(sampleSelectionBox, 1, 1);
     inputDataGroup->setLayout(dataSelectionLayout);
+    updateViewElements();
 
     // selection of simulation parameters
     QGroupBox *simulationParametersGroup = new QGroupBox(tr("Simulation Parameters"));
@@ -70,6 +74,14 @@ SimulationManager::SimulationManager(QWidget *parent)
 
     // signal and slots
     connect(runSimulationButton, SIGNAL(clicked()), this, SLOT(onRunSimulation()));
+}
+
+void SimulationManager::updateViewElements()
+{
+    instrumentSelectionBox->clear();
+    instrumentSelectionBox->addItems(mp_simulation_data_model->getInstrumentList().keys());
+    sampleSelectionBox->clear();
+    sampleSelectionBox->addItems(mp_simulation_data_model->getSampleList().keys());
 }
 
 void SimulationManager::onRunSimulation()

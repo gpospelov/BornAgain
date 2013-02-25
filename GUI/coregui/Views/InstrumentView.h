@@ -17,7 +17,7 @@ class InstrumentView : public QWidget
     Q_OBJECT
 
 public:
-    InstrumentView(SimulationDataModel *simulation_data_model, QWidget *parent = 0);
+    InstrumentView(SimulationDataModel *p_simulation_data_model, QWidget *parent = 0);
 
 public slots:
     void onAddInstrument();

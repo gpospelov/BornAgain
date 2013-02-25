@@ -27,7 +27,10 @@ public:
     ~MainWindow();
 
     SimulationDataModel *getSimulationDataModel() { return mp_sim_data_model; }
-    
+
+public slots:
+    void onChangeTabWidget(int index);
+
 private:
     //TaskSelectorWidget *m_tabWidget;
     Manhattan::FancyTabWidget  *m_tabWidget;

@@ -164,32 +164,8 @@ InstrumentView::InstrumentView(SimulationDataModel *p_simulation_data_model, QWi
 void InstrumentView::onAddInstrument()
 {
     if (saveInstrumentButton->isEnabled()) {
-        QMessageBox unsaved_changes_box;
-        unsaved_changes_box.setText("There are unsaved changes to the current instrument.");
-        unsaved_changes_box.setInformativeText("Do you want to save your changes?");
-        unsaved_changes_box.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-        unsaved_changes_box.setDefaultButton(QMessageBox::Save);
-        int ret = unsaved_changes_box.exec();
-        switch (ret) {
-        case QMessageBox::Save:
-            // Save was clicked
-            onSaveInstrument();
-            break;
-        case QMessageBox::Discard:
-            // Don't Save was clicked: cached changes are discarded
-            delete mp_cached_instrument;
-            mp_cached_instrument = 0;
-            if (!mp_simulation_data_model->getInstrumentList().contains(m_cached_name)) {
-                 removeInstrumentName(m_cached_name);
-            }
-            m_cached_name.clear();
-            saveInstrumentButton->setEnabled(false);
-            break;
-        case QMessageBox::Cancel:
-            // Cancel was clicked: selection does not change
-            return;
-        default:
-            // should never be reached
+        int ret = saveDiscardCancel();
+        if (ret == QMessageBox::Cancel) {
             return;
         }
     }
@@ -240,38 +216,8 @@ void InstrumentView::onInstrumentSelectionChanged(int index)
     (void)index;
     if ( instrumentBox->currentText() == m_cached_name ) return;
     if (saveInstrumentButton->isEnabled()) {
-        QMessageBox unsaved_changes_box;
-        unsaved_changes_box.setText("There are unsaved changes to the current instrument.");
-        unsaved_changes_box.setInformativeText("Do you want to save your changes?");
-        unsaved_changes_box.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-        unsaved_changes_box.setDefaultButton(QMessageBox::Save);
-        int ret = unsaved_changes_box.exec();
-        switch (ret) {
-        case QMessageBox::Save:
-            // Save was clicked
-            onSaveInstrument();
-            break;
-        case QMessageBox::Discard:
-            // Don't Save was clicked: changes are discarded
-            delete mp_cached_instrument;
-            mp_cached_instrument = 0;
-            if (!mp_simulation_data_model->getInstrumentList().contains(m_cached_name)) {
-                 removeInstrumentName(m_cached_name);
-            }
-            m_cached_name.clear();
-            saveInstrumentButton->setEnabled(false);
-            break;
-        case QMessageBox::Cancel:
-            // Cancel was clicked: selection does not change
-            if (m_cached_name.isEmpty()) {
-                // this should not happen!
-            } else {
-                int old_index = instrumentBox->findText(m_cached_name);
-                instrumentBox->setCurrentIndex(old_index);
-            }
-            return;
-        default:
-            // should never be reached
+        int ret = saveDiscardCancel();
+        if (ret == QMessageBox::Cancel) {
             return;
         }
     }
@@ -289,12 +235,7 @@ void InstrumentView::onInstrumentEntryChanged()
 void InstrumentView::updateEditBoxes()
 {
     if (saveInstrumentButton->isEnabled()) {
-        if (mp_cached_instrument) {
-            setToInstrumentData(mp_cached_instrument);
-        } else {
-            // should not occur
-            saveInstrumentButton->setEnabled(false);
-        }
+        setToInstrumentData(mp_cached_instrument);
     } else {
         m_cached_name = instrumentBox->currentText();
         Instrument *p_instrument;
@@ -328,6 +269,7 @@ void InstrumentView::setToInstrumentData(Instrument *p_instrument)
         detectorAlphaStartEdit->setValue(axis2.getMin()/Units::degree);
         detectorAlphaEndEdit->setValue(axis2.getMax()/Units::degree);
         detectorAlphaValuesEdit->setValue(axis2.getSize());
+        //TODO: add isgisaxs flag
     }
     // remove block
     setSignalBlock(false);
@@ -358,8 +300,44 @@ void InstrumentView::removeInstrumentName(QString name)
 {
     int index = instrumentBox->findText(name);
     if (index != -1) {
+        instrumentBox->blockSignals(true);
         instrumentBox->removeItem(index);
+        instrumentBox->blockSignals(false);
     }
+}
+
+int InstrumentView::saveDiscardCancel()
+{
+    if (!saveInstrumentButton->isEnabled()) return QMessageBox::NoButton;
+    QMessageBox unsaved_changes_box;
+    unsaved_changes_box.setText("There are unsaved changes to the current instrument.");
+    unsaved_changes_box.setInformativeText("Do you want to save your changes?");
+    unsaved_changes_box.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    unsaved_changes_box.setDefaultButton(QMessageBox::Save);
+    int ret = unsaved_changes_box.exec();
+    switch (ret) {
+    case QMessageBox::Save:
+        // Save was clicked
+        onSaveInstrument();
+        break;
+    case QMessageBox::Discard:
+        // Don't Save was clicked: cached changes are discarded
+        delete mp_cached_instrument;
+        mp_cached_instrument = 0;
+        if (!mp_simulation_data_model->getInstrumentList().contains(m_cached_name)) {
+             removeInstrumentName(m_cached_name);
+        }
+        m_cached_name.clear();
+        saveInstrumentButton->setEnabled(false);
+        break;
+    case QMessageBox::Cancel:
+        // Cancel was clicked: selection does not change
+        break;
+    default:
+        // should never be reached
+        break;
+    }
+    return ret;
 }
 
 void InstrumentView::setSignalBlock(bool block)

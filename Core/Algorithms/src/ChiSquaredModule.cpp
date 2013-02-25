@@ -1,6 +1,6 @@
 #include "ChiSquaredModule.h"
 #include "OutputDataFunctions.h"
-
+#include <cassert>
 
 ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other) : IChiSquaredModule(other)
 {

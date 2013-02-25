@@ -2,6 +2,7 @@
 #include "Convolve.h"
 
 #include <iostream>
+#include <cassert>
 
 
 /* ************************************************************************* */

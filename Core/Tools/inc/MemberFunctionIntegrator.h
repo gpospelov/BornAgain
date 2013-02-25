@@ -15,6 +15,7 @@
 //! @date   Nov 26, 2012
 
 #include "gsl/gsl_integration.h"
+#include <cassert>
 
 template <class C> class MemberFunctionIntegrator
 {

@@ -1,4 +1,5 @@
 #include "LayerDWBASimulation.h"
+#include <cassert>
 
 LayerDWBASimulation::LayerDWBASimulation()
     : mp_kz_function(0)

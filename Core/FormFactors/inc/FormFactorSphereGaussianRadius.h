@@ -17,6 +17,7 @@
 
 #include "IFormFactor.h"
 #include "FormFactorFullSphere.h"
+#include <cassert>
 
 class FormFactorSphereGaussianRadius : public IFormFactorBorn
 {

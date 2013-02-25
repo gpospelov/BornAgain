@@ -17,6 +17,7 @@
 #include "ICloneable.h"
 #include "RealParameterWrapper.h"
 #include <map>
+#include <vector>
 
 
 //- -------------------------------------------------------------------

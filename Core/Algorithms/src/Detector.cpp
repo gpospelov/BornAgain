@@ -4,6 +4,7 @@
 #include "AxisDouble.h"
 #include "ExperimentConstants.h"
 
+#include <iostream>
 
 /* ************************************************************************* */
 // c-tors, assignment operators, swap

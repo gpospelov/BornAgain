@@ -204,6 +204,7 @@ const OutputData<double>* Simulation::getOutputData() const
 void Simulation::setInstrument(const Instrument &instrument)
 {
     m_instrument = instrument;
+    updateIntensityMapAxes();
 }
 
 void Simulation::setBeamParameters(double lambda, double alpha_i, double phi_i)

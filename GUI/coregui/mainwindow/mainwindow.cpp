@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_welcomeView = new WelcomeManager(this);
     m_instrumentView = new InstrumentView(mp_sim_data_model, this);
     m_sampleView = new SampleManager(this);
-    m_simulationView = new SimulationManager(mp_sim_data_model, this);
+    m_simulationView = new SimulationView(mp_sim_data_model, this);
     m_fitView = new FitManager(this);
 
     m_tabWidget->insertTab(0, m_welcomeView, QIcon(":/images/mode_welcome.png"), "Welcome");

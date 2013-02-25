@@ -12,7 +12,7 @@ class TaskSelectorWidget;
 class WelcomeManager;
 class InstrumentView;
 class SampleManager;
-class SimulationManager;
+class SimulationView;
 class FitManager;
 class SimulationDataModel;
 class Instrument;
@@ -37,7 +37,7 @@ private:
     WelcomeManager *m_welcomeView;
     InstrumentView *m_instrumentView;
     SampleManager *m_sampleView;
-    SimulationManager *m_simulationView;
+    SimulationView *m_simulationView;
     FitManager * m_fitView;
 
     SimulationDataModel *mp_sim_data_model;

@@ -10,7 +10,7 @@
 #include <QGridLayout>
 #include <QMessageBox>
 
-SimulationManager::SimulationManager(SimulationDataModel *p_simulation_data_model, QWidget *parent)
+SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     : QWidget(parent)
     , mp_simulation_data_model(p_simulation_data_model)
 {
@@ -76,7 +76,7 @@ SimulationManager::SimulationManager(SimulationDataModel *p_simulation_data_mode
     connect(runSimulationButton, SIGNAL(clicked()), this, SLOT(onRunSimulation()));
 }
 
-void SimulationManager::updateViewElements()
+void SimulationView::updateViewElements()
 {
     instrumentSelectionBox->clear();
     instrumentSelectionBox->addItems(mp_simulation_data_model->getInstrumentList().keys());
@@ -84,7 +84,7 @@ void SimulationManager::updateViewElements()
     sampleSelectionBox->addItems(mp_simulation_data_model->getSampleList().keys());
 }
 
-void SimulationManager::onRunSimulation()
+void SimulationView::onRunSimulation()
 {
     // initialize a Simulation object and run it
     QMessageBox::information(this, tr("Pushed \"Run Simulation\"-button"),

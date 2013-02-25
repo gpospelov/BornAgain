@@ -1,5 +1,5 @@
-#ifndef SIMULATIONMANAGER_H
-#define SIMULATIONMANAGER_H
+#ifndef SIMULATIONVIEW_H
+#define SIMULATIONVIEW_H
 
 #include <QWidget>
 
@@ -7,12 +7,12 @@ class SimulationDataModel;
 class QComboBox;
 class QPushButton;
 
-class SimulationManager : public QWidget
+class SimulationView : public QWidget
 {
     Q_OBJECT
 
 public:
-    SimulationManager(SimulationDataModel *p_simulation_data_model, QWidget *parent = 0);
+    SimulationView(SimulationDataModel *p_simulation_data_model, QWidget *parent = 0);
     void updateViewElements();
 
 public slots:
@@ -25,4 +25,4 @@ private:
     QPushButton *runSimulationButton;
 };
 
-#endif // SIMULATIONMANAGER_H
+#endif // SIMULATIONVIEW_H

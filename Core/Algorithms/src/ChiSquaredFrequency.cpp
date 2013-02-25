@@ -1,5 +1,6 @@
 #include "ChiSquaredFrequency.h"
 #include "OutputDataFunctions.h"
+#include <cassert>
 
 ChiSquaredFrequency::ChiSquaredFrequency()
     : mp_real_ft(0)

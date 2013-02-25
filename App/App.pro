@@ -150,35 +150,21 @@ CONFIG(DEBUG_FPE) {
     SOURCES += src/fp_exception_glibc_extension.c
 }
 
-# additional locations
-#LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01
-#INCLUDEPATH += $${LOCATIONS}
-#DEPENDPATH  += $${LOCATIONS}
+LOCATIONS = $$PWD/inc \
+            $${FUNCTIONAL_TESTS}/IsGISAXS01 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS02 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS03 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS04 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS06 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS07 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS08 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS09 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS010 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS011 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS015
 
-LOCATIONS = ./inc $${FUNCTIONAL_TESTS}
-INCLUDEPATH += $${LOCATIONS}/IsGISAXS01 \
-               $${LOCATIONS}/IsGISAXS02 \
-               $${LOCATIONS}/IsGISAXS03 \
-               $${LOCATIONS}/IsGISAXS04 \
-               $${LOCATIONS}/IsGISAXS06 \
-               $${LOCATIONS}/IsGISAXS07 \
-               $${LOCATIONS}/IsGISAXS08 \
-               $${LOCATIONS}/IsGISAXS09 \
-               $${LOCATIONS}/IsGISAXS010 \
-               $${LOCATIONS}/IsGISAXS011 \
-               $${LOCATIONS}/IsGISAXS015 \
-
-DEPENDPATH  += $${LOCATIONS}/IsGISAXS01 \
-               $${LOCATIONS}/IsGISAXS02 \
-               $${LOCATIONS}/IsGISAXS03 \
-               $${LOCATIONS}/IsGISAXS04 \
-               $${LOCATIONS}/IsGISAXS06 \
-               $${LOCATIONS}/IsGISAXS07 \
-               $${LOCATIONS}/IsGISAXS08 \
-               $${LOCATIONS}/IsGISAXS09 \
-               $${LOCATIONS}/IsGISAXS010 \
-               $${LOCATIONS}/IsGISAXS011 \
-               $${LOCATIONS}/IsGISAXS015 \
+INCLUDEPATH += $${LOCATIONS}
+DEPENDPATH  += $${LOCATIONS}
 
 OBJECTS_DIR = obj
 

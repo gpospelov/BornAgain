@@ -1,6 +1,7 @@
 #include "SimulationView.h"
 
 #include "SimulationDataModel.h"
+#include "Simulation.h"
 
 #include <QGroupBox>
 #include <QPushButton>
@@ -86,7 +87,25 @@ void SimulationView::updateViewElements()
 
 void SimulationView::onRunSimulation()
 {
+    Instrument *p_instrument = mp_simulation_data_model->getInstrumentList().value(
+                instrumentSelectionBox->currentText(), 0);
+    if (!p_instrument) {
+        QMessageBox::warning(this, tr("No Instrument Selected"),
+                             tr("You must select an instrument first."));
+        return;
+    }
+    ISample *p_sample = mp_simulation_data_model->getSampleList().value(
+                sampleSelectionBox->currentText(), 0);
+    if (!p_sample) {
+        QMessageBox::warning(this, tr("No Sample Selected"),
+                             tr("You must select a sample first."));
+        return;
+    }
+    Simulation *p_sim = new Simulation;
+    p_sim->setSample(*p_sample);
+    p_sim->setInstrument(*p_instrument);
+    p_sim->runSimulation();
     // initialize a Simulation object and run it
-    QMessageBox::information(this, tr("Pushed \"Run Simulation\"-button"),
-                             tr("You pushed a button."));
+    QMessageBox::information(this, tr("Simulation Done"),
+                             tr("The simulation is done calculating."));
 }

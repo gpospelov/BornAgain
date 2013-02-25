@@ -16,6 +16,7 @@ class SimulationView;
 class FitManager;
 class SimulationDataModel;
 class Instrument;
+class ISample;
 
 //class MainWindow : public QMainWindow
 class MainWindow : public Manhattan::FancyMainWindow
@@ -45,6 +46,7 @@ private:
     void initSimModel();
     // dummy instrument creator
     Instrument *createDefaultInstrument();
+    ISample *createDefaultSample();
 };
 
 #endif // MAINWINDOW_H

@@ -311,7 +311,8 @@ HEADERS += \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
     Tools/inc/MemberComplexFunctionIntegrator.h \
-    Fitting/inc/AttFitting.h
+    Fitting/inc/AttFitting.h \
+    Samples/inc/Samples.h
 
 contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
    include($$PWD/python_module.pri)

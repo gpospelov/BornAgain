@@ -39,7 +39,8 @@ SOURCES += \
     Views/WelcomeView.cpp \
     Views/sampleeditor.cpp \
     Views/sampleeditorstack.cpp \
-    Models/JobModel.cpp
+    Models/JobModel.cpp \
+    Models/PythonScriptSampleBuilder.cpp
 
 HEADERS  += \
     mainwindow/imode.h \
@@ -59,7 +60,8 @@ HEADERS  += \
     Views/WelcomeView.h \
     Views/sampleeditor.h \
     Views/sampleeditorstack.h \
-    Models/JobModel.h
+    Models/JobModel.h \
+    Models/PythonScriptSampleBuilder.h
 
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/experimentmanager $$PWD/simulationmanager $$PWD/fitmanager
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/Views $$PWD/Models

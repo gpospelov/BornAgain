@@ -32,7 +32,7 @@ if len(args) == 1:
 fc=0
 locs=0
 locs_type=[0,0,0,0,0,0,0,0,0]
-#       0      1     2           3      4        5       6     7       8
+#       0      1                  2            3      4        5      6     7       8
 descr=["Core","Functional Tests","Unit Tests","*.py","macros","GUI", "PyAPI","Third","Undef"]
 adds=None
 cmt=None
@@ -76,10 +76,10 @@ def filetype(x):
     elif "/Tests/UnitTests/TestCore/" in x and (".h" in x or ".cpp" in x):
         file_type = 2
     elif ".py" in x and not "ThirdParty" in x and not "Core/PythonAPI" in x:
+        print x
         file_type = 3
     elif ".C" in x or ".pro" in x or ".pri" in x or "*.sh" in x and not "ThirdParty" in x and not "pro.user" in x:
         file_type = 4
-        print x
     elif "/GUI/coregui" in x and (".h" in x or ".cpp" in x) and not "widgetbox" in x:
         file_type = 5
     elif "/AppGUI/coregui" in x and (".h" in x or ".cpp" in x):
@@ -166,19 +166,29 @@ xtmp = array( 'd' )
 for i in range(0, len(xbins)):
     xtmp.append(xbins[i])
 
+
+# applying visual style
+ROOT.gROOT.LoadMacro("BornAgainStyle.C");
+ROOT.gROOT.ProcessLine("BornAgainStyle()")
+
 # creating histograms
 nhistograms=7
 a_histograms = []
 hstack = THStack("hstack","Number of Lines of Code")
-a_colors=[kBlue, kCyan, kRed, kOrange, kMagenta, kBlue-9, kGreen]
-legend = TLegend(0.15,0.55,0.38,0.85)
+hstack.SetTitle("");
+
+#a_colors=[kAzure+1, kCyan+1, kRed+1, kOrange+1, kMagenta+1, kGreen+1, kGray]
+#a_colors=[kBlue+1, kOrange, kRed+1, kOrange, kMagenta, kBlue-9, kGreen]
+a_colors=[kAzure+1, kOrange, kRed, kGreen, kYellow-7, kAzure, kGray+1]
+legend = TLegend(0.17,0.55,0.42,0.90)
 legend.SetBorderSize(1);
 legend.SetFillStyle(1);
 for i_hist in range(0,nhistograms):
     hist = TH1D(descr[i_hist],descr[i_hist],len(xtmp)-1,xtmp)
     hist.GetXaxis().SetTimeDisplay(1)
     hist.GetXaxis().SetTimeFormat("%d/%m")
-    hist.GetXaxis().SetLabelSize(0.03)
+    hist.GetYaxis().SetLabelSize(0.030)
+    hist.GetXaxis().SetLabelSize(0.035)
     hist.GetXaxis().SetNdivisions(512)
     hist.GetXaxis().SetTimeOffset(time_offset)
     hist.SetLineColor(a_colors[i_hist])
@@ -203,12 +213,17 @@ c1 = TCanvas( 'gisasfw_loc', 'Number of lines of code in GISASFW project', 600, 
 c1.cd()
 gPad.SetGrid()
 gPad.SetBottomMargin(0.12)
+gPad.SetLeftMargin(0.11)
+
 
 # drawing
 hstack.Draw()
 hstack.GetXaxis().SetTimeDisplay(1)
-hstack.GetXaxis().SetTimeFormat("%d/%m")
+#hstack.GetXaxis().SetTimeFormat("%d/%m")
+hstack.GetXaxis().SetTimeFormat("#splitline{%d/%m}{%Y}")
 hstack.GetXaxis().SetLabelSize(0.03)
+hstack.GetYaxis().SetLabelSize(0.035)
+hstack.GetXaxis().SetLabelOffset(0.02)
 hstack.GetXaxis().SetNdivisions(512)
 hstack.GetXaxis().SetTimeOffset(time_offset)
 
@@ -216,6 +231,10 @@ legend.Draw()
 c1.Modified()
 gPad.RedrawAxis()
 gPad.RedrawAxis("G")
+c1.Modified()
+c1.Update()
+
+
 c1.Print("gisasfw_loc.png")
 
 

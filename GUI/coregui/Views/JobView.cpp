@@ -15,6 +15,7 @@ JobView::JobView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     , mp_simulation_data_model(p_simulation_data_model)
     , mp_canvas(0)
     , m_joblist(0)
+    , mp_cached_histo(0)
 {
     // initialize joblist
     updateJobList();
@@ -60,12 +61,13 @@ void JobView::updateGraphics()
         if (p_current_job==0) return;
         mp_canvas->cd();
         gPad->SetLogz();
-        TH2D *h2 = p_current_job->getHistogram();
-        h2->SetContour(99);
+        if (mp_cached_histo) delete mp_cached_histo;
+        mp_cached_histo = p_current_job->getHistogram();
+        mp_cached_histo->SetContour(99);
         gStyle->SetPalette(1);
         gStyle->SetOptStat(0);
-        h2->SetMinimum(1.);
-        h2->Draw("CONTZ");
+        mp_cached_histo->SetMinimum(1.);
+        mp_cached_histo->Draw("CONTZ");
         mp_canvas->Update();
     }
 }

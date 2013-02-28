@@ -8,6 +8,7 @@ class JobModel;
 class SimulationDataModel;
 class RootCanvas;
 class QListWidget;
+class TH2D;
 
 class JobView : public QWidget
 {
@@ -30,6 +31,7 @@ private:
     RootCanvas *mp_canvas;
     QListWidget *m_joblist;
     QString m_current_job;
+    TH2D *mp_cached_histo;
 };
 
 #endif // JOBVIEW_H

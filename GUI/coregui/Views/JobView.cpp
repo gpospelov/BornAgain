@@ -65,7 +65,7 @@ void JobView::updateGraphics()
         gStyle->SetPalette(1);
         gStyle->SetOptStat(0);
         h2->SetMinimum(1.);
-        h2->Draw("cont");
+        h2->Draw("CONTZ");
         mp_canvas->Update();
     }
 }

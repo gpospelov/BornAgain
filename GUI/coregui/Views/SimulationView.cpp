@@ -143,6 +143,7 @@ void SimulationView::onPythonJobLaunched()
     p_sim->setInstrument(*p_instrument);
     JobModel *p_new_job = new JobModel(p_sim);
     connect(p_new_job, SIGNAL(finished()), this, SLOT(onJobFinished()));
+    mp_simulation_data_model->addJob(p_new_job->getName(), p_new_job);
     p_new_job->start();
     // initialize a Simulation object and run it
     QMessageBox::information(this, tr("Simulation Started"),

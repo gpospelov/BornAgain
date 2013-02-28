@@ -17,6 +17,7 @@ public:
 
 public slots:
     void onRunSimulation();
+    void onPythonJobLaunched();
     void onJobFinished();
 
 private:
@@ -24,6 +25,7 @@ private:
     QComboBox *instrumentSelectionBox;
     QComboBox *sampleSelectionBox;
     QPushButton *runSimulationButton;
+    QPushButton *runPyScriptSimulation;
 };
 
 #endif // SIMULATIONVIEW_H

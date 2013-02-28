@@ -39,7 +39,8 @@ SOURCES += \
     Views/WelcomeView.cpp \
     Views/sampleeditor.cpp \
     Views/sampleeditorstack.cpp \
-    Models/JobModel.cpp
+    Models/JobModel.cpp \
+    Models/PythonScriptSampleBuilder.cpp
 
 HEADERS  += \
     mainwindow/imode.h \
@@ -59,7 +60,8 @@ HEADERS  += \
     Views/WelcomeView.h \
     Views/sampleeditor.h \
     Views/sampleeditorstack.h \
-    Models/JobModel.h
+    Models/JobModel.h \
+    Models/PythonScriptSampleBuilder.h
 
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/experimentmanager $$PWD/simulationmanager $$PWD/fitmanager
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/Views $$PWD/Models
@@ -112,13 +114,17 @@ isEmpty(MYROOT) {
   MYROOTCINT = $${MYROOT}/bin/rootcint
 }
 
+
 #FORMS += \
 #    testform.ui
 
 RESOURCES   += coregui.qrc
 
+# python include and library flags:
+pythonvers=$$system("python -c 'import sys; sys.stdout.write(sys.version[:3])'")
+INCLUDEPATH += $$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
+LIBS += -L$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'") -lboost_python -lpython$$pythonvers
 
 lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtXml
 #lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtScript -lQtXml
-
 

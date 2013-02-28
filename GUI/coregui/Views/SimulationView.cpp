@@ -4,6 +4,7 @@
 #include "Simulation.h"
 #include "JobModel.h"
 #include "mainwindow.h"
+#include "PythonScriptSampleBuilder.h"
 
 #include <QGroupBox>
 #include <QPushButton>
@@ -12,6 +13,8 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QDir>
 
 SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     : QWidget(parent)
@@ -67,16 +70,21 @@ SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWi
     // run simulation button
     runSimulationButton = new QPushButton(tr("Run Simulation"));
 
+    // run simulation with python script sample builder
+    runPyScriptSimulation = new QPushButton(tr("And now for something completely different..."));
+
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(inputDataGroup);
     mainLayout->addWidget(simulationParametersGroup);
     mainLayout->addWidget(runSimulationButton);
+    mainLayout->addWidget(runPyScriptSimulation);
     mainLayout->addStretch();
     setLayout(mainLayout);
 
     // signal and slots
     connect(runSimulationButton, SIGNAL(clicked()), this, SLOT(onRunSimulation()));
+    connect(runPyScriptSimulation, SIGNAL(clicked()), this, SLOT(onPythonJobLaunched()));
 }
 
 void SimulationView::updateViewElements()
@@ -103,6 +111,31 @@ void SimulationView::onRunSimulation()
                              tr("You must select a sample first."));
         return;
     }
+    Simulation *p_sim = new Simulation;
+    p_sim->setSample(*p_sample);
+    p_sim->setInstrument(*p_instrument);
+    JobModel *p_new_job = new JobModel(p_sim);
+    connect(p_new_job, SIGNAL(finished()), this, SLOT(onJobFinished()));
+    p_new_job->start();
+    // initialize a Simulation object and run it
+    QMessageBox::information(this, tr("Simulation Started"),
+                             tr("The simulation is now calculating."));
+}
+
+void SimulationView::onPythonJobLaunched()
+{
+    Instrument *p_instrument = mp_simulation_data_model->getInstrumentList().value(
+                instrumentSelectionBox->currentText(), 0);
+    if (!p_instrument) {
+        QMessageBox::warning(this, tr("No Instrument Selected"),
+                             tr("You must select an instrument first."));
+        return;
+    }
+//    QString file_name = QFileDialog::getOpenFileName(this, tr("Select Python Script"),
+//                                                     QDir::homePath(), tr("Python scripts (*.py)"));
+    QString file_name("/Users/herck/Development/git/BornAgain/GUI/test_sample_builder");
+    PythonScriptSampleBuilder builder(file_name);
+    ISample *p_sample = builder.buildSample();
     Simulation *p_sim = new Simulation;
     p_sim->setSample(*p_sample);
     p_sim->setInstrument(*p_instrument);

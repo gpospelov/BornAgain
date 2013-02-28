@@ -3,15 +3,19 @@
 
 #include "ISampleBuilder.h"
 
-#include <QDir>
+#include <QFileInfo>
 
 class PythonScriptSampleBuilder : public ISampleBuilder
 {
 public:
-    PythonScriptSampleBuilder(QDir script_path);
+    PythonScriptSampleBuilder(QString script_path);
     virtual ~PythonScriptSampleBuilder();
 
     virtual ISample *buildSample() const;
+private:
+    QFileInfo m_script_path;
+    static const char *m_class_name;
+    static const char *m_const_function_name;
 };
 
 #endif // PYTHONSCRIPTSAMPLEBUILDER_H

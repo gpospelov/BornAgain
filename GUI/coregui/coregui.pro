@@ -114,13 +114,17 @@ isEmpty(MYROOT) {
   MYROOTCINT = $${MYROOT}/bin/rootcint
 }
 
+
 #FORMS += \
 #    testform.ui
 
 RESOURCES   += coregui.qrc
 
+# python include and library flags:
+pythonvers=$$system("python -c 'import sys; sys.stdout.write(sys.version[:3])'")
+INCLUDEPATH += $$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
+LIBS += -L$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'") -lboost_python -lpython$$pythonvers
 
 lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtXml
 #lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtScript -lQtXml
-
 

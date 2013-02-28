@@ -15,6 +15,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDir>
+#include <QDateTime>
 
 SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     : QWidget(parent)
@@ -116,6 +117,7 @@ void SimulationView::onRunSimulation()
     p_sim->setInstrument(*p_instrument);
     JobModel *p_new_job = new JobModel(p_sim);
     connect(p_new_job, SIGNAL(finished()), this, SLOT(onJobFinished()));
+    mp_simulation_data_model->addJob(getUniqueJobName(), p_new_job);
     p_new_job->start();
     // initialize a Simulation object and run it
     QMessageBox::information(this, tr("Simulation Started"),
@@ -151,4 +153,10 @@ void SimulationView::onJobFinished()
 {
     QMessageBox::information(this, tr("Simulation Job Finished"),
                              tr("A simulation job has finished."));
+}
+
+QString SimulationView::getUniqueJobName() const
+{
+    QString result = QDateTime::currentDateTime().toString("yyyy.MM.dd_hh:mm:ss");
+    return result;
 }

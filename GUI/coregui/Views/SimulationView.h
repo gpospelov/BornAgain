@@ -2,6 +2,7 @@
 #define SIMULATIONVIEW_H
 
 #include <QWidget>
+#include <QString>
 
 class SimulationDataModel;
 class QComboBox;
@@ -21,6 +22,7 @@ public slots:
     void onJobFinished();
 
 private:
+    QString getUniqueJobName() const;
     SimulationDataModel *mp_simulation_data_model;
     QComboBox *instrumentSelectionBox;
     QComboBox *sampleSelectionBox;

@@ -42,3 +42,10 @@ void SimulationDataModel::addSimulationParameters(QString name, SimulationParame
         m_simulation_parameters.insert(name, p_simulation_parameters);
     }
 }
+
+void SimulationDataModel::addJob(QString name, JobModel *p_job)
+{
+    if (!m_jobs.contains(name)) {
+        m_jobs.insert(name, p_job);
+    }
+}

@@ -2,6 +2,7 @@
 #define SIMULATIONVIEW_H
 
 #include <QWidget>
+#include <QString>
 
 class SimulationDataModel;
 class QComboBox;

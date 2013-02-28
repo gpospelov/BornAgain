@@ -19,6 +19,7 @@
 #include "ISampleBuilder.h"
 #include "Instrument.h"
 #include "SimulationParameters.h"
+#include "JobModel.h"
 
 #include <QMap>
 #include <QString>
@@ -50,6 +51,10 @@ public:
     //! \return a list containing the SimulationParamters objects
     QMap<QString, SimulationParameters*> getSimulationParameterList() { return m_simulation_parameters; }
 
+    //! retrieve a list of the started jobs
+    //! \return a list containing the started jobs
+    QMap<QString, JobModel*> getJobs() { return m_jobs; }
+
     //! add sample to sample list
     void addSample(QString name, ISample *p_sample);
 
@@ -64,11 +69,15 @@ public:
 
     //! add simulation parameters to list
     void addSimulationParameters(QString name, SimulationParameters *p_simulation_parameters);
+
+    //! add job to list
+    void addJob(QString name, JobModel *p_job);
 private:
     QMap<QString, ISample*> m_samples;
     QMap<QString, ISampleBuilder*> m_sample_builders;
     QMap<QString, Instrument*> m_instruments;
     QMap<QString, SimulationParameters*> m_simulation_parameters;
+    QMap<QString, JobModel*> m_jobs;
 };
 
 

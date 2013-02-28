@@ -2,7 +2,7 @@
 #define WELCOMEMODE_H
 
 #include "imode.h"
-class WelcomeManager;
+class WelcomeView;
 
 class WelcomeMode : public IMode
 {
@@ -11,7 +11,7 @@ public:
     ~WelcomeMode();
 
 private:
-    WelcomeManager *m_welcomeManager;
+    WelcomeView *m_welcomeManager;
 };
 
 #endif // WELCOMEMODE_H

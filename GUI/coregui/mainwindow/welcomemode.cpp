@@ -3,7 +3,7 @@
 
 WelcomeMode::WelcomeMode()
 {
-    m_welcomeManager = new WelcomeManager();
+    m_welcomeManager = new WelcomeView();
     setObjectName(QLatin1String("WelcomeMode"));
     setDisplayName(tr("Welcome"));
     setIcon(QIcon(QLatin1String(":/fancyactionbar/images/mode_Edit.png")));

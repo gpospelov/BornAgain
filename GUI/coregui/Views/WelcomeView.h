@@ -3,10 +3,10 @@
 
 #include <QWidget>
 
-class WelcomeManager : public QWidget
+class WelcomeView : public QWidget
 {
 public:
-    WelcomeManager(QWidget *parent = 0);
+    WelcomeView(QWidget *parent = 0);
 
 };
 

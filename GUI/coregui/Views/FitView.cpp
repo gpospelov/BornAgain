@@ -6,7 +6,7 @@
 #include "QVBoxLayout"
 #include "TRandom.h"
 
-FitManager::FitManager(QWidget *parent)
+FitView::FitView(QWidget *parent)
     : QWidget(parent)
 {
 

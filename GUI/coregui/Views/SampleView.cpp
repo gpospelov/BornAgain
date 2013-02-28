@@ -22,7 +22,7 @@
 #endif
 
 
-SampleManager::SampleManager(QWidget *parent)
+SampleView::SampleView(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
     , m_sampleEditor(0)
     , m_sampleEditorStack(0)
@@ -65,7 +65,7 @@ SampleManager::SampleManager(QWidget *parent)
 
 
 
-void SampleManager::initSubWindows()
+void SampleView::initSubWindows()
 {
     qFill(m_subWindows, m_subWindows + NumberOfSubWindows, static_cast<QWidget*>(0));
 
@@ -102,7 +102,7 @@ void SampleManager::initSubWindows()
 }
 
 
-void SampleManager::resetToDefaultLayout()
+void SampleView::resetToDefaultLayout()
 {
     setTrackingEnabled(false);
     QList<QDockWidget *> dockWidgetList = dockWidgets();

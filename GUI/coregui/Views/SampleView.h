@@ -11,7 +11,7 @@
 //#include <QDesignerFormEditorInterface>
 #include <QtDesigner/QDesignerFormEditorInterface>
 
-class SampleManager : public Manhattan::FancyMainWindow
+class SampleView : public Manhattan::FancyMainWindow
 {
 public:
 
@@ -25,7 +25,7 @@ public:
     };
 
 
-    SampleManager(QWidget *parent = 0);
+    SampleView(QWidget *parent = 0);
 
 
 public slots:

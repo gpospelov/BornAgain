@@ -5,7 +5,7 @@
 #include <QComboBox>
 #include <QVBoxLayout>
 
-WelcomeManager::WelcomeManager(QWidget *parent)
+WelcomeView::WelcomeView(QWidget *parent)
     : QWidget(parent)
 {
     QGroupBox *configGroup = new QGroupBox(tr("Server configuration"));

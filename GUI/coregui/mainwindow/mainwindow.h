@@ -9,11 +9,12 @@ namespace Manhattan {
 }
 
 class TaskSelectorWidget;
-class WelcomeManager;
+class WelcomeView;
 class InstrumentView;
-class SampleManager;
+class SampleView;
 class SimulationView;
-class FitManager;
+class JobView;
+class FitView;
 class SimulationDataModel;
 class Instrument;
 class ISample;
@@ -35,11 +36,12 @@ public slots:
 private:
     //TaskSelectorWidget *m_tabWidget;
     Manhattan::FancyTabWidget  *m_tabWidget;
-    WelcomeManager *m_welcomeView;
+    WelcomeView *m_welcomeView;
     InstrumentView *m_instrumentView;
-    SampleManager *m_sampleView;
+    SampleView *m_sampleView;
     SimulationView *m_simulationView;
-    FitManager * m_fitView;
+    JobView *m_jobView;
+    FitView * m_fitView;
 
     SimulationDataModel *mp_sim_data_model;
     // dummy simulation model initializer for test purposes

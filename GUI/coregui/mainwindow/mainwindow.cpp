@@ -6,6 +6,7 @@
 #include "SampleView.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
+#include "JobView.h"
 #include "FitView.h"
 #include "stylehelper.h"
 #include "ba_stylehelper.h"
@@ -49,17 +50,19 @@ MainWindow::MainWindow(QWidget *parent)
 
     //m_tabWidget = new TaskSelectorWidget(this);
     m_tabWidget = new Manhattan::FancyTabWidget();
-    m_welcomeView = new WelcomeManager();
+    m_welcomeView = new WelcomeView();
     m_instrumentView = new InstrumentView(mp_sim_data_model);
-    m_sampleView = new SampleManager();
+    m_sampleView = new SampleView();
     m_simulationView = new SimulationView(mp_sim_data_model);
-    m_fitView = new FitManager();
+    m_jobView = new JobView(mp_sim_data_model);
+    m_fitView = new FitView();
 
     m_tabWidget->insertTab(0, m_welcomeView, QIcon(":/images/mode_welcome.png"), "Welcome");
     m_tabWidget->insertTab(1, m_instrumentView, QIcon(":/images/mode_exp.png"), "Instrument");
     m_tabWidget->insertTab(2, m_sampleView, QIcon(":/images/mode_sample.png"), "Sample");
     m_tabWidget->insertTab(3, m_simulationView, QIcon(":/images/mode_simul.png"), "Simulation");
-    m_tabWidget->insertTab(4, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
+    m_tabWidget->insertTab(4, m_jobView, QIcon(":/images/mode_simul.png"), "Jobs");
+    m_tabWidget->insertTab(5, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
 
     setCentralWidget(m_tabWidget);
 
@@ -79,6 +82,7 @@ void MainWindow::onChangeTabWidget(int index)
     // update views which depend on others
     (void)index;
     m_simulationView->updateViewElements();
+    m_jobView->updateJobsAndGraphics();
 }
 
 void MainWindow::initSimModel()

@@ -4,13 +4,13 @@
 #include <QWidget>
 
 
-class FitManager : public QWidget
+class FitView : public QWidget
 {
     Q_OBJECT
 
 public:
-    FitManager(QWidget *parent = 0);
-    virtual ~FitManager(){}
+    FitView(QWidget *parent = 0);
+    virtual ~FitView(){}
 
 };
 

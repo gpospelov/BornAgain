@@ -21,8 +21,10 @@ SOURCES += $$QTROOTDIRS/TQtRootGuiFactory.cxx
 
 INCLUDEPATH += $$PWD/$$QTROOTDIRI $$PWD/../qt-root/inc
 DEPENDPATH  += $$PWD/$$QTROOTDIRI $$PWD/../qt-root/inc
-
 LIBS += $$PWD/../../../lib/libGQt.so
+#LIBS += /Users/pospelov/nest/software/root/qtroot/qtroot/libGQt.dylib
+#INCLUDEPATH +=$$PWD/$$QTROOTDIRI   /Users/pospelov/nest/software/root/qtroot/qtroot/qt/inc
+
 
 # -----------------------------------------------------------------------------
 # adding ROOT libraries

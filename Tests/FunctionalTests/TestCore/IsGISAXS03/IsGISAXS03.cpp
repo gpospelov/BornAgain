@@ -184,7 +184,6 @@ int FunctionalTests::IsGISAXS03::analyseResults()
 int main()
 {
     FunctionalTests::IsGISAXS03 test;
-   // test.run();
     test.runDWBA();
     test.runBA();
     test.runBA_Size();

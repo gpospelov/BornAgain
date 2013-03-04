@@ -59,8 +59,8 @@ TestMesoCrystal2::~TestMesoCrystal2()
 void TestMesoCrystal2::execute()
 {
 
-    run_fit();
-    //draw_results();
+    //run_fit();
+    draw_results();
 }
 
 

@@ -36,13 +36,13 @@ TestMiscellaneous::TestMiscellaneous()
 
 void TestMiscellaneous::execute()
 {
-    test_OutputDataTo2DArray();
+    //test_OutputDataTo2DArray();
     //test_KVectorContainer();
     //test_OutputDataIOFactory();
     //test_FastSin();
     //test_DoubleToComplexInterpolatingFunction();
     //test_FormFactor();
-    //test_DrawMesocrystal();
+    test_DrawMesocrystal();
 }
 
 

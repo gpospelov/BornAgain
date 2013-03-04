@@ -12,6 +12,7 @@
 #include "OutputDataIOFactory.h"
 #include "Transform3D.h"
 #include "Utils.h"
+#include "InterferenceFunction1DParaCrystal.h"
 
 #include <iostream>
 #include <cmath>
@@ -40,7 +41,9 @@ void FunctionalTests::IsGISAXS09::runpyramidZ0()
 
         complex_t n_particle(1.0-6e-4, 2e-8);
         ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ) ) ) );
+        //InterferenceFunction1DParaCrystal *interference = new InterferenceFunction1DParaCrystal(20*Units::nanometer, 7*Units::nanometer, 1e7*Units::nanometer);
         particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+        //particle_decoration.addInterferenceFunction(interference);
         LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
         multi_layer.addLayer(air_layer_decorator);
@@ -87,7 +90,9 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
         ParticleDecoration particle_decoration;
 
         particle_decoration.addParticle(pyramid, transform);
-        particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+        //particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+        InterferenceFunction1DParaCrystal *interference = new InterferenceFunction1DParaCrystal(20*Units::nanometer, 7*Units::nanometer, 1e7*Units::nanometer);
+        particle_decoration.addInterferenceFunction(interference);
 
         LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 

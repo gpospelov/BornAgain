@@ -72,9 +72,16 @@ INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/Views $$PWD/Models
 LIBS += $$PWD/../../lib/libqt-manhattan-style.so
 INCLUDEPATH += $$PWD/../externals/qt-manhattan-style
 
-# ROOT libraries integration
+## ROOT libraries integration
 LIBS += $$PWD/../../lib/libQtRoot.so $$PWD/../../lib/libGQt.so
 INCLUDEPATH += $$PWD/../externals/qt-root/inc
+
+
+# ROOT libraries integration
+#LIBS += $$PWD/../../lib/libQtRoot.so /Users/pospelov/nest/software/root/qtroot/qtroot/libGQt.dylib
+#INCLUDEPATH += /Users/pospelov/nest/software/root/qtroot/qtroot/qt/inc
+
+
 
 INCLUDEPATH += $$PWD/../../Core/Algorithms/inc \
     $$PWD/../../Core/Fitting/inc \

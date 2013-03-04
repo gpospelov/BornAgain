@@ -444,18 +444,20 @@ void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
     a3->SetTubeR(0.02);
     a3->SetPickable(kTRUE);
 
-    gEve->AddElement(a1);
-    gEve->AddElement(a2);
-    gEve->AddElement(a3);
+//    gEve->AddElement(a1);
+//    gEve->AddElement(a2);
+//    gEve->AddElement(a3);
 
     // drawing nano particles
     char str[128];
-    for(int iz=0; iz<3; iz++) {
+    for(int iz=0; iz<4; iz++) {
         TEveElementList *list_of_layer = new TEveElementList();
         sprintf(str,"zlayer%d",iz);
         list_of_layer->SetName(str);
-        for(int ix=-2; ix<=2; ix++) {
-            for(int iy=-2; iy<=2; iy++){
+        for(int ix=-4; ix<=4; ix++) {
+            for(int iy=-4; iy<=4; iy++){
+//                for(int ix=-1; ix<=1; ix++) {
+//                    for(int iy=-1; iy<=1; iy++){
 
                 kvector_t origin = iz*bas_c + ix*bas_a + iy*bas_b;
                 TEveElementList *list_of_basis = new TEveElementList();
@@ -468,11 +470,18 @@ void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
                          x->SetShape(new TGeoSphere(0, nanoparticle_radius));
                          kvector_t pos = positions[j] + origin;
                          if(i==0 && j==0) {
-                             x->SetMainColor(kRed);
+                             x->SetMainColor(kOrange);
                          } else{
-                             x->SetMainColor(kBlue);
+                             x->SetMainColor(kOrange);
                          }
-                         x->RefMainTrans().SetPos(pos.x(), pos.y(), pos.z());
+
+                         if(iz==0 && pos.magxy() > 39.) continue;
+                         if(iz==1 && pos.magxy() > 34.) continue;
+                         if(iz==2 && pos.magxy() > 29.) continue;
+                         if(iz==3 && pos.magxy() > 25.) continue;
+//                         if(pos.magxy() > 39.) continue;
+
+                         x->RefMainTrans().SetPos(pos.x(), pos.y(), pos.z()-70.);
                          //x->SetMainTransparency(10);
                          list_of_basis->AddElement(x);
                          list_of_basis->SetPickable(kTRUE);
@@ -487,8 +496,11 @@ void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
 
     TEveViewer *ev = gEve->GetDefaultViewer();
     TGLViewer  *gv = ev->GetGLViewer();
-    gv->SetGuideState(TGLUtil::kAxesOrigin, kTRUE, kFALSE, 0);
-    gv->CurrentCamera().RotateRad(10.0,0);
+//    gv->SetGuideState(TGLUtil::kAxesEdge, kTRUE, kFALSE, 0);
+//    gv->CurrentCamera().RotateRad(-.7, 0.5);
+    gv->SetCurrentCamera(TGLViewer::kCameraPerspXOY);
+    gv->CurrentCamera().RotateRad(-.7, -0.5);
+    gv->DoDraw();
     gEve->FullRedraw3D(kTRUE);
 
 }

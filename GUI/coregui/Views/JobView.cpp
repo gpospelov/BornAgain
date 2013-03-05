@@ -54,8 +54,10 @@ void JobView::updateJobList()
     }
 }
 
+#include <iostream>
 void JobView::updateGraphics()
 {
+    static int ncalls=0;
     if (mp_canvas) {
         JobModel *p_current_job = getCurrentJobModel();
         if (p_current_job==0) return;
@@ -69,6 +71,7 @@ void JobView::updateGraphics()
         mp_cached_histo->SetMinimum(1.);
         mp_cached_histo->Draw("CONTZ");
         mp_canvas->Update();
+        std::cout << "XXX update " << (ncalls++) << std::endl;
     }
 }
 

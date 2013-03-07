@@ -76,7 +76,6 @@ INCLUDEPATH += $$PWD/../externals/qt-manhattan-style
 LIBS += $$PWD/../../lib/libQtRoot.so $$PWD/../../lib/libGQt.so
 INCLUDEPATH += $$PWD/../externals/qt-root/inc
 
-
 # ROOT libraries integration
 #LIBS += $$PWD/../../lib/libQtRoot.so /Users/pospelov/nest/software/root/qtroot/qtroot/libGQt.dylib
 #INCLUDEPATH += /Users/pospelov/nest/software/root/qtroot/qtroot/qt/inc

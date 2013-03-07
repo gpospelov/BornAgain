@@ -69,7 +69,8 @@ void JobView::updateGraphics()
         gStyle->SetPalette(1);
         gStyle->SetOptStat(0);
         mp_cached_histo->SetMinimum(1.);
-        mp_cached_histo->Draw("CONTZ");
+        //mp_cached_histo->Draw("CONTZ");
+        mp_cached_histo->Draw("CONT4 Z");
         mp_canvas->Update();
         std::cout << "XXX update " << (ncalls++) << std::endl;
     }

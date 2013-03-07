@@ -19,7 +19,7 @@ public:
 public slots:
     void onRunSimulation();
     void onPythonJobLaunched();
-    void onJobFinished();
+    Q_INVOKABLE void onJobFinished();
 
 private:
     SimulationDataModel *mp_simulation_data_model;

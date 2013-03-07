@@ -120,8 +120,8 @@ void SimulationView::onRunSimulation()
     mp_simulation_data_model->addJob(p_new_job->getName(), p_new_job);
     p_new_job->start();
     // initialize a Simulation object and run it
-    QMessageBox::information(this, tr("Simulation Started"),
-                             tr("The simulation is now calculating."));
+//    QMessageBox::information(this, tr("Simulation Started"),
+//                             tr("The simulation is now calculating."));
 }
 
 void SimulationView::onPythonJobLaunched()
@@ -155,3 +155,4 @@ void SimulationView::onJobFinished()
     QMessageBox::information(this, tr("Simulation Job Finished"),
                              tr("A simulation job has finished."));
 }
+

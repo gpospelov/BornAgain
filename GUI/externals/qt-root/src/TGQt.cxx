@@ -803,6 +803,7 @@ TGQt::TGQt() : TVirtualX(),fDisplayOpened(kFALSE),fQPainter(0),fhEvent ()
    fgTQt = this;
    gQt   = this;
    fSelectedWindow = fPrevWindow = NoOperation;
+//   fQPainter = new TQtPainter(this);
 }
 
 //______________________________________________________________________________
@@ -819,6 +820,7 @@ TGQt::TGQt(const char *name, const char *title) : TVirtualX(name,title),fDisplay
    fSelectedWindow = fPrevWindow = NoOperation;
    CreateQtApplicationImp();
    Init();
+//   fQPainter = new TQtPainter(this);
 }
 
 //______________________________________________________________________________
@@ -841,6 +843,7 @@ TGQt::~TGQt()
       delete fQClientFilterBuffer; fQClientFilterBuffer = 0;
       delete fgTextProxy;          fgTextProxy = 0;
  // ---     delete fQPainter; fQPainter = 0;
+//      delete fQPainter;
    }
    // Stop GUI thread
    TQtApplication::Terminate();
@@ -1479,6 +1482,14 @@ void  TGQt::DrawFillArea(int n, TPoint *xy)
       TPoint *rootPoint = xy;
       for (int i =0;i<n;i++,rootPoint++) qtPoints.setPoint(i,rootPoint->fX,rootPoint->fY);
       p.drawPolygon(qtPoints);
+
+//       std::cout << "XXX " << fQPainter << std::endl;
+//       if (fQBrush->style() == Qt::SolidPattern) fQPainter->setPen(Qt::NoPen);
+//       QPolygon qtPoints(n);
+//       TPoint *rootPoint = xy;
+//       for (int i =0;i<n;i++,rootPoint++) qtPoints.setPoint(i,rootPoint->fX,rootPoint->fY);
+//       fQPainter->drawPolygon(qtPoints);
+
    }
 }
 

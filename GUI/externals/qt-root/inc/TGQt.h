@@ -106,7 +106,7 @@ public:
     virtual int baseFontPointSize() const   = 0;
     virtual void setBaseFontPointSize(int size) = 0;
     virtual void setForegroundColor(const QColor &) = 0;
-    virtual bool isMine() const { return false;};
+    virtual bool isMine() const { return false;}
     virtual TQtTextProxy *Clone() = 0;
 };
 inline bool TQtTextProxy::setContent(const char *text, QString *errorMsg,

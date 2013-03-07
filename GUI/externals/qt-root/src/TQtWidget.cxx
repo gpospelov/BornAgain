@@ -439,21 +439,25 @@ void TQtWidget::Refresh()
    if (!fRefreshTimer) {
       fRefreshTimer  = new QTimer(this);
       fRefreshTimer->setSingleShot(true);
-      fRefreshTimer->setInterval(0);
+      fRefreshTimer->setInterval(100);
       connect(fRefreshTimer, SIGNAL(timeout()), this, SLOT(RefreshCB()));
    }
    fRefreshTimer->start();
 }
+
+#include <iostream>
 //_____________________________________________________________________________
 void TQtWidget::RefreshCB()
 {
    // [slot]  to allow Qt signal refreshing the ROOT TCanvas if needed
+    static int inum=0;
 
    TCanvas *c = Canvas();
    if (c) {
       c->Modified();
       c->Resize();
       c->Update();
+      std::cout << "TQtWidget::RefreshCB -> XXX " << (inum++) << std::endl;
    }
    if (!fInsidePaintEvent) { update(); }
    else {

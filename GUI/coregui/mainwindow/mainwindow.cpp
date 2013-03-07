@@ -98,7 +98,7 @@ Instrument *MainWindow::createDefaultInstrument()
     Instrument *p_result = new Instrument;
     p_result->setBeamParameters(0.1*Units::nanometer, 0.4*Units::degree, 0.0);
     p_result->setBeamIntensity(1e7);
-    p_result->setDetectorParameters(100, 0.0, 6.0*Units::degree,
+    p_result->setDetectorParameters(100, 0.0, 3.0*Units::degree,
                                     100, 0.0, 3.0*Units::degree);
     return p_result;
 }

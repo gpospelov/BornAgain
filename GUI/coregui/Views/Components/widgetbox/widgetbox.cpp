@@ -59,7 +59,7 @@
 
 #include <QtGui/QIcon>
 
-#include "sampleeditor.h"
+#include "SampleEditor.h"
 
 #include <iostream>
 QT_BEGIN_NAMESPACE

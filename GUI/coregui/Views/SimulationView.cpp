@@ -16,6 +16,9 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QDateTime>
+#include <QFuture>
+#include <QFutureWatcher>
+#include <QtCore>
 
 SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     : QWidget(parent)
@@ -116,9 +119,9 @@ void SimulationView::onRunSimulation()
     p_sim->setSample(*p_sample);
     p_sim->setInstrument(*p_instrument);
     JobModel *p_new_job = new JobModel(p_sim);
-    connect(p_new_job, SIGNAL(finished()), this, SLOT(onJobFinished()));
     mp_simulation_data_model->addJob(p_new_job->getName(), p_new_job);
-    p_new_job->start();
+    QFuture<void> job_future = QtConcurrent::run(p_new_job, &JobModel::run);
+    p_new_job->getJobWatcher()->setFuture(job_future);
     // initialize a Simulation object and run it
 //    QMessageBox::information(this, tr("Simulation Started"),
 //                             tr("The simulation is now calculating."));
@@ -142,9 +145,9 @@ void SimulationView::onPythonJobLaunched()
     p_sim->setSample(*p_sample);
     p_sim->setInstrument(*p_instrument);
     JobModel *p_new_job = new JobModel(p_sim);
-    connect(p_new_job, SIGNAL(finished()), this, SLOT(onJobFinished()));
     mp_simulation_data_model->addJob(p_new_job->getName(), p_new_job);
-    p_new_job->start();
+    QFuture<void> job_future = QtConcurrent::run(p_new_job, &JobModel::run);
+    p_new_job->getJobWatcher()->setFuture(job_future);
     // initialize a Simulation object and run it
     QMessageBox::information(this, tr("Simulation Started"),
                              tr("The simulation is now calculating."));

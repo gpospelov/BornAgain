@@ -59,14 +59,15 @@
 
 #include <QtGui/QIcon>
 
-#include<iostream>
+#include "sampleeditor.h"
 
 #include <iostream>
 QT_BEGIN_NAMESPACE
 
 namespace qdesigner_internal {
 
-WidgetBox::WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent, Qt::WindowFlags flags)
+//WidgetBox::WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent, Qt::WindowFlags flags)
+WidgetBox::WidgetBox(ISampleEditor *core, QWidget *parent, Qt::WindowFlags flags)
     : QDesignerWidgetBox(parent, flags),
       m_core(core),
       m_view(new WidgetBoxTreeWidget(m_core))
@@ -97,10 +98,16 @@ WidgetBox::~WidgetBox()
 {
 }
 
-QDesignerFormEditorInterface *WidgetBox::core() const
+//QDesignerFormEditorInterface *WidgetBox::core() const
+//{
+//    return m_core;
+//}
+
+ISampleEditor *WidgetBox::core() const
 {
     return m_core;
 }
+
 
 void WidgetBox::handleMousePress(const QString &name, const QString &xml, const QPoint &global_mouse_pos)
 {
@@ -110,12 +117,15 @@ void WidgetBox::handleMousePress(const QString &name, const QString &xml, const 
     std::cout << "WidgetBox::handleMousePress() -> XXX Not implemented." << std::endl;
     return;
 
-    DomUI *ui = xmlToUi(name, xml, true);
-    if (ui == 0)
-        return;
-    QList<QDesignerDnDItemInterface*> item_list;
-    item_list.append(new WidgetBoxDnDItem(core(), ui, global_mouse_pos));
-    m_core->formWindowManager()->dragItems(item_list);
+    (void)name;
+    (void)xml;
+    (void)global_mouse_pos;
+//    DomUI *ui = xmlToUi(name, xml, true);
+//    if (ui == 0)
+//        return;
+//    QList<QDesignerDnDItemInterface*> item_list;
+//    item_list.append(new WidgetBoxDnDItem(core(), ui, global_mouse_pos));
+//    m_core->formWindowManager()->dragItems(item_list);
 }
 
 int WidgetBox::categoryCount() const

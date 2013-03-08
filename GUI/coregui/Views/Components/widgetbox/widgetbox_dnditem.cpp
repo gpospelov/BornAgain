@@ -61,6 +61,9 @@
 #include <QStyle>
 #include <QApplication>
 
+#include<iostream>
+
+
 #if QT_VERSION < 0x050000
 #define QStringLiteral QString
 #endif
@@ -191,42 +194,50 @@ static QSize domWidgetSize(const DomWidget *dw)
     return QSize();
 }
 
-static QWidget *decorationFromDomWidget(DomUI *dom_ui, QDesignerFormEditorInterface *core)
+
+//static QWidget *decorationFromDomWidget(DomUI *dom_ui, QDesignerFormEditorInterface *core)
+static QWidget *decorationFromDomWidget(DomUI *dom_ui, ISampleEditor *core)
 {
-    WidgetBoxResource builder(core);
-    // We have the builder create the articial QWidget fake top level as a tooltip
-    // because the size algorithm works better at weird DPI settings
-    // if the actual widget is created as a child of a container
-    QWidget *fakeTopLevel = builder.createUI(dom_ui, static_cast<QWidget*>(0));
-    fakeTopLevel->setParent(0, Qt::ToolTip); // Container
-    // Actual widget
-    const DomWidget *domW = dom_ui->elementWidget()->elementWidget().front();
-    QWidget *w = fakeTopLevel->findChildren<QWidget*>().front();
-    Q_ASSERT(w);
-    // hack begin;
-    // We set _q_dockDrag dynamic property which will be detected in drag enter event of form window.
-    // Dock drop is handled in special way (highlight goes to central widget of main window)
-    if (qobject_cast<QDesignerDockWidget *>(w))
-        fakeTopLevel->setProperty("_q_dockDrag", QVariant(true));
-    // hack end;
-    w->setAutoFillBackground(true); // Different style for embedded
-    QSize size = domWidgetSize(domW);
-    const QSize minimumSize = w->minimumSizeHint();
-    if (!size.isValid())
-        size = w->sizeHint();
-    if (size.width() < minimumSize.width())
-        size.setWidth(minimumSize.width());
-    if (size.height() < minimumSize.height())
-        size.setHeight(minimumSize.height());
-    // A QWidget might have size -1,-1 if no geometry property is specified in the widget box.
-    if (size.isEmpty())
-        size = size.expandedTo(QSize(16, 16));
-    w->setGeometry(QRect(QPoint(0, 0), size));
-    fakeTopLevel->resize(size);
-    return fakeTopLevel;
+    std::cout << " widgetbox_dnditem() -> QWidget *decorationFromDomWidget XXX not omplemented" << std::endl;
+    (void) dom_ui;
+    (void) core;
+    return 0;
+
+//    WidgetBoxResource builder(core);
+//    // We have the builder create the articial QWidget fake top level as a tooltip
+//    // because the size algorithm works better at weird DPI settings
+//    // if the actual widget is created as a child of a container
+//    QWidget *fakeTopLevel = builder.createUI(dom_ui, static_cast<QWidget*>(0));
+//    fakeTopLevel->setParent(0, Qt::ToolTip); // Container
+//    // Actual widget
+//    const DomWidget *domW = dom_ui->elementWidget()->elementWidget().front();
+//    QWidget *w = fakeTopLevel->findChildren<QWidget*>().front();
+//    Q_ASSERT(w);
+//    // hack begin;
+//    // We set _q_dockDrag dynamic property which will be detected in drag enter event of form window.
+//    // Dock drop is handled in special way (highlight goes to central widget of main window)
+//    if (qobject_cast<QDesignerDockWidget *>(w))
+//        fakeTopLevel->setProperty("_q_dockDrag", QVariant(true));
+//    // hack end;
+//    w->setAutoFillBackground(true); // Different style for embedded
+//    QSize size = domWidgetSize(domW);
+//    const QSize minimumSize = w->minimumSizeHint();
+//    if (!size.isValid())
+//        size = w->sizeHint();
+//    if (size.width() < minimumSize.width())
+//        size.setWidth(minimumSize.width());
+//    if (size.height() < minimumSize.height())
+//        size.setHeight(minimumSize.height());
+//    // A QWidget might have size -1,-1 if no geometry property is specified in the widget box.
+//    if (size.isEmpty())
+//        size = size.expandedTo(QSize(16, 16));
+//    w->setGeometry(QRect(QPoint(0, 0), size));
+//    fakeTopLevel->resize(size);
+//    return fakeTopLevel;
 }
 
-WidgetBoxDnDItem::WidgetBoxDnDItem(QDesignerFormEditorInterface *core,
+//WidgetBoxDnDItem::WidgetBoxDnDItem(QDesignerFormEditorInterface *core,
+WidgetBoxDnDItem::WidgetBoxDnDItem(ISampleEditor *core,
                                    DomUI *dom_ui,
                                    const QPoint &global_mouse_pos) :
     QDesignerDnDItem(CopyDrop)

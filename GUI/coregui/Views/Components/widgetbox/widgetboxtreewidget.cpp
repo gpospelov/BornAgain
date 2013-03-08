@@ -136,7 +136,8 @@ static TopLevelRole topLevelRole(const  QTreeWidgetItem *item)
 
 namespace qdesigner_internal {
 
-WidgetBoxTreeWidget::WidgetBoxTreeWidget(QDesignerFormEditorInterface *core, QWidget *parent) :
+//WidgetBoxTreeWidget::WidgetBoxTreeWidget(QDesignerFormEditorInterface *core, QWidget *parent) :
+WidgetBoxTreeWidget::WidgetBoxTreeWidget(ISampleEditor *core, QWidget *parent) :
     QTreeWidget(parent),
     m_core(core),
     m_iconMode(false),
@@ -659,56 +660,56 @@ WidgetBoxTreeWidget::CategoryList WidgetBoxTreeWidget::loadCustomCategoryList() 
     std::cout << "WidgetBoxTreeWidget::loadCustomCategoryList() -> XXX Not implemented." << std::endl;
     return result;
 
-    const QDesignerPluginManager *pm = m_core->pluginManager();
-    const QDesignerPluginManager::CustomWidgetList customWidgets = pm->registeredCustomWidgets();
-    if (customWidgets.empty())
-        return result;
+//    const QDesignerPluginManager *pm = m_core->pluginManager();
+//    const QDesignerPluginManager::CustomWidgetList customWidgets = pm->registeredCustomWidgets();
+//    if (customWidgets.empty())
+//        return result;
 
-    static const QString customCatName = tr("Custom Widgets");
+//    static const QString customCatName = tr("Custom Widgets");
 
-    const QString invisible = QLatin1String(invisibleNameC);
-    const QString iconPrefix = QLatin1String(iconPrefixC);
+//    const QString invisible = QLatin1String(invisibleNameC);
+//    const QString iconPrefix = QLatin1String(iconPrefixC);
 
-    foreach(QDesignerCustomWidgetInterface *c, customWidgets) {
-        const QString dom_xml = c->domXml();
-        if (dom_xml.isEmpty())
-            continue;
+//    foreach(QDesignerCustomWidgetInterface *c, customWidgets) {
+//        const QString dom_xml = c->domXml();
+//        if (dom_xml.isEmpty())
+//            continue;
 
-        const QString pluginName = c->name();
-        const QDesignerCustomWidgetData data = pm->customWidgetData(c);
-        QString displayName = data.xmlDisplayName();
-        if (displayName.isEmpty())
-            displayName = pluginName;
+//        const QString pluginName = c->name();
+//        const QDesignerCustomWidgetData data = pm->customWidgetData(c);
+//        QString displayName = data.xmlDisplayName();
+//        if (displayName.isEmpty())
+//            displayName = pluginName;
 
-        QString cat_name = c->group();
-        if (cat_name.isEmpty())
-            cat_name = customCatName;
-        else if (cat_name == invisible)
-            continue;
+//        QString cat_name = c->group();
+//        if (cat_name.isEmpty())
+//            cat_name = customCatName;
+//        else if (cat_name == invisible)
+//            continue;
 
-        int idx = findCategory(cat_name, result);
-        if (idx == -1) {
-            result.append(Category(cat_name));
-            idx = result.size() - 1;
-        }
-        Category &cat = result[idx];
+//        int idx = findCategory(cat_name, result);
+//        if (idx == -1) {
+//            result.append(Category(cat_name));
+//            idx = result.size() - 1;
+//        }
+//        Category &cat = result[idx];
 
-        const QIcon icon = c->icon();
+//        const QIcon icon = c->icon();
 
-        QString icon_name;
-        if (isValidIcon(icon)) {
-            icon_name = iconPrefix;
-            std::cout << "YYY " << icon_name.toStdString() << std::endl;
-            icon_name += pluginName;
-            m_pluginIcons.insert(icon_name, icon);
-        } else {
-            icon_name = QLatin1String(qtLogoC);
-        }
+//        QString icon_name;
+//        if (isValidIcon(icon)) {
+//            icon_name = iconPrefix;
+//            std::cout << "YYY " << icon_name.toStdString() << std::endl;
+//            icon_name += pluginName;
+//            m_pluginIcons.insert(icon_name, icon);
+//        } else {
+//            icon_name = QLatin1String(qtLogoC);
+//        }
 
-        cat.addWidget(Widget(displayName, dom_xml, icon_name, Widget::Custom));
-    }
+//        cat.addWidget(Widget(displayName, dom_xml, icon_name, Widget::Custom));
+//    }
 
-    return result;
+//    return result;
 }
 
 void WidgetBoxTreeWidget::adjustSubListSize(QTreeWidgetItem *cat_item)

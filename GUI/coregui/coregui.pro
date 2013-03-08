@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webkit designer designercomponents
+QT       += core gui webkit webkitwidgets designer designercomponents
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,13 +20,11 @@ MOC_DIR = .moc
 RCC_DIR = .rcc
 
 include($$PWD/Views/Components/widgetbox/widgetbox.pri)
+include($$PWD/Views/Components/SampleEditor/SampleEditor.pri)
 
 SOURCES += \
-    mainwindow/imode.cpp \
     mainwindow/main.cpp \
     mainwindow/mainwindow.cpp \
-    mainwindow/welcomemode.cpp \
-    Views/designercomponents.cpp \
     mainwindow/taskselectorwidget.cpp \
     utils/ba_fancytabbar.cpp \
     utils/ba_stylehelper.cpp \
@@ -35,19 +33,15 @@ SOURCES += \
     Views/InstrumentView.cpp \
     Views/FitView.cpp \
     Views/SampleView.cpp \
+    Views/SampleViewComponents.cpp \
     Views/SimulationView.cpp \
     Views/WelcomeView.cpp \
-    Views/sampleeditor.cpp \
-    Views/sampleeditorstack.cpp \
     Models/JobModel.cpp \
     Models/PythonScriptSampleBuilder.cpp \
     Views/JobView.cpp
 
 HEADERS  += \
-    mainwindow/imode.h \
     mainwindow/mainwindow.h \
-    mainwindow/welcomemode.h \
-    Views/designercomponents.h \
     mainwindow/taskselectorwidget.h \
     utils/ba_fancytabbar.h \
     utils/ba_stylehelper.h \
@@ -57,10 +51,9 @@ HEADERS  += \
     Views/FitView.h \
     Views/InstrumentView.h \
     Views/SampleView.h \
+    Views/SampleViewComponents.h \
     Views/SimulationView.h \
     Views/WelcomeView.h \
-    Views/sampleeditor.h \
-    Views/sampleeditorstack.h \
     Models/JobModel.h \
     Models/PythonScriptSampleBuilder.h \
     Views/JobView.h

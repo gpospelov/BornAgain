@@ -9,19 +9,30 @@
 JobModel::JobModel(Simulation *p_simulation)
     : m_name("")
     , mp_simulation(p_simulation)
-    , m_isFinished(false)
+    , mp_job_watcher(0)
+    , m_is_finished(false)
 {
     m_name = getJobTimeStamp();
+    mp_job_watcher = new QFutureWatcher<void>;
+    connect(mp_job_watcher, SIGNAL(finished()), this, SLOT(onJobFinished()));
 }
 
 JobModel::~JobModel()
 {
     delete mp_simulation;
+    delete mp_job_watcher;
+}
+
+void JobModel::run()
+{
+    if (!m_is_finished) {
+        mp_simulation->runSimulation();
+    }
 }
 
 TH2D *JobModel::getHistogram()
 {
-    if (!m_isFinished) {
+    if (!m_is_finished) {
         return 0;
     }
     const OutputData<double> *output = mp_simulation->getOutputData();
@@ -84,10 +95,9 @@ TH2D *JobModel::getHistogram()
     return hist2;
 }
 
-void JobModel::run()
+void JobModel::onJobFinished()
 {
-    mp_simulation->runSimulation();
-    m_isFinished = true;
+    m_is_finished = true;
 }
 
 QString JobModel::getJobTimeStamp() const

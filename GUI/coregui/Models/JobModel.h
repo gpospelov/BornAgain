@@ -3,11 +3,12 @@
 
 #include <QThread>
 #include <QString>
+#include <QFutureWatcher>
 
 class Simulation;
 class TH2D;
 
-class JobModel : public QThread
+class JobModel : public QObject
 {
     Q_OBJECT
 
@@ -17,14 +18,21 @@ public:
 
     QString getName() const { return m_name; }
 
+    QFutureWatcher<void> *getJobWatcher() { return mp_job_watcher; }
+
+    void run();
+
     TH2D *getHistogram();
 
+public slots:
+    void onJobFinished();
+
 protected:
-    void run();
     QString getJobTimeStamp() const;
     QString m_name;
     Simulation *mp_simulation;
-    bool m_isFinished;
+    QFutureWatcher<void> *mp_job_watcher;
+    bool m_is_finished;
 };
 
 #endif // JOBMODEL_H

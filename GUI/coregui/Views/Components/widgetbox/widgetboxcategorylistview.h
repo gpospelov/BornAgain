@@ -56,6 +56,8 @@ class QDesignerDnDItemInterface;
 class QSortFilterProxyModel;
 class QRegExp;
 
+class ISampleEditor;
+
 namespace qdesigner_internal {
 
 class WidgetBoxCategoryModel;
@@ -69,7 +71,8 @@ public:
     // Whether to access the filtered or unfiltered view
     enum AccessMode { FilteredAccess, UnfilteredAccess };
 
-    explicit WidgetBoxCategoryListView(QDesignerFormEditorInterface *core, QWidget *parent = 0);
+//    explicit WidgetBoxCategoryListView(QDesignerFormEditorInterface *core, QWidget *parent = 0);
+    explicit WidgetBoxCategoryListView(ISampleEditor *core, QWidget *parent = 0);
     void setViewMode(ViewMode vm);
 
     void dropWidgets(const QList<QDesignerDnDItemInterface*> &item_list);

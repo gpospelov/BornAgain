@@ -1,9 +1,9 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-   <file>images/mode_exp.png</file>
-   <file>images/mode_fit.png</file>
-   <file>images/mode_sample.png</file>
-   <file>images/mode_simul.png</file>
-   <file>images/mode_welcome.png</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>images/mode_exp.png</file>
+        <file>images/mode_fit.png</file>
+        <file>images/mode_sample.png</file>
+        <file>images/mode_simul.png</file>
+        <file>images/mode_welcome.png</file>
+    </qresource>
 </RCC>

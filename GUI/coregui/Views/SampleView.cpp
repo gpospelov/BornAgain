@@ -1,19 +1,9 @@
 #include "SampleView.h"
-#include "designercomponents.h"
-//#include <QtWidgets>
-#include "sampleeditor.h"
+#include "SampleViewComponents.h"
+#include "SampleEditor.h"
 
 #include <QDockWidget>
 #include <QAbstractItemView>
-
-//#include <QDesignerFormEditorPluginInterface>
-
-//#include <QDesignerComponents>
-//#include <QDesignerWidgetBoxInterface>
-//#include <QDesignerFormEditorInterface>
-#include <QtDesigner/QDesignerComponents>
-#include <QtDesigner/QDesignerWidgetBoxInterface>
-#include <QtDesigner/QDesignerFormEditorInterface>
 #include "widgetbox.h"
 
 
@@ -25,24 +15,17 @@
 SampleView::SampleView(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
     , m_sampleEditor(0)
-    , m_sampleEditorStack(0)
-//    , m_formeditor(QDesignerComponents::createFormEditor(0))
-
 {
     m_sampleEditor = new SampleEditor(parent);
 
-    QWidget *widget = new QWidget(this);
-    m_sampleEditorStack = new SampleEditorStack(this); // in Qt-creator it belongs to whole application
-    m_sampleEditorStack->addWidget(widget);
+    setObjectName(QLatin1String("SampleView"));
 
-    setObjectName(QLatin1String("EditorWidget"));
-    setCentralWidget(m_sampleEditorStack);
+    setCentralWidget(m_sampleEditor->getCentralWidget());
+
     setDocumentMode(true);
     setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
     setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
     setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
-
-
 
     initSubWindows();
 
@@ -59,8 +42,6 @@ SampleView::SampleView(QWidget *parent)
 
     }
     resetToDefaultLayout();
-
-
 }
 
 
@@ -69,36 +50,28 @@ void SampleView::initSubWindows()
 {
     qFill(m_subWindows, m_subWindows + NumberOfSubWindows, static_cast<QWidget*>(0));
 
-//    DesignerWidgetBoxInterface *wb = DesignerComponents::createWidgetBox(this);
-//    wb->setWindowTitle(tr("Widget Box"));
-//    wb->setObjectName(QLatin1String("WidgetBox"));
-//    m_subWindows[WidgetBoxSubWindow] = wb;
-
-//    QDesignerWidgetBoxInterface *wb = QDesignerComponents::createWidgetBox(m_sampleEditor, this);
     QDesignerWidgetBoxInterface *wb = new qdesigner_internal::WidgetBox(m_sampleEditor, this);
     wb->setFileName(QStringLiteral(":/widgetbox/widgetbox.xml"));
     wb->load();
-
     wb->setWindowTitle(tr("Widget Box"));
     wb->setObjectName(QLatin1String("WidgetBox"));
     //m_sampleEditor->setWidgetBox(wb);
     m_subWindows[WidgetBoxSubWindow] = wb;
 
-
-    DesignerSampleInspectorInterface *oi = DesignerComponents::createSampleInspector(this);
+    SampleTreeInspectorInterface *oi = SampleViewComponents::createTreeInspector(this);
     oi->setWindowTitle(tr("Object Inspector"));
     oi->setObjectName(QLatin1String("ObjectInspector"));
     m_subWindows[SampleInspectorSubWindow] = oi;
 
-    DesignerPropertyEditorInterface *pe = DesignerComponents::createPropertyEditor(this);
+    SamplePropertyEditorInterface *pe = SampleViewComponents::createPropertyEditor(this);
     pe->setWindowTitle(tr("Property Editor"));
     pe->setObjectName(QLatin1String("PropertyEditor"));
     m_subWindows[PropertyEditorSubWindow] = pe;
 
-    DesignerSampleWorkspaceInterface *ae = DesignerComponents::createSampleWorkspace(this);
-    ae->setWindowTitle(tr("Action Editor"));
-    ae->setObjectName(QLatin1String("Workspace"));
-    m_subWindows[SampleWorkspaceSubWindow] = ae;
+    SampleInfoStreamInterface *ae = SampleViewComponents::createInfoStream(this);
+    ae->setWindowTitle(tr("Info Stream"));
+    ae->setObjectName(QLatin1String("InfoStream"));
+    m_subWindows[InfoSubWindow] = ae;
 }
 
 
@@ -114,7 +87,7 @@ void SampleView::resetToDefaultLayout()
     addDockWidget(Qt::LeftDockWidgetArea, m_dockWidgets[WidgetBoxSubWindow]);
     addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[SampleInspectorSubWindow]);
     addDockWidget(Qt::RightDockWidgetArea, m_dockWidgets[PropertyEditorSubWindow]);
-    addDockWidget(Qt::BottomDockWidgetArea, m_dockWidgets[SampleWorkspaceSubWindow]);
+    addDockWidget(Qt::BottomDockWidgetArea, m_dockWidgets[InfoSubWindow]);
 
 //    tabifyDockWidget(m_dockWidgets[SampleInspectorSubWindow],
 //                     m_dockWidgets[PropertyEditorSubWindow]);

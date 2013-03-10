@@ -439,7 +439,7 @@ void TQtWidget::Refresh()
    if (!fRefreshTimer) {
       fRefreshTimer  = new QTimer(this);
       fRefreshTimer->setSingleShot(true);
-      fRefreshTimer->setInterval(100);
+      fRefreshTimer->setInterval(0);
       connect(fRefreshTimer, SIGNAL(timeout()), this, SLOT(RefreshCB()));
    }
    fRefreshTimer->start();

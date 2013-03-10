@@ -12,5 +12,4 @@ SampleEditor::SampleEditor(QWidget *parent)
     m_editorView = new SampleEditorView(parent, m_editorScene);
     m_editorStack = new QStackedWidget(parent);
     m_editorStack->addWidget(m_editorView);
-
 }

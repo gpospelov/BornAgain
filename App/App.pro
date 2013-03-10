@@ -194,9 +194,25 @@ isEmpty(MYROOT) {
 !isEmpty(MYROOT) {
   !exists($${MYROOT}/bin/root-config): error("No config file "$${MYROOT}/bin/root-config)
   INCLUDEPATH += $$system($${MYROOT}/bin/root-config --incdir)
-  LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
   MYROOTCINT = $${MYROOT}/bin/rootcint
+
+  # checking existance of necessary set of ROOT libraries
+  #LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
+  LIBS += -L$$system($${MYROOT}/bin/root-config --libdir )
+  REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix Physics MathCore MathMore Minuit2 Geom Eve RGL Thread
+
+  for(x, REQUIRED_ROOT_LIBS) {
+    libfile = $$system($${MYROOT}/bin/root-config --libdir )/lib$${x}.so
+    !exists($${libfile}) : MISSED_ROOT_LIBRARIES += $${libfile}
+    LIBS += -l$${x}
+  }
+  !isEmpty(MISSED_ROOT_LIBRARIES) {
+    message("Error! Following ROOT libraries are missed: $${MISSED_ROOT_LIBRARIES}")
+    message("Please install them before proceed. If you are compiling ROOT by yourself, use \'configure --all\' option.")
+    error("Program will not link, exiting...")
+  }
 }
+LIBS += -lpthread -lm -ldl
 
 # -----------------------------------------------------------------------------
 # Hand made addition to generate root dictionaries in the

@@ -632,16 +632,16 @@ void WidgetBoxTreeWidget::writeCategories(QXmlStreamWriter &writer, const Catego
     writer.writeEndElement(); // widgetBox
 }
 
-static int findCategory(const QString &name, const WidgetBoxTreeWidget::CategoryList &list)
-{
-    int idx = 0;
-    foreach (const WidgetBoxTreeWidget::Category &cat, list) {
-        if (cat.name() == name)
-            return idx;
-        ++idx;
-    }
-    return -1;
-}
+//static int findCategory(const QString &name, const WidgetBoxTreeWidget::CategoryList &list)
+//{
+//    int idx = 0;
+//    foreach (const WidgetBoxTreeWidget::Category &cat, list) {
+//        if (cat.name() == name)
+//            return idx;
+//        ++idx;
+//    }
+//    return -1;
+//}
 
 static inline bool isValidIcon(const QIcon &icon)
 {

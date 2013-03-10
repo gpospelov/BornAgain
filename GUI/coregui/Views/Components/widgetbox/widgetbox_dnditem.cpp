@@ -153,46 +153,46 @@ void WidgetBoxResource::createCustomWidgets(DomCustomWidgets *dc)
 ** WidgetBoxResource
 */
 
-static QSize geometryProp(const DomWidget *dw)
-{
-    const QList<DomProperty*> prop_list = dw->elementProperty();
-    const QString geometry = QStringLiteral("geometry");
-    foreach (DomProperty *prop, prop_list) {
-        if (prop->attributeName() !=  geometry)
-            continue;
-        DomRect *dr = prop->elementRect();
-        if (dr == 0)
-            continue;
-        return QSize(dr->elementWidth(), dr->elementHeight());
-    }
-    return QSize();
-}
+//static QSize geometryProp(const DomWidget *dw)
+//{
+//    const QList<DomProperty*> prop_list = dw->elementProperty();
+//    const QString geometry = QStringLiteral("geometry");
+//    foreach (DomProperty *prop, prop_list) {
+//        if (prop->attributeName() !=  geometry)
+//            continue;
+//        DomRect *dr = prop->elementRect();
+//        if (dr == 0)
+//            continue;
+//        return QSize(dr->elementWidth(), dr->elementHeight());
+//    }
+//    return QSize();
+//}
 
-static QSize domWidgetSize(const DomWidget *dw)
-{
-    QSize size = geometryProp(dw);
-    if (size.isValid())
-        return size;
+//static QSize domWidgetSize(const DomWidget *dw)
+//{
+//    QSize size = geometryProp(dw);
+//    if (size.isValid())
+//        return size;
 
-    foreach (const DomWidget *child, dw->elementWidget()) {
-        size = geometryProp(child);
-        if (size.isValid())
-            return size;
-    }
+//    foreach (const DomWidget *child, dw->elementWidget()) {
+//        size = geometryProp(child);
+//        if (size.isValid())
+//            return size;
+//    }
 
-    foreach (const DomLayout *dl, dw->elementLayout()) {
-        foreach (DomLayoutItem *item, dl->elementItem()) {
-            const DomWidget *child = item->elementWidget();
-            if (child == 0)
-                continue;
-            size = geometryProp(child);
-            if (size.isValid())
-                return size;
-        }
-    }
+//    foreach (const DomLayout *dl, dw->elementLayout()) {
+//        foreach (DomLayoutItem *item, dl->elementItem()) {
+//            const DomWidget *child = item->elementWidget();
+//            if (child == 0)
+//                continue;
+//            size = geometryProp(child);
+//            if (size.isValid())
+//                return size;
+//        }
+//    }
 
-    return QSize();
-}
+//    return QSize();
+//}
 
 
 //static QWidget *decorationFromDomWidget(DomUI *dom_ui, QDesignerFormEditorInterface *core)

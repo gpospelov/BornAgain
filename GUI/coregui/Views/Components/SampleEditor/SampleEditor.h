@@ -40,9 +40,9 @@ public:
     QWidget *getCentralWidget() { return m_editorStack; }
 
 private:
-    SampleEditorScene *m_editorScene;
-    SampleEditorView *m_editorView;
-    QStackedWidget *m_editorStack;
+    SampleEditorScene *m_editorScene; //! scene which holds all objects
+    SampleEditorView *m_editorView;   //! graphical representation of scene with object
+    QStackedWidget *m_editorStack;    //! stack for varaiety of SampleEditorView
 };
 
 

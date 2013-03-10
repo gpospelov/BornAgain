@@ -26,6 +26,9 @@ public:
     explicit SampleEditorScene(QObject *parent = 0);
     virtual ~SampleEditorScene() {}
 
+
+private:
+    int m_xmax;
 };
 
 #endif // SAMPLEEDITORSCENE_H

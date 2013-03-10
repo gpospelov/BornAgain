@@ -68,7 +68,7 @@ Installation
 * define variable pointing to the directory where ROOT will be installed
   export ROOTSYS=/home/jamesbond/software/root
 * go to the directory where you unpacked ROOT and run
-  ./configure; make; make install
+  ./configure --all; make; make install
 * _in the unlikely case of failure, see more installation instruction on ROOT site_
 
 ------------------

@@ -20,7 +20,9 @@ FunctionalTests::IsGISAXS06::IsGISAXS06()
     : m_name("IsGISAXS06")
     , m_description("2D lattice with different disorder")
     , m_result(0)
-{}
+{
+    m_data_path = Utils::FileSystem::GetHomePath()+"Tests/FunctionalTests/TestCore/IsGISAXS06/";
+}
 
 //-----------------------------------------------------
 //IsGISAXS6_lattice()

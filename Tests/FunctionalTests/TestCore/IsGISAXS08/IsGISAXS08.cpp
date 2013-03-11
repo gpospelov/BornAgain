@@ -120,8 +120,8 @@ int FunctionalTests::IsGISAXS08::analyseResults()
 
     // retrieving reference data and generated examples
     for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *reference = OutputDataIOFactory::getOutputData(tocompare[i].isginame);
-        OutputData<double> *m_result = OutputDataIOFactory::getOutputData(tocompare[i].thisname);
+        OutputData<double> *reference = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].isginame);
+        OutputData<double> *m_result = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].thisname);
         std::string descript  = tocompare[i].descr;
 
     // calculating average relative difference

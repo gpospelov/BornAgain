@@ -57,7 +57,7 @@ void FunctionalTests::IsGISAXS08::run2DDL()
     // ---------------------
     // running simulation and copying data
     // ---------------------
-    // cylinder DWBA
+
     simulation.setSample(multi_layer);
     simulation.runSimulation();
     m_result = simulation.getOutputDataClone();

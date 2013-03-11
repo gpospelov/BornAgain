@@ -118,8 +118,8 @@ int FunctionalTests::IsGISAXS04::analyseResults()
        bool status_ok(true);
 
        for(size_t i=0; i<tocompare.size(); ++i) {
-           OutputData<double> *reference = OutputDataIOFactory::getOutputData(tocompare[i].isginame);
-           OutputData<double> *m_result = OutputDataIOFactory::getOutputData(tocompare[i].thisname);
+           OutputData<double> *reference = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].isginame);
+           OutputData<double> *m_result = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].thisname);
 
        // calculating average relative difference
        *m_result -= *reference;

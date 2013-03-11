@@ -31,23 +31,21 @@ void FunctionalTests::IsGISAXS09::runpyramidZ0()
     // ---------------------
     // building sample
     // ---------------------
-        MultiLayer multi_layer;
-        const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
-        const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
-        Layer air_layer;
-        air_layer.setMaterial(p_air_material);
-        Layer substrate_layer;
-        substrate_layer.setMaterial(p_substrate_material);
+    MultiLayer multi_layer;
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
 
-        complex_t n_particle(1.0-6e-4, 2e-8);
-        ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ) ) ) );
-        //InterferenceFunction1DParaCrystal *interference = new InterferenceFunction1DParaCrystal(20*Units::nanometer, 7*Units::nanometer, 1e7*Units::nanometer);
-        particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-        //particle_decoration.addInterferenceFunction(interference);
-        LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ) ) ) );
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-        multi_layer.addLayer(air_layer_decorator);
-        multi_layer.addLayer(substrate_layer);
+    multi_layer.addLayer(air_layer_decorator);
+    multi_layer.addLayer(substrate_layer);
 
     // ---------------------
     // building simulation
@@ -71,33 +69,31 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
     // ---------------------
     // building sample
     // ---------------------
-        MultiLayer multi_layer;
-        const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
-        const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
-        Layer air_layer;
-        air_layer.setMaterial(p_air_material);
-        Layer substrate_layer;
-        substrate_layer.setMaterial(p_substrate_material);
+    MultiLayer multi_layer;
+    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
+    Layer substrate_layer;
+    substrate_layer.setMaterial(p_substrate_material);
 
-        complex_t n_particle(1.0-6e-4, 2e-8);
+    complex_t n_particle(1.0-6e-4, 2e-8);
+    const double angle_around_z = 45.*Units::degree;
+    Particle *pyramid = new Particle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73)) );
 
-        const double angle_around_z = 45.*Units::degree;
+    Geometry::Transform3D *transform = new Geometry::RotateZ3D(angle_around_z);
 
-        Particle *pyramid = new Particle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73)) );
+    ParticleDecoration particle_decoration;
 
-        Geometry::Transform3D *transform = new Geometry::RotateZ3D(angle_around_z);
+    particle_decoration.addParticle(pyramid, transform);
+    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+    //InterferenceFunction1DParaCrystal *interference = new InterferenceFunction1DParaCrystal(20*Units::nanometer, 7*Units::nanometer, 1e7*Units::nanometer);
+    //particle_decoration.addInterferenceFunction(interference);
 
-        ParticleDecoration particle_decoration;
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-        particle_decoration.addParticle(pyramid, transform);
-        //particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-        InterferenceFunction1DParaCrystal *interference = new InterferenceFunction1DParaCrystal(20*Units::nanometer, 7*Units::nanometer, 1e7*Units::nanometer);
-        particle_decoration.addInterferenceFunction(interference);
-
-        LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-
-        multi_layer.addLayer(air_layer_decorator);
-        multi_layer.addLayer(substrate_layer);
+    multi_layer.addLayer(air_layer_decorator);
+    multi_layer.addLayer(substrate_layer);
 
     // ---------------------
     // building simulation
@@ -129,8 +125,8 @@ int FunctionalTests::IsGISAXS09::analyseResults()
     bool status_ok(true);
 
     for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *reference = OutputDataIOFactory::getOutputData(tocompare[i].isginame);
-        OutputData<double> *m_result = OutputDataIOFactory::getOutputData(tocompare[i].thisname);
+        OutputData<double> *reference = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].isginame);
+        OutputData<double> *m_result = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].thisname);
 
     // calculating average relative difference
     *m_result -= *reference;

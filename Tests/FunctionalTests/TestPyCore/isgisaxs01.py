@@ -38,14 +38,21 @@ def RunSimulation():
     multi_layer.addLayer(air_layer_decorator)
     multi_layer.addLayer(substrate_layer)
     # build and run experiment
-    experiment = GISASExperiment()
-    experiment.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    experiment.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
-    experiment.setSample(multi_layer)
-    experiment.runSimulation()
-    # intensity data
-    return GetOutputData(experiment)
+    #experiment = GISASExperiment()
+    #experiment.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    #experiment.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    #experiment.setSample(multi_layer)
+    #experiment.runSimulation()
+    ## intensity data
+    #return GetOutputData(experiment)
 
+    simulation = Simulation()
+    simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+    simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+    simulation.setSample(multi_layer)
+    simulation.runSimulation()
+    ## intensity data
+    return GetOutputData(simulation)
 
 # ----------------------------------
 # read reference data from file

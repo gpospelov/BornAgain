@@ -6,11 +6,13 @@ import subprocess
 import time
 
 import isgisaxs01
-
+#import isgisaxs02
+import isgisaxs010
 
 Tests = {
     "IsGISAXS01": isgisaxs01.RunTest,
-    "IsGISAXS02": isgisaxs01.RunTest
+    #    "IsGISAXS02": isgisaxs02.RunTest,
+    "IsGISAXS010": isgisaxs010.RunTest,
 }
 
 test_info = []

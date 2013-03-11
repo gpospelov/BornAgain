@@ -27,6 +27,7 @@ class ParticleInfo : public ICompositeSample
 public:
     //! constructor for particle info having transformation property and abundance
     ParticleInfo(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
+    ParticleInfo(const Particle &p_particle, const Geometry::Transform3D &transform, double depth=0, double abundance=0);
 
     virtual ~ParticleInfo();
 

@@ -3,6 +3,8 @@ HEADERS +=  \
     PythonAPI/inc/PythonModule.h \ 
     PythonAPI/inc/PythonOutputData.h \ 
     PythonAPI/inc/PythonPlusplusHelper.h \ 
+    PythonAPI/inc/Bin1D.pypp.h \
+    PythonAPI/inc/Bin1DCVector.pypp.h \
     PythonAPI/inc/Crystal.pypp.h \
     PythonAPI/inc/cvector_t.pypp.h \
     PythonAPI/inc/DiffuseDWBASimulation.pypp.h \
@@ -30,6 +32,7 @@ HEADERS +=  \
     PythonAPI/inc/IFTDistribution2D.pypp.h \
     PythonAPI/inc/IInterferenceFunction.pypp.h \
     PythonAPI/inc/IMaterial.pypp.h \
+    PythonAPI/inc/Instrument.pypp.h \
     PythonAPI/inc/InterferenceFunction1DParaCrystal.pypp.h \
     PythonAPI/inc/InterferenceFunction2DLattice.pypp.h \
     PythonAPI/inc/InterferenceFunction2DParaCrystal.pypp.h \
@@ -39,6 +42,7 @@ HEADERS +=  \
     PythonAPI/inc/ISampleBuilder.pypp.h \
     PythonAPI/inc/ISelectionRule.pypp.h \
     PythonAPI/inc/ISimulation.pypp.h \
+    PythonAPI/inc/IStochasticParameter.pypp.h \
     PythonAPI/inc/kvector_t.pypp.h \
     PythonAPI/inc/Lattice.pypp.h \
     PythonAPI/inc/Lattice2DIFParameters.pypp.h \
@@ -57,6 +61,7 @@ HEADERS +=  \
     PythonAPI/inc/ParameterPool.pypp.h \
     PythonAPI/inc/Particle.pypp.h \
     PythonAPI/inc/ParticleBuilder.pypp.h \
+    PythonAPI/inc/ParticleCoreShell.pypp.h \
     PythonAPI/inc/ParticleDecoration.pypp.h \
     PythonAPI/inc/ParticleInfo.pypp.h \
     PythonAPI/inc/PositionParticleInfo.pypp.h \
@@ -78,6 +83,9 @@ HEADERS +=  \
     PythonAPI/inc/SimpleSelectionRule.pypp.h \
     PythonAPI/inc/Simulation.pypp.h \
     PythonAPI/inc/SimulationParameters.pypp.h \
+    PythonAPI/inc/StochasticDoubleGaussian.pypp.h \
+    PythonAPI/inc/StochasticParameter_t.pypp.h \
+    PythonAPI/inc/StochasticSampledParameter.pypp.h \
     PythonAPI/inc/Transform3D.pypp.h \
     PythonAPI/inc/Translate3D.pypp.h \
     PythonAPI/inc/TranslateX3D.pypp.h \
@@ -94,6 +102,8 @@ SOURCES +=  \
     PythonAPI/src/PythonListConverter.cpp \ 
     PythonAPI/src/PythonOutputData.cpp \ 
     PythonAPI/src/PythonPlusplusHelper.cpp \ 
+    PythonAPI/src/Bin1D.pypp.cpp \
+    PythonAPI/src/Bin1DCVector.pypp.cpp \
     PythonAPI/src/Crystal.pypp.cpp \
     PythonAPI/src/cvector_t.pypp.cpp \
     PythonAPI/src/DiffuseDWBASimulation.pypp.cpp \
@@ -121,6 +131,7 @@ SOURCES +=  \
     PythonAPI/src/IFTDistribution2D.pypp.cpp \
     PythonAPI/src/IInterferenceFunction.pypp.cpp \
     PythonAPI/src/IMaterial.pypp.cpp \
+    PythonAPI/src/Instrument.pypp.cpp \
     PythonAPI/src/InterferenceFunction1DParaCrystal.pypp.cpp \
     PythonAPI/src/InterferenceFunction2DLattice.pypp.cpp \
     PythonAPI/src/InterferenceFunction2DParaCrystal.pypp.cpp \
@@ -130,6 +141,7 @@ SOURCES +=  \
     PythonAPI/src/ISampleBuilder.pypp.cpp \
     PythonAPI/src/ISelectionRule.pypp.cpp \
     PythonAPI/src/ISimulation.pypp.cpp \
+    PythonAPI/src/IStochasticParameter.pypp.cpp \
     PythonAPI/src/kvector_t.pypp.cpp \
     PythonAPI/src/Lattice.pypp.cpp \
     PythonAPI/src/Lattice2DIFParameters.pypp.cpp \
@@ -148,6 +160,7 @@ SOURCES +=  \
     PythonAPI/src/ParameterPool.pypp.cpp \
     PythonAPI/src/Particle.pypp.cpp \
     PythonAPI/src/ParticleBuilder.pypp.cpp \
+    PythonAPI/src/ParticleCoreShell.pypp.cpp \
     PythonAPI/src/ParticleDecoration.pypp.cpp \
     PythonAPI/src/ParticleInfo.pypp.cpp \
     PythonAPI/src/PositionParticleInfo.pypp.cpp \
@@ -169,6 +182,9 @@ SOURCES +=  \
     PythonAPI/src/SimpleSelectionRule.pypp.cpp \
     PythonAPI/src/Simulation.pypp.cpp \
     PythonAPI/src/SimulationParameters.pypp.cpp \
+    PythonAPI/src/StochasticDoubleGaussian.pypp.cpp \
+    PythonAPI/src/StochasticParameter_t.pypp.cpp \
+    PythonAPI/src/StochasticSampledParameter.pypp.cpp \
     PythonAPI/src/Transform3D.pypp.cpp \
     PythonAPI/src/Translate3D.pypp.cpp \
     PythonAPI/src/TranslateX3D.pypp.cpp \

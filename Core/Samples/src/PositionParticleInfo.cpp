@@ -3,23 +3,46 @@
 PositionParticleInfo::PositionParticleInfo(Particle* p_particle,
         Geometry::Transform3D* p_transform, kvector_t position,
         double abundance)
-: ParticleInfo(p_particle, p_transform, position.z(), abundance)
-, m_pos_x(position.x())
-, m_pos_y(position.y())
+    : ParticleInfo(p_particle, p_transform, position.z(), abundance)
+    , m_pos_x(position.x())
+    , m_pos_y(position.y())
 {
     setName("PositionParticleInfo");
     init_parameters();
 }
 
-PositionParticleInfo::PositionParticleInfo(Particle* p_particle,
-        kvector_t position, double abundance)
-: ParticleInfo(p_particle, 0, position.z(), abundance)
-, m_pos_x(position.x())
-, m_pos_y(position.y())
+
+PositionParticleInfo::PositionParticleInfo(const Particle &particle,
+        const Geometry::Transform3D &transform, kvector_t position,
+        double abundance)
+    : ParticleInfo(particle.clone(), new Geometry::Transform3D(transform), position.z(), abundance)
+    , m_pos_x(position.x())
+    , m_pos_y(position.y())
 {
     setName("PositionParticleInfo");
     init_parameters();
 }
+
+
+PositionParticleInfo::PositionParticleInfo(Particle* p_particle, kvector_t position, double abundance)
+    : ParticleInfo(p_particle, 0, position.z(), abundance)
+    , m_pos_x(position.x())
+    , m_pos_y(position.y())
+{
+    setName("PositionParticleInfo");
+    init_parameters();
+}
+
+
+PositionParticleInfo::PositionParticleInfo(const Particle &particle, kvector_t position, double abundance)
+    : ParticleInfo(particle.clone(), 0, position.z(), abundance)
+    , m_pos_x(position.x())
+    , m_pos_y(position.y())
+{
+    setName("PositionParticleInfo");
+    init_parameters();
+}
+
 
 PositionParticleInfo::~PositionParticleInfo()
 {

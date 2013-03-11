@@ -25,7 +25,7 @@
 class FormFactorCrystal : public IFormFactorBorn
 {
 public:
-    FormFactorCrystal(const Crystal *p_crystal, const IFormFactor &meso_crystal_form_factor, const complex_t &ambient_refractive_index);
+    FormFactorCrystal(const Crystal &p_crystal, const IFormFactor &meso_crystal_form_factor, const complex_t &ambient_refractive_index);
     virtual ~FormFactorCrystal();
 
     virtual FormFactorCrystal *clone() const;

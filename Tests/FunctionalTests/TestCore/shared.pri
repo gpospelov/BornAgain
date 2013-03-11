@@ -5,11 +5,6 @@ QT      -= core gui
 
 include($$PWD/../../../shared.pri)
 
-#CORE = $$PWD/../../../Core
-#CORE_HEADERS = $${CORE}/Algorithms/inc $${CORE}/FormFactors/inc $${CORE}/Geometry/inc $${CORE}/Samples/inc $${CORE}/Tools/inc
-#INCLUDEPATH += $${CORE_HEADERS}
-#DEPENDPATH += $${CORE_HEADERS}
-
 ###############################################################################
 # generating package dependency flags
 ###############################################################################

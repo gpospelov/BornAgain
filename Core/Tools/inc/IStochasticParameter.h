@@ -14,12 +14,13 @@
 //! @author Scientific Computing Group at FRM II
 //! @date   01.04.2012
 
+#include "ICloneable.h"
 
-class IStochasticParameter
+class IStochasticParameter : public ICloneable
 {
 public:
     virtual ~IStochasticParameter() {}
-    virtual IStochasticParameter *clone() const=0;
+//    virtual IStochasticParameter *clone() const=0;
     virtual void setToRandom()=0;
     virtual void setToAverage()=0;
 };
@@ -39,9 +40,9 @@ public:
     virtual double getFWHM() const { return 0.0;}
 
 protected:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    StochasticParameter(const StochasticParameter<T> &);
-    StochasticParameter<T> &operator=(const StochasticParameter<T> &);
+//    //! copy constructor and assignment operator are hidden since there is a clone method
+//    StochasticParameter(const StochasticParameter<T> &);
+//    StochasticParameter<T> &operator=(const StochasticParameter<T> &);
 
     T m_current;
     T m_average;

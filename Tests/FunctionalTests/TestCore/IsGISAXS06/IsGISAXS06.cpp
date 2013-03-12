@@ -54,6 +54,8 @@ void FunctionalTests::IsGISAXS06::runlattice()
         300.0*Units::nanometer/2.0/M_PI, // correlation length 1
         100.0*Units::nanometer/2.0/M_PI  // correlation length 2
     };
+//    Lattice2DIFParameters lattice_params;
+
     InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);
@@ -312,7 +314,8 @@ int FunctionalTests::IsGISAXS06::analyseResults()
             diff+= std::fabs(*it);
         }
         diff /= result->getAllocatedSize();
-        if( diff > threshold ) status_ok=false;
+        if( diff > threshold || std::isnan(diff)) status_ok=false;
+        std::cout << diff << std::endl;
         delete reference;
     }
 

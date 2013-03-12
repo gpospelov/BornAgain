@@ -57,6 +57,7 @@ myFiles=[
   'Layer.h',
   'LayerDecorator.h',
   'LayerRoughness.h',
+  'Lattice2DIFParameters.h',
   'MaterialManager.h',
   'MesoCrystal.h',
   'MultiLayer.h',

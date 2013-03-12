@@ -85,7 +85,7 @@ int FunctionalTests::IsGISAXS15::analyseResults()
     diff /= m_result->getAllocatedSize();
 
     bool status_ok(true);
-    if( diff > threshold ) status_ok=false;
+    if( diff > threshold || std::isnan(diff)) status_ok=false;
 
     std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (int)status_ok;

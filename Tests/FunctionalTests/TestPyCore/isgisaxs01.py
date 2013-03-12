@@ -37,15 +37,8 @@ def RunSimulation():
     multi_layer = MultiLayer()
     multi_layer.addLayer(air_layer_decorator)
     multi_layer.addLayer(substrate_layer)
-    # build and run experiment
-    #experiment = GISASExperiment()
-    #experiment.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
-    #experiment.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
-    #experiment.setSample(multi_layer)
-    #experiment.runSimulation()
-    ## intensity data
-    #return GetOutputData(experiment)
 
+    # build and run experiment
     simulation = Simulation()
     simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
     simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
@@ -96,7 +89,7 @@ def RunTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10): status = "FAILED"
+    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
     return "IsGISAXS01" + "Mixture of cylinders and prisms without interference " + status
 
 

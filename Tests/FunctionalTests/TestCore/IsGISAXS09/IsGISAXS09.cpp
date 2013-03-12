@@ -124,7 +124,7 @@ int FunctionalTests::IsGISAXS09::analyseResults()
             diff+= std::fabs(*it);
         }
         diff /= result->getAllocatedSize();
-        if( diff > threshold ) status_ok=false;
+        if( diff > threshold || std::isnan(diff)) status_ok=false;
         delete reference;
     }
 

@@ -6,6 +6,7 @@
 #include "DWBASimulation.h"
 
 #include <boost/thread.hpp>
+#include <gsl/gsl_errno.h>
 
 
 Simulation::Simulation()
@@ -82,6 +83,7 @@ Simulation *Simulation::clone() const
 
 void Simulation::prepareSimulation()
 {
+    gsl_set_error_handler_off();
     m_is_normalized = false;
     updateSample();
 }

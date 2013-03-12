@@ -12,7 +12,9 @@
 
 #ifdef DEBUG_FPE
 #include <fenv.h>
+#ifdef Q_OS_MAC
 #include "fp_exception_glibc_extension.h"
+#endif
 #endif
 
 int main(int argc, char **argv)

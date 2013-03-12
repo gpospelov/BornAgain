@@ -145,10 +145,12 @@ HEADERS += \
     inc/Version.h \
 
 # to through exception in the case floating point exception (gcc only)
+# given files have Mac adapted version of feenableexcept function
 CONFIG(DEBUG_FPE) {
-    HEADERS += inc/fp_exception_glibc_extension.h
-    SOURCES += src/fp_exception_glibc_extension.c
+   macx:HEADERS += inc/fp_exception_glibc_extension.h
+   macx:SOURCES += src/fp_exception_glibc_extension.c
 }
+
 
 LOCATIONS = $$PWD/inc \
             $${FUNCTIONAL_TESTS}/IsGISAXS01 \

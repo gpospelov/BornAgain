@@ -455,7 +455,7 @@ void TQtWidget::RefreshCB()
    TCanvas *c = Canvas();
    if (c) {
       c->Modified();
-      c->Resize();
+//      c->Resize();
       c->Update();
       std::cout << "TQtWidget::RefreshCB -> XXX " << (inum++) << std::endl;
    }

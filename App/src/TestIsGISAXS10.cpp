@@ -1,5 +1,5 @@
 #include "TestIsGISAXS10.h"
-#include "IsGISAXS010.h"
+#include "IsGISAXS10.h"
 #include "IsGISAXSTools.h"
 #include "OutputDataIOFactory.h"
 #include "Utils.h"
@@ -15,7 +15,7 @@ TestIsGISAXS10::TestIsGISAXS10() : IFunctionalTest("TestIsGISAXS10")
 
 void TestIsGISAXS10::execute()
 {
-    FunctionalTests::IsGISAXS010 test;
+    FunctionalTests::IsGISAXS10 test;
     test.run();
 
     OutputDataIOFactory::writeOutputData(*test.getOutputData(), getOutputPath()+"this_para1dcyl.ima");

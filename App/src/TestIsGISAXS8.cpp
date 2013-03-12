@@ -16,25 +16,29 @@ TestIsGISAXS8::TestIsGISAXS8() : IFunctionalTest("TestIsGISAXS8")
 void TestIsGISAXS8::execute()
 {
     FunctionalTests::IsGISAXS08 test;
+
     test.run2DDL();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(), getOutputPath()+"this_2DDL_lattice.ima");
+    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS08::kTest_2DDL), getOutputPath()+"this_2DDL_lattice.ima");
+
     test.run2DDL2();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(), getOutputPath()+"this_2DDL_lattice2.ima");
+    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS08::kTest_2DDL2), getOutputPath()+"this_2DDL_lattice2.ima");
 }
+
 
 void TestIsGISAXS8::finalise()
 {
-        std::vector< CompareStruct > tocompare;
-        tocompare.push_back( CompareStruct(getOutputPath()+"isgi_2DDL_lattice.ima.gz", getOutputPath()+"this_2DDL_lattice.ima", "Cylinder 2DDL lattice") );
-        tocompare.push_back( CompareStruct(getOutputPath()+"isgi_2DDL_lattice2.ima.gz", getOutputPath()+"this_2DDL_lattice2.ima", "Cylinder 2DDL lattice with isotropic pdfs") );
+    std::vector< CompareStruct > tocompare;
+    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_2DDL_lattice.ima.gz", getOutputPath()+"this_2DDL_lattice.ima", "Cylinder 2DDL lattice") );
+    tocompare.push_back( CompareStruct(getOutputPath()+"isgi_2DDL_lattice2.ima.gz", getOutputPath()+"this_2DDL_lattice2.ima", "Cylinder 2DDL lattice with isotropic pdfs") );
 
-        for(size_t i=0; i<tocompare.size(); ++i) {
-            OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(tocompare[i].isginame);
-            OutputData<double> *our_data = OutputDataIOFactory::getOutputData(tocompare[i].thisname);
+    for(size_t i=0; i<tocompare.size(); ++i) {
+        OutputData<double> *isgi_data = OutputDataIOFactory::getOutputData(tocompare[i].isginame);
+        OutputData<double> *our_data = OutputDataIOFactory::getOutputData(tocompare[i].thisname);
 
-            IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, tocompare[i].descr, tocompare[i].descr);
+        IsGISAXSTools::drawOutputDataComparisonResults(*our_data, *isgi_data, tocompare[i].descr, tocompare[i].descr);
 
-            delete isgi_data;
-            delete our_data;
-        }
+        delete isgi_data;
+        delete our_data;
+    }
 }
+

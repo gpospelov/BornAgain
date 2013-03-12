@@ -4,9 +4,21 @@ import os
 import subprocess
 import time
 
-Tests = ["IsGISAXS01", "IsGISAXS02", "IsGISAXS03", "IsGISAXS04", "IsGISAXS06", "IsGISAXS07", "IsGISAXS08", "IsGISAXS09", "IsGISAXS010", "IsGISAXS011"]
-test_info = []
+Tests = [
+    "IsGISAXS01",
+    "IsGISAXS02",
+    "IsGISAXS03",
+    "IsGISAXS04",
+    "IsGISAXS06",
+    "IsGISAXS07",
+    "IsGISAXS08",
+    "IsGISAXS09",
+    "IsGISAXS10",
+    "IsGISAXS11",
+    "IsGISAXS15"
+]
 
+test_info = []
 
 # run system command and catch multiline stdout and stderr
 def run_command(command):
@@ -51,9 +63,8 @@ def printResults():
     print "========================================"
     n=1
     for x in test_info:
-        print '{0}. {1}  {2}  {3:.3f}sec  [{4}] '.format(n, x[0],x[1],x[2],x[3])
+        print '{0:2d}. {1}  {2}  {3:.3f}sec  [{4}] '.format(n, x[0],x[1],x[2],x[3])
         n+=1
-
 
 #-------------------------------------------------------------
 # main()

@@ -1,6 +1,13 @@
 TEMPLATE = app
-include($$PWD/../shared.pri)
+CONFIG  += console
+CONFIG  -= qt app_bundle
+QT      -= core gui
 
-SOURCES += IsGISAXS015.cpp
+include($$PWD/../../../../shared.pri)
+QMAKE_CXXFLAGS_RELEASE += -DSTANDALONE
+QMAKE_CXXFLAGS_DEBUG += -DSTANDALONE
+LIBS += $$PWD/../../../../lib/libBornAgainCore.so
 
-HEADERS += IsGISAXS015.h
+SOURCES += IsGISAXS15.cpp
+HEADERS += IsGISAXS15.h
+

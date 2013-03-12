@@ -21,6 +21,6 @@ private:
     OutputData<double> *m_result;
 };
 
-} // END namespace FunctionalTests
+}
 
 #endif

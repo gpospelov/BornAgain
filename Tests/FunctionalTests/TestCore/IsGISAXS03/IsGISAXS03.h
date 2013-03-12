@@ -1,40 +1,32 @@
 #ifndef FUNCTIONALTESTS_ISGISAXS03_H
 #define FUNCTIONALTESTS_ISGISAXS03_H
 
-
 #include <string>
 #include "OutputData.h"
 
-class MultiLayer;
-class Simulation;
 
 namespace FunctionalTests {
 
 class IsGISAXS03
 {
 public:
+    typedef std::vector<OutputData<double> *> results_t;
+    enum keys_results { kTest_DWBA, kTest_BA, kTest_BASize, kNumberOfTests };
+
     IsGISAXS03();
-    ~IsGISAXS03() { delete m_result; }
-    //void run();
+    ~IsGISAXS03();
+
     void runDWBA() , runBA(), runBA_Size();
     int analyseResults();
-   // int analyseResultsDWBA(), analyseResultsBA(), analyseResultsBA_Size();
-    const OutputData<double> *getOutputData() { return m_result;}
+
+    const OutputData<double> *getOutputData(size_t ntest=0) { return m_results.at(ntest); }
+
 private:
     std::string m_name;
     std::string m_description;
-    OutputData<double> *m_result;
+    std::string m_path;
 
-   // structure to hold info over several compare cases
-    struct CompareStruct
-    {
-        CompareStruct(std::string _isginame, std::string _thisname, std::string _descr) : isginame(_isginame), thisname(_thisname), descr(_descr){}
-        std::string isginame;
-        std::string thisname;
-        std::string descr;
-    };
-
-    std::string  m_data_path;
+    results_t m_results;
 };
 
 

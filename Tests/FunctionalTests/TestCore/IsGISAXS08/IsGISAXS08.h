@@ -13,27 +13,22 @@ namespace FunctionalTests {
 class IsGISAXS08
 {
 public:
+    typedef std::vector<OutputData<double> *> results_t;
+    enum keys_results { kTest_2DDL, kTest_2DDL2, kNumberOfTests };
+
     IsGISAXS08();
-    ~IsGISAXS08() { delete m_result; }
-    //void run();
+    ~IsGISAXS08();
+
     void run2DDL(), run2DDL2();
     int analyseResults();
-    const OutputData<double> *getOutputData() { return m_result;}
+
+    const OutputData<double> *getOutputData(size_t ntest=0) { return m_results.at(ntest); }
+
 private:
     std::string m_name;
     std::string m_description;
-    OutputData<double> *m_result;
-
-   // structure to hold info over several compare cases
-    struct CompareStruct
-    {
-        CompareStruct(std::string _isginame, std::string _thisname, std::string _descr) : isginame(_isginame), thisname(_thisname), descr(_descr){}
-        std::string isginame;
-        std::string thisname;
-        std::string descr;
-    };
-
-    std::string m_data_path;
+    std::string m_path;
+    results_t m_results;
 };
 
 

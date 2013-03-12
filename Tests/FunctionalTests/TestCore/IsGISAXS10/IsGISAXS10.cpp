@@ -1,12 +1,12 @@
-#include "IsGISAXS010.h"
-#include "MultiLayer.h"
-#include "ParticleDecoration.h"
-#include "LayerDecorator.h"
-#include "InterferenceFunction1DParaCrystal.h"
+#include "IsGISAXS10.h"
 #include "FormFactorCylinder.h"
-#include "Simulation.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "LayerDecorator.h"
 #include "MaterialManager.h"
+#include "MultiLayer.h"
 #include "OutputDataIOFactory.h"
+#include "ParticleDecoration.h"
+#include "Simulation.h"
 #include "Units.h"
 #include "Utils.h"
 
@@ -14,18 +14,16 @@
 #include <cmath>
 
 
-FunctionalTests::IsGISAXS010::IsGISAXS010()
-    : m_name("IsGISAXS010")
+FunctionalTests::IsGISAXS10::IsGISAXS10()
+    : m_name("IsGISAXS10")
     , m_description("Cylinders with interference on top of substrate")
     , m_result(0)
 { }
 
 
-void FunctionalTests::IsGISAXS010::run()
+void FunctionalTests::IsGISAXS10::run()
 {
-    // ---------------------
     // building sample
-    // ---------------------
     MultiLayer multi_layer;
     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air10", 1.0, 0.0);
     const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate10", 1.0-5e-6, 2e-8);
@@ -43,32 +41,25 @@ void FunctionalTests::IsGISAXS010::run()
 
     multi_layer.addLayer(air_layer_decorator);
     multi_layer.addLayer(substrate_layer);
-    // ---------------------
+
     // building simulation
-    // ---------------------
     Simulation simulation;
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-
-    // ---------------------
-    // running simulation
-    // ---------------------
     simulation.setSample(multi_layer);
+
+    // running simulation and copying data
     simulation.runSimulation();
-
-    // ---------------------
-    // copying data
-    // ---------------------
     m_result = simulation.getOutputDataClone();
-
 }
 
-int FunctionalTests::IsGISAXS010::analyseResults()
+
+int FunctionalTests::IsGISAXS10::analyseResults()
 {
     const double threshold(1e-10);
 
     // retrieving reference data
-    std::string filename = Utils::FileSystem::GetHomePath() + "/Tests/FunctionalTests/TestCore/IsGISAXS010/isgisaxs010_reference.ima.gz";
+    std::string filename = Utils::FileSystem::GetHomePath() + "Tests/FunctionalTests/TestCore/IsGISAXS10/isgisaxs10_reference.ima.gz";
     OutputData<double > *reference = OutputDataIOFactory::getOutputData(filename);
 
     // calculating average relative difference
@@ -82,6 +73,7 @@ int FunctionalTests::IsGISAXS010::analyseResults()
 
     bool status_ok(true);
     if( diff > threshold ) status_ok=false;
+    delete reference;
 
     std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (int)status_ok;
@@ -91,7 +83,7 @@ int FunctionalTests::IsGISAXS010::analyseResults()
 #ifdef STANDALONE
 int main()
 {
-    FunctionalTests::IsGISAXS010 test;
+    FunctionalTests::IsGISAXS10 test;
     test.run();
 
     return test.analyseResults();

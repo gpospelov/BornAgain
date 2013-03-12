@@ -5,8 +5,6 @@
 #include <string>
 #include "OutputData.h"
 
-class MultiLayer;
-class Simulation;
 
 
 namespace FunctionalTests {

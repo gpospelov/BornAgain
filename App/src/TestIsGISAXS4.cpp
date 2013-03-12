@@ -17,9 +17,9 @@ void TestIsGISAXS4::execute()
 {
     FunctionalTests::IsGISAXS04 test;
     test.run1DDL();
-     OutputDataIOFactory::writeOutputData(*test.getOutputData(), getOutputPath()+"this_1DDL.ima");
+    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS04::kTest_1DDL), getOutputPath()+"this_1DDL.ima");
     test.run2DDL();
-     OutputDataIOFactory::writeOutputData(*test.getOutputData(), getOutputPath()+"this_2DDLh.ima");
+    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS04::kTest_2DDL), getOutputPath()+"this_2DDLh.ima");
 }
 
 

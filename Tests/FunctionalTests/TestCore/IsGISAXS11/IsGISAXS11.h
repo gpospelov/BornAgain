@@ -1,27 +1,27 @@
-#ifndef FUNCTIONALTESTS_ISGISAXS011_H
-#define FUNCTIONALTESTS_ISGISAXS011_H
+#ifndef FUNCTIONALTESTS_ISGISAXS11_H
+#define FUNCTIONALTESTS_ISGISAXS11_H
 
 
 #include <string>
 #include "OutputData.h"
 
-class MultiLayer;
-class Simulation;
 
 namespace FunctionalTests {
 
-class IsGISAXS011
+class IsGISAXS11
 {
 public :
-  IsGISAXS011();
-  ~IsGISAXS011() { delete m_result; }
-  void run();
-  int analyseResults();
-  const OutputData<double> *getOutputData() { return m_result; }
+    IsGISAXS11();
+    ~IsGISAXS11() { delete m_result; }
+
+    void run();
+    int analyseResults();
+
+    const OutputData<double> *getOutputData() { return m_result; }
 private:
-  std::string m_name;
-  std::string m_description;
-  OutputData<double> *m_result;
+    std::string m_name;
+    std::string m_description;
+    OutputData<double> *m_result;
 };
 
 }

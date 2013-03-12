@@ -1,6 +1,12 @@
 #include "ParticleView.h"
-#include <QtWidgets>
 
+#include <QPainter>
+#include <QGraphicsSceneMouseEvent>
+#include <QDrag>
+#include <QCursor>
+#include <QApplication>
+#include <QMimeData>
+#include <QBitmap>
 
 ParticleView::ParticleView()
     : color(qrand() % 256, qrand() % 256, qrand() % 256)

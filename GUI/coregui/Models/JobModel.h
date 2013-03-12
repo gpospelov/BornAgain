@@ -33,6 +33,7 @@ protected:
     Simulation *mp_simulation;
     QFutureWatcher<void> *mp_job_watcher;
     bool m_is_finished;
+    TH2D *mp_cached_histogram;
 };
 
 #endif // JOBMODEL_H

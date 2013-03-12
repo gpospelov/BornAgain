@@ -63,7 +63,6 @@ void JobView::updateGraphics()
         if (p_current_job==0) return;
         mp_canvas->cd();
         gPad->SetLogz();
-        if (mp_cached_histo) delete mp_cached_histo;
         mp_cached_histo = p_current_job->getHistogram();
         mp_cached_histo->SetContour(99);
         gStyle->SetPalette(1);

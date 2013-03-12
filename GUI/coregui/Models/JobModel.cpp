@@ -11,6 +11,7 @@ JobModel::JobModel(Simulation *p_simulation)
     , mp_simulation(p_simulation)
     , mp_job_watcher(0)
     , m_is_finished(false)
+    , mp_cached_histogram(0)
 {
     m_name = getJobTimeStamp();
     mp_job_watcher = new QFutureWatcher<void>;
@@ -21,6 +22,7 @@ JobModel::~JobModel()
 {
     delete mp_simulation;
     delete mp_job_watcher;
+    delete mp_cached_histogram;
 }
 
 void JobModel::run()
@@ -34,6 +36,9 @@ TH2D *JobModel::getHistogram()
 {
     if (!m_is_finished) {
         return 0;
+    }
+    if (mp_cached_histogram) {
+        return mp_cached_histogram;
     }
     const OutputData<double> *output = mp_simulation->getOutputData();
     if (output->getNdimensions() !=2) {
@@ -72,11 +77,11 @@ TH2D *JobModel::getHistogram()
         }
     }
     QByteArray name_array = m_name.toLocal8Bit();
-    TH2D *hist2 = new TH2D(name_array.data(), name_array.data(),
+    mp_cached_histogram = new TH2D(name_array.data(), name_array.data(),
                            (int)axis_sizes[0], &binvectors[0][0],
                            (int)axis_sizes[1], &binvectors[1][0]);
-    hist2->GetXaxis()->SetTitle( axis_names[0].c_str() );
-    hist2->GetYaxis()->SetTitle( axis_names[1].c_str() );
+    mp_cached_histogram->GetXaxis()->SetTitle( axis_names[0].c_str() );
+    mp_cached_histogram->GetYaxis()->SetTitle( axis_names[1].c_str() );
 
     OutputData<double>::const_iterator it = output->begin();
     while (it != output->end())
@@ -84,15 +89,15 @@ TH2D *JobModel::getHistogram()
         double x = output->getValueOfAxis( axis_names[0].c_str(), it.getIndex() );
         double y = output->getValueOfAxis( axis_names[1].c_str(), it.getIndex() );
         double value = *it++;
-        hist2->Fill(x, y, value);
+        mp_cached_histogram->Fill(x, y, value);
     }
-    hist2->SetContour(50);
-    hist2->SetStats(0);
-    hist2->GetYaxis()->SetTitleOffset(1.1);
+    mp_cached_histogram->SetContour(50);
+    mp_cached_histogram->SetStats(0);
+    mp_cached_histogram->GetYaxis()->SetTitleOffset(1.1);
 
     gStyle->SetPalette(1);
     gStyle->SetOptStat(0);
-    return hist2;
+    return mp_cached_histogram;
 }
 
 void JobModel::onJobFinished()

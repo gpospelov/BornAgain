@@ -144,12 +144,6 @@ HEADERS += \
     inc/TreeEventStructure.h \
     inc/Version.h \
 
-# to throw exception in the case floating point exception (gcc only)
-CONFIG(DEBUG_FPE) {
-    HEADERS += inc/fp_exception_glibc_extension.h
-    SOURCES += src/fp_exception_glibc_extension.c
-}
-
 LOCATIONS = $$PWD/inc \
             $${FUNCTIONAL_TESTS}/IsGISAXS01 \
             $${FUNCTIONAL_TESTS}/IsGISAXS02 \
@@ -169,7 +163,19 @@ DEPENDPATH  += $${LOCATIONS}
 OBJECTS_DIR = obj
 
 # -----------------------------------------------------------------------------
-# generating package dependency flags
+# libraries, extensions
+# -----------------------------------------------------------------------------
+
+LIBS += -lpthread -lm -ldl
+
+# to throw exception in the case floating point exception (gcc only)
+CONFIG(DEBUG_FPE) {
+    HEADERS += inc/fp_exception_glibc_extension.h
+    SOURCES += src/fp_exception_glibc_extension.c
+}
+
+# -----------------------------------------------------------------------------
+# generate package dependency flags
 # -----------------------------------------------------------------------------
 MY_DEPENDENCY_LIB = BornAgainCore
 MY_DEPENDENCY_DEST =$$PWD/..
@@ -180,42 +186,29 @@ for(dep, MY_DEPENDENCY_LIB) {
 }
 
 # -----------------------------------------------------------------------------
-# adding ROOT libraries
+# add ROOT libraries
 # -----------------------------------------------------------------------------
-MYROOT = $$(ROOTSYS)
-isEmpty(MYROOT) {
-  message("Warning, ROOTSYS environment variable doesn't exist, trying to guess location")
-  ROOT_CONFIG_FILE = root-config
-  ROOT_CONFIG_FILE_LOCATIONS = /opt/local /usr/local /usr
-  for(dir, ROOT_CONFIG_FILE_LOCATIONS): isEmpty(MYROOT): exists($${dir}/bin/$${ROOT_CONFIG_FILE}): MYROOT = $${dir}
-  isEmpty(MYROOT): error("Can't find" $${ROOT_CONFIG_FILE} "in" $${ROOT_CONFIG_FILE_LOCATIONS})
-  message("Probable ROOTSYS is" $${MYROOT})
-}
-!isEmpty(MYROOT) {
-  !exists($${MYROOT}/bin/root-config): error("No config file "$${MYROOT}/bin/root-config)
-  INCLUDEPATH += $$system($${MYROOT}/bin/root-config --incdir)
-  MYROOTCINT = $${MYROOT}/bin/rootcint
 
-  # checking existence of necessary set of ROOT libraries
-  #LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
-  LIBS += -L$$system($${MYROOT}/bin/root-config --libdir )
-  REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix Physics MathCore MathMore Minuit2 Geom Eve RGL Thread
+MYROOT = $$system(root-config --prefix)
+isEmpty(MYROOT): error("Could not run root-config. Install ROOT, and set PATH to include ROOTSYS/bin.")
+message("Found ROOT under directory " $${MYROOT})
 
-  for(x, REQUIRED_ROOT_LIBS) {
-    libfile = $$system($${MYROOT}/bin/root-config --libdir )/lib$${x}.so
+INCLUDEPATH += $$system(root-config --incdir)
+MYROOTCINT = $${MYROOT}/bin/rootcint
+ROOTLIBDIR = $$system(root-config --libdir)
+LIBS += -L$${ROOTLIBDIR}
+REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix Physics MathCore MathMore Minuit2 Geom Eve RGL Thread
+
+# check existence of required ROOT libraries
+for(x, REQUIRED_ROOT_LIBS) {
+    libfile = $${ROOTLIBDIR}/lib$${x}.so
     !exists($${libfile}) : MISSED_ROOT_LIBRARIES += $${libfile}
     LIBS += -l$${x}
-  }
-  !isEmpty(MISSED_ROOT_LIBRARIES) {
-    message("Error! Following ROOT libraries are missed: $${MISSED_ROOT_LIBRARIES}")
-    message("Please install them before proceed. If you are compiling ROOT by yourself, use \'configure --all\' option.")
-    error("Program will not link, exiting...")
-  }
 }
-LIBS += -lpthread -lm -ldl
+!isEmpty(MISSED_ROOT_LIBRARIES): error( "The following libraries are missing in $${ROOTLIBDIR}: $${MISSED_ROOT_LIBRARIES}.")
 
 # -----------------------------------------------------------------------------
-# Hand made addition to generate root dictionaries in the
+# Hand made addition to generate ROOT dictionaries in the
 # absence of rootcint.pri file
 # -----------------------------------------------------------------------------
 CREATE_ROOT_DICT_FOR_CLASSES = inc/App.h inc/AppLinkDef.h

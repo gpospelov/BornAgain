@@ -7,7 +7,6 @@ PositionParticleInfo::PositionParticleInfo(Particle* p_particle,
     , m_pos_x(position.x())
     , m_pos_y(position.y())
 {
-    std::cout << "1.1 XXX" << std::endl;
     setName("PositionParticleInfo");
     init_parameters();
 }
@@ -20,7 +19,6 @@ PositionParticleInfo::PositionParticleInfo(const Particle &particle,
     , m_pos_x(position.x())
     , m_pos_y(position.y())
 {
-    std::cout << "1.2 XXX" << std::endl;
     setName("PositionParticleInfo");
     init_parameters();
 }
@@ -31,7 +29,6 @@ PositionParticleInfo::PositionParticleInfo(Particle* p_particle, kvector_t posit
     , m_pos_x(position.x())
     , m_pos_y(position.y())
 {
-    std::cout << "1.3 XXX" << std::endl;
     setName("PositionParticleInfo");
     init_parameters();
 }
@@ -42,7 +39,6 @@ PositionParticleInfo::PositionParticleInfo(const Particle &particle, kvector_t p
     , m_pos_x(position.x())
     , m_pos_y(position.y())
 {
-    std::cout << "1.4 XXX" << std::endl;
     setName("PositionParticleInfo");
     init_parameters();
 }

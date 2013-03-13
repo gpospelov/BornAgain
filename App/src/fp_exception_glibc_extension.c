@@ -56,7 +56,7 @@ To compile it under Linux, execute:
   cc -DLINUX -lm -o fe-handling fe-handling-example.c
 */
 
-#ifdef LINUX
+#ifdef Q_OS_LINUX
 /* BEGIN quote
 http://graphviz.sourcearchive.com/documentation/2.16/gvrender__pango_8c-source.html
 */
@@ -76,14 +76,14 @@ http://graphviz.sourcearchive.com/documentation/2.16/gvrender__pango_8c-source.h
 #define __USE_GNU
 #endif
 /* END quote */
-#endif // LINUX
+#endif // Q_OS_LINUX
 
 #include <fenv.h>
 
 #define DEFINED_PPC      (defined(__ppc__) || defined(__ppc64__))
 #define DEFINED_INTEL    (defined(__i386__) || defined(__x86_64__))
 
-#ifndef LINUX
+#ifndef Q_OS_LINUX
 #if DEFINED_PPC
 
 #define FE_EXCEPT_SHIFT 22  // shift flags right to get masks
@@ -191,7 +191,7 @@ fedisableexcept (unsigned int excepts)
 }
 
 #endif  // PPC or INTEL enabling
-#endif  // not LINUX
+#endif  // not Q_OS_LINUX
 
 #if DEFINED_PPC
 

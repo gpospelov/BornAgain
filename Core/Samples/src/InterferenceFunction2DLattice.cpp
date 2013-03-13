@@ -1,4 +1,5 @@
 #include "InterferenceFunction2DLattice.h"
+#include <cassert>
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(
         const Lattice2DIFParameters& lattice_params)
@@ -83,6 +84,9 @@ void InterferenceFunction2DLattice::init_parameters()
 
 void InterferenceFunction2DLattice::initialize_rec_vectors()
 {
+    if(m_lattice_params.m_length_1==0 || m_lattice_params.m_length_2 == 0) {
+//        throw DivisionByZeroException("InterferenceFunction2DLattice::initialize_rec_vectors() -> Error! Zero parameters m_lattice_params.m_length1 or m_lattice_params.m_length_2");
+    }
     double sinalpha = std::sin(m_lattice_params.m_angle);
     double ainv = 2.0*M_PI/m_lattice_params.m_length_1/sinalpha;
     double binv = 2.0*M_PI/m_lattice_params.m_length_2/sinalpha;
@@ -100,6 +104,7 @@ void InterferenceFunction2DLattice::initialize_calc_factors()
     //TODO: for non cauchy distributions: check if this still applies
     m_prefactor = 2.0*M_PI*m_lattice_params.m_corr_length_1*m_lattice_params.m_corr_length_2;
     double denominator = m_lattice_params.m_length_1*m_lattice_params.m_length_2*std::sin(m_lattice_params.m_angle);
+    assert(denominator);
     m_prefactor /= denominator;
 
     // number of reciprocal lattice points to use

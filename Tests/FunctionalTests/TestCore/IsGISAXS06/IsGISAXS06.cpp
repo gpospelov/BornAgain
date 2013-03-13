@@ -44,17 +44,25 @@ void FunctionalTests::IsGISAXS06::runlattice()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
 
-    Lattice2DIFParameters lattice_params = {
-        10.0*Units::nanometer,       // L1
-        10.0*Units::nanometer,       // L2
-        90.0*Units::degree,          // lattice angle
-        0.0*Units::degree,           // lattice orientation
-        20000.0*Units::nanometer,    // domain size 1
-        20000.0*Units::nanometer,    // domain size 2
-        300.0*Units::nanometer/2.0/M_PI, // correlation length 1
-        100.0*Units::nanometer/2.0/M_PI  // correlation length 2
-    };
-//    Lattice2DIFParameters lattice_params;
+//    Lattice2DIFParameters lattice_params = {
+//        10.0*Units::nanometer,       // L1
+//        10.0*Units::nanometer,       // L2
+//        90.0*Units::degree,          // lattice angle
+//        0.0*Units::degree,           // lattice orientation
+//        20000.0*Units::nanometer,    // domain size 1
+//        20000.0*Units::nanometer,    // domain size 2
+//        300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+//        100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+//    };
+    Lattice2DIFParameters lattice_params;
+//    lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
+//    lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
+//    lattice_params.m_angle = 90.0*Units::degree; // lattice angle
+//    lattice_params.m_xi = 0.0*Units::degree; // lattice orientation
+//    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer; // domain size 1
+//    lattice_params.m_domain_size_2 =20000.0*Units::nanometer; // domain size 2
+//    lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI; // correlation length 1
+//    lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;  // correlation length 2
 
     InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
@@ -104,16 +112,24 @@ void FunctionalTests::IsGISAXS06::runcentered()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
 
-    Lattice2DIFParameters lattice_params = {
-        10.0*Units::nanometer,       // L1
-        10.0*Units::nanometer,       // L2
-        90.0*Units::degree,          // lattice angle
-        0.0*Units::degree,           // lattice orientation
-        20000.0*Units::nanometer,    // domain size 1
-        20000.0*Units::nanometer,    // domain size 2
-        300.0*Units::nanometer/2.0/M_PI, // correlation length 1
-        100.0*Units::nanometer/2.0/M_PI  // correlation length 2
-    };
+    Lattice2DIFParameters lattice_params;
+//        10.0*Units::nanometer,       // L1
+//        10.0*Units::nanometer,       // L2
+//        90.0*Units::degree,          // lattice angle
+//        0.0*Units::degree,           // lattice orientation
+//        20000.0*Units::nanometer,    // domain size 1
+//        20000.0*Units::nanometer,    // domain size 2
+//        300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+//        100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+    lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
+    lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
+    lattice_params.m_angle = 90.0*Units::degree; // lattice angle
+    lattice_params.m_xi = 0.0*Units::degree; // lattice orientation
+    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer; // domain size 1
+    lattice_params.m_domain_size_2 =20000.0*Units::nanometer; // domain size 2
+    lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI; // correlation length 1
+    lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;  // correlation length 2
+
     InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);
@@ -165,16 +181,27 @@ void FunctionalTests::IsGISAXS06::runrotated()
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
 
-    Lattice2DIFParameters lattice_params = {
-        10.0*Units::nanometer,           // L1
-        10.0*Units::nanometer,           // L2
-        90.0*Units::degree,              // lattice angle
-        30.0*Units::degree,              // lattice orientation
-        20000.0*Units::nanometer,        // domain size 1
-        20000.0*Units::nanometer,        // domain size 2
-        300.0*Units::nanometer/2.0/M_PI, // correlation length 1
-        100.0*Units::nanometer/2.0/M_PI  // correlation length 2
-    };
+    Lattice2DIFParameters lattice_params;
+//    {
+//        10.0*Units::nanometer,           // L1
+//        10.0*Units::nanometer,           // L2
+//        90.0*Units::degree,              // lattice angle
+//        30.0*Units::degree,              // lattice orientation
+//        20000.0*Units::nanometer,        // domain size 1
+//        20000.0*Units::nanometer,        // domain size 2
+//        300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+//        100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+//    };
+    lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
+    lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
+    lattice_params.m_angle = 90.0*Units::degree; // lattice angle
+    lattice_params.m_xi = 30.0*Units::degree; // lattice orientation
+    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer; // domain size 1
+    lattice_params.m_domain_size_2 =20000.0*Units::nanometer; // domain size 2
+    lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI; // correlation length 1
+    lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;  // correlation length 2
+
+
     InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
     pdf.setGamma(30.0*Units::degree);
@@ -259,16 +286,27 @@ ISample* FunctionalTests::IsGISAXS06::LatticeVariantBuilder::buildSample() const
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    Lattice2DIFParameters lattice_params = {
-        10.0*Units::nanometer,           // L1
-        10.0*Units::nanometer,           // L2
-        90.0*Units::degree,              // lattice angle
-        m_xi,                            // lattice orientation
-        20000.0*Units::nanometer,        // domain size 1
-        20000.0*Units::nanometer,        // domain size 2
-        300.0*Units::nanometer/2.0/M_PI, // correlation length 1
-        100.0*Units::nanometer/2.0/M_PI  // correlation length 2
-    };
+    Lattice2DIFParameters lattice_params;
+//    {
+//        10.0*Units::nanometer,           // L1
+//        10.0*Units::nanometer,           // L2
+//        90.0*Units::degree,              // lattice angle
+//        m_xi,                            // lattice orientation
+//        20000.0*Units::nanometer,        // domain size 1
+//        20000.0*Units::nanometer,        // domain size 2
+//        300.0*Units::nanometer/2.0/M_PI, // correlation length 1
+//        100.0*Units::nanometer/2.0/M_PI  // correlation length 2
+//    };
+
+    lattice_params.m_length_1 = 10.0*Units::nanometer; // L1
+    lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
+    lattice_params.m_angle = 90.0*Units::degree; // lattice angle
+    lattice_params.m_xi = m_xi; // lattice orientation
+    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer; // domain size 1
+    lattice_params.m_domain_size_2 =20000.0*Units::nanometer; // domain size 2
+    lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI; // correlation length 1
+    lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;  // correlation length 2
+
     InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
     FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);

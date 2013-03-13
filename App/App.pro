@@ -144,13 +144,13 @@ HEADERS += \
     inc/TreeEventStructure.h \
     inc/Version.h \
 
-# to through exception in the case floating point exception (gcc only)
-# given files have Mac adapted version of feenableexcept function
+# to through exception in the case floating point exception
 CONFIG(DEBUG_FPE) {
+   QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
+   # mac requires his own patched version of fp_exceptions
    macx:HEADERS += inc/fp_exception_glibc_extension.h
    macx:SOURCES += src/fp_exception_glibc_extension.c
 }
-
 
 LOCATIONS = $$PWD/inc \
             $${FUNCTIONAL_TESTS}/IsGISAXS01 \

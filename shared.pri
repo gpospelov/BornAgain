@@ -64,10 +64,10 @@ NumberOfSuchFiles=$$system(ls $${BOOST_LIB}/libboost_thread-mt* 2> /dev/null | w
   LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
 }
 
-isEmpty(GSL_INCLUDE): error("missed dependency")
-isEmpty(FFTW3_INCLUDE): error("missed dependency")
-isEmpty(BOOST_INCLUDE): error("missed dependency")
-isEmpty(BOOST_LIB): error("missed dependency")
+isEmpty(GSL_INCLUDE): error("missed dependency:" $${GSL_HEADERFILE})
+isEmpty(FFTW3_INCLUDE): error("missed dependency:" $${FFTW3_HEADERFILE})
+isEmpty(BOOST_INCLUDE): error("missed dependency:" $${BOOST_HEADERFILE})
+isEmpty(BOOST_LIB): error("missed dependency:" $${BOOST_LIBFILES})
 
 # here is workaround since JCNS /usr/local doesn't have shared fftw3 (run with 'qmake CONFIG+=JCNS')
 env_jcns_variable = $$(BORNAGAIN_JCNS)
@@ -122,12 +122,20 @@ CONFIG(PEDANTIC) {
 }
 
 # floating point exception handling
-CONFIG+=DEBUG_FPE
-CONFIG(DEBUG_FPE) {
-    QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
-    !macx { QMAKE_CXXFLAGS_DEBUG += -DLINUX }
+CONFIG(DEBUG) {
+    CONFIG +=DEBUG_FPE
 }
 
+# propagating operation system type inside the code
+# (note, that when Qt libraries are used, it is already done in <qglobal.h>)
+macx {
+    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_MAC
+    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_MAC
+}
+unix:!macx {
+    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_LINUX
+    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_LINUX
+}
 
 
 

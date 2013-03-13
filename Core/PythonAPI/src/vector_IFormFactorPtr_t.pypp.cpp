@@ -48,6 +48,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Layer.h"
 #include "LayerDecorator.h"
 #include "LayerRoughness.h"
+#include "Lattice2DIFParameters.h"
 #include "MaterialManager.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"

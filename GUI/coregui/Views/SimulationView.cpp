@@ -20,6 +20,11 @@
 #include <QFutureWatcher>
 #include <QtCore>
 
+#if QT_VERSION >= 0x050000
+#include <QtConcurrent/QtConcurrentRun>
+#endif
+
+
 SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWidget *parent)
     : QWidget(parent)
     , mp_simulation_data_model(p_simulation_data_model)

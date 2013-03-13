@@ -7,6 +7,7 @@
 #include <QApplication>
 #include <QMimeData>
 #include <QBitmap>
+#include <QWidget>
 
 ParticleView::ParticleView()
     : color(qrand() % 256, qrand() % 256, qrand() % 256)

@@ -1,15 +1,15 @@
 #include "IsGISAXS01.h"
-#include "MultiLayer.h"
-#include "ParticleDecoration.h"
-#include "LayerDecorator.h"
 
-#include "InterferenceFunctionNone.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorPrism3.h"
+#include "InterferenceFunctionNone.h"
+#include "LayerDecorator.h"
+#include "MaterialManager.h"
+#include "MultiLayer.h"
+#include "OutputDataIOFactory.h"
+#include "ParticleDecoration.h"
 #include "Simulation.h"
 #include "Units.h"
-#include "MaterialManager.h"
-#include "OutputDataIOFactory.h"
 #include "Utils.h"
 
 #include <iostream>
@@ -64,8 +64,8 @@ void FunctionalTests::IsGISAXS01::run()
     // copying data
     // ---------------------
     m_result = simulation.getOutputDataClone();
-
 }
+
 
 int FunctionalTests::IsGISAXS01::analyseResults()
 {
@@ -86,7 +86,8 @@ int FunctionalTests::IsGISAXS01::analyseResults()
     diff /= m_result->getAllocatedSize();
 
     bool status_ok(true);
-    if( diff > threshold ) status_ok=false;
+    if( diff > threshold || std::isnan(diff) ) status_ok=false;
+    delete reference;
 
     std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (int)status_ok;

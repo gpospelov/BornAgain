@@ -46,18 +46,6 @@ public:
     virtual ~TestIsGISAXS7(){}
     virtual void execute();
     virtual void finalise();
-
-//private:
-    // structure to hold info over several compare cases
-  //  struct CompareStruct
-  //  {
-  //      CompareStruct(std::string _isginame, std::string _thisname, std::string _descr) : isginame(_isginame), thisname(_thisname), descr(_descr){}
-  //      std::string isginame;
-  //      std::string thisname;
-  //      std::string descr;
-  //  };
-
-  //  std::string m_data_path;
 };
 
 

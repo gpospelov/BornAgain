@@ -86,7 +86,9 @@ def RunSimulationBA_Size():
     matMng = MaterialManager.instance()
     mAmbience = matMng.addHomogeneousMaterial("Air", 1.0, 0.0 )
     mSubstrate = matMng.addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
-    
+
+    multi_layer = MultiLayer()
+
     n_particle = complex(1.0-6e-4, 2e-8)
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
     particle_decoration = ParticleDecoration()
@@ -107,7 +109,7 @@ def RunSimulationBA_Size():
     particle_decoration.addInterferenceFunction(interference)    
 
     air_layer = Layer(mAmbience)
-    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)  
+    air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
     multi_layer.addLayer(air_layer_decorator)
 
     # build and run experiment  
@@ -171,14 +173,15 @@ def RunTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10): status = "FAILED"
-    return "IsGISAXS03" + " Cylinder formfactor in BA and DWBA " + status
+    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    return "IsGISAXS03", "Cylinder formfactor in BA and DWBA", status
 
    
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  print RunTest()
+  name,description,status = RunTest()
+  print name,description,status
 
 

@@ -8,17 +8,21 @@ GCC_DIAG_OFF(missing-field-initializers);
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 #include "BasicVector3D.h"
+#include "Bin.h"
+#include "Crystal.h"
+#include "DiffuseParticleInfo.h"
+#include "FTDistributions.h"
+#include "FormFactorBox.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorFullSphere.h"
 #include "FormFactorGauss.h"
 #include "FormFactorLorentz.h"
+#include "FormFactorParallelepiped.h"
 #include "FormFactorPrism3.h"
-#include "FormFactorBox.h"
 #include "FormFactorPyramid.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include "FTDistributions.h"
 #include "HomogeneousMaterial.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
@@ -28,47 +32,59 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "IFormFactorBorn.h"
 #include "IFormFactorDecorator.h"
 #include "IInterferenceFunction.h"
-#include "InterferenceFunctionNone.h"
-#include "InterferenceFunction1DParaCrystal.h"
-#include "InterferenceFunction2DParaCrystal.h"
-#include "InterferenceFunction2DLattice.h"
 #include "IMaterial.h"
 #include "IParameterized.h"
 #include "ISample.h"
 #include "ISampleBuilder.h"
 #include "ISelectionRule.h"
 #include "ISingleton.h"
+#include "Instrument.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunction2DLattice.h"
+#include "InterferenceFunction2DParaCrystal.h"
+#include "InterferenceFunctionNone.h"
 #include "Lattice.h"
 #include "Lattice2DIFParameters.h"
 #include "LatticeBasis.h"
 #include "Layer.h"
 #include "LayerDecorator.h"
 #include "LayerRoughness.h"
+#include "Lattice2DIFParameters.h"
 #include "MaterialManager.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
-#include "Particle.h"
-#include "Crystal.h"
-#include "ParticleDecoration.h"
-#include "ParticleBuilder.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
-#include "PositionParticleInfo.h"
+#include "Particle.h"
+#include "ParticleBuilder.h"
+#include "ParticleCoreShell.h"
+#include "ParticleDecoration.h"
 #include "ParticleInfo.h"
-#include "DiffuseParticleInfo.h"
+#include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
+#include "IStochasticParameter.h"
+#include "StochasticGaussian.h"
+#include "StochasticSampledParameter.h"
+#include "StochasticDoubleGate.h"
 #include "Transform3D.h"
-#include "Units.h"
 #include "Types.h"
+#include "Units.h"
 #include "FormFactorCrystal.pypp.h"
 
 namespace bp = boost::python;
 
 struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCrystal > {
+
+    FormFactorCrystal_wrapper(::Crystal const & p_crystal, ::IFormFactor const & meso_crystal_form_factor, ::complex_t const & ambient_refractive_index )
+    : FormFactorCrystal( boost::ref(p_crystal), boost::ref(meso_crystal_form_factor), boost::ref(ambient_refractive_index) )
+      , bp::wrapper< FormFactorCrystal >(){
+        // constructor
+    
+    }
 
     virtual ::FormFactorCrystal * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
@@ -80,30 +96,6 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
     
     ::FormFactorCrystal * default_clone(  ) const  {
         return FormFactorCrystal::clone( );
-    }
-
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
-        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
-        else{
-            return this->FormFactorCrystal::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
-        }
-    }
-    
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
-        return FormFactorCrystal::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
-    }
-
-    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
-        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
-            return func_evaluate_for_q( boost::ref(q) );
-        else{
-            return this->FormFactorCrystal::evaluate_for_q( boost::ref(q) );
-        }
-    }
-    
-    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
-        return FormFactorCrystal::evaluate_for_q( boost::ref(q) );
     }
 
     virtual double getVolume(  ) const  {
@@ -164,6 +156,23 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
     
     ::ParameterPool * default_createParameterTree(  ) const  {
         return IParameterized::createParameterTree( );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+        else{
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+        }
+    }
+    
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+    }
+
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const {
+        bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" );
+        return func_evaluate_for_q( boost::ref(q) );
     }
 
     virtual double getHeight(  ) const  {
@@ -254,22 +263,12 @@ struct FormFactorCrystal_wrapper : FormFactorCrystal, bp::wrapper< FormFactorCry
 
 void register_FormFactorCrystal_class(){
 
-    bp::class_< FormFactorCrystal_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorCrystal", bp::no_init )    
+    bp::class_< FormFactorCrystal_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorCrystal", bp::init< Crystal const &, IFormFactor const &, complex_t const & >(( bp::arg("p_crystal"), bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )) )    
         .def( 
             "clone"
             , (::FormFactorCrystal * ( ::FormFactorCrystal::* )(  ) const)(&::FormFactorCrystal::clone)
             , (::FormFactorCrystal * ( FormFactorCrystal_wrapper::* )(  ) const)(&FormFactorCrystal_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "evaluate"
-            , (::complex_t ( ::FormFactorCrystal::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::FormFactorCrystal::evaluate)
-            , (::complex_t ( FormFactorCrystal_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&FormFactorCrystal_wrapper::default_evaluate)
-            , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
-        .def( 
-            "evaluate_for_q"
-            , (::complex_t ( ::FormFactorCrystal::* )( ::cvector_t const & ) const)(&::FormFactorCrystal::evaluate_for_q)
-            , (::complex_t ( FormFactorCrystal_wrapper::* )( ::cvector_t const & ) const)(&FormFactorCrystal_wrapper::default_evaluate_for_q)
-            , ( bp::arg("q") ) )    
         .def( 
             "getVolume"
             , (double ( ::FormFactorCrystal::* )(  ) const)(&::FormFactorCrystal::getVolume)
@@ -294,6 +293,15 @@ void register_FormFactorCrystal_class(){
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( FormFactorCrystal_wrapper::* )(  ) const)(&FormFactorCrystal_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
+        .def( 
+            "evaluate"
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorCrystal_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&FormFactorCrystal_wrapper::default_evaluate)
+            , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
+        .def( 
+            "evaluate_for_q"
+            , bp::pure_virtual( (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const & ) const)(&::IFormFactorBorn::evaluate_for_q) )
+            , ( bp::arg("q") ) )    
         .def( 
             "getHeight"
             , (double ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getHeight)

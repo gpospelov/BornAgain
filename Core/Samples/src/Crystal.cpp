@@ -30,7 +30,7 @@ IFormFactor* Crystal::createTotalFormFactor(
         const IFormFactor& meso_crystal_form_factor,
         complex_t ambient_refractive_index) const
 {
-    IFormFactor *p_ff_crystal = new FormFactorCrystal(this, meso_crystal_form_factor, ambient_refractive_index);
+    IFormFactor *p_ff_crystal = new FormFactorCrystal(*this, meso_crystal_form_factor, ambient_refractive_index);
     if (m_dw_factor>0.0) {
         return new FormFactorDecoratorDebyeWaller(p_ff_crystal, m_dw_factor);
     }

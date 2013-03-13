@@ -28,15 +28,11 @@ class TestIsGISAXS9 : public IFunctionalTest
 {
 public:
     TestIsGISAXS9();
-    //virtual ~TestIsGISAXS9();
      virtual ~TestIsGISAXS9() { }
 
     virtual void execute();
     virtual void finalise();
 
-   // void clear();
-//private:
-//    SafePointerVector<OutputData<double> > m_results;
 };
 
 

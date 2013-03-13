@@ -1,5 +1,5 @@
 #include "TestIsGISAXS15.h"
-#include "IsGISAXS015.h"
+#include "IsGISAXS15.h"
 #include "IsGISAXSTools.h"
 #include "OutputDataIOFactory.h"
 #include "Utils.h"
@@ -15,7 +15,7 @@ TestIsGISAXS15::TestIsGISAXS15() : IFunctionalTest("TestIsGISAXS15")
 
 void TestIsGISAXS15::execute()
 {
-    FunctionalTests::IsGISAXS015 test;
+    FunctionalTests::IsGISAXS15 test;
     test.run();
 
     OutputDataIOFactory::writeOutputData(*test.getOutputData(), getOutputPath()+"this_SSCA.ima");

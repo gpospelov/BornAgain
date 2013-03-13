@@ -20,9 +20,9 @@ SOURCES += \
     $${FUNCTIONAL_TESTS}/IsGISAXS07/IsGISAXS07.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS08/IsGISAXS08.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS09/IsGISAXS09.cpp \
-    $${FUNCTIONAL_TESTS}/IsGISAXS010/IsGISAXS010.cpp \
-    $${FUNCTIONAL_TESTS}/IsGISAXS011/IsGISAXS011.cpp \
-    $${FUNCTIONAL_TESTS}/IsGISAXS015/IsGISAXS015.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS10/IsGISAXS10.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS11/IsGISAXS11.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS15/IsGISAXS15.cpp \
     src/AppOptionsDescription.cpp \
     src/CommandLine.cpp \
     src/DrawHelper.cpp \
@@ -85,9 +85,9 @@ HEADERS += \
     $${FUNCTIONAL_TESTS}/IsGISAXS07/IsGISAXS07.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS08/IsGISAXS08.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS09/IsGISAXS09.h \
-    $${FUNCTIONAL_TESTS}/IsGISAXS010/IsGISAXS010.h \
-    $${FUNCTIONAL_TESTS}/IsGISAXS011/IsGISAXS011.h \
-    $${FUNCTIONAL_TESTS}/IsGISAXS015/IsGISAXS015.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS10/IsGISAXS10.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS11/IsGISAXS11.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS15/IsGISAXS15.h \
     inc/App.h \
     inc/AppLinkDef.h \
     inc/AppOptionsDescription.h \
@@ -144,10 +144,12 @@ HEADERS += \
     inc/TreeEventStructure.h \
     inc/Version.h \
 
-# to throw exception in the case floating point exception (gcc only)
+# to throw exception in the case floating point exception
 CONFIG(DEBUG_FPE) {
-    HEADERS += inc/fp_exception_glibc_extension.h
-    SOURCES += src/fp_exception_glibc_extension.c
+   QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
+   # mac requires his own patched version of fp_exceptions
+   macx:HEADERS += inc/fp_exception_glibc_extension.h
+   macx:SOURCES += src/fp_exception_glibc_extension.c
 }
 
 LOCATIONS = $$PWD/inc \
@@ -159,9 +161,9 @@ LOCATIONS = $$PWD/inc \
             $${FUNCTIONAL_TESTS}/IsGISAXS07 \
             $${FUNCTIONAL_TESTS}/IsGISAXS08 \
             $${FUNCTIONAL_TESTS}/IsGISAXS09 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS010 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS011 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS015
+            $${FUNCTIONAL_TESTS}/IsGISAXS10 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS11 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS15
 
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}

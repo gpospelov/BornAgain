@@ -96,8 +96,7 @@ def GetReferenceData():
     reference2=numpy.fromstring(f2.read(),numpy.float64,sep=' ')
     f2.close()
     reference=numpy.concatenate((reference1,reference2),axis=0)
-    return reference2
-    #return reference
+    return reference
 
 
 # --------------------------------------------------------------
@@ -129,17 +128,18 @@ def RunTest():
     result2 = RunSimulation2()
     result = numpy.concatenate((result1,result2),axis=0) 
     reference = GetReferenceData()
-    
+
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10): status = "FAILED"
-    return "IsGISAXS04" + " 1D and 2D paracrystal " + status
+    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    return "IsGISAXS04", "1D and 2D paracrystal", status
 
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  print RunTest()
+  name,description,status = RunTest()
+  print name,description,status
 
 

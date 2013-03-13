@@ -15,7 +15,6 @@ from libBornAgainCore import *
 # describe sample and run simulation
 # ----------------------------------
 def RunSimulation():
-    
     # defining materials
     matMng = MaterialManager.instance()
     mAmbience = matMng.addHomogeneousMaterial("Air", 1.0, 0.0 )
@@ -23,8 +22,6 @@ def RunSimulation():
     n_particle = complex(1.0-6e-4, 2e-8)   
     particle_decoration = ParticleDecoration()
 
-
-    
     #PositionParticleInfo particle_info1(new Particle(n_particle, ff1), 0, pos1, 0.5);
     #particle_decoration.addParticleInfo(particle_info1);
     #
@@ -32,7 +29,7 @@ def RunSimulation():
     ff1 = FormFactorBox(1.0*nanometer, 1.0*nanometer,1.0*nanometer)
     pos1 = kvector_t(0.0*nanometer, 0.0*nanometer, 0.0)
     particle1 = Particle(n_particle, ff1)
-    particle_info1 = PositionParticleInfo(particle1, 0, pos1, 0.5)
+    particle_info1 = PositionParticleInfo(particle1, pos1, 0.5)
     particle_decoration.addParticleInfo(particle_info1)
     #add particle number 2:
     ff2 = FormFactorBox(1.0*nanometer, 2.0*nanometer,1.0*nanometer)
@@ -170,14 +167,16 @@ def RunTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10): status = "FAILED"
-    return "IsGISAXS07" + " Mixture of different particles defined in morphology file " + status
+    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    print diff
+    return "IsGISAXS07", "Mixture of different particles defined in morphology file", status
 
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  print RunTest()
+  name,description,status = RunTest()
+  print name,description,status
 
 

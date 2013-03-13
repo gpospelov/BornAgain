@@ -28,8 +28,9 @@ class ParticleDecoration : public IDecoration
 {
 public:
 	ParticleDecoration();
-	ParticleDecoration(Particle *p_particle, double depth=0.0, double abundance=1.0);
-	virtual ~ParticleDecoration();
+    ParticleDecoration(Particle *p_particle, double depth=0.0, double abundance=1.0);
+    ParticleDecoration(const Particle &p_particle, double depth=0.0, double abundance=1.0);
+    virtual ~ParticleDecoration();
 
 	/// Clone decoration
 	virtual ParticleDecoration *clone() const;

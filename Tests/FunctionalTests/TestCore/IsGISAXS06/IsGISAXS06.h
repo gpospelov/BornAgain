@@ -15,24 +15,18 @@ namespace FunctionalTests {
 class IsGISAXS06
 {
 public:
+    typedef std::vector<OutputData<double> *> results_t;
+    enum keys_results { kTest_Lattice, kTest_Centered, kTest_Rotated,  kTest_Variants, kNumberOfTests };
+
     IsGISAXS06();
-    ~IsGISAXS06() { delete m_result; }
-    //void run();
+    ~IsGISAXS06();
+
     void runlattice(), runcentered(), runrotated(), runvariants();
     int analyseResults();
-    const OutputData<double> *getOutputData() { return m_result;}
-private:
-    std::string m_name;
-    std::string m_description;
-    OutputData<double> *m_result;
 
-    struct CompareStruct
-    {
-        CompareStruct(std::string _isginame, std::string _thisname, std::string _descr) : isginame(_isginame), thisname(_thisname), descr(_descr){}
-        std::string isginame;
-        std::string thisname;
-        std::string descr;
-    };
+    const OutputData<double> *getOutputData(size_t ntest=0) { return m_results.at(ntest); }
+
+private:
 
     class LatticeVariantBuilder : public ISampleBuilder {
     public:
@@ -45,8 +39,13 @@ private:
     private:
         double m_xi;
     };
+
+    std::string m_name;
+    std::string m_description;
     LatticeVariantBuilder m_builder;
-    std::string m_data_path;
+    std::string m_path;
+
+    results_t m_results;
 };
 
 

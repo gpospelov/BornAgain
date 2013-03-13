@@ -31,7 +31,7 @@ def RunSimulation():
     nbins = 150
     sigma1 = radius1*0.2
     sigma2 = radius2*0.02
-     
+
     nfwhm = 3
     #to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM
     #(nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
@@ -39,15 +39,16 @@ def RunSimulation():
     stochastic_gaussian2 = StochasticDoubleGaussian(radius2, sigma2)
     par1 = StochasticSampledParameter(stochastic_gaussian1 , nbins, nfwhm)
     par2 = StochasticSampledParameter(stochastic_gaussian2, nbins, nfwhm)
-   
+
     #Building nano particles
+    particle_decoration = ParticleDecoration()
+
     builder = ParticleBuilder()
     builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius", par1, 0.95)
     builder.plantParticles(particle_decoration)
     builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius", par2, 0.05)
     builder.plantParticles(particle_decoration)
 
-    particle_decoration = ParticleDecoration()
     interference = InterferenceFunctionNone()
     particle_decoration.addInterferenceFunction(interference)
     #making layer holding all whose nano particles
@@ -108,15 +109,16 @@ def RunTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10): status = "FAILED"
-    return "IsGISAXS02" + "Mixture cylinder particles with different size distribution " + status
+    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    return "IsGISAXS02", "Mixture cylinder particles with different size distribution", status
 
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  print RunTest()
+  name,description,status = RunTest()
+  print name,description,status
 
 
 

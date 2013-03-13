@@ -1,7 +1,23 @@
-FunctionalTests.pro
-FunctionalTests.pro.user
-FunctionalTests.pro~
-IsGISAXS01
-Makefile
-README
-shared.pri
+Collection of functional tests (C++)
+
+Collection contains set of functional tests for BornAgainCore library.
+Each test defines simple geometry, runs simulation and then compare results of the simulation with reference data.
+
+To build all tests
+qmake; make
+
+To run tests
+python test_all.py
+
+List of tests
+IsGISAXS01 - Mixture of cylinders and prisms without interference (IsGISAXS example #1)
+IsGISAXS02 - Mixture cylinder particles with different size distribution (IsGISAXS example #2)
+IsGISAXS03 - Cylinder formfactor in BA and DWBA (IsGISAXS example #3)
+IsGISAXS04 - 1D and 2D paracrystal (IsGISAXS example #4)
+IsGISAXS06 - 2D lattice with different disorder (IsGISAXS example #6)
+IsGISAXS07 - Mixture of different particles defined in morphology file (IsGISAXS example #7)
+IsGISAXS08 - 2DDL paracrystal (IsGISAXS example #8)
+IsGISAXS09 - Pyramids on top of substrate - Rotated pyramids on top of substrate (IsGISAXS example #9)
+IsGISAXS10 - Cylinders with interference on top of substrate (IsGISAXS example #10)
+IsGISAXS11 - Core shell nanoparticles (IsGISAXS example #11)
+IsGISAXS15 - Size spacing correlation approximation (IsGISAXS example #15)

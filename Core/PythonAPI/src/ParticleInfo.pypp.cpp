@@ -8,17 +8,21 @@ GCC_DIAG_OFF(missing-field-initializers);
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 #include "BasicVector3D.h"
+#include "Bin.h"
+#include "Crystal.h"
+#include "DiffuseParticleInfo.h"
+#include "FTDistributions.h"
+#include "FormFactorBox.h"
 #include "FormFactorCrystal.h"
 #include "FormFactorCylinder.h"
 #include "FormFactorDecoratorDebyeWaller.h"
 #include "FormFactorFullSphere.h"
 #include "FormFactorGauss.h"
 #include "FormFactorLorentz.h"
+#include "FormFactorParallelepiped.h"
 #include "FormFactorPrism3.h"
-#include "FormFactorBox.h"
 #include "FormFactorPyramid.h"
 #include "FormFactorSphereGaussianRadius.h"
-#include "FTDistributions.h"
 #include "HomogeneousMaterial.h"
 #include "ICloneable.h"
 #include "IClusteredParticles.h"
@@ -28,47 +32,59 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "IFormFactorBorn.h"
 #include "IFormFactorDecorator.h"
 #include "IInterferenceFunction.h"
-#include "InterferenceFunctionNone.h"
-#include "InterferenceFunction1DParaCrystal.h"
-#include "InterferenceFunction2DParaCrystal.h"
-#include "InterferenceFunction2DLattice.h"
 #include "IMaterial.h"
 #include "IParameterized.h"
 #include "ISample.h"
 #include "ISampleBuilder.h"
 #include "ISelectionRule.h"
 #include "ISingleton.h"
+#include "Instrument.h"
+#include "InterferenceFunction1DParaCrystal.h"
+#include "InterferenceFunction2DLattice.h"
+#include "InterferenceFunction2DParaCrystal.h"
+#include "InterferenceFunctionNone.h"
 #include "Lattice.h"
 #include "Lattice2DIFParameters.h"
 #include "LatticeBasis.h"
 #include "Layer.h"
 #include "LayerDecorator.h"
 #include "LayerRoughness.h"
+#include "Lattice2DIFParameters.h"
 #include "MaterialManager.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"
-#include "Particle.h"
-#include "Crystal.h"
-#include "ParticleDecoration.h"
-#include "ParticleBuilder.h"
 #include "OpticalFresnel.h"
 #include "ParameterPool.h"
-#include "PositionParticleInfo.h"
+#include "Particle.h"
+#include "ParticleBuilder.h"
+#include "ParticleCoreShell.h"
+#include "ParticleDecoration.h"
 #include "ParticleInfo.h"
-#include "DiffuseParticleInfo.h"
+#include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
+#include "IStochasticParameter.h"
+#include "StochasticGaussian.h"
+#include "StochasticSampledParameter.h"
+#include "StochasticDoubleGate.h"
 #include "Transform3D.h"
-#include "Units.h"
 #include "Types.h"
+#include "Units.h"
 #include "ParticleInfo.pypp.h"
 
 namespace bp = boost::python;
 
 struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
+
+    ParticleInfo_wrapper(::Particle const & p_particle, ::Geometry::Transform3D const & transform, double depth=0, double abundance=0 )
+    : ParticleInfo( boost::ref(p_particle), boost::ref(transform), depth, abundance )
+      , bp::wrapper< ParticleInfo >(){
+        // constructor
+    
+    }
 
     virtual ::ParticleInfo * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
@@ -182,7 +198,7 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
 
 void register_ParticleInfo_class(){
 
-    bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "ParticleInfo", bp::no_init )    
+    bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "ParticleInfo", bp::init< Particle const &, Geometry::Transform3D const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=0 )) )    
         .def( 
             "clone"
             , (::ParticleInfo * ( ::ParticleInfo::* )(  ) const)(&::ParticleInfo::clone)

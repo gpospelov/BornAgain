@@ -19,6 +19,14 @@ ParticleDecoration::ParticleDecoration(Particle* p_particle, double depth, doubl
     addParticle(p_particle, 0, depth, abundance);
 }
 
+ParticleDecoration::ParticleDecoration(const Particle &p_particle, double depth, double abundance)
+: m_total_abundance(0.0)
+{
+    setName("ParticleDecoration");
+    addParticle(p_particle.clone(), 0, depth, abundance);
+}
+
+
 ParticleDecoration::~ParticleDecoration()
 {
     for (size_t i=0; i<m_particles.size(); ++i) {

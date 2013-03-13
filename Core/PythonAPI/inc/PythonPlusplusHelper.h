@@ -19,6 +19,7 @@
 #include "DiffuseParticleInfo.h"
 #include "IFormFactor.h"
 #include "MaterialManager.h"
+#include "IStochasticParameter.h"
 
 // there is some weared behavior of pyplusplus
 // without this definition it gets screwed up as soon as it sees in the code vector<kvector> like in LatticeBasis.h
@@ -33,6 +34,7 @@ namespace pyplusplus {
         typedef std::vector<DiffuseParticleInfo *> vector_DiffuseParticleInfoPtr_t;
         typedef std::vector<IFormFactor *> vector_IFormFactorPtr_t;
         typedef ISingleton<MaterialManager> MaterialManagerSingleton_t;
+        typedef StochasticParameter<double> StochasticParameter_t;
     }
 }
 
@@ -42,12 +44,13 @@ namespace pyplusplus {
 class PythonPlusplusHelper
 {
 public:
-    size_t pyplusplus_boost_kvector() { return sizeof(kvector_t); }
+//    size_t pyplusplus_boost_kvector() { return sizeof(kvector_t); }
+    size_t pyplusplus_boost_kvector() { return sizeof(pyplusplus::aliases::kvector_t); }
     size_t pyplusplus_boost_vectorof_kvector() { return sizeof(pyplusplus::aliases::vector_kvector_t); }
-    size_t pyplusplus_boost_cvector() { return sizeof(cvector_t); }
+    size_t pyplusplus_boost_cvector() { return sizeof(pyplusplus::aliases::cvector_t); }
     size_t pyplusplus_boost_vectorof_cvector() { return sizeof(pyplusplus::aliases::vector_cvector_t); }
     size_t pyplusplus_boost_vectorof_DiffuseParticleInfoPtr() { return sizeof(pyplusplus::aliases::vector_DiffuseParticleInfoPtr_t); }
-
+    size_t pyplusplus_boost_stochastic_parameter() { return sizeof(pyplusplus::aliases::StochasticParameter_t); }
 };
 
 #endif // PYTHONPLUSPLUSHELPER_H

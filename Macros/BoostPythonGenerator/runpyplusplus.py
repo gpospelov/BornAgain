@@ -12,24 +12,26 @@ from pygccxml.declarations.matchers import virtuality_type_matcher_t
 from pygccxml import declarations
 from pyplusplus import function_transformers as FT
 
-
 ModuleName = 'PythonInterface'
-nOutputFiles = 8 # generated code for classes will be splitted in this number of files
 
 # list of files to analyse and corresponding functions with rules for analysis
 myFiles=[
   'BasicVector3D.h',
+  'Bin.h',
+  'Crystal.h',
+  'DiffuseParticleInfo.h',
+  'FTDistributions.h',
+  'FormFactorBox.h',
   'FormFactorCrystal.h',
   'FormFactorCylinder.h',
   'FormFactorDecoratorDebyeWaller.h',
   'FormFactorFullSphere.h',
   'FormFactorGauss.h',
   'FormFactorLorentz.h',
+  'FormFactorParallelepiped.h',
   'FormFactorPrism3.h',
-  'FormFactorBox.h',
   'FormFactorPyramid.h',
   'FormFactorSphereGaussianRadius.h',
-  'FTDistributions.h',
   'HomogeneousMaterial.h',
   'ICloneable.h',
   'IClusteredParticles.h',
@@ -39,42 +41,47 @@ myFiles=[
   'IFormFactorBorn.h',
   'IFormFactorDecorator.h',
   'IInterferenceFunction.h',
-  'InterferenceFunctionNone.h',
-  'InterferenceFunction1DParaCrystal.h',
-  'InterferenceFunction2DParaCrystal.h',
-  'InterferenceFunction2DLattice.h',
   'IMaterial.h',
   'IParameterized.h',
   'ISample.h',
   'ISampleBuilder.h',
   'ISelectionRule.h',
   'ISingleton.h',
+  'Instrument.h',
+  'InterferenceFunction1DParaCrystal.h',
+  'InterferenceFunction2DLattice.h',
+  'InterferenceFunction2DParaCrystal.h',
+  'InterferenceFunctionNone.h',
   'Lattice.h',
   'Lattice2DIFParameters.h',
   'LatticeBasis.h',
   'Layer.h',
   'LayerDecorator.h',
   'LayerRoughness.h',
+  'Lattice2DIFParameters.h',
   'MaterialManager.h',
   'MesoCrystal.h',
   'MultiLayer.h',
-  'Particle.h',
-  'Crystal.h',
-  'ParticleDecoration.h',
-  'ParticleBuilder.h',
   'OpticalFresnel.h',
   'ParameterPool.h',
-  'PositionParticleInfo.h',
+  'Particle.h',
+  'ParticleBuilder.h',
+  'ParticleCoreShell.h',
+  'ParticleDecoration.h',
   'ParticleInfo.h',
-  'DiffuseParticleInfo.h',
+  'PositionParticleInfo.h',
   'PythonOutputData.h',
   'PythonPlusplusHelper.h',
   'RealParameterWrapper.h',
   'Simulation.h',
   'SimulationParameters.h',
+  'IStochasticParameter.h',
+  'StochasticGaussian.h',
+  'StochasticSampledParameter.h',
+  'StochasticDoubleGate.h',
   'Transform3D.h',
-  'Units.h',
   'Types.h',
+  'Units.h',
 ]
 
 # list of include directories
@@ -112,6 +119,12 @@ def AdditionalRules(mb):
           if MethodIsBad:
             fun.exclude()
 
+  #if "FTDistributions.h" in myFiles:
+      #cl = mb.class_("IFTDistribution2D")
+      #cl = mb.class_("FTDistribution2DCauchy")
+      #cl.member_function("transformToStarBasis").exclude()
+      
+
 
   # --- Experiment.h --------------------------------------------------
   if "Experiment.h" in myFiles:
@@ -124,6 +137,13 @@ def AdditionalRules(mb):
     cl.member_function("setBeamIntensity").include()
     cl.member_function("setSample").include()
     cl.member_function("setSampleBuilder").include()
+
+  # --- FormFactorCylinder.h ------------------------------------------
+  if "FormFactorCrystal.h" in myFiles:
+    cl = mb.class_( "FormFactorCrystal" )
+    cl.member_function("evaluate").exclude()
+    cl.member_function("evaluate_for_q").exclude()
+
 
   # --- FormFactorCylinder.h ------------------------------------------
   #if "FormFactorCylinder.h" in myFiles:
@@ -302,6 +322,11 @@ def AdditionalRules(mb):
     cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
     #cl.member_function("createStrategy").exclude()
 
+  #if "ParticleInfo.h" in myFiles:
+    #cl = mb.class_( "ParticleInfo" )
+
+
+
   # --- OpticalFresnel.h ----------------------------------------------
   #if "OpticalFresnel.h" in myFiles:
     #cl = mb.class_( "OpticalFresnel" )
@@ -316,6 +341,11 @@ def AdditionalRules(mb):
     cl.member_function("registerParameter").include()
     cl.member_function("registerParameter").add_transformation( FT.from_address( 1 ) )
     cl.member_function("getMatchedParameters").exclude()
+
+  # --- ParameterPool.h -----------------------------------------------
+  if "ParticleCoreShell.h" in myFiles:
+    cl = mb.class_( "ParticleCoreShell" )
+    cl.member_functions().exclude()
 
   # --- PythonOutputData.h --------------------------------------------
   if "PythonOutputData.h" in myFiles:
@@ -368,8 +398,8 @@ def RunPyPlusPlus(OutputTempDir):
 
   myIncludes.append('/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7')
   myIncludes.append('/opt/local/include/')
-  mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin', cflags="-m64")
-  #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')
+  #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin', cflags="-m64")
+  mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')
 
   # ---------------------------------------------------------
   # common properties
@@ -456,8 +486,10 @@ def RunPyPlusPlus(OutputTempDir):
   # ---------------------------------------------------------
   mb.build_code_creator( module_name=ModuleName)
   mb.code_creator.user_defined_directories.append( os.path.abspath('./') )
-  if nOutputFiles > 0:
-    mb.split_module( OutputTempDir)
+  mb.split_module( OutputTempDir)
+  #nOutputFiles = 8 # generated code for classes will be splitted in this number of files
+  #if nOutputFiles > 0:
+    #mb.split_module( OutputTempDir)
     #mb.balanced_split_module( OutputTempDir, nOutputFiles)
-  else:
-    mb.write_module( "tmp.cpp")
+  #else:
+    #mb.write_module( "tmp.cpp")

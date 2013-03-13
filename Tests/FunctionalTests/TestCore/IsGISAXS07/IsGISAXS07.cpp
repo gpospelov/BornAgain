@@ -9,7 +9,6 @@
 #include "PositionParticleInfo.h"
 #include "Utils.h"
 #include "Units.h"
-
 #include <iostream>
 #include <cmath>
 
@@ -19,12 +18,10 @@ FunctionalTests::IsGISAXS07::IsGISAXS07()
     , m_result(0)
 { }
 
+
 void FunctionalTests::IsGISAXS07::run()
 {
-    // ---------------------
     // building sample
-    // ---------------------
-
     MultiLayer multi_layer;
     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
     Layer air_layer;
@@ -95,6 +92,7 @@ void FunctionalTests::IsGISAXS07::run()
 
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     multi_layer.addLayer(air_layer_decorator);
+
     // ---------------------
     // building simulation
     // ---------------------
@@ -137,7 +135,7 @@ int FunctionalTests::IsGISAXS07::analyseResults()
     diff /= m_result->getAllocatedSize();
 
     bool status_ok(true);
-    if( diff > threshold ) status_ok=false;
+    if( diff > threshold || std::isnan(diff)) status_ok=false;
 
     std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (int)status_ok;

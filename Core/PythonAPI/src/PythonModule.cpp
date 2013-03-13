@@ -3,6 +3,8 @@
 #include "numpy/arrayobject.h"
 // the order of 3 guys above is important
 
+#include "Bin1D.pypp.h" 
+#include "Bin1DCVector.pypp.h" 
 #include "Crystal.pypp.h" 
 #include "cvector_t.pypp.h" 
 #include "DiffuseDWBASimulation.pypp.h" 
@@ -14,6 +16,7 @@
 #include "FormFactorFullSphere.pypp.h" 
 #include "FormFactorGauss.pypp.h" 
 #include "FormFactorLorentz.pypp.h" 
+#include "FormFactorParallelepiped.pypp.h" 
 #include "FormFactorPrism3.pypp.h" 
 #include "FormFactorPyramid.pypp.h" 
 #include "FormFactorSphereGaussianRadius.pypp.h" 
@@ -30,6 +33,7 @@
 #include "IFTDistribution2D.pypp.h" 
 #include "IInterferenceFunction.pypp.h" 
 #include "IMaterial.pypp.h" 
+#include "Instrument.pypp.h" 
 #include "InterferenceFunction1DParaCrystal.pypp.h" 
 #include "InterferenceFunction2DLattice.pypp.h" 
 #include "InterferenceFunction2DParaCrystal.pypp.h" 
@@ -39,6 +43,7 @@
 #include "ISampleBuilder.pypp.h" 
 #include "ISelectionRule.pypp.h" 
 #include "ISimulation.pypp.h" 
+#include "IStochasticParameter.pypp.h" 
 #include "kvector_t.pypp.h" 
 #include "Lattice.pypp.h" 
 #include "Lattice2DIFParameters.pypp.h" 
@@ -57,6 +62,7 @@
 #include "ParameterPool.pypp.h" 
 #include "Particle.pypp.h" 
 #include "ParticleBuilder.pypp.h" 
+#include "ParticleCoreShell.pypp.h" 
 #include "ParticleDecoration.pypp.h" 
 #include "ParticleInfo.pypp.h" 
 #include "PositionParticleInfo.pypp.h" 
@@ -78,6 +84,10 @@
 #include "SimpleSelectionRule.pypp.h" 
 #include "Simulation.pypp.h" 
 #include "SimulationParameters.pypp.h" 
+#include "StochasticDoubleGate.pypp.h" 
+#include "StochasticDoubleGaussian.pypp.h" 
+#include "StochasticParameter_t.pypp.h" 
+#include "StochasticSampledParameter.pypp.h" 
 #include "Transform3D.pypp.h" 
 #include "Translate3D.pypp.h" 
 #include "TranslateX3D.pypp.h" 
@@ -97,6 +107,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
     register_vector_DiffuseParticleInfoPtr_t_class();
+    register_Bin1D_class();
+    register_Bin1DCVector_class();
     register_ICloneable_class();
     register_IParameterized_class();
     register_ISample_class();
@@ -120,6 +132,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorFullSphere_class();
     register_FormFactorGauss_class();
     register_FormFactorLorentz_class();
+    register_FormFactorParallelepiped_class();
     register_FormFactorPrism3_class();
     register_FormFactorPyramid_class();
     register_FormFactorSphereGaussianRadius_class();
@@ -150,6 +163,8 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_ISelectionRule_class();
     register_ISimulation_class();
     register_MaterialManagerSingleton_t_class();
+    register_IStochasticParameter_class();
+    register_Instrument_class();
     register_InterferenceFunction1DParaCrystal_class();
     register_InterferenceFunction2DLattice_class();
     register_InterferenceFunction2DParaCrystal_class();
@@ -169,12 +184,17 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_OpticalFresnel_class();
     register_ParameterPool_class();
     register_ParticleBuilder_class();
+    register_ParticleCoreShell_class();
     register_ParticleDecoration_class();
     register_PositionParticleInfo_class();
     register_RealParameterWrapper_class();
     register_SimpleSelectionRule_class();
     register_Simulation_class();
     register_SimulationParameters_class();
+    register_StochasticParameter_t_class();
+    register_StochasticDoubleGate_class();
+    register_StochasticDoubleGaussian_class();
+    register_StochasticSampledParameter_class();
     register_global_variables();
     register_free_functions();
 

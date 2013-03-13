@@ -21,16 +21,22 @@
 FunctionalTests::IsGISAXS09::IsGISAXS09()
     : m_name("IsGISAXS09")
     , m_description("Pyramids on top of substrate - Rotated pyramids on top of substrate")
-    , m_result(0)
+    , m_path(Utils::FileSystem::GetHomePath()+"Tests/FunctionalTests/TestCore/IsGISAXS09/")
 {
-    m_data_path = Utils::FileSystem::GetHomePath()+"Tests/FunctionalTests/TestCore/IsGISAXS09/";
+    m_results.resize(kNumberOfTests, 0);
 }
 
+
+FunctionalTests::IsGISAXS09::~IsGISAXS09()
+{
+    for(results_t::iterator it = m_results.begin(); it!=m_results.end(); ++it) delete (*it);
+}
+
+
+// IsGISAXS example #9: pyramid
 void FunctionalTests::IsGISAXS09::runpyramidZ0()
-{    //  Pyramid
-    // ---------------------
+{
     // building sample
-    // ---------------------
     MultiLayer multi_layer;
     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
     const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
@@ -47,28 +53,22 @@ void FunctionalTests::IsGISAXS09::runpyramidZ0()
     multi_layer.addLayer(air_layer_decorator);
     multi_layer.addLayer(substrate_layer);
 
-    // ---------------------
     // building simulation
-    // ---------------------
-
     Simulation simulation;
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-
-    // ---------------------
-    // running simulation
-    // ---------------------
     simulation.setSample(multi_layer);
+
+    // running simulation
     simulation.runSimulation();
-    m_result = simulation.getOutputDataClone();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),m_data_path+"this_pyramid_Z0.ima");
+    m_results[kTest_Z0] = simulation.getOutputDataClone();
 }
 
+
+// IsGISAXS example #9: rotated pyramid
 void FunctionalTests::IsGISAXS09::runpyramidZ45()
-{    //  Rotated Pyramid
-    // ---------------------
+{
     // building sample
-    // ---------------------
     MultiLayer multi_layer;
     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
     const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
@@ -89,54 +89,43 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     //InterferenceFunction1DParaCrystal *interference = new InterferenceFunction1DParaCrystal(20*Units::nanometer, 7*Units::nanometer, 1e7*Units::nanometer);
     //particle_decoration.addInterferenceFunction(interference);
-
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-
     multi_layer.addLayer(air_layer_decorator);
     multi_layer.addLayer(substrate_layer);
 
-    // ---------------------
     // building simulation
-    // ---------------------
     Simulation simulation;
     simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-
-    // ---------------------
-    // running simulation
-    // ---------------------
     simulation.setSample(multi_layer);
+
+    // running simulation
     simulation.runSimulation();
-    m_result = simulation.getOutputDataClone();
-    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(),m_data_path+"this_pyramid_Z45.ima");
+    m_results[kTest_Z45] = simulation.getOutputDataClone();
 }
+
 
 int FunctionalTests::IsGISAXS09::analyseResults()
 {
     const double threshold(1e-10);
-
-    // retrieving reference data and generated examples
-    std::vector< CompareStruct > tocompare;
-    tocompare.push_back( CompareStruct("isgisaxs09_reference_pyramid_Z0.ima.gz", "this_pyramid_Z0.ima",
-            "Pyramid DWBA formfactor") );
-    tocompare.push_back( CompareStruct("isgisaxs09_reference_pyramid_Z45.ima.gz", "this_pyramid_Z45.ima",
-            "Pyramid DWBA formfactor rotated") );
-
+    const char *reference_files[kNumberOfTests] = {"isgisaxs09_reference_pyramid_Z0.ima.gz", "isgisaxs09_reference_pyramid_Z45.ima.gz"};
     bool status_ok(true);
 
-    for(size_t i=0; i<tocompare.size(); ++i) {
-        OutputData<double> *reference = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].isginame);
-        OutputData<double> *m_result = OutputDataIOFactory::getOutputData(m_data_path+tocompare[i].thisname);
+    // retrieving reference data and generated examples
+    for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
+        OutputData<double> *reference = OutputDataIOFactory::getOutputData(m_path + reference_files[i_test]);
+        OutputData<double> *result = m_results[i_test];
 
-    // calculating average relative difference
-    *m_result -= *reference;
-    *m_result /= *reference;
-    double diff(0);
-    for(OutputData<double>::const_iterator it=m_result->begin(); it!=m_result->end(); ++it) {
-        diff+= std::fabs(*it);
-    }
-    diff /= m_result->getAllocatedSize();
-    if( diff > threshold ) status_ok=false;
+        // calculating average relative difference
+        *result -= *reference;
+        *result /= *reference;
+        double diff(0);
+        for(OutputData<double>::const_iterator it=result->begin(); it!=result->end(); ++it) {
+            diff+= std::fabs(*it);
+        }
+        diff /= result->getAllocatedSize();
+        if( diff > threshold || std::isnan(diff)) status_ok=false;
+        delete reference;
     }
 
     std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
@@ -148,12 +137,9 @@ int FunctionalTests::IsGISAXS09::analyseResults()
 int main()
 {
     FunctionalTests::IsGISAXS09 test;
-   // test.run();
-   test.runpyramidZ0();
-   test.runpyramidZ45();
-   return test.analyseResults();
-
-
+    test.runpyramidZ0();
+    test.runpyramidZ45();
+    return test.analyseResults();
 }
 #endif
 

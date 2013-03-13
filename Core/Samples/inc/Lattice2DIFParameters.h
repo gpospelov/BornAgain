@@ -16,8 +16,13 @@
 
 #include "IParameterized.h"
 
-struct Lattice2DIFParameters //: public IParameterized
+class Lattice2DIFParameters
 {
+public:
+    Lattice2DIFParameters() : m_length_1(0), m_length_2(0), m_angle(0),
+        m_xi(0), m_domain_size_1(0), m_domain_size_2(0),
+        m_corr_length_1(0), m_corr_length_2(0) { }
+
     double m_length_1, m_length_2;
     double m_angle;
     double m_xi;

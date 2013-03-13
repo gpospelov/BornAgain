@@ -64,14 +64,10 @@ NumberOfSuchFiles=$$system(ls $${BOOST_LIB}/libboost_thread-mt* 2> /dev/null | w
   LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
 }
 
-#message($${FFTW3_HEADERFILE}" found in "$${FFTW3_INCLUDE})
-#message($${BOOST_HEADERFILE}" found in "$${BOOST_INCLUDE})
-#message($${BOOST_LIBFILE}" found in "$${BOOST_LIB})
-#message($${GSL_HEADERFILE}" found in "$${GSL_INCLUDE})
-isEmpty(GSL_INCLUDE): error("missed dependency")
-isEmpty(FFTW3_INCLUDE): error("missed dependency")
-isEmpty(BOOST_INCLUDE): error("missed dependency")
-isEmpty(BOOST_LIB): error("missed dependency")
+isEmpty(GSL_INCLUDE): error("missed dependency:" $${GSL_HEADERFILE})
+isEmpty(FFTW3_INCLUDE): error("missed dependency:" $${FFTW3_HEADERFILE})
+isEmpty(BOOST_INCLUDE): error("missed dependency:" $${BOOST_HEADERFILE})
+isEmpty(BOOST_LIB): error("missed dependency:" $${BOOST_LIBFILES})
 
 # here is workaround since JCNS /usr/local doesn't have shared fftw3 (run with 'qmake CONFIG+=JCNS')
 env_jcns_variable = $$(BORNAGAIN_JCNS)
@@ -88,7 +84,14 @@ CONFIG(JCNS) {
 # -----------------------------------------------------------------------------
 # general include path
 # -----------------------------------------------------------------------------
-LOCATIONS = $$PWD/Core/Algorithms/inc $$PWD/Core/Fitting/inc $$PWD/Core/FormFactors/inc $$PWD/Core/Geometry/inc $$PWD/Core/Samples/inc $$PWD/Core/Tools/inc $$PWD/Core/PythonAPI/inc
+LOCATIONS = $$PWD/Core/Algorithms/inc \
+            $$PWD/Core/Fitting/inc  \
+            $$PWD/Core/FormFactors/inc  \
+            $$PWD/Core/Geometry/inc  \
+            $$PWD/Core/Samples/inc  \
+            $$PWD/Core/Tools/inc  \
+            $$PWD/Core/PythonAPI/inc
+
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}
 
@@ -102,7 +105,6 @@ QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which opt
 #QMAKE_CXXFLAGS_RELEASE += -O0  # -ffast-math removed because of problems with NaNs
 #QMAKE_CXXFLAGS_RELEASE += -g  # -ffast-math removed because of problems with NaNs
 #QMAKE_STRIP=: # produces non-stripped (very large) libraries
-
 #QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wswitch-default -Wundef -Werror -Wno-unused
 #QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Werror -Wno-unused
 
@@ -120,15 +122,20 @@ CONFIG(PEDANTIC) {
 }
 
 # floating point exception handling
-#CONFIG+=DEBUG_FPE
-CONFIG(DEBUG_FPE) {
-    QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
-    !macx { QMAKE_CXXFLAGS_DEBUG += -DLINUX }
+CONFIG(DEBUG) {
+    CONFIG +=DEBUG_FPE
 }
 
-
-# hints
-# $${VAR} to access .pro variables, $$(VAR) to access environment variables
+# propagating operation system type inside the code
+# (note, that when Qt libraries are used, it is already done in <qglobal.h>)
+macx {
+    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_MAC
+    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_MAC
+}
+unix:!macx {
+    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_LINUX
+    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_LINUX
+}
 
 
 

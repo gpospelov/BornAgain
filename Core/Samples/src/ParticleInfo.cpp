@@ -3,10 +3,22 @@
 
 
 ParticleInfo::ParticleInfo(Particle* p_particle, Geometry::Transform3D *transform, double depth, double abundance)
-: mp_particle(p_particle)
-, mp_transform(transform)
-, m_depth(depth)
-, m_abundance(abundance)
+    : mp_particle(p_particle)
+    , mp_transform(transform)
+    , m_depth(depth)
+    , m_abundance(abundance)
+{
+    setName("ParticleInfo");
+    registerChild(mp_particle);
+    init_parameters();
+}
+
+
+ParticleInfo::ParticleInfo(const Particle &p_particle, const Geometry::Transform3D &transform, double depth, double abundance)
+    : mp_particle(p_particle.clone())
+    , mp_transform(new Geometry::Transform3D(transform))
+    , m_depth(depth)
+    , m_abundance(abundance)
 {
     setName("ParticleInfo");
     registerChild(mp_particle);

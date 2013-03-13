@@ -144,7 +144,7 @@ HEADERS += \
     inc/TreeEventStructure.h \
     inc/Version.h \
 
-# to through exception in the case floating point exception (gcc only)
+# to throw exception in the case floating point exception (gcc only)
 CONFIG(DEBUG_FPE) {
     HEADERS += inc/fp_exception_glibc_extension.h
     SOURCES += src/fp_exception_glibc_extension.c
@@ -196,7 +196,7 @@ isEmpty(MYROOT) {
   INCLUDEPATH += $$system($${MYROOT}/bin/root-config --incdir)
   MYROOTCINT = $${MYROOT}/bin/rootcint
 
-  # checking existance of necessary set of ROOT libraries
+  # checking existence of necessary set of ROOT libraries
   #LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
   LIBS += -L$$system($${MYROOT}/bin/root-config --libdir )
   REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix Physics MathCore MathMore Minuit2 Geom Eve RGL Thread

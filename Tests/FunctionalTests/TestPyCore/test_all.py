@@ -6,13 +6,29 @@ import subprocess
 import time
 
 import isgisaxs01
-#import isgisaxs02
-import isgisaxs010
+import isgisaxs02
+import isgisaxs03
+import isgisaxs04
+import isgisaxs06
+import isgisaxs07
+import isgisaxs08
+import isgisaxs09
+import isgisaxs10
+import isgisaxs11
+import isgisaxs15
 
 Tests = {
     "IsGISAXS01": isgisaxs01.RunTest,
-    #    "IsGISAXS02": isgisaxs02.RunTest,
-    "IsGISAXS010": isgisaxs010.RunTest,
+    "IsGISAXS02": isgisaxs02.RunTest,
+    "IsGISAXS03": isgisaxs03.RunTest,
+    "IsGISAXS04": isgisaxs04.RunTest,
+    "IsGISAXS06": isgisaxs06.RunTest,
+    "IsGISAXS07": isgisaxs07.RunTest,
+    "IsGISAXS08": isgisaxs08.RunTest,
+    "IsGISAXS09": isgisaxs09.RunTest,
+    "IsGISAXS10": isgisaxs10.RunTest,
+    "IsGISAXS11": isgisaxs11.RunTest,
+    "IsGISAXS15": isgisaxs15.RunTest
 }
 
 test_info = []
@@ -24,11 +40,8 @@ def parse_output(testName, test_result):
     status="OK"
     descr=""
     if testName in test_result:
-        if "FAILED" in test_result:
-            status="FAILED"
-        descr=test_result.strip(testName).strip("\n")
-        descr=descr.strip("[OK]")
-        descr=descr.strip("[FAILED]")
+        descr = test_result[1]
+        status = test_result[2]
     else:
        descr = "Can't parse the description"
     descr = descr[:55]
@@ -38,7 +51,7 @@ def parse_output(testName, test_result):
 
 # run tests one by one
 def runTests():
-    for testName in Tests:
+    for testName in sorted(Tests.iterkeys()):
         print "Running test ", testName
         start_time = time.time()
         result = Tests[testName]()
@@ -52,7 +65,7 @@ def printResults():
     print "========================================"
     n=1
     for x in test_info:
-        print '{0}. {1}  {2}  {3:.3f}sec  [{4}] '.format(n, x[0],x[1],x[2],x[3])
+        print '{0:2d}. {1}  {2}  {3:.3f}sec  [{4}] '.format(n, x[0],x[1],x[2],x[3])
         n+=1
 
 

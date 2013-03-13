@@ -73,34 +73,65 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Transform3D.h"
 #include "Types.h"
 #include "Units.h"
-#include "StochasticParameter_t.pypp.h"
+#include "StochasticDoubleGate.pypp.h"
 
 namespace bp = boost::python;
 
-struct StochasticParameter_less__double__greater__wrapper : StochasticParameter< double >, bp::wrapper< StochasticParameter< double > > {
+struct StochasticDoubleGate_wrapper : StochasticDoubleGate, bp::wrapper< StochasticDoubleGate > {
 
-    StochasticParameter_less__double__greater__wrapper(double average )
-    : StochasticParameter<double>( average )
-      , bp::wrapper< StochasticParameter< double > >(){
+    StochasticDoubleGate_wrapper(double min, double max )
+    : StochasticDoubleGate( min, max )
+      , bp::wrapper< StochasticDoubleGate >(){
         // constructor
     
     }
 
-    virtual ::StochasticParameter< double > * clone(  ) const {
-        bp::override func_clone = this->get_override( "clone" );
-        return func_clone(  );
+    virtual ::StochasticDoubleGate * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->StochasticDoubleGate::clone(  );
+        }
+    }
+    
+    ::StochasticDoubleGate * default_clone(  ) const  {
+        return StochasticDoubleGate::clone( );
     }
 
     virtual double getFWHM(  ) const  {
         if( bp::override func_getFWHM = this->get_override( "getFWHM" ) )
             return func_getFWHM(  );
         else{
-            return this->StochasticParameter< double >::getFWHM(  );
+            return this->StochasticDoubleGate::getFWHM(  );
         }
     }
     
     double default_getFWHM(  ) const  {
-        return StochasticParameter< double >::getFWHM( );
+        return StochasticDoubleGate::getFWHM( );
+    }
+
+    virtual double probabilityDensity( double value ) const  {
+        if( bp::override func_probabilityDensity = this->get_override( "probabilityDensity" ) )
+            return func_probabilityDensity( value );
+        else{
+            return this->StochasticDoubleGate::probabilityDensity( value );
+        }
+    }
+    
+    double default_probabilityDensity( double value ) const  {
+        return StochasticDoubleGate::probabilityDensity( value );
+    }
+
+    virtual void setToRandom(  ) {
+        if( bp::override func_setToRandom = this->get_override( "setToRandom" ) )
+            func_setToRandom(  );
+        else{
+            this->StochasticDoubleGate::setToRandom(  );
+        }
+    }
+    
+    void default_setToRandom(  ) {
+        StochasticDoubleGate::setToRandom( );
     }
 
     virtual double getRandom(  ) {
@@ -115,11 +146,6 @@ struct StochasticParameter_less__double__greater__wrapper : StochasticParameter<
         return StochasticParameter< double >::getRandom( );
     }
 
-    virtual double probabilityDensity( double value ) const {
-        bp::override func_probabilityDensity = this->get_override( "probabilityDensity" );
-        return func_probabilityDensity( value );
-    }
-
     virtual void setToAverage(  ) {
         if( bp::override func_setToAverage = this->get_override( "setToAverage" ) )
             func_setToAverage(  );
@@ -132,44 +158,39 @@ struct StochasticParameter_less__double__greater__wrapper : StochasticParameter<
         StochasticParameter< double >::setToAverage( );
     }
 
-    virtual void setToRandom(  ){
-        bp::override func_setToRandom = this->get_override( "setToRandom" );
-        func_setToRandom(  );
-    }
-
 };
 
-void register_StochasticParameter_t_class(){
+void register_StochasticDoubleGate_class(){
 
-    bp::class_< StochasticParameter_less__double__greater__wrapper, bp::bases< IStochasticParameter >, boost::noncopyable >( "StochasticParameter_t", bp::init< double >(( bp::arg("average") )) )    
+    bp::class_< StochasticDoubleGate_wrapper, bp::bases< StochasticParameter< double > >, boost::noncopyable >( "StochasticDoubleGate", bp::init< double, double >(( bp::arg("min"), bp::arg("max") )) )    
         .def( 
             "clone"
-            , bp::pure_virtual( (::StochasticParameter< double > * ( ::StochasticParameter<double>::* )(  ) const)(&::StochasticParameter< double >::clone) )
+            , (::StochasticDoubleGate * ( ::StochasticDoubleGate::* )(  ) const)(&::StochasticDoubleGate::clone)
+            , (::StochasticDoubleGate * ( StochasticDoubleGate_wrapper::* )(  ) const)(&StochasticDoubleGate_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
-            "getAverage"
-            , (double ( ::StochasticParameter<double>::* )(  ) )( &::StochasticParameter< double >::getAverage ) )    
-        .def( 
-            "getCurrent"
-            , (double ( ::StochasticParameter<double>::* )(  ) const)( &::StochasticParameter< double >::getCurrent ) )    
-        .def( 
             "getFWHM"
-            , (double ( ::StochasticParameter<double>::* )(  ) const)(&::StochasticParameter< double >::getFWHM)
-            , (double ( StochasticParameter_less__double__greater__wrapper::* )(  ) const)(&StochasticParameter_less__double__greater__wrapper::default_getFWHM) )    
+            , (double ( ::StochasticDoubleGate::* )(  ) const)(&::StochasticDoubleGate::getFWHM)
+            , (double ( StochasticDoubleGate_wrapper::* )(  ) const)(&StochasticDoubleGate_wrapper::default_getFWHM) )    
+        .def( 
+            "getStdDev"
+            , (double ( ::StochasticDoubleGate::* )(  ) const)( &::StochasticDoubleGate::getStdDev ) )    
+        .def( 
+            "probabilityDensity"
+            , (double ( ::StochasticDoubleGate::* )( double ) const)(&::StochasticDoubleGate::probabilityDensity)
+            , (double ( StochasticDoubleGate_wrapper::* )( double ) const)(&StochasticDoubleGate_wrapper::default_probabilityDensity)
+            , ( bp::arg("value") ) )    
+        .def( 
+            "setToRandom"
+            , (void ( ::StochasticDoubleGate::* )(  ) )(&::StochasticDoubleGate::setToRandom)
+            , (void ( StochasticDoubleGate_wrapper::* )(  ) )(&StochasticDoubleGate_wrapper::default_setToRandom) )    
         .def( 
             "getRandom"
             , (double ( ::StochasticParameter<double>::* )(  ) )(&::StochasticParameter< double >::getRandom)
-            , (double ( StochasticParameter_less__double__greater__wrapper::* )(  ) )(&StochasticParameter_less__double__greater__wrapper::default_getRandom) )    
-        .def( 
-            "probabilityDensity"
-            , bp::pure_virtual( (double ( ::StochasticParameter<double>::* )( double ) const)(&::StochasticParameter< double >::probabilityDensity) )
-            , ( bp::arg("value") ) )    
+            , (double ( StochasticDoubleGate_wrapper::* )(  ) )(&StochasticDoubleGate_wrapper::default_getRandom) )    
         .def( 
             "setToAverage"
             , (void ( ::StochasticParameter<double>::* )(  ) )(&::StochasticParameter< double >::setToAverage)
-            , (void ( StochasticParameter_less__double__greater__wrapper::* )(  ) )(&StochasticParameter_less__double__greater__wrapper::default_setToAverage) )    
-        .def( 
-            "setToRandom"
-            , bp::pure_virtual( (void ( ::IStochasticParameter::* )(  ) )(&::IStochasticParameter::setToRandom) ) );
+            , (void ( StochasticDoubleGate_wrapper::* )(  ) )(&StochasticDoubleGate_wrapper::default_setToAverage) );
 
 }

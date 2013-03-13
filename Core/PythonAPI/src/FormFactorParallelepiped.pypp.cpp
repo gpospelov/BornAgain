@@ -73,63 +73,89 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Transform3D.h"
 #include "Types.h"
 #include "Units.h"
-#include "IFormFactorDecorator.pypp.h"
+#include "FormFactorParallelepiped.pypp.h"
 
 namespace bp = boost::python;
 
-struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFactorDecorator > {
+struct FormFactorParallelepiped_wrapper : FormFactorParallelepiped, bp::wrapper< FormFactorParallelepiped > {
 
-    virtual ::IFormFactorDecorator * clone(  ) const {
-        bp::override func_clone = this->get_override( "clone" );
-        return func_clone(  );
+    FormFactorParallelepiped_wrapper(double height, double radius )
+    : FormFactorParallelepiped( height, radius )
+      , bp::wrapper< FormFactorParallelepiped >(){
+        // constructor
+    
+    }
+
+    virtual ::FormFactorParallelepiped * clone(  ) const  {
+        if( bp::override func_clone = this->get_override( "clone" ) )
+            return func_clone(  );
+        else{
+            return this->FormFactorParallelepiped::clone(  );
+        }
+    }
+    
+    ::FormFactorParallelepiped * default_clone(  ) const  {
+        return FormFactorParallelepiped::clone( );
+    }
+
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
+        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
+            return func_evaluate_for_q( boost::ref(q) );
+        else{
+            return this->FormFactorParallelepiped::evaluate_for_q( boost::ref(q) );
+        }
+    }
+    
+    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
+        return FormFactorParallelepiped::evaluate_for_q( boost::ref(q) );
     }
 
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
         else{
-            return this->IFormFactorDecorator::getHeight(  );
+            return this->FormFactorParallelepiped::getHeight(  );
         }
     }
     
     double default_getHeight(  ) const  {
-        return IFormFactorDecorator::getHeight( );
+        return FormFactorParallelepiped::getHeight( );
+    }
+
+    virtual int getNumberOfStochasticParameters(  ) const  {
+        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
+            return func_getNumberOfStochasticParameters(  );
+        else{
+            return this->FormFactorParallelepiped::getNumberOfStochasticParameters(  );
+        }
+    }
+    
+    int default_getNumberOfStochasticParameters(  ) const  {
+        return FormFactorParallelepiped::getNumberOfStochasticParameters( );
     }
 
     virtual double getRadius(  ) const  {
         if( bp::override func_getRadius = this->get_override( "getRadius" ) )
             return func_getRadius(  );
         else{
-            return this->IFormFactorDecorator::getRadius(  );
+            return this->FormFactorParallelepiped::getRadius(  );
         }
     }
     
     double default_getRadius(  ) const  {
-        return IFormFactorDecorator::getRadius( );
+        return FormFactorParallelepiped::getRadius( );
     }
 
     virtual double getVolume(  ) const  {
         if( bp::override func_getVolume = this->get_override( "getVolume" ) )
             return func_getVolume(  );
         else{
-            return this->IFormFactorDecorator::getVolume(  );
+            return this->FormFactorParallelepiped::getVolume(  );
         }
     }
     
     double default_getVolume(  ) const  {
-        return IFormFactorDecorator::getVolume( );
-    }
-
-    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
-        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
-        else{
-            this->IFormFactorDecorator::setAmbientRefractiveIndex( boost::ref(refractive_index) );
-        }
-    }
-    
-    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
-        IFormFactorDecorator::setAmbientRefractiveIndex( boost::ref(refractive_index) );
+        return FormFactorParallelepiped::getVolume( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -168,21 +194,16 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const {
-        bp::override func_evaluate = this->get_override( "evaluate" );
-        return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
-    }
-
-    virtual int getNumberOfStochasticParameters(  ) const  {
-        if( bp::override func_getNumberOfStochasticParameters = this->get_override( "getNumberOfStochasticParameters" ) )
-            return func_getNumberOfStochasticParameters(  );
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         else{
-            return this->IFormFactor::getNumberOfStochasticParameters(  );
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         }
     }
     
-    int default_getNumberOfStochasticParameters(  ) const  {
-        return IFormFactor::getNumberOfStochasticParameters( );
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
 
     virtual bool isDistributedFormFactor(  ) const  {
@@ -221,6 +242,18 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         ISample::print_structure( );
     }
 
+    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
+        else{
+            this->IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+        IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
+    }
+
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
@@ -235,68 +268,75 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
 
 };
 
-void register_IFormFactorDecorator_class(){
+void register_FormFactorParallelepiped_class(){
 
-    bp::class_< IFormFactorDecorator_wrapper, bp::bases< IFormFactor >, boost::noncopyable >( "IFormFactorDecorator", bp::no_init )    
+    bp::class_< FormFactorParallelepiped_wrapper, bp::bases< IFormFactorBorn >, boost::noncopyable >( "FormFactorParallelepiped", bp::init< double, double >(( bp::arg("height"), bp::arg("radius") )) )    
         .def( 
             "clone"
-            , bp::pure_virtual( (::IFormFactorDecorator * ( ::IFormFactorDecorator::* )(  ) const)(&::IFormFactorDecorator::clone) )
+            , (::FormFactorParallelepiped * ( ::FormFactorParallelepiped::* )(  ) const)(&::FormFactorParallelepiped::clone)
+            , (::FormFactorParallelepiped * ( FormFactorParallelepiped_wrapper::* )(  ) const)(&FormFactorParallelepiped_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
+            "evaluate_for_q"
+            , (::complex_t ( ::FormFactorParallelepiped::* )( ::cvector_t const & ) const)(&::FormFactorParallelepiped::evaluate_for_q)
+            , (::complex_t ( FormFactorParallelepiped_wrapper::* )( ::cvector_t const & ) const)(&FormFactorParallelepiped_wrapper::default_evaluate_for_q)
+            , ( bp::arg("q") ) )    
+        .def( 
             "getHeight"
-            , (double ( ::IFormFactorDecorator::* )(  ) const)(&::IFormFactorDecorator::getHeight)
-            , (double ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getHeight) )    
+            , (double ( ::FormFactorParallelepiped::* )(  ) const)(&::FormFactorParallelepiped::getHeight)
+            , (double ( FormFactorParallelepiped_wrapper::* )(  ) const)(&FormFactorParallelepiped_wrapper::default_getHeight) )    
+        .def( 
+            "getNumberOfStochasticParameters"
+            , (int ( ::FormFactorParallelepiped::* )(  ) const)(&::FormFactorParallelepiped::getNumberOfStochasticParameters)
+            , (int ( FormFactorParallelepiped_wrapper::* )(  ) const)(&FormFactorParallelepiped_wrapper::default_getNumberOfStochasticParameters) )    
         .def( 
             "getRadius"
-            , (double ( ::IFormFactorDecorator::* )(  ) const)(&::IFormFactorDecorator::getRadius)
-            , (double ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getRadius) )    
+            , (double ( ::FormFactorParallelepiped::* )(  ) const)(&::FormFactorParallelepiped::getRadius)
+            , (double ( FormFactorParallelepiped_wrapper::* )(  ) const)(&FormFactorParallelepiped_wrapper::default_getRadius) )    
         .def( 
             "getVolume"
-            , (double ( ::IFormFactorDecorator::* )(  ) const)(&::IFormFactorDecorator::getVolume)
-            , (double ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getVolume) )    
-        .def( 
-            "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactorDecorator::* )( ::complex_t const & ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
-            , (void ( IFormFactorDecorator_wrapper::* )( ::complex_t const & ) )(&IFormFactorDecorator_wrapper::default_setAmbientRefractiveIndex)
-            , ( bp::arg("refractive_index") ) )    
+            , (double ( ::FormFactorParallelepiped::* )(  ) const)(&::FormFactorParallelepiped::getVolume)
+            , (double ( FormFactorParallelepiped_wrapper::* )(  ) const)(&FormFactorParallelepiped_wrapper::default_getVolume) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
-            , (bool ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_areParametersChanged) )    
+            , (bool ( FormFactorParallelepiped_wrapper::* )(  ) )(&FormFactorParallelepiped_wrapper::default_areParametersChanged) )    
         .def( 
             "createDistributedFormFactors"
             , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
-            , (void ( IFormFactorDecorator_wrapper::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&IFormFactorDecorator_wrapper::default_createDistributedFormFactors)
+            , (void ( FormFactorParallelepiped_wrapper::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&FormFactorParallelepiped_wrapper::default_createDistributedFormFactors)
             , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
-            , (::ParameterPool * ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( FormFactorParallelepiped_wrapper::* )(  ) const)(&FormFactorParallelepiped_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::IFormFactor::evaluate) )
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorParallelepiped_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&FormFactorParallelepiped_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
-        .def( 
-            "getNumberOfStochasticParameters"
-            , (int ( ::IFormFactor::* )(  ) const)(&::IFormFactor::getNumberOfStochasticParameters)
-            , (int ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getNumberOfStochasticParameters) )    
         .def( 
             "isDistributedFormFactor"
             , (bool ( ::IFormFactor::* )(  ) const)(&::IFormFactor::isDistributedFormFactor)
-            , (bool ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_isDistributedFormFactor) )    
+            , (bool ( FormFactorParallelepiped_wrapper::* )(  ) const)(&FormFactorParallelepiped_wrapper::default_isDistributedFormFactor) )    
         .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
-            , (void ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_printParameters) )    
+            , (void ( FormFactorParallelepiped_wrapper::* )(  ) const)(&FormFactorParallelepiped_wrapper::default_printParameters) )    
         .def( 
             "print_structure"
             , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
-            , (void ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_print_structure) )    
+            , (void ( FormFactorParallelepiped_wrapper::* )(  ) )(&FormFactorParallelepiped_wrapper::default_print_structure) )    
+        .def( 
+            "setAmbientRefractiveIndex"
+            , (void ( ::IFormFactor::* )( ::complex_t const & ) )(&::IFormFactor::setAmbientRefractiveIndex)
+            , (void ( FormFactorParallelepiped_wrapper::* )( ::complex_t const & ) )(&FormFactorParallelepiped_wrapper::default_setAmbientRefractiveIndex)
+            , ( bp::arg("refractive_index") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)
-            , (void ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_setParametersAreChanged) );
+            , (void ( FormFactorParallelepiped_wrapper::* )(  ) )(&FormFactorParallelepiped_wrapper::default_setParametersAreChanged) );
 
 }

@@ -144,14 +144,15 @@ def RunTest():
     
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10): status = "FAILED"
-    return "IsGISAXS09" + " Pyramids on top of substrate - Rotated pyramids on top of substrate " + status
+    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    return "IsGISAXS09", "Pyramids on top of substrate - Rotated pyramids on top of substrate", status
 
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  print RunTest()
+  name,description,status = RunTest()
+  print name,description,status
 
 

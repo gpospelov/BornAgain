@@ -132,13 +132,14 @@ def RunTest():
     diff = GetDifference(result, reference)
     status = "OK"
     if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
-    return "IsGISAXS04" + " 1D and 2D paracrystal " + status
+    return "IsGISAXS04", "1D and 2D paracrystal", status
 
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  print RunTest()
+  name,description,status = RunTest()
+  print name,description,status
 
 

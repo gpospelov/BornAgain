@@ -12,7 +12,7 @@ from libBornAgainCore import *
 
 M_PI = numpy.pi
 # ----------------------------------
-# describe sample and run simulation - 
+# describe sample and run simulation - 2D lattice
 # ----------------------------------
 def RunSimulation1():
     # defining materials
@@ -136,14 +136,15 @@ def RunTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10): status = "FAILED"
-    return "IsGISAXS08" + " 2DDL paracrystal " + status
+    if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
+    return "IsGISAXS08", "2DDL paracrystal", status
 
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  print RunTest()
+  name,description,status = RunTest()
+  print name,description,status
 
 

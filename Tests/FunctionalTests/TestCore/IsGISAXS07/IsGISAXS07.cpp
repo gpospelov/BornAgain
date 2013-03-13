@@ -22,7 +22,6 @@ FunctionalTests::IsGISAXS07::IsGISAXS07()
 void FunctionalTests::IsGISAXS07::run()
 {
     // building sample
-
     MultiLayer multi_layer;
     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
     Layer air_layer;

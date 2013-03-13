@@ -16,6 +16,7 @@
 #include "FormFactorFullSphere.pypp.h" 
 #include "FormFactorGauss.pypp.h" 
 #include "FormFactorLorentz.pypp.h" 
+#include "FormFactorParallelepiped.pypp.h" 
 #include "FormFactorPrism3.pypp.h" 
 #include "FormFactorPyramid.pypp.h" 
 #include "FormFactorSphereGaussianRadius.pypp.h" 
@@ -83,6 +84,7 @@
 #include "SimpleSelectionRule.pypp.h" 
 #include "Simulation.pypp.h" 
 #include "SimulationParameters.pypp.h" 
+#include "StochasticDoubleGate.pypp.h" 
 #include "StochasticDoubleGaussian.pypp.h" 
 #include "StochasticParameter_t.pypp.h" 
 #include "StochasticSampledParameter.pypp.h" 
@@ -130,6 +132,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorFullSphere_class();
     register_FormFactorGauss_class();
     register_FormFactorLorentz_class();
+    register_FormFactorParallelepiped_class();
     register_FormFactorPrism3_class();
     register_FormFactorPyramid_class();
     register_FormFactorSphereGaussianRadius_class();
@@ -189,6 +192,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_Simulation_class();
     register_SimulationParameters_class();
     register_StochasticParameter_t_class();
+    register_StochasticDoubleGate_class();
     register_StochasticDoubleGaussian_class();
     register_StochasticSampledParameter_class();
     register_global_variables();

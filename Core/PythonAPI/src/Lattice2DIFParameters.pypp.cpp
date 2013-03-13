@@ -19,6 +19,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "FormFactorFullSphere.h"
 #include "FormFactorGauss.h"
 #include "FormFactorLorentz.h"
+#include "FormFactorParallelepiped.h"
 #include "FormFactorPrism3.h"
 #include "FormFactorPyramid.h"
 #include "FormFactorSphereGaussianRadius.h"
@@ -68,6 +69,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "IStochasticParameter.h"
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
+#include "StochasticDoubleGate.h"
 #include "Transform3D.h"
 #include "Types.h"
 #include "Units.h"
@@ -77,7 +79,7 @@ namespace bp = boost::python;
 
 void register_Lattice2DIFParameters_class(){
 
-    bp::class_< Lattice2DIFParameters >( "Lattice2DIFParameters" )    
+    bp::class_< Lattice2DIFParameters >( "Lattice2DIFParameters", bp::init< >() )    
         .def_readwrite( "m_angle", &Lattice2DIFParameters::m_angle )    
         .def_readwrite( "m_corr_length_1", &Lattice2DIFParameters::m_corr_length_1 )    
         .def_readwrite( "m_corr_length_2", &Lattice2DIFParameters::m_corr_length_2 )    

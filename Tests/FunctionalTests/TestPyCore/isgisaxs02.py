@@ -110,14 +110,15 @@ def RunTest():
     diff = GetDifference(result, reference)
     status = "OK"
     if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
-    return "IsGISAXS02" + "Mixture cylinder particles with different size distribution " + status
+    return "IsGISAXS02", "Mixture cylinder particles with different size distribution", status
 
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  print RunTest()
+  name,description,status = RunTest()
+  print name,description,status
 
 
 

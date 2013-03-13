@@ -23,6 +23,7 @@ test_info = []
 # run system command and catch multiline stdout and stderr
 def run_command(command):
     p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p.wait()
     return iter(p.stdout.readline, b''), iter(p.stderr.readline, b'')
 
 
@@ -63,7 +64,7 @@ def printResults():
     print "========================================"
     n=1
     for x in test_info:
-        print '{0:2d}. {1}  {2}  {3:.3f}sec  [{4}] '.format(n, x[0],x[1],x[2],x[3])
+        print '{0:2d}. {1} {2}  {3:.3f}sec  [{4}] '.format(n, x[0],x[1],x[2],x[3])
         n+=1
 
 #-------------------------------------------------------------

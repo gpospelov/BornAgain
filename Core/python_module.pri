@@ -16,6 +16,7 @@ HEADERS +=  \
     PythonAPI/inc/FormFactorFullSphere.pypp.h \
     PythonAPI/inc/FormFactorGauss.pypp.h \
     PythonAPI/inc/FormFactorLorentz.pypp.h \
+    PythonAPI/inc/FormFactorParallelepiped.pypp.h \
     PythonAPI/inc/FormFactorPrism3.pypp.h \
     PythonAPI/inc/FormFactorPyramid.pypp.h \
     PythonAPI/inc/FormFactorSphereGaussianRadius.pypp.h \
@@ -83,6 +84,7 @@ HEADERS +=  \
     PythonAPI/inc/SimpleSelectionRule.pypp.h \
     PythonAPI/inc/Simulation.pypp.h \
     PythonAPI/inc/SimulationParameters.pypp.h \
+    PythonAPI/inc/StochasticDoubleGate.pypp.h \
     PythonAPI/inc/StochasticDoubleGaussian.pypp.h \
     PythonAPI/inc/StochasticParameter_t.pypp.h \
     PythonAPI/inc/StochasticSampledParameter.pypp.h \
@@ -115,6 +117,7 @@ SOURCES +=  \
     PythonAPI/src/FormFactorFullSphere.pypp.cpp \
     PythonAPI/src/FormFactorGauss.pypp.cpp \
     PythonAPI/src/FormFactorLorentz.pypp.cpp \
+    PythonAPI/src/FormFactorParallelepiped.pypp.cpp \
     PythonAPI/src/FormFactorPrism3.pypp.cpp \
     PythonAPI/src/FormFactorPyramid.pypp.cpp \
     PythonAPI/src/FormFactorSphereGaussianRadius.pypp.cpp \
@@ -182,6 +185,7 @@ SOURCES +=  \
     PythonAPI/src/SimpleSelectionRule.pypp.cpp \
     PythonAPI/src/Simulation.pypp.cpp \
     PythonAPI/src/SimulationParameters.pypp.cpp \
+    PythonAPI/src/StochasticDoubleGate.pypp.cpp \
     PythonAPI/src/StochasticDoubleGaussian.pypp.cpp \
     PythonAPI/src/StochasticParameter_t.pypp.cpp \
     PythonAPI/src/StochasticSampledParameter.pypp.cpp \

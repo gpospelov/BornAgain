@@ -49,7 +49,7 @@ def RunSimulation():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    f = gzip.open(path+'../TestCore/IsGISAXS010/isgisaxs010_reference.ima.gz', 'rb')
+    f = gzip.open(path+'../TestCore/IsGISAXS10/isgisaxs10_reference.ima.gz', 'rb')
     reference=numpy.fromstring(f.read(),numpy.float64,sep=' ')
     f.close()
     return reference
@@ -85,14 +85,15 @@ def RunTest():
 
     diff = GetDifference(result, reference)
     status = "OK"
-    if(diff > 1e-10): status = "FAILED"
-    return "IsGISAXS010" + " " + status
+    if(diff > 1e-10  or numpy.isnan(diff)): status = "FAILED"
+    return "IsGISAXS10", "Cylinders with interference on top of substrate", status
 
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  print RunTest()
+  name,description,status = RunTest()
+  print name,description,status
 
 

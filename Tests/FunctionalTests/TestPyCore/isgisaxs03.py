@@ -174,13 +174,14 @@ def RunTest():
     diff = GetDifference(result, reference)
     status = "OK"
     if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
-    return "IsGISAXS03" + " Cylinder formfactor in BA and DWBA " + status
+    return "IsGISAXS03", "Cylinder formfactor in BA and DWBA", status
 
    
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  print RunTest()
+  name,description,status = RunTest()
+  print name,description,status
 
 

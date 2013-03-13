@@ -85,7 +85,7 @@ void InterferenceFunction2DLattice::init_parameters()
 void InterferenceFunction2DLattice::initialize_rec_vectors()
 {
     if(m_lattice_params.m_length_1==0 || m_lattice_params.m_length_2 == 0) {
-//        throw DivisionByZeroException("InterferenceFunction2DLattice::initialize_rec_vectors() -> Error! Zero parameters m_lattice_params.m_length1 or m_lattice_params.m_length_2");
+        throw DivisionByZeroException("InterferenceFunction2DLattice::initialize_rec_vectors() -> Error! Zero parameters m_lattice_params.m_length1 or m_lattice_params.m_length_2");
     }
     double sinalpha = std::sin(m_lattice_params.m_angle);
     double ainv = 2.0*M_PI/m_lattice_params.m_length_1/sinalpha;

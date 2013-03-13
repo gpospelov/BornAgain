@@ -90,13 +90,14 @@ def RunTest():
     diff = GetDifference(result, reference)
     status = "OK"
     if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
-    return "IsGISAXS01" + "Mixture of cylinders and prisms without interference " + status
+    return "IsGISAXS01", "Mixture of cylinders and prisms without interference", status
 
 
 #-------------------------------------------------------------
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  print RunTest()
+  name,description,status = RunTest()
+  print name,description,status
 
 

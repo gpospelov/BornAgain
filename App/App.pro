@@ -197,7 +197,7 @@ INCLUDEPATH += $$system(root-config --incdir)
 MYROOTCINT = $${MYROOT}/bin/rootcint
 ROOTLIBDIR = $$system(root-config --libdir)
 LIBS += -L$${ROOTLIBDIR}
-REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix Physics MathCore MathMore Minuit2 Geom Eve RGL Thread
+REQUIRED_ROOT_LIBS = Cint Core EG Eve FTGL Ged Geom Graf Graf3d Gpad Gui Hist MathCore MathMore Matrix Minuit2 Physics Postscript RGL Rint RIO Thread Tree TreePlayer 
 
 # check existence of required ROOT libraries
 for(x, REQUIRED_ROOT_LIBS) {

@@ -1,0 +1,1 @@
+../../../Core/PythonAPI//inc/IDecoration.pypp.h

@@ -1,0 +1,1 @@
+../../../Core/Algorithms/inc/IsGISAXSMorphologyFileStrategy.h

@@ -4,6 +4,7 @@
 #include "taskselectorwidget.h"
 #include "WelcomeView.h"
 #include "SampleView.h"
+#include "PyScriptView.h"
 #include "InstrumentView.h"
 #include "SimulationView.h"
 #include "JobView.h"
@@ -53,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_welcomeView = new WelcomeView();
     m_instrumentView = new InstrumentView(mp_sim_data_model);
     m_sampleView = new SampleView();
+    m_scriptView = new PyScriptView(mp_sim_data_model);
     m_simulationView = new SimulationView(mp_sim_data_model);
     m_jobView = new JobView(mp_sim_data_model);
     m_fitView = new FitView();
@@ -60,9 +62,10 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(0, m_welcomeView, QIcon(":/images/mode_welcome.png"), "Welcome");
     m_tabWidget->insertTab(1, m_instrumentView, QIcon(":/images/mode_exp.png"), "Instrument");
     m_tabWidget->insertTab(2, m_sampleView, QIcon(":/images/mode_sample.png"), "Sample");
-    m_tabWidget->insertTab(3, m_simulationView, QIcon(":/images/mode_simul.png"), "Simulation");
-    m_tabWidget->insertTab(4, m_jobView, QIcon(":/images/mode_job.png"), "Jobs");
-    m_tabWidget->insertTab(5, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
+    m_tabWidget->insertTab(3, m_scriptView, QIcon(":/images/mode_sample.png"), "Python scripts");
+    m_tabWidget->insertTab(4, m_simulationView, QIcon(":/images/mode_simul.png"), "Simulation");
+    m_tabWidget->insertTab(5, m_jobView, QIcon(":/images/mode_job.png"), "Jobs");
+    m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
 
     setCentralWidget(m_tabWidget);
 
@@ -82,7 +85,7 @@ void MainWindow::onChangeTabWidget(int index)
     // update views which depend on others
     (void)index;
     m_simulationView->updateViewElements();
-    if (index==4) {
+    if (index==5) {
         m_jobView->updateJobsAndGraphics();
     }
 }

@@ -82,7 +82,9 @@ void MainWindow::onChangeTabWidget(int index)
     // update views which depend on others
     (void)index;
     m_simulationView->updateViewElements();
-    m_jobView->updateJobsAndGraphics();
+    if (index==4) {
+        m_jobView->updateJobsAndGraphics();
+    }
 }
 
 void MainWindow::initSimModel()

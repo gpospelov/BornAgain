@@ -5,5 +5,6 @@
         <file>images/mode_sample.png</file>
         <file>images/mode_simul.png</file>
         <file>images/mode_welcome.png</file>
+        <file>images/mode_job.png</file>
     </qresource>
 </RCC>

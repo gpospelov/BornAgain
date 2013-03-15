@@ -1,0 +1,1 @@
+../../../Core/Algorithms/inc/ISquaredFunction.h

@@ -1,0 +1,1 @@
+../../../Core/PythonAPI//src/ScaleY3D.pypp.cpp

@@ -1,0 +1,1 @@
+../../../Core/PythonAPI//inc/Scale3D.pypp.h

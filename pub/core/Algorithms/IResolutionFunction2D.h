@@ -1,0 +1,1 @@
+../../../Core/Algorithms/inc/IResolutionFunction2D.h

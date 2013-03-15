@@ -61,7 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(1, m_instrumentView, QIcon(":/images/mode_exp.png"), "Instrument");
     m_tabWidget->insertTab(2, m_sampleView, QIcon(":/images/mode_sample.png"), "Sample");
     m_tabWidget->insertTab(3, m_simulationView, QIcon(":/images/mode_simul.png"), "Simulation");
-    m_tabWidget->insertTab(4, m_jobView, QIcon(":/images/mode_simul.png"), "Jobs");
+    m_tabWidget->insertTab(4, m_jobView, QIcon(":/images/mode_job.png"), "Jobs");
     m_tabWidget->insertTab(5, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
 
     setCentralWidget(m_tabWidget);

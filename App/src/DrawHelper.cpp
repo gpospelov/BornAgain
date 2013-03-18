@@ -29,14 +29,15 @@
 #include "TFile.h"
 #include "TDatime.h"
 #include "TSystem.h"
-#include "TEveManager.h"
-#include "TEvePointSet.h"
-#include "TEveArrow.h"
-#include "TEveGeoShape.h"
-#include "TGeoSphere.h"
-#include "TEveTrans.h"
-#include "TEveViewer.h"
-#include "TGLViewer.h"
+
+//#include "TEveManager.h"
+//#include "TEvePointSet.h"
+//#include "TEveArrow.h"
+//#include "TEveGeoShape.h"
+//#include "TGeoSphere.h"
+//#include "TEveTrans.h"
+//#include "TEveViewer.h"
+//#include "TGLViewer.h"
 
 
 

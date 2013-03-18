@@ -5,22 +5,9 @@ lessThan(QT_VERSION, 4.5) {
     error("BornAgain requires Qt 4.5 or greater")
 }
 
-# -----------------------------------------------------------------------------
-# propagating operation system type inside the code
-# -----------------------------------------------------------------------------
-# (note, that when Qt libraries are used, it is already done in <qglobal.h>)
-macx {
-    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_MAC
-    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_MAC
-}
-unix:!macx {
-    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_LINUX
-    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_LINUX
-}
 !macx:!unix {
   error("Unknown operation system")
 }
-
 
 # -----------------------------------------------------------------------------
 # for debug set environment variable 'export BORNAGAIN_DEBUG=yes'
@@ -89,9 +76,10 @@ isEmpty(BOOST_LIB): error("missed dependency:" $${BOOST_LIBFILES})
 # -----------------------------------------------------------------------------
 env_jcns_variable = $$(BORNAGAIN_JCNS)
 isEqual(env_jcns_variable, "yes") {
-  CONFIG += JCNS
+  CONFIG += BORNAGAIN_JCNS
 }
-CONFIG(JCNS) {
+
+CONFIG(BORNAGAIN_JCNS) {
   message("Special config for JCNS")
   INCLUDEPATH += /usr/users/jcns/pospelov/software/include
   LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 \
@@ -109,12 +97,10 @@ LOCATIONS = $$PWD/Core/Algorithms/inc \
             $$PWD/Core/FormFactors/inc  \
             $$PWD/Core/Geometry/inc  \
             $$PWD/Core/Samples/inc  \
-            $$PWD/Core/Tools/inc  \
-            $$PWD/Core/PythonAPI/inc
+            $$PWD/Core/Tools/inc
 
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}
-
 
 # -----------------------------------------------------------------------------
 # options for testing and performance issues
@@ -130,22 +116,16 @@ QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which opt
 #QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Werror -Wno-unused
 
 # to compile with GPERFTOOLS support for code profiling
-#CONFIG+=GPERFTOOLS
 CONFIG(GPERFTOOLS) {
   QMAKE_CXXFLAGS += -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
   LIBS += -L/opt/local/lib -lprofiler -ltcmalloc
 }
 
-#CONFIG+=PEDANTIC
 CONFIG(PEDANTIC) {
   QMAKE_CXXFLAGS_RELEASE += -Weffc++
   QMAKE_CXXFLAGS_DEBUG += -Weffc++
 }
 
-# floating point exception handling
-CONFIG(DEBUG) {
-    CONFIG +=DEBUG_FPE
-}
 
 # -----------------------------------------------------------------------------
 # add ROOT libraries
@@ -159,7 +139,8 @@ CONFIG(BORNAGAIN_ROOT) {
     MYROOTCINT = $${MYROOT}/bin/rootcint
     ROOTLIBDIR = $$system(root-config --libdir)
     LIBS += -L$${ROOTLIBDIR}
-    REQUIRED_ROOT_LIBS = Cint Core EG Eve FTGL Ged Geom Graf Graf3d Gpad Gui Hist MathCore MathMore Matrix Minuit2 Physics Postscript RGL Rint RIO Thread Tree TreePlayer
+    #REQUIRED_ROOT_LIBS = Cint Core EG Eve FTGL Ged Geom Graf Graf3d Gpad Gui Hist MathCore MathMore Matrix Minuit2 Physics Postscript RGL Rint RIO Thread Tree TreePlayer
+    REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix MathCore MathMore Minuit2 Thread
 
     # check existence of required ROOT libraries
     for(x, REQUIRED_ROOT_LIBS) {
@@ -185,7 +166,46 @@ CONFIG(BORNAGAIN_ROOT) {
     }
 }
 
-OBJECTS_DIR = obj
-QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 
+# -----------------------------------------------------------------------------
+# add python API support
+# -----------------------------------------------------------------------------
+# TODO - implement check for existance of numpy/arrayobject.h
+CONFIG(BORNAGAIN_PYTHON) {
+  # user wants to compile python module
+  WhichPython=$$system(which python)
+  isEmpty(WhichPython) {
+    # we do not have python
+    error("Can not find any sign of python")
+  } else {
+    # we have python
+    pythonvers=$$system("python -c 'import sys; sys.stdout.write(sys.version[:3])'")
+    pythonsysincdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
+    #pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib/python\" + sys.version[:3])'")
+    pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'")
+    #message(we have python)
+    #message($$pythonvers)
+    #message($$pythonsysincdir)
+    #message($$pythonsyslibdir)
+    lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
+    INCLUDEPATH += $$pythonsysincdir
+    #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
+    LIBS += -lboost_python -L$$pythonsyslibdir -lpython$$pythonvers
 
+    # we need to know to location of numpy
+    pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")
+    INCLUDEPATH += $$pythonnumpy
+  }
+}
+
+# location of object files for debug/release builds
+unix {
+    CONFIG(debug, debug|release):OBJECTS_DIR = $${OUT_PWD}/.obj/debug
+    CONFIG(release, debug|release):OBJECTS_DIR = $${OUT_PWD}/.obj/release
+
+    CONFIG(debug, debug|release):MOC_DIR = $${OUT_PWD}/.moc/debug
+    CONFIG(release, debug|release):MOC_DIR = $${OUT_PWD}/.moc/release
+
+    RCC_DIR = $${OUT_PWD}/.rcc
+    UI_DIR = $${OUT_PWD}/.uic
+}

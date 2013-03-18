@@ -1,18 +1,16 @@
-###############################################################################
-# qmake project file to compile shared library
-###############################################################################
+# -----------------------------------------------------------------------------
+# qmake project file to compile libBornAgainCore
+# -----------------------------------------------------------------------------
+
 TARGET   = BornAgainCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
-
-
-# making standard shared library extension
-QMAKE_EXTENSION_SHLIB = so
+CONFIG  += BORNAGAIN_PYTHON
+QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
 
 # -----------------------------------------------------------------------------
-# Our source and headers
+# source and headers
 # -----------------------------------------------------------------------------
 SOURCES += \
     Algorithms/src/Beam.cpp \
@@ -312,42 +310,10 @@ HEADERS += \
     Fitting/inc/AttFitting.h \
     Samples/inc/Samples.h
 
-contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
+contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)
 }
 
-OBJECTS_DIR = obj
-
-# -----------------------------------------------------------------------------
-# checking python configuration
-# -----------------------------------------------------------------------------
-# TODO - implement check for existance of numpy/arrayobject.h
-CONFIG(BUILD_PYTHON_BOOST_MODULE) {
-  # user wants to compile python module
-  WhichPython=$$system(which python)
-  isEmpty(WhichPython) {
-    # we do not have python
-    error("Can not find any sign of python")
-  } else {
-    # we have python
-    pythonvers=$$system("python -c 'import sys; sys.stdout.write(sys.version[:3])'")
-    pythonsysincdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
-    #pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib/python\" + sys.version[:3])'")
-    pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'")
-    #message(we have python)
-    #message($$pythonvers)
-    #message($$pythonsysincdir)
-    #message($$pythonsyslibdir)
-    lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
-    INCLUDEPATH += $$pythonsysincdir
-    #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
-    LIBS += -lboost_python -L$$pythonsyslibdir -lpython$$pythonvers
-
-    # we need to know to location of numpy
-    pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")
-    INCLUDEPATH += $$pythonnumpy
-  }
-}
 
 # -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation
@@ -361,3 +327,4 @@ QMAKE_POST_LINK = (make install)
 # general project settings
 # -----------------------------------------------------------------------------
 include($$PWD/../shared.pri)
+

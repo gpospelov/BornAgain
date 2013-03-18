@@ -1,4 +1,3 @@
-
 TARGET = QtRoot
 
 TEMPLATE = lib
@@ -7,13 +6,8 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 QMAKE_EXTENSION_SHLIB = so
 
-
 QTROOTDIRI = inc
 QTROOTDIRS = src
-
-OBJECTS_DIR = obj
-#UI_DIR = .ui
-#MOC_DIR = .moc
 
 # Input
 HEADERS += $$QTROOTDIRI/TQtRootGuiFactory.h
@@ -52,7 +46,6 @@ isEmpty(MYROOT) {
 # -----------------------------------------------------------------------------
 CREATE_ROOT_DICT_FOR_CLASSES  = $$HEADERS $$QTROOTDIRI/LinkDef.h
 
-
 DICTDEFINES += -DQT_VERSION=0x50000
 QT_VERSION=$$[QT_VERSION]
 contains( QT_VERSION, "^4.*" ) {
@@ -78,6 +71,5 @@ QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 target.path = $$PWD/../../../lib
 INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
-QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 QMAKE_POST_LINK = (make install)
 

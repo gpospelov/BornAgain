@@ -1,23 +1,15 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2013-02-11T18:32:10
-#
-#-------------------------------------------------
+# -----------------------------------------------------------------------------
+# qmake project file to compile GUI core
+# -----------------------------------------------------------------------------
 
 QT       += core gui webkit webkitwidgets designer designercomponents
-
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
-
 TARGET = coregui
 TEMPLATE = app
-
-# making standard shared library extension
 QMAKE_EXTENSION_SHLIB = so
 #CONFIG  -= app_bundle
-OBJECTS_DIR = .obj
-MOC_DIR = .moc
-RCC_DIR = .rcc
+CONFIG += BORNAGAIN_ROOT BORNAGAIN_PYTHON
+
 
 include($$PWD/Views/Components/widgetbox/widgetbox.pri)
 include($$PWD/Views/Components/SampleEditor/SampleEditor.pri)
@@ -58,7 +50,6 @@ HEADERS  += \
     Models/PythonScriptSampleBuilder.h \
     Views/JobView.h
 
-INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/welcomemanager $$PWD/samplemanager $$PWD/experimentmanager $$PWD/simulationmanager $$PWD/fitmanager
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/Views $$PWD/Models
 
 # visual style "Manhattan"
@@ -73,8 +64,6 @@ INCLUDEPATH += $$PWD/../externals/qt-root/inc
 #LIBS += $$PWD/../../lib/libQtRoot.so /Users/pospelov/nest/software/root/qtroot/qtroot/libGQt.dylib
 #INCLUDEPATH += /Users/pospelov/nest/software/root/qtroot/qtroot/qt/inc
 
-
-
 INCLUDEPATH += $$PWD/../../Core/Algorithms/inc \
     $$PWD/../../Core/Fitting/inc \
     $$PWD/../../Core/FormFactors/inc \
@@ -85,39 +74,27 @@ INCLUDEPATH += $$PWD/../../Core/Algorithms/inc \
 # -----------------------------------------------------------------------------
 # generating package dependency flags
 # -----------------------------------------------------------------------------
-MY_DEPENDENCY_LIB = BornAgainCore
-MY_DEPENDENCY_DEST =$$PWD/../..
-SONAME = so
-for(dep, MY_DEPENDENCY_LIB) {
-    LIBS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-#    PRE_TARGETDEPS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-}
-
-# qt-designer components
-#INCLUDEPATH += $$QMAKE_INCDIR_QT/QtDesigner
-
-# ROOT libraries
-MYROOT = $$(ROOTSYS)
-isEmpty(MYROOT) {
-  message("Warning, ROOTSYS environment variable doesn't exist, trying to guess location")
-  ROOT_CONFIG_FILE = root-config
-  ROOT_CONFIG_FILE_LOCATIONS = /opt/local /usr/local /usr
-  for(dir, ROOT_CONFIG_FILE_LOCATIONS): isEmpty(MYROOT): exists($${dir}/bin/$${ROOT_CONFIG_FILE}): MYROOT = $${dir}
-  isEmpty(MYROOT): error("Can't find" $${ROOT_CONFIG_FILE} "in" $${ROOT_CONFIG_FILE_LOCATIONS})
-  message("Probable ROOTSYS is" $${MYROOT})
-}
-!isEmpty(MYROOT) {
-  !exists($${MYROOT}/bin/root-config): error("No config file "$${MYROOT}/bin/root-config)
-  INCLUDEPATH += $$system($${MYROOT}/bin/root-config --incdir)
-  #LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
-  #LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
-  LIBS += $$system($${MYROOT}/bin/root-config --glibs )
-  MYROOTCINT = $${MYROOT}/bin/rootcint
-}
+LIBS += $$PWD/../../lib/libBornAgainCore.so
 
 
-#FORMS += \
-#    testform.ui
+## ROOT libraries
+#MYROOT = $$(ROOTSYS)
+#isEmpty(MYROOT) {
+#  message("Warning, ROOTSYS environment variable doesn't exist, trying to guess location")
+#  ROOT_CONFIG_FILE = root-config
+#  ROOT_CONFIG_FILE_LOCATIONS = /opt/local /usr/local /usr
+#  for(dir, ROOT_CONFIG_FILE_LOCATIONS): isEmpty(MYROOT): exists($${dir}/bin/$${ROOT_CONFIG_FILE}): MYROOT = $${dir}
+#  isEmpty(MYROOT): error("Can't find" $${ROOT_CONFIG_FILE} "in" $${ROOT_CONFIG_FILE_LOCATIONS})
+#  message("Probable ROOTSYS is" $${MYROOT})
+#}
+#!isEmpty(MYROOT) {
+#  !exists($${MYROOT}/bin/root-config): error("No config file "$${MYROOT}/bin/root-config)
+#  INCLUDEPATH += $$system($${MYROOT}/bin/root-config --incdir)
+#  #LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
+#  #LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
+#  LIBS += $$system($${MYROOT}/bin/root-config --glibs )
+#  MYROOTCINT = $${MYROOT}/bin/rootcint
+#}
 
 RESOURCES   += coregui.qrc
 
@@ -127,5 +104,10 @@ INCLUDEPATH += $$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"
 LIBS += -L$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'") -lboost_python -lpython$$pythonvers
 
 lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtXml
-#lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtScript -lQtXml
 
+
+# -----------------------------------------------------------------------------
+# general project settings
+# -----------------------------------------------------------------------------
+include($$PWD/../../shared.pri)
+INCLUDEPATH -= /opt/local/include

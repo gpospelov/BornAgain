@@ -6,13 +6,8 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 QMAKE_EXTENSION_SHLIB = so
 
-
 GQTDIRI = inc
 GQTDIRS = src
-
-OBJECTS_DIR = obj
-#UI_DIR = .ui
-#MOC_DIR = .moc
 
 # Input
 HEADERS += $$GQTDIRI/TGQt.h \
@@ -122,5 +117,4 @@ QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 target.path = $$PWD/../../../lib
 INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
-QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 QMAKE_POST_LINK = (make install)

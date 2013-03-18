@@ -5,6 +5,20 @@ CONFIG  -= app_bundle
 QT      -= core gui
 CONFIG += BORNAGAIN_ROOT # depend on ROOT libraries
 
+# -----------------------------------------------------------------------------
+# propagating operation system type inside the code
+# -----------------------------------------------------------------------------
+# (note, that when Qt libraries are used, it is already done in <qglobal.h>)
+macx {
+    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_MAC
+    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_MAC
+}
+unix:!macx {
+    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_LINUX
+    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_LINUX
+}
+
+
 FUNCTIONAL_TESTS = $$PWD/../Tests/FunctionalTests/TestCore
 
 # -----------------------------------------------------------------------------
@@ -143,14 +157,6 @@ HEADERS += \
     inc/TreeEventStructure.h \
     inc/Version.h \
 
-# to throw exception in the case floating point exception
-CONFIG(DEBUG_FPE) {
-   QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
-   # mac requires his own patched version of fp_exceptions
-   macx:HEADERS += inc/fp_exception_glibc_extension.h
-   macx:SOURCES += src/fp_exception_glibc_extension.c
-}
-
 LOCATIONS = $$PWD/inc \
             $${FUNCTIONAL_TESTS}/IsGISAXS01 \
             $${FUNCTIONAL_TESTS}/IsGISAXS02 \
@@ -167,26 +173,20 @@ LOCATIONS = $$PWD/inc \
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}
 
-
 # -----------------------------------------------------------------------------
-# libraries, extensions
+# to throw exception in the case floating point exception
 # -----------------------------------------------------------------------------
-# to throw exception in the case floating point exception (gcc only)
-CONFIG(DEBUG_FPE) {
-    HEADERS += inc/fp_exception_glibc_extension.h
-    SOURCES += src/fp_exception_glibc_extension.c
+CONFIG(DEBUG) {
+    QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
+    # mac requires his own patched version of fp_exceptions
+    macx:HEADERS += inc/fp_exception_glibc_extension.h
+    macx:SOURCES += src/fp_exception_glibc_extension.c
 }
 
 # -----------------------------------------------------------------------------
-# generate package dependency flags
+# additional libraries
 # -----------------------------------------------------------------------------
-MY_DEPENDENCY_LIB = BornAgainCore
-MY_DEPENDENCY_DEST =$$PWD/..
-SONAME = so
-for(dep, MY_DEPENDENCY_LIB) {
-    LIBS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-    PRE_TARGETDEPS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-}
+LIBS += $$PWD/../lib/libBornAgainCore.so
 
 # -----------------------------------------------------------------------------
 # generate ROOT dictionaries
@@ -198,5 +198,3 @@ BORNAGAIN_ROOT_DICT_INCLUDES = ../Core/Tools/inc
 # general project settings
 # -----------------------------------------------------------------------------
 include($$PWD/../shared.pri)
-
-

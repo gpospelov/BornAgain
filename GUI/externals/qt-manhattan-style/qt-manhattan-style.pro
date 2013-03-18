@@ -7,9 +7,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 # making standard shared library extension
 QMAKE_EXTENSION_SHLIB = so
-OBJECTS_DIR = obj
-#UI_DIR = .ui
-#MOC_DIR = .moc
 CONFIG  += plugin # to remove versions from file name
 
 # The code still used some deprecated stuff
@@ -89,5 +86,4 @@ OTHER_FILES += \
 target.path = $$PWD/../../../lib
 INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
-QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 QMAKE_POST_LINK = (make install)

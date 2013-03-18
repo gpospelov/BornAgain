@@ -7,8 +7,6 @@ CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
 CONFIG  += BUILD_PYTHON_BOOST_MODULE # to  generate python interface
 
-# including common project properties
-include($$PWD/../shared.pri)
 
 # making standard shared library extension
 QMAKE_EXTENSION_SHLIB = so
@@ -318,24 +316,14 @@ contains(CONFIG, BUILD_PYTHON_BOOST_MODULE) {
    include($$PWD/python_module.pri)
 }
 
-## to through exception in the case floating point exception (gcc only)
-#CONFIG(DEBUG_FPE) {
-#    HEADERS += Tools/inc/fp_exception_glibc_extension.h
-#    SOURCES += Tools/src/fp_exception_glibc_extension.c
-#}
-
-
 OBJECTS_DIR = obj
 
 # -----------------------------------------------------------------------------
 # checking python configuration
 # -----------------------------------------------------------------------------
-# TODO - implement check for following files
-# numpy/arrayobject.h
-
+# TODO - implement check for existance of numpy/arrayobject.h
 CONFIG(BUILD_PYTHON_BOOST_MODULE) {
   # user wants to compile python module
-
   WhichPython=$$system(which python)
   isEmpty(WhichPython) {
     # we do not have python
@@ -359,25 +347,17 @@ CONFIG(BUILD_PYTHON_BOOST_MODULE) {
     pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")
     INCLUDEPATH += $$pythonnumpy
   }
-
 }
-
 
 # -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation
 # -----------------------------------------------------------------------------
-MYPREFIX = $$PWD/.. # place to install library and headers
-target.path = $$MYPREFIX/lib
+target.path = $$PWD/../lib
 INSTALLS += target
-#includes.files = $$PWD/inc/*.h
-#includes.path = $$MYPREFIX/inc/BornAgainCore
-#INSTALLS += includes
-# there is a soft bug here in qmake, it looks like flag '-r' works
-# only when it appears at the beginning of QMAKE_DISTCLEAN variable
-# i.e. the order below is important
-#QMAKE_DISTCLEAN += -r $$includes.path
-#QMAKE_DISTCLEAN += $$MYPREFIX/inc/BornAgainCore
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
-QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 QMAKE_POST_LINK = (make install)
 
+# -----------------------------------------------------------------------------
+# general project settings
+# -----------------------------------------------------------------------------
+include($$PWD/../shared.pri)

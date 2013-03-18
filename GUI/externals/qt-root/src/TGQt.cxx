@@ -1466,6 +1466,7 @@ void  TGQt::DrawCellArray(int x1, int y1, int x2, int y2, int nx, int ny, int *i
    }
 }
 
+//#include "TBenchmark.h"
 //______________________________________________________________________________
 void  TGQt::DrawFillArea(int n, TPoint *xy)
 {
@@ -1473,7 +1474,10 @@ void  TGQt::DrawFillArea(int n, TPoint *xy)
    // n         : number of points
    // xy(2,n)   : list of points
 
+
+
    TQtLock lock;
+
    if (fSelectedWindow && n>0)
    {
       TQtPainter p(this);
@@ -1483,15 +1487,30 @@ void  TGQt::DrawFillArea(int n, TPoint *xy)
       for (int i =0;i<n;i++,rootPoint++) qtPoints.setPoint(i,rootPoint->fX,rootPoint->fY);
       p.drawPolygon(qtPoints);
 
-//       std::cout << "XXX " << fQPainter << std::endl;
-//       if (fQBrush->style() == Qt::SolidPattern) fQPainter->setPen(Qt::NoPen);
-//       QPolygon qtPoints(n);
-//       TPoint *rootPoint = xy;
-//       for (int i =0;i<n;i++,rootPoint++) qtPoints.setPoint(i,rootPoint->fX,rootPoint->fY);
-//       fQPainter->drawPolygon(qtPoints);
-
    }
+
+
+   // Faster equivalent of code above
+//    if(fSelectedWindow != NoOperation) {
+//        QPaintDevice *src = fSelectedWindow;
+//        QPainter p(src);
+
+//        if (fQBrush->style() == Qt::SolidPattern) {
+//            p.setPen(Qt::NoPen);
+//        } else {
+//            p.setPen(*fQPen);
+//        }
+//        p.setBrush(*fQBrush);
+//        QPolygon qtPoints(n);
+//        TPoint *rootPoint = xy;
+//        for (int i =0;i<n;i++,rootPoint++) qtPoints.setPoint(i,rootPoint->fX,rootPoint->fY);
+//        p.drawPolygon(qtPoints);
+//    }
+
+
+
 }
+
 
 //______________________________________________________________________________
 void  TGQt::DrawLine(int x1, int y1, int x2, int y2)

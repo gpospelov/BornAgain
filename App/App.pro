@@ -3,8 +3,7 @@ CONFIG  += console
 CONFIG  -= qt
 CONFIG  -= app_bundle
 QT      -= core gui
-
-include($$PWD/../shared.pri)
+CONFIG += BORNAGAIN_ROOT # depend on ROOT libraries
 
 FUNCTIONAL_TESTS = $$PWD/../Tests/FunctionalTests/TestCore
 
@@ -168,14 +167,10 @@ LOCATIONS = $$PWD/inc \
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}
 
-OBJECTS_DIR = obj
 
 # -----------------------------------------------------------------------------
 # libraries, extensions
 # -----------------------------------------------------------------------------
-
-LIBS += -lpthread -lm -ldl
-
 # to throw exception in the case floating point exception (gcc only)
 CONFIG(DEBUG_FPE) {
     HEADERS += inc/fp_exception_glibc_extension.h
@@ -194,52 +189,14 @@ for(dep, MY_DEPENDENCY_LIB) {
 }
 
 # -----------------------------------------------------------------------------
-# add ROOT libraries
+# generate ROOT dictionaries
 # -----------------------------------------------------------------------------
-
-MYROOT = $$system(root-config --prefix)
-isEmpty(MYROOT): error("Could not run root-config. Install ROOT, and set PATH to include ROOTSYS/bin.")
-message("Found ROOT under directory " $${MYROOT})
-
-INCLUDEPATH += $$system(root-config --incdir)
-MYROOTCINT = $${MYROOT}/bin/rootcint
-ROOTLIBDIR = $$system(root-config --libdir)
-LIBS += -L$${ROOTLIBDIR}
-REQUIRED_ROOT_LIBS = Cint Core EG Eve FTGL Ged Geom Graf Graf3d Gpad Gui Hist MathCore MathMore Matrix Minuit2 Physics Postscript RGL Rint RIO Thread Tree TreePlayer 
-
-# check existence of required ROOT libraries
-for(x, REQUIRED_ROOT_LIBS) {
-    libfile = $${ROOTLIBDIR}/lib$${x}.so
-    !exists($${libfile}) : MISSED_ROOT_LIBRARIES += $${libfile}
-    LIBS += -l$${x}
-}
-!isEmpty(MISSED_ROOT_LIBRARIES): error( "The following libraries are missing in $${ROOTLIBDIR}: $${MISSED_ROOT_LIBRARIES}.")
+BORNAGAIN_ROOT_DICT_FOR_CLASSES =  inc/App.h inc/AppLinkDef.h
+BORNAGAIN_ROOT_DICT_INCLUDES = ../Core/Tools/inc
 
 # -----------------------------------------------------------------------------
-# Hand made addition to generate ROOT dictionaries in the
-# absence of rootcint.pri file
+# general project settings
 # -----------------------------------------------------------------------------
-CREATE_ROOT_DICT_FOR_CLASSES = inc/App.h inc/AppLinkDef.h
-
-DICTDEFINES += -DQT_VERSION=0x30000
-QT_VERSION=$$[QT_VERSION]
-contains( QT_VERSION, "^4.*" ) {
-  DICTDEFINES -= -DQT_VERSION=0x30000
-  DICTDEFINES *= -DQT_VERSION=0x40000
-}
-ROOT_CINT_TARGET = $${TARGET}
-SOURCES         *= src/$${ROOT_CINT_TARGET}Dict.cpp
-rootcint.target       = src/$${ROOT_CINT_TARGET}Dict.cpp
-rootcint.commands    += $$MYROOTCINT
-rootcint.commands    +=  -f $$rootcint.target  -c -I../Core/Tools/inc $$CREATE_ROOT_DICT_FOR_CLASSES
-#rootcint.commands    +=  -f $$rootcint.target  -c -p $$DICTDEFINES $(INCPATH) $$CREATE_ROOT_DICT_FOR_CLASSES
-rootcint.depends      = $$CREATE_ROOT_DICT_FOR_CLASSES
-
-rootcintecho.commands = @echo "Generating dictionary $$rootcint.target for $$CREATE_ROOT_DICT_FOR_CLASSES classes"
-QMAKE_EXTRA_TARGETS += rootcintecho rootcint
-QMAKE_CLEAN       +=  src/$${ROOT_CINT_TARGET}Dict.cpp src/$${ROOT_CINT_TARGET}Dict.h
-QMAKE_DISTCLEAN  += $$PWD/obj/*.o
-
-
+include($$PWD/../shared.pri)
 
 

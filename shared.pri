@@ -5,18 +5,32 @@ lessThan(QT_VERSION, 4.5) {
     error("BornAgain requires Qt 4.5 or greater")
 }
 
+# -----------------------------------------------------------------------------
+# propagating operation system type inside the code
+# -----------------------------------------------------------------------------
+# (note, that when Qt libraries are used, it is already done in <qglobal.h>)
+macx {
+    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_MAC
+    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_MAC
+}
+unix:!macx {
+    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_LINUX
+    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_LINUX
+}
 !macx:!unix {
   error("Unknown operation system")
 }
 
+
 # -----------------------------------------------------------------------------
-# to compile in debug mode define environment variable 'export BORNAGAIN_DEBUG=yes'
+# for debug set environment variable 'export BORNAGAIN_DEBUG=yes'
 # -----------------------------------------------------------------------------
 env_debug_variable = $$(BORNAGAIN_DEBUG)
 isEqual(env_debug_variable, "yes") {
   #message("Compiling with DEBUG option")
   CONFIG += debug
 }
+
 
 # -----------------------------------------------------------------------------
 # general external libraries
@@ -69,20 +83,26 @@ isEmpty(FFTW3_INCLUDE): error("missed dependency:" $${FFTW3_HEADERFILE})
 isEmpty(BOOST_INCLUDE): error("missed dependency:" $${BOOST_HEADERFILE})
 isEmpty(BOOST_LIB): error("missed dependency:" $${BOOST_LIBFILES})
 
-# here is workaround since JCNS /usr/local doesn't have shared fftw3 (run with 'qmake CONFIG+=JCNS')
+
+# -----------------------------------------------------------------------------
+# temporary workaround for compilation in JCNS
+# -----------------------------------------------------------------------------
 env_jcns_variable = $$(BORNAGAIN_JCNS)
 isEqual(env_jcns_variable, "yes") {
-  #message("Compiling with DEBUG option")
   CONFIG += JCNS
 }
 CONFIG(JCNS) {
   message("Special config for JCNS")
   INCLUDEPATH += /usr/users/jcns/pospelov/software/include
-  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_signals  -lboost_filesystem -lboost_regex -lboost_thread
+  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 \
+         -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams \
+         -lboost_system -lboost_signals  -lboost_filesystem -lboost_regex \
+         -lboost_thread
 }
 
+
 # -----------------------------------------------------------------------------
-# general include path
+# general include paths
 # -----------------------------------------------------------------------------
 LOCATIONS = $$PWD/Core/Algorithms/inc \
             $$PWD/Core/Fitting/inc  \
@@ -94,6 +114,7 @@ LOCATIONS = $$PWD/Core/Algorithms/inc \
 
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}
+
 
 # -----------------------------------------------------------------------------
 # options for testing and performance issues
@@ -126,16 +147,45 @@ CONFIG(DEBUG) {
     CONFIG +=DEBUG_FPE
 }
 
-# propagating operation system type inside the code
-# (note, that when Qt libraries are used, it is already done in <qglobal.h>)
-macx {
-    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_MAC
-    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_MAC
-}
-unix:!macx {
-    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_LINUX
-    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_LINUX
+# -----------------------------------------------------------------------------
+# add ROOT libraries
+# -----------------------------------------------------------------------------
+CONFIG(BORNAGAIN_ROOT) {
+    MYROOT = $$system(root-config --prefix)
+    isEmpty(MYROOT): error("Could not run root-config. Install ROOT, and set PATH to include ROOTSYS/bin.")
+    message("Found ROOT under directory " $${MYROOT})
+
+    INCLUDEPATH += $$system(root-config --incdir)
+    MYROOTCINT = $${MYROOT}/bin/rootcint
+    ROOTLIBDIR = $$system(root-config --libdir)
+    LIBS += -L$${ROOTLIBDIR}
+    REQUIRED_ROOT_LIBS = Cint Core EG Eve FTGL Ged Geom Graf Graf3d Gpad Gui Hist MathCore MathMore Matrix Minuit2 Physics Postscript RGL Rint RIO Thread Tree TreePlayer
+
+    # check existence of required ROOT libraries
+    for(x, REQUIRED_ROOT_LIBS) {
+        libfile = $${ROOTLIBDIR}/lib$${x}.so
+        !exists($${libfile}) : MISSED_ROOT_LIBRARIES += $${libfile}
+        LIBS += -l$${x}
+    }
+    !isEmpty(MISSED_ROOT_LIBRARIES): error( "The following libraries are missing in $${ROOTLIBDIR}: $${MISSED_ROOT_LIBRARIES}.")
+
+    LIBS += -lpthread -lm -ldl
+
+    # generation of ROOT dictionaries
+    !isEmpty(BORNAGAIN_ROOT_DICT_FOR_CLASSES) {
+        ROOT_CINT_TARGET = $${TARGET}
+        SOURCES *= src/$${ROOT_CINT_TARGET}Dict.cpp
+        rootcint.target = src/$${ROOT_CINT_TARGET}Dict.cpp
+        rootcint.commands += $$MYROOTCINT
+        rootcint.commands +=  -f $$rootcint.target  -c  -I$$BORNAGAIN_ROOT_DICT_INCLUDES $$BORNAGAIN_ROOT_DICT_FOR_CLASSES
+        rootcint.depends = $$BORNAGAIN_ROOT_DICT_FOR_CLASSES
+        rootcintecho.commands = @echo "Generating dictionary $$rootcint.target for $$BORNAGAIN_ROOT_DICT_FOR_CLASSES classes"
+        QMAKE_EXTRA_TARGETS += rootcintecho rootcint
+        QMAKE_CLEAN +=  src/$${ROOT_CINT_TARGET}Dict.cpp src/$${ROOT_CINT_TARGET}Dict.h
+    }
 }
 
+OBJECTS_DIR = obj
+QMAKE_DISTCLEAN  += $$PWD/obj/*.o
 
 

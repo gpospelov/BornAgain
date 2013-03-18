@@ -47,6 +47,9 @@
 #include <qpixmap.h>
 #include <qfileinfo.h>
 
+#include <iostream>
+#include "TBenchmark.h"
+
 #ifdef R__QTWIN32
 // #include "Windows4Root.h"
 #include "TWinNTSystem.h"
@@ -430,6 +433,7 @@ void TQtWidget::Disconnect()
    // one has to set CanvasID = 0 to disconnect things properly.
    fCanvas = 0;
 }
+
 //_____________________________________________________________________________
 void TQtWidget::Refresh()
 {
@@ -445,12 +449,16 @@ void TQtWidget::Refresh()
    fRefreshTimer->start();
 }
 
-#include <iostream>
+
 //_____________________________________________________________________________
 void TQtWidget::RefreshCB()
 {
    // [slot]  to allow Qt signal refreshing the ROOT TCanvas if needed
     static int inum=0;
+
+    TBenchmark mb;
+    mb.Start("xxx");
+
 
    TCanvas *c = Canvas();
    if (c) {
@@ -463,6 +471,10 @@ void TQtWidget::RefreshCB()
    else {
       qDebug() << " TQtWidget::Refresh() update inside of paintEvent !!!" << this; 
    }
+
+   mb.Stop("xxx");
+   mb.Show("xxx");
+
 }
 //_____________________________________________________________________________
 void TQtWidget::SetCanvas(TCanvas *c) 

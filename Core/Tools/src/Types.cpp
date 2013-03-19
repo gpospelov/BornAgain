@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/src/Types.cpp
-//! @brief     Implements class Types by just including Types.h.
+//! @brief     Just include Types.h
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)

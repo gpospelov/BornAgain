@@ -3,7 +3,8 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Fitting/inc/FitSuiteFunctions.h
-//! @brief     Defines classes IFitSuiteFunction, FitSuiteChiSquaredFunction, FitSuiteGradientFunction.
+//! @brief     Defines classes IFitSuiteFunction,
+//!              FitSuiteChiSquaredFunction, FitSuiteGradientFunction
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -1,9 +1,25 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/IParameterized.cpp 
+//! @brief     Implements class IParameterized, mainly by including IParametrized.h.
+//
+// ************************************************************************** //
+
 #include "IParameterized.h"
 #include "Utils.h"
 
-
 /* ************************************************************************* */
-// c-tors
+// constructors
 /* ************************************************************************* */
 IParameterized::IParameterized() : m_parameters(), m_status()
 {
@@ -26,7 +42,6 @@ IParameterized &IParameterized::operator=(const IParameterized &other)
     }
     return *this;
 }
-
 
 /* ************************************************************************* */
 // create new parameter pool which contains all local parameter and  parameters of children

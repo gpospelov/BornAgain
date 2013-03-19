@@ -1,9 +1,25 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Algorithms/ConvolutionDetectorResolution.cpp 
+//! @brief     Implements class ConvolutionDetectorResolution.
+//
+// ************************************************************************** //
+
 #include "ConvolutionDetectorResolution.h"
 #include "Convolve.h"
 
 #include <iostream>
 #include <cassert>
-
 
 /* ************************************************************************* */
 // c-tors
@@ -31,7 +47,6 @@ ConvolutionDetectorResolution::~ConvolutionDetectorResolution()
     delete mp_res_function_2d;
 }
 
-
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other) : IDetectorResolution()
 //    : IDetectorResolution(other)
 {
@@ -43,18 +58,11 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(const ConvolutionDe
 
 }
 
-
-/* ************************************************************************* */
-// clone
-/* ************************************************************************* */
 //! clone object
 ConvolutionDetectorResolution *ConvolutionDetectorResolution::clone() const
 {
     return new ConvolutionDetectorResolution(*this);
 }
-
-
-
 
 void ConvolutionDetectorResolution::applyDetectorResolution(
         OutputData<double>* p_intensity_map) const

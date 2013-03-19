@@ -1,23 +1,26 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/ISingleton.h 
+//! @brief     Defines class ISingleton.
+//
+// ************************************************************************** //
+
 #ifndef ISINGLETON_H
 #define ISINGLETON_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ISingleton.h
-//! @brief  Definition of singleton base template
-//! @author Scientific Computing Group at FRM II
-//! @date   20.04.2012
 
 #include <stdexcept>
 #include <iostream>
 #include <typeinfo>
-
 
 template <class T>
 class ISingleton
@@ -75,6 +78,5 @@ private:
 
 template<class T > typename ISingleton<T>::T_Pointer ISingleton<T>::m_instance = 0;
 template< class T> bool ISingleton<T>::m_destroyed = false;
-
 
 #endif // ISINGLETON_H

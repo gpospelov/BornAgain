@@ -1,5 +1,21 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      FormFactors/FormFactorCrystal.cpp 
+//! @brief     Implements class FormFactorCrystal.
+//
+// ************************************************************************** //
+
 #include "FormFactorCrystal.h"
-//#include "Units.h"
 
 FormFactorCrystal::FormFactorCrystal(
         const Crystal &p_crystal,

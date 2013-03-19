@@ -1,29 +1,27 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      FormFactors/IFormFactorBornSeparable.h 
+//! @brief     Defines class IFormFactorBornSeparable.
+//
+// ************************************************************************** //
+
 #ifndef IFORMFACTORBORNSEPARABLE_H_
 #define IFORMFACTORBORNSEPARABLE_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IFormFactorBornSeparable.h
-//! @brief  Definition of IFormFactorBornSeparable interface
-//! @author Scientific Computing Group at FRM II
-//! @date   Nov 28, 2012
 
 #include "IFormFactorBorn.h"
 
-//- -------------------------------------------------------------------
-//! @class IFormFactorBornSeparable
-//! @brief Definition of IFormFactorBornSeparable interface
-//!
-//! IFormFactorBornSeparable defines a Born formfactor, whose scattering amplitude
-//! only depends on the scattering vector \f$q\equiv k_i-k_f\f$ and that separates
-//! into a radial and a z-dependent part
-//- -------------------------------------------------------------------
+//! Born formfactor (scattering amplitude only depends on q, and separates into a radial and a z-dependent part).
+
 class IFormFactorBornSeparable : public IFormFactorBorn
 {
 public:

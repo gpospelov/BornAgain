@@ -1,21 +1,27 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      FormFactors/FormFactorFullSphere.h 
+//! @brief     Defines class FormFactorFullSphere.
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORFULLSPHERE_H_
 #define FORMFACTORFULLSPHERE_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorFullSphere.h
-//! @brief  Definition of FormFactorFullSphere class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 13, 2012
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
+
+//! ?
 
 class FormFactorFullSphere : public IFormFactorBorn
 {
@@ -41,6 +47,5 @@ protected:
 private:
     double m_radius;
 };
-
 
 #endif /* FORMFACTORFULLSPHERE_H_ */

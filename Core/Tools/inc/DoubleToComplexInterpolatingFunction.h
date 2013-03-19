@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/DoubleToComplexInterpolatingFunction.h 
+//! @brief     Defines class DoubleToComplexInterpolatingFunction.
+//
+// ************************************************************************** //
+
 #ifndef DOUBLETOCOMPLEXINTERPOLATINGFUNCTION_H_
 #define DOUBLETOCOMPLEXINTERPOLATINGFUNCTION_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   DoubleToComplexInterpolatingFunction.h
-//! @brief  Definition of class that interpolates for a given map
-//! @author herck
-//! @date   01.05.2012
 
 #include "IDoubleToComplexFunction.h"
 #include <map>

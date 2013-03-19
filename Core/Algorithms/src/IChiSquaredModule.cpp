@@ -1,5 +1,21 @@
-#include "IChiSquaredModule.h"
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Algorithms/IChiSquaredModule.cpp 
+//! @brief     Implements class IChiSquaredModule.
+//
+// ************************************************************************** //
 
+#include "IChiSquaredModule.h"
 
 IChiSquaredModule::IChiSquaredModule()
     : mp_real_data(0)
@@ -15,7 +31,6 @@ IChiSquaredModule::IChiSquaredModule()
     mp_squared_function = new SquaredFunctionDefault();
     mp_data_selector = new DefaultAllDataSelector();
 }
-
 
 IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule &other)
     : ICloneable()
@@ -39,7 +54,6 @@ IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule &other)
     m_ndegree_of_freedom = other.m_ndegree_of_freedom;
 }
 
-
 IChiSquaredModule::~IChiSquaredModule()
 {
     delete mp_real_data;
@@ -51,7 +65,6 @@ IChiSquaredModule::~IChiSquaredModule()
     delete mp_intensity_function;
 }
 
-
 void IChiSquaredModule::setRealAndSimulatedData(const OutputData<double > &real_data, const OutputData<double >&simulation_data)
 {
     delete mp_real_data;
@@ -60,13 +73,11 @@ void IChiSquaredModule::setRealAndSimulatedData(const OutputData<double > &real_
     mp_simulation_data = simulation_data.clone();
 }
 
-
 void IChiSquaredModule::setFittingDataSelector(const IFittingDataSelector& selector)
 {
     delete mp_data_selector;
     mp_data_selector = selector.clone();
 }
-
 
 void IChiSquaredModule::setChiSquaredFunction(const ISquaredFunction& squared_function)
 {
@@ -80,13 +91,11 @@ void IChiSquaredModule::setOutputDataNormalizer(const IOutputDataNormalizer &dat
     mp_data_normalizer = data_normalizer.clone();
 }
 
-
 void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
 {
     delete mp_intensity_function;
     mp_intensity_function = intensity_function.clone();
 }
-
 
 void IChiSquaredModule::initWeights()
 {

@@ -1,24 +1,27 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Fitting/FitObject.h 
+//! @brief     Defines class FitObject.
+//
+// ************************************************************************** //
+
 #ifndef FITOBJECT_H
 #define FITOBJECT_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FitObject.h
-//! @brief  Definition of FitObject class
-//! @author Scientific Computing Group at FRM II
-//! @date   21.11.2012
 
 #include "IParameterized.h"
 #include "Simulation.h"
 #include "OutputData.h"
 #include "ChiSquaredModule.h"
-
 
 //- -------------------------------------------------------------------
 //! @class FitObject
@@ -75,7 +78,6 @@ private:
     OutputData<double > *m_real_data; //! real data
     IChiSquaredModule *m_chi2_module; //! chi2 module
     double m_weight; //! weight of data set in chi2 calculations
-
 };
 
 #endif // FITOBJECT_H

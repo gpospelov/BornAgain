@@ -1,26 +1,27 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Algorithms/OpticalFresnel.h 
+//! @brief     Defines class OpticalFresnel.
+//
+// ************************************************************************** //
+
 #ifndef OPTICALFRESNEL_H
 #define OPTICALFRESNEL_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   OpticalFresnel.h
-//! @brief  Definition of OpticalFresnel class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #include <vector>
 #include "Types.h"
 #include "ISimulation.h"
 #include "MultiLayer.h"
-
-
-//class MultiLayer;
 
 /* ************************************************************************* */
 // optical fresnel coefficients
@@ -79,6 +80,5 @@ private:
     void calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
     void calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
 };
-
 
 #endif // OPTICALFRESNEL_H

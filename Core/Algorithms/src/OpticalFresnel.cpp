@@ -1,15 +1,28 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Algorithms/OpticalFresnel.cpp 
+//! @brief     Implements class OpticalFresnel.
+//
+// ************************************************************************** //
+
 #include <iostream>
 #include <algorithm>
 #include "OpticalFresnel.h"
-//#include "MultiLayer.h"
 #include "Numeric.h"
-
-
 
 OpticalFresnel::OpticalFresnel() : m_use_roughness(false)
 {
 }
-
 
 void OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, MultiLayerCoeff_t &coeff)
 {
@@ -33,9 +46,7 @@ void OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, Mu
     }
 
     calculateX2(sample, coeff);
-
     calculateRT2(sample, coeff);
-
 }
 
 void OpticalFresnel::calculateKZ(const MultiLayer &sample, const kvector_t &kvec, MultiLayerCoeff_t &coeff) const
@@ -76,7 +87,6 @@ void OpticalFresnel::calculateFresnelCoefficients(MultiLayerCoeff_t &coeff) cons
     }
 }
 
-
 void OpticalFresnel::calculateFresnelCoefficientsWithRoughness(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const
 {
     double picoeff = std::pow(M_PI/2., 1.5);
@@ -114,7 +124,6 @@ void OpticalFresnel::calculateFresnelCoefficientsWithRoughness(const MultiLayer 
         }
     }
 }
-
 
 void OpticalFresnel::calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const
 {

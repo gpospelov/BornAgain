@@ -1,18 +1,32 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Fitting/FitSuiteStrategies.cpp 
+//! @brief     Implements class FitSuiteStrategies.
+//
+// ************************************************************************** //
+
 #include "FitSuiteStrategies.h"
 #include "FitSuite.h"
 #include <cassert>
 
 FitSuiteStrategies::FitSuiteStrategies() : m_fit_suite(0), m_current_strategy_index(0)
 {
-
 }
-
 
 FitSuiteStrategies::~FitSuiteStrategies()
 {
     clear();
 }
-
 
 void FitSuiteStrategies::clear()
 {
@@ -20,14 +34,12 @@ void FitSuiteStrategies::clear()
     m_current_strategy_index = 0;
 }
 
-
 void FitSuiteStrategies::addStrategy(IFitSuiteStrategy *strategy)
 {
     assert(m_fit_suite);
     strategy->init(m_fit_suite);
     m_strategies.push_back(strategy);
 }
-
 
 void FitSuiteStrategies::minimize()
 {
@@ -42,4 +54,3 @@ void FitSuiteStrategies::minimize()
         }
     }
 }
-

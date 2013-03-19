@@ -1,29 +1,30 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/OutputDataWriter.h 
+//! @brief     Defines class OutputDataWriter.
+//
+// ************************************************************************** //
+
 #ifndef OUTPUTDATAWRITER_H
 #define OUTPUTDATAWRITER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   OutputDataWrite.h
-//! @brief  Definition of OutputDataWriter class
-//! @author Scientific Computing Group at FRM II
-//! @date   15.01.2013
 
 #include "OutputData.h"
 #include "OutputDataWriteStrategy.h"
 #include "Types.h"
 #include <string>
 
+//! Write OutputData to file using different witing strategies
 
-//- -------------------------------------------------------------------
-//! @class OutputDataWriter
-//! @brief Write OutputData to file using different witing strategies
-//- -------------------------------------------------------------------
 class OutputDataWriter
 {
 public:
@@ -42,7 +43,5 @@ private:
     std::string m_file_name;
     IOutputDataWriteStrategy *m_write_strategy;
 };
-
-
 
 #endif // OUTPUTDATAWRITER_H

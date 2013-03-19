@@ -1,10 +1,25 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Fitting/FitSuiteFunctions.cpp 
+//! @brief     Implements classes FitSuite..Function.
+//
+// ************************************************************************** //
+
 #include "FitSuiteFunctions.h"
 #include "FitSuite.h"
 #include <iomanip>
 
-/* ************************************************************************* */
-// evaluate chi squared value
-/* ************************************************************************* */
+//! evaluate chi squared value
 double FitSuiteChiSquaredFunction::evaluate(const double *pars)
 {
     assert(m_fit_suite != NULL);
@@ -17,12 +32,9 @@ double FitSuiteChiSquaredFunction::evaluate(const double *pars)
     return chi_squared;
 }
 
-
-/* ************************************************************************* */
-// evaluate residual and derivative for given data element
+//! evaluate residual and derivative for given data element
 // (calculations are done for all dataset when index==0, when index!=0 already
 // calculated data just returned
-/* ************************************************************************* */
 double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index, double *gradients)
 {
     assert(m_fit_suite != NULL);
@@ -54,7 +66,7 @@ double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index
     return m_residuals[index];
 }
 
-
+//! ?
 void FitSuiteGradientFunction::verify_arrays()
 {
     if( m_npars != m_fit_suite->getFitParameters()->size() || m_ndatasize != m_fit_suite->getFitObjects()->getSizeOfDataSet() ) {
@@ -71,6 +83,7 @@ void FitSuiteGradientFunction::verify_arrays()
     }
 }
 
+//! ?
 void FitSuiteGradientFunction::verify_minimizer_logic(bool parameters_have_changed, int current_index)
 {
     int index_difference = current_index - m_prev_index;
@@ -89,6 +102,7 @@ void FitSuiteGradientFunction::verify_minimizer_logic(bool parameters_have_chang
     m_prev_index = current_index;
 }
 
+//! ?
 void FitSuiteGradientFunction::calculate_residuals(const double *pars)
 {
     //std::cout << " FitSuiteGradientFunction::calculate_residuals() -> Info. " << std::endl;
@@ -100,6 +114,7 @@ void FitSuiteGradientFunction::calculate_residuals(const double *pars)
 
 }
 
+//! ?
 void FitSuiteGradientFunction::calculate_gradients(const double *pars)
 {
     std::cout << " FitSuiteGradientFunction::calculate_gradients() -> Info. " << std::endl;
@@ -132,13 +147,10 @@ void FitSuiteGradientFunction::calculate_gradients(const double *pars)
 
 }
 
-
+//! ?
 void FitSuiteGradientFunction::runSimulation(const double *pars){
     assert(m_fit_suite);
     m_fit_suite->getFitParameters()->setValues(pars);
     m_fit_suite->getFitObjects()->runSimulations();
     //m_fit_suite->getFitObjects()->getChiSquaredValue();
 }
-
-
-

@@ -1,29 +1,28 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/SafePointerVector.h 
+//! @brief     Defines and implements template class SafePointerVector.
+//
+// ************************************************************************** //
+
 #ifndef SAFEPOINTERVECTOR_H_
 #define SAFEPOINTERVECTOR_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   SafePointerVector.h
-//! @brief  Definition of SafePointerVector template
-//! @author Scientific Computing Group at FRM II
-//! @date   Dec 10, 2012
 
 #include <vector>
 using std::size_t;
 
-//- -------------------------------------------------------------------
-//! @class SafePointerVector
-//! @brief Definition of SafePointerVector<T> template for safe handling
-//! of vectors of pointers that are owned by the vector
-//!
-//! The template class should implement a clone() function
-//- -------------------------------------------------------------------
+//! Safe handling of vectors of pointers that are owned by the vector
+
 template <class T> class SafePointerVector
 {
 public:

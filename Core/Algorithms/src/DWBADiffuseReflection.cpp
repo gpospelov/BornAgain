@@ -1,7 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Algorithms/DWBADiffuseReflection.cpp 
+//! @brief     Implements class DWBADiffuseReflection.
+//
+// ************************************************************************** //
+
 #include "DWBADiffuseReflection.h"
 #include "LayerRoughness.h"
-
-
 
 DWBADiffuseReflection::DWBADiffuseReflection()
 : m_sample(0)
@@ -10,7 +25,6 @@ DWBADiffuseReflection::DWBADiffuseReflection()
 , m_qz1(0), m_qz2(0), m_qz3(0), m_qz4(0)
 {
 }
-
 
 void DWBADiffuseReflection::execute(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf)
 {
@@ -27,7 +41,6 @@ void DWBADiffuseReflection::execute(const MultiLayer &sample, const kvector_t &k
 
 }
 
-
 void DWBADiffuseReflection::setKvectors(const kvector_t &ki, const kvector_t &kf)
 {
     m_ki = ki;
@@ -42,7 +55,6 @@ void DWBADiffuseReflection::setKvectors(const kvector_t &ki, const kvector_t &kf
     calculator.execute(*m_sample, kf, m_fcoeff_f);
 }
 
-
 void DWBADiffuseReflection::diffuse_autocorr()
 {
     double autocorr(0);
@@ -51,7 +63,6 @@ void DWBADiffuseReflection::diffuse_autocorr()
     }
     m_diffuse_autocorr = autocorr*m_ki.mag2()/16./M_PI;
 }
-
 
 void DWBADiffuseReflection::diffuse_crosscorr()
 {
@@ -76,14 +87,12 @@ void DWBADiffuseReflection::diffuse_crosscorr()
     m_diffuse_crosscorr = crosscorr.real()*m_ki.mag2()/16./M_PI;
 }
 
-
 complex_t DWBADiffuseReflection::get_refractive_term(size_t ilayer) const
 {
     complex_t n1 = m_sample->getLayer(ilayer)->getRefractiveIndex();
     complex_t n2 = m_sample->getLayer(ilayer+1)->getRefractiveIndex();
     return n1*n1-n2*n2;
 }
-
 
 complex_t DWBADiffuseReflection::get_sum4terms(size_t ilayer)
 {

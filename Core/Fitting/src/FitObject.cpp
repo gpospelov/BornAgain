@@ -1,10 +1,23 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Fitting/FitObject.cpp 
+//! @brief     Implements class FitObject.
+//
+// ************************************************************************** //
+
 #include "FitObject.h"
 #include "Exceptions.h"
 
-
-/* ************************************************************************* */
-// FitObject c-tors
-/* ************************************************************************* */
 FitObject::FitObject(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module, double weight)
     : m_simulation(simulation.clone())
     , m_real_data(real_data.clone())
@@ -27,10 +40,7 @@ FitObject::~FitObject()
     delete m_chi2_module;
 }
 
-
-/* ************************************************************************* */
-// set real data
-/* ************************************************************************* */
+//! set real data
 void FitObject::setRealData(const OutputData<double > &real_data)
 {
     delete m_real_data;
@@ -45,20 +55,14 @@ void FitObject::setRealData(const OutputData<double > &real_data)
     }
 }
 
-
-/* ************************************************************************* */
-// calculate chi squared value
-/* ************************************************************************* */
+//! calculate chi squared value
 double FitObject::calculateChiSquared()
 {
     m_chi2_module->setRealAndSimulatedData(*m_real_data, *m_simulation->getOutputData());
     return m_chi2_module->calculateChiSquared();
 }
 
-
-/* ************************************************************************* */
-// add parameters from local pool to external pool
-/* ************************************************************************* */
+//! add parameters from local pool to external pool
 std::string FitObject::addParametersToExternalPool(std::string path,
         ParameterPool* external_pool, int copy_number) const
 {
@@ -78,8 +82,7 @@ std::string FitObject::addParametersToExternalPool(std::string path,
     return new_path;
 }
 
-
+//! ?
 void FitObject::init_parameters()
 {
-
 }

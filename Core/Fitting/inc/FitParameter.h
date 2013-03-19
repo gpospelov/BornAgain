@@ -1,24 +1,27 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Fitting/FitParameter.h 
+//! @brief     Defines class FitParameter.
+//
+// ************************************************************************** //
+
 #ifndef FITPARAMETER_H
 #define FITPARAMETER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FitParameter.h
-//! @brief  Definition of FitParameter class
-//! @author Scientific Computing Group at FRM II
-//! @date   28.06.2012
 
 #include "INamed.h"
 #include "AttLimits.h"
 #include <string>
 #include <vector>
-
 
 //- -------------------------------------------------------------------
 //! @class FitParameter
@@ -58,7 +61,5 @@ protected:
     double m_step;  //! parameter step size
     double m_error; //! parameter error
 };
-
-
 
 #endif // FITPARAMETER_H

@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/Utils.cpp 
+//! @brief     Implements class Utils.
+//
+// ************************************************************************** //
+
 #include "Utils.h"
 #include "Exceptions.h"
 #include <boost/regex.hpp>
@@ -8,10 +25,8 @@
 
 std::string Utils::FileSystem::m_relative_path = "relative path is undefined";
 
+//! parse double values from string to vector of double
 
-//-----------------------------------------------------------------------------
-// parse double values from string to vector of double
-//-----------------------------------------------------------------------------
 vdouble1d_t Utils::String::parse_doubles(const std::string &str)
 {
     vdouble1d_t buff_1d;
@@ -41,9 +56,8 @@ std::string Utils::String::round_doubles(const std::string &str, int precision)
     return newline;
 }
 
-//-----------------------------------------------------------------------------
-// return true if text matches pattern with wildcards '*' and '?'
-//-----------------------------------------------------------------------------
+//! return true if text matches pattern with wildcards '*' and '?'
+
 bool Utils::String::MatchPattern(const std::string &text, std::string wildcardPattern)
 {
     bool caseSensitive = false;
@@ -73,9 +87,8 @@ bool Utils::String::MatchPattern(const std::string &text, std::string wildcardPa
     return boost::regex_match(text, pattern);
 }
 
-//-----------------------------------------------------------------------------
-// split string into vector of string using delimeter
-//-----------------------------------------------------------------------------
+//! split string into vector of string using delimeter
+
 std::vector<std::string> Utils::String::Split(const std::string &text, const std::string &delimeter)
 {
     std::vector<std::string> tokens;
@@ -83,15 +96,14 @@ std::vector<std::string> Utils::String::Split(const std::string &text, const std
     return tokens;
 }
 
+//! return path to the current (working) directory
 
-// return path to the current (working) directory
 std::string Utils::FileSystem::GetWorkingPath()
 {
     return boost::filesystem::current_path().string();
 }
 
-
-// return path to BornAgain home directory
+//! return path to BornAgain home directory
 std::string Utils::FileSystem::GetHomePath()
 {
     // the path to executable module is: boost::filesystem::current_path() + argv[0]
@@ -123,14 +135,14 @@ std::string Utils::FileSystem::GetHomePath()
     return path;
 }
 
+//! return file extension
 
-// return file extension
 std::string Utils::FileSystem::GetFileExtension(const std::string &name)
 {
     return boost::filesystem::extension(name.c_str());
 }
 
-// return true if name contains *.gz extension
+//! return true if name contains *.gz extension
 bool Utils::FileSystem::isGZipped(const std::string &name)
 {
     static const std::string gzip_extension(".gz");
@@ -138,7 +150,7 @@ bool Utils::FileSystem::isGZipped(const std::string &name)
     return false;
 }
 
-// return file main extension (without .gz)
+//! return file main extension (without .gz)
 std::string Utils::FileSystem::GetFileMainExtension(const std::string &name)
 {
     if( !isGZipped(name) ) {
@@ -148,4 +160,3 @@ std::string Utils::FileSystem::GetFileMainExtension(const std::string &name)
         return Utils::FileSystem::GetFileExtension(stripped_name);
     }
 }
-

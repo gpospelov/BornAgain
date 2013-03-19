@@ -1,22 +1,25 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/MemberComplexFunctionIntegrator.h 
+//! @brief     Defines and implements template class MemberComplexFunctionIntegrator.
+//
+// ************************************************************************** //
+
 #ifndef MEMBERFUNCTIONCOMPLEXINTEGRATOR_H
 #define MEMBERFUNCTIONCOMPLEXINTEGRATOR_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   MemberFunctionComplexIntegrator.h
-//! @brief  Definition of MemberFunctionComplexIntegrator template
-//! @author Scientific Computing Group at FRM II
-//! @date   30.01.2013
 
 #include "MemberFunctionIntegrator.h"
 #include "Types.h"
-
 
 template <class C> class MemberComplexFunctionIntegrator
 {
@@ -45,7 +48,6 @@ private:
     MemberFunctionIntegrator<MemberComplexFunctionIntegrator<C > >  m_integrator;
 };
 
-
 template<class C> MemberComplexFunctionIntegrator<C>::MemberComplexFunctionIntegrator(
         mem_function p_member_function, const C *const p_object)
 : m_member_function(p_member_function)
@@ -53,7 +55,6 @@ template<class C> MemberComplexFunctionIntegrator<C>::MemberComplexFunctionInteg
 {
     m_integrator.setIntegrand(0,this);
 }
-
 
 template<class C> complex_t MemberComplexFunctionIntegrator<C>::integrate(double lmin, double lmax)
 {
@@ -69,4 +70,3 @@ template<class C> complex_t MemberComplexFunctionIntegrator<C>::integrate(double
 }
 
 #endif // MEMBERFUNCTIONCOMPLEXINTEGRATOR_H
-

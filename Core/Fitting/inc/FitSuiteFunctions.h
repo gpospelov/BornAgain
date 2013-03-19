@@ -1,19 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Fitting/FitSuiteFunctions.h 
+//! @brief     Defines classes IFitSuiteFunction, FitSuiteChiSquaredFunction, FitSuiteGradientFunction.
+//
+// ************************************************************************** //
+
 #ifndef FITSUITEFUNCTIONS_H
 #define FITSUITEFUNCTIONS_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FitSuiteFunctions.h
-//! @brief  Definition of FitSuiteFunctions classes
-//! @author Scientific Computing Group at FRM II
-//! @date   20.12.2012
-
 
 #include <vector>
 #include <cstddef>
@@ -36,8 +39,6 @@ protected:
     FitSuite *m_fit_suite;
     size_t m_ncall;
 };
-
-
 
 //- -------------------------------------------------------------------
 //! @class FitSuiteChiSquaredFunction
@@ -82,7 +83,5 @@ private:
     size_t m_ncalls_total;
     size_t m_ncalls_gradient;
 };
-
-
 
 #endif // FITSUITEFUNCTIONS_H

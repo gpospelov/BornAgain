@@ -1,29 +1,29 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/OutputDataReadStrategy.h 
+//! @brief     Defines IOutputDataReadStrategy and related classes.
+//
+// ************************************************************************** //
+
 #ifndef OUTPUTDATAREADSTRATEGY_H
 #define OUTPUTDATAREADSTRATEGY_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   OutputDataReadStrategy.h
-//! @brief  Definition of classes from OutputDataReadStrategy family
-//! @author Scientific Computing Group at FRM II
-//! @date   15.01.2013
-
 
 #include "OutputData.h"
 #include "Types.h"
 #include <string>
 
+//! Interface for reading strategy of OutputData from file
 
-//- -------------------------------------------------------------------
-//! @class IOutputDataReadStrategy
-//! @brief Define interface for reading strategy of OutputData from file
-//- -------------------------------------------------------------------
 class IOutputDataReadStrategy
 {
 public:
@@ -34,11 +34,8 @@ public:
 private:
 };
 
+//! Interface for decoration of read strategies (e.g. gzip compression)
 
-//- -------------------------------------------------------------------
-//! @class IOutputDataReadStrategyDecorator
-//! @brief Interface for decoration of read strategies (e.g. gzip compression)
-//- -------------------------------------------------------------------
 class IOutputDataReadStrategyDecorator : public IOutputDataReadStrategy
 {
 public:
@@ -48,11 +45,8 @@ protected:
     IOutputDataReadStrategy *m_read_strategy;
 };
 
+//! Decorator to read outputdata from zipped files
 
-//- -------------------------------------------------------------------
-//! @class OutputDataReadStreamGzip
-//! @brief Decorator to read outputdata from zipped files
-//- -------------------------------------------------------------------
 class OutputDataReadStreamGZip : public IOutputDataReadStrategyDecorator
 {
 public:
@@ -62,29 +56,22 @@ public:
     OutputData<double > *readOutputData(std::istream &file_stream);
 };
 
-
-//- -------------------------------------------------------------------
-//! @class OutputDataReadStreamIMA
-//! @brief Define strategy to read OutputData from IsGISAXS *.ima files
+//! Strategy to read OutputData from IsGISAXS *.ima files
 //! which contains 2D array in the form of [nX] lines of [nY] size
-//- -------------------------------------------------------------------
+
 class OutputDataReadStreamIMA : public IOutputDataReadStrategy
 {
 public:
     OutputData<double > *readOutputData(std::istream &file_stream);
 };
 
-
-//- -------------------------------------------------------------------
-//! @class OutputDataReadStreamV1
-//! @brief Define concrete strategy to read OutputData from ASCII file
+//! Strategy to read OutputData from ASCII file
 //!  1d array for x-axis, 1d array for y-axis, 2d array for data expected
-//- -------------------------------------------------------------------
+
 class OutputDataReadStreamV1 : public IOutputDataReadStrategy
 {
 public:
     OutputData<double > *readOutputData(std::istream &file_stream);
 };
-
 
 #endif // OUTPUTDATAREADSTRATEGY_H

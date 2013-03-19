@@ -1,21 +1,26 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      FormFactors/FormFactorDecoratorDebyeWaller.h 
+//! @brief     Defines class FormFactorDecoratorDebyeWaller.
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORDECORATORDEBYEWALLER_H_
 #define FORMFACTORDECORATORDEBYEWALLER_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorDecoratorDebyeWaller.h
-//! @brief  Definition of Formfactor decorator which includes a Debye-Waller factor
-//! @author Scientific Computing Group at FRM II
-//! @date   Aug 31, 2012
 
 #include "IFormFactorDecorator.h"
 
+//! ?
 
 class FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
 {
@@ -72,7 +77,6 @@ inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
     setName("FormFactorDecoratorDebyeWaller");
     init_parameters();
 }
-
 
 inline FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const
 {

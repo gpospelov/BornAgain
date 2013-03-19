@@ -1,24 +1,27 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Fitting/FitSuiteStrategies.h 
+//! @brief     Defines class FitSuiteStrategies.
+//
+// ************************************************************************** //
+
 #ifndef FITSUITESTRATEGIES_H
 #define FITSUITESTRATEGIES_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FitSuiteStrategies.h
-//! @brief  Definition of FitSuiteStrategy class
-//! @author Scientific Computing Group at FRM II
-//! @date   24.01.2013
 
 #include "SafePointerVector.h"
 #include "IFitSuiteStrategy.h"
 
 class FitSuite;
-
 
 //- -------------------------------------------------------------------
 //! @class FitSuiteStrategies

@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/OutputDataReadStrategy.cpp 
+//! @brief     Implements class OutputDataReadStrategy.
+//
+// ************************************************************************** //
+
 #include "OutputDataReadStrategy.h"
 #include "Types.h"
 #include "Exceptions.h"
@@ -36,8 +53,6 @@ OutputData<double > *OutputDataReadStreamGZip::readOutputData(std::istream &inpu
     return m_read_strategy->readOutputData(incoming);
 }
 
-
-
 /* ************************************************************************* */
 // read data from ASCII file (2D assumed) and fill newly created OutputData with it
 /* ************************************************************************* */
@@ -74,8 +89,6 @@ OutputData<double > *OutputDataReadStreamIMA::readOutputData(std::istream &input
 
     return p_result;
 }
-
-
 
 /* ************************************************************************* */
 // parsing stream of double's into OutputData object
@@ -139,6 +152,3 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
     }
     return p_result;
 }
-
-
-

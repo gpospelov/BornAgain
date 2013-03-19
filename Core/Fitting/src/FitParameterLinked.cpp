@@ -1,22 +1,32 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Fitting/FitParameterLinked.cpp 
+//! @brief     Implements class FitParameterLinked.
+//
+// ************************************************************************** //
+
 #include "FitParameterLinked.h"
 #include "Utils.h"
 
-
 FitParameterLinked::FitParameterLinked()
 {
-
 }
-
 
 FitParameterLinked::FitParameterLinked(const std::string &name, double value, double step, const AttLimits &attlim, double error) : FitParameter(name, value, step, attlim, error)
 {
-
 }
 
-
-/* ************************************************************************* */
 //! add real parameter to the collection
-/* ************************************************************************* */
 void FitParameterLinked::addParameter(ParameterPool::parameter_t par)
 {
     if( !par.isNull() ) {
@@ -26,10 +36,7 @@ void FitParameterLinked::addParameter(ParameterPool::parameter_t par)
     }
 }
 
-
-/* ************************************************************************* */
 //! add parameters from pool which match given wildcard
-/* ************************************************************************* */
 void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string &wildcard)
 {
     std::string wildcard_to_use = getName();
@@ -43,8 +50,7 @@ void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool,
     }
 }
 
-
-
+//! ?
 void FitParameterLinked::print(std::ostream &ostr) const
 {
     FitParameter::print(ostr);
@@ -57,4 +63,3 @@ void FitParameterLinked::print(std::ostream &ostr) const
 //        }
 //    }
 }
-

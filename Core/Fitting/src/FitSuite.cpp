@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Fitting/FitSuite.cpp 
+//! @brief     Implements class FitSuite.
+//
+// ************************************************************************** //
+
 #include "FitSuite.h"
 #include "Exceptions.h"
 #include "FitParameterLinked.h"
@@ -7,7 +24,6 @@
 #include "ChiSquaredModule.h"
 #include <boost/bind.hpp>
 
-
 FitSuite::FitSuite() : m_minimizer(0), m_is_last_iteration(false)
 {
     m_function_chi2.init(this);
@@ -15,16 +31,12 @@ FitSuite::FitSuite() : m_minimizer(0), m_is_last_iteration(false)
     m_fit_strategies.init(this);
 }
 
-
 FitSuite::~FitSuite()
 {
     clear();
 }
 
-
-// ----------------------------------------------------------------------------
-// clear all data
-// ----------------------------------------------------------------------------
+//! clear all data
 void FitSuite::clear()
 {
     m_fit_objects.clear();
@@ -35,42 +47,32 @@ void FitSuite::clear()
     m_is_last_iteration = false;
 }
 
-
-// ----------------------------------------------------------------------------
-// add pair of (simulation, real data) for consecutive simulation
-// ----------------------------------------------------------------------------
+//! add pair of (simulation, real data) for consecutive simulation
 void FitSuite::addSimulationAndRealData(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module)
 {
     m_fit_objects.add(simulation, real_data, chi2_module);
 }
 
-
-// add fit parameter
+//! add fit parameter
 void FitSuite::addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error)
 {
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
-// add fit parameter, step is calculated from initial parameter value
+//! add fit parameter, step is calculated from initial parameter value
 void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim, double error)
 {
     double step = value * getAttributes().getStepFactor();
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
-
-// ----------------------------------------------------------------------------
-// add fit strategy
-// ----------------------------------------------------------------------------
+//! add fit strategy
 void FitSuite::addFitStrategy(IFitSuiteStrategy *strategy)
 {
     m_fit_strategies.addStrategy(strategy);
 }
 
-
-// ----------------------------------------------------------------------------
-// Link FitMultiParameters with simulation parameters
-// ----------------------------------------------------------------------------
+//! link FitMultiParameters with simulation parameters
 void FitSuite::link_fit_parameters()
 {
     ParameterPool *pool = m_fit_objects.createParameterTree();
@@ -81,10 +83,7 @@ void FitSuite::link_fit_parameters()
     delete pool;
 }
 
-
-// ----------------------------------------------------------------------------
-// run fit
-// ----------------------------------------------------------------------------
+//! ?
 bool FitSuite::check_prerequisites() const
 {
     if( !m_minimizer ) throw LogicErrorException("FitSuite::check_prerequisites() -> Error! No minimizer found.");
@@ -93,10 +92,7 @@ bool FitSuite::check_prerequisites() const
     return true;
 }
 
-
-// ----------------------------------------------------------------------------
-// run fit
-// ----------------------------------------------------------------------------
+//! run fit
 void FitSuite::runFit()
 {
     // check if all prerequisites are fullfilled before starting minimization
@@ -118,10 +114,7 @@ void FitSuite::runFit()
     notifyObservers();
 }
 
-
-// ----------------------------------------------------------------------------
-// run single minimization round (called by FitSuiteStrategy)
-// ----------------------------------------------------------------------------
+//! run single minimization round (called by FitSuiteStrategy)
 void FitSuite::minimize()
 {
     // initializing minimizer with fitting functions
@@ -141,7 +134,6 @@ void FitSuite::minimize()
     m_minimizer->minimize();
 }
 
-
 // get current number of minimization function calls
 size_t FitSuite::getNCalls() const
 {
@@ -150,10 +142,7 @@ size_t FitSuite::getNCalls() const
     return (m_function_chi2.getNCalls() ? m_function_chi2.getNCalls() : m_function_gradient.getNCalls());
 }
 
-
-// ----------------------------------------------------------------------------
-//
-// ----------------------------------------------------------------------------
+//! results to stdout
 void FitSuite::printResults() const
 {
     std::cout << std::endl;
@@ -166,4 +155,3 @@ void FitSuite::printResults() const
     m_fit_parameters.printParameters();
     m_minimizer->printResults();
 }
-

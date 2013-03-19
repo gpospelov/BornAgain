@@ -1,19 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Fitting/IFitSuiteStrategy.h 
+//! @brief     Defines classes IFitSuiteStrategy, FitSuiteStrategy...
+//
+// ************************************************************************** //
+
 #ifndef FITSUITESTRATEGY_H
 #define FITSUITESTRATEGY_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FitSuiteStrategy.h
-//! @brief  Definition of FitStrategy class
-//! @author Scientific Computing Group at FRM II
-//! @date   29.10.2012
-
 
 #include "INamed.h"
 #include "Types.h"
@@ -23,7 +26,6 @@ class FitSuite;
 #include <string>
 #include <vector>
 #include <map>
-
 
 //- -------------------------------------------------------------------
 //! @class IFitSuiteStrategy
@@ -46,7 +48,6 @@ protected:
     FitSuite *m_fit_suite;
 };
 
-
 //- -------------------------------------------------------------------
 //! @class FitSuiteStrategyDefault
 //! @brief Default fit strategy just let FitSuite to run it's minimization round
@@ -57,7 +58,6 @@ public:
     FitSuiteStrategyDefault() : IFitSuiteStrategy("FitSuiteStrategyDefault") { }
     virtual void execute();
 };
-
 
 //- -------------------------------------------------------------------
 //! @class FitSuiteStrategyAdjustData
@@ -75,7 +75,6 @@ private:
     bool m_preserve_original_data; //! if it is true, strategy will restore original data in FitSuite before exiting
     bool m_call_minimize; //! if it's true, modify data and then call FitSuite's minimizer, if false - simply modify the data
 };
-
 
 //- -------------------------------------------------------------------
 //! @class FitSuiteStrategyAdjustParameters
@@ -100,7 +99,6 @@ private:
     std::vector<std::string > m_pars_to_release;
     bool m_preserve_original_values; //! if it's true, strategy will set back values of parameters as they were before minimization round
 };
-
 
 //- -------------------------------------------------------------------
 //! @class FitSuiteStrategyBootstrap
@@ -137,6 +135,5 @@ public:
 private:
     int m_n_iterations;
 };
-
 
 #endif // FITSTRATEGY_H

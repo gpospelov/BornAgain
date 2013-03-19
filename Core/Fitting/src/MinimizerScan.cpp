@@ -1,12 +1,26 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Fitting/MinimizerScan.cpp 
+//! @brief     Implements class MinimizerScan.
+//
+// ************************************************************************** //
+
 #include "MinimizerScan.h"
 #include <algorithm>
 
-
-/* ************************************************************************* */
-// Scan minimizer find minimum of chi2 function by equidistant scanning of fit parameters.
+//! Scan minimizer find minimum of chi2 function by equidistant scanning of fit parameters.
 // Only parameters with defined limits (i.e. AttLimits::limited(left, right) )
 // are scanned
-/* ************************************************************************* */
 void MinimizerScan::minimize()
 {
     construct_fcnvalues_map();
@@ -28,11 +42,8 @@ void MinimizerScan::minimize()
     m_fcn(&current_values[0]); // running simulation once again at optimum values
 }
 
-
-/* ************************************************************************* */
-// Construct N dimensional space over all fit parameters with lower and upper limits
+//! Construct N dimensional space over all fit parameters with lower and upper limits
 // defined.
-/* ************************************************************************* */
 void MinimizerScan::construct_fcnvalues_map()
 {
     delete m_fcnvalues_map;
@@ -50,7 +61,7 @@ void MinimizerScan::construct_fcnvalues_map()
     m_fcnvalues_map->setAllTo(0.0);
 }
 
-
+//! ?
 void MinimizerScan::set_parvalues_to_minimum()
 {
     assert(m_fcnvalues_map);
@@ -63,14 +74,14 @@ void MinimizerScan::set_parvalues_to_minimum()
     }
 }
 
-
+//! ?
 double MinimizerScan::getMinValue() const
 {
     assert(m_fcnvalues_map);
     return *std::min_element(m_fcnvalues_map->begin(), m_fcnvalues_map->end());
 }
 
-
+//! ?
 void MinimizerScan::setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize)
 {
     (void) fun_gradient;
@@ -78,13 +89,13 @@ void MinimizerScan::setGradientFunction(function_gradient_t fun_gradient, size_t
     (void) ndatasize;
 }
 
-
+//! ?
 double MinimizerScan::getValueOfVariableAtMinimum(size_t index) const
 {
     return m_parameters[index]->getValue();
 }
 
-
+//! ?
 void MinimizerScan::printResults() const
 {
     std::cout << "--- MinimizerScan ------------------------------------" << std::endl;
@@ -94,14 +105,14 @@ void MinimizerScan::printResults() const
     m_parameters.printParameters();
 }
 
-
+//! ?
 void MinimizerScan::setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters)
 {
     (void)nparameters;
     m_fcn = fun_chi2;
 }
 
-
+//! ?
 void MinimizerScan::setParameters(const FitSuiteParameters &parameters)
 {
     m_parameters.clear();
@@ -110,8 +121,8 @@ void MinimizerScan::setParameters(const FitSuiteParameters &parameters)
     }
 }
 
+//! ?
 std::vector<double > MinimizerScan::getValueOfVariablesAtMinimum() const
 {
     return m_parameters.getValues();
 }
-

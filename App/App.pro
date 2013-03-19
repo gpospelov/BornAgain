@@ -188,8 +188,8 @@ CONFIG(DEBUG) {
 # -----------------------------------------------------------------------------
 LIBS += $$PWD/../lib/libBornAgainCore.so $$PWD/../lib/libBornAgainFit.so
 
-INCLUDEPATH += $$PWD/../Fit/inc
-DEPENDPATH  += $$PWD/../Fit/inc
+INCLUDEPATH += $$PWD/../Fit/Factory/inc
+DEPENDPATH  += $$PWD/../Fit/Factory/inc
 
 # -----------------------------------------------------------------------------
 # generate ROOT dictionaries

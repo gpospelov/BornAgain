@@ -5,7 +5,7 @@
 //! @file      Samples/src/HomogeneousMaterial.cpp
 //! @brief     Implements class HomogeneousMaterial.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching

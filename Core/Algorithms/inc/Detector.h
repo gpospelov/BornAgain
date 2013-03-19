@@ -21,8 +21,6 @@
 #include "IParameterized.h"
 #include "SafePointerVector.h"
 
-#include <vector>
-
 //! Detector with axes and resolution function.
 
 class Detector : public IParameterized

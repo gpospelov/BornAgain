@@ -127,9 +127,6 @@ void SimulationView::onRunSimulation()
     mp_simulation_data_model->addJob(p_new_job->getName(), p_new_job);
     QFuture<void> job_future = QtConcurrent::run(p_new_job, &JobModel::run);
     p_new_job->getJobWatcher()->setFuture(job_future);
-    // initialize a Simulation object and run it
-//    QMessageBox::information(this, tr("Simulation Started"),
-//                             tr("The simulation is now calculating."));
 }
 
 void SimulationView::onPythonJobLaunched()
@@ -147,7 +144,6 @@ void SimulationView::onPythonJobLaunched()
     if (file_name.isNull()) {
         return;
     }
-//    QString file_name("/Users/herck/Development/git/BornAgain/GUI/test_sample_builder");
     PythonScriptSampleBuilder builder(file_name);
     ISample *p_sample = builder.buildSample();
     Simulation *p_sim = new Simulation;
@@ -157,9 +153,6 @@ void SimulationView::onPythonJobLaunched()
     mp_simulation_data_model->addJob(p_new_job->getName(), p_new_job);
     QFuture<void> job_future = QtConcurrent::run(p_new_job, &JobModel::run);
     p_new_job->getJobWatcher()->setFuture(job_future);
-    // initialize a Simulation object and run it
-//    QMessageBox::information(this, tr("Simulation Started"),
-//                             tr("The simulation is now calculating."));
 }
 
 void SimulationView::onJobFinished()

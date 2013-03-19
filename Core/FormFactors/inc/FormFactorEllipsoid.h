@@ -19,7 +19,7 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! Form factor of an ellipsoid..
+//! Form factor of an ellipsoid.
 
 class FormFactorEllipsoid : public IFormFactorBorn
 {

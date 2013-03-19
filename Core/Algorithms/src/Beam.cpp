@@ -1,5 +1,21 @@
-#include "Beam.h"
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Algorithms/Beam.cpp 
+//! @brief     Implements class Beam.
+//
+// ************************************************************************** //
 
+#include "Beam.h"
 
 /* ************************************************************************* */
 // c-tors, assignment operators, swap
@@ -31,7 +47,6 @@ void Beam::swapContent(Beam &other)
     std::swap(this->m_central_k, other.m_central_k);
     std::swap(this->m_intensity, other.m_intensity);
 }
-
 
 /* ************************************************************************* */
 // c-tors, assignment operators, swap

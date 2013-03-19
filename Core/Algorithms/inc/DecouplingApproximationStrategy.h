@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Algorithms/DecouplingApproximationStrategy.h 
+//! @brief     Defines class DecouplingApproximationStrategy.
+//
+// ************************************************************************** //
+
 #ifndef DECOUPLINGAPPROXIMATIONSTRATEGY_H_
 #define DECOUPLINGAPPROXIMATIONSTRATEGY_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   DecouplingApproximationStrategy.h
-//! @brief  Definition of DecouplingApproximationStrategy class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jun 29, 2012
 
 #include "Types.h"
 #include "IInterferenceFunctionStrategy.h"

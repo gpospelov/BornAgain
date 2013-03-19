@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Algorithms/DecouplingApproximationStrategy.cpp 
+//! @brief     Implements class DecouplingApproximationStrategy.
+//
+// ************************************************************************** //
+
 #include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
 
@@ -38,4 +55,3 @@ bool DecouplingApproximationStrategy::checkVectorSizes() const
     size_t n_ifs = m_ifs.size();
     return (n_ffs>0 && n_ifs==1);
 }
-

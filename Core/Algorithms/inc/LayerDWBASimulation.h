@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Algorithms/LayerDWBASimulation.h 
+//! @brief     Defines class LayerDWBASimulation.
+//
+// ************************************************************************** //
+
 #ifndef LAYERDWBASIMULATION_H_
 #define LAYERDWBASIMULATION_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   LayerDWBASimulation.h
-//! @brief  Definition of LayerDWBASimulation class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jun 25, 2012
 
 #include "DWBASimulation.h"
 #include "IDoubleToComplexFunction.h"

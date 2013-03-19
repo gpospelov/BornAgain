@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Algorithms/SizeSpacingCorrelationApproximationStrategy.h 
+//! @brief     Defines class SizeSpacingCorrelationApproximationStrategy.
+//
+// ************************************************************************** //
+
 #ifndef SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H_
 #define SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   SizeSpacingCorrelationApproximationStrategy.h
-//! @brief  Definition of SizeSpacingCorrelationApproximationStrategy class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jan 17, 2013
 
 #include "Types.h"
 #include "IInterferenceFunctionStrategy.h"
@@ -41,6 +45,5 @@ private:
     double m_mean_radius;
     double m_kappa;
 };
-
 
 #endif /* SIZESPACINGCORRELATIONAPPROXIMATIONSTRATEGY_H_ */

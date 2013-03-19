@@ -38,6 +38,8 @@ PyScriptView::PyScriptView(SimulationDataModel *p_simulation_data_model, QWidget
     buttonLayout->addStretch();
 
     scriptEdit = new QTextEdit;
+    scriptEdit->setFontFamily("Courier");
+    scriptEdit->setFontPointSize(14);
     connect(scriptEdit, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
 
     QGridLayout *mainLayout = new QGridLayout;
@@ -51,7 +53,7 @@ PyScriptView::PyScriptView(SimulationDataModel *p_simulation_data_model, QWidget
 void PyScriptView::onOpenScript()
 {
     QString newScriptFilename = QFileDialog::getOpenFileName(this, tr("Open Python Script"),
-        QDir::home().path(), tr("Python SCripts (*.py)"),
+        QDir::homePath(), tr("Python SCripts (*.py)"),
         0, QFileDialog::ReadOnly | QFileDialog::DontUseNativeDialog);
     if (newScriptFilename.isNull()) {
         return;

@@ -42,6 +42,20 @@ def edit( fn ):
         raise Expection( "unexpected line 2" )
     if not re.search( r'^\/\/ \*{66}', a[15] ):
         raise Expection( "unexpected line 15" )
+    if not re.search( r'^\/\/ \*{66}', a[15] ):
+        raise Expection( "unexpected line 15" )
+
+    m=re.search( r'^\/\/\! \@file\s+(\S+)', a[12] )
+    if not m:
+        raise Expection( "unexpected line 12" )
+    file = m.group(1)
+
+    m=re.search( r'^\/\/\! \@brief\s+(\S+)', a[13] )
+    if not m:
+        raise Expection( "unexpected line 13" )
+    brief = m.group(1)
+    
+    s = headertemplate.substitute( F=file, B=brief ) + a[16..-1]
 
 #    fd = open( fn, 'w' )
 #    fd.write( s )

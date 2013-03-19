@@ -1,7 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/StochasticSampledParameter.cpp 
+//! @brief     Implements class StochasticSampledParameter.
+//
+// ************************************************************************** //
+
 #include "StochasticSampledParameter.h"
 #include <iostream>
-
-
 
 StochasticSampledParameter::StochasticSampledParameter(const StochasticParameter<double> &par, size_t nbins, double xmin, double xmax) :
     StochasticParameter<double>(0)
@@ -10,9 +25,7 @@ StochasticSampledParameter::StochasticSampledParameter(const StochasticParameter
   , m_xmin(xmin)
   , m_xmax(xmax)
 {
-
 }
-
 
 StochasticSampledParameter::StochasticSampledParameter(const StochasticParameter<double> &par, size_t nbins, int nfwhm) :
     StochasticParameter<double>(0)
@@ -47,4 +60,3 @@ StochasticSampledParameter *StochasticSampledParameter::clone() const
     StochasticSampledParameter *p_new = new StochasticSampledParameter(*m_stochastic_parameter, m_nbins, m_xmin, m_xmax);
     return p_new;
 }
-

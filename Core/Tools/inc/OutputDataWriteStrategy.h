@@ -1,29 +1,29 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/OutputDataWriteStrategy.h 
+//! @brief     Defines classes OutputDataWriteStrategy and OutputDataWriteStreamIMA.
+//
+// ************************************************************************** //
+
 #ifndef OUTPUTDATAWRITESTRATEGY_H
 #define OUTPUTDATAWRITESTRATEGY_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   OutputDataWriteStrategy.h
-//! @brief  Definition of classes from OutputDataWriteStrategy family
-//! @author Scientific Computing Group at FRM II
-//! @date   15.01.2013
-
 
 #include "OutputData.h"
 #include "Types.h"
 #include <string>
 
+//! Strategy interface to write OututData in file
 
-//- -------------------------------------------------------------------
-//! @class IOutputDataWriteStrategy
-//! @brief Define strategy interface to write OututData in file
-//- -------------------------------------------------------------------
 class IOutputDataWriteStrategy
 {
 public:
@@ -35,17 +35,12 @@ protected:
     int m_precision;
 };
 
+//! Strategy to write OutputData to IsGisaxs *.ima files
 
-//- -------------------------------------------------------------------
-//! @class OutputDataWriteStreamIMA
-//! @brief Define strategy to write OutputData to IsGisaxs *.ima files
-//- -------------------------------------------------------------------
 class OutputDataWriteStreamIMA : public IOutputDataWriteStrategy
 {
 public:
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
 };
-
-
 
 #endif // OUTPUTDATAWRITESTRATEGY_H

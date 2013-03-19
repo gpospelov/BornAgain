@@ -1,12 +1,28 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/OutputDataWriteStrategy.cpp 
+//! @brief     Implements class OutputDataWriteStrategy.
+//
+// ************************************************************************** //
+
 #include "OutputDataWriteStrategy.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <iomanip>
 
-/* ************************************************************************* */
-// read data from ASCII file (2D assumed) and fill newly created OutputData with it
-/* ************************************************************************* */
+//! read data from ASCII file (2D assumed) and fill newly created OutputData with it
+
 void OutputDataWriteStreamIMA::writeOutputData(const OutputData<double> &data, std::ostream &output_stream)
 {
     size_t row_length = data.getAxis(1)->getSize();

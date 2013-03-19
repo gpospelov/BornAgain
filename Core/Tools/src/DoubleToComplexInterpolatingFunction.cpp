@@ -1,15 +1,24 @@
-/*
- * DoubleToComplexInterpolatingFunction.cpp
- *
- *  Created on: Apr 27, 2012
- *      Author: herck
- */
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/DoubleToComplexInterpolatingFunction.cpp 
+//! @brief     Implements class DoubleToComplexInterpolatingFunction.
+//
+// ************************************************************************** //
 
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "Exceptions.h"
 #include <sstream>
 #include <boost/unordered_map.hpp>
-
 
 DoubleToComplexInterpolatingFunction::~DoubleToComplexInterpolatingFunction()
 {
@@ -24,13 +33,11 @@ DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(const
     m_high_step = m_upper_limit - (*(--m_value_map.rbegin())).first;
 }
 
-
 DoubleToComplexInterpolatingFunction* DoubleToComplexInterpolatingFunction::clone() const
 {
     DoubleToComplexInterpolatingFunction *p_new = new DoubleToComplexInterpolatingFunction(m_value_map, m_interpolating_mode);
     return p_new;
 }
-
 
 complex_t DoubleToComplexInterpolatingFunction::evaluate(double value)
 {

@@ -1,15 +1,29 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/OutputDataFunctions.cpp 
+//! @brief     Implements class OutputDataFunctions.
+//
+// ************************************************************************** //
+
 #include "OutputDataFunctions.h"
 #include "Exceptions.h"
 #include "Numeric.h"
 
-
 #include <cmath>
 #include <fftw3.h>
 
-
 void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination);
 void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination);
-
 
 /* ************************************************************************* */
 // double the bin size for each dimension
@@ -401,5 +415,3 @@ Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double> &data, do
     const double radii[2]={rx, ry};
     return OutputDataFunctions::CreateEllipticMask(data, center, radii);
 }
-
-

@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/Types.h 
+//! @brief     Defines some complex and vector types.
+//
+// ************************************************************************** //
+
 #ifndef TYPES_H
 #define TYPES_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   Types.h
-//! @brief  Definition of Types
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #include <cstddef>
 #include <vector>
@@ -25,6 +29,5 @@ typedef Geometry::BasicVector3D<complex_t> cvector_t;
 typedef std::vector<double > vdouble1d_t;
 typedef std::vector<vdouble1d_t > vdouble2d_t;
 typedef std::pair<complex_t, complex_t > complexpair_t;
-
 
 #endif // TYPES_H

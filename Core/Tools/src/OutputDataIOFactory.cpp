@@ -1,7 +1,23 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/OutputDataIOFactory.cpp 
+//! @brief     Implements class OutputDataIOFactory.
+//
+// ************************************************************************** //
+
 #include "OutputDataIOFactory.h"
 #include "Exceptions.h"
 #include "Utils.h"
-
 
 /* ************************************************************************* */
 // reading output data
@@ -33,7 +49,6 @@ OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(const std
 
     return OutputDataReader_t(reader);
 }
-
 
 /* ************************************************************************* */
 // writing output data

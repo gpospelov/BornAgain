@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/ParameterPool.cpp 
+//! @brief     Implements class ParameterPool.
+//
+// ************************************************************************** //
+
 #include "ParameterPool.h"
 #include "Exceptions.h"
 #include "Utils.h"
@@ -6,30 +23,6 @@
 #include <iostream>
 #include <sstream>
 
-
-/* ************************************************************************* */
-// constructors
-/* ************************************************************************* */
-//ParameterPool::ParameterPool()
-//{
-//}
-
-//ParameterPool::~ParameterPool()
-//{
-//    clear();
-//}
-
-//ParameterPool::ParameterPool(const ParameterPool &other)
-//{
-//    m_map = other.m_map;
-//}
-
-//ParameterPool *ParameterPool::clone() const
-//{
-//    ParameterPool *new_pool = new ParameterPool(*this);
-//    return new_pool;
-//}
-
 ParameterPool *ParameterPool::clone() const
 {
     ParameterPool *new_pool = new ParameterPool();
@@ -37,9 +30,8 @@ ParameterPool *ParameterPool::clone() const
     return new_pool;
 }
 
-/* ************************************************************************* */
-// Clone method that adds a prefix to parameter's keys
-/* ************************************************************************* */
+//! Clone method that adds a prefix to parameter's keys.
+
 ParameterPool *ParameterPool::cloneWithPrefix(const std::string &prefix) const
 {
     ParameterPool *new_pool = new ParameterPool();
@@ -50,23 +42,22 @@ ParameterPool *ParameterPool::cloneWithPrefix(const std::string &prefix) const
     return new_pool;
 }
 
-/* ************************************************************************* */
-// Clear the parameter container
-/* ************************************************************************* */
+//! Clear the parameter container.
+
 void ParameterPool::clear()
 {
     m_map.clear();
 }
 
-/* ************************************************************************* */
-// Registering parameter with given name. Name should be different for each
-// register.
-/* ************************************************************************* */
+//! Register parameter with given name.
+
 void ParameterPool::registerParameter(const std::string &name, double *parameter_address)
 {
     parameter_t par(parameter_address);
     if( !addParameter(name, par) ) throw RuntimeErrorException("ParameterPool::registerParameter() -> Error! Can't register parameter");
 }
+
+//! Low-level routine.
 
 bool ParameterPool::addParameter(const std::string &name, parameter_t par)
 {
@@ -80,10 +71,8 @@ bool ParameterPool::addParameter(const std::string &name, parameter_t par)
     return m_map.insert(parametermap_t::value_type(name, par ) ).second;
 }
 
-/* ************************************************************************* */
-// copy parameters of given pool to the external pool while adding prefix to
-// local parameter keys
-/* ************************************************************************* */
+//! Copy parameters of given pool to the external pool while adding prefix to local parameter keys
+
 void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
 {
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
@@ -91,9 +80,8 @@ void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool 
     }
 }
 
-/* ************************************************************************* */
-// return parameter with given name
-/* ************************************************************************* */
+//! Return parameter with given name.
+
 ParameterPool::parameter_t ParameterPool::getParameter(const std::string &name) const
 {
     parametermap_t::const_iterator it = m_map.find(name);
@@ -106,10 +94,8 @@ ParameterPool::parameter_t ParameterPool::getParameter(const std::string &name) 
     }
 }
 
+//! Return vector of parameters which fit pattern.
 
-/* ************************************************************************* */
-// return vector of parameters which fit pattern
-/* ************************************************************************* */
 std::vector<ParameterPool::parameter_t >  ParameterPool::getMatchedParameters(const std::string &wildcards) const
 {
     std::vector<ParameterPool::parameter_t > selected_parameters;
@@ -130,11 +116,8 @@ std::vector<ParameterPool::parameter_t >  ParameterPool::getMatchedParameters(co
     return selected_parameters;
 }
 
+//! Set parameter value.
 
-
-/* ************************************************************************* */
-// set parameter value
-/* ************************************************************************* */
 bool ParameterPool::setParameterValue(const std::string &name, double value)
 {
     parameter_t x = getParameter(name);
@@ -147,9 +130,8 @@ bool ParameterPool::setParameterValue(const std::string &name, double value)
     return true;
 }
 
-/* ************************************************************************* */
-// set parameter value
-/* ************************************************************************* */
+//! Set parameter value.
+
 int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
 {
     int npars(0);
@@ -181,9 +163,8 @@ int ParameterPool::fixRatioBetweenParameters(const std::string& to_change,
     return npars;
 }
 
-/* ************************************************************************* */
-// print content on the screen
-/* ************************************************************************* */
+//! Print content on the screen.
+
 void ParameterPool::print(std::ostream &ostr) const
 {
     const size_t number_of_pars_in_line(4);

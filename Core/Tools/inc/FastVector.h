@@ -1,13 +1,28 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/FastVector.h 
+//! @brief     Defines class KVectorContainer.
+//
+// ************************************************************************** //
+
 #ifndef FASTVECTOR_H
 #define FASTVECTOR_H
-
 
 #include "Types.h"
 #include <iostream>
 
-/* ************************************************************************* */
-// container for holding kvectors with optimised location/deallocation
-/* ************************************************************************* */
+//! container for holding kvectors with optimised location/deallocation
+
 class KVectorContainer {
 public:
     typedef std::vector<kvector_t > container_t;
@@ -43,12 +58,10 @@ public:
     const_iterator begin() const { return m_buffer.begin(); }
     const_iterator end() const { return m_buffer.begin()+m_current_position; }
 
-
 private:
     size_t m_current_position;
     size_t m_max_buff_size;
     container_t m_buffer;
 };
-
 
 #endif // FASTVECTOR_H

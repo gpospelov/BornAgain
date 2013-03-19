@@ -1,19 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/ProgramOptions.h 
+//! @brief     Defines class ProgramOptions.
+//
+// ************************************************************************** //
+
 #ifndef PROGRAMOPTIONS_H
 #define PROGRAMOPTIONS_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ProgramOptions.h
-//! @brief  Definition of ProgramOptions class
-//! @author Scientific Computing Group at FRM II
-//! @date   21.09.2012
-
 
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
@@ -26,15 +29,12 @@ GCC_DIAG_ON(unused-parameter);
 
 namespace bpo = boost::program_options;
 
-
-//- -------------------------------------------------------------------
-//! @class ProgramOptions
 //! @brief Handles command line and config file program options
-//
+
 //! The definition of program options are done separately from
 //! CoreOptionsDescription, AppOptionsDescription modules and then
 //! added to given class using add() method
-//- -------------------------------------------------------------------
+
 class ProgramOptions
 {
 public:

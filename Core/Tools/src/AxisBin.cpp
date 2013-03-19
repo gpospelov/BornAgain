@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Tools/AxisBin.cpp 
+//! @brief     Implements class AxisBin.
+//
+// ************************************************************************** //
+
 #include "AxisBin.h"
 #include "Numeric.h"
 #include "Exceptions.h"
@@ -80,11 +97,6 @@ size_t AxisBin::findClosestIndex(double value) const
     return nbin;
 }
 
-//Bin1D AxisBin::findMatchingBin(double value) const
-//{
-//    return (*this)[findMatchingBinIndex(value)];
-//}
-//
 bool AxisBin::equals(const IAxis& other) const
 {
     if (!IAxis::equals(other)) return false;

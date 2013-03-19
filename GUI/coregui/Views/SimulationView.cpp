@@ -80,7 +80,7 @@ SimulationView::SimulationView(SimulationDataModel *p_simulation_data_model, QWi
     runSimulationButton = new QPushButton(tr("Run Simulation"));
 
     // run simulation with python script sample builder
-    runPyScriptSimulation = new QPushButton(tr("And now for something completely different..."));
+    runPyScriptSimulation = new QPushButton(tr("Run Simulation with Python Sample"));
 
     // main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -141,9 +141,13 @@ void SimulationView::onPythonJobLaunched()
                              tr("You must select an instrument first."));
         return;
     }
-//    QString file_name = QFileDialog::getOpenFileName(this, tr("Select Python Script"),
-//                                                     QDir::homePath(), tr("Python scripts (*.py)"));
-    QString file_name("/Users/herck/Development/git/BornAgain/GUI/test_sample_builder");
+    QString file_name = QFileDialog::getOpenFileName(this, tr("Select Python Script"),
+                            QDir::homePath(), tr("Python scripts (*.py)"),
+                            0, QFileDialog::ReadOnly | QFileDialog::DontUseNativeDialog);
+    if (file_name.isNull()) {
+        return;
+    }
+//    QString file_name("/Users/herck/Development/git/BornAgain/GUI/test_sample_builder");
     PythonScriptSampleBuilder builder(file_name);
     ISample *p_sample = builder.buildSample();
     Simulation *p_sim = new Simulation;
@@ -154,8 +158,8 @@ void SimulationView::onPythonJobLaunched()
     QFuture<void> job_future = QtConcurrent::run(p_new_job, &JobModel::run);
     p_new_job->getJobWatcher()->setFuture(job_future);
     // initialize a Simulation object and run it
-    QMessageBox::information(this, tr("Simulation Started"),
-                             tr("The simulation is now calculating."));
+//    QMessageBox::information(this, tr("Simulation Started"),
+//                             tr("The simulation is now calculating."));
 }
 
 void SimulationView::onJobFinished()

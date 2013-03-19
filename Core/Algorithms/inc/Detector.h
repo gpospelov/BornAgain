@@ -18,7 +18,6 @@
 
 #include "IDetectorResolution.h"
 #include "DetectorParameters.h"
-#include "IParameterized.h"
 #include "SafePointerVector.h"
 
 //! Detector with axes and resolution function.

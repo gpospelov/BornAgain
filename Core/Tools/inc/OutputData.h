@@ -40,10 +40,10 @@ public:
     void copyFrom(const OutputData<T> &x);
 
     void addAxis(const IAxis &new_axis);
-    void addAxis(std::string name, size_t size, double start, double end);
+    void addAxis(const std::string &name, size_t size, double start, double end);
 
     const IAxis *getAxis(size_t index) const;
-    const IAxis *getAxis(std::string label) const;
+    const IAxis *getAxis(const std::string &label) const;
     size_t getAxisIndex(const std::string &label) const;
 
     // ---------------------------------
@@ -266,7 +266,7 @@ template <class T> void OutputData<T>::addAxis(const IAxis &new_axis)
 }
 
 template <class T>
-void OutputData<T>::addAxis(std::string name, size_t size, double start, double end)
+void OutputData<T>::addAxis(const std::string &name, size_t size, double start, double end)
 {
     if( getAxis(name) ) throw LogicErrorException("OutputData<T>::addAxis(std::string name) -> Error! Attempt to add axis with already existing name '"+name+std::string("'"));
     AxisDouble new_axis(name, size, start, end);
@@ -278,7 +278,7 @@ template <class T> const IAxis *OutputData<T>::getAxis(size_t index) const
     return m_value_axes[index];
 }
 
-template <class T> const IAxis *OutputData<T>::getAxis(std::string label) const
+template <class T> const IAxis *OutputData<T>::getAxis(const std::string &label) const
 {
     for (size_t i = 0; i < m_value_axes.size(); ++i)
     {

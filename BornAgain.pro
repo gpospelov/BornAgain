@@ -5,6 +5,7 @@ include($$PWD/shared.pri)
 SUBDIRS += \
     Core \
     ThirdParty/gtest \
+    Fit \
     App \
     Tests/UnitTests/TestCore
 

@@ -44,11 +44,11 @@ SOURCES += \
     src/IFunctionalTest.cpp \
     src/IsGISAXSData.cpp \
     src/IsGISAXSTools.cpp \
-    src/MinimizerFactory.cpp \
-    src/ROOTGSLNLSMinimizer.cpp \
-    src/ROOTGSLSimAnMinimizer.cpp \
-    src/ROOTMinimizer.cpp \
-    src/ROOTMinimizerHelper.cpp \
+#    src/MinimizerFactory.cpp \
+#    src/ROOTGSLNLSMinimizer.cpp \
+#    src/ROOTGSLSimAnMinimizer.cpp \
+#    src/ROOTMinimizer.cpp \
+#    src/ROOTMinimizerHelper.cpp \
     src/SampleFactory.cpp \
     src/StandardSamples.cpp \
     src/TestConvolution.cpp \
@@ -111,12 +111,12 @@ HEADERS += \
     inc/IFunctionalTest.h \
     inc/IsGISAXSData.h \
     inc/IsGISAXSTools.h \
-    inc/MinimizerFactory.h \
-    inc/ROOTGSLNLSMinimizer.h \
-    inc/ROOTGSLSimAnMinimizer.h \
-    inc/ROOTMinimizer.h \
-    inc/ROOTMinimizerFunction.h \
-    inc/ROOTMinimizerHelper.h \
+#    inc/MinimizerFactory.h \
+#    inc/ROOTGSLNLSMinimizer.h \
+#    inc/ROOTGSLSimAnMinimizer.h \
+#    inc/ROOTMinimizer.h \
+#    inc/ROOTMinimizerFunction.h \
+#    inc/ROOTMinimizerHelper.h \
     inc/SampleFactory.h \
     inc/StandardSamples.h \
     inc/TestConvolution.h \
@@ -186,7 +186,10 @@ CONFIG(DEBUG) {
 # -----------------------------------------------------------------------------
 # additional libraries
 # -----------------------------------------------------------------------------
-LIBS += $$PWD/../lib/libBornAgainCore.so
+LIBS += $$PWD/../lib/libBornAgainCore.so $$PWD/../lib/libBornAgainFit.so
+
+INCLUDEPATH += $$PWD/../Fit/inc
+DEPENDPATH  += $$PWD/../Fit/inc
 
 # -----------------------------------------------------------------------------
 # generate ROOT dictionaries

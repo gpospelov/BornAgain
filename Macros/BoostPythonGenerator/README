@@ -1,9 +1,8 @@
-c++ wrapper generator for accessing libScatCore from python
-
+C++ wrappers generator for accessing libBornAgainCore, libBornAgainFit from python
 
 Usage:
 'make'  - to generate python-boost C++ wrappers
-'make install'  - to copy files into GISASFW/Core/PythonAPI directory
+'make install'  - to copy files into BornAgain/Core/PythonAPI, BornAgain/Fit/PythonAPI
 
 requires boost, python27, py27-pyplusplus-devel, py-pygccxml-devel, gccxml-devel
 

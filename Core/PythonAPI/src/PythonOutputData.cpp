@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      PythonAPI/src/PythonOutputData.cpp 
+//! @brief     Implements a few global functions: GetOutputDataNdimensions, ..
+//
+// ************************************************************************** //
+
 #include "Python.h"
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
@@ -11,17 +28,14 @@
 #include <iostream>
 #include <vector>
 
-
 // export output data array to python-numpy array object
 PyObject *ExportOutputData(const OutputData<double > &output);
+
 // export axis of output data array as python-numpy array object
 PyObject *ExportOutputDataAxis(const OutputData<double > &output, int naxis);
 
+//! return number of dimensions in output data of simulation
 
-
-/* ************************************************************************* */
-// return number of dimensions in output data of simulation
-/* ************************************************************************* */
 int GetOutputDataNdimensions(const Simulation &simulation)
 {
     const OutputData<double > *data = simulation.getOutputData();
@@ -29,10 +43,8 @@ int GetOutputDataNdimensions(const Simulation &simulation)
     return ndims;
 }
 
+//! export output data array of simulation to python-numpy array object
 
-/* ************************************************************************* */
-// export output data array of simulation to python-numpy array object
-/* ************************************************************************* */
 PyObject *GetOutputData(const Simulation &simulation)
 {
     const OutputData<double > *data = simulation.getOutputData();
@@ -40,11 +52,8 @@ PyObject *GetOutputData(const Simulation &simulation)
     return obj;
 }
 
+//! return one-dim numpy array representing binning of the axis with given index of simulation's output data
 
-/* ************************************************************************* */
-// return one dimensional python-numpy array representing binning of the axis
-// with given index of simulation's output data
-/* ************************************************************************* */
 PyObject *GetOutputDataAxis(const Simulation &simulation, int naxis)
 {
     const OutputData<double > *data = simulation.getOutputData();
@@ -52,10 +61,8 @@ PyObject *GetOutputDataAxis(const Simulation &simulation, int naxis)
     return obj;
 }
 
+//! export axis of output data array as python-numpy array object
 
-/* ************************************************************************* */
-// export axis of output data array as python-numpy array object
-/* ************************************************************************* */
 PyObject *ExportOutputData(const OutputData<double > &output_data)
 {
     // getting size of dimensions from output_data
@@ -94,11 +101,8 @@ PyObject *ExportOutputData(const OutputData<double > &output_data)
     return pyarray;
 }
 
+//! return one dimensional python-numpy array representing binning of given axis of oputput data object
 
-/* ************************************************************************* */
-// return one dimensional python-numpy array representing binning of given axis
-// of oputput data object
-/* ************************************************************************* */
 PyObject *ExportOutputDataAxis(const OutputData<double > &output_data, int naxis)
 {
     // getting size of dimensions from output_data

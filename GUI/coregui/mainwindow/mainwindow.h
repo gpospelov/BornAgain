@@ -12,6 +12,7 @@ class TaskSelectorWidget;
 class WelcomeView;
 class InstrumentView;
 class SampleView;
+class PyScriptView;
 class SimulationView;
 class JobView;
 class FitView;
@@ -39,6 +40,7 @@ private:
     WelcomeView *m_welcomeView;
     InstrumentView *m_instrumentView;
     SampleView *m_sampleView;
+    PyScriptView *m_scriptView;
     SimulationView *m_simulationView;
     JobView *m_jobView;
     FitView * m_fitView;

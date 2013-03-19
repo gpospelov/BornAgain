@@ -31,10 +31,8 @@
 class Simulation;
 class ParameterPool;
 
-//- -------------------------------------------------------------------
-//! @class FitSuite
-//! @brief Main class to perform fitting
-//- -------------------------------------------------------------------
+//! Main class to perform fitting
+
 class FitSuite : public IObservable
 {
 public:

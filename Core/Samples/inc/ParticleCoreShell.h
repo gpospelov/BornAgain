@@ -1,26 +1,27 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/ParticleCoreShell.h 
+//! @brief     Defines class ParticleCoreShell.
+//
+// ************************************************************************** //
+
 #ifndef PARTICLECORESHELL_H
 #define PARTICLECORESHELL_H
 
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ParticleCoreShell.h
-//! @brief  Definition of ParticleCoreShell class
-//! @author Scientific Computing Group at FRM II
-//! @date  1/10/12
-
 #include "Particle.h"
 
-//- -------------------------------------------------------------------
-//! @class ParticleCoreShell
-//! @brief Describes a particle with a core/shell geometry
-//- -------------------------------------------------------------------
+//! A particle with a core/shell geometry
+
 class ParticleCoreShell : public Particle
 {
 public:

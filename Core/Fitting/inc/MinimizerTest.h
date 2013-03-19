@@ -22,10 +22,8 @@
 #include "FitSuiteParameters.h"
 #include <map>
 
-//- -------------------------------------------------------------------
-//! @class MinimizerTest
-//! @brief Minimizer which calls minimization function once to test whole chain
-//- -------------------------------------------------------------------
+//! Minimizer which calls minimization function once to test whole chain
+
 class MinimizerTest : public IMinimizer
 {
 public:

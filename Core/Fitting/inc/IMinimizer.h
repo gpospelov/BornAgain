@@ -25,10 +25,8 @@
 class FitParameter;
 class FitSuiteParameters;
 
-//- -------------------------------------------------------------------
-//! @class IMinimizer
-//! @brief Common interface for all kind minimizer's
-//- -------------------------------------------------------------------
+//! Common interface for all kind minimizer's
+
 class IMinimizer
 {
 public:

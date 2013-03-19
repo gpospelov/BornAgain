@@ -1,26 +1,28 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/PositionParticleInfo.h 
+//! @brief     Defines class PositionParticleInfo.
+//
+// ************************************************************************** //
+
 #ifndef POSITIONPARTICLEINFO_H_
 #define POSITIONPARTICLEINFO_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   PositionParticleInfo.h
-//! @brief  Definition of
-//! @author Scientific Computing Group at FRM II
-//! @date   Jan 7, 2013
 
 #include "ParticleInfo.h"
 
-//- -------------------------------------------------------------------
-//! @class PositionParticleInfo
-//! @brief holds additional information about particle and position
+//! Holds additional information about particle and position
 //! (used in IsGISAXSMorphologyFileDecoration)
-//- -------------------------------------------------------------------
+
 class PositionParticleInfo : public ParticleInfo
 {
 public:
@@ -63,6 +65,5 @@ protected:
     double m_pos_x;
     double m_pos_y;
 };
-
 
 #endif /* POSITIONPARTICLEINFO_H_ */

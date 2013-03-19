@@ -1,7 +1,23 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/LayerInterface.cpp 
+//! @brief     Implements class LayerInterface.
+//
+// ************************************************************************** //
+
 #include "LayerInterface.h"
 #include <iostream>
 #include <iomanip>
-
 
 LayerInterface::LayerInterface()
 : m_roughness(0)
@@ -11,12 +27,10 @@ LayerInterface::LayerInterface()
     setName("LayerInterface");
 }
 
-
 LayerInterface::~LayerInterface()
 {
     delete m_roughness;
 }
-
 
 LayerInterface *LayerInterface::createSmoothInterface(const Layer *p_layer_top, const Layer *p_layer_bottom)
 {
@@ -26,7 +40,6 @@ LayerInterface *LayerInterface::createSmoothInterface(const Layer *p_layer_top, 
     return lr;
 }
 
-
 LayerInterface *LayerInterface::createRoughInterface(const Layer *p_layer_top, const Layer *p_layer_bottom, const LayerRoughness &roughness)
 {
     LayerInterface *lr = new LayerInterface();
@@ -35,7 +48,6 @@ LayerInterface *LayerInterface::createRoughInterface(const Layer *p_layer_top, c
     lr->setRoughness(roughness);
     return lr;
 }
-
 
 void LayerInterface::setRoughness(const LayerRoughness &roughness)
 {
@@ -50,21 +62,8 @@ void LayerInterface::setRoughness(const LayerRoughness &roughness)
     registerChild(m_roughness);
 }
 
-
-/* ************************************************************************* */
-// print
-/* ************************************************************************* */
 void LayerInterface::print(std::ostream &ostr) const
 {
     ICompositeSample::print(ostr);
     ostr << " top:" << getLayerTop() << " bottom:" << getLayerBottom();
-//    ostr << getName()
-//         << " " << std::setw(12) << this
-//         << " top:"<< getLayerTop() << " bottom:" << getLayerBottom() << "   ";
-//    const LayerRoughness *roughness = getRoughness();
-//    if(roughness) {
-//        ostr << "> " << *roughness;
-//    }else{
-//        ostr << "> no roughness";
-//    }
 }

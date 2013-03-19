@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/MesoCrystal.cpp 
+//! @brief     Implements class MesoCrystal.
+//
+// ************************************************************************** //
+
 #include "MesoCrystal.h"
 
 MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure,
@@ -21,7 +38,6 @@ MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure,
     registerChild(mp_particle_structure);
     registerChild(mp_meso_form_factor);
 }
-
 
 MesoCrystal::~MesoCrystal()
 {

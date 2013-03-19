@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/ICompositeIterator.h 
+//! @brief     Defines class ICompositeIterator.
+//
+// ************************************************************************** //
+
 #ifndef ICOMPOSITEITERATOR_H
 #define ICOMPOSITEITERATOR_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ICompositeIterator.h
-//! @brief  Definition of ICompositeIterator class and surroundings
-//! @author Scientific Computing Group at FRM II
-//! @date   18.06.2012
 
 #include "ISample.h"
 #include "ICompositeSample.h"
@@ -20,11 +24,8 @@
 #include <stack>
 #include <list>
 
+//! Holds state of IComositeSample iterator
 
-//- -------------------------------------------------------------------
-//! @class MementoState
-//! @brief Definition of MementoState to hold state of IComositeSample iterator
-//- -------------------------------------------------------------------
 class MementoState
 {
 public:
@@ -59,11 +60,8 @@ private:
     MementoState();
 };
 
+//! Holds state of IComositeSample iterator
 
-//- -------------------------------------------------------------------
-//! @class MementoIterator
-//! @brief Definition of MementoIterator to hold state of IComositeSample iterator
-//- -------------------------------------------------------------------
 class MementoIterator
 {
 public:
@@ -82,8 +80,6 @@ protected:
     std::stack<MementoState > m_state_stack;
 };
 
-
-//- -------------------------------------------------------------------
 //! @class ICompositeIterator
 //! @brief Definition of ICompositeIterator to walk through ISample tree
 //! of objects inside ICompositeSample object.
@@ -95,7 +91,7 @@ protected:
 //!        ISample *child = it.get_current();
 //!        it.next();
 //!     }
-//- -------------------------------------------------------------------
+
 class ICompositeIterator
 {
 public:
@@ -112,7 +108,5 @@ protected:
     ICompositeSample* m_root;
     bool m_done;
 };
-
-
 
 #endif // ICOMPOSITEITERATOR_H

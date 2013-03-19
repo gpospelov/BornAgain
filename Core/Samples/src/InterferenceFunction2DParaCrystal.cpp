@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/InterferenceFunction2DParaCrystal.cpp 
+//! @brief     Implements class InterferenceFunction2DParaCrystal.
+//
+// ************************************************************************** //
+
 #include "InterferenceFunction2DParaCrystal.h"
 #include "MathFunctions.h"
 #include "MemberFunctionIntegrator.h"
@@ -168,4 +185,3 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy, double 
     }
     return result;
 }
-

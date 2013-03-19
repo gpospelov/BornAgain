@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/ISample.cpp 
+//! @brief     Implements class ISample.
+//
+// ************************************************************************** //
+
 #include "ISample.h"
 #include "ICompositeSample.h"
 #include "ICompositeIterator.h"
@@ -29,9 +46,8 @@ void ISample::print_structure()
     }
 }
 
-/* ************************************************************************* */
-// add parameters from local pool to external pool and call recursion over direct children
-/* ************************************************************************* */
+//! add parameters from local pool to external pool and call recursion over direct children
+
 std::string ISample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const
 {
     std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
@@ -62,50 +78,3 @@ std::string ISample::addParametersToExternalPool(std::string path, ParameterPool
     }
     return new_path;
 }
-
-/* ************************************************************************* */
-// another example of how to make same as above using iterators
-// return new parameter pool which contains all local parameter as well as all
-// parameters from CompositeSample; tree user has to take to delete it
-//
-// example shows how to walk through all subsamples using iterators instead
-// of recursion
-/* ************************************************************************* */
-//ParameterPool *ISample::createParameterTreeTest()
-//{
-//    // cloning first local parameter pool
-//    ParameterPool *newpool = m_parameters.cloneWithPrefix( std::string("/")+getName()+std::string("/"));
-
-//    // walking through children tree
-//    ICompositeSample *sample = getCompositeSample();
-//    if( sample ) {
-//        // using helper to get unique path in the tree as parameter names
-//        Utils::StringSampleHelper strHelper;
-//        strHelper.add(getName(), 0); // "folder" name, level of nesting (0 - for top level)
-
-//        // loop over children tree
-//        ICompositeIterator it = sample->createIterator();
-//        it.first();
-//        while(!it.is_done())
-//        {
-//            // adding child name to the path
-//            strHelper.add(it.get_current()->getName(), it.get_level() );
-
-//            // access to the poll parameter of child
-//            ParameterPool *pool = it.get_current()->getParameterPool();
-//            if(pool->size()) {
-//                for(ParameterPool::iterator_t ip=pool->begin(); ip!=pool->end(); ip++) {
-//                    //std::cout << (*ip).first << " " << (*ip).second << std::endl;
-//                    // adding parameter name to the path
-//                    strHelper.add( (*ip).first, it.get_level()+1 );
-//                    // registering new parameter with full path
-//                    newpool->addParameter(strHelper.get_path(), (*ip).second);
-//                }
-//            }
-//            it.next();
-//        }
-//        //std::cout << *newpool;
-//    }
-//    return newpool;
-//    return 0;
-//}

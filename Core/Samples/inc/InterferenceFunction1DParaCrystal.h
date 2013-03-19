@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/InterferenceFunction1DParaCrystal.h 
+//! @brief     Defines class InterferenceFunction1DParaCrystal.
+//
+// ************************************************************************** //
+
 #ifndef INTERFERENCEFUNCTION1DPARACRYSTAL_H_
 #define INTERFERENCEFUNCTION1DPARACRYSTAL_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   InterferenceFunction1DParaCrystal.h
-//! @brief  Definition of InterferenceFunction1DParaCrystal class
-//! @author Scientific Computing Group at FRM II
-//! @date   19.06.2012
 
 #include "IInterferenceFunction.h"
 

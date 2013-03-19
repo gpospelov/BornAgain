@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/Lattice2DIFParameters.h 
+//! @brief     Defines class Lattice2DIFParameters.
+//
+// ************************************************************************** //
+
 #ifndef LATTICE2DIFPARAMETERS_H_
 #define LATTICE2DIFPARAMETERS_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   Lattice2DIFParameters.h
-//! @brief  Definition of Lattice2DIFParameters
-//! @author Scientific Computing Group at FRM II
-//! @date   Jan 22, 2013
 
 #include "IParameterized.h"
 
@@ -29,6 +33,5 @@ public:
     double m_domain_size_1, m_domain_size_2;
     double m_corr_length_1, m_corr_length_2;
 };
-
 
 #endif /* LATTICE2DIFPARAMETERS_H_ */

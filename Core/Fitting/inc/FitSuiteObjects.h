@@ -26,10 +26,8 @@
 
 #include <vector>
 
-//- -------------------------------------------------------------------
-//! @class FitSuiteObjects
-//! @brief Class containing vector FitObject's (simulation and real data) to fit
-//- -------------------------------------------------------------------
+//! class containing vector FitObject's (simulation and real data) to fit
+
 class FitSuiteObjects : public IParameterized
 {
 public:

@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/MaterialManager.h 
+//! @brief     Defines class MaterialManager.
+//
+// ************************************************************************** //
+
 #ifndef MATERIALMANAGER_H
 #define MATERIALMANAGER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   MaterialManager.h
-//! @brief  Definition of MaterialManager class
-//! @author Scientific Computing Group at FRM II
-//! @date   20.04.2012
 
 #include <iostream>
 #include <string>
@@ -22,14 +26,11 @@
 #include "ISingleton.h"
 #include "HomogeneousMaterial.h"
 
-
-//- -------------------------------------------------------------------
-//! @class MaterialManager
-//! @brief Manager of materials used in simulatiom.
+//! Manager of materials used in simulation.
 //!
 //! It is a singleton which provides common and unique interface for
 //! material creation and access. No thread safety.
-//- -------------------------------------------------------------------
+
 class MaterialManager: public ISingleton<MaterialManager>
 {
 public:

@@ -23,10 +23,8 @@
 #include <string>
 #include <vector>
 
-//- -------------------------------------------------------------------
-//! @class FitParameter
-//! @brief Parameter with value, error and limits for fitting routines
-//- -------------------------------------------------------------------
+//! Parameter with value, error and limits for fitting routines.
+
 class FitParameter : public INamed, public AttLimits
 {
 public:

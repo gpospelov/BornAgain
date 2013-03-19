@@ -27,12 +27,10 @@ class FitSuite;
 #include <vector>
 #include <map>
 
-//- -------------------------------------------------------------------
-//! @class IFitSuiteStrategy
-//! @brief Interface to concrete fit strategy.
-//! Concrete implementation should manipulate with fit parameters/data
-//! and then call minimizer.
-//- -------------------------------------------------------------------
+//! Interface to concrete fit strategy.
+//  Concrete implementation should manipulate with fit parameters/data
+//  and then call minimizer.
+
 class IFitSuiteStrategy : public INamed
 {
 public:
@@ -48,10 +46,8 @@ protected:
     FitSuite *m_fit_suite;
 };
 
-//- -------------------------------------------------------------------
-//! @class FitSuiteStrategyDefault
-//! @brief Default fit strategy just let FitSuite to run it's minimization round
-//- -------------------------------------------------------------------
+//! Default fit strategy just let FitSuite to run it's minimization round
+
 class FitSuiteStrategyDefault : public IFitSuiteStrategy
 {
 public:
@@ -59,10 +55,8 @@ public:
     virtual void execute();
 };
 
-//- -------------------------------------------------------------------
-//! @class FitSuiteStrategyAdjustData
-//! @brief Strategy modifies data before running minimization round
-//- -------------------------------------------------------------------
+//! Strategy modifies data before running minimization round
+
 class FitSuiteStrategyAdjustData : public IFitSuiteStrategy
 {
 public:
@@ -76,10 +70,8 @@ private:
     bool m_call_minimize; //! if it's true, modify data and then call FitSuite's minimizer, if false - simply modify the data
 };
 
-//- -------------------------------------------------------------------
-//! @class FitSuiteStrategyAdjustParameters
-//! @brief Strategy which fixes/releases fit parameters and call minimizer
-//- -------------------------------------------------------------------
+//! Strategy which fixes/releases fit parameters and call minimizer
+
 class FitSuiteStrategyAdjustParameters : public IFitSuiteStrategy
 {
 public:
@@ -100,10 +92,8 @@ private:
     bool m_preserve_original_values; //! if it's true, strategy will set back values of parameters as they were before minimization round
 };
 
-//- -------------------------------------------------------------------
-//! @class FitSuiteStrategyBootstrap
-//! @brief Helps minimizer get out of local minima by disturbing real data
-//- -------------------------------------------------------------------
+//! Helps minimizer get out of local minima by disturbing real data
+
 class FitSuiteStrategyBootstrap : public IFitSuiteStrategy
 {
 public:

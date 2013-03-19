@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/ParticleDecoration.cpp 
+//! @brief     Implements class ParticleDecoration.
+//
+// ************************************************************************** //
+
 #include "ParticleDecoration.h"
 #include "InterferenceFunctionNone.h"
 #include "DecouplingApproximationStrategy.h"
@@ -5,7 +22,7 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 
-/* ************************************************************************* */
+
 ParticleDecoration::ParticleDecoration()
 : m_total_abundance(0.0)
 {
@@ -26,14 +43,12 @@ ParticleDecoration::ParticleDecoration(const Particle &p_particle, double depth,
     addParticle(p_particle.clone(), 0, depth, abundance);
 }
 
-
 ParticleDecoration::~ParticleDecoration()
 {
     for (size_t i=0; i<m_particles.size(); ++i) {
         delete m_particles[i];
     }
 }
-
 
 ParticleDecoration* ParticleDecoration::clone() const
 {
@@ -54,10 +69,8 @@ ParticleDecoration* ParticleDecoration::clone() const
     return p_new;
 }
 
+//! add particle
 
-/* ************************************************************************* */
-// add particle
-/* ************************************************************************* */
 void ParticleDecoration::addParticle(Particle* p_particle,
         double depth, double abundance)
 {
@@ -83,17 +96,15 @@ void ParticleDecoration::addParticle(Particle* p_particle,
     addAndRegisterParticleInfo( new ParticleInfo(p_particle, transform, depth, abundance) );
 }
 
-/* ************************************************************************* */
-// add particle info
-/* ************************************************************************* */
+//! add particle info
+
 void ParticleDecoration::addParticleInfo(const ParticleInfo &info)
 {
     addAndRegisterParticleInfo( info.clone() );
 }
 
-/* ************************************************************************* */
-// get particle info
-/* ************************************************************************* */
+//! get particle info
+
 const ParticleInfo* ParticleDecoration::getParticleInfo(size_t index) const
 {
     if (index<m_particles.size()) {
@@ -107,10 +118,8 @@ double ParticleDecoration::getAbundanceFractionOfParticle(size_t index) const
     return getParticleInfo(index)->getAbundance()/m_total_abundance;
 }
 
+//! add interference functions
 
-/* ************************************************************************* */
-// add interference functions
-/* ************************************************************************* */
 void ParticleDecoration::addInterferenceFunction(IInterferenceFunction* p_interference_function)
 {
     addAndRegisterInterferenceFunction(p_interference_function);

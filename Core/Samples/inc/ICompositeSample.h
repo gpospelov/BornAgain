@@ -1,30 +1,30 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/ICompositeSample.h 
+//! @brief     Defines class ICompositeSample.
+//
+// ************************************************************************** //
+
 #ifndef ICOMPOSITESAMPLE_H
 #define ICOMPOSITESAMPLE_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ICompositeSample
-//! @brief  Definition of ICompositeSample class
-//! @author Scientific Computing Group at FRM II
-//! @date   16.06.2012
 
 #include "ISample.h"
 #include <list>
 
-
 class ICompositeIterator;
 
-//- -------------------------------------------------------------------
-//! @class ICompositeSample
-//! @brief Definition of ICompositeSample which compose ISample objects
-//! into tree structure
-//- -------------------------------------------------------------------
+//! Compose ISample objects into tree structure
+
 class ICompositeSample : public ISample
 {
 public:

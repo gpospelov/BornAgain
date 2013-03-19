@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/ParticleBuilder.cpp 
+//! @brief     Implements class ParticleBuilder.
+//
+// ************************************************************************** //
+
 #include "ParticleBuilder.h"
 #include "ParticleDecoration.h"
 #include "Numeric.h"
@@ -11,17 +28,14 @@ ParticleBuilder::ParticleBuilder() :
 {
 }
 
-
 ParticleBuilder::~ParticleBuilder()
 {
     delete m_prototype;
     delete m_parameter;
 }
 
+//! set prototype for particle production
 
-/* ************************************************************************* */
-//set prototype for particle production
-/* ************************************************************************* */
 void ParticleBuilder::setPrototype(const Particle &particle, std::string name, const StochasticParameter<double> &param, double scale)
 {
     delete m_prototype;
@@ -32,10 +46,8 @@ void ParticleBuilder::setPrototype(const Particle &particle, std::string name, c
     m_scale = scale;
 }
 
+//! plant particles in given decoration
 
-/* ************************************************************************* */
-// plant particles in given decoration
-/* ************************************************************************* */
 void ParticleBuilder::plantParticles(ParticleDecoration &decor)
 {
     if( !m_prototype ) throw NullPointerException("ParticleBuilder::plantParticle() -> Error. No prototype is defined");
@@ -73,5 +85,4 @@ void ParticleBuilder::plantParticles(ParticleDecoration &decor)
     }
 
     delete pool;
-
 }

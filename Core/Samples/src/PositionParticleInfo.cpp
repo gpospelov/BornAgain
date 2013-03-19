@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/PositionParticleInfo.cpp 
+//! @brief     Implements class PositionParticleInfo.
+//
+// ************************************************************************** //
+
 #include "PositionParticleInfo.h"
 #include <iostream>
 PositionParticleInfo::PositionParticleInfo(Particle* p_particle,
@@ -11,7 +28,6 @@ PositionParticleInfo::PositionParticleInfo(Particle* p_particle,
     init_parameters();
 }
 
-
 PositionParticleInfo::PositionParticleInfo(const Particle &particle,
         const Geometry::Transform3D &transform, kvector_t position,
         double abundance)
@@ -23,7 +39,6 @@ PositionParticleInfo::PositionParticleInfo(const Particle &particle,
     init_parameters();
 }
 
-
 PositionParticleInfo::PositionParticleInfo(Particle* p_particle, kvector_t position, double abundance)
     : ParticleInfo(p_particle, 0, position.z(), abundance)
     , m_pos_x(position.x())
@@ -33,7 +48,6 @@ PositionParticleInfo::PositionParticleInfo(Particle* p_particle, kvector_t posit
     init_parameters();
 }
 
-
 PositionParticleInfo::PositionParticleInfo(const Particle &particle, kvector_t position, double abundance)
     : ParticleInfo(particle.clone(), 0, position.z(), abundance)
     , m_pos_x(position.x())
@@ -42,7 +56,6 @@ PositionParticleInfo::PositionParticleInfo(const Particle &particle, kvector_t p
     setName("PositionParticleInfo");
     init_parameters();
 }
-
 
 PositionParticleInfo::~PositionParticleInfo()
 {

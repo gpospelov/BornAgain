@@ -23,11 +23,8 @@
 #include "OutputData.h"
 #include "ChiSquaredModule.h"
 
-//- -------------------------------------------------------------------
-//! @class FitObject
-//! @brief Class to hold single simulation description, real data and chi2 module
-//! Used by FitSuite
-//- -------------------------------------------------------------------
+//! Single simulation description, real data and chi2 module (used by FitSuite)
+
 class FitObject : public IParameterized
 {
 public:

@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/LayerDecorator.cpp 
+//! @brief     Implements class LayerDecorator.
+//
+// ************************************************************************** //
+
 #include "LayerDecorator.h"
 
 LayerDecorator::LayerDecorator(const Layer &layer,
@@ -68,9 +85,6 @@ LayerDecorator::LayerDecorator(const LayerDecorator& other)
     init_parameters();
 }
 
-/* ************************************************************************* */
-// print content of multilayer
-/* ************************************************************************* */
 void LayerDecorator::print(std::ostream &ostr) const
 {
     ICompositeSample::print(ostr);

@@ -22,10 +22,8 @@
 #include "FitSuiteParameters.h"
 #include "OutputData.h"
 
-//- -------------------------------------------------------------------
-//! @class MinimizerScan
-//! @brief Simple scan minimizer looks for minimum of chi2 function on the grid
-//- -------------------------------------------------------------------
+//! Simple scan minimizer looks for minimum of chi2 function on the grid
+
 class MinimizerScan : public IMinimizer
 {
 public:

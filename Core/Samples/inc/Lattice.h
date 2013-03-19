@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/Lattice.h 
+//! @brief     Defines class Lattice.
+//
+// ************************************************************************** //
+
 #ifndef LATTICE_H_
 #define LATTICE_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   Lattice.h
-//! @brief  Definition of Lattice class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 12, 2012
 
 #include "Types.h"
 #include "Coordinate3D.h"
@@ -22,10 +26,8 @@
 
 #include <vector>
 
-//- -------------------------------------------------------------------
-//! @class Lattice
-//! @brief Definition of Lattice with three basis vectors
-//- -------------------------------------------------------------------
+//! A Lattice with three basis vectors.
+
 class Lattice
 {
 public:
@@ -85,8 +87,6 @@ public:
         mp_selection_rule = p_selection_rule.clone();
     }
 
-
-
     static Lattice createFCCLattice(double a);
 
     static Lattice createTrigonalLattice(double a, double c);
@@ -104,7 +104,6 @@ private:
             const kvector_t &v1, const kvector_t &v2, const kvector_t &v3,
             const kvector_t &rec1, const kvector_t &rec2, const kvector_t &rec3) const;
 
-
     void computeReciprocalVectors() const;
     void computeInverseLatticeVectors() const;
     void computeInverseReciprocalLatticeVectors() const;
@@ -117,6 +116,5 @@ private:
 
     mutable KVectorContainer m_kvector_container;
 };
-
 
 #endif /* LATTICE_H_ */

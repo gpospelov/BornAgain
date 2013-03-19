@@ -25,11 +25,8 @@
 #include <vector>
 #include <iostream>
 
-//- -------------------------------------------------------------------
-//! @class FitParameterLinked
-//! @brief Provide simultaneous access for several real parameters from
-//! parameter pool
-//- -------------------------------------------------------------------
+//! Provide simultaneous access for several real parameters from parameter pool
+
 class FitParameterLinked : public FitParameter
 {
 public:

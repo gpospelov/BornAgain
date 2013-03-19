@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/Layer.h 
+//! @brief     Defines class Layer.
+//
+// ************************************************************************** //
+
 #ifndef LAYER_H
 #define LAYER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   Layer.h
-//! @brief  Definition of Layer class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #include "ICompositeSample.h"
 #include "IMaterial.h"
@@ -20,10 +24,8 @@
 #include "HomogeneousMaterial.h"
 #include "LayerDWBASimulation.h"
 
-//- -------------------------------------------------------------------
-//! @class Layer
-//! @brief Definition of Layer with thickness and pointer to the material
-//- -------------------------------------------------------------------
+//! A Layer with thickness and pointer to the material
+
 class Layer : public ICompositeSample
 {
 public:
@@ -68,13 +70,11 @@ protected:
     virtual void init_parameters();
 
 private:
-
     //! print class
     void print(std::ostream &ostr) const;
 
     const IMaterial* mp_material;    //!< pointer to the material
     double m_thickness;              //!< layer thickness in nanometers
 };
-
 
 #endif // LAYER_H

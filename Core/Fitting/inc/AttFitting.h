@@ -21,10 +21,8 @@
 #include <iostream>
 #include <iomanip>
 
-//- -------------------------------------------------------------------
-//! @class AttFitting
-//! @brief Defines general fitting attributes
-//- -------------------------------------------------------------------
+//! General fitting attributes.
+
 class AttFitting
 {
 public:

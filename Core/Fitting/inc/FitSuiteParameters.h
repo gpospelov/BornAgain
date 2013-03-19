@@ -25,10 +25,8 @@
 
 class ParameterPool;
 
-//- -------------------------------------------------------------------
-//! @class FitSuiteParameters
-//! @brief Class holds vector of parameters for FitSuite
-//- -------------------------------------------------------------------
+//! Holds vector of parameters for FitSuite
+
 class FitSuiteParameters
 {
 public:

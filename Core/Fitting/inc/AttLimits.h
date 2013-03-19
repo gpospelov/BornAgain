@@ -21,10 +21,8 @@
 #include <iostream>
 #include <iomanip>
 
-//- -------------------------------------------------------------------
-//! @class AttLimits
-//! @brief Defines limits for fit parameters
-//- -------------------------------------------------------------------
+//! Limits for fit parameters
+
 class AttLimits
 {
 public:

@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/LatticeBasis.h 
+//! @brief     Defines class LatticeBasis.
+//
+// ************************************************************************** //
+
 #ifndef LATTICEBASIS_H_
 #define LATTICEBASIS_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   LatticeBasis.h
-//! @brief  Definition of
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 17, 2012
 
 #include "Particle.h"
 #include "Types.h"
@@ -57,6 +61,5 @@ private:
     std::vector<Particle *> m_particles;
     std::vector<std::vector<kvector_t> > m_positions_vector;
 };
-
 
 #endif /* LATTICEBASIS_H_ */

@@ -23,10 +23,8 @@
 
 class FitSuite;
 
-//- -------------------------------------------------------------------
-//! @class FitSuiteStrategies
-//! @brief Collection of strategies to fit
-//- -------------------------------------------------------------------
+//! Collection of strategies to fit
+
 class FitSuiteStrategies
 {
 public:

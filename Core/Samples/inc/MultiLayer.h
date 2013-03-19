@@ -1,18 +1,22 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/MultiLayer.h 
+//! @brief     Defines class MultiLayer.
+//
+// ************************************************************************** //
+
 #ifndef MULTILAYER_H
 #define MULTILAYER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   MultiLayer.h
-//! @brief  Definition of MultiLayer class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #include <vector>
 #include "ICompositeSample.h"
@@ -21,8 +25,6 @@
 #include "LayerRoughness.h"
 #include "MultiLayerDWBASimulation.h"
 
-
-//- -------------------------------------------------------------------
 //! @class MultiLayer
 //! @brief Stack of layers one below the other
 //!
@@ -35,8 +37,7 @@
 //!  Cr, 40A     layer #2        z=getLayerBottomZ(2)=-60.0
 //!  ---------   interface #2
 //!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
-//!
-//- -------------------------------------------------------------------
+
 class MultiLayer : public ICompositeSample
 {
 public:
@@ -136,4 +137,3 @@ private:
 };
 
 #endif // MULTILAYER_H
-

@@ -1,33 +1,35 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/LayerInterface.h 
+//! @brief     Defines class LayerInterface.
+//
+// ************************************************************************** //
+
 #ifndef LAYERINTERFACE_H
 #define LAYERINTERFACE_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   LayerInterface.h
-//! @brief  Definition of LayerInterface class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #include "ICompositeSample.h"
 #include "LayerRoughness.h"
 
 class Layer;
 
-
-//- -------------------------------------------------------------------
 //! @class LayerInterface
 //! @brief Interface between two layers.
 //!
 //! Interface between two layers connects two layers and posses roughness.
 //! We prevent usage of default/copy constructors and assignment
 //! operator and provide clone functionality from MultiLayer interface
-//- -------------------------------------------------------------------
+
 class LayerInterface : public ICompositeSample
 {
 public:
@@ -72,6 +74,5 @@ private:
     const Layer *m_LayerTop;       //!< pointer to the layer above interface
     const Layer *m_LayerBottom;    //!< pointer to the layer below interface
 };
-
 
 #endif // LAYERINTERFACE_H

@@ -1,22 +1,28 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      Samples/InterferenceFunction2DLattice.h 
+//! @brief     Defines class InterferenceFunction2DLattice.
+//
+// ************************************************************************** //
+
 #ifndef INTERFERENCEFUNCTION2DLATTICE_H_
 #define INTERFERENCEFUNCTION2DLATTICE_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   InterferenceFunction2DLattice.h
-//! @brief  Definition of InterferenceFunction2DLattice class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jan 22, 2013
 
 #include "IInterferenceFunction.h"
 #include "Lattice2DIFParameters.h"
 #include "FTDistributions.h"
+
+//! ?
 
 class InterferenceFunction2DLattice : public IInterferenceFunction
 {

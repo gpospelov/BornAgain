@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      FormFactors/FormFactorCylinder.cpp 
+//! @brief     Implements class FormFactorCylinder.
+//
+// ************************************************************************** //
+
 #include "FormFactorCylinder.h"
 #include "StochasticDiracDelta.h"
 
@@ -16,9 +33,8 @@ FormFactorCylinder::~FormFactorCylinder()
 {
 }
 
-/* ************************************************************************* */
-// initialize pool parameters, i.e. register some of class members for later access via parameter pool
-/* ************************************************************************* */
+//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+
 void FormFactorCylinder::init_parameters()
 {
     getParameterPool()->clear();

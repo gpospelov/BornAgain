@@ -1,23 +1,28 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      FormFactors/FormFactorSphere.h 
+//! @brief     Defines class FormFactorSphere.
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORSPHERE_H
 #define FORMFACTORSPHERE_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorSphere.h
-//! @brief  Definition of FormFactorSphere
-//! @author Scientific Computing Group at FRM II
-//! @date   01.05.2012
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 #include "MemberComplexFunctionIntegrator.h"
 
+//! Form factor of a sphere.
 
 class FormFactorSphere : public IFormFactorBorn
 {
@@ -52,6 +57,5 @@ private:
 
     MemberComplexFunctionIntegrator<FormFactorSphere> *m_integrator;
 };
-
 
 #endif // FORMFACTORSPHERE_H

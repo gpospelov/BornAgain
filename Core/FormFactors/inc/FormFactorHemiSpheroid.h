@@ -1,26 +1,28 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      FormFactors/FormFactorHemiSpheroid.h 
+//! @brief     Defines class FormFactorHemiSpheroid.
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORHEMISPHEROID_H
 #define FORMFACTORHEMISPHEROID_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorHemiSpheroid.h
-//! @brief  Definition of FormFactorHemiSpheroid
-//! @author Scientific Computing Group at FRM II
-//! @date   03.07.2012
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//- -------------------------------------------------------------------
-//! @class FormFactorHemiSpheroid
-//! @brief Form factor of Cone
-//- -------------------------------------------------------------------
+//! Form factor of a ??
+
 class FormFactorHemiSpheroid : public IFormFactorBorn
 {
 public:
@@ -56,6 +58,5 @@ private:
     double m_height;
     mutable cvector_t m_q;
 };
-
 
 #endif // FormFactorHemiSpheroid_H

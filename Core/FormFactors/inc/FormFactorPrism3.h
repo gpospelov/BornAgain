@@ -1,22 +1,27 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      FormFactors/FormFactorPrism3.h 
+//! @brief     Defines class FormFactorPrism3.
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORPRISM3_H_
 #define FORMFACTORPRISM3_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorPrism3.h
-//! @brief  Definition of FormFactorPrism3
-//! @author Scientific Computing Group at FRM II
-//! @date   Jun 27, 2012
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
+//! Form factor of a ??
 
 class FormFactorPrism3 : public IFormFactorBorn
 {
@@ -40,6 +45,5 @@ private:
     double m_half_side;    
     double m_root3; // Cached value of square root of 3
 };
-
 
 #endif /* FORMFACTORPRISM3_H_ */

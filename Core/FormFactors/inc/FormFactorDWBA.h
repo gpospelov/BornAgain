@@ -1,22 +1,27 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      FormFactors/FormFactorDWBA.h 
+//! @brief     Defines class FormFactorDWBA.
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORDWBA_H_
 #define FORMFACTORDWBA_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorDWBA.h
-//! @brief  Definition of FormFactorDWBA
-//! @author herck
-//! @date   01.05.2012
 
 #include "IFormFactorDecorator.h"
 #include "IDoubleToComplexFunction.h"
 
+//! ?
 
 class FormFactorDWBA: public IFormFactorDecorator
 {
@@ -43,11 +48,9 @@ protected:
     mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
 };
 
-
 inline const complexpair_t &FormFactorDWBA::getRT(double alpha) const
 {
     return mp_RT->evaluate(alpha);
 }
-
 
 #endif /* FORMFACTORDWBA_H_ */

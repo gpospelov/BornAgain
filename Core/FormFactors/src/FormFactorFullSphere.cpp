@@ -1,3 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      FormFactors/FormFactorFullSphere.cpp 
+//! @brief     Implements class FormFactorFullSphere.
+//
+// ************************************************************************** //
+
 #include "FormFactorFullSphere.h"
 #include "StochasticDiracDelta.h"
 //#include "Numeric.h"
@@ -16,10 +33,8 @@ FormFactorFullSphere::~FormFactorFullSphere()
 {
 }
 
+//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
 
-/* ************************************************************************* */
-// initialize pool parameters, i.e. register some of class members for later access via parameter pool
-/* ************************************************************************* */
 void FormFactorFullSphere::init_parameters()
 {
     getParameterPool()->clear();
@@ -62,4 +77,3 @@ complex_t FormFactorFullSphere::evaluate_for_q(const cvector_t &q) const
 
     return radial*z_part;
 }
-

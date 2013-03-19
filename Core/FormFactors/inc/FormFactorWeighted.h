@@ -1,20 +1,26 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      FormFactors/FormFactorWeighted.h 
+//! @brief     Defines class FormFactorWeighted.
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORWEIGHTED_H_
 #define FORMFACTORWEIGHTED_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorWeighted.h
-//! @brief  Definition of FormFactorWeighted
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 17, 2012
 
 #include "IFormFactor.h"
+
+//! ?
 
 class FormFactorWeighted : public IFormFactor
 {
@@ -35,6 +41,5 @@ protected:
     std::vector<IFormFactor *> m_form_factors;
     std::vector<double> m_weights;
 };
-
 
 #endif /* FORMFACTORWEIGHTED_H_ */

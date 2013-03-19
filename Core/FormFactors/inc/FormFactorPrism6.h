@@ -1,20 +1,25 @@
-#ifndef FORMFACTORPRISM6_H
-#define FORMFACTORPRISM6_H// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorPris6.h
-//! @brief  Definition of FormFactorPrism6
-//! @author Scientific Computing Group at FRM II
-//! @date   Jun 27, 2012
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//             
+//  Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//  License:   GNU General Public License v3 or higher (see COPYING)
+//
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+//! @file      FormFactors/FormFactorPrism6.h 
+//! @brief     Defines class FormFactorPrism6.
+//
+// ************************************************************************** //
 
+#ifndef FORMFACTORPRISM6_H
+#define FORMFACTORPRISM6_H
 #include "IFormFactorBorn.h"
 
+//! Form factor of a ??
 
 class FormFactorPrism6 : public IFormFactorBorn
 {

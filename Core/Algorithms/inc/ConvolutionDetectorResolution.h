@@ -19,12 +19,11 @@
 #include "IDetectorResolution.h"
 #include "IResolutionFunction2D.h"
 
-//- -------------------------------------------------------------------
-//! @class ConvolutionDetectorResolution
-//! @brief This class applies a 1 or 2 dimensional convolution of the intensity with a resolution function
-//!
-//! Limitation: this class assumes that the data points are evenly distributed on each axis
-//- -------------------------------------------------------------------
+//! Applies a 1 or 2 dimensional convolution of the intensity with a resolution function
+
+//! Limitation: this class assumes that the data points are evenly
+//! distributed on each axis
+
 class ConvolutionDetectorResolution : public IDetectorResolution
 {
 public:
@@ -64,6 +63,5 @@ private:
     cumulative_DF_1d m_res_function_1d;
     IResolutionFunction2D *mp_res_function_2d;
 };
-
 
 #endif /* CONVOLUTIONDETECTORRESOLUTION_H_ */

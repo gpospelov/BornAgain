@@ -98,9 +98,8 @@ void Simulation::prepareSimulation()
     updateSample();
 }
 
-/* ************************************************************************* */
-// run simulation
-/* ************************************************************************* */
+//! Run simulation.
+
 void Simulation::runSimulation()
 {
     prepareSimulation();

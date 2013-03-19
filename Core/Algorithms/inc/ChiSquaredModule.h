@@ -38,5 +38,4 @@ public:
 
 };
 
-
 #endif /* CHISQUAREDMODULE_H_ */

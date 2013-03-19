@@ -16,10 +16,8 @@
 #ifndef THREADINFO_H_
 #define THREADINFO_H_
 
-//- -------------------------------------------------------------------
-//! @class ThreadInfo
-//! @brief Structure holding information for threads
-//- -------------------------------------------------------------------
+//! Information for threads
+
 struct ThreadInfo
 {
     ThreadInfo();

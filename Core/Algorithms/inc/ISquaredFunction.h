@@ -19,9 +19,9 @@
 #include "Numeric.h"
 #include "Exceptions.h"
 
-//#include <cmath>
 #include <iostream>
 
+//! ?
 
 class ISquaredFunction
 {
@@ -33,6 +33,7 @@ public:
     virtual double calculateSquaredError(double real_value, double simulated_value = 0.0) const { (void)real_value; (void)simulated_value; throw NotImplementedException("ISquaredFunction::calculateError() -> Error! Not implemented."); }
 };
 
+//! ?
 
 class SquaredFunctionDefault : public ISquaredFunction
 {
@@ -58,6 +59,7 @@ public:
 
 };
 
+//! ?
 
 class SquaredFunctionWhichOnlyWorks : public ISquaredFunction
 {
@@ -80,6 +82,7 @@ public:
     }
 };
 
+//! ?
 
 class SquaredFunctionWithSystematicError : public ISquaredFunction
 {
@@ -103,6 +106,7 @@ private:
     double m_epsilon;
 };
 
+//! ?
 
 class SquaredFunctionWithGaussianError : public ISquaredFunction
 {

@@ -16,9 +16,6 @@
 #include "ResolutionFunction2DSimple.h"
 #include "MathFunctions.h"
 
-/* ************************************************************************* */
-// c-tors, clone
-/* ************************************************************************* */
 ResolutionFunction2DSimple::ResolutionFunction2DSimple(double sigma_x,
         double sigma_y)
 : m_sigma_x(sigma_x)
@@ -44,9 +41,6 @@ ResolutionFunction2DSimple *ResolutionFunction2DSimple::clone() const
     return new ResolutionFunction2DSimple(*this);
 }
 
-/* ************************************************************************* */
-//
-/* ************************************************************************* */
 double ResolutionFunction2DSimple::evaluateCDF(double x, double y) const
 {
     return MathFunctions::IntegratedGaussian(x, 0.0, m_sigma_x)

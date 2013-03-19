@@ -20,11 +20,8 @@
 #include "Detector.h"
 #include "IResolutionFunction2D.h"
 
-//- -------------------------------------------------------------------
-//! @class Instrument
-//! @brief Definition of Instrument object that assembles the information
-//! of the beam, detector and their relative positions wrt the sample
-//- -------------------------------------------------------------------
+//! Assembles beam, detector and their relative positions wrt the sample.
+
 class Instrument : public IParameterized
 {
 public:

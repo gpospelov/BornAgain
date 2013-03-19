@@ -19,11 +19,8 @@
 #include "Types.h"
 #include "IInterferenceFunctionStrategy.h"
 
-//- -------------------------------------------------------------------
-//! @class IsGISAXSMorphologyFileStrategy
-//! @brief Definition of interference function strategy that emulates
-//! the behaviour of IsGISAXS for morphology files
-//- -------------------------------------------------------------------
+//! Definition of interference function strategy that emulates the behaviour of IsGISAXS for morphology files
+
 class IsGISAXSMorphologyFileStrategy : public IInterferenceFunctionStrategy
 {
 public:

@@ -18,6 +18,8 @@
 
 #include "IResolutionFunction2D.h"
 
+//! ?
+
 class ResolutionFunction2DSimple : public IResolutionFunction2D
 {
 public:

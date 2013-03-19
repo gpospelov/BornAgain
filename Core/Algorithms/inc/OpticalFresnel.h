@@ -21,9 +21,8 @@
 #include "ISimulation.h"
 #include "MultiLayer.h"
 
-/* ************************************************************************* */
-// optical fresnel coefficients
-/* ************************************************************************* */
+//! Optical fresnel coefficients.
+
 class OpticalFresnel : public ISimulation
 {
 public:

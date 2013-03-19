@@ -26,7 +26,8 @@ public:
     ISampleBuilder() { setName("SampleBuilder"); }
     virtual ~ISampleBuilder() {}
 
-    virtual ISample *buildSample() const { throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
+    virtual ISample *buildSample() const {
+        throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
 protected:
 };
 

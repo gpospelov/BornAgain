@@ -16,14 +16,12 @@
 #ifndef ICHISQUAREDMODULE_H_
 #define ICHISQUAREDMODULE_H_
 
-//#include "IParameterized.h"
 #include "ICloneable.h"
 #include "OutputData.h"
 #include "IFittingDataSelector.h"
 #include "ISquaredFunction.h"
 #include "IOutputDataNormalizer.h"
 #include "IIntensityFunction.h"
-//#include <vector>
 
 class IChiSquaredModule : public ICloneable
 {
@@ -92,6 +90,5 @@ protected:
 
     double m_chi2_value;
 };
-
 
 #endif /* ICHISQUAREDMODULE_H_ */

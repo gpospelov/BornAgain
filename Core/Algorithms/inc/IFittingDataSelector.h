@@ -18,16 +18,15 @@
 
 #include "OutputData.h"
 
-//#include <vector>
-
 class IFittingDataSelector
 {
 public:
     virtual ~IFittingDataSelector() {}
     virtual IFittingDataSelector *clone() const=0;
 
-    virtual OutputData<double> *createWeightMap(const OutputData<double> &real_data,
-            const OutputData<double> &simulated_data) const=0;
+    virtual OutputData<double> *createWeightMap(
+        const OutputData<double> &real_data,
+        const OutputData<double> &simulated_data) const=0;
 };
 
 class DefaultAllDataSelector : public IFittingDataSelector
@@ -39,8 +38,9 @@ public:
         return new DefaultAllDataSelector();
     }
 
-    virtual OutputData<double> *createWeightMap(const OutputData<double> &real_data,
-            const OutputData<double> &simulated_data) const;
+    virtual OutputData<double> *createWeightMap(
+        const OutputData<double> &real_data,
+        const OutputData<double> &simulated_data) const;
 };
 
 #endif /* IFITTINGDATASELECTOR_H_ */

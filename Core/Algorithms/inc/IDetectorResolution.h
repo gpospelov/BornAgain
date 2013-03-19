@@ -23,12 +23,10 @@
 class IDetectorResolution : public IParameterized, public ICloneable
 {
 public:
-    //! Destructor
     virtual ~IDetectorResolution() {}
     //! Apply the resolution function to the intensity data
     virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const=0;
     virtual IDetectorResolution *clone() const = 0;
 };
-
 
 #endif /* IDETECTORRESOLUTION_H_ */

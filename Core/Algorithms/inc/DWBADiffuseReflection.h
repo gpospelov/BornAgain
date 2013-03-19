@@ -21,11 +21,8 @@
 #include "MultiLayer.h"
 #include "OpticalFresnel.h"
 
+//! Calculation of diffuse (aka off-specular) reflection from multilayers.
 
-//- -------------------------------------------------------------------
-//! @class DWBADiffuseReflection
-//! @brief Calculation of diffuse (aka off-specular) reflection from multilayers.
-//- -------------------------------------------------------------------
 class DWBADiffuseReflection : public ISimulation
 {
 public:

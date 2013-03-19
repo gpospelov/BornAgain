@@ -22,10 +22,8 @@
 class MultiLayer;
 #include "IDoubleToComplexFunction.h"
 
-//- -------------------------------------------------------------------
-//! @class MultiLayerRoughnessDWBASimulation
-//! @brief Calculation of diffuse reflection from multilayer with rough interfaces
-//- -------------------------------------------------------------------
+//! Calculation of diffuse reflection from multilayer with rough interfaces
+
 class MultiLayerRoughnessDWBASimulation : public DWBASimulation
 {
 public:

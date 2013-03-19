@@ -21,9 +21,6 @@
 
 #include <iostream>
 
-/* ************************************************************************* */
-// c-tors, assignment operators, swap
-/* ************************************************************************* */
 Detector::Detector()
 : m_axes(), mp_detector_resolution(0)
 {
@@ -59,9 +56,6 @@ void Detector::swapContent(Detector &other)
     std::swap(this->mp_detector_resolution, other.mp_detector_resolution);
 }
 
-/* ************************************************************************* */
-// other methods
-/* ************************************************************************* */
 void Detector::addAxis(const IAxis &axis)
 {
 	m_axes.push_back(axis.clone());

@@ -18,11 +18,8 @@
 
 #include "TRange.h"
 
-//- -------------------------------------------------------------------
-//! @class AxisParameters
-//! @brief Definition of AxisParameters class to store parameters
-//! for specifying an axis' data
-//- -------------------------------------------------------------------
+//! Store parameters for specifying one axis
+
 struct AxisParameters
 {
     AxisParameters();
@@ -41,11 +38,8 @@ inline AxisParameters::AxisParameters()
 {
 }
 
-//- -------------------------------------------------------------------
-//! @class DetectorParameters
-//! @brief Definition of DetectorParameters class to store parameters
-//! for specifying a 2D detector
-//- -------------------------------------------------------------------
+//! Store parameters for specifying a 2D detector.
+
 struct DetectorParameters
 {
     AxisParameters m_phi_params;
@@ -53,4 +47,3 @@ struct DetectorParameters
 };
 
 #endif /* DETECTORPARAMETERS_H_ */
-

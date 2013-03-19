@@ -16,11 +16,8 @@
 #ifndef SIMULATIONPARAMETERS_H_
 #define SIMULATIONPARAMETERS_H_
 
-//- -------------------------------------------------------------------
-//! @class SimulationParameters
-//! @brief Definition of parameter class collecting the different
-//! options for simulation
-//- -------------------------------------------------------------------
+//! Collect the different options for simulation
+
 class SimulationParameters
 {
 public:

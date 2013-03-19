@@ -22,10 +22,8 @@
 #include "ThreadInfo.h"
 #include "Types.h"
 
-//- -------------------------------------------------------------------
-//! @class DWBASimulation
-//! @brief Calculates scattering cross sections in DWBA
-//- -------------------------------------------------------------------
+//! Calculates scattering cross sections in DWBA
+
 class DWBASimulation : public ISimulation
 {
 public:
@@ -85,6 +83,5 @@ inline const OutputData<double> &DWBASimulation::getDWBAIntensity() const {
 inline void DWBASimulation::addDWBAIntensity(const OutputData<double> &data_to_add) {
     m_dwba_intensity += data_to_add;
 }
-
 
 #endif /* DWBASIMULATION_H_ */

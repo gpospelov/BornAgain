@@ -19,6 +19,8 @@
 #include <cstddef>
 #include "ICloneable.h"
 
+//! ?
+
 class MaskCoordinateFunction : public ICloneable
 {
 public:
@@ -34,6 +36,8 @@ protected:
     bool m_invert;  //!< if true, the complement is masked instead
 };
 
+//! ?
+
 class MaskCoordinateRectangleFunction : public MaskCoordinateFunction
 {
 public:
@@ -48,6 +52,8 @@ private:
     int *m_minima;
     int *m_maxima;
 };
+
+//! ?
 
 class MaskCoordinateEllipseFunction : public MaskCoordinateFunction
 {

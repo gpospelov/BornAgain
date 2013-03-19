@@ -19,6 +19,8 @@
 #include "DWBASimulation.h"
 #include "IDoubleToComplexFunction.h"
 
+//! ?
+
 class LayerDWBASimulation : public DWBASimulation
 {
 public:

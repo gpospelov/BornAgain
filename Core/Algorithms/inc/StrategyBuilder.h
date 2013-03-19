@@ -30,11 +30,8 @@ class IDoubleToPairOfComplexMap;
 class ParticleInfo;
 class IFormFactor;
 
-//- -------------------------------------------------------------------
-//! @class LayerDecoratorStrategyBuilder
-//! @brief Definition of methods to generate a simulation strategy from
-//! a LayerDecorator and SimulationParameters
-//- -------------------------------------------------------------------
+//! Methods to generate a simulation strategy from a LayerDecorator and SimulationParameters
+
 class LayerDecoratorStrategyBuilder
 {
 public:

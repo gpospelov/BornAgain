@@ -18,10 +18,8 @@
 
 #include "MaskCoordinateFunction.h"
 
-//- -------------------------------------------------------------------
-//! @class Mask
-//! @brief Definition of base class for masking OutputData elements
-//- -------------------------------------------------------------------
+//! Base class for masking OutputData elements
+
 class Mask : public ICloneable
 {
 public:
@@ -47,10 +45,8 @@ private:
     size_t nextSubIndex(size_t total_index);
 };
 
-//- -------------------------------------------------------------------
-//! @class MaskIndexModulus
-//! @brief Mask based on the index modulo a given number
-//- -------------------------------------------------------------------
+//! Mask based on the index modulo a given number
+
 class MaskIndexModulus : public Mask
 {
 public:
@@ -67,10 +63,8 @@ private:
     size_t m_remainder;
 };
 
-//- -------------------------------------------------------------------
-//! @class MaskCoordinates
-//! @brief Mask based on the coordinates
-//- -------------------------------------------------------------------
+//! Mask based on the coordinates
+
 class MaskCoordinates : public Mask
 {
 public:

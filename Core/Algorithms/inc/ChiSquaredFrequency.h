@@ -18,6 +18,8 @@
 
 #include "IChiSquaredModule.h"
 
+//! ?
+
 class ChiSquaredFrequency : public IChiSquaredModule
 {
 public:
@@ -39,6 +41,5 @@ protected:
     OutputData<complex_t> *mp_simulation_ft;
     double m_cutoff;
 };
-
 
 #endif /* CHISQUAREDFREQUENCY_H_ */

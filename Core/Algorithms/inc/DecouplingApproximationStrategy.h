@@ -33,5 +33,4 @@ private:
     bool checkVectorSizes() const;
 };
 
-
 #endif /* DECOUPLINGAPPROXIMATIONSTRATEGY_H_ */

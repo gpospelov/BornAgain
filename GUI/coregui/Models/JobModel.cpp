@@ -29,6 +29,7 @@ void JobModel::run()
 {
     if (!m_is_finished) {
         mp_simulation->runSimulation();
+        mp_simulation->normalize();
     }
 }
 

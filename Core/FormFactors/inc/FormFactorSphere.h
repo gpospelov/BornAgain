@@ -41,12 +41,7 @@ protected:
 private:
     complex_t Integrand(double Z, void* params) const;
 
-//    double evaluate_for_q_real() const;
-//    double evaluate_for_q_imag() const;
-//    double SphereIntegralImaginary(double Z, void* params) const;
-//    double SphereIntegralReal(double Z, void* params) const;
-
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! register some class members for later access via parameter pool
     virtual void init_parameters();
 
     double m_radius;

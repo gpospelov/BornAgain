@@ -78,8 +78,6 @@ template<class C> MemberFunctionIntegrator<C>::~MemberFunctionIntegrator()
     gsl_integration_workspace_free(m_gsl_workspace);
 }
 
-
-
 template<class C> double MemberFunctionIntegrator<C>::integrate(
         double lmin, double lmax, void* params)
 {

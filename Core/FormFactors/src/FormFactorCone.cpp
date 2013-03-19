@@ -35,8 +35,6 @@ FormFactorCone::~FormFactorCone()
 {
 }
 
-//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-
 void FormFactorCone::init_parameters()
 {
     getParameterPool()->clear();
@@ -45,15 +43,14 @@ void FormFactorCone::init_parameters()
     getParameterPool()->registerParameter("alpha",  &m_alpha);
 }
 
-
 FormFactorCone* FormFactorCone::clone() const
 {
    FormFactorCone* ffCone = new FormFactorCone(m_radius, m_height, m_alpha);
    return ffCone;
 }
 
+//! Real part of the integral.
 
-//*****************Real Part of the Integral*********************************//
 double FormFactorCone::evaluate_for_q_real() const
 {
     double H = m_height;
@@ -62,6 +59,8 @@ double FormFactorCone::evaluate_for_q_real() const
     double RealRadial = integrator.integrate(0, H, (void *)0);
     return RealRadial;
 }
+
+//! Integrand for real part of the integral.
 
 double FormFactorCone::ConeIntegralReal(double Z, void* params) const
 {
@@ -78,7 +77,8 @@ double FormFactorCone::ConeIntegralReal(double Z, void* params) const
     return 2.0 * M_PI *Rz*Rz * J1_qrRz_div_qrRz * exp_real;
 }
 
-//*********************************Imaginary Part***************************//
+//! Imaginary part of the integral.
+
 complex_t FormFactorCone::evaluate_for_q_imag() const
 {
     double H = m_height;
@@ -87,6 +87,8 @@ complex_t FormFactorCone::evaluate_for_q_imag() const
     complex_t ImaginaryRadial = integrator.integrate(0, H, (void *)0);
     return ImaginaryRadial;
 }
+
+//! Integrand for imaginary part of the integral.
 
 double FormFactorCone::ConeIntegralImaginary(double Z, void* params) const
 {
@@ -104,8 +106,8 @@ double FormFactorCone::ConeIntegralImaginary(double Z, void* params) const
     return 2.0 * M_PI *Rz*Rz * J1_qrRz_div_qrRz * exp_imag;
 }
 
+//! Complex integral computed as sum of real and imaginary part.
 
-//***************************Sum of Two Integrals*****************************//
 complex_t FormFactorCone::evaluate_for_q(const cvector_t &q) const
 {
      m_q = q;

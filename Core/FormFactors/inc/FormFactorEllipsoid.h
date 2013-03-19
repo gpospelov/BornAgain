@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/inc/FormFactorEllipsoid.h
-//! @brief     Defines class FormFactorEllipsoid.
+//! @brief     Defines class FormFactorEllipsoid
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,7 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! ?
+//! Form factor of an ellipsoid..
 
 class FormFactorEllipsoid : public IFormFactorBorn
 {
@@ -45,7 +45,7 @@ public:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
 protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! register some class members for later access via parameter pool
     virtual void init_parameters();
 
 private:

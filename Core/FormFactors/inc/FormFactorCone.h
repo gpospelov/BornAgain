@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/inc/FormFactorCone.h
-//! @brief     Defines class FormFactorCone.
+//! @brief     Defines class FormFactorCone
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,7 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! Form factor of cone.
+//! Form factor of a cone.
 
 class FormFactorCone : public IFormFactorBorn
 {
@@ -40,7 +40,7 @@ public:
 protected:
     virtual complex_t evaluate_for_q (const cvector_t &q) const;
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! register some class members for later access via parameter pool
     virtual void init_parameters();
 
 private:
@@ -54,7 +54,6 @@ private:
     double m_height;
     double m_alpha;
     mutable cvector_t m_q;
-
 };
 
 #endif // FORMFACTORCONE_H

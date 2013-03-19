@@ -1,30 +1,28 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/ParameterPool.h
+//! @brief     Defines class ParameterPool.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ParameterPool.h
-//! @brief  Definition of Layer class
-//! @author Scientific Computing Group at FRM II
-//! @date   18.06.2012
 
 #include "ICloneable.h"
 #include "RealParameterWrapper.h"
 #include <map>
 #include <vector>
 
+//! Holds a map of pointers to parameters (which must have different names).
 
-//- -------------------------------------------------------------------
-//! @class ParameterPool
-//! @brief Definition of ParameterPool to hold map of pointers to parameters
-//! Names of parameters should be the different, otherwise exception is thrown
-//- -------------------------------------------------------------------
 class ParameterPool : public ICloneable
 {
 public:

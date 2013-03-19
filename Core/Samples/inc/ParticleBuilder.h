@@ -1,31 +1,31 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/ParticleBuilder.h
+//! @brief     Defines class ParticleBuilder.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef PARTICLEBUILDER_H
 #define PARTICLEBUILDER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ParticleBuilder.h
-//! @brief  Definition of ParticleBuilder class
-//! @author Scientific Computing Group at FRM II
-//! @date   20.08.2012
 
 #include "Particle.h"
 #include "IStochasticParameter.h"
 #include "ParticleDecoration.h"
 
-
-//- -------------------------------------------------------------------
 //! @class ParticleBuilder
 //! @brief To build set of particles with similar properties
 //!
 //! currently produces particles but probably can produce directly
 //! ParticleInfo, or even ISample
-//- -------------------------------------------------------------------
+
 class ParticleBuilder
 {
 public:
@@ -48,6 +48,5 @@ private:
     StochasticParameter<double > *m_parameter;
     double m_scale; //!< global scale factor for probabilities
 };
-
 
 #endif // PARTICLEBUILDER_H

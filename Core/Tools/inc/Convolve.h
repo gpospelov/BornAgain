@@ -1,28 +1,26 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/Convolve.h
+//! @brief     Defines class MathFunctions::Convolve.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef CONVOLVE_H
 #define CONVOLVE_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   Convolve.h
-//! @brief  Definition of Convolve class
-//! @author Scientific Computing Group at FRM II
-//! @date   30.05.2012
-
 
 #include <fftw3.h>
 #include <vector>
 
-
-
 namespace MathFunctions
 {
-
 
 //- -------------------------------------------------------------------
 //! @class Convolve
@@ -110,8 +108,6 @@ private:
     std::vector<size_t > m_implemented_factors; // favorite factorization terms of fftw3
 };
 
-
 } // namespace MathFunctions
-
 
 #endif // CONVOLVE_H

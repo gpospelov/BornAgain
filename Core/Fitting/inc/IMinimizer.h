@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Fitting/IMinimizer.h
+//! @brief     Defines class IMinimizer.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef IMINIMIZER_H
 #define IMINIMIZER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IMinimizer.h
-//! @brief  Definition of Minimizer class
-//! @author Scientific Computing Group at FRM II
-//! @date   05.10.2012
 
 #include <boost/function.hpp>
 #include "Exceptions.h"
@@ -21,11 +23,8 @@
 class FitParameter;
 class FitSuiteParameters;
 
+//! Common interface for all kind minimizer's
 
-//- -------------------------------------------------------------------
-//! @class IMinimizer
-//! @brief Common interface for all kind minimizer's
-//- -------------------------------------------------------------------
 class IMinimizer
 {
 public:
@@ -80,7 +79,6 @@ public:
     //! return number of calls of minimized function
     virtual size_t getNCalls() const;
 };
-
 
 inline void IMinimizer::setParameter(size_t index, const FitParameter *par)
 {
@@ -157,6 +155,5 @@ inline size_t IMinimizer::getNCalls() const
 {
     throw NotImplementedException("IMinimizer::getNCalls() -> Not implemented.");
 }
-
 
 #endif // IMINIMIZER_H

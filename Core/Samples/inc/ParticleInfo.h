@@ -1,27 +1,27 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/ParticleInfo.h
+//! @brief     Defines class ParticleInfo.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef PARTICLEINFO_H
 #define PARTICLEINFO_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ParticleInfo.h
-//! @brief  Definition of Layer class
-//! @author Scientific Computing Group at FRM II
-//! @date   18.07.2012
 
 #include "ICompositeSample.h"
 #include "Particle.h"
 #include "Transform3D.h"
 
-//- -------------------------------------------------------------------
-//! @class ParticleInfo
-//! @brief holds additional information about particle (used in ParticleDecoration)
-//- -------------------------------------------------------------------
+//! Holds additional information about particle (used in ParticleDecoration)
+
 class ParticleInfo : public ICompositeSample
 {
 public:
@@ -70,6 +70,5 @@ protected:
     double m_depth;
     double m_abundance;
 };
-
 
 #endif // PARTICLEINFO_H

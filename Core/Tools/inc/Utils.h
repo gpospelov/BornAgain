@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/Utils.h
+//! @brief     Various stuff in namespace Utils.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef UTILS_H
 #define UTILS_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   Utils.h
-//! @brief  Definition of several helper classes
-//! @author Scientific Computing Group at FRM II
-//! @date   19.06.2012
 
 #include "Types.h"
 //#include <string>
@@ -34,10 +36,13 @@ class String
 public:
     //! parse double values from string to vector of double
     static vdouble1d_t parse_doubles(const std::string &str);
+
     //! assuming that string consist of doubles return new string where doubles are rounded according to the precision
     static std::string round_doubles(const std::string &str, int precision);
+
     //! return true if text matches pattern with wildcards '*' and '?'
     static bool MatchPattern(const std::string &text, std::string wildcardPattern);
+
     //! split string into vector of string using delimeter
     static std::vector<std::string> Split(const std::string &text, const std::string &delimeter);
 };
@@ -161,11 +166,6 @@ private:
     container_t m_value_map;
 };
 
-
-
 }
 
-
 #endif // UTILS_H
-
-

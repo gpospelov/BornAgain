@@ -1,31 +1,27 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/AxisDouble.h
+//! @brief     Defines class AxisDouble.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef AXISDOUBLE_H_
 #define AXISDOUBLE_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   AxisDouble.h
-//! @brief  Definition of AxisDouble class
-//! @author Scientific Computing Group at FRM II
-//! @date   Dec 4, 2012
 
 #include "IAxis.h"
 
-//#include <string>
-//#include <vector>
+class AxisBin;  // forward declaration needed for conversion constructor
 
-// Forward declaration of BinAxis class, as needed for conversion constructor
-class AxisBin;
+//! The points of an axis
 
-//- -------------------------------------------------------------------
-//! @class AxisDouble
-//! @brief Definition of AxisDouble class that stores the points of an axis
-//- -------------------------------------------------------------------
 class AxisDouble : public IAxis
 {
 public:

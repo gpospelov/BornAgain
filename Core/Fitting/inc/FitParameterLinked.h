@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Fitting/FitParameterLinked.h
+//! @brief     Defines class FitParameterLinked.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef FITPARAMETERLINKED_H
 #define FITPARAMETERLINKED_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FitParameterLinked.h
-//! @brief  Definition of FitParameterLinked class
-//! @author Scientific Computing Group at FRM II
-//! @date   28.06.2012
 
 #include "FitParameter.h"
 #include "ParameterPool.h"
@@ -21,12 +23,8 @@
 #include <vector>
 #include <iostream>
 
+//! Provide simultaneous access for several real parameters from parameter pool
 
-//- -------------------------------------------------------------------
-//! @class FitParameterLinked
-//! @brief Provide simultaneous access for several real parameters from
-//! parameter pool
-//- -------------------------------------------------------------------
 class FitParameterLinked : public FitParameter
 {
 public:
@@ -64,4 +62,4 @@ private:
     FitParameterLinked &operator=(const FitParameterLinked &);
 };
 
-#endif // FITMULTIPARAMETER_H
+#endif // FITPARAMETERLINKED_H

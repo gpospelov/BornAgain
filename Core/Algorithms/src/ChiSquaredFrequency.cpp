@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/ChiSquaredFrequency.cpp
+//! @brief     Implements class ChiSquaredFrequency.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "ChiSquaredFrequency.h"
 #include "OutputDataFunctions.h"
 #include <cassert>
@@ -7,9 +22,7 @@ ChiSquaredFrequency::ChiSquaredFrequency()
 , mp_simulation_ft(0)
 , m_cutoff(1.0)
 {
-
 }
-
 
 ChiSquaredFrequency::~ChiSquaredFrequency()
 {
@@ -57,7 +70,6 @@ double ChiSquaredFrequency::calculateChiSquared()
     m_chi2_value = result/data_size;
     return m_chi2_value;
 }
-
 
 OutputData<double>* ChiSquaredFrequency::createChi2DifferenceMap() const
 {

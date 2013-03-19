@@ -1,26 +1,26 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/IDoubleToComplexFunction.h
+//! @brief     Defines class IDoubleToComplexFunction.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef IDOUBLETOCOMPLEXFUNCTION_H_
 #define IDOUBLETOCOMPLEXFUNCTION_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IDoubleToComplexFunction.h
-//! @brief  Definition of HomogeneousMaterial class
-//! @author herck
-//! @date   27.04.2012
 
 #include "Types.h"
 #include "ICloneable.h"
 
-//- -------------------------------------------------------------------
-//! @class IDoubleToComplexFunction
-//! @brief Base class for double to complex interpolators
-//- -------------------------------------------------------------------
+//! Virtual base class for double to complex interpolators.
+
 class IDoubleToComplexFunction : public ICloneable
 {
 public:
@@ -30,11 +30,8 @@ public:
 	virtual complex_t evaluate(double value)=0;
 };
 
+//! Virtual base class for double to complex map.
 
-//- -------------------------------------------------------------------
-//! @class IDoubleToComplexMap
-//! @brief Base class for double to complex map
-//- -------------------------------------------------------------------
 class IDoubleToComplexMap : public ICloneable
 {
 public:
@@ -44,11 +41,8 @@ public:
     virtual const complex_t &evaluate(double value) const = 0;
 };
 
+//! Virtual base class for double to complexpair_t map.
 
-//- -------------------------------------------------------------------
-//! @class IDoubleToPairOfComplexMap
-//! @brief Base class for double to complexpair_t map
-//- -------------------------------------------------------------------
 class IDoubleToPairOfComplexMap : public ICloneable
 {
 public:
@@ -58,6 +52,7 @@ public:
     virtual const complexpair_t &evaluate(double value) const = 0;
 };
 
+//! ?
 
 class DoubleToComplexFunctionWrapper : public IDoubleToComplexFunction
 {

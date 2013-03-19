@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/OutputData.h
+//! @brief     Defines and implements template class OutputData.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef OUTPUTDATA_H
 #define OUTPUTDATA_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   OutputData.h
-//! @brief  Definition of OutputData class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #include "AxisDouble.h"
 //#include "Exceptions.h"
@@ -24,11 +26,8 @@
 //#include <string>
 #include <sstream>
 
-//- -------------------------------------------------------------------
-//! @class OutputData
-//! @brief Definition of OutputData class to store data of any type in
-//! multi-dimensional space
-//- -------------------------------------------------------------------
+//! Store data of any type in multi-dimensional space
+
 template <class T> class OutputData
 {
 public:
@@ -568,6 +567,5 @@ bool OutputData<T>::hasSameShape(const OutputData<T> &right) const
     }
     return true;
 }
-
 
 #endif // OUTPUTDATA_H

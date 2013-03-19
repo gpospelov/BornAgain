@@ -1,35 +1,29 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/RealParameterWrapper.h
+//! @brief     Defines class RealParameterWrapper.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef REALPARAMETERWRAPPER_H
 #define REALPARAMETERWRAPPER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   RealParameterWrapper.h
-//! @brief  Definition of RealParameterWrapper class
-//! @author Scientific Computing Group at FRM II
-//! @date   14.12.2012
 
 #include "Exceptions.h"
 
 #include <ostream>
-//#include <boost/signal.hpp>
 
+//! Wrapper to real parameter for remote access to its value and callback abilities
 
-//- -------------------------------------------------------------------
-//! @class RealParameterWrapper
-//! @brief Definition of wrapper to real parameter for remote access to its
-//! value and callback abilities
-//- -------------------------------------------------------------------
 class RealParameterWrapper {
 public:
-    //! type of the signal parameter can emmit
-//    typedef boost::signal<void ()>  signal_t;
-
     explicit RealParameterWrapper(double *par) : m_data(par) {}
     // explicit RealParameterWrapper(double *par) : m_data(par), m_signal() {}
     RealParameterWrapper(const RealParameterWrapper &other );
@@ -49,9 +43,6 @@ public:
     //! get value of wrapped parameter
     double getValue() const { checkNull(); return *m_data; }
 
-    //! connect external slot with signal which parameter will emmit
- //   void connect(const signal_t::slot_type &slot) { m_signal.connect(slot); }
-
     //! return true if wrapped parameter was not initialized with proper real value
     bool isNull() const { return (m_data ? false : true); }
 
@@ -65,8 +56,6 @@ private:
     void swapContent(RealParameterWrapper &other);
 
     volatile double *m_data;
-//    signal_t m_signal;
 };
-
 
 #endif // REALPARAMETERPROXY_H

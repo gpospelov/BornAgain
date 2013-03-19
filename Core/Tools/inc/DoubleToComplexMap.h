@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/DoubleToComplexMap.h
+//! @brief     Defines classes DoubleToComplexMap, DoubleToPairOfComplexMap.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef DOUBLETOCOMPLEXUNORDEREDMAP_H
 #define DOUBLETOCOMPLEXUNORDEREDMAP_H
 
@@ -6,12 +21,8 @@
 #include "Utils.h"
 #include "IDoubleToComplexFunction.h"
 
+//! Double to complex unordered map.
 
-
-//- -------------------------------------------------------------------
-//! @class DoubleToComplexMap
-//! @brief Double to complex unordered map
-//- -------------------------------------------------------------------
 class DoubleToComplexMap : public IDoubleToComplexMap
 {
 public:
@@ -27,11 +38,8 @@ private:
     container_t m_value_map;
 };
 
+//! Double to pair of complex unordered map.
 
-//- -------------------------------------------------------------------
-//! @class DoubleToPairOfComplexMap
-//! @brief Double to pair of complex unordered map
-//- -------------------------------------------------------------------
 class DoubleToPairOfComplexMap : public IDoubleToPairOfComplexMap
 {
 public:
@@ -46,8 +54,5 @@ public:
 private:
     container_t m_value_map;
 };
-
-
-
 
 #endif // DOUBLETOCOMPLEXUNORDEREDMAP_H

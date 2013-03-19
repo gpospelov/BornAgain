@@ -1,28 +1,25 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/AxisBin.h
+//! @brief     Defines class AxisBin.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef AXISBIN_H_
 #define AXISBIN_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   BinAxis.h
-//! @brief  Definition of BinAxis class
-//! @author Scientific Computing Group at FRM II
-//! @date   Dec 6, 2012
 
 #include "IAxis.h"
 
-//#include <string>
-//#include <vector>
+//! The bins of an axis
 
-//- -------------------------------------------------------------------
-//! @class BinAxis
-//! @brief Definition of BinAxis class that stores the bins of an axis
-//- -------------------------------------------------------------------
 class AxisBin : public IAxis
 {
 public:

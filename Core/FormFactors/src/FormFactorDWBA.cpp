@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/FormFactorDWBA.cpp
+//! @brief     Implements class FormFactorDWBA.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "FormFactorDWBA.h"
 
 FormFactorDWBA::FormFactorDWBA(IFormFactor *p_form_factor)
@@ -40,4 +55,3 @@ FormFactorDWBA* FormFactorDWBA::clone() const
     p_new->setReflectionTransmissionFunction(*mp_RT);
     return p_new;
 }
-

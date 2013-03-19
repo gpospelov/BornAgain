@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      PythonAPI/inc/PythonListConverter.h
+//! @brief     Defines and implements template struct Vector_from_python_list.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef PYTHONLISTCONVERTER_H
 #define PYTHONLISTCONVERTER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   PythonListConverter.h
-//! @brief  Converter of Python list to std containers
-//! @author Scientific Computing Group at FRM II
-//! @date   12.09.2012
 
 
 #include "Python.h"
@@ -28,11 +30,10 @@ GCC_DIAG_ON(missing-field-initializers);
 
 namespace bp = boost::python;
 
-//- -------------------------------------------------------------------
-//! @struct Vector_from_python_list
-//! @brief Converter of Python list to std containers
+//! Converter of Python list to std containers
+
 //! from http://code.activestate.com/lists/python-cplusplus-sig/16463/
-//- -------------------------------------------------------------------
+//!
 template<typename T>
 struct Vector_from_python_list
 {
@@ -76,8 +77,6 @@ struct Vector_from_python_list
 
 };
 
-
 void register_python2cpp_converters();
-
 
 #endif // PYTHONLISTCONVERTER_H

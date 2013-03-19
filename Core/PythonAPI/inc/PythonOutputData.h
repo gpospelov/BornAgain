@@ -1,26 +1,26 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      PythonAPI/inc/PythonOutputData.h
+//! @brief     Defines a few global functions: GetOutputDataNdimensions, ..
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef PYTHONOUTPUTDATA_H
 #define PYTHONOUTPUTDATA_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   PythonOutputData.h
-//! @brief  Export of OutputData class to python numpy array
-//! @author Scientific Computing Group at FRM II
-//! @date   19.07.2012
 
 #include <Python.h>
 #include "OutputData.h"
 #include "Simulation.h"
 
 #include <string>
-
-
 
 //! return number of dimensions in output data of simulation
 int GetOutputDataNdimensions(const Simulation &simulation);

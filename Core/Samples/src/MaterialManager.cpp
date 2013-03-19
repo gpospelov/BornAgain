@@ -1,10 +1,23 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/MaterialManager.cpp
+//! @brief     Implements class MaterialManager.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "MaterialManager.h"
 #include "Exceptions.h"
 
+//! clean material database
 
-/* ************************************************************************* */
-// cleaning material database
-/* ************************************************************************* */
 void MaterialManager::clear() {
     for(materials_t::iterator it = m_materials.begin(); it!= m_materials.end(); ++it) {
         if( (*it).second ) delete (*it).second;
@@ -12,10 +25,8 @@ void MaterialManager::clear() {
     m_materials.clear();
 }
 
+//! get material
 
-/* ************************************************************************* */
-// get material
-/* ************************************************************************* */
 const IMaterial *MaterialManager::getMaterial(const std::string &name)
 {
     materials_t::const_iterator pos = m_materials.find(name);
@@ -26,7 +37,6 @@ const IMaterial *MaterialManager::getMaterial(const std::string &name)
         return 0;
     }
 }
-
 
 /* ************************************************************************* */
 // Create material and add into database. The name of material serve as unique
@@ -59,10 +69,6 @@ const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name
     return addHomogeneousMaterial(name, complex_t(refractive_index_real, refractive_index_imag));
 }
 
-
-/* ************************************************************************* */
-// print content of material database on the screen
-/* ************************************************************************* */
 void MaterialManager::print(std::ostream &ostr) const
 {
     ostr << typeid(*this).name() << " " << this << " nmaterials:" << m_materials.size() << std::endl;
@@ -71,4 +77,3 @@ void MaterialManager::print(std::ostream &ostr) const
         ostr << *mat << std::endl;
     }
 }
-

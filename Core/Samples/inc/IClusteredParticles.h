@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/IClusteredParticles.h
+//! @brief     Defines class IClusteredParticles.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef ICLUSTEREDPARTICLES_H_
 #define ICLUSTEREDPARTICLES_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IClusteredParticles.h
-//! @brief  Definition of IClusteredParticles interface
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 12, 2012
 
 #include "IFormFactor.h"
 #include "ICompositeSample.h"
@@ -21,10 +23,8 @@
 #include "Exceptions.h"
 #include "DiffuseParticleInfo.h"
 
-//- -------------------------------------------------------------------
-//! @class IClusteredParticles
-//! @brief Definition of an interface, representing an ordered assembly of particles
-//- -------------------------------------------------------------------
+//! An ordered assembly of particles
+
 class IClusteredParticles : public ICompositeSample
 {
 public:
@@ -60,6 +60,5 @@ public:
     }
 
 };
-
 
 #endif /* ICLUSTEREDNANOPARTICLES_H_ */

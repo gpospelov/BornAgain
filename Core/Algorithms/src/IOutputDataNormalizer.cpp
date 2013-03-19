@@ -1,7 +1,21 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/IOutputDataNormalizer.cpp
+//! @brief     Implements class IOutputDataNormalizer.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "IOutputDataNormalizer.h"
 #include <algorithm>
 #include <iostream>
-
 
 OutputDataNormalizer::OutputDataNormalizer(double scale, double shift)
     : m_scale(scale)
@@ -19,7 +33,6 @@ void  OutputDataNormalizer::init_parameters()
     getParameterPool()->registerParameter("shift", &m_shift);
 }
 
-
 OutputDataNormalizer *OutputDataNormalizer::clone() const
 {
     OutputDataNormalizer *result = new OutputDataNormalizer(m_scale, m_shift);
@@ -27,8 +40,6 @@ OutputDataNormalizer *OutputDataNormalizer::clone() const
     result->setName(getName());
     return result;
 }
-
-
 
 OutputData<double> *OutputDataNormalizer::createNormalizedData(const OutputData<double > &data) const
 {
@@ -46,5 +57,3 @@ OutputData<double> *OutputDataNormalizer::createNormalizedData(const OutputData<
     }
     return normalized_data;
 }
-
-

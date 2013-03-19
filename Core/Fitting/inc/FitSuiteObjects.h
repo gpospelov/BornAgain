@@ -1,19 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Fitting/FitSuiteObjects.h
+//! @brief     Defines class FitSuiteObjects.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef FITSUITEOBJECTS_H
 #define FITSUITEOBJECTS_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FitSuiteObjects.h
-//! @brief  Definition of FitSuiteObjects class
-//! @author Scientific Computing Group at FRM II
-//! @date   15.11.2012
-
 
 #include "IParameterized.h"
 #include "Simulation.h"
@@ -23,11 +24,8 @@
 
 #include <vector>
 
+//! class containing vector FitObject's (simulation and real data) to fit
 
-//- -------------------------------------------------------------------
-//! @class FitSuiteObjects
-//! @brief Class containing vector FitObject's (simulation and real data) to fit
-//- -------------------------------------------------------------------
 class FitSuiteObjects : public IParameterized
 {
 public:
@@ -113,8 +111,5 @@ private:
     int m_nfree_parameters; //! number of freefit parameters for normalization
     double m_chi_squared_value;
 };
-
-
-
 
 #endif // FITSUITEKIT_H

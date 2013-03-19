@@ -1,7 +1,21 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/FormFactorPyramid.cpp
+//! @brief     Implements class FormFactorPyramid.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "FormFactorPyramid.h"
 #include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
-
 
 FormFactorPyramid::FormFactorPyramid(double height, double half_side, double alpha)
 {
@@ -12,15 +26,12 @@ FormFactorPyramid::FormFactorPyramid(double height, double half_side, double alp
     init_parameters();
 }
 
-
 FormFactorPyramid::~FormFactorPyramid()
 {
 }
 
+//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
 
-/* ************************************************************************* */
-// initialize pool parameters, i.e. register some of class members for later access via parameter pool
-/* ************************************************************************* */
 void FormFactorPyramid::init_parameters()
 {
     getParameterPool()->clear();
@@ -28,7 +39,6 @@ void FormFactorPyramid::init_parameters()
     getParameterPool()->registerParameter("half_side", &m_half_side);
     getParameterPool()->registerParameter("alpha", &m_alpha);
 }
-
 
 FormFactorPyramid* FormFactorPyramid::clone() const
 {
@@ -90,4 +100,3 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t &q) const
     }
     return F;
 }
-

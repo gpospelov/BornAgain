@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/FormFactorFullSpheroid.cpp
+//! @brief     Implements class FormFactorFullSpheroid.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "FormFactorFullSpheroid.h"
 #include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
@@ -16,9 +31,8 @@ FormFactorFullSpheroid::~FormFactorFullSpheroid()
 {
 }
 
-/* ************************************************************************* */
-// initialize pool parameters, i.e. register some of class members for later access via parameter pool
-/* ************************************************************************* */
+//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+
 void FormFactorFullSpheroid::init_parameters()
 {
     getParameterPool()->clear();
@@ -32,8 +46,8 @@ FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
    FormFactorFullSpheroid* ffFullSpheroid = new FormFactorFullSpheroid(m_radius, m_height);
    return ffFullSpheroid;
 }
-complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t &q) const
 
+complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t &q) const
 {
     double H = m_height;
     //double R = m_radius;
@@ -49,9 +63,7 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t &q) const
     MemberFunctionIntegrator<FormFactorFullSpheroid> integrator(p_mf,this);
     double radial = integrator.integrate(0.0, H/2.0, (void *)0);
     return  a_part * radial;
- }
-
-
+}
 
 double FormFactorFullSpheroid::FullSpheroidIntegral(double Z, void* params) const
 {
@@ -68,5 +80,4 @@ double FormFactorFullSpheroid::FullSpheroidIntegral(double Z, void* params) cons
 
          double J1_qrRz_div_qrRz = std::abs(qrRz) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(std::abs(qrRz))/qrRz : 0.5;
          return   4.0* M_PI *Rz*Rz* J1_qrRz_div_qrRz * std::cos(qz.real()*Z);
-
-   }
+}

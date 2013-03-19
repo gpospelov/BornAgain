@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/ChiSquaredModule.cpp
+//! @brief     Implements class ChiSquaredModule.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "ChiSquaredModule.h"
 #include "OutputDataFunctions.h"
 #include <cassert>
@@ -6,17 +21,14 @@ ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other) : IChiSquaredM
 {
 }
 
-
 ChiSquaredModule::~ChiSquaredModule()
 {
 }
-
 
 ChiSquaredModule *ChiSquaredModule::clone() const
 {
     return new ChiSquaredModule(*this);
 }
-
 
 double ChiSquaredModule::calculateChiSquared()
 {
@@ -51,7 +63,6 @@ double ChiSquaredModule::calculateChiSquared()
     return m_chi2_value;
 }
 
-
 double ChiSquaredModule::getResidualValue(size_t index ) const
 {
     assert(mp_real_data != NULL );
@@ -68,7 +79,6 @@ double ChiSquaredModule::getResidualValue(size_t index ) const
     double residual = std::sqrt(weight)*(value_simu - value_real)/std::sqrt(squared_error);
     return residual;
 }
-
 
 OutputData<double>* ChiSquaredModule::createChi2DifferenceMap() const
 {

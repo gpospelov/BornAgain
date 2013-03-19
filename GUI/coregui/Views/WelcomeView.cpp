@@ -10,7 +10,7 @@
 WelcomeView::WelcomeView(QWidget *parent)
     : QWebView(parent)
 {
-    load(QUrl("http://apps.jcns.fz-juelich.de/doku/sc/bornagain"));
+    load(QUrl("http://apps.jcns.fz-juelich.de/doku/sc/bornagain::start"));
     connect(this, SIGNAL(linkClicked(const QUrl &)), this, SLOT(onWebLinkClicked(const QUrl &)));
     page()->setLinkDelegationPolicy( QWebPage::DelegateAllLinks );
 //    QGroupBox *configGroup = new QGroupBox(tr("Server configuration"));

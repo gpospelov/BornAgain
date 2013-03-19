@@ -1,27 +1,25 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/IAxis.h
+//! @brief     Defines class IAxis.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef IAXIS_H_
 #define IAXIS_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IAxis.h
-//! @brief  Definition of IAxis interface
-//! @author Scientific Computing Group at FRM II
-//! @date   Dec 10, 2012
 
 #include "Bin.h"
 
-//#include <string>
+//! Interface for one-dimensional axes
 
-//- -------------------------------------------------------------------
-//! @class IAxis
-//! @brief Definition of IAxis interface for 1d axes
-//- -------------------------------------------------------------------
 class IAxis
 {
 public:

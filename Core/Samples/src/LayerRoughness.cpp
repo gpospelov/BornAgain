@@ -1,8 +1,22 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/LayerRoughness.cpp
+//! @brief     Implements class LayerRoughness.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "LayerRoughness.h"
 #include <cmath>
 #include <iostream>
 #include <iomanip>
-
 
 LayerRoughness::LayerRoughness()
 : m_sigma(0)
@@ -12,7 +26,6 @@ LayerRoughness::LayerRoughness()
     setName("roughness");
     init_parameters();
 }
-
 
 LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength)
 : m_sigma(sigma)
@@ -53,11 +66,8 @@ double LayerRoughness::getSpectralFun(const kvector_t &kvec) const
     return 4.0*M_PI*H * m_sigma*m_sigma * clength2 * std::pow( (1.0 + Qpar2*clength2), (-1-H) );
 }
 
-
-
-/* ************************************************************************* */
 //! Correlation function of the roughness profile
-/* ************************************************************************* */
+
 double LayerRoughness::getCorrFun(const kvector_t &k) const
 {
     double H = m_hurstParameter;
@@ -66,14 +76,7 @@ double LayerRoughness::getCorrFun(const kvector_t &k) const
     return m_sigma*m_sigma*std::exp( -1.0*std::pow(R/clength, 2.*H) );
 }
 
-
-/* ************************************************************************* */
-// print
-/* ************************************************************************* */
 void LayerRoughness::print(std::ostream &ostr) const
 {
-//    ostr << getName()
-//         << " " << std::setw(12) << this;
-//    ostr << "(s:" << m_sigma << ",H:"<<m_hurstParameter<< ",C:"<<m_latteralCorrLength << ")";
     ISample::print(ostr);
 }

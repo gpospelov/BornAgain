@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Fitting/IFitSuiteStrategy.cpp
+//! @brief     Implements classes FitSuiteStrategy...
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "IFitSuiteStrategy.h"
 #include "FitSuite.h"
 #include "FitSuiteParameters.h"
@@ -11,11 +26,7 @@
 #include "OutputDataFunctions.h"
 #include <iostream>
 
-
-
-/* ************************************************************************* */
-// Default fit strategy just let FitSuite to run it's minimization round
-/* ************************************************************************* */
+//! Default fit strategy just let FitSuite to run it's minimization round
 void FitSuiteStrategyDefault::execute()
 {
     if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyDefault::execute() -> FitSuite doesn't exists");
@@ -24,10 +35,7 @@ void FitSuiteStrategyDefault::execute()
     m_fit_suite->minimize();
 }
 
-
-/* ************************************************************************* */
-// adjust (rebin) data before running fit suite minimization round
-/* ************************************************************************* */
+//! adjust (rebin) data before running fit suite minimization round
 // TODO: refactor this all
 void FitSuiteStrategyAdjustData::execute()
 {
@@ -75,13 +83,10 @@ void FitSuiteStrategyAdjustData::execute()
             delete original_data_collection[i_exp];
         }
     }
-
 }
 
 
-/* ************************************************************************* */
-// strategy which fixes/releases fit parameters and then call minimizer
-/* ************************************************************************* */
+//! strategy which fixes/releases fit parameters and then call minimizer
 void FitSuiteStrategyAdjustParameters::execute()
 {
     if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
@@ -126,10 +131,7 @@ void FitSuiteStrategyAdjustParameters::execute()
     }
 }
 
-
-/* ************************************************************************* */
-// Helps minimizer get out of local minima by disturbing real data
-/* ************************************************************************* */
+//! Helps minimizer get out of local minima by disturbing real data
 void FitSuiteStrategyBootstrap::execute()
 {
     throw NotImplementedException("FitSuiteStrategyBootstrap::execute()");
@@ -224,8 +226,7 @@ void FitSuiteStrategyBootstrap::execute()
 
 }
 
-
-// generate noisy data
+//! generate noisy data
 OutputData<double> *FitSuiteStrategyBootstrap::generateNoisyData(double noise_factor, const OutputData<double> &source) const
 {
     OutputData<double> *p_result = source.clone();
@@ -240,4 +241,3 @@ OutputData<double> *FitSuiteStrategyBootstrap::generateNoisyData(double noise_fa
     }
     return p_result;
 }
-

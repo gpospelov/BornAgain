@@ -1,26 +1,26 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/FormFactorCone.h
+//! @brief     Defines class FormFactorCone.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORCONE_H
 #define FORMFACTORCONE_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorCone.h
-//! @brief  Definition of FormFactorCone
-//! @author Scientific Computing Group at FRM II
-//! @date   03.07.2012
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//- -------------------------------------------------------------------
-//! @class FormFactorCone
-//! @brief Form factor of Cone
-//- -------------------------------------------------------------------
+//! Form factor of cone.
+
 class FormFactorCone : public IFormFactorBorn
 {
 public:
@@ -44,7 +44,6 @@ protected:
     virtual void init_parameters();
 
 private:
-
     //    double ConeIntegral(double Z, void* params) const;
     double evaluate_for_q_real() const;
     complex_t evaluate_for_q_imag() const;

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/Layer.cpp
+//! @brief     Implements class Layer.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "Layer.h"
 #include "Exceptions.h"
 #include <iomanip>
@@ -28,41 +43,19 @@ Layer::Layer(const Layer &other) : ICompositeSample()
 }
 
 
-//Layer &Layer::operator=(const Layer &other)
-//{
-//    if( this != &other)
-//    {
-//        ISample::operator=(other);
-//        mp_material = other.mp_material;
-//        m_thickness = other.m_thickness;
-//        init_parameters();
-//    }
-//    return *this;
-//}
+//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
 
-
-
-/* ************************************************************************* */
-// initialize pool parameters, i.e. register some of class members for later
-// access via parameter pool
-/* ************************************************************************* */
 void Layer::init_parameters()
 {
     getParameterPool()->clear();
     getParameterPool()->registerParameter("thickness", &m_thickness);
 }
 
-
-/* ************************************************************************* */
-// clone
-/* ************************************************************************* */
 Layer *Layer::clone() const
 {
     return new Layer(*this);
 }
 
-
-/* ************************************************************************* */
 void Layer::setThickness(double thickness)
 {
     if (thickness>=0.0)
@@ -73,24 +66,16 @@ void Layer::setThickness(double thickness)
     throw DomainErrorException("Layer thickness cannot be negative");
 }
 
-
 void Layer::setMaterial(const IMaterial* p_material, double thickness)
 {
     setMaterial(p_material);
     setThickness(thickness);
 }
 
+//! print content of multilayer
 
-/* ************************************************************************* */
-// print content of multilayer
-/* ************************************************************************* */
 void Layer::print(std::ostream &ostr) const
 {
     ICompositeSample::print(ostr);
     ostr << *getMaterial();
-//    ostr << getName()
-//         << " " << std::setw(12) << this
-//         << " " << getThickness() << "nm > "
-//         << *getMaterial();
 }
-

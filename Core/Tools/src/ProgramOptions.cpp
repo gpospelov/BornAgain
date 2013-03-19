@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/ProgramOptions.cpp
+//! @brief     Implements class ProgramOptions.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "ProgramOptions.h"
 #include "Utils.h"
 #include "Exceptions.h"
@@ -9,13 +24,10 @@
 
 ProgramOptions::ProgramOptions() : m_options_is_consistent(false)
 {
-
 }
 
+//! access variables
 
-/* ************************************************************************* */
-// access  variables
-/* ************************************************************************* */
 const bpo::variable_value& ProgramOptions::operator[] (const std::string &s) const
 {
     if( !m_options_is_consistent ) {
@@ -27,10 +39,8 @@ const bpo::variable_value& ProgramOptions::operator[] (const std::string &s) con
     return m_variables_map[s.c_str()];
 }
 
+//! parse command line arguments
 
-/* ************************************************************************* */
-// parse command line arguments
-/* ************************************************************************* */
 void ProgramOptions::parseCommandLine(int argc, char **argv)
 {
     // saving relative path to the application for later usage
@@ -66,10 +76,8 @@ void ProgramOptions::parseCommandLine(int argc, char **argv)
     parseConfigFile();
 }
 
+//! parse config file for arguments
 
-/* ************************************************************************* */
-// parse config file for arguments
-/* ************************************************************************* */
 void ProgramOptions::parseConfigFile()
 {
     //std::cout << "ProgramOptions::parseConfigFile" << std::endl;

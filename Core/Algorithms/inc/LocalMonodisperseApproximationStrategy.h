@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/LocalMonodisperseApproximationStrategy.h
+//! @brief     Defines class LocalMonodisperseApproximationStrategy.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef LOCALMONODISPERSEAPPROXIMATIONSTRATEGY_H_
 #define LOCALMONODISPERSEAPPROXIMATIONSTRATEGY_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   LocalMonodisperseApproximationStrategy.h
-//! @brief  Definition of LocalMonodisperseApproximationStrategy class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jun 29, 2012
 
 #include "IInterferenceFunctionStrategy.h"
 
@@ -29,7 +31,5 @@ public:
 private:
     bool checkVectorSizes();
 };
-
-
 
 #endif /* LOCALMONODISPERSEAPPROXIMATIONSTRATEGY_H_ */

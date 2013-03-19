@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/FormFactorLorentz.cpp
+//! @brief     Implements class FormFactorLorentz.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "FormFactorLorentz.h"
 #include "StochasticDiracDelta.h"
 
@@ -13,7 +28,6 @@ FormFactorLorentz::FormFactorLorentz(double volume)
     init_parameters();
 }
 
-
 FormFactorLorentz::FormFactorLorentz(double height, double width)
 {
     setName("FormFactorLorentz");
@@ -22,22 +36,18 @@ FormFactorLorentz::FormFactorLorentz(double height, double width)
     init_parameters();
 }
 
-
 FormFactorLorentz::~FormFactorLorentz()
 {
 }
 
+//! initialize pool parameters, i.e. register some of class members for later access via parameter pool.
 
-/* ************************************************************************* */
-// initialize pool parameters, i.e. register some of class members for later access via parameter pool
-/* ************************************************************************* */
 void FormFactorLorentz::init_parameters()
 {
     getParameterPool()->clear();
     getParameterPool()->registerParameter("height", &m_height);
     getParameterPool()->registerParameter("width", &m_width);
 }
-
 
 FormFactorLorentz* FormFactorLorentz::clone() const
 {
@@ -59,4 +69,3 @@ complex_t FormFactorLorentz::evaluate_for_q(const cvector_t &q) const
 
     return result;
 }
-

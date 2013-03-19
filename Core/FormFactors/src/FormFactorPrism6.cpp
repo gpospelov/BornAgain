@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/FormFactorPrism6.cpp
+//! @brief     Implements class FormFactorPrism6.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "FormFactorPrism6.h"
 #include "StochasticDiracDelta.h"
 
@@ -12,15 +27,12 @@ FormFactorPrism6::FormFactorPrism6(double height, double half_side)
     init_parameters();
 }
 
-
 FormFactorPrism6::~FormFactorPrism6()
 {
 }
 
+//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
 
-/* ************************************************************************* */
-// initialize pool parameters, i.e. register some of class members for later access via parameter pool
-/* ************************************************************************* */
 void FormFactorPrism6::init_parameters()
 {
     getParameterPool()->clear();
@@ -61,5 +73,3 @@ complex_t FormFactorPrism6::evaluate_for_q(const cvector_t &q) const
 
     return xy_part*z_part;
 }
-
-

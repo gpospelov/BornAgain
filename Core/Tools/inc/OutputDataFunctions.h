@@ -1,28 +1,28 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/OutputDataFunctions.h
+//! @brief     Defines functions in namespace OutputDataFunctions.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef OUTPUTDATAFUNCTIONS_H
 #define OUTPUTDATAFUNCTIONS_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   OutputDataFunctions.h
-//! @brief  Definition of namespace containing function to deal with output data
-//! @author Scientific Computing Group at FRM II
-//! @date   November 22, 2012
 
 #include "Types.h"
 #include "OutputData.h"
 #include "IIntensityFunction.h"
 #include "Mask.h"
 
-//- -------------------------------------------------------------------
-//! @namespace OutputDataFunctions
-//! @brief Collection of functions to deal with OutputData
-//- -------------------------------------------------------------------
+//! Collection of functions to deal with OutputData
+
 namespace OutputDataFunctions
 {
 
@@ -56,6 +56,5 @@ namespace OutputDataFunctions
     Mask *CreateEllipticMask(const OutputData<double> &data, const double *center, const double *radii);
     Mask *CreateEllipticMask(const OutputData<double> &data, double xc, double yc, double rx, double ry);
 }
-
 
 #endif // OUTPUTDATAFUNCTIONS_H

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/Simulation.cpp
+//! @brief     Implements class Simulation.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "Simulation.h"
 
 #include "ExperimentConstants.h"
@@ -7,7 +22,6 @@
 
 #include <boost/thread.hpp>
 #include <gsl/gsl_errno.h>
-
 
 Simulation::Simulation()
 : IParameterized("Simulation")
@@ -72,10 +86,6 @@ Simulation::Simulation(const ISampleBuilder* p_sample_builder, const ProgramOpti
     init_parameters();
 }
 
-
-/* ************************************************************************* */
-// clone method
-/* ************************************************************************* */
 Simulation *Simulation::clone() const
 {
     return new Simulation(*this);

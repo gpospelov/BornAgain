@@ -1,29 +1,28 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/OutputDataReader.h
+//! @brief     Defines class OutputDataReader.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef OUTPUTDATAREADER_H
 #define OUTPUTDATAREADER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   OutputDataReader.h
-//! @brief  Definition of OutputDataReader class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.10.2012
 
 #include "OutputData.h"
 #include "OutputDataReadStrategy.h"
 #include "Types.h"
 #include <string>
 
+//! Reads OutputData from file using different reading strategies.
 
-//- -------------------------------------------------------------------
-//! @class OutputDataReader
-//! @brief Reads OutputData from file using different reading strategies
-//- -------------------------------------------------------------------
 class OutputDataReader
 {
 public:
@@ -46,8 +45,5 @@ private:
     std::string m_file_name;
     IOutputDataReadStrategy *m_read_strategy;
 };
-
-
-
 
 #endif // OUTPUTDATAREADER_H

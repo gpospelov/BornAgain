@@ -1,27 +1,26 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/FormFactorCrystal.h
+//! @brief     Defines class FormFactorCrystal.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORCRYSTAL_H_
 #define FORMFACTORCRYSTAL_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorCrystal.h
-//! @brief  Definition of CrystalFormFactor
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 12, 2012
 
 #include "IFormFactorBorn.h"
 #include "Crystal.h"
-//#include "Types.h"
 
-//- -------------------------------------------------------------------
-//! @class FormFactorCrystal
-//! @brief Definition of a form factor for mesocrystals with a bulk crystal structure of particles
-//- -------------------------------------------------------------------
+//! Form factor for mesocrystals with a bulk crystal structure of particles
+
 class FormFactorCrystal : public IFormFactorBorn
 {
 public:
@@ -48,6 +47,5 @@ private:
     complex_t m_ambient_refractive_index;
     double m_max_rec_length;
 };
-
 
 #endif /* FORMFACTORCRYSTAL_H_ */

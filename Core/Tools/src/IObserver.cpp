@@ -1,18 +1,24 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/IObserver.cpp
+//! @brief     Implements class IObserver, mostly by including IObserver.h.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "IObserver.h"
-
-
-//void IObserver::setObservedSubject(IObservable *subject)
-//{
-//    m_observed_subject = subject;
-//}
-
 
 void IObservable::attachObserver(observer_t obj)
 {
-//    obj->setObservedSubject(this);
     m_observers.push_back(obj);
 }
-
 
 void IObservable::notifyObservers()
 {
@@ -20,10 +26,3 @@ void IObservable::notifyObservers()
         (*it)->update(this);
     }
 }
-
-
-//void IObservable::detachObserver(IObserver *obj)
-//{
-//    m_observers.remove(obj);
-//}
-

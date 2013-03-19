@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/InterferenceFunction1DParaCrystal.cpp
+//! @brief     Implements class InterferenceFunction1DParaCrystal.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "InterferenceFunction1DParaCrystal.h"
 
 InterferenceFunction1DParaCrystal::InterferenceFunction1DParaCrystal(double peak_distance, double width, double corr_length)
@@ -13,7 +28,6 @@ InterferenceFunction1DParaCrystal::InterferenceFunction1DParaCrystal(double peak
     init_parameters();
 }
 
-
 void InterferenceFunction1DParaCrystal::init_parameters()
 {
     getParameterPool()->clear();
@@ -21,7 +35,6 @@ void InterferenceFunction1DParaCrystal::init_parameters()
     getParameterPool()->registerParameter("width", &m_width);
     getParameterPool()->registerParameter("corr_length", &m_corr_length);
 }
-
 
 double InterferenceFunction1DParaCrystal::evaluate(const cvector_t &q) const
 {
@@ -43,4 +56,3 @@ complex_t InterferenceFunction1DParaCrystal::FTGaussianCorrLength(double qpar) c
 	}
 	return result;
 }
-

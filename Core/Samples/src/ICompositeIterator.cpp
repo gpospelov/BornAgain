@@ -1,6 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/ICompositeIterator.cpp
+//! @brief     Implements class ICompositeIterator.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "ICompositeIterator.h"
 #include "Exceptions.h"
-
 
 void ICompositeIterator::first()
 {
@@ -12,7 +26,6 @@ void ICompositeIterator::first()
     m_done = false;
     m_memento_itor.push_state( MementoState(m_root->begin_shallow(), m_root->end_shallow()) );
 }
-
 
 void ICompositeIterator::next()
 {
@@ -37,5 +50,4 @@ void ICompositeIterator::next()
     }
 
     if (m_memento_itor.empty()) m_done = true;
-
 }

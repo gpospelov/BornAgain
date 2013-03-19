@@ -1,6 +1,19 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Fitting/FitSuiteObjects.cpp
+//! @brief     Implements class FitSuiteObjects.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "FitSuiteObjects.h"
-
-
 
 FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_simulation_normalize(false), m_nfree_parameters(0), m_chi_squared_value(0)
 {
@@ -8,29 +21,20 @@ FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_simulation_normalize(f
     init_parameters();
 }
 
-
-/* ************************************************************************* */
-// clear all data
-/* ************************************************************************* */
+//! clear all data
 void FitSuiteObjects::clear()
 {
     m_fit_objects.clear();
 }
 
-
-/* ************************************************************************* */
-// add to kit pair of (simulation, real data) for consecutive simulation and chi2 module
-/* ************************************************************************* */
+//! add to kit pair of (simulation, real data) for consecutive simulation and chi2 module
 void FitSuiteObjects::add(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module, double weight)
 {
     m_total_weight += weight;
     m_fit_objects.push_back(new FitObject(simulation, real_data, chi2_module, weight));
 }
 
-
-/* ************************************************************************* */
-// loop through all defined simulations and run them
-/* ************************************************************************* */
+//! loop through all defined simulations and run them
 void FitSuiteObjects::runSimulations()
 {
     for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
@@ -40,10 +44,7 @@ void FitSuiteObjects::runSimulations()
     m_chi_squared_value = calculateChiSquaredValue();
 }
 
-
-/* ************************************************************************* */
-// get total number of data points
-/* ************************************************************************* */
+//! get total number of data points
 size_t FitSuiteObjects::getSizeOfDataSet() const
 {
     size_t result(0);
@@ -53,6 +54,7 @@ size_t FitSuiteObjects::getSizeOfDataSet() const
     return result;
 }
 
+//! ?
 const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(size_t global_index, size_t &local_index)
 {
     local_index = global_index;
@@ -68,10 +70,7 @@ const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(size_t global_inde
     throw LogicErrorException(ostr.str());
 }
 
-
-/* ************************************************************************* */
-// get sum of chi squared values for all fit objects
-/* ************************************************************************* */
+//! get sum of chi squared values for all fit objects
 double FitSuiteObjects::calculateChiSquaredValue()
 {
     double result(0);
@@ -92,7 +91,7 @@ double FitSuiteObjects::calculateChiSquaredValue()
     return result;
 }
 
-
+//! ?
 double FitSuiteObjects::getResidualValue(size_t global_index)
 {
     size_t index(0);
@@ -101,10 +100,7 @@ double FitSuiteObjects::getResidualValue(size_t global_index)
     return residual;
 }
 
-
-/* ************************************************************************* */
-// calculate maximum intensity in simulated data over all fit objects defined
-/* ************************************************************************* */
+//! calculate maximum intensity in simulated data over all fit objects defined
 double FitSuiteObjects::getSimulationMaxIntensity()
 {
     double result(0);
@@ -116,10 +112,7 @@ double FitSuiteObjects::getSimulationMaxIntensity()
     return result;
 }
 
-
-/* ************************************************************************* */
-// add parameters from local pool to external pool
-/* ************************************************************************* */
+//! add parameters from local pool to external pool
 std::string FitSuiteObjects::addParametersToExternalPool(std::string path,
         ParameterPool* external_pool, int copy_number) const
 {
@@ -138,9 +131,7 @@ std::string FitSuiteObjects::addParametersToExternalPool(std::string path,
     return new_path;
 }
 
-
+//! ?
 void FitSuiteObjects::init_parameters()
 {
-
 }
-

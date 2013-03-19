@@ -1,24 +1,24 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/LayerRoughness.h
+//! @brief     Defines class LayerRoughness.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef LAYERROUGHNESS_H
 #define LAYERROUGHNESS_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   LayerRoughness.h
-//! @brief  Definition of LayerRoughness class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #include "Types.h"
 #include "IRoughness.h"
 
-
-//- -------------------------------------------------------------------
 //! @class LayerRoughness
 //! @brief Roughness of interface between two layers.
 //!
@@ -26,7 +26,7 @@
 //! D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995
 //! "X-ray reflection and transmission by rough surfaces"
 //! See Appendix A2
-//- -------------------------------------------------------------------
+
 class LayerRoughness : public IRoughness
 {
 public:

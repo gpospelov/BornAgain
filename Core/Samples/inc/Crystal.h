@@ -1,28 +1,28 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/Crystal.h
+//! @brief     Defines class Crystal.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef CRYSTAL_H_
 #define CRYSTAL_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   Crystal.h
-//! @brief  Definition of Crystal class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 12, 2012
 
 #include "IClusteredParticles.h"
 #include "Particle.h"
 #include "Lattice.h"
 #include "LatticeBasis.h"
 
-//- -------------------------------------------------------------------
-//! @class Crystal
-//! @brief Definition of a crystal structure with a form factor as a basis
-//- -------------------------------------------------------------------
+//! A crystal structure with a form factor as a basis
+
 class Crystal : public IClusteredParticles
 {
 public:
@@ -57,6 +57,5 @@ private:
     LatticeBasis *mp_lattice_basis;
     double m_dw_factor;
 };
-
 
 #endif /* CRYSTAL_H_ */

@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/IIntensityFunction.h
+//! @brief     Defines classes IIntensityFunction, ..Log, ..Sqrt.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef IINTENSITYFUNCTION_H
 #define IINTENSITYFUNCTION_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IIntensityFunction.h
-//! @brief  Definition of the functions to apply on intensities before doing any chi2 calculations
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 20, 2012
 
 #include <cmath>
 
@@ -41,7 +43,5 @@ public:
     virtual IntensityFunctionSqrt *clone() const { return new IntensityFunctionSqrt(); }
     virtual double evaluate(double value) const { return (value > 0 ? std::sqrt(value) : 0); }
 };
-
-
 
 #endif // IINTENSITYFUNCTION_H

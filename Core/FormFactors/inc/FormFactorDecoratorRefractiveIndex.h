@@ -1,20 +1,24 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/FormFactorDecoratorRefractiveIndex.h
+//! @brief     Defines class FormFactorDecoratorRefractiveIndex.
+//!
+//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORDECORATORREFRACTIVEINDEX_H_
 #define FORMFACTORDECORATORREFRACTIVEINDEX_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorDecoratorRefractiveIndex.h
-//! @brief  Definition of FormFactorDecoratorRefractiveIndex class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 12, 2012
 
 #include "FormFactorDecoratorFactor.h"
+
+//! ?
 
 class FormFactorDecoratorRefractiveIndex : public FormFactorDecoratorFactor
 {

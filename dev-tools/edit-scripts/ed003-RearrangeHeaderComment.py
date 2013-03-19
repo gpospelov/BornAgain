@@ -50,16 +50,16 @@ def edit( fn ):
         raise Expection( "unexpected line 12" )
     file = m.group(1)
 
-    m=re.search( r'^\/\/\! \@brief\s+(\S+)', a[13] )
+    m=re.search( r'^\/\/\! \@brief\s+(.*)$', a[13] )
     if not m:
         raise Expection( "unexpected line 13" )
     brief = m.group(1)
     
-    s = headertemplate.substitute( F=file, B=brief ) + a[16..-1]
+    s = headertemplate.substitute( F=file, B=brief ) + '\n'.join(a[16:])
 
-#    fd = open( fn, 'w' )
-#    fd.write( s )
-#    fd.close
+    fd = open( fn, 'w' )
+    fd.write( s )
+    fd.close
 
 ## Main
 

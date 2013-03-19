@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/DoubleToComplexMap.h
+//! @file      Tools/inc/DoubleToComplexMap.h
 //! @brief     Defines classes DoubleToComplexMap, DoubleToPairOfComplexMap.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

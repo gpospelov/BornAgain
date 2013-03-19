@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/PositionParticleInfo.cpp
+//! @file      Samples/src/PositionParticleInfo.cpp
 //! @brief     Implements class PositionParticleInfo.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

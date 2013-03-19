@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/ConvolutionDetectorResolution.cpp
+//! @file      Algorithms/src/ConvolutionDetectorResolution.cpp
 //! @brief     Implements class ConvolutionDetectorResolution.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

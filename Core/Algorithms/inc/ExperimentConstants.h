@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/ExperimentConstants.h
+//! @file      Algorithms/inc/ExperimentConstants.h
 //! @brief     Defines axis names in namespace NDetector2d
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

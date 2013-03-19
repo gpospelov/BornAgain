@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorCylinder.h
+//! @file      FormFactors/inc/FormFactorCylinder.h
 //! @brief     Defines class FormFactorCylinder.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/IOutputDataNormalizer.h
+//! @file      Algorithms/inc/IOutputDataNormalizer.h
 //! @brief     Defines classes IOutputDataNormalizer, OutputDataNormalizer, OutputDataSimpleNormalizer.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

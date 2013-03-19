@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/Coordinate3D.h
+//! @file      Tools/inc/Coordinate3D.h
 //! @brief     Defines template class Coordinate3D.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/IIntensityFunction.h
+//! @file      Algorithms/inc/IIntensityFunction.h
 //! @brief     Defines classes IIntensityFunction, ..Log, ..Sqrt.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

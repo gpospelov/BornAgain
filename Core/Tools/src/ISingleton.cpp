@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/ISingleton.cpp
+//! @file      Tools/src/ISingleton.cpp
 //! @brief     Implements class ISingleton by just including ISingleton.h.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

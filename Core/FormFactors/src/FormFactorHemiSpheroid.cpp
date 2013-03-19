@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorHemiSpheroid.cpp
+//! @file      FormFactors/src/FormFactorHemiSpheroid.cpp
 //! @brief     Implements class FormFactorHemiSpheroid.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

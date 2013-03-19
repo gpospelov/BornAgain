@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/Convolve.cpp
+//! @file      Tools/src/Convolve.cpp
 //! @brief     Implements class Convolve.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

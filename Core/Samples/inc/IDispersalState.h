@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/IDispersalState.h
+//! @file      Samples/inc/IDispersalState.h
 //! @brief     Defines class IDispersalState.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

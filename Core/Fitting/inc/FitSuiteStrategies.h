@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fitting/FitSuiteStrategies.h
+//! @file      Fitting/inc/FitSuiteStrategies.h
 //! @brief     Defines class FitSuiteStrategies.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

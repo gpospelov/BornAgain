@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorDecoratorRefractiveIndex.h
+//! @file      FormFactors/inc/FormFactorDecoratorRefractiveIndex.h
 //! @brief     Defines class FormFactorDecoratorRefractiveIndex.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

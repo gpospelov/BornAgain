@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/StochasticSampledParameter.cpp
+//! @file      Tools/src/StochasticSampledParameter.cpp
 //! @brief     Implements class StochasticSampledParameter.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

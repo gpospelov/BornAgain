@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/IObserver.h
+//! @file      Tools/inc/IObserver.h
 //! @brief     Defines classes IObserver and IObservable (Observer pattern).
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

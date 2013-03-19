@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/AxisBin.cpp
+//! @file      Tools/src/AxisBin.cpp
 //! @brief     Implements class AxisBin.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

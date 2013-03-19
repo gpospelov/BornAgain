@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/ResolutionFunction2DSimple.cpp
+//! @file      Algorithms/src/ResolutionFunction2DSimple.cpp
 //! @brief     Implements class ResolutionFunction2DSimple.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

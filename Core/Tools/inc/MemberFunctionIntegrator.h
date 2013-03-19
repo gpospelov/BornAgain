@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/MemberFunctionIntegrator.h
+//! @file      Tools/inc/MemberFunctionIntegrator.h
 //! @brief     Defines and implements template class MemberFunctionIntegrator.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

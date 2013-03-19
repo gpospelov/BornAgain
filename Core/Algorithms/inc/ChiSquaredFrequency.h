@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/ChiSquaredFrequency.h
+//! @file      Algorithms/inc/ChiSquaredFrequency.h
 //! @brief     Defines class ChiSquaredFrequency.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

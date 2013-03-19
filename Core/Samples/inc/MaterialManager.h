@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/MaterialManager.h
+//! @file      Samples/inc/MaterialManager.h
 //! @brief     Defines class MaterialManager.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

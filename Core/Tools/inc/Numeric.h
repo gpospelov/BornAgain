@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/Numeric.h
+//! @file      Tools/inc/Numeric.h
 //! @brief     Defines constants and "almost equal" in namespace Numeric.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

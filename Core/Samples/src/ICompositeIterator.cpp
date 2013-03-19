@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/ICompositeIterator.cpp
+//! @file      Samples/src/ICompositeIterator.cpp
 //! @brief     Implements class ICompositeIterator.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/DoubleToComplexInterpolatingFunction.h
+//! @file      Tools/inc/DoubleToComplexInterpolatingFunction.h
 //! @brief     Defines class DoubleToComplexInterpolatingFunction.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

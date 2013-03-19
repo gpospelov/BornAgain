@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/StochasticDiracDelta.h
+//! @file      Tools/inc/StochasticDiracDelta.h
 //! @brief     Defines class StochasticDiracDelta.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

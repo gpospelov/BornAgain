@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fitting/MinimizerTest.cpp
+//! @file      Fitting/src/MinimizerTest.cpp
 //! @brief     Implements class MinimizerTest.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

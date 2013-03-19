@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/IFittingDataSelector.h
+//! @file      Algorithms/inc/IFittingDataSelector.h
 //! @brief     Defines classes IFittingDataSelector and DefaultAllDataSelector.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

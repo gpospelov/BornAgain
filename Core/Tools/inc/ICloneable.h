@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/ICloneable.h
+//! @file      Tools/inc/ICloneable.h
 //! @brief     Defines virtual class ICloneable.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

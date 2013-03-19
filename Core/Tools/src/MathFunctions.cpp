@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/MathFunctions.cpp
+//! @file      Tools/src/MathFunctions.cpp
 //! @brief     Implements functions in namespace MathFunctions.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

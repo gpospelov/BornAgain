@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/StrategyBuilder.cpp
+//! @file      Algorithms/src/StrategyBuilder.cpp
 //! @brief     Implements class StrategyBuilder.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

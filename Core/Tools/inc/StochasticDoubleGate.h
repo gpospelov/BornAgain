@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/StochasticDoubleGate.h
+//! @file      Tools/inc/StochasticDoubleGate.h
 //! @brief     Defines class StochasticDoubleGate.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

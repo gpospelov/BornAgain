@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/INamed.h
+//! @file      Tools/inc/INamed.h
 //! @brief     Defines class INamed.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

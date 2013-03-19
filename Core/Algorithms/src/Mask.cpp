@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/Mask.cpp
+//! @file      Algorithms/src/Mask.cpp
 //! @brief     Implements classes Mask and MaskCoordinate.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/Detector.h
+//! @file      Algorithms/inc/Detector.h
 //! @brief     Defines class Detector.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

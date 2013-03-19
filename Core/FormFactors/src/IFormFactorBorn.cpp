@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/IFormFactorBorn.cpp
+//! @file      FormFactors/src/IFormFactorBorn.cpp
 //! @brief     Implements class IFormFactorBorn.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

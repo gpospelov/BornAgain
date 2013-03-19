@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/Macros.h
+//! @file      Tools/inc/Macros.h
 //! @brief     Workarounds concerning diagnostic warnings.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

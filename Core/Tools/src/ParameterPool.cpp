@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/ParameterPool.cpp
+//! @file      Tools/src/ParameterPool.cpp
 //! @brief     Implements class ParameterPool.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

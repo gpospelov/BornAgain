@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/OutputDataIOFactory.h
+//! @file      Tools/inc/OutputDataIOFactory.h
 //! @brief     Defines class OutputDataIOFactory.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

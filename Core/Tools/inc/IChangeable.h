@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/IChangeable.h
+//! @file      Tools/inc/IChangeable.h
 //! @brief     Defines virtual class IChangeable.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

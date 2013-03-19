@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/AxisDouble.h
+//! @file      Tools/inc/AxisDouble.h
 //! @brief     Defines class AxisDouble.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

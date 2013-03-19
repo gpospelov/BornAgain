@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/IMaterial.cpp
+//! @file      Samples/src/IMaterial.cpp
 //! @brief     Implements class IMaterial.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

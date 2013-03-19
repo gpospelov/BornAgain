@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/OpticalFresnel.cpp
+//! @file      Algorithms/src/OpticalFresnel.cpp
 //! @brief     Implements class OpticalFresnel.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

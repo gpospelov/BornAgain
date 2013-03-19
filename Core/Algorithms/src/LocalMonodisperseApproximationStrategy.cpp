@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/LocalMonodisperseApproximationStrategy.cpp
+//! @file      Algorithms/src/LocalMonodisperseApproximationStrategy.cpp
 //! @brief     Implements class LocalMonodisperseApproximationStrategy.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

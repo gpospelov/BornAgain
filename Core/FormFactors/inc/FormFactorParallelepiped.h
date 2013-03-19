@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorParallelepiped.h
+//! @file      FormFactors/inc/FormFactorParallelepiped.h
 //! @brief     Defines class FormFactorParallelepiped.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

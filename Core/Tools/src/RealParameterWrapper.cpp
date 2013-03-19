@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/RealParameterWrapper.cpp
+//! @file      Tools/src/RealParameterWrapper.cpp
 //! @brief     Implements class RealParameterWrapper.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

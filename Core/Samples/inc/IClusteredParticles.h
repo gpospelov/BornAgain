@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/IClusteredParticles.h
+//! @file      Samples/inc/IClusteredParticles.h
 //! @brief     Defines class IClusteredParticles.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

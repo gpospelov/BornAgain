@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/Types.h
+//! @file      Tools/inc/Types.h
 //! @brief     Defines some complex and vector types.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

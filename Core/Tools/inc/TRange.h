@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/TRange.h
+//! @file      Tools/inc/TRange.h
 //! @brief     Defines and implements template class TRange.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

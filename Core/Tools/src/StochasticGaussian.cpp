@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/StochasticGaussian.cpp
+//! @file      Tools/src/StochasticGaussian.cpp
 //! @brief     Implements class StochasticGaussian.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

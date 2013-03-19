@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/DetectorParameters.h
+//! @file      Algorithms/inc/DetectorParameters.h
 //! @brief     Defines struct AxisParameters and struct DetectorParameters.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

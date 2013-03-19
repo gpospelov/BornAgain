@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/IStochasticParameter.h
+//! @file      Tools/inc/IStochasticParameter.h
 //! @brief     Defines class IStochasticParameter.
 //!
 //! @homepage  apps.jcns.fz-juelich.de/BornAgain

@@ -17,7 +17,6 @@
 #ifndef FTDISTRIBUTIONS_H_
 #define FTDISTRIBUTIONS_H_
 
-#include "IParameterized.h"
 #include "ParameterPool.h"
 #include <cmath>
 

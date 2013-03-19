@@ -1,4 +1,5 @@
-# see codegenerator.py
+# generate python API wrappers for Core library
+# used by codegenerator.py
 
 import os
 import sys
@@ -130,13 +131,13 @@ def AdditionalRules(mb):
   if "Experiment.h" in myFiles:
     cl = mb.class_( "Experiment" )
     cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-    cl.member_functions().exclude()
-    cl.member_function("runSimulation").include()
-    cl.member_function("normalize").include()
-    cl.member_function("setBeamParameters").include()
-    cl.member_function("setBeamIntensity").include()
-    cl.member_function("setSample").include()
-    cl.member_function("setSampleBuilder").include()
+    #cl.member_functions().exclude()
+    #cl.member_function("runSimulation").include()
+    #cl.member_function("normalize").include()
+    #cl.member_function("setBeamParameters").include()
+    #cl.member_function("setBeamIntensity").include()
+    #cl.member_function("setSample").include()
+    #cl.member_function("setSampleBuilder").include()
 
   # --- FormFactorCylinder.h ------------------------------------------
   if "FormFactorCrystal.h" in myFiles:
@@ -385,7 +386,7 @@ def AdditionalRules(mb):
     cl.exclude()
 
 
-def RunPyPlusPlus(OutputTempDir):
+def MakePythonAPI(OutputTempDir):
   from pyplusplus.file_writers.balanced_files import balanced_files_t
   balanced_files_t.HEADER_EXT='.h'
   balanced_files_t.SOURCE_EXT='.cpp'
@@ -493,3 +494,11 @@ def RunPyPlusPlus(OutputTempDir):
     #mb.balanced_split_module( OutputTempDir, nOutputFiles)
   #else:
     #mb.write_module( "tmp.cpp")
+
+#-------------------------------------------------------------
+# main()
+#-------------------------------------------------------------
+if __name__ == '__main__':
+  PyCoreTempDir='output/PyCore'
+  if not os.path.exists(PyCoreTempDir): os.makedirs(PyCoreTempDir)
+  MakePythonAPI(PyCoreTempDir)

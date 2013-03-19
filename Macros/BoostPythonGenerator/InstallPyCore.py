@@ -167,6 +167,9 @@ def CopyFiles(files, InstallDir):
 # InstallCode()
 #-------------------------------------------------------------
 def InstallCode(OutputTempDir, InstallDir):
+  if not os.path.exists(OutputTempDir): exit("No output directory '" + OutputTempDir+"'")
+  if not os.path.exists(InstallDir): exit("No install directory '" + InstallDir+"'")
+  
   files_inc =glob.glob(OutputTempDir+"/*.pypp.h");
   files_inc+= glob.glob(OutputTempDir+"/__call_policies.pypp.hpp");
   files_src = glob.glob(OutputTempDir+"/*.pypp.cpp");
@@ -182,5 +185,11 @@ def InstallCode(OutputTempDir, InstallDir):
 
   CopyFiles(files, InstallDir)
 
+
+#-------------------------------------------------------------
+# main()
+#-------------------------------------------------------------
+if __name__ == '__main__':
+  InstallCode("output/PyCore","../../Core/PythonAPI")
 
 

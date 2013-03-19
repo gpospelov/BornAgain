@@ -1,13 +1,12 @@
 # -----------------------------------------------------------------------------
 # qmake project file to compile libBornAgainCore
 # -----------------------------------------------------------------------------
-
 TARGET   = BornAgainCore
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-CONFIG  += BORNAGAIN_PYTHON
 QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
+CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
 # source and headers
@@ -324,7 +323,7 @@ QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 QMAKE_POST_LINK = (make install)
 
 # -----------------------------------------------------------------------------
-# general project settings
+# common project settings
 # -----------------------------------------------------------------------------
 include($$PWD/../shared.pri)
 

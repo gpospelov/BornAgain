@@ -31,7 +31,8 @@ SOURCES += \
     Models/JobModel.cpp \
     Models/PythonScriptSampleBuilder.cpp \
     Views/JobView.cpp \
-    Views/PyScriptView.cpp
+    Views/PyScriptView.cpp \
+    utils/PyScriptSyntaxHighlighter.cpp
 
 HEADERS  += \
     mainwindow/mainwindow.h \
@@ -50,7 +51,8 @@ HEADERS  += \
     Models/JobModel.h \
     Models/PythonScriptSampleBuilder.h \
     Views/JobView.h \
-    Views/PyScriptView.h
+    Views/PyScriptView.h \
+    utils/PyScriptSyntaxHighlighter.h
 
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/Views $$PWD/Models
 

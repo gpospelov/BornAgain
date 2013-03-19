@@ -1,5 +1,7 @@
 #include "PyScriptView.h"
 
+#include "PyScriptSyntaxHighlighter.h"
+
 #include <iostream>
 
 #include <QWidget>
@@ -41,6 +43,8 @@ PyScriptView::PyScriptView(SimulationDataModel *p_simulation_data_model, QWidget
     scriptEdit->setFontFamily("Courier");
     scriptEdit->setFontPointSize(14);
     connect(scriptEdit, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
+
+    PyScriptSyntaxHighlighter *highlighter = new PyScriptSyntaxHighlighter(scriptEdit->document());
 
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addLayout(buttonLayout, 0, 0);

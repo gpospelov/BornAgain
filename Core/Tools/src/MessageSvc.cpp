@@ -8,9 +8,6 @@ std::vector<std::string> MSG::Logger::m_level_names =
 
 MSG::MessageLevel MSG::Logger::m_logLevel = MSG::ERROR;
 
-
-
-
 namespace MSG
 {
 

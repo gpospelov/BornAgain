@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 #include <iomanip>
-#include <boost/thread.hpp>
+//#include <boost/thread.hpp>
 
 
 //! Set of logging utilities

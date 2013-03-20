@@ -6,7 +6,7 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
 QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
-CONFIG  += BORNAGAIN_PYTHON
+#CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
 # source and headers
@@ -117,6 +117,7 @@ SOURCES += \
     Tools/src/IParameterized.cpp \
     Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
+    Tools/src/MessageSvc.cpp \
     Tools/src/OutputData.cpp \
     Tools/src/OutputDataFunctions.cpp \
     Tools/src/OutputDataIOFactory.cpp \
@@ -130,8 +131,7 @@ SOURCES += \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
-    Tools/src/Utils.cpp \
-    Tools/src/MessageSvc.cpp
+    Tools/src/Utils.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -173,6 +173,7 @@ HEADERS += \
     Algorithms/inc/StrategyBuilder.h \
     Algorithms/inc/ThreadInfo.h \
     \
+    Fitting/inc/AttFitting.h \
     Fitting/inc/AttLimits.h \
     Fitting/inc/FitObject.h \
     Fitting/inc/FitParameter.h \
@@ -260,6 +261,7 @@ HEADERS += \
     Samples/inc/ParticleDecoration.h \
     Samples/inc/ParticleInfo.h \
     Samples/inc/PositionParticleInfo.h \
+    Samples/inc/Samples.h \
     \
     Tools/inc/AxisBin.h \
     Tools/inc/AxisDouble.h \
@@ -284,7 +286,9 @@ HEADERS += \
     Tools/inc/LLData.h \
     Tools/inc/Macros.h \
     Tools/inc/MathFunctions.h \
+    Tools/inc/MemberComplexFunctionIntegrator.h \
     Tools/inc/MemberFunctionIntegrator.h \
+    Tools/inc/MessageSvc.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
     Tools/inc/OutputDataFunctions.h \
@@ -305,11 +309,7 @@ HEADERS += \
     Tools/inc/TRange.h \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
-    Tools/inc/Utils.h \
-    Tools/inc/MemberComplexFunctionIntegrator.h \
-    Fitting/inc/AttFitting.h \
-    Samples/inc/Samples.h \
-    Tools/inc/MessageSvc.h
+    Tools/inc/Utils.h
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)

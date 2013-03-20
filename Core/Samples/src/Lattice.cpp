@@ -132,7 +132,7 @@ std::vector<double> Lattice::collectBraggAngles(size_t size, double max_radius,
             result.push_back(phi);
         }
     }
-    std::cout << "Returning " << result.size() << " angles" << std::endl;
+//    std::cout << "Returning " << result.size() << " angles" << std::endl;
     return result;
 }
 

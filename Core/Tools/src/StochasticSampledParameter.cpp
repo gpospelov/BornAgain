@@ -14,6 +14,7 @@
 // ************************************************************************** //
 
 #include "StochasticSampledParameter.h"
+#include "MessageSvc.h"
 #include <iostream>
 
 StochasticSampledParameter::StochasticSampledParameter(const StochasticParameter<double> &par, size_t nbins, double xmin, double xmax) :
@@ -34,7 +35,7 @@ StochasticSampledParameter::StochasticSampledParameter(const StochasticParameter
     m_xmax = m_stochastic_parameter->getAverage() + nfwhm*m_stochastic_parameter->getFWHM();
 
     if(m_xmin < 0) {
-        std::cout << "StochasticSampledParameter::StochasticSampledParameter() -> Warning. xmin is negative " << m_xmin << " setting it to 1e-5" << std::endl;
+        log(MSG::WARNING) << "StochasticSampledParameter::StochasticSampledParameter() -> Xmin is negative " << m_xmin << " setting it to 1e-5";
         m_xmin = 1e-5; // isgisaxs trick
     }
 }

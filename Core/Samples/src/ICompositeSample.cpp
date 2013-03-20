@@ -16,6 +16,7 @@
 #include "ICompositeSample.h"
 #include "ICompositeIterator.h"
 #include "Utils.h"
+#include "MessageSvc.h"
 #include <vector>
 #include <sstream>
 #include "Exceptions.h"
@@ -33,7 +34,7 @@ void ICompositeSample::registerChild(ISample *sample)
     if(sample) {
         m_samples.push_back(sample);
     } else {
-        std::cout << "ICompositeSample::registerChild() -> Error! Attempt to register NULL child in this " << *this << std::endl;
+        log(MSG::ERROR) << "ICompositeSample::registerChild() -> Attempt to register NULL child in this " << *this;
     }
 }
 

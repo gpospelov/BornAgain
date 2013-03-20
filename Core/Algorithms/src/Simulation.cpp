@@ -19,6 +19,7 @@
 #include "MathFunctions.h"
 #include "ProgramOptions.h"
 #include "DWBASimulation.h"
+#include "MessageSvc.h"
 
 #include <boost/thread.hpp>
 #include <gsl/gsl_errno.h>
@@ -123,9 +124,9 @@ void Simulation::runSimulation()
         // if n_threads=0, take optimal number of threads from the hardware
         if(n_threads_total == 0 )  {
             n_threads_total = (int)boost::thread::hardware_concurrency();
-            std::cout << "Simulation::runSimulation() -> Info. Number of threads " << n_threads_total << " (taken from hardware concurrency)" << std::endl;
+            log(MSG::INFO) << "Simulation::runSimulation() -> Info. Number of threads " << n_threads_total << " (taken from hardware concurrency)";
         }else {
-            std::cout << "Simulation::runSimulation() -> Info. Number of threads " << n_threads_total << " (hardware concurrency: " << boost::thread::hardware_concurrency() << " )"<< std::endl;
+            log(MSG::INFO) << "Simulation::runSimulation() -> Info. Number of threads " << n_threads_total << " (hardware concurrency: " << boost::thread::hardware_concurrency() << " )";
         }
         std::vector<boost::thread *> threads;
         std::vector<DWBASimulation *> simulations;
@@ -294,7 +295,7 @@ void Simulation::updateSample()
         ISample *p_new_sample = mp_sample_builder->buildSample();
         std::string builder_type = typeid(*mp_sample_builder).name();
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
-            std::cout << "Simulation::updateSample() -> OMG, some body has called me from python, going to collapse in a second... " << std::endl;
+            log(MSG::INFO) << "Simulation::updateSample() -> OMG, some body has called me from python, what an idea... ";
             setSample(*p_new_sample); // p_new_sample belongs to python, don't delete it
         } else {
             delete mp_sample;

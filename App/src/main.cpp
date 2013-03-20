@@ -4,6 +4,7 @@
 #include "AppOptionsDescription.h"
 #include "CoreOptionsDescription.h"
 #include "Version.h"
+#include "MessageSvc.h"
 
 #include <iostream>
 #include <string>
@@ -25,6 +26,9 @@ int main(int argc, char **argv)
 #endif
     std::cout << AppVersion::g_app_name << " "
             << AppVersion::g_app_version_number << std::endl;
+
+    MSG::SetLevel(MSG::ERROR);
+
     ProgramOptions command_line_options;
     AddApplicationOptions(&command_line_options);
     AddCoreOptions(&command_line_options);

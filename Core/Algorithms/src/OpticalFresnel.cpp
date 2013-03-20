@@ -56,7 +56,6 @@ void OpticalFresnel::calculateKZ(const MultiLayer &sample, const kvector_t &kvec
         //coeff[i].kz = std::sqrt( kvec.mag2()*rindex*rindex - kvec.magxy()*kvec.magxy() );
         //coeff[i].kz = std::sqrt( kvec.mag2()*rindex*rindex - kvec.perp2() );
         coeff[i].kz = std::sqrt( kvec.mag2()*rindex*rindex - kvec.magxy2() );
-        //std::cout << "k_z: " << coeff[i].kz << std::endl;
     }
 }
 
@@ -207,13 +206,11 @@ void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &c
         complex_t numerator_R = coeff[i+1].X*(complex_t(1,0)-coeff[i].r*coeff[i].r);
         if(numerator_R == complex_t(0,0)) {
             coeff[i+1].R = complex_t(0,0);
-        }
-        else {
+        } else {
             complex_t log_R = std::log(numerator_R) - std::log(complex_t(1,0)+coeff[i].r*coeff[i+1].X) + log_prefactor;
             if(log_R.real() < std::log(Numeric::double_min)) {
                 coeff[i+1].R = complex_t(0,0);
-            }
-            else {
+            } else {
                 coeff[i+1].R = std::exp(log_R);
             }
         }
@@ -222,19 +219,14 @@ void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &c
         complex_t numerator_T = (complex_t(1,0)-coeff[i].r*coeff[i].r);
         if(numerator_T == complex_t(0,0)) {
             coeff[i+1].T = complex_t(0,0);
-        }
-        else {
+        } else {
             complex_t log_T = std::log(numerator_T) - std::log(complex_t(1,0)+coeff[i].r*coeff[i+1].X) + log_prefactor;
             if(log_T.real() < std::log(Numeric::double_min)) {
                 coeff[i+1].T = complex_t(0,0);
-            }
-            else {
+            } else {
                 coeff[i+1].T = std::exp(log_T);
             }
         }
 
-        //complex_t x_ratio = coeff[i+1].R / coeff[i+1].T;
-        //std::cout << "Calculated R: "<< coeff[i+1].R << " Calculated T: " << coeff[i+1].T << std::endl;
-        //std::cout << "Calculated X: "<< x_ratio << " Real X: " << coeff[i+1].X << std::endl;
     }
 }

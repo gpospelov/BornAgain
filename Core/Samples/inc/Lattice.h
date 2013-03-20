@@ -52,10 +52,10 @@ public:
     void getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const;
 
     //! get the nearest lattice point from a given vector
-    Coordinate3D<int> getNearestLatticeVectorCoordinates(const kvector_t &vector_in) const;
+    IndexVector3D getNearestLatticeVectorCoordinates(const kvector_t &vector_in) const;
 
     //! get the nearest reciprocal lattice point from a given vector
-    Coordinate3D<int> getNearestReciprocalLatticeVectorCoordinates(const kvector_t &vector_in) const;
+    IndexVector3D getNearestReciprocalLatticeVectorCoordinates(const kvector_t &vector_in) const;
 
     //! get a list of lattice vectors within a specified distance of a given vector
 //    std::vector<kvector_t> getLatticeVectorsWithinRadius(
@@ -92,12 +92,12 @@ public:
 private:
     Lattice &operator=(const Lattice &lattice);
 //    std::vector<kvector_t> getVectorsWithinRadius(const kvector_t &input_vector,
-//            const Coordinate3D<int> &nearest_coords, double radius,
+//            const IndexVector3D &nearest_coords, double radius,
 //            const kvector_t &v1, const kvector_t &v2, const kvector_t &v3,
 //            const kvector_t &rec1, const kvector_t &rec2, const kvector_t &rec3) const;
 
     void computeVectorsWithinRadius(const kvector_t &input_vector,
-            const Coordinate3D<int> &nearest_coords, double radius,
+            const IndexVector3D &nearest_coords, double radius,
             const kvector_t &v1, const kvector_t &v2, const kvector_t &v3,
             const kvector_t &rec1, const kvector_t &rec2, const kvector_t &rec3) const;
 

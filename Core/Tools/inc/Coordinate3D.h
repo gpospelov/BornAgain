@@ -134,4 +134,8 @@ template <class T> T GetDistanceBetweenPoints(const Coordinate3D<T> &left, const
     return connectingVector.norm();
 }
 
+#include "BasicVector3D.h"
+
+typedef Geometry::BasicVector3D<int> IndexVector3D;
+
 #endif /* COORDINATE3D_H_ */

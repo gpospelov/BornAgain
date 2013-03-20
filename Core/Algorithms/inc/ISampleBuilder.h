@@ -16,9 +16,7 @@
 #ifndef ISAMPLEBUILDER_H_
 #define ISAMPLEBUILDER_H_
 
-#include "IParameterized.h"
 #include "ISample.h"
-#include "Exceptions.h"
 
 class ISampleBuilder : public IParameterized
 {

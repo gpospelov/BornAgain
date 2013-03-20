@@ -8,7 +8,7 @@
 //              forked after v 1.4 2003/08/13 20:00:11
 //
 //! @file       Geometry/src/Plane3D.cpp
-//! @brief      implements class BasicVector<T> for T=double,complex
+//! @brief      implements some methods of class Plane3D<double>
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)

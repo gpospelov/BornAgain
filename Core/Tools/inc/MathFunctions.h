@@ -3,9 +3,10 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/inc/MathFunctions.h
-//! @brief     Define many functions in namespace MathFunctions.
+//! @brief     Define many functions in namespace MathFunctions,
+//!              and provide inline implementation for most of them
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -28,8 +29,11 @@
 #include "gsl/gsl_sf_expint.h"
 #include "gsl/gsl_integration.h"
 
+//! Various mathematical functions.
+
 namespace MathFunctions
 {
+
 double Gaussian(double value, double average, double std_dev);
 
 double IntegratedGaussian(double value, double average, double std_dev);
@@ -116,20 +120,17 @@ inline double MathFunctions::Sinc(double value)  // Sin(x)/x
 
 inline complex_t MathFunctions::Sinc(const complex_t &value)  // Sin(x)/x
 {
-	if(std::abs(value)<Numeric::double_epsilon) {
-		return complex_t(1.0, 0.0);
-	}
+    if(std::abs(value)<Numeric::double_epsilon)
+        return complex_t(1.0, 0.0);
     return std::sin(value)/value;
 }
 
 inline complex_t MathFunctions::Laue(const complex_t &value, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
 {
-    if (N==0) {
+    if (N==0)
         return complex_t(1.0, 0.0);
-    }
-    if(std::abs(value)<Numeric::double_epsilon) {
+    if(std::abs(value)<Numeric::double_epsilon)
         return complex_t(N+1.0, 0.0);
-    }
     return std::exp(complex_t(0.0, 1.0)*value*(double)N/2.0)*std::sin(value*(N+1.0)/2.0)/std::sin(value/2.0);
 }
 

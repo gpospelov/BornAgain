@@ -5,7 +5,7 @@
 //! @file      FormFactors/inc/FormFactorCylinder.h
 //! @brief     Defines class FormFactorCylinder.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -18,7 +18,7 @@
 
 #include "IFormFactorBorn.h"
 
-//! ?
+//! Form factor of a cylinder.
 
 class FormFactorCylinder : public IFormFactorBorn
 {
@@ -30,13 +30,12 @@ public:
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     virtual double getHeight() const { return m_height; }
-
     virtual double getRadius() const { return m_radius; }
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
 protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! register some class members for later access via parameter pool
     virtual void init_parameters();
 
 private:

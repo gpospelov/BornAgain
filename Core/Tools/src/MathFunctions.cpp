@@ -5,7 +5,7 @@
 //! @file      Tools/src/MathFunctions.cpp
 //! @brief     Implements functions in namespace MathFunctions.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -23,7 +23,7 @@
 
 double MathFunctions::Gaussian(double value, double average, double std_dev)
 {
-    return StandardNormal((value-average)/std_dev)/std_dev;
+    return StandardNormal((value-average)/std_dev) / std_dev;
 }
 
 double MathFunctions::IntegratedGaussian(double value, double average, double std_dev)
@@ -45,11 +45,9 @@ double MathFunctions::GenerateStandardNormalRandom()  // using Box-Muller transf
     return std::sqrt(-2.0*std::log(u1))*std::cos(2*M_PI*u2);
 }
 
+//! @brief simple (and unoptimized) wrapper function
+//!   for the discrete fast fourier transformation library (fftw3)
 
-/* ************************************************************************* */
-// simple (and unoptimized) wrapper function for the discrete fast fourier
-// transformation library (fftw3)
-/* ************************************************************************* */
 std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<complex_t > &data, MathFunctions::TransformCase ftCase)
 {
     double scale(1.);
@@ -95,13 +93,10 @@ std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<co
     return outData;
 }
 
+//! @brief simple (and unoptimized) wrapper function
+//!   for the discrete fast fourier transformation library (fftw3);
+//!   transforms real to complex
 
-/* ************************************************************************* */
-// simple (and unoptimized) wrapper function for the discrete fast fourier
-// transformation library (fftw3)
-//
-// transforms real to complex
-/* ************************************************************************* */
 std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<double > &data, MathFunctions::TransformCase ftCase)
 {
     std::vector<complex_t> cdata;
@@ -110,85 +105,8 @@ std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<do
     return MathFunctions::FastFourierTransform(cdata, ftCase);
 }
 
-//complex_t MathFunctions::Bessel_J1(complex_t value)
-//{
-//    complex_t z1,z2,cr,cp,cs,cp0,cq0,cp1,cq1,ct1,ct2,cu;
-//    complex_t result;
-//    double a0;
-//    int k,kz;
-//
-//    static complex_t czero(0.0, 0.0);
-//    static complex_t cone(1.0, 0.0);
-//    static double a1[] = {
-//         0.1171875,
-//        -0.1441955566406250,
-//         0.6765925884246826,
-//        -6.883914268109947,
-//         1.215978918765359e2,
-//        -3.302272294480852e3,
-//         1.276412726461746e5,
-//        -6.656367718817688e6,
-//         4.502786003050393e8,
-//        -3.833857520742790e10,
-//         4.011838599133198e12,
-//        -5.060568503314727e14,
-//         7.572616461117958e16,
-//        -1.326257285320556e19};
-//    static double b1[] = {
-//        -0.1025390625,
-//         0.2775764465332031,
-//        -1.993531733751297,
-//         2.724882731126854e1,
-//        -6.038440767050702e2,
-//         1.971837591223663e4,
-//        -8.902978767070678e5,
-//         5.310411010968522e7,
-//        -4.043620325107754e9,
-//         3.827011346598605e11,
-//        -4.406481417852278e13,
-//         6.065091351222699e15,
-//        -9.833883876590679e17,
-//         1.855045211579828e20};
-//
-//    a0 = abs(value);
-//    z2 = value*value;
-//    z1 = value;
-//    if (a0 == 0.0) {
-//        result = czero;
-//        return result;
-//    }
-//    if (real(value) < 0.0) z1 = -value;
-//    if (a0 <= 12.0) {
-//        result = cone;
-//        cr = cone;
-//        for (k=1;k<=40;k++) {
-//            cr *= -0.25*z2/(k*(k+1.0));
-//            result += cr;
-//            if (abs(cr) < abs(result)*Numeric::double_epsilon) break;
-//        }
-//        result *= 0.5*z1;
-//        return result;
-//    }
-//    else {
-//        if (a0 >= 50.0) kz = 8;         // can be changed to 10
-//        else if (a0 >= 35.0) kz = 10;   //   "      "     "  12
-//        else kz = 12;                   //   "      "     "  14
-//        cp1 = cone;
-//        for (k=0;k<kz;k++) {
-//            cp1 += a1[k]*pow(z1,-2.0*k-2.0);
-//        }
-//        cq1 = 0.375/z1;
-//        for (k=0;k<kz;k++) {
-//            cq1 += b1[k]*pow(z1,-2.0*k-3.0);
-//        }
-//        result = cu*(cp1*cos(ct2)-cq1*sin(ct2));
-//        return result;
-//    }
-//}
+//! convolution of two real vectors of equal size
 
-/* ************************************************************************* */
-// convolution of two real vectors of equal size
-/* ************************************************************************* */
 std::vector<complex_t> MathFunctions::ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc)
 {
     if(signal.size() != resfunc.size() ) {

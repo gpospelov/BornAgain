@@ -5,7 +5,7 @@
 //! @file      FormFactors/inc/FormFactorEllipsoid.h
 //! @brief     Defines class FormFactorEllipsoid
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -19,7 +19,7 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! Form factor of an ellipsoid..
+//! Form factor of an ellipsoid.
 
 class FormFactorEllipsoid : public IFormFactorBorn
 {

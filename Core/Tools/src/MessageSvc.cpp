@@ -4,7 +4,7 @@
 #include <sys/time.h>
 
 std::vector<std::string> MSG::Logger::m_level_names =
-        boost::assign::list_of("VERBOSE")("DEBUG")("INFO")("WARNING")("ERROR")("FATAL")("ALWAYS");
+        boost::assign::list_of("VERBOSE")("DEBUG")("INFO")("WARNING")("ERROR")("FATAL");
 
 MSG::MessageLevel MSG::Logger::m_logLevel = MSG::ERROR;
 
@@ -28,7 +28,6 @@ void Logger::SetLevel(const std::string &levelname)
     int index(0);
     for(std::vector<std::string >::iterator it = m_level_names.begin(); it!=m_level_names.end(); ++it) {
         if( (*it) == levelname ) {
-            std::cout << "AAA " << levelname << " " << index << std::endl;
             SetLevel(MessageLevel(index));
             return;
         }

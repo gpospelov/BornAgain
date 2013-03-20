@@ -58,7 +58,6 @@ void TestMiscellaneous::test_LogSystem()
     log(MSG::WARNING) << "This is WARNING";
     log(MSG::ERROR)   << "This is ERROR";
     log(MSG::FATAL)   << "This is FATAL" << "and something" << 0;
-    log(MSG::ALWAYS)  << "This is ALWAYS";
 
     std::cout << "----" << std::endl;
 
@@ -69,7 +68,6 @@ void TestMiscellaneous::test_LogSystem()
     log(MSG::WARNING) << "This is WARNING";
     log(MSG::ERROR)   << "This is ERROR";
     log(MSG::FATAL)   << "This is FATAL";
-    log(MSG::ALWAYS)  << "This is ALWAYS";
 
     std::cout << "----" << std::endl;
 
@@ -80,7 +78,6 @@ void TestMiscellaneous::test_LogSystem()
     log(MSG::WARNING) << "This is WARNING";
     log(MSG::ERROR)   << "This is ERROR";
     log(MSG::FATAL)   << "This is FATAL";
-    log(MSG::ALWAYS)  << "This is ALWAYS";
 
 
 }

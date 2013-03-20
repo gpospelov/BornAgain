@@ -13,7 +13,7 @@
 namespace MSG
 {
 
-enum MessageLevel { VERBOSE, DEBUG, INFO, WARNING, ERROR, FATAL, ALWAYS };
+enum MessageLevel { VERBOSE, DEBUG, INFO, WARNING, ERROR, FATAL };
 
 
 class Logger

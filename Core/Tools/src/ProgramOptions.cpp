@@ -35,7 +35,7 @@ const bpo::variable_value& ProgramOptions::operator[] (const std::string &s) con
         // no consistent options, there reason might be that no call to parseConfigFile
         // has been made (for example due to the absence of main())
         //parseConfigFile();
-        throw LogicErrorException("ProgramOptions::operator[] -> FixMe! No config file parsed yet.");
+        //throw LogicErrorException("ProgramOptions::operator[] -> FixMe! No config file parsed yet.");
     }
     return m_variables_map[s.c_str()];
 }
@@ -79,7 +79,6 @@ void ProgramOptions::parseCommandLine(int argc, char **argv)
 void ProgramOptions::parseConfigFile()
 {
     //std::cout << "ProgramOptions::parseConfigFile" << std::endl;
-
     // default config file name
     std::string config_file("bornagain.cfg");
 

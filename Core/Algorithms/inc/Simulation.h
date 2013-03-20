@@ -16,9 +16,7 @@
 #ifndef SIMULATION_H_
 #define SIMULATION_H_
 
-#include "ISample.h"
 #include "ISampleBuilder.h"
-#include "OutputData.h"
 #include "Instrument.h"
 #include "SimulationParameters.h"
 

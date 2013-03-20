@@ -8,7 +8,7 @@
 //              forked after v 1.5 2010/06/16 16:21:27,
 //
 //! @file       Geometry/src/BasicVector3D.cpp
-//! @brief      implements class BasicVector<T> for T=double,complex
+//! @brief      implements some methods of BasicVector3D<T> for T=double,complex
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)

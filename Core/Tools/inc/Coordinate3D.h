@@ -17,7 +17,6 @@
 #define COORDINATE3D_H_
 
 #include <cmath>
-#include <gsl/gsl_sf_trig.h>
 
 template <class T> class Coordinate3D
 {
@@ -98,14 +97,6 @@ template <class T> inline Coordinate3D<T> operator-(const Coordinate3D<T>& vecto
     Coordinate3D<T> result = vectorLeft;
     result -= vectorRight;
     return result;
-}
-
-template <class T> inline Coordinate3D<T> CreateCoordinate3DFromPolar(T r, double theta, double phi)
-{
-    T x = r*gsl_sf_sin(theta)*gsl_sf_cos(phi);
-    T y = r*gsl_sf_sin(theta)*gsl_sf_sin(phi);
-    T z = r*gsl_sf_cos(theta);
-    return Coordinate3D<T>(x, y, z);
 }
 
 template <class T> Coordinate3D<T> CrossProduct(const Coordinate3D<T> &left, const Coordinate3D<T> &right)

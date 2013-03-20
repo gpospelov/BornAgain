@@ -7,8 +7,8 @@
 //              based on CLHEP/Geometry 1.9 of 1.4.2003,
 //              forked after v 1.6 2003/10/24 21:39:45
 //
-//! @file       Geometry/src/Plane3D.cpp
-//! @brief      implements class BasicVector<T> for T=double,complex
+//! @file       Geometry/src/Transform3D.cpp
+//! @brief      implements core methods of class Transform3D.
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)

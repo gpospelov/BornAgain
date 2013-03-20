@@ -14,13 +14,11 @@
 // ************************************************************************** //
 
 #include "FitSuite.h"
-#include "Exceptions.h"
 #include "FitParameterLinked.h"
-#include "ParameterPool.h"
-#include "Simulation.h"
 #include "IMinimizer.h"
 #include "ChiSquaredModule.h"
 #include "MessageSvc.h"
+
 #include <boost/bind.hpp>
 
 FitSuite::FitSuite() : m_minimizer(0), m_is_last_iteration(false)

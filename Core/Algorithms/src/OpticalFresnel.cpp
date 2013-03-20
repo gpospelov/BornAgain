@@ -141,7 +141,8 @@ void OpticalFresnel::calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &co
         }
         double d = i==0 ? 0.0 : sample.getLayerThickness(i);
         complex_t exp_factor;
-        if((coeff[i].kz*d*2.0).imag() >= -std::log(Numeric::double_min)) {
+        if((coeff[i].kz*d*2.0).imag() >=
+           -std::log(std::numeric_limits<double>::min())) {
             exp_factor = complex_t(0,0);
         }
         else {
@@ -204,7 +205,7 @@ void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &c
             coeff[i+1].R = complex_t(0,0);
         } else {
             complex_t log_R = std::log(numerator_R) - std::log(complex_t(1,0)+coeff[i].r*coeff[i+1].X) + log_prefactor;
-            if(log_R.real() < std::log(Numeric::double_min)) {
+            if(log_R.real() < std::log(std::numeric_limits<double>::min())) {
                 coeff[i+1].R = complex_t(0,0);
             } else {
                 coeff[i+1].R = std::exp(log_R);
@@ -217,7 +218,7 @@ void OpticalFresnel::calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &c
             coeff[i+1].T = complex_t(0,0);
         } else {
             complex_t log_T = std::log(numerator_T) - std::log(complex_t(1,0)+coeff[i].r*coeff[i+1].X) + log_prefactor;
-            if(log_T.real() < std::log(Numeric::double_min)) {
+            if(log_T.real() < std::log(std::numeric_limits<double>::min())) {
                 coeff[i+1].T = complex_t(0,0);
             } else {
                 coeff[i+1].T = std::exp(log_T);

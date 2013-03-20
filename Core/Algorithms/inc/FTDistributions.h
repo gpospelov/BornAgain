@@ -2,10 +2,11 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/FTDistributions.h
-//! @brief     Defines classes IFTDistribution1D, ..2D, ..2DCauchy
+//! @file      Algorithms/inc/FTDistributions.h
+//! @brief     Defines classes IFTDistribution1D, IFTDistribution2D,
+//!              FTDistribution2DCauchy
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -16,7 +17,6 @@
 #ifndef FTDISTRIBUTIONS_H_
 #define FTDISTRIBUTIONS_H_
 
-#include "IParameterized.h"
 #include "ParameterPool.h"
 #include <cmath>
 

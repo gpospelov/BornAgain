@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/Simulation.h
+//! @file      Algorithms/inc/Simulation.h
 //! @brief     Defines class Simulation.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -16,13 +16,13 @@
 #ifndef SIMULATION_H_
 #define SIMULATION_H_
 
-#include "ISample.h"
 #include "ISampleBuilder.h"
-#include "OutputData.h"
 #include "Instrument.h"
 #include "SimulationParameters.h"
 
 class ProgramOptions;
+
+//! ?
 
 class Simulation : public IParameterized, public ICloneable
 {

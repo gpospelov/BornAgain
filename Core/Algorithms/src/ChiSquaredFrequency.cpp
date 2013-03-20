@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/ChiSquaredFrequency.cpp
+//! @file      Algorithms/src/ChiSquaredFrequency.cpp
 //! @brief     Implements class ChiSquaredFrequency.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -15,12 +15,11 @@
 
 #include "ChiSquaredFrequency.h"
 #include "OutputDataFunctions.h"
+
 #include <cassert>
 
 ChiSquaredFrequency::ChiSquaredFrequency()
-    : mp_real_ft(0)
-, mp_simulation_ft(0)
-, m_cutoff(1.0)
+    : mp_real_ft(0) , mp_simulation_ft(0) , m_cutoff(1.0)
 {
 }
 
@@ -30,32 +29,12 @@ ChiSquaredFrequency::~ChiSquaredFrequency()
     delete mp_simulation_ft;
 }
 
-//double ChiSquaredFrequency::calculateChiSquared(
-//        const OutputData<double>* p_simulation_data)
-//{
-//    if (p_simulation_data!=0) {
-//        setSimulationData(*p_simulation_data);
-//    }
-
-//    double result = 0.0;
-//    initWeights();
-//    size_t data_size = mp_weights->getAllocatedSize();
-//    OutputData<double> *p_difference = createChi2DifferenceMap();
-//    OutputData<double>::const_iterator it_weights = mp_weights->begin();
-//    OutputData<double>::const_iterator it_diff = p_difference->begin();
-//    while(it_diff != p_difference->end()) {
-//        result += (*it_diff++)*(*it_weights++);
-//    }
-//    delete p_difference;
-//    m_chi2_value = result/data_size;
-//    return m_chi2_value;
-//}
-
-
 double ChiSquaredFrequency::calculateChiSquared()
 {
-    if( !mp_real_data ) throw NullPointerException("ChiSquaredFrequency::calculateChiSquared() -> Error! No real data has been set");
-    if( !mp_simulation_data ) throw NullPointerException("ChiSquaredFrequency::calculateChiSquared() -> Error! No simulated data has been set");
+    if( !mp_real_data )
+        throw NullPointerException("ChiSquaredFrequency::calculateChiSquared() -> Error! No real data has been set");
+    if( !mp_simulation_data )
+        throw NullPointerException("ChiSquaredFrequency::calculateChiSquared() -> Error! No simulated data has been set");
 
     double result = 0.0;
     initWeights();

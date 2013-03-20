@@ -2,10 +2,11 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/ICompositeIterator.h
-//! @brief     Defines class ICompositeIterator.
+//! @file      Samples/inc/ICompositeIterator.h
+//! @brief     Defines classes MementoState, MementoIterator, 
+//!              ICompositeIterator.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -22,7 +23,7 @@
 #include <stack>
 #include <list>
 
-//! Holds state of IComositeSample iterator
+//! Holds state of ICompositeSample iterator
 
 class MementoState
 {
@@ -58,7 +59,7 @@ private:
     MementoState();
 };
 
-//! Holds state of IComositeSample iterator
+//! ?
 
 class MementoIterator
 {
@@ -78,11 +79,9 @@ protected:
     std::stack<MementoState > m_state_stack;
 };
 
-//! @class ICompositeIterator
-//! @brief Definition of ICompositeIterator to walk through ISample tree
-//! of objects inside ICompositeSample object.
-//!
-//! Example
+//! Walk through ISample tree of objects inside ICompositeSample object.
+
+//! Usage example:
 //!    ICompositeIterator it = sample->createIterator();
 //!    it.first();
 //!    while( !it.is_done() ) {

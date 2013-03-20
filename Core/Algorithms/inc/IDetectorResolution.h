@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/IDetectorResolution.h
+//! @file      Algorithms/inc/IDetectorResolution.h
 //! @brief     Defines class IDetectorResolution.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -23,12 +23,10 @@
 class IDetectorResolution : public IParameterized, public ICloneable
 {
 public:
-    //! Destructor
     virtual ~IDetectorResolution() {}
     //! Apply the resolution function to the intensity data
     virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const=0;
     virtual IDetectorResolution *clone() const = 0;
 };
-
 
 #endif /* IDETECTORRESOLUTION_H_ */

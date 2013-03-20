@@ -2,10 +2,11 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/MaskCoordinateFunction.h
-//! @brief     Defines classes MaskCoordinateFunction, MaskCoordinate..Function.
+//! @file      Algorithms/inc/MaskCoordinateFunction.h
+//! @brief     Defines classes MaskCoordinateFunction, 
+//!              MaskCoordinateRectangleFunction, MaskCoordinateEllipseFunction 
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -18,6 +19,8 @@
 
 #include <cstddef>
 #include "ICloneable.h"
+
+//! ?
 
 class MaskCoordinateFunction : public ICloneable
 {
@@ -34,6 +37,8 @@ protected:
     bool m_invert;  //!< if true, the complement is masked instead
 };
 
+//! ?
+
 class MaskCoordinateRectangleFunction : public MaskCoordinateFunction
 {
 public:
@@ -48,6 +53,8 @@ private:
     int *m_minima;
     int *m_maxima;
 };
+
+//! ?
 
 class MaskCoordinateEllipseFunction : public MaskCoordinateFunction
 {

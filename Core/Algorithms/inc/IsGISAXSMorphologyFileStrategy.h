@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/IsGISAXSMorphologyFileStrategy.h
+//! @file      Algorithms/inc/IsGISAXSMorphologyFileStrategy.h
 //! @brief     Defines class IsGISAXSMorphologyFileStrategy.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -19,11 +19,8 @@
 #include "Types.h"
 #include "IInterferenceFunctionStrategy.h"
 
-//- -------------------------------------------------------------------
-//! @class IsGISAXSMorphologyFileStrategy
-//! @brief Definition of interference function strategy that emulates
-//! the behaviour of IsGISAXS for morphology files
-//- -------------------------------------------------------------------
+//! Definition of interference function strategy that emulates the behaviour of IsGISAXS for morphology files
+
 class IsGISAXSMorphologyFileStrategy : public IInterferenceFunctionStrategy
 {
 public:

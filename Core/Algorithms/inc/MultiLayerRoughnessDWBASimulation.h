@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/MultiLayerRoughnessDWBASimulation.h
+//! @file      Algorithms/inc/MultiLayerRoughnessDWBASimulation.h
 //! @brief     Defines class MultiLayerRoughnessDWBASimulation.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -22,10 +22,8 @@
 class MultiLayer;
 #include "IDoubleToComplexFunction.h"
 
-//- -------------------------------------------------------------------
-//! @class MultiLayerRoughnessDWBASimulation
-//! @brief Calculation of diffuse reflection from multilayer with rough interfaces
-//- -------------------------------------------------------------------
+//! Calculation of diffuse reflection from multilayer with rough interfaces
+
 class MultiLayerRoughnessDWBASimulation : public DWBASimulation
 {
 public:

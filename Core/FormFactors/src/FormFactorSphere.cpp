@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      FormFactors/FormFactorSphere.cpp
+//! @file      FormFactors/src/FormFactorSphere.cpp
 //! @brief     Implements class FormFactorSphere.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -30,7 +30,7 @@ FormFactorSphere::FormFactorSphere(double radius, double height)
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorSphere>::mem_function p_mf = &FormFactorSphere::Integrand;
-    m_integrator = new  MemberComplexFunctionIntegrator<FormFactorSphere>(p_mf, this);
+    m_integrator = new MemberComplexFunctionIntegrator<FormFactorSphere>(p_mf, this);
 }
 
 FormFactorSphere::~FormFactorSphere()
@@ -45,13 +45,14 @@ void FormFactorSphere::init_parameters()
     getParameterPool()->clear();
     getParameterPool()->registerParameter("radius", &m_radius);
     getParameterPool()->registerParameter("height", &m_height);
-
 }
 
 FormFactorSphere* FormFactorSphere::clone() const
 {
    return new FormFactorSphere(m_radius, m_height);
 }
+
+//! Integrand for complex form factor.
 
 complex_t FormFactorSphere::Integrand(double Z, void* params) const
 {
@@ -65,10 +66,6 @@ complex_t FormFactorSphere::evaluate_for_q(const cvector_t &q) const
 {
     m_q = q;
     complex_t iqzR = complex_t(0.0, 1.0)*m_q.z()*(m_height-m_radius);
-
-//    MemberComplexFunctionIntegrator<FormFactorSphere>::mem_function p_mf = &FormFactorSphere::SphereIntegrand;
-//    MemberComplexFunctionIntegrator<FormFactorSphere> integrator(p_mf,this);
-
     complex_t integral = m_integrator->integrate(m_radius-m_height, m_radius);
     return 2.0*M_PI*integral*std::exp(iqzR);
 }

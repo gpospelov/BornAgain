@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/Detector.cpp
+//! @file      Algorithms/src/Detector.cpp
 //! @brief     Implements class Detector.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -21,9 +21,6 @@
 
 #include <iostream>
 
-/* ************************************************************************* */
-// c-tors, assignment operators, swap
-/* ************************************************************************* */
 Detector::Detector()
 : m_axes(), mp_detector_resolution(0)
 {
@@ -59,9 +56,6 @@ void Detector::swapContent(Detector &other)
     std::swap(this->mp_detector_resolution, other.mp_detector_resolution);
 }
 
-/* ************************************************************************* */
-// other methods
-/* ************************************************************************* */
 void Detector::addAxis(const IAxis &axis)
 {
 	m_axes.push_back(axis.clone());

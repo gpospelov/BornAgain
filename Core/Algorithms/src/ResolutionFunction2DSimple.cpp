@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/ResolutionFunction2DSimple.cpp
+//! @file      Algorithms/src/ResolutionFunction2DSimple.cpp
 //! @brief     Implements class ResolutionFunction2DSimple.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -16,9 +16,6 @@
 #include "ResolutionFunction2DSimple.h"
 #include "MathFunctions.h"
 
-/* ************************************************************************* */
-// c-tors, clone
-/* ************************************************************************* */
 ResolutionFunction2DSimple::ResolutionFunction2DSimple(double sigma_x,
         double sigma_y)
 : m_sigma_x(sigma_x)
@@ -44,9 +41,6 @@ ResolutionFunction2DSimple *ResolutionFunction2DSimple::clone() const
     return new ResolutionFunction2DSimple(*this);
 }
 
-/* ************************************************************************* */
-//
-/* ************************************************************************* */
 double ResolutionFunction2DSimple::evaluateCDF(double x, double y) const
 {
     return MathFunctions::IntegratedGaussian(x, 0.0, m_sigma_x)

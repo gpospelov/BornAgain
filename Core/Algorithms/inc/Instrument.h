@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/Instrument.h
+//! @file      Algorithms/inc/Instrument.h
 //! @brief     Defines class Instrument.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -20,11 +20,8 @@
 #include "Detector.h"
 #include "IResolutionFunction2D.h"
 
-//- -------------------------------------------------------------------
-//! @class Instrument
-//! @brief Definition of Instrument object that assembles the information
-//! of the beam, detector and their relative positions wrt the sample
-//- -------------------------------------------------------------------
+//! Assembles beam, detector and their relative positions wrt the sample.
+
 class Instrument : public IParameterized
 {
 public:

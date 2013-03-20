@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/ISquaredFunction.h
+//! @file      Algorithms/inc/ISquaredFunction.h
 //! @brief     Defines classes ISquaredFunction, SquaredFunctionDefault, ...
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -19,9 +19,9 @@
 #include "Numeric.h"
 #include "Exceptions.h"
 
-//#include <cmath>
 #include <iostream>
 
+//! ?
 
 class ISquaredFunction
 {
@@ -33,6 +33,7 @@ public:
     virtual double calculateSquaredError(double real_value, double simulated_value = 0.0) const { (void)real_value; (void)simulated_value; throw NotImplementedException("ISquaredFunction::calculateError() -> Error! Not implemented."); }
 };
 
+//! ?
 
 class SquaredFunctionDefault : public ISquaredFunction
 {
@@ -58,6 +59,7 @@ public:
 
 };
 
+//! ?
 
 class SquaredFunctionWhichOnlyWorks : public ISquaredFunction
 {
@@ -80,6 +82,7 @@ public:
     }
 };
 
+//! ?
 
 class SquaredFunctionWithSystematicError : public ISquaredFunction
 {
@@ -103,6 +106,7 @@ private:
     double m_epsilon;
 };
 
+//! ?
 
 class SquaredFunctionWithGaussianError : public ISquaredFunction
 {

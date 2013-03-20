@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/StrategyBuilder.h
+//! @file      Algorithms/inc/StrategyBuilder.h
 //! @brief     Defines classes LayerDecoratorStrategyBuilder, FormFactorInfo. 
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -30,11 +30,8 @@ class IDoubleToPairOfComplexMap;
 class ParticleInfo;
 class IFormFactor;
 
-//- -------------------------------------------------------------------
-//! @class LayerDecoratorStrategyBuilder
-//! @brief Definition of methods to generate a simulation strategy from
-//! a LayerDecorator and SimulationParameters
-//- -------------------------------------------------------------------
+//! Methods to generate a simulation strategy from a LayerDecorator and SimulationParameters
+
 class LayerDecoratorStrategyBuilder
 {
 public:

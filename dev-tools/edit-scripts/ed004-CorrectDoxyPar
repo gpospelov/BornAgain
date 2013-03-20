@@ -4,7 +4,7 @@
 # Does not provide backup files:
 # to be safe, work on fresh git commit, and use 'git stash' to revert.
 
-# ed2: insert inc or src in @file command
+# ed4: correct link to homepage
 
 import glob, re, argparse
 from string import Template
@@ -19,17 +19,13 @@ def edit( fn ):
     subdir = m.group(1)
     base = m.group(3)
     ext = m.group(4)
-    if   ext=='cpp':
-        dir = 'src'
-    elif ext=='h':
-        dir = 'inc'
 
     fd = open( fn, 'r' )
     s = fd.read()
     fd.close
 
-    p = re.compile( "(\/\/\! \@file\s+\w+\/)(\w+)\.(h|cpp)" )
-    s = p.sub( r'\1'+dir+"/"+r'\2.\3', s, 1 )
+    p = re.compile( "(\/\/\! \@homepage\s+)(apps\S+)" )
+    s = p.sub( r'\1'+"http://"+r'\2', s, 1 )
 
     fd = open( fn, 'w' )
     fd.write( s )

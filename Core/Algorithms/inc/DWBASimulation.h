@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/DWBASimulation.h
+//! @file      Algorithms/inc/DWBASimulation.h
 //! @brief     Defines class DWBASimulation.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -22,10 +22,8 @@
 #include "ThreadInfo.h"
 #include "Types.h"
 
-//- -------------------------------------------------------------------
-//! @class DWBASimulation
-//! @brief Calculates scattering cross sections in DWBA
-//- -------------------------------------------------------------------
+//! Calculates scattering cross sections in DWBA
+
 class DWBASimulation : public ISimulation
 {
 public:
@@ -85,6 +83,5 @@ inline const OutputData<double> &DWBASimulation::getDWBAIntensity() const {
 inline void DWBASimulation::addDWBAIntensity(const OutputData<double> &data_to_add) {
     m_dwba_intensity += data_to_add;
 }
-
 
 #endif /* DWBASIMULATION_H_ */

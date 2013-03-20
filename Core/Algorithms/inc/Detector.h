@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/Detector.h
+//! @file      Algorithms/inc/Detector.h
 //! @brief     Defines class Detector.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -18,29 +18,24 @@
 
 #include "IDetectorResolution.h"
 #include "DetectorParameters.h"
-#include "IParameterized.h"
 #include "SafePointerVector.h"
 
-#include <vector>
+//! Detector with axes and resolution function.
 
-//- -------------------------------------------------------------------
-//! @class Detector
-//! @brief Definition of Detector with axes and resolution function
-//- -------------------------------------------------------------------
 class Detector : public IParameterized
 {
 public:
-	Detector();
+    Detector();
     Detector(const Detector &other);
     Detector &operator=(const Detector &other);
 
-	virtual ~Detector();
+    virtual ~Detector();
 
-	void addAxis(const IAxis &axis);
-	void addAxis(const AxisParameters &axis_params);
-	const IAxis &getAxis(size_t index) const;
-	size_t getDimension() const { return m_axes.size(); }
-	void clear();
+    void addAxis(const IAxis &axis);
+    void addAxis(const AxisParameters &axis_params);
+    const IAxis &getAxis(size_t index) const;
+    size_t getDimension() const { return m_axes.size(); }
+    void clear();
     void setDetectorResolution(IDetectorResolution *p_detector_resolution) { delete mp_detector_resolution; mp_detector_resolution = p_detector_resolution; }
 	void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
     const IDetectorResolution *getDetectorResolutionFunction() const { return mp_detector_resolution; }
@@ -53,7 +48,7 @@ public:
 protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
-	bool isCorrectAxisIndex(size_t index) const { return index<getDimension(); }
+    bool isCorrectAxisIndex(size_t index) const { return index<getDimension(); }
 
 	//! check if data has a compatible format with the detector
     bool dataShapeMatches(const OutputData<double> *p_data) const;
@@ -69,7 +64,7 @@ private:
     double getSolidAngle(OutputData<double> *p_data, size_t index) const;
 
     SafePointerVector<IAxis> m_axes;
-	IDetectorResolution *mp_detector_resolution;
+    IDetectorResolution *mp_detector_resolution;
 };
 
 #endif /* DETECTOR_H_ */

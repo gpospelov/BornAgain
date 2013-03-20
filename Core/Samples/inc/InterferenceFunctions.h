@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Samples/InterferenceFunctions.h
+//! @file      Samples/inc/InterferenceFunctions.h
 //! @brief     Include all interference function definitions.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -16,7 +16,6 @@
 #ifndef INTERFERENCEFUNCTIONS_H_
 #define INTERFERENCEFUNCTIONS_H_
 
-#include "IInterferenceFunction.h"
 #include "InterferenceFunctionNone.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunction2DLattice.h"

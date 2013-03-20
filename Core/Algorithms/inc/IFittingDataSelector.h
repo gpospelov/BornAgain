@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/IFittingDataSelector.h
+//! @file      Algorithms/inc/IFittingDataSelector.h
 //! @brief     Defines classes IFittingDataSelector and DefaultAllDataSelector.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -18,16 +18,15 @@
 
 #include "OutputData.h"
 
-//#include <vector>
-
 class IFittingDataSelector
 {
 public:
     virtual ~IFittingDataSelector() {}
     virtual IFittingDataSelector *clone() const=0;
 
-    virtual OutputData<double> *createWeightMap(const OutputData<double> &real_data,
-            const OutputData<double> &simulated_data) const=0;
+    virtual OutputData<double> *createWeightMap(
+        const OutputData<double> &real_data,
+        const OutputData<double> &simulated_data) const=0;
 };
 
 class DefaultAllDataSelector : public IFittingDataSelector
@@ -39,8 +38,9 @@ public:
         return new DefaultAllDataSelector();
     }
 
-    virtual OutputData<double> *createWeightMap(const OutputData<double> &real_data,
-            const OutputData<double> &simulated_data) const;
+    virtual OutputData<double> *createWeightMap(
+        const OutputData<double> &real_data,
+        const OutputData<double> &simulated_data) const;
 };
 
 #endif /* IFITTINGDATASELECTOR_H_ */

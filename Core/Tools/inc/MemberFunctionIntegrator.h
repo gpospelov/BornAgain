@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tools/MemberFunctionIntegrator.h
+//! @file      Tools/inc/MemberFunctionIntegrator.h
 //! @brief     Defines and implements template class MemberFunctionIntegrator.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -77,8 +77,6 @@ template<class C> MemberFunctionIntegrator<C>::~MemberFunctionIntegrator()
 {
     gsl_integration_workspace_free(m_gsl_workspace);
 }
-
-
 
 template<class C> double MemberFunctionIntegrator<C>::integrate(
         double lmin, double lmax, void* params)

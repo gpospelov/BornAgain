@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/Mask.h
+//! @file      Algorithms/inc/Mask.h
 //! @brief     Defines classes Mask, MaskIndexModulus, MaskCoordinates. 
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -18,10 +18,8 @@
 
 #include "MaskCoordinateFunction.h"
 
-//- -------------------------------------------------------------------
-//! @class Mask
-//! @brief Definition of base class for masking OutputData elements
-//- -------------------------------------------------------------------
+//! Base class for masking OutputData elements
+
 class Mask : public ICloneable
 {
 public:
@@ -47,10 +45,8 @@ private:
     size_t nextSubIndex(size_t total_index);
 };
 
-//- -------------------------------------------------------------------
-//! @class MaskIndexModulus
-//! @brief Mask based on the index modulo a given number
-//- -------------------------------------------------------------------
+//! Mask based on the index modulo a given number
+
 class MaskIndexModulus : public Mask
 {
 public:
@@ -67,10 +63,8 @@ private:
     size_t m_remainder;
 };
 
-//- -------------------------------------------------------------------
-//! @class MaskCoordinates
-//! @brief Mask based on the coordinates
-//- -------------------------------------------------------------------
+//! Mask based on the coordinates
+
 class MaskCoordinates : public Mask
 {
 public:

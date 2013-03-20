@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/DWBADiffuseReflection.h
+//! @file      Algorithms/inc/DWBADiffuseReflection.h
 //! @brief     Defines class DWBADiffuseReflection.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -21,11 +21,8 @@
 #include "MultiLayer.h"
 #include "OpticalFresnel.h"
 
+//! Calculation of diffuse (aka off-specular) reflection from multilayers.
 
-//- -------------------------------------------------------------------
-//! @class DWBADiffuseReflection
-//! @brief Calculation of diffuse (aka off-specular) reflection from multilayers.
-//- -------------------------------------------------------------------
 class DWBADiffuseReflection : public ISimulation
 {
 public:

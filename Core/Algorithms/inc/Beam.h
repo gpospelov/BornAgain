@@ -2,14 +2,14 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/Beam.h
+//! @file      Algorithms/inc/Beam.h
 //! @brief     Defines class Beam.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -19,10 +19,8 @@
 #include "Types.h"
 #include "IParameterized.h"
 
-//- -------------------------------------------------------------------
-//! @class Beam
-//! @brief Definition of Beam with direction and defined intensity
-//- -------------------------------------------------------------------
+//! Ideal collimated Beam defined by wavelength, direction and intensity.
+
 class Beam : public IParameterized
 {
 public:
@@ -52,6 +50,5 @@ private:
 	cvector_t m_central_k;
     double m_intensity;
 };
-
 
 #endif /* BEAM_H_ */

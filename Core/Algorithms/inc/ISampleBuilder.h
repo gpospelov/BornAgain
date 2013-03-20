@@ -2,10 +2,10 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Algorithms/ISampleBuilder.h
+//! @file      Algorithms/inc/ISampleBuilder.h
 //! @brief     Defines class ISampleBuilder.
 //!
-//! @homepage  apps.jcns.fz-juelich.de/BornAgain
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
@@ -16,9 +16,7 @@
 #ifndef ISAMPLEBUILDER_H_
 #define ISAMPLEBUILDER_H_
 
-#include "IParameterized.h"
 #include "ISample.h"
-#include "Exceptions.h"
 
 class ISampleBuilder : public IParameterized
 {
@@ -26,7 +24,8 @@ public:
     ISampleBuilder() { setName("SampleBuilder"); }
     virtual ~ISampleBuilder() {}
 
-    virtual ISample *buildSample() const { throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
+    virtual ISample *buildSample() const {
+        throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
 protected:
 };
 

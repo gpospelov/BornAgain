@@ -78,11 +78,9 @@ double MultiLayerRoughnessDWBASimulation::evaluate(const cvector_t &k_i, const c
 
     for(size_t i=0; i<mp_multi_layer->getNumberOfLayers()-1; i++){
         const LayerRoughness *rough = mp_multi_layer->getLayerBottomInterface(i)->getRoughness();
-        //std::cout << " " << i << " " << rterm[i] << " " << sterm[i] << " " << rough->getSpectralFun(q) << std::endl;
         if(rough) {
             autocorr += std::norm( rterm[i] ) * std::norm( sterm[i] ) * rough->getSpectralFun(q);
         } else {
-            std::cout << "MultiLayerRoughnessDWBASimulation::evaluate() -> No roughness for layer " << i << std::endl;
         }
     }
 

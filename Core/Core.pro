@@ -117,6 +117,7 @@ SOURCES += \
     Tools/src/IParameterized.cpp \
     Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
+    Tools/src/MessageSvc.cpp \
     Tools/src/OutputData.cpp \
     Tools/src/OutputDataFunctions.cpp \
     Tools/src/OutputDataIOFactory.cpp \
@@ -172,6 +173,7 @@ HEADERS += \
     Algorithms/inc/StrategyBuilder.h \
     Algorithms/inc/ThreadInfo.h \
     \
+    Fitting/inc/AttFitting.h \
     Fitting/inc/AttLimits.h \
     Fitting/inc/FitObject.h \
     Fitting/inc/FitParameter.h \
@@ -258,6 +260,7 @@ HEADERS += \
     Samples/inc/ParticleDecoration.h \
     Samples/inc/ParticleInfo.h \
     Samples/inc/PositionParticleInfo.h \
+    Samples/inc/Samples.h \
     \
     Tools/inc/AxisBin.h \
     Tools/inc/AxisDouble.h \
@@ -282,7 +285,9 @@ HEADERS += \
     Tools/inc/LLData.h \
     Tools/inc/Macros.h \
     Tools/inc/MathFunctions.h \
+    Tools/inc/MemberComplexFunctionIntegrator.h \
     Tools/inc/MemberFunctionIntegrator.h \
+    Tools/inc/MessageSvc.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
     Tools/inc/OutputDataFunctions.h \
@@ -303,10 +308,7 @@ HEADERS += \
     Tools/inc/TRange.h \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
-    Tools/inc/Utils.h \
-    Tools/inc/MemberComplexFunctionIntegrator.h \
-    Fitting/inc/AttFitting.h \
-    Samples/inc/Samples.h
+    Tools/inc/Utils.h
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)

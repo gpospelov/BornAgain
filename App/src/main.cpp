@@ -4,6 +4,7 @@
 #include "AppOptionsDescription.h"
 #include "CoreOptionsDescription.h"
 #include "Version.h"
+#include "MessageSvc.h"
 
 #include <iostream>
 #include <string>
@@ -24,11 +25,14 @@ int main(int argc, char **argv)
     feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
 #endif
     std::cout << AppVersion::g_app_name << " "
-            << AppVersion::g_app_version_number << std::endl;
+              << AppVersion::g_app_version_number << std::endl;
+
     ProgramOptions command_line_options;
     AddApplicationOptions(&command_line_options);
     AddCoreOptions(&command_line_options);
     command_line_options.parseCommandLine(argc, argv);
+
+    MSG::SetLevel(command_line_options["msgsvc"].as<std::string>());
 
     // setting graphics environment
     TApplication *theApp(0);

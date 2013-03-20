@@ -168,7 +168,6 @@ def RunTest():
     diff = GetDifference(result, reference)
     status = "OK"
     if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"
-    print diff
     return "IsGISAXS07", "Mixture of different particles defined in morphology file", status
 
 

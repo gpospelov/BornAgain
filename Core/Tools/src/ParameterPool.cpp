@@ -16,6 +16,7 @@
 #include "ParameterPool.h"
 #include "Exceptions.h"
 #include "Utils.h"
+#include "MessageSvc.h"
 
 #include <boost/algorithm/string/replace.hpp>
 #include <iostream>
@@ -86,8 +87,6 @@ ParameterPool::parameter_t ParameterPool::getParameter(const std::string &name) 
     if( it!=m_map.end() ) {
         return (*it).second;
     } else {
-//        std::cout << "ParameterPool::getParameter() -> Warning. No parameter with name '" << name << std::endl;
-//        return parameter_t(0);
         throw LogicErrorException("ParameterPool::getParameter() -> Warning. No parameter with name '"+name+"'");
     }
 }
@@ -106,8 +105,8 @@ std::vector<ParameterPool::parameter_t >  ParameterPool::getMatchedParameters(co
         }
     }
     if( selected_parameters.empty() ) {
-        std::cout << "ParameterPool::getMatchedParameters() -> Warning! No parameters satisfying  criteria '" << wildcards << "' have been found" << std::endl;
-        std::cout << "Existing keys are:" << std::endl;
+        log(MSG::FATAL) << "ParameterPool::getMatchedParameters() -> Warning! No parameters satisfying  criteria '" << wildcards << "' have been found";
+        log(MSG::FATAL) << "Existing keys are:";
         for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) std::cout << (*it).first << std::endl;
         throw LogicErrorException("ParameterPool::getMatchedParameters() -> Error! No parameters with given wildcard.");
     }
@@ -120,7 +119,7 @@ bool ParameterPool::setParameterValue(const std::string &name, double value)
 {
     parameter_t x = getParameter(name);
     if( x.isNull() ) {
-        std::cout << "ParameterPool::setParameterValue() -> Warning. No parameter with name '" << name << "'" << std::endl;
+        log(MSG::FATAL) << "ParameterPool::setParameterValue() -> Warning. No parameter with name '" << name << "'";
         throw LogicErrorException("ParameterPool::setParameterValue() -> Warning. No such parameter");
         return false;
     }

@@ -50,6 +50,9 @@ public:
     //! test of OutputData export to 2D array
     void test_OutputDataTo2DArray();
 
+    //! testing of loggin system
+    void test_LogSystem();
+
 };
 
 #endif // TESTMISCELLANEOUS_H

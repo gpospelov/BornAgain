@@ -16,6 +16,9 @@
 #include "FitSuite.h"
 #include "FitParameterLinked.h"
 #include "IMinimizer.h"
+#include "ChiSquaredModule.h"
+#include "MessageSvc.h"
+
 #include <boost/bind.hpp>
 
 FitSuite::FitSuite() : m_minimizer(0), m_is_last_iteration(false)
@@ -71,9 +74,8 @@ void FitSuite::link_fit_parameters()
 {
     ParameterPool *pool = m_fit_objects.createParameterTree();
     m_fit_parameters.link_to_pool(pool);
-    std::cout << "FitSuite::link_fit_parameters() -> Parameter pool:" << std::endl;
-    std::cout << *pool << std::endl;
-    std::cout << "----------------" << std::endl;
+    log(MSG::INFO) << "FitSuite::link_fit_parameters() -> Parameter pool:";
+    log(MSG::INFO) << *pool;
     delete pool;
 }
 

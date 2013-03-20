@@ -313,7 +313,6 @@ int FunctionalTests::IsGISAXS06::analyseResults()
         }
         diff /= result->getAllocatedSize();
         if( diff > threshold || std::isnan(diff)) status_ok=false;
-        std::cout << diff << std::endl;
         delete reference;
     }
 

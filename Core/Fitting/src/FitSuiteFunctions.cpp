@@ -15,6 +15,7 @@
 
 #include "FitSuiteFunctions.h"
 #include "FitSuite.h"
+#include "MessageSvc.h"
 #include <iomanip>
 
 //! evaluate chi squared value
@@ -68,7 +69,6 @@ double FitSuiteGradientFunction::evaluate(const double *pars, unsigned int index
 void FitSuiteGradientFunction::verify_arrays()
 {
     if( m_npars != m_fit_suite->getFitParameters()->size() || m_ndatasize != m_fit_suite->getFitObjects()->getSizeOfDataSet() ) {
-        //std::cout << "FitSuiteGradientFunction::verify_arrays() -> Info. " << std::endl;
         m_npars = m_fit_suite->getFitParameters()->size();
         m_ndatasize = m_fit_suite->getFitObjects()->getSizeOfDataSet();
         m_residuals.clear();
@@ -86,16 +86,16 @@ void FitSuiteGradientFunction::verify_minimizer_logic(bool parameters_have_chang
 {
     int index_difference = current_index - m_prev_index;
     if(index_difference != 1 && (current_index!=0 && int(m_prev_index)!= int(m_ndatasize-1) ) ) {
-        std::cout << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Non sequential access to elements.";
-        std::cout << " current_index:" << current_index << " prev_index:" << m_prev_index << std::endl;
+        log(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Non sequential access to elements.";
+        log(MSG::WARNING) << " current_index:" << current_index << " prev_index:" << m_prev_index;
     }
     if(parameters_have_changed && current_index != 0) {
-        std::cout << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Parameters have changed while current_index!=0" << std::endl;
-        std::cout << " current_index:" << current_index << " prev_index:" << m_prev_index << std::endl;
+        log(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Parameters have changed while current_index!=0";
+        log(MSG::WARNING) << " current_index:" << current_index << " prev_index:" << m_prev_index;
     }
     if(parameters_have_changed && current_index == m_prev_index) {
-        std::cout << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Parameters have changed while index remained the same"  << std::endl;
-        std::cout << " current_index:" << current_index << " prev_index:" << m_prev_index << std::endl;
+        log(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Parameters have changed while index remained the same";
+        log(MSG::WARNING) << " current_index:" << current_index << " prev_index:" << m_prev_index;
     }
     m_prev_index = current_index;
 }
@@ -103,11 +103,9 @@ void FitSuiteGradientFunction::verify_minimizer_logic(bool parameters_have_chang
 //! ?
 void FitSuiteGradientFunction::calculate_residuals(const double *pars)
 {
-    //std::cout << " FitSuiteGradientFunction::calculate_residuals() -> Info. " << std::endl;
     runSimulation(pars);
     for(size_t i_data=0; i_data<m_ndatasize; ++i_data) {
         m_residuals[i_data] = m_fit_suite->getFitObjects()->getResidualValue(i_data);
-        //std::cout << i_data << " " << m_residuals[i_data] << std::endl;
     }
 
 }
@@ -115,7 +113,6 @@ void FitSuiteGradientFunction::calculate_residuals(const double *pars)
 //! ?
 void FitSuiteGradientFunction::calculate_gradients(const double *pars)
 {
-    std::cout << " FitSuiteGradientFunction::calculate_gradients() -> Info. " << std::endl;
     // FIXME get kEps from outside fit_suite->getMinimizer()->getPrecision();
     const double kEps = 1.0E-9; // Good for Fumili
     //const double kEps = 1.0E-5;
@@ -125,7 +122,6 @@ void FitSuiteGradientFunction::calculate_gradients(const double *pars)
         std::copy(pars, pars+m_npars, pars_deriv.begin());
         pars_deriv[i_par] += kEps;
 
-        //std::cout << "   " << (pars[i_par]- pars_deriv[i_par]) << std::endl;
         runSimulation(&pars_deriv.front());
 
         std::vector<double> residuals2;
@@ -136,7 +132,6 @@ void FitSuiteGradientFunction::calculate_gradients(const double *pars)
 
         for(size_t i_data=0; i_data <m_ndatasize; ++i_data) {
             m_gradients[i_par][i_data] = (residuals2[i_data] - m_residuals[i_data])/kEps;
-            //std::cout << "AAA " << m_gradients[i_par][i_data] << " " <<  residuals2[i_data] << " " <<  m_residuals[i_data] << " " << (residuals2[i_data]-m_residuals[i_data]) << std::endl;
         }
     }
     // returning back old parameters
@@ -150,5 +145,4 @@ void FitSuiteGradientFunction::runSimulation(const double *pars){
     assert(m_fit_suite);
     m_fit_suite->getFitParameters()->setValues(pars);
     m_fit_suite->getFitObjects()->runSimulations();
-    //m_fit_suite->getFitObjects()->getChiSquaredValue();
 }

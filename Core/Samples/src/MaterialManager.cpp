@@ -33,7 +33,6 @@ const IMaterial *MaterialManager::getMaterial(const std::string &name)
     if( pos != m_materials.end()) {
         return pos->second;
     } else {
-        //std::cout << "MaterialManager::Get() -> Info. No such material '" << name << "'." << std::endl;
         return 0;
     }
 }
@@ -47,7 +46,6 @@ const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name
 {
     const IMaterial *mat = getMaterial(name);
     if( mat ) {
-        //std::cout << "MaterialManager::Add() -> Info. Material '" << name << "' already exists" << std::endl;
         // check if user is trying to create material with same name but different parameters
         const HomogeneousMaterial *old = dynamic_cast<const HomogeneousMaterial *>(mat);
         if(old->getRefractiveIndex() != refractive_index) {

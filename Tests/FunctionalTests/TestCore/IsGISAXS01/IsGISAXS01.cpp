@@ -11,6 +11,7 @@
 #include "Simulation.h"
 #include "Units.h"
 #include "Utils.h"
+#include "MessageSvc.h"
 
 #include <iostream>
 #include <cmath>
@@ -97,6 +98,7 @@ int FunctionalTests::IsGISAXS01::analyseResults()
 #ifdef STANDALONE
 int main()
 {
+    //MSG::SetLevel(MSG::INFO);
     FunctionalTests::IsGISAXS01 test;
     test.run();
 

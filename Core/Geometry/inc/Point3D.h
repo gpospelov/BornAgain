@@ -1,3 +1,21 @@
+// ************************************************************************** //
+//
+//  heinzlibs:   Library collection of the Scientific Computing Group at
+//               Heinz Maier-Leibnitz Zentrum (MLZ) Garching
+//
+//  libheinzgeo: Library for three-dimensional Euclidian geometry
+//
+//! @file        Geometry/inc/Beam.Point3D.h
+//! @brief       Defines class Beam.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 // -*- C++ -*-
 // $Id: Point3D.h,v 1.5 2010/06/16 16:21:27 garren Exp $
 // ---------------------------------------------------------------------------

@@ -17,7 +17,7 @@
 #ifndef FTDISTRIBUTIONS_H_
 #define FTDISTRIBUTIONS_H_
 
-#include "ParameterPool.h"
+#include "IParameterized.h"
 #include <cmath>
 
 class IFTDistribution1D
@@ -34,8 +34,11 @@ protected:
 class IFTDistribution2D : public IParameterized
 {
 public:
-    IFTDistribution2D(double omega_x, double omega_y) : m_omega_x(omega_x), m_omega_y(omega_y),
-        m_gamma(0.0), m_delta(M_PI/2.0) {}
+    IFTDistribution2D(double omega_x, double omega_y)
+        : m_omega_x(omega_x)
+        , m_omega_y(omega_y)
+        , m_gamma(0.0)
+        , m_delta(M_PI/2.0) {}
     virtual ~IFTDistribution2D() {}
 
     virtual IFTDistribution2D *clone() const=0;

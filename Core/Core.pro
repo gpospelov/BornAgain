@@ -130,7 +130,8 @@ SOURCES += \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
-    Tools/src/Utils.cpp
+    Tools/src/Utils.cpp \
+    Tools/src/MessageSvc.cpp
 
 HEADERS += \
     Algorithms/inc/Beam.h \
@@ -307,7 +308,8 @@ HEADERS += \
     Tools/inc/Utils.h \
     Tools/inc/MemberComplexFunctionIntegrator.h \
     Fitting/inc/AttFitting.h \
-    Samples/inc/Samples.h
+    Samples/inc/Samples.h \
+    Tools/inc/MessageSvc.h
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)

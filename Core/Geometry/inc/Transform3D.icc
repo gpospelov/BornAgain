@@ -2,11 +2,6 @@
 // $Id: Transform3D.icc,v 1.1 2003/07/17 09:05:28 garren Exp $
 // ---------------------------------------------------------------------------
 
-//#include "CLHEP/Vector/ThreeVector.h"
-//#include "CLHEP/Vector/Rotation.h"
-//#include "CLHEP/Geometry/Point3D.h"
-//#include "CLHEP/Geometry/Vector3D.h"
-//#include "CLHEP/Geometry/Normal3D.h"
 #include "Point3D.h"
 #include "Vector3D.h"
 #include "Normal3D.h"
@@ -17,52 +12,6 @@ namespace Geometry {
 
 //   I N L I N E S   F O R   T R A N S F O R M A T I O N
 
-inline
-Transform3D::Transform3D_row::Transform3D_row
-(const Transform3D & r, int i) : rr(r), ii(i) {}
-
-inline
-double Transform3D::Transform3D_row::operator[](int jj) const {
-  return rr(ii,jj);
-}
-
-inline
-const Transform3D::Transform3D_row Transform3D::operator[](int i) const {
-  return Transform3D_row(*this, i);
-}
-
-//inline
-//Transform3D::Transform3D(const CLHEP::HepRotation & m, const CLHEP::Hep3Vector & v) {
-//  xx_= m.xx(); xy_= m.xy(); xz_= m.xz();
-//  yx_= m.yx(); yy_= m.yy(); yz_= m.yz();
-//  zx_= m.zx(); zy_= m.zy(); zz_= m.zz();
-//  dx_= v.x();  dy_= v.y();  dz_= v.z();
-//}
-
-//inline
-//CLHEP::HepRotation
-//Transform3D::getRotation() const {
-//  CLHEP::HepRotation m;
-//  return m.rotateAxes(CLHEP::Hep3Vector(xx_,yx_,zx_),
-//		      CLHEP::Hep3Vector(xy_,yy_,zy_),
-//                      CLHEP::Hep3Vector(xz_,yz_,zz_));
-//}
-
-//inline
-//CLHEP::Hep3Vector
-//Transform3D::getTranslation() const {
-//  return CLHEP::Hep3Vector(dx_,dy_,dz_);
-//}
-
-//   I N L I N E S   F O R   R O T A T I O N
-
-//inline
-//Rotate3D::Rotate3D(const CLHEP::HepRotation & m) {
-//  xx_= m.xx(); xy_= m.xy(); xz_= m.xz();
-//  yx_= m.yx(); yy_= m.yy(); yz_= m.yz();
-//  zx_= m.zx(); zy_= m.zy(); zz_= m.zz();
-//  dx_= 0;      dy_= 0;      dz_= 0;
-//}
 
 inline
 Rotate3D::Rotate3D(double a, const Vector3D<double> & v) {

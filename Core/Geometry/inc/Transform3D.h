@@ -266,19 +266,14 @@ class Transform3D {
     //! Concatenation of transforms. Read efficiency warning!
     //!
     //! Warning:
-    //! The computation
-    //! @code
-    //!   v2 = m3*(m2*(m1*v1));
-    //! @endcode
-    //! is much more effective than
-    //! @code
-    //!   v2 = m3*m2*m1*v1;
-    //! @endcode
-    //! where left associativity of operator* is implied.
-    //! Transform3D*Transform3D is roughly 3 times slower
-    //! than Transform3D*Vector3D.
-    //! Therefore only use Transform3D*Transform3D to
-    //! precompute a new transformation for repeated use.
+    //! Do not use this function for one-time computations:
+    //! Transform3D*Transform3D is roughly 3 times slower than
+    //! Transform3D*Vector3D. Therefore prefer v2 = m3*(m2*(m1*v1))
+    //! over v2 = m3*m2*m1*v1. (The latter expression is written
+    //! without parentheses because operator* is left associative).
+    //!
+    //! Use of Transform3D*Transform3D is reasonable when the
+    //! resulting transformation will be used several times.
     //!
     Transform3D operator*(const Transform3D& b) const;
     
@@ -340,6 +335,7 @@ public:
 	     const Point3D<double>& p2);
     
     //! Constructor from original and rotated position of two points.
+
     //! It is assumed that there is no reflection.
     //! @param fr1 original position of 1st point
     //! @param fr2 original position of 2nd point
@@ -354,11 +350,13 @@ public:
 
 
     //! Constructor from angle and axis.
+
     //! @param a angle of rotation
     //! @param v axis of rotation
     inline Rotate3D(double a, const Vector3D<double>& v)
-        : Rotate3D(a, Point3D<double>(0.0, 0.0, 0.0),
-                   Point3D<double>(v.x(),v.y(),v.z()) ) {}
+    //  TODO(C++11): simplify using delegating constructor
+    { *this = Rotate3D(a, Point3D<double>(0.0, 0.0, 0.0),
+                       Point3D<double>(v.x(),v.y(),v.z()) ); }
 };
 
 //! A rotation of 3D geometrical objects around the x-axis.
@@ -465,8 +463,6 @@ public:
     TranslateY3D() : Translate3D() {}
 
     //! Constructor from a number.
-    /**
-     * Constructor from a number. */
     TranslateY3D(double y) : Translate3D(0.0, y, 0.0) {}
 };
 
@@ -480,8 +476,6 @@ public:
     TranslateZ3D() : Translate3D() {}
 
     //! Constructor from a number.
-    /**
-     * Constructor from a number. */
     TranslateZ3D(double z) : Translate3D(0.0, 0.0, z) {}
 };
 
@@ -517,9 +511,11 @@ public:
     Reflect3D(double a, double b, double c, double d);
 
     //! Construct reflection from a plane given by its normal a point.
+
     inline Reflect3D(const Normal3D<double>& normal,
-                     const Point3D<double>& point) :
-        Reflect3D(normal.x(), normal.y(), normal.z(), -normal*point) {}
+                     const Point3D<double>& point) 
+    //  TODO(C++11): simplify using delegating constructor
+    { *this = Reflect3D(normal.x(), normal.y(), normal.z(), -normal*point); }
 };
 
 //! A reflection in a plane x=const.

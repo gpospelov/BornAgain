@@ -17,6 +17,7 @@
 #define ISAMPLE_H
 
 #include "IParameterized.h"
+#include "ICloneable.h"
 
 class ICompositeSample;
 class DWBASimulation;

@@ -1,15 +1,11 @@
 // ************************************************************************** //
 //
-//  
-//
 //! @file      mainpage.dox
 //! @brief     Doxygen entry page
-//!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //
 // ************************************************************************** //
 
-//! \mainpage BornAgain: simulate and fit scattering at grazing incidence
+//! @mainpage BornAgain: simulate and fit scattering at grazing incidence
 //! 
 //! Homepage: http://apps.jcns.fz-juelich.de/BornAgain
 //!

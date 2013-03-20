@@ -171,16 +171,15 @@ inline complex_t MathFunctions::FastCos(const complex_t &x) {
 }
 
 //! simultaneous complex sine and cosine calculations
-inline void MathFunctions::FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos)
+inline void MathFunctions::FastSinCos(const complex_t &x,
+                                      complex_t &xsin, complex_t &xcos)
 {
     double sina = FastSin(x.real());
     double cosa = std::sqrt(1-sina*sina);
     double sinhb = std::sinh(x.imag());
     double coshb = std::sqrt(1-sinhb*sinhb);
-    xsin.real() =sina*coshb;
-    xsin.imag() =cosa*sinhb;
-    xcos.real() =cosa*coshb;
-    xcos.imag() =-sina*sinhb;
+    xsin = complex_t( sina*coshb,  cosa*sinhb );
+    xcos = complex_t( cosa*coshb, -sina*sinhb );
 }
 
 #endif // MATHFUNCTIONS_H

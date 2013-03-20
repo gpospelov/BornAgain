@@ -1,36 +1,37 @@
-// -*- C++ -*-
-// $Id: Plane3D.cc,v 1.4 2003/08/13 20:00:11 garren Exp $
-// ---------------------------------------------------------------------------
+// ************************************************************************** //
 //
-// This file is a part of the CLHEP - a Class Library for High Energy Physics.
+//  heinzlibs:  Library collection of the Scientific Computing Group at
+//              Heinz Maier-Leibnitz Zentrum (MLZ) Garching
 //
-// Hep geometrical 3D Plane class
+//  libgeo3d:   Library for three-dimensional Euclidian geometry,
+//              based on CLHEP/Geometry 1.9 of 1.4.2003,
+//              forked after v 1.4 2003/08/13 20:00:11
 //
-// Author: Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch>
+//! @file       Geometry/src/Plane3D.cpp
+//! @brief      implements class BasicVector<T> for T=double,complex
+//!
+//! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
+//! @license    GNU General Public License v3 or higher (see COPYING)
+//! @copyright  Forschungszentrum Jülich GmbH 2013
+//! @authors    E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//!
+//! Changes w.r.t. CLHEP:
+//! - eliminated support for type float
+//! - reworked doxygen comments
 //
-// History:
-// 22.09.96 E.Chernyaev - initial version
-// 19.10.96 J.Allison - added == and <<.
-// 15.04.03 E.Chernyaev - CLHEP-1.9: template version
+// ************************************************************************** //
 
 #include <iostream>
-//#include "CLHEP/Geometry/defs.h"
-//#include "CLHEP/Geometry/Plane3D.h"
 #include "Plane3D.h"
 
-
 namespace Geometry {
-//  //--------------------------------------------------------------------------
-//  std::ostream &
-//  operator<<(std::ostream & os, const Plane3D<float> & p) {
-//    return os
-//      << '(' << p.a() << ',' << p.b() << ',' << p.c() << ',' << p.d() << ')';
-//  }
 
-  //--------------------------------------------------------------------------
-  std::ostream &
-  operator<<(std::ostream & os, const Plane3D<double> & p) {
-    return os
-      << '(' << p.a() << ',' << p.b() << ',' << p.c() << ',' << p.d() << ')';
+std::ostream& operator<< (
+        std::ostream& os, const Plane3D<double>& p)
+{
+    return os <<
+        '(' << p.a() << ',' << p.b() << ',' << p.c() << ',' << p.d() << ')';
   }
-} /* namespace HepGeom */
+
+}  // namespace Geometry

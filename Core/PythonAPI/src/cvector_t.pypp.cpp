@@ -197,7 +197,7 @@ void register_cvector_t_class(){
             
             cvector_t_exposer.def( 
                 "r"
-                , r_function_type( &::Geometry::BasicVector3D< std::complex< double > >::r ) );
+                , r_function_type( &::Geometry::BasicVector3D< std::complex< double > >::mag ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::rho
@@ -207,7 +207,7 @@ void register_cvector_t_class(){
             
             cvector_t_exposer.def( 
                 "rho"
-                , rho_function_type( &::Geometry::BasicVector3D< std::complex< double > >::rho ) );
+                , rho_function_type( &::Geometry::BasicVector3D< std::complex< double > >::magxy ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::setLambdaAlphaPhi

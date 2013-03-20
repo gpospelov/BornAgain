@@ -58,7 +58,7 @@ public:
     //! set the sample builder
     void setSampleBuilder(const ISampleBuilder *p_sample_builder);
 
-    //! get data structure that contains the intensity map on the detector for all scan parameters
+    //! get detector intensity map for all scan parameters
     OutputData<double>* getOutputDataClone() const;
 
     const OutputData<double>* getOutputData() const;
@@ -81,7 +81,8 @@ public:
 
     //! set detector parameters using angle ranges
     void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
-            size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style=false);
+        size_t n_alpha, double alpha_f_min, double alpha_f_max,
+        bool isgisaxs_style=false);
 
     //! set detector parameters using parameter object
     void setDetectorParameters(const DetectorParameters &params);
@@ -99,7 +100,7 @@ public:
     //! set the program options
     void setProgramOptions(ProgramOptions *p_options) { mp_options = p_options; }
 
-    //! add parameters from local pool to external pool and call recursion over direct children
+    //! add parameters from local to external pool, and call recursion over direct children
     std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
     //! apply smearing of intensity due to tilting of z-axis (DEPRECATED)
@@ -107,7 +108,7 @@ public:
 protected:
     Simulation(const Simulation &other);
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! egister some class members for later access via parameter pool
     void init_parameters();
 
     //! Default implementation only adds the detector axes
@@ -121,7 +122,6 @@ protected:
     const ISampleBuilder *mp_sample_builder;
     Instrument m_instrument;
     SimulationParameters m_sim_params;
-
 
     OutputData<double> m_intensity_map;
     bool m_is_normalized;

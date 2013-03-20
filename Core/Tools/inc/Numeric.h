@@ -19,17 +19,21 @@
 #include <limits>
 #include <cmath>
 
+//! Floating-point epsilon, tolerances, almost-equal.
+
 namespace Numeric {
 
 static const double required_precision = 1.e-4;
 
-static double double_epsilon = std::numeric_limits<double>::epsilon();
-static double double_min = std::numeric_limits<double>::min();
+static const double double_epsilon = std::numeric_limits<double>::epsilon();
+static const double double_min = std::numeric_limits<double>::min();
 
-static const double probthreshold = 0.0000000001; //!< threshold on probability value during calculation of weighted form factor
+//! threshold on probability value during calculation of weighted form factor
+static const double probthreshold = 0.0000000001; 
 
 //! compare two doubles
-inline bool areAlmostEqual(double a, double b, double tolerance_factor=1.0) { return std::abs(a-b) < tolerance_factor*Numeric::double_epsilon; }
+inline bool areAlmostEqual(double a, double b, double tolerance_factor=1.0)
+    { return std::abs(a-b) < tolerance_factor*Numeric::double_epsilon; }
 }
 
 #endif /* NUMERIC_H_ */

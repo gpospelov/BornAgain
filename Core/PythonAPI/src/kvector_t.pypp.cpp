@@ -260,7 +260,7 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "r"
-                , r_function_type( &::Geometry::BasicVector3D< double >::r ) );
+                , r_function_type( &::Geometry::BasicVector3D< double >::mag ) );
         
         }
         { //::Geometry::BasicVector3D< double >::rho
@@ -270,7 +270,7 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "rho"
-                , rho_function_type( &::Geometry::BasicVector3D< double >::rho ) );
+                , rho_function_type( &::Geometry::BasicVector3D< double >::magxy ) );
         
         }
         { //::Geometry::BasicVector3D< double >::rotate

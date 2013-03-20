@@ -13,7 +13,7 @@
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//! @authors    E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //!
 //! Changes w.r.t. CLHEP:
@@ -31,19 +31,22 @@ namespace Geometry {
 
 class Transform3D;
 
-//! Geometrical 3D Normal.
+//! A three-dimensional normal vector of templated coordinate type.
     
-//! This declaration is needed to define
-//! the specializations Normal3D<double>.
+//! Note that this is not a unit vector.
+//! It seems to be a regular vector, except for the behaviour under
+//! reflection and scaling.
 //!
 //! @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//!
 template<class T>
 class Normal3D : public BasicVector3D<T> {};
 
 
-//! Geometrical 3D Normal with components of double type.
-//!
+//! A three-dimensional normal vector with double-precision coordinates.
+
 //! @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//!
 template<>
 class Normal3D<double> : public BasicVector3D<double> {
 public:
@@ -82,7 +85,9 @@ public:
 };
 
 //! Transformation of Normal<double> by Transform3D.
+
 //! @relates Normal3D
+//!
 Normal3D<double>
 operator*(const Transform3D & m, const Normal3D<double> & n);
 

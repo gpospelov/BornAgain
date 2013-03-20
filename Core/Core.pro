@@ -222,7 +222,6 @@ HEADERS += \
     Geometry/inc/Plane3D.h \
     Geometry/inc/Point3D.h \
     Geometry/inc/Transform3D.h \
-    Geometry/inc/Transform3D.icc \
     Geometry/inc/Vector3D.h \
     \
     Samples/inc/Crystal.h \

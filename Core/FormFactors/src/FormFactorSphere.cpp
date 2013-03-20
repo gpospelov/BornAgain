@@ -29,8 +29,10 @@ FormFactorSphere::FormFactorSphere(double radius, double height)
     assert(m_height <= 2.*m_radius);
     init_parameters();
 
-    MemberComplexFunctionIntegrator<FormFactorSphere>::mem_function p_mf = &FormFactorSphere::Integrand;
-    m_integrator = new MemberComplexFunctionIntegrator<FormFactorSphere>(p_mf, this);
+    MemberComplexFunctionIntegrator<FormFactorSphere>::mem_function p_mf =
+        &FormFactorSphere::Integrand;
+    m_integrator =
+        new MemberComplexFunctionIntegrator<FormFactorSphere>(p_mf, this);
 }
 
 FormFactorSphere::~FormFactorSphere()
@@ -38,7 +40,7 @@ FormFactorSphere::~FormFactorSphere()
     delete m_integrator;
 }
 
-//! initialize pool parameters
+//! register some class members for later access via parameter pool
 
 void FormFactorSphere::init_parameters()
 {
@@ -57,9 +59,9 @@ FormFactorSphere* FormFactorSphere::clone() const
 complex_t FormFactorSphere::Integrand(double Z, void* params) const
 {
     (void)params;
-    double  Rz  = std::sqrt(  std::abs(m_radius*m_radius-Z*Z) );
+    double Rz = std::sqrt( std::abs(m_radius*m_radius-Z*Z) );
     complex_t q_p = m_q.magxy(); // sqrt(x*x + y*y)
-    return  Rz*Rz*MathFunctions::Bessel_C1(std::abs(q_p*Rz)) * std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
+    return Rz*Rz*MathFunctions::Bessel_C1(std::abs(q_p*Rz)) * std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
 }
 
 complex_t FormFactorSphere::evaluate_for_q(const cvector_t &q) const

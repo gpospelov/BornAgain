@@ -14,7 +14,7 @@
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//! @authors    E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //!
 //! Changes w.r.t. CLHEP:
@@ -26,6 +26,9 @@
 #define GEOMETRY_TRANSFROM3D_H
 
 #include <cmath>
+#include "Point3D.h"
+#include "Vector3D.h"
+#include "Normal3D.h"
 
 namespace Geometry {
 
@@ -42,7 +45,7 @@ class Scale3D;
 // ************************************************************************** //
 
 //! Transformations of 3D geometrical objects (points, vectors, normals).
-//!
+
 //! Uses a 4x3 double-precision transform matrix to rotate, translate,
 //! reflect and scale.
 //!
@@ -148,22 +151,8 @@ class Scale3D;
 //!   m = HepGeom::TranslateX3D(10.*cm);
 //! @endcode
 //!
-//! Remark:
-//! For the reason that the operator* is left associative, the notation
-//! @code
-//!   v2 = m3*(m2*(m1*v1));
-//! @endcode
-//! is much more effective then the notation
-//! @code
-//!   v2 = m3*m2*m1*v1;
-//! @endcode
-//! In the first case three operations Transform3D*Vector3D are executed,
-//! in the second case two operations Transform3D*Transform3D and one
-//! Transform3D*Vector3D are performed. Transform3D*Transform3D is
-//! roughly three times slower than Transform3D*Vector3D.
-//!
 //! @author <Evgueni.Tcherniaev@cern.ch> 1996-2003
-
+//!
 class Transform3D {
   protected:
     // 4x3  Transformation Matrix
@@ -195,8 +184,6 @@ class Transform3D {
     //! Helper class for implemention of C-style subscripting r[i][j] 
     class Transform3D_row {
       public:
-        inline Transform3D_row(const Transform3D & r, int i) : rr(r), ii(i) {}
-        inline double operator[](int jj) const { return rr(ii,jj); }
         inline Transform3D_row(const Transform3D&, int);
         inline double operator [] (int) const;
       private:
@@ -227,13 +214,10 @@ class Transform3D {
     //! Destructor. 
     //! Virtual for now as some persistency mechanism needs that,
     //! in future releases this might go away again.
-        virtual ~Transform3D() { /* nop */ }
+    virtual ~Transform3D() { /* nop */ }
 
     //! Returns object of the helper class for C-style subscripting r[i][j]
     inline const Transform3D_row operator [] (int) const; 
-
-    inline const Transform3D::operator[](int i) const
-        { return Transform3D_row(*this, i); }
 
     //! Fortran-style subscripting: returns (i,j) element of the matrix.
     double operator () (int, int) const;
@@ -279,13 +263,29 @@ class Transform3D {
     //! Returns the inverse transformation.
     Transform3D inverse() const;
     
-    //! Transformation by another Transform3D.
+    //! Concatenation of transforms. Read efficiency warning!
+    //!
+    //! Warning:
+    //! The computation
+    //! @code
+    //!   v2 = m3*(m2*(m1*v1));
+    //! @endcode
+    //! is much more effective than
+    //! @code
+    //!   v2 = m3*m2*m1*v1;
+    //! @endcode
+    //! where left associativity of operator* is implied.
+    //! Transform3D*Transform3D is roughly 3 times slower
+    //! than Transform3D*Vector3D.
+    //! Therefore only use Transform3D*Transform3D to
+    //! precompute a new transformation for repeated use.
+    //!
     Transform3D operator*(const Transform3D& b) const;
     
     //! Decomposition of general transformation.
     //!
-    //! This function gets decomposition of the transformation
-    //! in three consequentive specific transformations: Scale3D,
+    //! This function returns a decomposition of the transformation
+    //! into three sequential transformations: Scale3D,
     //! then Rotate3D, then Translate3, i.e.
     //! @code
     //!   Transform3D = Translate3D * Rotate3D * Scale3D
@@ -328,25 +328,17 @@ class Transform3D {
 //! @endcode
 //!
 //! @author <Evgueni.Tcherniaev@cern.ch> 1996-2003
-
+//!
 class Rotate3D : public Transform3D {
 public:
     //! Default constructor: sets the Identity transformation.
     Rotate3D() : Transform3D() {}
     
-    //! Constructor from angle and axis given by two points.
-    //! @param a  angle of rotation
-    //! @param p1 begin point of the axis
-    //! @param p2 end point of the axis
+    //! Construct rotation by angle a around axis p1->p2.
     Rotate3D(double a,
 	     const Point3D<double>& p1,
 	     const Point3D<double>& p2);
     
-    //! Constructor from angle and axis.
-    //! @param a angle of rotation
-    //! @param v axis of rotation
-    inline Rotate3D(double a, const Vector3D<double>& v);
-
     //! Constructor from original and rotated position of two points.
     //! It is assumed that there is no reflection.
     //! @param fr1 original position of 1st point
@@ -356,7 +348,17 @@ public:
     inline Rotate3D(const Point3D<double>& fr1,
 		    const Point3D<double>& fr2,
 		    const Point3D<double>& to1,
-		    const Point3D<double>& to2);
+		    const Point3D<double>& to2)
+        : Transform3D(Point3D<double>(0.0, 0.0, 0.0),fr1,fr2,
+                      Point3D<double>(0.0, 0.0, 0.0),to1,to2) {}
+
+
+    //! Constructor from angle and axis.
+    //! @param a angle of rotation
+    //! @param v axis of rotation
+    inline Rotate3D(double a, const Vector3D<double>& v)
+        : Rotate3D(a, Point3D<double>(0.0, 0.0, 0.0),
+                   Point3D<double>(v.x(),v.y(),v.z()) ) {}
 };
 
 //! A rotation of 3D geometrical objects around the x-axis.
@@ -364,7 +366,7 @@ public:
 //! Should not be instantiated: see Rotate3D for example of use.
 //!
 //! @author <Evgueni.Tcherniaev@cern.ch>
-
+//!
 class RotateX3D : public Rotate3D {
 public:
     //! Default constructor: sets the Identity transformation.
@@ -382,7 +384,7 @@ public:
 //! Should not be instantiated: see Rotate3D for example of use.
 //!
 //! @author <Evgueni.Tcherniaev@cern.ch>
-
+//!
 class RotateY3D : public Rotate3D {
 public:
     //! Default constructor: sets the Identity transformation.
@@ -400,7 +402,7 @@ public:
 //! Should not be instantiated: see Rotate3D for example of use.
 //!
 //! @author <Evgueni.Tcherniaev@cern.ch>
-
+//!
 class RotateZ3D : public Rotate3D {
 public:
     //! Default constructor: sets the Identity transformation.
@@ -429,7 +431,7 @@ public:
 //! @endcode
 //!
 //! @author <Evgueni.Tcherniaev@cern.ch> 1996-2003
-
+//!
 class Translate3D : public Transform3D {
 public:
     //! Default constructor: sets the Identity transformation.
@@ -441,9 +443,9 @@ public:
 };
 
 //! A translation along the x-axis.
-//!
-//! Should not be instantiated: see Translate3D for example of use.
 
+//! Should not be instantiated: see Translate3D for example of use.
+//!
 class TranslateX3D : public Translate3D {
 public:
     //! Default constructor: sets the Identity transformation.
@@ -454,9 +456,9 @@ public:
 };
 
 //! A translation along the y-axis.
-//!
-//! Should not be instantiated: see Translate3D for example of use.
 
+//! Should not be instantiated: see Translate3D for example of use.
+//!
 class TranslateY3D : public Translate3D {
 public:
     //! Default constructor: sets the Identity transformation.
@@ -469,9 +471,9 @@ public:
 };
 
 //! A translation along the z-axis.
-//!
-//! Should not be instantiated: see Translate3D for example of use.
 
+//! Should not be instantiated: see Translate3D for example of use.
+//!
 class TranslateZ3D : public Translate3D {
 public:
     //! Default constructor: sets the Identity transformation.
@@ -511,18 +513,19 @@ public:
     //! Default constructor: sets the Identity transformation.
     Reflect3D() : Transform3D() {}
 
-    //! Constructor from four numbers: reflection in a plane a*x+b*y+c*z+d=0
+    //! Construct reflection from a plane a*x+b*y+c*z+d=0.
     Reflect3D(double a, double b, double c, double d);
 
-    //! Constructor from a plane given by its normal and origin.
+    //! Construct reflection from a plane given by its normal a point.
     inline Reflect3D(const Normal3D<double>& normal,
-                     const Point3D<double>& point);
+                     const Point3D<double>& point) :
+        Reflect3D(normal.x(), normal.y(), normal.z(), -normal*point) {}
 };
 
 //! A reflection in a plane x=const.
-//!
-//! Should not be instantiated: see Reflect3D for example of use.
 
+//! Should not be instantiated: see Reflect3D for example of use.
+//!
 class ReflectX3D : public Reflect3D {
 public:
     //! Constructor from a number.
@@ -531,9 +534,9 @@ public:
 };
  
 //! A reflection in a plane y=const.
-//!
-//! Should not be instantiated: see Reflect3D for example of use.
 
+//! Should not be instantiated: see Reflect3D for example of use.
+//!
 class ReflectY3D : public Reflect3D {
 public:
     //! Constructor from a number.
@@ -542,9 +545,9 @@ public:
 };
  
 //! A reflection in a plane z=const.
-//!
-//! Should not be instantiated: see Reflect3D for example of use.
 
+//! Should not be instantiated: see Reflect3D for example of use.
+//!
 class ReflectZ3D : public Reflect3D {
 public:
     //! Constructor from a number.
@@ -568,7 +571,7 @@ public:
 //! @endcode
 //!
 //! @author <Evgueni.Tcherniaev@cern.ch>
-
+//!
 class Scale3D : public Transform3D {
 public:
     //! Default constructor: sets the Identity transformation.
@@ -584,9 +587,9 @@ public:
 };
 
 //! A scaling transformation in x-direction.
-//!
-//! Should not be instantiated: see Scale3D for example of use.
 
+//! Should not be instantiated: see Scale3D for example of use.
+//!
 class ScaleX3D : public Scale3D {
 public:
     //! Default constructor: sets the Identity transformation.
@@ -597,9 +600,9 @@ public:
 };
 
 //! A scaling transformation in y-direction.
-//!
-//! Should not be instantiated: see Scale3D for example of use.
 
+//! Should not be instantiated: see Scale3D for example of use.
+//!
 class ScaleY3D : public Scale3D {
 public:
     //! Default constructor: sets the Identity transformation.
@@ -610,9 +613,9 @@ public:
 };
 
 //! A scaling transformation in z-direction.
-//!
-//! Should not be instantiated: see Scale3D for example of use.
 
+//! Should not be instantiated: see Scale3D for example of use.
+//!
 class ScaleZ3D : public Scale3D {
 public:
     //! Default constructor: sets the Identity transformation.
@@ -621,6 +624,22 @@ public:
     //! Constructor from a number (scale factor in z-direction).
     ScaleZ3D(double z) : Scale3D(1.0, 1.0, z) {}
 };
+
+// ************************************************************************** //
+//  Inlines that involve both Transform3D and Transform3D_row
+// ************************************************************************** //
+
+inline
+Transform3D::Transform3D_row::Transform3D_row(const Transform3D & r, int i)
+    : rr(r), ii(i) {}
+
+inline
+double Transform3D::Transform3D_row::operator[](int jj) const
+    { return rr(ii,jj); }
+
+inline
+const Transform3D::Transform3D_row Transform3D::operator[](int i) const
+    { return Transform3D_row(*this, i); }
 
 }  // namespace Geometry
 

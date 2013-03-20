@@ -37,8 +37,8 @@ TEST_F(KVectorTest, BasicMethods)
     EXPECT_DOUBLE_EQ( v3.mag2(), v3.mag()*v3.mag());
     EXPECT_DOUBLE_EQ( v3.magxy2(), 1*1+2*2);
     EXPECT_DOUBLE_EQ( v3.magxy2(), v3.magxy()*v3.magxy());
-    EXPECT_DOUBLE_EQ( v3.rho(), std::sqrt(1*1+2*2) );
-    EXPECT_DOUBLE_EQ( v3.r(), std::sqrt(1*1+2*2+3*3) );
+    EXPECT_DOUBLE_EQ( v3.magxy(), std::sqrt(1*1+2*2) );
+    EXPECT_DOUBLE_EQ( v3.mag(), std::sqrt(1*1+2*2+3*3) );
 
 }
 

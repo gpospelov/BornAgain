@@ -14,7 +14,7 @@
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//! @authors    E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //!
 //! Changes w.r.t. CLHEP:
@@ -37,12 +37,12 @@ namespace Geometry {
 class Transform3D;
 
     //! Base class for Point3D<T>, Vector3D<T> and Normal3D<T>.
-    //!
+
     //! It defines only common functionality for those classes and
     //! should not be used as separate class.
     //!
     //! @author Evgeni Chernyaev 1996-2003
-
+    //!
     template<class T> class BasicVector3D {
       protected:
         T v_[3];
@@ -130,9 +130,9 @@ class Transform3D;
         // ---------------------------------------------------------------
 
         //! Returns squared rho-component in cylindrical coordinate system.
-        inline T rho2() const { return x()*x()+y()*y(); }
+        inline T magxy2() const { return x()*x()+y()*y(); }
         //! Returns rho-component in cylindrical coordinate system.
-        inline T rho() const { return std::sqrt(rho2()); }
+        inline T magxy() const { return std::sqrt(magxy2()); }
 
         // ------------------------------------------
         // Spherical coordinate system: r, phi, theta
@@ -149,7 +149,7 @@ class Transform3D;
         //! Returns polar angle.
         inline T theta() const {
             return x() == 0.0&& y() == 0.0&& z() == 0.0 ?
-                0.0 : std::atan2(rho(),z());
+                0.0 : std::atan2(magxy(),z());
         }
         //! Returns cosine of polar angle.
         inline T cosTheta() const {
@@ -169,7 +169,7 @@ class Transform3D;
         inline void setR(T ma) { setMag(ma); }
         //! Sets phi-component in cylindrical or spherical coordinate system.
         inline void setPhi(T ph) {
-            T xy = rho();
+            T xy = magxy();
             setX(xy*std::cos(ph));
             setY(xy*std::sin(ph));
         }

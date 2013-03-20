@@ -13,7 +13,7 @@
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//! @authors    E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //!
 //! Changes w.r.t. CLHEP:
@@ -35,20 +35,17 @@ namespace Geometry {
 
 class Transform3D;
 
-//! Geometrical 3D Vector.
+//! A three-dimensional vector of templated coordinate type.
 
-//! This is just a declaration of the class needed to define
-//! specialization Vector3D<double>.
-//!
 //! @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
-
+//!
 template<class T>
 class Vector3D : public BasicVector3D<T> {};
 
-//! Geometrical 3D Vector with components of double type.
-//!
-//! @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch>
+//! A three-dimensional vector with double-precision coordinates.
 
+//! @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//!
 template<>
 class Vector3D<double> : public BasicVector3D<double> {
 public:
@@ -89,8 +86,9 @@ public:
 
 
 //! Transformation of Vector<double> by Transform3D.
-//! @relates Vector3D
 
+//! @relates Vector3D
+//!
 Vector3D<double>
 operator*(const Transform3D & m, const Vector3D<double> & v);
 

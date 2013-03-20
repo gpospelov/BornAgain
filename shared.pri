@@ -103,8 +103,11 @@ INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}
 
 # -----------------------------------------------------------------------------
-# options for testing and performance issues
+# compiler options for debug and release
 # -----------------------------------------------------------------------------
+
+QMAKE_CXXFLAGS += -std=c++11
+
 # optimization flag used in release builds (the -O2 is the default used by qmake)
 QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which option control warning
 #QMAKE_CXXFLAGS_RELEASE += -O3 -ffast-math -msse3

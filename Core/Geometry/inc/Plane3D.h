@@ -13,7 +13,7 @@
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//! @authors    E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 //! Changes w.r.t. CLHEP:
@@ -31,10 +31,10 @@
 
 namespace Geometry {
     
-//! A geometrical plane in 3D.
-//!
-//! @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//! A geometrical plane in three-dimensional space; templated coordinate type.
 
+//! @author Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//!
 template<class T>
 class Plane3D {
   protected:

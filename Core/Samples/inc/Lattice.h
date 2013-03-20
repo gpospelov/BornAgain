@@ -17,7 +17,6 @@
 #define LATTICE_H_
 
 #include "Types.h"
-#include "Coordinate3D.h"
 #include "ISelectionRule.h"
 #include "TRange.h"
 #include "FastVector.h"

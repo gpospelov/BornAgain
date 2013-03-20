@@ -128,7 +128,7 @@ std::vector<double> Lattice::collectBraggAngles(size_t size, double max_radius,
     for(KVectorContainer::const_iterator it = rec_vectors.begin(); it!= rec_vectors.end(); ++it) {
         const kvector_t &rvec = (*it);
         double phi = rvec.phi();
-        if (rvec.rho()<max_radius && phi_range.inRange(phi) && z_range.inRange(rvec.z())) {
+        if (rvec.magxy()<max_radius && phi_range.inRange(phi) && z_range.inRange(rvec.z())) {
             result.push_back(phi);
         }
     }

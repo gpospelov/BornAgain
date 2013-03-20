@@ -13,7 +13,7 @@
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    Evgeni Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//! @authors    E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 //! Changes w.r.t. CLHEP:
@@ -31,21 +31,17 @@ namespace Geometry {
 
 class Transform3D;
 
-//! Geometrical point in three dimensions.
+//! A geometrical point in three dimensions with of templated coordinate type.
 
-//! This declaration is needed to define
-//! specializations like Point3D<double>.
-//!
 //! @author Evgeni Chernyaev 1996-2003
+//!
 template<class T>
 class Point3D : public BasicVector3D<T> {};
 
-//! Geometrical point in three dimensions, with components of double type.
+//! A geometrical point in three dimensions, with double-precision coordinates.
 
-//! This declaration is needed to define
-//! specializations like Point3D<double>.
-//!
 //! @author Evgeni Chernyaev 1996-2003
+//!
 template<>
 class Point3D<double> : public BasicVector3D<double> {
 public:
@@ -89,8 +85,9 @@ public:
 };
 
 //! Transformation of Point3D<double> by Transform3D.
-//!
+
 //! @relates Point3D
+//!
 Point3D<double>
 operator*(const Transform3D & m, const Point3D<double> & p);
 

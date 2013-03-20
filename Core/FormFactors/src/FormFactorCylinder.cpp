@@ -31,7 +31,7 @@ FormFactorCylinder::~FormFactorCylinder()
 {
 }
 
-//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+//! register some class members for later access via parameter pool
 
 void FormFactorCylinder::init_parameters()
 {

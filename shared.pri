@@ -106,7 +106,8 @@ DEPENDPATH  += $${LOCATIONS}
 # compiler options for debug and release
 # -----------------------------------------------------------------------------
 
-QMAKE_CXXFLAGS += -std=c++11
+# QMAKE_CXXFLAGS += -std=c++11 # not possible because of boost bugs
+QMAKE_CXXFLAGS += -std=c++98
 
 # optimization flag used in release builds (the -O2 is the default used by qmake)
 QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which option control warning

@@ -2,6 +2,7 @@
 #include <boost/assign/list_of.hpp>
 #include "Exceptions.h"
 #include <sys/time.h>
+#include <cstdio>
 
 std::vector<std::string> MSG::Logger::m_level_names =
         boost::assign::list_of("VERBOSE")("DEBUG")("INFO")("WARNING")("ERROR")("FATAL");
@@ -33,8 +34,7 @@ void Logger::SetLevel(const std::string &levelname)
         }
         ++index;
     }
-    throw LogicErrorException("Logger::SetLevel() -> Error! Don't existing message level '"+levelname+"'");
+    throw LogicErrorException("Logger::SetLevel() -> Error! There is no message level '"+levelname+"'");
 }
 
 }
-

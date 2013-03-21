@@ -16,9 +16,8 @@ from libBornAgainCore import *
 def RunSimulationDWBA():
     
     # defining materials
-    matMng = MaterialManager.instance()
-    mAmbience = matMng.addHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = matMng.addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )    
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )    
     # collection of particles
     n_particle = complex(1.0-6e-4, 2e-8)    
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
@@ -51,9 +50,8 @@ def RunSimulationDWBA():
 # ----------------------------------
 def RunSimulationBA():
      # defining materials
-    matMng = MaterialManager.instance()
-    mAmbience = matMng.addHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = matMng.addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
     # collection of particles
     n_particle = complex(1.0-6e-4, 2e-8)
     cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
@@ -83,9 +81,8 @@ def RunSimulationBA():
 # ----------------------------------
 def RunSimulationBA_Size():
     # defining materials
-    matMng = MaterialManager.instance()
-    mAmbience = matMng.addHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = matMng.addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
 
     multi_layer = MultiLayer()
 

@@ -19,7 +19,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <typeinfo>
-//#include <boost/thread.hpp>
+#include <boost/thread.hpp>
 
 template <class T>
 class ISingleton
@@ -28,8 +28,8 @@ public:
 
     static T &instance()
     {
-//        static boost::mutex single_mutex;
-//        boost::unique_lock<boost::mutex> single_lock( single_mutex );
+        static boost::mutex single_mutex;
+        boost::unique_lock<boost::mutex> single_lock( single_mutex );
         if( !m_instance) {
             if( m_destroyed ) {
                 onDeadReference();

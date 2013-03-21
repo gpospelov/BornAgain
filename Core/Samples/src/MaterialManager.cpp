@@ -16,10 +16,13 @@
 #include "MaterialManager.h"
 #include "Exceptions.h"
 #include "MessageSvc.h"
+#include <boost/thread.hpp>
 
 
 // clean material database
 void MaterialManager::clear() {
+    static boost::mutex single_mutex;
+    boost::unique_lock<boost::mutex> single_lock( single_mutex );
     for(materials_t::iterator it = m_materials.begin(); it!= m_materials.end(); ++it) {
         if( (*it).second ) delete (*it).second;
     }
@@ -29,6 +32,8 @@ void MaterialManager::clear() {
 // get material
 const IMaterial *MaterialManager::this_getMaterial(const std::string &name)
 {
+    static boost::mutex single_mutex;
+    boost::unique_lock<boost::mutex> single_lock( single_mutex );
     materials_t::const_iterator pos = m_materials.find(name);
     if( pos != m_materials.end()) {
         return pos->second;
@@ -41,6 +46,8 @@ const IMaterial *MaterialManager::this_getMaterial(const std::string &name)
 // Create material and add into database using name of material as indentifier.
 const IMaterial *MaterialManager::this_getHomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
 {
+    static boost::mutex single_mutex;
+    boost::unique_lock<boost::mutex> single_lock( single_mutex );
     const IMaterial *mat = getMaterial(name);
     if( mat ) {
         // check if user is trying to create material with same name but different parameters

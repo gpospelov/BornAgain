@@ -26,7 +26,7 @@
 //! Manager of materials used in simulation.
 //!
 //! It is a singleton which provides common and unique interface for
-//! material creation and access. No thread safety.
+//! material creation and access.
 
 class MaterialManager: public ISingleton<MaterialManager>
 {
@@ -36,15 +36,15 @@ public:
     //! definition of materials container
     typedef std::map<std::string, IMaterial *> materials_t;
 
-    //! return material from database
+    //! return material from container
     static const IMaterial *getMaterial(const std::string &name)
     { return instance().this_getMaterial(name); }
 
-    //! add material to the database
+    //! add material to the container
     static const IMaterial *getHomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
     { return instance().this_getHomogeneousMaterial(name, refractive_index); }
 
-    //! add material to the database
+    //! add material to the container
     static const IMaterial *getHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag)
     { return instance().this_getHomogeneousMaterial(name, refractive_index_real, refractive_index_imag); }
 

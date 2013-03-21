@@ -25,41 +25,43 @@
 #include "HomogeneousMaterial.h"
 
 //! Manager of materials used in simulation.
-//!
+
 //! It is a singleton which provides common and unique interface for
 //! material creation and access. No thread safety.
-
+//!
 class MaterialManager: public ISingleton<MaterialManager>
 {
-public:
+  public:
     virtual ~MaterialManager() { clear(); }
 
-    //! definition of materials container
-    typedef std::map<std::string, IMaterial *> materials_t;
-
-    //! return material from database
+    //! access material by name
     const IMaterial *getMaterial(const std::string &name);
 
-    //! add material to the database
-    const IMaterial *addHomogeneousMaterial(const std::string &name, const complex_t &refractive_index);
+    //! add one material to the database
+    const IMaterial *addHomogeneousMaterial(
+        const std::string &name, const complex_t &refractive_index);
+    //! add one material to the database
+    const IMaterial *addHomogeneousMaterial(
+        const std::string& name,
+        double refractive_index_real,
+        double refractive_index_imag);
 
-    //! add material to the database
-    const IMaterial *addHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag);
-
-    //! clean collection of material
+    //! clear the material database
     void clear();
 
     //! print material class
-    friend std::ostream &operator<<(std::ostream &ostr, const MaterialManager &m) { m.print(ostr); return ostr; }
+    friend std::ostream &operator<<(
+        std::ostream &ostr, const MaterialManager &m)
+    { m.print(ostr); return ostr; }
 
-protected:
+  protected:
     MaterialManager(){}
     friend class ISingleton<MaterialManager >;
 
     //! print material class
     virtual void print(std::ostream &ostr) const;
 
-    materials_t m_materials; //! container with defined materials
+    std::map<std::string, IMaterial*> m_materials; //!< our database
 };
 
 #endif // MATERIALMANAGER_H

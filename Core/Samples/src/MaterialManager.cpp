@@ -81,7 +81,7 @@ const IMaterial* MaterialManager::addHomogeneousMaterial(
         name, complex_t(refractive_index_real, refractive_index_imag));
 }
 
-//! Dump entire data base to ostr.
+//! Dump entire data base to stream.
 
 void MaterialManager::print(std::ostream &ostr) const
 {

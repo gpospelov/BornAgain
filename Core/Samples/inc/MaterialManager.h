@@ -34,31 +34,31 @@ class MaterialManager: public ISingleton<MaterialManager>
   public:
     virtual ~MaterialManager() { clear(); }
 
-    //! access material by name
-    const IMaterial *getMaterial(const std::string &name);
+    //! Access material by name.
+    const IMaterial *getMaterial(const std::string& name);
 
-    //! add one material to the database
+    //! Add one material to the database.
     const IMaterial *addHomogeneousMaterial(
-        const std::string &name, const complex_t &refractive_index);
-    //! add one material to the database
+        const std::string& name, const complex_t& refractive_index);
+    //! Add one material to the database.
     const IMaterial *addHomogeneousMaterial(
         const std::string& name,
         double refractive_index_real,
         double refractive_index_imag);
 
-    //! clear the material database
+    //! Clear the material database.
     void clear();
 
-    //! print material class
-    friend std::ostream &operator<<(
-        std::ostream &ostr, const MaterialManager &m)
+    //! Wrap print.
+    friend std::ostream& operator<<(
+        std::ostream& ostr, const MaterialManager& m)
     { m.print(ostr); return ostr; }
 
   protected:
     MaterialManager(){}
-    friend class ISingleton<MaterialManager >;
+    friend class ISingleton<MaterialManager>;
 
-    //! print material class
+    //! Dump entire data base to stream.
     virtual void print(std::ostream &ostr) const;
 
     std::map<std::string, IMaterial*> m_materials; //!< our database

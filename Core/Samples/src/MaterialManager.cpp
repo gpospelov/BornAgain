@@ -18,18 +18,25 @@
 #include "MessageSvc.h"
 #include <boost/thread.hpp>
 
+//! Materials database type.
 
-// clean material database
+typedef std::map<std::string, IMaterial*> materials_t;
+
+//! Clear database.
+
 void MaterialManager::clear() {
     static boost::mutex single_mutex;
     boost::unique_lock<boost::mutex> single_lock( single_mutex );
-    for(materials_t::iterator it = m_materials.begin(); it!= m_materials.end(); ++it) {
-        if( (*it).second ) delete (*it).second;
+    for(materials_t::iterator
+            it = m_materials.begin(); it!= m_materials.end(); ++it) {
+        if( (*it).second )
+            delete (*it).second;
     }
     m_materials.clear();
 }
 
-// get material
+//! Get material.
+
 const IMaterial *MaterialManager::this_getMaterial(const std::string &name)
 {
     static boost::mutex single_mutex;
@@ -42,21 +49,25 @@ const IMaterial *MaterialManager::this_getMaterial(const std::string &name)
     }
 }
 
+//! Create material, and add into database using name of material as identifier.
 
-// Create material and add into database using name of material as indentifier.
-const IMaterial *MaterialManager::this_getHomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
+const IMaterial *MaterialManager::this_getHomogeneousMaterial(
+    const std::string &name, const complex_t &refractive_index)
 {
     static boost::mutex single_mutex;
     boost::unique_lock<boost::mutex> single_lock( single_mutex );
     const IMaterial *mat = getMaterial(name);
     if( mat ) {
-        // check if user is trying to create material with same name but different parameters
-        const HomogeneousMaterial *old = dynamic_cast<const HomogeneousMaterial *>(mat);
+        // check if user is trying to create material
+        // with same name but different parameters
+        const HomogeneousMaterial *old =
+            dynamic_cast<const HomogeneousMaterial *>(mat);
         if(old->getRefractiveIndex() != refractive_index) {
-            HomogeneousMaterial *non_const_mat = const_cast<HomogeneousMaterial *>(old);
+            HomogeneousMaterial *non_const_mat =
+                const_cast<HomogeneousMaterial *>(old);
             non_const_mat->setRefractiveIndex(refractive_index);
-            log(MSG::WARNING) << "MaterialManager::addHomogeneousMaterial() -> Redefining refractive index for material '"
-                              << name << "'";
+            log(MSG::WARNING) << "MaterialManager::addHomogeneousMaterial()" <<
+                "-> Redefining refractive index for material '" << name << "'";
         }
         return mat;
     } else {
@@ -66,17 +77,25 @@ const IMaterial *MaterialManager::this_getHomogeneousMaterial(const std::string 
     }
 }
 
+//! Create material, and add into database using name of material as identifier.
 
-const IMaterial *MaterialManager::this_getHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag)
+const IMaterial *MaterialManager::this_getHomogeneousMaterial(
+    const std::string &name,
+    double refractive_index_real,
+    double refractive_index_imag)
 {
-    return getHomogeneousMaterial(name, complex_t(refractive_index_real, refractive_index_imag));
+    return getHomogeneousMaterial(
+        name, complex_t(refractive_index_real, refractive_index_imag));
 }
 
+//! Dump this to stream.
 
 void MaterialManager::print(std::ostream &ostr) const
 {
-    ostr << typeid(*this).name() << " " << this << " nmaterials:" << m_materials.size() << std::endl;
-    for(materials_t::const_iterator it = m_materials.begin(); it!= m_materials.end(); ++it) {
+    ostr << typeid(*this).name() << " " << this <<
+        " nmaterials:" << m_materials.size() << std::endl;
+    for(materials_t::const_iterator
+            it = m_materials.begin(); it!= m_materials.end(); ++it) {
         const IMaterial *mat = (*it).second;
         ostr << *mat << std::endl;
     }

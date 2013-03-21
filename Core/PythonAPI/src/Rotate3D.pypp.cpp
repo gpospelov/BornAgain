@@ -79,6 +79,7 @@ namespace bp = boost::python;
 
 void register_Rotate3D_class(){
 
-    bp::class_< Geometry::Rotate3D, bp::bases< Geometry::Transform3D > >( "Rotate3D", bp::init< >() );
+    bp::class_< Geometry::Rotate3D, bp::bases< Geometry::Transform3D > >( "Rotate3D", bp::init< >() )    
+        .def( bp::init< double, Geometry::Vector3D< double > const & >(( bp::arg("a"), bp::arg("v") )) );
 
 }

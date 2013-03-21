@@ -111,10 +111,21 @@ def AdditionalRules(mb):
         "rotate","rotateX","rotateY","rotateZ"
     ]
     for cl in classes:
-      if "BasicVector3D<std::complex<double> >" in cl.decl_string:
+      if "BasicVector3D<std::complex<double> >" in cl.decl_string or "BasicVector3D<double>" in cl.decl_string or "BasicVector3D<int>" in cl.decl_string:
         for fun in cl.member_functions(allow_empty=True):
           MethodIsBad = False
           for x in MethodsWhichAreNotSuitable:
+            if fun.name == x:
+              MethodIsBad = True
+          if MethodIsBad:
+            fun.exclude()
+
+    MethodsWhichAreNotUsed=["dot","mag","mag2","cross","magxy","magxy2","transform"]
+    for cl in classes:
+      if "BasicVector3D<int>" in cl.decl_string:
+        for fun in cl.member_functions(allow_empty=True):
+          MethodIsBad = False
+          for x in MethodsWhichAreNotUsed:
             if fun.name == x:
               MethodIsBad = True
           if MethodIsBad:

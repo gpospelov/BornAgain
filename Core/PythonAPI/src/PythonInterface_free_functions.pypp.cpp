@@ -86,7 +86,7 @@ void register_free_functions(){
         bp::def( 
             "CrossProduct"
             , CrossProduct_function_type( &::Geometry::CrossProduct )
-            , ( bp::arg("vectorLeft"), bp::arg("vectorRight") ) );
+            , ( bp::arg("left"), bp::arg("right") ) );
     
     }
 
@@ -97,17 +97,6 @@ void register_free_functions(){
         bp::def( 
             "CrossProduct"
             , CrossProduct_function_type( &::Geometry::CrossProduct )
-            , ( bp::arg("vectorLeft"), bp::arg("vectorRight") ) );
-    
-    }
-
-    { //::Geometry::DotProduct
-    
-        typedef ::std::complex< double > ( *DotProduct_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const &,::Geometry::BasicVector3D< std::complex< double > > const & );
-        
-        bp::def( 
-            "DotProduct"
-            , DotProduct_function_type( &::Geometry::DotProduct )
             , ( bp::arg("left"), bp::arg("right") ) );
     
     }

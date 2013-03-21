@@ -18,7 +18,6 @@
 
 #include "ICompositeSample.h"
 #include "IMaterial.h"
-#include "Types.h"
 #include "HomogeneousMaterial.h"
 #include "LayerDWBASimulation.h"
 
@@ -40,9 +39,13 @@ public:
     //! return layer thickness in _angstrom_
     virtual double getThickness() const { return m_thickness; }
 
-    //! @brief set material to the layer
-    //! @param p_material   pointer to the material
-    virtual void setMaterial(const IMaterial* p_material) { p_material ? mp_material = p_material : throw NullPointerException("The material doesn't exist"); }
+    //! set material of the layer
+    virtual void setMaterial(const IMaterial* p_material)
+    { 
+        p_material ?
+            mp_material = p_material :
+            throw NullPointerException("The material doesn't exist");
+    }
 
     //! @brief set material of given thickness to the layer
     //! @param p_material   pointer to the material of layer
@@ -53,7 +56,11 @@ public:
     virtual const IMaterial* getMaterial() const { return mp_material; }
 
     //! return refractive index of the layer's material
-    virtual complex_t getRefractiveIndex() const { return (dynamic_cast<const HomogeneousMaterial *>(mp_material))->getRefractiveIndex(); }
+    virtual complex_t getRefractiveIndex() const
+    {
+        return (dynamic_cast<const HomogeneousMaterial *>(mp_material))->
+            getRefractiveIndex();
+    }
 
     //! return false (override is important for polymorphism of LayerDecorator)
     virtual bool hasDWBASimulation() const { return false; }
@@ -64,7 +71,7 @@ public:
 protected:
     Layer(const Layer &other);
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! register some class members for later access via parameter pool
     virtual void init_parameters();
 
 private:

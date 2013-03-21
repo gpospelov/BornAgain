@@ -96,7 +96,6 @@ SOURCES += \
     \
     Samples/src/Crystal.cpp \
     Samples/src/DiffuseParticleInfo.cpp \
-    Samples/src/HomogeneousMaterial.cpp \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
     Samples/src/IMaterial.cpp \

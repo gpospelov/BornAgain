@@ -21,26 +21,22 @@
 #include "Lattice.h"
 #include "LatticeBasis.h"
 
-//! A crystal structure with a form factor as a basis
+//! A crystal structure with a form factor as a basis.
 
 class Crystal : public IClusteredParticles
 {
-public:
-     //! @brief constructor
-     //! @param lattice_basis  the basis which is repeated in the lattice structure
-     //! @param lattice  the crystal lattice, described by its basis vectors
+  public:
     Crystal(const LatticeBasis &lattice_basis, const Lattice &lattice);
     ~Crystal();
 
     virtual Crystal *clone() const;
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)
-    {
-        mp_lattice_basis->setAmbientRefractiveIndex(refractive_index);
-    }
+    { mp_lattice_basis->setAmbientRefractiveIndex(refractive_index); }
 
-    virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor
-            , complex_t ambient_refractive_index) const;
+    virtual IFormFactor *createTotalFormFactor(
+        const IFormFactor &meso_crystal_form_factor,
+        complex_t ambient_refractive_index) const;
 
     Lattice getLattice() const { return m_lattice; }
     Particle *createBasis() const { return mp_lattice_basis->clone(); }
@@ -52,7 +48,7 @@ public:
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
             const ParticleInfo &parent_info) const;
 
-private:
+  private:
     Lattice m_lattice;
     LatticeBasis *mp_lattice_basis;
     double m_dw_factor;

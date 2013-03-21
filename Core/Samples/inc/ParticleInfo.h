@@ -24,45 +24,43 @@
 
 class ParticleInfo : public ICompositeSample
 {
-public:
-    //! constructor for particle info having transformation property and abundance
-    ParticleInfo(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
-    ParticleInfo(const Particle &p_particle, const Geometry::Transform3D &transform, double depth=0, double abundance=0);
-
+  public:
+    ParticleInfo(Particle *p_particle,
+                 Geometry::Transform3D *transform=0,
+                 double depth=0, double abundance=0);
+    ParticleInfo(const Particle& p_particle,
+                 const Geometry::Transform3D& transform,
+                 double depth=0, double abundance=0);
     virtual ~ParticleInfo();
 
-    //! clone particle info
     virtual ParticleInfo *clone() const;
 
-    //! return particle
+    //! Return particle.
     const Particle *getParticle() const { return mp_particle; }
 
-    //! return particle transformation
+    //! Return transformation.
     const Geometry::Transform3D *getTransform3D() const { return mp_transform; }
 
-    //! set particle transformation
+    //! Set transformation.
     void setTransform(const Geometry::Transform3D &transform) {
         delete mp_transform;
         mp_transform = new Geometry::Transform3D(transform);
     }
 
-    //! return particle depth
+    //! Return depth.
     double getDepth() const { return m_depth;}
 
-    //! set particle depth
+    //! Set depth.
     void setDepth(double depth) { m_depth = depth; }
 
-    //! return particle abundance
+    //! Return abundance.
     double getAbundance() const { return m_abundance; }
 
-    //! set particle abundance
+    //! Set abundance.
     void setAbundance(double abundance) { m_abundance = abundance; }
 
 protected:
-//    ParticleInfo &operator=(const ParticleInfo &right);
-//    ParticleInfo(const ParticleInfo &source);
-
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! register some class members for later access via parameter pool
     virtual void init_parameters();
 
     Particle *mp_particle;
@@ -71,4 +69,4 @@ protected:
     double m_abundance;
 };
 
-#endif // PARTICLEINFO_H
+#endif /* PARTICLEINFO_H */

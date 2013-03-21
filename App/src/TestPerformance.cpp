@@ -159,7 +159,7 @@ void PerfTest_FresnelCoeff::initialise(ProgramOptions *p_options)
 {
     IFunctionalTest::initialise(p_options);
     if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("SimpleMultilayer"));
+    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("SimpleMultilayer"));
 }
 
 void PerfTest_FresnelCoeff::execute()
@@ -182,7 +182,7 @@ void PerfTest_Pyramid::initialise(ProgramOptions *p_options)
     IFunctionalTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
+    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("IsGISAXS9_Pyramid"));
 
     // simulation
     if(m_simulation) delete m_simulation;
@@ -206,7 +206,7 @@ void PerfTest_RotatedPyramid::initialise(ProgramOptions *p_options)
     IFunctionalTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_RotatedPyramid"));
+    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("IsGISAXS9_RotatedPyramid"));
 
     // simulation
     if(m_simulation) delete m_simulation;
@@ -231,7 +231,7 @@ void PerfTest_MesoCrystal::initialise(ProgramOptions *p_options)
     IFunctionalTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MesoCrystal1"));
+    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MesoCrystal1"));
 
     // simulation
     m_simulation = new Simulation(p_options);

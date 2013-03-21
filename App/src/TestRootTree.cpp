@@ -207,7 +207,7 @@ void TestRootTree::simple_write()
     delete mp_sample;
     delete mp_data;
 
-    mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
+    mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("IsGISAXS9_Pyramid"));
 
     // setting simulation
     mp_simulation = new Simulation(mp_options);
@@ -382,9 +382,9 @@ void TestRootTree::initializeMesoCrystal(double meso_alpha, double meso_phi, dou
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-7.57e-6, 1.73e-7);
 
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_average_layer_material = MaterialManager::instance().addHomogeneousMaterial("Averagelayer", n_avg);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_average_layer_material = MaterialManager::getHomogeneousMaterial("Averagelayer", n_avg);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer avg_layer;

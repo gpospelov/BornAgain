@@ -113,7 +113,7 @@ void TestConvolution::test_convolve1d()
     // drawing
     // --------------
     TCanvas *c1 = new TCanvas("c1_test_convolve1d","c1_test_convolve1d",1024, 768);
-    DrawHelper::instance().SetMagnifier(c1);
+    DrawHelper::SetMagnifier(c1);
     c1->Divide(3,3);
 
     // drawing signal
@@ -261,7 +261,7 @@ void TestConvolution::test_convolve2d()
 
     // drawing
     TCanvas *c1 = new TCanvas("c1_test_convolve2d","c1_test_convolve2d",1024, 768);
-    DrawHelper::instance().SetMagnifier(c1);
+    DrawHelper::SetMagnifier(c1);
     gStyle->SetPalette(1);
 
     c1->Divide(3,3);

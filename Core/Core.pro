@@ -28,7 +28,6 @@ SOURCES += \
     Tools/src/IFactory.cpp \
     Tools/src/IObserver.cpp \
     Tools/src/IParameterized.cpp \
-    Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
     Tools/src/MessageSvc.cpp \
     Tools/src/OutputData.cpp \

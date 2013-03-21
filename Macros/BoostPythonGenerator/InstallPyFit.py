@@ -66,7 +66,6 @@ def GenerateModuleFile(OutputTempDir, files_inc, files_src, PatternsToExclude):
   for line in fin:
       skip_this = False
       for pattern in PatternsToExclude:
-        print "XXX",pattern,line
         if pattern in line:
           skip_this = True
           break

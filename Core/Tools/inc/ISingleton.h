@@ -19,6 +19,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <typeinfo>
+//#include <boost/thread.hpp>
 
 template <class T>
 class ISingleton
@@ -27,17 +28,15 @@ public:
 
     static T &instance()
     {
-        // check if exists, if not, then initialise
+//        static boost::mutex single_mutex;
+//        boost::unique_lock<boost::mutex> single_lock( single_mutex );
         if( !m_instance) {
-            // check for dead reference (i.e. object has been initialised but then somebody managed to delete it)
             if( m_destroyed ) {
                 onDeadReference();
             } else {
-                // first call initalise
-                create_singleton();
+                CreateSingleton();
             }
         }
-        //std::cout << "ISingleton::instance() -> Info. Accesing instance... " << m_instance << std::endl;
         return *m_instance;
     }
 
@@ -45,25 +44,19 @@ protected:
     ISingleton(){}
     virtual ~ISingleton()
     {
-        //std::cout << "ISingleton::~ISingleton() -> Deleting singleton" << std::endl;
         m_instance = 0;
         m_destroyed = true;
     }
 
-    static void create_singleton()
+    static void CreateSingleton()
     {
         static T theInstance;
         m_instance = &theInstance;
-        //std::cout << "ISingleton::create_singleton() -> Info. Creating singleton " << m_instance << " of type '" << (typeid(theInstance).name()) << "'." << std::endl;
     }
 
-    static void onDeadReference()
-    {
-        throw std::runtime_error("ISingleton::onDeadReference()");
-    }
+    static void onDeadReference() { throw std::runtime_error("ISingleton::onDeadReference()"); }
 
     typedef T* T_Pointer;
-
 
 private:
     ISingleton(const ISingleton<T> &) {}

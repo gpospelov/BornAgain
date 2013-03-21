@@ -40,12 +40,9 @@
 //#include "TGLViewer.h"
 
 
-
-DrawHelper::DrawHelper() : m_default_canvas_xsize(1024), m_default_canvas_ysize(768)
-//DrawHelper::DrawHelper() : m_default_canvas_xsize(1600), m_default_canvas_ysize(1200)
-{
-
-}
+std::vector<TCanvas *> DrawHelper::m_registered_canvases = std::vector<TCanvas *>();
+int DrawHelper::m_default_canvas_xsize = 1024;
+int DrawHelper::m_default_canvas_ysize = 768;
 
 
 /* ************************************************************************* */
@@ -53,7 +50,8 @@ DrawHelper::DrawHelper() : m_default_canvas_xsize(1024), m_default_canvas_ysize(
 /* ************************************************************************* */
 void DrawHelper::SetMagnifier(TCanvas *canvas)
 {
-  canvas->Connect("ProcessedEvent(Int_t,Int_t,Int_t,TObject*)", "DrawHelper", this, "ExecuteMagnifier(int,int,int,TObject*)");
+//    canvas->Connect("ProcessedEvent(Int_t,Int_t,Int_t,TObject*)", "DrawHelper", this, "ExecuteMagnifier(int,int,int,TObject*)");
+    canvas->Connect("ProcessedEvent(Int_t,Int_t,Int_t,TObject*)", "DrawHelper", 0, "ExecuteMagnifier(int,int,int,TObject*)");
 }
 
 

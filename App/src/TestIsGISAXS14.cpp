@@ -19,7 +19,7 @@ TestIsGISAXS14::TestIsGISAXS14() : IFunctionalTest("TestIsGISAXS14")
 
 void TestIsGISAXS14::execute()
 {
-    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS14_LayeredSpheresOnGradedInterface"));
+    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("IsGISAXS14_LayeredSpheresOnGradedInterface"));
 
     Simulation simulation(mp_options);
     simulation.setSample(*sample);

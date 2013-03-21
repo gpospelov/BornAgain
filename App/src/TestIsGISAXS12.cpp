@@ -130,7 +130,7 @@ void TestIsGISAXS12::plot_isgisaxs_fit_results()
     print_axes(isgi_scans_smoothed);
     print_axes(isgi_results);
 
-    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("c1_isgisaxs_data", "Looking on IsGISAXS data and fit results", 768, 1024);
+    TCanvas *c1 = DrawHelper::createAndRegisterCanvas("c1_isgisaxs_data", "Looking on IsGISAXS data and fit results", 768, 1024);
     c1->Divide(2,3);
 
     // drawing real data with fine and coars granularity on top of each other
@@ -463,8 +463,8 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
 
     Layer air_layer(air_material);
 

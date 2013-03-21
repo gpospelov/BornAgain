@@ -20,7 +20,6 @@
 #include <string>
 #include <map>
 #include "Exceptions.h"
-#include "IMaterial.h"
 #include "ISingleton.h"
 #include "HomogeneousMaterial.h"
 
@@ -38,16 +37,16 @@ public:
     typedef std::map<std::string, IMaterial *> materials_t;
 
     //! return material from database
-    const IMaterial *getMaterial(const std::string &name);
+    static const IMaterial *getMaterial(const std::string &name)
+    { return instance().this_getMaterial(name); }
 
     //! add material to the database
-    const IMaterial *addHomogeneousMaterial(const std::string &name, const complex_t &refractive_index);
+    static const IMaterial *getHomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
+    { return instance().this_getHomogeneousMaterial(name, refractive_index); }
 
     //! add material to the database
-    const IMaterial *addHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag);
-
-    //! clean collection of material
-    void clear();
+    static const IMaterial *getHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag)
+    { return instance().this_getHomogeneousMaterial(name, refractive_index_real, refractive_index_imag); }
 
     //! print material class
     friend std::ostream &operator<<(std::ostream &ostr, const MaterialManager &m) { m.print(ostr); return ostr; }
@@ -56,10 +55,19 @@ protected:
     MaterialManager(){}
     friend class ISingleton<MaterialManager >;
 
+    //! clean collection of material
+    void clear();
+
+
     //! print material class
     virtual void print(std::ostream &ostr) const;
 
     materials_t m_materials; //! container with defined materials
+private:
+    const IMaterial *this_getMaterial(const std::string &name);
+    const IMaterial *this_getHomogeneousMaterial(const std::string &name, const complex_t &refractive_index);
+    const IMaterial *this_getHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag);
+
 };
 
 #endif // MATERIALMANAGER_H

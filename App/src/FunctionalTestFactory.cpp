@@ -1,10 +1,23 @@
 #include "FunctionalTestFactory.h"
-#include "TestRoughness.h"
-#include "TestFresnelCoeff.h"
-#include "TestFormFactor.h"
-#include "TestFumiliLMA.h"
+#include "TestConvolution.h"
+#include "TestDetectorResolution.h"
 #include "TestDiffuseReflection.h"
+#include "TestFittingBenchmark.h"
+#include "TestFittingModule1.h"
+#include "TestFittingModule2.h"
+#include "TestFittingModule3.h"
+#include "TestFormFactor.h"
+#include "TestFormFactors.h"
+#include "TestFourier.h"
+#include "TestFresnelCoeff.h"
+#include "TestFumiliLMA.h"
 #include "TestIsGISAXS1.h"
+#include "TestIsGISAXS10.h"
+#include "TestIsGISAXS11.h"
+#include "TestIsGISAXS12.h"
+#include "TestIsGISAXS13.h"
+#include "TestIsGISAXS14.h"
+#include "TestIsGISAXS15.h"
 #include "TestIsGISAXS2.h"
 #include "TestIsGISAXS3.h"
 #include "TestIsGISAXS4.h"
@@ -13,33 +26,16 @@
 #include "TestIsGISAXS7.h"
 #include "TestIsGISAXS8.h"
 #include "TestIsGISAXS9.h"
-#include "TestIsGISAXS10.h"
-#include "TestIsGISAXS11.h"
-#include "TestIsGISAXS12.h"
-#include "TestIsGISAXS13.h"
-#include "TestIsGISAXS14.h"
-#include "TestIsGISAXS15.h"
-#include "TestConvolution.h"
-#include "TestDetectorResolution.h"
 #include "TestMesoCrystal1.h"
 #include "TestMesoCrystal2.h"
-
-#include "TestFormFactors.h"
-
-#include "TestRootTree.h"
-#include "TestFittingModule1.h"
-#include "TestFittingModule2.h"
-#include "TestFittingModule3.h"
-#include "TestPerformance.h"
-#include "TestMultiLayerRoughness.h"
 #include "TestMiscellaneous.h"
-#include "TestFittingBenchmark.h"
-#include "TestFourier.h"
+#include "TestMultiLayerRoughness.h"
+#include "TestPerformance.h"
+#include "TestRootTree.h"
+#include "TestRoughness.h"
 #include "TestToySimulation.h"
 
-
 #include "TBenchmark.h"
-
 
 
 FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
@@ -122,17 +118,14 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
 }
 
 
-
 FunctionalTestFactory::~FunctionalTestFactory()
 {
     delete m_benchmark;
 }
 
 
-/* ************************************************************************* */
 // print benchmark summary on the screen
-/* ************************************************************************* */
-void FunctionalTestFactory::print_benchmarks()
+void FunctionalTestFactory::this_print_benchmarks()
 {
     std::cout << "--- TestFactory::print_benchmarks() ---" << std::endl;
     Float_t rp, cp;
@@ -140,12 +133,9 @@ void FunctionalTestFactory::print_benchmarks()
 }
 
 
-/* ************************************************************************* */
 // execute specific functional tests
-/* ************************************************************************* */
-void FunctionalTestFactory::execute(std::string name, ProgramOptions *p_options)
+void FunctionalTestFactory::this_execute(std::string name, ProgramOptions *p_options)
 {
-    //IFunctionalTest *test = TestFactory::instance().createItem( args[i] );
     IFunctionalTest *test(0);
     try {
         test = createItem( name );
@@ -165,9 +155,9 @@ void FunctionalTestFactory::execute(std::string name, ProgramOptions *p_options)
 }
 
 
-void FunctionalTestFactory::profile(std::string name, ProgramOptions *p_options)
+// run tests in profile mode
+void FunctionalTestFactory::this_profile(std::string name, ProgramOptions *p_options)
 {
-    //IFunctionalTest *test = TestFactory::instance().createItem( args[i] );
     IFunctionalTest *test(0);
     try {
         test = createItem( name );
@@ -183,11 +173,8 @@ void FunctionalTestFactory::profile(std::string name, ProgramOptions *p_options)
 }
 
 
-
-/* ************************************************************************* */
 // execute all registered functional tests
-/* ************************************************************************* */
-void FunctionalTestFactory::execute_all(ProgramOptions *p_options)
+void FunctionalTestFactory::this_execute_all(ProgramOptions *p_options)
 {
     CallbackMap_t::const_iterator it;
     for(it=m_callbacks.begin(); it != m_callbacks.end(); ++it ) {
@@ -198,10 +185,8 @@ void FunctionalTestFactory::execute_all(ProgramOptions *p_options)
 }
 
 
-/* ************************************************************************* */
 // print on the screen names of registered tests
-/* ************************************************************************* */
-void FunctionalTestFactory::print_testnames()
+void FunctionalTestFactory::this_print_testnames()
 {
     std::string help;
     help += "TestFactory::print_testnames() -> Info. \n";
@@ -213,13 +198,3 @@ void FunctionalTestFactory::print_testnames()
         std::cout << it->first << std::endl;
     }
 }
-
-
-/* ************************************************************************* */
-// return vector of registered test names
-/* ************************************************************************* */
-FunctionalTestFactory::DescriptionMap_t FunctionalTestFactory::getDescriptionMap()
-{
-    return m_descriptions;
-}
-

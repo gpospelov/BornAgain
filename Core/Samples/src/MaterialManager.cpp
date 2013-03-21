@@ -15,9 +15,10 @@
 
 #include "MaterialManager.h"
 #include "Exceptions.h"
+#include "MessageSvc.h"
 
-//! clean material database
 
+// clean material database
 void MaterialManager::clear() {
     for(materials_t::iterator it = m_materials.begin(); it!= m_materials.end(); ++it) {
         if( (*it).second ) delete (*it).second;
@@ -25,9 +26,8 @@ void MaterialManager::clear() {
     m_materials.clear();
 }
 
-//! get material
-
-const IMaterial *MaterialManager::getMaterial(const std::string &name)
+// get material
+const IMaterial *MaterialManager::this_getMaterial(const std::string &name)
 {
     materials_t::const_iterator pos = m_materials.find(name);
     if( pos != m_materials.end()) {
@@ -37,12 +37,9 @@ const IMaterial *MaterialManager::getMaterial(const std::string &name)
     }
 }
 
-/* ************************************************************************* */
-// Create material and add into database. The name of material serve as unique
-// identifier. If such material already exists, return it. If such material
-// already exist, but its propery are different from users order, throw exception
-/* ************************************************************************* */
-const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
+
+// Create material and add into database using name of material as indentifier.
+const IMaterial *MaterialManager::this_getHomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
 {
     const IMaterial *mat = getMaterial(name);
     if( mat ) {
@@ -51,7 +48,8 @@ const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name
         if(old->getRefractiveIndex() != refractive_index) {
             HomogeneousMaterial *non_const_mat = const_cast<HomogeneousMaterial *>(old);
             non_const_mat->setRefractiveIndex(refractive_index);
-//            throw LogicErrorException("MaterialManager::addHomogeneousMaterial() -> Error! Attempt to create material with same name but different refractive index");
+            log(MSG::WARNING) << "MaterialManager::addHomogeneousMaterial() -> Redefining refractive index for material '"
+                              << name << "'";
         }
         return mat;
     } else {
@@ -62,10 +60,11 @@ const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name
 }
 
 
-const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag)
+const IMaterial *MaterialManager::this_getHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag)
 {
-    return addHomogeneousMaterial(name, complex_t(refractive_index_real, refractive_index_imag));
+    return getHomogeneousMaterial(name, complex_t(refractive_index_real, refractive_index_imag));
 }
+
 
 void MaterialManager::print(std::ostream &ostr) const
 {

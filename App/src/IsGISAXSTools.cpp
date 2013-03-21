@@ -567,7 +567,7 @@ void IsGISAXSTools::drawOutputDataComparisonResults(const OutputData<double> &da
 {
     assert(&data);
     assert(&reference);
-    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas(name, title);
+    TCanvas *c1 = DrawHelper::createAndRegisterCanvas(name, title);
     c1->Divide(2,2);
 
     // our calculations

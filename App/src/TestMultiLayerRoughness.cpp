@@ -22,7 +22,7 @@ TestMultiLayerRoughness::TestMultiLayerRoughness()
 void TestMultiLayerRoughness::execute()
 {
 
-    ISample *sample = SampleFactory::instance().createItem("MultilayerOffspecTestcase1a");
+    ISample *sample = SampleFactory::createSample("MultilayerOffspecTestcase1a");
 
     std::cout << *sample << std::endl;
     sample->print_structure();

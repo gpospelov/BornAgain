@@ -194,8 +194,8 @@ void TestMiscellaneous::test_FastSin()
 /* ************************************************************************* */
 void TestMiscellaneous::test_DrawMesocrystal()
 {
-    MultiLayer *m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MesoCrystal2"));
-    DrawHelper::instance().DrawMesoCrystal(m_sample);
+    MultiLayer *m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MesoCrystal2"));
+    DrawHelper::DrawMesoCrystal(m_sample);
 }
 
 
@@ -290,7 +290,7 @@ void TestMiscellaneous::test_FormFactor()
     }
 
     TCanvas *c1_xy = new TCanvas("c1_xy","c1_xy",1024,768);
-    DrawHelper::instance().SetMagnifier(c1_xy);
+    DrawHelper::SetMagnifier(c1_xy);
     c1_xy->Divide(3,3);
     int ndiv=9;
     for(int i=0; i<ndiv; i++) {
@@ -301,7 +301,7 @@ void TestMiscellaneous::test_FormFactor()
     }
 
     TCanvas *c1_xz = new TCanvas("c1_xz","c1_xz",1024,768);
-    DrawHelper::instance().SetMagnifier(c1_xz);
+    DrawHelper::SetMagnifier(c1_xz);
     c1_xz->Divide(3,3);
     for(int i=0; i<ndiv; i++) {
         c1_xz->cd(i+1);
@@ -310,7 +310,7 @@ void TestMiscellaneous::test_FormFactor()
     }
 
     TCanvas *c1_yz = new TCanvas("c1_yz","c1_yz",1024,768);
-    DrawHelper::instance().SetMagnifier(c1_yz);
+    DrawHelper::SetMagnifier(c1_yz);
     c1_yz->Divide(3,3);
     for(int i=0; i<ndiv; i++) {
         c1_yz->cd(i+1);
@@ -327,7 +327,7 @@ void TestMiscellaneous::test_FormFactor()
 /* ************************************************************************* */
 void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
 {
-    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MultilayerOffspecTestcase1a"));
+    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerOffspecTestcase1a"));
 
     OutputData<double > *data_alpha = new OutputData<double >;
     data_alpha->addAxis(NDetector2d::ALPHA_AXIS_NAME, 200, 0.0*Units::degree, 2.0*Units::degree);

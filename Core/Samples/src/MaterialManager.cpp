@@ -15,23 +15,25 @@
 
 #include "MaterialManager.h"
 #include "Exceptions.h"
+#include "MessageSvc.h"
+#include <boost/thread.hpp>
 
-//! our database is a map: name -> pointer to material
-typedef std::map<std::string, IMaterial*> materials_t;
 
-//! clear the material database
-
+// clean material database
 void MaterialManager::clear() {
+    static boost::mutex single_mutex;
+    boost::unique_lock<boost::mutex> single_lock( single_mutex );
     for(materials_t::iterator it = m_materials.begin(); it!= m_materials.end(); ++it) {
         if( (*it).second ) delete (*it).second;
     }
     m_materials.clear();
 }
 
-//! access material by name
-
-const IMaterial* MaterialManager::getMaterial(const std::string &name)
+// get material
+const IMaterial *MaterialManager::this_getMaterial(const std::string &name)
 {
+    static boost::mutex single_mutex;
+    boost::unique_lock<boost::mutex> single_lock( single_mutex );
     materials_t::const_iterator pos = m_materials.find(name);
     if( pos != m_materials.end()) {
         return pos->second;
@@ -40,27 +42,21 @@ const IMaterial* MaterialManager::getMaterial(const std::string &name)
     }
 }
 
-//! Add one material to the database.
 
-//! The material name serves as unique identifier.
-//! If name is already in use, return material, but only if properties are
-//! the same as given here; otherwise throw exception.
-//!    @TODO: This behaviour has changed!
-//! If name is new, register the material. 
-//!
-const IMaterial* MaterialManager::addHomogeneousMaterial(
-    const std::string& name, const complex_t& refractive_index)
+// Create material and add into database using name of material as indentifier.
+const IMaterial *MaterialManager::this_getHomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
 {
+    static boost::mutex single_mutex;
+    boost::unique_lock<boost::mutex> single_lock( single_mutex );
     const IMaterial *mat = getMaterial(name);
     if( mat ) {
         // check if user is trying to create material with same name but different parameters
-        const HomogeneousMaterial *old =
-            dynamic_cast<const HomogeneousMaterial *>(mat);
+        const HomogeneousMaterial *old = dynamic_cast<const HomogeneousMaterial *>(mat);
         if(old->getRefractiveIndex() != refractive_index) {
-            HomogeneousMaterial *non_const_mat =
-                const_cast<HomogeneousMaterial *>(old);
+            HomogeneousMaterial *non_const_mat = const_cast<HomogeneousMaterial *>(old);
             non_const_mat->setRefractiveIndex(refractive_index);
-//            throw LogicErrorException("MaterialManager::addHomogeneousMaterial() -> Error! Attempt to create material with same name but different refractive index");
+            log(MSG::WARNING) << "MaterialManager::addHomogeneousMaterial() -> Redefining refractive index for material '"
+                              << name << "'";
         }
         return mat;
     } else {
@@ -70,18 +66,12 @@ const IMaterial* MaterialManager::addHomogeneousMaterial(
     }
 }
 
-//! Add one material to the database.
 
-const IMaterial* MaterialManager::addHomogeneousMaterial(
-    const std::string& name,
-    double refractive_index_real,
-    double refractive_index_imag) 
+const IMaterial *MaterialManager::this_getHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag)
 {
-    return addHomogeneousMaterial(
-        name, complex_t(refractive_index_real, refractive_index_imag));
+    return getHomogeneousMaterial(name, complex_t(refractive_index_real, refractive_index_imag));
 }
 
-//! Dump entire data base to stream.
 
 void MaterialManager::print(std::ostream &ostr) const
 {

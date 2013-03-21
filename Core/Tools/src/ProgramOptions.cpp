@@ -15,7 +15,6 @@
 
 #include "ProgramOptions.h"
 #include "Utils.h"
-#include "Exceptions.h"
 #include "MessageSvc.h"
 
 #include <boost/program_options/config.hpp>

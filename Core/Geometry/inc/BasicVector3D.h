@@ -30,7 +30,6 @@
 
 #include <cmath>
 #include <complex>
-#include "Exceptions.h"
 
 namespace Geometry {
 
@@ -130,20 +129,20 @@ template<class T> class BasicVector3D {
     // ----
 
     //! Return squared magnitude squared of the vector.
-    double mag2() const;
+    T mag2() const; //!< @TODO: return type always double
 
     //! Return magnitude of the vector.
-    double mag() const;
+    T mag() const; //!< @TODO: return type always double
 
     // --------------------------------------------
     // Cylindrical and spherical coordinate systems
     // --------------------------------------------
 
     //! Return squared distance from z axis.
-    double magxy2() const;
+    T magxy2() const; //!< @TODO: return type always double
 
     //! Return distance from z axis.
-    double magxy() const;
+    T magxy() const; //!< @TODO: return type always double
 
     //! Return azimuth angle.
     double phi() const;
@@ -152,7 +151,7 @@ template<class T> class BasicVector3D {
     double theta() const;
 
     //! Return cosine of polar angle.
-    double cosTheta() const;
+    T cosTheta() const; //!< @TODO: return type always double
 
     //! Scale to given magnitude.
     void setMag(double ma);
@@ -162,7 +161,7 @@ template<class T> class BasicVector3D {
     // -------------------
 
     //! Scalar product.
-    double dot(const BasicVector3D<T>& v) const;
+    T dot(const BasicVector3D<T>& v) const; //!< @TODO: return type always double
 
     //! Vector product.
     BasicVector3D<T> cross(const BasicVector3D<T>& v) const;

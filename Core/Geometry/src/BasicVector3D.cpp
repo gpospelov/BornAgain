@@ -44,9 +44,23 @@ double BasicVector3D<double>::mag2() const
     return x()*x()+y()*y()+z()*z();
 }
 
+//! @TODO eliminate this, it is plain wrong
+template<>
+complex_t BasicVector3D<complex_t>::mag2() const
+{
+    return x()*x()+y()*y()+z()*z();
+}
+
 //! Return magnitude of the vector.
-template<class T>
-double BasicVector3D<T>::mag() const
+template<>
+double BasicVector3D<double>::mag() const
+{
+    return std::sqrt(mag2());
+}
+
+//! @TODO eliminate this, it is plain wrong
+template<>
+complex_t BasicVector3D<complex_t>::mag() const
 {
     return std::sqrt(mag2());
 }
@@ -62,9 +76,23 @@ double BasicVector3D<double>::magxy2() const
     return x()*x()+y()*y();
 }
 
+//! @TODO eliminate this, it is plain wrong
+template<>
+complex_t BasicVector3D<complex_t>::magxy2() const
+{
+    return x()*x()+y()*y();
+}
+
 //! Return distance from z axis.
-template<class T>
-double BasicVector3D<T>::magxy() const
+template<>
+double BasicVector3D<double>::magxy() const
+{
+    return std::sqrt(magxy2());
+}
+
+//! @TODO eliminate this, it is plain wrong
+template<>
+complex_t BasicVector3D<complex_t>::magxy() const
 {
     return std::sqrt(magxy2());
 }
@@ -92,6 +120,14 @@ double BasicVector3D<double>::cosTheta() const
     return std::abs(ma) == 0 ? 1 : z()/ma;
 }
 
+//! @TODO eliminate this, it is plain wrong
+template<>
+complex_t BasicVector3D<complex_t>::cosTheta() const
+{
+    complex_t ma = mag();
+    return std::abs(ma) == 0 ? 1 : z()/ma;
+}
+
 //! Scale to given magnitude.
 template<class T>
 void BasicVector3D<T>::setMag(double ma)
@@ -115,12 +151,30 @@ double BasicVector3D<double>::dot(
     return x()*v.x()+y()*v.y()+z()*v.z();
 }
 
+//! @TODO check usage: unlikely to be correct
+template<>
+complex_t BasicVector3D<complex_t>::dot(
+    const BasicVector3D<complex_t>& v) const
+{
+    return x()*v.x()+y()*v.y()+z()*v.z();
+}
+
 //! Vector product.
 template<>
 BasicVector3D<double> BasicVector3D<double>::cross(
     const BasicVector3D<double>& v) const
 {
     return BasicVector3D<double>(y()*v.z()-v.y()*z(),
+                                 z()*v.x()-v.z()*x(),
+                                 x()*v.y()-v.x()*y());
+}
+
+//! @TODO check usage: unlikely to be correct
+template<>
+BasicVector3D<complex_t> BasicVector3D<complex_t>::cross(
+    const BasicVector3D<complex_t>& v) const
+{
+    return BasicVector3D<complex_t>(y()*v.z()-v.y()*z(),
                                  z()*v.x()-v.z()*x(),
                                  x()*v.y()-v.x()*y());
 }

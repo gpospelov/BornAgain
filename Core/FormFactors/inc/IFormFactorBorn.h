@@ -27,13 +27,15 @@ public:
     virtual ~IFormFactorBorn() {}
     virtual IFormFactorBorn *clone() const=0;
 
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(
+        const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+        double alpha_i, double alpha_f) const;
 
     //! evaluate scattering amplitude for complex wavevector
     //! @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
     virtual complex_t evaluate_for_q(const cvector_t &q) const=0;
 
-    //! override volume getter to avoid infinite loop caused by big bin approximation
+    //! override volume getter to avoid endless loop caused by big bin approximation
     virtual double getVolume() const;
 
 protected:
@@ -47,14 +49,16 @@ private:
     //! determine if a large bin size approximation should be used
     bool useLargeBinApproximation(const Bin1DCVector &q_bin) const;
 
-    //! calculates an approximate intensity that does not contain rapid oscillations
+    //! approximate intensity that does not contain rapid oscillations
     double bigRadialIntegrand(double qR, void *params) const;
 
     //! calculates the integrated intensity along the z-direction
     double bigZPartIntegral(double qH2) const;
 };
 
-inline complex_t IFormFactorBorn::evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+inline complex_t IFormFactorBorn::evaluate(
+    const cvector_t& k_i, const Bin1DCVector& k_f_bin,
+    double alpha_i, double alpha_f) const
 {
     (void)alpha_i;
     (void)alpha_f;
@@ -71,7 +75,8 @@ inline double IFormFactorBorn::getVolume() const
     return std::abs(evaluate_for_q(zero));
 }
 
-inline bool IFormFactorBorn::useLargeBinApproximation(const Bin1DCVector &q_bin) const
+inline bool IFormFactorBorn::useLargeBinApproximation(
+    const Bin1DCVector &q_bin) const
 {
     double delta_qr = std::abs( q_bin.getDelta().magxy() );
     double delta_qz = std::abs( q_bin.getDelta().z() );

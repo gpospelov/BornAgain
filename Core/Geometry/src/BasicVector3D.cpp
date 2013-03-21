@@ -19,7 +19,7 @@
 //! Changes w.r.t. CLHEP:
 //! - eliminated support for type float
 //! - eliminated support for istream
-//! - added support for type complex<double>
+//! - added support for type complex<double> (but certain methods make no sense)
 //! - reworked doxygen comments
 //
 // ************************************************************************** //
@@ -33,8 +33,163 @@ typedef std::complex<double> complex_t;
 
 namespace Geometry {
 
+// -----------------------------------------------------------------------------
+// Norm
+// -----------------------------------------------------------------------------
+
+//! Return squared magnitude of the vector.
 template<>
-double BasicVector3D<double>::angle (const BasicVector3D<double>& v) const
+double BasicVector3D<double>::mag2() const
+{
+    return x()*x()+y()*y()+z()*z();
+}
+
+//! @TODO eliminate this, it is plain wrong
+template<>
+complex_t BasicVector3D<complex_t>::mag2() const
+{
+    return x()*x()+y()*y()+z()*z();
+}
+
+//! Return magnitude of the vector.
+template<>
+double BasicVector3D<double>::mag() const
+{
+    return std::sqrt(mag2());
+}
+
+//! @TODO eliminate this, it is plain wrong
+template<>
+complex_t BasicVector3D<complex_t>::mag() const
+{
+    return std::sqrt(mag2());
+}
+
+// -----------------------------------------------------------------------------
+// Cylindrical and spherical coordinate systems
+// -----------------------------------------------------------------------------
+
+//! Return squared distance from z axis.
+template<>
+double BasicVector3D<double>::magxy2() const
+{
+    return x()*x()+y()*y();
+}
+
+//! @TODO eliminate this, it is plain wrong
+template<>
+complex_t BasicVector3D<complex_t>::magxy2() const
+{
+    return x()*x()+y()*y();
+}
+
+//! Return distance from z axis.
+template<>
+double BasicVector3D<double>::magxy() const
+{
+    return std::sqrt(magxy2());
+}
+
+//! @TODO eliminate this, it is plain wrong
+template<>
+complex_t BasicVector3D<complex_t>::magxy() const
+{
+    return std::sqrt(magxy2());
+}
+
+//! Return azimuth angle.
+template<>
+double BasicVector3D<double>::phi() const
+{
+    return x() == 0.0&& y() == 0.0 ? 0.0 : std::atan2(y(),x());
+}
+
+//! Return polar angle.
+template<>
+double BasicVector3D<double>::theta() const
+{
+    return x() == 0.0&& y() == 0.0&& z() == 0.0 ?
+        0.0 : std::atan2(magxy(),z());
+}
+
+//! Return cosine of polar angle.
+template<>
+double BasicVector3D<double>::cosTheta() const
+{
+    double ma = mag();
+    return std::abs(ma) == 0 ? 1 : z()/ma;
+}
+
+//! @TODO eliminate this, it is plain wrong
+template<>
+complex_t BasicVector3D<complex_t>::cosTheta() const
+{
+    complex_t ma = mag();
+    return std::abs(ma) == 0 ? 1 : z()/ma;
+}
+
+//! Scale to given magnitude.
+template<class T>
+void BasicVector3D<T>::setMag(double ma)
+{
+    double factor = mag();
+    if (factor > 0.0) {
+        factor = ma/factor;
+        v_[0] *= factor; v_[1] *= factor; v_[2] *= factor;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Combine two vectors
+// -----------------------------------------------------------------------------
+
+//! Scalar product.
+template<>
+double BasicVector3D<double>::dot(
+    const BasicVector3D<double>& v) const
+{
+    return x()*v.x()+y()*v.y()+z()*v.z();
+}
+
+//! @TODO check usage: unlikely to be correct
+template<>
+complex_t BasicVector3D<complex_t>::dot(
+    const BasicVector3D<complex_t>& v) const
+{
+    return x()*v.x()+y()*v.y()+z()*v.z();
+}
+
+//! Vector product.
+template<>
+BasicVector3D<double> BasicVector3D<double>::cross(
+    const BasicVector3D<double>& v) const
+{
+    return BasicVector3D<double>(y()*v.z()-v.y()*z(),
+                                 z()*v.x()-v.z()*x(),
+                                 x()*v.y()-v.x()*y());
+}
+
+//! @TODO check usage: unlikely to be correct
+template<>
+BasicVector3D<complex_t> BasicVector3D<complex_t>::cross(
+    const BasicVector3D<complex_t>& v) const
+{
+    return BasicVector3D<complex_t>(y()*v.z()-v.y()*z(),
+                                 z()*v.x()-v.z()*x(),
+                                 x()*v.y()-v.x()*y());
+}
+
+//! Return square of transverse component with respect to given axis.
+template<>
+double BasicVector3D<double>::perp2(const BasicVector3D<double>& v) const
+{
+    double tot = v.mag2(), s = dot(v);
+    return tot > 0.0 ? mag2()-s*s/tot : mag2();
+}
+
+//! Return angle with respect to another vector.
+template<>
+double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const
 {
     double cosa = 0;
     double ptot = mag()*v.mag();
@@ -45,6 +200,10 @@ double BasicVector3D<double>::angle (const BasicVector3D<double>& v) const
     }
     return std::acos(cosa);
 }
+
+// -----------------------------------------------------------------------------
+// Rotations
+// -----------------------------------------------------------------------------
 
 template<>
 BasicVector3D<double>& BasicVector3D<double>::rotateX (double a)
@@ -104,6 +263,10 @@ BasicVector3D<double>& BasicVector3D<double>::rotate (
     return *this;
 }
 
+// =========================================================================
+// Non-member functions for BasicVector3D<double>
+// =========================================================================
+
 std::ostream& operator<< (
         std::ostream& os, const BasicVector3D<double>& a)
 {
@@ -116,14 +279,27 @@ std::ostream& operator<< (
     return os << "(" << a.x() << "," << a.y() << "," << a.z() << ")";
 }
 
+// -----------------------------------------------------------------------------
+// Operations involving another vector
+// -----------------------------------------------------------------------------
+
+//! Scalar product of two vectors, as operator.
+double operator*(const BasicVector3D<double>& a,const BasicVector3D<double>& b)
+{
+    return a.dot(b);
+}
+
+// -----------------------------------------------------------------------------
+// Transforms
+// -----------------------------------------------------------------------------
+
 template<>
 BasicVector3D<double>& BasicVector3D<double>::transform (
             const Transform3D& m)
 {
-    double vx = x(), vy = y(), vz = z();
-    setXYZ(m.xx()*vx + m.xy()*vy + m.xz()*vz,
-           m.yx()*vx + m.yy()*vy + m.yz()*vz,
-           m.zx()*vx + m.zy()*vy + m.zz()*vz);
+    setXYZ(m.xx()*x() + m.xy()*y() + m.xz()*z(),
+           m.yx()*x() + m.yy()*y() + m.yz()*z(),
+           m.zx()*x() + m.zy()*y() + m.zz()*z());
     return *this;
 }
 
@@ -131,21 +307,19 @@ template<>
 BasicVector3D<complex_t>& BasicVector3D<complex_t>::transform (
             const Transform3D & m)
 {
-    complex_t vx = x(), vy = y(), vz = z();
-    setXYZ(m.xx()*vx + m.xy()*vy + m.xz()*vz,
-           m.yx()*vx + m.yy()*vy + m.yz()*vz,
-           m.zx()*vx + m.zy()*vy + m.zz()*vz);
+    setXYZ(m.xx()*x() + m.xy()*y() + m.xz()*z(),
+           m.yx()*x() + m.yy()*y() + m.yz()*z(),
+           m.zx()*x() + m.zy()*y() + m.zz()*z());
     return *this;
 }
 
 BasicVector3D<double> operator* (
             const Transform3D& m, const BasicVector3D<double>& v)
 {
-    double vx = v.x(), vy = v.y(), vz = v.z();
     return BasicVector3D<double>
-            (m.xx()*vx + m.xy()*vy + m.xz()*vz,
-             m.yx()*vx + m.yy()*vy + m.yz()*vz,
-             m.zx()*vx + m.zy()*vy + m.zz()*vz);
+            (m.xx()*v.x() + m.xy()*v.y() + m.xz()*v.z(),
+             m.yx()*v.x() + m.yy()*v.y() + m.yz()*v.z(),
+             m.zx()*v.x() + m.zy()*v.y() + m.zz()*v.z());
 }
 
 }  // namespace Geometry

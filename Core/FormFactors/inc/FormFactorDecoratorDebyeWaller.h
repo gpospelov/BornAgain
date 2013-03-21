@@ -23,18 +23,24 @@
 class FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
 {
 public:
-    FormFactorDecoratorDebyeWaller(IFormFactor *p_form_factor, double dw_factor);
-    FormFactorDecoratorDebyeWaller(IFormFactor *p_form_factor, double dw_h_factor, double dw_r_factor);
-    FormFactorDecoratorDebyeWaller(const IFormFactor &p_form_factor, double dw_h_factor, double dw_r_factor);
+    FormFactorDecoratorDebyeWaller(
+        IFormFactor *p_form_factor, double dw_factor);
+    FormFactorDecoratorDebyeWaller(
+        IFormFactor *p_form_factor, double dw_h_factor, double dw_r_factor);
+    FormFactorDecoratorDebyeWaller(
+        const IFormFactor &p_form_factor,
+        double dw_h_factor, double dw_r_factor);
     virtual FormFactorDecoratorDebyeWaller *clone() const;
     virtual ~FormFactorDecoratorDebyeWaller() {}
 
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(
+        const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+        double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const;
 
 protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! register some class members for later access via parameter pool
     virtual void init_parameters() {
         getParameterPool()->clear();
         getParameterPool()->registerParameter("hfactor", &m_h_dw_factor);
@@ -67,22 +73,26 @@ inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
 }
 
 inline FormFactorDecoratorDebyeWaller::FormFactorDecoratorDebyeWaller(
-        const IFormFactor &p_form_factor, double dw_h_factor, double dw_r_factor)
-: IFormFactorDecorator(p_form_factor.clone())
-, m_h_dw_factor(dw_h_factor)
-, m_r_dw_factor(dw_r_factor)
+        const IFormFactor &p_form_factor,
+        double dw_h_factor, double dw_r_factor)
+  : IFormFactorDecorator(p_form_factor.clone())
+  , m_h_dw_factor(dw_h_factor)
+  , m_r_dw_factor(dw_r_factor)
 {
     setName("FormFactorDecoratorDebyeWaller");
     init_parameters();
 }
 
-inline FormFactorDecoratorDebyeWaller* FormFactorDecoratorDebyeWaller::clone() const
+inline FormFactorDecoratorDebyeWaller*
+FormFactorDecoratorDebyeWaller::clone() const
 {
-    return new FormFactorDecoratorDebyeWaller(mp_form_factor->clone(), m_h_dw_factor, m_r_dw_factor);
+    return new FormFactorDecoratorDebyeWaller(
+        mp_form_factor->clone(), m_h_dw_factor, m_r_dw_factor);
 }
 
-inline complex_t FormFactorDecoratorDebyeWaller::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+inline complex_t FormFactorDecoratorDebyeWaller::evaluate(
+    const cvector_t& k_i, const Bin1DCVector& k_f_bin,
+    double alpha_i, double alpha_f) const
 {
     cvector_t q = k_i - k_f_bin.getMidPoint();
     double qr2 = std::norm(q.x()) + std::norm(q.y());
@@ -91,7 +101,8 @@ inline complex_t FormFactorDecoratorDebyeWaller::evaluate(const cvector_t& k_i,
     return dw*mp_form_factor->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
 }
 
-inline int FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters() const
+inline int
+FormFactorDecoratorDebyeWaller::getNumberOfStochasticParameters() const
 {
     return mp_form_factor->getNumberOfStochasticParameters();
 }

@@ -66,17 +66,11 @@ public:
     Point3D<double> & operator=(const BasicVector3D<double> & v) {
         setXYZ(v.x(),v.y(),v.z()); return *this; }
 
-    //! Returns distance to the origin squared.
-    double distance2() const {
-        return mag2(); }
-    //! Returns distance to the point squared.
+    //! Returns squared distance to a given point.
     double distance2(const Point3D<double> & p) const {
         double dx = p.x()-x(), dy = p.y()-y(), dz = p.z()-z();
         return dx*dx + dy*dy + dz*dz; }
-    //! Returns distance to the origin.
-    double distance() const {
-        return std::sqrt(distance2()); }
-    //! Returns distance to the point.
+    //! Returns distance to a given point.
     double distance(const Point3D<double> & p) const {
         return std::sqrt(distance2(p)); }
 

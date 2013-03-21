@@ -32,10 +32,6 @@
 
 namespace Geometry {
 
-template<class T> class Point3D;
-template<class T> class Vector3D;
-template<class T> class Normal3D;
-    
 class Translate3D;
 class Rotate3D;
 class Scale3D;
@@ -126,8 +122,8 @@ class Scale3D;
 //!
 //! Example of the usage:
 //!
-//!   Transform3D m1, m2, m3;
-//!   HepVector3D    v2, v1(0,0,0);
+//!   Transform3D   m1, m2, m3;
+//!   BasicVector3D v2, v1(0,0,0);
 //!
 //!   m1 = Rotate3D(angle, Vector3D(1,1,1));
 //!   m2 = Translate3D(dx,dy,dz);
@@ -147,8 +143,8 @@ class Scale3D;
 //!
 //! Example:
 //! @code
-//!   HepGeom::Transform3D m;
-//!   m = HepGeom::TranslateX3D(10.*cm);
+//!   Transform3D m;
+//!   m = TranslateX3D(10.*cm);
 //! @endcode
 //!
 //! @author <Evgueni.Tcherniaev@cern.ch> 1996-2003

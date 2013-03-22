@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/inc/ISelectionRule.h
-//! @brief     Defines class ISelectionRule.
+//! @brief     Defines classes ISelectionRule, SimpleSelectionRule
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,11 @@
 #ifndef ISELECTIONRULE_H_
 #define ISELECTIONRULE_H_
 
-#include "Coordinate3D.h"
+#include "BasicVector3D.h"
+
+typedef Geometry::BasicVector3D<int> IndexVector3D;
+
+//! Pure virtual base class for selection rules.
 
 class ISelectionRule
 {
@@ -27,6 +31,8 @@ public:
 
     virtual bool coordinateSelected(const IndexVector3D &coordinate) const=0;
 };
+
+//! Selection rule (v*q)%modulus!=0, defined by vector v(a,b,c) and modulus.
 
 class SimpleSelectionRule : public ISelectionRule
 {
@@ -42,12 +48,9 @@ private:
     int m_mod;
 };
 
-inline SimpleSelectionRule::SimpleSelectionRule(int a, int b, int c,
-        int modulus)
-: m_a(a), m_b(b), m_c(c)
-, m_mod(modulus)
-{
-}
+inline SimpleSelectionRule::SimpleSelectionRule(
+    int a, int b, int c, int modulus)
+    : m_a(a), m_b(b), m_c(c), m_mod(modulus) {}
 
 inline SimpleSelectionRule* SimpleSelectionRule::clone() const
 {

@@ -26,9 +26,12 @@
 #define GEOMETRY_TRANSFROM3D_H
 
 #include <cmath>
-#include "Point3D.h"
-#include "Vector3D.h"
-#include "Normal3D.h"
+#include "BasicVector3D.h"
+
+// remnants of CLHEP:
+#define Point3D  BasicVector3D
+#define Vector3D BasicVector3D
+#define Normal3D BasicVector3D
 
 namespace Geometry {
 
@@ -273,24 +276,6 @@ class Transform3D {
     //!
     Transform3D operator*(const Transform3D& b) const;
     
-    //! Decomposition of general transformation.
-    //!
-    //! This function returns a decomposition of the transformation
-    //! into three sequential transformations: Scale3D,
-    //! then Rotate3D, then Translate3, i.e.
-    //! @code
-    //!   Transform3D = Translate3D * Rotate3D * Scale3D
-    //! @endcode
-    //!
-    //! @param scale       output: scaling transformation;
-    //!                    if there was a reflection, then scale factor for
-    //!                    z-component (scale(2,2)) will be negative.
-    //! @param rotation    output: rotation transformaion.
-    //! @param translation output: translation transformaion.
-    void getDecomposition(Scale3D& scale,
-                          Rotate3D& rotation,
-                          Translate3D& translation) const;
-
     //! Test for equality.
     bool operator == (const Transform3D& transform) const;
     
@@ -407,214 +392,6 @@ public:
         double cosa = std::cos(a), sina = std::sin(a); 
         setTransform(cosa,-sina,0.0,0.0,  sina,cosa,0.0,0.0,  0.0,0.0,1.0,0.0);
     }
-};
-
-// ************************************************************************** //
-//  Translations
-// ************************************************************************** //
-  
-//! A translation of 3D geometrical objects (points, vectors, normals).
-
-//! This class provides additional constructors for Transform3D
-//! and should not be used as a separate class.
-//! 
-//! Example of use:
-//! @code
-//!   Transform3D m;
-//!   m = Translate3D(10.,20.,30.);
-//! @endcode
-//!
-//! @author <Evgueni.Tcherniaev@cern.ch> 1996-2003
-//!
-class Translate3D : public Transform3D {
-public:
-    //! Default constructor: sets the Identity transformation.
-    Translate3D() : Transform3D() {}
-
-    //! Constructor from three numbers.
-    Translate3D(double x, double y, double z)
-        : Transform3D(1.0,0.0,0.0,x, 0.0,1.0,0.0,y, 0.0,0.0,1.0,z) {}
-};
-
-//! A translation along the x-axis.
-
-//! Should not be instantiated: see Translate3D for example of use.
-//!
-class TranslateX3D : public Translate3D {
-public:
-    //! Default constructor: sets the Identity transformation.
-    TranslateX3D() : Translate3D() {}
-    
-    //! Constructor from a number.
-    TranslateX3D(double x) : Translate3D(x, 0.0, 0.0) {}
-};
-
-//! A translation along the y-axis.
-
-//! Should not be instantiated: see Translate3D for example of use.
-//!
-class TranslateY3D : public Translate3D {
-public:
-    //! Default constructor: sets the Identity transformation.
-    TranslateY3D() : Translate3D() {}
-
-    //! Constructor from a number.
-    TranslateY3D(double y) : Translate3D(0.0, y, 0.0) {}
-};
-
-//! A translation along the z-axis.
-
-//! Should not be instantiated: see Translate3D for example of use.
-//!
-class TranslateZ3D : public Translate3D {
-public:
-    //! Default constructor: sets the Identity transformation.
-    TranslateZ3D() : Translate3D() {}
-
-    //! Constructor from a number.
-    TranslateZ3D(double z) : Translate3D(0.0, 0.0, z) {}
-};
-
-// ************************************************************************** //
-//  Reflections
-// ************************************************************************** //
-
-//! A reflection transformation.
-
-//! This class provides additional constructors for Transform3D
-//! and should not be used as a separate class.
-//! 
-//! Example of use:
-//! @code
-//!   Transform3D m;
-//!   m = Reflect3D(1.,1.,1.,0.);
-//! @endcode
-//!
-//! @author <Evgueni.Tcherniaev@cern.ch>
-
-class Reflect3D : public Transform3D {
-protected:
-    Reflect3D(double XX, double XY, double XZ, double DX,
-              double YX, double YY, double YZ, double DY,
-              double ZX, double ZY, double ZZ, double DZ)
-        : Transform3D(XX,XY,XZ,DX, YX,YY,YZ,DY, ZX,ZY,ZZ,DZ) {}
-
-public:
-    //! Default constructor: sets the Identity transformation.
-    Reflect3D() : Transform3D() {}
-
-    //! Construct reflection from a plane a*x+b*y+c*z+d=0.
-    Reflect3D(double a, double b, double c, double d);
-
-    //! Construct reflection from a plane given by its normal a point.
-
-    inline Reflect3D(const Normal3D<double>& normal,
-                     const Point3D<double>& point) 
-    //  TODO(C++11): simplify using delegating constructor
-    { *this = Reflect3D(normal.x(), normal.y(), normal.z(), -normal*point); }
-};
-
-//! A reflection in a plane x=const.
-
-//! Should not be instantiated: see Reflect3D for example of use.
-//!
-class ReflectX3D : public Reflect3D {
-public:
-    //! Constructor from a number.
-    ReflectX3D(double x=0)
-        : Reflect3D(-1.0,0.0,0.0,x+x, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0) {}
-};
- 
-//! A reflection in a plane y=const.
-
-//! Should not be instantiated: see Reflect3D for example of use.
-//!
-class ReflectY3D : public Reflect3D {
-public:
-    //! Constructor from a number.
-    ReflectY3D(double y=0)
-        : Reflect3D(1.0,0.0,0.0,0.0, 0.0,-1.0,0.0,y+y, 0.0,0.0,1.0,0.0) {}
-};
- 
-//! A reflection in a plane z=const.
-
-//! Should not be instantiated: see Reflect3D for example of use.
-//!
-class ReflectZ3D : public Reflect3D {
-public:
-    //! Constructor from a number.
-    ReflectZ3D(double z=0)
-        : Reflect3D(1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,-1.0,z+z) {}
-};
- 
-// ************************************************************************** //
-//  Scalings
-// ************************************************************************** //
-
-//! A scaling transformation.
-
-//! This class provides additional constructors for Transform3D
-//! and should not be used as a separate class.
-//! 
-//! Example of use:
-//! @code
-//!   Transform3D m;
-//!   m = Scale3D(2.);
-//! @endcode
-//!
-//! @author <Evgueni.Tcherniaev@cern.ch>
-//!
-class Scale3D : public Transform3D {
-public:
-    //! Default constructor: sets the Identity transformation.
-    Scale3D() : Transform3D() {}
-
-    //! Constructor from three numbers - scale factors in different directions.
-    Scale3D(double x, double y, double z)
-        : Transform3D(x,0.0,0.0,0.0, 0.0,y,0.0,0.0, 0.0,0.0,z,0.0) {}
-
-    //! Constructor from a number: sets uniform scaling in all directions.
-    Scale3D(double s)
-    : Transform3D(s,0.0,0.0,0.0, 0.0,s,0.0,0.0, 0.0,0.0,s,0.0) {}
-};
-
-//! A scaling transformation in x-direction.
-
-//! Should not be instantiated: see Scale3D for example of use.
-//!
-class ScaleX3D : public Scale3D {
-public:
-    //! Default constructor: sets the Identity transformation.
-    ScaleX3D() : Scale3D() {}
-
-    //! Constructor from a number (scale factor in x-direction).
-    ScaleX3D(double x) : Scale3D(x, 1.0, 1.0) {}
-};
-
-//! A scaling transformation in y-direction.
-
-//! Should not be instantiated: see Scale3D for example of use.
-//!
-class ScaleY3D : public Scale3D {
-public:
-    //! Default constructor: sets the Identity transformation.
-    ScaleY3D() : Scale3D() {}
-
-    //! Constructor from a number (scale factor in y-direction).
-    ScaleY3D(double y) : Scale3D(1.0, y, 1.0) {}
-};
-
-//! A scaling transformation in z-direction.
-
-//! Should not be instantiated: see Scale3D for example of use.
-//!
-class ScaleZ3D : public Scale3D {
-public:
-    //! Default constructor: sets the Identity transformation.
-    ScaleZ3D() : Scale3D() {}
-
-    //! Constructor from a number (scale factor in z-direction).
-    ScaleZ3D(double z) : Scale3D(1.0, 1.0, z) {}
 };
 
 // ************************************************************************** //

@@ -13,11 +13,7 @@ QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
 # -----------------------------------------------------------------------------
 SOURCES += \
     Geometry/src/BasicVector3D.cpp \
-    Geometry/src/Normal3D.cpp \
-    Geometry/src/Plane3D.cpp \
-    Geometry/src/Point3D.cpp \
     Geometry/src/Transform3D.cpp \
-    Geometry/src/Vector3D.cpp \
     \
     Tools/src/AxisBin.cpp \
     Tools/src/AxisDouble.cpp \
@@ -133,11 +129,7 @@ SOURCES += \
 
 HEADERS += \
     Geometry/inc/BasicVector3D.h \
-    Geometry/inc/Normal3D.h \
-    Geometry/inc/Plane3D.h \
-    Geometry/inc/Point3D.h \
     Geometry/inc/Transform3D.h \
-    Geometry/inc/Vector3D.h \
     \
     Tools/inc/AxisBin.h \
     Tools/inc/AxisDouble.h \

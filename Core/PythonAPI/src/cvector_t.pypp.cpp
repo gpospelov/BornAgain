@@ -190,26 +190,6 @@ void register_cvector_t_class(){
                 , bp::return_internal_reference< >() );
         
         }
-        { //::Geometry::BasicVector3D< std::complex< double > >::r
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*r_function_type )(  ) const;
-            
-            cvector_t_exposer.def( 
-                "r"
-                , r_function_type( &::Geometry::BasicVector3D< std::complex< double > >::mag ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::rho
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*rho_function_type )(  ) const;
-            
-            cvector_t_exposer.def( 
-                "rho"
-                , rho_function_type( &::Geometry::BasicVector3D< std::complex< double > >::magxy ) );
-        
-        }
         { //::Geometry::BasicVector3D< std::complex< double > >::setLambdaAlphaPhi
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
@@ -308,7 +288,6 @@ void register_cvector_t_class(){
         
         }
         cvector_t_exposer.def( bp::self != bp::self );
-        cvector_t_exposer.def( bp::self * bp::self );
         cvector_t_exposer.def( bp::self + bp::self );
         cvector_t_exposer.def( +bp::self );
         cvector_t_exposer.def( bp::self - bp::self );

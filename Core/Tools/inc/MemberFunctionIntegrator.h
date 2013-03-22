@@ -19,6 +19,8 @@
 #include "gsl/gsl_integration.h"
 #include <cassert>
 
+//! Wrap integrator from GNU Scientific Library.
+
 template <class C> class MemberFunctionIntegrator
 {
 public:
@@ -32,17 +34,20 @@ public:
         void *m_data;
     };
 
-    //! constructor taking a member function and the object whose member function to integrate
     MemberFunctionIntegrator();
-    MemberFunctionIntegrator(mem_function p_member_function, const C *const p_object);
+    //! to integrate p_member_function, which must belong to p_object
+    MemberFunctionIntegrator(
+        mem_function p_member_function, const C *const p_object);
     ~MemberFunctionIntegrator();
 
     //! perform the actual integration over the range [lmin, lmax]
     double integrate(double lmin, double lmax, void *params);
 
     //! set integrand
-    void setIntegrand(mem_function member_function) { m_member_function = member_function; }
-    void setIntegrand(mem_function member_function, const C *const p_object) { m_member_function = member_function; mp_object = p_object; }
+    void setIntegrand(mem_function member_function)
+    { m_member_function = member_function; }
+    void setIntegrand(mem_function member_function, const C *const p_object)
+    { m_member_function = member_function; mp_object = p_object; }
 
 private:
     //! static function that can be passed to gsl integrator
@@ -90,13 +95,9 @@ template<class C> double MemberFunctionIntegrator<C>::integrate(
     f.function = StaticCallBack;
     f.params = &cb;
 
-//    gsl_integration_workspace *ws = gsl_integration_workspace_alloc(200);
-//    double result, error;
-//    gsl_integration_qag(&f, lmin, lmax, 1e-10, 1e-8, 50, 1, ws, &result, &error);
-//    gsl_integration_workspace_free(ws);
-
     double result, error;
-    gsl_integration_qag(&f, lmin, lmax, 1e-10, 1e-8, 50, 1, m_gsl_workspace, &result, &error);
+    gsl_integration_qag(&f, lmin, lmax, 1e-10, 1e-8, 50, 1,
+                        m_gsl_workspace, &result, &error);
 
     return result;
 }

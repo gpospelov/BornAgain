@@ -16,8 +16,9 @@
 #include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
 
-DecouplingApproximationStrategy::DecouplingApproximationStrategy(SimulationParameters sim_params)
-: IInterferenceFunctionStrategy(sim_params)
+DecouplingApproximationStrategy::DecouplingApproximationStrategy(
+    SimulationParameters sim_params)
+  : IInterferenceFunctionStrategy(sim_params)
 {
 }
 
@@ -31,13 +32,15 @@ void DecouplingApproximationStrategy::init(
     }
 }
 
-double DecouplingApproximationStrategy::evaluate(const cvector_t& k_i,
-        const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const
+double DecouplingApproximationStrategy::evaluate(
+    const cvector_t& k_i, const Bin1DCVector& k_f_bin,
+    double alpha_i, double alpha_f) const
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
-        complex_t ff = m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
+        complex_t ff =
+            m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
         double fraction = m_ff_infos[i]->m_abundance;
         amplitude += fraction*ff;
         intensity += fraction*(std::norm(ff));

@@ -102,7 +102,7 @@ void TestIsGISAXS5::plot_isgisaxs_fit_results()
     IsGISAXSData::DataSet_t isgi_results;
     IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitexample.out", isgi_results, IsGISAXSData::kSimResult);
 
-    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("c1_isgisaxs_data", "Looking on IsGISAXS data and fit results", 800, 500);
+    TCanvas *c1 = DrawHelper::createAndRegisterCanvas("c1_isgisaxs_data", "Looking on IsGISAXS data and fit results", 800, 500);
     c1->Divide(2,2);
 
     // drawing isgsaxs fit results on top of isgisaxs real data
@@ -272,8 +272,8 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
 
     Layer air_layer(air_material);
     double height = m_height_aspect_ratio*m_particle_radius;

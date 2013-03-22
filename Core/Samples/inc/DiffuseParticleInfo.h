@@ -22,8 +22,10 @@
 
 class DiffuseParticleInfo: public ParticleInfo
 {
-public:
-    DiffuseParticleInfo(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
+  public:
+    DiffuseParticleInfo(
+        Particle *p_particle, Geometry::Transform3D *transform=0,
+        double depth=0, double abundance=0);
     virtual ~DiffuseParticleInfo();
 
     //! scale abundance
@@ -38,14 +40,17 @@ public:
     //! get number of particles per containing mesocrystal
     double getNumberPerMeso() const { return m_number_per_meso; }
 
-    DiffuseParticleInfo *clone() const { throw NotImplementedException("DiffuseParticleInfo::clone() -> Error: not implemented"); }
+    DiffuseParticleInfo *clone() const
+    { throw NotImplementedException(
+            "DiffuseParticleInfo::clone() -> Error: not implemented");
+    }
 
     //! set the range of height
     void setHeightRange(double height_range) { m_height_range = height_range; }
 
     //! get the range of height
     double getHeightRange() const { return m_height_range; }
-protected:
+  protected:
     double m_number_per_meso;
     double m_height_range;
 };

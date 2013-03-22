@@ -51,7 +51,7 @@ void TestDiffuseReflection::execute()
 
     std::vector<MultiLayer *> samples;
     for(size_t i_sample=0; i_sample<snames.size(); i_sample++){
-        samples.push_back( dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem(snames[i_sample])) );
+        samples.push_back( dynamic_cast<MultiLayer *>(SampleFactory::createSample(snames[i_sample])) );
     }
 
     kvector_t ki, kf;
@@ -200,7 +200,7 @@ void TestDiffuseReflection::draw()
     os << (ncall++) << std::endl;
     std::string cname = std::string("c1_test_diffuse_reflection");
     TCanvas *c1 = new TCanvas(cname.c_str(),"Diffuse reflection",1024,768);
-    DrawHelper::instance().SetMagnifier(c1);
+    DrawHelper::SetMagnifier(c1);
 
     c1->Divide(2,2);
     c1->cd(1);

@@ -15,15 +15,12 @@
 //! @date   01.04.2012
 
 #include "TObject.h"
-#include "ISingleton.h"
-
 #include <vector>
 #include <string>
 
 class TCanvas;
 class MultiLayer;
 class TPad;
-
 
 //- -------------------------------------------------------------------
 //! @class DrawHelper
@@ -32,7 +29,7 @@ class TPad;
 //! Provides magnification of pads in canvas, common style for drawing,
 //! saving of all opened canvases from memory to pdf file
 //- -------------------------------------------------------------------
-class DrawHelper : public ISingleton<DrawHelper>, public TObject
+class DrawHelper :public TObject
 {
 public:
     //! set own drawing style
@@ -42,32 +39,27 @@ public:
     static void SaveReportPDFObsolete();
 
     //! connect user canvas with magnifier function
-    void SetMagnifier(TCanvas *c);
+    static void SetMagnifier(TCanvas *c);
 
     //! process double click in canvas to magnify given pad
-    void ExecuteMagnifier(Int_t event, Int_t px, Int_t py, TObject *sel);
+    static void ExecuteMagnifier(Int_t event, Int_t px, Int_t py, TObject *sel);
 
     //! draw multilayer structure in TPad
-    void DrawMultilayer(const MultiLayer *sample);
+    static void DrawMultilayer(const MultiLayer *sample);
 
     //! create and register canvas
-    TCanvas *createAndRegisterCanvas(std::string name, std::string title, int xsize=0, int ysize=0);
+    static TCanvas *createAndRegisterCanvas(std::string name, std::string title, int xsize=0, int ysize=0);
 
     //! save reports (pdf and ROOT)
-    void saveReport();
+    static void saveReport();
 
     //! attempt to draw meso crystal lattice in 3d
-    void DrawMesoCrystal(const MultiLayer *sample);
-
-protected:
-    DrawHelper();
-    friend class ISingleton<DrawHelper >;
+    static void DrawMesoCrystal(const MultiLayer *sample);
 
 private:
-    int m_default_canvas_xsize;
-    int m_default_canvas_ysize;
-
-    std::vector<TCanvas *> m_registered_canvases;
+    static int m_default_canvas_xsize;
+    static int m_default_canvas_ysize;
+    static std::vector<TCanvas *> m_registered_canvases;
 
   ClassDef(DrawHelper,1)
 };

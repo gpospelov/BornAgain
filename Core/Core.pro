@@ -28,7 +28,6 @@ SOURCES += \
     Tools/src/IFactory.cpp \
     Tools/src/IObserver.cpp \
     Tools/src/IParameterized.cpp \
-    Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
     Tools/src/MessageSvc.cpp \
     Tools/src/OutputData.cpp \
@@ -97,7 +96,6 @@ SOURCES += \
     \
     Samples/src/Crystal.cpp \
     Samples/src/DiffuseParticleInfo.cpp \
-    Samples/src/HomogeneousMaterial.cpp \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
     Samples/src/IMaterial.cpp \

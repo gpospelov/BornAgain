@@ -1,18 +1,3 @@
-// ************************************************************************** //
-//
-//  BornAgain: simulate and fit scattering at grazing incidence
-//
-//! @file      PythonAPI/src/PythonModule.cpp
-//! @brief     calls BOOST_PYTHON_MODULE to register many functions
-//!
-//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
-//! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
-//
-// ************************************************************************** //
-
 #include "Python.h"
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY 
 #include "numpy/arrayobject.h"
@@ -48,6 +33,7 @@
 #include "IFTDistribution2D.pypp.h" 
 #include "IInterferenceFunction.pypp.h" 
 #include "IMaterial.pypp.h" 
+#include "IndexVector3D.pypp.h" 
 #include "Instrument.pypp.h" 
 #include "InterferenceFunction1DParaCrystal.pypp.h" 
 #include "InterferenceFunction2DLattice.pypp.h" 
@@ -152,6 +138,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorPyramid_class();
     register_FormFactorSphereGaussianRadius_class();
     register_kvector_t_class();
+    register_IndexVector3D_class();
     register_cvector_t_class();
     register_Reflect3D_class();
     register_ReflectX3D_class();

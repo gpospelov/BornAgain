@@ -66,7 +66,7 @@ void TestMesoCrystal1::execute()
 
 //    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_meso_crystal", "mesocrystal",
 //            "CONT4 Z", "mesocrystal");
-    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("sim_meso_crystal", "mesocrystal", 1024, 768);
+    TCanvas *c1 = DrawHelper::createAndRegisterCanvas("sim_meso_crystal", "mesocrystal", 1024, 768);
     c1->cd(); gPad->SetLogz();
     gPad->SetRightMargin(0.115);
     gPad->SetLeftMargin(0.13);
@@ -90,7 +90,7 @@ void TestMesoCrystal1::execute()
 
     std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
     OutputData<double > *real_data = OutputDataIOFactory::getOutputData(file_name);
-    TCanvas *c2 = DrawHelper::instance().createAndRegisterCanvas("exp_meso_crystal", "mesocrystal", 1024, 768);
+    TCanvas *c2 = DrawHelper::createAndRegisterCanvas("exp_meso_crystal", "mesocrystal", 1024, 768);
     c2->cd(); gPad->SetLogz();
     gPad->SetRightMargin(0.115);
     gPad->SetLeftMargin(0.13);
@@ -170,9 +170,9 @@ ISample* TestMesoCrystal1::SampleBuilder::buildSample() const
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-7.57e-6, 1.73e-7);
 
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_average_layer_material = MaterialManager::instance().addHomogeneousMaterial("Averagelayer", n_avg);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_average_layer_material = MaterialManager::getHomogeneousMaterial("Averagelayer", n_avg);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer avg_layer;

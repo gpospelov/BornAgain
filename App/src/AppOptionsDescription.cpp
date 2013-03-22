@@ -26,8 +26,8 @@ void AddApplicationOptions(ProgramOptions* p_options)
 
     // functional tests options constructed from information carried by FunctionalTestFactory
     bpo::options_description functional_test_options("Functional tests");
-    FunctionalTestFactory::iterator it = FunctionalTestFactory::instance().begin();
-    for(; it!= FunctionalTestFactory::instance().end(); ++it) {
+    FunctionalTestFactory::iterator it = FunctionalTestFactory::begin();
+    for(; it!= FunctionalTestFactory::end(); ++it) {
         // it.first - test name, it.second - test description
         functional_test_options.add_options()((*it).first.c_str(), (*it).second.c_str());
     }

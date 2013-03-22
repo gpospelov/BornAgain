@@ -47,20 +47,20 @@ int main(int argc, char **argv)
     // running functional tests
     if( command_line_options.find("all") ) {
         // running all registered tests
-        FunctionalTestFactory::instance().execute_all(&command_line_options);
+        FunctionalTestFactory::execute_all(&command_line_options);
 
     } else {
         // loop over functional tests, run test if it's name is present in command line
-        FunctionalTestFactory::iterator it = FunctionalTestFactory::instance().begin();
-        for(; it!= FunctionalTestFactory::instance().end(); ++it) {
+        FunctionalTestFactory::iterator it = FunctionalTestFactory::begin();
+        for(; it!= FunctionalTestFactory::end(); ++it) {
             if( command_line_options.find( (*it).first ) )
-                FunctionalTestFactory::instance().execute( (*it).first, &command_line_options );
+                FunctionalTestFactory::execute( (*it).first, &command_line_options );
         }
     }
 
     // saving report in pdf and root
     if( command_line_options.find("report") ) {
-        DrawHelper::instance().saveReport();
+        DrawHelper::saveReport();
     }
 
     // exit now if there is unrecognized options or plead for help

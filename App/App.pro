@@ -37,7 +37,6 @@ SOURCES += \
     $${FUNCTIONAL_TESTS}/IsGISAXS11/IsGISAXS11.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS15/IsGISAXS15.cpp \
     src/AppOptionsDescription.cpp \
-    src/CommandLine.cpp \
     src/DrawHelper.cpp \
     src/FitSuiteObserverFactory.cpp \
     src/FunctionalTestFactory.cpp \
@@ -104,7 +103,6 @@ HEADERS += \
     inc/App.h \
     inc/AppLinkDef.h \
     inc/AppOptionsDescription.h \
-    inc/CommandLine.h \
     inc/DrawHelper.h \
     inc/FitSuiteObserverFactory.h \
     inc/FunctionalTestFactory.h \

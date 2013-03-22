@@ -143,32 +143,6 @@ void BasicVector3D<T>::setMag(double ma)
 // Combine two vectors
 // -----------------------------------------------------------------------------
 
-//! Scalar product.
-template<>
-double BasicVector3D<double>::dot(
-    const BasicVector3D<double>& v) const
-{
-    return x()*v.x()+y()*v.y()+z()*v.z();
-}
-
-//! @TODO check usage: unlikely to be correct
-template<>
-complex_t BasicVector3D<complex_t>::dot(
-    const BasicVector3D<complex_t>& v) const
-{
-    return x()*v.x()+y()*v.y()+z()*v.z();
-}
-
-//! Vector product.
-template<>
-BasicVector3D<double> BasicVector3D<double>::cross(
-    const BasicVector3D<double>& v) const
-{
-    return BasicVector3D<double>(y()*v.z()-v.y()*z(),
-                                 z()*v.x()-v.z()*x(),
-                                 x()*v.y()-v.x()*y());
-}
-
 //! @TODO check usage: unlikely to be correct
 template<>
 BasicVector3D<complex_t> BasicVector3D<complex_t>::cross(
@@ -266,28 +240,6 @@ BasicVector3D<double>& BasicVector3D<double>::rotate (
 // =========================================================================
 // Non-member functions for BasicVector3D<double>
 // =========================================================================
-
-std::ostream& operator<< (
-        std::ostream& os, const BasicVector3D<double>& a)
-{
-    return os << "(" << a.x() << "," << a.y() << "," << a.z() << ")";
-}
-
-std::ostream& operator<< (
-        std::ostream& os, const BasicVector3D<complex_t>& a)
-{
-    return os << "(" << a.x() << "," << a.y() << "," << a.z() << ")";
-}
-
-// -----------------------------------------------------------------------------
-// Operations involving another vector
-// -----------------------------------------------------------------------------
-
-//! Scalar product of two vectors, as operator.
-double operator*(const BasicVector3D<double>& a,const BasicVector3D<double>& b)
-{
-    return a.dot(b);
-}
 
 // -----------------------------------------------------------------------------
 // Transforms

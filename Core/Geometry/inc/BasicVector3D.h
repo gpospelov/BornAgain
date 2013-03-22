@@ -18,8 +18,10 @@
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //!
 //! Changes w.r.t. CLHEP:
+//! - eliminated distinction vector/normal/point
 //! - eliminated support for type float
-//! - added support for type complex<double>
+//! - added support for types int and complex<double>
+//! - merged method implementations into templated ones
 //! - added some new methods
 //! - reworked doxygen comments
 //
@@ -49,48 +51,39 @@ template<class T> class BasicVector3D {
   public:
     //! Default constructor.
     //! It is protected - this class should not be instantiated directly.
-    BasicVector3D() { v_[0] = 0.0; v_[1] = 0.0; v_[2] = 0.0; }
-
-    //! Safe indexing of coordinates, for matrices, arrays, etc.
-    enum {
-        X = 0,                  //!< index for x-component
-        Y = 1,                  //!< index for y-component
-        Z = 2,                  //!< index for z-component
-        NUM_COORDINATES = 3,    //!< number of components
-        SIZE = NUM_COORDINATES  //!< number of components
-    };
+    BasicVector3D()
+    { v_[0] = 0.0; v_[1] = 0.0; v_[2] = 0.0; }
 
     //! Constructor from three numbers.
-    BasicVector3D(const T&x1, const T&y1, const T&z1) {
-        v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+    BasicVector3D(const T&x1, const T&y1, const T&z1)
+    { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     //! Destructor.
-    virtual ~BasicVector3D() {}
+    ~BasicVector3D() {}
 
     // -----------------------------
     // General arithmetic operations
     // -----------------------------
 
     //! Assignment.
-    inline BasicVector3D<T>& operator= (const BasicVector3D<T>& v) {
-        v_[0] = v.v_[0]; v_[1] = v.v_[1]; v_[2] = v.v_[2]; return *this;
-    }
+    inline BasicVector3D<T>& operator= (const BasicVector3D<T>& v)
+    { v_[0] = v.v_[0]; v_[1] = v.v_[1]; v_[2] = v.v_[2]; return *this; }
+
     //! Addition.
-    inline BasicVector3D<T>& operator+=(const BasicVector3D<T>& v) {
-        v_[0] += v.v_[0]; v_[1] += v.v_[1]; v_[2] += v.v_[2]; return *this;
-    }
+    inline BasicVector3D<T>& operator+=(const BasicVector3D<T>& v)
+    { v_[0] += v.v_[0]; v_[1] += v.v_[1]; v_[2] += v.v_[2]; return *this; }
+
     //! Subtraction.
-    inline BasicVector3D<T>& operator-=(const BasicVector3D<T>& v) {
-        v_[0] -= v.v_[0]; v_[1] -= v.v_[1]; v_[2] -= v.v_[2]; return *this;
-    }
+    inline BasicVector3D<T>& operator-=(const BasicVector3D<T>& v)
+    { v_[0] -= v.v_[0]; v_[1] -= v.v_[1]; v_[2] -= v.v_[2]; return *this; }
+
     //! Multiplication by scalar.
-    inline BasicVector3D<T>& operator*=(double a) {
-        v_[0] *= a; v_[1] *= a; v_[2] *= a; return *this;
-    }
+    inline BasicVector3D<T>& operator*=(double a)
+    { v_[0] *= a; v_[1] *= a; v_[2] *= a; return *this; }
+
     //! Division by scalar.
-    inline BasicVector3D<T>& operator/=(double a) {
-        v_[0] /= a; v_[1] /= a; v_[2] /= a; return *this;
-    }
+    inline BasicVector3D<T>& operator/=(double a)
+    { v_[0] /= a; v_[1] /= a; v_[2] /= a; return *this; }
 
     // ------------
     // Subscripting
@@ -121,8 +114,8 @@ template<class T> class BasicVector3D {
     inline void setZ(const T&a) { v_[2] = a; }
 
     //! Set components in cartesian coordinate system.
-    inline void setXYZ(const T&x1, const T&y1, const T&z1) {
-        v_[0] = x1; v_[1] = y1; v_[2] = z1; }
+    inline void setXYZ(const T&x1, const T&y1, const T&z1)
+    { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     // ----
     // Norm
@@ -161,18 +154,24 @@ template<class T> class BasicVector3D {
     // -------------------
 
     //! Scalar product.
-    T dot(const BasicVector3D<T>& v) const; //!< @TODO: return type always double
+    //!< @TODO: mathematically unsound, should always return real
+    T dot(const BasicVector3D<T>& v) const
+    { return x()*v.x()+y()*v.y()+z()*v.z(); }
 
     //! Vector product.
-    BasicVector3D<T> cross(const BasicVector3D<T>& v) const;
+    BasicVector3D<T> cross(const BasicVector3D<T>& v) const
+    {
+        return BasicVector3D<T> (y()*v.z() - z()*v.y(),
+                                 z()*v.x() - x()*v.z(),
+                                 x()*v.y() - y()*v.x() );
+    }
 
     //! Return square of transverse component with respect to given axis.
     double perp2(const BasicVector3D<T>& v) const;
 
     //! Return transverse component with respect to given axis.
-    inline T perp(const BasicVector3D<T>& v) const {
-        return std::sqrt(perp2(v));
-    }
+    inline T perp(const BasicVector3D<T>& v) const
+    { return std::sqrt(perp2(v)); }
 
     //! Return angle with respect to another vector.
     T angle(const BasicVector3D<T>& v) const;
@@ -181,7 +180,7 @@ template<class T> class BasicVector3D {
     // Related vectors
     // ---------------
 
-    //! Return unit vector parallel to this.
+    //! Return unit vector in direction of this (or null vector).
     inline BasicVector3D<T> unit() const {
         T len = mag();
         return (len > 0.0) ?
@@ -239,13 +238,15 @@ template<class T> class BasicVector3D {
 };
 
 // =========================================================================
-// Non-member functions for BasicVector3D<double>
+// Non-member functions for BasicVector3D<T>
 // =========================================================================
 
 //! Output to stream.
 //! @relates BasicVector3D
+template <class T>
 std::ostream&
-operator<<(std::ostream&, const BasicVector3D<double>&);
+operator<<(std::ostream& os, const BasicVector3D<T>& a)
+{ return os << "(" << a.x() << "," << a.y() << "," << a.z() << ")"; }
 
 // -----------------
 // Scalar operations
@@ -253,32 +254,38 @@ operator<<(std::ostream&, const BasicVector3D<double>&);
 
 //! Unary plus.
 //! @relates BasicVector3D
-inline BasicVector3D<double>
-operator+(const BasicVector3D<double>& v) { return v; }
+template <class T>
+inline BasicVector3D<T>
+operator+(const BasicVector3D<T>& v)
+{ return v; }
 
 //! Unary minus.
 //! @relates BasicVector3D
-inline BasicVector3D<double>
-operator-(const BasicVector3D<double>& v) {
-    return BasicVector3D<double>(-v.x(), -v.y(), -v.z()); }
+template <class T>
+inline BasicVector3D<T>
+operator-(const BasicVector3D<T>& v)
+{ return BasicVector3D<T>(-v.x(), -v.y(), -v.z()); }
 
 //! Multiplication vector by scalar.
 //! @relates BasicVector3D
-inline BasicVector3D<double>
-operator*(const BasicVector3D<double>& v, double a) {
-    return BasicVector3D<double>(v.x()*a, v.y()*a, v.z()*a); }
+template <class T, class U>
+inline BasicVector3D<T>
+operator*(const BasicVector3D<T>& v, U a)
+{ return BasicVector3D<T>(v.x()*a, v.y()*a, v.z()*a); }
 
 //! Multiplication scalar by vector.
 //! @relates BasicVector3D
-inline BasicVector3D<double>
-operator*(double a, const BasicVector3D<double>& v) {
-    return BasicVector3D<double>(a*v.x(), a*v.y(), a*v.z()); }
+template <class T, class U>
+inline BasicVector3D<T>
+operator*(U a, const BasicVector3D<T>& v)
+{ return BasicVector3D<T>(a*v.x(), a*v.y(), a*v.z()); }
 
 //! Division vector by scalar.
 //! @relates BasicVector3D
-inline BasicVector3D<double>
-operator/(const BasicVector3D<double>& v, double a) {
-    return BasicVector3D<double>(v.x()/a, v.y()/a, v.z()/a); }
+template <class T, class U>
+inline BasicVector3D<T>
+operator/(const BasicVector3D<T>& v, U a)
+{ return BasicVector3D<T>(v.x()/a, v.y()/a, v.z()/a); }
 
 // -----------------------------------
 // Operations involving another vector
@@ -286,53 +293,60 @@ operator/(const BasicVector3D<double>& v, double a) {
 
 //! Addition of two vectors.
 //! @relates BasicVector3D
-inline BasicVector3D<double>
-operator+(const BasicVector3D<double>& a,const BasicVector3D<double>& b) {
-    return BasicVector3D<double>(a.x()+b.x(), a.y()+b.y(), a.z()+b.z()); }
+template <class T>
+inline BasicVector3D<T>
+operator+(const BasicVector3D<T>& a,const BasicVector3D<T>& b)
+{ return BasicVector3D<T>(a.x()+b.x(), a.y()+b.y(), a.z()+b.z()); }
 
 //! Subtraction of two vectors.
 //! @relates BasicVector3D
-inline BasicVector3D<double>
-operator-(const BasicVector3D<double>& a,const BasicVector3D<double>& b) {
-    return BasicVector3D<double>(a.x()-b.x(), a.y()-b.y(), a.z()-b.z());
-}
+template <class T>
+inline BasicVector3D<T>
+operator-(const BasicVector3D<T>& a,const BasicVector3D<T>& b)
+{ return BasicVector3D<T>(a.x()-b.x(), a.y()-b.y(), a.z()-b.z()); }
 
-//! Scalar product of two vectors, as operator.
-//! @relates BasicVector3D
-double operator*(const BasicVector3D<double>& a,
-                 const BasicVector3D<double>& b);
+
+// //! Scalar product of two vectors, as operator.
+// //! @relates BasicVector3D
+//
+// Disabled: prefer dotProduct(a,b) or a.dot(b) over a*b
+//           to prevent casual developers from misunderstandings
+//
+// template <class T>
+// inline T operator*(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+// { return a.dot(b); }
 
 //! Scalar product of two vectors, as function.
 //! @relates BasicVector3D
-inline double DotProduct(const BasicVector3D<double>&left,
-                         const BasicVector3D<double>&right)
-{
-    return left.x()*right.x() + left.y()*right.y() + left.z()*right.z();
-}
+template <class T>
+inline T
+dotProduct(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+{ return a.dot(b); }
 
 //! Cross product.
 //! @relates BasicVector3D
-inline BasicVector3D<double>
-CrossProduct(const BasicVector3D<double>&left,
-             const BasicVector3D<double>&right)
-{
-    double x = left.y()*right.z() - left.z()*right.y();
-    double y = left.z()*right.x() - left.x()*right.z();
-    double z = left.x()*right.y() - left.y()*right.x();
-    return BasicVector3D<double> (x, y, z);
-}
+template <class T>
+inline BasicVector3D<T>
+crossProduct(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+{ return a.cross(b); }
 
 //! Comparison of two vectors for equality.
 //! @relates BasicVector3D
+template <class T>
 inline bool
-operator==(const BasicVector3D<double>& a, const BasicVector3D<double>& b)
-    { return (a.x()==b.x()&& a.y()==b.y()&& a.z()==b.z()); }
+operator==(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+{ return (a.x()==b.x()&& a.y()==b.y()&& a.z()==b.z()); }
 
 //! Comparison of two vectors for inequality.
 //! @relates BasicVector3D
+template <class T>
 inline bool
-operator!=(const BasicVector3D<double>& a, const BasicVector3D<double>& b)
-    { return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z()); }
+operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+{ return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z()); }
+
+// =========================================================================
+// Non-member functions for BasicVector3D<..specific..>
+// =========================================================================
 
 // ----------
 // Transforms
@@ -342,109 +356,6 @@ operator!=(const BasicVector3D<double>& a, const BasicVector3D<double>& b)
 //! @relates BasicVector3D
 BasicVector3D<double>
 operator*(const Transform3D& m, const BasicVector3D<double>& v);
-
-// =========================================================================
-// Non-member functions for BasicVector3D<std::complex<double> >
-// =========================================================================
-
-//! Output to stream.
-//! @relates BasicVector3D
-std::ostream&
-operator<<(std::ostream&, const BasicVector3D<std::complex<double> >&);
-
-// -----------------
-// Scalar operations
-// -----------------
-
-//! Unary plus.
-//! @relates BasicVector3D
-inline BasicVector3D<std::complex<double> >
-operator+(const BasicVector3D<std::complex<double> >& v) { return v; }
-
-//! Unary minus.
-//! @relates BasicVector3D
-inline BasicVector3D<std::complex<double> >
-operator-(const BasicVector3D<std::complex<double> >& v) {
-    return BasicVector3D<std::complex<double> >(-v.x(), -v.y(), -v.z());
-}
-
-//! Multiplication vector by scalar.
-//! @relates BasicVector3D
-inline BasicVector3D<std::complex<double> >
-operator*(const BasicVector3D<const std::complex<double> >& v,
-          const std::complex<double>&a) {
-    return BasicVector3D<std::complex<double> >(v.x()*a, v.y()*a, v.z()*a);
-}
-
-//! Multiplication scalar by vector.
-//! @relates BasicVector3D
-inline BasicVector3D<std::complex<double> >
-operator*(const std::complex<double>&a,
-          const BasicVector3D<std::complex<double> >& v) {
-    return BasicVector3D<std::complex<double> >(a*v.x(), a*v.y(), a*v.z());
-}
-
-//! Division vector by scalar.
-//! @relates BasicVector3D
-inline BasicVector3D<std::complex<double> >
-operator/(const BasicVector3D<std::complex<double> >& v,
-          const std::complex<double>&a) {
-    return BasicVector3D<std::complex<double> >(v.x()/a, v.y()/a, v.z()/a);
-}
-
-// -----------------------------------
-// Operations involving another vector
-// -----------------------------------
-
-//! Addition of two vectors.
-//! @relates BasicVector3D
-inline BasicVector3D<std::complex<double> >
-operator+(const BasicVector3D<std::complex<double> >& a,
-          const BasicVector3D<std::complex<double> >& b) {
-    return BasicVector3D<std::complex<double> >(
-        a.x()+b.x(), a.y()+b.y(), a.z()+b.z() );
-}
-
-//! Subtraction of two vectors.
-//! @relates BasicVector3D
-inline BasicVector3D<std::complex<double> >
-operator-(const BasicVector3D<std::complex<double> >& a,
-          const BasicVector3D<std::complex<double> >& b) {
-    return BasicVector3D<std::complex<double> >(
-        a.x()-b.x(), a.y()-b.y(), a.z()-b.z() );
-}
-
-//! Cross product.
-//! @relates BasicVector3D
-inline BasicVector3D<std::complex<double> >
-CrossProduct(const BasicVector3D<std::complex<double> >&left,
-             const BasicVector3D<std::complex<double> >&right)
-{
-    std::complex<double> x = left.y()*right.z() - left.z()*right.y();
-    std::complex<double> y = left.z()*right.x() - left.x()*right.z();
-    std::complex<double> z = left.x()*right.y() - left.y()*right.x();
-    return BasicVector3D<std::complex<double> > (x, y, z);
-}
-
-//! Comparison of two vectors for equality.
-//! @relates BasicVector3D
-inline bool
-operator==(const BasicVector3D<std::complex<double> >& a,
-           const BasicVector3D<std::complex<double> >& b) {
-    return (a.x()==b.x()&& a.y()==b.y()&& a.z()==b.z());
-}
-
-//! Comparison of two vectors for inequality.
-//! @relates BasicVector3D
-inline bool
-operator!=(const BasicVector3D<std::complex<double> >& a,
-           const BasicVector3D<std::complex<double> >& b) {
-    return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z());
-}
-
-// ----------
-// Transforms
-// ----------
 
 //! Transformation of BasicVector3D<double> by Transform3D.
 //! @relates BasicVector3D

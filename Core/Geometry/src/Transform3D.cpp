@@ -99,8 +99,8 @@ Transform3D::Transform3D(const Point3D<double> & fr0,
     // -- Check angles --
     
     double cos1, cos2;
-    cos1 = x1*y1;
-    cos2 = x2*y2;
+    cos1 = x1.dot(y1);
+    cos2 = x2.dot(y2);
     
     if (std::abs(1.0-cos1) <= 0.000001 || std::abs(1.0-cos2) <= 0.000001) {
         std::cerr << "Transform3D: zero angle between axes" << std::endl;

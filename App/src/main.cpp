@@ -4,7 +4,7 @@
 #include "AppOptionsDescription.h"
 #include "CoreOptionsDescription.h"
 #include "Version.h"
-#include "MessageSvc.h"
+#include "MessageService.h"
 
 #include <iostream>
 #include <string>

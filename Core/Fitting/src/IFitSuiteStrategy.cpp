@@ -24,7 +24,7 @@
 #include "IMinimizer.h"
 #include "MathFunctions.h"
 #include "OutputDataFunctions.h"
-#include "MessageSvc.h"
+#include "MessageService.h"
 #include <iostream>
 
 //! Default fit strategy just let FitSuite to run it's minimization round
@@ -78,7 +78,7 @@ void FitSuiteStrategyAdjustData::execute()
 
     // setting back original data
     if(m_preserve_original_data) {
-        log(MSG::INFO) << "FitSuiteStrategyAdjustData::execute() -> Returning original data back ";
+        msglog(MSG::INFO) << "FitSuiteStrategyAdjustData::execute() -> Returning original data back ";
         for(size_t i_exp = 0; i_exp<m_fit_suite->getFitObjects()->size(); ++i_exp) {
             m_fit_suite->getFitObjects()->setRealData(*original_data_collection[i_exp], i_exp);
             delete original_data_collection[i_exp];
@@ -103,20 +103,20 @@ void FitSuiteStrategyAdjustParameters::execute()
     // releasing all parameters
     if( m_release_all ) {
         for(FitSuiteParameters::iterator it = fitParameters->begin(); it!=fitParameters->end(); ++it) {
-            log(MSG::DEBUG) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it)->getName();
+            msglog(MSG::DEBUG) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it)->getName();
             (*it)->setFixed(false);
         }
     }
 
     // fixing dedicated list of fit parameters
     for(std::vector<std::string >::iterator it = m_pars_to_fix.begin(); it!= m_pars_to_fix.end(); ++it) {
-        log(MSG::DEBUG) << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << (*it);
+        msglog(MSG::DEBUG) << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << (*it);
         fitParameters->getParameter((*it))->setFixed(true);
     }
 
     // releasing dedicated list of fit parameters
     for(std::vector<std::string >::iterator it = m_pars_to_release.begin(); it!= m_pars_to_release.end(); ++it) {
-        log(MSG::DEBUG) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it);
+        msglog(MSG::DEBUG) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it);
         fitParameters->getParameter((*it))->setFixed(false);
     }
 

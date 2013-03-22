@@ -15,7 +15,7 @@
 
 #include "FitSuiteFunctions.h"
 #include "FitSuite.h"
-#include "MessageSvc.h"
+#include "MessageService.h"
 #include <iomanip>
 
 //! evaluate chi squared value
@@ -86,16 +86,16 @@ void FitSuiteGradientFunction::verify_minimizer_logic(bool parameters_have_chang
 {
     int index_difference = current_index - m_prev_index;
     if(index_difference != 1 && (current_index!=0 && int(m_prev_index)!= int(m_ndatasize-1) ) ) {
-        log(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Non sequential access to elements.";
-        log(MSG::WARNING) << " current_index:" << current_index << " prev_index:" << m_prev_index;
+        msglog(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Non sequential access to elements.";
+        msglog(MSG::WARNING) << " current_index:" << current_index << " prev_index:" << m_prev_index;
     }
     if(parameters_have_changed && current_index != 0) {
-        log(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Parameters have changed while current_index!=0";
-        log(MSG::WARNING) << " current_index:" << current_index << " prev_index:" << m_prev_index;
+        msglog(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Parameters have changed while current_index!=0";
+        msglog(MSG::WARNING) << " current_index:" << current_index << " prev_index:" << m_prev_index;
     }
     if(parameters_have_changed && current_index == m_prev_index) {
-        log(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Parameters have changed while index remained the same";
-        log(MSG::WARNING) << " current_index:" << current_index << " prev_index:" << m_prev_index;
+        msglog(MSG::WARNING) << "FitSuiteGradientFunction::verify_minimizer_logic() -> Warning! Parameters have changed while index remained the same";
+        msglog(MSG::WARNING) << " current_index:" << current_index << " prev_index:" << m_prev_index;
     }
     m_prev_index = current_index;
 }

@@ -20,7 +20,7 @@
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "DoubleToComplexMap.h"
 #include "ExperimentConstants.h"
-#include "MessageSvc.h"
+#include "MessageService.h"
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(
         const MultiLayer* p_multi_layer) : mp_roughness_dwba_simulation(0)
@@ -72,7 +72,7 @@ void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo &thread_info)
 
 void MultiLayerDWBASimulation::run()
 {
-    log(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> Running thread " << m_thread_info.i_thread;
+    msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> Running thread " << m_thread_info.i_thread;
     OpticalFresnel fresnelCalculator;
 
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());

@@ -11,7 +11,7 @@
 #include "Simulation.h"
 #include "Units.h"
 #include "Utils.h"
-#include "MessageSvc.h"
+#include "MessageService.h"
 
 #include <iostream>
 #include <cmath>

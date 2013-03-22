@@ -1,1 +1,0 @@
-../../../Core/PythonAPI//src/ScaleX3D.pypp.cpp

@@ -18,7 +18,7 @@
 #include "Utils.h"
 #include "Types.h"
 #include "ExperimentConstants.h"
-#include "MessageSvc.h"
+#include "MessageService.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -52,32 +52,32 @@ void TestMiscellaneous::test_LogSystem()
 
     MSG::SetLevel(MSG::FATAL);
 
-    log(MSG::VERBOSE) << "This is VERBOSE";
-    log(MSG::DEBUG)   << "This is DEBUG";
-    log(MSG::INFO)    << "This is INFO";
-    log(MSG::WARNING) << "This is WARNING";
-    log(MSG::ERROR)   << "This is ERROR";
-    log(MSG::FATAL)   << "This is FATAL" << "and something" << 0;
+    msglog(MSG::VERBOSE) << "This is VERBOSE";
+    msglog(MSG::DEBUG)   << "This is DEBUG";
+    msglog(MSG::INFO)    << "This is INFO";
+    msglog(MSG::WARNING) << "This is WARNING";
+    msglog(MSG::ERROR)   << "This is ERROR";
+    msglog(MSG::FATAL)   << "This is FATAL" << "and something" << 0;
 
     std::cout << "----" << std::endl;
 
     MSG::SetLevel(MSG::ERROR);
-    log(MSG::VERBOSE) << "This is VERBOSE";
-    log(MSG::DEBUG)   << "This is DEBUG";
-    log(MSG::INFO)    << "This is INFO";
-    log(MSG::WARNING) << "This is WARNING";
-    log(MSG::ERROR)   << "This is ERROR";
-    log(MSG::FATAL)   << "This is FATAL";
+    msglog(MSG::VERBOSE) << "This is VERBOSE";
+    msglog(MSG::DEBUG)   << "This is DEBUG";
+    msglog(MSG::INFO)    << "This is INFO";
+    msglog(MSG::WARNING) << "This is WARNING";
+    msglog(MSG::ERROR)   << "This is ERROR";
+    msglog(MSG::FATAL)   << "This is FATAL";
 
     std::cout << "----" << std::endl;
 
     MSG::SetLevel(MSG::INFO);
-    log(MSG::VERBOSE) << "This is VERBOSE";
-    log(MSG::DEBUG)   << "This is DEBUG";
-    log(MSG::INFO)    << "This is INFO";
-    log(MSG::WARNING) << "This is WARNING";
-    log(MSG::ERROR)   << "This is ERROR";
-    log(MSG::FATAL)   << "This is FATAL";
+    msglog(MSG::VERBOSE) << "This is VERBOSE";
+    msglog(MSG::DEBUG)   << "This is DEBUG";
+    msglog(MSG::INFO)    << "This is INFO";
+    msglog(MSG::WARNING) << "This is WARNING";
+    msglog(MSG::ERROR)   << "This is ERROR";
+    msglog(MSG::FATAL)   << "This is FATAL";
 
 
 }

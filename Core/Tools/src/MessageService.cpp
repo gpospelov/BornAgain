@@ -1,4 +1,4 @@
-#include "MessageSvc.h"
+#include "MessageService.h"
 #include <boost/assign/list_of.hpp>
 #include "Exceptions.h"
 #include <sys/time.h>
@@ -38,3 +38,5 @@ void Logger::SetLevel(const std::string &levelname)
 }
 
 }
+
+

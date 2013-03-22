@@ -29,7 +29,7 @@ void AddCoreOptions(ProgramOptions *p_options)
     core_options.add_options()
             ("threads", bpo::value<int>()->default_value(-1), "number of threads\n"
              "arg<0 - no threads, arg=0 - system optimal, otherwise specified number of threads.")
-             ("msgsvc", bpo::value<std::string>()->default_value("ERROR"), "Logging at one of the levels "
+             ("msglog", bpo::value<std::string>()->default_value("ERROR"), "Logging at one of the levels "
               "VERBOSE, DEBUG, INFO, WARNING, ERROR, FATAL"
              );
     // adding options into main options holder

@@ -15,7 +15,7 @@
 
 #include "ProgramOptions.h"
 #include "Utils.h"
-#include "MessageSvc.h"
+#include "MessageService.h"
 
 #include <boost/program_options/config.hpp>
 #include <boost/program_options/parsers.hpp>
@@ -64,7 +64,7 @@ void ProgramOptions::parseCommandLine(int argc, char **argv)
     }
     catch(std::exception& e) {
         // we get here if there is unrecognized options
-        log(MSG::ERROR) << "ProgramOptions::parseCommanLine() -> Error. Unrecognized options in command line.";
+        msglog(MSG::ERROR) << "ProgramOptions::parseCommanLine() -> Error. Unrecognized options in command line.";
         std::cerr << "error: " << e.what() << "\n";
         throw; // throwing it further to terminate program
     }
@@ -84,13 +84,13 @@ void ProgramOptions::parseConfigFile()
     // definition of config file name in command line options overrides default name
     if (m_variables_map.count("config") ) {
         config_file = m_variables_map["config"].as<std::string >();
-        log(MSG::INFO) << "ProgramOptions::parseConfigFile() -> Name of config file '" << config_file << "'";
+        msglog(MSG::INFO) << "ProgramOptions::parseConfigFile() -> Name of config file '" << config_file << "'";
     }
 
     std::string config_full_name = Utils::FileSystem::GetHomePath()+config_file;
     std::ifstream ifs(config_full_name.c_str());
     if (!ifs) {
-        log(MSG::WARNING) << "ProgramOptions::parseConfigFile() -> Can not open config file: " << config_file;
+        msglog(MSG::WARNING) << "ProgramOptions::parseConfigFile() -> Can not open config file: " << config_file;
     } else {
 
         // parsing config file
@@ -102,7 +102,7 @@ void ProgramOptions::parseConfigFile()
         }
         catch(std::exception& e) {
             // we get here if there is unrecognized options
-            log(MSG::ERROR) << "ProgramOptions::parseConfigFile() -> Unrecognized options in file '" << config_file << "'";
+            msglog(MSG::ERROR) << "ProgramOptions::parseConfigFile() -> Unrecognized options in file '" << config_file << "'";
             std::cerr << "error: " << e.what() << "\n";
             throw; // throwing it further to terminate program
         }

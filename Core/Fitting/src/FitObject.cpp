@@ -15,7 +15,7 @@
 
 #include "FitObject.h"
 #include "Exceptions.h"
-#include "MessageSvc.h"
+#include "MessageService.h"
 
 FitObject::FitObject(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module, double weight)
     : m_simulation(simulation.clone())
@@ -25,9 +25,9 @@ FitObject::FitObject(const Simulation &simulation, const OutputData<double > &re
 {
     setName("FitObject");
     if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
-        log(MSG::INFO) << "FitObject::FitObject() -> Info. Real data and output data in the simulation have different shape. Adjusting simulation's detector.";
+        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. Real data and output data in the simulation have different shape. Adjusting simulation's detector.";
     } else {
-        log(MSG::INFO) << "FitObject::FitObject() -> Info. Real data and output data in the simulation have same shape.";
+        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. Real data and output data in the simulation have same shape.";
     }
     m_simulation->setDetectorParameters(*m_real_data);
 }
@@ -46,9 +46,9 @@ void FitObject::setRealData(const OutputData<double > &real_data)
     m_real_data = real_data.clone();
     if( m_simulation) {
         if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
-            log(MSG::INFO) << "FitObject::setRealData() -> Real data and the detector have different shape. Adjusting detector...";
+            msglog(MSG::INFO) << "FitObject::setRealData() -> Real data and the detector have different shape. Adjusting detector...";
         } else {
-            log(MSG::INFO) << "FitObject::setRealData() -> Real data and the detector have same shape. No need to adjust detector.";
+            msglog(MSG::INFO) << "FitObject::setRealData() -> Real data and the detector have same shape. No need to adjust detector.";
         }
         m_simulation->setDetectorParameters(*m_real_data);
     }

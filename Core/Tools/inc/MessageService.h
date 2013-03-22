@@ -51,13 +51,12 @@ private:
     std::ostringstream m_buffer;
 };
 
-
 inline void SetLevel(MessageLevel level) { Logger::SetLevel(level); }
 inline void SetLevel(const std::string &levelname) { Logger::SetLevel(levelname); }
 
 }
 
-#define log(level) \
+#define msglog(level) \
 if (level < MSG::Logger::GetLevel()) ; \
 else MSG::Logger(level)
 

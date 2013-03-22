@@ -6,7 +6,7 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
 QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
-#CONFIG  += BORNAGAIN_PYTHON
+CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
 # source and headers
@@ -25,7 +25,6 @@ SOURCES += \
     Tools/src/IObserver.cpp \
     Tools/src/IParameterized.cpp \
     Tools/src/MathFunctions.cpp \
-    Tools/src/MessageSvc.cpp \
     Tools/src/OutputData.cpp \
     Tools/src/OutputDataFunctions.cpp \
     Tools/src/OutputDataIOFactory.cpp \
@@ -125,7 +124,8 @@ SOURCES += \
     Fitting/src/FitSuiteStrategies.cpp \
     Fitting/src/IFitSuiteStrategy.cpp \
     Fitting/src/MinimizerScan.cpp \
-    Fitting/src/MinimizerTest.cpp
+    Fitting/src/MinimizerTest.cpp \
+    Tools/src/MessageService.cpp
 
 HEADERS += \
     Geometry/inc/BasicVector3D.h \
@@ -156,7 +156,6 @@ HEADERS += \
     Tools/inc/MathFunctions.h \
     Tools/inc/MemberComplexFunctionIntegrator.h \
     Tools/inc/MemberFunctionIntegrator.h \
-    Tools/inc/MessageSvc.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
     Tools/inc/OutputDataFunctions.h \
@@ -298,7 +297,8 @@ HEADERS += \
     Fitting/inc/IFitSuiteStrategy.h \
     Fitting/inc/IMinimizer.h \
     Fitting/inc/MinimizerScan.h \
-    Fitting/inc/MinimizerTest.h
+    Fitting/inc/MinimizerTest.h \
+    Tools/inc/MessageService.h
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)

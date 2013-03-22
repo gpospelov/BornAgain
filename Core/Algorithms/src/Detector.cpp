@@ -18,7 +18,7 @@
 #include "AxisBin.h"
 #include "AxisDouble.h"
 #include "ExperimentConstants.h"
-#include "MessageSvc.h"
+#include "MessageService.h"
 
 #include <iostream>
 
@@ -107,7 +107,7 @@ void Detector::applyDetectorResolution(OutputData<double>* p_intensity_map) cons
     if (mp_detector_resolution) {
         mp_detector_resolution->applyDetectorResolution(p_intensity_map);
     } else {
-        log(MSG::WARNING) << "Detector::applyDetectorResolution() -> No detector resolution function found";
+        msglog(MSG::WARNING) << "Detector::applyDetectorResolution() -> No detector resolution function found";
     }
 }
 
@@ -201,7 +201,7 @@ double Detector::getSolidAngle(OutputData<double>* p_data, size_t index) const
         }
         dalpha = std::abs(dalpha);
     } else {
-        log(MSG::WARNING) << "Simulation::getSolidAngle() -> Only one bin on alpha_f axis, size of the bin will be taken from phi_f axis";
+        msglog(MSG::WARNING) << "Simulation::getSolidAngle() -> Only one bin on alpha_f axis, size of the bin will be taken from phi_f axis";
     }
     if(phi_size > 1) {
         if (phi_index==0) {
@@ -215,10 +215,10 @@ double Detector::getSolidAngle(OutputData<double>* p_data, size_t index) const
         }
         dphi = std::abs(dphi);
     } else {
-        log(MSG::WARNING) << "Simulation::getSolidAngle() -> Only one bin on phi_f axis, size of the bin will be taken from alpha_f axis.";
+        msglog(MSG::WARNING) << "Simulation::getSolidAngle() -> Only one bin on phi_f axis, size of the bin will be taken from alpha_f axis.";
     }
     if(!dalpha || !dphi) {
-        log(MSG::WARNING) << "Simulation::getSolidAngle() -> Not defined normalization.";
+        msglog(MSG::WARNING) << "Simulation::getSolidAngle() -> Not defined normalization.";
         return 1;
     } else {
         return cos_alpha_f*dalpha*dphi;

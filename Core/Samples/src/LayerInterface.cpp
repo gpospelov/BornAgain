@@ -14,7 +14,7 @@
 // ************************************************************************** //
 
 #include "LayerInterface.h"
-#include "MessageSvc.h"
+#include "MessageService.h"
 #include <iostream>
 #include <iomanip>
 
@@ -51,7 +51,7 @@ LayerInterface *LayerInterface::createRoughInterface(const Layer *p_layer_top, c
 void LayerInterface::setRoughness(const LayerRoughness &roughness)
 {
     if(m_roughness) {
-        log(MSG::WARNING) << "LayerInterface::setRoughness() -> Info. Roughness already assigned to given interface, removing it ";
+        msglog(MSG::WARNING) << "LayerInterface::setRoughness() -> Info. Roughness already assigned to given interface, removing it ";
         deregisterChild(m_roughness);
         delete m_roughness;
         m_roughness=0;

@@ -15,7 +15,7 @@
 
 #include "FitSuiteStrategies.h"
 #include "FitSuite.h"
-#include "MessageSvc.h"
+#include "MessageService.h"
 #include <cassert>
 
 FitSuiteStrategies::FitSuiteStrategies() : m_fit_suite(0), m_current_strategy_index(0)
@@ -47,7 +47,7 @@ void FitSuiteStrategies::minimize()
          m_fit_suite->minimize();
     } else {
         for(strategies_t::iterator it=m_strategies.begin(); it!=m_strategies.end(); ++it) {
-            log(MSG::INFO) << "FitSuiteStrategies::minimize() -> Running strategy #" << m_current_strategy_index << " '" << (*it)->getName() << "'";
+            msglog(MSG::INFO) << "FitSuiteStrategies::minimize() -> Running strategy #" << m_current_strategy_index << " '" << (*it)->getName() << "'";
             (*it)->execute();
             ++m_current_strategy_index;
         }

@@ -1,1 +1,0 @@
-../../../Core/PythonAPI//src/ScaleZ3D.pypp.cpp

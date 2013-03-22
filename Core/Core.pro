@@ -6,7 +6,7 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
 QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
-#CONFIG  += BORNAGAIN_PYTHON
+CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
 # source and headers
@@ -135,7 +135,6 @@ HEADERS += \
     Tools/inc/AxisDouble.h \
     Tools/inc/Bin.h \
     Tools/inc/Convolve.h \
-    Tools/inc/Coordinate3D.h \
     Tools/inc/CoreOptionsDescription.h \
     Tools/inc/DoubleToComplexInterpolatingFunction.h \
     Tools/inc/DoubleToComplexMap.h \

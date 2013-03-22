@@ -83,7 +83,11 @@ void register_Transform3D_class(){
         typedef bp::class_< Geometry::Transform3D > Transform3D_exposer_t;
         Transform3D_exposer_t Transform3D_exposer = Transform3D_exposer_t( "Transform3D", bp::init< >() );
         bp::scope Transform3D_scope( Transform3D_exposer );
-        bp::class_< Geometry::Transform3D::Transform3D_row, boost::noncopyable >( "Transform3D_row", bp::no_init );
+        bp::class_< Geometry::Transform3D::Transform3D_row, boost::noncopyable >( "Transform3D_row", bp::init< Geometry::Transform3D const &, int >(( bp::arg("r"), bp::arg("i") )) )    
+            .def( 
+                "__getitem__"
+                , (double ( ::Geometry::Transform3D::Transform3D_row::* )( int ) const)( &::Geometry::Transform3D::Transform3D_row::operator[] )
+                , ( bp::arg("jj") ) );
         Transform3D_exposer.def( bp::init< Geometry::Transform3D const & >(( bp::arg("m") )) );
         { //::Geometry::Transform3D::dx
         
@@ -165,6 +169,16 @@ void register_Transform3D_class(){
         
         }
         Transform3D_exposer.def( bp::self == bp::self );
+        { //::Geometry::Transform3D::operator[]
+        
+            typedef ::Geometry::Transform3D::Transform3D_row const ( ::Geometry::Transform3D::*__getitem___function_type )( int ) const;
+            
+            Transform3D_exposer.def( 
+                "__getitem__"
+                , __getitem___function_type( &::Geometry::Transform3D::operator[] )
+                , ( bp::arg("i") ) );
+        
+        }
         { //::Geometry::Transform3D::setIdentity
         
             typedef void ( ::Geometry::Transform3D::*setIdentity_function_type )(  ) ;

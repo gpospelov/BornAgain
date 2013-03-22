@@ -191,5 +191,10 @@
 # Release-0.6 clang -O2
 2013-03-20 15:51:38 | jcnsopc73  | macosx64, 2800 MHz      | 281690  | 24.6914 | 24.3902 | 5.88235 | 
 # after implementing logging system, it is slower, but it must be fluctuations
+# (and ./App --mesocrystal2 gives  25.57 (4 threads), 51.53 (1 thread))
 2013-03-20 16:50:02 | jcnsopc73  | macosx64, 2800 MHz      | 270270  | 22.9885 | 22.2222 | 5.71429 | 
+ 
+# after changes in BasicVector3D from Joachim 
+# (and ./App --mesocrystal2 gives  24.77 (4 threads), 54.66 (1 thread))
+2013-03-21 10:19:28 | jcnsopc73  | macosx64, 2800 MHz      | 285714  | 24.0964 | 22.9885 | 5.71429 | 
 

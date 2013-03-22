@@ -6,7 +6,7 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
 QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
-#CONFIG  += BORNAGAIN_PYTHON
+CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
 # source and headers
@@ -24,7 +24,6 @@ SOURCES += \
     Tools/src/IFactory.cpp \
     Tools/src/IObserver.cpp \
     Tools/src/IParameterized.cpp \
-    Tools/src/ISingleton.cpp \
     Tools/src/MathFunctions.cpp \
     Tools/src/MessageSvc.cpp \
     Tools/src/OutputData.cpp \

@@ -17,9 +17,8 @@ M_PI = numpy.pi
 # ----------------------------------
 def RunSimulation_lattice():
 # defining materials
-    matMng = MaterialManager.instance()
-    mAmbience = matMng.addHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = matMng.addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
     # collection of particles
     lattice_params = Lattice2DIFParameters()
     lattice_params.m_length_1 = 10.0*nanometer
@@ -71,9 +70,8 @@ def RunSimulation_lattice():
 # ----------------------------------
 def RunSimulation_centered():
     # defining materials
-    matMng = MaterialManager.instance()
-    mAmbience = matMng.addHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = matMng.addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
     # collection of particles
     lattice_params = Lattice2DIFParameters()
     lattice_params.m_length_1 = 10.0*nanometer
@@ -130,9 +128,8 @@ def RunSimulation_centered():
 # ----------------------------------
 def RunSimulation_rotated():
 # defining materials
-    matMng = MaterialManager.instance()
-    mAmbience = matMng.addHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = matMng.addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
     # collection of particles
     lattice_params = Lattice2DIFParameters()
     lattice_params.m_length_1 = 10.0*nanometer
@@ -219,9 +216,8 @@ def RunSimulation_variants():
 # IsGISAXS6 functional test sample builder for varying xi angle
 def buildSample(xi_value):
     n_particle = complex(1.0-6e-4, 2e-8)
-    matMng = MaterialManager.instance()
-    mAmbience = matMng.addHomogeneousMaterial("Air", 1.0, 0.0 )
-    mSubstrate = matMng.addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+    mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+    mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
     air_layer = Layer(mAmbience)
     substrate_layer = Layer(mSubstrate)
     

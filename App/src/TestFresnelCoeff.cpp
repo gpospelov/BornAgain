@@ -146,7 +146,7 @@ void TestFresnelCoeff::draw_standard_samples()
     os << (ncall++) << std::endl;
     std::string cname = std::string("c1_test_fresnel_sample")+os.str();
     TCanvas *c1 = new TCanvas(cname.c_str(),"Fresnel Coefficients in Multilayer",1024,768);
-    DrawHelper::instance().SetMagnifier(c1);
+    DrawHelper::SetMagnifier(c1);
 
     // estimate subdivision of canvas (we need place for 'nlayers' and for one sample picture)
     int ndiv(2);
@@ -210,7 +210,7 @@ void TestFresnelCoeff::draw_standard_samples()
 
     // drawing sample geometry
     c1->cd((int)nlayers+1);
-    DrawHelper::instance().DrawMultilayer(mp_sample);
+    DrawHelper::DrawMultilayer(mp_sample);
 }
 
 /* ************************************************************************* */
@@ -305,7 +305,7 @@ void TestFresnelCoeff::draw_roughness_set()
     os << (ncall++) << std::endl;
     std::string cname = std::string("c1_test_fresnel_roughness")+os.str();
     TCanvas *c1 = new TCanvas(cname.c_str(),"Fresnel Coefficients in Multilayer",1024,768);
-    DrawHelper::instance().SetMagnifier(c1);
+    DrawHelper::SetMagnifier(c1);
 
     // estimate subdivision of canvas (we need place for 'nlayers' and for one sample picture)
     int ndiv(2);
@@ -360,6 +360,6 @@ void TestFresnelCoeff::draw_roughness_set()
 
     // drawing sample geometry
     c1->cd((int)nlayers+1);
-    DrawHelper::instance().DrawMultilayer(mp_sample);
+    DrawHelper::DrawMultilayer(mp_sample);
 }
 

@@ -25,37 +25,36 @@ class TBenchmark;
 class ProgramOptions;
 
 class FunctionalTestFactory : public ISingleton<FunctionalTestFactory>, public IFactory<std::string, IFunctionalTest>
-//before it was template class ISingleton<IFactory<std::string, IFunctionalTest> >;
 {
 public:
-    typedef DescriptionMap_t::iterator iterator;
-    typedef DescriptionMap_t::const_iterator const_iterator;
-
     FunctionalTestFactory();
     virtual ~FunctionalTestFactory();
 
     //! execute specified test
-    void execute(std::string name, ProgramOptions *p_options);
+    static void execute(std::string name, ProgramOptions *p_options) { instance().this_execute(name, p_options); }
 
     //! profile specified test
-    void profile(std::string name, ProgramOptions *p_options);
+    static void profile(std::string name, ProgramOptions *p_options)  { instance().this_profile(name, p_options); }
 
     //! execute all registered tests
-    void execute_all(ProgramOptions *p_options);
+    static void execute_all(ProgramOptions *p_options)  { instance().this_execute_all(p_options); }
 
     //! print names of registered tests
-    void print_testnames();
+    static void print_testnames() { instance().this_print_testnames(); }
 
     //! print benchmark summary
-    void print_benchmarks();
+    static void print_benchmarks() { instance().this_print_benchmarks(); }
 
-    //! return vector of registered test names and they desciptions map["name"]="description"
-    DescriptionMap_t getDescriptionMap();
-
-    iterator begin() { return m_descriptions.begin(); }
-    iterator end() { return m_descriptions.end(); }
+    static iterator begin() { return instance().m_descriptions.begin(); }
+    static iterator end() { return instance().m_descriptions.end(); }
 
 private:
+    void this_execute(std::string name, ProgramOptions *p_options);
+    void this_profile(std::string name, ProgramOptions *p_options);
+    void this_execute_all(ProgramOptions *p_options);
+    void this_print_testnames();
+    void this_print_benchmarks();
+
     TBenchmark *m_benchmark;
 };
 

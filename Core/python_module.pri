@@ -33,6 +33,7 @@ HEADERS +=  \
     PythonAPI/inc/IFTDistribution2D.pypp.h \
     PythonAPI/inc/IInterferenceFunction.pypp.h \
     PythonAPI/inc/IMaterial.pypp.h \
+    PythonAPI/inc/IndexVector3D.pypp.h \
     PythonAPI/inc/Instrument.pypp.h \
     PythonAPI/inc/InterferenceFunction1DParaCrystal.pypp.h \
     PythonAPI/inc/InterferenceFunction2DLattice.pypp.h \
@@ -134,6 +135,7 @@ SOURCES +=  \
     PythonAPI/src/IFTDistribution2D.pypp.cpp \
     PythonAPI/src/IInterferenceFunction.pypp.cpp \
     PythonAPI/src/IMaterial.pypp.cpp \
+    PythonAPI/src/IndexVector3D.pypp.cpp \
     PythonAPI/src/Instrument.pypp.cpp \
     PythonAPI/src/InterferenceFunction1DParaCrystal.pypp.cpp \
     PythonAPI/src/InterferenceFunction2DLattice.pypp.cpp \

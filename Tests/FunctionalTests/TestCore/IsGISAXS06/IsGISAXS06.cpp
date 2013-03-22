@@ -37,8 +37,8 @@ void FunctionalTests::IsGISAXS06::runlattice()
     // building sample
     MultiLayer multi_layer;
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -95,8 +95,8 @@ void FunctionalTests::IsGISAXS06::runcentered()
     // building sample
     MultiLayer multi_layer;
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air",  1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air",  1.0, 0.0);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -156,8 +156,8 @@ void FunctionalTests::IsGISAXS06::runrotated()
 {
     MultiLayer multi_layer;
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -251,8 +251,8 @@ ISample* FunctionalTests::IsGISAXS06::LatticeVariantBuilder::buildSample() const
 {
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0,0.0);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0,0.0);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;

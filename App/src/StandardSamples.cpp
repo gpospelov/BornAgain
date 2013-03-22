@@ -29,9 +29,8 @@
 /* ************************************************************************* */
 ISample *StandardSamples::AirOnSubstrate()
 {
-    MaterialManager &matManager = MaterialManager::instance();
-    const IMaterial *mAmbience = matManager.addHomogeneousMaterial("ambience",complex_t(1.0, 0.0) );
-    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate", complex_t(1.0-15e-6, 0) );
+    const IMaterial *mAmbience = MaterialManager::getHomogeneousMaterial("ambience",complex_t(1.0, 0.0) );
+    const IMaterial *mSubstrate = MaterialManager::getHomogeneousMaterial("substrate", complex_t(1.0-15e-6, 0) );
 
     MultiLayer *mySample = new MultiLayer;
 
@@ -56,9 +55,8 @@ ISample *StandardSamples::AirOnSubstrate()
 /* ************************************************************************* */
 ISample *StandardSamples::SubstrateOnSubstrate()
 {
-    MaterialManager &matManager = MaterialManager::instance();
-    const IMaterial *mAmbience = matManager.addHomogeneousMaterial("ambience",complex_t(1.0, 0.0) );
-    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate", complex_t(1.0-15e-6, 0) );
+    const IMaterial *mAmbience = MaterialManager::getHomogeneousMaterial("ambience",complex_t(1.0, 0.0) );
+    const IMaterial *mSubstrate = MaterialManager::getHomogeneousMaterial("substrate", complex_t(1.0-15e-6, 0) );
 
     MultiLayer *mySample = new MultiLayer;
 
@@ -83,12 +81,10 @@ ISample *StandardSamples::SubstrateOnSubstrate()
 /* ************************************************************************* */
 ISample *StandardSamples::SimpleMultilayer()
 {
-    MaterialManager &matManager = MaterialManager::instance();
-
-    const IMaterial *mAmbience = matManager.addHomogeneousMaterial("ambience", complex_t(1.0, 0.0) );
-    const IMaterial *mAg1 = matManager.addHomogeneousMaterial("ag1", complex_t(1.0-5e-6, 0.0) );
-    const IMaterial *mCr1 = matManager.addHomogeneousMaterial("cr1", complex_t(1.0-10e-6, 0.0) );
-    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate2", complex_t(1.0-15e-6, 0.0) );
+    const IMaterial *mAmbience = MaterialManager::getHomogeneousMaterial("ambience", complex_t(1.0, 0.0) );
+    const IMaterial *mAg1 = MaterialManager::getHomogeneousMaterial("ag1", complex_t(1.0-5e-6, 0.0) );
+    const IMaterial *mCr1 = MaterialManager::getHomogeneousMaterial("cr1", complex_t(1.0-10e-6, 0.0) );
+    const IMaterial *mSubstrate = MaterialManager::getHomogeneousMaterial("substrate2", complex_t(1.0-15e-6, 0.0) );
 
     Layer lAmbience;
     lAmbience.setMaterial(mAmbience, 0);
@@ -129,12 +125,10 @@ ISample *StandardSamples::SimpleMultilayer()
 /* ************************************************************************* */
 ISample *StandardSamples::MultilayerOffspecTestcase1a()
 {
-    MaterialManager &matManager = MaterialManager::instance();
-
-    const IMaterial *mAmbience = matManager.addHomogeneousMaterial("ambience", complex_t(1.0, 0.0) );
-    const IMaterial *mPartA = matManager.addHomogeneousMaterial("PartA", complex_t(1.0-5e-6, 0.0) );
-    const IMaterial *mPartB = matManager.addHomogeneousMaterial("PartB", complex_t(1.0-10e-6, 0.0) );
-    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate", complex_t(1.0-15e-6, 0.0) );
+    const IMaterial *mAmbience = MaterialManager::getHomogeneousMaterial("ambience", complex_t(1.0, 0.0) );
+    const IMaterial *mPartA = MaterialManager::getHomogeneousMaterial("PartA", complex_t(1.0-5e-6, 0.0) );
+    const IMaterial *mPartB = MaterialManager::getHomogeneousMaterial("PartB", complex_t(1.0-10e-6, 0.0) );
+    const IMaterial *mSubstrate = MaterialManager::getHomogeneousMaterial("substrate", complex_t(1.0-15e-6, 0.0) );
 
     Layer lAmbience;
     lAmbience.setMaterial(mAmbience, 0);
@@ -194,9 +188,8 @@ ISample *StandardSamples::MultilayerOffspecTestcase1b()
 /* ************************************************************************* */
 ISample *StandardSamples::MultilayerOffspecTestcase2a()
 {
-    MaterialManager &matManager = MaterialManager::instance();
-    const IMaterial *mAmbience = matManager.addHomogeneousMaterial("ambience",complex_t(1.0, 0.0) );
-    const IMaterial *mSubstrate = matManager.addHomogeneousMaterial("substrate", complex_t(1.0-15e-6, 0) );
+    const IMaterial *mAmbience = MaterialManager::getHomogeneousMaterial("ambience",complex_t(1.0, 0.0) );
+    const IMaterial *mSubstrate = MaterialManager::getHomogeneousMaterial("substrate", complex_t(1.0-15e-6, 0) );
 
     MultiLayer *mySample = new MultiLayer;
 
@@ -245,8 +238,8 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
 //    complex_t n_air(1.0, 0.0);
 //    complex_t n_substrate(1.0-4e-6, 2e-8);
 //    complex_t n_particle(1.0-5e-4, 2e-8);
-//    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-//    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+//    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
 //    Layer air_layer;
 //    air_layer.setMaterial(p_air_material);
 //    Layer substrate_layer;
@@ -273,8 +266,8 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
 //    complex_t n_air(1.0, 0.0);
 //    complex_t n_substrate(1.0-4e-6, 2e-8);
 //    complex_t n_particle(1.0-5e-4, 2e-8);
-//    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-//    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+//    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
 //    Layer air_layer;
 //    air_layer.setMaterial(p_air_material);
 //    Layer substrate_layer;
@@ -302,8 +295,8 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
 //    complex_t n_air(1.0, 0.0);
 //    complex_t n_substrate(1.0-5e-6, 2e-8);
 //    complex_t n_particle(1.0-6e-4, 2e-8);
-//    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-//    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+//    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
 //    Layer air_layer;
 //    air_layer.setMaterial(p_air_material);
 //    Layer substrate_layer;
@@ -330,8 +323,8 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
 //    complex_t n_air(1.0, 0.0);
 //    complex_t n_substrate(1.0-3e-6, 2e-8);
 //    complex_t n_particle(1.0-5e-4, 2e-8);
-//    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-//    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+//    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
 //    Layer air_layer;
 //    air_layer.setMaterial(p_air_material);
 //    Layer substrate_layer;
@@ -359,8 +352,8 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
 //    complex_t n_air(1.0, 0.0);
 //    complex_t n_substrate(1.0-6e-6, 2e-8);
 //    complex_t n_particle(1.0-6e-4, 2e-8);
-//    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-//    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+//    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
 //    Layer air_layer;
 //    air_layer.setMaterial(p_air_material);
 //    Layer substrate_layer;
@@ -385,7 +378,7 @@ ISample *StandardSamples::IsGISAXS2_CylindersMixture()
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
 
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
@@ -438,8 +431,8 @@ ISample *StandardSamples::IsGISAXS3_CylinderDWBA()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -459,7 +452,7 @@ ISample *StandardSamples::IsGISAXS3_CylinderBA()
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
@@ -475,7 +468,7 @@ ISample *StandardSamples::IsGISAXS3_CylinderBASize()
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
 
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
@@ -513,8 +506,8 @@ ISample *StandardSamples::IsGISAXS4_1DDL()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -536,8 +529,8 @@ ISample *StandardSamples::IsGISAXS4_2DDL()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -564,8 +557,8 @@ ISample *StandardSamples::IsGISAXS6_lattice()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -614,8 +607,8 @@ ISample *StandardSamples::IsGISAXS6_centered()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -668,8 +661,8 @@ ISample *StandardSamples::IsGISAXS6_rotated()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -720,7 +713,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     ParticleDecoration particle_decoration;
@@ -798,8 +791,8 @@ ISample *StandardSamples::IsGISAXS8_2DDL_lattice()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -825,8 +818,8 @@ ISample *StandardSamples::IsGISAXS8_2DDL_lattice2()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -854,8 +847,8 @@ ISample *StandardSamples::IsGISAXS9_Pyramid()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -881,8 +874,8 @@ ISample *StandardSamples::IsGISAXS9_RotatedPyramid()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -914,8 +907,8 @@ ISample *StandardSamples::IsGISAXS10_CylindersParacrystal1D()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-5e-6, 2e-8);
     complex_t n_particle(1.0-5e-5, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air10", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate10", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air10", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate10", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -940,7 +933,7 @@ ISample *StandardSamples::IsGISAXS11_CoreShellParticles()
     complex_t n_air(1.0, 0.0);
     complex_t n_particle_shell(1.0-1e-4, 2e-8);
     complex_t n_particle_core(1.0-6e-5, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air11", n_air);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air11", n_air);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Particle shell_particle(n_particle_shell, new FormFactorParallelepiped(8*Units::nanometer, 8*Units::nanometer));
@@ -964,8 +957,8 @@ ISample *StandardSamples::IsGISAXS14_LayeredSpheresOnGradedInterface()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-5, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air10", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate10", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air10", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate10", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -992,7 +985,7 @@ ISample *StandardSamples::IsGISAXS15_SSCA()
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_air(1.0, 0.0);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     InterferenceFunction1DParaCrystal *p_interference_function = new InterferenceFunction1DParaCrystal(15.0*Units::nanometer,5*Units::nanometer, 1e3*Units::nanometer);
@@ -1051,8 +1044,8 @@ ISample *StandardSamples::MesoCrystal1()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-3.5e-6, 7.8e-8);
 
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air2", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate2", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air2", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate2", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -1093,9 +1086,9 @@ ISample *StandardSamples::MesoCrystal2()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-7.57e-6, 1.73e-7);
 
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_average_layer_material = MaterialManager::instance().addHomogeneousMaterial("Averagelayer", n_avg);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_average_layer_material = MaterialManager::getHomogeneousMaterial("Averagelayer", n_avg);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer avg_layer;
@@ -1147,8 +1140,8 @@ ISample *StandardSamples::FormFactor_Box()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -1171,8 +1164,8 @@ ISample *StandardSamples::FormFactor_Cone()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -1196,8 +1189,8 @@ ISample *StandardSamples::FormFactor_Sphere()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -1220,8 +1213,8 @@ ISample *StandardSamples::FormFactor_Ellipsoid()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -1245,8 +1238,8 @@ ISample *StandardSamples::FormFactor_FullSpheroid()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-5, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -1270,8 +1263,8 @@ ISample *StandardSamples::FormFactor_HemiSpheroid()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-7, 2e-8);
     complex_t n_particle(1.0-6e-5, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -1294,7 +1287,7 @@ ISample *StandardSamples::FormFactor_Parallelpiped()
     complex_t n_air(1.0, 0.0);
     complex_t n_particle_shell(1.0-1e-4, 2e-8);
     complex_t n_particle_core(1.0-6e-5, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air11", n_air);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air11", n_air);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Particle shell_particle(n_particle_shell, new FormFactorParallelepiped(8*Units::nanometer, 8*Units::nanometer));
@@ -1319,7 +1312,7 @@ ISample *StandardSamples::FormFactor_Cylinder()
     complex_t n_air(1.0, 0.0);
     complex_t n_particle_shell(1.0-1e-4, 2e-8);
     complex_t n_particle_core(1.0-6e-5, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air11", n_air);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air11", n_air);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Particle shell_particle(n_particle_shell, new FormFactorCylinder(8*Units::nanometer, 8*Units::nanometer));
@@ -1343,8 +1336,8 @@ ISample *StandardSamples::FormFactor_Pyramid()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -1369,8 +1362,8 @@ ISample *StandardSamples::FormFactor_Prism3()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-7e-6, 2e-8);
     complex_t n_particle(1.0-8e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -1393,8 +1386,8 @@ ISample *StandardSamples::FormFactor_Prism3()
      complex_t n_air(1.0, 0.0);
      complex_t n_substrate(1.0-6e-6, 2e-8);
      complex_t n_particle(1.0-6e-4, 2e-8);
-     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-     const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+     const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+     const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
      Layer air_layer;
      air_layer.setMaterial(p_air_material);
      Layer substrate_layer;

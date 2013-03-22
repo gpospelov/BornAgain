@@ -10,14 +10,11 @@ CONFIG += BORNAGAIN_ROOT # depend on ROOT libraries
 # -----------------------------------------------------------------------------
 # (note, that when Qt libraries are used, it is already done in <qglobal.h>)
 macx {
-    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_MAC
-    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_MAC
+    DEFINES += Q_OS_MAC
 }
 unix:!macx {
-    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_LINUX
-    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_LINUX
+    DEFINES += Q_OS_LINUX
 }
-
 
 FUNCTIONAL_TESTS = $$PWD/../Tests/FunctionalTests/TestCore
 
@@ -43,11 +40,6 @@ SOURCES += \
     src/IFunctionalTest.cpp \
     src/IsGISAXSData.cpp \
     src/IsGISAXSTools.cpp \
-#    src/MinimizerFactory.cpp \
-#    src/ROOTGSLNLSMinimizer.cpp \
-#    src/ROOTGSLSimAnMinimizer.cpp \
-#    src/ROOTMinimizer.cpp \
-#    src/ROOTMinimizerHelper.cpp \
     src/SampleFactory.cpp \
     src/StandardSamples.cpp \
     src/TestConvolution.cpp \
@@ -109,12 +101,6 @@ HEADERS += \
     inc/IFunctionalTest.h \
     inc/IsGISAXSData.h \
     inc/IsGISAXSTools.h \
-#    inc/MinimizerFactory.h \
-#    inc/ROOTGSLNLSMinimizer.h \
-#    inc/ROOTGSLSimAnMinimizer.h \
-#    inc/ROOTMinimizer.h \
-#    inc/ROOTMinimizerFunction.h \
-#    inc/ROOTMinimizerHelper.h \
     inc/SampleFactory.h \
     inc/StandardSamples.h \
     inc/TestConvolution.h \

@@ -17,7 +17,6 @@
 #define FITSUITE_H
 
 #include "AttFitting.h"
-#include "ChiSquaredModule.h"
 #include "FitSuiteFunctions.h"
 #include "FitSuiteObjects.h"
 #include "FitSuiteParameters.h"

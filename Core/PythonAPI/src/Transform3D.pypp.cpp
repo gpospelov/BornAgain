@@ -88,6 +88,7 @@ void register_Transform3D_class(){
                 "__getitem__"
                 , (double ( ::Geometry::Transform3D::Transform3D_row::* )( int ) const)( &::Geometry::Transform3D::Transform3D_row::operator[] )
                 , ( bp::arg("jj") ) );
+        Transform3D_exposer.def( bp::init< Geometry::BasicVector3D< double > const &, Geometry::BasicVector3D< double > const &, Geometry::BasicVector3D< double > const &, Geometry::BasicVector3D< double > const &, Geometry::BasicVector3D< double > const &, Geometry::BasicVector3D< double > const & >(( bp::arg("fr0"), bp::arg("fr1"), bp::arg("fr2"), bp::arg("to0"), bp::arg("to1"), bp::arg("to2") )) );
         Transform3D_exposer.def( bp::init< Geometry::Transform3D const & >(( bp::arg("m") )) );
         { //::Geometry::Transform3D::dx
         
@@ -114,16 +115,6 @@ void register_Transform3D_class(){
             Transform3D_exposer.def( 
                 "dz"
                 , dz_function_type( &::Geometry::Transform3D::dz ) );
-        
-        }
-        { //::Geometry::Transform3D::getDecomposition
-        
-            typedef void ( ::Geometry::Transform3D::*getDecomposition_function_type )( ::Geometry::Scale3D &,::Geometry::Rotate3D &,::Geometry::Translate3D & ) const;
-            
-            Transform3D_exposer.def( 
-                "getDecomposition"
-                , getDecomposition_function_type( &::Geometry::Transform3D::getDecomposition )
-                , ( bp::arg("scale"), bp::arg("rotation"), bp::arg("translation") ) );
         
         }
         { //::Geometry::Transform3D::inverse

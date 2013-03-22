@@ -70,18 +70,10 @@ HEADERS +=  \
     PythonAPI/inc/PythonInterface_free_functions.pypp.h \
     PythonAPI/inc/PythonInterface_global_variables.pypp.h \
     PythonAPI/inc/RealParameterWrapper.pypp.h \
-    PythonAPI/inc/Reflect3D.pypp.h \
-    PythonAPI/inc/ReflectX3D.pypp.h \
-    PythonAPI/inc/ReflectY3D.pypp.h \
-    PythonAPI/inc/ReflectZ3D.pypp.h \
     PythonAPI/inc/Rotate3D.pypp.h \
     PythonAPI/inc/RotateX3D.pypp.h \
     PythonAPI/inc/RotateY3D.pypp.h \
     PythonAPI/inc/RotateZ3D.pypp.h \
-    PythonAPI/inc/Scale3D.pypp.h \
-    PythonAPI/inc/ScaleX3D.pypp.h \
-    PythonAPI/inc/ScaleY3D.pypp.h \
-    PythonAPI/inc/ScaleZ3D.pypp.h \
     PythonAPI/inc/SimpleSelectionRule.pypp.h \
     PythonAPI/inc/Simulation.pypp.h \
     PythonAPI/inc/SimulationParameters.pypp.h \
@@ -90,10 +82,6 @@ HEADERS +=  \
     PythonAPI/inc/StochasticParameter_t.pypp.h \
     PythonAPI/inc/StochasticSampledParameter.pypp.h \
     PythonAPI/inc/Transform3D.pypp.h \
-    PythonAPI/inc/Translate3D.pypp.h \
-    PythonAPI/inc/TranslateX3D.pypp.h \
-    PythonAPI/inc/TranslateY3D.pypp.h \
-    PythonAPI/inc/TranslateZ3D.pypp.h \
     PythonAPI/inc/vdouble1d_t.pypp.h \
     PythonAPI/inc/vector_DiffuseParticleInfoPtr_t.pypp.h \
     PythonAPI/inc/vector_IFormFactorPtr_t.pypp.h \
@@ -172,18 +160,10 @@ SOURCES +=  \
     PythonAPI/src/PythonInterface_free_functions.pypp.cpp \
     PythonAPI/src/PythonInterface_global_variables.pypp.cpp \
     PythonAPI/src/RealParameterWrapper.pypp.cpp \
-    PythonAPI/src/Reflect3D.pypp.cpp \
-    PythonAPI/src/ReflectX3D.pypp.cpp \
-    PythonAPI/src/ReflectY3D.pypp.cpp \
-    PythonAPI/src/ReflectZ3D.pypp.cpp \
     PythonAPI/src/Rotate3D.pypp.cpp \
     PythonAPI/src/RotateX3D.pypp.cpp \
     PythonAPI/src/RotateY3D.pypp.cpp \
     PythonAPI/src/RotateZ3D.pypp.cpp \
-    PythonAPI/src/Scale3D.pypp.cpp \
-    PythonAPI/src/ScaleX3D.pypp.cpp \
-    PythonAPI/src/ScaleY3D.pypp.cpp \
-    PythonAPI/src/ScaleZ3D.pypp.cpp \
     PythonAPI/src/SimpleSelectionRule.pypp.cpp \
     PythonAPI/src/Simulation.pypp.cpp \
     PythonAPI/src/SimulationParameters.pypp.cpp \
@@ -192,10 +172,6 @@ SOURCES +=  \
     PythonAPI/src/StochasticParameter_t.pypp.cpp \
     PythonAPI/src/StochasticSampledParameter.pypp.cpp \
     PythonAPI/src/Transform3D.pypp.cpp \
-    PythonAPI/src/Translate3D.pypp.cpp \
-    PythonAPI/src/TranslateX3D.pypp.cpp \
-    PythonAPI/src/TranslateY3D.pypp.cpp \
-    PythonAPI/src/TranslateZ3D.pypp.cpp \
     PythonAPI/src/vdouble1d_t.pypp.cpp \
     PythonAPI/src/vector_DiffuseParticleInfoPtr_t.pypp.cpp \
     PythonAPI/src/vector_IFormFactorPtr_t.pypp.cpp \

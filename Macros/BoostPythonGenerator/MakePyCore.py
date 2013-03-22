@@ -382,14 +382,14 @@ def AdditionalRules(mb):
     mb.class_('DWBASimulation').exclude()
 
   # --- Transform3D.h -------------------------------------------------
-  if "Transform3D.h" in myFiles:
+  #if "Transform3D.h" in myFiles:
     # removing mentioning of Point3D from constructors and member_functions
-    mb.class_( "Point3D<double>").exclude()
-    TransformClasses={"Transform3D","Reflect3D","Translate3D", "Scale3D", "Rotate3D"}
-    for clname in TransformClasses:
-      cl = mb.class_(clname)
-      cl.constructors(lambda decl: 'Point3D' in decl.decl_string, allow_empty=True ).exclude()
-      cl.member_functions(lambda decl: 'Point3D' in decl.decl_string, allow_empty=True ).exclude()
+    #mb.class_( "Point3D<double>").exclude()
+    #TransformClasses={"Transform3D","Reflect3D","Translate3D", "Scale3D", "Rotate3D"}
+    #for clname in TransformClasses:
+      #cl = mb.class_(clname)
+      #cl.constructors(lambda decl: 'Point3D' in decl.decl_string, allow_empty=True ).exclude()
+      #cl.member_functions(lambda decl: 'Point3D' in decl.decl_string, allow_empty=True ).exclude()
 
   # --- Types.h -------------------------------------------------------
   if "Types.h" in myFiles:
@@ -410,8 +410,8 @@ def MakePythonAPI(OutputTempDir):
 
   myIncludes.append('/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7')
   myIncludes.append('/opt/local/include/')
-  #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin', cflags="-m64")
-  mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')
+  mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin', cflags="-m64")
+  #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')
 
   # ---------------------------------------------------------
   # common properties

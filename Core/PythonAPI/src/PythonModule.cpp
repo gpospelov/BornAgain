@@ -70,18 +70,10 @@
 #include "PythonInterface_free_functions.pypp.h" 
 #include "PythonInterface_global_variables.pypp.h" 
 #include "RealParameterWrapper.pypp.h" 
-#include "Reflect3D.pypp.h" 
-#include "ReflectX3D.pypp.h" 
-#include "ReflectY3D.pypp.h" 
-#include "ReflectZ3D.pypp.h" 
 #include "Rotate3D.pypp.h" 
 #include "RotateX3D.pypp.h" 
 #include "RotateY3D.pypp.h" 
 #include "RotateZ3D.pypp.h" 
-#include "Scale3D.pypp.h" 
-#include "ScaleX3D.pypp.h" 
-#include "ScaleY3D.pypp.h" 
-#include "ScaleZ3D.pypp.h" 
 #include "SimpleSelectionRule.pypp.h" 
 #include "Simulation.pypp.h" 
 #include "SimulationParameters.pypp.h" 
@@ -90,10 +82,6 @@
 #include "StochasticParameter_t.pypp.h" 
 #include "StochasticSampledParameter.pypp.h" 
 #include "Transform3D.pypp.h" 
-#include "Translate3D.pypp.h" 
-#include "TranslateX3D.pypp.h" 
-#include "TranslateY3D.pypp.h" 
-#include "TranslateZ3D.pypp.h" 
 #include "vdouble1d_t.pypp.h" 
 #include "vector_DiffuseParticleInfoPtr_t.pypp.h" 
 #include "vector_IFormFactorPtr_t.pypp.h" 
@@ -140,22 +128,10 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_kvector_t_class();
     register_IndexVector3D_class();
     register_cvector_t_class();
-    register_Reflect3D_class();
-    register_ReflectX3D_class();
-    register_ReflectY3D_class();
-    register_ReflectZ3D_class();
     register_Rotate3D_class();
     register_RotateX3D_class();
     register_RotateY3D_class();
     register_RotateZ3D_class();
-    register_Scale3D_class();
-    register_ScaleX3D_class();
-    register_ScaleY3D_class();
-    register_ScaleZ3D_class();
-    register_Translate3D_class();
-    register_TranslateX3D_class();
-    register_TranslateY3D_class();
-    register_TranslateZ3D_class();
     register_IMaterial_class();
     register_HomogeneousMaterial_class();
     register_IDecoration_class();

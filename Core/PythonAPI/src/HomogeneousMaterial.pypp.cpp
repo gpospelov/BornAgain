@@ -79,44 +79,17 @@ namespace bp = boost::python;
 
 void register_HomogeneousMaterial_class(){
 
-    { //::HomogeneousMaterial
-        typedef bp::class_< HomogeneousMaterial, bp::bases< IMaterial > > HomogeneousMaterial_exposer_t;
-        HomogeneousMaterial_exposer_t HomogeneousMaterial_exposer = HomogeneousMaterial_exposer_t( "HomogeneousMaterial", bp::init< >() );
-        bp::scope HomogeneousMaterial_scope( HomogeneousMaterial_exposer );
-        HomogeneousMaterial_exposer.def( bp::init< complex_t const & >(( bp::arg("refractive_index") )) );
-        HomogeneousMaterial_exposer.def( bp::init< std::string const &, complex_t const & >(( bp::arg("name"), bp::arg("refractive_index") )) );
-        HomogeneousMaterial_exposer.def( bp::init< std::string const &, double, double >(( bp::arg("name"), bp::arg("refractive_index_real"), bp::arg("refractive_index_imag") )) );
-        HomogeneousMaterial_exposer.def( bp::init< HomogeneousMaterial const & >(( bp::arg("other") )) );
-        { //::HomogeneousMaterial::getRefractiveIndex
-        
-            typedef ::complex_t ( ::HomogeneousMaterial::*getRefractiveIndex_function_type )(  ) const;
-            
-            HomogeneousMaterial_exposer.def( 
-                "getRefractiveIndex"
-                , getRefractiveIndex_function_type( &::HomogeneousMaterial::getRefractiveIndex ) );
-        
-        }
-        { //::HomogeneousMaterial::operator=
-        
-            typedef ::HomogeneousMaterial & ( ::HomogeneousMaterial::*assign_function_type )( ::HomogeneousMaterial const & ) ;
-            
-            HomogeneousMaterial_exposer.def( 
-                "assign"
-                , assign_function_type( &::HomogeneousMaterial::operator= )
-                , ( bp::arg("other") )
-                , bp::return_self< >() );
-        
-        }
-        { //::HomogeneousMaterial::setRefractiveIndex
-        
-            typedef void ( ::HomogeneousMaterial::*setRefractiveIndex_function_type )( ::complex_t ) ;
-            
-            HomogeneousMaterial_exposer.def( 
-                "setRefractiveIndex"
-                , setRefractiveIndex_function_type( &::HomogeneousMaterial::setRefractiveIndex )
-                , ( bp::arg("refractive_index") ) );
-        
-        }
-    }
+    bp::class_< HomogeneousMaterial, bp::bases< IMaterial > >( "HomogeneousMaterial", bp::init< >() )    
+        .def( bp::init< complex_t const & >(( bp::arg("refractive_index") )) )    
+        .def( bp::init< std::string const &, complex_t const & >(( bp::arg("name"), bp::arg("refractive_index") )) )    
+        .def( bp::init< std::string const &, double, double >(( bp::arg("name"), bp::arg("refractive_index_real"), bp::arg("refractive_index_imag") )) )    
+        .def( bp::init< HomogeneousMaterial const & >(( bp::arg("other") )) )    
+        .def( 
+            "getRefractiveIndex"
+            , (::complex_t ( ::HomogeneousMaterial::* )(  ) const)( &::HomogeneousMaterial::getRefractiveIndex ) )    
+        .def( 
+            "setRefractiveIndex"
+            , (void ( ::HomogeneousMaterial::* )( ::complex_t ) )( &::HomogeneousMaterial::setRefractiveIndex )
+            , ( bp::arg("refractive_index") ) );
 
 }

@@ -18,6 +18,8 @@
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //!
 //! Changes w.r.t. CLHEP:
+//! - eliminated distinction vector/normal/point
+//! - eliminated unused transforms
 //! - reworked doxygen comments
 //
 // ************************************************************************** //

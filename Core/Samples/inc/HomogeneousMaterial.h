@@ -24,7 +24,7 @@
 class HomogeneousMaterial : public IMaterial
 {
 public:
-    HomogeneousMaterial();
+    HomogeneousMaterial() {}
     HomogeneousMaterial(const complex_t &refractive_index)
         : IMaterial("noname"), m_refractive_index(refractive_index) {}
     HomogeneousMaterial(const std::string &name,
@@ -41,16 +41,6 @@ public:
         : IMaterial(other), m_refractive_index(other.m_refractive_index) {}
     virtual ~HomogeneousMaterial() {}
 
-    HomogeneousMaterial &operator=(const HomogeneousMaterial &other)
-        {
-            if(this != &other)
-            {
-                IMaterial::operator=(other);
-                m_refractive_index = other.m_refractive_index;
-            }
-            return *this;
-        }
-    
     //! Return refractive index.
     complex_t getRefractiveIndex() const { return m_refractive_index; }
 

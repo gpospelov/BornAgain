@@ -177,28 +177,6 @@ Transform3D Transform3D::inverse() const
              detxz, -detyz,  detzz, -detxz*dx_+detyz*dy_-detzz*dz_);
 }
 
-//! Decomposition of general transformation.
-//!
-//! @author E. Chernyaev 2001
-
-void Transform3D::getDecomposition(Scale3D & scale,
-                                   Rotate3D & rotation,
-                                   Translate3D & translation) const
-{
-    double sx = std::sqrt(xx_*xx_ + yx_*yx_ + zx_*zx_);
-    double sy = std::sqrt(xy_*xy_ + yy_*yy_ + zy_*zy_);
-    double sz = std::sqrt(xz_*xz_ + yz_*yz_ + zz_*zz_);
-
-    if (xx_*(yy_*zz_-yz_*zy_) -
-            xy_*(yx_*zz_-yz_*zx_) +
-            xz_*(yx_*zy_-yy_*zx_) < 0) sz = -sz;
-    scale.setTransform(sx,0.0,0.0,0.0,  0.0,sy,0.0,0.0, 0.0,0.0,sz,0.0);
-    rotation.setTransform(xx_/sx,xy_/sy,xz_/sz,0.0,
-                          yx_/sx,yy_/sy,yz_/sz,0.0,
-                          zx_/sx,zy_/sy,zz_/sz,0.0);
-    translation.setTransform(1.0,0.0,0.0,dx_, 0.0,1.0,0.0,dy_, 0.0,0.0,1.0,dz_);
-}
-
 //! Difference between corresponding matrix elements less than tolerance?
 
 bool Transform3D::isNear(const Transform3D & t, double tolerance) const
@@ -264,27 +242,6 @@ Rotate3D::Rotate3D(double a,
         setTransform(txx, txy, txz, tdx-txx*tdx-txy*tdy-txz*tdz,
                      tyx, tyy, tyz, tdy-tyx*tdx-tyy*tdy-tyz*tdz,
                      tzx, tzy, tzz, tdz-tzx*tdx-tzy*tdy-tzz*tdz);
-    }
-}
-
-//! Construct reflection in a plane a*x+b*y+c*z+d=0.
-//!
-//! @author E. Chernyaev 1996
-
-Reflect3D::Reflect3D (double a, double b, double c, double d)
-{
-    double ll = a*a+b*b+c*c;
-    if (ll == 0) {
-        std::cerr << "Reflect3D: zero normal" << std::endl;
-        setIdentity();
-    } else {
-        ll = 1/ll;
-        double aa = a*a*ll, ab = a*b*ll, ac = a*c*ll, ad = a*d*ll,
-                bb = b*b*ll, bc = b*c*ll, bd = b*d*ll,
-                cc = c*c*ll, cd = c*d*ll;
-        setTransform(-aa+bb+cc, -ab-ab,    -ac-ac,    -ad-ad,
-                     -ab-ab,     aa-bb+cc, -bc-bc,    -bd-bd,
-                     -ac-ac,    -bc-bc,     aa+bb-cc, -cd-cd);
     }
 }
 

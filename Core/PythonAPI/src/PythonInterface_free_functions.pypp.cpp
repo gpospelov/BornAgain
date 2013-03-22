@@ -79,39 +79,6 @@ namespace bp = boost::python;
 
 void register_free_functions(){
 
-    { //::Geometry::CrossProduct
-    
-        typedef ::Geometry::BasicVector3D< std::complex< double > > ( *CrossProduct_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const &,::Geometry::BasicVector3D< std::complex< double > > const & );
-        
-        bp::def( 
-            "CrossProduct"
-            , CrossProduct_function_type( &::Geometry::CrossProduct )
-            , ( bp::arg("left"), bp::arg("right") ) );
-    
-    }
-
-    { //::Geometry::CrossProduct
-    
-        typedef ::Geometry::BasicVector3D< double > ( *CrossProduct_function_type )( ::Geometry::BasicVector3D< double > const &,::Geometry::BasicVector3D< double > const & );
-        
-        bp::def( 
-            "CrossProduct"
-            , CrossProduct_function_type( &::Geometry::CrossProduct )
-            , ( bp::arg("left"), bp::arg("right") ) );
-    
-    }
-
-    { //::Geometry::DotProduct
-    
-        typedef double ( *DotProduct_function_type )( ::Geometry::BasicVector3D< double > const &,::Geometry::BasicVector3D< double > const & );
-        
-        bp::def( 
-            "DotProduct"
-            , DotProduct_function_type( &::Geometry::DotProduct )
-            , ( bp::arg("left"), bp::arg("right") ) );
-    
-    }
-
     { //::GetOutputData
     
         typedef ::PyObject * ( *GetOutputData_function_type )( ::Simulation const & );

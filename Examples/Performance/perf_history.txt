@@ -198,3 +198,7 @@
 # (and ./App --mesocrystal2 gives  24.77 (4 threads), 54.66 (1 thread))
 2013-03-21 10:19:28 | jcnsopc73  | macosx64, 2800 MHz      | 285714  | 24.0964 | 22.9885 | 5.71429 | 
 
+# after changes in BasicVector3D (no virtual destructor)
+# (and ./App --mesocrystal2 gives  23.74 (4 threads), 51.54 (1 thread))
+2013-03-22 17:05:17 | jcnsopc73  | macosx64, 2800 MHz      | 298507  | 24.0964 | 24.6914 | 6.25    | 
+2013-03-22 17:05:32 | jcnsopc73  | macosx64, 2800 MHz      | 294118  | 24.3902 | 25      | 6.25    | 

@@ -83,11 +83,6 @@ void register_kvector_t_class(){
         typedef bp::class_< Geometry::BasicVector3D< double > > kvector_t_exposer_t;
         kvector_t_exposer_t kvector_t_exposer = kvector_t_exposer_t( "kvector_t", bp::init< >() );
         bp::scope kvector_t_scope( kvector_t_exposer );
-        bp::scope().attr("X") = (int)Geometry::BasicVector3D<double>::X;
-        bp::scope().attr("Y") = (int)Geometry::BasicVector3D<double>::Y;
-        bp::scope().attr("Z") = (int)Geometry::BasicVector3D<double>::Z;
-        bp::scope().attr("NUM_COORDINATES") = (int)Geometry::BasicVector3D<double>::NUM_COORDINATES;
-        bp::scope().attr("SIZE") = (int)Geometry::BasicVector3D<double>::SIZE;
         kvector_t_exposer.def( bp::init< double const &, double const &, double const & >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
         { //::Geometry::BasicVector3D< double >::cross
         
@@ -287,17 +282,7 @@ void register_kvector_t_class(){
                 , z_function_type( &::Geometry::BasicVector3D< double >::z ) );
         
         }
-        kvector_t_exposer.def( bp::self != bp::self );
-        kvector_t_exposer.def( bp::self * bp::self );
-        kvector_t_exposer.def( bp::other< double >() * bp::self );
-        kvector_t_exposer.def( bp::self * bp::other< double >() );
-        kvector_t_exposer.def( bp::self + bp::self );
-        kvector_t_exposer.def( +bp::self );
-        kvector_t_exposer.def( bp::self - bp::self );
-        kvector_t_exposer.def( -bp::self );
-        kvector_t_exposer.def( bp::self / bp::other< double >() );
         kvector_t_exposer.def( bp::self_ns::str( bp::self ) );
-        kvector_t_exposer.def( bp::self == bp::self );
     }
 
 }

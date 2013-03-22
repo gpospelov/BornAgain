@@ -100,8 +100,8 @@ def AdditionalRules(mb):
     #mb.classes(lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
     #mb.free_operators( lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
     #mb.free_functions( lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
-    mb.classes(lambda decl: 'Geometry::BasicVector3D<std::complex<double> const>' in decl.decl_string ).exclude()
-    mb.free_operators( lambda decl: 'Geometry::BasicVector3D<std::complex<double> const>' in decl.decl_string ).exclude()
+    #mb.classes(lambda decl: 'Geometry::BasicVector3D<std::complex<double> const>' in decl.decl_string ).exclude()
+    #mb.free_operators( lambda decl: 'Geometry::BasicVector3D<std::complex<double> const>' in decl.decl_string ).exclude()
     #mb.free_functions( lambda decl: 'Geometry::BasicVector3D<std::complex<double> const>' in decl.decl_string ).exclude()
     classes = mb.classes()
     # here we have to exclude all templated methods which are not defined complex<double>, otherwise py++ will try to generate wrappers

@@ -83,11 +83,6 @@ void register_cvector_t_class(){
         typedef bp::class_< Geometry::BasicVector3D< std::complex< double > > > cvector_t_exposer_t;
         cvector_t_exposer_t cvector_t_exposer = cvector_t_exposer_t( "cvector_t", bp::init< >() );
         bp::scope cvector_t_scope( cvector_t_exposer );
-        bp::scope().attr("X") = (int)Geometry::BasicVector3D<std::complex<double> >::X;
-        bp::scope().attr("Y") = (int)Geometry::BasicVector3D<std::complex<double> >::Y;
-        bp::scope().attr("Z") = (int)Geometry::BasicVector3D<std::complex<double> >::Z;
-        bp::scope().attr("NUM_COORDINATES") = (int)Geometry::BasicVector3D<std::complex<double> >::NUM_COORDINATES;
-        bp::scope().attr("SIZE") = (int)Geometry::BasicVector3D<std::complex<double> >::SIZE;
         cvector_t_exposer.def( bp::init< std::complex< double > const &, std::complex< double > const &, std::complex< double > const & >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
         { //::Geometry::BasicVector3D< std::complex< double > >::cross
         
@@ -287,14 +282,9 @@ void register_cvector_t_class(){
                 , z_function_type( &::Geometry::BasicVector3D< std::complex< double > >::z ) );
         
         }
-        cvector_t_exposer.def( bp::self != bp::self );
         cvector_t_exposer.def( bp::self + bp::self );
-        cvector_t_exposer.def( +bp::self );
         cvector_t_exposer.def( bp::self - bp::self );
-        cvector_t_exposer.def( -bp::self );
-        cvector_t_exposer.def( bp::self / bp::other< std::complex< double > >() );
-        cvector_t_exposer.def( bp::self_ns::str( bp::self ) );
-        cvector_t_exposer.def( bp::self == bp::self );
+        cvector_t_exposer.def( bp::self / bp::other< double >() );
     }
 
 }

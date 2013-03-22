@@ -83,11 +83,6 @@ void register_IndexVector3D_class(){
         typedef bp::class_< Geometry::BasicVector3D< int > > IndexVector3D_exposer_t;
         IndexVector3D_exposer_t IndexVector3D_exposer = IndexVector3D_exposer_t( "IndexVector3D", bp::init< >() );
         bp::scope IndexVector3D_scope( IndexVector3D_exposer );
-        bp::scope().attr("X") = (int)Geometry::BasicVector3D<int>::X;
-        bp::scope().attr("Y") = (int)Geometry::BasicVector3D<int>::Y;
-        bp::scope().attr("Z") = (int)Geometry::BasicVector3D<int>::Z;
-        bp::scope().attr("NUM_COORDINATES") = (int)Geometry::BasicVector3D<int>::NUM_COORDINATES;
-        bp::scope().attr("SIZE") = (int)Geometry::BasicVector3D<int>::SIZE;
         IndexVector3D_exposer.def( bp::init< int const &, int const &, int const & >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
         IndexVector3D_exposer.def( bp::self *= bp::other< double >() );
         IndexVector3D_exposer.def( bp::self += bp::self );

@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     AddCoreOptions(&command_line_options);
     command_line_options.parseCommandLine(argc, argv);
 
-    MSG::SetLevel(command_line_options["msgsvc"].as<std::string>());
+    if(command_line_options.getVariables().count("msglog")) MSG::SetLevel(command_line_options["msglog"].as<std::string>());
 
     // setting graphics environment
     TApplication *theApp(0);

@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//* ************************************************************************ *//
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -11,7 +11,7 @@
 //! @authors   Scientific Computing Group at MLZ Garching
 //! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
 //
-// ************************************************************************** //
+//* ************************************************************************ *//
 
 #ifndef ICHISQUAREDMODULE_H_
 #define ICHISQUAREDMODULE_H_
@@ -21,6 +21,8 @@
 #include "IOutputDataNormalizer.h"
 #include "IIntensityFunction.h"
 
+//! Interface for ChiSquaredModule, ChiSquaredFrequency.
+
 class IChiSquaredModule : public ICloneable
 {
 public:
@@ -28,55 +30,59 @@ public:
     virtual ~IChiSquaredModule();
 
     //! clone method
-    virtual IChiSquaredModule *clone() const = 0;
+    virtual IChiSquaredModule* clone() const = 0;
 
     //! return output data which contains chi^2 values
-    virtual OutputData<double > *createChi2DifferenceMap() const=0;
+    virtual OutputData<double>* createChi2DifferenceMap() const=0;
 
     //! calculate chi dquared value
     virtual double calculateChiSquared() = 0;
 
     //! get real data
-    const OutputData<double> *getRealData() const {
+    const OutputData<double>* getRealData() const {
         return mp_real_data; }
 
     //! get simulated data
-    const OutputData<double> *getSimulationData() const {
+    const OutputData<double>* getSimulationData() const {
         return mp_simulation_data; }
 
     //! set real and simulated data pair
-    void setRealAndSimulatedData(const OutputData<double > &real_data, const OutputData<double >&simulation_data);
+    void setRealAndSimulatedData(
+        const OutputData<double >& real_data,
+        const OutputData<double >&simulation_data);
 
     //! get squared function
-    const ISquaredFunction *getSquaredFunction() const {
+    const ISquaredFunction* getSquaredFunction() const {
         return mp_squared_function; }
 
     //! set squared function
-    void setChiSquaredFunction(const ISquaredFunction &squared_function);
+    void setChiSquaredFunction(const ISquaredFunction& squared_function);
 
     //! get fitting data selector
-    virtual const IFittingDataSelector *getFittingDataSelector() const {
+    virtual const IFittingDataSelector* getFittingDataSelector() const {
         return mp_data_selector; }
 
     //! set fitting data selector
-    virtual void setFittingDataSelector(const IFittingDataSelector &selector);
+    virtual void setFittingDataSelector(const IFittingDataSelector& selector);
 
     //! get data normalizer
-    virtual const IOutputDataNormalizer *getOutputDataNormalizer() const {
+    virtual const IOutputDataNormalizer* getOutputDataNormalizer() const {
         return mp_data_normalizer; }
 
-    virtual IOutputDataNormalizer *getOutputDataNormalizer() {
+    virtual IOutputDataNormalizer* getOutputDataNormalizer() {
         return mp_data_normalizer; }
 
     //! set data normalizer
-    virtual void setOutputDataNormalizer(const IOutputDataNormalizer &data_normalizer);
+    virtual void setOutputDataNormalizer(
+        const IOutputDataNormalizer& data_normalizer);
 
     //! get data normalizer
-    virtual const IIntensityFunction *getIntensityFunction() const {
+    virtual const IIntensityFunction* getIntensityFunction() const {
         return mp_intensity_function; }
 
     //! set data normalizer
-    virtual void setIntensityFunction(const IIntensityFunction &intensity_function);
+    virtual void setIntensityFunction(
+        const IIntensityFunction& intensity_function);
 
     //! return last calculated chi squared value
     virtual double getValue() const { return m_chi2_value; }
@@ -87,19 +93,20 @@ public:
 
     //! return residual between data and simulation for single element
     virtual double getResidualValue(size_t /* index */) const {
-        throw NotImplementedException("IChiSquaredModule::getResidualValue() -> Error! Not implemented."); }
+        throw NotImplementedException(
+            "IChiSquaredModule::getResidualValue() -> Error! Not implemented."); }
 
 protected:
-    IChiSquaredModule(const IChiSquaredModule &other);
+    IChiSquaredModule(const IChiSquaredModule& other);
 
     virtual void initWeights();
-    OutputData<double> *mp_real_data;
-    OutputData<double> *mp_simulation_data;
-    OutputData<double> *mp_weights;
-    ISquaredFunction *mp_squared_function;
-    IFittingDataSelector *mp_data_selector;
-    IOutputDataNormalizer *mp_data_normalizer;
-    IIntensityFunction  *mp_intensity_function;
+    OutputData<double>* mp_real_data;
+    OutputData<double>* mp_simulation_data;
+    OutputData<double>* mp_weights;
+    ISquaredFunction* mp_squared_function;
+    IFittingDataSelector* mp_data_selector;
+    IOutputDataNormalizer* mp_data_normalizer;
+    IIntensityFunction * mp_intensity_function;
     int m_ndegree_of_freedom;
 
     double m_chi2_value;

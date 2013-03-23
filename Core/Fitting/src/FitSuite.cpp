@@ -16,7 +16,6 @@
 #include "FitSuite.h"
 #include "FitParameterLinked.h"
 #include "IMinimizer.h"
-#include "ChiSquaredModule.h"
 #include "MessageService.h"
 
 #include <boost/bind.hpp>

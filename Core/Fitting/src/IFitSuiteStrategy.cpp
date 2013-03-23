@@ -18,7 +18,6 @@
 #include "FitSuiteParameters.h"
 #include "Exceptions.h"
 #include "OutputData.h"
-#include "IChiSquaredModule.h"
 #include "Simulation.h"
 #include "Simulation.h"
 #include "IMinimizer.h"

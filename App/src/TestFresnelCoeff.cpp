@@ -25,14 +25,12 @@
 #include "TLatex.h"
 #include "TLegend.h"
 
-
 TestFresnelCoeff::TestFresnelCoeff()
 : mp_sample(0)
 , mp_coeffs(0)
 {
     std::cout << "TestFresnelCoeff::TestFresnelCoeff() -> Info." << std::endl;
 }
-
 
 /* ************************************************************************* */
 //! test fresnel coefficients
@@ -47,7 +45,6 @@ void TestFresnelCoeff::execute()
     // calculate fresnel coefficients for multi-layer with different roughnesses
     test_roughness_set();
 }
-
 
 /* ************************************************************************* */
 //! calculate fresnel coefficients .vs. alpha_i for several standard samples
@@ -89,7 +86,6 @@ void TestFresnelCoeff::test_standard_samples()
         delete mp_coeffs;
     } // i_sample
 }
-
 
 /* ************************************************************************* */
 //! draw test results
@@ -252,8 +248,6 @@ void TestFresnelCoeff::test_roughness_set()
 
     draw_roughness_set();
 }
-
-
 
 /* ************************************************************************* */
 //! draw test results

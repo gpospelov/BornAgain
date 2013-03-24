@@ -18,48 +18,49 @@
 
 #include "ParticleInfo.h"
 
-//! Holds additional information about particle and position
-//! (used in IsGISAXSMorphologyFileDecoration)
+//! Enhances ParticleInfo by position in x and y.
 
+//! Used in IsGISAXSMorphologyFileDecoration.
+//! Note that position in z ("depth") is inherited from ParticleInfo. 
+//!
 class PositionParticleInfo : public ParticleInfo
 {
 public:
-    //! constructor for positioned particle info having transformation property, position and abundance
-    PositionParticleInfo(Particle *p_particle,
-            Geometry::Transform3D *p_transform, kvector_t position,
-            double abundance=0);
+    PositionParticleInfo(
+        Particle *p_particle, Geometry::Transform3D *p_transform,
+        kvector_t position, double abundance=0);
 
-    PositionParticleInfo(const Particle &particle,
-            const Geometry::Transform3D &transform, kvector_t position,
-            double abundance=0);
+    PositionParticleInfo(
+        const Particle &particle, const Geometry::Transform3D &transform,
+        kvector_t position, double abundance=0);
 
-    PositionParticleInfo(Particle *p_particle, kvector_t position,
-            double abundance=0);
+    PositionParticleInfo(
+        Particle *p_particle, kvector_t position, double abundance=0);
 
-    PositionParticleInfo(const Particle &particle, kvector_t position,
-            double abundance=0);
+    PositionParticleInfo(
+        const Particle &particle, kvector_t position, double abundance=0);
 
+    virtual ~PositionParticleInfo() {}
 
-    virtual ~PositionParticleInfo();
-
-    //! clone particle info
     virtual PositionParticleInfo *clone() const;
 
-    //! return particle
+    //! Return particle.
     const Particle *getParticle() const { return mp_particle; }
 
-    //! return particle position
-    kvector_t getPosition() const { return kvector_t(m_pos_x, m_pos_y, -m_depth); }
+    //! Return particle position, including depth.
+    kvector_t getPosition() const
+    { return kvector_t(m_pos_x, m_pos_y, -m_depth); }
 
-    //! set particle position
+    //! Set particle position, including depth.
     void setPosition(kvector_t position);
 
 protected:
     PositionParticleInfo &operator=(const PositionParticleInfo &right);
     PositionParticleInfo(const PositionParticleInfo &source);
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! register some class members for later access via parameter pool
     virtual void init_parameters();
+
     double m_pos_x;
     double m_pos_y;
 };

@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/AppLinkDef.h 
+//! @brief     Defines class AppLinkDef.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "App.h"
 #ifdef __CINT__
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   AppLinkDef.h
-//! @brief  Steering file for ROOT dictionary generation
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #pragma link off all globals;
 #pragma link off all classes;

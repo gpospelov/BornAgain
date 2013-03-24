@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/IsGISAXSData.h 
+//! @brief     Defines class IsGISAXSData.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef ISGISAXSDATA_H
 #define ISGISAXSDATA_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IsGISAXSData.h
-//! @brief  Definition of IsGISAXSData with collection of tools for isgisaxs files
-//! @author Scientific Computing Group at FRM II
-//! @date   17.01.2013
 
 
 #include "OutputData.h"

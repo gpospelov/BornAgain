@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/TestToySimulation.h 
+//! @brief     Defines class TestToySimulation.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef TESTTOYSIMULATION_H
 #define TESTTOYSIMULATION_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestToySimulation.h
-//! @brief  Tests of fitting chain using toy simulation
-//! @author Scientific Computing Group at FRM II
-//! @date   10.12.2012
 
 #include "IFunctionalTest.h"
 #include "Simulation.h"

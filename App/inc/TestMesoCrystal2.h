@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/TestMesoCrystal2.h 
+//! @brief     Defines class TestMesoCrystal2.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #ifndef TESTMESOCRYSTAL2_H
 #define TESTMESOCRYSTAL2_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestMesoCrystal2.h
-//! @brief  Definition of Layer class
-//! @author Scientific Computing Group at FRM II
-//! @date   27.09.2012
 
 #include "IFunctionalTest.h"
 #include "Types.h"

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/main.cpp 
+//! @brief     Implements class main.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "FunctionalTestFactory.h"
 #include "DrawHelper.h"
 #include "ProgramOptions.h"
@@ -32,9 +47,10 @@ int main(int argc, char **argv)
     AddCoreOptions(&command_line_options);
     command_line_options.parseCommandLine(argc, argv);
 
-    if(command_line_options.getVariables().count("msglog")) MSG::SetLevel(command_line_options["msglog"].as<std::string>());
+    if(command_line_options.getVariables().count("msglog"))
+        MSG::SetLevel(command_line_options["msglog"].as<std::string>());
 
-    // setting graphics environment
+    // set graphics environment
     TApplication *theApp(0);
     if( command_line_options.find("batch") ) {
         (void)theApp;
@@ -44,21 +60,23 @@ int main(int argc, char **argv)
         DrawHelper::SetStyle();
     }
 
-    // running functional tests
+    // run functional tests
     if( command_line_options.find("all") ) {
-        // running all registered tests
+        // run all registered tests
         FunctionalTestFactory::execute_all(&command_line_options);
 
     } else {
-        // loop over functional tests, run test if it's name is present in command line
+        // loop over functional tests,
+        // run test if its name is present in command line
         FunctionalTestFactory::iterator it = FunctionalTestFactory::begin();
         for(; it!= FunctionalTestFactory::end(); ++it) {
             if( command_line_options.find( (*it).first ) )
-                FunctionalTestFactory::execute( (*it).first, &command_line_options );
+                FunctionalTestFactory::execute(
+                    (*it).first, &command_line_options );
         }
     }
 
-    // saving report in pdf and root
+    // save report in pdf and root
     if( command_line_options.find("report") ) {
         DrawHelper::saveReport();
     }
@@ -66,7 +84,7 @@ int main(int argc, char **argv)
     // exit now if there is unrecognized options or plead for help
     if( !command_line_options.isConsistent() ) return 0;
 
-    // holding graphics if it exists
+    // hold graphics if it exists
     if( theApp ) {
         std::cout << "main() -> Info. Holding graphics, press ctrl-C to exit..." << std::endl;
         theApp->Run();

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//                                                                           
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/TestFresnelCoeff.cpp 
+//! @brief     Implements class TestFresnelCoeff.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//
+// ************************************************************************** //
+
 #include "TestFresnelCoeff.h"
 #include "Layer.h"
 #include "MultiLayer.h"
@@ -25,14 +40,12 @@
 #include "TLatex.h"
 #include "TLegend.h"
 
-
 TestFresnelCoeff::TestFresnelCoeff()
 : mp_sample(0)
 , mp_coeffs(0)
 {
     std::cout << "TestFresnelCoeff::TestFresnelCoeff() -> Info." << std::endl;
 }
-
 
 /* ************************************************************************* */
 //! test fresnel coefficients
@@ -47,7 +60,6 @@ void TestFresnelCoeff::execute()
     // calculate fresnel coefficients for multi-layer with different roughnesses
     test_roughness_set();
 }
-
 
 /* ************************************************************************* */
 //! calculate fresnel coefficients .vs. alpha_i for several standard samples
@@ -89,7 +101,6 @@ void TestFresnelCoeff::test_standard_samples()
         delete mp_coeffs;
     } // i_sample
 }
-
 
 /* ************************************************************************* */
 //! draw test results
@@ -252,8 +263,6 @@ void TestFresnelCoeff::test_roughness_set()
 
     draw_roughness_set();
 }
-
-
 
 /* ************************************************************************* */
 //! draw test results

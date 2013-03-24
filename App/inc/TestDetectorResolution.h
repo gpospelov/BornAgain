@@ -23,15 +23,14 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 
-
 class TestDetectorResolution : public IFunctionalTest
 {
-public:
+  public:
     TestDetectorResolution();
     virtual ~TestDetectorResolution();
     virtual void execute();
 
-private:
+  private:
     void initializeSample();
     OutputData<double> *mp_intensity_output;
     ISample *mp_sample;

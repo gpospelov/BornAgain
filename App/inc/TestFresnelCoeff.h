@@ -21,12 +21,8 @@
 #include "MultiLayer.h"
 #include "OutputData.h"
 
+//! Calculate Fresnel coefficients for several typical multilayer samples and produce validation plots
 
-//- -------------------------------------------------------------------
-//! @class TestFresnelCoeff
-//! @brief Calculate Fresnel coefficients for several typical multilayer
-//! samples and produce validation plots
-//- -------------------------------------------------------------------
 class TestFresnelCoeff : public IFunctionalTest
 {
 public:

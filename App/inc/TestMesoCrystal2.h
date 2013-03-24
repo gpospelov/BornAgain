@@ -28,11 +28,8 @@ class IFormFactor;
 class Lattice;
 class FitSuite;
 
+//! Simulation and fit of 3D ordered particle assemblies.
 
-//- -------------------------------------------------------------------
-//! @class TestMesoCrystal2
-//! @brief Simulation and fit of 3D ordered particle assemblies
-//- -------------------------------------------------------------------
 class TestMesoCrystal2 : public IFunctionalTest
 {
 public:

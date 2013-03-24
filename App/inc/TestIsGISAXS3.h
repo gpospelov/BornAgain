@@ -22,23 +22,24 @@
 
 #include <string>
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS3
-//! @brief Comparison with IsGISAXS ex-3: cylinder on top of substrate
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#3: Cylinder on top of substrate.
+
 class TestIsGISAXS3 : public IFunctionalTest
 {
-public:
+  public:
     TestIsGISAXS3();
     virtual ~TestIsGISAXS3(){}
     virtual void execute();
     virtual void finalise();
 
-private:
+  private:
     // structure to hold info over several compare cases
     struct CompareStruct
     {
-        CompareStruct(std::string _isginame, std::string _thisname, std::string _descr) : isginame(_isginame), thisname(_thisname), descr(_descr){}
+        CompareStruct(std::string _isginame,
+                      std::string _thisname,
+                      std::string _descr)
+        : isginame(_isginame), thisname(_thisname), descr(_descr){}
         std::string isginame;
         std::string thisname;
         std::string descr;

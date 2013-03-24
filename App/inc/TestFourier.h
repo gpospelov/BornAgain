@@ -22,16 +22,15 @@
 
 class TestFourier : public IFunctionalTest
 {
-public:
+  public:
     TestFourier();
     virtual ~TestFourier();
     virtual void execute();
 
-private:
+  private:
     void initializeSample();
     OutputData<double> *mp_intensity_output;
     ISample *mp_sample;
 };
-
 
 #endif /* TESTFOURIER_H_ */

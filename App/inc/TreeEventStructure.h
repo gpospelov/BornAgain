@@ -20,13 +20,10 @@
 #include <vector>
 #include <string>
 
+//! Data structure respresenting OutputData and mesocrystal settings.
 
-
-//- -------------------------------------------------------------------
-//! @class TreeEventOutputData
-//! @brief Data structure respresenting OutputData and mesocrystal settings
-//! for writing/reading in/from the ROOT tree.
-//- -------------------------------------------------------------------
+//! For writing/reading in/from the ROOT tree.
+//!
 class TreeEventOutputData
 {
 public:
@@ -84,7 +81,5 @@ public:
 
     ClassDef(TreeEventFitData,1)
 };
-
-
 
 #endif // TREEEVENTSTRUCTURE_H

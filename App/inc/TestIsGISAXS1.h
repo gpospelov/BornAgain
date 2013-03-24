@@ -18,10 +18,8 @@
 
 #include "IFunctionalTest.h"
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS1
-//! @brief Comparison with IsGISAXS ex-1: mean forfactor cylinder and prism
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#1: Mean formfactor cylinder and prism.
+
 class TestIsGISAXS1 : public IFunctionalTest
 {
 public:

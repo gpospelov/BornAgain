@@ -19,13 +19,9 @@
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
-//#include "SafePointerVector.h"
 
+//! IsGISAXS ex#9: Pyramids on top of substrate.
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS9
-//! @brief Comparison with IsGISAXS ex-9: pyramids on top of substrate
-//- -------------------------------------------------------------------
 class TestIsGISAXS9 : public IFunctionalTest
 {
 public:
@@ -36,6 +32,5 @@ public:
     virtual void finalise();
 
 };
-
 
 #endif // TESTISGISAXS9_H

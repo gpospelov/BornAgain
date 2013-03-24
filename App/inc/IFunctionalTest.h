@@ -21,27 +21,27 @@
 
 class ProgramOptions;
 
-//- -------------------------------------------------------------------
-//! @class IFunctionalTest
-//! @brief Base class for sophisticated functional tests.
+//! Base class for sophisticated functional tests.
+
 //! See also FunctionalTestFactory
-//- -------------------------------------------------------------------
+//!
 class IFunctionalTest : public INamed
 {
-public:
+  public:
     IFunctionalTest() : mp_options(0) {}
     IFunctionalTest(const std::string &name) : INamed(name), mp_options(0) {}
-    IFunctionalTest(const std::string &name, const std::string &title) : INamed(name, title), mp_options(0) {}
+    IFunctionalTest(const std::string &name, const std::string &title)
+        : INamed(name, title), mp_options(0) {}
     virtual ~IFunctionalTest(){}
 
-    virtual void initialise(ProgramOptions *p_options) {
-        mp_options = p_options;
-    }
+    virtual void initialise(ProgramOptions *p_options)
+    { mp_options = p_options; }
     virtual void execute();
     virtual void finalise() {}
     std::string getOutputPath() const { return m_output_path; }
-    void setOutputPath(const std::string &output_path) { m_output_path = output_path; }
-protected:
+    void setOutputPath(const std::string &output_path)
+    { m_output_path = output_path; }
+  protected:
     ProgramOptions *mp_options;
     std::string m_output_path;
 };

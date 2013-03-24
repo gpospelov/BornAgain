@@ -20,18 +20,18 @@
 #include "IFactory.h"
 #include "ISample.h"
 
+//! Factory to create standard pre-defined samples
 
-//- -------------------------------------------------------------------
-//! @class SampleFactory
-//! @brief Factory to create standard pre-defined samples
 //! Samples itself are defined in StandardSamples.{h, cxx}
-//- -------------------------------------------------------------------
-class SampleFactory : public ISingleton<SampleFactory>, public IFactory<std::string, ISample>
+//!
+class SampleFactory : public ISingleton<SampleFactory>,
+                      public IFactory<std::string, ISample>
 {
-public:
+  public:
     SampleFactory();
 
-    static ISample *createSample(const std::string &sample_name) { return instance().createItem(sample_name); }
+    static ISample *createSample(const std::string &sample_name)
+    { return instance().createItem(sample_name); }
 };
 
 #endif // SAMPLEFACTORY_H

@@ -22,30 +22,35 @@
 #include "IFactory.h"
 #include "IFunctionalTest.h"
 
-
 class TBenchmark;
 class ProgramOptions;
 
-class FunctionalTestFactory : public ISingleton<FunctionalTestFactory>, public IFactory<std::string, IFunctionalTest>
+class FunctionalTestFactory : public ISingleton<FunctionalTestFactory>,
+                              public IFactory<std::string, IFunctionalTest>
 {
-public:
+  public:
     FunctionalTestFactory();
     virtual ~FunctionalTestFactory();
 
     //! execute specified test
-    static void execute(std::string name, ProgramOptions *p_options) { instance().this_execute(name, p_options); }
+    static void execute(std::string name, ProgramOptions *p_options)
+    { instance().this_execute(name, p_options); }
 
     //! profile specified test
-    static void profile(std::string name, ProgramOptions *p_options)  { instance().this_profile(name, p_options); }
+    static void profile(std::string name, ProgramOptions *p_options)
+    { instance().this_profile(name, p_options); }
 
     //! execute all registered tests
-    static void execute_all(ProgramOptions *p_options)  { instance().this_execute_all(p_options); }
+    static void execute_all(ProgramOptions *p_options)
+    { instance().this_execute_all(p_options); }
 
     //! print names of registered tests
-    static void print_testnames() { instance().this_print_testnames(); }
+    static void print_testnames()
+    { instance().this_print_testnames(); }
 
     //! print benchmark summary
-    static void print_benchmarks() { instance().this_print_benchmarks(); }
+    static void print_benchmarks()
+    { instance().this_print_benchmarks(); }
 
     static iterator begin() { return instance().m_descriptions.begin(); }
     static iterator end() { return instance().m_descriptions.end(); }

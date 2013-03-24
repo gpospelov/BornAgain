@@ -18,18 +18,14 @@
 
 #include "IFunctionalTest.h"
 
+//! Test of minimizers with hard-to-minimize test functions
 
-//- -------------------------------------------------------------------
-//! @class TestFittingBenchmark
-//! @brief Test of minimizers with hard-to-minimize test functions
-//- -------------------------------------------------------------------
 class TestFittingBenchmark : public IFunctionalTest
 {
 public:
     TestFittingBenchmark();
     virtual ~TestFittingBenchmark(){}
     virtual void execute();
-
 };
 
 #endif // TESTFITTINGBENCHMARK_H

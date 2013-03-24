@@ -26,11 +26,8 @@
 #include "MesoCrystal.h"
 #include "Lattice.h"
 
+//! Simulation of 3D ordered particle assemblies.
 
-//- -------------------------------------------------------------------
-//! @class TestMesoCrystal1
-//! @brief Simulation of 3D ordered particle assemblies
-//- -------------------------------------------------------------------
 class TestMesoCrystal1 : public IFunctionalTest
 {
 public:
@@ -68,7 +65,5 @@ private:
     OutputData<double> *mp_intensity_output;
     ISampleBuilder *mp_sample_builder;
 };
-
-
 
 #endif /* TESTMESOCRYSTAL1_H_ */

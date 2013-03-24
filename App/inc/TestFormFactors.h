@@ -20,11 +20,8 @@
 #include "OutputData.h"
 #include "ISample.h"
 
+//! Comparison with FormFactors ex-1: mean forfactor cylinder and prism
 
-//- -------------------------------------------------------------------
-//! @class TestFormFactors
-//! @brief Comparison with FormFactors ex-1: mean forfactor cylinder and prism
-//- -------------------------------------------------------------------
 class TestFormFactors : public IFunctionalTest
 {
 public:

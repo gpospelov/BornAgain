@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/StandardSamples.h 
-//! @brief     Defines class StandardSamples.
+//! @brief     Defines namespace StandardSamples.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -19,6 +19,7 @@
 #include "ISample.h"
 #include "SampleFactory.h"
 
+//! Collection of ISample* pointers to all standard examples.
 
 namespace StandardSamples{
 

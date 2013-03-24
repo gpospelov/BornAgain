@@ -18,10 +18,8 @@
 
 #include "IFunctionalTest.h"
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS8
-//! @brief Comparison with IsGISAXS ex-8: cylinder with interference 2DDL_lattice
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#8: Cylinder with interference 2DDL_lattice.
+
 class TestIsGISAXS8 : public IFunctionalTest
 {
 public:

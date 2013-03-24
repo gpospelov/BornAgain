@@ -32,11 +32,8 @@ class IFunctionObject;
 class IChiSquaredModule;
 class TCanvas;
 
+//! Test of ROOT's LMA-based minimizers Fumili and GSLMultiFit
 
-//- -------------------------------------------------------------------
-//! @class TestFumiliLMA
-//! @brief Test of ROOT's LMA-based minimizers Fumili and GSLMultiFit
-//- -------------------------------------------------------------------
 class TestFumiliLMA : public IFunctionalTest
 {
 public:
@@ -49,16 +46,17 @@ public:
     double functionToMinimize(const double *pars);
 
 private:
-    void FillOutputDataFromFunction(OutputData<double> &data, TF2 *fun, int nbinsx=100, int nbinsy=100);
+    void FillOutputDataFromFunction(
+        OutputData<double> &data, TF2 *fun, int nbinsx=100, int nbinsy=100);
 
-    ROOT::Math::Minimizer *m_root_minimizer; //! minimizer
-    ROOT::Math::Functor *m_fcn; //! fit function
-    IFunctionObject *m_func_object; //! simulation function
-    TF2 *m_func; //! ROOT representation of the simulation function with min, max defined
-    IChiSquaredModule *m_chi_module; //! chi squared module
-    OutputData<double > *m_real_data; //! real data
-    size_t m_ndim; //! number of fit parametrs
-    double m_sigma; //! gaussian noise
+    ROOT::Math::Minimizer *m_root_minimizer; //!< minimizer
+    ROOT::Math::Functor *m_fcn; //!< fit function
+    IFunctionObject *m_func_object; //!< simulation function
+    TF2 *m_func; //!< ROOT representation of the simulation function with min, max defined
+    IChiSquaredModule *m_chi_module; //!< chi squared module
+    OutputData<double > *m_real_data; //!< real data
+    size_t m_ndim; //!< number of fit parametrs
+    double m_sigma; //!< gaussian noise
     TCanvas *m_c1;
 };
 
@@ -108,11 +106,17 @@ class MyChi2Function : public ROOT::Math::FitMethodFunction
 public:
     typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
 
-    MyChi2Function(TestFumiliLMA *test) : ROOT::Math::FitMethodFunction((int)test->m_ndim, (int)test->m_real_data->getAllocatedSize()), m_test(test) {}
+    MyChi2Function(TestFumiliLMA *test)
+        : ROOT::Math::FitMethodFunction(
+            (int)test->m_ndim,
+            (int)test->m_real_data->getAllocatedSize())
+        , m_test(test) {}
     virtual ~MyChi2Function(){}
 
     Type_t Type() const { return ROOT::Math::FitMethodFunction::kLeastSquare; }
-    ROOT::Math::IMultiGenFunction * Clone() const { return new MyChi2Function(m_test); }
+
+    ROOT::Math::IMultiGenFunction * Clone() const
+    { return new MyChi2Function(m_test); }
 
     // evaluation of the all chi2
     double DoEval(const double * par) const {
@@ -132,6 +136,5 @@ public:
 
     TestFumiliLMA *m_test;
 };
-
 
 #endif // TESTFUMILILMA_H

@@ -18,11 +18,8 @@
 
 #include "IFunctionalTest.h"
 
+//! Collection of functional tests for miscellaneous issues.
 
-//- -------------------------------------------------------------------
-//! @class TestMiscellaneous
-//! @brief Collection of functional tests for miscellaneous issues
-//- -------------------------------------------------------------------
 class TestMiscellaneous : public IFunctionalTest
 {
 public:

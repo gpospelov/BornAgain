@@ -1,28 +1,13 @@
 // ************************************************************************** //
 //                                                                           
-//  BornAgain: simulate and fit scattering at grazing incidence
-//
 //! @file      App/fp_exception_glibc_extension.h 
-//! @brief     Defines class fp_exception_glibc_extension.
+//! @brief     glibc floating point extension replacement for OS X.
 //
-//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
-//! License:   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
-//! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! License:   Public Domain
+//! @authors   David N. Williams
+//! @version   0.5.0
 //
 // ************************************************************************** //
-
-/* 
-   glibc floating point extension replacement for OS X. 
-   
-   Title:  Floating-point exception handling example
-   Author:  David N. Williams
-   File:  fe-handlng-example.c
-   License:  Public Domain
-   Version:  0.5.0
-
-*/
 
 #ifndef __FENV_H_LINUX_REPLACEMENT__
 #define __FENV_H_LINUX_REPLACEMENT__

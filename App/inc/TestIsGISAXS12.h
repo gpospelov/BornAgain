@@ -26,10 +26,8 @@
 class Simulation;
 class FitSuite;
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS12
-//! @brief Comparison with IsGISAXS ex-12: constrained fit example
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#12: Constrained fit.
+
 class TestIsGISAXS12 : public IFunctionalTest
 {
 public:
@@ -48,7 +46,7 @@ private:
 
         virtual ISample *buildSample() const;
     protected:
-        //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+        //! register some class members for later access via parameter pool
         virtual void init_parameters();
         double m_particle_probability1;
         double m_particle_radius1;
@@ -89,6 +87,5 @@ private:
     ISampleBuilder *m_sample_builder;
     FitSuite *m_fitSuite;
 };
-
 
 #endif // TESTISGISAXS12_H

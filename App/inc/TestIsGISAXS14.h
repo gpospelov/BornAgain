@@ -18,10 +18,8 @@
 
 #include "IFunctionalTest.h"
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS14
-//! @brief Comparison with IsGISAXS ex-14: multi layered sphere on graded interface
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#14: Multi layered sphere on graded interface.
+
 class TestIsGISAXS14 : public IFunctionalTest
 {
 public:

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/AppLinkDef.h 
-//! @brief     Defines class AppLinkDef.
+//! @brief     A few link pragmas.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -20,7 +20,6 @@
 #pragma link off all classes;
 #pragma link off all functions;
 
-//#pragma link C++ class ISingleton<DrawHelper>+;
 #pragma link C++ class DrawHelper+;
 #pragma link C++ class TreeEventOutputData+;
 #pragma link C++ class TreeEventFitData+;

@@ -22,11 +22,8 @@
 
 class MultiLayer;
 
+//! Test diffuse (off-specular) reflection from multilayer.
 
-//- -------------------------------------------------------------------
-//! @class TestDiffuseReflection
-//! @brief Test diffuse (off-specular) reflection from multilayer
-//- -------------------------------------------------------------------
 class TestDiffuseReflection : public IFunctionalTest
 {
 public:
@@ -39,13 +36,12 @@ public:
 private:
     MultiLayer *m_sample; //!< pointer to multilayer sample
     OutputData<double  > *m_data_spec; //!< specular reflectivity
-    OutputData<double  > *m_data_offspec; //!< off specular reflectivity
+    OutputData<double  > *m_data_offspec; //!< off-specular reflectivity
 
-    double m_alphaMin; //! min alpha value
-    double m_alphaMax; //! max alpha value
-    int m_npoints;     //! number of points in range [m_alphaMin, m_alphaMax]
+    double m_alphaMin; //!< min alpha value
+    double m_alphaMax; //!< max alpha value
+    int m_npoints;     //!< number of points in range [m_alphaMin, m_alphaMax]
 
 };
-
 
 #endif // TESTDIFFUSESCATTERING_H

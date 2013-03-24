@@ -20,12 +20,10 @@
 #include "OutputData.h"
 #include "ISample.h"
 
+//! Tests of specular and diffuse reflection from rough multilayer in DWBA.
 
-//- -------------------------------------------------------------------
-//! @class TestMultiLayerRoughness
-//! @brief Tests of specular and diffuse reflection from rough multilayer in DWBA.
-//! (this is replacement for TestDiffuseReflection test)
-//- -------------------------------------------------------------------
+//! This is replacement for TestDiffuseReflection test.
+//!
 class TestMultiLayerRoughness : public IFunctionalTest
 {
 public:

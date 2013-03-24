@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/App.h 
-//! @brief     Defines class App.
+//! @brief     A few includes.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +16,6 @@
 #ifndef APP_H
 #define APP_H
 
-//#include "ISingleton.h"
 #include "DrawHelper.h"
 #include "TreeEventStructure.h"
 

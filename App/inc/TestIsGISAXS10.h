@@ -18,10 +18,8 @@
 
 #include "IFunctionalTest.h"
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS10
-//! @brief Comparison with IsGISAXS ex-10: cylinder with interference on top of substrate
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#10: Cylinder with interference on top of substrate.
+
 class TestIsGISAXS10 : public IFunctionalTest
 {
 public:

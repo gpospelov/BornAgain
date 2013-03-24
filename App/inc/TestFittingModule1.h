@@ -16,20 +16,16 @@
 #ifndef TESTFITTINGMODULE1_H_
 #define TESTFITTINGMODULE1_H_
 
-
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 #include "Simulation.h"
 #include "ISampleBuilder.h"
 
-
 class FitSuite;
 
-//- -------------------------------------------------------------------
-//! @class TestFittingModule1
-//! @brief Testing of fitting module with simple samples
-//- -------------------------------------------------------------------
+//! Test of fitting module with simple samples.
+
 class TestFittingModule1 : public IFunctionalTest
 {
 public:
@@ -52,6 +48,5 @@ private:
     ISample *mp_sample;
     FitSuite *m_fitSuite;
 };
-
 
 #endif /* TESTFITTINGMODULE1_H_ */

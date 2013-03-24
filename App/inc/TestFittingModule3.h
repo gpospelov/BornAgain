@@ -16,7 +16,6 @@
 #ifndef TESTFITTINGMODULE3_H
 #define TESTFITTINGMODULE3_H
 
-
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
@@ -27,10 +26,10 @@
 
 class FitSuite;
 
-//- -------------------------------------------------------------------
-//! @class TestFittingModule3
-//! @brief Simultaneous fit of several 1D scans (mixture of cylinders and prisms, 4 parameters)
-//- -------------------------------------------------------------------
+//! Simultaneous fit of several 1D scans.
+
+//! Mixture of cylinders and prisms, 4 parameters.
+//!
 class TestFittingModule3 : public IFunctionalTest
 {
 public:
@@ -51,4 +50,5 @@ private:
     OutputData<double > *m_real_data;
     DataScan_t m_data_scans;
 };
+
 #endif // TESTFITTINGMODULE3_H

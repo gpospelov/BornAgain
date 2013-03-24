@@ -25,11 +25,8 @@
 #include <vector>
 #include "TF2.h"
 
+//! Toy simulation to test whole fitting chain with simple 2D functions.
 
-//- -------------------------------------------------------------------
-//! @class ToySimulation
-//! @brief Toy simulation to test whole fitting chain with simple 2D functions
-//- -------------------------------------------------------------------
 class ToySimulation : public Simulation
 {
 public:
@@ -50,11 +47,8 @@ private:
     std::vector<double > pars;
 };
 
+//! Test of fitting chain using toy simulation.
 
-//- -------------------------------------------------------------------
-//! @class TestToySimulation
-//! @brief Test of fitting chain using toy simulation
-//- -------------------------------------------------------------------
 class TestToySimulation : public IFunctionalTest
 {
 public:

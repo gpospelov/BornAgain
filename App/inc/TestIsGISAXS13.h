@@ -23,11 +23,10 @@
 class Simulation;
 class FitSuite;
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS
-//! @brief Comparison with IsGISAXS ex-13: simulating annealing
-//! (cylinders with size distribution and 1D paracrystal inderference function)
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#13: Simulating annealing.
+
+//! Cylinders with size distribution and 1D paracrystal interference function.
+//!
 class TestIsGISAXS13 : public IFunctionalTest
 {
 public:

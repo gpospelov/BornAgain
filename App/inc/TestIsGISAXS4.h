@@ -18,23 +18,25 @@
 
 #include "IFunctionalTest.h"
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS4
-//! @brief Comparison with IsGISAXS ex-4: cylinder with interference 1DDL or 2DDL
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#4: Cylinder with interference 1DDL or 2DDL.
+
 class TestIsGISAXS4 : public IFunctionalTest
 {
-public:
+  public:
     TestIsGISAXS4();
     virtual ~TestIsGISAXS4(){}
 
     virtual void execute();
     virtual void finalise();
-private:
+  private:
     // structure to hold info over several compare cases
     struct CompareStruct
     {
-        CompareStruct(std::string _isginame, std::string _thisname, std::string _descr) : isginame(_isginame), thisname(_thisname), descr(_descr){}
+        CompareStruct(
+            std::string _isginame,
+            std::string _thisname,
+            std::string _descr)
+        : isginame(_isginame), thisname(_thisname), descr(_descr){}
         std::string isginame;
         std::string thisname;
         std::string descr;
@@ -42,6 +44,5 @@ private:
 
     std::string m_data_path;
 };
-
 
 #endif /* TESTISGISAXS4_H_ */

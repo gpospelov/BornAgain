@@ -20,7 +20,6 @@
 #include "OutputData.h"
 #include "FormFactors.h"
 
-
 class TestFormFactor : public IFunctionalTest
 {
 public:
@@ -33,6 +32,5 @@ private:
     OutputData<double> *mp_intensity_output;
     FormFactorCylinder m_ff;
 };
-
 
 #endif // TESTFORMFACTOR_H

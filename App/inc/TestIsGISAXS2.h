@@ -22,11 +22,8 @@
 
 #include <string>
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS2
-//! @brief Comparison with IsGISAXS ex-2: mean form factors for particles
-//! with shape size distributions
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#2: Mean formfactors for particles with shape size distributions.
+
 class TestIsGISAXS2 : public IFunctionalTest
 {
 public:
@@ -35,10 +32,6 @@ public:
 
     virtual void execute();
     virtual void finalise();
-
-//private:
-//    std::string m_data_path;
-
 };
 
 #endif // TESTISGISAXS2_H

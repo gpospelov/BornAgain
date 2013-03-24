@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/FitSuiteObserverFactory.h 
-//! @brief     Defines class FitSuiteObserverFactory.
+//! @brief     Defines classes FitSuiteObserverFactory, FitSuiteObserverPrint, FitSuiteObserverDraw, FitSuiteObserverWriteTree
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -39,7 +39,12 @@ class TCanvas;
 class FitSuiteObserverPrint : public IObserver
 {
 public:
-    FitSuiteObserverPrint(int print_every_nth = 1) : m_print_every_nth(print_every_nth), m_wall_time(0.0), m_last_call_clock(clock()), m_last_call_time() {
+    FitSuiteObserverPrint(int print_every_nth = 1)
+        : m_print_every_nth(print_every_nth)
+        , m_wall_time(0.0)
+        , m_last_call_clock(clock())
+        , m_last_call_time()
+    {
         gettimeofday(&m_last_call_time, 0);
     }
     void update(IObservable *subject);
@@ -58,13 +63,18 @@ private:
 class FitSuiteObserverDraw : public IObserver
 {
 public:
-    FitSuiteObserverDraw( int draw_every_nth = 20, const std::string &canvas_base_name = std::string("FitSuiteObserverDraw") );
+    FitSuiteObserverDraw(
+        int draw_every_nth = 20,
+        const std::string &canvas_base_name =
+        std::string("FitSuiteObserverDraw") );
     ~FitSuiteObserverDraw();
 
     void update(IObservable *subject);
 
-    //! return output data which contains relative difference between simulation and real data
-    OutputData<double > *getRelativeDifferenceMap(const OutputData<double> *p_simu_data, const OutputData<double> *p_real_data);
+    //! Return relative difference between simulation and real data.
+    OutputData<double > *getRelativeDifferenceMap(
+        const OutputData<double> *p_simu_data,
+        const OutputData<double> *p_real_data);
 
 private:
     int m_draw_every_nth; //! update canvas every nth iteration
@@ -75,15 +85,16 @@ private:
 };
 
 
-//- -------------------------------------------------------------------
-//! @class FitSuiteObserverWrite
-//! @brief Save results of each fit iteration to the disk in the form of ROOT tree
+//! Save results of each fit iteration to the disk in the form of ROOT tree.
+
 //! If tree exist, data will be appended to it
-//- -------------------------------------------------------------------
+//!
 class FitSuiteObserverWriteTree : public IObserver
 {
 public:
-    FitSuiteObserverWriteTree(const std::string &file_name = std::string("fitsuite.root")) : m_file_name(file_name), m_prev_data(0) {}
+    FitSuiteObserverWriteTree(
+        const std::string &file_name = std::string("fitsuite.root"))
+        : m_file_name(file_name), m_prev_data(0) {}
     void update(IObservable *subject);
 private:
     std::string m_file_name; //! canvas name were to draw

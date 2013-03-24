@@ -20,13 +20,11 @@
 #include "IFunctionalTest.h"
 #include "LayerRoughness.h"
 
+//! Draw profile of rough surface for different sets of roughness parameters.
 
-//- -------------------------------------------------------------------
-//! @class TestRoughness
-//! @brief Draw profile of rough surface for different sets of
-//! roughness parameters. Two models are used for profile calculation:
+//! Two models are used for profile calculation:
 //! 1) matrix method 2) fast fourier transform using moving average
-//- -------------------------------------------------------------------
+//!
 class TestRoughness : public IFunctionalTest
 {
 public:
@@ -57,8 +55,5 @@ private:
     typedef void (TestRoughness::*TestMethod)();
     std::vector<TestMethod > m_TestMethods; // collection of class methods which will be used for correlated randoms
 };
-
-
-
 
 #endif // TESTROUGHNESS_H

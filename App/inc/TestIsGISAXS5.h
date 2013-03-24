@@ -23,11 +23,8 @@
 class Simulation;
 class FitSuite;
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS
-//! @brief Comparison with IsGISAXS ex-5: LMA fitting of cylinders with
-//! size distribution and 1D paracrystal inderference function.
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#5: LMA fit of cylinders with size distribution and 1D paracrystal interference function.
+
 class TestIsGISAXS5 : public IFunctionalTest
 {
 public:
@@ -43,7 +40,7 @@ public:
         SampleBuilder();
         virtual ISample *buildSample() const;
     protected:
-        //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+        //! register some class members for later access via parameter pool
         virtual void init_parameters();
         double m_particle_radius;
         double m_dispersion_radius;

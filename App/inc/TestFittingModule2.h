@@ -16,24 +16,21 @@
 #ifndef TESTFITTINGMODULE2_H
 #define TESTFITTINGMODULE2_H
 
-
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
 #include "Simulation.h"
 #include "ISampleBuilder.h"
 
-
 class FitSuite;
 
-//- -------------------------------------------------------------------
-//! @class TestFittingModule2
-//! @brief Testing different fitting approaches on 5 parameter sample
+//! Test different fitting approaches on 5 parameter sample.
+
 //! a) sample builder b) chi2 module c) different fit strategies d) mask on data
-//- -------------------------------------------------------------------
+//!
 class TestFittingModule2 : public IFunctionalTest
 {
-public:
+  public:
     TestFittingModule2();
     virtual ~TestFittingModule2();
     virtual void execute();
@@ -41,13 +38,13 @@ public:
     //! builds sample for fitter testing
     class SampleBuilder : public ISampleBuilder
     {
-    public:
+      public:
         SampleBuilder();
         virtual ~SampleBuilder(){}
         virtual ISample *buildSample() const;
-    protected:
+      protected:
         virtual void init_parameters();
-    private:
+      private:
         double m_cylinder_height;
         double m_cylinder_radius;
         double m_prism3_half_side;
@@ -67,7 +64,7 @@ public:
     //! fit example with data masking
     void fit_example_mask();
 
-private:
+  private:
     void initializeSimulation();
     void initializeRealData();
 
@@ -77,6 +74,5 @@ private:
     ISampleBuilder *mp_sample_builder;
     FitSuite *m_fitSuite;
 };
-
 
 #endif // TESTFITTINGMODULE2_H

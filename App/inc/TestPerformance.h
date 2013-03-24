@@ -25,10 +25,8 @@
 #include <map>
 #include <iostream>
 
-//- -------------------------------------------------------------------
-//! @class TestPerformance
-//! @brief run standard tests to trace changes in the performance
-//- -------------------------------------------------------------------
+//! Run standard tests to trace changes in the performance.
+
 class TestPerformance : public IFunctionalTest
 {
 public:

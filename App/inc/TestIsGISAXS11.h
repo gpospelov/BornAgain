@@ -18,10 +18,8 @@
 
 #include "IFunctionalTest.h"
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS11
-//! @brief Comparison with IsGISAXS ex-11:
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#11: ?.
+
 class TestIsGISAXS11 : public IFunctionalTest
 {
 public:
@@ -31,6 +29,5 @@ public:
     virtual void execute();
     virtual void finalise();
 };
-
 
 #endif /* TESTISGISAXS11_H_ */

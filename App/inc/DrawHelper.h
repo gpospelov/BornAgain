@@ -24,13 +24,11 @@ class TCanvas;
 class MultiLayer;
 class TPad;
 
-//- -------------------------------------------------------------------
-//! @class DrawHelper
-//! @brief Several usefull utilities for graphics in ROOT
-//!
+//! Several usefull utilities for graphics in ROOT
+
 //! Provides magnification of pads in canvas, common style for drawing,
 //! saving of all opened canvases from memory to pdf file
-//- -------------------------------------------------------------------
+//!
 class DrawHelper :public TObject
 {
 public:
@@ -50,7 +48,8 @@ public:
     static void DrawMultilayer(const MultiLayer *sample);
 
     //! create and register canvas
-    static TCanvas *createAndRegisterCanvas(std::string name, std::string title, int xsize=0, int ysize=0);
+    static TCanvas *createAndRegisterCanvas(
+        std::string name, std::string title, int xsize=0, int ysize=0);
 
     //! save reports (pdf and ROOT)
     static void saveReport();
@@ -66,4 +65,4 @@ private:
   ClassDef(DrawHelper,1)
 };
 
-#endif // DRAWHELPER_H
+#endif /* DRAWHELPER_H */

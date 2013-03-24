@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/AppOptionsDescription.h 
-//! @brief     Defines class AppOptionsDescription.
+//! @brief     Defines global function AppOptionsDescription.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)

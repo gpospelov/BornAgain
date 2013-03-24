@@ -21,11 +21,8 @@
 #include "OutputData.h"
 #include "Simulation.h"
 
+//! Using ROOT trees to read/write data from/to disk.
 
-//- -------------------------------------------------------------------
-//! @class TestRootTree.h
-//! @brief using ROOT trees to read/write data from/to disk
-//- -------------------------------------------------------------------
 class TestRootTree : public IFunctionalTest
 {
 public:
@@ -62,7 +59,5 @@ private:
     Simulation *mp_simulation;
     OutputData<double> *mp_data;
 };
-
-
 
 #endif // TESTROOTTREE_H

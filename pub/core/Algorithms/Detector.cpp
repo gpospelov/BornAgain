@@ -1,1 +1,0 @@
-../../../Core/Algorithms/src/Detector.cpp

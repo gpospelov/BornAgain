@@ -37,19 +37,12 @@ def edit( fn ):
 
 ## Main
 
-# parser = argparse.ArgumentParser()
-# parser.add_argument( "subdirs" )
-# subdirs = parser.parse_args().subdirs.split()
-
-subdirs = [ 'Algorithms', 'Fitting', 'FormFactors', 'PythonAPI', 'Samples',
-            'Tools' ]
-
-dirs = []
-for s in subdirs:
-    dirs.append( '/home/jwu/BornAgain/Core/' + s + '/' )
+parser = argparse.ArgumentParser()
+parser.add_argument( "subdirs" )
+dirs = parser.parse_args().subdirs.split()
 
 for d in dirs:
     print( "Directory " + d )
 
-    for fn in glob.glob( d + 'inc/*.h' ) + glob.glob( d + 'src/*.cpp' ):
+    for fn in glob.glob( d + '/inc/*.h' ) + glob.glob( d + '/src/*.cpp' ):
         edit( fn )

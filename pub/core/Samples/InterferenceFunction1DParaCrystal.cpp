@@ -1,1 +1,0 @@
-../../../Core/Samples//src/InterferenceFunction1DParaCrystal.cpp

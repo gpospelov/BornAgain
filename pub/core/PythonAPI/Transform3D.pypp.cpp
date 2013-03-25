@@ -1,1 +1,0 @@
-../../../Core/PythonAPI//src/Transform3D.pypp.cpp

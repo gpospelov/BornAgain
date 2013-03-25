@@ -1,1 +1,0 @@
-../../../Core/PythonAPI//inc/InterferenceFunction1DParaCrystal.pypp.h

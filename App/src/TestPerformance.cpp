@@ -237,7 +237,6 @@ void PerfTest_RotatedPyramid::execute()
 
 }
 
-
 /* ************************************************************************* */
 // our test starts here:  PerfTest_MesoCrystal
 /* ************************************************************************* */
@@ -255,7 +254,6 @@ void PerfTest_MesoCrystal::initialise(ProgramOptions *p_options)
     m_simulation->setBeamParameters(0.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
 
 }
-
 
 void PerfTest_MesoCrystal::execute()
 {

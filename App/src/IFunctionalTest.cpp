@@ -1,3 +1,4 @@
+
 // ************************************************************************** //
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
@@ -16,10 +17,9 @@
 #include "IFunctionalTest.h"
 #include "Exceptions.h"
 
-
-
 void IFunctionalTest::execute()
 {
-    throw NotImplementedException("This test can't run. Undefined execute method.");
+    throw NotImplementedException(
+        "This test can't run. Undefined execute method.");
 }
 

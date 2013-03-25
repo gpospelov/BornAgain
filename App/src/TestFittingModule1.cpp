@@ -176,8 +176,6 @@ void TestFittingModule1::initializeSample2()
     m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 }
 
-
-
 /* ************************************************************************* */
 // initializing real data
 /* ************************************************************************* */

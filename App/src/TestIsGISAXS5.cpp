@@ -63,7 +63,6 @@ TestIsGISAXS5::TestIsGISAXS5()
     setOutputPath(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-5/");
 }
 
-
 void TestIsGISAXS5::execute()
 {
     // initializing simulation and sample builder
@@ -78,7 +77,6 @@ void TestIsGISAXS5::execute()
     // run isgisaxs ex-5 style fit
     run_isgisaxs_fit();
 }
-
 
 /* ************************************************************************* */
 // standard ixgisaxs comparison
@@ -104,7 +102,6 @@ void TestIsGISAXS5::run_isgisaxs_comparison()
     delete isgi_data;
     delete our_data;
 }
-
 
 /* ************************************************************************* */
 // plot IsGISAXS data (*.dat file) and IsGISAXS fit results (*.out file)
@@ -155,7 +152,6 @@ void TestIsGISAXS5::plot_isgisaxs_fit_results()
 
     c1->Update();
 }
-
 
 /* ************************************************************************* */
 // run isgisaxs ex-12 style fit
@@ -241,9 +237,6 @@ void TestIsGISAXS5::run_isgisaxs_fit()
     c2->Update();
 }
 
-
-
-
 /* ************************************************************************* */
 // initialize simulation
 /* ************************************************************************* */
@@ -257,7 +250,6 @@ void TestIsGISAXS5::initializeSimulation()
     mp_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
     mp_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 }
-
 
 /* ************************************************************************* */
 // IsGISAXS ex-5 sample builder

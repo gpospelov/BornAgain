@@ -22,13 +22,6 @@
 #include "TF2.h"
 #include <iostream>
 
-
-TestFittingBenchmark::TestFittingBenchmark()
-{
-
-}
-
-
 void TestFittingBenchmark::execute()
 {
 //    gStyle->SetPalette(1);

@@ -26,16 +26,6 @@
 #include "MathFunctions.h"
 #include "ResolutionFunction2DSimple.h"
 
-namespace
-{
-//double testResolutionFunction(double u, double v)
-//{
-//    double sigma_u = 0.001;
-//    double sigma_v = 0.001;
-//    return MathFunctions::IntegratedGaussian(u, 0.0, sigma_u)
-//            * MathFunctions::IntegratedGaussian(v, 0.0, sigma_v);
-//}
-}
 
 TestDetectorResolution::TestDetectorResolution()
 : mp_intensity_output(0)

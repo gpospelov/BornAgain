@@ -23,8 +23,8 @@
 class TestFittingBenchmark : public IFunctionalTest
 {
 public:
-    TestFittingBenchmark();
-    virtual ~TestFittingBenchmark(){}
+    TestFittingBenchmark() {}
+    virtual ~TestFittingBenchmark() {}
     virtual void execute();
 };
 

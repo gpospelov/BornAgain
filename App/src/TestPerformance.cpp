@@ -42,21 +42,17 @@ TestPerformance::TestPerformance()
     m_tests.push_back( new PerformanceTestInfo(new PerfTest_MesoCrystal(), 2) );
 
     std::cout << "TestPerformance::TestPerformance() -> Info. Preparing to run " << m_tests.size() << " performance tests."  << std::endl;
-
 }
-
 
 TestPerformance::~TestPerformance()
 {
     for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); ++it) {
         delete (*it);
     }
-
 }
 
-/* ************************************************************************* */
-// running performance tests
-/* ************************************************************************* */
+//! Run performance tests.
+
 void TestPerformance::execute()
 {
     // getting system information
@@ -98,13 +94,10 @@ void TestPerformance::execute()
     clock_t clock2 = clock();
     std::cout << "1.2 " << clock2 << std::endl;
     std::cout << "1.3 " << clock2-clock1 << std::endl;
-
 }
 
+//! Append results to log file.
 
-/* ************************************************************************* */
-// save performance information
-/* ************************************************************************* */
 void TestPerformance::write_performance()
 {
     // appending performance information to the file
@@ -131,10 +124,8 @@ void TestPerformance::write_performance()
     std::cout << "TestPerformance::write_performance() -> Info. File '" << filename << "' is updated." << std::endl;
 }
 
+//! Fill system information.
 
-/* ************************************************************************* */
-// fill system information
-/* ************************************************************************* */
 void TestPerformance::get_sysinfo()
 {
     // saving date and time
@@ -166,16 +157,16 @@ void TestPerformance::get_sysinfo()
     }
 }
 
+//! Start PerfTest_FresnelCoeff.
 
-/* ************************************************************************* */
-// our test starts here:  PerfTest_FresnelCoeff
-/* ************************************************************************* */
 void PerfTest_FresnelCoeff::initialise(ProgramOptions *p_options)
 {
     IFunctionalTest::initialise(p_options);
     if(m_sample) delete m_sample;
     m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("SimpleMultilayer"));
 }
+
+//! Run PerfTest_FresnelCoeff.
 
 void PerfTest_FresnelCoeff::execute()
 {
@@ -188,10 +179,8 @@ void PerfTest_FresnelCoeff::execute()
     fresnelCalculator.execute(*ml, kvec, coeffs);
 }
 
+//! Start PerfTest_Pyramid.
 
-/* ************************************************************************* */
-// our test starts here:  PerfTest_Pyramid
-/* ************************************************************************* */
 void PerfTest_Pyramid::initialise(ProgramOptions *p_options)
 {
     IFunctionalTest::initialise(p_options);
@@ -207,15 +196,15 @@ void PerfTest_Pyramid::initialise(ProgramOptions *p_options)
     m_simulation->setSample(*m_sample);
 }
 
+//! Run PerfTest_Pyramid.
+
 void PerfTest_Pyramid::execute()
 {
     m_simulation->runSimulation();
 }
 
+//! Start PerfTest_RotatedPyramid
 
-/* ************************************************************************* */
-// our test starts here:  PerfTest_RotatedPyramid
-/* ************************************************************************* */
 void PerfTest_RotatedPyramid::initialise(ProgramOptions *p_options)
 {
     IFunctionalTest::initialise(p_options);
@@ -231,15 +220,15 @@ void PerfTest_RotatedPyramid::initialise(ProgramOptions *p_options)
     m_simulation->setSample(*m_sample);
 }
 
+//! Run PerfTest_RotatedPyramid
+
 void PerfTest_RotatedPyramid::execute()
 {
     m_simulation->runSimulation();
-
 }
 
-/* ************************************************************************* */
-// our test starts here:  PerfTest_MesoCrystal
-/* ************************************************************************* */
+//! Start PerfTest_MesoCrystal.
+
 void PerfTest_MesoCrystal::initialise(ProgramOptions *p_options)
 {
     IFunctionalTest::initialise(p_options);
@@ -254,6 +243,8 @@ void PerfTest_MesoCrystal::initialise(ProgramOptions *p_options)
     m_simulation->setBeamParameters(0.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
 
 }
+
+//! Run PerfTest_MesoCrystal.
 
 void PerfTest_MesoCrystal::execute()
 {

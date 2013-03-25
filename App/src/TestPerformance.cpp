@@ -108,8 +108,8 @@ void TestPerformance::execute()
 void TestPerformance::write_performance()
 {
     // appending performance information to the file
-    std::string filename("perf_history.txt");
-    filename = std::string(Utils::FileSystem::GetHomePath())+std::string("./Examples/Performance/") + filename;
+    std::string filename = Utils::FileSystem::GetHomePath() +
+        "./dev-tools/log/perf_history.txt";
 
     std::ofstream file;
     file.open(filename.c_str(), std::ios_base::app);

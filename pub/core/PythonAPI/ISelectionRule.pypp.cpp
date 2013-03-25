@@ -1,1 +1,0 @@
-../../../Core/PythonAPI//src/ISelectionRule.pypp.cpp

@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/Version.h 
+//! @file      App/inc/Version.h 
 //! @brief     Defines namespace AppVersion.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain

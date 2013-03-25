@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/SampleFactory.h 
+//! @file      App/inc/SampleFactory.h 
 //! @brief     Defines class SampleFactory.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain

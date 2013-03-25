@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestDiffuseReflection.cpp 
+//! @file      App/src/TestDiffuseReflection.cpp 
 //! @brief     Implements class TestDiffuseReflection.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
@@ -159,10 +159,7 @@ void TestDiffuseReflection::execute()
         delete samples[i_sample];
     }
     samples.clear();
-
 }
-
-
 
 void TestDiffuseReflection::draw()
 {
@@ -232,6 +229,5 @@ void TestDiffuseReflection::draw()
     hspect.DrawCopy();
 
     //h2.DrawCopy("CONT4 Z");
-
 }
 

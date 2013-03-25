@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestRootTree.cpp 
+//! @file      App/src/TestRootTree.cpp 
 //! @brief     Implements class TestRootTree.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
@@ -37,24 +37,9 @@
 
 #include <vector>
 
-TestRootTree::TestRootTree() : mp_sample(0), mp_simulation(0), mp_data(0)
-{
-
-}
-
-
-TestRootTree::~TestRootTree()
-{
-    delete mp_sample;
-    delete mp_simulation;
-    delete mp_data;
-}
-
 
 void TestRootTree::execute()
 {
-
-
     // example showing handling of tree with complex data structures
     complex_write();
 //    complex_read();
@@ -65,13 +50,8 @@ void TestRootTree::execute()
 
 }
 
+//! Example showing writing in the tree simple data structures.
 
-
-
-
-/* ************************************************************************* */
-// example showing writing in the tree simple data structures
-/* ************************************************************************* */
 void TestRootTree::complex_write()
 {
 
@@ -156,7 +136,6 @@ void TestRootTree::complex_write()
             }
         }
 
-
         c1->cd(); gPad->SetLogz();
         c1->Clear();
         IsGISAXSTools::setMinimum(1.);
@@ -166,18 +145,14 @@ void TestRootTree::complex_write()
 
         tree->Fill();
         event->nframe++;
-
     }
-
 
     tree->Write();
     top->Close();
 }
 
+//! Example showing reading from the tree simple data structures.
 
-/* ************************************************************************* */
-// example showing reading from the tree simple data structures
-/* ************************************************************************* */
 void TestRootTree::complex_read()
 {
     std::cout << "TestRootTree::complex_read() -> going to red tree back from file" << std::endl;
@@ -208,14 +183,10 @@ void TestRootTree::complex_read()
     }
 
     top->Close();
-
 }
 
+//! Example showing writing in the tree simple data structures.
 
-
-/* ************************************************************************* */
-// example showing writing in the tree simple data structures
-/* ************************************************************************* */
 void TestRootTree::simple_write()
 {
     delete mp_simulation;
@@ -320,13 +291,10 @@ void TestRootTree::simple_write()
     info += "tree->Draw(\"intens1:alpha_f:phi_f\",\"alpha_i>-0.2&&alpha_i<-0.1 \",\"prof CONT4 Z\"); \n";
 
     std::cout << info << std::endl;
-
 }
 
+//! Example showing reading from the tree simple data structures.
 
-/* ************************************************************************* */
-// example showing reading from the tree simple data structures
-/* ************************************************************************* */
 void TestRootTree::simple_read()
 {
     std::cout << "TestRootTree::simple_read() -> going to read tree back from file" << std::endl;
@@ -373,12 +341,12 @@ void TestRootTree::simple_read()
     }
 
     top->Close();
-
 }
 
+//! 
 
-
-void TestRootTree::initializeMesoCrystal(double meso_alpha, double meso_phi, double nanopart_radius)
+void TestRootTree::initializeMesoCrystal(
+    double meso_alpha, double meso_phi, double nanopart_radius)
 {
     (void)nanopart_radius;
     delete mp_sample;

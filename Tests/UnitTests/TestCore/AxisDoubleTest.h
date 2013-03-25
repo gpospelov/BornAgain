@@ -7,19 +7,13 @@
 
 class AxisDoubleTest : public ::testing::Test
 {
-protected:
-    AxisDoubleTest();
+  protected:
+    AxisDoubleTest()
+        : angleAxis("angle"), lengthAxis("length", 100, 0.0, 9.9) {}
 
     AxisDouble angleAxis;
     AxisDouble lengthAxis;
-
 };
-
-AxisDoubleTest::AxisDoubleTest()
-: angleAxis("angle")
-, lengthAxis("length", 100, 0.0, 9.9)
-{
-}
 
 TEST_F(AxisDoubleTest, DefaultIsEmpty)
 {

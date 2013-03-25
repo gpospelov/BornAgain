@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestMiscellaneous.h 
+//! @file      App/inc/TestMiscellaneous.h 
 //! @brief     Defines class TestMiscellaneous.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain

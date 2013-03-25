@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestConvolution.cpp 
+//! @file      App/src/TestConvolution.cpp 
 //! @brief     Implements class TestConvolution.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
@@ -33,9 +33,6 @@
 #include "TStyle.h"
 #include "TText.h"
 
-
-
-
 TestConvolution::TestConvolution()
 : m_npeaks(0)
 {
@@ -47,7 +44,6 @@ TestConvolution::TestConvolution()
     m_modes.push_back( mode_pair_t("CIRCULAR_SAME", MathFunctions::Convolve::FFTW_CIRCULAR_SAME));
     m_modes.push_back( mode_pair_t("CIRCULAR_SAME_SHIFTED", MathFunctions::Convolve::FFTW_CIRCULAR_SAME_SHIFTED));
 }
-
 
 void TestConvolution::execute()
 {
@@ -74,10 +70,8 @@ void TestConvolution::execute()
 
 }
 
+//! Test of convolution of two arrays in 1d.
 
-/* ************************************************************************* */
-// test of convolution of two arrays in 1d
-/* ************************************************************************* */
 void TestConvolution::test_convolve1d()
 {
     double xmin(0.0);
@@ -122,7 +116,6 @@ void TestConvolution::test_convolve1d()
         kernel[i] = y;
         gr_kernel->SetPoint((int)i,x,kernel[i]);
     }
-
 
     // --------------
     // drawing
@@ -195,13 +188,10 @@ void TestConvolution::test_convolve1d()
     Float_t rp, cp;
     std::cout << "--- TestConvolution::test_convolve_1d() -> Peformance." << std::endl;
     benchmark.Summary(rp, cp);
-
 }
 
+//! Test of convolution of two arrays in 2d.
 
-/* ************************************************************************* */
-// test of convolution of two arrays in 2d
-/* ************************************************************************* */
 void TestConvolution::test_convolve2d()
 {
     double xmin(0.0), xmax(100.);
@@ -341,10 +331,8 @@ void TestConvolution::test_convolve2d()
 
 }
 
+//! Test function for convolution.
 
-/* ************************************************************************* */
-// test function for convolution
-/* ************************************************************************* */
 double TestConvolution::fpeaks(double *x, double *par)
 {
     Double_t result = par[0] + par[1]*x[0];
@@ -356,6 +344,3 @@ double TestConvolution::fpeaks(double *x, double *par)
     }
     return result;
 }
-
-
-

@@ -1,1 +1,0 @@
-../../../Core/PythonAPI//inc/Translate3D.pypp.h

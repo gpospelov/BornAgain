@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/IsGISAXSTools.cpp 
+//! @file      App/src/IsGISAXSTools.cpp 
 //! @brief     Implements class IsGISAXSTools.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
@@ -43,38 +43,36 @@ double IsGISAXSTools::m_hist_max = 0;
 bool   IsGISAXSTools::m_has_min = false;
 bool   IsGISAXSTools::m_has_max = false;
 
+//! Draw 2D histogram representing logarithm of OutputData (in new canvas).
 
-/* ************************************************************************* */
-// draw 2D histogram representing logarithm of OutputData (in new canvas)
-/* ************************************************************************* */
 void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
         const std::string& canvas_name, const std::string& canvas_title,
         const std::string& draw_options, const std::string &histogram_title)
 {
     assert(&output);
-    TCanvas *c1 = new TCanvas(canvas_name.c_str(), canvas_title.c_str(), 0, 0, 1024, 768);
+    TCanvas *c1 = new
+        TCanvas(canvas_name.c_str(), canvas_title.c_str(), 0, 0, 1024, 768);
     IsGISAXSTools::setMinimum(1.);
     c1->cd();
     gPad->SetLogz();
     drawOutputDataInPad(output, draw_options, histogram_title);
 }
 
-/* ************************************************************************* */
-// draw 2D histogram representing OutputData (in new canvas)
-/* ************************************************************************* */
+//! Draw 2D histogram representing OutputData (in new canvas).
+
 void IsGISAXSTools::drawOutputData(const OutputData<double>& output,
         const std::string& canvas_name, const std::string& canvas_title,
         const std::string& draw_options, const std::string &histogram_title)
 {
     assert(&output);
-    TCanvas *c1 = new TCanvas(canvas_name.c_str(), canvas_title.c_str(), 0, 0, 1024, 768);
+    TCanvas *c1 = new
+        TCanvas(canvas_name.c_str(), canvas_title.c_str(), 0, 0, 1024, 768);
     c1->cd();
     drawOutputDataInPad(output, draw_options, histogram_title);
 }
 
-/* ************************************************************************* */
-// draw 1D or 2D histograms representing OutputData (in current gPad)
-/* ************************************************************************* */
+//! Draw 1D or 2D histograms representing OutputData (in current gPad).
+
 void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         const std::string& draw_options, const std::string &histogram_title)
 {
@@ -103,7 +101,8 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
         const IAxis *p_axis0 = output.getAxis(0);
         const IAxis *p_axis1 = output.getAxis(1);
         int i_point(0);
-        for(OutputData<double>::const_iterator it = output.begin(); it!= output.end(); ++it) {
+        for(OutputData<double>::const_iterator it = output.begin();
+            it!= output.end(); ++it) {
             size_t axis0_index = output.toCoordinate(it.getIndex(), 0);
             size_t axis1_index = output.toCoordinate(it.getIndex(), 1);
             double axis0_value = (*p_axis0)[axis0_index];
@@ -116,14 +115,15 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
     delete hist;
 }
 
+//! Create TH2D from OutputData.
 
-/* ************************************************************************* */
-// create TH2D from OutputData
-/* ************************************************************************* */
-TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const std::string &histo_name)
+TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output,
+                                       const std::string& histo_name)
 {
     assert(&output);
-    if (output.getNdimensions() !=2) throw( "IsGISAXSTools::getOutputDataTH2D() -> Warning! Expected number of dimensiobs is 2.");
+    if (output.getNdimensions() !=2)
+        throw( "IsGISAXSTools::getOutputDataTH2D() -> "
+               "Warning! Expected number of dimensiobs is 2.");
 
     std::vector<AxisStructure > haxises;
     haxises.resize(output.getNdimensions());

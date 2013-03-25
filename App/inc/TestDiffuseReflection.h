@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestDiffuseReflection.h 
+//! @file      App/inc/TestDiffuseReflection.h 
 //! @brief     Defines class TestDiffuseReflection.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain

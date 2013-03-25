@@ -2,8 +2,8 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TreeEventStructure.h 
-//! @brief     Defines class TreeEventStructure.
+//! @file      App/inc/TreeEventStructure.h 
+//! @brief     Defines classes TreeEventOutputData and TreeEventFitData.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -27,7 +27,7 @@
 class TreeEventOutputData
 {
 public:
-    TreeEventOutputData();
+    TreeEventOutputData() { clear(); }
     virtual ~TreeEventOutputData() { }
 
     void clear();
@@ -55,15 +55,12 @@ public:
 };
 
 
-//- -------------------------------------------------------------------
-//! @class TreeEventFitData
-//! @brief Represent fit results after each iteration for writing/reading
-//! in/from the ROOT tree
-//- -------------------------------------------------------------------
+//! Represent fit results for writing/reading in/from the ROOT tree.
+
 class TreeEventFitData
 {
 public:
-    TreeEventFitData();
+    TreeEventFitData() { clear(); }
     virtual ~TreeEventFitData()  { }
     void clear();
 

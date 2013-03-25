@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestFresnelCoeff.cpp 
+//! @file      App/src/TestFresnelCoeff.cpp 
 //! @brief     Implements class TestFresnelCoeff.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain

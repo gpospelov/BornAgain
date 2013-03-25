@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestMultiLayerRoughness.h 
+//! @file      App/inc/TestMultiLayerRoughness.h 
 //! @brief     Defines class TestMultiLayerRoughness.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
@@ -27,7 +27,7 @@
 class TestMultiLayerRoughness : public IFunctionalTest
 {
 public:
-    TestMultiLayerRoughness();
+    TestMultiLayerRoughness() {}
     virtual ~TestMultiLayerRoughness(){}
 
     virtual void execute();

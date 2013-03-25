@@ -16,9 +16,7 @@
 #ifndef OUTPUTDATAREADER_H
 #define OUTPUTDATAREADER_H
 
-#include "OutputData.h"
 #include "OutputDataReadStrategy.h"
-#include "Types.h"
 #include <string>
 
 //! Reads OutputData from file using different reading strategies.

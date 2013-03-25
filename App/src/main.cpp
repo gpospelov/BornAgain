@@ -2,8 +2,8 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/main.cpp 
-//! @brief     Implements class main.
+//! @file      App/src/main.cpp 
+//! @brief     Universal test program
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -33,10 +33,13 @@
 #endif
 #endif
 
+//! Universal test program.
+
 int main(int argc, char **argv)
 {
 #ifdef DEBUG_FPE
-    std::cout << "main() -> Enabling floating point exception debugging" << std::endl;
+    std::cout << "main() -> Enabling floating point exception debugging"
+              << std::endl;
     feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
 #endif
     std::cout << AppVersion::g_app_name << " "
@@ -86,7 +89,9 @@ int main(int argc, char **argv)
 
     // hold graphics if it exists
     if( theApp ) {
-        std::cout << "main() -> Info. Holding graphics, press ctrl-C to exit..." << std::endl;
+        std::cout
+            << "main() -> Info. Holding graphics, press ctrl-C to exit..."
+            << std::endl;
         theApp->Run();
     }
 

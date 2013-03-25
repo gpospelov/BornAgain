@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestIsGISAXS3.h 
+//! @file      App/inc/TestIsGISAXS3.h 
 //! @brief     Defines class TestIsGISAXS3.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
@@ -18,7 +18,6 @@
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
-//#include "ISample.h"
 
 #include <string>
 
@@ -47,4 +46,5 @@ class TestIsGISAXS3 : public IFunctionalTest
 
     std::string m_data_path;
 };
+
 #endif /* TESTISGISAXS3_H_ */

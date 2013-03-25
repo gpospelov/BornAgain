@@ -1,4 +1,4 @@
-This folder contains example data from IsGISAXS for comparison with GISASFW
+This folder contains example data from IsGISAXS for comparison with BornAgain
 
 In each subdirectory, one finds:
 - README with example description
@@ -23,7 +23,7 @@ ex-14  Layered spheres on graded interface.
 ex-15  Size spacing correlation approximation
 
 Some notes:
--Since polarization (x-ray) is not yet included in GISASFW, this feature should be disabled in IsGISAXS by returning 1._wp from function PolFac in Reflectivity_mod.f90
--IsGISAXS initializes the arrays of outgoing angles such that their sines are evenly spaced. This necessitates a different initialization in GISASFW too: see GISASExperiment::setDetectorParameters function
--In the subdirectory scripts/ , one can find python scripts that can be used to compare the different simulation outputs
+-Since polarization (x-ray) is not yet included in BornAgain, this feature should be disabled in IsGISAXS by returning 1._wp from function PolFac in Reflectivity_mod.f90
+-IsGISAXS initializes the arrays of outgoing angles such that their sines are evenly spaced. This necessitates a different initialization in BornAgain too: see GISASExperiment::setDetectorParameters function
+-In the subdirectory scripts/, one can find python scripts that can be used to compare the different simulation outputs
 

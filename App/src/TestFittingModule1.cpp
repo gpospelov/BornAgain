@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestFittingModule1.cpp 
+//! @file      App/src/TestFittingModule1.cpp 
 //! @brief     Implements class TestFittingModule1.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
@@ -175,8 +175,6 @@ void TestFittingModule1::initializeSample2()
     m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 12*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorPrism3/height", 2*Units::nanometer, 1*Units::nanometer, AttLimits::lowerLimited(0.01) );
 }
-
-
 
 /* ************************************************************************* */
 // initializing real data

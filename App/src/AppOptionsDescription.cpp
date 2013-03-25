@@ -2,8 +2,8 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/AppOptionsDescription.cpp 
-//! @brief     Implements class AppOptionsDescription.
+//! @file      App/src/AppOptionsDescription.cpp 
+//! @brief     Implements global function AppOptionsDescription.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -21,20 +21,24 @@
 
 namespace bpo = boost::program_options;
 
-// add command line and config file options
+//! Add command line and config file options.
+
 void AddApplicationOptions(ProgramOptions* p_options)
 {
     // general options
     bpo::options_description general_options("General options");
     general_options.add_options()
-            ("help,h",  "produce help message")
-            ("batch",   "run application in batch mode (no graphics)")
-            ("report",  "write functional tests report in pdf file")
-            ("all",     "run all registered functional test")
-            ("profile", "profile specified test")
-            ("config,c", bpo::value<std::string>()->default_value("bornagain.cfg"),"config file name")
-            ("fitconfig", bpo::value<int>()->default_value(1), "used in TestMesocrystal2")
-            ("fitpreserve", bpo::value<int>()->default_value(1), "used in TestMesocrystal2")
+        ("help,h",  "produce help message")
+        ("batch",   "run application in batch mode (no graphics)")
+        ("report",  "write functional tests report in pdf file")
+        ("all",     "run all registered functional test")
+        ("profile", "profile specified test")
+        ("config,c", bpo::value<std::string>()->default_value("bornagain.cfg"),
+         "config file name")
+        ("fitconfig", bpo::value<int>()->default_value(1),
+         "used in TestMesocrystal2")
+        ("fitpreserve", bpo::value<int>()->default_value(1),
+         "used in TestMesocrystal2")
     ;
 
     // there is no positional options (without '--' or '-' signs) at the moment

@@ -16,9 +16,7 @@
 #ifndef OUTPUTDATAWRITER_H
 #define OUTPUTDATAWRITER_H
 
-#include "OutputData.h"
 #include "OutputDataWriteStrategy.h"
-#include "Types.h"
 #include <string>
 
 //! Write OutputData to file using different witing strategies

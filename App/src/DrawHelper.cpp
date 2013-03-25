@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/DrawHelper.cpp 
+//! @file      App/src/DrawHelper.cpp 
 //! @brief     Implements class DrawHelper.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
@@ -45,34 +45,22 @@
 #include "TDatime.h"
 #include "TSystem.h"
 
-//#include "TEveManager.h"
-//#include "TEvePointSet.h"
-//#include "TEveArrow.h"
-//#include "TEveGeoShape.h"
-//#include "TGeoSphere.h"
-//#include "TEveTrans.h"
-//#include "TEveViewer.h"
-//#include "TGLViewer.h"
-
-
-std::vector<TCanvas *> DrawHelper::m_registered_canvases = std::vector<TCanvas *>();
+std::vector<TCanvas *> DrawHelper::m_registered_canvases =
+    std::vector<TCanvas *>();
 int DrawHelper::m_default_canvas_xsize = 1024;
 int DrawHelper::m_default_canvas_ysize = 768;
 
+//! Assign function to canvas to handle mouse events inside canvas.
 
-/* ************************************************************************* */
-// assign function to canvas to handle mouse events inside canvas
-/* ************************************************************************* */
 void DrawHelper::SetMagnifier(TCanvas *canvas)
 {
-//    canvas->Connect("ProcessedEvent(Int_t,Int_t,Int_t,TObject*)", "DrawHelper", this, "ExecuteMagnifier(int,int,int,TObject*)");
-    canvas->Connect("ProcessedEvent(Int_t,Int_t,Int_t,TObject*)", "DrawHelper", 0, "ExecuteMagnifier(int,int,int,TObject*)");
+    canvas->Connect("ProcessedEvent(Int_t,Int_t,Int_t,TObject*)",
+                    "DrawHelper", 0,
+                    "ExecuteMagnifier(int,int,int,TObject*)");
 }
 
+//! Helper function to process double clicks inside TCanvas to magnify pads.
 
-/* ************************************************************************* */
-// helper function to process double clicks inside TCanvas to magnify pads
-/* ************************************************************************* */
 void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
 {
   (void)sel;
@@ -93,13 +81,11 @@ void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
   }
 }
 
+//! Set our own default style to draw things.
 
-/* ************************************************************************* */
-// Set our own default style to draw things
-/* ************************************************************************* */
 void DrawHelper::SetStyle()
 {
-    TStyle *scattStyle = new TStyle("Scattering","Scattering style");
+    TStyle *scattStyle = new TStyle("Scattering", "Scattering style");
 
     // use plain black on white colors
     Int_t icol=0; // WHITE
@@ -110,7 +96,6 @@ void DrawHelper::SetStyle()
     scattStyle->SetPadBorderMode(icol);
     scattStyle->SetPadColor(icol);
     scattStyle->SetStatColor(icol);
-    //scattStyle->SetFillColor(icol); // don't use: white fill color floa *all* objects
 
     // set the paper & margin sizes
     scattStyle->SetPaperSize(20,26);
@@ -168,18 +153,15 @@ void DrawHelper::SetStyle()
     gROOT->ForceStyle();
 }
 
+//! Save canvases in pdf file.
 
-
-
-/* ************************************************************************* */
-// Save canvases in pdf file.
-// Method reads existing ROOT canvases from memory and save them in file
-//
-// Since canvases might have different aspect ratio with respect to pdf file,
-// simple saving leads to the distortion of aspect ratio. To avoid this,
-// following approach is used. Canvas are drawn first inside one master canvas
-// with right proportion, and then master canvas goes inside pdf file.
-/* ************************************************************************* */
+//! Method reads existing ROOT canvases from memory and save them in file
+//!
+//! Since canvases might have different aspect ratio with respect to pdf file,
+//! simple saving leads to the distortion of aspect ratio. To avoid this,
+//! following approach is used. Canvas are drawn first inside one master canvas
+//! with right proportion, and then master canvas goes inside pdf file.
+//!
 void DrawHelper::SaveReportPDFObsolete()
 {
     std::string sfilename("report.pdf");
@@ -237,10 +219,8 @@ void DrawHelper::SaveReportPDFObsolete()
     cmaster->Print(stmpname.c_str()); // close file
 }
 
+//! Draw multilayer structure in gPad.
 
-/* ************************************************************************* */
-// Draw multilayer structure in gPad
-/* ************************************************************************* */
 void DrawHelper::DrawMultilayer(const MultiLayer *sample)
 {
     size_t nlayers = sample->getNumberOfLayers();
@@ -325,11 +305,8 @@ void DrawHelper::DrawMultilayer(const MultiLayer *sample)
     gPad->Update();
 }
 
+//! Draw multilayer structure in gPad.
 
-
-/* ************************************************************************* */
-// Draw multilayer structure in gPad
-/* ************************************************************************* */
 TCanvas *DrawHelper::createAndRegisterCanvas(std::string name, std::string title, int xsize, int ysize)
 {
     if(xsize==0) xsize = m_default_canvas_xsize;
@@ -342,7 +319,7 @@ TCanvas *DrawHelper::createAndRegisterCanvas(std::string name, std::string title
     return c1;
 }
 
-
+//! ?
 
 void DrawHelper::saveReport()
 {
@@ -414,10 +391,8 @@ void DrawHelper::saveReport()
     std::cout << "DrawHelper::saveReport() -> File '" << rootfilename << "' is created" << std::endl;
 }
 
+//! Attempt to draw meso crystal lattice in 3d.
 
-/* ************************************************************************* */
-// attempt to draw meso crystal lattice in 3d
-/* ************************************************************************* */
 void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
 {
     (void)sample;

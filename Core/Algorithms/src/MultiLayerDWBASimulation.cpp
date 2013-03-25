@@ -19,7 +19,6 @@
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "DoubleToComplexMap.h"
-#include "ExperimentConstants.h"
 #include "MessageService.h"
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(
@@ -135,7 +134,7 @@ void MultiLayerDWBASimulation::run()
 std::set<double> MultiLayerDWBASimulation::getAlphaList() const
 {
     std::set<double> result;
-    const IAxis *p_alpha_axis = getDWBAIntensity().getAxis(NDetector2d::ALPHA_AXIS_NAME);
+    const IAxis *p_alpha_axis = getDWBAIntensity().getAxis("alpha_f");
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
         Bin1D alpha_bin = p_alpha_axis->getBin(i);
         result.insert(alpha_bin.m_lower);

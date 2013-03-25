@@ -24,41 +24,67 @@
 
 class Detector : public IParameterized
 {
-public:
+  public:
+
     Detector();
     Detector(const Detector &other);
     Detector &operator=(const Detector &other);
 
-    virtual ~Detector();
+    virtual ~Detector()
+    { delete mp_detector_resolution; }
 
-    void addAxis(const IAxis &axis);
+    void addAxis(const IAxis &axis)
+    { m_axes.push_back(axis.clone()); }
+
     void addAxis(const AxisParameters &axis_params);
+
     const IAxis &getAxis(size_t index) const;
-    size_t getDimension() const { return m_axes.size(); }
-    void clear();
-    void setDetectorResolution(IDetectorResolution *p_detector_resolution) { delete mp_detector_resolution; mp_detector_resolution = p_detector_resolution; }
-	void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
-    const IDetectorResolution *getDetectorResolutionFunction() const { return mp_detector_resolution; }
 
-	//! add parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
+    size_t getDimension() const
+    { return m_axes.size(); }
 
-    //! normalize intensity data with detector cell sizes
+    void clear()
+    { m_axes.clear(); }
+
+    void setDetectorResolution(IDetectorResolution *p_detector_resolution)
+    {
+        delete mp_detector_resolution;
+        mp_detector_resolution = p_detector_resolution;
+    }
+
+    void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
+
+    const IDetectorResolution *getDetectorResolutionFunction() const
+    { return mp_detector_resolution; }
+
+    //! Add parameters from local pool to external pool and call recursion over direct children.
+    virtual std::string addParametersToExternalPool(
+        std::string path,
+        ParameterPool *external_pool,
+        int copy_number=-1) const;
+
+    //! Normalize intensity data with detector cell sizes.
     void normalize(OutputData<double> *p_data, double sin_alpha_i) const;
-protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-    virtual void init_parameters();
-    bool isCorrectAxisIndex(size_t index) const { return index<getDimension(); }
 
-	//! check if data has a compatible format with the detector
+  protected:
+
+    //! Register some class members for later access via parameter pool.
+    virtual void init_parameters() {}
+
+    bool isCorrectAxisIndex(size_t index) const
+    { return index<getDimension(); }
+
+    //! Check if data has a compatible format with the detector.
     bool dataShapeMatches(const OutputData<double> *p_data) const;
 
-private:
+  private:
+
     //! swap function
     void swapContent(Detector &other);
 
     //! initialize axis the way IsGISAXS does
-    void initializeAnglesIsgisaxs(AxisDouble *p_axis, const TSampledRange<double> &axis_range) const;
+    void initializeAnglesIsgisaxs(
+        AxisDouble *p_axis, const TSampledRange<double> &axis_range) const;
 
     //! calculate the solid angle for the given data element
     double getSolidAngle(OutputData<double> *p_data, size_t index) const;

@@ -38,11 +38,12 @@ vdouble1d_t Utils::String::parse_doubles(const std::string &str)
     return buff_1d;
 }
 
-//-----------------------------------------------------------------------------
-// double numbers in string will be rounded according to the precision
-// if precision is 6, then 7.2908527770e+03 -> 7.290853e+03
-// (this method is used to compare IsGisaxs and our ASCII files at equal precision)
-//-----------------------------------------------------------------------------
+//! Round double numbers in string to given precision.
+
+//! If precision is 6, then 7.2908527770e+03 -> 7.290853e+03.
+//! This method is used to compare IsGisaxs and our ASCII files
+//! at equal precision.
+//!
 std::string Utils::String::round_doubles(const std::string &str, int precision)
 {
     std::string newline;
@@ -56,9 +57,10 @@ std::string Utils::String::round_doubles(const std::string &str, int precision)
     return newline;
 }
 
-//! return true if text matches pattern with wildcards '*' and '?'
+//! Return true if text matches pattern with wildcards '*' and '?'.
 
-bool Utils::String::MatchPattern(const std::string &text, std::string wildcardPattern)
+bool Utils::String::MatchPattern(
+    const std::string &text, std::string wildcardPattern)
 {
     bool caseSensitive = false;
 

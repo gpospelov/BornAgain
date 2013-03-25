@@ -8,7 +8,7 @@
 //              forked after v 1.6 2003/10/24 21:39:45
 //
 //! @file       Geometry/src/Transform3D.cpp
-//! @brief      implements core methods of class Transform3D.
+//! @brief      Implements core methods of class Transform3D.
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)

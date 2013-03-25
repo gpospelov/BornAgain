@@ -16,19 +16,15 @@
 #include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
 
-DecouplingApproximationStrategy::DecouplingApproximationStrategy(
-    SimulationParameters sim_params)
-  : IInterferenceFunctionStrategy(sim_params)
-{
-}
-
 void DecouplingApproximationStrategy::init(
         const SafePointerVector<FormFactorInfo> &form_factor_infos,
         const SafePointerVector<IInterferenceFunction> &ifs)
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, ifs);
     if (!checkVectorSizes()) {
-        throw ClassInitializationException("Wrong number of formfactors or interference functions for Decoupling Approximation.");
+        throw ClassInitializationException(
+            "Wrong number of formfactors or interference functions "
+            "for Decoupling Approximation.");
     }
 }
 

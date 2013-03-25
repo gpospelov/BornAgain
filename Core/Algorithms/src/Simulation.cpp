@@ -15,7 +15,6 @@
 
 #include "Simulation.h"
 
-#include "ExperimentConstants.h"
 #include "MathFunctions.h"
 #include "ProgramOptions.h"
 #include "DWBASimulation.h"
@@ -63,7 +62,8 @@ Simulation::Simulation(const ProgramOptions *p_options)
     init_parameters();
 }
 
-Simulation::Simulation(const ISample &p_sample, const ProgramOptions *p_options)
+Simulation::Simulation(
+    const ISample &p_sample, const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(p_sample.clone())
 , mp_sample_builder(0)
@@ -75,7 +75,8 @@ Simulation::Simulation(const ISample &p_sample, const ProgramOptions *p_options)
     init_parameters();
 }
 
-Simulation::Simulation(const ISampleBuilder* p_sample_builder, const ProgramOptions *p_options)
+Simulation::Simulation(
+    const ISampleBuilder* p_sample_builder, const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(0)
 , mp_sample_builder(p_sample_builder)
@@ -99,7 +100,7 @@ void Simulation::prepareSimulation()
     updateSample();
 }
 
-//! Run simulation.
+//! Run simulation. Manage threads.
 
 void Simulation::runSimulation()
 {
@@ -168,11 +169,15 @@ void Simulation::runSimulationElement(size_t index)
     (void)index;
     prepareSimulation();
 
-    if( !mp_sample) throw NullPointerException( "Simulation::runSimulation() -> Error! No sample set.");
+    if( !mp_sample)
+        throw NullPointerException(
+            "Simulation::runSimulation() -> Error! No sample set.");
 
     m_intensity_map.setAllTo(0.0);
     DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-    if (!p_dwba_simulation) throw NullPointerException("Simulation::runSimulation() -> No dwba simulation");
+    if (!p_dwba_simulation)
+        throw NullPointerException("Simulation::runSimulation() -> "
+                                   "No dwba simulation");
     p_dwba_simulation->init(*this);
     p_dwba_simulation->run();
     m_intensity_map += p_dwba_simulation->getDWBAIntensity();
@@ -187,7 +192,6 @@ void Simulation::normalize()
     }
 }
 
-
 //! The ISample object will not be owned by the Simulation object
 void Simulation::setSample(const ISample &sample)
 {
@@ -197,7 +201,10 @@ void Simulation::setSample(const ISample &sample)
 
 void Simulation::setSampleBuilder(const ISampleBuilder *p_sample_builder)
 {
-    if( !p_sample_builder ) throw NullPointerException("Simulation::setSampleBuilder() -> Error! Attempt to set null sample builder.");
+    if( !p_sample_builder )
+        throw NullPointerException(
+            "Simulation::setSampleBuilder() -> "
+            "Error! Attempt to set null sample builder.");
     mp_sample_builder = p_sample_builder;
     delete mp_sample;
     mp_sample = 0;
@@ -229,18 +236,21 @@ void Simulation::setBeamIntensity(double intensity)
     m_instrument.setBeamIntensity(intensity);
 }
 
-std::string Simulation::addParametersToExternalPool(std::string path,
-        ParameterPool* external_pool, int copy_number) const
+std::string Simulation::addParametersToExternalPool(
+    std::string path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
-    std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+    std::string  new_path =
+        IParameterized::addParametersToExternalPool(
+            path, external_pool, copy_number);
 
     // add parameters of the instrument
     m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
 
     // add parameters of the sample builder
     if (mp_sample_builder) {
-        mp_sample_builder->addParametersToExternalPool(new_path, external_pool, -1);
+        mp_sample_builder->addParametersToExternalPool(
+            new_path, external_pool, -1);
     }
     // add parameters of the sample (only in the case without sample builder)
     else if (mp_sample) {
@@ -264,11 +274,15 @@ void Simulation::smearIntensityFromZAxisTilting()
     m_intensity_map.setAllTo(0.0);
     OutputData<double>::const_iterator it_clone = p_clone->begin();
     while (it_clone != p_clone->end()) {
-        double old_phi = p_clone->getValueOfAxis(NDetector2d::PHI_AXIS_NAME, it_clone.getIndex());
-        double old_alpha = p_clone->getValueOfAxis(NDetector2d::ALPHA_AXIS_NAME, it_clone.getIndex());
+        double old_phi = p_clone->getValueOfAxis(
+            "phi_f", it_clone.getIndex());
+        double old_alpha = p_clone->getValueOfAxis(
+            "alpha_f", it_clone.getIndex());
         for (size_t zeta_index=0; zeta_index<zetas.size(); ++zeta_index) {
-            double newphi = old_phi + deltaPhi(old_alpha, old_phi, zetas[zeta_index]);
-            double newalpha = old_alpha + deltaAlpha(old_alpha, zetas[zeta_index]);
+            double newphi =
+                old_phi + deltaPhi(old_alpha, old_phi, zetas[zeta_index]);
+            double newalpha =
+                old_alpha + deltaAlpha(old_alpha, zetas[zeta_index]);
             double prob = probs[zeta_index];
             addToIntensityMap(newalpha, newphi, prob*(*it_clone++));
         }
@@ -295,7 +309,8 @@ void Simulation::updateSample()
         ISample *p_new_sample = mp_sample_builder->buildSample();
         std::string builder_type = typeid(*mp_sample_builder).name();
         if( builder_type.find("ISampleBuilder_wrapper") != std::string::npos ) {
-            msglog(MSG::INFO) << "Simulation::updateSample() -> OMG, some body has called me from python, what an idea... ";
+            msglog(MSG::INFO) << "Simulation::updateSample() -> "
+                "OMG, some body has called me from python, what an idea... ";
             setSample(*p_new_sample); // p_new_sample belongs to python, don't delete it
         } else {
             delete mp_sample;
@@ -314,8 +329,9 @@ void Simulation::setDetectorParameters(const OutputData<double > &output_data)
     m_intensity_map.setAllTo(0.0);
 }
 
-void Simulation::setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
-                                            size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
+void Simulation::setDetectorParameters(
+    size_t n_phi, double phi_f_min, double phi_f_max,
+    size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {
     m_instrument.setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min, alpha_f_max, isgisaxs_style);
     updateIntensityMapAxes();
@@ -327,7 +343,8 @@ void Simulation::setDetectorParameters(const DetectorParameters &params)
     updateIntensityMapAxes();
 }
 
-void Simulation::setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function)
+void Simulation::setDetectorResolutionFunction(
+    IResolutionFunction2D *p_resolution_function)
 {
     m_instrument.setDetectorResolutionFunction(p_resolution_function);
 }
@@ -343,8 +360,9 @@ double Simulation::deltaPhi(double alpha, double phi, double zeta) const
     return std::sqrt(qy2) - std::sin(phi);
 }
 
-void Simulation::createZetaAndProbVectors(std::vector<double>& zetas,
-        std::vector<double>& probs, size_t nbr_zetas, double zeta_sigma) const
+void Simulation::createZetaAndProbVectors(
+    std::vector<double>& zetas,
+    std::vector<double>& probs, size_t nbr_zetas, double zeta_sigma) const
 {
     double zeta_step;
     if (nbr_zetas<2) {
@@ -370,8 +388,8 @@ void Simulation::createZetaAndProbVectors(std::vector<double>& zetas,
 
 void Simulation::addToIntensityMap(double alpha, double phi, double value)
 {
-    const IAxis *p_alpha_axis = m_intensity_map.getAxis(NDetector2d::ALPHA_AXIS_NAME);
-    const IAxis *p_phi_axis = m_intensity_map.getAxis(NDetector2d::PHI_AXIS_NAME);
+    const IAxis *p_alpha_axis = m_intensity_map.getAxis("alpha_f");
+    const IAxis *p_phi_axis = m_intensity_map.getAxis("phi_f");
     std::vector<int> coordinates;
     coordinates.push_back((int)p_alpha_axis->findClosestIndex(alpha));
     coordinates.push_back((int)p_phi_axis->findClosestIndex(phi));

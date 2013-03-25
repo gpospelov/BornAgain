@@ -23,8 +23,13 @@
 class ChiSquaredFrequency : public IChiSquaredModule
 {
 public:
-    ChiSquaredFrequency();
-    virtual ~ChiSquaredFrequency();
+    ChiSquaredFrequency()
+        : mp_real_ft(0) , mp_simulation_ft(0) , m_cutoff(1.0) {}
+    virtual ~ChiSquaredFrequency()
+    {
+        delete mp_real_ft;
+        delete mp_simulation_ft;
+    }
 
     virtual double calculateChiSquared();
 

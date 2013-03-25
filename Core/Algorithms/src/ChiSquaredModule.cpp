@@ -17,19 +17,6 @@
 #include "OutputDataFunctions.h"
 #include <cassert>
 
-ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)
-     : IChiSquaredModule(other)
-{
-}
-
-ChiSquaredModule::~ChiSquaredModule()
-{
-}
-
-ChiSquaredModule *ChiSquaredModule::clone() const
-{
-    return new ChiSquaredModule(*this);
-}
 
 double ChiSquaredModule::calculateChiSquared()
 {

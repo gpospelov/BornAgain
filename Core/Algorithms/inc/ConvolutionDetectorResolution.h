@@ -19,7 +19,7 @@
 #include "IDetectorResolution.h"
 #include "IResolutionFunction2D.h"
 
-//! Applies a 1 or 2 dimensional convolution of the intensity with a resolution function
+//! Convolutes the intensity in 1 or 2 dimensions with a resolution function.
 
 //! Limitation: this class assumes that the data points are evenly
 //! distributed on each axis

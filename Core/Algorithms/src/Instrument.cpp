@@ -15,7 +15,6 @@
 
 #include "Instrument.h"
 
-#include "ExperimentConstants.h"
 #include "ConvolutionDetectorResolution.h"
 
 Instrument::Instrument()
@@ -47,10 +46,10 @@ void Instrument::setDetectorParameters(size_t n_phi, double phi_f_min,
         double alpha_f_max, bool isgisaxs_style)
 {
     AxisParameters phi_params;
-    phi_params.m_name = NDetector2d::PHI_AXIS_NAME;
+    phi_params.m_name = "phi_f";
     phi_params.m_range = TSampledRange<double>(n_phi, phi_f_min, phi_f_max);
     AxisParameters alpha_params;
-    alpha_params.m_name = NDetector2d::ALPHA_AXIS_NAME;
+    alpha_params.m_name = "alpha_f";
     alpha_params.m_range = TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
     if (isgisaxs_style) {
         phi_params.m_sample_method = AxisParameters::E_ISGISAXS;

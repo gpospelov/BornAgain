@@ -24,30 +24,30 @@
 class Beam : public IParameterized
 {
 public:
-	Beam();
+    Beam();
     Beam(const Beam &other);
     Beam &operator=(const Beam &other);
 
-	virtual ~Beam() {}
+    virtual ~Beam() {}
 
-	cvector_t getCentralK() const { return m_central_k; }
+    cvector_t getCentralK() const { return m_central_k; }
+    
+    void setCentralK(const cvector_t &k_i);
+    void setCentralK(double lambda, double alpha_i, double phi_i);
 
-	void setCentralK(const cvector_t &k_i);
-	void setCentralK(double lambda, double alpha_i, double phi_i);
+    double getIntensity() const { return m_intensity; }
 
-	double getIntensity() const { return m_intensity; }
-
-	void setIntensity(double intensity) { m_intensity = intensity; }
+    void setIntensity(double intensity) { m_intensity = intensity; }
 
 protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! Register some class members for later access via parameter pool
     virtual void init_parameters();
 
 private:
     //! swap function
     void swapContent(Beam &other);
 
-	cvector_t m_central_k;
+    cvector_t m_central_k;
     double m_intensity;
 };
 

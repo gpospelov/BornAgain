@@ -16,7 +16,6 @@
 #include "LayerDecoratorDWBASimulation.h"
 #include "LayerDecorator.h"
 #include "FormFactors.h"
-#include "ExperimentConstants.h"
 #include "MessageService.h"
 
 LayerDecoratorDWBASimulation::LayerDecoratorDWBASimulation(
@@ -48,7 +47,6 @@ void LayerDecoratorDWBASimulation::run()
     calculateInCoherentIntensity();
 
     delete p_strategy;
-
 }
 
 IInterferenceFunctionStrategy *LayerDecoratorDWBASimulation::createAndInitStrategy() const
@@ -102,8 +100,10 @@ void LayerDecoratorDWBASimulation::calculateCoherentIntensity(const IInterferenc
     DWBASimulation::iterator it_intensity = begin();
     while ( it_intensity != end() )
     {
-        Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(NDetector2d::PHI_AXIS_NAME, it_intensity.getIndex());
-        Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(NDetector2d::ALPHA_AXIS_NAME, it_intensity.getIndex());
+        Bin1D phi_bin = getDWBAIntensity().getBinOfAxis(
+            "phi_f", it_intensity.getIndex());
+        Bin1D alpha_bin = getDWBAIntensity().getBinOfAxis(
+            "alpha_f", it_intensity.getIndex());
         double alpha_f = alpha_bin.getMidPoint();
         if (std::abs(mp_RT_function->evaluate(alpha_f).first)!=0.0 && alpha_f<0) {
             ++it_intensity;

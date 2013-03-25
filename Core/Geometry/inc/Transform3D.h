@@ -8,8 +8,7 @@
 //              forked after v 1.5 2010/06/16 16:21:27,
 //
 //! @file       Geometry/inc/Transform3D.h
-//! @brief      defines class Transform3D,
-//!               a 4x3 double-precision transformation matrix
+//! @brief      Defines class Transform3D.
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
@@ -39,9 +38,10 @@ namespace Geometry {
 //  Main class Transform3D
 // ************************************************************************** //
 
-//! Transformations of 3D geometrical objects (points, vectors, normals).
+//! Rotate vectors in three dimensions.
 
-//! Uses a 3x3 double-precision transform matrix to rotate vectors.
+//! Uses a 3x3 double-precision transform matrix to store rotations
+//! (and potentially rescalings and inversions).
 //!
 //! Identity transformation:
 //!   Transform3D::Identity   - global identity transformation;
@@ -60,8 +60,6 @@ namespace Geometry {
 //!   Rotate3D(ang,p1,p2)      - rotation through the angle "ang"
 //!                              counterclockwise around the axis given by
 //!                              two points p1->p2;
-//!   Rotate3D(a1,a2, b1,b2)   - rotation around the origin defined by initial
-//!                              and transformed positions of two points;
 //!   RotateX3D(ang)           - rotation around X-axis;
 //!   RotateY3D(ang)           - rotation around Y-axis;
 //!   RotateZ3D(ang)           - rotation around Z-axis;
@@ -91,7 +89,7 @@ namespace Geometry {
 //!
 class Transform3D {
   protected:
-    // 4x3  Transformation Matrix
+    // 3x3  Transformation Matrix
     double xx_, xy_, xz_,     
            yx_, yy_, yz_,
            zx_, zy_, zz_;

@@ -17,7 +17,6 @@
 #include "MultiLayer.h"
 #include "OpticalFresnel.h"
 #include "DWBADiffuseReflection.h"
-#include "ExperimentConstants.h"
 
 MultiLayerRoughnessDWBASimulation::MultiLayerRoughnessDWBASimulation(
     const MultiLayer *p_multi_layer)
@@ -41,8 +40,8 @@ void MultiLayerRoughnessDWBASimulation::setReflectionTransmissionFunction(
 
 void MultiLayerRoughnessDWBASimulation::run()
 {
-    const std::string s_phi_f(NDetector2d::PHI_AXIS_NAME);
-    const std::string s_alpha_f(NDetector2d::ALPHA_AXIS_NAME);
+    const std::string s_phi_f("phi_f");
+    const std::string s_alpha_f("alpha_f");
 
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     double lambda = 2.0*M_PI/m_ki_real.mag();

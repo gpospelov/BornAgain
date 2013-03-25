@@ -17,7 +17,6 @@
 #include "OutputDataReadStrategy.h"
 #include "Types.h"
 #include "Exceptions.h"
-#include "ExperimentConstants.h"
 #include "Utils.h"
 
 #include <iostream>
@@ -54,14 +53,13 @@ OutputData<double> *OutputDataReadStreamGZip::readOutputData(
 
 //! Read data from ASCII file (2D assumed) into newly created OutputData.
 
-OutputData<double > *OutputDataReadStreamIMA::readOutputData(
+OutputData<double> *OutputDataReadStreamIMA::readOutputData(
     std::istream &input_stream)
 {
     std::string sline;
     vdouble2d_t buff_2d;
-    // reading file line by line, every line is parsed into vector of double,
+    // read file line by line, every line is parsed into vector of double,
     // so at the end we have buffer_2d of doubles
-
     while( std::getline(input_stream, sline))
     {
         std::string str = Utils::String::round_doubles(sline, 10);
@@ -69,13 +67,13 @@ OutputData<double > *OutputDataReadStreamIMA::readOutputData(
         buff_2d.push_back(buff);
     }
 
-    // creating new OutputData and filling it with values from buffer_2d
+    // create new OutputData and filling it with values from buffer_2d
     int y_size = (int)buff_2d.size();
     int x_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
     OutputData<double> *p_result = new OutputData<double>;
-    p_result->addAxis(NDetector2d::PHI_AXIS_NAME, x_size, 0.0, double(x_size));
-    p_result->addAxis(NDetector2d::ALPHA_AXIS_NAME, y_size, 0.0, double(y_size));
-    p_result->setAllTo(0.0);
+    p_result->addAxis("phi_f", x_size, 0., double(x_size));
+    p_result->addAxis("alpha_f", y_size, 0., double(y_size));
+    p_result->setAllTo(0.);
 
     OutputData<double>::iterator it = p_result->begin();
     while (it != p_result->end())
@@ -135,16 +133,16 @@ OutputData<double> *OutputDataReadStreamV1::readOutputData(
         }
     }
 
-    // creating output data
-    AxisDouble xaxis(NDetector2d::PHI_AXIS_NAME);
+    // create output data
+    AxisDouble xaxis("phi_f");
     for(size_t i=0; i<buff_xaxis.size(); ++i) xaxis.push_back(buff_xaxis[i]);
-    AxisDouble yaxis(NDetector2d::ALPHA_AXIS_NAME);
+    AxisDouble yaxis("alpha_f");
     for(size_t i=0; i<buff_yaxis.size(); ++i) yaxis.push_back(buff_yaxis[i]);
 
     OutputData<double > *p_result = new OutputData<double>;
     p_result->addAxis(xaxis);
     p_result->addAxis(yaxis);
-    p_result->setAllTo(0.0);
+    p_result->setAllTo(0.);
     OutputData<double>::iterator it = p_result->begin();
     while (it != p_result->end())
     {

@@ -22,7 +22,9 @@
 class DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
 {
   public:
-    DecouplingApproximationStrategy(SimulationParameters sim_params);
+    DecouplingApproximationStrategy(SimulationParameters sim_params)
+        : IInterferenceFunctionStrategy(sim_params) {}
+
     virtual ~DecouplingApproximationStrategy() {}
 
     virtual void init(

@@ -98,32 +98,6 @@ Transform3D Transform3D::inverse() const
              detxz, -detyz,  detzz );
 }
 
-//! Difference between corresponding matrix elements less than tolerance?
-
-bool Transform3D::isNear(const Transform3D & t, double tolerance) const
-{
-    return ( (std::abs(xx_ - t.xx_) <= tolerance) &&
-             (std::abs(xy_ - t.xy_) <= tolerance) &&
-             (std::abs(xz_ - t.xz_) <= tolerance) &&
-             (std::abs(yx_ - t.yx_) <= tolerance) &&
-             (std::abs(yy_ - t.yy_) <= tolerance) &&
-             (std::abs(yz_ - t.yz_) <= tolerance) &&
-             (std::abs(zx_ - t.zx_) <= tolerance) &&
-             (std::abs(zy_ - t.zy_) <= tolerance) &&
-             (std::abs(zz_ - t.zz_) <= tolerance) );
-}
-
-//! Test for equality.
-
-bool Transform3D::operator==(const Transform3D & t) const
-{
-    return (this == &t) ? true :
-                          (xx_==t.xx_ && xy_==t.xy_ && xz_==t.xz_ &&
-                           yx_==t.yx_ && yy_==t.yy_ && yz_==t.yz_ &&
-                           zx_==t.zx_ && zy_==t.zy_ && zz_==t.zz_ );
-}
-
-
 //! Construct rotation by angle a around axis p1->p2.
 //!
 //! @author E. Chernyaev 1996

@@ -32,8 +32,6 @@
 
 // remnants of CLHEP:
 #define Point3D  BasicVector3D
-#define Vector3D BasicVector3D
-#define Normal3D BasicVector3D
 
 namespace Geometry {
 
@@ -201,6 +199,97 @@ class Transform3D {
     //!
     Transform3D operator*(const Transform3D& b) const;
     };
+
+// ************************************************************************** //
+//   Rotations
+// ************************************************************************** //
+
+//! A rotation of 3D geometrical objects (points, vectors, normals).
+
+//! This class provides additional constructors for Transform3D
+//! and should not be used as a separate class.
+//! 
+//! Example of use:
+//! @code
+//!   Transform3D m;
+//!   m = Rotate3D(30.*deg, HepVector3D(1.,1.,1.));
+//! @endcode
+//!
+//! @author <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//!
+class Rotate3D : public Transform3D {
+public:
+    //! Default constructor: sets the Identity transformation.
+    Rotate3D() : Transform3D() {}
+    
+    //! Construct rotation by angle a around axis p1->p2.
+    Rotate3D(double a,
+	     const Point3D<double>& p1,
+	     const Point3D<double>& p2);
+    
+    //! Constructor from angle and axis.
+
+    //! @param a angle of rotation
+    //! @param v axis of rotation
+    inline Rotate3D(double a, const BasicVector3D<double>& v)
+    //  TODO(C++11): simplify using delegating constructor
+    { *this = Rotate3D(a, Point3D<double>(0., 0., 0.),
+                       Point3D<double>(v.x(),v.y(),v.z()) ); }
+};
+
+//! A rotation of 3D geometrical objects around the x-axis.
+
+//! Should not be instantiated: see Rotate3D for example of use.
+//!
+//! @author <Evgueni.Tcherniaev@cern.ch>
+//!
+class RotateX3D : public Rotate3D {
+public:
+    //! Default constructor: sets the Identity transformation.
+    RotateX3D() : Rotate3D() {}
+    
+    //! Constructs a rotation around x-axis by angle a.
+    RotateX3D(double a) {
+        double cosa = std::cos(a), sina = std::sin(a); 
+        setTransform(1.,0.,0., 0.,cosa,-sina, 0.,sina,cosa);
+    }
+};
+
+//! A rotation of 3D geometrical objects around the y-axis.
+
+//! Should not be instantiated: see Rotate3D for example of use.
+//!
+//! @author <Evgueni.Tcherniaev@cern.ch>
+//!
+class RotateY3D : public Rotate3D {
+public:
+    //! Default constructor: sets the Identity transformation.
+    RotateY3D() : Rotate3D() {}
+    
+    //! Constructs a rotation around y-axis by angle a.
+    RotateY3D(double a) {
+        double cosa = std::cos(a), sina = std::sin(a); 
+        setTransform(cosa,0.,sina, 0.,1.,0., -sina,0.,cosa);
+    }
+};
+
+//! A rotation of 3D geometrical objects around the z-axis.
+
+//! Should not be instantiated: see Rotate3D for example of use.
+//!
+//! @author <Evgueni.Tcherniaev@cern.ch>
+//!
+class RotateZ3D : public Rotate3D {
+public:
+    //! Default constructor: sets the Identity transformation.
+    RotateZ3D() : Rotate3D() {}
+    
+    //! Constructs a rotation around z-axis by angle a.
+    RotateZ3D(double a) {
+        double cosa = std::cos(a), sina = std::sin(a); 
+        setTransform(cosa,-sina,0., sina,cosa,0., 0.,0.,1.);
+    }
+};
 
 // ************************************************************************** //
 //  Inlines that involve both Transform3D and Transform3D_row

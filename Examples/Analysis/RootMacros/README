@@ -1,9 +1,7 @@
-Directory contains exmpales with ROOT analysis macros
+Directory contains examples with ROOT analysis macros
 
 ex01_MesoGif      - analysis of the data produced by TestRootTree
 ex02_ReadFitData  - analysis of the data produced by TestFittingModule
-
-
 
 To clean remainings from ROOT session
 rm -f */*.so */*.d */*~

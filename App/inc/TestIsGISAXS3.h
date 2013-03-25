@@ -18,7 +18,6 @@
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
-//#include "ISample.h"
 
 #include <string>
 
@@ -47,4 +46,5 @@ class TestIsGISAXS3 : public IFunctionalTest
 
     std::string m_data_path;
 };
+
 #endif /* TESTISGISAXS3_H_ */

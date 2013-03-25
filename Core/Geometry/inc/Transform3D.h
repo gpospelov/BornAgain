@@ -43,8 +43,7 @@ namespace Geometry {
 
 //! Transformations of 3D geometrical objects (points, vectors, normals).
 
-//! Uses a 4x3 double-precision transform matrix to rotate, translate,
-//! reflect and scale.
+//! Uses a 3x3 double-precision transform matrix to rotate vectors.
 //!
 //! Identity transformation:
 //!   Transform3D::Identity   - global identity transformation;
@@ -69,30 +68,6 @@ namespace Geometry {
 //!   RotateY3D(ang)           - rotation around Y-axis;
 //!   RotateZ3D(ang)           - rotation around Z-axis;
 //!
-//! Translations:
-//!   Translate3D(v)           - translation given by CLHEP::Hep3Vector "v";
-//!   Translate3D(dx,dy,dz)    - translation on vector (dx,dy,dz);
-//!   TraslateX3D(dx)          - translation along X-axis;
-//!   TraslateY3D(dy)          - translation along Y-axis;
-//!   TraslateZ3D(dz)          - translation along Z-axis;
-//!
-//! Reflections:
-//!   Reflect3D(a,b,c,d)       - reflection in the plane a*x+b*y+c*z+d=0;
-//!   Reflect3D(normal,p)      - reflection in the plane going through "p"
-//!                              and whose normal is equal to "normal";
-//!   ReflectX3D(a)            - reflect X in the plane x=a (default a=0);
-//!   ReflectY3D(a)            - reflect Y in the plane y=a (default a=0);
-//!   ReflectZ3D(a)            - reflect Z in the plane z=a (default a=0);
-//!
-//! Scalings:
-//!   Scale3D(sx,sy,sz)        - general scaling with factors "sx","sy","sz"
-//!                                 along X, Y and Z;
-//!   Scale3D(s)               - scaling with constant factor "s" along all 
-//!                                 directions;
-//!   ScaleX3D(sx)             - scale X;
-//!   ScaleY3D(sy)             - scale Y;
-//!   ScaleZ3D(sz)             - scale Z;
-//!
 //! Inverse transformation:
 //!   m.inverse() or           - returns inverse transformation;
 //!
@@ -100,44 +75,10 @@ namespace Geometry {
 //!   m3 = m2 * m1             - it is relatively slow in comparison with
 //!                              transformation of a vector. Use parenthesis
 //!                              to avoid this operation (see example below);
-//! Transformation of point:
-//!   p2 = m * p1
-//!
-//! Transformation of vector:
-//!   v2 = m * v1
-//!
-//! Transformation of normal:
-//!   n2 = m * n1
-//!
-//! The following table explains how different transformations affect
-//! point, vector and normal. "+" means affect, "-" means do not affect,
-//! "*" meas affect but in different way than "+" 
-//!
-//!                     Point  Vector  Normal
-//!      -------------+-------+-------+-------
-//!       Rotation    !   +   !   +   !   +
-//!       Translation !   +   !   -   !   -
-//!       Reflection  !   +   !   +   !   *
-//!       Scaling     !   +   !   +   !   *
-//!      -------------+-------+-------+-------
-//!
-//! Example of the usage:
-//!
-//!   Transform3D   m1, m2, m3;
-//!   BasicVector3D v2, v1(0,0,0);
-//!
-//!   m1 = Rotate3D(angle, Vector3D(1,1,1));
-//!   m2 = Translate3D(dx,dy,dz);
-//!   m3 = m1.inverse();
-//!
-//!   v2 = m3*(m2*(m1*v1));
 //!
 //! Several specialized classes are derived from it:
 //!
-//! TranslateX3D, TranslateY3D, TranslateZ3D, Translate3D,<br>
-//! RotateX3D,    RotateY3D,    RotateZ3D,    Rotate3D,   <br>
-//! ScaleX3D,     ScaleY3D,     ScaleZ3D,     Scale3D,    <br>
-//! ReflectX3D,   ReflectY3D,   ReflectZ3D,   Reflect3D.
+//! RotateX3D,    RotateY3D,    RotateZ3D,    Rotate3D.
 //!
 //! The idea behind these classes is to provide some additional constructors
 //! for Transform3D, they normally should not be used as separate classes.
@@ -153,25 +94,25 @@ namespace Geometry {
 class Transform3D {
   protected:
     // 4x3  Transformation Matrix
-    double xx_, xy_, xz_, dx_,     
-           yx_, yy_, yz_, dy_,
-           zx_, zy_, zz_, dz_;
+    double xx_, xy_, xz_,     
+           yx_, yy_, yz_,
+           zx_, zy_, zz_;
 
     //! Protected constructor.
-    Transform3D(double XX, double XY, double XZ, double DX,
-                double YX, double YY, double YZ, double DY,
-                double ZX, double ZY, double ZZ, double DZ)
-        : xx_(XX), xy_(XY), xz_(XZ), dx_(DX),
-          yx_(YX), yy_(YY), yz_(YZ), dy_(DY),
-          zx_(ZX), zy_(ZY), zz_(ZZ), dz_(DZ) {}
+    Transform3D(double XX, double XY, double XZ,
+                double YX, double YY, double YZ,
+                double ZX, double ZY, double ZZ)
+        : xx_(XX), xy_(XY), xz_(XZ),
+          yx_(YX), yy_(YY), yz_(YZ),
+          zx_(ZX), zy_(ZY), zz_(ZZ) {}
 
     //! Sets transformation matrix.
-    void setTransform(double XX, double XY, double XZ, double DX,
-                      double YX, double YY, double YZ, double DY,
-                      double ZX, double ZY, double ZZ, double DZ) {
-        xx_ = XX; xy_ = XY; xz_ = XZ; dx_ = DX;
-        yx_ = YX; yy_ = YY; yz_ = YZ; dy_ = DY;
-        zx_ = ZX; zy_ = ZY; zz_ = ZZ; dz_ = DZ;
+    void setTransform(double XX, double XY, double XZ,
+                      double YX, double YY, double YZ,
+                      double ZX, double ZY, double ZZ) {
+        xx_ = XX; xy_ = XY; xz_ = XZ;
+        yx_ = YX; yy_ = YY; yz_ = YZ;
+        zx_ = ZX; zy_ = ZY; zz_ = ZZ;
     }
 
   public:
@@ -190,28 +131,20 @@ class Transform3D {
 
     //! Default constructor - sets the Identity transformation.
     Transform3D()
-        : xx_(1), xy_(0), xz_(0), dx_(0),
-          yx_(0), yy_(1), yz_(0), dy_(0),
-          zx_(0), zy_(0), zz_(1), dz_(0) {}
+        : xx_(1), xy_(0), xz_(0),
+          yx_(0), yy_(1), yz_(0),
+          zx_(0), zy_(0), zz_(1) {}
   
-    //! Constructor: transformation of basis (assumed - no reflection).
-    Transform3D(const Point3D<double>& fr0,
-                const Point3D<double>& fr1,
-                const Point3D<double>& fr2,
-                const Point3D<double>& to0,
-                const Point3D<double>& to1,
-                const Point3D<double>& to2);
-
     //! Copy constructor.
     Transform3D(const Transform3D& m)
-        : xx_(m.xx_), xy_(m.xy_), xz_(m.xz_), dx_(m.dx_),
-          yx_(m.yx_), yy_(m.yy_), yz_(m.yz_), dy_(m.dy_),
-          zx_(m.zx_), zy_(m.zy_), zz_(m.zz_), dz_(m.dz_) {}
+        : xx_(m.xx_), xy_(m.xy_), xz_(m.xz_),
+          yx_(m.yx_), yy_(m.yy_), yz_(m.yz_),
+          zx_(m.zx_), zy_(m.zy_), zz_(m.zz_) {}
 
     //! Destructor. 
     //! Virtual for now as some persistency mechanism needs that,
     //! in future releases this might go away again.
-    virtual ~Transform3D() { /* nop */ }
+    virtual ~Transform3D() {}
 
     //! Returns object of the helper class for C-style subscripting r[i][j]
     inline const Transform3D_row operator [] (int) const; 
@@ -237,24 +170,18 @@ class Transform3D {
     double zy() const { return zy_; }
     //! Gets zz-element of the transformation matrix.
     double zz() const { return zz_; }
-    //! Gets dx-element of the transformation matrix.
-    double dx() const { return dx_; }
-    //! Gets dy-element of the transformation matrix.
-    double dy() const { return dy_; }
-    //! Gets dz-element of the transformation matrix.
-    double dz() const { return dz_; }
     
     //! Assignment.
     Transform3D& operator=(const Transform3D&m) {
-        xx_= m.xx_; xy_= m.xy_; xz_= m.xz_; dx_= m.dx_;
-        yx_= m.yx_; yy_= m.yy_; yz_= m.yz_; dy_= m.dy_;
-        zx_= m.zx_; zy_= m.zy_; zz_= m.zz_; dz_= m.dz_;
+        xx_= m.xx_; xy_= m.xy_; xz_= m.xz_;
+        yx_= m.yx_; yy_= m.yy_; yz_= m.yz_;
+        zx_= m.zx_; zy_= m.zy_; zz_= m.zz_;
         return *this;
     }
 
     //! Sets the Identity transformation.
     void setIdentity() { 
-        xy_= xz_= dx_= yx_= yz_= dy_= zx_= zy_= dz_= 0; xx_= yy_= zz_= 1;
+        xy_= xz_= yx_= yz_= zx_= zy_= 0; xx_= yy_= zz_= 1;
     }
     
     //! Returns the inverse transformation.

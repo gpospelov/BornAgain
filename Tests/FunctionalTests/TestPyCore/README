@@ -1,6 +1,6 @@
 Collection of functional tests (Python)
 
-Collection contains set of functional tests for BornAgainCore library.
+Collection contains functional tests for BornAgainCore library.
 Each test defines simple geometry, runs simulation and then compare results of the simulation with reference data.
 
 To build all tests

@@ -41,4 +41,15 @@ public:
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
 };
 
+
+//! Strategy to write OutputData to ascii files
+//! 1d array for x-axis, 1d array for y-axis, 2d array for data
+
+class OutputDataWriteStreamV1 : public IOutputDataWriteStrategy
+{
+public:
+    virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
+};
+
+
 #endif // OUTPUTDATAWRITESTRATEGY_H

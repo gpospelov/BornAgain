@@ -107,7 +107,7 @@ void TestMesoCrystal2::draw_results()
     m_simulation->runSimulation();
     m_simulation->normalize();
 
-    IsGISAXSTools::drawOutputDataComparisonResults(*m_simulation->getOutputData(), *m_real_data, "found", "founf params", 100, 1e6, 100);
+    IsGISAXSTools::drawOutputDataComparisonResults(*m_simulation->getOutputData(), *m_real_data, "found", "found params", 100, 1e6, 100);
 
     TCanvas *c1 = new TCanvas("meso_real_data","meso_real_data",1024, 768);
     c1->cd(); gPad->SetLogz();  gPad->SetRightMargin(0.12); gPad->SetLeftMargin(0.125);
@@ -125,6 +125,11 @@ void TestMesoCrystal2::draw_results()
     hist_simu->GetYaxis()->SetTitleOffset(1.35);
     hist_simu->DrawCopy("CONT4 Z");
 
+//    OutputDataIOFactory::writeOutputData(*m_simulation->getOutputData(), "meso_simul.txt");
+//    OutputDataIOFactory::writeOutputData(*m_real_data, "meso_real.txt");
+//    OutputData<double> *tmp_real = OutputDataIOFactory::getOutputData("meso_real.txt");
+//    OutputData<double> *tmp_simul = OutputDataIOFactory::getOutputData("meso_simul.txt");
+//    IsGISAXSTools::drawOutputDataComparisonResults(*tmp_real, *tmp_simul, "tmp", "bla bla", 100, 1e6);
 }
 
 
@@ -174,7 +179,6 @@ void TestMesoCrystal2::run_fit()
 void TestMesoCrystal2::initializeRealData()
 {
     delete m_real_data;
-    // reading data file
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
     std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
 
@@ -496,7 +500,7 @@ void TestMesoCrystal2::initializeSimulation(const OutputData<double> *output_dat
         // if there is output_data as input parameter, build detector using output_data axises
         const IAxis *axis0 = output_data->getAxis(0);
         const IAxis *axis1 = output_data->getAxis(1);
-        std::cout << "Axis!!! " << axis0->getSize() << " " << axis0->getMin() << " " << axis0->getMax() << " " << axis1->getSize() << " " << axis1->getMin() << " " << axis1->getMax() << std::endl;
+        //std::cout << "Axis!!! " << axis0->getSize() << " " << axis0->getMin() << " " << axis0->getMax() << " " << axis1->getSize() << " " << axis1->getMin() << " " << axis1->getMax() << std::endl;
         //m_simulation->setDetectorParameters(axis0->getSize(), axis0->getMin(), axis0->getMax(), axis1->getSize(), axis1->getMin(), axis1->getMax());
         m_simulation->setDetectorParameters(*m_real_data);
     }

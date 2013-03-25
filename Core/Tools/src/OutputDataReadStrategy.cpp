@@ -69,8 +69,10 @@ OutputData<double > *OutputDataReadStreamIMA::readOutputData(std::istream &input
     }
 
     // creating new OutputData and filling it with values from buffer_2d
-    int y_size = (int)buff_2d.size();
-    int x_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
+//    int y_size = (int)buff_2d.size();
+//    int x_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
+    int x_size = (int)buff_2d.size();
+    int y_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
     OutputData<double> *p_result = new OutputData<double>;
     p_result->addAxis(NDetector2d::PHI_AXIS_NAME, x_size, 0.0, double(x_size));
     p_result->addAxis(NDetector2d::ALPHA_AXIS_NAME, y_size, 0.0, double(y_size));
@@ -102,7 +104,7 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
 {
     std::string sline;
     vdouble1d_t buff_xaxis, buff_yaxis;
-    vdouble2d_t buff_data; // [y][x]
+    vdouble2d_t buff_data; // [x][y]
 
     while( std::getline(input_stream, sline) )
     {
@@ -119,14 +121,14 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
         }
     }
 
-    // check consistency of y dimension and data buffer
-    if( buff_data.size() != buff_yaxis.size()) {
-        throw LogicErrorException("OutputDataReadASCII::readOutputData() -> Error. Unconsistent y-size.");
-    }
     // check consistency of x dimension and data buffer
-    for(size_t i = 0; i<buff_yaxis.size(); ++i) {
-        if( buff_data[i].size() != buff_xaxis.size()) {
-            throw LogicErrorException("OutputDataReadASCII::readOutputData() -> Error. Unconsistent x-size.");
+    if( buff_data.size() != buff_xaxis.size()) {
+        throw LogicErrorException("OutputDataReadASCII::readOutputData() -> Error. Unconsistent x-size.");
+    }
+    // check consistency of y dimension and data buffer
+    for(size_t i = 0; i<buff_xaxis.size(); ++i) {
+        if( buff_data[i].size() != buff_yaxis.size()) {
+            throw LogicErrorException("OutputDataReadASCII::readOutputData() -> Error. Unconsistent y-size.");
         }
     }
 
@@ -145,7 +147,7 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
     {
         size_t index_x = p_result->toCoordinates(it.getIndex())[0];
         size_t index_y = p_result->toCoordinates(it.getIndex())[1];
-        *it = buff_data[index_y][index_x];
+        *it = buff_data[index_x][index_y];
         ++it;
     }
     return p_result;

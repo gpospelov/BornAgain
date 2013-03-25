@@ -141,7 +141,7 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
     }
 
     // creation of 2D with variable bin size
-//    std::cout << "XXX " << (int)haxises[0].nbins << " "  << (int)haxises[1].nbins;
+//    std::cout << "XXXYYY " << (int)haxises[0].nbins << " "  << (int)haxises[1].nbins;
 //    for(size_t i=0; i<haxises[0].xbins.size(); ++i) {
 //        std::cout << i << " axis0:" << haxises[0].xbins[i] << std::endl;
 //    }
@@ -170,6 +170,77 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const s
     return hist2;
 }
 
+
+
+
+/* ************************************************************************* */
+// create TH2D from OutputData
+/* ************************************************************************* */
+//TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output, const std::string &histo_name)
+//{
+//    assert(&output);
+//    if (output.getNdimensions() !=2) throw( "IsGISAXSTools::getOutputDataTH2D() -> Warning! Expected number of dimensiobs is 2.");
+
+//    std::vector<AxisStructure > haxises;
+//    haxises.resize(output.getNdimensions());
+
+//    // we assume variable bin size and prepare [nbins+1] array of left edges of each bin plus right edge of the last bin
+//    for(size_t i_axis=0; i_axis<output.getNdimensions(); ++i_axis) {
+//        const IAxis *axis = output.getAxis(i_axis);
+//        if( !axis ) throw("IsGISAXSTools::getOutputDataTH123D() -> Error! Can't cast axis");
+//        double dx(0);
+//        haxises[i_axis].nbins = axis->getSize();
+//        haxises[i_axis].name = axis->getName();
+//        if( axis->getSize() == 0) {
+//            throw LogicErrorException("IsGISAXSTools::getOutputDataTH123D() -> Error! Axis with zero size.");
+//        }else if( axis->getSize() == 1 ) {
+//            // only one bin, let's invent fake bin size
+//            dx = 0.1*(*axis)[0];
+//            haxises[i_axis].xbins.push_back((*axis)[0]-dx/2.);
+//            haxises[i_axis].xbins.push_back((*axis)[0]+dx/2.);
+//        }else {
+//            for(size_t i_bin=0; i_bin<axis->getSize(); ++i_bin) {
+//                if(i_bin == 0) {
+//                    dx = (*axis)[1]-(*axis)[0];
+//                } else {
+//                    dx = (*axis)[i_bin] - (*axis)[i_bin-1];
+//                }
+//                haxises[i_axis].xbins.push_back( (*axis)[i_bin] - dx/2.);
+//            }
+//        haxises[i_axis].xbins.push_back((*axis)[axis->getSize()-1] + dx/2.); // right bin edge of last bin, so for 100 bins size of vector will be 101
+//        }
+//    }
+
+//    // creation of 2D with variable bin size
+//    std::cout << "XXXYYY " << (int)haxises[0].nbins << " "  << (int)haxises[1].nbins;
+//    for(size_t i=0; i<haxises[0].xbins.size(); ++i) {
+//        std::cout << i << " axis0:" << haxises[0].xbins[i] << std::endl;
+//    }
+//    for(size_t i=0; i<haxises[1].xbins.size(); ++i) {
+//        std::cout << i << " axis1:" << haxises[1].xbins[i] << std::endl;
+//    }
+
+//    TH2D *hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
+//    hist2->GetXaxis()->SetTitle( haxises[0].name.c_str() );
+//    hist2->GetYaxis()->SetTitle( haxises[1].name.c_str() );
+
+//    OutputData<double>::const_iterator it = output.begin();
+//    while (it != output.end())
+//    {
+//        double x = output.getValueOfAxis( haxises[0].name.c_str(), it.getIndex() );
+//        double y = output.getValueOfAxis( haxises[1].name.c_str(), it.getIndex() );
+//        double value = *it++;
+//        //std::cout << "OOO " << x << " " << y << std::endl;
+//        hist2->Fill(x, y, value);
+//    }
+//    hist2->SetContour(50);
+//    hist2->SetStats(0);
+//    hist2->GetYaxis()->SetTitleOffset(1.1);
+
+//    gStyle->SetPalette(1);
+//    gStyle->SetOptStat(0);
+//    return hist2;
+//}
 
 
 /* ************************************************************************* */

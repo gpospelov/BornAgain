@@ -204,19 +204,6 @@ template<class T> class BasicVector3D {
         }
     }
 
-    // ---------
-    // Rotations
-    // ---------
-
-    //! Rotates around x-axis.
-    BasicVector3D<T>& rotateX(T a);
-    //! Rotates around y-axis.
-    BasicVector3D<T>& rotateY(T a);
-    //! Rotates around z-axis.
-    BasicVector3D<T>& rotateZ(T a);
-    //! Rotates around the axis specified by another vector.
-    BasicVector3D<T>& rotate(T a, const BasicVector3D<T>& v);
-
     // ---------------------------------------------
     // Specifically for grazing-incidence scattering
     // ---------------------------------------------

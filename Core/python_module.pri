@@ -70,10 +70,6 @@ HEADERS +=  \
     PythonAPI/inc/PythonInterface_free_functions.pypp.h \
     PythonAPI/inc/PythonInterface_global_variables.pypp.h \
     PythonAPI/inc/RealParameterWrapper.pypp.h \
-    PythonAPI/inc/Rotate3D.pypp.h \
-    PythonAPI/inc/RotateX3D.pypp.h \
-    PythonAPI/inc/RotateY3D.pypp.h \
-    PythonAPI/inc/RotateZ3D.pypp.h \
     PythonAPI/inc/SimpleSelectionRule.pypp.h \
     PythonAPI/inc/Simulation.pypp.h \
     PythonAPI/inc/SimulationParameters.pypp.h \
@@ -160,10 +156,6 @@ SOURCES +=  \
     PythonAPI/src/PythonInterface_free_functions.pypp.cpp \
     PythonAPI/src/PythonInterface_global_variables.pypp.cpp \
     PythonAPI/src/RealParameterWrapper.pypp.cpp \
-    PythonAPI/src/Rotate3D.pypp.cpp \
-    PythonAPI/src/RotateX3D.pypp.cpp \
-    PythonAPI/src/RotateY3D.pypp.cpp \
-    PythonAPI/src/RotateZ3D.pypp.cpp \
     PythonAPI/src/SimpleSelectionRule.pypp.cpp \
     PythonAPI/src/Simulation.pypp.cpp \
     PythonAPI/src/SimulationParameters.pypp.cpp \

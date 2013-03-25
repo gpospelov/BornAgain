@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/src/OutputDataWriteStrategy.cpp
-//! @brief     Implements class OutputDataWriteStrategy.
+//! @brief     Implements OutputDataWriteStreamIMA::writeOutputData.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,7 @@
 #include <sstream>
 #include <iomanip>
 
-//! read data from ASCII file (2D assumed) and fill newly created OutputData with it
+//! Read data from ASCII file (2D assumed) into newly created OutputData.
 
 void OutputDataWriteStreamIMA::writeOutputData(const OutputData<double> &data, std::ostream &output_stream)
 {

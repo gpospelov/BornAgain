@@ -22,21 +22,27 @@
 
 class IParameterized : public INamed
 {
-public:
-    IParameterized();
-    IParameterized(const std::string &name);
-    IParameterized(const IParameterized &other);
+  public:
+    IParameterized()
+        : m_parameters(), m_status() {}
+    IParameterized(const std::string &name) 
+        : INamed(name), m_parameters(), m_status() {}
+    IParameterized(const IParameterized &other)
+        : INamed(other), m_parameters(), m_status() {}
     IParameterized &operator=(const IParameterized &other);
     virtual ~IParameterized() {}
 
-    //! return pointer to the parameter pool
+    //! Return pointer to the parameter pool.
     ParameterPool *getParameterPool() { return &m_parameters; }
 
-    //! create new parameter pool which contains all local parameter and  parameters of children
+    //! Create new parameter pool, with all local parameter and parameters of children
     virtual ParameterPool *createParameterTree() const;
 
-    //! add parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
+    //! Add parameters from local pool to external pool and call recursion over direct children.
+    virtual std::string addParametersToExternalPool(
+        std::string path,
+        ParameterPool *external_pool,
+        int copy_number=-1) const;
 
     virtual void printParameters() const;
 
@@ -45,10 +51,10 @@ public:
     virtual void setParametersAreChanged() { m_status.setIsChanged(true); }
 
 protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)
+    //! Throw non-implemented exception (needed for Python).
     virtual void init_parameters();
 
-    ParameterPool m_parameters; //! parameter pool
+    ParameterPool m_parameters; //!< parameter pool
     IChangeable m_status;
 };
 

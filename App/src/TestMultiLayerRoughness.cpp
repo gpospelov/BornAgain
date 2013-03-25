@@ -2,8 +2,8 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestMultiLayerRoughness.cpp 
-//! @brief     Implements class TestMultiLayerRoughness.
+//! @file      App/src/TestMultiLayerRoughness.cpp 
+//! @brief     Implements TestMultiLayerRoughness.execute().
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -25,13 +25,6 @@
 #include "TH2F.h"
 #include "TProfile2D.h"
 #include "TStyle.h"
-
-TestMultiLayerRoughness::TestMultiLayerRoughness()
-{
-
-}
-
-
 
 
 void TestMultiLayerRoughness::execute()

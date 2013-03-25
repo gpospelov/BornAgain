@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestDetectorResolution.h 
+//! @file      App/inc/TestDetectorResolution.h 
 //! @brief     Defines class TestDetectorResolution.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
@@ -26,8 +26,12 @@
 class TestDetectorResolution : public IFunctionalTest
 {
   public:
-    TestDetectorResolution();
-    virtual ~TestDetectorResolution();
+    TestDetectorResolution() : mp_intensity_output(0), mp_sample(0) {}
+    virtual ~TestDetectorResolution()
+    {
+        delete mp_intensity_output;
+        delete mp_sample;
+    }
     virtual void execute();
 
   private:

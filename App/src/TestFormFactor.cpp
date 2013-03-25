@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestFormFactor.cpp 
+//! @file      App/src/TestFormFactor.cpp 
 //! @brief     Implements class TestFormFactor.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain

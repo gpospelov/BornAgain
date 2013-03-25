@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestFumiliLMA.h 
+//! @file      App/inc/TestFumiliLMA.h 
 //! @brief     Defines class TestFumiliLMA.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain

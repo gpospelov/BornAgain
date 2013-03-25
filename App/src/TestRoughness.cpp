@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestRoughness.cpp 
+//! @file      App/src/TestRoughness.cpp 
 //! @brief     Implements class TestRoughness.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
@@ -34,14 +34,6 @@
 #include "TLegend.h"
 
 #include <fftw3.h>
-
-
-
-TestRoughness::TestRoughness() : IFunctionalTest("roughness"),
-                                 m_roughness(0)
-{
-
-}
 
 
 void TestRoughness::execute()

@@ -2,8 +2,8 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestToySimulation.cpp 
-//! @brief     Implements class TestToySimulation.
+//! @file      App/src/TestToySimulation.cpp 
+//! @brief     Implements classes ToySimulation and TestToySimulation.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -24,12 +24,12 @@
 
 #include <iostream>
 
-/* ************************************************************************* */
-//
-/* ************************************************************************* */
 void ToySimulation::runSimulation()
 {
-    if( !m_func ) throw NullPointerException("ToySimulation::runSimulation() -> Error! No function is defined.");
+    if( !m_func )
+        throw NullPointerException
+            ("ToySimulation::runSimulation() -> "
+             "Error! No function is defined.");
     const std::string s_phi_f(NDetector2d::PHI_AXIS_NAME);
     const std::string s_alpha_f(NDetector2d::ALPHA_AXIS_NAME);
 
@@ -37,14 +37,15 @@ void ToySimulation::runSimulation()
     m_intensity_map.setAllTo(0.0);
     OutputData<double>::iterator it = m_intensity_map.begin();
     while( it!= m_intensity_map.end() ) {
-        double phi_f = m_intensity_map.getValueOfAxis(s_phi_f, it.getIndex());
-        double alpha_f = m_intensity_map.getValueOfAxis(s_alpha_f, it.getIndex());
+        double phi_f =
+            m_intensity_map.getValueOfAxis(s_phi_f, it.getIndex());
+        double alpha_f =
+            m_intensity_map.getValueOfAxis(s_alpha_f, it.getIndex());
         double value = m_func->Eval(phi_f, alpha_f);
         (*it) = value;
         ++it;
     }
 }
-
 
 void ToySimulation::init_parameters()
 {

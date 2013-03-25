@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/IFunctionalTest.h 
+//! @file      App/inc/IFunctionalTest.h 
 //! @brief     Defines class IFunctionalTest.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain

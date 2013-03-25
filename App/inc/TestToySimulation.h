@@ -2,8 +2,8 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestToySimulation.h 
-//! @brief     Defines class TestToySimulation.
+//! @file      App/inc/TestToySimulation.h 
+//! @brief     Defines classes ToySimulation, TestToySimulation.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -30,15 +30,23 @@
 class ToySimulation : public Simulation
 {
 public:
-    ToySimulation(TF2 *func) : m_func(func) { pars.resize(func->GetNpar(), 0.0); setName("ToySimulation"); init_parameters(); }
+    ToySimulation(TF2 *func)
+        : m_func(func)
+    {
+        pars.resize(func->GetNpar(), 0.0);
+        setName("ToySimulation");
+        init_parameters();
+    }
     virtual ~ToySimulation() {}
     virtual void runSimulation();
-    virtual ToySimulation *clone() const { return new ToySimulation(*this); }
+    virtual ToySimulation *clone() const
+    { return new ToySimulation(*this); }
     void setParameter(size_t i, double value) { pars[i] = value; }
-protected:
+  protected:
     virtual void init_parameters();
-private:
-    ToySimulation(const ToySimulation &other) : Simulation(other), m_func(other.m_func), pars(other.pars)
+  private:
+    ToySimulation(const ToySimulation &other)
+        : Simulation(other), m_func(other.m_func), pars(other.pars)
     {
         setName("ToySimulation");
         init_parameters();
@@ -51,16 +59,18 @@ private:
 
 class TestToySimulation : public IFunctionalTest
 {
-public:
+  public:
     TestToySimulation();
     virtual ~TestToySimulation();
     virtual void execute();
 
-private:
+  private:
     void initializeSimulationAndRealData();
 
-    IFunctionObject *m_func_object; //! simulation function
-    TF2 *m_func; //! ROOT representation of the simulation function with min, max defined
+    //! simulation function
+    IFunctionObject *m_func_object;
+    //! ROOT representation of the simulation function with min, max defined
+    TF2 *m_func; 
     double m_sigma_noise;
     ToySimulation *m_simulation;
     OutputData<double > *m_real_data;

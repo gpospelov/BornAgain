@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/FunctionalTestFactory.cpp 
+//! @file      App/src/FunctionalTestFactory.cpp 
 //! @brief     Implements class FunctionalTestFactory.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain

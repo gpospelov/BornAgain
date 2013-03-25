@@ -2,8 +2,8 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestPerformance.h 
-//! @brief     Defines class TestPerformance.
+//! @file      App/inc/TestPerformance.h 
+//! @brief     Defines classes TestPerformance, PerfTest_FresnelCoeff.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
@@ -33,7 +33,8 @@ public:
     //! class to hold performance information over functional test
     class PerformanceTestInfo {
     public:
-        PerformanceTestInfo(IFunctionalTest *test, int nrepetitions) : m_test(test), m_nrepetitions(nrepetitions), m_results(0){}
+        PerformanceTestInfo(IFunctionalTest *test, int nrepetitions)
+            : m_test(test), m_nrepetitions(nrepetitions), m_results(0){}
         virtual ~PerformanceTestInfo(){ delete m_test; }
         IFunctionalTest *m_test;
         double m_nrepetitions;
@@ -79,7 +80,8 @@ public:
 class PerfTest_Pyramid : public IFunctionalTest
 {
 public:
-    PerfTest_Pyramid() : IFunctionalTest("Pyramid"), m_sample(0), m_simulation(0) {}
+    PerfTest_Pyramid()
+        : IFunctionalTest("Pyramid"), m_sample(0), m_simulation(0) {}
     virtual ~PerfTest_Pyramid() { delete m_simulation; }
     void initialise(ProgramOptions *p_options);
     void execute();
@@ -92,7 +94,8 @@ public:
 class PerfTest_RotatedPyramid : public IFunctionalTest
 {
 public:
-    PerfTest_RotatedPyramid() : IFunctionalTest("RotatedPyramid"), m_sample(0), m_simulation(0) {}
+    PerfTest_RotatedPyramid()
+        : IFunctionalTest("RotatedPyramid"), m_sample(0), m_simulation(0) {}
     virtual ~PerfTest_RotatedPyramid() { delete m_simulation; }
     void initialise(ProgramOptions *p_options);
     void execute();
@@ -106,7 +109,8 @@ public:
 class PerfTest_MesoCrystal : public IFunctionalTest
 {
 public:
-    PerfTest_MesoCrystal() : IFunctionalTest("MesoCrystal"), m_sample(0), m_simulation(0) {}
+    PerfTest_MesoCrystal()
+        : IFunctionalTest("MesoCrystal"), m_sample(0), m_simulation(0) {}
     virtual ~PerfTest_MesoCrystal() { delete m_simulation; }
     void initialise(ProgramOptions *p_options);
     void execute();

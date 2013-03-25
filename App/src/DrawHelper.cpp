@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/DrawHelper.cpp 
+//! @file      App/src/DrawHelper.cpp 
 //! @brief     Implements class DrawHelper.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain

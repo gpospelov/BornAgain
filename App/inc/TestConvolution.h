@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestConvolution.h 
+//! @file      App/inc/TestConvolution.h 
 //! @brief     Defines class TestConvolution.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain

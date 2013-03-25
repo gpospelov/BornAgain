@@ -2,7 +2,7 @@
 //                                                                           
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/TestDetectorResolution.cpp 
+//! @file      App/src/TestDetectorResolution.cpp 
 //! @brief     Implements class TestDetectorResolution.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
@@ -27,33 +27,28 @@
 #include "ResolutionFunction2DSimple.h"
 
 
-TestDetectorResolution::TestDetectorResolution()
-: mp_intensity_output(0)
-, mp_sample(0)
-{
-}
-
-TestDetectorResolution::~TestDetectorResolution()
-{
-    delete mp_intensity_output;
-    delete mp_sample;
-}
-
 void TestDetectorResolution::execute()
 {
     if (mp_intensity_output) delete mp_intensity_output;
     initializeSample();
     Simulation simulation(mp_options);
     simulation.setSample(*mp_sample);
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree
-            ,100, 0.0*Units::degree, 2.0*Units::degree);
-    IResolutionFunction2D *p_resolution_function = new ResolutionFunction2DSimple(0.001, 0.001);
+    simulation.setDetectorParameters
+        (100, 0.0*Units::degree, 2.0*Units::degree,
+         100, 0.0*Units::degree, 2.0*Units::degree);
+    IResolutionFunction2D *p_resolution_function =
+        new ResolutionFunction2DSimple(0.001, 0.001);
     simulation.setDetectorResolutionFunction(p_resolution_function);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setBeamParameters
+        (1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     simulation.runSimulation();
     mp_intensity_output = simulation.getOutputDataClone();
-    IsGISAXSTools::drawLogOutputData(*mp_intensity_output, "c1_test_detector_resolution", "Detector resolution",
-            "CONT4 Z", "Detector resolution");
+    IsGISAXSTools::drawLogOutputData
+        (*mp_intensity_output,
+         "c1_test_detector_resolution",
+         "Detector resolution",
+         "CONT4 Z",
+         "Detector resolution");
 }
 
 void TestDetectorResolution::initializeSample()
@@ -63,16 +58,21 @@ void TestDetectorResolution::initializeSample()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-5e-6, 2e-8);
     complex_t n_particle(1.0-5e-5, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material =
+        MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material =
+        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    IInterferenceFunction *p_interference_funtion = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
+    IInterferenceFunction *p_interference_funtion =
+        new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,
             7*Units::nanometer, 1e7*Units::nanometer);
     ParticleDecoration particle_decoration(
-                new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+        new Particle(n_particle,
+                     new FormFactorCylinder(5*Units::nanometer,
+                                            5*Units::nanometer)));
     particle_decoration.addInterferenceFunction(p_interference_funtion);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 

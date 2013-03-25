@@ -25,7 +25,7 @@ class FormFactorFullSphere : public IFormFactorBorn
 {
 public:
     FormFactorFullSphere(double radius);
-    ~FormFactorFullSphere();
+    ~FormFactorFullSphere() {}
     virtual FormFactorFullSphere *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 1; }

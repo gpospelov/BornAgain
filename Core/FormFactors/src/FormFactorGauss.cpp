@@ -36,10 +36,6 @@ FormFactorGauss::FormFactorGauss(double height, double width)
     init_parameters();
 }
 
-FormFactorGauss::~FormFactorGauss()
-{
-}
-
 //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
 
 void FormFactorGauss::init_parameters()
@@ -48,7 +44,6 @@ void FormFactorGauss::init_parameters()
     getParameterPool()->registerParameter("height", &m_height);
     getParameterPool()->registerParameter("width", &m_width);
 }
-
 
 FormFactorGauss* FormFactorGauss::clone() const
 {

@@ -27,12 +27,6 @@ FormFactorFullSphere::FormFactorFullSphere(double radius)
     init_parameters();
 }
 
-FormFactorFullSphere::~FormFactorFullSphere()
-{
-}
-
-//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
-
 void FormFactorFullSphere::init_parameters()
 {
     getParameterPool()->clear();

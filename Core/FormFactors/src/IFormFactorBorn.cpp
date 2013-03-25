@@ -16,10 +16,6 @@
 #include "IFormFactorBorn.h"
 #include "MathFunctions.h"
 
-IFormFactorBorn::IFormFactorBorn()
-{
-}
-
 double IFormFactorBorn::bigRadialPart(const Bin1DCVector& q_bin) const
 {
     // modulus of the radial part

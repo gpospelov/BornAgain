@@ -41,16 +41,18 @@ void Instrument::matchDetectorParameters(const OutputData<double>& output_data)
     }
 }
 
-void Instrument::setDetectorParameters(size_t n_phi, double phi_f_min,
-        double phi_f_max, size_t n_alpha, double alpha_f_min,
-        double alpha_f_max, bool isgisaxs_style)
+void Instrument::setDetectorParameters(
+    size_t n_phi, double phi_f_min, double phi_f_max,
+    size_t n_alpha, double alpha_f_min, double alpha_f_max,
+    bool isgisaxs_style)
 {
     AxisParameters phi_params;
     phi_params.m_name = "phi_f";
     phi_params.m_range = TSampledRange<double>(n_phi, phi_f_min, phi_f_max);
     AxisParameters alpha_params;
     alpha_params.m_name = "alpha_f";
-    alpha_params.m_range = TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
+    alpha_params.m_range =
+        TSampledRange<double>(n_alpha, alpha_f_min, alpha_f_max);
     if (isgisaxs_style) {
         phi_params.m_sample_method = AxisParameters::E_ISGISAXS;
         alpha_params.m_sample_method = AxisParameters::E_ISGISAXS;
@@ -71,11 +73,12 @@ void Instrument::setDetectorParameters(const DetectorParameters& params)
     m_detector.addAxis(params.m_alpha_params);
 }
 
-std::string Instrument::addParametersToExternalPool(std::string path,
-        ParameterPool* external_pool, int copy_number) const
+std::string Instrument::addParametersToExternalPool(
+    std::string path,
+    ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
-    std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+    std::string new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
 
     // add parameters of the beam
     m_beam.addParametersToExternalPool(new_path, external_pool, -1);
@@ -99,9 +102,10 @@ void Instrument::normalize(OutputData<double> *p_intensity) const
 }
 
 void Instrument::setDetectorResolutionFunction(
-        IResolutionFunction2D* p_resolution_function)
+    IResolutionFunction2D* p_resolution_function)
 {
-    m_detector.setDetectorResolution( new ConvolutionDetectorResolution(p_resolution_function) );
+    m_detector.setDetectorResolution(
+        new ConvolutionDetectorResolution(p_resolution_function) );
 }
 
 void Instrument::applyDetectorResolution(

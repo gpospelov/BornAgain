@@ -16,7 +16,7 @@ protected:
 
 InstrumentTest::InstrumentTest()
 {
-    m_data.addAxis(NDetector2d::PHI_AXIS_NAME, 10, 0., 10.);
+    m_data.addAxis("phi_f", 10, 0., 10.);
     m_data.addAxis("theta_f", 20, 0., 20.);
 }
 

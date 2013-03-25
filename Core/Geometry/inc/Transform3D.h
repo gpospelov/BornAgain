@@ -137,7 +137,7 @@ class Transform3D {
           yx_(m.yx_), yy_(m.yy_), yz_(m.yz_),
           zx_(m.zx_), zy_(m.zy_), zz_(m.zz_) {}
 
-    //! Destructor. 
+    //! Destructor.
     //! Virtual for now as some persistency mechanism needs that,
     //! in future releases this might go away again.
     virtual ~Transform3D() {}
@@ -216,7 +216,7 @@ class Transform3D {
 //! @author <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //!
 class Rotate3D : public Transform3D {
-public:
+  public:
     //! Default constructor: sets the Identity transformation.
     Rotate3D() : Transform3D() {}
     
@@ -242,7 +242,7 @@ public:
 //! @author <Evgueni.Tcherniaev@cern.ch>
 //!
 class RotateX3D : public Rotate3D {
-public:
+  public:
     //! Default constructor: sets the Identity transformation.
     RotateX3D() : Rotate3D() {}
     
@@ -260,7 +260,7 @@ public:
 //! @author <Evgueni.Tcherniaev@cern.ch>
 //!
 class RotateY3D : public Rotate3D {
-public:
+  public:
     //! Default constructor: sets the Identity transformation.
     RotateY3D() : Rotate3D() {}
     
@@ -278,7 +278,7 @@ public:
 //! @author <Evgueni.Tcherniaev@cern.ch>
 //!
 class RotateZ3D : public Rotate3D {
-public:
+  public:
     //! Default constructor: sets the Identity transformation.
     RotateZ3D() : Rotate3D() {}
     

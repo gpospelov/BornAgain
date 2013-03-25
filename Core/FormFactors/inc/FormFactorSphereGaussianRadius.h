@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/inc/FormFactorSphereGaussianRadius.h
-//! @brief     Defines class FormFactorSphereGaussianRadius.
+//! @brief     Defines and implements (WHY ??) class FormFactorSphereGaussianRadius.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,21 +25,22 @@
 
 class FormFactorSphereGaussianRadius : public IFormFactorBorn
 {
-public:
+  public:
     FormFactorSphereGaussianRadius(double mean, double sigma);
     virtual FormFactorSphereGaussianRadius *clone() const;
     virtual ~FormFactorSphereGaussianRadius();
 
     virtual int getNumberOfStochasticParameters() const;
     virtual bool isDistributedFormFactor() const { return true; }
-    virtual void createDistributedFormFactors(std::vector<IFormFactor *> &form_factors,
-             std::vector<double> &probabilities, size_t nbr_samples) const;
+    virtual void createDistributedFormFactors(
+        std::vector<IFormFactor*>& form_factors,
+        std::vector<double> &probabilities, size_t nbr_samples) const;
 
     virtual double getHeight() const { return p_ff_sphere->getHeight(); }
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-private:
+  private:
     double calculateMeanR3() const;
 
     double m_mean; //!< This is the mean radius
@@ -63,7 +64,8 @@ inline FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mea
 
 inline FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const
 {
-    FormFactorSphereGaussianRadius *p_clone = new FormFactorSphereGaussianRadius(m_mean, m_sigma);
+    FormFactorSphereGaussianRadius *p_clone =
+        new FormFactorSphereGaussianRadius(m_mean, m_sigma);
     return p_clone;
 }
 

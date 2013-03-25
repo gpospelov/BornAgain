@@ -15,7 +15,6 @@
 
 #include "TestIsGISAXS13.h"
 #include "DrawHelper.h"
-#include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "Simulation.h"

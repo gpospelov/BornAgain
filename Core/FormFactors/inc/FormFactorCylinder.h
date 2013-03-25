@@ -24,7 +24,7 @@ class FormFactorCylinder : public IFormFactorBorn
 {
 public:
     FormFactorCylinder(double height, double radius);
-    ~FormFactorCylinder();
+    ~FormFactorCylinder() {}
     virtual FormFactorCylinder *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 2; }

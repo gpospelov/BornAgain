@@ -24,8 +24,9 @@
 class FormFactorEllipsoid : public IFormFactorBorn
 {
 public:
-    FormFactorEllipsoid( double radius, double width, double height, double alpha);
-    ~FormFactorEllipsoid();
+    FormFactorEllipsoid(double radius, double width,
+                        double height, double alpha);
+    ~FormFactorEllipsoid() {}
     virtual FormFactorEllipsoid *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 2; }

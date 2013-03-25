@@ -14,7 +14,6 @@
 // ************************************************************************** //
 
 #include "Exceptions.h"
-#include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "IsGISAXSTools.h"
@@ -24,14 +23,18 @@
 
 #include <iostream>
 
+/* ************************************************************************* */
+// implement class ToySimulation
+/* ************************************************************************* */
+
 void ToySimulation::runSimulation()
 {
     if( !m_func )
         throw NullPointerException
             ("ToySimulation::runSimulation() -> "
              "Error! No function is defined.");
-    const std::string s_phi_f(NDetector2d::PHI_AXIS_NAME);
-    const std::string s_alpha_f(NDetector2d::ALPHA_AXIS_NAME);
+    const std::string s_phi_f("phi_f");
+    const std::string s_alpha_f("alpha_f");
 
     m_func->SetParameters(&pars[0]);
     m_intensity_map.setAllTo(0.0);
@@ -57,10 +60,10 @@ void ToySimulation::init_parameters()
     }
 }
 
+/* ************************************************************************* */
+// implement class TestToySimulation
+/* ************************************************************************* */
 
-/* ************************************************************************* */
-//
-/* ************************************************************************* */
 TestToySimulation::TestToySimulation()
     : m_func_object(0)
     , m_func(0)
@@ -114,22 +117,16 @@ void TestToySimulation::execute()
     chi_module.setChiSquaredFunction(SquaredFunctionWithGaussianError(m_sigma_noise) );
     m_fitSuite->addSimulationAndRealData(*m_simulation, *m_real_data, chi_module);
     m_fitSuite->runFit();
-
 }
 
-
-
-/* ************************************************************************* */
-//
-/* ************************************************************************* */
 void TestToySimulation::initializeSimulationAndRealData()
 {
     delete m_simulation;
     m_simulation = new ToySimulation(m_func);
 
     OutputData<double > tmp;
-    tmp.addAxis(NDetector2d::PHI_AXIS_NAME, 100, m_func->GetXmin(), m_func->GetXmax());
-    tmp.addAxis(NDetector2d::ALPHA_AXIS_NAME, 100, m_func->GetYmin(), m_func->GetYmax());
+    tmp.addAxis("phi_f", 100, m_func->GetXmin(), m_func->GetXmax());
+    tmp.addAxis("alpha_f", 100, m_func->GetYmin(), m_func->GetYmax());
     m_simulation->setDetectorParameters(tmp);
 
     // generating real data

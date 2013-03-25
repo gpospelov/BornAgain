@@ -23,9 +23,9 @@
 
 class FormFactorBox : public IFormFactorBorn
 {
-public:
+  public:
     FormFactorBox( double radius, double width, double height);
-    ~FormFactorBox();
+    ~FormFactorBox() {}
     virtual FormFactorBox *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
@@ -44,11 +44,10 @@ public:
 
     virtual double getHeight() const { return m_height; }
 
-protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+  protected:
     virtual void init_parameters();
 
-private:
+  private:
     double m_radius;
     double m_width;
     double m_height;

@@ -23,14 +23,14 @@
 
 class FormFactorPyramid : public IFormFactorBorn
 {
-public:
+  public:
     //! @brief pyramid constructor
     //! @param height of pyramide
     //! @param half_side half of pyramid's base
     //! @param angle in radians between base and facet
     FormFactorPyramid(double height, double half_side, double alpha);
 
-    ~FormFactorPyramid();
+    ~FormFactorPyramid() {}
     virtual FormFactorPyramid *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 3; }
@@ -39,11 +39,10 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-protected:
-    //! register some class members for later access via parameter pool
+  protected:
     virtual void init_parameters();
 
-private:
+  private:
     double m_height;
     double m_half_side;
     double m_alpha;

@@ -22,7 +22,8 @@
 #include "MessageService.h"
 
 MultiLayerDWBASimulation::MultiLayerDWBASimulation(
-        const MultiLayer* p_multi_layer) : mp_roughness_dwba_simulation(0)
+        const MultiLayer* p_multi_layer)
+  : mp_roughness_dwba_simulation(0)
 {
     mp_multi_layer = p_multi_layer->clone();
 }
@@ -30,7 +31,9 @@ MultiLayerDWBASimulation::MultiLayerDWBASimulation(
 MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
 {
     delete mp_multi_layer;
-    for(std::map<size_t, LayerDWBASimulation*>::iterator it=m_layer_dwba_simulation_map.begin(); it!=m_layer_dwba_simulation_map.end(); ++it)
+    for(std::map<size_t, LayerDWBASimulation*>::iterator it =
+            m_layer_dwba_simulation_map.begin();
+        it!=m_layer_dwba_simulation_map.end(); ++it)
     {
         delete (*it).second;
     }
@@ -41,7 +44,8 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation)
 {
     DWBASimulation::init(simulation);
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
-        LayerDWBASimulation *p_layer_dwba_sim = mp_multi_layer->getLayer(i)->createDWBASimulation();
+        LayerDWBASimulation *p_layer_dwba_sim =
+            mp_multi_layer->getLayer(i)->createDWBASimulation();
         if (p_layer_dwba_sim) {
             m_layer_dwba_simulation_map[i] = p_layer_dwba_sim;
             p_layer_dwba_sim->init(simulation);
@@ -50,7 +54,8 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation)
     // scattering from rough surfaces in DWBA
     for (size_t i=0; i<mp_multi_layer->getNumberOfInterfaces(); ++i) {
         if(mp_multi_layer->getLayerInterface(i)->getRoughness() ) {
-            mp_roughness_dwba_simulation = new MultiLayerRoughnessDWBASimulation(mp_multi_layer);
+            mp_roughness_dwba_simulation =
+                new MultiLayerRoughnessDWBASimulation(mp_multi_layer);
             mp_roughness_dwba_simulation->init(simulation);
             break;
         }
@@ -60,8 +65,9 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation)
 void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo &thread_info)
 {
     DWBASimulation::setThreadInfo(thread_info);
-    for (std::map<size_t, LayerDWBASimulation*>::iterator it = m_layer_dwba_simulation_map.begin();
-            it != m_layer_dwba_simulation_map.end(); ++it) {
+    for (std::map<size_t, LayerDWBASimulation*>::iterator it =
+             m_layer_dwba_simulation_map.begin();
+         it != m_layer_dwba_simulation_map.end(); ++it) {
         it->second->setThreadInfo(thread_info);
     }
     if (mp_roughness_dwba_simulation) {
@@ -71,7 +77,8 @@ void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo &thread_info)
 
 void MultiLayerDWBASimulation::run()
 {
-    msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> Running thread " << m_thread_info.i_thread;
+    msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> Running thread "
+                       << m_thread_info.i_thread;
     OpticalFresnel fresnelCalculator;
 
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
@@ -80,15 +87,17 @@ void MultiLayerDWBASimulation::run()
     double lambda = 2.0*M_PI/m_ki_real.mag();
 
     // collect all alpha angles and calculate Fresnel coefficients
-    typedef std::pair<double, OpticalFresnel::MultiLayerCoeff_t > doublefresnel_t;
-    std::vector<doublefresnel_t > doublefresnel_buffer;
+    typedef std::pair<double, OpticalFresnel::MultiLayerCoeff_t>
+        doublefresnel_t;
+    std::vector<doublefresnel_t> doublefresnel_buffer;
     std::set<double> alpha_set = getAlphaList();
     doublefresnel_buffer.reserve(alpha_set.size());
 
     double angle;
     kvector_t kvec;
     OpticalFresnel::MultiLayerCoeff_t coeffs;
-    for (std::set<double>::const_iterator it=alpha_set.begin(); it != alpha_set.end(); ++it) {
+    for (std::set<double>::const_iterator it =
+             alpha_set.begin(); it != alpha_set.end(); ++it) {
         angle = *it;
         kvec.setLambdaAlphaPhi(lambda, -angle, 0.0);
         fresnelCalculator.execute(*mp_multi_layer, kvec, coeffs);
@@ -96,12 +105,14 @@ void MultiLayerDWBASimulation::run()
     }
 
     // run through layers and construct T,R functions
-    for(size_t i_layer=0; i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
-
+    for(size_t i_layer=0;
+        i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
         DoubleToPairOfComplexMap RT_map;
         DoubleToComplexMap Kz_map;
 
-        for(std::vector<doublefresnel_t >::const_iterator it=doublefresnel_buffer.begin(); it!=doublefresnel_buffer.end(); ++it) {
+        for(std::vector<doublefresnel_t >::const_iterator it=
+                doublefresnel_buffer.begin();
+            it!=doublefresnel_buffer.end(); ++it) {
             double angle = (*it).first;
             const OpticalFresnel::FresnelCoeff &coeff = (*it).second[i_layer];
             RT_map[angle] = complexpair_t(coeff.R, coeff.T);
@@ -109,18 +120,19 @@ void MultiLayerDWBASimulation::run()
         }
 
         // layer DWBA simulation
-        std::map<size_t, LayerDWBASimulation*>::const_iterator pos = m_layer_dwba_simulation_map.find(i_layer);
+        std::map<size_t, LayerDWBASimulation*>::const_iterator pos =
+            m_layer_dwba_simulation_map.find(i_layer);
         if(pos != m_layer_dwba_simulation_map.end() ) {
             LayerDWBASimulation *p_layer_dwba_sim = pos->second;
             p_layer_dwba_sim->setKzAndRTFunctions(Kz_map, RT_map);
             p_layer_dwba_sim->run();
-
             addDWBAIntensity( p_layer_dwba_sim->getDWBAIntensity() );
         }
 
         // layer roughness DWBA
         if(mp_roughness_dwba_simulation) {
-            mp_roughness_dwba_simulation->setReflectionTransmissionFunction(i_layer, RT_map);
+            mp_roughness_dwba_simulation->setReflectionTransmissionFunction
+                (i_layer, RT_map);
         }
 
     } // i_layer

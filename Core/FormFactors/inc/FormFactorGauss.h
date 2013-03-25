@@ -26,7 +26,7 @@ class FormFactorGauss : public IFormFactorBorn
 public:
     FormFactorGauss(double volume);
     FormFactorGauss(double height, double width);
-    ~FormFactorGauss();
+    ~FormFactorGauss() {}
     virtual FormFactorGauss *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 2; }

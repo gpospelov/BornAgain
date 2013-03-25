@@ -23,32 +23,31 @@
 
 class FormFactorHemiSpheroid : public IFormFactorBorn
 {
-public:
+  public:
     //! @brief Cone constructor
     //! @param height of Conee
     //! @param radius half of Cone's base
     //! @param angle in radians between base and facet
-    FormFactorHemiSpheroid(double radius,  double width, double height);
+    FormFactorHemiSpheroid(double radius, double width, double height);
     double HemiSpheroidIntegral(double Z, void* params) const;
 
-    ~FormFactorHemiSpheroid();
+    ~FormFactorHemiSpheroid() {}
     virtual FormFactorHemiSpheroid* clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 3; }
 
     virtual double getHeight() const { return m_height; }
 
-protected:
+  protected:
     virtual complex_t evaluate_for_q (const cvector_t &q) const;
 
-private:
+  private:
     double evaluate_for_q_real() const;
-    complex_t evaluate_for_q_imag() const;
+    double evaluate_for_q_imag() const;
     double HemiSpheroidIntegralReal(double Z, void* params) const;
 
     double HemiSpheroidIntegralImaginary(double Z, void* params) const;
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
     double m_radius;

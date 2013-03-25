@@ -32,7 +32,6 @@
 #include "OutputDataIOFactory.h"
 #include "Utils.h"
 #include "Types.h"
-#include "ExperimentConstants.h"
 #include "MessageService.h"
 
 #include "TGraph.h"
@@ -46,8 +45,6 @@
 TestMiscellaneous::TestMiscellaneous()
 {
 }
-
-
 
 void TestMiscellaneous::execute()
 {
@@ -97,7 +94,6 @@ void TestMiscellaneous::test_LogSystem()
 
 }
 
-
 /* ************************************************************************* */
 // test of OutputData export to 2D array
 /* ************************************************************************* */
@@ -107,22 +103,21 @@ void TestMiscellaneous::test_OutputDataTo2DArray()
     int axis0_size = 2;
     int axis1_size = 4;
     OutputData<double> *p_output = new OutputData<double>;
-    p_output->addAxis(NDetector2d::PHI_AXIS_NAME, axis0_size, 0.0, double(axis0_size));
-    p_output->addAxis(NDetector2d::ALPHA_AXIS_NAME, axis1_size, 0.0, double(axis1_size));
+    p_output->addAxis("phi_f", axis0_size, 0.0, double(axis0_size));
+    p_output->addAxis("alpha_f", axis1_size, 0.0, double(axis1_size));
     p_output->setAllTo(0.0);
 
     OutputData<double>::iterator it = p_output->begin();
     int nn=0;
     while (it != p_output->end())
     {
-        size_t index0 = p_output->getIndexOfAxis(NDetector2d::PHI_AXIS_NAME, it.getIndex());
-        size_t index1 = p_output->getIndexOfAxis(NDetector2d::ALPHA_AXIS_NAME, it.getIndex());
+        size_t index0 = p_output->getIndexOfAxis("phi_f", it.getIndex());
+        size_t index1 = p_output->getIndexOfAxis("alpha_f", it.getIndex());
         std::cout << " index0:" << index0 << " index1:" << index1 << std::endl;
         *it = nn++;
         ++it;
     }
 }
-
 
 /* ************************************************************************* */
 // test of reading of OutputData from ASCII file
@@ -136,8 +131,6 @@ void TestMiscellaneous::test_KVectorContainer()
         cc.print();
     }
 }
-
-
 
 /* ************************************************************************* */
 // test of reading of OutputData from ASCII file
@@ -203,7 +196,6 @@ void TestMiscellaneous::test_FastSin()
 
 }
 
-
 /* ************************************************************************* */
 // opengl mesocrystal drawing
 /* ************************************************************************* */
@@ -212,8 +204,6 @@ void TestMiscellaneous::test_DrawMesocrystal()
     MultiLayer *m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MesoCrystal2"));
     DrawHelper::DrawMesoCrystal(m_sample);
 }
-
-
 
 /* ************************************************************************* */
 // form factor as a function of qx,qy,qz
@@ -264,7 +254,6 @@ void TestMiscellaneous::test_FormFactor()
         vh2_yz[i]->GetXaxis()->SetTitle("y");
         vh2_yz[i]->GetYaxis()->SetTitle("z");
     }
-
 
     OutputData<double> *p_data = new OutputData<double>();
     p_data->addAxis(std::string("qx"), nbins, qmin, qmax);
@@ -332,10 +321,7 @@ void TestMiscellaneous::test_FormFactor()
         int indx = i*int(nbins/ndiv);
         vh2_yz[indx]->Draw("surf");
     }
-
-
 }
-
 
 /* ************************************************************************* */
 // test double to complex interpolating function
@@ -345,11 +331,11 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
     MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerOffspecTestcase1a"));
 
     OutputData<double > *data_alpha = new OutputData<double >;
-    data_alpha->addAxis(NDetector2d::ALPHA_AXIS_NAME, 200, 0.0*Units::degree, 2.0*Units::degree);
+    data_alpha->addAxis("alpha_f", 200, 0.0*Units::degree, 2.0*Units::degree);
 
     OpticalFresnel fresnelCalculator;
 
-    const IAxis *p_alpha_axis = data_alpha->getAxis(NDetector2d::ALPHA_AXIS_NAME);
+    const IAxis *p_alpha_axis = data_alpha->getAxis("alpha_f");
     std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
         double angle = (*p_alpha_axis)[i];
@@ -419,6 +405,5 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
     c1->cd(3);
     gr3_diff->SetTitle("difference");
     gr3_diff->Draw("apl");
-
 }
 

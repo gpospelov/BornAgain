@@ -26,7 +26,7 @@ class FormFactorLorentz : public IFormFactorBorn
 public:
     FormFactorLorentz(double volume);
     FormFactorLorentz(double height, double width);
-    ~FormFactorLorentz();
+    ~FormFactorLorentz() {}
     virtual FormFactorLorentz *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 2; }

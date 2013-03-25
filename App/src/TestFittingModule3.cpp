@@ -17,7 +17,6 @@
 #include "AttLimits.h"
 #include "DrawHelper.h"
 #include "Exceptions.h"
-#include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "FormFactors.h"
@@ -44,7 +43,6 @@
 #include "TPaveText.h"
 
 
-
 TestFittingModule3::TestFittingModule3()
     : m_simulation(0)
     , m_sample(0)
@@ -52,7 +50,6 @@ TestFittingModule3::TestFittingModule3()
     , m_real_data(0)
 {
     m_fitSuite = new FitSuite();
-
 }
 
 
@@ -105,7 +102,6 @@ void TestFittingModule3::initializeSimulation()
     m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
     m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     m_simulation->setBeamIntensity(1e10);
-
 }
 
 
@@ -154,8 +150,8 @@ void TestFittingModule3::initializeRealData()
 
     // setting up 1d scans by making slices on real data
     m_data_scans.clear();
-    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, NDetector2d::ALPHA_AXIS_NAME, 0.012, 0.012) );
-    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, NDetector2d::PHI_AXIS_NAME, 0.011, 0.011) );
+    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "alpha_f", 0.012, 0.012) );
+    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "phi_f", 0.011, 0.011) );
 
     // drawing data and scans
     TCanvas *c1 = new TCanvas("c1","c1",1024, 768);

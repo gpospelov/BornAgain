@@ -1,8 +1,10 @@
-#
+# Run C++ core tests for libBornAgainCore library
+# Usage: python test_all.py
 import sys
 import os
 import subprocess
 import time
+
 
 Tests = [
     "IsGISAXS01",
@@ -61,7 +63,9 @@ def runTests():
 
 # print test results
 def printResults():
-    print "========================================"
+    print "-------------------------------------------------------------------------------"
+    print "TestCore Summary                                                                "
+    print "-------------------------------------------------------------------------------"
     n=1
     for x in test_info:
         print '{0:2d}. {1} {2}  {3:.3f}sec  [{4}] '.format(n, x[0],x[1],x[2],x[3])

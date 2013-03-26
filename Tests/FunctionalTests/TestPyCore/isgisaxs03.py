@@ -161,7 +161,7 @@ def GetDifference(data, reference):
 # --------------------------------------------------------------
 # run test and analyse test results
 # --------------------------------------------------------------
-def RunTest():
+def runTest():
     resultBA = RunSimulationBA()
     resultDWBA = RunSimulationDWBA()
     resultBA_Size = RunSimulationBA_Size()
@@ -178,7 +178,7 @@ def RunTest():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = RunTest()
+  name,description,status = runTest()
   print name,description,status
 
 

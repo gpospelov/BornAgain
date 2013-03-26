@@ -1,4 +1,5 @@
-# run all tests
+# Run Python core tests for libBornAgainCore library
+# Usage: python test_all.py
 
 import sys
 import os
@@ -18,17 +19,17 @@ import isgisaxs11
 import isgisaxs15
 
 Tests = {
-    "IsGISAXS01": isgisaxs01.RunTest,
-    "IsGISAXS02": isgisaxs02.RunTest,
-    "IsGISAXS03": isgisaxs03.RunTest,
-    "IsGISAXS04": isgisaxs04.RunTest,
-    "IsGISAXS06": isgisaxs06.RunTest,
-    "IsGISAXS07": isgisaxs07.RunTest,
-    "IsGISAXS08": isgisaxs08.RunTest,
-    "IsGISAXS09": isgisaxs09.RunTest,
-    "IsGISAXS10": isgisaxs10.RunTest,
-    "IsGISAXS11": isgisaxs11.RunTest,
-    "IsGISAXS15": isgisaxs15.RunTest
+    "IsGISAXS01": isgisaxs01.runTest,
+    "IsGISAXS02": isgisaxs02.runTest,
+    "IsGISAXS03": isgisaxs03.runTest,
+    "IsGISAXS04": isgisaxs04.runTest,
+    "IsGISAXS06": isgisaxs06.runTest,
+    "IsGISAXS07": isgisaxs07.runTest,
+    "IsGISAXS08": isgisaxs08.runTest,
+    "IsGISAXS09": isgisaxs09.runTest,
+    "IsGISAXS10": isgisaxs10.runTest,
+    "IsGISAXS11": isgisaxs11.runTest,
+    "IsGISAXS15": isgisaxs15.runTest
 }
 
 test_info = []
@@ -62,7 +63,9 @@ def runTests():
 
 # print test results
 def printResults():
-    print "========================================"
+    print "-------------------------------------------------------------------------------"
+    print "TestPyCore Summary                                                             "
+    print "-------------------------------------------------------------------------------"
     n=1
     for x in test_info:
         print '{0:2d}. {1}  {2}  {3:.3f}sec  [{4}] '.format(n, x[0],x[1],x[2],x[3])

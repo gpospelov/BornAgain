@@ -1,4 +1,4 @@
-# Run Python core tests for libBornAgainCore library
+# Run Python fitting tests for libBornAgainFit library
 # Usage: python test_all.py
 
 import sys
@@ -6,30 +6,10 @@ import os
 import subprocess
 import time
 
-import isgisaxs01
-import isgisaxs02
-import isgisaxs03
-import isgisaxs04
-import isgisaxs06
-import isgisaxs07
-import isgisaxs08
-import isgisaxs09
-import isgisaxs10
-import isgisaxs11
-import isgisaxs15
+import testfit01
 
 Tests = {
-    "IsGISAXS01": isgisaxs01.runTest,
-    "IsGISAXS02": isgisaxs02.runTest,
-    "IsGISAXS03": isgisaxs03.runTest,
-    "IsGISAXS04": isgisaxs04.runTest,
-    "IsGISAXS06": isgisaxs06.runTest,
-    "IsGISAXS07": isgisaxs07.runTest,
-    "IsGISAXS08": isgisaxs08.runTest,
-    "IsGISAXS09": isgisaxs09.runTest,
-    "IsGISAXS10": isgisaxs10.runTest,
-    "IsGISAXS11": isgisaxs11.runTest,
-    "IsGISAXS15": isgisaxs15.runTest
+    "TestFit01": testfit01.runTest
 }
 
 test_info = []
@@ -64,7 +44,7 @@ def runTests():
 # print test results
 def printResults():
     print "-------------------------------------------------------------------------------"
-    print "TestPyCore Summary                                                             "
+    print "TestPyFit Summary                                                              "
     print "-------------------------------------------------------------------------------"
     n=1
     for x in test_info:

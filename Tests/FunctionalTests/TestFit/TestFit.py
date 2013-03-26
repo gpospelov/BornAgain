@@ -1,23 +1,13 @@
-# Run C++ core tests for libBornAgainCore library
+# Run C++ fitting tests for libBornAgainFit library
 # Usage: python test_all.py
+
 import sys
 import os
 import subprocess
 import time
 
-
 Tests = [
-    "IsGISAXS01",
-    "IsGISAXS02",
-    "IsGISAXS03",
-    "IsGISAXS04",
-    "IsGISAXS06",
-    "IsGISAXS07",
-    "IsGISAXS08",
-    "IsGISAXS09",
-    "IsGISAXS10",
-    "IsGISAXS11",
-    "IsGISAXS15"
+    "TestFit01",
 ]
 
 test_info = []
@@ -64,7 +54,7 @@ def runTests():
 # print test results
 def printResults():
     print "-------------------------------------------------------------------------------"
-    print "TestCore Summary                                                                "
+    print "TestFit Summary                                                                "
     print "-------------------------------------------------------------------------------"
     n=1
     for x in test_info:

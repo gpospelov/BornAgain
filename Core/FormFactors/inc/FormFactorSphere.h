@@ -20,7 +20,7 @@
 #include "IStochasticParameter.h"
 #include "MemberComplexFunctionIntegrator.h"
 
-//! Form factor of a sphere cut at given height.
+//! Form factor of a truncated sphere.
 
 class FormFactorSphere : public IFormFactorBorn
 {
@@ -42,7 +42,6 @@ class FormFactorSphere : public IFormFactorBorn
  private:
     complex_t Integrand(double Z, void* params) const;
 
-    //! register some class members for later access via parameter pool
     virtual void init_parameters();
 
     double m_radius;

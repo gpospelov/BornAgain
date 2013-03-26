@@ -105,55 +105,70 @@ void Simulation::prepareSimulation()
 void Simulation::runSimulation()
 {
     prepareSimulation();
-    if( !mp_sample) throw NullPointerException( "Simulation::runSimulation() -> Error! No sample set.");
+    if( !mp_sample)
+        throw NullPointerException(
+            "Simulation::runSimulation() -> Error! No sample set.");
+    m_intensity_map.setAllTo(0.0);
 
     // retrieve threading information
     int n_threads_total=0;
-    if (mp_options) {
+    if (mp_options)
         n_threads_total = (*mp_options)["threads"].as<int>();
-    }
 
-    m_intensity_map.setAllTo(0.0);
     if(n_threads_total<0) {
+        // Single thread.
         DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-        if (!p_dwba_simulation) throw NullPointerException("Simulation::runSimulation() -> No dwba simulation");
+        if (!p_dwba_simulation)
+            throw NullPointerException(
+                "Simulation::runSimulation() -> No dwba simulation");
         p_dwba_simulation->init(*this);
         p_dwba_simulation->run();
         m_intensity_map += p_dwba_simulation->getDWBAIntensity();
         delete p_dwba_simulation;
     } else {
-        // if n_threads=0, take optimal number of threads from the hardware
+        // Multithreading.
         if(n_threads_total == 0 )  {
+            // Take optimal number of threads from the hardware.
             n_threads_total = (int)boost::thread::hardware_concurrency();
-            msglog(MSG::INFO) << "Simulation::runSimulation() -> Info. Number of threads " << n_threads_total << " (taken from hardware concurrency)";
-        }else {
-            msglog(MSG::INFO) << "Simulation::runSimulation() -> Info. Number of threads " << n_threads_total << " (hardware concurrency: " << boost::thread::hardware_concurrency() << " )";
+            msglog(MSG::INFO) <<
+                "Simulation::runSimulation() -> Info. Number of threads " <<
+                n_threads_total << " (taken from hardware concurrency)";
+        } else {
+            msglog(MSG::INFO) <<
+                "Simulation::runSimulation() -> Info. Number of threads " <<
+                n_threads_total << " (hardware concurrency: " <<
+                boost::thread::hardware_concurrency() << " )";
         }
-        std::vector<boost::thread *> threads;
-        std::vector<DWBASimulation *> simulations;
+        std::vector<boost::thread*> threads;
+        std::vector<DWBASimulation*> simulations;
 
-        // first make sure every thread's objects are properly initialized...
+        // Initialize n simulations.
         ThreadInfo thread_info;
         thread_info.n_threads = n_threads_total;
         for(int i_thread=0; i_thread<n_threads_total; ++i_thread){
-            DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
-            if (!p_dwba_simulation) throw NullPointerException("Simulation::runSimulation() -> No dwba simulation");
+            DWBASimulation *p_dwba_simulation =
+                mp_sample->createDWBASimulation();
+            if (!p_dwba_simulation) throw NullPointerException(
+                "Simulation::runSimulation() -> No dwba simulation");
             p_dwba_simulation->init(*this);
             thread_info.i_thread = i_thread;
             p_dwba_simulation->setThreadInfo(thread_info);
             simulations.push_back(p_dwba_simulation);
         }
-        // ... and then execute the threads
-        for (std::vector<DWBASimulation *>::iterator it=simulations.begin(); it!=simulations.end(); ++it) {
-            threads.push_back( new boost::thread(boost::bind(&DWBASimulation::run, *it)) );
+
+        // Run simulations in n threads.
+        for (std::vector<DWBASimulation *>::iterator it=
+                 simulations.begin(); it!=simulations.end(); ++it) {
+            threads.push_back
+                (new boost::thread(boost::bind(&DWBASimulation::run, *it)) );
         }
 
-        // waiting for threads to be complete
+        // Wait for threads to complete.
         for(size_t i=0; i<threads.size(); ++i) {
             threads[i]->join();
         }
 
-        // saving data
+        // Merge simulated data.
         for(size_t i=0; i<simulations.size(); ++i) {
             m_intensity_map += simulations[i]->getDWBAIntensity();
             delete simulations[i];
@@ -165,15 +180,14 @@ void Simulation::runSimulation()
 
 void Simulation::runSimulationElement(size_t index)
 {
-    //TODO: use index
-    (void)index;
-    prepareSimulation();
+    (void)index;  // to suppress unused-variable warning
 
+    prepareSimulation();
     if( !mp_sample)
         throw NullPointerException(
             "Simulation::runSimulation() -> Error! No sample set.");
-
     m_intensity_map.setAllTo(0.0);
+
     DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
     if (!p_dwba_simulation)
         throw NullPointerException("Simulation::runSimulation() -> "
@@ -210,16 +224,6 @@ void Simulation::setSampleBuilder(const ISampleBuilder *p_sample_builder)
     mp_sample = 0;
 }
 
-OutputData<double>* Simulation::getOutputDataClone() const
-{
-	return m_intensity_map.clone();
-}
-
-const OutputData<double>* Simulation::getOutputData() const
-{
-    return &m_intensity_map;
-}
-
 void Simulation::setInstrument(const Instrument &instrument)
 {
     m_instrument = instrument;
@@ -247,15 +251,12 @@ std::string Simulation::addParametersToExternalPool(
     // add parameters of the instrument
     m_instrument.addParametersToExternalPool(new_path, external_pool, -1);
 
-    // add parameters of the sample builder
     if (mp_sample_builder) {
+       // add parameters of the sample builder
         mp_sample_builder->addParametersToExternalPool(
             new_path, external_pool, -1);
-    }
-    // add parameters of the sample (only in the case without sample builder)
-    else if (mp_sample) {
-//        std::string sample_path = new_path + mp_sample->getName();
-//        mp_sample->addParametersToExternalPool(sample_path, external_pool, -1);
+    } else if (mp_sample) {
+        // add parameters of directly the sample
         mp_sample->addParametersToExternalPool(new_path, external_pool, -1);
     }
 
@@ -333,7 +334,9 @@ void Simulation::setDetectorParameters(
     size_t n_phi, double phi_f_min, double phi_f_max,
     size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style)
 {
-    m_instrument.setDetectorParameters(n_phi, phi_f_min, phi_f_max, n_alpha, alpha_f_min, alpha_f_max, isgisaxs_style);
+    m_instrument.setDetectorParameters(
+        n_phi, phi_f_min, phi_f_max,
+        n_alpha, alpha_f_min, alpha_f_max, isgisaxs_style);
     updateIntensityMapAxes();
 }
 
@@ -356,7 +359,8 @@ double Simulation::deltaAlpha(double alpha, double zeta) const
 
 double Simulation::deltaPhi(double alpha, double phi, double zeta) const
 {
-    double qy2 = std::sin(phi)*std::sin(phi) - std::sin(alpha)*std::sin(alpha)*std::tan(zeta)*std::tan(zeta);
+    double qy2 = std::sin(phi)*std::sin(phi) -
+        std::sin(alpha)*std::sin(alpha)*std::tan(zeta)*std::tan(zeta);
     return std::sqrt(qy2) - std::sin(phi);
 }
 
@@ -367,8 +371,7 @@ void Simulation::createZetaAndProbVectors(
     double zeta_step;
     if (nbr_zetas<2) {
         zeta_step = 0.0;
-    }
-    else {
+    } else {
         zeta_step = 2.0*zeta_sigma/(nbr_zetas-1);
     }
     double zeta_start = -1.0*zeta_sigma;

@@ -6,7 +6,7 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
 QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
-CONFIG  += BORNAGAIN_PYTHON
+#CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
 # source and headers
@@ -125,6 +125,7 @@ SOURCES += \
     Fitting/src/IFitSuiteStrategy.cpp \
     Fitting/src/MinimizerScan.cpp \
     Fitting/src/MinimizerTest.cpp \
+    Fitting/src/FitSuitePrintObserver.cpp \
     Tools/src/MessageService.cpp
 
 HEADERS += \
@@ -297,6 +298,7 @@ HEADERS += \
     Fitting/inc/IMinimizer.h \
     Fitting/inc/MinimizerScan.h \
     Fitting/inc/MinimizerTest.h \
+    Fitting/inc/FitSuitePrintObserver.h \
     Tools/inc/MessageService.h
 
 contains(CONFIG, BORNAGAIN_PYTHON) {

@@ -35,7 +35,6 @@ SOURCES += \
     $${FUNCTIONAL_TESTS}/IsGISAXS15/IsGISAXS15.cpp \
     src/AppOptionsDescription.cpp \
     src/DrawHelper.cpp \
-    src/FitSuiteObserverFactory.cpp \
     src/FunctionalTestFactory.cpp \
     src/IFunctionalTest.cpp \
     src/IsGISAXSData.cpp \
@@ -78,7 +77,10 @@ SOURCES += \
     src/TestRoughness.cpp \
     src/TestToySimulation.cpp \
     src/TreeEventStructure.cpp \
-    src/main.cpp
+    src/main.cpp \
+    src/FitSuiteDrawObserver.cpp \
+    src/FitSuiteWriteTreeObserver.cpp
+
 
 HEADERS += \
     $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
@@ -96,7 +98,6 @@ HEADERS += \
     inc/AppLinkDef.h \
     inc/AppOptionsDescription.h \
     inc/DrawHelper.h \
-    inc/FitSuiteObserverFactory.h \
     inc/FunctionalTestFactory.h \
     inc/IFunctionalTest.h \
     inc/IsGISAXSData.h \
@@ -140,6 +141,9 @@ HEADERS += \
     inc/TestToySimulation.h \
     inc/TreeEventStructure.h \
     inc/Version.h \
+    inc/FitSuiteObserverFactory.h \
+    inc/FitSuiteDrawObserver.h \
+    inc/FitSuiteWriteTreeObserver.h
 
 LOCATIONS = $$PWD/inc \
             $${FUNCTIONAL_TESTS}/IsGISAXS01 \

@@ -41,7 +41,7 @@ TestFittingModule2::TestFittingModule2()
 
     // setting up fitSuite
     m_fitSuite = new FitSuite();
-    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
+    m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Combined") );
     //m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Fumili") );
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
     m_fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
@@ -66,10 +66,10 @@ void TestFittingModule2::execute()
     //fit_example_basics();
 
     // fit example with normalizer
-    //fit_example_chimodule();
+    fit_example_chimodule();
 
     // fit example with strategies
-    fit_example_strategies();
+    //fit_example_strategies();
 
     // fit example with data masking
     //fit_example_mask();
@@ -109,11 +109,12 @@ void TestFittingModule2::fit_example_chimodule()
     initializeSimulation();
     initializeRealData();
 
-    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",  5*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",  4*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",  6*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 5*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 4*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",    6*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    m_fitSuite->addFitParameter("*Normalizer/scale",    1, 0.01*Units::nanometer, AttLimits::limited(0.9,1.1) );
+    m_fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.2, 0.1, AttLimits::fixed());
+    //m_fitSuite->addFitParameter("*Normalizer/scale",    1, 0.01*Units::nanometer, AttLimits::limited(0.9,1.1) );
 
 
     // setting up fitSuite
@@ -247,7 +248,7 @@ void TestFittingModule2::initializeSimulation()
     mp_simulation->setSampleBuilder(mp_sample_builder);
     mp_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
     mp_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    mp_simulation->setBeamIntensity(1e10);
+    //mp_simulation->setBeamIntensity(1e10);
 }
 
 
@@ -260,8 +261,8 @@ void TestFittingModule2::initializeRealData()
 
     // generating "real" data
     mp_simulation->runSimulation();
-    mp_simulation->normalize();
-    m_fitSuite->getFitObjects()->setSimulationNormalize(true);
+   // mp_simulation->normalize();
+    //m_fitSuite->getFitObjects()->setSimulationNormalize(true);
     delete mp_real_data;
     mp_real_data = IsGISAXSTools::createNoisyData(*mp_simulation->getOutputData());
 

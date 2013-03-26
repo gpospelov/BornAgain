@@ -85,6 +85,9 @@ public:
     //! print results of the screen
     void printResults() const;
 
+    //! set print level
+    void setPrintLevel(int print_every_nth);
+
     AttFitting &getAttributes() { return m_fit_attributes; }
     void setAttributes(const AttFitting &fit_attributes) { m_fit_attributes = fit_attributes; }
 

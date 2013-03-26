@@ -8,8 +8,8 @@ Content:
 
 Usage:
 'python test_all.py' - to run all tests
-'python test_all.py cpp' - to run C++ tests only
-'python test_all.py pyapi' - to run Python tests only
+'python test_all.py C++' - to run C++ tests only
+'python test_all.py Python' - to run Python tests only
 
 
 

@@ -5,7 +5,7 @@ Different geometries, number of fit parameters, variety of minimizers
 and minimization strategies.
 
 To run tests
-python test_all.py
+python TestPyFit.py
 
 List of tests
 testfit01.py - Two parameter fit using variety of minimizers. Geometry: cylinders in the air.

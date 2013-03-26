@@ -52,7 +52,7 @@ def parse_output(testName, test_result):
 
 # run tests one by one
 def runTests():
-  print ">>> Starting TestPyCore"
+  print ">>> Running TestPyCore, {0:-2d} tests total ...".format(len(Tests))
   for testName in sorted(Tests.iterkeys()):
     print "Running test ", testName
     start_time = time.time()

@@ -52,7 +52,7 @@ def parse_output(testName, stdout, stderr):
 
 # run tests one by one
 def runTests():
-  print ">>> Starting TestCore"
+  print ">>> Running TestCore, {0:-2d} tests total ...".format(len(Tests))
   for testName in Tests:
     command =  testName+"/"+testName # i.e. "path/executable" like "IsGISAXS01/IsGISAXS01"
     path = os.path.split(__file__)[0]

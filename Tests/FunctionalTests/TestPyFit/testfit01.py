@@ -39,15 +39,15 @@ Minimizers = [
 # run several minimization rounds using different minimizers
 # -----------------------------------------------------------------------------
 def runTest():
-  print "**********************************************************************"
-  print "*  Starting  TestFit01                                               *"
-  print "**********************************************************************"
+  #print "**********************************************************************"
+  #print "*  Starting  TestFit01                                               *"
+  #print "**********************************************************************"
   nTest=0
   status = "OK"
   for m in Minimizers:
     minimizer_name = m[0]
     minimizer_algorithm = m[1]
-    print "Test {0:2d}   {1:}({2:})".format(nTest, minimizer_name, minimizer_algorithm)
+    print "Minimizer {0:-2d}   {1:}({2:})".format(nTest, minimizer_name, minimizer_algorithm)
     result_ok = run_fitting(minimizer_name, minimizer_algorithm)
     nTest+=1
     if not result_ok: status = "FAILED"
@@ -84,10 +84,10 @@ def run_fitting(minimizer_name, minimizer_algorithm):
   radius_found = fitSuite.getMinimizer().getValueOfVariableAtMinimum(1)
   radius_diff = abs(radius_found - cylinder_radius)/cylinder_radius
 
-  print "          RealTime : {0:.3f} sec".format(real_time)
-  print "          NCalls   : {0:<5d}".format(fitSuite.getNCalls())
-  print '          par1     : {0:.4f} ({1:.3g}) '.format(height_found, height_diff)
-  print '          par2     : {0:.4f} ({1:.3g}) '.format(radius_found, radius_diff)
+  print "            RealTime : {0:.3f} sec".format(real_time)
+  print "            NCalls   : {0:<5d}".format(fitSuite.getNCalls())
+  print '            par1     : {0:.4f} ({1:.3g}) '.format(height_found, height_diff)
+  print '            par2     : {0:.4f} ({1:.3g}) '.format(radius_found, radius_diff)
 
   diff = 1.0e-02
   isSuccess = True

@@ -35,7 +35,7 @@ namespace pyplusplus {
 // class to help pyplusplus to expose kvector_t in python during automatic code generation
 class PythonPlusplusFitHelper
 {
-public:
+ public:
     size_t pyplusplus_boost_outputdata() { return sizeof(pyplusplus::aliases::ndimdata_t); }
 //    size_t pyplusplus_boost_outputdata_iterator() { return sizeof(pyplusplus::aliases::outputdataiterator_t); }
     size_t pyplusplus_boost_vdouble1d() { return sizeof(pyplusplus::aliases::vdouble1d_t); }

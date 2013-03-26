@@ -25,7 +25,7 @@
 
 class ParameterPool : public ICloneable
 {
-public:
+ public:
     //! definition of parameter type and parameter container
     typedef RealParameterWrapper parameter_t;
     typedef std::map<std::string, parameter_t > parametermap_t;
@@ -74,7 +74,7 @@ public:
     //! print parameter pool
     friend std::ostream &operator<<(std::ostream &ostr, const ParameterPool &obj) { obj.print(ostr); return ostr; }
 
-protected:
+ protected:
 //    //! disabling assignment operator, hiding copy constructor
 //    ParameterPool(const ParameterPool &other);
 //    ParameterPool &operator=(const ParameterPool &);

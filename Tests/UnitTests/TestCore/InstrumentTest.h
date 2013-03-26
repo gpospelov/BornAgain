@@ -5,7 +5,7 @@
 
 class InstrumentTest : public ::testing::Test
 {
-protected:
+ protected:
     InstrumentTest();
     virtual ~InstrumentTest();
 

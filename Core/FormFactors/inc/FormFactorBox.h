@@ -23,7 +23,7 @@
 
 class FormFactorBox : public IFormFactorBorn
 {
-  public:
+ public:
     FormFactorBox( double radius, double width, double height);
     ~FormFactorBox() {}
     virtual FormFactorBox *clone() const;
@@ -44,10 +44,10 @@ class FormFactorBox : public IFormFactorBorn
 
     virtual double getHeight() const { return m_height; }
 
-  protected:
+ protected:
     virtual void init_parameters();
 
-  private:
+ private:
     double m_radius;
     double m_width;
     double m_height;

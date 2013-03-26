@@ -22,7 +22,7 @@
 
 class IFormFactorDecorator : public IFormFactor
 {
-public:
+ public:
     IFormFactorDecorator(IFormFactor *p_form_factor) : mp_form_factor(p_form_factor) {}
     virtual ~IFormFactorDecorator();
     virtual IFormFactorDecorator *clone() const=0;
@@ -35,7 +35,7 @@ public:
 
     virtual double getRadius() const;
 
-protected:
+ protected:
     IFormFactor *mp_form_factor;
 };
 

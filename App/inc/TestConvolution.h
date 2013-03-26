@@ -25,7 +25,7 @@
 
 class TestConvolution : public IFunctionalTest
 {
-  public:
+ public:
     TestConvolution();
 
     void execute();
@@ -36,7 +36,7 @@ class TestConvolution : public IFunctionalTest
     //! testing convolution in 2d
     void test_convolve2d();
 
-  private:
+ private:
     //! test function with many gaus'es on top of flat background for convolution studies
     double fpeaks(double *x, double *par);
 

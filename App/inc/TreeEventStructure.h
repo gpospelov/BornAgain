@@ -26,7 +26,7 @@
 //!
 class TreeEventOutputData
 {
-public:
+ public:
     TreeEventOutputData() { clear(); }
     virtual ~TreeEventOutputData() { }
 
@@ -59,7 +59,7 @@ public:
 
 class TreeEventFitData
 {
-public:
+ public:
     TreeEventFitData() { clear(); }
     virtual ~TreeEventFitData()  { }
     void clear();

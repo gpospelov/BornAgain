@@ -30,7 +30,7 @@ class Layer;
 
 class LayerInterface : public ICompositeSample
 {
-public:
+ public:
     virtual ~LayerInterface();
     //! create smooth interface between two layers
     static LayerInterface* createSmoothInterface(const Layer *p_layer_top, const Layer *p_layer_bottom);
@@ -61,11 +61,11 @@ public:
     //! print class
     friend std::ostream &operator<<(std::ostream &ostr, const LayerInterface &m) { m.print(ostr); return ostr; }
 
-protected:
+ protected:
     //! print class
     void print(std::ostream &ostr) const;
 
-private:
+ private:
     LayerInterface();
 
     LayerRoughness *m_roughness;   //!< roughness of the interface

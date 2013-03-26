@@ -27,7 +27,7 @@
 //!
 class TestRoughness : public IFunctionalTest
 {
-  public:
+ public:
     TestRoughness() : IFunctionalTest("roughness"), m_roughness(0) {}
     virtual ~TestRoughness(){}
 
@@ -45,7 +45,7 @@ class TestRoughness : public IFunctionalTest
     //! Some tests of FFT.
     void test_FFT();
 
-  private:
+ private:
     //! pointer to roughness
     LayerRoughness *m_roughness;
     //! x-coordinates of grid along the surface

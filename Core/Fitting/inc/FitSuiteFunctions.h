@@ -27,12 +27,12 @@ class FitSuite;
 
 class IFitSuiteFunction
 {
-public:
+ public:
     IFitSuiteFunction() : m_fit_suite(0), m_ncall(0) {}
     virtual ~IFitSuiteFunction(){}
     virtual void init(FitSuite *fit_suite) { m_fit_suite = fit_suite; }
     virtual size_t getNCalls() const { return m_ncall; }
-protected:
+ protected:
     FitSuite *m_fit_suite;
     size_t m_ncall;
 };
@@ -41,7 +41,7 @@ protected:
 
 class FitSuiteChiSquaredFunction : public IFitSuiteFunction
 {
-public:
+ public:
     FitSuiteChiSquaredFunction(){}
     virtual ~FitSuiteChiSquaredFunction(){}
     //! evaluate method for chi2 value called directly from the minimizer
@@ -52,7 +52,7 @@ public:
 
 class FitSuiteGradientFunction : public IFitSuiteFunction
 {
-public:
+ public:
     FitSuiteGradientFunction() : m_npars(0), m_ndatasize(0), m_prev_index(-1), m_ncalls_total(0), m_ncalls_gradient(0) {}
     virtual ~FitSuiteGradientFunction(){}
     //! evaluate method for gradients and residuals called directly from the minimizer
@@ -60,7 +60,7 @@ public:
     virtual size_t getNCallsTotal() const { return m_ncalls_total; }
     virtual size_t getNCallsGradient() const { return m_ncalls_gradient; }
 
-private:
+ private:
     void verify_arrays();
     void verify_minimizer_logic(bool parameters_have_changed, int current_index);
     void calculate_residuals(const double *pars);

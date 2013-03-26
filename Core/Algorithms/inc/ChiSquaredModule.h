@@ -20,7 +20,7 @@
 
 class ChiSquaredModule : public IChiSquaredModule
 {
-public:
+ public:
     ChiSquaredModule(){}
     ChiSquaredModule(const ChiSquaredModule &other)
         : IChiSquaredModule(other) {}

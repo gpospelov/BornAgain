@@ -29,7 +29,7 @@
 
 class ToySimulation : public Simulation
 {
-public:
+ public:
     ToySimulation(TF2 *func)
         : m_func(func)
     {
@@ -42,9 +42,9 @@ public:
     virtual ToySimulation *clone() const
     { return new ToySimulation(*this); }
     void setParameter(size_t i, double value) { pars[i] = value; }
-  protected:
+ protected:
     virtual void init_parameters();
-  private:
+ private:
     ToySimulation(const ToySimulation &other)
         : Simulation(other), m_func(other.m_func), pars(other.pars)
     {
@@ -59,12 +59,12 @@ public:
 
 class TestToySimulation : public IFunctionalTest
 {
-  public:
+ public:
     TestToySimulation();
     virtual ~TestToySimulation();
     virtual void execute();
 
-  private:
+ private:
     void initializeSimulationAndRealData();
 
     //! simulation function

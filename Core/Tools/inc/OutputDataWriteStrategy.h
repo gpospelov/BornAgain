@@ -24,12 +24,12 @@
 
 class IOutputDataWriteStrategy
 {
-public:
+ public:
     IOutputDataWriteStrategy() : m_precision(10) {}
     virtual ~IOutputDataWriteStrategy(){}
 
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream) = 0;
-protected:
+ protected:
     int m_precision;
 };
 
@@ -37,7 +37,7 @@ protected:
 
 class OutputDataWriteStreamIMA : public IOutputDataWriteStrategy
 {
-public:
+ public:
     virtual void writeOutputData(const OutputData<double> &data, std::ostream &output_stream);
 };
 

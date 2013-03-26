@@ -23,7 +23,7 @@
 
 class Beam : public IParameterized
 {
-public:
+ public:
     Beam();
     Beam(const Beam &other);
     Beam &operator=(const Beam &other);
@@ -39,11 +39,11 @@ public:
 
     void setIntensity(double intensity) { m_intensity = intensity; }
 
-protected:
+ protected:
     //! Register some class members for later access via parameter pool
     virtual void init_parameters();
 
-private:
+ private:
     //! swap function
     void swapContent(Beam &other);
 

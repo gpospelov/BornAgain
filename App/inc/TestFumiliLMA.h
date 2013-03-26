@@ -36,7 +36,7 @@ class TCanvas;
 
 class TestFumiliLMA : public IFunctionalTest
 {
-public:
+ public:
     friend class MyChi2Function;
 
     TestFumiliLMA();
@@ -45,7 +45,7 @@ public:
 
     double functionToMinimize(const double *pars);
 
-private:
+ private:
     void FillOutputDataFromFunction(
         OutputData<double> &data, TF2 *fun, int nbinsx=100, int nbinsy=100);
 
@@ -63,7 +63,7 @@ private:
 
 class IFunctionObject
 {
-public:
+ public:
     virtual ~IFunctionObject(){}
     virtual double operator()(const double *xx, const double *pars ) = 0;
 };
@@ -71,7 +71,7 @@ public:
 
 class RosenBrockFunctionObject : public IFunctionObject
 {
-public:
+ public:
     double operator()(const double *xx, const double *pars )
     {
         const double x = xx[0];
@@ -87,7 +87,7 @@ public:
 
 class SincXSincYFunctionObject : public IFunctionObject
 {
-public:
+ public:
     double operator()(const double *xx, const double *pars )
     {
         const double x = xx[0];
@@ -103,7 +103,7 @@ public:
 
 class MyChi2Function : public ROOT::Math::FitMethodFunction
 {
-public:
+ public:
     typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
 
     MyChi2Function(TestFumiliLMA *test)

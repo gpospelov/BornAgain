@@ -24,7 +24,7 @@
 
 class FormFactorSphere : public IFormFactorBorn
 {
-public:
+ public:
     FormFactorSphere(double radius, double height);
     double SphereIntegral(double Z, void* params) const;
 
@@ -35,10 +35,10 @@ public:
 
     virtual double getHeight() const { return m_height; }
 
-protected:
+ protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-private:
+ private:
     complex_t Integrand(double Z, void* params) const;
 
     //! register some class members for later access via parameter pool

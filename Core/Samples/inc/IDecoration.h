@@ -28,7 +28,7 @@ class IInterferenceFunction;
 
 class IDecoration : public ICompositeSample
 {
-public:
+ public:
     IDecoration() : m_total_particle_surface_density(1.0) {}
     virtual ~IDecoration() {}
 
@@ -47,15 +47,18 @@ public:
     virtual size_t getNumberOfInterferenceFunctions() const { return 0; }
 
     //! get interference functions
-    virtual SafePointerVector<IInterferenceFunction> getInterferenceFunctions() const=0;
+    virtual SafePointerVector<IInterferenceFunction>
+        getInterferenceFunctions() const=0;
 
     //! get surface density of all particles
-    double getTotalParticleSurfaceDensity() const { return m_total_particle_surface_density; }
+    double getTotalParticleSurfaceDensity() const
+    { return m_total_particle_surface_density; }
 
     //! set surface density of all particles
-    void setTotalParticleSurfaceDensity(double surface_density) { m_total_particle_surface_density = surface_density; }
+    void setTotalParticleSurfaceDensity(double surface_density)
+    { m_total_particle_surface_density = surface_density; }
 
-private:
+ private:
     ///< To guarantee that fractions sum up to 1
     double m_total_particle_surface_density;
 };

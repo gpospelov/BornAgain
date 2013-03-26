@@ -25,7 +25,7 @@
 // TODO: replace ROOTMinimizersHelper completely with kind of PoolParameter/IConfigurable functionality
 class ROOTMinimizerHelper
 {
-public:
+ public:
     ROOTMinimizerHelper() { }
 
     //! translate text with options into appropriate calls of minimizer's set method
@@ -35,7 +35,7 @@ public:
     static void printResults(ROOT::Math::Minimizer *minimizer, const std::string &minimizer_name, const std::string &algo_type);
 
 
-private:
+ private:
     //! process single command
     static bool processCommand(ROOT::Math::Minimizer *minimizer, const std::string &command);
 

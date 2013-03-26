@@ -45,10 +45,10 @@ class Transform3D;
 //! @author Evgeni Chernyaev 1996-2003
 //!
 template<class T> class BasicVector3D {
-  protected:
+ protected:
     T v_[3];
     
-  public:
+ public:
     //! Default constructor.
     //! It is protected - this class should not be instantiated directly.
     BasicVector3D()

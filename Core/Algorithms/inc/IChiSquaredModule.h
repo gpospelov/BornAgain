@@ -25,7 +25,7 @@
 
 class IChiSquaredModule : public ICloneable
 {
-public:
+ public:
     IChiSquaredModule();
     virtual ~IChiSquaredModule();
 
@@ -96,7 +96,7 @@ public:
         throw NotImplementedException(
             "IChiSquaredModule::getResidualValue() -> Error! Not implemented."); }
 
-protected:
+ protected:
     IChiSquaredModule(const IChiSquaredModule& other);
 
     virtual void initWeights();

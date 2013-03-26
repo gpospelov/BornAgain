@@ -10,7 +10,7 @@
 
 class ChiSquaredModuleTest : public ::testing::Test
 {
-protected:
+ protected:
     ChiSquaredModuleTest();
     virtual ~ChiSquaredModuleTest();
 

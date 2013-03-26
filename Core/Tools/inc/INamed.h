@@ -22,7 +22,7 @@
 
 class INamed
 {
-public:
+ public:
     INamed() : m_name(), m_title() {}
     INamed(const std::string &name) : m_name(name), m_title() { }
     INamed(const std::string &name, const std::string &title) : m_name(name), m_title(title) { }
@@ -34,7 +34,7 @@ public:
     std::string getTitle() const { return m_title; }
     void setTitle(std::string title) { m_title = title; }
 
-protected:
+ protected:
     std::string m_name;
     std::string m_title;
 };

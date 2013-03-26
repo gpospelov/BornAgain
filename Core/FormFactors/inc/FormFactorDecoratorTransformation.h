@@ -23,7 +23,7 @@
 
 class FormFactorDecoratorTransformation : public IFormFactorDecorator
 {
-public:
+ public:
     FormFactorDecoratorTransformation(IFormFactor *p_form_factor, Geometry::Transform3D *transform);
     virtual FormFactorDecoratorTransformation *clone() const;
     virtual ~FormFactorDecoratorTransformation();
@@ -32,7 +32,7 @@ public:
 
     virtual int getNumberOfStochasticParameters() const;
 
-protected:
+ protected:
     Geometry::Transform3D *mp_transform;
     Geometry::Transform3D *mp_inverse_transform;
 };

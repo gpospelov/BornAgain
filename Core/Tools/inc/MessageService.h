@@ -18,7 +18,7 @@ enum MessageLevel { VERBOSE, DEBUG, INFO, WARNING, ERROR, FATAL };
 
 class Logger
 {
-public:
+ public:
     Logger(MessageLevel level) {
         //m_buffer << boost::this_thread::get_id();
         m_buffer << "- " << NowTime();
@@ -45,7 +45,7 @@ public:
     static void SetLevel(const std::string &levelname);
     static MessageLevel GetLevel() {return m_logLevel; }
 
-private:
+ private:
     static MessageLevel m_logLevel;
     static std::vector<std::string > m_level_names;
     std::ostringstream m_buffer;

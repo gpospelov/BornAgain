@@ -26,7 +26,7 @@
 
 class ConvolutionDetectorResolution : public IDetectorResolution
 {
-  public:
+ public:
     typedef double (*cumulative_DF_1d)(double);
     //! Constructor taking a 1 dimensional resolution function as argument
     ConvolutionDetectorResolution(cumulative_DF_1d res_function_1d);
@@ -47,12 +47,12 @@ class ConvolutionDetectorResolution : public IDetectorResolution
     //! clone object
     virtual ConvolutionDetectorResolution *clone() const;
 
-  protected:
+ protected:
     ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other);
 
     virtual void init_parameters();
 
-  private:
+ private:
 //    //! hiding copy constructor and disabling assignment operator
 //    ConvolutionDetectorResolution &operator=(const ConvolutionDetectorResolution &);
 

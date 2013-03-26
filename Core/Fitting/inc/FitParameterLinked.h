@@ -27,7 +27,7 @@
 
 class FitParameterLinked : public FitParameter
 {
-public:
+ public:
     typedef std::vector<ParameterPool::parameter_t > pool_parameters_t;
 
     FitParameterLinked();
@@ -51,13 +51,13 @@ public:
     //! print class
     friend std::ostream &operator<<(std::ostream &ostr, const FitParameterLinked &m) { m.print(ostr); return ostr; }
 
-protected:
+ protected:
     //! print class
     void print(std::ostream &ostr) const;
 
     pool_parameters_t m_pool_parameters; //! collection of parameters from parameter pools
 
-private:
+ private:
     FitParameterLinked(const FitParameterLinked &);
     FitParameterLinked &operator=(const FitParameterLinked &);
 };

@@ -28,12 +28,12 @@ class FitSuite;
 
 class TestFittingModule1 : public IFunctionalTest
 {
-public:
+ public:
     TestFittingModule1();
     virtual ~TestFittingModule1();
     virtual void execute();
 
-private:
+ private:
     //! initialize sample: layer + nanoparticles, 2 parameters
     void initializeSample1();
     //! initialize sample: layer + substrate + nanoparticles, 4 parameters

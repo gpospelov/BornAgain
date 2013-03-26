@@ -26,7 +26,7 @@
 
 class ParticleDecoration : public IDecoration
 {
-public:
+ public:
 	ParticleDecoration();
     ParticleDecoration(Particle *p_particle, double depth=0.0, double abundance=1.0);
     ParticleDecoration(const Particle &p_particle, double depth=0.0, double abundance=1.0);
@@ -72,7 +72,7 @@ public:
     /// Get interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;
 
-private:
+ private:
     //! adding particle information with simultaneous registration in parent class
     void addAndRegisterParticleInfo(ParticleInfo *child)
     {

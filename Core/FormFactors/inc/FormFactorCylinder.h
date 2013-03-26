@@ -22,7 +22,7 @@
 
 class FormFactorCylinder : public IFormFactorBorn
 {
-public:
+ public:
     FormFactorCylinder(double height, double radius);
     ~FormFactorCylinder() {}
     virtual FormFactorCylinder *clone() const;
@@ -34,11 +34,10 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-protected:
-    //! register some class members for later access via parameter pool
+ protected:
     virtual void init_parameters();
 
-private:
+ private:
     double m_height;
     double m_radius;
 };

@@ -32,7 +32,7 @@ class ParameterPool;
 
 class FitSuite : public IObservable
 {
-public:
+ public:
     FitSuite();
     virtual ~FitSuite();
 
@@ -87,7 +87,7 @@ public:
     AttFitting &getAttributes() { return m_fit_attributes; }
     void setAttributes(const AttFitting &fit_attributes) { m_fit_attributes = fit_attributes; }
 
-private:
+ private:
     //! disabled copy constructor and assignment operator
     FitSuite &operator=(const FitSuite &);
     FitSuite(const FitSuite &);

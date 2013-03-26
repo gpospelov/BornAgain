@@ -22,7 +22,7 @@
 
 class FormFactorWeighted : public IFormFactor
 {
-public:
+ public:
     FormFactorWeighted();
     virtual ~FormFactorWeighted();
     virtual FormFactorWeighted *clone() const;
@@ -35,7 +35,7 @@ public:
 
     virtual int getNumberOfStochasticParameters() const;
 
-protected:
+ protected:
     std::vector<IFormFactor *> m_form_factors;
     std::vector<double> m_weights;
 };

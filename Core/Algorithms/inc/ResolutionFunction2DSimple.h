@@ -22,7 +22,7 @@
 
 class ResolutionFunction2DSimple : public IResolutionFunction2D
 {
-public:
+ public:
     ResolutionFunction2DSimple(double sigma_x, double sigma_y);
     virtual ~ResolutionFunction2DSimple();
 
@@ -30,9 +30,9 @@ public:
 
     ResolutionFunction2DSimple *clone() const;
 
-protected:
+ protected:
     virtual void init_parameters();
-private:
+ private:
     //! hiding copy constructor and disabling assignment operator
     ResolutionFunction2DSimple(const ResolutionFunction2DSimple &other);
     ResolutionFunction2DSimple &operator=(const ResolutionFunction2DSimple &);

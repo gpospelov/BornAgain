@@ -26,7 +26,7 @@ class LayerDecorator;
 
 class LayerDecoratorDWBASimulation : public LayerDWBASimulation
 {
-public:
+ public:
     LayerDecoratorDWBASimulation(const LayerDecorator *p_layer_decorator);
     virtual ~LayerDecoratorDWBASimulation();
 
@@ -35,11 +35,11 @@ public:
     virtual void init(const Simulation &simulation);
 
     virtual void run();
-protected:
+ protected:
     LayerDecorator *mp_layer_decorator;
     DiffuseDWBASimulation *mp_diffuseDWBA;
 
-private:
+ private:
     IInterferenceFunctionStrategy *createAndInitStrategy() const;
     std::vector<IFormFactor *> createDWBAFormFactors() const;
     void calculateCoherentIntensity(const IInterferenceFunctionStrategy *p_strategy);

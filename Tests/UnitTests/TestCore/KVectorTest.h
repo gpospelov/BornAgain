@@ -7,7 +7,7 @@
 
 class KVectorTest : public ::testing::Test
 {
-protected:
+ protected:
     KVectorTest();
     virtual ~KVectorTest();
 };

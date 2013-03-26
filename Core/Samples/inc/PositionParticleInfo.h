@@ -25,7 +25,7 @@
 //!
 class PositionParticleInfo : public ParticleInfo
 {
-public:
+ public:
     PositionParticleInfo(
         Particle *p_particle, Geometry::Transform3D *p_transform,
         kvector_t position, double abundance=0);
@@ -54,7 +54,7 @@ public:
     //! Set particle position, including depth.
     void setPosition(kvector_t position);
 
-protected:
+ protected:
     PositionParticleInfo &operator=(const PositionParticleInfo &right);
     PositionParticleInfo(const PositionParticleInfo &source);
 

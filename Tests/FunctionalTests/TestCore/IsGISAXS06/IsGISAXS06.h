@@ -14,7 +14,7 @@ namespace FunctionalTests {
 
 class IsGISAXS06
 {
-public:
+ public:
     typedef std::vector<OutputData<double> *> results_t;
     enum keys_results { kTest_Lattice, kTest_Centered, kTest_Rotated,  kTest_Variants, kNumberOfTests };
 
@@ -26,7 +26,7 @@ public:
 
     const OutputData<double> *getOutputData(size_t ntest=0) { return m_results.at(ntest); }
 
-private:
+ private:
 
     class LatticeVariantBuilder : public ISampleBuilder {
     public:

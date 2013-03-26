@@ -28,7 +28,7 @@
 
 class FitSuiteObjects : public IParameterized
 {
-public:
+ public:
     typedef SafePointerVector<FitObject > FitObjects_t;
 
     FitSuiteObjects();
@@ -87,7 +87,7 @@ public:
 
     void setNfreeParameters(int nfree_parameters ) { m_nfree_parameters = nfree_parameters; }
 
-protected:
+ protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
@@ -97,7 +97,7 @@ protected:
     //! return object and calculate index of data element for given global data element index
     const FitObject *getObjectForGlobalDataIndex(size_t global_index, size_t &local_index);
 
-private:
+ private:
     //! disabled copy constructor and assignment operator
     FitSuiteObjects &operator=(const FitSuiteObjects &);
     FitSuiteObjects(const FitSuiteObjects &);

@@ -22,18 +22,18 @@
 
 class IFTDistribution1D
 {
-public:
+ public:
     IFTDistribution1D(double omega) : m_omega(omega) {}
     virtual ~IFTDistribution1D() {}
 
     virtual double evaluate(double q) const=0;
-protected:
+ protected:
     double m_omega;
 };
 
 class IFTDistribution2D : public IParameterized
 {
-public:
+ public:
     IFTDistribution2D(double omega_x, double omega_y)
         : m_omega_x(omega_x)
         , m_omega_y(omega_y)
@@ -58,7 +58,7 @@ public:
     //! transform back to a*, b* basis:
     virtual void transformToStarBasis(double qX, double qY,
             double alpha, double a, double b, double &qa, double &qb) const=0;
-protected:
+ protected:
     double m_omega_x;
     double m_omega_y;
     double m_gamma;
@@ -67,7 +67,7 @@ protected:
 
 class FTDistribution2DCauchy : public IFTDistribution2D
 {
-public:
+ public:
     FTDistribution2DCauchy(double omega_x, double omega_y);
     virtual ~FTDistribution2DCauchy() {}
 
@@ -77,7 +77,7 @@ public:
 
     virtual void transformToStarBasis(double qX, double qY,
             double alpha, double a, double b, double &qa, double &qb) const;
-protected:
+ protected:
     virtual void init_parameters();
 };
 

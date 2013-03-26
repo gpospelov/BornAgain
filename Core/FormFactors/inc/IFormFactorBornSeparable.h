@@ -22,7 +22,7 @@
 
 class IFormFactorBornSeparable : public IFormFactorBorn
 {
-public:
+ public:
     IFormFactorBornSeparable();
     virtual ~IFormFactorBornSeparable() {}
     virtual IFormFactorBornSeparable *clone() const=0;
@@ -31,7 +31,7 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-protected:
+ protected:
     //! evaluate radial part of scattering amplitude for complex wavevector
     virtual complex_t evaluate_for_q_radial(const cvector_t &q) const=0;
 

@@ -23,7 +23,7 @@
 
 class FormFactorPyramid : public IFormFactorBorn
 {
-  public:
+ public:
     //! @brief pyramid constructor
     //! @param height of pyramide
     //! @param half_side half of pyramid's base
@@ -39,10 +39,10 @@ class FormFactorPyramid : public IFormFactorBorn
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-  protected:
+ protected:
     virtual void init_parameters();
 
-  private:
+ private:
     double m_height;
     double m_half_side;
     double m_alpha;

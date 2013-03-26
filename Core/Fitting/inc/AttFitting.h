@@ -23,7 +23,7 @@
 
 class AttFitting
 {
-public:
+ public:
     AttFitting();
     ~AttFitting(){}
 
@@ -33,7 +33,7 @@ public:
     double getStepFactor() const { return m_step_factor; }
     void setStepFactor(double step_factor) { m_step_factor = step_factor; }
 
-private:
+ private:
     double m_deriv_epsilon;  //! epsilon for derivative calculation
     double m_step_factor; //! default relative parameter step
 };

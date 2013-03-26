@@ -25,7 +25,7 @@
 
 class Layer : public ICompositeSample
 {
-public:
+ public:
     Layer();
     Layer(const IMaterial* p_material, double thickness=0);
     virtual ~Layer() { }
@@ -68,13 +68,13 @@ public:
     //! return zero pointer (override is important for polymorphism of LayerDecorator)
     virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
 
-protected:
+ protected:
     Layer(const Layer &other);
 
     //! register some class members for later access via parameter pool
     virtual void init_parameters();
 
-private:
+ private:
     //! print class
     void print(std::ostream &ostr) const;
 

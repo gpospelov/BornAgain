@@ -24,7 +24,7 @@
 
 class MinimizerScan : public IMinimizer
 {
-public:
+ public:
     MinimizerScan(int nbins = 10) : m_fcnvalues_map(0), m_nbins(nbins), m_ncall(0) { }
     virtual ~MinimizerScan() { delete m_fcnvalues_map; }
 
@@ -52,7 +52,7 @@ public:
 
     virtual std::vector<double > getValueOfVariablesAtMinimum() const;
 
-private:
+ private:
 
     void construct_fcnvalues_map();
     void set_parvalues_to_minimum();

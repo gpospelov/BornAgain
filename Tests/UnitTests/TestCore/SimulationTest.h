@@ -14,7 +14,7 @@
 
 class SimulationTest : public ::testing::Test
 {
-protected:
+ protected:
     SimulationTest();
     virtual ~SimulationTest();
 

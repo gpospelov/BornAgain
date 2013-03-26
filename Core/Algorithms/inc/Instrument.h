@@ -24,7 +24,7 @@
 
 class Instrument : public IParameterized
 {
-public:
+ public:
     Instrument();
     Instrument(const Instrument &other);
 
@@ -76,7 +76,7 @@ public:
     //! normalize a detector image
     void normalize(OutputData<double> *p_intensity) const;
 
-protected:
+ protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 

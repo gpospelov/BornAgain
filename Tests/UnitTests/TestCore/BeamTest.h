@@ -10,7 +10,7 @@
 
 class BeamTest : public ::testing::Test
 {
-protected:
+ protected:
     BeamTest();
     virtual ~BeamTest();
 

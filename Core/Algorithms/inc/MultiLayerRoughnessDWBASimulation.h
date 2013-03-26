@@ -26,7 +26,7 @@ class MultiLayer;
 
 class MultiLayerRoughnessDWBASimulation : public DWBASimulation
 {
-public:
+ public:
     MultiLayerRoughnessDWBASimulation(const MultiLayer *p_multi_layer);
     virtual ~MultiLayerRoughnessDWBASimulation();
 
@@ -40,7 +40,7 @@ public:
     // evaluate
     virtual double evaluate(const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f);
 
-protected:
+ protected:
     complex_t get_refractive_term(size_t ilayer) const;
     complex_t get_sum4terms(size_t ilayer, const cvector_t &k_i, const cvector_t &k_f, double alpha_i, double alpha_f);
 

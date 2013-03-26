@@ -26,11 +26,11 @@
 //- -------------------------------------------------------------------
 class MinimizerFactory
 {
-public:
+ public:
     static IMinimizer *createMinimizer(const std::string &minimizer, const std::string &algorithm = std::string(), const std::string &options=std::string() );
     static void print_catalogue();
 
-private:
+ private:
 
     //! @class map of minimizer names holding list of defined algorithms for every minimizer
     class Catalogue {

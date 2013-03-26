@@ -32,14 +32,14 @@ class FitSuite;
 //!
 class TestFittingModule3 : public IFunctionalTest
 {
-public:
+ public:
     typedef SafePointerVector<OutputData<double> >  DataScan_t;
 
     TestFittingModule3();
     virtual ~TestFittingModule3();
     virtual void execute();
 
-private:
+ private:
     void initializeSample();
     void initializeSimulation();
     void initializeRealData();

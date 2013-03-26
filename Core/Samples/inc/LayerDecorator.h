@@ -22,7 +22,7 @@
 
 class LayerDecorator : public Layer
 {
-public:
+ public:
     LayerDecorator(const Layer &layer, const IDecoration &decoration);
     virtual ~LayerDecorator();
 
@@ -79,13 +79,13 @@ public:
         return 0.0;
     }
 
-protected:
+ protected:
     LayerDecorator(const LayerDecorator &layer);
 
     Layer *mp_decorated_layer;
     IDecoration *mp_decoration;
 
-private:
+ private:
     //! print class
     void print(std::ostream &ostr) const;
 

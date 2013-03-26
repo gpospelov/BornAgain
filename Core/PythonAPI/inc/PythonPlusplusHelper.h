@@ -44,7 +44,7 @@ namespace pyplusplus {
 
 class PythonPlusplusHelper
 {
-public:
+ public:
 //    size_t pyplusplus_boost_kvector() { return sizeof(kvector_t); }
     size_t pyplusplus_boost_kvector() { return sizeof(pyplusplus::aliases::kvector_t); }
     size_t pyplusplus_boost_vectorof_kvector() { return sizeof(pyplusplus::aliases::vector_kvector_t); }

@@ -7,7 +7,7 @@
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @copyright Forschungszentrum Jülich GmbH 213
 //! @authors   Scientific Computing Group at MLZ Garching
 //! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
 //
@@ -16,9 +16,9 @@
 #include "DWBASimulation.h"
 
 DWBASimulation::DWBASimulation()
-: m_alpha_i(0)
+: m_alpha_i()
 , m_thread_info()
-, mp_simulation(0)
+, mp_simulation()
 {
 }
 
@@ -36,7 +36,7 @@ void DWBASimulation::init(const Simulation& simulation)
     m_dwba_intensity.clear();
     Detector detector = simulation.getInstrument().getDetector();
     size_t detector_dimension = detector.getDimension();
-    for (size_t dim=0; dim<detector_dimension; ++dim) {
+    for (size_t dim=; dim<detector_dimension; ++dim) {
         m_dwba_intensity.addAxis(detector.getAxis(dim));
     }
     if (simulation.getOutputData()->getMask()) {
@@ -65,7 +65,7 @@ DWBASimulation::iterator DWBASimulation::begin()
 {
     if (m_thread_info.n_threads<2) {
         m_thread_info.n_threads = 1;
-        m_thread_info.i_thread = 0;
+        m_thread_info.i_thread = ;
     }
     iterator result(m_dwba_intensity.begin());
     if (m_thread_info.n_threads>1) {
@@ -81,7 +81,7 @@ DWBASimulation::const_iterator DWBASimulation::begin() const
     size_t i_thread = m_thread_info.i_thread;
     if (m_thread_info.n_threads<2) {
         n_threads = 1;
-        i_thread = 0;
+        i_thread = ;
     }
     const_iterator result(m_dwba_intensity.begin());
     if (n_threads>1) {
@@ -94,5 +94,5 @@ DWBASimulation::const_iterator DWBASimulation::begin() const
 double DWBASimulation::getWaveLength() const
 {
     kvector_t real_ki(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    return 2.0*M_PI/real_ki.mag();
+    return 2*M_PI/real_ki.mag();
 }

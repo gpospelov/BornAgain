@@ -61,7 +61,7 @@ typedef ROOT::Math::MultiNumGradFunction MultiNumGradFunction;
 template<class FuncVector>
 class GSLMultiFitFunctionAdapter {
 
-public:
+ public:
 
     static int F( const gsl_vector * x, void * p, gsl_vector * f ) {
         // p is a pointer to an iterator of functions
@@ -130,7 +130,7 @@ minimization algorithm
 
 class GSLMultiFitFunctionWrapper {
 
-public:
+ public:
 
     GSLMultiFitFunctionWrapper()
     {
@@ -159,7 +159,7 @@ public:
     gsl_multifit_function_fdf * GetFunc() { return &fFunc; }
 
 
-private:
+ private:
 
     gsl_multifit_function_fdf fFunc;
 
@@ -169,7 +169,7 @@ private:
 
 class GSLMultiFit {
 
-public:
+ public:
 
    /**
       Default constructor
@@ -193,7 +193,7 @@ public:
       if (fCov != 0) gsl_matrix_free(fCov);
    }
 
-private:
+ private:
    // usually copying is non trivial, so we make this unaccessible
 
    /**
@@ -210,7 +210,7 @@ private:
    }
 
 
-public:
+ public:
 
    /// create the minimizer from the type and size of number of fitting points and number of parameters
    void CreateSolver(unsigned int npoints, unsigned int npar) {
@@ -309,7 +309,7 @@ public:
    }
 
 
-private:
+ private:
 
    GSLMultiFitFunctionWrapper fFunc;
    gsl_multifit_fdfsolver * fSolver;
@@ -335,7 +335,7 @@ private:
     @ingroup MultiMin
 */
 class LSResidualFunc : public IMultiGradFunction {
-public:
+ public:
 
    //default ctor (required by CINT)
    LSResidualFunc() : fIndex(0), fChi2(0)
@@ -394,7 +394,7 @@ public:
    }
 
 
-private:
+ private:
 
    double DoEval (const double * x) const {
       //std::cout << "LSResidual::DoEval " << std::endl;
@@ -428,7 +428,7 @@ private:
 */
 class GSLNLSMinimizer : public  ROOT::Math::Minimizer {
 
-public:
+ public:
 
    /**
       Default constructor
@@ -440,7 +440,7 @@ public:
    */
    ~GSLNLSMinimizer ();
 
-private:
+ private:
    // usually copying is non trivial, so we make this unaccessible
 
    /**
@@ -456,7 +456,7 @@ private:
       return *this;
    }
 
-public:
+ public:
 
    /// set the function to minimize
    virtual void SetFunction(const ROOT::Math::IMultiGenFunction & func);
@@ -527,9 +527,9 @@ public:
    /// return covariance matrix status
    virtual int CovMatrixStatus() const;
 
-protected:
+ protected:
 
-private:
+ private:
 
 
    unsigned int fDim;        // dimension of the function to be minimized

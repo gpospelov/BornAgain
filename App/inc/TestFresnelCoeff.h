@@ -25,12 +25,12 @@
 
 class TestFresnelCoeff : public IFunctionalTest
 {
-public:
+ public:
     TestFresnelCoeff();
 
     void execute();
 
-private:
+ private:
     //! calculate Fresnel coefficients .vs. alpha_i for several standard samples
     void test_standard_samples();
     //! draw results of the test

@@ -22,7 +22,7 @@
 
 class DiffuseParticleInfo: public ParticleInfo
 {
-  public:
+ public:
     DiffuseParticleInfo(
         Particle *p_particle, Geometry::Transform3D *transform=0,
         double depth=0, double abundance=0);
@@ -50,7 +50,7 @@ class DiffuseParticleInfo: public ParticleInfo
 
     //! get the range of height
     double getHeightRange() const { return m_height_range; }
-  protected:
+ protected:
     double m_number_per_meso;
     double m_height_range;
 };

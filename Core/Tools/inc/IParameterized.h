@@ -22,7 +22,7 @@
 
 class IParameterized : public INamed
 {
-  public:
+ public:
     IParameterized()
         : m_parameters(), m_status() {}
     IParameterized(const std::string &name) 
@@ -50,7 +50,7 @@ class IParameterized : public INamed
 
     virtual void setParametersAreChanged() { m_status.setIsChanged(true); }
 
-protected:
+ protected:
     //! Throw non-implemented exception (needed for Python).
     virtual void init_parameters();
 

@@ -88,7 +88,7 @@ namespace Geometry {
 //! @author <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //!
 class Transform3D {
-  protected:
+ protected:
     // 3x3  Transformation Matrix
     double xx_, xy_, xz_,     
            yx_, yy_, yz_,
@@ -111,7 +111,7 @@ class Transform3D {
         zx_ = ZX; zy_ = ZY; zz_ = ZZ;
     }
 
-  public:
+ public:
     //! Global identity transformation. */
     static const Transform3D Identity;
 
@@ -216,7 +216,7 @@ class Transform3D {
 //! @author <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //!
 class Rotate3D : public Transform3D {
-  public:
+ public:
     //! Default constructor: sets the Identity transformation.
     Rotate3D() : Transform3D() {}
     
@@ -242,7 +242,7 @@ class Rotate3D : public Transform3D {
 //! @author <Evgueni.Tcherniaev@cern.ch>
 //!
 class RotateX3D : public Rotate3D {
-  public:
+ public:
     //! Default constructor: sets the Identity transformation.
     RotateX3D() : Rotate3D() {}
     
@@ -260,7 +260,7 @@ class RotateX3D : public Rotate3D {
 //! @author <Evgueni.Tcherniaev@cern.ch>
 //!
 class RotateY3D : public Rotate3D {
-  public:
+ public:
     //! Default constructor: sets the Identity transformation.
     RotateY3D() : Rotate3D() {}
     
@@ -278,7 +278,7 @@ class RotateY3D : public Rotate3D {
 //! @author <Evgueni.Tcherniaev@cern.ch>
 //!
 class RotateZ3D : public Rotate3D {
-  public:
+ public:
     //! Default constructor: sets the Identity transformation.
     RotateZ3D() : Rotate3D() {}
     

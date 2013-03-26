@@ -24,22 +24,22 @@
 
 class IOutputDataReadStrategy
 {
-public:
+ public:
     IOutputDataReadStrategy(){}
     virtual ~IOutputDataReadStrategy(){}
 
     virtual OutputData<double > *readOutputData(std::istream &input_stream) = 0;
-private:
+ private:
 };
 
 //! Interface for decoration of read strategies (e.g. gzip compression)
 
 class IOutputDataReadStrategyDecorator : public IOutputDataReadStrategy
 {
-public:
+ public:
     IOutputDataReadStrategyDecorator(IOutputDataReadStrategy *read_strategy) : m_read_strategy(read_strategy) {}
     virtual ~IOutputDataReadStrategyDecorator() { delete m_read_strategy; }
-protected:
+ protected:
     IOutputDataReadStrategy *m_read_strategy;
 };
 
@@ -47,7 +47,7 @@ protected:
 
 class OutputDataReadStreamGZip : public IOutputDataReadStrategyDecorator
 {
-public:
+ public:
     OutputDataReadStreamGZip(IOutputDataReadStrategy *read_strategy) : IOutputDataReadStrategyDecorator(read_strategy) { }
     virtual ~OutputDataReadStreamGZip() { }
 
@@ -59,7 +59,7 @@ public:
 
 class OutputDataReadStreamIMA : public IOutputDataReadStrategy
 {
-public:
+ public:
     OutputData<double > *readOutputData(std::istream &file_stream);
 };
 
@@ -68,7 +68,7 @@ public:
 
 class OutputDataReadStreamV1 : public IOutputDataReadStrategy
 {
-public:
+ public:
     OutputData<double > *readOutputData(std::istream &file_stream);
 };
 

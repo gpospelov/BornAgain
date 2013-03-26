@@ -24,7 +24,7 @@
 template <class T>
 class ISingleton
 {
-public:
+ public:
 
     static T &instance()
     {
@@ -40,7 +40,7 @@ public:
         return *m_instance;
     }
 
-protected:
+ protected:
     ISingleton(){}
     virtual ~ISingleton()
     {
@@ -58,7 +58,7 @@ protected:
 
     typedef T* T_Pointer;
 
-private:
+ private:
     ISingleton(const ISingleton<T> &) {}
     ISingleton &operator=(const ISingleton<T> &) { throw std::runtime_error("ISingleton::operator=()"); }
 

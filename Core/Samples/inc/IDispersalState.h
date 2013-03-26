@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/inc/IDispersalState.h
-//! @brief     Defines class IDispersalState.
+//! @brief     Defines interface class IDispersalState (destructor only)
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,9 +20,8 @@
 
 class IDispersalState
 {
-public:
+ public:
 	virtual ~IDispersalState() {}
-
 };
 
 #endif /* IDISPERSALSTATE_H_ */

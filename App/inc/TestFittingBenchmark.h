@@ -22,7 +22,7 @@
 
 class TestFittingBenchmark : public IFunctionalTest
 {
-public:
+ public:
     TestFittingBenchmark() {}
     virtual ~TestFittingBenchmark() {}
     virtual void execute();

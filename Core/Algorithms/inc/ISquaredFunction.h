@@ -21,23 +21,31 @@
 
 #include <iostream>
 
-//! ?
+//! Interface providing measures for deviation between two values.
 
 class ISquaredFunction
 {
-public:
+ public:
     virtual ~ISquaredFunction() {}
     virtual ISquaredFunction *clone() const=0;
 
-    virtual double calculateSquaredDifference(double real_value, double simulated_value) const=0;
-    virtual double calculateSquaredError(double real_value, double simulated_value = 0.0) const { (void)real_value; (void)simulated_value; throw NotImplementedException("ISquaredFunction::calculateError() -> Error! Not implemented."); }
+    virtual double calculateSquaredDifference(
+                double real_value, double simulated_value) const=0;
+    virtual double calculateSquaredError(
+                double real_value, double simulated_value = 0.0) const
+    {    (void)real_value;
+         (void)simulated_value;
+         throw NotImplementedException(
+                    "ISquaredFunction::calculateError() -> "
+                    "Error! Not implemented.");
+    }
 };
 
 //! ?
 
 class SquaredFunctionDefault : public ISquaredFunction
 {
-public:
+ public:
     SquaredFunctionDefault() {}
     virtual ~SquaredFunctionDefault() {}
     virtual SquaredFunctionDefault *clone() const { return new SquaredFunctionDefault(); }
@@ -63,7 +71,7 @@ public:
 
 class SquaredFunctionWhichOnlyWorks : public ISquaredFunction
 {
-public:
+ public:
     SquaredFunctionWhichOnlyWorks() {}
     virtual ~SquaredFunctionWhichOnlyWorks() {}
     virtual SquaredFunctionWhichOnlyWorks *clone() const { return new SquaredFunctionWhichOnlyWorks(*this); }
@@ -86,7 +94,7 @@ public:
 
 class SquaredFunctionWithSystematicError : public ISquaredFunction
 {
-public:
+ public:
     SquaredFunctionWithSystematicError(double epsilon = 0.08) : m_epsilon(epsilon){}
     virtual ~SquaredFunctionWithSystematicError() {}
     virtual SquaredFunctionWithSystematicError *clone() const { return new SquaredFunctionWithSystematicError(*this); }
@@ -102,7 +110,7 @@ public:
         return std::max(std::fabs(real_value) + (m_epsilon*real_value)*(m_epsilon*real_value),1.0);
     }
 
-private:
+ private:
     double m_epsilon;
 };
 
@@ -110,7 +118,7 @@ private:
 
 class SquaredFunctionWithGaussianError : public ISquaredFunction
 {
-public:
+ public:
     SquaredFunctionWithGaussianError(double sigma = 0.01) : m_sigma(sigma){}
     virtual ~SquaredFunctionWithGaussianError() {}
     virtual SquaredFunctionWithGaussianError *clone() const { return new SquaredFunctionWithGaussianError(*this); }
@@ -126,7 +134,7 @@ public:
         return m_sigma*m_sigma;
     }
 
-private:
+ private:
     double m_sigma;
 };
 

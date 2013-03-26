@@ -29,7 +29,7 @@
 
 class TestPerformance : public IFunctionalTest
 {
-public:
+ public:
     //! class to hold performance information over functional test
     class PerformanceTestInfo {
     public:
@@ -47,7 +47,7 @@ public:
     virtual ~TestPerformance();
 
     virtual void execute();
-private:
+ private:
     //! fill system information
     void get_sysinfo();
 
@@ -67,7 +67,7 @@ private:
 //! measurement of the performance in Fresnel coefficients calculation
 class PerfTest_FresnelCoeff : public IFunctionalTest
 {
-public:
+ public:
     PerfTest_FresnelCoeff() : IFunctionalTest("Fresnel"), m_sample(0){}
     virtual ~PerfTest_FresnelCoeff() { }
     void initialise(ProgramOptions *p_options);
@@ -79,7 +79,7 @@ public:
 //! measurement of the performance in pyramid form factor calculations
 class PerfTest_Pyramid : public IFunctionalTest
 {
-public:
+ public:
     PerfTest_Pyramid()
         : IFunctionalTest("Pyramid"), m_sample(0), m_simulation(0) {}
     virtual ~PerfTest_Pyramid() { delete m_simulation; }
@@ -93,7 +93,7 @@ public:
 //! measurement of the performance in pyramid formfactor and in rotation mechanism
 class PerfTest_RotatedPyramid : public IFunctionalTest
 {
-public:
+ public:
     PerfTest_RotatedPyramid()
         : IFunctionalTest("RotatedPyramid"), m_sample(0), m_simulation(0) {}
     virtual ~PerfTest_RotatedPyramid() { delete m_simulation; }
@@ -108,7 +108,7 @@ public:
 //! measurement of the performance iof meso crystal
 class PerfTest_MesoCrystal : public IFunctionalTest
 {
-public:
+ public:
     PerfTest_MesoCrystal()
         : IFunctionalTest("MesoCrystal"), m_sample(0), m_simulation(0) {}
     virtual ~PerfTest_MesoCrystal() { delete m_simulation; }

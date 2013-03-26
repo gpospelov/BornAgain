@@ -23,7 +23,7 @@
 
 template <class C> class MemberFunctionIntegrator
 {
-public:
+ public:
     //! member function type
     typedef double (C::*mem_function)(double, void*) const;
 
@@ -49,7 +49,7 @@ public:
     void setIntegrand(mem_function member_function, const C *const p_object)
     { m_member_function = member_function; mp_object = p_object; }
 
-private:
+ private:
     //! static function that can be passed to gsl integrator
     static double StaticCallBack(double d, void *v) {
         CallBackHolder *p_cb = static_cast<CallBackHolder *>(v);

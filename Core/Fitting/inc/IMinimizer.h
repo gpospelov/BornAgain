@@ -27,7 +27,7 @@ class FitSuiteParameters;
 
 class IMinimizer
 {
-public:
+ public:
     //! signature of chi squared function to minimize
     typedef boost::function<double(const double *)> function_chi2_t;
 

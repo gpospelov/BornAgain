@@ -24,7 +24,7 @@ typedef Geometry::BasicVector3D<int> IndexVector3D;
 
 class ISelectionRule
 {
-public:
+ public:
     virtual ~ISelectionRule() {}
 
     virtual ISelectionRule *clone() const=0;
@@ -36,14 +36,14 @@ public:
 
 class SimpleSelectionRule : public ISelectionRule
 {
-public:
+ public:
     SimpleSelectionRule(int a, int b, int c, int modulus);
     virtual ~SimpleSelectionRule() {}
 
     virtual SimpleSelectionRule *clone() const;
 
     virtual bool coordinateSelected(const IndexVector3D &coordinate) const;
-private:
+ private:
     int m_a, m_b, m_c;
     int m_mod;
 };

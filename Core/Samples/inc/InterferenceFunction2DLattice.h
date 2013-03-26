@@ -24,7 +24,7 @@
 
 class InterferenceFunction2DLattice : public IInterferenceFunction
 {
-public:
+ public:
     InterferenceFunction2DLattice(const Lattice2DIFParameters &lattice_params);
     virtual ~InterferenceFunction2DLattice();
 
@@ -37,7 +37,7 @@ public:
     void setProbabilityDistribution(const IFTDistribution2D &pdf);
 
     virtual double evaluate(const cvector_t &q) const;
-protected:
+ protected:
     //! get interference from a single reciprocal lattice vector
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;
 
@@ -53,7 +53,7 @@ protected:
     Lattice2DIFParameters m_lattice_params;
     IFTDistribution2D *mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
-private:
+ private:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 

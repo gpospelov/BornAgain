@@ -21,7 +21,7 @@
 
 class DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
 {
-  public:
+ public:
     DecouplingApproximationStrategy(SimulationParameters sim_params)
         : IInterferenceFunctionStrategy(sim_params) {}
 
@@ -33,7 +33,7 @@ class DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
     virtual double evaluate(
         const cvector_t &k_i, const Bin1DCVector &k_f_bin,
         double alpha_i, double alpha_f) const;
-  private:
+ private:
     bool checkVectorSizes() const;
 };
 

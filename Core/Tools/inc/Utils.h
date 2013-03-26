@@ -26,7 +26,7 @@ namespace Utils {
 
 class String
 {
-  public:
+ public:
     //! Parse double values from string to vector of double.
     static vdouble1d_t parse_doubles(const std::string &str);
 
@@ -46,7 +46,7 @@ class String
 
 class StringUsageMap
 {
-  public:
+ public:
     typedef std::map<std::string, int> nstringmap_t;
     typedef nstringmap_t::iterator iterator_t;
 
@@ -75,7 +75,7 @@ class StringUsageMap
     //! get current string
     std::string get_current() const { return m_current_string; }
 
-  private:
+ private:
     std::string m_current_string;
     nstringmap_t m_nstringmap;
 };
@@ -84,7 +84,7 @@ class StringUsageMap
 
 class FileSystem
 {
-  public:
+ public:
     //! return path to the current (working) directory
     static std::string GetWorkingPath();
 
@@ -102,7 +102,7 @@ class FileSystem
 
     //! return file extension after stripping '.gz' if any
     static std::string GetFileMainExtension(const std::string &name);
-  private:
+ private:
     static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module
 };
 
@@ -120,7 +120,7 @@ inline std::string AdjustStringLength(std::string name, int length)
 template<class Key, class Object >
 class UnorderedMap
 {
-  public:
+ public:
     typedef boost::unordered_map<Key, Object > container_t;
     typedef typename container_t::iterator iterator;
     typedef typename container_t::const_iterator const_iterator;
@@ -146,7 +146,7 @@ class UnorderedMap
     size_t size() { return m_value_map.size(); }
     Object & operator[] (const Key &key) { return m_value_map[key]; }
 
-  private:
+ private:
     UnorderedMap &operator=(const UnorderedMap &);
 
     container_t m_value_map;

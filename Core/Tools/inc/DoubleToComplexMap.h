@@ -25,7 +25,7 @@
 
 class DoubleToComplexMap : public IDoubleToComplexMap
 {
-public:
+ public:
     typedef Utils::UnorderedMap<double, complex_t> container_t;
 
     DoubleToComplexMap(){}
@@ -34,7 +34,7 @@ public:
     complex_t & operator[] (double key) { return m_value_map[key]; }
     DoubleToComplexMap *clone() const { return new DoubleToComplexMap(m_value_map); }
     const complex_t &evaluate(double value) const { return m_value_map.find(value); }
-private:
+ private:
     container_t m_value_map;
 };
 
@@ -42,7 +42,7 @@ private:
 
 class DoubleToPairOfComplexMap : public IDoubleToPairOfComplexMap
 {
-public:
+ public:
     typedef Utils::UnorderedMap<double, complexpair_t> container_t;
 
     DoubleToPairOfComplexMap(){}
@@ -51,7 +51,7 @@ public:
     complexpair_t & operator[] (double key) { return m_value_map[key]; }
     DoubleToPairOfComplexMap *clone() const { return new DoubleToPairOfComplexMap(m_value_map); }
    const complexpair_t &evaluate(double value) const { return m_value_map.find(value); }
-private:
+ private:
     container_t m_value_map;
 };
 

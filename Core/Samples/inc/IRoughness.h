@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/inc/IRoughness.h
-//! @brief     Defines class IRoughness.
+//! @brief     Defines interface class IRoughness.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,13 +18,13 @@
 
 #include "ISample.h"
 
-//! Roughness interface
+//! Interface to equip a sample with a roughness.
 
 class IRoughness : public ISample
 {
-public:
-    IRoughness() { }
-    virtual ~IRoughness() { }
+ public:
+    IRoughness() {}
+    virtual ~IRoughness() {}
 };
 
 #endif // IROUGHNESS_H

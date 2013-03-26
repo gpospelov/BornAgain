@@ -22,7 +22,7 @@
 
 class ParticleCoreShell : public Particle
 {
-public:
+ public:
     ParticleCoreShell(const Particle &shell, const Particle &core, kvector_t relative_core_position);
     virtual ~ParticleCoreShell();
     virtual ParticleCoreShell *clone() const;
@@ -57,7 +57,7 @@ public:
         return 0;
     }
 
-protected:
+ protected:
     Particle *mp_shell;
     Particle *mp_core;
     kvector_t m_relative_core_position;

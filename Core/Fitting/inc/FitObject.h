@@ -25,7 +25,7 @@
 
 class FitObject : public IParameterized
 {
-public:
+ public:
     FitObject(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule(), double weight = 1.0);
     ~FitObject();
 
@@ -61,11 +61,11 @@ public:
     //! return size of data
     size_t getSizeOfData() const { return m_real_data->getAllocatedSize(); }
 
-protected:
+ protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-private:
+ private:
     FitObject(const FitObject &);
     FitObject &operator=(const FitObject &);
 

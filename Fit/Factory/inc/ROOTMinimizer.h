@@ -33,7 +33,7 @@
 //- -------------------------------------------------------------------
 class ROOTMinimizer : public IMinimizer
 {
-public:
+ public:
     ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type=std::string());
     virtual ~ROOTMinimizer();
 
@@ -71,7 +71,7 @@ public:
     //! check if type of algorithm is Levenberg-Marquardt or similar
     bool isGradientBasedAgorithm();
 
-private:
+ private:
     ROOTMinimizer(const ROOTMinimizer &);
     ROOTMinimizer &operator=(const ROOTMinimizer &);
 

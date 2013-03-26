@@ -25,7 +25,7 @@ class FitSuite;
 
 class FitSuiteStrategies
 {
-public:
+ public:
     typedef SafePointerVector<IFitSuiteStrategy > strategies_t;
     typedef strategies_t::iterator iterator;
 
@@ -44,7 +44,7 @@ public:
     iterator end() { return m_strategies.end(); }
 
     void clear();
-private:
+ private:
     strategies_t m_strategies;
     FitSuite *m_fit_suite;
     size_t m_current_strategy_index;

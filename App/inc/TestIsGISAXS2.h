@@ -26,7 +26,7 @@
 
 class TestIsGISAXS2 : public IFunctionalTest
 {
-public:
+ public:
     TestIsGISAXS2();
     virtual ~TestIsGISAXS2(){}
 

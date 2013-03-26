@@ -22,12 +22,12 @@
 
 class ICloneable
 {
-public:
+ public:
     ICloneable(){}
     virtual ~ICloneable() {}
     virtual ICloneable *clone() const = 0;
 
-private:
+ private:
     ICloneable(const ICloneable &) { throw NotImplementedException("ICloneable(const ICloneable &) -> Error: not implemented."); }
     ICloneable &operator=(const ICloneable &) { throw NotImplementedException("ICloneable &operator=(const ICloneable &) -> Error: not implemented."); }
 };

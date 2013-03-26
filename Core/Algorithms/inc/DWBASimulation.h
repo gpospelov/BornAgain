@@ -26,7 +26,7 @@
 
 class DWBASimulation : public ISimulation
 {
-public:
+ public:
     DWBASimulation();
     virtual ~DWBASimulation();
 
@@ -66,7 +66,7 @@ public:
     //! return a read-only iterator that points to the one past last element
     const const_iterator end() const  { return m_dwba_intensity.end(); }
 
-protected:
+ protected:
     OutputData<double> m_dwba_intensity;
     cvector_t m_ki;
     double m_alpha_i;

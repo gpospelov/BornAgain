@@ -11,7 +11,7 @@ namespace FunctionalTests {
 
 class IsGISAXS04
 {
-public:
+ public:
     typedef std::vector<OutputData<double> *> results_t;
     enum keys_results { kTest_1DDL, kTest_2DDL, kNumberOfTests };
 
@@ -23,7 +23,7 @@ public:
 
     const OutputData<double> *getOutputData(size_t ntest=0) { return m_results.at(ntest); }
 
-private:
+ private:
     std::string m_name;
     std::string m_description;
     std::string m_path;

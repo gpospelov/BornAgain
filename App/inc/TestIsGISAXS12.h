@@ -30,12 +30,12 @@ class FitSuite;
 
 class TestIsGISAXS12 : public IFunctionalTest
 {
-public:
+ public:
     TestIsGISAXS12();
     virtual ~TestIsGISAXS12();
     virtual void execute();
 
-private:
+ private:
 
     //! builds IsGISAXS ex-12 sample
     class TestSampleBuilder : public ISampleBuilder

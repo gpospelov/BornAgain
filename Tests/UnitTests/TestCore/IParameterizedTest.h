@@ -6,7 +6,7 @@
 
 class IParameterizedTest : public ::testing::Test
 {
-protected:
+ protected:
     IParameterizedTest() {}
     virtual ~IParameterizedTest(){}
 

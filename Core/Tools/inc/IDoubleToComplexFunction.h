@@ -23,7 +23,7 @@
 
 class IDoubleToComplexFunction : public ICloneable
 {
-public:
+ public:
 	virtual ~IDoubleToComplexFunction() {}
 	virtual IDoubleToComplexFunction *clone() const=0;
 
@@ -34,7 +34,7 @@ public:
 
 class IDoubleToComplexMap : public ICloneable
 {
-public:
+ public:
     virtual ~IDoubleToComplexMap() {}
     virtual IDoubleToComplexMap *clone() const = 0;
 
@@ -45,7 +45,7 @@ public:
 
 class IDoubleToPairOfComplexMap : public ICloneable
 {
-public:
+ public:
     virtual ~IDoubleToPairOfComplexMap() {}
     virtual IDoubleToPairOfComplexMap *clone() const = 0;
 
@@ -56,7 +56,7 @@ public:
 
 class DoubleToComplexFunctionWrapper : public IDoubleToComplexFunction
 {
-public:
+ public:
 	typedef complex_t (*double_to_complex_t)(double);
 	DoubleToComplexFunctionWrapper(double_to_complex_t function) : m_function(function) {}
 	virtual DoubleToComplexFunctionWrapper *clone() const {
@@ -65,7 +65,7 @@ public:
 
 	virtual complex_t evaluate(double value) { return m_function(value); }
 
-private:
+ private:
 	double_to_complex_t m_function;
 };
 

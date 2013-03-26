@@ -21,7 +21,7 @@
 
 class DiffuseDWBASimulation: public LayerDWBASimulation
 {
-public:
+ public:
     DiffuseDWBASimulation()
         : m_refractive_index(1.0, 0.0), m_surface_density(1.0) {}
     virtual ~DiffuseDWBASimulation() {}
@@ -33,7 +33,7 @@ public:
     void setSurfaceDensity(double surface_density) { m_surface_density = surface_density; }
     void rescaleAbundances(double factor);
 
-protected:
+ protected:
     complex_t m_refractive_index;
     double m_surface_density;
     SafePointerVector<DiffuseParticleInfo> m_np_infos;

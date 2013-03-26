@@ -25,7 +25,7 @@
 
 class Crystal : public IClusteredParticles
 {
-  public:
+ public:
     Crystal(const LatticeBasis &lattice_basis, const Lattice &lattice);
     ~Crystal();
 
@@ -48,7 +48,7 @@ class Crystal : public IClusteredParticles
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
             const ParticleInfo &parent_info) const;
 
-  private:
+ private:
     Lattice m_lattice;
     LatticeBasis *mp_lattice_basis;
     double m_dw_factor;

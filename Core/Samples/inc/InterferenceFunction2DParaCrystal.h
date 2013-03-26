@@ -23,7 +23,7 @@
 
 class InterferenceFunction2DParaCrystal : public IInterferenceFunction
 {
-public:
+ public:
     InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha_lattice, double xi=0.0, double corr_length=0.0);
     virtual ~InterferenceFunction2DParaCrystal();
     virtual InterferenceFunction2DParaCrystal *clone() const {
@@ -51,7 +51,7 @@ public:
 
     //! add parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
-protected:
+ protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
@@ -64,7 +64,7 @@ protected:
     double m_corr_length;
     bool m_use_corr_length;
     double m_domain_sizes[2];
-private:
+ private:
 
     //! Calculate interference function for fixed rotation xi
     double interferenceForXi(double xi, void *params) const;

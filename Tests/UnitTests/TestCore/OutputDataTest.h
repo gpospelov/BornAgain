@@ -9,7 +9,7 @@
 
 class OutputDataTest : public ::testing::Test
 {
-protected:
+ protected:
     OutputDataTest();
     virtual ~OutputDataTest();
 

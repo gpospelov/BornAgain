@@ -108,7 +108,7 @@ void Simulation::runSimulation()
     if( !mp_sample)
         throw NullPointerException(
             "Simulation::runSimulation() -> Error! No sample set.");
-    m_intensity_map.setAllTo(0.0);
+    m_intensity_map.setAllTo(0.);
 
     // retrieve threading information
     int n_threads_total=0;
@@ -122,7 +122,7 @@ void Simulation::runSimulation()
             throw NullPointerException(
                 "Simulation::runSimulation() -> No dwba simulation");
         p_dwba_simulation->init(*this);
-        p_dwba_simulation->run();
+        p_dwba_simulation->run();  // the work is done here
         m_intensity_map += p_dwba_simulation->getDWBAIntensity();
         delete p_dwba_simulation;
     } else {
@@ -157,7 +157,7 @@ void Simulation::runSimulation()
         }
 
         // Run simulations in n threads.
-        for (std::vector<DWBASimulation *>::iterator it=
+        for (std::vector<DWBASimulation*>::iterator it=
                  simulations.begin(); it!=simulations.end(); ++it) {
             threads.push_back
                 (new boost::thread(boost::bind(&DWBASimulation::run, *it)) );
@@ -186,7 +186,7 @@ void Simulation::runSimulationElement(size_t index)
     if( !mp_sample)
         throw NullPointerException(
             "Simulation::runSimulation() -> Error! No sample set.");
-    m_intensity_map.setAllTo(0.0);
+    m_intensity_map.setAllTo(0);
 
     DWBASimulation *p_dwba_simulation = mp_sample->createDWBASimulation();
     if (!p_dwba_simulation)
@@ -266,13 +266,13 @@ std::string Simulation::addParametersToExternalPool(
 void Simulation::smearIntensityFromZAxisTilting()
 {
     size_t nbr_zetas = 5;
-    double zeta_sigma = 45.0*Units::degree;
+    double zeta_sigma = 45*Units::degree;
     std::vector<double> zetas;
     std::vector<double> probs;
     createZetaAndProbVectors(zetas, probs, nbr_zetas, zeta_sigma);
 
     OutputData<double> *p_clone = m_intensity_map.clone();
-    m_intensity_map.setAllTo(0.0);
+    m_intensity_map.setAllTo(0.);
     OutputData<double>::const_iterator it_clone = p_clone->begin();
     while (it_clone != p_clone->end()) {
         double old_phi = p_clone->getValueOfAxis(
@@ -301,7 +301,7 @@ void Simulation::updateIntensityMapAxes()
     for (size_t dim=0; dim<detector_dimension; ++dim) {
         m_intensity_map.addAxis(m_instrument.getDetectorAxis(dim));
     }
-    m_intensity_map.setAllTo(0.0);
+    m_intensity_map.setAllTo(0.);
 }
 
 void Simulation::updateSample()
@@ -327,7 +327,7 @@ void Simulation::setDetectorParameters(const OutputData<double > &output_data)
     //updateIntensityMapAxes();
     m_intensity_map.clear();
     m_intensity_map.copyFrom(output_data); // to copy mask too
-    m_intensity_map.setAllTo(0.0);
+    m_intensity_map.setAllTo(0.);
 }
 
 void Simulation::setDetectorParameters(
@@ -354,7 +354,7 @@ void Simulation::setDetectorResolutionFunction(
 
 double Simulation::deltaAlpha(double alpha, double zeta) const
 {
-    return std::sin(alpha)*(1.0/std::cos(zeta)-1.0);
+    return std::sin(alpha)*(1.0/std::cos(zeta)-1);
 }
 
 double Simulation::deltaPhi(double alpha, double phi, double zeta) const
@@ -370,15 +370,15 @@ void Simulation::createZetaAndProbVectors(
 {
     double zeta_step;
     if (nbr_zetas<2) {
-        zeta_step = 0.0;
+        zeta_step = 0;
     } else {
-        zeta_step = 2.0*zeta_sigma/(nbr_zetas-1);
+        zeta_step = 2*zeta_sigma/(nbr_zetas-1);
     }
-    double zeta_start = -1.0*zeta_sigma;
-    double prob_total = 0.0;
+    double zeta_start = -zeta_sigma;
+    double prob_total = 0;
     for (size_t i=0; i<nbr_zetas; ++i) {
         double zeta = zeta_start + i*zeta_step;
-        double prob = MathFunctions::Gaussian(zeta, 0.0, zeta_sigma);
+        double prob = MathFunctions::Gaussian(zeta, 0., zeta_sigma);
         zetas.push_back(zeta);
         probs.push_back(prob);
         prob_total += prob;

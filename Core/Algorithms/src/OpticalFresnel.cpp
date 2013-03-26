@@ -18,10 +18,6 @@
 #include "OpticalFresnel.h"
 #include "Numeric.h"
 
-OpticalFresnel::OpticalFresnel() : m_use_roughness(false)
-{
-}
-
 void OpticalFresnel::execute(const MultiLayer &sample, const kvector_t &kvec, MultiLayerCoeff_t &coeff)
 {
     coeff.clear();
@@ -104,8 +100,11 @@ void OpticalFresnel::calculateFresnelCoefficientsWithRoughness(const MultiLayer 
                 coeff[i].r = (coeff[i].kz - coeff[i + 1].kz)
                         / (coeff[i].kz + coeff[i + 1].kz);
             } else {
-                coeff[i].r = std::sinh(picoeff * sigma * (coeff[i].kz - coeff[i + 1].kz))
-                        / std::sinh(picoeff * sigma * (coeff[i].kz + coeff[i + 1].kz));
+                coeff[i].r =
+                    std::sinh(picoeff * sigma *
+                              (coeff[i].kz - coeff[i + 1].kz)) /
+                    std::sinh(picoeff * sigma *
+                              (coeff[i].kz + coeff[i + 1].kz));
 
             }
 

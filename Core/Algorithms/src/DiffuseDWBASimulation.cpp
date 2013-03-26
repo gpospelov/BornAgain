@@ -16,6 +16,8 @@
 #include "DiffuseDWBASimulation.h"
 #include "FormFactorDWBAConstZ.h"
 
+// Run a simulation.
+
 void DiffuseDWBASimulation::run()
 {
     std::vector<DiffuseFormFactorTerm*> diffuse_terms;
@@ -40,11 +42,11 @@ void DiffuseDWBASimulation::run()
         }
         Bin1DCVector k_f_bin = getKfBin(getWaveLength(), alpha_bin, phi_bin);
 
-        double total_intensity = 0.0;
+        double total_intensity = 0;
         for (size_t i=0; i<diffuse_terms.size(); ++i) {
             DiffuseFormFactorTerm *p_diffuse_term = diffuse_terms[i];
-            complex_t amplitude(0.0, 0.0);
-            double intensity = 0.0;
+            complex_t amplitude(0., 0.);
+            double intensity = 0;
             for (size_t j=0; j<p_diffuse_term->m_form_factors.size(); ++j) {
                 complex_t amp =
                     p_diffuse_term->m_form_factors[j]->evaluate(
@@ -60,7 +62,8 @@ void DiffuseDWBASimulation::run()
         ++it_intensity;
     }
 
-    for (size_t i=0; i<diffuse_terms.size(); ++i) delete diffuse_terms[i];
+    for (size_t i=0; i<diffuse_terms.size(); ++i)
+        delete diffuse_terms[i];
 }
 
 void DiffuseDWBASimulation::addParticleInfo(DiffuseParticleInfo *p_info)
@@ -70,18 +73,17 @@ void DiffuseDWBASimulation::addParticleInfo(DiffuseParticleInfo *p_info)
 
 void DiffuseDWBASimulation::rescaleAbundances(double factor)
 {
-    size_t number_of_nps = m_np_infos.size();
-    for (size_t np_index=0; np_index<number_of_nps; ++np_index) {
+    for (size_t np_index=0; np_index<m_np_infos.size(); ++np_index) {
         m_np_infos[np_index]->scaleAbundance(factor);
     }
 }
 
 void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
-        std::vector<DiffuseFormFactorTerm*>& terms, size_t nbr_heights,
+        std::vector<DiffuseFormFactorTerm*>& terms,
+        size_t nbr_heights,
         size_t samples_per_particle)
 {
-    size_t number_of_nps = m_np_infos.size();
-    for (size_t i=0; i<number_of_nps; ++i) {
+    for (size_t i=0; i<m_np_infos.size(); ++i) {
         DiffuseParticleInfo *p_diff_info = m_np_infos[i];
         Particle *p_particle = p_diff_info->getParticle()->clone();
         double total_particle_density = p_diff_info->getNumberPerMeso();
@@ -94,11 +96,13 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
                 (double)j*p_diff_info->getHeightRange()/(nbr_heights-1.0);
             std::vector<IFormFactor*> form_factors;
             p_diff_info->getParticle()->getSimpleFormFactor()->createDistributedFormFactors(
-                form_factors, p_diffuse_term->m_probabilities, samples_per_particle);
+                form_factors, p_diffuse_term->m_probabilities,
+                samples_per_particle);
             for (size_t ff_index=0; ff_index<form_factors.size(); ++ff_index) {
                 p_particle->setSimpleFormFactor(form_factors[ff_index]);
                 IFormFactor *ff_particle = p_particle->createFormFactor();
-                FormFactorDWBAConstZ *p_dwba_z = new FormFactorDWBAConstZ(ff_particle, depth);
+                FormFactorDWBAConstZ *p_dwba_z =
+                    new FormFactorDWBAConstZ(ff_particle, depth);
                 p_dwba_z->setReflectionTransmissionFunction(*mp_RT_function);
 
                 p_diffuse_term->m_form_factors.push_back(p_dwba_z);

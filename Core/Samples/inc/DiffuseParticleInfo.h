@@ -31,7 +31,7 @@ class DiffuseParticleInfo: public ParticleInfo
     //! scale abundance
     void scaleAbundance(double factor) { m_abundance *= factor; }
 
-    //! scale abundance
+    //! scale number of particles per containing mesocrystal
     void scaleNumberPerMeso(double factor) { m_number_per_meso *= factor; }
 
     //! set number of particles per containing mesocrystal

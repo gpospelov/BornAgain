@@ -22,30 +22,28 @@
 #include "ThreadInfo.h"
 #include "Types.h"
 
-//! Calculates scattering cross sections in DWBA
+//! Base class for different simulations, using DWBA.
 
 class DWBASimulation : public ISimulation
 {
  public:
-    DWBASimulation()
-    : m_alpha_i(0), m_thread_info(), mp_simulation(0) {}
+    DWBASimulation() : m_alpha_i(0), m_thread_info(), mp_simulation(0) {}
 
     virtual ~DWBASimulation() { delete mp_simulation; }
 
     //! Initialize the simulation with the parameters from simulation
-    virtual void init(const Simulation &simulation);
+    virtual void init(const Simulation& simulation);
 
     //! Set thread information for masking
-    virtual void setThreadInfo(const ThreadInfo &thread_info) {
-        m_thread_info = thread_info;
-    }
+    virtual void setThreadInfo(const ThreadInfo& thread_info)
+    { m_thread_info = thread_info; }
 
     //! return output data containing calculated intensity
-    const OutputData<double> &getDWBAIntensity() const
+    const OutputData<double>& getDWBAIntensity() const
     { return m_dwba_intensity; }
 
     //! add intensity to current dwba intensity
-    void addDWBAIntensity(const OutputData<double > &data_to_add)
+    void addDWBAIntensity(const OutputData<double>& data_to_add)
     { m_dwba_intensity += data_to_add; }
 
     //! clone DWBA simulation
@@ -69,7 +67,7 @@ class DWBASimulation : public ISimulation
     const iterator end() { return m_dwba_intensity.end(); }
 
     //! return a read-only iterator that points to the one past last element
-    const const_iterator end() const  { return m_dwba_intensity.end(); }
+    const const_iterator end() const { return m_dwba_intensity.end(); }
 
  protected:
     OutputData<double> m_dwba_intensity;

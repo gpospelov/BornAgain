@@ -20,7 +20,7 @@
 #include "Particle.h"
 #include "Transform3D.h"
 
-//! Holds additional information about particle (used in ParticleDecoration)
+//! Holds additional information about particle (used in ParticleDecoration).
 
 class ParticleInfo : public ICompositeSample
 {
@@ -48,7 +48,7 @@ class ParticleInfo : public ICompositeSample
     }
 
     //! Return depth.
-    double getDepth() const { return m_depth;}
+    double getDepth() const { return m_depth; }
 
     //! Set depth.
     void setDepth(double depth) { m_depth = depth; }
@@ -60,7 +60,6 @@ class ParticleInfo : public ICompositeSample
     void setAbundance(double abundance) { m_abundance = abundance; }
 
  protected:
-    //! register some class members for later access via parameter pool
     virtual void init_parameters();
 
     Particle *mp_particle;

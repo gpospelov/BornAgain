@@ -28,7 +28,8 @@ class DWBADiffuseReflection : public ISimulation
  public:
     DWBADiffuseReflection();
 
-    void execute(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf);
+    void execute(const MultiLayer &sample,
+                 const kvector_t &ki, const kvector_t &kf);
 
     void setSample(const MultiLayer &sample) {m_sample = &sample; }
 
@@ -37,6 +38,7 @@ class DWBADiffuseReflection : public ISimulation
     double getDiffuseCrosscorr() const { return m_diffuse_crosscorr; }
 
     void setKvectors(const kvector_t &ki, const kvector_t &kf);
+
  private:
     void diffuse_autocorr();
 

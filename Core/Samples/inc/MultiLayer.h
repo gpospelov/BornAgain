@@ -17,7 +17,6 @@
 #define MULTILAYER_H
 
 #include <vector>
-#include "ICompositeSample.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"

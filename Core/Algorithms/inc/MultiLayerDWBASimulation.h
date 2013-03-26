@@ -32,7 +32,11 @@ class MultiLayerDWBASimulation : public DWBASimulation
     MultiLayerDWBASimulation(const MultiLayer *p_multi_layer);
     virtual ~MultiLayerDWBASimulation();
 
-    MultiLayerDWBASimulation *clone() const { throw NotImplementedException("MultiLayerDWBASimulation::clone() -> Error: not implemented"); }
+    MultiLayerDWBASimulation *clone() const
+    {
+        throw NotImplementedException(
+            "MultiLayerDWBASimulation::clone() -> Error: not implemented");
+    }
 
     virtual void init(const Simulation &simulation);
 
@@ -40,6 +44,7 @@ class MultiLayerDWBASimulation : public DWBASimulation
     virtual void setThreadInfo(const ThreadInfo &thread_info);
 
     virtual void run();
+
  protected:
     std::set<double> getAlphaList() const;
     std::map<size_t, LayerDWBASimulation*> m_layer_dwba_simulation_map;

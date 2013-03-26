@@ -26,7 +26,7 @@
 class OpticalFresnel : public ISimulation
 {
  public:
-    OpticalFresnel();
+    OpticalFresnel() : m_use_roughness(false) {}
 
     //! reflection/transmission Fresnel coefficients
     class FresnelCoeff {

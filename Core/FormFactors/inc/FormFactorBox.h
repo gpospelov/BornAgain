@@ -24,11 +24,15 @@
 class FormFactorBox : public IFormFactorBorn
 {
  public:
-    FormFactorBox( double radius, double width, double height);
-    ~FormFactorBox() {}
-    virtual FormFactorBox *clone() const;
+    FormFactorBox( double radius, double width, double height)
+        : m_radius(radius), m_width(width), m_height(height) {}
 
-    virtual int getNumberOfStochasticParameters() const { return 2; }
+    ~FormFactorBox() {}
+
+    FormFactorBox *clone() const
+    { return new FormFactorBox(m_radius, m_width, m_height ); }
+
+    int getNumberOfStochasticParameters() const { return 2; }
 
     //! return radius of Box
     double getRadius() const { return m_radius; }
@@ -36,16 +40,14 @@ class FormFactorBox : public IFormFactorBorn
     //! return width of Box
     double getwidth() const { return m_width; }
 
-    virtual complex_t evaluate_for_q(const cvector_t &q) const;
+    complex_t evaluate_for_q(const cvector_t &q) const;
 
-    virtual double getVolume() const {
-        return 4.0*m_height*m_radius*m_width;
-    }
+    double getVolume() const { return 4*m_height*m_radius*m_width; }
 
-    virtual double getHeight() const { return m_height; }
+    double getHeight() const { return m_height; }
 
  protected:
-    virtual void init_parameters();
+    void init_parameters();
 
  private:
     double m_radius;

@@ -19,7 +19,7 @@
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
-//! ?
+//! Formfactor of a sphere.
 
 class FormFactorFullSphere : public IFormFactorBorn
 {
@@ -39,7 +39,6 @@ class FormFactorFullSphere : public IFormFactorBorn
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
  protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
  private:

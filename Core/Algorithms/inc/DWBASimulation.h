@@ -27,8 +27,10 @@
 class DWBASimulation : public ISimulation
 {
  public:
-    DWBASimulation();
-    virtual ~DWBASimulation();
+    DWBASimulation()
+    : m_alpha_i(0), m_thread_info(), mp_simulation(0) {}
+
+    virtual ~DWBASimulation() { delete mp_simulation; }
 
     //! Initialize the simulation with the parameters from simulation
     virtual void init(const Simulation &simulation);
@@ -39,10 +41,12 @@ class DWBASimulation : public ISimulation
     }
 
     //! return output data containing calculated intensity
-    const OutputData<double> &getDWBAIntensity() const;
+    const OutputData<double> &getDWBAIntensity() const
+    { return m_dwba_intensity; }
 
     //! add intensity to current dwba intensity
-    void addDWBAIntensity(const OutputData<double > &data_to_add);
+    void addDWBAIntensity(const OutputData<double > &data_to_add)
+    { m_dwba_intensity += data_to_add; }
 
     //! clone DWBA simulation
     virtual DWBASimulation *clone() const;
@@ -52,7 +56,8 @@ class DWBASimulation : public ISimulation
     // ---------------------------------
 
     typedef OutputDataIterator<double, OutputData<double> > iterator;
-    typedef OutputDataIterator<const double, const OutputData<double> > const_iterator;
+    typedef OutputDataIterator<const double, const OutputData<double> >
+        const_iterator;
 
     //! return a read/write iterator that points to the first element
     iterator begin();
@@ -75,13 +80,5 @@ class DWBASimulation : public ISimulation
     SimulationParameters m_sim_params;
     Simulation *mp_simulation;
 };
-
-inline const OutputData<double> &DWBASimulation::getDWBAIntensity() const {
-    return m_dwba_intensity;
-}
-
-inline void DWBASimulation::addDWBAIntensity(const OutputData<double> &data_to_add) {
-    m_dwba_intensity += data_to_add;
-}
 
 #endif /* DWBASIMULATION_H_ */

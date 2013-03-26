@@ -35,11 +35,6 @@ FormFactorSphere::FormFactorSphere(double radius, double height)
         new MemberComplexFunctionIntegrator<FormFactorSphere>(p_mf, this);
 }
 
-FormFactorSphere::~FormFactorSphere()
-{
-    delete m_integrator;
-}
-
 void FormFactorSphere::init_parameters()
 {
     getParameterPool()->clear();
@@ -47,12 +42,7 @@ void FormFactorSphere::init_parameters()
     getParameterPool()->registerParameter("height", &m_height);
 }
 
-FormFactorSphere* FormFactorSphere::clone() const
-{
-    return new FormFactorSphere(m_radius, m_height);
-}
-
-//! Integrand for complex form factor.
+//! Integrand for complex formfactor.
 
 complex_t FormFactorSphere::Integrand(double Z, void* params) const
 {
@@ -62,6 +52,8 @@ complex_t FormFactorSphere::Integrand(double Z, void* params) const
     return Rz*Rz*MathFunctions::Bessel_C1(std::abs(q_p*Rz)) *
         std::exp(complex_t(0.0, 1.0)*m_q.z()*Z);
 }
+
+//! Complex formfactor.
 
 complex_t FormFactorSphere::evaluate_for_q(const cvector_t &q) const
 {

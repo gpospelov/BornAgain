@@ -7,7 +7,7 @@
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 213
+//! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
 //! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
 //
@@ -15,17 +15,6 @@
 
 #include "DWBASimulation.h"
 
-DWBASimulation::DWBASimulation()
-: m_alpha_i()
-, m_thread_info()
-, mp_simulation()
-{
-}
-
-DWBASimulation::~DWBASimulation()
-{
-    delete mp_simulation;
-}
 
 void DWBASimulation::init(const Simulation& simulation)
 {
@@ -36,7 +25,7 @@ void DWBASimulation::init(const Simulation& simulation)
     m_dwba_intensity.clear();
     Detector detector = simulation.getInstrument().getDetector();
     size_t detector_dimension = detector.getDimension();
-    for (size_t dim=; dim<detector_dimension; ++dim) {
+    for (size_t dim=0; dim<detector_dimension; ++dim) {
         m_dwba_intensity.addAxis(detector.getAxis(dim));
     }
     if (simulation.getOutputData()->getMask()) {
@@ -65,11 +54,12 @@ DWBASimulation::iterator DWBASimulation::begin()
 {
     if (m_thread_info.n_threads<2) {
         m_thread_info.n_threads = 1;
-        m_thread_info.i_thread = ;
+        m_thread_info.i_thread = 0;
     }
     iterator result(m_dwba_intensity.begin());
     if (m_thread_info.n_threads>1) {
-        MaskIndexModulus thread_mask(m_thread_info.n_threads, m_thread_info.i_thread);
+        MaskIndexModulus thread_mask(
+            m_thread_info.n_threads, m_thread_info.i_thread);
         result.addMask(thread_mask);
     }
     return result;
@@ -81,7 +71,7 @@ DWBASimulation::const_iterator DWBASimulation::begin() const
     size_t i_thread = m_thread_info.i_thread;
     if (m_thread_info.n_threads<2) {
         n_threads = 1;
-        i_thread = ;
+        i_thread = 0;
     }
     const_iterator result(m_dwba_intensity.begin());
     if (n_threads>1) {

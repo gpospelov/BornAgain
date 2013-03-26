@@ -45,7 +45,8 @@ DWBASimulation *DWBASimulation::clone() const
     p_result->m_ki = m_ki;
     p_result->m_alpha_i = m_alpha_i;
     p_result->m_thread_info = m_thread_info;
-    if (mp_simulation) p_result->mp_simulation = mp_simulation->clone();
+    if (mp_simulation)
+        p_result->mp_simulation = mp_simulation->clone();
 
     return p_result;
 }

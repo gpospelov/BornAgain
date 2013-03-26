@@ -86,8 +86,8 @@ void InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx,
     double b = m_lattice_params.m_length_2;
     double xi = m_lattice_params.m_xi;
     double xialpha = xi + m_lattice_params.m_angle;
-    int qa_int = (int)( a*(qx*std::cos(xi)+qy*std::sin(xi))/(2.0*M_PI) );
-    int qb_int = (int)( b*(qx*std::cos(xialpha)+qy*std::sin(xialpha))/(2.0*M_PI) );
+    int qa_int = (int)( a*(qx*std::cos(xi)+qy*std::sin(xi))/(2*M_PI) );
+    int qb_int = (int)( b*(qx*std::cos(xialpha)+qy*std::sin(xialpha))/(2*M_PI) );
     qx_frac = qx - qa_int*m_asx - qb_int*m_bsx;
     qy_frac = qy - qa_int*m_asy - qb_int*m_bsy;
 }
@@ -103,8 +103,8 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
         throw DivisionByZeroException("InterferenceFunction2DLattice::initialize_rec_vectors() -> Error! Zero parameters m_lattice_params.m_length1 or m_lattice_params.m_length_2");
     }
     double sinalpha = std::sin(m_lattice_params.m_angle);
-    double ainv = 2.0*M_PI/m_lattice_params.m_length_1/sinalpha;
-    double binv = 2.0*M_PI/m_lattice_params.m_length_2/sinalpha;
+    double ainv = 2*M_PI/m_lattice_params.m_length_1/sinalpha;
+    double binv = 2*M_PI/m_lattice_params.m_length_2/sinalpha;
     double xi = m_lattice_params.m_xi;
     double xialpha = xi + m_lattice_params.m_angle;
     m_asx = ainv*std::sin(xialpha);
@@ -117,7 +117,7 @@ void InterferenceFunction2DLattice::initialize_calc_factors()
 {
     // constant prefactor
     //TODO: for non cauchy distributions: check if this still applies
-    m_prefactor = 2.0*M_PI*m_lattice_params.m_corr_length_1*m_lattice_params.m_corr_length_2;
+    m_prefactor = 2*M_PI*m_lattice_params.m_corr_length_1*m_lattice_params.m_corr_length_2;
     double denominator = m_lattice_params.m_length_1*m_lattice_params.m_length_2*std::sin(m_lattice_params.m_angle);
     assert(denominator);
     m_prefactor /= denominator;

@@ -44,7 +44,7 @@ void MultiLayerRoughnessDWBASimulation::run()
     const std::string s_alpha_f("alpha_f");
 
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    double lambda = 2.0*M_PI/m_ki_real.mag();
+    double lambda = 2*M_PI/m_ki_real.mag();
 
     DWBASimulation::iterator it_intensity = begin();
     while ( it_intensity != m_dwba_intensity.end() )

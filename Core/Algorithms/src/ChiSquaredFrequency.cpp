@@ -72,8 +72,8 @@ void ChiSquaredFrequency::initWeights()
     delete mp_simulation_ft;
     mp_real_ft = new OutputData<complex_t>();
     mp_simulation_ft = new OutputData<complex_t>();
-    OutputDataFunctions::fourierTransform(*mp_real_data, mp_real_ft);
-    OutputDataFunctions::fourierTransform(*mp_simulation_data, mp_simulation_ft);
+    OutputDataFunctions::FourierTransform(*mp_real_data, mp_real_ft);
+    OutputDataFunctions::FourierTransform(*mp_simulation_data, mp_simulation_ft);
     delete mp_weights;
     mp_weights = new OutputData<double>();
     size_t rank = mp_simulation_ft->getRank();

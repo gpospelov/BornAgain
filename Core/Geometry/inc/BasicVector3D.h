@@ -176,6 +176,19 @@ template<class T> class BasicVector3D {
     //! Return angle with respect to another vector.
     T angle(const BasicVector3D<T>& v) const;
 
+    // ---------
+    // Rotations
+    // ---------
+
+    //! Rotates around x-axis.
+    BasicVector3D<T>& rotateX(T a);
+    //! Rotates around y-axis.
+    BasicVector3D<T>& rotateY(T a);
+    //! Rotates around z-axis.
+    BasicVector3D<T>& rotateZ(T a);
+    //! Rotates around the axis specified by another vector.
+    BasicVector3D<T>& rotate(T a, const BasicVector3D<T>& v);
+
     // ---------------
     // Related vectors
     // ---------------
@@ -212,7 +225,7 @@ template<class T> class BasicVector3D {
     inline void setLambdaAlphaPhi(
         const T&_lambda, const T&_alpha, const T&_phi)
         {
-            T k = 2.*M_PI/_lambda;
+            T k = 2*M_PI/_lambda;
             v_[0] = k*std::cos(_alpha) * std::cos(_phi);
             v_[1] = k*std::cos(_alpha) * std::sin(_phi);
             v_[2] = k*std::sin(_alpha);

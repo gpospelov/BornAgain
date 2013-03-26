@@ -64,7 +64,7 @@ private:
 
 
 //! @class PerfTest_FresnelCoeff
-//! measurement of the performance in fresnel coefficients calculation
+//! measurement of the performance in Fresnel coefficients calculation
 class PerfTest_FresnelCoeff : public IFunctionalTest
 {
 public:

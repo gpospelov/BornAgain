@@ -72,7 +72,7 @@ double FormFactorCone::ConeIntegralReal(double Z, void* params) const
         MathFunctions::Bessel_J1(std::abs(qrRz))/qrRz :
         0.5;
     double exp_real = std::exp(complex_t(0.0, 1.0)*qz*Z).real();
-    return 2.0 * M_PI *Rz*Rz * J1_qrRz_div_qrRz * exp_real;
+    return 2*M_PI *Rz*Rz * J1_qrRz_div_qrRz * exp_real;
 }
 
 //! Imaginary part of the integral.
@@ -102,7 +102,7 @@ double FormFactorCone::ConeIntegralImaginary(double Z, void* params) const
         MathFunctions::Bessel_J1(std::abs(qrRz))/qrRz :
         0.5;
     double exp_imag = std::exp(complex_t(0.0, 1.0)*qz*Z).imag();
-    return 2.0 * M_PI *Rz*Rz * J1_qrRz_div_qrRz * exp_imag;
+    return 2*M_PI *Rz*Rz * J1_qrRz_div_qrRz * exp_imag;
 }
 
 //! Complex integral computed as sum of real and imaginary part.

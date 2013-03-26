@@ -35,7 +35,7 @@ double MathFunctions::IntegratedGaussian(double value, double average, double st
 
 double MathFunctions::StandardNormal(double value)
 {
-    return std::exp(- value*value / 2.0) / std::sqrt(2.0*M_PI);
+    return std::exp(- value*value / 2.0) / std::sqrt(2*M_PI);
 }
 
 double MathFunctions::GenerateStandardNormalRandom()  // using Box-Muller transform
@@ -46,7 +46,7 @@ double MathFunctions::GenerateStandardNormalRandom()  // using Box-Muller transf
 }
 
 //! @brief simple (and unoptimized) wrapper function
-//!   for the discrete fast fourier transformation library (fftw3)
+//!   for the discrete fast Fourier transformation library (fftw3)
 
 std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<complex_t > &data, MathFunctions::TransformCase ftCase)
 {
@@ -94,7 +94,7 @@ std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<co
 }
 
 //! @brief simple (and unoptimized) wrapper function
-//!   for the discrete fast fourier transformation library (fftw3);
+//!   for the discrete fast Fourier transformation library (fftw3);
 //!   transforms real to complex
 
 std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<double > &data, MathFunctions::TransformCase ftCase)

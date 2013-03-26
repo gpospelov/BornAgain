@@ -333,17 +333,17 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
     OutputData<double > *data_alpha = new OutputData<double >;
     data_alpha->addAxis("alpha_f", 200, 0.0*Units::degree, 2.0*Units::degree);
 
-    OpticalFresnel fresnelCalculator;
+    OpticalFresnel FresnelCalculator;
 
     const IAxis *p_alpha_axis = data_alpha->getAxis("alpha_f");
-    std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
+    std::map<double, OpticalFresnel::MultiLayerCoeff_t> Fresnel_coeff_map;
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
         double angle = (*p_alpha_axis)[i];
         kvector_t kvec;
         kvec.setLambdaAlphaPhi(1.4*Units::angstrom, angle, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
-        fresnelCalculator.execute(*sample, kvec, coeffs);
-        fresnel_coeff_map[angle] = coeffs;
+        FresnelCalculator.execute(*sample, kvec, coeffs);
+        Fresnel_coeff_map[angle] = coeffs;
     }
 
     std::vector<DoubleToComplexInterpolatingFunction *> m_TT;
@@ -354,8 +354,8 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
     for(size_t i_layer=0; i_layer<sample->getNumberOfLayers(); ++i_layer) {
         std::map<double, complex_t> T_map;
         std::map<double, complex_t> R_map;
-        for (std::map<double, OpticalFresnel::MultiLayerCoeff_t>::const_iterator it=fresnel_coeff_map.begin();
-                it!=fresnel_coeff_map.end(); ++it) {
+        for (std::map<double, OpticalFresnel::MultiLayerCoeff_t>::const_iterator it=Fresnel_coeff_map.begin();
+                it!=Fresnel_coeff_map.end(); ++it) {
             double angle = (*it).first;
             complex_t T = (*it).second[i_layer].T;
             complex_t R = (*it).second[i_layer].R;
@@ -382,7 +382,7 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
         kvector_t kvec;
         kvec.setLambdaAlphaPhi(1.4*Units::angstrom, angle, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
-        fresnelCalculator.execute(*sample, kvec, coeffs);
+        FresnelCalculator.execute(*sample, kvec, coeffs);
         complex_t R = m_RR[i_layer_sel]->evaluate(angle);
         std::cout << i_point << " " << angle << " true R:" << coeffs[i_layer_sel].R << " interp:" << R << " " << std::abs(R - coeffs[i_layer_sel].R) << std::endl;
 //        complex_t r = coeffs[i_layer_sel].R;

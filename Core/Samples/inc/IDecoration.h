@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/inc/IDecoration.h
-//! @brief     Defines class IDecoration.
+//! @brief     Defines interface class IDecoration.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -24,7 +24,7 @@
 class IInterferenceFunctionStrategy;
 class IInterferenceFunction;
 
-//! ?
+//! Interface to equip a sample component with various properties.
 
 class IDecoration : public ICompositeSample
 {

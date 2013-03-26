@@ -23,7 +23,7 @@
 //! Draw profile of rough surface for different sets of roughness parameters.
 
 //! Two models are used for profile calculation:
-//! 1) matrix method 2) fast fourier transform using moving average
+//! 1) matrix method 2) fast Fourier transform using moving average
 //!
 class TestRoughness : public IFunctionalTest
 {
@@ -39,7 +39,7 @@ class TestRoughness : public IFunctionalTest
     //! Calculate correlated z-coordinates of surface using matrix method.
     void GetProfileXZ_MatrixMethod();
 
-    //! Calculate correlated z-coordinates of surface using fast fourier transform method.
+    //! Calculate correlated z-coordinates of surface using fast Fourier transform method.
     void GetProfileXZ_FFTMethod();
 
     //! Some tests of FFT.

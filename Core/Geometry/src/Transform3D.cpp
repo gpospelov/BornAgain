@@ -82,7 +82,8 @@ Transform3D Transform3D::inverse() const
     double detxz = yx_*zy_-yy_*zx_;
     double det   = xx_*detxx - xy_*detxy + xz_*detxz;
     if (det == 0) {
-        std::cerr << "Transform3D::inverse error: zero determinant" << std::endl;
+        std::cerr << "Transform3D::inverse error: zero determinant" <<
+            std::endl;
         return Transform3D();
     }
     det = 1./det; detxx *= det; detxy *= det; detxz *= det;

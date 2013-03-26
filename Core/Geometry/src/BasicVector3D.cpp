@@ -175,9 +175,71 @@ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const
     return std::acos(cosa);
 }
 
-// =========================================================================
+// ----------------------------------------------------------------------------
+// Rotations
+// ----------------------------------------------------------------------------
+
+template<>
+BasicVector3D<double>& BasicVector3D<double>::rotateX (double a)
+{
+    double sina = std::sin(a), cosa = std::cos(a), dy = y(), dz = z();
+    setY(dy*cosa-dz*sina);
+    setZ(dz*cosa+dy*sina);
+    return *this;
+}
+
+template<>
+BasicVector3D<double>& BasicVector3D<double>::rotateY (double a)
+{
+    double sina = std::sin(a), cosa = std::cos(a), dz = z(), dx = x();
+    setZ(dz*cosa-dx*sina);
+    setX(dx*cosa+dz*sina);
+    return *this;
+}
+
+template<>
+BasicVector3D<double>& BasicVector3D<double>::rotateZ (double a)
+{
+    double sina = std::sin(a), cosa = std::cos(a), dx = x(), dy = y();
+    setX(dx*cosa-dy*sina);
+    setY(dy*cosa+dx*sina);
+    return *this;
+}
+
+template<>
+BasicVector3D<double>& BasicVector3D<double>::rotate (
+        double a, const BasicVector3D<double>& v)
+{
+    if (a  == 0) return *this;
+    double cx = v.x(), cy = v.y(), cz = v.z();
+    double ll = std::sqrt(cx*cx + cy*cy + cz*cz);
+    if (ll == 0) {
+        std::cerr << "BasicVector<double>::rotate() : zero axis" << std::endl;
+        return *this;
+    }
+    double cosa = std::cos(a), sina = std::sin(a);
+    cx /= ll; cy /= ll; cz /= ll;
+
+    double xx = cosa + (1-cosa)*cx*cx;
+    double xy =        (1-cosa)*cx*cy - sina*cz;
+    double xz =        (1-cosa)*cx*cz + sina*cy;
+
+    double yx =        (1-cosa)*cy*cx + sina*cz;
+    double yy = cosa + (1-cosa)*cy*cy;
+    double yz =        (1-cosa)*cy*cz - sina*cx;
+
+    double zx =        (1-cosa)*cz*cx - sina*cy;
+    double zy =        (1-cosa)*cz*cy + sina*cx;
+    double zz = cosa + (1-cosa)*cz*cz;
+
+    cx = x(); cy = y(); cz = z();
+    setXYZ(xx*cx+xy*cy+xz*cz, yx*cx+yy*cy+yz*cz, zx*cx+zy*cy+zz*cz);
+    return *this;
+}
+
+// =============================================================================
 // Non-member functions for BasicVector3D<double>
-// =========================================================================
+// =============================================================================
 
 // -----------------------------------------------------------------------------
 // Transforms

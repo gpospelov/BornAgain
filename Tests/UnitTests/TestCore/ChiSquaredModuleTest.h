@@ -4,7 +4,6 @@
 #include "ChiSquaredModule.h"
 #include "IFittingDataSelector.h"
 #include "ISquaredFunction.h"
-#include "ExperimentConstants.h"
 
 #include "gtest/gtest.h"
 
@@ -38,7 +37,6 @@ ChiSquaredModuleTest::ChiSquaredModuleTest()
 
 ChiSquaredModuleTest::~ChiSquaredModuleTest()
 {
-
 }
 
 
@@ -115,10 +113,7 @@ TEST_F(ChiSquaredModuleTest, IsGISAXSLikeModule)
 
 //    m_chi_isgisaxs.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
 //    EXPECT_FLOAT_EQ( double(0.005), m_chi_isgisaxs.calculateChiSquared());
-
-
 }
-
 
 #endif // CHISQUAREDMODULETEST_H
 

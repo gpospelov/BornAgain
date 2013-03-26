@@ -68,5 +68,5 @@ complex_t FormFactorSphere::evaluate_for_q(const cvector_t &q) const
     m_q = q;
     complex_t iqzR = complex_t(0.0, 1.0)*m_q.z()*(m_height-m_radius);
     complex_t integral = m_integrator->integrate(m_radius-m_height, m_radius);
-    return 2.0*M_PI*integral*std::exp(iqzR);
+    return 2*M_PI*integral*std::exp(iqzR);
 }

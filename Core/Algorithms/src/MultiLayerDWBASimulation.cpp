@@ -79,19 +79,19 @@ void MultiLayerDWBASimulation::run()
 {
     msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> Running thread "
                        << m_thread_info.i_thread;
-    OpticalFresnel fresnelCalculator;
+    OpticalFresnel FresnelCalculator;
 
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
 
     m_dwba_intensity.setAllTo(0.0);
-    double lambda = 2.0*M_PI/m_ki_real.mag();
+    double lambda = 2*M_PI/m_ki_real.mag();
 
     // collect all alpha angles and calculate Fresnel coefficients
     typedef std::pair<double, OpticalFresnel::MultiLayerCoeff_t>
-        doublefresnel_t;
-    std::vector<doublefresnel_t> doublefresnel_buffer;
+        doubleFresnel_t;
+    std::vector<doubleFresnel_t> doubleFresnel_buffer;
     std::set<double> alpha_set = getAlphaList();
-    doublefresnel_buffer.reserve(alpha_set.size());
+    doubleFresnel_buffer.reserve(alpha_set.size());
 
     double angle;
     kvector_t kvec;
@@ -100,8 +100,8 @@ void MultiLayerDWBASimulation::run()
              alpha_set.begin(); it != alpha_set.end(); ++it) {
         angle = *it;
         kvec.setLambdaAlphaPhi(lambda, -angle, 0.0);
-        fresnelCalculator.execute(*mp_multi_layer, kvec, coeffs);
-        doublefresnel_buffer.push_back( doublefresnel_t(angle,coeffs) );
+        FresnelCalculator.execute(*mp_multi_layer, kvec, coeffs);
+        doubleFresnel_buffer.push_back( doubleFresnel_t(angle,coeffs) );
     }
 
     // run through layers and construct T,R functions
@@ -110,9 +110,9 @@ void MultiLayerDWBASimulation::run()
         DoubleToPairOfComplexMap RT_map;
         DoubleToComplexMap Kz_map;
 
-        for(std::vector<doublefresnel_t >::const_iterator it=
-                doublefresnel_buffer.begin();
-            it!=doublefresnel_buffer.end(); ++it) {
+        for(std::vector<doubleFresnel_t >::const_iterator it=
+                doubleFresnel_buffer.begin();
+            it!=doubleFresnel_buffer.end(); ++it) {
             double angle = (*it).first;
             const OpticalFresnel::FresnelCoeff &coeff = (*it).second[i_layer];
             RT_map[angle] = complexpair_t(coeff.R, coeff.T);

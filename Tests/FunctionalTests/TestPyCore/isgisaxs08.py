@@ -126,7 +126,7 @@ def GetDifference(data, reference):
 # --------------------------------------------------------------
 # run test and analyse test results
 # --------------------------------------------------------------
-def RunTest():
+def runTest():
     result1 = RunSimulation1()
     result2 = RunSimulation2()
     result = numpy.concatenate((result1,result2),axis=0) 
@@ -142,7 +142,7 @@ def RunTest():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = RunTest()
+  name,description,status = runTest()
   print name,description,status
 
 

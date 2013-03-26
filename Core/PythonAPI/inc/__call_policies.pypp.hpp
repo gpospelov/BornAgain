@@ -164,7 +164,7 @@ struct as_tuple_impl{
 
 template< unsigned int size, typename MemoryManager, typename MakeObjectCallPolicies=bpl::default_call_policies>
 struct as_tuple{
- public:
+public:
 
     template <class T>
     struct apply{

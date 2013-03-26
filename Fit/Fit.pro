@@ -6,7 +6,7 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
 QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
-# CONFIG  += BORNAGAIN_PYTHON
+CONFIG  += BORNAGAIN_PYTHON
 CONFIG  += BORNAGAIN_ROOT
 
 # -----------------------------------------------------------------------------
@@ -18,6 +18,10 @@ SOURCES += \
     Factory/src/ROOTGSLSimAnMinimizer.cpp \
     Factory/src/ROOTMinimizer.cpp \
     Factory/src/ROOTMinimizerHelper.cpp \
+    #Factory/src/FitSuiteObserverFactory.cpp \
+    #Factory/src/FitSuitePrintObserver.cpp \
+    #Factory/src/FitSuiteDrawObserver.cpp \
+    #Factory/src/FitSuiteWriteTreeObserver.cpp
 
 HEADERS += \
     Factory/inc/MinimizerFactory.h \
@@ -25,7 +29,11 @@ HEADERS += \
     Factory/inc/ROOTGSLSimAnMinimizer.h \
     Factory/inc/ROOTMinimizer.h \
     Factory/inc/ROOTMinimizerFunction.h \
-    Factory/inc/ROOTMinimizerHelper.h
+    Factory/inc/ROOTMinimizerHelper.h \
+    #Factory/inc/FitSuiteObserverFactory.h \
+    #Factory/inc/FitSuitePrintObserver.h \
+    #Factory/inc/FitSuiteDrawObserver.h \
+    #Factory/inc/FitSuiteWriteTreeObserver.h
 
 INCLUDEPATH += $$PWD/Factory/inc
 DEPENDPATH  += $$PWD/Factory/inc

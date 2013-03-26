@@ -63,6 +63,9 @@ void register_FitSuite_class(){
             , (::IMinimizer * ( ::FitSuite::* )(  ) )( &::FitSuite::getMinimizer )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
+            "getNCalls"
+            , (::size_t ( ::FitSuite::* )(  ) const)( &::FitSuite::getNCalls ) )    
+        .def( 
             "printResults"
             , (void ( ::FitSuite::* )(  ) const)( &::FitSuite::printResults ) )    
         .def( 

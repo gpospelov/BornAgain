@@ -10,14 +10,11 @@ CONFIG += BORNAGAIN_ROOT # depend on ROOT libraries
 # -----------------------------------------------------------------------------
 # (note, that when Qt libraries are used, it is already done in <qglobal.h>)
 macx {
-    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_MAC
-    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_MAC
+    DEFINES += Q_OS_MAC
 }
 unix:!macx {
-    QMAKE_CXXFLAGS_DEBUG += -DQ_OS_LINUX
-    QMAKE_CXXFLAGS_RELEASE += -DQ_OS_LINUX
+    DEFINES += Q_OS_LINUX
 }
-
 
 FUNCTIONAL_TESTS = $$PWD/../Tests/FunctionalTests/TestCore
 
@@ -38,16 +35,12 @@ SOURCES += \
     $${FUNCTIONAL_TESTS}/IsGISAXS15/IsGISAXS15.cpp \
     src/AppOptionsDescription.cpp \
     src/DrawHelper.cpp \
-    src/FitSuiteObserverFactory.cpp \
+    src/FitSuiteDrawObserver.cpp \
+    src/FitSuiteWriteTreeObserver.cpp \
     src/FunctionalTestFactory.cpp \
     src/IFunctionalTest.cpp \
     src/IsGISAXSData.cpp \
     src/IsGISAXSTools.cpp \
-#    src/MinimizerFactory.cpp \
-#    src/ROOTGSLNLSMinimizer.cpp \
-#    src/ROOTGSLSimAnMinimizer.cpp \
-#    src/ROOTMinimizer.cpp \
-#    src/ROOTMinimizerHelper.cpp \
     src/SampleFactory.cpp \
     src/StandardSamples.cpp \
     src/TestConvolution.cpp \
@@ -88,6 +81,7 @@ SOURCES += \
     src/TreeEventStructure.cpp \
     src/main.cpp
 
+
 HEADERS += \
     $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS02/IsGISAXS02.h \
@@ -104,17 +98,13 @@ HEADERS += \
     inc/AppLinkDef.h \
     inc/AppOptionsDescription.h \
     inc/DrawHelper.h \
+    inc/FitSuiteDrawObserver.h \
     inc/FitSuiteObserverFactory.h \
+    inc/FitSuiteWriteTreeObserver.h \
     inc/FunctionalTestFactory.h \
     inc/IFunctionalTest.h \
     inc/IsGISAXSData.h \
     inc/IsGISAXSTools.h \
-#    inc/MinimizerFactory.h \
-#    inc/ROOTGSLNLSMinimizer.h \
-#    inc/ROOTGSLSimAnMinimizer.h \
-#    inc/ROOTMinimizer.h \
-#    inc/ROOTMinimizerFunction.h \
-#    inc/ROOTMinimizerHelper.h \
     inc/SampleFactory.h \
     inc/StandardSamples.h \
     inc/TestConvolution.h \
@@ -153,7 +143,8 @@ HEADERS += \
     inc/TestRoughness.h \
     inc/TestToySimulation.h \
     inc/TreeEventStructure.h \
-    inc/Version.h \
+    inc/Version.h
+
 
 LOCATIONS = $$PWD/inc \
             $${FUNCTIONAL_TESTS}/IsGISAXS01 \

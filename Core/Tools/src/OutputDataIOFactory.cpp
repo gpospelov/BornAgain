@@ -63,6 +63,8 @@ OutputDataIOFactory::OutputDataWriter_t OutputDataIOFactory::getWriter(const std
     IOutputDataWriteStrategy *write_strategy(0);
     if( Utils::FileSystem::GetFileExtension(file_name) == ".ima") {
         write_strategy = new OutputDataWriteStreamIMA();
+    }else if(Utils::FileSystem::GetFileExtension(file_name) == ".txt") {
+        write_strategy = new OutputDataWriteStreamV1();
     } else {
         throw LogicErrorException("OutputDataIOFactory::getWriter() -> Error. Don't know how to write file '" + file_name+std::string("'"));
     }

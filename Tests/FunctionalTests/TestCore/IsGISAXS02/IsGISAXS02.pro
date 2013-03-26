@@ -4,8 +4,7 @@ CONFIG  -= qt app_bundle
 QT      -= core gui
 
 include($$PWD/../../../../shared.pri)
-QMAKE_CXXFLAGS_RELEASE += -DSTANDALONE
-QMAKE_CXXFLAGS_DEBUG += -DSTANDALONE
+DEFINES += STANDALONE
 LIBS += $$PWD/../../../../lib/libBornAgainCore.so
 
 SOURCES += IsGISAXS02.cpp

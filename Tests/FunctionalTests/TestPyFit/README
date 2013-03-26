@@ -1,0 +1,12 @@
+Collection of functional tests (Python)
+
+Collection of fitting tests for libBornAgainFit library.
+Different geometries, number of fit parameters, variety of minimizers
+and minimization strategies.
+
+To run tests
+python TestPyFit.py
+
+List of tests
+testfit01.py - Two parameter fit using variety of minimizers. Geometry: cylinders in the air.
+

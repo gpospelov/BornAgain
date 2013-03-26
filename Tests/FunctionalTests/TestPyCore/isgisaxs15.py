@@ -91,7 +91,7 @@ def GetDifference(data, reference):
 # --------------------------------------------------------------
 # run test and analyse test results
 # --------------------------------------------------------------
-def RunTest():
+def runTest():
     result = RunSimulation()
     reference = GetReferenceData()
 
@@ -105,7 +105,7 @@ def RunTest():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = RunTest()
+  name,description,status = runTest()
   print name,description,status
 
 

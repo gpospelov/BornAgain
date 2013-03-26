@@ -158,10 +158,6 @@ void register_Simulation_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getInstrument"
-            , (::Instrument & ( ::Simulation::* )(  ) )( &::Simulation::getInstrument )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getInstrument"
             , (::Instrument const & ( ::Simulation::* )(  ) const)( &::Simulation::getInstrument )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
@@ -174,11 +170,7 @@ void register_Simulation_class(){
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getSample"
-            , (::ISample * ( ::Simulation::* )(  ) )( &::Simulation::getSample )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getSample"
-            , (::ISample const * ( ::Simulation::* )(  ) const)( &::Simulation::getSample )
+            , (::ISample * ( ::Simulation::* )(  ) const)( &::Simulation::getSample )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getSimulationParameters"

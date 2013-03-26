@@ -17,6 +17,7 @@
 #include "FitParameterLinked.h"
 #include "IMinimizer.h"
 #include "MessageService.h"
+#include "FitSuitePrintObserver.h"
 
 #include <boost/bind.hpp>
 
@@ -137,7 +138,7 @@ size_t FitSuite::getNCalls() const
     return (m_function_chi2.getNCalls() ? m_function_chi2.getNCalls() : m_function_gradient.getNCalls());
 }
 
-//! results to stdout
+// results to stdout
 void FitSuite::printResults() const
 {
     std::cout << std::endl;
@@ -149,4 +150,11 @@ void FitSuite::printResults() const
               << m_function_gradient.getNCallsTotal() << " (neval, ngrad, total)" << std::endl;
     m_fit_parameters.printParameters();
     m_minimizer->printResults();
+}
+
+// set print level
+void FitSuite::setPrintLevel(int print_every_nth)
+{
+    boost::shared_ptr<FitSuitePrintObserver > observer(new FitSuitePrintObserver(print_every_nth));
+    attachObserver(observer);
 }

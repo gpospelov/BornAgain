@@ -20,30 +20,69 @@ CENTER_Y = 942.0
 # 1D array with y-values (position of rows) as single line
 # 2D data array where single line represent second dimension [nrows][ncols]
 #-----------------------------------------------------------------------------
-def save_text_file(filename, cols, rows, data):
+#def save_text_file(filename, cols, rows, data):
+  #if ".gz" in filename:
+    #f = gzip.open(filename, 'wb')
+  #else:
+    #f = file(filename, 'w')
+  #f.write("# 2D scattering data\n")
+  ## writing header containing the shape of array
+  #header = "# shape"
+  #for ndim in range(0,len(data.shape)):
+      #header += " " + str(data.shape[ndim])
+  #f.write(header+"\n")
+  ## writing x-axis values
+  #f.write("# x-axis \n")
+  #savetxt(f, cols, fmt='%1.10e', delimiter=" ", newline=" ")
+  #f.write("\n")
+  ## writing y-axis values
+  #f.write("# y-axis \n")
+  #savetxt(f, rows, fmt='%1.10e', delimiter=" ", newline=" ")
+  #f.write("\n")
+
+  ## writing data array
+  #f.write("# data\n")
+  #savetxt(f, data, fmt='%1.10e', delimiter=" ", newline="\n")
+  #f.close()
+
+
+#-----------------------------------------------------------------------------
+# here we've got data[theta][phi]
+# We have to invert to BornAgain convention [phi][theta]
+# saving 3 numpy arrays in text file
+# 1D array with x-values (position of columns) as single line
+# 1D array with y-values (position of rows) as single line
+# 2D data array where single line represent second dimension [nrows][ncols]
+#-----------------------------------------------------------------------------
+def save_text_file2(filename, phi, theta, data):
   if ".gz" in filename:
     f = gzip.open(filename, 'wb')
   else:
     f = file(filename, 'w')
   f.write("# 2D scattering data\n")
   # writing header containing the shape of array
+  # !!!
+  data = data.transpose()
+
   header = "# shape"
   for ndim in range(0,len(data.shape)):
       header += " " + str(data.shape[ndim])
   f.write(header+"\n")
   # writing x-axis values
-  f.write("# x-axis \n")
-  savetxt(f, cols, fmt='%1.10e', delimiter=" ", newline=" ")
+  f.write("# 0-axis [phi] \n")
+  savetxt(f, phi, fmt='%1.10e', delimiter=" ", newline=" ")
   f.write("\n")
   # writing y-axis values
-  f.write("# y-axis \n")
-  savetxt(f, rows, fmt='%1.10e', delimiter=" ", newline=" ")
+  f.write("# 1-axis [theta] \n")
+  savetxt(f, theta, fmt='%1.10e', delimiter=" ", newline=" ")
   f.write("\n")
 
   # writing data array
   f.write("# data\n")
   savetxt(f, data, fmt='%1.10e', delimiter=" ", newline="\n")
   f.close()
+
+
 
 
 #-----------------------------------------------------------------------------
@@ -144,6 +183,11 @@ def make_file(filename):
   Q_z=Q_z[ ::-1]
   data=data[ ::-1,:]
 
+  # The grid orientation follows the MATLAB convention: an array C with shape (nrows, ncolumns) is plotted 
+  # with the column number as X and the row number as Y, increasing up; hence it is plotted the way the 
+  # array would be printed, except that the Y axis is reversed.
+  # e.g. here we have data[Qz][Qy] (data[theta][phi])
+
   # ---
   # to save png file
   gca().set_aspect('equal')
@@ -160,14 +204,25 @@ def make_file(filename):
 
   # data .vs. qy,qz
   newqy, newqz, newdata = modify_arrays(Q_y, Q_z, data, 0.0, 0.3, 0.0, 0.3)
-  save_text_file(filename.rsplit('.',1)[0]+'_qyqz.txt.gz', newqy, newqz, newdata)
+  #save_text_file(filename.rsplit('.',1)[0]+'_qyqz.txt.gz', newqy, newqz, newdata)
 
   # data .vs. phi,theta
   phi = phi/180.*pi
   tth=(tth-0.32)/180.*pi
   tth=tth[ ::-1]
   newphi, newtheta, newdata2 = modify_arrays(phi, tth, data, 0.02, 0.06, 0.0, 0.04)
-  save_text_file(filename.rsplit('.',1)[0]+'_phitheta.txt.gz', newphi, newtheta, newdata2)
+  #save_text_file(filename.rsplit('.',1)[0]+'_phitheta.txt.gz', newphi, newtheta, newdata2)
+  
+  gca().set_aspect('equal')
+  pcolormesh(newphi,newtheta, newdata2, norm=norm, cmap='gist_ncar')
+  xlabel('$Q_y [\AA^{-1}]$ (phi)')
+  ylabel('$Q_z [\AA^{-1}]$ (theta)')
+  colorbar()
+  title(file_title)
+  savefig('tmp.png',dpi=300)
+  close()
+  
+  save_text_file2(filename.rsplit('.',1)[0]+'_phitheta.txt.gz', newphi, newtheta, newdata2)
 
 
 #-----------------------------------------------------------------------------

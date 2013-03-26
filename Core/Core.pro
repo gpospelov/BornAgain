@@ -6,7 +6,7 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
 QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
-# CONFIG  += BORNAGAIN_PYTHON
+CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
 # source and headers
@@ -25,6 +25,7 @@ SOURCES += \
     Tools/src/IObserver.cpp \
     Tools/src/IParameterized.cpp \
     Tools/src/MathFunctions.cpp \
+    Tools/src/MessageService.cpp \
     Tools/src/OutputData.cpp \
     Tools/src/OutputDataFunctions.cpp \
     Tools/src/OutputDataIOFactory.cpp \
@@ -44,21 +45,19 @@ SOURCES += \
     Algorithms/src/ChiSquaredFrequency.cpp \
     Algorithms/src/ChiSquaredModule.cpp \
     Algorithms/src/ConvolutionDetectorResolution.cpp \
+    Algorithms/src/DWBADiffuseReflection.cpp \
+    Algorithms/src/DWBASimulation.cpp \
     Algorithms/src/DecouplingApproximationStrategy.cpp \
     Algorithms/src/Detector.cpp \
     Algorithms/src/DiffuseDWBASimulation.cpp \
-    Algorithms/src/DWBADiffuseReflection.cpp \
-    Algorithms/src/DWBASimulation.cpp \
-    Algorithms/src/Simulation.cpp \
     Algorithms/src/FTDistributions.cpp \
     Algorithms/src/IChiSquaredModule.cpp \
     Algorithms/src/IFittingDataSelector.cpp \
-    Algorithms/src/Instrument.cpp \
     Algorithms/src/IOutputDataNormalizer.cpp \
+    Algorithms/src/Instrument.cpp \
     Algorithms/src/IsGISAXSMorphologyFileStrategy.cpp \
-    Algorithms/src/LayerDecoratorDWBASimulation.cpp \
-    Algorithms/src/StrategyBuilder.cpp \
     Algorithms/src/LayerDWBASimulation.cpp \
+    Algorithms/src/LayerDecoratorDWBASimulation.cpp \
     Algorithms/src/LocalMonodisperseApproximationStrategy.cpp \
     Algorithms/src/Mask.cpp \
     Algorithms/src/MaskCoordinateFunction.cpp \
@@ -66,15 +65,17 @@ SOURCES += \
     Algorithms/src/MultiLayerRoughnessDWBASimulation.cpp \
     Algorithms/src/OpticalFresnel.cpp \
     Algorithms/src/ResolutionFunction2DSimple.cpp \
+    Algorithms/src/Simulation.cpp \
     Algorithms/src/SizeSpacingCorrelationApproximationStrategy.cpp \
+    Algorithms/src/StrategyBuilder.cpp \
     \
     FormFactors/src/FormFactorBox.cpp \
     FormFactors/src/FormFactorCone.cpp \
     FormFactors/src/FormFactorCrystal.cpp \
     FormFactors/src/FormFactorCylinder.cpp \
-    FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorDWBA.cpp \
     FormFactors/src/FormFactorDWBAConstZ.cpp \
+    FormFactors/src/FormFactorDecoratorTransformation.cpp \
     FormFactors/src/FormFactorEllipsoid.cpp \
     FormFactors/src/FormFactorFullSphere.cpp \
     FormFactors/src/FormFactorFullSpheroid.cpp \
@@ -94,10 +95,10 @@ SOURCES += \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
     Samples/src/IMaterial.cpp \
+    Samples/src/ISample.cpp \
     Samples/src/InterferenceFunction1DParaCrystal.cpp \
     Samples/src/InterferenceFunction2DLattice.cpp \
     Samples/src/InterferenceFunction2DParaCrystal.cpp \
-    Samples/src/ISample.cpp \
     Samples/src/Lattice.cpp \
     Samples/src/LatticeBasis.cpp \
     Samples/src/Layer.cpp \
@@ -121,11 +122,11 @@ SOURCES += \
     Fitting/src/FitSuiteFunctions.cpp \
     Fitting/src/FitSuiteObjects.cpp \
     Fitting/src/FitSuiteParameters.cpp \
+    Fitting/src/FitSuitePrintObserver.cpp \
     Fitting/src/FitSuiteStrategies.cpp \
     Fitting/src/IFitSuiteStrategy.cpp \
     Fitting/src/MinimizerScan.cpp \
-    Fitting/src/MinimizerTest.cpp \
-    Tools/src/MessageService.cpp
+    Fitting/src/MinimizerTest.cpp
 
 HEADERS += \
     Geometry/inc/BasicVector3D.h \
@@ -155,6 +156,7 @@ HEADERS += \
     Tools/inc/MathFunctions.h \
     Tools/inc/MemberComplexFunctionIntegrator.h \
     Tools/inc/MemberFunctionIntegrator.h \
+    Tools/inc/MessageService.h \
     Tools/inc/Numeric.h \
     Tools/inc/OutputData.h \
     Tools/inc/OutputDataFunctions.h \
@@ -181,29 +183,28 @@ HEADERS += \
     Algorithms/inc/ChiSquaredFrequency.h \
     Algorithms/inc/ChiSquaredModule.h \
     Algorithms/inc/ConvolutionDetectorResolution.h \
+    Algorithms/inc/DWBADiffuseReflection.h \
+    Algorithms/inc/DWBASimulation.h \
     Algorithms/inc/DecouplingApproximationStrategy.h \
     Algorithms/inc/Detector.h \
     Algorithms/inc/DetectorParameters.h \
     Algorithms/inc/DiffuseDWBASimulation.h \
-    Algorithms/inc/DWBADiffuseReflection.h \
-    Algorithms/inc/DWBASimulation.h \
-    Algorithms/inc/Simulation.h \
     Algorithms/inc/FTDistributions.h \
     Algorithms/inc/IChiSquaredModule.h \
     Algorithms/inc/IDetectorResolution.h \
     Algorithms/inc/IFittingDataSelector.h \
     Algorithms/inc/IIntensityFunction.h \
     Algorithms/inc/IInterferenceFunctionStrategy.h \
-    Algorithms/inc/Instrument.h \
-    Algorithms/inc/InterferenceFunctionStrategies.h \
     Algorithms/inc/IOutputDataNormalizer.h \
     Algorithms/inc/IResolutionFunction2D.h \
     Algorithms/inc/ISampleBuilder.h \
-    Algorithms/inc/IsGISAXSMorphologyFileStrategy.h \
     Algorithms/inc/ISimulation.h \
     Algorithms/inc/ISquaredFunction.h \
-    Algorithms/inc/LayerDecoratorDWBASimulation.h \
+    Algorithms/inc/Instrument.h \
+    Algorithms/inc/InterferenceFunctionStrategies.h \
+    Algorithms/inc/IsGISAXSMorphologyFileStrategy.h \
     Algorithms/inc/LayerDWBASimulation.h \
+    Algorithms/inc/LayerDecoratorDWBASimulation.h \
     Algorithms/inc/LocalMonodisperseApproximationStrategy.h \
     Algorithms/inc/Mask.h \
     Algorithms/inc/MaskCoordinateFunction.h \
@@ -211,6 +212,7 @@ HEADERS += \
     Algorithms/inc/MultiLayerRoughnessDWBASimulation.h \
     Algorithms/inc/OpticalFresnel.h \
     Algorithms/inc/ResolutionFunction2DSimple.h \
+    Algorithms/inc/Simulation.h \
     Algorithms/inc/SimulationParameters.h \
     Algorithms/inc/SizeSpacingCorrelationApproximationStrategy.h \
     Algorithms/inc/StrategyBuilder.h \
@@ -220,14 +222,14 @@ HEADERS += \
     FormFactors/inc/FormFactorCone.h \
     FormFactors/inc/FormFactorCrystal.h \
     FormFactors/inc/FormFactorCylinder.h \
+    FormFactors/inc/FormFactorDWBA.h \
+    FormFactors/inc/FormFactorDWBAConstZ.h \
     FormFactors/inc/FormFactorDecoratorDebyeWaller.h \
     FormFactors/inc/FormFactorDecoratorFactor.h \
     FormFactors/inc/FormFactorDecoratorMultiPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorPositionFactor.h \
     FormFactors/inc/FormFactorDecoratorRefractiveIndex.h \
     FormFactors/inc/FormFactorDecoratorTransformation.h \
-    FormFactors/inc/FormFactorDWBA.h \
-    FormFactors/inc/FormFactorDWBAConstZ.h \
     FormFactors/inc/FormFactorEllipsoid.h \
     FormFactors/inc/FormFactorFullSphere.h \
     FormFactors/inc/FormFactorFullSpheroid.h \
@@ -257,14 +259,14 @@ HEADERS += \
     Samples/inc/IDispersalState.h \
     Samples/inc/IInterferenceFunction.h \
     Samples/inc/IMaterial.h \
-    Samples/inc/InterferenceFunctions.h \
+    Samples/inc/IRoughness.h \
+    Samples/inc/ISample.h \
+    Samples/inc/ISelectionRule.h \
     Samples/inc/InterferenceFunction1DParaCrystal.h \
     Samples/inc/InterferenceFunction2DLattice.h \
     Samples/inc/InterferenceFunction2DParaCrystal.h \
     Samples/inc/InterferenceFunctionNone.h \
-    Samples/inc/IRoughness.h \
-    Samples/inc/ISample.h \
-    Samples/inc/ISelectionRule.h \
+    Samples/inc/InterferenceFunctions.h \
     Samples/inc/Lattice.h \
     Samples/inc/Lattice2DIFParameters.h \
     Samples/inc/LatticeBasis.h \
@@ -292,12 +294,12 @@ HEADERS += \
     Fitting/inc/FitSuiteFunctions.h \
     Fitting/inc/FitSuiteObjects.h \
     Fitting/inc/FitSuiteParameters.h \
+    Fitting/inc/FitSuitePrintObserver.h \
     Fitting/inc/FitSuiteStrategies.h \
     Fitting/inc/IFitSuiteStrategy.h \
     Fitting/inc/IMinimizer.h \
     Fitting/inc/MinimizerScan.h \
-    Fitting/inc/MinimizerTest.h \
-    Tools/inc/MessageService.h
+    Fitting/inc/MinimizerTest.h
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)

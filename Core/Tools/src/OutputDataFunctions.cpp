@@ -212,7 +212,7 @@ OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
     const OutputData<double > &data, const std::string &fixed_axis_name,
     double fixed_axis_value)
 {
-    if (data.getNdimensions() != 2) {
+    if (data.getRank() != 2) {
         throw LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis() -> Error! It was checked only with number of dimensions equal 2.");
     }
     if( !data.getAxis(fixed_axis_name) ) {
@@ -223,7 +223,7 @@ OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
 
     const IAxis *fixed_axis(0);
     int fixed_axis_index(-1);
-    for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
+    for(size_t i_axis=0; i_axis<data.getRank(); i_axis++) {
         const IAxis *axis = data.getAxis(i_axis);
         if( axis->getName() != fixed_axis_name ) {
             sliced_data->addAxis(*axis);
@@ -261,7 +261,7 @@ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
     const OutputData<double > &data, const std::string &selected_axis_name,
     double axis_value1,  double axis_value2)
 {
-    if (data.getNdimensions() != 2) {
+    if (data.getRank() != 2) {
         throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! It was checked only with number of dimensions equal 2.");
     }
 
@@ -282,7 +282,7 @@ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
 
     // preparing new data with modified axes
     OutputData<double > *new_data = new OutputData<double >;
-    for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
+    for(size_t i_axis=0; i_axis<data.getRank(); i_axis++) {
         const IAxis *axis = data.getAxis(i_axis);
         if( axis->getName() != selected_axis_name ) {
             new_data->addAxis(*axis);

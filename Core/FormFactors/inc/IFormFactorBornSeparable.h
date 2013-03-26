@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/inc/IFormFactorBornSeparable.h
-//! @brief     Defines class IFormFactorBornSeparable.
+//! @brief     Defines pure virtual interface class IFormFactorBornSeparable.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)

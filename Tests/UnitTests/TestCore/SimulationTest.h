@@ -36,12 +36,10 @@ SimulationTest::SimulationTest()
     test_data.addAxis("phi_f", 10, 0., 10.);
     test_data.addAxis("theta_f", 20, 0., 20.);
     test_data.setAllTo(2.0);
-
 }
 
 SimulationTest::~SimulationTest()
 {
-
 }
 
 
@@ -49,8 +47,8 @@ TEST_F(SimulationTest, SimulationInitialState)
 {
     EXPECT_EQ( NULL, emptySimulation.getSample());
     EXPECT_EQ( size_t(1), emptySimulation.getOutputData()->getAllocatedSize());
-    EXPECT_EQ( size_t(0), emptySimulation.getOutputData()->getNdimensions());
-    EXPECT_TRUE(emptySimulation.getOutputData()->getNdimensions() == emptySimulation.getInstrument().getDetectorDimension() );
+    EXPECT_EQ( size_t(0), emptySimulation.getOutputData()->getRank());
+    EXPECT_TRUE(emptySimulation.getOutputData()->getRank() == emptySimulation.getInstrument().getDetectorDimension() );
 }
 
 
@@ -83,8 +81,8 @@ TEST_F(SimulationTest, SimulationInitialStateOfClone)
     Simulation *emptyClonedSimulation = emptySimulation.clone();
     EXPECT_EQ( NULL, emptyClonedSimulation->getSample());
     EXPECT_EQ( size_t(1), emptyClonedSimulation->getOutputData()->getAllocatedSize());
-    EXPECT_EQ( size_t(0), emptyClonedSimulation->getOutputData()->getNdimensions());
-    EXPECT_TRUE(emptyClonedSimulation->getOutputData()->getNdimensions() == emptyClonedSimulation->getInstrument().getDetector().getDimension() );
+    EXPECT_EQ( size_t(0), emptyClonedSimulation->getOutputData()->getRank());
+    EXPECT_TRUE(emptyClonedSimulation->getOutputData()->getRank() == emptyClonedSimulation->getInstrument().getDetector().getDimension() );
     EXPECT_EQ( double(1), emptyClonedSimulation->getInstrument().getIntensity());
     delete emptyClonedSimulation;
 }
@@ -106,6 +104,5 @@ TEST_F(SimulationTest, SimulationClone)
 
     delete clonedSimulation;
 }
-
 
 #endif // SIMULATIONTEST_H

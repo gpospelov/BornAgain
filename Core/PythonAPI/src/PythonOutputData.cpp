@@ -38,7 +38,7 @@ PyObject *ExportOutputDataAxis(const OutputData<double > &output, int naxis);
 int GetOutputDataNdimensions(const Simulation &simulation)
 {
     const OutputData<double > *data = simulation.getOutputData();
-    int ndims = data->getNdimensions();
+    int ndims = data->getRank();
     return ndims;
 }
 
@@ -66,7 +66,7 @@ PyObject *ExportOutputData(const OutputData<double > &output_data)
 {
     // getting size of dimensions from output_data
     std::vector<int > dimensions;
-    for(size_t i=0; i<output_data.getNdimensions(); i++) {
+    for(size_t i=0; i<output_data.getRank(); i++) {
         //const AxisDouble *axis = output_data.getAxis(i);
         const IAxis *axis = output_data.getAxis(i);
         dimensions.push_back( axis->getSize() );
@@ -106,7 +106,7 @@ PyObject *ExportOutputDataAxis(const OutputData<double > &output_data, int naxis
 {
     // getting size of dimensions from output_data
     std::vector<int > dimensions;
-    for(size_t i=0; i<output_data.getNdimensions(); i++) {
+    for(size_t i=0; i<output_data.getRank(); i++) {
         const IAxis *axis = output_data.getAxis(i);
         dimensions.push_back( axis->getSize() );
     }

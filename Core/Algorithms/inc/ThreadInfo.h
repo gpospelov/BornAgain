@@ -20,15 +20,9 @@
 
 struct ThreadInfo
 {
-    ThreadInfo();
+    ThreadInfo() : n_threads(1), i_thread(0) {}
     size_t n_threads;
     size_t i_thread;
 };
-
-inline ThreadInfo::ThreadInfo()
-: n_threads(1)
-, i_thread(0)
-{
-}
 
 #endif /* THREADINFO_H_ */

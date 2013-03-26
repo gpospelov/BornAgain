@@ -199,7 +199,6 @@ void TestIsGISAXS12::plot_isgisaxs_fit_results()
     c1->cd(6); leg3->Draw();
 
     c1->Update();
-
 }
 
 
@@ -532,7 +531,7 @@ void TestIsGISAXS12::print_axes(IsGISAXSData::DataSet_t &data)
 {
     for(size_t i_set=0; i_set<data.size(); ++i_set) {
         std::cout << "scan #" << i_set << "  ";
-        for(size_t i_axis=0; i_axis<data[(int)i_set]->getNdimensions(); ++i_axis) {
+        for(size_t i_axis=0; i_axis<data[(int)i_set]->getRank(); ++i_axis) {
             const IAxis *axis = data[(int)i_set]->getAxis(i_axis);
             std::cout << "( " << axis->getName() << ", " << axis->getSize() << ", " << axis->getMin() << ", " << axis->getMax() << " )   ";
         }

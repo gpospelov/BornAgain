@@ -18,7 +18,7 @@
 
 #include "Exceptions.h"
 
-//! Disable copy constructor and = operator; child classes must provide clone().
+//! Disable copy constructor and operator=; child classes should provide clone().
 
 class ICloneable
 {
@@ -28,8 +28,10 @@ class ICloneable
     virtual ICloneable *clone() const = 0;
 
  private:
-    ICloneable(const ICloneable &) { throw NotImplementedException("ICloneable(const ICloneable &) -> Error: not implemented."); }
-    ICloneable &operator=(const ICloneable &) { throw NotImplementedException("ICloneable &operator=(const ICloneable &) -> Error: not implemented."); }
+    ICloneable(const ICloneable &) { throw NotImplementedException(
+        "ICloneable(const ICloneable &) -> Error: not implemented."); }
+    ICloneable &operator=(const ICloneable &) { throw NotImplementedException(
+        "ICloneable &operator=(const ICloneable &) -> Error: not implemented."); }
 };
 
 #endif // ICLONEABLE_H

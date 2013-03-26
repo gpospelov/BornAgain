@@ -20,25 +20,26 @@
 #include "IStochasticParameter.h"
 #include "MemberComplexFunctionIntegrator.h"
 
-//! Form factor of a sphere.
+//! Form factor of a sphere cut at given height.
 
 class FormFactorSphere : public IFormFactorBorn
 {
-public:
+ public:
     FormFactorSphere(double radius, double height);
-    double SphereIntegral(double Z, void* params) const;
 
-    ~FormFactorSphere();
-    virtual FormFactorSphere *clone() const;
+    ~FormFactorSphere() { delete m_integrator; }
+
+    virtual FormFactorSphere *clone() const
+    { return new FormFactorSphere(m_radius, m_height); }
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     virtual double getHeight() const { return m_height; }
 
-protected:
+ protected:
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-private:
+ private:
     complex_t Integrand(double Z, void* params) const;
 
     //! register some class members for later access via parameter pool

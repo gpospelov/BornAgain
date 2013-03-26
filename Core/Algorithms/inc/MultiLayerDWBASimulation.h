@@ -28,7 +28,7 @@ class MultiLayerRoughnessDWBASimulation;
 
 class MultiLayerDWBASimulation : public DWBASimulation
 {
-public:
+ public:
     MultiLayerDWBASimulation(const MultiLayer *p_multi_layer);
     virtual ~MultiLayerDWBASimulation();
 
@@ -40,7 +40,7 @@ public:
     virtual void setThreadInfo(const ThreadInfo &thread_info);
 
     virtual void run();
-protected:
+ protected:
     std::set<double> getAlphaList() const;
     std::map<size_t, LayerDWBASimulation*> m_layer_dwba_simulation_map;
     MultiLayer *mp_multi_layer;

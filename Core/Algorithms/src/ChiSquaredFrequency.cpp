@@ -18,17 +18,6 @@
 
 #include <cassert>
 
-ChiSquaredFrequency::ChiSquaredFrequency()
-    : mp_real_ft(0) , mp_simulation_ft(0) , m_cutoff(1.0)
-{
-}
-
-ChiSquaredFrequency::~ChiSquaredFrequency()
-{
-    delete mp_real_ft;
-    delete mp_simulation_ft;
-}
-
 double ChiSquaredFrequency::calculateChiSquared()
 {
     if( !mp_real_data )
@@ -83,8 +72,8 @@ void ChiSquaredFrequency::initWeights()
     delete mp_simulation_ft;
     mp_real_ft = new OutputData<complex_t>();
     mp_simulation_ft = new OutputData<complex_t>();
-    OutputDataFunctions::fourierTransform(*mp_real_data, mp_real_ft);
-    OutputDataFunctions::fourierTransform(*mp_simulation_data, mp_simulation_ft);
+    OutputDataFunctions::FourierTransform(*mp_real_data, mp_real_ft);
+    OutputDataFunctions::FourierTransform(*mp_simulation_data, mp_simulation_ft);
     delete mp_weights;
     mp_weights = new OutputData<double>();
     size_t rank = mp_simulation_ft->getRank();

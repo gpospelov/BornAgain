@@ -23,30 +23,27 @@
 
 class FormFactorCone : public IFormFactorBorn
 {
-public:
+ public:
     //! @brief Cone constructor
     //! @param height of Conee
     //! @param radius half of Cone's base
     //! @param angle in radians between base and facet
     FormFactorCone(double radius, double height,  double alpha);
-
-    ~FormFactorCone();
+    ~FormFactorCone() {}
     virtual FormFactorCone* clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 3; }
 
     virtual double getHeight() const { return m_height; }
 
-protected:
+ protected:
     virtual complex_t evaluate_for_q (const cvector_t &q) const;
-
-    //! register some class members for later access via parameter pool
     virtual void init_parameters();
 
-private:
+ private:
     //    double ConeIntegral(double Z, void* params) const;
     double evaluate_for_q_real() const;
-    complex_t evaluate_for_q_imag() const;
+    double evaluate_for_q_imag() const;
     double ConeIntegralReal(double Z, void* params) const;
     double ConeIntegralImaginary(double Z, void* params) const;
 

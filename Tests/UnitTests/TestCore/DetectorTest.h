@@ -13,7 +13,7 @@
 
 class DetectorTest : public ::testing::Test
 {
-protected:
+ protected:
     DetectorTest();
     virtual ~DetectorTest();
 

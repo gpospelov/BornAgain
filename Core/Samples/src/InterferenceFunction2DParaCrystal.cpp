@@ -101,7 +101,7 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createSqua
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createHexagonal(
         double peak_distance, double corr_length, double domain_size_1, double domain_size_2)
 {
-    InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(peak_distance, peak_distance, 2.0*M_PI/3.0, 0.0, corr_length);
+    InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(peak_distance, peak_distance, 2*M_PI/3.0, 0.0, corr_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
     p_new->setIntegrationOverXi(true);
     return p_new;

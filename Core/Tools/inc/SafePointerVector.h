@@ -23,7 +23,7 @@ using std::size_t;
 
 template <class T> class SafePointerVector
 {
-public:
+ public:
     typedef typename std::vector<T *>::iterator iterator;
     typedef typename std::vector<T *>::const_iterator const_iterator;
     SafePointerVector();
@@ -46,7 +46,7 @@ public:
     T *back() { return m_pointers.back(); }
     const T *back() const { return m_pointers.back(); }
     void clear();
-private:
+ private:
     std::vector<T *> m_pointers;
 };
 

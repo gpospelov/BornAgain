@@ -22,7 +22,7 @@
 
 class FormFactorDecoratorFactor : public IFormFactorDecorator
 {
-public:
+ public:
     FormFactorDecoratorFactor(IFormFactor *p_form_factor, const complex_t &factor);
     virtual FormFactorDecoratorFactor *clone() const;
     virtual ~FormFactorDecoratorFactor() {}
@@ -31,7 +31,7 @@ public:
 
     virtual int getNumberOfStochasticParameters() const;
 
-protected:
+ protected:
     complex_t m_factor;
 };
 

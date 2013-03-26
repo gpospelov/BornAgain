@@ -7,7 +7,7 @@
 
 class OutputDataIteratorTest : public ::testing::Test
 {
-protected:
+ protected:
     OutputDataIteratorTest();
     virtual ~OutputDataIteratorTest();
 

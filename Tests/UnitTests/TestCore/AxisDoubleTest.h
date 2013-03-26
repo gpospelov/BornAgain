@@ -7,7 +7,7 @@
 
 class AxisDoubleTest : public ::testing::Test
 {
-  protected:
+ protected:
     AxisDoubleTest()
         : angleAxis("angle"), lengthAxis("length", 100, 0.0, 9.9) {}
 

@@ -20,7 +20,7 @@
 
 class ISimulation : public ICloneable
 {
-public:
+ public:
     virtual ~ISimulation() { }
     ISimulation *clone() const { throw NotImplementedException("ISimulation::clone() -> Error: not implemented exception."); }
     virtual void run() { }

@@ -22,14 +22,14 @@
 
 class FormFactorDecoratorRefractiveIndex : public FormFactorDecoratorFactor
 {
-public:
+ public:
     FormFactorDecoratorRefractiveIndex(IFormFactor *p_form_factor, const complex_t &refractive_index);
     ~FormFactorDecoratorRefractiveIndex();
 
     FormFactorDecoratorRefractiveIndex *clone() const;
 
     virtual void setAmbientRefractiveIndex(const complex_t &ambient_refractive_index);
-private:
+ private:
     complex_t getRefractiveIndexFactor(const complex_t &ambient_index, const complex_t &particle_index) const;
 
     complex_t m_refractive_index;

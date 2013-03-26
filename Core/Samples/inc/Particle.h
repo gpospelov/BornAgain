@@ -27,7 +27,7 @@ class ParticleInfo;
 
 class Particle : public ICompositeSample
 {
-public:
+ public:
     Particle(const complex_t &refractive_index, IFormFactor* p_form_factor = 0);
     Particle(const complex_t &refractive_index, const IFormFactor &form_factor);
     virtual ~Particle();
@@ -76,7 +76,7 @@ public:
 
     virtual std::vector<ParticleInfo *> createDistributedParticles(size_t samples_per_particle, double factor) const;
 
-protected:
+ protected:
     complex_t m_ambient_refractive_index;
     complex_t m_refractive_index;
     IFormFactor* mp_form_factor;

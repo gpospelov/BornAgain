@@ -23,7 +23,7 @@
 
 class SizeSpacingCorrelationApproximationStrategy : public IInterferenceFunctionStrategy
 {
-public:
+ public:
     SizeSpacingCorrelationApproximationStrategy(SimulationParameters sim_params, double kappa);
     virtual ~SizeSpacingCorrelationApproximationStrategy() {}
 
@@ -31,7 +31,7 @@ public:
             const SafePointerVector<IInterferenceFunction> &ifs);
     virtual double evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
             double alpha_i, double alpha_f) const;
-private:
+ private:
     bool checkVectorSizes() const;
     complex_t getMeanCharacteristicFF(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
             double alpha_i, double alpha_f) const;

@@ -25,18 +25,18 @@
 
 class TestFresnelCoeff : public IFunctionalTest
 {
-public:
+ public:
     TestFresnelCoeff();
 
     void execute();
 
-private:
-    //! calculate fresnel coefficients .vs. alpha_i for several standard samples
+ private:
+    //! calculate Fresnel coefficients .vs. alpha_i for several standard samples
     void test_standard_samples();
     //! draw results of the test
     void draw_standard_samples();
 
-    //! calculate fresnel coefficients .vs. alpha_i for set of roughnesses
+    //! calculate Fresnel coefficients .vs. alpha_i for set of roughnesses
     void test_roughness_set();
     //! draw result of the test
     void draw_roughness_set();

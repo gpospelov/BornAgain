@@ -35,7 +35,7 @@ class TCanvas;
 
 class FitSuiteObserverPrint : public IObserver
 {
-  public:
+ public:
     FitSuiteObserverPrint(int print_every_nth = 1)
         : m_print_every_nth(print_every_nth)
         , m_wall_time(0.0)
@@ -43,7 +43,7 @@ class FitSuiteObserverPrint : public IObserver
         , m_last_call_time()
     { gettimeofday(&m_last_call_time, 0); }
     void update(IObservable *subject);
-  private:
+ private:
     int m_print_every_nth;
     double m_wall_time;
     clock_t m_last_call_clock;
@@ -54,7 +54,7 @@ class FitSuiteObserverPrint : public IObserver
 
 class FitSuiteObserverDraw : public IObserver
 {
-  public:
+ public:
     FitSuiteObserverDraw(
         int draw_every_nth = 20,
         const std::string &canvas_base_name =
@@ -73,7 +73,7 @@ class FitSuiteObserverDraw : public IObserver
         const OutputData<double> *p_simu_data,
         const OutputData<double> *p_real_data);
 
-  private:
+ private:
     int m_draw_every_nth; //! update canvas every nth iteration
     std::string m_canvas_base_name; //! canvas name were to draw
     TPaveText *m_ptext;
@@ -88,12 +88,12 @@ class FitSuiteObserverDraw : public IObserver
 //!
 class FitSuiteObserverWriteTree : public IObserver
 {
-  public:
+ public:
     FitSuiteObserverWriteTree(
         const std::string &file_name = std::string("fitsuite.root"))
         : m_file_name(file_name), m_prev_data(0) {}
     void update(IObservable *subject);
-  private:
+ private:
     std::string m_file_name; //! canvas name were to draw
     OutputData<double> *m_prev_data;
 };
@@ -102,7 +102,7 @@ class FitSuiteObserverWriteTree : public IObserver
 
 class FitSuiteObserverFactory
 {
-  public:
+ public:
     typedef boost::shared_ptr<FitSuiteObserverPrint > observer_print_t;
     typedef boost::shared_ptr<FitSuiteObserverDraw > observer_draw_t;
     typedef boost::shared_ptr<FitSuiteObserverWriteTree > observer_tree_t;

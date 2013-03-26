@@ -31,7 +31,7 @@ class TPad;
 //!
 class DrawHelper :public TObject
 {
-public:
+ public:
     //! set own drawing style
     static void SetStyle();
 
@@ -57,7 +57,7 @@ public:
     //! attempt to draw meso crystal lattice in 3d
     static void DrawMesoCrystal(const MultiLayer *sample);
 
-private:
+ private:
     static int m_default_canvas_xsize;
     static int m_default_canvas_ysize;
     static std::vector<TCanvas *> m_registered_canvases;

@@ -61,7 +61,7 @@ OutputData<double>* OutputDataFunctions::doubleBinSize(
 
 //! Fourier transformation of output data
 
-void OutputDataFunctions::fourierTransform(
+void OutputDataFunctions::FourierTransform(
     const OutputData<double>& source, OutputData<complex_t> *p_destination)
 {
     // initialize dimensions
@@ -105,7 +105,7 @@ void OutputDataFunctions::fourierTransform(
 
 //! Fourier back transform ??
 
-void OutputDataFunctions::fourierTransformR(
+void OutputDataFunctions::FourierTransformR(
     const OutputData<complex_t>& source, OutputData<double> *p_destination)
 {
     // initialize dimensions

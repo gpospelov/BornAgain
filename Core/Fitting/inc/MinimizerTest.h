@@ -24,7 +24,7 @@
 
 class MinimizerTest : public IMinimizer
 {
-public:
+ public:
     MinimizerTest() : m_min_value(0) {}
     virtual ~MinimizerTest(){}
 
@@ -49,7 +49,7 @@ public:
 
     virtual void printResults() const;
 
-private:
+ private:
     double m_min_value;
     FitSuiteParameters m_parameters; //! minimizer parameters
     function_chi2_t m_fcn;

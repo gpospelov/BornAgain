@@ -22,7 +22,7 @@
 
 class TestMiscellaneous : public IFunctionalTest
 {
-public:
+ public:
     TestMiscellaneous();
     virtual ~TestMiscellaneous(){}
 

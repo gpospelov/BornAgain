@@ -8,7 +8,7 @@
 
 class CVectorTest : public ::testing::Test
 {
-protected:
+ protected:
     CVectorTest();
     virtual ~CVectorTest();
 };

@@ -27,7 +27,7 @@ class FitSuite;
 
 class TestIsGISAXS5 : public IFunctionalTest
 {
-public:
+ public:
     TestIsGISAXS5();
     virtual ~TestIsGISAXS5() { }
 
@@ -49,7 +49,7 @@ public:
         double m_interf_width;
     };
 
-private:
+ private:
 
     //! initialize simulation
     void initializeSimulation();

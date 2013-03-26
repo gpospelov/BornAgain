@@ -17,7 +17,8 @@
 #include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
 
-FormFactorPyramid::FormFactorPyramid(double height, double half_side, double alpha)
+FormFactorPyramid::FormFactorPyramid(
+    double height, double half_side, double alpha)
 {
     setName("FormFactorPyramid");
     m_height = height;
@@ -25,12 +26,6 @@ FormFactorPyramid::FormFactorPyramid(double height, double half_side, double alp
     m_alpha = alpha;
     init_parameters();
 }
-
-FormFactorPyramid::~FormFactorPyramid()
-{
-}
-
-//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
 
 void FormFactorPyramid::init_parameters()
 {
@@ -42,7 +37,8 @@ void FormFactorPyramid::init_parameters()
 
 FormFactorPyramid* FormFactorPyramid::clone() const
 {
-    FormFactorPyramid *p_clone = new FormFactorPyramid(m_height, m_half_side, m_alpha);
+    FormFactorPyramid *p_clone =
+        new FormFactorPyramid(m_height, m_half_side, m_alpha);
     return p_clone;
 }
 

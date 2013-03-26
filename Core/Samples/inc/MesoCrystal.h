@@ -24,7 +24,7 @@
 
 class MesoCrystal : public Particle
 {
-public:
+ public:
     MesoCrystal(IClusteredParticles *p_particle_structure, IFormFactor *p_form_factor);
     MesoCrystal(const IClusteredParticles &particle_structure, IFormFactor &form_factor);
 
@@ -56,7 +56,7 @@ public:
 
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const;
 
-private:
+ private:
     IClusteredParticles *mp_particle_structure;
     IFormFactor *mp_meso_form_factor;
 };

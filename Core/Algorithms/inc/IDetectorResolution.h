@@ -22,7 +22,7 @@
 
 class IDetectorResolution : public IParameterized, public ICloneable
 {
-public:
+ public:
     virtual ~IDetectorResolution() {}
     //! Apply the resolution function to the intensity data
     virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const=0;

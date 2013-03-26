@@ -24,7 +24,7 @@
 
 class IFormFactor : public ISample
 {
-public:
+ public:
     IFormFactor() {}
     virtual ~IFormFactor() {}
 

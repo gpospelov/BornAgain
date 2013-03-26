@@ -28,7 +28,7 @@ class ProgramOptions;
 class FunctionalTestFactory : public ISingleton<FunctionalTestFactory>,
                               public IFactory<std::string, IFunctionalTest>
 {
-  public:
+ public:
     FunctionalTestFactory();
     virtual ~FunctionalTestFactory();
 
@@ -55,7 +55,7 @@ class FunctionalTestFactory : public ISingleton<FunctionalTestFactory>,
     static iterator begin() { return instance().m_descriptions.begin(); }
     static iterator end() { return instance().m_descriptions.end(); }
 
-private:
+ private:
     void this_execute(std::string name, ProgramOptions *p_options);
     void this_profile(std::string name, ProgramOptions *p_options);
     void this_execute_all(ProgramOptions *p_options);

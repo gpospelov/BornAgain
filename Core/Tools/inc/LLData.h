@@ -25,7 +25,7 @@
 
 template <class T> class LLData
 {
-public:
+ public:
     // construction, destruction and assignment
     LLData(size_t rank, const int *dimensions);
     LLData(const LLData<T> &right);
@@ -54,7 +54,7 @@ public:
     const int *getDimensions() const { return m_dims; }
     T getTotalSum() const;
 
-private:
+ private:
     void allocate(size_t rank, const int *dimensions);
     void clear();
     int checkPositiveDimension(int dimension) const;

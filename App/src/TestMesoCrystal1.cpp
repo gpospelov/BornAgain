@@ -203,7 +203,7 @@ ISample* TestMesoCrystal1::SampleBuilder::buildSample() const
     double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;
     double alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step;
 
-    double phi_step = 2.0*M_PI/3.0/n_max_phi_rotation_steps;
+    double phi_step = 2*M_PI/3.0/n_max_phi_rotation_steps;
     double phi_start = 0.0;
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {

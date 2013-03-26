@@ -4,14 +4,13 @@
 #include "ChiSquaredModule.h"
 #include "IFittingDataSelector.h"
 #include "ISquaredFunction.h"
-#include "ExperimentConstants.h"
 
 #include "gtest/gtest.h"
 
 
 class ChiSquaredModuleTest : public ::testing::Test
 {
-protected:
+ protected:
     ChiSquaredModuleTest();
     virtual ~ChiSquaredModuleTest();
 
@@ -24,8 +23,8 @@ protected:
 
 ChiSquaredModuleTest::ChiSquaredModuleTest()
 {
-    m_real_data.addAxis(NDetector2d::PHI_AXIS_NAME, 10, 0.0, 10.0);
-    m_real_data.addAxis(NDetector2d::ALPHA_AXIS_NAME, 10, 0.0, 10.0);
+    m_real_data.addAxis("phi_f", 10, 0.0, 10.0);
+    m_real_data.addAxis("alpha_f", 10, 0.0, 10.0);
     m_real_data.setAllTo(1.0);
     m_simul_data.copyFrom(m_real_data);
     m_simul_data.setAllTo(1.1);
@@ -38,7 +37,6 @@ ChiSquaredModuleTest::ChiSquaredModuleTest()
 
 ChiSquaredModuleTest::~ChiSquaredModuleTest()
 {
-
 }
 
 
@@ -93,8 +91,8 @@ TEST_F(ChiSquaredModuleTest, IsGISAXSLikeModule)
     OutputData<double > real_data;
     OutputData<double > simul_data;
     const size_t nbins(5);
-    real_data.addAxis(NDetector2d::PHI_AXIS_NAME, nbins, 0.0, 1.0);
-    simul_data.addAxis(NDetector2d::PHI_AXIS_NAME, nbins, 0.0, 1.0);
+    real_data.addAxis("phi_f", nbins, 0.0, 1.0);
+    simul_data.addAxis("phi_f", nbins, 0.0, 1.0);
     const double a_real_data[nbins] = {1., 10., 100., 10., 1. };
     const double a_simul_data[nbins] = {10., 100., 1000., 100., 10. };
     OutputData<double >::iterator it_real = real_data.begin();
@@ -115,10 +113,7 @@ TEST_F(ChiSquaredModuleTest, IsGISAXSLikeModule)
 
 //    m_chi_isgisaxs.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
 //    EXPECT_FLOAT_EQ( double(0.005), m_chi_isgisaxs.calculateChiSquared());
-
-
 }
-
 
 #endif // CHISQUAREDMODULETEST_H
 

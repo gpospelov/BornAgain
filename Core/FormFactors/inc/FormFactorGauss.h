@@ -23,21 +23,21 @@
 
 class FormFactorGauss : public IFormFactorBorn
 {
-public:
+ public:
     FormFactorGauss(double volume);
     FormFactorGauss(double height, double width);
-    ~FormFactorGauss();
+    ~FormFactorGauss() {}
     virtual FormFactorGauss *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-protected:
+ protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-private:
+ private:
     double m_height;
     double m_width;
 };

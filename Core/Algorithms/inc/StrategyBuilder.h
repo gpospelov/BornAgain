@@ -34,7 +34,7 @@ class IFormFactor;
 
 class LayerDecoratorStrategyBuilder
 {
-public:
+ public:
     LayerDecoratorStrategyBuilder(const LayerDecorator &decorated_layer,
             const Simulation &simulation, const SimulationParameters &sim_params);
     virtual ~LayerDecoratorStrategyBuilder();
@@ -44,12 +44,12 @@ public:
 
     //! create a strategy object which is able to calculate the scattering for fixed k_f
     virtual IInterferenceFunctionStrategy *createStrategy();
-protected:
+ protected:
     LayerDecorator *mp_layer_decorator;         //!< decorated layer
     Simulation *mp_simulation;                  //!< simulation
     SimulationParameters m_sim_params;          //!< simulation parameters
     IDoubleToPairOfComplexMap *mp_RT_function;  //!< R and T coefficients for DWBA
-private:
+ private:
     //! collect the formfactor info of all particles in the decoration and decorate
     //! these for DWBA when needed
     void collectFormFactorInfos();
@@ -67,7 +67,7 @@ private:
 
 class FormFactorInfo : public ICloneable
 {
-public:
+ public:
     FormFactorInfo();
     ~FormFactorInfo();
     virtual FormFactorInfo *clone() const;

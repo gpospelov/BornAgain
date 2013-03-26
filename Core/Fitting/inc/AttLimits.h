@@ -23,7 +23,7 @@
 
 class AttLimits
 {
-public:
+ public:
     AttLimits() : m_has_lower_limit(false), m_has_upper_limit(false), m_is_fixed(false), m_lower_limit(0), m_upper_limit(0) {}
     virtual ~AttLimits(){}
 
@@ -79,7 +79,7 @@ public:
     //! print class
     friend std::ostream &operator<<(std::ostream &ostr, const AttLimits &m) { m.print(ostr); return ostr; }
 
-protected:
+ protected:
     AttLimits(bool has_lower_limit, bool has_upper_limit, bool is_fixed, double lower_limit, double upper_limit)
         : m_has_lower_limit(has_lower_limit)
         , m_has_upper_limit(has_upper_limit)

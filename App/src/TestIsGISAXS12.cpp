@@ -15,7 +15,6 @@
 
 #include "TestIsGISAXS12.h"
 #include "DrawHelper.h"
-#include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "FormFactorCylinder.h"

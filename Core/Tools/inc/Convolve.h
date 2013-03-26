@@ -37,7 +37,7 @@ namespace MathFunctions
 //!
 class Convolve
 {
-public:
+ public:
     //! definition of 1d vector of double
     typedef std::vector<double > double1d_t;
 
@@ -63,8 +63,8 @@ public:
     //! set convolution mode
     void setMode(Mode mode) { m_mode = mode; }
 
-private:
-    //! compute circual convolution of source and kernel using fast fourier transformation
+ private:
+    //! compute circual convolution of source and kernel using fast Fourier transformation
     void fftw_circular_convolution(const double2d_t &source, const double2d_t &kernel);
 
     //! find closest number X>n that can be factorised according to fftw3 favorite factorisation
@@ -97,7 +97,7 @@ private:
         double *out_src;
         //! adjusted input 'kernel' array
         double *in_kernel;
-        //! result of fourier transformation of kernel
+        //! result of Fourier transformation of kernel
         double *out_kernel;
         //! result of production of FFT(source) and FFT(kernel)
         double *dst_fft;

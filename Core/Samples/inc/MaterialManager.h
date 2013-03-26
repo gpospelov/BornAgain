@@ -30,7 +30,7 @@
 //!
 class MaterialManager: public ISingleton<MaterialManager>
 {
-  public:
+ public:
     virtual ~MaterialManager() { clear(); }
 
     //! Return material from database.
@@ -55,7 +55,7 @@ class MaterialManager: public ISingleton<MaterialManager>
         std::ostream &ostr, const MaterialManager &m)
     { m.print(ostr); return ostr; }
 
-  protected:
+ protected:
     MaterialManager(){}
     friend class ISingleton<MaterialManager >;
 
@@ -66,7 +66,7 @@ class MaterialManager: public ISingleton<MaterialManager>
     virtual void print(std::ostream &ostr) const;
 
     std::map<std::string, IMaterial*> m_materials; //!< our database
-  private:
+ private:
     const IMaterial *this_getMaterial(const std::string &name);
     const IMaterial *this_getHomogeneousMaterial(
         const std::string &name, const complex_t &refractive_index);

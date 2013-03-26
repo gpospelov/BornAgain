@@ -7,7 +7,7 @@
 
 class RealParameterWrapperTest : public ::testing::Test
 {
-protected:
+ protected:
     RealParameterWrapperTest();
     virtual ~RealParameterWrapperTest();
 

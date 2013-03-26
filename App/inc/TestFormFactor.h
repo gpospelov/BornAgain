@@ -22,13 +22,13 @@
 
 class TestFormFactor : public IFunctionalTest
 {
-public:
+ public:
     TestFormFactor();
     ~TestFormFactor();
     virtual void execute();
     void draw();
 
-private:
+ private:
     OutputData<double> *mp_intensity_output;
     FormFactorCylinder m_ff;
 };

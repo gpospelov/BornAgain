@@ -30,10 +30,10 @@ namespace OutputDataFunctions
     OutputData<double> *doubleBinSize(const OutputData<double> &source);
 
     //! unnormalized Fourier transformation for real data
-    void fourierTransform(const OutputData<double> &source, OutputData<complex_t> *p_destination);
+    void FourierTransform(const OutputData<double> &source, OutputData<complex_t> *p_destination);
 
     //! unnormalized reverse Fourier transformation for real data
-    void fourierTransformR(const OutputData<complex_t> &source, OutputData<double> *p_destination);
+    void FourierTransformR(const OutputData<complex_t> &source, OutputData<double> *p_destination);
 
     OutputData<double> *getRealPart(const OutputData<complex_t> &source);
     OutputData<double> *getImagPart(const OutputData<complex_t> &source);

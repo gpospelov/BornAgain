@@ -29,7 +29,7 @@
 
 class LayerRoughness : public IRoughness
 {
-public:
+ public:
     LayerRoughness();
     LayerRoughness(double sigma, double hurstParameter, double latteralCorrLength);
 
@@ -58,7 +58,7 @@ public:
     //! print class
     friend std::ostream &operator<<(std::ostream &ostr, const LayerRoughness &m) { m.print(ostr); return ostr; }
 
-protected:
+ protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 

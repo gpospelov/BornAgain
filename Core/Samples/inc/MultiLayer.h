@@ -38,7 +38,7 @@
 
 class MultiLayer : public ICompositeSample
 {
-public:
+ public:
     MultiLayer();
     ~MultiLayer();
 
@@ -87,7 +87,7 @@ public:
     ///! correlation function of roughnesses between the interfaces
     //double getCrossCorrFun(const kvector_t &k, int j, int k) const;
 
-    //! fourier transform of the correlation function of roughnesses between the interfaces
+    //! Fourier transform of the correlation function of roughnesses between the interfaces
     double getCrossCorrSpectralFun(const kvector_t &kvec, size_t j, size_t k) const;
 
     //! change thickness of layer
@@ -99,14 +99,14 @@ public:
     //! look for the presence of DWBA terms (e.g. included particles) and return ISimulation if needed
     virtual MultiLayerDWBASimulation *createDWBASimulation() const;
 
-protected:
+ protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
     //! print class
     void print(std::ostream &ostr) const;
 
 
-private:
+ private:
     //! adding the layer with simultaneous registration in parent class
     void addAndRegisterLayer(Layer *child)
     {

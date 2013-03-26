@@ -25,7 +25,7 @@
 //- -------------------------------------------------------------------
 class ROOTMinimizerChiSquaredFunction : public ROOT::Math::Functor
 {
-public:
+ public:
     ROOTMinimizerChiSquaredFunction(IMinimizer::function_chi2_t fcn, int ndims ) : ROOT::Math::Functor(fcn, ndims), m_fcn(fcn) {}
     virtual ~ROOTMinimizerChiSquaredFunction(){}
     IMinimizer::function_chi2_t m_fcn;
@@ -39,7 +39,7 @@ public:
 //- -------------------------------------------------------------------
 class ROOTMinimizerGradientFunction : public ROOT::Math::FitMethodFunction
 {
-public:
+ public:
     typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t  Type_t;
 
     ROOTMinimizerGradientFunction(IMinimizer::function_gradient_t fun_gradient, size_t npars, size_t ndatasize)
@@ -56,7 +56,7 @@ public:
         return m_fun_gradient(pars, i_data, gradient);
     }
 
-private:
+ private:
     //! evaluation of chi2
     double DoEval(const double * pars) const {
         double chi2 = 0.0;

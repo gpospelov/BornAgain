@@ -29,7 +29,7 @@ class TLine;
 //! Histogram management for IsGISAXS validation.
 
 class IsGISAXSTools {
-public:
+ public:
     struct AxisStructure {
         size_t nbins;
         std::vector<double> xbins;
@@ -150,7 +150,7 @@ public:
         double hmax = -1.,
         double hdiff=0.0001 );
 
-  private:
+ private:
     //! lower bound of y-axis (for 1D histograms), or z-axis (for 2D histograms)
     static double m_hist_min; 
     //! upper bound of y-axis (for 1D histograms), or z-axis (for 2D histograms)

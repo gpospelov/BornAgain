@@ -23,9 +23,10 @@
 
 class FormFactorEllipsoid : public IFormFactorBorn
 {
-public:
-    FormFactorEllipsoid( double radius, double width, double height, double alpha);
-    ~FormFactorEllipsoid();
+ public:
+    FormFactorEllipsoid(double radius, double width,
+                        double height, double alpha);
+    ~FormFactorEllipsoid() {}
     virtual FormFactorEllipsoid *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
@@ -44,11 +45,11 @@ public:
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-protected:
+ protected:
     //! register some class members for later access via parameter pool
     virtual void init_parameters();
 
-private:
+ private:
     double m_radius;
     double m_width;
     double m_height;

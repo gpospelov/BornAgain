@@ -23,7 +23,7 @@
 
 class OutputDataReader
 {
-public:
+ public:
     OutputDataReader() : m_read_strategy(0) {}
     OutputDataReader(const std::string &file_name) : m_file_name(file_name), m_read_strategy(0) {}
     OutputDataReader(IOutputDataReadStrategy *read_strategy) : m_read_strategy(read_strategy) {}
@@ -36,7 +36,7 @@ public:
     //! set concrete reading strategy
     void setStrategy(IOutputDataReadStrategy *read_strategy) { delete m_read_strategy; m_read_strategy = read_strategy; }
 
-private:
+ private:
 //    //! read output data from file
 //    OutputData<double > *getOutputData(const std::string &file_name);
 

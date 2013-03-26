@@ -23,7 +23,7 @@
 
 class IOutputDataNormalizer : public IParameterized
 {
-public:
+ public:
     virtual ~IOutputDataNormalizer() {}
     virtual IOutputDataNormalizer*clone() const=0;
 
@@ -37,7 +37,7 @@ public:
 
 class OutputDataNormalizer : public IOutputDataNormalizer
 {
-public:
+ public:
     OutputDataNormalizer(double scale=1.0, double shift=0.0);
     virtual ~OutputDataNormalizer() {}
 
@@ -48,7 +48,7 @@ public:
     virtual void setMaximumIntensity(double max_intensity) {
         m_max_intensity = max_intensity; }
 
-protected:
+ protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
@@ -61,7 +61,7 @@ protected:
 
 class OutputDataSimpleNormalizer : public OutputDataNormalizer
 {
-public:
+ public:
     OutputDataSimpleNormalizer(double scale=1.0, double shift=0.0)
     : OutputDataNormalizer(scale, shift) { m_max_intensity = 1.0; }
 

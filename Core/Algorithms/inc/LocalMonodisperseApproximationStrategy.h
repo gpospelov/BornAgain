@@ -22,7 +22,7 @@
 
 class LocalMonodisperseApproximationStrategy : public IInterferenceFunctionStrategy
 {
-public:
+ public:
     LocalMonodisperseApproximationStrategy(SimulationParameters sim_params);
     virtual ~LocalMonodisperseApproximationStrategy() {}
 
@@ -30,7 +30,7 @@ public:
             const SafePointerVector<IInterferenceFunction> &ifs);
     virtual double evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
             double alpha_i, double alpha_f) const;
-private:
+ private:
     bool checkVectorSizes();
 };
 

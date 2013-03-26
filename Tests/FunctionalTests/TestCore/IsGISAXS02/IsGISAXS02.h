@@ -15,7 +15,7 @@ public :
     void run();
     int analyseResults();
     const OutputData<double> *getOutputData() { return m_result; }
-private:
+ private:
     std::string m_name;
     std::string m_description;
     OutputData<double> *m_result;

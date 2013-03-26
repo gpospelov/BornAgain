@@ -27,7 +27,7 @@ class ParameterPool;
 
 class FitSuiteParameters
 {
-public:
+ public:
     typedef SafePointerVector<FitParameter > parameters_t;
     typedef parameters_t::iterator iterator;
     typedef parameters_t::const_iterator const_iterator;
@@ -81,7 +81,7 @@ public:
 
     void printParameters() const;
 
-private:
+ private:
     inline size_t check_index(size_t index) const { return (index < m_parameters.size() ? index : throw  OutOfBoundsException("FitSuiteParameters::check_index() -> Index out of bounds") ); }
     parameters_t m_parameters; //! collection of fit parameters
 };

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/inc/Utils.h
-//! @brief     Various stuff in namespace Utils.
+//! @brief     Defines various stuff in namespace Utils.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,34 +22,31 @@
 
 namespace Utils {
 
-//- -------------------------------------------------------------------
-//! @class String
-//! @brief Collection of utilities for std::string
-//- -------------------------------------------------------------------
+//! Collection of utilities for std::string.
+
 class String
 {
-public:
-    //! parse double values from string to vector of double
+ public:
+    //! Parse double values from string to vector of double.
     static vdouble1d_t parse_doubles(const std::string &str);
 
     //! assuming that string consist of doubles return new string where doubles are rounded according to the precision
     static std::string round_doubles(const std::string &str, int precision);
 
-    //! return true if text matches pattern with wildcards '*' and '?'
-    static bool MatchPattern(const std::string &text, std::string wildcardPattern);
+    //! Return true if text matches pattern with wildcards '*' and '?'.
+    static bool MatchPattern(const std::string &text,
+                             std::string wildcardPattern);
 
-    //! split string into vector of string using delimeter
-    static std::vector<std::string> Split(const std::string &text, const std::string &delimeter);
+    //! Split string into vector of string using delimeter.
+    static std::vector<std::string> Split(const std::string &text,
+                                          const std::string &delimeter);
 };
 
+//! Control how often a string is used.
 
-//- -------------------------------------------------------------------
-//! @class StringUsageMap
-//! @brief Definition of StringUsageMap to control how often string is used
-//- -------------------------------------------------------------------
 class StringUsageMap
 {
-public:
+ public:
     typedef std::map<std::string, int> nstringmap_t;
     typedef nstringmap_t::iterator iterator_t;
 
@@ -78,19 +75,16 @@ public:
     //! get current string
     std::string get_current() const { return m_current_string; }
 
-private:
+ private:
     std::string m_current_string;
     nstringmap_t m_nstringmap;
 };
 
+//! Utilities to deal with file system.
 
-//- -------------------------------------------------------------------
-//! @class FileSystem
-//! @brief different utilities to deal with file system
-//- -------------------------------------------------------------------
 class FileSystem
 {
-public:
+ public:
     //! return path to the current (working) directory
     static std::string GetWorkingPath();
 
@@ -108,14 +102,12 @@ public:
 
     //! return file extension after stripping '.gz' if any
     static std::string GetFileMainExtension(const std::string &name);
-private:
+ private:
     static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module
 };
 
+//! Adjust length of the string, padding with blanks.
 
-//- -------------------------------------------------------------------
-//! @brief adjust length of the string
-//- -------------------------------------------------------------------
 inline std::string AdjustStringLength(std::string name, int length)
 {
     std::string newstring = name;
@@ -123,14 +115,12 @@ inline std::string AdjustStringLength(std::string name, int length)
     return newstring;
 }
 
+// Unordered map (wrap boost::unordered_map).
 
-/* ************************************************************************* */
-// unordered map of values
-/* ************************************************************************* */
 template<class Key, class Object >
 class UnorderedMap
 {
-public:
+ public:
     typedef boost::unordered_map<Key, Object > container_t;
     typedef typename container_t::iterator iterator;
     typedef typename container_t::const_iterator const_iterator;
@@ -148,14 +138,15 @@ public:
         if(pos != m_value_map.end() ) {
             return (*pos).second;
         } else {
-            throw RuntimeErrorException("UnorderedMap::find() -> Error! Can't find the object");
+            throw RuntimeErrorException(
+                "UnorderedMap::find() -> Error! Can't find the object");
         }
     }
 
     size_t size() { return m_value_map.size(); }
     Object & operator[] (const Key &key) { return m_value_map[key]; }
 
-private:
+ private:
     UnorderedMap &operator=(const UnorderedMap &);
 
     container_t m_value_map;

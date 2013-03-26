@@ -23,7 +23,7 @@
 
 class StochasticSampledParameter : public StochasticParameter<double>
 {
-public:
+ public:
     //! constructor with nbins, xmin, xmax
     StochasticSampledParameter(const StochasticParameter<double> &par, size_t nbins, double xmin, double xmax);
     //! constructor with nbin and nfwhm to derive xmin and xmax
@@ -57,7 +57,7 @@ public:
     //! clone method
     virtual StochasticSampledParameter *clone() const;
 
-private:
+ private:
     StochasticParameter<double > *m_stochastic_parameter;
     size_t m_nbins;
     double m_xmin;

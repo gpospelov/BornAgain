@@ -21,7 +21,7 @@
 
 class IIntensityFunction
 {
-public:
+ public:
     virtual ~IIntensityFunction() {}
     virtual IIntensityFunction *clone() const=0;
 
@@ -30,7 +30,7 @@ public:
 
 class IntensityFunctionLog : public IIntensityFunction
 {
-public:
+ public:
     virtual ~IntensityFunctionLog() {}
     virtual IntensityFunctionLog *clone() const {
         return new IntensityFunctionLog(); }
@@ -40,7 +40,7 @@ public:
 
 class IntensityFunctionSqrt : public IIntensityFunction
 {
-public:
+ public:
     virtual ~IntensityFunctionSqrt() {}
     virtual IntensityFunctionSqrt *clone() const {
         return new IntensityFunctionSqrt(); }

@@ -23,21 +23,21 @@
 
 class FormFactorLorentz : public IFormFactorBorn
 {
-public:
+ public:
     FormFactorLorentz(double volume);
     FormFactorLorentz(double height, double width);
-    ~FormFactorLorentz();
+    ~FormFactorLorentz() {}
     virtual FormFactorLorentz *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
-protected:
+ protected:
     //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-private:
+ private:
     double m_height;
     double m_width;
 };

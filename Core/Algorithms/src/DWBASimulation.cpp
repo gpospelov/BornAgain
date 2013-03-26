@@ -15,17 +15,6 @@
 
 #include "DWBASimulation.h"
 
-DWBASimulation::DWBASimulation()
-: m_alpha_i(0)
-, m_thread_info()
-, mp_simulation(0)
-{
-}
-
-DWBASimulation::~DWBASimulation()
-{
-    delete mp_simulation;
-}
 
 void DWBASimulation::init(const Simulation& simulation)
 {
@@ -69,7 +58,8 @@ DWBASimulation::iterator DWBASimulation::begin()
     }
     iterator result(m_dwba_intensity.begin());
     if (m_thread_info.n_threads>1) {
-        MaskIndexModulus thread_mask(m_thread_info.n_threads, m_thread_info.i_thread);
+        MaskIndexModulus thread_mask(
+            m_thread_info.n_threads, m_thread_info.i_thread);
         result.addMask(thread_mask);
     }
     return result;
@@ -94,5 +84,5 @@ DWBASimulation::const_iterator DWBASimulation::begin() const
 double DWBASimulation::getWaveLength() const
 {
     kvector_t real_ki(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
-    return 2.0*M_PI/real_ki.mag();
+    return 2*M_PI/real_ki.mag();
 }

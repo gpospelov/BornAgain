@@ -23,7 +23,7 @@
 //! Wrapper to real parameter for remote access to its value and callback abilities
 
 class RealParameterWrapper {
-public:
+ public:
     explicit RealParameterWrapper(double *par) : m_data(par) {}
     // explicit RealParameterWrapper(double *par) : m_data(par), m_signal() {}
     RealParameterWrapper(const RealParameterWrapper &other );
@@ -51,7 +51,7 @@ public:
 
     //! print the parameter's address to an output stream
     friend std::ostream &operator<<(std::ostream &ostr, const RealParameterWrapper &p) { ostr << p.m_data; return ostr; }
-private:
+ private:
     //! swap function
     void swapContent(RealParameterWrapper &other);
 

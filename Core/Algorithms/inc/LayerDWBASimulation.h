@@ -23,7 +23,7 @@
 
 class LayerDWBASimulation : public DWBASimulation
 {
-public:
+ public:
    LayerDWBASimulation();
    virtual ~LayerDWBASimulation();
 
@@ -33,7 +33,7 @@ public:
    void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap &rt_map);
    void setKzAndRTFunctions(const IDoubleToComplexMap &kz_function, const IDoubleToPairOfComplexMap &rt_map);
 
-protected:
+ protected:
    Bin1DCVector getKfBin(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin) const;
    IDoubleToComplexMap *mp_kz_function;
    IDoubleToPairOfComplexMap *mp_RT_function;

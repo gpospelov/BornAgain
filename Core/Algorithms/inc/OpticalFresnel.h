@@ -21,14 +21,14 @@
 #include "ISimulation.h"
 #include "MultiLayer.h"
 
-//! Optical fresnel coefficients.
+//! Optical Fresnel coefficients.
 
 class OpticalFresnel : public ISimulation
 {
-public:
+ public:
     OpticalFresnel();
 
-    //! reflection/transmission fresnel coefficients
+    //! reflection/transmission Fresnel coefficients
     class FresnelCoeff {
     public:
         FresnelCoeff() : kz(0), r(0), t(0), rb(0), tb(0), X(0), R(0), T(0) {}
@@ -47,7 +47,7 @@ public:
         bool operator==(FresnelCoeff const &other) const;
     };
 
-    //! collection of fresnel coefficients for multi layer
+    //! collection of Fresnel coefficients for multi layer
     class MultiLayerCoeff
     {
     public:
@@ -63,10 +63,10 @@ public:
     //typedef std::vector<FresnelCoeff > MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
     typedef MultiLayerCoeff MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
 
-    //! calculate fresnel coefficients for given multi layer and kvector
+    //! calculate Fresnel coefficients for given multi layer and kvector
     void execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
 
-private:
+ private:
     bool m_use_roughness;
 
     void calculateKZ(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff) const;

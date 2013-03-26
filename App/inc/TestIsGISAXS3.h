@@ -25,13 +25,13 @@
 
 class TestIsGISAXS3 : public IFunctionalTest
 {
-  public:
+ public:
     TestIsGISAXS3();
     virtual ~TestIsGISAXS3(){}
     virtual void execute();
     virtual void finalise();
 
-  private:
+ private:
     // structure to hold info over several compare cases
     struct CompareStruct
     {

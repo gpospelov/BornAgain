@@ -27,7 +27,7 @@
 
 class IClusteredParticles : public ICompositeSample
 {
-public:
+ public:
     IClusteredParticles() {}
     virtual ~IClusteredParticles() {}
     //! clone method to allow for polymorphic copying

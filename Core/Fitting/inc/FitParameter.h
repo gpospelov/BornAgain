@@ -25,7 +25,7 @@
 
 class FitParameter : public INamed, public AttLimits
 {
-public:
+ public:
     FitParameter();
     FitParameter(const AttLimits &limits);
     FitParameter(const std::string &name, double value, double step=0.0, const AttLimits &limits=AttLimits::limitless(), double error=0.0);
@@ -49,7 +49,7 @@ public:
     //! print class
     friend std::ostream &operator<<(std::ostream &ostr, const FitParameter &m) { m.print(ostr); return ostr; }
 
-protected:
+ protected:
     //! print class
     void print(std::ostream &ostr) const;
 

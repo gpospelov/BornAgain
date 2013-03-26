@@ -23,7 +23,7 @@
 
 class FormFactorDWBA: public IFormFactorDecorator
 {
-public:
+ public:
     FormFactorDWBA(IFormFactor* p_form_factor);
     virtual ~FormFactorDWBA();
 
@@ -37,7 +37,7 @@ public:
 
     virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 
-protected:
+ protected:
     const complexpair_t &getRT(double alpha) const;
     void calculateTerms(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
 

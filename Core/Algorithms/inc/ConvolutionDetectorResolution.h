@@ -19,14 +19,14 @@
 #include "IDetectorResolution.h"
 #include "IResolutionFunction2D.h"
 
-//! Applies a 1 or 2 dimensional convolution of the intensity with a resolution function
+//! Convolutes the intensity in 1 or 2 dimensions with a resolution function.
 
 //! Limitation: this class assumes that the data points are evenly
 //! distributed on each axis
 
 class ConvolutionDetectorResolution : public IDetectorResolution
 {
-public:
+ public:
     typedef double (*cumulative_DF_1d)(double);
     //! Constructor taking a 1 dimensional resolution function as argument
     ConvolutionDetectorResolution(cumulative_DF_1d res_function_1d);
@@ -35,22 +35,24 @@ public:
     //! Destructor
     virtual ~ConvolutionDetectorResolution();
 
-    //! Apply the encapsulated resolution function to the given intensity map by using a convolution
-    virtual void applyDetectorResolution(OutputData<double> *p_intensity_map) const;
+    //! Convolve given intensities with the encapsulated resolution.
+    virtual void applyDetectorResolution(
+        OutputData<double> *p_intensity_map) const;
 
     //! add parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
+    virtual std::string addParametersToExternalPool(
+        std::string path, ParameterPool *external_pool,
+        int copy_number=-1) const;
 
     //! clone object
     virtual ConvolutionDetectorResolution *clone() const;
 
-protected:
+ protected:
     ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other);
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
     virtual void init_parameters();
 
-private:
+ private:
 //    //! hiding copy constructor and disabling assignment operator
 //    ConvolutionDetectorResolution &operator=(const ConvolutionDetectorResolution &);
 

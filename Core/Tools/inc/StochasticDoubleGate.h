@@ -23,7 +23,7 @@
 
 class StochasticDoubleGate : public StochasticParameter<double>
 {
-public:
+ public:
     StochasticDoubleGate(double min, double max);
     ~StochasticDoubleGate() {}
     virtual StochasticDoubleGate *clone() const {
@@ -40,7 +40,7 @@ public:
 
     virtual double getFWHM() const { return m_max-m_min; }
 
-private:
+ private:
     double m_min, m_max;
 };
 

@@ -27,7 +27,7 @@ namespace ROOT {
 
 class FitTransformFunction : public FitMethodFunction {
 
-public:
+ public:
 
    FitTransformFunction(const FitMethodFunction & f, const std::vector<Math::EMinimVariableType> & types, const std::vector<double> & values,
                               const std::map<unsigned int, std::pair<double, double> > & bounds) :
@@ -88,7 +88,7 @@ public:
 
    void MatrixTransformation(const double * x, const double *cint, double * cext) const { fTransform->MatrixTransformation(x,cint,cext); }
 
-private:
+ private:
 
    double DoEval(const double * x) const {
       return fFunc( fTransform->Transformation(x) );

@@ -36,12 +36,6 @@ FormFactorLorentz::FormFactorLorentz(double height, double width)
     init_parameters();
 }
 
-FormFactorLorentz::~FormFactorLorentz()
-{
-}
-
-//! initialize pool parameters, i.e. register some of class members for later access via parameter pool.
-
 void FormFactorLorentz::init_parameters()
 {
     getParameterPool()->clear();

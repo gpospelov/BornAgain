@@ -20,7 +20,7 @@
 
 class IChangeable
 {
-public:
+ public:
     IChangeable(bool is_changed=false) : m_is_changed(is_changed){}
     virtual ~IChangeable(){}
 
@@ -33,7 +33,7 @@ public:
 
     void setIsChanged(bool is_changed) { m_is_changed = is_changed; }
 
-private:
+ private:
     bool m_is_changed;
 };
 

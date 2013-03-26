@@ -26,7 +26,7 @@
 
 class IInterferenceFunctionStrategy
 {
-public:
+ public:
     IInterferenceFunctionStrategy(SimulationParameters sim_params)
         : m_sim_params(sim_params) {};
     virtual ~IInterferenceFunctionStrategy() {}
@@ -35,7 +35,7 @@ public:
                       const SafePointerVector<IInterferenceFunction>& ifs);
     virtual double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             double alpha_i, double alpha_f) const=0;
-protected:
+ protected:
     //! calculate mean form factor, possibly including their position information
     complex_t meanFormFactor(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             double alpha_i, double alpha_f, bool use_position=false) const;

@@ -3,7 +3,8 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/src/OutputDataReadStrategy.cpp
-//! @brief     Implements class OutputDataReadStrategy.
+//! @brief     Implements read functions for classes OutputDataReadStreamGZip,
+//!              OutputDataReadStreamIMA, OutputDataReadStreamV1.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,7 +17,6 @@
 #include "OutputDataReadStrategy.h"
 #include "Types.h"
 #include "Exceptions.h"
-#include "ExperimentConstants.h"
 #include "Utils.h"
 
 #include <iostream>
@@ -38,43 +38,42 @@ GCC_DIAG_OFF(unused-parameter);
 #include <string>
 GCC_DIAG_ON(unused-parameter);
 
+//! Decorator to unzip stream.
 
-/* ************************************************************************* */
-// decorator to unzip stream
-/* ************************************************************************* */
-OutputData<double > *OutputDataReadStreamGZip::readOutputData(std::istream &input_stream)
+OutputData<double> *OutputDataReadStreamGZip::readOutputData(
+    std::istream &input_stream)
 {
-    boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
+    boost::iostreams::filtering_streambuf<boost::iostreams::input>
+        input_filtered;
     input_filtered.push(boost::iostreams::gzip_decompressor());
     input_filtered.push(input_stream);
     std::istream incoming(&input_filtered);
     return m_read_strategy->readOutputData(incoming);
 }
 
-/* ************************************************************************* */
-// read data from ASCII file (2D assumed) and fill newly created OutputData with it
-/* ************************************************************************* */
-OutputData<double > *OutputDataReadStreamIMA::readOutputData(std::istream &input_stream)
+//! Read data from ASCII file (2D assumed) into newly created OutputData.
+
+OutputData<double> *OutputDataReadStreamIMA::readOutputData(
+    std::istream &input_stream)
 {
     std::string sline;
     vdouble2d_t buff_2d;
-    // reading file line by line, every line is parsed into vector of double, so at the end we have buffer_2d of doubles
-
+    // read file line by line, every line is parsed into vector of double,
+    // so at the end we have buffer_2d of doubles
     while( std::getline(input_stream, sline))
     {
         std::string str = Utils::String::round_doubles(sline, 10);
         vdouble1d_t buff = Utils::String::parse_doubles(str);
-
         buff_2d.push_back(buff);
     }
 
-    // creating new OutputData and filling it with values from buffer_2d
+    // create new OutputData and filling it with values from buffer_2d
     int y_size = (int)buff_2d.size();
     int x_size = buff_2d.size() ? (int)buff_2d[0].size() : 0;
     OutputData<double> *p_result = new OutputData<double>;
-    p_result->addAxis(NDetector2d::PHI_AXIS_NAME, x_size, 0.0, double(x_size));
-    p_result->addAxis(NDetector2d::ALPHA_AXIS_NAME, y_size, 0.0, double(y_size));
-    p_result->setAllTo(0.0);
+    p_result->addAxis("phi_f", x_size, 0., double(x_size));
+    p_result->addAxis("alpha_f", y_size, 0., double(y_size));
+    p_result->setAllTo(0.);
 
     OutputData<double>::iterator it = p_result->begin();
     while (it != p_result->end())
@@ -88,17 +87,18 @@ OutputData<double > *OutputDataReadStreamIMA::readOutputData(std::istream &input
     return p_result;
 }
 
-/* ************************************************************************* */
-// parsing stream of double's into OutputData object
-// '#' - comments (not treated)
-// ' ' - delimeter between double's
-// Each line is 1D array (or 1D slice of 2D array
-// Expected:
-// line representing x bins [nX]
-// line representing y bins [nY]
-// [nX] lines of [nY] size representing data itself
-/* ************************************************************************* */
-OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_stream)
+//! Parse stream of double's into OutputData object.
+
+//! '#' - comments (not treated)
+//! ' ' - delimeter between double's
+//! Each line is 1D array (or 1D slice of 2D array
+//! Expected:
+//! line representing x bins [nX]
+//! line representing y bins [nY]
+//! [nX] lines of [nY] size representing data itself
+//!
+OutputData<double> *OutputDataReadStreamV1::readOutputData(
+    std::istream &input_stream)
 {
     std::string sline;
     vdouble1d_t buff_xaxis, buff_yaxis;
@@ -121,25 +121,28 @@ OutputData<double > *OutputDataReadStreamV1::readOutputData(std::istream &input_
 
     // check consistency of y dimension and data buffer
     if( buff_data.size() != buff_yaxis.size()) {
-        throw LogicErrorException("OutputDataReadASCII::readOutputData() -> Error. Unconsistent y-size.");
+        throw LogicErrorException("OutputDataReadASCII::readOutputData() -> "
+                                  "Error. Unconsistent y-size.");
     }
     // check consistency of x dimension and data buffer
     for(size_t i = 0; i<buff_yaxis.size(); ++i) {
         if( buff_data[i].size() != buff_xaxis.size()) {
-            throw LogicErrorException("OutputDataReadASCII::readOutputData() -> Error. Unconsistent x-size.");
+            throw LogicErrorException(
+                "OutputDataReadASCII::readOutputData() -> "
+                "Error. Unconsistent x-size.");
         }
     }
 
-    // creating output data
-    AxisDouble xaxis(NDetector2d::PHI_AXIS_NAME);
+    // create output data
+    AxisDouble xaxis("phi_f");
     for(size_t i=0; i<buff_xaxis.size(); ++i) xaxis.push_back(buff_xaxis[i]);
-    AxisDouble yaxis(NDetector2d::ALPHA_AXIS_NAME);
+    AxisDouble yaxis("alpha_f");
     for(size_t i=0; i<buff_yaxis.size(); ++i) yaxis.push_back(buff_yaxis[i]);
 
     OutputData<double > *p_result = new OutputData<double>;
     p_result->addAxis(xaxis);
     p_result->addAxis(yaxis);
-    p_result->setAllTo(0.0);
+    p_result->setAllTo(0.);
     OutputData<double>::iterator it = p_result->begin();
     while (it != p_result->end())
     {

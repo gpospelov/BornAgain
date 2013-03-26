@@ -27,10 +27,6 @@ FormFactorCylinder::FormFactorCylinder(double height, double radius)
     init_parameters();
 }
 
-FormFactorCylinder::~FormFactorCylinder()
-{
-}
-
 //! register some class members for later access via parameter pool
 
 void FormFactorCylinder::init_parameters()
@@ -51,10 +47,13 @@ complex_t FormFactorCylinder::evaluate_for_q(const cvector_t &q) const
     double H = m_height;
 
     complex_t qzH_half = q.z()*H/2.0;
-    complex_t z_part = H*MathFunctions::Sinc(qzH_half)*std::exp(complex_t(0.0, 1.0)*qzH_half);
+    complex_t z_part = H*MathFunctions::Sinc(qzH_half) *
+        std::exp(complex_t(0.0, 1.0)*qzH_half);
 
     complex_t qrR = q.magxy()*R;
-    complex_t J1_qrR_div_qrR = std::abs(qrR) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(std::abs(qrR))/qrR : 0.5;
+    complex_t J1_qrR_div_qrR = std::abs(qrR) > Numeric::double_epsilon ?
+        MathFunctions::Bessel_J1(std::abs(qrR))/qrR :
+        0.5;
     complex_t radial_part = 2*M_PI*R*R*J1_qrR_div_qrR;
 
     return radial_part*z_part;

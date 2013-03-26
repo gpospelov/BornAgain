@@ -89,7 +89,7 @@ namespace ROOT {
 */
 class GSLSimAnMinimizer : public  ROOT::Math::Minimizer {
 
-public:
+ public:
 
    /**
       Default constructor
@@ -101,7 +101,7 @@ public:
    */
    ~GSLSimAnMinimizer ();
 
-private:
+ private:
    // usually copying is non trivial, so we make this unaccessible
 
    /**
@@ -117,7 +117,7 @@ private:
       return *this;
    }
 
-public:
+ public:
 
    /// set the function to minimize
    virtual void SetFunction(const ROOT::Math::IMultiGenFunction & func);
@@ -190,9 +190,9 @@ public:
 
    //void SetAnnealingParameters(const GSLSimAnParams &newpars) { fSolver.Params()
 
-protected:
+ protected:
 
-private:
+ private:
 
    unsigned int fDim;     // dimension of the function to be minimized
    bool fOwnFunc;        // flag to indicate if objective function is managed

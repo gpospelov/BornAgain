@@ -26,7 +26,7 @@ class ProgramOptions;
 
 class Simulation : public IParameterized, public ICloneable
 {
-public:
+ public:
     Simulation();
     Simulation(const ProgramOptions *p_options);
     Simulation(const ISample &p_sample, const ProgramOptions *p_options=0);
@@ -105,7 +105,7 @@ public:
 
     //! apply smearing of intensity due to tilting of z-axis (DEPRECATED)
     void smearIntensityFromZAxisTilting();
-protected:
+ protected:
     Simulation(const Simulation &other);
 
     //! egister some class members for later access via parameter pool

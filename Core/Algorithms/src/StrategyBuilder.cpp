@@ -125,7 +125,7 @@ double LayerDecoratorStrategyBuilder::getWavelength()
 {
     cvector_t ki = mp_simulation->getInstrument().getBeam().getCentralK();
     kvector_t ki_real(ki.x().real(), ki.y().real(), ki.z().real());
-    return 2.0*M_PI/ki_real.mag();
+    return 2*M_PI/ki_real.mag();
 }
 
 FormFactorInfo *LayerDecoratorStrategyBuilder::createFormFactorInfo(

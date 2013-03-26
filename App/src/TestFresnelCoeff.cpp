@@ -48,21 +48,21 @@ TestFresnelCoeff::TestFresnelCoeff()
 }
 
 /* ************************************************************************* */
-//! test fresnel coefficients
+//! test Fresnel coefficients
 /* ************************************************************************* */
 void TestFresnelCoeff::execute()
 {
     std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
 
-    // calculate fresnel coefficients for several standard multi-layer samples
+    // calculate Fresnel coefficients for several standard multi-layer samples
     test_standard_samples();
 
-    // calculate fresnel coefficients for multi-layer with different roughnesses
+    // calculate Fresnel coefficients for multi-layer with different roughnesses
     test_roughness_set();
 }
 
 /* ************************************************************************* */
-//! calculate fresnel coefficients .vs. alpha_i for several standard samples
+//! calculate Fresnel coefficients .vs. alpha_i for several standard samples
 /* ************************************************************************* */
 void TestFresnelCoeff::test_standard_samples()
 {
@@ -87,8 +87,8 @@ void TestFresnelCoeff::test_standard_samples()
             kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 
             OpticalFresnel::MultiLayerCoeff_t coeffs;
-            OpticalFresnel fresnelCalculator;
-            fresnelCalculator.execute(*mp_sample, kvec, coeffs);
+            OpticalFresnel FresnelCalculator;
+            FresnelCalculator.execute(*mp_sample, kvec, coeffs);
 
             *it = coeffs;
             ++it;
@@ -155,7 +155,7 @@ void TestFresnelCoeff::draw_standard_samples()
     // create name of canvas different for each new call of this method
     std::ostringstream os;
     os << (ncall++) << std::endl;
-    std::string cname = std::string("c1_test_fresnel_sample")+os.str();
+    std::string cname = std::string("c1_test_Fresnel_sample")+os.str();
     TCanvas *c1 = new TCanvas(cname.c_str(),"Fresnel Coefficients in Multilayer",1024,768);
     DrawHelper::SetMagnifier(c1);
 
@@ -225,7 +225,7 @@ void TestFresnelCoeff::draw_standard_samples()
 }
 
 /* ************************************************************************* */
-//! calculate fresnel coefficients .vs. alpha_i for set of roughnesses
+//! calculate Fresnel coefficients .vs. alpha_i for set of roughnesses
 /* ************************************************************************* */
 void TestFresnelCoeff::test_roughness_set()
 {
@@ -255,8 +255,8 @@ void TestFresnelCoeff::test_roughness_set()
         kvector_t kvec;
         kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
-        OpticalFresnel fresnelCalculator;
-        fresnelCalculator.execute(*mp_sample, kvec, coeffs);
+        OpticalFresnel FresnelCalculator;
+        FresnelCalculator.execute(*mp_sample, kvec, coeffs);
         *it = coeffs;
         ++it;
     }
@@ -312,7 +312,7 @@ void TestFresnelCoeff::draw_roughness_set()
     // create name of canvas different for each new call of this method
     std::ostringstream os;
     os << (ncall++) << std::endl;
-    std::string cname = std::string("c1_test_fresnel_roughness")+os.str();
+    std::string cname = std::string("c1_test_Fresnel_roughness")+os.str();
     TCanvas *c1 = new TCanvas(cname.c_str(),"Fresnel Coefficients in Multilayer",1024,768);
     DrawHelper::SetMagnifier(c1);
 

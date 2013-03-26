@@ -20,7 +20,7 @@
 
 class IFittingDataSelector
 {
-public:
+ public:
     virtual ~IFittingDataSelector() {}
     virtual IFittingDataSelector *clone() const=0;
 
@@ -31,7 +31,7 @@ public:
 
 class DefaultAllDataSelector : public IFittingDataSelector
 {
-public:
+ public:
     DefaultAllDataSelector() {}
     virtual ~DefaultAllDataSelector() {}
     virtual DefaultAllDataSelector *clone() const {

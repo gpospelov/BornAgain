@@ -22,7 +22,7 @@
 
 class InterferenceFunctionNone : public IInterferenceFunction
 {
-public:
+ public:
     InterferenceFunctionNone() { setName("InterferenceFunctionNone"); }
 	virtual ~InterferenceFunctionNone() {}
 	virtual InterferenceFunctionNone *clone() const { return new InterferenceFunctionNone(); }

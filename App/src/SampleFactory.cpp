@@ -25,7 +25,7 @@ SampleFactory::SampleFactory()
 {
     setOwnObjects(true); //factory will take care about samples
 
-    // samples used for fresnel coefficients validation
+    // samples used for Fresnel coefficients validation
     registerItem("AirOnSubstrate", StandardSamples::AirOnSubstrate);
     registerItem("SubstrateOnSubstrate", StandardSamples::SubstrateOnSubstrate);
     registerItem("SimpleMultilayer", StandardSamples::SimpleMultilayer);

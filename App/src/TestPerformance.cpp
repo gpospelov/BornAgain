@@ -174,9 +174,9 @@ void PerfTest_FresnelCoeff::execute()
     kvector_t kvec;
     kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
     OpticalFresnel::MultiLayerCoeff_t coeffs;
-    OpticalFresnel fresnelCalculator;
+    OpticalFresnel FresnelCalculator;
     MultiLayer *ml = dynamic_cast<MultiLayer *>(m_sample);
-    fresnelCalculator.execute(*ml, kvec, coeffs);
+    FresnelCalculator.execute(*ml, kvec, coeffs);
 }
 
 //! Start PerfTest_Pyramid.

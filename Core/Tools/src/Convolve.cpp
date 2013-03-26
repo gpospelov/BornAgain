@@ -141,7 +141,7 @@ void MathFunctions::Convolve::fftconvolve(const double1d_t &source, const double
 
 
 /* ************************************************************************* */
-// initialise input and output arrays for fast fourier transformation
+// initialise input and output arrays for fast Fourier transformation
 /* ************************************************************************* */
 void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_kernel)
 {
@@ -263,7 +263,7 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
 
 
 /* ************************************************************************* */
-// initialise input and output arrays for fast fourier transformation
+// initialise input and output arrays for fast Fourier transformation
 /* ************************************************************************* */
 void MathFunctions::Convolve::fftw_circular_convolution(const double2d_t &src, const double2d_t &kernel)
 {

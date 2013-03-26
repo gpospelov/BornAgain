@@ -23,7 +23,7 @@
 
 class IsGISAXSMorphologyFileStrategy : public IInterferenceFunctionStrategy
 {
-public:
+ public:
     IsGISAXSMorphologyFileStrategy(SimulationParameters sim_params);
     virtual ~IsGISAXSMorphologyFileStrategy() {}
 
@@ -31,7 +31,7 @@ public:
             const SafePointerVector<IInterferenceFunction> &ifs);
     virtual double evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin,
             double alpha_i, double alpha_f) const;
-private:
+ private:
     void initPositions();
     bool checkVectorSizes();
     std::vector<double> m_x_positions;

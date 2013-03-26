@@ -33,7 +33,7 @@ class FitSuite;
 
 class IFitSuiteStrategy : public INamed
 {
-public:
+ public:
     // TODO refactor all strategies (decorator, policies?) to change the way of calling FitSuite's minimizer: simple call, clear parameters/matrices before the call, no call at all, see FitSuiteStrategyAdjustData
 
     IFitSuiteStrategy() : m_fit_suite(0) {}
@@ -42,7 +42,7 @@ public:
     virtual ~IFitSuiteStrategy(){}
     virtual void init(FitSuite *fit_suite) { m_fit_suite = fit_suite; }
     virtual void execute() = 0;
-protected:
+ protected:
     FitSuite *m_fit_suite;
 };
 
@@ -50,7 +50,7 @@ protected:
 
 class FitSuiteStrategyDefault : public IFitSuiteStrategy
 {
-public:
+ public:
     FitSuiteStrategyDefault() : IFitSuiteStrategy("FitSuiteStrategyDefault") { }
     virtual void execute();
 };
@@ -59,12 +59,12 @@ public:
 
 class FitSuiteStrategyAdjustData : public IFitSuiteStrategy
 {
-public:
+ public:
     FitSuiteStrategyAdjustData(int power_of_two = 1, bool preserve_original=true, bool call_minimize=true) : IFitSuiteStrategy("FitSuiteStrategyAdjustData"), m_power_of_two(power_of_two), m_preserve_original_data(preserve_original), m_call_minimize(call_minimize) { }
     void setPreserveOriginalData(bool preserve_original) { m_preserve_original_data = preserve_original; }
     void setCallMinimize(bool call_minimize) { m_call_minimize = call_minimize; }
     virtual void execute();
-private:
+ private:
     size_t m_power_of_two;
     bool m_preserve_original_data; //! if it is true, strategy will restore original data in FitSuite before exiting
     bool m_call_minimize; //! if it's true, modify data and then call FitSuite's minimizer, if false - simply modify the data
@@ -74,7 +74,7 @@ private:
 
 class FitSuiteStrategyAdjustParameters : public IFitSuiteStrategy
 {
-public:
+ public:
     FitSuiteStrategyAdjustParameters(const std::string &name) : IFitSuiteStrategy(name), m_fix_all(false), m_release_all(false), m_preserve_original_values(false) { }
     FitSuiteStrategyAdjustParameters() : IFitSuiteStrategy("FitSuiteStrategyAdjustParameters"), m_fix_all(false), m_release_all(false), m_preserve_original_values(false)  { }
     virtual ~FitSuiteStrategyAdjustParameters(){}
@@ -84,7 +84,7 @@ public:
     FitSuiteStrategyAdjustParameters &fix(std::string parname ) { m_pars_to_fix.push_back(parname); return *this; }
     FitSuiteStrategyAdjustParameters &release(std::string parname ) { m_pars_to_release.push_back(parname); return *this; }
     void setPreserveOriginalValues(bool preserve_values) { m_preserve_original_values = preserve_values; }
-private:
+ private:
     bool m_fix_all;
     bool m_release_all;
     std::vector<std::string > m_pars_to_fix;
@@ -96,7 +96,7 @@ private:
 
 class FitSuiteStrategyBootstrap : public IFitSuiteStrategy
 {
-public:
+ public:
     FitSuiteStrategyBootstrap(int n_iterations = 5) : IFitSuiteStrategy("FitStrategyBootstrap"), m_n_iterations(n_iterations) { }
     virtual ~FitSuiteStrategyBootstrap(){}
     virtual void execute();
@@ -122,7 +122,7 @@ public:
     //! generate noisy data
     OutputData<double> *generateNoisyData(double noise_factor, const OutputData<double> &source) const;
 
-private:
+ private:
     int m_n_iterations;
 };
 

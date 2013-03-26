@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Algorithms/src/Mask.cpp
-//! @brief     Implements classes Mask and MaskCoordinate.
+//! @brief     Implements classes Mask, MaskIndexModulus, MaskCoordinates.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,10 +18,9 @@
 #include <iostream>
 #include <algorithm>
 
-Mask::Mask(Mask* p_submask)
-: m_own_index(0), m_max_index(0), mp_submask(p_submask)
-{
-}
+// ************************************************************************** //
+// implement class Mask
+// ************************************************************************** //
 
 Mask* Mask::clone() const
 {
@@ -91,6 +90,10 @@ size_t Mask::nextSubIndex(size_t total_index)
     return result;
 }
 
+// ************************************************************************** //
+// implement class MaskIndexModulus
+// ************************************************************************** //
+
 MaskIndexModulus* MaskIndexModulus::clone() const
 {
 
@@ -98,7 +101,8 @@ MaskIndexModulus* MaskIndexModulus::clone() const
     if (mp_submask) {
         p_new_submask = mp_submask->clone();
     }
-    MaskIndexModulus *p_new = new MaskIndexModulus(m_modulus, m_remainder, p_new_submask);
+    MaskIndexModulus *p_new =
+        new MaskIndexModulus(m_modulus, m_remainder, p_new_submask);
     p_new->m_own_index = m_own_index;
     p_new->setMaxIndex(m_max_index);
     return p_new;
@@ -109,6 +113,10 @@ bool MaskIndexModulus::isMasked(size_t total_index) const
     (void)total_index;
     return m_own_index % m_modulus != m_remainder;
 }
+
+// ************************************************************************** //
+// implement class MaskCoordinates
+// ************************************************************************** //
 
 MaskCoordinates::MaskCoordinates(size_t rank, const int* dims, Mask* p_submask)
 : Mask(p_submask)
@@ -149,7 +157,8 @@ MaskCoordinates* MaskCoordinates::clone() const
     return p_new;
 }
 
-void MaskCoordinates::setMaskCoordinateFunction(MaskCoordinateFunction* p_mask_function)
+void MaskCoordinates::setMaskCoordinateFunction(
+    MaskCoordinateFunction* p_mask_function)
 {
     if(mp_mask_function && mp_mask_function != p_mask_function) {
         delete mp_mask_function;

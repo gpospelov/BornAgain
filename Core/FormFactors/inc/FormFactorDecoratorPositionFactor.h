@@ -23,7 +23,7 @@
 
 class FormFactorDecoratorPositionFactor : public IFormFactorDecorator
 {
-public:
+ public:
     FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, kvector_t position);
     virtual ~FormFactorDecoratorPositionFactor() {}
     virtual FormFactorDecoratorPositionFactor *clone() const;
@@ -33,7 +33,7 @@ public:
     virtual int getNumberOfStochasticParameters() const {
         return mp_form_factor->getNumberOfStochasticParameters();
     }
-protected:
+ protected:
     kvector_t m_position;
 };
 

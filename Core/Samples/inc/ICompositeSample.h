@@ -21,11 +21,11 @@
 
 class ICompositeIterator;
 
-//! Compose ISample objects into tree structure
+//! Interface to equip ISample with a tree structure.
 
 class ICompositeSample : public ISample
 {
-public:
+ public:
     //! definition of container for registered children
     typedef std::list<ISample *> samples_t;
     typedef samples_t::iterator iterator_t;
@@ -58,7 +58,7 @@ public:
     //! create general iterator to walk through the tree of registered composite children
     ICompositeIterator createIterator();
 
-private:
+ private:
 //    ICompositeSample &operator=(const ICompositeSample &other);
 
     //! check index of child

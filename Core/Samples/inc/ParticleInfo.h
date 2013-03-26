@@ -24,7 +24,7 @@
 
 class ParticleInfo : public ICompositeSample
 {
-  public:
+ public:
     ParticleInfo(Particle *p_particle,
                  Geometry::Transform3D *transform=0,
                  double depth=0, double abundance=0);
@@ -59,7 +59,7 @@ class ParticleInfo : public ICompositeSample
     //! Set abundance.
     void setAbundance(double abundance) { m_abundance = abundance; }
 
-protected:
+ protected:
     //! register some class members for later access via parameter pool
     virtual void init_parameters();
 

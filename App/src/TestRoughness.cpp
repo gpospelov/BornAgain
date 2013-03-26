@@ -200,7 +200,7 @@ void TestRoughness::GetProfileXZ_MatrixMethod()
 
 /* ************************************************************************* */
 // Fast Fourier Transform method to obtain correlated sequence of random numbers.
-// fftw3 library is used for fourier analysis.
+// fftw3 library is used for Fourier analysis.
 //
 // Algorithm is described in:
 // The FFT Moving Average (FFT-MA) Generator:
@@ -225,7 +225,7 @@ void TestRoughness::GetProfileXZ_FFTMethod()
         cov[npx-1-i] = cov[i];
     }
 
-    // making fourier transform of covariance and z values
+    // making Fourier transform of covariance and z values
     std::vector<complex_t > ft_cov = MathFunctions::FastFourierTransform(cov, MathFunctions::ForwardFFT);
     std::vector<complex_t> ft_z = MathFunctions::FastFourierTransform(m_vzuncorr, MathFunctions::ForwardFFT);
 

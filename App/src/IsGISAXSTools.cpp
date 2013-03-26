@@ -17,7 +17,6 @@
 #include "Units.h"
 #include "Exceptions.h"
 #include "MathFunctions.h"
-#include "ExperimentConstants.h"
 #include "DrawHelper.h"
 
 #include "TCanvas.h"
@@ -481,16 +480,16 @@ TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double> &data)
 
     if(data.getNdimensions() != 2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanLine() -> Error! Number of dimensions should be 2");
     double x1(0), x2(0), y1(0), y2(0);
-    if( data.getAxis(NDetector2d::ALPHA_AXIS_NAME) && data.getAxis(NDetector2d::ALPHA_AXIS_NAME)->getSize() == 1) {
+    if( data.getAxis("alpha_f") && data.getAxis("alpha_f")->getSize() == 1) {
         // horizontal line
-        x1 = data.getAxis(NDetector2d::PHI_AXIS_NAME)->getMin();
-        x2 = data.getAxis(NDetector2d::PHI_AXIS_NAME)->getMax();
-        y1 = y2 = data.getAxis(NDetector2d::ALPHA_AXIS_NAME)->getMin();
-    }else if( data.getAxis(NDetector2d::PHI_AXIS_NAME) && data.getAxis(NDetector2d::PHI_AXIS_NAME)->getSize() == 1 ) {
+        x1 = data.getAxis("phi_f")->getMin();
+        x2 = data.getAxis("phi_f")->getMax();
+        y1 = y2 = data.getAxis("alpha_f")->getMin();
+    }else if( data.getAxis("phi_f") && data.getAxis("phi_f")->getSize() == 1 ) {
         // it's vertical line
-        x1 = x2 = data.getAxis(NDetector2d::PHI_AXIS_NAME)->getMin();
-        y1 = data.getAxis(NDetector2d::ALPHA_AXIS_NAME)->getMin();
-        y2 = data.getAxis(NDetector2d::ALPHA_AXIS_NAME)->getMax();
+        x1 = x2 = data.getAxis("phi_f")->getMin();
+        y1 = data.getAxis("alpha_f")->getMin();
+        y2 = data.getAxis("alpha_f")->getMax();
     } else {
         throw LogicErrorException("IsGISAXSTools::getOutputDataScanLine() -> Error! Can't handle these axes.");
     }
@@ -512,7 +511,7 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const
 
     if(data.getNdimensions() != 2) throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Number of dimensions should be 2");
     // one of axis should have dimension 1
-    if( (data.getAxis(NDetector2d::ALPHA_AXIS_NAME) && data.getAxis(NDetector2d::ALPHA_AXIS_NAME)->getSize() != 1) && (data.getAxis(NDetector2d::PHI_AXIS_NAME) && data.getAxis(NDetector2d::PHI_AXIS_NAME)->getSize() != 1))
+    if( (data.getAxis("alpha_f") && data.getAxis("alpha_f")->getSize() != 1) && (data.getAxis("phi_f") && data.getAxis("phi_f")->getSize() != 1))
     {
         throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Info. Can't create 1D histogram from these axes");
         //std::cout << "IsGISAXSTools::getOutputDataScanHist() -> Info. Can't create 1D histogram from these axes" << std::endl;
@@ -523,12 +522,12 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const
 
     TH1D *hist1(0);
     std::ostringstream ostr_title;
-    if( data.getAxis(NDetector2d::ALPHA_AXIS_NAME) && data.getAxis(NDetector2d::ALPHA_AXIS_NAME)->getSize() == 1) {
+    if( data.getAxis("alpha_f") && data.getAxis("alpha_f")->getSize() == 1) {
         hist1 = hist2->ProjectionX();
-        ostr_title << hname << ", alpha_f=" << data.getAxis(NDetector2d::ALPHA_AXIS_NAME)->getMin();
-    }else if( data.getAxis(NDetector2d::PHI_AXIS_NAME) && data.getAxis(NDetector2d::PHI_AXIS_NAME)->getSize() == 1 ) {
+        ostr_title << hname << ", alpha_f=" << data.getAxis("alpha_f")->getMin();
+    }else if( data.getAxis("phi_f") && data.getAxis("phi_f")->getSize() == 1 ) {
         hist1 = hist2->ProjectionY();
-        ostr_title << hname << ", phi_f=" << data.getAxis(NDetector2d::PHI_AXIS_NAME)->getMin();
+        ostr_title << hname << ", phi_f=" << data.getAxis("phi_f")->getMin();
     } else {
         throw LogicErrorException("IsGISAXSTools::getOutputDataScanHist() -> Error! Unexpected place");
     }

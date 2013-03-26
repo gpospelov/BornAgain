@@ -14,7 +14,7 @@
 
 class SimulationTest : public ::testing::Test
 {
-protected:
+ protected:
     SimulationTest();
     virtual ~SimulationTest();
 
@@ -33,7 +33,7 @@ protected:
 
 SimulationTest::SimulationTest()
 {
-    test_data.addAxis(NDetector2d::PHI_AXIS_NAME, 10, 0., 10.);
+    test_data.addAxis("phi_f", 10, 0., 10.);
     test_data.addAxis("theta_f", 20, 0., 20.);
     test_data.setAllTo(2.0);
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/inc/IMaterial.h
-//! @brief     Defines class IMaterial.
+//! @brief     Defines interface class IMaterial.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -21,27 +21,25 @@
 #include <typeinfo>
 #include "INamed.h"
 
-//! A Material
+//! Interface to a named material.
 
 class IMaterial : public INamed
 {
-public:
+ public:
     IMaterial() {}
     IMaterial(const std::string &name) : INamed(name) {}
     IMaterial(const IMaterial &other);
     IMaterial &operator=(const IMaterial &other);
     virtual ~IMaterial() {}
 
-    //! print material class
-    friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m) { m.print(ostr); return ostr; }
+    friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
+    { m.print(ostr); return ostr; }
 
-protected:
-    //! print material class
+ protected:
     virtual void print(std::ostream &ostr) const {
         //ostr << typeid(*this).name() << " " << this;
         ostr << getName() << " " << this;
     }
-
 };
 
 #endif // IMATERIAL_H

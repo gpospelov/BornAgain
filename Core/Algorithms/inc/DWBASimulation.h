@@ -26,9 +26,11 @@
 
 class DWBASimulation : public ISimulation
 {
-public:
-    DWBASimulation();
-    virtual ~DWBASimulation();
+ public:
+    DWBASimulation()
+    : m_alpha_i(0), m_thread_info(), mp_simulation(0) {}
+
+    virtual ~DWBASimulation() { delete mp_simulation; }
 
     //! Initialize the simulation with the parameters from simulation
     virtual void init(const Simulation &simulation);
@@ -39,10 +41,12 @@ public:
     }
 
     //! return output data containing calculated intensity
-    const OutputData<double> &getDWBAIntensity() const;
+    const OutputData<double> &getDWBAIntensity() const
+    { return m_dwba_intensity; }
 
     //! add intensity to current dwba intensity
-    void addDWBAIntensity(const OutputData<double > &data_to_add);
+    void addDWBAIntensity(const OutputData<double > &data_to_add)
+    { m_dwba_intensity += data_to_add; }
 
     //! clone DWBA simulation
     virtual DWBASimulation *clone() const;
@@ -52,7 +56,8 @@ public:
     // ---------------------------------
 
     typedef OutputDataIterator<double, OutputData<double> > iterator;
-    typedef OutputDataIterator<const double, const OutputData<double> > const_iterator;
+    typedef OutputDataIterator<const double, const OutputData<double> >
+        const_iterator;
 
     //! return a read/write iterator that points to the first element
     iterator begin();
@@ -66,7 +71,7 @@ public:
     //! return a read-only iterator that points to the one past last element
     const const_iterator end() const  { return m_dwba_intensity.end(); }
 
-protected:
+ protected:
     OutputData<double> m_dwba_intensity;
     cvector_t m_ki;
     double m_alpha_i;
@@ -75,13 +80,5 @@ protected:
     SimulationParameters m_sim_params;
     Simulation *mp_simulation;
 };
-
-inline const OutputData<double> &DWBASimulation::getDWBAIntensity() const {
-    return m_dwba_intensity;
-}
-
-inline void DWBASimulation::addDWBAIntensity(const OutputData<double> &data_to_add) {
-    m_dwba_intensity += data_to_add;
-}
 
 #endif /* DWBASIMULATION_H_ */

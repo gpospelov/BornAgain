@@ -22,8 +22,8 @@
 
 class IFormFactorBorn : public IFormFactor
 {
-public:
-    IFormFactorBorn();
+ public:
+    IFormFactorBorn() {}
     virtual ~IFormFactorBorn() {}
     virtual IFormFactorBorn *clone() const=0;
 
@@ -38,14 +38,14 @@ public:
     //! override volume getter to avoid endless loop caused by big bin approximation
     virtual double getVolume() const;
 
-protected:
+ protected:
     //! calculate radial part of scattering amplitude for large bins
     double bigRadialPart(const Bin1DCVector& q_bin) const;
 
     //! calculate z-part of scattering amplitude for large bins
     complex_t bigZPart(const Bin1DCVector& q_bin) const;
 
-private:
+ private:
     //! determine if a large bin size approximation should be used
     bool useLargeBinApproximation(const Bin1DCVector &q_bin) const;
 

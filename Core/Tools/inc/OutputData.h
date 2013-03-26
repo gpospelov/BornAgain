@@ -30,7 +30,7 @@
 
 template <class T> class OutputData
 {
-public:
+ public:
     OutputData();
     ~OutputData();
     //! make object clone
@@ -194,7 +194,7 @@ public:
 
     //! return true if object have same dimensions and shape of axises
     bool hasSameShape(const OutputData<T> &right) const;
-private:
+ private:
     //! disabled copy constructor and assignment operators
     OutputData(const OutputData &);
     const OutputData& operator=(const OutputData &);

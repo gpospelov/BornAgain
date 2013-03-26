@@ -23,7 +23,7 @@
 
 class HomogeneousMaterial : public IMaterial
 {
-public:
+ public:
     HomogeneousMaterial() {}
     HomogeneousMaterial(const complex_t &refractive_index)
         : IMaterial("noname"), m_refractive_index(refractive_index) {}
@@ -48,7 +48,7 @@ public:
     void setRefractiveIndex(complex_t refractive_index)
         { m_refractive_index = refractive_index; }
 
-protected:
+ protected:
     //! Dump contents to stream.
     virtual void print(std::ostream &ostr) const
         {

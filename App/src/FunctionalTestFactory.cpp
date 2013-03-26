@@ -62,9 +62,9 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
         IFactoryCreateFunction<TestRoughness, IFunctionalTest>,
         "functional test: roughness parameters");
     registerItem(
-        "fresnel",
+        "Fresnel",
         IFactoryCreateFunction<TestFresnelCoeff, IFunctionalTest>,
-        "functional test: fresnel coefficients calculations");
+        "functional test: Fresnel coefficients calculations");
     registerItem(
         "formfactor",
         IFactoryCreateFunction<TestFormFactor, IFunctionalTest>,
@@ -182,7 +182,7 @@ FunctionalTestFactory::FunctionalTestFactory() : m_benchmark(0)
         IFactoryCreateFunction<TestFittingBenchmark, IFunctionalTest>,
         "functional test: test of minimizers with hard-to-minimize test functions");
     registerItem(
-        "fourier",
+        "Fourier",
         IFactoryCreateFunction<TestFourier, IFunctionalTest>,
         "functional test: test of Fourier transformation of OutputData maps");
     registerItem(

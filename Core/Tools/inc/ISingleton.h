@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/inc/ISingleton.h
-//! @brief     Defines class ISingleton.
+//! @brief     Defines the standard mix-in ISingleton.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,7 +25,6 @@ template <class T>
 class ISingleton
 {
  public:
-
     static T &instance()
     {
         static boost::mutex single_mutex;

@@ -38,15 +38,21 @@ void FunctionalTests::IsGISAXS09::runpyramidZ0()
 {
     // building sample
     MultiLayer multi_layer;
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material =
+        MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *p_substrate_material =
+        MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    ParticleDecoration particle_decoration(new Particle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73 ) ) ) );
+    ParticleDecoration particle_decoration(
+        new Particle(n_particle,
+                     new FormFactorPyramid(5*Units::nanometer,
+                                           5*Units::nanometer,
+                                           Units::deg2rad(54.73 ) ) ) );
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
@@ -55,8 +61,11 @@ void FunctionalTests::IsGISAXS09::runpyramidZ0()
 
     // building simulation
     Simulation simulation;
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setDetectorParameters(
+        100, 0.0*Units::degree, 2.0*Units::degree,
+        100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(
+        1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     simulation.setSample(multi_layer);
 
     // running simulation
@@ -70,8 +79,10 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
 {
     // building sample
     MultiLayer multi_layer;
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material =
+        MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *p_substrate_material =
+        MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -79,9 +90,14 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
 
     complex_t n_particle(1.0-6e-4, 2e-8);
     const double angle_around_z = 45.*Units::degree;
-    Particle *pyramid = new Particle(n_particle, new FormFactorPyramid(5*Units::nanometer, 5*Units::nanometer, Units::deg2rad(54.73)) );
+    Particle *pyramid = new Particle(
+        n_particle,
+        new FormFactorPyramid(5*Units::nanometer,
+                              5*Units::nanometer,
+                              Units::deg2rad(54.73)) );
 
-    Geometry::Transform3D *transform = new Geometry::RotateZ3D(angle_around_z);
+    Geometry::ITransform3D *transform =
+        new Geometry::RotateZ_3D(angle_around_z);
 
     ParticleDecoration particle_decoration;
 

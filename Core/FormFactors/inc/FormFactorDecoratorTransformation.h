@@ -17,7 +17,7 @@
 #define FORMFACTORDECORATORTRANSFORMATION_H
 
 #include "IFormFactorDecorator.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 
 //! Equip a Formfactor with a rotation.
 
@@ -26,14 +26,14 @@ class FormFactorDecoratorTransformation : public IFormFactorDecorator
  public:
     //! Constructor, setting formfactor and rotation.
     FormFactorDecoratorTransformation(
-        IFormFactor *p_form_factor, Geometry::Transform3D *transform)
+        IFormFactor *p_form_factor, Geometry::ITransform3D *transform)
         : IFormFactorDecorator(p_form_factor)
         , mp_transform(transform)
         , mp_inverse_transform(0)
     {
         setName("FormFactorDecoratorTransformation");
         mp_inverse_transform =
-            new Geometry::Transform3D(mp_transform->inverse());
+            new Geometry::ITransform3D(mp_transform->inverse());
     }
 
     virtual ~FormFactorDecoratorTransformation()
@@ -44,8 +44,8 @@ class FormFactorDecoratorTransformation : public IFormFactorDecorator
 
     virtual FormFactorDecoratorTransformation *clone() const
     {
-        Geometry::Transform3D *p_new_transform =
-            new Geometry::Transform3D(*mp_transform);
+        Geometry::ITransform3D *p_new_transform =
+            new Geometry::ITransform3D(*mp_transform);
         return new FormFactorDecoratorTransformation(
             mp_form_factor->clone(), p_new_transform);
     }
@@ -59,8 +59,8 @@ class FormFactorDecoratorTransformation : public IFormFactorDecorator
     { return mp_form_factor->getNumberOfStochasticParameters(); }
 
  protected:
-    Geometry::Transform3D *mp_transform;
-    Geometry::Transform3D *mp_inverse_transform;
+    Geometry::ITransform3D *mp_transform;
+    Geometry::ITransform3D *mp_inverse_transform;
 };
 
 

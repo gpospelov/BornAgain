@@ -13,7 +13,6 @@ QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
 # -----------------------------------------------------------------------------
 SOURCES += \
     Geometry/src/BasicVector3D.cpp \
-    Geometry/src/Transform3D.cpp \
     \
     Tools/src/AxisBin.cpp \
     Tools/src/AxisDouble.cpp \
@@ -91,7 +90,6 @@ SOURCES += \
     FormFactors/src/IFormFactorBorn.cpp \
     \
     Samples/src/Crystal.cpp \
-    Samples/src/DiffuseParticleInfo.cpp \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
     Samples/src/ISample.cpp \
@@ -129,7 +127,8 @@ SOURCES += \
 
 HEADERS += \
     Geometry/inc/BasicVector3D.h \
-    Geometry/inc/Transform3D.h \
+    Geometry/inc/ITransform3D.h \
+    Geometry/inc/Rotate3D.h \
     \
     Tools/inc/AxisBin.h \
     Tools/inc/AxisDouble.h \

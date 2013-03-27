@@ -19,7 +19,6 @@
 #include "IFormFactor.h"
 #include "ICompositeSample.h"
 #include "ParticleInfo.h"
-#include "Transform3D.h"
 #include "Exceptions.h"
 #include "DiffuseParticleInfo.h"
 

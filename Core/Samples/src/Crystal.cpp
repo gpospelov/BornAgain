@@ -64,7 +64,7 @@ std::vector<DiffuseParticleInfo*>* Crystal::createDiffuseParticleInfo(
     double parent_height = parent_info.getParticle()->getSimpleFormFactor()->getHeight();
     double parent_depth = parent_info.getDepth();
 
-    const Geometry::Transform3D *p_parent_transform = parent_info.getTransform3D();
+    const Geometry::ITransform3D *p_parent_transform = parent_info.getITransform3D();
 
     double nbr_unit_cells = parent_volume/primitive_cell_volume;
 

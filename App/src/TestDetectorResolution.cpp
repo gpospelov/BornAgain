@@ -22,7 +22,6 @@
 #include "MultiLayer.h"
 #include "MaterialManager.h"
 #include "LayerDecorator.h"
-#include "ParticleDecoration.h"
 #include "MathFunctions.h"
 #include "ResolutionFunction2DSimple.h"
 

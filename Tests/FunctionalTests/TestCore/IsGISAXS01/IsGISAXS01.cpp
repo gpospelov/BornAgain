@@ -7,7 +7,6 @@
 #include "MaterialManager.h"
 #include "MultiLayer.h"
 #include "OutputDataIOFactory.h"
-#include "ParticleDecoration.h"
 #include "Simulation.h"
 #include "Units.h"
 #include "Utils.h"

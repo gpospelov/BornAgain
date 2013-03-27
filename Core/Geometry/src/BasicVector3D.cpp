@@ -5,7 +5,7 @@
 //! @file       Geometry/src/BasicVector3D.cpp
 //! @brief      Implements template class BasicVector3D.
 //!
-//! For historic note, see BasicVector3D.h.
+//! Using code from CLHEP/Geometry by E. Chernyaev, see BasicVector3D.h.
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +17,6 @@
 #include <math.h>
 #include <iostream>
 #include "BasicVector3D.h"
-#include "Transform3D.h"
 
 typedef std::complex<double> complex_t;
 
@@ -152,71 +151,6 @@ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const
         if(cosa < -1) cosa = -1;
     }
     return std::acos(cosa);
-}
-
-// ----------------------------------------------------------------------------
-// Rotations
-// ----------------------------------------------------------------------------
-
-template<>
-BasicVector3D<double> BasicVector3D<double>::rotatedX(double a) const
-{
-    double sina = std::sin(a);
-    double cosa = std::cos(a);
-    return BasicVector3D<double>( x(),
-                                  y()*cosa-z()*sina,
-                                  z()*cosa+y()*sina );
-}
-
-template<>
-BasicVector3D<double> BasicVector3D<double>::rotatedY(double a) const
-{
-    double sina = std::sin(a);
-    double cosa = std::cos(a);
-    return BasicVector3D<double>( x()*cosa+z()*sina,
-                                  y(),
-                                  z()*cosa-x()*sina );
-}
-
-template<>
-BasicVector3D<double> BasicVector3D<double>::rotatedZ(double a) const
-{
-    double sina = std::sin(a);
-    double cosa = std::cos(a);
-    return BasicVector3D( x()*cosa-y()*sina,
-                          y()*cosa+x()*sina,
-                          z() );
-}
-
-template<>
-BasicVector3D<double> BasicVector3D<double>::rotated(
-        double a, const BasicVector3D<double>& v) const
-{
-    if (a  == 0) return *this;
-    double cx = v.x(), cy = v.y(), cz = v.z();
-    double ll = std::sqrt(cx*cx + cy*cy + cz*cz);
-    if (ll == 0) {
-        std::cerr << "BasicVector<double>::rotate() : zero axis" << std::endl;
-        return *this;
-    }
-    double cosa = std::cos(a), sina = std::sin(a);
-    cx /= ll; cy /= ll; cz /= ll;
-
-    double xx = (1-cosa)*cx*cx + cosa;
-    double xy = (1-cosa)*cx*cy - sina*cz;
-    double xz = (1-cosa)*cx*cz + sina*cy;
-
-    double yx = (1-cosa)*cy*cx + sina*cz;
-    double yy = (1-cosa)*cy*cy + cosa;
-    double yz = (1-cosa)*cy*cz - sina*cx;
-
-    double zx = (1-cosa)*cz*cx - sina*cy;
-    double zy = (1-cosa)*cz*cy + sina*cx;
-    double zz = (1-cosa)*cz*cz + cosa;
-
-    return BasicVector3D( xx*x()+xy*y()+xz*z(),
-                          yx*x()+yy*y()+yz*z(),
-                          zx*x()+zy*y()+zz*z() );
 }
 
 }  // namespace Geometry

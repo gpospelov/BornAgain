@@ -66,7 +66,7 @@ std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors()
     for (size_t particle_index=0; particle_index<number_of_particles; ++particle_index) {
         Particle *p_particle = p_decoration->getParticleInfo(particle_index)->getParticle()->clone();
         double depth = p_decoration->getParticleInfo(particle_index)->getDepth();
-        const Geometry::Transform3D *transform = p_decoration->getParticleInfo(particle_index)->getTransform3D();
+        const Geometry::ITransform3D *transform = p_decoration->getParticleInfo(particle_index)->getITransform3D();
 
         p_particle->setAmbientRefractiveIndex(n_layer);
         complex_t wavevector_scattering_factor = M_PI/getWaveLength()/getWaveLength();
@@ -74,7 +74,7 @@ std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors()
         IFormFactor *ff_particle = p_particle->createFormFactor();
         IFormFactor  *ff_transformed(0);
         if(transform) {
-            ff_transformed = new FormFactorDecoratorTransformation(ff_particle, new Geometry::Transform3D(*transform));
+            ff_transformed = new FormFactorDecoratorTransformation(ff_particle, new Geometry::ITransform3D(*transform));
         } else{
             ff_transformed = ff_particle;
         }

@@ -19,7 +19,6 @@
 #include "Units.h"
 #include "Particle.h"
 #include "FormFactors.h"
-#include "Transform3D.h"
 #include "ParticleDecoration.h"
 #include "InterferenceFunctionNone.h"
 #include "LayerDecorator.h"

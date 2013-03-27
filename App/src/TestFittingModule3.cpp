@@ -31,7 +31,6 @@
 #include "MultiLayer.h"
 #include "OutputDataFunctions.h"
 #include "Particle.h"
-#include "ParticleDecoration.h"
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"
 

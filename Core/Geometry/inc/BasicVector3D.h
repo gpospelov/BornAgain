@@ -7,9 +7,9 @@
 //!
 //! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
 //! then reduced to rotations and mostly rewritten; point and vector semantics
-//! is no longer represented by class type; transforms are now methods of
-//! Transform3D and not of BasicVector3D; child classes allow for accelerated
-//! rotations around coordinate axes.
+//! is no longer represented by class type; transforms are no longer methods of
+//! BasicVector3D; there is a new interface ITransform3D, and all transforms
+//! are implemented in child classes therof.
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)

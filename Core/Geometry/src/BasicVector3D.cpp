@@ -223,20 +223,21 @@ BasicVector3D<double>& BasicVector3D<double>::rotate (
     double cosa = std::cos(a), sina = std::sin(a);
     cx /= ll; cy /= ll; cz /= ll;
 
-    double xx = cosa + (1-cosa)*cx*cx;
-    double xy =        (1-cosa)*cx*cy - sina*cz;
-    double xz =        (1-cosa)*cx*cz + sina*cy;
+    double xx = (1-cosa)*cx*cx + cosa;
+    double xy = (1-cosa)*cx*cy - sina*cz;
+    double xz = (1-cosa)*cx*cz + sina*cy;
 
-    double yx =        (1-cosa)*cy*cx + sina*cz;
-    double yy = cosa + (1-cosa)*cy*cy;
-    double yz =        (1-cosa)*cy*cz - sina*cx;
+    double yx = (1-cosa)*cy*cx + sina*cz;
+    double yy = (1-cosa)*cy*cy + cosa;
+    double yz = (1-cosa)*cy*cz - sina*cx;
 
-    double zx =        (1-cosa)*cz*cx - sina*cy;
-    double zy =        (1-cosa)*cz*cy + sina*cx;
-    double zz = cosa + (1-cosa)*cz*cz;
+    double zx = (1-cosa)*cz*cx - sina*cy;
+    double zy = (1-cosa)*cz*cy + sina*cx;
+    double zz = (1-cosa)*cz*cz + cosa;
 
-    cx = x(); cy = y(); cz = z();
-    setXYZ(xx*cx+xy*cy+xz*cz, yx*cx+yy*cy+yz*cz, zx*cx+zy*cy+zz*cz);
+    setXYZ(xx*x()+xy*y()+xz*z(),
+           yx*x()+yy*y()+yz*z(),
+           zx*x()+zy*y()+zz*z());
     return *this;
 }
 
@@ -248,8 +249,17 @@ BasicVector3D<double>& BasicVector3D<double>::rotate (
 // Transforms
 // -----------------------------------------------------------------------------
 
-template<class T>
-BasicVector3D<T>& BasicVector3D<T>::transform(const Transform3D& m)
+template<>
+BasicVector3D<double>& BasicVector3D<double>::transform(const Transform3D& m)
+{
+    setXYZ(m.xx()*x() + m.xy()*y() + m.xz()*z(),
+           m.yx()*x() + m.yy()*y() + m.yz()*z(),
+           m.zx()*x() + m.zy()*y() + m.zz()*z());
+    return *this;
+}
+
+template<>
+BasicVector3D<complex_t>& BasicVector3D<complex_t>::transform(const Transform3D& m)
 {
     setXYZ(m.xx()*x() + m.xy()*y() + m.xz()*z(),
            m.yx()*x() + m.yy()*y() + m.yz()*z(),

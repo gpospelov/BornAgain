@@ -26,8 +26,8 @@ class RealParameterWrapper {
  public:
     explicit RealParameterWrapper(double *par) : m_data(par) {}
     // explicit RealParameterWrapper(double *par) : m_data(par), m_signal() {}
-    RealParameterWrapper(const RealParameterWrapper &other );
-    RealParameterWrapper &operator=(const RealParameterWrapper &other);
+    RealParameterWrapper(const RealParameterWrapper& other );
+    RealParameterWrapper& operator=(const RealParameterWrapper& other);
     ~RealParameterWrapper(){}
 
     //! Sets value of wrapped parameter and emmit signal
@@ -50,10 +50,10 @@ class RealParameterWrapper {
     void checkNull() const { if(isNull()) throw NullPointerException("RealParameterWrapper::getValue() -> Attempt to access uninitialised pointer."); }
 
     //! Prints the parameter's address to an output stream
-    friend std::ostream &operator<<(std::ostream &ostr, const RealParameterWrapper &p) { ostr << p.m_data; return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const RealParameterWrapper& p) { ostr << p.m_data; return ostr; }
  private:
     //! swap function
-    void swapContent(RealParameterWrapper &other);
+    void swapContent(RealParameterWrapper& other);
 
     volatile double *m_data;
 };

@@ -85,7 +85,7 @@ void MathFunctions::Convolve::Workspace::clear()
 /* ************************************************************************* */
 // convolution in 2d
 /* ************************************************************************* */
-void MathFunctions::Convolve::fftconvolve(const double2d_t &source, const double2d_t &kernel, double2d_t &result)
+void MathFunctions::Convolve::fftconvolve(const double2d_t& source, const double2d_t& kernel, double2d_t& result)
 {
     // set default convolution mode, if not defined
     if(m_mode == FFTW_UNDEFINED) {
@@ -124,7 +124,7 @@ void MathFunctions::Convolve::fftconvolve(const double2d_t &source, const double
 /* ************************************************************************* */
 // convolution in 1d
 /* ************************************************************************* */
-void MathFunctions::Convolve::fftconvolve(const double1d_t &source, const double1d_t &kernel, double1d_t &result)
+void MathFunctions::Convolve::fftconvolve(const double1d_t& source, const double1d_t& kernel, double1d_t& result)
 {
     // we simply create 2d arrays with length of first dimension equal to 1, and call 2d convolution
     double2d_t source2d, kernel2d;
@@ -265,7 +265,7 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
 /* ************************************************************************* */
 // initialise input and output arrays for fast Fourier transformation
 /* ************************************************************************* */
-void MathFunctions::Convolve::fftw_circular_convolution(const double2d_t &src, const double2d_t &kernel)
+void MathFunctions::Convolve::fftw_circular_convolution(const double2d_t& src, const double2d_t& kernel)
 {
     if(ws.h_fftw <= 0 || ws.w_fftw <= 0)
     {

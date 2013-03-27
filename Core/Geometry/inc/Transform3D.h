@@ -294,7 +294,7 @@ class RotateZ3D : public Rotate3D {
 // ************************************************************************** //
 
 inline
-Transform3D::Transform3D_row::Transform3D_row(const Transform3D & r, int i)
+Transform3D::Transform3D_row::Transform3D_row(const Transform3D&  r, int i)
     : rr(r), ii(i) {}
 
 inline

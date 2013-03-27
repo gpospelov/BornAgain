@@ -18,7 +18,7 @@
 
 void DWBASimulation::init(const Simulation& simulation)
 {
-    if (mp_simulation != &simulation) {
+    if (mp_simulation !=& simulation) {
         delete mp_simulation;
         mp_simulation = simulation.clone();
     }

@@ -36,7 +36,7 @@ class FormFactorFullSphere : public IFormFactorBorn
     //! Returns diameter of sphere
     virtual double getHeight() const { return 2.0*m_radius; }
 
-    virtual complex_t evaluate_for_q(const cvector_t &q) const;
+    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
  protected:
     virtual void init_parameters();

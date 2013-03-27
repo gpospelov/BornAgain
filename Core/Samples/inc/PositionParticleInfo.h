@@ -31,14 +31,14 @@ class PositionParticleInfo : public ParticleInfo
         kvector_t position, double abundance=0);
 
     PositionParticleInfo(
-        const Particle &particle, const Geometry::Transform3D &transform,
+        const Particle& particle, const Geometry::Transform3D& transform,
         kvector_t position, double abundance=0);
 
     PositionParticleInfo(
         Particle *p_particle, kvector_t position, double abundance=0);
 
     PositionParticleInfo(
-        const Particle &particle, kvector_t position, double abundance=0);
+        const Particle& particle, kvector_t position, double abundance=0);
 
     virtual ~PositionParticleInfo() {}
 
@@ -55,8 +55,8 @@ class PositionParticleInfo : public ParticleInfo
     void setPosition(kvector_t position);
 
  protected:
-    PositionParticleInfo &operator=(const PositionParticleInfo &right);
-    PositionParticleInfo(const PositionParticleInfo &source);
+    PositionParticleInfo& operator=(const PositionParticleInfo& right);
+    PositionParticleInfo(const PositionParticleInfo& source);
 
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();

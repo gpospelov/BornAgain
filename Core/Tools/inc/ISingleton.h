@@ -25,7 +25,7 @@ template <class T>
 class ISingleton
 {
  public:
-    static T &instance()
+    static T& instance()
     {
         static boost::mutex single_mutex;
         boost::unique_lock<boost::mutex> single_lock( single_mutex );
@@ -50,7 +50,7 @@ class ISingleton
     static void CreateSingleton()
     {
         static T theInstance;
-        m_instance = &theInstance;
+        m_instance =& theInstance;
     }
 
     static void onDeadReference() { throw std::runtime_error("ISingleton::onDeadReference()"); }
@@ -58,8 +58,8 @@ class ISingleton
     typedef T* T_Pointer;
 
  private:
-    ISingleton(const ISingleton<T> &) {}
-    ISingleton &operator=(const ISingleton<T> &) { throw std::runtime_error("ISingleton::operator=()"); }
+    ISingleton(const ISingleton<T>& ) {}
+    ISingleton& operator=(const ISingleton<T>& ) { throw std::runtime_error("ISingleton::operator=()"); }
 
     static T_Pointer m_instance;
     static bool m_destroyed;

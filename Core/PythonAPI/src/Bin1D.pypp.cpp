@@ -82,9 +82,9 @@ void register_Bin1D_class(){
     bp::class_< Bin1D >( "Bin1D" )    
         .def( 
             "getMidPoint"
-            , (double ( ::Bin1D::* )(  ) const)( &::Bin1D::getMidPoint ) )    
-        .def_readwrite( "m_lower", &Bin1D::m_lower )    
-        .def_readwrite( "m_upper", &Bin1D::m_upper )    
+            , (double ( ::Bin1D::* )(  ) const)(& ::Bin1D::getMidPoint ) )    
+        .def_readwrite( "m_lower",& Bin1D::m_lower )    
+        .def_readwrite( "m_upper",& Bin1D::m_upper )    
         .def( bp::self != bp::self )    
         .def( bp::self == bp::self );
 

@@ -178,24 +178,24 @@ void register_LayerRoughness_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getHurstParameter"
-            , (double ( ::LayerRoughness::* )(  ) const)( &::LayerRoughness::getHurstParameter ) )    
+            , (double ( ::LayerRoughness::* )(  ) const)(& ::LayerRoughness::getHurstParameter ) )    
         .def( 
             "getLatteralCorrLength"
-            , (double ( ::LayerRoughness::* )(  ) const)( &::LayerRoughness::getLatteralCorrLength ) )    
+            , (double ( ::LayerRoughness::* )(  ) const)(& ::LayerRoughness::getLatteralCorrLength ) )    
         .def( 
             "getSigma"
-            , (double ( ::LayerRoughness::* )(  ) const)( &::LayerRoughness::getSigma ) )    
+            , (double ( ::LayerRoughness::* )(  ) const)(& ::LayerRoughness::getSigma ) )    
         .def( 
             "setHurstParameter"
-            , (void ( ::LayerRoughness::* )( double ) )( &::LayerRoughness::setHurstParameter )
+            , (void ( ::LayerRoughness::* )( double ) )(& ::LayerRoughness::setHurstParameter )
             , ( bp::arg("hurstParameter") ) )    
         .def( 
             "setLatteralCorrLength"
-            , (void ( ::LayerRoughness::* )( double ) )( &::LayerRoughness::setLatteralCorrLength )
+            , (void ( ::LayerRoughness::* )( double ) )(& ::LayerRoughness::setLatteralCorrLength )
             , ( bp::arg("latteralCorrLength") ) )    
         .def( 
             "setSigma"
-            , (void ( ::LayerRoughness::* )( double ) )( &::LayerRoughness::setSigma )
+            , (void ( ::LayerRoughness::* )( double ) )(& ::LayerRoughness::setSigma )
             , ( bp::arg("sigma") ) )    
         .def( 
             "areParametersChanged"

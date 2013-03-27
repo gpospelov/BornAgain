@@ -107,36 +107,36 @@ class GSLSimAnMinimizer : public  ROOT::Math::Minimizer {
    /**
       Copy constructor
    */
-   GSLSimAnMinimizer(const GSLSimAnMinimizer &) : ROOT::Math::Minimizer() {}
+   GSLSimAnMinimizer(const GSLSimAnMinimizer& ) : ROOT::Math::Minimizer() {}
 
    /**
       Assignment operator
    */
-   GSLSimAnMinimizer & operator = (const GSLSimAnMinimizer & rhs)  {
-      if (this == &rhs) return *this;  // time saving self-test
+   GSLSimAnMinimizer&  operator = (const GSLSimAnMinimizer&  rhs)  {
+      if (this ==& rhs) return *this;  // time saving self-test
       return *this;
    }
 
  public:
 
    /// set the function to minimize
-   virtual void SetFunction(const ROOT::Math::IMultiGenFunction & func);
+   virtual void SetFunction(const ROOT::Math::IMultiGenFunction&  func);
 
    /// set gradient the function to minimize
-   virtual void SetFunction(const ROOT::Math::IMultiGradFunction & func);
+   virtual void SetFunction(const ROOT::Math::IMultiGradFunction&  func);
 
    /// set free variable
-   virtual bool SetVariable(unsigned int ivar, const std::string & name, double val, double step);
+   virtual bool SetVariable(unsigned int ivar, const std::string&  name, double val, double step);
 
    /// set fixed variable (override if minimizer supports them )
-   virtual bool SetFixedVariable(unsigned int /* ivar */, const std::string & /* name */, double /* val */);
+   virtual bool SetFixedVariable(unsigned int /* ivar */, const std::string&  /* name */, double /* val */);
 
    /// set lower limit variable  (override if minimizer supports them )
-   virtual bool SetLowerLimitedVariable(unsigned int  ivar , const std::string & name , double val , double step , double lower );
+   virtual bool SetLowerLimitedVariable(unsigned int  ivar , const std::string&  name , double val , double step , double lower );
    /// set upper limit variable (override if minimizer supports them )
-   virtual bool SetUpperLimitedVariable(unsigned int ivar , const std::string & name , double val , double step , double upper );
+   virtual bool SetUpperLimitedVariable(unsigned int ivar , const std::string&  name , double val , double step , double upper );
    /// set upper/lower limited variable (override if minimizer supports them )
-   virtual bool SetLimitedVariable(unsigned int ivar , const std::string & name , double val , double step , double /* lower */, double /* upper */);
+   virtual bool SetLimitedVariable(unsigned int ivar , const std::string&  name , double val , double step , double /* lower */, double /* upper */);
 
    /// set the value of an existing variable
    virtual bool SetVariableValue(unsigned int ivar, double val );
@@ -154,7 +154,7 @@ class GSLSimAnMinimizer : public  ROOT::Math::Minimizer {
    virtual double Edm() const { return 0; } // not impl. }
 
    /// return  pointer to X values at the minimum
-   virtual const double *  X() const { return &fValues.front(); }
+   virtual const double *  X() const { return& fValues.front(); }
 
    /// return pointer to gradient values at the minimum
    virtual const double *  MinGradient() const { return 0; } // not impl.
@@ -184,11 +184,11 @@ class GSLSimAnMinimizer : public  ROOT::Math::Minimizer {
 
 
    /// return reference to the objective function
-   ///virtual const ROOT::Math::IGenFunction & Function() const;
+   ///virtual const ROOT::Math::IGenFunction&  Function() const;
 
-   ROOT::Math::GSLSimAnnealing &getSolver() { return fSolver; }
+   ROOT::Math::GSLSimAnnealing& getSolver() { return fSolver; }
 
-   //void SetAnnealingParameters(const GSLSimAnParams &newpars) { fSolver.Params()
+   //void SetAnnealingParameters(const GSLSimAnParams& newpars) { fSolver.Params()
 
  protected:
 

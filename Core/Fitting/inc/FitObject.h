@@ -26,19 +26,19 @@
 class FitObject : public IParameterized
 {
  public:
-    FitObject(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule(), double weight = 1.0);
+    FitObject(const Simulation& simulation, const OutputData<double >& real_data, const IChiSquaredModule& chi2_module=ChiSquaredModule(), double weight = 1.0);
     ~FitObject();
 
     //! Returns simulation
     const Simulation *getSimulation() const { return m_simulation; }
     Simulation *getSimulation() { return m_simulation; }
     //! Sets simulation
-    void setSimulation(const Simulation &simulation) { delete m_simulation; m_simulation = simulation.clone(); }
+    void setSimulation(const Simulation& simulation) { delete m_simulation; m_simulation = simulation.clone(); }
 
     //! Returns real data
     const OutputData<double > *getRealData() const { return m_real_data; }
     //! Sets real data
-    void setRealData(const OutputData<double > &real_data);
+    void setRealData(const OutputData<double >& real_data);
 
     //! Returns simulated data
     const OutputData<double > *getSimulationData() const { return m_simulation->getOutputData(); }
@@ -47,7 +47,7 @@ class FitObject : public IParameterized
     const IChiSquaredModule *getChiSquaredModule() const {return m_chi2_module; }
     IChiSquaredModule *getChiSquaredModule() {return m_chi2_module; }
     //! Sets chi2 module
-    void setChiSquaredModule(const IChiSquaredModule &chi2_module) { delete m_chi2_module; m_chi2_module = chi2_module.clone(); }
+    void setChiSquaredModule(const IChiSquaredModule& chi2_module) { delete m_chi2_module; m_chi2_module = chi2_module.clone(); }
 
     //! Returns chi squared value
     double calculateChiSquared();
@@ -66,8 +66,8 @@ class FitObject : public IParameterized
     virtual void init_parameters();
 
  private:
-    FitObject(const FitObject &);
-    FitObject &operator=(const FitObject &);
+    FitObject(const FitObject& );
+    FitObject& operator=(const FitObject& );
 
     Simulation *m_simulation; //! external simulation (not owned by this)
     OutputData<double > *m_real_data; //! real data

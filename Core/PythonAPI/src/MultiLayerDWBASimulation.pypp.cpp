@@ -91,7 +91,7 @@ struct MultiLayerDWBASimulation_wrapper : MultiLayerDWBASimulation, bp::wrapper<
         return MultiLayerDWBASimulation::clone( );
     }
 
-    virtual void init( ::Simulation const & simulation ) {
+    virtual void init( ::Simulation const&  simulation ) {
         if( bp::override func_init = this->get_override( "init" ) )
             func_init( boost::ref(simulation) );
         else{
@@ -99,7 +99,7 @@ struct MultiLayerDWBASimulation_wrapper : MultiLayerDWBASimulation, bp::wrapper<
         }
     }
     
-    void default_init( ::Simulation const & simulation ) {
+    void default_init( ::Simulation const&  simulation ) {
         MultiLayerDWBASimulation::init( boost::ref(simulation) );
     }
 
@@ -115,7 +115,7 @@ struct MultiLayerDWBASimulation_wrapper : MultiLayerDWBASimulation, bp::wrapper<
         MultiLayerDWBASimulation::run( );
     }
 
-    virtual void setThreadInfo( ::ThreadInfo const & thread_info ) {
+    virtual void setThreadInfo( ::ThreadInfo const&  thread_info ) {
         if( bp::override func_setThreadInfo = this->get_override( "setThreadInfo" ) )
             func_setThreadInfo( boost::ref(thread_info) );
         else{
@@ -123,7 +123,7 @@ struct MultiLayerDWBASimulation_wrapper : MultiLayerDWBASimulation, bp::wrapper<
         }
     }
     
-    void default_setThreadInfo( ::ThreadInfo const & thread_info ) {
+    void default_setThreadInfo( ::ThreadInfo const&  thread_info ) {
         MultiLayerDWBASimulation::setThreadInfo( boost::ref(thread_info) );
     }
 
@@ -139,8 +139,8 @@ void register_MultiLayerDWBASimulation_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "init"
-            , (void ( ::MultiLayerDWBASimulation::* )( ::Simulation const & ) )(&::MultiLayerDWBASimulation::init)
-            , (void ( MultiLayerDWBASimulation_wrapper::* )( ::Simulation const & ) )(&MultiLayerDWBASimulation_wrapper::default_init)
+            , (void ( ::MultiLayerDWBASimulation::* )( ::Simulation const&  ) )(&::MultiLayerDWBASimulation::init)
+            , (void ( MultiLayerDWBASimulation_wrapper::* )( ::Simulation const&  ) )(&MultiLayerDWBASimulation_wrapper::default_init)
             , ( bp::arg("simulation") ) )    
         .def( 
             "run"
@@ -148,8 +148,8 @@ void register_MultiLayerDWBASimulation_class(){
             , (void ( MultiLayerDWBASimulation_wrapper::* )(  ) )(&MultiLayerDWBASimulation_wrapper::default_run) )    
         .def( 
             "setThreadInfo"
-            , (void ( ::MultiLayerDWBASimulation::* )( ::ThreadInfo const & ) )(&::MultiLayerDWBASimulation::setThreadInfo)
-            , (void ( MultiLayerDWBASimulation_wrapper::* )( ::ThreadInfo const & ) )(&MultiLayerDWBASimulation_wrapper::default_setThreadInfo)
+            , (void ( ::MultiLayerDWBASimulation::* )( ::ThreadInfo const&  ) )(&::MultiLayerDWBASimulation::setThreadInfo)
+            , (void ( MultiLayerDWBASimulation_wrapper::* )( ::ThreadInfo const&  ) )(&MultiLayerDWBASimulation_wrapper::default_setThreadInfo)
             , ( bp::arg("thread_info") ) );
 
 }

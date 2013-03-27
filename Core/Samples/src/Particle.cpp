@@ -16,7 +16,7 @@
 #include "Particle.h"
 #include "ParticleInfo.h"
 
-Particle::Particle(const complex_t &refractive_index, IFormFactor *p_form_factor)
+Particle::Particle(const complex_t& refractive_index, IFormFactor *p_form_factor)
 : m_ambient_refractive_index(complex_t(1.0, 0.0))
 , m_refractive_index(refractive_index)
 , mp_form_factor(p_form_factor)
@@ -25,7 +25,7 @@ Particle::Particle(const complex_t &refractive_index, IFormFactor *p_form_factor
     if(mp_form_factor) registerChild(mp_form_factor);
 }
 
-Particle::Particle(const complex_t &refractive_index, const IFormFactor &form_factor)
+Particle::Particle(const complex_t& refractive_index, const IFormFactor& form_factor)
 : m_ambient_refractive_index(complex_t(1.0, 0.0))
 , m_refractive_index(refractive_index)
 , mp_form_factor(form_factor.clone())

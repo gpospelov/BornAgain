@@ -58,7 +58,7 @@ class AxisBin : public IAxis
 //    //! find the bin that contains the given value
 //    Bin1D findMatchingBin(double value) const;
  protected:
-    virtual bool equals(const IAxis &other) const;
+    virtual bool equals(const IAxis& other) const;
  private:
     std::vector<double> m_value_vector;  //!< vector containing the bin limits
 };

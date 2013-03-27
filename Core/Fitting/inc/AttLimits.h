@@ -77,7 +77,7 @@ class AttLimits
     static AttLimits fixed() { return AttLimits(false, false, true, 0.0, 0.0); }
 
     //! Prints class
-    friend std::ostream &operator<<(std::ostream &ostr, const AttLimits &m) { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const AttLimits& m) { m.print(ostr); return ostr; }
 
  protected:
     AttLimits(bool has_lower_limit, bool has_upper_limit, bool is_fixed, double lower_limit, double upper_limit)
@@ -94,7 +94,7 @@ class AttLimits
     double m_upper_limit; //! maximum allowed value
 
     //! Prints class
-    void print(std::ostream &ostr) const
+    void print(std::ostream& ostr) const
     {
         if(isFixed()) {
             ostr << "fixed";

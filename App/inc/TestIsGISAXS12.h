@@ -81,7 +81,7 @@ class TestIsGISAXS12 : public IFunctionalTest
     //! run test minimizer to check whole chain
     void run_test_minimizer();
     //!  print axes
-    void print_axes(IsGISAXSData::DataSet_t &data);
+    void print_axes(IsGISAXSData::DataSet_t& data);
 
     Simulation *m_simulation;
     ISampleBuilder *m_sample_builder;

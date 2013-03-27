@@ -28,7 +28,7 @@ class IOutputDataReadStrategy
     IOutputDataReadStrategy(){}
     virtual ~IOutputDataReadStrategy(){}
 
-    virtual OutputData<double > *readOutputData(std::istream &input_stream) = 0;
+    virtual OutputData<double > *readOutputData(std::istream& input_stream) = 0;
  private:
 };
 
@@ -51,7 +51,7 @@ class OutputDataReadStreamGZip : public IOutputDataReadStrategyDecorator
     OutputDataReadStreamGZip(IOutputDataReadStrategy *read_strategy) : IOutputDataReadStrategyDecorator(read_strategy) { }
     virtual ~OutputDataReadStreamGZip() { }
 
-    OutputData<double > *readOutputData(std::istream &file_stream);
+    OutputData<double > *readOutputData(std::istream& file_stream);
 };
 
 //! Strategy to read OutputData from IsGISAXS *.ima files
@@ -60,7 +60,7 @@ class OutputDataReadStreamGZip : public IOutputDataReadStrategyDecorator
 class OutputDataReadStreamIMA : public IOutputDataReadStrategy
 {
  public:
-    OutputData<double > *readOutputData(std::istream &file_stream);
+    OutputData<double > *readOutputData(std::istream& file_stream);
 };
 
 //! Strategy to read OutputData from ASCII file
@@ -69,7 +69,7 @@ class OutputDataReadStreamIMA : public IOutputDataReadStrategy
 class OutputDataReadStreamV1 : public IOutputDataReadStrategy
 {
  public:
-    OutputData<double > *readOutputData(std::istream &file_stream);
+    OutputData<double > *readOutputData(std::istream& file_stream);
 };
 
 #endif // OUTPUTDATAREADSTRATEGY_H

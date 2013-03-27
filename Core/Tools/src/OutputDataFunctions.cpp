@@ -26,7 +26,7 @@ void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination)
 //! double the bin size for each dimension.
 
 OutputData<double>* OutputDataFunctions::doubleBinSize(
-    const OutputData<double> &source)
+    const OutputData<double>& source)
 {
     OutputData<double> *p_result = new OutputData<double>;
     size_t dimension = source.getRank();
@@ -153,7 +153,7 @@ void OutputDataFunctions::FourierTransformR(
 //! ?
 
 OutputData<double>* OutputDataFunctions::getRealPart(
-    const OutputData<complex_t> &source)
+    const OutputData<complex_t>& source)
 {
     OutputData<double> *p_result = new OutputData<double>();
     for (size_t i=0; i<source.getRank(); ++i) {
@@ -209,7 +209,7 @@ OutputData<double>* OutputDataFunctions::getModulusPart(const OutputData<complex
 //! (without axis 'fixed_axis_name')
 //!
 OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
-    const OutputData<double > &data, const std::string &fixed_axis_name,
+    const OutputData<double >& data, const std::string& fixed_axis_name,
     double fixed_axis_value)
 {
     if (data.getRank() != 2) {
@@ -258,7 +258,7 @@ OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
 //! Resulting output data will have same number of axes
 //!
 OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
-    const OutputData<double > &data, const std::string &selected_axis_name,
+    const OutputData<double >& data, const std::string& selected_axis_name,
     double axis_value1,  double axis_value2)
 {
     if (data.getRank() != 2) {
@@ -333,7 +333,7 @@ void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination)
 //! apply intensity function to values stored in output data
 
 void OutputDataFunctions::applyFunction(
-    OutputData<double> &data, const IIntensityFunction *func)
+    OutputData<double>& data, const IIntensityFunction *func)
 {
     OutputData<double>::iterator it = data.begin();
     while (it != data.end())
@@ -411,7 +411,7 @@ Mask* OutputDataFunctions::CreateEllipticMask(
 //! ?
 
 Mask* OutputDataFunctions::CreateEllipticMask(
-    const OutputData<double> &data, double xc, double yc, double rx, double ry)
+    const OutputData<double>& data, double xc, double yc, double rx, double ry)
 {
     if(data.getRank() != 2) throw LogicErrorException("OutputDataFunctions::CreateRectangularMask2D() -> Error! Number of dimensions should be 2");
     const double center[2]={xc, yc};

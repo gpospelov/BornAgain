@@ -98,7 +98,7 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
         return InterferenceFunction2DParaCrystal::clone( );
     }
 
-    virtual double evaluate( ::cvector_t const & q ) const  {
+    virtual double evaluate( ::cvector_t const&  q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(q) );
         else{
@@ -106,7 +106,7 @@ struct InterferenceFunction2DParaCrystal_wrapper : InterferenceFunction2DParaCry
         }
     }
     
-    double default_evaluate( ::cvector_t const & q ) const  {
+    double default_evaluate( ::cvector_t const&  q ) const  {
         return InterferenceFunction2DParaCrystal::evaluate( boost::ref(q) );
     }
 
@@ -194,30 +194,30 @@ void register_InterferenceFunction2DParaCrystal_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createHexagonal"
-            , (::InterferenceFunction2DParaCrystal * (*)( double,double,double,double ))( &::InterferenceFunction2DParaCrystal::createHexagonal )
+            , (::InterferenceFunction2DParaCrystal * (*)( double,double,double,double ))(& ::InterferenceFunction2DParaCrystal::createHexagonal )
             , ( bp::arg("peak_distance"), bp::arg("corr_length")=0.0, bp::arg("domain_size_1")=0.0, bp::arg("domain_size_2")=0.0 )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createSquare"
-            , (::InterferenceFunction2DParaCrystal * (*)( double,double,double,double ))( &::InterferenceFunction2DParaCrystal::createSquare )
+            , (::InterferenceFunction2DParaCrystal * (*)( double,double,double,double ))(& ::InterferenceFunction2DParaCrystal::createSquare )
             , ( bp::arg("peak_distance"), bp::arg("corr_length")=0.0, bp::arg("domain_size_1")=0.0, bp::arg("domain_size_2")=0.0 )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (double ( ::InterferenceFunction2DParaCrystal::* )( ::cvector_t const & ) const)(&::InterferenceFunction2DParaCrystal::evaluate)
-            , (double ( InterferenceFunction2DParaCrystal_wrapper::* )( ::cvector_t const & ) const)(&InterferenceFunction2DParaCrystal_wrapper::default_evaluate)
+            , (double ( ::InterferenceFunction2DParaCrystal::* )( ::cvector_t const&  ) const)(&::InterferenceFunction2DParaCrystal::evaluate)
+            , (double ( InterferenceFunction2DParaCrystal_wrapper::* )( ::cvector_t const&  ) const)(&InterferenceFunction2DParaCrystal_wrapper::default_evaluate)
             , ( bp::arg("q") ) )    
         .def( 
             "setDomainSizes"
-            , (void ( ::InterferenceFunction2DParaCrystal::* )( double,double ) )( &::InterferenceFunction2DParaCrystal::setDomainSizes )
+            , (void ( ::InterferenceFunction2DParaCrystal::* )( double,double ) )(& ::InterferenceFunction2DParaCrystal::setDomainSizes )
             , ( bp::arg("size_1"), bp::arg("size_2") ) )    
         .def( 
             "setIntegrationOverXi"
-            , (void ( ::InterferenceFunction2DParaCrystal::* )( bool ) )( &::InterferenceFunction2DParaCrystal::setIntegrationOverXi )
+            , (void ( ::InterferenceFunction2DParaCrystal::* )( bool ) )(& ::InterferenceFunction2DParaCrystal::setIntegrationOverXi )
             , ( bp::arg("integrate_xi") ) )    
         .def( 
             "setProbabilityDistributions"
-            , (void ( ::InterferenceFunction2DParaCrystal::* )( ::IFTDistribution2D const &,::IFTDistribution2D const & ) )( &::InterferenceFunction2DParaCrystal::setProbabilityDistributions )
+            , (void ( ::InterferenceFunction2DParaCrystal::* )( ::IFTDistribution2D const& ,::IFTDistribution2D const&  ) )(& ::InterferenceFunction2DParaCrystal::setProbabilityDistributions )
             , ( bp::arg("pdf_1"), bp::arg("pdf_2") ) )    
         .def( 
             "areParametersChanged"

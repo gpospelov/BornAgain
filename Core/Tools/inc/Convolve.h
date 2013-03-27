@@ -52,10 +52,10 @@ class Convolve
     enum Mode { FFTW_LINEAR_FULL, FFTW_LINEAR_SAME_UNPADDED, FFTW_LINEAR_SAME, FFTW_LINEAR_VALID, FFTW_CIRCULAR_SAME, FFTW_CIRCULAR_SAME_SHIFTED, FFTW_UNDEFINED };
 
     //! convolution in 1D
-    void fftconvolve(const double1d_t &source, const double1d_t &kernel, double1d_t &result);
+    void fftconvolve(const double1d_t& source, const double1d_t& kernel, double1d_t& result);
 
     //! convolution in 2D
-    void fftconvolve(const double2d_t &source, const double2d_t &kernel, double2d_t &result);
+    void fftconvolve(const double2d_t& source, const double2d_t& kernel, double2d_t& result);
 
     //! prepare arrays for 2D convolution of given vectors
     void init(int h_src, int w_src, int h_kernel, int w_kernel);
@@ -65,7 +65,7 @@ class Convolve
 
  private:
     //! compute circual convolution of source and kernel using fast Fourier transformation
-    void fftw_circular_convolution(const double2d_t &source, const double2d_t &kernel);
+    void fftw_circular_convolution(const double2d_t& source, const double2d_t& kernel);
 
     //! find closest number X>n that can be factorised according to fftw3 favorite factorisation
     int find_closest_factor(int n);

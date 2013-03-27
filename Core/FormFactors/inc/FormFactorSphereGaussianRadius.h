@@ -34,11 +34,11 @@ class FormFactorSphereGaussianRadius : public IFormFactorBorn
     virtual bool isDistributedFormFactor() const { return true; }
     virtual void createDistributedFormFactors(
         std::vector<IFormFactor*>& form_factors,
-        std::vector<double> &probabilities, size_t nbr_samples) const;
+        std::vector<double>& probabilities, size_t nbr_samples) const;
 
     virtual double getHeight() const { return p_ff_sphere->getHeight(); }
 
-    virtual complex_t evaluate_for_q(const cvector_t &q) const;
+    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
  private:
     double calculateMeanR3() const;
@@ -78,7 +78,7 @@ inline int FormFactorSphereGaussianRadius::getNumberOfStochasticParameters() con
     return 2;
 }
 
-inline complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t &q) const
+inline complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t& q) const
 {
     double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
     double dw = std::exp(-q2*m_sigma*m_sigma/2.0);

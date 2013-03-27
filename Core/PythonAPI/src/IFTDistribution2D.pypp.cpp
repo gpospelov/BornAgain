@@ -96,7 +96,7 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
         return func_evaluate( qx, qy );
     }
 
-    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const {
+    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double&  qa, double&  qb ) const {
         bp::override func_transformToStarBasis = this->get_override( "transformToStarBasis" );
         func_transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
     }
@@ -164,17 +164,17 @@ void register_IFTDistribution2D_class(){
             , ( bp::arg("qx"), bp::arg("qy") ) )    
         .def( 
             "getDelta"
-            , (double ( ::IFTDistribution2D::* )(  ) const)( &::IFTDistribution2D::getDelta ) )    
+            , (double ( ::IFTDistribution2D::* )(  ) const)(& ::IFTDistribution2D::getDelta ) )    
         .def( 
             "getGamma"
-            , (double ( ::IFTDistribution2D::* )(  ) const)( &::IFTDistribution2D::getGamma ) )    
+            , (double ( ::IFTDistribution2D::* )(  ) const)(& ::IFTDistribution2D::getGamma ) )    
         .def( 
             "setGamma"
-            , (void ( ::IFTDistribution2D::* )( double ) )( &::IFTDistribution2D::setGamma )
+            , (void ( ::IFTDistribution2D::* )( double ) )(& ::IFTDistribution2D::setGamma )
             , ( bp::arg("gamma") ) )    
         .def( 
             "transformToStarBasis"
-            , bp::pure_virtual( (void ( ::IFTDistribution2D::* )( double,double,double,double,double,double &,double & ) const)(&::IFTDistribution2D::transformToStarBasis) )
+            , bp::pure_virtual( (void ( ::IFTDistribution2D::* )( double,double,double,double,double,double& ,double&  ) const)(&::IFTDistribution2D::transformToStarBasis) )
             , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") ) )    
         .def( 
             "areParametersChanged"

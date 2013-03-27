@@ -31,7 +31,7 @@ ParameterPool *ParameterPool::clone() const
 
 //! Clone method that adds a prefix to parameter's keys.
 
-ParameterPool *ParameterPool::cloneWithPrefix(const std::string &prefix) const
+ParameterPool *ParameterPool::cloneWithPrefix(const std::string& prefix) const
 {
     ParameterPool *new_pool = new ParameterPool();
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it)
@@ -50,7 +50,7 @@ void ParameterPool::clear()
 
 //! Registers parameter with given name.
 
-void ParameterPool::registerParameter(const std::string &name, double *parameter_address)
+void ParameterPool::registerParameter(const std::string& name, double *parameter_address)
 {
     parameter_t par(parameter_address);
     if( !addParameter(name, par) ) throw RuntimeErrorException("ParameterPool::registerParameter() -> Error! Can't register parameter");
@@ -58,7 +58,7 @@ void ParameterPool::registerParameter(const std::string &name, double *parameter
 
 //! Low-level routine.
 
-bool ParameterPool::addParameter(const std::string &name, parameter_t par)
+bool ParameterPool::addParameter(const std::string& name, parameter_t par)
 {
     parametermap_t::iterator it = m_map.find(name);
     if( it!=m_map.end() ) {
@@ -72,7 +72,7 @@ bool ParameterPool::addParameter(const std::string &name, parameter_t par)
 
 //! Copy parameters of given pool to the external pool while adding prefix to local parameter keys
 
-void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool *external_pool) const
+void ParameterPool::copyToExternalPool(const std::string& prefix, ParameterPool *external_pool) const
 {
     for(parametermap_t::const_iterator it=m_map.begin(); it!= m_map.end(); ++it) {
         external_pool->addParameter(prefix+it->first, it->second);
@@ -81,7 +81,7 @@ void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool 
 
 //! Returns parameter with given name.
 
-ParameterPool::parameter_t ParameterPool::getParameter(const std::string &name) const
+ParameterPool::parameter_t ParameterPool::getParameter(const std::string& name) const
 {
     parametermap_t::const_iterator it = m_map.find(name);
     if( it!=m_map.end() ) {
@@ -93,7 +93,7 @@ ParameterPool::parameter_t ParameterPool::getParameter(const std::string &name) 
 
 //! Returns vector of parameters which fit pattern.
 
-std::vector<ParameterPool::parameter_t >  ParameterPool::getMatchedParameters(const std::string &wildcards) const
+std::vector<ParameterPool::parameter_t >  ParameterPool::getMatchedParameters(const std::string& wildcards) const
 {
     std::vector<ParameterPool::parameter_t > selected_parameters;
     // loop over all parameters in the pool
@@ -115,7 +115,7 @@ std::vector<ParameterPool::parameter_t >  ParameterPool::getMatchedParameters(co
 
 //! Sets parameter value.
 
-bool ParameterPool::setParameterValue(const std::string &name, double value)
+bool ParameterPool::setParameterValue(const std::string& name, double value)
 {
     parameter_t x = getParameter(name);
     if( x.isNull() ) {
@@ -129,7 +129,7 @@ bool ParameterPool::setParameterValue(const std::string &name, double value)
 
 //! Sets parameter value.
 
-int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
+int ParameterPool::setMatchedParametersValue(const std::string& wildcards, double value)
 {
     int npars(0);
     for(parametermap_t::iterator it=m_map.begin(); it!= m_map.end(); ++it) {
@@ -154,7 +154,7 @@ int ParameterPool::fixRatioBetweenParameters(const std::string& to_change,
                 parameter_t source = getParameter(parametername);
                 (*it).second.setValue(source.getValue()*ratio);
                 npars++;
-            } catch (Exceptions::LogicErrorException &e) {}
+            } catch (Exceptions::LogicErrorException& e) {}
         }
     }
     return npars;
@@ -162,7 +162,7 @@ int ParameterPool::fixRatioBetweenParameters(const std::string& to_change,
 
 //! Prints content on the screen.
 
-void ParameterPool::print(std::ostream &ostr) const
+void ParameterPool::print(std::ostream& ostr) const
 {
     const size_t number_of_pars_in_line(4);
     if( m_map.size() ) {

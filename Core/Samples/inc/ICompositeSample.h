@@ -59,7 +59,7 @@ class ICompositeSample : public ISample
     ICompositeIterator createIterator();
 
  private:
-//    ICompositeSample &operator=(const ICompositeSample &other);
+//    ICompositeSample& operator=(const ICompositeSample& other);
 
     //! Checks index of child
     //inline size_t check_index(size_t index) const { return index < m_samples.size() ? index : throw OutOfBoundsException("ICompositeSample::check_index() -> Error! Index is out of bounds"); }

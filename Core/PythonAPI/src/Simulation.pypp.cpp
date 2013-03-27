@@ -158,79 +158,79 @@ void register_Simulation_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getInstrument"
-            , (::Instrument & ( ::Simulation::* )(  ) )( &::Simulation::getInstrument )
+            , (::Instrument&  ( ::Simulation::* )(  ) )(& ::Simulation::getInstrument )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getInstrument"
-            , (::Instrument const & ( ::Simulation::* )(  ) const)( &::Simulation::getInstrument )
+            , (::Instrument const&  ( ::Simulation::* )(  ) const)(& ::Simulation::getInstrument )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "getOutputData"
-            , (::OutputData< double > const * ( ::Simulation::* )(  ) const)( &::Simulation::getOutputData )
+            , (::OutputData< double > const * ( ::Simulation::* )(  ) const)(& ::Simulation::getOutputData )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getOutputDataClone"
-            , (::OutputData< double > * ( ::Simulation::* )(  ) const)( &::Simulation::getOutputDataClone )
+            , (::OutputData< double > * ( ::Simulation::* )(  ) const)(& ::Simulation::getOutputDataClone )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getSample"
-            , (::ISample * ( ::Simulation::* )(  ) )( &::Simulation::getSample )
+            , (::ISample * ( ::Simulation::* )(  ) )(& ::Simulation::getSample )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getSample"
-            , (::ISample const * ( ::Simulation::* )(  ) const)( &::Simulation::getSample )
+            , (::ISample const * ( ::Simulation::* )(  ) const)(& ::Simulation::getSample )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getSimulationParameters"
-            , (::SimulationParameters ( ::Simulation::* )(  ) const)( &::Simulation::getSimulationParameters ) )    
+            , (::SimulationParameters ( ::Simulation::* )(  ) const)(& ::Simulation::getSimulationParameters ) )    
         .def( 
             "normalize"
-            , (void ( ::Simulation::* )(  ) )( &::Simulation::normalize ) )    
+            , (void ( ::Simulation::* )(  ) )(& ::Simulation::normalize ) )    
         .def( 
             "prepareSimulation"
-            , (void ( ::Simulation::* )(  ) )( &::Simulation::prepareSimulation ) )    
+            , (void ( ::Simulation::* )(  ) )(& ::Simulation::prepareSimulation ) )    
         .def( 
             "runSimulation"
-            , (void ( ::Simulation::* )(  ) )( &::Simulation::runSimulation ) )    
+            , (void ( ::Simulation::* )(  ) )(& ::Simulation::runSimulation ) )    
         .def( 
             "runSimulationElement"
-            , (void ( ::Simulation::* )( ::size_t ) )( &::Simulation::runSimulationElement )
+            , (void ( ::Simulation::* )( ::size_t ) )(& ::Simulation::runSimulationElement )
             , ( bp::arg("index") ) )    
         .def( 
             "setBeamIntensity"
-            , (void ( ::Simulation::* )( double ) )( &::Simulation::setBeamIntensity )
+            , (void ( ::Simulation::* )( double ) )(& ::Simulation::setBeamIntensity )
             , ( bp::arg("intensity") ) )    
         .def( 
             "setBeamParameters"
-            , (void ( ::Simulation::* )( double,double,double ) )( &::Simulation::setBeamParameters )
+            , (void ( ::Simulation::* )( double,double,double ) )(& ::Simulation::setBeamParameters )
             , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::Simulation::* )( ::OutputData< double > const & ) )( &::Simulation::setDetectorParameters )
+            , (void ( ::Simulation::* )( ::OutputData< double > const&  ) )(& ::Simulation::setDetectorParameters )
             , ( bp::arg("output_data") ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::Simulation::* )( ::size_t,double,double,::size_t,double,double,bool ) )( &::Simulation::setDetectorParameters )
+            , (void ( ::Simulation::* )( ::size_t,double,double,::size_t,double,double,bool ) )(& ::Simulation::setDetectorParameters )
             , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::Simulation::* )( ::DetectorParameters const & ) )( &::Simulation::setDetectorParameters )
+            , (void ( ::Simulation::* )( ::DetectorParameters const&  ) )(& ::Simulation::setDetectorParameters )
             , ( bp::arg("params") ) )    
         .def( 
             "setInstrument"
-            , (void ( ::Simulation::* )( ::Instrument const & ) )( &::Simulation::setInstrument )
+            , (void ( ::Simulation::* )( ::Instrument const&  ) )(& ::Simulation::setInstrument )
             , ( bp::arg("instrument") ) )    
         .def( 
             "setSample"
-            , (void ( ::Simulation::* )( ::ISample const & ) )( &::Simulation::setSample )
+            , (void ( ::Simulation::* )( ::ISample const&  ) )(& ::Simulation::setSample )
             , ( bp::arg("sample") ) )    
         .def( 
             "setSimulationParameters"
-            , (void ( ::Simulation::* )( ::SimulationParameters const & ) )( &::Simulation::setSimulationParameters )
+            , (void ( ::Simulation::* )( ::SimulationParameters const&  ) )(& ::Simulation::setSimulationParameters )
             , ( bp::arg("sim_params") ) )    
         .def( 
             "smearIntensityFromZAxisTilting"
-            , (void ( ::Simulation::* )(  ) )( &::Simulation::smearIntensityFromZAxisTilting ) )    
+            , (void ( ::Simulation::* )(  ) )(& ::Simulation::smearIntensityFromZAxisTilting ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

@@ -31,7 +31,7 @@ class AxisDouble : public IAxis
 
     //! explicit conversion from BinAxis
     //TODO: make explicit
-    AxisDouble(const AxisBin &source);
+    AxisDouble(const AxisBin& source);
 
     virtual AxisDouble *clone() const;
 
@@ -68,7 +68,7 @@ class AxisDouble : public IAxis
     size_t getUpperBoundIndex(double value) const;
 
  protected:
-    virtual bool equals(const IAxis &other) const;
+    virtual bool equals(const IAxis& other) const;
 
  private:
     std::vector<double> m_sample_vector;  //!< vector containing the axis points

@@ -21,7 +21,7 @@ double IFormFactorBorn::bigRadialPart(const Bin1DCVector& q_bin) const
 {
     // modulus of the radial part
     MemberFunctionIntegrator<IFormFactorBorn>::mem_function p_mf =
-        &IFormFactorBorn::bigRadialIntegrand;
+       & IFormFactorBorn::bigRadialIntegrand;
     MemberFunctionIntegrator<IFormFactorBorn> integrator(p_mf, this);
     double average_intensity = integrator.integrate(0.0, 1.0, (void*)(&q_bin));
     return std::sqrt(average_intensity);

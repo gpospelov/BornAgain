@@ -117,10 +117,10 @@ void register_DiffuseDWBASimulation_class(){
     bp::class_< DiffuseDWBASimulation_wrapper, bp::bases< LayerDWBASimulation >, boost::noncopyable >( "DiffuseDWBASimulation", bp::init< >() )    
         .def( 
             "getSize"
-            , (::size_t ( ::DiffuseDWBASimulation::* )(  ) const)( &::DiffuseDWBASimulation::getSize ) )    
+            , (::size_t ( ::DiffuseDWBASimulation::* )(  ) const)(& ::DiffuseDWBASimulation::getSize ) )    
         .def( 
             "rescaleAbundances"
-            , (void ( ::DiffuseDWBASimulation::* )( double ) )( &::DiffuseDWBASimulation::rescaleAbundances )
+            , (void ( ::DiffuseDWBASimulation::* )( double ) )(& ::DiffuseDWBASimulation::rescaleAbundances )
             , ( bp::arg("factor") ) )    
         .def( 
             "run"
@@ -128,11 +128,11 @@ void register_DiffuseDWBASimulation_class(){
             , (void ( DiffuseDWBASimulation_wrapper::* )(  ) )(&DiffuseDWBASimulation_wrapper::default_run) )    
         .def( 
             "setRefractiveIndex"
-            , (void ( ::DiffuseDWBASimulation::* )( ::complex_t ) )( &::DiffuseDWBASimulation::setRefractiveIndex )
+            , (void ( ::DiffuseDWBASimulation::* )( ::complex_t ) )(& ::DiffuseDWBASimulation::setRefractiveIndex )
             , ( bp::arg("n") ) )    
         .def( 
             "setSurfaceDensity"
-            , (void ( ::DiffuseDWBASimulation::* )( double ) )( &::DiffuseDWBASimulation::setSurfaceDensity )
+            , (void ( ::DiffuseDWBASimulation::* )( double ) )(& ::DiffuseDWBASimulation::setSurfaceDensity )
             , ( bp::arg("surface_density") ) )    
         .def( 
             "clone"

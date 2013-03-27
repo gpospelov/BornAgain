@@ -19,7 +19,7 @@
 
 //! Read isgisaxs *.dat file which holds experimental data scans for fit.
 
-void IsGISAXSData::read_datfile(const std::string &filename, DataSet_t &dataset)
+void IsGISAXSData::read_datfile(const std::string& filename, DataSet_t& dataset)
 {
     dataset.clear();
 
@@ -72,7 +72,7 @@ void IsGISAXSData::read_datfile(const std::string &filename, DataSet_t &dataset)
 //! if read_fit_results == false, then it loads isgisaxs data to fit
 //! if read_fit_results == true, then it loads isgisaxs fit results
 //!
-void IsGISAXSData::read_outfile(const std::string &filename, DataSet_t &dataset, ItemToRead item)
+void IsGISAXSData::read_outfile(const std::string& filename, DataSet_t& dataset, ItemToRead item)
 {
     dataset.clear();
 
@@ -128,7 +128,7 @@ void IsGISAXSData::read_outfile(const std::string &filename, DataSet_t &dataset,
 
 //! Convert isgisaxs 1d scan to output data 2d object.
 
-OutputData<double> *IsGISAXSData::convert_isgi_scan(std::vector<IsgiData > &isgi_data)
+OutputData<double> *IsGISAXSData::convert_isgi_scan(std::vector<IsgiData >& isgi_data)
 {
     if(isgi_data.size() <2 ) throw LogicErrorException("TestIsGISAXS12::convert_isgi_scan() -> Error! Too short vector.");
 

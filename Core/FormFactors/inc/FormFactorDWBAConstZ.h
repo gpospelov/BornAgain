@@ -27,14 +27,14 @@ class FormFactorDWBAConstZ: public FormFactorDWBA
     virtual ~FormFactorDWBAConstZ() {}
     virtual FormFactorDWBAConstZ *clone() const;
 
-    virtual complex_t evaluate(const cvector_t &k_i,
-                               const Bin1DCVector &k_f_bin,
+    virtual complex_t evaluate(const cvector_t& k_i,
+                               const Bin1DCVector& k_f_bin,
                                double alpha_i, double alpha_f) const;
  protected:
     double m_depth;
 
  private:
-    inline complex_t getDepthPhase(const complex_t &q_z) const
+    inline complex_t getDepthPhase(const complex_t& q_z) const
     {
         complex_t exponent = -complex_t(0.0,1.0)*q_z*m_depth;
                              // Minus sign for depth (m_depth > 0)

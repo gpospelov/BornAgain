@@ -83,26 +83,26 @@ void register_kvector_t_class(){
         typedef bp::class_< Geometry::BasicVector3D< double > > kvector_t_exposer_t;
         kvector_t_exposer_t kvector_t_exposer = kvector_t_exposer_t( "kvector_t", bp::init< >() );
         bp::scope kvector_t_scope( kvector_t_exposer );
-        kvector_t_exposer.def( bp::init< double const &, double const &, double const & >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
+        kvector_t_exposer.def( bp::init< double const& , double const& , double const&  >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
         { //::Geometry::BasicVector3D< double >::cross
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > ( exported_class_t::*cross_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
+            typedef ::Geometry::BasicVector3D< double > ( exported_class_t::*cross_function_type )( ::Geometry::BasicVector3D< double > const&  ) const;
             
             kvector_t_exposer.def( 
                 "cross"
-                , cross_function_type( &::Geometry::BasicVector3D< double >::cross )
+                , cross_function_type(& ::Geometry::BasicVector3D< double >::cross )
                 , ( bp::arg("v") ) );
         
         }
         { //::Geometry::BasicVector3D< double >::dot
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double ( exported_class_t::*dot_function_type )( ::Geometry::BasicVector3D< double > const & ) const;
+            typedef double ( exported_class_t::*dot_function_type )( ::Geometry::BasicVector3D< double > const&  ) const;
             
             kvector_t_exposer.def( 
                 "dot"
-                , dot_function_type( &::Geometry::BasicVector3D< double >::dot )
+                , dot_function_type(& ::Geometry::BasicVector3D< double >::dot )
                 , ( bp::arg("v") ) );
         
         }
@@ -113,7 +113,7 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "mag"
-                , mag_function_type( &::Geometry::BasicVector3D< double >::mag ) );
+                , mag_function_type(& ::Geometry::BasicVector3D< double >::mag ) );
         
         }
         { //::Geometry::BasicVector3D< double >::mag2
@@ -123,7 +123,7 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "mag2"
-                , mag2_function_type( &::Geometry::BasicVector3D< double >::mag2 ) );
+                , mag2_function_type(& ::Geometry::BasicVector3D< double >::mag2 ) );
         
         }
         { //::Geometry::BasicVector3D< double >::magxy
@@ -133,7 +133,7 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "magxy"
-                , magxy_function_type( &::Geometry::BasicVector3D< double >::magxy ) );
+                , magxy_function_type(& ::Geometry::BasicVector3D< double >::magxy ) );
         
         }
         { //::Geometry::BasicVector3D< double >::magxy2
@@ -143,7 +143,7 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "magxy2"
-                , magxy2_function_type( &::Geometry::BasicVector3D< double >::magxy2 ) );
+                , magxy2_function_type(& ::Geometry::BasicVector3D< double >::magxy2 ) );
         
         }
         kvector_t_exposer.def( bp::self *= bp::other< double >() );
@@ -153,11 +153,11 @@ void register_kvector_t_class(){
         { //::Geometry::BasicVector3D< double >::operator=
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*assign_function_type )( ::Geometry::BasicVector3D< double > const & ) ;
+            typedef ::Geometry::BasicVector3D< double >&  ( exported_class_t::*assign_function_type )( ::Geometry::BasicVector3D< double > const&  ) ;
             
             kvector_t_exposer.def( 
                 "assign"
-                , assign_function_type( &::Geometry::BasicVector3D< double >::operator= )
+                , assign_function_type(& ::Geometry::BasicVector3D< double >::operator= )
                 , ( bp::arg("v") )
                 , bp::return_self< >() );
         
@@ -169,18 +169,18 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "__getitem__"
-                , __getitem___function_type( &::Geometry::BasicVector3D< double >::operator[] )
+                , __getitem___function_type(& ::Geometry::BasicVector3D< double >::operator[] )
                 , ( bp::arg("i") ) );
         
         }
         { //::Geometry::BasicVector3D< double >::operator[]
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef double & ( exported_class_t::*__getitem___function_type )( int ) ;
+            typedef double&  ( exported_class_t::*__getitem___function_type )( int ) ;
             
             kvector_t_exposer.def( 
                 "__getitem__"
-                , __getitem___function_type( &::Geometry::BasicVector3D< double >::operator[] )
+                , __getitem___function_type(& ::Geometry::BasicVector3D< double >::operator[] )
                 , ( bp::arg("i") )
                 , bp::return_value_policy< bp::copy_non_const_reference >() );
         
@@ -188,66 +188,66 @@ void register_kvector_t_class(){
         { //::Geometry::BasicVector3D< double >::setLambdaAlphaPhi
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setLambdaAlphaPhi_function_type )( double const &,double const &,double const & ) ;
+            typedef void ( exported_class_t::*setLambdaAlphaPhi_function_type )( double const& ,double const& ,double const&  ) ;
             
             kvector_t_exposer.def( 
                 "setLambdaAlphaPhi"
-                , setLambdaAlphaPhi_function_type( &::Geometry::BasicVector3D< double >::setLambdaAlphaPhi )
+                , setLambdaAlphaPhi_function_type(& ::Geometry::BasicVector3D< double >::setLambdaAlphaPhi )
                 , ( bp::arg("_lambda"), bp::arg("_alpha"), bp::arg("_phi") ) );
         
         }
         { //::Geometry::BasicVector3D< double >::setX
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setX_function_type )( double const & ) ;
+            typedef void ( exported_class_t::*setX_function_type )( double const&  ) ;
             
             kvector_t_exposer.def( 
                 "setX"
-                , setX_function_type( &::Geometry::BasicVector3D< double >::setX )
+                , setX_function_type(& ::Geometry::BasicVector3D< double >::setX )
                 , ( bp::arg("a") ) );
         
         }
         { //::Geometry::BasicVector3D< double >::setXYZ
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setXYZ_function_type )( double const &,double const &,double const & ) ;
+            typedef void ( exported_class_t::*setXYZ_function_type )( double const& ,double const& ,double const&  ) ;
             
             kvector_t_exposer.def( 
                 "setXYZ"
-                , setXYZ_function_type( &::Geometry::BasicVector3D< double >::setXYZ )
+                , setXYZ_function_type(& ::Geometry::BasicVector3D< double >::setXYZ )
                 , ( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ) );
         
         }
         { //::Geometry::BasicVector3D< double >::setY
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setY_function_type )( double const & ) ;
+            typedef void ( exported_class_t::*setY_function_type )( double const&  ) ;
             
             kvector_t_exposer.def( 
                 "setY"
-                , setY_function_type( &::Geometry::BasicVector3D< double >::setY )
+                , setY_function_type(& ::Geometry::BasicVector3D< double >::setY )
                 , ( bp::arg("a") ) );
         
         }
         { //::Geometry::BasicVector3D< double >::setZ
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef void ( exported_class_t::*setZ_function_type )( double const & ) ;
+            typedef void ( exported_class_t::*setZ_function_type )( double const&  ) ;
             
             kvector_t_exposer.def( 
                 "setZ"
-                , setZ_function_type( &::Geometry::BasicVector3D< double >::setZ )
+                , setZ_function_type(& ::Geometry::BasicVector3D< double >::setZ )
                 , ( bp::arg("a") ) );
         
         }
         { //::Geometry::BasicVector3D< double >::transform
         
             typedef Geometry::BasicVector3D< double > exported_class_t;
-            typedef ::Geometry::BasicVector3D< double > & ( exported_class_t::*transform_function_type )( ::Geometry::Transform3D const & ) ;
+            typedef ::Geometry::BasicVector3D< double >&  ( exported_class_t::*transform_function_type )( ::Geometry::Transform3D const&  ) ;
             
             kvector_t_exposer.def( 
                 "transform"
-                , transform_function_type( &::Geometry::BasicVector3D< double >::transform )
+                , transform_function_type(& ::Geometry::BasicVector3D< double >::transform )
                 , ( bp::arg("m") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
@@ -259,7 +259,7 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "x"
-                , x_function_type( &::Geometry::BasicVector3D< double >::x ) );
+                , x_function_type(& ::Geometry::BasicVector3D< double >::x ) );
         
         }
         { //::Geometry::BasicVector3D< double >::y
@@ -269,7 +269,7 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "y"
-                , y_function_type( &::Geometry::BasicVector3D< double >::y ) );
+                , y_function_type(& ::Geometry::BasicVector3D< double >::y ) );
         
         }
         { //::Geometry::BasicVector3D< double >::z
@@ -279,7 +279,7 @@ void register_kvector_t_class(){
             
             kvector_t_exposer.def( 
                 "z"
-                , z_function_type( &::Geometry::BasicVector3D< double >::z ) );
+                , z_function_type(& ::Geometry::BasicVector3D< double >::z ) );
         
         }
         kvector_t_exposer.def( bp::self_ns::str( bp::self ) );

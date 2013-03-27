@@ -174,7 +174,7 @@ void register_StochasticDoubleGaussian_class(){
             , (double ( StochasticDoubleGaussian_wrapper::* )(  ) const)(&StochasticDoubleGaussian_wrapper::default_getFWHM) )    
         .def( 
             "getStdDev"
-            , (double ( ::StochasticDoubleGaussian::* )(  ) const)( &::StochasticDoubleGaussian::getStdDev ) )    
+            , (double ( ::StochasticDoubleGaussian::* )(  ) const)(& ::StochasticDoubleGaussian::getStdDev ) )    
         .def( 
             "probabilityDensity"
             , (double ( ::StochasticDoubleGaussian::* )( double ) const)(&::StochasticDoubleGaussian::probabilityDensity)

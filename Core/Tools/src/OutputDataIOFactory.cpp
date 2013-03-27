@@ -20,13 +20,13 @@
 /* ************************************************************************* */
 // reading output data
 /* ************************************************************************* */
-OutputData<double > *OutputDataIOFactory::getOutputData(const std::string &file_name)
+OutputData<double > *OutputDataIOFactory::getOutputData(const std::string& file_name)
 {
     return getReader(file_name)->getOutputData();
 }
 
 
-OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(const std::string &file_name)
+OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(const std::string& file_name)
 {
     OutputDataReader *reader = new OutputDataReader( file_name );
 
@@ -51,12 +51,12 @@ OutputDataIOFactory::OutputDataReader_t OutputDataIOFactory::getReader(const std
 /* ************************************************************************* */
 // writing output data
 /* ************************************************************************* */
-void OutputDataIOFactory::writeOutputData(const OutputData<double> &data, const std::string &file_name)
+void OutputDataIOFactory::writeOutputData(const OutputData<double>& data, const std::string& file_name)
 {
     return getWriter(file_name)->writeOutputData(data);
 }
 
-OutputDataIOFactory::OutputDataWriter_t OutputDataIOFactory::getWriter(const std::string &file_name)
+OutputDataIOFactory::OutputDataWriter_t OutputDataIOFactory::getWriter(const std::string& file_name)
 {
     OutputDataWriter *writer = new OutputDataWriter( file_name );
 

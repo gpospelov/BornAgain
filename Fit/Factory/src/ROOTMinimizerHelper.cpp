@@ -8,7 +8,7 @@
 // translate text with options into appropriate calls of minimizer's set method
 // "tolerance=0.1:precision=0.001" ->setTolerance(0.1), ->setPrecision(0.001)
 // ----------------------------------------------------------------------------
-void ROOTMinimizerHelper::setOptions(ROOT::Math::Minimizer *minimizer, const std::string &options)
+void ROOTMinimizerHelper::setOptions(ROOT::Math::Minimizer *minimizer, const std::string& options)
 {
     const std::string delimeter(":");
     std::vector<std::string> tokens = Utils::String::Split(options, delimeter);
@@ -20,7 +20,7 @@ void ROOTMinimizerHelper::setOptions(ROOT::Math::Minimizer *minimizer, const std
 // process single command
 // command "tolerance=0.1" will cause minimizer->SetTolerance(0.1)
 // ----------------------------------------------------------------------------
-bool ROOTMinimizerHelper::processCommand(ROOT::Math::Minimizer *minimizer, const std::string &command)
+bool ROOTMinimizerHelper::processCommand(ROOT::Math::Minimizer *minimizer, const std::string& command)
 {
     bool success(false);
     success = processCommandAll(minimizer, command);
@@ -39,7 +39,7 @@ bool ROOTMinimizerHelper::processCommand(ROOT::Math::Minimizer *minimizer, const
 
 
 // process single command common for all minimizers
-bool ROOTMinimizerHelper::processCommandAll(ROOT::Math::Minimizer *minimizer, const std::string &command)
+bool ROOTMinimizerHelper::processCommandAll(ROOT::Math::Minimizer *minimizer, const std::string& command)
 {
     std::vector<std::string> tokens = Utils::String::Split(command, "=");
     assert(tokens.size() ==2);
@@ -73,14 +73,14 @@ bool ROOTMinimizerHelper::processCommandAll(ROOT::Math::Minimizer *minimizer, co
 
 
 // process single command specific for GSL simulated annealing minimizer
-bool ROOTMinimizerHelper::processCommandGSLSimAn(ROOT::Patch::GSLSimAnMinimizer *minimizer, const std::string &command)
+bool ROOTMinimizerHelper::processCommandGSLSimAn(ROOT::Patch::GSLSimAnMinimizer *minimizer, const std::string& command)
 {
     std::vector<std::string> tokens = Utils::String::Split(command, "=");
     assert(tokens.size() ==2);
     std::string name = tokens[0];
     std::string number = tokens[1];
 
-    ROOT::Math::GSLSimAnParams &pars = minimizer->getSolver().Params();
+    ROOT::Math::GSLSimAnParams& pars = minimizer->getSolver().Params();
     bool success(true);
 
     if(name == "ntries") {
@@ -115,7 +115,7 @@ bool ROOTMinimizerHelper::processCommandGSLSimAn(ROOT::Patch::GSLSimAnMinimizer 
 // ----------------------------------------------------------------------------
 // Printing minimizer results on the screen
 // ----------------------------------------------------------------------------
-void ROOTMinimizerHelper::printResults(ROOT::Math::Minimizer *minimizer, const std::string &minimizer_name, const std::string &algo_type)
+void ROOTMinimizerHelper::printResults(ROOT::Math::Minimizer *minimizer, const std::string& minimizer_name, const std::string& algo_type)
 {
     std::cout << "-----------------------------------------------------" << std::endl;
     std::cout << std::setw(25) << std::left << "  MinimizerType"      << ": " << minimizer_name << std::endl;

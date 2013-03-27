@@ -31,7 +31,7 @@ class InterferenceFunction1DParaCrystal : public IInterferenceFunction
 
 	void setKappa(double kappa) { m_kappa = kappa; }
 	virtual double getKappa() const { return m_kappa; }
-    virtual double evaluate(const cvector_t &q) const;
+    virtual double evaluate(const cvector_t& q) const;
     //TODO: replace these with strategy pattern for different algorithms
     complex_t FTGaussianCorrLength(double qpar) const;
  protected:

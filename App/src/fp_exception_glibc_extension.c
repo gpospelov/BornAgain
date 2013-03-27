@@ -114,7 +114,7 @@ fegetexcept (void)
 
   return ( fegetenv (&fenv) ? -1 :
     (
-      ( fenv & (FM_ALL_EXCEPT) ) << FE_EXCEPT_SHIFT )
+      ( fenv&  (FM_ALL_EXCEPT) ) << FE_EXCEPT_SHIFT )
     );
 }
 
@@ -122,13 +122,13 @@ int
 feenableexcept (unsigned int excepts)
 {
   static fenv_t fenv;
-  unsigned int new_excepts = (excepts & FE_ALL_EXCEPT) >> FE_EXCEPT_SHIFT,
+  unsigned int new_excepts = (excepts&  FE_ALL_EXCEPT) >> FE_EXCEPT_SHIFT,
                old_excepts;  // all previous masks
 
   if ( fegetenv (&fenv) ) return -1;
-  old_excepts = (fenv & FM_ALL_EXCEPT) << FE_EXCEPT_SHIFT;
+  old_excepts = (fenv&  FM_ALL_EXCEPT) << FE_EXCEPT_SHIFT;
 
-  fenv = (fenv & ~new_excepts) | new_excepts;
+  fenv = (fenv&  ~new_excepts) | new_excepts;
   return ( fesetenv (&fenv) ? -1 : old_excepts );
 }
 
@@ -136,13 +136,13 @@ int
 fedisableexcept (unsigned int excepts)
 {
   static fenv_t fenv;
-  unsigned int still_on = ~( (excepts & FE_ALL_EXCEPT) >> FE_EXCEPT_SHIFT ),
+  unsigned int still_on = ~( (excepts&  FE_ALL_EXCEPT) >> FE_EXCEPT_SHIFT ),
                old_excepts;  // previous masks
 
   if ( fegetenv (&fenv) ) return -1;
-  old_excepts = (fenv & FM_ALL_EXCEPT) << FE_EXCEPT_SHIFT;
+  old_excepts = (fenv&  FM_ALL_EXCEPT) << FE_EXCEPT_SHIFT;
 
-  fenv &= still_on;
+  fenv& = still_on;
   return ( fesetenv (&fenv) ? -1 : old_excepts );
 }
 
@@ -153,22 +153,22 @@ fegetexcept (void)
 {
   static fenv_t fenv;
 
-  return fegetenv (&fenv) ? -1 : (fenv.__control & FE_ALL_EXCEPT);
+  return fegetenv (&fenv) ? -1 : (fenv.__control&  FE_ALL_EXCEPT);
 }
 
 int
 feenableexcept (unsigned int excepts)
 {
   static fenv_t fenv;
-  unsigned int new_excepts = excepts & FE_ALL_EXCEPT,
+  unsigned int new_excepts = excepts&  FE_ALL_EXCEPT,
                old_excepts;  // previous masks
 
   if ( fegetenv (&fenv) ) return -1;
-  old_excepts = fenv.__control & FE_ALL_EXCEPT;
+  old_excepts = fenv.__control&  FE_ALL_EXCEPT;
 
   // unmask
-  fenv.__control &= ~new_excepts;
-  fenv.__mxcsr   &= ~(new_excepts << 7);
+  fenv.__control& = ~new_excepts;
+  fenv.__mxcsr  & = ~(new_excepts << 7);
 
   return ( fesetenv (&fenv) ? -1 : old_excepts );
 }
@@ -177,11 +177,11 @@ int
 fedisableexcept (unsigned int excepts)
 {
   static fenv_t fenv;
-  unsigned int new_excepts = excepts & FE_ALL_EXCEPT,
+  unsigned int new_excepts = excepts&  FE_ALL_EXCEPT,
                old_excepts;  // all previous masks
 
   if ( fegetenv (&fenv) ) return -1;
-  old_excepts = fenv.__control & FE_ALL_EXCEPT;
+  old_excepts = fenv.__control&  FE_ALL_EXCEPT;
 
   // mask
   fenv.__control |= new_excepts;
@@ -291,8 +291,8 @@ fhdl ( int sig, siginfo_t *sip, ucontext_t *scp )
 #endif
 
     printf ("signal:  SIGFPE with code %s\n", fe_code_name[fe_code]);
-    printf ("invalid flag:    0x%04X\n", excepts & FE_INVALID);
-    printf ("divByZero flag:  0x%04X\n", excepts & FE_DIVBYZERO);
+    printf ("invalid flag:    0x%04X\n", excepts&  FE_INVALID);
+    printf ("divByZero flag:  0x%04X\n", excepts&  FE_DIVBYZERO);
   }
   else printf ("Signal is not SIGFPE, it's %i.\n", sig);
 
@@ -319,7 +319,7 @@ int main (int argc, char **argv)
     feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
     
     // set handler
-//     if (sigaction(SIGFPE, &act, (struct sigaction *)0) != 0)
+//     if (sigaction(SIGFPE,& act, (struct sigaction *)0) != 0)
 //     {
 //         perror("Yikes");
 //         exit(-1);

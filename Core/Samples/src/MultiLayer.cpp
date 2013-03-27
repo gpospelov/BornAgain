@@ -37,7 +37,7 @@ MultiLayer::~MultiLayer()
 void MultiLayer::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("crossCorrLength", &m_crossCorrLength);
+    getParameterPool()->registerParameter("crossCorrLength",& m_crossCorrLength);
 }
 
 /* ************************************************************************* */
@@ -114,7 +114,7 @@ const LayerInterface *MultiLayer::getLayerBottomInterface(size_t i_layer) const
 
 //! Adds layer with top roughness
 
-void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness)
+void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness)
 {
     Layer *p_new_layer = layer.clone();
     if (getNumberOfLayers())
@@ -132,7 +132,7 @@ void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughne
 
 //! Adds layer with default (zero) roughness
 
-void MultiLayer::addLayer(const Layer &layer)
+void MultiLayer::addLayer(const Layer& layer)
 {
     LayerRoughness zero_roughness;
     addLayerWithTopRoughness(layer, zero_roughness);
@@ -142,7 +142,7 @@ void MultiLayer::addLayer(const Layer &layer)
 //! Fourier transform of the correlation function of roughnesses between the interfaces
 //! j,k - indexes of layers in multilayer whose bottom interfaces we are considering
 
-double MultiLayer::getCrossCorrSpectralFun(const kvector_t &kvec, size_t j, size_t k) const
+double MultiLayer::getCrossCorrSpectralFun(const kvector_t& kvec, size_t j, size_t k) const
 {
     if(m_crossCorrLength == 0) return 0.0;
     double z_j = getLayerBottomZ(j);
@@ -189,7 +189,7 @@ MultiLayerDWBASimulation* MultiLayer::createDWBASimulation() const
     return 0;
 }
 
-void MultiLayer::print(std::ostream &ostr) const
+void MultiLayer::print(std::ostream& ostr) const
 {
     ostr << getName() << " " << this << std::endl;
 

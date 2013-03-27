@@ -23,7 +23,7 @@
 class ParticleCoreShell : public Particle
 {
  public:
-    ParticleCoreShell(const Particle &shell, const Particle &core, kvector_t relative_core_position);
+    ParticleCoreShell(const Particle& shell, const Particle& core, kvector_t relative_core_position);
     virtual ~ParticleCoreShell();
     virtual ParticleCoreShell *clone() const;
 
@@ -52,7 +52,7 @@ class ParticleCoreShell : public Particle
     virtual const IFormFactor *getSimpleFormFactor() const { return mp_form_factor;}
 
     //! Creates list of contained particles for diffuse calculations
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const {
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const {
         (void)parent_info;
         return 0;
     }

@@ -214,8 +214,8 @@ void TestMiscellaneous::test_FormFactor()
     FormFactorFullSphere ff_sphere(5.*Units::nanometer);
     FormFactorCylinder ff_cylinder(10.*Units::nanometer, 5.*Units::nanometer);
 
-//    IFormFactor &ff = ff_cylinder;
-    IFormFactor &ff = ff_sphere;
+//    IFormFactor& ff = ff_cylinder;
+    IFormFactor& ff = ff_sphere;
 
     double qmin(-4.0), qmax(4.0);
     int nbins(51);

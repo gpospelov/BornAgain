@@ -48,13 +48,13 @@ class ConvolutionDetectorResolution : public IDetectorResolution
     virtual ConvolutionDetectorResolution *clone() const;
 
  protected:
-    ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other);
+    ConvolutionDetectorResolution(const ConvolutionDetectorResolution& other);
 
     virtual void init_parameters();
 
  private:
 //    //! hiding copy constructor and disabling assignment operator
-//    ConvolutionDetectorResolution &operator=(const ConvolutionDetectorResolution &);
+//    ConvolutionDetectorResolution& operator=(const ConvolutionDetectorResolution& );
 
     void apply1dConvolution(OutputData<double> *p_intensity_map) const;
     void apply2dConvolution(OutputData<double> *p_intensity_map) const;

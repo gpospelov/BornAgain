@@ -105,7 +105,7 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         return FormFactorLorentz::clone( );
     }
 
-    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
+    virtual ::complex_t evaluate_for_q( ::cvector_t const&  q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
         else{
@@ -113,7 +113,7 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         }
     }
     
-    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
+    ::complex_t default_evaluate_for_q( ::cvector_t const&  q ) const  {
         return FormFactorLorentz::evaluate_for_q( boost::ref(q) );
     }
 
@@ -141,7 +141,7 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         return IParameterized::areParametersChanged( );
     }
 
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* >&  form_factors, ::std::vector< double >&  probabilities, ::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
         else{
@@ -149,7 +149,7 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         }
     }
     
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+    void default_createDistributedFormFactors( ::std::vector< IFormFactor* >&  form_factors, ::std::vector< double >&  probabilities, ::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
@@ -165,7 +165,7 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const&  k_i, ::Bin1DCVector const&  k_f_bin, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         else{
@@ -173,7 +173,7 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+    ::complex_t default_evaluate( ::cvector_t const&  k_i, ::Bin1DCVector const&  k_f_bin, double alpha_i, double alpha_f ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
 
@@ -249,7 +249,7 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         ISample::print_structure( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+    virtual void setAmbientRefractiveIndex( ::complex_t const&  refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
             func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
         else{
@@ -257,7 +257,7 @@ struct FormFactorLorentz_wrapper : FormFactorLorentz, bp::wrapper< FormFactorLor
         }
     }
     
-    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+    void default_setAmbientRefractiveIndex( ::complex_t const&  refractive_index ) {
         IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
     }
 
@@ -286,8 +286,8 @@ void register_FormFactorLorentz_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate_for_q"
-            , (::complex_t ( ::FormFactorLorentz::* )( ::cvector_t const & ) const)(&::FormFactorLorentz::evaluate_for_q)
-            , (::complex_t ( FormFactorLorentz_wrapper::* )( ::cvector_t const & ) const)(&FormFactorLorentz_wrapper::default_evaluate_for_q)
+            , (::complex_t ( ::FormFactorLorentz::* )( ::cvector_t const&  ) const)(&::FormFactorLorentz::evaluate_for_q)
+            , (::complex_t ( FormFactorLorentz_wrapper::* )( ::cvector_t const&  ) const)(&FormFactorLorentz_wrapper::default_evaluate_for_q)
             , ( bp::arg("q") ) )    
         .def( 
             "getNumberOfStochasticParameters"
@@ -299,8 +299,8 @@ void register_FormFactorLorentz_class(){
             , (bool ( FormFactorLorentz_wrapper::* )(  ) )(&FormFactorLorentz_wrapper::default_areParametersChanged) )    
         .def( 
             "createDistributedFormFactors"
-            , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
-            , (void ( FormFactorLorentz_wrapper::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&FormFactorLorentz_wrapper::default_createDistributedFormFactors)
+            , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* >& ,::std::vector< double >& ,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
+            , (void ( FormFactorLorentz_wrapper::* )( ::std::vector< IFormFactor* >& ,::std::vector< double >& ,::size_t ) const)(&FormFactorLorentz_wrapper::default_createDistributedFormFactors)
             , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -310,8 +310,8 @@ void register_FormFactorLorentz_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorLorentz_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&FormFactorLorentz_wrapper::default_evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const& ,::Bin1DCVector const& ,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorLorentz_wrapper::* )( ::cvector_t const& ,::Bin1DCVector const& ,double,double ) const)(&FormFactorLorentz_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getHeight"
@@ -339,8 +339,8 @@ void register_FormFactorLorentz_class(){
             , (void ( FormFactorLorentz_wrapper::* )(  ) )(&FormFactorLorentz_wrapper::default_print_structure) )    
         .def( 
             "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactor::* )( ::complex_t const & ) )(&::IFormFactor::setAmbientRefractiveIndex)
-            , (void ( FormFactorLorentz_wrapper::* )( ::complex_t const & ) )(&FormFactorLorentz_wrapper::default_setAmbientRefractiveIndex)
+            , (void ( ::IFormFactor::* )( ::complex_t const&  ) )(&::IFormFactor::setAmbientRefractiveIndex)
+            , (void ( FormFactorLorentz_wrapper::* )( ::complex_t const&  ) )(&FormFactorLorentz_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "setParametersAreChanged"

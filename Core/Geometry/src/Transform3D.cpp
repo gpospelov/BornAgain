@@ -57,7 +57,7 @@ double Transform3D::operator () (int i, int j) const
 
 //! Concatenation of transforms. Read efficiency warning!
 
-Transform3D Transform3D::operator*(const Transform3D & b) const
+Transform3D Transform3D::operator*(const Transform3D&  b) const
 {
     return Transform3D
         (xx_*b.xx_+xy_*b.yx_+xz_*b.zx_,
@@ -104,8 +104,8 @@ Transform3D Transform3D::inverse() const
 //! @author E. Chernyaev 1996
 
 Rotate3D::Rotate3D(double a,
-                   const Point3D<double> & p1,
-                   const Point3D<double> & p2)
+                   const Point3D<double>&  p1,
+                   const Point3D<double>&  p2)
         : Transform3D()
 {
     if (a == 0) return;

@@ -57,7 +57,7 @@ class IFTDistribution2D : public IParameterized
 
     //! transform back to a*, b* basis:
     virtual void transformToStarBasis(double qX, double qY,
-            double alpha, double a, double b, double &qa, double &qb) const=0;
+            double alpha, double a, double b, double& qa, double& qb) const=0;
  protected:
     double m_omega_x;
     double m_omega_y;
@@ -76,7 +76,7 @@ class FTDistribution2DCauchy : public IFTDistribution2D
     virtual double evaluate(double qx, double qy) const;
 
     virtual void transformToStarBasis(double qX, double qY,
-            double alpha, double a, double b, double &qa, double &qb) const;
+            double alpha, double a, double b, double& qa, double& qb) const;
  protected:
     virtual void init_parameters();
 };

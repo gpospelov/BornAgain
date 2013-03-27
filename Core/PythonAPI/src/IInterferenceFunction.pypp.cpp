@@ -91,7 +91,7 @@ struct IInterferenceFunction_wrapper : IInterferenceFunction, bp::wrapper< IInte
         return func_clone(  );
     }
 
-    virtual double evaluate( ::cvector_t const & q ) const {
+    virtual double evaluate( ::cvector_t const&  q ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
         return func_evaluate( boost::ref(q) );
     }
@@ -179,7 +179,7 @@ void register_IInterferenceFunction_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , bp::pure_virtual( (double ( ::IInterferenceFunction::* )( ::cvector_t const & ) const)(&::IInterferenceFunction::evaluate) )
+            , bp::pure_virtual( (double ( ::IInterferenceFunction::* )( ::cvector_t const&  ) const)(&::IInterferenceFunction::evaluate) )
             , ( bp::arg("q") ) )    
         .def( 
             "getKappa"

@@ -42,7 +42,7 @@ ConvolutionDetectorResolution::~ConvolutionDetectorResolution()
     delete mp_res_function_2d;
 }
 
-ConvolutionDetectorResolution::ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other) : IDetectorResolution()
+ConvolutionDetectorResolution::ConvolutionDetectorResolution(const ConvolutionDetectorResolution& other) : IDetectorResolution()
 //    : IDetectorResolution(other)
 {
     m_dimension = other.m_dimension;

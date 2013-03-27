@@ -23,12 +23,12 @@
 #include <string>
 
 //! Returns number of dimensions in output data of simulation.
-int GetOutputDataNdimensions(const Simulation &simulation);
+int GetOutputDataNdimensions(const Simulation& simulation);
 
 //! Exports output data array of simulation to python-numpy array object.
-PyObject *GetOutputData(const Simulation &simulation);
+PyObject *GetOutputData(const Simulation& simulation);
 
 //! Returns one dimensional python-numpy array representing binning of the axis with given index of simulation output data
-PyObject *GetOutputDataAxis(const Simulation &simulation, int naxis);
+PyObject *GetOutputDataAxis(const Simulation& simulation, int naxis);
 
 #endif // PYTHONOUTPUTDATA_H

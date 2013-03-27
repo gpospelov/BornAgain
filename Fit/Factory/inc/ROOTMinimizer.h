@@ -34,14 +34,14 @@
 class ROOTMinimizer : public IMinimizer
 {
  public:
-    ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type=std::string());
+    ROOTMinimizer(const std::string& minimizer_name, const std::string& algo_type=std::string());
     virtual ~ROOTMinimizer();
 
     virtual void minimize();
 
     virtual void setParameter(size_t index, const FitParameter *par);
 
-    virtual void setParameters(const FitSuiteParameters &parameters);
+    virtual void setParameters(const FitSuiteParameters& parameters);
 
     virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters);
 
@@ -61,7 +61,7 @@ class ROOTMinimizer : public IMinimizer
 
     virtual void clear() { m_root_minimizer->Clear(); }
 
-    virtual void setOptions(const std::string &options);
+    virtual void setOptions(const std::string& options);
 
     virtual size_t getNCalls() const;
 
@@ -72,8 +72,8 @@ class ROOTMinimizer : public IMinimizer
     bool isGradientBasedAgorithm();
 
  private:
-    ROOTMinimizer(const ROOTMinimizer &);
-    ROOTMinimizer &operator=(const ROOTMinimizer &);
+    ROOTMinimizer(const ROOTMinimizer& );
+    ROOTMinimizer& operator=(const ROOTMinimizer& );
 
     size_t check_index(size_t index) const { return index<getNumberOfVariables() ? index : throw OutOfBoundsException("ROOTMinimizer::getErrorOfVariable() -> Wrong number of the variable"); }
 

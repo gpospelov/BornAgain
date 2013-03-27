@@ -27,7 +27,7 @@ MinimizerFactory::Catalogue::Catalogue()
 }
 
 
-void MinimizerFactory::Catalogue::print(std::ostream &ostr) const
+void MinimizerFactory::Catalogue::print(std::ostream& ostr) const
 {
     for(MinimizerFactory::Catalogue::const_iterator it=m_data.begin(); it!=m_data.end(); ++it) {
         ostr << std::setw(20) << std::left<< it->first << "  : ";
@@ -40,7 +40,7 @@ void MinimizerFactory::Catalogue::print(std::ostream &ostr) const
 }
 
 
-bool MinimizerFactory::Catalogue::isValid(const std::string &minimizer, const std::string &algorithm) const
+bool MinimizerFactory::Catalogue::isValid(const std::string& minimizer, const std::string& algorithm) const
 {
     // check minimizers names
     MinimizerFactory::Catalogue::const_iterator it = m_data.find(minimizer);
@@ -57,7 +57,7 @@ void MinimizerFactory::print_catalogue()
 }
 
 
-IMinimizer *MinimizerFactory::createMinimizer(const std::string &minimizer, const std::string &algorithm, const std::string &options)
+IMinimizer *MinimizerFactory::createMinimizer(const std::string& minimizer, const std::string& algorithm, const std::string& options)
 {
     if( !m_catalogue.isValid(minimizer, algorithm) ) {
         std::ostringstream ostr;
@@ -77,7 +77,7 @@ IMinimizer *MinimizerFactory::createMinimizer(const std::string &minimizer, cons
     if( !options.empty() ) {
         try {
             result->setOptions(options);
-        } catch (NotImplementedException &e) {
+        } catch (NotImplementedException& e) {
             std::cout << "MinimizerFactory::createMinimizer() -> Warning! Minimizer doesn't have method implemented" << e.what() << std::endl;
         }
     }

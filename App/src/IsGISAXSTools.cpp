@@ -46,7 +46,7 @@ bool   IsGISAXSTools::m_has_max = false;
 
 void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
         const std::string& canvas_name, const std::string& canvas_title,
-        const std::string& draw_options, const std::string &histogram_title)
+        const std::string& draw_options, const std::string& histogram_title)
 {
     assert(&output);
     TCanvas *c1 = new
@@ -61,7 +61,7 @@ void IsGISAXSTools::drawLogOutputData(const OutputData<double>& output,
 
 void IsGISAXSTools::drawOutputData(const OutputData<double>& output,
         const std::string& canvas_name, const std::string& canvas_title,
-        const std::string& draw_options, const std::string &histogram_title)
+        const std::string& draw_options, const std::string& histogram_title)
 {
     assert(&output);
     TCanvas *c1 = new
@@ -73,7 +73,7 @@ void IsGISAXSTools::drawOutputData(const OutputData<double>& output,
 //! Draw 1D or 2D histograms representing OutputData (in current gPad).
 
 void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
-        const std::string& draw_options, const std::string &histogram_title)
+        const std::string& draw_options, const std::string& histogram_title)
 {
     if( !&output) throw NullPointerException("IsGISAXSTools::drawOutputDataInPad() -> Error! Null output data");
     if(!gPad) {
@@ -163,7 +163,7 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output,
 //        std::cout << i << " axis1:" << haxises[1].xbins[i] << std::endl;
 //    }
 
-    TH2D *hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
+    TH2D *hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins,& haxises[0].xbins[0], (int)haxises[1].nbins,& haxises[1].xbins[0]);
     hist2->GetXaxis()->SetTitle( haxises[0].name.c_str() );
     hist2->GetYaxis()->SetTitle( haxises[1].name.c_str() );
 
@@ -189,7 +189,7 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output,
 /* ************************************************************************* */
 // create TH1D, TH2D or TH3D from OutputData
 /* ************************************************************************* */
-TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const std::string &histo_name)
+TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const std::string& histo_name)
 {
     assert(&output);
     if (output.getRank() >3) {
@@ -241,16 +241,16 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
     TH2D *hist2(0);
     TH3D *hist3(0);
     if(output.getRank() == 1) {
-        hist1 = new TH1D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0]);
+        hist1 = new TH1D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins,& haxises[0].xbins[0]);
         hist1->GetXaxis()->SetTitle( haxises[0].name.c_str() );
         hist = hist1;
     } else if(output.getRank() == 2) {
-        hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
+        hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins,& haxises[0].xbins[0], (int)haxises[1].nbins,& haxises[1].xbins[0]);
         hist2->GetXaxis()->SetTitle( haxises[0].name.c_str() );
         hist2->GetYaxis()->SetTitle( haxises[1].name.c_str() );
         hist = hist2;
     } else if(output.getRank() == 3) {
-        hist3 = new TH3D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
+        hist3 = new TH3D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins,& haxises[0].xbins[0], (int)haxises[1].nbins,& haxises[1].xbins[0], (int)haxises[1].nbins,& haxises[1].xbins[0]);
         hist3->GetXaxis()->SetTitle( haxises[0].name.c_str() );
         hist3->GetYaxis()->SetTitle( haxises[1].name.c_str() );
         hist3->GetZaxis()->SetTitle( haxises[2].name.c_str() );
@@ -286,7 +286,7 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
 // draw 1D distribution over values stored in OutputData
 // binning of histogram is calculated on the fly
 /* ************************************************************************* */
-void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double> &output, const std::string &draw_options, const std::string &histogram_title)
+void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double>& output, const std::string& draw_options, const std::string& histogram_title)
 {
     if(!gPad) {
         throw NullPointerException("IsGISAXSTools::drawOutputDataDistribution1D() -> Error! No canvas exists.");
@@ -314,7 +314,7 @@ void IsGISAXSTools::drawOutputDataDistribution1D(const OutputData<double> &outpu
 /* ************************************************************************* */
 // draw 1D distribution over relative difference in two OutputData sets
 /* ************************************************************************* */
-void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
+void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double>& left, const OutputData<double>& right, const std::string& draw_options, const std::string& histogram_title)
 {
     assert(&left);
     assert(&right);
@@ -366,7 +366,7 @@ void IsGISAXSTools::drawOutputDataDifference1D(const OutputData<double> &left, c
 /* ************************************************************************* */
 // draw relative difference of two 2D OutputData sets
 /* ************************************************************************* */
-void IsGISAXSTools::drawOutputDataRelativeDifference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
+void IsGISAXSTools::drawOutputDataRelativeDifference2D(const OutputData<double>& left, const OutputData<double>& right, const std::string& draw_options, const std::string& histogram_title)
 {
     assert(&left);
     assert(&right);
@@ -390,7 +390,7 @@ void IsGISAXSTools::drawOutputDataRelativeDifference2D(const OutputData<double> 
 /* ************************************************************************* */
 // draw relative chi2 difference of two 2D OutputData sets
 /* ************************************************************************* */
-void IsGISAXSTools::drawOutputDataChi2Difference2D(const OutputData<double> &left, const OutputData<double> &right, const std::string &draw_options, const std::string &histogram_title)
+void IsGISAXSTools::drawOutputDataChi2Difference2D(const OutputData<double>& left, const OutputData<double>& right, const std::string& draw_options, const std::string& histogram_title)
 {
     assert(&left);
     assert(&right);
@@ -414,10 +414,10 @@ void IsGISAXSTools::drawOutputDataChi2Difference2D(const OutputData<double> &lef
 }
 
 
-void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &input_data
-                                        , std::vector<std::vector<double > > &v_data
-                                        , std::vector<std::vector<double > > &v_axis0
-                                        , std::vector<std::vector<double > > &v_axis1)
+void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double>& input_data
+                                        , std::vector<std::vector<double > >& v_data
+                                        , std::vector<std::vector<double > >& v_axis0
+                                        , std::vector<std::vector<double > >& v_axis1)
 {
     assert(&input_data);
     if (input_data.getRank() != 2) return;
@@ -474,7 +474,7 @@ void IsGISAXSTools::exportOutputDataInVectors2D(const OutputData<double> &input_
 // Create TLine for displaying of one-dimensional data scan
 // OutputData should be 2D, and one of two dimensions should have number of bins == 1
 /* ************************************************************************* */
-TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double> &data)
+TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double>& data)
 {
     assert(&data);
 
@@ -505,7 +505,7 @@ TLine *IsGISAXSTools::getOutputDataScanLine(const OutputData<double> &data)
 // Create TH1D for displaying of one-dimensional data scan
 // OutputData should be 2D, and one of two dimensions should have number of bins == 1
 /* ************************************************************************* */
-TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const std::string &hname)
+TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double>& data, const std::string& hname)
 {
     assert(&data);
 
@@ -545,7 +545,7 @@ TH1D *IsGISAXSTools::getOutputDataScanHist(const OutputData<double> &data, const
 /* ************************************************************************* */
 // add noise to data
 /* ************************************************************************* */
-OutputData<double > *IsGISAXSTools::createNoisyData(const OutputData<double> &exact_data, double noise_factor)
+OutputData<double > *IsGISAXSTools::createNoisyData(const OutputData<double>& exact_data, double noise_factor)
 {
     assert(&exact_data);
     OutputData<double > *real_data = exact_data.clone();
@@ -562,7 +562,7 @@ OutputData<double > *IsGISAXSTools::createNoisyData(const OutputData<double> &ex
 }
 
 
-OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData<double> &exact_data, double sigma)
+OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData<double>& exact_data, double sigma)
 {
     assert(&exact_data);
     OutputData<double > *real_data = exact_data.clone();
@@ -577,7 +577,7 @@ OutputData<double > *IsGISAXSTools::createDataWithGaussianNoise(const OutputData
 }
 
 
-void IsGISAXSTools::drawOutputDataComparisonResults(const OutputData<double> &data, const OutputData<double> &reference, const std::string &name, const std::string &title, double hmin, double hmax, double hdiff)
+void IsGISAXSTools::drawOutputDataComparisonResults(const OutputData<double>& data, const OutputData<double>& reference, const std::string& name, const std::string& title, double hmin, double hmax, double hdiff)
 {
     assert(&data);
     assert(&reference);

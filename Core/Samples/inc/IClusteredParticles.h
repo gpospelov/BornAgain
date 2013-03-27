@@ -39,13 +39,13 @@ class IClusteredParticles : public ICompositeSample
     //! @param meso_crystal_form_factor  the form factor describing the shape of the mesocrystal
     //! @param ambient_refractive_index  the refractive index of the ambient material
     //! The bulk content of the mesocrystal is encapsulated by the IClusteredParticles object itself
-//    virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
+//    virtual IFormFactor *createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
 //            complex_t ambient_refractive_index) const=0;
 
-//    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const=0;
+//    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const=0;
 
 
-    virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
+    virtual IFormFactor *createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
             complex_t ambient_refractive_index) const
     {
         (void)meso_crystal_form_factor;
@@ -53,7 +53,7 @@ class IClusteredParticles : public ICompositeSample
         throw NotImplementedException("IClusteredParticles::createTotalFormFactor() -> NotImplementedException");
     }
 
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const
     {
         (void)parent_info;
         throw NotImplementedException("IClusteredParticles::createDiffuseParticleInfo() -> NotImplementedException");

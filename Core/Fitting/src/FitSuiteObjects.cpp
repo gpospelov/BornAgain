@@ -28,7 +28,7 @@ void FitSuiteObjects::clear()
 }
 
 //! Adds to kit pair of (simulation, real data) for consecutive simulation and chi2 module
-void FitSuiteObjects::add(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module, double weight)
+void FitSuiteObjects::add(const Simulation& simulation, const OutputData<double >& real_data, const IChiSquaredModule& chi2_module, double weight)
 {
     m_total_weight += weight;
     m_fit_objects.push_back(new FitObject(simulation, real_data, chi2_module, weight));
@@ -55,7 +55,7 @@ size_t FitSuiteObjects::getSizeOfDataSet() const
 }
 
 //! ?
-const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(size_t global_index, size_t &local_index)
+const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(size_t global_index, size_t& local_index)
 {
     local_index = global_index;
     for(FitObjects_t::const_iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {

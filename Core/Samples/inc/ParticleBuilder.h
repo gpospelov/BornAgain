@@ -37,10 +37,10 @@ class ParticleBuilder
     //! @param name       parameter name in the parameter pool of given prototype
     //! @param parameter  variation type
     //! @param scale      global scale factor for probabilities
-    void setPrototype(const Particle &particle, std::string name, const StochasticParameter<double> &param, double scale=1.0);
+    void setPrototype(const Particle& particle, std::string name, const StochasticParameter<double>& param, double scale=1.0);
 
     //! plant particles in given decoration
-    void plantParticles(ParticleDecoration &decor);
+    void plantParticles(ParticleDecoration& decor);
 
  private:
     Particle *m_prototype; //!< prototype of the particle, all particles will be cloned from it

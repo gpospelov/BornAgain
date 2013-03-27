@@ -82,7 +82,7 @@ void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2,
     return;
 }
 
-IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t &vector_in) const
+IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t& vector_in) const
 {
     kvector_t coordinate_vector = vector_in.x()*m_amin1 + vector_in.y()*m_amin2 + vector_in.z()*m_amin3;
     int c1 = (int)std::floor(coordinate_vector.x() + 0.5);
@@ -91,7 +91,7 @@ IndexVector3D Lattice::getNearestLatticeVectorCoordinates(const kvector_t &vecto
     return IndexVector3D(c1, c2, c3);
 }
 
-IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t &vector_in) const
+IndexVector3D Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t& vector_in) const
 {
     kvector_t coordinate_vector = vector_in.x()*m_bmin1 + vector_in.y()*m_bmin2 + vector_in.z()*m_bmin3;
     int c1 = (int)std::floor(coordinate_vector.x() + 0.5);
@@ -124,9 +124,9 @@ std::vector<double> Lattice::collectBraggAngles(size_t size, double max_radius,
     double radius = std::max(max_radius, z_range.getMax());
 
     computeReciprocalLatticeVectorsWithinRadius(kvector_t(0.0, 0.0, 0.0), radius);
-    const KVectorContainer &rec_vectors = getKVectorContainer();
+    const KVectorContainer& rec_vectors = getKVectorContainer();
     for(KVectorContainer::const_iterator it = rec_vectors.begin(); it!= rec_vectors.end(); ++it) {
-        const kvector_t &rvec = (*it);
+        const kvector_t& rvec = (*it);
         double phi = rvec.phi();
         if (rvec.magxy()<max_radius && phi_range.inRange(phi) && z_range.inRange(rvec.z())) {
             result.push_back(phi);
@@ -163,8 +163,8 @@ void Lattice::computeReciprocalVectors() const
     m_b3 = 2*M_PI/dotProduct(m_a3, a12)*a12;
 }
 
-void Lattice::computeVectorsWithinRadius(const kvector_t &input_vector,
-        const IndexVector3D &nearest_coords, double radius, const kvector_t& v1,
+void Lattice::computeVectorsWithinRadius(const kvector_t& input_vector,
+        const IndexVector3D& nearest_coords, double radius, const kvector_t& v1,
         const kvector_t& v2, const kvector_t& v3, const kvector_t& rec1,
         const kvector_t& rec2, const kvector_t& rec3) const
 {
@@ -222,7 +222,7 @@ void Lattice::computeInverseVectors(const kvector_t& v1, const kvector_t& v2,
     gsl_matrix_set(p_basisMatrix, 2, 1, v2.z());
     gsl_matrix_set(p_basisMatrix, 2, 2, v3.z());
 
-    gsl_linalg_LU_decomp(p_basisMatrix, p_perm, &s);
+    gsl_linalg_LU_decomp(p_basisMatrix, p_perm,& s);
     gsl_linalg_LU_invert(p_basisMatrix, p_perm, p_inverseMatrix);
 
     o1.setX(gsl_matrix_get(p_inverseMatrix, 0, 0));

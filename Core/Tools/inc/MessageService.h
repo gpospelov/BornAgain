@@ -26,7 +26,7 @@ class Logger
     }
 
     template <typename T>
-    Logger & operator<<(T const & value)
+    Logger&  operator<<(T const&  value)
     {
         m_buffer << value;
         return *this;
@@ -39,10 +39,10 @@ class Logger
     }
 
     std::string NowTime();
-    const std::string &ToString(MessageLevel level) {return m_level_names[level];}
+    const std::string& ToString(MessageLevel level) {return m_level_names[level];}
 
     static void SetLevel(MessageLevel level) {m_logLevel = level; }
-    static void SetLevel(const std::string &levelname);
+    static void SetLevel(const std::string& levelname);
     static MessageLevel GetLevel() {return m_logLevel; }
 
  private:
@@ -52,7 +52,7 @@ class Logger
 };
 
 inline void SetLevel(MessageLevel level) { Logger::SetLevel(level); }
-inline void SetLevel(const std::string &levelname) { Logger::SetLevel(levelname); }
+inline void SetLevel(const std::string& levelname) { Logger::SetLevel(levelname); }
 
 }
 

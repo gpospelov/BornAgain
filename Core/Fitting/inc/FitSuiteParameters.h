@@ -39,15 +39,15 @@ class FitSuiteParameters
     void clear();
 
     //! Adds fit parameter
-    void addParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error=0.0);
+    void addParameter(const std::string& name, double value, double step, const AttLimits& attlim, double error=0.0);
 
     //! Returns fit parameter with given name
-    const FitParameter *getParameter(const std::string &name) const;
-    FitParameter *getParameter(const std::string &name);
+    const FitParameter *getParameter(const std::string& name) const;
+    FitParameter *getParameter(const std::string& name);
 
     //! Sets values for all defined parameters
     void setValues(const double *pars_values);
-    void setValues(const std::vector<double > &pars_values);
+    void setValues(const std::vector<double >& pars_values);
 
     //! Returns values of all defined parameters
     std::vector<double > getValues() const;

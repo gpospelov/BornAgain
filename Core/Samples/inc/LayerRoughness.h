@@ -36,9 +36,9 @@ class LayerRoughness : public IRoughness
     LayerRoughness *clone() const;
 
     //! Returns power spectral density of the surface roughness
-    double getSpectralFun(const kvector_t &kvec) const;
+    double getSpectralFun(const kvector_t& kvec) const;
 
-    double getCorrFun(const kvector_t &k) const;
+    double getCorrFun(const kvector_t& k) const;
 
     //! Sets rms of roughness
     inline void   setSigma(double sigma) { m_sigma = sigma; }
@@ -56,14 +56,14 @@ class LayerRoughness : public IRoughness
     inline double getLatteralCorrLength() const { return m_latteralCorrLength; }
 
     //! Prints class
-    friend std::ostream &operator<<(std::ostream &ostr, const LayerRoughness &m) { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const LayerRoughness& m) { m.print(ostr); return ostr; }
 
  protected:
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
     //! Prints class
-    void print(std::ostream &ostr) const;
+    void print(std::ostream& ostr) const;
 
     double m_sigma;                //!< rms of roughness
     double m_hurstParameter;       //!< Hurst parameter which describes how jagged the interface, 0<H<=1

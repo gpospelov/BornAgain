@@ -40,7 +40,7 @@ class FormFactorBox : public IFormFactorBorn
     //! Returns width of Box
     double getwidth() const { return m_width; }
 
-    complex_t evaluate_for_q(const cvector_t &q) const;
+    complex_t evaluate_for_q(const cvector_t& q) const;
 
     double getVolume() const { return 4*m_height*m_radius*m_width; }
 

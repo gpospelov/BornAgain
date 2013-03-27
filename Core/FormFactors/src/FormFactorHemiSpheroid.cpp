@@ -37,9 +37,9 @@ FormFactorHemiSpheroid::FormFactorHemiSpheroid(
 void FormFactorHemiSpheroid::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter("width",  &m_width);
-    getParameterPool()->registerParameter("height", &m_height);
+    getParameterPool()->registerParameter("radius",& m_radius);
+    getParameterPool()->registerParameter("width", & m_width);
+    getParameterPool()->registerParameter("height",& m_height);
 }
 
 FormFactorHemiSpheroid* FormFactorHemiSpheroid::clone() const
@@ -55,7 +55,7 @@ double FormFactorHemiSpheroid::evaluate_for_q_real() const
 {
     double H = m_height;
     MemberFunctionIntegrator<FormFactorHemiSpheroid>::mem_function p_mf =
-        &FormFactorHemiSpheroid::HemiSpheroidIntegralReal;
+       & FormFactorHemiSpheroid::HemiSpheroidIntegralReal;
     MemberFunctionIntegrator<FormFactorHemiSpheroid> integrator(p_mf,this);
     return integrator.integrate(0, H, (void *)0);
 }
@@ -90,7 +90,7 @@ double FormFactorHemiSpheroid::evaluate_for_q_imag() const
 {
     double H = m_height;
     MemberFunctionIntegrator<FormFactorHemiSpheroid>::mem_function p_mf =
-        &FormFactorHemiSpheroid::HemiSpheroidIntegralImaginary;
+       & FormFactorHemiSpheroid::HemiSpheroidIntegralImaginary;
     MemberFunctionIntegrator<FormFactorHemiSpheroid> integrator(p_mf,this);
     return integrator.integrate(0, H, (void *)0);
 }
@@ -121,7 +121,7 @@ double FormFactorHemiSpheroid::HemiSpheroidIntegralImaginary(
 
 //! Complex formfactor (sum of the two integrals).
 
-complex_t FormFactorHemiSpheroid::evaluate_for_q(const cvector_t &q) const
+complex_t FormFactorHemiSpheroid::evaluate_for_q(const cvector_t& q) const
 {
      m_q = q;
      return 2*M_PI*complex_t(0.0, 1.0)*evaluate_for_q_imag() +

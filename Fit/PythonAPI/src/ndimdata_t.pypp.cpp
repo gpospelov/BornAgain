@@ -28,16 +28,16 @@ void register_ndimdata_t_class(){
         .def( bp::self /= bp::self )    
         .def( 
             "__getitem__"
-            , (double & ( ::OutputData<double>::* )( ::size_t ) )( &::OutputData< double >::operator[] )
+            , (double&  ( ::OutputData<double>::* )( ::size_t ) )(& ::OutputData< double >::operator[] )
             , ( bp::arg("index") )
             , bp::return_value_policy< bp::copy_non_const_reference >() )    
         .def( 
             "__getitem__"
-            , (double const & ( ::OutputData<double>::* )( ::size_t ) const)( &::OutputData< double >::operator[] )
+            , (double const&  ( ::OutputData<double>::* )( ::size_t ) const)(& ::OutputData< double >::operator[] )
             , ( bp::arg("index") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "totalSum"
-            , (double ( ::OutputData<double>::* )(  ) const)( &::OutputData< double >::totalSum ) );
+            , (double ( ::OutputData<double>::* )(  ) const)(& ::OutputData< double >::totalSum ) );
 
 }

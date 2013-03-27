@@ -28,14 +28,14 @@
 #include <vector>
 
 // export output data array to python-numpy array object
-PyObject *ExportOutputData(const OutputData<double > &output);
+PyObject *ExportOutputData(const OutputData<double >& output);
 
 // export axis of output data array as python-numpy array object
-PyObject *ExportOutputDataAxis(const OutputData<double > &output, int naxis);
+PyObject *ExportOutputDataAxis(const OutputData<double >& output, int naxis);
 
 //! Returns number of dimensions in output data of simulation
 
-int GetOutputDataNdimensions(const Simulation &simulation)
+int GetOutputDataNdimensions(const Simulation& simulation)
 {
     const OutputData<double > *data = simulation.getOutputData();
     int ndims = data->getRank();
@@ -44,7 +44,7 @@ int GetOutputDataNdimensions(const Simulation &simulation)
 
 //! export output data array of simulation to python-numpy array object
 
-PyObject *GetOutputData(const Simulation &simulation)
+PyObject *GetOutputData(const Simulation& simulation)
 {
     const OutputData<double > *data = simulation.getOutputData();
     PyObject *obj = ExportOutputData(*data);
@@ -53,7 +53,7 @@ PyObject *GetOutputData(const Simulation &simulation)
 
 //! Returns one-dim numpy array representing binning of the axis with given index of simulation's output data
 
-PyObject *GetOutputDataAxis(const Simulation &simulation, int naxis)
+PyObject *GetOutputDataAxis(const Simulation& simulation, int naxis)
 {
     const OutputData<double > *data = simulation.getOutputData();
     PyObject *obj = ExportOutputDataAxis(*data, naxis);
@@ -62,7 +62,7 @@ PyObject *GetOutputDataAxis(const Simulation &simulation, int naxis)
 
 //! export axis of output data array as python-numpy array object
 
-PyObject *ExportOutputData(const OutputData<double > &output_data)
+PyObject *ExportOutputData(const OutputData<double >& output_data)
 {
     // getting size of dimensions from output_data
     std::vector<int > dimensions;
@@ -102,7 +102,7 @@ PyObject *ExportOutputData(const OutputData<double > &output_data)
 
 //! Returns one dimensional python-numpy array representing binning of given axis of oputput data object
 
-PyObject *ExportOutputDataAxis(const OutputData<double > &output_data, int naxis)
+PyObject *ExportOutputDataAxis(const OutputData<double >& output_data, int naxis)
 {
     // getting size of dimensions from output_data
     std::vector<int > dimensions;

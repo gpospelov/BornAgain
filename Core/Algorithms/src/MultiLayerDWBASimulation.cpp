@@ -62,7 +62,7 @@ void MultiLayerDWBASimulation::init(const Simulation& simulation)
     }
 }
 
-void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo &thread_info)
+void MultiLayerDWBASimulation::setThreadInfo(const ThreadInfo& thread_info)
 {
     DWBASimulation::setThreadInfo(thread_info);
     for (std::map<size_t, LayerDWBASimulation*>::iterator it =
@@ -114,7 +114,7 @@ void MultiLayerDWBASimulation::run()
                 doubleFresnel_buffer.begin();
             it!=doubleFresnel_buffer.end(); ++it) {
             double angle = (*it).first;
-            const OpticalFresnel::FresnelCoeff &coeff = (*it).second[i_layer];
+            const OpticalFresnel::FresnelCoeff& coeff = (*it).second[i_layer];
             RT_map[angle] = complexpair_t(coeff.R, coeff.T);
             Kz_map[angle] = coeff.kz;
         }

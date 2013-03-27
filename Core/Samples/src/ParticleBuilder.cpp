@@ -34,7 +34,7 @@ ParticleBuilder::~ParticleBuilder()
 
 //! Sets prototype for particle production
 
-void ParticleBuilder::setPrototype(const Particle &particle, std::string name, const StochasticParameter<double> &param, double scale)
+void ParticleBuilder::setPrototype(const Particle& particle, std::string name, const StochasticParameter<double>& param, double scale)
 {
     delete m_prototype;
     m_prototype = particle.clone();
@@ -46,7 +46,7 @@ void ParticleBuilder::setPrototype(const Particle &particle, std::string name, c
 
 //! plant particles in given decoration
 
-void ParticleBuilder::plantParticles(ParticleDecoration &decor)
+void ParticleBuilder::plantParticles(ParticleDecoration& decor)
 {
     if( !m_prototype ) throw NullPointerException("ParticleBuilder::plantParticle() -> Error. No prototype is defined");
 

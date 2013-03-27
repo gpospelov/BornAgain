@@ -27,7 +27,7 @@ class DoubleToComplexInterpolatingFunction : public IDoubleToComplexFunction
     enum InterpolatingMode { Nearest, Linear, Polar };
 
 	virtual ~DoubleToComplexInterpolatingFunction();
-    DoubleToComplexInterpolatingFunction(const std::map<double, complex_t> &value_map, InterpolatingMode imode=Nearest);
+    DoubleToComplexInterpolatingFunction(const std::map<double, complex_t>& value_map, InterpolatingMode imode=Nearest);
 	virtual DoubleToComplexInterpolatingFunction *clone() const;
 
     virtual complex_t evaluate(double value);
@@ -43,8 +43,8 @@ class DoubleToComplexInterpolatingFunction : public IDoubleToComplexFunction
 
  private:
     //! copy constructor and assignment operator are hidden since there is a clone method
-    DoubleToComplexInterpolatingFunction(const DoubleToComplexInterpolatingFunction &);
-    DoubleToComplexInterpolatingFunction &operator=(const DoubleToComplexInterpolatingFunction &);
+    DoubleToComplexInterpolatingFunction(const DoubleToComplexInterpolatingFunction& );
+    DoubleToComplexInterpolatingFunction& operator=(const DoubleToComplexInterpolatingFunction& );
 };
 
 #endif /* DOUBLETOCOMPLEXINTERPOLATINGFUNCTION_H_ */

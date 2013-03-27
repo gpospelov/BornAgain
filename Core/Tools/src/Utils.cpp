@@ -25,7 +25,7 @@ std::string Utils::FileSystem::m_relative_path = "relative path is undefined";
 
 //! Parse double values from string to vector of double
 
-vdouble1d_t Utils::String::parse_doubles(const std::string &str)
+vdouble1d_t Utils::String::parse_doubles(const std::string& str)
 {
     vdouble1d_t buff_1d;
     std::istringstream iss(str);
@@ -44,7 +44,7 @@ vdouble1d_t Utils::String::parse_doubles(const std::string &str)
 //! This method is used to compare IsGisaxs and our ASCII files
 //! at equal precision.
 //!
-std::string Utils::String::round_doubles(const std::string &str, int precision)
+std::string Utils::String::round_doubles(const std::string& str, int precision)
 {
     std::string newline;
     std::istringstream is0(str.c_str());
@@ -60,7 +60,7 @@ std::string Utils::String::round_doubles(const std::string &str, int precision)
 //! Returns true if text matches pattern with wildcards '*' and '?'.
 
 bool Utils::String::MatchPattern(
-    const std::string &text, std::string wildcardPattern)
+    const std::string& text, std::string wildcardPattern)
 {
     bool caseSensitive = false;
 
@@ -92,7 +92,7 @@ bool Utils::String::MatchPattern(
 //! Split string into vector of string using delimeter.
 
 std::vector<std::string> Utils::String::Split(
-    const std::string &text, const std::string &delimeter)
+    const std::string& text, const std::string& delimeter)
 {
     std::vector<std::string> tokens;
     boost::split(tokens, text, boost::is_any_of(delimeter));
@@ -143,14 +143,14 @@ std::string Utils::FileSystem::GetHomePath()
 
 //! Returns file extension.
 
-std::string Utils::FileSystem::GetFileExtension(const std::string &name)
+std::string Utils::FileSystem::GetFileExtension(const std::string& name)
 {
     return boost::filesystem::extension(name.c_str());
 }
 
 //! Does name contain *.gz extension?
 
-bool Utils::FileSystem::isGZipped(const std::string &name)
+bool Utils::FileSystem::isGZipped(const std::string& name)
 {
     static const std::string gzip_extension(".gz");
     if ( Utils::FileSystem::GetFileExtension(name) == gzip_extension)
@@ -160,7 +160,7 @@ bool Utils::FileSystem::isGZipped(const std::string &name)
 
 //! Returns file main extension (without .gz).
 
-std::string Utils::FileSystem::GetFileMainExtension(const std::string &name)
+std::string Utils::FileSystem::GetFileMainExtension(const std::string& name)
 {
     if( !isGZipped(name) ) {
         return Utils::FileSystem::GetFileExtension(name);

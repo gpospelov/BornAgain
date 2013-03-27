@@ -257,7 +257,7 @@ BasicVector3D<double>& BasicVector3D<double>::transform (
 
 template<>
 BasicVector3D<complex_t>& BasicVector3D<complex_t>::transform (
-            const Transform3D & m)
+            const Transform3D&  m)
 {
     setXYZ(m.xx()*x() + m.xy()*y() + m.xz()*z(),
            m.yx()*x() + m.yy()*y() + m.yz()*z(),

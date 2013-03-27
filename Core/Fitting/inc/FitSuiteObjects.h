@@ -41,7 +41,7 @@ class FitSuiteObjects : public IParameterized
     size_t size() const { return m_fit_objects.size(); }
 
     //! Adds to kit pair of (simulation, real data) for consecutive simulation and chi2 module
-    void add(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module, double weight = 1.0);
+    void add(const Simulation& simulation, const OutputData<double >& real_data, const IChiSquaredModule& chi2_module, double weight = 1.0);
 
     //! loop through all defined simulations and run them
     void runSimulations();
@@ -66,7 +66,7 @@ class FitSuiteObjects : public IParameterized
     //! Returns real data
     const OutputData<double> * getRealData(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getRealData(); }
     //! Sets real data
-    void setRealData(const OutputData<double > &real_data, size_t i_item = 0) { m_fit_objects[check_index(i_item)]->setRealData(real_data);}
+    void setRealData(const OutputData<double >& real_data, size_t i_item = 0) { m_fit_objects[check_index(i_item)]->setRealData(real_data);}
 
     //! Returns chi2 module
 //    const IChiSquaredModule *getChiSquaredModule(size_t i_item = 0) const { return m_fit_objects[check_index(i_item)]->getChiSquaredModule(); }
@@ -95,12 +95,12 @@ class FitSuiteObjects : public IParameterized
     double getSimulationMaxIntensity();
 
     //! Returns object and calculate index of data element for given global data element index
-    const FitObject *getObjectForGlobalDataIndex(size_t global_index, size_t &local_index);
+    const FitObject *getObjectForGlobalDataIndex(size_t global_index, size_t& local_index);
 
  private:
     //! disabled copy constructor and assignment operator
-    FitSuiteObjects &operator=(const FitSuiteObjects &);
-    FitSuiteObjects(const FitSuiteObjects &);
+    FitSuiteObjects& operator=(const FitSuiteObjects& );
+    FitSuiteObjects(const FitSuiteObjects& );
 
     //! Checks if index inside vector bounds
     inline size_t check_index(size_t index) const { return index < m_fit_objects.size() ? index : throw OutOfBoundsException("FitSuiteKit::check() -> Index outside of range"); }

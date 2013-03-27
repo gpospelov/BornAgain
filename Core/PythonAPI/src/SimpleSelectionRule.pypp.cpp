@@ -79,7 +79,7 @@ namespace bp = boost::python;
 
 struct SimpleSelectionRule_wrapper : SimpleSelectionRule, bp::wrapper< SimpleSelectionRule > {
 
-    SimpleSelectionRule_wrapper(SimpleSelectionRule const & arg )
+    SimpleSelectionRule_wrapper(SimpleSelectionRule const&  arg )
     : SimpleSelectionRule( arg )
       , bp::wrapper< SimpleSelectionRule >(){
         // copy constructor
@@ -105,7 +105,7 @@ struct SimpleSelectionRule_wrapper : SimpleSelectionRule, bp::wrapper< SimpleSel
         return SimpleSelectionRule::clone( );
     }
 
-    virtual bool coordinateSelected( ::IndexVector3D const & coordinate ) const  {
+    virtual bool coordinateSelected( ::IndexVector3D const&  coordinate ) const  {
         if( bp::override func_coordinateSelected = this->get_override( "coordinateSelected" ) )
             return func_coordinateSelected( boost::ref(coordinate) );
         else{
@@ -113,7 +113,7 @@ struct SimpleSelectionRule_wrapper : SimpleSelectionRule, bp::wrapper< SimpleSel
         }
     }
     
-    bool default_coordinateSelected( ::IndexVector3D const & coordinate ) const  {
+    bool default_coordinateSelected( ::IndexVector3D const&  coordinate ) const  {
         return SimpleSelectionRule::coordinateSelected( boost::ref(coordinate) );
     }
 
@@ -129,8 +129,8 @@ void register_SimpleSelectionRule_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "coordinateSelected"
-            , (bool ( ::SimpleSelectionRule::* )( ::IndexVector3D const & ) const)(&::SimpleSelectionRule::coordinateSelected)
-            , (bool ( SimpleSelectionRule_wrapper::* )( ::IndexVector3D const & ) const)(&SimpleSelectionRule_wrapper::default_coordinateSelected)
+            , (bool ( ::SimpleSelectionRule::* )( ::IndexVector3D const&  ) const)(&::SimpleSelectionRule::coordinateSelected)
+            , (bool ( SimpleSelectionRule_wrapper::* )( ::IndexVector3D const&  ) const)(&SimpleSelectionRule_wrapper::default_coordinateSelected)
             , ( bp::arg("coordinate") ) );
 
 }

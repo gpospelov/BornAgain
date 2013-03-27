@@ -86,7 +86,7 @@ struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
     
     }
 
-    Instrument_wrapper(::Instrument const & other )
+    Instrument_wrapper(::Instrument const&  other )
     : Instrument( boost::ref(other) )
       , bp::wrapper< Instrument >(){
         // copy constructor
@@ -146,47 +146,47 @@ struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
 void register_Instrument_class(){
 
     bp::class_< Instrument_wrapper, bp::bases< IParameterized > >( "Instrument", bp::init< >() )    
-        .def( bp::init< Instrument const & >(( bp::arg("other") )) )    
+        .def( bp::init< Instrument const&  >(( bp::arg("other") )) )    
         .def( 
             "getBeam"
-            , (::Beam ( ::Instrument::* )(  ) const)( &::Instrument::getBeam ) )    
+            , (::Beam ( ::Instrument::* )(  ) const)(& ::Instrument::getBeam ) )    
         .def( 
             "getDetector"
-            , (::Detector ( ::Instrument::* )(  ) const)( &::Instrument::getDetector ) )    
+            , (::Detector ( ::Instrument::* )(  ) const)(& ::Instrument::getDetector ) )    
         .def( 
             "getDetectorAxis"
-            , (::IAxis const & ( ::Instrument::* )( ::size_t ) const)( &::Instrument::getDetectorAxis )
+            , (::IAxis const&  ( ::Instrument::* )( ::size_t ) const)(& ::Instrument::getDetectorAxis )
             , ( bp::arg("index") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "getDetectorDimension"
-            , (::size_t ( ::Instrument::* )(  ) const)( &::Instrument::getDetectorDimension ) )    
+            , (::size_t ( ::Instrument::* )(  ) const)(& ::Instrument::getDetectorDimension ) )    
         .def( 
             "getIntensity"
-            , (double ( ::Instrument::* )(  ) const)( &::Instrument::getIntensity ) )    
+            , (double ( ::Instrument::* )(  ) const)(& ::Instrument::getIntensity ) )    
         .def( 
             "matchDetectorParameters"
-            , (void ( ::Instrument::* )( ::OutputData< double > const & ) )( &::Instrument::matchDetectorParameters )
+            , (void ( ::Instrument::* )( ::OutputData< double > const&  ) )(& ::Instrument::matchDetectorParameters )
             , ( bp::arg("output_data") ) )    
         .def( 
             "setBeam"
-            , (void ( ::Instrument::* )( ::Beam ) )( &::Instrument::setBeam )
+            , (void ( ::Instrument::* )( ::Beam ) )(& ::Instrument::setBeam )
             , ( bp::arg("beam") ) )    
         .def( 
             "setBeamIntensity"
-            , (void ( ::Instrument::* )( double ) )( &::Instrument::setBeamIntensity )
+            , (void ( ::Instrument::* )( double ) )(& ::Instrument::setBeamIntensity )
             , ( bp::arg("intensity") ) )    
         .def( 
             "setBeamParameters"
-            , (void ( ::Instrument::* )( double,double,double ) )( &::Instrument::setBeamParameters )
+            , (void ( ::Instrument::* )( double,double,double ) )(& ::Instrument::setBeamParameters )
             , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::Instrument::* )( ::size_t,double,double,::size_t,double,double,bool ) )( &::Instrument::setDetectorParameters )
+            , (void ( ::Instrument::* )( ::size_t,double,double,::size_t,double,double,bool ) )(& ::Instrument::setDetectorParameters )
             , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::Instrument::* )( ::DetectorParameters const & ) )( &::Instrument::setDetectorParameters )
+            , (void ( ::Instrument::* )( ::DetectorParameters const&  ) )(& ::Instrument::setDetectorParameters )
             , ( bp::arg("params") ) )    
         .def( 
             "areParametersChanged"

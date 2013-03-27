@@ -27,10 +27,10 @@ template <class T> class SafePointerVector
     typedef typename std::vector<T *>::iterator iterator;
     typedef typename std::vector<T *>::const_iterator const_iterator;
     SafePointerVector();
-    SafePointerVector(const SafePointerVector &other);
+    SafePointerVector(const SafePointerVector& other);
     virtual ~SafePointerVector();
 
-    SafePointerVector &operator=(const SafePointerVector &right);
+    SafePointerVector& operator=(const SafePointerVector& right);
     size_t size() const;
     bool empty() const;
     void push_back(T *pointer);
@@ -54,7 +54,7 @@ template<class T> SafePointerVector<T>::SafePointerVector() : m_pointers()
 {
 }
 
-template<class T> SafePointerVector<T>::SafePointerVector(const SafePointerVector<T> &other)
+template<class T> SafePointerVector<T>::SafePointerVector(const SafePointerVector<T>& other)
 {
     for (const_iterator it = other.begin();
             it != other.end(); ++it) {
@@ -67,10 +67,10 @@ template<class T> SafePointerVector<T>::~SafePointerVector()
     clear();
 }
 
-template<class T> SafePointerVector<T> &SafePointerVector<T>::operator=(
-        const SafePointerVector<T> &right)
+template<class T> SafePointerVector<T>& SafePointerVector<T>::operator=(
+        const SafePointerVector<T>& right)
 {
-    if (this == &right) return *this;
+    if (this ==& right) return *this;
     clear();
     for (const_iterator it = right.begin();
             it != right.end(); ++it) {

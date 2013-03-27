@@ -41,7 +41,7 @@ GCC_DIAG_ON(unused-parameter);
 //! Decorator to unzip stream.
 
 OutputData<double> *OutputDataReadStreamGZip::readOutputData(
-    std::istream &input_stream)
+    std::istream& input_stream)
 {
     boost::iostreams::filtering_streambuf<boost::iostreams::input>
         input_filtered;
@@ -54,7 +54,7 @@ OutputData<double> *OutputDataReadStreamGZip::readOutputData(
 //! Read data from ASCII file (2D assumed) into newly created OutputData.
 
 OutputData<double> *OutputDataReadStreamIMA::readOutputData(
-    std::istream &input_stream)
+    std::istream& input_stream)
 {
     std::string sline;
     vdouble2d_t buff_2d;
@@ -98,7 +98,7 @@ OutputData<double> *OutputDataReadStreamIMA::readOutputData(
 //! [nX] lines of [nY] size representing data itself
 //!
 OutputData<double> *OutputDataReadStreamV1::readOutputData(
-    std::istream &input_stream)
+    std::istream& input_stream)
 {
     std::string sline;
     vdouble1d_t buff_xaxis, buff_yaxis;

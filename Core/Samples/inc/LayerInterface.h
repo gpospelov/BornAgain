@@ -35,7 +35,7 @@ class LayerInterface : public ICompositeSample
     //! Creates smooth interface between two layers
     static LayerInterface* createSmoothInterface(const Layer *p_layer_top, const Layer *p_layer_bottom);
     //! Creates rough interface between two layers
-    static LayerInterface* createRoughInterface(const Layer *p_layer_top, const Layer *p_layer_bottom, const LayerRoughness &roughness);
+    static LayerInterface* createRoughInterface(const Layer *p_layer_top, const Layer *p_layer_bottom, const LayerRoughness& roughness);
 
     //! link to the top layer
     inline void setLayerTop(const Layer* p_layer_top) { m_LayerTop = p_layer_top; }
@@ -47,7 +47,7 @@ class LayerInterface : public ICompositeSample
     inline void setLayersTopBottom(const Layer* p_layer_top, const Layer* p_layer_bottom) { setLayerTop(p_layer_top); setLayerBottom(p_layer_bottom); }
 
     //! Sets roughness of the interface
-    inline void setRoughness(const LayerRoughness &roughness);
+    inline void setRoughness(const LayerRoughness& roughness);
 
     //! Returns roughness of the interface
     inline const LayerRoughness *getRoughness() const { return m_roughness; }
@@ -59,11 +59,11 @@ class LayerInterface : public ICompositeSample
     inline const Layer *getLayerBottom() const { return m_LayerBottom; }
 
     //! Prints class
-    friend std::ostream &operator<<(std::ostream &ostr, const LayerInterface &m) { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const LayerInterface& m) { m.print(ostr); return ostr; }
 
  protected:
     //! Prints class
-    void print(std::ostream &ostr) const;
+    void print(std::ostream& ostr) const;
 
  private:
     LayerInterface();

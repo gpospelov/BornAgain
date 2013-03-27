@@ -37,7 +37,7 @@ void MaterialManager::clear() {
 
 //! Returns material.
 
-const IMaterial *MaterialManager::this_getMaterial(const std::string &name)
+const IMaterial *MaterialManager::this_getMaterial(const std::string& name)
 {
     static boost::mutex single_mutex;
     boost::unique_lock<boost::mutex> single_lock( single_mutex );
@@ -52,7 +52,7 @@ const IMaterial *MaterialManager::this_getMaterial(const std::string &name)
 //! Creates material, and add into database using name of material as identifier.
 
 const IMaterial *MaterialManager::this_getHomogeneousMaterial(
-    const std::string &name, const complex_t &refractive_index)
+    const std::string& name, const complex_t& refractive_index)
 {
     static boost::mutex single_mutex;
     boost::unique_lock<boost::mutex> single_lock( single_mutex );
@@ -80,7 +80,7 @@ const IMaterial *MaterialManager::this_getHomogeneousMaterial(
 //! Creates material, and add into database using name of material as identifier.
 
 const IMaterial *MaterialManager::this_getHomogeneousMaterial(
-    const std::string &name,
+    const std::string& name,
     double refractive_index_real,
     double refractive_index_imag)
 {
@@ -90,7 +90,7 @@ const IMaterial *MaterialManager::this_getHomogeneousMaterial(
 
 //! Dump this to stream.
 
-void MaterialManager::print(std::ostream &ostr) const
+void MaterialManager::print(std::ostream& ostr) const
 {
     ostr << typeid(*this).name() << " " << this <<
         " nmaterials:" << m_materials.size() << std::endl;

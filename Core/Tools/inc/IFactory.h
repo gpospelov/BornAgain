@@ -41,7 +41,7 @@ class IFactory
     IFactory() : m_own_objects(false) { }
 
     //! Creates object by calling creation function corresponded to given identifier
-    AbstractProduct *createItem(const IdentifierType &itemId)
+    AbstractProduct *createItem(const IdentifierType& itemId)
     {
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
         if( it == m_callbacks.end() ) {
@@ -55,7 +55,7 @@ class IFactory
     }
 
     //! Registers object's creation function
-    bool registerItem(const IdentifierType &itemId, CreateItemCallback CreateFn)
+    bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn)
     {
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
         if( it != m_callbacks.end() ) {
@@ -66,7 +66,7 @@ class IFactory
     }
 
     //! Registers object's creation function and store object description
-    bool registerItem(const IdentifierType &itemId, CreateItemCallback CreateFn, const IdentifierType &itemDescription)
+    bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn, const IdentifierType& itemDescription)
     {
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
         if( it != m_callbacks.end() ) {

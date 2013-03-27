@@ -48,10 +48,10 @@ class MultiLayer : public ICompositeSample
     inline size_t getNumberOfInterfaces() const { return m_interfaces.size(); }
 
     //! Adds object to multilayer, overrides from ISample
-    void addLayer(const Layer &p_child);
+    void addLayer(const Layer& p_child);
 
     //! Adds layer with top roughness
-    void addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness);
+    void addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness);
 
     //! Returns layer with given index
     inline const Layer *getLayer(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]; }
@@ -84,16 +84,16 @@ class MultiLayer : public ICompositeSample
     inline double getCrossCorrLength() const { return m_crossCorrLength; }
 
     ///! correlation function of roughnesses between the interfaces
-    //double getCrossCorrFun(const kvector_t &k, int j, int k) const;
+    //double getCrossCorrFun(const kvector_t& k, int j, int k) const;
 
     //! Fourier transform of the correlation function of roughnesses between the interfaces
-    double getCrossCorrSpectralFun(const kvector_t &kvec, size_t j, size_t k) const;
+    double getCrossCorrSpectralFun(const kvector_t& kvec, size_t j, size_t k) const;
 
     //! Sets thickness of layer.
     void setLayerThickness(size_t i_layer, double thickness);
 
     //! Prints class
-    friend std::ostream &operator<<(std::ostream &ostr, const MultiLayer &m) { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const MultiLayer& m) { m.print(ostr); return ostr; }
 
     //! look for the presence of DWBA terms (e.g. included particles) and return ISimulation if needed
     virtual MultiLayerDWBASimulation *createDWBASimulation() const;
@@ -102,7 +102,7 @@ class MultiLayer : public ICompositeSample
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
     //! Prints class
-    void print(std::ostream &ostr) const;
+    void print(std::ostream& ostr) const;
 
 
  private:

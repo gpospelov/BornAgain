@@ -173,7 +173,7 @@ double TestFumiliLMA::functionToMinimize(const double *pars)
 /* ************************************************************************* */
 //
 /* ************************************************************************* */
-void TestFumiliLMA::FillOutputDataFromFunction(OutputData<double> &data, TF2 *fun, int nbinsx, int nbinsy)
+void TestFumiliLMA::FillOutputDataFromFunction(OutputData<double>& data, TF2 *fun, int nbinsx, int nbinsy)
 {
     data.clear();
     data.addAxis("x", nbinsx, fun->GetXmin(), fun->GetXmax());

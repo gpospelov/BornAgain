@@ -261,19 +261,19 @@ void register_ParticleDecoration_class(){
     bp::class_< ParticleDecoration_wrapper, bp::bases< IDecoration >, boost::noncopyable >( "ParticleDecoration", bp::init< >() )    
         .def( 
             "addInterferenceFunction"
-            , (void ( ::ParticleDecoration::* )( ::IInterferenceFunction const & ) )( &::ParticleDecoration::addInterferenceFunction )
+            , (void ( ::ParticleDecoration::* )( ::IInterferenceFunction const&  ) )(& ::ParticleDecoration::addInterferenceFunction )
             , ( bp::arg("interference_function") ) )    
         .def( 
             "addParticle"
-            , (void ( ::ParticleDecoration::* )( ::Particle const &,::Geometry::Transform3D const &,double,double ) )( &::ParticleDecoration::addParticle )
+            , (void ( ::ParticleDecoration::* )( ::Particle const& ,::Geometry::Transform3D const& ,double,double ) )(& ::ParticleDecoration::addParticle )
             , ( bp::arg("particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=1.0e+0 ) )    
         .def( 
             "addParticle"
-            , (void ( ::ParticleDecoration::* )( ::Particle const &,double,double ) )( &::ParticleDecoration::addParticle )
+            , (void ( ::ParticleDecoration::* )( ::Particle const& ,double,double ) )(& ::ParticleDecoration::addParticle )
             , ( bp::arg("particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 ) )    
         .def( 
             "addParticleInfo"
-            , (void ( ::ParticleDecoration::* )( ::ParticleInfo const & ) )( &::ParticleDecoration::addParticleInfo )
+            , (void ( ::ParticleDecoration::* )( ::ParticleInfo const&  ) )(& ::ParticleDecoration::addParticleInfo )
             , ( bp::arg("info") ) )    
         .def( 
             "clone"
@@ -287,7 +287,7 @@ void register_ParticleDecoration_class(){
             , ( bp::arg("index") ) )    
         .def( 
             "getInterferenceFunction"
-            , (::IInterferenceFunction const * ( ::ParticleDecoration::* )( ::size_t ) const)( &::ParticleDecoration::getInterferenceFunction )
+            , (::IInterferenceFunction const * ( ::ParticleDecoration::* )( ::size_t ) const)(& ::ParticleDecoration::getInterferenceFunction )
             , ( bp::arg("index") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 

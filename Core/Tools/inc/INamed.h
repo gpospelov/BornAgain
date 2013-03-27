@@ -18,21 +18,20 @@
 
 #include <string>
 
-//! Virtual base class for all objects that have a name.
+//! Standard mix-in for all objects that have a name.
 
 class INamed
 {
  public:
     INamed()
         : m_name(), m_title() {}
-    INamed(const std::string &name)
+    INamed(const std::string& name)
         : m_name(name), m_title() {}
-    INamed(const std::string &name, const std::string &title)
+    INamed(const std::string& name, const std::string& title)
         : m_name(name), m_title(title) {}
     virtual ~INamed(){}
 
-    void setName(std::string name)
-    { m_name = name; }
+    void setName(std::string name) { m_name = name; }
     std::string getName() const { return m_name; }
 
     std::string getTitle() const { return m_title; }

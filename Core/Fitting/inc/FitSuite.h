@@ -40,11 +40,14 @@ class FitSuite : public IObservable
     void clear();
 
     //! Adds pair of (simulation, real data) for consecutive simulation
-    void addSimulationAndRealData(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule());
+    void addSimulationAndRealData(
+        const Simulation& simulation,
+        const OutputData<double>& real_data,
+        const IChiSquaredModule& chi2_module=ChiSquaredModule());
 
     //! Adds fit parameter
-    void addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless(), double error=0.0);
-    void addFitParameter(const std::string &name, double value, const AttLimits &attlim=AttLimits::limitless(), double error=0.0);
+    void addFitParameter(const std::string& name, double value, double step, const AttLimits& attlim=AttLimits::limitless(), double error=0.0);
+    void addFitParameter(const std::string& name, double value, const AttLimits& attlim=AttLimits::limitless(), double error=0.0);
 
     //! Adds fit strategy
     void addFitStrategy(IFitSuiteStrategy *strategy);
@@ -64,13 +67,13 @@ class FitSuite : public IObservable
     virtual void minimize();
 
     //! Returns reference to the kit with data
-    FitSuiteObjects *getFitObjects() { return &m_fit_objects; }
+    FitSuiteObjects *getFitObjects() { return& m_fit_objects; }
 
     //! Returns reference to fit parameters
-    FitSuiteParameters *getFitParameters() { return &m_fit_parameters; }
+    FitSuiteParameters *getFitParameters() { return& m_fit_parameters; }
 
     //! Returns reference to fit parameters
-    FitSuiteStrategies *getFitStrategies() { return &m_fit_strategies; }
+    FitSuiteStrategies *getFitStrategies() { return& m_fit_strategies; }
 
     //! if the last iteration is done (used by observers to print summary)
     bool isLastIteration() const { return m_is_last_iteration; }
@@ -84,13 +87,13 @@ class FitSuite : public IObservable
     //! Prints results of the screen
     void printResults() const;
 
-    AttFitting &getAttributes() { return m_fit_attributes; }
-    void setAttributes(const AttFitting &fit_attributes) { m_fit_attributes = fit_attributes; }
+    AttFitting& getAttributes() { return m_fit_attributes; }
+    void setAttributes(const AttFitting& fit_attributes) { m_fit_attributes = fit_attributes; }
 
  private:
     //! disabled copy constructor and assignment operator
-    FitSuite &operator=(const FitSuite &);
-    FitSuite(const FitSuite &);
+    FitSuite& operator=(const FitSuite& );
+    FitSuite(const FitSuite& );
 
     //! Checks if all prerequisites to run fit fit are filled
     bool check_prerequisites() const;

@@ -34,7 +34,7 @@ std::vector<double > MinimizerTest::getValueOfVariablesAtMinimum() const
 }
 
 //! ?
-void MinimizerTest::setParameters(const FitSuiteParameters &parameters)
+void MinimizerTest::setParameters(const FitSuiteParameters& parameters)
 {
     m_parameters.clear();
     for(size_t i_par = 0; i_par<parameters.size(); ++i_par) {

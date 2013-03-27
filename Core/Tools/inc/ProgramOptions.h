@@ -41,13 +41,13 @@ class ProgramOptions
     ProgramOptions();
 
     //! Adds options to the global options list (object is passed by value, so no dependency from object life)
-    ProgramOptions  &add(bpo::options_description opt) { m_options.add(opt); return *this;}
+    ProgramOptions & add(bpo::options_description opt) { m_options.add(opt); return *this;}
 
     //! Adds positional options
-    ProgramOptions  &addPositional(std::string option_name, int num_occurencies) { m_positional_options.add(option_name.c_str(), num_occurencies); return *this;}
+    ProgramOptions & addPositional(std::string option_name, int num_occurencies) { m_positional_options.add(option_name.c_str(), num_occurencies); return *this;}
 
     //! access to variable with given name defined in variables container
-    const bpo::variable_value& operator[] (const std::string &s) const;
+    const bpo::variable_value& operator[] (const std::string& s) const;
 
     //! Returns true if option with given name has been set
     bool find(std::string name) const { return (m_variables_map.count(name.c_str()) ? true : false); }
@@ -62,13 +62,13 @@ class ProgramOptions
     void parseConfigFile();
 
     //! Returns reference to the variables container
-    bpo::variables_map &getVariables() { return m_variables_map; }
+    bpo::variables_map& getVariables() { return m_variables_map; }
 
     //! Returns reference to the options description
-    bpo::options_description &getOptions() { return m_options; }
+    bpo::options_description& getOptions() { return m_options; }
 
     //! Returns reference to the positional options description
-    bpo::positional_options_description &getPositionalOptions() { return m_positional_options; }
+    bpo::positional_options_description& getPositionalOptions() { return m_positional_options; }
 
  private:
     bool m_options_is_consistent;       //! true if options are consistent (no conflicts, no --help request)

@@ -22,7 +22,7 @@ class ChiSquaredModule : public IChiSquaredModule
 {
  public:
     ChiSquaredModule() {}
-    ChiSquaredModule(const ChiSquaredModule &other)
+    ChiSquaredModule(const ChiSquaredModule& other)
         : IChiSquaredModule(other) {}
     virtual ~ChiSquaredModule() {}
 

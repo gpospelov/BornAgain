@@ -29,7 +29,7 @@ class IFitSuiteFunction
 {
  public:
     IFitSuiteFunction() : m_fit_suite(0), m_ncall(0) {}
-    virtual ~IFitSuiteFunction(){}
+    virtual ~IFitSuiteFunction() {}
     virtual void init(FitSuite *fit_suite) { m_fit_suite = fit_suite; }
     virtual size_t getNCalls() const { return m_ncall; }
  protected:
@@ -42,8 +42,8 @@ class IFitSuiteFunction
 class FitSuiteChiSquaredFunction : public IFitSuiteFunction
 {
  public:
-    FitSuiteChiSquaredFunction(){}
-    virtual ~FitSuiteChiSquaredFunction(){}
+    FitSuiteChiSquaredFunction() {}
+    virtual ~FitSuiteChiSquaredFunction() {}
     //! evaluate method for chi2 value called directly from the minimizer
     double evaluate(const double *pars);
 };
@@ -53,8 +53,10 @@ class FitSuiteChiSquaredFunction : public IFitSuiteFunction
 class FitSuiteGradientFunction : public IFitSuiteFunction
 {
  public:
-    FitSuiteGradientFunction() : m_npars(0), m_ndatasize(0), m_prev_index(-1), m_ncalls_total(0), m_ncalls_gradient(0) {}
-    virtual ~FitSuiteGradientFunction(){}
+    FitSuiteGradientFunction()
+        : m_npars(0), m_ndatasize(0), m_prev_index(-1),
+          m_ncalls_total(0), m_ncalls_gradient(0) {}
+    virtual ~FitSuiteGradientFunction() {}
     //! evaluate method for gradients and residuals called directly from the minimizer
     double evaluate(const double *pars, unsigned int index, double *gradients);
     virtual size_t getNCallsTotal() const { return m_ncalls_total; }
@@ -70,7 +72,7 @@ class FitSuiteGradientFunction : public IFitSuiteFunction
     size_t m_npars;
     size_t m_ndatasize;
     int m_prev_index;
-    std::vector<double > m_residuals; // [m_ndatasize]
+    std::vector<double> m_residuals; // [m_ndatasize]
     std::vector<std::vector<double> > m_gradients; // [m_npars][m_ndatasize]
     size_t m_ncalls_total;
     size_t m_ncalls_gradient;

@@ -39,7 +39,7 @@ class ISample : public IParameterized, public ICloneable
     //! Checks if this sample (or one of its subsamples) contains elements requiring DWBA corrections and return an ISimulation to calculate this
     virtual DWBASimulation *createDWBASimulation() const { return 0; }
 
-    friend std::ostream &operator<<(std::ostream &ostr, const ISample &m)
+    friend std::ostream& operator<<(std::ostream& ostr, const ISample& m)
     { m.print(ostr); return ostr; }
 
     //! Walks through composite sample and print content
@@ -52,7 +52,7 @@ class ISample : public IParameterized, public ICloneable
             int copy_number=-1) const;
 
  protected:
-    virtual void print(std::ostream &ostr) const { ostr << getName() << " " << this << " " << m_parameters; }
+    virtual void print(std::ostream& ostr) const { ostr << getName() << " " << this << " " << m_parameters; }
 };
 
 #endif // ISAMPLE_H

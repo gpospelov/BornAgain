@@ -28,8 +28,8 @@ class ParticleInfo;
 class Particle : public ICompositeSample
 {
  public:
-    Particle(const complex_t &refractive_index, IFormFactor* p_form_factor = 0);
-    Particle(const complex_t &refractive_index, const IFormFactor &form_factor);
+    Particle(const complex_t& refractive_index, IFormFactor* p_form_factor = 0);
+    Particle(const complex_t& refractive_index, const IFormFactor& form_factor);
     virtual ~Particle();
     virtual Particle *clone() const;
 
@@ -67,7 +67,7 @@ class Particle : public ICompositeSample
     virtual const IFormFactor *getSimpleFormFactor() const { return mp_form_factor;}
 
     //! Creates list of contained particles for diffuse calculations
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const {
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const {
         (void)parent_info;
         return 0;
     }

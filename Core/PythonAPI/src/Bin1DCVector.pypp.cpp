@@ -80,15 +80,15 @@ namespace bp = boost::python;
 void register_Bin1DCVector_class(){
 
     bp::class_< Bin1DCVector >( "Bin1DCVector", bp::init< >() )    
-        .def( bp::init< cvector_t const &, cvector_t const & >(( bp::arg("lower"), bp::arg("upper") )) )    
-        .def( bp::init< double, Bin1D const &, Bin1D const & >(( bp::arg("wavelength"), bp::arg("alpha_bin"), bp::arg("phi_bin") )) )    
+        .def( bp::init< cvector_t const& , cvector_t const&  >(( bp::arg("lower"), bp::arg("upper") )) )    
+        .def( bp::init< double, Bin1D const& , Bin1D const&  >(( bp::arg("wavelength"), bp::arg("alpha_bin"), bp::arg("phi_bin") )) )    
         .def( 
             "getDelta"
-            , (::cvector_t ( ::Bin1DCVector::* )(  ) const)( &::Bin1DCVector::getDelta ) )    
+            , (::cvector_t ( ::Bin1DCVector::* )(  ) const)(& ::Bin1DCVector::getDelta ) )    
         .def( 
             "getMidPoint"
-            , (::cvector_t ( ::Bin1DCVector::* )(  ) const)( &::Bin1DCVector::getMidPoint ) )    
-        .def_readwrite( "m_q_lower", &Bin1DCVector::m_q_lower )    
-        .def_readwrite( "m_q_upper", &Bin1DCVector::m_q_upper );
+            , (::cvector_t ( ::Bin1DCVector::* )(  ) const)(& ::Bin1DCVector::getMidPoint ) )    
+        .def_readwrite( "m_q_lower",& Bin1DCVector::m_q_lower )    
+        .def_readwrite( "m_q_upper",& Bin1DCVector::m_q_upper );
 
 }

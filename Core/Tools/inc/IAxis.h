@@ -60,12 +60,12 @@ class IAxis
     virtual size_t findClosestIndex(double value) const=0;
 
     //! test for equality
-    friend bool operator==(const IAxis &left, const IAxis &right) {
+    friend bool operator==(const IAxis& left, const IAxis& right) {
         return left.equals(right);
     }
 
  protected:
-    virtual bool equals(const IAxis &other) const;
+    virtual bool equals(const IAxis& other) const;
     std::string m_name;  //!< axis label
 };
 
@@ -75,12 +75,12 @@ inline bool IAxis::equals(const IAxis& other) const
 }
 
 //! test for inequality
-inline bool operator!=(const IAxis &left, const IAxis &right) {
+inline bool operator!=(const IAxis& left, const IAxis& right) {
     return !(left == right);
 }
 
 //! global helper function for comparison of axes
-inline bool HaveSameNameAndShape(const IAxis &left, const IAxis &right)
+inline bool HaveSameNameAndShape(const IAxis& left, const IAxis& right)
 {
     return left == right;
 }

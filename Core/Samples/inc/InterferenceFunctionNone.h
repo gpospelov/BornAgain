@@ -27,7 +27,7 @@ class InterferenceFunctionNone : public IInterferenceFunction
 	virtual ~InterferenceFunctionNone() {}
 	virtual InterferenceFunctionNone *clone() const { return new InterferenceFunctionNone(); }
 
-    virtual double evaluate(const cvector_t &q) const { (void)q; return 1.0; }
+    virtual double evaluate(const cvector_t& q) const { (void)q; return 1.0; }
 
 };
 

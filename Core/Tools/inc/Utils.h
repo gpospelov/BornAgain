@@ -28,18 +28,18 @@ class String
 {
  public:
     //! Parse double values from string to vector of double.
-    static vdouble1d_t parse_doubles(const std::string &str);
+    static vdouble1d_t parse_doubles(const std::string& str);
 
     //! assuming that string consist of doubles return new string where doubles are rounded according to the precision
-    static std::string round_doubles(const std::string &str, int precision);
+    static std::string round_doubles(const std::string& str, int precision);
 
     //! Returns true if text matches pattern with wildcards '*' and '?'.
-    static bool MatchPattern(const std::string &text,
+    static bool MatchPattern(const std::string& text,
                              std::string wildcardPattern);
 
     //! Split string into vector of string using delimeter.
-    static std::vector<std::string> Split(const std::string &text,
-                                          const std::string &delimeter);
+    static std::vector<std::string> Split(const std::string& text,
+                                          const std::string& delimeter);
 };
 
 //! Control how often a string is used.
@@ -70,7 +70,7 @@ class StringUsageMap
     //! access to the map of strings
     iterator_t begin() { return m_nstringmap.begin(); }
     iterator_t end() { return m_nstringmap.end(); }
-    int &operator[](std::string name) { return m_nstringmap[name]; }
+    int& operator[](std::string name) { return m_nstringmap[name]; }
 
     //! Returns current string
     std::string get_current() const { return m_current_string; }
@@ -92,16 +92,16 @@ class FileSystem
     static std::string GetHomePath();
 
     //! Sets relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
-    static void SetRelativePath(const std::string &path) { m_relative_path = path; }
+    static void SetRelativePath(const std::string& path) { m_relative_path = path; }
 
     //! Returns file extension
-    static std::string GetFileExtension(const std::string &name);
+    static std::string GetFileExtension(const std::string& name);
 
     //! Returns true if name contains *.gz extension
-    static bool isGZipped(const std::string &name);
+    static bool isGZipped(const std::string& name);
 
     //! Returns file extension after stripping '.gz' if any
-    static std::string GetFileMainExtension(const std::string &name);
+    static std::string GetFileMainExtension(const std::string& name);
  private:
     static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module
 };
@@ -132,7 +132,7 @@ class UnorderedMap
 
     const_iterator begin() { return m_value_map.begin(); }
     const_iterator end() { return m_value_map.end(); }
-    const Object &find(const Key &key) const
+    const Object& find(const Key& key) const
     {
         const_iterator pos = m_value_map.find(key);
         if(pos != m_value_map.end() ) {
@@ -144,10 +144,10 @@ class UnorderedMap
     }
 
     size_t size() { return m_value_map.size(); }
-    Object & operator[] (const Key &key) { return m_value_map[key]; }
+    Object&  operator[] (const Key& key) { return m_value_map[key]; }
 
  private:
-    UnorderedMap &operator=(const UnorderedMap &);
+    UnorderedMap& operator=(const UnorderedMap& );
 
     container_t m_value_map;
 };

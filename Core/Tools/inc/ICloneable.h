@@ -18,7 +18,11 @@
 
 #include "Exceptions.h"
 
-//! Disable copy constructor and operator=; child classes should provide clone().
+//! Standard mix-in for objects that must not be copied, except by cloning.
+
+//! This virtual base class disables the copy constructor and the operator=
+//! in all its child classes.
+//! Child classes should provide clone().
 
 class ICloneable
 {
@@ -28,10 +32,10 @@ class ICloneable
     virtual ICloneable *clone() const = 0;
 
  private:
-    ICloneable(const ICloneable &) { throw NotImplementedException(
-        "ICloneable(const ICloneable &) -> Error: not implemented."); }
-    ICloneable &operator=(const ICloneable &) { throw NotImplementedException(
-        "ICloneable &operator=(const ICloneable &) -> Error: not implemented."); }
+    ICloneable(const ICloneable& ) { throw NotImplementedException(
+        "ICloneable(const ICloneable& ) -> Error: not implemented."); }
+    ICloneable& operator=(const ICloneable& ) { throw NotImplementedException(
+        "ICloneable& operator=(const ICloneable& ) -> Error: not implemented."); }
 };
 
 #endif // ICLONEABLE_H

@@ -34,7 +34,7 @@ ParticleDecoration::ParticleDecoration(Particle* p_particle, double depth, doubl
     addParticle(p_particle, 0, depth, abundance);
 }
 
-ParticleDecoration::ParticleDecoration(const Particle &p_particle, double depth, double abundance)
+ParticleDecoration::ParticleDecoration(const Particle& p_particle, double depth, double abundance)
 : m_total_abundance(0.0)
 {
     setName("ParticleDecoration");
@@ -75,14 +75,14 @@ void ParticleDecoration::addParticle(Particle* p_particle,
     addParticle(p_particle, 0, depth, abundance);
 }
 
-void ParticleDecoration::addParticle(const Particle &p_particle,
+void ParticleDecoration::addParticle(const Particle& p_particle,
         double depth, double abundance)
 {
     addParticle(p_particle.clone(), 0, depth, abundance);
 }
 
-void ParticleDecoration::addParticle(const Particle &p_particle,
-        const Geometry::Transform3D &transform, double depth, double abundance)
+void ParticleDecoration::addParticle(const Particle& p_particle,
+        const Geometry::Transform3D& transform, double depth, double abundance)
 {
     addParticle(p_particle.clone(), new Geometry::Transform3D(transform), depth, abundance);
 }
@@ -96,7 +96,7 @@ void ParticleDecoration::addParticle(Particle* p_particle,
 
 //! Adds particle info
 
-void ParticleDecoration::addParticleInfo(const ParticleInfo &info)
+void ParticleDecoration::addParticleInfo(const ParticleInfo& info)
 {
     addAndRegisterParticleInfo( info.clone() );
 }
@@ -123,7 +123,7 @@ void ParticleDecoration::addInterferenceFunction(IInterferenceFunction* p_interf
     addAndRegisterInterferenceFunction(p_interference_function);
 }
 
-void ParticleDecoration::addInterferenceFunction(const IInterferenceFunction &interference_function)
+void ParticleDecoration::addInterferenceFunction(const IInterferenceFunction& interference_function)
 {
     addAndRegisterInterferenceFunction(interference_function.clone());
 }

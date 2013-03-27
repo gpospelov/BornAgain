@@ -28,7 +28,7 @@ ProgramOptions::ProgramOptions() : m_options_is_consistent(false)
 
 //! access variables
 
-const bpo::variable_value& ProgramOptions::operator[] (const std::string &s) const
+const bpo::variable_value& ProgramOptions::operator[] (const std::string& s) const
 {
     if( !m_options_is_consistent ) {
         // no consistent options, there reason might be that no call to parseConfigFile

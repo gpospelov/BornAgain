@@ -67,7 +67,7 @@ class GSLMultiFitFunctionAdapter {
         // p is a pointer to an iterator of functions
         unsigned int n = (unsigned)f->size;
         // need to copy iterator otherwise next time the function is called it wont work
-        FuncVector  & funcVec = *( reinterpret_cast< FuncVector *> (p) );
+        FuncVector &  funcVec = *( reinterpret_cast< FuncVector *> (p) );
         if (n == 0) return -1;
         for (unsigned int i = 0; i < n ; ++i) {
             gsl_vector_set(f, i, (funcVec[i])(x->data) );
@@ -83,7 +83,7 @@ class GSLMultiFitFunctionAdapter {
         unsigned int npar = (unsigned)h->size2;
         if (n == 0) return -1;
         if (npar == 0) return -2;
-        FuncVector  & funcVec = *( reinterpret_cast< FuncVector *> (p) );
+        FuncVector &  funcVec = *( reinterpret_cast< FuncVector *> (p) );
         for (unsigned int i = 0; i < n ; ++i) {
             double * g = (h->data)+i*npar;   //pointer to start  of i-th row
             assert ( npar == (funcVec[i]).NDim() );
@@ -100,7 +100,7 @@ class GSLMultiFitFunctionAdapter {
         unsigned int npar = (unsigned)h->size2;
         if (n == 0) return -1;
         if (npar == 0) return -2;
-        FuncVector  & funcVec = *( reinterpret_cast< FuncVector *> (p) );
+        FuncVector &  funcVec = *( reinterpret_cast< FuncVector *> (p) );
         assert ( f->size == n);
         for (unsigned int i = 0; i < n ; ++i) {
             assert ( npar == (funcVec[i]).NDim() );
@@ -145,18 +145,18 @@ class GSLMultiFitFunctionWrapper {
 
     /// Fill gsl function structure from a C++ function iterator and size and number of residuals
     template<class FuncVector>
-    void SetFunction(const FuncVector & f, unsigned int nres, unsigned int npar  ) {
-        const void * p = &f;
+    void SetFunction(const FuncVector&  f, unsigned int nres, unsigned int npar  ) {
+        const void * p =& f;
         assert (p != 0);
-        fFunc.f   = &GSLMultiFitFunctionAdapter<FuncVector >::F;
-        fFunc.df  = &GSLMultiFitFunctionAdapter<FuncVector >::Df;
-        fFunc.fdf = &GSLMultiFitFunctionAdapter<FuncVector >::FDf;
+        fFunc.f   =& GSLMultiFitFunctionAdapter<FuncVector >::F;
+        fFunc.df  =& GSLMultiFitFunctionAdapter<FuncVector >::Df;
+        fFunc.fdf =& GSLMultiFitFunctionAdapter<FuncVector >::FDf;
         fFunc.n = nres;
         fFunc.p = npar;
         fFunc.params =  const_cast<void *>(p);
     }
 
-    gsl_multifit_function_fdf * GetFunc() { return &fFunc; }
+    gsl_multifit_function_fdf * GetFunc() { return& fFunc; }
 
 
  private:
@@ -199,13 +199,13 @@ class GSLMultiFit {
    /**
       Copy constructor
    */
-   GSLMultiFit(const GSLMultiFit &) {}
+   GSLMultiFit(const GSLMultiFit& ) {}
 
    /**
       Assignment operator
    */
-   GSLMultiFit & operator = (const GSLMultiFit & rhs)  {
-      if (this == &rhs) return *this;  // time saving self-test
+   GSLMultiFit&  operator = (const GSLMultiFit&  rhs)  {
+      if (this ==& rhs) return *this;  // time saving self-test
       return *this;
    }
 
@@ -220,7 +220,7 @@ class GSLMultiFit {
 
    /// set the solver parameters
    template<class Func>
-   int Set(const std::vector<Func> & funcVec, const double * x) {
+   int Set(const std::vector<Func>&  funcVec, const double * x) {
       // create a vector of the fit contributions
       // create function wrapper from an iterator of functions
       unsigned int npts = (unsigned)funcVec.size();
@@ -300,7 +300,7 @@ class GSLMultiFit {
       if (c == 0) return edm;
       gsl_vector * tmp = gsl_vector_alloc( fSolver->fdf->p );
       int status =   gsl_blas_dgemv(CblasNoTrans, 1.0, fCov, fVec, 0.,tmp);
-      if (status == 0) status |= gsl_blas_ddot(fVec, tmp, &edm);
+      if (status == 0) status |= gsl_blas_ddot(fVec, tmp,& edm);
       gsl_vector_free(tmp);
       if (status != 0) return -1;
       // need to divide by 2 ??
@@ -342,7 +342,7 @@ class LSResidualFunc : public IMultiGradFunction {
    {}
 
 
-   LSResidualFunc(const ROOT::Math::FitMethodFunction & func, unsigned int i) :
+   LSResidualFunc(const ROOT::Math::FitMethodFunction&  func, unsigned int i) :
       fIndex(i),
       fChi2(&func),
       fX2(std::vector<double>(func.NDim() ) )
@@ -350,7 +350,7 @@ class LSResidualFunc : public IMultiGradFunction {
 
 
    // copy ctor
-   LSResidualFunc(const LSResidualFunc & rhs) :
+   LSResidualFunc(const LSResidualFunc&  rhs) :
       IMultiGenFunction(),
       IMultiGradFunction()
    {
@@ -358,7 +358,7 @@ class LSResidualFunc : public IMultiGradFunction {
    }
 
    // assignment
-   LSResidualFunc & operator= (const LSResidualFunc & rhs)
+   LSResidualFunc&  operator= (const LSResidualFunc&  rhs)
    {
       fIndex = rhs.fIndex;
       fChi2 = rhs.fChi2;
@@ -377,7 +377,7 @@ class LSResidualFunc : public IMultiGradFunction {
       FdF(x,f0,g);
    }
 
-   void FdF (const double * x, double & f, double * g) const {
+   void FdF (const double * x, double&  f, double * g) const {
 //       std::cout << "LSResidual::Fdf " << std::endl;
 //      unsigned int n = NDim();
 //      std::copy(x,x+n,fX2.begin());
@@ -446,35 +446,35 @@ class GSLNLSMinimizer : public  ROOT::Math::Minimizer {
    /**
       Copy constructor
    */
-   GSLNLSMinimizer(const GSLNLSMinimizer &) : ROOT::Math::Minimizer() {}
+   GSLNLSMinimizer(const GSLNLSMinimizer& ) : ROOT::Math::Minimizer() {}
 
    /**
       Assignment operator
    */
-   GSLNLSMinimizer & operator = (const GSLNLSMinimizer & rhs)  {
-      if (this == &rhs) return *this;  // time saving self-test
+   GSLNLSMinimizer&  operator = (const GSLNLSMinimizer&  rhs)  {
+      if (this ==& rhs) return *this;  // time saving self-test
       return *this;
    }
 
  public:
 
    /// set the function to minimize
-   virtual void SetFunction(const ROOT::Math::IMultiGenFunction & func);
+   virtual void SetFunction(const ROOT::Math::IMultiGenFunction&  func);
 
    /// set gradient the function to minimize
-   virtual void SetFunction(const ROOT::Math::IMultiGradFunction & func);
+   virtual void SetFunction(const ROOT::Math::IMultiGradFunction&  func);
 
    /// set free variable
-   virtual bool SetVariable(unsigned int ivar, const std::string & name, double val, double step);
+   virtual bool SetVariable(unsigned int ivar, const std::string&  name, double val, double step);
 
    /// set lower limited variable
-   virtual bool SetLowerLimitedVariable(unsigned int  ivar , const std::string & name , double val , double step , double lower );
+   virtual bool SetLowerLimitedVariable(unsigned int  ivar , const std::string&  name , double val , double step , double lower );
    /// set upper limited variable
-   virtual bool SetUpperLimitedVariable(unsigned int ivar , const std::string & name , double val , double step , double upper );
+   virtual bool SetUpperLimitedVariable(unsigned int ivar , const std::string&  name , double val , double step , double upper );
    /// set upper/lower limited variable
-   virtual bool SetLimitedVariable(unsigned int ivar , const std::string & name , double val , double step , double lower , double upper );
+   virtual bool SetLimitedVariable(unsigned int ivar , const std::string&  name , double val , double step , double lower , double upper );
    /// set fixed variable
-   virtual bool SetFixedVariable(unsigned int ivar , const std::string & name , double val );
+   virtual bool SetFixedVariable(unsigned int ivar , const std::string&  name , double val );
 
    /// set the value of an existing variable
    virtual bool SetVariableValue(unsigned int ivar, double val );
@@ -491,7 +491,7 @@ class GSLNLSMinimizer : public  ROOT::Math::Minimizer {
    virtual double Edm() const { return fEdm; } // not impl. }
 
    /// return  pointer to X values at the minimum
-   virtual const double *  X() const { return &fValues.front(); }
+   virtual const double *  X() const { return& fValues.front(); }
 
    /// return pointer to gradient values at the minimum
    virtual const double *  MinGradient() const;
@@ -511,11 +511,11 @@ class GSLNLSMinimizer : public  ROOT::Math::Minimizer {
    virtual bool ProvidesError() const { return true; }
 
    /// return errors at the minimum
-   virtual const double * Errors() const { return (fErrors.size() > 0) ? &fErrors.front() : 0; }
+   virtual const double * Errors() const { return (fErrors.size() > 0) ?& fErrors.front() : 0; }
 //  {
 //       static std::vector<double> err;
 //       err.resize(fDim);
-//       return &err.front();
+//       return& err.front();
 //    }
 
    /** return covariance matrices elements

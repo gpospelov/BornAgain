@@ -17,9 +17,9 @@
 #include "IParameterized.h"
 #include "Utils.h"
 
-IParameterized &IParameterized::operator=(const IParameterized &other)
+IParameterized& IParameterized::operator=(const IParameterized& other)
 {
-    if( this != &other)
+    if( this !=& other)
     {
         INamed::operator=(other);
         // parameters are not copied

@@ -79,14 +79,14 @@ namespace bp = boost::python;
 
 struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< PositionParticleInfo > {
 
-    PositionParticleInfo_wrapper(::Particle const & particle, ::Geometry::Transform3D const & transform, ::kvector_t position, double abundance=0 )
+    PositionParticleInfo_wrapper(::Particle const&  particle, ::Geometry::Transform3D const&  transform, ::kvector_t position, double abundance=0 )
     : PositionParticleInfo( boost::ref(particle), boost::ref(transform), position, abundance )
       , bp::wrapper< PositionParticleInfo >(){
         // constructor
     
     }
 
-    PositionParticleInfo_wrapper(::Particle const & particle, ::kvector_t position, double abundance=0 )
+    PositionParticleInfo_wrapper(::Particle const&  particle, ::kvector_t position, double abundance=0 )
     : PositionParticleInfo( boost::ref(particle), position, abundance )
       , bp::wrapper< PositionParticleInfo >(){
         // constructor
@@ -205,8 +205,8 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
 
 void register_PositionParticleInfo_class(){
 
-    bp::class_< PositionParticleInfo_wrapper, bp::bases< ParticleInfo >, boost::noncopyable >( "PositionParticleInfo", bp::init< Particle const &, Geometry::Transform3D const &, kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("transform"), bp::arg("position"), bp::arg("abundance")=0 )) )    
-        .def( bp::init< Particle const &, kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("position"), bp::arg("abundance")=0 )) )    
+    bp::class_< PositionParticleInfo_wrapper, bp::bases< ParticleInfo >, boost::noncopyable >( "PositionParticleInfo", bp::init< Particle const& , Geometry::Transform3D const& , kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("transform"), bp::arg("position"), bp::arg("abundance")=0 )) )    
+        .def( bp::init< Particle const& , kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("position"), bp::arg("abundance")=0 )) )    
         .def( 
             "clone"
             , (::PositionParticleInfo * ( ::PositionParticleInfo::* )(  ) const)(&::PositionParticleInfo::clone)
@@ -214,14 +214,14 @@ void register_PositionParticleInfo_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getParticle"
-            , (::Particle const * ( ::PositionParticleInfo::* )(  ) const)( &::PositionParticleInfo::getParticle )
+            , (::Particle const * ( ::PositionParticleInfo::* )(  ) const)(& ::PositionParticleInfo::getParticle )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getPosition"
-            , (::kvector_t ( ::PositionParticleInfo::* )(  ) const)( &::PositionParticleInfo::getPosition ) )    
+            , (::kvector_t ( ::PositionParticleInfo::* )(  ) const)(& ::PositionParticleInfo::getPosition ) )    
         .def( 
             "setPosition"
-            , (void ( ::PositionParticleInfo::* )( ::kvector_t ) )( &::PositionParticleInfo::setPosition )
+            , (void ( ::PositionParticleInfo::* )( ::kvector_t ) )(& ::PositionParticleInfo::setPosition )
             , ( bp::arg("position") ) )    
         .def( 
             "areParametersChanged"

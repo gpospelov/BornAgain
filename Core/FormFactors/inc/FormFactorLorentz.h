@@ -31,7 +31,7 @@ class FormFactorLorentz : public IFormFactorBorn
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
-    virtual complex_t evaluate_for_q(const cvector_t &q) const;
+    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
  protected:
     //! Registers some class members for later access via parameter pool

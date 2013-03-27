@@ -80,25 +80,25 @@ namespace bp = boost::python;
 void register_Lattice_class(){
 
     bp::class_< Lattice >( "Lattice", bp::init< >() )    
-        .def( bp::init< kvector_t const &, kvector_t const &, kvector_t const & >(( bp::arg("a1"), bp::arg("a2"), bp::arg("a3") )) )    
-        .def( bp::init< Lattice const & >(( bp::arg("lattice") )) )    
+        .def( bp::init< kvector_t const& , kvector_t const& , kvector_t const&  >(( bp::arg("a1"), bp::arg("a2"), bp::arg("a3") )) )    
+        .def( bp::init< Lattice const&  >(( bp::arg("lattice") )) )    
         .def( 
             "createTrigonalLattice"
-            , (::Lattice (*)( double,double ))( &::Lattice::createTrigonalLattice )
+            , (::Lattice (*)( double,double ))(& ::Lattice::createTrigonalLattice )
             , ( bp::arg("a"), bp::arg("c") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "getBasisVectorA"
-            , (::kvector_t ( ::Lattice::* )(  ) const)( &::Lattice::getBasisVectorA ) )    
+            , (::kvector_t ( ::Lattice::* )(  ) const)(& ::Lattice::getBasisVectorA ) )    
         .def( 
             "getBasisVectorB"
-            , (::kvector_t ( ::Lattice::* )(  ) const)( &::Lattice::getBasisVectorB ) )    
+            , (::kvector_t ( ::Lattice::* )(  ) const)(& ::Lattice::getBasisVectorB ) )    
         .def( 
             "getBasisVectorC"
-            , (::kvector_t ( ::Lattice::* )(  ) const)( &::Lattice::getBasisVectorC ) )    
+            , (::kvector_t ( ::Lattice::* )(  ) const)(& ::Lattice::getBasisVectorC ) )    
         .def( 
             "setSelectionRule"
-            , (void ( ::Lattice::* )( ::ISelectionRule const & ) )( &::Lattice::setSelectionRule )
+            , (void ( ::Lattice::* )( ::ISelectionRule const&  ) )(& ::Lattice::setSelectionRule )
             , ( bp::arg("p_selection_rule") ) )    
         .staticmethod( "createTrigonalLattice" );
 

@@ -27,7 +27,7 @@ class IFormFactorDecorator : public IFormFactor
     virtual ~IFormFactorDecorator();
     virtual IFormFactorDecorator *clone() const=0;
 
-    virtual void setAmbientRefractiveIndex(const complex_t &refractive_index);
+    virtual void setAmbientRefractiveIndex(const complex_t& refractive_index);
 
     virtual double getVolume() const;
 
@@ -44,7 +44,7 @@ inline IFormFactorDecorator::~IFormFactorDecorator()
     delete mp_form_factor;
 }
 
-inline void IFormFactorDecorator::setAmbientRefractiveIndex(const complex_t &refractive_index)
+inline void IFormFactorDecorator::setAmbientRefractiveIndex(const complex_t& refractive_index)
 {
     if (mp_form_factor) mp_form_factor->setAmbientRefractiveIndex(refractive_index);
 }

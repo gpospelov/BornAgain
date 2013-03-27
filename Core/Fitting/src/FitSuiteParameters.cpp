@@ -24,7 +24,7 @@ void FitSuiteParameters::clear()
 }
 
 //! Adds fit parameter
-void FitSuiteParameters::addParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error)
+void FitSuiteParameters::addParameter(const std::string& name, double value, double step, const AttLimits& attlim, double error)
 {
     for(parameters_t::const_iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( (*it)->getName() == name ) throw LogicErrorException("FitSuiteParameters:addtFitParameter() -> Error. Existing parameter '"+name+"'");
@@ -33,7 +33,7 @@ void FitSuiteParameters::addParameter(const std::string &name, double value, dou
 }
 
 //! Returns fit parameter with given name.
-FitParameter *FitSuiteParameters::getParameter(const std::string &name)
+FitParameter *FitSuiteParameters::getParameter(const std::string& name)
 {
     for(parameters_t::iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( (*it)->getName() == name ) return (*it);
@@ -69,7 +69,7 @@ void FitSuiteParameters::setValues(const double *pars_values)
 }
 
 //! ?
-void FitSuiteParameters::setValues(const std::vector<double> &pars_values)
+void FitSuiteParameters::setValues(const std::vector<double>& pars_values)
 {
     if(pars_values.size() != m_parameters.size() ) {
         std::ostringstream ostr;

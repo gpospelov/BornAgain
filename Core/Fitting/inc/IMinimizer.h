@@ -44,7 +44,7 @@ class IMinimizer
     virtual void setParameter(size_t index, const FitParameter *par);
 
     //! Sets internal minimizer parameters using external parameter list
-    virtual void setParameters(const FitSuiteParameters &parameters);
+    virtual void setParameters(const FitSuiteParameters& parameters);
 
     //! Sets chi squared function to minimize
     virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters);
@@ -74,7 +74,7 @@ class IMinimizer
     virtual void printResults() const;
 
     //! Sets minimizer option
-    virtual void setOptions(const std::string &option);
+    virtual void setOptions(const std::string& option);
 
     //! Returns number of calls of minimized function
     virtual size_t getNCalls() const;
@@ -87,7 +87,7 @@ inline void IMinimizer::setParameter(size_t index, const FitParameter *par)
     throw NotImplementedException("IMinimizer::setParameter() -> Not implemented.");
 }
 
-inline void IMinimizer::setParameters(const FitSuiteParameters &parameters)
+inline void IMinimizer::setParameters(const FitSuiteParameters& parameters)
 {
     (void)parameters;
     throw NotImplementedException("IMinimizer::setParameters() -> Not implemented.");
@@ -145,7 +145,7 @@ inline void IMinimizer::printResults() const
     throw NotImplementedException("IMinimizer::printResults() -> Not implemented.");
 }
 
-inline void IMinimizer::setOptions(const std::string &options)
+inline void IMinimizer::setOptions(const std::string& options)
 {
     (void)options;
     throw NotImplementedException("IMinimizer::setOptions() -> Not implemented.");

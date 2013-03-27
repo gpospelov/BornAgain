@@ -26,7 +26,7 @@
 class Crystal : public IClusteredParticles
 {
  public:
-    Crystal(const LatticeBasis &lattice_basis, const Lattice &lattice);
+    Crystal(const LatticeBasis& lattice_basis, const Lattice& lattice);
     ~Crystal();
 
     virtual Crystal *clone() const;
@@ -35,7 +35,7 @@ class Crystal : public IClusteredParticles
     { mp_lattice_basis->setAmbientRefractiveIndex(refractive_index); }
 
     virtual IFormFactor *createTotalFormFactor(
-        const IFormFactor &meso_crystal_form_factor,
+        const IFormFactor& meso_crystal_form_factor,
         complex_t ambient_refractive_index) const;
 
     Lattice getLattice() const { return m_lattice; }
@@ -46,7 +46,7 @@ class Crystal : public IClusteredParticles
     void setDWFactor(double dw_factor) { m_dw_factor = dw_factor; }
 
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(
-            const ParticleInfo &parent_info) const;
+            const ParticleInfo& parent_info) const;
 
  private:
     Lattice m_lattice;

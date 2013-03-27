@@ -115,7 +115,7 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
         return IChiSquaredModule::getValue( );
     }
 
-    virtual void setFittingDataSelector( ::IFittingDataSelector const & selector ) {
+    virtual void setFittingDataSelector( ::IFittingDataSelector const&  selector ) {
         if( bp::override func_setFittingDataSelector = this->get_override( "setFittingDataSelector" ) )
             func_setFittingDataSelector( boost::ref(selector) );
         else{
@@ -123,11 +123,11 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
         }
     }
     
-    void default_setFittingDataSelector( ::IFittingDataSelector const & selector ) {
+    void default_setFittingDataSelector( ::IFittingDataSelector const&  selector ) {
         IChiSquaredModule::setFittingDataSelector( boost::ref(selector) );
     }
 
-    virtual void setIntensityFunction( ::IIntensityFunction const & intensity_function ) {
+    virtual void setIntensityFunction( ::IIntensityFunction const&  intensity_function ) {
         if( bp::override func_setIntensityFunction = this->get_override( "setIntensityFunction" ) )
             func_setIntensityFunction( boost::ref(intensity_function) );
         else{
@@ -135,11 +135,11 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
         }
     }
     
-    void default_setIntensityFunction( ::IIntensityFunction const & intensity_function ) {
+    void default_setIntensityFunction( ::IIntensityFunction const&  intensity_function ) {
         IChiSquaredModule::setIntensityFunction( boost::ref(intensity_function) );
     }
 
-    virtual void setOutputDataNormalizer( ::IOutputDataNormalizer const & data_normalizer ) {
+    virtual void setOutputDataNormalizer( ::IOutputDataNormalizer const&  data_normalizer ) {
         if( bp::override func_setOutputDataNormalizer = this->get_override( "setOutputDataNormalizer" ) )
             func_setOutputDataNormalizer( boost::ref(data_normalizer) );
         else{
@@ -147,7 +147,7 @@ struct IChiSquaredModule_wrapper : IChiSquaredModule, bp::wrapper< IChiSquaredMo
         }
     }
     
-    void default_setOutputDataNormalizer( ::IOutputDataNormalizer const & data_normalizer ) {
+    void default_setOutputDataNormalizer( ::IOutputDataNormalizer const&  data_normalizer ) {
         IChiSquaredModule::setOutputDataNormalizer( boost::ref(data_normalizer) );
     }
 
@@ -189,7 +189,7 @@ void register_IChiSquaredModule_class(){
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getRealData"
-            , (::OutputData< double > const * ( ::IChiSquaredModule::* )(  ) const)( &::IChiSquaredModule::getRealData )
+            , (::OutputData< double > const * ( ::IChiSquaredModule::* )(  ) const)(& ::IChiSquaredModule::getRealData )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getResidualValue"
@@ -198,11 +198,11 @@ void register_IChiSquaredModule_class(){
             , ( bp::arg("arg0") ) )    
         .def( 
             "getSimulationData"
-            , (::OutputData< double > const * ( ::IChiSquaredModule::* )(  ) const)( &::IChiSquaredModule::getSimulationData )
+            , (::OutputData< double > const * ( ::IChiSquaredModule::* )(  ) const)(& ::IChiSquaredModule::getSimulationData )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getSquaredFunction"
-            , (::ISquaredFunction const * ( ::IChiSquaredModule::* )(  ) const)( &::IChiSquaredModule::getSquaredFunction )
+            , (::ISquaredFunction const * ( ::IChiSquaredModule::* )(  ) const)(& ::IChiSquaredModule::getSquaredFunction )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getValue"
@@ -210,30 +210,30 @@ void register_IChiSquaredModule_class(){
             , (double ( IChiSquaredModule_wrapper::* )(  ) const)(&IChiSquaredModule_wrapper::default_getValue) )    
         .def( 
             "setChiSquaredFunction"
-            , (void ( ::IChiSquaredModule::* )( ::ISquaredFunction const & ) )( &::IChiSquaredModule::setChiSquaredFunction )
+            , (void ( ::IChiSquaredModule::* )( ::ISquaredFunction const&  ) )(& ::IChiSquaredModule::setChiSquaredFunction )
             , ( bp::arg("squared_function") ) )    
         .def( 
             "setFittingDataSelector"
-            , (void ( ::IChiSquaredModule::* )( ::IFittingDataSelector const & ) )(&::IChiSquaredModule::setFittingDataSelector)
-            , (void ( IChiSquaredModule_wrapper::* )( ::IFittingDataSelector const & ) )(&IChiSquaredModule_wrapper::default_setFittingDataSelector)
+            , (void ( ::IChiSquaredModule::* )( ::IFittingDataSelector const&  ) )(&::IChiSquaredModule::setFittingDataSelector)
+            , (void ( IChiSquaredModule_wrapper::* )( ::IFittingDataSelector const&  ) )(&IChiSquaredModule_wrapper::default_setFittingDataSelector)
             , ( bp::arg("selector") ) )    
         .def( 
             "setIntensityFunction"
-            , (void ( ::IChiSquaredModule::* )( ::IIntensityFunction const & ) )(&::IChiSquaredModule::setIntensityFunction)
-            , (void ( IChiSquaredModule_wrapper::* )( ::IIntensityFunction const & ) )(&IChiSquaredModule_wrapper::default_setIntensityFunction)
+            , (void ( ::IChiSquaredModule::* )( ::IIntensityFunction const&  ) )(&::IChiSquaredModule::setIntensityFunction)
+            , (void ( IChiSquaredModule_wrapper::* )( ::IIntensityFunction const&  ) )(&IChiSquaredModule_wrapper::default_setIntensityFunction)
             , ( bp::arg("intensity_function") ) )    
         .def( 
             "setNdegreeOfFreedom"
-            , (void ( ::IChiSquaredModule::* )( int ) )( &::IChiSquaredModule::setNdegreeOfFreedom )
+            , (void ( ::IChiSquaredModule::* )( int ) )(& ::IChiSquaredModule::setNdegreeOfFreedom )
             , ( bp::arg("ndegree_of_freedom") ) )    
         .def( 
             "setOutputDataNormalizer"
-            , (void ( ::IChiSquaredModule::* )( ::IOutputDataNormalizer const & ) )(&::IChiSquaredModule::setOutputDataNormalizer)
-            , (void ( IChiSquaredModule_wrapper::* )( ::IOutputDataNormalizer const & ) )(&IChiSquaredModule_wrapper::default_setOutputDataNormalizer)
+            , (void ( ::IChiSquaredModule::* )( ::IOutputDataNormalizer const&  ) )(&::IChiSquaredModule::setOutputDataNormalizer)
+            , (void ( IChiSquaredModule_wrapper::* )( ::IOutputDataNormalizer const&  ) )(&IChiSquaredModule_wrapper::default_setOutputDataNormalizer)
             , ( bp::arg("data_normalizer") ) )    
         .def( 
             "setRealAndSimulatedData"
-            , (void ( ::IChiSquaredModule::* )( ::OutputData< double > const &,::OutputData< double > const & ) )( &::IChiSquaredModule::setRealAndSimulatedData )
+            , (void ( ::IChiSquaredModule::* )( ::OutputData< double > const& ,::OutputData< double > const&  ) )(& ::IChiSquaredModule::setRealAndSimulatedData )
             , ( bp::arg("real_data"), bp::arg("simulation_data") ) );
 
 }

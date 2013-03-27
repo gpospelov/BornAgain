@@ -29,11 +29,11 @@ class DoubleToComplexMap : public IDoubleToComplexMap
     typedef Utils::UnorderedMap<double, complex_t> container_t;
 
     DoubleToComplexMap(){}
-    DoubleToComplexMap(const container_t &value_map) : m_value_map(value_map) {}
+    DoubleToComplexMap(const container_t& value_map) : m_value_map(value_map) {}
 
-    complex_t & operator[] (double key) { return m_value_map[key]; }
+    complex_t&  operator[] (double key) { return m_value_map[key]; }
     DoubleToComplexMap *clone() const { return new DoubleToComplexMap(m_value_map); }
-    const complex_t &evaluate(double value) const { return m_value_map.find(value); }
+    const complex_t& evaluate(double value) const { return m_value_map.find(value); }
  private:
     container_t m_value_map;
 };
@@ -46,11 +46,11 @@ class DoubleToPairOfComplexMap : public IDoubleToPairOfComplexMap
     typedef Utils::UnorderedMap<double, complexpair_t> container_t;
 
     DoubleToPairOfComplexMap(){}
-    DoubleToPairOfComplexMap(const container_t &value_map) : m_value_map(value_map) {}
+    DoubleToPairOfComplexMap(const container_t& value_map) : m_value_map(value_map) {}
 
-    complexpair_t & operator[] (double key) { return m_value_map[key]; }
+    complexpair_t&  operator[] (double key) { return m_value_map[key]; }
     DoubleToPairOfComplexMap *clone() const { return new DoubleToPairOfComplexMap(m_value_map); }
-   const complexpair_t &evaluate(double value) const { return m_value_map.find(value); }
+   const complexpair_t& evaluate(double value) const { return m_value_map.find(value); }
  private:
     container_t m_value_map;
 };

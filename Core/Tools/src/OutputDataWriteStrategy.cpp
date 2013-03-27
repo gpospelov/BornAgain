@@ -21,7 +21,7 @@
 
 //! Read data from ASCII file (2D assumed) into newly created OutputData.
 
-void OutputDataWriteStreamIMA::writeOutputData(const OutputData<double> &data, std::ostream &output_stream)
+void OutputDataWriteStreamIMA::writeOutputData(const OutputData<double>& data, std::ostream& output_stream)
 {
     size_t row_length = data.getAxis(1)->getSize();
     OutputData<double>::const_iterator it = data.begin();

@@ -93,7 +93,7 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     }
 
-    Layer_wrapper(::Layer const & other )
+    Layer_wrapper(::Layer const&  other )
     : Layer( boost::ref(other) )
       , bp::wrapper< Layer >(){
         // copy constructor
@@ -298,7 +298,7 @@ void register_Layer_class(){
 
     bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Layer", bp::init< >() )    
         .def( bp::init< IMaterial const *, bp::optional< double > >(( bp::arg("p_material"), bp::arg("thickness")=0 )) )    
-        .def( bp::init< Layer const & >(( bp::arg("other") )) )    
+        .def( bp::init< Layer const&  >(( bp::arg("other") )) )    
         .def( 
             "clone"
             , (::Layer * ( ::Layer::* )(  ) const)(&::Layer::clone)

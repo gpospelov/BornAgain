@@ -30,7 +30,7 @@ class ParticleDecoration : public IDecoration
     ParticleDecoration(
         Particle *p_particle, double depth=0.0, double abundance=1.0);
     ParticleDecoration(
-        const Particle &p_particle, double depth=0.0, double abundance=1.0);
+        const Particle& p_particle, double depth=0.0, double abundance=1.0);
     virtual ~ParticleDecoration();
 
     virtual ParticleDecoration *clone() const;
@@ -40,17 +40,17 @@ class ParticleDecoration : public IDecoration
         Particle *p_particle, Geometry::Transform3D *p_transform=0,
         double depth=0, double abundance=1.0);
     void addParticle(
-        const Particle &particle, const Geometry::Transform3D &transform,
+        const Particle& particle, const Geometry::Transform3D& transform,
         double depth=0, double abundance=1.0);
 
     //! Adds particle giving depth
     void addParticle(
-        const Particle &particle, double depth=0.0, double abundance=1.0);
+        const Particle& particle, double depth=0.0, double abundance=1.0);
     void addParticle(
         Particle *p_particle, double depth=0.0, double abundance=1.0);
 
     //! Adds particle info
-    void addParticleInfo(const ParticleInfo &info);
+    void addParticleInfo(const ParticleInfo& info);
 
     //! Returns number of particles
     virtual size_t getNumberOfParticles() const { return m_particles.size(); }
@@ -75,7 +75,7 @@ class ParticleDecoration : public IDecoration
         IInterferenceFunction* p_interference_function);
 
     void addInterferenceFunction(
-        const IInterferenceFunction &interference_function);
+        const IInterferenceFunction& interference_function);
 
     //! Returns interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;

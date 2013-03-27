@@ -37,7 +37,7 @@ InterferenceFunction2DLattice::~InterferenceFunction2DLattice()
 void InterferenceFunction2DLattice::setProbabilityDistribution(
         const IFTDistribution2D& pdf)
 {
-    if (mp_pdf != &pdf) delete mp_pdf;
+    if (mp_pdf !=& pdf) delete mp_pdf;
     mp_pdf = pdf.clone();
     initialize_calc_factors();
 }

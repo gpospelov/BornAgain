@@ -57,7 +57,7 @@ class FitSuiteObserverDraw : public IObserver
  public:
     FitSuiteObserverDraw(
         int draw_every_nth = 20,
-        const std::string &canvas_base_name =
+        const std::string& canvas_base_name =
         std::string("FitSuiteObserverDraw") )
         : m_draw_every_nth(draw_every_nth)
         , m_canvas_base_name(canvas_base_name)
@@ -90,7 +90,7 @@ class FitSuiteObserverWriteTree : public IObserver
 {
  public:
     FitSuiteObserverWriteTree(
-        const std::string &file_name = std::string("fitsuite.root"))
+        const std::string& file_name = std::string("fitsuite.root"))
         : m_file_name(file_name), m_prev_data(0) {}
     void update(IObservable *subject);
  private:

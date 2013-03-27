@@ -31,7 +31,7 @@ class IFormFactor : public ISample
     virtual IFormFactor *clone() const=0;
 
     //! pass the refractive index of the ambient material in which this particle is embedded
-    virtual void setAmbientRefractiveIndex(const complex_t &refractive_index)
+    virtual void setAmbientRefractiveIndex(const complex_t& refractive_index)
     {
         (void)refractive_index; // to prevent unused-variable warning
     }
@@ -42,7 +42,7 @@ class IFormFactor : public ISample
     //! @param alpha_i incident angle wrt scattering surface
     //! @param alpha_f outgoing angle wrt scattering surface
     virtual complex_t evaluate(
-        const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+        const cvector_t& k_i, const Bin1DCVector& k_f_bin,
         double alpha_i, double alpha_f) const=0;
 
     //! Returns number of variable/stochastic parameters
@@ -62,8 +62,8 @@ class IFormFactor : public ISample
 
     //! retrieve a list of simple formfactors and their probabilities when the formfactor is a distributed one
     virtual void createDistributedFormFactors(
-        std::vector<IFormFactor *> &form_factors,
-        std::vector<double> &probabilities,
+        std::vector<IFormFactor *>& form_factors,
+        std::vector<double>& probabilities,
         size_t nbr_samples) const {
         (void)form_factors;   // to prevent unused-variable warning
         (void)probabilities;  // to prevent unused-variable warning

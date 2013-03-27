@@ -83,7 +83,7 @@ void register_IndexVector3D_class(){
         typedef bp::class_< Geometry::BasicVector3D< int > > IndexVector3D_exposer_t;
         IndexVector3D_exposer_t IndexVector3D_exposer = IndexVector3D_exposer_t( "IndexVector3D", bp::init< >() );
         bp::scope IndexVector3D_scope( IndexVector3D_exposer );
-        IndexVector3D_exposer.def( bp::init< int const &, int const &, int const & >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
+        IndexVector3D_exposer.def( bp::init< int const& , int const& , int const&  >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
         IndexVector3D_exposer.def( bp::self *= bp::other< double >() );
         IndexVector3D_exposer.def( bp::self += bp::self );
         IndexVector3D_exposer.def( bp::self -= bp::self );
@@ -91,11 +91,11 @@ void register_IndexVector3D_class(){
         { //::Geometry::BasicVector3D< int >::operator=
         
             typedef Geometry::BasicVector3D< int > exported_class_t;
-            typedef ::Geometry::BasicVector3D< int > & ( exported_class_t::*assign_function_type )( ::Geometry::BasicVector3D< int > const & ) ;
+            typedef ::Geometry::BasicVector3D< int >&  ( exported_class_t::*assign_function_type )( ::Geometry::BasicVector3D< int > const&  ) ;
             
             IndexVector3D_exposer.def( 
                 "assign"
-                , assign_function_type( &::Geometry::BasicVector3D< int >::operator= )
+                , assign_function_type(& ::Geometry::BasicVector3D< int >::operator= )
                 , ( bp::arg("v") )
                 , bp::return_self< >() );
         
@@ -107,18 +107,18 @@ void register_IndexVector3D_class(){
             
             IndexVector3D_exposer.def( 
                 "__getitem__"
-                , __getitem___function_type( &::Geometry::BasicVector3D< int >::operator[] )
+                , __getitem___function_type(& ::Geometry::BasicVector3D< int >::operator[] )
                 , ( bp::arg("i") ) );
         
         }
         { //::Geometry::BasicVector3D< int >::operator[]
         
             typedef Geometry::BasicVector3D< int > exported_class_t;
-            typedef int & ( exported_class_t::*__getitem___function_type )( int ) ;
+            typedef int&  ( exported_class_t::*__getitem___function_type )( int ) ;
             
             IndexVector3D_exposer.def( 
                 "__getitem__"
-                , __getitem___function_type( &::Geometry::BasicVector3D< int >::operator[] )
+                , __getitem___function_type(& ::Geometry::BasicVector3D< int >::operator[] )
                 , ( bp::arg("i") )
                 , bp::return_value_policy< bp::copy_non_const_reference >() );
         
@@ -126,55 +126,55 @@ void register_IndexVector3D_class(){
         { //::Geometry::BasicVector3D< int >::setLambdaAlphaPhi
         
             typedef Geometry::BasicVector3D< int > exported_class_t;
-            typedef void ( exported_class_t::*setLambdaAlphaPhi_function_type )( int const &,int const &,int const & ) ;
+            typedef void ( exported_class_t::*setLambdaAlphaPhi_function_type )( int const& ,int const& ,int const&  ) ;
             
             IndexVector3D_exposer.def( 
                 "setLambdaAlphaPhi"
-                , setLambdaAlphaPhi_function_type( &::Geometry::BasicVector3D< int >::setLambdaAlphaPhi )
+                , setLambdaAlphaPhi_function_type(& ::Geometry::BasicVector3D< int >::setLambdaAlphaPhi )
                 , ( bp::arg("_lambda"), bp::arg("_alpha"), bp::arg("_phi") ) );
         
         }
         { //::Geometry::BasicVector3D< int >::setX
         
             typedef Geometry::BasicVector3D< int > exported_class_t;
-            typedef void ( exported_class_t::*setX_function_type )( int const & ) ;
+            typedef void ( exported_class_t::*setX_function_type )( int const&  ) ;
             
             IndexVector3D_exposer.def( 
                 "setX"
-                , setX_function_type( &::Geometry::BasicVector3D< int >::setX )
+                , setX_function_type(& ::Geometry::BasicVector3D< int >::setX )
                 , ( bp::arg("a") ) );
         
         }
         { //::Geometry::BasicVector3D< int >::setXYZ
         
             typedef Geometry::BasicVector3D< int > exported_class_t;
-            typedef void ( exported_class_t::*setXYZ_function_type )( int const &,int const &,int const & ) ;
+            typedef void ( exported_class_t::*setXYZ_function_type )( int const& ,int const& ,int const&  ) ;
             
             IndexVector3D_exposer.def( 
                 "setXYZ"
-                , setXYZ_function_type( &::Geometry::BasicVector3D< int >::setXYZ )
+                , setXYZ_function_type(& ::Geometry::BasicVector3D< int >::setXYZ )
                 , ( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ) );
         
         }
         { //::Geometry::BasicVector3D< int >::setY
         
             typedef Geometry::BasicVector3D< int > exported_class_t;
-            typedef void ( exported_class_t::*setY_function_type )( int const & ) ;
+            typedef void ( exported_class_t::*setY_function_type )( int const&  ) ;
             
             IndexVector3D_exposer.def( 
                 "setY"
-                , setY_function_type( &::Geometry::BasicVector3D< int >::setY )
+                , setY_function_type(& ::Geometry::BasicVector3D< int >::setY )
                 , ( bp::arg("a") ) );
         
         }
         { //::Geometry::BasicVector3D< int >::setZ
         
             typedef Geometry::BasicVector3D< int > exported_class_t;
-            typedef void ( exported_class_t::*setZ_function_type )( int const & ) ;
+            typedef void ( exported_class_t::*setZ_function_type )( int const&  ) ;
             
             IndexVector3D_exposer.def( 
                 "setZ"
-                , setZ_function_type( &::Geometry::BasicVector3D< int >::setZ )
+                , setZ_function_type(& ::Geometry::BasicVector3D< int >::setZ )
                 , ( bp::arg("a") ) );
         
         }
@@ -185,7 +185,7 @@ void register_IndexVector3D_class(){
             
             IndexVector3D_exposer.def( 
                 "x"
-                , x_function_type( &::Geometry::BasicVector3D< int >::x ) );
+                , x_function_type(& ::Geometry::BasicVector3D< int >::x ) );
         
         }
         { //::Geometry::BasicVector3D< int >::y
@@ -195,7 +195,7 @@ void register_IndexVector3D_class(){
             
             IndexVector3D_exposer.def( 
                 "y"
-                , y_function_type( &::Geometry::BasicVector3D< int >::y ) );
+                , y_function_type(& ::Geometry::BasicVector3D< int >::y ) );
         
         }
         { //::Geometry::BasicVector3D< int >::z
@@ -205,7 +205,7 @@ void register_IndexVector3D_class(){
             
             IndexVector3D_exposer.def( 
                 "z"
-                , z_function_type( &::Geometry::BasicVector3D< int >::z ) );
+                , z_function_type(& ::Geometry::BasicVector3D< int >::z ) );
         
         }
     }

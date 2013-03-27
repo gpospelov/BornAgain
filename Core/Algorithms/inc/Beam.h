@@ -25,14 +25,14 @@ class Beam : public IParameterized
 {
  public:
     Beam();
-    Beam(const Beam &other);
-    Beam &operator=(const Beam &other);
+    Beam(const Beam& other);
+    Beam& operator=(const Beam& other);
 
     virtual ~Beam() {}
 
     cvector_t getCentralK() const { return m_central_k; }
     
-    void setCentralK(const cvector_t &k_i);
+    void setCentralK(const cvector_t& k_i);
     void setCentralK(double lambda, double alpha_i, double phi_i);
 
     double getIntensity() const { return m_intensity; }
@@ -45,7 +45,7 @@ class Beam : public IParameterized
 
  private:
     //! swap function
-    void swapContent(Beam &other);
+    void swapContent(Beam& other);
 
     cvector_t m_central_k;
     double m_intensity;

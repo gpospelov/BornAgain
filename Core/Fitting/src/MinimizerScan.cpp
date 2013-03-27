@@ -111,7 +111,7 @@ void MinimizerScan::setChiSquaredFunction(function_chi2_t fun_chi2, size_t npara
 }
 
 //! ?
-void MinimizerScan::setParameters(const FitSuiteParameters &parameters)
+void MinimizerScan::setParameters(const FitSuiteParameters& parameters)
 {
     m_parameters.clear();
     for(size_t i_par = 0; i_par<parameters.size(); ++i_par) {

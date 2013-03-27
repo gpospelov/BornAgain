@@ -69,14 +69,14 @@ class Layer : public ICompositeSample
     virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
 
  protected:
-    Layer(const Layer &other);
+    Layer(const Layer& other);
 
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
  private:
     //! Prints class
-    void print(std::ostream &ostr) const;
+    void print(std::ostream& ostr) const;
 
     const IMaterial* mp_material;    //!< pointer to the material
     double m_thickness;              //!< layer thickness in nanometers

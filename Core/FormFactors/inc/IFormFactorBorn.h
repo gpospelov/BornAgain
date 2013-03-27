@@ -28,12 +28,12 @@ class IFormFactorBorn : public IFormFactor
     virtual IFormFactorBorn *clone() const=0;
 
     virtual complex_t evaluate(
-        const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+        const cvector_t& k_i, const Bin1DCVector& k_f_bin,
         double alpha_i, double alpha_f) const;
 
     //! evaluate scattering amplitude for complex wavevector
     //! @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
-    virtual complex_t evaluate_for_q(const cvector_t &q) const=0;
+    virtual complex_t evaluate_for_q(const cvector_t& q) const=0;
 
     //! Returns volume.
 
@@ -55,7 +55,7 @@ class IFormFactorBorn : public IFormFactor
 
  private:
     //! determine if a large bin size approximation should be used
-    bool useLargeBinApproximation(const Bin1DCVector &q_bin) const;
+    bool useLargeBinApproximation(const Bin1DCVector& q_bin) const;
 
     //! approximate intensity that does not contain rapid oscillations
     double bigRadialIntegrand(double qR, void *params) const;
@@ -78,7 +78,7 @@ inline complex_t IFormFactorBorn::evaluate(
 }
 
 inline bool IFormFactorBorn::useLargeBinApproximation(
-    const Bin1DCVector &q_bin) const
+    const Bin1DCVector& q_bin) const
 {
     double delta_qr = std::abs( q_bin.getDelta().magxy() );
     double delta_qz = std::abs( q_bin.getDelta().z() );

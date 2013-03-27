@@ -79,7 +79,7 @@ namespace bp = boost::python;
 
 struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreShell > {
 
-    ParticleCoreShell_wrapper(::Particle const & shell, ::Particle const & core, ::kvector_t relative_core_position )
+    ParticleCoreShell_wrapper(::Particle const&  shell, ::Particle const&  core, ::kvector_t relative_core_position )
     : ParticleCoreShell( boost::ref(shell), boost::ref(core), relative_core_position )
       , bp::wrapper< ParticleCoreShell >(){
         // constructor
@@ -234,7 +234,7 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
 
 void register_ParticleCoreShell_class(){
 
-    bp::class_< ParticleCoreShell_wrapper, bp::bases< Particle >, boost::noncopyable >( "ParticleCoreShell", bp::init< Particle const &, Particle const &, kvector_t >(( bp::arg("shell"), bp::arg("core"), bp::arg("relative_core_position") )) )    
+    bp::class_< ParticleCoreShell_wrapper, bp::bases< Particle >, boost::noncopyable >( "ParticleCoreShell", bp::init< Particle const& , Particle const& , kvector_t >(( bp::arg("shell"), bp::arg("core"), bp::arg("relative_core_position") )) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

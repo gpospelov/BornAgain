@@ -26,7 +26,7 @@ class Instrument : public IParameterized
 {
  public:
     Instrument();
-    Instrument(const Instrument &other);
+    Instrument(const Instrument& other);
 
     ~Instrument() {}
 
@@ -49,20 +49,20 @@ class Instrument : public IParameterized
     Detector getDetector() const;
 
     //! Returns a detector axis
-    const IAxis &getDetectorAxis(size_t index) const;
+    const IAxis& getDetectorAxis(size_t index) const;
 
     //! Returns the detector's dimension
     size_t getDetectorDimension() const { return m_detector.getDimension(); }
 
     //! Sets detector parameters using axes of output data
-    void matchDetectorParameters(const OutputData<double > &output_data);
+    void matchDetectorParameters(const OutputData<double >& output_data);
 
     //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
             size_t n_alpha, double alpha_f_min, double alpha_f_max, bool isgisaxs_style=false);
 
     //! Sets detector parameters using parameter object
-    void setDetectorParameters(const DetectorParameters &params);
+    void setDetectorParameters(const DetectorParameters& params);
 
     //! Sets detector resolution function
     void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
@@ -104,7 +104,7 @@ inline Detector Instrument::getDetector() const
     return m_detector;
 }
 
-inline const IAxis &Instrument::getDetectorAxis(size_t index) const
+inline const IAxis& Instrument::getDetectorAxis(size_t index) const
 {
     return m_detector.getAxis(index);
 }

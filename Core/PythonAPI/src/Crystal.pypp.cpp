@@ -79,7 +79,7 @@ namespace bp = boost::python;
 
 struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
 
-    Crystal_wrapper(::LatticeBasis const & lattice_basis, ::Lattice const & lattice )
+    Crystal_wrapper(::LatticeBasis const&  lattice_basis, ::Lattice const&  lattice )
     : Crystal( boost::ref(lattice_basis), boost::ref(lattice) )
       , bp::wrapper< Crystal >(){
         // constructor
@@ -98,7 +98,7 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return Crystal::clone( );
     }
 
-    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const&  parent_info ) const  {
         if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
             return func_createDiffuseParticleInfo( boost::ref(parent_info) );
         else{
@@ -106,11 +106,11 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         }
     }
     
-    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const&  parent_info ) const  {
         return Crystal::createDiffuseParticleInfo( boost::ref(parent_info) );
     }
 
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
+    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const&  meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
         if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
             return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
         else{
@@ -118,7 +118,7 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         }
     }
     
-    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
+    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const&  meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
         return Crystal::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
     }
 
@@ -234,7 +234,7 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
 
 void register_Crystal_class(){
 
-    bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, boost::noncopyable >( "Crystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
+    bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, boost::noncopyable >( "Crystal", bp::init< LatticeBasis const& , Lattice const&  >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
         .def( 
             "clone"
             , (::Crystal * ( ::Crystal::* )(  ) const)(&::Crystal::clone)
@@ -242,26 +242,26 @@ void register_Crystal_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createBasis"
-            , (::Particle * ( ::Crystal::* )(  ) const)( &::Crystal::createBasis )
+            , (::Particle * ( ::Crystal::* )(  ) const)(& ::Crystal::createBasis )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createDiffuseParticleInfo"
-            , (::std::vector< DiffuseParticleInfo* > * ( ::Crystal::* )( ::ParticleInfo const & ) const)(&::Crystal::createDiffuseParticleInfo)
-            , (::std::vector< DiffuseParticleInfo* > * ( Crystal_wrapper::* )( ::ParticleInfo const & ) const)(&Crystal_wrapper::default_createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( ::Crystal::* )( ::ParticleInfo const&  ) const)(&::Crystal::createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( Crystal_wrapper::* )( ::ParticleInfo const&  ) const)(&Crystal_wrapper::default_createDiffuseParticleInfo)
             , ( bp::arg("parent_info") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createTotalFormFactor"
-            , (::IFormFactor * ( ::Crystal::* )( ::IFormFactor const &,::complex_t ) const)(&::Crystal::createTotalFormFactor)
-            , (::IFormFactor * ( Crystal_wrapper::* )( ::IFormFactor const &,::complex_t ) const)(&Crystal_wrapper::default_createTotalFormFactor)
+            , (::IFormFactor * ( ::Crystal::* )( ::IFormFactor const& ,::complex_t ) const)(&::Crystal::createTotalFormFactor)
+            , (::IFormFactor * ( Crystal_wrapper::* )( ::IFormFactor const& ,::complex_t ) const)(&Crystal_wrapper::default_createTotalFormFactor)
             , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getLattice"
-            , (::Lattice ( ::Crystal::* )(  ) const)( &::Crystal::getLattice ) )    
+            , (::Lattice ( ::Crystal::* )(  ) const)(& ::Crystal::getLattice ) )    
         .def( 
             "getLatticeBasis"
-            , (::LatticeBasis const * ( ::Crystal::* )(  ) const)( &::Crystal::getLatticeBasis )
+            , (::LatticeBasis const * ( ::Crystal::* )(  ) const)(& ::Crystal::getLatticeBasis )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "setAmbientRefractiveIndex"
@@ -270,7 +270,7 @@ void register_Crystal_class(){
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "setDWFactor"
-            , (void ( ::Crystal::* )( double ) )( &::Crystal::setDWFactor )
+            , (void ( ::Crystal::* )( double ) )(& ::Crystal::setDWFactor )
             , ( bp::arg("dw_factor") ) )    
         .def( 
             "areParametersChanged"

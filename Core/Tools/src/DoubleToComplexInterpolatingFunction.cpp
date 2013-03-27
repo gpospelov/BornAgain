@@ -22,7 +22,7 @@ DoubleToComplexInterpolatingFunction::~DoubleToComplexInterpolatingFunction()
 {
 }
 
-DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(const std::map<double, complex_t> &value_map, InterpolatingMode imode)
+DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(const std::map<double, complex_t>& value_map, InterpolatingMode imode)
     : m_value_map(value_map), m_interpolating_mode(imode)
 {
     m_lower_limit = (*m_value_map.begin()).first;

@@ -38,52 +38,52 @@ class IsGISAXSTools {
 
     //! Draw 2D histogram representing logarithm of OutputData (in new canvas)
     static void drawLogOutputData(
-        const OutputData<double> &output,
-        const std::string &canvas_name,
-        const std::string &canvas_title,
-        const std::string &draw_options,
-        const std::string &histogram_title);
+        const OutputData<double>& output,
+        const std::string& canvas_name,
+        const std::string& canvas_title,
+        const std::string& draw_options,
+        const std::string& histogram_title);
 
     //! Draw 2D histogram representing OutputData (in new canvas)
     static void drawOutputData(
-        const OutputData<double> &output,
-        const std::string &canvas_name,
-        const std::string &canvas_title,
-        const std::string &draw_options,
-        const std::string &histogram_title);
+        const OutputData<double>& output,
+        const std::string& canvas_name,
+        const std::string& canvas_title,
+        const std::string& draw_options,
+        const std::string& histogram_title);
 
     //! Draw 2D histogram representing OutputData (in current gPad)
     static void drawOutputDataInPad(
-        const OutputData<double> &output,
-        const std::string &draw_options,
-        const std::string &histogram_title);
+        const OutputData<double>& output,
+        const std::string& draw_options,
+        const std::string& histogram_title);
 
     //! Draw 1D distribution over values stored in OutputData
     static void drawOutputDataDistribution1D(
-        const OutputData<double> &output,
-        const std::string &draw_options,
-        const std::string &histogram_title = std::string());
+        const OutputData<double>& output,
+        const std::string& draw_options,
+        const std::string& histogram_title = std::string());
 
     //! Draw 1D distribution over relative difference in two OutputData sets.
     static void drawOutputDataDifference1D(
-        const OutputData<double> &left,
-        const OutputData<double> &right,
-        const std::string &draw_options,
-        const std::string &histogram_title = std::string());
+        const OutputData<double>& left,
+        const OutputData<double>& right,
+        const std::string& draw_options,
+        const std::string& histogram_title = std::string());
 
     //! Draw relative difference of two 2D OutputData sets.
     static void drawOutputDataRelativeDifference2D(
-        const OutputData<double> &left,
-        const OutputData<double> &right,
-        const std::string &draw_options,
-        const std::string &histogram_title = std::string());
+        const OutputData<double>& left,
+        const OutputData<double>& right,
+        const std::string& draw_options,
+        const std::string& histogram_title = std::string());
 
     //! Draw relative difference of two 2D OutputData sets
     static void drawOutputDataChi2Difference2D(
-        const OutputData<double> &left,
-        const OutputData<double> &right,
-        const std::string &draw_options,
-        const std::string &histogram_title = std::string());
+        const OutputData<double>& left,
+        const OutputData<double>& right,
+        const std::string& draw_options,
+        const std::string& histogram_title = std::string());
 
     //! Sets minimum of y-axis (for 1D histogram), or z-axis (2D histograms).
     static void setMinimum(double hist_min)
@@ -110,42 +110,42 @@ class IsGISAXSTools {
 
     //! Export 2D output data in std::vectors (used for saving in ROOT tree).
     static void exportOutputDataInVectors2D(
-        const OutputData<double> &input_data,
-        std::vector<std::vector<double > > &v_data,
-        std::vector<std::vector<double > > &v_axis0,
-        std::vector<std::vector<double > > &v_axis1);
+        const OutputData<double>& input_data,
+        std::vector<std::vector<double > >& v_data,
+        std::vector<std::vector<double > >& v_axis0,
+        std::vector<std::vector<double > >& v_axis1);
 
     //! Creates two-dimensional TH2D from OutputData.
     static TH2D *getOutputDataTH2D(
         const OutputData<double>& output,
-        const std::string &histo_name);
+        const std::string& histo_name);
 
     //! Creates one, two, three-dimensional histograms from OutputData.
     static TH1 *getOutputDataTH123D(
         const OutputData<double>& output,
-        const std::string &histo_name);
+        const std::string& histo_name);
 
     //! Creates TLine for displaying of one-dimensional data scan.
-    static TLine *getOutputDataScanLine(const OutputData<double> &data);
+    static TLine *getOutputDataScanLine(const OutputData<double>& data);
 
     //! Creates TH1D for displaying of one-dimensional data scan.
     static TH1D *getOutputDataScanHist(
-        const OutputData<double> &data,
-        const std::string &hname=std::string("scan_hist"));
+        const OutputData<double>& data,
+        const std::string& hname=std::string("scan_hist"));
 
     //! Creates noisy data.
     static OutputData<double > *createNoisyData(
-        const OutputData<double> &exact_data,
+        const OutputData<double>& exact_data,
         double noise_factor = 0.1);
     static OutputData<double > *createDataWithGaussianNoise(
-        const OutputData<double> &exact_data, double sigma);
+        const OutputData<double>& exact_data, double sigma);
 
     //! Draw standard IsGISAXS comparison canvas.
     static void drawOutputDataComparisonResults(
-        const OutputData<double> &data,
-        const OutputData<double> &reference,
-        const std::string &name=std::string("noname"),
-        const std::string &title=std::string("no title"),
+        const OutputData<double>& data,
+        const OutputData<double>& reference,
+        const std::string& name=std::string("noname"),
+        const std::string& title=std::string("no title"),
         double hmin=1.,
         double hmax = -1.,
         double hdiff=0.0001 );

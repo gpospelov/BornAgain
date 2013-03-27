@@ -43,11 +43,11 @@ class InterferenceFunction2DParaCrystal : public IInterferenceFunction
         m_domain_sizes[1] = size_2;
     }
 
-    void setProbabilityDistributions(const IFTDistribution2D &pdf_1, const IFTDistribution2D &pdf_2);
+    void setProbabilityDistributions(const IFTDistribution2D& pdf_1, const IFTDistribution2D& pdf_2);
 
     void setIntegrationOverXi(bool integrate_xi) { m_integrate_xi = integrate_xi; }
 
-    virtual double evaluate(const cvector_t &q) const;
+    virtual double evaluate(const cvector_t& q) const;
 
     //! Adds parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
@@ -55,7 +55,7 @@ class InterferenceFunction2DParaCrystal : public IInterferenceFunction
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
-    void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double &q_pa_1, double &q_pa_2) const;
+    void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double& q_pa_1, double& q_pa_2) const;
     double m_lattice_lengths[2];
     double m_alpha_lattice; //!< Angle between lattice basis vectors
     double m_xi; //!< Orientation of the lattice wrt beam axis x

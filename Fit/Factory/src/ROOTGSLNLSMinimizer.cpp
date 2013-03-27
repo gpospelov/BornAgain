@@ -29,8 +29,8 @@ class FitTransformFunction : public FitMethodFunction {
 
  public:
 
-   FitTransformFunction(const FitMethodFunction & f, const std::vector<Math::EMinimVariableType> & types, const std::vector<double> & values,
-                              const std::map<unsigned int, std::pair<double, double> > & bounds) :
+   FitTransformFunction(const FitMethodFunction&  f, const std::vector<Math::EMinimVariableType>&  types, const std::vector<double>&  values,
+                              const std::map<unsigned int, std::pair<double, double> >&  bounds) :
       FitMethodFunction( f.NDim(), f.NPoints() ),
       fFunc(f),
       fTransform(new MinimTransformFunction( new MultiNumGradFunction(f), types, values, bounds) ),
@@ -52,9 +52,9 @@ class FitTransformFunction : public FitMethodFunction {
       const double * xExt = fTransform->Transformation(x);
       if ( g == 0) return fFunc.DataElement( xExt, i );
       // use gradient
-      double val =  fFunc.DataElement( xExt, i, &fGrad[0]);
+      double val =  fFunc.DataElement( xExt, i,& fGrad[0]);
       // transform gradient
-      fTransform->GradientTransformation( x, &fGrad.front(), g);
+      fTransform->GradientTransformation( x,& fGrad.front(), g);
       return val;
    }
 
@@ -94,7 +94,7 @@ class FitTransformFunction : public FitMethodFunction {
       return fFunc( fTransform->Transformation(x) );
    }
 
-   const FitMethodFunction & fFunc;                  // pointer to original fit method function
+   const FitMethodFunction&  fFunc;                  // pointer to original fit method function
    MinimTransformFunction * fTransform;        // pointer to transformation function
    mutable std::vector<double> fGrad;          // cached vector of gradient values
 
@@ -140,7 +140,7 @@ GSLNLSMinimizer::~GSLNLSMinimizer () {
    delete fGSLMultiFit;
 }
 
-bool GSLNLSMinimizer::SetVariable(unsigned int ivar, const std::string & name, double val, double step) {
+bool GSLNLSMinimizer::SetVariable(unsigned int ivar, const std::string&  name, double val, double step) {
    // set variable in minimizer - support only free variables
    // no transformation implemented - so far
    if (ivar > fValues.size() ) return false;
@@ -164,7 +164,7 @@ bool GSLNLSMinimizer::SetVariable(unsigned int ivar, const std::string & name, d
    return true;
 }
 
-bool GSLNLSMinimizer::SetLowerLimitedVariable(unsigned int ivar, const std::string & name, double val, double step, double lower) {
+bool GSLNLSMinimizer::SetLowerLimitedVariable(unsigned int ivar, const std::string&  name, double val, double step, double lower) {
    //MATH_WARN_MSGVAL("GSLNLSMinimizer::SetLowerLimitedVariable","Ignore lower limit on variable ",ivar);
    bool ret = SetVariable(ivar, name, val, step);
    if (!ret) return false;
@@ -172,7 +172,7 @@ bool GSLNLSMinimizer::SetLowerLimitedVariable(unsigned int ivar, const std::stri
    fVarTypes[ivar] = Math::kLowBound;
    return true;
 }
-bool GSLNLSMinimizer::SetUpperLimitedVariable(unsigned int ivar, const std::string & name, double val, double step, double upper) {
+bool GSLNLSMinimizer::SetUpperLimitedVariable(unsigned int ivar, const std::string&  name, double val, double step, double upper) {
    //MATH_WARN_MSGVAL("GSLNLSMinimizer::SetUpperLimitedVariable","Ignore upper limit on variable ",ivar);
    bool ret = SetVariable(ivar, name, val, step);
    if (!ret) return false;
@@ -180,7 +180,7 @@ bool GSLNLSMinimizer::SetUpperLimitedVariable(unsigned int ivar, const std::stri
    fVarTypes[ivar] = Math::kUpBound;
    return true;
 }
-bool GSLNLSMinimizer::SetLimitedVariable(unsigned int ivar, const std::string & name, double val, double step, double lower, double upper ) {
+bool GSLNLSMinimizer::SetLimitedVariable(unsigned int ivar, const std::string&  name, double val, double step, double lower, double upper ) {
    //MATH_WARN_MSGVAL("GSLNLSMinimizer::SetLimitedVariable","Ignore bounds on variable ",ivar);
    bool ret = SetVariable(ivar, name, val, step);
    if (!ret) return false;
@@ -189,7 +189,7 @@ bool GSLNLSMinimizer::SetLimitedVariable(unsigned int ivar, const std::string & 
    return true;
 }
 
-bool GSLNLSMinimizer::SetFixedVariable(unsigned int ivar , const std::string & name , double val ) {
+bool GSLNLSMinimizer::SetFixedVariable(unsigned int ivar , const std::string&  name , double val ) {
    /// set fixed variable (override if minimizer supports them )
    bool ret = SetVariable(ivar, name, val, 0.);
    if (!ret) return false;
@@ -214,7 +214,7 @@ bool GSLNLSMinimizer::SetVariableValues( const double * x) {
 
 
 
-void GSLNLSMinimizer::SetFunction(const ROOT::Math::IMultiGenFunction & func) {
+void GSLNLSMinimizer::SetFunction(const ROOT::Math::IMultiGenFunction&  func) {
    // set the function to minimizer
    // need to create vector of functions to be passed to GSL multifit
    // support now only CHi2 implementation
@@ -237,10 +237,10 @@ void GSLNLSMinimizer::SetFunction(const ROOT::Math::IMultiGenFunction & func) {
    fObjFunc = chi2Func;
  }
 
-void GSLNLSMinimizer::SetFunction(const ROOT::Math::IMultiGradFunction & func ) {
+void GSLNLSMinimizer::SetFunction(const ROOT::Math::IMultiGradFunction&  func ) {
    // set the function to minimizer using gradient interface
    // not supported yet, implemented using the other SetFunction
-   return SetFunction(static_cast<const ROOT::Math::IMultiGenFunction &>(func) );
+   return SetFunction(static_cast<const ROOT::Math::IMultiGenFunction& >(func) );
 }
 
 
@@ -280,7 +280,7 @@ bool GSLNLSMinimizer::Minimize() {
          fResiduals[ires] = LSResidualFunc(*trFunc, ires);
       }
 
-      trFunc->InvTransformation(&fValues.front(), &startValues[0]);
+      trFunc->InvTransformation(&fValues.front(),& startValues[0]);
       fNFree = trFunc->NDim(); // actual dimension
       assert(fValues.size() == trFunc->NTot() );
       startValues.resize( fNFree );
@@ -294,7 +294,7 @@ bool GSLNLSMinimizer::Minimize() {
 //       //stepSize += fSteps[i];
 //       if (fSteps[i] < stepSize) stepSize = fSteps[i];
 
-   int iret = fGSLMultiFit->Set( fResiduals, &startValues.front() );
+   int iret = fGSLMultiFit->Set( fResiduals,& startValues.front() );
    if (iret) {
       MATH_ERROR_MSGVAL("GSLNLSMinimizer::Minimize","Error setting the residual functions ",iret);
       return false;
@@ -383,7 +383,7 @@ bool GSLNLSMinimizer::Minimize() {
    if (minFound) {
 
       if (trFunc.get() != 0) {
-         trFunc->MatrixTransformation(x, fGSLMultiFit->CovarMatrix(), &fCovMatrix[0] );
+         trFunc->MatrixTransformation(x, fGSLMultiFit->CovarMatrix(),& fCovMatrix[0] );
       }
       else {
          const double * m =  fGSLMultiFit->CovarMatrix();

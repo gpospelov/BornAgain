@@ -35,7 +35,7 @@ Simulation::Simulation()
     init_parameters();
 }
 
-Simulation::Simulation(const Simulation &other)
+Simulation::Simulation(const Simulation& other)
 : IParameterized(other), ICloneable()
 , mp_sample(0)
 , mp_sample_builder(other.mp_sample_builder)
@@ -63,7 +63,7 @@ Simulation::Simulation(const ProgramOptions *p_options)
 }
 
 Simulation::Simulation(
-    const ISample &p_sample, const ProgramOptions *p_options)
+    const ISample& p_sample, const ProgramOptions *p_options)
 : IParameterized("Simulation")
 , mp_sample(p_sample.clone())
 , mp_sample_builder(0)
@@ -207,7 +207,7 @@ void Simulation::normalize()
 }
 
 //! The ISample object will not be owned by the Simulation object
-void Simulation::setSample(const ISample &sample)
+void Simulation::setSample(const ISample& sample)
 {
     delete mp_sample;
     mp_sample = sample.clone();
@@ -224,7 +224,7 @@ void Simulation::setSampleBuilder(const ISampleBuilder *p_sample_builder)
     mp_sample = 0;
 }
 
-void Simulation::setInstrument(const Instrument &instrument)
+void Simulation::setInstrument(const Instrument& instrument)
 {
     m_instrument = instrument;
     updateIntensityMapAxes();
@@ -320,7 +320,7 @@ void Simulation::updateSample()
     }
 }
 
-void Simulation::setDetectorParameters(const OutputData<double > &output_data)
+void Simulation::setDetectorParameters(const OutputData<double >& output_data)
 {
     m_instrument.matchDetectorParameters(output_data);
 
@@ -340,7 +340,7 @@ void Simulation::setDetectorParameters(
     updateIntensityMapAxes();
 }
 
-void Simulation::setDetectorParameters(const DetectorParameters &params)
+void Simulation::setDetectorParameters(const DetectorParameters& params)
 {
     m_instrument.setDetectorParameters(params);
     updateIntensityMapAxes();

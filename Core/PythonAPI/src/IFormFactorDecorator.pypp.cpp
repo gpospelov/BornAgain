@@ -120,7 +120,7 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         return IFormFactorDecorator::getVolume( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+    virtual void setAmbientRefractiveIndex( ::complex_t const&  refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
             func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
         else{
@@ -128,7 +128,7 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         }
     }
     
-    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+    void default_setAmbientRefractiveIndex( ::complex_t const&  refractive_index ) {
         IFormFactorDecorator::setAmbientRefractiveIndex( boost::ref(refractive_index) );
     }
 
@@ -144,7 +144,7 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         return IParameterized::areParametersChanged( );
     }
 
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* >&  form_factors, ::std::vector< double >&  probabilities, ::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
         else{
@@ -152,7 +152,7 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         }
     }
     
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
+    void default_createDistributedFormFactors( ::std::vector< IFormFactor* >&  form_factors, ::std::vector< double >&  probabilities, ::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
@@ -168,7 +168,7 @@ struct IFormFactorDecorator_wrapper : IFormFactorDecorator, bp::wrapper< IFormFa
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const {
+    virtual ::complex_t evaluate( ::cvector_t const&  k_i, ::Bin1DCVector const&  k_f_bin, double alpha_i, double alpha_f ) const {
         bp::override func_evaluate = this->get_override( "evaluate" );
         return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
@@ -256,8 +256,8 @@ void register_IFormFactorDecorator_class(){
             , (double ( IFormFactorDecorator_wrapper::* )(  ) const)(&IFormFactorDecorator_wrapper::default_getVolume) )    
         .def( 
             "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactorDecorator::* )( ::complex_t const & ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
-            , (void ( IFormFactorDecorator_wrapper::* )( ::complex_t const & ) )(&IFormFactorDecorator_wrapper::default_setAmbientRefractiveIndex)
+            , (void ( ::IFormFactorDecorator::* )( ::complex_t const&  ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
+            , (void ( IFormFactorDecorator_wrapper::* )( ::complex_t const&  ) )(&IFormFactorDecorator_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "areParametersChanged"
@@ -265,8 +265,8 @@ void register_IFormFactorDecorator_class(){
             , (bool ( IFormFactorDecorator_wrapper::* )(  ) )(&IFormFactorDecorator_wrapper::default_areParametersChanged) )    
         .def( 
             "createDistributedFormFactors"
-            , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
-            , (void ( IFormFactorDecorator_wrapper::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&IFormFactorDecorator_wrapper::default_createDistributedFormFactors)
+            , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* >& ,::std::vector< double >& ,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
+            , (void ( IFormFactorDecorator_wrapper::* )( ::std::vector< IFormFactor* >& ,::std::vector< double >& ,::size_t ) const)(&IFormFactorDecorator_wrapper::default_createDistributedFormFactors)
             , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -276,7 +276,7 @@ void register_IFormFactorDecorator_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::IFormFactor::evaluate) )
+            , bp::pure_virtual( (::complex_t ( ::IFormFactor::* )( ::cvector_t const& ,::Bin1DCVector const& ,double,double ) const)(&::IFormFactor::evaluate) )
             , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getNumberOfStochasticParameters"

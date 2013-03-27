@@ -79,7 +79,7 @@ namespace bp = boost::python;
 
 struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
 
-    LayerDecorator_wrapper(::Layer const & layer, ::IDecoration const & decoration )
+    LayerDecorator_wrapper(::Layer const&  layer, ::IDecoration const&  decoration )
     : LayerDecorator( boost::ref(layer), boost::ref(decoration) )
       , bp::wrapper< LayerDecorator >(){
         // constructor
@@ -198,7 +198,7 @@ struct LayerDecorator_wrapper : LayerDecorator, bp::wrapper< LayerDecorator > {
 
 void register_LayerDecorator_class(){
 
-    bp::class_< LayerDecorator_wrapper, bp::bases< Layer >, boost::noncopyable >( "LayerDecorator", bp::init< Layer const &, IDecoration const & >(( bp::arg("layer"), bp::arg("decoration") )) )    
+    bp::class_< LayerDecorator_wrapper, bp::bases< Layer >, boost::noncopyable >( "LayerDecorator", bp::init< Layer const& , IDecoration const&  >(( bp::arg("layer"), bp::arg("decoration") )) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

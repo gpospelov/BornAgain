@@ -27,8 +27,8 @@ class FitParameter : public INamed, public AttLimits
 {
  public:
     FitParameter();
-    FitParameter(const AttLimits &limits);
-    FitParameter(const std::string &name, double value, double step=0.0, const AttLimits &limits=AttLimits::limitless(), double error=0.0);
+    FitParameter(const AttLimits& limits);
+    FitParameter(const std::string& name, double value, double step=0.0, const AttLimits& limits=AttLimits::limitless(), double error=0.0);
     virtual ~FitParameter(){}
 
     //! Sets value of parameter
@@ -47,11 +47,11 @@ class FitParameter : public INamed, public AttLimits
     virtual double getError() const { return m_error;}
 
     //! Prints class
-    friend std::ostream &operator<<(std::ostream &ostr, const FitParameter &m) { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, const FitParameter& m) { m.print(ostr); return ostr; }
 
  protected:
     //! Prints class
-    void print(std::ostream &ostr) const;
+    void print(std::ostream& ostr) const;
 
     double m_value; //! parameter value
     double m_step;  //! parameter step size

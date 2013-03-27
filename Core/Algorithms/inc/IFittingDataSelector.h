@@ -25,8 +25,8 @@ class IFittingDataSelector
     virtual IFittingDataSelector *clone() const=0;
 
     virtual OutputData<double> *createWeightMap(
-        const OutputData<double> &real_data,
-        const OutputData<double> &simulated_data) const=0;
+        const OutputData<double>& real_data,
+        const OutputData<double>& simulated_data) const=0;
 };
 
 class DefaultAllDataSelector : public IFittingDataSelector
@@ -39,8 +39,8 @@ class DefaultAllDataSelector : public IFittingDataSelector
     }
 
     virtual OutputData<double> *createWeightMap(
-        const OutputData<double> &real_data,
-        const OutputData<double> &simulated_data) const;
+        const OutputData<double>& real_data,
+        const OutputData<double>& simulated_data) const;
 };
 
 #endif /* IFITTINGDATASELECTOR_H_ */

@@ -38,7 +38,7 @@ GSLSimAnMinimizer::~GSLSimAnMinimizer () {
    if ( fOwnFunc   && fObjFunc) delete fObjFunc;
 }
 
-bool GSLSimAnMinimizer::SetVariable(unsigned int ivar, const std::string & name, double val, double step) {
+bool GSLSimAnMinimizer::SetVariable(unsigned int ivar, const std::string&  name, double val, double step) {
    // set variable in minimizer - support only free variables
    // no transformation implemented - so far
    if (ivar > fValues.size() ) return false;
@@ -63,21 +63,21 @@ bool GSLSimAnMinimizer::SetVariable(unsigned int ivar, const std::string & name,
 
 }
 
-bool GSLSimAnMinimizer::SetLowerLimitedVariable(unsigned int ivar, const std::string & name, double val, double step, double lower ) {
+bool GSLSimAnMinimizer::SetLowerLimitedVariable(unsigned int ivar, const std::string&  name, double val, double step, double lower ) {
    bool ret =  SetVariable(ivar, name, val, step);
    if (!ret) return false;
    fBounds[ivar] = std::make_pair( lower, lower);
    fVarTypes[ivar] = kLowBound;
    return true;
 }
-bool GSLSimAnMinimizer::SetUpperLimitedVariable(unsigned int ivar, const std::string & name, double val, double step, double upper) {
+bool GSLSimAnMinimizer::SetUpperLimitedVariable(unsigned int ivar, const std::string&  name, double val, double step, double upper) {
    bool ret = SetVariable(ivar, name, val, step);
    if (!ret) return false;
    fBounds[ivar] = std::make_pair( upper, upper);
    fVarTypes[ivar] = kUpBound;
    return true;
 }
-bool GSLSimAnMinimizer::SetLimitedVariable(unsigned int ivar, const std::string & name, double val, double step, double lower, double upper ) {
+bool GSLSimAnMinimizer::SetLimitedVariable(unsigned int ivar, const std::string&  name, double val, double step, double lower, double upper ) {
    bool ret = SetVariable(ivar, name, val, step);
    if (!ret) return false;
    fBounds[ivar] = std::make_pair( lower, upper);
@@ -87,7 +87,7 @@ bool GSLSimAnMinimizer::SetLimitedVariable(unsigned int ivar, const std::string 
 
 
 
-bool GSLSimAnMinimizer::SetFixedVariable(unsigned int ivar, const std::string & name, double val) {
+bool GSLSimAnMinimizer::SetFixedVariable(unsigned int ivar, const std::string&  name, double val) {
    /// set fixed variable (override if minimizer supports them )
    // use zero step size
    bool ret = SetVariable(ivar, name, val, 0.);
@@ -112,18 +112,18 @@ bool GSLSimAnMinimizer::SetVariableValues( const double * x) {
 }
 
 
-void GSLSimAnMinimizer::SetFunction(const ROOT::Math::IMultiGenFunction & func) {
+void GSLSimAnMinimizer::SetFunction(const ROOT::Math::IMultiGenFunction&  func) {
    // set the function to minimize
 
    // keep pointers to the chi2 function
-   fObjFunc = &func;
+   fObjFunc =& func;
    fDim = func.NDim();
 }
 
-void GSLSimAnMinimizer::SetFunction(const ROOT::Math::IMultiGradFunction & func ) {
+void GSLSimAnMinimizer::SetFunction(const ROOT::Math::IMultiGradFunction&  func ) {
    // set the function to minimize
    // use the other methods
-   SetFunction( static_cast<const ROOT::Math::IMultiGenFunction &>(func) );
+   SetFunction( static_cast<const ROOT::Math::IMultiGenFunction& >(func) );
 }
 
 
@@ -159,10 +159,10 @@ bool GSLSimAnMinimizer::Minimize() {
 
       trFunc =  new MinimTransformFunction ( new MultiNumGradFunction( *fObjFunc), fVarTypes, fValues, fBounds );
 
-      trFunc->InvTransformation(&fValues.front(), &xvar[0]);
+      trFunc->InvTransformation(&fValues.front(),& xvar[0]);
 
       // need to transform also  the steps
-      trFunc->InvStepTransformation(&fValues.front(), &fSteps.front(), &steps[0]);
+      trFunc->InvStepTransformation(&fValues.front(),& fSteps.front(),& steps[0]);
 
       xvar.resize( trFunc->NDim() );
       steps.resize( trFunc->NDim() );
@@ -176,7 +176,7 @@ bool GSLSimAnMinimizer::Minimize() {
    // output vector
    std::vector<double> xmin(xvar.size() );
 
-   int iret = fSolver.Solve(*fObjFunc, &xvar.front(), &steps.front(), &xmin[0], (debugLevel > 1) );
+   int iret = fSolver.Solve(*fObjFunc,& xvar.front(),& steps.front(),& xmin[0], (debugLevel > 1) );
 
    fMinVal = (*fObjFunc)(&xmin.front() );
 

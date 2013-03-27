@@ -41,7 +41,7 @@ struct Vector_from_python_list
     Vector_from_python_list()
     {
         bp::converter::registry::push_back(&Vector_from_python_list<T>::convertible
-                                           , &Vector_from_python_list<T>::construct
+                                           ,& Vector_from_python_list<T>::construct
                                            , bp::type_id<std::vector<T> >() );
     }
 

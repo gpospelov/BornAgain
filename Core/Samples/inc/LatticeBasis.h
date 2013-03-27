@@ -24,12 +24,12 @@ class LatticeBasis : public Particle
 {
  public:
     LatticeBasis();
-    LatticeBasis(const Particle &particle);
-    LatticeBasis(const Particle &particle, std::vector<kvector_t > positions);
+    LatticeBasis(const Particle& particle);
+    LatticeBasis(const Particle& particle, std::vector<kvector_t > positions);
     virtual ~LatticeBasis();
     virtual LatticeBasis *clone() const;
 
-    void addParticle(const Particle &particle, std::vector<kvector_t > positions);
+    void addParticle(const Particle& particle, std::vector<kvector_t > positions);
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);
 

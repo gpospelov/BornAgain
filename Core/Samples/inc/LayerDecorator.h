@@ -23,7 +23,7 @@
 class LayerDecorator : public Layer
 {
  public:
-    LayerDecorator(const Layer &layer, const IDecoration &decoration);
+    LayerDecorator(const Layer& layer, const IDecoration& decoration);
     virtual ~LayerDecorator();
 
     /// make layer's clone
@@ -80,14 +80,14 @@ class LayerDecorator : public Layer
     }
 
  protected:
-    LayerDecorator(const LayerDecorator &layer);
+    LayerDecorator(const LayerDecorator& layer);
 
     Layer *mp_decorated_layer;
     IDecoration *mp_decoration;
 
  private:
     //! Prints class
-    void print(std::ostream &ostr) const;
+    void print(std::ostream& ostr) const;
 
 };
 

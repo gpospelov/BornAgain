@@ -1266,7 +1266,7 @@ ISample *StandardSamples::MesoCrystal2()
         new InterferenceFunctionNone();
     ParticleDecoration particle_decoration;
     double nanoparticle_radius = 5.4*Units::nanometer;
-    const IFormFactor* p_meso_form_factor = &ff_meso;
+    const IFormFactor* p_meso_form_factor =& ff_meso;
     Lattice lat = Lattice::createTrigonalLattice
         (nanoparticle_radius*2.0, nanoparticle_radius*2.0*2.3);
     kvector_t bas_a = lat.getBasisVectorA();

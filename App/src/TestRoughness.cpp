@@ -41,8 +41,8 @@ void TestRoughness::execute()
     //test_FFT();
 
     // draw surface profile using different methods for calculation of correlated random numbers
-    m_TestMethods.push_back( &TestRoughness::GetProfileXZ_MatrixMethod );
-    m_TestMethods.push_back( &TestRoughness::GetProfileXZ_FFTMethod );
+    m_TestMethods.push_back(& TestRoughness::GetProfileXZ_MatrixMethod );
+    m_TestMethods.push_back(& TestRoughness::GetProfileXZ_FFTMethod );
     DrawProfile();
 }
 
@@ -100,7 +100,7 @@ void TestRoughness::DrawProfile()
             TestMethod method = m_TestMethods[i_method];
             (this->*method)();
 
-            vgr_profile[i_method][i_set] = new TGraph(npx, &m_vx[0], &m_vzcorr[0]);
+            vgr_profile[i_method][i_set] = new TGraph(npx,& m_vx[0],& m_vzcorr[0]);
         }
     }
 
@@ -190,7 +190,7 @@ void TestRoughness::GetProfileXZ_MatrixMethod()
         throw std::runtime_error("TestRoughness::GetProfileXZ() -> Panic! Can't decompose matrix.");
     }
 
-    TVectorD zUnCorr(npx, &m_vzuncorr[0]);
+    TVectorD zUnCorr(npx,& m_vzuncorr[0]);
     TVectorD zCorr(npx);
     zCorr = (chol.GetU()) * zUnCorr;
 

@@ -99,7 +99,7 @@ struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
         return ParameterPool::clone( );
     }
 
-    static void registerParameter( ::ParameterPool & inst, ::std::string const & name, unsigned int parpointer ){
+    static void registerParameter( ::ParameterPool&  inst, ::std::string const&  name, unsigned int parpointer ){
         inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
     }
 
@@ -110,11 +110,11 @@ void register_ParameterPool_class(){
     bp::class_< ParameterPool_wrapper, bp::bases< ICloneable >, boost::noncopyable >( "ParameterPool", bp::init< >() )    
         .def( 
             "addParameter"
-            , (bool ( ::ParameterPool::* )( ::std::string const &,::RealParameterWrapper ) )( &::ParameterPool::addParameter )
+            , (bool ( ::ParameterPool::* )( ::std::string const& ,::RealParameterWrapper ) )(& ::ParameterPool::addParameter )
             , ( bp::arg("name"), bp::arg("par") ) )    
         .def( 
             "clear"
-            , (void ( ::ParameterPool::* )(  ) )( &::ParameterPool::clear ) )    
+            , (void ( ::ParameterPool::* )(  ) )(& ::ParameterPool::clear ) )    
         .def( 
             "clone"
             , (::ParameterPool * ( ::ParameterPool::* )(  ) const)(&::ParameterPool::clone)
@@ -122,32 +122,32 @@ void register_ParameterPool_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "cloneWithPrefix"
-            , (::ParameterPool * ( ::ParameterPool::* )( ::std::string const & ) const)( &::ParameterPool::cloneWithPrefix )
+            , (::ParameterPool * ( ::ParameterPool::* )( ::std::string const&  ) const)(& ::ParameterPool::cloneWithPrefix )
             , ( bp::arg("prefix") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "fixRatioBetweenParameters"
-            , (int ( ::ParameterPool::* )( ::std::string const &,::std::string const &,double ) )( &::ParameterPool::fixRatioBetweenParameters )
+            , (int ( ::ParameterPool::* )( ::std::string const& ,::std::string const& ,double ) )(& ::ParameterPool::fixRatioBetweenParameters )
             , ( bp::arg("to_change"), bp::arg("source"), bp::arg("ratio") ) )    
         .def( 
             "getParameter"
-            , (::RealParameterWrapper ( ::ParameterPool::* )( ::std::string const & ) const)( &::ParameterPool::getParameter )
+            , (::RealParameterWrapper ( ::ParameterPool::* )( ::std::string const&  ) const)(& ::ParameterPool::getParameter )
             , ( bp::arg("name") ) )    
         .def( 
             "registerParameter"
-            , (void (*)( ::ParameterPool &,::std::string const &,unsigned int ))( &ParameterPool_wrapper::registerParameter )
+            , (void (*)( ::ParameterPool& ,::std::string const& ,unsigned int ))(& ParameterPool_wrapper::registerParameter )
             , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
         .def( 
             "setMatchedParametersValue"
-            , (int ( ::ParameterPool::* )( ::std::string const &,double ) )( &::ParameterPool::setMatchedParametersValue )
+            , (int ( ::ParameterPool::* )( ::std::string const& ,double ) )(& ::ParameterPool::setMatchedParametersValue )
             , ( bp::arg("wildcards"), bp::arg("value") ) )    
         .def( 
             "setParameterValue"
-            , (bool ( ::ParameterPool::* )( ::std::string const &,double ) )( &::ParameterPool::setParameterValue )
+            , (bool ( ::ParameterPool::* )( ::std::string const& ,double ) )(& ::ParameterPool::setParameterValue )
             , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "size"
-            , (::size_t ( ::ParameterPool::* )(  ) const)( &::ParameterPool::size ) )    
+            , (::size_t ( ::ParameterPool::* )(  ) const)(& ::ParameterPool::size ) )    
         .def( bp::self_ns::str( bp::self ) );
 
 }

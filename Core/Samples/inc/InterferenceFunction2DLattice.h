@@ -25,7 +25,7 @@
 class InterferenceFunction2DLattice : public IInterferenceFunction
 {
  public:
-    InterferenceFunction2DLattice(const Lattice2DIFParameters &lattice_params);
+    InterferenceFunction2DLattice(const Lattice2DIFParameters& lattice_params);
     virtual ~InterferenceFunction2DLattice();
 
     virtual InterferenceFunction2DLattice *clone() const {
@@ -34,21 +34,21 @@ class InterferenceFunction2DLattice : public IInterferenceFunction
         return p_clone;
     }
 
-    void setProbabilityDistribution(const IFTDistribution2D &pdf);
+    void setProbabilityDistribution(const IFTDistribution2D& pdf);
 
-    virtual double evaluate(const cvector_t &q) const;
+    virtual double evaluate(const cvector_t& q) const;
  protected:
     //! Returns interference from a single reciprocal lattice vector
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;
 
     //! Returns reciprocal coordinates in the principal axis system
     void transformToPrincipalAxes(double qx, double qy, double gamma,
-            double delta, double &q_pa_1, double &q_pa_2) const;
+            double delta, double& q_pa_1, double& q_pa_2) const;
 
     //! Returns qx,qy coordinates of q - qint, where qint is a reciprocal lattice vector
     //! bounding the reciprocal unit cell to which q belongs
     void calculateReciprocalVectorFraction(double qx, double qy,
-            double &qx_frac, double &qy_frac) const;
+            double& qx_frac, double& qy_frac) const;
 
     Lattice2DIFParameters m_lattice_params;
     IFTDistribution2D *mp_pdf;

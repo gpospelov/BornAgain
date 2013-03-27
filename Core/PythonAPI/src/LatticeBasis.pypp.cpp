@@ -225,7 +225,7 @@ void register_LatticeBasis_class(){
     bp::class_< LatticeBasis_wrapper, bp::bases< Particle >, boost::noncopyable >( "LatticeBasis", bp::init< >() )    
         .def( 
             "addParticle"
-            , (void ( ::LatticeBasis::* )( ::Particle const &,::std::vector< Geometry::BasicVector3D<double> > ) )( &::LatticeBasis::addParticle )
+            , (void ( ::LatticeBasis::* )( ::Particle const& ,::std::vector< Geometry::BasicVector3D<double> > ) )(& ::LatticeBasis::addParticle )
             , ( bp::arg("particle"), bp::arg("positions") ) )    
         .def( 
             "areParametersChanged"

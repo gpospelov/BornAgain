@@ -42,7 +42,7 @@ class ParticleInfo : public ICompositeSample
     const Geometry::Transform3D *getTransform3D() const { return mp_transform; }
 
     //! Sets transformation.
-    void setTransform(const Geometry::Transform3D &transform) {
+    void setTransform(const Geometry::Transform3D& transform) {
         delete mp_transform;
         mp_transform = new Geometry::Transform3D(transform);
     }

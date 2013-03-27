@@ -34,25 +34,25 @@ class MaterialManager: public ISingleton<MaterialManager>
     virtual ~MaterialManager() { clear(); }
 
     //! Returns material from database.
-    static const IMaterial *getMaterial(const std::string &name)
+    static const IMaterial *getMaterial(const std::string& name)
     { return instance().this_getMaterial(name); }
 
     //! Adds material to database.
     static const IMaterial *getHomogeneousMaterial(
-        const std::string &name, const complex_t &refractive_index)
+        const std::string& name, const complex_t& refractive_index)
     { return instance().this_getHomogeneousMaterial(name, refractive_index); }
 
     //! Adds material to database.
     static const IMaterial *getHomogeneousMaterial(
-        const std::string &name,
+        const std::string& name,
         double refractive_index_real,
         double refractive_index_imag)
     { return instance().this_getHomogeneousMaterial(
             name, refractive_index_real, refractive_index_imag); }
 
     //! Sends class description to stream.
-    friend std::ostream &operator<<(
-        std::ostream &ostr, const MaterialManager &m)
+    friend std::ostream& operator<<(
+        std::ostream& ostr, const MaterialManager& m)
     { m.print(ostr); return ostr; }
 
  protected:
@@ -63,15 +63,15 @@ class MaterialManager: public ISingleton<MaterialManager>
     void clear();
 
     //! Dump this to stream.
-    virtual void print(std::ostream &ostr) const;
+    virtual void print(std::ostream& ostr) const;
 
     std::map<std::string, IMaterial*> m_materials; //!< our database
  private:
-    const IMaterial *this_getMaterial(const std::string &name);
+    const IMaterial *this_getMaterial(const std::string& name);
     const IMaterial *this_getHomogeneousMaterial(
-        const std::string &name, const complex_t &refractive_index);
+        const std::string& name, const complex_t& refractive_index);
     const IMaterial *this_getHomogeneousMaterial(
-        const std::string &name,
+        const std::string& name,
         double refractive_index_real, double refractive_index_imag);
 };
 

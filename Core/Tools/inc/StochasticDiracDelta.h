@@ -31,8 +31,8 @@ template <class T> class StochasticDiracDelta : public StochasticParameter<T>
 
  private:
     //! copy constructor and assignment operator are hidden since there is a clone method
-    StochasticDiracDelta(const StochasticDiracDelta<T> &);
-    StochasticDiracDelta<T> &operator=(const StochasticDiracDelta<T> &);
+    StochasticDiracDelta(const StochasticDiracDelta<T>& );
+    StochasticDiracDelta<T>& operator=(const StochasticDiracDelta<T>& );
 };
 
 template <class T> StochasticDiracDelta<T>::StochasticDiracDelta(T average)

@@ -35,7 +35,7 @@ class IParameterized : public INamed
     virtual ~IParameterized() {}
 
     //! Returns pointer to the parameter pool.
-    ParameterPool* getParameterPool() { return &m_parameters; }
+    ParameterPool* getParameterPool() { return& m_parameters; }
 
     //! Creates new parameter pool, with all local parameter and parameters of children
     virtual ParameterPool* createParameterTree() const;

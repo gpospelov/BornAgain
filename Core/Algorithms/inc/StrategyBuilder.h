@@ -35,12 +35,12 @@ class IFormFactor;
 class LayerDecoratorStrategyBuilder
 {
  public:
-    LayerDecoratorStrategyBuilder(const LayerDecorator &decorated_layer,
-            const Simulation &simulation, const SimulationParameters &sim_params);
+    LayerDecoratorStrategyBuilder(const LayerDecorator& decorated_layer,
+            const Simulation& simulation, const SimulationParameters& sim_params);
     virtual ~LayerDecoratorStrategyBuilder();
 
     //! Sets R and T coefficient map for DWBA simulation
-    void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap &rt_map);
+    void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap& rt_map);
 
     //! Creates a strategy object which is able to calculate the scattering for fixed k_f
     virtual IInterferenceFunctionStrategy *createStrategy();

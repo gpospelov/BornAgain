@@ -24,11 +24,12 @@
 class HomogeneousMaterial : public IMaterial
 {
  public:
-    HomogeneousMaterial(const complex_t& refractive_index)
-        : IMaterial("noname"), m_refractive_index(refractive_index) {}
+    //! Constructs a material with _name_ and _refractive_index_.
     HomogeneousMaterial(const std::string& name,
                         const complex_t& refractive_index)
         : IMaterial(name), m_refractive_index(refractive_index) {}
+
+    //! Constructs a material with _name_ and refractive_index.
     HomogeneousMaterial(const std::string& name,
                         double refractive_index_real,
                         double refractive_index_imag )
@@ -38,6 +39,7 @@ class HomogeneousMaterial : public IMaterial
     // Copy constructor.
     HomogeneousMaterial(const HomogeneousMaterial& other)
         : IMaterial(other), m_refractive_index(other.m_refractive_index) {}
+
     virtual ~HomogeneousMaterial() {}
 
     //! Returns refractive index.

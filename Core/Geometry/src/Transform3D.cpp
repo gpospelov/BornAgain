@@ -29,8 +29,6 @@
 
 namespace Geometry {
 
-const Transform3D Transform3D::Identity = Transform3D ();
-
 double Transform3D::operator () (int i, int j) const
 {
     if (i == 0) {

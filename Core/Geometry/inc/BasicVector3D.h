@@ -231,10 +231,8 @@ template<class T> class BasicVector3D {
             v_[2] = k*std::sin(_alpha);
         }
 
-    //! Transformation by Transform3D, as function.
-    //!
-    //! This is an alternative to operator*(const Transform3D&,&T) below.
-    BasicVector3D<T>&transform(const Transform3D&m);
+    //! Transformation by Transform3D.
+    BasicVector3D<T>& transform(const Transform3D&m);
 };
 
 // =========================================================================
@@ -305,19 +303,12 @@ inline BasicVector3D<T>
 operator-(const BasicVector3D<T>& a,const BasicVector3D<T>& b)
 { return BasicVector3D<T>(a.x()-b.x(), a.y()-b.y(), a.z()-b.z()); }
 
+//! Scalar product of two vectors.
 
-// //! Scalar product of two vectors, as operator.
-// //! @relates BasicVector3D
-//
-// Disabled: prefer dotProduct(a,b) or a.dot(b) over a*b
-//           to prevent casual developers from misunderstandings
-//
-// template <class T>
-// inline T operator*(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
-// { return a.dot(b); }
-
-//! Scalar product of two vectors, as function.
 //! @relates BasicVector3D
+//! We do not provide the operator form a*b:
+//! Though nice to write, and in some cases perfectly justified,
+//! in general it tends makes expressions more difficult to use.
 template <class T>
 inline T
 dotProduct(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
@@ -343,25 +334,6 @@ template <class T>
 inline bool
 operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 { return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z()); }
-
-// =========================================================================
-// Non-member functions for BasicVector3D<..specific..>
-// =========================================================================
-
-// ----------
-// Transforms
-// ----------
-
-//! Transformation of BasicVector3D<double> by Transform3D.
-//! @relates BasicVector3D
-BasicVector3D<double>
-operator*(const Transform3D& m, const BasicVector3D<double>& v);
-
-//! Transformation of BasicVector3D<double> by Transform3D.
-//! @relates BasicVector3D
-BasicVector3D<std::complex<double> >
-operator*(const Transform3D& m,
-          const BasicVector3D<std::complex<double> >& v);
 
 }  // namespace Geometry
 

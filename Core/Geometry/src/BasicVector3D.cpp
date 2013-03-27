@@ -182,27 +182,30 @@ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const
 template<>
 BasicVector3D<double>& BasicVector3D<double>::rotateX (double a)
 {
-    double sina = std::sin(a), cosa = std::cos(a), dy = y(), dz = z();
-    setY(dy*cosa-dz*sina);
-    setZ(dz*cosa+dy*sina);
+    double sina = std::sin(a);
+    double cosa = std::cos(a);
+    setY(y()*cosa-z()*sina);
+    setZ(z()*cosa+y()*sina);
     return *this;
 }
 
 template<>
 BasicVector3D<double>& BasicVector3D<double>::rotateY (double a)
 {
-    double sina = std::sin(a), cosa = std::cos(a), dz = z(), dx = x();
-    setZ(dz*cosa-dx*sina);
-    setX(dx*cosa+dz*sina);
+    double sina = std::sin(a);
+    double cosa = std::cos(a);
+    setZ(z()*cosa-x()*sina);
+    setX(x()*cosa+z()*sina);
     return *this;
 }
 
 template<>
 BasicVector3D<double>& BasicVector3D<double>::rotateZ (double a)
 {
-    double sina = std::sin(a), cosa = std::cos(a), dx = x(), dy = y();
-    setX(dx*cosa-dy*sina);
-    setY(dy*cosa+dx*sina);
+    double sina = std::sin(a);
+    double cosa = std::cos(a);
+    setX(x()*cosa-y()*sina);
+    setY(y()*cosa+x()*sina);
     return *this;
 }
 
@@ -245,33 +248,13 @@ BasicVector3D<double>& BasicVector3D<double>::rotate (
 // Transforms
 // -----------------------------------------------------------------------------
 
-template<>
-BasicVector3D<double>& BasicVector3D<double>::transform (
-            const Transform3D& m)
+template<class T>
+BasicVector3D<T>& BasicVector3D<T>::transform(const Transform3D& m)
 {
     setXYZ(m.xx()*x() + m.xy()*y() + m.xz()*z(),
            m.yx()*x() + m.yy()*y() + m.yz()*z(),
            m.zx()*x() + m.zy()*y() + m.zz()*z());
     return *this;
-}
-
-template<>
-BasicVector3D<complex_t>& BasicVector3D<complex_t>::transform (
-            const Transform3D&  m)
-{
-    setXYZ(m.xx()*x() + m.xy()*y() + m.xz()*z(),
-           m.yx()*x() + m.yy()*y() + m.yz()*z(),
-           m.zx()*x() + m.zy()*y() + m.zz()*z());
-    return *this;
-}
-
-BasicVector3D<double> operator* (
-            const Transform3D& m, const BasicVector3D<double>& v)
-{
-    return BasicVector3D<double>
-            (m.xx()*v.x() + m.xy()*v.y() + m.xz()*v.z(),
-             m.yx()*v.x() + m.yy()*v.y() + m.yz()*v.z(),
-             m.zx()*v.x() + m.zy()*v.y() + m.zz()*v.z());
 }
 
 }  // namespace Geometry

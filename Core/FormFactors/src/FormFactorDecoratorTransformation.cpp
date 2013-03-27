@@ -14,3 +14,5 @@
 // ************************************************************************** //
 
 #include "FormFactorDecoratorTransformation.h"
+
+// Everything done inline: Efficiency reasons? Proven useful?

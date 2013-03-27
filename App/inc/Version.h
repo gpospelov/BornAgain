@@ -17,8 +17,8 @@
 #define VERSION_H_
 
 namespace AppVersion {
-const std::string g_app_name = "Born Again Functional tests";
-const std::string g_app_version_number = "v0.4";
+    const std::string g_app_name = "Born Again Functional tests";
+    const std::string g_app_version_number = "v0.4";
 }
 
 #endif /* VERSION_H_ */

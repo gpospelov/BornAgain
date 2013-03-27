@@ -94,7 +94,6 @@ SOURCES += \
     Samples/src/DiffuseParticleInfo.cpp \
     Samples/src/ICompositeIterator.cpp \
     Samples/src/ICompositeSample.cpp \
-    Samples/src/IMaterial.cpp \
     Samples/src/ISample.cpp \
     Samples/src/InterferenceFunction1DParaCrystal.cpp \
     Samples/src/InterferenceFunction2DLattice.cpp \

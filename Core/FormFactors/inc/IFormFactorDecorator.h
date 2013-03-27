@@ -23,7 +23,8 @@
 class IFormFactorDecorator : public IFormFactor
 {
  public:
-    IFormFactorDecorator(IFormFactor *p_form_factor) : mp_form_factor(p_form_factor) {}
+    IFormFactorDecorator(IFormFactor *p_form_factor)
+        : mp_form_factor(p_form_factor) {}
     virtual ~IFormFactorDecorator();
     virtual IFormFactorDecorator *clone() const=0;
 
@@ -44,9 +45,11 @@ inline IFormFactorDecorator::~IFormFactorDecorator()
     delete mp_form_factor;
 }
 
-inline void IFormFactorDecorator::setAmbientRefractiveIndex(const complex_t& refractive_index)
+inline void IFormFactorDecorator::setAmbientRefractiveIndex(
+    const complex_t& refractive_index)
 {
-    if (mp_form_factor) mp_form_factor->setAmbientRefractiveIndex(refractive_index);
+    if (mp_form_factor)
+        mp_form_factor->setAmbientRefractiveIndex(refractive_index);
 }
 
 inline double IFormFactorDecorator::getVolume() const

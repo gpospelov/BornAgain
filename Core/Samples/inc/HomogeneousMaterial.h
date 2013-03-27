@@ -24,7 +24,6 @@
 class HomogeneousMaterial : public IMaterial
 {
  public:
-    HomogeneousMaterial() {}
     HomogeneousMaterial(const complex_t& refractive_index)
         : IMaterial("noname"), m_refractive_index(refractive_index) {}
     HomogeneousMaterial(const std::string& name,

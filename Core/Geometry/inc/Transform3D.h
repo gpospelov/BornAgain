@@ -5,14 +5,12 @@
 //! @file       Geometry/inc/Transform3D.h
 //! @brief      Defines class Transform3D.
 //!
-//!             Forked from CLHEP/Geometry, then heavily modified
-//! @author     E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//! For historic note, see BasicVector3D.h.
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
-//!
 //
 // ************************************************************************** //
 
@@ -158,7 +156,17 @@ class Transform3D {
     //! resulting transformation will be used several times.
     //!
     Transform3D operator*(const Transform3D& b) const;
-    };
+
+    //! Return transformed (typically: rotated) vector _v_.
+    template<class T>
+    BasicVector3D<T> transformed(const BasicVector3D<T>& v) const
+    {
+        return BasicVector3D<T>(xx()*v.x() + xy()*v.y() + xz()*v.z(),
+                                yx()*v.x() + yy()*v.y() + yz()*v.z(),
+                                zx()*v.x() + zy()*v.y() + zz()*v.z());
+    }
+
+};
 
 // ************************************************************************** //
 //   Rotations

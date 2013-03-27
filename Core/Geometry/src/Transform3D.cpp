@@ -2,17 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file       Geometry/inc/Transform3D.h
-//! @brief      Defines class Transform3D.
+//! @file       Geometry/src/Transform3D.cpp
+//! @brief      Implements class Transform3D.
 //!
-//!             Forked from CLHEP/Geometry, then heavily modified
-//! @author     E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//! For historic note, see BasicVector3D.h.
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
-//!
 //
 // ************************************************************************** //
 

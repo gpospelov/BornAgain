@@ -129,21 +129,21 @@ TEST_F(KVectorTest, BasicTransformation)
     // rotation via transformation
     a = kvector_t(2., 0.5, std::sqrt(3.)/2.);
     Geometry::Transform3D m1 = Geometry::RotateX3D(M_PI/6.);
-    v = a.transformed(m1);
+    v = m1.transformed(a);
     EXPECT_DOUBLE_EQ( v.x(), 2.0);
     ASSERT_NEAR(      v.y(), 0.0, epsilon);
     ASSERT_NEAR(      v.z(), 1.0, epsilon );
 
     a = kvector_t(std::sqrt(3.)/2., 2., 0.5);
     Geometry::Transform3D m2 = Geometry::RotateY3D(M_PI/6.);
-    v = a.transformed(m2);
+    v = m2.transformed(a);
     ASSERT_NEAR(      v.x(), 1.0, epsilon );
     EXPECT_DOUBLE_EQ( v.y(), 2.0 );
     ASSERT_NEAR(      v.z(), 0.0, epsilon );
 
     a = kvector_t(0.5, std::sqrt(3.)/2., 2.);
     Geometry::Transform3D m3 = Geometry::RotateZ3D(M_PI/6.);
-    v = a.transformed(m3);
+    v = m3.transformed(a);
     ASSERT_NEAR(      v.x(), 0.0, epsilon );
     ASSERT_NEAR(      v.y(), 1.0, epsilon );
     EXPECT_DOUBLE_EQ( v.z(), 2.0 );
@@ -152,13 +152,13 @@ TEST_F(KVectorTest, BasicTransformation)
     a = kvector_t(1, 1, std::sqrt(2));
     Geometry::Transform3D m4 =
         Geometry::Rotate3D(M_PI, kvector_t(-1, -1, std::sqrt(2)));
-    v = a.transformed(m4);
+    v = m4.transformed(a);
     ASSERT_NEAR( v.x(), -1, epsilon );
     ASSERT_NEAR( v.y(), -1, epsilon );
     ASSERT_NEAR( v.z(), -std::sqrt(2), epsilon );
     // transform it back
     Geometry::Transform3D m4_inverse = m4.inverse();
-    v = v.transformed((m4_inverse));
+    v = m4_inverse.transformed(v);
     ASSERT_NEAR( v.x(), a.x(), epsilon );
     ASSERT_NEAR( v.y(), a.y(), epsilon );
     ASSERT_NEAR( v.z(), a.z(), epsilon );

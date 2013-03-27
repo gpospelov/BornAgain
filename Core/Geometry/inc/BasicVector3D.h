@@ -2,17 +2,19 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file       Geometry/inc/Transform3D.h
-//! @brief      Defines class Transform3D.
+//! @file       Geometry/inc/BasicVector3D.h
+//! @brief      Defines template class BasicVector3D.
 //!
-//!             Forked from CLHEP/Geometry, then heavily modified
-//! @author     E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
+//! then reduced to rotations and mostly rewritten; point and vector semantics
+//! is no longer represented by class type; transforms are now methods of
+//! Transform3D and not of BasicVector3D; child classes allow for accelerated
+//! rotations around coordinate axes.
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
-//!
 //
 // ************************************************************************** //
 
@@ -23,8 +25,6 @@
 #include <complex>
 
 namespace Geometry {
-
-class Transform3D;
 
 //! Base class for Point3D<T>, Vector3D<T> and Normal3D<T>.
 
@@ -217,9 +217,6 @@ class BasicVector3D {
             v_[1] = k*std::cos(_alpha) * std::sin(_phi);
             v_[2] = k*std::sin(_alpha);
         }
-
-    //! Return transformed (typically: rotated) vector.
-    BasicVector3D<T> transformed(const Transform3D& m) const;
 };
 
 // =========================================================================

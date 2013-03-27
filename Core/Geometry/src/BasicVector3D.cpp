@@ -2,17 +2,15 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file       Geometry/inc/Transform3D.h
-//! @brief      Defines class Transform3D.
+//! @file       Geometry/src/BasicVector3D.cpp
+//! @brief      Implements template class BasicVector3D.
 //!
-//!             Forked from CLHEP/Geometry, then heavily modified
-//! @author     E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//! For historic note, see BasicVector3D.h.
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
-//!
 //
 // ************************************************************************** //
 
@@ -219,32 +217,6 @@ BasicVector3D<double> BasicVector3D<double>::rotated(
     return BasicVector3D( xx*x()+xy*y()+xz*z(),
                           yx*x()+yy*y()+yz*z(),
                           zx*x()+zy*y()+zz*z() );
-}
-
-// =============================================================================
-// Non-member functions for BasicVector3D<double>
-// =============================================================================
-
-// -----------------------------------------------------------------------------
-// Transforms
-// -----------------------------------------------------------------------------
-
-template<>
-BasicVector3D<double> BasicVector3D<double>::transformed(
-    const Transform3D& m) const
-{
-    return BasicVector3D(m.xx()*x() + m.xy()*y() + m.xz()*z(),
-                         m.yx()*x() + m.yy()*y() + m.yz()*z(),
-                         m.zx()*x() + m.zy()*y() + m.zz()*z());
-}
-
-template<>
-BasicVector3D<complex_t> BasicVector3D<complex_t>::transformed(
-    const Transform3D& m) const
-{
-    return BasicVector3D(m.xx()*x() + m.xy()*y() + m.xz()*z(),
-                         m.yx()*x() + m.yy()*y() + m.yz()*z(),
-                         m.zx()*x() + m.zy()*y() + m.zz()*z());
 }
 
 }  // namespace Geometry

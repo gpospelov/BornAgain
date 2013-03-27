@@ -10,14 +10,6 @@ import sys
 import glob
 
 
-sys.path.insert(0, './TestPyCore')
-import TestPyCore
-sys.path.insert(0, './TestPyFit')
-import TestPyFit
-sys.path.insert(0, './TestCore')
-import TestCore
-sys.path.insert(0, './TestFit')
-import TestFit
 
 def run_command(command):
   p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -29,6 +21,10 @@ def run_command(command):
 # run C++ functional tests
 #-------------------------------------------------------------
 def runCppTests():
+  sys.path.insert(0, './TestCore')
+  import TestCore
+  sys.path.insert(0, './TestFit')
+  import TestFit
   #make compilation
   print "Compiling C++ functional tests"
   os.system("cd TestCore; qmake; make")
@@ -41,11 +37,24 @@ def runCppTests():
   summary += TestFit.runTests()
   return summary
 
+#-------------------------------------------------------------
+# clean C++ functional tests
+#-------------------------------------------------------------
+def cleanTests():
+  #make compilation
+  print "Cleaning..."
+  os.system("cd TestCore; make distclean")
+  os.system("cd TestFit; make disclean")
+
 
 #-------------------------------------------------------------
 # run python functional tests
 #-------------------------------------------------------------
 def runPythonTests():
+  sys.path.insert(0, './TestPyCore')
+  import TestPyCore
+  sys.path.insert(0, './TestPyFit')
+  import TestPyFit
   summary = TestPyCore.runTests()
   summary += TestPyFit.runTests()
   return summary
@@ -66,6 +75,9 @@ def main():
   elif len(sys.argv) == 2:
     if "C++" in sys.argv[1]: run_python_tests = False
     if "Python" in sys.argv[1]: run_cpp_tests = False
+    if "clean" in sys.argv[1]:
+      cleanTests();
+      exit()
 
   summary  = "\n"
   summary += "Functional Tests Summary -->\n"

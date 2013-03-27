@@ -9,6 +9,12 @@ QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
 #CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
+# common project settings
+# -----------------------------------------------------------------------------
+include($$PWD/../shared.pri)
+
+
+# -----------------------------------------------------------------------------
 # source and headers
 # -----------------------------------------------------------------------------
 SOURCES += \
@@ -331,9 +337,4 @@ target.path = $$PWD/../lib
 INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 QMAKE_POST_LINK = (make install)
-
-# -----------------------------------------------------------------------------
-# common project settings
-# -----------------------------------------------------------------------------
-include($$PWD/../shared.pri)
 

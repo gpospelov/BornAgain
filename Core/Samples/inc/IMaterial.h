@@ -18,7 +18,7 @@
 
 #include <string>
 #include <iostream>
-#include <typeinfo>
+//#include <typeinfo>
 #include "INamed.h"
 
 //! Interface to a named material.
@@ -26,10 +26,10 @@
 class IMaterial : public INamed
 {
  public:
-    IMaterial() {}
+//    IMaterial() {}
     IMaterial(const std::string &name) : INamed(name) {}
-    IMaterial(const IMaterial &other);
-    IMaterial &operator=(const IMaterial &other);
+//    IMaterial(const IMaterial &other);
+//    IMaterial &operator=(const IMaterial &other);
     virtual ~IMaterial() {}
 
     friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)

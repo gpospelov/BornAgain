@@ -24,7 +24,7 @@
 class HomogeneousMaterial : public IMaterial
 {
  public:
-    HomogeneousMaterial() {}
+    //HomogeneousMaterial() {}
     HomogeneousMaterial(const complex_t &refractive_index)
         : IMaterial("noname"), m_refractive_index(refractive_index) {}
     HomogeneousMaterial(const std::string &name,
@@ -37,24 +37,25 @@ class HomogeneousMaterial : public IMaterial
         m_refractive_index(complex_t(refractive_index_real,
                                      refractive_index_imag)) {}
     // Copy constructor.
-    HomogeneousMaterial(const HomogeneousMaterial &other)
-        : IMaterial(other), m_refractive_index(other.m_refractive_index) {}
+//    HomogeneousMaterial(const HomogeneousMaterial &other)
+//        : IMaterial(other), m_refractive_index(other.m_refractive_index) {}
     virtual ~HomogeneousMaterial() {}
 
     //! Return refractive index.
     complex_t getRefractiveIndex() const { return m_refractive_index; }
 
     //! Set refractive index.
-    void setRefractiveIndex(complex_t refractive_index)
-        { m_refractive_index = refractive_index; }
+    void setRefractiveIndex(const complex_t &refractive_index)
+    { m_refractive_index = refractive_index; }
 
  protected:
+
     //! Dump contents to stream.
     virtual void print(std::ostream &ostr) const
-        {
+    {
             ostr  << "  " << getName() << " " << this <<
                 " R" << m_refractive_index;
-        }
+    }
 
     complex_t m_refractive_index; //!< complex index of refraction
 };

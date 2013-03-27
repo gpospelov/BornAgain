@@ -118,6 +118,7 @@ inline double MathFunctions::Sinc(double value)  // Sin(x)/x
     return gsl_sf_sinc(value/M_PI);
 }
 
+// TODO: protection against complex number like (-246.977,-399.616)
 inline complex_t MathFunctions::Sinc(const complex_t &value)  // Sin(x)/x
 {
     if(std::abs(value)<Numeric::double_epsilon)

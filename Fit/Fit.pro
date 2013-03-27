@@ -6,8 +6,13 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
 QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
-CONFIG  += BORNAGAIN_PYTHON
+#CONFIG  += BORNAGAIN_PYTHON
 CONFIG  += BORNAGAIN_ROOT
+
+# -----------------------------------------------------------------------------
+# common project settings
+# -----------------------------------------------------------------------------
+include($$PWD/../shared.pri)
 
 # -----------------------------------------------------------------------------
 # source and headers
@@ -55,9 +60,5 @@ INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 QMAKE_POST_LINK = (make install)
 
-# -----------------------------------------------------------------------------
-# common project settings
-# -----------------------------------------------------------------------------
-include($$PWD/../shared.pri)
 
 

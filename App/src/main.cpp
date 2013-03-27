@@ -36,10 +36,6 @@ int main(int argc, char **argv)
     std::cout << AppVersion::g_app_name << " "
               << AppVersion::g_app_version_number << std::endl;
 
-    double x = 1.0;
-    double y = 0.0;
-    double z = x/y;
-
     ProgramOptions command_line_options;
     AddApplicationOptions(&command_line_options);
     AddCoreOptions(&command_line_options);

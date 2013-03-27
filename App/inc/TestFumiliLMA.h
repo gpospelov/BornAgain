@@ -47,7 +47,7 @@ class TestFumiliLMA : public IFunctionalTest
 
  private:
     void FillOutputDataFromFunction(
-        OutputData<double> &data, TF2 *fun, int nbinsx=100, int nbinsy=100);
+        OutputData<double>& data, TF2 *fun, int nbinsx=100, int nbinsy=100);
 
     ROOT::Math::Minimizer *m_root_minimizer; //!< minimizer
     ROOT::Math::Functor *m_fcn; //!< fit function

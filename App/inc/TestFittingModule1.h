@@ -34,9 +34,9 @@ class TestFittingModule1 : public IFunctionalTest
     virtual void execute();
 
  private:
-    //! initialize sample: layer + nanoparticles, 2 parameters
+    //! Initializes sample: layer + nanoparticles, 2 parameters
     void initializeSample1();
-    //! initialize sample: layer + substrate + nanoparticles, 4 parameters
+    //! Initializes sample: layer + substrate + nanoparticles, 4 parameters
     void initializeSample2();
 
     void initializeSimulation();

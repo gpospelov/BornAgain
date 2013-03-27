@@ -30,8 +30,8 @@ FormFactorPrism3::FormFactorPrism3(double height, double half_side)
 void FormFactorPrism3::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("height", &m_height);
-    getParameterPool()->registerParameter("half_side", &m_half_side);
+    getParameterPool()->registerParameter("height",& m_height);
+    getParameterPool()->registerParameter("half_side",& m_half_side);
 }
 
 FormFactorPrism3* FormFactorPrism3::clone() const
@@ -40,7 +40,7 @@ FormFactorPrism3* FormFactorPrism3::clone() const
     return p_clone;
 }
 
-complex_t FormFactorPrism3::evaluate_for_q(const cvector_t &q) const
+complex_t FormFactorPrism3::evaluate_for_q(const cvector_t& q) const
 {
     complex_t qz = q.z();
     double R = m_half_side;

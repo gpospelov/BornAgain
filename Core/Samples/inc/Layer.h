@@ -30,16 +30,16 @@ class Layer : public ICompositeSample
     Layer(const IMaterial* p_material, double thickness=0);
     virtual ~Layer() { }
 
-    //! make layer's clone
+    //! Clones this.
     virtual Layer *clone() const;
 
-    //! set layer thickness in _angstrom_
+    //! Sets layer thickness in _angstrom_
     virtual void setThickness(double thickness);
 
-    //! return layer thickness in _angstrom_
+    //! Returns layer thickness in _angstrom_
     virtual double getThickness() const { return m_thickness; }
 
-    //! set material of the layer
+    //! Sets material of the layer
     virtual void setMaterial(const IMaterial* p_material)
     { 
         p_material ?
@@ -52,31 +52,31 @@ class Layer : public ICompositeSample
     //! @param thickness    thickness of the material in angstrom
     virtual void setMaterial(const IMaterial* p_material, double thickness);
 
-    //! return layer's material
+    //! Returns layer's material.
     virtual const IMaterial* getMaterial() const { return mp_material; }
 
-    //! return refractive index of the layer's material
+    //! Returns refractive index of the layer's material.
     virtual complex_t getRefractiveIndex() const
     {
         return (dynamic_cast<const HomogeneousMaterial *>(mp_material))->
             getRefractiveIndex();
     }
 
-    //! return false (override is important for polymorphism of LayerDecorator)
+    //! Returns false (override is important for polymorphism of LayerDecorator).
     virtual bool hasDWBASimulation() const { return false; }
 
-    //! return zero pointer (override is important for polymorphism of LayerDecorator)
+    //! Returns zero pointer (override is important for polymorphism of LayerDecorator).
     virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
 
  protected:
-    Layer(const Layer &other);
+    Layer(const Layer& other);
 
-    //! register some class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
  private:
-    //! print class
-    void print(std::ostream &ostr) const;
+    //! Prints class
+    void print(std::ostream& ostr) const;
 
     const IMaterial* mp_material;    //!< pointer to the material
     double m_thickness;              //!< layer thickness in nanometers

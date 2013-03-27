@@ -79,7 +79,7 @@ namespace bp = boost::python;
 
 struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
 
-    MesoCrystal_wrapper(::IClusteredParticles const & particle_structure, ::IFormFactor & form_factor )
+    MesoCrystal_wrapper(::IClusteredParticles const&  particle_structure, ::IFormFactor&  form_factor )
     : MesoCrystal( boost::ref(particle_structure), boost::ref(form_factor) )
       , bp::wrapper< MesoCrystal >(){
         // constructor
@@ -234,7 +234,7 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
 
 void register_MesoCrystal_class(){
 
-    bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) )    
+    bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredParticles const& , IFormFactor&  >(( bp::arg("particle_structure"), bp::arg("form_factor") )) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

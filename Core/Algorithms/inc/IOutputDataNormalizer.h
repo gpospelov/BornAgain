@@ -27,7 +27,7 @@ class IOutputDataNormalizer : public IParameterized
     virtual ~IOutputDataNormalizer() {}
     virtual IOutputDataNormalizer*clone() const=0;
 
-    virtual OutputData<double> *createNormalizedData(const OutputData<double > &data) const=0;
+    virtual OutputData<double> *createNormalizedData(const OutputData<double >& data) const=0;
 
     virtual void setMaximumIntensity(double ) = 0;
 
@@ -43,13 +43,13 @@ class OutputDataNormalizer : public IOutputDataNormalizer
 
     virtual OutputDataNormalizer *clone() const;
 
-    virtual OutputData<double> *createNormalizedData(const OutputData<double > &data) const;
+    virtual OutputData<double> *createNormalizedData(const OutputData<double >& data) const;
 
     virtual void setMaximumIntensity(double max_intensity) {
         m_max_intensity = max_intensity; }
 
  protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
     double m_scale;

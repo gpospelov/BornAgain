@@ -82,17 +82,17 @@ void register_MaterialManager_class(){
     bp::class_< MaterialManager, bp::bases< ISingleton< MaterialManager > >, boost::noncopyable >( "MaterialManager", bp::no_init )    
         .def( 
             "getHomogeneousMaterial"
-            , (::IMaterial const * (*)( ::std::string const &,::complex_t const & ))( &::MaterialManager::getHomogeneousMaterial )
+            , (::IMaterial const * (*)( ::std::string const& ,::complex_t const&  ))(& ::MaterialManager::getHomogeneousMaterial )
             , ( bp::arg("name"), bp::arg("refractive_index") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getHomogeneousMaterial"
-            , (::IMaterial const * (*)( ::std::string const &,double,double ))( &::MaterialManager::getHomogeneousMaterial )
+            , (::IMaterial const * (*)( ::std::string const& ,double,double ))(& ::MaterialManager::getHomogeneousMaterial )
             , ( bp::arg("name"), bp::arg("refractive_index_real"), bp::arg("refractive_index_imag") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getMaterial"
-            , (::IMaterial const * (*)( ::std::string const & ))( &::MaterialManager::getMaterial )
+            , (::IMaterial const * (*)( ::std::string const&  ))(& ::MaterialManager::getMaterial )
             , ( bp::arg("name") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .staticmethod( "getHomogeneousMaterial" )    

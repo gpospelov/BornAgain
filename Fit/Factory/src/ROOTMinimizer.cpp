@@ -17,7 +17,7 @@
 // FYI http://root.cern.ch/phpBB3/viewtopic.php?f=15&t=14230&p=61216&hilit=minimizer+precision#p61216
 //     http://root.cern.ch/phpBB3/viewtopic.php?f=3&t=9181&hilit=precision+tolerance
 // ----------------------------------------------------------------------------
-ROOTMinimizer::ROOTMinimizer(const std::string &minimizer_name, const std::string &algo_type)
+ROOTMinimizer::ROOTMinimizer(const std::string& minimizer_name, const std::string& algo_type)
     : m_minimizer_name(minimizer_name)
     , m_algo_type(algo_type)
     , m_chi2_func(0)
@@ -57,7 +57,7 @@ bool ROOTMinimizer::isGradientBasedAgorithm()
 }
 
 
-void ROOTMinimizer::setParameters(const FitSuiteParameters &parameters)
+void ROOTMinimizer::setParameters(const FitSuiteParameters& parameters)
 {
     size_t index(0);
     for(FitSuiteParameters::const_iterator it=parameters.begin(); it!=parameters.end(); ++it) {
@@ -143,7 +143,7 @@ void ROOTMinimizer::printResults() const
 }
 
 
-void ROOTMinimizer::setOptions(const std::string &options)
+void ROOTMinimizer::setOptions(const std::string& options)
 {
     // TODO: refactor ROOTMinimizerHelper::setOptions
     ROOTMinimizerHelper::setOptions(m_root_minimizer, options);

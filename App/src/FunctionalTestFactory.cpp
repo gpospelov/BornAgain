@@ -223,7 +223,7 @@ void FunctionalTestFactory::this_execute(std::string name, ProgramOptions *p_opt
     IFunctionalTest *test(0);
     try {
         test = createItem( name );
-    } catch (std::runtime_error &e) {
+    } catch (std::runtime_error& e) {
         std::cout << e.what() << std::endl;
         std::cout << "TestFactory::execute() -> Warning. No test with name '" << name << "' is defined." << std::endl;
         return;
@@ -245,7 +245,7 @@ void FunctionalTestFactory::this_profile(std::string name, ProgramOptions *p_opt
     IFunctionalTest *test(0);
     try {
         test = createItem( name );
-    } catch (std::runtime_error &e) {
+    } catch (std::runtime_error& e) {
         std::cout << e.what() << std::endl;
         std::cout << "TestFactory::execute() -> Warning. No test with name '" << name << "' is defined." << std::endl;
         return;

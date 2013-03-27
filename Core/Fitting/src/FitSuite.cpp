@@ -44,26 +44,26 @@ void FitSuite::clear()
     m_is_last_iteration = false;
 }
 
-//! add pair of (simulation, real data) for consecutive simulation
-void FitSuite::addSimulationAndRealData(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module)
+//! Adds pair of (simulation, real data) for consecutive simulation
+void FitSuite::addSimulationAndRealData(const Simulation& simulation, const OutputData<double >& real_data, const IChiSquaredModule& chi2_module)
 {
     m_fit_objects.add(simulation, real_data, chi2_module);
 }
 
-//! add fit parameter
-void FitSuite::addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error)
+//! Adds fit parameter
+void FitSuite::addFitParameter(const std::string& name, double value, double step, const AttLimits& attlim, double error)
 {
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
-//! add fit parameter, step is calculated from initial parameter value
-void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim, double error)
+//! Adds fit parameter, step is calculated from initial parameter value
+void FitSuite::addFitParameter(const std::string& name, double value, const AttLimits& attlim, double error)
 {
     double step = value * getAttributes().getStepFactor();
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
-//! add fit strategy
+//! Adds fit strategy
 void FitSuite::addFitStrategy(IFitSuiteStrategy *strategy)
 {
     m_fit_strategies.addStrategy(strategy);
@@ -114,10 +114,10 @@ void FitSuite::runFit()
 void FitSuite::minimize()
 {
     // initializing minimizer with fitting functions
-    IMinimizer::function_chi2_t fun_chi2 = boost::bind(&FitSuiteChiSquaredFunction::evaluate, &m_function_chi2, _1);
+    IMinimizer::function_chi2_t fun_chi2 = boost::bind(&FitSuiteChiSquaredFunction::evaluate,& m_function_chi2, _1);
     m_minimizer->setChiSquaredFunction( fun_chi2, m_fit_parameters.size());
 
-    IMinimizer::function_gradient_t fun_gradient = boost::bind(&FitSuiteGradientFunction::evaluate, &m_function_gradient, _1, _2, _3);
+    IMinimizer::function_gradient_t fun_gradient = boost::bind(&FitSuiteGradientFunction::evaluate,& m_function_gradient, _1, _2, _3);
     m_minimizer->setGradientFunction( fun_gradient, m_fit_parameters.size(), m_fit_objects.getSizeOfDataSet() );
 
     // initializing minimizer's parameters with the list of local fit parameters

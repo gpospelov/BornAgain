@@ -98,7 +98,7 @@ struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper<
         return InterferenceFunctionNone::clone( );
     }
 
-    virtual double evaluate( ::cvector_t const & q ) const  {
+    virtual double evaluate( ::cvector_t const&  q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(q) );
         else{
@@ -106,7 +106,7 @@ struct InterferenceFunctionNone_wrapper : InterferenceFunctionNone, bp::wrapper<
         }
     }
     
-    double default_evaluate( ::cvector_t const & q ) const  {
+    double default_evaluate( ::cvector_t const&  q ) const  {
         return InterferenceFunctionNone::evaluate( boost::ref(q) );
     }
 
@@ -194,8 +194,8 @@ void register_InterferenceFunctionNone_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (double ( ::InterferenceFunctionNone::* )( ::cvector_t const & ) const)(&::InterferenceFunctionNone::evaluate)
-            , (double ( InterferenceFunctionNone_wrapper::* )( ::cvector_t const & ) const)(&InterferenceFunctionNone_wrapper::default_evaluate)
+            , (double ( ::InterferenceFunctionNone::* )( ::cvector_t const&  ) const)(&::InterferenceFunctionNone::evaluate)
+            , (double ( InterferenceFunctionNone_wrapper::* )( ::cvector_t const&  ) const)(&InterferenceFunctionNone_wrapper::default_evaluate)
             , ( bp::arg("q") ) )    
         .def( 
             "areParametersChanged"

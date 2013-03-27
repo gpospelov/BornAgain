@@ -17,7 +17,7 @@
 #include <fstream>
 #include <cassert>
 
-void OutputDataWriter::writeOutputData(const OutputData<double > &data)
+void OutputDataWriter::writeOutputData(const OutputData<double >& data)
 {
     // opening file
     std::ofstream fout;

@@ -98,7 +98,7 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return IClusteredParticles::clone( );
     }
 
-    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const&  parent_info ) const  {
         if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
             return func_createDiffuseParticleInfo( boost::ref(parent_info) );
         else{
@@ -106,11 +106,11 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         }
     }
     
-    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
+    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const&  parent_info ) const  {
         return IClusteredParticles::createDiffuseParticleInfo( boost::ref(parent_info) );
     }
 
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
+    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const&  meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
         if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
             return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
         else{
@@ -118,7 +118,7 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         }
     }
     
-    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
+    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const&  meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
         return IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
     }
 
@@ -235,14 +235,14 @@ void register_IClusteredParticles_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createDiffuseParticleInfo"
-            , (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredParticles::* )( ::ParticleInfo const & ) const)(&::IClusteredParticles::createDiffuseParticleInfo)
-            , (::std::vector< DiffuseParticleInfo* > * ( IClusteredParticles_wrapper::* )( ::ParticleInfo const & ) const)(&IClusteredParticles_wrapper::default_createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredParticles::* )( ::ParticleInfo const&  ) const)(&::IClusteredParticles::createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( IClusteredParticles_wrapper::* )( ::ParticleInfo const&  ) const)(&IClusteredParticles_wrapper::default_createDiffuseParticleInfo)
             , ( bp::arg("parent_info") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createTotalFormFactor"
-            , (::IFormFactor * ( ::IClusteredParticles::* )( ::IFormFactor const &,::complex_t ) const)(&::IClusteredParticles::createTotalFormFactor)
-            , (::IFormFactor * ( IClusteredParticles_wrapper::* )( ::IFormFactor const &,::complex_t ) const)(&IClusteredParticles_wrapper::default_createTotalFormFactor)
+            , (::IFormFactor * ( ::IClusteredParticles::* )( ::IFormFactor const& ,::complex_t ) const)(&::IClusteredParticles::createTotalFormFactor)
+            , (::IFormFactor * ( IClusteredParticles_wrapper::* )( ::IFormFactor const& ,::complex_t ) const)(&IClusteredParticles_wrapper::default_createTotalFormFactor)
             , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 

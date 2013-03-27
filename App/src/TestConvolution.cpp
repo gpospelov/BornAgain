@@ -91,7 +91,7 @@ void TestConvolution::test_convolve1d()
        par[3*i_par+3] = (xmax-xmin)*0.01+gRandom->Rndm()*(xmax-xmin);
        par[3*i_par+4] = sigmax/5.+sigmax*gRandom->Rndm();
     }
-    TF1 *fsignal = new TF1("f",this, &TestConvolution::fpeaks, xmin, xmax,2+3*m_npeaks, "TestConvolution","fpeaks");
+    TF1 *fsignal = new TF1("f",this,& TestConvolution::fpeaks, xmin, xmax,2+3*m_npeaks, "TestConvolution","fpeaks");
     fsignal->SetNpx(10000);
     fsignal->SetParameters(par);
     signal.resize(npoints);

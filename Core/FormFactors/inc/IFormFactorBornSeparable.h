@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/inc/IFormFactorBornSeparable.h
-//! @brief     Defines class IFormFactorBornSeparable.
+//! @brief     Defines pure virtual interface class IFormFactorBornSeparable.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -27,16 +27,16 @@ class IFormFactorBornSeparable : public IFormFactorBorn
     virtual ~IFormFactorBornSeparable() {}
     virtual IFormFactorBornSeparable *clone() const=0;
 
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
 
-    virtual complex_t evaluate_for_q(const cvector_t &q) const;
+    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
  protected:
     //! evaluate radial part of scattering amplitude for complex wavevector
-    virtual complex_t evaluate_for_q_radial(const cvector_t &q) const=0;
+    virtual complex_t evaluate_for_q_radial(const cvector_t& q) const=0;
 
     //! evaluate z-part of scattering amplitude for complex wavevector
-    virtual complex_t evaluate_for_q_z(const cvector_t &q) const=0;
+    virtual complex_t evaluate_for_q_z(const cvector_t& q) const=0;
 };
 
 inline complex_t IFormFactorBornSeparable::evaluate(const cvector_t& k_i,

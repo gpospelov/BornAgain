@@ -38,7 +38,7 @@ class IDoubleToComplexMap : public ICloneable
     virtual ~IDoubleToComplexMap() {}
     virtual IDoubleToComplexMap *clone() const = 0;
 
-    virtual const complex_t &evaluate(double value) const = 0;
+    virtual const complex_t& evaluate(double value) const = 0;
 };
 
 //! Virtual base class for double to complexpair_t map.
@@ -49,7 +49,7 @@ class IDoubleToPairOfComplexMap : public ICloneable
     virtual ~IDoubleToPairOfComplexMap() {}
     virtual IDoubleToPairOfComplexMap *clone() const = 0;
 
-    virtual const complexpair_t &evaluate(double value) const = 0;
+    virtual const complexpair_t& evaluate(double value) const = 0;
 };
 
 //! ?

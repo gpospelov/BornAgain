@@ -81,7 +81,7 @@ void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
   }
 }
 
-//! Set our own default style to draw things.
+//! Sets our own default style to draw things.
 
 void DrawHelper::SetStyle()
 {
@@ -97,7 +97,7 @@ void DrawHelper::SetStyle()
     scattStyle->SetPadColor(icol);
     scattStyle->SetStatColor(icol);
 
-    // set the paper & margin sizes
+    // set the paper&  margin sizes
     scattStyle->SetPaperSize(20,26);
     scattStyle->SetPadTopMargin(0.1);
     scattStyle->SetPadRightMargin(0.1);

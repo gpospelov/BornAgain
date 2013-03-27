@@ -35,7 +35,7 @@ Layer::Layer(const IMaterial* p_material, double thickness) : mp_material(0), m_
 }
 
 
-Layer::Layer(const Layer &other) : ICompositeSample()
+Layer::Layer(const Layer& other) : ICompositeSample()
 {
     mp_material = other.mp_material;
     m_thickness = other.m_thickness;
@@ -43,12 +43,12 @@ Layer::Layer(const Layer &other) : ICompositeSample()
 }
 
 
-//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+//! Registers some class members for later access via parameter pool
 
 void Layer::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("thickness", &m_thickness);
+    getParameterPool()->registerParameter("thickness",& m_thickness);
 }
 
 Layer *Layer::clone() const
@@ -72,9 +72,9 @@ void Layer::setMaterial(const IMaterial* p_material, double thickness)
     setThickness(thickness);
 }
 
-//! print content of multilayer
+//! Prints content of multilayer
 
-void Layer::print(std::ostream &ostr) const
+void Layer::print(std::ostream& ostr) const
 {
     ICompositeSample::print(ostr);
     ostr << *getMaterial();

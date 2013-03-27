@@ -42,51 +42,51 @@ class Simulation : public IParameterized, public ICloneable
     //! Run a simulation with the current parameter settings
     void runSimulation();
 
-    //! Calculate intensity for a single detector element
+    //! Returns intensity for a single detector element
     void runSimulationElement(size_t index);
 
     //! Normalize the detector counts
     void normalize();
 
-    //! Set the sample to be tested
+    //! Sets the sample to be tested
     void setSample(const ISample& sample);
 
-    //! Get the sample
+    //! Returns the sample
     ISample *getSample() const { return mp_sample; }
 
-    //! Set the sample builder
+    //! Sets the sample builder
     void setSampleBuilder(const ISampleBuilder *p_sample_builder);
 
-    //! Get detector intensity map for all scan parameters
-    const OutputData<double>* getOutputData() const { return &m_intensity_map; }
+    //! Returns detector intensity map for all scan parameters
+    const OutputData<double>* getOutputData() const { return& m_intensity_map; }
 
     //! Clone detector intensity map for all scan parameters.
     OutputData<double>* getOutputDataClone() const
     { return m_intensity_map.clone(); }
 
-    //! Set the instrument containing beam and detector information
+    //! Sets the instrument containing beam and detector information
     void setInstrument(const Instrument& instrument);
 
-    //! Get the instrument containing beam and detector information
+    //! Returns the instrument containing beam and detector information
     const Instrument& getInstrument() const { return m_instrument; }
 
-    //! Set beam parameters from here (forwarded to Instrument)
+    //! Sets beam parameters from here (forwarded to Instrument)
     void setBeamParameters(double lambda, double alpha_i, double phi_i);
 
-    //! Set beam intensity from here (forwarded to Instrument)
+    //! Sets beam intensity from here (forwarded to Instrument)
     void setBeamIntensity(double intensity);
 
-    //! Set detector parameters using axes of output data
+    //! Sets detector parameters using axes of output data
     void setDetectorParameters(const OutputData<double >& output_data);
 
-    //! Set detector parameters using angle ranges
+    //! Sets detector parameters using angle ranges
     void setDetectorParameters(size_t n_phi, double phi_f_min, double phi_f_max,
         size_t n_alpha, double alpha_f_min, double alpha_f_max,
         bool isgisaxs_style=false);
 
-    //! Set detector parameters using parameter object
+    //! Sets detector parameters using parameter object
     void setDetectorParameters(const DetectorParameters& params);
-    //! Get simulation parameters
+    //! Returns simulation parameters
     SimulationParameters getSimulationParameters() const
     { return m_sim_params; }
 
@@ -94,15 +94,15 @@ class Simulation : public IParameterized, public ICloneable
     void setDetectorResolutionFunction(
         IResolutionFunction2D *p_resolution_function);
 
-    //! Set simulation parameters
+    //! Sets simulation parameters
     void setSimulationParameters(const SimulationParameters& sim_params)
     { m_sim_params = sim_params; }
 
-    //! Set the program options
+    //! Sets the program options
     void setProgramOptions(ProgramOptions *p_options)
     { mp_options = p_options; }
 
-    //! Add parameters from local to external pool, and call recursion over direct children
+    //! Adds parameters from local to external pool, and call recursion over direct children
     std::string addParametersToExternalPool(
         std::string path,
         ParameterPool *external_pool,
@@ -114,7 +114,7 @@ class Simulation : public IParameterized, public ICloneable
  protected:
     Simulation(const Simulation& other);
 
-    //! Register some class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     void init_parameters();
 
     //! Default implementation only adds the detector axes

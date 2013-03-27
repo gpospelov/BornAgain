@@ -199,25 +199,25 @@ void register_DiffuseParticleInfo_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getHeightRange"
-            , (double ( ::DiffuseParticleInfo::* )(  ) const)( &::DiffuseParticleInfo::getHeightRange ) )    
+            , (double ( ::DiffuseParticleInfo::* )(  ) const)(& ::DiffuseParticleInfo::getHeightRange ) )    
         .def( 
             "getNumberPerMeso"
-            , (double ( ::DiffuseParticleInfo::* )(  ) const)( &::DiffuseParticleInfo::getNumberPerMeso ) )    
+            , (double ( ::DiffuseParticleInfo::* )(  ) const)(& ::DiffuseParticleInfo::getNumberPerMeso ) )    
         .def( 
             "scaleAbundance"
-            , (void ( ::DiffuseParticleInfo::* )( double ) )( &::DiffuseParticleInfo::scaleAbundance )
+            , (void ( ::DiffuseParticleInfo::* )( double ) )(& ::DiffuseParticleInfo::scaleAbundance )
             , ( bp::arg("factor") ) )    
         .def( 
             "scaleNumberPerMeso"
-            , (void ( ::DiffuseParticleInfo::* )( double ) )( &::DiffuseParticleInfo::scaleNumberPerMeso )
+            , (void ( ::DiffuseParticleInfo::* )( double ) )(& ::DiffuseParticleInfo::scaleNumberPerMeso )
             , ( bp::arg("factor") ) )    
         .def( 
             "setHeightRange"
-            , (void ( ::DiffuseParticleInfo::* )( double ) )( &::DiffuseParticleInfo::setHeightRange )
+            , (void ( ::DiffuseParticleInfo::* )( double ) )(& ::DiffuseParticleInfo::setHeightRange )
             , ( bp::arg("height_range") ) )    
         .def( 
             "setNumberPerMeso"
-            , (void ( ::DiffuseParticleInfo::* )( double ) )( &::DiffuseParticleInfo::setNumberPerMeso )
+            , (void ( ::DiffuseParticleInfo::* )( double ) )(& ::DiffuseParticleInfo::setNumberPerMeso )
             , ( bp::arg("n") ) )    
         .def( 
             "areParametersChanged"

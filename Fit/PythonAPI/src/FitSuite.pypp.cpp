@@ -48,33 +48,33 @@ void register_FitSuite_class(){
         .def( bp::init< >() )    
         .def( 
             "addFitParameter"
-            , (void ( ::FitSuite::* )( ::std::string const &,double,double,::AttLimits const &,double ) )( &::FitSuite::addFitParameter )
+            , (void ( ::FitSuite::* )( ::std::string const& ,double,double,::AttLimits const& ,double ) )(& ::FitSuite::addFitParameter )
             , ( bp::arg("name"), bp::arg("value"), bp::arg("step"), bp::arg("attlim")=AttLimits::limitless( ), bp::arg("error")=0.0 ) )    
         .def( 
             "addFitParameter"
-            , (void ( ::FitSuite::* )( ::std::string const &,double,::AttLimits const &,double ) )( &::FitSuite::addFitParameter )
+            , (void ( ::FitSuite::* )( ::std::string const& ,double,::AttLimits const& ,double ) )(& ::FitSuite::addFitParameter )
             , ( bp::arg("name"), bp::arg("value"), bp::arg("attlim")=AttLimits::limitless( ), bp::arg("error")=0.0 ) )    
         .def( 
             "addSimulationAndRealData"
-            , (void ( ::FitSuite::* )( ::Simulation const &,::OutputData< double > const &,::IChiSquaredModule const & ) )( &::FitSuite::addSimulationAndRealData )
+            , (void ( ::FitSuite::* )( ::Simulation const& ,::OutputData< double > const& ,::IChiSquaredModule const&  ) )(& ::FitSuite::addSimulationAndRealData )
             , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module")=ChiSquaredModule() ) )    
         .def( 
             "getMinimizer"
-            , (::IMinimizer * ( ::FitSuite::* )(  ) )( &::FitSuite::getMinimizer )
+            , (::IMinimizer * ( ::FitSuite::* )(  ) )(& ::FitSuite::getMinimizer )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getNCalls"
             , (::size_t ( ::FitSuite::* )(  ) const)( &::FitSuite::getNCalls ) )    
         .def( 
             "printResults"
-            , (void ( ::FitSuite::* )(  ) const)( &::FitSuite::printResults ) )    
+            , (void ( ::FitSuite::* )(  ) const)(& ::FitSuite::printResults ) )    
         .def( 
             "runFit"
             , (void ( ::FitSuite::* )(  ) )(&::FitSuite::runFit)
             , (void ( FitSuite_wrapper::* )(  ) )(&FitSuite_wrapper::default_runFit) )    
         .def( 
             "setMinimizer"
-            , (void ( ::FitSuite::* )( ::IMinimizer * ) )( &::FitSuite::setMinimizer )
+            , (void ( ::FitSuite::* )( ::IMinimizer * ) )(& ::FitSuite::setMinimizer )
             , ( bp::arg("minimizer") ) );
 
 }

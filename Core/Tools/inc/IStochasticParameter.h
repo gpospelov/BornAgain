@@ -22,7 +22,6 @@ class IStochasticParameter : public ICloneable
 {
  public:
     virtual ~IStochasticParameter() {}
-//    virtual IStochasticParameter *clone() const=0;
     virtual void setToRandom()=0;
     virtual void setToAverage()=0;
 };
@@ -42,10 +41,6 @@ template <class T> class StochasticParameter : public IStochasticParameter
     virtual double getFWHM() const { return 0.0;}
 
  protected:
-//    //! copy constructor and assignment operator are hidden since there is a clone method
-//    StochasticParameter(const StochasticParameter<T> &);
-//    StochasticParameter<T> &operator=(const StochasticParameter<T> &);
-
     T m_current;
     T m_average;
 };

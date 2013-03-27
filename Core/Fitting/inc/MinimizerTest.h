@@ -30,7 +30,7 @@ class MinimizerTest : public IMinimizer
 
     virtual void minimize();
 
-    virtual void setParameters(const FitSuiteParameters &parameters);
+    virtual void setParameters(const FitSuiteParameters& parameters);
 
     virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters) { (void)nparameters, m_fcn = fun_chi2; }
 

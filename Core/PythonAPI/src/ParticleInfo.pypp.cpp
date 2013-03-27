@@ -79,7 +79,7 @@ namespace bp = boost::python;
 
 struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
 
-    ParticleInfo_wrapper(::Particle const & p_particle, ::Geometry::Transform3D const & transform, double depth=0, double abundance=0 )
+    ParticleInfo_wrapper(::Particle const&  p_particle, ::Geometry::Transform3D const&  transform, double depth=0, double abundance=0 )
     : ParticleInfo( boost::ref(p_particle), boost::ref(transform), depth, abundance )
       , bp::wrapper< ParticleInfo >(){
         // constructor
@@ -198,7 +198,7 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
 
 void register_ParticleInfo_class(){
 
-    bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "ParticleInfo", bp::init< Particle const &, Geometry::Transform3D const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=0 )) )    
+    bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "ParticleInfo", bp::init< Particle const& , Geometry::Transform3D const& , bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=0 )) )    
         .def( 
             "clone"
             , (::ParticleInfo * ( ::ParticleInfo::* )(  ) const)(&::ParticleInfo::clone)
@@ -206,29 +206,29 @@ void register_ParticleInfo_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getAbundance"
-            , (double ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getAbundance ) )    
+            , (double ( ::ParticleInfo::* )(  ) const)(& ::ParticleInfo::getAbundance ) )    
         .def( 
             "getDepth"
-            , (double ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getDepth ) )    
+            , (double ( ::ParticleInfo::* )(  ) const)(& ::ParticleInfo::getDepth ) )    
         .def( 
             "getParticle"
-            , (::Particle const * ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getParticle )
+            , (::Particle const * ( ::ParticleInfo::* )(  ) const)(& ::ParticleInfo::getParticle )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getTransform3D"
-            , (::Geometry::Transform3D const * ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getTransform3D )
+            , (::Geometry::Transform3D const * ( ::ParticleInfo::* )(  ) const)(& ::ParticleInfo::getTransform3D )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "setAbundance"
-            , (void ( ::ParticleInfo::* )( double ) )( &::ParticleInfo::setAbundance )
+            , (void ( ::ParticleInfo::* )( double ) )(& ::ParticleInfo::setAbundance )
             , ( bp::arg("abundance") ) )    
         .def( 
             "setDepth"
-            , (void ( ::ParticleInfo::* )( double ) )( &::ParticleInfo::setDepth )
+            , (void ( ::ParticleInfo::* )( double ) )(& ::ParticleInfo::setDepth )
             , ( bp::arg("depth") ) )    
         .def( 
             "setTransform"
-            , (void ( ::ParticleInfo::* )( ::Geometry::Transform3D const & ) )( &::ParticleInfo::setTransform )
+            , (void ( ::ParticleInfo::* )( ::Geometry::Transform3D const&  ) )(& ::ParticleInfo::setTransform )
             , ( bp::arg("transform") ) )    
         .def( 
             "areParametersChanged"

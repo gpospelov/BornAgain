@@ -249,10 +249,10 @@ void register_IDecoration_class(){
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getTotalParticleSurfaceDensity"
-            , (double ( ::IDecoration::* )(  ) const)( &::IDecoration::getTotalParticleSurfaceDensity ) )    
+            , (double ( ::IDecoration::* )(  ) const)(& ::IDecoration::getTotalParticleSurfaceDensity ) )    
         .def( 
             "setTotalParticleSurfaceDensity"
-            , (void ( ::IDecoration::* )( double ) )( &::IDecoration::setTotalParticleSurfaceDensity )
+            , (void ( ::IDecoration::* )( double ) )(& ::IDecoration::setTotalParticleSurfaceDensity )
             , ( bp::arg("surface_density") ) )    
         .def( 
             "areParametersChanged"

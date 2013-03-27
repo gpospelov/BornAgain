@@ -26,8 +26,8 @@
 #include <cmath>
 
 LayerDecoratorStrategyBuilder::LayerDecoratorStrategyBuilder(
-        const LayerDecorator &decorated_layer, const Simulation &simulation,
-        const SimulationParameters &sim_params)
+        const LayerDecorator& decorated_layer, const Simulation& simulation,
+        const SimulationParameters& sim_params)
 : mp_layer_decorator(decorated_layer.clone())
 , mp_simulation(simulation.clone())
 , m_sim_params(sim_params)
@@ -45,7 +45,7 @@ LayerDecoratorStrategyBuilder::~LayerDecoratorStrategyBuilder()
 void LayerDecoratorStrategyBuilder::setReflectionTransmissionFunction(
         const IDoubleToPairOfComplexMap& rt_map)
 {
-    if (mp_RT_function != &rt_map) {
+    if (mp_RT_function !=& rt_map) {
         delete mp_RT_function;
         mp_RT_function = rt_map.clone();
     }

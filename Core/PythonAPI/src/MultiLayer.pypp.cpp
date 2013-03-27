@@ -189,11 +189,11 @@ void register_MultiLayer_class(){
     bp::class_< MultiLayer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "MultiLayer", bp::init< >() )    
         .def( 
             "addLayer"
-            , (void ( ::MultiLayer::* )( ::Layer const & ) )( &::MultiLayer::addLayer )
+            , (void ( ::MultiLayer::* )( ::Layer const&  ) )(& ::MultiLayer::addLayer )
             , ( bp::arg("p_child") ) )    
         .def( 
             "addLayerWithTopRoughness"
-            , (void ( ::MultiLayer::* )( ::Layer const &,::LayerRoughness const & ) )( &::MultiLayer::addLayerWithTopRoughness )
+            , (void ( ::MultiLayer::* )( ::Layer const& ,::LayerRoughness const&  ) )(& ::MultiLayer::addLayerWithTopRoughness )
             , ( bp::arg("layer"), bp::arg("roughness") ) )    
         .def( 
             "areParametersChanged"

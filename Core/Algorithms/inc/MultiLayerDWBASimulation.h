@@ -38,10 +38,10 @@ class MultiLayerDWBASimulation : public DWBASimulation
             "MultiLayerDWBASimulation::clone() -> Error: not implemented");
     }
 
-    virtual void init(const Simulation &simulation);
+    virtual void init(const Simulation& simulation);
 
-    //! Set thread information for masking
-    virtual void setThreadInfo(const ThreadInfo &thread_info);
+    //! Sets thread information for masking
+    virtual void setThreadInfo(const ThreadInfo& thread_info);
 
     virtual void run();
 

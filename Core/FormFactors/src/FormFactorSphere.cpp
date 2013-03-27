@@ -30,7 +30,7 @@ FormFactorSphere::FormFactorSphere(double radius, double height)
     init_parameters();
 
     MemberComplexFunctionIntegrator<FormFactorSphere>::mem_function p_mf =
-        &FormFactorSphere::Integrand;
+       & FormFactorSphere::Integrand;
     m_integrator =
         new MemberComplexFunctionIntegrator<FormFactorSphere>(p_mf, this);
 }
@@ -38,8 +38,8 @@ FormFactorSphere::FormFactorSphere(double radius, double height)
 void FormFactorSphere::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter("height", &m_height);
+    getParameterPool()->registerParameter("radius",& m_radius);
+    getParameterPool()->registerParameter("height",& m_height);
 }
 
 //! Integrand for complex formfactor.
@@ -55,7 +55,7 @@ complex_t FormFactorSphere::Integrand(double Z, void* params) const
 
 //! Complex formfactor.
 
-complex_t FormFactorSphere::evaluate_for_q(const cvector_t &q) const
+complex_t FormFactorSphere::evaluate_for_q(const cvector_t& q) const
 {
     m_q = q;
     complex_t iqzR = complex_t(0.0, 1.0)*m_q.z()*(m_height-m_radius);

@@ -48,7 +48,7 @@ double MathFunctions::GenerateStandardNormalRandom()  // using Box-Muller transf
 //! @brief simple (and unoptimized) wrapper function
 //!   for the discrete fast Fourier transformation library (fftw3)
 
-std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<complex_t > &data, MathFunctions::TransformCase ftCase)
+std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<complex_t >& data, MathFunctions::TransformCase ftCase)
 {
     double scale(1.);
     size_t npx = data.size();
@@ -97,7 +97,7 @@ std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<co
 //!   for the discrete fast Fourier transformation library (fftw3);
 //!   transforms real to complex
 
-std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<double > &data, MathFunctions::TransformCase ftCase)
+std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<double >& data, MathFunctions::TransformCase ftCase)
 {
     std::vector<complex_t> cdata;
     cdata.resize(data.size());
@@ -107,7 +107,7 @@ std::vector<complex_t > MathFunctions::FastFourierTransform(const std::vector<do
 
 //! convolution of two real vectors of equal size
 
-std::vector<complex_t> MathFunctions::ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc)
+std::vector<complex_t> MathFunctions::ConvolveFFT(const std::vector<double>& signal, const std::vector<double>& resfunc)
 {
     if(signal.size() != resfunc.size() ) {
         throw std::runtime_error("MathFunctions::ConvolveFFT() -> This convolution works only for two vectors of equal size. Use Convolve class instead.");

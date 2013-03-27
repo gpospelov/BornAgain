@@ -14,13 +14,14 @@
 // ************************************************************************** //
 
 #include "IFormFactorBorn.h"
+#include "MemberFunctionIntegrator.h"
 #include "MathFunctions.h"
 
 double IFormFactorBorn::bigRadialPart(const Bin1DCVector& q_bin) const
 {
     // modulus of the radial part
     MemberFunctionIntegrator<IFormFactorBorn>::mem_function p_mf =
-        &IFormFactorBorn::bigRadialIntegrand;
+       & IFormFactorBorn::bigRadialIntegrand;
     MemberFunctionIntegrator<IFormFactorBorn> integrator(p_mf, this);
     double average_intensity = integrator.integrate(0.0, 1.0, (void*)(&q_bin));
     return std::sqrt(average_intensity);
@@ -53,7 +54,7 @@ complex_t IFormFactorBorn::bigZPart(const Bin1DCVector& q_bin) const
 
 double IFormFactorBorn::bigRadialIntegrand(double t, void* params) const
 {
-    const Bin1DCVector *p_q_bin = static_cast<const Bin1DCVector *>(params);
+    const Bin1DCVector *p_q_bin = static_cast<const Bin1DCVector*>(params);
     double qR = std::abs( (p_q_bin->m_q_lower +
                            t*p_q_bin->getDelta()).magxy() )*getRadius();
     static double a = 1.0;

@@ -23,11 +23,11 @@
 class FormFactorDecoratorFactor : public IFormFactorDecorator
 {
  public:
-    FormFactorDecoratorFactor(IFormFactor *p_form_factor, const complex_t &factor);
+    FormFactorDecoratorFactor(IFormFactor *p_form_factor, const complex_t& factor);
     virtual FormFactorDecoratorFactor *clone() const;
     virtual ~FormFactorDecoratorFactor() {}
 
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const;
 
@@ -36,7 +36,7 @@ class FormFactorDecoratorFactor : public IFormFactorDecorator
 };
 
 inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(
-        IFormFactor* p_form_factor, const complex_t &factor)
+        IFormFactor* p_form_factor, const complex_t& factor)
 : IFormFactorDecorator(p_form_factor)
 , m_factor(factor)
 {

@@ -23,7 +23,7 @@ namespace Exceptions {
     class NotImplementedException : public std::logic_error
     {
     public:
-        NotImplementedException(const std::string &message);
+        NotImplementedException(const std::string& message);
     };
 
     class NullPointerException : public std::logic_error
@@ -47,7 +47,7 @@ namespace Exceptions {
     class SelfReferenceException : public std::logic_error
     {
     public:
-        SelfReferenceException(const std::string &message);
+        SelfReferenceException(const std::string& message);
     };
 
     class DeadReferenceException : public std::runtime_error
@@ -111,7 +111,7 @@ namespace Exceptions {
         FormatErrorException(const std::string& message);
     };
 
-    void LogExceptionMessage(const std::string &message);
+    void LogExceptionMessage(const std::string& message);
 
 }
 

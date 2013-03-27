@@ -17,7 +17,7 @@
 #include "MessageService.h"
 #include <iostream>
 
-StochasticSampledParameter::StochasticSampledParameter(const StochasticParameter<double> &par, size_t nbins, double xmin, double xmax) :
+StochasticSampledParameter::StochasticSampledParameter(const StochasticParameter<double>& par, size_t nbins, double xmin, double xmax) :
     StochasticParameter<double>(0)
   , m_stochastic_parameter(par.clone())
   , m_nbins(nbins)
@@ -26,7 +26,7 @@ StochasticSampledParameter::StochasticSampledParameter(const StochasticParameter
 {
 }
 
-StochasticSampledParameter::StochasticSampledParameter(const StochasticParameter<double> &par, size_t nbins, int nfwhm) :
+StochasticSampledParameter::StochasticSampledParameter(const StochasticParameter<double>& par, size_t nbins, int nfwhm) :
     StochasticParameter<double>(0)
   , m_stochastic_parameter(par.clone())
   , m_nbins(nbins)

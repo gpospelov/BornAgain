@@ -26,7 +26,7 @@ void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination)
 //! double the bin size for each dimension.
 
 OutputData<double>* OutputDataFunctions::doubleBinSize(
-    const OutputData<double> &source)
+    const OutputData<double>& source)
 {
     OutputData<double> *p_result = new OutputData<double>;
     size_t dimension = source.getRank();
@@ -153,7 +153,7 @@ void OutputDataFunctions::FourierTransformR(
 //! ?
 
 OutputData<double>* OutputDataFunctions::getRealPart(
-    const OutputData<complex_t> &source)
+    const OutputData<complex_t>& source)
 {
     OutputData<double> *p_result = new OutputData<double>();
     for (size_t i=0; i<source.getRank(); ++i) {
@@ -209,10 +209,10 @@ OutputData<double>* OutputDataFunctions::getModulusPart(const OutputData<complex
 //! (without axis 'fixed_axis_name')
 //!
 OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
-    const OutputData<double > &data, const std::string &fixed_axis_name,
+    const OutputData<double >& data, const std::string& fixed_axis_name,
     double fixed_axis_value)
 {
-    if (data.getNdimensions() != 2) {
+    if (data.getRank() != 2) {
         throw LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis() -> Error! It was checked only with number of dimensions equal 2.");
     }
     if( !data.getAxis(fixed_axis_name) ) {
@@ -223,7 +223,7 @@ OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
 
     const IAxis *fixed_axis(0);
     int fixed_axis_index(-1);
-    for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
+    for(size_t i_axis=0; i_axis<data.getRank(); i_axis++) {
         const IAxis *axis = data.getAxis(i_axis);
         if( axis->getName() != fixed_axis_name ) {
             sliced_data->addAxis(*axis);
@@ -258,10 +258,10 @@ OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
 //! Resulting output data will have same number of axes
 //!
 OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
-    const OutputData<double > &data, const std::string &selected_axis_name,
+    const OutputData<double >& data, const std::string& selected_axis_name,
     double axis_value1,  double axis_value2)
 {
-    if (data.getNdimensions() != 2) {
+    if (data.getRank() != 2) {
         throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! It was checked only with number of dimensions equal 2.");
     }
 
@@ -282,7 +282,7 @@ OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
 
     // preparing new data with modified axes
     OutputData<double > *new_data = new OutputData<double >;
-    for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
+    for(size_t i_axis=0; i_axis<data.getRank(); i_axis++) {
         const IAxis *axis = data.getAxis(i_axis);
         if( axis->getName() != selected_axis_name ) {
             new_data->addAxis(*axis);
@@ -333,7 +333,7 @@ void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination)
 //! apply intensity function to values stored in output data
 
 void OutputDataFunctions::applyFunction(
-    OutputData<double> &data, const IIntensityFunction *func)
+    OutputData<double>& data, const IIntensityFunction *func)
 {
     OutputData<double>::iterator it = data.begin();
     while (it != data.end())
@@ -411,7 +411,7 @@ Mask* OutputDataFunctions::CreateEllipticMask(
 //! ?
 
 Mask* OutputDataFunctions::CreateEllipticMask(
-    const OutputData<double> &data, double xc, double yc, double rx, double ry)
+    const OutputData<double>& data, double xc, double yc, double rx, double ry)
 {
     if(data.getRank() != 2) throw LogicErrorException("OutputDataFunctions::CreateRectangularMask2D() -> Error! Number of dimensions should be 2");
     const double center[2]={xc, yc};

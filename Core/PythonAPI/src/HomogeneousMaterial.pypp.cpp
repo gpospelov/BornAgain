@@ -80,16 +80,16 @@ namespace bp = boost::python;
 void register_HomogeneousMaterial_class(){
 
     bp::class_< HomogeneousMaterial, bp::bases< IMaterial > >( "HomogeneousMaterial", bp::init< >() )    
-        .def( bp::init< complex_t const & >(( bp::arg("refractive_index") )) )    
-        .def( bp::init< std::string const &, complex_t const & >(( bp::arg("name"), bp::arg("refractive_index") )) )    
-        .def( bp::init< std::string const &, double, double >(( bp::arg("name"), bp::arg("refractive_index_real"), bp::arg("refractive_index_imag") )) )    
-        .def( bp::init< HomogeneousMaterial const & >(( bp::arg("other") )) )    
+        .def( bp::init< complex_t const&  >(( bp::arg("refractive_index") )) )    
+        .def( bp::init< std::string const& , complex_t const&  >(( bp::arg("name"), bp::arg("refractive_index") )) )    
+        .def( bp::init< std::string const& , double, double >(( bp::arg("name"), bp::arg("refractive_index_real"), bp::arg("refractive_index_imag") )) )    
+        .def( bp::init< HomogeneousMaterial const&  >(( bp::arg("other") )) )    
         .def( 
             "getRefractiveIndex"
-            , (::complex_t ( ::HomogeneousMaterial::* )(  ) const)( &::HomogeneousMaterial::getRefractiveIndex ) )    
+            , (::complex_t ( ::HomogeneousMaterial::* )(  ) const)(& ::HomogeneousMaterial::getRefractiveIndex ) )    
         .def( 
             "setRefractiveIndex"
-            , (void ( ::HomogeneousMaterial::* )( ::complex_t ) )( &::HomogeneousMaterial::setRefractiveIndex )
+            , (void ( ::HomogeneousMaterial::* )( ::complex_t ) )(& ::HomogeneousMaterial::setRefractiveIndex )
             , ( bp::arg("refractive_index") ) );
 
 }

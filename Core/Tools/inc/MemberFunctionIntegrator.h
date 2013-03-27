@@ -43,7 +43,7 @@ template <class C> class MemberFunctionIntegrator
     //! perform the actual integration over the range [lmin, lmax]
     double integrate(double lmin, double lmax, void *params);
 
-    //! set integrand
+    //! Sets integrand
     void setIntegrand(mem_function member_function)
     { m_member_function = member_function; }
     void setIntegrand(mem_function member_function, const C *const p_object)
@@ -93,11 +93,11 @@ template<class C> double MemberFunctionIntegrator<C>::integrate(
 
     gsl_function f;
     f.function = StaticCallBack;
-    f.params = &cb;
+    f.params =& cb;
 
     double result, error;
     gsl_integration_qag(&f, lmin, lmax, 1e-10, 1e-8, 50, 1,
-                        m_gsl_workspace, &result, &error);
+                        m_gsl_workspace,& result,& error);
 
     return result;
 }

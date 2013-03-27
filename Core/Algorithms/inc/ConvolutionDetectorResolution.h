@@ -39,7 +39,7 @@ class ConvolutionDetectorResolution : public IDetectorResolution
     virtual void applyDetectorResolution(
         OutputData<double> *p_intensity_map) const;
 
-    //! add parameters from local pool to external pool and call recursion over direct children
+    //! Adds parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(
         std::string path, ParameterPool *external_pool,
         int copy_number=-1) const;
@@ -48,13 +48,13 @@ class ConvolutionDetectorResolution : public IDetectorResolution
     virtual ConvolutionDetectorResolution *clone() const;
 
  protected:
-    ConvolutionDetectorResolution(const ConvolutionDetectorResolution &other);
+    ConvolutionDetectorResolution(const ConvolutionDetectorResolution& other);
 
     virtual void init_parameters();
 
  private:
 //    //! hiding copy constructor and disabling assignment operator
-//    ConvolutionDetectorResolution &operator=(const ConvolutionDetectorResolution &);
+//    ConvolutionDetectorResolution& operator=(const ConvolutionDetectorResolution& );
 
     void apply1dConvolution(OutputData<double> *p_intensity_map) const;
     void apply2dConvolution(OutputData<double> *p_intensity_map) const;

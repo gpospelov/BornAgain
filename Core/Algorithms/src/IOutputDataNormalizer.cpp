@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Algorithms/src/IOutputDataNormalizer.cpp
-//! @brief     Implements class IOutputDataNormalizer.
+//! @brief     Implements class OutputDataNormalizer.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,11 +26,11 @@ OutputDataNormalizer::OutputDataNormalizer(double scale, double shift)
     init_parameters();
 }
 
-void  OutputDataNormalizer::init_parameters()
+void OutputDataNormalizer::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("scale", &m_scale);
-    getParameterPool()->registerParameter("shift", &m_shift);
+    getParameterPool()->registerParameter("scale",& m_scale);
+    getParameterPool()->registerParameter("shift",& m_shift);
 }
 
 OutputDataNormalizer *OutputDataNormalizer::clone() const
@@ -41,7 +41,8 @@ OutputDataNormalizer *OutputDataNormalizer::clone() const
     return result;
 }
 
-OutputData<double> *OutputDataNormalizer::createNormalizedData(const OutputData<double > &data) const
+OutputData<double> *OutputDataNormalizer::createNormalizedData(
+        const OutputData<double >& data) const
 {
     double factor = m_max_intensity;
     if(factor == 0) {
@@ -49,9 +50,13 @@ OutputData<double> *OutputDataNormalizer::createNormalizedData(const OutputData<
         OutputData<double>::const_iterator it = std::max_element(data.begin(), data.end());
         factor = *it;
     }
-    if(factor == 0) throw DivisionByZeroException("OutputDataNormalizer::createNormalizedData() -> Error! Maximum intensity is 0.");
+    if(factor == 0)
+        throw DivisionByZeroException(
+                "OutputDataNormalizer::createNormalizedData() -> "
+                "Error! Maximum intensity is 0.");
     OutputData<double > *normalized_data = data.clone();
-    for(OutputData<double >::iterator it = normalized_data->begin(); it!=normalized_data->end(); ++it) {
+    for(OutputData<double >::iterator it =
+            normalized_data->begin(); it!=normalized_data->end(); ++it) {
         double value = (*it);
         (*it) = m_scale*(value/factor) + m_shift;
     }

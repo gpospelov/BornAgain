@@ -44,15 +44,15 @@ class OpticalFresnel : public ISimulation
         complex_t T; //  amplitude of the transmitted wave in layer
 
         //! operator is necessary to make pyplusplus/boost happy during exposing of FresnelCoeff to python using boost::vector_indexing_suite
-        bool operator==(FresnelCoeff const &other) const;
+        bool operator==(FresnelCoeff const& other) const;
     };
 
     //! collection of Fresnel coefficients for multi layer
     class MultiLayerCoeff
     {
     public:
-        inline FresnelCoeff &operator[](size_t i) { return m_data[i]; }
-        inline const FresnelCoeff &operator[](size_t i) const { return m_data[i]; }
+        inline FresnelCoeff& operator[](size_t i) { return m_data[i]; }
+        inline const FresnelCoeff& operator[](size_t i) const { return m_data[i]; }
         inline size_t size() const { return m_data.size(); }
         inline void clear() { m_data.clear(); }
         inline void resize(size_t size) { m_data.resize(size); }
@@ -63,19 +63,19 @@ class OpticalFresnel : public ISimulation
     //typedef std::vector<FresnelCoeff > MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
     typedef MultiLayerCoeff MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
 
-    //! calculate Fresnel coefficients for given multi layer and kvector
-    void execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
+    //! Returns Fresnel coefficients for given multi layer and kvector
+    void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
 
  private:
     bool m_use_roughness;
 
-    void calculateKZ(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff) const;
-    void calculateFresnelCoefficients(MultiLayerCoeff_t &coeff) const;
-    void calculateFresnelCoefficientsWithRoughness(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
-    void calculateX(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
-    void calculateX2(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
-    void calculateRT(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
-    void calculateRT2(const MultiLayer &sample, MultiLayerCoeff_t &coeff) const;
+    void calculateKZ(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff) const;
+    void calculateFresnelCoefficients(MultiLayerCoeff_t& coeff) const;
+    void calculateFresnelCoefficientsWithRoughness(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const;
+    void calculateX(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const;
+    void calculateX2(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const;
+    void calculateRT(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const;
+    void calculateRT2(const MultiLayer& sample, MultiLayerCoeff_t& coeff) const;
 };
 
 #endif // OPTICALFRESNEL_H

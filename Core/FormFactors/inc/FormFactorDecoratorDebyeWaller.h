@@ -47,7 +47,7 @@ class FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
 
     //! Why the hell do we need this alternative form?
     FormFactorDecoratorDebyeWaller(
-        const IFormFactor &p_form_factor,
+        const IFormFactor& p_form_factor,
         double dw_h_factor, double dw_r_factor)
     : IFormFactorDecorator(p_form_factor.clone())
     , m_h_dw_factor(dw_h_factor)
@@ -66,7 +66,7 @@ class FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
     }
 
     virtual complex_t evaluate(
-        const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+        const cvector_t& k_i, const Bin1DCVector& k_f_bin,
         double alpha_i, double alpha_f) const
     {
         cvector_t q = k_i - k_f_bin.getMidPoint();
@@ -80,11 +80,11 @@ class FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
     { return mp_form_factor->getNumberOfStochasticParameters(); }
 
  protected:
-    //! register some class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters() {
         getParameterPool()->clear();
-        getParameterPool()->registerParameter("hfactor", &m_h_dw_factor);
-        getParameterPool()->registerParameter("rfactor", &m_r_dw_factor);
+        getParameterPool()->registerParameter("hfactor",& m_h_dw_factor);
+        getParameterPool()->registerParameter("rfactor",& m_r_dw_factor);
     }
 
  private:

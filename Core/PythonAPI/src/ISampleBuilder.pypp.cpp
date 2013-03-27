@@ -79,7 +79,7 @@ namespace bp = boost::python;
 
 struct ISampleBuilder_wrapper : ISampleBuilder, bp::wrapper< ISampleBuilder > {
 
-    ISampleBuilder_wrapper(ISampleBuilder const & arg )
+    ISampleBuilder_wrapper(ISampleBuilder const&  arg )
     : ISampleBuilder( arg )
       , bp::wrapper< ISampleBuilder >(){
         // copy constructor

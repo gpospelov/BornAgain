@@ -26,7 +26,7 @@ ParticleInfo::ParticleInfo(Particle* p_particle, Geometry::Transform3D *transfor
     init_parameters();
 }
 
-ParticleInfo::ParticleInfo(const Particle &p_particle, const Geometry::Transform3D &transform, double depth, double abundance)
+ParticleInfo::ParticleInfo(const Particle& p_particle, const Geometry::Transform3D& transform, double depth, double abundance)
     : mp_particle(p_particle.clone())
     , mp_transform(new Geometry::Transform3D(transform))
     , m_depth(depth)
@@ -43,11 +43,11 @@ ParticleInfo::~ParticleInfo()
     delete mp_transform;
 }
 
-//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+//! Registers some class members for later access via parameter pool
 void ParticleInfo::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("depth", &m_depth);
+    getParameterPool()->registerParameter("depth",& m_depth);
 }
 
 ParticleInfo *ParticleInfo::clone() const

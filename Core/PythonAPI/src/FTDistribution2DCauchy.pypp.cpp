@@ -79,7 +79,7 @@ namespace bp = boost::python;
 
 struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTDistribution2DCauchy > {
 
-    FTDistribution2DCauchy_wrapper(FTDistribution2DCauchy const & arg )
+    FTDistribution2DCauchy_wrapper(FTDistribution2DCauchy const&  arg )
     : FTDistribution2DCauchy( arg )
       , bp::wrapper< FTDistribution2DCauchy >(){
         // copy constructor
@@ -117,7 +117,7 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
         return FTDistribution2DCauchy::evaluate( qx, qy );
     }
 
-    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const  {
+    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double&  qa, double&  qb ) const  {
         if( bp::override func_transformToStarBasis = this->get_override( "transformToStarBasis" ) )
             func_transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
         else{
@@ -125,7 +125,7 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
         }
     }
     
-    void default_transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const  {
+    void default_transformToStarBasis( double qX, double qY, double alpha, double a, double b, double&  qa, double&  qb ) const  {
         FTDistribution2DCauchy::transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
     }
 
@@ -194,8 +194,8 @@ void register_FTDistribution2DCauchy_class(){
             , ( bp::arg("qx"), bp::arg("qy") ) )    
         .def( 
             "transformToStarBasis"
-            , (void ( ::FTDistribution2DCauchy::* )( double,double,double,double,double,double &,double & ) const)(&::FTDistribution2DCauchy::transformToStarBasis)
-            , (void ( FTDistribution2DCauchy_wrapper::* )( double,double,double,double,double,double &,double & ) const)(&FTDistribution2DCauchy_wrapper::default_transformToStarBasis)
+            , (void ( ::FTDistribution2DCauchy::* )( double,double,double,double,double,double& ,double&  ) const)(&::FTDistribution2DCauchy::transformToStarBasis)
+            , (void ( FTDistribution2DCauchy_wrapper::* )( double,double,double,double,double,double& ,double&  ) const)(&FTDistribution2DCauchy_wrapper::default_transformToStarBasis)
             , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") ) )    
         .def( 
             "areParametersChanged"

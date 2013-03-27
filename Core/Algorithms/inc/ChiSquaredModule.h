@@ -21,21 +21,21 @@
 class ChiSquaredModule : public IChiSquaredModule
 {
  public:
-    ChiSquaredModule(){}
-    ChiSquaredModule(const ChiSquaredModule &other)
+    ChiSquaredModule() {}
+    ChiSquaredModule(const ChiSquaredModule& other)
         : IChiSquaredModule(other) {}
     virtual ~ChiSquaredModule() {}
 
     virtual ChiSquaredModule *clone() const
     { return new ChiSquaredModule(*this); }
 
-    //! calculate chi squared volume over experimental and simulated data
+    //! Returns chi squared volume over experimental and simulated data.
     virtual double calculateChiSquared();
 
-    //! return output data which contains chi^2 values
+    //! Returns output data which contains chi^2 values.
     virtual OutputData<double> *createChi2DifferenceMap() const;
 
-    //! return residual between data and simulation for single element
+    //! Returns residual between data and simulation for single element.
     virtual double getResidualValue(size_t index ) const;
 };
 

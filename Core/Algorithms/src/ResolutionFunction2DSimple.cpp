@@ -29,7 +29,7 @@ ResolutionFunction2DSimple::~ResolutionFunction2DSimple()
 {
 }
 
-ResolutionFunction2DSimple::ResolutionFunction2DSimple(const ResolutionFunction2DSimple &other) : IResolutionFunction2D(other)
+ResolutionFunction2DSimple::ResolutionFunction2DSimple(const ResolutionFunction2DSimple& other) : IResolutionFunction2D(other)
 {
     m_sigma_x = other.m_sigma_x;
     m_sigma_y = other.m_sigma_y;
@@ -50,6 +50,6 @@ double ResolutionFunction2DSimple::evaluateCDF(double x, double y) const
 void ResolutionFunction2DSimple::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("sigma_x", &m_sigma_x);
-    getParameterPool()->registerParameter("sigma_y", &m_sigma_y);
+    getParameterPool()->registerParameter("sigma_x",& m_sigma_x);
+    getParameterPool()->registerParameter("sigma_y",& m_sigma_y);
 }

@@ -16,9 +16,9 @@
 #include "FormFactorCrystal.h"
 
 FormFactorCrystal::FormFactorCrystal(
-        const Crystal &p_crystal,
+        const Crystal& p_crystal,
         const IFormFactor& meso_crystal_form_factor,
-        const complex_t &ambient_refractive_index)
+        const complex_t& ambient_refractive_index)
 : m_lattice(p_crystal.getLattice())
 , m_ambient_refractive_index(ambient_refractive_index)
 , m_max_rec_length(0.0)
@@ -46,13 +46,13 @@ FormFactorCrystal* FormFactorCrystal::clone() const
 }
 
 void FormFactorCrystal::setAmbientRefractiveIndex(
-        const complex_t &refractive_index)
+        const complex_t& refractive_index)
 {
     mp_particle->setAmbientRefractiveIndex(refractive_index);
     mp_basis_form_factor->setAmbientRefractiveIndex(refractive_index);
 }
 
-complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
+complex_t FormFactorCrystal::evaluate_for_q(const cvector_t& q) const
 {
     (void)q;
     throw LogicErrorException("evaluate_for_q() should never be called explicitly for FormFactorCrystal");
@@ -75,7 +75,7 @@ complex_t FormFactorCrystal::evaluate(const cvector_t& k_i,
 //            m_lattice.getReciprocalLatticeVectorsWithinRadius(q_real, radius);
 
     m_lattice.computeReciprocalLatticeVectorsWithinRadius(q_real, radius);
-    const KVectorContainer &rec_vectors = m_lattice.getKVectorContainer();
+    const KVectorContainer& rec_vectors = m_lattice.getKVectorContainer();
 
     // perform convolution on these lattice vectors
     complex_t result(0.0, 0.0);

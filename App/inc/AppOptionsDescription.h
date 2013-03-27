@@ -18,7 +18,7 @@
 
 class ProgramOptions;
 
-//! add command line and config file options
+//! Adds command line and config file options
 void AddApplicationOptions(ProgramOptions *p_options);
 
 #endif // APPPROGRAMOPTIONS_H

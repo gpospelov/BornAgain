@@ -30,7 +30,7 @@ class SampleFactory : public ISingleton<SampleFactory>,
  public:
     SampleFactory();
 
-    static ISample *createSample(const std::string &sample_name)
+    static ISample *createSample(const std::string& sample_name)
     { return instance().createItem(sample_name); }
 };
 

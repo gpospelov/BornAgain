@@ -36,7 +36,7 @@ class TestIsGISAXS13 : public IFunctionalTest
     virtual void execute();
 
  private:
-    //! initialize simulation
+    //! Initializes simulation
     void initializeSimulation();
 
     //! run standard isgisaxs comparison

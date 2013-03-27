@@ -172,7 +172,7 @@ void TestRootTree::complex_read()
 
     TreeEventOutputData *event = 0;
 
-    tree->SetBranchAddress("Event", &event);
+    tree->SetBranchAddress("Event",& event);
 
     // reading data from the tree
     for(int i=0; i<tree->GetEntries(); i++) {
@@ -224,7 +224,7 @@ void TestRootTree::simple_write()
     tree->Branch("phi_f",&phi_f, "phi_f/D");
     tree->Branch("nev",&nev, "nev/I");
     //somevector = new std::vector<double>;
-    //tree->Branch("somevector","vector<double >", &somevector);
+    //tree->Branch("somevector","vector<double >",& somevector);
 
     TCanvas *c1 = new TCanvas("c1","c1",1024, 768);
 
@@ -380,7 +380,7 @@ void TestRootTree::initializeMesoCrystal(
     Geometry::RotateZ3D transform1(meso_phi);
     Geometry::RotateY3D transform2(meso_alpha);
     //Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1*transform2);
-//    particle_decoration.addParticle(createMesoCrystal(R, n_particle_adapted, &ff_meso), p_total_transform, 0.2*Units::micrometer);
+//    particle_decoration.addParticle(createMesoCrystal(R, n_particle_adapted,& ff_meso), p_total_transform, 0.2*Units::micrometer);
 
     particle_decoration.setTotalParticleSurfaceDensity(surface_density);
     particle_decoration.addInterferenceFunction(p_interference_funtion);

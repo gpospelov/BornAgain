@@ -35,7 +35,7 @@ Instrument::Instrument(const Instrument& other)
 void Instrument::matchDetectorParameters(const OutputData<double>& output_data)
 {
     m_detector.clear();
-    for(size_t i_axis=0; i_axis<output_data.getNdimensions(); ++i_axis) {
+    for(size_t i_axis=0; i_axis<output_data.getRank(); ++i_axis) {
         const IAxis *axis = output_data.getAxis(i_axis);
         m_detector.addAxis(*axis);
     }

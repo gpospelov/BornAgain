@@ -34,9 +34,9 @@ FormFactorCone::FormFactorCone(double radius,double height,double alpha)
 void FormFactorCone::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter("height", &m_height);
-    getParameterPool()->registerParameter("alpha",  &m_alpha);
+    getParameterPool()->registerParameter("radius",& m_radius);
+    getParameterPool()->registerParameter("height",& m_height);
+    getParameterPool()->registerParameter("alpha", & m_alpha);
 }
 
 FormFactorCone* FormFactorCone::clone() const
@@ -51,7 +51,7 @@ double FormFactorCone::evaluate_for_q_real() const
 {
     double H = m_height;
     MemberFunctionIntegrator<FormFactorCone>::mem_function p_mf =
-        &FormFactorCone::ConeIntegralReal;
+       & FormFactorCone::ConeIntegralReal;
     MemberFunctionIntegrator<FormFactorCone> integrator(p_mf,this);
     return integrator.integrate(0, H, (void *)0);
 }
@@ -81,7 +81,7 @@ double FormFactorCone::evaluate_for_q_imag() const
 {
     double H = m_height;
     MemberFunctionIntegrator<FormFactorCone>::mem_function p_mf =
-        &FormFactorCone::ConeIntegralImaginary;
+       & FormFactorCone::ConeIntegralImaginary;
     MemberFunctionIntegrator<FormFactorCone> integrator(p_mf,this);
     return integrator.integrate(0, H, (void *)0);
 }
@@ -107,7 +107,7 @@ double FormFactorCone::ConeIntegralImaginary(double Z, void* params) const
 
 //! Complex integral computed as sum of real and imaginary part.
 
-complex_t FormFactorCone::evaluate_for_q(const cvector_t &q) const
+complex_t FormFactorCone::evaluate_for_q(const cvector_t& q) const
 {
      m_q = q;
      return complex_t(evaluate_for_q_real(), evaluate_for_q_imag());

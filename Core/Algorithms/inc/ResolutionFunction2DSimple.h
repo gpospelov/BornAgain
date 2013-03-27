@@ -34,8 +34,8 @@ class ResolutionFunction2DSimple : public IResolutionFunction2D
     virtual void init_parameters();
  private:
     //! hiding copy constructor and disabling assignment operator
-    ResolutionFunction2DSimple(const ResolutionFunction2DSimple &other);
-    ResolutionFunction2DSimple &operator=(const ResolutionFunction2DSimple &);
+    ResolutionFunction2DSimple(const ResolutionFunction2DSimple& other);
+    ResolutionFunction2DSimple& operator=(const ResolutionFunction2DSimple& );
 
     double m_sigma_x;
     double m_sigma_y;

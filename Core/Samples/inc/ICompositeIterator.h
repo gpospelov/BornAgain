@@ -32,9 +32,9 @@ class MementoState
 
     MementoState(iterator_t itor, iterator_t end_itor) : m_itor( itor ), m_end_itor( end_itor ) { }
 
-    MementoState &operator=(const MementoState &other)
+    MementoState& operator=(const MementoState& other)
     {
-        if(this != &other) {
+        if(this !=& other) {
             m_itor = other.m_itor;
             m_end_itor = other.m_end_itor;
         }
@@ -43,13 +43,13 @@ class MementoState
 
     virtual ~MementoState(){}
 
-    iterator_t &get_itor() { return m_itor; }
+    iterator_t& get_itor() { return m_itor; }
     bool is_end() const { return m_itor == m_end_itor; }
     void next() { m_itor++; }
 
-    friend std::ostream &operator<<(std::ostream &o, MementoState const &m)
+    friend std::ostream& operator<<(std::ostream& o, MementoState const& m)
     {
-      return  (o << "memento state " << &m.m_itor << " " << &m.m_end_itor);
+      return  (o << "memento state " <<& m.m_itor << " " <<& m.m_end_itor);
     }
 
  protected:
@@ -67,9 +67,9 @@ class MementoIterator
     MementoIterator() {}
     virtual ~MementoIterator() {}
 
-    void push_state(const MementoState &state) { m_state_stack.push(state); }
+    void push_state(const MementoState& state) { m_state_stack.push(state); }
     void pop_state() { m_state_stack.pop(); }
-    MementoState &get_state() { return m_state_stack.top(); }
+    MementoState& get_state() { return m_state_stack.top(); }
     bool empty() const { return m_state_stack.empty(); }
     void reset() { while(!m_state_stack.empty()) m_state_stack.pop(); }
     MementoState::iterator_t& get_current_itor()
@@ -80,7 +80,7 @@ class MementoIterator
     std::stack<MementoState > m_state_stack;
 };
 
-//! Walk through ISample tree of objects inside ICompositeSample object.
+//! Walks through ISample tree of objects inside ICompositeSample object.
 
 //! Usage example:
 //!    ICompositeIterator it = sample->createIterator();

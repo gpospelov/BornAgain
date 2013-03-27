@@ -28,7 +28,7 @@ Detector::Detector()
     init_parameters();
 }
 
-Detector::Detector(const Detector &other) : IParameterized()
+Detector::Detector(const Detector& other) : IParameterized()
 , m_axes(other.m_axes), mp_detector_resolution(0)
 {
     setName(other.getName());
@@ -37,22 +37,22 @@ Detector::Detector(const Detector &other) : IParameterized()
     init_parameters();
 }
 
-Detector &Detector::operator=(const Detector &other)
+Detector& Detector::operator=(const Detector& other)
 {
-    if( this != &other) {
+    if( this !=& other) {
         Detector tmp(other);
         tmp.swapContent(*this);
     }
     return *this;
 }
 
-void Detector::swapContent(Detector &other)
+void Detector::swapContent(Detector& other)
 {
     std::swap(this->m_axes, other.m_axes);
     std::swap(this->mp_detector_resolution, other.mp_detector_resolution);
 }
 
-void Detector::addAxis(const AxisParameters &axis_params)
+void Detector::addAxis(const AxisParameters& axis_params)
 {
     IAxis *p_new_axis(0);
     switch (axis_params.m_sample_method)
@@ -78,7 +78,7 @@ void Detector::addAxis(const AxisParameters &axis_params)
     if (p_new_axis) m_axes.push_back(p_new_axis);
 }
 
-const IAxis &Detector::getAxis(size_t index) const
+const IAxis& Detector::getAxis(size_t index) const
 {
 	if (isCorrectAxisIndex(index)) {
 		return *m_axes[index];
@@ -107,7 +107,7 @@ bool Detector::dataShapeMatches(const OutputData<double>* p_data) const
     if (p_data->getRank() != getDimension()) return false;
     for (size_t i=0; i<getDimension(); ++i) {
         const IAxis *p_data_axis = p_data->getAxis(i);
-        const IAxis &detector_axis = getAxis(i);
+        const IAxis& detector_axis = getAxis(i);
         if (detector_axis != *p_data_axis) return false;
     }
     return true;

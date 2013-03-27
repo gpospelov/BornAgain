@@ -25,14 +25,14 @@ class OutputDataWriter
 {
  public:
     OutputDataWriter() : m_write_strategy(0) {}
-    OutputDataWriter(const std::string &file_name) : m_file_name(file_name), m_write_strategy(0) {}
+    OutputDataWriter(const std::string& file_name) : m_file_name(file_name), m_write_strategy(0) {}
     OutputDataWriter(IOutputDataWriteStrategy *write_strategy) : m_write_strategy(write_strategy) {}
     virtual ~OutputDataWriter() { delete m_write_strategy; }
 
     //! write output data to file
-    void writeOutputData(const OutputData<double > &data);
+    void writeOutputData(const OutputData<double >& data);
 
-    //! set concrete writing strategy
+    //! Sets concrete writing strategy
     void setStrategy(IOutputDataWriteStrategy *write_strategy) { delete m_write_strategy; m_write_strategy = write_strategy; }
 
  private:

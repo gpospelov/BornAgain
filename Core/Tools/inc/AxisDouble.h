@@ -31,7 +31,7 @@ class AxisDouble : public IAxis
 
     //! explicit conversion from BinAxis
     //TODO: make explicit
-    AxisDouble(const AxisBin &source);
+    AxisDouble(const AxisBin& source);
 
     virtual AxisDouble *clone() const;
 
@@ -42,20 +42,20 @@ class AxisDouble : public IAxis
 
     virtual size_t getSize() const { return m_sample_vector.size(); }
 
-    //! add point to the end of the axis
+    //! Adds point to the end of the axis
     void push_back(double element) { m_sample_vector.push_back(element); }
 
     virtual double operator[](size_t index) const { return m_sample_vector[index]; }
 
     virtual Bin1D getBin(size_t index) const;
 
-    //! get value of first point of axis
+    //! Returns value of first point of axis
     virtual double getMin() const { return m_sample_vector.front(); }
 
-    //! get value of last point of axis
+    //! Returns value of last point of axis
     virtual double getMax() const { return m_sample_vector.back(); }
 
-    //! initialize axis points
+    //! Initializes axis points
     void initElements(size_t size, double start, double end);
 
     //! find number of bin which is closest to given value
@@ -68,7 +68,7 @@ class AxisDouble : public IAxis
     size_t getUpperBoundIndex(double value) const;
 
  protected:
-    virtual bool equals(const IAxis &other) const;
+    virtual bool equals(const IAxis& other) const;
 
  private:
     std::vector<double> m_sample_vector;  //!< vector containing the axis points

@@ -32,7 +32,7 @@ class FormFactorCylinder : public IFormFactorBorn
     virtual double getHeight() const { return m_height; }
     virtual double getRadius() const { return m_radius; }
 
-    virtual complex_t evaluate_for_q(const cvector_t &q) const;
+    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
  protected:
     virtual void init_parameters();

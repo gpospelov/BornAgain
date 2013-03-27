@@ -15,8 +15,8 @@
 
 #include "LayerDecorator.h"
 
-LayerDecorator::LayerDecorator(const Layer &layer,
-        const IDecoration &decoration)
+LayerDecorator::LayerDecorator(const Layer& layer,
+        const IDecoration& decoration)
 : mp_decorated_layer(layer.clone())
 , mp_decoration(decoration.clone())
 {
@@ -83,7 +83,7 @@ LayerDecorator::LayerDecorator(const LayerDecorator& other)
     init_parameters();
 }
 
-void LayerDecorator::print(std::ostream &ostr) const
+void LayerDecorator::print(std::ostream& ostr) const
 {
     ICompositeSample::print(ostr);
 }

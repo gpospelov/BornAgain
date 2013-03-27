@@ -79,7 +79,7 @@ namespace bp = boost::python;
 
 struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp::wrapper< InterferenceFunction2DLattice > {
 
-    InterferenceFunction2DLattice_wrapper(::Lattice2DIFParameters const & lattice_params )
+    InterferenceFunction2DLattice_wrapper(::Lattice2DIFParameters const&  lattice_params )
     : InterferenceFunction2DLattice( boost::ref(lattice_params) )
       , bp::wrapper< InterferenceFunction2DLattice >(){
         // constructor
@@ -98,7 +98,7 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
         return InterferenceFunction2DLattice::clone( );
     }
 
-    virtual double evaluate( ::cvector_t const & q ) const  {
+    virtual double evaluate( ::cvector_t const&  q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(q) );
         else{
@@ -106,7 +106,7 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
         }
     }
     
-    double default_evaluate( ::cvector_t const & q ) const  {
+    double default_evaluate( ::cvector_t const&  q ) const  {
         return InterferenceFunction2DLattice::evaluate( boost::ref(q) );
     }
 
@@ -186,7 +186,7 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
 
 void register_InterferenceFunction2DLattice_class(){
 
-    bp::class_< InterferenceFunction2DLattice_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunction2DLattice", bp::init< Lattice2DIFParameters const & >(( bp::arg("lattice_params") )) )    
+    bp::class_< InterferenceFunction2DLattice_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunction2DLattice", bp::init< Lattice2DIFParameters const&  >(( bp::arg("lattice_params") )) )    
         .def( 
             "clone"
             , (::InterferenceFunction2DLattice * ( ::InterferenceFunction2DLattice::* )(  ) const)(&::InterferenceFunction2DLattice::clone)
@@ -194,12 +194,12 @@ void register_InterferenceFunction2DLattice_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (double ( ::InterferenceFunction2DLattice::* )( ::cvector_t const & ) const)(&::InterferenceFunction2DLattice::evaluate)
-            , (double ( InterferenceFunction2DLattice_wrapper::* )( ::cvector_t const & ) const)(&InterferenceFunction2DLattice_wrapper::default_evaluate)
+            , (double ( ::InterferenceFunction2DLattice::* )( ::cvector_t const&  ) const)(&::InterferenceFunction2DLattice::evaluate)
+            , (double ( InterferenceFunction2DLattice_wrapper::* )( ::cvector_t const&  ) const)(&InterferenceFunction2DLattice_wrapper::default_evaluate)
             , ( bp::arg("q") ) )    
         .def( 
             "setProbabilityDistribution"
-            , (void ( ::InterferenceFunction2DLattice::* )( ::IFTDistribution2D const & ) )( &::InterferenceFunction2DLattice::setProbabilityDistribution )
+            , (void ( ::InterferenceFunction2DLattice::* )( ::IFTDistribution2D const&  ) )(& ::InterferenceFunction2DLattice::setProbabilityDistribution )
             , ( bp::arg("pdf") ) )    
         .def( 
             "areParametersChanged"

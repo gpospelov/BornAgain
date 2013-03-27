@@ -27,7 +27,7 @@
 class MinimizerFactory
 {
  public:
-    static IMinimizer *createMinimizer(const std::string &minimizer, const std::string &algorithm = std::string(), const std::string &options=std::string() );
+    static IMinimizer *createMinimizer(const std::string& minimizer, const std::string& algorithm = std::string(), const std::string& options=std::string() );
     static void print_catalogue();
 
  private:
@@ -40,10 +40,10 @@ class MinimizerFactory
         Catalogue();
         const_iterator begin() const { return m_data.begin(); }
         const_iterator end() const { return m_data.end(); }
-        bool isValid(const std::string &minimizer, const std::string &algorithm) const;
-        friend std::ostream &operator<<(std::ostream &ostr, const Catalogue &m) { m.print(ostr); return ostr; }
+        bool isValid(const std::string& minimizer, const std::string& algorithm) const;
+        friend std::ostream& operator<<(std::ostream& ostr, const Catalogue& m) { m.print(ostr); return ostr; }
     private:
-        void print(std::ostream &ostr) const;
+        void print(std::ostream& ostr) const;
         catalogue_t m_data;
     };
 

@@ -36,13 +36,13 @@ class IInterferenceFunctionStrategy
     virtual double evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             double alpha_i, double alpha_f) const=0;
  protected:
-    //! calculate mean form factor, possibly including their position information
+    //! Returns mean form factor, possibly including their position information
     complex_t meanFormFactor(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             double alpha_i, double alpha_f, bool use_position=false) const;
-    //! calculate mean squared form factor
+    //! Returns mean squared form factor
     double meanSquaredFormFactor(const cvector_t& k_i, const Bin1DCVector& k_f_bin,
             double alpha_i, double alpha_f) const;
-    //! get q-vector from k_i and the bin of k_f
+    //! Returns q-vector from k_i and the bin of k_f
     cvector_t getQ(const cvector_t& k_i, const Bin1DCVector& k_f_bin) const;
     SafePointerVector<FormFactorInfo> m_ff_infos; //!< form factor info
     SafePointerVector<IInterferenceFunction> m_ifs; //!< interference functions

@@ -53,5 +53,4 @@ static const double PI_SQR      = 9.86960440108935861883449099987615114f;
 
 }
 
-
 #endif // UNITS_H

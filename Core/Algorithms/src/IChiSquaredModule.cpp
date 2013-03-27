@@ -30,7 +30,7 @@ IChiSquaredModule::IChiSquaredModule()
     mp_data_selector = new DefaultAllDataSelector();
 }
 
-IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule &other)
+IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule& other)
     : ICloneable()
     , mp_real_data(0)
     , mp_simulation_data(0)
@@ -63,7 +63,7 @@ IChiSquaredModule::~IChiSquaredModule()
     delete mp_intensity_function;
 }
 
-void IChiSquaredModule::setRealAndSimulatedData(const OutputData<double > &real_data, const OutputData<double >&simulation_data)
+void IChiSquaredModule::setRealAndSimulatedData(const OutputData<double >& real_data, const OutputData<double >&simulation_data)
 {
     delete mp_real_data;
     mp_real_data=real_data.clone();
@@ -83,13 +83,13 @@ void IChiSquaredModule::setChiSquaredFunction(const ISquaredFunction& squared_fu
     mp_squared_function = squared_function.clone();
 }
 
-void IChiSquaredModule::setOutputDataNormalizer(const IOutputDataNormalizer &data_normalizer)
+void IChiSquaredModule::setOutputDataNormalizer(const IOutputDataNormalizer& data_normalizer)
 {
     delete mp_data_normalizer;
     mp_data_normalizer = data_normalizer.clone();
 }
 
-void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
+void IChiSquaredModule::setIntensityFunction(const IIntensityFunction& intensity_function)
 {
     delete mp_intensity_function;
     mp_intensity_function = intensity_function.clone();

@@ -28,32 +28,32 @@
 #include <vector>
 
 // export output data array to python-numpy array object
-PyObject *ExportOutputData(const OutputData<double > &output);
+PyObject *ExportOutputData(const OutputData<double >& output);
 
 // export axis of output data array as python-numpy array object
-PyObject *ExportOutputDataAxis(const OutputData<double > &output, int naxis);
+PyObject *ExportOutputDataAxis(const OutputData<double >& output, int naxis);
 
-//! return number of dimensions in output data of simulation
+//! Returns number of dimensions in output data of simulation
 
-int GetOutputDataNdimensions(const Simulation &simulation)
+int GetOutputDataNdimensions(const Simulation& simulation)
 {
     const OutputData<double > *data = simulation.getOutputData();
-    int ndims = data->getNdimensions();
+    int ndims = data->getRank();
     return ndims;
 }
 
 //! export output data array of simulation to python-numpy array object
 
-PyObject *GetOutputData(const Simulation &simulation)
+PyObject *GetOutputData(const Simulation& simulation)
 {
     const OutputData<double > *data = simulation.getOutputData();
     PyObject *obj = ExportOutputData(*data);
     return obj;
 }
 
-//! return one-dim numpy array representing binning of the axis with given index of simulation's output data
+//! Returns one-dim numpy array representing binning of the axis with given index of simulation's output data
 
-PyObject *GetOutputDataAxis(const Simulation &simulation, int naxis)
+PyObject *GetOutputDataAxis(const Simulation& simulation, int naxis)
 {
     const OutputData<double > *data = simulation.getOutputData();
     PyObject *obj = ExportOutputDataAxis(*data, naxis);
@@ -62,11 +62,11 @@ PyObject *GetOutputDataAxis(const Simulation &simulation, int naxis)
 
 //! export axis of output data array as python-numpy array object
 
-PyObject *ExportOutputData(const OutputData<double > &output_data)
+PyObject *ExportOutputData(const OutputData<double >& output_data)
 {
     // getting size of dimensions from output_data
     std::vector<int > dimensions;
-    for(size_t i=0; i<output_data.getNdimensions(); i++) {
+    for(size_t i=0; i<output_data.getRank(); i++) {
         //const AxisDouble *axis = output_data.getAxis(i);
         const IAxis *axis = output_data.getAxis(i);
         dimensions.push_back( axis->getSize() );
@@ -100,13 +100,13 @@ PyObject *ExportOutputData(const OutputData<double > &output_data)
     return pyarray;
 }
 
-//! return one dimensional python-numpy array representing binning of given axis of oputput data object
+//! Returns one dimensional python-numpy array representing binning of given axis of oputput data object
 
-PyObject *ExportOutputDataAxis(const OutputData<double > &output_data, int naxis)
+PyObject *ExportOutputDataAxis(const OutputData<double >& output_data, int naxis)
 {
     // getting size of dimensions from output_data
     std::vector<int > dimensions;
-    for(size_t i=0; i<output_data.getNdimensions(); i++) {
+    for(size_t i=0; i<output_data.getRank(); i++) {
         const IAxis *axis = output_data.getAxis(i);
         dimensions.push_back( axis->getSize() );
     }

@@ -129,7 +129,7 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         IMinimizer::printResults( );
     }
 
-    virtual void setOptions( ::std::string const & options ) {
+    virtual void setOptions( ::std::string const&  options ) {
         if( bp::override func_setOptions = this->get_override( "setOptions" ) )
             func_setOptions( options );
         else{
@@ -137,11 +137,11 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         }
     }
     
-    void default_setOptions( ::std::string const & options ) {
+    void default_setOptions( ::std::string const&  options ) {
         IMinimizer::setOptions( options );
     }
 
-    virtual void setParameters( ::FitSuiteParameters const & parameters ) {
+    virtual void setParameters( ::FitSuiteParameters const&  parameters ) {
         if( bp::override func_setParameters = this->get_override( "setParameters" ) )
             func_setParameters( boost::ref(parameters) );
         else{
@@ -149,7 +149,7 @@ struct IMinimizer_wrapper : IMinimizer, bp::wrapper< IMinimizer > {
         }
     }
     
-    void default_setParameters( ::FitSuiteParameters const & parameters ) {
+    void default_setParameters( ::FitSuiteParameters const&  parameters ) {
         IMinimizer::setParameters( boost::ref(parameters) );
     }
 
@@ -197,13 +197,13 @@ void register_IMinimizer_class(){
             , (void ( IMinimizer_wrapper::* )(  ) const)(&IMinimizer_wrapper::default_printResults) )    
         .def( 
             "setOptions"
-            , (void ( ::IMinimizer::* )( ::std::string const & ) )(&::IMinimizer::setOptions)
-            , (void ( IMinimizer_wrapper::* )( ::std::string const & ) )(&IMinimizer_wrapper::default_setOptions)
+            , (void ( ::IMinimizer::* )( ::std::string const&  ) )(&::IMinimizer::setOptions)
+            , (void ( IMinimizer_wrapper::* )( ::std::string const&  ) )(&IMinimizer_wrapper::default_setOptions)
             , ( bp::arg("options") ) )    
         .def( 
             "setParameters"
-            , (void ( ::IMinimizer::* )( ::FitSuiteParameters const & ) )(&::IMinimizer::setParameters)
-            , (void ( IMinimizer_wrapper::* )( ::FitSuiteParameters const & ) )(&IMinimizer_wrapper::default_setParameters)
+            , (void ( ::IMinimizer::* )( ::FitSuiteParameters const&  ) )(&::IMinimizer::setParameters)
+            , (void ( IMinimizer_wrapper::* )( ::FitSuiteParameters const&  ) )(&IMinimizer_wrapper::default_setParameters)
             , ( bp::arg("parameters") ) );
 
 }

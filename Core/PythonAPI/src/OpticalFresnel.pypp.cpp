@@ -120,42 +120,42 @@ void register_OpticalFresnel_class(){
         bp::scope OpticalFresnel_scope( OpticalFresnel_exposer );
         bp::class_< OpticalFresnel::FresnelCoeff >( "FresnelCoeff", bp::init< >() )    
             .def( bp::self == bp::self )    
-            .def_readwrite( "R", &OpticalFresnel::FresnelCoeff::R )    
-            .def_readwrite( "T", &OpticalFresnel::FresnelCoeff::T )    
-            .def_readwrite( "X", &OpticalFresnel::FresnelCoeff::X )    
-            .def_readwrite( "kz", &OpticalFresnel::FresnelCoeff::kz )    
-            .def_readwrite( "r", &OpticalFresnel::FresnelCoeff::r )    
-            .def_readwrite( "rb", &OpticalFresnel::FresnelCoeff::rb )    
-            .def_readwrite( "t", &OpticalFresnel::FresnelCoeff::t )    
-            .def_readwrite( "tb", &OpticalFresnel::FresnelCoeff::tb );
+            .def_readwrite( "R",& OpticalFresnel::FresnelCoeff::R )    
+            .def_readwrite( "T",& OpticalFresnel::FresnelCoeff::T )    
+            .def_readwrite( "X",& OpticalFresnel::FresnelCoeff::X )    
+            .def_readwrite( "kz",& OpticalFresnel::FresnelCoeff::kz )    
+            .def_readwrite( "r",& OpticalFresnel::FresnelCoeff::r )    
+            .def_readwrite( "rb",& OpticalFresnel::FresnelCoeff::rb )    
+            .def_readwrite( "t",& OpticalFresnel::FresnelCoeff::t )    
+            .def_readwrite( "tb",& OpticalFresnel::FresnelCoeff::tb );
         bp::class_< OpticalFresnel::MultiLayerCoeff >( "MultiLayerCoeff" )    
             .def( 
                 "clear"
-                , (void ( ::OpticalFresnel::MultiLayerCoeff::* )(  ) )( &::OpticalFresnel::MultiLayerCoeff::clear ) )    
+                , (void ( ::OpticalFresnel::MultiLayerCoeff::* )(  ) )(& ::OpticalFresnel::MultiLayerCoeff::clear ) )    
             .def( 
                 "__getitem__"
-                , (::OpticalFresnel::FresnelCoeff & ( ::OpticalFresnel::MultiLayerCoeff::* )( ::size_t ) )( &::OpticalFresnel::MultiLayerCoeff::operator[] )
+                , (::OpticalFresnel::FresnelCoeff&  ( ::OpticalFresnel::MultiLayerCoeff::* )( ::size_t ) )(& ::OpticalFresnel::MultiLayerCoeff::operator[] )
                 , ( bp::arg("i") )
                 , bp::return_internal_reference< >() )    
             .def( 
                 "__getitem__"
-                , (::OpticalFresnel::FresnelCoeff const & ( ::OpticalFresnel::MultiLayerCoeff::* )( ::size_t ) const)( &::OpticalFresnel::MultiLayerCoeff::operator[] )
+                , (::OpticalFresnel::FresnelCoeff const&  ( ::OpticalFresnel::MultiLayerCoeff::* )( ::size_t ) const)(& ::OpticalFresnel::MultiLayerCoeff::operator[] )
                 , ( bp::arg("i") )
                 , bp::return_value_policy< bp::copy_const_reference >() )    
             .def( 
                 "resize"
-                , (void ( ::OpticalFresnel::MultiLayerCoeff::* )( ::size_t ) )( &::OpticalFresnel::MultiLayerCoeff::resize )
+                , (void ( ::OpticalFresnel::MultiLayerCoeff::* )( ::size_t ) )(& ::OpticalFresnel::MultiLayerCoeff::resize )
                 , ( bp::arg("size") ) )    
             .def( 
                 "size"
-                , (::size_t ( ::OpticalFresnel::MultiLayerCoeff::* )(  ) const)( &::OpticalFresnel::MultiLayerCoeff::size ) );
+                , (::size_t ( ::OpticalFresnel::MultiLayerCoeff::* )(  ) const)(& ::OpticalFresnel::MultiLayerCoeff::size ) );
         { //::OpticalFresnel::execute
         
-            typedef void ( ::OpticalFresnel::*execute_function_type )( ::MultiLayer const &,::kvector_t const &,::OpticalFresnel::MultiLayerCoeff & ) ;
+            typedef void ( ::OpticalFresnel::*execute_function_type )( ::MultiLayer const& ,::kvector_t const& ,::OpticalFresnel::MultiLayerCoeff&  ) ;
             
             OpticalFresnel_exposer.def( 
                 "execute"
-                , execute_function_type( &::OpticalFresnel::execute )
+                , execute_function_type(& ::OpticalFresnel::execute )
                 , ( bp::arg("sample"), bp::arg("k"), bp::arg("coeff") ) );
         
         }

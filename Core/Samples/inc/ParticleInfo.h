@@ -35,28 +35,28 @@ class ParticleInfo : public ICompositeSample
 
     virtual ParticleInfo *clone() const;
 
-    //! Return particle.
+    //! Returns particle.
     const Particle *getParticle() const { return mp_particle; }
 
-    //! Return transformation.
+    //! Returns transformation.
     const Geometry::Transform3D *getTransform3D() const { return mp_transform; }
 
-    //! Set transformation.
-    void setTransform(const Geometry::Transform3D &transform) {
+    //! Sets transformation.
+    void setTransform(const Geometry::Transform3D& transform) {
         delete mp_transform;
         mp_transform = new Geometry::Transform3D(transform);
     }
 
-    //! Return depth.
+    //! Returns depth.
     double getDepth() const { return m_depth; }
 
-    //! Set depth.
+    //! Sets depth.
     void setDepth(double depth) { m_depth = depth; }
 
-    //! Return abundance.
+    //! Returns abundance.
     double getAbundance() const { return m_abundance; }
 
-    //! Set abundance.
+    //! Sets abundance.
     void setAbundance(double abundance) { m_abundance = abundance; }
 
  protected:

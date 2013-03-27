@@ -148,23 +148,23 @@ class Transform3D {
     //! Fortran-style subscripting: returns (i,j) element of the matrix.
     double operator () (int, int) const;
 
-    //! Gets xx-element of the transformation matrix.
+    //! Returns xx-element of the transformation matrix.
     double xx() const { return xx_; }
-    //! Gets xy-element of the transformation matrix.
+    //! Returns xy-element of the transformation matrix.
     double xy() const { return xy_; }
-    //! Gets xz-element of the transformation matrix.
+    //! Returns xz-element of the transformation matrix.
     double xz() const { return xz_; }
-    //! Gets yx-element of the transformation matrix.
+    //! Returns yx-element of the transformation matrix.
     double yx() const { return yx_; }
-    //! Gets yy-element of the transformation matrix.
+    //! Returns yy-element of the transformation matrix.
     double yy() const { return yy_; }
-    //! Gets yz-element of the transformation matrix.
+    //! Returns yz-element of the transformation matrix.
     double yz() const { return yz_; }
-    //! Gets zx-element of the transformation matrix.
+    //! Returns zx-element of the transformation matrix.
     double zx() const { return zx_; }
-    //! Gets zy-element of the transformation matrix.
+    //! Returns zy-element of the transformation matrix.
     double zy() const { return zy_; }
-    //! Gets zz-element of the transformation matrix.
+    //! Returns zz-element of the transformation matrix.
     double zz() const { return zz_; }
     
     //! Assignment.
@@ -294,7 +294,7 @@ class RotateZ3D : public Rotate3D {
 // ************************************************************************** //
 
 inline
-Transform3D::Transform3D_row::Transform3D_row(const Transform3D & r, int i)
+Transform3D::Transform3D_row::Transform3D_row(const Transform3D&  r, int i)
     : rr(r), ii(i) {}
 
 inline

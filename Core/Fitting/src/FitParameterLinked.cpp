@@ -20,11 +20,11 @@ FitParameterLinked::FitParameterLinked()
 {
 }
 
-FitParameterLinked::FitParameterLinked(const std::string &name, double value, double step, const AttLimits &attlim, double error) : FitParameter(name, value, step, attlim, error)
+FitParameterLinked::FitParameterLinked(const std::string& name, double value, double step, const AttLimits& attlim, double error) : FitParameter(name, value, step, attlim, error)
 {
 }
 
-//! add real parameter to the collection
+//! Adds real parameter to the collection
 void FitParameterLinked::addParameter(ParameterPool::parameter_t par)
 {
     if( !par.isNull() ) {
@@ -34,8 +34,8 @@ void FitParameterLinked::addParameter(ParameterPool::parameter_t par)
     }
 }
 
-//! add parameters from pool which match given wildcard
-void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string &wildcard)
+//! Adds parameters from pool which match given wildcard
+void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string& wildcard)
 {
     std::string wildcard_to_use = getName();
     if( !wildcard.empty()) wildcard_to_use = wildcard;
@@ -49,7 +49,7 @@ void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool,
 }
 
 //! ?
-void FitParameterLinked::print(std::ostream &ostr) const
+void FitParameterLinked::print(std::ostream& ostr) const
 {
     FitParameter::print(ostr);
     ostr << "FitParameterLinked '" << getName() << "'" << " value:" << m_value << " collsize:" << m_pool_parameters.size();

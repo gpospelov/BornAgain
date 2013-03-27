@@ -86,14 +86,14 @@ struct IParameterized_wrapper : IParameterized, bp::wrapper< IParameterized > {
     
     }
 
-    IParameterized_wrapper(::std::string const & name )
+    IParameterized_wrapper(::std::string const&  name )
     : IParameterized( name )
       , bp::wrapper< IParameterized >(){
         // constructor
     
     }
 
-    IParameterized_wrapper(::IParameterized const & other )
+    IParameterized_wrapper(::IParameterized const&  other )
     : IParameterized( boost::ref(other) )
       , bp::wrapper< IParameterized >(){
         // copy constructor
@@ -156,8 +156,8 @@ void register_IParameterized_class(){
         typedef bp::class_< IParameterized_wrapper > IParameterized_exposer_t;
         IParameterized_exposer_t IParameterized_exposer = IParameterized_exposer_t( "IParameterized", bp::init< >() );
         bp::scope IParameterized_scope( IParameterized_exposer );
-        IParameterized_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
-        IParameterized_exposer.def( bp::init< IParameterized const & >(( bp::arg("other") )) );
+        IParameterized_exposer.def( bp::init< std::string const&  >(( bp::arg("name") )) );
+        IParameterized_exposer.def( bp::init< IParameterized const&  >(( bp::arg("other") )) );
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
@@ -187,17 +187,17 @@ void register_IParameterized_class(){
             
             IParameterized_exposer.def( 
                 "getParameterPool"
-                , getParameterPool_function_type( &::IParameterized::getParameterPool )
+                , getParameterPool_function_type(& ::IParameterized::getParameterPool )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParameterized::operator=
         
-            typedef ::IParameterized & ( ::IParameterized::*assign_function_type )( ::IParameterized const & ) ;
+            typedef ::IParameterized&  ( ::IParameterized::*assign_function_type )( ::IParameterized const&  ) ;
             
             IParameterized_exposer.def( 
                 "assign"
-                , assign_function_type( &::IParameterized::operator= )
+                , assign_function_type(& ::IParameterized::operator= )
                 , ( bp::arg("other") )
                 , bp::return_self< >() );
         

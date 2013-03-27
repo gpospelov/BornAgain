@@ -37,7 +37,7 @@ class IFitSuiteStrategy : public INamed
     // TODO refactor all strategies (decorator, policies?) to change the way of calling FitSuite's minimizer: simple call, clear parameters/matrices before the call, no call at all, see FitSuiteStrategyAdjustData
 
     IFitSuiteStrategy() : m_fit_suite(0) {}
-    IFitSuiteStrategy(const std::string &name) : INamed(name), m_fit_suite(0) {}
+    IFitSuiteStrategy(const std::string& name) : INamed(name), m_fit_suite(0) {}
 
     virtual ~IFitSuiteStrategy(){}
     virtual void init(FitSuite *fit_suite) { m_fit_suite = fit_suite; }
@@ -75,14 +75,14 @@ class FitSuiteStrategyAdjustData : public IFitSuiteStrategy
 class FitSuiteStrategyAdjustParameters : public IFitSuiteStrategy
 {
  public:
-    FitSuiteStrategyAdjustParameters(const std::string &name) : IFitSuiteStrategy(name), m_fix_all(false), m_release_all(false), m_preserve_original_values(false) { }
+    FitSuiteStrategyAdjustParameters(const std::string& name) : IFitSuiteStrategy(name), m_fix_all(false), m_release_all(false), m_preserve_original_values(false) { }
     FitSuiteStrategyAdjustParameters() : IFitSuiteStrategy("FitSuiteStrategyAdjustParameters"), m_fix_all(false), m_release_all(false), m_preserve_original_values(false)  { }
     virtual ~FitSuiteStrategyAdjustParameters(){}
     virtual void execute();
-    FitSuiteStrategyAdjustParameters &fix_all() { m_fix_all = true; return *this; }
-    FitSuiteStrategyAdjustParameters &release_all() { m_release_all = true; return *this; }
-    FitSuiteStrategyAdjustParameters &fix(std::string parname ) { m_pars_to_fix.push_back(parname); return *this; }
-    FitSuiteStrategyAdjustParameters &release(std::string parname ) { m_pars_to_release.push_back(parname); return *this; }
+    FitSuiteStrategyAdjustParameters& fix_all() { m_fix_all = true; return *this; }
+    FitSuiteStrategyAdjustParameters& release_all() { m_release_all = true; return *this; }
+    FitSuiteStrategyAdjustParameters& fix(std::string parname ) { m_pars_to_fix.push_back(parname); return *this; }
+    FitSuiteStrategyAdjustParameters& release(std::string parname ) { m_pars_to_release.push_back(parname); return *this; }
     void setPreserveOriginalValues(bool preserve_values) { m_preserve_original_values = preserve_values; }
  private:
     bool m_fix_all;
@@ -120,7 +120,7 @@ class FitSuiteStrategyBootstrap : public IFitSuiteStrategy
     };
 
     //! generate noisy data
-    OutputData<double> *generateNoisyData(double noise_factor, const OutputData<double> &source) const;
+    OutputData<double> *generateNoisyData(double noise_factor, const OutputData<double>& source) const;
 
  private:
     int m_n_iterations;

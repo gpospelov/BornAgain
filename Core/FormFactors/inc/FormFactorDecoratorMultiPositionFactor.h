@@ -23,11 +23,11 @@
 class FormFactorDecoratorMultiPositionFactor : public IFormFactorDecorator
 {
  public:
-    FormFactorDecoratorMultiPositionFactor(const IFormFactor &form_factor, std::vector<kvector_t> positions);
+    FormFactorDecoratorMultiPositionFactor(const IFormFactor& form_factor, std::vector<kvector_t> positions);
     virtual ~FormFactorDecoratorMultiPositionFactor() {}
     virtual FormFactorDecoratorMultiPositionFactor *clone() const;
 
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const {
         return mp_form_factor->getNumberOfStochasticParameters();

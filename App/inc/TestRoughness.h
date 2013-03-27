@@ -36,10 +36,10 @@ class TestRoughness : public IFunctionalTest
     //! Draw profile of rough surface for different sets of roughness parameters
     void DrawProfile();
 
-    //! Calculate correlated z-coordinates of surface using matrix method.
+    //! Returns correlated z-coordinates of surface using matrix method.
     void GetProfileXZ_MatrixMethod();
 
-    //! Calculate correlated z-coordinates of surface using fast Fourier transform method.
+    //! Returns correlated z-coordinates of surface using fast Fourier transform method.
     void GetProfileXZ_FFTMethod();
 
     //! Some tests of FFT.

@@ -38,29 +38,29 @@ class FitSuiteParameters
     //! clear all defined parameters
     void clear();
 
-    //! add fit parameter
-    void addParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error=0.0);
+    //! Adds fit parameter
+    void addParameter(const std::string& name, double value, double step, const AttLimits& attlim, double error=0.0);
 
-    //! return fit parameter with given name
-    const FitParameter *getParameter(const std::string &name) const;
-    FitParameter *getParameter(const std::string &name);
+    //! Returns fit parameter with given name
+    const FitParameter *getParameter(const std::string& name) const;
+    FitParameter *getParameter(const std::string& name);
 
-    //! set values for all defined parameters
+    //! Sets values for all defined parameters
     void setValues(const double *pars_values);
-    void setValues(const std::vector<double > &pars_values);
+    void setValues(const std::vector<double >& pars_values);
 
-    //! get values of all defined parameters
+    //! Returns values of all defined parameters
     std::vector<double > getValues() const;
 
-    //! return number of parameters
+    //! Returns number of parameters
     size_t size() const { return m_parameters.size(); }
 
     void push_back(FitParameter *par) { m_parameters.push_back(par); }
-    //! return begin of container
+    //! Returns begin of container
     iterator begin() { return m_parameters.begin(); }
     const_iterator begin() const { return m_parameters.begin(); }
 
-    //! return end of container
+    //! Returns end of container
     iterator end() { return m_parameters.end(); }
     const_iterator end() const { return m_parameters.end(); }
 
@@ -70,13 +70,13 @@ class FitSuiteParameters
     const FitParameter *operator[](std::string name) const { return getParameter(name); }
     FitParameter *operator[](std::string name) { return getParameter(name); }
 
-    //! linking fit parameters with pool parameters
+    //! Links fit parameters with pool parameters.
     void link_to_pool(const ParameterPool *pool);
 
-    //! return number of free parameters
+    //! Returns number of free parameters
     size_t getNfreeParameters() const;
 
-    //! return true if parameters have already given values
+    //! Returns true if parameters have already given values
     bool valuesAreDifferrent(const double *pars_valuers, double tolerance_factor=1.0) const;
 
     void printParameters() const;

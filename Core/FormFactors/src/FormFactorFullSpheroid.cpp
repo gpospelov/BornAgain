@@ -30,8 +30,8 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
 void FormFactorFullSpheroid::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter("height", &m_height);
+    getParameterPool()->registerParameter("radius",& m_radius);
+    getParameterPool()->registerParameter("height",& m_height);
 }
 
 FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
@@ -41,7 +41,7 @@ FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const
    return ffFullSpheroid;
 }
 
-complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t &q) const
+complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t& q) const
 {
     double H = m_height;
     //double R = m_radius;
@@ -53,7 +53,7 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(const cvector_t &q) const
     complex_t a_part    =  std::exp(iqzH_half);
 
     MemberFunctionIntegrator<FormFactorFullSpheroid>::mem_function p_mf =
-        &FormFactorFullSpheroid::FullSpheroidIntegral;
+       & FormFactorFullSpheroid::FullSpheroidIntegral;
     MemberFunctionIntegrator<FormFactorFullSpheroid> integrator(p_mf,this);
     double radial = integrator.integrate(0.0, H/2.0, (void *)0);
     return a_part * radial;

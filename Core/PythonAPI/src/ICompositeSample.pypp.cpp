@@ -201,10 +201,10 @@ void register_ICompositeSample_class(){
     bp::class_< ICompositeSample_wrapper, bp::bases< ISample >, boost::noncopyable >( "ICompositeSample", bp::init< >() )    
         .def( 
             "begin_shallow"
-            , (::std::_List_iterator< ISample* > ( ::ICompositeSample::* )(  ) )( &::ICompositeSample::begin_shallow ) )    
+            , (::std::_List_iterator< ISample* > ( ::ICompositeSample::* )(  ) )(& ::ICompositeSample::begin_shallow ) )    
         .def( 
             "begin_shallow"
-            , (::std::_List_const_iterator< ISample* > ( ::ICompositeSample::* )(  ) const)( &::ICompositeSample::begin_shallow ) )    
+            , (::std::_List_const_iterator< ISample* > ( ::ICompositeSample::* )(  ) const)(& ::ICompositeSample::begin_shallow ) )    
         .def( 
             "clone"
             , (::ICompositeSample * ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::clone)
@@ -212,10 +212,10 @@ void register_ICompositeSample_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "end_shallow"
-            , (::std::_List_iterator< ISample* > ( ::ICompositeSample::* )(  ) )( &::ICompositeSample::end_shallow ) )    
+            , (::std::_List_iterator< ISample* > ( ::ICompositeSample::* )(  ) )(& ::ICompositeSample::end_shallow ) )    
         .def( 
             "end_shallow"
-            , (::std::_List_const_iterator< ISample* > ( ::ICompositeSample::* )(  ) const)( &::ICompositeSample::end_shallow ) )    
+            , (::std::_List_const_iterator< ISample* > ( ::ICompositeSample::* )(  ) const)(& ::ICompositeSample::end_shallow ) )    
         .def( 
             "getCompositeSample"
             , (::ICompositeSample * ( ::ICompositeSample::* )(  ) )(&::ICompositeSample::getCompositeSample)

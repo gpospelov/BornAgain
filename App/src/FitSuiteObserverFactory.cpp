@@ -33,7 +33,7 @@
 #include <iomanip>
 #include <sstream>
 
-//! Print results of fit iteration.
+//! Prints results of fit iteration.
 
 void FitSuiteObserverPrint::update(IObservable *subject)
 {
@@ -249,7 +249,7 @@ void FitSuiteObserverWriteTree::update(IObservable *subject)
         tree->Branch("Event",&event,16000,2);
     } else {
         // tree exists, pointing it to the new data
-        tree->SetBranchAddress("Event", &event);
+        tree->SetBranchAddress("Event",& event);
     }
 
     // filling data object with data from FitSuite

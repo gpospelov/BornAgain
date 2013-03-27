@@ -23,16 +23,16 @@
 class LayerDecorator : public Layer
 {
  public:
-    LayerDecorator(const Layer &layer, const IDecoration &decoration);
+    LayerDecorator(const Layer& layer, const IDecoration& decoration);
     virtual ~LayerDecorator();
 
     /// make layer's clone
     virtual LayerDecorator *clone() const;
 
-    //! set layer thickness in _angstrom_
+    //! Sets layer thickness in _angstrom_
     virtual void setThickness(double thickness) { mp_decorated_layer->setThickness(thickness); }
 
-    //! return layer thickness in _angstrom_
+    //! Returns layer thickness in _angstrom_
     virtual double getThickness() const { return mp_decorated_layer->getThickness(); }
 
     //! @brief set material to the layer
@@ -46,19 +46,19 @@ class LayerDecorator : public Layer
         mp_decorated_layer->setMaterial(p_material, thickness);
     }
 
-    //! return layer's material
+    //! Returns layer's material
     const virtual IMaterial* getMaterial() const
     {
         return mp_decorated_layer->getMaterial();
     }
 
-    //! return refractive index of the layer's material
+    //! Returns refractive index of the layer's material
     virtual complex_t getRefractiveIndex() const
     {
         return mp_decorated_layer->getRefractiveIndex();
     }
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
     const Layer* getDecoratedLayer() const { return mp_decorated_layer; }
@@ -80,14 +80,14 @@ class LayerDecorator : public Layer
     }
 
  protected:
-    LayerDecorator(const LayerDecorator &layer);
+    LayerDecorator(const LayerDecorator& layer);
 
     Layer *mp_decorated_layer;
     IDecoration *mp_decoration;
 
  private:
-    //! print class
-    void print(std::ostream &ostr) const;
+    //! Prints class
+    void print(std::ostream& ostr) const;
 
 };
 

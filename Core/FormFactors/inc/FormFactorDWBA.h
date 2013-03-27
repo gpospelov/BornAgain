@@ -29,24 +29,24 @@ class FormFactorDWBA: public IFormFactorDecorator
 
     virtual FormFactorDWBA *clone() const;
 
-    void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap &p_rt)
+    void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap& p_rt)
     {
         delete mp_RT;
         mp_RT = p_rt.clone();
     }
 
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
 
  protected:
-    const complexpair_t &getRT(double alpha) const;
-    void calculateTerms(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
+    const complexpair_t& getRT(double alpha) const;
+    void calculateTerms(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
 
     IDoubleToPairOfComplexMap *mp_RT;
 
     mutable complex_t m_term_S, m_term_RS, m_term_SR, m_term_RSR;
 };
 
-inline const complexpair_t &FormFactorDWBA::getRT(double alpha) const
+inline const complexpair_t& FormFactorDWBA::getRT(double alpha) const
 {
     return mp_RT->evaluate(alpha);
 }

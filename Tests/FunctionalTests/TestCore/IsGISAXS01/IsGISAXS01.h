@@ -1,7 +1,6 @@
 #ifndef FUNCTIONALTESTS_ISGISAXS01_H
 #define FUNCTIONALTESTS_ISGISAXS01_H
 
-
 #include <string>
 #include "OutputData.h"
 

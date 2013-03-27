@@ -57,13 +57,13 @@ void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
     m_pdfs[1] = pdf_2.clone();
 }
 
-double InterferenceFunction2DParaCrystal::evaluate(const cvector_t &q) const
+double InterferenceFunction2DParaCrystal::evaluate(const cvector_t& q) const
 {
     m_qx = q.x().real();
     m_qy = q.y().real();
     double result;
     if (m_integrate_xi) {
-        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>::mem_function p_member_function = &InterferenceFunction2DParaCrystal::interferenceForXi;
+        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>::mem_function p_member_function =& InterferenceFunction2DParaCrystal::interferenceForXi;
         MemberFunctionIntegrator<InterferenceFunction2DParaCrystal> integrator(p_member_function, this);
         result = integrator.integrate(0.0, M_PI, (void*)0)/M_PI;
    }
@@ -117,13 +117,13 @@ void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(double qx,
 void InterferenceFunction2DParaCrystal::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("lattice_length_1", &m_lattice_lengths[0]);
-    getParameterPool()->registerParameter("lattice_length_2", &m_lattice_lengths[1]);
-    getParameterPool()->registerParameter("lattice_angle", &m_alpha_lattice);
-    getParameterPool()->registerParameter("lattice_orientation", &m_xi);
-    getParameterPool()->registerParameter("corr_length", &m_corr_length);
-    getParameterPool()->registerParameter("domain_size_1", &m_domain_sizes[0]);
-    getParameterPool()->registerParameter("domain_size_2", &m_domain_sizes[1]);
+    getParameterPool()->registerParameter("lattice_length_1",& m_lattice_lengths[0]);
+    getParameterPool()->registerParameter("lattice_length_2",& m_lattice_lengths[1]);
+    getParameterPool()->registerParameter("lattice_angle",& m_alpha_lattice);
+    getParameterPool()->registerParameter("lattice_orientation",& m_xi);
+    getParameterPool()->registerParameter("corr_length",& m_corr_length);
+    getParameterPool()->registerParameter("domain_size_1",& m_domain_sizes[0]);
+    getParameterPool()->registerParameter("domain_size_2",& m_domain_sizes[1]);
 }
 
 double InterferenceFunction2DParaCrystal::interferenceForXi(double xi, void *params) const

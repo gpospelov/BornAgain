@@ -40,7 +40,7 @@ class ICompositeSample : public ISample
     virtual ICompositeSample *getCompositeSample() { return this; }
     virtual const ICompositeSample *getCompositeSample() const { return this; }
 
-    //! register child in the container
+    //! Registers child in the container
     virtual void registerChild(ISample *sample);
 
     //! remove registered child from the container
@@ -55,13 +55,13 @@ class ICompositeSample : public ISample
     //! size of children
     virtual size_t size() const { return m_samples.size(); }
 
-    //! create general iterator to walk through the tree of registered composite children
+    //! Creates general iterator to walk through the tree of registered composite children
     ICompositeIterator createIterator();
 
  private:
-//    ICompositeSample &operator=(const ICompositeSample &other);
+//    ICompositeSample& operator=(const ICompositeSample& other);
 
-    //! check index of child
+    //! Checks index of child
     //inline size_t check_index(size_t index) const { return index < m_samples.size() ? index : throw OutOfBoundsException("ICompositeSample::check_index() -> Error! Index is out of bounds"); }
 
     samples_t m_samples; //! list of registered children

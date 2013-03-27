@@ -18,13 +18,13 @@ std::string Logger::NowTime()
     gettimeofday(&tv, 0);
     char buffer[100];
     tm r;
-    strftime(buffer, sizeof(buffer), "%X", localtime_r(&tv.tv_sec, &r));
+    strftime(buffer, sizeof(buffer), "%X", localtime_r(&tv.tv_sec,& r));
     char result[100];
     sprintf(result, "%s.%06ld", buffer, (long)tv.tv_usec);
     return result;
 }
 
-void Logger::SetLevel(const std::string &levelname)
+void Logger::SetLevel(const std::string& levelname)
 {
     int index(0);
     for(std::vector<std::string >::iterator it = m_level_names.begin(); it!=m_level_names.end(); ++it) {

@@ -34,13 +34,13 @@ class FormFactorBox : public IFormFactorBorn
 
     int getNumberOfStochasticParameters() const { return 2; }
 
-    //! return radius of Box
+    //! Returns radius of Box
     double getRadius() const { return m_radius; }
 
-    //! return width of Box
+    //! Returns width of Box
     double getwidth() const { return m_width; }
 
-    complex_t evaluate_for_q(const cvector_t &q) const;
+    complex_t evaluate_for_q(const cvector_t& q) const;
 
     double getVolume() const { return 4*m_height*m_radius*m_width; }
 

@@ -44,7 +44,7 @@ void ISample::print_structure()
     }
 }
 
-//! add parameters from local pool to external pool and call recursion over direct children
+//! Adds parameters from local pool to external pool and call recursion over direct children
 
 std::string ISample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const
 {

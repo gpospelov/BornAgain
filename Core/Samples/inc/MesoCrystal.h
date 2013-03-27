@@ -26,7 +26,7 @@ class MesoCrystal : public Particle
 {
  public:
     MesoCrystal(IClusteredParticles *p_particle_structure, IFormFactor *p_form_factor);
-    MesoCrystal(const IClusteredParticles &particle_structure, IFormFactor &form_factor);
+    MesoCrystal(const IClusteredParticles& particle_structure, IFormFactor& form_factor);
 
     virtual ~MesoCrystal();
     virtual MesoCrystal *clone() const;
@@ -54,7 +54,7 @@ class MesoCrystal : public Particle
     //! @brief get the internal structure, which is in principle unbounded in space (eg.  an infinite crystal)
     const IClusteredParticles *getClusteredParticles() const {return mp_particle_structure; }
 
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const;
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const;
 
  private:
     IClusteredParticles *mp_particle_structure;

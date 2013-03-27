@@ -17,9 +17,9 @@
 #include "IParameterized.h"
 #include "Utils.h"
 
-IParameterized &IParameterized::operator=(const IParameterized &other)
+IParameterized& IParameterized::operator=(const IParameterized& other)
 {
-    if( this != &other)
+    if( this !=& other)
     {
         INamed::operator=(other);
         // parameters are not copied
@@ -27,7 +27,7 @@ IParameterized &IParameterized::operator=(const IParameterized &other)
     return *this;
 }
 
-//! Create new parameter pool, with all local parameter and parameters of children
+//! Creates new parameter pool, with all local parameter and parameters of children
 
 //! User has to delete it.
 //!
@@ -39,7 +39,7 @@ ParameterPool *IParameterized::createParameterTree() const
     return newpool;
 }
 
-//! Add parameters from local pool to external pool and call recursion over direct children.
+//! Adds parameters from local pool to external pool and call recursion over direct children.
 
 std::string IParameterized::addParametersToExternalPool(
     std::string path, ParameterPool *external_pool, int copy_number) const

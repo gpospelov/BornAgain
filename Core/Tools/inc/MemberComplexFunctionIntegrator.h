@@ -56,11 +56,11 @@ template<class C> MemberComplexFunctionIntegrator<C>::MemberComplexFunctionInteg
 
 template<class C> complex_t MemberComplexFunctionIntegrator<C>::integrate(double lmin, double lmax)
 {
-    typename MemberFunctionIntegrator<MemberComplexFunctionIntegrator<C > >::mem_function integrand = &MemberComplexFunctionIntegrator::integrand_real;
+    typename MemberFunctionIntegrator<MemberComplexFunctionIntegrator<C > >::mem_function integrand =& MemberComplexFunctionIntegrator::integrand_real;
     m_integrator.setIntegrand(integrand);
     double real = m_integrator.integrate(lmin, lmax, (void *)0);
 
-    integrand = &MemberComplexFunctionIntegrator::integrand_imag;
+    integrand =& MemberComplexFunctionIntegrator::integrand_imag;
     m_integrator.setIntegrand(integrand);
     double imag = m_integrator.integrate(lmin, lmax, (void *)0);
 

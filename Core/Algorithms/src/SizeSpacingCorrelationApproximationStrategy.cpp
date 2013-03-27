@@ -25,8 +25,8 @@ SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximation
 }
 
 void SizeSpacingCorrelationApproximationStrategy::init(
-        const SafePointerVector<FormFactorInfo> &form_factor_infos,
-        const SafePointerVector<IInterferenceFunction> &ifs)
+        const SafePointerVector<FormFactorInfo>& form_factor_infos,
+        const SafePointerVector<IInterferenceFunction>& ifs)
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, ifs);
     if (!checkVectorSizes()) {

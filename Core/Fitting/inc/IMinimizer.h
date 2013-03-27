@@ -40,43 +40,43 @@ class IMinimizer
     //! run minimization
     virtual void minimize() = 0;
 
-    //! set internal minimizer parameter
+    //! Sets internal minimizer parameter
     virtual void setParameter(size_t index, const FitParameter *par);
 
-    //! set internal minimizer parameters using external parameter list
-    virtual void setParameters(const FitSuiteParameters &parameters);
+    //! Sets internal minimizer parameters using external parameter list
+    virtual void setParameters(const FitSuiteParameters& parameters);
 
-    //! set chi squared function to minimize
+    //! Sets chi squared function to minimize
     virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters);
 
-    //! set gradient function to minimize
+    //! Sets gradient function to minimize
     virtual void setGradientFunction(function_gradient_t fun_gradient, size_t nparameters, size_t ndatasize);
 
-    //! get number of variables to fit
+    //! Returns number of variables to fit
     virtual size_t getNumberOfVariables() const;
 
-    //! return minimum function value
+    //! Returns minimum function value
     virtual double getMinValue() const;
 
-    //! return value of the parameter at the minimum
+    //! Returns value of the parameter at the minimum
     virtual double getValueOfVariableAtMinimum(size_t index) const;
 
-    //! return values of parameters at the minimum
+    //! Returns values of parameters at the minimum
     virtual std::vector<double > getValueOfVariablesAtMinimum() const;
 
-    //! return pointer to the parameters values at the minimum
+    //! Returns pointer to the parameters values at the minimum
     virtual double getErrorOfVariable(size_t index) const;
 
     //! clear resources (parameters) for consecutives minimizations
     virtual void clear();
 
-    //! print fit results
+    //! Prints fit results
     virtual void printResults() const;
 
-    //! set minimizer option
-    virtual void setOptions(const std::string &option);
+    //! Sets minimizer option
+    virtual void setOptions(const std::string& option);
 
-    //! return number of calls of minimized function
+    //! Returns number of calls of minimized function
     virtual size_t getNCalls() const;
 };
 
@@ -87,7 +87,7 @@ inline void IMinimizer::setParameter(size_t index, const FitParameter *par)
     throw NotImplementedException("IMinimizer::setParameter() -> Not implemented.");
 }
 
-inline void IMinimizer::setParameters(const FitSuiteParameters &parameters)
+inline void IMinimizer::setParameters(const FitSuiteParameters& parameters)
 {
     (void)parameters;
     throw NotImplementedException("IMinimizer::setParameters() -> Not implemented.");
@@ -145,7 +145,7 @@ inline void IMinimizer::printResults() const
     throw NotImplementedException("IMinimizer::printResults() -> Not implemented.");
 }
 
-inline void IMinimizer::setOptions(const std::string &options)
+inline void IMinimizer::setOptions(const std::string& options)
 {
     (void)options;
     throw NotImplementedException("IMinimizer::setOptions() -> Not implemented.");

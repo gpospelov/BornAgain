@@ -27,18 +27,18 @@ class Detector : public IParameterized
  public:
 
     Detector();
-    Detector(const Detector &other);
-    Detector &operator=(const Detector &other);
+    Detector(const Detector& other);
+    Detector& operator=(const Detector& other);
 
     virtual ~Detector()
     { delete mp_detector_resolution; }
 
-    void addAxis(const IAxis &axis)
+    void addAxis(const IAxis& axis)
     { m_axes.push_back(axis.clone()); }
 
-    void addAxis(const AxisParameters &axis_params);
+    void addAxis(const AxisParameters& axis_params);
 
-    const IAxis &getAxis(size_t index) const;
+    const IAxis& getAxis(size_t index) const;
 
     size_t getDimension() const
     { return m_axes.size(); }
@@ -57,7 +57,7 @@ class Detector : public IParameterized
     const IDetectorResolution *getDetectorResolutionFunction() const
     { return mp_detector_resolution; }
 
-    //! Add parameters from local pool to external pool and call recursion over direct children.
+    //! Adds parameters from local pool to external pool and call recursion over direct children.
     virtual std::string addParametersToExternalPool(
         std::string path,
         ParameterPool *external_pool,
@@ -68,25 +68,25 @@ class Detector : public IParameterized
 
  protected:
 
-    //! Register some class members for later access via parameter pool.
+    //! Registers some class members for later access via parameter pool.
     virtual void init_parameters() {}
 
     bool isCorrectAxisIndex(size_t index) const
     { return index<getDimension(); }
 
-    //! Check if data has a compatible format with the detector.
+    //! Checks if data has a compatible format with the detector.
     bool dataShapeMatches(const OutputData<double> *p_data) const;
 
  private:
 
     //! swap function
-    void swapContent(Detector &other);
+    void swapContent(Detector& other);
 
-    //! initialize axis the way IsGISAXS does
+    //! Initializes axis the way IsGISAXS does
     void initializeAnglesIsgisaxs(
-        AxisDouble *p_axis, const TSampledRange<double> &axis_range) const;
+        AxisDouble *p_axis, const TSampledRange<double>& axis_range) const;
 
-    //! calculate the solid angle for the given data element
+    //! Returns the solid angle for the given data element
     double getSolidAngle(OutputData<double> *p_data, size_t index) const;
 
     SafePointerVector<IAxis> m_axes;

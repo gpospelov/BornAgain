@@ -122,15 +122,15 @@ void register_LayerDWBASimulation_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "setKzAndRTFunctions"
-            , (void ( ::LayerDWBASimulation::* )( ::IDoubleToComplexMap const &,::IDoubleToPairOfComplexMap const & ) )( &::LayerDWBASimulation::setKzAndRTFunctions )
+            , (void ( ::LayerDWBASimulation::* )( ::IDoubleToComplexMap const& ,::IDoubleToPairOfComplexMap const&  ) )(& ::LayerDWBASimulation::setKzAndRTFunctions )
             , ( bp::arg("kz_function"), bp::arg("rt_map") ) )    
         .def( 
             "setKzFunction"
-            , (void ( ::LayerDWBASimulation::* )( ::IDoubleToComplexMap const & ) )( &::LayerDWBASimulation::setKzFunction )
+            , (void ( ::LayerDWBASimulation::* )( ::IDoubleToComplexMap const&  ) )(& ::LayerDWBASimulation::setKzFunction )
             , ( bp::arg("kz_function") ) )    
         .def( 
             "setReflectionTransmissionFunction"
-            , (void ( ::LayerDWBASimulation::* )( ::IDoubleToPairOfComplexMap const & ) )( &::LayerDWBASimulation::setReflectionTransmissionFunction )
+            , (void ( ::LayerDWBASimulation::* )( ::IDoubleToPairOfComplexMap const&  ) )(& ::LayerDWBASimulation::setReflectionTransmissionFunction )
             , ( bp::arg("rt_map") ) )    
         .def( 
             "run"

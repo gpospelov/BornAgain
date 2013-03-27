@@ -45,7 +45,7 @@ class ToySimulation : public Simulation
  protected:
     virtual void init_parameters();
  private:
-    ToySimulation(const ToySimulation &other)
+    ToySimulation(const ToySimulation& other)
         : Simulation(other), m_func(other.m_func), pars(other.pars)
     {
         setName("ToySimulation");

@@ -24,15 +24,26 @@ class DiffuseDWBASimulation: public LayerDWBASimulation
  public:
     DiffuseDWBASimulation()
         : m_refractive_index(1., 0.), m_surface_density(1.) {}
+
     virtual ~DiffuseDWBASimulation() {}
 
     virtual void run();
+
     size_t getSize() const { return m_np_infos.size(); }
-    void addParticleInfo(DiffuseParticleInfo *p_info);
+
+    void addParticleInfo(DiffuseParticleInfo *p_info)
+    { m_np_infos.push_back(p_info); }
+
     void setRefractiveIndex(complex_t n) { m_refractive_index = n; }
+
     void setSurfaceDensity(double surface_density)
     { m_surface_density = surface_density; }
-    void rescaleAbundances(double factor);
+
+    void rescaleAbundances(double factor)
+    {
+        for (size_t np_index=0; np_index<m_np_infos.size(); ++np_index)
+            m_np_infos[np_index]->scaleAbundance(factor);
+    }
 
  protected:
     complex_t m_refractive_index;
@@ -41,7 +52,11 @@ class DiffuseDWBASimulation: public LayerDWBASimulation
     struct DiffuseFormFactorTerm {
         DiffuseFormFactorTerm()
             : m_form_factors(), m_probabilities(), m_factor(0.) {}
-        ~DiffuseFormFactorTerm();
+        ~DiffuseFormFactorTerm()
+        {
+            for (size_t i=0; i<m_form_factors.size(); ++i)
+                delete m_form_factors[i];
+        }
         std::vector<IFormFactor*> m_form_factors;
         std::vector<double> m_probabilities;
         double m_factor;

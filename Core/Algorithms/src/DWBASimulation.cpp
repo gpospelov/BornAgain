@@ -18,7 +18,7 @@
 
 void DWBASimulation::init(const Simulation& simulation)
 {
-    if (mp_simulation != &simulation) {
+    if (mp_simulation !=& simulation) {
         delete mp_simulation;
         mp_simulation = simulation.clone();
     }
@@ -47,7 +47,6 @@ DWBASimulation *DWBASimulation::clone() const
     p_result->m_thread_info = m_thread_info;
     if (mp_simulation)
         p_result->mp_simulation = mp_simulation->clone();
-
     return p_result;
 }
 

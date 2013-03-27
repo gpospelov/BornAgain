@@ -27,7 +27,7 @@ ICompositeSample *ICompositeSample::clone() const
 }
 
 
-//! register child in the container
+//! Registers child in the container
 
 void ICompositeSample::registerChild(ISample *sample)
 {
@@ -45,7 +45,7 @@ void ICompositeSample::deregisterChild(ISample *sample)
     m_samples.remove(sample);
 }
 
-//! create general iterator to walk through the tree of registered composite children
+//! Creates general iterator to walk through the tree of registered composite children
 
 ICompositeIterator ICompositeSample::createIterator()
 {

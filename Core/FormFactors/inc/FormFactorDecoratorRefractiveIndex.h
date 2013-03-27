@@ -23,20 +23,20 @@
 class FormFactorDecoratorRefractiveIndex : public FormFactorDecoratorFactor
 {
  public:
-    FormFactorDecoratorRefractiveIndex(IFormFactor *p_form_factor, const complex_t &refractive_index);
+    FormFactorDecoratorRefractiveIndex(IFormFactor *p_form_factor, const complex_t& refractive_index);
     ~FormFactorDecoratorRefractiveIndex();
 
     FormFactorDecoratorRefractiveIndex *clone() const;
 
-    virtual void setAmbientRefractiveIndex(const complex_t &ambient_refractive_index);
+    virtual void setAmbientRefractiveIndex(const complex_t& ambient_refractive_index);
  private:
-    complex_t getRefractiveIndexFactor(const complex_t &ambient_index, const complex_t &particle_index) const;
+    complex_t getRefractiveIndexFactor(const complex_t& ambient_index, const complex_t& particle_index) const;
 
     complex_t m_refractive_index;
 };
 
 inline FormFactorDecoratorRefractiveIndex::FormFactorDecoratorRefractiveIndex(
-        IFormFactor* p_form_factor, const complex_t &refractive_index)
+        IFormFactor* p_form_factor, const complex_t& refractive_index)
 : FormFactorDecoratorFactor(p_form_factor,
         getRefractiveIndexFactor(complex_t(1.0, 0.0), refractive_index))
 , m_refractive_index(refractive_index)
@@ -57,13 +57,13 @@ inline FormFactorDecoratorRefractiveIndex* FormFactorDecoratorRefractiveIndex::c
 }
 
 inline void FormFactorDecoratorRefractiveIndex::setAmbientRefractiveIndex(
-        const complex_t &ambient_refractive_index)
+        const complex_t& ambient_refractive_index)
 {
     m_factor = getRefractiveIndexFactor(ambient_refractive_index, m_refractive_index);
 }
 
 inline complex_t FormFactorDecoratorRefractiveIndex::getRefractiveIndexFactor(
-        const complex_t &ambient_index, const complex_t &particle_index) const
+        const complex_t& ambient_index, const complex_t& particle_index) const
 {
     return (ambient_index*ambient_index - particle_index*particle_index);
 }

@@ -211,7 +211,7 @@ ISample* TestMesoCrystal1::SampleBuilder::buildSample() const
             Geometry::RotateY3D transform2(alpha_start + j*alpha_step);
             Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1);
             particle_decoration.addParticle(createMesoCrystal(m_lattice_length_a,
-                    n_particle_adapted, &ff_meso), p_total_transform, m_meso_height);
+                    n_particle_adapted,& ff_meso), p_total_transform, m_meso_height);
         }
     }
 
@@ -235,16 +235,16 @@ ISample* TestMesoCrystal1::SampleBuilder::buildSample() const
 void TestMesoCrystal1::SampleBuilder::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("meso_radius", &m_meso_radius);
-    getParameterPool()->registerParameter("surface_filling_ratio", &m_surface_filling_ratio);
-    getParameterPool()->registerParameter("meso_height", &m_meso_height);
-    getParameterPool()->registerParameter("sigma_meso_height", &m_sigma_meso_height);
-    getParameterPool()->registerParameter("sigma_meso_radius", &m_sigma_meso_radius);
-    getParameterPool()->registerParameter("lattice_length_a", &m_lattice_length_a);
-    getParameterPool()->registerParameter("nanoparticle_radius", &m_nanoparticle_radius);
-    getParameterPool()->registerParameter("sigma_nanoparticle_radius", &m_sigma_nanoparticle_radius);
-    getParameterPool()->registerParameter("sigma_lattice_length_a", &m_sigma_lattice_length_a);
-    getParameterPool()->registerParameter("roughness", &m_roughness);
+    getParameterPool()->registerParameter("meso_radius",& m_meso_radius);
+    getParameterPool()->registerParameter("surface_filling_ratio",& m_surface_filling_ratio);
+    getParameterPool()->registerParameter("meso_height",& m_meso_height);
+    getParameterPool()->registerParameter("sigma_meso_height",& m_sigma_meso_height);
+    getParameterPool()->registerParameter("sigma_meso_radius",& m_sigma_meso_radius);
+    getParameterPool()->registerParameter("lattice_length_a",& m_lattice_length_a);
+    getParameterPool()->registerParameter("nanoparticle_radius",& m_nanoparticle_radius);
+    getParameterPool()->registerParameter("sigma_nanoparticle_radius",& m_sigma_nanoparticle_radius);
+    getParameterPool()->registerParameter("sigma_lattice_length_a",& m_sigma_lattice_length_a);
+    getParameterPool()->registerParameter("roughness",& m_roughness);
 }
 
 MesoCrystal* TestMesoCrystal1::SampleBuilder::createMesoCrystal(double stacking_radius, complex_t n_particle,

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/inc/INamed.h
-//! @brief     Defines class INamed.
+//! @brief     Defines and implements the standard mix-in INamed.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,14 +18,17 @@
 
 #include <string>
 
-//! Virtual base class for all objects that have a name.
+//! Standard mix-in for all objects that have a name.
 
 class INamed
 {
  public:
-    INamed() : m_name(), m_title() {}
-    INamed(const std::string &name) : m_name(name), m_title() { }
-    INamed(const std::string &name, const std::string &title) : m_name(name), m_title(title) { }
+    INamed()
+        : m_name(), m_title() {}
+    INamed(const std::string& name)
+        : m_name(name), m_title() {}
+    INamed(const std::string& name, const std::string& title)
+        : m_name(name), m_title(title) {}
     virtual ~INamed(){}
 
     void setName(std::string name) { m_name = name; }

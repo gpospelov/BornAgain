@@ -34,7 +34,7 @@ class FormFactorFullSpheroid : public IFormFactorBorn
     virtual double getHeight() const { return m_height; }
 
  protected:
-    virtual complex_t evaluate_for_q(const cvector_t &q) const;
+    virtual complex_t evaluate_for_q(const cvector_t& q) const;
     virtual void init_parameters();
 
  private:

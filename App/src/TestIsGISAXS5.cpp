@@ -266,11 +266,11 @@ TestIsGISAXS5::SampleBuilder::SampleBuilder()
 void TestIsGISAXS5::SampleBuilder::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("particle_radius", &m_particle_radius);
-    getParameterPool()->registerParameter("dispersion_radius", &m_dispersion_radius);
-    getParameterPool()->registerParameter("height_aspect_ratio", &m_height_aspect_ratio);
-    getParameterPool()->registerParameter("interf_distance", &m_interf_distance);
-    getParameterPool()->registerParameter("interf_width", &m_interf_width);
+    getParameterPool()->registerParameter("particle_radius",& m_particle_radius);
+    getParameterPool()->registerParameter("dispersion_radius",& m_dispersion_radius);
+    getParameterPool()->registerParameter("height_aspect_ratio",& m_height_aspect_ratio);
+    getParameterPool()->registerParameter("interf_distance",& m_interf_distance);
+    getParameterPool()->registerParameter("interf_width",& m_interf_width);
 }
 
 ISample *TestIsGISAXS5::SampleBuilder::buildSample() const

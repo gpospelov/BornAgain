@@ -33,9 +33,9 @@ struct Bin1D
 struct Bin1DCVector
 {
     Bin1DCVector() : m_q_lower(), m_q_upper() {}
-    Bin1DCVector(const cvector_t &lower, const cvector_t &upper)
+    Bin1DCVector(const cvector_t& lower, const cvector_t& upper)
         : m_q_lower(lower), m_q_upper(upper) {}
-    Bin1DCVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin);
+    Bin1DCVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin);
     cvector_t getMidPoint() const { return (m_q_lower + m_q_upper)/2.0; }
     cvector_t getDelta() const { return m_q_upper - m_q_lower; }
     cvector_t m_q_lower;  //!< lower bound of the bin
@@ -43,7 +43,7 @@ struct Bin1DCVector
 };
 
 //! equality operator for bins
-inline bool operator==(const Bin1D &left, const Bin1D &right)
+inline bool operator==(const Bin1D& left, const Bin1D& right)
 {
     if (std::abs(left.m_lower - right.m_lower) > Numeric::double_epsilon) return false;
     if (std::abs(left.m_upper - right.m_upper) > Numeric::double_epsilon) return false;
@@ -51,12 +51,12 @@ inline bool operator==(const Bin1D &left, const Bin1D &right)
 }
 
 //! inequality operator for bins
-inline bool operator!=(const Bin1D &left, const Bin1D &right) {
+inline bool operator!=(const Bin1D& left, const Bin1D& right) {
     return !(left==right);
 }
 
 //! creation on Bin1DCVector from alpha and phi bins
-inline Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D &alpha_bin, const Bin1D &phi_bin) : m_q_lower(), m_q_upper()
+inline Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin) : m_q_lower(), m_q_upper()
 {
     m_q_lower.setLambdaAlphaPhi(wavelength, alpha_bin.m_lower, phi_bin.m_lower);
     m_q_upper.setLambdaAlphaPhi(wavelength, alpha_bin.m_upper, phi_bin.m_upper);

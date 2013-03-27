@@ -24,7 +24,7 @@ FormFactorDWBAConstZ::FormFactorDWBAConstZ(
 }
 
 complex_t FormFactorDWBAConstZ::evaluate(
-    const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+    const cvector_t& k_i, const Bin1DCVector& k_f_bin,
     double alpha_i, double alpha_f) const
 {
 	calculateTerms(k_i, k_f_bin, alpha_i, alpha_f);

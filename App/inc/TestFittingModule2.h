@@ -24,9 +24,13 @@
 
 class FitSuite;
 
-//! Test different fitting approaches on 5 parameter sample.
+//! Test different fitting approaches on five-parameter sample.
 
-//! a) sample builder b) chi2 module c) different fit strategies d) mask on data
+//! Approaches are
+//! (a) sample builder
+//! (b) chi2 module
+//! (c) different fit strategies
+//! (d) mask on data
 //!
 class TestFittingModule2 : public IFunctionalTest
 {

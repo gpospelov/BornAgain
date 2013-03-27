@@ -189,9 +189,7 @@ void TestFittingModule2::fit_example_strategies()
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
 
     m_fitSuite->runFit();
-
 }
-
 
 // ----------------------------------------------------------------------------
 // fit example with data masking

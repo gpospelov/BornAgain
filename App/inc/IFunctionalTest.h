@@ -30,8 +30,6 @@ class IFunctionalTest : public INamed
  public:
     IFunctionalTest() : mp_options(0) {}
     IFunctionalTest(const std::string& name) : INamed(name), mp_options(0) {}
-    IFunctionalTest(const std::string& name, const std::string& title)
-        : INamed(name, title), mp_options(0) {}
     virtual ~IFunctionalTest(){}
 
     virtual void initialise(ProgramOptions *p_options)

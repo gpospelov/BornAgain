@@ -1,29 +1,18 @@
 // ************************************************************************** //
 //
-//  heinzlibs:  Library collection of the Scientific Computing Group at
-//              Heinz Maier-Leibnitz Zentrum (MLZ) Garching
+//  BornAgain: simulate and fit scattering at grazing incidence
 //
-//  libgeo3d:   Library for three-dimensional Euclidian geometry,
-//              based on CLHEP/Geometry 1.9 of 1.4.2003,
-//              forked after v 1.5 2010/06/16 16:21:27,
-//
-//! @file       Geometry/inc/BasicVector3D.h
-//! @brief      defines class BasicVector<T> for T=double,complex,
-//!               and implements most functions
+//! @file       Geometry/inc/Transform3D.h
+//! @brief      Defines class Transform3D.
+//!
+//!             Forked from CLHEP/Geometry, then heavily modified
+//! @author     E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //!
-//! Changes w.r.t. CLHEP:
-//! - eliminated distinction vector/normal/point
-//! - eliminated support for type float
-//! - added support for types int and complex<double>
-//! - merged method implementations into templated ones
-//! - added some new methods
-//! - reworked doxygen comments
 //
 // ************************************************************************** //
 
@@ -181,13 +170,13 @@ template<class T> class BasicVector3D {
     // ---------
 
     //! Rotates around x-axis.
-    BasicVector3D<T>& rotateX(T a);
+    BasicVector3D<T>& rotateX(double a);
     //! Rotates around y-axis.
-    BasicVector3D<T>& rotateY(T a);
+    BasicVector3D<T>& rotateY(double a);
     //! Rotates around z-axis.
-    BasicVector3D<T>& rotateZ(T a);
+    BasicVector3D<T>& rotateZ(double a);
     //! Rotates around the axis specified by another vector.
-    BasicVector3D<T>& rotate(T a, const BasicVector3D<T>& v);
+    BasicVector3D<T>& rotate(double a, const BasicVector3D<T>& v);
 
     // ---------------
     // Related vectors
@@ -308,7 +297,7 @@ operator-(const BasicVector3D<T>& a,const BasicVector3D<T>& b)
 //! @relates BasicVector3D
 //! We do not provide the operator form a*b:
 //! Though nice to write, and in some cases perfectly justified,
-//! in general it tends makes expressions more difficult to use.
+//! in general it tends to make expressions more difficult to read.
 template <class T>
 inline T
 dotProduct(const BasicVector3D<T>& a, const BasicVector3D<T>& b)

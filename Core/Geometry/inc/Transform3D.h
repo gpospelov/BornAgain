@@ -1,25 +1,18 @@
 // ************************************************************************** //
 //
-//  heinzlibs:  Library collection of the Scientific Computing Group at
-//              Heinz Maier-Leibnitz Zentrum (MLZ) Garching
-//
-//  libgeo3d:   Library for three-dimensional Euclidian geometry,
-//              based on CLHEP/Geometry 1.9 of 1.4.2003,
-//              forked after v 1.5 2010/06/16 16:21:27,
+//  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file       Geometry/inc/Transform3D.h
 //! @brief      Defines class Transform3D.
 //!
+//!             Forked from CLHEP/Geometry, then heavily modified
+//! @author     E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
+//!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //!
-//! Changes w.r.t. CLHEP:
-//! - eliminated distinction vector/normal/point
-//! - eliminated unused transforms
-//! - reworked doxygen comments
 //
 // ************************************************************************** //
 
@@ -43,16 +36,6 @@ namespace Geometry {
 //! Uses a 3x3 double-precision transform matrix to store rotations
 //! (and potentially rescalings and inversions).
 //!
-//! Identity transformation:
-//!   Transform3D::Identity   - global identity transformation;
-//!   any constructor without parameters, e.g. Transform3D();
-//!   m.setIdentity()            - set "m" to identity;
-//!
-//! General transformations:
-//!   Transform3D(m,v)         - transformation given by Rotation "m"
-//!                              and CLHEP::Hep3Vector "v";
-//!   Transform3D(a0,a1,a2, b0,b1,b2) - transformation given by initial
-//!                               and transformed positions of three points;
 //! Rotations:
 //!   Rotate3D(m)              - rotation given by CLHEP::HepRotation "m";
 //!   Rotate3D(ang,v)          - rotation through the angle "ang" around
@@ -66,24 +49,6 @@ namespace Geometry {
 //!
 //! Inverse transformation:
 //!   m.inverse() or           - returns inverse transformation;
-//!
-//! Compound transformation:
-//!   m3 = m2 * m1             - it is relatively slow in comparison with
-//!                              transformation of a vector. Use parenthesis
-//!                              to avoid this operation (see example below);
-//!
-//! Several specialized classes are derived from it:
-//!
-//! RotateX3D,    RotateY3D,    RotateZ3D,    Rotate3D.
-//!
-//! The idea behind these classes is to provide some additional constructors
-//! for Transform3D, they normally should not be used as separate classes.
-//!
-//! Example:
-//! @code
-//!   Transform3D m;
-//!   m = TranslateX3D(10.*cm);
-//! @endcode
 //!
 //! @author <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //!

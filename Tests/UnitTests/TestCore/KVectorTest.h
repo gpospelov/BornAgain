@@ -8,18 +8,9 @@
 class KVectorTest : public ::testing::Test
 {
  protected:
-    KVectorTest();
-    virtual ~KVectorTest();
+    KVectorTest() {}
+    virtual ~KVectorTest() {}
 };
-
-
-KVectorTest::KVectorTest()
-{
-}
-
-KVectorTest::~KVectorTest()
-{
-}
 
 TEST_F(KVectorTest, BasicMethods)
 {
@@ -39,13 +30,12 @@ TEST_F(KVectorTest, BasicMethods)
     EXPECT_DOUBLE_EQ( v3.magxy2(), v3.magxy()*v3.magxy());
     EXPECT_DOUBLE_EQ( v3.magxy(), std::sqrt(1*1+2*2) );
     EXPECT_DOUBLE_EQ( v3.mag(), std::sqrt(1*1+2*2+3*3) );
-
 }
 
 
 TEST_F(KVectorTest, BasicArithmetics)
 {
-    // assignment, self assignment, copy construciton
+    // assignment, self assignment, copy constructor
     kvector_t v1;
     kvector_t v2(v1);
     EXPECT_EQ( double(0), v2.x()); EXPECT_EQ( double(0), v2.y()); EXPECT_EQ( double(0), v2.z());
@@ -110,7 +100,6 @@ TEST_F(KVectorTest, BasicArithmetics)
     a.setXYZ(1.,2.,3.);
     EXPECT_TRUE( a == kvector_t(1., 2., 3.) );
     EXPECT_TRUE( a != kvector_t(1., 1., 3.) );
-
 }
 
 
@@ -158,20 +147,20 @@ TEST_F(KVectorTest, BasicTransformation)
     ASSERT_NEAR( b3.y(), 1.0, epsilon );
     EXPECT_DOUBLE_EQ( b3.z(), 2.0 );
 
-    // rotagtion around vector
+    // rotation around vector
     kvector_t c(1, 1, std::sqrt(2));
-    Geometry::Transform3D m4 = Geometry::Rotate3D(M_PI, kvector_t(-1, -1, std::sqrt(2)));
+    Geometry::Transform3D m4 =
+        Geometry::Rotate3D(M_PI, kvector_t(-1, -1, std::sqrt(2)));
     c.transform(m4);
     ASSERT_NEAR( c.x(), -1, epsilon );
     ASSERT_NEAR( c.y(), -1, epsilon );
     ASSERT_NEAR( c.z(), -std::sqrt(2), epsilon );
-    // returning it back
+    // return it back
     Geometry::Transform3D m4_inverse = m4.inverse();
     c.transform((m4_inverse));
     ASSERT_NEAR( c.x(), 1, epsilon );
     ASSERT_NEAR( c.y(), 1, epsilon );
     ASSERT_NEAR( c.z(), std::sqrt(2), epsilon );
-
 }
 
 #endif // KVECTORTEST_H

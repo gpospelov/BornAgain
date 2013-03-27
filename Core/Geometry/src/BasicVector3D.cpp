@@ -1,26 +1,18 @@
 // ************************************************************************** //
 //
-//  heinzlibs:  Library collection of the Scientific Computing Group at
-//              Heinz Maier-Leibnitz Zentrum (MLZ) Garching
+//  BornAgain: simulate and fit scattering at grazing incidence
 //
-//  libgeo3d:   Library for three-dimensional Euclidian geometry,
-//              based on CLHEP/Geometry 1.9 of 1.4.2003,
-//              forked after v 1.5 2010/06/16 16:21:27,
-//
-//! @file       Geometry/src/BasicVector3D.cpp
-//! @brief      implements some methods of BasicVector3D<T> for T=double,complex
+//! @file       Geometry/inc/Transform3D.h
+//! @brief      Defines class Transform3D.
+//!
+//!             Forked from CLHEP/Geometry, then heavily modified
+//! @author     E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //!
-//! Changes w.r.t. CLHEP:
-//! - eliminated support for type float
-//! - eliminated support for istream
-//! - added support for type complex<double> (but certain methods make no sense)
-//! - reworked doxygen comments
 //
 // ************************************************************************** //
 
@@ -179,34 +171,37 @@ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const
 // Rotations
 // ----------------------------------------------------------------------------
 
-template<>
-BasicVector3D<double>& BasicVector3D<double>::rotateX (double a)
+template<class T>
+BasicVector3D<T>& BasicVector3D<T>::rotateX (double a)
 {
     double sina = std::sin(a);
     double cosa = std::cos(a);
-    setY(y()*cosa-z()*sina);
-    setZ(z()*cosa+y()*sina);
-    return *this;
+    return BasicVector3D(
+        x(),
+        setY(y()*cosa-z()*sina),
+        setZ(z()*cosa+y()*sina));
 }
 
-template<>
-BasicVector3D<double>& BasicVector3D<double>::rotateY (double a)
+template<class T>
+BasicVector3D<T>& BasicVector3D<T>::rotateY (double a)
 {
     double sina = std::sin(a);
     double cosa = std::cos(a);
-    setZ(z()*cosa-x()*sina);
-    setX(x()*cosa+z()*sina);
-    return *this;
+    return BasicVector3D(
+        setX(x()*cosa+z()*sina),
+        y(),
+        setZ(z()*cosa-x()*sina));
 }
 
-template<>
-BasicVector3D<double>& BasicVector3D<double>::rotateZ (double a)
+template<class T>
+BasicVector3D<T>& BasicVector3D<T>::rotateZ (double a)
 {
     double sina = std::sin(a);
     double cosa = std::cos(a);
-    setX(x()*cosa-y()*sina);
-    setY(y()*cosa+x()*sina);
-    return *this;
+    return BasicVector3D(
+        setX(x()*cosa-y()*sina),
+        setY(y()*cosa+x()*sina),
+        z());
 }
 
 template<>

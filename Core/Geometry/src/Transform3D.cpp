@@ -1,24 +1,18 @@
 // ************************************************************************** //
 //
-//  heinzlibs:  Library collection of the Scientific Computing Group at
-//              Heinz Maier-Leibnitz Zentrum (MLZ) Garching
+//  BornAgain: simulate and fit scattering at grazing incidence
 //
-//  libgeo3d:   Library for three-dimensional Euclidian geometry,
-//              based on CLHEP/Geometry 1.9 of 1.4.2003,
-//              forked after v 1.6 2003/10/24 21:39:45
-//
-//! @file       Geometry/src/Transform3D.cpp
-//! @brief      Implements core methods of class Transform3D.
+//! @file       Geometry/inc/Transform3D.h
+//! @brief      Defines class Transform3D.
+//!
+//!             Forked from CLHEP/Geometry, then heavily modified
+//! @author     E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //!
-//! Changes w.r.t. CLHEP:
-//! - eliminated support for type float
-//! - reworked doxygen comments
 //
 // ************************************************************************** //
 

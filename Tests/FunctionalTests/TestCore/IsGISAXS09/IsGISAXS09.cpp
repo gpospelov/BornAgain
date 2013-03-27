@@ -10,7 +10,7 @@
 #include "Units.h"
 #include "MaterialManager.h"
 #include "OutputDataIOFactory.h"
-#include "Transform3D.h"
+#include "Rotate3D.h"
 #include "Utils.h"
 #include "InterferenceFunction1DParaCrystal.h"
 
@@ -21,7 +21,8 @@
 FunctionalTests::IsGISAXS09::IsGISAXS09()
     : m_name("IsGISAXS09")
     , m_description("Pyramids on top of substrate - Rotated pyramids on top of substrate")
-    , m_path(Utils::FileSystem::GetHomePath()+"Tests/FunctionalTests/TestCore/IsGISAXS09/")
+    , m_path(Utils::FileSystem::GetHomePath()+
+             "Tests/FunctionalTests/TestCore/IsGISAXS09/")
 {
     m_results.resize(kNumberOfTests, 0);
 }
@@ -29,7 +30,8 @@ FunctionalTests::IsGISAXS09::IsGISAXS09()
 
 FunctionalTests::IsGISAXS09::~IsGISAXS09()
 {
-    for(results_t::iterator it = m_results.begin(); it!=m_results.end(); ++it) delete (*it);
+    for(results_t::iterator it = m_results.begin(); it!=m_results.end(); ++it)
+        delete (*it);
 }
 
 
@@ -103,16 +105,17 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
 
     particle_decoration.addParticle(pyramid, transform);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    //InterferenceFunction1DParaCrystal *interference = new InterferenceFunction1DParaCrystal(20*Units::nanometer, 7*Units::nanometer, 1e7*Units::nanometer);
-    //particle_decoration.addInterferenceFunction(interference);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     multi_layer.addLayer(air_layer_decorator);
     multi_layer.addLayer(substrate_layer);
 
     // building simulation
     Simulation simulation;
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setDetectorParameters(
+        100, 0.0*Units::degree, 2.0*Units::degree,
+        100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(
+        1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
     simulation.setSample(multi_layer);
 
     // running simulation
@@ -124,19 +127,24 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
 int FunctionalTests::IsGISAXS09::analyseResults()
 {
     const double threshold(1e-10);
-    const char *reference_files[kNumberOfTests] = {"isgisaxs09_reference_pyramid_Z0.ima.gz", "isgisaxs09_reference_pyramid_Z45.ima.gz"};
+    const char *reference_files[kNumberOfTests] =
+        {"isgisaxs09_reference_pyramid_Z0.ima.gz",
+         "isgisaxs09_reference_pyramid_Z45.ima.gz"};
     bool status_ok(true);
 
     // retrieving reference data and generated examples
     for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
-        OutputData<double> *reference = OutputDataIOFactory::getOutputData(m_path + reference_files[i_test]);
+        OutputData<double> *reference =
+            OutputDataIOFactory::getOutputData(m_path +
+                                               reference_files[i_test]);
         OutputData<double> *result = m_results[i_test];
 
         // calculating average relative difference
         *result -= *reference;
         *result /= *reference;
         double diff(0);
-        for(OutputData<double>::const_iterator it=result->begin(); it!=result->end(); ++it) {
+        for(OutputData<double>::const_iterator it =
+                result->begin(); it!=result->end(); ++it) {
             diff+= std::fabs(*it);
         }
         diff /= result->getAllocatedSize();
@@ -144,7 +152,8 @@ int FunctionalTests::IsGISAXS09::analyseResults()
         delete reference;
     }
 
-    std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
+    std::cout << m_name << " " << m_description << " " <<
+        (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (int)status_ok;
 }
 

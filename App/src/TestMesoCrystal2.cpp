@@ -39,8 +39,8 @@
 #include "ProgramOptions.h"
 #include "ResolutionFunction2DSimple.h"
 #include "SampleFactory.h"
+#include "Rotate3D.h"
 #include "TRange.h"
-#include "Types.h"
 #include "Units.h"
 #include "Utils.h"
 
@@ -562,9 +562,12 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-7.57e-6, 1.73e-7);
 
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_average_layer_material = MaterialManager::getHomogeneousMaterial("Averagelayer", n_avg);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material =
+        MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_average_layer_material =
+        MaterialManager::getHomogeneousMaterial("Averagelayer", n_avg);
+    const IMaterial *p_substrate_material =
+        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer avg_layer;
@@ -572,7 +575,8 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
     avg_layer.setThickness(m_meso_height);
     Layer substrate_layer;
     substrate_layer.setMaterial(p_substrate_material);
-    IInterferenceFunction *p_interference_funtion = new InterferenceFunctionNone();
+    IInterferenceFunction *p_interference_funtion =
+        new InterferenceFunctionNone();
     ParticleDecoration particle_decoration;
     size_t n_max_phi_rotation_steps = 180;
     size_t n_alpha_rotation_steps = 1;
@@ -584,9 +588,10 @@ ISample* TestMesoCrystal2::SampleBuilder::buildSample() const
     double phi_start = 0.0;
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {
-            Geometry::RotateZ3D transform1(phi_start + (double)i*phi_step);
-            Geometry::RotateY3D transform2(alpha_start + j*alpha_step);
-            Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1);
+            Geometry::RotateZ_3D transform1(phi_start + (double)i*phi_step);
+            Geometry::RotateY_3D transform2(alpha_start + j*alpha_step);
+            Geometry::ITransform3D *p_total_transform =
+                new Geometry::ITransform3D(transform1);
 //            particle_decoration.addParticle(createMesoCrystal(m_lattice_length_a,
 //                    n_particle_adapted,& ff_meso), p_total_transform, m_meso_height);
             particle_decoration.addParticle(createMesoCrystal(m_lattice_length_a, m_lattice_length_c,

@@ -28,6 +28,7 @@
 #include "MesoCrystal.h"
 #include "InterferenceFunctions.h"
 #include "StochasticGaussian.h"
+#include "Rotate3D.h"
 
 #include "Numeric.h"
 #include "MathFunctions.h"
@@ -810,7 +811,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
     kvector_t pos2(5.0*Units::nanometer,
                    5.0*Units::nanometer,
                    0.0);
-    Geometry::RotateZ3D *p_rot2 = new Geometry::RotateZ3D(10*Units::degree);
+    Geometry::RotateZ_3D *p_rot2 = new Geometry::RotateZ_3D(10*Units::degree);
     PositionParticleInfo particle_info2
         (new Particle(n_particle, ff2), p_rot2, pos2, 0.5);
     particle_decoration.addParticleInfo(particle_info2);
@@ -821,7 +822,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
     kvector_t pos3(-5.0*Units::nanometer,
                    -5.0*Units::nanometer,
                    0.0);
-    Geometry::RotateZ3D *p_rot3 = new Geometry::RotateZ3D(20*Units::degree);
+    Geometry::RotateZ_3D *p_rot3 = new Geometry::RotateZ_3D(20*Units::degree);
     PositionParticleInfo particle_info3
         (new Particle(n_particle, ff3), p_rot3, pos3, 0.5);
     particle_decoration.addParticleInfo(particle_info3);
@@ -832,7 +833,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
     kvector_t pos4(5.0*Units::nanometer,
                    -5.0*Units::nanometer,
                    0.0);
-    Geometry::RotateZ3D *p_rot4 = new Geometry::RotateZ3D(30*Units::degree);
+    Geometry::RotateZ_3D *p_rot4 = new Geometry::RotateZ_3D(30*Units::degree);
     PositionParticleInfo particle_info4
         (new Particle(n_particle, ff4), p_rot4, pos4, 0.5);
     particle_decoration.addParticleInfo(particle_info4);
@@ -843,7 +844,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
     kvector_t pos5(-5.0*Units::nanometer,
                    5.0*Units::nanometer,
                    0.0);
-    Geometry::RotateZ3D *p_rot5 = new Geometry::RotateZ3D(40*Units::degree);
+    Geometry::RotateZ_3D *p_rot5 = new Geometry::RotateZ_3D(40*Units::degree);
     PositionParticleInfo particle_info5
         (new Particle(n_particle, ff5), p_rot5, pos5, 0.5);
     particle_decoration.addParticleInfo(particle_info5);
@@ -854,7 +855,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
     kvector_t pos6(0.0*Units::nanometer,
                    0.0*Units::nanometer,
                    0.0);
-    Geometry::RotateZ3D *p_rot6 = new Geometry::RotateZ3D(50*Units::degree);
+    Geometry::RotateZ_3D *p_rot6 = new Geometry::RotateZ_3D(50*Units::degree);
     PositionParticleInfo particle_info6
         (new Particle(n_particle, ff6), p_rot6, pos6, 0.5);
     particle_decoration.addParticleInfo(particle_info6);
@@ -863,7 +864,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
                       2.0*Units::nanometer,
                       1.0*Units::nanometer);
     kvector_t pos7(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D *p_rot7 = new Geometry::RotateZ3D(60*Units::degree);
+    Geometry::RotateZ_3D *p_rot7 = new Geometry::RotateZ_3D(60*Units::degree);
     PositionParticleInfo particle_info7
         (new Particle(n_particle, ff7), p_rot7, pos7, 0.5);
     particle_decoration.addParticleInfo(particle_info7);
@@ -872,7 +873,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
                       3.0*Units::nanometer,
                       1.0*Units::nanometer);
     kvector_t pos8(-5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D *p_rot8 = new Geometry::RotateZ3D(70*Units::degree);
+    Geometry::RotateZ_3D *p_rot8 = new Geometry::RotateZ_3D(70*Units::degree);
     PositionParticleInfo particle_info8
         (new Particle(n_particle, ff8), p_rot8, pos8, 0.5);
     particle_decoration.addParticleInfo(particle_info8);
@@ -881,7 +882,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
                       4.0*Units::nanometer,
                       1.0*Units::nanometer);
     kvector_t pos9(5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D *p_rot9 = new Geometry::RotateZ3D(80*Units::degree);
+    Geometry::RotateZ_3D *p_rot9 = new Geometry::RotateZ_3D(80*Units::degree);
     PositionParticleInfo particle_info9
         (new Particle(n_particle, ff9), p_rot9, pos9, 0.5);
     particle_decoration.addParticleInfo(particle_info9);
@@ -890,7 +891,7 @@ ISample *StandardSamples::IsGISAXS7_morphology()
                        5.0*Units::nanometer,
                        1.0*Units::nanometer);
     kvector_t pos10(-5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D *p_rot10 = new Geometry::RotateZ3D(90*Units::degree);
+    Geometry::RotateZ_3D *p_rot10 = new Geometry::RotateZ_3D(90*Units::degree);
     PositionParticleInfo particle_info10
         (new Particle(n_particle, ff10), p_rot10, pos10, 0.5);
     particle_decoration.addParticleInfo(particle_info10);
@@ -1020,7 +1021,8 @@ ISample *StandardSamples::IsGISAXS9_RotatedPyramid()
                                            5*Units::nanometer,
                                            Units::deg2rad(54.73)) );
 
-    Geometry::Transform3D *transform = new Geometry::RotateZ3D(angle_around_z);
+    Geometry::ITransform3D *transform =
+        new Geometry::RotateZ_3D(angle_around_z);
 
     ParticleDecoration particle_decoration;
 

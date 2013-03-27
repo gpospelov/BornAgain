@@ -2,7 +2,7 @@
 #define KVECTORTEST_H
 
 #include "Types.h"
-#include "Transform3D.h"
+#include "Rotate3D.h"
 
 
 class KVectorTest : public ::testing::Test
@@ -106,7 +106,7 @@ TEST_F(KVectorTest, BasicArithmetics)
 TEST_F(KVectorTest, BasicTransformation)
 {
     const double epsilon=1e-12;
-    kvector_t a,v;
+    kvector_t a, v;
 
     // rotation via transformation
 /* currently neither implemented, nor needed
@@ -116,14 +116,14 @@ TEST_F(KVectorTest, BasicTransformation)
     EXPECT_DOUBLE_EQ( v.x(), 2.0);
     ASSERT_NEAR(      v.y(), 0.0, epsilon);
     ASSERT_NEAR(      v.z(), 1.0, epsilon );
+*/
 
     a = kvector_t(std::sqrt(3.)/2., 2., 0.5);
-    Geometry::Transform3D m2 = Geometry::RotateY3D(M_PI/6.);
+    Geometry::ITransform3D m2 = Geometry::RotateY_3D(M_PI/6.);
     v = m2.transformed(a);
     ASSERT_NEAR(      v.x(), 1.0, epsilon );
     EXPECT_DOUBLE_EQ( v.y(), 2.0 );
     ASSERT_NEAR(      v.z(), 0.0, epsilon );
-*/
 
     a = kvector_t(0.5, std::sqrt(3.)/2., 2.);
     Geometry::ITransform3D m3 = Geometry::RotateZ_3D(M_PI/6.);
@@ -131,7 +131,7 @@ TEST_F(KVectorTest, BasicTransformation)
     ASSERT_NEAR(      v.x(), 0.0, epsilon );
     ASSERT_NEAR(      v.y(), 1.0, epsilon );
     EXPECT_DOUBLE_EQ( v.z(), 2.0 );
-    Geometry::Transform3D m4_inverse = m4.inverse();
+    Geometry::ITransform3D m4_inverse = m3.inverse();
     v = m4_inverse.transformed(v);
     ASSERT_NEAR( v.x(), a.x(), epsilon );
     ASSERT_NEAR( v.y(), a.y(), epsilon );

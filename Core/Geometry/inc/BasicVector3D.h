@@ -168,13 +168,13 @@ class BasicVector3D {
     // ---------
 
     //! Returns result of rotation around x-axis.
-    BasicVector3D<T> rotatedX(double a);
+    BasicVector3D<T> rotatedX(double a) const;
     //! Returns result of rotation around y-axis.
-    BasicVector3D<T> rotatedY(double a);
+    BasicVector3D<T> rotatedY(double a) const;
     //! Returns result of rotation around z-axis.
-    BasicVector3D<T> rotatedZ(double a);
+    BasicVector3D<T> rotatedZ(double a) const;
     //! Returns result of rotation around the axis specified by another vector.
-    BasicVector3D<T> rotated(double a, const BasicVector3D<T>& v);
+    BasicVector3D<T> rotated(double a, const BasicVector3D<T>& v) const;
 
     // ---------------
     // Related vectors
@@ -210,7 +210,7 @@ class BasicVector3D {
 
     //! Sets wave vector for given wavelength and angles/
     inline void setLambdaAlphaPhi(
-        const T&_lambda, const T&_alpha, const T&_phi)
+        const T& _lambda, const T& _alpha, const T& _phi)
         {
             T k = 2*M_PI/_lambda;
             v_[0] = k*std::cos(_alpha) * std::cos(_phi);
@@ -218,8 +218,8 @@ class BasicVector3D {
             v_[2] = k*std::sin(_alpha);
         }
 
-    //! Transformation by Transform3D.
-    BasicVector3D<T>& transform(const Transform3D&m);
+    //! Return transformed (typically: rotated) vector.
+    BasicVector3D<T> transformed(const Transform3D& m) const;
 };
 
 // =========================================================================

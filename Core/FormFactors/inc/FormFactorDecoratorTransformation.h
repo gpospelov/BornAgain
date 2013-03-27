@@ -72,12 +72,12 @@ inline complex_t FormFactorDecoratorTransformation::evaluate(
     const cvector_t& k_i, const Bin1DCVector& k_f_bin,
     double alpha_i, double alpha_f) const
 {
-    cvector_t new_ki(k_i);
-    cvector_t new_kf_lower(k_f_bin.m_q_lower);
-    cvector_t new_kf_upper(k_f_bin.m_q_upper);
-    new_ki.transform(*mp_inverse_transform);
-    new_kf_lower.transform(*mp_inverse_transform);
-    new_kf_upper.transform(*mp_inverse_transform);
+    cvector_t new_ki =
+        k_i.transformed(*mp_inverse_transform);
+    cvector_t new_kf_lower =
+        k_f_bin.m_q_lower.transformed(*mp_inverse_transform);
+    cvector_t new_kf_upper =
+        k_f_bin.m_q_upper.transformed(*mp_inverse_transform);
     Bin1DCVector new_kf_bin(new_kf_lower, new_kf_upper);
     return mp_form_factor->evaluate(new_ki, new_kf_bin, alpha_i, alpha_f);
 }

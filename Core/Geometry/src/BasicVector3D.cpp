@@ -161,7 +161,7 @@ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const
 // ----------------------------------------------------------------------------
 
 template<>
-BasicVector3D<double> BasicVector3D<double>::rotatedX(double a)
+BasicVector3D<double> BasicVector3D<double>::rotatedX(double a) const
 {
     double sina = std::sin(a);
     double cosa = std::cos(a);
@@ -171,7 +171,7 @@ BasicVector3D<double> BasicVector3D<double>::rotatedX(double a)
 }
 
 template<>
-BasicVector3D<double> BasicVector3D<double>::rotatedY(double a)
+BasicVector3D<double> BasicVector3D<double>::rotatedY(double a) const
 {
     double sina = std::sin(a);
     double cosa = std::cos(a);
@@ -181,7 +181,7 @@ BasicVector3D<double> BasicVector3D<double>::rotatedY(double a)
 }
 
 template<>
-BasicVector3D<double> BasicVector3D<double>::rotatedZ(double a)
+BasicVector3D<double> BasicVector3D<double>::rotatedZ(double a) const
 {
     double sina = std::sin(a);
     double cosa = std::cos(a);
@@ -192,7 +192,7 @@ BasicVector3D<double> BasicVector3D<double>::rotatedZ(double a)
 
 template<>
 BasicVector3D<double> BasicVector3D<double>::rotated(
-        double a, const BasicVector3D<double>& v)
+        double a, const BasicVector3D<double>& v) const
 {
     if (a  == 0) return *this;
     double cx = v.x(), cy = v.y(), cz = v.z();
@@ -230,21 +230,21 @@ BasicVector3D<double> BasicVector3D<double>::rotated(
 // -----------------------------------------------------------------------------
 
 template<>
-BasicVector3D<double>& BasicVector3D<double>::transform(const Transform3D& m)
+BasicVector3D<double> BasicVector3D<double>::transformed(
+    const Transform3D& m) const
 {
-    setXYZ(m.xx()*x() + m.xy()*y() + m.xz()*z(),
-           m.yx()*x() + m.yy()*y() + m.yz()*z(),
-           m.zx()*x() + m.zy()*y() + m.zz()*z());
-    return *this;
+    return BasicVector3D(m.xx()*x() + m.xy()*y() + m.xz()*z(),
+                         m.yx()*x() + m.yy()*y() + m.yz()*z(),
+                         m.zx()*x() + m.zy()*y() + m.zz()*z());
 }
 
 template<>
-BasicVector3D<complex_t>& BasicVector3D<complex_t>::transform(const Transform3D& m)
+BasicVector3D<complex_t> BasicVector3D<complex_t>::transformed(
+    const Transform3D& m) const
 {
-    setXYZ(m.xx()*x() + m.xy()*y() + m.xz()*z(),
-           m.yx()*x() + m.yy()*y() + m.yz()*z(),
-           m.zx()*x() + m.zy()*y() + m.zz()*z());
-    return *this;
+    return BasicVector3D(m.xx()*x() + m.xy()*y() + m.xz()*z(),
+                         m.yx()*x() + m.yy()*y() + m.yz()*z(),
+                         m.zx()*x() + m.zy()*y() + m.zz()*z());
 }
 
 }  // namespace Geometry

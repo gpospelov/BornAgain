@@ -120,17 +120,6 @@ complex_t BasicVector3D<complex_t>::cosTheta() const
     return std::abs(ma) == 0 ? 1 : z()/ma;
 }
 
-//! Scale to given magnitude.
-template<class T>
-void BasicVector3D<T>::setMag(double ma)
-{
-    double factor = mag();
-    if (factor > 0.0) {
-        factor = ma/factor;
-        v_[0] *= factor; v_[1] *= factor; v_[2] *= factor;
-    }
-}
-
 // -----------------------------------------------------------------------------
 // Combine two vectors
 // -----------------------------------------------------------------------------
@@ -171,41 +160,38 @@ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const
 // Rotations
 // ----------------------------------------------------------------------------
 
-template<class T>
-BasicVector3D<T>& BasicVector3D<T>::rotateX (double a)
+template<>
+BasicVector3D<double> BasicVector3D<double>::rotatedX(double a)
 {
     double sina = std::sin(a);
     double cosa = std::cos(a);
-    return BasicVector3D(
-        x(),
-        setY(y()*cosa-z()*sina),
-        setZ(z()*cosa+y()*sina));
-}
-
-template<class T>
-BasicVector3D<T>& BasicVector3D<T>::rotateY (double a)
-{
-    double sina = std::sin(a);
-    double cosa = std::cos(a);
-    return BasicVector3D(
-        setX(x()*cosa+z()*sina),
-        y(),
-        setZ(z()*cosa-x()*sina));
-}
-
-template<class T>
-BasicVector3D<T>& BasicVector3D<T>::rotateZ (double a)
-{
-    double sina = std::sin(a);
-    double cosa = std::cos(a);
-    return BasicVector3D(
-        setX(x()*cosa-y()*sina),
-        setY(y()*cosa+x()*sina),
-        z());
+    return BasicVector3D<double>( x(),
+                                  y()*cosa-z()*sina,
+                                  z()*cosa+y()*sina );
 }
 
 template<>
-BasicVector3D<double>& BasicVector3D<double>::rotate (
+BasicVector3D<double> BasicVector3D<double>::rotatedY(double a)
+{
+    double sina = std::sin(a);
+    double cosa = std::cos(a);
+    return BasicVector3D<double>( x()*cosa+z()*sina,
+                                  y(),
+                                  z()*cosa-x()*sina );
+}
+
+template<>
+BasicVector3D<double> BasicVector3D<double>::rotatedZ(double a)
+{
+    double sina = std::sin(a);
+    double cosa = std::cos(a);
+    return BasicVector3D( x()*cosa-y()*sina,
+                          y()*cosa+x()*sina,
+                          z() );
+}
+
+template<>
+BasicVector3D<double> BasicVector3D<double>::rotated(
         double a, const BasicVector3D<double>& v)
 {
     if (a  == 0) return *this;
@@ -230,10 +216,9 @@ BasicVector3D<double>& BasicVector3D<double>::rotate (
     double zy = (1-cosa)*cz*cy + sina*cx;
     double zz = (1-cosa)*cz*cz + cosa;
 
-    setXYZ(xx*x()+xy*y()+xz*z(),
-           yx*x()+yy*y()+yz*z(),
-           zx*x()+zy*y()+zz*z());
-    return *this;
+    return BasicVector3D( xx*x()+xy*y()+xz*z(),
+                          yx*x()+yy*y()+yz*z(),
+                          zx*x()+zy*y()+zz*z() );
 }
 
 // =============================================================================

@@ -33,7 +33,8 @@ class Transform3D;
 //!
 //! @author Evgeni Chernyaev 1996-2003
 //!
-template<class T> class BasicVector3D {
+template<class T>
+class BasicVector3D {
  protected:
     T v_[3];
     
@@ -44,7 +45,7 @@ template<class T> class BasicVector3D {
     { v_[0] = 0.0; v_[1] = 0.0; v_[2] = 0.0; }
 
     //! Constructor from three numbers.
-    BasicVector3D(const T&x1, const T&y1, const T&z1)
+    BasicVector3D(const T x1, const T y1, const T z1)
     { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     //! Destructor.
@@ -135,9 +136,6 @@ template<class T> class BasicVector3D {
     //! Returns cosine of polar angle.
     T cosTheta() const; //!< @TODO: return type always double
 
-    //! Scale to given magnitude.
-    void setMag(double ma);
-
     // -------------------
     // Combine two vectors
     // -------------------
@@ -169,14 +167,14 @@ template<class T> class BasicVector3D {
     // Rotations
     // ---------
 
-    //! Rotates around x-axis.
-    BasicVector3D<T>& rotateX(double a);
-    //! Rotates around y-axis.
-    BasicVector3D<T>& rotateY(double a);
-    //! Rotates around z-axis.
-    BasicVector3D<T>& rotateZ(double a);
-    //! Rotates around the axis specified by another vector.
-    BasicVector3D<T>& rotate(double a, const BasicVector3D<T>& v);
+    //! Returns result of rotation around x-axis.
+    BasicVector3D<T> rotatedX(double a);
+    //! Returns result of rotation around y-axis.
+    BasicVector3D<T> rotatedY(double a);
+    //! Returns result of rotation around z-axis.
+    BasicVector3D<T> rotatedZ(double a);
+    //! Returns result of rotation around the axis specified by another vector.
+    BasicVector3D<T> rotated(double a, const BasicVector3D<T>& v);
 
     // ---------------
     // Related vectors

@@ -20,30 +20,25 @@
 #include "CoreOptionsDescription.h"
 #include "Version.h"
 #include "MessageService.h"
+#include "Utils.h"
 
 #include <iostream>
 #include <string>
 #include "TROOT.h"
 #include "TApplication.h"
 
-#ifdef DEBUG_FPE
-#include <fenv.h>
-#ifdef Q_OS_MAC
-#include "fp_exception_glibc_extension.h"
-#endif
-#endif
-
 //! Universal test program.
 
 int main(int argc, char **argv)
 {
-#ifdef DEBUG_FPE
-    std::cout << "main() -> Enabling floating point exception debugging"
-              << std::endl;
-    feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
-#endif
+    Utils::EnableFloatingPointExceptions();
+
     std::cout << AppVersion::g_app_name << " "
               << AppVersion::g_app_version_number << std::endl;
+
+    double x = 1.0;
+    double y = 0.0;
+    double z = x/y;
 
     ProgramOptions command_line_options;
     AddApplicationOptions(&command_line_options);

@@ -143,7 +143,7 @@ HEADERS += \
     inc/TestRoughness.h \
     inc/TestToySimulation.h \
     inc/TreeEventStructure.h \
-    inc/Version.h
+    inc/Version.h \
 
 
 LOCATIONS = $$PWD/inc \
@@ -165,12 +165,12 @@ DEPENDPATH  += $${LOCATIONS}
 # -----------------------------------------------------------------------------
 # to throw exception in the case floating point exception
 # -----------------------------------------------------------------------------
-CONFIG(DEBUG) {
-    QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
-    # mac requires his own patched version of fp_exceptions
-    macx:HEADERS += inc/fp_exception_glibc_extension.h
-    macx:SOURCES += src/fp_exception_glibc_extension.c
-}
+#CONFIG(DEBUG) {
+#    QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
+#    # mac requires his own patched version of fp_exceptions
+#    macx:HEADERS += inc/fp_exception_glibc_extension.h
+#    macx:SOURCES += src/fp_exception_glibc_extension.c
+#}
 
 # -----------------------------------------------------------------------------
 # additional libraries

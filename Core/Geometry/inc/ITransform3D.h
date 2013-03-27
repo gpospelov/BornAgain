@@ -16,6 +16,7 @@
 #define GEOMETRY_ITRANSFROM3D_H
 
 #include "BasicVector3D.h"
+#include <iostream> // DEBUG
 
 namespace Geometry {
 
@@ -35,12 +36,12 @@ class ITransform3D {
     //! Return transformed vector _v_.
     virtual BasicVector3D<double>
         transformed(const BasicVector3D<double>& v) const
-    { return v; }
+    { std::cout << "DEBUG: trafo<double> identity\n"; return v; }
 
     //! Return transformed vector _v_.
     virtual BasicVector3D<complex_t>
         transformed(const BasicVector3D<complex_t>& v) const
-    { return v; }
+    { std::cout << "DEBUG: trafo<cmplx> identity\n"; return v; }
 
 };
  

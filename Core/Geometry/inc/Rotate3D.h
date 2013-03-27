@@ -35,12 +35,19 @@ class RotateY_3D : public ITransform3D {
     { return RotateY_3D( m_ca, -m_sa ); }
 
     //! Return rotated vector _v_.
-    template<class T>
-    BasicVector3D<T> transformed(const BasicVector3D<T>& v) const
-    {
-        return BasicVector3D<T>( m_ca*v.x + m_ca*v.z,
-                                 v.y,
-                                -m_sa*v.x + m_ca*v.z );
+    BasicVector3D<double> transformed(const BasicVector3D<double>& v) const
+    {   std::cout << "DEBUG: trafo<double> rotate y\n"; 
+        return BasicVector3D<double>( m_ca*v.x() + m_sa*v.z(),
+                                      v.y(),
+                                      -m_sa*v.x() + m_ca*v.z() );
+    }
+
+    //! Return rotated vector _v_: avoid complex implementation unless needed.
+    BasicVector3D<complex_t>
+        transformed(const BasicVector3D<complex_t>& v) const
+    { (void)v;  // to prevent unused-variable warning
+        throw NotImplementedException("Rotate_3D::transformed<complex_t> -> "
+                                    "not implemented" );
     }
 
  private:
@@ -67,12 +74,19 @@ class RotateZ_3D : public ITransform3D {
     { return RotateZ_3D( m_ca, -m_sa ); }
 
     //! Return rotated vector _v_.
-    template<class T>
-    BasicVector3D<T> transformed(const BasicVector3D<T>& v) const
-    {
-        return BasicVector3D<T>( m_ca*v.x - m_sa*v.y,
-                                 m_sa*v.x + m_ca*v.y,
-                                 v.z              );
+    BasicVector3D<double> transformed(const BasicVector3D<double>& v) const
+    {   std::cout << "DEBUG: trafo<double> rotate z\n"; 
+        return BasicVector3D<double>( m_ca*v.x() - m_sa*v.y(),
+                                      m_sa*v.x() + m_ca*v.y(),
+                                      v.z()                    );
+    }
+
+    //! Return rotated vector _v_: avoid complex implementation unless needed.
+    BasicVector3D<complex_t>
+        transformed(const BasicVector3D<complex_t>& v) const
+    { (void)v;  // to prevent unused-variable warning
+        throw NotImplementedException("RotateZ_3D::transformed<complex_t> -> "
+                                    "not implemented" );
     }
 
  private:

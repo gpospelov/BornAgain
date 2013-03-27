@@ -186,6 +186,7 @@ void Utils::EnableFloatingPointExceptions()
     std::cout << "Utils::EnableFloatingPointExceptions()  -> Enabling floating point exception debugging"
               << std::endl;
     feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
+//    feenableexcept(-1);
 #else
     std::cout << "Utils::EnableFloatingPointExceptions()  -> Can't enable floating point exceptions. Please recompile in debug mode."
               << std::endl;

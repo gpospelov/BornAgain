@@ -34,13 +34,13 @@ class IParameterized : public INamed
     IParameterized& operator=(const IParameterized& other);
     virtual ~IParameterized() {}
 
-    //! Return pointer to the parameter pool.
+    //! Returns pointer to the parameter pool.
     ParameterPool* getParameterPool() { return &m_parameters; }
 
-    //! Create new parameter pool, with all local parameter and parameters of children
+    //! Creates new parameter pool, with all local parameter and parameters of children
     virtual ParameterPool* createParameterTree() const;
 
-    //! Add parameters from local pool to external pool and call recursion over direct children.
+    //! Adds parameters from local pool to external pool and call recursion over direct children.
     virtual std::string addParametersToExternalPool(
         std::string path,
         ParameterPool* external_pool,

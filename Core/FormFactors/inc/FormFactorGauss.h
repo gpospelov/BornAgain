@@ -34,7 +34,7 @@ class FormFactorGauss : public IFormFactorBorn
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
  protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
  private:

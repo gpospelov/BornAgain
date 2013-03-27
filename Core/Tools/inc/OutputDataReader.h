@@ -33,7 +33,7 @@ class OutputDataReader
 //    OutputData<double > *getOutputData() { return getOutputData(m_file_name); }
     OutputData<double > *getOutputData();
 
-    //! set concrete reading strategy
+    //! Sets concrete reading strategy
     void setStrategy(IOutputDataReadStrategy *read_strategy) { delete m_read_strategy; m_read_strategy = read_strategy; }
 
  private:

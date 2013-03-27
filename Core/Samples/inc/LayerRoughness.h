@@ -35,34 +35,34 @@ class LayerRoughness : public IRoughness
 
     LayerRoughness *clone() const;
 
-    //! return power spectral density of the surface roughness
+    //! Returns power spectral density of the surface roughness
     double getSpectralFun(const kvector_t &kvec) const;
 
     double getCorrFun(const kvector_t &k) const;
 
-    //! set rms value of roughness
+    //! Sets rms of roughness
     inline void   setSigma(double sigma) { m_sigma = sigma; }
-    //! return rms value of roughness
+    //! Returns rms of roughness
     inline double getSigma() const { return m_sigma; }
 
-    //! Set hurst parameter. It describes how jagged the surface is.
+    //! Sets hurst parameter. It describes how jagged the surface is.
     inline void   setHurstParameter(double hurstParameter) { m_hurstParameter = hurstParameter; }
-    //! return hurst parameter
+    //! Returns hurst parameter
     inline double getHurstParameter() const { return m_hurstParameter; }
 
-    //! set lateral correlation length
+    //! Sets lateral correlation length
     inline void   setLatteralCorrLength(double latteralCorrLength) { m_latteralCorrLength = latteralCorrLength; }
-    //! return latteral correlation length
+    //! Returns latteral correlation length
     inline double getLatteralCorrLength() const { return m_latteralCorrLength; }
 
-    //! print class
+    //! Prints class
     friend std::ostream &operator<<(std::ostream &ostr, const LayerRoughness &m) { m.print(ostr); return ostr; }
 
  protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
-    //! print class
+    //! Prints class
     void print(std::ostream &ostr) const;
 
     double m_sigma;                //!< rms of roughness

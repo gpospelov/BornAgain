@@ -114,7 +114,7 @@ void IsGISAXSTools::drawOutputDataInPad(const OutputData<double>& output,
     delete hist;
 }
 
-//! Create TH2D from OutputData.
+//! Creates TH2D from OutputData.
 
 TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output,
                                        const std::string& histo_name)

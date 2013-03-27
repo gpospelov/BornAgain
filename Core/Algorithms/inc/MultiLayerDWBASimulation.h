@@ -40,7 +40,7 @@ class MultiLayerDWBASimulation : public DWBASimulation
 
     virtual void init(const Simulation &simulation);
 
-    //! Set thread information for masking
+    //! Sets thread information for masking
     virtual void setThreadInfo(const ThreadInfo &thread_info);
 
     virtual void run();

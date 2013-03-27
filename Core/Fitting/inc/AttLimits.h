@@ -29,18 +29,18 @@ class AttLimits
 
     //! if has lower limit
     virtual bool hasLowerLimit() const { return m_has_lower_limit; }
-    //! get lower limit
+    //! Returns lower limit
     virtual double getLowerLimit() const { return m_lower_limit; }
-    //! set lower limit
+    //! Sets lower limit
     virtual void setLowerLimit(double value) { m_lower_limit = value; m_has_lower_limit = true; }
     //! remove lower limit
     virtual void removeLowerLimit() { m_lower_limit = 0.0; m_has_lower_limit = false; }
 
     //! if has upper limit
     virtual bool hasUpperLimit() const { return m_has_upper_limit; }
-    //! get upper limit
+    //! Returns upper limit
     virtual double getUpperLimit() const { return m_upper_limit; }
-    //! set upper limit
+    //! Sets upper limit
     virtual void setUpperLimit(double value) { m_upper_limit = value; m_has_upper_limit = true; }
     //! remove upper limit
     virtual void removeUpperLimit() { m_upper_limit = 0.0; m_has_upper_limit = false; }
@@ -48,12 +48,12 @@ class AttLimits
     //! if has lower and upper limit
     virtual bool hasLowerAndUpperLimits() const { return (m_has_lower_limit && m_has_upper_limit); }
 
-    //! set object fixed
+    //! Sets object fixed
     virtual void setFixed(bool is_fixed) { m_is_fixed = is_fixed; }
     //! if object is fixed at some value
     virtual bool isFixed() const { return m_is_fixed; }
 
-    //! set lower and upper limits
+    //! Sets lower and upper limits
     virtual void setLimits(double xmin, double xmax) { setLowerLimit(xmin); setUpperLimit(xmax); }
     //! remove limits
     virtual void removeLimits() { removeLowerLimit(); removeUpperLimit(); }
@@ -61,22 +61,22 @@ class AttLimits
     // ---------
     // static creation methods
 
-    //! create an object bounded from the left
+    //! Creates an object bounded from the left
     static AttLimits lowerLimited(double bound_value) { return AttLimits(true, false, false, bound_value, 0.0); }
 
-    //! create an object bounded from the right
+    //! Creates an object bounded from the right
     static AttLimits upperLimited(double bound_value) { return AttLimits(false, true, false, 0.0, bound_value); }
 
-    //! create an object bounded from the left and right
+    //! Creates an object bounded from the left and right
     static AttLimits limited(double left_bound_value, double right_bound_value)  { return AttLimits(true, true, false, left_bound_value, right_bound_value); }
 
-    //! create an object withoud bounds (default)
+    //! Creates an object withoud bounds (default)
     static AttLimits limitless() { return AttLimits(); }
 
-    //! create a fixed value object
+    //! Creates a fixed value object
     static AttLimits fixed() { return AttLimits(false, false, true, 0.0, 0.0); }
 
-    //! print class
+    //! Prints class
     friend std::ostream &operator<<(std::ostream &ostr, const AttLimits &m) { m.print(ostr); return ostr; }
 
  protected:
@@ -93,7 +93,7 @@ class AttLimits
     double m_lower_limit; //! minimum allowed value
     double m_upper_limit; //! maximum allowed value
 
-    //! print class
+    //! Prints class
     void print(std::ostream &ostr) const
     {
         if(isFixed()) {

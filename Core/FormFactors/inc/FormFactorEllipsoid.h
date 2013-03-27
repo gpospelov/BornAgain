@@ -31,10 +31,10 @@ class FormFactorEllipsoid : public IFormFactorBorn
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
-    //! return radius of Ellipsoid
+    //! Returns radius of Ellipsoid
     double getRadius() const { return m_radius; }
 
-    //! return width of Ellipsoid
+    //! Returns width of Ellipsoid
     double getWidth() const { return m_width; }
 
     virtual double getVolume() const {
@@ -46,7 +46,7 @@ class FormFactorEllipsoid : public IFormFactorBorn
     virtual complex_t evaluate_for_q(const cvector_t &q) const;
 
  protected:
-    //! register some class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
  private:

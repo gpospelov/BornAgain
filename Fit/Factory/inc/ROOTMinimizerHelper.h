@@ -31,7 +31,7 @@ class ROOTMinimizerHelper
     //! translate text with options into appropriate calls of minimizer's set method
     static void setOptions(ROOT::Math::Minimizer *minimizer, const std::string &options);
 
-    //! print results of minimization
+    //! Prints results of minimization
     static void printResults(ROOT::Math::Minimizer *minimizer, const std::string &minimizer_name, const std::string &algo_type);
 
 
@@ -45,13 +45,13 @@ class ROOTMinimizerHelper
     //! process single command specific for GSL simulated annealing minimizer
     static bool processCommandGSLSimAn(ROOT::Patch::GSLSimAnMinimizer *, const std::string &command);
 
-    //! print minimizer options
+    //! Prints minimizer options
     static void printOptions(ROOT::Math::Minimizer *minimizer);
 
-    //! print minimizer status
+    //! Prints minimizer status
     static void printStatus(ROOT::Math::Minimizer *minimizer);
 
-    //! print variables
+    //! Prints variables
     static void printVariables(ROOT::Math::Minimizer *minimizer);
 
 };

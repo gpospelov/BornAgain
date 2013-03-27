@@ -33,7 +33,7 @@
 #include <iomanip>
 #include <sstream>
 
-//! Print results of fit iteration.
+//! Prints results of fit iteration.
 
 void FitSuiteObserverPrint::update(IObservable *subject)
 {

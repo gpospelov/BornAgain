@@ -43,7 +43,7 @@ class TestMesoCrystal1 : public IFunctionalTest
 
         virtual ISample *buildSample() const;
     protected:
-        //! initialize pool parameters
+        //! Initializes pool parameters
         virtual void init_parameters();
     private:
         MesoCrystal *createMesoCrystal(double particle_radius, complex_t n_particle,

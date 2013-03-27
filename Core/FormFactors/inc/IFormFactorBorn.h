@@ -35,7 +35,7 @@ class IFormFactorBorn : public IFormFactor
     //! @param q  wavevector transfer \f$q\equiv k_i-k_f\f$
     virtual complex_t evaluate_for_q(const cvector_t &q) const=0;
 
-    //! Get volume.
+    //! Returns volume.
 
     //! Default implementation: formfactor at q=0.
     //! Overload this for more efficient implementation
@@ -47,10 +47,10 @@ class IFormFactorBorn : public IFormFactor
     }
 
  protected:
-    //! calculate radial part of scattering amplitude for large bins
+    //! Returns radial part of scattering amplitude for large bins
     double bigRadialPart(const Bin1DCVector& q_bin) const;
 
-    //! calculate z-part of scattering amplitude for large bins
+    //! Returns z-part of scattering amplitude for large bins
     complex_t bigZPart(const Bin1DCVector& q_bin) const;
 
  private:

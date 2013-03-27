@@ -39,7 +39,7 @@ FitObject::~FitObject()
     delete m_chi2_module;
 }
 
-//! set real data
+//! Sets real data
 void FitObject::setRealData(const OutputData<double > &real_data)
 {
     delete m_real_data;
@@ -54,14 +54,14 @@ void FitObject::setRealData(const OutputData<double > &real_data)
     }
 }
 
-//! calculate chi squared value
+//! Returns chi squared value
 double FitObject::calculateChiSquared()
 {
     m_chi2_module->setRealAndSimulatedData(*m_real_data, *m_simulation->getOutputData());
     return m_chi2_module->calculateChiSquared();
 }
 
-//! add parameters from local pool to external pool
+//! Adds parameters from local pool to external pool
 std::string FitObject::addParametersToExternalPool(std::string path,
         ParameterPool* external_pool, int copy_number) const
 {

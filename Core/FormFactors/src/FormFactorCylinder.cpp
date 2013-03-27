@@ -27,7 +27,7 @@ FormFactorCylinder::FormFactorCylinder(double height, double radius)
     init_parameters();
 }
 
-//! register some class members for later access via parameter pool
+//! Registers some class members for later access via parameter pool
 
 void FormFactorCylinder::init_parameters()
 {

@@ -21,7 +21,7 @@
 #include "MultiLayer.h"
 #include "OutputData.h"
 
-//! Calculate Fresnel coefficients for several typical multilayer samples and produce validation plots
+//! Returns Fresnel coefficients for several typical multilayer samples and produce validation plots
 
 class TestFresnelCoeff : public IFunctionalTest
 {
@@ -31,12 +31,12 @@ class TestFresnelCoeff : public IFunctionalTest
     void execute();
 
  private:
-    //! calculate Fresnel coefficients .vs. alpha_i for several standard samples
+    //! Returns Fresnel coefficients .vs. alpha_i for several standard samples
     void test_standard_samples();
     //! draw results of the test
     void draw_standard_samples();
 
-    //! calculate Fresnel coefficients .vs. alpha_i for set of roughnesses
+    //! Returns Fresnel coefficients .vs. alpha_i for set of roughnesses
     void test_roughness_set();
     //! draw result of the test
     void draw_roughness_set();

@@ -85,18 +85,18 @@ class IsGISAXSTools {
         const std::string &draw_options,
         const std::string &histogram_title = std::string());
 
-    //! Set minimum of y-axis (for 1D histogram), or z-axis (2D histograms).
+    //! Sets minimum of y-axis (for 1D histogram), or z-axis (2D histograms).
     static void setMinimum(double hist_min)
     { m_hist_min = hist_min; m_has_min = true; }
 
-    //! Set maximum of y-axis (for 1D histogram), or z-axis (2D histograms).
+    //! Sets maximum of y-axis (for 1D histogram), or z-axis (2D histograms).
     static void setMaximum(double hist_max)
     { m_hist_max = hist_max; m_has_max = true; }
 
-    //! Return true if user has defined minimum
+    //! Returns true if user has defined minimum
     static bool hasMinimum()  { return m_has_min; }
 
-    //! Return true if user has defined minimum
+    //! Returns true if user has defined minimum
     static bool hasMaximum()  { return m_has_max; }
 
     //! Reset user defined min values for histograms, they will be calculated automatically
@@ -115,25 +115,25 @@ class IsGISAXSTools {
         std::vector<std::vector<double > > &v_axis0,
         std::vector<std::vector<double > > &v_axis1);
 
-    //! Create two-dimensional TH2D from OutputData.
+    //! Creates two-dimensional TH2D from OutputData.
     static TH2D *getOutputDataTH2D(
         const OutputData<double>& output,
         const std::string &histo_name);
 
-    //! Create one, two, three-dimensional histograms from OutputData.
+    //! Creates one, two, three-dimensional histograms from OutputData.
     static TH1 *getOutputDataTH123D(
         const OutputData<double>& output,
         const std::string &histo_name);
 
-    //! Create TLine for displaying of one-dimensional data scan.
+    //! Creates TLine for displaying of one-dimensional data scan.
     static TLine *getOutputDataScanLine(const OutputData<double> &data);
 
-    //! Create TH1D for displaying of one-dimensional data scan.
+    //! Creates TH1D for displaying of one-dimensional data scan.
     static TH1D *getOutputDataScanHist(
         const OutputData<double> &data,
         const std::string &hname=std::string("scan_hist"));
 
-    //! Create noisy data.
+    //! Creates noisy data.
     static OutputData<double > *createNoisyData(
         const OutputData<double> &exact_data,
         double noise_factor = 0.1);

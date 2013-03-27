@@ -48,11 +48,11 @@ namespace OutputDataFunctions
     //! apply intensity function to values stored in output data
     void applyFunction(OutputData<double> &data, const IIntensityFunction *func);
 
-    //! create a rectangular mask based on the given OutputData object and limits
+    //! Creates a rectangular mask based on the given OutputData object and limits
     Mask *CreateRectangularMask(const OutputData<double> &data, const double *minima, const double *maxima);
     Mask *CreateRectangularMask(const OutputData<double> &data, double x1, double y1, double x2, double y2);
 
-    //! create a elliptic mask based on the given OutputData object and limits
+    //! Creates a elliptic mask based on the given OutputData object and limits
     Mask *CreateEllipticMask(const OutputData<double> &data, const double *center, const double *radii);
     Mask *CreateEllipticMask(const OutputData<double> &data, double xc, double yc, double rx, double ry);
 }

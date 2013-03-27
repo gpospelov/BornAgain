@@ -48,7 +48,7 @@ void ParameterPool::clear()
     m_map.clear();
 }
 
-//! Register parameter with given name.
+//! Registers parameter with given name.
 
 void ParameterPool::registerParameter(const std::string &name, double *parameter_address)
 {
@@ -79,7 +79,7 @@ void ParameterPool::copyToExternalPool(const std::string &prefix, ParameterPool 
     }
 }
 
-//! Return parameter with given name.
+//! Returns parameter with given name.
 
 ParameterPool::parameter_t ParameterPool::getParameter(const std::string &name) const
 {
@@ -91,7 +91,7 @@ ParameterPool::parameter_t ParameterPool::getParameter(const std::string &name) 
     }
 }
 
-//! Return vector of parameters which fit pattern.
+//! Returns vector of parameters which fit pattern.
 
 std::vector<ParameterPool::parameter_t >  ParameterPool::getMatchedParameters(const std::string &wildcards) const
 {
@@ -113,7 +113,7 @@ std::vector<ParameterPool::parameter_t >  ParameterPool::getMatchedParameters(co
     return selected_parameters;
 }
 
-//! Set parameter value.
+//! Sets parameter value.
 
 bool ParameterPool::setParameterValue(const std::string &name, double value)
 {
@@ -127,7 +127,7 @@ bool ParameterPool::setParameterValue(const std::string &name, double value)
     return true;
 }
 
-//! Set parameter value.
+//! Sets parameter value.
 
 int ParameterPool::setMatchedParametersValue(const std::string &wildcards, double value)
 {
@@ -160,7 +160,7 @@ int ParameterPool::fixRatioBetweenParameters(const std::string& to_change,
     return npars;
 }
 
-//! Print content on the screen.
+//! Prints content on the screen.
 
 void ParameterPool::print(std::ostream &ostr) const
 {

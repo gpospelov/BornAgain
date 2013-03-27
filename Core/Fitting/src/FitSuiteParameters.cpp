@@ -23,7 +23,7 @@ void FitSuiteParameters::clear()
     m_parameters.clear();
 }
 
-//! add fit parameter
+//! Adds fit parameter
 void FitSuiteParameters::addParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error)
 {
     for(parameters_t::const_iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
@@ -32,25 +32,17 @@ void FitSuiteParameters::addParameter(const std::string &name, double value, dou
     m_parameters.push_back(new FitParameterLinked(name, value, step, attlim, error) );
 }
 
-//! return const fit parameter with given name
-const FitParameter *FitSuiteParameters::getParameter(const std::string &name) const
-{
-    for(parameters_t::const_iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
-        if( (*it)->getName() == name ) return (*it);
-    }
-    throw LogicErrorException("FitSuiteParameters::getFitParameter() -> Error. No parameter with name '"+name+"'");
-}
-
-//! return fit parameter with given name
+//! Returns fit parameter with given name.
 FitParameter *FitSuiteParameters::getParameter(const std::string &name)
 {
     for(parameters_t::iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) {
         if( (*it)->getName() == name ) return (*it);
     }
-    throw LogicErrorException("FitSuiteParameters::getFitParameter() -> Error. No parameter with name '"+name+"'");
+    throw LogicErrorException("FitSuiteParameters::getFitParameter() -> "
+                              "Error. No parameter with name '"+name+"'");
 }
 
-//! set values for all defined parameters
+//! Sets values for all defined parameters
 void FitSuiteParameters::setValues(const double *pars_values)
 {
     if( !valuesAreDifferrent(pars_values) ) {

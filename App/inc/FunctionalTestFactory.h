@@ -44,11 +44,11 @@ class FunctionalTestFactory : public ISingleton<FunctionalTestFactory>,
     static void execute_all(ProgramOptions *p_options)
     { instance().this_execute_all(p_options); }
 
-    //! print names of registered tests
+    //! Prints names of registered tests
     static void print_testnames()
     { instance().this_print_testnames(); }
 
-    //! print benchmark summary
+    //! Prints benchmark summary
     static void print_benchmarks()
     { instance().this_print_benchmarks(); }
 

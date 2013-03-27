@@ -41,7 +41,7 @@ class InterferenceFunction1DParaCrystal : public IInterferenceFunction
 	bool m_use_corr_length;
 	double m_kappa;
  private:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 };
 

@@ -31,7 +31,7 @@
 class TPaveText;
 class TCanvas;
 
-//! Print fit progress at the end of each FitSuite's iteration.
+//! Prints fit progress at the end of each FitSuite's iteration.
 
 class FitSuiteObserverPrint : public IObserver
 {
@@ -68,7 +68,7 @@ class FitSuiteObserverDraw : public IObserver
 
     void update(IObservable *subject);
 
-    //! Return relative difference between simulation and real data.
+    //! Returns elative difference between simulation and real data.
     OutputData<double > *getRelativeDifferenceMap(
         const OutputData<double> *p_simu_data,
         const OutputData<double> *p_real_data);

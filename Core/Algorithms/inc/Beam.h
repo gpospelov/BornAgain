@@ -40,7 +40,7 @@ class Beam : public IParameterized
     void setIntensity(double intensity) { m_intensity = intensity; }
 
  protected:
-    //! Register some class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
  private:

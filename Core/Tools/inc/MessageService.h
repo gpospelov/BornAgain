@@ -9,7 +9,7 @@
 //#include <boost/thread.hpp>
 
 
-//! Set of logging utilities
+//! Sets of logging utilities
 namespace MSG
 {
 

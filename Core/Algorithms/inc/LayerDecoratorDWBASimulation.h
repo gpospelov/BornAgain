@@ -30,9 +30,13 @@ class LayerDecoratorDWBASimulation : public LayerDWBASimulation
     LayerDecoratorDWBASimulation(const LayerDecorator *p_layer_decorator);
     virtual ~LayerDecoratorDWBASimulation();
 
-    LayerDecoratorDWBASimulation *clone() const { throw NotImplementedException("LayerDecoratorDWBASimulation::clone() -> Error: not implemented."); }
+    LayerDecoratorDWBASimulation *clone() const
+    {
+        throw NotImplementedException("LayerDecoratorDWBASimulation::clone() -> "
+                                      "Error: not implemented.");
+    }
 
-    virtual void init(const Simulation &simulation);
+    virtual void init(const Simulation& simulation);
 
     virtual void run();
  protected:
@@ -41,7 +45,7 @@ class LayerDecoratorDWBASimulation : public LayerDWBASimulation
 
  private:
     IInterferenceFunctionStrategy *createAndInitStrategy() const;
-    std::vector<IFormFactor *> createDWBAFormFactors() const;
+    std::vector<IFormFactor*> createDWBAFormFactors() const;
     void calculateCoherentIntensity(const IInterferenceFunctionStrategy *p_strategy);
     void calculateInCoherentIntensity();
 

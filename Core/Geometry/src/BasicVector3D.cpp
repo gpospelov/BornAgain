@@ -37,7 +37,7 @@ namespace Geometry {
 // Norm
 // -----------------------------------------------------------------------------
 
-//! Return squared magnitude of the vector.
+//! Returns squared magnitude of the vector.
 template<>
 double BasicVector3D<double>::mag2() const
 {
@@ -51,7 +51,7 @@ complex_t BasicVector3D<complex_t>::mag2() const
     return x()*x()+y()*y()+z()*z();
 }
 
-//! Return magnitude of the vector.
+//! Returns magnitude of the vector.
 template<>
 double BasicVector3D<double>::mag() const
 {
@@ -69,7 +69,7 @@ complex_t BasicVector3D<complex_t>::mag() const
 // Cylindrical and spherical coordinate systems
 // -----------------------------------------------------------------------------
 
-//! Return squared distance from z axis.
+//! Returns squared distance from z axis.
 template<>
 double BasicVector3D<double>::magxy2() const
 {
@@ -83,7 +83,7 @@ complex_t BasicVector3D<complex_t>::magxy2() const
     return x()*x()+y()*y();
 }
 
-//! Return distance from z axis.
+//! Returns distance from z axis.
 template<>
 double BasicVector3D<double>::magxy() const
 {
@@ -97,14 +97,14 @@ complex_t BasicVector3D<complex_t>::magxy() const
     return std::sqrt(magxy2());
 }
 
-//! Return azimuth angle.
+//! Returns azimuth angle.
 template<>
 double BasicVector3D<double>::phi() const
 {
     return x() == 0.0&& y() == 0.0 ? 0.0 : std::atan2(y(),x());
 }
 
-//! Return polar angle.
+//! Returns polar angle.
 template<>
 double BasicVector3D<double>::theta() const
 {
@@ -112,7 +112,7 @@ double BasicVector3D<double>::theta() const
         0.0 : std::atan2(magxy(),z());
 }
 
-//! Return cosine of polar angle.
+//! Returns cosine of polar angle.
 template<>
 double BasicVector3D<double>::cosTheta() const
 {
@@ -153,7 +153,7 @@ BasicVector3D<complex_t> BasicVector3D<complex_t>::cross(
                                  x()*v.y()-v.x()*y());
 }
 
-//! Return square of transverse component with respect to given axis.
+//! Returns square of transverse component with respect to given axis.
 template<>
 double BasicVector3D<double>::perp2(const BasicVector3D<double>& v) const
 {
@@ -161,7 +161,7 @@ double BasicVector3D<double>::perp2(const BasicVector3D<double>& v) const
     return tot > 0.0 ? mag2()-s*s/tot : mag2();
 }
 
-//! Return angle with respect to another vector.
+//! Returns angle with respect to another vector.
 template<>
 double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const
 {

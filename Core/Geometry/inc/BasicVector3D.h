@@ -89,31 +89,31 @@ template<class T> class BasicVector3D {
     // Subscripting
     // ------------
 
-    //! Return components by index.
+    //! Returns components by index.
     inline T operator[](int i) const { return v_[i]; }
 
-    //! Set components by index.
+    //! Sets components by index.
     inline T& operator[](int i) { return v_[i]; }
 
     // ------------------------------------
     // Cartesian coordinate system: x, y, z
     // ------------------------------------
 
-    //! Return x-component in cartesian coordinate system.
+    //! Returns x-component in cartesian coordinate system.
     inline T x() const { return v_[0]; }
-    //! Return y-component in cartesian coordinate system.
+    //! Returns y-component in cartesian coordinate system.
     inline T y() const { return v_[1]; }
-    //! Return z-component in cartesian coordinate system.
+    //! Returns z-component in cartesian coordinate system.
     inline T z() const { return v_[2]; }
 
-    //! Set x-component in cartesian coordinate system.
+    //! Sets x-component in cartesian coordinate system.
     inline void setX(const T&a) { v_[0] = a; }
-    //! Set y-component in cartesian coordinate system.
+    //! Sets y-component in cartesian coordinate system.
     inline void setY(const T&a) { v_[1] = a; }
-    //! Set z-component in cartesian coordinate system.
+    //! Sets z-component in cartesian coordinate system.
     inline void setZ(const T&a) { v_[2] = a; }
 
-    //! Set components in cartesian coordinate system.
+    //! Sets components in cartesian coordinate system.
     inline void setXYZ(const T&x1, const T&y1, const T&z1)
     { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
@@ -121,29 +121,29 @@ template<class T> class BasicVector3D {
     // Norm
     // ----
 
-    //! Return squared magnitude squared of the vector.
+    //! Returns squared magnitude squared of the vector.
     T mag2() const; //!< @TODO: return type always double
 
-    //! Return magnitude of the vector.
+    //! Returns magnitude of the vector.
     T mag() const; //!< @TODO: return type always double
 
     // --------------------------------------------
     // Cylindrical and spherical coordinate systems
     // --------------------------------------------
 
-    //! Return squared distance from z axis.
+    //! Returns squared distance from z axis.
     T magxy2() const; //!< @TODO: return type always double
 
-    //! Return distance from z axis.
+    //! Returns distance from z axis.
     T magxy() const; //!< @TODO: return type always double
 
-    //! Return azimuth angle.
+    //! Returns azimuth angle.
     double phi() const;
 
-    //! Return polar angle.
+    //! Returns polar angle.
     double theta() const;
 
-    //! Return cosine of polar angle.
+    //! Returns cosine of polar angle.
     T cosTheta() const; //!< @TODO: return type always double
 
     //! Scale to given magnitude.
@@ -166,14 +166,14 @@ template<class T> class BasicVector3D {
                                  x()*v.y() - y()*v.x() );
     }
 
-    //! Return square of transverse component with respect to given axis.
+    //! Returns square of transverse component with respect to given axis.
     double perp2(const BasicVector3D<T>& v) const;
 
-    //! Return transverse component with respect to given axis.
+    //! Returns transverse component with respect to given axis.
     inline T perp(const BasicVector3D<T>& v) const
     { return std::sqrt(perp2(v)); }
 
-    //! Return angle with respect to another vector.
+    //! Returns angle with respect to another vector.
     T angle(const BasicVector3D<T>& v) const;
 
     // ---------
@@ -193,7 +193,7 @@ template<class T> class BasicVector3D {
     // Related vectors
     // ---------------
 
-    //! Return unit vector in direction of this (or null vector).
+    //! Returns unit vector in direction of this (or null vector).
     inline BasicVector3D<T> unit() const {
         T len = mag();
         return (len > 0.0) ?
@@ -201,7 +201,7 @@ template<class T> class BasicVector3D {
             BasicVector3D<T>();
     }
 
-    //! Return somewhat arbitrarily chosen orthogonal vector.
+    //! Returns somewhat arbitrarily chosen orthogonal vector.
     BasicVector3D<T> orthogonal() const {
         T dx = x() < 0.0 ? -x() : x();
         T dy = y() < 0.0 ? -y() : y();
@@ -221,7 +221,7 @@ template<class T> class BasicVector3D {
     // Specifically for grazing-incidence scattering
     // ---------------------------------------------
 
-    //! Set wave vector for given wavelength and angles/
+    //! Sets wave vector for given wavelength and angles/
     inline void setLambdaAlphaPhi(
         const T&_lambda, const T&_alpha, const T&_phi)
         {

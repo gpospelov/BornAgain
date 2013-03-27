@@ -57,7 +57,7 @@ std::string Utils::String::round_doubles(const std::string &str, int precision)
     return newline;
 }
 
-//! Return true if text matches pattern with wildcards '*' and '?'.
+//! Returns true if text matches pattern with wildcards '*' and '?'.
 
 bool Utils::String::MatchPattern(
     const std::string &text, std::string wildcardPattern)
@@ -99,14 +99,14 @@ std::vector<std::string> Utils::String::Split(
     return tokens;
 }
 
-//! Return path to the current (working) directory.
+//! Returns path to the current (working) directory.
 
 std::string Utils::FileSystem::GetWorkingPath()
 {
     return boost::filesystem::current_path().string();
 }
 
-//! Return path to BornAgain home directory.
+//! Returns path to BornAgain home directory.
 
 std::string Utils::FileSystem::GetHomePath()
 {
@@ -141,7 +141,7 @@ std::string Utils::FileSystem::GetHomePath()
     return path;
 }
 
-//! Return file extension.
+//! Returns file extension.
 
 std::string Utils::FileSystem::GetFileExtension(const std::string &name)
 {
@@ -158,7 +158,7 @@ bool Utils::FileSystem::isGZipped(const std::string &name)
     return false;
 }
 
-//! Return file main extension (without .gz).
+//! Returns file main extension (without .gz).
 
 std::string Utils::FileSystem::GetFileMainExtension(const std::string &name)
 {

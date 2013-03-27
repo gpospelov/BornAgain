@@ -67,7 +67,7 @@ ParticleDecoration* ParticleDecoration::clone() const
     return p_new;
 }
 
-//! add particle
+//! Adds particle
 
 void ParticleDecoration::addParticle(Particle* p_particle,
         double depth, double abundance)
@@ -94,14 +94,14 @@ void ParticleDecoration::addParticle(Particle* p_particle,
     addAndRegisterParticleInfo( new ParticleInfo(p_particle, transform, depth, abundance) );
 }
 
-//! add particle info
+//! Adds particle info
 
 void ParticleDecoration::addParticleInfo(const ParticleInfo &info)
 {
     addAndRegisterParticleInfo( info.clone() );
 }
 
-//! get particle info
+//! Returns particle info
 
 const ParticleInfo* ParticleDecoration::getParticleInfo(size_t index) const
 {
@@ -116,7 +116,7 @@ double ParticleDecoration::getAbundanceFractionOfParticle(size_t index) const
     return getParticleInfo(index)->getAbundance()/m_total_abundance;
 }
 
-//! add interference functions
+//! Adds interference functions
 
 void ParticleDecoration::addInterferenceFunction(IInterferenceFunction* p_interference_function)
 {

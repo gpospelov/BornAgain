@@ -49,7 +49,7 @@ class OutputDataNormalizer : public IOutputDataNormalizer
         m_max_intensity = max_intensity; }
 
  protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
     double m_scale;

@@ -81,7 +81,7 @@ void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
   }
 }
 
-//! Set our own default style to draw things.
+//! Sets our own default style to draw things.
 
 void DrawHelper::SetStyle()
 {

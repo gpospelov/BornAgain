@@ -36,7 +36,7 @@ FormFactorGauss::FormFactorGauss(double height, double width)
     init_parameters();
 }
 
-//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+//! Registers some class members for later access via parameter pool
 
 void FormFactorGauss::init_parameters()
 {

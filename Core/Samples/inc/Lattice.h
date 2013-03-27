@@ -33,46 +33,46 @@ class Lattice
     Lattice(const Lattice &lattice);
     ~Lattice();
 
-    //! initialize cached data
+    //! Initializes cached data
     void initialize() const;
 
-    //! get basis vector a
+    //! Returns basis vector a
     kvector_t getBasisVectorA() const { return m_a1; }
 
-    //! get basis vector b
+    //! Returns basis vector b
     kvector_t getBasisVectorB() const { return m_a2; }
 
-    //! get basis vector c
+    //! Returns basis vector c
     kvector_t getBasisVectorC() const { return m_a3; }
 
-    //! get the volume of the unit cell
+    //! Returns the volume of the unit cell
     double getVolume() const;
 
-    //! get the reciprocal basis vectors
+    //! Returns the reciprocal basis vectors
     void getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const;
 
-    //! get the nearest lattice point from a given vector
+    //! Returns the nearest lattice point from a given vector
     IndexVector3D getNearestLatticeVectorCoordinates(const kvector_t &vector_in) const;
 
-    //! get the nearest reciprocal lattice point from a given vector
+    //! Returns the nearest reciprocal lattice point from a given vector
     IndexVector3D getNearestReciprocalLatticeVectorCoordinates(const kvector_t &vector_in) const;
 
-    //! get a list of lattice vectors within a specified distance of a given vector
+    //! Returns a list of lattice vectors within a specified distance of a given vector
 //    std::vector<kvector_t> getLatticeVectorsWithinRadius(
 //            const kvector_t &input_vector, double radius) const;
 
-    //! get a list of reciprocal lattice vectors within a specified distance of a given vector
+    //! Returns a list of reciprocal lattice vectors within a specified distance of a given vector
 //    std::vector<kvector_t> getReciprocalLatticeVectorsWithinRadius(
 //            const kvector_t &input_vector, double radius) const;
     void computeReciprocalLatticeVectorsWithinRadius(
             const kvector_t &input_vector, double radius) const;
 
 
-    //! get a list of rotation angles within a specified range that hit a maximal set of small Bragg peaks
+    //! Returns a list of rotation angles within a specified range that hit a maximal set of small Bragg peaks
     //std::vector<double> collectBraggAngles(size_t size, double max_radius, const TRange<double> &phi_range, const TRange<double> &z_range) const;
     std::vector<double> collectBraggAngles(size_t size, double max_radius, const TRange<double> &phi_range, const TRange<double> &z_range) const;
 
-    //! set a selection rule for the reciprocal vectors
+    //! Sets a selection rule for the reciprocal vectors
 //    void setSelectionRule(ISelectionRule *p_selection_rule) {
 //        if (mp_selection_rule != p_selection_rule) {
 //            delete mp_selection_rule;

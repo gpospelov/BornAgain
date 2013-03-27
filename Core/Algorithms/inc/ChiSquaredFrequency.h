@@ -38,7 +38,7 @@ class ChiSquaredFrequency : public IChiSquaredModule
     }
     double getCutoff() const { return m_cutoff; }
 
-    //! return output data which contains chi^2 values
+    //! Returns output data which contains chi^2 values
     virtual OutputData<double > *createChi2DifferenceMap() const;
  protected:
     virtual void initWeights();

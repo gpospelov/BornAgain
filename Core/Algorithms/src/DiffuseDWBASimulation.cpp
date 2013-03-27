@@ -66,7 +66,7 @@ void DiffuseDWBASimulation::run()
         delete diffuse_terms[i];
 }
 
-//! Initialize vector<DiffuseFormFactorTerm*> term.
+//! Initializes vector<DiffuseFormFactorTerm*> term.
 
 //! Called near beginning of this->run().
 //! Collect one entry (p_diffuse_term) per particle type and layer[?].

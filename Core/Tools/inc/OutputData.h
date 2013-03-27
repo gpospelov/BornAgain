@@ -46,25 +46,25 @@ template <class T> class OutputData
     // retrieve basic info
     // ---------------------------------
 
-    //! Return number of dimensions.
+    //! Returns number of dimensions.
     size_t getRank() const { return m_value_axes.size(); }
 
-   //! Return total size of data buffer (product of bin number in every dimension).
+   //! Returns total size of data buffer (product of bin number in every dimension).
     size_t getAllocatedSize() const {
         if (mp_ll_data) return mp_ll_data->getTotalSize();
         return 0;
     }
 
-    //! Return all sizes of its axes
+    //! Returns all sizes of its axes
     std::vector<size_t> getAllSizes() const;
 
-    //! Return copy of raw data vector
+    //! Returns copy of raw data vector
     std::vector<T> getRawDataVector() const;
 
     //! fill raw array with data
     void fillRawDataArray(T *destination) const;
 
-    //! get sum of all values in the data structure
+    //! Returns sum of all values in the data structure
     T totalSum() const;
 
     // ---------------------------------
@@ -80,25 +80,25 @@ template <class T> class OutputData
     //! Read-only iterator type
     typedef OutputDataIterator<const T, const OutputData<T> > const_iterator;
 
-    //! Return a read/write iterator that points to the first element
+    //! Returns  read/write iterator that points to the first element
     iterator begin();
 
-    //! Return a read-only iterator that points to the first element
+    //! Returns  read-only iterator that points to the first element
     const_iterator begin() const;
 
-    //! Return a read/write iterator that points to the one past last element
+    //! Returns  read/write iterator that points to the one past last element
     iterator end() { return iterator(this, getAllocatedSize()); }
 
-    //! Return a read-only iterator that points to the one past last element
+    //! Returns  read-only iterator that points to the one past last element
     const_iterator end() const  { return const_iterator(this, getAllocatedSize()); }
 
-    //! get mask that will be used by iterators
+    //! Returns mask that will be used by iterators
     Mask *getMask() const { return mp_mask; }
 
-    //! set mask (or a stack of masks)
+    //! Sets mask (or a stack of masks)
     void setMask(const Mask &mask);
 
-    //! add mask that will be used by iterators
+    //! Adds mask that will be used by iterators
     void addMask(const Mask &mask);
 
     //! Remove all masks
@@ -108,44 +108,44 @@ template <class T> class OutputData
     // coordinate and index functions
     // ---------------------------------
 
-    //! Return vector of coordinates for given index
+    //! Returns vector of coordinates for given index
     std::vector<int> toCoordinates(size_t index) const;
 
-    //! Return coordinate for given index and axis number
+    //! Returns coordinate for given index and axis number
     int toCoordinate(size_t index, size_t i_selected_axis) const;
 
-    //! Return index for specified coordinates
+    //! Returns index for specified coordinates
     size_t toIndex(std::vector<int> coordinates) const;
 
-    //! Return index of axis with given name for given total index
+    //! Returns index of axis with given name for given total index
     size_t getIndexOfAxis(const std::string &axis_name, size_t total_index) const;
 
-    //! Return value of axis with given name at given index
+    //! Returns value of axis with given name at given index
     double getValueOfAxis(const std::string &axis_name, size_t index) const;
 
-    //! Return bin of axis with given name and index
+    //! Returns bin of axis with given name and index
     Bin1D getBinOfAxis(const std::string &axis_name, size_t index) const;
 
     // ---------
     // modifiers
     // ---------
 
-    //! set object into initial state (no dimensions, data)
+    //! Sets object into initial state (no dimensions, data)
     void clear();
 
-    //! set content of output data to specific value
+    //! Sets content of output data to specific value
     void setAllTo(const T& value);
 
     //! multiply every item of this output data by value
     void scaleAll(const T& factor);
 
-    //! add <rank> axes with indicated sizes
+    //! Adds <rank> axes with indicated sizes
     void setAxisSizes(size_t rank, int *n_dims);
 
-    //! set new values to raw data vector
+    //! Sets new values to raw data vector
     void setRawDataVector(const std::vector<T> &data_vector);
 
-    //! set new values to raw data array
+    //! Sets new values to raw data array
     void setRawDataArray(const T *source);
 
     //! addition-assignment operator for two output data
@@ -176,10 +176,10 @@ template <class T> class OutputData
     // helpers
     // --------
 
-    //! Return true if object have same dimensions
+    //! Returns true if object have same dimensions
     bool hasSameDimensions(const OutputData<T> &right) const;
 
-    //! Return true if object have same dimensions and shape of axises
+    //! Returns true if object have same dimensions and shape of axises
     bool hasSameShape(const OutputData<T> &right) const;
  private:
     //! disabled copy constructor and assignment operators
@@ -193,7 +193,6 @@ template <class T> class OutputData
     LLData<T> *mp_ll_data;
     Mask *mp_mask;
 };
-
 
 /* ***************************************************************************/
 // definitions
@@ -541,8 +540,7 @@ template<class T> inline void OutputData<T>::setRawDataArray(const T *source)
     }
 }
 
-
-//! Return true if object have same dimensions
+//! Returns true if object have same dimensions
 template<class T> inline bool OutputData<T>::hasSameDimensions(
     const OutputData<T> &right) const
 {
@@ -550,7 +548,7 @@ template<class T> inline bool OutputData<T>::hasSameDimensions(
     return HaveSameDimensions(*mp_ll_data, *right.mp_ll_data);
 }
 
-//! Return true if object have same dimensions and shape of axis
+//! Returns true if object have same dimensions and shape of axis
 template<class T>
 bool OutputData<T>::hasSameShape(const OutputData<T> &right) const
 {

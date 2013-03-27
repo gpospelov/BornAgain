@@ -46,7 +46,7 @@ class TestIsGISAXS12 : public IFunctionalTest
 
         virtual ISample *buildSample() const;
     protected:
-        //! register some class members for later access via parameter pool
+        //! Registers some class members for later access via parameter pool
         virtual void init_parameters();
         double m_particle_probability1;
         double m_particle_radius1;
@@ -60,7 +60,7 @@ class TestIsGISAXS12 : public IFunctionalTest
         double m_interf_width;
     };
 
-    //! initialize simulation
+    //! Initializes simulation
     void initializeSimulation();
 
     //! run standard isgisaxs comparison

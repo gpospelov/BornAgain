@@ -44,21 +44,21 @@ class PositionParticleInfo : public ParticleInfo
 
     virtual PositionParticleInfo *clone() const;
 
-    //! Return particle.
+    //! Returns particle.
     const Particle *getParticle() const { return mp_particle; }
 
-    //! Return particle position, including depth.
+    //! Returns particle position, including depth.
     kvector_t getPosition() const
     { return kvector_t(m_pos_x, m_pos_y, -m_depth); }
 
-    //! Set particle position, including depth.
+    //! Sets particle position, including depth.
     void setPosition(kvector_t position);
 
  protected:
     PositionParticleInfo &operator=(const PositionParticleInfo &right);
     PositionParticleInfo(const PositionParticleInfo &source);
 
-    //! register some class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
     double m_pos_x;

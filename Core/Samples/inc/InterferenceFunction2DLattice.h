@@ -38,14 +38,14 @@ class InterferenceFunction2DLattice : public IInterferenceFunction
 
     virtual double evaluate(const cvector_t &q) const;
  protected:
-    //! get interference from a single reciprocal lattice vector
+    //! Returns interference from a single reciprocal lattice vector
     double interferenceAtOneRecLatticePoint(double qx, double qy) const;
 
-    //! calculate reciprocal coordinates in the principal axis system
+    //! Returns reciprocal coordinates in the principal axis system
     void transformToPrincipalAxes(double qx, double qy, double gamma,
             double delta, double &q_pa_1, double &q_pa_2) const;
 
-    //! calculate qx,qy coordinates of q - qint, where qint is a reciprocal lattice vector
+    //! Returns qx,qy coordinates of q - qint, where qint is a reciprocal lattice vector
     //! bounding the reciprocal unit cell to which q belongs
     void calculateReciprocalVectorFraction(double qx, double qy,
             double &qx_frac, double &qy_frac) const;
@@ -54,13 +54,13 @@ class InterferenceFunction2DLattice : public IInterferenceFunction
     IFTDistribution2D *mp_pdf;
     static const int nmax = 20; //!< maximum value for qx*Lambdax and qy*lambday
  private:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
-    //! initialize the x,y coordinates of the a*,b* reciprocal bases
+    //! Initializes the x,y coordinates of the a*,b* reciprocal bases
     void initialize_rec_vectors();
 
-    //! initialize factors needed in each calculation
+    //! Initializes factors needed in each calculation
     void initialize_calc_factors();
 
     double m_asx, m_asy; //!< x,y coordinates of a*

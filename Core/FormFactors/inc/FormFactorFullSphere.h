@@ -30,10 +30,10 @@ class FormFactorFullSphere : public IFormFactorBorn
 
     virtual int getNumberOfStochasticParameters() const { return 1; }
 
-    //! return radius of sphere
+    //! Returns radius of sphere
     virtual double getRadius() const { return m_radius; }
 
-    //! return diameter of sphere
+    //! Returns diameter of sphere
     virtual double getHeight() const { return 2.0*m_radius; }
 
     virtual complex_t evaluate_for_q(const cvector_t &q) const;

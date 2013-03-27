@@ -32,7 +32,7 @@ FormFactorHemiSpheroid::FormFactorHemiSpheroid(
     init_parameters();
 }
 
-//! Register some class members for later access via parameter pool.
+//! Registers some class members for later access via parameter pool.
 
 void FormFactorHemiSpheroid::init_parameters()
 {

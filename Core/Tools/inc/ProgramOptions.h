@@ -40,34 +40,34 @@ class ProgramOptions
 
     ProgramOptions();
 
-    //! adding options to the global options list (object is passed by value, so no dependency from object life)
+    //! Adds options to the global options list (object is passed by value, so no dependency from object life)
     ProgramOptions  &add(bpo::options_description opt) { m_options.add(opt); return *this;}
 
-    //! adding positional options
+    //! Adds positional options
     ProgramOptions  &addPositional(std::string option_name, int num_occurencies) { m_positional_options.add(option_name.c_str(), num_occurencies); return *this;}
 
     //! access to variable with given name defined in variables container
     const bpo::variable_value& operator[] (const std::string &s) const;
 
-    //! return true if option with given name has been set
+    //! Returns true if option with given name has been set
     bool find(std::string name) const { return (m_variables_map.count(name.c_str()) ? true : false); }
 
-    //! return true if options are consistent (no conflicting options, no --help request, config file is parsed)
+    //! Returns true if options are consistent (no conflicting options, no --help request, config file is parsed)
     bool isConsistent() const { return m_options_is_consistent; }
 
-    //! parsing command line arguments
+    //! Parses command line arguments
     void parseCommandLine(int argc, char **argv);
 
-    //! parse config file for arguments
+    //! Parses config file for arguments
     void parseConfigFile();
 
-    // return reference to the variables container
+    //! Returns reference to the variables container
     bpo::variables_map &getVariables() { return m_variables_map; }
 
-    // return reference to the options description
+    //! Returns reference to the options description
     bpo::options_description &getOptions() { return m_options; }
 
-    // return reference to the positional options description
+    //! Returns reference to the positional options description
     bpo::positional_options_description &getPositionalOptions() { return m_positional_options; }
 
  private:

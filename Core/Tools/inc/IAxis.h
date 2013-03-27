@@ -29,7 +29,7 @@ class IAxis
     //! clone function
     virtual IAxis *clone() const=0;
 
-    //! create a new axis with half the number of bins
+    //! Creates a new axis with half the number of bins
     virtual IAxis *createDoubleBinSize() const=0;
 
     //! destructor
@@ -41,7 +41,7 @@ class IAxis
     //! retrieve the label of the axis
     std::string getName() const { return m_name; }
 
-    //! set the axis label
+    //! Sets the axis label
     void setName(std::string name) { m_name = name; }
 
     //! indexed accessor retrieves a sample
@@ -50,10 +50,10 @@ class IAxis
     //! retrieve a 1d bin for the given index
     virtual Bin1D getBin(size_t index) const=0;
 
-    //! get value of first point of axis
+    //! Returns value of first point of axis
     virtual double getMin() const=0;
 
-    //! get value of last point of axis
+    //! Returns value of last point of axis
     virtual double getMax() const=0;
 
     //! find bin index which is best match for given value

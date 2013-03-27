@@ -60,7 +60,7 @@ class Convolve
     //! prepare arrays for 2D convolution of given vectors
     void init(int h_src, int w_src, int h_kernel, int w_kernel);
 
-    //! set convolution mode
+    //! Sets convolution mode
     void setMode(Mode mode) { m_mode = mode; }
 
  private:

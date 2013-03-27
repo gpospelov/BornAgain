@@ -80,7 +80,7 @@ class FormFactorDecoratorDebyeWaller : public IFormFactorDecorator
     { return mp_form_factor->getNumberOfStochasticParameters(); }
 
  protected:
-    //! register some class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters() {
         getParameterPool()->clear();
         getParameterPool()->registerParameter("hfactor", &m_h_dw_factor);

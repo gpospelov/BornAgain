@@ -24,7 +24,7 @@ FitParameterLinked::FitParameterLinked(const std::string &name, double value, do
 {
 }
 
-//! add real parameter to the collection
+//! Adds real parameter to the collection
 void FitParameterLinked::addParameter(ParameterPool::parameter_t par)
 {
     if( !par.isNull() ) {
@@ -34,7 +34,7 @@ void FitParameterLinked::addParameter(ParameterPool::parameter_t par)
     }
 }
 
-//! add parameters from pool which match given wildcard
+//! Adds parameters from pool which match given wildcard
 void FitParameterLinked::addMatchedParametersFromPool(const ParameterPool *pool, const std::string &wildcard)
 {
     std::string wildcard_to_use = getName();

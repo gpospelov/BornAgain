@@ -33,7 +33,7 @@ class String
     //! assuming that string consist of doubles return new string where doubles are rounded according to the precision
     static std::string round_doubles(const std::string &str, int precision);
 
-    //! Return true if text matches pattern with wildcards '*' and '?'.
+    //! Returns true if text matches pattern with wildcards '*' and '?'.
     static bool MatchPattern(const std::string &text,
                              std::string wildcardPattern);
 
@@ -53,7 +53,7 @@ class StringUsageMap
     StringUsageMap(){}
     ~StringUsageMap(){}
 
-    //! add string to the map to count number of times it was used
+    //! Adds string to the map to count number of times it was used
     void add(std::string name)
     {
         m_current_string = name;
@@ -72,7 +72,7 @@ class StringUsageMap
     iterator_t end() { return m_nstringmap.end(); }
     int &operator[](std::string name) { return m_nstringmap[name]; }
 
-    //! get current string
+    //! Returns current string
     std::string get_current() const { return m_current_string; }
 
  private:
@@ -85,22 +85,22 @@ class StringUsageMap
 class FileSystem
 {
  public:
-    //! return path to the current (working) directory
+    //! Returns path to the current (working) directory
     static std::string GetWorkingPath();
 
-    //! return path to BornAgain home directory
+    //! Returns path to BornAgain home directory
     static std::string GetHomePath();
 
-    //! set relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
+    //! Sets relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
     static void SetRelativePath(const std::string &path) { m_relative_path = path; }
 
-    //! return file extension
+    //! Returns file extension
     static std::string GetFileExtension(const std::string &name);
 
-    //! return true if name contains *.gz extension
+    //! Returns true if name contains *.gz extension
     static bool isGZipped(const std::string &name);
 
-    //! return file extension after stripping '.gz' if any
+    //! Returns file extension after stripping '.gz' if any
     static std::string GetFileMainExtension(const std::string &name);
  private:
     static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module

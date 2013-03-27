@@ -34,10 +34,10 @@ class DiffuseParticleInfo: public ParticleInfo
     //! scale number of particles per containing mesocrystal
     void scaleNumberPerMeso(double factor) { m_number_per_meso *= factor; }
 
-    //! set number of particles per containing mesocrystal
+    //! Sets number of particles per containing mesocrystal
     void setNumberPerMeso(double n) { m_number_per_meso = n; }
 
-    //! get number of particles per containing mesocrystal
+    //! Returns number of particles per containing mesocrystal
     double getNumberPerMeso() const { return m_number_per_meso; }
 
     DiffuseParticleInfo *clone() const
@@ -45,10 +45,10 @@ class DiffuseParticleInfo: public ParticleInfo
             "DiffuseParticleInfo::clone() -> Error: not implemented");
     }
 
-    //! set the range of height
+    //! Sets the range of height
     void setHeightRange(double height_range) { m_height_range = height_range; }
 
-    //! get the range of height
+    //! Returns the range of height
     double getHeightRange() const { return m_height_range; }
  protected:
     double m_number_per_meso;

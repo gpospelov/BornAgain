@@ -63,7 +63,7 @@ class OpticalFresnel : public ISimulation
     //typedef std::vector<FresnelCoeff > MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
     typedef MultiLayerCoeff MultiLayerCoeff_t; // set of Fresnel coefficients for set of layers, [nlayer]
 
-    //! calculate Fresnel coefficients for given multi layer and kvector
+    //! Returns Fresnel coefficients for given multi layer and kvector
     void execute(const MultiLayer &sample, const kvector_t &k, MultiLayerCoeff_t &coeff);
 
  private:

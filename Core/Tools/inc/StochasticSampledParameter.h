@@ -30,13 +30,13 @@ class StochasticSampledParameter : public StochasticParameter<double>
     StochasticSampledParameter(const StochasticParameter<double> &par, size_t nbins, int nfwhm=3);
     virtual ~StochasticSampledParameter();
 
-    //! return radom value of stochastic parameter
+    //! Returns random value of stochastic parameter
     virtual void setToRandom() { m_stochastic_parameter->setToRandom(); }
 
-    //! return probability density
+    //! Returns probability density
     virtual double probabilityDensity(double value) const { return m_stochastic_parameter->probabilityDensity(value); }
 
-    //! return x-value for given bin
+    //! Returns ??-value for given bin
     double getBinValue(size_t ibin) const
     {
         if(ibin < m_nbins ) {
@@ -46,12 +46,12 @@ class StochasticSampledParameter : public StochasticParameter<double>
         }
     }
 
-    //! return probability value for given bin
+    //! Returns probability value for given bin
     double probabilityBinDensity(size_t ibin) const { return m_stochastic_parameter->probabilityDensity(getBinValue(ibin)); }
 
-    //! get the normalized probability for the given bin
+    //! Returns the normalized probability for the given bin
     double getNormalizedProbability(size_t ibin) const;
-    //! return number of bins
+    //! Returns number of bins
     size_t getNbins() const { return m_nbins; }
 
     //! clone method

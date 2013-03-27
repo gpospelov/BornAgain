@@ -62,7 +62,7 @@ void TestFresnelCoeff::execute()
 }
 
 /* ************************************************************************* */
-//! calculate Fresnel coefficients .vs. alpha_i for several standard samples
+//! Returns Fresnel coefficients .vs. alpha_i for several standard samples
 /* ************************************************************************* */
 void TestFresnelCoeff::test_standard_samples()
 {
@@ -225,7 +225,7 @@ void TestFresnelCoeff::draw_standard_samples()
 }
 
 /* ************************************************************************* */
-//! calculate Fresnel coefficients .vs. alpha_i for set of roughnesses
+//! Returns Fresnel coefficients .vs. alpha_i for set of roughnesses
 /* ************************************************************************* */
 void TestFresnelCoeff::test_roughness_set()
 {

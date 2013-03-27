@@ -20,7 +20,7 @@
 
 namespace bpo = boost::program_options;
 
-//! add command line and config file options
+//! Adds command line and config file options
 
 void AddCoreOptions(ProgramOptions *p_options)
 {

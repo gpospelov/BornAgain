@@ -65,10 +65,10 @@ class ROOTMinimizer : public IMinimizer
 
     virtual size_t getNCalls() const;
 
-    //! return created minimizer
+    //! Returns created minimizer
     ROOT::Math::Minimizer *getROOTMinimizer() { return m_root_minimizer; }
 
-    //! check if type of algorithm is Levenberg-Marquardt or similar
+    //! Checks if type of algorithm is Levenberg-Marquardt or similar
     bool isGradientBasedAgorithm();
 
  private:

@@ -59,19 +59,19 @@ template <class TValue, class TContainer> class OutputDataIterator
     //! pointer access
     virtual TValue* operator->() const;
 
-    //! get current index
+    //! Returns current index
     size_t getIndex() const { return m_current_index; }
 
-    //! get container pointer
+    //! Returns container pointer
     TContainer *getContainer() const { return mp_output_data; }
 
-    //! get mask
+    //! Returns mask
     Mask *getMask() const { return mp_mask; }
 
-    //! set mask (or a stack of masks)
+    //! Sets mask (or a stack of masks)
     void setMask(const Mask &mask);
 
-    //! add mask (also resets index to first available element)
+    //! Adds mask (also resets index to first available element)
     void addMask(const Mask &mask);
 
     // typedefs for std::iterator_traits

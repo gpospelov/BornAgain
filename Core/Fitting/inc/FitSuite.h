@@ -39,19 +39,19 @@ class FitSuite : public IObservable
     //! clear all and prepare for the next fit
     void clear();
 
-    //! add pair of (simulation, real data) for consecutive simulation
+    //! Adds pair of (simulation, real data) for consecutive simulation
     void addSimulationAndRealData(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule());
 
-    //! add fit parameter
+    //! Adds fit parameter
     void addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim=AttLimits::limitless(), double error=0.0);
     void addFitParameter(const std::string &name, double value, const AttLimits &attlim=AttLimits::limitless(), double error=0.0);
 
-    //! add fit strategy
+    //! Adds fit strategy
     void addFitStrategy(IFitSuiteStrategy *strategy);
 
-    //! set minimizer
+    //! Sets minimizer
     void setMinimizer(IMinimizer *minimizer) { delete m_minimizer;  m_minimizer = minimizer; }
-    //! get minimizer
+    //! Returns minimizer
     IMinimizer *getMinimizer() { return m_minimizer; }
 
     //! link fitting parameters to parameters defined in simulations
@@ -63,25 +63,25 @@ class FitSuite : public IObservable
     //! run single minimization round
     virtual void minimize();
 
-    //! return reference to the kit with data
+    //! Returns reference to the kit with data
     FitSuiteObjects *getFitObjects() { return &m_fit_objects; }
 
-    //! return reference to fit parameters
+    //! Returns reference to fit parameters
     FitSuiteParameters *getFitParameters() { return &m_fit_parameters; }
 
-    //! return reference to fit parameters
+    //! Returns reference to fit parameters
     FitSuiteStrategies *getFitStrategies() { return &m_fit_strategies; }
 
     //! if the last iteration is done (used by observers to print summary)
     bool isLastIteration() const { return m_is_last_iteration; }
 
-    //! get current number of minimization function calls
+    //! Returns current number of minimization function calls
     size_t getNCalls() const;
 
-    //! get the number of current strategy
+    //! Returns the number of current strategy
     size_t getNStrategy() const { return m_fit_strategies.getNStrategy(); }
 
-    //! print results of the screen
+    //! Prints results of the screen
     void printResults() const;
 
     AttFitting &getAttributes() { return m_fit_attributes; }
@@ -92,7 +92,7 @@ class FitSuite : public IObservable
     FitSuite &operator=(const FitSuite &);
     FitSuite(const FitSuite &);
 
-    //! check if all prerequisites to run fit fit are filled
+    //! Checks if all prerequisites to run fit fit are filled
     bool check_prerequisites() const;
 
     AttFitting m_fit_attributes; //! general fit attributes
@@ -103,7 +103,7 @@ class FitSuite : public IObservable
     FitSuiteChiSquaredFunction m_function_chi2;
     FitSuiteGradientFunction m_function_gradient;
 
-    bool m_is_last_iteration; //! set to true after last iteration complete
+    bool m_is_last_iteration; //! Sets to true after last iteration complete
 };
 
 #endif // FITSUITE_H

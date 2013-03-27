@@ -112,7 +112,7 @@ const LayerInterface *MultiLayer::getLayerBottomInterface(size_t i_layer) const
     return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : 0;
 }
 
-//! add layer with top roughness
+//! Adds layer with top roughness
 
 void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness)
 {
@@ -130,7 +130,7 @@ void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughne
     m_layers_z.push_back(0.0);
 }
 
-//! add layer with default (zero) roughness
+//! Adds layer with default (zero) roughness
 
 void MultiLayer::addLayer(const Layer &layer)
 {

@@ -29,40 +29,40 @@ class FitObject : public IParameterized
     FitObject(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module=ChiSquaredModule(), double weight = 1.0);
     ~FitObject();
 
-    //! get simulation
+    //! Returns simulation
     const Simulation *getSimulation() const { return m_simulation; }
     Simulation *getSimulation() { return m_simulation; }
-    //! set simulation
+    //! Sets simulation
     void setSimulation(const Simulation &simulation) { delete m_simulation; m_simulation = simulation.clone(); }
 
-    //! get real data
+    //! Returns real data
     const OutputData<double > *getRealData() const { return m_real_data; }
-    //! set real data
+    //! Sets real data
     void setRealData(const OutputData<double > &real_data);
 
-    //! get simulated data
+    //! Returns simulated data
     const OutputData<double > *getSimulationData() const { return m_simulation->getOutputData(); }
 
-    //! get chi2 module
+    //! Returns chi2 module
     const IChiSquaredModule *getChiSquaredModule() const {return m_chi2_module; }
     IChiSquaredModule *getChiSquaredModule() {return m_chi2_module; }
-    //! set chi2 module
+    //! Sets chi2 module
     void setChiSquaredModule(const IChiSquaredModule &chi2_module) { delete m_chi2_module; m_chi2_module = chi2_module.clone(); }
 
-    //! calculate chi squared value
+    //! Returns chi squared value
     double calculateChiSquared();
 
-    //! add parameters from local pool to external pool and call recursion over direct children
+    //! Adds parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
 
-    //! return weight of data set in chi2 calculations
+    //! Returns weight of data set in chi2 calculations
     double getWeight() const { return m_weight; }
 
-    //! return size of data
+    //! Returns size of data
     size_t getSizeOfData() const { return m_real_data->getAllocatedSize(); }
 
  protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
  private:

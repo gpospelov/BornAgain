@@ -33,7 +33,7 @@ PyObject *ExportOutputData(const OutputData<double > &output);
 // export axis of output data array as python-numpy array object
 PyObject *ExportOutputDataAxis(const OutputData<double > &output, int naxis);
 
-//! return number of dimensions in output data of simulation
+//! Returns number of dimensions in output data of simulation
 
 int GetOutputDataNdimensions(const Simulation &simulation)
 {
@@ -51,7 +51,7 @@ PyObject *GetOutputData(const Simulation &simulation)
     return obj;
 }
 
-//! return one-dim numpy array representing binning of the axis with given index of simulation's output data
+//! Returns one-dim numpy array representing binning of the axis with given index of simulation's output data
 
 PyObject *GetOutputDataAxis(const Simulation &simulation, int naxis)
 {
@@ -100,7 +100,7 @@ PyObject *ExportOutputData(const OutputData<double > &output_data)
     return pyarray;
 }
 
-//! return one dimensional python-numpy array representing binning of given axis of oputput data object
+//! Returns one dimensional python-numpy array representing binning of given axis of oputput data object
 
 PyObject *ExportOutputDataAxis(const OutputData<double > &output_data, int naxis)
 {

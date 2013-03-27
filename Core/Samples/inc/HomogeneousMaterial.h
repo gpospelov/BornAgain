@@ -41,15 +41,15 @@ class HomogeneousMaterial : public IMaterial
         : IMaterial(other), m_refractive_index(other.m_refractive_index) {}
     virtual ~HomogeneousMaterial() {}
 
-    //! Return refractive index.
+    //! Returns refractive index.
     complex_t getRefractiveIndex() const { return m_refractive_index; }
 
-    //! Set refractive index.
+    //! Sets refractive index.
     void setRefractiveIndex(complex_t refractive_index)
         { m_refractive_index = refractive_index; }
 
  protected:
-    //! Dump contents to stream.
+    //! Dumps contents to stream.
     virtual void print(std::ostream &ostr) const
         {
             ostr  << "  " << getName() << " " << this <<

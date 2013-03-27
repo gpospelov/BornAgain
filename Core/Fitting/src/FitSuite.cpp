@@ -43,26 +43,26 @@ void FitSuite::clear()
     m_is_last_iteration = false;
 }
 
-//! add pair of (simulation, real data) for consecutive simulation
+//! Adds pair of (simulation, real data) for consecutive simulation
 void FitSuite::addSimulationAndRealData(const Simulation &simulation, const OutputData<double > &real_data, const IChiSquaredModule &chi2_module)
 {
     m_fit_objects.add(simulation, real_data, chi2_module);
 }
 
-//! add fit parameter
+//! Adds fit parameter
 void FitSuite::addFitParameter(const std::string &name, double value, double step, const AttLimits &attlim, double error)
 {
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
-//! add fit parameter, step is calculated from initial parameter value
+//! Adds fit parameter, step is calculated from initial parameter value
 void FitSuite::addFitParameter(const std::string &name, double value, const AttLimits &attlim, double error)
 {
     double step = value * getAttributes().getStepFactor();
     m_fit_parameters.addParameter(name, value, step, attlim, error);
 }
 
-//! add fit strategy
+//! Adds fit strategy
 void FitSuite::addFitStrategy(IFitSuiteStrategy *strategy)
 {
     m_fit_strategies.addStrategy(strategy);

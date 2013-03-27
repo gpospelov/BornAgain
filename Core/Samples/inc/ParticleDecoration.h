@@ -35,7 +35,7 @@ class ParticleDecoration : public IDecoration
 
     virtual ParticleDecoration *clone() const;
 
-    //! add particle giving depth and transformation
+    //! Adds particle giving depth and transformation
     void addParticle(
         Particle *p_particle, Geometry::Transform3D *p_transform=0,
         double depth=0, double abundance=1.0);
@@ -43,16 +43,16 @@ class ParticleDecoration : public IDecoration
         const Particle &particle, const Geometry::Transform3D &transform,
         double depth=0, double abundance=1.0);
 
-    //! add particle giving depth
+    //! Adds particle giving depth
     void addParticle(
         const Particle &particle, double depth=0.0, double abundance=1.0);
     void addParticle(
         Particle *p_particle, double depth=0.0, double abundance=1.0);
 
-    //! Add particle info
+    //! Adds particle info
     void addParticleInfo(const ParticleInfo &info);
 
-    //! Get number of particles
+    //! Returns number of particles
     virtual size_t getNumberOfParticles() const { return m_particles.size(); }
 
     /// get information about particle with index
@@ -61,27 +61,27 @@ class ParticleDecoration : public IDecoration
     /// Get abundance fraction of particle with index
     double getAbundanceFractionOfParticle(size_t index) const;
 
-    //! get number of interference functions
+    //! Returns number of interference functions
     virtual size_t getNumberOfInterferenceFunctions() const
     { return m_interference_functions.size(); }
 
-    //! get interference functions
+    //! Returns interference functions
     virtual SafePointerVector<IInterferenceFunction>
         getInterferenceFunctions() const
     { return m_interference_functions; }
 
-    //! Add interference function
+    //! Adds interference function
     void addInterferenceFunction(
         IInterferenceFunction* p_interference_function);
 
     void addInterferenceFunction(
         const IInterferenceFunction &interference_function);
 
-    //! Get interference function with index
+    //! Returns interference function with index
     const IInterferenceFunction* getInterferenceFunction(size_t index) const;
 
  private:
-    //! Add particle information with simultaneous registration in parent class.
+    //! Adds particle information with simultaneous registration in parent class.
     void addAndRegisterParticleInfo(ParticleInfo *child)
     {
         m_total_abundance += child->getAbundance();
@@ -89,7 +89,7 @@ class ParticleDecoration : public IDecoration
         registerChild(child);
     }
 
-    //! Add interference function with simultaneous registration in parent class
+    //! Adds interference function with simultaneous registration in parent class
     void addAndRegisterInterferenceFunction(IInterferenceFunction *child)
     {
         m_interference_functions.push_back(child);

@@ -32,7 +32,7 @@ class ParticleBuilder
     ParticleBuilder();
     virtual ~ParticleBuilder();
 
-    //! set prototype for particle production
+    //! Sets prototype for particle production
     //! @param particle   prototype of particle
     //! @param name       parameter name in the parameter pool of given prototype
     //! @param parameter  variation type

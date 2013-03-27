@@ -40,7 +40,7 @@ class IFactory
 
     IFactory() : m_own_objects(false) { }
 
-    //! create object by calling creation function corresponded to given identifier
+    //! Creates object by calling creation function corresponded to given identifier
     AbstractProduct *createItem(const IdentifierType &itemId)
     {
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
@@ -54,7 +54,7 @@ class IFactory
         return x;
     }
 
-    //! register object's creation function
+    //! Registers object's creation function
     bool registerItem(const IdentifierType &itemId, CreateItemCallback CreateFn)
     {
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
@@ -65,7 +65,7 @@ class IFactory
         return m_callbacks.insert( typename CallbackMap_t::value_type(itemId, CreateFn)).second;
     }
 
-    //! register object's creation function and store object description
+    //! Registers object's creation function and store object description
     bool registerItem(const IdentifierType &itemId, CreateItemCallback CreateFn, const IdentifierType &itemDescription)
     {
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
@@ -95,10 +95,10 @@ class IFactory
         m_objects.clear();
     }
 
-    //! set flag to delete objects on descruction
+    //! Sets flag to delete objects on descruction
     void setOwnObjects(bool own_objects) { m_own_objects = own_objects; }
 
-    //! return number of registered objects
+    //! Returns number of registered objects
     size_t getNumberOfRegistered() const { return m_callbacks.size(); }
 
  protected:

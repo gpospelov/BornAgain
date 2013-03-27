@@ -43,7 +43,7 @@ ParticleInfo::~ParticleInfo()
     delete mp_transform;
 }
 
-//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+//! Registers some class members for later access via parameter pool
 void ParticleInfo::init_parameters()
 {
     getParameterPool()->clear();

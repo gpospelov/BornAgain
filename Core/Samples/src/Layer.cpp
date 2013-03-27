@@ -43,7 +43,7 @@ Layer::Layer(const Layer &other) : ICompositeSample()
 }
 
 
-//! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+//! Registers some class members for later access via parameter pool
 
 void Layer::init_parameters()
 {
@@ -72,7 +72,7 @@ void Layer::setMaterial(const IMaterial* p_material, double thickness)
     setThickness(thickness);
 }
 
-//! print content of multilayer
+//! Prints content of multilayer
 
 void Layer::print(std::ostream &ostr) const
 {

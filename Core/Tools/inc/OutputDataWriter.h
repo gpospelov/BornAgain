@@ -32,7 +32,7 @@ class OutputDataWriter
     //! write output data to file
     void writeOutputData(const OutputData<double > &data);
 
-    //! set concrete writing strategy
+    //! Sets concrete writing strategy
     void setStrategy(IOutputDataWriteStrategy *write_strategy) { delete m_write_strategy; m_write_strategy = write_strategy; }
 
  private:

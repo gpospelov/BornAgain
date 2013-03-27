@@ -33,16 +33,16 @@ class MaterialManager: public ISingleton<MaterialManager>
  public:
     virtual ~MaterialManager() { clear(); }
 
-    //! Return material from database.
+    //! Returns material from database.
     static const IMaterial *getMaterial(const std::string &name)
     { return instance().this_getMaterial(name); }
 
-    //! Add material to database.
+    //! Adds material to database.
     static const IMaterial *getHomogeneousMaterial(
         const std::string &name, const complex_t &refractive_index)
     { return instance().this_getHomogeneousMaterial(name, refractive_index); }
 
-    //! Add material to database.
+    //! Adds material to database.
     static const IMaterial *getHomogeneousMaterial(
         const std::string &name,
         double refractive_index_real,
@@ -50,7 +50,7 @@ class MaterialManager: public ISingleton<MaterialManager>
     { return instance().this_getHomogeneousMaterial(
             name, refractive_index_real, refractive_index_imag); }
 
-    //! Wrap print.
+    //! Sends class description to stream.
     friend std::ostream &operator<<(
         std::ostream &ostr, const MaterialManager &m)
     { m.print(ostr); return ostr; }

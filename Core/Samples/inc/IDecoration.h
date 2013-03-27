@@ -34,27 +34,27 @@ class IDecoration : public ICompositeSample
 
     virtual IDecoration *clone() const=0;
 
-    //! Get number of particles
+    //! Returns number of particles
     virtual size_t getNumberOfParticles() const=0;
 
-    //! get information about particle with index
+    //! Returns information about particle with index
     virtual const ParticleInfo *getParticleInfo(size_t index) const=0;
 
     /// Get abundance fraction of particle with index
     virtual double getAbundanceFractionOfParticle(size_t index) const=0;
 
-    //! get number of interference functions
+    //! Returns number of interference functions
     virtual size_t getNumberOfInterferenceFunctions() const { return 0; }
 
-    //! get interference functions
+    //! Returns interference functions
     virtual SafePointerVector<IInterferenceFunction>
         getInterferenceFunctions() const=0;
 
-    //! get surface density of all particles
+    //! Returns surface density of all particles
     double getTotalParticleSurfaceDensity() const
     { return m_total_particle_surface_density; }
 
-    //! set surface density of all particles
+    //! Sets surface density of all particles
     void setTotalParticleSurfaceDensity(double surface_density)
     { m_total_particle_surface_density = surface_density; }
 

@@ -54,7 +54,7 @@ class TestPerformance : public IFunctionalTest
     //! save performance information on disk
     void write_performance();
 
-    //! return delimeter between columns
+    //! Returns delimeter between columns.
     std::string get_delimeter() { return std::string(" | "); }
 
     std::map<std::string, std::string > m_performance_info; //!< holds system information

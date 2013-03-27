@@ -30,7 +30,7 @@ class FormFactorParallelepiped : public IFormFactorBorn
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
-    //! return radius of parallelepiped
+    //! Returns radius of parallelepiped
     double getRadius() const { return m_radius; }
 
     virtual double getVolume() const

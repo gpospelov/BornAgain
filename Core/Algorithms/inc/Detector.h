@@ -57,7 +57,7 @@ class Detector : public IParameterized
     const IDetectorResolution *getDetectorResolutionFunction() const
     { return mp_detector_resolution; }
 
-    //! Add parameters from local pool to external pool and call recursion over direct children.
+    //! Adds parameters from local pool to external pool and call recursion over direct children.
     virtual std::string addParametersToExternalPool(
         std::string path,
         ParameterPool *external_pool,
@@ -68,13 +68,13 @@ class Detector : public IParameterized
 
  protected:
 
-    //! Register some class members for later access via parameter pool.
+    //! Registers some class members for later access via parameter pool.
     virtual void init_parameters() {}
 
     bool isCorrectAxisIndex(size_t index) const
     { return index<getDimension(); }
 
-    //! Check if data has a compatible format with the detector.
+    //! Checks if data has a compatible format with the detector.
     bool dataShapeMatches(const OutputData<double> *p_data) const;
 
  private:
@@ -82,11 +82,11 @@ class Detector : public IParameterized
     //! swap function
     void swapContent(Detector &other);
 
-    //! initialize axis the way IsGISAXS does
+    //! Initializes axis the way IsGISAXS does
     void initializeAnglesIsgisaxs(
         AxisDouble *p_axis, const TSampledRange<double> &axis_range) const;
 
-    //! calculate the solid angle for the given data element
+    //! Returns the solid angle for the given data element
     double getSolidAngle(OutputData<double> *p_data, size_t index) const;
 
     SafePointerVector<IAxis> m_axes;

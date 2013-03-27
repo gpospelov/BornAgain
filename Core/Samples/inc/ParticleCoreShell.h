@@ -27,7 +27,7 @@ class ParticleCoreShell : public Particle
     virtual ~ParticleCoreShell();
     virtual ParticleCoreShell *clone() const;
 
-    //! Set the refractive index of the ambient material (which influences its scattering power)
+    //! Sets the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)
     {
         m_ambient_refractive_index = refractive_index;
@@ -37,7 +37,7 @@ class ParticleCoreShell : public Particle
 
     virtual IFormFactor* createFormFactor() const;
 
-    //! set the form factor of the particle (not including scattering factor from refractive index)
+    //! Sets the formfactor of the particle (not including scattering factor from refractive index)
     virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
     {
         if (p_form_factor != mp_form_factor) {
@@ -48,10 +48,10 @@ class ParticleCoreShell : public Particle
         }
     }
 
-    //! return form factor of the particle (not including scattering factor from refractive index)
+    //! Returns formfactor of the particle (not including scattering factor from refractive index)
     virtual const IFormFactor *getSimpleFormFactor() const { return mp_form_factor;}
 
-    //! create list of contained particles for diffuse calculations
+    //! Creates list of contained particles for diffuse calculations
     virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const {
         (void)parent_info;
         return 0;

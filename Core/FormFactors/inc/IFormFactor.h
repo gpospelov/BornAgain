@@ -36,7 +36,7 @@ class IFormFactor : public ISample
         (void)refractive_index; // to prevent unused-variable warning
     }
 
-    //! calculate scattering amplitude for complex wavevector bin
+    //! Returns scattering amplitude for complex wavevector bin
     //! @param k_i   incoming wavevector
     //! @param k_f_bin   outgoing wavevector bin
     //! @param alpha_i incident angle wrt scattering surface
@@ -45,16 +45,16 @@ class IFormFactor : public ISample
         const cvector_t &k_i, const Bin1DCVector &k_f_bin,
         double alpha_i, double alpha_f) const=0;
 
-    //! return number of variable/stochastic parameters
+    //! Returns number of variable/stochastic parameters
     virtual int getNumberOfStochasticParameters() const { return 0; }
 
-    //! get the total volume of the particle to which this formfactor belongs
+    //! Returns the total volume of the particle to which this formfactor belongs
     virtual double getVolume() const;
 
-    //! get the total height of the particle to which this formfactor belongs
+    //! Returns the total height of the particle to which this formfactor belongs
     virtual double getHeight() const;
 
-    //! get the total radial size of the particle to which this formfactor belongs
+    //! Returns the total radial size of the particle to which this formfactor belongs
     virtual double getRadius() const;
 
     //! find out if the formfactor is constructed as an average over multiple simple ones

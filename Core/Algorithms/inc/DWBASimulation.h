@@ -31,18 +31,18 @@ class DWBASimulation : public ISimulation
 
     virtual ~DWBASimulation() { delete mp_simulation; }
 
-    //! Initialize the simulation with the parameters from simulation
+    //! Initializes the simulation with the parameters from simulation
     virtual void init(const Simulation& simulation);
 
-    //! Set thread information for masking
+    //! Sets thread information for masking
     virtual void setThreadInfo(const ThreadInfo& thread_info)
     { m_thread_info = thread_info; }
 
-    //! Return output data containing calculated intensity
+    //! Returns output data containing calculated intensity.
     const OutputData<double>& getDWBAIntensity() const
     { return m_dwba_intensity; }
 
-    //! add intensity to current dwba intensity
+    //! Adds intensity to current dwba intensity
     void addDWBAIntensity(const OutputData<double>& data_to_add)
     { m_dwba_intensity += data_to_add; }
 
@@ -56,16 +56,16 @@ class DWBASimulation : public ISimulation
     typedef OutputDataIterator<const double, const OutputData<double> >
         const_iterator;
 
-    //! Return a read/write iterator that points to the first element
+    //! Returns read/write iterator that points to the first element
     iterator begin();
 
-    //! Return a read-only iterator that points to the first element
+    //! Returns read-only iterator that points to the first element
     const_iterator begin() const;
 
-    //! Return a read/write iterator that points to the one past last element
+    //! Returns  read/write iterator that points to the one past last element
     const iterator end() { return m_dwba_intensity.end(); }
 
-    //! Return a read-only iterator that points to the one past last element
+    //! Returns  read-only iterator that points to the one past last element
     const const_iterator end() const { return m_dwba_intensity.end(); }
 
  protected:

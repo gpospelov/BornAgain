@@ -43,7 +43,7 @@ template <class C> class MemberFunctionIntegrator
     //! perform the actual integration over the range [lmin, lmax]
     double integrate(double lmin, double lmax, void *params);
 
-    //! set integrand
+    //! Sets integrand
     void setIntegrand(mem_function member_function)
     { m_member_function = member_function; }
     void setIntegrand(mem_function member_function, const C *const p_object)

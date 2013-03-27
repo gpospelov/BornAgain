@@ -80,7 +80,7 @@ class MementoIterator
     std::stack<MementoState > m_state_stack;
 };
 
-//! Walk through ISample tree of objects inside ICompositeSample object.
+//! Walks through ISample tree of objects inside ICompositeSample object.
 
 //! Usage example:
 //!    ICompositeIterator it = sample->createIterator();

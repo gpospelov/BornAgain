@@ -35,7 +35,7 @@ void MaterialManager::clear() {
     m_materials.clear();
 }
 
-//! Get material.
+//! Returns material.
 
 const IMaterial *MaterialManager::this_getMaterial(const std::string &name)
 {
@@ -49,7 +49,7 @@ const IMaterial *MaterialManager::this_getMaterial(const std::string &name)
     }
 }
 
-//! Create material, and add into database using name of material as identifier.
+//! Creates material, and add into database using name of material as identifier.
 
 const IMaterial *MaterialManager::this_getHomogeneousMaterial(
     const std::string &name, const complex_t &refractive_index)
@@ -77,7 +77,7 @@ const IMaterial *MaterialManager::this_getHomogeneousMaterial(
     }
 }
 
-//! Create material, and add into database using name of material as identifier.
+//! Creates material, and add into database using name of material as identifier.
 
 const IMaterial *MaterialManager::this_getHomogeneousMaterial(
     const std::string &name,

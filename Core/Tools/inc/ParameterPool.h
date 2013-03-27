@@ -45,25 +45,25 @@ class ParameterPool : public ICloneable
     //! clear and delete parameter map
     void clear();
 
-    //! return size of parameter container
+    //! Returns size of parameter container
     size_t size() const { return m_map.size(); }
 
     //! main method to register data address in the pool
     void registerParameter(const std::string &name, double *parpointer);
 
-    //! add parameter to the pool
+    //! Adds parameter to the pool
     bool addParameter(const std::string &name, parameter_t par);
 
-    //! return parameter with given name
+    //! Returns parameter with given name
     parameter_t getParameter(const std::string &name) const;
 
-    //! return vector of parameters which fit pattern
+    //! Returns vector of parameters which fit pattern
     std::vector<parameter_t > getMatchedParameters(const std::string &wildcards) const;
 
-    //! set parameter value, return true in the case of success
+    //! Sets parameter value, return true in the case of success
     bool setParameterValue(const std::string &name, double value);
 
-    //! set parameter value, return number of changed parameters
+    //! Sets parameter value, return number of changed parameters
     int setMatchedParametersValue(const std::string &wildcards, double value);
 
     //! link first parameter to second parameter times a scale factor and return number of changed parameters
@@ -71,7 +71,7 @@ class ParameterPool : public ICloneable
     //! prefix/to_change --> prefix/source
     int fixRatioBetweenParameters(const std::string &to_change, const std::string &source, double ratio);
 
-    //! print parameter pool
+    //! Prints parameter pool
     friend std::ostream &operator<<(std::ostream &ostr, const ParameterPool &obj) { obj.print(ostr); return ostr; }
 
  protected:
@@ -79,7 +79,7 @@ class ParameterPool : public ICloneable
 //    ParameterPool(const ParameterPool &other);
 //    ParameterPool &operator=(const ParameterPool &);
 
-    //! print parameter pool content
+    //! Prints parameter pool content
     virtual void print(std::ostream &ostr) const;
 
     parametermap_t m_map; //! map of parameters

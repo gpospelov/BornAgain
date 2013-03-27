@@ -30,13 +30,13 @@ class AxisBin : public IAxis
     //! clone function
     virtual AxisBin *clone() const;
 
-    //! create a new axis with half the number of bins
+    //! Creates a new axis with half the number of bins
     virtual AxisBin *createDoubleBinSize() const;
 
     //! destructor
     virtual ~AxisBin() {}
 
-    //! add new bin limit to the end
+    //! Adds new bin limit to the end
     void push_back(double limit) { m_value_vector.push_back(limit); }
 
     virtual size_t getSize() const;
@@ -50,7 +50,7 @@ class AxisBin : public IAxis
 
     virtual double getMax() const { return m_value_vector.back(); }
 
-    //! initialize axis bins
+    //! Initializes axis bins
     void initBins(size_t nbr_bins, double start, double end);
 
     virtual size_t findClosestIndex(double value) const;

@@ -32,7 +32,7 @@ ParticleBuilder::~ParticleBuilder()
     delete m_parameter;
 }
 
-//! set prototype for particle production
+//! Sets prototype for particle production
 
 void ParticleBuilder::setPrototype(const Particle &particle, std::string name, const StochasticParameter<double> &param, double scale)
 {

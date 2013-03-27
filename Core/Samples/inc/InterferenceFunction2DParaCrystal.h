@@ -49,10 +49,10 @@ class InterferenceFunction2DParaCrystal : public IInterferenceFunction
 
     virtual double evaluate(const cvector_t &q) const;
 
-    //! add parameters from local pool to external pool and call recursion over direct children
+    //! Adds parameters from local pool to external pool and call recursion over direct children
     virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
  protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
     void transformToPrincipalAxes(double qx, double qy, double gamma, double delta, double &q_pa_1, double &q_pa_2) const;
@@ -66,10 +66,10 @@ class InterferenceFunction2DParaCrystal : public IInterferenceFunction
     double m_domain_sizes[2];
  private:
 
-    //! Calculate interference function for fixed rotation xi
+    //! Returns interference function for fixed rotation xi
     double interferenceForXi(double xi, void *params) const;
 
-    //! calculate interference function for fixed xi in 1d
+    //! Returns interference function for fixed xi in 1d
     double interference1D(double qx, double qy, double xi, size_t index) const;
 
     complex_t FTPDF(double qx, double qy, double xi, size_t index) const;

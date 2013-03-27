@@ -32,7 +32,7 @@ class TPad;
 class DrawHelper :public TObject
 {
  public:
-    //! set own drawing style
+    //! Sets own drawing style
     static void SetStyle();
 
     //! saving canvases from memory into multipage pdf file
@@ -47,7 +47,7 @@ class DrawHelper :public TObject
     //! draw multilayer structure in TPad
     static void DrawMultilayer(const MultiLayer *sample);
 
-    //! create and register canvas
+    //! Creates and register canvas
     static TCanvas *createAndRegisterCanvas(
         std::string name, std::string title, int xsize=0, int ysize=0);
 

@@ -73,6 +73,7 @@ def AdditionalRules(mb):
     cl.member_function("runFit").include()
     cl.member_function("printResults").include()
     cl.member_function("getNCalls").include()
+    cl.member_function("initPrint").include()
 
   if "MinimizerFactory.h" in myFiles:
     cl = mb.class_("MinimizerFactory")

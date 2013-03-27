@@ -66,6 +66,10 @@ void register_FitSuite_class(){
             "getNCalls"
             , (::size_t ( ::FitSuite::* )(  ) const)( &::FitSuite::getNCalls ) )    
         .def( 
+            "initPrint"
+            , (void ( ::FitSuite::* )( int ) )( &::FitSuite::initPrint )
+            , ( bp::arg("print_every_nth") ) )    
+        .def( 
             "printResults"
             , (void ( ::FitSuite::* )(  ) const)( &::FitSuite::printResults ) )    
         .def( 

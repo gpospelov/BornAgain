@@ -217,6 +217,10 @@ void register_Simulation_class(){
             , (void ( ::Simulation::* )( ::ISample const & ) )( &::Simulation::setSample )
             , ( bp::arg("sample") ) )    
         .def( 
+            "setSampleBuilder"
+            , (void ( ::Simulation::* )( ::ISampleBuilder const * ) )( &::Simulation::setSampleBuilder )
+            , ( bp::arg("p_sample_builder") ) )    
+        .def( 
             "setSimulationParameters"
             , (void ( ::Simulation::* )( ::SimulationParameters const & ) )( &::Simulation::setSimulationParameters )
             , ( bp::arg("sim_params") ) )    

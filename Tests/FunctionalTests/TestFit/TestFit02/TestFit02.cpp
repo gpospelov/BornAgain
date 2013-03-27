@@ -10,7 +10,6 @@
 #include "FitSuite.h"
 #include "MinimizerFactory.h"
 #include "FormFactorPrism3.h"
-//#include "FitSuiteObserverFactory.h"
 #include "MathFunctions.h"
 #include "Utils.h"
 
@@ -44,11 +43,10 @@ int TestFit02::run()
 
     OutputData<double> *real_data = createRealData(simulation);
     std::cout << "real_data" << real_data->totalSum() << std::endl;
-    return 0;
 
     FitSuite *fitSuite = new FitSuite();
     fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Combined") );
-    //fitSuite->setPrintLevel(10);
+    fitSuite->initPrint(10);
     //fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
     //fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
 
@@ -62,17 +60,9 @@ int TestFit02::run()
 
     // setting up fitSuite
     ChiSquaredModule chiModule;
-    //chiModule.setChiSquaredFunction( SquaredFunctionDefault() );
-//    chiModule.setChiSquaredFunction( SquaredFunctionWhichOnlyWorks() ); // it works only with resolution function, without it fit doesn't converge
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
-    chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer() );
-    //chiModule.setIntensityFunction( IntensityFunctionLog() );
+//    chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer() );
     fitSuite->addSimulationAndRealData(*simulation, *real_data, chiModule);
-
-    fitSuite->getFitParameters()->printParameters();
-//    for(FitSuiteParameters::iterator it = fitSuite->getFitParameters()->begin(); it!=fitSuite->getFitParameters()->end(); ++it) {
-//        std::cout << (*it) << std::endl;
-//    }
 
     fitSuite->runFit();
 
@@ -92,7 +82,7 @@ Simulation *TestFit02::createSimulation()
     return simulation;
 }
 
-// generating real data by adding noise to the simulated data
+// generating "real" data by adding noise to the simulated data
 OutputData<double> *TestFit02::createRealData(Simulation *simulation)
 {
     const double noise_factor = 0.1;
@@ -140,7 +130,7 @@ void TestFit02::SampleBuilder::init_parameters()
 ISample *TestFit02::SampleBuilder::buildSample() const
 {
     MultiLayer *multi_layer = new MultiLayer();
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 1.0);
+    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
     const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
     Layer air_layer(air_material);
     Layer substrate_layer(substrate_material);
@@ -154,27 +144,6 @@ ISample *TestFit02::SampleBuilder::buildSample() const
     multi_layer->addLayer(air_layer_decorator);
     multi_layer->addLayer(substrate_layer);
     return multi_layer;
-
-//    MultiLayer *p_multi_layer = new MultiLayer();
-//    complex_t n_air(1.0, 0.0);
-//    complex_t n_substrate(1.0-6e-6, 2e-8);
-//    complex_t n_particle(1.0-6e-4, 2e-8);
-//    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
-//    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-//    Layer air_layer;
-//    air_layer.setMaterial(p_air_material);
-//    Layer substrate_layer;
-//    substrate_layer.setMaterial(p_substrate_material);
-//    ParticleDecoration particle_decoration;
-//    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)),0.0, m_cylinder_ratio);
-//    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(m_prism3_height, m_prism3_half_side)), 0.0, 1.0 - m_cylinder_ratio);
-//    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-//    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-
-//    p_multi_layer->addLayer(air_layer_decorator);
-//    p_multi_layer->addLayer(substrate_layer);
-
-//    return p_multi_layer;
 }
 
 #ifdef STANDALONE

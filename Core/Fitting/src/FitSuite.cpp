@@ -153,7 +153,7 @@ void FitSuite::printResults() const
 }
 
 // set print level
-void FitSuite::setPrintLevel(int print_every_nth)
+void FitSuite::initPrint(int print_every_nth)
 {
     boost::shared_ptr<FitSuitePrintObserver > observer(new FitSuitePrintObserver(print_every_nth));
     attachObserver(observer);

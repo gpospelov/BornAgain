@@ -99,7 +99,7 @@ struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
         return ParameterPool::clone( );
     }
 
-    static void registerParameter( ::ParameterPool & inst, ::std::string const & name, unsigned int parpointer ){
+    static void registerParameter( ::ParameterPool & inst, ::std::string const & name, long unsigned int parpointer ){
         inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
     }
 
@@ -135,7 +135,7 @@ void register_ParameterPool_class(){
             , ( bp::arg("name") ) )    
         .def( 
             "registerParameter"
-            , (void (*)( ::ParameterPool &,::std::string const &,unsigned int ))( &ParameterPool_wrapper::registerParameter )
+            , (void (*)( ::ParameterPool &,::std::string const &,long unsigned int ))( &ParameterPool_wrapper::registerParameter )
             , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
         .def( 
             "setMatchedParametersValue"

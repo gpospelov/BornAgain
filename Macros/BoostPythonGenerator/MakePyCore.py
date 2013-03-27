@@ -13,7 +13,32 @@ from pygccxml.declarations.matchers import virtuality_type_matcher_t
 from pygccxml import declarations
 from pyplusplus import function_transformers as FT
 
+from pyplusplus.function_transformers import transformers
+
 ModuleName = 'PythonInterface'
+
+
+# --------------------------------------------------------------------------
+# This is patched version of pyplusplus.function_transformers classes to
+# pass address of ctype(double) into C++. The pointer is passed now in the 
+# form of long unsigned, which correspond to 64 bit (before it was unsigned int)
+# --------------------------------------------------------------------------
+class from_address_custom_t(transformers.type_modifier_t):
+    def __init__(self, function, arg_ref):
+        modifier = lambda type_: declarations.FUNDAMENTAL_TYPES[ 'long unsigned int' ]
+        print modifier
+        transformers.type_modifier_t.__init__( self, function, arg_ref, modifier )
+        if not transformers.is_ptr_or_array( self.arg.type ):
+            raise ValueError( '%s\nin order to use "from_address_t" transformation, argument %s type must be a pointer or a array (got %s).' ) \
+                  % ( function, self.arg_ref.name, arg.type)
+    def __str__(self):
+        return "from_address(%s)"%(self.arg.name)
+
+def from_address_custom( *args, **keywd ):
+    def creator( function ):
+        return from_address_custom_t( function, *args, **keywd )
+    return creator
+
 
 # list of files to analyse and corresponding functions with rules for analysis
 myFiles=[
@@ -135,20 +160,6 @@ def AdditionalRules(mb):
       #cl = mb.class_("IFTDistribution2D")
       #cl = mb.class_("FTDistribution2DCauchy")
       #cl.member_function("transformToStarBasis").exclude()
-      
-
-
-  # --- Experiment.h --------------------------------------------------
-  if "Experiment.h" in myFiles:
-    cl = mb.class_( "Experiment" )
-    cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-    #cl.member_functions().exclude()
-    #cl.member_function("runSimulation").include()
-    #cl.member_function("normalize").include()
-    #cl.member_function("setBeamParameters").include()
-    #cl.member_function("setBeamIntensity").include()
-    #cl.member_function("setSample").include()
-    #cl.member_function("setSampleBuilder").include()
 
   # --- FormFactorCylinder.h ------------------------------------------
   if "FormFactorCrystal.h" in myFiles:
@@ -178,10 +189,6 @@ def AdditionalRules(mb):
     cl = mb.class_( "FormFactorSphereGaussianRadius" )
     cl.member_functions("createDistributedFormFactors").exclude()
 
-  # --- GISASExperiment.h ---------------------------------------------
-  if "GISASExperiment.h" in myFiles:
-    cl = mb.class_( "GISASExperiment" )
-    cl.member_function( "setDetectorResolutionFunction" ).exclude()
 
   # --- HomogeneousMaterial.h -----------------------------------------
   #if "HomogeneousMaterial.h" in myFiles:
@@ -351,10 +358,11 @@ def AdditionalRules(mb):
   if "ParameterPool.h" in myFiles:
     cl = mb.class_( "ParameterPool" )
     cl.member_function("registerParameter").include()
-    cl.member_function("registerParameter").add_transformation( FT.from_address( 1 ) )
+    #print "XXX",from_address_custom( 1 )
+    cl.member_function("registerParameter").add_transformation( from_address_custom( 1 ) )
     cl.member_function("getMatchedParameters").exclude()
 
-  # --- ParameterPool.h -----------------------------------------------
+  # --- ParticleCoreShell.h -----------------------------------------------
   if "ParticleCoreShell.h" in myFiles:
     cl = mb.class_( "ParticleCoreShell" )
     cl.member_functions().exclude()
@@ -380,6 +388,8 @@ def AdditionalRules(mb):
 
   if "Simulation.h" in myFiles:
     mb.class_('DWBASimulation').exclude()
+    cl = mb.class_("Simulation")
+    cl.member_function("setSampleBuilder").include()
 
   # --- Transform3D.h -------------------------------------------------
   #if "Transform3D.h" in myFiles:

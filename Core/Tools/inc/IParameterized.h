@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tools/inc/IParameterized.h
-//! @brief     Defines class IParameterized.
+//! @brief     Defines standard mix-in class IParameterized.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,28 +20,30 @@
 #include "IChangeable.h"
 #include "ParameterPool.h"
 
+//! Manage a "local" parameter pool, and a tree of children's pools.
+
 class IParameterized : public INamed
 {
  public:
     IParameterized()
         : m_parameters(), m_status() {}
-    IParameterized(const std::string &name) 
+    IParameterized(const std::string& name) 
         : INamed(name), m_parameters(), m_status() {}
-    IParameterized(const IParameterized &other)
+    IParameterized(const IParameterized& other)
         : INamed(other), m_parameters(), m_status() {}
-    IParameterized &operator=(const IParameterized &other);
+    IParameterized& operator=(const IParameterized& other);
     virtual ~IParameterized() {}
 
     //! Return pointer to the parameter pool.
-    ParameterPool *getParameterPool() { return &m_parameters; }
+    ParameterPool* getParameterPool() { return &m_parameters; }
 
     //! Create new parameter pool, with all local parameter and parameters of children
-    virtual ParameterPool *createParameterTree() const;
+    virtual ParameterPool* createParameterTree() const;
 
     //! Add parameters from local pool to external pool and call recursion over direct children.
     virtual std::string addParametersToExternalPool(
         std::string path,
-        ParameterPool *external_pool,
+        ParameterPool* external_pool,
         int copy_number=-1) const;
 
     virtual void printParameters() const;

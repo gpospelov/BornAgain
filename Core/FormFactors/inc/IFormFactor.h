@@ -3,7 +3,8 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      FormFactors/inc/IFormFactor.h
-//! @brief     Defines pure virtual interface class IFormFactor.
+//! @brief     Defines and partly implements pure virtual interface IFormFactor.
+//!            There is no separate implementation file.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,7 +18,6 @@
 #define IFORMFACTOR_H
 
 #include "ISample.h"
-#include "MemberFunctionIntegrator.h"
 #include "Bin.h"
 
 //! The basic interface for formfactors.
@@ -28,18 +28,22 @@ class IFormFactor : public ISample
     IFormFactor() {}
     virtual ~IFormFactor() {}
 
-    //! create a clone of this formfactor
     virtual IFormFactor *clone() const=0;
 
     //! pass the refractive index of the ambient material in which this particle is embedded
-    virtual void setAmbientRefractiveIndex(const complex_t &refractive_index) { (void)refractive_index; }
+    virtual void setAmbientRefractiveIndex(const complex_t &refractive_index)
+    {
+        (void)refractive_index; // to prevent unused-variable warning
+    }
 
     //! calculate scattering amplitude for complex wavevector bin
     //! @param k_i   incoming wavevector
     //! @param k_f_bin   outgoing wavevector bin
     //! @param alpha_i incident angle wrt scattering surface
     //! @param alpha_f outgoing angle wrt scattering surface
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const=0;
+    virtual complex_t evaluate(
+        const cvector_t &k_i, const Bin1DCVector &k_f_bin,
+        double alpha_i, double alpha_f) const=0;
 
     //! return number of variable/stochastic parameters
     virtual int getNumberOfStochasticParameters() const { return 0; }
@@ -57,11 +61,13 @@ class IFormFactor : public ISample
     virtual bool isDistributedFormFactor() const { return false; }
 
     //! retrieve a list of simple formfactors and their probabilities when the formfactor is a distributed one
-    virtual void createDistributedFormFactors(std::vector<IFormFactor *> &form_factors,
-            std::vector<double> &probabilities, size_t nbr_samples) const {
-        (void)form_factors;
-        (void)probabilities;
-        (void)nbr_samples;
+    virtual void createDistributedFormFactors(
+        std::vector<IFormFactor *> &form_factors,
+        std::vector<double> &probabilities,
+        size_t nbr_samples) const {
+        (void)form_factors;   // to prevent unused-variable warning
+        (void)probabilities;  // to prevent unused-variable warning
+        (void)nbr_samples;    // to prevent unused-variable warning
     }
 };
 

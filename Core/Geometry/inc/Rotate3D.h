@@ -31,11 +31,11 @@ class RotateY_3D : public ITransform3D {
         : m_ca( std::cos(a) ), m_sa( std::sin(a) ) {}
 
     //! Return inverse transform.
-    ITransform3D inverse() const
-    { return RotateY_3D( m_ca, -m_sa ); }
+    virtual PTransform3D inverse() const
+    { return new PTransform3D( RotateY_3D( m_ca, -m_sa ) ); }
 
     //! Return rotated vector _v_.
-    BasicVector3D<double> transformed(const BasicVector3D<double>& v) const
+    virtual BasicVector3D<double> transformed(const BasicVector3D<double>& v) const
     {   std::cout << "DEBUG: trafo<double> rotate y\n"; 
         return BasicVector3D<double>( m_ca*v.x() + m_sa*v.z(),
                                       v.y(),
@@ -43,7 +43,7 @@ class RotateY_3D : public ITransform3D {
     }
 
     //! Return rotated vector _v_: avoid complex implementation unless needed.
-    BasicVector3D<complex_t>
+    virtual BasicVector3D<complex_t>
         transformed(const BasicVector3D<complex_t>& v) const
     { (void)v;  // to prevent unused-variable warning
         throw NotImplementedException("Rotate_3D::transformed<complex_t> -> "
@@ -64,17 +64,15 @@ class RotateZ_3D : public ITransform3D {
  public:
     //! Constructs a rotation by angle _a_.
 
-    //! QUESTION: How can we construct identity transform for a=0?
-    //!
     RotateZ_3D(double a)
         : m_ca( std::cos(a) ), m_sa( std::sin(a) ) {}
 
     //! Return inverse transform.
-    ITransform3D inverse() const
+    virtual ITransform3D inverse() const
     { return RotateZ_3D( m_ca, -m_sa ); }
 
     //! Return rotated vector _v_.
-    BasicVector3D<double> transformed(const BasicVector3D<double>& v) const
+    virtual BasicVector3D<double> transformed(const BasicVector3D<double>& v) const
     {   std::cout << "DEBUG: trafo<double> rotate z\n"; 
         return BasicVector3D<double>( m_ca*v.x() - m_sa*v.y(),
                                       m_sa*v.x() + m_ca*v.y(),
@@ -82,7 +80,7 @@ class RotateZ_3D : public ITransform3D {
     }
 
     //! Return rotated vector _v_: avoid complex implementation unless needed.
-    BasicVector3D<complex_t>
+    virtual BasicVector3D<complex_t>
         transformed(const BasicVector3D<complex_t>& v) const
     { (void)v;  // to prevent unused-variable warning
         throw NotImplementedException("RotateZ_3D::transformed<complex_t> -> "

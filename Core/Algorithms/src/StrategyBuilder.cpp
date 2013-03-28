@@ -142,17 +142,16 @@ FormFactorInfo *LayerDecoratorStrategyBuilder::createFormFactorInfo(
 {
     FormFactorInfo *p_result = new FormFactorInfo;
     Particle *p_particle_clone = p_particle_info->getParticle()->clone();
-    const Geometry::ITransform3D *p_transform =
-        p_particle_info->getITransform3D();
+    const Geometry::PTransform3D transform =
+        p_particle_info->getPTransform3D();
 
     // formfactor
     p_particle_clone->setAmbientRefractiveIndex(n_ambient_refractive_index);
     IFormFactor *ff_particle = p_particle_clone->createFormFactor();
     delete p_particle_clone;
     IFormFactor *ff_transformed(0);
-    if(p_transform) {
-        ff_transformed = new FormFactorDecoratorTransformation(
-            ff_particle, new Geometry::ITransform3D(*p_transform));
+    if(transform) {
+        ff_transformed = new FormFactorDecoratorTransformation(ff_particle, transform);
     } else{
         ff_transformed = ff_particle;
     }

@@ -24,7 +24,8 @@ class DiffuseParticleInfo: public ParticleInfo
 {
  public:
     DiffuseParticleInfo(
-        Particle *p_particle, Geometry::ITransform3D *transform=0,
+        Particle *p_particle,
+        const Geometry::PTransform3D& transform = Geometry::PTransform3D(),
         double depth=0, double abundance=0)
         : ParticleInfo(p_particle, transform, depth, abundance)
         , m_number_per_meso(0.0)

@@ -26,11 +26,16 @@ class ParticleInfo : public ICompositeSample
 {
  public:
     ParticleInfo(Particle *p_particle,
-                 Geometry::ITransform3D *transform=0,
+                 const Geometry::PTransform3D& transform,
                  double depth=0, double abundance=0);
     ParticleInfo(const Particle& p_particle,
-                 const Geometry::ITransform3D& transform,
+                 const Geometry::PTransform3D& transform,
                  double depth=0, double abundance=0);
+    ParticleInfo(Particle *p_particle,
+                 double depth=0, double abundance=0)
+    { *this = ParticleInfo(p_particle, Geometry::PTransform3D(),
+                                  depth, abundance); }
+
     virtual ~ParticleInfo();
 
     virtual ParticleInfo *clone() const;
@@ -39,15 +44,12 @@ class ParticleInfo : public ICompositeSample
     const Particle *getParticle() const { return mp_particle; }
 
     //! Returns transformation.
-    const Geometry::ITransform3D *getITransform3D() const
-    { return mp_transform; }
+    const Geometry::PTransform3D getPTransform3D() const
+    { return mP_transform; }
 
     //! Sets transformation.
-    void setTransform(const Geometry::ITransform3D& transform)
-    {
-        delete mp_transform;
-        mp_transform = new Geometry::ITransform3D(transform);
-    }
+    void setTransform(const Geometry::PTransform3D& transform)
+    { mP_transform = transform; }
 
     //! Returns depth.
     double getDepth() const { return m_depth; }
@@ -65,7 +67,7 @@ class ParticleInfo : public ICompositeSample
     virtual void init_parameters();
 
     Particle *mp_particle;
-    Geometry::ITransform3D *mp_transform;
+    Geometry::PTransform3D mP_transform;
     double m_depth;
     double m_abundance;
 };

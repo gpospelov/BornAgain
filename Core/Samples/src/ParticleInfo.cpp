@@ -15,7 +15,9 @@
 
 #include "ParticleInfo.h"
 
-ParticleInfo::ParticleInfo(Particle* p_particle, Geometry::ITransform3D *transform, double depth, double abundance)
+ParticleInfo::ParticleInfo(
+    Particle* p_particle, const Geometry::PTransform3D transform,
+    double depth, double abundance)
     : mp_particle(p_particle)
     , mp_transform(transform)
     , m_depth(depth)
@@ -28,11 +30,11 @@ ParticleInfo::ParticleInfo(Particle* p_particle, Geometry::ITransform3D *transfo
 
 ParticleInfo::ParticleInfo(
     const Particle& p_particle,
-    const Geometry::ITransform3D& transform,
+    const Geometry::PTransform3D& transform,
     double depth,
     double abundance)
     : mp_particle(p_particle.clone())
-    , mp_transform(new Geometry::ITransform3D(transform))
+    , mp_transform(transform)
     , m_depth(depth)
     , m_abundance(abundance)
 {

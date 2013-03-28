@@ -26,28 +26,20 @@ class FormFactorDecoratorTransformation : public IFormFactorDecorator
  public:
     //! Constructor, setting formfactor and rotation.
     FormFactorDecoratorTransformation(
-        IFormFactor *p_form_factor, Geometry::ITransform3D *transform)
+        IFormFactor *p_form_factor, const Geometry::PTransform3D& transform)
         : IFormFactorDecorator(p_form_factor)
-        , mp_transform(transform)
-        , mp_inverse_transform(0)
+        , mP_transform(transform)
     {
         setName("FormFactorDecoratorTransformation");
-        mp_inverse_transform =
-            new Geometry::ITransform3D(mp_transform->inverse());
+        mP_inverse_transform = mP_transform->inverse();
     }
 
-    virtual ~FormFactorDecoratorTransformation()
-    {
-        delete mp_transform;
-        delete mp_inverse_transform;
-    }
+    virtual ~FormFactorDecoratorTransformation() {}
 
     virtual FormFactorDecoratorTransformation *clone() const
     {
-        Geometry::ITransform3D *p_new_transform =
-            new Geometry::ITransform3D(*mp_transform);
         return new FormFactorDecoratorTransformation(
-            mp_form_factor->clone(), p_new_transform);
+            mp_form_factor->clone(), mP_transform);
     }
 
     virtual complex_t evaluate(
@@ -59,8 +51,8 @@ class FormFactorDecoratorTransformation : public IFormFactorDecorator
     { return mp_form_factor->getNumberOfStochasticParameters(); }
 
  protected:
-    Geometry::ITransform3D *mp_transform;
-    Geometry::ITransform3D *mp_inverse_transform;
+    Geometry::PTransform3D mP_transform;
+    Geometry::PTransform3D mP_inverse_transform;
 };
 
 
@@ -73,11 +65,11 @@ inline complex_t FormFactorDecoratorTransformation::evaluate(
     double alpha_i, double alpha_f) const
 {
     cvector_t new_ki =
-        mp_inverse_transform->transformed(k_i);
+        mP_inverse_transform->transformed(k_i);
     cvector_t new_kf_lower =
-        mp_inverse_transform->transformed(k_f_bin.m_q_lower);
+        mP_inverse_transform->transformed(k_f_bin.m_q_lower);
     cvector_t new_kf_upper =
-        mp_inverse_transform->transformed(k_f_bin.m_q_upper);
+        mP_inverse_transform->transformed(k_f_bin.m_q_upper);
     Bin1DCVector new_kf_bin(new_kf_lower, new_kf_upper);
     return mp_form_factor->evaluate(new_ki, new_kf_bin, alpha_i, alpha_f);
 }

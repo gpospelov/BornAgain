@@ -37,10 +37,7 @@ class ParticleDecoration : public IDecoration
 
     //! Adds particle giving depth and transformation
     void addParticle(
-        Particle *p_particle, Geometry::ITransform3D *p_transform=0,
-        double depth=0, double abundance=1.0);
-    void addParticle(
-        const Particle& particle, const Geometry::ITransform3D& transform,
+        const Particle& p_particle, const Geometry::PTransform3D& transform,
         double depth=0, double abundance=1.0);
 
     //! Adds particle giving depth

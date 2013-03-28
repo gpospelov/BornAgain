@@ -32,7 +32,7 @@ ParticleDecoration::ParticleDecoration(
   : m_total_abundance(0.0)
 {
     setName("ParticleDecoration");
-    addParticle(p_particle, 0, depth, abundance);
+    addParticle(p_particle, depth, abundance);
 }
 
 ParticleDecoration::ParticleDecoration(
@@ -40,7 +40,7 @@ ParticleDecoration::ParticleDecoration(
   : m_total_abundance(0.0)
 {
     setName("ParticleDecoration");
-    addParticle(p_particle.clone(), 0, depth, abundance);
+    addParticle(p_particle.clone(), depth, abundance);
 }
 
 ParticleDecoration::~ParticleDecoration()
@@ -69,34 +69,32 @@ ParticleDecoration* ParticleDecoration::clone() const
     return p_new;
 }
 
-//! Adds particle
+//! Adds generic particle.
 
-void ParticleDecoration::addParticle(Particle* p_particle,
-        double depth, double abundance)
+void ParticleDecoration::addParticle(
+    const Particle& p_particle, const Geometry::PTransform3D& transform,
+    double depth, double abundance)
+{
+    addAndRegisterParticleInfo(
+        new ParticleInfo(p_particle.clone(), transform, depth, abundance));
+}
+
+//! Adds particle without rotation.
+
+void ParticleDecoration::addParticle(
+    Particle* p_particle,
+    double depth, double abundance)
 {
     addParticle(p_particle, 0, depth, abundance);
 }
 
-void ParticleDecoration::addParticle(const Particle& p_particle,
-        double depth, double abundance)
+//! Adds particle without rotation (alternate form).
+
+void ParticleDecoration::addParticle(
+    const Particle& p_particle,
+    double depth, double abundance)
 {
     addParticle(p_particle.clone(), 0, depth, abundance);
-}
-
-void ParticleDecoration::addParticle(const Particle& p_particle,
-        const Geometry::ITransform3D& transform, double depth, double abundance)
-{
-    addParticle(p_particle.clone(),
-                new Geometry::ITransform3D(transform),
-                depth, abundance);
-}
-
-// main function to add particle
-void ParticleDecoration::addParticle(Particle* p_particle,
-        Geometry::ITransform3D *transform, double depth, double abundance)
-{
-    addAndRegisterParticleInfo(
-        new ParticleInfo(p_particle, transform, depth, abundance) );
 }
 
 //! Adds particle info

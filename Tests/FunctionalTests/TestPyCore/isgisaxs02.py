@@ -3,6 +3,7 @@ import sys
 import os
 import numpy
 import gzip
+import math
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0],

@@ -59,6 +59,7 @@
 #include "MesoCrystal.pypp.h" 
 #include "MultiLayer.pypp.h" 
 #include "MultiLayerDWBASimulation.pypp.h" 
+#include "ndimdata_t.pypp.h" 
 #include "OpticalFresnel.pypp.h" 
 #include "ParameterPool.pypp.h" 
 #include "Particle.pypp.h" 
@@ -86,12 +87,16 @@
 #include "vector_DiffuseParticleInfoPtr_t.pypp.h" 
 #include "vector_IFormFactorPtr_t.pypp.h" 
 #include "vector_kvector_t.pypp.h" 
+#include "vector_less__int__greater_.pypp.h" 
+#include "vector_less__unsigned_long__greater_.pypp.h" 
 #include "__call_policies.pypp.hpp" 
 
 #include "PythonListConverter.h"
 
 BOOST_PYTHON_MODULE(libBornAgainCore){
 
+    register_vector_less__unsigned_long__greater__class();
+    register_vector_less__int__greater__class();
     register_vdouble1d_t_class();
     register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
@@ -160,6 +165,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_MultiLayer_class();
     register_MultiLayerDWBASimulation_class();
     register_OpticalFresnel_class();
+    register_ndimdata_t_class();
     register_ParameterPool_class();
     register_ParticleBuilder_class();
     register_ParticleCoreShell_class();

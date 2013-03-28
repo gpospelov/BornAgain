@@ -152,7 +152,7 @@ def InstallCode(OutputTempDir, InstallDir):
   #for fname in FilesToExclude:
     #files_inc = filter(lambda x: not fname in x, files_inc)
     #files_src = filter(lambda x: not fname in x, files_src)
-  PatternsToExclude = ["vdouble1d_t"]
+  PatternsToExclude = ["vdouble1d_t", "vcomplex1d_t"]
   for pattern in PatternsToExclude:
     files2remove = glob.glob(OutputTempDir+"/"+pattern+".*")
     for ff in files2remove:

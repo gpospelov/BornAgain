@@ -34,7 +34,13 @@ TestFit02::~TestFit02()
 
 int TestFit02::run()
 {
-    //std::numeric_limits<double>::signaling_NaN();
+//    double cylinder_height(5.0*Units::nanometer)
+//    double cylinder_radius(5.0*Units::nanometer)
+//    double prism3_half_side(5.0*Units::nanometer)
+//    double prism3_height(5.0*Units::nanometer)
+//    double cylinder_ratio(0.2)
+
+
 
     SampleBuilder *sample_builder = new SampleBuilder();
 
@@ -61,7 +67,7 @@ int TestFit02::run()
     // setting up fitSuite
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
-//    chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer() );
+    chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer() );
     fitSuite->addSimulationAndRealData(*simulation, *real_data, chiModule);
 
     fitSuite->runFit();

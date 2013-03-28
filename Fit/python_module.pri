@@ -5,8 +5,17 @@ HEADERS +=  \
     PythonAPI/inc/FitSuite.pypp.h \
     PythonAPI/inc/IChiSquaredModule.pypp.h \
     PythonAPI/inc/IMinimizer.pypp.h \
+    PythonAPI/inc/IOutputDataNormalizer.pypp.h \
+    PythonAPI/inc/ISquaredFunction.pypp.h \
     PythonAPI/inc/MinimizerFactory.pypp.h \
-    PythonAPI/inc/ndimdata_t.pypp.h 
+    PythonAPI/inc/OutputDataNormalizer.pypp.h \
+    PythonAPI/inc/OutputDataSimpleNormalizer.pypp.h \
+    PythonAPI/inc/PythonInterface_enumerations.pypp.h \
+    PythonAPI/inc/PythonInterface_free_functions.pypp.h \
+    PythonAPI/inc/SquaredFunctionDefault.pypp.h \
+    PythonAPI/inc/SquaredFunctionWhichOnlyWorks.pypp.h \
+    PythonAPI/inc/SquaredFunctionWithGaussianError.pypp.h \
+    PythonAPI/inc/SquaredFunctionWithSystematicError.pypp.h 
 
 SOURCES +=  \ 
     PythonAPI/src/PythonModule.cpp \ 
@@ -15,8 +24,17 @@ SOURCES +=  \
     PythonAPI/src/FitSuite.pypp.cpp \
     PythonAPI/src/IChiSquaredModule.pypp.cpp \
     PythonAPI/src/IMinimizer.pypp.cpp \
+    PythonAPI/src/IOutputDataNormalizer.pypp.cpp \
+    PythonAPI/src/ISquaredFunction.pypp.cpp \
     PythonAPI/src/MinimizerFactory.pypp.cpp \
-    PythonAPI/src/ndimdata_t.pypp.cpp 
+    PythonAPI/src/OutputDataNormalizer.pypp.cpp \
+    PythonAPI/src/OutputDataSimpleNormalizer.pypp.cpp \
+    PythonAPI/src/PythonInterface_enumerations.pypp.cpp \
+    PythonAPI/src/PythonInterface_free_functions.pypp.cpp \
+    PythonAPI/src/SquaredFunctionDefault.pypp.cpp \
+    PythonAPI/src/SquaredFunctionWhichOnlyWorks.pypp.cpp \
+    PythonAPI/src/SquaredFunctionWithGaussianError.pypp.cpp \
+    PythonAPI/src/SquaredFunctionWithSystematicError.pypp.cpp 
 
 INCLUDEPATH += $$PWD/PythonAPI/inc 
 DEPENDPATH  += $$PWD/PythonAPI/inc 

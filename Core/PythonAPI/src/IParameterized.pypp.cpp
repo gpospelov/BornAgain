@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -169,6 +170,15 @@ void register_IParameterized_class(){
                 , default_areParametersChanged_function_type(&IParameterized_wrapper::default_areParametersChanged) );
         
         }
+        { //::IParameterized::clearParameterPool
+        
+            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
+            
+            IParameterized_exposer.def( 
+                "clearParameterPool"
+                , clearParameterPool_function_type( &::IParameterized::clearParameterPool ) );
+        
+        }
         { //::IParameterized::createParameterTree
         
             typedef ::ParameterPool * ( ::IParameterized::*createParameterTree_function_type )(  ) const;
@@ -211,6 +221,16 @@ void register_IParameterized_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&IParameterized_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::setParameterValue
+        
+            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
+            
+            IParameterized_exposer.def( 
+                "setParameterValue"
+                , setParameterValue_function_type( &::IParameterized::setParameterValue )
+                , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged

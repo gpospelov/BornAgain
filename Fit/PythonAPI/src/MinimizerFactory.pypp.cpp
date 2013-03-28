@@ -13,8 +13,10 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ChiSquaredModule.h"
 #include "FitSuite.h"
 #include "MinimizerFactory.h"
-#include "OutputData.h"
 #include "PythonPlusplusFitHelper.h"
+#include "MathFunctions.h"
+#include "ISquaredFunction.h"
+#include "IOutputDataNormalizer.h"
 #include "MinimizerFactory.pypp.h"
 
 namespace bp = boost::python;

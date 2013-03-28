@@ -94,6 +94,7 @@ myFiles=[
   'ParticleBuilder.h',
   'ParticleCoreShell.h',
   'ParticleDecoration.h',
+  'OutputData.h',
   'ParticleInfo.h',
   'PositionParticleInfo.h',
   'PythonOutputData.h',
@@ -325,6 +326,19 @@ def AdditionalRules(mb):
     cl.member_function( "addLayer" ).include()
     cl.member_function( "addLayerWithTopRoughness" ).include()
 
+  # --- OutputData.h ----------------------------------------------------
+  if "OutputData.h" in myFiles:
+    cl = mb.class_("OutputData<double>")
+    cl.add_code('def("__setitem__", &pyplusplus_setitem<OutputData<double >,int,double> )')
+    MethodsToExclude=["begin","end"]
+    for fun in cl.member_functions(allow_empty=True):
+      isToExclude = False
+      for x in MethodsToExclude:
+        if fun.name == x:
+          isToExclude = True
+      if isToExclude:
+        fun.exclude()
+
   # --- Particle.h ----------------------------------------------------
   if "Particle.h" in myFiles:
     cl = mb.class_( "Particle" )
@@ -477,6 +491,19 @@ def MakePythonAPI(OutputTempDir):
       continue
     if not mem_fun.call_policies and (declarations.is_reference(mem_fun.return_type) or declarations.is_pointer(mem_fun.return_type) ):
       mem_fun.call_policies = call_policies.return_value_policy(call_policies.reference_existing_object )
+
+  # exluding classes which are dublicated in libBornAgainCore
+  DublicatesToExclude=[ 
+    "vector_integer_t",
+    "vector_longinteger_t",
+  ]
+
+  for cl in mb.classes():
+    print cl.name, cl.alias
+    for name in DublicatesToExclude:
+      if name in cl.name or name in cl.alias:
+        cl.exclude()
+
 
   # disabling some warnings
   messages.disable(

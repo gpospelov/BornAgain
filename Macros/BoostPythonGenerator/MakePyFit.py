@@ -19,15 +19,13 @@ myFiles=[
   'AttLimits.h',
   'IChiSquaredModule.h',
   'IMinimizer.h',
-  #'IResolutionFunction2D.h',
-  #'ISquaredFunction.h',
   'ChiSquaredModule.h',
   'FitSuite.h',
   'MinimizerFactory.h',
-  'OutputData.h',
   'PythonPlusplusFitHelper.h',
-  #'OutputDataIterator.h',
-  #'ResolutionFunction2DSimple.h'
+  'MathFunctions.h',
+  'ISquaredFunction.h',
+  'IOutputDataNormalizer.h'
 ]
 
 
@@ -82,8 +80,8 @@ def AdditionalRules(mb):
 
   if "OutputData.h" in myFiles:
     cl = mb.class_("OutputData<double>")
-    cl.member_functions().exclude()
-    cl.member_function("totalSum").include()
+    #cl.member_functions().exclude()
+    #cl.member_function("totalSum").include()
 
   # --- PythonPlusplusHelper.h ----------------------------------------
   if "PythonPlusplusFitHelper.h" in myFiles:
@@ -169,9 +167,14 @@ def MakePythonAPI(OutputTempDir):
     "std::vector<std::vector<double, std::allocator<double> >",
     "vdouble2d_t",
     "vdouble1d_t",
+    "cvector_t",
+    "kvector_t",
+    "complex_t",
+    "vcomplex1d_t",
   ]
 
   for cl in mb.classes():
+    print cl.name, cl.alias
     for name in DublicatesToExclude:
       if name in cl.name or name in cl.alias:
         cl.exclude()

@@ -69,7 +69,17 @@ ParticleDecoration* ParticleDecoration::clone() const
     return p_new;
 }
 
-//! Adds generic particle.
+//! Adds generic particle, *-version.
+
+void ParticleDecoration::addParticle(
+    Particle* p_particle, const Geometry::PTransform3D& transform,
+    double depth, double abundance)
+{
+    addAndRegisterParticleInfo(
+        new ParticleInfo(p_particle, transform, depth, abundance));
+}
+
+//! Adds generic particle, &-version.
 
 void ParticleDecoration::addParticle(
     const Particle& p_particle, const Geometry::PTransform3D& transform,
@@ -79,22 +89,22 @@ void ParticleDecoration::addParticle(
         new ParticleInfo(p_particle.clone(), transform, depth, abundance));
 }
 
-//! Adds particle without rotation.
+//! Adds particle without rotation, *-version.
 
 void ParticleDecoration::addParticle(
     Particle* p_particle,
     double depth, double abundance)
 {
-    addParticle(p_particle, 0, depth, abundance);
+    addParticle(p_particle, Geometry::PTransform3D(), depth, abundance);
 }
 
-//! Adds particle without rotation (alternate form).
+//! Adds particle without rotation, &-version.
 
 void ParticleDecoration::addParticle(
     const Particle& p_particle,
     double depth, double abundance)
 {
-    addParticle(p_particle.clone(), 0, depth, abundance);
+    addParticle(p_particle.clone(), Geometry::PTransform3D(), depth, abundance);
 }
 
 //! Adds particle info

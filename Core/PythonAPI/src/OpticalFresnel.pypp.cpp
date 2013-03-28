@@ -120,14 +120,14 @@ void register_OpticalFresnel_class(){
         bp::scope OpticalFresnel_scope( OpticalFresnel_exposer );
         bp::class_< OpticalFresnel::FresnelCoeff >( "FresnelCoeff", bp::init< >() )    
             .def( bp::self == bp::self )    
-            .def_readwrite( "R",& OpticalFresnel::FresnelCoeff::R )    
-            .def_readwrite( "T",& OpticalFresnel::FresnelCoeff::T )    
-            .def_readwrite( "X",& OpticalFresnel::FresnelCoeff::X )    
-            .def_readwrite( "kz",& OpticalFresnel::FresnelCoeff::kz )    
-            .def_readwrite( "r",& OpticalFresnel::FresnelCoeff::r )    
-            .def_readwrite( "rb",& OpticalFresnel::FresnelCoeff::rb )    
-            .def_readwrite( "t",& OpticalFresnel::FresnelCoeff::t )    
-            .def_readwrite( "tb",& OpticalFresnel::FresnelCoeff::tb );
+            .def_readwrite( "R", &OpticalFresnel::FresnelCoeff::R )    
+            .def_readwrite( "T", &OpticalFresnel::FresnelCoeff::T )    
+            .def_readwrite( "X", &OpticalFresnel::FresnelCoeff::X )    
+            .def_readwrite( "kz", &OpticalFresnel::FresnelCoeff::kz )    
+            .def_readwrite( "r", &OpticalFresnel::FresnelCoeff::r )    
+            .def_readwrite( "rb", &OpticalFresnel::FresnelCoeff::rb )    
+            .def_readwrite( "t", &OpticalFresnel::FresnelCoeff::t )    
+            .def_readwrite( "tb", &OpticalFresnel::FresnelCoeff::tb );
         bp::class_< OpticalFresnel::MultiLayerCoeff >( "MultiLayerCoeff" )    
             .def( 
                 "clear"

@@ -319,7 +319,7 @@ int main (int argc, char **argv)
     feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
     
     // set handler
-//     if (sigaction(SIGFPE,& act, (struct sigaction *)0) != 0)
+//     if (sigaction(SIGFPE, &act, (struct sigaction *)0) != 0)
 //     {
 //         perror("Yikes");
 //         exit(-1);

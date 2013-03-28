@@ -52,9 +52,9 @@ class FitTransformFunction : public FitMethodFunction {
       const double * xExt = fTransform->Transformation(x);
       if ( g == 0) return fFunc.DataElement( xExt, i );
       // use gradient
-      double val =  fFunc.DataElement( xExt, i,& fGrad[0]);
+      double val =  fFunc.DataElement( xExt, i, &fGrad[0]);
       // transform gradient
-      fTransform->GradientTransformation( x,& fGrad.front(), g);
+      fTransform->GradientTransformation( x, &fGrad.front(), g);
       return val;
    }
 
@@ -280,7 +280,7 @@ bool GSLNLSMinimizer::Minimize() {
          fResiduals[ires] = LSResidualFunc(*trFunc, ires);
       }
 
-      trFunc->InvTransformation(&fValues.front(),& startValues[0]);
+      trFunc->InvTransformation(&fValues.front(), &startValues[0]);
       fNFree = trFunc->NDim(); // actual dimension
       assert(fValues.size() == trFunc->NTot() );
       startValues.resize( fNFree );
@@ -294,7 +294,7 @@ bool GSLNLSMinimizer::Minimize() {
 //       //stepSize += fSteps[i];
 //       if (fSteps[i] < stepSize) stepSize = fSteps[i];
 
-   int iret = fGSLMultiFit->Set( fResiduals,& startValues.front() );
+   int iret = fGSLMultiFit->Set( fResiduals, &startValues.front() );
    if (iret) {
       MATH_ERROR_MSGVAL("GSLNLSMinimizer::Minimize","Error setting the residual functions ",iret);
       return false;
@@ -383,7 +383,7 @@ bool GSLNLSMinimizer::Minimize() {
    if (minFound) {
 
       if (trFunc.get() != 0) {
-         trFunc->MatrixTransformation(x, fGSLMultiFit->CovarMatrix(),& fCovMatrix[0] );
+         trFunc->MatrixTransformation(x, fGSLMultiFit->CovarMatrix(), &fCovMatrix[0] );
       }
       else {
          const double * m =  fGSLMultiFit->CovarMatrix();

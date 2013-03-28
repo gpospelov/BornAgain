@@ -27,8 +27,8 @@ class DWBASimulation;
 class ISample : public IParameterized, public ICloneable
 {
  public:
-    ISample() { }
-    virtual ~ISample() { }
+    ISample() {}
+    virtual ~ISample() {}
 
     //! Returns pointer to "this", if it is composite sample (to overload).
     virtual ICompositeSample *getCompositeSample() { return 0; }
@@ -52,7 +52,8 @@ class ISample : public IParameterized, public ICloneable
             int copy_number=-1) const;
 
  protected:
-    virtual void print(std::ostream& ostr) const { ostr << getName() << " " << this << " " << m_parameters; }
+    virtual void print(std::ostream& ostr) const
+    { ostr << getName() << " " << this << " " << m_parameters; }
 };
 
 #endif // ISAMPLE_H

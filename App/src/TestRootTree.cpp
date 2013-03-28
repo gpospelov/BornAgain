@@ -191,7 +191,7 @@ void TestRootTree::complex_read()
 
     TreeEventOutputData *event = 0;
 
-    tree->SetBranchAddress("Event",& event);
+    tree->SetBranchAddress("Event", &event);
 
     // reading data from the tree
     for(int i=0; i<tree->GetEntries(); i++) {
@@ -249,7 +249,7 @@ void TestRootTree::simple_write()
     tree->Branch("phi_f",&phi_f, "phi_f/D");
     tree->Branch("nev",&nev, "nev/I");
     //somevector = new std::vector<double>;
-    //tree->Branch("somevector","vector<double >",& somevector);
+    //tree->Branch("somevector","vector<double >", &somevector);
 
     TCanvas *c1 = new TCanvas("c1","c1",1024, 768);
 

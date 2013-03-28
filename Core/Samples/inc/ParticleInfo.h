@@ -32,9 +32,9 @@ class ParticleInfo : public ICompositeSample
                  const Geometry::PTransform3D& transform,
                  double depth=0, double abundance=0);
     ParticleInfo(Particle *p_particle,
-                 double depth=0, double abundance=0)
-    { *this = ParticleInfo(p_particle, Geometry::PTransform3D(),
-                                  depth, abundance); }
+                 double depth=0, double abundance=0);
+    ParticleInfo(const Particle& p_particle,
+                 double depth=0, double abundance=0);
 
     virtual ~ParticleInfo();
 

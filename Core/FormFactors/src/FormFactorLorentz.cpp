@@ -39,8 +39,8 @@ FormFactorLorentz::FormFactorLorentz(double height, double width)
 void FormFactorLorentz::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("height",& m_height);
-    getParameterPool()->registerParameter("width",& m_width);
+    getParameterPool()->registerParameter("height", &m_height);
+    getParameterPool()->registerParameter("width", &m_width);
 }
 
 FormFactorLorentz* FormFactorLorentz::clone() const

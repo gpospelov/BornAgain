@@ -119,20 +119,20 @@ TEST_F(KVectorTest, BasicTransformation)
 */
 
     a = kvector_t(std::sqrt(3.)/2., 2., 0.5);
-    Geometry::ITransform3D m2 = Geometry::RotateY_3D(M_PI/6.);
-    v = m2.transformed(a);
+    Geometry::PTransform3D m2(new Geometry::RotateY_3D(M_PI/6.));
+    v = m2->transformed(a);
     ASSERT_NEAR(      v.x(), 1.0, epsilon );
     EXPECT_DOUBLE_EQ( v.y(), 2.0 );
     ASSERT_NEAR(      v.z(), 0.0, epsilon );
 
     a = kvector_t(0.5, std::sqrt(3.)/2., 2.);
-    Geometry::ITransform3D m3 = Geometry::RotateZ_3D(M_PI/6.);
-    v = m3.transformed(a);
+    Geometry::PTransform3D m3(new Geometry::RotateZ_3D(M_PI/6.));
+    v = m3->transformed(a);
     ASSERT_NEAR(      v.x(), 0.0, epsilon );
     ASSERT_NEAR(      v.y(), 1.0, epsilon );
     EXPECT_DOUBLE_EQ( v.z(), 2.0 );
-    Geometry::ITransform3D m4_inverse = m3.inverse();
-    v = m4_inverse.transformed(v);
+    Geometry::PTransform3D m4 = m3->inverse();
+    v = m4->transformed(v);
     ASSERT_NEAR( v.x(), a.x(), epsilon );
     ASSERT_NEAR( v.y(), a.y(), epsilon );
     ASSERT_NEAR( v.z(), a.z(), epsilon );

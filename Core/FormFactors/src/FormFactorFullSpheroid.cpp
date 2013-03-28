@@ -30,8 +30,8 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height )
 void FormFactorFullSpheroid::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius",& m_radius);
-    getParameterPool()->registerParameter("height",& m_height);
+    getParameterPool()->registerParameter("radius", &m_radius);
+    getParameterPool()->registerParameter("height", &m_height);
 }
 
 FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const

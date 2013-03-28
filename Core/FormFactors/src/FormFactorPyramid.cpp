@@ -30,9 +30,9 @@ FormFactorPyramid::FormFactorPyramid(
 void FormFactorPyramid::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("height",& m_height);
-    getParameterPool()->registerParameter("half_side",& m_half_side);
-    getParameterPool()->registerParameter("alpha",& m_alpha);
+    getParameterPool()->registerParameter("height", &m_height);
+    getParameterPool()->registerParameter("half_side", &m_half_side);
+    getParameterPool()->registerParameter("alpha", &m_alpha);
 }
 
 FormFactorPyramid* FormFactorPyramid::clone() const

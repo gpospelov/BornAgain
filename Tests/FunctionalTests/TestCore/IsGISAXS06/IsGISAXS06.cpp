@@ -19,7 +19,8 @@
 FunctionalTests::IsGISAXS06::IsGISAXS06()
     : m_name("IsGISAXS06")
     , m_description("2D lattice with different disorder")
-    , m_path(Utils::FileSystem::GetHomePath()+"Tests/FunctionalTests/TestCore/IsGISAXS06/")
+    , m_path(Utils::FileSystem::GetHomePath() +
+             "Tests/FunctionalTests/TestCore/IsGISAXS06/")
 {
     m_results.resize(kNumberOfTests, 0);
 }
@@ -37,8 +38,10 @@ void FunctionalTests::IsGISAXS06::runlattice()
     // building sample
     MultiLayer multi_layer;
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material =
+         MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *p_substrate_material =
+         MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -49,20 +52,25 @@ void FunctionalTests::IsGISAXS06::runlattice()
     lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
     lattice_params.m_angle = 90.0*Units::degree; // lattice angle
     lattice_params.m_xi = 0.0*Units::degree; // lattice orientation
-    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer; // domain size 1
-    lattice_params.m_domain_size_2 =20000.0*Units::nanometer; // domain size 2
-    lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI; // correlation length 1
-    lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;  // correlation length 2
+    // domain sizes
+    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer;
+    lattice_params.m_domain_size_2 = 20000.0*Units::nanometer;
+    // correlation lengths
+    lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI;
+    lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;
 
-    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
-    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    InterferenceFunction2DLattice *p_interference_function =
+        new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
+                               100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);
 
     // particles
     ParticleDecoration particle_decoration;
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
-    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    PositionParticleInfo particle_info(
+        new Particle(n_particle, ff_cyl.clone()), position, 1.0);
     particle_decoration.addParticleInfo(particle_info);
 
     particle_decoration.addInterferenceFunction(p_interference_function);
@@ -73,7 +81,9 @@ void FunctionalTests::IsGISAXS06::runlattice()
 
     // building simulation
     Simulation simulation;
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setDetectorParameters(
+        100, 0.0*Units::degree, 2.0*Units::degree,
+        100, 0.0*Units::degree, 2.0*Units::degree, true);
     simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     SimulationParameters sim_params;
@@ -95,8 +105,10 @@ void FunctionalTests::IsGISAXS06::runcentered()
     // building sample
     MultiLayer multi_layer;
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air",  1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material =
+         MaterialManager::getHomogeneousMaterial("Air",  1.0, 0.0);
+    const IMaterial *p_substrate_material =
+         MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -112,15 +124,18 @@ void FunctionalTests::IsGISAXS06::runcentered()
     lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI; // correlation length 1
     lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;  // correlation length 2
 
-    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
-    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    InterferenceFunction2DLattice *p_interference_function =
+        new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
+                               100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);
 
     ParticleDecoration particle_decoration;
     // particle 1
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
-    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    PositionParticleInfo particle_info(
+        new Particle(n_particle, ff_cyl.clone()), position, 1.0);
     particle_decoration.addParticleInfo(particle_info);
     // particle 2
     kvector_t position_2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
@@ -135,7 +150,9 @@ void FunctionalTests::IsGISAXS06::runcentered()
 
     // building simulation
     Simulation simulation;
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setDetectorParameters(
+        100, 0.0*Units::degree, 2.0*Units::degree,
+        100, 0.0*Units::degree, 2.0*Units::degree, true);
     simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     SimulationParameters sim_params;
@@ -156,8 +173,10 @@ void FunctionalTests::IsGISAXS06::runrotated()
 {
     MultiLayer multi_layer;
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material =
+        MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *p_substrate_material =
+        MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -168,13 +187,17 @@ void FunctionalTests::IsGISAXS06::runrotated()
     lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
     lattice_params.m_angle = 90.0*Units::degree; // lattice angle
     lattice_params.m_xi = 30.0*Units::degree; // lattice orientation
-    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer; // domain size 1
-    lattice_params.m_domain_size_2 =20000.0*Units::nanometer; // domain size 2
-    lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI; // correlation length 1
-    lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;  // correlation length 2
+    // domain sizes:
+    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer;
+    lattice_params.m_domain_size_2 = 20000.0*Units::nanometer;
+    // correlation lengths:
+    lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI;
+    lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;
 
-    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
-    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    InterferenceFunction2DLattice *p_interference_function =
+        new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
+                               100.0*Units::nanometer/2.0/M_PI);
     pdf.setGamma(30.0*Units::degree);
     p_interference_function->setProbabilityDistribution(pdf);
 
@@ -182,7 +205,8 @@ void FunctionalTests::IsGISAXS06::runrotated()
     // particle
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
-    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    PositionParticleInfo particle_info(
+        new Particle(n_particle, ff_cyl.clone()), position, 1.0);
     particle_decoration.addParticleInfo(particle_info);
     particle_decoration.addInterferenceFunction(p_interference_function);
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
@@ -192,8 +216,11 @@ void FunctionalTests::IsGISAXS06::runrotated()
 
     // building simulation
     Simulation simulation;
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setDetectorParameters(
+        100, 0.0*Units::degree, 2.0*Units::degree,
+        100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom,
+                                -0.2*Units::degree, 0.0*Units::degree);
 
     SimulationParameters sim_params;
     sim_params.me_framework = SimulationParameters::DWBA;
@@ -213,8 +240,11 @@ void FunctionalTests::IsGISAXS06::runvariants()
 {
     // building simulation
     Simulation simulation;
-    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.setDetectorParameters(
+        100, 0.0*Units::degree, 2.0*Units::degree,
+        100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom,
+                                -0.2*Units::degree, 0.0*Units::degree);
 
     SimulationParameters sim_params;
     sim_params.me_framework = SimulationParameters::DWBA;
@@ -251,8 +281,10 @@ ISample* FunctionalTests::IsGISAXS06::LatticeVariantBuilder::buildSample() const
 {
     MultiLayer *p_multi_layer = new MultiLayer();
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0,0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *p_air_material =
+         MaterialManager::getHomogeneousMaterial("Air", 1.0,0.0);
+    const IMaterial *p_substrate_material =
+         MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -262,20 +294,23 @@ ISample* FunctionalTests::IsGISAXS06::LatticeVariantBuilder::buildSample() const
     lattice_params.m_length_2 = 10.0*Units::nanometer; // L2
     lattice_params.m_angle = 90.0*Units::degree; // lattice angle
     lattice_params.m_xi = m_xi; // lattice orientation
-    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer; // domain size 1
-    lattice_params.m_domain_size_2 =20000.0*Units::nanometer; // domain size 2
-    lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI; // correlation length 1
-    lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;  // correlation length 2
+    lattice_params.m_domain_size_1 = 20000.0*Units::nanometer;
+    lattice_params.m_domain_size_2 = 20000.0*Units::nanometer;
+    lattice_params.m_corr_length_1 = 300.0*Units::nanometer/2.0/M_PI;
+    lattice_params.m_corr_length_2 = 100.0*Units::nanometer/2.0/M_PI;
 
-    InterferenceFunction2DLattice *p_interference_function = new InterferenceFunction2DLattice(lattice_params);
-    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI, 100.0*Units::nanometer/2.0/M_PI);
+    InterferenceFunction2DLattice *p_interference_function =
+        new InterferenceFunction2DLattice(lattice_params);
+    FTDistribution2DCauchy pdf(300.0*Units::nanometer/2.0/M_PI,
+                               100.0*Units::nanometer/2.0/M_PI);
     p_interference_function->setProbabilityDistribution(pdf);
 
     ParticleDecoration particle_decoration;
     // particle
     FormFactorCylinder ff_cyl(5.0*Units::nanometer, 5.0*Units::nanometer);
     kvector_t position(0.0, 0.0, 0.0);
-    PositionParticleInfo particle_info( new Particle(n_particle, ff_cyl.clone()), 0, position, 1.0);
+    PositionParticleInfo particle_info(
+        new Particle(n_particle, ff_cyl.clone()), position, 1.0);
     particle_decoration.addParticleInfo(particle_info);
 
     particle_decoration.addInterferenceFunction(p_interference_function);
@@ -300,7 +335,8 @@ int FunctionalTests::IsGISAXS06::analyseResults()
 
     // retrieving reference data and generated examples
     for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
-        OutputData<double> *reference = OutputDataIOFactory::getOutputData(m_path + reference_files[i_test]);
+        OutputData<double> *reference =
+            OutputDataIOFactory::getOutputData(m_path + reference_files[i_test]);
         OutputData<double> *result = m_results[i_test];
 
         // calculating average relative difference
@@ -308,7 +344,8 @@ int FunctionalTests::IsGISAXS06::analyseResults()
         *result /= *reference;
 
         double diff(0);
-        for(OutputData<double>::const_iterator it=result->begin(); it!=result->end(); ++it) {
+        for(OutputData<double>::const_iterator it =
+                result->begin(); it!=result->end(); ++it) {
             diff+= std::fabs(*it);
         }
         diff /= result->getAllocatedSize();
@@ -316,7 +353,8 @@ int FunctionalTests::IsGISAXS06::analyseResults()
         delete reference;
     }
 
-    std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
+    std::cout << m_name << " " << m_description << " " <<
+        (status_ok ? "[OK]" : "[FAILED]") << std::endl;
     return (int)status_ok;
 }
 

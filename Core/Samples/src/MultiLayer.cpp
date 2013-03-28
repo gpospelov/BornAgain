@@ -37,7 +37,7 @@ MultiLayer::~MultiLayer()
 void MultiLayer::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("crossCorrLength",& m_crossCorrLength);
+    getParameterPool()->registerParameter("crossCorrLength", &m_crossCorrLength);
 }
 
 /* ************************************************************************* */

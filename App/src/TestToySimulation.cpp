@@ -56,7 +56,7 @@ void ToySimulation::init_parameters()
     for(size_t i=0; i<pars.size(); ++i) {
         std::ostringstream ostr;
         ostr << "par"<< i;
-        getParameterPool()->registerParameter(ostr.str(),& pars[i]);
+        getParameterPool()->registerParameter(ostr.str(), &pars[i]);
     }
 }
 

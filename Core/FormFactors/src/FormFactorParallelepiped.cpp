@@ -45,6 +45,6 @@ complex_t FormFactorParallelepiped::evaluate_for_q(const cvector_t& q) const
 void FormFactorParallelepiped::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("height",& m_height);
-    getParameterPool()->registerParameter("radius",& m_radius);
+    getParameterPool()->registerParameter("height", &m_height);
+    getParameterPool()->registerParameter("radius", &m_radius);
 }

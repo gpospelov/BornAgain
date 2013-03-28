@@ -19,7 +19,7 @@
 #include "MessageService.h"
 
 LayerDecoratorDWBASimulation::LayerDecoratorDWBASimulation(
-        const LayerDecorator *p_layer_decorator)
+    const LayerDecorator *p_layer_decorator)
 {
     mp_layer_decorator = p_layer_decorator->clone();
     mp_diffuseDWBA = mp_layer_decorator->createDiffuseDWBASimulation();
@@ -33,6 +33,7 @@ LayerDecoratorDWBASimulation::~LayerDecoratorDWBASimulation()
 
 void LayerDecoratorDWBASimulation::init(const Simulation& simulation)
 {
+    msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::init()\n";
     DWBASimulation::init(simulation);
     if (mp_diffuseDWBA) {
         mp_diffuseDWBA->init(simulation);
@@ -41,6 +42,7 @@ void LayerDecoratorDWBASimulation::init(const Simulation& simulation)
 
 void LayerDecoratorDWBASimulation::run()
 {
+    msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::run()\n";
     IInterferenceFunctionStrategy *p_strategy = createAndInitStrategy();
 
     calculateCoherentIntensity(p_strategy);
@@ -49,7 +51,8 @@ void LayerDecoratorDWBASimulation::run()
     delete p_strategy;
 }
 
-IInterferenceFunctionStrategy *LayerDecoratorDWBASimulation::createAndInitStrategy() const
+IInterferenceFunctionStrategy
+    *LayerDecoratorDWBASimulation::createAndInitStrategy() const
 {
     LayerDecoratorStrategyBuilder builder(*mp_layer_decorator, *mp_simulation, m_sim_params);
     if (mp_RT_function) builder.setReflectionTransmissionFunction(*mp_RT_function);
@@ -57,8 +60,9 @@ IInterferenceFunctionStrategy *LayerDecoratorDWBASimulation::createAndInitStrate
     return p_strategy;
 }
 
-std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors() const
+std::vector<IFormFactor*> LayerDecoratorDWBASimulation::createDWBAFormFactors() const
 {
+    msglog(MSG::DEBUG) << "LayerDecoratorDWBASimulation::create...\n";
     std::vector<IFormFactor *> result;
     const IDecoration *p_decoration = mp_layer_decorator->getDecoration();
     complex_t n_layer = mp_layer_decorator->getRefractiveIndex();
@@ -70,14 +74,17 @@ std::vector<IFormFactor *> LayerDecoratorDWBASimulation::createDWBAFormFactors()
             p_decoration->getParticleInfo(particle_index)->getPTransform3D();
 
         p_particle->setAmbientRefractiveIndex(n_layer);
-        complex_t wavevector_scattering_factor = M_PI/getWaveLength()/getWaveLength();
+        complex_t wavevector_scattering_factor =
+            M_PI/getWaveLength()/getWaveLength();
 
         IFormFactor *ff_particle = p_particle->createFormFactor();
-        IFormFactor  *ff_transformed(0);
+        IFormFactor *ff_transformed(0);
         if(transform) {
+            std::cout << "DEBUG: createDWBAff's with transform\n";
             ff_transformed = new FormFactorDecoratorTransformation(
                 ff_particle, transform);
-        } else{
+        } else {
+            std::cout << "DEBUG: createDWBAff's without transform\n";
             ff_transformed = ff_particle;
         }
 

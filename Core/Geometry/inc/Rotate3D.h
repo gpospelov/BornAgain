@@ -30,24 +30,28 @@ class RotateY_3D : public ITransform3D {
     RotateY_3D(double a)
         : m_ca( std::cos(a) ), m_sa( std::sin(a) ) {}
 
+    virtual ~RotateY_3D() {}
+
     //! Return inverse transform.
-    virtual PTransform3D inverse() const
-    { return new PTransform3D( RotateY_3D( m_ca, -m_sa ) ); }
+    PTransform3D inverse() const
+    { return PTransform3D( new RotateY_3D( m_ca, -m_sa ) ); }
 
     //! Return rotated vector _v_.
-    virtual BasicVector3D<double> transformed(const BasicVector3D<double>& v) const
-    {   std::cout << "DEBUG: trafo<double> rotate y\n"; 
-        return BasicVector3D<double>( m_ca*v.x() + m_sa*v.z(),
+    BasicVector3D<double> transformed(const BasicVector3D<double>& v) const
+    {   return BasicVector3D<double>( m_ca*v.x() + m_sa*v.z(),
                                       v.y(),
-                                      -m_sa*v.x() + m_ca*v.z() );
+                                     -m_sa*v.x() + m_ca*v.z() );
     }
 
     //! Return rotated vector _v_: avoid complex implementation unless needed.
-    virtual BasicVector3D<complex_t>
+
+    //! QUESTION: Can we avoid this duplication, using template?
+    //!
+    BasicVector3D<complex_t>
         transformed(const BasicVector3D<complex_t>& v) const
-    { (void)v;  // to prevent unused-variable warning
-        throw NotImplementedException("Rotate_3D::transformed<complex_t> -> "
-                                    "not implemented" );
+    {   return BasicVector3D<complex_t>( m_ca*v.x() + m_sa*v.z(),
+                                         v.y(),
+                                        -m_sa*v.x() + m_ca*v.z() );
     }
 
  private:
@@ -67,14 +71,15 @@ class RotateZ_3D : public ITransform3D {
     RotateZ_3D(double a)
         : m_ca( std::cos(a) ), m_sa( std::sin(a) ) {}
 
+    virtual ~RotateZ_3D() {}
+
     //! Return inverse transform.
-    virtual ITransform3D inverse() const
-    { return RotateZ_3D( m_ca, -m_sa ); }
+    virtual PTransform3D inverse() const
+    { return PTransform3D( new RotateZ_3D( m_ca, -m_sa )); }
 
     //! Return rotated vector _v_.
     virtual BasicVector3D<double> transformed(const BasicVector3D<double>& v) const
-    {   std::cout << "DEBUG: trafo<double> rotate z\n"; 
-        return BasicVector3D<double>( m_ca*v.x() - m_sa*v.y(),
+    {   return BasicVector3D<double>( m_ca*v.x() - m_sa*v.y(),
                                       m_sa*v.x() + m_ca*v.y(),
                                       v.z()                    );
     }
@@ -82,9 +87,9 @@ class RotateZ_3D : public ITransform3D {
     //! Return rotated vector _v_: avoid complex implementation unless needed.
     virtual BasicVector3D<complex_t>
         transformed(const BasicVector3D<complex_t>& v) const
-    { (void)v;  // to prevent unused-variable warning
-        throw NotImplementedException("RotateZ_3D::transformed<complex_t> -> "
-                                    "not implemented" );
+    {   return BasicVector3D<complex_t>( m_ca*v.x() - m_sa*v.y(),
+                                         m_sa*v.x() + m_ca*v.y(),
+                                         v.z()                    );
     }
 
  private:

@@ -91,15 +91,14 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
     substrate_layer.setMaterial(p_substrate_material);
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const double angle_around_z = 45.*Units::degree;
     Particle *pyramid = new Particle(
         n_particle,
         new FormFactorPyramid(5*Units::nanometer,
                               5*Units::nanometer,
                               Units::deg2rad(54.73)) );
 
-    Geometry::ITransform3D *transform =
-        new Geometry::RotateZ_3D(angle_around_z);
+    Geometry::PTransform3D transform(
+        new Geometry::RotateZ_3D(45.*Units::degree) );
 
     ParticleDecoration particle_decoration;
 
@@ -167,8 +166,3 @@ int main()
     return test.analyseResults();
 }
 #endif
-
-
-
-
-

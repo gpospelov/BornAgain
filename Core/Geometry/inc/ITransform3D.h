@@ -16,7 +16,6 @@
 #define GEOMETRY_ITRANSFROM3D_H
 
 #include "BasicVector3D.h"
-#include <iostream> // DEBUG
 #include <boost/shared_ptr.hpp>
 
 namespace Geometry {
@@ -27,24 +26,22 @@ typedef boost::shared_ptr<class ITransform3D> PTransform3D;
 
 class ITransform3D {
  public:
-//    //! Default constructor, sets the identity transformation.
-//    ITransform3D() {}
 
     virtual ~ITransform3D() {}
 
     //! Returns the inverse transformation.
-    virtual PTransform3D inverse() const =0;
-//    { return *this; }
+    virtual PTransform3D inverse() const
+    { return PTransform3D( new ITransform3D() ); }
     
     //! Return transformed vector _v_.
     virtual BasicVector3D<double>
-        transformed(const BasicVector3D<double>& v) const;
-//    { std::cout << "DEBUG: trafo<double> identity\n"; return v; }
+        transformed(const BasicVector3D<double>& v) const
+    { return v; }
 
     //! Return transformed vector _v_.
     virtual BasicVector3D<complex_t>
-        transformed(const BasicVector3D<complex_t>& v) const;
-//    { std::cout << "DEBUG: trafo<cmplx> identity\n"; return v; }
+        transformed(const BasicVector3D<complex_t>& v) const
+    { return v; }
 
 };
  

@@ -40,9 +40,6 @@ void MultiLayerRoughnessDWBASimulation::setReflectionTransmissionFunction(
 
 void MultiLayerRoughnessDWBASimulation::run()
 {
-    const std::string s_phi_f("phi_f");
-    const std::string s_alpha_f("alpha_f");
-
     kvector_t m_ki_real(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     double lambda = 2*M_PI/m_ki_real.mag();
 
@@ -50,9 +47,9 @@ void MultiLayerRoughnessDWBASimulation::run()
     while ( it_intensity != m_dwba_intensity.end() )
     {
         double phi_f = getDWBAIntensity().getValueOfAxis(
-            s_phi_f, it_intensity.getIndex());
+            "phi_f", it_intensity.getIndex());
         double alpha_f = getDWBAIntensity().getValueOfAxis(
-            s_alpha_f, it_intensity.getIndex());
+            "alpha_f", it_intensity.getIndex());
         cvector_t k_f;
         k_f.setLambdaAlphaPhi(lambda, alpha_f, phi_f);
         *it_intensity = evaluate(m_ki, k_f, -m_alpha_i, alpha_f);
@@ -86,7 +83,6 @@ double MultiLayerRoughnessDWBASimulation::evaluate(
         if(rough) {
             autocorr += std::norm( rterm[i] ) * std::norm( sterm[i] ) *
                 rough->getSpectralFun(q);
-        } else {
         }
     }
 
@@ -109,7 +105,7 @@ double MultiLayerRoughnessDWBASimulation::evaluate(
 complex_t MultiLayerRoughnessDWBASimulation::get_refractive_term(
     size_t ilayer) const
 {
-    complex_t n1 = mp_multi_layer->getLayer(ilayer)->getRefractiveIndex();
+    complex_t n1 = mp_multi_layer->getLayer(ilayer)  ->getRefractiveIndex();
     complex_t n2 = mp_multi_layer->getLayer(ilayer+1)->getRefractiveIndex();
     return n1*n1-n2*n2;
 }
@@ -130,9 +126,9 @@ complex_t MultiLayerRoughnessDWBASimulation::get_sum4terms(
         getRoughness()->getSigma();
     double sigma2 = -0.5*sigma*sigma;
     complex_t term1 = ai_RT.second * af_RT.second * std::exp( sigma2*qz1*qz1 );
-    complex_t term2 = ai_RT.second * af_RT.first * std::exp( sigma2*qz2*qz2 );
-    complex_t term3 = ai_RT.first * af_RT.second * std::exp( sigma2*qz3*qz3 );
-    complex_t term4 = ai_RT.first * af_RT.first * std::exp( sigma2*qz4*qz4 );
+    complex_t term2 = ai_RT.second * af_RT.first  * std::exp( sigma2*qz2*qz2 );
+    complex_t term3 = ai_RT.first  * af_RT.second * std::exp( sigma2*qz3*qz3 );
+    complex_t term4 = ai_RT.first  * af_RT.first  * std::exp( sigma2*qz4*qz4 );
 
     return term1 + term2 + term3 + term4;
 }

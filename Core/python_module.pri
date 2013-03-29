@@ -40,6 +40,7 @@ HEADERS +=  \
     PythonAPI/inc/InterferenceFunction2DParaCrystal.pypp.h \
     PythonAPI/inc/InterferenceFunctionNone.pypp.h \
     PythonAPI/inc/IParameterized.pypp.h \
+    PythonAPI/inc/IResolutionFunction2D.pypp.h \
     PythonAPI/inc/ISample.pypp.h \
     PythonAPI/inc/ISampleBuilder.pypp.h \
     PythonAPI/inc/ISelectionRule.pypp.h \
@@ -61,6 +62,7 @@ HEADERS +=  \
     PythonAPI/inc/MultiLayerDWBASimulation.pypp.h \
     PythonAPI/inc/ndimdata_t.pypp.h \
     PythonAPI/inc/OpticalFresnel.pypp.h \
+    PythonAPI/inc/OutputDataIOFactory.pypp.h \
     PythonAPI/inc/ParameterPool.pypp.h \
     PythonAPI/inc/Particle.pypp.h \
     PythonAPI/inc/ParticleBuilder.pypp.h \
@@ -71,6 +73,7 @@ HEADERS +=  \
     PythonAPI/inc/PythonInterface_free_functions.pypp.h \
     PythonAPI/inc/PythonInterface_global_variables.pypp.h \
     PythonAPI/inc/RealParameterWrapper.pypp.h \
+    PythonAPI/inc/ResolutionFunction2DSimple.pypp.h \
     PythonAPI/inc/Rotate3D.pypp.h \
     PythonAPI/inc/RotateX3D.pypp.h \
     PythonAPI/inc/RotateY3D.pypp.h \
@@ -134,6 +137,7 @@ SOURCES +=  \
     PythonAPI/src/InterferenceFunction2DParaCrystal.pypp.cpp \
     PythonAPI/src/InterferenceFunctionNone.pypp.cpp \
     PythonAPI/src/IParameterized.pypp.cpp \
+    PythonAPI/src/IResolutionFunction2D.pypp.cpp \
     PythonAPI/src/ISample.pypp.cpp \
     PythonAPI/src/ISampleBuilder.pypp.cpp \
     PythonAPI/src/ISelectionRule.pypp.cpp \
@@ -155,6 +159,7 @@ SOURCES +=  \
     PythonAPI/src/MultiLayerDWBASimulation.pypp.cpp \
     PythonAPI/src/ndimdata_t.pypp.cpp \
     PythonAPI/src/OpticalFresnel.pypp.cpp \
+    PythonAPI/src/OutputDataIOFactory.pypp.cpp \
     PythonAPI/src/ParameterPool.pypp.cpp \
     PythonAPI/src/Particle.pypp.cpp \
     PythonAPI/src/ParticleBuilder.pypp.cpp \
@@ -165,6 +170,7 @@ SOURCES +=  \
     PythonAPI/src/PythonInterface_free_functions.pypp.cpp \
     PythonAPI/src/PythonInterface_global_variables.pypp.cpp \
     PythonAPI/src/RealParameterWrapper.pypp.cpp \
+    PythonAPI/src/ResolutionFunction2DSimple.pypp.cpp \
     PythonAPI/src/Rotate3D.pypp.cpp \
     PythonAPI/src/RotateX3D.pypp.cpp \
     PythonAPI/src/RotateY3D.pypp.cpp \

@@ -93,6 +93,8 @@ class Simulation : public IParameterized, public ICloneable
     //! Define resolution function for detector
     void setDetectorResolutionFunction(
         IResolutionFunction2D *p_resolution_function);
+    void setDetectorResolutionFunction(
+        const IResolutionFunction2D &p_resolution_function);
 
     //! Sets simulation parameters
     void setSimulationParameters(const SimulationParameters& sim_params)

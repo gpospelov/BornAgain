@@ -79,53 +79,41 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Transform3D.h"
 #include "Types.h"
 #include "Units.h"
-#include "InterferenceFunction1DParaCrystal.pypp.h"
+#include "ResolutionFunction2DSimple.pypp.h"
 
 namespace bp = boost::python;
 
-struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCrystal, bp::wrapper< InterferenceFunction1DParaCrystal > {
+struct ResolutionFunction2DSimple_wrapper : ResolutionFunction2DSimple, bp::wrapper< ResolutionFunction2DSimple > {
 
-    InterferenceFunction1DParaCrystal_wrapper(double peak_distance, double width, double corr_length=0.0 )
-    : InterferenceFunction1DParaCrystal( peak_distance, width, corr_length )
-      , bp::wrapper< InterferenceFunction1DParaCrystal >(){
+    ResolutionFunction2DSimple_wrapper(double sigma_x, double sigma_y )
+    : ResolutionFunction2DSimple( sigma_x, sigma_y )
+      , bp::wrapper< ResolutionFunction2DSimple >(){
         // constructor
     
     }
 
-    virtual ::InterferenceFunction1DParaCrystal * clone(  ) const  {
+    virtual ::ResolutionFunction2DSimple * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
         else{
-            return this->InterferenceFunction1DParaCrystal::clone(  );
+            return this->ResolutionFunction2DSimple::clone(  );
         }
     }
     
-    ::InterferenceFunction1DParaCrystal * default_clone(  ) const  {
-        return InterferenceFunction1DParaCrystal::clone( );
+    ::ResolutionFunction2DSimple * default_clone(  ) const  {
+        return ResolutionFunction2DSimple::clone( );
     }
 
-    virtual double evaluate( ::cvector_t const & q ) const  {
-        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
-            return func_evaluate( boost::ref(q) );
+    virtual double evaluateCDF( double x, double y ) const  {
+        if( bp::override func_evaluateCDF = this->get_override( "evaluateCDF" ) )
+            return func_evaluateCDF( x, y );
         else{
-            return this->InterferenceFunction1DParaCrystal::evaluate( boost::ref(q) );
+            return this->ResolutionFunction2DSimple::evaluateCDF( x, y );
         }
     }
     
-    double default_evaluate( ::cvector_t const & q ) const  {
-        return InterferenceFunction1DParaCrystal::evaluate( boost::ref(q) );
-    }
-
-    virtual double getKappa(  ) const  {
-        if( bp::override func_getKappa = this->get_override( "getKappa" ) )
-            return func_getKappa(  );
-        else{
-            return this->InterferenceFunction1DParaCrystal::getKappa(  );
-        }
-    }
-    
-    double default_getKappa(  ) const  {
-        return InterferenceFunction1DParaCrystal::getKappa( );
+    double default_evaluateCDF( double x, double y ) const  {
+        return ResolutionFunction2DSimple::evaluateCDF( x, y );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -176,18 +164,6 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
         IParameterized::printParameters( );
     }
 
-    virtual void print_structure(  ) {
-        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
-            func_print_structure(  );
-        else{
-            this->ISample::print_structure(  );
-        }
-    }
-    
-    void default_print_structure(  ) {
-        ISample::print_structure( );
-    }
-
     virtual void registerParameter( ::std::string const & name, double * parpointer ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
@@ -199,7 +175,7 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< InterferenceFunction1DParaCrystal_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< ResolutionFunction2DSimple_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -233,64 +209,48 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
 
 };
 
-void register_InterferenceFunction1DParaCrystal_class(){
+void register_ResolutionFunction2DSimple_class(){
 
-    bp::class_< InterferenceFunction1DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunction1DParaCrystal", bp::init< double, double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("width"), bp::arg("corr_length")=0.0 )) )    
-        .def( 
-            "FTGaussianCorrLength"
-            , (::complex_t ( ::InterferenceFunction1DParaCrystal::* )( double ) const)( &::InterferenceFunction1DParaCrystal::FTGaussianCorrLength )
-            , ( bp::arg("qpar") ) )    
+    bp::class_< ResolutionFunction2DSimple_wrapper, bp::bases< IResolutionFunction2D >, boost::noncopyable >( "ResolutionFunction2DSimple", bp::init< double, double >(( bp::arg("sigma_x"), bp::arg("sigma_y") )) )    
         .def( 
             "clone"
-            , (::InterferenceFunction1DParaCrystal * ( ::InterferenceFunction1DParaCrystal::* )(  ) const)(&::InterferenceFunction1DParaCrystal::clone)
-            , (::InterferenceFunction1DParaCrystal * ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_clone)
+            , (::ResolutionFunction2DSimple * ( ::ResolutionFunction2DSimple::* )(  ) const)(&::ResolutionFunction2DSimple::clone)
+            , (::ResolutionFunction2DSimple * ( ResolutionFunction2DSimple_wrapper::* )(  ) const)(&ResolutionFunction2DSimple_wrapper::default_clone)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
-            "evaluate"
-            , (double ( ::InterferenceFunction1DParaCrystal::* )( ::cvector_t const & ) const)(&::InterferenceFunction1DParaCrystal::evaluate)
-            , (double ( InterferenceFunction1DParaCrystal_wrapper::* )( ::cvector_t const & ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_evaluate)
-            , ( bp::arg("q") ) )    
-        .def( 
-            "getKappa"
-            , (double ( ::InterferenceFunction1DParaCrystal::* )(  ) const)(&::InterferenceFunction1DParaCrystal::getKappa)
-            , (double ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_getKappa) )    
-        .def( 
-            "setKappa"
-            , (void ( ::InterferenceFunction1DParaCrystal::* )( double ) )( &::InterferenceFunction1DParaCrystal::setKappa )
-            , ( bp::arg("kappa") ) )    
+            "evaluateCDF"
+            , (double ( ::ResolutionFunction2DSimple::* )( double,double ) const)(&::ResolutionFunction2DSimple::evaluateCDF)
+            , (double ( ResolutionFunction2DSimple_wrapper::* )( double,double ) const)(&ResolutionFunction2DSimple_wrapper::default_evaluateCDF)
+            , ( bp::arg("x"), bp::arg("y") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
-            , (bool ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_areParametersChanged) )    
+            , (bool ( ResolutionFunction2DSimple_wrapper::* )(  ) )(&ResolutionFunction2DSimple_wrapper::default_areParametersChanged) )    
         .def( 
             "clearParameterPool"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
-            , (void ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_clearParameterPool) )    
+            , (void ( ResolutionFunction2DSimple_wrapper::* )(  ) )(&ResolutionFunction2DSimple_wrapper::default_clearParameterPool) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
-            , (::ParameterPool * ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( ResolutionFunction2DSimple_wrapper::* )(  ) const)(&ResolutionFunction2DSimple_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
-            , (void ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_printParameters) )    
-        .def( 
-            "print_structure"
-            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
-            , (void ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_print_structure) )    
+            , (void ( ResolutionFunction2DSimple_wrapper::* )(  ) const)(&ResolutionFunction2DSimple_wrapper::default_printParameters) )    
         .def( 
             "registerParameter"
-            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &InterferenceFunction1DParaCrystal_wrapper::default_registerParameter )
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &ResolutionFunction2DSimple_wrapper::default_registerParameter )
             , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
         .def( 
             "setParameterValue"
             , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
-            , (bool ( InterferenceFunction1DParaCrystal_wrapper::* )( ::std::string const &,double ) )(&InterferenceFunction1DParaCrystal_wrapper::default_setParameterValue)
+            , (bool ( ResolutionFunction2DSimple_wrapper::* )( ::std::string const &,double ) )(&ResolutionFunction2DSimple_wrapper::default_setParameterValue)
             , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)
-            , (void ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_setParametersAreChanged) );
+            , (void ( ResolutionFunction2DSimple_wrapper::* )(  ) )(&ResolutionFunction2DSimple_wrapper::default_setParametersAreChanged) );
 
 }

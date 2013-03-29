@@ -78,6 +78,7 @@ myFiles=[
   'InterferenceFunction2DLattice.h',
   'InterferenceFunction2DParaCrystal.h',
   'InterferenceFunctionNone.h',
+  'IResolutionFunction2D.h',
   'Lattice.h',
   'Lattice2DIFParameters.h',
   'LatticeBasis.h',
@@ -95,6 +96,7 @@ myFiles=[
   'ParticleCoreShell.h',
   'ParticleDecoration.h',
   'OutputData.h',
+  'OutputDataIOFactory.h',
   'ParticleInfo.h',
   'PositionParticleInfo.h',
   'PythonOutputData.h',
@@ -103,6 +105,7 @@ myFiles=[
   'Simulation.h',
   'SimulationParameters.h',
   'IStochasticParameter.h',
+  'ResolutionFunction2DSimple.h',
   'StochasticGaussian.h',
   'StochasticSampledParameter.h',
   'StochasticDoubleGate.h',
@@ -146,6 +149,7 @@ def AdditionalRules(mb):
           if MethodIsBad:
             fun.exclude()
 
+
     MethodsWhichAreNotUsed=["dot","mag","mag2","cross","magxy","magxy2","transform"]
     for cl in classes:
       if "BasicVector3D<int>" in cl.decl_string:
@@ -156,6 +160,21 @@ def AdditionalRules(mb):
               MethodIsBad = True
           if MethodIsBad:
             fun.exclude()
+
+    # 28.04.2013 To get back kvector algebra
+    cl = mb.class_("BasicVector3D<double>")
+    cl.add_code("def( bp::self - bp::self )")
+    cl.add_code("def( bp::self + bp::self )")
+    cl.add_code("def( bp::other< double >() * bp::self )")
+    cl.add_code("def( bp::self * bp::other< double >() )")
+    cl.add_code("def( +bp::self )")
+    cl.add_code("def( -bp::self )")
+    cl.add_code("def( bp::self / bp::other< double >() )")
+    cl.add_code("def( bp::self_ns::str( bp::self ) )")
+    #cl.add_code("def( bp::self * bp::self )")
+    #cl.add_code("def( bp::self != bp::self )")
+    #cl.add_code("def( bp::self == bp::self )  ")  
+
 
   #if "FTDistributions.h" in myFiles:
       #cl = mb.class_("IFTDistribution2D")
@@ -433,8 +452,10 @@ def MakePythonAPI(OutputTempDir):
 
   #GCCXML_COMPILER="/opt/local/bin/g++"
   #GCCXML_CXXFLAGS=""
-
-  myIncludes.append('/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7')
+  
+  #myIncludes.append('/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7')
+  
+  myIncludes.append(sys.prefix +"/include/python"+ sys.version[:3])
   myIncludes.append('/opt/local/include/')
   mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin', cflags="-m64")
   #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')

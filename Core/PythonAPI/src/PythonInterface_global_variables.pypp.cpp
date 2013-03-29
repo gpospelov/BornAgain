@@ -43,6 +43,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
+#include "IResolutionFunction2D.h"
 #include "Lattice.h"
 #include "Lattice2DIFParameters.h"
 #include "LatticeBasis.h"
@@ -60,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
 #include "OutputData.h"
+#include "OutputDataIOFactory.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -68,6 +70,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
+#include "ResolutionFunction2DSimple.h"
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
@@ -93,6 +96,12 @@ void register_global_variables(){
     bp::scope().attr("deg") = Units::deg;
 
     bp::scope().attr("degree") = Units::degree;
+
+    bp::scope().attr("dumm32") = pyplusplus::aliases::dumm32;
+
+    bp::scope().attr("dummy1") = pyplusplus::aliases::dummy1;
+
+    bp::scope().attr("dummy2") = pyplusplus::aliases::dummy2;
 
     bp::scope().attr("meter") = Units::meter;
 

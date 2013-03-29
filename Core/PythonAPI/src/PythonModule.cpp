@@ -40,6 +40,7 @@
 #include "InterferenceFunction2DParaCrystal.pypp.h" 
 #include "InterferenceFunctionNone.pypp.h" 
 #include "IParameterized.pypp.h" 
+#include "IResolutionFunction2D.pypp.h" 
 #include "ISample.pypp.h" 
 #include "ISampleBuilder.pypp.h" 
 #include "ISelectionRule.pypp.h" 
@@ -61,6 +62,7 @@
 #include "MultiLayerDWBASimulation.pypp.h" 
 #include "ndimdata_t.pypp.h" 
 #include "OpticalFresnel.pypp.h" 
+#include "OutputDataIOFactory.pypp.h" 
 #include "ParameterPool.pypp.h" 
 #include "Particle.pypp.h" 
 #include "ParticleBuilder.pypp.h" 
@@ -71,6 +73,7 @@
 #include "PythonInterface_free_functions.pypp.h" 
 #include "PythonInterface_global_variables.pypp.h" 
 #include "RealParameterWrapper.pypp.h" 
+#include "ResolutionFunction2DSimple.pypp.h" 
 #include "Rotate3D.pypp.h" 
 #include "RotateX3D.pypp.h" 
 #include "RotateY3D.pypp.h" 
@@ -143,6 +146,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IDecoration_class();
     register_IFTDistribution1D_class();
     register_IInterferenceFunction_class();
+    register_IResolutionFunction2D_class();
     register_ISampleBuilder_class();
     register_ISelectionRule_class();
     register_ISimulation_class();
@@ -167,12 +171,14 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_MultiLayerDWBASimulation_class();
     register_OpticalFresnel_class();
     register_ndimdata_t_class();
+    register_OutputDataIOFactory_class();
     register_ParameterPool_class();
     register_ParticleBuilder_class();
     register_ParticleCoreShell_class();
     register_ParticleDecoration_class();
     register_PositionParticleInfo_class();
     register_RealParameterWrapper_class();
+    register_ResolutionFunction2DSimple_class();
     register_SimpleSelectionRule_class();
     register_Simulation_class();
     register_SimulationParameters_class();

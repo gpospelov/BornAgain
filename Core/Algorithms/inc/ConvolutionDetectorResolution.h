@@ -32,6 +32,7 @@ class ConvolutionDetectorResolution : public IDetectorResolution
     ConvolutionDetectorResolution(cumulative_DF_1d res_function_1d);
     //! Constructor taking a 2 dimensional resolution function as argument
     ConvolutionDetectorResolution(IResolutionFunction2D *p_res_function_2d);
+    ConvolutionDetectorResolution(const IResolutionFunction2D &p_res_function_2d);
     //! Destructor
     virtual ~ConvolutionDetectorResolution();
 

@@ -79,54 +79,27 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Transform3D.h"
 #include "Types.h"
 #include "Units.h"
-#include "IDecoration.pypp.h"
+#include "IResolutionFunction2D.pypp.h"
 
 namespace bp = boost::python;
 
-struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
+struct IResolutionFunction2D_wrapper : IResolutionFunction2D, bp::wrapper< IResolutionFunction2D > {
 
-    IDecoration_wrapper( )
-    : IDecoration( )
-      , bp::wrapper< IDecoration >(){
+    IResolutionFunction2D_wrapper()
+    : IResolutionFunction2D()
+      , bp::wrapper< IResolutionFunction2D >(){
         // null constructor
-    
+        
     }
 
-    virtual ::IDecoration * clone(  ) const {
+    virtual ::IResolutionFunction2D * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
     }
 
-    virtual double getAbundanceFractionOfParticle( ::size_t index ) const {
-        bp::override func_getAbundanceFractionOfParticle = this->get_override( "getAbundanceFractionOfParticle" );
-        return func_getAbundanceFractionOfParticle( index );
-    }
-
-    virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const {
-        bp::override func_getInterferenceFunctions = this->get_override( "getInterferenceFunctions" );
-        return func_getInterferenceFunctions(  );
-    }
-
-    virtual ::size_t getNumberOfInterferenceFunctions(  ) const  {
-        if( bp::override func_getNumberOfInterferenceFunctions = this->get_override( "getNumberOfInterferenceFunctions" ) )
-            return func_getNumberOfInterferenceFunctions(  );
-        else{
-            return this->IDecoration::getNumberOfInterferenceFunctions(  );
-        }
-    }
-    
-    ::size_t default_getNumberOfInterferenceFunctions(  ) const  {
-        return IDecoration::getNumberOfInterferenceFunctions( );
-    }
-
-    virtual ::size_t getNumberOfParticles(  ) const {
-        bp::override func_getNumberOfParticles = this->get_override( "getNumberOfParticles" );
-        return func_getNumberOfParticles(  );
-    }
-
-    virtual ::ParticleInfo const * getParticleInfo( ::size_t index ) const {
-        bp::override func_getParticleInfo = this->get_override( "getParticleInfo" );
-        return func_getParticleInfo( index );
+    virtual double evaluateCDF( double x, double y ) const {
+        bp::override func_evaluateCDF = this->get_override( "evaluateCDF" );
+        return func_evaluateCDF( x, y );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -165,30 +138,6 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::ICompositeSample * getCompositeSample(  ) {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample * default_getCompositeSample(  ) {
-        return ICompositeSample::getCompositeSample( );
-    }
-
-    virtual ::ICompositeSample const * getCompositeSample(  ) const  {
-        if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
-            return func_getCompositeSample(  );
-        else{
-            return this->ICompositeSample::getCompositeSample(  );
-        }
-    }
-    
-    ::ICompositeSample const * default_getCompositeSample(  ) const  {
-        return ICompositeSample::getCompositeSample( );
-    }
-
     virtual void printParameters(  ) const  {
         if( bp::override func_printParameters = this->get_override( "printParameters" ) )
             func_printParameters(  );
@@ -199,18 +148,6 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
-    }
-
-    virtual void print_structure(  ) {
-        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
-            func_print_structure(  );
-        else{
-            this->ISample::print_structure(  );
-        }
-    }
-    
-    void default_print_structure(  ) {
-        ISample::print_structure( );
     }
 
     virtual void registerParameter( ::std::string const & name, double * parpointer ) {
@@ -224,7 +161,7 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
     }
     
     static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
-        if( dynamic_cast< IDecoration_wrapper * >( boost::addressof( inst ) ) ){
+        if( dynamic_cast< IResolutionFunction2D_wrapper * >( boost::addressof( inst ) ) ){
             inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
         }
         else{
@@ -256,100 +193,48 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
         IParameterized::setParametersAreChanged( );
     }
 
-    virtual ::size_t size(  ) const  {
-        if( bp::override func_size = this->get_override( "size" ) )
-            return func_size(  );
-        else{
-            return this->ICompositeSample::size(  );
-        }
-    }
-    
-    ::size_t default_size(  ) const  {
-        return ICompositeSample::size( );
-    }
-
 };
 
-void register_IDecoration_class(){
+void register_IResolutionFunction2D_class(){
 
-    bp::class_< IDecoration_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "IDecoration", bp::init< >() )    
+    bp::class_< IResolutionFunction2D_wrapper, bp::bases< IParameterized >, boost::noncopyable >( "IResolutionFunction2D" )    
         .def( 
             "clone"
-            , bp::pure_virtual( (::IDecoration * ( ::IDecoration::* )(  ) const)(&::IDecoration::clone) )
+            , bp::pure_virtual( (::IResolutionFunction2D * ( ::IResolutionFunction2D::* )(  ) const)(&::IResolutionFunction2D::clone) )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
-            "getAbundanceFractionOfParticle"
-            , bp::pure_virtual( (double ( ::IDecoration::* )( ::size_t ) const)(&::IDecoration::getAbundanceFractionOfParticle) )
-            , ( bp::arg("index") ) )    
-        .def( 
-            "getInterferenceFunctions"
-            , bp::pure_virtual( (::SafePointerVector< IInterferenceFunction > ( ::IDecoration::* )(  ) const)(&::IDecoration::getInterferenceFunctions) ) )    
-        .def( 
-            "getNumberOfInterferenceFunctions"
-            , (::size_t ( ::IDecoration::* )(  ) const)(&::IDecoration::getNumberOfInterferenceFunctions)
-            , (::size_t ( IDecoration_wrapper::* )(  ) const)(&IDecoration_wrapper::default_getNumberOfInterferenceFunctions) )    
-        .def( 
-            "getNumberOfParticles"
-            , bp::pure_virtual( (::size_t ( ::IDecoration::* )(  ) const)(&::IDecoration::getNumberOfParticles) ) )    
-        .def( 
-            "getParticleInfo"
-            , bp::pure_virtual( (::ParticleInfo const * ( ::IDecoration::* )( ::size_t ) const)(&::IDecoration::getParticleInfo) )
-            , ( bp::arg("index") )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTotalParticleSurfaceDensity"
-            , (double ( ::IDecoration::* )(  ) const)( &::IDecoration::getTotalParticleSurfaceDensity ) )    
-        .def( 
-            "setTotalParticleSurfaceDensity"
-            , (void ( ::IDecoration::* )( double ) )( &::IDecoration::setTotalParticleSurfaceDensity )
-            , ( bp::arg("surface_density") ) )    
+            "evaluateCDF"
+            , bp::pure_virtual( (double ( ::IResolutionFunction2D::* )( double,double ) const)(&::IResolutionFunction2D::evaluateCDF) )
+            , ( bp::arg("x"), bp::arg("y") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
-            , (bool ( IDecoration_wrapper::* )(  ) )(&IDecoration_wrapper::default_areParametersChanged) )    
+            , (bool ( IResolutionFunction2D_wrapper::* )(  ) )(&IResolutionFunction2D_wrapper::default_areParametersChanged) )    
         .def( 
             "clearParameterPool"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
-            , (void ( IDecoration_wrapper::* )(  ) )(&IDecoration_wrapper::default_clearParameterPool) )    
+            , (void ( IResolutionFunction2D_wrapper::* )(  ) )(&IResolutionFunction2D_wrapper::default_clearParameterPool) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
-            , (::ParameterPool * ( IDecoration_wrapper::* )(  ) const)(&IDecoration_wrapper::default_createParameterTree)
+            , (::ParameterPool * ( IResolutionFunction2D_wrapper::* )(  ) const)(&IResolutionFunction2D_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
-        .def( 
-            "getCompositeSample"
-            , (::ICompositeSample * ( ::ICompositeSample::* )(  ) )(&::ICompositeSample::getCompositeSample)
-            , (::ICompositeSample * ( IDecoration_wrapper::* )(  ) )(&IDecoration_wrapper::default_getCompositeSample)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getCompositeSample"
-            , (::ICompositeSample const * ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::getCompositeSample)
-            , (::ICompositeSample const * ( IDecoration_wrapper::* )(  ) const)(&IDecoration_wrapper::default_getCompositeSample)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
-            , (void ( IDecoration_wrapper::* )(  ) const)(&IDecoration_wrapper::default_printParameters) )    
-        .def( 
-            "print_structure"
-            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
-            , (void ( IDecoration_wrapper::* )(  ) )(&IDecoration_wrapper::default_print_structure) )    
+            , (void ( IResolutionFunction2D_wrapper::* )(  ) const)(&IResolutionFunction2D_wrapper::default_printParameters) )    
         .def( 
             "registerParameter"
-            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &IDecoration_wrapper::default_registerParameter )
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &IResolutionFunction2D_wrapper::default_registerParameter )
             , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
         .def( 
             "setParameterValue"
             , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
-            , (bool ( IDecoration_wrapper::* )( ::std::string const &,double ) )(&IDecoration_wrapper::default_setParameterValue)
+            , (bool ( IResolutionFunction2D_wrapper::* )( ::std::string const &,double ) )(&IResolutionFunction2D_wrapper::default_setParameterValue)
             , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)
-            , (void ( IDecoration_wrapper::* )(  ) )(&IDecoration_wrapper::default_setParametersAreChanged) )    
-        .def( 
-            "size"
-            , (::size_t ( ::ICompositeSample::* )(  ) const)(&::ICompositeSample::size)
-            , (::size_t ( IDecoration_wrapper::* )(  ) const)(&IDecoration_wrapper::default_size) );
+            , (void ( IResolutionFunction2D_wrapper::* )(  ) )(&IResolutionFunction2D_wrapper::default_setParametersAreChanged) );
 
 }

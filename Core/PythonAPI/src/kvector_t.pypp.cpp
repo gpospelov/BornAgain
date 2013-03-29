@@ -43,6 +43,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
+#include "IResolutionFunction2D.h"
 #include "Lattice.h"
 #include "Lattice2DIFParameters.h"
 #include "LatticeBasis.h"
@@ -60,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
 #include "OutputData.h"
+#include "OutputDataIOFactory.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -68,6 +70,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
+#include "ResolutionFunction2DSimple.h"
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
@@ -283,6 +286,14 @@ void register_kvector_t_class(){
                 , z_function_type( &::Geometry::BasicVector3D< double >::z ) );
         
         }
+        kvector_t_exposer.def( bp::self_ns::str( bp::self ) );
+        kvector_t_exposer.def( bp::self - bp::self );
+        kvector_t_exposer.def( bp::self + bp::self );
+        kvector_t_exposer.def( bp::other< double >() * bp::self );
+        kvector_t_exposer.def( bp::self * bp::other< double >() );
+        kvector_t_exposer.def( +bp::self );
+        kvector_t_exposer.def( -bp::self );
+        kvector_t_exposer.def( bp::self / bp::other< double >() );
         kvector_t_exposer.def( bp::self_ns::str( bp::self ) );
     }
 

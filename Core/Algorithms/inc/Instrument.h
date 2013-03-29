@@ -66,6 +66,7 @@ class Instrument : public IParameterized
 
     //! Sets detector resolution function
     void setDetectorResolutionFunction(IResolutionFunction2D *p_resolution_function);
+    void setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function);
 
     //! apply the detector resolution to the given intensity map
     void applyDetectorResolution(OutputData<double> *p_intensity_map) const;

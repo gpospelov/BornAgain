@@ -34,3 +34,6 @@ bool OpticalFresnel::FresnelCoeff::operator==(OpticalFresnel::FresnelCoeff const
     }
 }
 
+
+//template BasicVector3D<double> operator/ <double, double> (const BasicVector3D<double>& v, double a);
+

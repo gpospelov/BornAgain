@@ -37,6 +37,16 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
     setName("ConvolutionDetectorResolution");
 }
 
+ConvolutionDetectorResolution::ConvolutionDetectorResolution(
+        const IResolutionFunction2D &p_res_function_2d)
+: m_dimension(2)
+, m_res_function_1d(0)
+, mp_res_function_2d(p_res_function_2d.clone())
+{
+    setName("ConvolutionDetectorResolution");
+}
+
+
 ConvolutionDetectorResolution::~ConvolutionDetectorResolution()
 {
     delete mp_res_function_2d;

@@ -79,7 +79,6 @@ double MesoCrystal1::getDifference(OutputData<double> *result, const OutputData<
 Simulation *MesoCrystal1::createSimulation()
 {
     Simulation *simulation = new Simulation();
-    simulation = new Simulation();
     simulation->setBeamParameters(1.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
     simulation->setBeamIntensity(5.0090e+12);
     simulation->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));

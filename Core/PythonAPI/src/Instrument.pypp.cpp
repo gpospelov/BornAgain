@@ -45,6 +45,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "InterferenceFunction2DLattice.h"
 #include "InterferenceFunction2DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
+#include "IResolutionFunction2D.h"
 #include "Lattice.h"
 #include "Lattice2DIFParameters.h"
 #include "LatticeBasis.h"
@@ -62,6 +63,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
 #include "OutputData.h"
+#include "OutputDataIOFactory.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -70,6 +72,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
+#include "ResolutionFunction2DSimple.h"
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
@@ -234,6 +237,10 @@ void register_Instrument_class(){
             "setDetectorParameters"
             , (void ( ::Instrument::* )( ::DetectorParameters const & ) )( &::Instrument::setDetectorParameters )
             , ( bp::arg("params") ) )    
+        .def( 
+            "setDetectorResolutionFunction"
+            , (void ( ::Instrument::* )( ::IResolutionFunction2D const & ) )( &::Instrument::setDetectorResolutionFunction )
+            , ( bp::arg("p_resolution_function") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

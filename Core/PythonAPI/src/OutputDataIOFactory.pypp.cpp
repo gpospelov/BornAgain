@@ -77,68 +77,33 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Transform3D.h"
 #include "Types.h"
 #include "Units.h"
-#include "LayerDWBASimulation.pypp.h"
+#include "OutputDataIOFactory.pypp.h"
 
 namespace bp = boost::python;
 
-struct LayerDWBASimulation_wrapper : LayerDWBASimulation, bp::wrapper< LayerDWBASimulation > {
+void register_OutputDataIOFactory_class(){
 
-    LayerDWBASimulation_wrapper( )
-    : LayerDWBASimulation( )
-      , bp::wrapper< LayerDWBASimulation >(){
-        // null constructor
-    
-    }
-
-    virtual ::LayerDWBASimulation * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->LayerDWBASimulation::clone(  );
-        }
-    }
-    
-    ::LayerDWBASimulation * default_clone(  ) const  {
-        return LayerDWBASimulation::clone( );
-    }
-
-    virtual void run(  ) {
-        if( bp::override func_run = this->get_override( "run" ) )
-            func_run(  );
-        else{
-            this->ISimulation::run(  );
-        }
-    }
-    
-    void default_run(  ) {
-        ISimulation::run( );
-    }
-
-};
-
-void register_LayerDWBASimulation_class(){
-
-    bp::class_< LayerDWBASimulation_wrapper, boost::noncopyable >( "LayerDWBASimulation", bp::init< >() )    
+    bp::class_< OutputDataIOFactory >( "OutputDataIOFactory", bp::init< >() )    
         .def( 
-            "clone"
-            , (::LayerDWBASimulation * ( ::LayerDWBASimulation::* )(  ) const)(&::LayerDWBASimulation::clone)
-            , (::LayerDWBASimulation * ( LayerDWBASimulation_wrapper::* )(  ) const)(&LayerDWBASimulation_wrapper::default_clone)
-            , bp::return_value_policy< bp::manage_new_object >() )    
+            "getOutputData"
+            , (::OutputData< double > * (*)( ::std::string const & ))( &::OutputDataIOFactory::getOutputData )
+            , ( bp::arg("file_name") )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
-            "setKzAndRTFunctions"
-            , (void ( ::LayerDWBASimulation::* )( ::IDoubleToComplexMap const &,::IDoubleToPairOfComplexMap const & ) )( &::LayerDWBASimulation::setKzAndRTFunctions )
-            , ( bp::arg("kz_function"), bp::arg("rt_map") ) )    
+            "getReader"
+            , (::boost::shared_ptr< OutputDataReader > (*)( ::std::string const & ))( &::OutputDataIOFactory::getReader )
+            , ( bp::arg("file_name") ) )    
         .def( 
-            "setKzFunction"
-            , (void ( ::LayerDWBASimulation::* )( ::IDoubleToComplexMap const & ) )( &::LayerDWBASimulation::setKzFunction )
-            , ( bp::arg("kz_function") ) )    
+            "getWriter"
+            , (::boost::shared_ptr< OutputDataWriter > (*)( ::std::string const & ))( &::OutputDataIOFactory::getWriter )
+            , ( bp::arg("file_name") ) )    
         .def( 
-            "setReflectionTransmissionFunction"
-            , (void ( ::LayerDWBASimulation::* )( ::IDoubleToPairOfComplexMap const & ) )( &::LayerDWBASimulation::setReflectionTransmissionFunction )
-            , ( bp::arg("rt_map") ) )    
-        .def( 
-            "run"
-            , (void ( ::ISimulation::* )(  ) )(&::ISimulation::run)
-            , (void ( LayerDWBASimulation_wrapper::* )(  ) )(&LayerDWBASimulation_wrapper::default_run) );
+            "writeOutputData"
+            , (void (*)( ::OutputData< double > const &,::std::string const & ))( &::OutputDataIOFactory::writeOutputData )
+            , ( bp::arg("data"), bp::arg("file_name") ) )    
+        .staticmethod( "getOutputData" )    
+        .staticmethod( "getReader" )    
+        .staticmethod( "getWriter" )    
+        .staticmethod( "writeOutputData" );
 
 }

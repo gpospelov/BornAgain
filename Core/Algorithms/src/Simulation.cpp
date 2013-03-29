@@ -351,6 +351,11 @@ void Simulation::setDetectorResolutionFunction(
 {
     m_instrument.setDetectorResolutionFunction(p_resolution_function);
 }
+void Simulation::setDetectorResolutionFunction(
+    const IResolutionFunction2D &p_resolution_function)
+{
+    m_instrument.setDetectorResolutionFunction(p_resolution_function);
+}
 
 double Simulation::deltaAlpha(double alpha, double zeta) const
 {

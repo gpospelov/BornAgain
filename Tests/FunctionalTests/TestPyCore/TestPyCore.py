@@ -17,6 +17,7 @@ import isgisaxs09
 import isgisaxs10
 import isgisaxs11
 import isgisaxs15
+import mesocrystal1
 
 Tests = {
   "IsGISAXS01": isgisaxs01.runTest,
@@ -29,7 +30,8 @@ Tests = {
   "IsGISAXS09": isgisaxs09.runTest,
   "IsGISAXS10": isgisaxs10.runTest,
   "IsGISAXS11": isgisaxs11.runTest,
-  "IsGISAXS15": isgisaxs15.runTest
+  "IsGISAXS15": isgisaxs15.runTest,
+  "MesoCrystal1": mesocrystal1.runTest,
 }
 
 test_info = []
@@ -70,7 +72,10 @@ def getSummary():
   summary += "--------------------------------------------------------------------------------\n"
   n=1
   for x in test_info:
-    summary += '{0:2d}. {1} {2:.53s}  {3:.2f}s [{4}] '.format(n, x[0],x[1],x[2],x[3]) + "\n"
+    if(x[2] < 10):
+        summary += '{0:2d}. {1:<13} {2:.51s}  {3:.2f} [{4}] '.format(n, x[0],x[1],x[2],x[3]) + "\n"
+    else:
+        summary += '{0:2d}. {1:<13} {2:.51s} {3:.2f} [{4}] '.format(n, x[0],x[1],x[2],x[3]) + "\n"
     n+=1
   return summary
 

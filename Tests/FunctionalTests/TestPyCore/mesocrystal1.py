@@ -22,7 +22,6 @@ from libBornAgainCore import *
 class MySampleBuilder(ISampleBuilder):
     def __init__(self):
         ISampleBuilder.__init__(self)
-        print "MySampleBuilder ctor"
         self.sample = None
         # parameters describing the sample
         self.lattice_length_a = ctypes.c_double(6.2091e+00*nanometer)

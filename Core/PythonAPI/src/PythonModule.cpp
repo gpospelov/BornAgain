@@ -86,17 +86,18 @@
 #include "vdouble1d_t.pypp.h" 
 #include "vector_DiffuseParticleInfoPtr_t.pypp.h" 
 #include "vector_IFormFactorPtr_t.pypp.h" 
+#include "vector_integer_t.pypp.h" 
 #include "vector_kvector_t.pypp.h" 
-#include "vector_less__int__greater_.pypp.h" 
-#include "vector_less__unsigned_long__greater_.pypp.h" 
+#include "vector_longinteger_t.pypp.h" 
 #include "__call_policies.pypp.hpp" 
+#include "__convenience.pypp.hpp" 
 
 #include "PythonListConverter.h"
 
 BOOST_PYTHON_MODULE(libBornAgainCore){
 
-    register_vector_less__unsigned_long__greater__class();
-    register_vector_less__int__greater__class();
+    register_vector_longinteger_t_class();
+    register_vector_integer_t_class();
     register_vdouble1d_t_class();
     register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();

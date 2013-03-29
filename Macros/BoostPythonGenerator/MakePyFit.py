@@ -21,6 +21,8 @@ myFiles=[
   'IMinimizer.h',
   'ChiSquaredModule.h',
   'FitSuite.h',
+  #'FitParameter.h',
+  'FitSuiteParameters.h',
   'MinimizerFactory.h',
   'PythonPlusplusFitHelper.h',
   'MathFunctions.h',
@@ -72,6 +74,17 @@ def AdditionalRules(mb):
     cl.member_function("printResults").include()
     cl.member_function("getNCalls").include()
     cl.member_function("initPrint").include()
+    cl.member_function("getFitParameters").include()
+
+  if "FitSuiteParameters.h" in myFiles:
+    cl = mb.class_("FitSuiteParameters")
+    cl.member_functions().exclude()
+    #cl.member_operator("[]").exclude()
+    cl.member_function("getValues").include()
+    for fun in cl.member_operators():
+      if "operator[]" in fun.name:
+        fun.exclude()
+
 
   if "MinimizerFactory.h" in myFiles:
     cl = mb.class_("MinimizerFactory")
@@ -170,11 +183,11 @@ def MakePythonAPI(OutputTempDir):
     "cvector_t",
     "kvector_t",
     "complex_t",
+    "std::vector<double>",
     "vcomplex1d_t",
   ]
 
   for cl in mb.classes():
-    print cl.name, cl.alias
     for name in DublicatesToExclude:
       if name in cl.name or name in cl.alias:
         cl.exclude()

@@ -240,7 +240,11 @@ def AdditionalRules(mb):
     #cl = mb.class_( "IMaterial" )
 
   # --- IParameterized.h ----------------------------------------------
-  #if "IParameterized.h" in myFiles:
+  if "IParameterized.h" in myFiles:
+    cl = mb.class_( "IParameterized" )
+    cl.member_function("registerParameter").include()
+    cl.member_function("registerParameter").add_transformation( from_address_custom( 1 ) )
+
     #cl = mb.class_( "IParameterized" )
     #cl.member_functions().exclude()
     #cl.member_function( "createParameterTree" ).include()
@@ -290,7 +294,6 @@ def AdditionalRules(mb):
     for fun in cl.member_functions():
       if fun.name == "setMaterial":
         fun.include()
-        print fun
     # including back constructors with pointers (general policy is to exclude them)
     cl.constructors().include()
 
@@ -371,7 +374,6 @@ def AdditionalRules(mb):
   # --- ParameterPool.h -----------------------------------------------
   if "ParameterPool.h" in myFiles:
     cl = mb.class_( "ParameterPool" )
-    cl.member_function("registerParameter").include()
     #print "XXX",from_address_custom( 1 )
     cl.member_function("registerParameter").add_transformation( from_address_custom( 1 ) )
     cl.member_function("getMatchedParameters").exclude()
@@ -499,7 +501,6 @@ def MakePythonAPI(OutputTempDir):
   ]
 
   for cl in mb.classes():
-    print cl.name, cl.alias
     for name in DublicatesToExclude:
       if name in cl.name or name in cl.alias:
         cl.exclude()

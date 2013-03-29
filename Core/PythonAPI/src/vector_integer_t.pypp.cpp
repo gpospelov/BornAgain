@@ -74,17 +74,17 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "Transform3D.h"
 #include "Types.h"
 #include "Units.h"
-#include "vector_less__unsigned_long__greater_.pypp.h"
+#include "vector_integer_t.pypp.h"
 
 namespace bp = boost::python;
 
-void register_vector_less__unsigned_long__greater__class(){
+void register_vector_integer_t_class(){
 
-    { //::std::vector< unsigned long >
-        typedef bp::class_< std::vector< unsigned long > > vector_less__unsigned_long__greater__exposer_t;
-        vector_less__unsigned_long__greater__exposer_t vector_less__unsigned_long__greater__exposer = vector_less__unsigned_long__greater__exposer_t( "vector_less__unsigned_long__greater_" );
-        bp::scope vector_less__unsigned_long__greater__scope( vector_less__unsigned_long__greater__exposer );
-        vector_less__unsigned_long__greater__exposer.def( bp::vector_indexing_suite< ::std::vector< unsigned long >, true >() );
+    { //::std::vector< int >
+        typedef bp::class_< std::vector< int > > vector_integer_t_exposer_t;
+        vector_integer_t_exposer_t vector_integer_t_exposer = vector_integer_t_exposer_t( "vector_integer_t" );
+        bp::scope vector_integer_t_scope( vector_integer_t_exposer );
+        vector_integer_t_exposer.def( bp::vector_indexing_suite< ::std::vector< int >, true >() );
     }
 
 }

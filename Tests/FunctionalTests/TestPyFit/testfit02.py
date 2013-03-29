@@ -18,26 +18,60 @@ sys.path.append(os.path.abspath(
 from libBornAgainCore import *
 from libBornAgainFit import *
 
-
+# values we want to find
+cylinder_height = 5.0*nanometer
+cylinder_radius = 5.0*nanometer
+prism3_half_side = 5.0*nanometer
+prism3_height = 5.0*nanometer
+cylinder_ratio = 0.2
 
 # -----------------------------------------------------------------------------
-# run several minimization rounds using different minimizers
+# run minimization using sample builder
 # -----------------------------------------------------------------------------
 def runTest():
   #print "**********************************************************************"
   #print "*  Starting  TestFit02                                               *"
   #print "**********************************************************************"
 
+  # setting sample builder to initial values
   sample_builder = MySampleBuilder()
+  sample_builder.setParameterValue("cylinder_height", cylinder_height)
+  sample_builder.setParameterValue("cylinder_radius", cylinder_radius)
+  sample_builder.setParameterValue("prism3_half_side", prism3_half_side)
+  sample_builder.setParameterValue("prism3_height", prism3_height)
+  sample_builder.setParameterValue("cylinder_ratio", cylinder_ratio)
 
   simulation = createSimulation()
   simulation.setSampleBuilder(sample_builder)
 
   real_data = createRealData(simulation)
 
+  # setting up fitting
+  fitSuite = FitSuite()
+  fitSuite.setMinimizer( MinimizerFactory.createMinimizer("Minuit2", "Combined") )
+  fitSuite.initPrint(10);
+  fitSuite.addFitParameter("*SampleBuilder/cylinder_height",  4*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
+  fitSuite.addFitParameter("*SampleBuilder/cylinder_radius",  6*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
+  fitSuite.addFitParameter("*SampleBuilder/prism3_half_side", 4*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
+  fitSuite.addFitParameter("*SampleBuilder/prism3_height",    6*nanometer, 0.01*nanometer, AttLimits.lowerLimited(0.01) )
+  fitSuite.addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, 0.1, AttLimits.fixed());
 
+  chiModule = ChiSquaredModule()
+  chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() )
+
+  fitSuite.addSimulationAndRealData(simulation, real_data, chiModule)
+  fitSuite.runFit()
+
+  # analysing fit results
+  initialParameters = [ cylinder_height, cylinder_radius, prism3_half_side, prism3_height, cylinder_ratio]
+  results = fitSuite.getFitParameters().getValues()
+  threshold = 1.0e-02
   status = "OK"
-  return "TestFit02", "Ffitting using sample builder.", status
+  for i in range(0, len(initialParameters)):
+    diff = abs(results[i] - initialParameters[i])/initialParameters[i]
+    if(diff > threshold): status = "FAILED"
+
+  return "TestFit02", "Fitting using sample builder.", status
 
 
 # create simulation
@@ -45,30 +79,28 @@ def createSimulation():
     simulation = Simulation();
     simulation.setDetectorParameters(100, 0.0*degree, 2.0*degree,100 , 0.0*degree, 2.0*degree);
     simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree);
-    simulation.setBeamIntensity(1e10);
+    #simulation.setBeamIntensity(1e10);
     return simulation
 
 
 # generating "real" data by adding noise to the simulated data
 def createRealData(simulation):
-  #x= vdouble1d_t()
-  #print x.size()
   simulation.runSimulation();
   real_data = simulation.getOutputDataClone()
   noise_factor = 0.1
   for i in range(0,real_data.size()):
-    print i, real_data[i], real_data.toCoordinate(i,0), real_data.toCoordinate(i,1)
     amplitude = real_data[i]
     sigma = noise_factor*math.sqrt(amplitude)
     noisy_amplitude = GenerateNormalRandom(amplitude, sigma)
-    if(noisy_amplitude < 0.0) : mnoisy_amplitude = 0.0
+    if(noisy_amplitude < 0.0) : noisy_amplitude = 0.0
     real_data[i] = noisy_amplitude
+  return real_data
 
 
 # ----------------------------------------------------------------------------
 # Sample builder to build mixture of cylinders and prisms on top of substrate
 # 5 parameters
-# ----------------------------------------------------------------------------
+2# ----------------------------------------------------------------------------
 class MySampleBuilder(ISampleBuilder):
     def __init__(self):
       ISampleBuilder.__init__(self)
@@ -81,11 +113,11 @@ class MySampleBuilder(ISampleBuilder):
       self.prism3_height = ctypes.c_double(5.0*nanometer)
       self.cylinder_ratio = ctypes.c_double(0.2)
       # register parameters
-      self.getParameterPool().registerParameter("m_cylinder_height", ctypes.addressof(self.cylinder_height) )
-      self.getParameterPool().registerParameter("m_cylinder_radius", ctypes.addressof(self.cylinder_radius) )
-      self.getParameterPool().registerParameter("m_prism3_half_side", ctypes.addressof(self.prism3_half_side) )
-      self.getParameterPool().registerParameter("m_prism3_height", ctypes.addressof(self.prism3_height) )
-      self.getParameterPool().registerParameter("m_cylinder_ratio", ctypes.addressof(self.cylinder_ratio) )
+      self.registerParameter("cylinder_height", ctypes.addressof(self.cylinder_height) )
+      self.registerParameter("cylinder_radius", ctypes.addressof(self.cylinder_radius) )
+      self.registerParameter("prism3_half_side", ctypes.addressof(self.prism3_half_side) )
+      self.registerParameter("prism3_height", ctypes.addressof(self.prism3_height) )
+      self.registerParameter("cylinder_ratio", ctypes.addressof(self.cylinder_ratio) )
 
     # constructs the sample for current values of parameters
     def buildSample(self):
@@ -103,16 +135,15 @@ class MySampleBuilder(ISampleBuilder):
       interference = InterferenceFunctionNone()
 
       particle_decoration = ParticleDecoration()
-      particle_decoration.addParticle(cylinder, self.cylinder_ratio.value)
-      particle_decoration.addParticle(prism, 1.0 - self.cylinder_ratio.value)
+      particle_decoration.addParticle(cylinder, 0.0, self.cylinder_ratio.value)
+      particle_decoration.addParticle(prism, 0.0, 1.0 - self.cylinder_ratio.value)
       particle_decoration.addInterferenceFunction(interference)
-      
+
       layer_with_particles = LayerDecorator(air_layer, particle_decoration)
       multi_layer.addLayer(layer_with_particles)
       multi_layer.addLayer(substrate_layer)
       self.sample = multi_layer
       return self.sample
-
 
 #-------------------------------------------------------------
 # main()

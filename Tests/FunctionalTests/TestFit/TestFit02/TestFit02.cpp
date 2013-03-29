@@ -1,19 +1,13 @@
 #include "TestFit02.h"
+#include "SampleBuilder.h"
+
 #include "MaterialManager.h"
 #include "MessageService.h"
-#include "MultiLayer.h"
-#include "LayerDecorator.h"
-#include "ParticleDecoration.h"
-#include "InterferenceFunctions.h"
-#include "FormFactorCylinder.h"
-#include "Units.h"
 #include "FitSuite.h"
 #include "MinimizerFactory.h"
-#include "FormFactorPrism3.h"
 #include "MathFunctions.h"
 #include "Utils.h"
-
-#include "TBenchmark.h"
+#include "FitSuiteParameters.h"
 
 #include <iostream>
 #include <iomanip>
@@ -22,52 +16,50 @@
 using namespace FunctionalTests;
 
 
+
 TestFit02::TestFit02()
     : m_test_name("TestFit02")
     , m_test_description("Fitting using sample builder.")
 { }
 
 
-TestFit02::~TestFit02()
-{ }
-
-
 int TestFit02::run()
 {
-//    double cylinder_height(5.0*Units::nanometer)
-//    double cylinder_radius(5.0*Units::nanometer)
-//    double prism3_half_side(5.0*Units::nanometer)
-//    double prism3_height(5.0*Units::nanometer)
-//    double cylinder_ratio(0.2)
+    // values we want to find
+    double cylinder_height(5.0*Units::nanometer);
+    double cylinder_radius(5.0*Units::nanometer);
+    double prism3_half_side(5.0*Units::nanometer);
+    double prism3_height(5.0*Units::nanometer);
+    double cylinder_ratio(0.2);
 
-
-
+    // setting sample builder to initial values
     SampleBuilder *sample_builder = new SampleBuilder();
+    sample_builder->setParameterValue("cylinder_height", cylinder_height);
+    sample_builder->setParameterValue("cylinder_radius", cylinder_radius);
+    sample_builder->setParameterValue("prism3_half_side", prism3_half_side);
+    sample_builder->setParameterValue("prism3_height", prism3_height);
+    sample_builder->setParameterValue("cylinder_ratio", cylinder_ratio);
 
     Simulation *simulation = createSimulation();
     simulation->setSampleBuilder(sample_builder);
 
     OutputData<double> *real_data = createRealData(simulation);
-    std::cout << "real_data" << real_data->totalSum() << std::endl;
 
+    // setting up fitting
     FitSuite *fitSuite = new FitSuite();
     fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Combined") );
     fitSuite->initPrint(10);
-    //fitSuite->attachObserver( FitSuiteObserverFactory::createPrintObserver() );
-    //fitSuite->attachObserver( FitSuiteObserverFactory::createDrawObserver() );
 
-    fitSuite->addFitParameter("*SampleBuilder/m_cylinder_height",  4*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    fitSuite->addFitParameter("*SampleBuilder/m_cylinder_radius",  6*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    fitSuite->addFitParameter("*SampleBuilder/m_prism3_half_side", 4*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    fitSuite->addFitParameter("*SampleBuilder/m_prism3_height",    6*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
-    fitSuite->addFitParameter("*SampleBuilder/m_cylinder_ratio", 0.2, 0.1, AttLimits::fixed());
+    fitSuite->addFitParameter("*SampleBuilder/cylinder_height",  4*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    fitSuite->addFitParameter("*SampleBuilder/cylinder_radius",  6*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    fitSuite->addFitParameter("*SampleBuilder/prism3_half_side", 4*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    fitSuite->addFitParameter("*SampleBuilder/prism3_height",    6*Units::nanometer, 0.01*Units::nanometer, AttLimits::lowerLimited(0.01) );
+    fitSuite->addFitParameter("*SampleBuilder/cylinder_ratio", 0.2, 0.1, AttLimits::fixed());
     //fitSuite->addFitParameter("*Normalizer/scale",    1, 0.01*Units::nanometer, AttLimits::limited(0.9,1.1) );
 
-
-    // setting up fitSuite
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
-    chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer() );
+    //chiModule.setOutputDataNormalizer( OutputDataSimpleNormalizer() );
     fitSuite->addSimulationAndRealData(*simulation, *real_data, chiModule);
 
     fitSuite->runFit();
@@ -75,7 +67,27 @@ int TestFit02::run()
     delete simulation;
     delete sample_builder;
     delete real_data;
-    return 0;
+
+    // ---------------------------------------------------------------
+    // analysing fit results
+    // ---------------------------------------------------------------
+    //fitSuite->getFitParameters()->getParameter("*SampleBuilder/cylinder_height")->getValue() << std::endl;
+    std::vector<double > initialParameters;
+    initialParameters.push_back(cylinder_height);
+    initialParameters.push_back(cylinder_radius);
+    initialParameters.push_back(prism3_half_side);
+    initialParameters.push_back(prism3_height);
+    initialParameters.push_back(cylinder_ratio);
+    std::vector<double > results = fitSuite->getFitParameters()->getValues();
+    const double threshold = 1.0e-02;
+    bool isSuccess = true;
+    for(size_t i=0; i<results.size(); ++i) {
+        double diff = std::fabs(results[i] - initialParameters[i])/initialParameters[i];
+        if(diff > threshold) isSuccess=false;
+    }
+
+    std::cout << m_test_name << " " << m_test_description << " " << (isSuccess ? "[OK]" : "[FAILED]") << std::endl;
+    return (isSuccess ? 0 : 1);
 }
 
 
@@ -88,6 +100,7 @@ Simulation *TestFit02::createSimulation()
     return simulation;
 }
 
+
 // generating "real" data by adding noise to the simulated data
 OutputData<double> *TestFit02::createRealData(Simulation *simulation)
 {
@@ -95,67 +108,25 @@ OutputData<double> *TestFit02::createRealData(Simulation *simulation)
     simulation->runSimulation();
     OutputData<double> *result = simulation->getOutputDataClone();
     OutputData<double>::iterator it = result->begin();
+    int index(0);
     while (it != result->end()) {
         double current = *it;
         double sigma = noise_factor*std::sqrt(current);
         double random = MathFunctions::GenerateNormalRandom(current, sigma);
         if (random<0.0) random = 0.0;
         *it = random;
+        index++;
+
         ++it;
     }
     return result;
 }
 
 
-// ----------------------------------------------------------------------------
-// Sample builder to build mixture of cylinders and prisms on top of substrate
-// 5 parameters
-// ----------------------------------------------------------------------------
-TestFit02::SampleBuilder::SampleBuilder()
-    : m_cylinder_height(5.0*Units::nanometer)
-    , m_cylinder_radius(5.0*Units::nanometer)
-    , m_prism3_half_side(5.0*Units::nanometer)
-    , m_prism3_height(5.0*Units::nanometer)
-    , m_cylinder_ratio(0.2)
-{
-    init_parameters();
-}
-
-// registering parameters in parameter pool
-void TestFit02::SampleBuilder::init_parameters()
-{
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("m_cylinder_height", &m_cylinder_height);
-    getParameterPool()->registerParameter("m_cylinder_radius", &m_cylinder_radius);
-    getParameterPool()->registerParameter("m_prism3_half_side", &m_prism3_half_side);
-    getParameterPool()->registerParameter("m_prism3_height", &m_prism3_height);
-    getParameterPool()->registerParameter("m_cylinder_ratio", &m_cylinder_ratio);
-}
-
-// build sample from registered parameters
-ISample *TestFit02::SampleBuilder::buildSample() const
-{
-    MultiLayer *multi_layer = new MultiLayer();
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
-    Layer air_layer(air_material);
-    Layer substrate_layer(substrate_material);
-
-    ParticleDecoration particle_decoration;
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(m_cylinder_height, m_cylinder_radius)),0.0, m_cylinder_ratio);
-    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(m_prism3_height, m_prism3_half_side)), 0.0, 1.0 - m_cylinder_ratio);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer->addLayer(air_layer_decorator);
-    multi_layer->addLayer(substrate_layer);
-    return multi_layer;
-}
-
 #ifdef STANDALONE
 int main()
 {
-    Utils::EnableFloatingPointExceptions();
+    //Utils::EnableFloatingPointExceptions();
     FunctionalTests::TestFit02 test;
     return test.run();
 }

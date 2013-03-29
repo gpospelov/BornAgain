@@ -28,7 +28,8 @@ class ParameterPool;
 class FitSuiteParameters
 {
  public:
-    typedef SafePointerVector<FitParameter > parameters_t;
+    //typedef SafePointerVector<FitParameter > parameters_t;
+    typedef std::vector<FitParameter * > parameters_t;
     typedef parameters_t::iterator iterator;
     typedef parameters_t::const_iterator const_iterator;
 

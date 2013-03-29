@@ -12,6 +12,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "IMinimizer.h"
 #include "ChiSquaredModule.h"
 #include "FitSuite.h"
+#include "FitSuiteParameters.h"
 #include "MinimizerFactory.h"
 #include "PythonPlusplusFitHelper.h"
 #include "MathFunctions.h"

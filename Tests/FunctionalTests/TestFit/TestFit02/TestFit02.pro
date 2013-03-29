@@ -12,6 +12,8 @@ include($$PWD/../../../../shared.pri)
 DEFINES += STANDALONE
 LIBS += $$PWD/../../../../lib/libBornAgainCore.so $$PWD/../../../../lib/libBornAgainFit.so
 
-SOURCES += TestFit02.cpp
-HEADERS += TestFit02.h
+SOURCES += TestFit02.cpp \
+    SampleBuilder.cpp
+HEADERS += TestFit02.h \
+    SampleBuilder.h
 

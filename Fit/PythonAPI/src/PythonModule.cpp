@@ -10,6 +10,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "AttLimits.pypp.h" 
 #include "ChiSquaredModule.pypp.h" 
 #include "FitSuite.pypp.h" 
+#include "FitSuiteParameters.pypp.h" 
 #include "IChiSquaredModule.pypp.h" 
 #include "IMinimizer.pypp.h" 
 #include "IOutputDataNormalizer.pypp.h" 
@@ -31,6 +32,7 @@ BOOST_PYTHON_MODULE(libBornAgainFit){
     register_IChiSquaredModule_class();
     register_ChiSquaredModule_class();
     register_FitSuite_class();
+    register_FitSuiteParameters_class();
     register_IMinimizer_class();
     register_IOutputDataNormalizer_class();
     register_ISquaredFunction_class();

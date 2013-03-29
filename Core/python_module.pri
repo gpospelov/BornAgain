@@ -86,10 +86,11 @@ HEADERS +=  \
     PythonAPI/inc/vdouble1d_t.pypp.h \
     PythonAPI/inc/vector_DiffuseParticleInfoPtr_t.pypp.h \
     PythonAPI/inc/vector_IFormFactorPtr_t.pypp.h \
+    PythonAPI/inc/vector_integer_t.pypp.h \
     PythonAPI/inc/vector_kvector_t.pypp.h \
-    PythonAPI/inc/vector_less__int__greater_.pypp.h \
-    PythonAPI/inc/vector_less__unsigned_long__greater_.pypp.h \
-    PythonAPI/inc/__call_policies.pypp.hpp 
+    PythonAPI/inc/vector_longinteger_t.pypp.h \
+    PythonAPI/inc/__call_policies.pypp.hpp \
+    PythonAPI/inc/__convenience.pypp.hpp 
 
 SOURCES +=  \ 
     PythonAPI/src/PythonModule.cpp \ 
@@ -179,9 +180,9 @@ SOURCES +=  \
     PythonAPI/src/vdouble1d_t.pypp.cpp \
     PythonAPI/src/vector_DiffuseParticleInfoPtr_t.pypp.cpp \
     PythonAPI/src/vector_IFormFactorPtr_t.pypp.cpp \
+    PythonAPI/src/vector_integer_t.pypp.cpp \
     PythonAPI/src/vector_kvector_t.pypp.cpp \
-    PythonAPI/src/vector_less__int__greater_.pypp.cpp \
-    PythonAPI/src/vector_less__unsigned_long__greater_.pypp.cpp 
+    PythonAPI/src/vector_longinteger_t.pypp.cpp 
 
 INCLUDEPATH += ./PythonAPI/inc 
 DEPENDPATH  += ./PythonAPI/inc 

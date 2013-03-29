@@ -7,7 +7,6 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
-#include "__call_policies.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -100,10 +99,6 @@ struct ParameterPool_wrapper : ParameterPool, bp::wrapper< ParameterPool > {
         return ParameterPool::clone( );
     }
 
-    static void registerParameter( ::ParameterPool & inst, ::std::string const & name, long unsigned int parpointer ){
-        inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
-    }
-
 };
 
 void register_ParameterPool_class(){
@@ -134,10 +129,6 @@ void register_ParameterPool_class(){
             "getParameter"
             , (::RealParameterWrapper ( ::ParameterPool::* )( ::std::string const & ) const)( &::ParameterPool::getParameter )
             , ( bp::arg("name") ) )    
-        .def( 
-            "registerParameter"
-            , (void (*)( ::ParameterPool &,::std::string const &,long unsigned int ))( &ParameterPool_wrapper::registerParameter )
-            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
         .def( 
             "setMatchedParametersValue"
             , (int ( ::ParameterPool::* )( ::std::string const &,double ) )( &::ParameterPool::setMatchedParametersValue )

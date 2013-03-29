@@ -51,15 +51,15 @@ class IParameterized : public INamed
     virtual void setParametersAreChanged() { m_status.setIsChanged(true); }
 
     //! main method to register data address in the pool
-    void registerParameter(const std::string &name, double *parpointer)
+    virtual void registerParameter(const std::string &name, double *parpointer)
     { getParameterPool()->registerParameter(name, parpointer); }
 
     //! set parameter value, return true in the case of success
-    bool setParameterValue(const std::string &name, double value)
+    virtual bool setParameterValue(const std::string &name, double value)
     { return getParameterPool()->setParameterValue(name, value); }
 
     //! clear parameter pool
-    void clearParameterPool() { getParameterPool()->clear(); }
+    virtual void clearParameterPool() { getParameterPool()->clear(); }
 
  protected:
     //! Throw non-implemented exception (needed for Python).

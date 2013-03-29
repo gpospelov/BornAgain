@@ -31,7 +31,7 @@ Minimizers = [
     ("GSLMultiMin","BFGS"),
     ("GSLMultiMin","SteepestDescent"),
     ("GSLMultiFit",""),
-    ("GSLSimAn","")
+#    ("GSLSimAn","")
 ]
 
 

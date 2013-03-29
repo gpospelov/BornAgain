@@ -18,16 +18,15 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "MathFunctions.h"
 #include "ISquaredFunction.h"
 #include "IOutputDataNormalizer.h"
-#include "PythonInterface_enumerations.pypp.h"
+#include "FitSuiteParameters.pypp.h"
 
 namespace bp = boost::python;
 
-void register_enumerations(){
+void register_FitSuiteParameters_class(){
 
-    bp::enum_< MathFunctions::TransformCase>("TransformCase")
-        .value("ForwardFFT", MathFunctions::ForwardFFT)
-        .value("BackwardFFT", MathFunctions::BackwardFFT)
-        .export_values()
-        ;
+    bp::class_< FitSuiteParameters >( "FitSuiteParameters", bp::init< >() )    
+        .def( 
+            "getValues"
+            , (::std::vector< double > ( ::FitSuiteParameters::* )(  ) const)( &::FitSuiteParameters::getValues ) );
 
 }

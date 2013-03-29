@@ -3,6 +3,7 @@ HEADERS +=  \
     PythonAPI/inc/AttLimits.pypp.h \
     PythonAPI/inc/ChiSquaredModule.pypp.h \
     PythonAPI/inc/FitSuite.pypp.h \
+    PythonAPI/inc/FitSuiteParameters.pypp.h \
     PythonAPI/inc/IChiSquaredModule.pypp.h \
     PythonAPI/inc/IMinimizer.pypp.h \
     PythonAPI/inc/IOutputDataNormalizer.pypp.h \
@@ -22,6 +23,7 @@ SOURCES +=  \
     PythonAPI/src/AttLimits.pypp.cpp \
     PythonAPI/src/ChiSquaredModule.pypp.cpp \
     PythonAPI/src/FitSuite.pypp.cpp \
+    PythonAPI/src/FitSuiteParameters.pypp.cpp \
     PythonAPI/src/IChiSquaredModule.pypp.cpp \
     PythonAPI/src/IMinimizer.pypp.cpp \
     PythonAPI/src/IOutputDataNormalizer.pypp.cpp \

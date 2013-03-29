@@ -12,6 +12,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "IMinimizer.h"
 #include "ChiSquaredModule.h"
 #include "FitSuite.h"
+#include "FitSuiteParameters.h"
 #include "MinimizerFactory.h"
 #include "PythonPlusplusFitHelper.h"
 #include "MathFunctions.h"
@@ -60,6 +61,10 @@ void register_FitSuite_class(){
             "addSimulationAndRealData"
             , (void ( ::FitSuite::* )( ::Simulation const &,::OutputData< double > const &,::IChiSquaredModule const & ) )( &::FitSuite::addSimulationAndRealData )
             , ( bp::arg("simulation"), bp::arg("real_data"), bp::arg("chi2_module")=ChiSquaredModule() ) )    
+        .def( 
+            "getFitParameters"
+            , (::FitSuiteParameters * ( ::FitSuite::* )(  ) )( &::FitSuite::getFitParameters )
+            , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getMinimizer"
             , (::IMinimizer * ( ::FitSuite::* )(  ) )( &::FitSuite::getMinimizer )

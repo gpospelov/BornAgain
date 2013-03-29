@@ -172,6 +172,7 @@ def InstallCode(OutputTempDir, InstallDir):
   
   files_inc =glob.glob(OutputTempDir+"/*.pypp.h");
   files_inc+= glob.glob(OutputTempDir+"/__call_policies.pypp.hpp");
+  files_inc+= glob.glob(OutputTempDir+"/__convenience.pypp.hpp");
   files_src = glob.glob(OutputTempDir+"/*.pypp.cpp");
   files = files_inc+files_src
 

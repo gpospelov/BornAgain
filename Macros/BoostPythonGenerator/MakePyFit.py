@@ -3,6 +3,7 @@
 import os
 import sys
 import glob
+import subprocess
 from pyplusplus import module_builder
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
@@ -111,9 +112,37 @@ def MakePythonAPI(OutputTempDir):
   multiple_files_t.HEADER_EXT='.pypp.h'
   multiple_files_t.SOURCE_EXT='.pypp.cpp'
 
-  myIncludes.append('/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7')
-  myIncludes.append('/opt/local/include/')
-  mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin', cflags="-m64")
+
+  #---------------------------------------------------------------
+  # getting paths
+  #---------------------------------------------------------------
+  myIncludes.append(sys.prefix +"/include/python"+ sys.version[:3])
+  # looking for general headers
+  proc = subprocess.Popen(["which g++"], stdout=subprocess.PIPE, shell=True)
+  (out, err) = proc.communicate()
+  path = out.strip()
+  if path.endswith("bin/g++"):
+    myIncludes.append(path[:-7]+"include")
+  else:
+    exit("Can't find g++")
+  # looking for gccxml
+  proc = subprocess.Popen(["which gccxml"], stdout=subprocess.PIPE, shell=True)
+  (out, err) = proc.communicate()
+  path = out.strip()
+  if path.endswith("/gccxml"):
+    mygccxml = path[:-7]
+  else:
+    exit("No gccxml!")
+  
+  print myIncludes
+  print mygccxml
+  
+  mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path=mygccxml, cflags="-m64")
+
+
+  #myIncludes.append('/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7')
+  #myIncludes.append('/opt/local/include/')
+  #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin', cflags="-m64")
   #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')
 
   # ---------------------------------------------------------

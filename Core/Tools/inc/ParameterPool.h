@@ -30,35 +30,44 @@ class ParameterPool : public ICloneable
     typedef RealParameterWrapper parameter_t;
     typedef std::map<std::string, parameter_t > parametermap_t;
 
+    //! Constructs an empty parameter pool.
     ParameterPool() : m_map() {}
+
     virtual ~ParameterPool() {}
 
-    //! simple clone
-    ParameterPool *clone() const;
+    //! Returns a literal clone.
+    ParameterPool *clone() const
+    {
+        ParameterPool *new_pool = new ParameterPool();
+        new_pool->m_map = m_map;
+        return new_pool;
+    }
 
-    //! clone with adding preffix to every parameter key
+    //! Returns a clone with _prefix_ added to every parameter key.
     ParameterPool *cloneWithPrefix(const std::string& prefix) const;
 
-    //! copy parameters of given pool to the external pool while adding prefix to local parameter keys
-    void copyToExternalPool(const std::string& prefix, ParameterPool *external_pool) const;
+    //! Copies parameters to _external_pool_, adding _prefix_ to every key.
+    void copyToExternalPool(
+        const std::string& prefix, ParameterPool *external_pool) const;
 
-    //! clear and delete parameter map
-    void clear();
+    //! Deletes parameter map.
+    void clear() { m_map.clear(); }
 
-    //! Returns size of parameter container
+    //! Returns size of parameter container.
     size_t size() const { return m_map.size(); }
 
-    //! main method to register data address in the pool
+    //! Registers a parameter with key _name_ and pointer-to-value _parpointer_.
     void registerParameter(const std::string& name, double *parpointer);
 
     //! Adds parameter to the pool
     bool addParameter(const std::string& name, parameter_t par);
 
-    //! Returns parameter with given name
+    //! Returns parameter named _name_.
     parameter_t getParameter(const std::string& name) const;
 
     //! Returns vector of parameters which fit pattern
-    std::vector<parameter_t > getMatchedParameters(const std::string& wildcards) const;
+    std::vector<parameter_t > getMatchedParameters(
+        const std::string& wildcards) const;
 
     //! Sets parameter value, return true in the case of success
     bool setParameterValue(const std::string& name, double value);
@@ -67,22 +76,21 @@ class ParameterPool : public ICloneable
     int setMatchedParametersValue(const std::string& wildcards, double value);
 
     //! link first parameter to second parameter times a scale factor and return number of changed parameters
+
     //! note that the parameters to be linked should match:
     //! prefix/to_change --> prefix/source
     int fixRatioBetweenParameters(const std::string& to_change, const std::string& source, double ratio);
 
-    //! Prints parameter pool
-    friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) { obj.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr,
+                                    const ParameterPool& obj)
+    { obj.print(ostr); return ostr; }
 
  protected:
-//    //! disabling assignment operator, hiding copy constructor
-//    ParameterPool(const ParameterPool& other);
-//    ParameterPool& operator=(const ParameterPool& );
-
-    //! Prints parameter pool content
+    //! Prints parameter pool contents.
     virtual void print(std::ostream& ostr) const;
 
-    parametermap_t m_map; //! map of parameters
+    //! Map of parameters.
+    parametermap_t m_map;
 };
 
 #endif // PARAMETERPOOL_H

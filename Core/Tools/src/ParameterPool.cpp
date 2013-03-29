@@ -22,14 +22,7 @@
 #include <iostream>
 #include <sstream>
 
-ParameterPool *ParameterPool::clone() const
-{
-    ParameterPool *new_pool = new ParameterPool();
-    new_pool->m_map = m_map;
-    return new_pool;
-}
-
-//! Clone method that adds a prefix to parameter's keys.
+//! Returns a clone with _prefix_ added to every parameter key.
 
 ParameterPool *ParameterPool::cloneWithPrefix(const std::string& prefix) const
 {
@@ -39,13 +32,6 @@ ParameterPool *ParameterPool::cloneWithPrefix(const std::string& prefix) const
         new_pool->addParameter(prefix+it->first, it->second);
     }
     return new_pool;
-}
-
-//! Clear the parameter container.
-
-void ParameterPool::clear()
-{
-    m_map.clear();
 }
 
 //! Registers parameter with given name.
@@ -93,7 +79,7 @@ ParameterPool::parameter_t ParameterPool::getParameter(const std::string& name) 
 
 //! Returns vector of parameters which fit pattern.
 
-std::vector<ParameterPool::parameter_t >  ParameterPool::getMatchedParameters(const std::string& wildcards) const
+std::vector<ParameterPool::parameter_t> ParameterPool::getMatchedParameters(const std::string& wildcards) const
 {
     std::vector<ParameterPool::parameter_t > selected_parameters;
     // loop over all parameters in the pool

@@ -3,8 +3,8 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/inc/ICompositeIterator.h
-//! @brief     Defines classes MementoState, MementoIterator, 
-//!              ICompositeIterator.
+//! @brief     Defines and implements classes MementoState, MementoIterator; 
+//!              defines class ICompositeIterator.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -28,9 +28,10 @@
 class MementoState
 {
  public:
-   typedef ICompositeSample::iterator_t iterator_t;
+    typedef std::list<ISample*>::iterator iterator_t;
 
-    MementoState(iterator_t itor, iterator_t end_itor) : m_itor( itor ), m_end_itor( end_itor ) { }
+    MementoState(iterator_t itor, iterator_t end_itor)
+        : m_itor( itor ), m_end_itor( end_itor ) { }
 
     MementoState& operator=(const MementoState& other)
     {
@@ -48,16 +49,16 @@ class MementoState
     void next() { m_itor++; }
 
     friend std::ostream& operator<<(std::ostream& o, MementoState const& m)
-    {
-      return  (o << "memento state " <<& m.m_itor << " " <<& m.m_end_itor);
-    }
+    { return  (o << "memento state " <<& m.m_itor << " " <<& m.m_end_itor); }
 
  protected:
     iterator_t m_itor;
     iterator_t m_end_itor;
+
  private:
     MementoState();
 };
+
 
 //! ?
 
@@ -80,7 +81,8 @@ class MementoIterator
     std::stack<MementoState > m_state_stack;
 };
 
-//! Walks through ISample tree of objects inside ICompositeSample object.
+
+//! Iterator through ISample tree of objects inside ICompositeSample object.
 
 //! Usage example:
 //!    ICompositeIterator it = sample->createIterator();

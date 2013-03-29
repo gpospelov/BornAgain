@@ -101,7 +101,7 @@ class ParticleDecoration : public IDecoration
     }
 
     //TODO: replace with SafePointerVector
-    std::vector<ParticleInfo *> m_particles;
+    std::vector<ParticleInfo*> m_particles;
 
     //! Vector of the types of particles
     SafePointerVector<IInterferenceFunction> m_interference_functions;

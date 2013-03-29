@@ -54,14 +54,12 @@ ParticleDecoration* ParticleDecoration::clone() const
     ParticleDecoration *p_new = new ParticleDecoration();
     p_new->setName(getName());
 
-    for (size_t i=0; i<m_particles.size(); ++i) {
+    for (size_t i=0; i<m_particles.size(); ++i)
         p_new->addAndRegisterParticleInfo(m_particles[i]->clone());
-    }
 
-    for (size_t i=0; i<m_interference_functions.size(); ++i) {
+    for (size_t i=0; i<m_interference_functions.size(); ++i)
         p_new->addAndRegisterInterferenceFunction(
             m_interference_functions[i]->clone());
-    }
 
     p_new->m_total_abundance = m_total_abundance;
     p_new->setTotalParticleSurfaceDensity(getTotalParticleSurfaceDensity());
@@ -118,9 +116,8 @@ void ParticleDecoration::addParticleInfo(const ParticleInfo& info)
 
 const ParticleInfo* ParticleDecoration::getParticleInfo(size_t index) const
 {
-    if (index<m_particles.size()) {
+    if (index<m_particles.size())
         return m_particles[index];
-    }
     throw OutOfBoundsException(
         "ParticleDecoration::getParticleInfo() -> "
         "Error! Not so many interference functions in this decoration.");

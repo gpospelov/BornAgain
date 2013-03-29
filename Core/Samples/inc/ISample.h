@@ -27,7 +27,7 @@ class DWBASimulation;
 class ISample : public IParameterized, public ICloneable
 {
  public:
-    ISample() {}
+    ISample() { setName("ISample"); }
     virtual ~ISample() {}
 
     //! Returns pointer to "this", if it is composite sample (to overload).
@@ -45,15 +45,15 @@ class ISample : public IParameterized, public ICloneable
     //! Walks through composite sample and print content
     virtual void print_structure();
 
-    //! Adds parameters from local pool to external pool and call recursion over direct children
+    //! Adds params from local to external pool, recurses over direct children.
     virtual std::string addParametersToExternalPool(
-            std::string path,
-            ParameterPool *external_pool,
-            int copy_number=-1) const;
+        std::string path,
+        ParameterPool *external_pool,
+        int copy_number=-1) const;
 
  protected:
     virtual void print(std::ostream& ostr) const
-    { ostr << getName() << " " << this << " " << m_parameters; }
+    { ostr << "ISample: " << getName() << " " << this << " " << m_parameters; }
 };
 
 #endif // ISAMPLE_H

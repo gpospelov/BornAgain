@@ -58,8 +58,8 @@ class Layer : public ICompositeSample
     //! Returns refractive index of the layer's material.
     virtual complex_t getRefractiveIndex() const
     {
-        return (dynamic_cast<const HomogeneousMaterial *>(mp_material))->
-            getRefractiveIndex();
+        return (dynamic_cast<const HomogeneousMaterial *>
+                (mp_material))->getRefractiveIndex();
     }
 
     //! Returns false (override is important for polymorphism of LayerDecorator).

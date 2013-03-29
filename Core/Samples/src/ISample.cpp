@@ -46,7 +46,7 @@ void ISample::print_structure()
     }
 }
 
-//! Adds parameters from local pool to external pool and call recursion over direct children
+//! Adds params from local to external pool and recurses over direct children.
 
 std::string ISample::addParametersToExternalPool(
     std::string path, ParameterPool *external_pool, int copy_number) const
@@ -54,22 +54,22 @@ std::string ISample::addParametersToExternalPool(
     std::string new_path =
         IParameterized::addParametersToExternalPool(
             path, external_pool, copy_number);
-
-    // going through direct children of given sample and copy they parameters recursively
+    // go through direct children of given sample and
+    // copy their parameters recursively
     const ICompositeSample *sample = getCompositeSample();
     if( sample ) {
-
-        // Here we need some default mechanism to handle cases with many children with same name.
+        // Here we need some default mechanism to handle cases with
+        // many children with same name.
         // Lets run through all direct children and save their names
         Utils::StringUsageMap strUsageMap;
-        for(ICompositeSample::const_iterator_t it =
+        for(std::list<ISample*>::const_iterator it =
                 sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
             strUsageMap.add( new_path +(*it)->getName() ); // saving children name
         }
-
-        // Now we run through direct children again, and assign copy number for all children with same name
+        // Now we run through direct children again,
+        // and assign copy number for all children with same name
         Utils::StringUsageMap strUsageMap2;
-        for(ICompositeSample::const_iterator_t it=
+        for(std::list<ISample*>::const_iterator it=
                 sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
             std::string children_name = new_path +(*it)->getName();
             strUsageMap2.add(children_name);

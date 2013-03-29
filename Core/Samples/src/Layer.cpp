@@ -26,7 +26,8 @@ Layer::Layer() : mp_material(0), m_thickness(0)
     init_parameters();
 }
 
-Layer::Layer(const IMaterial* p_material, double thickness) : mp_material(0), m_thickness(0)
+Layer::Layer(const IMaterial* p_material, double thickness)
+    : mp_material(0), m_thickness(0)
 {
     setName("Layer");
     setMaterial(p_material);

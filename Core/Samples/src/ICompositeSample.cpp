@@ -23,7 +23,8 @@
 
 ICompositeSample *ICompositeSample::clone() const
 {
-    throw NotImplementedException("ICompositeSample::clone() -> Error: not implemented");
+    throw NotImplementedException("ICompositeSample::clone() -> "
+                                  "Error: not implemented");
 }
 
 
@@ -34,7 +35,8 @@ void ICompositeSample::registerChild(ISample *sample)
     if(sample) {
         m_samples.push_back(sample);
     } else {
-        msglog(MSG::ERROR) << "ICompositeSample::registerChild() -> Attempt to register NULL child in this " << *this;
+        msglog(MSG::ERROR) << "ICompositeSample::registerChild() -> "
+            "Attempt to register NULL child in this " << *this;
     }
 }
 

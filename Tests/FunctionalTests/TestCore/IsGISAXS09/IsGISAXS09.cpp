@@ -35,7 +35,7 @@ FunctionalTests::IsGISAXS09::~IsGISAXS09()
 }
 
 
-// IsGISAXS example #9: pyramid
+// IsGISAXS example #9a: pyramid
 void FunctionalTests::IsGISAXS09::runpyramidZ0()
 {
     // building sample
@@ -56,8 +56,8 @@ void FunctionalTests::IsGISAXS09::runpyramidZ0()
                                            5*Units::nanometer,
                                            Units::deg2rad(54.73 ) ) ) );
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
+    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     multi_layer.addLayer(air_layer_decorator);
     multi_layer.addLayer(substrate_layer);
 
@@ -76,7 +76,7 @@ void FunctionalTests::IsGISAXS09::runpyramidZ0()
 }
 
 
-// IsGISAXS example #9: rotated pyramid
+// IsGISAXS example #9b: rotated pyramid
 void FunctionalTests::IsGISAXS09::runpyramidZ45()
 {
     // building sample
@@ -101,9 +101,9 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
         new Geometry::RotateZ_3D(45.*Units::degree) );
 
     ParticleDecoration particle_decoration;
-
     particle_decoration.addParticle(pyramid, transform);
     particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     multi_layer.addLayer(air_layer_decorator);
     multi_layer.addLayer(substrate_layer);

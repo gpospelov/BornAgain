@@ -17,8 +17,7 @@
 
 LayerDecorator::LayerDecorator(const Layer& layer,
         const IDecoration& decoration)
-: mp_decorated_layer(layer.clone())
-, mp_decoration(decoration.clone())
+    : mp_decorated_layer(layer.clone()), mp_decoration(decoration.clone())
 {
     setName("LayerDecorator");
     registerChild(mp_decorated_layer);

@@ -20,6 +20,8 @@
 #include "ParticleDecoration.h"
 #include "LayerDecoratorDWBASimulation.h"
 
+//! Equip a layer with thickness, material, refraction index, WHAT ELSE ?
+
 class LayerDecorator : public Layer
 {
  public:
@@ -29,22 +31,24 @@ class LayerDecorator : public Layer
     /// make layer's clone
     virtual LayerDecorator *clone() const;
 
-    //! Sets layer thickness in _angstrom_
-    virtual void setThickness(double thickness) { mp_decorated_layer->setThickness(thickness); }
+    //! Sets layer thickness in Angstrom.
+    virtual void setThickness(double thickness)
+    { mp_decorated_layer->setThickness(thickness); }
 
-    //! Returns layer thickness in _angstrom_
-    virtual double getThickness() const { return mp_decorated_layer->getThickness(); }
+    //! Returns layer thickness in Angstrom.
+    virtual double getThickness() const
+    { return mp_decorated_layer->getThickness(); }
 
     //! @brief set material to the layer
     //! @param p_material   pointer to the material
-    virtual void setMaterial(const IMaterial* p_material) { mp_decorated_layer->setMaterial(p_material); }
+    virtual void setMaterial(const IMaterial* p_material)
+    { mp_decorated_layer->setMaterial(p_material); }
 
     //! @brief set material of given thickness to the layer
     //! @param p_material   pointer to the material of layer
     //! @param thickness    thickness of the material in angstrom
-    virtual void setMaterial(const IMaterial* p_material, double thickness) {
-        mp_decorated_layer->setMaterial(p_material, thickness);
-    }
+    virtual void setMaterial(const IMaterial* p_material, double thickness)
+    { mp_decorated_layer->setMaterial(p_material, thickness); }
 
     //! Returns layer's material
     const virtual IMaterial* getMaterial() const
@@ -54,9 +58,7 @@ class LayerDecorator : public Layer
 
     //! Returns refractive index of the layer's material
     virtual complex_t getRefractiveIndex() const
-    {
-        return mp_decorated_layer->getRefractiveIndex();
-    }
+    { return mp_decorated_layer->getRefractiveIndex(); }
 
     //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
@@ -66,9 +68,8 @@ class LayerDecorator : public Layer
 
     virtual bool hasDWBASimulation() const { return true; }
 
-    virtual LayerDecoratorDWBASimulation *createDWBASimulation() const {
-        return new LayerDecoratorDWBASimulation(this);
-    }
+    virtual LayerDecoratorDWBASimulation *createDWBASimulation() const
+    { return new LayerDecoratorDWBASimulation(this); }
 
     virtual DiffuseDWBASimulation *createDiffuseDWBASimulation() const;
 

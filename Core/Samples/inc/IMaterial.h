@@ -40,7 +40,7 @@ class IMaterial : public INamed
 
  protected:
     virtual void print(std::ostream& ostr) const
-    { ostr << getName() << " " << this; }
+    { ostr << "IMat:" << getName() << "<" << this << ">"; }
 };
 
 #endif // IMATERIAL_H

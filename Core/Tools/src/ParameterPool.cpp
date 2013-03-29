@@ -180,5 +180,7 @@ void ParameterPool::print(std::ostream& ostr) const
                 ostr << "'" << (*it).first << "'" << ":" << it->second.getValue() << std::endl;
             }
         }
+    } else {
+        ostr << "EMPTY";
     }
 }

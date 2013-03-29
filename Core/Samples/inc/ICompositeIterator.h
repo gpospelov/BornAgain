@@ -31,7 +31,7 @@ class MementoState
     typedef std::list<ISample*>::iterator iterator_t;
 
     MementoState(iterator_t itor, iterator_t end_itor)
-        : m_itor( itor ), m_end_itor( end_itor ) { }
+        : m_itor( itor ), m_end_itor( end_itor ) {}
 
     MementoState& operator=(const MementoState& other)
     {
@@ -42,7 +42,7 @@ class MementoState
         return *this;
     }
 
-    virtual ~MementoState(){}
+    virtual ~MementoState() {}
 
     iterator_t& get_itor() { return m_itor; }
     bool is_end() const { return m_itor == m_end_itor; }

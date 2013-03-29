@@ -25,45 +25,53 @@
 class LayerDecorator : public Layer
 {
  public:
-    LayerDecorator(const Layer& layer, const IDecoration& decoration);
-    virtual ~LayerDecorator();
+    LayerDecorator(const Layer& layer, const IDecoration& decoration)
+        : mp_decorated_layer(layer.clone()), mp_decoration(decoration.clone())
+    {
+        setName("LayerDecorator");
+        registerChild(mp_decorated_layer);
+        registerChild(mp_decoration);
+        init_parameters();
+    }
 
-    /// make layer's clone
-    virtual LayerDecorator *clone() const;
+    virtual ~LayerDecorator()
+    {
+        delete mp_decorated_layer;
+        delete mp_decoration;
+    }
 
-    //! Sets layer thickness in Angstrom.
+    virtual LayerDecorator *clone() const
+    { return new LayerDecorator(*this); }
+
+    //! Sets _thickness_ in Angstrom.
     virtual void setThickness(double thickness)
     { mp_decorated_layer->setThickness(thickness); }
 
-    //! Returns layer thickness in Angstrom.
+    //! Returns thickness in Angstrom.
     virtual double getThickness() const
     { return mp_decorated_layer->getThickness(); }
 
-    //! @brief set material to the layer
-    //! @param p_material   pointer to the material
-    virtual void setMaterial(const IMaterial* p_material)
-    { mp_decorated_layer->setMaterial(p_material); }
+    //! Sets _material_.
+    virtual void setMaterial(const IMaterial* material)
+    { mp_decorated_layer->setMaterial(material); }
 
-    //! @brief set material of given thickness to the layer
-    //! @param p_material   pointer to the material of layer
-    //! @param thickness    thickness of the material in angstrom
-    virtual void setMaterial(const IMaterial* p_material, double thickness)
-    { mp_decorated_layer->setMaterial(p_material, thickness); }
+    //! Sets _material_ and _thickness_ in Angstrom.
+    virtual void setMaterial(const IMaterial* material, double thickness)
+    { mp_decorated_layer->setMaterial(material, thickness); }
 
-    //! Returns layer's material
+    //! Returns material
     const virtual IMaterial* getMaterial() const
-    {
-        return mp_decorated_layer->getMaterial();
-    }
+    { return mp_decorated_layer->getMaterial(); }
 
-    //! Returns refractive index of the layer's material
+    //! Returns refractive index.
     virtual complex_t getRefractiveIndex() const
     { return mp_decorated_layer->getRefractiveIndex(); }
 
-    //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
+    virtual void init_parameters()
+    { getParameterPool()->clear(); }
 
     const Layer* getDecoratedLayer() const { return mp_decorated_layer; }
+
     const IDecoration* getDecoration() const { return mp_decoration; }
 
     virtual bool hasDWBASimulation() const { return true; }
@@ -77,7 +85,7 @@ class LayerDecorator : public Layer
         if (mp_decoration) {
             return mp_decoration->getTotalParticleSurfaceDensity();
         }
-        return 0.0;
+        return 0.;
     }
 
  protected:
@@ -87,9 +95,7 @@ class LayerDecorator : public Layer
     IDecoration *mp_decoration;
 
  private:
-    //! Prints class
     void print(std::ostream& ostr) const;
-
 };
 
 #endif /* LAYERDECORATOR_H_ */

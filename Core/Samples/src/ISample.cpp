@@ -25,27 +25,6 @@ ISample *ISample::clone() const
         "Error! Method is not implemented");
 }
 
-void ISample::print_structure()
-{
-    std::cout << getName() << " " << this << std::endl;
-    if(getCompositeSample()) {
-        ICompositeIterator it = getCompositeSample()->createIterator();
-        it.first();
-        while(!it.is_done())
-        {
-            ISample *smp = it.get_current();
-            if(smp) {
-                int nlevel = (int)it.get_level();
-                for(int i=0; i<nlevel; i++) std::cout << "... ";
-                std::cout << (*smp) << std::endl;
-            } else {
-                std::cout << "NULL" << std::endl;
-            }
-            it.next();
-        }
-    }
-}
-
 //! Adds params from local to external pool and recurses over direct children.
 
 std::string ISample::addParametersToExternalPool(
@@ -82,4 +61,35 @@ std::string ISample::addParametersToExternalPool(
         }
     }
     return new_path;
+}
+
+void ISample::print_structure()
+{
+    std::cout << getName() << " " << this << std::endl;
+    std::cout << "ISample::print_structure is broken\n";
+/*
+    if(getCompositeSample()) {
+        ICompositeIterator it = getCompositeSample()->createIterator();
+        it.first();
+        while(!it.is_done())
+        {
+            ISample *smp = it.get_current();
+            if(smp) {
+                int nlevel = (int)it.get_level();
+                for(int i=0; i<nlevel; i++) std::cout << "... ";
+                std::cout << (*smp) << std::endl;
+            } else {
+                std::cout << "NULL" << std::endl;
+            }
+            it.next();
+        }
+    }
+*/
+}
+
+void ISample::print(std::ostream& ostr) const
+{
+    ostr << "ISample:" << getName() << "<" << this << ">{ " <<
+        "params={ " << m_parameters << " }";
+    ostr << " }";
 }

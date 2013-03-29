@@ -24,7 +24,8 @@ void ICompositeIterator::first()
         return;
     }
     m_done = false;
-    m_memento_itor.push_state( MementoState(m_root->begin_shallow(), m_root->end_shallow()) );
+    m_memento_itor.push_state(
+        MementoState(m_root->begin_shallow(), m_root->end_shallow()) );
 }
 
 void ICompositeIterator::next()

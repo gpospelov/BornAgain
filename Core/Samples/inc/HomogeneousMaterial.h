@@ -50,12 +50,11 @@ class HomogeneousMaterial : public IMaterial
         { m_refractive_index = refractive_index; }
 
  protected:
-    //! Dumps contents to stream.
     virtual void print(std::ostream& ostr) const
-        {
-            ostr  << "  " << getName() << " " << this <<
-                " R" << m_refractive_index;
-        }
+    {
+        ostr  << "HomMat:" << getName() << "<" << this << ">{ " <<
+                 "R=" << m_refractive_index << "}";
+    }
 
     complex_t m_refractive_index; //!< complex index of refraction
 };

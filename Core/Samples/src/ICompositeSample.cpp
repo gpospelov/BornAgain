@@ -15,9 +15,7 @@
 
 #include "ICompositeSample.h"
 #include "ICompositeIterator.h"
-#include "Utils.h"
 #include "MessageService.h"
-#include <vector>
 #include <sstream>
 #include "Exceptions.h"
 
@@ -27,17 +25,15 @@ ICompositeSample *ICompositeSample::clone() const
                                   "Error: not implemented");
 }
 
-
 //! Registers child in the container
 
 void ICompositeSample::registerChild(ISample *sample)
 {
-    if(sample) {
-        m_samples.push_back(sample);
-    } else {
+    if(!sample) { // QUESTION: why not throw exception ???
         msglog(MSG::ERROR) << "ICompositeSample::registerChild() -> "
             "Attempt to register NULL child in this " << *this;
     }
+    m_samples.push_back(sample);
 }
 
 //! remove registere child from the container

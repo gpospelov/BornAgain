@@ -141,8 +141,7 @@ void Simulation::runSimulation()
         } else {
             msglog(MSG::INFO) <<
                 "Simulation::runSimulation() -> Info. Number of threads " <<
-                n_threads_total << " (hardware concurrency: " <<
-                boost::thread::hardware_concurrency() << ")";
+                n_threads_total;
         }
         std::vector<boost::thread*> threads;
         std::vector<DWBASimulation*> simulations;

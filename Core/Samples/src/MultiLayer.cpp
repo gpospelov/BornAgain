@@ -192,15 +192,15 @@ MultiLayerDWBASimulation* MultiLayer::createDWBASimulation() const
 
 void MultiLayer::print(std::ostream& ostr) const
 {
-    ostr << "{\n" << getName() << " " << this << std::endl;
+    ostr << "MultiLayer:" << getName() << "<" << this << "> : {\n";
     for(size_t i=0; i<getNumberOfLayers(); i++) {
-        ostr << " layer " << std::left << std::setw(2) << i << ": "
-             << *getLayer(i) << std::endl;
+        ostr << " layer " << std::left << std::setw(2) << i << " { "
+             << *getLayer(i) << " }\n";
         const LayerInterface *interface = getLayerBottomInterface(i);
         if(interface) {
-            ostr << " int.face: " << *interface << std::endl;
+            ostr << " int.face {" << *interface << " }\n";
         } else {
-            ostr << " int.face: none" << std::endl;
+            ostr << " int.face: NONE" << "\n";
         }
     }
     ostr << "}";

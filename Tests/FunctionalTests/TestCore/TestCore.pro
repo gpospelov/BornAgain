@@ -12,6 +12,7 @@ SUBDIRS += \
     IsGISAXS09 \
     IsGISAXS10 \
     IsGISAXS11 \
-    IsGISAXS15
+    IsGISAXS15 \
+    MesoCrystal1
 
 CONFIG += ordered

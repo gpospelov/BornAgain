@@ -3,7 +3,10 @@
 
 #include "ISampleBuilder.h"
 
-//! builds sample using set of input parameters
+namespace FunctionalTests {
+
+//! Builds sample using set of input parameters.
+//! Mixture of cylinders and prisms on top of substrate.
 class SampleBuilder : public ISampleBuilder
 {
 public:
@@ -21,6 +24,6 @@ private:
     double m_cylinder_ratio;
 };
 
-
+}
 
 #endif // SAMPLEBUILDER_H

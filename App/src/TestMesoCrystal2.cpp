@@ -140,7 +140,7 @@ void TestMesoCrystal2::draw_results()
     hist_simu->GetYaxis()->SetTitleOffset(1.35);
     hist_simu->DrawCopy("CONT4 Z");
 
-//    OutputDataIOFactory::writeOutputData(*m_simulation->getOutputData(), "meso_simul.txt");
+    OutputDataIOFactory::writeOutputData(*m_simulation->getOutputData(), "meso_simul.txt");
 //    OutputDataIOFactory::writeOutputData(*m_real_data, "meso_real.txt");
 //    OutputData<double> *tmp_real = OutputDataIOFactory::getOutputData("meso_real.txt");
 //    OutputData<double> *tmp_simul = OutputDataIOFactory::getOutputData("meso_simul.txt");

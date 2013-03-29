@@ -123,7 +123,8 @@ int FunctionalTests::IsGISAXS04::analyseResults()
     }
 
     std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
-    return (int)status_ok;
+    return (status_ok ? 0 : 1);
+
 }
 
 

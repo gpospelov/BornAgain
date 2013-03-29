@@ -17,7 +17,8 @@ Tests = [
   "IsGISAXS09",
   "IsGISAXS10",
   "IsGISAXS11",
-  "IsGISAXS15"
+  "IsGISAXS15",
+  "MesoCrystal1",
 ]
 
 test_info = []
@@ -73,7 +74,7 @@ def getSummary():
   summary += "--------------------------------------------------------------------------------\n"
   n=1
   for x in test_info:
-    summary += '{0:2d}. {1} {2:.53s}  {3:.2f}s [{4}] '.format(n, x[0],x[1],x[2],x[3]) + "\n"
+    summary += '{0:2d}. {1:<12} {2:.53s}  {3:.2f}s [{4}] '.format(n, x[0],x[1],x[2],x[3]) + "\n"
     n+=1
   return summary
 

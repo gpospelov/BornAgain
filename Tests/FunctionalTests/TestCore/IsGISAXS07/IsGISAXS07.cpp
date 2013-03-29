@@ -138,8 +138,7 @@ int FunctionalTests::IsGISAXS07::analyseResults()
     if( diff > threshold || std::isnan(diff)) status_ok=false;
 
     std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
-    return (int)status_ok;
-
+    return (status_ok ? 0 : 1);
 }
 
 #ifdef STANDALONE

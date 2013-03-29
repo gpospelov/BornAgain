@@ -11,6 +11,7 @@
 #include "MathFunctions.h"
 #include "Utils.h"
 
+using namespace FunctionalTests;
 
 // ----------------------------------------------------------------------------
 // Sample builder to build mixture of cylinders and prisms on top of substrate

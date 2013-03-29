@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -79,7 +82,7 @@ namespace bp = boost::python;
 
 struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
 
-    Crystal_wrapper(::LatticeBasis const&  lattice_basis, ::Lattice const&  lattice )
+    Crystal_wrapper(::LatticeBasis const & lattice_basis, ::Lattice const & lattice )
     : Crystal( boost::ref(lattice_basis), boost::ref(lattice) )
       , bp::wrapper< Crystal >(){
         // constructor
@@ -98,7 +101,7 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         return Crystal::clone( );
     }
 
-    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const&  parent_info ) const  {
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
         if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
             return func_createDiffuseParticleInfo( boost::ref(parent_info) );
         else{
@@ -106,11 +109,11 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         }
     }
     
-    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const&  parent_info ) const  {
+    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
         return Crystal::createDiffuseParticleInfo( boost::ref(parent_info) );
     }
 
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const&  meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
+    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
         if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
             return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
         else{
@@ -118,7 +121,7 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         }
     }
     
-    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const&  meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
+    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
         return Crystal::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
     }
 
@@ -144,6 +147,18 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
+    }
+
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -206,6 +221,37 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
         ISample::print_structure( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< Crystal_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
+    }
+
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
@@ -234,7 +280,7 @@ struct Crystal_wrapper : Crystal, bp::wrapper< Crystal > {
 
 void register_Crystal_class(){
 
-    bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, boost::noncopyable >( "Crystal", bp::init< LatticeBasis const& , Lattice const&  >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
+    bp::class_< Crystal_wrapper, bp::bases< IClusteredParticles >, boost::noncopyable >( "Crystal", bp::init< LatticeBasis const &, Lattice const & >(( bp::arg("lattice_basis"), bp::arg("lattice") )) )    
         .def( 
             "clone"
             , (::Crystal * ( ::Crystal::* )(  ) const)(&::Crystal::clone)
@@ -242,26 +288,26 @@ void register_Crystal_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createBasis"
-            , (::Particle * ( ::Crystal::* )(  ) const)(& ::Crystal::createBasis )
+            , (::Particle * ( ::Crystal::* )(  ) const)( &::Crystal::createBasis )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createDiffuseParticleInfo"
-            , (::std::vector< DiffuseParticleInfo* > * ( ::Crystal::* )( ::ParticleInfo const&  ) const)(&::Crystal::createDiffuseParticleInfo)
-            , (::std::vector< DiffuseParticleInfo* > * ( Crystal_wrapper::* )( ::ParticleInfo const&  ) const)(&Crystal_wrapper::default_createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( ::Crystal::* )( ::ParticleInfo const & ) const)(&::Crystal::createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( Crystal_wrapper::* )( ::ParticleInfo const & ) const)(&Crystal_wrapper::default_createDiffuseParticleInfo)
             , ( bp::arg("parent_info") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createTotalFormFactor"
-            , (::IFormFactor * ( ::Crystal::* )( ::IFormFactor const& ,::complex_t ) const)(&::Crystal::createTotalFormFactor)
-            , (::IFormFactor * ( Crystal_wrapper::* )( ::IFormFactor const& ,::complex_t ) const)(&Crystal_wrapper::default_createTotalFormFactor)
+            , (::IFormFactor * ( ::Crystal::* )( ::IFormFactor const &,::complex_t ) const)(&::Crystal::createTotalFormFactor)
+            , (::IFormFactor * ( Crystal_wrapper::* )( ::IFormFactor const &,::complex_t ) const)(&Crystal_wrapper::default_createTotalFormFactor)
             , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getLattice"
-            , (::Lattice ( ::Crystal::* )(  ) const)(& ::Crystal::getLattice ) )    
+            , (::Lattice ( ::Crystal::* )(  ) const)( &::Crystal::getLattice ) )    
         .def( 
             "getLatticeBasis"
-            , (::LatticeBasis const * ( ::Crystal::* )(  ) const)(& ::Crystal::getLatticeBasis )
+            , (::LatticeBasis const * ( ::Crystal::* )(  ) const)( &::Crystal::getLatticeBasis )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "setAmbientRefractiveIndex"
@@ -270,12 +316,16 @@ void register_Crystal_class(){
             , ( bp::arg("refractive_index") ) )    
         .def( 
             "setDWFactor"
-            , (void ( ::Crystal::* )( double ) )(& ::Crystal::setDWFactor )
+            , (void ( ::Crystal::* )( double ) )( &::Crystal::setDWFactor )
             , ( bp::arg("dw_factor") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( Crystal_wrapper::* )(  ) )(&Crystal_wrapper::default_areParametersChanged) )    
+        .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( Crystal_wrapper::* )(  ) )(&Crystal_wrapper::default_clearParameterPool) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
@@ -299,6 +349,15 @@ void register_Crystal_class(){
             "print_structure"
             , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
             , (void ( Crystal_wrapper::* )(  ) )(&Crystal_wrapper::default_print_structure) )    
+        .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &Crystal_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( Crystal_wrapper::* )( ::std::string const &,double ) )(&Crystal_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

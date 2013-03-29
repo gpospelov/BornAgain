@@ -102,6 +102,7 @@ LOCATIONS = $$PWD/Core/Algorithms/inc \
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}
 
+
 # -----------------------------------------------------------------------------
 # compiler options for debug and release
 # -----------------------------------------------------------------------------
@@ -174,8 +175,9 @@ CONFIG(BORNAGAIN_ROOT) {
 # -----------------------------------------------------------------------------
 # add python API support
 # -----------------------------------------------------------------------------
-# TODO - implement check for existance of numpy/arrayobject.h
+CONFIG  += BORNAGAIN_PYTHON
 CONFIG(BORNAGAIN_PYTHON) {
+  # TODO - implement check for existance of numpy/arrayobject.h
   # user wants to compile python module
   WhichPython=$$system(which python)
   isEmpty(WhichPython) {
@@ -196,7 +198,7 @@ CONFIG(BORNAGAIN_PYTHON) {
     #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
     LIBS += -lboost_python -L$$pythonsyslibdir -lpython$$pythonvers
 
-    # we need to know to location of numpy
+    # we need to know the location of numpy
     pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")
     INCLUDEPATH += $$pythonnumpy
   }

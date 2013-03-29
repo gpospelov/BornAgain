@@ -54,6 +54,8 @@ const IMaterial *MaterialManager::this_getMaterial(const std::string& name)
 const IMaterial *MaterialManager::this_getHomogeneousMaterial(
     const std::string& name, const complex_t& refractive_index)
 {
+    check_refractive_index(refractive_index);
+
     static boost::mutex single_mutex;
     boost::unique_lock<boost::mutex> single_lock( single_mutex );
     const IMaterial *mat = getMaterial(name);
@@ -98,5 +100,21 @@ void MaterialManager::print(std::ostream& ostr) const
             it = m_materials.begin(); it!= m_materials.end(); ++it) {
         const IMaterial *mat = (*it).second;
         ostr << *mat << std::endl;
+    }
+}
+
+//! Checks refractive index for consistency
+// FIXME what are allowed values for refractive index ?
+void MaterialManager::check_refractive_index(const complex_t &index)
+{
+    bool isConsistent(true);
+    if( (index.imag() == 0.0) && (index.real() == 0.0) ) isConsistent = false;
+    if( (index.imag() < 0.0) || (index.real() < 0.0) ) isConsistent = false;
+    if( (index.imag() > 1.0) || (index.real() > 1.0) ) isConsistent = false;
+    if( (index.imag() == 1.0) ) isConsistent = false;
+
+    if( !isConsistent ) {
+        msglog(MSG::ERROR) << "MaterialManager::check_refractive_index() -> "
+                           << "Suspicious refractive index " << index;
     }
 }

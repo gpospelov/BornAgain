@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -91,7 +92,7 @@ struct ISelectionRule_wrapper : ISelectionRule, bp::wrapper< ISelectionRule > {
         return func_clone(  );
     }
 
-    virtual bool coordinateSelected( ::IndexVector3D const&  coordinate ) const {
+    virtual bool coordinateSelected( ::IndexVector3D const & coordinate ) const {
         bp::override func_coordinateSelected = this->get_override( "coordinateSelected" );
         return func_coordinateSelected( boost::ref(coordinate) );
     }
@@ -107,7 +108,7 @@ void register_ISelectionRule_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "coordinateSelected"
-            , bp::pure_virtual( (bool ( ::ISelectionRule::* )( ::IndexVector3D const&  ) const)(&::ISelectionRule::coordinateSelected) )
+            , bp::pure_virtual( (bool ( ::ISelectionRule::* )( ::IndexVector3D const & ) const)(&::ISelectionRule::coordinateSelected) )
             , ( bp::arg("coordinate") ) );
 
 }

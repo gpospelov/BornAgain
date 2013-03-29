@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -110,6 +113,18 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
         return IParameterized::areParametersChanged( );
     }
 
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -132,6 +147,37 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
+    }
+
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< Simulation_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
     }
 
     virtual void setParametersAreChanged(  ) {
@@ -162,11 +208,11 @@ void register_Simulation_class(){
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "getOutputData"
-            , (::OutputData< double > const * ( ::Simulation::* )(  ) const)(& ::Simulation::getOutputData )
+            , (::OutputData< double > const * ( ::Simulation::* )(  ) const)( &::Simulation::getOutputData )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getOutputDataClone"
-            , (::OutputData< double > * ( ::Simulation::* )(  ) const)(& ::Simulation::getOutputDataClone )
+            , (::OutputData< double > * ( ::Simulation::* )(  ) const)( &::Simulation::getOutputDataClone )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getSample"
@@ -174,59 +220,67 @@ void register_Simulation_class(){
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getSimulationParameters"
-            , (::SimulationParameters ( ::Simulation::* )(  ) const)(& ::Simulation::getSimulationParameters ) )    
+            , (::SimulationParameters ( ::Simulation::* )(  ) const)( &::Simulation::getSimulationParameters ) )    
         .def( 
             "normalize"
-            , (void ( ::Simulation::* )(  ) )(& ::Simulation::normalize ) )    
+            , (void ( ::Simulation::* )(  ) )( &::Simulation::normalize ) )    
         .def( 
             "prepareSimulation"
-            , (void ( ::Simulation::* )(  ) )(& ::Simulation::prepareSimulation ) )    
+            , (void ( ::Simulation::* )(  ) )( &::Simulation::prepareSimulation ) )    
         .def( 
             "runSimulation"
-            , (void ( ::Simulation::* )(  ) )(& ::Simulation::runSimulation ) )    
+            , (void ( ::Simulation::* )(  ) )( &::Simulation::runSimulation ) )    
         .def( 
             "runSimulationElement"
-            , (void ( ::Simulation::* )( ::size_t ) )(& ::Simulation::runSimulationElement )
+            , (void ( ::Simulation::* )( ::size_t ) )( &::Simulation::runSimulationElement )
             , ( bp::arg("index") ) )    
         .def( 
             "setBeamIntensity"
-            , (void ( ::Simulation::* )( double ) )(& ::Simulation::setBeamIntensity )
+            , (void ( ::Simulation::* )( double ) )( &::Simulation::setBeamIntensity )
             , ( bp::arg("intensity") ) )    
         .def( 
             "setBeamParameters"
-            , (void ( ::Simulation::* )( double,double,double ) )(& ::Simulation::setBeamParameters )
+            , (void ( ::Simulation::* )( double,double,double ) )( &::Simulation::setBeamParameters )
             , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::Simulation::* )( ::OutputData< double > const&  ) )(& ::Simulation::setDetectorParameters )
+            , (void ( ::Simulation::* )( ::OutputData< double > const & ) )( &::Simulation::setDetectorParameters )
             , ( bp::arg("output_data") ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::Simulation::* )( ::size_t,double,double,::size_t,double,double,bool ) )(& ::Simulation::setDetectorParameters )
+            , (void ( ::Simulation::* )( ::size_t,double,double,::size_t,double,double,bool ) )( &::Simulation::setDetectorParameters )
             , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::Simulation::* )( ::DetectorParameters const&  ) )(& ::Simulation::setDetectorParameters )
+            , (void ( ::Simulation::* )( ::DetectorParameters const & ) )( &::Simulation::setDetectorParameters )
             , ( bp::arg("params") ) )    
         .def( 
             "setInstrument"
-            , (void ( ::Simulation::* )( ::Instrument const&  ) )(& ::Simulation::setInstrument )
+            , (void ( ::Simulation::* )( ::Instrument const & ) )( &::Simulation::setInstrument )
             , ( bp::arg("instrument") ) )    
         .def( 
             "setSample"
-            , (void ( ::Simulation::* )( ::ISample const&  ) )(& ::Simulation::setSample )
+            , (void ( ::Simulation::* )( ::ISample const & ) )( &::Simulation::setSample )
             , ( bp::arg("sample") ) )    
         .def( 
+            "setSampleBuilder"
+            , (void ( ::Simulation::* )( ::ISampleBuilder const * ) )( &::Simulation::setSampleBuilder )
+            , ( bp::arg("p_sample_builder") ) )    
+        .def( 
             "setSimulationParameters"
-            , (void ( ::Simulation::* )( ::SimulationParameters const&  ) )(& ::Simulation::setSimulationParameters )
+            , (void ( ::Simulation::* )( ::SimulationParameters const & ) )( &::Simulation::setSimulationParameters )
             , ( bp::arg("sim_params") ) )    
         .def( 
             "smearIntensityFromZAxisTilting"
-            , (void ( ::Simulation::* )(  ) )(& ::Simulation::smearIntensityFromZAxisTilting ) )    
+            , (void ( ::Simulation::* )(  ) )( &::Simulation::smearIntensityFromZAxisTilting ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( Simulation_wrapper::* )(  ) )(&Simulation_wrapper::default_areParametersChanged) )    
+        .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( Simulation_wrapper::* )(  ) )(&Simulation_wrapper::default_clearParameterPool) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
@@ -236,6 +290,15 @@ void register_Simulation_class(){
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
             , (void ( Simulation_wrapper::* )(  ) const)(&Simulation_wrapper::default_printParameters) )    
+        .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &Simulation_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( Simulation_wrapper::* )( ::std::string const &,double ) )(&Simulation_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

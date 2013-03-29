@@ -21,6 +21,14 @@
 #include <iomanip>
 #include <boost/algorithm/string.hpp>
 
+#ifdef DEBUG_FPE
+#include <fenv.h>
+#ifdef Q_OS_MAC
+#include "fp_exception_glibc_extension.h"
+#endif
+#endif
+
+
 std::string Utils::FileSystem::m_relative_path = "relative path is undefined";
 
 //! Parse double values from string to vector of double
@@ -169,3 +177,19 @@ std::string Utils::FileSystem::GetFileMainExtension(const std::string& name)
         return Utils::FileSystem::GetFileExtension(stripped_name);
     }
 }
+
+
+//! enables exception throw in the case of NaN, Inf
+void Utils::EnableFloatingPointExceptions()
+{
+#ifdef DEBUG_FPE
+    std::cout << "Utils::EnableFloatingPointExceptions()  -> Enabling floating point exception debugging"
+              << std::endl;
+    feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
+//    feenableexcept(-1);
+#else
+    std::cout << "Utils::EnableFloatingPointExceptions()  -> Can't enable floating point exceptions. Available in debug mode only."
+              << std::endl;
+#endif
+}
+

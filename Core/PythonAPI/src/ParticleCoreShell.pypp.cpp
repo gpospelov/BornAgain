@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -79,7 +82,7 @@ namespace bp = boost::python;
 
 struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreShell > {
 
-    ParticleCoreShell_wrapper(::Particle const&  shell, ::Particle const&  core, ::kvector_t relative_core_position )
+    ParticleCoreShell_wrapper(::Particle const & shell, ::Particle const & core, ::kvector_t relative_core_position )
     : ParticleCoreShell( boost::ref(shell), boost::ref(core), relative_core_position )
       , bp::wrapper< ParticleCoreShell >(){
         // constructor
@@ -96,6 +99,18 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
+    }
+
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
     }
 
     virtual ::IFormFactor * createFormFactor(  ) const  {
@@ -194,6 +209,25 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
         ISample::print_structure( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< ParticleCoreShell_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
     virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
             func_setAmbientRefractiveIndex( refractive_index );
@@ -204,6 +238,18 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
     
     void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         Particle::setAmbientRefractiveIndex( refractive_index );
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
     }
 
     virtual void setParametersAreChanged(  ) {
@@ -234,11 +280,15 @@ struct ParticleCoreShell_wrapper : ParticleCoreShell, bp::wrapper< ParticleCoreS
 
 void register_ParticleCoreShell_class(){
 
-    bp::class_< ParticleCoreShell_wrapper, bp::bases< Particle >, boost::noncopyable >( "ParticleCoreShell", bp::init< Particle const& , Particle const& , kvector_t >(( bp::arg("shell"), bp::arg("core"), bp::arg("relative_core_position") )) )    
+    bp::class_< ParticleCoreShell_wrapper, bp::bases< Particle >, boost::noncopyable >( "ParticleCoreShell", bp::init< Particle const &, Particle const &, kvector_t >(( bp::arg("shell"), bp::arg("core"), bp::arg("relative_core_position") )) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( ParticleCoreShell_wrapper::* )(  ) )(&ParticleCoreShell_wrapper::default_areParametersChanged) )    
+        .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( ParticleCoreShell_wrapper::* )(  ) )(&ParticleCoreShell_wrapper::default_clearParameterPool) )    
         .def( 
             "createFormFactor"
             , (::IFormFactor * ( ::Particle::* )(  ) const)(&::Particle::createFormFactor)
@@ -276,10 +326,19 @@ void register_ParticleCoreShell_class(){
             , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
             , (void ( ParticleCoreShell_wrapper::* )(  ) )(&ParticleCoreShell_wrapper::default_print_structure) )    
         .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &ParticleCoreShell_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
             "setAmbientRefractiveIndex"
             , (void ( ::Particle::* )( ::complex_t ) )(&::Particle::setAmbientRefractiveIndex)
             , (void ( ParticleCoreShell_wrapper::* )( ::complex_t ) )(&ParticleCoreShell_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( ParticleCoreShell_wrapper::* )( ::std::string const &,double ) )(&ParticleCoreShell_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

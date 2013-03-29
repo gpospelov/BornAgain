@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -117,6 +120,18 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
         return IParameterized::areParametersChanged( );
     }
 
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -153,6 +168,37 @@ struct LayerRoughness_wrapper : LayerRoughness, bp::wrapper< LayerRoughness > {
         ISample::print_structure( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< LayerRoughness_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
+    }
+
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
@@ -178,29 +224,33 @@ void register_LayerRoughness_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getHurstParameter"
-            , (double ( ::LayerRoughness::* )(  ) const)(& ::LayerRoughness::getHurstParameter ) )    
+            , (double ( ::LayerRoughness::* )(  ) const)( &::LayerRoughness::getHurstParameter ) )    
         .def( 
             "getLatteralCorrLength"
-            , (double ( ::LayerRoughness::* )(  ) const)(& ::LayerRoughness::getLatteralCorrLength ) )    
+            , (double ( ::LayerRoughness::* )(  ) const)( &::LayerRoughness::getLatteralCorrLength ) )    
         .def( 
             "getSigma"
-            , (double ( ::LayerRoughness::* )(  ) const)(& ::LayerRoughness::getSigma ) )    
+            , (double ( ::LayerRoughness::* )(  ) const)( &::LayerRoughness::getSigma ) )    
         .def( 
             "setHurstParameter"
-            , (void ( ::LayerRoughness::* )( double ) )(& ::LayerRoughness::setHurstParameter )
+            , (void ( ::LayerRoughness::* )( double ) )( &::LayerRoughness::setHurstParameter )
             , ( bp::arg("hurstParameter") ) )    
         .def( 
             "setLatteralCorrLength"
-            , (void ( ::LayerRoughness::* )( double ) )(& ::LayerRoughness::setLatteralCorrLength )
+            , (void ( ::LayerRoughness::* )( double ) )( &::LayerRoughness::setLatteralCorrLength )
             , ( bp::arg("latteralCorrLength") ) )    
         .def( 
             "setSigma"
-            , (void ( ::LayerRoughness::* )( double ) )(& ::LayerRoughness::setSigma )
+            , (void ( ::LayerRoughness::* )( double ) )( &::LayerRoughness::setSigma )
             , ( bp::arg("sigma") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( LayerRoughness_wrapper::* )(  ) )(&LayerRoughness_wrapper::default_areParametersChanged) )    
+        .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( LayerRoughness_wrapper::* )(  ) )(&LayerRoughness_wrapper::default_clearParameterPool) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
@@ -214,6 +264,15 @@ void register_LayerRoughness_class(){
             "print_structure"
             , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
             , (void ( LayerRoughness_wrapper::* )(  ) )(&LayerRoughness_wrapper::default_print_structure) )    
+        .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &LayerRoughness_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( LayerRoughness_wrapper::* )( ::std::string const &,double ) )(&LayerRoughness_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

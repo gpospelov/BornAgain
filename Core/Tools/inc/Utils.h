@@ -20,6 +20,7 @@
 #include "Exceptions.h"
 #include <boost/unordered_map.hpp>
 
+
 namespace Utils {
 
 //! Collection of utilities for std::string.
@@ -151,6 +152,11 @@ class UnorderedMap
 
     container_t m_value_map;
 };
+
+
+//! enables exception throw in the case of NaN, Inf
+void EnableFloatingPointExceptions();
+
 
 }
 

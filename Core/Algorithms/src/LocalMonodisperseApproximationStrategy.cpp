@@ -15,6 +15,8 @@
 
 #include "LocalMonodisperseApproximationStrategy.h"
 #include "Exceptions.h"
+#include <cassert>
+
 
 LocalMonodisperseApproximationStrategy::LocalMonodisperseApproximationStrategy(SimulationParameters sim_params)
 : IInterferenceFunctionStrategy(sim_params)
@@ -56,6 +58,9 @@ double LocalMonodisperseApproximationStrategy::evaluate(const cvector_t& k_i,
             intensity += fraction*(itf_function*std::norm(ff));
         }
     }
+    assert(!std::isnan(intensity));
+    assert(!std::isinf(intensity));
+
     return intensity;
 }
 

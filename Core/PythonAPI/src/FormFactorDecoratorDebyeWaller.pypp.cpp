@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -79,7 +82,7 @@ namespace bp = boost::python;
 
 struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, bp::wrapper< FormFactorDecoratorDebyeWaller > {
 
-    FormFactorDecoratorDebyeWaller_wrapper(::IFormFactor const&  p_form_factor, double dw_h_factor, double dw_r_factor )
+    FormFactorDecoratorDebyeWaller_wrapper(::IFormFactor const & p_form_factor, double dw_h_factor, double dw_r_factor )
     : FormFactorDecoratorDebyeWaller( boost::ref(p_form_factor), dw_h_factor, dw_r_factor )
       , bp::wrapper< FormFactorDecoratorDebyeWaller >(){
         // constructor
@@ -98,7 +101,7 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         return FormFactorDecoratorDebyeWaller::clone( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const&  k_i, ::Bin1DCVector const&  k_f_bin, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         else{
@@ -106,7 +109,7 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const&  k_i, ::Bin1DCVector const&  k_f_bin, double alpha_i, double alpha_f ) const  {
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
         return FormFactorDecoratorDebyeWaller::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
 
@@ -134,7 +137,19 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         return IParameterized::areParametersChanged( );
     }
 
-    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* >&  form_factors, ::std::vector< double >&  probabilities, ::size_t nbr_samples ) const  {
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
+    }
+
+    virtual void createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
         if( bp::override func_createDistributedFormFactors = this->get_override( "createDistributedFormFactors" ) )
             func_createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
         else{
@@ -142,7 +157,7 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         }
     }
     
-    void default_createDistributedFormFactors( ::std::vector< IFormFactor* >&  form_factors, ::std::vector< double >&  probabilities, ::size_t nbr_samples ) const  {
+    void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
     }
 
@@ -230,7 +245,26 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         ISample::print_structure( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t const&  refractive_index ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< FormFactorDecoratorDebyeWaller_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
             func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
         else{
@@ -238,8 +272,20 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         }
     }
     
-    void default_setAmbientRefractiveIndex( ::complex_t const&  refractive_index ) {
+    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
         IFormFactorDecorator::setAmbientRefractiveIndex( boost::ref(refractive_index) );
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
     }
 
     virtual void setParametersAreChanged(  ) {
@@ -258,7 +304,7 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
 
 void register_FormFactorDecoratorDebyeWaller_class(){
 
-    bp::class_< FormFactorDecoratorDebyeWaller_wrapper, bp::bases< IFormFactorDecorator >, boost::noncopyable >( "FormFactorDecoratorDebyeWaller", bp::init< IFormFactor const& , double, double >(( bp::arg("p_form_factor"), bp::arg("dw_h_factor"), bp::arg("dw_r_factor") )) )    
+    bp::class_< FormFactorDecoratorDebyeWaller_wrapper, bp::bases< IFormFactorDecorator >, boost::noncopyable >( "FormFactorDecoratorDebyeWaller", bp::init< IFormFactor const &, double, double >(( bp::arg("p_form_factor"), bp::arg("dw_h_factor"), bp::arg("dw_r_factor") )) )    
         .def( 
             "clone"
             , (::FormFactorDecoratorDebyeWaller * ( ::FormFactorDecoratorDebyeWaller::* )(  ) const)(&::FormFactorDecoratorDebyeWaller::clone)
@@ -266,8 +312,8 @@ void register_FormFactorDecoratorDebyeWaller_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::FormFactorDecoratorDebyeWaller::* )( ::cvector_t const& ,::Bin1DCVector const& ,double,double ) const)(&::FormFactorDecoratorDebyeWaller::evaluate)
-            , (::complex_t ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::cvector_t const& ,::Bin1DCVector const& ,double,double ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_evaluate)
+            , (::complex_t ( ::FormFactorDecoratorDebyeWaller::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::FormFactorDecoratorDebyeWaller::evaluate)
+            , (::complex_t ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getNumberOfStochasticParameters"
@@ -278,9 +324,13 @@ void register_FormFactorDecoratorDebyeWaller_class(){
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( FormFactorDecoratorDebyeWaller_wrapper::* )(  ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_areParametersChanged) )    
         .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )(  ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_clearParameterPool) )    
+        .def( 
             "createDistributedFormFactors"
-            , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* >& ,::std::vector< double >& ,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
-            , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::std::vector< IFormFactor* >& ,::std::vector< double >& ,::size_t ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_createDistributedFormFactors)
+            , (void ( ::IFormFactor::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&::IFormFactor::createDistributedFormFactors)
+            , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::std::vector< IFormFactor* > &,::std::vector< double > &,::size_t ) const)(&FormFactorDecoratorDebyeWaller_wrapper::default_createDistributedFormFactors)
             , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -313,10 +363,19 @@ void register_FormFactorDecoratorDebyeWaller_class(){
             , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
             , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )(  ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_print_structure) )    
         .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &FormFactorDecoratorDebyeWaller_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
             "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactorDecorator::* )( ::complex_t const&  ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
-            , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::complex_t const&  ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_setAmbientRefractiveIndex)
+            , (void ( ::IFormFactorDecorator::* )( ::complex_t const & ) )(&::IFormFactorDecorator::setAmbientRefractiveIndex)
+            , (void ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::complex_t const & ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( FormFactorDecoratorDebyeWaller_wrapper::* )( ::std::string const &,double ) )(&FormFactorDecoratorDebyeWaller_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

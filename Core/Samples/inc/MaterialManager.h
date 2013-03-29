@@ -73,6 +73,7 @@ class MaterialManager: public ISingleton<MaterialManager>
     const IMaterial *this_getHomogeneousMaterial(
         const std::string& name,
         double refractive_index_real, double refractive_index_imag);
+    void check_refractive_index(const complex_t &index);
 };
 
 #endif /* MATERIALMANAGER_H */

@@ -15,6 +15,7 @@
 
 #include "DecouplingApproximationStrategy.h"
 #include "Exceptions.h"
+#include <cassert>
 
 void DecouplingApproximationStrategy::init(
         const SafePointerVector<FormFactorInfo>& form_factor_infos,
@@ -37,9 +38,16 @@ double DecouplingApproximationStrategy::evaluate(
     for (size_t i=0; i<m_ff_infos.size(); ++i) {
         complex_t ff =
             m_ff_infos[i]->mp_ff->evaluate(k_i, k_f_bin, alpha_i, alpha_f);
+
         double fraction = m_ff_infos[i]->m_abundance;
         amplitude += fraction*ff;
         intensity += fraction*(std::norm(ff));
+
+        assert(!std::isnan(amplitude.real()));
+        assert(!std::isnan(amplitude.imag()));
+        assert(!std::isinf(amplitude.real()));
+        assert(!std::isinf(amplitude.imag()));
+
     }
     double amplitude_norm = std::norm(amplitude);
     double itf_function = m_ifs[0]->evaluate(k_i-k_f_bin.getMidPoint());

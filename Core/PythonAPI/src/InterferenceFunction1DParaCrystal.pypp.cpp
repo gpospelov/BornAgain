@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -98,7 +101,7 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
         return InterferenceFunction1DParaCrystal::clone( );
     }
 
-    virtual double evaluate( ::cvector_t const&  q ) const  {
+    virtual double evaluate( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(q) );
         else{
@@ -106,7 +109,7 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
         }
     }
     
-    double default_evaluate( ::cvector_t const&  q ) const  {
+    double default_evaluate( ::cvector_t const & q ) const  {
         return InterferenceFunction1DParaCrystal::evaluate( boost::ref(q) );
     }
 
@@ -132,6 +135,18 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
+    }
+
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -170,6 +185,37 @@ struct InterferenceFunction1DParaCrystal_wrapper : InterferenceFunction1DParaCry
         ISample::print_structure( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< InterferenceFunction1DParaCrystal_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
+    }
+
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
@@ -189,7 +235,7 @@ void register_InterferenceFunction1DParaCrystal_class(){
     bp::class_< InterferenceFunction1DParaCrystal_wrapper, bp::bases< IInterferenceFunction >, boost::noncopyable >( "InterferenceFunction1DParaCrystal", bp::init< double, double, bp::optional< double > >(( bp::arg("peak_distance"), bp::arg("width"), bp::arg("corr_length")=0.0 )) )    
         .def( 
             "FTGaussianCorrLength"
-            , (::complex_t ( ::InterferenceFunction1DParaCrystal::* )( double ) const)(& ::InterferenceFunction1DParaCrystal::FTGaussianCorrLength )
+            , (::complex_t ( ::InterferenceFunction1DParaCrystal::* )( double ) const)( &::InterferenceFunction1DParaCrystal::FTGaussianCorrLength )
             , ( bp::arg("qpar") ) )    
         .def( 
             "clone"
@@ -198,8 +244,8 @@ void register_InterferenceFunction1DParaCrystal_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (double ( ::InterferenceFunction1DParaCrystal::* )( ::cvector_t const&  ) const)(&::InterferenceFunction1DParaCrystal::evaluate)
-            , (double ( InterferenceFunction1DParaCrystal_wrapper::* )( ::cvector_t const&  ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_evaluate)
+            , (double ( ::InterferenceFunction1DParaCrystal::* )( ::cvector_t const & ) const)(&::InterferenceFunction1DParaCrystal::evaluate)
+            , (double ( InterferenceFunction1DParaCrystal_wrapper::* )( ::cvector_t const & ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_evaluate)
             , ( bp::arg("q") ) )    
         .def( 
             "getKappa"
@@ -207,12 +253,16 @@ void register_InterferenceFunction1DParaCrystal_class(){
             , (double ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) const)(&InterferenceFunction1DParaCrystal_wrapper::default_getKappa) )    
         .def( 
             "setKappa"
-            , (void ( ::InterferenceFunction1DParaCrystal::* )( double ) )(& ::InterferenceFunction1DParaCrystal::setKappa )
+            , (void ( ::InterferenceFunction1DParaCrystal::* )( double ) )( &::InterferenceFunction1DParaCrystal::setKappa )
             , ( bp::arg("kappa") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_areParametersChanged) )    
+        .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_clearParameterPool) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
@@ -226,6 +276,15 @@ void register_InterferenceFunction1DParaCrystal_class(){
             "print_structure"
             , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
             , (void ( InterferenceFunction1DParaCrystal_wrapper::* )(  ) )(&InterferenceFunction1DParaCrystal_wrapper::default_print_structure) )    
+        .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &InterferenceFunction1DParaCrystal_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( InterferenceFunction1DParaCrystal_wrapper::* )( ::std::string const &,double ) )(&InterferenceFunction1DParaCrystal_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

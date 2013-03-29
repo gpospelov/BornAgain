@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -148,10 +149,10 @@ void register_StochasticParameter_t_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getAverage"
-            , (double ( ::StochasticParameter<double>::* )(  ) )(& ::StochasticParameter< double >::getAverage ) )    
+            , (double ( ::StochasticParameter<double>::* )(  ) )( &::StochasticParameter< double >::getAverage ) )    
         .def( 
             "getCurrent"
-            , (double ( ::StochasticParameter<double>::* )(  ) const)(& ::StochasticParameter< double >::getCurrent ) )    
+            , (double ( ::StochasticParameter<double>::* )(  ) const)( &::StochasticParameter< double >::getCurrent ) )    
         .def( 
             "getFWHM"
             , (double ( ::StochasticParameter<double>::* )(  ) const)(&::StochasticParameter< double >::getFWHM)

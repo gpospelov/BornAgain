@@ -20,6 +20,7 @@
 //! clear all defined parameters
 void FitSuiteParameters::clear()
 {
+    for(parameters_t::iterator it = m_parameters.begin(); it!=m_parameters.end(); ++it) delete (*it);
     m_parameters.clear();
 }
 

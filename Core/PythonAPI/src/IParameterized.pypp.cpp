@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -86,14 +89,14 @@ struct IParameterized_wrapper : IParameterized, bp::wrapper< IParameterized > {
     
     }
 
-    IParameterized_wrapper(::std::string const&  name )
+    IParameterized_wrapper(::std::string const & name )
     : IParameterized( name )
       , bp::wrapper< IParameterized >(){
         // constructor
     
     }
 
-    IParameterized_wrapper(::IParameterized const&  other )
+    IParameterized_wrapper(::IParameterized const & other )
     : IParameterized( boost::ref(other) )
       , bp::wrapper< IParameterized >(){
         // copy constructor
@@ -110,6 +113,18 @@ struct IParameterized_wrapper : IParameterized, bp::wrapper< IParameterized > {
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
+    }
+
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -136,6 +151,37 @@ struct IParameterized_wrapper : IParameterized, bp::wrapper< IParameterized > {
         IParameterized::printParameters( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< IParameterized_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
+    }
+
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
@@ -156,8 +202,8 @@ void register_IParameterized_class(){
         typedef bp::class_< IParameterized_wrapper > IParameterized_exposer_t;
         IParameterized_exposer_t IParameterized_exposer = IParameterized_exposer_t( "IParameterized", bp::init< >() );
         bp::scope IParameterized_scope( IParameterized_exposer );
-        IParameterized_exposer.def( bp::init< std::string const&  >(( bp::arg("name") )) );
-        IParameterized_exposer.def( bp::init< IParameterized const&  >(( bp::arg("other") )) );
+        IParameterized_exposer.def( bp::init< std::string const & >(( bp::arg("name") )) );
+        IParameterized_exposer.def( bp::init< IParameterized const & >(( bp::arg("other") )) );
         { //::IParameterized::areParametersChanged
         
             typedef bool ( ::IParameterized::*areParametersChanged_function_type )(  ) ;
@@ -167,6 +213,17 @@ void register_IParameterized_class(){
                 "areParametersChanged"
                 , areParametersChanged_function_type(&::IParameterized::areParametersChanged)
                 , default_areParametersChanged_function_type(&IParameterized_wrapper::default_areParametersChanged) );
+        
+        }
+        { //::IParameterized::clearParameterPool
+        
+            typedef void ( ::IParameterized::*clearParameterPool_function_type )(  ) ;
+            typedef void ( IParameterized_wrapper::*default_clearParameterPool_function_type )(  ) ;
+            
+            IParameterized_exposer.def( 
+                "clearParameterPool"
+                , clearParameterPool_function_type(&::IParameterized::clearParameterPool)
+                , default_clearParameterPool_function_type(&IParameterized_wrapper::default_clearParameterPool) );
         
         }
         { //::IParameterized::createParameterTree
@@ -187,17 +244,17 @@ void register_IParameterized_class(){
             
             IParameterized_exposer.def( 
                 "getParameterPool"
-                , getParameterPool_function_type(& ::IParameterized::getParameterPool )
+                , getParameterPool_function_type( &::IParameterized::getParameterPool )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::IParameterized::operator=
         
-            typedef ::IParameterized&  ( ::IParameterized::*assign_function_type )( ::IParameterized const&  ) ;
+            typedef ::IParameterized & ( ::IParameterized::*assign_function_type )( ::IParameterized const & ) ;
             
             IParameterized_exposer.def( 
                 "assign"
-                , assign_function_type(& ::IParameterized::operator= )
+                , assign_function_type( &::IParameterized::operator= )
                 , ( bp::arg("other") )
                 , bp::return_self< >() );
         
@@ -211,6 +268,28 @@ void register_IParameterized_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&IParameterized_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::registerParameter
+        
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            
+            IParameterized_exposer.def( 
+                "registerParameter"
+                , default_registerParameter_function_type( &IParameterized_wrapper::default_registerParameter )
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+        
+        }
+        { //::IParameterized::setParameterValue
+        
+            typedef bool ( ::IParameterized::*setParameterValue_function_type )( ::std::string const &,double ) ;
+            typedef bool ( IParameterized_wrapper::*default_setParameterValue_function_type )( ::std::string const &,double ) ;
+            
+            IParameterized_exposer.def( 
+                "setParameterValue"
+                , setParameterValue_function_type(&::IParameterized::setParameterValue)
+                , default_setParameterValue_function_type(&IParameterized_wrapper::default_setParameterValue)
+                , ( bp::arg("name"), bp::arg("value") ) );
         
         }
         { //::IParameterized::setParametersAreChanged

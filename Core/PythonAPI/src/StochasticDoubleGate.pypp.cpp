@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -174,7 +175,7 @@ void register_StochasticDoubleGate_class(){
             , (double ( StochasticDoubleGate_wrapper::* )(  ) const)(&StochasticDoubleGate_wrapper::default_getFWHM) )    
         .def( 
             "getStdDev"
-            , (double ( ::StochasticDoubleGate::* )(  ) const)(& ::StochasticDoubleGate::getStdDev ) )    
+            , (double ( ::StochasticDoubleGate::* )(  ) const)( &::StochasticDoubleGate::getStdDev ) )    
         .def( 
             "probabilityDensity"
             , (double ( ::StochasticDoubleGate::* )( double ) const)(&::StochasticDoubleGate::probabilityDensity)

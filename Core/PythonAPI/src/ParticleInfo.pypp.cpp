@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -79,7 +82,7 @@ namespace bp = boost::python;
 
 struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
 
-    ParticleInfo_wrapper(::Particle const&  p_particle, ::Geometry::Transform3D const&  transform, double depth=0, double abundance=0 )
+    ParticleInfo_wrapper(::Particle const & p_particle, ::Geometry::Transform3D const & transform, double depth=0, double abundance=0 )
     : ParticleInfo( boost::ref(p_particle), boost::ref(transform), depth, abundance )
       , bp::wrapper< ParticleInfo >(){
         // constructor
@@ -108,6 +111,18 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
+    }
+
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -170,6 +185,37 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
         ISample::print_structure( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< ParticleInfo_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
+    }
+
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
@@ -198,7 +244,7 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
 
 void register_ParticleInfo_class(){
 
-    bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "ParticleInfo", bp::init< Particle const& , Geometry::Transform3D const& , bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=0 )) )    
+    bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "ParticleInfo", bp::init< Particle const &, Geometry::Transform3D const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=0 )) )    
         .def( 
             "clone"
             , (::ParticleInfo * ( ::ParticleInfo::* )(  ) const)(&::ParticleInfo::clone)
@@ -206,34 +252,38 @@ void register_ParticleInfo_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getAbundance"
-            , (double ( ::ParticleInfo::* )(  ) const)(& ::ParticleInfo::getAbundance ) )    
+            , (double ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getAbundance ) )    
         .def( 
             "getDepth"
-            , (double ( ::ParticleInfo::* )(  ) const)(& ::ParticleInfo::getDepth ) )    
+            , (double ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getDepth ) )    
         .def( 
             "getParticle"
-            , (::Particle const * ( ::ParticleInfo::* )(  ) const)(& ::ParticleInfo::getParticle )
+            , (::Particle const * ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getParticle )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getTransform3D"
-            , (::Geometry::Transform3D const * ( ::ParticleInfo::* )(  ) const)(& ::ParticleInfo::getTransform3D )
+            , (::Geometry::Transform3D const * ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getTransform3D )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "setAbundance"
-            , (void ( ::ParticleInfo::* )( double ) )(& ::ParticleInfo::setAbundance )
+            , (void ( ::ParticleInfo::* )( double ) )( &::ParticleInfo::setAbundance )
             , ( bp::arg("abundance") ) )    
         .def( 
             "setDepth"
-            , (void ( ::ParticleInfo::* )( double ) )(& ::ParticleInfo::setDepth )
+            , (void ( ::ParticleInfo::* )( double ) )( &::ParticleInfo::setDepth )
             , ( bp::arg("depth") ) )    
         .def( 
             "setTransform"
-            , (void ( ::ParticleInfo::* )( ::Geometry::Transform3D const&  ) )(& ::ParticleInfo::setTransform )
+            , (void ( ::ParticleInfo::* )( ::Geometry::Transform3D const & ) )( &::ParticleInfo::setTransform )
             , ( bp::arg("transform") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( ParticleInfo_wrapper::* )(  ) )(&ParticleInfo_wrapper::default_areParametersChanged) )    
+        .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( ParticleInfo_wrapper::* )(  ) )(&ParticleInfo_wrapper::default_clearParameterPool) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
@@ -257,6 +307,15 @@ void register_ParticleInfo_class(){
             "print_structure"
             , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
             , (void ( ParticleInfo_wrapper::* )(  ) )(&ParticleInfo_wrapper::default_print_structure) )    
+        .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &ParticleInfo_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( ParticleInfo_wrapper::* )( ::std::string const &,double ) )(&ParticleInfo_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

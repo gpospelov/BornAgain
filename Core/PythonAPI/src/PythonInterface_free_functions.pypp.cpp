@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -81,33 +82,33 @@ void register_free_functions(){
 
     { //::GetOutputData
     
-        typedef ::PyObject * ( *GetOutputData_function_type )( ::Simulation const&  );
+        typedef ::PyObject * ( *GetOutputData_function_type )( ::Simulation const & );
         
         bp::def( 
             "GetOutputData"
-            , GetOutputData_function_type(& ::GetOutputData )
+            , GetOutputData_function_type( &::GetOutputData )
             , ( bp::arg("simulation") ) );
     
     }
 
     { //::GetOutputDataAxis
     
-        typedef ::PyObject * ( *GetOutputDataAxis_function_type )( ::Simulation const& ,int );
+        typedef ::PyObject * ( *GetOutputDataAxis_function_type )( ::Simulation const &,int );
         
         bp::def( 
             "GetOutputDataAxis"
-            , GetOutputDataAxis_function_type(& ::GetOutputDataAxis )
+            , GetOutputDataAxis_function_type( &::GetOutputDataAxis )
             , ( bp::arg("simulation"), bp::arg("naxis") ) );
     
     }
 
     { //::GetOutputDataNdimensions
     
-        typedef int ( *GetOutputDataNdimensions_function_type )( ::Simulation const&  );
+        typedef int ( *GetOutputDataNdimensions_function_type )( ::Simulation const & );
         
         bp::def( 
             "GetOutputDataNdimensions"
-            , GetOutputDataNdimensions_function_type(& ::GetOutputDataNdimensions )
+            , GetOutputDataNdimensions_function_type( &::GetOutputDataNdimensions )
             , ( bp::arg("simulation") ) );
     
     }
@@ -118,7 +119,7 @@ void register_free_functions(){
         
         bp::def( 
             "deg2rad"
-            , deg2rad_function_type(& ::Units::deg2rad )
+            , deg2rad_function_type( &::Units::deg2rad )
             , ( bp::arg("angle") ) );
     
     }
@@ -129,7 +130,7 @@ void register_free_functions(){
         
         bp::def( 
             "rad2deg"
-            , rad2deg_function_type(& ::Units::rad2deg )
+            , rad2deg_function_type( &::Units::rad2deg )
             , ( bp::arg("angle") ) );
     
     }

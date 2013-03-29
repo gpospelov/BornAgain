@@ -8,6 +8,7 @@ import time
 
 Tests = [
     "TestFit01",
+    "TestFit02",
 ]
 
 test_info = []

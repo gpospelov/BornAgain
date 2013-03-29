@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -98,7 +101,7 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         return FormFactorSphereGaussianRadius::clone( );
     }
 
-    virtual ::complex_t evaluate_for_q( ::cvector_t const&  q ) const  {
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
         if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
             return func_evaluate_for_q( boost::ref(q) );
         else{
@@ -106,7 +109,7 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         }
     }
     
-    ::complex_t default_evaluate_for_q( ::cvector_t const&  q ) const  {
+    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
         return FormFactorSphereGaussianRadius::evaluate_for_q( boost::ref(q) );
     }
 
@@ -158,6 +161,18 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         return IParameterized::areParametersChanged( );
     }
 
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
+    }
+
     virtual ::ParameterPool * createParameterTree(  ) const  {
         if( bp::override func_createParameterTree = this->get_override( "createParameterTree" ) )
             return func_createParameterTree(  );
@@ -170,7 +185,7 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         return IParameterized::createParameterTree( );
     }
 
-    virtual ::complex_t evaluate( ::cvector_t const&  k_i, ::Bin1DCVector const&  k_f_bin, double alpha_i, double alpha_f ) const  {
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
         if( bp::override func_evaluate = this->get_override( "evaluate" ) )
             return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
         else{
@@ -178,7 +193,7 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         }
     }
     
-    ::complex_t default_evaluate( ::cvector_t const&  k_i, ::Bin1DCVector const&  k_f_bin, double alpha_i, double alpha_f ) const  {
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
         return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
 
@@ -230,7 +245,26 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         ISample::print_structure( );
     }
 
-    virtual void setAmbientRefractiveIndex( ::complex_t const&  refractive_index ) {
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< FormFactorSphereGaussianRadius_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
             func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
         else{
@@ -238,8 +272,20 @@ struct FormFactorSphereGaussianRadius_wrapper : FormFactorSphereGaussianRadius, 
         }
     }
     
-    void default_setAmbientRefractiveIndex( ::complex_t const&  refractive_index ) {
+    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
         IFormFactor::setAmbientRefractiveIndex( boost::ref(refractive_index) );
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
     }
 
     virtual void setParametersAreChanged(  ) {
@@ -266,8 +312,8 @@ void register_FormFactorSphereGaussianRadius_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate_for_q"
-            , (::complex_t ( ::FormFactorSphereGaussianRadius::* )( ::cvector_t const&  ) const)(&::FormFactorSphereGaussianRadius::evaluate_for_q)
-            , (::complex_t ( FormFactorSphereGaussianRadius_wrapper::* )( ::cvector_t const&  ) const)(&FormFactorSphereGaussianRadius_wrapper::default_evaluate_for_q)
+            , (::complex_t ( ::FormFactorSphereGaussianRadius::* )( ::cvector_t const & ) const)(&::FormFactorSphereGaussianRadius::evaluate_for_q)
+            , (::complex_t ( FormFactorSphereGaussianRadius_wrapper::* )( ::cvector_t const & ) const)(&FormFactorSphereGaussianRadius_wrapper::default_evaluate_for_q)
             , ( bp::arg("q") ) )    
         .def( 
             "getHeight"
@@ -286,14 +332,18 @@ void register_FormFactorSphereGaussianRadius_class(){
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( FormFactorSphereGaussianRadius_wrapper::* )(  ) )(&FormFactorSphereGaussianRadius_wrapper::default_areParametersChanged) )    
         .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( FormFactorSphereGaussianRadius_wrapper::* )(  ) )(&FormFactorSphereGaussianRadius_wrapper::default_clearParameterPool) )    
+        .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
             , (::ParameterPool * ( FormFactorSphereGaussianRadius_wrapper::* )(  ) const)(&FormFactorSphereGaussianRadius_wrapper::default_createParameterTree)
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "evaluate"
-            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const& ,::Bin1DCVector const& ,double,double ) const)(&::IFormFactorBorn::evaluate)
-            , (::complex_t ( FormFactorSphereGaussianRadius_wrapper::* )( ::cvector_t const& ,::Bin1DCVector const& ,double,double ) const)(&FormFactorSphereGaussianRadius_wrapper::default_evaluate)
+            , (::complex_t ( ::IFormFactorBorn::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&::IFormFactorBorn::evaluate)
+            , (::complex_t ( FormFactorSphereGaussianRadius_wrapper::* )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const)(&FormFactorSphereGaussianRadius_wrapper::default_evaluate)
             , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) )    
         .def( 
             "getRadius"
@@ -312,10 +362,19 @@ void register_FormFactorSphereGaussianRadius_class(){
             , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
             , (void ( FormFactorSphereGaussianRadius_wrapper::* )(  ) )(&FormFactorSphereGaussianRadius_wrapper::default_print_structure) )    
         .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &FormFactorSphereGaussianRadius_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
             "setAmbientRefractiveIndex"
-            , (void ( ::IFormFactor::* )( ::complex_t const&  ) )(&::IFormFactor::setAmbientRefractiveIndex)
-            , (void ( FormFactorSphereGaussianRadius_wrapper::* )( ::complex_t const&  ) )(&FormFactorSphereGaussianRadius_wrapper::default_setAmbientRefractiveIndex)
+            , (void ( ::IFormFactor::* )( ::complex_t const & ) )(&::IFormFactor::setAmbientRefractiveIndex)
+            , (void ( FormFactorSphereGaussianRadius_wrapper::* )( ::complex_t const & ) )(&FormFactorSphereGaussianRadius_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( FormFactorSphereGaussianRadius_wrapper::* )( ::std::string const &,double ) )(&FormFactorSphereGaussianRadius_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

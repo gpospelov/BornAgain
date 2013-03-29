@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -96,7 +99,7 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
         return func_evaluate( qx, qy );
     }
 
-    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double&  qa, double&  qb ) const {
+    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const {
         bp::override func_transformToStarBasis = this->get_override( "transformToStarBasis" );
         func_transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
     }
@@ -111,6 +114,18 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
+    }
+
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -135,6 +150,37 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
+    }
+
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< IFTDistribution2D_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
     }
 
     virtual void setParametersAreChanged(  ) {
@@ -164,22 +210,26 @@ void register_IFTDistribution2D_class(){
             , ( bp::arg("qx"), bp::arg("qy") ) )    
         .def( 
             "getDelta"
-            , (double ( ::IFTDistribution2D::* )(  ) const)(& ::IFTDistribution2D::getDelta ) )    
+            , (double ( ::IFTDistribution2D::* )(  ) const)( &::IFTDistribution2D::getDelta ) )    
         .def( 
             "getGamma"
-            , (double ( ::IFTDistribution2D::* )(  ) const)(& ::IFTDistribution2D::getGamma ) )    
+            , (double ( ::IFTDistribution2D::* )(  ) const)( &::IFTDistribution2D::getGamma ) )    
         .def( 
             "setGamma"
-            , (void ( ::IFTDistribution2D::* )( double ) )(& ::IFTDistribution2D::setGamma )
+            , (void ( ::IFTDistribution2D::* )( double ) )( &::IFTDistribution2D::setGamma )
             , ( bp::arg("gamma") ) )    
         .def( 
             "transformToStarBasis"
-            , bp::pure_virtual( (void ( ::IFTDistribution2D::* )( double,double,double,double,double,double& ,double&  ) const)(&::IFTDistribution2D::transformToStarBasis) )
+            , bp::pure_virtual( (void ( ::IFTDistribution2D::* )( double,double,double,double,double,double &,double & ) const)(&::IFTDistribution2D::transformToStarBasis) )
             , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( IFTDistribution2D_wrapper::* )(  ) )(&IFTDistribution2D_wrapper::default_areParametersChanged) )    
+        .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( IFTDistribution2D_wrapper::* )(  ) )(&IFTDistribution2D_wrapper::default_clearParameterPool) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
@@ -189,6 +239,15 @@ void register_IFTDistribution2D_class(){
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
             , (void ( IFTDistribution2D_wrapper::* )(  ) const)(&IFTDistribution2D_wrapper::default_printParameters) )    
+        .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &IFTDistribution2D_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( IFTDistribution2D_wrapper::* )( ::std::string const &,double ) )(&IFTDistribution2D_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

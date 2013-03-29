@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -79,14 +82,14 @@ namespace bp = boost::python;
 
 struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< PositionParticleInfo > {
 
-    PositionParticleInfo_wrapper(::Particle const&  particle, ::Geometry::Transform3D const&  transform, ::kvector_t position, double abundance=0 )
+    PositionParticleInfo_wrapper(::Particle const & particle, ::Geometry::Transform3D const & transform, ::kvector_t position, double abundance=0 )
     : PositionParticleInfo( boost::ref(particle), boost::ref(transform), position, abundance )
       , bp::wrapper< PositionParticleInfo >(){
         // constructor
     
     }
 
-    PositionParticleInfo_wrapper(::Particle const&  particle, ::kvector_t position, double abundance=0 )
+    PositionParticleInfo_wrapper(::Particle const & particle, ::kvector_t position, double abundance=0 )
     : PositionParticleInfo( boost::ref(particle), position, abundance )
       , bp::wrapper< PositionParticleInfo >(){
         // constructor
@@ -115,6 +118,18 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
+    }
+
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -177,6 +192,37 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
         ISample::print_structure( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< PositionParticleInfo_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
+    }
+
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
@@ -205,8 +251,8 @@ struct PositionParticleInfo_wrapper : PositionParticleInfo, bp::wrapper< Positio
 
 void register_PositionParticleInfo_class(){
 
-    bp::class_< PositionParticleInfo_wrapper, bp::bases< ParticleInfo >, boost::noncopyable >( "PositionParticleInfo", bp::init< Particle const& , Geometry::Transform3D const& , kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("transform"), bp::arg("position"), bp::arg("abundance")=0 )) )    
-        .def( bp::init< Particle const& , kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("position"), bp::arg("abundance")=0 )) )    
+    bp::class_< PositionParticleInfo_wrapper, bp::bases< ParticleInfo >, boost::noncopyable >( "PositionParticleInfo", bp::init< Particle const &, Geometry::Transform3D const &, kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("transform"), bp::arg("position"), bp::arg("abundance")=0 )) )    
+        .def( bp::init< Particle const &, kvector_t, bp::optional< double > >(( bp::arg("particle"), bp::arg("position"), bp::arg("abundance")=0 )) )    
         .def( 
             "clone"
             , (::PositionParticleInfo * ( ::PositionParticleInfo::* )(  ) const)(&::PositionParticleInfo::clone)
@@ -214,19 +260,23 @@ void register_PositionParticleInfo_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getParticle"
-            , (::Particle const * ( ::PositionParticleInfo::* )(  ) const)(& ::PositionParticleInfo::getParticle )
+            , (::Particle const * ( ::PositionParticleInfo::* )(  ) const)( &::PositionParticleInfo::getParticle )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "getPosition"
-            , (::kvector_t ( ::PositionParticleInfo::* )(  ) const)(& ::PositionParticleInfo::getPosition ) )    
+            , (::kvector_t ( ::PositionParticleInfo::* )(  ) const)( &::PositionParticleInfo::getPosition ) )    
         .def( 
             "setPosition"
-            , (void ( ::PositionParticleInfo::* )( ::kvector_t ) )(& ::PositionParticleInfo::setPosition )
+            , (void ( ::PositionParticleInfo::* )( ::kvector_t ) )( &::PositionParticleInfo::setPosition )
             , ( bp::arg("position") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( PositionParticleInfo_wrapper::* )(  ) )(&PositionParticleInfo_wrapper::default_areParametersChanged) )    
+        .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( PositionParticleInfo_wrapper::* )(  ) )(&PositionParticleInfo_wrapper::default_clearParameterPool) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
@@ -250,6 +300,15 @@ void register_PositionParticleInfo_class(){
             "print_structure"
             , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
             , (void ( PositionParticleInfo_wrapper::* )(  ) )(&PositionParticleInfo_wrapper::default_print_structure) )    
+        .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &PositionParticleInfo_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( PositionParticleInfo_wrapper::* )( ::std::string const &,double ) )(&PositionParticleInfo_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

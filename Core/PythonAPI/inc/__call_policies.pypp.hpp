@@ -155,7 +155,7 @@ struct as_tuple_impl{
     }
 
     static PyTypeObject const *get_pytype(){
-        return& PyTuple_Type;
+        return &PyTuple_Type;
     }
 
 };

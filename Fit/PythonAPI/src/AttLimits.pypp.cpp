@@ -12,16 +12,19 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "IMinimizer.h"
 #include "ChiSquaredModule.h"
 #include "FitSuite.h"
+#include "FitSuiteParameters.h"
 #include "MinimizerFactory.h"
-#include "OutputData.h"
 #include "PythonPlusplusFitHelper.h"
+#include "MathFunctions.h"
+#include "ISquaredFunction.h"
+#include "IOutputDataNormalizer.h"
 #include "AttLimits.pypp.h"
 
 namespace bp = boost::python;
 
 struct AttLimits_wrapper : AttLimits, bp::wrapper< AttLimits > {
 
-    AttLimits_wrapper(AttLimits const&  arg )
+    AttLimits_wrapper(AttLimits const & arg )
     : AttLimits( arg )
       , bp::wrapper< AttLimits >(){
         // copy constructor
@@ -198,7 +201,7 @@ void register_AttLimits_class(){
     bp::class_< AttLimits_wrapper >( "AttLimits", bp::init< >() )    
         .def( 
             "fixed"
-            , (::AttLimits (*)(  ))(& ::AttLimits::fixed ) )    
+            , (::AttLimits (*)(  ))( &::AttLimits::fixed ) )    
         .def( 
             "getLowerLimit"
             , (double ( ::AttLimits::* )(  ) const)(&::AttLimits::getLowerLimit)
@@ -225,14 +228,14 @@ void register_AttLimits_class(){
             , (bool ( AttLimits_wrapper::* )(  ) const)(&AttLimits_wrapper::default_isFixed) )    
         .def( 
             "limited"
-            , (::AttLimits (*)( double,double ))(& ::AttLimits::limited )
+            , (::AttLimits (*)( double,double ))( &::AttLimits::limited )
             , ( bp::arg("left_bound_value"), bp::arg("right_bound_value") ) )    
         .def( 
             "limitless"
-            , (::AttLimits (*)(  ))(& ::AttLimits::limitless ) )    
+            , (::AttLimits (*)(  ))( &::AttLimits::limitless ) )    
         .def( 
             "lowerLimited"
-            , (::AttLimits (*)( double ))(& ::AttLimits::lowerLimited )
+            , (::AttLimits (*)( double ))( &::AttLimits::lowerLimited )
             , ( bp::arg("bound_value") ) )    
         .def( 
             "removeLimits"
@@ -268,7 +271,7 @@ void register_AttLimits_class(){
             , ( bp::arg("value") ) )    
         .def( 
             "upperLimited"
-            , (::AttLimits (*)( double ))(& ::AttLimits::upperLimited )
+            , (::AttLimits (*)( double ))( &::AttLimits::upperLimited )
             , ( bp::arg("bound_value") ) )    
         .staticmethod( "fixed" )    
         .staticmethod( "limited" )    

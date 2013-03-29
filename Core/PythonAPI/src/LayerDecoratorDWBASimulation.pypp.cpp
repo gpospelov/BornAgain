@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -91,7 +92,7 @@ struct LayerDecoratorDWBASimulation_wrapper : LayerDecoratorDWBASimulation, bp::
         return LayerDecoratorDWBASimulation::clone( );
     }
 
-    virtual void init( ::Simulation const&  simulation ) {
+    virtual void init( ::Simulation const & simulation ) {
         if( bp::override func_init = this->get_override( "init" ) )
             func_init( boost::ref(simulation) );
         else{
@@ -99,7 +100,7 @@ struct LayerDecoratorDWBASimulation_wrapper : LayerDecoratorDWBASimulation, bp::
         }
     }
     
-    void default_init( ::Simulation const&  simulation ) {
+    void default_init( ::Simulation const & simulation ) {
         LayerDecoratorDWBASimulation::init( boost::ref(simulation) );
     }
 
@@ -127,8 +128,8 @@ void register_LayerDecoratorDWBASimulation_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "init"
-            , (void ( ::LayerDecoratorDWBASimulation::* )( ::Simulation const&  ) )(&::LayerDecoratorDWBASimulation::init)
-            , (void ( LayerDecoratorDWBASimulation_wrapper::* )( ::Simulation const&  ) )(&LayerDecoratorDWBASimulation_wrapper::default_init)
+            , (void ( ::LayerDecoratorDWBASimulation::* )( ::Simulation const & ) )(&::LayerDecoratorDWBASimulation::init)
+            , (void ( LayerDecoratorDWBASimulation_wrapper::* )( ::Simulation const & ) )(&LayerDecoratorDWBASimulation_wrapper::default_init)
             , ( bp::arg("simulation") ) )    
         .def( 
             "run"

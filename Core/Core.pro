@@ -6,7 +6,13 @@ TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
 QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
-# CONFIG  += BORNAGAIN_PYTHON
+#CONFIG  += BORNAGAIN_PYTHON
+
+# -----------------------------------------------------------------------------
+# common project settings
+# -----------------------------------------------------------------------------
+include($$PWD/../shared.pri)
+
 
 # -----------------------------------------------------------------------------
 # source and headers
@@ -305,6 +311,24 @@ contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)
 }
 
+# -----------------------------------------------------------------------------
+# propagating operation system type inside the code FIXME
+# -----------------------------------------------------------------------------
+# (note, that when Qt libraries are used, it is already done in <qglobal.h>)
+macx {
+    DEFINES += Q_OS_MAC
+}
+unix:!macx {
+    DEFINES += Q_OS_LINUX
+}
+
+CONFIG(debug, debug|release) {
+    QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
+    # mac requires his own patched version of fp_exceptions
+    macx:HEADERS += Tools/inc/fp_exception_glibc_extension.h
+    macx:SOURCES += Tools/src/fp_exception_glibc_extension.c
+}
+
 
 # -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation
@@ -313,9 +337,4 @@ target.path = $$PWD/../lib
 INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
 QMAKE_POST_LINK = (make install)
-
-# -----------------------------------------------------------------------------
-# common project settings
-# -----------------------------------------------------------------------------
-include($$PWD/../shared.pri)
 

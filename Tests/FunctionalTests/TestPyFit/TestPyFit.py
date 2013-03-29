@@ -7,9 +7,11 @@ import subprocess
 import time
 
 import testfit01
+import testfit02
 
 Tests = {
-    "TestFit01": testfit01.runTest
+    "TestFit01": testfit01.runTest,
+    "TestFit02": testfit02.runTest,
 }
 
 test_info = []

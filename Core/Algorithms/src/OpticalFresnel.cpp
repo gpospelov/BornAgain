@@ -17,6 +17,7 @@
 #include <algorithm>
 #include "OpticalFresnel.h"
 #include "Numeric.h"
+#include <cassert>
 
 void OpticalFresnel::execute(const MultiLayer& sample, const kvector_t& kvec, MultiLayerCoeff_t& coeff)
 {
@@ -41,6 +42,27 @@ void OpticalFresnel::execute(const MultiLayer& sample, const kvector_t& kvec, Mu
 
     calculateX2(sample, coeff);
     calculateRT2(sample, coeff);
+
+#ifdef DEBUG_FPE
+    // checking coeff
+    for(size_t i=0; i<coeff.size(); ++i) {
+        assert(!std::isnan(coeff[i].kz.real()));
+        assert(!std::isinf(coeff[i].kz.real()));
+        assert(!std::isnan(coeff[i].kz.imag()));
+        assert(!std::isinf(coeff[i].kz.imag()));
+        //
+        assert(!std::isnan(coeff[i].R.real()));
+        assert(!std::isinf(coeff[i].R.real()));
+        assert(!std::isnan(coeff[i].R.imag()));
+        assert(!std::isinf(coeff[i].R.imag()));
+        //
+        assert(!std::isnan(coeff[i].T.real()));
+        assert(!std::isinf(coeff[i].T.real()));
+        assert(!std::isnan(coeff[i].T.imag()));
+        assert(!std::isinf(coeff[i].T.imag()));
+    }
+#endif
+
 }
 
 void OpticalFresnel::calculateKZ(const MultiLayer& sample, const kvector_t& kvec, MultiLayerCoeff_t& coeff) const

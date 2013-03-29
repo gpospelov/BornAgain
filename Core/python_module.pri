@@ -59,6 +59,7 @@ HEADERS +=  \
     PythonAPI/inc/MesoCrystal.pypp.h \
     PythonAPI/inc/MultiLayer.pypp.h \
     PythonAPI/inc/MultiLayerDWBASimulation.pypp.h \
+    PythonAPI/inc/ndimdata_t.pypp.h \
     PythonAPI/inc/OpticalFresnel.pypp.h \
     PythonAPI/inc/ParameterPool.pypp.h \
     PythonAPI/inc/Particle.pypp.h \
@@ -85,8 +86,11 @@ HEADERS +=  \
     PythonAPI/inc/vdouble1d_t.pypp.h \
     PythonAPI/inc/vector_DiffuseParticleInfoPtr_t.pypp.h \
     PythonAPI/inc/vector_IFormFactorPtr_t.pypp.h \
+    PythonAPI/inc/vector_integer_t.pypp.h \
     PythonAPI/inc/vector_kvector_t.pypp.h \
-    PythonAPI/inc/__call_policies.pypp.hpp 
+    PythonAPI/inc/vector_longinteger_t.pypp.h \
+    PythonAPI/inc/__call_policies.pypp.hpp \
+    PythonAPI/inc/__convenience.pypp.hpp 
 
 SOURCES +=  \ 
     PythonAPI/src/PythonModule.cpp \ 
@@ -149,6 +153,7 @@ SOURCES +=  \
     PythonAPI/src/MesoCrystal.pypp.cpp \
     PythonAPI/src/MultiLayer.pypp.cpp \
     PythonAPI/src/MultiLayerDWBASimulation.pypp.cpp \
+    PythonAPI/src/ndimdata_t.pypp.cpp \
     PythonAPI/src/OpticalFresnel.pypp.cpp \
     PythonAPI/src/ParameterPool.pypp.cpp \
     PythonAPI/src/Particle.pypp.cpp \
@@ -175,7 +180,9 @@ SOURCES +=  \
     PythonAPI/src/vdouble1d_t.pypp.cpp \
     PythonAPI/src/vector_DiffuseParticleInfoPtr_t.pypp.cpp \
     PythonAPI/src/vector_IFormFactorPtr_t.pypp.cpp \
-    PythonAPI/src/vector_kvector_t.pypp.cpp 
+    PythonAPI/src/vector_integer_t.pypp.cpp \
+    PythonAPI/src/vector_kvector_t.pypp.cpp \
+    PythonAPI/src/vector_longinteger_t.pypp.cpp 
 
 INCLUDEPATH += ./PythonAPI/inc 
 DEPENDPATH  += ./PythonAPI/inc 

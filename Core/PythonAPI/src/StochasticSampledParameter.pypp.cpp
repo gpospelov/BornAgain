@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -79,14 +80,14 @@ namespace bp = boost::python;
 
 struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrapper< StochasticSampledParameter > {
 
-    StochasticSampledParameter_wrapper(::StochasticParameter< double > const&  par, ::size_t nbins, double xmin, double xmax )
+    StochasticSampledParameter_wrapper(::StochasticParameter< double > const & par, ::size_t nbins, double xmin, double xmax )
     : StochasticSampledParameter( boost::ref(par), nbins, xmin, xmax )
       , bp::wrapper< StochasticSampledParameter >(){
         // constructor
     
     }
 
-    StochasticSampledParameter_wrapper(::StochasticParameter< double > const&  par, ::size_t nbins, int nfwhm=3 )
+    StochasticSampledParameter_wrapper(::StochasticParameter< double > const & par, ::size_t nbins, int nfwhm=3 )
     : StochasticSampledParameter( boost::ref(par), nbins, nfwhm )
       , bp::wrapper< StochasticSampledParameter >(){
         // constructor
@@ -169,8 +170,8 @@ struct StochasticSampledParameter_wrapper : StochasticSampledParameter, bp::wrap
 
 void register_StochasticSampledParameter_class(){
 
-    bp::class_< StochasticSampledParameter_wrapper, bp::bases< StochasticParameter< double > >, boost::noncopyable >( "StochasticSampledParameter", bp::init< StochasticParameter< double > const& , size_t, double, double >(( bp::arg("par"), bp::arg("nbins"), bp::arg("xmin"), bp::arg("xmax") )) )    
-        .def( bp::init< StochasticParameter< double > const& , size_t, bp::optional< int > >(( bp::arg("par"), bp::arg("nbins"), bp::arg("nfwhm")=(int)(3) )) )    
+    bp::class_< StochasticSampledParameter_wrapper, bp::bases< StochasticParameter< double > >, boost::noncopyable >( "StochasticSampledParameter", bp::init< StochasticParameter< double > const &, size_t, double, double >(( bp::arg("par"), bp::arg("nbins"), bp::arg("xmin"), bp::arg("xmax") )) )    
+        .def( bp::init< StochasticParameter< double > const &, size_t, bp::optional< int > >(( bp::arg("par"), bp::arg("nbins"), bp::arg("nfwhm")=(int)(3) )) )    
         .def( 
             "clone"
             , (::StochasticSampledParameter * ( ::StochasticSampledParameter::* )(  ) const)(&::StochasticSampledParameter::clone)
@@ -178,18 +179,18 @@ void register_StochasticSampledParameter_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "getBinValue"
-            , (double ( ::StochasticSampledParameter::* )( ::size_t ) const)(& ::StochasticSampledParameter::getBinValue )
+            , (double ( ::StochasticSampledParameter::* )( ::size_t ) const)( &::StochasticSampledParameter::getBinValue )
             , ( bp::arg("ibin") ) )    
         .def( 
             "getNbins"
-            , (::size_t ( ::StochasticSampledParameter::* )(  ) const)(& ::StochasticSampledParameter::getNbins ) )    
+            , (::size_t ( ::StochasticSampledParameter::* )(  ) const)( &::StochasticSampledParameter::getNbins ) )    
         .def( 
             "getNormalizedProbability"
-            , (double ( ::StochasticSampledParameter::* )( ::size_t ) const)(& ::StochasticSampledParameter::getNormalizedProbability )
+            , (double ( ::StochasticSampledParameter::* )( ::size_t ) const)( &::StochasticSampledParameter::getNormalizedProbability )
             , ( bp::arg("ibin") ) )    
         .def( 
             "probabilityBinDensity"
-            , (double ( ::StochasticSampledParameter::* )( ::size_t ) const)(& ::StochasticSampledParameter::probabilityBinDensity )
+            , (double ( ::StochasticSampledParameter::* )( ::size_t ) const)( &::StochasticSampledParameter::probabilityBinDensity )
             , ( bp::arg("ibin") ) )    
         .def( 
             "probabilityDensity"

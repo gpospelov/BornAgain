@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -79,7 +82,7 @@ namespace bp = boost::python;
 
 struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTDistribution2DCauchy > {
 
-    FTDistribution2DCauchy_wrapper(FTDistribution2DCauchy const&  arg )
+    FTDistribution2DCauchy_wrapper(FTDistribution2DCauchy const & arg )
     : FTDistribution2DCauchy( arg )
       , bp::wrapper< FTDistribution2DCauchy >(){
         // copy constructor
@@ -117,7 +120,7 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
         return FTDistribution2DCauchy::evaluate( qx, qy );
     }
 
-    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double&  qa, double&  qb ) const  {
+    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const  {
         if( bp::override func_transformToStarBasis = this->get_override( "transformToStarBasis" ) )
             func_transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
         else{
@@ -125,7 +128,7 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
         }
     }
     
-    void default_transformToStarBasis( double qX, double qY, double alpha, double a, double b, double&  qa, double&  qb ) const  {
+    void default_transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const  {
         FTDistribution2DCauchy::transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
     }
 
@@ -139,6 +142,18 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
+    }
+
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -163,6 +178,37 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
+    }
+
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< FTDistribution2DCauchy_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
     }
 
     virtual void setParametersAreChanged(  ) {
@@ -194,13 +240,17 @@ void register_FTDistribution2DCauchy_class(){
             , ( bp::arg("qx"), bp::arg("qy") ) )    
         .def( 
             "transformToStarBasis"
-            , (void ( ::FTDistribution2DCauchy::* )( double,double,double,double,double,double& ,double&  ) const)(&::FTDistribution2DCauchy::transformToStarBasis)
-            , (void ( FTDistribution2DCauchy_wrapper::* )( double,double,double,double,double,double& ,double&  ) const)(&FTDistribution2DCauchy_wrapper::default_transformToStarBasis)
+            , (void ( ::FTDistribution2DCauchy::* )( double,double,double,double,double,double &,double & ) const)(&::FTDistribution2DCauchy::transformToStarBasis)
+            , (void ( FTDistribution2DCauchy_wrapper::* )( double,double,double,double,double,double &,double & ) const)(&FTDistribution2DCauchy_wrapper::default_transformToStarBasis)
             , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( FTDistribution2DCauchy_wrapper::* )(  ) )(&FTDistribution2DCauchy_wrapper::default_areParametersChanged) )    
+        .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( FTDistribution2DCauchy_wrapper::* )(  ) )(&FTDistribution2DCauchy_wrapper::default_clearParameterPool) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
@@ -210,6 +260,15 @@ void register_FTDistribution2DCauchy_class(){
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
             , (void ( FTDistribution2DCauchy_wrapper::* )(  ) const)(&FTDistribution2DCauchy_wrapper::default_printParameters) )    
+        .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &FTDistribution2DCauchy_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( FTDistribution2DCauchy_wrapper::* )( ::std::string const &,double ) )(&FTDistribution2DCauchy_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

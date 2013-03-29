@@ -12,9 +12,12 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "IMinimizer.h"
 #include "ChiSquaredModule.h"
 #include "FitSuite.h"
+#include "FitSuiteParameters.h"
 #include "MinimizerFactory.h"
-#include "OutputData.h"
 #include "PythonPlusplusFitHelper.h"
+#include "MathFunctions.h"
+#include "ISquaredFunction.h"
+#include "IOutputDataNormalizer.h"
 #include "MinimizerFactory.pypp.h"
 
 namespace bp = boost::python;
@@ -24,12 +27,12 @@ void register_MinimizerFactory_class(){
     bp::class_< MinimizerFactory >( "MinimizerFactory" )    
         .def( 
             "createMinimizer"
-            , (::IMinimizer * (*)( ::std::string const& ,::std::string const& ,::std::string const&  ))(& ::MinimizerFactory::createMinimizer )
+            , (::IMinimizer * (*)( ::std::string const &,::std::string const &,::std::string const & ))( &::MinimizerFactory::createMinimizer )
             , ( bp::arg("minimizer"), bp::arg("algorithm")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >(), bp::arg("options")=std::basic_string<char, std::char_traits<char>, std::allocator<char> >() )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "print_catalogue"
-            , (void (*)(  ))(& ::MinimizerFactory::print_catalogue ) )    
+            , (void (*)(  ))( &::MinimizerFactory::print_catalogue ) )    
         .staticmethod( "createMinimizer" )    
         .staticmethod( "print_catalogue" );
 

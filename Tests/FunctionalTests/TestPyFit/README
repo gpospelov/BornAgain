@@ -9,4 +9,5 @@ python TestPyFit.py
 
 List of tests
 testfit01.py - Two parameter fit using variety of minimizers. Geometry: cylinders in the air.
+testfit02.py - Fitting using sample builder
 

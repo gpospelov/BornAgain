@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -79,7 +82,7 @@ namespace bp = boost::python;
 
 struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
 
-    MesoCrystal_wrapper(::IClusteredParticles const&  particle_structure, ::IFormFactor&  form_factor )
+    MesoCrystal_wrapper(::IClusteredParticles const & particle_structure, ::IFormFactor & form_factor )
     : MesoCrystal( boost::ref(particle_structure), boost::ref(form_factor) )
       , bp::wrapper< MesoCrystal >(){
         // constructor
@@ -96,6 +99,18 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
+    }
+
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
     }
 
     virtual ::IFormFactor * createFormFactor(  ) const  {
@@ -194,6 +209,25 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
         ISample::print_structure( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< MesoCrystal_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
     virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
             func_setAmbientRefractiveIndex( refractive_index );
@@ -204,6 +238,18 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
     
     void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
         Particle::setAmbientRefractiveIndex( refractive_index );
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
     }
 
     virtual void setParametersAreChanged(  ) {
@@ -234,11 +280,15 @@ struct MesoCrystal_wrapper : MesoCrystal, bp::wrapper< MesoCrystal > {
 
 void register_MesoCrystal_class(){
 
-    bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredParticles const& , IFormFactor&  >(( bp::arg("particle_structure"), bp::arg("form_factor") )) )    
+    bp::class_< MesoCrystal_wrapper, bp::bases< Particle >, boost::noncopyable >( "MesoCrystal", bp::init< IClusteredParticles const &, IFormFactor & >(( bp::arg("particle_structure"), bp::arg("form_factor") )) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( MesoCrystal_wrapper::* )(  ) )(&MesoCrystal_wrapper::default_areParametersChanged) )    
+        .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( MesoCrystal_wrapper::* )(  ) )(&MesoCrystal_wrapper::default_clearParameterPool) )    
         .def( 
             "createFormFactor"
             , (::IFormFactor * ( ::Particle::* )(  ) const)(&::Particle::createFormFactor)
@@ -276,10 +326,19 @@ void register_MesoCrystal_class(){
             , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
             , (void ( MesoCrystal_wrapper::* )(  ) )(&MesoCrystal_wrapper::default_print_structure) )    
         .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &MesoCrystal_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
             "setAmbientRefractiveIndex"
             , (void ( ::Particle::* )( ::complex_t ) )(&::Particle::setAmbientRefractiveIndex)
             , (void ( MesoCrystal_wrapper::* )( ::complex_t ) )(&MesoCrystal_wrapper::default_setAmbientRefractiveIndex)
             , ( bp::arg("refractive_index") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( MesoCrystal_wrapper::* )( ::std::string const &,double ) )(&MesoCrystal_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

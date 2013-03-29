@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -82,7 +83,7 @@ void register_MaterialManagerSingleton_t_class(){
     bp::class_< ISingleton< MaterialManager >, boost::noncopyable >( "MaterialManagerSingleton_t", bp::no_init )    
         .def( 
             "instance"
-            , (::MaterialManager&  (*)(  ))(& ::ISingleton< MaterialManager >::instance )
+            , (::MaterialManager & (*)(  ))( &::ISingleton< MaterialManager >::instance )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .staticmethod( "instance" );
 

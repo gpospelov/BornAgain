@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -83,26 +84,26 @@ void register_cvector_t_class(){
         typedef bp::class_< Geometry::BasicVector3D< std::complex< double > > > cvector_t_exposer_t;
         cvector_t_exposer_t cvector_t_exposer = cvector_t_exposer_t( "cvector_t", bp::init< >() );
         bp::scope cvector_t_scope( cvector_t_exposer );
-        cvector_t_exposer.def( bp::init< std::complex< double > const& , std::complex< double > const& , std::complex< double > const&  >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
+        cvector_t_exposer.def( bp::init< std::complex< double > const &, std::complex< double > const &, std::complex< double > const & >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
         { //::Geometry::BasicVector3D< std::complex< double > >::cross
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > > ( exported_class_t::*cross_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const&  ) const;
+            typedef ::Geometry::BasicVector3D< std::complex< double > > ( exported_class_t::*cross_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
             
             cvector_t_exposer.def( 
                 "cross"
-                , cross_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::cross )
+                , cross_function_type( &::Geometry::BasicVector3D< std::complex< double > >::cross )
                 , ( bp::arg("v") ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::dot
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*dot_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const&  ) const;
+            typedef ::std::complex< double > ( exported_class_t::*dot_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
             
             cvector_t_exposer.def( 
                 "dot"
-                , dot_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::dot )
+                , dot_function_type( &::Geometry::BasicVector3D< std::complex< double > >::dot )
                 , ( bp::arg("v") ) );
         
         }
@@ -113,7 +114,7 @@ void register_cvector_t_class(){
             
             cvector_t_exposer.def( 
                 "mag"
-                , mag_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::mag ) );
+                , mag_function_type( &::Geometry::BasicVector3D< std::complex< double > >::mag ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::mag2
@@ -123,7 +124,7 @@ void register_cvector_t_class(){
             
             cvector_t_exposer.def( 
                 "mag2"
-                , mag2_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::mag2 ) );
+                , mag2_function_type( &::Geometry::BasicVector3D< std::complex< double > >::mag2 ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::magxy
@@ -133,7 +134,7 @@ void register_cvector_t_class(){
             
             cvector_t_exposer.def( 
                 "magxy"
-                , magxy_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::magxy ) );
+                , magxy_function_type( &::Geometry::BasicVector3D< std::complex< double > >::magxy ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::magxy2
@@ -143,7 +144,7 @@ void register_cvector_t_class(){
             
             cvector_t_exposer.def( 
                 "magxy2"
-                , magxy2_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::magxy2 ) );
+                , magxy2_function_type( &::Geometry::BasicVector3D< std::complex< double > >::magxy2 ) );
         
         }
         cvector_t_exposer.def( bp::self *= bp::other< double >() );
@@ -153,11 +154,11 @@ void register_cvector_t_class(){
         { //::Geometry::BasicVector3D< std::complex< double > >::operator=
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > >&  ( exported_class_t::*assign_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const&  ) ;
+            typedef ::Geometry::BasicVector3D< std::complex< double > > & ( exported_class_t::*assign_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) ;
             
             cvector_t_exposer.def( 
                 "assign"
-                , assign_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::operator= )
+                , assign_function_type( &::Geometry::BasicVector3D< std::complex< double > >::operator= )
                 , ( bp::arg("v") )
                 , bp::return_self< >() );
         
@@ -169,18 +170,18 @@ void register_cvector_t_class(){
             
             cvector_t_exposer.def( 
                 "__getitem__"
-                , __getitem___function_type(& ::Geometry::BasicVector3D< std::complex< double > >::operator[] )
+                , __getitem___function_type( &::Geometry::BasicVector3D< std::complex< double > >::operator[] )
                 , ( bp::arg("i") ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::operator[]
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double >&  ( exported_class_t::*__getitem___function_type )( int ) ;
+            typedef ::std::complex< double > & ( exported_class_t::*__getitem___function_type )( int ) ;
             
             cvector_t_exposer.def( 
                 "__getitem__"
-                , __getitem___function_type(& ::Geometry::BasicVector3D< std::complex< double > >::operator[] )
+                , __getitem___function_type( &::Geometry::BasicVector3D< std::complex< double > >::operator[] )
                 , ( bp::arg("i") )
                 , bp::return_internal_reference< >() );
         
@@ -188,66 +189,66 @@ void register_cvector_t_class(){
         { //::Geometry::BasicVector3D< std::complex< double > >::setLambdaAlphaPhi
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setLambdaAlphaPhi_function_type )( ::std::complex< double > const& ,::std::complex< double > const& ,::std::complex< double > const&  ) ;
+            typedef void ( exported_class_t::*setLambdaAlphaPhi_function_type )( ::std::complex< double > const &,::std::complex< double > const &,::std::complex< double > const & ) ;
             
             cvector_t_exposer.def( 
                 "setLambdaAlphaPhi"
-                , setLambdaAlphaPhi_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::setLambdaAlphaPhi )
+                , setLambdaAlphaPhi_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setLambdaAlphaPhi )
                 , ( bp::arg("_lambda"), bp::arg("_alpha"), bp::arg("_phi") ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::setX
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setX_function_type )( ::std::complex< double > const&  ) ;
+            typedef void ( exported_class_t::*setX_function_type )( ::std::complex< double > const & ) ;
             
             cvector_t_exposer.def( 
                 "setX"
-                , setX_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::setX )
+                , setX_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setX )
                 , ( bp::arg("a") ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::setXYZ
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setXYZ_function_type )( ::std::complex< double > const& ,::std::complex< double > const& ,::std::complex< double > const&  ) ;
+            typedef void ( exported_class_t::*setXYZ_function_type )( ::std::complex< double > const &,::std::complex< double > const &,::std::complex< double > const & ) ;
             
             cvector_t_exposer.def( 
                 "setXYZ"
-                , setXYZ_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::setXYZ )
+                , setXYZ_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setXYZ )
                 , ( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::setY
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setY_function_type )( ::std::complex< double > const&  ) ;
+            typedef void ( exported_class_t::*setY_function_type )( ::std::complex< double > const & ) ;
             
             cvector_t_exposer.def( 
                 "setY"
-                , setY_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::setY )
+                , setY_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setY )
                 , ( bp::arg("a") ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::setZ
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef void ( exported_class_t::*setZ_function_type )( ::std::complex< double > const&  ) ;
+            typedef void ( exported_class_t::*setZ_function_type )( ::std::complex< double > const & ) ;
             
             cvector_t_exposer.def( 
                 "setZ"
-                , setZ_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::setZ )
+                , setZ_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setZ )
                 , ( bp::arg("a") ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::transform
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > >&  ( exported_class_t::*transform_function_type )( ::Geometry::Transform3D const&  ) ;
+            typedef ::Geometry::BasicVector3D< std::complex< double > > & ( exported_class_t::*transform_function_type )( ::Geometry::Transform3D const & ) ;
             
             cvector_t_exposer.def( 
                 "transform"
-                , transform_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::transform )
+                , transform_function_type( &::Geometry::BasicVector3D< std::complex< double > >::transform )
                 , ( bp::arg("m") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
@@ -259,7 +260,7 @@ void register_cvector_t_class(){
             
             cvector_t_exposer.def( 
                 "x"
-                , x_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::x ) );
+                , x_function_type( &::Geometry::BasicVector3D< std::complex< double > >::x ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::y
@@ -269,7 +270,7 @@ void register_cvector_t_class(){
             
             cvector_t_exposer.def( 
                 "y"
-                , y_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::y ) );
+                , y_function_type( &::Geometry::BasicVector3D< std::complex< double > >::y ) );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::z
@@ -279,7 +280,7 @@ void register_cvector_t_class(){
             
             cvector_t_exposer.def( 
                 "z"
-                , z_function_type(& ::Geometry::BasicVector3D< std::complex< double > >::z ) );
+                , z_function_type( &::Geometry::BasicVector3D< std::complex< double > >::z ) );
         
         }
         cvector_t_exposer.def( bp::self + bp::self );

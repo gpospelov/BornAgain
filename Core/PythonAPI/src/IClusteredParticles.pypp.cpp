@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -98,7 +101,7 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         return IClusteredParticles::clone( );
     }
 
-    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const&  parent_info ) const  {
+    virtual ::std::vector< DiffuseParticleInfo* > * createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
         if( bp::override func_createDiffuseParticleInfo = this->get_override( "createDiffuseParticleInfo" ) )
             return func_createDiffuseParticleInfo( boost::ref(parent_info) );
         else{
@@ -106,11 +109,11 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         }
     }
     
-    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const&  parent_info ) const  {
+    ::std::vector< DiffuseParticleInfo* > * default_createDiffuseParticleInfo( ::ParticleInfo const & parent_info ) const  {
         return IClusteredParticles::createDiffuseParticleInfo( boost::ref(parent_info) );
     }
 
-    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const&  meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
+    virtual ::IFormFactor * createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
         if( bp::override func_createTotalFormFactor = this->get_override( "createTotalFormFactor" ) )
             return func_createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
         else{
@@ -118,7 +121,7 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         }
     }
     
-    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const&  meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
+    ::IFormFactor * default_createTotalFormFactor( ::IFormFactor const & meso_crystal_form_factor, ::complex_t ambient_refractive_index ) const  {
         return IClusteredParticles::createTotalFormFactor( boost::ref(meso_crystal_form_factor), ambient_refractive_index );
     }
 
@@ -137,6 +140,18 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
+    }
+
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -199,6 +214,37 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         ISample::print_structure( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< IClusteredParticles_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
+    }
+
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
@@ -235,14 +281,14 @@ void register_IClusteredParticles_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createDiffuseParticleInfo"
-            , (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredParticles::* )( ::ParticleInfo const&  ) const)(&::IClusteredParticles::createDiffuseParticleInfo)
-            , (::std::vector< DiffuseParticleInfo* > * ( IClusteredParticles_wrapper::* )( ::ParticleInfo const&  ) const)(&IClusteredParticles_wrapper::default_createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( ::IClusteredParticles::* )( ::ParticleInfo const & ) const)(&::IClusteredParticles::createDiffuseParticleInfo)
+            , (::std::vector< DiffuseParticleInfo* > * ( IClusteredParticles_wrapper::* )( ::ParticleInfo const & ) const)(&IClusteredParticles_wrapper::default_createDiffuseParticleInfo)
             , ( bp::arg("parent_info") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "createTotalFormFactor"
-            , (::IFormFactor * ( ::IClusteredParticles::* )( ::IFormFactor const& ,::complex_t ) const)(&::IClusteredParticles::createTotalFormFactor)
-            , (::IFormFactor * ( IClusteredParticles_wrapper::* )( ::IFormFactor const& ,::complex_t ) const)(&IClusteredParticles_wrapper::default_createTotalFormFactor)
+            , (::IFormFactor * ( ::IClusteredParticles::* )( ::IFormFactor const &,::complex_t ) const)(&::IClusteredParticles::createTotalFormFactor)
+            , (::IFormFactor * ( IClusteredParticles_wrapper::* )( ::IFormFactor const &,::complex_t ) const)(&IClusteredParticles_wrapper::default_createTotalFormFactor)
             , ( bp::arg("meso_crystal_form_factor"), bp::arg("ambient_refractive_index") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
@@ -253,6 +299,10 @@ void register_IClusteredParticles_class(){
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( IClusteredParticles_wrapper::* )(  ) )(&IClusteredParticles_wrapper::default_areParametersChanged) )    
+        .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( IClusteredParticles_wrapper::* )(  ) )(&IClusteredParticles_wrapper::default_clearParameterPool) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
@@ -276,6 +326,15 @@ void register_IClusteredParticles_class(){
             "print_structure"
             , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
             , (void ( IClusteredParticles_wrapper::* )(  ) )(&IClusteredParticles_wrapper::default_print_structure) )    
+        .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &IClusteredParticles_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( IClusteredParticles_wrapper::* )( ::std::string const &,double ) )(&IClusteredParticles_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

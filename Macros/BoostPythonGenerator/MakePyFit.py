@@ -19,15 +19,15 @@ myFiles=[
   'AttLimits.h',
   'IChiSquaredModule.h',
   'IMinimizer.h',
-  #'IResolutionFunction2D.h',
-  #'ISquaredFunction.h',
   'ChiSquaredModule.h',
   'FitSuite.h',
+  #'FitParameter.h',
+  'FitSuiteParameters.h',
   'MinimizerFactory.h',
-  'OutputData.h',
   'PythonPlusplusFitHelper.h',
-  #'OutputDataIterator.h',
-  #'ResolutionFunction2DSimple.h'
+  'MathFunctions.h',
+  'ISquaredFunction.h',
+  'IOutputDataNormalizer.h'
 ]
 
 
@@ -73,6 +73,18 @@ def AdditionalRules(mb):
     cl.member_function("runFit").include()
     cl.member_function("printResults").include()
     cl.member_function("getNCalls").include()
+    cl.member_function("initPrint").include()
+    cl.member_function("getFitParameters").include()
+
+  if "FitSuiteParameters.h" in myFiles:
+    cl = mb.class_("FitSuiteParameters")
+    cl.member_functions().exclude()
+    #cl.member_operator("[]").exclude()
+    cl.member_function("getValues").include()
+    for fun in cl.member_operators():
+      if "operator[]" in fun.name:
+        fun.exclude()
+
 
   if "MinimizerFactory.h" in myFiles:
     cl = mb.class_("MinimizerFactory")
@@ -81,8 +93,8 @@ def AdditionalRules(mb):
 
   if "OutputData.h" in myFiles:
     cl = mb.class_("OutputData<double>")
-    cl.member_functions().exclude()
-    cl.member_function("totalSum").include()
+    #cl.member_functions().exclude()
+    #cl.member_function("totalSum").include()
 
   # --- PythonPlusplusHelper.h ----------------------------------------
   if "PythonPlusplusFitHelper.h" in myFiles:
@@ -168,6 +180,11 @@ def MakePythonAPI(OutputTempDir):
     "std::vector<std::vector<double, std::allocator<double> >",
     "vdouble2d_t",
     "vdouble1d_t",
+    "cvector_t",
+    "kvector_t",
+    "complex_t",
+    "std::vector<double>",
+    "vcomplex1d_t",
   ]
 
   for cl in mb.classes():

@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -80,13 +81,13 @@ namespace bp = boost::python;
 void register_Lattice2DIFParameters_class(){
 
     bp::class_< Lattice2DIFParameters >( "Lattice2DIFParameters", bp::init< >() )    
-        .def_readwrite( "m_angle",& Lattice2DIFParameters::m_angle )    
-        .def_readwrite( "m_corr_length_1",& Lattice2DIFParameters::m_corr_length_1 )    
-        .def_readwrite( "m_corr_length_2",& Lattice2DIFParameters::m_corr_length_2 )    
-        .def_readwrite( "m_domain_size_1",& Lattice2DIFParameters::m_domain_size_1 )    
-        .def_readwrite( "m_domain_size_2",& Lattice2DIFParameters::m_domain_size_2 )    
-        .def_readwrite( "m_length_1",& Lattice2DIFParameters::m_length_1 )    
-        .def_readwrite( "m_length_2",& Lattice2DIFParameters::m_length_2 )    
-        .def_readwrite( "m_xi",& Lattice2DIFParameters::m_xi );
+        .def_readwrite( "m_angle", &Lattice2DIFParameters::m_angle )    
+        .def_readwrite( "m_corr_length_1", &Lattice2DIFParameters::m_corr_length_1 )    
+        .def_readwrite( "m_corr_length_2", &Lattice2DIFParameters::m_corr_length_2 )    
+        .def_readwrite( "m_domain_size_1", &Lattice2DIFParameters::m_domain_size_1 )    
+        .def_readwrite( "m_domain_size_2", &Lattice2DIFParameters::m_domain_size_2 )    
+        .def_readwrite( "m_length_1", &Lattice2DIFParameters::m_length_1 )    
+        .def_readwrite( "m_length_2", &Lattice2DIFParameters::m_length_2 )    
+        .def_readwrite( "m_xi", &Lattice2DIFParameters::m_xi );
 
 }

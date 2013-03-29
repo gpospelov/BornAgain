@@ -22,9 +22,10 @@
 #include "IFormFactor.h"
 #include "MaterialManager.h"
 #include "IStochasticParameter.h"
+#include "OutputData.h"
 
-// there is some weared behavior of pyplusplus
-// without this definition it gets screwed up as soon as it sees in the code vector<kvector> like in LatticeBasis.h
+
+//! this is special namespace to help Py++ generate correct names
 namespace pyplusplus {
     namespace aliases {
         using namespace Geometry;
@@ -37,10 +38,13 @@ namespace pyplusplus {
         typedef std::vector<IFormFactor *> vector_IFormFactorPtr_t;
         typedef ISingleton<MaterialManager> MaterialManagerSingleton_t;
         typedef StochasticParameter<double> StochasticParameter_t;
+        typedef OutputData<double > ndimdata_t;
+        typedef std::vector<int > vector_integer_t;
+        typedef std::vector<unsigned long int > vector_longinteger_t;
     }
 }
 
-//! To help pyplusplus to expose kvector_t in python during automatic code generation.
+//! helper class to provide Py++ with explicit template instantiations
 
 class PythonPlusplusHelper
 {
@@ -52,6 +56,15 @@ class PythonPlusplusHelper
     size_t pyplusplus_boost_vectorof_cvector() { return sizeof(pyplusplus::aliases::vector_cvector_t); }
     size_t pyplusplus_boost_vectorof_DiffuseParticleInfoPtr() { return sizeof(pyplusplus::aliases::vector_DiffuseParticleInfoPtr_t); }
     size_t pyplusplus_boost_stochastic_parameter() { return sizeof(pyplusplus::aliases::StochasticParameter_t); }
+    size_t pyplusplus_boost_outputdata() { return sizeof(pyplusplus::aliases::ndimdata_t); }
 };
+
+//! helper function to set value via subscript operator from python
+template <class Self, class Key, class Value>
+void pyplusplus_setitem(Self& self, Key const& key, Value const& value)
+{
+    self[key] = value;
+}
+
 
 #endif // PYTHONPLUSPLUSHELPER_H

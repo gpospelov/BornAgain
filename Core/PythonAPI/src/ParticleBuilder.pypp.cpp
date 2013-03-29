@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -82,11 +83,11 @@ void register_ParticleBuilder_class(){
     bp::class_< ParticleBuilder >( "ParticleBuilder", bp::init< >() )    
         .def( 
             "plantParticles"
-            , (void ( ::ParticleBuilder::* )( ::ParticleDecoration&  ) )(& ::ParticleBuilder::plantParticles )
+            , (void ( ::ParticleBuilder::* )( ::ParticleDecoration & ) )( &::ParticleBuilder::plantParticles )
             , ( bp::arg("decor") ) )    
         .def( 
             "setPrototype"
-            , (void ( ::ParticleBuilder::* )( ::Particle const& ,::std::string,::StochasticParameter< double > const& ,double ) )(& ::ParticleBuilder::setPrototype )
+            , (void ( ::ParticleBuilder::* )( ::Particle const &,::std::string,::StochasticParameter< double > const &,double ) )( &::ParticleBuilder::setPrototype )
             , ( bp::arg("particle"), bp::arg("name"), bp::arg("param"), bp::arg("scale")=1.0e+0 ) );
 
 }

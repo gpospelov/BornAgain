@@ -7,6 +7,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "BasicVector3D.h"
 #include "Bin.h"
 #include "Crystal.h"
@@ -59,6 +61,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -86,7 +89,7 @@ struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
     
     }
 
-    Instrument_wrapper(::Instrument const&  other )
+    Instrument_wrapper(::Instrument const & other )
     : Instrument( boost::ref(other) )
       , bp::wrapper< Instrument >(){
         // copy constructor
@@ -103,6 +106,18 @@ struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
     
     bool default_areParametersChanged(  ) {
         return IParameterized::areParametersChanged( );
+    }
+
+    virtual void clearParameterPool(  ) {
+        if( bp::override func_clearParameterPool = this->get_override( "clearParameterPool" ) )
+            func_clearParameterPool(  );
+        else{
+            this->IParameterized::clearParameterPool(  );
+        }
+    }
+    
+    void default_clearParameterPool(  ) {
+        IParameterized::clearParameterPool( );
     }
 
     virtual ::ParameterPool * createParameterTree(  ) const  {
@@ -129,6 +144,37 @@ struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
         IParameterized::printParameters( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< Instrument_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
+    virtual bool setParameterValue( ::std::string const & name, double value ) {
+        if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
+            return func_setParameterValue( name, value );
+        else{
+            return this->IParameterized::setParameterValue( name, value );
+        }
+    }
+    
+    bool default_setParameterValue( ::std::string const & name, double value ) {
+        return IParameterized::setParameterValue( name, value );
+    }
+
     virtual void setParametersAreChanged(  ) {
         if( bp::override func_setParametersAreChanged = this->get_override( "setParametersAreChanged" ) )
             func_setParametersAreChanged(  );
@@ -146,52 +192,56 @@ struct Instrument_wrapper : Instrument, bp::wrapper< Instrument > {
 void register_Instrument_class(){
 
     bp::class_< Instrument_wrapper, bp::bases< IParameterized > >( "Instrument", bp::init< >() )    
-        .def( bp::init< Instrument const&  >(( bp::arg("other") )) )    
+        .def( bp::init< Instrument const & >(( bp::arg("other") )) )    
         .def( 
             "getBeam"
-            , (::Beam ( ::Instrument::* )(  ) const)(& ::Instrument::getBeam ) )    
+            , (::Beam ( ::Instrument::* )(  ) const)( &::Instrument::getBeam ) )    
         .def( 
             "getDetector"
-            , (::Detector ( ::Instrument::* )(  ) const)(& ::Instrument::getDetector ) )    
+            , (::Detector ( ::Instrument::* )(  ) const)( &::Instrument::getDetector ) )    
         .def( 
             "getDetectorAxis"
-            , (::IAxis const&  ( ::Instrument::* )( ::size_t ) const)(& ::Instrument::getDetectorAxis )
+            , (::IAxis const & ( ::Instrument::* )( ::size_t ) const)( &::Instrument::getDetectorAxis )
             , ( bp::arg("index") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "getDetectorDimension"
-            , (::size_t ( ::Instrument::* )(  ) const)(& ::Instrument::getDetectorDimension ) )    
+            , (::size_t ( ::Instrument::* )(  ) const)( &::Instrument::getDetectorDimension ) )    
         .def( 
             "getIntensity"
-            , (double ( ::Instrument::* )(  ) const)(& ::Instrument::getIntensity ) )    
+            , (double ( ::Instrument::* )(  ) const)( &::Instrument::getIntensity ) )    
         .def( 
             "matchDetectorParameters"
-            , (void ( ::Instrument::* )( ::OutputData< double > const&  ) )(& ::Instrument::matchDetectorParameters )
+            , (void ( ::Instrument::* )( ::OutputData< double > const & ) )( &::Instrument::matchDetectorParameters )
             , ( bp::arg("output_data") ) )    
         .def( 
             "setBeam"
-            , (void ( ::Instrument::* )( ::Beam ) )(& ::Instrument::setBeam )
+            , (void ( ::Instrument::* )( ::Beam ) )( &::Instrument::setBeam )
             , ( bp::arg("beam") ) )    
         .def( 
             "setBeamIntensity"
-            , (void ( ::Instrument::* )( double ) )(& ::Instrument::setBeamIntensity )
+            , (void ( ::Instrument::* )( double ) )( &::Instrument::setBeamIntensity )
             , ( bp::arg("intensity") ) )    
         .def( 
             "setBeamParameters"
-            , (void ( ::Instrument::* )( double,double,double ) )(& ::Instrument::setBeamParameters )
+            , (void ( ::Instrument::* )( double,double,double ) )( &::Instrument::setBeamParameters )
             , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::Instrument::* )( ::size_t,double,double,::size_t,double,double,bool ) )(& ::Instrument::setDetectorParameters )
+            , (void ( ::Instrument::* )( ::size_t,double,double,::size_t,double,double,bool ) )( &::Instrument::setDetectorParameters )
             , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) )    
         .def( 
             "setDetectorParameters"
-            , (void ( ::Instrument::* )( ::DetectorParameters const&  ) )(& ::Instrument::setDetectorParameters )
+            , (void ( ::Instrument::* )( ::DetectorParameters const & ) )( &::Instrument::setDetectorParameters )
             , ( bp::arg("params") ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)
             , (bool ( Instrument_wrapper::* )(  ) )(&Instrument_wrapper::default_areParametersChanged) )    
+        .def( 
+            "clearParameterPool"
+            , (void ( ::IParameterized::* )(  ) )(&::IParameterized::clearParameterPool)
+            , (void ( Instrument_wrapper::* )(  ) )(&Instrument_wrapper::default_clearParameterPool) )    
         .def( 
             "createParameterTree"
             , (::ParameterPool * ( ::IParameterized::* )(  ) const)(&::IParameterized::createParameterTree)
@@ -201,6 +251,15 @@ void register_Instrument_class(){
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
             , (void ( Instrument_wrapper::* )(  ) const)(&Instrument_wrapper::default_printParameters) )    
+        .def( 
+            "registerParameter"
+            , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &Instrument_wrapper::default_registerParameter )
+            , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) )    
+        .def( 
+            "setParameterValue"
+            , (bool ( ::IParameterized::* )( ::std::string const &,double ) )(&::IParameterized::setParameterValue)
+            , (bool ( Instrument_wrapper::* )( ::std::string const &,double ) )(&Instrument_wrapper::default_setParameterValue)
+            , ( bp::arg("name"), bp::arg("value") ) )    
         .def( 
             "setParametersAreChanged"
             , (void ( ::IParameterized::* )(  ) )(&::IParameterized::setParametersAreChanged)

@@ -59,6 +59,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "ParticleBuilder.h"
 #include "ParticleCoreShell.h"
 #include "ParticleDecoration.h"
+#include "OutputData.h"
 #include "ParticleInfo.h"
 #include "PositionParticleInfo.h"
 #include "PythonOutputData.h"
@@ -79,24 +80,7 @@ namespace bp = boost::python;
 
 void register_IMaterial_class(){
 
-    { //::IMaterial
-        typedef bp::class_< IMaterial > IMaterial_exposer_t;
-        IMaterial_exposer_t IMaterial_exposer = IMaterial_exposer_t( "IMaterial", bp::init< >() );
-        bp::scope IMaterial_scope( IMaterial_exposer );
-        IMaterial_exposer.def( bp::init< std::string const&  >(( bp::arg("name") )) );
-        IMaterial_exposer.def( bp::init< IMaterial const&  >(( bp::arg("other") )) );
-        { //::IMaterial::operator=
-        
-            typedef ::IMaterial&  ( ::IMaterial::*assign_function_type )( ::IMaterial const&  ) ;
-            
-            IMaterial_exposer.def( 
-                "assign"
-                , assign_function_type(& ::IMaterial::operator= )
-                , ( bp::arg("other") )
-                , bp::return_self< >() );
-        
-        }
-        IMaterial_exposer.def( bp::self_ns::str( bp::self ) );
-    }
+    bp::class_< IMaterial >( "IMaterial", bp::init< std::string const & >(( bp::arg("name") )) )    
+        .def( bp::self_ns::str( bp::self ) );
 
 }

@@ -23,23 +23,24 @@
 class INamed
 {
  public:
-    INamed()
-        : m_name(), m_title() {}
-    INamed(const std::string& name)
-        : m_name(name), m_title() {}
-    INamed(const std::string& name, const std::string& title)
-        : m_name(name), m_title(title) {}
-    virtual ~INamed(){}
+    //! Default constructor, setting name="".
+    INamed() : m_name() {}
 
+    //! Constructor that sets the _name_.
+    INamed(const std::string& name) : m_name(name) {}
+
+    //! Destructor.
+    virtual ~INamed() {}
+
+    //! Sets the _name_.
     void setName(std::string name) { m_name = name; }
+
+    //! Returns the name.
     std::string getName() const { return m_name; }
 
-    std::string getTitle() const { return m_title; }
-    void setTitle(std::string title) { m_title = title; }
-
  protected:
+    //! The name of this object.
     std::string m_name;
-    std::string m_title;
 };
 
 #endif // INAMED_H

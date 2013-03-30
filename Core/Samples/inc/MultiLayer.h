@@ -51,19 +51,24 @@ class MultiLayer : public ICompositeSample
     void addLayer(const Layer& p_child);
 
     //! Adds layer with top roughness
-    void addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness);
+    void addLayerWithTopRoughness(
+        const Layer& layer, const LayerRoughness& roughness);
 
     //! Returns layer with given index
-    inline const Layer *getLayer(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]; }
+    inline const Layer *getLayer(size_t i_layer) const
+    { return m_layers[ check_layer_index(i_layer) ]; }
 
     //! Returns layer with given index
-    inline const LayerInterface *getLayerInterface(size_t i_interface) const { return m_interfaces[ check_interface_index(i_interface) ]; }
+    inline const LayerInterface *getLayerInterface(size_t i_interface) const
+    { return m_interfaces[ check_interface_index(i_interface) ]; }
 
     //! Returns z-coordinate of the layer's bottom
-    inline double getLayerBottomZ(size_t i_layer) const { return m_layers_z[ check_layer_index(i_layer) ]; }
+    inline double getLayerBottomZ(size_t i_layer) const
+    { return m_layers_z[ check_layer_index(i_layer) ]; }
 
     //! Returns thickness of layer
-    inline double getLayerThickness(size_t i_layer) const { return m_layers[ check_layer_index(i_layer) ]->getThickness(); }
+    inline double getLayerThickness(size_t i_layer) const
+    { return m_layers[ check_layer_index(i_layer) ]->getThickness(); }
 
     //! Returns top interface of layer
     const LayerInterface *getLayerTopInterface(size_t i_layer) const;
@@ -78,7 +83,12 @@ class MultiLayer : public ICompositeSample
     virtual MultiLayer *clone() const;
 
     //! Sets cross correlation length of roughnesses between interfaces
-    inline void   setCrossCorrLength(double crossCorrLength) { crossCorrLength!=0 ? m_crossCorrLength = crossCorrLength : throw LogicErrorException("Attempt to set crossCorrLength to zero"); }
+    inline void setCrossCorrLength(double crossCorrLength)
+    {
+        if(!crossCorrLength)
+            throw LogicErrorException("Attempt to set crossCorrLength to zero");
+        m_crossCorrLength = crossCorrLength;
+    }
 
     //! Returns cross correlation length of roughnesses between interfaces
     inline double getCrossCorrLength() const { return m_crossCorrLength; }
@@ -87,13 +97,15 @@ class MultiLayer : public ICompositeSample
     //double getCrossCorrFun(const kvector_t& k, int j, int k) const;
 
     //! Fourier transform of the correlation function of roughnesses between the interfaces
-    double getCrossCorrSpectralFun(const kvector_t& kvec, size_t j, size_t k) const;
+    double getCrossCorrSpectralFun(
+        const kvector_t& kvec, size_t j, size_t k) const;
 
     //! Sets thickness of layer.
     void setLayerThickness(size_t i_layer, double thickness);
 
     //! Prints class
-    friend std::ostream& operator<<(std::ostream& ostr, const MultiLayer& m) { m.print(ostr); return ostr; }
+    friend std::ostream& operator << (std::ostream& ostr, const MultiLayer& m)
+    { m.print(ostr); return ostr; }
 
     //! look for the presence of DWBA terms (e.g. included particles) and return ISimulation if needed
     virtual MultiLayerDWBASimulation *createDWBASimulation() const;
@@ -103,7 +115,6 @@ class MultiLayer : public ICompositeSample
     virtual void init_parameters();
     //! Prints class
     void print(std::ostream& ostr) const;
-
 
  private:
     //! Adds the layer with simultaneous registration in parent class
@@ -121,16 +132,29 @@ class MultiLayer : public ICompositeSample
     }
 
     //! Checks index of layer w.r.t. vector length
-    inline size_t check_layer_index(size_t i_layer) const { return i_layer < m_layers.size() ? i_layer : throw OutOfBoundsException("Layer index is out of bounds"); }
+    inline size_t check_layer_index(size_t i_layer) const
+    {
+        if( i_layer >= m_layers.size() )
+            throw OutOfBoundsException("Layer index is out of bounds");
+        return i_layer;
+    }
 
     //! Checks index of interface w.r.t. vector length
-    inline size_t check_interface_index(size_t i_interface) const { return i_interface < m_interfaces.size() ? i_interface : throw OutOfBoundsException("Interface index is out of bounds"); }
+    inline size_t check_interface_index(size_t i_interface) const
+    {
+        if( i_interface >= m_interfaces.size() )
+            throw OutOfBoundsException("Interface index is out of bounds"); 
+        return i_interface;
+    }
 
-
-    std::vector<Layer *> m_layers;                ///< stack of layers [nlayers]
-    std::vector<double > m_layers_z;              ///< coordinate of layer's bottoms [nlayers]
-    std::vector<LayerInterface *> m_interfaces;   ///< stack of layer interfaces [nlayers-1]
-    double m_crossCorrLength;                     //!< cross correlation length (in z direction) between different layers
+    //! stack of layers [nlayers]
+    std::vector<Layer *> m_layers;      
+    //! coordinate of layer's bottoms [nlayers]
+    std::vector<double > m_layers_z;              
+    //! stack of layer interfaces [nlayers-1]
+    std::vector<LayerInterface *> m_interfaces;   
+    //! cross correlation length (in z direction) between different layers
+    double m_crossCorrLength;
 };
 
 #endif // MULTILAYER_H

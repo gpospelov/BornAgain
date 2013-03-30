@@ -72,8 +72,8 @@ TEST_F(RealParameterWrapperTest, ParameterAccess)
 //    m_real_parameter = 1.0;
 //    RealParameterWrapper par(&m_real_parameter);
 //    ObjectToNotify obj1, obj2;
-//    RealParameterWrapper::signal_t::slot_type fun1 = boost::bind(&ObjectToNotify::set_status_true,& obj1);
-//    RealParameterWrapper::signal_t::slot_type fun2 = boost::bind(&ObjectToNotify::set_status_true,& obj2);
+//    RealParameterWrapper::signal_t::slot_type fun1 = boost::bind(&ObjectToNotify::set_status_true, &obj1);
+//    RealParameterWrapper::signal_t::slot_type fun2 = boost::bind(&ObjectToNotify::set_status_true, &obj2);
 //    par.connect(fun1);
 //    par.connect(fun2);
 //    obj1.m_status = false;

@@ -1,29 +1,20 @@
 // ************************************************************************** //
 //
-//  heinzlibs:  Library collection of the Scientific Computing Group at
-//              Heinz Maier-Leibnitz Zentrum (MLZ) Garching
-//
-//  libgeo3d:   Library for three-dimensional Euclidian geometry,
-//              based on CLHEP/Geometry 1.9 of 1.4.2003,
-//              forked after v 1.5 2010/06/16 16:21:27,
+//  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file       Geometry/inc/BasicVector3D.h
-//! @brief      defines class BasicVector<T> for T=double,complex,
-//!               and implements most functions
+//! @brief      Defines template class BasicVector3D.
+//!
+//! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
+//! then reduced to rotations and mostly rewritten; point and vector semantics
+//! is no longer represented by class type; transforms are no longer methods of
+//! BasicVector3D; there is a new interface ITransform3D, and all transforms
+//! are implemented in child classes therof.
 //!
 //! @homepage   http://apps.jcns.fz-juelich.de/BornAgain
 //! @license    GNU General Public License v3 or higher (see COPYING)
 //! @copyright  Forschungszentrum Jülich GmbH 2013
-//! @authors    E. Chernyaev <Evgueni.Tcherniaev@cern.ch> 1996-2003
 //! @authors    C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
-//!
-//! Changes w.r.t. CLHEP:
-//! - eliminated distinction vector/normal/point
-//! - eliminated support for type float
-//! - added support for types int and complex<double>
-//! - merged method implementations into templated ones
-//! - added some new methods
-//! - reworked doxygen comments
 //
 // ************************************************************************** //
 
@@ -35,8 +26,6 @@
 
 namespace Geometry {
 
-class Transform3D;
-
 //! Base class for Point3D<T>, Vector3D<T> and Normal3D<T>.
 
 //! It defines only common functionality for those classes and
@@ -44,7 +33,8 @@ class Transform3D;
 //!
 //! @author Evgeni Chernyaev 1996-2003
 //!
-template<class T> class BasicVector3D {
+template<class T>
+class BasicVector3D {
  protected:
     T v_[3];
     
@@ -55,7 +45,7 @@ template<class T> class BasicVector3D {
     { v_[0] = 0.0; v_[1] = 0.0; v_[2] = 0.0; }
 
     //! Constructor from three numbers.
-    BasicVector3D(const T&x1, const T&y1, const T&z1)
+    BasicVector3D(const T x1, const T y1, const T z1)
     { v_[0] = x1; v_[1] = y1; v_[2] = z1; }
 
     //! Destructor.
@@ -146,9 +136,6 @@ template<class T> class BasicVector3D {
     //! Returns cosine of polar angle.
     T cosTheta() const; //!< @TODO: return type always double
 
-    //! Scale to given magnitude.
-    void setMag(double ma);
-
     // -------------------
     // Combine two vectors
     // -------------------
@@ -180,14 +167,14 @@ template<class T> class BasicVector3D {
     // Rotations
     // ---------
 
-    //! Rotates around x-axis.
-    BasicVector3D<T>& rotateX(T a);
-    //! Rotates around y-axis.
-    BasicVector3D<T>& rotateY(T a);
-    //! Rotates around z-axis.
-    BasicVector3D<T>& rotateZ(T a);
-    //! Rotates around the axis specified by another vector.
-    BasicVector3D<T>& rotate(T a, const BasicVector3D<T>& v);
+    //! Returns result of rotation around x-axis.
+    BasicVector3D<T> rotatedX(double a) const;
+    //! Returns result of rotation around y-axis.
+    BasicVector3D<T> rotatedY(double a) const;
+    //! Returns result of rotation around z-axis.
+    BasicVector3D<T> rotatedZ(double a) const;
+    //! Returns result of rotation around the axis specified by another vector.
+    BasicVector3D<T> rotated(double a, const BasicVector3D<T>& v) const;
 
     // ---------------
     // Related vectors
@@ -223,18 +210,13 @@ template<class T> class BasicVector3D {
 
     //! Sets wave vector for given wavelength and angles/
     inline void setLambdaAlphaPhi(
-        const T&_lambda, const T&_alpha, const T&_phi)
+        const T& _lambda, const T& _alpha, const T& _phi)
         {
             T k = 2*M_PI/_lambda;
             v_[0] = k*std::cos(_alpha) * std::cos(_phi);
             v_[1] = k*std::cos(_alpha) * std::sin(_phi);
             v_[2] = k*std::sin(_alpha);
         }
-
-    //! Transformation by Transform3D, as function.
-    //!
-    //! This is an alternative to operator*(const Transform3D&,&T) below.
-    BasicVector3D<T>&transform(const Transform3D&m);
 };
 
 // =========================================================================
@@ -305,19 +287,12 @@ inline BasicVector3D<T>
 operator-(const BasicVector3D<T>& a,const BasicVector3D<T>& b)
 { return BasicVector3D<T>(a.x()-b.x(), a.y()-b.y(), a.z()-b.z()); }
 
+//! Scalar product of two vectors.
 
-// //! Scalar product of two vectors, as operator.
-// //! @relates BasicVector3D
-//
-// Disabled: prefer dotProduct(a,b) or a.dot(b) over a*b
-//           to prevent casual developers from misunderstandings
-//
-// template <class T>
-// inline T operator*(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
-// { return a.dot(b); }
-
-//! Scalar product of two vectors, as function.
 //! @relates BasicVector3D
+//! We do not provide the operator form a*b:
+//! Though nice to write, and in some cases perfectly justified,
+//! in general it tends to make expressions more difficult to read.
 template <class T>
 inline T
 dotProduct(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
@@ -343,25 +318,6 @@ template <class T>
 inline bool
 operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 { return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z()); }
-
-// =========================================================================
-// Non-member functions for BasicVector3D<..specific..>
-// =========================================================================
-
-// ----------
-// Transforms
-// ----------
-
-//! Transformation of BasicVector3D<double> by Transform3D.
-//! @relates BasicVector3D
-BasicVector3D<double>
-operator*(const Transform3D& m, const BasicVector3D<double>& v);
-
-//! Transformation of BasicVector3D<double> by Transform3D.
-//! @relates BasicVector3D
-BasicVector3D<std::complex<double> >
-operator*(const Transform3D& m,
-          const BasicVector3D<std::complex<double> >& v);
 
 }  // namespace Geometry
 

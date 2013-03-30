@@ -35,12 +35,18 @@ class IFormFactor;
 class LayerDecoratorStrategyBuilder
 {
  public:
-    LayerDecoratorStrategyBuilder(const LayerDecorator& decorated_layer,
-            const Simulation& simulation, const SimulationParameters& sim_params);
+    /* out-of-place implementation required due to LayerDecorator */
+    LayerDecoratorStrategyBuilder(
+        const LayerDecorator& decorated_layer,
+        const Simulation& simulation,
+        const SimulationParameters& sim_params);
+
+    /* out-of-place implementation required due to LayerDecorator */
     virtual ~LayerDecoratorStrategyBuilder();
 
     //! Sets R and T coefficient map for DWBA simulation
-    void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap& rt_map);
+    void setReflectionTransmissionFunction(
+        const IDoubleToPairOfComplexMap& rt_map);
 
     //! Creates a strategy object which is able to calculate the scattering for fixed k_f
     virtual IInterferenceFunctionStrategy *createStrategy();
@@ -58,8 +64,10 @@ class LayerDecoratorStrategyBuilder
     //! retrieve wavelength from simulation
     double getWavelength();
     //! Creates formfactor info for single particle
-    FormFactorInfo *createFormFactorInfo(const ParticleInfo *p_particle_info,
-            complex_t n_ambient_refractive_index, complex_t factor) const;
+    FormFactorInfo *createFormFactorInfo(
+        const ParticleInfo *p_particle_info,
+        complex_t n_ambient_refractive_index,
+        complex_t factor) const;
 
     SafePointerVector<FormFactorInfo> m_ff_infos;
     SafePointerVector<IInterferenceFunction> m_ifs;
@@ -68,8 +76,10 @@ class LayerDecoratorStrategyBuilder
 class FormFactorInfo : public ICloneable
 {
  public:
-    FormFactorInfo();
+    FormFactorInfo()
+        : mp_ff(0), m_pos_x(0.0), m_pos_y(0.0), m_abundance(0.0) {}
     ~FormFactorInfo();
+    /* out-of-place implementation required due to IFormFactor */
     virtual FormFactorInfo *clone() const;
     IFormFactor *mp_ff;
     double m_pos_x, m_pos_y;

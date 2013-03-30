@@ -91,7 +91,7 @@ void register_Bin1DCVector_class(){
             , (::cvector_t ( ::Bin1DCVector::* )(  ) const)( &::Bin1DCVector::getDelta ) )    
         .def( 
             "getMidPoint"
-            , (::cvector_t ( ::Bin1DCVector::* )(  ) const)( &::Bin1DCVector::getMidPoint ) )    
+            , (::cvector_t ( ::Bin1DCVector::* )(  ) const)(& ::Bin1DCVector::getMidPoint ) )    
         .def_readwrite( "m_q_lower", &Bin1DCVector::m_q_lower )    
         .def_readwrite( "m_q_upper", &Bin1DCVector::m_q_upper );
 

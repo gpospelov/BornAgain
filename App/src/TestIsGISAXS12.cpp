@@ -458,16 +458,16 @@ TestIsGISAXS12::TestSampleBuilder::TestSampleBuilder()
 void TestIsGISAXS12::TestSampleBuilder::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("particle_probability1",& m_particle_probability1);
-    getParameterPool()->registerParameter("particle_radius1",& m_particle_radius1);
-    getParameterPool()->registerParameter("dispersion_radius1",& m_dispersion_radius1);
-    getParameterPool()->registerParameter("height_aspect_ratio1",& m_height_aspect_ratio1);
-    getParameterPool()->registerParameter("particle_probability2",& m_particle_probability2);
-    getParameterPool()->registerParameter("particle_radius2",& m_particle_radius2);
-    getParameterPool()->registerParameter("dispersion_radius2",& m_dispersion_radius2);
-    getParameterPool()->registerParameter("height_aspect_ratio2",& m_height_aspect_ratio2);
-    getParameterPool()->registerParameter("interf_distance",& m_interf_distance);
-    getParameterPool()->registerParameter("interf_width",& m_interf_width);
+    getParameterPool()->registerParameter("particle_probability1", &m_particle_probability1);
+    getParameterPool()->registerParameter("particle_radius1", &m_particle_radius1);
+    getParameterPool()->registerParameter("dispersion_radius1", &m_dispersion_radius1);
+    getParameterPool()->registerParameter("height_aspect_ratio1", &m_height_aspect_ratio1);
+    getParameterPool()->registerParameter("particle_probability2", &m_particle_probability2);
+    getParameterPool()->registerParameter("particle_radius2", &m_particle_radius2);
+    getParameterPool()->registerParameter("dispersion_radius2", &m_dispersion_radius2);
+    getParameterPool()->registerParameter("height_aspect_ratio2", &m_height_aspect_ratio2);
+    getParameterPool()->registerParameter("interf_distance", &m_interf_distance);
+    getParameterPool()->registerParameter("interf_width", &m_interf_width);
 }
 
 
@@ -476,8 +476,10 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *air_material =
+        MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *substrate_material =
+        MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
 
     Layer air_layer(air_material);
 

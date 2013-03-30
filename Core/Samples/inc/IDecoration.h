@@ -26,6 +26,8 @@ class IInterferenceFunction;
 
 //! Interface to equip a sample component with various properties.
 
+//! Currently (March 2013) the only child class is ParticleDecoration.
+
 class IDecoration : public ICompositeSample
 {
  public:

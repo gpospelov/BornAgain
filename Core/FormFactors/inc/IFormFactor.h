@@ -30,7 +30,7 @@ class IFormFactor : public ISample
 
     virtual IFormFactor *clone() const=0;
 
-    //! pass the refractive index of the ambient material in which this particle is embedded
+    //! Passes the refractive index of the ambient material in which this particle is embedded.
     virtual void setAmbientRefractiveIndex(const complex_t& refractive_index)
     {
         (void)refractive_index; // to prevent unused-variable warning
@@ -57,7 +57,7 @@ class IFormFactor : public ISample
     //! Returns the total radial size of the particle to which this formfactor belongs
     virtual double getRadius() const;
 
-    //! find out if the formfactor is constructed as an average over multiple simple ones
+    //! Returns true if the formfactor is constructed as an average over multiple simple ones
     virtual bool isDistributedFormFactor() const { return false; }
 
     //! retrieve a list of simple formfactors and their probabilities when the formfactor is a distributed one

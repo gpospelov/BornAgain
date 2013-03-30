@@ -17,20 +17,11 @@
 #include <algorithm>
 #include <iostream>
 
-OutputDataNormalizer::OutputDataNormalizer(double scale, double shift)
-    : m_scale(scale)
-    , m_shift(shift)
-    , m_max_intensity(0.0)
-{
-    setName("Normalizer");
-    init_parameters();
-}
-
 void OutputDataNormalizer::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("scale",& m_scale);
-    getParameterPool()->registerParameter("shift",& m_shift);
+    getParameterPool()->registerParameter("scale", &m_scale);
+    getParameterPool()->registerParameter("shift", &m_shift);
 }
 
 OutputDataNormalizer *OutputDataNormalizer::clone() const
@@ -42,7 +33,7 @@ OutputDataNormalizer *OutputDataNormalizer::clone() const
 }
 
 OutputData<double> *OutputDataNormalizer::createNormalizedData(
-        const OutputData<double >& data) const
+        const OutputData<double>& data) const
 {
     double factor = m_max_intensity;
     if(factor == 0) {

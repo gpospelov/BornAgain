@@ -30,8 +30,8 @@ FormFactorPrism3::FormFactorPrism3(double height, double half_side)
 void FormFactorPrism3::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("height",& m_height);
-    getParameterPool()->registerParameter("half_side",& m_half_side);
+    getParameterPool()->registerParameter("height", &m_height);
+    getParameterPool()->registerParameter("half_side", &m_half_side);
 }
 
 FormFactorPrism3* FormFactorPrism3::clone() const

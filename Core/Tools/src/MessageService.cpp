@@ -18,7 +18,7 @@ std::string Logger::NowTime()
     gettimeofday(&tv, 0);
     char buffer[100];
     tm r;
-    strftime(buffer, sizeof(buffer), "%X", localtime_r(&tv.tv_sec,& r));
+    strftime(buffer, sizeof(buffer), "%X", localtime_r(&tv.tv_sec, &r));
     char result[100];
     sprintf(result, "%s.%06ld", buffer, (long)tv.tv_usec);
     return result;

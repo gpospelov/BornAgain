@@ -1,0 +1,10 @@
+# in directory BornAgain, run ./remakeall to rebuild everything
+make clean
+rm `find . -name "*.o"`
+rm Makefile
+rm App/Makefile
+rm Core/Makefile
+rm Fit/Makefile
+rm Tests/UnitTests/TestCore/Makefile
+qmake
+make

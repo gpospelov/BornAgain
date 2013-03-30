@@ -117,13 +117,13 @@ void InterferenceFunction2DParaCrystal::transformToPrincipalAxes(double qx,
 void InterferenceFunction2DParaCrystal::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("lattice_length_1",& m_lattice_lengths[0]);
-    getParameterPool()->registerParameter("lattice_length_2",& m_lattice_lengths[1]);
-    getParameterPool()->registerParameter("lattice_angle",& m_alpha_lattice);
-    getParameterPool()->registerParameter("lattice_orientation",& m_xi);
-    getParameterPool()->registerParameter("corr_length",& m_corr_length);
-    getParameterPool()->registerParameter("domain_size_1",& m_domain_sizes[0]);
-    getParameterPool()->registerParameter("domain_size_2",& m_domain_sizes[1]);
+    getParameterPool()->registerParameter("lattice_length_1", &m_lattice_lengths[0]);
+    getParameterPool()->registerParameter("lattice_length_2", &m_lattice_lengths[1]);
+    getParameterPool()->registerParameter("lattice_angle", &m_alpha_lattice);
+    getParameterPool()->registerParameter("lattice_orientation", &m_xi);
+    getParameterPool()->registerParameter("corr_length", &m_corr_length);
+    getParameterPool()->registerParameter("domain_size_1", &m_domain_sizes[0]);
+    getParameterPool()->registerParameter("domain_size_2", &m_domain_sizes[1]);
 }
 
 double InterferenceFunction2DParaCrystal::interferenceForXi(double xi, void *params) const

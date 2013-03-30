@@ -222,7 +222,7 @@ void Lattice::computeInverseVectors(const kvector_t& v1, const kvector_t& v2,
     gsl_matrix_set(p_basisMatrix, 2, 1, v2.z());
     gsl_matrix_set(p_basisMatrix, 2, 2, v3.z());
 
-    gsl_linalg_LU_decomp(p_basisMatrix, p_perm,& s);
+    gsl_linalg_LU_decomp(p_basisMatrix, p_perm, &s);
     gsl_linalg_LU_invert(p_basisMatrix, p_perm, p_inverseMatrix);
 
     o1.setX(gsl_matrix_get(p_inverseMatrix, 0, 0));

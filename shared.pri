@@ -175,7 +175,7 @@ CONFIG(BORNAGAIN_ROOT) {
 # -----------------------------------------------------------------------------
 # add python API support
 # -----------------------------------------------------------------------------
-CONFIG  += BORNAGAIN_PYTHON
+# CONFIG  += BORNAGAIN_PYTHON
 CONFIG(BORNAGAIN_PYTHON) {
   # TODO - implement check for existance of numpy/arrayobject.h
   # user wants to compile python module

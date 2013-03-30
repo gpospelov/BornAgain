@@ -26,28 +26,53 @@
 class ParticleDecoration : public IDecoration
 {
  public:
-    ParticleDecoration();
-    ParticleDecoration(
-        Particle *p_particle, double depth=0.0, double abundance=1.0);
-    ParticleDecoration(
-        const Particle& p_particle, double depth=0.0, double abundance=1.0);
-    virtual ~ParticleDecoration();
+    ParticleDecoration()
+        : m_total_abundance(0.0)
+    {
+        setName("ParticleDecoration");
+    }
 
+    ParticleDecoration(
+        Particle* p_particle, double depth=0., double abundance=1.)
+        : m_total_abundance(0.0)
+    {
+        setName("ParticleDecoration");
+        addParticle(p_particle, depth, abundance);
+    }
+
+    ParticleDecoration(
+        const Particle& p_particle, double depth=0., double abundance=1.)
+        : m_total_abundance(0.0)
+    {
+        setName("ParticleDecoration");
+        addParticle(p_particle.clone(), depth, abundance);
+    }
+    
+    ~ParticleDecoration()
+    {
+        for (size_t i=0; i<m_particles.size(); ++i)
+            delete m_particles[i];
+    }
+    
     virtual ParticleDecoration *clone() const;
 
-    //! Adds particle giving depth and transformation
+    //! Adds generic particle, *-version.
     void addParticle(
-        Particle *p_particle, Geometry::Transform3D *p_transform=0,
-        double depth=0, double abundance=1.0);
-    void addParticle(
-        const Particle& particle, const Geometry::Transform3D& transform,
+        Particle *p_particle, const Geometry::PTransform3D& transform,
         double depth=0, double abundance=1.0);
 
-    //! Adds particle giving depth
+    //! Adds generic particle, &-version.
     void addParticle(
-        const Particle& particle, double depth=0.0, double abundance=1.0);
+        const Particle& p_particle, const Geometry::PTransform3D& transform,
+        double depth=0, double abundance=1.0);
+
+    //! Adds particle without rotation, *-version.
     void addParticle(
         Particle *p_particle, double depth=0.0, double abundance=1.0);
+
+    //! Adds particle without rotation, &-version.
+    void addParticle(
+        const Particle& particle, double depth=0.0, double abundance=1.0);
 
     //! Adds particle info
     void addParticleInfo(const ParticleInfo& info);
@@ -82,22 +107,15 @@ class ParticleDecoration : public IDecoration
 
  private:
     //! Adds particle information with simultaneous registration in parent class.
-    void addAndRegisterParticleInfo(ParticleInfo *child)
-    {
-        m_total_abundance += child->getAbundance();
-        m_particles.push_back(child);
-        registerChild(child);
-    }
+    void addAndRegisterParticleInfo(ParticleInfo *child);
 
     //! Adds interference function with simultaneous registration in parent class
-    void addAndRegisterInterferenceFunction(IInterferenceFunction *child)
-    {
-        m_interference_functions.push_back(child);
-        registerChild(child);
-    }
+    void addAndRegisterInterferenceFunction(IInterferenceFunction *child);
+
+    void print(std::ostream& ostr) const;
 
     //TODO: replace with SafePointerVector
-    std::vector<ParticleInfo *> m_particles;
+    std::vector<ParticleInfo*> m_particles;
 
     //! Vector of the types of particles
     SafePointerVector<IInterferenceFunction> m_interference_functions;

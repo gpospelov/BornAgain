@@ -15,6 +15,7 @@
 
 #include "DiffuseDWBASimulation.h"
 #include "FormFactorDWBAConstZ.h"
+#include "MessageService.h"
 
 #define SQR(x) ((x)*(x))
 
@@ -22,6 +23,7 @@
 
 void DiffuseDWBASimulation::run()
 {
+    msglog(MSG::DEBUG) << "DiffuseDWBASimulation::run()";
     // Set diffuse terms.
     std::vector<DiffuseFormFactorTerm*> diffuse_terms;
     size_t nbr_heights = 50;
@@ -79,6 +81,7 @@ void DiffuseDWBASimulation::initDiffuseFormFactorTerms(
         size_t nbr_heights,
         size_t samples_per_particle)
 {
+    msglog(MSG::DEBUG) << "DiffuseDWBASimulation::init...()";
     for (size_t i=0; i<m_np_infos.size(); ++i) {
         DiffuseParticleInfo *p_diff_info = m_np_infos[i];
         Particle *p_particle = p_diff_info->getParticle()->clone();

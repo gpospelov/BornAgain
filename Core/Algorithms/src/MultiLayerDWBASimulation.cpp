@@ -42,6 +42,7 @@ MultiLayerDWBASimulation::~MultiLayerDWBASimulation()
 
 void MultiLayerDWBASimulation::init(const Simulation& simulation)
 {
+    msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::init()";
     DWBASimulation::init(simulation);
     for (size_t i=0; i<mp_multi_layer->getNumberOfLayers(); ++i) {
         LayerDWBASimulation *p_layer_dwba_sim =
@@ -107,6 +108,7 @@ void MultiLayerDWBASimulation::run()
     // run through layers and construct T,R functions
     for(size_t i_layer=0;
         i_layer<mp_multi_layer->getNumberOfLayers(); ++i_layer) {
+        msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> Layer " << i_layer;
         DoubleToPairOfComplexMap RT_map;
         DoubleToComplexMap Kz_map;
 
@@ -138,6 +140,7 @@ void MultiLayerDWBASimulation::run()
     } // i_layer
 
     if(mp_roughness_dwba_simulation) {
+        msglog(MSG::DEBUG) << "MultiLayerDWBASimulation::run() -> roughness";
         mp_roughness_dwba_simulation->run();
         addDWBAIntensity( mp_roughness_dwba_simulation->getDWBAIntensity() );
     }

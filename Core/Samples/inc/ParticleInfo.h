@@ -18,34 +18,46 @@
 
 #include "ICompositeSample.h"
 #include "Particle.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 
 //! Holds additional information about particle (used in ParticleDecoration).
+
+//! Currently (March 2013), child classes are
+//! - DiffuseParticleInfo
+//! - PositionParticleInfo
 
 class ParticleInfo : public ICompositeSample
 {
  public:
     ParticleInfo(Particle *p_particle,
-                 Geometry::Transform3D *transform=0,
+                 const Geometry::PTransform3D& transform,
                  double depth=0, double abundance=0);
     ParticleInfo(const Particle& p_particle,
-                 const Geometry::Transform3D& transform,
+                 const Geometry::PTransform3D& transform,
                  double depth=0, double abundance=0);
-    virtual ~ParticleInfo();
+    ParticleInfo(Particle *p_particle,
+                 double depth=0, double abundance=0);
+    ParticleInfo(const Particle& p_particle,
+                 double depth=0, double abundance=0);
 
-    virtual ParticleInfo *clone() const;
+    virtual ~ParticleInfo() { delete mp_particle; }
+
+    virtual ParticleInfo *clone() const 
+    {
+        return new ParticleInfo(
+            mp_particle->clone(), mP_transform, m_depth, m_abundance);
+    }
 
     //! Returns particle.
     const Particle *getParticle() const { return mp_particle; }
 
     //! Returns transformation.
-    const Geometry::Transform3D *getTransform3D() const { return mp_transform; }
+    const Geometry::PTransform3D getPTransform3D() const
+    { return mP_transform; }
 
     //! Sets transformation.
-    void setTransform(const Geometry::Transform3D& transform) {
-        delete mp_transform;
-        mp_transform = new Geometry::Transform3D(transform);
-    }
+    void setTransform(const Geometry::PTransform3D& transform)
+    { mP_transform = transform; }
 
     //! Returns depth.
     double getDepth() const { return m_depth; }
@@ -62,8 +74,10 @@ class ParticleInfo : public ICompositeSample
  protected:
     virtual void init_parameters();
 
+    virtual void print(std::ostream& ostr) const;
+
     Particle *mp_particle;
-    Geometry::Transform3D *mp_transform;
+    Geometry::PTransform3D mP_transform;
     double m_depth;
     double m_abundance;
 };

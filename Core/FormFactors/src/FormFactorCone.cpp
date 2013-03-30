@@ -34,8 +34,8 @@ FormFactorCone::FormFactorCone(double radius,double height,double alpha)
 void FormFactorCone::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius",& m_radius);
-    getParameterPool()->registerParameter("height",& m_height);
+    getParameterPool()->registerParameter("radius", &m_radius);
+    getParameterPool()->registerParameter("height", &m_height);
     getParameterPool()->registerParameter("alpha", & m_alpha);
 }
 

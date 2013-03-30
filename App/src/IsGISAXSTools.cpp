@@ -163,7 +163,7 @@ TH2D *IsGISAXSTools::getOutputDataTH2D(const OutputData<double>& output,
 //        std::cout << i << " axis1:" << haxises[1].xbins[i] << std::endl;
 //    }
 
-    TH2D *hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins,& haxises[0].xbins[0], (int)haxises[1].nbins,& haxises[1].xbins[0]);
+    TH2D *hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
     hist2->GetXaxis()->SetTitle( haxises[0].name.c_str() );
     hist2->GetYaxis()->SetTitle( haxises[1].name.c_str() );
 
@@ -312,16 +312,16 @@ TH1 *IsGISAXSTools::getOutputDataTH123D(const OutputData<double>& output, const 
     TH2D *hist2(0);
     TH3D *hist3(0);
     if(output.getRank() == 1) {
-        hist1 = new TH1D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins,& haxises[0].xbins[0]);
+        hist1 = new TH1D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0]);
         hist1->GetXaxis()->SetTitle( haxises[0].name.c_str() );
         hist = hist1;
     } else if(output.getRank() == 2) {
-        hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins,& haxises[0].xbins[0], (int)haxises[1].nbins,& haxises[1].xbins[0]);
+        hist2 = new TH2D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
         hist2->GetXaxis()->SetTitle( haxises[0].name.c_str() );
         hist2->GetYaxis()->SetTitle( haxises[1].name.c_str() );
         hist = hist2;
     } else if(output.getRank() == 3) {
-        hist3 = new TH3D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins,& haxises[0].xbins[0], (int)haxises[1].nbins,& haxises[1].xbins[0], (int)haxises[1].nbins,& haxises[1].xbins[0]);
+        hist3 = new TH3D(histo_name.c_str(), histo_name.c_str(), (int)haxises[0].nbins, &haxises[0].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0], (int)haxises[1].nbins, &haxises[1].xbins[0]);
         hist3->GetXaxis()->SetTitle( haxises[0].name.c_str() );
         hist3->GetYaxis()->SetTitle( haxises[1].name.c_str() );
         hist3->GetZaxis()->SetTitle( haxises[2].name.c_str() );

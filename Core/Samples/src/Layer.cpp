@@ -17,65 +17,28 @@
 #include "Exceptions.h"
 #include <iomanip>
 
-/* ************************************************************************* */
-// constructors, assignment operator, destructors
-/* ************************************************************************* */
-Layer::Layer() : mp_material(0), m_thickness(0)
-{
-    setName("Layer");
-    init_parameters();
-}
-
-Layer::Layer(const IMaterial* p_material, double thickness) : mp_material(0), m_thickness(0)
-{
-    setName("Layer");
-    setMaterial(p_material);
-    setThickness(thickness);
-    init_parameters();
-}
-
-
-Layer::Layer(const Layer& other) : ICompositeSample()
-{
-    mp_material = other.mp_material;
-    m_thickness = other.m_thickness;
-    init_parameters();
-}
-
-
-//! Registers some class members for later access via parameter pool
-
-void Layer::init_parameters()
-{
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("thickness",& m_thickness);
-}
-
-Layer *Layer::clone() const
-{
-    return new Layer(*this);
-}
+//! Sets layer thickness in Angstrom.
 
 void Layer::setThickness(double thickness)
 {
-    if (thickness>=0.0)
-    {
-        m_thickness = thickness;
-        return;
-    }
-    throw DomainErrorException("Layer thickness cannot be negative");
+    if (thickness < 0.)
+        throw DomainErrorException("Layer thickness cannot be negative");
+    m_thickness = thickness;
 }
 
-void Layer::setMaterial(const IMaterial* p_material, double thickness)
-{
-    setMaterial(p_material);
-    setThickness(thickness);
+//! Sets _material_ of the layer.
+
+void Layer::setMaterial(const IMaterial* material)
+{ 
+    if ( !material )
+        throw NullPointerException("The material doesn't exist");
+    mp_material = material;
 }
 
-//! Prints content of multilayer
+//! Prints description.
 
 void Layer::print(std::ostream& ostr) const
 {
     ICompositeSample::print(ostr);
-    ostr << *getMaterial();
+    ostr << "-->Layer{" <<  *getMaterial() << "}";
 }

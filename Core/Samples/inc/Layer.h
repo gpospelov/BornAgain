@@ -26,31 +26,38 @@
 class Layer : public ICompositeSample
 {
  public:
-    Layer();
-    Layer(const IMaterial* p_material, double thickness=0);
-    virtual ~Layer() { }
-
-    //! Clones this.
-    virtual Layer *clone() const;
-
-    //! Sets layer thickness in _angstrom_
-    virtual void setThickness(double thickness);
-
-    //! Returns layer thickness in _angstrom_
-    virtual double getThickness() const { return m_thickness; }
-
-    //! Sets material of the layer
-    virtual void setMaterial(const IMaterial* p_material)
-    { 
-        p_material ?
-            mp_material = p_material :
-            throw NullPointerException("The material doesn't exist");
+    //! Constructs empty layer.
+    Layer() : mp_material(0), m_thickness(0)
+    {
+        setName("Layer");
+        init_parameters();
     }
 
-    //! @brief set material of given thickness to the layer
-    //! @param p_material   pointer to the material of layer
-    //! @param thickness    thickness of the material in angstrom
-    virtual void setMaterial(const IMaterial* p_material, double thickness);
+    //! Constructs layer made of _material_ with _thickness_ in Angstrom.
+    Layer(const IMaterial* material, double thickness=0)
+        : m_thickness(thickness)
+    {
+        setName("Layer");
+        setMaterial(material);
+        init_parameters();
+    }
+
+    virtual ~Layer() {}
+
+    virtual Layer *clone() const { return new Layer(*this); }
+
+    //! Sets layer thickness in Angstrom.
+    virtual void setThickness(double thickness);
+
+    //! Returns layer thickness in Angstrom.
+    virtual double getThickness() const { return m_thickness; }
+
+    //! Sets _material_ of the layer.
+    virtual void setMaterial(const IMaterial* material);
+
+    //! Sets _material_ and _thickness_.
+    virtual void setMaterial(const IMaterial* material, double thickness)
+    { setMaterial(material); setThickness(thickness); }
 
     //! Returns layer's material.
     virtual const IMaterial* getMaterial() const { return mp_material; }
@@ -58,8 +65,8 @@ class Layer : public ICompositeSample
     //! Returns refractive index of the layer's material.
     virtual complex_t getRefractiveIndex() const
     {
-        return (dynamic_cast<const HomogeneousMaterial *>(mp_material))->
-            getRefractiveIndex();
+        return (dynamic_cast<const HomogeneousMaterial *>
+                (mp_material))->getRefractiveIndex();
     }
 
     //! Returns false (override is important for polymorphism of LayerDecorator).
@@ -69,13 +76,19 @@ class Layer : public ICompositeSample
     virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
 
  protected:
-    Layer(const Layer& other);
+    Layer(const Layer& other)
+    {
+        mp_material = other.mp_material;
+        m_thickness = other.m_thickness;
+        init_parameters();
+    }
 
-    //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
+    virtual void init_parameters()
+    {
+        getParameterPool()->clear();
+        getParameterPool()->registerParameter("thickness", &m_thickness);
+    }
 
- private:
-    //! Prints class
     void print(std::ostream& ostr) const;
 
     const IMaterial* mp_material;    //!< pointer to the material

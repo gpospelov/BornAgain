@@ -56,7 +56,8 @@ class LayerRoughness : public IRoughness
     inline double getLatteralCorrLength() const { return m_latteralCorrLength; }
 
     //! Prints class
-    friend std::ostream& operator<<(std::ostream& ostr, const LayerRoughness& m) { m.print(ostr); return ostr; }
+    friend std::ostream& operator<<(std::ostream& ostr, /*const*/ LayerRoughness& m)
+    { m.print(ostr); return ostr; }
 
  protected:
     //! Registers some class members for later access via parameter pool

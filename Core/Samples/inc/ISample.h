@@ -27,32 +27,30 @@ class DWBASimulation;
 class ISample : public IParameterized, public ICloneable
 {
  public:
-    ISample() { }
-    virtual ~ISample() { }
+    ISample() { setName("ISample"); }
+    virtual ~ISample() {}
 
     //! Returns pointer to "this", if it is composite sample (to overload).
-    virtual ICompositeSample *getCompositeSample() { return 0; }
     virtual const ICompositeSample *getCompositeSample() const { return 0; }
 
     virtual ISample *clone() const;
 
-    //! Checks if this sample (or one of its subsamples) contains elements requiring DWBA corrections and return an ISimulation to calculate this
+    //! Returns an ISimulation if DWBA is required.
     virtual DWBASimulation *createDWBASimulation() const { return 0; }
+
+    //! Adds params from local to external pool, recurses over direct children.
+    virtual std::string addParametersToExternalPool(
+        std::string path,
+        ParameterPool *external_pool,
+        int copy_number=-1) const;
+
+    void print_structure();
 
     friend std::ostream& operator<<(std::ostream& ostr, const ISample& m)
     { m.print(ostr); return ostr; }
 
-    //! Walks through composite sample and print content
-    virtual void print_structure();
-
-    //! Adds parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(
-            std::string path,
-            ParameterPool *external_pool,
-            int copy_number=-1) const;
-
  protected:
-    virtual void print(std::ostream& ostr) const { ostr << getName() << " " << this << " " << m_parameters; }
+    virtual void print(std::ostream& ostr) const;
 };
 
 #endif // ISAMPLE_H

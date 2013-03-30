@@ -300,7 +300,7 @@ class GSLMultiFit {
       if (c == 0) return edm;
       gsl_vector * tmp = gsl_vector_alloc( fSolver->fdf->p );
       int status =   gsl_blas_dgemv(CblasNoTrans, 1.0, fCov, fVec, 0.,tmp);
-      if (status == 0) status |= gsl_blas_ddot(fVec, tmp,& edm);
+      if (status == 0) status |= gsl_blas_ddot(fVec, tmp, &edm);
       gsl_vector_free(tmp);
       if (status != 0) return -1;
       // need to divide by 2 ??

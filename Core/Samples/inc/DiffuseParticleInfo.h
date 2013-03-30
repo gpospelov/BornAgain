@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Samples/inc/DiffuseParticleInfo.h
-//! @brief     Defines class DiffuseParticleInfo.
+//! @brief     Defines and implements class DiffuseParticleInfo.
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -24,9 +24,14 @@ class DiffuseParticleInfo: public ParticleInfo
 {
  public:
     DiffuseParticleInfo(
-        Particle *p_particle, Geometry::Transform3D *transform=0,
-        double depth=0, double abundance=0);
-    virtual ~DiffuseParticleInfo();
+        Particle *p_particle,
+        const Geometry::PTransform3D& transform = Geometry::PTransform3D(),
+        double depth=0, double abundance=0)
+        : ParticleInfo(p_particle, transform, depth, abundance)
+        , m_number_per_meso(0.0)
+    {}
+
+    virtual ~DiffuseParticleInfo() {}
 
     //! scale abundance
     void scaleAbundance(double factor) { m_abundance *= factor; }

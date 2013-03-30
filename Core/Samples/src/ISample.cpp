@@ -20,12 +20,54 @@
 
 ISample *ISample::clone() const
 {
-    throw NotImplementedException("ISample::clone() -> Error! Method is not implemented");
+    throw NotImplementedException(
+        "ISample::clone() -> "
+        "Error! Method is not implemented");
+}
+
+//! Adds params from local to external pool and recurses over direct children.
+
+std::string ISample::addParametersToExternalPool(
+    std::string path, ParameterPool *external_pool, int copy_number) const
+{
+    std::string new_path =
+        IParameterized::addParametersToExternalPool(
+            path, external_pool, copy_number);
+    // go through direct children of given sample and
+    // copy their parameters recursively
+    const ICompositeSample *sample = getCompositeSample();
+    if( sample ) {
+        // Here we need some default mechanism to handle cases with
+        // many children with same name.
+        // Lets run through all direct children and save their names
+        Utils::StringUsageMap strUsageMap;
+        for(std::list<ISample*>::const_iterator it =
+                sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
+            strUsageMap.add( new_path +(*it)->getName() ); // saving children name
+        }
+        // Now we run through direct children again,
+        // and assign copy number for all children with same name
+        Utils::StringUsageMap strUsageMap2;
+        for(std::list<ISample*>::const_iterator it=
+                sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
+            std::string children_name = new_path +(*it)->getName();
+            strUsageMap2.add(children_name);
+            int ncopy = strUsageMap2[children_name]-1; // staring from 0
+
+            // if object is in single exemplar, we do not want any copy number
+            if(strUsageMap[children_name] == 1) ncopy = -1;
+
+            (*it)->addParametersToExternalPool(new_path, external_pool, ncopy);
+        }
+    }
+    return new_path;
 }
 
 void ISample::print_structure()
 {
     std::cout << getName() << " " << this << std::endl;
+    std::cout << "ISample::print_structure is broken\n";
+/*
     if(getCompositeSample()) {
         ICompositeIterator it = getCompositeSample()->createIterator();
         it.first();
@@ -42,37 +84,12 @@ void ISample::print_structure()
             it.next();
         }
     }
+*/
 }
 
-//! Adds parameters from local pool to external pool and call recursion over direct children
-
-std::string ISample::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const
+void ISample::print(std::ostream& ostr) const
 {
-    std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
-
-    // going through direct children of given sample and copy they parameters recursively
-    const ICompositeSample *sample = getCompositeSample();
-    if( sample ) {
-
-        // Here we need some default mechanism to handle cases with many children with same name.
-        // Lets run through all direct children and save their names
-        Utils::StringUsageMap strUsageMap;
-        for(ICompositeSample::const_iterator_t it=sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
-            strUsageMap.add( new_path +(*it)->getName() ); // saving children name
-        }
-
-        // Now we run through direct children again, and assign copy number for all children with same name
-        Utils::StringUsageMap strUsageMap2;
-        for(ICompositeSample::const_iterator_t it=sample->begin_shallow(); it!=sample->end_shallow(); ++it) {
-            std::string children_name = new_path +(*it)->getName();
-            strUsageMap2.add(children_name);
-            int ncopy = strUsageMap2[children_name]-1; // staring from 0
-
-            // if object is in single exemplar, we do not want any copy number
-            if(strUsageMap[children_name] == 1) ncopy = -1;
-
-            (*it)->addParametersToExternalPool(new_path, external_pool, ncopy);
-        }
-    }
-    return new_path;
+    ostr << "ISample:" << getName() << "<" << this << ">{ " <<
+        "params={ " << m_parameters << " }";
+    ostr << " }";
 }

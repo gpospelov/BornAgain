@@ -60,7 +60,8 @@ std::vector<ParticleInfo*> Particle::createDistributedParticles(
             for (size_t i=0; i<form_factors.size(); ++i) {
                 Particle *new_particle = clone();
                 new_particle->setSimpleFormFactor(form_factors[i]);
-                ParticleInfo *p_info = new ParticleInfo(new_particle, 0, 0, probabilities[i]*factor);
+                ParticleInfo *p_info =
+                    new ParticleInfo(new_particle, 0., probabilities[i]*factor);
                 result.push_back(p_info);
             }
         }

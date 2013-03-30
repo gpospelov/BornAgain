@@ -32,8 +32,8 @@ FormFactorCylinder::FormFactorCylinder(double height, double radius)
 void FormFactorCylinder::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("height",& m_height);
-    getParameterPool()->registerParameter("radius",& m_radius);
+    getParameterPool()->registerParameter("height", &m_height);
+    getParameterPool()->registerParameter("radius", &m_radius);
 }
 
 FormFactorCylinder* FormFactorCylinder::clone() const

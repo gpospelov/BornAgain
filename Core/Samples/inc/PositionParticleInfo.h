@@ -27,11 +27,11 @@ class PositionParticleInfo : public ParticleInfo
 {
  public:
     PositionParticleInfo(
-        Particle *p_particle, Geometry::Transform3D *p_transform,
+        Particle *p_particle, const Geometry::PTransform3D& transform,
         kvector_t position, double abundance=0);
 
     PositionParticleInfo(
-        const Particle& particle, const Geometry::Transform3D& transform,
+        const Particle& particle, const Geometry::PTransform3D& transform,
         kvector_t position, double abundance=0);
 
     PositionParticleInfo(

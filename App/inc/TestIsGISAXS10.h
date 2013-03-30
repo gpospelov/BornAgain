@@ -28,7 +28,6 @@ class TestIsGISAXS10 : public IFunctionalTest
 
     virtual void execute();
     virtual void finalise();
-
 };
 
 #endif /* TESTISGISAXS10_H_ */

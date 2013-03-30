@@ -114,6 +114,11 @@ void Simulation::runSimulation()
     int n_threads_total=0;
     if (mp_options)
         n_threads_total = (*mp_options)["threads"].as<int>();
+    msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_threads=" <<
+                          n_threads_total << ", sample: " << *mp_sample;
+    // TODO: --threads=1 is ignored
+//    n_threads_total = -1;
+//    msglog(MSG::WARNING) << "TEMPORARILY SET n_threads_total = " << n_threads_total;
 
     if(n_threads_total<0) {
         // Single thread.
@@ -136,8 +141,7 @@ void Simulation::runSimulation()
         } else {
             msglog(MSG::INFO) <<
                 "Simulation::runSimulation() -> Info. Number of threads " <<
-                n_threads_total << " (hardware concurrency: " <<
-                boost::thread::hardware_concurrency() << " )";
+                n_threads_total;
         }
         std::vector<boost::thread*> threads;
         std::vector<DWBASimulation*> simulations;

@@ -44,9 +44,9 @@ LayerRoughness *LayerRoughness::clone() const
 void LayerRoughness::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("sigma",& m_sigma);
-    getParameterPool()->registerParameter("hurst",& m_hurstParameter);
-    getParameterPool()->registerParameter("corrlength",& m_latteralCorrLength);
+    getParameterPool()->registerParameter("sigma", &m_sigma);
+    getParameterPool()->registerParameter("hurst", &m_hurstParameter);
+    getParameterPool()->registerParameter("corrlength", &m_latteralCorrLength);
 }
 
 
@@ -79,4 +79,5 @@ double LayerRoughness::getCorrFun(const kvector_t& k) const
 void LayerRoughness::print(std::ostream& ostr) const
 {
     ISample::print(ostr);
+    ostr << "-->LayerRoughness{ sigma=" << m_sigma << "}";
 }

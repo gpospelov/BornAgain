@@ -37,9 +37,9 @@ FormFactorHemiSpheroid::FormFactorHemiSpheroid(
 void FormFactorHemiSpheroid::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("radius",& m_radius);
+    getParameterPool()->registerParameter("radius", &m_radius);
     getParameterPool()->registerParameter("width", & m_width);
-    getParameterPool()->registerParameter("height",& m_height);
+    getParameterPool()->registerParameter("height", &m_height);
 }
 
 FormFactorHemiSpheroid* FormFactorHemiSpheroid::clone() const

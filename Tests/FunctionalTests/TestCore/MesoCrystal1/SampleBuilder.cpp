@@ -10,6 +10,7 @@
 #include "Units.h"
 #include "MaterialManager.h"
 #include "FormFactorSphereGaussianRadius.h"
+#include "Rotate3D.h"
 
 using namespace FunctionalTests;
 
@@ -47,9 +48,12 @@ ISample* SampleBuilder::buildSample() const
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-7.57e-6, 1.73e-7);
 
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_average_layer_material = MaterialManager::getHomogeneousMaterial("Averagelayer", n_avg);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material =
+        MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_average_layer_material =
+        MaterialManager::getHomogeneousMaterial("Averagelayer", n_avg);
+    const IMaterial *p_substrate_material =
+        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer avg_layer;
@@ -62,18 +66,20 @@ ISample* SampleBuilder::buildSample() const
     size_t n_max_phi_rotation_steps = 180;
     size_t n_alpha_rotation_steps = 1;
 
-    double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;
-    double alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step;
+//    double alpha_step = 5.0*Units::degree/n_alpha_rotation_steps;
+//    double alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step;
 
     double phi_step = 2*M_PI/3.0/n_max_phi_rotation_steps;
     double phi_start = 0.0;
     for (size_t i=0; i<n_max_phi_rotation_steps; ++i) {
         for (size_t j=0; j<n_alpha_rotation_steps; ++j) {
-            Geometry::RotateZ3D transform1(phi_start + (double)i*phi_step);
-            Geometry::RotateY3D transform2(alpha_start + j*alpha_step);
-            Geometry::Transform3D *p_total_transform = new Geometry::Transform3D(transform1);
-            particle_decoration.addParticle(createMesoCrystal(m_lattice_length_a, m_lattice_length_c,
-                    n_particle_adapted,& ff_meso), p_total_transform, m_meso_height);
+            Geometry::PTransform3D transform(
+                new Geometry::RotateZ_3D(phi_start + i*phi_step) );
+            particle_decoration.addParticle(
+                createMesoCrystal(m_lattice_length_a, m_lattice_length_c,
+                                  n_particle_adapted,& ff_meso),
+                transform,
+                m_meso_height);
         }
     }
 

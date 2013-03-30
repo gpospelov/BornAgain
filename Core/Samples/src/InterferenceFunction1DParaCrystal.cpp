@@ -31,9 +31,9 @@ InterferenceFunction1DParaCrystal::InterferenceFunction1DParaCrystal(double peak
 void InterferenceFunction1DParaCrystal::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("peak_distance",& m_peak_distance);
-    getParameterPool()->registerParameter("width",& m_width);
-    getParameterPool()->registerParameter("corr_length",& m_corr_length);
+    getParameterPool()->registerParameter("peak_distance", &m_peak_distance);
+    getParameterPool()->registerParameter("width", &m_width);
+    getParameterPool()->registerParameter("corr_length", &m_corr_length);
 }
 
 double InterferenceFunction1DParaCrystal::evaluate(const cvector_t& q) const

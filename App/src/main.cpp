@@ -66,7 +66,7 @@ int main(int argc, char **argv)
         for(; it!= FunctionalTestFactory::end(); ++it) {
             if( command_line_options.find( (*it).first ) )
                 FunctionalTestFactory::execute(
-                    (*it).first,& command_line_options );
+                    (*it).first, &command_line_options );
         }
     }
 

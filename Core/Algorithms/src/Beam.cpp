@@ -58,5 +58,5 @@ void Beam::setCentralK(double lambda, double alpha_i, double phi_i)
 void Beam::init_parameters()
 {
     getParameterPool()->clear();
-    getParameterPool()->registerParameter("intensity",& m_intensity);
+    getParameterPool()->registerParameter("intensity", &m_intensity);
 }

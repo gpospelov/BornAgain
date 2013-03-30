@@ -21,7 +21,7 @@
 
 void Layer::setThickness(double thickness)
 {
-    if (thickness<=0.0)
+    if (thickness < 0.)
         throw DomainErrorException("Layer thickness cannot be negative");
     m_thickness = thickness;
 }

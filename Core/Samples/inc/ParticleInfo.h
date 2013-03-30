@@ -22,6 +22,10 @@
 
 //! Holds additional information about particle (used in ParticleDecoration).
 
+//! Currently (March 2013), child classes are
+//! - DiffuseParticleInfo
+//! - PositionParticleInfo
+
 class ParticleInfo : public ICompositeSample
 {
  public:
@@ -36,9 +40,13 @@ class ParticleInfo : public ICompositeSample
     ParticleInfo(const Particle& p_particle,
                  double depth=0, double abundance=0);
 
-    virtual ~ParticleInfo();
+    virtual ~ParticleInfo() { delete mp_particle; }
 
-    virtual ParticleInfo *clone() const;
+    virtual ParticleInfo *clone() const 
+    {
+        return new ParticleInfo(
+            mp_particle->clone(), mP_transform, m_depth, m_abundance);
+    }
 
     //! Returns particle.
     const Particle *getParticle() const { return mp_particle; }
@@ -65,6 +73,8 @@ class ParticleInfo : public ICompositeSample
 
  protected:
     virtual void init_parameters();
+
+    virtual void print(std::ostream& ostr) const;
 
     Particle *mp_particle;
     Geometry::PTransform3D mP_transform;

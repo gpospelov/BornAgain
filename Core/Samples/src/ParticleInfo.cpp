@@ -71,20 +71,22 @@ ParticleInfo::ParticleInfo(
     init_parameters();
 }
 
-ParticleInfo::~ParticleInfo()
-{
-    delete mp_particle;
-}
-
-//! Registers some class members for later access via parameter pool
 void ParticleInfo::init_parameters()
 {
     getParameterPool()->clear();
     getParameterPool()->registerParameter("depth", &m_depth);
 }
 
-ParticleInfo *ParticleInfo::clone() const
+
+void ParticleInfo::print(std::ostream& ostr) const
 {
-    return new ParticleInfo(
-        mp_particle->clone(), m_depth, m_abundance);
+    ostr << "ParticleInfo:" << getName() << "<" << this << "> : {" <<
+        " depth=" << m_depth <<
+        ", abundance=" << m_abundance <<
+        ", transform=";
+    if ( mP_transform )
+        ostr << *mP_transform;
+    else
+        ostr << "NONE";
+    ostr << " }";
 }

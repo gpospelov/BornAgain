@@ -13,6 +13,7 @@
 #include "Rotate3D.h"
 #include "Utils.h"
 #include "InterferenceFunction1DParaCrystal.h"
+#include "MessageService.h"
 
 #include <iostream>
 #include <cmath>
@@ -99,6 +100,7 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
 
     Geometry::PTransform3D transform(
         new Geometry::RotateZ_3D(45.*Units::degree) );
+    msglog(MSG::DEBUG) << "created rotZ45 {" << *transform << "}";
 
     ParticleDecoration particle_decoration;
     particle_decoration.addParticle(pyramid, transform);

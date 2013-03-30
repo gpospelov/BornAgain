@@ -43,6 +43,12 @@ class ITransform3D {
         transformed(const BasicVector3D<complex_t>& v) const
     { return v; }
 
+    friend std::ostream& operator<<(std::ostream& ostr, const ITransform3D& m)
+    { m.print(ostr); return ostr; }
+
+    virtual void print(std::ostream& ostr) const
+    { ostr << "Transform3D:Identity"; }
+
 };
  
 }  // namespace Geometry

@@ -54,6 +54,9 @@ class RotateY_3D : public ITransform3D {
                                         -m_sa*v.x() + m_ca*v.z() );
     }
 
+    virtual void print(std::ostream& ostr) const
+    { ostr << "Transform3D:Rotate_Y(" << m_ca << "," << m_sa << ")" ; }
+
  private:
     double m_ca, m_sa;
 
@@ -91,6 +94,9 @@ class RotateZ_3D : public ITransform3D {
                                          m_sa*v.x() + m_ca*v.y(),
                                          v.z()                    );
     }
+
+    virtual void print(std::ostream& ostr) const
+    { ostr << "Transform3D:Rotate_Z(" << m_ca << "," << m_sa << ")" ; }
 
  private:
     double m_ca, m_sa;

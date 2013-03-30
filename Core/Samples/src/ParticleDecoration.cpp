@@ -19,38 +19,13 @@
 #include "LocalMonodisperseApproximationStrategy.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "SizeSpacingCorrelationApproximationStrategy.h"
+#include "MessageService.h"
+#include <iomanip>
 
-
-ParticleDecoration::ParticleDecoration()
-  : m_total_abundance(0.0)
-{
-    setName("ParticleDecoration");
-}
-
-ParticleDecoration::ParticleDecoration(
-    Particle* p_particle, double depth, double abundance)
-  : m_total_abundance(0.0)
-{
-    setName("ParticleDecoration");
-    addParticle(p_particle, depth, abundance);
-}
-
-ParticleDecoration::ParticleDecoration(
-    const Particle& p_particle, double depth, double abundance)
-  : m_total_abundance(0.0)
-{
-    setName("ParticleDecoration");
-    addParticle(p_particle.clone(), depth, abundance);
-}
-
-ParticleDecoration::~ParticleDecoration()
-{
-    for (size_t i=0; i<m_particles.size(); ++i)
-        delete m_particles[i];
-}
 
 ParticleDecoration* ParticleDecoration::clone() const
 {
+    msglog(MSG::DEBUG) << "ParticleDecoration::clone()";
     ParticleDecoration *p_new = new ParticleDecoration();
     p_new->setName(getName());
 
@@ -105,7 +80,7 @@ void ParticleDecoration::addParticle(
     addParticle(p_particle.clone(), Geometry::PTransform3D(), depth, abundance);
 }
 
-//! Adds particle info
+//! Adds particle info.
 
 void ParticleDecoration::addParticleInfo(const ParticleInfo& info)
 {
@@ -150,4 +125,34 @@ const IInterferenceFunction* ParticleDecoration::getInterferenceFunction(
     throw OutOfBoundsException(
         "ParticleDecoration::getInterferenceFunction() ->"
         "Not so many interference functions in this decoration.");
+}
+
+//! Adds particle information with simultaneous registration in parent class.
+void ParticleDecoration::addAndRegisterParticleInfo(
+    ParticleInfo *child)
+{
+    msglog(MSG::DEBUG) << "ParticleDecoration::addAndRegisterParticleInfo {" <<
+        *child << "}";
+    m_total_abundance += child->getAbundance();
+    m_particles.push_back(child);
+    registerChild(child);
+}
+
+//! Adds interference function with simultaneous registration in parent class.
+
+void ParticleDecoration::addAndRegisterInterferenceFunction(
+    IInterferenceFunction *child)
+{
+    m_interference_functions.push_back(child);
+    registerChild(child);
+}
+
+void ParticleDecoration::print(std::ostream& ostr) const
+{
+    IDecoration::print(ostr);
+    ostr << "-->ParticleDecoration<" << this << ">{\n";
+    for( size_t i=0; i<m_particles.size(); ++i )
+        ostr << "      - particle " << std::left << std::setw(2) << i << " { "
+             << *(m_particles[i]) << "}\n";
+    ostr << "}";
 }

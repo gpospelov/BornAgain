@@ -89,7 +89,6 @@ class Layer : public ICompositeSample
         getParameterPool()->registerParameter("thickness", &m_thickness);
     }
 
- private:
     void print(std::ostream& ostr) const;
 
     const IMaterial* mp_material;    //!< pointer to the material

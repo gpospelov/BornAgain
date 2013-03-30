@@ -44,20 +44,8 @@ DiffuseDWBASimulation* LayerDecorator::createDiffuseDWBASimulation() const
     return 0;
 }
 
-LayerDecorator::LayerDecorator(const LayerDecorator& other)
-: Layer(other)
-{
-    mp_decorated_layer = other.getDecoratedLayer()->clone();
-    mp_decoration = other.getDecoration()->clone();
-
-    setName("LayerDecorator");
-    registerChild(mp_decorated_layer);
-    registerChild(mp_decoration);
-    init_parameters();
-}
-
 void LayerDecorator::print(std::ostream& ostr) const
 {
-    ICompositeSample::print(ostr);
+    Layer::print(ostr);
     ostr << "-->LayerDecorator{" << *mp_decoration << "}";
 }

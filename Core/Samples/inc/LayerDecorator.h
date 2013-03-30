@@ -20,11 +20,12 @@
 #include "ParticleDecoration.h"
 #include "LayerDecoratorDWBASimulation.h"
 
-//! Equip a layer with thickness, material, refraction index, WHAT ELSE ?
+//! Combines a Layer with an IDecoration.
 
 class LayerDecorator : public Layer
 {
  public:
+    //! Constructs LayerDecorator object by cloning _layer_ and _decoration_.
     LayerDecorator(const Layer& layer, const IDecoration& decoration)
         : mp_decorated_layer(layer.clone()), mp_decoration(decoration.clone())
     {
@@ -89,7 +90,17 @@ class LayerDecorator : public Layer
     }
 
  protected:
-    LayerDecorator(const LayerDecorator& layer);
+    //! Constructs a new object by cloning _other_'s layer and decoration.
+    LayerDecorator(const LayerDecorator& other)
+        : Layer(other)
+    {
+        mp_decorated_layer = other.getDecoratedLayer()->clone();
+        mp_decoration = other.getDecoration()->clone();
+        setName("LayerDecorator");
+        registerChild(mp_decorated_layer);
+        registerChild(mp_decoration);
+        init_parameters();
+    }
 
     Layer *mp_decorated_layer;
     IDecoration *mp_decoration;

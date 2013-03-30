@@ -25,7 +25,7 @@
 
 ParticleDecoration* ParticleDecoration::clone() const
 {
-    msglog(MSG::DEBUG) << "ParticleDecoration::clone()";
+    //   msglog(MSG::DEBUG) << "ParticleDecoration::clone()";
     ParticleDecoration *p_new = new ParticleDecoration();
     p_new->setName(getName());
 
@@ -131,8 +131,7 @@ const IInterferenceFunction* ParticleDecoration::getInterferenceFunction(
 void ParticleDecoration::addAndRegisterParticleInfo(
     ParticleInfo *child)
 {
-    msglog(MSG::DEBUG) << "ParticleDecoration::addAndRegisterParticleInfo {" <<
-        *child << "}";
+    // msglog(MSG::DEBUG) << "ParticleDecoration::addAndRegisterParticleInfo {" << *child << "}";
     m_total_abundance += child->getAbundance();
     m_particles.push_back(child);
     registerChild(child);

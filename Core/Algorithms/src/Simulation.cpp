@@ -117,8 +117,8 @@ void Simulation::runSimulation()
     msglog(MSG::DEBUG) << "Simulation::runSimulation(): n_threads=" <<
                           n_threads_total << ", sample: " << *mp_sample;
     // TODO: --threads=1 is ignored
-    n_threads_total = -1;
-    msglog(MSG::WARNING) << "TEMPORARILY SET n_threads_total = " << n_threads_total;
+//    n_threads_total = -1;
+//    msglog(MSG::WARNING) << "TEMPORARILY SET n_threads_total = " << n_threads_total;
 
     if(n_threads_total<0) {
         // Single thread.

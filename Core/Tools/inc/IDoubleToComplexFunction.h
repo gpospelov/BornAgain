@@ -23,18 +23,18 @@
 
 class IDoubleToComplexFunction : public ICloneable
 {
- public:
-	virtual ~IDoubleToComplexFunction() {}
-	virtual IDoubleToComplexFunction *clone() const=0;
+public:
+    virtual ~IDoubleToComplexFunction() {}
+    virtual IDoubleToComplexFunction *clone() const=0;
 
-	virtual complex_t evaluate(double value)=0;
+    virtual complex_t evaluate(double value)=0;
 };
 
 //! Virtual base class for double to complex map.
 
 class IDoubleToComplexMap : public ICloneable
 {
- public:
+public:
     virtual ~IDoubleToComplexMap() {}
     virtual IDoubleToComplexMap *clone() const = 0;
 
@@ -45,7 +45,7 @@ class IDoubleToComplexMap : public ICloneable
 
 class IDoubleToPairOfComplexMap : public ICloneable
 {
- public:
+public:
     virtual ~IDoubleToPairOfComplexMap() {}
     virtual IDoubleToPairOfComplexMap *clone() const = 0;
 
@@ -56,17 +56,17 @@ class IDoubleToPairOfComplexMap : public ICloneable
 
 class DoubleToComplexFunctionWrapper : public IDoubleToComplexFunction
 {
- public:
-	typedef complex_t (*double_to_complex_t)(double);
-	DoubleToComplexFunctionWrapper(double_to_complex_t function) : m_function(function) {}
-	virtual DoubleToComplexFunctionWrapper *clone() const {
-	    return new DoubleToComplexFunctionWrapper(m_function);
-	}
+public:
+    typedef complex_t (*double_to_complex_t)(double);
+    DoubleToComplexFunctionWrapper(double_to_complex_t function)
+        : m_function(function) {}
+    virtual DoubleToComplexFunctionWrapper *clone() const
+    { return new DoubleToComplexFunctionWrapper(m_function); }
 
-	virtual complex_t evaluate(double value) { return m_function(value); }
+    virtual complex_t evaluate(double value) { return m_function(value); }
 
- private:
-	double_to_complex_t m_function;
+private:
+    double_to_complex_t m_function;
 };
 
 #endif /* IDOUBLETOCOMPLEXFUNCTION_H_ */

@@ -27,7 +27,7 @@ class IInterferenceFunction : public ISample
     virtual ~IInterferenceFunction() {}
 
     virtual double evaluate(const cvector_t& q) const=0;
-	virtual IInterferenceFunction *clone() const=0;
+    virtual IInterferenceFunction *clone() const=0;
     virtual double getKappa() const { return 0.0; }
 };
 

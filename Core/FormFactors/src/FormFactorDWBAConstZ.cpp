@@ -27,15 +27,15 @@ complex_t FormFactorDWBAConstZ::evaluate(
     const cvector_t& k_i, const Bin1DCVector& k_f_bin,
     double alpha_i, double alpha_f) const
 {
-	calculateTerms(k_i, k_f_bin, alpha_i, alpha_f);
-	complex_t k_iz = k_i.z();
-	complex_t k_fz = k_f_bin.getMidPoint().z();
-	m_term_S *= getDepthPhase(k_iz-k_fz);
-	m_term_RS *= getDepthPhase(-k_iz-k_fz);
-	m_term_SR *= getDepthPhase(k_iz+k_fz);
-	m_term_RSR *= getDepthPhase(-k_iz+k_fz);
+    calculateTerms(k_i, k_f_bin, alpha_i, alpha_f);
+    complex_t k_iz = k_i.z();
+    complex_t k_fz = k_f_bin.getMidPoint().z();
+    m_term_S *= getDepthPhase(k_iz-k_fz);
+    m_term_RS *= getDepthPhase(-k_iz-k_fz);
+    m_term_SR *= getDepthPhase(k_iz+k_fz);
+    m_term_RSR *= getDepthPhase(-k_iz+k_fz);
 
-	return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
+    return m_term_S + m_term_RS + m_term_SR + m_term_RSR;
 }
 
 FormFactorDWBAConstZ* FormFactorDWBAConstZ::clone() const

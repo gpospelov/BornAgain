@@ -64,15 +64,11 @@ complex_t Sinc(const complex_t &value);
 complex_t Laue(const complex_t &value, size_t N);
 
 enum TransformCase { ForwardFFT, BackwardFFT };
+std::vector<complex_t > FastFourierTransform(const std::vector<complex_t > &data, TransformCase tcase);
 
-std::vector<complex_t> FastFourierTransform(
-    const std::vector<complex_t>& data, TransformCase tcase);
+std::vector<complex_t > FastFourierTransform(const std::vector<double > &data, TransformCase tcase);
 
-std::vector<complex_t> FastFourierTransform(
-    const std::vector<double>& data, TransformCase tcase);
-
-std::vector<complex_t> ConvolveFFT(
-    const std::vector<double>& signal, const std::vector<double>& resfunc);
+std::vector<complex_t> ConvolveFFT(const std::vector<double> &signal, const std::vector<double> &resfunc);
 
 //! fast sine calculations (not actually fast)
 double FastSin(const double& x);
@@ -87,16 +83,11 @@ complex_t FastSin(const complex_t &x);
 complex_t FastCos(const complex_t &x);
 
 //! simultaneous complex sine and cosine calculations
-void FastSinCos(const complex_t& x, complex_t& xsin, complex_t& xcos);
+void FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos);
 
 } // Namespace MathFunctions
 
-// ************************************************************************** //
-// Some inline implementations
-// ************************************************************************** //
-
-inline double MathFunctions::GenerateNormalRandom(
-    double average, double std_dev)
+inline double MathFunctions::GenerateNormalRandom(double average, double std_dev)
 {
     return GenerateStandardNormalRandom()*std_dev + average;
 }
@@ -114,40 +105,34 @@ inline double MathFunctions::Bessel_J1(double value)
 
 inline double MathFunctions::Bessel_C1(double value)
 {
-    return value > Numeric::double_epsilon ?
-        gsl_sf_bessel_J1(value)/value : 0.5;
+    return ( value > Numeric::double_epsilon ? gsl_sf_bessel_J1(value)/value : 0.5);
 }
 
-//! int_0^x du Sin(u)/u
-inline double MathFunctions::Si(double value)
+inline double MathFunctions::Si(double value)  // int_0^x du Sin(u)/u
 {
     return gsl_sf_Si(value);
 }
 
-//! Sin(x)/x
-inline double MathFunctions::Sinc(double value)
+inline double MathFunctions::Sinc(double value)  // Sin(x)/x
 {
     return gsl_sf_sinc(value/M_PI);
 }
 
-//! Sin(x)/x
 // TODO: protection against complex number like (-246.977,-399.616)
-inline complex_t MathFunctions::Sinc(const complex_t& value)  
+inline complex_t MathFunctions::Sinc(const complex_t &value)  // Sin(x)/x
 {
     if(std::abs(value)<Numeric::double_epsilon)
-        return complex_t(1., 0.);
+        return complex_t(1.0, 0.0);
     return std::sin(value)/value;
 }
 
-//! Exp(iNx/2)*Sin((N+1)x)/Sin(x)
-inline complex_t MathFunctions::Laue(const complex_t& value, size_t N) 
+inline complex_t MathFunctions::Laue(const complex_t &value, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
 {
     if (N==0)
-        return complex_t(1., 0.);
+        return complex_t(1.0, 0.0);
     if(std::abs(value)<Numeric::double_epsilon)
-        return complex_t(N+1., 0.);
-    return std::exp(complex_t(0., 1.)*value*N/2)*
-        std::sin(value*(N+1)/2)/std::sin(value/2);
+        return complex_t(N+1.0, 0.0);
+    return std::exp(complex_t(0.0, 1.0)*value*(double)N/2.0)*std::sin(value*(N+1.0)/2.0)/std::sin(value/2.0);
 }
 
 //! fast sine calculations (not actually fast)
@@ -173,23 +158,22 @@ inline double MathFunctions::FastCos(const double& x) {
 }
 
 //! fast complex sine calculation
-inline complex_t MathFunctions::FastSin(const complex_t& x) {
+inline complex_t MathFunctions::FastSin(const complex_t &x) {
     // sin(a+bi) = sin(a)cosh(b) + i*cos(a)*sinh(b);
     //return complex_t( FastSin(x.real())*std::cosh(x.imag()), FastCos(x.real())*std::sinh(x.imag()));
     return complex_t( std::sin(x.real())*std::cosh(x.imag()), std::cos(x.real())*std::sinh(x.imag()));
 }
 
 //! fast complex cosine calculation
-//  cos(a+bi) = cos(a)cosh(b) - i*sin(a)*sinh(b);
-inline complex_t MathFunctions::FastCos(const complex_t& x) {
+inline complex_t MathFunctions::FastCos(const complex_t &x) {
+    // cos(a+bi) = cos(a)cosh(b) - i*sin(a)*sinh(b);
     //return complex_t( FastCos(x.real())*std::cosh(x.imag()), -1*FastSin(x.real())*std::sinh(x.imag()));
-    return complex_t( std::cos(x.real())*std::cosh(x.imag()),
-                      -std::sin(x.real())*std::sinh(x.imag()));
+    return complex_t( std::cos(x.real())*std::cosh(x.imag()), -1*std::sin(x.real())*std::sinh(x.imag()));
 }
 
 //! simultaneous complex sine and cosine calculations
-inline void MathFunctions::FastSinCos(
-    const complex_t& x, complex_t& xsin, complex_t& xcos)
+inline void MathFunctions::FastSinCos(const complex_t &x,
+                                      complex_t &xsin, complex_t &xcos)
 {
     double sina = FastSin(x.real());
     double cosa = std::sqrt(1-sina*sina);

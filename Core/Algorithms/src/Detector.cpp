@@ -80,10 +80,10 @@ void Detector::addAxis(const AxisParameters& axis_params)
 
 const IAxis& Detector::getAxis(size_t index) const
 {
-	if (isCorrectAxisIndex(index)) {
-		return *m_axes[index];
-	}
-	throw OutOfBoundsException("Not so many axes in this detector.");
+    if (isCorrectAxisIndex(index)) {
+        return *m_axes[index];
+    }
+    throw OutOfBoundsException("Not so many axes in this detector.");
 }
 
 void Detector::applyDetectorResolution(

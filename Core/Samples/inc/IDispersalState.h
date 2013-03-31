@@ -21,7 +21,7 @@
 class IDispersalState
 {
  public:
-	virtual ~IDispersalState() {}
+    virtual ~IDispersalState() {}
 };
 
 #endif /* IDISPERSALSTATE_H_ */

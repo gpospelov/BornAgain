@@ -24,11 +24,11 @@ class InterferenceFunctionNone : public IInterferenceFunction
 {
  public:
     InterferenceFunctionNone() { setName("InterferenceFunctionNone"); }
-	virtual ~InterferenceFunctionNone() {}
-	virtual InterferenceFunctionNone *clone() const { return new InterferenceFunctionNone(); }
+    virtual ~InterferenceFunctionNone() {}
+    virtual InterferenceFunctionNone *clone() const
+    { return new InterferenceFunctionNone(); }
 
     virtual double evaluate(const cvector_t& q) const { (void)q; return 1.0; }
-
 };
 
 #endif /* INTERFERENCEFUNCTIONNONE_H_ */

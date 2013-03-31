@@ -22,29 +22,33 @@
 
 class DoubleToComplexInterpolatingFunction : public IDoubleToComplexFunction
 {
- public:
+public:
     typedef std::map<double, complex_t> container_t;
     enum InterpolatingMode { Nearest, Linear, Polar };
 
-	virtual ~DoubleToComplexInterpolatingFunction();
-    DoubleToComplexInterpolatingFunction(const std::map<double, complex_t>& value_map, InterpolatingMode imode=Nearest);
-	virtual DoubleToComplexInterpolatingFunction *clone() const;
+    virtual ~DoubleToComplexInterpolatingFunction();
+    DoubleToComplexInterpolatingFunction(
+        const std::map<double, complex_t>& value_map,
+        InterpolatingMode imode=Nearest);
+    virtual DoubleToComplexInterpolatingFunction *clone() const;
 
     virtual complex_t evaluate(double value);
 
- protected:
+protected:
     container_t m_value_map;
-	double m_lower_limit;
-	double m_upper_limit;
-	double m_low_step;
-	double m_high_step;
+    double m_lower_limit;
+    double m_upper_limit;
+    double m_low_step;
+    double m_high_step;
 
     InterpolatingMode m_interpolating_mode;
 
- private:
+private:
     //! copy constructor and assignment operator are hidden since there is a clone method
-    DoubleToComplexInterpolatingFunction(const DoubleToComplexInterpolatingFunction& );
-    DoubleToComplexInterpolatingFunction& operator=(const DoubleToComplexInterpolatingFunction& );
+    DoubleToComplexInterpolatingFunction(
+        const DoubleToComplexInterpolatingFunction& );
+    DoubleToComplexInterpolatingFunction& operator=(
+        const DoubleToComplexInterpolatingFunction& );
 };
 
 #endif /* DOUBLETOCOMPLEXINTERPOLATINGFUNCTION_H_ */

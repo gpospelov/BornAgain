@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -110,12 +110,14 @@ class Convolve
     };
 
     //! input and output data for fftw3
-    Workspace ws; 
+    Workspace ws;
     //! convolution mode
-    Mode m_mode;  
+    Mode m_mode;
     std::vector<size_t > m_implemented_factors; // favorite factorization terms of fftw3
 };
 
 }  // namespace MathFunctions
 
 #endif // CONVOLVE_H
+
+

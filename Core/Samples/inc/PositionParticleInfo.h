@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -21,7 +21,7 @@
 //! Enhances ParticleInfo by position in x and y.
 
 //! Used in IsGISAXSMorphologyFileDecoration.
-//! Note that position in z ("depth") is inherited from ParticleInfo. 
+//! Note that position in z ("depth") is inherited from ParticleInfo.
 //!
 class PositionParticleInfo : public ParticleInfo
 {
@@ -66,3 +66,5 @@ class PositionParticleInfo : public ParticleInfo
 };
 
 #endif /* POSITIONPARTICLEINFO_H_ */
+
+

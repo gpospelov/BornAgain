@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -69,11 +69,11 @@ double FormFactorHemiSpheroid::HemiSpheroidIntegralReal(
     double R = m_radius;
     double W = m_height;
     double H = m_height;
-    
+  
     complex_t qz = m_q.z();
     complex_t qx = m_q.x();
     complex_t qy = m_q.y();
-    
+  
     double Wz    =  W * std::sqrt(1-((Z*Z)/(H*H)));
     double Rz    =  R * std::sqrt(1-((Z*Z)/(H*H)));
     double gamma = (std::sqrt ((( qx*Rz)*(qx*Rz)) + ((qy*Wz)*(qy*Wz)))).real();
@@ -127,3 +127,5 @@ complex_t FormFactorHemiSpheroid::evaluate_for_q(const cvector_t& q) const
      return 2*M_PI*complex_t(0.0, 1.0)*evaluate_for_q_imag() +
          2*M_PI*evaluate_for_q_real();
 }
+
+

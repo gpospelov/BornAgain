@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                           
+//                                                                         
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/src/TestToySimulation.cpp 
+//! @file      App/src/TestToySimulation.cpp
 //! @brief     Implements classes ToySimulation and TestToySimulation.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -138,5 +138,7 @@ void TestToySimulation::initializeSimulationAndRealData()
     m_simulation->runSimulation();
     m_real_data = IsGISAXSTools::createDataWithGaussianNoise(*m_simulation->getOutputData(), m_sigma_noise);
 }
+
+
 
 

@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                           
+//                                                                         
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/src/TestRootTree.cpp 
+//! @file      App/src/TestRootTree.cpp
 //! @brief     Implements class TestRootTree.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -287,7 +287,7 @@ void TestRootTree::simple_write()
         OutputData<double>::const_iterator it = mp_data->begin();
         while (it != mp_data->end())
         {
-            size_t index_phi_f = 
+            size_t index_phi_f =
                 mp_data->getIndexOfAxis(axis0_name.c_str(), it.getIndex());
             size_t index_alpha_f =
                 mp_data->getIndexOfAxis(axis1_name.c_str(), it.getIndex());
@@ -379,7 +379,7 @@ void TestRootTree::simple_read()
     top->Close();
 }
 
-//! 
+//!
 
 void TestRootTree::initializeMesoCrystal(
     double meso_alpha, double meso_phi, double nanopart_radius)
@@ -432,4 +432,6 @@ void TestRootTree::initializeMesoCrystal(
     p_multi_layer->addLayer(substrate_layer);
     mp_sample = p_multi_layer;
 }
+
+
 

@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -57,3 +57,5 @@ http://gcc.gnu.org/onlinedocs/gcc-4.4.7/gcc/Diagnostic-Pragmas.html
 #endif
 
 #endif // MACROS_H
+
+

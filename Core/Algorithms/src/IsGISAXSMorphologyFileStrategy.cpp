@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -120,3 +120,5 @@ double IsGISAXSMorphologyFileStrategy::hannFunction(double x, double y) const
     double result = (M_PI*M_PI/4.0)*std::cos(M_PI*x/m_win_x)*std::cos(M_PI*y/m_win_y);
     return result;
 }
+
+

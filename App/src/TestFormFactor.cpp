@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                           
+//                                                                         
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/src/TestFormFactor.cpp 
+//! @file      App/src/TestFormFactor.cpp
 //! @brief     Implements class TestFormFactor.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -98,3 +98,5 @@ void TestFormFactor::draw()
     gStyle->SetOptStat(0);
     p_hist2D->Draw("CONT4");
 }
+
+

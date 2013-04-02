@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -69,3 +69,5 @@ double IFormFactorBorn::bigZPartIntegral(double qH2) const
     double qH = 2.0*qH2;
     return (qH*MathFunctions::Si(qH) + std::cos(qH) - 1.0)/qH;
 }
+
+

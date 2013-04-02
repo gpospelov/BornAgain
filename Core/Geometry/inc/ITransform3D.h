@@ -32,7 +32,7 @@ class ITransform3D {
     //! Returns the inverse transformation.
     virtual PTransform3D inverse() const
     { return PTransform3D( new ITransform3D() ); }
-    
+  
     //! Return transformed vector _v_.
     virtual BasicVector3D<double>
         transformed(const BasicVector3D<double>& v) const
@@ -50,7 +50,9 @@ class ITransform3D {
     { ostr << "Transform3D:Identity"; }
 
 };
- 
+
 }  // namespace Geometry
 
 #endif /* GEOMETRY_ITRANSFROM3D_H */
+
+

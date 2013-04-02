@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                           
+//                                                                         
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/src/TestMesoCrystal1.cpp 
+//! @file      App/src/TestMesoCrystal1.cpp
 //! @brief     Implements class TestMesoCrystal1.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -291,5 +291,7 @@ const Lattice *TestMesoCrystal1::SampleBuilder::createLattice(double stacking_ra
     p_result->setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
     return p_result;
 }
+
+
 
 

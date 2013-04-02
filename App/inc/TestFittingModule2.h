@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                           
+//                                                                         
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/inc/TestFittingModule2.h 
+//! @file      App/inc/TestFittingModule2.h
 //! @brief     Defines class TestFittingModule2.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -80,3 +80,5 @@ class TestFittingModule2 : public IFunctionalTest
 };
 
 #endif // TESTFITTINGMODULE2_H
+
+

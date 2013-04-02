@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -80,3 +80,5 @@ double FormFactorFullSpheroid::FullSpheroidIntegral(
         0.5;
     return 4.0* M_PI *Rz*Rz* J1_qrRz_div_qrRz * std::cos(qz.real()*Z);
 }
+
+

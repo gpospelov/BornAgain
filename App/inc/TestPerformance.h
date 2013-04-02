@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                           
+//                                                                         
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/inc/TestPerformance.h 
+//! @file      App/inc/TestPerformance.h
 //! @brief     Defines classes TestPerformance, PerfTest_FresnelCoeff.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -119,3 +119,5 @@ class PerfTest_MesoCrystal : public IFunctionalTest
 };
 
 #endif // TESTPERFORMANCE_H
+
+

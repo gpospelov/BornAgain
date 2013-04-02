@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                           
+//                                                                         
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/src/TestFittingModule2.cpp 
+//! @file      App/src/TestFittingModule2.cpp
 //! @brief     Implements class TestFittingModule2.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -337,5 +337,7 @@ void TestFittingModule2::SampleBuilder::init_parameters()
     getParameterPool()->registerParameter("m_prism3_height", &m_prism3_height);
     getParameterPool()->registerParameter("m_cylinder_ratio", &m_cylinder_ratio);
 }
+
+
 
 

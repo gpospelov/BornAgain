@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -27,7 +27,7 @@ class IParameterized : public INamed
  public:
     IParameterized()
         : m_parameters(), m_status() {}
-    IParameterized(const std::string& name) 
+    IParameterized(const std::string& name)
         : INamed(name), m_parameters(), m_status() {}
     IParameterized(const IParameterized& other)
         : INamed(other), m_parameters(), m_status() {}
@@ -72,3 +72,5 @@ class IParameterized : public INamed
 };
 
 #endif /* IPARAMETERIZED_H_ */
+
+

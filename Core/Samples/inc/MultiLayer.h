@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -143,18 +143,20 @@ class MultiLayer : public ICompositeSample
     inline size_t check_interface_index(size_t i_interface) const
     {
         if( i_interface >= m_interfaces.size() )
-            throw OutOfBoundsException("Interface index is out of bounds"); 
+            throw OutOfBoundsException("Interface index is out of bounds");
         return i_interface;
     }
 
     //! stack of layers [nlayers]
-    std::vector<Layer *> m_layers;      
+    std::vector<Layer *> m_layers;    
     //! coordinate of layer's bottoms [nlayers]
-    std::vector<double > m_layers_z;              
+    std::vector<double > m_layers_z;            
     //! stack of layer interfaces [nlayers-1]
-    std::vector<LayerInterface *> m_interfaces;   
+    std::vector<LayerInterface *> m_interfaces; 
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
 };
 
 #endif // MULTILAYER_H
+
+

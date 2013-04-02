@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -146,3 +146,5 @@ void FitSuiteGradientFunction::runSimulation(const double *pars){
     m_fit_suite->getFitParameters()->setValues(pars);
     m_fit_suite->getFitObjects()->runSimulations();
 }
+
+

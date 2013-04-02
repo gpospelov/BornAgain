@@ -63,3 +63,5 @@ else MSG::Logger(level)
 
 
 #endif // MESSAGESVC_H
+
+

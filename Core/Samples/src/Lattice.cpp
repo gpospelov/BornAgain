@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -241,3 +241,5 @@ void Lattice::computeInverseVectors(const kvector_t& v1, const kvector_t& v2,
     gsl_matrix_free(p_basisMatrix);
     gsl_matrix_free(p_inverseMatrix);
 }
+
+

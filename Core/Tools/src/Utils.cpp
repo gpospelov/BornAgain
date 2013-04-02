@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -136,7 +136,7 @@ std::string Utils::FileSystem::GetHomePath()
     // at this point the value should be something like '/Users/jamesbond/development/git/./BornAgain/App/App'
     //std::cout << "Utils::FileSystem::GetHomePath() -> path '" << path << "'" << std::endl;
 
-    // lets strip everything after 'BornAgain' to get path to project home directory    
+    // lets strip everything after 'BornAgain' to get path to project home directory  
     std::string project_name("BornAgain");
     std::string::size_type pos = path.rfind(project_name);
     if(pos == std::string::npos) {
@@ -192,4 +192,6 @@ void Utils::EnableFloatingPointExceptions()
               << std::endl;
 #endif
 }
+
+
 

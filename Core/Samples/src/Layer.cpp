@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -29,7 +29,7 @@ void Layer::setThickness(double thickness)
 //! Sets _material_ of the layer.
 
 void Layer::setMaterial(const IMaterial* material)
-{ 
+{
     if ( !material )
         throw NullPointerException("The material doesn't exist");
     mp_material = material;
@@ -42,3 +42,5 @@ void Layer::print(std::ostream& ostr) const
     ICompositeSample::print(ostr);
     ostr << "-->Layer{" <<  *getMaterial() << "}";
 }
+
+

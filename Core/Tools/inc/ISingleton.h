@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -70,3 +70,5 @@ template<class T > typename ISingleton<T>::T_Pointer ISingleton<T>::m_instance =
 template< class T> bool ISingleton<T>::m_destroyed = false;
 
 #endif // ISINGLETON_H
+
+

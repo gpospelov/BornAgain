@@ -37,7 +37,7 @@ template<class T>
 class BasicVector3D {
  protected:
     T v_[3];
-    
+  
  public:
     //! Default constructor.
     //! It is protected - this class should not be instantiated directly.
@@ -322,3 +322,5 @@ operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 }  // namespace Geometry
 
 #endif /* GEOMETRY_BASICVECTOR3D_H */
+
+

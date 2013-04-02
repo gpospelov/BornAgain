@@ -31,7 +31,7 @@ class Beam : public IParameterized
     virtual ~Beam() {}
 
     cvector_t getCentralK() const { return m_central_k; }
-    
+
     void setCentralK(const cvector_t& k_i);
     void setCentralK(double lambda, double alpha_i, double phi_i);
 
@@ -52,3 +52,7 @@ class Beam : public IParameterized
 };
 
 #endif /* BEAM_H_ */
+
+
+
+

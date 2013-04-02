@@ -55,3 +55,5 @@ double FitSuitePrintObserver::getWallTimeSinceLastCall()
     return result;
 }
 
+
+

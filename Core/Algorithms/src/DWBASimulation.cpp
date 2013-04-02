@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -86,3 +86,5 @@ double DWBASimulation::getWaveLength() const
     kvector_t real_ki(m_ki.x().real(), m_ki.y().real(), m_ki.z().real());
     return 2*M_PI/real_ki.mag();
 }
+
+

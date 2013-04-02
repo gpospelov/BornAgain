@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                           
+//                                                                         
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/src/AppOptionsDescription.cpp 
+//! @file      App/src/AppOptionsDescription.cpp
 //! @brief     Implements global function AppOptionsDescription.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -54,4 +54,6 @@ void AddApplicationOptions(ProgramOptions* p_options)
     // adding options to the main option holder
     p_options->add(general_options).add(functional_test_options);
 }
+
+
 

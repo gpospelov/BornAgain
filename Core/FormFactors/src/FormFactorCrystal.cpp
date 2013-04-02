@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -107,3 +107,5 @@ void FormFactorCrystal::calculateLargestReciprocalDistance()
     m_max_rec_length = std::max(M_PI/a1.mag(), M_PI/a2.mag());
     m_max_rec_length = std::max(m_max_rec_length, M_PI/a3.mag());
 }
+
+

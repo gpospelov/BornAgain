@@ -26,3 +26,5 @@ private:
 };
 
 #endif // FITSUITEPRINTOBSERVER_H
+
+

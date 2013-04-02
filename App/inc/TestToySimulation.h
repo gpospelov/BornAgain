@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                           
+//                                                                         
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/inc/TestToySimulation.h 
+//! @file      App/inc/TestToySimulation.h
 //! @brief     Defines classes ToySimulation, TestToySimulation.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -70,7 +70,7 @@ class TestToySimulation : public IFunctionalTest
     //! simulation function
     IFunctionObject *m_func_object;
     //! ROOT representation of the simulation function with min, max defined
-    TF2 *m_func; 
+    TF2 *m_func;
     double m_sigma_noise;
     ToySimulation *m_simulation;
     OutputData<double > *m_real_data;
@@ -78,3 +78,5 @@ class TestToySimulation : public IFunctionalTest
 };
 
 #endif // TESTTOYSIMULATION_H
+
+

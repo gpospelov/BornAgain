@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -102,4 +102,6 @@ void IChiSquaredModule::initWeights()
     if( !mp_simulation_data ) throw NullPointerException("IChiSquaredModule::initWeights() -> Error! No simulated data has been set");
     mp_weights = mp_data_selector->createWeightMap(*mp_real_data, *mp_simulation_data);
 }
+
+
 

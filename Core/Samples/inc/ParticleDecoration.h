@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -47,13 +47,13 @@ class ParticleDecoration : public IDecoration
         setName("ParticleDecoration");
         addParticle(p_particle.clone(), depth, abundance);
     }
-    
+  
     ~ParticleDecoration()
     {
         for (size_t i=0; i<m_particles.size(); ++i)
             delete m_particles[i];
     }
-    
+  
     virtual ParticleDecoration *clone() const;
 
     //! Adds generic particle, *-version.
@@ -125,3 +125,5 @@ class ParticleDecoration : public IDecoration
 };
 
 #endif // PARTICLEDECORATION_H
+
+

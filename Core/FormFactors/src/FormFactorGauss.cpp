@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -61,3 +61,5 @@ complex_t FormFactorGauss::evaluate_for_q(const cvector_t& q) const
         std::exp(-(q.x()*q.x()+q.y()*q.y())*R*R/8.0/M_PI);
     return radial_part*z_part;
 }
+
+

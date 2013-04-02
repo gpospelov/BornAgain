@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                           
+//                                                                         
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/inc/TestRoughness.h 
+//! @file      App/inc/TestRoughness.h
 //! @brief     Defines class TestRoughness.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -51,7 +51,7 @@ class TestRoughness : public IFunctionalTest
     //! x-coordinates of grid along the surface
     std::vector<double> m_vx;
     //! z coordinates of surface (heights) randomly generated with gaus
-    std::vector<double> m_vzuncorr; 
+    std::vector<double> m_vzuncorr;
     //! actial z coordinates of surface, correlated according correlation function of surface [??]
     std::vector<double> m_vzcorr;
 
@@ -61,3 +61,5 @@ class TestRoughness : public IFunctionalTest
 };
 
 #endif // TESTROUGHNESS_H
+
+

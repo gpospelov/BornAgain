@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -39,8 +39,10 @@ class FormFactorPrism3 : public IFormFactorBorn
 
  private:
     double m_height;
-    double m_half_side;    
+    double m_half_side;  
     double m_root3; // Cached value of square root of 3
 };
 
 #endif /* FORMFACTORPRISM3_H_ */
+
+

@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -31,3 +31,5 @@ typedef std::vector<vdouble1d_t> vdouble2d_t;
 typedef std::pair<complex_t, complex_t> complexpair_t;
 
 #endif // TYPES_H
+
+

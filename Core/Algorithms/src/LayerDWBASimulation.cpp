@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -54,3 +54,5 @@ Bin1DCVector LayerDWBASimulation::getKfBin(double wavelength, const Bin1D& alpha
     k_f_bin.m_q_upper.setZ(mp_kz_function->evaluate(alpha_bin.m_upper));
     return k_f_bin;
 }
+
+

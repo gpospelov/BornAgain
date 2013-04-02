@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -180,7 +180,7 @@ OutputData<double>* OutputDataFunctions::getImagPart(
     OutputData<complex_t>::const_iterator it_source = source.begin();
     OutputData<double>::iterator it_result = p_result->begin();
     while (it_source != source.end()) {
-        *it_result = it_source->real();
+        *it_result = it_source->imag();
         ++it_source, ++it_result;
     }
     return p_result;
@@ -418,3 +418,5 @@ Mask* OutputDataFunctions::CreateEllipticMask(
     const double radii[2]={rx, ry};
     return OutputDataFunctions::CreateEllipticMask(data, center, radii);
 }
+
+

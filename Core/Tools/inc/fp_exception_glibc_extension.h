@@ -1,6 +1,6 @@
 // ************************************************************************** //
-//                                                                           
-//! @file      App/inc/fp_exception_glibc_extension.h 
+//                                                                         
+//! @file      App/inc/fp_exception_glibc_extension.h
 //! @brief     glibc floating point extension replacement for OS X.
 //
 //! License:   Public Domain
@@ -25,7 +25,7 @@ extern "C" {
 
      The function returns a bitmask of all currently enabled
      exceptions.  It returns -1 in case of failure.
-   
+ 
      The excepts argument appears in other functions in fenv.h,
      and corresponds to the FE_xxx exception flag constants.  It
      is unclear whether the bitmask is for the flags or the masks.
@@ -39,7 +39,7 @@ extern "C" {
   int fegetexcept (void) ;
   int feenableexcept (unsigned int excepts) ;
   int fedisableexcept (unsigned int excepts) ;
-  
+
   /* SAMPLE ALTERNATE FP EXCEPTION HANDLER
 
      The sample handler just reports information about the
@@ -62,3 +62,5 @@ extern "C" {
 
 
 #endif // __FENV_H_LINUX_REPLACEMENT__
+
+

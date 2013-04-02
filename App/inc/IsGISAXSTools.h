@@ -1,15 +1,15 @@
 // ************************************************************************** //
-//                                                                           
+//                                                                         
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      App/inc/IsGISAXSTools.h 
+//! @file      App/inc/IsGISAXSTools.h
 //! @brief     Defines class IsGISAXSTools.
 //
 //! Homepage:  apps.jcns.fz-juelich.de/BornAgain
 //! License:   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -152,13 +152,15 @@ class IsGISAXSTools {
 
  private:
     //! lower bound of y-axis (for 1D histograms), or z-axis (for 2D histograms)
-    static double m_hist_min; 
+    static double m_hist_min;
     //! upper bound of y-axis (for 1D histograms), or z-axis (for 2D histograms)
-    static double m_hist_max; 
+    static double m_hist_max;
     //! user defined histogram minimum ?
     static bool m_has_min;
     //! user defined histogram maximum
-    static bool m_has_max;    
+    static bool m_has_max;  
 };
 
 #endif /* ISGISAXSTOOLS_H_ */
+
+

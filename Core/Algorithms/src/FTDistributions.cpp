@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -49,3 +49,5 @@ void FTDistribution2DCauchy::init_parameters()
     getParameterPool()->registerParameter("omega_x", &m_omega_x);
     getParameterPool()->registerParameter("omega_y", &m_omega_y);
 }
+
+

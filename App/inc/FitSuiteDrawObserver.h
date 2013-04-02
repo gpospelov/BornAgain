@@ -31,3 +31,5 @@ private:
 
 
 #endif // FITSUITEDRAWOBSERVER_H
+
+

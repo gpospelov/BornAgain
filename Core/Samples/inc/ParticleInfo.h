@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -42,7 +42,7 @@ class ParticleInfo : public ICompositeSample
 
     virtual ~ParticleInfo() { delete mp_particle; }
 
-    virtual ParticleInfo *clone() const 
+    virtual ParticleInfo *clone() const
     {
         return new ParticleInfo(
             mp_particle->clone(), mP_transform, m_depth, m_abundance);
@@ -83,3 +83,5 @@ class ParticleInfo : public ICompositeSample
 };
 
 #endif /* PARTICLEINFO_H */
+
+

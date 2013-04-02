@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -131,3 +131,5 @@ void SizeSpacingCorrelationApproximationStrategy::initMeanRadius()
         m_mean_radius += m_ff_infos[i]->m_abundance*m_ff_infos[i]->mp_ff->getRadius();
     }
 }
+
+

@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -130,3 +130,5 @@ void InterferenceFunction2DLattice::initialize_calc_factors()
     m_na = (int)(std::abs(qa_max)+0.5);
     m_nb = (int)(std::abs(qb_max)+0.5);
 }
+
+

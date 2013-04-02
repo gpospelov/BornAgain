@@ -9,7 +9,7 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2013
 //! @authors   Scientific Computing Group at MLZ Garching
-//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke 
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
 //
 // ************************************************************************** //
 
@@ -124,3 +124,5 @@ std::vector<complex_t> MathFunctions::ConvolveFFT(const std::vector<double>& sig
     std::vector<complex_t > result = MathFunctions::FastFourierTransform(fft_prod, MathFunctions::BackwardFFT);
     return result;
 }
+
+

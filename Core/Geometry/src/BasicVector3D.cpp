@@ -154,3 +154,5 @@ double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const
 }
 
 }  // namespace Geometry
+
+

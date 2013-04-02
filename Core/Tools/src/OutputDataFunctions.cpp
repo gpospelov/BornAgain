@@ -180,7 +180,7 @@ OutputData<double>* OutputDataFunctions::getImagPart(
     OutputData<complex_t>::const_iterator it_source = source.begin();
     OutputData<double>::iterator it_result = p_result->begin();
     while (it_source != source.end()) {
-        *it_result = it_source->real();
+        *it_result = it_source->imag();
         ++it_source, ++it_result;
     }
     return p_result;

@@ -115,7 +115,7 @@ double FormFactorHemiSpheroid::HemiSpheroidIntegralImaginary(
      double J1_gamma_div_gamma = std::abs(gamma) > Numeric::double_epsilon ?
          MathFunctions::Bessel_J1(std::abs(gamma))/gamma :
          0.5;
-     double exp_imag = std::exp(complex_t(0.0,-1.0)*qz*Z).imag();
+     double exp_imag = std::exp(complex_t(0.0,1.0)*qz*Z).imag();
      return Rz *Wz * J1_gamma_div_gamma * exp_imag;
 }
 
@@ -125,5 +125,5 @@ complex_t FormFactorHemiSpheroid::evaluate_for_q(const cvector_t& q) const
 {
      m_q = q;
      return 2*M_PI*complex_t(0.0, 1.0)*evaluate_for_q_imag() +
-         evaluate_for_q_real();
+         2*M_PI*evaluate_for_q_real();
 }

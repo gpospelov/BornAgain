@@ -44,11 +44,10 @@ TEST_F(ChiSquaredModuleTest, InitialState)
 {
     EXPECT_EQ( NULL, m_chi_empty.getRealData());
     EXPECT_EQ( NULL, m_chi_empty.getSimulationData());
-    EXPECT_TRUE( dynamic_cast<const SquaredFunctionDefault *>(m_chi_empty.getSquaredFunction()));
-    EXPECT_TRUE( dynamic_cast<const DefaultAllDataSelector *>(m_chi_empty.getFittingDataSelector()));
+    EXPECT_TRUE( dynamic_cast<const SquaredFunctionDefault*>(m_chi_empty.getSquaredFunction()));
+    EXPECT_TRUE( dynamic_cast<const DefaultAllDataSelector*>(m_chi_empty.getFittingDataSelector()));
     EXPECT_EQ( NULL, m_chi_empty.getOutputDataNormalizer());
-    EXPECT_FALSE(m_chi_empty.getIntensitySqrt());
-    EXPECT_EQ( double(0), m_chi_empty.getValue());
+    EXPECT_EQ( NULL, m_chi_empty.getIntensityFunction());
     ASSERT_THROW(m_chi_empty.calculateChiSquared(), NullPointerException);
     ASSERT_THROW(m_chi_empty.createChi2DifferenceMap(), NullPointerException);
 }
@@ -58,11 +57,10 @@ TEST_F(ChiSquaredModuleTest, CloneOfEmpty)
     ChiSquaredModule *clone_of_empty = m_chi_empty.clone();
     EXPECT_EQ( NULL, clone_of_empty->getRealData());
     EXPECT_EQ( NULL, clone_of_empty->getSimulationData());
-    EXPECT_TRUE( dynamic_cast<const SquaredFunctionDefault *>(clone_of_empty->getSquaredFunction()));
-    EXPECT_TRUE( dynamic_cast<const DefaultAllDataSelector *>(clone_of_empty->getFittingDataSelector()));
+    EXPECT_TRUE( dynamic_cast<const SquaredFunctionDefault*>(clone_of_empty->getSquaredFunction()));
+    EXPECT_TRUE( dynamic_cast<const DefaultAllDataSelector*>(clone_of_empty->getFittingDataSelector()));
     EXPECT_EQ( NULL, clone_of_empty->getOutputDataNormalizer());
-    EXPECT_FALSE(clone_of_empty->getIntensitySqrt());
-    EXPECT_EQ( double(0), clone_of_empty->getValue());
+    EXPECT_EQ( NULL, clone_of_empty->getIntensityFunction());
     ASSERT_THROW(clone_of_empty->calculateChiSquared(), NullPointerException);
     ASSERT_THROW(clone_of_empty->createChi2DifferenceMap(), NullPointerException);
     delete clone_of_empty;
@@ -71,25 +69,22 @@ TEST_F(ChiSquaredModuleTest, CloneOfEmpty)
 TEST_F(ChiSquaredModuleTest, DefaultModule)
 {
     EXPECT_FLOAT_EQ( double(0.01), m_chi_default.calculateChiSquared());
-    EXPECT_FLOAT_EQ( double(0.01), m_chi_default.getValue());
 }
 
 TEST_F(ChiSquaredModuleTest, CloneOfDefault)
 {
     ChiSquaredModule *clone_of_default = m_chi_default.clone();
     EXPECT_FLOAT_EQ( double(0.01), clone_of_default->calculateChiSquared());
-    EXPECT_FLOAT_EQ( double(0.01), clone_of_default->getValue());
     clone_of_default->setNdegreeOfFreedom(1);
     EXPECT_FLOAT_EQ( double(1.0), clone_of_default->calculateChiSquared());
     delete clone_of_default;
 }
 
-
 TEST_F(ChiSquaredModuleTest, IsGISAXSLikeModule)
 {
     ChiSquaredModule chi_isgisaxs;
-    OutputData<double > real_data;
-    OutputData<double > simul_data;
+    OutputData<double> real_data;
+    OutputData<double> simul_data;
     const size_t nbins(5);
     real_data.addAxis("phi_f", nbins, 0.0, 1.0);
     simul_data.addAxis("phi_f", nbins, 0.0, 1.0);

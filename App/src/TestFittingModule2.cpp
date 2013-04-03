@@ -22,6 +22,7 @@
 #include "IFitSuiteStrategy.h"
 #include "FormFactors.h"
 #include "Simulation.h"
+#include "IIntensityFunction.h"
 #include "IObserver.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"

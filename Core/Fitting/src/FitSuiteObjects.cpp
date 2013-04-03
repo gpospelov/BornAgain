@@ -91,11 +91,13 @@ double FitSuiteObjects::calculateChiSquaredValue()
         IChiSquaredModule *chi = (*it)->getChiSquaredModule();
 
         chi->setNdegreeOfFreedom(
-            m_fit_objects.size() *
-            (*it)->getRealData()->getAllocatedSize() - m_nfree_parameters );
+            (int) (m_fit_objects.size() *
+                   (*it)->getRealData()->getAllocatedSize() -
+                   m_nfree_parameters) );
         // normalizing datasets to the maximum intensity over all fit objects defined
-        if( chi->getOutputDataNormalizer() )
+        if( chi->getOutputDataNormalizer() ) {
             chi->getOutputDataNormalizer()->setMaximumIntensity(max_intensity);
+        }
 
         double weight = (*it)->getWeight()/m_total_weight;
         double chi_squared = (weight*weight) * (*it)->calculateChiSquared();
@@ -110,7 +112,9 @@ double FitSuiteObjects::getResidualValue(size_t global_index)
     size_t index(0);
     const FitObject *fitObject =
         getObjectForGlobalDataIndex(global_index, index);
-    double residual = fitObject->getChiSquaredModule()->getResidualValue(index)*(fitObject->getWeight()/m_total_weight);
+    double residual =
+        fitObject->getChiSquaredModule()->getResidualValue(index) *
+        (fitObject->getWeight()/m_total_weight);
     return residual;
 }
 
@@ -120,7 +124,7 @@ double FitSuiteObjects::getSimulationMaxIntensity()
     double result(0);
     for(FitObjects_t::iterator it =
             m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        const OutputData<double > *data = 
+        const OutputData<double > *data =
             (*it)->getSimulation()->getOutputData();
         OutputData<double >::const_iterator cit =
             std::max_element(data->begin(), data->end());
@@ -148,10 +152,3 @@ std::string FitSuiteObjects::addParametersToExternalPool(
 
     return new_path;
 }
-
-//! ?
-void FitSuiteObjects::init_parameters()
-{
-}
-
-

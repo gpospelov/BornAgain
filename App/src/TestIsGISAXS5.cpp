@@ -181,12 +181,11 @@ void TestIsGISAXS5::run_isgisaxs_fit()
     //chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
     chiModule.setChiSquaredFunction(SquaredFunctionDefault());// isgisaxs uses epsion=0, which correspond to our SquaredFunctionDefault
     chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
-    chiModule.setIntensitySqrt( true );
+    chiModule.setIntensityFunction( IntensityFunctionSqrt() );
 
-    for(IsGISAXSData::DataSet_t::iterator it =
-            isgi_scans.begin(); it!= isgi_scans.end(); ++it)
-        mp_fitSuite->addSimulationAndRealData(
-            *mp_simulation, *(*it), chiModule);
+    for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
+        mp_fitSuite->addSimulationAndRealData(*mp_simulation, *(*it), chiModule);
+    }
 
     mp_fitSuite->runFit();
 

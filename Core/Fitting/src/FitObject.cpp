@@ -17,7 +17,9 @@
 #include "Exceptions.h"
 #include "MessageService.h"
 
-FitObject::FitObject(const Simulation& simulation, const OutputData<double >& real_data, const IChiSquaredModule& chi2_module, double weight)
+FitObject::FitObject(
+    const Simulation& simulation, const OutputData<double >& real_data,
+    const IChiSquaredModule& chi2_module, double weight)
     : m_simulation(simulation.clone())
     , m_real_data(real_data.clone())
     , m_chi2_module(chi2_module.clone())
@@ -25,9 +27,12 @@ FitObject::FitObject(const Simulation& simulation, const OutputData<double >& re
 {
     setName("FitObject");
     if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
-        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. Real data and output data in the simulation have different shape. Adjusting simulation's detector.";
+        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
+            "Real data and output data in the simulation have different shape. "
+            "Adjusting simulation's detector.";
     } else {
-        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. Real data and output data in the simulation have same shape.";
+        msglog(MSG::INFO) << "FitObject::FitObject() -> Info. "
+            "Real data and output data in the simulation have same shape.";
     }
     m_simulation->setDetectorParameters(*m_real_data);
 }
@@ -46,44 +51,46 @@ void FitObject::setRealData(const OutputData<double >& real_data)
     m_real_data = real_data.clone();
     if( m_simulation) {
         if( !m_real_data->hasSameShape(*m_simulation->getOutputData()) ) {
-            msglog(MSG::INFO) << "FitObject::setRealData() -> Real data and the detector have different shape. Adjusting detector...";
+            msglog(MSG::INFO) << "FitObject::setRealData() -> "
+                "Real data and the detector have different shape. "
+                "Adjusting detector...";
         } else {
-            msglog(MSG::INFO) << "FitObject::setRealData() -> Real data and the detector have same shape. No need to adjust detector.";
+            msglog(MSG::INFO) << "FitObject::setRealData() -> "
+                "Real data and the detector have same shape. "
+                "No need to adjust detector.";
         }
         m_simulation->setDetectorParameters(*m_real_data);
     }
 }
 
-//! Returns chi squared value
+//! Updates m_chi2_module; returns chi squared value.
+
 double FitObject::calculateChiSquared()
 {
-    m_chi2_module->setRealAndSimulatedData(*m_real_data, *m_simulation->getOutputData());
+    m_chi2_module->setRealAndSimulatedData(
+        *m_real_data, *m_simulation->getOutputData());
     return m_chi2_module->calculateChiSquared();
 }
 
 //! Adds parameters from local pool to external pool
-std::string FitObject::addParametersToExternalPool(std::string path,
-        ParameterPool* external_pool, int copy_number) const
+std::string FitObject::addParametersToExternalPool(
+    std::string path, ParameterPool* external_pool, int copy_number) const
 {
     // add own parameters
-    std::string  new_path = IParameterized::addParametersToExternalPool(path, external_pool, copy_number);
+    std::string new_path = IParameterized::addParametersToExternalPool(
+        path, external_pool, copy_number);
 
     // add parameters of the simulation
-    if(m_simulation) m_simulation->addParametersToExternalPool(new_path, external_pool, -1);
+    if(m_simulation)
+        m_simulation->addParametersToExternalPool(new_path, external_pool, -1);
 
     if(m_chi2_module) {
-        const IOutputDataNormalizer *data_normalizer = m_chi2_module->getOutputDataNormalizer();
-        if(data_normalizer) {
-            data_normalizer->addParametersToExternalPool(new_path, external_pool, -1);
-        }
+        const IOutputDataNormalizer* data_normalizer =
+            m_chi2_module->getOutputDataNormalizer();
+        if(data_normalizer)
+            data_normalizer->addParametersToExternalPool(
+                new_path, external_pool, -1);
     }
 
     return new_path;
 }
-
-//! ?
-void FitObject::init_parameters()
-{
-}
-
-

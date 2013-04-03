@@ -26,34 +26,48 @@
 class FitObject : public IParameterized
 {
  public:
-    FitObject(const Simulation& simulation, const OutputData<double >& real_data, const IChiSquaredModule& chi2_module=ChiSquaredModule(), double weight = 1.0);
+    FitObject(const Simulation& simulation,
+              const OutputData<double >& real_data,
+              const IChiSquaredModule& chi2_module=ChiSquaredModule(),
+              double weight = 1);
+
     ~FitObject();
 
     //! Returns simulation
     const Simulation *getSimulation() const { return m_simulation; }
+
     Simulation *getSimulation() { return m_simulation; }
+
     //! Sets simulation
-    void setSimulation(const Simulation& simulation) { delete m_simulation; m_simulation = simulation.clone(); }
+    void setSimulation(const Simulation& simulation) {
+        delete m_simulation; m_simulation = simulation.clone(); }
 
     //! Returns real data
-    const OutputData<double > *getRealData() const { return m_real_data; }
+    const OutputData<double> *getRealData() const { return m_real_data; }
     //! Sets real data
     void setRealData(const OutputData<double >& real_data);
 
     //! Returns simulated data
-    const OutputData<double > *getSimulationData() const { return m_simulation->getOutputData(); }
+    const OutputData<double> *getSimulationData() const {
+        return m_simulation->getOutputData(); }
 
     //! Returns chi2 module
-    const IChiSquaredModule *getChiSquaredModule() const {return m_chi2_module; }
-    IChiSquaredModule *getChiSquaredModule() {return m_chi2_module; }
+    const IChiSquaredModule *getChiSquaredModule() const {
+        return m_chi2_module; }
+
+    IChiSquaredModule *getChiSquaredModule() { return m_chi2_module; }
+
     //! Sets chi2 module
-    void setChiSquaredModule(const IChiSquaredModule& chi2_module) { delete m_chi2_module; m_chi2_module = chi2_module.clone(); }
+    void setChiSquaredModule(const IChiSquaredModule& chi2_module) {
+        delete m_chi2_module; m_chi2_module = chi2_module.clone(); }
 
     //! Returns chi squared value
     double calculateChiSquared();
 
     //! Adds parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
+    virtual std::string addParametersToExternalPool(
+        std::string path, ParameterPool *external_pool,
+        int copy_number=-1) const;
 
     //! Returns weight of data set in chi2 calculations
     double getWeight() const { return m_weight; }
@@ -63,16 +77,16 @@ class FitObject : public IParameterized
 
  protected:
     //! Registers some class members for later access via parameter pool
-    virtual void init_parameters();
+    virtual void init_parameters() {}
 
  private:
     FitObject(const FitObject& );
     FitObject& operator=(const FitObject& );
 
-    Simulation *m_simulation; //! external simulation (not owned by this)
-    OutputData<double > *m_real_data; //! real data
-    IChiSquaredModule *m_chi2_module; //! chi2 module
-    double m_weight; //! weight of data set in chi2 calculations
+    Simulation* m_simulation;       //!< external simulation (not owned by this)
+    OutputData<double>* m_real_data;  //!< real data
+    IChiSquaredModule* m_chi2_module; //!< chi2 module
+    double m_weight;                //!< weight of data set in chi2 calculations
 };
 
 #endif // FITOBJECT_H

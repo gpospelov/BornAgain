@@ -347,6 +347,7 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
     return p_multi_layer;
 }
 
+
 void TestFittingModule2::SampleBuilder::init_parameters()
 {
     getParameterPool()->clear();
@@ -356,7 +357,3 @@ void TestFittingModule2::SampleBuilder::init_parameters()
     getParameterPool()->registerParameter("m_prism3_height", &m_prism3_height);
     getParameterPool()->registerParameter("m_cylinder_ratio", &m_cylinder_ratio);
 }
-
-
-
-

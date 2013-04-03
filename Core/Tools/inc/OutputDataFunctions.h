@@ -18,7 +18,6 @@
 
 #include "Types.h"
 #include "OutputData.h"
-#include "IIntensityFunction.h"
 #include "Mask.h"
 
 //! Collection of functions to deal with OutputData
@@ -44,9 +43,6 @@ namespace OutputDataFunctions
 
     //! Select range on one of the axis. Resulting output data will have same number of axes
     OutputData<double> *selectRangeOnOneAxis(const OutputData<double >& data, const std::string& selected_axis_name, double axis_value1,  double axis_value2);
-
-    //! apply intensity function to values stored in output data
-    void applyFunction(OutputData<double>& data, const IIntensityFunction *func);
 
     //! Creates a rectangular mask based on the given OutputData object and limits
     Mask *CreateRectangularMask(const OutputData<double>& data, const double *minima, const double *maxima);

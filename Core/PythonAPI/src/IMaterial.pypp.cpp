@@ -67,6 +67,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Rotate3D.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
@@ -74,7 +75,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 #include "Types.h"
 #include "Units.h"
 #include "IMaterial.pypp.h"
@@ -84,6 +85,7 @@ namespace bp = boost::python;
 void register_IMaterial_class(){
 
     bp::class_< IMaterial >( "IMaterial", bp::init< std::string const & >(( bp::arg("name") )) )    
+        .def( bp::init< IMaterial const & >(( bp::arg("other") )) )    
         .def( bp::self_ns::str( bp::self ) );
 
 }

@@ -69,6 +69,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Rotate3D.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
@@ -76,7 +77,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 #include "Types.h"
 #include "Units.h"
 #include "ParticleInfo.pypp.h"
@@ -85,8 +86,15 @@ namespace bp = boost::python;
 
 struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
 
-    ParticleInfo_wrapper(::Particle const & p_particle, ::Geometry::Transform3D const & transform, double depth=0, double abundance=0 )
-    : ParticleInfo( boost::ref(p_particle), boost::ref(transform), depth, abundance )
+    ParticleInfo_wrapper(::Particle const & p_particle, ::Geometry::PTransform3D const & transform, double depth=0, double abundance=0 )
+    : ParticleInfo( boost::ref(p_particle), transform, depth, abundance )
+      , bp::wrapper< ParticleInfo >(){
+        // constructor
+    
+    }
+
+    ParticleInfo_wrapper(::Particle const & p_particle, double depth=0, double abundance=0 )
+    : ParticleInfo( boost::ref(p_particle), depth, abundance )
       , bp::wrapper< ParticleInfo >(){
         // constructor
     
@@ -176,18 +184,6 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
         IParameterized::printParameters( );
     }
 
-    virtual void print_structure(  ) {
-        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
-            func_print_structure(  );
-        else{
-            this->ISample::print_structure(  );
-        }
-    }
-    
-    void default_print_structure(  ) {
-        ISample::print_structure( );
-    }
-
     virtual void registerParameter( ::std::string const & name, double * parpointer ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
@@ -247,7 +243,8 @@ struct ParticleInfo_wrapper : ParticleInfo, bp::wrapper< ParticleInfo > {
 
 void register_ParticleInfo_class(){
 
-    bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "ParticleInfo", bp::init< Particle const &, Geometry::Transform3D const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=0 )) )    
+    bp::class_< ParticleInfo_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "ParticleInfo", bp::init< Particle const &, Geometry::PTransform3D const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("transform"), bp::arg("depth")=0, bp::arg("abundance")=0 )) )    
+        .def( bp::init< Particle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0, bp::arg("abundance")=0 )) )    
         .def( 
             "clone"
             , (::ParticleInfo * ( ::ParticleInfo::* )(  ) const)(&::ParticleInfo::clone)
@@ -260,12 +257,11 @@ void register_ParticleInfo_class(){
             "getDepth"
             , (double ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getDepth ) )    
         .def( 
+            "getPTransform3D"
+            , (::Geometry::PTransform3D const ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getPTransform3D ) )    
+        .def( 
             "getParticle"
             , (::Particle const * ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getParticle )
-            , bp::return_value_policy< bp::reference_existing_object >() )    
-        .def( 
-            "getTransform3D"
-            , (::Geometry::Transform3D const * ( ::ParticleInfo::* )(  ) const)( &::ParticleInfo::getTransform3D )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "setAbundance"
@@ -277,7 +273,7 @@ void register_ParticleInfo_class(){
             , ( bp::arg("depth") ) )    
         .def( 
             "setTransform"
-            , (void ( ::ParticleInfo::* )( ::Geometry::Transform3D const & ) )( &::ParticleInfo::setTransform )
+            , (void ( ::ParticleInfo::* )( ::Geometry::PTransform3D const & ) )( &::ParticleInfo::setTransform )
             , ( bp::arg("transform") ) )    
         .def( 
             "areParametersChanged"
@@ -306,10 +302,6 @@ void register_ParticleInfo_class(){
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
             , (void ( ParticleInfo_wrapper::* )(  ) const)(&ParticleInfo_wrapper::default_printParameters) )    
-        .def( 
-            "print_structure"
-            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
-            , (void ( ParticleInfo_wrapper::* )(  ) )(&ParticleInfo_wrapper::default_print_structure) )    
         .def( 
             "registerParameter"
             , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &ParticleInfo_wrapper::default_registerParameter )

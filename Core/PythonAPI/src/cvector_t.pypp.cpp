@@ -67,6 +67,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Rotate3D.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
@@ -74,7 +75,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 #include "Types.h"
 #include "Units.h"
 #include "cvector_t.pypp.h"
@@ -87,7 +88,7 @@ void register_cvector_t_class(){
         typedef bp::class_< Geometry::BasicVector3D< std::complex< double > > > cvector_t_exposer_t;
         cvector_t_exposer_t cvector_t_exposer = cvector_t_exposer_t( "cvector_t", bp::init< >() );
         bp::scope cvector_t_scope( cvector_t_exposer );
-        cvector_t_exposer.def( bp::init< std::complex< double > const &, std::complex< double > const &, std::complex< double > const & >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
+        cvector_t_exposer.def( bp::init< std::complex< double >, std::complex< double >, std::complex< double > >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
         { //::Geometry::BasicVector3D< std::complex< double > >::cross
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
@@ -242,18 +243,6 @@ void register_cvector_t_class(){
                 "setZ"
                 , setZ_function_type( &::Geometry::BasicVector3D< std::complex< double > >::setZ )
                 , ( bp::arg("a") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::transform
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > > & ( exported_class_t::*transform_function_type )( ::Geometry::Transform3D const & ) ;
-            
-            cvector_t_exposer.def( 
-                "transform"
-                , transform_function_type( &::Geometry::BasicVector3D< std::complex< double > >::transform )
-                , ( bp::arg("m") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::Geometry::BasicVector3D< std::complex< double > >::x

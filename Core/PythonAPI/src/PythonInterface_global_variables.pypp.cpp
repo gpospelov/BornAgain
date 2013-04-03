@@ -67,6 +67,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Rotate3D.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
@@ -74,7 +75,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 #include "Types.h"
 #include "Units.h"
 #include "PythonInterface_global_variables.pypp.h"
@@ -97,11 +98,11 @@ void register_global_variables(){
 
     bp::scope().attr("degree") = Units::degree;
 
-    bp::scope().attr("dumm32") = pyplusplus::aliases::dumm32;
-
     bp::scope().attr("dummy1") = pyplusplus::aliases::dummy1;
 
     bp::scope().attr("dummy2") = pyplusplus::aliases::dummy2;
+
+    bp::scope().attr("dummy3") = pyplusplus::aliases::dummy3;
 
     bp::scope().attr("meter") = Units::meter;
 

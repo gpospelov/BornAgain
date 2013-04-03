@@ -19,6 +19,14 @@ from pyplusplus.function_transformers import transformers
 ModuleName = 'PythonInterface'
 
 
+# Usefull links
+# (nice code example)
+# http://publicsvn.edmstudio.com/ogre/OgreAR/python/ogrear/generate_code.py  (nice code example)
+# (about smart pointers registration)
+# http://www.gamedev.net/topic/553076-py-automatically-register-boostshared_ptr-to-python/ 
+# (smart pointers to be exported)
+# http://pygccxml.svn.sourceforge.net/viewvc/pygccxml/pyplusplus_dev/unittests/data/smart_pointers_to_be_exported.hpp?revision=1837&view=markup
+
 # --------------------------------------------------------------------------
 # This is patched version of pyplusplus.function_transformers classes to
 # pass address of ctype(double) into C++. The pointer is passed now in the 
@@ -103,6 +111,7 @@ myFiles=[
   'PythonOutputData.h',
   'PythonPlusplusHelper.h',
   'RealParameterWrapper.h',
+  'Rotate3D.h',
   'Simulation.h',
   'SimulationParameters.h',
   'IStochasticParameter.h',
@@ -110,7 +119,7 @@ myFiles=[
   'StochasticGaussian.h',
   'StochasticSampledParameter.h',
   'StochasticDoubleGate.h',
-  'Transform3D.h',
+  'ITransform3D.h',
   'Types.h',
   'Units.h',
 ]
@@ -138,7 +147,7 @@ def AdditionalRules(mb):
     MethodsWhichAreNotSuitable=[
         "phi", "theta", "cosTheta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",
         "setMag", "perp", "perp2", "setPerp", "angle", "unit", "orthogonal",
-        "rotate","rotateX","rotateY","rotateZ"
+        "rotated","rotatedX","rotatedY","rotatedZ"
     ]
     for cl in classes:
       if "BasicVector3D<std::complex<double> >" in cl.decl_string or "BasicVector3D<double>" in cl.decl_string or "BasicVector3D<int>" in cl.decl_string:
@@ -428,7 +437,8 @@ def AdditionalRules(mb):
     cl.member_function("setSampleBuilder").include()
 
   # --- Transform3D.h -------------------------------------------------
-  #if "Transform3D.h" in myFiles:
+  if "Transform3D.h" in myFiles:
+    mb.class_("PTransform3D").member_function("inverse").exclude()
     # removing mentioning of Point3D from constructors and member_functions
     #mb.class_( "Point3D<double>").exclude()
     #TransformClasses={"Transform3D","Reflect3D","Translate3D", "Scale3D", "Rotate3D"}
@@ -436,6 +446,28 @@ def AdditionalRules(mb):
       #cl = mb.class_(clname)
       #cl.constructors(lambda decl: 'Point3D' in decl.decl_string, allow_empty=True ).exclude()
       #cl.member_functions(lambda decl: 'Point3D' in decl.decl_string, allow_empty=True ).exclude()
+
+  if 'Rotate3D.h' in myFiles:
+    #mb.class_("RotateX_3D").member_function("inverse").exclude()
+    mb.class_("RotateY_3D").member_function("inverse").exclude()
+    mb.class_("RotateZ_3D").member_function("inverse").exclude()
+
+  #foo2 = mb.class_('ITransform3D').add_registration_code( 'bp::register_ptr_to_python<boost::shared_ptr< Geometry::ITransform3D > >();', False )
+
+  # shared_ptr's
+  shared_ptrs = mb.decls( lambda decl: decl.name.startswith( 'shared_ptr<' ) )
+  print "XXX"
+  for x in shared_ptrs:
+      print x.name
+  
+
+
+  #if 'Rotate3D.h' in myFiles:
+    #for cl in classes:
+      #if "Rotate" in cl.decl_string:
+          #print cl.decl_string
+
+
 
   # --- Types.h -------------------------------------------------------
   if "Types.h" in myFiles:

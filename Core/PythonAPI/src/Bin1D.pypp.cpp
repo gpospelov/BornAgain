@@ -67,6 +67,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Rotate3D.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
@@ -74,7 +75,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 #include "Types.h"
 #include "Units.h"
 #include "Bin1D.pypp.h"
@@ -86,7 +87,7 @@ void register_Bin1D_class(){
     bp::class_< Bin1D >( "Bin1D" )    
         .def( 
             "getMidPoint"
-            , (double ( ::Bin1D::* )(  ) const)(& ::Bin1D::getMidPoint ) )    
+            , (double ( ::Bin1D::* )(  ) const)( &::Bin1D::getMidPoint ) )    
         .def_readwrite( "m_lower", &Bin1D::m_lower )    
         .def_readwrite( "m_upper", &Bin1D::m_upper )    
         .def( bp::self != bp::self )    

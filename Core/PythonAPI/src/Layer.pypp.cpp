@@ -69,6 +69,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Rotate3D.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
@@ -76,7 +77,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 #include "Types.h"
 #include "Units.h"
 #include "Layer.pypp.h"
@@ -92,8 +93,8 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     }
 
-    Layer_wrapper(::IMaterial const * p_material, double thickness=0 )
-    : Layer( boost::python::ptr(p_material), thickness )
+    Layer_wrapper(::IMaterial const * material, double thickness=0 )
+    : Layer( boost::python::ptr(material), thickness )
       , bp::wrapper< Layer >(){
         // constructor
     
@@ -166,28 +167,28 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         return Layer::hasDWBASimulation( );
     }
 
-    virtual void setMaterial( ::IMaterial const * p_material ) {
+    virtual void setMaterial( ::IMaterial const * material ) {
         if( bp::override func_setMaterial = this->get_override( "setMaterial" ) )
-            func_setMaterial( boost::python::ptr(p_material) );
+            func_setMaterial( boost::python::ptr(material) );
         else{
-            this->Layer::setMaterial( boost::python::ptr(p_material) );
+            this->Layer::setMaterial( boost::python::ptr(material) );
         }
     }
     
-    void default_setMaterial( ::IMaterial const * p_material ) {
-        Layer::setMaterial( boost::python::ptr(p_material) );
+    void default_setMaterial( ::IMaterial const * material ) {
+        Layer::setMaterial( boost::python::ptr(material) );
     }
 
-    virtual void setMaterial( ::IMaterial const * p_material, double thickness ) {
+    virtual void setMaterial( ::IMaterial const * material, double thickness ) {
         if( bp::override func_setMaterial = this->get_override( "setMaterial" ) )
-            func_setMaterial( boost::python::ptr(p_material), thickness );
+            func_setMaterial( boost::python::ptr(material), thickness );
         else{
-            this->Layer::setMaterial( boost::python::ptr(p_material), thickness );
+            this->Layer::setMaterial( boost::python::ptr(material), thickness );
         }
     }
     
-    void default_setMaterial( ::IMaterial const * p_material, double thickness ) {
-        Layer::setMaterial( boost::python::ptr(p_material), thickness );
+    void default_setMaterial( ::IMaterial const * material, double thickness ) {
+        Layer::setMaterial( boost::python::ptr(material), thickness );
     }
 
     virtual void setThickness( double thickness ) {
@@ -274,18 +275,6 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         IParameterized::printParameters( );
     }
 
-    virtual void print_structure(  ) {
-        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
-            func_print_structure(  );
-        else{
-            this->ISample::print_structure(  );
-        }
-    }
-    
-    void default_print_structure(  ) {
-        ISample::print_structure( );
-    }
-
     virtual void registerParameter( ::std::string const & name, double * parpointer ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
@@ -346,7 +335,7 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
 void register_Layer_class(){
 
     bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable >( "Layer", bp::init< >() )    
-        .def( bp::init< IMaterial const *, bp::optional< double > >(( bp::arg("p_material"), bp::arg("thickness")=0 )) )    
+        .def( bp::init< IMaterial const *, bp::optional< double > >(( bp::arg("material"), bp::arg("thickness")=0 )) )    
         .def( bp::init< Layer const & >(( bp::arg("other") )) )    
         .def( 
             "clone"
@@ -374,12 +363,12 @@ void register_Layer_class(){
             "setMaterial"
             , (void ( ::Layer::* )( ::IMaterial const * ) )(&::Layer::setMaterial)
             , (void ( Layer_wrapper::* )( ::IMaterial const * ) )(&Layer_wrapper::default_setMaterial)
-            , ( bp::arg("p_material") ) )    
+            , ( bp::arg("material") ) )    
         .def( 
             "setMaterial"
             , (void ( ::Layer::* )( ::IMaterial const *,double ) )(&::Layer::setMaterial)
             , (void ( Layer_wrapper::* )( ::IMaterial const *,double ) )(&Layer_wrapper::default_setMaterial)
-            , ( bp::arg("p_material"), bp::arg("thickness") ) )    
+            , ( bp::arg("material"), bp::arg("thickness") ) )    
         .def( 
             "setThickness"
             , (void ( ::Layer::* )( double ) )(&::Layer::setThickness)
@@ -412,10 +401,6 @@ void register_Layer_class(){
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
             , (void ( Layer_wrapper::* )(  ) const)(&Layer_wrapper::default_printParameters) )    
-        .def( 
-            "print_structure"
-            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
-            , (void ( Layer_wrapper::* )(  ) )(&Layer_wrapper::default_print_structure) )    
         .def( 
             "registerParameter"
             , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &Layer_wrapper::default_registerParameter )

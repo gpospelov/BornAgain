@@ -67,6 +67,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Rotate3D.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
@@ -74,7 +75,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 #include "Types.h"
 #include "Units.h"
 #include "IndexVector3D.pypp.h"
@@ -87,7 +88,7 @@ void register_IndexVector3D_class(){
         typedef bp::class_< Geometry::BasicVector3D< int > > IndexVector3D_exposer_t;
         IndexVector3D_exposer_t IndexVector3D_exposer = IndexVector3D_exposer_t( "IndexVector3D", bp::init< >() );
         bp::scope IndexVector3D_scope( IndexVector3D_exposer );
-        IndexVector3D_exposer.def( bp::init< int const &, int const &, int const & >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
+        IndexVector3D_exposer.def( bp::init< int, int, int >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
         IndexVector3D_exposer.def( bp::self *= bp::other< double >() );
         IndexVector3D_exposer.def( bp::self += bp::self );
         IndexVector3D_exposer.def( bp::self -= bp::self );

@@ -46,6 +46,7 @@ HEADERS +=  \
     PythonAPI/inc/ISelectionRule.pypp.h \
     PythonAPI/inc/ISimulation.pypp.h \
     PythonAPI/inc/IStochasticParameter.pypp.h \
+    PythonAPI/inc/ITransform3D.pypp.h \
     PythonAPI/inc/kvector_t.pypp.h \
     PythonAPI/inc/Lattice.pypp.h \
     PythonAPI/inc/Lattice2DIFParameters.pypp.h \
@@ -74,10 +75,8 @@ HEADERS +=  \
     PythonAPI/inc/PythonInterface_global_variables.pypp.h \
     PythonAPI/inc/RealParameterWrapper.pypp.h \
     PythonAPI/inc/ResolutionFunction2DSimple.pypp.h \
-    PythonAPI/inc/Rotate3D.pypp.h \
-    PythonAPI/inc/RotateX3D.pypp.h \
-    PythonAPI/inc/RotateY3D.pypp.h \
-    PythonAPI/inc/RotateZ3D.pypp.h \
+    PythonAPI/inc/RotateY_3D.pypp.h \
+    PythonAPI/inc/RotateZ_3D.pypp.h \
     PythonAPI/inc/SimpleSelectionRule.pypp.h \
     PythonAPI/inc/Simulation.pypp.h \
     PythonAPI/inc/SimulationParameters.pypp.h \
@@ -85,7 +84,6 @@ HEADERS +=  \
     PythonAPI/inc/StochasticDoubleGaussian.pypp.h \
     PythonAPI/inc/StochasticParameter_t.pypp.h \
     PythonAPI/inc/StochasticSampledParameter.pypp.h \
-    PythonAPI/inc/Transform3D.pypp.h \
     PythonAPI/inc/vdouble1d_t.pypp.h \
     PythonAPI/inc/vector_DiffuseParticleInfoPtr_t.pypp.h \
     PythonAPI/inc/vector_IFormFactorPtr_t.pypp.h \
@@ -143,6 +141,7 @@ SOURCES +=  \
     PythonAPI/src/ISelectionRule.pypp.cpp \
     PythonAPI/src/ISimulation.pypp.cpp \
     PythonAPI/src/IStochasticParameter.pypp.cpp \
+    PythonAPI/src/ITransform3D.pypp.cpp \
     PythonAPI/src/kvector_t.pypp.cpp \
     PythonAPI/src/Lattice.pypp.cpp \
     PythonAPI/src/Lattice2DIFParameters.pypp.cpp \
@@ -171,10 +170,8 @@ SOURCES +=  \
     PythonAPI/src/PythonInterface_global_variables.pypp.cpp \
     PythonAPI/src/RealParameterWrapper.pypp.cpp \
     PythonAPI/src/ResolutionFunction2DSimple.pypp.cpp \
-    PythonAPI/src/Rotate3D.pypp.cpp \
-    PythonAPI/src/RotateX3D.pypp.cpp \
-    PythonAPI/src/RotateY3D.pypp.cpp \
-    PythonAPI/src/RotateZ3D.pypp.cpp \
+    PythonAPI/src/RotateY_3D.pypp.cpp \
+    PythonAPI/src/RotateZ_3D.pypp.cpp \
     PythonAPI/src/SimpleSelectionRule.pypp.cpp \
     PythonAPI/src/Simulation.pypp.cpp \
     PythonAPI/src/SimulationParameters.pypp.cpp \
@@ -182,7 +179,6 @@ SOURCES +=  \
     PythonAPI/src/StochasticDoubleGaussian.pypp.cpp \
     PythonAPI/src/StochasticParameter_t.pypp.cpp \
     PythonAPI/src/StochasticSampledParameter.pypp.cpp \
-    PythonAPI/src/Transform3D.pypp.cpp \
     PythonAPI/src/vdouble1d_t.pypp.cpp \
     PythonAPI/src/vector_DiffuseParticleInfoPtr_t.pypp.cpp \
     PythonAPI/src/vector_IFormFactorPtr_t.pypp.cpp \

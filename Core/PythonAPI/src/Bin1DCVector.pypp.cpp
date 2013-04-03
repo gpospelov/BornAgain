@@ -67,6 +67,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Rotate3D.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
@@ -74,7 +75,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 #include "Types.h"
 #include "Units.h"
 #include "Bin1DCVector.pypp.h"
@@ -91,7 +92,7 @@ void register_Bin1DCVector_class(){
             , (::cvector_t ( ::Bin1DCVector::* )(  ) const)( &::Bin1DCVector::getDelta ) )    
         .def( 
             "getMidPoint"
-            , (::cvector_t ( ::Bin1DCVector::* )(  ) const)(& ::Bin1DCVector::getMidPoint ) )    
+            , (::cvector_t ( ::Bin1DCVector::* )(  ) const)( &::Bin1DCVector::getMidPoint ) )    
         .def_readwrite( "m_q_lower", &Bin1DCVector::m_q_lower )    
         .def_readwrite( "m_q_upper", &Bin1DCVector::m_q_upper );
 

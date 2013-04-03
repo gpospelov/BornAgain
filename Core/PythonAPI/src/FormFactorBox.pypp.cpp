@@ -69,6 +69,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Rotate3D.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
@@ -76,7 +77,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 #include "Types.h"
 #include "Units.h"
 #include "FormFactorBox.pypp.h"
@@ -248,18 +249,6 @@ struct FormFactorBox_wrapper : FormFactorBox, bp::wrapper< FormFactorBox > {
         IParameterized::printParameters( );
     }
 
-    virtual void print_structure(  ) {
-        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
-            func_print_structure(  );
-        else{
-            this->ISample::print_structure(  );
-        }
-    }
-    
-    void default_print_structure(  ) {
-        ISample::print_structure( );
-    }
-
     virtual void registerParameter( ::std::string const & name, double * parpointer ) {
         namespace bpl = boost::python;
         if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
@@ -381,10 +370,6 @@ void register_FormFactorBox_class(){
             "printParameters"
             , (void ( ::IParameterized::* )(  ) const)(&::IParameterized::printParameters)
             , (void ( FormFactorBox_wrapper::* )(  ) const)(&FormFactorBox_wrapper::default_printParameters) )    
-        .def( 
-            "print_structure"
-            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
-            , (void ( FormFactorBox_wrapper::* )(  ) )(&FormFactorBox_wrapper::default_print_structure) )    
         .def( 
             "registerParameter"
             , (void (*)( ::IParameterized &,::std::string const &,long unsigned int ))( &FormFactorBox_wrapper::default_registerParameter )

@@ -98,16 +98,28 @@ struct ChiSquaredModule_wrapper : ChiSquaredModule, bp::wrapper< ChiSquaredModul
         return IChiSquaredModule::getFittingDataSelector( );
     }
 
-    virtual ::IIntensityFunction const * getIntensityFunction(  ) const  {
-        if( bp::override func_getIntensityFunction = this->get_override( "getIntensityFunction" ) )
-            return func_getIntensityFunction(  );
+    virtual bool getIntensityLog(  ) const  {
+        if( bp::override func_getIntensityLog = this->get_override( "getIntensityLog" ) )
+            return func_getIntensityLog(  );
         else{
-            return this->IChiSquaredModule::getIntensityFunction(  );
+            return this->IChiSquaredModule::getIntensityLog(  );
         }
     }
     
-    ::IIntensityFunction const * default_getIntensityFunction(  ) const  {
-        return IChiSquaredModule::getIntensityFunction( );
+    bool default_getIntensityLog(  ) const  {
+        return IChiSquaredModule::getIntensityLog( );
+    }
+
+    virtual bool getIntensitySqrt(  ) const  {
+        if( bp::override func_getIntensitySqrt = this->get_override( "getIntensitySqrt" ) )
+            return func_getIntensitySqrt(  );
+        else{
+            return this->IChiSquaredModule::getIntensitySqrt(  );
+        }
+    }
+    
+    bool default_getIntensitySqrt(  ) const  {
+        return IChiSquaredModule::getIntensitySqrt( );
     }
 
     virtual ::IOutputDataNormalizer const * getOutputDataNormalizer(  ) const  {
@@ -158,16 +170,28 @@ struct ChiSquaredModule_wrapper : ChiSquaredModule, bp::wrapper< ChiSquaredModul
         IChiSquaredModule::setFittingDataSelector( boost::ref(selector) );
     }
 
-    virtual void setIntensityFunction( ::IIntensityFunction const & intensity_function ) {
-        if( bp::override func_setIntensityFunction = this->get_override( "setIntensityFunction" ) )
-            func_setIntensityFunction( boost::ref(intensity_function) );
+    virtual void setIntensityLog( bool val ) {
+        if( bp::override func_setIntensityLog = this->get_override( "setIntensityLog" ) )
+            func_setIntensityLog( val );
         else{
-            this->IChiSquaredModule::setIntensityFunction( boost::ref(intensity_function) );
+            this->IChiSquaredModule::setIntensityLog( val );
         }
     }
     
-    void default_setIntensityFunction( ::IIntensityFunction const & intensity_function ) {
-        IChiSquaredModule::setIntensityFunction( boost::ref(intensity_function) );
+    void default_setIntensityLog( bool val ) {
+        IChiSquaredModule::setIntensityLog( val );
+    }
+
+    virtual void setIntensitySqrt( bool val ) {
+        if( bp::override func_setIntensitySqrt = this->get_override( "setIntensitySqrt" ) )
+            func_setIntensitySqrt( val );
+        else{
+            this->IChiSquaredModule::setIntensitySqrt( val );
+        }
+    }
+    
+    void default_setIntensitySqrt( bool val ) {
+        IChiSquaredModule::setIntensitySqrt( val );
     }
 
     virtual void setOutputDataNormalizer( ::IOutputDataNormalizer const & data_normalizer ) {
@@ -213,10 +237,13 @@ void register_ChiSquaredModule_class(){
             , (::IFittingDataSelector const * ( ChiSquaredModule_wrapper::* )(  ) const)(&ChiSquaredModule_wrapper::default_getFittingDataSelector)
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
-            "getIntensityFunction"
-            , (::IIntensityFunction const * ( ::IChiSquaredModule::* )(  ) const)(&::IChiSquaredModule::getIntensityFunction)
-            , (::IIntensityFunction const * ( ChiSquaredModule_wrapper::* )(  ) const)(&ChiSquaredModule_wrapper::default_getIntensityFunction)
-            , bp::return_value_policy< bp::reference_existing_object >() )    
+            "getIntensityLog"
+            , (bool ( ::IChiSquaredModule::* )(  ) const)(&::IChiSquaredModule::getIntensityLog)
+            , (bool ( ChiSquaredModule_wrapper::* )(  ) const)(&ChiSquaredModule_wrapper::default_getIntensityLog) )    
+        .def( 
+            "getIntensitySqrt"
+            , (bool ( ::IChiSquaredModule::* )(  ) const)(&::IChiSquaredModule::getIntensitySqrt)
+            , (bool ( ChiSquaredModule_wrapper::* )(  ) const)(&ChiSquaredModule_wrapper::default_getIntensitySqrt) )    
         .def( 
             "getOutputDataNormalizer"
             , (::IOutputDataNormalizer const * ( ::IChiSquaredModule::* )(  ) const)(&::IChiSquaredModule::getOutputDataNormalizer)
@@ -237,10 +264,15 @@ void register_ChiSquaredModule_class(){
             , (void ( ChiSquaredModule_wrapper::* )( ::IFittingDataSelector const & ) )(&ChiSquaredModule_wrapper::default_setFittingDataSelector)
             , ( bp::arg("selector") ) )    
         .def( 
-            "setIntensityFunction"
-            , (void ( ::IChiSquaredModule::* )( ::IIntensityFunction const & ) )(&::IChiSquaredModule::setIntensityFunction)
-            , (void ( ChiSquaredModule_wrapper::* )( ::IIntensityFunction const & ) )(&ChiSquaredModule_wrapper::default_setIntensityFunction)
-            , ( bp::arg("intensity_function") ) )    
+            "setIntensityLog"
+            , (void ( ::IChiSquaredModule::* )( bool ) )(&::IChiSquaredModule::setIntensityLog)
+            , (void ( ChiSquaredModule_wrapper::* )( bool ) )(&ChiSquaredModule_wrapper::default_setIntensityLog)
+            , ( bp::arg("val") ) )    
+        .def( 
+            "setIntensitySqrt"
+            , (void ( ::IChiSquaredModule::* )( bool ) )(&::IChiSquaredModule::setIntensitySqrt)
+            , (void ( ChiSquaredModule_wrapper::* )( bool ) )(&ChiSquaredModule_wrapper::default_setIntensitySqrt)
+            , ( bp::arg("val") ) )    
         .def( 
             "setOutputDataNormalizer"
             , (void ( ::IChiSquaredModule::* )( ::IOutputDataNormalizer const & ) )(&::IChiSquaredModule::setOutputDataNormalizer)

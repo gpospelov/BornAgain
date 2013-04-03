@@ -67,6 +67,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Rotate3D.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
@@ -74,7 +75,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 #include "Types.h"
 #include "Units.h"
 #include "HomogeneousMaterial.pypp.h"
@@ -83,9 +84,9 @@ namespace bp = boost::python;
 
 void register_HomogeneousMaterial_class(){
 
-    bp::class_< HomogeneousMaterial, bp::bases< IMaterial > >( "HomogeneousMaterial", bp::init< complex_t const & >(( bp::arg("refractive_index") )) )    
-        .def( bp::init< std::string const &, complex_t const & >(( bp::arg("name"), bp::arg("refractive_index") )) )    
+    bp::class_< HomogeneousMaterial, bp::bases< IMaterial > >( "HomogeneousMaterial", bp::init< std::string const &, complex_t const & >(( bp::arg("name"), bp::arg("refractive_index") )) )    
         .def( bp::init< std::string const &, double, double >(( bp::arg("name"), bp::arg("refractive_index_real"), bp::arg("refractive_index_imag") )) )    
+        .def( bp::init< complex_t const & >(( bp::arg("refractive_index") )) )    
         .def( 
             "getRefractiveIndex"
             , (::complex_t ( ::HomogeneousMaterial::* )(  ) const)( &::HomogeneousMaterial::getRefractiveIndex ) )    

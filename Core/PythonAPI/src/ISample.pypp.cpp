@@ -69,6 +69,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "PythonOutputData.h"
 #include "PythonPlusplusHelper.h"
 #include "RealParameterWrapper.h"
+#include "Rotate3D.h"
 #include "Simulation.h"
 #include "SimulationParameters.h"
 #include "IStochasticParameter.h"
@@ -76,7 +77,7 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "StochasticGaussian.h"
 #include "StochasticSampledParameter.h"
 #include "StochasticDoubleGate.h"
-#include "Transform3D.h"
+#include "ITransform3D.h"
 #include "Types.h"
 #include "Units.h"
 #include "ISample.pypp.h"
@@ -102,18 +103,6 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
     
     ::ISample * default_clone(  ) const  {
         return ISample::clone( );
-    }
-
-    virtual void print_structure(  ) {
-        if( bp::override func_print_structure = this->get_override( "print_structure" ) )
-            func_print_structure(  );
-        else{
-            this->ISample::print_structure(  );
-        }
-    }
-    
-    void default_print_structure(  ) {
-        ISample::print_structure( );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -219,8 +208,7 @@ void register_ISample_class(){
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "print_structure"
-            , (void ( ::ISample::* )(  ) )(&::ISample::print_structure)
-            , (void ( ISample_wrapper::* )(  ) )(&ISample_wrapper::default_print_structure) )    
+            , (void ( ::ISample::* )(  ) )( &::ISample::print_structure ) )    
         .def( 
             "areParametersChanged"
             , (bool ( ::IParameterized::* )(  ) )(&::IParameterized::areParametersChanged)

@@ -15,9 +15,7 @@
 
 #include "FitSuiteObjects.h"
 
-FitSuiteObjects::FitSuiteObjects()
-  : m_total_weight(0), m_simulation_normalize(false),
-    m_nfree_parameters(0), m_chi_squared_value(0)
+FitSuiteObjects::FitSuiteObjects() : m_total_weight(0), m_simulation_normalize(false), m_nfree_parameters(0), m_chi_squared_value(0)
 {
     setName("FitSuiteObjects");
     init_parameters();
@@ -30,20 +28,16 @@ void FitSuiteObjects::clear()
 }
 
 //! Adds to kit pair of (simulation, real data) for consecutive simulation and chi2 module
-void FitSuiteObjects::add(
-    const Simulation& simulation, const OutputData<double >& real_data,
-    const IChiSquaredModule& chi2_module, double weight)
+void FitSuiteObjects::add(const Simulation& simulation, const OutputData<double >& real_data, const IChiSquaredModule& chi2_module, double weight)
 {
     m_total_weight += weight;
-    m_fit_objects.push_back(
-        new FitObject(simulation, real_data, chi2_module, weight));
+    m_fit_objects.push_back(new FitObject(simulation, real_data, chi2_module, weight));
 }
 
 //! loop through all defined simulations and run them
 void FitSuiteObjects::runSimulations()
 {
-    for(FitObjects_t::iterator it =
-            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+    for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         (*it)->getSimulation()->runSimulation();
         if(m_simulation_normalize) (*it)->getSimulation()->normalize();
     }
@@ -54,20 +48,17 @@ void FitSuiteObjects::runSimulations()
 size_t FitSuiteObjects::getSizeOfDataSet() const
 {
     size_t result(0);
-    for(FitObjects_t::const_iterator it =
-            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+    for(FitObjects_t::const_iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         result += (*it)->getSizeOfData();
     }
     return result;
 }
 
 //! ?
-const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(
-    size_t global_index, size_t& local_index)
+const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(size_t global_index, size_t& local_index)
 {
     local_index = global_index;
-    for(FitObjects_t::const_iterator it =
-            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+    for(FitObjects_t::const_iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         if(local_index < (*it)->getSizeOfData() ) {
             return (*it);
         } else if(local_index >= (*it)->getSizeOfData() ) {
@@ -75,9 +66,7 @@ const FitObject *FitSuiteObjects::getObjectForGlobalDataIndex(
         }
     }
     std::ostringstream ostr;
-    ostr << "FitSuiteObjects::getObjectForGlobalDataIndex() -> "
-        "Error! Can't find fit object for given global data index " <<
-        global_index;
+    ostr << "FitSuiteObjects::getObjectForGlobalDataIndex() -> Error! Can't find fit object for given global data index " << global_index;
     throw LogicErrorException(ostr.str());
 }
 
@@ -86,16 +75,14 @@ double FitSuiteObjects::calculateChiSquaredValue()
 {
     double result(0);
     double max_intensity = getSimulationMaxIntensity();
-    for(FitObjects_t::iterator it =
-            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+    for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
         IChiSquaredModule *chi = (*it)->getChiSquaredModule();
 
-        chi->setNdegreeOfFreedom(
-            m_fit_objects.size() *
-            (*it)->getRealData()->getAllocatedSize() - m_nfree_parameters );
+        chi->setNdegreeOfFreedom( (int)(m_fit_objects.size() * (*it)->getRealData()->getAllocatedSize() - m_nfree_parameters) );
         // normalizing datasets to the maximum intensity over all fit objects defined
-        if( chi->getOutputDataNormalizer() )
+        if( chi->getOutputDataNormalizer() ) {
             chi->getOutputDataNormalizer()->setMaximumIntensity(max_intensity);
+        }
 
         double weight = (*it)->getWeight()/m_total_weight;
         double chi_squared = (weight*weight) * (*it)->calculateChiSquared();
@@ -108,8 +95,7 @@ double FitSuiteObjects::calculateChiSquaredValue()
 double FitSuiteObjects::getResidualValue(size_t global_index)
 {
     size_t index(0);
-    const FitObject *fitObject =
-        getObjectForGlobalDataIndex(global_index, index);
+    const FitObject *fitObject = getObjectForGlobalDataIndex(global_index, index);
     double residual = fitObject->getChiSquaredModule()->getResidualValue(index)*(fitObject->getWeight()/m_total_weight);
     return residual;
 }
@@ -118,20 +104,17 @@ double FitSuiteObjects::getResidualValue(size_t global_index)
 double FitSuiteObjects::getSimulationMaxIntensity()
 {
     double result(0);
-    for(FitObjects_t::iterator it =
-            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
-        const OutputData<double > *data = 
-            (*it)->getSimulation()->getOutputData();
-        OutputData<double >::const_iterator cit =
-            std::max_element(data->begin(), data->end());
+    for(FitObjects_t::iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it) {
+        const OutputData<double > *data = (*it)->getSimulation()->getOutputData();
+        OutputData<double >::const_iterator cit = std::max_element(data->begin(), data->end());
         result = std::max(result, *cit);
     }
     return result;
 }
 
 //! Adds parameters from local pool to external pool
-std::string FitSuiteObjects::addParametersToExternalPool(
-    std::string path, ParameterPool* external_pool, int copy_number) const
+std::string FitSuiteObjects::addParametersToExternalPool(std::string path,
+        ParameterPool* external_pool, int copy_number) const
 {
     (void)copy_number;
     // add own parameters
@@ -141,8 +124,7 @@ std::string FitSuiteObjects::addParametersToExternalPool(
 
     int ncopy(0);
     if(m_fit_objects.size()==1) ncopy=-1; // if we have only one object, lets get rid from copy number
-    for(FitObjects_t::const_iterator it =
-            m_fit_objects.begin(); it!= m_fit_objects.end(); ++it, ++ncopy) {
+    for(FitObjects_t::const_iterator it = m_fit_objects.begin(); it!= m_fit_objects.end(); ++it, ++ncopy) {
         (*it)->addParametersToExternalPool(new_path, external_pool, ncopy);
     }
 

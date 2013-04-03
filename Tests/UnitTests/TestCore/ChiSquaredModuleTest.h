@@ -47,7 +47,7 @@ TEST_F(ChiSquaredModuleTest, InitialState)
     EXPECT_TRUE( dynamic_cast<const SquaredFunctionDefault *>(m_chi_empty.getSquaredFunction()));
     EXPECT_TRUE( dynamic_cast<const DefaultAllDataSelector *>(m_chi_empty.getFittingDataSelector()));
     EXPECT_EQ( NULL, m_chi_empty.getOutputDataNormalizer());
-    EXPECT_EQ( NULL, m_chi_empty.getIntensityFunction());
+    EXPECT_FALSE(m_chi_empty.getIntensitySqrt());
     EXPECT_EQ( double(0), m_chi_empty.getValue());
     ASSERT_THROW(m_chi_empty.calculateChiSquared(), NullPointerException);
     ASSERT_THROW(m_chi_empty.createChi2DifferenceMap(), NullPointerException);
@@ -61,7 +61,7 @@ TEST_F(ChiSquaredModuleTest, CloneOfEmpty)
     EXPECT_TRUE( dynamic_cast<const SquaredFunctionDefault *>(clone_of_empty->getSquaredFunction()));
     EXPECT_TRUE( dynamic_cast<const DefaultAllDataSelector *>(clone_of_empty->getFittingDataSelector()));
     EXPECT_EQ( NULL, clone_of_empty->getOutputDataNormalizer());
-    EXPECT_EQ( NULL, clone_of_empty->getIntensityFunction());
+    EXPECT_FALSE(clone_of_empty->getIntensitySqrt());
     EXPECT_EQ( double(0), clone_of_empty->getValue());
     ASSERT_THROW(clone_of_empty->calculateChiSquared(), NullPointerException);
     ASSERT_THROW(clone_of_empty->createChi2DifferenceMap(), NullPointerException);

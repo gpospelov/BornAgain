@@ -1,0 +1,18 @@
+# -*- mode: python -*-
+
+# Include file for program lssrc.
+# Returns user-written source files.
+
+import glob, re
+
+def source_files(root,ext):
+    fnames = []
+    # get all files with right extension from pwd
+    for e in ext:
+        fnames += sorted( glob.glob( root+"*."+e ) )
+    # remove files known to be machine generated
+    out = list(fnames)
+    for f in fnames:
+        if re.search( r'\.pypp\.', f ):
+            out.remove( f )
+    return out

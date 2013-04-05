@@ -5,11 +5,11 @@
 
 import glob, re
 
-def source_files(root,ext):
+def source_files(root):
     fnames = []
     # get all files with right extension from pwd
-    for e in ext:
-        fnames += sorted( glob.glob( root+"*/*."+e ) )
+    fnames += sorted( glob.glob( root+"inc/*.h" ) )
+    fnames += sorted( glob.glob( root+"src/*.cpp" ) )
     # remove files known to be machine generated
     out = list(fnames)
     for f in fnames:

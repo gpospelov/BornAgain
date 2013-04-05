@@ -9,6 +9,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "ICompositeSample.pypp.h"
 
@@ -117,6 +119,25 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
+    }
+
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< ICompositeSample_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
     }
 
     virtual bool setParameterValue( ::std::string const & name, double value ) {
@@ -277,6 +298,16 @@ void register_ICompositeSample_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&ICompositeSample_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::registerParameter
+        
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            
+            ICompositeSample_exposer.def( 
+                "registerParameter"
+                , default_registerParameter_function_type( &ICompositeSample_wrapper::default_registerParameter )
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue

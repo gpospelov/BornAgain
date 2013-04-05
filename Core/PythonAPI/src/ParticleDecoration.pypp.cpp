@@ -9,6 +9,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "ParticleDecoration.pypp.h"
 
@@ -20,13 +22,6 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     : ParticleDecoration( )
       , bp::wrapper< ParticleDecoration >(){
         // null constructor
-    
-    }
-
-    ParticleDecoration_wrapper(::Particle const & p_particle, double depth=0.0, double abundance=1.0e+0 )
-    : ParticleDecoration( boost::ref(p_particle), depth, abundance )
-      , bp::wrapper< ParticleDecoration >(){
-        // constructor
     
     }
 
@@ -52,6 +47,18 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
     
     double default_getAbundanceFractionOfParticle( ::size_t index ) const  {
         return ParticleDecoration::getAbundanceFractionOfParticle( index );
+    }
+
+    virtual ::SafePointerVector< IInterferenceFunction > getInterferenceFunctions(  ) const  {
+        if( bp::override func_getInterferenceFunctions = this->get_override( "getInterferenceFunctions" ) )
+            return func_getInterferenceFunctions(  );
+        else{
+            return this->ParticleDecoration::getInterferenceFunctions(  );
+        }
+    }
+    
+    ::SafePointerVector< IInterferenceFunction > default_getInterferenceFunctions(  ) const  {
+        return ParticleDecoration::getInterferenceFunctions( );
     }
 
     virtual ::size_t getNumberOfInterferenceFunctions(  ) const  {
@@ -162,6 +169,25 @@ struct ParticleDecoration_wrapper : ParticleDecoration, bp::wrapper< ParticleDec
         IParameterized::printParameters( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< ParticleDecoration_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -206,7 +232,6 @@ void register_ParticleDecoration_class(){
         typedef bp::class_< ParticleDecoration_wrapper, bp::bases< IDecoration >, boost::noncopyable > ParticleDecoration_exposer_t;
         ParticleDecoration_exposer_t ParticleDecoration_exposer = ParticleDecoration_exposer_t( "ParticleDecoration", bp::init< >() );
         bp::scope ParticleDecoration_scope( ParticleDecoration_exposer );
-        ParticleDecoration_exposer.def( bp::init< Particle const &, bp::optional< double, double > >(( bp::arg("p_particle"), bp::arg("depth")=0.0, bp::arg("abundance")=1.0e+0 )) );
         { //::ParticleDecoration::addInterferenceFunction
         
             typedef void ( ::ParticleDecoration::*addInterferenceFunction_function_type )( ::IInterferenceFunction const & ) ;
@@ -280,6 +305,17 @@ void register_ParticleDecoration_class(){
                 , getInterferenceFunction_function_type( &::ParticleDecoration::getInterferenceFunction )
                 , ( bp::arg("index") )
                 , bp::return_value_policy< bp::reference_existing_object >() );
+        
+        }
+        { //::ParticleDecoration::getInterferenceFunctions
+        
+            typedef ::SafePointerVector< IInterferenceFunction > ( ::ParticleDecoration::*getInterferenceFunctions_function_type )(  ) const;
+            typedef ::SafePointerVector< IInterferenceFunction > ( ParticleDecoration_wrapper::*default_getInterferenceFunctions_function_type )(  ) const;
+            
+            ParticleDecoration_exposer.def( 
+                "getInterferenceFunctions"
+                , getInterferenceFunctions_function_type(&::ParticleDecoration::getInterferenceFunctions)
+                , default_getInterferenceFunctions_function_type(&ParticleDecoration_wrapper::default_getInterferenceFunctions) );
         
         }
         { //::ParticleDecoration::getNumberOfInterferenceFunctions
@@ -384,6 +420,16 @@ void register_ParticleDecoration_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&ParticleDecoration_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::registerParameter
+        
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            
+            ParticleDecoration_exposer.def( 
+                "registerParameter"
+                , default_registerParameter_function_type( &ParticleDecoration_wrapper::default_registerParameter )
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue

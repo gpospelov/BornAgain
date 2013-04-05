@@ -5,6 +5,7 @@ import os
 import sys
 import glob
 import subprocess
+import time
 from pyplusplus import module_builder
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
@@ -13,165 +14,162 @@ from pygccxml.declarations.matchers import access_type_matcher_t
 from pygccxml.declarations.matchers import virtuality_type_matcher_t
 from pygccxml import declarations
 from pyplusplus import function_transformers as FT
-
-from pyplusplus.function_transformers import transformers
-
-ModuleName = 'PythonInterface'
+from pygccxml import parser
 
 
-# Usefull links
-# (nice code example)
-# http://publicsvn.edmstudio.com/ogre/OgreAR/python/ogrear/generate_code.py  (nice code example)
-# (about smart pointers registration)
-# http://www.gamedev.net/topic/553076-py-automatically-register-boostshared_ptr-to-python/ 
-# (smart pointers to be exported)
-# http://pygccxml.svn.sourceforge.net/viewvc/pygccxml/pyplusplus_dev/unittests/data/smart_pointers_to_be_exported.hpp?revision=1837&view=markup
-
-# --------------------------------------------------------------------------
-# This is patched version of pyplusplus.function_transformers classes to
-# pass address of ctype(double) into C++. The pointer is passed now in the 
-# form of long unsigned, which correspond to 64 bit (before it was unsigned int)
-# --------------------------------------------------------------------------
-class from_address_custom_t(transformers.type_modifier_t):
-    def __init__(self, function, arg_ref):
-        modifier = lambda type_: declarations.FUNDAMENTAL_TYPES[ 'long unsigned int' ]
-        print modifier
-        transformers.type_modifier_t.__init__( self, function, arg_ref, modifier )
-        if not transformers.is_ptr_or_array( self.arg.type ):
-            raise ValueError( '%s\nin order to use "from_address_t" transformation, argument %s type must be a pointer or a array (got %s).' ) \
-                  % ( function, self.arg_ref.name, arg.type)
-    def __str__(self):
-        return "from_address(%s)"%(self.arg.name)
-
-def from_address_custom( *args, **keywd ):
-    def creator( function ):
-        return from_address_custom_t( function, *args, **keywd )
-    return creator
+import builder_rules
 
 
-# list of files to analyse and corresponding functions with rules for analysis
-myFiles=[
-  #'BasicVector3D.h',
-  #'Bin.h',
-  #'Crystal.h',
-  #'DiffuseParticleInfo.h',
-  #'FTDistributions.h',
-  #'FormFactorBox.h',
-  #'FormFactorCrystal.h',
-  #'FormFactorCylinder.h',
-  #'FormFactorDecoratorDebyeWaller.h',
-  #'FormFactorFullSphere.h',
-  #'FormFactorGauss.h',
-  #'FormFactorLorentz.h',
-  #'FormFactorParallelepiped.h',
-  #'FormFactorPrism3.h',
-  #'FormFactorPyramid.h',
-  #'FormFactorSphereGaussianRadius.h',
-  #'HomogeneousMaterial.h',
-  #'ICloneable.h',
-  #'IClusteredParticles.h',
-  #'ICompositeSample.h',
-  #'IDecoration.h',
-  #'IFormFactor.h',
-  #'IFormFactorBorn.h',
-  #'IFormFactorDecorator.h',
-  #'IInterferenceFunction.h',
-  #'IMaterial.h',
-  #'IParameterized.h',
-  #'ISample.h',
-  #'ISampleBuilder.h',
-  #'ISelectionRule.h',
-  #'ISingleton.h',
-  #'Instrument.h',
-  #'InterferenceFunction1DParaCrystal.h',
-  #'InterferenceFunction2DLattice.h',
-  #'InterferenceFunction2DParaCrystal.h',
-  #'InterferenceFunctionNone.h',
-  #'IResolutionFunction2D.h',
-  #'Lattice.h',
-  #'Lattice2DIFParameters.h',
-  #'LatticeBasis.h',
-  #'Layer.h',
-  #'LayerDecorator.h',
-  #'LayerRoughness.h',
-  #'Lattice2DIFParameters.h',
-  #'MaterialManager.h',
-  #'MesoCrystal.h',
-  #'MultiLayer.h',
-  #'OpticalFresnel.h',
-  #'ParameterPool.h',
-  #'Particle.h',
-  #'ParticleBuilder.h',
-  #'ParticleCoreShell.h',
-  #'ParticleDecoration.h',
-  #'OutputData.h',
-  #'OutputDataIOFactory.h',
-  #'ParticleInfo.h',
-  #'PositionParticleInfo.h',
-  #'PythonOutputData.h',
-  'PythonPlusplusHelper.h',
-  #'RealParameterWrapper.h',
-  'Rotate3D.h',
-  #'Simulation.h',
-  #'SimulationParameters.h',
-  #'IStochasticParameter.h',
-  #'ResolutionFunction2DSimple.h',
-  #'StochasticGaussian.h',
-  #'StochasticSampledParameter.h',
-  #'StochasticDoubleGate.h',
-  'ITransform3D.h',
-  #'Types.h',
-  #'Units.h',
+include_dirs = [
+    '../../Core/Samples/inc',
+    '../../Core/FormFactors/inc',
+    '../../Core/Algorithms/inc',
+    '../../Core/Tools/inc',
+    '../../Core/PythonAPI/inc',
+    '../../Core/Geometry/inc'
 ]
 
-# list of include directories
-myIncludes = ['../../Core/Samples/inc','../../Core/FormFactors/inc','../../Core/Algorithms/inc','../../Core/Tools/inc','../../Core/PythonAPI/inc','../../Core/Geometry/inc']
+include_classes = [
+"BasicVector3D<double>",
+"BasicVector3D<std::complex<double> >",
+"Beam",
+"Bin1D",
+"Bin1DCVector",
+"Crystal",
+"Detector",
+"FTDistribution2DCauchy",
+"FormFactorBox",
+"FormFactorCone",
+"FormFactorCylinder",
+"FormFactorDecoratorDebyeWaller",
+"FormFactorEllipsoid",
+"FormFactorFullSphere",
+"FormFactorFullSpheroid",
+"FormFactorGauss",
+"FormFactorHemiSpheroid",
+"FormFactorLorentz",
+"FormFactorParallelepiped",
+"FormFactorPrism3",
+"FormFactorPrism6",
+"FormFactorPyramid",
+"FormFactorSphere",
+"HomogeneousMaterial",
+"IAxis",
+"ICloneable",
+"IClusteredParticles",
+"ICompositeSample",
+"IDecoration",
+"IDetectorResolution",
+"IFTDistribution2D",
+"IFormFactor",
+"IFormFactorBorn",
+"IInterferenceFunction",
+"IMaterial",
+"IParameterized",
+"IResolutionFunction2D",
+"ISample",
+"ISampleBuilder",
+"ISelectionRule",
+"ITransform3D",
+"Instrument",
+"InterferenceFunction1DParaCrystal",
+"InterferenceFunction2DLattice",
+"InterferenceFunction2DParaCrystal",
+"InterferenceFunctionNone",
+"Lattice",
+"Lattice2DIFParameters",
+"LatticeBasis",
+"Layer",
+"LayerDecorator",
+"LayerInterface",
+"LayerRoughness",
+"MaterialManager",
+"MultiLayer",
+"OutputData<double>",
+"OutputDataIOFactory",
+"ParameterPool",
+"Particle",
+"Particle",
+"ParticleCoreShell",
+"ParticleBuilder",
+"ParticleDecoration",
+"ParticleInfo",
+"PositionParticleInfo",
+"RealParameterWrapper",
+"ResolutionFunction2DSimple",
+"RotateY_3D",
+"RotateZ_3D",
+"Simulation",
+"SimulationParameters",
+"StochasticDoubleGate",
+"StochasticDoubleGaussian",
+"StochasticParameter<double>",
+"StochasticSampledParameter",
+"cvector_t",
+"kvector_t",
+]
 
 
-# -------------------------------------------------------------------
+from pyplusplus.file_writers.balanced_files import balanced_files_t
+balanced_files_t.HEADER_EXT='.h'
+balanced_files_t.SOURCE_EXT='.cpp'
+from pyplusplus.file_writers.multiple_files import multiple_files_t
+multiple_files_t.HEADER_EXT='.pypp.h'
+multiple_files_t.SOURCE_EXT='.pypp.cpp'
+
+
+
+
+# -----------------------------------------------------------------------------
 # AdditionalRules
-# -------------------------------------------------------------------
-def AdditionalRules(mb):
-
-  # --- BasicVector3D.h -----------------------------------------------
-  if "BasicVector3D.h" in myFiles:
-    ##cl = mb.class_("BasicVector3D<std::complex<double> >")
-    #mb.classes(lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
-    #mb.free_operators( lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
-    #mb.free_functions( lambda decl: 'Geometry::BasicVector3D<std::complex<double> >' in decl.decl_string ).exclude()
-    #mb.classes(lambda decl: 'Geometry::BasicVector3D<std::complex<double> const>' in decl.decl_string ).exclude()
-    #mb.free_operators( lambda decl: 'Geometry::BasicVector3D<std::complex<double> const>' in decl.decl_string ).exclude()
-    #mb.free_functions( lambda decl: 'Geometry::BasicVector3D<std::complex<double> const>' in decl.decl_string ).exclude()
-    classes = mb.classes()
-    # here we have to exclude all templated methods which are not defined complex<double>, otherwise py++ will try to generate wrappers
-    MethodsWhichAreNotSuitable=[
+# -----------------------------------------------------------------------------
+def ManualClassTunings(mb):
+    mb.class_("Detector").member_functions("addAxis").exclude()
+    #mb.class_("Instrument").member_functions("setDetectorParameters").exclude()
+    #mb.class_("Simulation").member_functions("setDetectorParameters").exclude()
+    #mb.class_("IFTDistribution2D").member_functions("transformToStarBasis").exclude()
+    #mb.class_("FTDistribution2DCauchy").member_functions("transformToStarBasis").exclude()
+    #
+    shared_ptrs = mb.decls( lambda decl: decl.name.startswith( 'shared_ptr<' ) )
+    shared_ptrs.disable_warnings( messages.W1040 )
+    # BasicVector3D
+    methods_to_exclude=[
         "phi", "theta", "cosTheta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",
         "setMag", "perp", "perp2", "setPerp", "angle", "unit", "orthogonal",
         "rotated","rotatedX","rotatedY","rotatedZ"
     ]
-    for cl in classes:
-      if "BasicVector3D<std::complex<double> >" in cl.decl_string or "BasicVector3D<double>" in cl.decl_string or "BasicVector3D<int>" in cl.decl_string:
-        for fun in cl.member_functions(allow_empty=True):
-          MethodIsBad = False
-          for x in MethodsWhichAreNotSuitable:
-            if fun.name == x:
-              MethodIsBad = True
-          if MethodIsBad:
-            fun.exclude()
-
-
-    MethodsWhichAreNotUsed=["dot","mag","mag2","cross","magxy","magxy2","transform"]
-    for cl in classes:
-      if "BasicVector3D<int>" in cl.decl_string:
-        for fun in cl.member_functions(allow_empty=True):
-          MethodIsBad = False
-          for x in MethodsWhichAreNotUsed:
-            if fun.name == x:
-              MethodIsBad = True
-          if MethodIsBad:
-            fun.exclude()
-
-    # 28.04.2013 To get back kvector algebra
+    classes_to_exclude = ["BasicVector3D<std::complex<double> >","BasicVector3D<double>","BasicVector3D<int>"]
+    builder_rules.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)
+    pass
+    # Pure virtual should always be included
+    mb.class_("IDetectorResolution").member_function("applyDetectorResolution").include()
+    #
+    cl = mb.class_( "Lattice" )
+    cl.member_functions().exclude()
+    cl.member_function("getBasisVectorA").include()
+    cl.member_function("getBasisVectorB").include()
+    cl.member_function("getBasisVectorC").include()
+    cl.member_function("createTrigonalLattice").include()
+    cl.member_function("createTrigonalLattice").call_policies = call_policies.return_value_policy(call_policies.return_by_value )
+    cl.member_function("setSelectionRule").include()
+    #
+    cl = mb.class_("LatticeBasis")
+    cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
+    cl.member_functions().exclude()
+    cl.member_function("addParticle").include()
+    #
+    cl = mb.class_('RealParameterWrapper') # given class is only to teach pyplusplus to templates, but we do not need class itself to be visible in python, excluding it...
+    cl.member_functions().exclude()
+    cl.member_function("setValue").include()
+    cl.member_function("getValue").include()
+    cl.member_function("isNull").include()
+    # 
+    mb.free_function("GetOutputDataNdimensions").include()
+    mb.free_function("GetOutputData").include()
+    mb.free_function("GetOutputDataAxis").include()
+    mb.free_function('GetOutputData').call_policies = call_policies.custom_call_policies("")
+    mb.free_function('GetOutputDataAxis').call_policies = call_policies.custom_call_policies("")
+    #
     cl = mb.class_("BasicVector3D<double>")
     cl.add_code("def( bp::self - bp::self )")
     cl.add_code("def( bp::self + bp::self )")
@@ -181,412 +179,130 @@ def AdditionalRules(mb):
     cl.add_code("def( -bp::self )")
     cl.add_code("def( bp::self / bp::other< double >() )")
     cl.add_code("def( bp::self_ns::str( bp::self ) )")
-    #cl.add_code("def( bp::self * bp::self )")
-    #cl.add_code("def( bp::self != bp::self )")
-    #cl.add_code("def( bp::self == bp::self )  ")  
-
-
-  #if "FTDistributions.h" in myFiles:
-      #cl = mb.class_("IFTDistribution2D")
-      #cl = mb.class_("FTDistribution2DCauchy")
-      #cl.member_function("transformToStarBasis").exclude()
-
-  # --- FormFactorCylinder.h ------------------------------------------
-  if "FormFactorCrystal.h" in myFiles:
-    cl = mb.class_( "FormFactorCrystal" )
-    cl.member_function("evaluate").exclude()
-    cl.member_function("evaluate_for_q").exclude()
-
-
-  # --- FormFactorCylinder.h ------------------------------------------
-  #if "FormFactorCylinder.h" in myFiles:
-    #cl = mb.class_( "FormFactorCylinder" )
-
-  # --- FormFactorDecoratorDebyeWaller.h ------------------------------
-  #if "FormFactorDecoratorDebyeWaller" in myFiles:
-    #cl = mb.class_( "FormFactorDecoratorDebyeWaller" )
-
-  # --- FormFactorFullSphere.h ----------------------------------------
-  #if "FormFactorFullSphere.h" in myFiles:
-    #cl = mb.class_( "FormFactorFullSphere" )
-
-  # --- FormFactorPyramid.h -------------------------------------------
-  #if "FormFactorPyramid.h" in myFiles:
-    #cl = mb.class_( "FormFactorPyramid" )
-
-  # --- FormFactorSphereGaussianRadius.h ------------------------------
-  if "FormFactorSphereGaussianRadius.h" in myFiles:
-    cl = mb.class_( "FormFactorSphereGaussianRadius" )
-    cl.member_functions("createDistributedFormFactors").exclude()
-
-
-  # --- HomogeneousMaterial.h -----------------------------------------
-  #if "HomogeneousMaterial.h" in myFiles:
-    #cl = mb.class_( "HomogeneousMaterial" )
-
-  # --- IClusteredParticles.h -----------------------------------------
-  #if "IClusteredParticles.h" in myFiles:
-    #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-    #cl.member_function("createTotalFormFactor").call_policies = call_policies.return_value_policy(call_policies.manage_new_object )
-
-  # --- ICompositeSample.h --------------------------------------------
-  if "ICompositeSample.h" in myFiles:
-    cl = mb.class_( "ICompositeSample" )
-    #cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-    #cl.member_functions().exclude()
-    cl.member_function( "createIterator" ).exclude()
-
-  # --- IFormFactor.h -------------------------------------------------
-  #if "IFormFactor.h" in myFiles:
-    #cl = mb.class_( "IFormFactor" )
-
-  # --- IFormFactorBorn.h ---------------------------------------------
-  #if "IFormFactorBorn.h" in myFiles:
-    #cl = mb.class_( "IFormFactorBorn" )
-
-  # --- IFormFactorBornSeparable.h ------------------------------------
-  #if "IFormFactorBornSeparable.h" in myFiles:
-    #cl = mb.class_( "IFormFactorBornSeparable" )
-
-  # --- IFormFactorDecorator.h ----------------------------------------
-  #if "IFormFactorDecorator.h" in myFiles:
-    #cl = mb.class_( "IFormFactorDecorator" )
-
-  # --- IInterferenceFunction.h ---------------------------------------
-  #if "IInterferenceFunction.h" in myFiles:
-    #cl = mb.class_( "IInterferenceFunction" )
-
-  # --- InterferenceFunctionNone.h ------------------------------------
-  #if "InterferenceFunctionNone.h" in myFiles:
-    #cl = mb.class_( "InterferenceFunctionNone" )
-
-  # --- InterferenceFunction1DParaCrystal.h ---------------------------
-  #if "InterferenceFunction1DParaCrystal.h" in myFiles:
-    #cl = mb.class_( "InterferenceFunction1DParaCrystal" )
-
-  # --- IMaterial.h ---------------------------------------------------
-  #if "IMaterial.h" in myFiles:
-    #cl = mb.class_( "IMaterial" )
-
-  # --- IParameterized.h ----------------------------------------------
-  if "IParameterized.h" in myFiles:
+    #
     cl = mb.class_( "IParameterized" )
     cl.member_function("registerParameter").include()
-    cl.member_function("registerParameter").add_transformation( from_address_custom( 1 ) )
-
-    #cl = mb.class_( "IParameterized" )
-    #cl.member_functions().exclude()
-    #cl.member_function( "createParameterTree" ).include()
-    #cl.member_function( "addParametersToExternalPool" ).include()
-
-  # --- ISingleton.h --------------------------------------------------
-  #if "ISingleton.h" in myFiles:
-    #cl = mb.class_( "ISingleton" )
-
-  # --- ISample.h -----------------------------------------------------
-  if "ISample.h" in myFiles:
-    cl = mb.class_( "ISample" )
-    cl.member_functions().exclude()
-    cl.member_function( "clone" ).include()
-    cl.member_function("print_structure").include()
-
-  # --- ISampleBuilder.h ----------------------------------------------
-  if "ISampleBuilder.h" in myFiles:
+    cl.member_function("registerParameter").add_transformation( builder_rules.from_address_custom( 1 ) )
+    #
     cl = mb.class_( "ISampleBuilder" )
     cl.member_functions().exclude()
     cl.member_function( "buildSample" ).include()
     cl.member_function( "buildSample" ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
-
-  # --- Lattice.h -----------------------------------------------------
-  if "Lattice.h" in myFiles:
-    cl = mb.class_( "Lattice" )
-    cl.member_functions().exclude()
-    cl.member_function("getBasisVectorA").include()
-    cl.member_function("getBasisVectorB").include()
-    cl.member_function("getBasisVectorC").include()
-    cl.member_function("createTrigonalLattice").include()
-    cl.member_function("createTrigonalLattice").call_policies = call_policies.return_value_policy(call_policies.return_by_value )
-    cl.member_function("setSelectionRule").include()
-
-  # --- LatticeBasis.h ------------------------------------------------
-  if "LatticeBasis.h" in myFiles:
-    cl = mb.class_( "LatticeBasis" )
-    cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-    cl.member_functions().exclude()
-    cl.member_function("addParticle").include()
-
-  # --- Layer.h -------------------------------------------------------
-  if "Layer.h" in myFiles:
-    cl = mb.class_( "Layer" )
-    cl.member_function( "createDWBASimulation" ).exclude()
-    # we need to include back setMaterial methods since they have pointers in argument list (and our default policy is to exclude them)
-    for fun in cl.member_functions():
-      if fun.name == "setMaterial":
-        fun.include()
-    # including back constructors with pointers (general policy is to exclude them)
-    cl.constructors().include()
-
-  # --- LayerDecorator.h ----------------------------------------------
-  if "LayerDecorator.h" in myFiles:
-    cl = mb.class_( "LayerDecorator" )
-    cl.member_functions().exclude()
-    #cl.member_function( "createDiffuseDWBASimulation").exclude()
-    #cl.member_function( "createDWBASimulation").exclude()
-    #cl.member_function( "createStrategy").exclude()
-
-  # --- LayerRoughness.h ----------------------------------------------
-  if "LayerRoughness.h" in myFiles:
-    cl = mb.class_( "LayerRoughness" )
-    cl.member_function( "getSpectralFun" ).exclude()
-    cl.member_function( "getCorrFun" ).exclude()
-
-  # --- MaterialManager.h ---------------------------------------------
-  if "MaterialManager.h" in myFiles:
+    #
     cl = mb.class_( "MaterialManager" )
     cl.constructors().exclude()
-
-  # --- MesoCrystal.h -------------------------------------------------
-  if "MesoCrystal.h" in myFiles:
-    cl = mb.class_( "MesoCrystal" )
-    cl.member_functions( ).exclude() # excluding all member functions, leaving only constructors
-
-  # --- MultiLayer.h --------------------------------------------------
-  if "MultiLayer.h" in myFiles:
-    cl = mb.class_( "MultiLayer" )
-    cl.member_functions( ).exclude()
-    cl.member_function( "addLayer" ).include()
-    cl.member_function( "addLayer" ).include()
-    cl.member_function( "addLayerWithTopRoughness" ).include()
-
-  # --- OutputData.h ----------------------------------------------------
-  if "OutputData.h" in myFiles:
+    #
     cl = mb.class_("OutputData<double>")
     cl.add_code('def("__setitem__", &pyplusplus_setitem<OutputData<double >,int,double> )')
-    MethodsToExclude=["begin","end"]
-    for fun in cl.member_functions(allow_empty=True):
-      isToExclude = False
-      for x in MethodsToExclude:
-        if fun.name == x:
-          isToExclude = True
-      if isToExclude:
-        fun.exclude()
-
-  # --- Particle.h ----------------------------------------------------
-  if "Particle.h" in myFiles:
+    #
     cl = mb.class_( "Particle" )
     cl.member_function( "createDiffuseParticleInfo" ).exclude()
     cl.member_function( "createDistributedParticles" ).exclude()
-
-  # --- Crystal.h -----------------------------------------------------
-  #if "Crystal.h" in myFiles:
-    #cl = mb.class_( "Crystal" )
-
-  # --- ParticleDecoration.h ------------------------------------------
-  if "ParticleDecoration.h" in myFiles:
+    #
     cl = mb.class_( "ParticleDecoration" )
     cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
-    #cl.member_function("createStrategy").exclude()
-
-  #if "ParticleInfo.h" in myFiles:
-    #cl = mb.class_( "ParticleInfo" )
-
-
-
-  # --- OpticalFresnel.h ----------------------------------------------
-  #if "OpticalFresnel.h" in myFiles:
-    #cl = mb.class_( "OpticalFresnel" )
-
-  # --- Point3D.h -----------------------------------------------------
-  #if "Point3D.h" in myFiles:
-    #cl = mb.class_( "Point3D<double>" )
-
-  # --- ParameterPool.h -----------------------------------------------
-  if "ParameterPool.h" in myFiles:
+    #
     cl = mb.class_( "ParameterPool" )
-    #print "XXX",from_address_custom( 1 )
-    cl.member_function("registerParameter").add_transformation( from_address_custom( 1 ) )
+    cl.member_function("registerParameter").add_transformation( builder_rules.from_address_custom( 1 ) )
     cl.member_function("getMatchedParameters").exclude()
-
-  # --- ParticleCoreShell.h -----------------------------------------------
-  if "ParticleCoreShell.h" in myFiles:
+    #
+    mb.namespace( "Units" ).include()
+    #
+    cl = mb.class_( "Layer" )
+    # including back methods which have been excluded by our pointer policy
+    for fun in cl.member_functions():
+        if fun.name == "setMaterial":fun.include()
+    cl.constructors().include() # including back constructors with pointers
+    #
+    cl = mb.class_("Simulation")
+    cl.member_function("setSampleBuilder").include()
+    #
     cl = mb.class_( "ParticleCoreShell" )
     cl.member_functions().exclude()
 
-  # --- PythonOutputData.h --------------------------------------------
-  if "PythonOutputData.h" in myFiles:
-    # these functions returns PyObject, the empty custom policy is the only way I know
-    mb.free_function('GetOutputData').call_policies = call_policies.custom_call_policies("")
-    mb.free_function('GetOutputDataAxis').call_policies = call_policies.custom_call_policies("")
-
-  # --- PythonPlusplusHelper.h ----------------------------------------
-  if "PythonPlusplusHelper.h" in myFiles:
-    cl = mb.class_( "PythonPlusplusHelper" )
-    cl.exclude() # given class is only to teach pyplusplus to templates, but we do not need class itself to be visible in python, excluding it...
-
-  # --- RealParameterWrapper.h ----------------------------------------
-  if "RealParameterWrapper.h" in myFiles:
-    cl = mb.class_('RealParameterWrapper') # given class is only to teach pyplusplus to templates, but we do not need class itself to be visible in python, excluding it...
-    cl.member_functions().exclude()
-    cl.member_function("setValue").include()
-    cl.member_function("getValue").include()
-    cl.member_function("isNull").include()
-
-  if "Simulation.h" in myFiles:
-    mb.class_('DWBASimulation').exclude()
-    cl = mb.class_("Simulation")
-    cl.member_function("setSampleBuilder").include()
-
-  # --- Transform3D.h -------------------------------------------------
-  if "Transform3D.h" in myFiles:
-    mb.class_("PTransform3D").member_function("inverse").exclude()
-    # removing mentioning of Point3D from constructors and member_functions
-    #mb.class_( "Point3D<double>").exclude()
-    #TransformClasses={"Transform3D","Reflect3D","Translate3D", "Scale3D", "Rotate3D"}
-    #for clname in TransformClasses:
-      #cl = mb.class_(clname)
-      #cl.constructors(lambda decl: 'Point3D' in decl.decl_string, allow_empty=True ).exclude()
-      #cl.member_functions(lambda decl: 'Point3D' in decl.decl_string, allow_empty=True ).exclude()
-
-  if 'Rotate3D.h' in myFiles:
-    #mb.class_("RotateX_3D").member_function("inverse").exclude()
-    mb.class_("RotateY_3D").member_function("inverse").exclude()
-    mb.class_("RotateZ_3D").member_function("inverse").exclude()
-
-  foo2 = mb.class_('RotateY_3D').add_registration_code( 'bp::register_ptr_to_python<boost::shared_ptr< Geometry::RotateY_3D > >();', False )
-  foo2 = mb.class_('RotateZ_3D').add_registration_code( 'bp::register_ptr_to_python<boost::shared_ptr< Geometry::RotateZ_3D > >();', False )
-
-  # shared_ptr's
-  shared_ptrs = mb.decls( lambda decl: decl.name.startswith( 'shared_ptr<' ) )
-  print "XXX"
-  for x in shared_ptrs:
-      print x.name
-  
-
-
-  #if 'Rotate3D.h' in myFiles:
-    #for cl in classes:
-      #if "Rotate" in cl.decl_string:
-          #print cl.decl_string
 
 
 
-  # --- Types.h -------------------------------------------------------
-  if "Types.h" in myFiles:
-    cl = mb.class_("KVectorContainer")
-    cl.exclude()
+# excluding specific member functions
+def ManualExcludeMemberFunctions(mb):
+    # with given name in function name
+    to_exclude=['Iterator','iterator','DWBASimulation']
+    to_exclude_exact=['createDiffuseParticleInfo','createDistributedParticles',
+    'inverse','transformed','getNearestLatticeVectorCoordinates','getNearestReciprocalLatticeVectorCoordinates',
+    'collectBraggAngles','getKVectorContainer',
+    'begin','end','getBinOfAxis','addMask','getMask','setMask',
+    ]
+    for f in mb.member_functions():
+        for x in to_exclude:
+            if x in f.name: f.exclude()
+        for x in to_exclude_exact:
+            if x == f.name: f.exclude()
+    pass
 
 
+#------------------------------------------------------------------------------
+# produces boost python code
+#------------------------------------------------------------------------------
 def MakePythonAPI(OutputTempDir):
-  from pyplusplus.file_writers.balanced_files import balanced_files_t
-  balanced_files_t.HEADER_EXT='.h'
-  balanced_files_t.SOURCE_EXT='.cpp'
-  from pyplusplus.file_writers.multiple_files import multiple_files_t
-  multiple_files_t.HEADER_EXT='.pypp.h'
-  multiple_files_t.SOURCE_EXT='.pypp.cpp'
-
-  #GCCXML_COMPILER="/opt/local/bin/g++"
-  #GCCXML_CXXFLAGS=""
+    # getting paths
+    include_dirs.append(sys.prefix +"/include/python"+ sys.version[:3])
+    # looking for general headers
+    proc = subprocess.Popen(["which g++"], stdout=subprocess.PIPE, shell=True)
+    (out, err) = proc.communicate()
+    path = out.strip()
+    if path.endswith("bin/g++"):
+        include_dirs.append(path[:-7]+"include")
+    else:
+        exit("Can't find g++")
+    # looking for gccxml
+    proc = subprocess.Popen(["which gccxml"], stdout=subprocess.PIPE, shell=True)
+    (out, err) = proc.communicate()
+    path = out.strip()
+    if path.endswith("/gccxml"):
+        mygccxml = path[:-7]
+    else:
+        exit("No gccxml!")
   
-  #myIncludes.append('/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7')
-  #myIncludes.append('/opt/local/include/')
+    print mygccxml
 
-  #---------------------------------------------------------------
-  # getting paths
-  #---------------------------------------------------------------
-  myIncludes.append(sys.prefix +"/include/python"+ sys.version[:3])
-  # looking for general headers
-  proc = subprocess.Popen(["which g++"], stdout=subprocess.PIPE, shell=True)
-  (out, err) = proc.communicate()
-  path = out.strip()
-  if path.endswith("bin/g++"):
-    myIncludes.append(path[:-7]+"include")
-  else:
-    exit("Can't find g++")
-  # looking for gccxml
-  proc = subprocess.Popen(["which gccxml"], stdout=subprocess.PIPE, shell=True)
-  (out, err) = proc.communicate()
-  path = out.strip()
-  if path.endswith("/gccxml"):
-    mygccxml = path[:-7]
-  else:
-    exit("No gccxml!")
-  
-  print myIncludes
-  print mygccxml
-  
-  mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path=mygccxml, cflags="-m64")
-  #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin', cflags="-m64")
-  #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')
+    #If the cache file cache_core.xml doesn't exist it gets created, otherwise it just gets loaded
+    print "NOTE: If you update the source library code you need to manually delete the cache_core.xml file, or 'python codegenerator.py clean'"
+    xml_cached_fc = parser.create_cached_source_fc( "PythonCoreList.h", "cache_core.xml" )
+    #xml_cached_fc = parser.create_cached_source_fc( ["PythonCoreList.h","PythonCoreExposer.h"], "cache_core.xml" )
+    mb = module_builder.module_builder_t( [xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml, cflags="-m64")
 
-  # ---------------------------------------------------------
-  # common properties
-  # ---------------------------------------------------------
-  mb.always_expose_using_scope = True
+    # -----------------
+    # general rules
+    # -----------------
 
-  # Generated code containing errors will not compile on
-  mem_funs = mb.calldefs ()
-  mem_funs.create_with_signature = True
+    builder_rules.IncludeClasses(mb, include_classes)
 
-  # Exclude protected and private that are not pure virtual (we still have to expose pure virtual functions to have them overriden in the wrapper)
-  query = declarations.access_type_matcher_t( 'private' ) & ~declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
-  mb.global_ns.calldefs( query, allow_empty=True ).exclude()
-  query = declarations.access_type_matcher_t( 'protected' ) & ~declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
-  mb.global_ns.calldefs( query, allow_empty=True ).exclude()
+    builder_rules.DefineGeneralRules(mb)
 
-  # excluding generation of methods for implicit conversion
-  mb.constructors().allow_implicit_conversion = False
+    builder_rules.ExcludeConstructorsArgPtr(mb)
 
-  # return policy for singletons, clone and create methods
-  classes = mb.classes();
-  for cl in classes:
-    cl.member_functions('instance', allow_empty=True).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
-    cl.member_functions('clone', allow_empty=True).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
-    cl.member_functions( lambda x: x.name.startswith('create'), allow_empty=True ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
+    builder_rules.ExcludeMemberFunctionsArgPtr(mb)
 
-  # excluding constructors which have pointers in argument list
-  for cl in classes:
-    for ctor in cl.constructors(allow_empty=True):
-      for arg in ctor.arguments:
-        if declarations.type_traits.is_pointer(arg.type):
-          ctor.exclude()
+    builder_rules.ManageNewReturnPolicy(mb)
 
-  # excluding member functions if they have pointers in argument list
-  for cl in classes:
-    for fun in cl.member_functions(allow_empty=True):
-      has_pointers = False
-      for arg in fun.arguments:
-        if declarations.type_traits.is_pointer(arg.type):
-          has_pointers = True
-      if has_pointers:
-          fun.exclude();
+    # -----------------
+    # manual tuning
+    # -----------------
 
-  # ---------------------------------------------------------
-  # calling class individual parsing properties
-  # ---------------------------------------------------------
-  AdditionalRules(mb)
+    ManualExcludeMemberFunctions(mb)
 
-  # set the default return policies (for references/pointers) on classes if it wasn't already been done for
-  mem_funs = mb.calldefs()
-  for mem_fun in mem_funs:
-    if mem_fun.call_policies:
-      continue
-    if not mem_fun.call_policies and (declarations.is_reference(mem_fun.return_type) or declarations.is_pointer(mem_fun.return_type) ):
-      mem_fun.call_policies = call_policies.return_value_policy(call_policies.reference_existing_object )
+    ManualClassTunings(mb) 
 
-  # exluding classes which are dublicated in libBornAgainCore
-  DublicatesToExclude=[ 
-    "vector_integer_t",
-    "vector_longinteger_t",
-  ]
+    # -----------------
+    # default policies for what remained unchainged
+    # -----------------
 
-  for cl in mb.classes():
-    for name in DublicatesToExclude:
-      if name in cl.name or name in cl.alias:
-        cl.exclude()
+    #builder_rules.IncludePureVirtualMethods(mb, include_classes)
 
+    builder_rules.DefaultReturnPolicy(mb)
 
-  # disabling some warnings
-  messages.disable(
+    # disabling some warnings
+    messages.disable(
         messages.W1020  # Warnings 1020 - 1031 are all about why Py++ generates wrapper for class X
       , messages.W1021
       , messages.W1022
@@ -603,30 +319,32 @@ def MakePythonAPI(OutputTempDir):
       #, messages.W1040
       #, messages.W1038
       #, messages.W1041
-      #, messages.W1036 # pointer to Python immutable member
+      , messages.W1036 # pointer to Python immutable member
       #, messages.W1033 # unnamed variables
       #, messages.W1018 # expose unnamed classes
       #, messages.W1049 # returns reference to local variable
       #, messages.W1014 # unsupported '=' operator
        )
 
-  # ---------------------------------------------------------
-  # generating output
-  # ---------------------------------------------------------
-  mb.build_code_creator( module_name=ModuleName)
-  mb.code_creator.user_defined_directories.append( os.path.abspath('./') )
-  mb.split_module( OutputTempDir)
-  #nOutputFiles = 8 # generated code for classes will be splitted in this number of files
-  #if nOutputFiles > 0:
-    #mb.split_module( OutputTempDir)
-    #mb.balanced_split_module( OutputTempDir, nOutputFiles)
-  #else:
-    #mb.write_module( "tmp.cpp")
+    # ---------------------------------------------------------
+    # generating output
+    # ---------------------------------------------------------
+    mb.build_code_creator( module_name=builder_rules.ModuleName)
+    mb.code_creator.license = builder_rules.license
+    
+    mb.code_creator.user_defined_directories.append( os.path.abspath('./') )
+    mb.split_module(OutputTempDir)
 
-#-------------------------------------------------------------
+
+#------------------------------------------------------------------------------
 # main()
-#-------------------------------------------------------------
+#------------------------------------------------------------------------------
 if __name__ == '__main__':
-  PyCoreTempDir='output/PyCore'
-  if not os.path.exists(PyCoreTempDir): os.makedirs(PyCoreTempDir)
-  MakePythonAPI(PyCoreTempDir)
+    PyCoreTempDir='output/PyCore'
+    if not os.path.exists(PyCoreTempDir): os.makedirs(PyCoreTempDir)
+    start_time = time.clock()
+    MakePythonAPI(PyCoreTempDir)
+    print '\nPythonCoreAPI source code was generated ( %f seconds ).' % (  ( time.clock() - start_time ) )
+    print 'Run InstallPyCore.py to install generated code into BornAgain source tree'
+    print 'Done'
+

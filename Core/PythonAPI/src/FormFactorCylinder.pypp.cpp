@@ -9,6 +9,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "FormFactorCylinder.pypp.h"
 
@@ -33,6 +35,18 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     
     ::FormFactorCylinder * default_clone(  ) const  {
         return FormFactorCylinder::clone( );
+    }
+
+    virtual ::complex_t evaluate_for_q( ::cvector_t const & q ) const  {
+        if( bp::override func_evaluate_for_q = this->get_override( "evaluate_for_q" ) )
+            return func_evaluate_for_q( boost::ref(q) );
+        else{
+            return this->FormFactorCylinder::evaluate_for_q( boost::ref(q) );
+        }
+    }
+    
+    ::complex_t default_evaluate_for_q( ::cvector_t const & q ) const  {
+        return FormFactorCylinder::evaluate_for_q( boost::ref(q) );
     }
 
     virtual double getHeight(  ) const  {
@@ -119,6 +133,18 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         return IParameterized::createParameterTree( );
     }
 
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+        else{
+            return this->IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+        }
+    }
+    
+    ::complex_t default_evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const  {
+        return IFormFactorBorn::evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
+    }
+
     virtual ::ICompositeSample const * getCompositeSample(  ) const  {
         if( bp::override func_getCompositeSample = this->get_override( "getCompositeSample" ) )
             return func_getCompositeSample(  );
@@ -165,6 +191,25 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
+    }
+
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< FormFactorCylinder_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
     }
 
     virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
@@ -221,6 +266,18 @@ void register_FormFactorCylinder_class(){
                 , clone_function_type(&::FormFactorCylinder::clone)
                 , default_clone_function_type(&FormFactorCylinder_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::FormFactorCylinder::evaluate_for_q
+        
+            typedef ::complex_t ( ::FormFactorCylinder::*evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            typedef ::complex_t ( FormFactorCylinder_wrapper::*default_evaluate_for_q_function_type )( ::cvector_t const & ) const;
+            
+            FormFactorCylinder_exposer.def( 
+                "evaluate_for_q"
+                , evaluate_for_q_function_type(&::FormFactorCylinder::evaluate_for_q)
+                , default_evaluate_for_q_function_type(&FormFactorCylinder_wrapper::default_evaluate_for_q)
+                , ( bp::arg("q") ) );
         
         }
         { //::FormFactorCylinder::getHeight
@@ -303,6 +360,18 @@ void register_FormFactorCylinder_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::IFormFactorBorn::evaluate
+        
+            typedef ::complex_t ( ::IFormFactorBorn::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const;
+            typedef ::complex_t ( FormFactorCylinder_wrapper::*default_evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const;
+            
+            FormFactorCylinder_exposer.def( 
+                "evaluate"
+                , evaluate_function_type(&::IFormFactorBorn::evaluate)
+                , default_evaluate_function_type(&FormFactorCylinder_wrapper::default_evaluate)
+                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) );
+        
+        }
         { //::ISample::getCompositeSample
         
             typedef ::ICompositeSample const * ( ::ISample::*getCompositeSample_function_type )(  ) const;
@@ -346,6 +415,16 @@ void register_FormFactorCylinder_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&FormFactorCylinder_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::registerParameter
+        
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            
+            FormFactorCylinder_exposer.def( 
+                "registerParameter"
+                , default_registerParameter_function_type( &FormFactorCylinder_wrapper::default_registerParameter )
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IFormFactor::setAmbientRefractiveIndex

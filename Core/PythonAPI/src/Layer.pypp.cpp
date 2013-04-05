@@ -9,6 +9,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "Layer.pypp.h"
 
@@ -20,6 +22,20 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     : Layer( )
       , bp::wrapper< Layer >(){
         // null constructor
+    
+    }
+
+    Layer_wrapper(::IMaterial const * material, double thickness=0 )
+    : Layer( boost::python::ptr(material), thickness )
+      , bp::wrapper< Layer >(){
+        // constructor
+    
+    }
+
+    Layer_wrapper(::Layer const & other )
+    : Layer( boost::ref(other) )
+      , bp::wrapper< Layer >(){
+        // copy constructor
     
     }
 
@@ -69,6 +85,30 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
     
     double default_getThickness(  ) const  {
         return Layer::getThickness( );
+    }
+
+    virtual void setMaterial( ::IMaterial const * material ) {
+        if( bp::override func_setMaterial = this->get_override( "setMaterial" ) )
+            func_setMaterial( boost::python::ptr(material) );
+        else{
+            this->Layer::setMaterial( boost::python::ptr(material) );
+        }
+    }
+    
+    void default_setMaterial( ::IMaterial const * material ) {
+        Layer::setMaterial( boost::python::ptr(material) );
+    }
+
+    virtual void setMaterial( ::IMaterial const * material, double thickness ) {
+        if( bp::override func_setMaterial = this->get_override( "setMaterial" ) )
+            func_setMaterial( boost::python::ptr(material), thickness );
+        else{
+            this->Layer::setMaterial( boost::python::ptr(material), thickness );
+        }
+    }
+    
+    void default_setMaterial( ::IMaterial const * material, double thickness ) {
+        Layer::setMaterial( boost::python::ptr(material), thickness );
     }
 
     virtual void setThickness( double thickness ) {
@@ -155,6 +195,25 @@ struct Layer_wrapper : Layer, bp::wrapper< Layer > {
         IParameterized::printParameters( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< Layer_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -199,6 +258,8 @@ void register_Layer_class(){
         typedef bp::class_< Layer_wrapper, bp::bases< ICompositeSample >, boost::noncopyable > Layer_exposer_t;
         Layer_exposer_t Layer_exposer = Layer_exposer_t( "Layer", bp::init< >() );
         bp::scope Layer_scope( Layer_exposer );
+        Layer_exposer.def( bp::init< IMaterial const *, bp::optional< double > >(( bp::arg("material"), bp::arg("thickness")=0 )) );
+        Layer_exposer.def( bp::init< Layer const & >(( bp::arg("other") )) );
         { //::Layer::clone
         
             typedef ::Layer * ( ::Layer::*clone_function_type )(  ) const;
@@ -243,6 +304,30 @@ void register_Layer_class(){
                 "getThickness"
                 , getThickness_function_type(&::Layer::getThickness)
                 , default_getThickness_function_type(&Layer_wrapper::default_getThickness) );
+        
+        }
+        { //::Layer::setMaterial
+        
+            typedef void ( ::Layer::*setMaterial_function_type )( ::IMaterial const * ) ;
+            typedef void ( Layer_wrapper::*default_setMaterial_function_type )( ::IMaterial const * ) ;
+            
+            Layer_exposer.def( 
+                "setMaterial"
+                , setMaterial_function_type(&::Layer::setMaterial)
+                , default_setMaterial_function_type(&Layer_wrapper::default_setMaterial)
+                , ( bp::arg("material") ) );
+        
+        }
+        { //::Layer::setMaterial
+        
+            typedef void ( ::Layer::*setMaterial_function_type )( ::IMaterial const *,double ) ;
+            typedef void ( Layer_wrapper::*default_setMaterial_function_type )( ::IMaterial const *,double ) ;
+            
+            Layer_exposer.def( 
+                "setMaterial"
+                , setMaterial_function_type(&::Layer::setMaterial)
+                , default_setMaterial_function_type(&Layer_wrapper::default_setMaterial)
+                , ( bp::arg("material"), bp::arg("thickness") ) );
         
         }
         { //::Layer::setThickness
@@ -324,6 +409,16 @@ void register_Layer_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&Layer_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::registerParameter
+        
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            
+            Layer_exposer.def( 
+                "registerParameter"
+                , default_registerParameter_function_type( &Layer_wrapper::default_registerParameter )
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue

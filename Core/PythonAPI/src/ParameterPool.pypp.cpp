@@ -95,16 +95,6 @@ void register_ParameterPool_class(){
                 , ( bp::arg("to_change"), bp::arg("source"), bp::arg("ratio") ) );
         
         }
-        { //::ParameterPool::getMatchedParameters
-        
-            typedef ::std::vector< RealParameterWrapper > ( ::ParameterPool::*getMatchedParameters_function_type )( ::std::string const & ) const;
-            
-            ParameterPool_exposer.def( 
-                "getMatchedParameters"
-                , getMatchedParameters_function_type( &::ParameterPool::getMatchedParameters )
-                , ( bp::arg("wildcards") ) );
-        
-        }
         { //::ParameterPool::getParameter
         
             typedef ::RealParameterWrapper ( ::ParameterPool::*getParameter_function_type )( ::std::string const & ) const;

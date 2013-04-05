@@ -9,6 +9,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "ISampleBuilder.pypp.h"
 
@@ -90,6 +92,25 @@ struct ISampleBuilder_wrapper : ISampleBuilder, bp::wrapper< ISampleBuilder > {
         IParameterized::printParameters( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< ISampleBuilder_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -131,7 +152,7 @@ void register_ISampleBuilder_class(){
                 "buildSample"
                 , buildSample_function_type(&::ISampleBuilder::buildSample)
                 , default_buildSample_function_type(&ISampleBuilder_wrapper::default_buildSample)
-                , bp::return_value_policy< bp::reference_existing_object >() );
+                , bp::return_value_policy< bp::manage_new_object >() );
         
         }
         { //::IParameterized::areParametersChanged
@@ -177,6 +198,16 @@ void register_ISampleBuilder_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&ISampleBuilder_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::registerParameter
+        
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            
+            ISampleBuilder_exposer.def( 
+                "registerParameter"
+                , default_registerParameter_function_type( &ISampleBuilder_wrapper::default_registerParameter )
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue

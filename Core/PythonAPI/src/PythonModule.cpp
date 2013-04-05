@@ -5,12 +5,14 @@
 
 #include "Beam.pypp.h" 
 #include "Bin1D.pypp.h" 
+#include "Bin1DCVector.pypp.h" 
 #include "Crystal.pypp.h" 
 #include "cvector_t.pypp.h" 
 #include "Detector.pypp.h" 
 #include "FormFactorBox.pypp.h" 
 #include "FormFactorCone.pypp.h" 
 #include "FormFactorCylinder.pypp.h" 
+#include "FormFactorDecoratorDebyeWaller.pypp.h" 
 #include "FormFactorEllipsoid.pypp.h" 
 #include "FormFactorFullSphere.pypp.h" 
 #include "FormFactorFullSpheroid.pypp.h" 
@@ -57,42 +59,47 @@
 #include "MaterialManager.pypp.h" 
 #include "MultiLayer.pypp.h" 
 #include "ndimdata_t.pypp.h" 
+#include "OutputDataIOFactory.pypp.h" 
 #include "ParameterPool.pypp.h" 
 #include "Particle.pypp.h" 
 #include "ParticleBuilder.pypp.h" 
+#include "ParticleCoreShell.pypp.h" 
 #include "ParticleDecoration.pypp.h" 
 #include "ParticleInfo.pypp.h" 
 #include "PositionParticleInfo.pypp.h" 
 #include "PythonInterface_free_functions.pypp.h" 
+#include "PythonInterface_global_variables.pypp.h" 
 #include "RealParameterWrapper.pypp.h" 
+#include "ResolutionFunction2DSimple.pypp.h" 
 #include "RotateY_3D.pypp.h" 
 #include "RotateZ_3D.pypp.h" 
 #include "Simulation.pypp.h" 
 #include "SimulationParameters.pypp.h" 
+#include "StochasticDoubleGate.pypp.h" 
 #include "StochasticDoubleGaussian.pypp.h" 
 #include "StochasticParameter_t.pypp.h" 
+#include "StochasticSampledParameter.pypp.h" 
 #include "vdouble1d_t.pypp.h" 
-#include "vector_DiffuseParticleInfoPtr_t.pypp.h" 
 #include "vector_IFormFactorPtr_t.pypp.h" 
+#include "vector_integer_t.pypp.h" 
 #include "vector_kvector_t.pypp.h" 
-#include "vector_less__int__greater_.pypp.h" 
-#include "vector_less__RealParameterWrapper__greater_.pypp.h" 
-#include "vector_less__unsigned_long__greater_.pypp.h" 
+#include "vector_longinteger_t.pypp.h" 
+#include "__call_policies.pypp.hpp" 
+#include "__convenience.pypp.hpp" 
 
 #include "PythonListConverter.h"
 
 BOOST_PYTHON_MODULE(libBornAgainCore){
 
-    register_vector_less__unsigned_long__greater__class();
-    register_vector_less__int__greater__class();
+    register_vector_longinteger_t_class();
+    register_vector_integer_t_class();
     register_vdouble1d_t_class();
-    register_vector_less__RealParameterWrapper__greater__class();
     register_vector_IFormFactorPtr_t_class();
     register_vector_kvector_t_class();
-    register_vector_DiffuseParticleInfoPtr_t_class();
     register_IParameterized_class();
     register_Beam_class();
     register_Bin1D_class();
+    register_Bin1DCVector_class();
     register_ICloneable_class();
     register_ISample_class();
     register_ICompositeSample_class();
@@ -106,6 +113,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorBox_class();
     register_FormFactorCone_class();
     register_FormFactorCylinder_class();
+    register_FormFactorDecoratorDebyeWaller_class();
     register_FormFactorEllipsoid_class();
     register_FormFactorFullSphere_class();
     register_FormFactorFullSpheroid_class();
@@ -147,16 +155,22 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_MaterialManager_class();
     register_MultiLayer_class();
     register_ndimdata_t_class();
+    register_OutputDataIOFactory_class();
     register_ParameterPool_class();
     register_ParticleBuilder_class();
+    register_ParticleCoreShell_class();
     register_ParticleDecoration_class();
     register_ParticleInfo_class();
     register_PositionParticleInfo_class();
     register_RealParameterWrapper_class();
+    register_ResolutionFunction2DSimple_class();
     register_Simulation_class();
     register_SimulationParameters_class();
     register_StochasticParameter_t_class();
+    register_StochasticDoubleGate_class();
     register_StochasticDoubleGaussian_class();
+    register_StochasticSampledParameter_class();
+    register_global_variables();
     register_free_functions();
 
     register_python2cpp_converters();

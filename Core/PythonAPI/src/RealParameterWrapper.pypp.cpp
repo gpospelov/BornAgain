@@ -21,15 +21,6 @@ void register_RealParameterWrapper_class(){
         RealParameterWrapper_exposer_t RealParameterWrapper_exposer = RealParameterWrapper_exposer_t( "RealParameterWrapper", bp::no_init );
         bp::scope RealParameterWrapper_scope( RealParameterWrapper_exposer );
         RealParameterWrapper_exposer.def( bp::init< RealParameterWrapper const & >(( bp::arg("other") )) );
-        { //::RealParameterWrapper::checkNull
-        
-            typedef void ( ::RealParameterWrapper::*checkNull_function_type )(  ) const;
-            
-            RealParameterWrapper_exposer.def( 
-                "checkNull"
-                , checkNull_function_type( &::RealParameterWrapper::checkNull ) );
-        
-        }
         { //::RealParameterWrapper::getValue
         
             typedef double ( ::RealParameterWrapper::*getValue_function_type )(  ) const;

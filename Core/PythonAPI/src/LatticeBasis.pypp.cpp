@@ -9,6 +9,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "LatticeBasis.pypp.h"
 
@@ -21,56 +23,6 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
       , bp::wrapper< LatticeBasis >(){
         // null constructor
     
-    }
-
-    LatticeBasis_wrapper(::Particle const & particle )
-    : LatticeBasis( boost::ref(particle) )
-      , bp::wrapper< LatticeBasis >(){
-        // constructor
-    
-    }
-
-    LatticeBasis_wrapper(::Particle const & particle, ::std::vector< Geometry::BasicVector3D<double> > positions )
-    : LatticeBasis( boost::ref(particle), positions )
-      , bp::wrapper< LatticeBasis >(){
-        // constructor
-    
-    }
-
-    virtual ::LatticeBasis * clone(  ) const  {
-        if( bp::override func_clone = this->get_override( "clone" ) )
-            return func_clone(  );
-        else{
-            return this->LatticeBasis::clone(  );
-        }
-    }
-    
-    ::LatticeBasis * default_clone(  ) const  {
-        return LatticeBasis::clone( );
-    }
-
-    virtual ::IFormFactor * createFormFactor(  ) const  {
-        if( bp::override func_createFormFactor = this->get_override( "createFormFactor" ) )
-            return func_createFormFactor(  );
-        else{
-            return this->LatticeBasis::createFormFactor(  );
-        }
-    }
-    
-    ::IFormFactor * default_createFormFactor(  ) const  {
-        return LatticeBasis::createFormFactor( );
-    }
-
-    virtual void setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
-            func_setAmbientRefractiveIndex( refractive_index );
-        else{
-            this->LatticeBasis::setAmbientRefractiveIndex( refractive_index );
-        }
-    }
-    
-    void default_setAmbientRefractiveIndex( ::complex_t refractive_index ) {
-        LatticeBasis::setAmbientRefractiveIndex( refractive_index );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -181,6 +133,25 @@ struct LatticeBasis_wrapper : LatticeBasis, bp::wrapper< LatticeBasis > {
         IParameterized::printParameters( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< LatticeBasis_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -225,8 +196,6 @@ void register_LatticeBasis_class(){
         typedef bp::class_< LatticeBasis_wrapper, bp::bases< Particle >, boost::noncopyable > LatticeBasis_exposer_t;
         LatticeBasis_exposer_t LatticeBasis_exposer = LatticeBasis_exposer_t( "LatticeBasis", bp::init< >() );
         bp::scope LatticeBasis_scope( LatticeBasis_exposer );
-        LatticeBasis_exposer.def( bp::init< Particle const & >(( bp::arg("particle") )) );
-        LatticeBasis_exposer.def( bp::init< Particle const &, std::vector< Geometry::BasicVector3D<double> > >(( bp::arg("particle"), bp::arg("positions") )) );
         { //::LatticeBasis::addParticle
         
             typedef void ( ::LatticeBasis::*addParticle_function_type )( ::Particle const &,::std::vector< Geometry::BasicVector3D<double> > ) ;
@@ -235,92 +204,6 @@ void register_LatticeBasis_class(){
                 "addParticle"
                 , addParticle_function_type( &::LatticeBasis::addParticle )
                 , ( bp::arg("particle"), bp::arg("positions") ) );
-        
-        }
-        { //::LatticeBasis::clone
-        
-            typedef ::LatticeBasis * ( ::LatticeBasis::*clone_function_type )(  ) const;
-            typedef ::LatticeBasis * ( LatticeBasis_wrapper::*default_clone_function_type )(  ) const;
-            
-            LatticeBasis_exposer.def( 
-                "clone"
-                , clone_function_type(&::LatticeBasis::clone)
-                , default_clone_function_type(&LatticeBasis_wrapper::default_clone)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::LatticeBasis::createDiffuseParticleInfos
-        
-            typedef ::std::vector< DiffuseParticleInfo* > ( ::LatticeBasis::*createDiffuseParticleInfos_function_type )(  ) const;
-            
-            LatticeBasis_exposer.def( 
-                "createDiffuseParticleInfos"
-                , createDiffuseParticleInfos_function_type( &::LatticeBasis::createDiffuseParticleInfos )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::LatticeBasis::createFormFactor
-        
-            typedef ::IFormFactor * ( ::LatticeBasis::*createFormFactor_function_type )(  ) const;
-            typedef ::IFormFactor * ( LatticeBasis_wrapper::*default_createFormFactor_function_type )(  ) const;
-            
-            LatticeBasis_exposer.def( 
-                "createFormFactor"
-                , createFormFactor_function_type(&::LatticeBasis::createFormFactor)
-                , default_createFormFactor_function_type(&LatticeBasis_wrapper::default_createFormFactor)
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
-        { //::LatticeBasis::getNbrParticles
-        
-            typedef ::size_t ( ::LatticeBasis::*getNbrParticles_function_type )(  ) const;
-            
-            LatticeBasis_exposer.def( 
-                "getNbrParticles"
-                , getNbrParticles_function_type( &::LatticeBasis::getNbrParticles ) );
-        
-        }
-        { //::LatticeBasis::getNbrPositionsForParticle
-        
-            typedef ::size_t ( ::LatticeBasis::*getNbrPositionsForParticle_function_type )( ::size_t ) const;
-            
-            LatticeBasis_exposer.def( 
-                "getNbrPositionsForParticle"
-                , getNbrPositionsForParticle_function_type( &::LatticeBasis::getNbrPositionsForParticle )
-                , ( bp::arg("index") ) );
-        
-        }
-        { //::LatticeBasis::getParticle
-        
-            typedef ::Particle const * ( ::LatticeBasis::*getParticle_function_type )( ::size_t ) const;
-            
-            LatticeBasis_exposer.def( 
-                "getParticle"
-                , getParticle_function_type( &::LatticeBasis::getParticle )
-                , ( bp::arg("index") )
-                , bp::return_value_policy< bp::reference_existing_object >() );
-        
-        }
-        { //::LatticeBasis::getParticlePositions
-        
-            typedef ::std::vector< Geometry::BasicVector3D<double> > ( ::LatticeBasis::*getParticlePositions_function_type )( ::size_t ) const;
-            
-            LatticeBasis_exposer.def( 
-                "getParticlePositions"
-                , getParticlePositions_function_type( &::LatticeBasis::getParticlePositions )
-                , ( bp::arg("index") ) );
-        
-        }
-        { //::LatticeBasis::setAmbientRefractiveIndex
-        
-            typedef void ( ::LatticeBasis::*setAmbientRefractiveIndex_function_type )( ::complex_t ) ;
-            typedef void ( LatticeBasis_wrapper::*default_setAmbientRefractiveIndex_function_type )( ::complex_t ) ;
-            
-            LatticeBasis_exposer.def( 
-                "setAmbientRefractiveIndex"
-                , setAmbientRefractiveIndex_function_type(&::LatticeBasis::setAmbientRefractiveIndex)
-                , default_setAmbientRefractiveIndex_function_type(&LatticeBasis_wrapper::default_setAmbientRefractiveIndex)
-                , ( bp::arg("refractive_index") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -424,6 +307,16 @@ void register_LatticeBasis_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&LatticeBasis_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::registerParameter
+        
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            
+            LatticeBasis_exposer.def( 
+                "registerParameter"
+                , default_registerParameter_function_type( &LatticeBasis_wrapper::default_registerParameter )
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue

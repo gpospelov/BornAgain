@@ -207,6 +207,14 @@ void register_kvector_t_class(){
                 , z_function_type( &::Geometry::BasicVector3D< double >::z ) );
         
         }
+        kvector_t_exposer.def( bp::self - bp::self );
+        kvector_t_exposer.def( bp::self + bp::self );
+        kvector_t_exposer.def( bp::other< double >() * bp::self );
+        kvector_t_exposer.def( bp::self * bp::other< double >() );
+        kvector_t_exposer.def( +bp::self );
+        kvector_t_exposer.def( -bp::self );
+        kvector_t_exposer.def( bp::self / bp::other< double >() );
+        kvector_t_exposer.def( bp::self_ns::str( bp::self ) );
     }
 
 }

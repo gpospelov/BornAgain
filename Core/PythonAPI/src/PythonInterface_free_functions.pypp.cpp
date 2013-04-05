@@ -16,63 +16,58 @@ namespace bp = boost::python;
 
 void register_free_functions(){
 
-    { //::pyplusplus_boost_cvector
+    { //::GetOutputData
     
-        typedef ::size_t ( *pyplusplus_boost_cvector_function_type )(  );
+        typedef ::PyObject * ( *GetOutputData_function_type )( ::Simulation const & );
         
         bp::def( 
-            "pyplusplus_boost_cvector"
-            , pyplusplus_boost_cvector_function_type( &::pyplusplus_boost_cvector ) );
+            "GetOutputData"
+            , GetOutputData_function_type( &::GetOutputData )
+            , ( bp::arg("simulation") ) );
     
     }
 
-    { //::pyplusplus_boost_kvector
+    { //::GetOutputDataAxis
     
-        typedef ::size_t ( *pyplusplus_boost_kvector_function_type )(  );
+        typedef ::PyObject * ( *GetOutputDataAxis_function_type )( ::Simulation const &,int );
         
         bp::def( 
-            "pyplusplus_boost_kvector"
-            , pyplusplus_boost_kvector_function_type( &::pyplusplus_boost_kvector ) );
+            "GetOutputDataAxis"
+            , GetOutputDataAxis_function_type( &::GetOutputDataAxis )
+            , ( bp::arg("simulation"), bp::arg("naxis") ) );
     
     }
 
-    { //::pyplusplus_boost_stochastic_parameter
+    { //::GetOutputDataNdimensions
     
-        typedef ::size_t ( *pyplusplus_boost_stochastic_parameter_function_type )(  );
+        typedef int ( *GetOutputDataNdimensions_function_type )( ::Simulation const & );
         
         bp::def( 
-            "pyplusplus_boost_stochastic_parameter"
-            , pyplusplus_boost_stochastic_parameter_function_type( &::pyplusplus_boost_stochastic_parameter ) );
+            "GetOutputDataNdimensions"
+            , GetOutputDataNdimensions_function_type( &::GetOutputDataNdimensions )
+            , ( bp::arg("simulation") ) );
     
     }
 
-    { //::pyplusplus_boost_vectorof_DiffuseParticleInfoPtr
+    { //::Units::deg2rad
     
-        typedef ::size_t ( *pyplusplus_boost_vectorof_DiffuseParticleInfoPtr_function_type )(  );
+        typedef double ( *deg2rad_function_type )( double );
         
         bp::def( 
-            "pyplusplus_boost_vectorof_DiffuseParticleInfoPtr"
-            , pyplusplus_boost_vectorof_DiffuseParticleInfoPtr_function_type( &::pyplusplus_boost_vectorof_DiffuseParticleInfoPtr ) );
+            "deg2rad"
+            , deg2rad_function_type( &::Units::deg2rad )
+            , ( bp::arg("angle") ) );
     
     }
 
-    { //::pyplusplus_boost_vectorof_cvector
+    { //::Units::rad2deg
     
-        typedef ::size_t ( *pyplusplus_boost_vectorof_cvector_function_type )(  );
+        typedef double ( *rad2deg_function_type )( double );
         
         bp::def( 
-            "pyplusplus_boost_vectorof_cvector"
-            , pyplusplus_boost_vectorof_cvector_function_type( &::pyplusplus_boost_vectorof_cvector ) );
-    
-    }
-
-    { //::pyplusplus_boost_vectorof_kvector
-    
-        typedef ::size_t ( *pyplusplus_boost_vectorof_kvector_function_type )(  );
-        
-        bp::def( 
-            "pyplusplus_boost_vectorof_kvector"
-            , pyplusplus_boost_vectorof_kvector_function_type( &::pyplusplus_boost_vectorof_kvector ) );
+            "rad2deg"
+            , rad2deg_function_type( &::Units::rad2deg )
+            , ( bp::arg("angle") ) );
     
     }
 

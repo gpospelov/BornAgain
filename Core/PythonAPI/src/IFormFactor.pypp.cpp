@@ -9,6 +9,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "IFormFactor.pypp.h"
 
@@ -38,6 +40,11 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
     
     void default_createDistributedFormFactors( ::std::vector< IFormFactor* > & form_factors, ::std::vector< double > & probabilities, ::size_t nbr_samples ) const  {
         IFormFactor::createDistributedFormFactors( boost::ref(form_factors), boost::ref(probabilities), nbr_samples );
+    }
+
+    virtual ::complex_t evaluate( ::cvector_t const & k_i, ::Bin1DCVector const & k_f_bin, double alpha_i, double alpha_f ) const {
+        bp::override func_evaluate = this->get_override( "evaluate" );
+        return func_evaluate( boost::ref(k_i), boost::ref(k_f_bin), alpha_i, alpha_f );
     }
 
     virtual double getHeight(  ) const  {
@@ -172,6 +179,25 @@ struct IFormFactor_wrapper : IFormFactor, bp::wrapper< IFormFactor > {
         IParameterized::printParameters( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< IFormFactor_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -225,6 +251,16 @@ void register_IFormFactor_class(){
                 , default_createDistributedFormFactors_function_type(&IFormFactor_wrapper::default_createDistributedFormFactors)
                 , ( bp::arg("form_factors"), bp::arg("probabilities"), bp::arg("nbr_samples") )
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::IFormFactor::evaluate
+        
+            typedef ::complex_t ( ::IFormFactor::*evaluate_function_type )( ::cvector_t const &,::Bin1DCVector const &,double,double ) const;
+            
+            IFormFactor_exposer.def( 
+                "evaluate"
+                , bp::pure_virtual( evaluate_function_type(&::IFormFactor::evaluate) )
+                , ( bp::arg("k_i"), bp::arg("k_f_bin"), bp::arg("alpha_i"), bp::arg("alpha_f") ) );
         
         }
         { //::IFormFactor::getHeight
@@ -349,6 +385,16 @@ void register_IFormFactor_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&IFormFactor_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::registerParameter
+        
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            
+            IFormFactor_exposer.def( 
+                "registerParameter"
+                , default_registerParameter_function_type( &IFormFactor_wrapper::default_registerParameter )
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue

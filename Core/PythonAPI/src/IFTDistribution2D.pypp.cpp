@@ -9,6 +9,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "IFTDistribution2D.pypp.h"
 
@@ -26,6 +28,16 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
     virtual ::IFTDistribution2D * clone(  ) const {
         bp::override func_clone = this->get_override( "clone" );
         return func_clone(  );
+    }
+
+    virtual double evaluate( double qx, double qy ) const {
+        bp::override func_evaluate = this->get_override( "evaluate" );
+        return func_evaluate( qx, qy );
+    }
+
+    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const {
+        bp::override func_transformToStarBasis = this->get_override( "transformToStarBasis" );
+        func_transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -76,6 +88,25 @@ struct IFTDistribution2D_wrapper : IFTDistribution2D, bp::wrapper< IFTDistributi
         IParameterized::printParameters( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< IFTDistribution2D_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -118,6 +149,16 @@ void register_IFTDistribution2D_class(){
                 , bp::return_value_policy< bp::manage_new_object >() );
         
         }
+        { //::IFTDistribution2D::evaluate
+        
+            typedef double ( ::IFTDistribution2D::*evaluate_function_type )( double,double ) const;
+            
+            IFTDistribution2D_exposer.def( 
+                "evaluate"
+                , bp::pure_virtual( evaluate_function_type(&::IFTDistribution2D::evaluate) )
+                , ( bp::arg("qx"), bp::arg("qy") ) );
+        
+        }
         { //::IFTDistribution2D::getDelta
         
             typedef double ( ::IFTDistribution2D::*getDelta_function_type )(  ) const;
@@ -144,6 +185,16 @@ void register_IFTDistribution2D_class(){
                 "setGamma"
                 , setGamma_function_type( &::IFTDistribution2D::setGamma )
                 , ( bp::arg("gamma") ) );
+        
+        }
+        { //::IFTDistribution2D::transformToStarBasis
+        
+            typedef void ( ::IFTDistribution2D::*transformToStarBasis_function_type )( double,double,double,double,double,double &,double & ) const;
+            
+            IFTDistribution2D_exposer.def( 
+                "transformToStarBasis"
+                , bp::pure_virtual( transformToStarBasis_function_type(&::IFTDistribution2D::transformToStarBasis) )
+                , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -189,6 +240,16 @@ void register_IFTDistribution2D_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&IFTDistribution2D_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::registerParameter
+        
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            
+            IFTDistribution2D_exposer.def( 
+                "registerParameter"
+                , default_registerParameter_function_type( &IFTDistribution2D_wrapper::default_registerParameter )
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue

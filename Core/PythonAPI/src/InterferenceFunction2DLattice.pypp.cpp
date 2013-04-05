@@ -9,6 +9,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "InterferenceFunction2DLattice.pypp.h"
 
@@ -33,6 +35,18 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
     
     ::InterferenceFunction2DLattice * default_clone(  ) const  {
         return InterferenceFunction2DLattice::clone( );
+    }
+
+    virtual double evaluate( ::cvector_t const & q ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( boost::ref(q) );
+        else{
+            return this->InterferenceFunction2DLattice::evaluate( boost::ref(q) );
+        }
+    }
+    
+    double default_evaluate( ::cvector_t const & q ) const  {
+        return InterferenceFunction2DLattice::evaluate( boost::ref(q) );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -107,6 +121,25 @@ struct InterferenceFunction2DLattice_wrapper : InterferenceFunction2DLattice, bp
         IParameterized::printParameters( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< InterferenceFunction2DLattice_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -149,6 +182,18 @@ void register_InterferenceFunction2DLattice_class(){
                 , clone_function_type(&::InterferenceFunction2DLattice::clone)
                 , default_clone_function_type(&InterferenceFunction2DLattice_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::InterferenceFunction2DLattice::evaluate
+        
+            typedef double ( ::InterferenceFunction2DLattice::*evaluate_function_type )( ::cvector_t const & ) const;
+            typedef double ( InterferenceFunction2DLattice_wrapper::*default_evaluate_function_type )( ::cvector_t const & ) const;
+            
+            InterferenceFunction2DLattice_exposer.def( 
+                "evaluate"
+                , evaluate_function_type(&::InterferenceFunction2DLattice::evaluate)
+                , default_evaluate_function_type(&InterferenceFunction2DLattice_wrapper::default_evaluate)
+                , ( bp::arg("q") ) );
         
         }
         { //::InterferenceFunction2DLattice::setProbabilityDistribution
@@ -227,6 +272,16 @@ void register_InterferenceFunction2DLattice_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&InterferenceFunction2DLattice_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::registerParameter
+        
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            
+            InterferenceFunction2DLattice_exposer.def( 
+                "registerParameter"
+                , default_registerParameter_function_type( &InterferenceFunction2DLattice_wrapper::default_registerParameter )
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue

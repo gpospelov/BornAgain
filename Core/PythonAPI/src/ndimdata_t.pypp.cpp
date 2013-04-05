@@ -307,6 +307,7 @@ void register_ndimdata_t_class(){
                 , totalSum_function_type( &::OutputData< double >::totalSum ) );
         
         }
+        ndimdata_t_exposer.def("__setitem__", &pyplusplus_setitem<OutputData<double >,int,double> );
     }
 
 }

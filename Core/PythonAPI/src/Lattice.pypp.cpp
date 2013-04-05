@@ -22,27 +22,6 @@ void register_Lattice_class(){
         bp::scope Lattice_scope( Lattice_exposer );
         Lattice_exposer.def( bp::init< kvector_t const &, kvector_t const &, kvector_t const & >(( bp::arg("a1"), bp::arg("a2"), bp::arg("a3") )) );
         Lattice_exposer.def( bp::init< Lattice const & >(( bp::arg("lattice") )) );
-        { //::Lattice::computeReciprocalLatticeVectorsWithinRadius
-        
-            typedef void ( ::Lattice::*computeReciprocalLatticeVectorsWithinRadius_function_type )( ::kvector_t const &,double ) const;
-            
-            Lattice_exposer.def( 
-                "computeReciprocalLatticeVectorsWithinRadius"
-                , computeReciprocalLatticeVectorsWithinRadius_function_type( &::Lattice::computeReciprocalLatticeVectorsWithinRadius )
-                , ( bp::arg("input_vector"), bp::arg("radius") ) );
-        
-        }
-        { //::Lattice::createFCCLattice
-        
-            typedef ::Lattice ( *createFCCLattice_function_type )( double );
-            
-            Lattice_exposer.def( 
-                "createFCCLattice"
-                , createFCCLattice_function_type( &::Lattice::createFCCLattice )
-                , ( bp::arg("a") )
-                , bp::return_value_policy< bp::manage_new_object >() );
-        
-        }
         { //::Lattice::createTrigonalLattice
         
             typedef ::Lattice ( *createTrigonalLattice_function_type )( double,double );
@@ -51,7 +30,7 @@ void register_Lattice_class(){
                 "createTrigonalLattice"
                 , createTrigonalLattice_function_type( &::Lattice::createTrigonalLattice )
                 , ( bp::arg("a"), bp::arg("c") )
-                , bp::return_value_policy< bp::manage_new_object >() );
+                , bp::return_value_policy< bp::return_by_value >() );
         
         }
         { //::Lattice::getBasisVectorA
@@ -81,34 +60,6 @@ void register_Lattice_class(){
                 , getBasisVectorC_function_type( &::Lattice::getBasisVectorC ) );
         
         }
-        { //::Lattice::getReciprocalLatticeBasis
-        
-            typedef void ( ::Lattice::*getReciprocalLatticeBasis_function_type )( ::kvector_t &,::kvector_t &,::kvector_t & ) const;
-            
-            Lattice_exposer.def( 
-                "getReciprocalLatticeBasis"
-                , getReciprocalLatticeBasis_function_type( &::Lattice::getReciprocalLatticeBasis )
-                , ( bp::arg("b1"), bp::arg("b2"), bp::arg("b3") ) );
-        
-        }
-        { //::Lattice::getVolume
-        
-            typedef double ( ::Lattice::*getVolume_function_type )(  ) const;
-            
-            Lattice_exposer.def( 
-                "getVolume"
-                , getVolume_function_type( &::Lattice::getVolume ) );
-        
-        }
-        { //::Lattice::initialize
-        
-            typedef void ( ::Lattice::*initialize_function_type )(  ) const;
-            
-            Lattice_exposer.def( 
-                "initialize"
-                , initialize_function_type( &::Lattice::initialize ) );
-        
-        }
         { //::Lattice::setSelectionRule
         
             typedef void ( ::Lattice::*setSelectionRule_function_type )( ::ISelectionRule const & ) ;
@@ -119,7 +70,6 @@ void register_Lattice_class(){
                 , ( bp::arg("p_selection_rule") ) );
         
         }
-        Lattice_exposer.staticmethod( "createFCCLattice" );
         Lattice_exposer.staticmethod( "createTrigonalLattice" );
     }
 

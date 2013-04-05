@@ -9,6 +9,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "FTDistribution2DCauchy.pypp.h"
 
@@ -40,6 +42,30 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
     
     ::FTDistribution2DCauchy * default_clone(  ) const  {
         return FTDistribution2DCauchy::clone( );
+    }
+
+    virtual double evaluate( double qx, double qy ) const  {
+        if( bp::override func_evaluate = this->get_override( "evaluate" ) )
+            return func_evaluate( qx, qy );
+        else{
+            return this->FTDistribution2DCauchy::evaluate( qx, qy );
+        }
+    }
+    
+    double default_evaluate( double qx, double qy ) const  {
+        return FTDistribution2DCauchy::evaluate( qx, qy );
+    }
+
+    virtual void transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const  {
+        if( bp::override func_transformToStarBasis = this->get_override( "transformToStarBasis" ) )
+            func_transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
+        else{
+            this->FTDistribution2DCauchy::transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
+        }
+    }
+    
+    void default_transformToStarBasis( double qX, double qY, double alpha, double a, double b, double & qa, double & qb ) const  {
+        FTDistribution2DCauchy::transformToStarBasis( qX, qY, alpha, a, b, qa, qb );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -90,6 +116,25 @@ struct FTDistribution2DCauchy_wrapper : FTDistribution2DCauchy, bp::wrapper< FTD
         IParameterized::printParameters( );
     }
 
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< FTDistribution2DCauchy_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -132,6 +177,30 @@ void register_FTDistribution2DCauchy_class(){
                 , clone_function_type(&::FTDistribution2DCauchy::clone)
                 , default_clone_function_type(&FTDistribution2DCauchy_wrapper::default_clone)
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::FTDistribution2DCauchy::evaluate
+        
+            typedef double ( ::FTDistribution2DCauchy::*evaluate_function_type )( double,double ) const;
+            typedef double ( FTDistribution2DCauchy_wrapper::*default_evaluate_function_type )( double,double ) const;
+            
+            FTDistribution2DCauchy_exposer.def( 
+                "evaluate"
+                , evaluate_function_type(&::FTDistribution2DCauchy::evaluate)
+                , default_evaluate_function_type(&FTDistribution2DCauchy_wrapper::default_evaluate)
+                , ( bp::arg("qx"), bp::arg("qy") ) );
+        
+        }
+        { //::FTDistribution2DCauchy::transformToStarBasis
+        
+            typedef void ( ::FTDistribution2DCauchy::*transformToStarBasis_function_type )( double,double,double,double,double,double &,double & ) const;
+            typedef void ( FTDistribution2DCauchy_wrapper::*default_transformToStarBasis_function_type )( double,double,double,double,double,double &,double & ) const;
+            
+            FTDistribution2DCauchy_exposer.def( 
+                "transformToStarBasis"
+                , transformToStarBasis_function_type(&::FTDistribution2DCauchy::transformToStarBasis)
+                , default_transformToStarBasis_function_type(&FTDistribution2DCauchy_wrapper::default_transformToStarBasis)
+                , ( bp::arg("qX"), bp::arg("qY"), bp::arg("alpha"), bp::arg("a"), bp::arg("b"), bp::arg("qa"), bp::arg("qb") ) );
         
         }
         { //::IParameterized::areParametersChanged
@@ -177,6 +246,16 @@ void register_FTDistribution2DCauchy_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&FTDistribution2DCauchy_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::registerParameter
+        
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            
+            FTDistribution2DCauchy_exposer.def( 
+                "registerParameter"
+                , default_registerParameter_function_type( &FTDistribution2DCauchy_wrapper::default_registerParameter )
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue

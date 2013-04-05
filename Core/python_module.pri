@@ -6,12 +6,14 @@ HEADERS +=  \
     PythonAPI/inc/PythonCoreList.h \ 
     PythonAPI/inc/Beam.pypp.h \
     PythonAPI/inc/Bin1D.pypp.h \
+    PythonAPI/inc/Bin1DCVector.pypp.h \
     PythonAPI/inc/Crystal.pypp.h \
     PythonAPI/inc/cvector_t.pypp.h \
     PythonAPI/inc/Detector.pypp.h \
     PythonAPI/inc/FormFactorBox.pypp.h \
     PythonAPI/inc/FormFactorCone.pypp.h \
     PythonAPI/inc/FormFactorCylinder.pypp.h \
+    PythonAPI/inc/FormFactorDecoratorDebyeWaller.pypp.h \
     PythonAPI/inc/FormFactorEllipsoid.pypp.h \
     PythonAPI/inc/FormFactorFullSphere.pypp.h \
     PythonAPI/inc/FormFactorFullSpheroid.pypp.h \
@@ -58,27 +60,33 @@ HEADERS +=  \
     PythonAPI/inc/MaterialManager.pypp.h \
     PythonAPI/inc/MultiLayer.pypp.h \
     PythonAPI/inc/ndimdata_t.pypp.h \
+    PythonAPI/inc/OutputDataIOFactory.pypp.h \
     PythonAPI/inc/ParameterPool.pypp.h \
     PythonAPI/inc/Particle.pypp.h \
     PythonAPI/inc/ParticleBuilder.pypp.h \
+    PythonAPI/inc/ParticleCoreShell.pypp.h \
     PythonAPI/inc/ParticleDecoration.pypp.h \
     PythonAPI/inc/ParticleInfo.pypp.h \
     PythonAPI/inc/PositionParticleInfo.pypp.h \
     PythonAPI/inc/PythonInterface_free_functions.pypp.h \
+    PythonAPI/inc/PythonInterface_global_variables.pypp.h \
     PythonAPI/inc/RealParameterWrapper.pypp.h \
+    PythonAPI/inc/ResolutionFunction2DSimple.pypp.h \
     PythonAPI/inc/RotateY_3D.pypp.h \
     PythonAPI/inc/RotateZ_3D.pypp.h \
     PythonAPI/inc/Simulation.pypp.h \
     PythonAPI/inc/SimulationParameters.pypp.h \
+    PythonAPI/inc/StochasticDoubleGate.pypp.h \
     PythonAPI/inc/StochasticDoubleGaussian.pypp.h \
     PythonAPI/inc/StochasticParameter_t.pypp.h \
+    PythonAPI/inc/StochasticSampledParameter.pypp.h \
     PythonAPI/inc/vdouble1d_t.pypp.h \
-    PythonAPI/inc/vector_DiffuseParticleInfoPtr_t.pypp.h \
     PythonAPI/inc/vector_IFormFactorPtr_t.pypp.h \
+    PythonAPI/inc/vector_integer_t.pypp.h \
     PythonAPI/inc/vector_kvector_t.pypp.h \
-    PythonAPI/inc/vector_less__int__greater_.pypp.h \
-    PythonAPI/inc/vector_less__RealParameterWrapper__greater_.pypp.h \
-    PythonAPI/inc/vector_less__unsigned_long__greater_.pypp.h 
+    PythonAPI/inc/vector_longinteger_t.pypp.h \
+    PythonAPI/inc/__call_policies.pypp.hpp \
+    PythonAPI/inc/__convenience.pypp.hpp 
 
 SOURCES +=  \ 
     PythonAPI/src/PythonModule.cpp \ 
@@ -87,12 +95,14 @@ SOURCES +=  \
     PythonAPI/src/PythonCoreExposer.cpp \ 
     PythonAPI/src/Beam.pypp.cpp \
     PythonAPI/src/Bin1D.pypp.cpp \
+    PythonAPI/src/Bin1DCVector.pypp.cpp \
     PythonAPI/src/Crystal.pypp.cpp \
     PythonAPI/src/cvector_t.pypp.cpp \
     PythonAPI/src/Detector.pypp.cpp \
     PythonAPI/src/FormFactorBox.pypp.cpp \
     PythonAPI/src/FormFactorCone.pypp.cpp \
     PythonAPI/src/FormFactorCylinder.pypp.cpp \
+    PythonAPI/src/FormFactorDecoratorDebyeWaller.pypp.cpp \
     PythonAPI/src/FormFactorEllipsoid.pypp.cpp \
     PythonAPI/src/FormFactorFullSphere.pypp.cpp \
     PythonAPI/src/FormFactorFullSpheroid.pypp.cpp \
@@ -139,27 +149,31 @@ SOURCES +=  \
     PythonAPI/src/MaterialManager.pypp.cpp \
     PythonAPI/src/MultiLayer.pypp.cpp \
     PythonAPI/src/ndimdata_t.pypp.cpp \
+    PythonAPI/src/OutputDataIOFactory.pypp.cpp \
     PythonAPI/src/ParameterPool.pypp.cpp \
     PythonAPI/src/Particle.pypp.cpp \
     PythonAPI/src/ParticleBuilder.pypp.cpp \
+    PythonAPI/src/ParticleCoreShell.pypp.cpp \
     PythonAPI/src/ParticleDecoration.pypp.cpp \
     PythonAPI/src/ParticleInfo.pypp.cpp \
     PythonAPI/src/PositionParticleInfo.pypp.cpp \
     PythonAPI/src/PythonInterface_free_functions.pypp.cpp \
+    PythonAPI/src/PythonInterface_global_variables.pypp.cpp \
     PythonAPI/src/RealParameterWrapper.pypp.cpp \
+    PythonAPI/src/ResolutionFunction2DSimple.pypp.cpp \
     PythonAPI/src/RotateY_3D.pypp.cpp \
     PythonAPI/src/RotateZ_3D.pypp.cpp \
     PythonAPI/src/Simulation.pypp.cpp \
     PythonAPI/src/SimulationParameters.pypp.cpp \
+    PythonAPI/src/StochasticDoubleGate.pypp.cpp \
     PythonAPI/src/StochasticDoubleGaussian.pypp.cpp \
     PythonAPI/src/StochasticParameter_t.pypp.cpp \
+    PythonAPI/src/StochasticSampledParameter.pypp.cpp \
     PythonAPI/src/vdouble1d_t.pypp.cpp \
-    PythonAPI/src/vector_DiffuseParticleInfoPtr_t.pypp.cpp \
     PythonAPI/src/vector_IFormFactorPtr_t.pypp.cpp \
+    PythonAPI/src/vector_integer_t.pypp.cpp \
     PythonAPI/src/vector_kvector_t.pypp.cpp \
-    PythonAPI/src/vector_less__int__greater_.pypp.cpp \
-    PythonAPI/src/vector_less__RealParameterWrapper__greater_.pypp.cpp \
-    PythonAPI/src/vector_less__unsigned_long__greater_.pypp.cpp 
+    PythonAPI/src/vector_longinteger_t.pypp.cpp 
 
 INCLUDEPATH += ./PythonAPI/inc 
 DEPENDPATH  += ./PythonAPI/inc 

@@ -9,6 +9,8 @@ GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
+#include "__call_policies.pypp.hpp"
+#include "__convenience.pypp.hpp"
 #include "PythonCoreList.h"
 #include "Simulation.pypp.h"
 
@@ -81,6 +83,25 @@ struct Simulation_wrapper : Simulation, bp::wrapper< Simulation > {
     
     void default_printParameters(  ) const  {
         IParameterized::printParameters( );
+    }
+
+    virtual void registerParameter( ::std::string const & name, double * parpointer ) {
+        namespace bpl = boost::python;
+        if( bpl::override func_registerParameter = this->get_override( "registerParameter" ) ){
+            bpl::object py_result = bpl::call<bpl::object>( func_registerParameter.ptr(), name, parpointer );
+        }
+        else{
+            IParameterized::registerParameter( name, parpointer );
+        }
+    }
+    
+    static void default_registerParameter( ::IParameterized & inst, ::std::string const & name, long unsigned int parpointer ){
+        if( dynamic_cast< Simulation_wrapper * >( boost::addressof( inst ) ) ){
+            inst.::IParameterized::registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
+        else{
+            inst.registerParameter(name, reinterpret_cast< double * >( parpointer ));
+        }
     }
 
     virtual bool setParameterValue( ::std::string const & name, double value ) {
@@ -233,6 +254,36 @@ void register_Simulation_class(){
                 , ( bp::arg("lambda"), bp::arg("alpha_i"), bp::arg("phi_i") ) );
         
         }
+        { //::Simulation::setDetectorParameters
+        
+            typedef void ( ::Simulation::*setDetectorParameters_function_type )( ::OutputData< double > const & ) ;
+            
+            Simulation_exposer.def( 
+                "setDetectorParameters"
+                , setDetectorParameters_function_type( &::Simulation::setDetectorParameters )
+                , ( bp::arg("output_data") ) );
+        
+        }
+        { //::Simulation::setDetectorParameters
+        
+            typedef void ( ::Simulation::*setDetectorParameters_function_type )( ::size_t,double,double,::size_t,double,double,bool ) ;
+            
+            Simulation_exposer.def( 
+                "setDetectorParameters"
+                , setDetectorParameters_function_type( &::Simulation::setDetectorParameters )
+                , ( bp::arg("n_phi"), bp::arg("phi_f_min"), bp::arg("phi_f_max"), bp::arg("n_alpha"), bp::arg("alpha_f_min"), bp::arg("alpha_f_max"), bp::arg("isgisaxs_style")=(bool)(false) ) );
+        
+        }
+        { //::Simulation::setDetectorParameters
+        
+            typedef void ( ::Simulation::*setDetectorParameters_function_type )( ::DetectorParameters const & ) ;
+            
+            Simulation_exposer.def( 
+                "setDetectorParameters"
+                , setDetectorParameters_function_type( &::Simulation::setDetectorParameters )
+                , ( bp::arg("params") ) );
+        
+        }
         { //::Simulation::setDetectorResolutionFunction
         
             typedef void ( ::Simulation::*setDetectorResolutionFunction_function_type )( ::IResolutionFunction2D const & ) ;
@@ -261,6 +312,16 @@ void register_Simulation_class(){
                 "setSample"
                 , setSample_function_type( &::Simulation::setSample )
                 , ( bp::arg("sample") ) );
+        
+        }
+        { //::Simulation::setSampleBuilder
+        
+            typedef void ( ::Simulation::*setSampleBuilder_function_type )( ::ISampleBuilder const * ) ;
+            
+            Simulation_exposer.def( 
+                "setSampleBuilder"
+                , setSampleBuilder_function_type( &::Simulation::setSampleBuilder )
+                , ( bp::arg("p_sample_builder") ) );
         
         }
         { //::Simulation::setSimulationParameters
@@ -325,6 +386,16 @@ void register_Simulation_class(){
                 "printParameters"
                 , printParameters_function_type(&::IParameterized::printParameters)
                 , default_printParameters_function_type(&Simulation_wrapper::default_printParameters) );
+        
+        }
+        { //::IParameterized::registerParameter
+        
+            typedef void ( *default_registerParameter_function_type )( ::IParameterized &,::std::string const &,long unsigned int );
+            
+            Simulation_exposer.def( 
+                "registerParameter"
+                , default_registerParameter_function_type( &Simulation_wrapper::default_registerParameter )
+                , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
         
         }
         { //::IParameterized::setParameterValue

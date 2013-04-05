@@ -28,6 +28,11 @@ struct ISelectionRule_wrapper : ISelectionRule, bp::wrapper< ISelectionRule > {
         return func_clone(  );
     }
 
+    virtual bool coordinateSelected( ::IndexVector3D const & coordinate ) const {
+        bp::override func_coordinateSelected = this->get_override( "coordinateSelected" );
+        return func_coordinateSelected( boost::ref(coordinate) );
+    }
+
 };
 
 void register_ISelectionRule_class(){
@@ -44,6 +49,16 @@ void register_ISelectionRule_class(){
                 "clone"
                 , bp::pure_virtual( clone_function_type(&::ISelectionRule::clone) )
                 , bp::return_value_policy< bp::manage_new_object >() );
+        
+        }
+        { //::ISelectionRule::coordinateSelected
+        
+            typedef bool ( ::ISelectionRule::*coordinateSelected_function_type )( ::IndexVector3D const & ) const;
+            
+            ISelectionRule_exposer.def( 
+                "coordinateSelected"
+                , bp::pure_virtual( coordinateSelected_function_type(&::ISelectionRule::coordinateSelected) )
+                , ( bp::arg("coordinate") ) );
         
         }
     }

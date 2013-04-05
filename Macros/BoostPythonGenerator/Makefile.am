@@ -14,6 +14,7 @@ install:
 
 clean:
 	rm -r -f output
+	rm -f cache_core.xml
 	rm -f *~
 	rm -f named_tuple.py
 	rm -f *.pyc

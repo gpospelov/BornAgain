@@ -5,6 +5,7 @@ import os
 import sys
 import glob
 import subprocess
+import time
 from pyplusplus import module_builder
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
@@ -17,6 +18,8 @@ from pyplusplus import function_transformers as FT
 from pyplusplus.function_transformers import transformers
 from pygccxml import parser
 
+import common
+
 
 include_dirs = [
     '../../Core/Samples/inc',
@@ -28,86 +31,86 @@ include_dirs = [
 ]
 
 include_classes = [
-    "ISample",
-    "ICompositeSample",
-    "MaterialManager",
-    "IMaterial",
-    "HomogeneousMaterial",
-    "IFormFactor",
-    "IFormFactorBorn",
-    "FormFactorBox",
-    "FormFactorCone",
-    "FormFactorCylinder",
-    "FormFactorEllipsoid",
-    "FormFactorFullSphere",
-    "FormFactorFullSpheroid",
-    "FormFactorGauss",
-    "FormFactorHemiSpheroid",
-    "FormFactorLorentz",
-    "FormFactorParallelepiped",
-    "FormFactorPrism3",
-    "FormFactorPrism6",
-    "FormFactorPyramid",
-    "FormFactorSphere",
-    "Particle",
-    "kvector_t",
-    "cvector_t",
-    "ParticleInfo",
-    "BasicVector3D<double>",
-    "BasicVector3D<std::complex<double> >",
-    "ITransform3D",
-    "LatticeBasis",
-    "Lattice",
-    "ISelectionRule",
-    "Particle",
-    "Crystal",
-    "ParticleDecoration",
-    "IInterferenceFunction",
-    "InterferenceFunctionNone",
-    "Layer",
-    "MultiLayer",
-    "LayerDecorator",
-    "LayerInterface",
-    "IDecoration",
-    "LayerRoughness",
-    "Simulation",
-    "Instrument",
-    "OutputData<double>",
-    "SimulationParameters",
-    "IResolutionFunction2D",
-    "Beam",
-    "Detector",
-    "IAxis",
-    "IDetectorResolution",
-    "Bin1D",
-    "StochasticDoubleGaussian",
-    "ParticleBuilder",
-    "StochasticParameter<double>",
-    "InterferenceFunction2DParaCrystal",
-    "IFTDistribution2D",
-    "Lattice2DIFParameters",
-    "InterferenceFunction2DLattice",
-    "RotateY_3D",
-    "RotateZ_3D",
-    "PositionParticleInfo",
-    "FTDistribution2DCauchy",
-    "StochasticDoubleGaussian",
-    "ISampleBuilder",
-    "ParameterPool",
-    "IParameterized",
-    "RealParameterWrapper"
+"BasicVector3D<double>",
+"BasicVector3D<std::complex<double> >",
+"Beam",
+"Bin1D",
+"Crystal",
+"Detector",
+"FTDistribution2DCauchy",
+"FormFactorBox",
+"FormFactorCone",
+"FormFactorCylinder",
+"FormFactorEllipsoid",
+"FormFactorFullSphere",
+"FormFactorFullSpheroid",
+"FormFactorGauss",
+"FormFactorHemiSpheroid",
+"FormFactorLorentz",
+"FormFactorParallelepiped",
+"FormFactorPrism3",
+"FormFactorPrism6",
+"FormFactorPyramid",
+"FormFactorSphere",
+"HomogeneousMaterial",
+"IAxis",
+"ICloneable",
+"IClusteredParticles",
+"ICompositeSample",
+"IDecoration",
+"IDetectorResolution",
+"IFTDistribution2D",
+"IFormFactor",
+"IFormFactorBorn",
+"IInterferenceFunction",
+"IMaterial",
+"IParameterized",
+"IResolutionFunction2D",
+"ISample",
+"ISampleBuilder",
+"ISelectionRule",
+"ITransform3D",
+"Instrument",
+"InterferenceFunction1DParaCrystal",
+"InterferenceFunction2DLattice",
+"InterferenceFunction2DParaCrystal",
+"InterferenceFunctionNone",
+"Lattice",
+"Lattice2DIFParameters",
+"LatticeBasis",
+"Layer",
+"LayerDecorator",
+"LayerInterface",
+"LayerRoughness",
+"MaterialManager",
+"MultiLayer",
+"OutputData<double>",
+"ParameterPool",
+"Particle",
+"Particle",
+"ParticleBuilder",
+"ParticleDecoration",
+"ParticleInfo",
+"PositionParticleInfo",
+"RealParameterWrapper",
+"RotateY_3D",
+"RotateZ_3D",
+"Simulation",
+"SimulationParameters",
+"StochasticDoubleGaussian",
+"StochasticDoubleGaussian",
+"StochasticParameter<double>",
+"cvector_t",
+"kvector_t",
 ]
 
 
-
-    
-
-#from pyplusplus.file_writers.balanced_files import balanced_files_t
-#balanced_files_t.HEADER_EXT='.h'
-#balanced_files_t.SOURCE_EXT='.cpp'
-#from pyplusplus.file_writers.multiple_files import multiple_files_t
-#multiple_files_t.HEADER_EXT='.pypp.h'
-#multiple_files_t.SOURCE_EXT='.pypp.cpp'
+from pyplusplus.file_writers.balanced_files import balanced_files_t
+balanced_files_t.HEADER_EXT='.h'
+balanced_files_t.SOURCE_EXT='.cpp'
+from pyplusplus.file_writers.multiple_files import multiple_files_t
+multiple_files_t.HEADER_EXT='.pypp.h'
+multiple_files_t.SOURCE_EXT='.pypp.cpp'
 
 
 ModuleName = 'PythonInterface'
@@ -143,17 +146,49 @@ def from_address_custom( *args, **keywd ):
     return creator
 
 
+# for classes with names from 'class_names' exclude methods from 'method_names'
+def ExcludeMemberFunctionsForClasses(mb, method_names, class_names):
+    # if class decl_string is present in class_names
+    def ClassInList(cl):
+        for name in class_names:
+            if name in cl.decl_string: return True
+        return False
+    # method name is present in method_names
+    def MethodInList(method):
+        for name in method_names:
+            if method.name == name: return True
+        return False
+    #
+    for cl in mb.classes():
+        if ClassInList(cl):
+            #print "class in list",cl.decl_string, class_names
+            for fun in cl.member_functions(allow_empty=True):
+                if MethodInList(fun):
+                    #print "method in list",fun.name, method_names
+                    fun.exclude()
 
-# -------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # AdditionalRules
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def ManualClassTunings(mb):
     mb.class_("Detector").member_functions("addAxis").exclude()
     mb.class_("Instrument").member_functions("setDetectorParameters").exclude()
     mb.class_("Simulation").member_functions("setDetectorParameters").exclude()
     mb.class_("IFTDistribution2D").member_functions("transformToStarBasis").exclude()
     mb.class_("FTDistribution2DCauchy").member_functions("transformToStarBasis").exclude()
- pass
+    #
+    shared_ptrs = mb.decls( lambda decl: decl.name.startswith( 'shared_ptr<' ) )
+    shared_ptrs.disable_warnings( messages.W1040 )
+    # BasicVector3D
+    methods_to_exclude=[
+        "phi", "theta", "cosTheta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",
+        "setMag", "perp", "perp2", "setPerp", "angle", "unit", "orthogonal",
+        "rotated","rotatedX","rotatedY","rotatedZ"
+    ]
+    classes_to_exclude = ["BasicVector3D<std::complex<double> >","BasicVector3D<double>","BasicVector3D<int>"]
+    ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)
+    pass
 
 
 # include list of defined classes
@@ -205,22 +240,6 @@ def DefineGeneralRules(mb):
     mb.constructors().allow_implicit_conversion = False
 
 
-# excluding constructors which have pointers in argument list
-def ExcludeConstructorsArgPtr(mb):
-    for cl in mb.classes():
-        for ctor in cl.constructors(allow_empty=True):
-            for arg in ctor.arguments:
-                if declarations.type_traits.is_pointer(arg.type): ctor.exclude()
-
-
-# excluding member functions if they have pointers in argument list
-def ExcludeMemberFunctionsArgPtr(mb):
-    for cl in mb.classes():
-        for fun in cl.member_functions(allow_empty=True):
-            has_pointers = False
-            for arg in fun.arguments:
-                if declarations.type_traits.is_pointer(arg.type): has_pointers = True
-            if has_pointers: fun.exclude();
 
 
 # return policy for singletons, clone and create methods
@@ -285,9 +304,9 @@ def MakePythonAPI(OutputTempDir):
 
     DefineGeneralRules(mb)
 
-    ExcludeConstructorsArgPtr(mb)
+    common.ExcludeConstructorsArgPtr(mb)
 
-    ExcludeMemberFunctionsArgPtr(mb)
+    common.ExcludeMemberFunctionsArgPtr(mb)
 
     # difficult to expose functions
     ManualExcludeMemberFunctions(mb)
@@ -319,19 +338,20 @@ def MakePythonAPI(OutputTempDir):
       #, messages.W1040
       #, messages.W1038
       #, messages.W1041
-      #, messages.W1036 # pointer to Python immutable member
+      , messages.W1036 # pointer to Python immutable member
       #, messages.W1033 # unnamed variables
       #, messages.W1018 # expose unnamed classes
       #, messages.W1049 # returns reference to local variable
       #, messages.W1014 # unsupported '=' operator
        )
-    shared_ptrs = mb.decls( lambda decl: decl.name.startswith( 'shared_ptr<' ) )
-    shared_ptrs.disable_warnings( messages.W1040 )
+
 
     # ---------------------------------------------------------
     # generating output
     # ---------------------------------------------------------
     mb.build_code_creator( module_name=ModuleName)
+    mb.code_creator.license = common.license
+    
     mb.code_creator.user_defined_directories.append( os.path.abspath('./') )
     mb.split_module(OutputTempDir)
 
@@ -342,5 +362,7 @@ def MakePythonAPI(OutputTempDir):
 if __name__ == '__main__':
     PyCoreTempDir='output/PyCore'
     if not os.path.exists(PyCoreTempDir): os.makedirs(PyCoreTempDir)
+    start_time = time.clock()
     MakePythonAPI(PyCoreTempDir)
+    print 'Done. PythonCoreAPI source code was updated( %f seconds ).' % (  ( time.clock() - start_time ) )
 

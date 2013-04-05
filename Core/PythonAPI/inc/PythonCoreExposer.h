@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      PythonAPI/inc/PythonPlusplusHelper.h
-//! @brief     Defines class PythonPlusplusHelper, and namespace pypluslus::aliases.
+//! @file      PythonAPI/inc/PythonCoreExposer.h
+//! @brief     Helpers for automatic PythonAPI generation
 //!
 //! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -13,8 +13,8 @@
 //
 // ************************************************************************** //
 
-#ifndef PYTHONPLUSPLUSHELPER_H
-#define PYTHONPLUSPLUSHELPER_H
+#ifndef PYTHONCOREEXPOSER_H
+#define PYTHONCOREEXPOSER_H
 
 #include "Types.h"
 #include "BasicVector3D.h"
@@ -23,8 +23,8 @@
 #include "MaterialManager.h"
 #include "IStochasticParameter.h"
 #include "OutputData.h"
-#include "ITransform3D.h"
-#include "boost/shared_ptr.hpp"
+//#include "ITransform3D.h"
+//#include "boost/shared_ptr.hpp"
 
 //! this is special namespace to help Py++ generate correct names
 namespace pyplusplus {
@@ -40,11 +40,11 @@ namespace pyplusplus {
         typedef ISingleton<MaterialManager> MaterialManagerSingleton_t;
         typedef StochasticParameter<double> StochasticParameter_t;
         typedef OutputData<double > ndimdata_t;
-        typedef std::vector<int > vector_integer_t;
-        typedef std::vector<unsigned long int > vector_longinteger_t;
-        static const kvector_t dummy1 = 2.0*kvector_t(0,0,0);
-        static const kvector_t dummy2 = kvector_t(0,0,0)*2.0;
-        static const kvector_t dummy3 = kvector_t(0,0,0)/2.0;
+//        typedef std::vector<int > vector_integer_t;
+//        typedef std::vector<unsigned long int > vector_longinteger_t;
+//        static const kvector_t dummy1 = 2.0*kvector_t(0,0,0);
+//        static const kvector_t dummy2 = kvector_t(0,0,0)*2.0;
+//        static const kvector_t dummy3 = kvector_t(0,0,0)/2.0;
         //typedef boost::shared_ptr<Geometry::ITransform3D> PTransform3D;
     }
 }
@@ -56,20 +56,23 @@ namespace pyplusplus {
 
 //! helper class to provide Py++ with explicit template instantiations
 
-class PythonPlusplusHelper
-{
- public:
-//    size_t pyplusplus_boost_kvector() { return sizeof(kvector_t); }
-    size_t pyplusplus_boost_kvector() { return sizeof(pyplusplus::aliases::kvector_t); }
-    size_t pyplusplus_boost_vectorof_kvector() { return sizeof(pyplusplus::aliases::vector_kvector_t); }
-    size_t pyplusplus_boost_cvector() { return sizeof(pyplusplus::aliases::cvector_t); }
-    size_t pyplusplus_boost_vectorof_cvector() { return sizeof(pyplusplus::aliases::vector_cvector_t); }
-    size_t pyplusplus_boost_vectorof_DiffuseParticleInfoPtr() { return sizeof(pyplusplus::aliases::vector_DiffuseParticleInfoPtr_t); }
-    size_t pyplusplus_boost_stochastic_parameter() { return sizeof(pyplusplus::aliases::StochasticParameter_t); }
-    size_t pyplusplus_boost_outputdata() { return sizeof(pyplusplus::aliases::ndimdata_t); }
-    //size_t pypluspus_boost_ptransform() { return sizeof(pyplusplus::aliases::PTransform3D); }
-    //size_t pyplusplus_boost_kvector2() { return sizeof(pyplusplus::aliases::kvector_t); }
-};
+
+
+
+//class PythonPlusplusHelper
+//{
+// public:
+////    size_t pyplusplus_boost_kvector() { return sizeof(kvector_t); }
+//    size_t pyplusplus_boost_kvector() { return sizeof(pyplusplus::aliases::kvector_t); }
+//    size_t pyplusplus_boost_vectorof_kvector() { return sizeof(pyplusplus::aliases::vector_kvector_t); }
+//    size_t pyplusplus_boost_cvector() { return sizeof(pyplusplus::aliases::cvector_t); }
+//    size_t pyplusplus_boost_vectorof_cvector() { return sizeof(pyplusplus::aliases::vector_cvector_t); }
+//    size_t pyplusplus_boost_vectorof_DiffuseParticleInfoPtr() { return sizeof(pyplusplus::aliases::vector_DiffuseParticleInfoPtr_t); }
+//    size_t pyplusplus_boost_stochastic_parameter() { return sizeof(pyplusplus::aliases::StochasticParameter_t); }
+//    //size_t pyplusplus_boost_outputdata() { return sizeof(pyplusplus::aliases::ndimdata_t); }
+//    //size_t pypluspus_boost_ptransform() { return sizeof(pyplusplus::aliases::PTransform3D); }
+//    //size_t pyplusplus_boost_kvector2() { return sizeof(pyplusplus::aliases::kvector_t); }
+//};
 
 //! helper function to set value via subscript operator from python
 template <class Self, class Key, class Value>

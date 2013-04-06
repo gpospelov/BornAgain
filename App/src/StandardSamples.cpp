@@ -439,10 +439,10 @@ ISample *StandardSamples::IsGISAXS2_CylindersMixture()
     double sigma1 = radius1*0.2;
     double sigma2 = radius2*0.02;
     int nfwhm(3); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    StochasticSampledParameter par1(StochasticDoubleGaussian(radius1, sigma1),
-                                    nbins, nfwhm);
-    StochasticSampledParameter par2(StochasticDoubleGaussian(radius2, sigma2),
-                                    nbins, nfwhm);
+    StochasticDoubleGaussian sg1(radius1, sigma1);
+    StochasticSampledParameter par1(sg1,nbins, nfwhm);
+    StochasticDoubleGaussian sg2(radius2, sigma2);
+    StochasticSampledParameter par2(sg2,nbins, nfwhm);
 
     // building nano particles
     ParticleBuilder builder;
@@ -534,8 +534,8 @@ ISample *StandardSamples::IsGISAXS3_CylinderBASize()
 
     // radius of nanoparticles will be sampled with gaussian probability
     int nbins(100), nfwhm(2);
-    StochasticSampledParameter par(StochasticDoubleGaussian(radius, sigma),
-                                   nbins, nfwhm);
+    StochasticDoubleGaussian sg(radius, sigma);
+    StochasticSampledParameter par(sg, nbins, nfwhm);
 
     ParticleBuilder builder;
     builder.setPrototype
@@ -1145,9 +1145,8 @@ ISample *StandardSamples::IsGISAXS15_SSCA()
     ParticleDecoration particle_decoration;
     Particle particle_prototype(n_particle, new FormFactorCylinder
                                 (5.0*Units::nanometer, 5.0*Units::nanometer));
-    StochasticSampledParameter stochastic_radius
-        (StochasticDoubleGaussian(5.0*Units::nanometer, 1.25*Units::nanometer),
-         30, 2);
+    StochasticDoubleGaussian sg(5.0*Units::nanometer, 1.25*Units::nanometer);
+    StochasticSampledParameter stochastic_radius(sg,30, 2);
     ParticleBuilder particle_builder;
     particle_builder.setPrototype
         (particle_prototype, "/Particle/FormFactorCylinder/radius",

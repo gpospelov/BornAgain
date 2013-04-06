@@ -41,6 +41,7 @@ include_classes = [
 "FormFactorBox",
 "FormFactorCone",
 "FormFactorCylinder",
+"FormFactorCrystal",
 "FormFactorDecoratorDebyeWaller",
 "FormFactorEllipsoid",
 "FormFactorFullSphere",
@@ -53,6 +54,7 @@ include_classes = [
 "FormFactorPrism6",
 "FormFactorPyramid",
 "FormFactorSphere",
+"FormFactorSphereGaussianRadius",
 "HomogeneousMaterial",
 "IAxis",
 "ICloneable",
@@ -63,6 +65,7 @@ include_classes = [
 "IFTDistribution2D",
 "IFormFactor",
 "IFormFactorBorn",
+"IFormFactorDecorator",
 "IInterferenceFunction",
 "IMaterial",
 "IParameterized",
@@ -84,11 +87,11 @@ include_classes = [
 "LayerInterface",
 "LayerRoughness",
 "MaterialManager",
+"MesoCrystal",
 "MultiLayer",
 "OutputData<double>",
 "OutputDataIOFactory",
 "ParameterPool",
-"Particle",
 "Particle",
 "ParticleCoreShell",
 "ParticleBuilder",
@@ -101,6 +104,7 @@ include_classes = [
 "RotateZ_3D",
 "Simulation",
 "SimulationParameters",
+"SimpleSelectionRule",
 "StochasticDoubleGate",
 "StochasticDoubleGaussian",
 "StochasticParameter<double>",
@@ -115,10 +119,6 @@ include_classes = [
 # -----------------------------------------------------------------------------
 def ManualClassTunings(mb):
     mb.class_("Detector").member_functions("addAxis").exclude()
-    #mb.class_("Instrument").member_functions("setDetectorParameters").exclude()
-    #mb.class_("Simulation").member_functions("setDetectorParameters").exclude()
-    #mb.class_("IFTDistribution2D").member_functions("transformToStarBasis").exclude()
-    #mb.class_("FTDistribution2DCauchy").member_functions("transformToStarBasis").exclude()
     #
     shared_ptrs = mb.decls( lambda decl: decl.name.startswith( 'shared_ptr<' ) )
     shared_ptrs.disable_warnings( messages.W1040 )
@@ -130,7 +130,6 @@ def ManualClassTunings(mb):
     ]
     classes_to_exclude = ["BasicVector3D<std::complex<double> >","BasicVector3D<double>","BasicVector3D<int>"]
     builder_utils.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)
-    pass
     # Pure virtual should always be included
     mb.class_("IDetectorResolution").member_function("applyDetectorResolution").include()
     #
@@ -183,7 +182,7 @@ def ManualClassTunings(mb):
     cl.constructors().exclude()
     #
     cl = mb.class_("OutputData<double>")
-    cl.add_code('def("__setitem__", &pyplusplus_setitem<OutputData<double >,int,double> )')
+    cl.add_code('def("__setitem__", &pyplusplus_setitem<OutputData<double >,int,double> )') # [] operator for OutputData
     #
     cl = mb.class_( "Particle" )
     cl.member_function( "createDiffuseParticleInfo" ).exclude()
@@ -209,6 +208,11 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_( "ParticleCoreShell" )
     cl.member_functions().exclude()
+    #
+    cl = mb.class_( "MesoCrystal" )
+    cl.member_functions( ).exclude()
+    #
+    mb.namespace( "MathFunctions" ).free_function("GenerateNormalRandom").include()
 
 
 # excluding specific member functions

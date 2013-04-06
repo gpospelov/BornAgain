@@ -1,4 +1,4 @@
-# c++ wrapper generator for exposing libBornAgainCore to python
+# c++ wrapper generator for exposing libBornAgainCore and libBornAgainFit libraries to python
 #
 # Usage: 'python codegenerator.py make'  - to generate python-boost C++ wrappers
 # Usage: 'python codegenerator.py install'  - to copy files into BornAgain/Core/PythonAPI directory
@@ -42,8 +42,8 @@ def main():
             InstallPyCore.InstallCode(PyCoreTempDir, PyCoreInstallDir)
             InstallPyFit.InstallCode(PyFitTempDir, PyFitInstallDir)
         elif sys.argv[1] == 'clean':
-            clean = ["rm -r -f output", "rm -f cache_core.xml", "rm -f cache_fit.xml", "rm -f *~","rm -f named_tuple.py","rm -f *.pyc","rm -f exposed_decl.pypp.txt","rm -f tmp.pypp.cpp"]
-            for x in clean: os.system(x)
+            clean = ["output", "cache_*.xml", "*~","named_tuple.py","*.pyc","exposed_decl.pypp.txt","tmp.pypp.cpp"]
+            for x in clean: os.system("rm -r -f "+x)
         else:
             print "Nothing to do, run 'python codegenerator.py' to get help"
 

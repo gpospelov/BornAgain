@@ -55,6 +55,7 @@
 #include "Layer.h"
 #include "LayerDecorator.h"
 #include "LayerRoughness.h"
+#include "MathFunctions.h"
 #include "MaterialManager.h"
 #include "MesoCrystal.h"
 #include "MultiLayer.h"

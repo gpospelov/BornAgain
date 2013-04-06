@@ -16,6 +16,17 @@ namespace bp = boost::python;
 
 void register_free_functions(){
 
+    { //::MathFunctions::GenerateNormalRandom
+    
+        typedef double ( *GenerateNormalRandom_function_type )( double,double );
+        
+        bp::def( 
+            "GenerateNormalRandom"
+            , GenerateNormalRandom_function_type( &::MathFunctions::GenerateNormalRandom )
+            , ( bp::arg("average"), bp::arg("std_dev") ) );
+    
+    }
+
     { //::GetOutputData
     
         typedef ::PyObject * ( *GetOutputData_function_type )( ::Simulation const & );

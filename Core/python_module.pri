@@ -12,6 +12,7 @@ HEADERS +=  \
     PythonAPI/inc/Detector.pypp.h \
     PythonAPI/inc/FormFactorBox.pypp.h \
     PythonAPI/inc/FormFactorCone.pypp.h \
+    PythonAPI/inc/FormFactorCrystal.pypp.h \
     PythonAPI/inc/FormFactorCylinder.pypp.h \
     PythonAPI/inc/FormFactorDecoratorDebyeWaller.pypp.h \
     PythonAPI/inc/FormFactorEllipsoid.pypp.h \
@@ -25,6 +26,7 @@ HEADERS +=  \
     PythonAPI/inc/FormFactorPrism6.pypp.h \
     PythonAPI/inc/FormFactorPyramid.pypp.h \
     PythonAPI/inc/FormFactorSphere.pypp.h \
+    PythonAPI/inc/FormFactorSphereGaussianRadius.pypp.h \
     PythonAPI/inc/FTDistribution2DCauchy.pypp.h \
     PythonAPI/inc/HomogeneousMaterial.pypp.h \
     PythonAPI/inc/IAxis.pypp.h \
@@ -35,6 +37,7 @@ HEADERS +=  \
     PythonAPI/inc/IDetectorResolution.pypp.h \
     PythonAPI/inc/IFormFactor.pypp.h \
     PythonAPI/inc/IFormFactorBorn.pypp.h \
+    PythonAPI/inc/IFormFactorDecorator.pypp.h \
     PythonAPI/inc/IFTDistribution2D.pypp.h \
     PythonAPI/inc/IInterferenceFunction.pypp.h \
     PythonAPI/inc/IMaterial.pypp.h \
@@ -58,6 +61,7 @@ HEADERS +=  \
     PythonAPI/inc/LayerInterface.pypp.h \
     PythonAPI/inc/LayerRoughness.pypp.h \
     PythonAPI/inc/MaterialManager.pypp.h \
+    PythonAPI/inc/MesoCrystal.pypp.h \
     PythonAPI/inc/MultiLayer.pypp.h \
     PythonAPI/inc/ndimdata_t.pypp.h \
     PythonAPI/inc/OutputDataIOFactory.pypp.h \
@@ -74,6 +78,7 @@ HEADERS +=  \
     PythonAPI/inc/ResolutionFunction2DSimple.pypp.h \
     PythonAPI/inc/RotateY_3D.pypp.h \
     PythonAPI/inc/RotateZ_3D.pypp.h \
+    PythonAPI/inc/SimpleSelectionRule.pypp.h \
     PythonAPI/inc/Simulation.pypp.h \
     PythonAPI/inc/SimulationParameters.pypp.h \
     PythonAPI/inc/StochasticDoubleGate.pypp.h \
@@ -101,6 +106,7 @@ SOURCES +=  \
     PythonAPI/src/Detector.pypp.cpp \
     PythonAPI/src/FormFactorBox.pypp.cpp \
     PythonAPI/src/FormFactorCone.pypp.cpp \
+    PythonAPI/src/FormFactorCrystal.pypp.cpp \
     PythonAPI/src/FormFactorCylinder.pypp.cpp \
     PythonAPI/src/FormFactorDecoratorDebyeWaller.pypp.cpp \
     PythonAPI/src/FormFactorEllipsoid.pypp.cpp \
@@ -114,6 +120,7 @@ SOURCES +=  \
     PythonAPI/src/FormFactorPrism6.pypp.cpp \
     PythonAPI/src/FormFactorPyramid.pypp.cpp \
     PythonAPI/src/FormFactorSphere.pypp.cpp \
+    PythonAPI/src/FormFactorSphereGaussianRadius.pypp.cpp \
     PythonAPI/src/FTDistribution2DCauchy.pypp.cpp \
     PythonAPI/src/HomogeneousMaterial.pypp.cpp \
     PythonAPI/src/IAxis.pypp.cpp \
@@ -124,6 +131,7 @@ SOURCES +=  \
     PythonAPI/src/IDetectorResolution.pypp.cpp \
     PythonAPI/src/IFormFactor.pypp.cpp \
     PythonAPI/src/IFormFactorBorn.pypp.cpp \
+    PythonAPI/src/IFormFactorDecorator.pypp.cpp \
     PythonAPI/src/IFTDistribution2D.pypp.cpp \
     PythonAPI/src/IInterferenceFunction.pypp.cpp \
     PythonAPI/src/IMaterial.pypp.cpp \
@@ -147,6 +155,7 @@ SOURCES +=  \
     PythonAPI/src/LayerInterface.pypp.cpp \
     PythonAPI/src/LayerRoughness.pypp.cpp \
     PythonAPI/src/MaterialManager.pypp.cpp \
+    PythonAPI/src/MesoCrystal.pypp.cpp \
     PythonAPI/src/MultiLayer.pypp.cpp \
     PythonAPI/src/ndimdata_t.pypp.cpp \
     PythonAPI/src/OutputDataIOFactory.pypp.cpp \
@@ -163,6 +172,7 @@ SOURCES +=  \
     PythonAPI/src/ResolutionFunction2DSimple.pypp.cpp \
     PythonAPI/src/RotateY_3D.pypp.cpp \
     PythonAPI/src/RotateZ_3D.pypp.cpp \
+    PythonAPI/src/SimpleSelectionRule.pypp.cpp \
     PythonAPI/src/Simulation.pypp.cpp \
     PythonAPI/src/SimulationParameters.pypp.cpp \
     PythonAPI/src/StochasticDoubleGate.pypp.cpp \

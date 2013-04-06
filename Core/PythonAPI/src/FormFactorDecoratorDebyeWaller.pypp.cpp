@@ -121,6 +121,42 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         return ISample::getCompositeSample( );
     }
 
+    virtual double getHeight(  ) const  {
+        if( bp::override func_getHeight = this->get_override( "getHeight" ) )
+            return func_getHeight(  );
+        else{
+            return this->IFormFactorDecorator::getHeight(  );
+        }
+    }
+    
+    double default_getHeight(  ) const  {
+        return IFormFactorDecorator::getHeight( );
+    }
+
+    virtual double getRadius(  ) const  {
+        if( bp::override func_getRadius = this->get_override( "getRadius" ) )
+            return func_getRadius(  );
+        else{
+            return this->IFormFactorDecorator::getRadius(  );
+        }
+    }
+    
+    double default_getRadius(  ) const  {
+        return IFormFactorDecorator::getRadius( );
+    }
+
+    virtual double getVolume(  ) const  {
+        if( bp::override func_getVolume = this->get_override( "getVolume" ) )
+            return func_getVolume(  );
+        else{
+            return this->IFormFactorDecorator::getVolume(  );
+        }
+    }
+    
+    double default_getVolume(  ) const  {
+        return IFormFactorDecorator::getVolume( );
+    }
+
     virtual bool isDistributedFormFactor(  ) const  {
         if( bp::override func_isDistributedFormFactor = this->get_override( "isDistributedFormFactor" ) )
             return func_isDistributedFormFactor(  );
@@ -164,6 +200,18 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
         }
     }
 
+    virtual void setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+        if( bp::override func_setAmbientRefractiveIndex = this->get_override( "setAmbientRefractiveIndex" ) )
+            func_setAmbientRefractiveIndex( boost::ref(refractive_index) );
+        else{
+            this->IFormFactorDecorator::setAmbientRefractiveIndex( boost::ref(refractive_index) );
+        }
+    }
+    
+    void default_setAmbientRefractiveIndex( ::complex_t const & refractive_index ) {
+        IFormFactorDecorator::setAmbientRefractiveIndex( boost::ref(refractive_index) );
+    }
+
     virtual bool setParameterValue( ::std::string const & name, double value ) {
         if( bp::override func_setParameterValue = this->get_override( "setParameterValue" ) )
             return func_setParameterValue( name, value );
@@ -193,7 +241,7 @@ struct FormFactorDecoratorDebyeWaller_wrapper : FormFactorDecoratorDebyeWaller, 
 void register_FormFactorDecoratorDebyeWaller_class(){
 
     { //::FormFactorDecoratorDebyeWaller
-        typedef bp::class_< FormFactorDecoratorDebyeWaller_wrapper, boost::noncopyable > FormFactorDecoratorDebyeWaller_exposer_t;
+        typedef bp::class_< FormFactorDecoratorDebyeWaller_wrapper, bp::bases< IFormFactorDecorator >, boost::noncopyable > FormFactorDecoratorDebyeWaller_exposer_t;
         FormFactorDecoratorDebyeWaller_exposer_t FormFactorDecoratorDebyeWaller_exposer = FormFactorDecoratorDebyeWaller_exposer_t( "FormFactorDecoratorDebyeWaller", bp::init< IFormFactor const &, double, double >(( bp::arg("p_form_factor"), bp::arg("dw_h_factor"), bp::arg("dw_r_factor") )) );
         bp::scope FormFactorDecoratorDebyeWaller_scope( FormFactorDecoratorDebyeWaller_exposer );
         { //::FormFactorDecoratorDebyeWaller::clone
@@ -290,6 +338,39 @@ void register_FormFactorDecoratorDebyeWaller_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::IFormFactorDecorator::getHeight
+        
+            typedef double ( ::IFormFactorDecorator::*getHeight_function_type )(  ) const;
+            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getHeight_function_type )(  ) const;
+            
+            FormFactorDecoratorDebyeWaller_exposer.def( 
+                "getHeight"
+                , getHeight_function_type(&::IFormFactorDecorator::getHeight)
+                , default_getHeight_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getHeight) );
+        
+        }
+        { //::IFormFactorDecorator::getRadius
+        
+            typedef double ( ::IFormFactorDecorator::*getRadius_function_type )(  ) const;
+            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getRadius_function_type )(  ) const;
+            
+            FormFactorDecoratorDebyeWaller_exposer.def( 
+                "getRadius"
+                , getRadius_function_type(&::IFormFactorDecorator::getRadius)
+                , default_getRadius_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getRadius) );
+        
+        }
+        { //::IFormFactorDecorator::getVolume
+        
+            typedef double ( ::IFormFactorDecorator::*getVolume_function_type )(  ) const;
+            typedef double ( FormFactorDecoratorDebyeWaller_wrapper::*default_getVolume_function_type )(  ) const;
+            
+            FormFactorDecoratorDebyeWaller_exposer.def( 
+                "getVolume"
+                , getVolume_function_type(&::IFormFactorDecorator::getVolume)
+                , default_getVolume_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_getVolume) );
+        
+        }
         { //::IFormFactor::isDistributedFormFactor
         
             typedef bool ( ::IFormFactor::*isDistributedFormFactor_function_type )(  ) const;
@@ -320,6 +401,18 @@ void register_FormFactorDecoratorDebyeWaller_class(){
                 "registerParameter"
                 , default_registerParameter_function_type( &FormFactorDecoratorDebyeWaller_wrapper::default_registerParameter )
                 , ( bp::arg("inst"), bp::arg("name"), bp::arg("parpointer") ) );
+        
+        }
+        { //::IFormFactorDecorator::setAmbientRefractiveIndex
+        
+            typedef void ( ::IFormFactorDecorator::*setAmbientRefractiveIndex_function_type )( ::complex_t const & ) ;
+            typedef void ( FormFactorDecoratorDebyeWaller_wrapper::*default_setAmbientRefractiveIndex_function_type )( ::complex_t const & ) ;
+            
+            FormFactorDecoratorDebyeWaller_exposer.def( 
+                "setAmbientRefractiveIndex"
+                , setAmbientRefractiveIndex_function_type(&::IFormFactorDecorator::setAmbientRefractiveIndex)
+                , default_setAmbientRefractiveIndex_function_type(&FormFactorDecoratorDebyeWaller_wrapper::default_setAmbientRefractiveIndex)
+                , ( bp::arg("refractive_index") ) );
         
         }
         { //::IParameterized::setParameterValue

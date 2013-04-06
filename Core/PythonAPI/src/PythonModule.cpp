@@ -11,6 +11,7 @@
 #include "Detector.pypp.h" 
 #include "FormFactorBox.pypp.h" 
 #include "FormFactorCone.pypp.h" 
+#include "FormFactorCrystal.pypp.h" 
 #include "FormFactorCylinder.pypp.h" 
 #include "FormFactorDecoratorDebyeWaller.pypp.h" 
 #include "FormFactorEllipsoid.pypp.h" 
@@ -24,6 +25,7 @@
 #include "FormFactorPrism6.pypp.h" 
 #include "FormFactorPyramid.pypp.h" 
 #include "FormFactorSphere.pypp.h" 
+#include "FormFactorSphereGaussianRadius.pypp.h" 
 #include "FTDistribution2DCauchy.pypp.h" 
 #include "HomogeneousMaterial.pypp.h" 
 #include "IAxis.pypp.h" 
@@ -34,6 +36,7 @@
 #include "IDetectorResolution.pypp.h" 
 #include "IFormFactor.pypp.h" 
 #include "IFormFactorBorn.pypp.h" 
+#include "IFormFactorDecorator.pypp.h" 
 #include "IFTDistribution2D.pypp.h" 
 #include "IInterferenceFunction.pypp.h" 
 #include "IMaterial.pypp.h" 
@@ -57,6 +60,7 @@
 #include "LayerInterface.pypp.h" 
 #include "LayerRoughness.pypp.h" 
 #include "MaterialManager.pypp.h" 
+#include "MesoCrystal.pypp.h" 
 #include "MultiLayer.pypp.h" 
 #include "ndimdata_t.pypp.h" 
 #include "OutputDataIOFactory.pypp.h" 
@@ -73,6 +77,7 @@
 #include "ResolutionFunction2DSimple.pypp.h" 
 #include "RotateY_3D.pypp.h" 
 #include "RotateZ_3D.pypp.h" 
+#include "SimpleSelectionRule.pypp.h" 
 #include "Simulation.pypp.h" 
 #include "SimulationParameters.pypp.h" 
 #include "StochasticDoubleGate.pypp.h" 
@@ -112,7 +117,9 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_IFormFactorBorn_class();
     register_FormFactorBox_class();
     register_FormFactorCone_class();
+    register_FormFactorCrystal_class();
     register_FormFactorCylinder_class();
+    register_IFormFactorDecorator_class();
     register_FormFactorDecoratorDebyeWaller_class();
     register_FormFactorEllipsoid_class();
     register_FormFactorFullSphere_class();
@@ -125,6 +132,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_FormFactorPrism6_class();
     register_FormFactorPyramid_class();
     register_FormFactorSphere_class();
+    register_FormFactorSphereGaussianRadius_class();
     register_kvector_t_class();
     register_cvector_t_class();
     register_ITransform3D_class();
@@ -153,6 +161,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_LayerInterface_class();
     register_LayerRoughness_class();
     register_MaterialManager_class();
+    register_MesoCrystal_class();
     register_MultiLayer_class();
     register_ndimdata_t_class();
     register_OutputDataIOFactory_class();
@@ -164,6 +173,7 @@ BOOST_PYTHON_MODULE(libBornAgainCore){
     register_PositionParticleInfo_class();
     register_RealParameterWrapper_class();
     register_ResolutionFunction2DSimple_class();
+    register_SimpleSelectionRule_class();
     register_Simulation_class();
     register_SimulationParameters_class();
     register_StochasticParameter_t_class();

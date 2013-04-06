@@ -103,6 +103,7 @@ def GenerateModuleFile(OutputTempDir, files_inc, files_src):
 # InstallCode()
 #------------------------------------------------------------------------------
 def InstallCode(OutputTempDir, InstallDir):
+    print "Installing generated PythonFitAPI into ", InstallDir
     if not os.path.exists(OutputTempDir): exit("No output directory '" + OutputTempDir+"'")
     if not os.path.exists(InstallDir): exit("No install directory '" + InstallDir+"'")
 
@@ -123,6 +124,7 @@ def InstallCode(OutputTempDir, InstallDir):
     install_utils.CopyFiles(files, InstallDir)
 
     install_utils.ClearPythonAPI(files, InstallDir)
+    print "Done"
 
 
 #------------------------------------------------------------------------------
@@ -130,6 +132,5 @@ def InstallCode(OutputTempDir, InstallDir):
 #------------------------------------------------------------------------------
 if __name__ == '__main__':
     InstallCode("output/PyCore","../../Core/PythonAPI")
-    print "Done"
 
 

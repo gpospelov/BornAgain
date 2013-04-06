@@ -290,7 +290,8 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     int nbins=20;
     double sigma = m_particle_radius*m_dispersion_radius;
     int nfwhm(2); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    StochasticSampledParameter stochastic_parameter(StochasticDoubleGaussian(m_particle_radius, sigma), nbins, nfwhm);
+    StochasticDoubleGaussian sg(m_particle_radius, sigma);
+    StochasticSampledParameter stochastic_parameter(sg, nbins, nfwhm);
 
     ParticleDecoration particle_decoration;
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length

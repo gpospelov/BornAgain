@@ -503,8 +503,10 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     double sigma1 = radius1*m_dispersion_radius1;
     double sigma2 = radius2*m_dispersion_radius2;
     int nfwhm(2); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    StochasticSampledParameter par1(StochasticDoubleGaussian(radius1, sigma1), nbins, nfwhm);
-    StochasticSampledParameter par2(StochasticDoubleGaussian(radius2, sigma2), nbins, nfwhm);
+    StochasticDoubleGaussian sg1(radius1, sigma1);
+    StochasticDoubleGaussian sg2(radius2, sigma2);
+    StochasticSampledParameter par1(sg1, nbins, nfwhm);
+    StochasticSampledParameter par2(sg2, nbins, nfwhm);
 
     ParticleDecoration particle_decoration;
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length

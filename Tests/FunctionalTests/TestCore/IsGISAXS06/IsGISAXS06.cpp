@@ -258,7 +258,8 @@ void FunctionalTests::IsGISAXS06::runvariants()
     int nbins = 3;
     double xi_min = 0.0*Units::degree;
     double xi_max = 240.0*Units::degree;
-    StochasticSampledParameter xi(StochasticDoubleGate(xi_min, xi_max), nbins, xi_min, xi_max);
+    StochasticDoubleGate xg(xi_min, xi_max);
+    StochasticSampledParameter xi(xg, nbins, xi_min, xi_max);
     for (size_t i=0; i<xi.getNbins(); ++i) {
         double xi_value = xi.getBinValue(i);
         double probability = xi.getNormalizedProbability(i);

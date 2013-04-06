@@ -38,29 +38,29 @@ class LayerInterface : public ICompositeSample
         const LayerRoughness& roughness);
 
     //! Sets link to the layer above the interface.
-    inline void setLayerTop(const Layer* p_layer_top)
+    void setLayerTop(const Layer* p_layer_top)
     { m_LayerTop = p_layer_top; }
 
     //! Sets link to the layer below the interface.
-    inline void setLayerBottom(const Layer* p_layer_bottom)
+    void setLayerBottom(const Layer* p_layer_bottom)
     { m_LayerBottom = p_layer_bottom; }
 
     //! Sets links to the layers above and below the interface.
-    inline void setLayersTopBottom(
+    void setLayersTopBottom(
         const Layer* p_layer_top, const Layer* p_layer_bottom)
     { setLayerTop(p_layer_top); setLayerBottom(p_layer_bottom); }
 
     //! Sets roughness of the interface.
-    inline void setRoughness(const LayerRoughness& roughness);
+    void setRoughness(const LayerRoughness& roughness);
 
     //! Returns roughness of the interface.
-    inline const LayerRoughness *getRoughness() const { return m_roughness; }
+    const LayerRoughness *getRoughness() const { return m_roughness; }
 
     //! Returns top layer.
-    inline const Layer *getLayerTop() const { return m_LayerTop; }
+    const Layer *getLayerTop() const { return m_LayerTop; }
 
     //! Returns bottom layer.
-    inline const Layer *getLayerBottom() const { return m_LayerBottom; }
+    const Layer *getLayerBottom() const { return m_LayerBottom; }
 
  protected:
     void print(std::ostream& ostr) const;

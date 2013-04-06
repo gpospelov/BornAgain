@@ -15,6 +15,7 @@
 #ifndef GEOMETRY_ITRANSFROM3D_H
 #define GEOMETRY_ITRANSFROM3D_H
 
+#include "Types.h"
 #include "BasicVector3D.h"
 #include <boost/shared_ptr.hpp>
 
@@ -50,6 +51,13 @@ class ITransform3D {
     { ostr << "Transform3D:Identity"; }
 
 };
+
+
+//class PTransform3DWrapper {
+//public:
+
+//    PTransform3D
+//};
 
 }  // namespace Geometry
 

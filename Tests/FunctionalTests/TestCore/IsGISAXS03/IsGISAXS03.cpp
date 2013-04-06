@@ -111,7 +111,8 @@ void FunctionalTests::IsGISAXS03::runBA_Size()
     Particle nano_particle(n_particle, p_ff_cylinder);
     // radius of nanoparticles will be sampled with gaussian probability
     int nbins(100), nfwhm(2);
-    StochasticSampledParameter par(StochasticDoubleGaussian(radius, sigma), nbins, nfwhm);
+    StochasticDoubleGaussian double_gaussian(radius, sigma);
+    StochasticSampledParameter par(double_gaussian, nbins, nfwhm);
     ParticleBuilder builder;
     builder.setPrototype(nano_particle,"/Particle/FormFactorCylinder/radius", par);
     builder.plantParticles(particle_decoration);

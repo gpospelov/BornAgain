@@ -3,7 +3,6 @@
 GCC_DIAG_OFF(unused-parameter);
 GCC_DIAG_OFF(missing-field-initializers);
 #include "boost/python.hpp"
-#include "boost/python/suite/indexing/vector_indexing_suite.hpp"
 GCC_DIAG_ON(unused-parameter);
 GCC_DIAG_ON(missing-field-initializers);
 
@@ -18,8 +17,6 @@ GCC_DIAG_ON(missing-field-initializers);
 #include "MinimizerFactory.pypp.h" 
 #include "OutputDataNormalizer.pypp.h" 
 #include "OutputDataSimpleNormalizer.pypp.h" 
-#include "PythonInterface_enumerations.pypp.h" 
-#include "PythonInterface_free_functions.pypp.h" 
 #include "SquaredFunctionDefault.pypp.h" 
 #include "SquaredFunctionWhichOnlyWorks.pypp.h" 
 #include "SquaredFunctionWithGaussianError.pypp.h" 
@@ -27,7 +24,6 @@ GCC_DIAG_ON(missing-field-initializers);
 
 BOOST_PYTHON_MODULE(libBornAgainFit){
 
-    register_enumerations();
     register_AttLimits_class();
     register_IChiSquaredModule_class();
     register_ChiSquaredModule_class();
@@ -43,5 +39,4 @@ BOOST_PYTHON_MODULE(libBornAgainFit){
     register_SquaredFunctionWhichOnlyWorks_class();
     register_SquaredFunctionWithGaussianError_class();
     register_SquaredFunctionWithSystematicError_class();
-    register_free_functions();
 }

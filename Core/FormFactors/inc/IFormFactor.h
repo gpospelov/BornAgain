@@ -65,9 +65,9 @@ class IFormFactor : public ISample
         std::vector<IFormFactor *>& form_factors,
         std::vector<double>& probabilities,
         size_t nbr_samples) const {
-        (void)form_factors;   // to prevent unused-variable warning
-        (void)probabilities;  // to prevent unused-variable warning
-        (void)nbr_samples;    // to prevent unused-variable warning
+        (void)form_factors;
+        (void)probabilities;
+        (void)nbr_samples;
     }
 };
 
@@ -80,14 +80,12 @@ inline double IFormFactor::getVolume() const
 
 inline double IFormFactor::getHeight() const
 {
-    double result = std::pow(getVolume(), 1.0/3.0);
-    return result;
+    return std::pow(getVolume(), 1.0/3.0);
 }
 
 inline double IFormFactor::getRadius() const
 {
-    double result = std::sqrt(getVolume()/getHeight()/M_PI);
-    return result;
+    return std::sqrt(getVolume()/getHeight()/M_PI);
 }
 
 #endif // IFORMFACTOR_H

@@ -177,7 +177,6 @@ CONFIG(BORNAGAIN_ROOT) {
 # -----------------------------------------------------------------------------
 CONFIG  += BORNAGAIN_PYTHON
 CONFIG(BORNAGAIN_PYTHON) {
-  # TODO - implement check for existance of numpy/arrayobject.h
   # user wants to compile python module
   WhichPython=$$system(which python)
   isEmpty(WhichPython) {
@@ -200,6 +199,7 @@ CONFIG(BORNAGAIN_PYTHON) {
 
     # we need to know the location of numpy
     pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")
+    !exists($$pythonnumpy/numpy/arrayobject.h): error("Can't find numpy/arrayobject.h in $$pythonnumpy, you have to install python-numpy-devel")
     INCLUDEPATH += $$pythonnumpy
   }
 }

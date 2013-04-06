@@ -44,7 +44,8 @@ class Layer : public ICompositeSample
 
     virtual ~Layer() {}
 
-    virtual Layer *clone() const { return new Layer(*this); }
+    //virtual Layer *clone() const { return new Layer(*this); }
+    virtual Layer *clone() const { return new Layer(mp_material, m_thickness); }
 
     //! Sets layer thickness in Angstrom.
     virtual void setThickness(double thickness);
@@ -76,7 +77,7 @@ class Layer : public ICompositeSample
     virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
 
  protected:
-    Layer(const Layer& other)
+    Layer(const Layer& other) : ICompositeSample()
     {
         mp_material = other.mp_material;
         m_thickness = other.m_thickness;

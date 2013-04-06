@@ -2,6 +2,7 @@
 import os
 import sys
 import glob
+import subprocess
 from pyplusplus import module_builder
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
@@ -12,12 +13,19 @@ from pygccxml import declarations
 from pyplusplus import function_transformers as FT
 from pygccxml import parser
 from pyplusplus.function_transformers import transformers
+from pyplusplus.file_writers.balanced_files import balanced_files_t
+from pyplusplus.file_writers.multiple_files import multiple_files_t
 
 
 license =  "// BornAgain: simulate and fit scattering at grazing incidence \n" \
            "//! @brief automatically generated boost::python code for PythonCoreAPI  \n"
 
 ModuleName = 'PythonInterface'
+
+balanced_files_t.HEADER_EXT='.h'
+balanced_files_t.SOURCE_EXT='.cpp'
+multiple_files_t.HEADER_EXT='.pypp.h'
+multiple_files_t.SOURCE_EXT='.pypp.cpp'
 
 
 #------------------------------------------------------------------------------
@@ -60,7 +68,6 @@ def IncludePureVirtualMethods(mb, include_classes):
         query = declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
         fun = cl.member_functions( query, allow_empty=True )
         for f in fun:
-            print "XXX including back",f
             f.include()
 
 
@@ -167,4 +174,35 @@ def from_address_custom( *args, **keywd ):
     return creator
 
 
+# --------------------------------------------------------------------------
+# returns python include directory
+# --------------------------------------------------------------------------
+def get_python_path():
+    return sys.prefix +"/include/python"+ sys.version[:3]
 
+
+# --------------------------------------------------------------------------
+# returns g++ include directory
+# --------------------------------------------------------------------------
+def get_gcc_path():
+    proc = subprocess.Popen(["which g++"], stdout=subprocess.PIPE, shell=True)
+    (out, err) = proc.communicate()
+    path = out.strip()
+    if path.endswith("bin/g++"):
+        return path[:-7]+"include"
+    else:
+        exit("Can't find g++")
+    # looking for gccxml
+
+
+# --------------------------------------------------------------------------
+# returns gccxml path
+# --------------------------------------------------------------------------
+def get_gccxml_path():
+    proc = subprocess.Popen(["which gccxml"], stdout=subprocess.PIPE, shell=True)
+    (out, err) = proc.communicate()
+    path = out.strip()
+    if path.endswith("/gccxml"):
+        return path[:-7]
+    else:
+        exit("No gccxml!")

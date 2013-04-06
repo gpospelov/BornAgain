@@ -50,7 +50,7 @@ void pyplusplus_setitem(Self& self, Key const& key, Value const& value)
     self[key] = value;
 }
 
-//! helper functions to help Py++ with template instantiation
+//! functions to help Py++ with template instantiation
 namespace pyplusplus {
     inline size_t pyplusplus_boost_kvector() { return sizeof(pyplusplus::aliases::kvector_t); }
     inline size_t pyplusplus_boost_vectorof_kvector() { return sizeof(pyplusplus::aliases::vector_kvector_t); }
@@ -62,6 +62,6 @@ namespace pyplusplus {
     inline size_t pyplusplus_boost_vector_longinteger() { return sizeof(pyplusplus::aliases::vector_longinteger_t); }
 }
 
-#endif // PYTHONPLUSPLUSHELPER_H
+#endif // PYTHONCOREEXPOSER_H
 
 

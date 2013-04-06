@@ -42,7 +42,7 @@ def main():
             InstallPyCore.InstallCode(PyCoreTempDir, PyCoreInstallDir)
             InstallPyFit.InstallCode(PyFitTempDir, PyFitInstallDir)
         elif sys.argv[1] == 'clean':
-            clean = ["rm -r -f output", "rm -f cache_core.xml", "rm -f *~","rm -f named_tuple.py","rm -f *.pyc","rm -f exposed_decl.pypp.txt","rm -f tmp.pypp.cpp"]
+            clean = ["rm -r -f output", "rm -f cache_core.xml", "rm -f cache_fit.xml", "rm -f *~","rm -f named_tuple.py","rm -f *.pyc","rm -f exposed_decl.pypp.txt","rm -f tmp.pypp.cpp"]
             for x in clean: os.system(x)
         else:
             print "Nothing to do, run 'python codegenerator.py' to get help"

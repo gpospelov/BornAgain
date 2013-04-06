@@ -17,7 +17,7 @@ from pyplusplus import function_transformers as FT
 from pygccxml import parser
 
 
-import builder_rules
+import builder_utils
 
 
 include_dirs = [
@@ -110,16 +110,6 @@ include_classes = [
 ]
 
 
-from pyplusplus.file_writers.balanced_files import balanced_files_t
-balanced_files_t.HEADER_EXT='.h'
-balanced_files_t.SOURCE_EXT='.cpp'
-from pyplusplus.file_writers.multiple_files import multiple_files_t
-multiple_files_t.HEADER_EXT='.pypp.h'
-multiple_files_t.SOURCE_EXT='.pypp.cpp'
-
-
-
-
 # -----------------------------------------------------------------------------
 # AdditionalRules
 # -----------------------------------------------------------------------------
@@ -139,7 +129,7 @@ def ManualClassTunings(mb):
         "rotated","rotatedX","rotatedY","rotatedZ"
     ]
     classes_to_exclude = ["BasicVector3D<std::complex<double> >","BasicVector3D<double>","BasicVector3D<int>"]
-    builder_rules.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)
+    builder_utils.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)
     pass
     # Pure virtual should always be included
     mb.class_("IDetectorResolution").member_function("applyDetectorResolution").include()
@@ -182,7 +172,7 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_( "IParameterized" )
     cl.member_function("registerParameter").include()
-    cl.member_function("registerParameter").add_transformation( builder_rules.from_address_custom( 1 ) )
+    cl.member_function("registerParameter").add_transformation( builder_utils.from_address_custom( 1 ) )
     #
     cl = mb.class_( "ISampleBuilder" )
     cl.member_functions().exclude()
@@ -203,7 +193,7 @@ def ManualClassTunings(mb):
     cl.constructors( lambda decl: bool( decl.arguments ) ).exclude() # exclude non-default constructors
     #
     cl = mb.class_( "ParameterPool" )
-    cl.member_function("registerParameter").add_transformation( builder_rules.from_address_custom( 1 ) )
+    cl.member_function("registerParameter").add_transformation( builder_utils.from_address_custom( 1 ) )
     cl.member_function("getMatchedParameters").exclude()
     #
     mb.namespace( "Units" ).include()
@@ -219,8 +209,6 @@ def ManualClassTunings(mb):
     #
     cl = mb.class_( "ParticleCoreShell" )
     cl.member_functions().exclude()
-
-
 
 
 # excluding specific member functions
@@ -244,29 +232,14 @@ def ManualExcludeMemberFunctions(mb):
 # produces boost python code
 #------------------------------------------------------------------------------
 def MakePythonAPI(OutputTempDir):
+    print "Generating PythonAPI for libBornAgainCore."
     # getting paths
-    include_dirs.append(sys.prefix +"/include/python"+ sys.version[:3])
-    # looking for general headers
-    proc = subprocess.Popen(["which g++"], stdout=subprocess.PIPE, shell=True)
-    (out, err) = proc.communicate()
-    path = out.strip()
-    if path.endswith("bin/g++"):
-        include_dirs.append(path[:-7]+"include")
-    else:
-        exit("Can't find g++")
-    # looking for gccxml
-    proc = subprocess.Popen(["which gccxml"], stdout=subprocess.PIPE, shell=True)
-    (out, err) = proc.communicate()
-    path = out.strip()
-    if path.endswith("/gccxml"):
-        mygccxml = path[:-7]
-    else:
-        exit("No gccxml!")
-  
-    print mygccxml
+    include_dirs.append( builder_utils.get_python_path() )
+    include_dirs.append( builder_utils.get_gcc_path() )
+    mygccxml = builder_utils.get_gccxml_path()
 
     #If the cache file cache_core.xml doesn't exist it gets created, otherwise it just gets loaded
-    print "NOTE: If you update the source library code you need to manually delete the cache_core.xml file, or 'python codegenerator.py clean'"
+    print "NOTE: If you update the source library code you need to manually delete the cache_core.xml file, or run 'python codegenerator.py clean'"
     xml_cached_fc = parser.create_cached_source_fc( "PythonCoreList.h", "cache_core.xml" )
     #xml_cached_fc = parser.create_cached_source_fc( ["PythonCoreList.h","PythonCoreExposer.h"], "cache_core.xml" )
     mb = module_builder.module_builder_t( [xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml, cflags="-m64")
@@ -275,15 +248,15 @@ def MakePythonAPI(OutputTempDir):
     # general rules
     # -----------------
 
-    builder_rules.IncludeClasses(mb, include_classes)
+    builder_utils.IncludeClasses(mb, include_classes)
 
-    builder_rules.DefineGeneralRules(mb)
+    builder_utils.DefineGeneralRules(mb)
 
-    builder_rules.ExcludeConstructorsArgPtr(mb)
+    builder_utils.ExcludeConstructorsArgPtr(mb)
 
-    builder_rules.ExcludeMemberFunctionsArgPtr(mb)
+    builder_utils.ExcludeMemberFunctionsArgPtr(mb)
 
-    builder_rules.ManageNewReturnPolicy(mb)
+    builder_utils.ManageNewReturnPolicy(mb)
 
     # -----------------
     # manual tuning
@@ -297,9 +270,9 @@ def MakePythonAPI(OutputTempDir):
     # default policies for what remained unchainged
     # -----------------
 
-    #builder_rules.IncludePureVirtualMethods(mb, include_classes)
+    #builder_utils.IncludePureVirtualMethods(mb, include_classes)
 
-    builder_rules.DefaultReturnPolicy(mb)
+    builder_utils.DefaultReturnPolicy(mb)
 
     # disabling some warnings
     messages.disable(
@@ -329,8 +302,8 @@ def MakePythonAPI(OutputTempDir):
     # ---------------------------------------------------------
     # generating output
     # ---------------------------------------------------------
-    mb.build_code_creator( module_name=builder_rules.ModuleName)
-    mb.code_creator.license = builder_rules.license
+    mb.build_code_creator( module_name=builder_utils.ModuleName)
+    mb.code_creator.license = builder_utils.license
     
     mb.code_creator.user_defined_directories.append( os.path.abspath('./') )
     mb.split_module(OutputTempDir)
@@ -340,10 +313,10 @@ def MakePythonAPI(OutputTempDir):
 # main()
 #------------------------------------------------------------------------------
 if __name__ == '__main__':
-    PyCoreTempDir='output/PyCore'
-    if not os.path.exists(PyCoreTempDir): os.makedirs(PyCoreTempDir)
+    tempDir='output/PyCore'
+    if not os.path.exists(tempDir): os.makedirs(tempDir)
     start_time = time.clock()
-    MakePythonAPI(PyCoreTempDir)
+    MakePythonAPI(tempDir)
     print '\nPythonCoreAPI source code was generated ( %f seconds ).' % (  ( time.clock() - start_time ) )
     print 'Run InstallPyCore.py to install generated code into BornAgain source tree'
     print 'Done'

@@ -1,9 +1,11 @@
-# generate python API wrappers for Fit library, see codegenerator.py
+# generate python API wrappers for Fit library
+# used by codegenerator.py
 
 import os
 import sys
 import glob
 import subprocess
+import time
 from pyplusplus import module_builder
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
@@ -12,57 +14,49 @@ from pygccxml.declarations.matchers import access_type_matcher_t
 from pygccxml.declarations.matchers import virtuality_type_matcher_t
 from pygccxml import declarations
 from pyplusplus import function_transformers as FT
+from pygccxml import parser
 
-ModuleName = 'PythonInterface'
 
-# list of files to analyse and corresponding functions with rules for analysis
-myFiles=[
-  'AttLimits.h',
-  'IChiSquaredModule.h',
-  'IMinimizer.h',
-  'ChiSquaredModule.h',
-  'FitSuite.h',
-  #'FitParameter.h',
-  'FitSuiteParameters.h',
-  'MinimizerFactory.h',
-  'PythonPlusplusFitHelper.h',
-  'MathFunctions.h',
-  'ISquaredFunction.h',
-  'IOutputDataNormalizer.h'
+import builder_utils
+
+
+include_dirs = [
+'../../Core/Samples/inc',
+'../../Core/Algorithms/inc',
+'../../Core/Tools/inc',
+'../../Core/Geometry/inc',
+'../../Core/Fitting/inc',
+'../../Fit/Factory/inc',
+'../../Fit/PythonAPI/inc'
+]
+
+include_classes = [
+"AttLimits",
+"ChiSquaredModule",
+"FitSuite",
+"FitSuiteParameters",
+"IChiSquaredModule",
+"IMinimizer",
+"IOutputDataNormalizer",
+"ISquaredFunction",
+"MinimizerFactory",
+"OutputDataNormalizer",
+"OutputDataSimpleNormalizer",
+"SquaredFunctionDefault",
+"SquaredFunctionWhichOnlyWorks",
+"SquaredFunctionWithGaussianError",
+"SquaredFunctionWithSystematicError",
 ]
 
 
-# list of include directories
-myIncludes = [
-    '../../Core/Samples/inc',
-    '../../Core/Algorithms/inc',
-    '../../Core/Tools/inc',
-    '../../Core/Geometry/inc',
-    '../../Core/Fitting/inc',
-    '../../Fit/Factory/inc',
-    '../../Fit/PythonAPI/inc'
-]
-
-
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # AdditionalRules
-# -------------------------------------------------------------------
-def AdditionalRules(mb):
-
-  if "IChiSquaredModule.h" in myFiles:
-    cl = mb.class_("IChiSquaredModule")
-    #cl.member_functions().exclude()
-
-  if "IMinimizer.h" in myFiles:
+# -----------------------------------------------------------------------------
+def ManualClassTunings(mb):
     cl = mb.class_("IMinimizer")
     cl.member_function("setChiSquaredFunction").exclude()
     cl.member_function("setGradientFunction").exclude()
-
-  if "ChiSquaredModule.h" in myFiles:
-    cl = mb.class_("ChiSquaredModule")
-    #cl.member_functions().exclude()
-
-  if "FitSuite.h" in myFiles:
+    #
     cl = mb.class_("FitSuite")
     cl.member_functions().exclude()
     for fun in cl.member_functions(allow_empty=True):
@@ -76,154 +70,70 @@ def AdditionalRules(mb):
     cl.member_function("getNCalls").include()
     cl.member_function("initPrint").include()
     cl.member_function("getFitParameters").include()
-
-  if "FitSuiteParameters.h" in myFiles:
+    #
     cl = mb.class_("FitSuiteParameters")
     cl.member_functions().exclude()
-    #cl.member_operator("[]").exclude()
     cl.member_function("getValues").include()
     for fun in cl.member_operators():
-      if "operator[]" in fun.name:
-        fun.exclude()
-
-
-  if "MinimizerFactory.h" in myFiles:
+        if "operator[]" in fun.name:
+            fun.exclude()
+    #
     cl = mb.class_("MinimizerFactory")
-    #cl.member_function( "createMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
     cl.member_function( "createMinimizer" ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
 
-  if "OutputData.h" in myFiles:
-    cl = mb.class_("OutputData<double>")
-    #cl.member_functions().exclude()
-    #cl.member_function("totalSum").include()
 
-  # --- PythonPlusplusHelper.h ----------------------------------------
-  if "PythonPlusplusFitHelper.h" in myFiles:
-    cl = mb.class_( "PythonPlusplusFitHelper" )
-    cl.exclude() # given class is only to teach pyplusplus to templates, but we do not need class itself to be visible in python, excluding it...
+# excluding specific member functions
+def ManualExcludeMemberFunctions(mb):
+    pass
 
 
-
+#------------------------------------------------------------------------------
+# produces boost python code
+#------------------------------------------------------------------------------
 def MakePythonAPI(OutputTempDir):
-  from pyplusplus.file_writers.balanced_files import balanced_files_t
-  balanced_files_t.HEADER_EXT='.h'
-  balanced_files_t.SOURCE_EXT='.cpp'
-  from pyplusplus.file_writers.multiple_files import multiple_files_t
-  multiple_files_t.HEADER_EXT='.pypp.h'
-  multiple_files_t.SOURCE_EXT='.pypp.cpp'
+    print "Generating PythonAPI for libBornAgainFit."
+    # getting paths
+    include_dirs.append( builder_utils.get_python_path() )
+    include_dirs.append( builder_utils.get_gcc_path() )
+    mygccxml = builder_utils.get_gccxml_path()
 
+    #If the cache file cache_core.xml doesn't exist it gets created, otherwise it just gets loaded
+    print "NOTE: If you update the source library code you need to manually delete the cache_fit.xml file, or run 'python codegenerator.py clean'"
+    xml_cached_fc = parser.create_cached_source_fc( "PythonFitList.h", "cache_fit.xml" )
+    mb = module_builder.module_builder_t( [xml_cached_fc], include_paths=include_dirs, gccxml_path=mygccxml, cflags="-m64")
 
-  #---------------------------------------------------------------
-  # getting paths
-  #---------------------------------------------------------------
-  myIncludes.append(sys.prefix +"/include/python"+ sys.version[:3])
-  # looking for general headers
-  proc = subprocess.Popen(["which g++"], stdout=subprocess.PIPE, shell=True)
-  (out, err) = proc.communicate()
-  path = out.strip()
-  if path.endswith("bin/g++"):
-    myIncludes.append(path[:-7]+"include")
-  else:
-    exit("Can't find g++")
-  # looking for gccxml
-  proc = subprocess.Popen(["which gccxml"], stdout=subprocess.PIPE, shell=True)
-  (out, err) = proc.communicate()
-  path = out.strip()
-  if path.endswith("/gccxml"):
-    mygccxml = path[:-7]
-  else:
-    exit("No gccxml!")
-  
-  print myIncludes
-  print mygccxml
-  
-  mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path=mygccxml, cflags="-m64")
+    # -----------------
+    # general rules
+    # -----------------
 
+    builder_utils.IncludeClasses(mb, include_classes)
 
-  #myIncludes.append('/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7')
-  #myIncludes.append('/opt/local/include/')
-  #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin', cflags="-m64")
-  #mb = module_builder.module_builder_t(files=myFiles, include_paths=myIncludes, gccxml_path='/opt/local/bin')
+    builder_utils.DefineGeneralRules(mb)
 
-  # ---------------------------------------------------------
-  # common properties
-  # ---------------------------------------------------------
-  mb.always_expose_using_scope = True
+    builder_utils.ExcludeConstructorsArgPtr(mb)
 
-  # Generated code containing errors will not compile on
-  mem_funs = mb.calldefs ()
-  mem_funs.create_with_signature = True
+    builder_utils.ExcludeMemberFunctionsArgPtr(mb)
 
-  # Exclude protected and private that are not pure virtual (we still have to expose pure virtual functions to have them overriden in the wrapper)
-  query = declarations.access_type_matcher_t( 'private' ) & ~declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
-  mb.global_ns.calldefs( query, allow_empty=True ).exclude()
-  query = declarations.access_type_matcher_t( 'protected' ) & ~declarations.virtuality_type_matcher_t( declarations.VIRTUALITY_TYPES.PURE_VIRTUAL )
-  mb.global_ns.calldefs( query, allow_empty=True ).exclude()
+    builder_utils.ManageNewReturnPolicy(mb)
 
-  # excluding generation of methods for implicit conversion
-  mb.constructors().allow_implicit_conversion = False
+    # -----------------
+    # manual tuning
+    # -----------------
 
-  # return policy for singletons, clone and create methods
-  classes = mb.classes();
-  for cl in classes:
-    cl.member_functions('instance', allow_empty=True).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
-    cl.member_functions('clone', allow_empty=True).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
-    cl.member_functions( lambda x: x.name.startswith('create'), allow_empty=True ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
+    ManualExcludeMemberFunctions(mb)
 
-  # excluding constructors which have pointers in argument list
-  for cl in classes:
-    for ctor in cl.constructors(allow_empty=True):
-      for arg in ctor.arguments:
-        if declarations.type_traits.is_pointer(arg.type):
-          ctor.exclude()
+    ManualClassTunings(mb) 
 
-  # excluding member functions if they have pointers in argument list
-  for cl in classes:
-    for fun in cl.member_functions(allow_empty=True):
-      has_pointers = False
-      for arg in fun.arguments:
-        if declarations.type_traits.is_pointer(arg.type):
-          has_pointers = True
-      if has_pointers:
-          fun.exclude();
+    # -----------------
+    # default policies for what remained unchainged
+    # -----------------
 
+    #builder_utils.IncludePureVirtualMethods(mb, include_classes)
 
-  # ---------------------------------------------------------
-  # calling class individual parsing properties
-  # ---------------------------------------------------------
-  AdditionalRules(mb)
+    builder_utils.DefaultReturnPolicy(mb)
 
-  # set the default return policies (for references/pointers) on classes if it wasn't already been done for
-  mem_funs = mb.calldefs()
-  for mem_fun in mem_funs:
-    if mem_fun.call_policies:
-      continue
-    if not mem_fun.call_policies and (declarations.is_reference(mem_fun.return_type) or declarations.is_pointer(mem_fun.return_type) ):
-      mem_fun.call_policies = call_policies.return_value_policy(call_policies.reference_existing_object )
-
-  # exluding classes which are dublicated in libBornAgainCore
-  DublicatesToExclude=[ 
-    "std::vector<unsigned long, std::allocator<unsigned long> >", 
-    "std::vector<double, std::allocator<double> >",
-    "std::vector<int, std::allocator<int> >",
-    "std::vector<std::vector<double, std::allocator<double> >",
-    "vdouble2d_t",
-    "vdouble1d_t",
-    "cvector_t",
-    "kvector_t",
-    "complex_t",
-    "std::vector<double>",
-    "vcomplex1d_t",
-  ]
-
-  for cl in mb.classes():
-    for name in DublicatesToExclude:
-      if name in cl.name or name in cl.alias:
-        cl.exclude()
-
-
-  # disabling some warnings
-  messages.disable(
+    # disabling some warnings
+    messages.disable(
         messages.W1020  # Warnings 1020 - 1031 are all about why Py++ generates wrapper for class X
       , messages.W1021
       , messages.W1022
@@ -236,21 +146,36 @@ def MakePythonAPI(OutputTempDir):
       , messages.W1029
       , messages.W1030
       , messages.W1031
+      #, messages.W1035
+      #, messages.W1040
+      #, messages.W1038
+      #, messages.W1041
+      , messages.W1036 # pointer to Python immutable member
+      #, messages.W1033 # unnamed variables
+      #, messages.W1018 # expose unnamed classes
+      #, messages.W1049 # returns reference to local variable
+      #, messages.W1014 # unsupported '=' operator
        )
 
-  # ---------------------------------------------------------
-  # generating output
-  # ---------------------------------------------------------
-  mb.build_code_creator( module_name=ModuleName)
-  mb.code_creator.user_defined_directories.append( os.path.abspath('./') )
-  mb.split_module( OutputTempDir)
+    # ---------------------------------------------------------
+    # generating output
+    # ---------------------------------------------------------
+    mb.build_code_creator( module_name=builder_utils.ModuleName)
+    mb.code_creator.license = builder_utils.license
+    
+    mb.code_creator.user_defined_directories.append( os.path.abspath('./') )
+    mb.split_module(OutputTempDir)
 
 
-#-------------------------------------------------------------
+#------------------------------------------------------------------------------
 # main()
-#-------------------------------------------------------------
+#------------------------------------------------------------------------------
 if __name__ == '__main__':
-  PyFitTempDir='output/PyFit'
-  if not os.path.exists(PyFitTempDir): os.makedirs(PyFitTempDir)
-  MakePythonAPI(PyFitTempDir)
+    tempDir='output/PyFit'
+    if not os.path.exists(tempDir): os.makedirs(tempDir)
+    start_time = time.clock()
+    MakePythonAPI(tempDir)
+    print '\nPythonFitAPI source code was generated ( %f seconds ).' % (  ( time.clock() - start_time ) )
+    print 'Run InstallPyFit.py to install generated code into BornAgain source tree'
+    print 'Done'
 

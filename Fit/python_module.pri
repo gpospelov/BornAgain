@@ -1,5 +1,6 @@
 HEADERS +=  \ 
-    PythonAPI/inc/PythonPlusplusFitHelper.h \ 
+    PythonAPI/inc/PythonFitExposer.h \ 
+    PythonAPI/inc/PythonFitList.h \ 
     PythonAPI/inc/AttLimits.pypp.h \
     PythonAPI/inc/ChiSquaredModule.pypp.h \
     PythonAPI/inc/FitSuite.pypp.h \
@@ -11,8 +12,6 @@ HEADERS +=  \
     PythonAPI/inc/MinimizerFactory.pypp.h \
     PythonAPI/inc/OutputDataNormalizer.pypp.h \
     PythonAPI/inc/OutputDataSimpleNormalizer.pypp.h \
-    PythonAPI/inc/PythonInterface_enumerations.pypp.h \
-    PythonAPI/inc/PythonInterface_free_functions.pypp.h \
     PythonAPI/inc/SquaredFunctionDefault.pypp.h \
     PythonAPI/inc/SquaredFunctionWhichOnlyWorks.pypp.h \
     PythonAPI/inc/SquaredFunctionWithGaussianError.pypp.h \
@@ -31,13 +30,10 @@ SOURCES +=  \
     PythonAPI/src/MinimizerFactory.pypp.cpp \
     PythonAPI/src/OutputDataNormalizer.pypp.cpp \
     PythonAPI/src/OutputDataSimpleNormalizer.pypp.cpp \
-    PythonAPI/src/PythonInterface_enumerations.pypp.cpp \
-    PythonAPI/src/PythonInterface_free_functions.pypp.cpp \
     PythonAPI/src/SquaredFunctionDefault.pypp.cpp \
     PythonAPI/src/SquaredFunctionWhichOnlyWorks.pypp.cpp \
     PythonAPI/src/SquaredFunctionWithGaussianError.pypp.cpp \
     PythonAPI/src/SquaredFunctionWithSystematicError.pypp.cpp 
 
-INCLUDEPATH += $$PWD/PythonAPI/inc 
-DEPENDPATH  += $$PWD/PythonAPI/inc 
-
+INCLUDEPATH += ./PythonAPI/inc 
+DEPENDPATH  += ./PythonAPI/inc 

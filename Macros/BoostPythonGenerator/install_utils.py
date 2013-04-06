@@ -122,7 +122,7 @@ def ClearPythonAPI(files, InstallDir):
             if old_base == new_base: oldIsObsolete = False
         if oldIsObsolete:
             list_to_erase.append(oldf)
-    print "ClearPythonAPI() : erasing obsolete files ", list_to_erase
+    print "ClearPythonAPI() : erasing obsolete files in BornAgain source tree ", list_to_erase
     for x in list_to_erase:
         os.system("rm "+x)
 

@@ -4,7 +4,6 @@
 
 FitSuitePrintObserver::FitSuitePrintObserver(int print_every_nth)
     : m_print_every_nth(print_every_nth)
-    , m_wall_time(0.0)
     , m_last_call_clock(clock())
     , m_last_call_time()
 {

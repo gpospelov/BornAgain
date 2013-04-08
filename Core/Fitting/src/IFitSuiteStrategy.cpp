@@ -134,6 +134,7 @@ void FitSuiteStrategyAdjustParameters::execute()
 //! Helps minimizer get out of local minima by disturbing real data
 void FitSuiteStrategyBootstrap::execute()
 {
+    (void)m_n_iterations;
     throw NotImplementedException("FitSuiteStrategyBootstrap::execute()");
 
 //    if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyBootsrap::execute() -> FitSuite doesn't exists");

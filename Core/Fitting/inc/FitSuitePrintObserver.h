@@ -20,7 +20,6 @@ public:
 
 private:
     int m_print_every_nth;
-    double m_wall_time;
     clock_t m_last_call_clock;
     timeval m_last_call_time;
 };

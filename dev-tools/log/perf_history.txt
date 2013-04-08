@@ -235,6 +235,12 @@
 2013-03-30 12:00:53 | h4         | linuxx8664gcc, 2832 MHz | 186916  | 8.29875 | 8.23045 | 2.5974  | 
 
 # after multiple chnages (i.e. shared_ptr in transformation)
-# # (and ./App --mesocrystal2 gives  24.69 (4 threads), 50.38 (1 thread))
+# (and ./App --mesocrystal2 gives  24.69 (4 threads), 50.38 (1 thread))
 2013-04-04 11:39:49 | jcnsopc73  | macosx64, 2800 MHz      | 294118  | 22.4719 | 22.4719 | 6.06061 | 
 2013-04-04 11:40:34 | jcnsopc73  | macosx64, 2800 MHz      | 294118  | 22.9885 | 21.7391 | 6.06061 | 
+
+# release 0.7 (Workshop Release)
+# (and ./App --mesocrystal2 gives  23.25 (4 threads), 50.85 (1 thread))
+2013-04-08 20:48:26 | jcnsops73  | macosx64, 2800 MHz      | 294118  | 21.978  | 22.7273 | 6.25    | 
+2013-04-08 20:48:32 | jcnsops73  | macosx64, 2800 MHz      | 289855  | 22.2222 | 22.7273 | 6.06061 | 
+

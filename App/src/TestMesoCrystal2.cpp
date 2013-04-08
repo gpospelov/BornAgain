@@ -195,7 +195,8 @@ void TestMesoCrystal2::initializeRealData()
 {
     delete m_real_data;
     //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_qyqz.txt.gz";
-    std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
+    //std::string file_name = Utils::FileSystem::GetHomePath()+"Examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
+    std::string file_name = Utils::FileSystem::GetHomePath()+"dev-tools/tmp-examples/MesoCrystals/ex02_fitspheres/004_230_P144_im_full_phitheta.txt.gz";
 
     m_real_data = OutputDataIOFactory::getOutputData(file_name);
 

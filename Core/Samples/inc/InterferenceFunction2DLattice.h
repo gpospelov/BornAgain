@@ -65,7 +65,6 @@ class InterferenceFunction2DLattice : public IInterferenceFunction
 
     double m_asx, m_asy; //!< x,y coordinates of a*
     double m_bsx, m_bsy; //!< x,y coordinates of b*
-    int m_n_a, m_n_b; //!< limits for reciprocal lattice sum
     double m_prefactor; //!< fixed prefactor for normalization
     int m_na, m_nb; //!< determines the number of reciprocal lattice points to use
 };

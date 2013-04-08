@@ -25,7 +25,7 @@
 class MinimizerScan : public IMinimizer
 {
  public:
-    MinimizerScan(int nbins = 10) : m_fcnvalues_map(0), m_nbins(nbins), m_ncall(0) { }
+    MinimizerScan(int nbins = 10) : m_fcnvalues_map(0), m_nbins(nbins) { }
     virtual ~MinimizerScan() { delete m_fcnvalues_map; }
 
     virtual void minimize();
@@ -61,8 +61,6 @@ class MinimizerScan : public IMinimizer
     size_t m_nbins; //! number of bins per one parameter
     FitSuiteParameters m_parameters; //! minimizer parameters
     function_chi2_t m_fcn;
-
-    size_t m_ncall;
 };
 
 #endif // MINIMIZERSCAN_H

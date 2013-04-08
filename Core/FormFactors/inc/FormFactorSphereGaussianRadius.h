@@ -1,40 +1,46 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/inc/FormFactorSphereGaussianRadius.h
+//! @brief     Defines and implements (WHY ??) class FormFactorSphereGaussianRadius.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORSPHEREGAUSSIANRADIUS_H_
 #define FORMFACTORSPHEREGAUSSIANRADIUS_H_
 #include "MathFunctions.h"
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorSphereGaussianRadius.h
-//! @brief  Definition of mean form factor for sphere with a Gaussian radius distribution
-//! @author Scientific Computing Group at FRM II
-//! @date   Sep 13, 2012
 
 #include "IFormFactor.h"
 #include "FormFactorFullSphere.h"
+#include <cassert>
+
+//! Form factor of ??
 
 class FormFactorSphereGaussianRadius : public IFormFactorBorn
 {
-public:
+ public:
     FormFactorSphereGaussianRadius(double mean, double sigma);
     virtual FormFactorSphereGaussianRadius *clone() const;
     virtual ~FormFactorSphereGaussianRadius();
 
     virtual int getNumberOfStochasticParameters() const;
     virtual bool isDistributedFormFactor() const { return true; }
-    virtual void createDistributedFormFactors(std::vector<IFormFactor *> &form_factors,
-             std::vector<double> &probabilities, size_t nbr_samples) const;
+    virtual void createDistributedFormFactors(
+        std::vector<IFormFactor*>& form_factors,
+        std::vector<double>& probabilities, size_t nbr_samples) const;
 
     virtual double getHeight() const { return p_ff_sphere->getHeight(); }
 
-    virtual complex_t evaluate_for_q(const cvector_t &q) const;
+    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
-private:
+ private:
     double calculateMeanR3() const;
 
     double m_mean; //!< This is the mean radius
@@ -58,7 +64,8 @@ inline FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(double mea
 
 inline FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const
 {
-    FormFactorSphereGaussianRadius *p_clone = new FormFactorSphereGaussianRadius(m_mean, m_sigma);
+    FormFactorSphereGaussianRadius *p_clone =
+        new FormFactorSphereGaussianRadius(m_mean, m_sigma);
     return p_clone;
 }
 
@@ -71,7 +78,7 @@ inline int FormFactorSphereGaussianRadius::getNumberOfStochasticParameters() con
     return 2;
 }
 
-inline complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t &q) const
+inline complex_t FormFactorSphereGaussianRadius::evaluate_for_q(const cvector_t& q) const
 {
     double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
     double dw = std::exp(-q2*m_sigma*m_sigma/2.0);
@@ -105,3 +112,5 @@ inline void FormFactorSphereGaussianRadius::createDistributedFormFactors(
 }
 
 #endif /* FORMFACTORSPHEREGAUSSIANRADIUS_H_ */
+
+

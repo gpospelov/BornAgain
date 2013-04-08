@@ -1,66 +1,81 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/inc/MaterialManager.h
+//! @brief     Defines class MaterialManager.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MATERIALMANAGER_H
 #define MATERIALMANAGER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   MaterialManager.h
-//! @brief  Definition of MaterialManager class
-//! @author Scientific Computing Group at FRM II
-//! @date   20.04.2012
 
 #include <iostream>
 #include <string>
 #include <map>
 #include "Exceptions.h"
-#include "IMaterial.h"
 #include "ISingleton.h"
 #include "HomogeneousMaterial.h"
 
+//! Manager of materials used in simulation.
 
-//- -------------------------------------------------------------------
-//! @class MaterialManager
-//! @brief Manager of materials used in simulatiom.
+//! A singleton that maintains a database of materials, and
+//! provides a common and unique interface for material creation and access.
 //!
-//! It is a singleton which provides common and unique interface for
-//! material creation and access. No thread safety.
-//- -------------------------------------------------------------------
 class MaterialManager: public ISingleton<MaterialManager>
 {
-public:
+ public:
     virtual ~MaterialManager() { clear(); }
 
-    //! definition of materials container
-    typedef std::map<std::string, IMaterial *> materials_t;
+    //! Returns material from database.
+    static const IMaterial *getMaterial(const std::string& name)
+    { return instance().this_getMaterial(name); }
 
-    //! return material from database
-    const IMaterial *getMaterial(const std::string &name);
+    //! Adds material to database.
+    static const IMaterial *getHomogeneousMaterial(
+        const std::string& name, const complex_t& refractive_index)
+    { return instance().this_getHomogeneousMaterial(name, refractive_index); }
 
-    //! add material to the database
-    const IMaterial *addHomogeneousMaterial(const std::string &name, const complex_t &refractive_index);
+    //! Adds material to database.
+    static const IMaterial *getHomogeneousMaterial(
+        const std::string& name,
+        double refractive_index_real,
+        double refractive_index_imag)
+    { return instance().this_getHomogeneousMaterial(
+            name, refractive_index_real, refractive_index_imag); }
 
-    //! add material to the database
-    const IMaterial *addHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag);
+    //! Sends class description to stream.
+    friend std::ostream& operator<<(
+        std::ostream& ostr, const MaterialManager& m)
+    { m.print(ostr); return ostr; }
 
-    //! clean collection of material
-    void clear();
-
-    //! print material class
-    friend std::ostream &operator<<(std::ostream &ostr, const MaterialManager &m) { m.print(ostr); return ostr; }
-
-protected:
+ protected:
     MaterialManager(){}
     friend class ISingleton<MaterialManager >;
 
-    //! print material class
-    virtual void print(std::ostream &ostr) const;
+    //! Clear database.
+    void clear();
 
-    materials_t m_materials; //! container with defined materials
+    //! Dump this to stream.
+    virtual void print(std::ostream& ostr) const;
+
+    std::map<std::string, IMaterial*> m_materials; //!< our database
+ private:
+    const IMaterial *this_getMaterial(const std::string& name);
+    const IMaterial *this_getHomogeneousMaterial(
+        const std::string& name, const complex_t& refractive_index);
+    const IMaterial *this_getHomogeneousMaterial(
+        const std::string& name,
+        double refractive_index_real, double refractive_index_imag);
+    void check_refractive_index(const complex_t &index);
 };
 
-#endif // MATERIALMANAGER_H
+#endif /* MATERIALMANAGER_H */
+
+

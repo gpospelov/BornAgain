@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestFumiliLMA.cpp
+//! @brief     Implements class TestFumiliLMA.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestFumiliLMA.h"
 #include "OutputData.h"
 #include "IsGISAXSTools.h"
@@ -158,7 +173,7 @@ double TestFumiliLMA::functionToMinimize(const double *pars)
 /* ************************************************************************* */
 //
 /* ************************************************************************* */
-void TestFumiliLMA::FillOutputDataFromFunction(OutputData<double> &data, TF2 *fun, int nbinsx, int nbinsy)
+void TestFumiliLMA::FillOutputDataFromFunction(OutputData<double>& data, TF2 *fun, int nbinsx, int nbinsy)
 {
     data.clear();
     data.addAxis("x", nbinsx, fun->GetXmin(), fun->GetXmax());
@@ -221,6 +236,8 @@ double MyChi2Function::DataElement(const double *pars, unsigned int index, doubl
     }
     return residual;
 }
+
+
 
 
 

@@ -1,9 +1,24 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestIsGISAXS14.cpp
+//! @brief     Implements class TestIsGISAXS14.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestIsGISAXS14.h"
 #include "IsGISAXSTools.h"
 #include "OutputDataIOFactory.h"
 #include "Utils.h"
 
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "MultiLayer.h"
 #include "SampleFactory.h"
 #include "Units.h"
@@ -19,14 +34,14 @@ TestIsGISAXS14::TestIsGISAXS14() : IFunctionalTest("TestIsGISAXS14")
 
 void TestIsGISAXS14::execute()
 {
-    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS14_LayeredSpheresOnGradedInterface"));
+    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("IsGISAXS14_LayeredSpheresOnGradedInterface"));
 
-    GISASExperiment experiment(mp_options);
-    experiment.setSample(*sample);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    experiment.runSimulation();
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputDataClone(), getOutputPath() + "this_multilayer_sphere.ima");
+    Simulation simulation(mp_options);
+    simulation.setSample(*sample);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputDataClone(), getOutputPath() + "this_multilayer_sphere.ima");
 }
 
 
@@ -47,3 +62,5 @@ void TestIsGISAXS14::finalise()
     delete isgi_data;
     delete our_data;
 }
+
+

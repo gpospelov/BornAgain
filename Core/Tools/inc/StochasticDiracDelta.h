@@ -1,25 +1,26 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/StochasticDiracDelta.h
+//! @brief     Defines class StochasticDiracDelta.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef STOCHASTICDIRACDELTA_H
 #define STOCHASTICDIRACDELTA_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   StochasticDiracDelta.h
-//! @brief  Definition of StochasticDiracDelta class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #include "IStochasticParameter.h"
 
-
 template <class T> class StochasticDiracDelta : public StochasticParameter<T>
 {
-public:
+ public:
     StochasticDiracDelta(T average);
     virtual ~StochasticDiracDelta() {}
     virtual StochasticDiracDelta *clone() const;
@@ -28,10 +29,10 @@ public:
     virtual void setToRandom() {}
     virtual double probabilityDensity(T /*value*/) const { return 0.0; }
 
-private:
+ private:
     //! copy constructor and assignment operator are hidden since there is a clone method
-    StochasticDiracDelta(const StochasticDiracDelta<T> &);
-    StochasticDiracDelta<T> &operator=(const StochasticDiracDelta<T> &);
+    StochasticDiracDelta(const StochasticDiracDelta<T>& );
+    StochasticDiracDelta<T>& operator=(const StochasticDiracDelta<T>& );
 };
 
 template <class T> StochasticDiracDelta<T>::StochasticDiracDelta(T average)
@@ -46,3 +47,5 @@ template <class T> StochasticDiracDelta<T> *StochasticDiracDelta<T>::clone() con
 }
 
 #endif // STOCHASTICDIRACDELTA_H
+
+

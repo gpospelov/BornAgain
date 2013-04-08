@@ -384,8 +384,8 @@ class GTEST_API_ UnitTestOptions {
 
   // Returns true iff the user-specified filter matches the test case
   // name and the test name.
-  static bool FilterMatchesTest(const String &test_case_name,
-                                const String &test_name);
+  static bool FilterMatchesTest(const String& test_case_name,
+                                const String& test_name);
 
 #if GTEST_OS_WINDOWS
   // Function for supporting the gtest_catch_exception flag.
@@ -575,14 +575,14 @@ class GTEST_API_ UnitTestImpl {
   }
 
   // Provides access to the event listener list.
-  TestEventListeners* listeners() { return &listeners_; }
+  TestEventListeners* listeners() { return& listeners_; }
 
   // Returns the TestResult for the test that's currently running, or
   // the TestResult for the ad hoc test if no test is running.
   TestResult* current_test_result();
 
   // Returns the TestResult for the ad hoc test.
-  const TestResult* ad_hoc_test_result() const { return &ad_hoc_test_result_; }
+  const TestResult* ad_hoc_test_result() const { return& ad_hoc_test_result_; }
 
   // Sets the OS stack trace getter.
   //
@@ -771,7 +771,7 @@ class GTEST_API_ UnitTestImpl {
   int random_seed() const { return random_seed_; }
 
   // Gets the random number generator.
-  internal::Random* random() { return &random_; }
+  internal::Random* random() { return& random_; }
 
   // Shuffles all test cases, and the tests within each test case,
   // making sure that death tests are still run first.

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/src/ParticleBuilder.cpp
+//! @brief     Implements class ParticleBuilder.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "ParticleBuilder.h"
 #include "ParticleDecoration.h"
 #include "Numeric.h"
@@ -11,18 +26,15 @@ ParticleBuilder::ParticleBuilder() :
 {
 }
 
-
 ParticleBuilder::~ParticleBuilder()
 {
     delete m_prototype;
     delete m_parameter;
 }
 
+//! Sets prototype for particle production
 
-/* ************************************************************************* */
-//set prototype for particle production
-/* ************************************************************************* */
-void ParticleBuilder::setPrototype(const Particle &particle, std::string name, const StochasticParameter<double> &param, double scale)
+void ParticleBuilder::setPrototype(const Particle& particle, std::string name, const StochasticParameter<double>& param, double scale)
 {
     delete m_prototype;
     m_prototype = particle.clone();
@@ -32,11 +44,9 @@ void ParticleBuilder::setPrototype(const Particle &particle, std::string name, c
     m_scale = scale;
 }
 
+//! plant particles in given decoration
 
-/* ************************************************************************* */
-// plant particles in given decoration
-/* ************************************************************************* */
-void ParticleBuilder::plantParticles(ParticleDecoration &decor)
+void ParticleBuilder::plantParticles(ParticleDecoration& decor)
 {
     if( !m_prototype ) throw NullPointerException("ParticleBuilder::plantParticle() -> Error. No prototype is defined");
 
@@ -73,5 +83,6 @@ void ParticleBuilder::plantParticles(ParticleDecoration &decor)
     }
 
     delete pool;
-
 }
+
+

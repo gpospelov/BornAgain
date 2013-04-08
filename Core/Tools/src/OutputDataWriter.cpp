@@ -1,9 +1,23 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/OutputDataWriter.cpp
+//! @brief     Implements class OutputDataWriter.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "OutputDataWriter.h"
 #include <fstream>
 #include <cassert>
 
-
-void OutputDataWriter::writeOutputData(const OutputData<double > &data)
+void OutputDataWriter::writeOutputData(const OutputData<double >& data)
 {
     // opening file
     std::ofstream fout;
@@ -20,6 +34,5 @@ void OutputDataWriter::writeOutputData(const OutputData<double > &data)
 
     fout.close();
 }
-
 
 

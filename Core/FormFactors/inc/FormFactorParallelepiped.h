@@ -1,51 +1,53 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/inc/FormFactorParallelepiped.h
+//! @brief     Defines class FormFactorParallelepiped.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORPARALLELEPIPED_H_
 #define FORMFACTORPARALLELEPIPED_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorParallelepiped.h
-//! @brief  Definition of FormFactorParallelepiped class
-//! @author Scientific Computing Group at FRM II
-//! @date   Oct 1, 2012
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
+//! Form factor of a parallelepiped.
+
 class FormFactorParallelepiped : public IFormFactorBorn
 {
-public:
+ public:
     FormFactorParallelepiped(double height, double radius);
-    ~FormFactorParallelepiped();
+    ~FormFactorParallelepiped() {}
     virtual FormFactorParallelepiped *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
-    //! return radius of parallelepiped
+    //! Returns radius of parallelepiped
     double getRadius() const { return m_radius; }
 
-    virtual double getVolume() const {
-        return 4.0*m_height*m_radius*m_radius;
-    }
+    virtual double getVolume() const
+    { return 4.0*m_height*m_radius*m_radius; }
 
     virtual double getHeight() const { return m_height; }
 
-    virtual complex_t evaluate_for_q(const cvector_t &q) const;
+    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
-protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+ protected:
     virtual void init_parameters();
 
-private:
+ private:
     double m_height;
     double m_radius;
 };
 
-
-
 #endif /* FORMFACTORPARALLELEPIPED_H_ */
+
+

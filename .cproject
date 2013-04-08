@@ -16,11 +16,11 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="GISASFW" buildProperties="" description="" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428" name="Default" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="BornAgain" buildProperties="" description="" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428" name="Default" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.834509647" name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.329208693" name="cdt.managedbuild.toolchain.gnu.macosx.base" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.macosx.base.35496915" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
-							<builder buildPath="${workspace_loc:/GISASFW}" cleanBuildTarget="distclean" command="make" id="cdt.managedbuild.target.gnu.builder.macosx.base.1780058782" incrementalBuildTarget="" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.macosx.base"/>
+							<builder arguments="" buildPath="${workspace_loc:/BornAgain}" cleanBuildTarget="distclean" command="make" id="cdt.managedbuild.target.gnu.builder.macosx.base.1780058782" incrementalBuildTarget="" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.macosx.c.linker.macosx.base.2076947871" name="MacOS X C Linker" superClass="cdt.managedbuild.tool.macosx.c.linker.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.2050732830" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
 								<option id="macosx.cpp.link.option.paths.102310300" name="Library search path (-L)" superClass="macosx.cpp.link.option.paths"/>
@@ -40,7 +40,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.archiver.macosx.base.20241922" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.1362645889" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1365373536" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/GISASFW/lib"/>
+									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/BornAgain/lib"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.include.paths.61567316" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/opt/local/include"/>
@@ -56,7 +56,7 @@
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.934278396" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/GISASFW/lib"/>
+									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/BornAgain/lib"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.44052800" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -70,7 +70,7 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600" moduleId="org.eclipse.cdt.core.settings" name="Debug">
 				<externalSettings>
 					<externalSetting>
-						<entry flags="RESOLVED" kind="macro" name="GISASFW_DEBUG" value="yes"/>
+						<entry flags="RESOLVED" kind="macro" name="BornAgain_DEBUG" value="yes"/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -83,11 +83,11 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="GISASFW" buildProperties="" description="Config for debugging purposes" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600" name="Debug" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="BornAgain" buildProperties="" description="Config for debugging purposes" id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600" name="Debug" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.443634681" name="cdt.managedbuild.toolchain.gnu.macosx.base" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.macosx.base.966869129" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
-							<builder buildPath="${workspace_loc:/GISASFW}" cleanBuildTarget="distclean" id="cdt.managedbuild.target.gnu.builder.macosx.base.957115956" incrementalBuildTarget="" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="false" superClass="cdt.managedbuild.target.gnu.builder.macosx.base">
+							<builder buildPath="${workspace_loc:/BornAgain}" cleanBuildTarget="distclean" id="cdt.managedbuild.target.gnu.builder.macosx.base.957115956" incrementalBuildTarget="" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="false" superClass="cdt.managedbuild.target.gnu.builder.macosx.base">
 								<outputEntries>
 									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name=""/>
 								</outputEntries>
@@ -95,7 +95,7 @@
 							<tool id="cdt.managedbuild.tool.macosx.c.linker.macosx.base.67524831" name="MacOS X C Linker" superClass="cdt.managedbuild.tool.macosx.c.linker.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.125523900" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
 								<option id="macosx.cpp.link.option.paths.1579896859" name="Library search path (-L)" superClass="macosx.cpp.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="/Users/herck/Development/git/GISASFW/lib"/>
+									<listOptionValue builtIn="false" value="/Users/herck/Development/git/BornAgain/lib"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.1727384347" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -113,7 +113,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.archiver.macosx.base.1637644518" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.macosx.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.1382053189" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
 								<option id="gnu.cpp.compiler.option.preprocessor.def.658316562" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/GISASFW/lib"/>
+									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/BornAgain/lib"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.include.paths.190562377" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/opt/local/include"/>
@@ -129,7 +129,7 @@
 									<listOptionValue builtIn="false" value="/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7"/>
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1828071691" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/GISASFW/lib"/>
+									<listOptionValue builtIn="false" value="DYLD_LIBRARY_PATH=/Users/herck/Development/git/BornAgain/lib"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.485220512" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -141,14 +141,14 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="GISASFW.null.1787361424" name="GISASFW"/>
+		<project id="BornAgain.null.1787361424" name="BornAgain"/>
 	</storageModule>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Default">
-			<resource resourceType="PROJECT" workspacePath="/GISASFW"/>
+			<resource resourceType="PROJECT" workspacePath="/BornAgain"/>
 		</configuration>
 		<configuration configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="/GISASFW"/>
+			<resource resourceType="PROJECT" workspacePath="/BornAgain"/>
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>

@@ -1,41 +1,50 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/IParameterized.h
+//! @brief     Defines standard mix-in class IParameterized.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef IPARAMETERIZED_H_
 #define IPARAMETERIZED_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IParameterized.h
-//! @brief  Definition of IParameterized interface
-//! @author Scientific Computing Group at FRM II
-//! @date   Oct 10, 2012
 
 #include "INamed.h"
 #include "IChangeable.h"
 #include "ParameterPool.h"
 
+//! Manage a "local" parameter pool, and a tree of children's pools.
 
 class IParameterized : public INamed
 {
-public:
-    IParameterized();
-    IParameterized(const std::string &name);
-    IParameterized(const IParameterized &other);
-    IParameterized &operator=(const IParameterized &other);
+ public:
+    IParameterized()
+        : m_parameters(), m_status() {}
+    IParameterized(const std::string& name)
+        : INamed(name), m_parameters(), m_status() {}
+    IParameterized(const IParameterized& other)
+        : INamed(other), m_parameters(), m_status() {}
+    IParameterized& operator=(const IParameterized& other);
     virtual ~IParameterized() {}
 
-    //! return pointer to the parameter pool
-    ParameterPool *getParameterPool() { return &m_parameters; }
+    //! Returns pointer to the parameter pool.
+    ParameterPool* getParameterPool() { return& m_parameters; }
 
-    //! create new parameter pool which contains all local parameter and  parameters of children
-    virtual ParameterPool *createParameterTree() const;
+    //! Creates new parameter pool, with all local parameter and parameters of children
+    virtual ParameterPool* createParameterTree() const;
 
-    //! add parameters from local pool to external pool and call recursion over direct children
-    virtual std::string addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number=-1) const;
+    //! Adds parameters from local pool to external pool and call recursion over direct children.
+    virtual std::string addParametersToExternalPool(
+        std::string path,
+        ParameterPool* external_pool,
+        int copy_number=-1) const;
 
     virtual void printParameters() const;
 
@@ -43,13 +52,25 @@ public:
 
     virtual void setParametersAreChanged() { m_status.setIsChanged(true); }
 
-protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)
+    //! main method to register data address in the pool
+    virtual void registerParameter(const std::string &name, double *parpointer)
+    { getParameterPool()->registerParameter(name, parpointer); }
+
+    //! set parameter value, return true in the case of success
+    virtual bool setParameterValue(const std::string &name, double value)
+    { return getParameterPool()->setParameterValue(name, value); }
+
+    //! clear parameter pool
+    virtual void clearParameterPool() { getParameterPool()->clear(); }
+
+ protected:
+    //! Throw non-implemented exception (needed for Python).
     virtual void init_parameters();
 
-    ParameterPool m_parameters; //! parameter pool
+    ParameterPool m_parameters; //!< parameter pool
     IChangeable m_status;
 };
 
-
 #endif /* IPARAMETERIZED_H_ */
+
+

@@ -1,39 +1,36 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/SafePointerVector.h
+//! @brief     Defines and implements template class SafePointerVector.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef SAFEPOINTERVECTOR_H_
 #define SAFEPOINTERVECTOR_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   SafePointerVector.h
-//! @brief  Definition of SafePointerVector template
-//! @author Scientific Computing Group at FRM II
-//! @date   Dec 10, 2012
 
 #include <vector>
 using std::size_t;
 
-//- -------------------------------------------------------------------
-//! @class SafePointerVector
-//! @brief Definition of SafePointerVector<T> template for safe handling
-//! of vectors of pointers that are owned by the vector
-//!
-//! The template class should implement a clone() function
-//- -------------------------------------------------------------------
+//! Safe handling of vectors of pointers that are owned by the vector
+
 template <class T> class SafePointerVector
 {
-public:
+ public:
     typedef typename std::vector<T *>::iterator iterator;
     typedef typename std::vector<T *>::const_iterator const_iterator;
     SafePointerVector();
-    SafePointerVector(const SafePointerVector &other);
+    SafePointerVector(const SafePointerVector& other);
     virtual ~SafePointerVector();
 
-    SafePointerVector &operator=(const SafePointerVector &right);
+    SafePointerVector& operator=(const SafePointerVector& right);
     size_t size() const;
     bool empty() const;
     void push_back(T *pointer);
@@ -49,7 +46,7 @@ public:
     T *back() { return m_pointers.back(); }
     const T *back() const { return m_pointers.back(); }
     void clear();
-private:
+ private:
     std::vector<T *> m_pointers;
 };
 
@@ -57,7 +54,7 @@ template<class T> SafePointerVector<T>::SafePointerVector() : m_pointers()
 {
 }
 
-template<class T> SafePointerVector<T>::SafePointerVector(const SafePointerVector<T> &other)
+template<class T> SafePointerVector<T>::SafePointerVector(const SafePointerVector<T>& other)
 {
     for (const_iterator it = other.begin();
             it != other.end(); ++it) {
@@ -70,10 +67,10 @@ template<class T> SafePointerVector<T>::~SafePointerVector()
     clear();
 }
 
-template<class T> SafePointerVector<T> &SafePointerVector<T>::operator=(
-        const SafePointerVector<T> &right)
+template<class T> SafePointerVector<T>& SafePointerVector<T>::operator=(
+        const SafePointerVector<T>& right)
 {
-    if (this == &right) return *this;
+    if (this ==& right) return *this;
     clear();
     for (const_iterator it = right.begin();
             it != right.end(); ++it) {
@@ -121,3 +118,5 @@ template<class T> void SafePointerVector<T>::clear()
 }
 
 #endif /* SAFEPOINTERVECTOR_H_ */
+
+

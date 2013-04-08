@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/inc/TestDetectorResolution.h
+//! @brief     Defines class TestDetectorResolution.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef TESTDETECTORRESOLUTION_H_
 #define TESTDETECTORRESOLUTION_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestDetectorResolution.h
-//! @brief  Definition of TestDetectorResolution functional test class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 10, 2012
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
@@ -21,18 +23,23 @@
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 
-
 class TestDetectorResolution : public IFunctionalTest
 {
-public:
-    TestDetectorResolution();
-    virtual ~TestDetectorResolution();
+ public:
+    TestDetectorResolution() : mp_intensity_output(0), mp_sample(0) {}
+    virtual ~TestDetectorResolution()
+    {
+        delete mp_intensity_output;
+        delete mp_sample;
+    }
     virtual void execute();
 
-private:
+ private:
     void initializeSample();
     OutputData<double> *mp_intensity_output;
     ISample *mp_sample;
 };
 
 #endif /* TESTDETECTORRESOLUTION_H_ */
+
+

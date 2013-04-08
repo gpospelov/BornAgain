@@ -1,42 +1,42 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/StochasticSampledParameter.h
+//! @brief     Defines class StochasticSampledParameter.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef STOCHASTICSAMPLEDPARAMETER_H
 #define STOCHASTICSAMPLEDPARAMETER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   StochasticSampledParameter.h
-//! @brief  Definition of StochasticSampledParameter class
-//! @author Scientific Computing Group at FRM II
-//! @date   22.08.2012
 
 #include "IStochasticParameter.h"
 #include "Exceptions.h"
 
-//- -------------------------------------------------------------------
-//! @class StochasticSampledParameter
-//! @brief To have stochastic parameter beeing sampled between xmin and xmax values
-//- -------------------------------------------------------------------
+//! To have stochastic parameter beeing sampled between xmin and xmax values.
+
 class StochasticSampledParameter : public StochasticParameter<double>
 {
-public:
+ public:
     //! constructor with nbins, xmin, xmax
-    StochasticSampledParameter(const StochasticParameter<double> &par, size_t nbins, double xmin, double xmax);
+    StochasticSampledParameter(const StochasticParameter<double>& par, size_t nbins, double xmin, double xmax);
     //! constructor with nbin and nfwhm to derive xmin and xmax
-    StochasticSampledParameter(const StochasticParameter<double> &par, size_t nbins, int nfwhm=3);
+    StochasticSampledParameter(const StochasticParameter<double>& par, size_t nbins, int nfwhm=3);
     virtual ~StochasticSampledParameter();
 
-    //! return radom value of stochastic parameter
+    //! Returns random value of stochastic parameter
     virtual void setToRandom() { m_stochastic_parameter->setToRandom(); }
 
-    //! return probability density
+    //! Returns probability density
     virtual double probabilityDensity(double value) const { return m_stochastic_parameter->probabilityDensity(value); }
 
-    //! return x-value for given bin
+    //! Returns ??-value for given bin
     double getBinValue(size_t ibin) const
     {
         if(ibin < m_nbins ) {
@@ -46,18 +46,18 @@ public:
         }
     }
 
-    //! return probability value for given bin
+    //! Returns probability value for given bin
     double probabilityBinDensity(size_t ibin) const { return m_stochastic_parameter->probabilityDensity(getBinValue(ibin)); }
 
-    //! get the normalized probability for the given bin
+    //! Returns the normalized probability for the given bin
     double getNormalizedProbability(size_t ibin) const;
-    //! return number of bins
+    //! Returns number of bins
     size_t getNbins() const { return m_nbins; }
 
     //! clone method
     virtual StochasticSampledParameter *clone() const;
 
-private:
+ private:
     StochasticParameter<double > *m_stochastic_parameter;
     size_t m_nbins;
     double m_xmin;
@@ -65,3 +65,5 @@ private:
 };
 
 #endif // STOCHASTICSAMPLEDPARAMETER_H
+
+

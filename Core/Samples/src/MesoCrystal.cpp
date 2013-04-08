@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/src/MesoCrystal.cpp
+//! @brief     Implements class MesoCrystal.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "MesoCrystal.h"
 
 MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure,
@@ -11,8 +26,8 @@ MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure,
     registerChild(mp_meso_form_factor);
 }
 
-MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure,
-        IFormFactor &form_factor)
+MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
+        IFormFactor& form_factor)
 : Particle(complex_t(1.0, 0.0))
 , mp_particle_structure(particle_structure.clone())
 , mp_meso_form_factor(form_factor.clone())
@@ -21,7 +36,6 @@ MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure,
     registerChild(mp_particle_structure);
     registerChild(mp_meso_form_factor);
 }
-
 
 MesoCrystal::~MesoCrystal()
 {
@@ -39,3 +53,5 @@ std::vector<DiffuseParticleInfo*>* MesoCrystal::createDiffuseParticleInfo(
 {
     return mp_particle_structure->createDiffuseParticleInfo(parent_info);
 }
+
+

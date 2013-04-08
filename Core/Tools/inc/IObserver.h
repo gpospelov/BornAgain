@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/IObserver.h
+//! @brief     Defines classes IObserver and IObservable (Observer pattern).
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef IOBSERVER_H
 #define IOBSERVER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IObserver.h
-//! @brief  Definition of IObserver class
-//! @author Scientific Computing Group at FRM II
-//! @date   08.10.2012
 
 #include "Exceptions.h"
 #include <list>
@@ -20,33 +22,26 @@
 
 class IObservable;
 
-//- -------------------------------------------------------------------
-//! @class IObserver
-//! @brief IObserver interface from Observer pattern to define one-to-many
-//! dependency between objects
-//- -------------------------------------------------------------------
+//! Observer interface from Observer pattern, for 1:n object dependencies.
+
 class IObserver {
-public:
+ public:
 //    IObserver() : m_observed_subject(0) {}
     virtual ~IObserver() {}
 
     //! method which is used by observable subject to notify change in status
     virtual void update (IObservable *subject) = 0;
 
-//    //! set pointer to observed subject
+//    //! Sets pointer to observed subject
 //    virtual void setObservedSubject(IObservable *subject);
 //private:
 //    IObservable *m_observed_subject;
 };
 
+//! Observable interface from Observer pattern, for 1:n object dependencies.
 
-//- -------------------------------------------------------------------
-//! @class IObservable
-//! @brief IObserverable interface from Observer pattern to define one-to-many
-//! dependency between objects
-//- -------------------------------------------------------------------
 class IObservable {
-public:
+ public:
     typedef boost::shared_ptr<IObserver > observer_t;
     typedef std::list<observer_t > observerlist_t;
 
@@ -58,9 +53,10 @@ public:
     //! notify observers about change in status
     virtual void notifyObservers();
 
-private:
+ private:
     observerlist_t m_observers;
 };
 
-
 #endif // IOBSERVER_H
+
+

@@ -7,7 +7,7 @@
 
 class RealParameterWrapperTest : public ::testing::Test
 {
-protected:
+ protected:
     RealParameterWrapperTest();
     virtual ~RealParameterWrapperTest();
 
@@ -66,29 +66,29 @@ TEST_F(RealParameterWrapperTest, ParameterAccess)
     EXPECT_EQ(  double(3.0), parameters[1].getValue() );
 }
 
-TEST_F(RealParameterWrapperTest, ParameterSignals)
-{
-    // check that parameter emmits signals to two objects
-    m_real_parameter = 1.0;
-    RealParameterWrapper par(&m_real_parameter);
-    ObjectToNotify obj1, obj2;
-    RealParameterWrapper::signal_t::slot_type fun1 = boost::bind(&ObjectToNotify::set_status_true, &obj1);
-    RealParameterWrapper::signal_t::slot_type fun2 = boost::bind(&ObjectToNotify::set_status_true, &obj2);
-    par.connect(fun1);
-    par.connect(fun2);
-    obj1.m_status = false;
-    obj2.m_status = false;
-    par.setValue(2.0); // at this point status of object has to be changed by signal emmited from the parameter
-    EXPECT_TRUE( obj1.m_status );
-    EXPECT_TRUE( obj2.m_status );
-    // par2 should not emmit signals since they are not copied
-    RealParameterWrapper par2 = par;
-    obj1.m_status = false;
-    obj2.m_status = false;
-    par2.setValue(3.0);
-    EXPECT_FALSE( obj1.m_status );
-    EXPECT_FALSE( obj2.m_status );
-}
+//TEST_F(RealParameterWrapperTest, ParameterSignals)
+//{
+//    // check that parameter emmits signals to two objects
+//    m_real_parameter = 1.0;
+//    RealParameterWrapper par(&m_real_parameter);
+//    ObjectToNotify obj1, obj2;
+//    RealParameterWrapper::signal_t::slot_type fun1 = boost::bind(&ObjectToNotify::set_status_true, &obj1);
+//    RealParameterWrapper::signal_t::slot_type fun2 = boost::bind(&ObjectToNotify::set_status_true, &obj2);
+//    par.connect(fun1);
+//    par.connect(fun2);
+//    obj1.m_status = false;
+//    obj2.m_status = false;
+//    par.setValue(2.0); // at this point status of object has to be changed by signal emmited from the parameter
+//    EXPECT_TRUE( obj1.m_status );
+//    EXPECT_TRUE( obj2.m_status );
+//    // par2 should not emmit signals since they are not copied
+//    RealParameterWrapper par2 = par;
+//    obj1.m_status = false;
+//    obj2.m_status = false;
+//    par2.setValue(3.0);
+//    EXPECT_FALSE( obj1.m_status );
+//    EXPECT_FALSE( obj2.m_status );
+//}
 
 
 #endif // REALPARAMETERWRAPPERTEST_H

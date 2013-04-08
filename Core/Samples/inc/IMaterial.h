@@ -1,50 +1,49 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/inc/IMaterial.h
+//! @brief     Defines and implements interface class IMaterial.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef IMATERIAL_H
 #define IMATERIAL_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IMaterial.h
-//! @brief  Definition of IMaterial class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #include <string>
 #include <iostream>
-#include <typeinfo>
+//#include <typeinfo>
 #include "INamed.h"
 
+//! Interface to a named material.
 
-//- -------------------------------------------------------------------
-//! @class IMaterial
-//! @brief Material definition
-//- -------------------------------------------------------------------
 class IMaterial : public INamed
 {
-public:
-    IMaterial() {}
-    IMaterial(const std::string &name) : INamed(name) {}
-    IMaterial(const IMaterial &other);
-    IMaterial &operator=(const IMaterial &other);
+ public:
+    //! Constructor that sets _name_.
+    explicit IMaterial(const std::string& name) : INamed(name) {}
+
+    //! Copy constructor. TODO: test whether needed
+    IMaterial(const IMaterial& other) : INamed(other) {}
+
+    //! Destructor.
     virtual ~IMaterial() {}
 
-    //! print material class
-    friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m) { m.print(ostr); return ostr; }
+    friend std::ostream &operator<<(std::ostream &ostr, const IMaterial &m)
+    { m.print(ostr); return ostr; }
 
-protected:
-    //! print material class
-    virtual void print(std::ostream &ostr) const {
-        //ostr << typeid(*this).name() << " " << this;
-        ostr << getName() << " " << this;
-    }
-
+ protected:
+    virtual void print(std::ostream& ostr) const
+    { ostr << "IMat:" << getName() << "<" << this << ">"; }
+        // TODO: try ostr << typeid(*this).name() << " " << this;
 };
 
-
-
 #endif // IMATERIAL_H
+
+

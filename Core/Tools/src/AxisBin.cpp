@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/AxisBin.cpp
+//! @brief     Implements class AxisBin.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "AxisBin.h"
 #include "Numeric.h"
 #include "Exceptions.h"
@@ -66,10 +81,13 @@ void AxisBin::initBins(size_t nbr_bins, double start, double end)
 size_t AxisBin::findClosestIndex(double value) const
 {
     if(m_value_vector.size()<2) {
-        throw ClassInitializationException("AxisBin not (yet) correctly initialized");
+        throw ClassInitializationException("AxisBin::findClosestIndex() -> Error! AxisBin not (yet) correctly initialized");
     }
     if (value < getMin() || value > getMax()) {
-        throw OutOfBoundsException("Given value not in any bin");
+        std::ostringstream ostr;
+        ostr << "AxisBin::findClosestIndex() -> Error! Given value not in any bin. ";
+        ostr << "value:" << value << " name:" << getName() << " min:" << getMin() << " max:" << getMax();
+        throw OutOfBoundsException(ostr.str());
     }
     std::vector<double>::const_iterator top_limit = std::lower_bound(m_value_vector.begin(), m_value_vector.end(), value);
     if(top_limit != m_value_vector.begin() ) --top_limit;
@@ -77,11 +95,6 @@ size_t AxisBin::findClosestIndex(double value) const
     return nbin;
 }
 
-//Bin1D AxisBin::findMatchingBin(double value) const
-//{
-//    return (*this)[findMatchingBinIndex(value)];
-//}
-//
 bool AxisBin::equals(const IAxis& other) const
 {
     if (!IAxis::equals(other)) return false;
@@ -96,3 +109,5 @@ bool AxisBin::equals(const IAxis& other) const
     }
     return false;
 }
+
+

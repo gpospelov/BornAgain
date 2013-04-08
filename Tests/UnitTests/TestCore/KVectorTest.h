@@ -2,24 +2,15 @@
 #define KVECTORTEST_H
 
 #include "Types.h"
-#include "Transform3D.h"
+#include "Rotate3D.h"
 
 
 class KVectorTest : public ::testing::Test
 {
-protected:
-    KVectorTest();
-    virtual ~KVectorTest();
+ protected:
+    KVectorTest() {}
+    virtual ~KVectorTest() {}
 };
-
-
-KVectorTest::KVectorTest()
-{
-}
-
-KVectorTest::~KVectorTest()
-{
-}
 
 TEST_F(KVectorTest, BasicMethods)
 {
@@ -37,15 +28,14 @@ TEST_F(KVectorTest, BasicMethods)
     EXPECT_DOUBLE_EQ( v3.mag2(), v3.mag()*v3.mag());
     EXPECT_DOUBLE_EQ( v3.magxy2(), 1*1+2*2);
     EXPECT_DOUBLE_EQ( v3.magxy2(), v3.magxy()*v3.magxy());
-    EXPECT_DOUBLE_EQ( v3.rho(), std::sqrt(1*1+2*2) );
-    EXPECT_DOUBLE_EQ( v3.r(), std::sqrt(1*1+2*2+3*3) );
-
+    EXPECT_DOUBLE_EQ( v3.magxy(), std::sqrt(1*1+2*2) );
+    EXPECT_DOUBLE_EQ( v3.mag(), std::sqrt(1*1+2*2+3*3) );
 }
 
 
 TEST_F(KVectorTest, BasicArithmetics)
 {
-    // assignment, self assignment, copy construciton
+    // assignment, self assignment, copy constructor
     kvector_t v1;
     kvector_t v2(v1);
     EXPECT_EQ( double(0), v2.x()); EXPECT_EQ( double(0), v2.y()); EXPECT_EQ( double(0), v2.z());
@@ -100,9 +90,9 @@ TEST_F(KVectorTest, BasicArithmetics)
     // scalar product of two vectors
     a.setXYZ(1., 2., 3.);
     b.setXYZ(10., 10., 10.);
-    EXPECT_EQ( double(60), a*b );
+    EXPECT_EQ( double(60), dotProduct(a,b) );
     // crossproduct
-    c = CrossProduct(a, b);
+    c = crossProduct(a, b);
     EXPECT_EQ(c.x(), a.y()*b.z() - a.z()*b.y());
     EXPECT_EQ(c.y(), a.z()*b.x() - a.x()*b.z());
     EXPECT_EQ(c.z(), a.x()*b.y() - a.y()*b.x());
@@ -110,68 +100,59 @@ TEST_F(KVectorTest, BasicArithmetics)
     a.setXYZ(1.,2.,3.);
     EXPECT_TRUE( a == kvector_t(1., 2., 3.) );
     EXPECT_TRUE( a != kvector_t(1., 1., 3.) );
-
 }
 
 
 TEST_F(KVectorTest, BasicTransformation)
 {
     const double epsilon=1e-12;
-    // rotations
-    kvector_t a1(2., 0.5, std::sqrt(3.)/2.);
-    a1.rotateX(M_PI/6.);
-    EXPECT_DOUBLE_EQ( a1.x(), 2.0);
-    ASSERT_NEAR( a1.y(), 0.0, epsilon);
-    ASSERT_NEAR( a1.z(), 1.0, epsilon );
-
-    kvector_t a2(std::sqrt(3.)/2., 2., 0.5);
-    a2.rotateY(M_PI/6.);
-    ASSERT_NEAR( a2.x(), 1.0, epsilon );
-    EXPECT_DOUBLE_EQ( a2.y(), 2.0 );
-    ASSERT_NEAR( a2.z(), 0.0, epsilon );
-
-    kvector_t a3(0.5, std::sqrt(3.)/2., 2.);
-    a3.rotateZ(M_PI/6.);
-    ASSERT_NEAR( a3.x(), 0.0, epsilon );
-    ASSERT_NEAR( a3.y(), 1.0, epsilon );
-    EXPECT_DOUBLE_EQ( a3.z(), 2.0 );
+    kvector_t a, v;
 
     // rotation via transformation
-    kvector_t b1(2., 0.5, std::sqrt(3.)/2.);
+/* currently neither implemented, nor needed
+    a = kvector_t(2., 0.5, std::sqrt(3.)/2.);
     Geometry::Transform3D m1 = Geometry::RotateX3D(M_PI/6.);
-    b1.transform(m1);
-    EXPECT_DOUBLE_EQ( b1.x(), 2.0);
-    ASSERT_NEAR( b1.y(), 0.0, epsilon);
-    ASSERT_NEAR( b1.z(), 1.0, epsilon );
+    v = m1.transformed(a);
+    EXPECT_DOUBLE_EQ( v.x(), 2.0);
+    ASSERT_NEAR(      v.y(), 0.0, epsilon);
+    ASSERT_NEAR(      v.z(), 1.0, epsilon );
+*/
 
-    kvector_t b2(std::sqrt(3.)/2., 2., 0.5);
-    Geometry::Transform3D m2 = Geometry::RotateY3D(M_PI/6.);
-    b2.transform(m2);
-    ASSERT_NEAR( b2.x(), 1.0, epsilon );
-    EXPECT_DOUBLE_EQ( b2.y(), 2.0 );
-    ASSERT_NEAR( b2.z(), 0.0, epsilon );
+    a = kvector_t(std::sqrt(3.)/2., 2., 0.5);
+    Geometry::PTransform3D m2(new Geometry::RotateY_3D(M_PI/6.));
+    v = m2->transformed(a);
+    ASSERT_NEAR(      v.x(), 1.0, epsilon );
+    EXPECT_DOUBLE_EQ( v.y(), 2.0 );
+    ASSERT_NEAR(      v.z(), 0.0, epsilon );
 
-    kvector_t b3(0.5, std::sqrt(3.)/2., 2.);
-    Geometry::Transform3D m3 = Geometry::RotateZ3D(M_PI/6.);
-    b3.transform(m3);
-    ASSERT_NEAR( b3.x(), 0.0, epsilon );
-    ASSERT_NEAR( b3.y(), 1.0, epsilon );
-    EXPECT_DOUBLE_EQ( b3.z(), 2.0 );
+    a = kvector_t(0.5, std::sqrt(3.)/2., 2.);
+    Geometry::PTransform3D m3(new Geometry::RotateZ_3D(M_PI/6.));
+    v = m3->transformed(a);
+    ASSERT_NEAR(      v.x(), 0.0, epsilon );
+    ASSERT_NEAR(      v.y(), 1.0, epsilon );
+    EXPECT_DOUBLE_EQ( v.z(), 2.0 );
+    Geometry::PTransform3D m4 = m3->inverse();
+    v = m4->transformed(v);
+    ASSERT_NEAR( v.x(), a.x(), epsilon );
+    ASSERT_NEAR( v.y(), a.y(), epsilon );
+    ASSERT_NEAR( v.z(), a.z(), epsilon );
 
-    // rotagtion around vector
-    kvector_t c(1, 1, std::sqrt(2));
-    Geometry::Transform3D m4 = Geometry::Rotate3D(M_PI, kvector_t(-1, -1, std::sqrt(2)));
-    c.transform(m4);
-    ASSERT_NEAR( c.x(), -1, epsilon );
-    ASSERT_NEAR( c.y(), -1, epsilon );
-    ASSERT_NEAR( c.z(), -std::sqrt(2), epsilon );
-    // returning it back
+/* currently neither implemented, nor needed
+    // rotation around vector
+    a = kvector_t(1, 1, std::sqrt(2));
+    Geometry::Transform3D m4 =
+        Geometry::Rotate3D(M_PI, kvector_t(-1, -1, std::sqrt(2)));
+    v = m4.transformed(a);
+    ASSERT_NEAR( v.x(), -1, epsilon );
+    ASSERT_NEAR( v.y(), -1, epsilon );
+    ASSERT_NEAR( v.z(), -std::sqrt(2), epsilon );
+    // transform it back
     Geometry::Transform3D m4_inverse = m4.inverse();
-    c.transform((m4_inverse));
-    ASSERT_NEAR( c.x(), 1, epsilon );
-    ASSERT_NEAR( c.y(), 1, epsilon );
-    ASSERT_NEAR( c.z(), std::sqrt(2), epsilon );
-
+    v = m4_inverse.transformed(v);
+    ASSERT_NEAR( v.x(), a.x(), epsilon );
+    ASSERT_NEAR( v.y(), a.y(), epsilon );
+    ASSERT_NEAR( v.z(), a.z(), epsilon );
+*/
 }
 
 #endif // KVECTORTEST_H

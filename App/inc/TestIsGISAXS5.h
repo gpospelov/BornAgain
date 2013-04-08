@@ -1,34 +1,33 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/inc/TestIsGISAXS5.h
+//! @brief     Defines class TestIsGISAXS5.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef TESTISGISAXS5_H
 #define TESTISGISAXS5_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestIsGISAXS5.h
-//! @brief  Definition of TestIsGISAXS5 class for IsGISAXS validation
-//! @author Scientific Computing Group at FRM II
-//! @date   16.01.2013
 
 
 #include "IFunctionalTest.h"
 #include "ISampleBuilder.h"
 
-class GISASExperiment;
+class Simulation;
 class FitSuite;
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS
-//! @brief Comparison with IsGISAXS ex-5: LMA fitting of cylinders with
-//! size distribution and 1D paracrystal inderference function.
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#5: LMA fit of cylinders with size distribution and 1D paracrystal interference function.
+
 class TestIsGISAXS5 : public IFunctionalTest
 {
-public:
+ public:
     TestIsGISAXS5();
     virtual ~TestIsGISAXS5() { }
 
@@ -41,7 +40,7 @@ public:
         SampleBuilder();
         virtual ISample *buildSample() const;
     protected:
-        //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+        //! Registers some class members for later access via parameter pool
         virtual void init_parameters();
         double m_particle_radius;
         double m_dispersion_radius;
@@ -50,10 +49,10 @@ public:
         double m_interf_width;
     };
 
-private:
+ private:
 
-    //! initialize experiment
-    void initialiseExperiment();
+    //! Initializes simulation
+    void initializeSimulation();
 
     //! run standard isgisaxs comparison
     void run_isgisaxs_comparison();
@@ -64,9 +63,11 @@ private:
     //! run isgisaxs ex-5 style fit
     void run_isgisaxs_fit();
 
-    GISASExperiment *mp_experiment;
+    Simulation *mp_simulation;
     ISampleBuilder *mp_sample_builder;
     FitSuite *mp_fitSuite;
 };
 
 #endif // TESTISGISAXS5_H
+
+

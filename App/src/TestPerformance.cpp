@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestPerformance.cpp
+//! @brief     Implements class TestPerformance.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestPerformance.h"
 #include "Types.h"
 #include "Units.h"
@@ -27,21 +42,17 @@ TestPerformance::TestPerformance()
     m_tests.push_back( new PerformanceTestInfo(new PerfTest_MesoCrystal(), 2) );
 
     std::cout << "TestPerformance::TestPerformance() -> Info. Preparing to run " << m_tests.size() << " performance tests."  << std::endl;
-
 }
-
 
 TestPerformance::~TestPerformance()
 {
     for(performance_tests_t::iterator it=m_tests.begin(); it!= m_tests.end(); ++it) {
         delete (*it);
     }
-
 }
 
-/* ************************************************************************* */
-// running performance tests
-/* ************************************************************************* */
+//! Run performance tests.
+
 void TestPerformance::execute()
 {
     // getting system information
@@ -83,18 +94,15 @@ void TestPerformance::execute()
     clock_t clock2 = clock();
     std::cout << "1.2 " << clock2 << std::endl;
     std::cout << "1.3 " << clock2-clock1 << std::endl;
-
 }
 
+//! Append results to log file.
 
-/* ************************************************************************* */
-// save performance information
-/* ************************************************************************* */
 void TestPerformance::write_performance()
 {
     // appending performance information to the file
-    std::string filename("perf_history.txt");
-    filename = std::string(Utils::FileSystem::GetHomePath())+std::string("./Examples/Performance/") + filename;
+    std::string filename = Utils::FileSystem::GetHomePath() +
+        "./dev-tools/log/perf_history.txt";
 
     std::ofstream file;
     file.open(filename.c_str(), std::ios_base::app);
@@ -116,10 +124,8 @@ void TestPerformance::write_performance()
     std::cout << "TestPerformance::write_performance() -> Info. File '" << filename << "' is updated." << std::endl;
 }
 
+//! Fill system information.
 
-/* ************************************************************************* */
-// fill system information
-/* ************************************************************************* */
 void TestPerformance::get_sysinfo()
 {
     // saving date and time
@@ -151,16 +157,16 @@ void TestPerformance::get_sysinfo()
     }
 }
 
+//! Start PerfTest_FresnelCoeff.
 
-/* ************************************************************************* */
-// our test starts here:  PerfTest_FresnelCoeff
-/* ************************************************************************* */
 void PerfTest_FresnelCoeff::initialise(ProgramOptions *p_options)
 {
     IFunctionalTest::initialise(p_options);
     if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("SimpleMultilayer"));
+    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("SimpleMultilayer"));
 }
+
+//! Run PerfTest_FresnelCoeff.
 
 void PerfTest_FresnelCoeff::execute()
 {
@@ -168,81 +174,81 @@ void PerfTest_FresnelCoeff::execute()
     kvector_t kvec;
     kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
     OpticalFresnel::MultiLayerCoeff_t coeffs;
-    OpticalFresnel fresnelCalculator;
+    OpticalFresnel FresnelCalculator;
     MultiLayer *ml = dynamic_cast<MultiLayer *>(m_sample);
-    fresnelCalculator.execute(*ml, kvec, coeffs);
+    FresnelCalculator.execute(*ml, kvec, coeffs);
 }
 
+//! Start PerfTest_Pyramid.
 
-/* ************************************************************************* */
-// our test starts here:  PerfTest_Pyramid
-/* ************************************************************************* */
 void PerfTest_Pyramid::initialise(ProgramOptions *p_options)
 {
     IFunctionalTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_Pyramid"));
+    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("IsGISAXS9_Pyramid"));
 
-    // experiment
-    if(m_experiment) delete m_experiment;
-    m_experiment = new GISASExperiment(mp_options);
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    m_experiment->setSample(*m_sample);
+    // simulation
+    if(m_simulation) delete m_simulation;
+    m_simulation = new Simulation(mp_options);
+    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    m_simulation->setSample(*m_sample);
 }
+
+//! Run PerfTest_Pyramid.
 
 void PerfTest_Pyramid::execute()
 {
-    m_experiment->runSimulation();
+    m_simulation->runSimulation();
 }
 
+//! Start PerfTest_RotatedPyramid
 
-/* ************************************************************************* */
-// our test starts here:  PerfTest_RotatedPyramid
-/* ************************************************************************* */
 void PerfTest_RotatedPyramid::initialise(ProgramOptions *p_options)
 {
     IFunctionalTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("IsGISAXS9_RotatedPyramid"));
+    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("IsGISAXS9_RotatedPyramid"));
 
-    // experiment
-    if(m_experiment) delete m_experiment;
-    m_experiment = new GISASExperiment(p_options);
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    m_experiment->setSample(*m_sample);
+    // simulation
+    if(m_simulation) delete m_simulation;
+    m_simulation = new Simulation(p_options);
+    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    m_simulation->setSample(*m_sample);
 }
+
+//! Run PerfTest_RotatedPyramid
 
 void PerfTest_RotatedPyramid::execute()
 {
-    m_experiment->runSimulation();
-
+    m_simulation->runSimulation();
 }
 
+//! Start PerfTest_MesoCrystal.
 
-/* ************************************************************************* */
-// our test starts here:  PerfTest_MesoCrystal
-/* ************************************************************************* */
 void PerfTest_MesoCrystal::initialise(ProgramOptions *p_options)
 {
     IFunctionalTest::initialise(p_options);
     // sample
     if(m_sample) delete m_sample;
-    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MesoCrystal1"));
+    m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MesoCrystal1"));
 
-    // experiment
-    m_experiment = new GISASExperiment(p_options);
-    m_experiment->setSample(*m_sample);
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_experiment->setBeamParameters(0.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
+    // simulation
+    m_simulation = new Simulation(p_options);
+    m_simulation->setSample(*m_sample);
+    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    m_simulation->setBeamParameters(0.77*Units::angstrom, -0.4*Units::degree, 0.0*Units::degree);
 
 }
 
+//! Run PerfTest_MesoCrystal.
 
 void PerfTest_MesoCrystal::execute()
 {
-    m_experiment->runSimulation();
+    m_simulation->runSimulation();
 }
+
+

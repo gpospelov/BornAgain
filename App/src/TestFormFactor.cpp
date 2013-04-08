@@ -1,6 +1,20 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestFormFactor.cpp
+//! @brief     Implements class TestFormFactor.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestFormFactor.h"
 #include "Types.h"
-#include "ExperimentConstants.h"
 
 #include "TCanvas.h"
 #include "TH2.h"
@@ -65,8 +79,8 @@ void TestFormFactor::draw()
     double z_end = (*p_z_axis)[z_size-1];
     TH2D *p_hist2D = new TH2D("p_hist2D", "Cylinder Formfactor", (int)y_size, y_start, y_end, (int)z_size, z_start, z_end);
     p_hist2D->UseCurrentStyle();
-    p_hist2D->GetXaxis()->SetTitle(NDetector2d::PHI_AXIS_NAME.c_str());
-    p_hist2D->GetYaxis()->SetTitle(NDetector2d::ALPHA_AXIS_NAME.c_str());
+    p_hist2D->GetXaxis()->SetTitle("phi_f");
+    p_hist2D->GetYaxis()->SetTitle("alpha_f");
 
     OutputData<double>::const_iterator it = mp_intensity_output->begin();
     while (it != mp_intensity_output->end())
@@ -84,3 +98,5 @@ void TestFormFactor::draw()
     gStyle->SetOptStat(0);
     p_hist2D->Draw("CONT4");
 }
+
+

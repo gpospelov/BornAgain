@@ -1,32 +1,32 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/inc/MesoCrystal.h
+//! @brief     Defines class MesoCrystal.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MESOCRYSTAL_H_
 #define MESOCRYSTAL_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   MesoCrystal.h
-//! @brief  Definition of MesoCrystal class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 11, 2012
 
 #include "IClusteredParticles.h"
 #include "IFormFactor.h"
 #include "Particle.h"
 
-//- -------------------------------------------------------------------
-//! @class MesoCrystal
-//! @brief Defines a particle with an internal structure of smaller particles
-//- -------------------------------------------------------------------
+//! A particle with an internal structure of smaller particles
+
 class MesoCrystal : public Particle
 {
-public:
+ public:
     MesoCrystal(IClusteredParticles *p_particle_structure, IFormFactor *p_form_factor);
-    MesoCrystal(const IClusteredParticles &particle_structure, IFormFactor &form_factor);
+    MesoCrystal(const IClusteredParticles& particle_structure, IFormFactor& form_factor);
 
     virtual ~MesoCrystal();
     virtual MesoCrystal *clone() const;
@@ -54,11 +54,13 @@ public:
     //! @brief get the internal structure, which is in principle unbounded in space (eg.  an infinite crystal)
     const IClusteredParticles *getClusteredParticles() const {return mp_particle_structure; }
 
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const;
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const;
 
-private:
+ private:
     IClusteredParticles *mp_particle_structure;
     IFormFactor *mp_meso_form_factor;
 };
 
 #endif /* MESOCRYSTAL_H_ */
+
+

@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/inc/LayerDecoratorDWBASimulation.h
+//! @brief     Defines class LayerDecoratorDWBASimulation.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef LAYERDECORATORDWBASIMULATION_H_
 #define LAYERDECORATORDWBASIMULATION_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   LayerDecoratorDWBASimulation.h
-//! @brief  Definition of LayerDecoratorDWBASimulation class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jun 25, 2012
 
 #include "LayerDWBASimulation.h"
 #include "DiffuseDWBASimulation.h"
@@ -20,31 +22,35 @@
 
 class LayerDecorator;
 
-//- -------------------------------------------------------------------
-//! @class LayerDecoratorDWBASimulation
-//! @brief Calculates scattering cross sections in DWBA for a layer with particles in/on it
-//- -------------------------------------------------------------------
+//! Calculates scattering cross sections in DWBA for a layer with particles in/on it
+
 class LayerDecoratorDWBASimulation : public LayerDWBASimulation
 {
-public:
+ public:
     LayerDecoratorDWBASimulation(const LayerDecorator *p_layer_decorator);
     virtual ~LayerDecoratorDWBASimulation();
 
-    LayerDecoratorDWBASimulation *clone() const { throw NotImplementedException("LayerDecoratorDWBASimulation::clone() -> Error: not implemented."); }
+    LayerDecoratorDWBASimulation *clone() const
+    {
+        throw NotImplementedException("LayerDecoratorDWBASimulation::clone() -> "
+                                      "Error: not implemented.");
+    }
 
-    virtual void init(const Experiment &experiment);
+    virtual void init(const Simulation& simulation);
 
     virtual void run();
-protected:
+ protected:
     LayerDecorator *mp_layer_decorator;
     DiffuseDWBASimulation *mp_diffuseDWBA;
 
-private:
+ private:
     IInterferenceFunctionStrategy *createAndInitStrategy() const;
-    std::vector<IFormFactor *> createDWBAFormFactors() const;
+    std::vector<IFormFactor*> createDWBAFormFactors() const;
     void calculateCoherentIntensity(const IInterferenceFunctionStrategy *p_strategy);
     void calculateInCoherentIntensity();
 
 };
 
 #endif /* LAYERDECORATORDWBASIMULATION_H_ */
+
+

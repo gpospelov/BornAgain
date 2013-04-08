@@ -1,22 +1,22 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/inc/DrawHelper.h
+//! @brief     Defines class DrawHelper.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef DRAWHELPER_H
 #define DRAWHELPER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   DrawHelper.h
-//! @brief  Helper class for graphics in ROOT
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #include "TObject.h"
-#include "ISingleton.h"
-
 #include <vector>
 #include <string>
 
@@ -24,52 +24,47 @@ class TCanvas;
 class MultiLayer;
 class TPad;
 
+//! Several usefull utilities for graphics in ROOT
 
-//- -------------------------------------------------------------------
-//! @class DrawHelper
-//! @brief Several usefull utilities for graphics in ROOT
-//!
 //! Provides magnification of pads in canvas, common style for drawing,
 //! saving of all opened canvases from memory to pdf file
-//- -------------------------------------------------------------------
-class DrawHelper : public ISingleton<DrawHelper>, public TObject
+//!
+class DrawHelper :public TObject
 {
-public:
-    //! set own drawing style
+ public:
+    //! Sets own drawing style
     static void SetStyle();
 
     //! saving canvases from memory into multipage pdf file
     static void SaveReportPDFObsolete();
 
     //! connect user canvas with magnifier function
-    void SetMagnifier(TCanvas *c);
+    static void SetMagnifier(TCanvas *c);
 
     //! process double click in canvas to magnify given pad
-    void ExecuteMagnifier(Int_t event, Int_t px, Int_t py, TObject *sel);
+    static void ExecuteMagnifier(Int_t event, Int_t px, Int_t py, TObject *sel);
 
     //! draw multilayer structure in TPad
-    void DrawMultilayer(const MultiLayer *sample);
+    static void DrawMultilayer(const MultiLayer *sample);
 
-    //! create and register canvas
-    TCanvas *createAndRegisterCanvas(std::string name, std::string title, int xsize=0, int ysize=0);
+    //! Creates and register canvas
+    static TCanvas *createAndRegisterCanvas(
+        std::string name, std::string title, int xsize=0, int ysize=0);
 
     //! save reports (pdf and ROOT)
-    void saveReport();
+    static void saveReport();
 
     //! attempt to draw meso crystal lattice in 3d
-    void DrawMesoCrystal(const MultiLayer *sample);
+    static void DrawMesoCrystal(const MultiLayer *sample);
 
-protected:
-    DrawHelper();
-    friend class ISingleton<DrawHelper >;
-
-private:
-    int m_default_canvas_xsize;
-    int m_default_canvas_ysize;
-
-    std::vector<TCanvas *> m_registered_canvases;
+ private:
+    static int m_default_canvas_xsize;
+    static int m_default_canvas_ysize;
+    static std::vector<TCanvas *> m_registered_canvases;
 
   ClassDef(DrawHelper,1)
 };
 
-#endif // DRAWHELPER_H
+#endif /* DRAWHELPER_H */
+
+

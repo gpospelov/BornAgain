@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/widgetbox">
+        <file>widgetbox.xml</file>
+        <file>images/sample_edithlayout.png</file>
+        <file>images/sample_editvlayout.png</file>
+        <file>images/sample_spacer.png</file>
+        <file>images/sample_vspacer.png</file>
+    </qresource>
+</RCC>

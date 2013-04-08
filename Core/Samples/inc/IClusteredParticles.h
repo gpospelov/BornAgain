@@ -1,33 +1,32 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/inc/IClusteredParticles.h
+//! @brief     Defines class IClusteredParticles.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ICLUSTEREDPARTICLES_H_
 #define ICLUSTEREDPARTICLES_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IClusteredParticles.h
-//! @brief  Definition of IClusteredParticles interface
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 12, 2012
 
 #include "IFormFactor.h"
 #include "ICompositeSample.h"
 #include "ParticleInfo.h"
-#include "Transform3D.h"
 #include "Exceptions.h"
 #include "DiffuseParticleInfo.h"
 
-//- -------------------------------------------------------------------
-//! @class IClusteredParticles
-//! @brief Definition of an interface, representing an ordered assembly of particles
-//- -------------------------------------------------------------------
+//! An ordered assembly of particles
+
 class IClusteredParticles : public ICompositeSample
 {
-public:
+ public:
     IClusteredParticles() {}
     virtual ~IClusteredParticles() {}
     //! clone method to allow for polymorphic copying
@@ -39,13 +38,13 @@ public:
     //! @param meso_crystal_form_factor  the form factor describing the shape of the mesocrystal
     //! @param ambient_refractive_index  the refractive index of the ambient material
     //! The bulk content of the mesocrystal is encapsulated by the IClusteredParticles object itself
-//    virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
+//    virtual IFormFactor *createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
 //            complex_t ambient_refractive_index) const=0;
 
-//    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const=0;
+//    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const=0;
 
 
-    virtual IFormFactor *createTotalFormFactor(const IFormFactor &meso_crystal_form_factor,
+    virtual IFormFactor *createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
             complex_t ambient_refractive_index) const
     {
         (void)meso_crystal_form_factor;
@@ -53,7 +52,7 @@ public:
         throw NotImplementedException("IClusteredParticles::createTotalFormFactor() -> NotImplementedException");
     }
 
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const
     {
         (void)parent_info;
         throw NotImplementedException("IClusteredParticles::createDiffuseParticleInfo() -> NotImplementedException");
@@ -61,5 +60,6 @@ public:
 
 };
 
-
 #endif /* ICLUSTEREDNANOPARTICLES_H_ */
+
+

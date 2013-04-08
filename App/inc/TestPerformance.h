@@ -1,39 +1,40 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/inc/TestPerformance.h
+//! @brief     Defines classes TestPerformance, PerfTest_FresnelCoeff.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef TESTPERFORMANCE_H
 #define TESTPERFORMANCE_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestPerformance.h
-//! @brief  Definition of TestPerformance to run performance test for several predefined tasks
-//! @author Scientific Computing Group at FRM II
-//! @date   02.07.2012
 
 #include "IFunctionalTest.h"
 #include "ISample.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 
 #include <string>
 #include <vector>
 #include <map>
 #include <iostream>
 
-//- -------------------------------------------------------------------
-//! @class TestPerformance
-//! @brief run standard tests to trace changes in the performance
-//- -------------------------------------------------------------------
+//! Run standard tests to trace changes in the performance.
+
 class TestPerformance : public IFunctionalTest
 {
-public:
+ public:
     //! class to hold performance information over functional test
     class PerformanceTestInfo {
     public:
-        PerformanceTestInfo(IFunctionalTest *test, int nrepetitions) : m_test(test), m_nrepetitions(nrepetitions), m_results(0){}
+        PerformanceTestInfo(IFunctionalTest *test, int nrepetitions)
+            : m_test(test), m_nrepetitions(nrepetitions), m_results(0){}
         virtual ~PerformanceTestInfo(){ delete m_test; }
         IFunctionalTest *m_test;
         double m_nrepetitions;
@@ -46,14 +47,14 @@ public:
     virtual ~TestPerformance();
 
     virtual void execute();
-private:
+ private:
     //! fill system information
     void get_sysinfo();
 
     //! save performance information on disk
     void write_performance();
 
-    //! return delimeter between columns
+    //! Returns delimeter between columns.
     std::string get_delimeter() { return std::string(" | "); }
 
     std::map<std::string, std::string > m_performance_info; //!< holds system information
@@ -63,10 +64,10 @@ private:
 
 
 //! @class PerfTest_FresnelCoeff
-//! measurement of the performance in fresnel coefficients calculation
+//! measurement of the performance in Fresnel coefficients calculation
 class PerfTest_FresnelCoeff : public IFunctionalTest
 {
-public:
+ public:
     PerfTest_FresnelCoeff() : IFunctionalTest("Fresnel"), m_sample(0){}
     virtual ~PerfTest_FresnelCoeff() { }
     void initialise(ProgramOptions *p_options);
@@ -78,26 +79,28 @@ public:
 //! measurement of the performance in pyramid form factor calculations
 class PerfTest_Pyramid : public IFunctionalTest
 {
-public:
-    PerfTest_Pyramid() : IFunctionalTest("Pyramid"), m_sample(0), m_experiment(0) {}
-    virtual ~PerfTest_Pyramid() { delete m_experiment; }
+ public:
+    PerfTest_Pyramid()
+        : IFunctionalTest("Pyramid"), m_sample(0), m_simulation(0) {}
+    virtual ~PerfTest_Pyramid() { delete m_simulation; }
     void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
-    GISASExperiment *m_experiment;
+    Simulation *m_simulation;
 };
 
 //! @class PerfTest_RotatedPyramid
 //! measurement of the performance in pyramid formfactor and in rotation mechanism
 class PerfTest_RotatedPyramid : public IFunctionalTest
 {
-public:
-    PerfTest_RotatedPyramid() : IFunctionalTest("RotatedPyramid"), m_sample(0), m_experiment(0) {}
-    virtual ~PerfTest_RotatedPyramid() { delete m_experiment; }
+ public:
+    PerfTest_RotatedPyramid()
+        : IFunctionalTest("RotatedPyramid"), m_sample(0), m_simulation(0) {}
+    virtual ~PerfTest_RotatedPyramid() { delete m_simulation; }
     void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
-    GISASExperiment *m_experiment;
+    Simulation *m_simulation;
 };
 
 
@@ -105,16 +108,16 @@ public:
 //! measurement of the performance iof meso crystal
 class PerfTest_MesoCrystal : public IFunctionalTest
 {
-public:
-    PerfTest_MesoCrystal() : IFunctionalTest("MesoCrystal"), m_sample(0), m_experiment(0) {}
-    virtual ~PerfTest_MesoCrystal() { delete m_experiment; }
+ public:
+    PerfTest_MesoCrystal()
+        : IFunctionalTest("MesoCrystal"), m_sample(0), m_simulation(0) {}
+    virtual ~PerfTest_MesoCrystal() { delete m_simulation; }
     void initialise(ProgramOptions *p_options);
     void execute();
     ISample *m_sample;
-    GISASExperiment *m_experiment;
+    Simulation *m_simulation;
 };
 
-
-
-
 #endif // TESTPERFORMANCE_H
+
+

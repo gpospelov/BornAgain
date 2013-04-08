@@ -1,6 +1,21 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/ProgramOptions.cpp
+//! @brief     Implements class ProgramOptions.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "ProgramOptions.h"
 #include "Utils.h"
-#include "Exceptions.h"
+#include "MessageService.h"
 
 #include <boost/program_options/config.hpp>
 #include <boost/program_options/parsers.hpp>
@@ -9,35 +24,27 @@
 
 ProgramOptions::ProgramOptions() : m_options_is_consistent(false)
 {
-
 }
 
+//! access variables
 
-/* ************************************************************************* */
-// access  variables
-/* ************************************************************************* */
-const bpo::variable_value& ProgramOptions::operator[] (const std::string &s) const
+const bpo::variable_value& ProgramOptions::operator[] (const std::string& s) const
 {
     if( !m_options_is_consistent ) {
         // no consistent options, there reason might be that no call to parseConfigFile
         // has been made (for example due to the absence of main())
         //parseConfigFile();
-        throw LogicErrorException("ProgramOptions::operator[] -> FixMe! No config file parsed yet.");
+        //throw LogicErrorException("ProgramOptions::operator[] -> FixMe! No config file parsed yet.");
     }
     return m_variables_map[s.c_str()];
 }
 
+//! parse command line arguments
 
-/* ************************************************************************* */
-// parse command line arguments
-/* ************************************************************************* */
 void ProgramOptions::parseCommandLine(int argc, char **argv)
 {
     // saving relative path to the application for later usage
     Utils::FileSystem::SetRelativePath(argv[0]);
-//    std::cout << "RRR argv[0] '" << argv[0] << "'" << std::endl;
-//    std::cout << "RRR '" << Utils::FileSystem::GetWorkingPath() << "'" << std::endl;
-//    std::cout << "RRR '" << Utils::FileSystem::GetHomePath() << "'" << std::endl;
 
     // parsing command line arguments
     try {
@@ -57,7 +64,7 @@ void ProgramOptions::parseCommandLine(int argc, char **argv)
     }
     catch(std::exception& e) {
         // we get here if there is unrecognized options
-        std::cout << "ProgramOptions::parseCommanLine() -> Error. Unrecognized options in command line." << std::endl;
+        msglog(MSG::ERROR) << "ProgramOptions::parseCommanLine() -> Error. Unrecognized options in command line.";
         std::cerr << "error: " << e.what() << "\n";
         throw; // throwing it further to terminate program
     }
@@ -66,27 +73,24 @@ void ProgramOptions::parseCommandLine(int argc, char **argv)
     parseConfigFile();
 }
 
+//! parse config file for arguments
 
-/* ************************************************************************* */
-// parse config file for arguments
-/* ************************************************************************* */
 void ProgramOptions::parseConfigFile()
 {
     //std::cout << "ProgramOptions::parseConfigFile" << std::endl;
-
     // default config file name
-    std::string config_file("gisasfw.cfg");
+    std::string config_file("bornagain.cfg");
 
     // definition of config file name in command line options overrides default name
     if (m_variables_map.count("config") ) {
         config_file = m_variables_map["config"].as<std::string >();
-        std::cout << "ProgramOptions::parseConfigFile() -> Name of config file '" << config_file << "'" << std::endl;
+        msglog(MSG::INFO) << "ProgramOptions::parseConfigFile() -> Name of config file '" << config_file << "'";
     }
 
     std::string config_full_name = Utils::FileSystem::GetHomePath()+config_file;
     std::ifstream ifs(config_full_name.c_str());
     if (!ifs) {
-        std::cout << "ProgramOptions::parseConfigFile() -> Warning! Can not open config file: " << config_file << std::endl;
+        msglog(MSG::WARNING) << "ProgramOptions::parseConfigFile() -> Can not open config file: " << config_file;
     } else {
 
         // parsing config file
@@ -98,7 +102,7 @@ void ProgramOptions::parseConfigFile()
         }
         catch(std::exception& e) {
             // we get here if there is unrecognized options
-            std::cout << "ProgramOptions::parseConfigFile() -> Error. Unrecognized options in file '" << config_file << "'" << std::endl;
+            msglog(MSG::ERROR) << "ProgramOptions::parseConfigFile() -> Unrecognized options in file '" << config_file << "'";
             std::cerr << "error: " << e.what() << "\n";
             throw; // throwing it further to terminate program
         }
@@ -106,3 +110,5 @@ void ProgramOptions::parseConfigFile()
 
     m_options_is_consistent = true;
 }
+
+

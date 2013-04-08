@@ -1,5 +1,22 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/src/LocalMonodisperseApproximationStrategy.cpp
+//! @brief     Implements class LocalMonodisperseApproximationStrategy.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "LocalMonodisperseApproximationStrategy.h"
 #include "Exceptions.h"
+#include <cassert>
+
 
 LocalMonodisperseApproximationStrategy::LocalMonodisperseApproximationStrategy(SimulationParameters sim_params)
 : IInterferenceFunctionStrategy(sim_params)
@@ -7,8 +24,8 @@ LocalMonodisperseApproximationStrategy::LocalMonodisperseApproximationStrategy(S
 }
 
 void LocalMonodisperseApproximationStrategy::init(
-        const SafePointerVector<FormFactorInfo> &form_factor_infos,
-        const SafePointerVector<IInterferenceFunction> &ifs)
+        const SafePointerVector<FormFactorInfo>& form_factor_infos,
+        const SafePointerVector<IInterferenceFunction>& ifs)
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, ifs);
     if (!checkVectorSizes()) {
@@ -41,6 +58,9 @@ double LocalMonodisperseApproximationStrategy::evaluate(const cvector_t& k_i,
             intensity += fraction*(itf_function*std::norm(ff));
         }
     }
+    assert(!std::isnan(intensity));
+    assert(!std::isinf(intensity));
+
     return intensity;
 }
 
@@ -53,3 +73,5 @@ bool LocalMonodisperseApproximationStrategy::checkVectorSizes()
     }
     return (n_ffs>0 && n_ifs==n_ffs);
 }
+
+

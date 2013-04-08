@@ -1,15 +1,15 @@
 #include "IsGISAXS02.h"
-#include "MultiLayer.h"
-#include "ParticleDecoration.h"
-#include "ParticleBuilder.h"
 #include "FormFactorCylinder.h"
-#include "LayerDecorator.h"
-#include "OutputDataIOFactory.h"
-#include "GISASExperiment.h"
 #include "InterferenceFunctionNone.h"
-#include "StochasticSampledParameter.h"
-#include "StochasticGaussian.h"
+#include "LayerDecorator.h"
 #include "MaterialManager.h"
+#include "MultiLayer.h"
+#include "OutputDataIOFactory.h"
+#include "ParticleBuilder.h"
+#include "ParticleDecoration.h"
+#include "Simulation.h"
+#include "StochasticGaussian.h"
+#include "StochasticSampledParameter.h"
 #include "Units.h"
 #include "Utils.h"
 
@@ -27,14 +27,14 @@ void FunctionalTests::IsGISAXS02::run()
     // ---------------------
     // building sample
     // ---------------------
-     MultiLayer multi_layer;
+    MultiLayer multi_layer;
 
-     const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
-     Layer air_layer;
-     air_layer.setMaterial(p_air_material);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    Layer air_layer;
+    air_layer.setMaterial(p_air_material);
 
-     ParticleDecoration particle_decoration;
-     complex_t n_particle(1.0-6e-4, 2e-8);
+    ParticleDecoration particle_decoration;
+    complex_t n_particle(1.0-6e-4, 2e-8);
 
     // preparing nano particles prototypes for seeding layer's particle_decoration
     double radius1 = 5*Units::nanometer;
@@ -53,8 +53,10 @@ void FunctionalTests::IsGISAXS02::run()
     double sigma1 = radius1*0.2;
     double sigma2 = radius2*0.02;
     int nfwhm(3); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    StochasticSampledParameter par1(StochasticDoubleGaussian(radius1, sigma1), nbins, nfwhm);
-    StochasticSampledParameter par2(StochasticDoubleGaussian(radius2, sigma2), nbins, nfwhm);
+    StochasticDoubleGaussian sg1(radius1, sigma1);
+    StochasticDoubleGaussian sg2(radius2, sigma2);
+    StochasticSampledParameter par1(sg1, nbins, nfwhm);
+    StochasticSampledParameter par2(sg2, nbins, nfwhm);
 
     // building nano particles
     ParticleBuilder builder;
@@ -70,21 +72,21 @@ void FunctionalTests::IsGISAXS02::run()
     multi_layer.addLayer(air_layer_decorator);
 
     // ---------------------
-    // building experiment
+    // building simulation
     // ---------------------
-     GISASExperiment experiment;
-     experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-     experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    Simulation simulation;
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // ---------------------
-    // running experiment
+    // running simulation
     // ---------------------
-    experiment.setSample(multi_layer);
-    experiment.runSimulation();
+    simulation.setSample(multi_layer);
+    simulation.runSimulation();
     // ---------------------
     // copying data
     // ---------------------
-    m_result = experiment.getOutputDataClone();
+    m_result = simulation.getOutputDataClone();
 
 }
 
@@ -107,9 +109,11 @@ int FunctionalTests::IsGISAXS02::analyseResults()
 
     bool status_ok(true);
     if( diff > threshold ) status_ok=false;
+    delete reference;
 
     std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
-    return (int)status_ok;
+
+    return (status_ok ? 0 : 1);
 }
 
 #ifdef STANDALONE

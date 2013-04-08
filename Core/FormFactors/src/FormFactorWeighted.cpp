@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/src/FormFactorWeighted.cpp
+//! @brief     Implements class FormFactorWeighted.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "FormFactorWeighted.h"
 
 FormFactorWeighted::FormFactorWeighted()
@@ -28,7 +43,7 @@ void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor,
     m_weights.push_back(weight);
 }
 
-void FormFactorWeighted::setAmbientRefractiveIndex(const complex_t &refractive_index)
+void FormFactorWeighted::setAmbientRefractiveIndex(const complex_t& refractive_index)
 {
     for (size_t index=0; index<m_form_factors.size(); ++index) {
         m_form_factors[index]->setAmbientRefractiveIndex(refractive_index);
@@ -53,3 +68,5 @@ int FormFactorWeighted::getNumberOfStochasticParameters() const
     }
     return result;
 }
+
+

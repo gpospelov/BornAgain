@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/inc/StrategyBuilder.h
+//! @brief     Defines classes LayerDecoratorStrategyBuilder, FormFactorInfo.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef STRATEGYBUILDER_H_
 #define STRATEGYBUILDER_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   LayerDecoratorStrategyBuilder.h
-//! @brief  Definition of LayerDecoratorStrategyBuilder class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jan 24, 2013
 
 #include "SimulationParameters.h"
 #include "SafePointerVector.h"
@@ -23,44 +25,49 @@ class FormFactorInfo;
 class IInterferenceFunction;
 class IInterferenceFunctionStrategy;
 class LayerDecorator;
-class Experiment;
+class Simulation;
 class IDoubleToPairOfComplexMap;
 class ParticleInfo;
 class IFormFactor;
 
-//- -------------------------------------------------------------------
-//! @class LayerDecoratorStrategyBuilder
-//! @brief Definition of methods to generate a simulation strategy from
-//! a LayerDecorator and SimulationParameters
-//- -------------------------------------------------------------------
+//! Methods to generate a simulation strategy from a LayerDecorator and SimulationParameters
+
 class LayerDecoratorStrategyBuilder
 {
-public:
-    LayerDecoratorStrategyBuilder(const LayerDecorator &decorated_layer,
-            const Experiment &experiment, const SimulationParameters &sim_params);
+ public:
+    /* out-of-place implementation required due to LayerDecorator */
+    LayerDecoratorStrategyBuilder(
+        const LayerDecorator& decorated_layer,
+        const Simulation& simulation,
+        const SimulationParameters& sim_params);
+
+    /* out-of-place implementation required due to LayerDecorator */
     virtual ~LayerDecoratorStrategyBuilder();
 
-    //! set R and T coefficient map for DWBA simulation
-    void setReflectionTransmissionFunction(const IDoubleToPairOfComplexMap &rt_map);
+    //! Sets R and T coefficient map for DWBA simulation
+    void setReflectionTransmissionFunction(
+        const IDoubleToPairOfComplexMap& rt_map);
 
-    //! create a strategy object which is able to calculate the scattering for fixed k_f
+    //! Creates a strategy object which is able to calculate the scattering for fixed k_f
     virtual IInterferenceFunctionStrategy *createStrategy();
-protected:
+ protected:
     LayerDecorator *mp_layer_decorator;         //!< decorated layer
-    Experiment *mp_experiment;                  //!< experiment
+    Simulation *mp_simulation;                  //!< simulation
     SimulationParameters m_sim_params;          //!< simulation parameters
     IDoubleToPairOfComplexMap *mp_RT_function;  //!< R and T coefficients for DWBA
-private:
+ private:
     //! collect the formfactor info of all particles in the decoration and decorate
     //! these for DWBA when needed
     void collectFormFactorInfos();
     //! collect the interference functions
     void collectInterferenceFunctions();
-    //! retrieve wavelength from experiment
+    //! retrieve wavelength from simulation
     double getWavelength();
-    //! create formfactor info for single particle
-    FormFactorInfo *createFormFactorInfo(const ParticleInfo *p_particle_info,
-            complex_t n_ambient_refractive_index, complex_t factor) const;
+    //! Creates formfactor info for single particle
+    FormFactorInfo *createFormFactorInfo(
+        const ParticleInfo *p_particle_info,
+        complex_t n_ambient_refractive_index,
+        complex_t factor) const;
 
     SafePointerVector<FormFactorInfo> m_ff_infos;
     SafePointerVector<IInterferenceFunction> m_ifs;
@@ -68,9 +75,11 @@ private:
 
 class FormFactorInfo : public ICloneable
 {
-public:
-    FormFactorInfo();
+ public:
+    FormFactorInfo()
+        : mp_ff(0), m_pos_x(0.0), m_pos_y(0.0), m_abundance(0.0) {}
     ~FormFactorInfo();
+    /* out-of-place implementation required due to IFormFactor */
     virtual FormFactorInfo *clone() const;
     IFormFactor *mp_ff;
     double m_pos_x, m_pos_y;
@@ -78,3 +87,5 @@ public:
 };
 
 #endif /* STRATEGYBUILDER_H_ */
+
+

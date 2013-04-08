@@ -1,42 +1,44 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/inc/TestIsGISAXS3.h
+//! @brief     Defines class TestIsGISAXS3.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef TESTISGISAXS3_H_
 #define TESTISGISAXS3_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestIsGISAXS3.h
-//! @brief  Definition of TestIsGISAXS3 class for IsGISAXS validation
-//! @author herk
-//! @date   02.05.2012
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
-#include "ISample.h"
 
 #include <string>
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS3
-//! @brief Comparison with IsGISAXS ex-3: cylinder on top of substrate
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#3: Cylinder on top of substrate.
+
 class TestIsGISAXS3 : public IFunctionalTest
 {
-public:
+ public:
     TestIsGISAXS3();
     virtual ~TestIsGISAXS3(){}
     virtual void execute();
     virtual void finalise();
 
-private:
+ private:
     // structure to hold info over several compare cases
     struct CompareStruct
     {
-        CompareStruct(std::string _isginame, std::string _thisname, std::string _descr) : isginame(_isginame), thisname(_thisname), descr(_descr){}
+        CompareStruct(std::string _isginame,
+                      std::string _thisname,
+                      std::string _descr)
+        : isginame(_isginame), thisname(_thisname), descr(_descr){}
         std::string isginame;
         std::string thisname;
         std::string descr;
@@ -44,4 +46,7 @@ private:
 
     std::string m_data_path;
 };
+
 #endif /* TESTISGISAXS3_H_ */
+
+

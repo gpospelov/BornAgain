@@ -1,32 +1,34 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/inc/ISampleBuilder.h
+//! @brief     Defines class ISampleBuilder.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ISAMPLEBUILDER_H_
 #define ISAMPLEBUILDER_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ISampleBuilder.h
-//! @brief  Definition of ISampleBuilder interface
-//! @author Scientific Computing Group at FRM II
-//! @date   Oct 11, 2012
 
-#include "IParameterized.h"
 #include "ISample.h"
-#include "Exceptions.h"
 
 class ISampleBuilder : public IParameterized
 {
-public:
+ public:
     ISampleBuilder() { setName("SampleBuilder"); }
     virtual ~ISampleBuilder() {}
 
-    virtual ISample *buildSample() const { throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
-protected:
+    virtual ISample *buildSample() const {
+        throw NotImplementedException("ISampleBuilder::buildSample() -> Not implemented"); }
+ protected:
 };
 
-
 #endif /* ISAMPLEBUILDER_H_ */
+
+

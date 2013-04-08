@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--************************************************************************
+**
+** Copyright (C) 2012 Digia Plc and/or its subsidiary(-ies).
+** Contact: http://www.qt-project.org/legal
+**
+** This file is part of the Qt Designer of the Qt Toolkit.
+**
+** $QT_BEGIN_LICENSE:LGPL$
+** Commercial License Usage
+** Licensees holding valid commercial Qt licenses may use this file in
+** accordance with the commercial license agreement provided with the
+** Software or, alternatively, in accordance with the terms contained in
+** a written agreement between you and Digia.  For licensing terms and
+** conditions see http://qt.digia.com/licensing.  For further information
+** use the contact form at http://qt.digia.com/contact-us.
+**
+** GNU Lesser General Public License Usage
+** Alternatively, this file may be used under the terms of the GNU Lesser
+** General Public License version 2.1 as published by the Free Software
+** Foundation and appearing in the file LICENSE.LGPL included in the
+** packaging of this file.  Please review the following information to
+** ensure the GNU Lesser General Public License version 2.1 requirements
+** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+**
+** In addition, as a special exception, Digia gives you certain additional
+** rights.  These rights are described in the Digia Qt LGPL Exception
+** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+**
+** GNU General Public License Usage
+** Alternatively, this file may be used under the terms of the GNU
+** General Public License version 3.0 as published by the Free Software
+** Foundation and appearing in the file LICENSE.GPL included in the
+** packaging of this file.  Please review the following information to
+** ensure the GNU General Public License version 3.0 requirements will be
+** met: http://www.gnu.org/copyleft/gpl.html.
+**
+**
+** $QT_END_LICENSE$
+**
+**************************************************************************-->
+<widgetbox version="0.5">
+
+    <category name="Templates">
+
+        <categoryentry name="IsGISAXS1 sample" icon="images/sample_editvlayout.png">
+            <ui>
+                <widget class="QWidget">
+                    <property name="objectName">
+                        <string notr="true">verticalLayoutWidget</string>
+                    </property>
+                    <property name="geometry">
+                        <rect>
+                            <x>0</x>
+                            <y>0</y>
+                            <width>160</width>
+                            <height>80</height>
+                        </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout">
+                    </layout>
+                </widget>
+            </ui>
+        </categoryentry>
+
+        <categoryentry name="IsGISAXS2 sample" icon="images/sample_spacer.png">
+            <ui>
+                <widget class="QWidget">
+                    <property name="objectName">
+                        <string notr="true">horizontalLayoutWidget</string>
+                    </property>
+                    <property name="geometry">
+                        <rect>
+                            <x>0</x>
+                            <y>0</y>
+                            <width>160</width>
+                            <height>80</height>
+                        </rect>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout">
+                    </layout>
+                </widget>
+            </ui>
+        </categoryentry>
+    </category>
+
+
+    <category name="Layers">
+
+       <categoryentry name="Layer" icon="images/sample_spacer.png">
+            <ui>
+                <widget class="Spacer">
+                    <property name="orientation" >
+                        <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="objectName">
+                        <string notr="true">horizontalSpacer</string>
+                    </property>
+                    <property name="sizeHint" >
+                        <size>
+                            <width>40</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </widget>
+            </ui>
+        </categoryentry>
+
+       <categoryentry  name="Multi Layer" icon="images/sample_vspacer.png">
+             <ui>
+                <widget class="Spacer">
+                    <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="objectName">
+                        <string notr="true">verticalSpacer</string>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>40</height>
+                        </size>
+                    </property>
+                </widget>
+            </ui>
+            </categoryentry>
+
+    </category>
+
+    <category name="Form Factors">
+
+        <categoryentry name="Sphere" icon="images/sample_spacer.png">
+             <ui>
+                <widget class="QPushButton">
+                    <property name="text" >
+                        <string>PushButton</string>
+                    </property>
+                    <property name="objectName">
+                        <string notr="true">pushButton</string>
+                    </property>
+                </widget>
+            </ui>
+        </categoryentry>
+
+        <categoryentry name="Pyramid" icon="images/sample_vspacer.png">
+            <ui>
+                <widget class="QToolButton">
+                    <property name="objectName">
+                        <string notr="true">toolButton</string>
+                    </property>
+                    <property name="text" >
+                        <string>...</string>
+                    </property>
+                </widget>
+            </ui>
+        </categoryentry>
+
+    </category>
+
+</widgetbox>

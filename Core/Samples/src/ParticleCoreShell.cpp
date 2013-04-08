@@ -1,7 +1,22 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/src/ParticleCoreShell.cpp
+//! @brief     Implements class ParticleCoreShell.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "ParticleCoreShell.h"
 #include "FormFactors.h"
 
-ParticleCoreShell::ParticleCoreShell(const Particle &shell, const Particle &core, kvector_t relative_core_position)
+ParticleCoreShell::ParticleCoreShell(const Particle& shell, const Particle& core, kvector_t relative_core_position)
 : Particle(shell.getRefractiveIndex())
 , m_relative_core_position(relative_core_position)
 {
@@ -39,3 +54,5 @@ IFormFactor *ParticleCoreShell::createFormFactor() const
     p_result->addFormFactor(ff_core_translated, 1.0);
     return p_result;
 }
+
+

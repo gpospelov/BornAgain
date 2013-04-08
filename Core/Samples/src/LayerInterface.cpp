@@ -1,7 +1,22 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/src/LayerInterface.cpp
+//! @brief     Implements class LayerInterface.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "LayerInterface.h"
+#include "MessageService.h"
 #include <iostream>
 #include <iomanip>
-
 
 LayerInterface::LayerInterface()
 : m_roughness(0)
@@ -11,12 +26,10 @@ LayerInterface::LayerInterface()
     setName("LayerInterface");
 }
 
-
 LayerInterface::~LayerInterface()
 {
     delete m_roughness;
 }
-
 
 LayerInterface *LayerInterface::createSmoothInterface(const Layer *p_layer_top, const Layer *p_layer_bottom)
 {
@@ -26,8 +39,7 @@ LayerInterface *LayerInterface::createSmoothInterface(const Layer *p_layer_top, 
     return lr;
 }
 
-
-LayerInterface *LayerInterface::createRoughInterface(const Layer *p_layer_top, const Layer *p_layer_bottom, const LayerRoughness &roughness)
+LayerInterface *LayerInterface::createRoughInterface(const Layer *p_layer_top, const Layer *p_layer_bottom, const LayerRoughness& roughness)
 {
     LayerInterface *lr = new LayerInterface();
     lr->setLayerTop(p_layer_top);
@@ -36,11 +48,10 @@ LayerInterface *LayerInterface::createRoughInterface(const Layer *p_layer_top, c
     return lr;
 }
 
-
-void LayerInterface::setRoughness(const LayerRoughness &roughness)
+void LayerInterface::setRoughness(const LayerRoughness& roughness)
 {
     if(m_roughness) {
-        std::cout << "LayerInterface::setRoughness() -> Info. Roughness already assigned to given interface, removing it " << std::endl;
+        msglog(MSG::WARNING) << "LayerInterface::setRoughness() -> Info. Roughness already assigned to given interface, removing it ";
         deregisterChild(m_roughness);
         delete m_roughness;
         m_roughness=0;
@@ -50,21 +61,11 @@ void LayerInterface::setRoughness(const LayerRoughness &roughness)
     registerChild(m_roughness);
 }
 
-
-/* ************************************************************************* */
-// print
-/* ************************************************************************* */
-void LayerInterface::print(std::ostream &ostr) const
+void LayerInterface::print(std::ostream& ostr) const
 {
     ICompositeSample::print(ostr);
-    ostr << " top:" << getLayerTop() << " bottom:" << getLayerBottom();
-//    ostr << getName()
-//         << " " << std::setw(12) << this
-//         << " top:"<< getLayerTop() << " bottom:" << getLayerBottom() << "   ";
-//    const LayerRoughness *roughness = getRoughness();
-//    if(roughness) {
-//        ostr << "> " << *roughness;
-//    }else{
-//        ostr << "> no roughness";
-//    }
+    ostr << "-->LayerI'face{top=" << getLayerTop() <<
+            ", bottom=" << getLayerBottom() << "}";
 }
+
+

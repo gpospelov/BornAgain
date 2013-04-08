@@ -7,7 +7,7 @@
 
 class ParameterPoolTest : public ::testing::Test
 {
-protected:
+ protected:
     ParameterPoolTest();
     virtual ~ParameterPoolTest(){}
 

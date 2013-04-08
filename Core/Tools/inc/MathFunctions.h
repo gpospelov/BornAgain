@@ -1,18 +1,21 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/MathFunctions.h
+//! @brief     Define many functions in namespace MathFunctions,
+//!              and provide inline implementation for most of them
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MATHFUNCTIONS_H
 #define MATHFUNCTIONS_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   MathFunctions.h
-//! @brief  Collection of mathematical functions
-//! @author Scientific Computing Group at FRM II
-//! @date   20.04.2012
 
 #include "Types.h"
 #include "Units.h"
@@ -26,8 +29,11 @@
 #include "gsl/gsl_sf_expint.h"
 #include "gsl/gsl_integration.h"
 
+//! Various mathematical functions.
+
 namespace MathFunctions
 {
+
 double Gaussian(double value, double average, double std_dev);
 
 double IntegratedGaussian(double value, double average, double std_dev);
@@ -112,22 +118,20 @@ inline double MathFunctions::Sinc(double value)  // Sin(x)/x
     return gsl_sf_sinc(value/M_PI);
 }
 
+// TODO: protection against complex number like (-246.977,-399.616)
 inline complex_t MathFunctions::Sinc(const complex_t &value)  // Sin(x)/x
 {
-	if(std::abs(value)<Numeric::double_epsilon) {
-		return complex_t(1.0, 0.0);
-	}
+    if(std::abs(value)<Numeric::double_epsilon)
+        return complex_t(1.0, 0.0);
     return std::sin(value)/value;
 }
 
 inline complex_t MathFunctions::Laue(const complex_t &value, size_t N) // Exp(iNx/2)*Sin((N+1)x)/Sin(x)
 {
-    if (N==0) {
+    if (N==0)
         return complex_t(1.0, 0.0);
-    }
-    if(std::abs(value)<Numeric::double_epsilon) {
+    if(std::abs(value)<Numeric::double_epsilon)
         return complex_t(N+1.0, 0.0);
-    }
     return std::exp(complex_t(0.0, 1.0)*value*(double)N/2.0)*std::sin(value*(N+1.0)/2.0)/std::sin(value/2.0);
 }
 
@@ -168,16 +172,17 @@ inline complex_t MathFunctions::FastCos(const complex_t &x) {
 }
 
 //! simultaneous complex sine and cosine calculations
-inline void MathFunctions::FastSinCos(const complex_t &x, complex_t &xsin, complex_t &xcos)
+inline void MathFunctions::FastSinCos(const complex_t &x,
+                                      complex_t &xsin, complex_t &xcos)
 {
     double sina = FastSin(x.real());
     double cosa = std::sqrt(1-sina*sina);
     double sinhb = std::sinh(x.imag());
     double coshb = std::sqrt(1-sinhb*sinhb);
-    xsin.real() =sina*coshb;
-    xsin.imag() =cosa*sinhb;
-    xcos.real() =cosa*coshb;
-    xcos.imag() =-sina*sinhb;
+    xsin = complex_t( sina*coshb,  cosa*sinhb );
+    xcos = complex_t( cosa*coshb, -sina*sinhb );
 }
 
 #endif // MATHFUNCTIONS_H
+
+

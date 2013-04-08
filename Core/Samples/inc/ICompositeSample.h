@@ -1,40 +1,48 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/inc/ICompositeSample.h
+//! @brief     Defines interface class ICompositeSample.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ICOMPOSITESAMPLE_H
 #define ICOMPOSITESAMPLE_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ICompositeSample
-//! @brief  Definition of ICompositeSample class
-//! @author Scientific Computing Group at FRM II
-//! @date   16.06.2012
 
 #include "ISample.h"
 #include <list>
 
+//! Interface to equip ISample with a tree structure.
 
-class ICompositeIterator;
-
-//- -------------------------------------------------------------------
-//! @class ICompositeSample
-//! @brief Definition of ICompositeSample which compose ISample objects
-//! into tree structure
-//- -------------------------------------------------------------------
+//! As of March 2013, this is the base class for
+//! - IClustered Particle
+//!   - Crystal
+//! - IDecoration
+//!   - ParticleDecoration
+//! - Layer
+//!   - LayerDecorator
+//! - LayerInterface
+//! - MultiLayer
+//! - Particle
+//!   - LatticeBasis
+//!   - MesoCrystal
+//!   - ParticleCoreShell
+//! - ParticleInfo
+//!   - DiffuseParticleInfo
+//!   - PositionParticleInfo
+//!
 class ICompositeSample : public ISample
 {
-public:
-    //! definition of container for registered children
-    typedef std::list<ISample *> samples_t;
-    typedef samples_t::iterator iterator_t;
-    typedef samples_t::const_iterator const_iterator_t;
-
-    ICompositeSample() { }
-    virtual ~ICompositeSample() { }
+ public:
+    ICompositeSample() {}
+    virtual ~ICompositeSample() {}
 
     ICompositeSample *clone() const;
 
@@ -42,31 +50,39 @@ public:
     virtual ICompositeSample *getCompositeSample() { return this; }
     virtual const ICompositeSample *getCompositeSample() const { return this; }
 
-    //! register child in the container
+    //! Registers child in the container.
     virtual void registerChild(ISample *sample);
 
-    //! remove registered child from the container
+    //! Removes registered child from the container
     virtual void deregisterChild(ISample *sample);
 
-    //! iteration over local registered children
-    iterator_t begin_shallow() { return m_samples.begin(); }
-    iterator_t end_shallow() { return m_samples.end(); }
-    const_iterator_t begin_shallow() const { return m_samples.begin(); }
-    const_iterator_t end_shallow() const { return m_samples.end(); }
+    //! Begins iteration over local registered children.
+    std::list<ISample*>::iterator begin_shallow()
+    { return m_samples.begin(); }
 
-    //! size of children
+    //! Ends iteration over local registered children.
+    std::list<ISample*>::iterator end_shallow()
+    { return m_samples.end(); }
+
+    //! Begins read-only iteration over local registered children.
+    std::list<ISample*>::const_iterator begin_shallow() const
+    { return m_samples.begin(); }
+
+    //! Ends read-only iteration over local registered children.
+    std::list<ISample*>::const_iterator end_shallow() const
+    { return m_samples.end(); }
+
+    //! Returns number of children.
     virtual size_t size() const { return m_samples.size(); }
 
-    //! create general iterator to walk through the tree of registered composite children
-    ICompositeIterator createIterator();
+    //! Creates general iterator to walk through tree of composite children.
+    class ICompositeIterator createIterator();
 
-private:
-//    ICompositeSample &operator=(const ICompositeSample &other);
-
-    //! check index of child
-    //inline size_t check_index(size_t index) const { return index < m_samples.size() ? index : throw OutOfBoundsException("ICompositeSample::check_index() -> Error! Index is out of bounds"); }
-
-    samples_t m_samples; //! list of registered children
+ private:
+    //! List of registered children.
+    std::list<ISample*> m_samples;
 };
 
 #endif // ICOMPOSITESAMPLE_H
+
+

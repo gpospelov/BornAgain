@@ -1,50 +1,65 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/inc/DiffuseParticleInfo.h
+//! @brief     Defines and implements class DiffuseParticleInfo.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef DIFFUSEPARTICLEINFO_H_
 #define DIFFUSEPARTICLEINFO_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   DiffuseParticleInfo.h
-//! @brief  Definition of
-//! @author Scientific Computing Group at FRM II
-//! @date   Sep 4, 2012
 
 #include "ParticleInfo.h"
 
+//! ?
+
 class DiffuseParticleInfo: public ParticleInfo
 {
-public:
-    DiffuseParticleInfo(Particle *p_particle, Geometry::Transform3D *transform=0, double depth=0, double abundance=0);
-    virtual ~DiffuseParticleInfo();
+ public:
+    DiffuseParticleInfo(
+        Particle *p_particle,
+        const Geometry::PTransform3D& transform = Geometry::PTransform3D(),
+        double depth=0, double abundance=0)
+        : ParticleInfo(p_particle, transform, depth, abundance)
+        , m_number_per_meso(0.0)
+    {}
+
+    virtual ~DiffuseParticleInfo() {}
 
     //! scale abundance
     void scaleAbundance(double factor) { m_abundance *= factor; }
 
-    //! scale abundance
+    //! scale number of particles per containing mesocrystal
     void scaleNumberPerMeso(double factor) { m_number_per_meso *= factor; }
 
-    //! set number of particles per containing mesocrystal
+    //! Sets number of particles per containing mesocrystal
     void setNumberPerMeso(double n) { m_number_per_meso = n; }
 
-    //! get number of particles per containing mesocrystal
+    //! Returns number of particles per containing mesocrystal
     double getNumberPerMeso() const { return m_number_per_meso; }
 
-    DiffuseParticleInfo *clone() const { throw NotImplementedException("DiffuseParticleInfo::clone() -> Error: not implemented"); }
+    DiffuseParticleInfo *clone() const
+    { throw NotImplementedException(
+            "DiffuseParticleInfo::clone() -> Error: not implemented");
+    }
 
-    //! set the range of height
+    //! Sets the range of height
     void setHeightRange(double height_range) { m_height_range = height_range; }
 
-    //! get the range of height
+    //! Returns the range of height
     double getHeightRange() const { return m_height_range; }
-protected:
+ protected:
     double m_number_per_meso;
     double m_height_range;
-
 };
 
 #endif /* DIFFUSEPARTICLEINFO_H_ */
+
+

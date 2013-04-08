@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/DrawHelper.cpp
+//! @brief     Implements class DrawHelper.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "DrawHelper.h"
 #include "Exceptions.h"
 #include "MultiLayer.h"
@@ -29,36 +44,23 @@
 #include "TFile.h"
 #include "TDatime.h"
 #include "TSystem.h"
-#include "TEveManager.h"
-#include "TEvePointSet.h"
-#include "TEveArrow.h"
-#include "TEveGeoShape.h"
-#include "TGeoSphere.h"
-#include "TEveTrans.h"
-#include "TEveViewer.h"
-#include "TGLViewer.h"
 
+std::vector<TCanvas *> DrawHelper::m_registered_canvases =
+    std::vector<TCanvas *>();
+int DrawHelper::m_default_canvas_xsize = 1024;
+int DrawHelper::m_default_canvas_ysize = 768;
 
+//! Assign function to canvas to handle mouse events inside canvas.
 
-DrawHelper::DrawHelper() : m_default_canvas_xsize(1024), m_default_canvas_ysize(768)
-//DrawHelper::DrawHelper() : m_default_canvas_xsize(1600), m_default_canvas_ysize(1200)
-{
-
-}
-
-
-/* ************************************************************************* */
-// assign function to canvas to handle mouse events inside canvas
-/* ************************************************************************* */
 void DrawHelper::SetMagnifier(TCanvas *canvas)
 {
-  canvas->Connect("ProcessedEvent(Int_t,Int_t,Int_t,TObject*)", "DrawHelper", this, "ExecuteMagnifier(int,int,int,TObject*)");
+    canvas->Connect("ProcessedEvent(Int_t,Int_t,Int_t,TObject*)",
+                    "DrawHelper", 0,
+                    "ExecuteMagnifier(int,int,int,TObject*)");
 }
 
+//! Helper function to process double clicks inside TCanvas to magnify pads.
 
-/* ************************************************************************* */
-// helper function to process double clicks inside TCanvas to magnify pads
-/* ************************************************************************* */
 void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
 {
   (void)sel;
@@ -79,13 +81,11 @@ void DrawHelper::ExecuteMagnifier(int event, int px, int py, TObject *sel)
   }
 }
 
+//! Sets our own default style to draw things.
 
-/* ************************************************************************* */
-// Set our own default style to draw things
-/* ************************************************************************* */
 void DrawHelper::SetStyle()
 {
-    TStyle *scattStyle = new TStyle("Scattering","Scattering style");
+    TStyle *scattStyle = new TStyle("Scattering", "Scattering style");
 
     // use plain black on white colors
     Int_t icol=0; // WHITE
@@ -96,9 +96,8 @@ void DrawHelper::SetStyle()
     scattStyle->SetPadBorderMode(icol);
     scattStyle->SetPadColor(icol);
     scattStyle->SetStatColor(icol);
-    //scattStyle->SetFillColor(icol); // don't use: white fill color floa *all* objects
 
-    // set the paper & margin sizes
+    // set the paper&  margin sizes
     scattStyle->SetPaperSize(20,26);
     scattStyle->SetPadTopMargin(0.1);
     scattStyle->SetPadRightMargin(0.1);
@@ -154,18 +153,15 @@ void DrawHelper::SetStyle()
     gROOT->ForceStyle();
 }
 
+//! Save canvases in pdf file.
 
-
-
-/* ************************************************************************* */
-// Save canvases in pdf file.
-// Method reads existing ROOT canvases from memory and save them in file
-//
-// Since canvases might have different aspect ratio with respect to pdf file,
-// simple saving leads to the distortion of aspect ratio. To avoid this,
-// following approach is used. Canvas are drawn first inside one master canvas
-// with right proportion, and then master canvas goes inside pdf file.
-/* ************************************************************************* */
+//! Method reads existing ROOT canvases from memory and save them in file
+//!
+//! Since canvases might have different aspect ratio with respect to pdf file,
+//! simple saving leads to the distortion of aspect ratio. To avoid this,
+//! following approach is used. Canvas are drawn first inside one master canvas
+//! with right proportion, and then master canvas goes inside pdf file.
+//!
 void DrawHelper::SaveReportPDFObsolete()
 {
     std::string sfilename("report.pdf");
@@ -223,10 +219,8 @@ void DrawHelper::SaveReportPDFObsolete()
     cmaster->Print(stmpname.c_str()); // close file
 }
 
+//! Draw multilayer structure in gPad.
 
-/* ************************************************************************* */
-// Draw multilayer structure in gPad
-/* ************************************************************************* */
 void DrawHelper::DrawMultilayer(const MultiLayer *sample)
 {
     size_t nlayers = sample->getNumberOfLayers();
@@ -311,11 +305,8 @@ void DrawHelper::DrawMultilayer(const MultiLayer *sample)
     gPad->Update();
 }
 
+//! Draw multilayer structure in gPad.
 
-
-/* ************************************************************************* */
-// Draw multilayer structure in gPad
-/* ************************************************************************* */
 TCanvas *DrawHelper::createAndRegisterCanvas(std::string name, std::string title, int xsize, int ysize)
 {
     if(xsize==0) xsize = m_default_canvas_xsize;
@@ -328,7 +319,7 @@ TCanvas *DrawHelper::createAndRegisterCanvas(std::string name, std::string title
     return c1;
 }
 
-
+//! ?
 
 void DrawHelper::saveReport()
 {
@@ -400,97 +391,110 @@ void DrawHelper::saveReport()
     std::cout << "DrawHelper::saveReport() -> File '" << rootfilename << "' is created" << std::endl;
 }
 
+//! Attempt to draw meso crystal lattice in 3d.
 
-/* ************************************************************************* */
-// attempt to draw meso crystal lattice in 3d
-/* ************************************************************************* */
 void DrawHelper::DrawMesoCrystal(const MultiLayer *sample)
 {
-    gSystem->IgnoreSignal(kSigSegmentationViolation, true);
-    TEveManager::Create();
+    (void)sample;
+//    gSystem->IgnoreSignal(kSigSegmentationViolation, true);
+//    TEveManager::Create();
 
-    const LayerDecorator *layer_decor = dynamic_cast<const LayerDecorator *>(sample->getLayer(1));
-    if( !layer_decor ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> layer_decor panic");
-    const MesoCrystal *meso = dynamic_cast<const MesoCrystal *>(layer_decor->getDecoration()->getParticleInfo(0)->getParticle());
-    if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> meso panic");
-    const Crystal *crystal = dynamic_cast<const Crystal *>(meso->getClusteredParticles());
-    if( !crystal ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> nano_crystal panic");
-    Lattice lattice = crystal->getLattice();
-    const LatticeBasis *lattice_basis = crystal->getLatticeBasis();
-    if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> lattice_basis panic");
+//    const LayerDecorator *layer_decor = dynamic_cast<const LayerDecorator *>(sample->getLayer(1));
+//    if( !layer_decor ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> layer_decor panic");
+//    const MesoCrystal *meso = dynamic_cast<const MesoCrystal *>(layer_decor->getDecoration()->getParticleInfo(0)->getParticle());
+//    if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> meso panic");
+//    const Crystal *crystal = dynamic_cast<const Crystal *>(meso->getClusteredParticles());
+//    if( !crystal ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> nano_crystal panic");
+//    Lattice lattice = crystal->getLattice();
+//    const LatticeBasis *lattice_basis = crystal->getLatticeBasis();
+//    if( !meso ) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> lattice_basis panic");
 
-    const FormFactorFullSphere *ff_sphere = dynamic_cast<const FormFactorFullSphere *>(lattice_basis->getParticle(0)->getSimpleFormFactor());
-    if( !ff_sphere) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> ff_sphere panic");
+//    const FormFactorFullSphere *ff_sphere = dynamic_cast<const FormFactorFullSphere *>(lattice_basis->getParticle(0)->getSimpleFormFactor());
+//    if( !ff_sphere) throw RuntimeErrorException("DrawHelper::DrawMesoCrystal() -> ff_sphere panic");
 
-    double nanoparticle_radius =ff_sphere->getRadius();
+//    double nanoparticle_radius =ff_sphere->getRadius();
 
-    kvector_t bas_a = lattice.getBasisVectorA();
-    kvector_t bas_b = lattice.getBasisVectorB();
-    kvector_t bas_c = lattice.getBasisVectorC();
+//    kvector_t bas_a = lattice.getBasisVectorA();
+//    kvector_t bas_b = lattice.getBasisVectorB();
+//    kvector_t bas_c = lattice.getBasisVectorC();
 
-    // drawing basis
-    TEveArrow* a1 = new TEveArrow(bas_a.x(), bas_a.y(), bas_a.z());
-    a1->SetMainColor(kYellow);
-    a1->SetTubeR(0.02);
-    a1->SetPickable(kTRUE);
+//    // drawing basis
+//    TEveArrow* a1 = new TEveArrow(bas_a.x(), bas_a.y(), bas_a.z());
+//    a1->SetMainColor(kYellow);
+//    a1->SetTubeR(0.02);
+//    a1->SetPickable(kTRUE);
 
-    TEveArrow* a2 = new TEveArrow(bas_b.x(), bas_b.y(), bas_b.z());
-    a2->SetMainColor(kYellow);
-    a2->SetTubeR(0.02);
-    a2->SetPickable(kTRUE);
+//    TEveArrow* a2 = new TEveArrow(bas_b.x(), bas_b.y(), bas_b.z());
+//    a2->SetMainColor(kYellow);
+//    a2->SetTubeR(0.02);
+//    a2->SetPickable(kTRUE);
 
-    TEveArrow* a3 = new TEveArrow(bas_c.x(), bas_c.y(), bas_c.z());
-    a3->SetMainColor(kYellow);
-    a3->SetTubeR(0.02);
-    a3->SetPickable(kTRUE);
+//    TEveArrow* a3 = new TEveArrow(bas_c.x(), bas_c.y(), bas_c.z());
+//    a3->SetMainColor(kYellow);
+//    a3->SetTubeR(0.02);
+//    a3->SetPickable(kTRUE);
 
-    gEve->AddElement(a1);
-    gEve->AddElement(a2);
-    gEve->AddElement(a3);
+////    gEve->AddElement(a1);
+////    gEve->AddElement(a2);
+////    gEve->AddElement(a3);
 
-    // drawing nano particles
-    char str[128];
-    for(int iz=0; iz<3; iz++) {
-        TEveElementList *list_of_layer = new TEveElementList();
-        sprintf(str,"zlayer%d",iz);
-        list_of_layer->SetName(str);
-        for(int ix=-2; ix<=2; ix++) {
-            for(int iy=-2; iy<=2; iy++){
+//    // drawing nano particles
+//    char str[128];
+//    for(int iz=0; iz<4; iz++) {
+//        TEveElementList *list_of_layer = new TEveElementList();
+//        sprintf(str,"zlayer%d",iz);
+//        list_of_layer->SetName(str);
+//        for(int ix=-4; ix<=4; ix++) {
+//            for(int iy=-4; iy<=4; iy++){
+////                for(int ix=-1; ix<=1; ix++) {
+////                    for(int iy=-1; iy<=1; iy++){
 
-                kvector_t origin = iz*bas_c + ix*bas_a + iy*bas_b;
-                TEveElementList *list_of_basis = new TEveElementList();
-                sprintf(str,"basis_ix(%d)_iy(%d)",ix,iy);
-                list_of_basis->SetName(str);
-                for(size_t i=0; i<lattice_basis->getNbrParticles(); ++i) {
-                    std::vector<kvector_t> positions = lattice_basis->getParticlePositions(i);
-                    for(size_t j=0; j<positions.size(); ++j) {
-                        TEveGeoShape* x = new TEveGeoShape("SS");
-                         x->SetShape(new TGeoSphere(0, nanoparticle_radius));
-                         kvector_t pos = positions[j] + origin;
-                         if(i==0 && j==0) {
-                             x->SetMainColor(kRed);
-                         } else{
-                             x->SetMainColor(kBlue);
-                         }
-                         x->RefMainTrans().SetPos(pos.x(), pos.y(), pos.z());
-                         //x->SetMainTransparency(10);
-                         list_of_basis->AddElement(x);
-                         list_of_basis->SetPickable(kTRUE);
-                    }
-                }
-                list_of_layer->AddElement(list_of_basis);
-                list_of_layer->SetPickable(kTRUE);
-            }
-        }
-        gEve->AddElement(list_of_layer);
-    }
+//                kvector_t origin = iz*bas_c + ix*bas_a + iy*bas_b;
+//                TEveElementList *list_of_basis = new TEveElementList();
+//                sprintf(str,"basis_ix(%d)_iy(%d)",ix,iy);
+//                list_of_basis->SetName(str);
+//                for(size_t i=0; i<lattice_basis->getNbrParticles(); ++i) {
+//                    std::vector<kvector_t> positions = lattice_basis->getParticlePositions(i);
+//                    for(size_t j=0; j<positions.size(); ++j) {
+//                        TEveGeoShape* x = new TEveGeoShape("SS");
+//                         x->SetShape(new TGeoSphere(0, nanoparticle_radius));
+//                         kvector_t pos = positions[j] + origin;
+//                         if(i==0 && j==0) {
+//                             x->SetMainColor(kOrange);
+//                         } else{
+//                             x->SetMainColor(kOrange);
+//                         }
 
-    TEveViewer *ev = gEve->GetDefaultViewer();
-    TGLViewer  *gv = ev->GetGLViewer();
-    gv->SetGuideState(TGLUtil::kAxesOrigin, kTRUE, kFALSE, 0);
-    gv->CurrentCamera().RotateRad(10.0,0);
-    gEve->FullRedraw3D(kTRUE);
+//                         if(iz==0 && pos.magxy() > 39.) continue;
+//                         if(iz==1 && pos.magxy() > 34.) continue;
+//                         if(iz==2 && pos.magxy() > 29.) continue;
+//                         if(iz==3 && pos.magxy() > 25.) continue;
+////                         if(pos.magxy() > 39.) continue;
+
+//                         x->RefMainTrans().SetPos(pos.x(), pos.y(), pos.z()-70.);
+//                         //x->SetMainTransparency(10);
+//                         list_of_basis->AddElement(x);
+//                         list_of_basis->SetPickable(kTRUE);
+//                    }
+//                }
+//                list_of_layer->AddElement(list_of_basis);
+//                list_of_layer->SetPickable(kTRUE);
+//            }
+//        }
+//        gEve->AddElement(list_of_layer);
+//    }
+
+//    TEveViewer *ev = gEve->GetDefaultViewer();
+//    TGLViewer  *gv = ev->GetGLViewer();
+////    gv->SetGuideState(TGLUtil::kAxesEdge, kTRUE, kFALSE, 0);
+////    gv->CurrentCamera().RotateRad(-.7, 0.5);
+//    gv->SetCurrentCamera(TGLViewer::kCameraPerspXOY);
+//    gv->CurrentCamera().RotateRad(-.7, -0.5);
+//    gv->DoDraw();
+//    gEve->FullRedraw3D(kTRUE);
 
 }
+
+
 
 

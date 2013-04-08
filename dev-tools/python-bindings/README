@@ -1,0 +1,12 @@
+C++ boost::python code generator for accessing libBornAgainCore, libBornAgainFit from python
+
+Usage:
+'python codegenerator.py make'  - to generate python-boost C++ wrappers
+'python codegenerator.py install'  - to install files into BornAgain/Core/PythonAPI, BornAgain/Fit/PythonAPI
+'python codegenerator.py clean'  - to clean local directory
+
+requires boost, python27, pyplusplus, pygccxml, gccxml
+
+
+
+

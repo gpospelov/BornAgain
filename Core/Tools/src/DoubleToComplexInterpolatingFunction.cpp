@@ -1,21 +1,28 @@
-/*
- * DoubleToComplexInterpolatingFunction.cpp
- *
- *  Created on: Apr 27, 2012
- *      Author: herck
- */
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/DoubleToComplexInterpolatingFunction.cpp
+//! @brief     Implements class DoubleToComplexInterpolatingFunction.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
 
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "Exceptions.h"
 #include <sstream>
 #include <boost/unordered_map.hpp>
 
-
 DoubleToComplexInterpolatingFunction::~DoubleToComplexInterpolatingFunction()
 {
 }
 
-DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(const std::map<double, complex_t> &value_map, InterpolatingMode imode)
+DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(const std::map<double, complex_t>& value_map, InterpolatingMode imode)
     : m_value_map(value_map), m_interpolating_mode(imode)
 {
     m_lower_limit = (*m_value_map.begin()).first;
@@ -24,13 +31,11 @@ DoubleToComplexInterpolatingFunction::DoubleToComplexInterpolatingFunction(const
     m_high_step = m_upper_limit - (*(--m_value_map.rbegin())).first;
 }
 
-
 DoubleToComplexInterpolatingFunction* DoubleToComplexInterpolatingFunction::clone() const
 {
     DoubleToComplexInterpolatingFunction *p_new = new DoubleToComplexInterpolatingFunction(m_value_map, m_interpolating_mode);
     return p_new;
 }
-
 
 complex_t DoubleToComplexInterpolatingFunction::evaluate(double value)
 {
@@ -81,3 +86,5 @@ complex_t DoubleToComplexInterpolatingFunction::evaluate(double value)
         throw DomainErrorException("DoubleToComplexInterpolatingFunction::evaluate() -> Error. Unknown interpolation mode");
     }
 }
+
+

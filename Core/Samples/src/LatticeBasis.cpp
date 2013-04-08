@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/src/LatticeBasis.cpp
+//! @brief     Implements class LatticeBasis.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "LatticeBasis.h"
 #include "FormFactors.h"
 #include "DiffuseParticleInfo.h"
@@ -86,3 +101,5 @@ std::vector<DiffuseParticleInfo *> LatticeBasis::createDiffuseParticleInfos() co
     }
     return result;
 }
+
+

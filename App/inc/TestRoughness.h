@@ -1,62 +1,65 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/inc/TestRoughness.h
+//! @brief     Defines class TestRoughness.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef TESTROUGHNESS_H
 #define TESTROUGHNESS_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestRoughness.h
-//! @brief  Tests of roughness
-//! @author Scientific Computing Group at FRM II
-//! @date   02.05.2012
 
 #include <vector>
 #include "IFunctionalTest.h"
 #include "LayerRoughness.h"
 
+//! Draw profile of rough surface for different sets of roughness parameters.
 
-//- -------------------------------------------------------------------
-//! @class TestRoughness
-//! @brief Draw profile of rough surface for different sets of
-//! roughness parameters. Two models are used for profile calculation:
-//! 1) matrix method 2) fast fourier transform using moving average
-//- -------------------------------------------------------------------
+//! Two models are used for profile calculation:
+//! 1) matrix method 2) fast Fourier transform using moving average
+//!
 class TestRoughness : public IFunctionalTest
 {
-public:
-    TestRoughness();
+ public:
+    TestRoughness() : IFunctionalTest("roughness"), m_roughness(0) {}
     virtual ~TestRoughness(){}
 
     virtual void execute();
 
-    /// draw profile of rough surface for different sets of roughness parameters
+    //! Draw profile of rough surface for different sets of roughness parameters
     void DrawProfile();
 
-    /// calculate correlated z-coordinates of surface using matrix method
+    //! Returns correlated z-coordinates of surface using matrix method.
     void GetProfileXZ_MatrixMethod();
 
-    /// calculate correlated z-coordinates of surface using fast fourier transform method
+    //! Returns correlated z-coordinates of surface using fast Fourier transform method.
     void GetProfileXZ_FFTMethod();
 
-    /// some tests of FFT
+    //! Some tests of FFT.
     void test_FFT();
 
-
-private:
-    LayerRoughness *m_roughness;    // pointer to roughness
-    std::vector<double> m_vx;       // x-coordinates of grid along the surface
-    std::vector<double> m_vzuncorr; // z coordiates of surface (heights) randomly generated with gaus
-    std::vector<double> m_vzcorr;   // actial z coordinates of surface, correlated according correlation function of surface
+ private:
+    //! pointer to roughness
+    LayerRoughness *m_roughness;
+    //! x-coordinates of grid along the surface
+    std::vector<double> m_vx;
+    //! z coordinates of surface (heights) randomly generated with gaus
+    std::vector<double> m_vzuncorr;
+    //! actial z coordinates of surface, correlated according correlation function of surface [??]
+    std::vector<double> m_vzcorr;
 
     typedef void (TestRoughness::*TestMethod)();
-    std::vector<TestMethod > m_TestMethods; // collection of class methods which will be used for correlated randoms
+    //! collection of class methods which will be used for correlated randoms
+    std::vector<TestMethod > m_TestMethods;
 };
 
-
-
-
 #endif // TESTROUGHNESS_H
+
+

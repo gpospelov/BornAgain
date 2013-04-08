@@ -1,55 +1,58 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/inc/Beam.h
+//! @brief     Defines class Beam.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef BEAM_H_
 #define BEAM_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   Beam.h
-//! @brief  Definition of Beam class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jun 21, 2012
 
 #include "Types.h"
 #include "IParameterized.h"
 
-//- -------------------------------------------------------------------
-//! @class Beam
-//! @brief Definition of Beam with direction and defined intensity
-//- -------------------------------------------------------------------
+//! Ideal collimated Beam defined by wavelength, direction and intensity.
+
 class Beam : public IParameterized
 {
-public:
-	Beam();
-    Beam(const Beam &other);
-    Beam &operator=(const Beam &other);
+ public:
+    Beam();
+    Beam(const Beam& other);
+    Beam& operator=(const Beam& other);
 
-	virtual ~Beam() {}
+    virtual ~Beam() {}
 
-	cvector_t getCentralK() const { return m_central_k; }
+    cvector_t getCentralK() const { return m_central_k; }
 
-	void setCentralK(const cvector_t &k_i);
-	void setCentralK(double lambda, double alpha_i, double phi_i);
+    void setCentralK(const cvector_t& k_i);
+    void setCentralK(double lambda, double alpha_i, double phi_i);
 
-	double getIntensity() const { return m_intensity; }
+    double getIntensity() const { return m_intensity; }
 
-	void setIntensity(double intensity) { m_intensity = intensity; }
+    void setIntensity(double intensity) { m_intensity = intensity; }
 
-protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+ protected:
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
 
-private:
+ private:
     //! swap function
-    void swapContent(Beam &other);
+    void swapContent(Beam& other);
 
-	cvector_t m_central_k;
+    cvector_t m_central_k;
     double m_intensity;
 };
 
-
 #endif /* BEAM_H_ */
+
+
+
+

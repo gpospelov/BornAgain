@@ -1,9 +1,23 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestIsGISAXS13.cpp
+//! @brief     Implements class TestIsGISAXS13.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestIsGISAXS13.h"
 #include "DrawHelper.h"
-#include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
@@ -42,7 +56,7 @@
 
 TestIsGISAXS13::TestIsGISAXS13()
 : IFunctionalTest("TestIsGISAXS13")
-, mp_experiment(0)
+, mp_simulation(0)
 , mp_sample_builder(0)
 , mp_fitSuite(0)
 
@@ -53,8 +67,8 @@ TestIsGISAXS13::TestIsGISAXS13()
 
 void TestIsGISAXS13::execute()
 {
-    // initializing experiment and sample builder
-    initialiseExperiment();
+    // initializing simulation and sample builder
+    initializeSimulation();
 
     // run isgisaxs ex-13 style fit
     run_isgisaxs_fit();
@@ -98,10 +112,10 @@ void TestIsGISAXS13::run_isgisaxs_fit()
     // chi squared module
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
-    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
+    chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
     //chiModule.setIntensityFunction( IntensityFunctionLog() );
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
-        mp_fitSuite->addExperimentAndRealData(*mp_experiment, *(*it), chiModule);
+        mp_fitSuite->addSimulationAndRealData(*mp_simulation, *(*it), chiModule);
     }
 
     mp_fitSuite->runFit();
@@ -126,7 +140,7 @@ void TestIsGISAXS13::run_isgisaxs_fit()
 //    }
 
     // drawing results
-    TCanvas *c2 = new TCanvas("c2","GISASFW fit results",800,600);
+    TCanvas *c2 = new TCanvas("c2","BornAgain fit results",800,600);
     c2->Divide(2,2);
     TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
     leg1->SetBorderSize(1);
@@ -134,14 +148,14 @@ void TestIsGISAXS13::run_isgisaxs_fit()
     for(size_t i_set=0; i_set<mp_fitSuite->getFitObjects()->size(); ++i_set) {
         c2->cd((int)i_set+1);
         const FitObject *obj = mp_fitSuite->getFitObjects()->getObject(i_set);
-        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"gisasfw_real");
-        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"gisasfw_simul");
+        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"BornAgain_real");
+        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"BornAgain_simul");
         hreal->SetLineColor(kBlue);
         gPad->SetLogy();
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
-        if(i_set==0) leg1->AddEntry(hreal,"GISASFW data","lp");
-        if(i_set==0) leg1->AddEntry(hsimul,"GISASFW simul","lp");
+        if(i_set==0) leg1->AddEntry(hreal,"BornAgain data","lp");
+        if(i_set==0) leg1->AddEntry(hsimul,"BornAgain simul","lp");
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();
@@ -158,10 +172,10 @@ void TestIsGISAXS13::run_isgisaxs_fit()
 
         c2->cd((int)(i_set+3));
         *simul /= *real;
-        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"gisasfw_real_simul_ratio");
+        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"BornAgain_real_simul_ratio");
         hratio->DrawCopy();
         if(i_set==0) {
-            leg2->AddEntry(hratio,"GISASFW simul/real","lp");
+            leg2->AddEntry(hratio,"BornAgain simul/real","lp");
         }
         delete real;
         delete simul;
@@ -174,17 +188,19 @@ void TestIsGISAXS13::run_isgisaxs_fit()
 
 
 /* ************************************************************************* */
-// initialize experiment
+// initialize simulation
 /* ************************************************************************* */
-void TestIsGISAXS13::initialiseExperiment()
+void TestIsGISAXS13::initializeSimulation()
 {
     delete mp_sample_builder;
     mp_sample_builder = new TestIsGISAXS5::SampleBuilder();
-    delete mp_experiment;
-    mp_experiment = new GISASExperiment(mp_options);
-    mp_experiment->setSampleBuilder(mp_sample_builder);
-    mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    delete mp_simulation;
+    mp_simulation = new Simulation(mp_options);
+    mp_simulation->setSampleBuilder(mp_sample_builder);
+    mp_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    mp_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 }
+
+
 
 

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/src/InterferenceFunction2DParaCrystal.cpp
+//! @brief     Implements class InterferenceFunction2DParaCrystal.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "InterferenceFunction2DParaCrystal.h"
 #include "MathFunctions.h"
 #include "MemberFunctionIntegrator.h"
@@ -42,13 +57,13 @@ void InterferenceFunction2DParaCrystal::setProbabilityDistributions(
     m_pdfs[1] = pdf_2.clone();
 }
 
-double InterferenceFunction2DParaCrystal::evaluate(const cvector_t &q) const
+double InterferenceFunction2DParaCrystal::evaluate(const cvector_t& q) const
 {
     m_qx = q.x().real();
     m_qy = q.y().real();
     double result;
     if (m_integrate_xi) {
-        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>::mem_function p_member_function = &InterferenceFunction2DParaCrystal::interferenceForXi;
+        MemberFunctionIntegrator<InterferenceFunction2DParaCrystal>::mem_function p_member_function =& InterferenceFunction2DParaCrystal::interferenceForXi;
         MemberFunctionIntegrator<InterferenceFunction2DParaCrystal> integrator(p_member_function, this);
         result = integrator.integrate(0.0, M_PI, (void*)0)/M_PI;
    }
@@ -86,7 +101,7 @@ InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createSqua
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::createHexagonal(
         double peak_distance, double corr_length, double domain_size_1, double domain_size_2)
 {
-    InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(peak_distance, peak_distance, 2.0*M_PI/3.0, 0.0, corr_length);
+    InterferenceFunction2DParaCrystal *p_new = new InterferenceFunction2DParaCrystal(peak_distance, peak_distance, 2*M_PI/3.0, 0.0, corr_length);
     p_new->setDomainSizes(domain_size_1, domain_size_2);
     p_new->setIntegrationOverXi(true);
     return p_new;
@@ -132,17 +147,15 @@ double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy, d
     complex_t fp = FTPDF(qx, qy, xi, index);
     if (n<1) {
         result = ((1.0 + fp)/(1.0 - fp)).real();
-    }
-    else {
+    } else {
         if (std::abs(1.0-fp) < Numeric::double_epsilon) {
             result = nd;
-        }
-        else {
+        } else {
             complex_t tmp;
-            if (std::log(std::abs(fp)+Numeric::double_min)*nd < std::log(Numeric::double_min)) {
+            double double_min = std::numeric_limits<double>::min();
+            if (std::log(std::abs(fp)+double_min)*nd < std::log(double_min)) {
                 tmp = complex_t(0.0, 0.0);
-            }
-            else {
+            } else {
                 tmp = std::pow(fp,n-1);
             }
             double intermediate = ((1.0-1.0/nd)*fp/(1.0-fp) - fp*fp*(1.0-tmp)/nd/(1.0-fp)/(1.0-fp)).real();
@@ -154,7 +167,8 @@ double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy, d
 
 complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy, double xi, size_t index) const
 {
-    double qa = qx*m_lattice_lengths[index]*std::cos(xi) + qy*m_lattice_lengths[index]*std::sin(xi);
+    double qa = qx*m_lattice_lengths[index]*std::cos(xi) +
+        qy*m_lattice_lengths[index]*std::sin(xi);
     complex_t phase = std::exp(complex_t(0.0, 1.0)*qa);
     // transform q to principal axes:
     double qp1, qp2;
@@ -168,4 +182,5 @@ complex_t InterferenceFunction2DParaCrystal::FTPDF(double qx, double qy, double 
     }
     return result;
 }
+
 

@@ -1,32 +1,34 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/IStochasticParameter.h
+//! @brief     Defines class IStochasticParameter.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ISTOCHASTICPARAMETER_H
 #define ISTOCHASTICPARAMETER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IStochasticParameter.h
-//! @brief  Definition of IStochasticParameter class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
+#include "ICloneable.h"
 
-class IStochasticParameter
+class IStochasticParameter : public ICloneable
 {
-public:
+ public:
     virtual ~IStochasticParameter() {}
-    virtual IStochasticParameter *clone() const=0;
     virtual void setToRandom()=0;
     virtual void setToAverage()=0;
 };
 
 template <class T> class StochasticParameter : public IStochasticParameter
 {
-public:
+ public:
     StochasticParameter(T average);
     virtual ~StochasticParameter() {}
     virtual StochasticParameter<T> *clone() const=0;
@@ -38,11 +40,7 @@ public:
     virtual double probabilityDensity(T value) const=0;
     virtual double getFWHM() const { return 0.0;}
 
-protected:
-    //! copy constructor and assignment operator are hidden since there is a clone method
-    StochasticParameter(const StochasticParameter<T> &);
-    StochasticParameter<T> &operator=(const StochasticParameter<T> &);
-
+ protected:
     T m_current;
     T m_average;
 };
@@ -71,3 +69,5 @@ template <class T> inline T StochasticParameter<T>::getRandom()
 }
 
 #endif // ISTOCHASTICPARAMETER_H
+
+

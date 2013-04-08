@@ -1,12 +1,26 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestFittingModule3.cpp
+//! @brief     Implements class TestFittingModule3.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestFittingModule3.h"
 #include "AttLimits.h"
 #include "DrawHelper.h"
 #include "Exceptions.h"
-#include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "FormFactors.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSTools.h"
@@ -17,7 +31,6 @@
 #include "MultiLayer.h"
 #include "OutputDataFunctions.h"
 #include "Particle.h"
-#include "ParticleDecoration.h"
 #include "ResolutionFunction2DSimple.h"
 #include "Units.h"
 
@@ -29,19 +42,19 @@
 #include "TPaveText.h"
 
 
-
 TestFittingModule3::TestFittingModule3()
-    : m_experiment(0)
+    : m_simulation(0)
     , m_sample(0)
     , m_fitSuite(0)
     , m_real_data(0)
 {
+    m_fitSuite = new FitSuite();
 }
 
 
 TestFittingModule3::~TestFittingModule3()
 {
-    delete m_experiment;
+    delete m_simulation;
     delete m_sample;
     delete m_real_data;
     delete m_fitSuite;
@@ -50,25 +63,20 @@ TestFittingModule3::~TestFittingModule3()
 
 void TestFittingModule3::execute()
 {
-    // initializing experiment, sample and data
+    // initializing simulation, sample and data
     initializeSample();
-    initializeExperiment();
+    initializeSimulation();
     initializeRealData();
 
     // setting up fitSuite
-    m_fitSuite = new FitSuite();
     m_fitSuite->addFitParameter("*FormFactorCylinder/height", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorCylinder/radius", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorPrism3/half_side", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
     m_fitSuite->addFitParameter("*FormFactorPrism3/height", 4.0*Units::nanometer, 0.04*Units::nanometer, AttLimits::lowerLimited(0.01) );
-//    // setting up fitSuite
-//    ChiSquaredModule chiModule;
-//    chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError() );
-//    m_fitSuite->addExperimentAndRealData(*mp_experiment, *mp_real_data, chiModule);
 
     // putting scans
     for(DataScan_t::iterator it=m_data_scans.begin(); it!= m_data_scans.end(); ++it) {
-        m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it));
+        m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it));
     }
 
     m_fitSuite->setMinimizer( MinimizerFactory::createMinimizer("Minuit2", "Migrad") );
@@ -80,22 +88,19 @@ void TestFittingModule3::execute()
 
 
 /* ************************************************************************* */
-// initializing experiment
+// initializing simulation
 /* ************************************************************************* */
-void TestFittingModule3::initializeExperiment()
+void TestFittingModule3::initializeSimulation()
 {
     if( !m_sample ) {
-        throw NullPointerException("TestFittingModule3::initializeExperiment() -> No sample defined");
+        throw NullPointerException("TestFittingModule3::initializeSimulation() -> No sample defined");
     }
-    delete m_experiment;
-    m_experiment = new GISASExperiment(mp_options);
-    m_experiment->setSample(*m_sample);
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
-//    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 1, 0.01, 0.011);
-    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    //m_experiment->setDetectorResolutionFunction(new ResolutionFunction2DSimple(0.0002, 0.0002));
-    m_experiment->setBeamIntensity(1e10);
-
+    delete m_simulation;
+    m_simulation = new Simulation(mp_options);
+    m_simulation->setSample(*m_sample);
+    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,100 , 0.0*Units::degree, 2.0*Units::degree);
+    m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    m_simulation->setBeamIntensity(1e10);
 }
 
 
@@ -113,8 +118,8 @@ void TestFittingModule3::initializeSample()
     complex_t n_air(1.0, 0.0);
     complex_t n_substrate(1.0-6e-6, 2e-8);
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", n_substrate);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
     Layer substrate_layer;
@@ -135,18 +140,17 @@ void TestFittingModule3::initializeSample()
 /* ************************************************************************* */
 void TestFittingModule3::initializeRealData()
 {
-    if( !m_experiment || !m_sample ) throw NullPointerException("TestFittingModule3::initializeRealData() -> Error! No experiment o sample defined ");
+    if( !m_simulation || !m_sample ) throw NullPointerException("TestFittingModule3::initializeRealData() -> Error! No simulation of sample defined ");
 
     // generating 2D "real" data
-    m_experiment->runSimulation();
-    //m_experiment->normalize();
+    m_simulation->runSimulation();
     delete m_real_data;
-    m_real_data = IsGISAXSTools::createNoisyData(*m_experiment->getOutputData());
+    m_real_data = IsGISAXSTools::createNoisyData(*m_simulation->getOutputData());
 
     // setting up 1d scans by making slices on real data
     m_data_scans.clear();
-    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, NDetector2d::ALPHA_AXIS_NAME, 0.012, 0.012) );
-    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, NDetector2d::PHI_AXIS_NAME, 0.011, 0.011) );
+    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "alpha_f", 0.012, 0.012) );
+    m_data_scans.push_back( OutputDataFunctions::selectRangeOnOneAxis(*m_real_data, "phi_f", 0.011, 0.011) );
 
     // drawing data and scans
     TCanvas *c1 = new TCanvas("c1","c1",1024, 768);
@@ -170,6 +174,8 @@ void TestFittingModule3::initializeRealData()
 
     c1->Update();
 }
+
+
 
 
 

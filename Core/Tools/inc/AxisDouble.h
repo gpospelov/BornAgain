@@ -1,41 +1,37 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/AxisDouble.h
+//! @brief     Defines class AxisDouble.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef AXISDOUBLE_H_
 #define AXISDOUBLE_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   AxisDouble.h
-//! @brief  Definition of AxisDouble class
-//! @author Scientific Computing Group at FRM II
-//! @date   Dec 4, 2012
 
 #include "IAxis.h"
 
-//#include <string>
-//#include <vector>
+class AxisBin;  // forward declaration needed for conversion constructor
 
-// Forward declaration of BinAxis class, as needed for conversion constructor
-class AxisBin;
+//! The points of an axis
 
-//- -------------------------------------------------------------------
-//! @class AxisDouble
-//! @brief Definition of AxisDouble class that stores the points of an axis
-//- -------------------------------------------------------------------
 class AxisDouble : public IAxis
 {
-public:
+ public:
     //! constructors
     AxisDouble(std::string name);
     AxisDouble(std::string name, size_t size, double start, double end);
 
     //! explicit conversion from BinAxis
     //TODO: make explicit
-    AxisDouble(const AxisBin &source);
+    AxisDouble(const AxisBin& source);
 
     virtual AxisDouble *clone() const;
 
@@ -46,20 +42,20 @@ public:
 
     virtual size_t getSize() const { return m_sample_vector.size(); }
 
-    //! add point to the end of the axis
+    //! Adds point to the end of the axis
     void push_back(double element) { m_sample_vector.push_back(element); }
 
     virtual double operator[](size_t index) const { return m_sample_vector[index]; }
 
     virtual Bin1D getBin(size_t index) const;
 
-    //! get value of first point of axis
+    //! Returns value of first point of axis
     virtual double getMin() const { return m_sample_vector.front(); }
 
-    //! get value of last point of axis
+    //! Returns value of last point of axis
     virtual double getMax() const { return m_sample_vector.back(); }
 
-    //! initialize axis points
+    //! Initializes axis points
     void initElements(size_t size, double start, double end);
 
     //! find number of bin which is closest to given value
@@ -71,12 +67,14 @@ public:
     //! find the index that corresponds to the given upper bound (index is inclusive)
     size_t getUpperBoundIndex(double value) const;
 
-protected:
-    virtual bool equals(const IAxis &other) const;
+ protected:
+    virtual bool equals(const IAxis& other) const;
 
-private:
+ private:
     std::vector<double> m_sample_vector;  //!< vector containing the axis points
     double m_bin_size;
 };
 
 #endif /* AXISDOUBLE_H_ */
+
+

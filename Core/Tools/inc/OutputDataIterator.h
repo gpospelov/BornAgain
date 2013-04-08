@@ -1,30 +1,30 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/OutputDataIterator.h
+//! @brief     Defines and implements template class OutputDataIterator.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef OUTPUTDATAITERATOR_H_
 #define OUTPUTDATAITERATOR_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   OutputDataIterator.h
-//! @brief  Definition of OutputDataIterator template
-//! @author Scientific Computing Group at FRM II
-//! @date   Nov 12, 2012
 
 #include "Mask.h"
 
 #include <iterator>
 
-//- -------------------------------------------------------------------
-//! @class OutputDataIterator
-//! @brief Definition of iterator for underlying OutputData container
-//- -------------------------------------------------------------------
+//! Iterator for underlying OutputData container
+
 template <class TValue, class TContainer> class OutputDataIterator
 {
-public:
+ public:
     //! Empty constructor to comply with stl forward iterators
     OutputDataIterator();
 
@@ -33,46 +33,46 @@ public:
 
     //! templated copy construction
     template<class TValue2, class TContainer2> OutputDataIterator(
-            const OutputDataIterator<TValue2, TContainer2> &other);
+            const OutputDataIterator<TValue2, TContainer2>& other);
 
     //! non-templated copy construction
-    OutputDataIterator(const OutputDataIterator<TValue, TContainer> &other);
+    OutputDataIterator(const OutputDataIterator<TValue, TContainer>& other);
 
     //! templated copy assignment
-    template<class TValue2, class TContainer2> OutputDataIterator<TValue, TContainer> &operator=(
-            const OutputDataIterator<TValue2, TContainer2> &right);
+    template<class TValue2, class TContainer2> OutputDataIterator<TValue, TContainer>& operator=(
+            const OutputDataIterator<TValue2, TContainer2>& right);
 
     //! non-templated copy asssignment
-    OutputDataIterator<TValue, TContainer> &operator=(const OutputDataIterator<TValue, TContainer> &right);
+    OutputDataIterator<TValue, TContainer>& operator=(const OutputDataIterator<TValue, TContainer>& right);
 
     virtual ~OutputDataIterator();
 
     //! prefix increment
-    virtual OutputDataIterator<TValue, TContainer> &operator++();
+    virtual OutputDataIterator<TValue, TContainer>& operator++();
 
     //! postfix increment
     virtual OutputDataIterator<TValue, TContainer> operator++(int);
 
     //! retrieve current element
-    virtual TValue &operator*() const;
+    virtual TValue& operator*() const;
 
     //! pointer access
     virtual TValue* operator->() const;
 
-    //! get current index
+    //! Returns current index
     size_t getIndex() const { return m_current_index; }
 
-    //! get container pointer
+    //! Returns container pointer
     TContainer *getContainer() const { return mp_output_data; }
 
-    //! get mask
+    //! Returns mask
     Mask *getMask() const { return mp_mask; }
 
-    //! set mask (or a stack of masks)
-    void setMask(const Mask &mask);
+    //! Sets mask (or a stack of masks)
+    void setMask(const Mask& mask);
 
-    //! add mask (also resets index to first available element)
-    void addMask(const Mask &mask);
+    //! Adds mask (also resets index to first available element)
+    void addMask(const Mask& mask);
 
     // typedefs for std::iterator_traits
     typedef std::forward_iterator_tag iterator_category;
@@ -81,8 +81,8 @@ public:
     typedef TValue* pointer_type;
     typedef TValue& reference_type;
 
-protected:
-    virtual void swapContents(OutputDataIterator<TValue, TContainer> &other);
+ protected:
+    virtual void swapContents(OutputDataIterator<TValue, TContainer>& other);
     size_t m_current_index;
     TContainer *mp_output_data;
     Mask *mp_mask;
@@ -90,14 +90,14 @@ protected:
 
 //! comparison
 template <class TValue1, class TContainer1, class TValue2, class TContainer2> bool operator==(
-        const OutputDataIterator<TValue1, TContainer1> &left,
-        const OutputDataIterator<TValue2, TContainer2> &right) {
+        const OutputDataIterator<TValue1, TContainer1>& left,
+        const OutputDataIterator<TValue2, TContainer2>& right) {
     return left.getContainer()==right.getContainer() && left.getIndex()==right.getIndex();
 }
 
 template <class TValue1, class TContainer1, class TValue2, class TContainer2> bool operator!=(
-        const OutputDataIterator<TValue1, TContainer1> &left,
-        const OutputDataIterator<TValue2, TContainer2> &right) {
+        const OutputDataIterator<TValue1, TContainer1>& left,
+        const OutputDataIterator<TValue2, TContainer2>& right) {
     return !(left == right);
 }
 
@@ -118,7 +118,7 @@ template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer>:
 
 template<class TValue, class TContainer>
 template<class TValue2, class TContainer2>
-OutputDataIterator<TValue, TContainer>::OutputDataIterator(const OutputDataIterator<TValue2, TContainer2> &other)
+OutputDataIterator<TValue, TContainer>::OutputDataIterator(const OutputDataIterator<TValue2, TContainer2>& other)
 : m_current_index(0)
 , mp_output_data(0)
 , mp_mask(0)
@@ -131,7 +131,7 @@ OutputDataIterator<TValue, TContainer>::OutputDataIterator(const OutputDataItera
 }
 
 template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer>::OutputDataIterator(
-        const OutputDataIterator<TValue, TContainer> &other)
+        const OutputDataIterator<TValue, TContainer>& other)
 : m_current_index(0)
 , mp_output_data(0)
 , mp_mask(0)
@@ -145,8 +145,8 @@ template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer>:
 
 template<class TValue, class TContainer>
 template<class TValue2, class TContainer2>
-OutputDataIterator<TValue, TContainer> &OutputDataIterator<TValue, TContainer>::operator=(
-        const OutputDataIterator<TValue2, TContainer2> &right)
+OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::operator=(
+        const OutputDataIterator<TValue2, TContainer2>& right)
 {
     OutputDataIterator<TValue, TContainer> copy(right);
     swapContents(copy);
@@ -154,7 +154,7 @@ OutputDataIterator<TValue, TContainer> &OutputDataIterator<TValue, TContainer>::
 }
 
 template<class TValue, class TContainer>
-OutputDataIterator<TValue, TContainer> &OutputDataIterator<TValue, TContainer>::operator=(
+OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::operator=(
         const OutputDataIterator<TValue, TContainer>& right)
 {
     OutputDataIterator<TValue, TContainer> copy(right);
@@ -167,13 +167,13 @@ template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer>:
     if (mp_mask) delete mp_mask;
 }
 
-template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer> &OutputDataIterator<TValue, TContainer>::operator++()
+template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::operator++()
 {
     if (mp_mask) {
         m_current_index = mp_mask->getNextIndex(m_current_index);
     }
     else {
-        if (m_current_index<mp_output_data->size()) {
+        if (m_current_index<mp_output_data->getAllocatedSize()) {
             ++m_current_index;
         }
     }
@@ -188,35 +188,35 @@ template<class TValue, class TContainer> OutputDataIterator<TValue, TContainer> 
     return result;
 }
 
-template<class TValue, class TContainer> TValue &OutputDataIterator<TValue, TContainer>::operator*() const
+template<class TValue, class TContainer> TValue& OutputDataIterator<TValue, TContainer>::operator*() const
 {
     return (*mp_output_data)[m_current_index];
 }
 
 template<class TValue, class TContainer> TValue* OutputDataIterator<TValue, TContainer>::operator->() const
 {
-    return &((*mp_output_data)[m_current_index]);
+    return& ((*mp_output_data)[m_current_index]);
 }
 
-template<class TValue, class TContainer> void OutputDataIterator<TValue, TContainer>::setMask(const Mask &mask)
+template<class TValue, class TContainer> void OutputDataIterator<TValue, TContainer>::setMask(const Mask& mask)
 {
-    if (mp_mask != &mask) {
+    if (mp_mask !=& mask) {
         delete mp_mask;
         mp_mask = mask.clone();
-        mp_mask->setMaxIndex(mp_output_data->size());
+        mp_mask->setMaxIndex(mp_output_data->getAllocatedSize());
     }
     m_current_index = mp_mask->getFirstValidIndex();
 }
 
-template<class TValue, class TContainer> void OutputDataIterator<TValue, TContainer>::addMask(const Mask &mask)
+template<class TValue, class TContainer> void OutputDataIterator<TValue, TContainer>::addMask(const Mask& mask)
 {
     if (mask.mp_submask) {
-        throw RuntimeErrorException("One can only add single masks to OutputDataIterator at a time");
+        throw RuntimeErrorException("OutputDataIterator<>::addMask() -> Error! One can only add single masks to OutputDataIterator at a time");
     }
     Mask *p_old_mask = getMask();
     mp_mask = mask.clone();
     mp_mask->mp_submask = p_old_mask;
-    mp_mask->setMaxIndex(mp_output_data->size());
+    mp_mask->setMaxIndex(mp_output_data->getAllocatedSize());
     m_current_index = mp_mask->getFirstValidIndex();
 }
 
@@ -228,3 +228,5 @@ template<class TValue, class TContainer> void OutputDataIterator<TValue, TContai
 }
 
 #endif /* OUTPUTDATAITERATOR_H_ */
+
+

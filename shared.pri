@@ -2,7 +2,7 @@
 # checking common prerequisites
 # -----------------------------------------------------------------------------
 lessThan(QT_VERSION, 4.5) {
-    error("GISASFW requires Qt 4.5 or greater")
+    error("BornAgain requires Qt 4.5 or greater")
 }
 
 !macx:!unix {
@@ -10,13 +10,14 @@ lessThan(QT_VERSION, 4.5) {
 }
 
 # -----------------------------------------------------------------------------
-# to compile in debug mode define environment variable 'export GISASFW_DEBUG=yes'
+# for debug set environment variable 'export BORNAGAIN_DEBUG=yes'
 # -----------------------------------------------------------------------------
-env_debug_variable = $$(GISASFW_DEBUG)
+env_debug_variable = $$(BORNAGAIN_DEBUG)
 isEqual(env_debug_variable, "yes") {
   #message("Compiling with DEBUG option")
   CONFIG += debug
 }
+
 
 # -----------------------------------------------------------------------------
 # general external libraries
@@ -64,37 +65,52 @@ NumberOfSuchFiles=$$system(ls $${BOOST_LIB}/libboost_thread-mt* 2> /dev/null | w
   LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
 }
 
-#message($${FFTW3_HEADERFILE}" found in "$${FFTW3_INCLUDE})
-#message($${BOOST_HEADERFILE}" found in "$${BOOST_INCLUDE})
-#message($${BOOST_LIBFILE}" found in "$${BOOST_LIB})
-#message($${GSL_HEADERFILE}" found in "$${GSL_INCLUDE})
-isEmpty(GSL_INCLUDE): error("missed dependency")
-isEmpty(FFTW3_INCLUDE): error("missed dependency")
-isEmpty(BOOST_INCLUDE): error("missed dependency")
-isEmpty(BOOST_LIB): error("missed dependency")
+isEmpty(GSL_INCLUDE): error("missed dependency:" $${GSL_HEADERFILE})
+isEmpty(FFTW3_INCLUDE): error("missed dependency:" $${FFTW3_HEADERFILE})
+isEmpty(BOOST_INCLUDE): error("missed dependency:" $${BOOST_HEADERFILE})
+isEmpty(BOOST_LIB): error("missed dependency:" $${BOOST_LIBFILES})
 
-# here is workaround since JCNS /usr/local doesn't have shared fftw3 (run with 'qmake CONFIG+=JCNS')
-env_jcns_variable = $$(GISASFW_JCNS)
+
+# -----------------------------------------------------------------------------
+# temporary workaround for compilation in JCNS
+# -----------------------------------------------------------------------------
+env_jcns_variable = $$(BORNAGAIN_JCNS)
 isEqual(env_jcns_variable, "yes") {
-  #message("Compiling with DEBUG option")
-  CONFIG += JCNS
+  CONFIG += BORNAGAIN_JCNS
 }
-CONFIG(JCNS) {
+
+CONFIG(BORNAGAIN_JCNS) {
   message("Special config for JCNS")
   INCLUDEPATH += /usr/users/jcns/pospelov/software/include
-  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams -lboost_system -lboost_signals  -lboost_filesystem -lboost_regex -lboost_thread
+  OLD_LIBS = $$LIBS
+  LIBS = -L/usr/users/jcns/pospelov/software/lib -L/usr/local/lib -L/usr/lib64 \
+         -lgsl -lgslcblas -lfftw3 -lboost_program_options -lboost_iostreams \
+         -lboost_system -lboost_signals  -lboost_filesystem -lboost_regex \
+         -lboost_thread $$OLD_LIBS
 }
 
+
 # -----------------------------------------------------------------------------
-# general include path
+# general include paths
 # -----------------------------------------------------------------------------
-LOCATIONS = $$PWD/Core/Algorithms/inc $$PWD/Core/Fitting/inc $$PWD/Core/FormFactors/inc $$PWD/Core/Geometry/inc $$PWD/Core/Samples/inc $$PWD/Core/Tools/inc $$PWD/Core/PythonAPI/inc
+LOCATIONS = $$PWD/Core/Algorithms/inc \
+            $$PWD/Core/Fitting/inc  \
+            $$PWD/Core/FormFactors/inc  \
+            $$PWD/Core/Geometry/inc  \
+            $$PWD/Core/Samples/inc  \
+            $$PWD/Core/Tools/inc
+
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}
 
+
 # -----------------------------------------------------------------------------
-# options for testing and performance issues
+# compiler options for debug and release
 # -----------------------------------------------------------------------------
+
+# QMAKE_CXXFLAGS += -std=c++11 # not possible because of boost bugs
+QMAKE_CXXFLAGS += -std=c++98
+
 # optimization flag used in release builds (the -O2 is the default used by qmake)
 QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which option control warning
 #QMAKE_CXXFLAGS_RELEASE += -O3 -ffast-math -msse3
@@ -102,33 +118,101 @@ QMAKE_CXXFLAGS_DEBUG += -fdiagnostics-show-option # to find out in gcc which opt
 #QMAKE_CXXFLAGS_RELEASE += -O0  # -ffast-math removed because of problems with NaNs
 #QMAKE_CXXFLAGS_RELEASE += -g  # -ffast-math removed because of problems with NaNs
 #QMAKE_STRIP=: # produces non-stripped (very large) libraries
-
 #QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wswitch-default -Wundef -Werror -Wno-unused
 #QMAKE_CXXFLAGS_RELEASE += -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Werror -Wno-unused
 
 # to compile with GPERFTOOLS support for code profiling
-#CONFIG+=GPERFTOOLS
 CONFIG(GPERFTOOLS) {
   QMAKE_CXXFLAGS += -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free
   LIBS += -L/opt/local/lib -lprofiler -ltcmalloc
 }
 
-#CONFIG+=PEDANTIC
 CONFIG(PEDANTIC) {
   QMAKE_CXXFLAGS_RELEASE += -Weffc++
   QMAKE_CXXFLAGS_DEBUG += -Weffc++
 }
 
-# floating point exception handling
-#CONFIG+=DEBUG_FPE
-CONFIG(DEBUG_FPE) {
-    QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
-    !macx { QMAKE_CXXFLAGS_DEBUG += -DLINUX }
+
+# -----------------------------------------------------------------------------
+# add ROOT libraries
+# -----------------------------------------------------------------------------
+CONFIG(BORNAGAIN_ROOT) {
+    MYROOT = $$system(root-config --prefix)
+    isEmpty(MYROOT): error("Could not run root-config. Install ROOT, and set PATH to include ROOTSYS/bin.")
+    message("Found ROOT under directory " $${MYROOT})
+
+    INCLUDEPATH += $$system(root-config --incdir)
+    MYROOTCINT = $${MYROOT}/bin/rootcint
+    ROOTLIBDIR = $$system(root-config --libdir)
+    LIBS += -L$${ROOTLIBDIR}
+    #REQUIRED_ROOT_LIBS = Cint Core EG Eve FTGL Ged Geom Graf Graf3d Gpad Gui Hist MathCore MathMore Matrix Minuit2 Physics Postscript RGL Rint RIO Thread Tree TreePlayer
+    REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix MathCore MathMore Minuit2 Thread
+
+    # check existence of required ROOT libraries
+    for(x, REQUIRED_ROOT_LIBS) {
+        libfile = $${ROOTLIBDIR}/lib$${x}.so
+        !exists($${libfile}) : MISSED_ROOT_LIBRARIES += $${libfile}
+        LIBS += -l$${x}
+    }
+    !isEmpty(MISSED_ROOT_LIBRARIES): error( "The following libraries are missing in $${ROOTLIBDIR}: $${MISSED_ROOT_LIBRARIES}.")
+
+    LIBS += -lpthread -lm -ldl
+
+    # generation of ROOT dictionaries
+    !isEmpty(BORNAGAIN_ROOT_DICT_FOR_CLASSES) {
+        ROOT_CINT_TARGET = $${TARGET}
+        SOURCES *= src/$${ROOT_CINT_TARGET}Dict.cpp
+        rootcint.target = src/$${ROOT_CINT_TARGET}Dict.cpp
+        rootcint.commands += $$MYROOTCINT
+        rootcint.commands +=  -f $$rootcint.target  -c  -I$$BORNAGAIN_ROOT_DICT_INCLUDES $$BORNAGAIN_ROOT_DICT_FOR_CLASSES
+        rootcint.depends = $$BORNAGAIN_ROOT_DICT_FOR_CLASSES
+        rootcintecho.commands = @echo "Generating dictionary $$rootcint.target for $$BORNAGAIN_ROOT_DICT_FOR_CLASSES classes"
+        QMAKE_EXTRA_TARGETS += rootcintecho rootcint
+        QMAKE_CLEAN +=  src/$${ROOT_CINT_TARGET}Dict.cpp src/$${ROOT_CINT_TARGET}Dict.h
+    }
 }
 
 
-# hints
-# $${VAR} to access .pro variables, $$(VAR) to access environment variables
+# -----------------------------------------------------------------------------
+# add python API support
+# -----------------------------------------------------------------------------
+CONFIG  += BORNAGAIN_PYTHON
+CONFIG(BORNAGAIN_PYTHON) {
+  # user wants to compile python module
+  WhichPython=$$system(which python)
+  isEmpty(WhichPython) {
+    # we do not have python
+    error("Can not find any sign of python")
+  } else {
+    # we have python
+    pythonvers=$$system("python -c 'import sys; sys.stdout.write(sys.version[:3])'")
+    pythonsysincdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
+    #pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib/python\" + sys.version[:3])'")
+    pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'")
+    #message(we have python)
+    #message($$pythonvers)
+    #message($$pythonsysincdir)
+    #message($$pythonsyslibdir)
+    lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
+    INCLUDEPATH += $$pythonsysincdir
+    #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
+    LIBS += -lboost_python -L$$pythonsyslibdir -lpython$$pythonvers
 
+    # we need to know the location of numpy
+    pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")
+    !exists($$pythonnumpy/numpy/arrayobject.h): error("Can't find numpy/arrayobject.h in $$pythonnumpy, you have to install python-numpy-devel")
+    INCLUDEPATH += $$pythonnumpy
+  }
+}
 
+# location of object files for debug/release builds
+unix {
+    CONFIG(debug, debug|release):OBJECTS_DIR = $${OUT_PWD}/.obj/debug
+    CONFIG(release, debug|release):OBJECTS_DIR = $${OUT_PWD}/.obj/release
 
+    CONFIG(debug, debug|release):MOC_DIR = $${OUT_PWD}/.moc/debug
+    CONFIG(release, debug|release):MOC_DIR = $${OUT_PWD}/.moc/release
+
+    RCC_DIR = $${OUT_PWD}/.rcc
+    UI_DIR = $${OUT_PWD}/.uic
+}

@@ -1,3 +1,19 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      PythonAPI/src/PythonOutputData.cpp
+//! @brief     Implements a few global functions: GetOutputDataNdimensions,
+//!              GetOutputData, GetOutputDataAxis
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "Python.h"
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY
 #define NO_IMPORT_ARRAY
@@ -11,56 +27,46 @@
 #include <iostream>
 #include <vector>
 
-
 // export output data array to python-numpy array object
-PyObject *ExportOutputData(const OutputData<double > &output);
+PyObject *ExportOutputData(const OutputData<double >& output);
+
 // export axis of output data array as python-numpy array object
-PyObject *ExportOutputDataAxis(const OutputData<double > &output, int naxis);
+PyObject *ExportOutputDataAxis(const OutputData<double >& output, int naxis);
 
+//! Returns number of dimensions in output data of simulation
 
-
-/* ************************************************************************* */
-// return number of dimensions in output data of GISASExperiment
-/* ************************************************************************* */
-int GetOutputDataNdimensions(const GISASExperiment &experiment)
+int GetOutputDataNdimensions(const Simulation& simulation)
 {
-    const OutputData<double > *data = experiment.getOutputData();
-    int ndims = data->getNdimensions();
+    const OutputData<double > *data = simulation.getOutputData();
+    int ndims = data->getRank();
     return ndims;
 }
 
+//! export output data array of simulation to python-numpy array object
 
-/* ************************************************************************* */
-// export output data array of GISASExperiment to python-numpy array object
-/* ************************************************************************* */
-PyObject *GetOutputData(const GISASExperiment &experiment)
+PyObject *GetOutputData(const Simulation& simulation)
 {
-    const OutputData<double > *data = experiment.getOutputData();
+    const OutputData<double > *data = simulation.getOutputData();
     PyObject *obj = ExportOutputData(*data);
     return obj;
 }
 
+//! Returns one-dim numpy array representing binning of the axis with given index of simulation's output data
 
-/* ************************************************************************* */
-// return one dimensional python-numpy array representing binning of the axis
-// with given index of GISASExperiment's oputput data
-/* ************************************************************************* */
-PyObject *GetOutputDataAxis(const GISASExperiment &experiment, int naxis)
+PyObject *GetOutputDataAxis(const Simulation& simulation, int naxis)
 {
-    const OutputData<double > *data = experiment.getOutputData();
+    const OutputData<double > *data = simulation.getOutputData();
     PyObject *obj = ExportOutputDataAxis(*data, naxis);
     return obj;
 }
 
+//! export axis of output data array as python-numpy array object
 
-/* ************************************************************************* */
-// export axis of output data array as python-numpy array object
-/* ************************************************************************* */
-PyObject *ExportOutputData(const OutputData<double > &output_data)
+PyObject *ExportOutputData(const OutputData<double >& output_data)
 {
     // getting size of dimensions from output_data
     std::vector<int > dimensions;
-    for(size_t i=0; i<output_data.getNdimensions(); i++) {
+    for(size_t i=0; i<output_data.getRank(); i++) {
         //const AxisDouble *axis = output_data.getAxis(i);
         const IAxis *axis = output_data.getAxis(i);
         dimensions.push_back( axis->getSize() );
@@ -94,16 +100,13 @@ PyObject *ExportOutputData(const OutputData<double > &output_data)
     return pyarray;
 }
 
+//! Returns one dimensional python-numpy array representing binning of given axis of oputput data object
 
-/* ************************************************************************* */
-// return one dimensional python-numpy array representing binning of given axis
-// of oputput data object
-/* ************************************************************************* */
-PyObject *ExportOutputDataAxis(const OutputData<double > &output_data, int naxis)
+PyObject *ExportOutputDataAxis(const OutputData<double >& output_data, int naxis)
 {
     // getting size of dimensions from output_data
     std::vector<int > dimensions;
-    for(size_t i=0; i<output_data.getNdimensions(); i++) {
+    for(size_t i=0; i<output_data.getRank(); i++) {
         const IAxis *axis = output_data.getAxis(i);
         dimensions.push_back( axis->getSize() );
     }
@@ -136,3 +139,5 @@ PyObject *ExportOutputDataAxis(const OutputData<double > &output_data, int naxis
     }
     return pyarray;
 }
+
+

@@ -1,10 +1,24 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestIsGISAXS5.cpp
+//! @brief     Implements class TestIsGISAXS5.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestIsGISAXS5.h"
 #include "DrawHelper.h"
-#include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "FormFactorCylinder.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
@@ -41,18 +55,17 @@
 
 TestIsGISAXS5::TestIsGISAXS5()
 : IFunctionalTest("TestIsGISAXS5")
-, mp_experiment(0)
+, mp_simulation(0)
 , mp_sample_builder(0)
 , mp_fitSuite(0)
 {
     setOutputPath(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-5/");
 }
 
-
 void TestIsGISAXS5::execute()
 {
-    // initializing experiment and sample builder
-    initialiseExperiment();
+    // initializing simulation and sample builder
+    initializeSimulation();
 
     // run our standard isgisaxs comparison
     //run_isgisaxs_comparison();
@@ -64,15 +77,14 @@ void TestIsGISAXS5::execute()
     run_isgisaxs_fit();
 }
 
-
 /* ************************************************************************* */
 // standard ixgisaxs comparison
 /* ************************************************************************* */
 void TestIsGISAXS5::run_isgisaxs_comparison()
 {
     // run simulation for default sample parameters
-    mp_experiment->runSimulation();
-    OutputDataIOFactory::writeOutputData(*(mp_experiment->getOutputData()), getOutputPath()+"this_fitexample.ima");
+    mp_simulation->runSimulation();
+    OutputDataIOFactory::writeOutputData(*(mp_simulation->getOutputData()), getOutputPath()+"this_fitexample.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters
     std::string isgi_file(getOutputPath()+"isgi_fitexample.ima.gz");
@@ -90,7 +102,6 @@ void TestIsGISAXS5::run_isgisaxs_comparison()
     delete our_data;
 }
 
-
 /* ************************************************************************* */
 // plot IsGISAXS data (*.dat file) and IsGISAXS fit results (*.out file)
 /* ************************************************************************* */
@@ -102,7 +113,7 @@ void TestIsGISAXS5::plot_isgisaxs_fit_results()
     IsGISAXSData::DataSet_t isgi_results;
     IsGISAXSData::read_outfile(getOutputPath()+"isgi_fitexample.out", isgi_results, IsGISAXSData::kSimResult);
 
-    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("c1_isgisaxs_data", "Looking on IsGISAXS data and fit results", 800, 500);
+    TCanvas *c1 = DrawHelper::createAndRegisterCanvas("c1_isgisaxs_data", "Looking on IsGISAXS data and fit results", 800, 500);
     c1->Divide(2,2);
 
     // drawing isgsaxs fit results on top of isgisaxs real data
@@ -141,7 +152,6 @@ void TestIsGISAXS5::plot_isgisaxs_fit_results()
     c1->Update();
 }
 
-
 /* ************************************************************************* */
 // run isgisaxs ex-12 style fit
 /* ************************************************************************* */
@@ -170,17 +180,17 @@ void TestIsGISAXS5::run_isgisaxs_fit()
     ChiSquaredModule chiModule;
     //chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
     chiModule.setChiSquaredFunction(SquaredFunctionDefault());// isgisaxs uses epsion=0, which correspond to our SquaredFunctionDefault
-    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
+    chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
     chiModule.setIntensityFunction( IntensityFunctionSqrt() );
 
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
-        mp_fitSuite->addExperimentAndRealData(*mp_experiment, *(*it), chiModule);
+        mp_fitSuite->addSimulationAndRealData(*mp_simulation, *(*it), chiModule);
     }
 
     mp_fitSuite->runFit();
 
     // drawing results
-    TCanvas *c2 = new TCanvas("c2","GISASFW fit results",800,600);
+    TCanvas *c2 = new TCanvas("c2","BornAgain fit results",800,600);
     c2->Divide(2,2);
     TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
     leg1->SetBorderSize(1);
@@ -188,14 +198,14 @@ void TestIsGISAXS5::run_isgisaxs_fit()
     for(size_t i_set=0; i_set<mp_fitSuite->getFitObjects()->size(); ++i_set) {
         c2->cd((int)i_set+1);
         const FitObject *obj = mp_fitSuite->getFitObjects()->getObject(i_set);
-        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"gisasfw_real");
-        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"gisasfw_simul");
+        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"BornAgain_real");
+        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"BornAgain_simul");
         hreal->SetLineColor(kBlue);
         gPad->SetLogy();
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
-        if(i_set==0) leg1->AddEntry(hreal,"GISASFW data","lp");
-        if(i_set==0) leg1->AddEntry(hsimul,"GISASFW simul","lp");
+        if(i_set==0) leg1->AddEntry(hreal,"BornAgain data","lp");
+        if(i_set==0) leg1->AddEntry(hsimul,"BornAgain simul","lp");
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();
@@ -212,10 +222,10 @@ void TestIsGISAXS5::run_isgisaxs_fit()
 
         c2->cd((int)(i_set+3));
         *simul /= *real;
-        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"gisasfw_real_simul_ratio");
+        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"BornAgain_real_simul_ratio");
         hratio->DrawCopy();
         if(i_set==0) {
-            leg2->AddEntry(hratio,"GISASFW simul/real","lp");
+            leg2->AddEntry(hratio,"BornAgain simul/real","lp");
         }
         delete real;
         delete simul;
@@ -226,23 +236,19 @@ void TestIsGISAXS5::run_isgisaxs_fit()
     c2->Update();
 }
 
-
-
-
 /* ************************************************************************* */
-// initialize experiment
+// initialize simulation
 /* ************************************************************************* */
-void TestIsGISAXS5::initialiseExperiment()
+void TestIsGISAXS5::initializeSimulation()
 {
     delete mp_sample_builder;
     mp_sample_builder = new SampleBuilder();
-    delete mp_experiment;
-    mp_experiment = new GISASExperiment(mp_options);
-    mp_experiment->setSampleBuilder(mp_sample_builder);
-    mp_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    mp_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    delete mp_simulation;
+    mp_simulation = new Simulation(mp_options);
+    mp_simulation->setSampleBuilder(mp_sample_builder);
+    mp_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    mp_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 }
-
 
 /* ************************************************************************* */
 // IsGISAXS ex-5 sample builder
@@ -272,8 +278,8 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
 
     Layer air_layer(air_material);
     double height = m_height_aspect_ratio*m_particle_radius;
@@ -284,7 +290,8 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
     int nbins=20;
     double sigma = m_particle_radius*m_dispersion_radius;
     int nfwhm(2); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    StochasticSampledParameter stochastic_parameter(StochasticDoubleGaussian(m_particle_radius, sigma), nbins, nfwhm);
+    StochasticDoubleGaussian sg(m_particle_radius, sigma);
+    StochasticSampledParameter stochastic_parameter(sg, nbins, nfwhm);
 
     ParticleDecoration particle_decoration;
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
@@ -305,3 +312,5 @@ ISample *TestIsGISAXS5::SampleBuilder::buildSample() const
 
     return p_multi_layer;
 }
+
+

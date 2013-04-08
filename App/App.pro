@@ -3,8 +3,18 @@ CONFIG  += console
 CONFIG  -= qt
 CONFIG  -= app_bundle
 QT      -= core gui
+CONFIG += BORNAGAIN_ROOT # depend on ROOT libraries
 
-include($$PWD/../shared.pri)
+# -----------------------------------------------------------------------------
+# propagating operation system type inside the code
+# -----------------------------------------------------------------------------
+# (note, that when Qt libraries are used, it is already done in <qglobal.h>)
+macx {
+    DEFINES += Q_OS_MAC
+}
+unix:!macx {
+    DEFINES += Q_OS_LINUX
+}
 
 FUNCTIONAL_TESTS = $$PWD/../Tests/FunctionalTests/TestCore
 
@@ -13,19 +23,24 @@ FUNCTIONAL_TESTS = $$PWD/../Tests/FunctionalTests/TestCore
 # -----------------------------------------------------------------------------
 SOURCES += \
     $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS02/IsGISAXS02.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS03/IsGISAXS03.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS04/IsGISAXS04.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS06/IsGISAXS06.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS07/IsGISAXS07.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS08/IsGISAXS08.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS09/IsGISAXS09.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS10/IsGISAXS10.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS11/IsGISAXS11.cpp \
+    $${FUNCTIONAL_TESTS}/IsGISAXS15/IsGISAXS15.cpp \
     src/AppOptionsDescription.cpp \
-    src/CommandLine.cpp \
     src/DrawHelper.cpp \
-    src/FitSuiteObserverFactory.cpp \
+    src/FitSuiteDrawObserver.cpp \
+    src/FitSuiteWriteTreeObserver.cpp \
     src/FunctionalTestFactory.cpp \
     src/IFunctionalTest.cpp \
     src/IsGISAXSData.cpp \
     src/IsGISAXSTools.cpp \
-    src/MinimizerFactory.cpp \
-    src/ROOTGSLNLSMinimizer.cpp \
-    src/ROOTGSLSimAnMinimizer.cpp \
-    src/ROOTMinimizer.cpp \
-    src/ROOTMinimizerHelper.cpp \
     src/SampleFactory.cpp \
     src/StandardSamples.cpp \
     src/TestConvolution.cpp \
@@ -62,28 +77,34 @@ SOURCES += \
     src/TestPerformance.cpp \
     src/TestRootTree.cpp \
     src/TestRoughness.cpp \
-    src/TestToyExperiment.cpp \
+    src/TestToySimulation.cpp \
     src/TreeEventStructure.cpp \
     src/main.cpp
 
+
 HEADERS += \
     $${FUNCTIONAL_TESTS}/IsGISAXS01/IsGISAXS01.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS02/IsGISAXS02.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS03/IsGISAXS03.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS04/IsGISAXS04.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS06/IsGISAXS06.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS07/IsGISAXS07.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS08/IsGISAXS08.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS09/IsGISAXS09.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS10/IsGISAXS10.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS11/IsGISAXS11.h \
+    $${FUNCTIONAL_TESTS}/IsGISAXS15/IsGISAXS15.h \
     inc/App.h \
     inc/AppLinkDef.h \
     inc/AppOptionsDescription.h \
-    inc/CommandLine.h \
     inc/DrawHelper.h \
+    inc/FitSuiteDrawObserver.h \
     inc/FitSuiteObserverFactory.h \
+    inc/FitSuiteWriteTreeObserver.h \
     inc/FunctionalTestFactory.h \
     inc/IFunctionalTest.h \
     inc/IsGISAXSData.h \
     inc/IsGISAXSTools.h \
-    inc/MinimizerFactory.h \
-    inc/ROOTGSLNLSMinimizer.h \
-    inc/ROOTGSLSimAnMinimizer.h \
-    inc/ROOTMinimizer.h \
-    inc/ROOTMinimizerFunction.h \
-    inc/ROOTMinimizerHelper.h \
     inc/SampleFactory.h \
     inc/StandardSamples.h \
     inc/TestConvolution.h \
@@ -120,78 +141,52 @@ HEADERS += \
     inc/TestPerformance.h \
     inc/TestRootTree.h \
     inc/TestRoughness.h \
-    inc/TestToyExperiment.h \
+    inc/TestToySimulation.h \
     inc/TreeEventStructure.h \
     inc/Version.h \
 
-# to through exception in the case floating point exception (gcc only)
-CONFIG(DEBUG_FPE) {
-    HEADERS += inc/fp_exception_glibc_extension.h
-    SOURCES += src/fp_exception_glibc_extension.c
-}
 
-# additional locations
-LOCATIONS = ./inc $${FUNCTIONAL_TESTS}/IsGISAXS01
+LOCATIONS = $$PWD/inc \
+            $${FUNCTIONAL_TESTS}/IsGISAXS01 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS02 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS03 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS04 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS06 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS07 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS08 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS09 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS10 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS11 \
+            $${FUNCTIONAL_TESTS}/IsGISAXS15
+
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}
 
-OBJECTS_DIR = obj
+# -----------------------------------------------------------------------------
+# to throw exception in the case floating point exception
+# -----------------------------------------------------------------------------
+#CONFIG(DEBUG) {
+#    QMAKE_CXXFLAGS_DEBUG += -DDEBUG_FPE
+#    # mac requires his own patched version of fp_exceptions
+#    macx:HEADERS += inc/fp_exception_glibc_extension.h
+#    macx:SOURCES += src/fp_exception_glibc_extension.c
+#}
 
 # -----------------------------------------------------------------------------
-# generating package dependency flags
+# additional libraries
 # -----------------------------------------------------------------------------
-MY_DEPENDENCY_LIB = BornAgainCore
-MY_DEPENDENCY_DEST =$$PWD/..
-SONAME = so
-for(dep, MY_DEPENDENCY_LIB) {
-    LIBS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-    PRE_TARGETDEPS += $${MY_DEPENDENCY_DEST}/lib/lib$${dep}.$${SONAME}
-}
+LIBS += $$PWD/../lib/libBornAgainCore.so $$PWD/../lib/libBornAgainFit.so
+
+INCLUDEPATH += $$PWD/../Fit/Factory/inc
+DEPENDPATH  += $$PWD/../Fit/Factory/inc
 
 # -----------------------------------------------------------------------------
-# adding ROOT libraries
+# generate ROOT dictionaries
 # -----------------------------------------------------------------------------
-MYROOT = $$(ROOTSYS)
-isEmpty(MYROOT) {
-  message("Warning, ROOTSYS environment variable doesn't exist, trying to guess location")
-  ROOT_CONFIG_FILE = root-config
-  ROOT_CONFIG_FILE_LOCATIONS = /opt/local /usr/local /usr
-  for(dir, ROOT_CONFIG_FILE_LOCATIONS): isEmpty(MYROOT): exists($${dir}/bin/$${ROOT_CONFIG_FILE}): MYROOT = $${dir}
-  isEmpty(MYROOT): error("Can't find" $${ROOT_CONFIG_FILE} "in" $${ROOT_CONFIG_FILE_LOCATIONS})
-  message("Probable ROOTSYS is" $${MYROOT})
-}
-!isEmpty(MYROOT) {
-  !exists($${MYROOT}/bin/root-config): error("No config file "$${MYROOT}/bin/root-config)
-  INCLUDEPATH += $$system($${MYROOT}/bin/root-config --incdir)
-  LIBS += -L$$system($${MYROOT}/bin/root-config --libdir ) -lGui -lCore -lCint -lRIO -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lMinuit2 -lGeom -lEve -lRGL -lThread -lpthread -lm -ldl
-  MYROOTCINT = $${MYROOT}/bin/rootcint
-}
+BORNAGAIN_ROOT_DICT_FOR_CLASSES =  inc/App.h inc/AppLinkDef.h
+BORNAGAIN_ROOT_DICT_INCLUDES = ../Core/Tools/inc
 
 # -----------------------------------------------------------------------------
-# Hand made addition to generate root dictionaries in the
-# absence of rootcint.pri file
+# general project settings
 # -----------------------------------------------------------------------------
-CREATE_ROOT_DICT_FOR_CLASSES = inc/App.h inc/AppLinkDef.h
-
-DICTDEFINES += -DQT_VERSION=0x30000
-QT_VERSION=$$[QT_VERSION]
-contains( QT_VERSION, "^4.*" ) {
-  DICTDEFINES -= -DQT_VERSION=0x30000
-  DICTDEFINES *= -DQT_VERSION=0x40000
-}
-ROOT_CINT_TARGET = $${TARGET}
-SOURCES         *= src/$${ROOT_CINT_TARGET}Dict.cpp
-rootcint.target       = src/$${ROOT_CINT_TARGET}Dict.cpp
-rootcint.commands    += $$MYROOTCINT
-rootcint.commands    +=  -f $$rootcint.target  -c -I../Core/Tools/inc $$CREATE_ROOT_DICT_FOR_CLASSES
-#rootcint.commands    +=  -f $$rootcint.target  -c -p $$DICTDEFINES $(INCPATH) $$CREATE_ROOT_DICT_FOR_CLASSES
-rootcint.depends      = $$CREATE_ROOT_DICT_FOR_CLASSES
-
-rootcintecho.commands = @echo "Generating dictionary $$rootcint.target for $$CREATE_ROOT_DICT_FOR_CLASSES classes"
-QMAKE_EXTRA_TARGETS += rootcintecho rootcint
-QMAKE_CLEAN       +=  src/$${ROOT_CINT_TARGET}Dict.cpp src/$${ROOT_CINT_TARGET}Dict.h
-QMAKE_DISTCLEAN  += $$PWD/obj/*.o
-
-
-
-
+include($$PWD/../shared.pri)

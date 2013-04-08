@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/SampleFactory.cpp
+//! @brief     Implements class SampleFactory.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "SampleFactory.h"
 #include "Exceptions.h"
 #include "StandardSamples.h"
@@ -10,7 +25,7 @@ SampleFactory::SampleFactory()
 {
     setOwnObjects(true); //factory will take care about samples
 
-    // samples used for fresnel coefficients validation
+    // samples used for Fresnel coefficients validation
     registerItem("AirOnSubstrate", StandardSamples::AirOnSubstrate);
     registerItem("SubstrateOnSubstrate", StandardSamples::SubstrateOnSubstrate);
     registerItem("SimpleMultilayer", StandardSamples::SimpleMultilayer);
@@ -84,3 +99,5 @@ SampleFactory::SampleFactory()
     registerItem("FormFactor_FullSphere", StandardSamples::FormFactor_FullSphere);
     registerItem("FormFactor_Prism3", StandardSamples::FormFactor_Prism3);
 }
+
+

@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestMiscellaneous.cpp
+//! @brief     Implements class TestMiscellaneous.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestMiscellaneous.h"
 #include "SampleFactory.h"
 #include "OutputData.h"
@@ -6,7 +21,7 @@
 #include "DoubleToComplexInterpolatingFunction.h"
 #include "FormFactors.h"
 #include "DrawHelper.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "IsGISAXSTools.h"
 #include "Lattice.h"
 #include "LayerDecorator.h"
@@ -17,8 +32,7 @@
 #include "OutputDataIOFactory.h"
 #include "Utils.h"
 #include "Types.h"
-#include "ExperimentConstants.h"
-
+#include "MessageService.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -32,11 +46,10 @@ TestMiscellaneous::TestMiscellaneous()
 {
 }
 
-
-
 void TestMiscellaneous::execute()
 {
-    test_OutputDataTo2DArray();
+    test_LogSystem();
+    //test_OutputDataTo2DArray();
     //test_KVectorContainer();
     //test_OutputDataIOFactory();
     //test_FastSin();
@@ -45,6 +58,41 @@ void TestMiscellaneous::execute()
     //test_DrawMesocrystal();
 }
 
+void TestMiscellaneous::test_LogSystem()
+{
+    std::cout << "TestMiscellaneous::test_LogSystem() -> Info" << std::endl;
+
+    MSG::SetLevel(MSG::FATAL);
+
+    msglog(MSG::VERBOSE) << "This is VERBOSE";
+    msglog(MSG::DEBUG)   << "This is DEBUG";
+    msglog(MSG::INFO)    << "This is INFO";
+    msglog(MSG::WARNING) << "This is WARNING";
+    msglog(MSG::ERROR)   << "This is ERROR";
+    msglog(MSG::FATAL)   << "This is FATAL" << "and something" << 0;
+
+    std::cout << "----" << std::endl;
+
+    MSG::SetLevel(MSG::ERROR);
+    msglog(MSG::VERBOSE) << "This is VERBOSE";
+    msglog(MSG::DEBUG)   << "This is DEBUG";
+    msglog(MSG::INFO)    << "This is INFO";
+    msglog(MSG::WARNING) << "This is WARNING";
+    msglog(MSG::ERROR)   << "This is ERROR";
+    msglog(MSG::FATAL)   << "This is FATAL";
+
+    std::cout << "----" << std::endl;
+
+    MSG::SetLevel(MSG::INFO);
+    msglog(MSG::VERBOSE) << "This is VERBOSE";
+    msglog(MSG::DEBUG)   << "This is DEBUG";
+    msglog(MSG::INFO)    << "This is INFO";
+    msglog(MSG::WARNING) << "This is WARNING";
+    msglog(MSG::ERROR)   << "This is ERROR";
+    msglog(MSG::FATAL)   << "This is FATAL";
+
+
+}
 
 /* ************************************************************************* */
 // test of OutputData export to 2D array
@@ -55,22 +103,21 @@ void TestMiscellaneous::test_OutputDataTo2DArray()
     int axis0_size = 2;
     int axis1_size = 4;
     OutputData<double> *p_output = new OutputData<double>;
-    p_output->addAxis(NDetector2d::PHI_AXIS_NAME, axis0_size, 0.0, double(axis0_size));
-    p_output->addAxis(NDetector2d::ALPHA_AXIS_NAME, axis1_size, 0.0, double(axis1_size));
+    p_output->addAxis("phi_f", axis0_size, 0.0, double(axis0_size));
+    p_output->addAxis("alpha_f", axis1_size, 0.0, double(axis1_size));
     p_output->setAllTo(0.0);
 
     OutputData<double>::iterator it = p_output->begin();
     int nn=0;
     while (it != p_output->end())
     {
-        size_t index0 = p_output->getIndexOfAxis(NDetector2d::PHI_AXIS_NAME, it.getIndex());
-        size_t index1 = p_output->getIndexOfAxis(NDetector2d::ALPHA_AXIS_NAME, it.getIndex());
+        size_t index0 = p_output->getIndexOfAxis("phi_f", it.getIndex());
+        size_t index1 = p_output->getIndexOfAxis("alpha_f", it.getIndex());
         std::cout << " index0:" << index0 << " index1:" << index1 << std::endl;
         *it = nn++;
         ++it;
     }
 }
-
 
 /* ************************************************************************* */
 // test of reading of OutputData from ASCII file
@@ -84,8 +131,6 @@ void TestMiscellaneous::test_KVectorContainer()
         cc.print();
     }
 }
-
-
 
 /* ************************************************************************* */
 // test of reading of OutputData from ASCII file
@@ -151,17 +196,14 @@ void TestMiscellaneous::test_FastSin()
 
 }
 
-
 /* ************************************************************************* */
 // opengl mesocrystal drawing
 /* ************************************************************************* */
 void TestMiscellaneous::test_DrawMesocrystal()
 {
-    MultiLayer *m_sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MesoCrystal2"));
-    DrawHelper::instance().DrawMesoCrystal(m_sample);
+    MultiLayer *m_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MesoCrystal2"));
+    DrawHelper::DrawMesoCrystal(m_sample);
 }
-
-
 
 /* ************************************************************************* */
 // form factor as a function of qx,qy,qz
@@ -172,8 +214,8 @@ void TestMiscellaneous::test_FormFactor()
     FormFactorFullSphere ff_sphere(5.*Units::nanometer);
     FormFactorCylinder ff_cylinder(10.*Units::nanometer, 5.*Units::nanometer);
 
-//    IFormFactor &ff = ff_cylinder;
-    IFormFactor &ff = ff_sphere;
+//    IFormFactor& ff = ff_cylinder;
+    IFormFactor& ff = ff_sphere;
 
     double qmin(-4.0), qmax(4.0);
     int nbins(51);
@@ -212,7 +254,6 @@ void TestMiscellaneous::test_FormFactor()
         vh2_yz[i]->GetXaxis()->SetTitle("y");
         vh2_yz[i]->GetYaxis()->SetTitle("z");
     }
-
 
     OutputData<double> *p_data = new OutputData<double>();
     p_data->addAxis(std::string("qx"), nbins, qmin, qmax);
@@ -253,7 +294,7 @@ void TestMiscellaneous::test_FormFactor()
     }
 
     TCanvas *c1_xy = new TCanvas("c1_xy","c1_xy",1024,768);
-    DrawHelper::instance().SetMagnifier(c1_xy);
+    DrawHelper::SetMagnifier(c1_xy);
     c1_xy->Divide(3,3);
     int ndiv=9;
     for(int i=0; i<ndiv; i++) {
@@ -264,7 +305,7 @@ void TestMiscellaneous::test_FormFactor()
     }
 
     TCanvas *c1_xz = new TCanvas("c1_xz","c1_xz",1024,768);
-    DrawHelper::instance().SetMagnifier(c1_xz);
+    DrawHelper::SetMagnifier(c1_xz);
     c1_xz->Divide(3,3);
     for(int i=0; i<ndiv; i++) {
         c1_xz->cd(i+1);
@@ -273,39 +314,36 @@ void TestMiscellaneous::test_FormFactor()
     }
 
     TCanvas *c1_yz = new TCanvas("c1_yz","c1_yz",1024,768);
-    DrawHelper::instance().SetMagnifier(c1_yz);
+    DrawHelper::SetMagnifier(c1_yz);
     c1_yz->Divide(3,3);
     for(int i=0; i<ndiv; i++) {
         c1_yz->cd(i+1);
         int indx = i*int(nbins/ndiv);
         vh2_yz[indx]->Draw("surf");
     }
-
-
 }
-
 
 /* ************************************************************************* */
 // test double to complex interpolating function
 /* ************************************************************************* */
 void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
 {
-    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("MultilayerOffspecTestcase1a"));
+    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerOffspecTestcase1a"));
 
     OutputData<double > *data_alpha = new OutputData<double >;
-    data_alpha->addAxis(NDetector2d::ALPHA_AXIS_NAME, 200, 0.0*Units::degree, 2.0*Units::degree);
+    data_alpha->addAxis("alpha_f", 200, 0.0*Units::degree, 2.0*Units::degree);
 
-    OpticalFresnel fresnelCalculator;
+    OpticalFresnel FresnelCalculator;
 
-    const IAxis *p_alpha_axis = data_alpha->getAxis(NDetector2d::ALPHA_AXIS_NAME);
-    std::map<double, OpticalFresnel::MultiLayerCoeff_t> fresnel_coeff_map;
+    const IAxis *p_alpha_axis = data_alpha->getAxis("alpha_f");
+    std::map<double, OpticalFresnel::MultiLayerCoeff_t> Fresnel_coeff_map;
     for (size_t i=0; i<p_alpha_axis->getSize(); ++i) {
         double angle = (*p_alpha_axis)[i];
         kvector_t kvec;
         kvec.setLambdaAlphaPhi(1.4*Units::angstrom, angle, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
-        fresnelCalculator.execute(*sample, kvec, coeffs);
-        fresnel_coeff_map[angle] = coeffs;
+        FresnelCalculator.execute(*sample, kvec, coeffs);
+        Fresnel_coeff_map[angle] = coeffs;
     }
 
     std::vector<DoubleToComplexInterpolatingFunction *> m_TT;
@@ -316,8 +354,8 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
     for(size_t i_layer=0; i_layer<sample->getNumberOfLayers(); ++i_layer) {
         std::map<double, complex_t> T_map;
         std::map<double, complex_t> R_map;
-        for (std::map<double, OpticalFresnel::MultiLayerCoeff_t>::const_iterator it=fresnel_coeff_map.begin();
-                it!=fresnel_coeff_map.end(); ++it) {
+        for (std::map<double, OpticalFresnel::MultiLayerCoeff_t>::const_iterator it=Fresnel_coeff_map.begin();
+                it!=Fresnel_coeff_map.end(); ++it) {
             double angle = (*it).first;
             complex_t T = (*it).second[i_layer].T;
             complex_t R = (*it).second[i_layer].R;
@@ -344,7 +382,7 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
         kvector_t kvec;
         kvec.setLambdaAlphaPhi(1.4*Units::angstrom, angle, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
-        fresnelCalculator.execute(*sample, kvec, coeffs);
+        FresnelCalculator.execute(*sample, kvec, coeffs);
         complex_t R = m_RR[i_layer_sel]->evaluate(angle);
         std::cout << i_point << " " << angle << " true R:" << coeffs[i_layer_sel].R << " interp:" << R << " " << std::abs(R - coeffs[i_layer_sel].R) << std::endl;
 //        complex_t r = coeffs[i_layer_sel].R;
@@ -367,6 +405,7 @@ void TestMiscellaneous::test_DoubleToComplexInterpolatingFunction()
     c1->cd(3);
     gr3_diff->SetTitle("difference");
     gr3_diff->Draw("apl");
-
 }
+
+
 

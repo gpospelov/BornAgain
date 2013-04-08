@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/inc/TestIsGISAXS2.h
+//! @brief     Defines class TestIsGISAXS2.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef TESTISGISAXS2_H
 #define TESTISGISAXS2_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestIsGISAXS2.h
-//! @brief  Definition of TestIsGISAXS2 class for IsGISAXS validation
-//! @author Scientific Computing Group at FRM II
-//! @date   16.08.2012
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
@@ -20,23 +22,18 @@
 
 #include <string>
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS2
-//! @brief Comparison with IsGISAXS ex-2: mean form factors for particles
-//! with shape size distributions
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#2: Mean formfactors for particles with shape size distributions.
+
 class TestIsGISAXS2 : public IFunctionalTest
 {
-public:
+ public:
     TestIsGISAXS2();
     virtual ~TestIsGISAXS2(){}
 
     virtual void execute();
     virtual void finalise();
-
-private:
-    std::string m_data_path;
-
 };
 
 #endif // TESTISGISAXS2_H
+
+

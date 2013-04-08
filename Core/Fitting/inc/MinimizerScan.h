@@ -1,37 +1,36 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Fitting/inc/MinimizerScan.h
+//! @brief     Defines class MinimizerScan.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MINIMIZERSCAN_H
 #define MINIMIZERSCAN_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   MinimizerScan.h
-//! @brief  Definition of MinimizerScan class
-//! @author Scientific Computing Group at FRM II
-//! @date   21.01.2013
 
 #include "IMinimizer.h"
 #include "FitSuiteParameters.h"
 #include "OutputData.h"
 
+//! Simple scan minimizer looks for minimum of chi2 function on the grid
 
-//- -------------------------------------------------------------------
-//! @class MinimizerScan
-//! @brief Simple scan minimizer looks for minimum of chi2 function on the grid
-//- -------------------------------------------------------------------
 class MinimizerScan : public IMinimizer
 {
-public:
-    MinimizerScan(int nbins = 10) : m_fcnvalues_map(0), m_nbins(nbins), m_ncall(0) { }
+ public:
+    MinimizerScan(int nbins = 10) : m_fcnvalues_map(0), m_nbins(nbins) { }
     virtual ~MinimizerScan() { delete m_fcnvalues_map; }
 
     virtual void minimize();
 
-    virtual void setParameters(const FitSuiteParameters &parameters);
+    virtual void setParameters(const FitSuiteParameters& parameters);
 
     virtual void setChiSquaredFunction(function_chi2_t fun_chi2, size_t nparameters);
 
@@ -53,7 +52,7 @@ public:
 
     virtual std::vector<double > getValueOfVariablesAtMinimum() const;
 
-private:
+ private:
 
     void construct_fcnvalues_map();
     void set_parvalues_to_minimum();
@@ -62,8 +61,8 @@ private:
     size_t m_nbins; //! number of bins per one parameter
     FitSuiteParameters m_parameters; //! minimizer parameters
     function_chi2_t m_fcn;
-
-    size_t m_ncall;
 };
 
 #endif // MINIMIZERSCAN_H
+
+

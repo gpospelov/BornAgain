@@ -1,53 +1,52 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/LLData.h
+//! @brief     Defines class LLData.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef LLDATA_H_
 #define LLDATA_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   LLData.h
-//! @brief  Definition of Low-level data structure template
-//! @author Scientific Computing Group at FRM II
-//! @date   Nov 7, 2012
 
 #include "Exceptions.h"
 #include "Numeric.h"
 
 #include <algorithm>
 
-//- -------------------------------------------------------------------
-//! @class LLData
-//! @brief Definition of LLData template to store data of any type in
-//! multi-dimensional space (low-level)
-//- -------------------------------------------------------------------
+//! Template class to store data of any type in multi-dimensional space (low-level)
+
 template <class T> class LLData
 {
-public:
+ public:
     // construction, destruction and assignment
     LLData(size_t rank, const int *dimensions);
-    LLData(const LLData<T> &right);
-    LLData<T> &operator=(const LLData<T> &right);
+    LLData(const LLData<T>& right);
+    LLData<T>& operator=(const LLData<T>& right);
     ~LLData();
 
     // accessors
-    T &operator[](size_t i);
-    const T &operator[](size_t i) const;
-    T &atCoordinate(int *coordinate);
-    const T &atCoordinate(int *coordinate) const;
+    T& operator[](size_t i);
+    const T& operator[](size_t i) const;
+    T& atCoordinate(int *coordinate);
+    const T& atCoordinate(int *coordinate) const;
 
     // arithmetic operations
-    LLData<T> &operator+=(const LLData<T> &right);
-    LLData<T> &operator-=(const LLData<T> &right);
-    LLData<T> &operator*=(const LLData<T> &right);
-    LLData<T> &operator/=(const LLData<T> &right);
+    LLData<T>& operator+=(const LLData<T>& right);
+    LLData<T>& operator-=(const LLData<T>& right);
+    LLData<T>& operator*=(const LLData<T>& right);
+    LLData<T>& operator/=(const LLData<T>& right);
 
     // initialization, scaling
-    void setAll(const T &value);
-    void scaleAll(const T &factor);
+    void setAll(const T& value);
+    void scaleAll(const T& factor);
 
     // retrieve basic info
     size_t getTotalSize() const;
@@ -55,25 +54,25 @@ public:
     const int *getDimensions() const { return m_dims; }
     T getTotalSum() const;
 
-private:
+ private:
     void allocate(size_t rank, const int *dimensions);
     void clear();
     int checkPositiveDimension(int dimension) const;
     size_t convertCoordinate(int *coordinate) const;
-    void swapContents(LLData<T> &other);
+    void swapContents(LLData<T>& other);
     size_t m_rank;
     int *m_dims;
     T *m_data_array;
 };
 
 // Global helper functions for arithmetic
-template <class T> LLData<T> operator+(const LLData<T> &left, const LLData<T> &right);
-template <class T> LLData<T> operator-(const LLData<T> &left, const LLData<T> &right);
-template <class T> LLData<T> operator*(const LLData<T> &left, const LLData<T> &right);
-template <class T> LLData<T> operator/(const LLData<T> &left, const LLData<T> &right);
+template <class T> LLData<T> operator+(const LLData<T>& left, const LLData<T>& right);
+template <class T> LLData<T> operator-(const LLData<T>& left, const LLData<T>& right);
+template <class T> LLData<T> operator*(const LLData<T>& left, const LLData<T>& right);
+template <class T> LLData<T> operator/(const LLData<T>& left, const LLData<T>& right);
 
 // Global helper functions for comparison
-template <class T> bool HaveSameDimensions(const LLData<T> &left, const LLData<T> &right);
+template <class T> bool HaveSameDimensions(const LLData<T>& left, const LLData<T>& right);
 
 
 template<class T>
@@ -101,9 +100,9 @@ template<class T> LLData<T>::~LLData()
     clear();
 }
 
-template<class T> LLData<T> &LLData<T>::operator=(const LLData<T> &right)
+template<class T> LLData<T>& LLData<T>::operator=(const LLData<T>& right)
 {
-    if( this != &right) {
+    if( this !=& right) {
         LLData<T> copy(right);
         swapContents(copy);
     }
@@ -111,30 +110,30 @@ template<class T> LLData<T> &LLData<T>::operator=(const LLData<T> &right)
 }
 
 template<class T>
-inline T &LLData<T>::operator[](size_t i)
+inline T& LLData<T>::operator[](size_t i)
 {
     return m_data_array[i];
 }
 
 template<class T>
-inline const T &LLData<T>::operator[](size_t i) const
+inline const T& LLData<T>::operator[](size_t i) const
 {
     return m_data_array[i];
 }
 
 template<class T>
-inline T &LLData<T>::atCoordinate(int* coordinate)
+inline T& LLData<T>::atCoordinate(int* coordinate)
 {
     return m_data_array[convertCoordinate(coordinate)];
 }
 
 template<class T>
-inline const T &LLData<T>::atCoordinate(int* coordinate) const
+inline const T& LLData<T>::atCoordinate(int* coordinate) const
 {
     return m_data_array[convertCoordinate(coordinate)];
 }
 
-template<class T> LLData<T>& LLData<T>::operator+=(const LLData<T> &right)
+template<class T> LLData<T>& LLData<T>::operator+=(const LLData<T>& right)
 {
     if (!HaveSameDimensions(*this, right)) {
         throw RuntimeErrorException("Operation += on LLData requires both operands to have the same dimensions");
@@ -269,7 +268,7 @@ inline size_t LLData<T>::convertCoordinate(int* coordinate) const
     return result;
 }
 
-template<class T> void LLData<T>::swapContents(LLData<T> &other)
+template<class T> void LLData<T>::swapContents(LLData<T>& other)
 {
     std::swap(this->m_rank, other.m_rank);
     std::swap(this->m_dims, other.m_dims);
@@ -320,3 +319,5 @@ template<class T> bool HaveSameDimensions(const LLData<T>& left, const LLData<T>
 }
 
 #endif /* LLDATA_H_ */
+
+

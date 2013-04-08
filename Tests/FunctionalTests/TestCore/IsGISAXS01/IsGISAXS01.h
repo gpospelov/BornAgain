@@ -1,33 +1,25 @@
 #ifndef FUNCTIONALTESTS_ISGISAXS01_H
 #define FUNCTIONALTESTS_ISGISAXS01_H
 
-
 #include <string>
 #include "OutputData.h"
-
-class MultiLayer;
-class GISASExperiment;
-
 
 namespace FunctionalTests {
 
 class IsGISAXS01
 {
-public:
+ public:
     IsGISAXS01();
     ~IsGISAXS01() { delete m_result; }
     void run();
     int analyseResults();
     const OutputData<double> *getOutputData() { return m_result;}
-private:
+ private:
     std::string m_name;
     std::string m_description;
     OutputData<double> *m_result;
 };
 
-
 }
-
-
 
 #endif

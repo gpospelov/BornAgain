@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/src/MultiLayer.cpp
+//! @brief     Implements class MultiLayer.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include <algorithm>
 #include <stdexcept>
 #include <iomanip>
@@ -10,12 +25,10 @@ MultiLayer::MultiLayer() : m_crossCorrLength(0)
     init_parameters();
 }
 
-
 MultiLayer::~MultiLayer()
 {
     clear();
 }
-
 
 /* ************************************************************************* */
 // initialize pool parameters, i.e. register some of class members for later
@@ -26,7 +39,6 @@ void MultiLayer::init_parameters()
     getParameterPool()->clear();
     getParameterPool()->registerParameter("crossCorrLength", &m_crossCorrLength);
 }
-
 
 /* ************************************************************************* */
 // clear MultiLayer contents including interfaces
@@ -48,10 +60,8 @@ void MultiLayer::clear()
     getParameterPool()->clear();
 }
 
+//! clone MultiLayer contents including interfaces
 
-/* ************************************************************************* */
-// clone MultiLayer contents including interfaces
-/* ************************************************************************* */
 MultiLayer *MultiLayer::clone() const
 {
     MultiLayer *newMultiLayer = new MultiLayer();
@@ -83,37 +93,34 @@ MultiLayer *MultiLayer::clone() const
     return newMultiLayer;
 }
 
+//! Returns pointer to the top interface of the layer.
 
-/* ************************************************************************* */
-// return pointer to the top interface of the layer
-// (nInterfaces = nLayers-1, first layer in multilayer doesn't have interface)
-/* ************************************************************************* */
+//! nInterfaces = nLayers-1, first layer in multilayer doesn't have interface.
+//!
 const LayerInterface *MultiLayer::getLayerTopInterface(size_t i_layer) const
 {
     return i_layer>0 ? m_interfaces[ check_interface_index(i_layer-1) ] : 0;
 }
 
-
-/* ************************************************************************* */
-// return pointer to the bottom interface of the layer
-// (nInterfaces = nLayers-1, i.e. last layer in multilayer doesn't have interface)
-/* ************************************************************************* */
+//! Returns pointer to the bottom interface of the layer.
 const LayerInterface *MultiLayer::getLayerBottomInterface(size_t i_layer) const
 {
-    return i_layer<m_interfaces.size() ? m_interfaces[ check_interface_index(i_layer) ] : 0;
+    return i_layer<m_interfaces.size() ?
+        m_interfaces[ check_interface_index(i_layer) ] : 0;
 }
 
+//! Adds layer with top roughness
 
-/* ************************************************************************* */
-// add layer with top roughness
-/* ************************************************************************* */
-void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness)
+void MultiLayer::addLayerWithTopRoughness(
+    const Layer& layer, const LayerRoughness& roughness)
 {
     Layer *p_new_layer = layer.clone();
     if (getNumberOfLayers())
     {
         const Layer *p_last_layer = m_layers.back();
-        LayerInterface *interface = LayerInterface::createRoughInterface( p_last_layer, p_new_layer, roughness);
+        LayerInterface *interface =
+            LayerInterface::createRoughInterface(
+                p_last_layer, p_new_layer, roughness);
         addAndRegisterLayer(p_new_layer);
         addAndRegisterInterface(interface);
         m_layers_z.push_back(m_layers_z.back() - layer.getThickness() );
@@ -123,40 +130,19 @@ void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughne
     m_layers_z.push_back(0.0);
 }
 
+//! Adds layer with default (zero) roughness
 
-
-/* ************************************************************************* */
-// add layer with default (zero) roughness
-/* ************************************************************************* */
-void MultiLayer::addLayer(const Layer &layer)
+void MultiLayer::addLayer(const Layer& layer)
 {
     LayerRoughness zero_roughness;
     addLayerWithTopRoughness(layer, zero_roughness);
 }
 
 
-///* ************************************************************************* */
-////! Correlation function of roughnesses between the interfaces
-////! j,k - indexes of layers in multilayer whose bottom interfaces we are considering
-///* ************************************************************************* */
-//double MultiLayer::getCrossCorrFun(const kvector_t &kvec, int j, int k) const
-//{
-//    double z_j = getLayerBottomZ(j);
-//    double z_k = getLayerBottomZ(k);
-//    const LayerRoughness &rough_j = getLayerBottomInterface(j)->getRoughness();
-//    const LayerRoughness &rough_k = getLayerBottomInterface(k)->getRoughness();
-//    double sigma_j = rough_j.getSigma();
-//    double sigma_k = rough_k.getSigma();
-//    double corr = 0.5*(sigma_k/sigma_j*rough_j.getCorrFun(kvec) + sigma_j/sigma_k*rough_k.getCorrFun(kvec) ) * std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
-//    return corr;
-//}
-
-
-/* ************************************************************************* */
 //! Fourier transform of the correlation function of roughnesses between the interfaces
 //! j,k - indexes of layers in multilayer whose bottom interfaces we are considering
-/* ************************************************************************* */
-double MultiLayer::getCrossCorrSpectralFun(const kvector_t &kvec, size_t j, size_t k) const
+
+double MultiLayer::getCrossCorrSpectralFun(const kvector_t& kvec, size_t j, size_t k) const
 {
     if(m_crossCorrLength == 0) return 0.0;
     double z_j = getLayerBottomZ(j);
@@ -167,14 +153,14 @@ double MultiLayer::getCrossCorrSpectralFun(const kvector_t &kvec, size_t j, size
     double sigma_j = rough_j->getSigma();
     double sigma_k = rough_k->getSigma();
     if(sigma_j == 0 || sigma_k == 0) return 0.0;
-    double corr = 0.5*( (sigma_k/sigma_j)*rough_j->getSpectralFun(kvec) + (sigma_j/sigma_k)*rough_k->getSpectralFun(kvec) ) * std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
+    double corr = 0.5*( (sigma_k/sigma_j)*rough_j->getSpectralFun(kvec) +
+                        (sigma_j/sigma_k)*rough_k->getSpectralFun(kvec) ) *
+        std::exp( -1*std::abs(z_j-z_k)/m_crossCorrLength );
     return corr;
 }
 
+//! Changes layer thickness.
 
-/* ************************************************************************* */
-//! change layer thickness
-/* ************************************************************************* */
 void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
 {
     m_layers[ check_layer_index(i_layer) ]->setThickness(thickness);
@@ -182,51 +168,42 @@ void MultiLayer::setLayerThickness(size_t i_layer, double thickness)
     m_layers_z.clear();
     m_layers_z.push_back(0.0);
     for(size_t il=1; il<getNumberOfLayers(); il++){
-        m_layers_z.push_back(m_layers_z.back() - m_layers[ check_layer_index(il) ]->getThickness() );
+        m_layers_z.push_back(
+            m_layers_z.back() -
+            m_layers[ check_layer_index(il) ]->getThickness() );
     }
 }
 
-/* ************************************************************************* */
-//! change layer thickness
-/* ************************************************************************* */
+//! ?
 
 MultiLayerDWBASimulation* MultiLayer::createDWBASimulation() const
 {
     for (size_t i=0; i<getNumberOfLayers(); ++i) {
-        if( getLayer(i)->hasDWBASimulation() ) return new MultiLayerDWBASimulation(this);
-//        LayerDWBASimulation *p_layer_dwba_sim = getLayer(i)->createDWBASimulation();
-//        if ( p_layer_dwba_sim ) {
-//            delete p_layer_dwba_sim;
-//            return new MultiLayerDWBASimulation(this);
-//        }
+        if( getLayer(i)->hasDWBASimulation() )
+            return new MultiLayerDWBASimulation(this);
     }
 
     for(size_t i=0; i<getNumberOfInterfaces(); ++i) {
-        if( getLayerInterface(i)->getRoughness() ) return new MultiLayerDWBASimulation(this);
+        if( getLayerInterface(i)->getRoughness() )
+            return new MultiLayerDWBASimulation(this);
     }
-
     return 0;
 }
 
-
-
-/* ************************************************************************* */
-// print content of multilayer
-/* ************************************************************************* */
-void MultiLayer::print(std::ostream &ostr) const
+void MultiLayer::print(std::ostream& ostr) const
 {
-    ostr << getName() << " " << this << std::endl;
-
+    ostr << "MultiLayer:" << getName() << "<" << this << "> : {\n";
     for(size_t i=0; i<getNumberOfLayers(); i++) {
-        const Layer *layer = getLayer(i);
-        ostr << " " << "#" << std::left << std::setw(2) << i
-             << *layer
-             << std::endl;
+        ostr << " layer " << std::left << std::setw(2) << i << " { "
+             << *getLayer(i) << " }\n";
         const LayerInterface *interface = getLayerBottomInterface(i);
         if(interface) {
-            ostr << " " << "------" << *interface << std::endl;
+            ostr << " int.face {" << *interface << " }\n";
         } else {
-            ostr << " " << "------ no interface " << std::endl;
+            ostr << " int.face: NONE" << "\n";
         }
     }
+    ostr << "}";
 }
+
+

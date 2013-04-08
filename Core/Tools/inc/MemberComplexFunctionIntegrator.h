@@ -1,26 +1,27 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/MemberComplexFunctionIntegrator.h
+//! @brief     Defines and implements template class MemberComplexFunctionIntegrator.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MEMBERFUNCTIONCOMPLEXINTEGRATOR_H
 #define MEMBERFUNCTIONCOMPLEXINTEGRATOR_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   MemberFunctionComplexIntegrator.h
-//! @brief  Definition of MemberFunctionComplexIntegrator template
-//! @author Scientific Computing Group at FRM II
-//! @date   30.01.2013
 
 #include "MemberFunctionIntegrator.h"
 #include "Types.h"
 
-
 template <class C> class MemberComplexFunctionIntegrator
 {
-public:
+ public:
     //! member function type
     typedef complex_t (C::*mem_function)(double, void*) const;
 
@@ -29,7 +30,7 @@ public:
 
     complex_t integrate(double lmin, double lmax);
 
-private:
+ private:
 
     double integrand_real(double z, void* pars) const {
         return ((mp_object->*m_member_function)(z, pars)).real();
@@ -45,7 +46,6 @@ private:
     MemberFunctionIntegrator<MemberComplexFunctionIntegrator<C > >  m_integrator;
 };
 
-
 template<class C> MemberComplexFunctionIntegrator<C>::MemberComplexFunctionIntegrator(
         mem_function p_member_function, const C *const p_object)
 : m_member_function(p_member_function)
@@ -54,14 +54,13 @@ template<class C> MemberComplexFunctionIntegrator<C>::MemberComplexFunctionInteg
     m_integrator.setIntegrand(0,this);
 }
 
-
 template<class C> complex_t MemberComplexFunctionIntegrator<C>::integrate(double lmin, double lmax)
 {
-    typename MemberFunctionIntegrator<MemberComplexFunctionIntegrator<C > >::mem_function integrand = &MemberComplexFunctionIntegrator::integrand_real;
+    typename MemberFunctionIntegrator<MemberComplexFunctionIntegrator<C > >::mem_function integrand =& MemberComplexFunctionIntegrator::integrand_real;
     m_integrator.setIntegrand(integrand);
     double real = m_integrator.integrate(lmin, lmax, (void *)0);
 
-    integrand = &MemberComplexFunctionIntegrator::integrand_imag;
+    integrand =& MemberComplexFunctionIntegrator::integrand_imag;
     m_integrator.setIntegrand(integrand);
     double imag = m_integrator.integrate(lmin, lmax, (void *)0);
 
@@ -69,4 +68,5 @@ template<class C> complex_t MemberComplexFunctionIntegrator<C>::integrate(double
 }
 
 #endif // MEMBERFUNCTIONCOMPLEXINTEGRATOR_H
+
 

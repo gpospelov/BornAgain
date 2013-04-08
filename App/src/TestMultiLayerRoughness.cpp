@@ -1,28 +1,34 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestMultiLayerRoughness.cpp
+//! @brief     Implements TestMultiLayerRoughness.execute().
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestMultiLayerRoughness.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "Units.h"
 #include "IsGISAXSTools.h"
 #include "SampleFactory.h"
 #include "OutputData.h"
-#include "ExperimentConstants.h"
 
 #include "TCanvas.h"
 #include "TH2F.h"
 #include "TProfile2D.h"
 #include "TStyle.h"
 
-TestMultiLayerRoughness::TestMultiLayerRoughness()
-{
-
-}
-
-
-
 
 void TestMultiLayerRoughness::execute()
 {
-
-    ISample *sample = SampleFactory::instance().createItem("MultilayerOffspecTestcase1a");
+    ISample *sample = SampleFactory::createSample("MultilayerOffspecTestcase1a");
 
     std::cout << *sample << std::endl;
     sample->print_structure();
@@ -42,19 +48,19 @@ void TestMultiLayerRoughness::execute()
         size_t index_alpha_i = p_data_alpha_i->getIndexOfAxis("alpha_i", it_alpha_i.getIndex());
         if(index_alpha_i%10 == 0) std::cout << index_alpha_i << " of " << npoints << std::endl;
 
-        // setting experiment
-        GISASExperiment experiment(mp_options);
-        experiment.setSample(*sample);
-        experiment.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree, false);
-        experiment.setBeamParameters(1.54*Units::angstrom, -alpha_i, 0.0*Units::degree);
+        // setting simulation
+        Simulation simulation(mp_options);
+        simulation.setSample(*sample);
+        simulation.setDetectorParameters(2, 0.0*Units::degree, 0.00001*Units::degree, npoints, 0.0*Units::degree, 2.0*Units::degree, false);
+        simulation.setBeamParameters(1.54*Units::angstrom, -alpha_i, 0.0*Units::degree);
 
-        experiment.runSimulation();
+        simulation.runSimulation();
 
-        const OutputData<double> *output = experiment.getOutputData();
+        const OutputData<double> *output = simulation.getOutputData();
         OutputData<double>::const_iterator it_output = output->begin();
         while (it_output != output->end()) {
-            double phi_f = output->getValueOfAxis(NDetector2d::PHI_AXIS_NAME, it_output.getIndex());
-            double alpha_f = output->getValueOfAxis(NDetector2d::ALPHA_AXIS_NAME, it_output.getIndex());
+            double phi_f = output->getValueOfAxis("phi_f", it_output.getIndex());
+            double alpha_f = output->getValueOfAxis("alpha_f", it_output.getIndex());
             double intensity = *it_output++;
             if(phi_f == 0) {
                 h2->Fill(Units::rad2deg(alpha_i), Units::rad2deg(alpha_f), intensity);
@@ -69,3 +75,5 @@ void TestMultiLayerRoughness::execute()
     //h2->Draw("CONT4 Z");
     h2->Draw("colz");
 }
+
+

@@ -1,21 +1,32 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Fitting/src/IFitSuiteStrategy.cpp
+//! @brief     Implements classes FitSuiteStrategy...
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "IFitSuiteStrategy.h"
 #include "FitSuite.h"
 #include "FitSuiteParameters.h"
 #include "Exceptions.h"
 #include "OutputData.h"
-#include "IChiSquaredModule.h"
-#include "Experiment.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
+#include "Simulation.h"
 #include "IMinimizer.h"
 #include "MathFunctions.h"
 #include "OutputDataFunctions.h"
+#include "MessageService.h"
 #include <iostream>
 
-
-
-/* ************************************************************************* */
-// Default fit strategy just let FitSuite to run it's minimization round
-/* ************************************************************************* */
+//! Default fit strategy just let FitSuite to run it's minimization round
 void FitSuiteStrategyDefault::execute()
 {
     if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyDefault::execute() -> FitSuite doesn't exists");
@@ -24,10 +35,7 @@ void FitSuiteStrategyDefault::execute()
     m_fit_suite->minimize();
 }
 
-
-/* ************************************************************************* */
-// adjust (rebin) data before running fit suite minimization round
-/* ************************************************************************* */
+//! adjust (rebin) data before running fit suite minimization round
 // TODO: refactor this all
 void FitSuiteStrategyAdjustData::execute()
 {
@@ -41,7 +49,7 @@ void FitSuiteStrategyAdjustData::execute()
         return;
     }
 
-    // adjusting real data for every experiment defined
+    // adjusting real data for every simulation defined
     std::vector<OutputData<double > *> original_data_collection;
     for(size_t i_exp = 0; i_exp<m_fit_suite->getFitObjects()->size(); ++i_exp) {
         // saving original data
@@ -69,19 +77,16 @@ void FitSuiteStrategyAdjustData::execute()
 
     // setting back original data
     if(m_preserve_original_data) {
-        std::cout << "FitSuiteStrategyAdjustData::execute() -> Info. Returning original data back " << std::endl;
+        msglog(MSG::INFO) << "FitSuiteStrategyAdjustData::execute() -> Returning original data back ";
         for(size_t i_exp = 0; i_exp<m_fit_suite->getFitObjects()->size(); ++i_exp) {
             m_fit_suite->getFitObjects()->setRealData(*original_data_collection[i_exp], i_exp);
             delete original_data_collection[i_exp];
         }
     }
-
 }
 
 
-/* ************************************************************************* */
-// strategy which fixes/releases fit parameters and then call minimizer
-/* ************************************************************************* */
+//! strategy which fixes/releases fit parameters and then call minimizer
 void FitSuiteStrategyAdjustParameters::execute()
 {
     if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyAdjustParameters::execute() -> FitSuite doesn't exists");
@@ -97,20 +102,20 @@ void FitSuiteStrategyAdjustParameters::execute()
     // releasing all parameters
     if( m_release_all ) {
         for(FitSuiteParameters::iterator it = fitParameters->begin(); it!=fitParameters->end(); ++it) {
-            std::cout << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it)->getName() << std::endl;
+            msglog(MSG::DEBUG) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it)->getName();
             (*it)->setFixed(false);
         }
     }
 
     // fixing dedicated list of fit parameters
     for(std::vector<std::string >::iterator it = m_pars_to_fix.begin(); it!= m_pars_to_fix.end(); ++it) {
-        std::cout << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << (*it) << std::endl;
+        msglog(MSG::DEBUG) << "FitSuiteStrategyAdjustParameters::execute() -> fixing " << (*it);
         fitParameters->getParameter((*it))->setFixed(true);
     }
 
     // releasing dedicated list of fit parameters
     for(std::vector<std::string >::iterator it = m_pars_to_release.begin(); it!= m_pars_to_release.end(); ++it) {
-        std::cout << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it) << std::endl;
+        msglog(MSG::DEBUG) << "FitSuiteStrategyAdjustParameters::execute() -> releasing " << (*it);
         fitParameters->getParameter((*it))->setFixed(false);
     }
 
@@ -126,12 +131,10 @@ void FitSuiteStrategyAdjustParameters::execute()
     }
 }
 
-
-/* ************************************************************************* */
-// Helps minimizer get out of local minima by disturbing real data
-/* ************************************************************************* */
+//! Helps minimizer get out of local minima by disturbing real data
 void FitSuiteStrategyBootstrap::execute()
 {
+    (void)m_n_iterations;
     throw NotImplementedException("FitSuiteStrategyBootstrap::execute()");
 
 //    if( !m_fit_suite ) throw NullPointerException("FitSuiteStrategyBootsrap::execute() -> FitSuite doesn't exists");
@@ -224,9 +227,8 @@ void FitSuiteStrategyBootstrap::execute()
 
 }
 
-
-// generate noisy data
-OutputData<double> *FitSuiteStrategyBootstrap::generateNoisyData(double noise_factor, const OutputData<double> &source) const
+//! generate noisy data
+OutputData<double> *FitSuiteStrategyBootstrap::generateNoisyData(double noise_factor, const OutputData<double>& source) const
 {
     OutputData<double> *p_result = source.clone();
     OutputData<double>::iterator it = p_result->begin();
@@ -240,4 +242,5 @@ OutputData<double> *FitSuiteStrategyBootstrap::generateNoisyData(double noise_fa
     }
     return p_result;
 }
+
 

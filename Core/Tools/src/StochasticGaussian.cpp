@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/StochasticGaussian.cpp
+//! @brief     Implements class StochasticGaussian.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "StochasticGaussian.h"
 #include "MathFunctions.h"
 
@@ -27,3 +42,5 @@ double StochasticDoubleGaussian::probabilityDensity(double value) const
 {
     return MathFunctions::Gaussian(value, m_average, m_std_dev);
 }
+
+

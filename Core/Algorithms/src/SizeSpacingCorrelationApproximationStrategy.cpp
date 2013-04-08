@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/src/SizeSpacingCorrelationApproximationStrategy.cpp
+//! @brief     Implements class SizeSpacingCorrelationApproximationStrategy.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "SizeSpacingCorrelationApproximationStrategy.h"
 #include "InterferenceFunction1DParaCrystal.h"
 
@@ -10,8 +25,8 @@ SizeSpacingCorrelationApproximationStrategy::SizeSpacingCorrelationApproximation
 }
 
 void SizeSpacingCorrelationApproximationStrategy::init(
-        const SafePointerVector<FormFactorInfo> &form_factor_infos,
-        const SafePointerVector<IInterferenceFunction> &ifs)
+        const SafePointerVector<FormFactorInfo>& form_factor_infos,
+        const SafePointerVector<IInterferenceFunction>& ifs)
 {
     IInterferenceFunctionStrategy::init(form_factor_infos, ifs);
     if (!checkVectorSizes()) {
@@ -116,3 +131,5 @@ void SizeSpacingCorrelationApproximationStrategy::initMeanRadius()
         m_mean_radius += m_ff_infos[i]->m_abundance*m_ff_infos[i]->mp_ff->getRadius();
     }
 }
+
+

@@ -1,7 +1,23 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/src/FormFactorEllipsoid.cpp
+//! @brief     Implements class FormFactorEllipsoid.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "FormFactorEllipsoid.h"
 #include "MathFunctions.h"
 
-FormFactorEllipsoid::FormFactorEllipsoid(double radius, double width , double height , double alpha)
+FormFactorEllipsoid::FormFactorEllipsoid(double radius, double width,
+                                         double height, double alpha)
 {
     setName("FormFactorEllipsoid");
     m_height = height;
@@ -9,10 +25,6 @@ FormFactorEllipsoid::FormFactorEllipsoid(double radius, double width , double he
     m_width  = width;
     m_alpha = alpha;
     init_parameters();
-}
-
-FormFactorEllipsoid::~FormFactorEllipsoid()
-{
 }
 
 FormFactorEllipsoid* FormFactorEllipsoid::clone() const
@@ -29,20 +41,21 @@ complex_t FormFactorEllipsoid::evaluate_for_q(const cvector_t& q) const
     complex_t phase_factor = std::exp(complex_t(0.0, 1.0)*qzHdiv2);
 
     complex_t gamma  = std::sqrt((qxR)*(qxR) + (qyW)*(qyW));
-    complex_t J1_gamma_div_gamma = std::abs(gamma) > Numeric::double_epsilon ? MathFunctions::Bessel_J1(std::abs(gamma))/gamma: 0.5;
+    complex_t J1_gamma_div_gamma = std::abs(gamma) > Numeric::double_epsilon ?
+        MathFunctions::Bessel_J1(std::abs(gamma))/gamma :
+        0.5;
 
-    return M_PI * getVolume() * phase_factor * J1_gamma_div_gamma *MathFunctions::Sinc(qzHdiv2);
+    return M_PI * getVolume() * phase_factor *
+        J1_gamma_div_gamma * MathFunctions::Sinc(qzHdiv2);
 }
-
 
 void FormFactorEllipsoid::init_parameters()
 {
     getParameterPool()->clear();
     getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter("width",  &m_width);
+    getParameterPool()->registerParameter("width", & m_width);
     getParameterPool()->registerParameter("height", &m_height);
     getParameterPool()->registerParameter("alpha" , &m_alpha);
 }
-
 
 

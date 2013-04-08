@@ -1,32 +1,35 @@
 #ifndef FUNCTIONALTESTS_ISGISAXS03_H
 #define FUNCTIONALTESTS_ISGISAXS03_H
 
-
 #include <string>
 #include "OutputData.h"
 
-class MultiLayer;
-class GISASExperiment;
 
 namespace FunctionalTests {
 
 class IsGISAXS03
 {
-public:
+ public:
+    typedef std::vector<OutputData<double> *> results_t;
+    enum keys_results { kTest_DWBA, kTest_BA, kTest_BASize, kNumberOfTests };
+
     IsGISAXS03();
-    ~IsGISAXS03() { delete m_result; }
-    void run();
+    ~IsGISAXS03();
+
+    void runDWBA() , runBA(), runBA_Size();
     int analyseResults();
-    const OutputData<double> *getOutputData() { return m_result;}
-private:
+
+    const OutputData<double> *getOutputData(size_t ntest=0) { return m_results.at(ntest); }
+
+ private:
     std::string m_name;
     std::string m_description;
-    OutputData<double> *m_result;
+    std::string m_path;
+
+    results_t m_results;
 };
 
 
 }
-
-
 
 #endif

@@ -1,8 +1,23 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestFormFactors.cpp
+//! @brief     Implements class TestFormFactors.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestFormFactors.h"
 #include "IsGISAXSTools.h"
 #include "Units.h"
 #include "Utils.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "MultiLayer.h"
 #include "SampleFactory.h"
 #include "DrawHelper.h"
@@ -12,75 +27,69 @@
 
 void TestFormFactors::execute()
 {
-    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Box"));
-    GISASExperiment experiment(mp_options);
-    experiment.setSample(*sample);
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    experiment.runSimulation();
+    MultiLayer *sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Box"));
+    Simulation simulation(mp_options);
+    simulation.setSample(*sample);
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    simulation.runSimulation();
     m_data_path = std::string(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/");
-    OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Box.ima");
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Box.ima");
 
      //Cone
-     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Cone"));
-     experiment.setSample(*sample);
-     experiment.runSimulation();
-     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cone.ima");
+     sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Cone"));
+     simulation.setSample(*sample);
+     simulation.runSimulation();
+     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cone.ima");
 
      //Ellipsoid
-     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Ellipsoid"));
-     experiment.setSample(*sample);
-     experiment.runSimulation();
-     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Ellipsoid.ima");
+     sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Ellipsoid"));
+     simulation.setSample(*sample);
+     simulation.runSimulation();
+     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Ellipsoid.ima");
 
      //Sphere
-     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Sphere"));
-     experiment.setSample(*sample);
-     experiment.runSimulation();
-     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Sphere.ima");
+     sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Sphere"));
+     simulation.setSample(*sample);
+     simulation.runSimulation();
+     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Sphere.ima");
 
      //Full Spheroid
-     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_FullSpheroid"));
-     experiment.setSample(*sample);
-     experiment.runSimulation();
-     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSpheroid.ima");
+     sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_FullSpheroid"));
+     simulation.setSample(*sample);
+     simulation.runSimulation();
+     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSpheroid.ima");
 
      //Hemi Spheroid
-     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_HemiSpheroid"));
-     experiment.setSample(*sample);
-     experiment.runSimulation();
-     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_HemiSpheroid.ima");
+     sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_HemiSpheroid"));
+     simulation.setSample(*sample);
+     simulation.runSimulation();
+     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_HemiSpheroid.ima");
 
      //Pyramid
-     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Pyramid"));
-     experiment.setSample(*sample);
-     experiment.runSimulation();
-     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Pyramid.ima");
+     sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Pyramid"));
+     simulation.setSample(*sample);
+     simulation.runSimulation();
+     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Pyramid.ima");
 
      //Cylinder
-     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Cylinder"));
-     experiment.setSample(*sample);
-     experiment.runSimulation();
-     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cylinder.ima");
+     sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Cylinder"));
+     simulation.setSample(*sample);
+     simulation.runSimulation();
+     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Cylinder.ima");
 
      //Full Sphere
-     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_FullSphere"));
-     experiment.setSample(*sample);
-     experiment.runSimulation();
-     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSphere.ima");
+     sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_FullSphere"));
+     simulation.setSample(*sample);
+     simulation.runSimulation();
+     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_FullSphere.ima");
 
      //Prism3
-     sample = dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem("FormFactor_Prism3"));
-     experiment.setSample(*sample);
-     experiment.runSimulation();
-     OutputDataIOFactory::writeOutputData(*experiment.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Prism3.ima");
-
-
-    //OutputData<double > *mp_intensity_output = experiment.getOutputDataClone();
+     sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("FormFactor_Prism3"));
+     simulation.setSample(*sample);
+     simulation.runSimulation();
+     OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Prism3.ima");
 }
-
-
-
 
 void TestFormFactors::finalise()
 {
@@ -98,7 +107,7 @@ void TestFormFactors::finalise()
 //    this_files.push_back(Utils::FileSystem::GetHomePath()+"./Examples/FormFactors/this_Prism3.ima");
 
     int ncomparison = (int)this_files.size();
-    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("Form Factors", "TestFormFactors");
+    TCanvas *c1 = DrawHelper::createAndRegisterCanvas("Form Factors", "TestFormFactors");
     c1->Divide(4,5);
 
     for(int i=0; i<ncomparison; i++) {
@@ -113,4 +122,6 @@ void TestFormFactors::finalise()
 //            delete our_data;
         }
     }
+
+
 

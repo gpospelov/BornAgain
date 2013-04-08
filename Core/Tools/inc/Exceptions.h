@@ -1,28 +1,29 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/Exceptions.h
+//! @brief     Defines many exception classes in namespace Exceptions.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef EXCEPTIONS_H
 #define EXCEPTIONS_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   Exceptions.h
-//! @brief  Definition of Exceptions
-//! @author Scientific Computing Group at FRM II
-//! @date   01.05.2012
 
 #include <stdexcept>
-
 
 namespace Exceptions {
 
     class NotImplementedException : public std::logic_error
     {
     public:
-        NotImplementedException(const std::string &message);
+        NotImplementedException(const std::string& message);
     };
 
     class NullPointerException : public std::logic_error
@@ -46,7 +47,7 @@ namespace Exceptions {
     class SelfReferenceException : public std::logic_error
     {
     public:
-        SelfReferenceException(const std::string &message);
+        SelfReferenceException(const std::string& message);
     };
 
     class DeadReferenceException : public std::runtime_error
@@ -110,10 +111,12 @@ namespace Exceptions {
         FormatErrorException(const std::string& message);
     };
 
-    void LogExceptionMessage(const std::string &message);
+    void LogExceptionMessage(const std::string& message);
 
 }
 
 using namespace Exceptions;
 
 #endif // EXCEPTIONS_H
+
+

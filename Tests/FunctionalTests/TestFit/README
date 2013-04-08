@@ -1,0 +1,13 @@
+Collection of functional tests (C++)
+
+Collection of fitting tests for libBornAgainFit library.
+Different geometries, number of fit parameters, variety of minimizers
+and minimization strategies.
+
+To run tests
+python TestFit.py
+
+List of tests
+TestFit01 - Two parameter fit using variety of minimizers. Geometry: cylinders in the air.
+TestFit02 - Fitting using sample builder
+

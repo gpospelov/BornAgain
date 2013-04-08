@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestIsGISAXS1.cpp
+//! @brief     Implements class TestIsGISAXS1.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestIsGISAXS1.h"
 #include "IsGISAXS01.h"
 #include "IsGISAXSTools.h"
@@ -35,3 +50,5 @@ void TestIsGISAXS1::finalise()
     delete isgi_data;
     delete our_data;
 }
+
+

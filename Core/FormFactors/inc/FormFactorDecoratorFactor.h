@@ -1,39 +1,42 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/inc/FormFactorDecoratorFactor.h
+//! @brief     Defines class FormFactorDecoratorFactor.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORDECORATORFACTOR_H_
 #define FORMFACTORDECORATORFACTOR_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorDecoratorFactor.h
-//! @brief  Definition of FormFactorDecoratorFactor class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jun 29, 2012
 
 #include "IFormFactorDecorator.h"
 
+//! ?
 
 class FormFactorDecoratorFactor : public IFormFactorDecorator
 {
-public:
-    FormFactorDecoratorFactor(IFormFactor *p_form_factor, const complex_t &factor);
+ public:
+    FormFactorDecoratorFactor(IFormFactor *p_form_factor, const complex_t& factor);
     virtual FormFactorDecoratorFactor *clone() const;
     virtual ~FormFactorDecoratorFactor() {}
 
-    virtual complex_t evaluate(const cvector_t &k_i, const Bin1DCVector &k_f_bin, double alpha_i, double alpha_f) const;
+    virtual complex_t evaluate(const cvector_t& k_i, const Bin1DCVector& k_f_bin, double alpha_i, double alpha_f) const;
 
     virtual int getNumberOfStochasticParameters() const;
 
-protected:
+ protected:
     complex_t m_factor;
 };
 
 inline FormFactorDecoratorFactor::FormFactorDecoratorFactor(
-        IFormFactor* p_form_factor, const complex_t &factor)
+        IFormFactor* p_form_factor, const complex_t& factor)
 : IFormFactorDecorator(p_form_factor)
 , m_factor(factor)
 {
@@ -56,3 +59,5 @@ inline int FormFactorDecoratorFactor::getNumberOfStochasticParameters() const
 }
 
 #endif /* FORMFACTORDECORATORFACTOR_H_ */
+
+

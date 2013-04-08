@@ -1,71 +1,71 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/inc/LayerInterface.h
+//! @brief     Defines class LayerInterface.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef LAYERINTERFACE_H
 #define LAYERINTERFACE_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   LayerInterface.h
-//! @brief  Definition of LayerInterface class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #include "ICompositeSample.h"
 #include "LayerRoughness.h"
 
 class Layer;
 
+//! Interface between two layers, possibly with roughness.
 
-//- -------------------------------------------------------------------
-//! @class LayerInterface
-//! @brief Interface between two layers.
-//!
-//! Interface between two layers connects two layers and posses roughness.
-//! We prevent usage of default/copy constructors and assignment
-//! operator and provide clone functionality from MultiLayer interface
-//- -------------------------------------------------------------------
 class LayerInterface : public ICompositeSample
 {
-public:
+ public:
     virtual ~LayerInterface();
-    //! create smooth interface between two layers
-    static LayerInterface* createSmoothInterface(const Layer *p_layer_top, const Layer *p_layer_bottom);
-    //! create rough interface between two layers
-    static LayerInterface* createRoughInterface(const Layer *p_layer_top, const Layer *p_layer_bottom, const LayerRoughness &roughness);
 
-    //! link to the top layer
-    inline void setLayerTop(const Layer* p_layer_top) { m_LayerTop = p_layer_top; }
+    //! Creates smooth interface between two layers
+    static LayerInterface* createSmoothInterface(
+        const Layer *p_layer_top, const Layer *p_layer_bottom);
 
-    //! link to the bottom layer
-    inline void setLayerBottom(const Layer* p_layer_bottom) { m_LayerBottom = p_layer_bottom; }
+    //! Creates rough interface between two layers
+    static LayerInterface* createRoughInterface(
+        const Layer *p_layer_top, const Layer *p_layer_bottom,
+        const LayerRoughness& roughness);
 
-    //! link between layers above and below the interface
-    inline void setLayersTopBottom(const Layer* p_layer_top, const Layer* p_layer_bottom) { setLayerTop(p_layer_top); setLayerBottom(p_layer_bottom); }
+    //! Sets link to the layer above the interface.
+    void setLayerTop(const Layer* p_layer_top)
+    { m_LayerTop = p_layer_top; }
 
-    //! set roughness of the interface
-    inline void setRoughness(const LayerRoughness &roughness);
+    //! Sets link to the layer below the interface.
+    void setLayerBottom(const Layer* p_layer_bottom)
+    { m_LayerBottom = p_layer_bottom; }
 
-    //! get roughness of the interface
-    inline const LayerRoughness *getRoughness() const { return m_roughness; }
+    //! Sets links to the layers above and below the interface.
+    void setLayersTopBottom(
+        const Layer* p_layer_top, const Layer* p_layer_bottom)
+    { setLayerTop(p_layer_top); setLayerBottom(p_layer_bottom); }
 
-    //! get top layer
-    inline const Layer *getLayerTop() const { return m_LayerTop; }
+    //! Sets roughness of the interface.
+    void setRoughness(const LayerRoughness& roughness);
 
-    //! get bottom layer
-    inline const Layer *getLayerBottom() const { return m_LayerBottom; }
+    //! Returns roughness of the interface.
+    const LayerRoughness *getRoughness() const { return m_roughness; }
 
-    //! print class
-    friend std::ostream &operator<<(std::ostream &ostr, const LayerInterface &m) { m.print(ostr); return ostr; }
+    //! Returns top layer.
+    const Layer *getLayerTop() const { return m_LayerTop; }
 
-protected:
-    //! print class
-    void print(std::ostream &ostr) const;
+    //! Returns bottom layer.
+    const Layer *getLayerBottom() const { return m_LayerBottom; }
 
-private:
+ protected:
+    void print(std::ostream& ostr) const;
+
+ private:
     LayerInterface();
 
     LayerRoughness *m_roughness;   //!< roughness of the interface
@@ -73,5 +73,6 @@ private:
     const Layer *m_LayerBottom;    //!< pointer to the layer below interface
 };
 
-
 #endif // LAYERINTERFACE_H
+
+

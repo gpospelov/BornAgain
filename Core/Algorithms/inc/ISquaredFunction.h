@@ -1,40 +1,51 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/inc/ISquaredFunction.h
+//! @brief     Defines classes ISquaredFunction, SquaredFunctionDefault, ...
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ISQUAREDFUNCTION_H_
 #define ISQUAREDFUNCTION_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ISquaredFunction.h
-//! @brief  Definition of function to calculate squared difference
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 20, 2012
 
 #include "Numeric.h"
 #include "Exceptions.h"
 
-//#include <cmath>
 #include <iostream>
 
+//! Interface providing measures for deviation between two values.
 
 class ISquaredFunction
 {
-public:
+ public:
     virtual ~ISquaredFunction() {}
     virtual ISquaredFunction *clone() const=0;
 
-    virtual double calculateSquaredDifference(double real_value, double simulated_value) const=0;
-    virtual double calculateSquaredError(double real_value, double simulated_value = 0.0) const { (void)real_value; (void)simulated_value; throw NotImplementedException("ISquaredFunction::calculateError() -> Error! Not implemented."); }
+    virtual double calculateSquaredDifference(
+                double real_value, double simulated_value) const=0;
+    virtual double calculateSquaredError(
+                double real_value, double simulated_value = 0.0) const
+    {    (void)real_value;
+         (void)simulated_value;
+         throw NotImplementedException(
+                    "ISquaredFunction::calculateError() -> "
+                    "Error! Not implemented.");
+    }
 };
 
+//! ?
 
 class SquaredFunctionDefault : public ISquaredFunction
 {
-public:
+ public:
     SquaredFunctionDefault() {}
     virtual ~SquaredFunctionDefault() {}
     virtual SquaredFunctionDefault *clone() const { return new SquaredFunctionDefault(); }
@@ -56,10 +67,11 @@ public:
 
 };
 
+//! ?
 
 class SquaredFunctionWhichOnlyWorks : public ISquaredFunction
 {
-public:
+ public:
     SquaredFunctionWhichOnlyWorks() {}
     virtual ~SquaredFunctionWhichOnlyWorks() {}
     virtual SquaredFunctionWhichOnlyWorks *clone() const { return new SquaredFunctionWhichOnlyWorks(*this); }
@@ -78,10 +90,11 @@ public:
     }
 };
 
+//! ?
 
 class SquaredFunctionWithSystematicError : public ISquaredFunction
 {
-public:
+ public:
     SquaredFunctionWithSystematicError(double epsilon = 0.08) : m_epsilon(epsilon){}
     virtual ~SquaredFunctionWithSystematicError() {}
     virtual SquaredFunctionWithSystematicError *clone() const { return new SquaredFunctionWithSystematicError(*this); }
@@ -97,14 +110,15 @@ public:
         return std::max(std::fabs(real_value) + (m_epsilon*real_value)*(m_epsilon*real_value),1.0);
     }
 
-private:
+ private:
     double m_epsilon;
 };
 
+//! ?
 
 class SquaredFunctionWithGaussianError : public ISquaredFunction
 {
-public:
+ public:
     SquaredFunctionWithGaussianError(double sigma = 0.01) : m_sigma(sigma){}
     virtual ~SquaredFunctionWithGaussianError() {}
     virtual SquaredFunctionWithGaussianError *clone() const { return new SquaredFunctionWithGaussianError(*this); }
@@ -120,10 +134,10 @@ public:
         return m_sigma*m_sigma;
     }
 
-private:
+ private:
     double m_sigma;
 };
 
-
-
 #endif /* ISQUAREDFUNCTION_H_ */
+
+

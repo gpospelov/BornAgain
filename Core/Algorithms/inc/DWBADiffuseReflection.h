@@ -1,44 +1,45 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/inc/DWBADiffuseReflection.h
+//! @brief     Defines class DWBADiffuseReflection.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef DWBADIFFUSEREFLECTION_H
 #define DWBADIFFUSEREFLECTION_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   DWBADiffuseReflection.h
-//! @brief  Definition of DWBADiffuseReflection class for multi-layers
-//! @author Scientific Computing Group at FRM II
-//! @date   02.05.2012
 
 #include "ISimulation.h"
 #include "Units.h"
 #include "MultiLayer.h"
 #include "OpticalFresnel.h"
 
+//! Calculation of diffuse (aka off-specular) reflection from multilayers.
 
-//- -------------------------------------------------------------------
-//! @class DWBADiffuseReflection
-//! @brief Calculation of diffuse (aka off-specular) reflection from multilayers.
-//- -------------------------------------------------------------------
 class DWBADiffuseReflection : public ISimulation
 {
-public:
+ public:
     DWBADiffuseReflection();
 
-    void execute(const MultiLayer &sample, const kvector_t &ki, const kvector_t &kf);
+    void execute(const MultiLayer& sample,
+                 const kvector_t& ki, const kvector_t& kf);
 
-    void setSample(const MultiLayer &sample) {m_sample = &sample; }
+    void setSample(const MultiLayer& sample) {m_sample =& sample; }
 
     double getDiffuseAutocorr() const { return m_diffuse_autocorr; }
 
     double getDiffuseCrosscorr() const { return m_diffuse_crosscorr; }
 
-    void setKvectors(const kvector_t &ki, const kvector_t &kf);
-private:
+    void setKvectors(const kvector_t& ki, const kvector_t& kf);
+
+ private:
     void diffuse_autocorr();
 
     void diffuse_crosscorr();
@@ -63,3 +64,5 @@ private:
 };
 
 #endif // DWBADIFFUSEREFLECTION_H
+
+

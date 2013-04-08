@@ -1,7 +1,22 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/src/Particle.cpp
+//! @brief     Implements class Particle.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "Particle.h"
 #include "ParticleInfo.h"
 
-Particle::Particle(const complex_t &refractive_index, IFormFactor *p_form_factor)
+Particle::Particle(const complex_t& refractive_index, IFormFactor *p_form_factor)
 : m_ambient_refractive_index(complex_t(1.0, 0.0))
 , m_refractive_index(refractive_index)
 , mp_form_factor(p_form_factor)
@@ -10,7 +25,7 @@ Particle::Particle(const complex_t &refractive_index, IFormFactor *p_form_factor
     if(mp_form_factor) registerChild(mp_form_factor);
 }
 
-Particle::Particle(const complex_t &refractive_index, const IFormFactor &form_factor)
+Particle::Particle(const complex_t& refractive_index, const IFormFactor& form_factor)
 : m_ambient_refractive_index(complex_t(1.0, 0.0))
 , m_refractive_index(refractive_index)
 , mp_form_factor(form_factor.clone())
@@ -45,10 +60,13 @@ std::vector<ParticleInfo*> Particle::createDistributedParticles(
             for (size_t i=0; i<form_factors.size(); ++i) {
                 Particle *new_particle = clone();
                 new_particle->setSimpleFormFactor(form_factors[i]);
-                ParticleInfo *p_info = new ParticleInfo(new_particle, 0, 0, probabilities[i]*factor);
+                ParticleInfo *p_info =
+                    new ParticleInfo(new_particle, 0., probabilities[i]*factor);
                 result.push_back(p_info);
             }
         }
     }
     return result;
 }
+
+

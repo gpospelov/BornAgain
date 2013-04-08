@@ -1,62 +1,60 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/Utils.h
+//! @brief     Defines various stuff in namespace Utils.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef UTILS_H
 #define UTILS_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   Utils.h
-//! @brief  Definition of several helper classes
-//! @author Scientific Computing Group at FRM II
-//! @date   19.06.2012
 
 #include "Types.h"
-//#include <string>
-//#include <vector>
-//#include <map>
-//#include <iostream>
-//#include <sstream>
-//#include "Exceptions.h"
+#include "Exceptions.h"
 #include <boost/unordered_map.hpp>
+
 
 namespace Utils {
 
-//- -------------------------------------------------------------------
-//! @class String
-//! @brief Collection of utilities for std::string
-//- -------------------------------------------------------------------
+//! Collection of utilities for std::string.
+
 class String
 {
-public:
-    //! parse double values from string to vector of double
-    static vdouble1d_t parse_doubles(const std::string &str);
+ public:
+    //! Parse double values from string to vector of double.
+    static vdouble1d_t parse_doubles(const std::string& str);
+
     //! assuming that string consist of doubles return new string where doubles are rounded according to the precision
-    static std::string round_doubles(const std::string &str, int precision);
-    //! return true if text matches pattern with wildcards '*' and '?'
-    static bool MatchPattern(const std::string &text, std::string wildcardPattern);
-    //! split string into vector of string using delimeter
-    static std::vector<std::string> Split(const std::string &text, const std::string &delimeter);
+    static std::string round_doubles(const std::string& str, int precision);
+
+    //! Returns true if text matches pattern with wildcards '*' and '?'.
+    static bool MatchPattern(const std::string& text,
+                             std::string wildcardPattern);
+
+    //! Split string into vector of string using delimeter.
+    static std::vector<std::string> Split(const std::string& text,
+                                          const std::string& delimeter);
 };
 
+//! Control how often a string is used.
 
-//- -------------------------------------------------------------------
-//! @class StringUsageMap
-//! @brief Definition of StringUsageMap to control how often string is used
-//- -------------------------------------------------------------------
 class StringUsageMap
 {
-public:
+ public:
     typedef std::map<std::string, int> nstringmap_t;
     typedef nstringmap_t::iterator iterator_t;
 
     StringUsageMap(){}
     ~StringUsageMap(){}
 
-    //! add string to the map to count number of times it was used
+    //! Adds string to the map to count number of times it was used
     void add(std::string name)
     {
         m_current_string = name;
@@ -73,49 +71,44 @@ public:
     //! access to the map of strings
     iterator_t begin() { return m_nstringmap.begin(); }
     iterator_t end() { return m_nstringmap.end(); }
-    int &operator[](std::string name) { return m_nstringmap[name]; }
+    int& operator[](std::string name) { return m_nstringmap[name]; }
 
-    //! get current string
+    //! Returns current string
     std::string get_current() const { return m_current_string; }
 
-private:
+ private:
     std::string m_current_string;
     nstringmap_t m_nstringmap;
 };
 
+//! Utilities to deal with file system.
 
-//- -------------------------------------------------------------------
-//! @class FileSystem
-//! @brief different utilities to deal with file system
-//- -------------------------------------------------------------------
 class FileSystem
 {
-public:
-    //! return path to the current (working) directory
+ public:
+    //! Returns path to the current (working) directory
     static std::string GetWorkingPath();
 
-    //! return path to GISASFW home directory
+    //! Returns path to BornAgain home directory
     static std::string GetHomePath();
 
-    //! set relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
-    static void SetRelativePath(const std::string &path) { m_relative_path = path; }
+    //! Sets relative path, which is the path from working directory to executable module. The value is known only from argv[0] and should be set from outside
+    static void SetRelativePath(const std::string& path) { m_relative_path = path; }
 
-    //! return file extension
-    static std::string GetFileExtension(const std::string &name);
+    //! Returns file extension
+    static std::string GetFileExtension(const std::string& name);
 
-    //! return true if name contains *.gz extension
-    static bool isGZipped(const std::string &name);
+    //! Returns true if name contains *.gz extension
+    static bool isGZipped(const std::string& name);
 
-    //! return file extension after stripping '.gz' if any
-    static std::string GetFileMainExtension(const std::string &name);
-private:
+    //! Returns file extension after stripping '.gz' if any
+    static std::string GetFileMainExtension(const std::string& name);
+ private:
     static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module
 };
 
+//! Adjust length of the string, padding with blanks.
 
-//- -------------------------------------------------------------------
-//! @brief adjust length of the string
-//- -------------------------------------------------------------------
 inline std::string AdjustStringLength(std::string name, int length)
 {
     std::string newstring = name;
@@ -123,14 +116,12 @@ inline std::string AdjustStringLength(std::string name, int length)
     return newstring;
 }
 
+// Unordered map (wrap boost::unordered_map).
 
-/* ************************************************************************* */
-// unordered map of values
-/* ************************************************************************* */
 template<class Key, class Object >
 class UnorderedMap
 {
-public:
+ public:
     typedef boost::unordered_map<Key, Object > container_t;
     typedef typename container_t::iterator iterator;
     typedef typename container_t::const_iterator const_iterator;
@@ -142,29 +133,32 @@ public:
 
     const_iterator begin() { return m_value_map.begin(); }
     const_iterator end() { return m_value_map.end(); }
-    const Object &find(const Key &key) const
+    const Object& find(const Key& key) const
     {
         const_iterator pos = m_value_map.find(key);
         if(pos != m_value_map.end() ) {
             return (*pos).second;
         } else {
-            throw RuntimeErrorException("UnorderedMap::find() -> Error! Can't find the object");
+            throw RuntimeErrorException(
+                "UnorderedMap::find() -> Error! Can't find the object");
         }
     }
 
     size_t size() { return m_value_map.size(); }
-    Object & operator[] (const Key &key) { return m_value_map[key]; }
+    Object&  operator[] (const Key& key) { return m_value_map[key]; }
 
-private:
-    UnorderedMap &operator=(const UnorderedMap &);
+ private:
+    UnorderedMap& operator=(const UnorderedMap& );
 
     container_t m_value_map;
 };
 
 
+//! enables exception throw in the case of NaN, Inf
+void EnableFloatingPointExceptions();
+
 
 }
-
 
 #endif // UTILS_H
 

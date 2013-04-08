@@ -1,20 +1,32 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/OutputDataFunctions.cpp
+//! @brief     Implements class OutputDataFunctions.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "OutputDataFunctions.h"
 #include "Exceptions.h"
 #include "Numeric.h"
 
-
 #include <cmath>
 #include <fftw3.h>
-
 
 void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination);
 void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination);
 
+//! double the bin size for each dimension.
 
-/* ************************************************************************* */
-// double the bin size for each dimension
-/* ************************************************************************* */
-OutputData<double> *OutputDataFunctions::doubleBinSize(const OutputData<double> &source)
+OutputData<double>* OutputDataFunctions::doubleBinSize(
+    const OutputData<double>& source)
 {
     OutputData<double> *p_result = new OutputData<double>;
     size_t dimension = source.getRank();
@@ -47,11 +59,10 @@ OutputData<double> *OutputDataFunctions::doubleBinSize(const OutputData<double> 
     return p_result;
 }
 
+//! Fourier transformation of output data
 
-/* ************************************************************************* */
-// fourier transformation of output data
-/* ************************************************************************* */
-void OutputDataFunctions::fourierTransform(const OutputData<double>& source, OutputData<complex_t> *p_destination)
+void OutputDataFunctions::FourierTransform(
+    const OutputData<double>& source, OutputData<complex_t> *p_destination)
 {
     // initialize dimensions
     std::vector<size_t> dimensions = source.getAllSizes();
@@ -92,10 +103,10 @@ void OutputDataFunctions::fourierTransform(const OutputData<double>& source, Out
 }
 
 
-/* ************************************************************************* */
-//
-/* ************************************************************************* */
-void OutputDataFunctions::fourierTransformR(const OutputData<complex_t>& source, OutputData<double> *p_destination)
+//! Fourier back transform ??
+
+void OutputDataFunctions::FourierTransformR(
+    const OutputData<complex_t>& source, OutputData<double> *p_destination)
 {
     // initialize dimensions
     std::vector<size_t> dimensions = p_destination->getAllSizes();
@@ -139,11 +150,10 @@ void OutputDataFunctions::fourierTransformR(const OutputData<complex_t>& source,
     delete[] n_complex_dims;
 }
 
+//! ?
 
-/* ************************************************************************* */
-//
-/* ************************************************************************* */
-OutputData<double> *OutputDataFunctions::getRealPart(const OutputData<complex_t> &source)
+OutputData<double>* OutputDataFunctions::getRealPart(
+    const OutputData<complex_t>& source)
 {
     OutputData<double> *p_result = new OutputData<double>();
     for (size_t i=0; i<source.getRank(); ++i) {
@@ -158,11 +168,10 @@ OutputData<double> *OutputDataFunctions::getRealPart(const OutputData<complex_t>
     return p_result;
 }
 
+//! ?
 
-/* ************************************************************************* */
-//
-/* ************************************************************************* */
-OutputData<double>* getImagPart(const OutputData<complex_t>& source)
+OutputData<double>* OutputDataFunctions::getImagPart(
+    const OutputData<complex_t>& source)
 {
     OutputData<double> *p_result = new OutputData<double>();
     for (size_t i=0; i<source.getRank(); ++i) {
@@ -171,16 +180,14 @@ OutputData<double>* getImagPart(const OutputData<complex_t>& source)
     OutputData<complex_t>::const_iterator it_source = source.begin();
     OutputData<double>::iterator it_result = p_result->begin();
     while (it_source != source.end()) {
-        *it_result = it_source->real();
+        *it_result = it_source->imag();
         ++it_source, ++it_result;
     }
     return p_result;
 }
 
+//! ?
 
-/* ************************************************************************* */
-//
-/* ************************************************************************* */
 OutputData<double>* OutputDataFunctions::getModulusPart(const OutputData<complex_t>& source)
 {
     OutputData<double> *p_result = new OutputData<double>();
@@ -196,14 +203,16 @@ OutputData<double>* OutputDataFunctions::getModulusPart(const OutputData<complex
     return p_result;
 }
 
+//! Slice data, having one bin on selected axis fixed.
 
-/* ************************************************************************* */
-// Slice data, having one bin on selected axis fixed.
-// Resulting output data will have one axis less (without axis 'fixed_axis_name')
-/* ************************************************************************* */
-OutputData<double> *OutputDataFunctions::sliceAccrossOneAxis(const OutputData<double > &data, const std::string &fixed_axis_name, double fixed_axis_value)
+//! Resulting output data will have one axis less
+//! (without axis 'fixed_axis_name')
+//!
+OutputData<double>* OutputDataFunctions::sliceAccrossOneAxis(
+    const OutputData<double >& data, const std::string& fixed_axis_name,
+    double fixed_axis_value)
 {
-    if (data.getNdimensions() != 2) {
+    if (data.getRank() != 2) {
         throw LogicErrorException("OutputDataFunctions::sliceAccrossOneAxis() -> Error! It was checked only with number of dimensions equal 2.");
     }
     if( !data.getAxis(fixed_axis_name) ) {
@@ -214,7 +223,7 @@ OutputData<double> *OutputDataFunctions::sliceAccrossOneAxis(const OutputData<do
 
     const IAxis *fixed_axis(0);
     int fixed_axis_index(-1);
-    for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
+    for(size_t i_axis=0; i_axis<data.getRank(); i_axis++) {
         const IAxis *axis = data.getAxis(i_axis);
         if( axis->getName() != fixed_axis_name ) {
             sliced_data->addAxis(*axis);
@@ -244,13 +253,15 @@ OutputData<double> *OutputDataFunctions::sliceAccrossOneAxis(const OutputData<do
 
 }
 
+//! Select range on one of the axis.
 
-/* ************************************************************************* */
-// Select range on one of the axis. Resulting output data will have same number of axes
-/* ************************************************************************* */
-OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<double > &data, const std::string &selected_axis_name, double axis_value1,  double axis_value2)
+//! Resulting output data will have same number of axes
+//!
+OutputData<double>* OutputDataFunctions::selectRangeOnOneAxis(
+    const OutputData<double >& data, const std::string& selected_axis_name,
+    double axis_value1,  double axis_value2)
 {
-    if (data.getNdimensions() != 2) {
+    if (data.getRank() != 2) {
         throw LogicErrorException("OutputDataFunctions::selectRangeOnOneAxis() -> Error! It was checked only with number of dimensions equal 2.");
     }
 
@@ -271,7 +282,7 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
 
     // preparing new data with modified axes
     OutputData<double > *new_data = new OutputData<double >;
-    for(size_t i_axis=0; i_axis<data.getNdimensions(); i_axis++) {
+    for(size_t i_axis=0; i_axis<data.getRank(); i_axis++) {
         const IAxis *axis = data.getAxis(i_axis);
         if( axis->getName() != selected_axis_name ) {
             new_data->addAxis(*axis);
@@ -300,10 +311,8 @@ OutputData<double> *OutputDataFunctions::selectRangeOnOneAxis(const OutputData<d
     return new_data;
 }
 
+//! ?
 
-/* ************************************************************************* */
-//
-/* ************************************************************************* */
 void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination)
 {
     for (size_t i=0; i<length; ++i) {
@@ -312,21 +321,19 @@ void toFftw3Array(complex_t *source, size_t length, fftw_complex *destination)
     }
 }
 
+//! ?
 
-/* ************************************************************************* */
-//
-/* ************************************************************************* */
 void fromFftw3Array(fftw_complex *source, size_t length, complex_t *destination)
 {
     for (size_t i=0; i<length; ++i) {
-        destination[i].real() = source[i][0];
-        destination[i].imag() = source[i][1];
+        destination[i] = complex_t( source[i][0], source[i][1] );
     }
 }
 
-
 //! apply intensity function to values stored in output data
-void OutputDataFunctions::applyFunction(OutputData<double> &data, const IIntensityFunction *func)
+
+void OutputDataFunctions::applyFunction(
+    OutputData<double>& data, const IIntensityFunction *func)
 {
     OutputData<double>::iterator it = data.begin();
     while (it != data.end())
@@ -337,8 +344,11 @@ void OutputDataFunctions::applyFunction(OutputData<double> &data, const IIntensi
     }
 }
 
-Mask* OutputDataFunctions::CreateRectangularMask(const OutputData<double>& data,
-        const double* minima, const double* maxima)
+//! ?
+
+Mask* OutputDataFunctions::CreateRectangularMask(
+    const OutputData<double>& data,
+    const double* minima, const double* maxima)
 {
     size_t rank = data.getRank();
     int *minima_i = new int[rank];
@@ -360,8 +370,22 @@ Mask* OutputDataFunctions::CreateRectangularMask(const OutputData<double>& data,
     return p_result;
 }
 
-Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double>& data,
-        const double* center, const double* radii)
+//! ?
+
+Mask* OutputDataFunctions::CreateRectangularMask(
+    const OutputData<double>& data, double x1, double y1, double x2, double y2)
+{
+    if(data.getRank() != 2) throw LogicErrorException("OutputDataFunctions::CreateRectangularMask2D() -> Error! Number of dimensions should be 2");
+    const double minima[2]={x1, y1};
+    const double maxima[2]={x2, y2};
+    return OutputDataFunctions::CreateRectangularMask(data, minima, maxima);
+}
+
+//! ?
+
+Mask* OutputDataFunctions::CreateEllipticMask(
+    const OutputData<double>& data,
+    const double* center, const double* radii)
 {
     size_t rank = data.getRank();
     int *center_i = new int[rank];
@@ -383,3 +407,16 @@ Mask* OutputDataFunctions::CreateEllipticMask(const OutputData<double>& data,
     p_result->setMaskCoordinateFunction(p_ellipse_function);
     return p_result;
 }
+
+//! ?
+
+Mask* OutputDataFunctions::CreateEllipticMask(
+    const OutputData<double>& data, double xc, double yc, double rx, double ry)
+{
+    if(data.getRank() != 2) throw LogicErrorException("OutputDataFunctions::CreateRectangularMask2D() -> Error! Number of dimensions should be 2");
+    const double center[2]={xc, yc};
+    const double radii[2]={rx, ry};
+    return OutputDataFunctions::CreateEllipticMask(data, center, radii);
+}
+
+

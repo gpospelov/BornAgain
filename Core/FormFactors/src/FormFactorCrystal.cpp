@@ -1,15 +1,29 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/src/FormFactorCrystal.cpp
+//! @brief     Implements class FormFactorCrystal.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "FormFactorCrystal.h"
-//#include "Units.h"
 
 FormFactorCrystal::FormFactorCrystal(
-        const Crystal* p_crystal,
+        const Crystal& p_crystal,
         const IFormFactor& meso_crystal_form_factor,
-        const complex_t &ambient_refractive_index)
-: m_lattice(p_crystal->getLattice())
+        const complex_t& ambient_refractive_index)
+: m_lattice(p_crystal.getLattice())
 , m_ambient_refractive_index(ambient_refractive_index)
 , m_max_rec_length(0.0)
 {
-    mp_particle = p_crystal->createBasis();
+    mp_particle = p_crystal.createBasis();
     mp_basis_form_factor = mp_particle->createFormFactor();
     mp_meso_form_factor = meso_crystal_form_factor.clone();
     setAmbientRefractiveIndex(ambient_refractive_index);
@@ -26,19 +40,19 @@ FormFactorCrystal::~FormFactorCrystal()
 FormFactorCrystal* FormFactorCrystal::clone() const
 {
     Crystal np_crystal(*mp_particle, m_lattice);
-    FormFactorCrystal *p_new = new FormFactorCrystal(&np_crystal,
+    FormFactorCrystal *p_new = new FormFactorCrystal(np_crystal,
             *mp_meso_form_factor, m_ambient_refractive_index);
     return p_new;
 }
 
 void FormFactorCrystal::setAmbientRefractiveIndex(
-        const complex_t &refractive_index)
+        const complex_t& refractive_index)
 {
     mp_particle->setAmbientRefractiveIndex(refractive_index);
     mp_basis_form_factor->setAmbientRefractiveIndex(refractive_index);
 }
 
-complex_t FormFactorCrystal::evaluate_for_q(const cvector_t &q) const
+complex_t FormFactorCrystal::evaluate_for_q(const cvector_t& q) const
 {
     (void)q;
     throw LogicErrorException("evaluate_for_q() should never be called explicitly for FormFactorCrystal");
@@ -61,7 +75,7 @@ complex_t FormFactorCrystal::evaluate(const cvector_t& k_i,
 //            m_lattice.getReciprocalLatticeVectorsWithinRadius(q_real, radius);
 
     m_lattice.computeReciprocalLatticeVectorsWithinRadius(q_real, radius);
-    const KVectorContainer &rec_vectors = m_lattice.getKVectorContainer();
+    const KVectorContainer& rec_vectors = m_lattice.getKVectorContainer();
 
     // perform convolution on these lattice vectors
     complex_t result(0.0, 0.0);
@@ -93,3 +107,5 @@ void FormFactorCrystal::calculateLargestReciprocalDistance()
     m_max_rec_length = std::max(M_PI/a1.mag(), M_PI/a2.mag());
     m_max_rec_length = std::max(m_max_rec_length, M_PI/a3.mag());
 }
+
+

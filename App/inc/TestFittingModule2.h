@@ -1,37 +1,40 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/inc/TestFittingModule2.h
+//! @brief     Defines class TestFittingModule2.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef TESTFITTINGMODULE2_H
 #define TESTFITTINGMODULE2_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestFittingModule2.h
-//! @brief  Definition of TestFittingModule2 class
-//! @author Scientific Computing Group at FRM II
-//! @date   25.10.2012
-
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "ISampleBuilder.h"
-
 
 class FitSuite;
 
-//- -------------------------------------------------------------------
-//! @class TestFittingModule2
-//! @brief Testing of fitting module with 5 parameters sample using
-//! sample builder, different fit strategies and chi2 modules
-//- -------------------------------------------------------------------
+//! Test different fitting approaches on five-parameter sample.
+
+//! Approaches are
+//! (a) sample builder
+//! (b) chi2 module
+//! (c) different fit strategies
+//! (d) mask on data
+//!
 class TestFittingModule2 : public IFunctionalTest
 {
-public:
+ public:
     TestFittingModule2();
     virtual ~TestFittingModule2();
     virtual void execute();
@@ -39,13 +42,13 @@ public:
     //! builds sample for fitter testing
     class SampleBuilder : public ISampleBuilder
     {
-    public:
+      public:
         SampleBuilder();
         virtual ~SampleBuilder(){}
         virtual ISample *buildSample() const;
-    protected:
+      protected:
         virtual void init_parameters();
-    private:
+      private:
         double m_cylinder_height;
         double m_cylinder_radius;
         double m_prism3_half_side;
@@ -62,16 +65,20 @@ public:
     //! fit example with strategies
     void fit_example_strategies();
 
-private:
-    void initializeExperiment();
+    //! fit example with data masking
+    void fit_example_mask();
+
+ private:
+    void initializeSimulation();
     void initializeRealData();
 
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulated_data;
-    GISASExperiment *mp_experiment;
+    Simulation *mp_simulation;
     ISampleBuilder *mp_sample_builder;
     FitSuite *m_fitSuite;
 };
 
-
 #endif // TESTFITTINGMODULE2_H
+
+

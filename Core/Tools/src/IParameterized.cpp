@@ -1,25 +1,25 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/IParameterized.cpp
+//! @brief     Implements class IParameterized,
+//!               mainly by including IParameterized.h.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "IParameterized.h"
 #include "Utils.h"
 
-
-/* ************************************************************************* */
-// c-tors
-/* ************************************************************************* */
-IParameterized::IParameterized() : m_parameters(), m_status()
+IParameterized& IParameterized::operator=(const IParameterized& other)
 {
-}
-
-IParameterized::IParameterized(const std::string &name) : INamed(name), m_parameters(), m_status()
-{
-}
-
-IParameterized::IParameterized(const IParameterized &other) : INamed(other), m_parameters(), m_status()
-{
-}
-
-IParameterized &IParameterized::operator=(const IParameterized &other)
-{
-    if( this != &other)
+    if( this !=& other)
     {
         INamed::operator=(other);
         // parameters are not copied
@@ -27,11 +27,10 @@ IParameterized &IParameterized::operator=(const IParameterized &other)
     return *this;
 }
 
+//! Creates new parameter pool, with all local parameter and parameters of children
 
-/* ************************************************************************* */
-// create new parameter pool which contains all local parameter and  parameters of children
-// user have to delete it
-/* ************************************************************************* */
+//! User has to delete it.
+//!
 ParameterPool *IParameterized::createParameterTree() const
 {
     ParameterPool *newpool = new ParameterPool;
@@ -40,11 +39,10 @@ ParameterPool *IParameterized::createParameterTree() const
     return newpool;
 }
 
+//! Adds parameters from local pool to external pool and call recursion over direct children.
 
-/* ************************************************************************* */
-// add parameters from local pool to external pool
-/* ************************************************************************* */
-std::string IParameterized::addParametersToExternalPool(std::string path, ParameterPool *external_pool, int copy_number) const
+std::string IParameterized::addParametersToExternalPool(
+    std::string path, ParameterPool *external_pool, int copy_number) const
 {
     // adding trailing slash, if it is not already there
     if( path[path.length()-1] != '/' ) path += "/";
@@ -67,10 +65,15 @@ void IParameterized::printParameters() const
     delete p_pool;
 }
 
-/* ************************************************************************* */
-// No pure virtual function here, due to problems in exporting abstract classes to python
-/* ************************************************************************* */
+//! Throw non-implemented exception (needed for Python).
+
+//! No pure virtual function here,
+//! due to problems in exporting abstract classes to python
+//!
 void IParameterized::init_parameters()
 {
-    throw NotImplementedException("IParameterized::init_parameters() -> Error! Method is not implemented");
+    throw NotImplementedException("IParameterized::init_parameters() -> "
+                                  "Error! Method is not implemented");
 }
+
+

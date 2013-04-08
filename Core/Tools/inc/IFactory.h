@@ -1,47 +1,47 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/IFactory.h
+//! @brief     Defines interface class IFactory.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef IFACTORY_H
 #define IFACTORY_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   IFactory.h
-//! @brief  Definition of IFactory class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.05.2012
-
 
 #include "Exceptions.h"
 #include <map>
 #include <iostream>
 #include <vector>
 
+//! Base class for all factories.
 
-//- -------------------------------------------------------------------
-//! @class IFactory
-//! @brief Base class for all factories
-//- -------------------------------------------------------------------
 template<class IdentifierType, class AbstractProduct >
 class IFactory
 {
-public:
-    //! pointer to function which will be used to create object of AbstractProduct base type
+ public:
+    //! function which will be used to create object of AbstractProduct base type
     typedef AbstractProduct* (*CreateItemCallback) ();
 
-    //! typedef for map which stores correspondance between object identifier and object creation function
+    //! map for correspondance between object identifier and object creation function
     typedef std::map<IdentifierType, CreateItemCallback> CallbackMap_t;
 
-    //! typedef for map which stores correspondance between object identifier and object description
+    //! map for correspondance between object identifier and object description
     typedef std::map<IdentifierType, IdentifierType> DescriptionMap_t;
+    typedef typename DescriptionMap_t::iterator iterator;
+    typedef typename DescriptionMap_t::const_iterator const_iterator;
 
     IFactory() : m_own_objects(false) { }
 
-    //! create object by calling creation function corresponded to given identifier
-    AbstractProduct *createItem(const IdentifierType &itemId)
+    //! Creates object by calling creation function corresponded to given identifier
+    AbstractProduct *createItem(const IdentifierType& itemId)
     {
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
         if( it == m_callbacks.end() ) {
@@ -54,8 +54,8 @@ public:
         return x;
     }
 
-    //! register object's creation function
-    bool registerItem(const IdentifierType &itemId, CreateItemCallback CreateFn)
+    //! Registers object's creation function
+    bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn)
     {
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
         if( it != m_callbacks.end() ) {
@@ -65,8 +65,8 @@ public:
         return m_callbacks.insert( typename CallbackMap_t::value_type(itemId, CreateFn)).second;
     }
 
-    //! register object's creation function and store object description
-    bool registerItem(const IdentifierType &itemId, CreateItemCallback CreateFn, const IdentifierType &itemDescription)
+    //! Registers object's creation function and store object description
+    bool registerItem(const IdentifierType& itemId, CreateItemCallback CreateFn, const IdentifierType& itemDescription)
     {
         typename CallbackMap_t::const_iterator it = m_callbacks.find(itemId);
         if( it != m_callbacks.end() ) {
@@ -76,7 +76,6 @@ public:
         m_descriptions.insert( typename DescriptionMap_t::value_type(itemId, itemDescription));
         return m_callbacks.insert( typename CallbackMap_t::value_type(itemId, CreateFn)).second;
     }
-
 
     ~IFactory()
     {
@@ -96,13 +95,13 @@ public:
         m_objects.clear();
     }
 
-    //! set flag to delete objects on descruction
+    //! Sets flag to delete objects on descruction
     void setOwnObjects(bool own_objects) { m_own_objects = own_objects; }
 
-    //! return number of registered objects
+    //! Returns number of registered objects
     size_t getNumberOfRegistered() const { return m_callbacks.size(); }
 
-protected:
+ protected:
     bool m_own_objects;         //!< will store created objects in the list and then delete them on exit then true
     CallbackMap_t m_callbacks;     //!< map of correspondance of objectsId and creation functions
     DescriptionMap_t m_descriptions;     //!< map of correspondance of objectsId and description
@@ -115,9 +114,6 @@ Base *IFactoryCreateFunction()
 {
     return new Derived;
 }
-
-
-
 
 #endif // IFACTORY_H
 

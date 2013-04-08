@@ -1,52 +1,56 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/inc/ISelectionRule.h
+//! @brief     Defines classes ISelectionRule, SimpleSelectionRule
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ISELECTIONRULE_H_
 #define ISELECTIONRULE_H_
 
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ISelectionRule.h
-//! @brief  Definition of ISelectionRule interface
-//! @author Scientific Computing Group at FRM II
-//! @date   Sep 11, 2012
+#include "BasicVector3D.h"
 
-#include "Coordinate3D.h"
+typedef Geometry::BasicVector3D<int> IndexVector3D;
+
+//! Pure virtual base class for selection rules.
 
 class ISelectionRule
 {
-public:
+ public:
     virtual ~ISelectionRule() {}
 
     virtual ISelectionRule *clone() const=0;
 
-    virtual bool coordinateSelected(const Coordinate3D<int> &coordinate) const=0;
+    virtual bool coordinateSelected(const IndexVector3D& coordinate) const=0;
 };
+
+//! Selection rule (v*q)%modulus!=0, defined by vector v(a,b,c) and modulus.
 
 class SimpleSelectionRule : public ISelectionRule
 {
-public:
+ public:
     SimpleSelectionRule(int a, int b, int c, int modulus);
     virtual ~SimpleSelectionRule() {}
 
     virtual SimpleSelectionRule *clone() const;
 
-    virtual bool coordinateSelected(const Coordinate3D<int> &coordinate) const;
-private:
+    virtual bool coordinateSelected(const IndexVector3D& coordinate) const;
+ private:
     int m_a, m_b, m_c;
     int m_mod;
 };
 
-inline SimpleSelectionRule::SimpleSelectionRule(int a, int b, int c,
-        int modulus)
-: m_a(a), m_b(b), m_c(c)
-, m_mod(modulus)
-{
-}
+inline SimpleSelectionRule::SimpleSelectionRule(
+    int a, int b, int c, int modulus)
+    : m_a(a), m_b(b), m_c(c), m_mod(modulus) {}
 
 inline SimpleSelectionRule* SimpleSelectionRule::clone() const
 {
@@ -54,9 +58,11 @@ inline SimpleSelectionRule* SimpleSelectionRule::clone() const
 }
 
 inline bool SimpleSelectionRule::coordinateSelected(
-        const Coordinate3D<int> &coordinate) const
+        const IndexVector3D& coordinate) const
 {
     return (m_a*coordinate[0]+m_b*coordinate[1]+m_c*coordinate[2])%m_mod == 0;
 }
 
 #endif /* ISELECTIONRULE_H_ */
+
+

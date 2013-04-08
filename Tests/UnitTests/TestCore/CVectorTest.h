@@ -8,7 +8,7 @@
 
 class CVectorTest : public ::testing::Test
 {
-protected:
+ protected:
     CVectorTest();
     virtual ~CVectorTest();
 };
@@ -37,8 +37,6 @@ TEST_F(CVectorTest, BasicArithmetics)
     cvector_t e(1,2,3);
     cvector_t f(5,6,7);
     EXPECT_TRUE( (e+complex_t(0,1)*f) == cvector_t(complex_t(1.,5.), complex_t(2.,6), complex_t(3,7)) );
-
-    std::cout << e*f << std::endl;
 }
 
 

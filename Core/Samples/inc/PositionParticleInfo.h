@@ -1,59 +1,70 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/inc/PositionParticleInfo.h
+//! @brief     Defines class PositionParticleInfo.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef POSITIONPARTICLEINFO_H_
 #define POSITIONPARTICLEINFO_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   PositionParticleInfo.h
-//! @brief  Definition of
-//! @author Scientific Computing Group at FRM II
-//! @date   Jan 7, 2013
 
 #include "ParticleInfo.h"
 
-//- -------------------------------------------------------------------
-//! @class PositionParticleInfo
-//! @brief holds additional information about particle and position
-//! (used in IsGISAXSMorphologyFileDecoration)
-//- -------------------------------------------------------------------
+//! Enhances ParticleInfo by position in x and y.
+
+//! Used in IsGISAXSMorphologyFileDecoration.
+//! Note that position in z ("depth") is inherited from ParticleInfo.
+//!
 class PositionParticleInfo : public ParticleInfo
 {
-public:
-    //! constructor for positioned particle info having transformation property, position and abundance
-    PositionParticleInfo(Particle *p_particle,
-            Geometry::Transform3D *p_transform, kvector_t position,
-            double abundance=0);
-    PositionParticleInfo(Particle *p_particle, kvector_t position,
-            double abundance=0);
+ public:
+    PositionParticleInfo(
+        Particle *p_particle, const Geometry::PTransform3D& transform,
+        kvector_t position, double abundance=0);
 
-    virtual ~PositionParticleInfo();
+    PositionParticleInfo(
+        const Particle& particle, const Geometry::PTransform3D& transform,
+        kvector_t position, double abundance=0);
 
-    //! clone particle info
+    PositionParticleInfo(
+        Particle *p_particle, kvector_t position, double abundance=0);
+
+    PositionParticleInfo(
+        const Particle& particle, kvector_t position, double abundance=0);
+
+    virtual ~PositionParticleInfo() {}
+
     virtual PositionParticleInfo *clone() const;
 
-    //! return particle
+    //! Returns particle.
     const Particle *getParticle() const { return mp_particle; }
 
-    //! return particle position
-    kvector_t getPosition() const { return kvector_t(m_pos_x, m_pos_y, -m_depth); }
+    //! Returns particle position, including depth.
+    kvector_t getPosition() const
+    { return kvector_t(m_pos_x, m_pos_y, -m_depth); }
 
-    //! set particle position
+    //! Sets particle position, including depth.
     void setPosition(kvector_t position);
 
-protected:
-    PositionParticleInfo &operator=(const PositionParticleInfo &right);
-    PositionParticleInfo(const PositionParticleInfo &source);
+ protected:
+    PositionParticleInfo& operator=(const PositionParticleInfo& right);
+    PositionParticleInfo(const PositionParticleInfo& source);
 
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+    //! Registers some class members for later access via parameter pool
     virtual void init_parameters();
+
     double m_pos_x;
     double m_pos_y;
 };
 
-
 #endif /* POSITIONPARTICLEINFO_H_ */
+
+

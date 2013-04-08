@@ -1,40 +1,44 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/inc/ChiSquaredModule.h
+//! @brief     Defines class ChiSquaredModule.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef CHISQUAREDMODULE_H_
 #define CHISQUAREDMODULE_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ChiSquaredModule.h
-//! @brief  Definition of ChiSquaredModule class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 20, 2012
 
 #include "IChiSquaredModule.h"
 
 class ChiSquaredModule : public IChiSquaredModule
 {
-public:
-    ChiSquaredModule(){}
-    ChiSquaredModule(const ChiSquaredModule &other);
-    virtual ~ChiSquaredModule();
+ public:
+    ChiSquaredModule() {}
+    ChiSquaredModule(const ChiSquaredModule& other)
+        : IChiSquaredModule(other) {}
+    virtual ~ChiSquaredModule() {}
 
-    virtual ChiSquaredModule *clone() const;
+    virtual ChiSquaredModule *clone() const
+    { return new ChiSquaredModule(*this); }
 
-    //! calculate chi squared volume over experimental and simulated data
+    //! Returns chi squared volume over experimental and simulated data.
     virtual double calculateChiSquared();
 
-    //! return output data which contains chi^2 values
-    virtual OutputData<double > *createChi2DifferenceMap() const;
+    //! Returns output data which contains chi^2 values.
+    virtual OutputData<double> *createChi2DifferenceMap() const;
 
-    //! return residual between data and simulation for single element
+    //! Returns residual between data and simulation for single element.
     virtual double getResidualValue(size_t index ) const;
-
 };
 
-
 #endif /* CHISQUAREDMODULE_H_ */
+
+

@@ -1,72 +1,65 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/ISingleton.h
+//! @brief     Defines the standard mix-in ISingleton.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef ISINGLETON_H
 #define ISINGLETON_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ISingleton.h
-//! @brief  Definition of singleton base template
-//! @author Scientific Computing Group at FRM II
-//! @date   20.04.2012
 
 #include <stdexcept>
 #include <iostream>
 #include <typeinfo>
-
+#include <boost/thread.hpp>
 
 template <class T>
 class ISingleton
 {
-public:
-
-    static T &instance()
+ public:
+    static T& instance()
     {
-        // check if exists, if not, then initialise
+        static boost::mutex single_mutex;
+        boost::unique_lock<boost::mutex> single_lock( single_mutex );
         if( !m_instance) {
-            // check for dead reference (i.e. object has been initialised but then somebody managed to delete it)
             if( m_destroyed ) {
                 onDeadReference();
             } else {
-                // first call initalise
-                create_singleton();
+                CreateSingleton();
             }
         }
-        //std::cout << "ISingleton::instance() -> Info. Accesing instance... " << m_instance << std::endl;
         return *m_instance;
     }
 
-protected:
+ protected:
     ISingleton(){}
     virtual ~ISingleton()
     {
-        //std::cout << "ISingleton::~ISingleton() -> Deleting singleton" << std::endl;
         m_instance = 0;
         m_destroyed = true;
     }
 
-    static void create_singleton()
+    static void CreateSingleton()
     {
         static T theInstance;
-        m_instance = &theInstance;
-        //std::cout << "ISingleton::create_singleton() -> Info. Creating singleton " << m_instance << " of type '" << (typeid(theInstance).name()) << "'." << std::endl;
+        m_instance =& theInstance;
     }
 
-    static void onDeadReference()
-    {
-        throw std::runtime_error("ISingleton::onDeadReference()");
-    }
+    static void onDeadReference() { throw std::runtime_error("ISingleton::onDeadReference()"); }
 
     typedef T* T_Pointer;
 
-
-private:
-    ISingleton(const ISingleton<T> &) {}
-    ISingleton &operator=(const ISingleton<T> &) { throw std::runtime_error("ISingleton::operator=()"); }
+ private:
+    ISingleton(const ISingleton<T>& ) {}
+    ISingleton& operator=(const ISingleton<T>& ) { throw std::runtime_error("ISingleton::operator=()"); }
 
     static T_Pointer m_instance;
     static bool m_destroyed;
@@ -76,5 +69,6 @@ private:
 template<class T > typename ISingleton<T>::T_Pointer ISingleton<T>::m_instance = 0;
 template< class T> bool ISingleton<T>::m_destroyed = false;
 
-
 #endif // ISINGLETON_H
+
+

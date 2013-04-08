@@ -1,15 +1,15 @@
 #include "IsGISAXS07.h"
+#include "Rotate3D.h"
 #include "MultiLayer.h"
 #include "MaterialManager.h"
-#include "IsGISAXSMorphologyFileDecoration.h"
 #include "FormFactorBox.h"
 #include "ParticleDecoration.h"
 #include "LayerDecorator.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "OutputDataIOFactory.h"
+#include "PositionParticleInfo.h"
 #include "Utils.h"
 #include "Units.h"
-
 #include <iostream>
 #include <cmath>
 
@@ -19,98 +19,103 @@ FunctionalTests::IsGISAXS07::IsGISAXS07()
     , m_result(0)
 { }
 
+
 void FunctionalTests::IsGISAXS07::run()
 {
-    // ---------------------
     // building sample
-    // ---------------------
     MultiLayer multi_layer;
-    const IMaterial *p_air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
     Layer air_layer;
     air_layer.setMaterial(p_air_material);
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    IsGISAXSMorphologyFileDecoration particle_decoration;
+    ParticleDecoration particle_decoration;
+
     // add particle number 1:
     FormFactorBox ff1(1.0*Units::nanometer, 1.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos1(0.0*Units::nanometer, 0.0*Units::nanometer, 0.0);
-    particle_decoration.addParticle(new Particle(n_particle, ff1), 0, pos1, 0.5);
+    PositionParticleInfo particle_info1(new Particle(n_particle, ff1), pos1, 0.5);
+    particle_decoration.addParticleInfo(particle_info1);
     // add particle number 2:
     FormFactorBox ff2(1.0*Units::nanometer, 2.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos2(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot2(10*Units::degree);
-    Particle particle2(n_particle, ff2);
-    particle_decoration.addParticle(particle2, rot2, pos2, 0.5);
+    Geometry::PTransform3D m2( new Geometry::RotateZ_3D(10*Units::degree));
+    PositionParticleInfo particle_info2(new Particle(n_particle, ff2), m2, pos2, 0.5);
+    particle_decoration.addParticleInfo(particle_info2);
     // add particle number 3:
     FormFactorBox ff3(1.0*Units::nanometer, 3.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos3(-5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot3(20*Units::degree);
-    Particle particle3(n_particle, ff3);
-    particle_decoration.addParticle(particle3, rot3, pos3, 0.5);
+    Geometry::PTransform3D m3( new Geometry::RotateZ_3D(20*Units::degree));
+    PositionParticleInfo particle_info3(new Particle(n_particle, ff3), m3, pos3, 0.5);
+    particle_decoration.addParticleInfo(particle_info3);
     // add particle number 4:
     FormFactorBox ff4(1.0*Units::nanometer, 4.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos4(5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot4(30*Units::degree);
-    Particle particle4(n_particle, ff4);
-    particle_decoration.addParticle(particle4, rot4, pos4, 0.5);
+    Geometry::PTransform3D m4( new Geometry::RotateZ_3D(30*Units::degree));
+    PositionParticleInfo particle_info4(new Particle(n_particle, ff4), m4, pos4, 0.5);
+    particle_decoration.addParticleInfo(particle_info4);
     // add particle number 5:
     FormFactorBox ff5(1.0*Units::nanometer, 5.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos5(-5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot5(40*Units::degree);
-    Particle particle5(n_particle, ff5);
-    particle_decoration.addParticle(particle5, rot5, pos5, 0.5);
+    Geometry::PTransform3D m5( new Geometry::RotateZ_3D(40*Units::degree));
+    PositionParticleInfo particle_info5(new Particle(n_particle, ff5), m5, pos5, 0.5);
+    particle_decoration.addParticleInfo(particle_info5);
     // add particle number 6:
     FormFactorBox ff6(1.0*Units::nanometer, 1.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos6(0.0*Units::nanometer, 0.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot6(50*Units::degree);
-    Particle particle6(n_particle, ff6);
-    particle_decoration.addParticle(particle6, rot6, pos6, 0.5);
+    Geometry::PTransform3D m6( new Geometry::RotateZ_3D(50*Units::degree));
+    PositionParticleInfo particle_info6(new Particle(n_particle, ff6), m6, pos6, 0.5);
+    particle_decoration.addParticleInfo(particle_info6);
     // add particle number 7:
     FormFactorBox ff7(1.0*Units::nanometer, 2.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos7(5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot7(60*Units::degree);
-    Particle particle7(n_particle, ff7);
-    particle_decoration.addParticle(particle7, rot7, pos7, 0.5);
+    Geometry::PTransform3D m7( new Geometry::RotateZ_3D(60*Units::degree));
+    PositionParticleInfo particle_info7(new Particle(n_particle, ff7), m7, pos7, 0.5);
+    particle_decoration.addParticleInfo(particle_info7);
     // add particle number 8:
     FormFactorBox ff8(1.0*Units::nanometer, 3.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos8(-5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot8(70*Units::degree);
-    Particle particle8(n_particle, ff8);
-    particle_decoration.addParticle(particle8, rot8, pos8, 0.5);
+    Geometry::PTransform3D m8( new Geometry::RotateZ_3D(70*Units::degree));
+    PositionParticleInfo particle_info8(new Particle(n_particle, ff8), m8, pos8, 0.5);
+    particle_decoration.addParticleInfo(particle_info8);
     // add particle number 9:
     FormFactorBox ff9(1.0*Units::nanometer, 4.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos9(5.0*Units::nanometer, -5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot9(80*Units::degree);
-    Particle particle9(n_particle, ff9);
-    particle_decoration.addParticle(particle9, rot9, pos9, 0.5);
+    Geometry::PTransform3D m9( new Geometry::RotateZ_3D(80*Units::degree));
+    PositionParticleInfo particle_info9(new Particle(n_particle, ff9), m9, pos9, 0.5);
+    particle_decoration.addParticleInfo(particle_info9);
     // add particle number 10:
     FormFactorBox ff10(1.0*Units::nanometer, 5.0*Units::nanometer,1.0*Units::nanometer);
     kvector_t pos10(-5.0*Units::nanometer, 5.0*Units::nanometer, 0.0);
-    Geometry::RotateZ3D rot10(90*Units::degree);
-    Particle particle10(n_particle, ff10);
-    particle_decoration.addParticle(particle10, rot10, pos10, 0.5);
+    Geometry::PTransform3D m10( new Geometry::RotateZ_3D(90*Units::degree));
+    PositionParticleInfo particle_info10(new Particle(n_particle, ff10), m10, pos10, 0.5);
+    particle_decoration.addParticleInfo(particle_info10);
 
     LayerDecorator air_layer_decorator(air_layer, particle_decoration);
     multi_layer.addLayer(air_layer_decorator);
 
     // ---------------------
-    // building experiment
+    // building simulation
     // ---------------------
-    GISASExperiment experiment;
-    experiment.setDetectorParameters(100, 0.0*Units::degree, 1.0*Units::degree,
+    Simulation simulation;
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 1.0*Units::degree,
                 100, 0.0*Units::degree, 1.0*Units::degree, true);
-    experiment.setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);
+    simulation.setBeamParameters(1.0*Units::angstrom, 0.0*Units::degree, 0.0*Units::degree);
+
+    SimulationParameters sim_params;
+    sim_params.me_if_approx = SimulationParameters::ISGISAXSMOR;
+    simulation.setSimulationParameters(sim_params);
 
     // ---------------------
-    // running experiment
+    // running simulation
     // ---------------------
-    experiment.setSample(multi_layer);
-    experiment.runSimulation();
+    simulation.setSample(multi_layer);
+    simulation.runSimulation();
 
     // ---------------------
     // copying data
     // ---------------------
-    m_result = experiment.getOutputDataClone();
+    m_result = simulation.getOutputDataClone();
 }
 
 int FunctionalTests::IsGISAXS07::analyseResults()
@@ -131,12 +136,11 @@ int FunctionalTests::IsGISAXS07::analyseResults()
     diff /= m_result->getAllocatedSize();
 
     bool status_ok(true);
-    if( diff > threshold ) status_ok=false;
+    if( diff > threshold || std::isnan(diff)) status_ok=false;
 
     std::cout << m_name << " " << m_description << " " << (status_ok ? "[OK]" : "[FAILED]") << std::endl;
-    return (int)status_ok;
+    return (status_ok ? 0 : 1);
 }
-
 
 #ifdef STANDALONE
 int main()

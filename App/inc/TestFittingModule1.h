@@ -1,55 +1,54 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/inc/TestFittingModule1.h
+//! @brief     Defines class TestFittingModule1.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef TESTFITTINGMODULE1_H_
 #define TESTFITTINGMODULE1_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestFittingModule1.h
-//! @brief  Definition of TestFittingModule class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 20, 2012
-
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
 #include "ISample.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "ISampleBuilder.h"
-
 
 class FitSuite;
 
-//- -------------------------------------------------------------------
-//! @class TestFittingModule1
-//! @brief Testing of fitting module with simple samples
-//- -------------------------------------------------------------------
+//! Test of fitting module with simple samples.
+
 class TestFittingModule1 : public IFunctionalTest
 {
-public:
+ public:
     TestFittingModule1();
     virtual ~TestFittingModule1();
     virtual void execute();
 
-private:
-    //! initialize sample: layer + nanoparticles, 2 parameters
+ private:
+    //! Initializes sample: layer + nanoparticles, 2 parameters
     void initializeSample1();
-    //! initialize sample: layer + substrate + nanoparticles, 4 parameters
+    //! Initializes sample: layer + substrate + nanoparticles, 4 parameters
     void initializeSample2();
 
-    void initializeExperiment();
+    void initializeSimulation();
     void initializeRealData();
 
     OutputData<double> *mp_real_data;
     OutputData<double> *mp_simulated_data;
-    GISASExperiment *mp_experiment;
+    Simulation *mp_simulation;
     ISample *mp_sample;
     FitSuite *m_fitSuite;
 };
 
-
 #endif /* TESTFITTINGMODULE1_H_ */
+
+

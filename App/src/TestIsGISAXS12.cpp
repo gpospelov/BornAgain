@@ -1,10 +1,24 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestIsGISAXS12.cpp
+//! @brief     Implements class TestIsGISAXS12.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestIsGISAXS12.h"
 #include "DrawHelper.h"
-#include "ExperimentConstants.h"
 #include "FitSuite.h"
 #include "FitSuiteObserverFactory.h"
 #include "FormFactorCylinder.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 #include "InterferenceFunction1DParaCrystal.h"
 #include "InterferenceFunctionNone.h"
 #include "IsGISAXSData.h"
@@ -45,7 +59,7 @@
 /* ************************************************************************* */
 TestIsGISAXS12::TestIsGISAXS12()
     : IFunctionalTest("TestIsGISAXS12")
-    , m_experiment(0)
+    , m_simulation(0)
     , m_sample_builder(0)
     , m_fitSuite(0)
 {
@@ -56,7 +70,7 @@ TestIsGISAXS12::TestIsGISAXS12()
 
 TestIsGISAXS12::~TestIsGISAXS12()
 {
-    delete m_experiment;
+    delete m_simulation;
     delete m_sample_builder;
     delete m_fitSuite;
 }
@@ -67,8 +81,8 @@ TestIsGISAXS12::~TestIsGISAXS12()
 /* ************************************************************************* */
 void TestIsGISAXS12::execute()
 {
-    // initializing experiment and sample builder
-    initialiseExperiment();
+    // initializing simulation and sample builder
+    initializeSimulation();
 
     // run our standard isgisaxs comparison for given sample
     //run_isgisaxs_comparison();
@@ -92,8 +106,8 @@ void TestIsGISAXS12::execute()
 void TestIsGISAXS12::run_isgisaxs_comparison()
 {
     // run simulation for default sample parameters
-    m_experiment->runSimulation();
-    OutputDataIOFactory::writeOutputData(*(m_experiment->getOutputData()), getOutputPath()+"this_fitconstraints.ima");
+    m_simulation->runSimulation();
+    OutputDataIOFactory::writeOutputData(*(m_simulation->getOutputData()), getOutputPath()+"this_fitconstraints.ima");
 
     // plotting results of comparison we/isgisaxs for the sample with default parameters
     std::string isgi_file(getOutputPath()+"isgi_fitconstraints_optimal.ima.gz");
@@ -130,7 +144,7 @@ void TestIsGISAXS12::plot_isgisaxs_fit_results()
     print_axes(isgi_scans_smoothed);
     print_axes(isgi_results);
 
-    TCanvas *c1 = DrawHelper::instance().createAndRegisterCanvas("c1_isgisaxs_data", "Looking on IsGISAXS data and fit results", 768, 1024);
+    TCanvas *c1 = DrawHelper::createAndRegisterCanvas("c1_isgisaxs_data", "Looking on IsGISAXS data and fit results", 768, 1024);
     c1->Divide(2,3);
 
     // drawing real data with fine and coars granularity on top of each other
@@ -185,7 +199,6 @@ void TestIsGISAXS12::plot_isgisaxs_fit_results()
     c1->cd(6); leg3->Draw();
 
     c1->Update();
-
 }
 
 
@@ -224,16 +237,16 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     // setting up fitSuite
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
-    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
+    chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
 
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans.begin(); it!= isgi_scans.end(); ++it) {
-        m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it), chiModule);
+        m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it), chiModule);
     }
 
     m_fitSuite->runFit();
 
     // drawing results
-    TCanvas *c2 = new TCanvas("c2","GISASFW fit results",800,600);
+    TCanvas *c2 = new TCanvas("c2","BornAgain fit results",800,600);
     c2->Divide(2,2);
     TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
     leg1->SetBorderSize(1);
@@ -241,14 +254,14 @@ void TestIsGISAXS12::run_isgisaxs_fit()
     for(size_t i_set=0; i_set<m_fitSuite->getFitObjects()->size(); ++i_set) {
         c2->cd((int)i_set+1);
         const FitObject *obj = m_fitSuite->getFitObjects()->getObject(i_set);
-        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"gisasfw_real");
-        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"gisasfw_simul");
+        TH1D *hreal = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getRealData(),"BornAgain_real");
+        TH1D *hsimul = IsGISAXSTools::getOutputDataScanHist(*obj->getChiSquaredModule()->getSimulationData(),"BornAgain_simul");
         hreal->SetLineColor(kBlue);
         gPad->SetLogy();
         hreal->DrawCopy();
         hsimul->DrawCopy("same");
-        if(i_set==0) leg1->AddEntry(hreal,"GISASFW data","lp");
-        if(i_set==0) leg1->AddEntry(hsimul,"GISASFW simul","lp");
+        if(i_set==0) leg1->AddEntry(hreal,"BornAgain data","lp");
+        if(i_set==0) leg1->AddEntry(hsimul,"BornAgain simul","lp");
     }
     c2->cd(1); leg1->Draw();
     c2->cd(2); leg1->Draw();
@@ -265,10 +278,10 @@ void TestIsGISAXS12::run_isgisaxs_fit()
 
         c2->cd((int)(i_set+3));
         *simul /= *real;
-        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"gisasfw_real_simul_ratio");
+        TH1D *hratio = IsGISAXSTools::getOutputDataScanHist(*simul,"BornAgain_real_simul_ratio");
         hratio->DrawCopy();
         if(i_set==0) {
-            leg2->AddEntry(hratio,"GISASFW simul/real","lp");
+            leg2->AddEntry(hratio,"BornAgain simul/real","lp");
         }
         delete real;
         delete simul;
@@ -297,7 +310,7 @@ void TestIsGISAXS12::run_test_chimodule()
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
 
-    OutputDataNormalizerScaleAndShift normalizer(1.31159E+05, -8.10009E-02);
+    OutputDataNormalizer normalizer(1.31159E+05, -8.10009E-02);
 
     double max_intensity(0);
     for(int i=0; i<(int)isgi_results.size(); ++i) {
@@ -358,19 +371,16 @@ void TestIsGISAXS12::run_test_minimizer()
     // setting up fitSuite
     ChiSquaredModule chiModule;
     chiModule.setChiSquaredFunction( SquaredFunctionWithSystematicError(0.08) );
-    chiModule.setOutputDataNormalizer( OutputDataNormalizerScaleAndShift() );
-//    for(DataSet::iterator it=isgi_results.begin(); it!= isgi_results.end(); ++it) {
-//        m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it), chiModule);
-//    }
+    chiModule.setOutputDataNormalizer( OutputDataNormalizer() );
     for(IsGISAXSData::DataSet_t::iterator it=isgi_scans_smoothed.begin(); it!= isgi_scans_smoothed.end(); ++it) {
-        m_fitSuite->addExperimentAndRealData(*m_experiment, *(*it), chiModule);
+        m_fitSuite->addSimulationAndRealData(*m_simulation, *(*it), chiModule);
     }
     m_fitSuite->runFit();
 
     TCanvas *c1 = new TCanvas("c1_test_minimizer","TestMinimizer", 800, 600);
     c1->Divide(2,2);
 
-    // drawing GISASFW simul on top of isgisaxs simul
+    // drawing BornAgain simul on top of isgisaxs simul
     TLegend *leg1 = new TLegend(0.5,0.6,0.85,0.85);
     leg1->SetBorderSize(1);
     leg1->SetFillStyle(0);
@@ -386,7 +396,7 @@ void TestIsGISAXS12::run_test_minimizer()
         simul_data->DrawCopy("same");
 
         if(i_set==0) leg1->AddEntry(hdata,"isgisaxs results","lp");
-        if(i_set==0) leg1->AddEntry(simul_data,"gisasfw simul","lp");
+        if(i_set==0) leg1->AddEntry(simul_data,"BornAgain simul","lp");
     }
     c1->cd(1); leg1->Draw();
     c1->cd(2); leg1->Draw();
@@ -398,11 +408,11 @@ void TestIsGISAXS12::run_test_minimizer()
         c1->cd(3+i_set);
         OutputData<double > *data = m_fitSuite->getFitObjects()->getObject(i_set)->getChiSquaredModule()->getSimulationData()->clone();
         *data /= *isgi_results[i_set];
-        TH1D *hdata = IsGISAXSTools::getOutputDataScanHist(*data, "gisasfw_isgisaxs_simul");
+        TH1D *hdata = IsGISAXSTools::getOutputDataScanHist(*data, "BornAgain_isgisaxs_simul");
         hdata->SetLineColor(kRed);
         hdata->DrawCopy();
         delete data;
-        if(i_set==0) leg2->AddEntry(hdata,"gisasfw/isgisaxs simul","lp");
+        if(i_set==0) leg2->AddEntry(hdata,"BornAgain/isgisaxs simul","lp");
     }
     c1->cd(3); leg1->Draw();
     c1->cd(4); leg1->Draw();
@@ -410,17 +420,17 @@ void TestIsGISAXS12::run_test_minimizer()
 
 
 /* ************************************************************************* */
-// initialize experiment
+// initialize simulation
 /* ************************************************************************* */
-void TestIsGISAXS12::initialiseExperiment()
+void TestIsGISAXS12::initializeSimulation()
 {
     delete m_sample_builder;
     m_sample_builder = new TestSampleBuilder();
-    delete m_experiment;
-    m_experiment = new GISASExperiment(mp_options);
-    m_experiment->setSampleBuilder(m_sample_builder);
-    m_experiment->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
-    m_experiment->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+    delete m_simulation;
+    m_simulation = new Simulation(mp_options);
+    m_simulation->setSampleBuilder(m_sample_builder);
+    m_simulation->setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree, 100, 0.0*Units::degree, 2.0*Units::degree, true);
+    m_simulation->setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 }
 
 
@@ -466,8 +476,10 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     MultiLayer *p_multi_layer = new MultiLayer();
 
     complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *air_material = MaterialManager::instance().addHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *substrate_material = MaterialManager::instance().addHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+    const IMaterial *air_material =
+        MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+    const IMaterial *substrate_material =
+        MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
 
     Layer air_layer(air_material);
 
@@ -491,8 +503,10 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
     double sigma1 = radius1*m_dispersion_radius1;
     double sigma2 = radius2*m_dispersion_radius2;
     int nfwhm(2); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    StochasticSampledParameter par1(StochasticDoubleGaussian(radius1, sigma1), nbins, nfwhm);
-    StochasticSampledParameter par2(StochasticDoubleGaussian(radius2, sigma2), nbins, nfwhm);
+    StochasticDoubleGaussian sg1(radius1, sigma1);
+    StochasticDoubleGaussian sg2(radius2, sigma2);
+    StochasticSampledParameter par1(sg1, nbins, nfwhm);
+    StochasticSampledParameter par2(sg2, nbins, nfwhm);
 
     ParticleDecoration particle_decoration;
     IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(m_interf_distance, m_interf_width, 1e7*Units::nanometer); // peak_distance, width, corr_length
@@ -517,17 +531,19 @@ ISample *TestIsGISAXS12::TestSampleBuilder::buildSample() const
 }
 
 
-void TestIsGISAXS12::print_axes(IsGISAXSData::DataSet_t &data)
+void TestIsGISAXS12::print_axes(IsGISAXSData::DataSet_t& data)
 {
     for(size_t i_set=0; i_set<data.size(); ++i_set) {
         std::cout << "scan #" << i_set << "  ";
-        for(size_t i_axis=0; i_axis<data[(int)i_set]->getNdimensions(); ++i_axis) {
+        for(size_t i_axis=0; i_axis<data[(int)i_set]->getRank(); ++i_axis) {
             const IAxis *axis = data[(int)i_set]->getAxis(i_axis);
             std::cout << "( " << axis->getName() << ", " << axis->getSize() << ", " << axis->getMin() << ", " << axis->getMax() << " )   ";
         }
         std::cout << std::endl;
     }
 }
+
+
 
 
 

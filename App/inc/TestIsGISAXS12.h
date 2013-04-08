@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/inc/TestIsGISAXS12.h
+//! @brief     Defines class TestIsGISAXS12.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef TESTISGISAXS12_H
 #define TESTISGISAXS12_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestIsGISAXS12.h
-//! @brief  Definition of TestIsGISAXS12 class for IsGISAXS validation
-//! @author Scientific Computing Group at FRM II
-//! @date   08.11.2012
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
@@ -21,21 +23,19 @@
 #include "ISampleBuilder.h"
 #include <string>
 
-class GISASExperiment;
+class Simulation;
 class FitSuite;
 
-//- -------------------------------------------------------------------
-//! @class TestIsGISAXS12
-//! @brief Comparison with IsGISAXS ex-12: constrained fit example
-//- -------------------------------------------------------------------
+//! IsGISAXS ex#12: Constrained fit.
+
 class TestIsGISAXS12 : public IFunctionalTest
 {
-public:
+ public:
     TestIsGISAXS12();
     virtual ~TestIsGISAXS12();
     virtual void execute();
 
-private:
+ private:
 
     //! builds IsGISAXS ex-12 sample
     class TestSampleBuilder : public ISampleBuilder
@@ -46,7 +46,7 @@ private:
 
         virtual ISample *buildSample() const;
     protected:
-        //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+        //! Registers some class members for later access via parameter pool
         virtual void init_parameters();
         double m_particle_probability1;
         double m_particle_radius1;
@@ -60,8 +60,8 @@ private:
         double m_interf_width;
     };
 
-    //! initialize experiment
-    void initialiseExperiment();
+    //! Initializes simulation
+    void initializeSimulation();
 
     //! run standard isgisaxs comparison
     void run_isgisaxs_comparison();
@@ -81,12 +81,13 @@ private:
     //! run test minimizer to check whole chain
     void run_test_minimizer();
     //!  print axes
-    void print_axes(IsGISAXSData::DataSet_t &data);
+    void print_axes(IsGISAXSData::DataSet_t& data);
 
-    GISASExperiment *m_experiment;
+    Simulation *m_simulation;
     ISampleBuilder *m_sample_builder;
     FitSuite *m_fitSuite;
 };
 
-
 #endif // TESTISGISAXS12_H
+
+

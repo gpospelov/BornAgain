@@ -1,24 +1,29 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/MemberFunctionIntegrator.h
+//! @brief     Defines and implements template class MemberFunctionIntegrator.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MEMBERFUNCTIONINTEGRATOR_H_
 #define MEMBERFUNCTIONINTEGRATOR_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   MemberFunctionIntegrator.h
-//! @brief  Definition of MemberFunctionIntegrator template
-//! @author Scientific Computing Group at FRM II
-//! @date   Nov 26, 2012
 
 #include "gsl/gsl_integration.h"
+#include <cassert>
+
+//! Wrap integrator from GNU Scientific Library.
 
 template <class C> class MemberFunctionIntegrator
 {
-public:
+ public:
     //! member function type
     typedef double (C::*mem_function)(double, void*) const;
 
@@ -29,19 +34,22 @@ public:
         void *m_data;
     };
 
-    //! constructor taking a member function and the object whose member function to integrate
     MemberFunctionIntegrator();
-    MemberFunctionIntegrator(mem_function p_member_function, const C *const p_object);
+    //! to integrate p_member_function, which must belong to p_object
+    MemberFunctionIntegrator(
+        mem_function p_member_function, const C *const p_object);
     ~MemberFunctionIntegrator();
 
     //! perform the actual integration over the range [lmin, lmax]
     double integrate(double lmin, double lmax, void *params);
 
-    //! set integrand
-    void setIntegrand(mem_function member_function) { m_member_function = member_function; }
-    void setIntegrand(mem_function member_function, const C *const p_object) { m_member_function = member_function; mp_object = p_object; }
+    //! Sets integrand
+    void setIntegrand(mem_function member_function)
+    { m_member_function = member_function; }
+    void setIntegrand(mem_function member_function, const C *const p_object)
+    { m_member_function = member_function; mp_object = p_object; }
 
-private:
+ private:
     //! static function that can be passed to gsl integrator
     static double StaticCallBack(double d, void *v) {
         CallBackHolder *p_cb = static_cast<CallBackHolder *>(v);
@@ -75,8 +83,6 @@ template<class C> MemberFunctionIntegrator<C>::~MemberFunctionIntegrator()
     gsl_integration_workspace_free(m_gsl_workspace);
 }
 
-
-
 template<class C> double MemberFunctionIntegrator<C>::integrate(
         double lmin, double lmax, void* params)
 {
@@ -87,17 +93,15 @@ template<class C> double MemberFunctionIntegrator<C>::integrate(
 
     gsl_function f;
     f.function = StaticCallBack;
-    f.params = &cb;
-
-//    gsl_integration_workspace *ws = gsl_integration_workspace_alloc(200);
-//    double result, error;
-//    gsl_integration_qag(&f, lmin, lmax, 1e-10, 1e-8, 50, 1, ws, &result, &error);
-//    gsl_integration_workspace_free(ws);
+    f.params =& cb;
 
     double result, error;
-    gsl_integration_qag(&f, lmin, lmax, 1e-10, 1e-8, 50, 1, m_gsl_workspace, &result, &error);
+    gsl_integration_qag(&f, lmin, lmax, 1e-10, 1e-8, 50, 1,
+                        m_gsl_workspace, &result, &error);
 
     return result;
 }
 
 #endif /* MEMBERFUNCTIONINTEGRATOR_H_ */
+
+

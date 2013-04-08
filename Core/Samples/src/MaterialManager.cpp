@@ -1,49 +1,75 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/src/MaterialManager.cpp
+//! @brief     Implements class MaterialManager.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "MaterialManager.h"
 #include "Exceptions.h"
+#include "MessageService.h"
+#include <boost/thread.hpp>
 
+//! Materials database type.
 
-/* ************************************************************************* */
-// cleaning material database
-/* ************************************************************************* */
+typedef std::map<std::string, IMaterial*> materials_t;
+
+//! Clear database.
+
 void MaterialManager::clear() {
-    for(materials_t::iterator it = m_materials.begin(); it!= m_materials.end(); ++it) {
-        if( (*it).second ) delete (*it).second;
+    static boost::mutex single_mutex;
+    boost::unique_lock<boost::mutex> single_lock( single_mutex );
+    for(materials_t::iterator
+            it = m_materials.begin(); it!= m_materials.end(); ++it) {
+        if( (*it).second )
+            delete (*it).second;
     }
     m_materials.clear();
 }
 
+//! Returns material.
 
-/* ************************************************************************* */
-// get material
-/* ************************************************************************* */
-const IMaterial *MaterialManager::getMaterial(const std::string &name)
+const IMaterial *MaterialManager::this_getMaterial(const std::string& name)
 {
+    static boost::mutex single_mutex;
+    boost::unique_lock<boost::mutex> single_lock( single_mutex );
     materials_t::const_iterator pos = m_materials.find(name);
     if( pos != m_materials.end()) {
         return pos->second;
     } else {
-        //std::cout << "MaterialManager::Get() -> Info. No such material '" << name << "'." << std::endl;
         return 0;
     }
 }
 
+//! Creates material, and add into database using name of material as identifier.
 
-/* ************************************************************************* */
-// Create material and add into database. The name of material serve as unique
-// identifier. If such material already exists, return it. If such material
-// already exist, but its propery are different from users order, throw exception
-/* ************************************************************************* */
-const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name, const complex_t &refractive_index)
+const IMaterial *MaterialManager::this_getHomogeneousMaterial(
+    const std::string& name, const complex_t& refractive_index)
 {
+    check_refractive_index(refractive_index);
+
+    static boost::mutex single_mutex;
+    boost::unique_lock<boost::mutex> single_lock( single_mutex );
     const IMaterial *mat = getMaterial(name);
     if( mat ) {
-        //std::cout << "MaterialManager::Add() -> Info. Material '" << name << "' already exists" << std::endl;
-        // check if user is trying to create material with same name but different parameters
-        const HomogeneousMaterial *old = dynamic_cast<const HomogeneousMaterial *>(mat);
+        // check if user is trying to create material
+        // with same name but different parameters
+        const HomogeneousMaterial *old =
+            dynamic_cast<const HomogeneousMaterial *>(mat);
         if(old->getRefractiveIndex() != refractive_index) {
-            HomogeneousMaterial *non_const_mat = const_cast<HomogeneousMaterial *>(old);
+            HomogeneousMaterial *non_const_mat =
+                const_cast<HomogeneousMaterial *>(old);
             non_const_mat->setRefractiveIndex(refractive_index);
-//            throw LogicErrorException("MaterialManager::addHomogeneousMaterial() -> Error! Attempt to create material with same name but different refractive index");
+            msglog(MSG::WARNING) << "MaterialManager::addHomogeneousMaterial()" <<
+                "-> Redefining refractive index for material '" << name << "'";
         }
         return mat;
     } else {
@@ -53,22 +79,44 @@ const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name
     }
 }
 
+//! Creates material, and add into database using name of material as identifier.
 
-const IMaterial *MaterialManager::addHomogeneousMaterial(const std::string &name, double refractive_index_real, double refractive_index_imag)
+const IMaterial *MaterialManager::this_getHomogeneousMaterial(
+    const std::string& name,
+    double refractive_index_real,
+    double refractive_index_imag)
 {
-    return addHomogeneousMaterial(name, complex_t(refractive_index_real, refractive_index_imag));
+    return getHomogeneousMaterial(
+        name, complex_t(refractive_index_real, refractive_index_imag));
 }
 
+//! Dump this to stream.
 
-/* ************************************************************************* */
-// print content of material database on the screen
-/* ************************************************************************* */
-void MaterialManager::print(std::ostream &ostr) const
+void MaterialManager::print(std::ostream& ostr) const
 {
-    ostr << typeid(*this).name() << " " << this << " nmaterials:" << m_materials.size() << std::endl;
-    for(materials_t::const_iterator it = m_materials.begin(); it!= m_materials.end(); ++it) {
+    ostr << typeid(*this).name() << " " << this <<
+        " nmaterials:" << m_materials.size() << std::endl;
+    for(materials_t::const_iterator
+            it = m_materials.begin(); it!= m_materials.end(); ++it) {
         const IMaterial *mat = (*it).second;
         ostr << *mat << std::endl;
     }
 }
+
+//! Checks refractive index for consistency
+// FIXME what are allowed values for refractive index ?
+void MaterialManager::check_refractive_index(const complex_t &index)
+{
+    bool isConsistent(true);
+    if( (index.imag() == 0.0) && (index.real() == 0.0) ) isConsistent = false;
+    if( (index.imag() < 0.0) || (index.real() < 0.0) ) isConsistent = false;
+    if( (index.imag() > 1.0) || (index.real() > 1.0) ) isConsistent = false;
+    if( (index.imag() == 1.0) ) isConsistent = false;
+
+    if( !isConsistent ) {
+        msglog(MSG::ERROR) << "MaterialManager::check_refractive_index() -> "
+                           << "Suspicious refractive index " << index;
+    }
+}
+
 

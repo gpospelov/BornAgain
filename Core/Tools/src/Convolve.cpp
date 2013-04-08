@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/src/Convolve.cpp
+//! @brief     Implements class Convolve.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "Convolve.h"
 #include <iostream>
 #include <stdexcept>
@@ -11,13 +26,10 @@ MathFunctions::Convolve::Convolve() : m_mode(FFTW_UNDEFINED)
     m_implemented_factors.assign(FFTW_FACTORS, FFTW_FACTORS + sizeof(FFTW_FACTORS)/sizeof(FFTW_FACTORS[0]));
 }
 
-
-
 MathFunctions::Convolve::~Convolve()
 {
 
 }
-
 
 MathFunctions::Convolve::Workspace::Workspace() :
     h_src(0), w_src(0), h_kernel(0), w_kernel(0),
@@ -29,12 +41,10 @@ MathFunctions::Convolve::Workspace::Workspace() :
 
 }
 
-
 MathFunctions::Convolve::Workspace::~Workspace()
 {
     clear();
 }
-
 
 void MathFunctions::Convolve::Workspace::clear()
 {
@@ -75,7 +85,7 @@ void MathFunctions::Convolve::Workspace::clear()
 /* ************************************************************************* */
 // convolution in 2d
 /* ************************************************************************* */
-void MathFunctions::Convolve::fftconvolve(const double2d_t &source, const double2d_t &kernel, double2d_t &result)
+void MathFunctions::Convolve::fftconvolve(const double2d_t& source, const double2d_t& kernel, double2d_t& result)
 {
     // set default convolution mode, if not defined
     if(m_mode == FFTW_UNDEFINED) {
@@ -114,7 +124,7 @@ void MathFunctions::Convolve::fftconvolve(const double2d_t &source, const double
 /* ************************************************************************* */
 // convolution in 1d
 /* ************************************************************************* */
-void MathFunctions::Convolve::fftconvolve(const double1d_t &source, const double1d_t &kernel, double1d_t &result)
+void MathFunctions::Convolve::fftconvolve(const double1d_t& source, const double1d_t& kernel, double1d_t& result)
 {
     // we simply create 2d arrays with length of first dimension equal to 1, and call 2d convolution
     double2d_t source2d, kernel2d;
@@ -131,7 +141,7 @@ void MathFunctions::Convolve::fftconvolve(const double1d_t &source, const double
 
 
 /* ************************************************************************* */
-// initialise input and output arrays for fast fourier transformation
+// initialise input and output arrays for fast Fourier transformation
 /* ************************************************************************* */
 void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_kernel)
 {
@@ -253,9 +263,9 @@ void MathFunctions::Convolve::init(int h_src, int w_src, int h_kernel, int w_ker
 
 
 /* ************************************************************************* */
-// initialise input and output arrays for fast fourier transformation
+// initialise input and output arrays for fast Fourier transformation
 /* ************************************************************************* */
-void MathFunctions::Convolve::fftw_circular_convolution(const double2d_t &src, const double2d_t &kernel)
+void MathFunctions::Convolve::fftw_circular_convolution(const double2d_t& src, const double2d_t& kernel)
 {
     if(ws.h_fftw <= 0 || ws.w_fftw <= 0)
     {
@@ -308,72 +318,6 @@ void MathFunctions::Convolve::fftw_circular_convolution(const double2d_t &src, c
         *ptr /= double(ws.h_fftw*ws.w_fftw);
 
 }
-
-
-
-//void MathFunctions::Convolve::fftw_convolve(const double2d_t &src, const double2d_t &kernel)
-//{
-//    if(ws.h_fftw <= 0 || ws.w_fftw <= 0)
-//    {
-//        std::cout << "MathFunctions::Convolve::fftw_convolve() -> Panic! Initialisation is missed." << std::endl;
-//        throw std::runtime_error("MathFunctions::Convolve::fftw_convolve() -> Panic! Initialisation is missed.");
-//    }
-//
-//    // Compute the circular convolution
-//    fftw_circular_convolution(src, kernel);
-//
-//    // Depending on the type of convolution one is looking for, we extract the appropriate part of the result from out_src
-//    int h_offset(0), w_offset(0);
-//
-//    switch(m_mode)
-//    {
-//    case FFTW_LINEAR_FULL:
-//        // Full Linear convolution
-//        // Here we just keep the first [0:h_dst-1 ; 0:w_dst-1] real part elements of out_src
-//        for(int i = 0 ; i < ws.h_dst  ; ++i)
-//            memcpy(&ws.dst[i*ws.w_dst], &ws.dst_fft[i*ws.w_fftw], ws.w_dst*sizeof(double));
-//        break;
-//    case FFTW_LINEAR_SAME_UNPADDED:
-//        // Same linear convolution
-//        // Here we just keep the first [h_filt/2:h_filt/2+h_dst-1 ; w_filt/2:w_filt/2+w_dst-1] real part elements of out_src
-//        h_offset = int(ws.h_kernel/2.0);
-//        w_offset = int(ws.w_kernel/2.0);
-//        for(int i = 0 ; i < ws.h_dst ; ++i)
-//            memcpy(&ws.dst[i*ws.w_dst], &ws.dst_fft[(i+h_offset)*ws.w_fftw+w_offset], ws.w_dst*sizeof(double));
-//        break;
-//    case FFTW_LINEAR_SAME:
-//        // Same linear convolution
-//        // Here we just keep the first [h_filt/2:h_filt/2+h_dst-1 ; w_filt/2:w_filt/2+w_dst-1] real part elements of out_src
-//        h_offset = int(ws.h_kernel/2.0);
-//        w_offset = int(ws.w_kernel/2.0);
-//        for(int i = 0 ; i < ws.h_dst ; ++i)
-//            memcpy(&ws.dst[i*ws.w_dst], &ws.dst_fft[(i+h_offset)*ws.w_fftw+w_offset], ws.w_dst*sizeof(double));
-//        break;
-//    case FFTW_LINEAR_VALID:
-//        // Valid linear convolution
-//        // Here we just take [h_dst x w_dst] elements starting at [h_kernel-1;w_kernel-1]
-//        h_offset = ws.h_kernel - 1;
-//        w_offset = ws.w_kernel - 1;
-//        for(int i = 0 ; i < ws.h_dst ; ++i)
-//            memcpy(&ws.dst[i*ws.w_dst], &ws.dst_fft[(i+h_offset)*ws.w_fftw+w_offset], ws.w_dst*sizeof(double));
-//        break;
-//    case FFTW_CIRCULAR_SAME:
-//        // Circular convolution
-//        // We copy the first [0:h_dst-1 ; 0:w_dst-1] real part elements of out_src
-//        for(int i = 0 ; i < ws.h_dst ; ++i)
-//            memcpy(&ws.dst[i*ws.w_dst], &ws.dst_fft[i*ws.w_fftw], ws.w_dst*sizeof(double) );
-//        break;
-//    case FFTW_CIRCULAR_SAME_SHIFTED:
-//        // Shifted Circular convolution
-//        // We copy the [h_kernel/2:h_kernel/2+h_dst-1 ; w_kernel/2:w_kernel/2+w_dst-1] real part elements of out_src
-//        for(int i = 0 ; i < ws.h_dst ; ++i)
-//            for(int j = 0 ; j < ws.w_dst ; ++j)
-//                ws.dst[i*ws.w_dst + j] = ws.dst_fft[((i+int(ws.h_kernel/2.0))%ws.h_fftw)*ws.w_fftw+(j+int(ws.w_kernel/2.0))%ws.w_fftw];
-//        break;
-//    default:
-//        std::cout << "Unrecognized convolution mode, possible modes are FFTW_LINEAR_FULL, FFTW_LINEAR_SAME, FFTW_LINEAR_SAME_UNPADDED, FFTW_LINEAR_VALID, FFTW_CIRCULAR_SAME, FFTW_CIRCULAR_SHIFTED " << std::endl;
-//    }
-//}
 
 
 /* ************************************************************************* */

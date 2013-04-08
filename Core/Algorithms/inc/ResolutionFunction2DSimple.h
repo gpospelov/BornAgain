@@ -1,24 +1,28 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Algorithms/inc/ResolutionFunction2DSimple.h
+//! @brief     Defines class ResolutionFunction2DSimple.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef RESOLUTIONFUNCTION2DSIMPLE_H_
 #define RESOLUTIONFUNCTION2DSIMPLE_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   ResolutionFunction2DSimple.h
-//! @brief  Definition of ResolutionFunction2DSimple class
-//! @author Scientific Computing Group at FRM II
-//! @date   Oct 16, 2012
 
 #include "IResolutionFunction2D.h"
 
+//! ?
+
 class ResolutionFunction2DSimple : public IResolutionFunction2D
 {
-public:
+ public:
     ResolutionFunction2DSimple(double sigma_x, double sigma_y);
     virtual ~ResolutionFunction2DSimple();
 
@@ -26,16 +30,17 @@ public:
 
     ResolutionFunction2DSimple *clone() const;
 
-protected:
+ protected:
     virtual void init_parameters();
-private:
+ private:
     //! hiding copy constructor and disabling assignment operator
-    ResolutionFunction2DSimple(const ResolutionFunction2DSimple &other);
-    ResolutionFunction2DSimple &operator=(const ResolutionFunction2DSimple &);
+    ResolutionFunction2DSimple(const ResolutionFunction2DSimple& other);
+    ResolutionFunction2DSimple& operator=(const ResolutionFunction2DSimple& );
 
     double m_sigma_x;
     double m_sigma_y;
 };
 
-
 #endif /* RESOLUTIONFUNCTION2DSIMPLE_H_ */
+
+

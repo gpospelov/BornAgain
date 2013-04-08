@@ -1,9 +1,24 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/src/FormFactorPyramid.cpp
+//! @brief     Implements class FormFactorPyramid.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "FormFactorPyramid.h"
 #include "StochasticDiracDelta.h"
 #include "MathFunctions.h"
 
-
-FormFactorPyramid::FormFactorPyramid(double height, double half_side, double alpha)
+FormFactorPyramid::FormFactorPyramid(
+    double height, double half_side, double alpha)
 {
     setName("FormFactorPyramid");
     m_height = height;
@@ -12,15 +27,6 @@ FormFactorPyramid::FormFactorPyramid(double height, double half_side, double alp
     init_parameters();
 }
 
-
-FormFactorPyramid::~FormFactorPyramid()
-{
-}
-
-
-/* ************************************************************************* */
-// initialize pool parameters, i.e. register some of class members for later access via parameter pool
-/* ************************************************************************* */
 void FormFactorPyramid::init_parameters()
 {
     getParameterPool()->clear();
@@ -29,14 +35,14 @@ void FormFactorPyramid::init_parameters()
     getParameterPool()->registerParameter("alpha", &m_alpha);
 }
 
-
 FormFactorPyramid* FormFactorPyramid::clone() const
 {
-    FormFactorPyramid *p_clone = new FormFactorPyramid(m_height, m_half_side, m_alpha);
+    FormFactorPyramid *p_clone =
+        new FormFactorPyramid(m_height, m_half_side, m_alpha);
     return p_clone;
 }
 
-complex_t FormFactorPyramid::evaluate_for_q(const cvector_t &q) const
+complex_t FormFactorPyramid::evaluate_for_q(const cvector_t& q) const
 {
 
     double H = m_height;
@@ -90,4 +96,5 @@ complex_t FormFactorPyramid::evaluate_for_q(const cvector_t &q) const
     }
     return F;
 }
+
 

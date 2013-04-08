@@ -1,54 +1,53 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/inc/FormFactorPyramid.h
+//! @brief     Defines class FormFactorPyramid
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef FORMFACTORPYRAMID_H
 #define FORMFACTORPYRAMID_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   FormFactorPyramid.h
-//! @brief  Definition of FormFactorPyramid
-//! @author Scientific Computing Group at FRM II
-//! @date   03.07.2012
 
 #include "IFormFactorBorn.h"
 #include "IStochasticParameter.h"
 
+//! Form factor of pyramid.
 
-//- -------------------------------------------------------------------
-//! @class FormFactorPyramid
-//! @brief Form factor of pyramid
-//- -------------------------------------------------------------------
 class FormFactorPyramid : public IFormFactorBorn
 {
-public:
+ public:
     //! @brief pyramid constructor
     //! @param height of pyramide
     //! @param half_side half of pyramid's base
     //! @param angle in radians between base and facet
     FormFactorPyramid(double height, double half_side, double alpha);
 
-    ~FormFactorPyramid();
+    ~FormFactorPyramid() {}
     virtual FormFactorPyramid *clone() const;
 
     virtual int getNumberOfStochasticParameters() const { return 3; }
 
     virtual double getHeight() const { return m_height; }
 
-    virtual complex_t evaluate_for_q(const cvector_t &q) const;
+    virtual complex_t evaluate_for_q(const cvector_t& q) const;
 
-protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool
+ protected:
     virtual void init_parameters();
 
-private:
+ private:
     double m_height;
     double m_half_side;
     double m_alpha;
 };
 
-
 #endif // FORMFACTORPYRAMID_H
+
+

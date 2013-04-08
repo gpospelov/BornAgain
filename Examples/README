@@ -1,0 +1,9 @@
+BornAgain framework usage examples.
+
+Disclaimer: For the moment directory is empty.
+Please use C++ and Python functional tests located at ../Tests/FunctionalTests as examples.
+
+Content:
+./IsGISAXS_examples - reference files produced by IsGISAXS program for numeric comparison with BornAgain
+
+

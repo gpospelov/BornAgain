@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Samples/inc/Particle.h
+//! @brief     Defines class Particle.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef PARTICLE_H
 #define PARTICLE_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   Particle.h
-//! @brief  Definition of Particle class
-//! @author Scientific Computing Group at FRM II
-//! @date   01.04.2012
 
 #include "ICompositeSample.h"
 #include "IFormFactor.h"
@@ -21,19 +23,17 @@
 class DiffuseParticleInfo;
 class ParticleInfo;
 
-//- -------------------------------------------------------------------
-//! @class Particle
-//! @brief Definition of a particle with a form factor and refractive index
-//- -------------------------------------------------------------------
+//! A particle with a form factor and refractive index
+
 class Particle : public ICompositeSample
 {
-public:
-    Particle(const complex_t &refractive_index, IFormFactor* p_form_factor = 0);
-    Particle(const complex_t &refractive_index, const IFormFactor &form_factor);
+ public:
+    Particle(const complex_t& refractive_index, IFormFactor* p_form_factor = 0);
+    Particle(const complex_t& refractive_index, const IFormFactor& form_factor);
     virtual ~Particle();
     virtual Particle *clone() const;
 
-    //! Set the refractive index of the ambient material (which influences its scattering power)
+    //! Sets the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)
     {
         m_ambient_refractive_index = refractive_index;
@@ -47,7 +47,7 @@ public:
         return p_ff;
     }
 
-    //! set the form factor of the particle (not including scattering factor from refractive index)
+    //! Sets the form factor of the particle (not including scattering factor from refractive index)
     virtual void setSimpleFormFactor(IFormFactor* p_form_factor)
     {
         if (p_form_factor != mp_form_factor) {
@@ -58,16 +58,16 @@ public:
         }
     }
 
-    //! return refractive index of the particle
+    //! Returns refractive index of the particle
     virtual const complex_t getRefractiveIndex() const {
         return m_refractive_index;
     }
 
-    //! return form factor of the particle (not including scattering factor from refractive index)
+    //! Returns formfactor of the particle (not including scattering factor from refractive index)
     virtual const IFormFactor *getSimpleFormFactor() const { return mp_form_factor;}
 
-    //! create list of contained particles for diffuse calculations
-    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo &parent_info) const {
+    //! Creates list of contained particles for diffuse calculations
+    virtual std::vector<DiffuseParticleInfo *> *createDiffuseParticleInfo(const ParticleInfo& parent_info) const {
         (void)parent_info;
         return 0;
     }
@@ -76,7 +76,7 @@ public:
 
     virtual std::vector<ParticleInfo *> createDistributedParticles(size_t samples_per_particle, double factor) const;
 
-protected:
+ protected:
     complex_t m_ambient_refractive_index;
     complex_t m_refractive_index;
     IFormFactor* mp_form_factor;
@@ -84,3 +84,5 @@ protected:
 };
 
 #endif // PARTICLE_H
+
+

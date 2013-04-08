@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestRoughness.cpp
+//! @brief     Implements class TestRoughness.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestRoughness.h"
 #include "LayerRoughness.h"
 #include "MathFunctions.h"
@@ -21,21 +36,13 @@
 #include <fftw3.h>
 
 
-
-TestRoughness::TestRoughness() : IFunctionalTest("roughness"),
-                                 m_roughness(0)
-{
-
-}
-
-
 void TestRoughness::execute()
 {
     //test_FFT();
 
     // draw surface profile using different methods for calculation of correlated random numbers
-    m_TestMethods.push_back( &TestRoughness::GetProfileXZ_MatrixMethod );
-    m_TestMethods.push_back( &TestRoughness::GetProfileXZ_FFTMethod );
+    m_TestMethods.push_back(& TestRoughness::GetProfileXZ_MatrixMethod );
+    m_TestMethods.push_back(& TestRoughness::GetProfileXZ_FFTMethod );
     DrawProfile();
 }
 
@@ -193,7 +200,7 @@ void TestRoughness::GetProfileXZ_MatrixMethod()
 
 /* ************************************************************************* */
 // Fast Fourier Transform method to obtain correlated sequence of random numbers.
-// fftw3 library is used for fourier analysis.
+// fftw3 library is used for Fourier analysis.
 //
 // Algorithm is described in:
 // The FFT Moving Average (FFT-MA) Generator:
@@ -218,7 +225,7 @@ void TestRoughness::GetProfileXZ_FFTMethod()
         cov[npx-1-i] = cov[i];
     }
 
-    // making fourier transform of covariance and z values
+    // making Fourier transform of covariance and z values
     std::vector<complex_t > ft_cov = MathFunctions::FastFourierTransform(cov, MathFunctions::ForwardFFT);
     std::vector<complex_t> ft_z = MathFunctions::FastFourierTransform(m_vzuncorr, MathFunctions::ForwardFFT);
 
@@ -338,3 +345,5 @@ void TestRoughness::test_FFT()
     fftw_free(fft_result);
     fftw_free(ifft_result);
 }
+
+

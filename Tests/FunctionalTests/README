@@ -1,0 +1,17 @@
+Collection of C++/Python functional tests for BornAgain libraries
+
+Content:
+  ./TestCore    - C++ tests of libBornAgainCore library using variety of scattering geometries and experimental settings
+  ./TestPyCore  - same for Python
+  ./TestFit     - C++ tests of libBornAgainFit library using different fitting strategies
+  ./TestPyFit   - same for Python
+
+Usage:
+'python test_all.py' - to run all tests
+'python test_all.py C++' - to run C++ tests only
+'python test_all.py Python' - to run Python tests only
+
+
+
+
+

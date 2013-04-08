@@ -1,19 +1,20 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/Macros.h
+//! @brief     Workarounds concerning diagnostic warnings.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef MACROS_H
 #define MACROS_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   Macros.h
-//! @brief  Definition of macros to screw up the compiler
-//! @author Scientific Computing Group at FRM II
-//! @date   24.09.2012
-
 
 /*
 Macros below serve for temporary switching off specific warnings.
@@ -37,8 +38,6 @@ and then
 http://gcc.gnu.org/onlinedocs/gcc-4.4.7/gcc/Diagnostic-Pragmas.html
 */
 
-
-
 #if ((__GNUC__ * 100) + __GNUC_MINOR__) >= 402
 #define GCC_DIAG_STR(s) #s
 #define GCC_DIAG_JOINSTR(x,y) GCC_DIAG_STR(x ## y)
@@ -57,6 +56,6 @@ http://gcc.gnu.org/onlinedocs/gcc-4.4.7/gcc/Diagnostic-Pragmas.html
 # define GCC_DIAG_ON(x)
 #endif
 
-
-
 #endif // MACROS_H
+
+

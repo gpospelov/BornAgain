@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestDiffuseReflection.cpp
+//! @brief     Implements class TestDiffuseReflection.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestDiffuseReflection.h"
 #include "MultiLayer.h"
 #include "SampleFactory.h"
@@ -7,7 +22,6 @@
 #include "Units.h"
 #include "MultiLayerRoughnessDWBASimulation.h"
 #include "DoubleToComplexInterpolatingFunction.h"
-#include "ExperimentConstants.h"
 
 #include <iostream>
 #include <iomanip>
@@ -51,7 +65,7 @@ void TestDiffuseReflection::execute()
 
     std::vector<MultiLayer *> samples;
     for(size_t i_sample=0; i_sample<snames.size(); i_sample++){
-        samples.push_back( dynamic_cast<MultiLayer *>(SampleFactory::instance().createItem(snames[i_sample])) );
+        samples.push_back( dynamic_cast<MultiLayer *>(SampleFactory::createSample(snames[i_sample])) );
     }
 
     kvector_t ki, kf;
@@ -80,14 +94,14 @@ void TestDiffuseReflection::execute()
         // offspecular reflectivity
         m_data_offspec = new OutputData<double >;
         m_data_offspec->addAxis(std::string("alpha_i"), m_npoints, m_alphaMin, m_alphaMax);
-        m_data_offspec->addAxis(NDetector2d::ALPHA_AXIS_NAME, m_npoints, m_alphaMin, m_alphaMax);
+        m_data_offspec->addAxis("alpha_f", m_npoints, m_alphaMin, m_alphaMax);
 
         OutputData<double>::iterator it = m_data_offspec->begin();
         while (it != m_data_offspec->end()) {
             double alpha_i = m_data_offspec->getValueOfAxis("alpha_i", it.getIndex());
-            double alpha_f = m_data_offspec->getValueOfAxis(NDetector2d::ALPHA_AXIS_NAME, it.getIndex());
+            double alpha_f = m_data_offspec->getValueOfAxis("alpha_f", it.getIndex());
             size_t index_alpha_i = m_data_offspec->getIndexOfAxis("alpha_i", it.getIndex());
-            size_t index_alpha_f = m_data_offspec->getIndexOfAxis(NDetector2d::ALPHA_AXIS_NAME, it.getIndex());
+            size_t index_alpha_f = m_data_offspec->getIndexOfAxis("alpha_f", it.getIndex());
             ki.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
             kf.setLambdaAlphaPhi(1.54*Units::angstrom, alpha_f, 0.0);
             calc.execute(*m_sample, ki, kf);
@@ -115,11 +129,11 @@ void TestDiffuseReflection::execute()
 //    h2.SetStats(0);
 //    m_data_offspec = new OutputData<double >;
 //    m_data_offspec->addAxis(std::string("alpha_i"), m_alphaMin, m_alphaMax, m_npoints);
-//    m_data_offspec->addAxis(std::string(NDetector2d::ALPHA_AXIS_NAME), m_alphaMin, m_alphaMax, m_npoints);
+//    m_data_offspec->addAxis(std::string("alpha_f"), m_alphaMin, m_alphaMax, m_npoints);
 //    m_data_offspec->resetIndex();
 //    while (m_data_offspec->hasNext()) {
 //        double alpha_i = m_data_offspec->getCurrentValueOfAxis<double>("alpha_i");
-//        double alpha_f = m_data_offspec->getCurrentValueOfAxis<double>(NDetector2d::ALPHA_AXIS_NAME);
+//        double alpha_f = m_data_offspec->getCurrentValueOfAxis<double>("alpha_f");
 //        ki.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 //        kf.setLambdaAlphaPhi(1.54*Units::angstrom, alpha_f, 0.0);
 //        double r = calc.execute0(*samples[0], ki, kf) - calc.execute0(*samples[0], ki, kf);
@@ -144,10 +158,7 @@ void TestDiffuseReflection::execute()
         delete samples[i_sample];
     }
     samples.clear();
-
 }
-
-
 
 void TestDiffuseReflection::draw()
 {
@@ -179,9 +190,9 @@ void TestDiffuseReflection::draw()
     OutputData<double>::const_iterator it = m_data_offspec->begin();
     while (it != m_data_offspec->end()) {
         double alpha_i = m_data_offspec->getValueOfAxis("alpha_i", it.getIndex());
-        double alpha_f = m_data_offspec->getValueOfAxis(NDetector2d::ALPHA_AXIS_NAME, it.getIndex());
+        double alpha_f = m_data_offspec->getValueOfAxis("alpha_f", it.getIndex());
         size_t index_alpha_i = m_data_offspec->getIndexOfAxis("alpha_i", it.getIndex());
-        size_t index_alpha_f = m_data_offspec->getIndexOfAxis(NDetector2d::ALPHA_AXIS_NAME, it.getIndex());
+        size_t index_alpha_f = m_data_offspec->getIndexOfAxis("alpha_f", it.getIndex());
         double r = *it++;
         hspect.Fill(r);
         if(index_alpha_i==5) {
@@ -200,7 +211,7 @@ void TestDiffuseReflection::draw()
     os << (ncall++) << std::endl;
     std::string cname = std::string("c1_test_diffuse_reflection");
     TCanvas *c1 = new TCanvas(cname.c_str(),"Diffuse reflection",1024,768);
-    DrawHelper::instance().SetMagnifier(c1);
+    DrawHelper::SetMagnifier(c1);
 
     c1->Divide(2,2);
     c1->cd(1);
@@ -217,6 +228,7 @@ void TestDiffuseReflection::draw()
     hspect.DrawCopy();
 
     //h2.DrawCopy("CONT4 Z");
-
 }
+
+
 

@@ -2,154 +2,188 @@ HEADERS +=  \
     PythonAPI/inc/PythonListConverter.h \ 
     PythonAPI/inc/PythonModule.h \ 
     PythonAPI/inc/PythonOutputData.h \ 
-    PythonAPI/inc/PythonPlusplusHelper.h \ 
+    PythonAPI/inc/PythonCoreExposer.h \ 
+    PythonAPI/inc/PythonCoreList.h \ 
+    PythonAPI/inc/Beam.pypp.h \
+    PythonAPI/inc/Bin1D.pypp.h \
+    PythonAPI/inc/Bin1DCVector.pypp.h \
     PythonAPI/inc/Crystal.pypp.h \
     PythonAPI/inc/cvector_t.pypp.h \
-    PythonAPI/inc/DiffuseParticleInfo.pypp.h \
-    PythonAPI/inc/Experiment.pypp.h \
+    PythonAPI/inc/Detector.pypp.h \
+    PythonAPI/inc/FormFactorBox.pypp.h \
+    PythonAPI/inc/FormFactorCone.pypp.h \
     PythonAPI/inc/FormFactorCrystal.pypp.h \
     PythonAPI/inc/FormFactorCylinder.pypp.h \
     PythonAPI/inc/FormFactorDecoratorDebyeWaller.pypp.h \
+    PythonAPI/inc/FormFactorEllipsoid.pypp.h \
     PythonAPI/inc/FormFactorFullSphere.pypp.h \
+    PythonAPI/inc/FormFactorFullSpheroid.pypp.h \
     PythonAPI/inc/FormFactorGauss.pypp.h \
+    PythonAPI/inc/FormFactorHemiSpheroid.pypp.h \
     PythonAPI/inc/FormFactorLorentz.pypp.h \
+    PythonAPI/inc/FormFactorParallelepiped.pypp.h \
     PythonAPI/inc/FormFactorPrism3.pypp.h \
+    PythonAPI/inc/FormFactorPrism6.pypp.h \
     PythonAPI/inc/FormFactorPyramid.pypp.h \
+    PythonAPI/inc/FormFactorSphere.pypp.h \
     PythonAPI/inc/FormFactorSphereGaussianRadius.pypp.h \
-    PythonAPI/inc/GISASExperiment.pypp.h \
+    PythonAPI/inc/FTDistribution2DCauchy.pypp.h \
     PythonAPI/inc/HomogeneousMaterial.pypp.h \
+    PythonAPI/inc/IAxis.pypp.h \
     PythonAPI/inc/ICloneable.pypp.h \
     PythonAPI/inc/IClusteredParticles.pypp.h \
     PythonAPI/inc/ICompositeSample.pypp.h \
     PythonAPI/inc/IDecoration.pypp.h \
+    PythonAPI/inc/IDetectorResolution.pypp.h \
     PythonAPI/inc/IFormFactor.pypp.h \
     PythonAPI/inc/IFormFactorBorn.pypp.h \
     PythonAPI/inc/IFormFactorDecorator.pypp.h \
+    PythonAPI/inc/IFTDistribution2D.pypp.h \
     PythonAPI/inc/IInterferenceFunction.pypp.h \
     PythonAPI/inc/IMaterial.pypp.h \
+    PythonAPI/inc/Instrument.pypp.h \
     PythonAPI/inc/InterferenceFunction1DParaCrystal.pypp.h \
+    PythonAPI/inc/InterferenceFunction2DLattice.pypp.h \
+    PythonAPI/inc/InterferenceFunction2DParaCrystal.pypp.h \
     PythonAPI/inc/InterferenceFunctionNone.pypp.h \
     PythonAPI/inc/IParameterized.pypp.h \
+    PythonAPI/inc/IResolutionFunction2D.pypp.h \
     PythonAPI/inc/ISample.pypp.h \
     PythonAPI/inc/ISampleBuilder.pypp.h \
     PythonAPI/inc/ISelectionRule.pypp.h \
+    PythonAPI/inc/ITransform3D.pypp.h \
     PythonAPI/inc/kvector_t.pypp.h \
     PythonAPI/inc/Lattice.pypp.h \
+    PythonAPI/inc/Lattice2DIFParameters.pypp.h \
     PythonAPI/inc/LatticeBasis.pypp.h \
     PythonAPI/inc/Layer.pypp.h \
     PythonAPI/inc/LayerDecorator.pypp.h \
+    PythonAPI/inc/LayerInterface.pypp.h \
     PythonAPI/inc/LayerRoughness.pypp.h \
     PythonAPI/inc/MaterialManager.pypp.h \
-    PythonAPI/inc/MaterialManagerSingleton_t.pypp.h \
     PythonAPI/inc/MesoCrystal.pypp.h \
     PythonAPI/inc/MultiLayer.pypp.h \
-    PythonAPI/inc/OpticalFresnel.pypp.h \
+    PythonAPI/inc/ndimdata_t.pypp.h \
+    PythonAPI/inc/OutputDataIOFactory.pypp.h \
     PythonAPI/inc/ParameterPool.pypp.h \
     PythonAPI/inc/Particle.pypp.h \
+    PythonAPI/inc/ParticleBuilder.pypp.h \
+    PythonAPI/inc/ParticleCoreShell.pypp.h \
     PythonAPI/inc/ParticleDecoration.pypp.h \
     PythonAPI/inc/ParticleInfo.pypp.h \
+    PythonAPI/inc/PositionParticleInfo.pypp.h \
     PythonAPI/inc/PythonInterface_free_functions.pypp.h \
     PythonAPI/inc/PythonInterface_global_variables.pypp.h \
     PythonAPI/inc/RealParameterWrapper.pypp.h \
-    PythonAPI/inc/Reflect3D.pypp.h \
-    PythonAPI/inc/ReflectX3D.pypp.h \
-    PythonAPI/inc/ReflectY3D.pypp.h \
-    PythonAPI/inc/ReflectZ3D.pypp.h \
-    PythonAPI/inc/Rotate3D.pypp.h \
-    PythonAPI/inc/RotateX3D.pypp.h \
-    PythonAPI/inc/RotateY3D.pypp.h \
-    PythonAPI/inc/RotateZ3D.pypp.h \
-    PythonAPI/inc/Scale3D.pypp.h \
-    PythonAPI/inc/ScaleX3D.pypp.h \
-    PythonAPI/inc/ScaleY3D.pypp.h \
-    PythonAPI/inc/ScaleZ3D.pypp.h \
+    PythonAPI/inc/ResolutionFunction2DSimple.pypp.h \
+    PythonAPI/inc/RotateY_3D.pypp.h \
+    PythonAPI/inc/RotateZ_3D.pypp.h \
     PythonAPI/inc/SimpleSelectionRule.pypp.h \
-    PythonAPI/inc/Transform3D.pypp.h \
-    PythonAPI/inc/Translate3D.pypp.h \
-    PythonAPI/inc/TranslateX3D.pypp.h \
-    PythonAPI/inc/TranslateY3D.pypp.h \
-    PythonAPI/inc/TranslateZ3D.pypp.h \
+    PythonAPI/inc/Simulation.pypp.h \
+    PythonAPI/inc/SimulationParameters.pypp.h \
+    PythonAPI/inc/StochasticDoubleGate.pypp.h \
+    PythonAPI/inc/StochasticDoubleGaussian.pypp.h \
+    PythonAPI/inc/StochasticParameter_t.pypp.h \
+    PythonAPI/inc/StochasticSampledParameter.pypp.h \
     PythonAPI/inc/vdouble1d_t.pypp.h \
-    PythonAPI/inc/vector_DiffuseParticleInfoPtr_t.pypp.h \
     PythonAPI/inc/vector_IFormFactorPtr_t.pypp.h \
+    PythonAPI/inc/vector_integer_t.pypp.h \
     PythonAPI/inc/vector_kvector_t.pypp.h \
-    PythonAPI/inc/__call_policies.pypp.hpp 
+    PythonAPI/inc/vector_longinteger_t.pypp.h \
+    PythonAPI/inc/__call_policies.pypp.hpp \
+    PythonAPI/inc/__convenience.pypp.hpp 
 
 SOURCES +=  \ 
     PythonAPI/src/PythonModule.cpp \ 
     PythonAPI/src/PythonListConverter.cpp \ 
     PythonAPI/src/PythonOutputData.cpp \ 
-    PythonAPI/src/PythonPlusplusHelper.cpp \ 
+    PythonAPI/src/PythonCoreExposer.cpp \ 
+    PythonAPI/src/Beam.pypp.cpp \
+    PythonAPI/src/Bin1D.pypp.cpp \
+    PythonAPI/src/Bin1DCVector.pypp.cpp \
     PythonAPI/src/Crystal.pypp.cpp \
     PythonAPI/src/cvector_t.pypp.cpp \
-    PythonAPI/src/DiffuseParticleInfo.pypp.cpp \
-    PythonAPI/src/Experiment.pypp.cpp \
+    PythonAPI/src/Detector.pypp.cpp \
+    PythonAPI/src/FormFactorBox.pypp.cpp \
+    PythonAPI/src/FormFactorCone.pypp.cpp \
     PythonAPI/src/FormFactorCrystal.pypp.cpp \
     PythonAPI/src/FormFactorCylinder.pypp.cpp \
     PythonAPI/src/FormFactorDecoratorDebyeWaller.pypp.cpp \
+    PythonAPI/src/FormFactorEllipsoid.pypp.cpp \
     PythonAPI/src/FormFactorFullSphere.pypp.cpp \
+    PythonAPI/src/FormFactorFullSpheroid.pypp.cpp \
     PythonAPI/src/FormFactorGauss.pypp.cpp \
+    PythonAPI/src/FormFactorHemiSpheroid.pypp.cpp \
     PythonAPI/src/FormFactorLorentz.pypp.cpp \
+    PythonAPI/src/FormFactorParallelepiped.pypp.cpp \
     PythonAPI/src/FormFactorPrism3.pypp.cpp \
+    PythonAPI/src/FormFactorPrism6.pypp.cpp \
     PythonAPI/src/FormFactorPyramid.pypp.cpp \
+    PythonAPI/src/FormFactorSphere.pypp.cpp \
     PythonAPI/src/FormFactorSphereGaussianRadius.pypp.cpp \
-    PythonAPI/src/GISASExperiment.pypp.cpp \
+    PythonAPI/src/FTDistribution2DCauchy.pypp.cpp \
     PythonAPI/src/HomogeneousMaterial.pypp.cpp \
+    PythonAPI/src/IAxis.pypp.cpp \
     PythonAPI/src/ICloneable.pypp.cpp \
     PythonAPI/src/IClusteredParticles.pypp.cpp \
     PythonAPI/src/ICompositeSample.pypp.cpp \
     PythonAPI/src/IDecoration.pypp.cpp \
+    PythonAPI/src/IDetectorResolution.pypp.cpp \
     PythonAPI/src/IFormFactor.pypp.cpp \
     PythonAPI/src/IFormFactorBorn.pypp.cpp \
     PythonAPI/src/IFormFactorDecorator.pypp.cpp \
+    PythonAPI/src/IFTDistribution2D.pypp.cpp \
     PythonAPI/src/IInterferenceFunction.pypp.cpp \
     PythonAPI/src/IMaterial.pypp.cpp \
+    PythonAPI/src/Instrument.pypp.cpp \
     PythonAPI/src/InterferenceFunction1DParaCrystal.pypp.cpp \
+    PythonAPI/src/InterferenceFunction2DLattice.pypp.cpp \
+    PythonAPI/src/InterferenceFunction2DParaCrystal.pypp.cpp \
     PythonAPI/src/InterferenceFunctionNone.pypp.cpp \
     PythonAPI/src/IParameterized.pypp.cpp \
+    PythonAPI/src/IResolutionFunction2D.pypp.cpp \
     PythonAPI/src/ISample.pypp.cpp \
     PythonAPI/src/ISampleBuilder.pypp.cpp \
     PythonAPI/src/ISelectionRule.pypp.cpp \
+    PythonAPI/src/ITransform3D.pypp.cpp \
     PythonAPI/src/kvector_t.pypp.cpp \
     PythonAPI/src/Lattice.pypp.cpp \
+    PythonAPI/src/Lattice2DIFParameters.pypp.cpp \
     PythonAPI/src/LatticeBasis.pypp.cpp \
     PythonAPI/src/Layer.pypp.cpp \
     PythonAPI/src/LayerDecorator.pypp.cpp \
+    PythonAPI/src/LayerInterface.pypp.cpp \
     PythonAPI/src/LayerRoughness.pypp.cpp \
     PythonAPI/src/MaterialManager.pypp.cpp \
-    PythonAPI/src/MaterialManagerSingleton_t.pypp.cpp \
     PythonAPI/src/MesoCrystal.pypp.cpp \
     PythonAPI/src/MultiLayer.pypp.cpp \
-    PythonAPI/src/OpticalFresnel.pypp.cpp \
+    PythonAPI/src/ndimdata_t.pypp.cpp \
+    PythonAPI/src/OutputDataIOFactory.pypp.cpp \
     PythonAPI/src/ParameterPool.pypp.cpp \
     PythonAPI/src/Particle.pypp.cpp \
+    PythonAPI/src/ParticleBuilder.pypp.cpp \
+    PythonAPI/src/ParticleCoreShell.pypp.cpp \
     PythonAPI/src/ParticleDecoration.pypp.cpp \
     PythonAPI/src/ParticleInfo.pypp.cpp \
+    PythonAPI/src/PositionParticleInfo.pypp.cpp \
     PythonAPI/src/PythonInterface_free_functions.pypp.cpp \
     PythonAPI/src/PythonInterface_global_variables.pypp.cpp \
     PythonAPI/src/RealParameterWrapper.pypp.cpp \
-    PythonAPI/src/Reflect3D.pypp.cpp \
-    PythonAPI/src/ReflectX3D.pypp.cpp \
-    PythonAPI/src/ReflectY3D.pypp.cpp \
-    PythonAPI/src/ReflectZ3D.pypp.cpp \
-    PythonAPI/src/Rotate3D.pypp.cpp \
-    PythonAPI/src/RotateX3D.pypp.cpp \
-    PythonAPI/src/RotateY3D.pypp.cpp \
-    PythonAPI/src/RotateZ3D.pypp.cpp \
-    PythonAPI/src/Scale3D.pypp.cpp \
-    PythonAPI/src/ScaleX3D.pypp.cpp \
-    PythonAPI/src/ScaleY3D.pypp.cpp \
-    PythonAPI/src/ScaleZ3D.pypp.cpp \
+    PythonAPI/src/ResolutionFunction2DSimple.pypp.cpp \
+    PythonAPI/src/RotateY_3D.pypp.cpp \
+    PythonAPI/src/RotateZ_3D.pypp.cpp \
     PythonAPI/src/SimpleSelectionRule.pypp.cpp \
-    PythonAPI/src/Transform3D.pypp.cpp \
-    PythonAPI/src/Translate3D.pypp.cpp \
-    PythonAPI/src/TranslateX3D.pypp.cpp \
-    PythonAPI/src/TranslateY3D.pypp.cpp \
-    PythonAPI/src/TranslateZ3D.pypp.cpp \
+    PythonAPI/src/Simulation.pypp.cpp \
+    PythonAPI/src/SimulationParameters.pypp.cpp \
+    PythonAPI/src/StochasticDoubleGate.pypp.cpp \
+    PythonAPI/src/StochasticDoubleGaussian.pypp.cpp \
+    PythonAPI/src/StochasticParameter_t.pypp.cpp \
+    PythonAPI/src/StochasticSampledParameter.pypp.cpp \
     PythonAPI/src/vdouble1d_t.pypp.cpp \
-    PythonAPI/src/vector_DiffuseParticleInfoPtr_t.pypp.cpp \
     PythonAPI/src/vector_IFormFactorPtr_t.pypp.cpp \
-    PythonAPI/src/vector_kvector_t.pypp.cpp 
+    PythonAPI/src/vector_integer_t.pypp.cpp \
+    PythonAPI/src/vector_kvector_t.pypp.cpp \
+    PythonAPI/src/vector_longinteger_t.pypp.cpp 
 
 INCLUDEPATH += ./PythonAPI/inc 
 DEPENDPATH  += ./PythonAPI/inc 

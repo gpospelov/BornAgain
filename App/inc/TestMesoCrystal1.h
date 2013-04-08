@@ -1,18 +1,20 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/inc/TestMesoCrystal1.h
+//! @brief     Defines class TestMesoCrystal1.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef TESTMESOCRYSTAL1_H_
 #define TESTMESOCRYSTAL1_H_
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestMesoCrystal1.h
-//! @brief  Definition of TestMesoCrystal1 class
-//! @author Scientific Computing Group at FRM II
-//! @date   Jul 13, 2012
 
 #include "IFunctionalTest.h"
 #include "OutputData.h"
@@ -24,52 +26,46 @@
 #include "MesoCrystal.h"
 #include "Lattice.h"
 
+//! Simulation of 3D ordered particle assemblies.
 
-//- -------------------------------------------------------------------
-//! @class TestMesoCrystal1
-//! @brief Simulation of 3D ordered particle assemblies
-//- -------------------------------------------------------------------
 class TestMesoCrystal1 : public IFunctionalTest
 {
-public:
+ public:
     TestMesoCrystal1();
     virtual ~TestMesoCrystal1();
     virtual void execute();
 
-private:
+    class SampleBuilder : public ISampleBuilder
+    {
+    public:
+        SampleBuilder();
+        virtual ~SampleBuilder(){}
+
+        virtual ISample *buildSample() const;
+    protected:
+        //! Initializes pool parameters
+        virtual void init_parameters();
+    private:
+        MesoCrystal *createMesoCrystal(double particle_radius, complex_t n_particle,
+                const IFormFactor *p_meso_form_factor) const;
+        const Lattice *createLattice(double stacking_radius) const;
+        double m_meso_radius;
+        double m_surface_filling_ratio;
+        double m_meso_height;
+        double m_sigma_meso_height;
+        double m_sigma_meso_radius;
+        double m_lattice_length_a;
+        double m_nanoparticle_radius;
+        double m_sigma_nanoparticle_radius;
+        double m_sigma_lattice_length_a;
+        double m_roughness;
+    };
+
+ private:
     OutputData<double> *mp_intensity_output;
     ISampleBuilder *mp_sample_builder;
 };
 
-//- -------------------------------------------------------------------
-//! @class MesoCrystalBuilder
-//! @brief The sample builder for TestMesoCrystal1
-//- -------------------------------------------------------------------
-class MesoCrystalBuilder : public ISampleBuilder
-{
-public:
-    MesoCrystalBuilder();
-    virtual ~MesoCrystalBuilder();
-
-    virtual ISample *buildSample() const;
-protected:
-    //! initialize pool parameters, i.e. register some of class members for later access via parameter pool (to overload)
-    virtual void init_parameters();
-private:
-    MesoCrystal *createMesoCrystal(double particle_radius, complex_t n_particle,
-            const IFormFactor *p_meso_form_factor) const;
-    const Lattice *createLattice(double stacking_radius) const;
-    double m_meso_radius;
-    double m_surface_filling_ratio;
-    double m_meso_height;
-    double m_sigma_meso_height;
-    double m_sigma_meso_radius;
-    double m_lattice_length_a;
-    double m_nanoparticle_radius;
-    double m_sigma_nanoparticle_radius;
-    double m_sigma_lattice_length_a;
-    double m_roughness;
-};
-
-
 #endif /* TESTMESOCRYSTAL1_H_ */
+
+

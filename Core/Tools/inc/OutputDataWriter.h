@@ -1,48 +1,45 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tools/inc/OutputDataWriter.h
+//! @brief     Defines class OutputDataWriter.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef OUTPUTDATAWRITER_H
 #define OUTPUTDATAWRITER_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   OutputDataWrite.h
-//! @brief  Definition of OutputDataWriter class
-//! @author Scientific Computing Group at FRM II
-//! @date   15.01.2013
 
-#include "OutputData.h"
 #include "OutputDataWriteStrategy.h"
-#include "Types.h"
 #include <string>
 
+//! Write OutputData to file using different witing strategies
 
-//- -------------------------------------------------------------------
-//! @class OutputDataWriter
-//! @brief Write OutputData to file using different witing strategies
-//- -------------------------------------------------------------------
 class OutputDataWriter
 {
-public:
+ public:
     OutputDataWriter() : m_write_strategy(0) {}
-    OutputDataWriter(const std::string &file_name) : m_file_name(file_name), m_write_strategy(0) {}
+    OutputDataWriter(const std::string& file_name) : m_file_name(file_name), m_write_strategy(0) {}
     OutputDataWriter(IOutputDataWriteStrategy *write_strategy) : m_write_strategy(write_strategy) {}
     virtual ~OutputDataWriter() { delete m_write_strategy; }
 
     //! write output data to file
-    void writeOutputData(const OutputData<double > &data);
+    void writeOutputData(const OutputData<double >& data);
 
-    //! set concrete writing strategy
+    //! Sets concrete writing strategy
     void setStrategy(IOutputDataWriteStrategy *write_strategy) { delete m_write_strategy; m_write_strategy = write_strategy; }
 
-private:
+ private:
     std::string m_file_name;
     IOutputDataWriteStrategy *m_write_strategy;
 };
 
-
-
 #endif // OUTPUTDATAWRITER_H
+
+

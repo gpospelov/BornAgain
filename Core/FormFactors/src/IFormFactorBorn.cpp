@@ -1,14 +1,27 @@
-#include "IFormFactorBorn.h"
-#include "MathFunctions.h"
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/src/IFormFactorBorn.cpp
+//! @brief     Implements interface class IFormFactorBorn.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
 
-IFormFactorBorn::IFormFactorBorn()
-{
-}
+#include "IFormFactorBorn.h"
+#include "MemberFunctionIntegrator.h"
+#include "MathFunctions.h"
 
 double IFormFactorBorn::bigRadialPart(const Bin1DCVector& q_bin) const
 {
     // modulus of the radial part
-    MemberFunctionIntegrator<IFormFactorBorn>::mem_function p_mf = &IFormFactorBorn::bigRadialIntegrand;
+    MemberFunctionIntegrator<IFormFactorBorn>::mem_function p_mf =
+       & IFormFactorBorn::bigRadialIntegrand;
     MemberFunctionIntegrator<IFormFactorBorn> integrator(p_mf, this);
     double average_intensity = integrator.integrate(0.0, 1.0, (void*)(&q_bin));
     return std::sqrt(average_intensity);
@@ -30,7 +43,9 @@ complex_t IFormFactorBorn::bigZPart(const Bin1DCVector& q_bin) const
 
     // modulus of the height of the particle
     assert(effective_bin_size_h2);
-    double z_average_intensity = (bigZPartIntegral(qH2max) - bigZPartIntegral(qH2min))/effective_bin_size_h2;
+    double z_average_intensity =
+        (bigZPartIntegral(qH2max) - bigZPartIntegral(qH2min)) /
+        effective_bin_size_h2;
     assert(z_average_intensity);
     double z_modulus = std::sqrt(z_average_intensity);
 
@@ -39,8 +54,9 @@ complex_t IFormFactorBorn::bigZPart(const Bin1DCVector& q_bin) const
 
 double IFormFactorBorn::bigRadialIntegrand(double t, void* params) const
 {
-    const Bin1DCVector *p_q_bin = static_cast<const Bin1DCVector *>(params);
-    double qR = std::abs( (p_q_bin->m_q_lower + t*p_q_bin->getDelta()).magxy() )*getRadius();
+    const Bin1DCVector *p_q_bin = static_cast<const Bin1DCVector*>(params);
+    double qR = std::abs( (p_q_bin->m_q_lower +
+                           t*p_q_bin->getDelta()).magxy() )*getRadius();
     static double a = 1.0;
     static double b = std::sqrt(M_PI/3.0/std::sqrt(3.0));
 
@@ -53,3 +69,5 @@ double IFormFactorBorn::bigZPartIntegral(double qH2) const
     double qH = 2.0*qH2;
     return (qH*MathFunctions::Si(qH) + std::cos(qH) - 1.0)/qH;
 }
+
+

@@ -1,47 +1,51 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/inc/TestRootTree.h
+//! @brief     Defines class TestRootTree.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #ifndef TESTROOTTREE_H
 #define TESTROOTTREE_H
-// ********************************************************************
-// * The BornAgain project                                            *
-// * Simulation of neutron and x-ray scattering at grazing incidence  *
-// *                                                                  *
-// * LICENSE AND DISCLAIMER                                           *
-// * Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Mauris *
-// * eget quam orci. Quisque  porta  varius  dui,  quis  posuere nibh *
-// * mollis quis. Mauris commodo rhoncus porttitor.                   *
-// ********************************************************************
-//! @file   TestRootTree.h
-//! @brief  Definition of TestRootTree class for testing ROOT trees
-//! @author Scientific Computing Group at FRM II
-//! @date   18.07.2012
 
 #include "IFunctionalTest.h"
 #include "ISample.h"
 #include "OutputData.h"
-#include "GISASExperiment.h"
+#include "Simulation.h"
 
+//! Using ROOT trees to read/write data from/to disk.
 
-//- -------------------------------------------------------------------
-//! @class TestRootTree.h
-//! @brief using ROOT trees to read/write data from/to disk
-//- -------------------------------------------------------------------
 class TestRootTree : public IFunctionalTest
 {
-public:
+ public:
+    TestRootTree() : mp_sample(0), mp_simulation(0), mp_data(0) {}
+    virtual ~TestRootTree()
+    {
+        delete mp_sample;
+        delete mp_simulation;
+        delete mp_data;
+    }
+
     class MesoParSet{
     public:
-        MesoParSet(double _npR, double _phi, double _alpha) : npR(_npR), phi(_phi), alpha(_alpha){}
+        MesoParSet(double _npR, double _phi, double _alpha)
+            : npR(_npR), phi(_phi), alpha(_alpha) {}
         double npR;
         double phi;
         double alpha;
     };
 
-
-    TestRootTree();
-    virtual ~TestRootTree();
-
     virtual void execute();
 
-private:
+ private:
     //! example showing writing in the tree simple data structures
     void simple_write();
 
@@ -54,13 +58,14 @@ private:
     //! example showing reading from the tree complex data structures
     void complex_read();
 
-    void initializeMesoCrystal(double meso_alpha, double meso_phi, double nanopart_radius);
+    void initializeMesoCrystal
+        (double meso_alpha, double meso_phi, double nanopart_radius);
 
     ISample *mp_sample;
-    GISASExperiment *mp_experiment;
+    Simulation *mp_simulation;
     OutputData<double> *mp_data;
 };
 
-
-
 #endif // TESTROOTTREE_H
+
+

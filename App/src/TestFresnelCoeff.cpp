@@ -1,3 +1,18 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/TestFresnelCoeff.cpp
+//! @brief     Implements class TestFresnelCoeff.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "TestFresnelCoeff.h"
 #include "Layer.h"
 #include "MultiLayer.h"
@@ -25,7 +40,6 @@
 #include "TLatex.h"
 #include "TLegend.h"
 
-
 TestFresnelCoeff::TestFresnelCoeff()
 : mp_sample(0)
 , mp_coeffs(0)
@@ -33,24 +47,22 @@ TestFresnelCoeff::TestFresnelCoeff()
     std::cout << "TestFresnelCoeff::TestFresnelCoeff() -> Info." << std::endl;
 }
 
-
 /* ************************************************************************* */
-//! test fresnel coefficients
+//! test Fresnel coefficients
 /* ************************************************************************* */
 void TestFresnelCoeff::execute()
 {
     std::cout << "TestFresnelCoeff::execute() -> Info." << std::endl;
 
-    // calculate fresnel coefficients for several standard multi-layer samples
+    // calculate Fresnel coefficients for several standard multi-layer samples
     test_standard_samples();
 
-    // calculate fresnel coefficients for multi-layer with different roughnesses
+    // calculate Fresnel coefficients for multi-layer with different roughnesses
     test_roughness_set();
 }
 
-
 /* ************************************************************************* */
-//! calculate fresnel coefficients .vs. alpha_i for several standard samples
+//! Returns Fresnel coefficients .vs. alpha_i for several standard samples
 /* ************************************************************************* */
 void TestFresnelCoeff::test_standard_samples()
 {
@@ -75,8 +87,8 @@ void TestFresnelCoeff::test_standard_samples()
             kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
 
             OpticalFresnel::MultiLayerCoeff_t coeffs;
-            OpticalFresnel fresnelCalculator;
-            fresnelCalculator.execute(*mp_sample, kvec, coeffs);
+            OpticalFresnel FresnelCalculator;
+            FresnelCalculator.execute(*mp_sample, kvec, coeffs);
 
             *it = coeffs;
             ++it;
@@ -89,7 +101,6 @@ void TestFresnelCoeff::test_standard_samples()
         delete mp_coeffs;
     } // i_sample
 }
-
 
 /* ************************************************************************* */
 //! draw test results
@@ -144,9 +155,9 @@ void TestFresnelCoeff::draw_standard_samples()
     // create name of canvas different for each new call of this method
     std::ostringstream os;
     os << (ncall++) << std::endl;
-    std::string cname = std::string("c1_test_fresnel_sample")+os.str();
+    std::string cname = std::string("c1_test_Fresnel_sample")+os.str();
     TCanvas *c1 = new TCanvas(cname.c_str(),"Fresnel Coefficients in Multilayer",1024,768);
-    DrawHelper::instance().SetMagnifier(c1);
+    DrawHelper::SetMagnifier(c1);
 
     // estimate subdivision of canvas (we need place for 'nlayers' and for one sample picture)
     int ndiv(2);
@@ -210,11 +221,11 @@ void TestFresnelCoeff::draw_standard_samples()
 
     // drawing sample geometry
     c1->cd((int)nlayers+1);
-    DrawHelper::instance().DrawMultilayer(mp_sample);
+    DrawHelper::DrawMultilayer(mp_sample);
 }
 
 /* ************************************************************************* */
-//! calculate fresnel coefficients .vs. alpha_i for set of roughnesses
+//! Returns Fresnel coefficients .vs. alpha_i for set of roughnesses
 /* ************************************************************************* */
 void TestFresnelCoeff::test_roughness_set()
 {
@@ -244,16 +255,14 @@ void TestFresnelCoeff::test_roughness_set()
         kvector_t kvec;
         kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
         OpticalFresnel::MultiLayerCoeff_t coeffs;
-        OpticalFresnel fresnelCalculator;
-        fresnelCalculator.execute(*mp_sample, kvec, coeffs);
+        OpticalFresnel FresnelCalculator;
+        FresnelCalculator.execute(*mp_sample, kvec, coeffs);
         *it = coeffs;
         ++it;
     }
 
     draw_roughness_set();
 }
-
-
 
 /* ************************************************************************* */
 //! draw test results
@@ -303,9 +312,9 @@ void TestFresnelCoeff::draw_roughness_set()
     // create name of canvas different for each new call of this method
     std::ostringstream os;
     os << (ncall++) << std::endl;
-    std::string cname = std::string("c1_test_fresnel_roughness")+os.str();
+    std::string cname = std::string("c1_test_Fresnel_roughness")+os.str();
     TCanvas *c1 = new TCanvas(cname.c_str(),"Fresnel Coefficients in Multilayer",1024,768);
-    DrawHelper::instance().SetMagnifier(c1);
+    DrawHelper::SetMagnifier(c1);
 
     // estimate subdivision of canvas (we need place for 'nlayers' and for one sample picture)
     int ndiv(2);
@@ -360,6 +369,8 @@ void TestFresnelCoeff::draw_roughness_set()
 
     // drawing sample geometry
     c1->cd((int)nlayers+1);
-    DrawHelper::instance().DrawMultilayer(mp_sample);
+    DrawHelper::DrawMultilayer(mp_sample);
 }
+
+
 

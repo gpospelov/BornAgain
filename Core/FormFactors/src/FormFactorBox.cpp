@@ -1,43 +1,40 @@
+// ************************************************************************** //
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      FormFactors/src/FormFactorBox.cpp
+//! @brief     Implements class FormFactorBox.
+//!
+//! @homepage  http://apps.jcns.fz-juelich.de/BornAgain
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "FormFactorBox.h"
 #include "MathFunctions.h"
 
-FormFactorBox::FormFactorBox(double radius, double width, double height)
-:m_radius(radius)
-,m_width(width)
-,m_height(height)
-{
-}
-
-FormFactorBox::~FormFactorBox()
-{
-}
-
-FormFactorBox* FormFactorBox::clone() const
-{
-    return new FormFactorBox(m_radius, m_width, m_height );
-}
-
 complex_t FormFactorBox::evaluate_for_q(const cvector_t& q) const
 {
-    complex_t qxR = q.x()*m_radius;
-    complex_t qyW = q.y()*m_width;
-    complex_t qzHdiv2 = q.z()*m_height/2.0;
+    complex_t qxR = m_radius*q.x();
+    complex_t qyW = m_width*q.y();
+    complex_t qzHdiv2 = m_height/2*q.z();
 
-    complex_t phase_factor = std::exp(complex_t(0.0, 1.0)*qzHdiv2);
-    return getVolume() *phase_factor*MathFunctions::Sinc(qxR)*MathFunctions::Sinc(qyW)
-        *MathFunctions::Sinc(qzHdiv2);
+    return getVolume() *
+        std::exp(complex_t(0.,1.)*qzHdiv2) *
+        MathFunctions::Sinc(qxR) *
+        MathFunctions::Sinc(qyW) *
+        MathFunctions::Sinc(qzHdiv2);
 }
 
 void FormFactorBox::init_parameters()
 {
     getParameterPool()->clear();
     getParameterPool()->registerParameter("radius", &m_radius);
-    getParameterPool()->registerParameter( "width",  &m_width);
+    getParameterPool()->registerParameter( "width", & m_width);
     getParameterPool()->registerParameter("height", &m_height);
-
 }
 
-//void FormFactorBox::print(std::ostream& ostr) const
-//{
-//    ISample::print(ostr);
-//}
+

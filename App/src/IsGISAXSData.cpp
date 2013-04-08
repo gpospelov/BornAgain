@@ -1,13 +1,25 @@
+// ************************************************************************** //
+//                                                                         
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      App/src/IsGISAXSData.cpp
+//! @brief     Implements class IsGISAXSData.
+//
+//! Homepage:  apps.jcns.fz-juelich.de/BornAgain
+//! License:   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2013
+//! @authors   Scientific Computing Group at MLZ Garching
+//! @authors   C. Durniak, G. Pospelov, W. Van Herck, J. Wuttke
+//
+// ************************************************************************** //
+
 #include "IsGISAXSData.h"
-#include "ExperimentConstants.h"
 #include <iostream>
 #include <fstream>
 
+//! Read isgisaxs *.dat file which holds experimental data scans for fit.
 
-/* ************************************************************************* */
-// reading isgisaxs *.dat file which holds experimental data scans for fit
-/* ************************************************************************* */
-void IsGISAXSData::read_datfile(const std::string &filename, DataSet_t &dataset)
+void IsGISAXSData::read_datfile(const std::string& filename, DataSet_t& dataset)
 {
     dataset.clear();
 
@@ -55,15 +67,12 @@ void IsGISAXSData::read_datfile(const std::string &filename, DataSet_t &dataset)
     fin.close();
 }
 
+//! Read special isgisaxs *.out file with isgisaxs adjusted data and fit results
 
-
-/* ************************************************************************* */
-// read special isgisaxs *.out file with isgisaxs adjusted data and fit results
-//
-// if read_fit_results == false, then it loads isgisaxs data to fit
-// if read_fit_results == true, then it loads isgisaxs fit results
-/* ************************************************************************* */
-void IsGISAXSData::read_outfile(const std::string &filename, DataSet_t &dataset, ItemToRead item)
+//! if read_fit_results == false, then it loads isgisaxs data to fit
+//! if read_fit_results == true, then it loads isgisaxs fit results
+//!
+void IsGISAXSData::read_outfile(const std::string& filename, DataSet_t& dataset, ItemToRead item)
 {
     dataset.clear();
 
@@ -117,12 +126,9 @@ void IsGISAXSData::read_outfile(const std::string &filename, DataSet_t &dataset,
     }
 }
 
+//! Convert isgisaxs 1d scan to output data 2d object.
 
-
-/* ************************************************************************* */
-// convert isgisaxs 1d scan to output data 2d object
-/* ************************************************************************* */
-OutputData<double> *IsGISAXSData::convert_isgi_scan(std::vector<IsgiData > &isgi_data)
+OutputData<double> *IsGISAXSData::convert_isgi_scan(std::vector<IsgiData >& isgi_data)
 {
     if(isgi_data.size() <2 ) throw LogicErrorException("TestIsGISAXS12::convert_isgi_scan() -> Error! Too short vector.");
 
@@ -143,12 +149,13 @@ OutputData<double> *IsGISAXSData::convert_isgi_scan(std::vector<IsgiData > &isgi
             break;
         }
     }
-    if(fixed_phif == fixed_alphaf) {
-        throw LogicErrorException("TestIsGISAXS12::convert_isgi_scan() -> Error! Scan can't have both angle phif,alphaf fixed");
-    }
+    if(fixed_phif == fixed_alphaf)
+        throw LogicErrorException(
+            "TestIsGISAXS12::convert_isgi_scan() -> "
+            "Error! Scan can't have both angle phif,alphaf fixed");
 
-    AxisDouble phi_axis(NDetector2d::PHI_AXIS_NAME);
-    AxisDouble alpha_axis(NDetector2d::ALPHA_AXIS_NAME);
+    AxisDouble phi_axis("phi_f");
+    AxisDouble alpha_axis("alpha_f");
     if( fixed_phif) {
         //m_isgi_fixed_phif = isgi_data.back().phif;
         phi_axis.push_back(isgi_data.back().phif);
@@ -156,14 +163,14 @@ OutputData<double> *IsGISAXSData::convert_isgi_scan(std::vector<IsgiData > &isgi
         for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
             alpha_axis.push_back(isgi_data[i_point].alphaf);
         }
-    }else {
+    } else {
         //m_isgi_fixed_alphaf = isgi_data.back().alphaf;
         alpha_axis.push_back(isgi_data.back().alphaf);
         for(size_t i_point=0; i_point<isgi_data.size(); ++i_point) {
             phi_axis.push_back(isgi_data[i_point].phif);
         }
     }
-    OutputData<double > * data = new OutputData<double >;
+    OutputData<double> *data = new OutputData<double >;
     data->addAxis(phi_axis);
     data->addAxis(alpha_axis);
     data->setAllTo(0.0);
@@ -176,3 +183,5 @@ OutputData<double> *IsGISAXSData::convert_isgi_scan(std::vector<IsgiData > &isgi
     }
     return data;
 }
+
+

@@ -267,6 +267,7 @@ HEADERS += \
     Samples/inc/IMaterial.h \
     Samples/inc/IRoughness.h \
     Samples/inc/ISample.h \
+    Samples/inc/ISampleVisitor.h \
     Samples/inc/ISelectionRule.h \
     Samples/inc/InterferenceFunction1DParaCrystal.h \
     Samples/inc/InterferenceFunction2DLattice.h \

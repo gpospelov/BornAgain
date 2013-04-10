@@ -1,0 +1,73 @@
+\newpage
+\section{Examples}
+
+
+\subsection{Hello listing}
+
+\begin{lstlisting}[language=python, style=eclipse]    
+mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+n_particle = complex(1.0-6e-4, 2e-8)
+cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
+cylinder = Particle(n_particle, cylinder_ff)
+prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer)
+prism = Particle(n_particle, prism_ff)
+particle_decoration = ParticleDecoration()
+particle_decoration.addParticle(cylinder, 0.0, 0.5)
+particle_decoration.addParticle(prism, 0.0, 0.5)
+interference = InterferenceFunctionNone()
+particle_decoration.addInterferenceFunction(interference)
+# air layer with particles and substrate form multi layer
+air_layer = Layer(mAmbience)
+air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+substrate_layer = Layer(mSubstrate, 0)
+multi_layer = MultiLayer()
+multi_layer.addLayer(air_layer_decorator)
+multi_layer.addLayer(substrate_layer)
+
+# build and run experiment
+simulation = Simulation()
+simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree 2.0*degree, True)
+simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+simulation.setSample(multi_layer)
+simulation.runSimulation()
+\end{lstlisting}
+
+% \newpage
+% \subsection{Hello, minted}
+% 
+% ￼￼\begin{minted}[linenos=true, frame=single]{python}
+% mAmbience = MaterialManager.getHomogeneousMaterial("Air", 1.0, 0.0 )
+% mSubstrate = MaterialManager.getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8 )
+% n_particle = complex(1.0-6e-4, 2e-8)
+% cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
+% cylinder = Particle(n_particle, cylinder_ff)
+% prism_ff = FormFactorPrism3(5*nanometer, 5*nanometer)
+% prism = Particle(n_particle, prism_ff)
+% particle_decoration = ParticleDecoration()
+% particle_decoration.addParticle(cylinder, 0.0, 0.5)
+% particle_decoration.addParticle(prism, 0.0, 0.5)
+% interference = InterferenceFunctionNone()
+% particle_decoration.addInterferenceFunction(interference)
+% # air layer with particles and substrate form multi layer
+% air_layer = Layer(mAmbience)
+% air_layer_decorator = LayerDecorator(air_layer, particle_decoration)
+% substrate_layer = Layer(mSubstrate, 0)
+% multi_layer = MultiLayer()
+% multi_layer.addLayer(air_layer_decorator)
+% multi_layer.addLayer(substrate_layer)
+% 
+% # build and run experiment
+% simulation = Simulation()
+% simulation.setDetectorParameters(100,-1.0*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree, True)
+% simulation.setBeamParameters(1.0*angstrom, -0.2*degree, 0.0*degree)
+% simulation.setSample(multi_layer)
+% simulation.runSimulation()
+% \end{minted}
+
+
+\end{document}
+
+
+
+

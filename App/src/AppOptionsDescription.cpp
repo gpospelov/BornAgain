@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/AppOptionsDescription.cpp
@@ -23,7 +23,7 @@ namespace bpo = boost::program_options;
 
 //! Adds command line and config file options.
 
-void AddApplicationOptions(ProgramOptions* p_options)
+void AddApplicationOptions(ProgramOptions* p_options, FunctionalTestFactory *p_test_factory)
 {
     // general options
     bpo::options_description general_options("General options");
@@ -45,8 +45,8 @@ void AddApplicationOptions(ProgramOptions* p_options)
 
     // functional tests options constructed from information carried by FunctionalTestFactory
     bpo::options_description functional_test_options("Functional tests");
-    FunctionalTestFactory::iterator it = FunctionalTestFactory::begin();
-    for(; it!= FunctionalTestFactory::end(); ++it) {
+    FunctionalTestFactory::iterator it = p_test_factory->begin();
+    for(; it!= p_test_factory->end(); ++it) {
         // it.first - test name, it.second - test description
         functional_test_options.add_options()((*it).first.c_str(), (*it).second.c_str());
     }

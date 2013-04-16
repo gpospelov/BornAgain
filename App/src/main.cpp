@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/src/main.cpp
@@ -36,8 +36,11 @@ int main(int argc, char **argv)
     std::cout << AppVersion::g_app_name << " "
               << AppVersion::g_app_version_number << std::endl;
 
+    FunctionalTestFactory test_factory;
+    RegisterFunctionalTests(&test_factory);
+
     ProgramOptions command_line_options;
-    AddApplicationOptions(&command_line_options);
+    AddApplicationOptions(&command_line_options, &test_factory);
     AddCoreOptions(&command_line_options);
     command_line_options.parseCommandLine(argc, argv);
 
@@ -57,15 +60,15 @@ int main(int argc, char **argv)
     // run functional tests
     if( command_line_options.find("all") ) {
         // run all registered tests
-        FunctionalTestFactory::execute_all(&command_line_options);
+        test_factory.execute_all(&command_line_options);
 
     } else {
         // loop over functional tests,
         // run test if its name is present in command line
-        FunctionalTestFactory::iterator it = FunctionalTestFactory::begin();
-        for(; it!= FunctionalTestFactory::end(); ++it) {
+        FunctionalTestFactory::iterator it = test_factory.begin();
+        for(; it!= test_factory.end(); ++it) {
             if( command_line_options.find( (*it).first ) )
-                FunctionalTestFactory::execute(
+                test_factory.execute(
                     (*it).first, &command_line_options );
         }
     }

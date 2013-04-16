@@ -1,5 +1,5 @@
 // ************************************************************************** //
-//                                                                         
+//
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      App/inc/FunctionalTestFactory.h
@@ -25,45 +25,35 @@
 class TBenchmark;
 class ProgramOptions;
 
-class FunctionalTestFactory : public ISingleton<FunctionalTestFactory>,
-                              public IFactory<std::string, IFunctionalTest>
+class FunctionalTestFactory : public IFactory<std::string, IFunctionalTest>
 {
- public:
+  public:
     FunctionalTestFactory();
     virtual ~FunctionalTestFactory();
 
     //! execute specified test
-    static void execute(std::string name, ProgramOptions *p_options)
-    { instance().this_execute(name, p_options); }
+    void execute(std::string name, ProgramOptions *p_options);
 
     //! profile specified test
-    static void profile(std::string name, ProgramOptions *p_options)
-    { instance().this_profile(name, p_options); }
+    void profile(std::string name, ProgramOptions *p_options);
 
     //! execute all registered tests
-    static void execute_all(ProgramOptions *p_options)
-    { instance().this_execute_all(p_options); }
+    void execute_all(ProgramOptions *p_options);
 
     //! Prints names of registered tests
-    static void print_testnames()
-    { instance().this_print_testnames(); }
+    void print_testnames();
 
     //! Prints benchmark summary
-    static void print_benchmarks()
-    { instance().this_print_benchmarks(); }
+    void print_benchmarks();
 
-    static iterator begin() { return instance().m_descriptions.begin(); }
-    static iterator end() { return instance().m_descriptions.end(); }
+    iterator begin() { return m_descriptions.begin(); }
+    iterator end() { return m_descriptions.end(); }
 
- private:
-    void this_execute(std::string name, ProgramOptions *p_options);
-    void this_profile(std::string name, ProgramOptions *p_options);
-    void this_execute_all(ProgramOptions *p_options);
-    void this_print_testnames();
-    void this_print_benchmarks();
-
+  private:
     TBenchmark *m_benchmark;
 };
+
+void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory);
 
 #endif // FUNCTIONALTESTFACTORY_H
 

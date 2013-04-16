@@ -83,7 +83,8 @@ void FunctionalTestFactory::execute(std::string name, ProgramOptions *p_options)
         test = createItem( name );
     } catch (std::runtime_error& e) {
         std::cout << e.what() << std::endl;
-        std::cout << "TestFactory::execute() -> Warning. No test with name '" << name << "' is defined." << std::endl;
+        std::cout << "TestFactory::execute() -> Warning. No test with name '"
+                << name << "' is defined." << std::endl;
         return;
     }
 
@@ -104,7 +105,8 @@ void FunctionalTestFactory::profile(std::string name, ProgramOptions *p_options)
         test = createItem( name );
     } catch (std::runtime_error& e) {
         std::cout << e.what() << std::endl;
-        std::cout << "TestFactory::execute() -> Warning. No test with name '" << name << "' is defined." << std::endl;
+        std::cout << "TestFactory::execute() -> Warning. No test with name '"
+                << name << "' is defined." << std::endl;
         return;
     }
 
@@ -158,15 +160,18 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
     p_test_factory->registerItem(
         "diffuse",
         IFactoryCreateFunction<TestDiffuseReflection, IFunctionalTest>,
-        "functional test: diffuse scattering from multilayer with roughness (obsolete)");
+        "functional test: diffuse scattering from multilayer with roughness "
+        "(obsolete)");
     p_test_factory->registerItem(
         "isgisaxs01",
         IFactoryCreateFunction<TestIsGISAXS1, IFunctionalTest>,
-        "functional test: isgisaxs ex-1 (2 types of particles without inteference on top of substrate)");
+        "functional test: isgisaxs ex-1 (2 types of particles without "
+        "interference on top of substrate)");
     p_test_factory->registerItem(
         "isgisaxs02",
         IFactoryCreateFunction<TestIsGISAXS2, IFunctionalTest>,
-        "functional test: isgisaxs ex-2 (mean form factors for particles with shape size distribution)");
+        "functional test: isgisaxs ex-2 (mean form factors for particles with "
+        "shape size distribution)");
     p_test_factory->registerItem(
         "isgisaxs03",
         IFactoryCreateFunction<TestIsGISAXS3, IFunctionalTest>,
@@ -178,19 +183,23 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
     p_test_factory->registerItem(
         "isgisaxs05",
         IFactoryCreateFunction<TestIsGISAXS5, IFunctionalTest>,
-        "functional test: isgisaxs ex-5 (fit with paracrystal 1d structure factor)");
+        "functional test: isgisaxs ex-5 (fit with paracrystal 1d structure "
+        "factor)");
     p_test_factory->registerItem(
         "isgisaxs06",
         IFactoryCreateFunction<TestIsGISAXS6, IFunctionalTest>,
-        "functional test: isgisaxs ex-6 (cylinders with lattice interference function)");
+        "functional test: isgisaxs ex-6 (cylinders with lattice interference "
+        "function)");
     p_test_factory->registerItem(
         "isgisaxs07",
         IFactoryCreateFunction<TestIsGISAXS7, IFunctionalTest>,
-        "functional test: isgisaxs ex-7 (particle mixture from morphology file)");
+        "functional test: isgisaxs ex-7 (particle mixture from morphology "
+        "file)");
     p_test_factory->registerItem(
         "isgisaxs08",
         IFactoryCreateFunction<TestIsGISAXS8, IFunctionalTest>,
-        "functional test: isgisaxs ex-8 (paracrystal lattice structure factors)");
+        "functional test: isgisaxs ex-8 (paracrystal lattice structure "
+        "factors)");
     p_test_factory->registerItem(
         "isgisaxs09",
         IFactoryCreateFunction<TestIsGISAXS9, IFunctionalTest>,
@@ -198,11 +207,13 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
     p_test_factory->registerItem(
         "isgisaxs10",
         IFactoryCreateFunction<TestIsGISAXS10, IFunctionalTest>,
-        "functional test: isgisaxs ex-10 (cylinders with interference on top of substrate)");
+        "functional test: isgisaxs ex-10 (cylinders with interference on top "
+        "of substrate)");
     p_test_factory->registerItem(
         "isgisaxs11",
         IFactoryCreateFunction<TestIsGISAXS11, IFunctionalTest>,
-        "functional test: isgisaxs ex-11 (core shell parallelopiped islands on top of substrate)");
+        "functional test: isgisaxs ex-11 (core shell parallelopiped islands "
+        "on top of substrate)");
     p_test_factory->registerItem(
         "isgisaxs12",
         IFactoryCreateFunction<TestIsGISAXS12, IFunctionalTest>,
@@ -214,11 +225,13 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
     p_test_factory->registerItem(
         "isgisaxs14",
         IFactoryCreateFunction<TestIsGISAXS14, IFunctionalTest>,
-        "functional test: isgisaxs ex-14 (multilayered sphere on graded interface)");
+        "functional test: isgisaxs ex-14 (multilayered sphere on graded "
+        "interface)");
     p_test_factory->registerItem(
         "isgisaxs15",
         IFactoryCreateFunction<TestIsGISAXS15, IFunctionalTest>,
-        "functional test: isgisaxs ex-15 (size-spacing correlation approximation)");
+        "functional test: isgisaxs ex-15 (size-spacing correlation "
+        "approximation)");
     p_test_factory->registerItem(
         "convolution",
         IFactoryCreateFunction<TestConvolution, IFunctionalTest>,
@@ -266,7 +279,8 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
     p_test_factory->registerItem(
         "fitbench",
         IFactoryCreateFunction<TestFittingBenchmark, IFunctionalTest>,
-        "functional test: test of minimizers with hard-to-minimize test functions");
+        "functional test: test of minimizers with hard-to-minimize test "
+        "functions");
     p_test_factory->registerItem(
         "Fourier",
         IFactoryCreateFunction<TestFourier, IFunctionalTest>,
@@ -274,7 +288,8 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
     p_test_factory->registerItem(
         "fumili",
         IFactoryCreateFunction<TestFumiliLMA, IFunctionalTest>,
-        "functional test: test of ROOT's LMA-based minimizers Fumili and GSLMultiFit");
+        "functional test: test of ROOT's LMA-based minimizers Fumili and "
+        "GSLMultiFit");
     p_test_factory->registerItem(
         "toyexp",
         IFactoryCreateFunction<TestToySimulation, IFunctionalTest>,

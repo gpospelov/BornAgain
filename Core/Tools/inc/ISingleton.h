@@ -66,8 +66,8 @@ class ISingleton
 
 };
 
-template<class T > typename ISingleton<T>::T_Pointer ISingleton<T>::m_instance = 0;
-template< class T> bool ISingleton<T>::m_destroyed = false;
+template<class T> typename ISingleton<T>::T_Pointer ISingleton<T>::m_instance = 0;
+template<class T> bool ISingleton<T>::m_destroyed = false;
 
 #endif // ISINGLETON_H
 

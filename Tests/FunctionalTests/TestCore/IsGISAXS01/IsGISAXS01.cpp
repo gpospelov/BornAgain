@@ -94,6 +94,7 @@ int FunctionalTests::IsGISAXS01::analyseResults()
     // Calculating average relative difference.
     *m_result -= *reference;
     *m_result /= *reference;
+
     double diff(0);
     for(OutputData<double>::const_iterator it =
             m_result->begin(); it!=m_result->end(); ++it) {
@@ -104,10 +105,11 @@ int FunctionalTests::IsGISAXS01::analyseResults()
     // Assess result.
     bool status_ok(true);
     if( diff > threshold || std::isnan(diff) ) status_ok=false;
-    delete reference;
 
     std::cout << m_name << " " << m_description << " " <<
         (status_ok ? "[OK]" : "[FAILED]") << std::endl;
+
+    delete reference;
 
     return (status_ok ? 0 : 1);
 }

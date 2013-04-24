@@ -78,6 +78,7 @@ int FunctionalTests::IsGISAXS15::analyseResults()
     // calculating average relative difference
     *m_result -= *reference;
     *m_result /= *reference;
+    delete reference;
 
     double diff(0);
     for(OutputData<double>::const_iterator it=m_result->begin(); it!=m_result->end(); ++it) {

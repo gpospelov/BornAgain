@@ -17,6 +17,8 @@
 #define SPECULARMATRIX_H_
 
 #include "Types.h"
+#include "ISimulation.h"
+#include "MultiLayer.h"
 
 //! Implements the matrix formalism for the calculation of wave amplitudes of
 //! the coherent wave solution in a multilayer
@@ -50,13 +52,13 @@ public:
        inline size_t size() const { return m_data.size(); }
        inline void clear() { m_data.clear(); }
        inline void resize(size_t size) { m_data.resize(size); }
-   private:
-       std::vector<LayerMatrixCoeff > m_data;
        complex_t R; // total reflection coefficient
        complex_t L11;
        complex_t L12;
        complex_t L21;
        complex_t L22;
+   private:
+       std::vector<LayerMatrixCoeff > m_data;
    };
 
    typedef MultiLayerMatrixCoeff MultiLayerCoeff_t; // set of layer coefficients for matrix formalism

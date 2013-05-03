@@ -153,20 +153,20 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600.;cdt.managedbuild.tool.gnu.c.compiler.macosx.base.1651719834;cdt.managedbuild.tool.gnu.c.compiler.input.485220512">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.834509647;cdt.managedbuild.tool.gnu.c.compiler.macosx.base.44819609;cdt.managedbuild.tool.gnu.c.compiler.input.44052800">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.834509647;cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.1362645889;cdt.managedbuild.tool.gnu.cpp.compiler.input.2060403592">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600.;cdt.managedbuild.tool.gnu.c.compiler.macosx.base.1651719834;cdt.managedbuild.tool.gnu.c.compiler.input.485220512">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600;cdt.managedbuild.toolchain.gnu.macosx.base.45089428.1343516600.;cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.1382053189;cdt.managedbuild.tool.gnu.cpp.compiler.input.913383985">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 </cproject>

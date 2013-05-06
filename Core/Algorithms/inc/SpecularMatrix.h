@@ -20,29 +20,27 @@
 #include "ISimulation.h"
 #include "MultiLayer.h"
 
+#include "Eigen/Core"
+
 //! Implements the matrix formalism for the calculation of wave amplitudes of
 //! the coherent wave solution in a multilayer
 
 class SpecularMatrix : public ISimulation
 {
 public:
-    SpecularMatrix() : m_use_roughness(false) {}
+    SpecularMatrix() : m_use_roughness(false) { (void)m_use_roughness; }
 
    //! layer coefficients for matrix formalism
    class LayerMatrixCoeff {
    public:
-       LayerMatrixCoeff() : lambda(0), phi(0), psi(0), l11(0), l12(0), l21(0), l22(0) {}
+       LayerMatrixCoeff() : lambda(0) {}
        ~LayerMatrixCoeff() {}
-       complex_t R() const { return (psi+phi/lambda)/2.0; }
-       complex_t T() const { return (psi-phi/lambda)/2.0; }
+       complex_t R() const { return (phi_psi(1)+phi_psi(0)/lambda)/2.0; }
+       complex_t T() const { return (phi_psi(1)-phi_psi(0)/lambda)/2.0; }
        // A - amplitude of initial wave, R, T - amplitudes of reflected and transmitted waves
        complex_t lambda; // positive eigenvalue of transfer matrix
-       complex_t phi;  // amplitude of the normalized derivative of wavefunction at top
-       complex_t psi;  // amplitude of the wavefunction at top
-       complex_t l11;  // matrix element of transfer matrix
-       complex_t l12;  // matrix element of transfer matrix
-       complex_t l21;  // matrix element of transfer matrix
-       complex_t l22;  // matrix element of transfer matrix
+       Eigen::Vector2cd phi_psi;
+       Eigen::Matrix2cd l;
    };
 
    //! multi layer coefficients for matrix formalism
@@ -55,10 +53,7 @@ public:
        inline void clear() { m_data.clear(); }
        inline void resize(size_t size) { m_data.resize(size); }
        complex_t R; // total reflection coefficient
-       complex_t L11;
-       complex_t L12;
-       complex_t L21;
-       complex_t L22;
+       Eigen::Matrix2cd L;
    private:
        std::vector<LayerMatrixCoeff > m_data;
    };

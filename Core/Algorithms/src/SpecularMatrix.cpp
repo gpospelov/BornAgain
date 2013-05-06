@@ -47,37 +47,21 @@ void SpecularMatrix::calculateTransferMatrices(const MultiLayer& sample,
 {
     double ksinalpha = k.mag()*std::abs( k.cosTheta() );
     // Layer 0 gets identity matrix:
-    coeff[0].l11 = complex_t(1.0, 0.0);
-    coeff[0].l12 = complex_t(0.0, 0.0);
-    coeff[0].l21 = complex_t(0.0, 0.0);
-    coeff[0].l22 = complex_t(1.0, 0.0);
-    coeff.L11 = complex_t(1.0, 0.0);
-    coeff.L12 = complex_t(0.0, 0.0);
-    coeff.L21 = complex_t(0.0, 0.0);
-    coeff.L22 = complex_t(1.0, 0.0);
+    coeff[0].l.setIdentity();
+    coeff.L.setIdentity();
     for(size_t i=1; i<coeff.size()-1; ++i) {
         complex_t lambda = coeff[i].lambda;
         complex_t coskdsinlambda = std::cos(ksinalpha*sample.getLayer(i)->getThickness()*lambda);
         complex_t sinkdsinlambda = std::sin(ksinalpha*sample.getLayer(i)->getThickness()*lambda);
-        coeff[i].l11 = coskdsinlambda;
-        coeff[i].l12 = -complex_t(0.0, 1.0)*lambda*sinkdsinlambda;
-        coeff[i].l21 = -complex_t(0.0, 1.0)*sinkdsinlambda/lambda;
-        coeff[i].l22 = coskdsinlambda;
-        complex_t ltemp11 = coeff[i].l11*coeff.L11 + coeff[i].l12*coeff.L21;
-        complex_t ltemp12 = coeff[i].l11*coeff.L12 + coeff[i].l12*coeff.L22;
-        complex_t ltemp21 = coeff[i].l21*coeff.L11 + coeff[i].l22*coeff.L21;
-        complex_t ltemp22 = coeff[i].l21*coeff.L12 + coeff[i].l22*coeff.L22;
-        coeff.L11 = ltemp11;
-        coeff.L12 = ltemp12;
-        coeff.L21 = ltemp21;
-        coeff.L22 = ltemp22;
+        coeff[i].l(0,0) = coskdsinlambda;
+        coeff[i].l(0,1) = -complex_t(0.0, 1.0)*lambda*sinkdsinlambda;
+        coeff[i].l(1,0) = -complex_t(0.0, 1.0)*sinkdsinlambda/lambda;
+        coeff[i].l(1,1) = coskdsinlambda;
+        coeff.L = coeff[i].l * coeff.L;
     }
     // Last layer also gets identity matrix:
     size_t N = coeff.size();
-    coeff[N-1].l11 = complex_t(1.0, 0.0);
-    coeff[N-1].l12 = complex_t(0.0, 0.0);
-    coeff[N-1].l21 = complex_t(0.0, 0.0);
-    coeff[N-1].l22 = complex_t(1.0, 0.0);
+    coeff[N-1].l.setIdentity();
 }
 
 void SpecularMatrix::calculateBoundaryValues(MultiLayerCoeff_t& coeff) const
@@ -85,14 +69,13 @@ void SpecularMatrix::calculateBoundaryValues(MultiLayerCoeff_t& coeff) const
     complex_t lambda0 = coeff[0].lambda;
     size_t N = coeff.size();
     complex_t lambdaN = coeff[N-1].lambda;
-    complex_t denominator = (lambda0*coeff.L11 + coeff.L12 + lambdaN*(lambda0*coeff.L21 + coeff.L22));
-    coeff.R = (lambda0*coeff.L11 - coeff.L12 + lambdaN*(lambda0*coeff.L21 - coeff.L22))/denominator;
+    complex_t denominator = (lambda0*coeff.L(0,0) + coeff.L(0,1) + lambdaN*(lambda0*coeff.L(1,0) + coeff.L(1,1)));
+    coeff.R = (lambda0*coeff.L(0,0) - coeff.L(0,1) + lambdaN*(lambda0*coeff.L(1,0) - coeff.L(1,1)))/denominator;
     // Boundary values at bottom of top layer
     // and top of first layer:
-    coeff[1].phi = coeff[0].phi = lambda0*(coeff.R - 1.0);
-    coeff[1].psi = coeff[0].psi = coeff.R + 1.0;
+    coeff[1].phi_psi(0) = coeff[0].phi_psi(0) = lambda0*(coeff.R - 1.0);
+    coeff[1].phi_psi(1) = coeff[0].phi_psi(1) = coeff.R + 1.0;
     for(size_t i=2; i<coeff.size(); ++i) {
-        coeff[i].phi = coeff[i-1].l11*coeff[i-1].phi + coeff[i-1].l12*coeff[i-1].psi;
-        coeff[i].psi = coeff[i-1].l21*coeff[i-1].phi + coeff[i-1].l22*coeff[i-1].psi;
+        coeff[i].phi_psi = coeff[i-1].l*coeff[i-1].phi_psi;
     }
 }

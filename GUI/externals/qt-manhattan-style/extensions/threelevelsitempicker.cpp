@@ -11,6 +11,7 @@
 #include <QLabel>
 #include <QTimer>
 
+
 namespace
 {
 
@@ -80,15 +81,16 @@ ThreeLevelsItemPicker::ThreeLevelsItemPicker(const QString& level1Title,
 
     // List widgets
     m_level1Items = new ListWidget;
-    m_level1Items->setMaxCount(3);
+    m_level1Items->setMaxCount(5);
     m_level1Items->addItems(m_level2ItemsFromlevel1.keys());
     connect(m_level1Items, SIGNAL(currentTextChanged(QString)), this, SLOT(setLevel1(QString)));
     m_level2Items = new ListWidget;
-    m_level2Items->setMaxCount(m_level2ItemsFromlevel1.count());
+    m_level2Items->setMaxCount(5);
     connect(m_level2Items, SIGNAL(currentTextChanged(QString)), this, SLOT(setLevel2(QString)));
     m_level3Items = new ListWidget;
-    m_level3Items->setMaxCount(m_level3ItemsFromLevel2.count());
+    m_level3Items->setMaxCount(5);
     connect(m_level3Items, SIGNAL(currentTextChanged(QString)), this, SLOT(setLevel3(QString)));
+    connect(m_level3Items, SIGNAL(itemReselected()), this, SLOT(hide()));
 
     QGridLayout *grid = new QGridLayout(this);
     grid->setMargin(0);
@@ -142,6 +144,13 @@ void ThreeLevelsItemPicker::setVisible(bool visible)
     m_triggerAction->setChecked(visible);
 }
 
+void ThreeLevelsItemPicker::setMaxVisibleItemCount(int count)
+{
+    m_level1Items->setMaxCount(count);
+    m_level2Items->setMaxCount(count);
+    m_level3Items->setMaxCount(count);
+}
+
 QString ThreeLevelsItemPicker::level1() const
 {
     QListWidgetItem* item = m_level1Items->currentItem();
@@ -158,6 +167,45 @@ QString ThreeLevelsItemPicker::level3() const
 {
     QListWidgetItem* item = m_level3Items->currentItem();
     return item ? item->text() : QString();
+}
+
+namespace
+{
+
+QListWidgetItem* find(const ListWidget* list, const QString& name)
+{
+    for (int row = 0; row < list->count(); ++row)
+    {
+        QListWidgetItem* item = list->item(row);
+        if (item->text() == name)
+            return item;
+    }
+
+    //return nullptr;
+    return NULL;
+}
+
+} // Anonymous namespace
+
+void ThreeLevelsItemPicker::setLevel1Item(const QString& name)
+{
+    QListWidgetItem* item = ::find(m_level1Items, name);
+    if (item)
+        m_level1Items->setCurrentItem(item);
+}
+
+void ThreeLevelsItemPicker::setLevel2Item(const QString& name)
+{
+    QListWidgetItem* item = ::find(m_level2Items, name);
+    if (item)
+        m_level2Items->setCurrentItem(item);
+}
+
+void ThreeLevelsItemPicker::setLevel3Item(const QString& name)
+{
+    QListWidgetItem* item = ::find(m_level3Items, name);
+    if (item)
+        m_level3Items->setCurrentItem(item);
 }
 
 void ThreeLevelsItemPicker::setLevel1(const QString& name)
@@ -180,9 +228,13 @@ void ThreeLevelsItemPicker::setLevel3(const QString& name)
     m_triggerAction->setProperty("heading", name);
     QListWidgetItem* item = m_level2Items->currentItem();
     m_triggerAction->setProperty("subtitle", item ? item->text() : "");
-    QTimer::singleShot(200, this, SLOT(hide()));
-
+    smoothHide();
     emit itemChanged();
+}
+
+void ThreeLevelsItemPicker::smoothHide()
+{
+    QTimer::singleShot(200, this, SLOT(hide()));
 }
 
 // This is a workaround for the problem that Windows
@@ -280,10 +332,14 @@ ListWidget::ListWidget(QWidget *parent)
     setFocusPolicy(Qt::WheelFocus);
     setItemDelegate(new TargetSelectorDelegate(this));
     setAttribute(Qt::WA_MacShowFocusRect, false);
-    setStyleSheet(QString::fromLatin1("QListWidget { background: #464646; border-style: none; }"));
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-}
 
+    // Style
+    QFile file(":/extensions/qss/threelevelsitempicker-listwidget.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QLatin1String(file.readAll());
+    setStyleSheet(styleSheet);
+}
 
 QSize ListWidget::sizeHint() const
 {
@@ -316,4 +372,14 @@ void ListWidget::setMaxCount(int maxCount)
     // updateGeometry (which then would jump ugly)
     m_maxCount = maxCount;
     updateGeometry();
+}
+
+void ListWidget::mouseReleaseEvent(QMouseEvent* event)
+{
+    QListWidgetItem* item = currentItem();
+    QListWidget::mouseReleaseEvent(event);
+    if (item == currentItem())
+    {
+        emit itemReselected();
+    }
 }

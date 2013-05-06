@@ -110,7 +110,6 @@ QSize FancyTabBar::tabSizeHint(bool minimum) const
         if (width > maxLabelwidth)
             maxLabelwidth = width;
     }
-//    int iconHeight = minimum ? 0 : 32;
     int iconHeight = minimum ? 0 : 48;
     return QSize(qMax(width, maxLabelwidth + 4), iconHeight + spacing + fm.height());
 }
@@ -401,7 +400,6 @@ FancyTabWidget::FancyTabWidget(QWidget *parent)
     QVBoxLayout *topCornerWidgetLayout = new QVBoxLayout;
     topCornerWidgetLayout->setSpacing(0);
     topCornerWidgetLayout->setMargin(0);
-    topCornerWidgetLayout->addStretch();
     m_topCornerWidgetContainer->setLayout(topCornerWidgetLayout);
     selectionLayout->addWidget(m_topCornerWidgetContainer, 0);
 
@@ -417,7 +415,6 @@ FancyTabWidget::FancyTabWidget(QWidget *parent)
     QVBoxLayout *bottomCornerWidgetLayout = new QVBoxLayout;
     bottomCornerWidgetLayout->setSpacing(0);
     bottomCornerWidgetLayout->setMargin(0);
-    bottomCornerWidgetLayout->addStretch();
     m_bottomCornerWidgetContainer->setLayout(bottomCornerWidgetLayout);
     selectionLayout->addWidget(m_bottomCornerWidgetContainer, 0);
 
@@ -445,11 +442,13 @@ void FancyTabWidget::setSelectionWidgetHidden(bool hidden) {
     m_selectionWidget->setHidden(hidden);
 }
 
+//void FancyTabWidget::insertTab(int index, QWidget *tab, const QIcon &icon)
 void FancyTabWidget::insertTab(int index, QWidget *tab, const QIcon &icon, const QString &label)
 {
+//    QString label("XXX");
     m_modesStack->insertWidget(index, tab);
     m_tabBar->insertTab(index, icon, label);
-    setTabEnabled(index,true);
+    setTabEnabled(index, true);
 }
 
 void FancyTabWidget::removeTab(int index)

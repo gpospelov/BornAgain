@@ -57,7 +57,7 @@ HEADERS  += \
 INCLUDEPATH += $$PWD/mainwindow $$PWD/utils $$PWD/Views $$PWD/Models
 
 # visual style "Manhattan"
-LIBS += $$PWD/../../lib/libqt-manhattan-style.so
+LIBS += $$PWD/../../lib/libManhattanStyle.so
 INCLUDEPATH += $$PWD/../externals/qt-manhattan-style
 
 ## ROOT libraries integration

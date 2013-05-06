@@ -144,6 +144,7 @@ class QTMANHATTANSTYLESHARED_EXPORT FancyTabWidget : public QWidget
 public:
     FancyTabWidget(QWidget *parent = 0);
 
+//    void insertTab(int index, QWidget *tab, const QIcon &icon);
     void insertTab(int index, QWidget *tab, const QIcon &icon, const QString &label);
     void removeTab(int index);
     void removeTabs();

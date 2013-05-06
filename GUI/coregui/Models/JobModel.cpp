@@ -42,7 +42,7 @@ TH2D *JobModel::getHistogram()
         return mp_cached_histogram;
     }
     const OutputData<double> *output = mp_simulation->getOutputData();
-    if (output->getNdimensions() !=2) {
+    if (output->getRank() !=2) {
         return 0;
     }
     std::vector<size_t> axis_sizes;
@@ -50,7 +50,7 @@ TH2D *JobModel::getHistogram()
     std::vector<std::vector<double> > binvectors;
 
     // we assume variable bin size and prepare [nbins+1] array of left edges of each bin plus right edge of the last bin
-    for(size_t i_axis=0; i_axis<output->getNdimensions(); ++i_axis) {
+    for(size_t i_axis=0; i_axis<output->getRank(); ++i_axis) {
         const IAxis *axis = output->getAxis(i_axis);
         if( !axis ) return 0;
         double dx(0);

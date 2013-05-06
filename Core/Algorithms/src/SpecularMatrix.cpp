@@ -19,6 +19,9 @@
 void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         MultiLayerCoeff_t& coeff)
 {
+    coeff.clear();
+    coeff.resize(sample.getNumberOfLayers());
+
     calculateEigenvalues(sample, k, coeff);
 
     calculateTransferMatrices(sample, k, coeff);

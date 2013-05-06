@@ -33,6 +33,8 @@ public:
    public:
        LayerMatrixCoeff() : lambda(0), phi(0), psi(0), l11(0), l12(0), l21(0), l22(0) {}
        ~LayerMatrixCoeff() {}
+       complex_t R() const { return (psi+phi/lambda)/2.0; }
+       complex_t T() const { return (psi-phi/lambda)/2.0; }
        // A - amplitude of initial wave, R, T - amplitudes of reflected and transmitted waves
        complex_t lambda; // positive eigenvalue of transfer matrix
        complex_t phi;  // amplitude of the normalized derivative of wavefunction at top

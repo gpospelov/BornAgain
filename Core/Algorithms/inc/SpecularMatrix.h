@@ -41,6 +41,7 @@ public:
        complex_t lambda; // positive eigenvalue of transfer matrix
        Eigen::Vector2cd phi_psi;
        Eigen::Matrix2cd l;
+       Eigen::Matrix2cd l_accumulated;
    };
 
    //! multi layer coefficients for matrix formalism

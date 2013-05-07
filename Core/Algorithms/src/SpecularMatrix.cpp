@@ -38,25 +38,28 @@ void SpecularMatrix::calculateEigenvalues(const MultiLayer& sample,
     complex_t r2cosalpha2 = rindex0*rindex0*cosalpha2;
     for(size_t i=0; i<coeff.size(); ++i) {
         complex_t rindex = sample.getLayer(i)->getRefractiveIndex();
-        coeff[i].lambda = std::sqrt(rindex*rindex - r2cosalpha2)/sinalpha;
+        coeff[i].lambda = std::sqrt(rindex*rindex - r2cosalpha2);
     }
 }
 
 void SpecularMatrix::calculateTransferMatrices(const MultiLayer& sample,
         const kvector_t& k, MultiLayerCoeff_t& coeff) const
 {
-    double ksinalpha = k.mag()*std::abs( k.cosTheta() );
     // Layer 0 gets identity matrix:
     coeff[0].l.setIdentity();
     coeff.L.setIdentity();
     for(size_t i=1; i<coeff.size()-1; ++i) {
         complex_t lambda = coeff[i].lambda;
-        complex_t coskdsinlambda = std::cos(ksinalpha*sample.getLayer(i)->getThickness()*lambda);
-        complex_t sinkdsinlambda = std::sin(ksinalpha*sample.getLayer(i)->getThickness()*lambda);
-        coeff[i].l(0,0) = coskdsinlambda;
-        coeff[i].l(0,1) = -complex_t(0.0, 1.0)*lambda*sinkdsinlambda;
-        coeff[i].l(1,0) = -complex_t(0.0, 1.0)*sinkdsinlambda/lambda;
-        coeff[i].l(1,1) = coskdsinlambda;
+        complex_t kdlambda = k.mag()*sample.getLayer(i)->getThickness()*lambda;
+        complex_t cosine_term = std::cos(kdlambda);
+        complex_t sine_term =
+                ( std::abs(kdlambda) < Numeric::double_epsilon ) ?
+                k.mag()*sample.getLayer(i)->getThickness() :
+                std::sin(kdlambda)/lambda;
+        coeff[i].l(0,0) = cosine_term;
+        coeff[i].l(0,1) = -complex_t(0.0, 1.0)*lambda*lambda*sine_term;
+        coeff[i].l(1,0) = -complex_t(0.0, 1.0)*sine_term;
+        coeff[i].l(1,1) = cosine_term;
         coeff.L = coeff[i].l * coeff.L;
     }
     // Last layer also gets identity matrix:

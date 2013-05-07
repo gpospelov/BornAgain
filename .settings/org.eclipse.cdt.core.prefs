@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
 environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.45089428/DYLD_LIBRARY_PATH/delimiter=\:
 environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.45089428/DYLD_LIBRARY_PATH/operation=replace
-environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.45089428/DYLD_LIBRARY_PATH/value=${workspace_loc\:/GISASFW/lib}
+environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.45089428/DYLD_LIBRARY_PATH/value=${workspace_loc\:/BornAgain/lib}
 environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.45089428/append=true
 environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.45089428/appendContributed=true

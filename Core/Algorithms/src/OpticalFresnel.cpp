@@ -160,7 +160,7 @@ void OpticalFresnel::calculateX2(const MultiLayer& sample, MultiLayerCoeff_t& co
     for(int i=(int)coeff.size()-2; i>=0; --i) {
         // first check for infinity
         if(std::abs(coeff[i].r*coeff[i+1].X + complex_t(1,0)) < Numeric::double_epsilon) {
-            throw DivisionByZeroException("Division by zer during calculation of X_i");
+            throw DivisionByZeroException("Division by zero during calculation of X_i");
         }
         double d = i==0 ? 0.0 : sample.getLayerThickness(i);
         complex_t exp_factor;

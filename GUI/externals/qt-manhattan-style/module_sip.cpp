@@ -9,6 +9,7 @@
 #include <QIcon>
 #include <QString>
 #include <QColor>
+#include <QWebView>
 
 #include "manhattanstyle.h"
 #include "fancytabwidget.h"
@@ -83,6 +84,7 @@ template <> struct MetaData<QWidget> { static const char* className() { return "
 template <> struct MetaData<QIcon> { static const char* className() { return "QIcon";} };
 template <> struct MetaData<QColor> { static const char* className() { return "QColor";} };
 template <> struct MetaData<QAction> { static const char* className() { return "QAction";} };
+template <> struct MetaData<QWebView> { static const char* className() { return "QWebView";} };
 //template <> struct MetaData<QString> { static const char* className() { return "QString";} };
 
 
@@ -164,6 +166,7 @@ struct QClass_converters
     
     // transfer ownership from python to C++
 #if SIP_API_MAJOR_NR >=4
+    std::cout << "XXX 2.1" << std::endl;
     sip_API->api_transfer_to(obj_ptr, 0);
 #else
     sip_API->api_transfer(obj_ptr, 1);
@@ -387,6 +390,7 @@ void export_sip()
   QClass_converters<QWidget>(); // from python
   QClass_converters<QAction>(); // from/to python
   QClass_converters<QIcon>();
+  QClass_converters<QWebView>();
   //QClass_converters<QString>();
   //QClass_converters<QColor>();
 

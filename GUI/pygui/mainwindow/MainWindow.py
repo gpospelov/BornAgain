@@ -23,6 +23,7 @@ def fromPyQt(object, type):
     return type.wrap(ptr)
 
 
+#import ManhattanStyle as lms
 import libManhattanStyle as lms
 from views.WelcomeView import WelcomeView
 
@@ -32,26 +33,26 @@ class MainWindow(QMainWindow):
 
         baseName = QApplication.style().objectName()
 
-        manhattan_style = lms.ManhattanStyle( str(baseName) )
+        #manhattan_style = lms.ManhattanStyle( str(baseName) )
         #manhattan_style = lms.ManhattanStyle( sip.unwrapinstance(baseName) )
         #manhattan_style = lms.ManhattanStyle( fromPyQt(baseName, lms.QString) )
 
         #lms.StyleHelper.setBaseColor( fromPyQt(QColor(0x086FA1), lms.QColor) )
 
-        k = QColor(Qt.red)
-        lms.StyleHelper.setBaseColor(k )
-        qApp.setStyle( lms.toPyQt(manhattan_style) )
+        #k = QColor(Qt.red)
+        #lms.StyleHelper.setBaseColor(k )
+        #qApp.setStyle( lms.toPyQt(manhattan_style) )
 
-
-        self.__tabWidget = lms.FancyTabWidget()
+        self.__tabWidget = lms.FancyTabWidget(self)
         self.__welcomeView = WelcomeView()
-        #self.__welcomeView = QWidget()
 
-        self.__tabWidget.insertTab(0, self.__welcomeView,  QIcon(":/images/mode_welcome.png"), "Welcome" )
+        print "PPPPP 1.1"
+        self.__tabWidget.insertTab(0, self.__welcomeView,  QIcon("images/mode_welcome.png"), "Welcome" )
+        print "PPPPP 1.2"
         #self.__tabWidget.insertTab(0, fromPyQt(self.__welcomeView, lms.QWidget), fromPyQt(QIcon(":/images/mode_welcome.png"), lms.QIcon), fromPyQt(QString("Welcome"), lms.QString ))
 
         self.setCentralWidget( lms.toPyQt(self.__tabWidget) )
-        #self.setCentralWidget( toPyQt(self.__tabWidget, QWidget) )
+        #self.setCentralWidget( self.__welcomeView )
 
 
 

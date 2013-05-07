@@ -33,6 +33,7 @@ BOOST_PYTHON_MODULE(libManhattanStyle)
 
 
     class_<Manhattan::FancyTabWidget, boost::noncopyable, std::auto_ptr<Manhattan::FancyTabWidget> >("FancyTabWidget")
+            .def(init<QWidget*>())
         .def("insertTab",&Manhattan::FancyTabWidget::insertTab)
     ;
 

@@ -48,6 +48,9 @@ class ParticleInfo : public ICompositeSample
             mp_particle->clone(), mP_transform, m_depth, m_abundance);
     }
 
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+
     //! Returns particle.
     const Particle *getParticle() const { return mp_particle; }
 

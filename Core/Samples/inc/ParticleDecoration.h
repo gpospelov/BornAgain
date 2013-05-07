@@ -47,14 +47,17 @@ class ParticleDecoration : public IDecoration
         setName("ParticleDecoration");
         addParticle(p_particle.clone(), depth, abundance);
     }
-  
+
     ~ParticleDecoration()
     {
         for (size_t i=0; i<m_particles.size(); ++i)
             delete m_particles[i];
     }
-  
+
     virtual ParticleDecoration *clone() const;
+
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
 
     //! Adds generic particle, *-version.
     void addParticle(

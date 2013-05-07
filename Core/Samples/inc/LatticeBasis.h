@@ -29,6 +29,9 @@ class LatticeBasis : public Particle
     virtual ~LatticeBasis();
     virtual LatticeBasis *clone() const;
 
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+
     void addParticle(const Particle& particle, std::vector<kvector_t > positions);
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index);

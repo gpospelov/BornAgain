@@ -31,6 +31,9 @@ class Crystal : public IClusteredParticles
 
     virtual Crystal *clone() const;
 
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)
     { mp_lattice_basis->setAmbientRefractiveIndex(refractive_index); }
 

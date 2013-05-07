@@ -16,4 +16,4 @@ SUBDIRS += Tests/UnitTests/TestCore
 TestCore.depends = ThirdParty/gtest
 TestCore.depends = ThirdParty/gtest
 
-CONFIG += ordered # comiplation in lister order
+CONFIG += ordered # compilation in lister order

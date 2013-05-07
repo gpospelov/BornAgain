@@ -1,4 +1,4 @@
-# date and time     | hostname   | system information      | FresnelCoeff Pyramid RotatedPyramid MesoCrystal
+# date and time     | hostname   | system information      | FresnelCoeff Pyramid RotatedPyramid MesoCrystal Matrix Method
 
 2012-07-24 18:21:18 | jcnsopc73  | macosx64, 2800 MHz      | 82987.5 | 4.14079 | 3.89105 | 0.23391 | 
 2012-07-24 18:22:36 | jcnsopc73  | macosx64, 2800 MHz      | 82987.5 | 4.14938 | 3.91389 | 0.23391 | 
@@ -244,3 +244,5 @@
 2013-04-08 20:48:26 | jcnsops73  | macosx64, 2800 MHz      | 294118  | 21.978  | 22.7273 | 6.25    | 
 2013-04-08 20:48:32 | jcnsops73  | macosx64, 2800 MHz      | 289855  | 22.2222 | 22.7273 | 6.06061 | 
 
+# added performance method for matrix calculation of layer wave amplitudes
+2013-05-07 16:05:21 | jcnsopc74  | macosx64, 2800 MHz      | 294118      | 11.976      | 11.976      | 3.63636     | 1.05263e+06 | 

@@ -48,6 +48,7 @@
 #include "TestPerformance.h"
 #include "TestRootTree.h"
 #include "TestRoughness.h"
+#include "TestSpecularMatrix.h"
 #include "TestToySimulation.h"
 
 #include "TBenchmark.h"
@@ -298,5 +299,9 @@ void RegisterFunctionalTests(FunctionalTestFactory *p_test_factory)
         "FormFactors",
         IFactoryCreateFunction<TestFormFactors, IFunctionalTest>,
         "functional test: FormFactors");
+    p_test_factory->registerItem(
+        "specularmatrix",
+        IFactoryCreateFunction<TestSpecularMatrix, IFunctionalTest>,
+        "functional test: specular reflectivity with matrix formalism");
 }
 

@@ -26,8 +26,15 @@ class IInterferenceFunction : public ISample
  public:
     virtual ~IInterferenceFunction() {}
 
+    //! Evaluates the interference function for a given wavevector transfer
     virtual double evaluate(const cvector_t& q) const=0;
+
     virtual IInterferenceFunction *clone() const=0;
+
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+
+    //! Retrieves the size-distance coupling constant (default 0.0)
     virtual double getKappa() const { return 0.0; }
 };
 

@@ -47,6 +47,9 @@ class Layer : public ICompositeSample
     virtual Layer *clone() const { return new Layer(*this); }
     //virtual Layer *clone() const { return new Layer(mp_material, m_thickness); }
 
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+
     //! Sets layer thickness in Angstrom.
     virtual void setThickness(double thickness);
 

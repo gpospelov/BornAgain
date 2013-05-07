@@ -18,6 +18,7 @@
 
 #include "IParameterized.h"
 #include "ICloneable.h"
+#include "ISampleVisitor.h"
 
 class ICompositeSample;
 class DWBASimulation;
@@ -34,6 +35,9 @@ class ISample : public IParameterized, public ICloneable
     virtual const ICompositeSample *getCompositeSample() const { return 0; }
 
     virtual ISample *clone() const;
+
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor)=0;
 
     //! Returns an ISimulation if DWBA is required.
     virtual DWBASimulation *createDWBASimulation() const { return 0; }

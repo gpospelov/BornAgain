@@ -41,6 +41,9 @@ class MultiLayer : public ICompositeSample
     MultiLayer();
     ~MultiLayer();
 
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+
     //! Returns number of layers in multilayer
     inline size_t getNumberOfLayers() const { return m_layers.size(); }
 
@@ -148,11 +151,11 @@ class MultiLayer : public ICompositeSample
     }
 
     //! stack of layers [nlayers]
-    std::vector<Layer *> m_layers;    
+    std::vector<Layer *> m_layers;
     //! coordinate of layer's bottoms [nlayers]
-    std::vector<double > m_layers_z;            
+    std::vector<double > m_layers_z;
     //! stack of layer interfaces [nlayers-1]
-    std::vector<LayerInterface *> m_interfaces; 
+    std::vector<LayerInterface *> m_interfaces;
     //! cross correlation length (in z direction) between different layers
     double m_crossCorrLength;
 };

@@ -44,6 +44,9 @@ class LayerDecorator : public Layer
     virtual LayerDecorator *clone() const
     { return new LayerDecorator(*this); }
 
+    //! Calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+
     //! Sets _thickness_ in Angstrom.
     virtual void setThickness(double thickness)
     { mp_decorated_layer->setThickness(thickness); }

@@ -68,8 +68,7 @@ private:
    bool m_use_roughness;
 
    void calculateEigenvalues(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff) const;
-   void calculateTransferMatrices(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff) const;
-   void calculateBoundaryValues(MultiLayerCoeff_t& coeff) const;
+   void calculateTransferAndBoundary(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff) const;
 };
 
 #endif /* SPECULARMATRIX_H_ */

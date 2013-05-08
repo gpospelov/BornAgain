@@ -26,7 +26,7 @@ class TestFormFactor : public IFunctionalTest
     TestFormFactor();
     ~TestFormFactor();
     virtual void execute();
-    void draw();
+    void draw(), draw4();
 
  private:
     OutputData<double> *mp_intensity_output;

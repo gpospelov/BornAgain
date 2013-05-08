@@ -33,11 +33,11 @@ double BasicVector3D<double>::mag2() const
     return x()*x()+y()*y()+z()*z();
 }
 
-//! @TODO eliminate this, it is plain wrong
+//! Returns squared magnitude of the vector.
 template<>
 complex_t BasicVector3D<complex_t>::mag2() const
 {
-    return x()*x()+y()*y()+z()*z();
+    return x()*std::conj(x())+y()*std::conj(y())+z()*std::conj(z());
 }
 
 //! Returns magnitude of the vector.
@@ -65,11 +65,11 @@ double BasicVector3D<double>::magxy2() const
     return x()*x()+y()*y();
 }
 
-//! @TODO eliminate this, it is plain wrong
+//! Returns squared distance from z axis.
 template<>
 complex_t BasicVector3D<complex_t>::magxy2() const
 {
-    return x()*x()+y()*y();
+    return x()*std::conj(x())+y()*std::conj(y());
 }
 
 //! Returns distance from z axis.
@@ -79,7 +79,7 @@ double BasicVector3D<double>::magxy() const
     return std::sqrt(magxy2());
 }
 
-//! @TODO eliminate this, it is plain wrong
+//! Returns distance from z axis.
 template<>
 complex_t BasicVector3D<complex_t>::magxy() const
 {
@@ -109,27 +109,46 @@ double BasicVector3D<double>::cosTheta() const
     return std::abs(ma) == 0 ? 1 : z()/ma;
 }
 
+
 //! @TODO eliminate this, it is plain wrong
-template<>
+ template<>
 complex_t BasicVector3D<complex_t>::cosTheta() const
-{
+ {
     complex_t ma = mag();
-    return std::abs(ma) == 0 ? 1 : z()/ma;
+    return std::abs(ma) == 0 ? 1 : abs(z())/ma;
 }
+
+//  //! @TODO eliminate this, it is plain wrong
+// template<>
+ //complex_t BasicVector3D<complex_t>::cosTheta() const
+// {
+//     complex_t ma = mag();
+//    return std::abs(ma) == 0 ? 1 : z()/ma;
+//}
 
 // -----------------------------------------------------------------------------
 // Combine two vectors
 // -----------------------------------------------------------------------------
 
-//! @TODO check usage: unlikely to be correct
-template<>
-BasicVector3D<complex_t> BasicVector3D<complex_t>::cross(
-    const BasicVector3D<complex_t>& v) const
+ //! Returns cross product of vectors
+ template<>
+ BasicVector3D<double> BasicVector3D<double>::cross(
+    const BasicVector3D<double>& v) const
 {
-    return BasicVector3D<complex_t>(y()*v.z()-v.y()*z(),
+    return BasicVector3D<double>(y()*v.z()-v.y()*z(),
                                  z()*v.x()-v.z()*x(),
                                  x()*v.y()-v.x()*y());
 }
+
+// //! @TODO check usage: unlikely to be correct
+// template<>
+// BasicVector3D<complex_t> BasicVector3D<complex_t>::cross(
+//    const BasicVector3D<complex_t>& v) const
+//{
+//    return BasicVector3D<complex_t>(y()*v.z()-v.y()*z(),
+//                                 z()*v.x()-v.z()*x(),
+//                                 x()*v.y()-v.x()*y());
+//}
 
 //! Returns square of transverse component with respect to given axis.
 template<>

@@ -93,6 +93,7 @@ SOURCES += \
     FormFactors/src/FormFactorPrism6.cpp \
     FormFactors/src/FormFactorPyramid.cpp \
     FormFactors/src/FormFactorSphere.cpp \
+    FormFactors/src/FormFactorTethraedron.cpp \
     FormFactors/src/FormFactorWeighted.cpp \
     FormFactors/src/IFormFactorBorn.cpp \
     \
@@ -248,6 +249,7 @@ HEADERS += \
     FormFactors/inc/FormFactorPyramid.h \
     FormFactors/inc/FormFactorSphere.h \
     FormFactors/inc/FormFactorSphereGaussianRadius.h \
+    FormFactors/inc/FormFactorTethraedron.h \
     FormFactors/inc/FormFactorWeighted.h \
     FormFactors/inc/FormFactors.h \
     FormFactors/inc/IFormFactor.h \

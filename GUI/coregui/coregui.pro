@@ -115,3 +115,6 @@ lessThan(QT_MAJOR_VERSION, 5): LIBS += -lQtDesigner -lQtDesignerComponents -lQtX
 # -----------------------------------------------------------------------------
 include($$PWD/../../shared.pri)
 INCLUDEPATH -= /opt/local/include
+
+FORMS += \
+    form.ui

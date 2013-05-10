@@ -28,7 +28,12 @@ public:
 
 
 private:
+    QPixmap getBackgroundPixmap();
+
+    int m_xmin;
     int m_xmax;
+    int m_ymin;
+    int m_ymax;
 };
 
 #endif // SAMPLEEDITORSCENE_H

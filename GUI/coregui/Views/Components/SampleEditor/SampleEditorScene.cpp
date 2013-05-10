@@ -1,5 +1,6 @@
 #include "SampleEditorScene.h"
 #include "LayerView.h"
+#include "HomogeneousLayerView.h"
 #include "InterfaceView.h"
 #include "ParticleView.h"
 #include "SampleFactory.h"
@@ -8,61 +9,54 @@
 // chip, diagramscene, dragdroprobot, simpleandchorlayout
 SampleEditorScene::SampleEditorScene(QObject *parent)
     : ISampleEditorScene(parent)
+    , m_xmin(-300)
+    , m_xmax(300)
+    , m_ymin(-100)
+    , m_ymax(500)
 {
+    setSceneRect(QRectF(-300, -100, 600, 600));
+//    setSceneRect(QRectF(m_xmin, m_ymin, m_xmax-m_xmin, m_ymax-m_ymin));
+//    setSceneRect(QRectF(0,0,600,600));
+    setBackgroundBrush(getBackgroundPixmap());
 
-    setSceneRect(QRectF(0, 0, 1280, 1280));
-    setBackgroundBrush(QPixmap(":/SampleEditor/images/background3.png"));
-
-    LayerView *layer = new LayerView();
+    HomogeneousLayerView *layer = new HomogeneousLayerView();
+    layer->setPos(-layer->rect().width()/2, 0.0);
     addItem(layer);
-    layer->setPos(100,100);
-    layer->setBrush(QColor(0, 0, 255, 127));
+//    layer->setBrush(QColor(0, 0, 255, 127));
 
-    ParticleView *particle = new ParticleView();
-    particle->setPos(500, 500);
-    addItem(particle);
+//    ParticleView *particle = new ParticleView();
+//    particle->setPos(0, 100);
+//    addItem(particle);
 
 //    ISample *sample
 //    draw_sample
-
-    ISample *sample = SampleFactory::createSample("SampleIsGISAXS9_Rotated");
-
-    std::cout << *sample << std::endl;
-
+//    ISample *sample = SampleFactory::createSample("SampleIsGISAXS9_Rotated");
+//    std::cout << *sample << std::endl;
 
 }
 
 
+QPixmap SampleEditorScene::getBackgroundPixmap()
+{
+    //QPixmap result(":/SampleEditor/images/background3.png");
 
-//{
-//    QGraphicsScene *scene = new CustomScene;
-//    QGraphicsView *view = new QGraphicsView(this);
-//    scene->setSceneRect(-180, -90, 360, 180);
-//    view->setScene(scene);
-//    view->scale(1, -1);
-//    setCentralWidget(view);
-//}
+//    const int checkerbordSize= 20;
+//    QPixmap result(checkerbordSize * 2, checkerbordSize * 2);
+//    result.fill(Qt::white);
+//    QPainter tilePainter(&result);
+//    QColor color(220, 220, 220);
+//    tilePainter.fillRect(0, 0, checkerbordSize, checkerbordSize, color);
+//    tilePainter.fillRect(checkerbordSize, checkerbordSize, checkerbordSize, checkerbordSize, color);
+//    tilePainter.end();
 
+    const int size= 10;
+    QPixmap result(size, size);
+    result.fill(QColor(250, 250, 250));
+    QPainter tilePainter(&result);
+    QColor color(220, 220, 220);
+    tilePainter.fillRect(0.0, 0.0, 2, 2, color);
+    tilePainter.end();
 
-//ISample *StandardSamples::IsGISAXS1_CylinderAndPrism()
-//{
-//    MultiLayer *p_multi_layer = new MultiLayer();
-//    complex_t n_air(1.0, 0.0);
-//    complex_t n_substrate(1.0-6e-6, 2e-8);
-//    complex_t n_particle(1.0-6e-4, 2e-8);
-//    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
-//    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-//    Layer air_layer;
-//    air_layer.setMaterial(p_air_material);
-//    Layer substrate_layer;
-//    substrate_layer.setMaterial(p_substrate_material);
-//    ParticleDecoration particle_decoration;
-//    particle_decoration.addParticle(new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)),0.0, 0.5);
-//    particle_decoration.addParticle(new Particle(n_particle, new FormFactorPrism3(5*Units::nanometer, 5*Units::nanometer)), 0.0, 0.5);
-//    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-//    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+    return result;
+}
 
-//    p_multi_layer->addLayer(air_layer_decorator);
-//    p_multi_layer->addLayer(substrate_layer);
-//    return p_multi_layer;
-//}

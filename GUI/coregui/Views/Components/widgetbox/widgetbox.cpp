@@ -56,6 +56,7 @@
 #include <QVBoxLayout>
 #include <QApplication>
 #include <QToolBar>
+#include <QDrag>
 
 #include <QtGui/QIcon>
 
@@ -115,11 +116,27 @@ void WidgetBox::handleMousePress(const QString &name, const QString &xml, const 
         return;
 
     std::cout << "WidgetBox::handleMousePress() -> XXX Not implemented." << std::endl;
-    return;
+    std::cout << "name:" << (name.toStdString())  << " xml:" << (xml.toStdString() ) << std::endl;
+//    return;
+
 
     (void)name;
     (void)xml;
     (void)global_mouse_pos;
+    QDrag *drag = new QDrag(this);
+
+    QByteArray itemData;
+    QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+    dataStream << name << xml << global_mouse_pos;
+
+    QMimeData *mimeData = new QMimeData;
+    mimeData->setData("image/x-puzzle-piece", itemData);
+
+    drag->setMimeData(mimeData);
+    drag->setPixmap(QPixmap(":/images/mode_exp.png"));
+
+    drag->exec(Qt::CopyAction);
+
 //    DomUI *ui = xmlToUi(name, xml, true);
 //    if (ui == 0)
 //        return;

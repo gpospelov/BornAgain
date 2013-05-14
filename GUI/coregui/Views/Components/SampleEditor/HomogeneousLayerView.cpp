@@ -9,10 +9,16 @@
 #include <QBitmap>
 #include <QWidget>
 #include <QGradient>
+#include <QStyleOptionGraphicsItem>
 
-HomogeneousLayerView::HomogeneousLayerView()
-    : m_color(Qt::red)
-    , m_rect(0, 0, 200, 50)
+#include "editorhelper.h"
+#include <iostream>
+
+HomogeneousLayerView::HomogeneousLayerView(QGraphicsItem *parent)
+    : QGraphicsObject(parent)
+    , m_color(qrand() % 256, qrand() % 256, qrand() % 256)
+    , m_rect(0, 0, EditorHelper::getLayerWidth(), EditorHelper::getLayerHeight())
+    , m_fixed_xpos(0)
 {
 //    setToolTip(QString("QColor(%1, %2, %3)\n%4")
 //              .arg(color.red()).arg(color.green()).arg(color.blue())
@@ -21,7 +27,8 @@ HomogeneousLayerView::HomogeneousLayerView()
 //    setAcceptedMouseButtons(Qt::LeftButton);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
-
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+    setAcceptDrops(false);
 }
 
 QRectF HomogeneousLayerView::boundingRect() const
@@ -31,18 +38,64 @@ QRectF HomogeneousLayerView::boundingRect() const
 
 void HomogeneousLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    Q_UNUSED(option);
     Q_UNUSED(widget);
+
     painter->setPen(Qt::black);
+    if (option->state & (QStyle::State_Selected | QStyle::State_HasFocus)) {
+        painter->setPen(Qt::DashLine);
+    }
+
     painter->setBrush(gradient(m_color, rect() ) );
     painter->drawRect(rect());
-//    painter->setPen(Qt::NoPen);
-//    painter->setBrush(Qt::darkGray);
-//    painter->drawEllipse(-12, -12, 30, 30);
-//    painter->setPen(QPen(Qt::black, 1));
-//    painter->setBrush(QBrush(color));
-//    painter->drawEllipse(-15, -15, 30, 30);
 }
+
+
+void HomogeneousLayerView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    std::cout << " HomogeneousLayerView::mouseMoveEvent -> " << x() << " " << y() << std::endl;
+    QGraphicsObject::mouseMoveEvent(event);
+}
+
+void HomogeneousLayerView::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    std::cout << " HomogeneousLayerView::mousePressEvent -> " << x() << " " << y() << std::endl;
+    QGraphicsObject::mousePressEvent(event);
+}
+
+void HomogeneousLayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    std::cout << " HomogeneousLayerView::mouseReleaseEvent -> " << x() << " " << y() << std::endl;
+    emit LayerMoved();
+    QGraphicsObject::mouseReleaseEvent(event);
+//    setCursor(Qt::ArrowCursor);
+}
+
+
+void HomogeneousLayerView::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
+{
+    Q_UNUSED(event);
+    std::cout << "HomogeneousLayerView::dragEnterEvent() ->" << std::endl;
+}
+
+void HomogeneousLayerView::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    Q_UNUSED(event);
+    std::cout << "HomogeneousLayerView::dragLeaveEvent() ->" << std::endl;
+}
+
+void HomogeneousLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
+{
+    Q_UNUSED(event);
+    std::cout << "HomogeneousLayerView::dropEvent() ->" << std::endl;
+
+}
+
+void HomogeneousLayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    Q_UNUSED(event);
+    std::cout << "HomogeneousLayerView::dragMoveEvent() ->" << std::endl;
+}
+
 
 
 QGradient HomogeneousLayerView::gradient(const QColor &color, const QRect &rect)
@@ -56,10 +109,27 @@ QGradient HomogeneousLayerView::gradient(const QColor &color, const QRect &rect)
     return result;
 }
 
-//void ParticleView::mousePressEvent(QGraphicsSceneMouseEvent *)
-//{
-//    setCursor(Qt::ClosedHandCursor);
-//}
+
+QVariant HomogeneousLayerView::itemChange(GraphicsItemChange change, const QVariant &value)
+ {
+     if (change == ItemPositionChange && scene()) {
+         //std::cout << "YYY itemChange " << x() << " " << y() <<  std::endl;
+         // value is the new position.
+         QPointF newPos = value.toPointF();
+         QRectF rect = parentItem()->boundingRect();
+         //std::cout << "rect " << rect.x() << " " << rect.y() << " " << rect.width() << " " << rect.height() << std::endl;
+         rect.setY(rect.y() - boundingRect().height()/2.);
+         rect.setHeight(rect.height() - boundingRect().height()/2.);
+         //std::cout << "rect " << rect.x() << " " << rect.y() << " " << rect.width() << " " << rect.height() << std::endl;
+         if (!rect.contains(newPos)) {
+             // Keep the item inside the scene rect.
+             newPos.setY(qMin(rect.bottom(), qMax(newPos.y(), rect.top())));
+         }
+         newPos.setX(m_fixed_xpos);
+         return newPos;
+     }
+     return QGraphicsItem::itemChange(change, value);
+ }
 
 
 //void ParticleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)

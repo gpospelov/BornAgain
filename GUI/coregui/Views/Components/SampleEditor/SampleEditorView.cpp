@@ -17,13 +17,13 @@ SampleEditorView::SampleEditorView(QWidget *parent, QGraphicsScene *scene)
     , m_graphicsView(0)
     , m_graphicsScene(scene)
 {
-    setMinimumSize(128, 128);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setAcceptDrops(true);
+//    setMinimumSize(128, 128);
+//    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    //setAcceptDrops(false);
 
     QVBoxLayout *layout = new QVBoxLayout;
     m_graphicsView = new QGraphicsView(scene);
-    m_graphicsView->setAcceptDrops(false);
+//    m_graphicsView->setAcceptDrops(false);
 
     layout->addWidget(m_graphicsView);
     setLayout(layout);
@@ -55,6 +55,7 @@ void SampleEditorView::deleteItem()
     std::cout << "SampleEditorView::deleteItem() -> " << std::endl;
     QList<QGraphicsItem*> selected = m_graphicsScene->selectedItems();
     for(int i=0; i<selected.size(); ++i) m_graphicsScene->removeItem(selected[i]);
+    m_graphicsScene->update();
 }
 
 
@@ -68,6 +69,9 @@ void SampleEditorView::keyPressEvent(QKeyEvent *event)
         std::cout << "XXX space" << std::endl;
         break;
     case Qt::Key_Delete:
+        deleteItem();
+        break;
+    case Qt::Key_Backspace:
         deleteItem();
         break;
     default:
@@ -99,9 +103,8 @@ void SampleEditorView::dropEvent(QDropEvent *event)
         dataStream >> name >> xml >> global_mouse_pos;
 
         //LayerView *layer = new LayerView();
-        HomogeneousLayerView *layer = new HomogeneousLayerView();
-
-        m_graphicsScene->addItem(layer);
+//        HomogeneousLayerView *layer = new HomogeneousLayerView();
+//        m_graphicsScene->addItem(layer);
 //        layer->setPos(event->pos());
 //        layer->setBrush(QColor(0, 0, 255, 127));
 

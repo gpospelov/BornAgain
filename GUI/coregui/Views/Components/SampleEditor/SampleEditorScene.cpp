@@ -4,6 +4,7 @@
 #include "InterfaceView.h"
 #include "ParticleView.h"
 #include "SampleFactory.h"
+#include "MultiLayerItem.h"
 
 // examples:
 // chip, diagramscene, dragdroprobot, simpleandchorlayout
@@ -19,9 +20,10 @@ SampleEditorScene::SampleEditorScene(QObject *parent)
 //    setSceneRect(QRectF(0,0,600,600));
     setBackgroundBrush(getBackgroundPixmap());
 
-    HomogeneousLayerView *layer = new HomogeneousLayerView();
-    layer->setPos(-layer->rect().width()/2, 0.0);
-    addItem(layer);
+//    HomogeneousLayerView *layer = new HomogeneousLayerView();
+//    HomogeneousLayerView *layer = new HomogeneousLayerView();
+//    layer->setPos(-layer->rect().width()/2, 0.0);
+//    addItem(layer);
 //    layer->setBrush(QColor(0, 0, 255, 127));
 
 //    ParticleView *particle = new ParticleView();
@@ -32,6 +34,11 @@ SampleEditorScene::SampleEditorScene(QObject *parent)
 //    draw_sample
 //    ISample *sample = SampleFactory::createSample("SampleIsGISAXS9_Rotated");
 //    std::cout << *sample << std::endl;
+
+
+    MultiLayerItem *ml = new MultiLayerItem();
+    ml->setPos(-ml->rect().width()/2, 100.0);
+    addItem(ml);
 
 }
 

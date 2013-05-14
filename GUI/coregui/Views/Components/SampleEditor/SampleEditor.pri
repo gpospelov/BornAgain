@@ -10,7 +10,9 @@ SOURCES +=  \
     $$PWD/ParticleView.cpp \
     $$PWD/InterfaceView.cpp \
     $$PWD/SampleFactory.cpp \
-    $$PWD/HomogeneousLayerView.cpp
+    $$PWD/HomogeneousLayerView.cpp \
+    $$PWD/MultiLayerItem.cpp \
+    $$PWD/editorhelper.cpp
 
 HEADERS +=  \
     $$PWD/SampleEditor.h \
@@ -20,7 +22,9 @@ HEADERS +=  \
     $$PWD/ParticleView.h \
     $$PWD/InterfaceView.h \
     $$PWD/SampleFactory.h \
-    $$PWD/HomogeneousLayerView.h
+    $$PWD/HomogeneousLayerView.h \
+    $$PWD/MultiLayerItem.h \
+    $$PWD/editorhelper.h
 
 RESOURCES += $$PWD/SampleEditor.qrc
 

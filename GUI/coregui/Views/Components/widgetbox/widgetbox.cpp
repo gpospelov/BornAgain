@@ -115,14 +115,8 @@ void WidgetBox::handleMousePress(const QString &name, const QString &xml, const 
     if (QApplication::mouseButtons() != Qt::LeftButton)
         return;
 
-    std::cout << "WidgetBox::handleMousePress() -> XXX Not implemented." << std::endl;
-    std::cout << "name:" << (name.toStdString())  << " xml:" << (xml.toStdString() ) << std::endl;
-//    return;
+    std::cout << "WidgetBox::handleMousePress() -> name:" << (name.toStdString())  << " xml:" << (xml.toStdString() ) << std::endl;
 
-
-    (void)name;
-    (void)xml;
-    (void)global_mouse_pos;
     QDrag *drag = new QDrag(this);
 
     QByteArray itemData;

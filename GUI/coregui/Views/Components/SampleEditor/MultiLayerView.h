@@ -1,5 +1,5 @@
-#ifndef MULTILAYERITEM_H
-#define MULTILAYERITEM_H
+#ifndef MULTILAYERVIEW_H
+#define MULTILAYERVIEW_H
 
 #include <QGraphicsItem>
 #include <QGraphicsObject>
@@ -8,15 +8,14 @@
 #include <QRect>
 #include <QGradient>
 
-class HomogeneousLayerView;
+class LayerView;
 
-class MultiLayerItem : public QGraphicsObject
+class MultiLayerView : public QGraphicsObject
 {
     Q_OBJECT
 public:
 
-    //MultiLayerItem();
-    MultiLayerItem(QGraphicsItem *parent = 0);
+    MultiLayerView(QGraphicsItem *parent = 0);
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -42,7 +41,7 @@ protected:
 
     QGradient gradient(const QColor &color, const QRect &rect);
 
-    void addLayer(HomogeneousLayerView *layer, QPointF pos=QPointF());
+    void addLayer(LayerView *layer, QPointF pos=QPointF());
 private:
     bool isInDropArea(QPointF pos);
 
@@ -55,4 +54,4 @@ private:
 
 
 
-#endif // MULTILAYERITEM_H
+#endif // MULTILAYERVIEW_H

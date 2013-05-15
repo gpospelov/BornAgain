@@ -1,10 +1,9 @@
 #include "SampleEditorScene.h"
 #include "LayerView.h"
-#include "HomogeneousLayerView.h"
+#include "LayerView.h"
 #include "InterfaceView.h"
-#include "ParticleView.h"
 #include "SampleFactory.h"
-#include "MultiLayerItem.h"
+#include "MultiLayerView.h"
 
 // examples:
 // chip, diagramscene, dragdroprobot, simpleandchorlayout
@@ -36,7 +35,7 @@ SampleEditorScene::SampleEditorScene(QObject *parent)
 //    std::cout << *sample << std::endl;
 
 
-    MultiLayerItem *ml = new MultiLayerItem();
+    MultiLayerView *ml = new MultiLayerView();
     ml->setPos(-ml->rect().width()/2, 100.0);
     addItem(ml);
 

@@ -1,4 +1,4 @@
-#include "ParticleView.h"
+#include "FormFactorView.h"
 
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
@@ -9,7 +9,7 @@
 #include <QBitmap>
 #include <QWidget>
 
-ParticleView::ParticleView()
+FormFactorView::FormFactorView()
     : color(qrand() % 256, qrand() % 256, qrand() % 256)
 {
     setToolTip(QString("QColor(%1, %2, %3)\n%4")
@@ -19,12 +19,12 @@ ParticleView::ParticleView()
     setAcceptedMouseButtons(Qt::LeftButton);
 }
 
-QRectF ParticleView::boundingRect() const
+QRectF FormFactorView::boundingRect() const
 {
     return QRectF(-15.5, -15.5, 34, 34);
 }
 
-void ParticleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void FormFactorView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -36,13 +36,13 @@ void ParticleView::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     painter->drawEllipse(-15, -15, 30, 30);
 }
 
-void ParticleView::mousePressEvent(QGraphicsSceneMouseEvent *)
+void FormFactorView::mousePressEvent(QGraphicsSceneMouseEvent *)
 {
     setCursor(Qt::ClosedHandCursor);
 }
 
 
-void ParticleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+void FormFactorView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if (QLineF(event->screenPos(), event->buttonDownScreenPos(Qt::LeftButton))
         .length() < QApplication::startDragDistance()) {
@@ -88,7 +88,7 @@ void ParticleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 }
 
 
-void ParticleView::mouseReleaseEvent(QGraphicsSceneMouseEvent *)
+void FormFactorView::mouseReleaseEvent(QGraphicsSceneMouseEvent *)
 {
     setCursor(Qt::OpenHandCursor);
 }

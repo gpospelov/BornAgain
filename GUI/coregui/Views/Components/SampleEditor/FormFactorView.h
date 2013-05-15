@@ -1,18 +1,18 @@
-#ifndef PARTICLEVIEW_H
-#define PARTICLEVIEW_H
+#ifndef FORMFACTORVIEW_H
+#define FORMFACTORVIEW_H
 
 
 #include <QGraphicsItem>
 
 //- -------------------------------------------------------------------
-//! @class ParticleView
+//! @class FormFactorView
 //! @brief Graphics representation of Particle in SampleEditorScene
 //- -------------------------------------------------------------------
-class ParticleView : public QGraphicsItem
+class FormFactorView : public QGraphicsItem
 {
 public:
 
-    ParticleView();
+    FormFactorView();
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -26,4 +26,4 @@ private:
     QColor color;
 };
 
-#endif // PARTICLEVIEW_H
+#endif // FORMFACTORVIEW_H

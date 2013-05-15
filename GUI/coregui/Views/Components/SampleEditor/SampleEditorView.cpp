@@ -7,7 +7,7 @@
 #include <QShortcut>
 
 #include "LayerView.h"
-#include "HomogeneousLayerView.h"
+#include "LayerView.h"
 
 #include <cmath>
 #include <iostream>

@@ -1,7 +1,13 @@
-#ifndef EDITORHELPER_H
-#define EDITORHELPER_H
+#ifndef DESIGNERHELPER_H
+#define DESIGNERHELPER_H
 
-class EditorHelper
+#include <QGradient>
+#include <QColor>
+#include <QRect>
+
+
+//! collection of static methods with SampleDesigner geometry settings
+class DesignerHelper
 {
 public:
 
@@ -10,6 +16,8 @@ public:
 
     static int getMultiLayerHeight() { return m_default_layer_height; }
     static int getMultiLayerWidth() { return m_default_layer_width*1.20; }
+
+    static QGradient getLayerGradient(const QColor &color, const QRect &rect);
 
     private:
     static int m_default_layer_height;

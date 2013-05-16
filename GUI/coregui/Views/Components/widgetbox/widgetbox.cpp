@@ -62,6 +62,8 @@
 
 #include "SampleEditor.h"
 
+#include "DesignerMimeData.h"
+
 #include <iostream>
 QT_BEGIN_NAMESPACE
 
@@ -112,31 +114,10 @@ ISampleEditor *WidgetBox::core() const
 
 void WidgetBox::handleMousePress(const QString &name, const QString &xml, const QPoint &global_mouse_pos)
 {
-    if (QApplication::mouseButtons() != Qt::LeftButton)
-        return;
+    if (QApplication::mouseButtons() != Qt::LeftButton) return;
 
-    std::cout << "WidgetBox::handleMousePress() -> name:" << (name.toStdString())  << " xml:" << (xml.toStdString() ) << std::endl;
-
-    QDrag *drag = new QDrag(this);
-
-    QByteArray itemData;
-    QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << name << xml << global_mouse_pos;
-
-    QMimeData *mimeData = new QMimeData;
-    mimeData->setData("image/x-puzzle-piece", itemData);
-
-    drag->setMimeData(mimeData);
-    drag->setPixmap(QPixmap(":/images/mode_exp.png"));
-
-    drag->exec(Qt::CopyAction);
-
-//    DomUI *ui = xmlToUi(name, xml, true);
-//    if (ui == 0)
-//        return;
-//    QList<QDesignerDnDItemInterface*> item_list;
-//    item_list.append(new WidgetBoxDnDItem(core(), ui, global_mouse_pos));
-//    m_core->formWindowManager()->dragItems(item_list);
+    std::cout << "WidgetBox::handleMousePress() -> name:" << name.toStdString() << std::endl;
+    DesignerMimeData::execDrag(name, xml, this );
 }
 
 int WidgetBox::categoryCount() const
@@ -213,6 +194,7 @@ bool WidgetBox::save()
 static const QDesignerMimeData *checkDragEvent(QDropEvent * event,
                                                bool acceptEventsFromWidgetBox)
 {
+    std::cout << "QDesignerMimeData *checkDragEvent() -> ?" << std::endl;
     const QDesignerMimeData *mimeData = qobject_cast<const QDesignerMimeData *>(event->mimeData());
     if (!mimeData) {
         event->ignore();

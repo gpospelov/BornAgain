@@ -1,120 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widgetbox version="0.5">
-
-    <category name="Templates">
-
+    
+    <category name="Standard samples">
+        
         <categoryentry name="IsGISAXS1 sample" icon="images/sample_editvlayout.png">
-            <ui>
-                <widget class="QWidget">
-                    <property name="objectName">
-                        <string notr="true">verticalLayoutWidget</string>
-                    </property>
-                    <property name="geometry">
-                        <rect>
-                            <x>0</x>
-                            <y>0</y>
-                            <width>160</width>
-                            <height>80</height>
-                        </rect>
-                    </property>
-                    <layout class="QVBoxLayout" name="verticalLayout">
-                    </layout>
-                </widget>
-            </ui>
+            <widget class="IsGISAXS1">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
         </categoryentry>
 
         <categoryentry name="IsGISAXS2 sample" icon="images/sample_spacer.png">
-            <ui>
-                <widget class="QWidget">
-                    <property name="objectName">
-                        <string notr="true">horizontalLayoutWidget</string>
-                    </property>
-                    <property name="geometry">
-                        <rect>
-                            <x>0</x>
-                            <y>0</y>
-                            <width>160</width>
-                            <height>80</height>
-                        </rect>
-                    </property>
-                    <layout class="QHBoxLayout" name="horizontalLayout">
-                    </layout>
-                </widget>
-            </ui>
+            <widget class="IsGISAXS2">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
         </categoryentry>
     </category>
-
-
+    
+    
     <category name="Layers">
-
-       <categoryentry name="Layer" icon="images/sample_spacer.png">
-            <ui>
-                <widget class="Spacer">
-                    <property name="orientation" >
-                        <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="objectName">
-                        <string notr="true">horizontalSpacer</string>
-                    </property>
-                    <property name="sizeHint" >
-                        <size>
-                            <width>40</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </widget>
-            </ui>
+        
+        <categoryentry name="Layer" icon="images/sample_spacer.png">
+            <widget class="Layer">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
         </categoryentry>
-
-       <categoryentry  name="Multi Layer" icon="images/sample_vspacer.png">
-             <ui>
-                <widget class="Spacer">
-                    <property name="orientation">
-                        <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="objectName">
-                        <string notr="true">verticalSpacer</string>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>20</width>
-                            <height>40</height>
-                        </size>
-                    </property>
-                </widget>
-            </ui>
-            </categoryentry>
-
+        
+        <categoryentry  name="Multi Layer" icon="images/sample_vspacer.png">
+            <widget class="MultiLayer">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+        
     </category>
-
+    
     <category name="Form Factors">
-
-        <categoryentry name="Sphere" icon="images/sample_spacer.png">
-             <ui>
-                <widget class="QPushButton">
-                    <property name="text" >
-                        <string>PushButton</string>
-                    </property>
-                    <property name="objectName">
-                        <string notr="true">pushButton</string>
-                    </property>
-                </widget>
-            </ui>
+        
+        <categoryentry name="Full sphere" icon="images/sample_spacer.png">
+            <widget class="FormFactorFullSphere">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
         </categoryentry>
-
+        
         <categoryentry name="Pyramid" icon="images/sample_vspacer.png">
-            <ui>
-                <widget class="QToolButton">
-                    <property name="objectName">
-                        <string notr="true">toolButton</string>
-                    </property>
-                    <property name="text" >
-                        <string>...</string>
-                    </property>
-                </widget>
-            </ui>
+            <widget class="FormFactorPyramid">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
         </categoryentry>
-
+        
     </category>
-
+    
 </widgetbox>

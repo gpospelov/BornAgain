@@ -39,8 +39,6 @@ protected:
     void dropEvent(QGraphicsSceneDragDropEvent *event);
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
 
-    QGradient gradient(const QColor &color , const QRect &rect);
-
 private:
     QColor m_color;
     QRect m_rect;

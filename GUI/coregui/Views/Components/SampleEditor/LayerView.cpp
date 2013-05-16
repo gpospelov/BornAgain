@@ -11,14 +11,14 @@
 #include <QGradient>
 #include <QStyleOptionGraphicsItem>
 
-#include "editorhelper.h"
+#include "DesignerHelper.h"
 #include <iostream>
 
 
 LayerView::LayerView(QGraphicsItem *parent)
     : QGraphicsObject(parent)
     , m_color(qrand() % 256, qrand() % 256, qrand() % 256)
-    , m_rect(0, 0, EditorHelper::getLayerWidth(), EditorHelper::getLayerHeight())
+    , m_rect(0, 0, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight())
     , m_fixed_xpos(0)
 {
 //    setToolTip(QString("QColor(%1, %2, %3)\n%4")
@@ -46,7 +46,7 @@ void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setPen(Qt::DashLine);
     }
 
-    painter->setBrush(gradient(m_color, rect() ) );
+    painter->setBrush(DesignerHelper::getLayerGradient(m_color, rect() ) );
     painter->drawRect(rect());
 }
 
@@ -95,19 +95,6 @@ void LayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 {
     Q_UNUSED(event);
     std::cout << "LayerView::dragMoveEvent() ->" << std::endl;
-}
-
-
-
-QGradient LayerView::gradient(const QColor &color, const QRect &rect)
-{
-    QColor c = color;
-    c.setAlpha(160);
-    QLinearGradient result(rect.topLeft(), rect.bottomRight());
-    result.setColorAt(0, c.dark(150));
-    result.setColorAt(0.5, c.light(200));
-    result.setColorAt(1, c.dark(150));
-    return result;
 }
 
 

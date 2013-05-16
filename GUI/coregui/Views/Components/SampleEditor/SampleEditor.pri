@@ -3,25 +3,29 @@
 INCLUDEPATH += $$PWD
 
 SOURCES +=  \
-    $$PWD/SampleEditor.cpp \
-    $$PWD/SampleEditorView.cpp \
-    $$PWD/SampleEditorScene.cpp \
-    $$PWD/FormFactorView.cpp \
-    $$PWD/SampleFactory.cpp \
-    $$PWD/LayerView.cpp \
-    $$PWD/MultiLayerView.cpp \
-    $$PWD/editorhelper.cpp
+    Views/Components/SampleEditor/SampleEditor.cpp \
+    Views/Components/SampleEditor/SampleEditorView.cpp \
+    Views/Components/SampleEditor/SampleEditorScene.cpp \
+    Views/Components/SampleEditor/FormFactorView.cpp \
+    Views/Components/SampleEditor/SampleFactory.cpp \
+    Views/Components/SampleEditor/LayerView.cpp \
+    Views/Components/SampleEditor/MultiLayerView.cpp \
+    Views/Components/SampleEditor/DesignerHelper.cpp \
+    Views/Components/SampleEditor/EditorDnDItem.cpp \
+    Views/Components/SampleEditor/DesignerMimeData.cpp
 
 HEADERS +=  \
-    $$PWD/SampleEditor.h \
-    $$PWD/SampleEditorView.h \
-    $$PWD/SampleEditorScene.h \
-    $$PWD/ISampleView.h \
-    $$PWD/FormFactorView.h \
-    $$PWD/SampleFactory.h \
-    $$PWD/LayerView.h \
-    $$PWD/MultiLayerView.h \
-    $$PWD/editorhelper.h
+    Views/Components/SampleEditor/SampleEditor.h \
+    Views/Components/SampleEditor/SampleEditorView.h \
+    Views/Components/SampleEditor/SampleEditorScene.h \
+    Views/Components/SampleEditor/ISampleView.h \
+    Views/Components/SampleEditor/FormFactorView.h \
+    Views/Components/SampleEditor/SampleFactory.h \
+    Views/Components/SampleEditor/LayerView.h \
+    Views/Components/SampleEditor/MultiLayerView.h \
+    Views/Components/SampleEditor/DesignerHelper.h \
+    Views/Components/SampleEditor/EditorDnDItem.h \
+    Views/Components/SampleEditor/DesignerMimeData.h
 
-RESOURCES += $$PWD/SampleEditor.qrc
+RESOURCES += Views/Components/SampleEditor/SampleEditor.qrc
 

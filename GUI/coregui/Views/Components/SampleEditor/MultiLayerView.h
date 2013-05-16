@@ -10,6 +10,8 @@
 
 class LayerView;
 
+class DesignerMimeData;
+
 class MultiLayerView : public QGraphicsObject
 {
     Q_OBJECT
@@ -22,11 +24,8 @@ public:
 
     QRect rect() const { return m_rect; }
 
-
-
 public slots:
     void updateHeight();
-//    void adjustLayerCoordinate();
 
 protected:
     void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
@@ -39,7 +38,8 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 //    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
-    QGradient gradient(const QColor &color, const QRect &rect);
+    const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
+
 
     void addLayer(LayerView *layer, QPointF pos=QPointF());
 private:
@@ -48,7 +48,6 @@ private:
     QColor m_color;
     QRect m_rect;
     QLine m_line;
-
     QList<QRectF> m_drop_areas;
 };
 

@@ -3,12 +3,13 @@
 
 
 #include <QGraphicsItem>
+#include "ISampleView.h"
 
 //- -------------------------------------------------------------------
 //! @class FormFactorView
 //! @brief Graphics representation of Particle in SampleEditorScene
 //- -------------------------------------------------------------------
-class FormFactorView : public QGraphicsItem
+class FormFactorView : public ISampleView
 {
 public:
 

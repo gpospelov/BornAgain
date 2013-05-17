@@ -7,12 +7,12 @@
 #include <QRectF>
 #include <QRect>
 #include <QGradient>
+#include "ISampleView.h"
 
 class LayerView;
-
 class DesignerMimeData;
 
-class MultiLayerView : public QGraphicsObject
+class MultiLayerView : public ISampleView
 {
     Q_OBJECT
 public:
@@ -24,6 +24,10 @@ public:
 
     QRect rect() const { return m_rect; }
 
+
+
+    void addLayer(LayerView *layer, QPointF pos=QPointF());
+
 public slots:
     void updateHeight();
 
@@ -34,14 +38,11 @@ protected:
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
 
 
-//    void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-//    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
-
-
-    void addLayer(LayerView *layer, QPointF pos=QPointF());
 private:
     bool isInDropArea(QPointF pos);
 

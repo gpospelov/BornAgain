@@ -8,7 +8,9 @@
 #include <QRect>
 #include <QGradient>
 
-class LayerView : public QGraphicsObject
+#include "ISampleView.h"
+
+class LayerView : public ISampleView
 {
     Q_OBJECT
 
@@ -32,7 +34,7 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+//    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
     void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
     void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);

@@ -1,4 +1,4 @@
-#include "SampleEditorView.h"
+#include "DesignerView.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QVBoxLayout>
@@ -12,18 +12,18 @@
 #include <cmath>
 #include <iostream>
 
-SampleEditorView::SampleEditorView(QWidget *parent, QGraphicsScene *scene)
+DesignerView::DesignerView(QWidget *parent, QGraphicsScene *scene)
     : QWidget(parent)
     , m_graphicsView(0)
     , m_graphicsScene(scene)
 {
 //    setMinimumSize(128, 128);
 //    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    //setAcceptDrops(false);
+//    setAcceptDrops(true);
 
     QVBoxLayout *layout = new QVBoxLayout;
     m_graphicsView = new QGraphicsView(scene);
-//    m_graphicsView->setAcceptDrops(false);
+    //m_graphicsView->setAcceptDrops(true);
 
     layout->addWidget(m_graphicsView);
     setLayout(layout);
@@ -40,7 +40,7 @@ SampleEditorView::SampleEditorView(QWidget *parent, QGraphicsScene *scene)
 //}
 
 
-void SampleEditorView::scaleView(qreal scaleFactor)
+void DesignerView::scaleView(qreal scaleFactor)
 {
     qreal factor = m_graphicsView->transform().scale(scaleFactor, scaleFactor).mapRect(QRectF(0, 0, 1, 1)).width();
     if (factor < 0.07 || factor > 100)
@@ -50,7 +50,7 @@ void SampleEditorView::scaleView(qreal scaleFactor)
 }
 
 
-void SampleEditorView::deleteItem()
+void DesignerView::deleteItem()
 {
     std::cout << "SampleEditorView::deleteItem() -> " << std::endl;
     QList<QGraphicsItem*> selected = m_graphicsScene->selectedItems();
@@ -59,14 +59,12 @@ void SampleEditorView::deleteItem()
 }
 
 
-void SampleEditorView::keyPressEvent(QKeyEvent *event)
+void DesignerView::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
     case Qt::Key_Left:
-        std::cout << "XXX left" << std::endl;
         break;
     case Qt::Key_Space:
-        std::cout << "XXX space" << std::endl;
         break;
     case Qt::Key_Delete:
         deleteItem();
@@ -82,31 +80,31 @@ void SampleEditorView::keyPressEvent(QKeyEvent *event)
 
 
 
-void SampleEditorView::dragEnterEvent(QDragEnterEvent *event)
-{
-    if (event->mimeData()->hasFormat("image/x-puzzle-piece"))
-        event->acceptProposedAction();
-}
+//void SampleEditorView::dragEnterEvent(QDragEnterEvent *event)
+//{
+//    if (event->mimeData()->hasFormat("image/x-puzzle-piece"))
+//        event->acceptProposedAction();
+//}
 
 
-void SampleEditorView::dropEvent(QDropEvent *event)
-{
-    if (event->mimeData()->hasFormat("image/x-puzzle-piece") ){
+//void SampleEditorView::dropEvent(QDropEvent *event)
+//{
+//    if (event->mimeData()->hasFormat("image/x-puzzle-piece") ){
 
-        QByteArray pieceData = event->mimeData()->data("image/x-puzzle-piece");
-        QDataStream dataStream(&pieceData, QIODevice::ReadOnly);
+//        QByteArray pieceData = event->mimeData()->data("image/x-puzzle-piece");
+//        QDataStream dataStream(&pieceData, QIODevice::ReadOnly);
 
-        QString name;
-        QString xml;
-        QPoint global_mouse_pos;
+//        QString name;
+//        QString xml;
+//        QPoint global_mouse_pos;
 
-        dataStream >> name >> xml >> global_mouse_pos;
+//        dataStream >> name >> xml >> global_mouse_pos;
 
-        //LayerView *layer = new LayerView();
+//        //LayerView *layer = new LayerView();
 //        HomogeneousLayerView *layer = new HomogeneousLayerView();
 //        m_graphicsScene->addItem(layer);
 //        layer->setPos(event->pos());
 //        layer->setBrush(QColor(0, 0, 255, 127));
 
-    }
-}
+//    }
+//}

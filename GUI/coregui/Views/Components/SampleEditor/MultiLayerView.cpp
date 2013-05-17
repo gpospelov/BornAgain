@@ -11,19 +11,18 @@
 #include <QGradient>
 #include <iostream>
 #include <QDropEvent>
+#include <QStyleOptionGraphicsItem>
 
 #include "LayerView.h"
 #include "DesignerHelper.h"
 #include "DesignerMimeData.h"
 
 
-bool sort_layers(QGraphicsItem* left, QGraphicsItem *right) {
-    return left->y() < right->y();
-}
 
 
 MultiLayerView::MultiLayerView(QGraphicsItem *parent)
-    : QGraphicsObject(parent), m_color(Qt::blue)
+    : ISampleView(parent)
+    , m_color(Qt::blue)
     , m_rect(0, 0, DesignerHelper::getMultiLayerWidth(), DesignerHelper::getMultiLayerHeight())
 {
     setToolTip(QString("QColor(%1, %2, %3)\n%4")
@@ -33,12 +32,8 @@ MultiLayerView::MultiLayerView(QGraphicsItem *parent)
 //    setAcceptedMouseButtons(Qt::LeftButton);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
-
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptDrops(true);
-
-    LayerView * layer = new LayerView();
-    addLayer(layer);
-    addLayer(new LayerView());
 
     connect(this, SIGNAL(childrenChanged()), this, SLOT(updateHeight()));
     updateHeight();
@@ -68,7 +63,7 @@ void MultiLayerView::updateHeight()
     m_drop_areas.clear();
 
     QList<QGraphicsItem *> list = childItems();
-    qSort(list.begin(), list.end(), sort_layers);
+    qSort(list.begin(), list.end(), DesignerHelper::sort_layers);
 
     int total_height = 0;
     if( childItems().size() > 0) {
@@ -106,9 +101,11 @@ QRectF MultiLayerView::boundingRect() const
 
 void MultiLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    Q_UNUSED(option);
     Q_UNUSED(widget);
     painter->setPen(Qt::blue);
+    if (option->state & (QStyle::State_Selected | QStyle::State_HasFocus)) {
+        painter->setPen(Qt::DashLine);
+    }
     painter->setBrush(DesignerHelper::getLayerGradient(m_color, rect() ) );
     painter->drawRect(rect());
 }
@@ -120,14 +117,6 @@ void MultiLayerView::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
     if (mimeData) {
         std::cout << "MultiLayerView::dragEnterEvent() -> INSIDE " << std::endl;
     }
-
-
-//    if (event->mimeData()->hasFormat("widgets/x-puzzle-piece")  && isInDropArea(event->pos())){
-//        event->setAccepted(true);
-//        std::cout << "MultiLayerView::dragEnterEvent() -> INSIDE " << std::endl;
-//    } else {
-//        event->setAccepted(false);
-//    }
 }
 
 
@@ -145,27 +134,6 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
         addLayer(new LayerView(), event->pos());
         update();
     }
-
-
-//    if (event->mimeData()->hasFormat("image/x-puzzle-piece") && isInDropArea(event->pos()) ){
-//        std::cout << "MultiLayerView::dropEvent() -> " <<  event->pos().x() << " " << event->pos().y() << std::endl;
-
-//        QByteArray pieceData = event->mimeData()->data("image/x-puzzle-piece");
-//        QDataStream dataStream(&pieceData, QIODevice::ReadOnly);
-
-//        QString name;
-//        QString xml;
-//        QPoint global_mouse_pos;
-
-//        dataStream >> name >> xml >> global_mouse_pos;
-
-//        addLayer(new LayerView(), event->pos());
-//        update();
-//        event->setAccepted(true);
-//    } else {
-//        event->setAccepted(false);
-
-//    }
 }
 
 
@@ -177,23 +145,27 @@ void MultiLayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
         update();
 
     }
-
-//    if (event->mimeData()->hasFormat("image/x-puzzle-piece")  && isInDropArea(event->pos())){
-//        std::cout << "MultiLayerView::dragMoveEvent() -> pos:" << event->pos().x() << " " << event->pos().y() << std::endl;
-//        update();
-//        event->setAccepted(true);
-//    } else {
-//        event->setAccepted(false);
-//    }
 }
 
 
 void MultiLayerView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(event);
-    std::cout << "MultiLayerView::mouseMoveEvent" << std::endl;
+    std::cout << "MultiLayerView::mouseMoveEvent -> " << x() << " " << y() << std::endl;
+    QGraphicsObject::mouseMoveEvent(event);
 }
 
+
+void MultiLayerView::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    std::cout << "MultiLayerView::mousePressEvent -> " << x() << " " << y() << std::endl;
+    QGraphicsObject::mousePressEvent(event);
+}
+
+void MultiLayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    std::cout << "MultiLayerView::mouseReleaseEvent -> " << x() << " " << y() << std::endl;
+    QGraphicsObject::mouseReleaseEvent(event);
+}
 
 
 const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEvent * event)
@@ -206,7 +178,6 @@ const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEve
 
     if(mimeData->hasFormat("widget/Layer")) {
         event->setAccepted(true);
-//        mimeData->acceptEvent(event);
     } else {
         event->setAccepted(false);
     }

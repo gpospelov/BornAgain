@@ -24,7 +24,8 @@ DesignerMimeData::DesignerMimeData(const QString &entryname, const QString &xmld
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
     dataStream << xmldescr;
-    setData("widget/"+m_classname, itemData);
+    //setData("widgetbox/"+m_classname, itemData);
+    setData("widgetbox", itemData);
 
     drag->setPixmap(getPixmap(m_classname));
     drag->setHotSpot(QPoint(drag->pixmap().width()/2, drag->pixmap().height()/2));
@@ -94,44 +95,12 @@ Qt::DropAction DesignerMimeData::execDrag(const QString &name, const QString &xm
 
 QPixmap DesignerMimeData::getPixmap(const QString &name)
 {
-    std::cout << "PIXMAP " << name.toStdString() << std::endl;
     if (name == QString("Layer") ) {
-        return getPixmapLayer();
+        return DesignerHelper::getPixmapLayer();
     } else if(name == QString("MultiLayer") ) {
-        return getPixmapMultiLayer();
+        return DesignerHelper::getPixmapMultiLayer();
     }
-    return getPixmapDefault();
+    return DesignerHelper::getPixmapDefault();
 }
 
-
-QPixmap DesignerMimeData::getPixmapLayer() {
-    QRect rect(0,0, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight());
-    QPixmap pixmap(rect.width()+1, rect.height()+1);
-    pixmap.fill(Qt::transparent);
-    QPainter painter(&pixmap);
-    painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getLayerGradient(Qt::lightGray, rect));
-    painter.drawRect(rect);
-    return pixmap;
-}
-
-
-QPixmap DesignerMimeData::getPixmapMultiLayer() {
-    QRect rect(0,0, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight());
-    QPixmap pixmap(rect.width()+1, rect.height()+1);
-    pixmap.fill(Qt::transparent);
-    QPainter painter(&pixmap);
-    painter.setPen(Qt::black);
-    painter.setBrush(DesignerHelper::getLayerGradient(Qt::lightGray, rect));
-    painter.drawRect(rect);
-    painter.setPen(Qt::DashLine);
-    painter.drawLine(0, DesignerHelper::getLayerHeight()*0.3, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight()*0.3);
-    painter.drawLine(0, DesignerHelper::getLayerHeight()*0.6, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight()*0.6);
-    return pixmap;
-}
-
-
-QPixmap DesignerMimeData::getPixmapDefault() {
-    return QPixmap(":/images/mode_exp.png");
-}
 

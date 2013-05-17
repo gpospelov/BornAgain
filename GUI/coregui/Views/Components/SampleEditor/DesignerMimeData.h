@@ -2,7 +2,6 @@
 #define DESIGNERMIMEDATA_H
 
 #include <QMimeData>
-#include "EditorDnDItem.h"
 
 class QDrag;
 class QXmlStreamReader;
@@ -17,15 +16,13 @@ public:
 
     //! Execute a drag and drop operation.
     static Qt::DropAction execDrag(const QString &name, const QString &xmldescr, QWidget * dragSource);
+
+    QString getClassName() const { return m_classname; }
 private:
     void read_xmldescr(const QString &xmldescr);
     void read_widget(QXmlStreamReader &reader);
 
     QPixmap getPixmap(const QString &name);
-    QPixmap getPixmapLayer();
-    QPixmap getPixmapMultiLayer();
-    QPixmap getPixmapDefault();
-
 
     QString m_entryname;
     QString m_xmldescr;

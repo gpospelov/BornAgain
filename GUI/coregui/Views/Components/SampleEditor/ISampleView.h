@@ -1,19 +1,44 @@
 #ifndef ISAMPLEVIEW_H
 #define ISAMPLEVIEW_H
 
-#include <QGraphicsWidget>
-#include <QPainter>
+#include <QGraphicsObject>
+
+class QPainter;
+class QStyleOptionGraphicsItem;
+class QWidget;
 
 
-//! default view of some ISample item
-class ISampleView : public QGraphicsPolygonItem
+class ISampleView : public QGraphicsObject
 {
 public:
-    explicit ISampleView(QGraphicsItem *parent = 0);
-
-private:
-    QPolygonF m_polygon;
-    QColor m_fillColor;
+    ISampleView(QGraphicsItem *parent = 0) : QGraphicsObject(parent) {}
+    virtual ~ISampleView(){}
 };
+
+
+class ISampleDefaultView : public ISampleView
+{
+public:
+    ISampleDefaultView(QGraphicsItem *parent = 0);
+
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+private:
+    QRect rect() const { return m_rect;}
+    QRect m_rect;
+};
+
+
+
+////! default view of some ISample item
+//class ISampleView : public QGraphicsPolygonItem
+//{
+//public:
+//    explicit ISampleView(QGraphicsItem *parent = 0);
+
+//private:
+//    QPolygonF m_polygon;
+//    QColor m_fillColor;
+//};
 
 #endif //  ISAMPLEVIEW_H

@@ -16,7 +16,7 @@
 
 
 LayerView::LayerView(QGraphicsItem *parent)
-    : QGraphicsObject(parent)
+    : ISampleView(parent)
     , m_color(qrand() % 256, qrand() % 256, qrand() % 256)
     , m_rect(0, 0, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight())
     , m_fixed_xpos(0)
@@ -98,26 +98,26 @@ void LayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 }
 
 
-QVariant LayerView::itemChange(GraphicsItemChange change, const QVariant &value)
- {
-     if (change == ItemPositionChange && scene()) {
-         //std::cout << "YYY itemChange " << x() << " " << y() <<  std::endl;
-         // value is the new position.
-         QPointF newPos = value.toPointF();
-         QRectF rect = parentItem()->boundingRect();
-         //std::cout << "rect " << rect.x() << " " << rect.y() << " " << rect.width() << " " << rect.height() << std::endl;
-         rect.setY(rect.y() - boundingRect().height()/2.);
-         rect.setHeight(rect.height() - boundingRect().height()/2.);
-         //std::cout << "rect " << rect.x() << " " << rect.y() << " " << rect.width() << " " << rect.height() << std::endl;
-         if (!rect.contains(newPos)) {
-             // Keep the item inside the scene rect.
-             newPos.setY(qMin(rect.bottom(), qMax(newPos.y(), rect.top())));
-         }
-         newPos.setX(m_fixed_xpos);
-         return newPos;
-     }
-     return QGraphicsItem::itemChange(change, value);
- }
+//QVariant LayerView::itemChange(GraphicsItemChange change, const QVariant &value)
+// {
+//     if (change == ItemPositionChange && scene()) {
+//         //std::cout << "YYY itemChange " << x() << " " << y() <<  std::endl;
+//         // value is the new position.
+//         QPointF newPos = value.toPointF();
+//         QRectF rect = parentItem()->boundingRect();
+//         //std::cout << "rect " << rect.x() << " " << rect.y() << " " << rect.width() << " " << rect.height() << std::endl;
+//         rect.setY(rect.y() - boundingRect().height()/2.);
+//         rect.setHeight(rect.height() - boundingRect().height()/2.);
+//         //std::cout << "rect " << rect.x() << " " << rect.y() << " " << rect.width() << " " << rect.height() << std::endl;
+//         if (!rect.contains(newPos)) {
+//             // Keep the item inside the scene rect.
+//             newPos.setY(qMin(rect.bottom(), qMax(newPos.y(), rect.top())));
+//         }
+//         newPos.setX(m_fixed_xpos);
+//         return newPos;
+//     }
+//     return QGraphicsItem::itemChange(change, value);
+// }
 
 
 //void ParticleView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)

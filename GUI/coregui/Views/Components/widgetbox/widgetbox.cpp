@@ -114,6 +114,7 @@ ISampleEditor *WidgetBox::core() const
 
 void WidgetBox::handleMousePress(const QString &name, const QString &xml, const QPoint &global_mouse_pos)
 {
+    Q_UNUSED(global_mouse_pos);
     if (QApplication::mouseButtons() != Qt::LeftButton) return;
 
     std::cout << "WidgetBox::handleMousePress() -> name:" << name.toStdString() << std::endl;

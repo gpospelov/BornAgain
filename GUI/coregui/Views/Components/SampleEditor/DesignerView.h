@@ -1,5 +1,5 @@
-#ifndef SAMPLEEDITORVIEW_H
-#define SAMPLEEDITORVIEW_H
+#ifndef DESIGNERVIEW_H
+#define DESIGNERVIEW_H
 
 #include <QWidget>
 
@@ -10,14 +10,12 @@ class QWheelEvent;
 class QKeyEvent;
 
 
-class SampleEditorView : public QWidget
+class DesignerView : public QWidget
 {
 public:
 
-    explicit SampleEditorView(QWidget *parent = 0, QGraphicsScene *scene=0);
+    explicit DesignerView(QWidget *parent = 0, QGraphicsScene *scene=0);
 
-    void dragEnterEvent(QDragEnterEvent *event);
-    void dropEvent(QDropEvent *event);
 
 public slots:
     void zoomIn();
@@ -35,4 +33,4 @@ private:
     QGraphicsScene *m_graphicsScene;
 };
 
-#endif // SAMPLEEDITORVIEW_H
+#endif // DESIGNERVIEW_H

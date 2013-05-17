@@ -24,8 +24,8 @@ DesignerMimeData::DesignerMimeData(const QString &entryname, const QString &xmld
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
     dataStream << xmldescr;
-    //setData("widgetbox/"+m_classname, itemData);
-    setData("widgetbox", itemData);
+    //setData("bornagain/"+m_classname, itemData);
+    setData("bornagain/widget", itemData);
 
     drag->setPixmap(getPixmap(m_classname));
     drag->setHotSpot(QPoint(drag->pixmap().width()/2, drag->pixmap().height()/2));

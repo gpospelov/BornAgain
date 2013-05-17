@@ -6,7 +6,7 @@
 
 ISampleDefaultView::ISampleDefaultView(QGraphicsItem *parent)
     : ISampleView(parent)
-    , m_rect(0, 0, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight())
+    , m_rect(0, 0, DesignerHelper::getLayerWidth()/2, DesignerHelper::getLayerWidth()/2)
 {
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);

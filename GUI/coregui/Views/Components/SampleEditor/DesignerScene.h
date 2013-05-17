@@ -31,11 +31,13 @@ public:
     virtual ~DesignerScene();
 
 
+
 protected:
-    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
-    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
-    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
-    virtual void dropEvent(QGraphicsSceneDragDropEvent *event);
+//    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
+//    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
+//    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
+//    virtual void dropEvent(QGraphicsSceneDragDropEvent *event);
+//    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
@@ -44,7 +46,9 @@ private:
     int m_xmax;
     int m_ymin;
     int m_ymax;
+
     DesignerWidgetFactory *m_widgetFactory;
+
 };
 
 #endif // DESIGNERSCENE_H

@@ -168,15 +168,36 @@ void MultiLayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 }
 
 
+//const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEvent * event)
+//{
+//    const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
+//    if (!mimeData) {
+//        event->ignore();
+//        return 0;
+//    }
+
+//    if(mimeData->hasFormat("widget/Layer")) {
+//        event->setAccepted(true);
+//    } else {
+//        event->setAccepted(false);
+//    }
+//    return mimeData;
+//}
+
+
 const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEvent * event)
 {
+    std::cout << "LayerDockView::checkDragEvent -> "  << std::endl;
     const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
     if (!mimeData) {
         event->ignore();
         return 0;
     }
 
-    if(mimeData->hasFormat("widget/Layer")) {
+    if(mimeData->hasFormat("bornagain/widget")
+            && (mimeData->getClassName() == QString("Layer") )
+            && isInDropArea(event->pos()) ) {
+        std::cout << "LayerDockView::checkDragEvent -> yes"  << std::endl;
         event->setAccepted(true);
     } else {
         event->setAccepted(false);

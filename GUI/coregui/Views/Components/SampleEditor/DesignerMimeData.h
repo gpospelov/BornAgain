@@ -27,6 +27,7 @@ private:
     QString m_entryname;
     QString m_xmldescr;
     QString m_classname;
+
 };
 
 #endif // DESIGNERMIMEDATA_H

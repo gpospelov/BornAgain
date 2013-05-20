@@ -38,7 +38,7 @@ void DesignerScene::createLayerDock()
 {
     MultiLayerView *ml = new MultiLayerView();
     ml->setColor(Qt::lightGray);
-    ml->allowDropType(QString("MultiLayerX"));
+    ml->allowDropType(QString("MultiLayer"));
     ml->addLayer(new LayerView());
     ml->addLayer(new LayerView());
     ml->setToolTip(QString("LayerDock"));

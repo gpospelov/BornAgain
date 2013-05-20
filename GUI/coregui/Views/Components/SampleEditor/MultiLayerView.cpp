@@ -21,7 +21,7 @@
 
 
 MultiLayerView::MultiLayerView(QGraphicsItem *parent)
-    : ISampleView(parent)
+    : LayerView(parent)
     , m_color(Qt::blue)
     , m_rect(0, 0, DesignerHelper::getMultiLayerWidth(), DesignerHelper::getMultiLayerHeight())
 {
@@ -61,14 +61,17 @@ void MultiLayerView::allowDropType(const QString &name) {
 
 void MultiLayerView::addLayer(LayerView *layer, QPointF pos)
 {
+    std::cout << "MultiLayerView::addLayer" << std::endl;
     // adjusting main rectangle othervise item->setPos will not work due to 'LayerView::itemChange'
     m_rect.setHeight(m_rect.height()+layer->boundingRect().height());
 
-    int xpos = (DesignerHelper::getMultiLayerWidth() - DesignerHelper::getLayerWidth())/2.;
+    int xpos = (DesignerHelper::getMultiLayerWidth() - layer->boundingRect().width())/2.;
     layer->setPos(xpos, pos.y());
     layer->setFixedX();
     connect(layer, SIGNAL(LayerMoved()), this, SLOT(updateHeight()) );
+    connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
     layer->setParentItem(this);
+    //emit heightChanged();
 }
 
 
@@ -99,6 +102,7 @@ void MultiLayerView::updateHeight()
 
     m_rect.setHeight(total_height);
     update();
+    emit heightChanged();
 }
 
 
@@ -127,7 +131,7 @@ QRectF MultiLayerView::boundingRect() const
 void MultiLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(widget);
-    painter->setPen(Qt::blue);
+    painter->setPen(m_color);
     if (option->state & (QStyle::State_Selected | QStyle::State_HasFocus)) {
         painter->setPen(Qt::DashLine);
     }
@@ -154,10 +158,20 @@ void MultiLayerView::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
 
 void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
+    std::cout << "MultiLayerView::dropEvent() -> " << std::endl;
+
     const DesignerMimeData *mimeData = checkDragEvent(event);
     if (mimeData) {
-        addLayer(new LayerView(), event->pos());
-        update();
+        LayerView *layer(0);
+        if(mimeData->getClassName() == QString("Layer") ) layer = new LayerView();
+        if(mimeData->getClassName() == QString("MultiLayer") ) layer = new MultiLayerView();
+        if(layer){
+            std::cout << "MultiLayerView::dropEvent() -> adding layer or multilayer" << std::endl;
+            addLayer(layer, event->pos());
+            update();
+        } else {
+            std::cout << "MultiLayerView::dropEvent() -> Error. Can't create object " << mimeData->getClassName().toStdString() << std::endl;
+        }
     }
 }
 
@@ -173,40 +187,23 @@ void MultiLayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 }
 
 
-void MultiLayerView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-    std::cout << "MultiLayerView::mouseMoveEvent -> " << x() << " " << y() << std::endl;
-    QGraphicsObject::mouseMoveEvent(event);
-}
-
-
-void MultiLayerView::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
-    std::cout << "MultiLayerView::mousePressEvent -> " << x() << " " << y() << std::endl;
-    QGraphicsObject::mousePressEvent(event);
-}
-
-void MultiLayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    std::cout << "MultiLayerView::mouseReleaseEvent -> " << x() << " " << y() << std::endl;
-    QGraphicsObject::mouseReleaseEvent(event);
-}
-
-
-//const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEvent * event)
+//void MultiLayerView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 //{
-//    const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
-//    if (!mimeData) {
-//        event->ignore();
-//        return 0;
-//    }
+//    std::cout << "MultiLayerView::mouseMoveEvent -> " << x() << " " << y() << std::endl;
+//    QGraphicsObject::mouseMoveEvent(event);
+//}
 
-//    if(mimeData->hasFormat("widget/Layer")) {
-//        event->setAccepted(true);
-//    } else {
-//        event->setAccepted(false);
-//    }
-//    return mimeData;
+
+//void MultiLayerView::mousePressEvent(QGraphicsSceneMouseEvent *event)
+//{
+//    std::cout << "MultiLayerView::mousePressEvent -> " << x() << " " << y() << std::endl;
+//    QGraphicsObject::mousePressEvent(event);
+//}
+
+//void MultiLayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+//{
+//    std::cout << "MultiLayerView::mouseReleaseEvent -> " << x() << " " << y() << std::endl;
+//    QGraphicsObject::mouseReleaseEvent(event);
 //}
 
 

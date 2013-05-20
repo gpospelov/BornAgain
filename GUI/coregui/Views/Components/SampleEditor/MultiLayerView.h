@@ -10,10 +10,14 @@
 #include "ISampleView.h"
 #include <QStringList>
 
+
 class LayerView;
 class DesignerMimeData;
 
-class MultiLayerView : public ISampleView
+#include "LayerView.h"
+
+//class MultiLayerView : public ISampleView
+class MultiLayerView : public LayerView
 {
     Q_OBJECT
 public:
@@ -42,9 +46,9 @@ protected:
     void dropEvent(QGraphicsSceneDragDropEvent *event);
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
 
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+//    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+//    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+//    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
 

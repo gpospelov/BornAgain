@@ -23,21 +23,28 @@ DesignerScene::DesignerScene(QObject *parent)
     //setAcceptDrops(true);
 
     //setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+    createLayerDock();
 
-    LayerDockView *ml = new LayerDockView();
-    //    LayerView * layer = new LayerView();
-    ml->addLayer(new LayerView());
-    ml->addLayer(new LayerView());
-
-
-    ml->setPos(-ml->rect().width()/2, 100.0);
-    addItem(ml);
 }
 
 
 DesignerScene::~DesignerScene()
 {
     delete m_widgetFactory;
+}
+
+// create layer dock which will hold Layer and MultiLayer objects
+void DesignerScene::createLayerDock()
+{
+    MultiLayerView *ml = new MultiLayerView();
+    ml->setColor(Qt::lightGray);
+    ml->allowDropType(QString("MultiLayerX"));
+    ml->addLayer(new LayerView());
+    ml->addLayer(new LayerView());
+    ml->setToolTip(QString("LayerDock"));
+    ml->setFlag(QGraphicsItem::ItemIsSelectable, false);
+    ml->setPos(-ml->rect().width()/2, 100.0);
+    addItem(ml);
 }
 
 

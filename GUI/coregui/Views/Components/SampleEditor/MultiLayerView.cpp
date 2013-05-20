@@ -25,19 +25,38 @@ MultiLayerView::MultiLayerView(QGraphicsItem *parent)
     , m_color(Qt::blue)
     , m_rect(0, 0, DesignerHelper::getMultiLayerWidth(), DesignerHelper::getMultiLayerHeight())
 {
-    setToolTip(QString("QColor(%1, %2, %3)\n%4")
-              .arg(Qt::red).arg(Qt::green).arg(Qt::blue)
-              .arg("Drag and drop the Layer object here"));
-//    setCursor(Qt::OpenHandCursor);
-//    setAcceptedMouseButtons(Qt::LeftButton);
+    setToolTip(QString("MultiLayer"));
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptDrops(true);
+    //    setCursor(Qt::OpenHandCursor);
+    //    setAcceptedMouseButtons(Qt::LeftButton);
+
+    m_expected_types << QString("Layer") << QString("MultiLayer");
+    allowDropType(QString("Layer"));
 
     connect(this, SIGNAL(childrenChanged()), this, SLOT(updateHeight()));
     updateHeight();
 }
+
+
+// allows droping of object of given type
+void MultiLayerView::allowDropType(const QString &name) {
+    if(m_current_types.contains(name)) {
+        std::cout << "MultiLayerView::allowDropType -> Info. Name '" << name.toStdString() << "' is already in the list" << std::endl;
+        return;
+    }
+    if(m_expected_types.contains(name)) {
+        m_current_types.append(name);
+    } else {
+        std::cout << "MultiLayerView::allowDropType -> Warning. Can't handle the object with name' '" << name.toStdString() << "', expected names " << std::endl;
+        foreach(QString s, m_expected_types) {
+            std::cout << s.toStdString() << std::endl;
+        }
+    }
+}
+
 
 
 void MultiLayerView::addLayer(LayerView *layer, QPointF pos)
@@ -89,6 +108,12 @@ bool MultiLayerView::isInDropArea(QPointF pos)
         //std::cout << " drop areas " << rect.x() << " " << rect.y() << " " << rect.width() << " " << rect.height() << " point" << pos.x() << " " << pos.y() << std::endl;
         if (rect.contains(pos)) return true;
     }
+    return false;
+}
+
+bool MultiLayerView::isExpectedObject(const QString &name)
+{
+    if(m_current_types.contains(name)) return true;
     return false;
 }
 
@@ -187,7 +212,7 @@ void MultiLayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEvent * event)
 {
-    std::cout << "LayerDockView::checkDragEvent -> "  << std::endl;
+    std::cout << "MultiLayerView::checkDragEvent -> "  << std::endl;
     const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
     if (!mimeData) {
         event->ignore();
@@ -195,7 +220,7 @@ const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEve
     }
 
     if(mimeData->hasFormat("bornagain/widget")
-            && (mimeData->getClassName() == QString("Layer") )
+            && isExpectedObject(mimeData->getClassName())
             && isInDropArea(event->pos()) ) {
         std::cout << "LayerDockView::checkDragEvent -> yes"  << std::endl;
         event->setAccepted(true);

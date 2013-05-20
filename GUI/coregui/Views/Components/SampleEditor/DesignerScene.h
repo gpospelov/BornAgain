@@ -41,6 +41,7 @@ protected:
 
 private:
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
+    void createLayerDock();
 
     int m_xmin;
     int m_xmax;

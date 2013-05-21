@@ -21,6 +21,8 @@ LayerView::LayerView(QGraphicsItem *parent)
     , m_rect(0, 0, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight())
     , m_fixed_xpos(0)
     , m_fixed(false)
+    , m_name(QString("Layer"))
+    , m_thickness(10.0)
 {
 //    setToolTip(QString("QColor(%1, %2, %3)\n%4")
 //              .arg(color.red()).arg(color.green()).arg(color.blue())

@@ -13,6 +13,8 @@
 class LayerView : public ISampleView
 {
     Q_OBJECT
+    Q_PROPERTY(QString name READ getName WRITE setName )
+    Q_PROPERTY(double thickness READ getThickness WRITE setThickness )
 
 public:
 
@@ -26,8 +28,28 @@ public:
     void setFixedX() { m_fixed_xpos = x(); m_fixed=true; }
     qreal getFixedX() { return m_fixed_xpos; }
 
-Q_SIGNALS:
+    QString getName() const { return m_name; }
+    double getThickness() const { return m_thickness; }
+
+public slots:
+    void setName(const QString &name) {
+        if(name != m_name) {
+            m_name = name;
+            emit update();
+        }
+    }
+
+    void setThickness(double thickness) {
+        if(thickness != m_thickness) {
+            m_thickness = thickness;
+            emit update();
+        }
+    }
+
+
+signals:
     void LayerMoved();
+    //void update();
 
 
 protected:
@@ -47,6 +69,9 @@ private:
     QRect m_rect;
     qreal m_fixed_xpos;
     bool m_fixed;
+
+    QString m_name;
+    double m_thickness;
 };
 
 

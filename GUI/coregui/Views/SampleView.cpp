@@ -50,23 +50,14 @@ void SampleView::initSubWindows()
 {
     qFill(m_subWindows, m_subWindows + NumberOfSubWindows, static_cast<QWidget*>(0));
 
-    QDesignerWidgetBoxInterface *wb = new qdesigner_internal::WidgetBox(m_sampleEditor, this);
-    wb->setFileName(QStringLiteral(":/widgetbox/widgetbox.xml"));
-    wb->load();
-    wb->setWindowTitle(tr("Widget Box"));
-    wb->setObjectName(QLatin1String("WidgetBox"));
-    //m_sampleEditor->setWidgetBox(wb);
-    m_subWindows[WidgetBoxSubWindow] = wb;
+    m_subWindows[WidgetBoxSubWindow] = SampleViewComponents::createWidgetBox(m_sampleEditor, this);
 
     SampleTreeInspectorInterface *oi = SampleViewComponents::createTreeInspector(this);
     oi->setWindowTitle(tr("Object Inspector"));
     oi->setObjectName(QLatin1String("ObjectInspector"));
     m_subWindows[SampleInspectorSubWindow] = oi;
 
-    SamplePropertyEditorInterface *pe = SampleViewComponents::createPropertyEditor(this);
-    pe->setWindowTitle(tr("Property Editor"));
-    pe->setObjectName(QLatin1String("PropertyEditor"));
-    m_subWindows[PropertyEditorSubWindow] = pe;
+    m_subWindows[PropertyEditorSubWindow] = SampleViewComponents::createPropertyEditor(this);
 
     SampleInfoStreamInterface *ae = SampleViewComponents::createInfoStream(this);
     ae->setWindowTitle(tr("Info Stream"));

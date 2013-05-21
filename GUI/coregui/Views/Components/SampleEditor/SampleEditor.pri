@@ -12,7 +12,8 @@ SOURCES +=  \
     Views/Components/SampleEditor/DesignerScene.cpp \
     Views/Components/SampleEditor/DesignerView.cpp \
     Views/Components/SampleEditor/ISampleView.cpp \
-    Views/Components/SampleEditor/DesignerWidgetFactory.cpp
+    Views/Components/SampleEditor/DesignerWidgetFactory.cpp \
+    Views/Components/SampleEditor/SamplePropertyEditor.cpp
 
 HEADERS +=  \
     Views/Components/SampleEditor/SampleEditor.h \
@@ -24,7 +25,8 @@ HEADERS +=  \
     Views/Components/SampleEditor/DesignerMimeData.h \
     Views/Components/SampleEditor/DesignerScene.h \
     Views/Components/SampleEditor/DesignerView.h \
-    Views/Components/SampleEditor/DesignerWidgetFactory.h
+    Views/Components/SampleEditor/DesignerWidgetFactory.h \
+    Views/Components/SampleEditor/SamplePropertyEditor.h
 
 RESOURCES += Views/Components/SampleEditor/SampleEditor.qrc
 

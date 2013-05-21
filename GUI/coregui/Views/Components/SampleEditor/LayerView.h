@@ -23,7 +23,7 @@ public:
 
     QRect rect() const { return m_rect; }
 
-    void setFixedX() { m_fixed_xpos = x(); }
+    void setFixedX() { m_fixed_xpos = x(); m_fixed=true; }
     qreal getFixedX() { return m_fixed_xpos; }
 
 Q_SIGNALS:
@@ -46,6 +46,7 @@ private:
     QColor m_color;
     QRect m_rect;
     qreal m_fixed_xpos;
+    bool m_fixed;
 };
 
 

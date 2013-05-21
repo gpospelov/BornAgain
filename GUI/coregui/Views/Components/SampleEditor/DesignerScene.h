@@ -33,14 +33,15 @@ public:
 
 
 protected:
-//    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
-//    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
-//    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
-//    virtual void dropEvent(QGraphicsSceneDragDropEvent *event);
-//    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
+    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
+    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
+    virtual void dropEvent(QGraphicsSceneDragDropEvent *event);
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+
+    const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
 
 private:
-    const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
     void createLayerDock();
 
     int m_xmin;

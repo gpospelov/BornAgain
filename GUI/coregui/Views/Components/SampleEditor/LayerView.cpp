@@ -20,6 +20,7 @@ LayerView::LayerView(QGraphicsItem *parent)
     , m_color(qrand() % 256, qrand() % 256, qrand() % 256)
     , m_rect(0, 0, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight())
     , m_fixed_xpos(0)
+    , m_fixed(false)
 {
 //    setToolTip(QString("QColor(%1, %2, %3)\n%4")
 //              .arg(color.red()).arg(color.green()).arg(color.blue())
@@ -60,6 +61,12 @@ void LayerView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void LayerView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     std::cout << "LayerView::mousePressEvent -> " << x() << " " << y() << std::endl;
+    // remove selection from child items
+    QList<QGraphicsItem *> list = childItems();
+    foreach(QGraphicsItem *item, list) {
+        item->setSelected(false);
+    }
+
     QGraphicsObject::mousePressEvent(event);
 }
 
@@ -101,7 +108,7 @@ void LayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 QVariant LayerView::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     std::cout << "YYY itemChange " << x() << " " << y() <<  std::endl;
-     if (change == ItemPositionChange && scene()) {
+     if (change == ItemPositionChange && scene() && m_fixed) {
          // value is the new position.
          QPointF newPos = value.toPointF();
 //         QRectF rect = parentItem()->boundingRect();

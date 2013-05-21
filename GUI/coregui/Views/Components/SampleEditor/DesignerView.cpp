@@ -23,11 +23,11 @@ DesignerView::DesignerView(QWidget *parent, QGraphicsScene *scene)
 {
 //    setMinimumSize(128, 128);
 //    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setAcceptDrops(true);
+   setAcceptDrops(false);
 
     QVBoxLayout *layout = new QVBoxLayout;
     m_graphicsView = new QGraphicsView(scene);
-    //m_graphicsView->setAcceptDrops(true);
+    m_graphicsView->setAcceptDrops(true);
 
     layout->addWidget(m_graphicsView);
     setLayout(layout);
@@ -144,18 +144,18 @@ void DesignerView::keyPressEvent(QKeyEvent *event)
 //}
 
 
-void DesignerView::dropEvent(QDropEvent *event)
-{
-    std::cout << "SampleEditorScene::dropEvent() -> " << std::endl;
-        const DesignerMimeData *mimeData = checkDragEvent(event);
-        if (mimeData) {
-            std::cout << "DesignerView::dropEvent() -> yes " << mimeData->getClassName().toStdString() << std::endl;
+//void DesignerView::dropEvent(QDropEvent *event)
+//{
+//    std::cout << "SampleEditorScene::dropEvent() -> " << std::endl;
+//        const DesignerMimeData *mimeData = checkDragEvent(event);
+//        if (mimeData) {
+//            std::cout << "DesignerView::dropEvent() -> yes " << mimeData->getClassName().toStdString() << std::endl;
 
-            ISampleView *view = m_widgetFactory->create( mimeData->getClassName() );
-            m_graphicsView->scene()->addItem(view);
-            view->setPos(event->pos().x()-view->boundingRect().width()/2, event->pos().y()-view->boundingRect().height()/2);
-        }
-}
+//            ISampleView *view = m_widgetFactory->create( mimeData->getClassName() );
+//            m_graphicsView->scene()->addItem(view);
+//            view->setPos(event->pos().x()-view->boundingRect().width()/2, event->pos().y()-view->boundingRect().height()/2);
+//        }
+//}
 
 
 void DesignerView::mouseMoveEvent(QMouseEvent *event)
@@ -167,6 +167,7 @@ void DesignerView::mouseMoveEvent(QMouseEvent *event)
 
 const DesignerMimeData *DesignerView::checkDragEvent(QDropEvent * event)
 {
+    std::cout << "DesignerView::checkDragEvent()" << std::endl;
     const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
     if (!mimeData) {
         event->ignore();

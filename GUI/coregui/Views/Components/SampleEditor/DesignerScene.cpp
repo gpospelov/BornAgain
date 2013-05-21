@@ -48,65 +48,93 @@ void DesignerScene::createLayerDock()
 }
 
 
-//void DesignerScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
-//{
-//    std::cout << "DesignerScene::dragEnterEvent() ->" << std::endl;
-//        event->acceptProposedAction();
-//}
-
-
-//void DesignerScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
-//{
+void DesignerScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
+{
+    std::cout << "DesignerScene::dragEnterEvent() ->" << std::endl;
 //    event->acceptProposedAction();
-//    std::cout << "DesignerScene::dragMoveEvent() -> " << event->pos().x() << " " << event->pos().y() << std::endl;
-//}
+//    event->accept();
+    QGraphicsScene::dragEnterEvent(event);
+}
 
 
-//void DesignerScene::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
-//{
-//    std::cout << "DesignerScene::dragLeaveEvent() ->" << std::endl;
-//        event->acceptProposedAction();
-//}
-
-
-//void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
-//{
-//    std::cout << "DesignerScene::dropEvent() -> " << std::endl;
-//        const DesignerMimeData *mimeData = checkDragEvent(event);
-//        if (mimeData) {
-//            std::cout << "SampleEditorScene::dropEvent() -> yes " << mimeData->getClassName().toStdString() << std::endl;
-
-//            ISampleView *view = m_widgetFactory->create( mimeData->getClassName() );
-//            addItem(view);
-//            view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
-//        }
-//}
-
-
-//void DesignerScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-//{
-//    std::cout << "DesignerScene::mouseMoveEvent() -> " << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
-//    QGraphicsScene::mouseMoveEvent(event);
-//}
-
-
-//const DesignerMimeData *DesignerScene::checkDragEvent(QGraphicsSceneDragDropEvent * event)
-//{
-//    const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
-//    if (!mimeData) {
-//        event->ignore();
-//        return 0;
-//    }
-
-//    if(mimeData->hasFormat("bornagain/widget") ) {
-//        std::cout << "DesignerScene::checkDragEvent() yes" << std::endl;
-//        event->setAccepted(true);
+void DesignerScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    std::cout << "DesignerScene::dragMoveEvent() -> " << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
+    const DesignerMimeData *mimeData = checkDragEvent(event);
+//    if (mimeData) {
+//        std::cout << "DesignerScene::dragMoveEvent() ->  yes" << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
 //    } else {
-//        std::cout << "DesignerScene::checkDragEvent() no" << std::endl;
-//        event->setAccepted(false);
+//        std::cout << "DesignerScene::dragMoveEvent() ->  no" << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
+//        event->acceptProposedAction();
+//        QGraphicsScene::dragMoveEvent(event);
 //    }
+    if(mimeData) {
+        if(mimeData->getClassName() == QString("Layer") || mimeData->getClassName() == QString("MultiLayer") ) {
+            QGraphicsScene::dragMoveEvent(event);
+        }
+    }
 
-//    return mimeData;
-//}
+}
+
+
+void DesignerScene::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    std::cout << "DesignerScene::dragLeaveEvent() ->" << std::endl;
+        QGraphicsScene::dragLeaveEvent(event);
+//        event->acceptProposedAction();
+}
+
+
+void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
+{
+    std::cout << "DesignerScene::dropEvent() -> " << std::endl;
+    //event->acceptProposedAction();
+    const DesignerMimeData *mimeData = checkDragEvent(event);
+    if (mimeData) {
+        if(mimeData->getClassName() == QString("Layer") || mimeData->getClassName() == QString("MultiLayer") ) {
+            QGraphicsScene::dropEvent(event);
+        } else {
+            ISampleView *view = m_widgetFactory->create( mimeData->getClassName() );
+            addItem(view);
+            view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
+
+        }
+
+        std::cout << "SampleEditorScene::dropEvent() -> yes " << mimeData->getClassName().toStdString() << std::endl;
+
+    }
+    //QGraphicsScene::dropEvent(event);
+}
+
+
+void DesignerScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    std::cout << "DesignerScene::mouseMoveEvent() -> " << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
+    QGraphicsScene::mouseMoveEvent(event);
+}
+
+
+
+const DesignerMimeData *DesignerScene::checkDragEvent(QGraphicsSceneDragDropEvent * event)
+{
+    std::cout << "DesignerScene::checkDragEvent -> "  << std::endl;
+    const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
+    if (!mimeData) {
+        event->ignore();
+        return 0;
+    }
+
+    if(mimeData->hasFormat("bornagain/widget") ) {
+//            && (mimeData->getClassName() != QString("Layer") )
+//         && (mimeData->getClassName() != QString("MultiLayer") ) ) {
+
+        std::cout << "DesignerScene::checkDragEvent -> yes"  << std::endl;
+        event->setAccepted(true);
+    } else {
+        event->setAccepted(false);
+    }
+    return mimeData;
+}
+
 
 

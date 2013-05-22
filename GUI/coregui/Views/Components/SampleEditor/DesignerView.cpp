@@ -32,6 +32,8 @@ DesignerView::DesignerView(QWidget *parent, QGraphicsScene *scene)
     layout->addWidget(m_graphicsView);
     setLayout(layout);
 
+    m_graphicsView->setRenderHint(QPainter::Antialiasing);
+
 //   QShortcut* shortcut = new QShortcut(QKeySequence(Qt::Key_Delete), this);
 //   connect(shortcut, SIGNAL(activated()), this, SLOT(deleteItem()));
 

@@ -4,7 +4,7 @@
 #include <cmath>
 #include <iostream>
 
-int DesignerHelper::m_default_layer_height = 25;
+int DesignerHelper::m_default_layer_height = 30;
 int DesignerHelper::m_default_layer_width = 200;
 
 

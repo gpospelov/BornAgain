@@ -9,6 +9,9 @@
 #include "LayerDockView.h"
 
 #include <QGraphicsSceneDragDropEvent>
+#include "qneblock.h"
+#include "qneport.h"
+#include "qnodeseditor.h"
 
 DesignerScene::DesignerScene(QObject *parent)
     : IDesignerScene(parent)
@@ -24,6 +27,22 @@ DesignerScene::DesignerScene(QObject *parent)
 
     //setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     createLayerDock();
+
+    QNEBlock *b = new QNEBlock(0, this);
+    b->addPort("test", 0, QNEPort::NamePort);
+    b->addPort("TestBlock", 0, QNEPort::TypePort);
+    b->addInputPort("in1");
+    b->addInputPort("in2");
+    b->addInputPort("in3");
+    b->addOutputPort("out1");
+    b->addOutputPort("out2");
+    b->addOutputPort("out3");
+
+    b = b->clone();
+    b->setPos(150, 0);
+
+    QNodesEditor *nodesEditor = new QNodesEditor(parent);
+    nodesEditor->install(this);
 
 }
 

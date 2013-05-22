@@ -1,9 +1,9 @@
 #include "SampleViewComponents.h"
 #include "widgetbox.h"
-#include "SampleEditor.h"
+#include "SampleDesigner.h"
 
 
-SampleWidgetBoxInterface *SampleViewComponents::createWidgetBox(ISampleEditor *core, QWidget *parent)
+SampleWidgetBoxInterface *SampleViewComponents::createWidgetBox(SampleDesignerInterface *core, QWidget *parent)
 {
     QDesignerWidgetBoxInterface *result = new qdesigner_internal::WidgetBox(core, parent);
     result->setFileName(QStringLiteral(":/widgetbox/widgetbox.xml"));
@@ -16,10 +16,10 @@ SampleWidgetBoxInterface *SampleViewComponents::createWidgetBox(ISampleEditor *c
 
 
 //SamplePropertyEditorInterface *SampleViewComponents::createPropertyEditor(QWidget *parent)
-SamplePropertyEditor *SampleViewComponents::createPropertyEditor(QWidget *parent)
+SamplePropertyEditor *SampleViewComponents::createPropertyEditor(SampleDesignerInterface *core, QWidget *parent)
 {
     //SamplePropertyEditorInterface *result = new SamplePropertyEditorInterface(parent);
-    SamplePropertyEditor *result = new SamplePropertyEditor(parent);
+    SamplePropertyEditor *result = new SamplePropertyEditor(core, parent);
     result->setWindowTitle(QLatin1String("Property Editor"));
     result->setObjectName(QLatin1String("PropertyEditor"));
     return result;

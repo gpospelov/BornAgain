@@ -1,4 +1,5 @@
 #include "LayerView.h"
+#include "Units.h"
 
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
@@ -18,27 +19,20 @@
 LayerView::LayerView(QGraphicsItem *parent)
     : ISampleView(parent)
     , m_color(qrand() % 256, qrand() % 256, qrand() % 256)
-    , m_rect(0, 0, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight())
+    , m_rect(0, 0, DesignerHelper::getDefaultLayerWidth(), DesignerHelper::getDefaultLayerHeight())
     , m_fixed_xpos(0)
     , m_fixed(false)
     , m_name(QString("Layer"))
-    , m_thickness(10.0)
+    , m_thickness(10*Units::nanometer)
 {
-//    setToolTip(QString("QColor(%1, %2, %3)\n%4")
-//              .arg(color.red()).arg(color.green()).arg(color.blue())
-//              .arg("Do something"));
-//    setCursor(Qt::OpenHandCursor);
-//    setAcceptedMouseButtons(Qt::LeftButton);
+    setToolTip(QString("%1\n%2").arg("LayerView").arg("Homogeneous layer"));
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+//    setAcceptedMouseButtons(Qt::LeftButton);
     setAcceptDrops(false);
 }
 
-QRectF LayerView::boundingRect() const
-{
-    return rect();
-}
 
 void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {

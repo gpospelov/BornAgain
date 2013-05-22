@@ -3,7 +3,6 @@
 INCLUDEPATH += $$PWD
 
 SOURCES +=  \
-    Views/Components/SampleEditor/SampleEditor.cpp \
     Views/Components/SampleEditor/FormFactorView.cpp \
     Views/Components/SampleEditor/LayerView.cpp \
     Views/Components/SampleEditor/MultiLayerView.cpp \
@@ -13,10 +12,11 @@ SOURCES +=  \
     Views/Components/SampleEditor/DesignerView.cpp \
     Views/Components/SampleEditor/ISampleView.cpp \
     Views/Components/SampleEditor/DesignerWidgetFactory.cpp \
-    Views/Components/SampleEditor/SamplePropertyEditor.cpp
+    Views/Components/SampleEditor/SamplePropertyEditor.cpp \
+    Views/Components/SampleEditor/SampleDesigner.cpp \
+    Views/Components/SampleEditor/ObjectPropertyController.cpp
 
 HEADERS +=  \
-    Views/Components/SampleEditor/SampleEditor.h \
     Views/Components/SampleEditor/ISampleView.h \
     Views/Components/SampleEditor/FormFactorView.h \
     Views/Components/SampleEditor/LayerView.h \
@@ -26,7 +26,9 @@ HEADERS +=  \
     Views/Components/SampleEditor/DesignerScene.h \
     Views/Components/SampleEditor/DesignerView.h \
     Views/Components/SampleEditor/DesignerWidgetFactory.h \
-    Views/Components/SampleEditor/SamplePropertyEditor.h
+    Views/Components/SampleEditor/SamplePropertyEditor.h \
+    Views/Components/SampleEditor/SampleDesigner.h \
+    Views/Components/SampleEditor/ObjectPropertyController.h
 
 RESOURCES += Views/Components/SampleEditor/SampleEditor.qrc
 

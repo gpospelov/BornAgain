@@ -23,7 +23,7 @@
 MultiLayerView::MultiLayerView(QGraphicsItem *parent)
     : LayerView(parent)
     , m_color(Qt::blue)
-    , m_rect(0, 0, DesignerHelper::getMultiLayerWidth(), DesignerHelper::getMultiLayerHeight())
+    , m_rect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight())
 {
     setToolTip(QString("MultiLayer"));
     setFlag(QGraphicsItem::ItemIsMovable, true);
@@ -65,11 +65,12 @@ void MultiLayerView::addLayer(LayerView *layer, QPointF pos)
     // adjusting main rectangle othervise item->setPos will not work due to 'LayerView::itemChange'
     m_rect.setHeight(m_rect.height()+layer->boundingRect().height());
 
-    int xpos = (DesignerHelper::getMultiLayerWidth() - layer->boundingRect().width())/2.;
+    int xpos = (DesignerHelper::getDefaultMultiLayerWidth() - layer->boundingRect().width())/2.;
     layer->setPos(xpos, pos.y());
     layer->setFixedX();
     connect(layer, SIGNAL(LayerMoved()), this, SLOT(updateHeight()) );
     connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
+    //connect(layer, SIGNAL(update()), this, SLOT(updateHeight()) );
     layer->setParentItem(this);
     //emit heightChanged();
 }
@@ -96,7 +97,7 @@ void MultiLayerView::updateHeight()
         }
         m_drop_areas.append(QRectF(0, list.back()->y() +list.back()->boundingRect().height() - list.back()->boundingRect().height()/4., boundingRect().width(), list.back()->boundingRect().height()/2.));
     } else {
-        total_height = DesignerHelper::getMultiLayerHeight();
+        total_height = DesignerHelper::getDefaultMultiLayerHeight();
         m_drop_areas.append(boundingRect());
     }
 

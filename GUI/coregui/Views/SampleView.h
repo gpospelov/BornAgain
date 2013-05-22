@@ -7,8 +7,8 @@
 #include <QDockWidget>
 
 
-class ISampleEditor;
-class SampleEditor;
+class SampleDesignerInterface;
+class SampleDesigner;
 
 class SampleView : public Manhattan::FancyMainWindow
 {
@@ -32,7 +32,7 @@ public slots:
 private:
     void initSubWindows();
 
-    SampleEditor *m_sampleEditor;
+    SampleDesigner *m_sampleEditor;
     QWidget *m_subWindows[NumberOfSubWindows];
     QDockWidget *m_dockWidgets[NumberOfSubWindows];
 

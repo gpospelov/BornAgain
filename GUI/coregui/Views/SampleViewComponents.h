@@ -15,7 +15,7 @@
 //    }
 //};
 
-class ISampleEditor;
+class SampleDesignerInterface;
 
 typedef QDesignerWidgetBoxInterface SampleWidgetBoxInterface;
 
@@ -51,9 +51,9 @@ public:
 class SampleViewComponents
 {
 public:
-    static SampleWidgetBoxInterface *createWidgetBox(ISampleEditor *core, QWidget *parent);
+    static SampleWidgetBoxInterface *createWidgetBox(SampleDesignerInterface *core, QWidget *parent);
 //    static SamplePropertyEditorInterface *createPropertyEditor(QWidget *parent);
-    static SamplePropertyEditor *createPropertyEditor(QWidget *parent);
+    static SamplePropertyEditor *createPropertyEditor(SampleDesignerInterface *core,QWidget *parent);
     static SampleTreeInspectorInterface *createTreeInspector(QWidget *parent);
     static SampleInfoStreamInterface *createInfoStream(QWidget *parent);
 };

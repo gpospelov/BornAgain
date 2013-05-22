@@ -60,7 +60,7 @@
 
 #include <QtGui/QIcon>
 
-#include "SampleEditor.h"
+#include "SampleDesigner.h"
 
 #include "DesignerMimeData.h"
 
@@ -70,7 +70,7 @@ QT_BEGIN_NAMESPACE
 namespace qdesigner_internal {
 
 //WidgetBox::WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent, Qt::WindowFlags flags)
-WidgetBox::WidgetBox(ISampleEditor *core, QWidget *parent, Qt::WindowFlags flags)
+WidgetBox::WidgetBox(SampleDesignerInterface *core, QWidget *parent, Qt::WindowFlags flags)
     : QDesignerWidgetBox(parent, flags),
       m_core(core),
       m_view(new WidgetBoxTreeWidget(m_core))
@@ -106,7 +106,7 @@ WidgetBox::~WidgetBox()
 //    return m_core;
 //}
 
-ISampleEditor *WidgetBox::core() const
+SampleDesignerInterface *WidgetBox::core() const
 {
     return m_core;
 }

@@ -1,6 +1,6 @@
 #include "SampleView.h"
 #include "SampleViewComponents.h"
-#include "SampleEditor.h"
+#include "SampleDesigner.h"
 
 #include <QDockWidget>
 #include <QAbstractItemView>
@@ -16,7 +16,7 @@ SampleView::SampleView(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
     , m_sampleEditor(0)
 {
-    m_sampleEditor = new SampleEditor(parent);
+    m_sampleEditor = new SampleDesigner(parent);
 
     setObjectName(QLatin1String("SampleView"));
 
@@ -42,6 +42,8 @@ SampleView::SampleView(QWidget *parent)
 
     }
     resetToDefaultLayout();
+
+//    connect(m_sampleEditor->getDesignerScene())
 }
 
 
@@ -57,7 +59,7 @@ void SampleView::initSubWindows()
     oi->setObjectName(QLatin1String("ObjectInspector"));
     m_subWindows[SampleInspectorSubWindow] = oi;
 
-    m_subWindows[PropertyEditorSubWindow] = SampleViewComponents::createPropertyEditor(this);
+    m_subWindows[PropertyEditorSubWindow] = SampleViewComponents::createPropertyEditor(m_sampleEditor, this);
 
     SampleInfoStreamInterface *ae = SampleViewComponents::createInfoStream(this);
     ae->setWindowTitle(tr("Info Stream"));

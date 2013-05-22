@@ -67,7 +67,7 @@ class QDesignerDnDItemInterface;
 
 class QTimer;
 
-class ISampleEditor;
+class SampleDesignerInterface;
 
 
 namespace qdesigner_internal {
@@ -86,7 +86,7 @@ public:
     typedef QDesignerWidgetBoxInterface::CategoryList CategoryList;
 
 //    explicit WidgetBoxTreeWidget(QDesignerFormEditorInterface *core, QWidget *parent = 0);
-    explicit WidgetBoxTreeWidget(ISampleEditor *core, QWidget *parent = 0);
+    explicit WidgetBoxTreeWidget(SampleDesignerInterface *core, QWidget *parent = 0);
     ~WidgetBoxTreeWidget();
 
     int categoryCount() const;
@@ -149,7 +149,7 @@ private:
     void updateViewMode();
 
 //    QDesignerFormEditorInterface *m_core;
-    ISampleEditor *m_core;
+    SampleDesignerInterface *m_core;
     QString m_file_name;
     typedef QHash<QString, QIcon> IconCache;
     mutable IconCache m_pluginIcons;

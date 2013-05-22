@@ -1,7 +1,10 @@
-#include <QPainter>
 #include "DesignerHelper.h"
+#include <QPainter>
+#include <QtGlobal>
+#include <cmath>
+#include <iostream>
 
-int DesignerHelper::m_default_layer_height = 50;
+int DesignerHelper::m_default_layer_height = 25;
 int DesignerHelper::m_default_layer_width = 200;
 
 
@@ -32,7 +35,7 @@ QPixmap DesignerHelper::getSceneBackground()
 
 
 QPixmap DesignerHelper::getPixmapLayer() {
-    QRect rect(0,0, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight());
+    QRect rect(0,0, DesignerHelper::getDefaultLayerWidth(), DesignerHelper::getDefaultLayerHeight());
     QPixmap pixmap(rect.width()+1, rect.height()+1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
@@ -44,7 +47,7 @@ QPixmap DesignerHelper::getPixmapLayer() {
 
 
 QPixmap DesignerHelper::getPixmapMultiLayer() {
-    QRect rect(0,0, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight());
+    QRect rect(0,0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultLayerHeight());
     QPixmap pixmap(rect.width()+1, rect.height()+1);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
@@ -52,13 +55,24 @@ QPixmap DesignerHelper::getPixmapMultiLayer() {
     painter.setBrush(DesignerHelper::getLayerGradient(Qt::lightGray, rect));
     painter.drawRect(rect);
     painter.setPen(Qt::DashLine);
-    painter.drawLine(0, DesignerHelper::getLayerHeight()*0.3, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight()*0.3);
-    painter.drawLine(0, DesignerHelper::getLayerHeight()*0.6, DesignerHelper::getLayerWidth(), DesignerHelper::getLayerHeight()*0.6);
+    painter.drawLine(0, DesignerHelper::getDefaultLayerHeight()*0.3, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultLayerHeight()*0.3);
+    painter.drawLine(0, DesignerHelper::getDefaultLayerHeight()*0.6, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultLayerHeight()*0.6);
     return pixmap;
 }
 
 
 QPixmap DesignerHelper::getPixmapDefault() {
     return QPixmap(":/images/mode_exp.png");
+}
+
+
+// non-linear convertion of layer's thickness in nanometers to screen size to have reasonable graphics representation
+int DesignerHelper::nanometerToScreen(double nanometer)
+{
+    const int ymin(m_default_layer_height);
+    const int ymax(500);
+    int result(ymin);
+    if(nanometer > 0) result = qBound(ymin, ymin + (int)std::pow(nanometer, 0.9), ymax);
+    return result;
 }
 

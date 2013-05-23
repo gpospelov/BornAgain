@@ -14,7 +14,8 @@ SOURCES +=  \
     Views/Components/SampleEditor/DesignerWidgetFactory.cpp \
     Views/Components/SampleEditor/SamplePropertyEditor.cpp \
     Views/Components/SampleEditor/SampleDesigner.cpp \
-    Views/Components/SampleEditor/ObjectPropertyController.cpp
+    Views/Components/SampleEditor/ObjectPropertyController.cpp \
+    Views/Components/SampleEditor/ParticleDecorationView.cpp
 
 HEADERS +=  \
     Views/Components/SampleEditor/ISampleView.h \
@@ -28,7 +29,8 @@ HEADERS +=  \
     Views/Components/SampleEditor/DesignerWidgetFactory.h \
     Views/Components/SampleEditor/SamplePropertyEditor.h \
     Views/Components/SampleEditor/SampleDesigner.h \
-    Views/Components/SampleEditor/ObjectPropertyController.h
+    Views/Components/SampleEditor/ObjectPropertyController.h \
+    Views/Components/SampleEditor/ParticleDecorationView.h
 
 RESOURCES += Views/Components/SampleEditor/SampleEditor.qrc
 

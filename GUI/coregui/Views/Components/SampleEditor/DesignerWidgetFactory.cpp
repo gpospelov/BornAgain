@@ -2,6 +2,7 @@
 #include "LayerView.h"
 #include "MultiLayerView.h"
 #include "FormFactorView.h"
+#include "ParticleDecorationView.h"
 
 
 DesignerWidgetFactory::DesignerWidgetFactory()
@@ -21,7 +22,11 @@ DesignerWidgetFactory::DesignerWidgetFactory()
         IFactoryCreateFunction<FormFactorView, ISampleView>
     );
 
-   std::cout << "DesignerWidgetFactory::DesignerWidgetFactory() " << std::endl;
+   registerItem(
+        "ParticleDecoration",
+        IFactoryCreateFunction<ParticleDecorationView, ISampleView>
+    );
+
 }
 
 
@@ -29,12 +34,9 @@ ISampleView *DesignerWidgetFactory::create(const QString &name)
 {
     ISampleView *result(0);
     try {
-        std::cout << "DesignerWidgetFactory::create() XXX 1.1" << std::endl;
         result = createItem(name.toStdString());
-        std::cout << "DesignerWidgetFactory::create() XXX 1.2" << std::endl;
     } catch (std::runtime_error& e) {
-        std::cout << e.what() << std::endl;
-        std::cout << "TestFactory::execute() -> Warning. No test with name '"
+        std::cout << "DesignerWidgetFactory::create() -> Warning. No widget with name '"
                   << name.toStdString() << "' is defined." << std::endl;
     }
 

@@ -19,6 +19,22 @@ QGradient DesignerHelper::getLayerGradient(const QColor &color, const QRect &rec
     return result;
 }
 
+QGradient DesignerHelper::getDecorationGradient(const QColor &color, const QRect &rect)
+{
+    QColor c = color;
+    //c.setAlpha(200);
+    QLinearGradient result(rect.x()+rect.width()/2,
+                           rect.y(),
+                           rect.x()+rect.width()/2,
+                           rect.y()+rect.height()
+                           );
+    result.setColorAt(0, c);
+    result.setColorAt(0.5, c.lighter(150));
+    result.setColorAt(1, c);
+    return result;
+}
+
+
 
 QPixmap DesignerHelper::getSceneBackground()
 {

@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
+
 ISampleDefaultView::ISampleDefaultView(QGraphicsItem *parent)
     : ISampleView(parent)
     , m_rect(0, 0, DesignerHelper::getDefaultLayerWidth()/2, DesignerHelper::getDefaultLayerWidth()/2)
@@ -32,21 +33,4 @@ void ISampleDefaultView::paint(QPainter *painter, const QStyleOptionGraphicsItem
     painter->setBrush(DesignerHelper::getLayerGradient(Qt::gray, rect() ) );
     painter->drawRect(rect());
 }
-
-
-
-
-//ISampleView::ISampleView(QGraphicsItem *parent)
-//    : QGraphicsPolygonItem(parent)
-//{
-
-//    m_polygon << QPointF(-40, -20) << QPointF(40, -20) << QPointF(40, 20) << QPointF(-40, 20) << QPointF(-40, -20);
-
-//    setPolygon(m_polygon);
-
-//    setFlag(QGraphicsItem::ItemIsMovable, true);
-//    setFlag(QGraphicsItem::ItemIsSelectable, true);
-//    setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
-//}
-
 

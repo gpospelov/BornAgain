@@ -11,13 +11,17 @@ class DesignerHelper
 {
 public:
 
-    static int getDefaultLayerHeight() { return m_default_layer_height; }
     static int getDefaultLayerWidth() { return m_default_layer_width; }
+    static int getDefaultLayerHeight() { return m_default_layer_height; }
 
-    static int getDefaultMultiLayerHeight() { return m_default_layer_height; }
     static int getDefaultMultiLayerWidth() { return m_default_layer_width*1.20; }
+    static int getDefaultMultiLayerHeight() { return m_default_layer_height; }
+
+    static int getDefaultDecorationWidth() { return m_default_layer_height*3; }
+    static int getDefaultDecorationHeight() { return m_default_layer_height*4; }
 
     static QGradient getLayerGradient(const QColor &color, const QRect &rect);
+    static QGradient getDecorationGradient(const QColor &color, const QRect &rect);
 
     static QPixmap getSceneBackground();
     static QPixmap getPixmapLayer();

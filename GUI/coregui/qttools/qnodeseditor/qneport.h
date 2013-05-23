@@ -27,9 +27,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 #define QNEPORT_H
 
 #include <QGraphicsPathItem>
-
+#include <QString>
 class QNEBlock;
 class QNEConnection;
+class ISampleView;
 
 class QNEPort : public QGraphicsPathItem
 {
@@ -37,10 +38,14 @@ public:
 	enum { Type = QGraphicsItem::UserType + 1 };
 	enum { NamePort = 1, TypePort = 2 };
 
-	QNEPort(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
+//    QNEPort(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
+    QNEPort(QGraphicsItem *parent = 0, const QString &name=QString("unnamed"), bool isOutput=false);
+
 	~QNEPort();
 
-	void setNEBlock(QNEBlock*);
+//    void setNEBlock(QNEBlock*);
+    void setNEBlock(ISampleView*);
+
 	void setName(const QString &n);
 	void setIsOutput(bool o);
 	int radius();
@@ -48,12 +53,13 @@ public:
 	QVector<QNEConnection*>& connections();
 	void setPortFlags(int);
 
-	const QString& portName() const { return name; }
+    const QString& portName() const { return m_name; }
 	int portFlags() const { return m_portFlags; }
 
 	int type() const { return Type; }
 
-	QNEBlock* block() const;
+//    QNEBlock* block() const;
+    ISampleView* block() const;
 
 	quint64 ptr();
 	void setPtr(quint64);
@@ -64,12 +70,14 @@ protected:
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
 private:
-	QNEBlock *m_block;
-	QString name;
-	bool isOutput_;
+    QString m_name;
+    bool m_isOutput;
+    QColor m_color;
+    int m_radius;
+    int m_margin;
+//    QNEBlock *m_block;
+    ISampleView *m_block;
 	QGraphicsTextItem *label;
-	int radius_;
-	int margin;
 	QVector<QNEConnection*> m_connections;
 	int m_portFlags;
 	quint64 m_ptr;

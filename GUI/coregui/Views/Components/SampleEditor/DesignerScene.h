@@ -9,28 +9,26 @@ class DesignerMimeData;
 class DesignerWidgetFactory;
 
 //! base class for sample designer scene
-class IDesignerScene : public QGraphicsScene
+class DesignerSceneInterface : public QGraphicsScene
 {
     Q_OBJECT
 
 public:
-    explicit IDesignerScene(QObject *parent = 0) : QGraphicsScene(parent){}
-    virtual ~IDesignerScene(){}
+    explicit DesignerSceneInterface(QObject *parent = 0) : QGraphicsScene(parent){}
+    virtual ~DesignerSceneInterface(){}
 
 
 };
 
 
 //! sample designer scene
-class DesignerScene : public IDesignerScene
+class DesignerScene : public DesignerSceneInterface
 {
     Q_OBJECT
 
 public:
     explicit DesignerScene(QObject *parent = 0);
     virtual ~DesignerScene();
-
-
 
 protected:
     virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
@@ -48,7 +46,6 @@ private:
     int m_xmax;
     int m_ymin;
     int m_ymax;
-
     DesignerWidgetFactory *m_widgetFactory;
 
 };

@@ -32,27 +32,64 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 #include "qneconnection.h"
 
-QNEPort::QNEPort(QGraphicsItem *parent, QGraphicsScene *scene)
-//    : QGraphicsPathItem(parent, scene)
+#include "ISampleView.h"
+
+//QNEPort::QNEPort(QGraphicsItem *parent, QGraphicsScene *scene)
+////    : QGraphicsPathItem(parent, scene)
+//    : QGraphicsPathItem(parent)
+//{
+//	label = new QGraphicsTextItem(this);
+
+//	m_radius = 5;
+//	margin = 2;
+
+//	QPainterPath p;
+//	p.addEllipse(-m_radius, -m_radius, 2*m_radius, 2*m_radius);
+//	setPath(p);
+
+//	setPen(QPen(Qt::darkRed));
+//	setBrush(Qt::red);
+
+//	setFlag(QGraphicsItem::ItemSendsScenePositionChanges);
+
+//	m_portFlags = 0;
+//    //scene->addItem(this);
+//}
+
+
+QNEPort::QNEPort(QGraphicsItem *parent, const QString &name, bool isOutput)
     : QGraphicsPathItem(parent)
+    , m_name(name)
+    , m_isOutput(isOutput)
+    , m_color(Qt::green)
+    , m_radius(5)
+    , m_margin(2)
 {
-	label = new QGraphicsTextItem(this);
+    QPainterPath p;
+    p.addEllipse(-m_radius, -m_radius, 2*m_radius, 2*m_radius);
+    setPath(p);
 
-	radius_ = 5;
-	margin = 2;
+    setPen(QPen(m_color.darker(180)));
+    setBrush(m_color);
 
-	QPainterPath p;
-	p.addEllipse(-radius_, -radius_, 2*radius_, 2*radius_);
-	setPath(p);
+    setFlag(QGraphicsItem::ItemSendsScenePositionChanges);
 
-	setPen(QPen(Qt::darkRed));
-	setBrush(Qt::red);
+    m_portFlags = 0;
 
-	setFlag(QGraphicsItem::ItemSendsScenePositionChanges);
+    label = new QGraphicsTextItem(this);
+    label->setPlainText(m_name);
+    QFont serifFont("Monospace", 10, QFont::Normal);
+    label->setFont(serifFont);
 
-	m_portFlags = 0;
-    //scene->addItem(this);
+    if(m_isOutput) {
+        label->setPos(-m_radius - m_margin - label->boundingRect().width(), -label->boundingRect().height()/2);
+    } else {
+        label->setPos(m_radius + m_margin, -label->boundingRect().height()/2);
+    }
+
 }
+
+
 
 QNEPort::~QNEPort()
 {
@@ -60,40 +97,46 @@ QNEPort::~QNEPort()
 		delete conn;
 }
 
-void QNEPort::setNEBlock(QNEBlock *b)
+//void QNEPort::setNEBlock(QNEBlock *b)
+//{
+//	m_block = b;
+//}
+
+void QNEPort::setNEBlock(ISampleView *b)
 {
-	m_block = b;
+    m_block = b;
 }
 
 void QNEPort::setName(const QString &n)
 {
-	name = n;
+    m_name = n;
 	label->setPlainText(n);
 }
 
 void QNEPort::setIsOutput(bool o)
 {
-    Q_ASSERT(scene());
+//    Q_ASSERT(scene());
 
-	isOutput_ = o;
+    m_isOutput = o;
 
-	QFontMetrics fm(scene()->font());
-	QRect r = fm.boundingRect(name);
+//	QFontMetrics fm(scene()->font());
+//	QRect r = fm.boundingRect(name);
 
-	if (isOutput_)
-		label->setPos(-radius_ - margin - label->boundingRect().width(), -label->boundingRect().height()/2);
-	else
-		label->setPos(radius_ + margin, -label->boundingRect().height()/2);
+//	if (isOutput_)
+//		label->setPos(-radius_ - margin - label->boundingRect().width(), -label->boundingRect().height()/2);
+//	else
+//		label->setPos(radius_ + margin, -label->boundingRect().height()/2);
+
 }
 
 int QNEPort::radius()
 {
-	return radius_;
+    return m_radius;
 }
 
 bool QNEPort::isOutput()
 {
-	return isOutput_;
+    return m_isOutput;
 }
 
 QVector<QNEConnection*>& QNEPort::connections()
@@ -103,29 +146,35 @@ QVector<QNEConnection*>& QNEPort::connections()
 
 void QNEPort::setPortFlags(int f)
 {
-    Q_ASSERT(scene());
+//    Q_ASSERT(scene());
 
 	m_portFlags = f;
 
 	if (m_portFlags & TypePort)
 	{
-		QFont font(scene()->font());
-		font.setItalic(true);
-		label->setFont(font);
+//		QFont font(scene()->font());
+//		font.setItalic(true);
+//		label->setFont(font);
 		setPath(QPainterPath());
 	} else if (m_portFlags & NamePort)
 	{
-		QFont font(scene()->font());
-		font.setBold(true);
-		label->setFont(font);
+//		QFont font(scene()->font());
+//		font.setBold(true);
+//		label->setFont(font);
 		setPath(QPainterPath());
 	}
 }
 
-QNEBlock* QNEPort::block() const
+//QNEBlock* QNEPort::block() const
+//{
+//	return m_block;
+//}
+
+ISampleView* QNEPort::block() const
 {
-	return m_block;
+    return m_block;
 }
+
 
 quint64 QNEPort::ptr()
 {

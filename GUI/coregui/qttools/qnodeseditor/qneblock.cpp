@@ -54,37 +54,37 @@ QNEBlock::QNEBlock(QGraphicsItem *parent, QGraphicsScene *scene)
 QNEPort* QNEBlock::addPort(const QString &name, bool isOutput, int flags, int ptr)
 {
     Q_ASSERT(scene());
-	QNEPort *port = new QNEPort(this);
-	port->setName(name);
-	port->setIsOutput(isOutput);
-	port->setNEBlock(this);
-	port->setPortFlags(flags);
-	port->setPtr(ptr);
+    QNEPort *port = new QNEPort(this, name, isOutput);
+//	port->setName(name);
+//	port->setIsOutput(isOutput);
+//	port->setNEBlock(this);
+//	port->setPortFlags(flags);
+//	port->setPtr(ptr);
 
-	QFontMetrics fm(scene()->font());
-	int w = fm.width(name);
-	int h = fm.height();
-	// port->setPos(0, height + h/2);
-	if (w > width - horzMargin)
-		width = w + horzMargin;
-	height += h;
+//	QFontMetrics fm(scene()->font());
+//	int w = fm.width(name);
+//	int h = fm.height();
+//	// port->setPos(0, height + h/2);
+//	if (w > width - horzMargin)
+//		width = w + horzMargin;
+//	height += h;
 
-	QPainterPath p;
-	p.addRoundedRect(-width/2, -height/2, width, height, 5, 5);
-	setPath(p);
+//	QPainterPath p;
+//	p.addRoundedRect(-width/2, -height/2, width, height, 5, 5);
+//	setPath(p);
 
-	int y = -height / 2 + vertMargin + port->radius();
-    foreach(QGraphicsItem *port_, childItems()) {
-		if (port_->type() != QNEPort::Type)
-			continue;
+//	int y = -height / 2 + vertMargin + port->radius();
+//    foreach(QGraphicsItem *port_, childItems()) {
+//		if (port_->type() != QNEPort::Type)
+//			continue;
 
-		QNEPort *port = (QNEPort*) port_;
-		if (port->isOutput())
-			port->setPos(width/2 + port->radius(), y);
-		else
-			port->setPos(-width/2 - port->radius(), y);
-		y += h;
-	}
+//		QNEPort *port = (QNEPort*) port_;
+//		if (port->isOutput())
+//			port->setPos(width/2 + port->radius(), y);
+//		else
+//			port->setPos(-width/2 - port->radius(), y);
+//		y += h;
+//	}
 
 	return port;
 }

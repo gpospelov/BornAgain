@@ -46,6 +46,7 @@ public slots:
 
 protected:
     virtual void setPortCoordinates();
+    virtual int getNumberOfPorts();
     virtual int getNumberOfOutputPorts();
     virtual int getNumberOfInputPorts();
 

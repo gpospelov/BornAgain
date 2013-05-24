@@ -8,6 +8,7 @@ InterferenceFunction1DParaCrystalView::InterferenceFunction1DParaCrystalView(QGr
     : ISampleRectView(parent)
 {
     setName("InterferenceFunction1DParaCrystal");
+    setLabel("Interference \n1D paracrystal");
     setColor(QColor(255, 236, 139));
     setRectangle( QRect(0, 0, DesignerHelper::getDefaultInterferenceFunctionWidth(), DesignerHelper::getDefaultInterferenceFunctionHeight()) );
     addPort("out", QNEPort::Output, QNEPort::Interference);
@@ -31,7 +32,7 @@ void InterferenceFunction1DParaCrystalView::paint(QPainter *painter, const QStyl
     QFont serifFont("Monospace", 12, QFont::Normal);
     painter->setFont(serifFont);
     QRect textRect( getRectangle().x() + (getRectangle().width()-width)/2., getRectangle().y() + yoffset, width, height );
-    painter->drawText(textRect, Qt::AlignCenter, tr("Interference \n1D paracrystal"));
+    painter->drawText(textRect, Qt::AlignCenter, m_label);
 }
 
 

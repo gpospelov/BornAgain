@@ -4,7 +4,7 @@
 
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
-
+#include <QObject>
 
 ISampleRectView::ISampleRectView(QGraphicsItem *parent, QRect rect)
     : ISampleView(parent)
@@ -51,17 +51,20 @@ QNEPort* ISampleRectView::addPort(const QString &name, QNEPort::PortDirection di
 // calculation right y-pos for ports
 void ISampleRectView::setPortCoordinates()
 {
-    Q_ASSERT(childItems().size());
+    if(!getNumberOfPorts()) return;
+
+    // without main label ports will occupy all vertical space
     int hspace = getRectangle().height();
     if( !getLabel().isEmpty() ) hspace -= m_label_vspace;
 
-    int dy = hspace / (childItems().size() + 2);
+    int dy = hspace / (getNumberOfPorts() + 2);
     int ypos = getRectangle().height() - hspace + dy;
 
     int nOutPorts = getNumberOfOutputPorts();
     int nport(0);
-    foreach(QGraphicsItem *port_, childItems()) {
-        QNEPort *port = (QNEPort*) port_;
+    foreach(QGraphicsItem *item, childItems()) {
+        QNEPort *port = dynamic_cast<QNEPort *>(item);
+        if( !port ) continue;
         if (port->isOutput()) {
             port->setPos(getRectangle().width(), ypos);
         }else{
@@ -81,48 +84,30 @@ void ISampleRectView::setLabel(const QString &name)
 }
 
 
-
-//QNEPort* ISampleRectView::addPort(const QString &name, bool isOutput, int flags, int ptr)
-//{
-//    QNEPort *port = new QNEPort(this, name, isOutput);
-//    port->setNEBlock(this);
-
-//    Q_ASSERT(childItems().size());
-//    //int hspace = getRectangle().height()*m_ports_vspace;
-//    int hspace = getRectangle().height() - m_label_vspace;
-//    // vertical distance between ports
-//    int dy = hspace / (childItems().size() + 2);
-//    int ypos = getRectangle().height() - hspace + dy;
-
-//    int nOutPorts = getNumberOfOutputPorts();
-//    int nport(0);
-//    foreach(QGraphicsItem *port_, childItems()) {
-//        QNEPort *port = (QNEPort*) port_;
-//        if (port->isOutput()) {
-//            port->setPos(getRectangle().width(), ypos);
-//        }else{
-//            if(nport == nOutPorts) ypos +=dy; // additional margin between output and input ports
-//            port->setPos(0.0, ypos);
-//        }
-//        ypos += dy;
-//        nport++;
-//    }
-
-//    return port;
-//}
+int ISampleRectView::getNumberOfPorts()
+{
+    int result(0);
+    foreach(QGraphicsItem *item, childItems()) {
+        QNEPort *port = dynamic_cast<QNEPort *>(item);
+        if (port) result++;
+    }
+    return result;
+}
 
 
 int ISampleRectView::getNumberOfOutputPorts()
 {
     int result(0);
-    foreach(QGraphicsItem *port_, childItems()) {
-        QNEPort *port = (QNEPort*) port_;
-        if (port->isOutput()) result++;
+    foreach(QGraphicsItem *item, childItems()) {
+//        QNEPort *port = qobject_cast<QNEPort *>(item->toGraphicsObject());
+        QNEPort *port = dynamic_cast<QNEPort *>(item);
+        if (port && port->isOutput()) result++;
     }
     return result;
 }
 
+
 int ISampleRectView::getNumberOfInputPorts()
 {
-    return childItems().size() - getNumberOfOutputPorts();
+    return getNumberOfPorts()- getNumberOfOutputPorts();
 }

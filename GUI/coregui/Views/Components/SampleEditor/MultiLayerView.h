@@ -57,6 +57,7 @@ protected:
 //    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
 

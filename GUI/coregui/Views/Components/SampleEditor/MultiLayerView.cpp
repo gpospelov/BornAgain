@@ -279,3 +279,16 @@ const DesignerMimeData *MultiLayerView::checkDragEvent(QGraphicsSceneDragDropEve
     return mimeData;
 }
 
+
+// multi-layers are not allowed to move horizontally
+QVariant MultiLayerView::itemChange(GraphicsItemChange change, const QVariant &value)
+{
+     if (change == ItemPositionChange && scene() && m_fixed) {
+         // value is the new position.
+         QPointF newPos = value.toPointF();
+         newPos.setX(m_fixed_xpos);
+         return newPos;
+     }
+     return QGraphicsItem::itemChange(change, value);
+ }
+

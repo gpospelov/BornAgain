@@ -3,6 +3,7 @@
 #include "MultiLayerView.h"
 #include "FormFactorView.h"
 #include "ParticleDecorationView.h"
+#include "InterferenceFunction1DParaCrystalView.h"
 
 
 DesignerWidgetFactory::DesignerWidgetFactory()
@@ -25,6 +26,11 @@ DesignerWidgetFactory::DesignerWidgetFactory()
    registerItem(
         "ParticleDecoration",
         IFactoryCreateFunction<ParticleDecorationView, ISampleView>
+    );
+
+   registerItem(
+        "InterferenceFunction1DParaCrystal",
+        IFactoryCreateFunction<InterferenceFunction1DParaCrystalView, ISampleView>
     );
 
 }

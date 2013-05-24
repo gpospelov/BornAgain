@@ -36,10 +36,27 @@ class QNEPort : public QGraphicsPathItem
 {
 public:
 	enum { Type = QGraphicsItem::UserType + 1 };
-	enum { NamePort = 1, TypePort = 2 };
+
+    enum { NamePort = 1, TypePort = 2 };
+
+    //! in/out ports with the same type can be connected together
+    enum PortType
+    {
+        Default,
+        Interference,
+        ParticleFactory,
+        FormFactor
+    };
+
+    enum PortDirection
+    {
+        Input,
+        Output
+    };
 
 //    QNEPort(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
-    QNEPort(QGraphicsItem *parent = 0, const QString &name=QString("unnamed"), bool isOutput=false);
+//    QNEPort(QGraphicsItem *parent = 0, const QString &name=QString("unnamed"), bool isOutput=false);
+    QNEPort(QGraphicsItem *parent = 0, const QString &name=QString("unnamed"), PortDirection direction = Input, PortType port_type = Default);
 
 	~QNEPort();
 
@@ -54,7 +71,7 @@ public:
 	void setPortFlags(int);
 
     const QString& portName() const { return m_name; }
-	int portFlags() const { return m_portFlags; }
+//	int portFlags() const { return m_portFlags; }
 
 	int type() const { return Type; }
 
@@ -66,12 +83,19 @@ public:
 
 	bool isConnected(QNEPort*);
 
+    static QColor getPortTypeColor(QNEPort::PortType port_type);
+
+    PortType getPortType() const { return m_port_type; }
+
 protected:
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
 private:
     QString m_name;
-    bool m_isOutput;
+//    bool m_isOutput;
+    PortDirection m_direction;
+    PortType m_port_type;
+
     QColor m_color;
     int m_radius;
     int m_margin;
@@ -81,6 +105,7 @@ private:
 	QVector<QNEConnection*> m_connections;
 	int m_portFlags;
 	quint64 m_ptr;
+
 };
 
 #endif // QNEPORT_H

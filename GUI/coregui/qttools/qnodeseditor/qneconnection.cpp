@@ -30,13 +30,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 #include <QBrush>
 #include <QPen>
 #include <QGraphicsScene>
+#include <QPainter>
+#include <iostream>
 
 QNEConnection::QNEConnection(QGraphicsItem *parent, QGraphicsScene *scene)
 //    : QGraphicsPathItem(parent, scene)
     : QGraphicsPathItem(parent)
 {
-	setPen(QPen(Qt::black, 2));
-	setBrush(Qt::NoBrush);
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+    setPen(QPen(Qt::darkGray, 2));
+    setBrush(Qt::NoBrush);
 	setZValue(-1);
 	m_port1 = 0;
 	m_port2 = 0;
@@ -45,6 +48,7 @@ QNEConnection::QNEConnection(QGraphicsItem *parent, QGraphicsScene *scene)
 
 QNEConnection::~QNEConnection()
 {
+    std::cout << "QNEConnection::~QNEConnection() " << m_port1 << " " << m_port2 << std::endl;
 	if (m_port1)
 		m_port1->connections().remove(m_port1->connections().indexOf(this));
 	if (m_port2)
@@ -135,3 +139,20 @@ void QNEConnection::load(QDataStream &ds, const QMap<quint64, QNEPort*> &portMap
 	updatePosFromPorts();
 	updatePath();
 }
+
+
+void QNEConnection::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    Q_UNUSED(option)
+    Q_UNUSED(widget)
+
+    painter->setPen(QPen(Qt::darkGray, 2));
+    painter->setBrush(Qt::NoBrush);
+
+    if (isSelected()) {
+        painter->setPen(Qt::DashLine);
+    }
+
+    painter->drawPath(path());
+}
+

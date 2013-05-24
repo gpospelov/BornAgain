@@ -117,7 +117,11 @@ bool QNodesEditor::eventFilter(QObject *o, QEvent *e)
 				QNEPort *port1 = conn->port1();
 				QNEPort *port2 = (QNEPort*) item;
 
-				if (port1->block() != port2->block() && port1->isOutput() != port2->isOutput() && !port1->isConnected(port2))
+                if (port1->block() != port2->block()
+                        && port1->isOutput() != port2->isOutput()
+                        && !port1->isConnected(port2)
+                        && port1->getPortType() == port2->getPortType()
+                        )
 				{
 					conn->setPos2(port2->scenePos());
 					conn->setPort2(port2);
@@ -137,41 +141,41 @@ bool QNodesEditor::eventFilter(QObject *o, QEvent *e)
 	return QObject::eventFilter(o, e);
 }
 
-void QNodesEditor::save(QDataStream &ds)
-{
-	foreach(QGraphicsItem *item, scene->items())
-		if (item->type() == QNEBlock::Type)
-		{
-			ds << item->type();
-			((QNEBlock*) item)->save(ds);
-		}
+//void QNodesEditor::save(QDataStream &ds)
+//{
+//	foreach(QGraphicsItem *item, scene->items())
+//		if (item->type() == QNEBlock::Type)
+//		{
+//			ds << item->type();
+//			((QNEBlock*) item)->save(ds);
+//		}
 
-	foreach(QGraphicsItem *item, scene->items())
-		if (item->type() == QNEConnection::Type)
-		{
-			ds << item->type();
-			((QNEConnection*) item)->save(ds);
-		}
-}
+//	foreach(QGraphicsItem *item, scene->items())
+//		if (item->type() == QNEConnection::Type)
+//		{
+//			ds << item->type();
+//			((QNEConnection*) item)->save(ds);
+//		}
+//}
 
-void QNodesEditor::load(QDataStream &ds)
-{
-	scene->clear();
+//void QNodesEditor::load(QDataStream &ds)
+//{
+//	scene->clear();
 
-	QMap<quint64, QNEPort*> portMap;
+//	QMap<quint64, QNEPort*> portMap;
 
-	while (!ds.atEnd())
-	{
-		int type;
-		ds >> type;
-		if (type == QNEBlock::Type)
-		{
-			QNEBlock *block = new QNEBlock(0, scene);
-			block->load(ds, portMap);
-		} else if (type == QNEConnection::Type)
-		{
-			QNEConnection *conn = new QNEConnection(0, scene);
-			conn->load(ds, portMap);
-		}
-	}
-}
+//	while (!ds.atEnd())
+//	{
+//		int type;
+//		ds >> type;
+//		if (type == QNEBlock::Type)
+//		{
+//			QNEBlock *block = new QNEBlock(0, scene);
+//			block->load(ds, portMap);
+//		} else if (type == QNEConnection::Type)
+//		{
+//			QNEConnection *conn = new QNEConnection(0, scene);
+//			conn->load(ds, portMap);
+//		}
+//	}
+//}

@@ -20,6 +20,9 @@ public:
     static int getDefaultDecorationWidth() { return m_default_layer_height*3; }
     static int getDefaultDecorationHeight() { return m_default_layer_height*4; }
 
+    static int getDefaultInterferenceFunctionWidth() { return m_default_layer_height*3; }
+    static int getDefaultInterferenceFunctionHeight() { return m_default_layer_height*3; }
+
     static QGradient getLayerGradient(const QColor &color, const QRect &rect);
     static QGradient getDecorationGradient(const QColor &color, const QRect &rect);
 
@@ -33,7 +36,8 @@ public:
         return left->y() < right->y();
     }
 
-    //! non-linear converttion of layer's thickness in nanometers to screen size to have reasonable graphics representation
+    //! non-linear converttion of layer's thickness in nanometers to screen size
+    //! to have reasonable graphics representation of layer in the form of QRect
     static int nanometerToScreen(double nanometer);
 
     private:

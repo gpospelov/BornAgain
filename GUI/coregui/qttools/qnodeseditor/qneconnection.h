@@ -36,7 +36,7 @@ public:
 	enum { Type = QGraphicsItem::UserType + 2 };
 
 	QNEConnection(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
-	~QNEConnection();
+    virtual ~QNEConnection();
 
 	void setPos1(const QPointF &p);
 	void setPos2(const QPointF &p);
@@ -51,6 +51,8 @@ public:
 	void load(QDataStream&, const QMap<quint64, QNEPort*> &portMap);
 
 	int type() const { return Type; }
+
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 private:
 	QPointF pos1;

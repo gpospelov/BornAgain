@@ -42,8 +42,8 @@ public:
 	void addOutputPort(const QString &name);
 	void addInputPorts(const QStringList &names);
 	void addOutputPorts(const QStringList &names);
-	void save(QDataStream&);
-	void load(QDataStream&, QMap<quint64, QNEPort*> &portMap);
+//	void save(QDataStream&);
+//	void load(QDataStream&, QMap<quint64, QNEPort*> &portMap);
 	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 	QNEBlock* clone();
 	QVector<QNEPort*> ports();

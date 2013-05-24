@@ -54,7 +54,7 @@ QNEBlock::QNEBlock(QGraphicsItem *parent, QGraphicsScene *scene)
 QNEPort* QNEBlock::addPort(const QString &name, bool isOutput, int flags, int ptr)
 {
     Q_ASSERT(scene());
-    QNEPort *port = new QNEPort(this, name, isOutput);
+//    QNEPort *port = new QNEPort(this, name, isOutput);
 //	port->setName(name);
 //	port->setIsOutput(isOutput);
 //	port->setNEBlock(this);
@@ -86,7 +86,8 @@ QNEPort* QNEBlock::addPort(const QString &name, bool isOutput, int flags, int pt
 //		y += h;
 //	}
 
-	return port;
+//    return port;
+    return 0;
 }
 
 void QNEBlock::addInputPort(const QString &name)
@@ -111,56 +112,56 @@ void QNEBlock::addOutputPorts(const QStringList &names)
 		addOutputPort(n);
 }
 
-void QNEBlock::save(QDataStream &ds)
-{
-	ds << pos();
+//void QNEBlock::save(QDataStream &ds)
+//{
+//	ds << pos();
 
-	int count(0);
+//	int count(0);
 
-    foreach(QGraphicsItem *port_, childItems())
-	{
-		if (port_->type() != QNEPort::Type)
-			continue;
+//    foreach(QGraphicsItem *port_, childItems())
+//	{
+//		if (port_->type() != QNEPort::Type)
+//			continue;
 
-		count++;
-	}
+//		count++;
+//	}
 
-	ds << count;
+//	ds << count;
 
-    foreach(QGraphicsItem *port_, childItems())
-	{
-		if (port_->type() != QNEPort::Type)
-			continue;
+//    foreach(QGraphicsItem *port_, childItems())
+//	{
+//		if (port_->type() != QNEPort::Type)
+//			continue;
 
-		QNEPort *port = (QNEPort*) port_;
-		ds << (quint64) port;
-		ds << port->portName();
-		ds << port->isOutput();
-		ds << port->portFlags();
-	}
-}
+//		QNEPort *port = (QNEPort*) port_;
+//		ds << (quint64) port;
+//		ds << port->portName();
+//		ds << port->isOutput();
+//		ds << port->portFlags();
+//	}
+//}
 
-void QNEBlock::load(QDataStream &ds, QMap<quint64, QNEPort*> &portMap)
-{
-	QPointF p;
-	ds >> p;
-	setPos(p);
-	int count;
-	ds >> count;
-	for (int i = 0; i < count; i++)
-	{
-		QString name;
-		bool output;
-		int flags;
-		quint64 ptr;
+//void QNEBlock::load(QDataStream &ds, QMap<quint64, QNEPort*> &portMap)
+//{
+//	QPointF p;
+//	ds >> p;
+//	setPos(p);
+//	int count;
+//	ds >> count;
+//	for (int i = 0; i < count; i++)
+//	{
+//		QString name;
+//		bool output;
+//		int flags;
+//		quint64 ptr;
 
-		ds >> ptr;
-		ds >> name;
-		ds >> output;
-		ds >> flags;
-		portMap[ptr] = addPort(name, output, flags, ptr);
-	}
-}
+//		ds >> ptr;
+//		ds >> name;
+//		ds >> output;
+//		ds >> flags;
+//		portMap[ptr] = addPort(name, output, flags, ptr);
+//	}
+//}
 
 #include <QStyleOptionGraphicsItem>
 
@@ -182,21 +183,22 @@ void QNEBlock::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
 QNEBlock* QNEBlock::clone()
 {
-    Q_ASSERT(scene());
+//    Q_ASSERT(scene());
 
-	QNEBlock *b = new QNEBlock(0, scene());
+//	QNEBlock *b = new QNEBlock(0, scene());
 
-	foreach(QGraphicsItem *port_, childItems())
-	{
-		if (port_->type() == QNEPort::Type)
-		{
-			QNEPort *port = (QNEPort*) port_;
-			b->addPort(port->portName(), port->isOutput(), port->portFlags(), port->ptr());
-		}
-	}
+//	foreach(QGraphicsItem *port_, childItems())
+//	{
+//		if (port_->type() == QNEPort::Type)
+//		{
+//			QNEPort *port = (QNEPort*) port_;
+//			b->addPort(port->portName(), port->isOutput(), port->portFlags(), port->ptr());
+//		}
+//	}
 
-    scene()->addItem(b);
-	return b;
+//    scene()->addItem(b);
+//	return b;
+    return 0;
 }
 
 QVector<QNEPort*> QNEBlock::ports()

@@ -1,6 +1,5 @@
 #include "ParticleDecorationView.h"
 #include "DesignerHelper.h"
-#include "qneport.h"
 
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -9,22 +8,17 @@
 
 ParticleDecorationView::ParticleDecorationView(QGraphicsItem *parent)
     : ISampleRectView(parent)
-    , m_name("ParticleDecoration")
-    , m_color(QColor(135,206, 50))
 {
+    setName("ParticleDecoration");
+    setColor(QColor(135, 206, 50));
     setRectangle( QRect(0, 0, DesignerHelper::getDefaultDecorationWidth(), DesignerHelper::getDefaultDecorationHeight()) );
 
-    setFlag(QGraphicsItem::ItemIsMovable, true);
-    setFlag(QGraphicsItem::ItemIsSelectable, true);
-    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-//    QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect;
-//    effect->setBlurRadius(8);
-//    effect->setOffset(2,2);
-//    setGraphicsEffect(effect);
-
-    addPort("out", true);
-    addPort("interference", false);
-    addPort("form factors", false);
+//    addPort("out", true);
+//    addPort("interference", false);
+//    addPort("form factors", false);
+    addPort("out", QNEPort::Output, QNEPort::ParticleFactory);
+    addPort("interference", QNEPort::Input, QNEPort::Interference);
+    addPort("form factors", QNEPort::Input, QNEPort::FormFactor);
 }
 
 
@@ -40,8 +34,10 @@ void ParticleDecorationView::paint(QPainter *painter, const QStyleOptionGraphics
     // label
     painter->setPen(Qt::black);
     double width = getRectangle().width()*0.9;
-    double height = getRectangle().height()*0.2;
-    double yoffset = getRectangle().height()*0.05;
+    //double height = getRectangle().height()*0.2;
+    //double yoffset = getRectangle().height()*0.05;
+    double yoffset = 4;
+    double height = m_label_vspace - yoffset;
     QFont serifFont("Monospace", 12, QFont::Normal);
     painter->setFont(serifFont);
     QRect textRect( getRectangle().x() + (getRectangle().width()-width)/2., getRectangle().y() + yoffset, width, height );

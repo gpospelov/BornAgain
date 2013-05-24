@@ -57,14 +57,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 //}
 
 
-QNEPort::QNEPort(QGraphicsItem *parent, const QString &name, bool isOutput)
+QNEPort::QNEPort(QGraphicsItem *parent, const QString &name, QNEPort::PortDirection direction, QNEPort::PortType port_type)
     : QGraphicsPathItem(parent)
     , m_name(name)
-    , m_isOutput(isOutput)
-    , m_color(Qt::green)
+//    , m_isOutput(false)
+    , m_direction(direction)
+    , m_port_type(port_type)
     , m_radius(5)
     , m_margin(2)
 {
+    m_color = getPortTypeColor(port_type);
+
     QPainterPath p;
     p.addEllipse(-m_radius, -m_radius, 2*m_radius, 2*m_radius);
     setPath(p);
@@ -81,13 +84,47 @@ QNEPort::QNEPort(QGraphicsItem *parent, const QString &name, bool isOutput)
     QFont serifFont("Monospace", 10, QFont::Normal);
     label->setFont(serifFont);
 
-    if(m_isOutput) {
+    if(isOutput()) {
         label->setPos(-m_radius - m_margin - label->boundingRect().width(), -label->boundingRect().height()/2);
     } else {
         label->setPos(m_radius + m_margin, -label->boundingRect().height()/2);
     }
 
+
 }
+
+
+//QNEPort::QNEPort(QGraphicsItem *parent, const QString &name, bool isOutput)
+//    : QGraphicsPathItem(parent)
+//    , m_name(name)
+//    , m_isOutput(isOutput)
+//    , m_color(Qt::green)
+//    , m_radius(5)
+//    , m_margin(2)
+//{
+//    QPainterPath p;
+//    p.addEllipse(-m_radius, -m_radius, 2*m_radius, 2*m_radius);
+//    setPath(p);
+
+//    setPen(QPen(m_color.darker(180)));
+//    setBrush(m_color);
+
+//    setFlag(QGraphicsItem::ItemSendsScenePositionChanges);
+
+//    m_portFlags = 0;
+
+//    label = new QGraphicsTextItem(this);
+//    label->setPlainText(m_name);
+//    QFont serifFont("Monospace", 10, QFont::Normal);
+//    label->setFont(serifFont);
+
+//    if(m_isOutput) {
+//        label->setPos(-m_radius - m_margin - label->boundingRect().width(), -label->boundingRect().height()/2);
+//    } else {
+//        label->setPos(m_radius + m_margin, -label->boundingRect().height()/2);
+//    }
+
+//}
 
 
 
@@ -113,11 +150,14 @@ void QNEPort::setName(const QString &n)
 	label->setPlainText(n);
 }
 
+#include <iostream>
 void QNEPort::setIsOutput(bool o)
 {
+    std::cout << "PANIC " << std::endl;
+    Q_ASSERT(0);
 //    Q_ASSERT(scene());
 
-    m_isOutput = o;
+//    m_isOutput = o;
 
 //	QFontMetrics fm(scene()->font());
 //	QRect r = fm.boundingRect(name);
@@ -136,7 +176,8 @@ int QNEPort::radius()
 
 bool QNEPort::isOutput()
 {
-    return m_isOutput;
+//    return m_isOutput;
+    return (m_direction == Output ? true : false);
 }
 
 QVector<QNEConnection*>& QNEPort::connections()
@@ -207,3 +248,28 @@ QVariant QNEPort::itemChange(GraphicsItemChange change, const QVariant &value)
 	}
 	return value;
 }
+
+
+QColor QNEPort::getPortTypeColor(QNEPort::PortType port_type)
+{
+    switch(port_type)
+    {
+    case Default:
+       return QColor(Qt::gray);
+       break;
+    case Interference:
+       return QColor(Qt::yellow);
+       break;
+    case ParticleFactory:
+       return QColor(Qt::green);
+       break;
+    case FormFactor:
+       return QColor(Qt::blue);
+       break;
+    default:
+        return QColor(Qt::red);
+        break;
+    }
+}
+
+

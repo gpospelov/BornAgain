@@ -2,10 +2,6 @@
 #define PARTICLEDECORATIONVIEW_H
 
 #include "ISampleView.h"
-#include <QLabel>
-
-class QNEPort;
-
 
 class ParticleDecorationView : public ISampleRectView
 {
@@ -14,13 +10,6 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-
-private:
-//    int getNumberOfOutputPorts();
-//    int getNumberOfInputPorts();
-
-    QString m_name;
-    QColor m_color;
 };
 
 

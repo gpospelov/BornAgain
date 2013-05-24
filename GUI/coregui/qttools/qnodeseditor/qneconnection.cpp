@@ -81,6 +81,8 @@ void QNEConnection::updatePosFromPorts()
 	pos2 = m_port2->scenePos();
 }
 
+#include <iostream>
+
 void QNEConnection::updatePath()
 {
 	QPainterPath p;
@@ -93,10 +95,14 @@ void QNEConnection::updatePath()
 	qreal dx = pos2.x() - pos1.x();
 	qreal dy = pos2.y() - pos1.y();
 
-	QPointF ctr1(pos1.x() + dx * 0.25, pos1.y() + dy * 0.1);
-	QPointF ctr2(pos1.x() + dx * 0.75, pos1.y() + dy * 0.9);
+//    QPointF ctr1(pos1.x() + dx * 0.25, pos1.y() + dy * 0.1);
+//	QPointF ctr2(pos1.x() + dx * 0.75, pos1.y() + dy * 0.9);
+//    p.cubicTo(ctr1, ctr2, pos2);
 
-	p.cubicTo(ctr1, ctr2, pos2);
+    dx = qMax(dx, 200.);
+    QPointF ctr1(pos1.x() + dx * 0.25, pos1.y() );
+    QPointF ctr2(pos2.x() - dx * 0.25, pos2.y() );
+    p.cubicTo(ctr1, ctr2, pos2);
 
 	setPath(p);
 }

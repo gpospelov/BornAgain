@@ -129,7 +129,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
 void DesignerScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    std::cout << "DesignerScene::mouseMoveEvent() -> " << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
+//    std::cout << "DesignerScene::mouseMoveEvent() -> " << event->scenePos().x() << " " << event->scenePos().y() << std::endl;
     QGraphicsScene::mouseMoveEvent(event);
 }
 

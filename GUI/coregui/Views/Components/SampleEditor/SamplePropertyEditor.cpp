@@ -225,11 +225,14 @@ void SamplePropertyEditor::updateClassProperties(const QMetaObject *metaObject, 
 
 void SamplePropertyEditor::selectionChanged()
 {
-    std::cout << "SamplePropertyEditor::selectionChanged() " << std::endl;
+    std::cout << "SamplePropertyEditor::selectionChanged() 1.1" << std::endl;
+
     QList<QGraphicsItem *> items = m_sample_designer->getScene()->selectedItems();
     if( !items.size() ) return;
+    std::cout << "SamplePropertyEditor::selectionChanged() 1.2" << std::endl;
     QObject *object = items.back()->toGraphicsObject();
     setObject(object);
+    std::cout << "SamplePropertyEditor::selectionChanged() 1.3" << std::endl;
 }
 
 
@@ -247,6 +250,7 @@ void SamplePropertyEditor::selectionChanged()
 
 void SamplePropertyEditor::addClassProperties(const QMetaObject *metaObject)
 {
+    std::cout << "SamplePropertyEditor::addClassProperties() -> 3.1" << std::endl;
     if (!metaObject)
         return;
 
@@ -265,6 +269,7 @@ void SamplePropertyEditor::addClassProperties(const QMetaObject *metaObject)
 
     QtProperty *classProperty = m_classToProperty.value(metaObject);
     if (!classProperty) {
+        std::cout << "SamplePropertyEditor::addClassProperties() -> 3.2" << std::endl;
         QString className = QLatin1String(metaObject->className());
         classProperty = m_manager->addProperty(QtVariantPropertyManager::groupTypeId(), className);
         m_classToProperty[metaObject] = classProperty;
@@ -376,9 +381,11 @@ void SamplePropertyEditor::slotValueChanged(QtProperty *property, const QVariant
 
 void SamplePropertyEditor::setObject(QObject *object)
 {
+    std::cout << "SamplePropertyEditor::setObject() -> 2.1" << std::endl;
     if (m_object == object)
         return;
 
+    std::cout << "SamplePropertyEditor::setObject() -> 2.2" << std::endl;
     if (m_object) {
         saveExpandedState();
         QListIterator<QtProperty *> it(m_topLevelProperties);
@@ -388,12 +395,15 @@ void SamplePropertyEditor::setObject(QObject *object)
         m_topLevelProperties.clear();
     }
 
+    std::cout << "SamplePropertyEditor::setObject() -> 2.3" << std::endl;
     m_object = object;
 
     if (!m_object)
         return;
 
+    std::cout << "SamplePropertyEditor::setObject() -> 2.4" << std::endl;
     addClassProperties(m_object->metaObject());
+    std::cout << "SamplePropertyEditor::setObject() -> 2.5" << std::endl;
 
     restoreExpandedState();
 }

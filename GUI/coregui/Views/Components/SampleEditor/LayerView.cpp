@@ -18,11 +18,8 @@
 
 LayerView::LayerView(QGraphicsItem *parent)
     : ISampleRectView(parent)
-//    , m_color(qrand() % 256, qrand() % 256, qrand() % 256)
-//    , m_rect(0, 0, DesignerHelper::getDefaultLayerWidth(), DesignerHelper::getDefaultLayerHeight())
     , m_fixed_xpos(0)
     , m_fixed(false)
-//    , m_name(QString("Layer"))
     , m_thickness(10*Units::nanometer)
 {
     setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256) );
@@ -32,10 +29,8 @@ LayerView::LayerView(QGraphicsItem *parent)
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-//    setAcceptedMouseButtons(Qt::LeftButton);
     setAcceptDrops(false);
 
-    m_label_vspace = 0;
     addPort(" ", QNEPort::Input, QNEPort::ParticleFactory);
 
 }
@@ -107,7 +102,7 @@ void LayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
     std::cout << "LayerView::dragMoveEvent() ->" << std::endl;
 }
 
-
+// layers are not allowed to move horizontally
 QVariant LayerView::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     std::cout << "YYY itemChange " << x() << " " << y() <<  std::endl;

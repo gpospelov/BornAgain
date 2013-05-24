@@ -266,6 +266,9 @@ QColor QNEPort::getPortTypeColor(QNEPort::PortType port_type)
     case FormFactor:
        return QColor(Qt::blue);
        break;
+    case GeometryTransformation:
+       return QColor(Qt::magenta);
+       break;
     default:
         return QColor(Qt::red);
         break;

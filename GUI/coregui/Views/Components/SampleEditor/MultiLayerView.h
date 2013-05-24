@@ -45,6 +45,9 @@ public:
 public slots:
     void updateHeight();
 
+signals:
+    void LayerMoved();
+
 protected:
     void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
     void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
@@ -52,8 +55,8 @@ protected:
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
 
 //    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-//    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-//    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
 

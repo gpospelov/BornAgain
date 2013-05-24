@@ -12,7 +12,6 @@ ISampleRectView::ISampleRectView(QGraphicsItem *parent, QRect rect)
     , m_color(Qt::gray)
     , m_rect(rect)
     , m_label_vspace(30)
-//    , m_ports_vspace(0.7)
 {
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
@@ -38,14 +37,24 @@ void ISampleRectView::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 }
 
 
+// adding port to the sample
 QNEPort* ISampleRectView::addPort(const QString &name, QNEPort::PortDirection direction, QNEPort::PortType port_type)
 {
     QNEPort *port = new QNEPort(this, name, direction, port_type);
     port->setNEBlock(this);
+    setPortCoordinates();
+    return port;
 
+}
+
+
+// calculation right y-pos for ports
+void ISampleRectView::setPortCoordinates()
+{
     Q_ASSERT(childItems().size());
-    int hspace = getRectangle().height() - m_label_vspace;
-    // vertical distance between ports
+    int hspace = getRectangle().height();
+    if( !getLabel().isEmpty() ) hspace -= m_label_vspace;
+
     int dy = hspace / (childItems().size() + 2);
     int ypos = getRectangle().height() - hspace + dy;
 
@@ -62,10 +71,15 @@ QNEPort* ISampleRectView::addPort(const QString &name, QNEPort::PortDirection di
         ypos += dy;
         nport++;
     }
-
-    return port;
-
 }
+
+
+void ISampleRectView::setLabel(const QString &name)
+{
+    m_label = name;
+    setPortCoordinates();
+}
+
 
 
 //QNEPort* ISampleRectView::addPort(const QString &name, bool isOutput, int flags, int ptr)

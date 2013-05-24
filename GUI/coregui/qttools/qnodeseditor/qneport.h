@@ -45,7 +45,8 @@ public:
         Default,
         Interference,
         ParticleFactory,
-        FormFactor
+        FormFactor,
+        GeometryTransformation
     };
 
     enum PortDirection

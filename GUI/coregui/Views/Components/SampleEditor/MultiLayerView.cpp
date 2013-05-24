@@ -218,6 +218,27 @@ void MultiLayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 }
 
 
+void MultiLayerView::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    std::cout << "MultiLayerView::mousePressEvent -> " << x() << " " << y() << std::endl;
+    // remove selection from child items
+    QList<QGraphicsItem *> list = childItems();
+    foreach(QGraphicsItem *item, list) {
+        item->setSelected(false);
+    }
+
+    QGraphicsObject::mousePressEvent(event);
+}
+
+
+void MultiLayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    std::cout << "MultiLayerView::mouseReleaseEvent -> " << x() << " " << y() << std::endl;
+    emit LayerMoved();
+    QGraphicsObject::mouseReleaseEvent(event);
+}
+
+
 //void MultiLayerView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 //{
 //    std::cout << "MultiLayerView::mouseMoveEvent -> " << x() << " " << y() << std::endl;

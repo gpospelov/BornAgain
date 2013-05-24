@@ -3,17 +3,13 @@
 
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
-#include <QGraphicsDropShadowEffect>
-#include <iostream>
 
 InterferenceFunction1DParaCrystalView::InterferenceFunction1DParaCrystalView(QGraphicsItem *parent)
     : ISampleRectView(parent)
 {
     setName("InterferenceFunction1DParaCrystal");
-//    setColor(QColor(240, 255, 255));
     setColor(QColor(255, 236, 139));
     setRectangle( QRect(0, 0, DesignerHelper::getDefaultInterferenceFunctionWidth(), DesignerHelper::getDefaultInterferenceFunctionHeight()) );
-
     addPort("out", QNEPort::Output, QNEPort::Interference);
 }
 

@@ -165,27 +165,27 @@ void DesignerView::keyPressEvent(QKeyEvent *event)
 
 void DesignerView::mouseMoveEvent(QMouseEvent *event)
 {
-    std::cout << "DesignerView::mouseMoveEvent() -> " << event->pos().x() << " " << event->pos().y() << std::endl;
+    //std::cout << "DesignerView::mouseMoveEvent() -> " << event->pos().x() << " " << event->pos().y() << std::endl;
     QWidget::mouseMoveEvent(event);
 }
 
 
-const DesignerMimeData *DesignerView::checkDragEvent(QDropEvent * event)
-{
-    std::cout << "DesignerView::checkDragEvent()" << std::endl;
-    const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
-    if (!mimeData) {
-        event->ignore();
-        return 0;
-    }
+//const DesignerMimeData *DesignerView::checkDragEvent(QDropEvent * event)
+//{
+//    std::cout << "DesignerView::checkDragEvent()" << std::endl;
+//    const DesignerMimeData *mimeData = qobject_cast<const DesignerMimeData *>(event->mimeData());
+//    if (!mimeData) {
+//        event->ignore();
+//        return 0;
+//    }
 
-    if(mimeData->hasFormat("bornagain/widget") ) {
-        std::cout << "DesignerView::checkDragEvent() yes" << std::endl;
-        event->setAccepted(true);
-    } else {
-        std::cout << "DesignerView::checkDragEvent() no" << std::endl;
-        event->setAccepted(false);
-    }
+//    if(mimeData->hasFormat("bornagain/widget") ) {
+//        std::cout << "DesignerView::checkDragEvent() yes" << std::endl;
+//        event->setAccepted(true);
+//    } else {
+//        std::cout << "DesignerView::checkDragEvent() no" << std::endl;
+//        event->setAccepted(false);
+//    }
 
-    return mimeData;
-}
+//    return mimeData;
+//}

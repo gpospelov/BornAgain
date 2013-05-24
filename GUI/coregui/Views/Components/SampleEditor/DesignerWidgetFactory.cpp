@@ -2,6 +2,8 @@
 #include "LayerView.h"
 #include "MultiLayerView.h"
 #include "FormFactorView.h"
+//#include "FormFactorFullSphereView.h"
+//#include "FormFactorPyramidView.h"
 #include "ParticleDecorationView.h"
 #include "InterferenceFunction1DParaCrystalView.h"
 
@@ -19,9 +21,14 @@ DesignerWidgetFactory::DesignerWidgetFactory()
     );
 
    registerItem(
-        "FormFactor",
-        IFactoryCreateFunction<FormFactorView, ISampleView>
+        "FormFactorFullSphere",
+        IFactoryCreateFunction<FormFactorFullSphereView, ISampleView>
     );
+   registerItem(
+        "FormFactorPyramid",
+        IFactoryCreateFunction<FormFactorPyramidView, ISampleView>
+    );
+
 
    registerItem(
         "ParticleDecoration",

@@ -23,6 +23,11 @@ public:
     static int getDefaultInterferenceFunctionWidth() { return m_default_layer_height*3; }
     static int getDefaultInterferenceFunctionHeight() { return m_default_layer_height*3; }
 
+    static int getDefaultFormFactorWidth() { return m_default_layer_height*3; }
+    static int getDefaultFormFactorHeight() { return m_default_layer_height*3; }
+    //static QColor getDefaultFormFactorColor() { return QColor(99, 184, 255); }
+    static QColor getDefaultFormFactorColor() { return QColor(Qt::lightGray); }
+
     static QGradient getLayerGradient(const QColor &color, const QRect &rect);
     static QGradient getDecorationGradient(const QColor &color, const QRect &rect);
 

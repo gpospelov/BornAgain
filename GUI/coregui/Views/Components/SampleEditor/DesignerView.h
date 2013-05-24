@@ -36,7 +36,7 @@ protected:
 
     void keyPressEvent(QKeyEvent *event);
 
-    const DesignerMimeData *checkDragEvent(QDropEvent * event);
+//    const DesignerMimeData *checkDragEvent(QDropEvent * event);
 
 private:
     QGraphicsView *m_graphicsView;

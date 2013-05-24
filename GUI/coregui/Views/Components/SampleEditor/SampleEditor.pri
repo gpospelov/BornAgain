@@ -3,7 +3,6 @@
 INCLUDEPATH += $$PWD
 
 SOURCES +=  \
-    Views/Components/SampleEditor/FormFactorView.cpp \
     Views/Components/SampleEditor/LayerView.cpp \
     Views/Components/SampleEditor/MultiLayerView.cpp \
     Views/Components/SampleEditor/DesignerHelper.cpp \
@@ -16,11 +15,11 @@ SOURCES +=  \
     Views/Components/SampleEditor/SampleDesigner.cpp \
     Views/Components/SampleEditor/ObjectPropertyController.cpp \
     Views/Components/SampleEditor/ParticleDecorationView.cpp \
-    Views/Components/SampleEditor/InterferenceFunction1DParaCrystalView.cpp
+    Views/Components/SampleEditor/InterferenceFunction1DParaCrystalView.cpp \
+    Views/Components/SampleEditor/FormFactorView.cpp
 
 HEADERS +=  \
     Views/Components/SampleEditor/ISampleView.h \
-    Views/Components/SampleEditor/FormFactorView.h \
     Views/Components/SampleEditor/LayerView.h \
     Views/Components/SampleEditor/MultiLayerView.h \
     Views/Components/SampleEditor/DesignerHelper.h \
@@ -32,7 +31,8 @@ HEADERS +=  \
     Views/Components/SampleEditor/SampleDesigner.h \
     Views/Components/SampleEditor/ObjectPropertyController.h \
     Views/Components/SampleEditor/ParticleDecorationView.h \
-    Views/Components/SampleEditor/InterferenceFunction1DParaCrystalView.h
+    Views/Components/SampleEditor/InterferenceFunction1DParaCrystalView.h \
+    Views/Components/SampleEditor/FormFactorView.h
 
 RESOURCES += Views/Components/SampleEditor/SampleEditor.qrc
 

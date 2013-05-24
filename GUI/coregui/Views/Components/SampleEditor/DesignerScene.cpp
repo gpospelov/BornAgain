@@ -63,7 +63,7 @@ void DesignerScene::createLayerDock()
     ml->addLayer(new LayerView());
     ml->setToolTip(QString("LayerDock"));
     ml->setFlag(QGraphicsItem::ItemIsSelectable, false);
-    ml->setPos(-ml->rect().width()/2, 100.0);
+    ml->setPos(-ml->getRectangle().width()/2, 100.0);
     addItem(ml);
 }
 

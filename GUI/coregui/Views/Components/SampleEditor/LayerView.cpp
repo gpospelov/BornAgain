@@ -17,20 +17,27 @@
 
 
 LayerView::LayerView(QGraphicsItem *parent)
-    : ISampleView(parent)
-    , m_color(qrand() % 256, qrand() % 256, qrand() % 256)
-    , m_rect(0, 0, DesignerHelper::getDefaultLayerWidth(), DesignerHelper::getDefaultLayerHeight())
+    : ISampleRectView(parent)
+//    , m_color(qrand() % 256, qrand() % 256, qrand() % 256)
+//    , m_rect(0, 0, DesignerHelper::getDefaultLayerWidth(), DesignerHelper::getDefaultLayerHeight())
     , m_fixed_xpos(0)
     , m_fixed(false)
-    , m_name(QString("Layer"))
+//    , m_name(QString("Layer"))
     , m_thickness(10*Units::nanometer)
 {
+    setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256) );
+    setRectangle(QRect(0, 0, DesignerHelper::getDefaultLayerWidth(), DesignerHelper::getDefaultLayerHeight()));
+    setName(QString("Layer"));
     setToolTip(QString("%1\n%2").arg("LayerView").arg("Homogeneous layer"));
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
 //    setAcceptedMouseButtons(Qt::LeftButton);
     setAcceptDrops(false);
+
+    m_label_vspace = 0;
+    addPort(" ", QNEPort::Input, QNEPort::ParticleFactory);
+
 }
 
 
@@ -43,8 +50,8 @@ void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setPen(Qt::DashLine);
     }
 
-    painter->setBrush(DesignerHelper::getLayerGradient(m_color, rect() ) );
-    painter->drawRect(rect());
+    painter->setBrush(DesignerHelper::getLayerGradient(m_color, getRectangle() ) );
+    painter->drawRect(getRectangle());
 }
 
 

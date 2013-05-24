@@ -17,25 +17,30 @@ class DesignerMimeData;
 #include "LayerView.h"
 
 //class MultiLayerView : public ISampleView
-class MultiLayerView : public LayerView
+//class MultiLayerView : public LayerView
+class MultiLayerView : public ISampleRectView
 {
     Q_OBJECT
 public:
 
     MultiLayerView(QGraphicsItem *parent = 0);
 
-    QRectF boundingRect() const;
+//    QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    QRect rect() const { return m_rect; }
+//    QRect rect() const { return m_rect; }
 
     void addLayer(LayerView *layer, QPointF pos=QPointF());
+    void addMultiLayer(MultiLayerView *layer, QPointF pos=QPointF());
 
     void setColor(const QColor &color) { m_color = color; }
     void setRectangle(const QRect &rect) { m_rect = rect; }
 
     //! allows droping of object of given type
     void allowDropType(const QString &name);
+
+    void setFixedX() { m_fixed_xpos = x(); m_fixed=true; }
+    qreal getFixedX() { return m_fixed_xpos; }
 
 public slots:
     void updateHeight();
@@ -60,11 +65,15 @@ protected:
 
 private:
 
-    QColor m_color;
-    QRect m_rect;
+//    QColor m_color;
+//    QRect m_rect;
     QList<QRectF> m_drop_areas;
     QStringList m_expected_types;
     QStringList m_current_types;
+
+    qreal m_fixed_xpos;
+    bool m_fixed;
+
 };
 
 

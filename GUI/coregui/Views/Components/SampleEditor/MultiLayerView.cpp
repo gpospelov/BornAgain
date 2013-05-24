@@ -21,10 +21,15 @@
 
 
 MultiLayerView::MultiLayerView(QGraphicsItem *parent)
-    : LayerView(parent)
-    , m_color(Qt::blue)
-    , m_rect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight())
+//    : LayerView(parent)
+    : ISampleRectView(parent)
+//    , m_color(Qt::blue)
+//    , m_rect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight())
+    , m_fixed_xpos(0)
+    , m_fixed(false)
 {
+    setColor(QColor(Qt::blue));
+    setRectangle(QRect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight()));
     setToolTip(QString("MultiLayer"));
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
@@ -62,6 +67,23 @@ void MultiLayerView::allowDropType(const QString &name) {
 void MultiLayerView::addLayer(LayerView *layer, QPointF pos)
 {
     std::cout << "MultiLayerView::addLayer" << std::endl;
+    // adjusting main rectangle othervise item->setPos will not work due to 'LayerView::itemChange'
+    m_rect.setHeight(m_rect.height()+layer->boundingRect().height());
+
+    int xpos = (DesignerHelper::getDefaultMultiLayerWidth() - layer->boundingRect().width())/2.;
+    layer->setPos(xpos, pos.y());
+    layer->setFixedX();
+    connect(layer, SIGNAL(LayerMoved()), this, SLOT(updateHeight()) );
+    connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()) );
+    //connect(layer, SIGNAL(update()), this, SLOT(updateHeight()) );
+    layer->setParentItem(this);
+    //emit heightChanged();
+}
+
+
+void MultiLayerView::addMultiLayer(MultiLayerView *layer, QPointF pos)
+{
+    std::cout << "MultiLayerView::addMultiLayer" << std::endl;
     // adjusting main rectangle othervise item->setPos will not work due to 'LayerView::itemChange'
     m_rect.setHeight(m_rect.height()+layer->boundingRect().height());
 
@@ -123,10 +145,10 @@ bool MultiLayerView::isExpectedObject(const QString &name)
 }
 
 
-QRectF MultiLayerView::boundingRect() const
-{
-    return rect();
-}
+//QRectF MultiLayerView::boundingRect() const
+//{
+//    return rect();
+//}
 
 
 void MultiLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -136,8 +158,8 @@ void MultiLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     if (option->state & (QStyle::State_Selected | QStyle::State_HasFocus)) {
         painter->setPen(Qt::DashLine);
     }
-    painter->setBrush(DesignerHelper::getLayerGradient(m_color, rect() ) );
-    painter->drawRect(rect());
+    painter->setBrush(DesignerHelper::getLayerGradient(m_color, getRectangle() ) );
+    painter->drawRect(getRectangle());
 }
 
 
@@ -163,13 +185,21 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
 
     const DesignerMimeData *mimeData = checkDragEvent(event);
     if (mimeData) {
-        LayerView *layer(0);
-        if(mimeData->getClassName() == QString("Layer") ) layer = new LayerView();
-        if(mimeData->getClassName() == QString("MultiLayer") ) layer = new MultiLayerView();
-        if(layer){
-            std::cout << "MultiLayerView::dropEvent() -> adding layer or multilayer" << std::endl;
-            addLayer(layer, event->pos());
+//        ISampleView *layer(0);
+//        if(mimeData->getClassName() == QString("Layer") ) layer = new LayerView();
+//        if(mimeData->getClassName() == QString("MultiLayer") ) layer = new MultiLayerView();
+
+        if(mimeData->getClassName() == QString("Layer") ) {
+            addLayer(new LayerView(), event->pos());
             update();
+        } else if(mimeData->getClassName() == QString("MultiLayer") ) {
+            addMultiLayer(new MultiLayerView(), event->pos());
+            update();
+
+//        if(layer){
+//            std::cout << "MultiLayerView::dropEvent() -> adding layer or multilayer" << std::endl;
+//            addLayer(layer, event->pos());
+//            update();
         } else {
             std::cout << "MultiLayerView::dropEvent() -> Error. Can't create object " << mimeData->getClassName().toStdString() << std::endl;
         }

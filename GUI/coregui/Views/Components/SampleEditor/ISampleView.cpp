@@ -44,7 +44,6 @@ QNEPort* ISampleRectView::addPort(const QString &name, QNEPort::PortDirection di
     port->setNEBlock(this);
 
     Q_ASSERT(childItems().size());
-    //int hspace = getRectangle().height()*m_ports_vspace;
     int hspace = getRectangle().height() - m_label_vspace;
     // vertical distance between ports
     int dy = hspace / (childItems().size() + 2);

@@ -10,10 +10,10 @@ InterferenceFunction1DParaCrystalView::InterferenceFunction1DParaCrystalView(QGr
     : ISampleRectView(parent)
 {
     setName("InterferenceFunction1DParaCrystal");
-    setColor(QColor(240, 255, 255));
+//    setColor(QColor(240, 255, 255));
+    setColor(QColor(255, 236, 139));
     setRectangle( QRect(0, 0, DesignerHelper::getDefaultInterferenceFunctionWidth(), DesignerHelper::getDefaultInterferenceFunctionHeight()) );
 
-//    addPort("out", true);
     addPort("out", QNEPort::Output, QNEPort::Interference);
 }
 

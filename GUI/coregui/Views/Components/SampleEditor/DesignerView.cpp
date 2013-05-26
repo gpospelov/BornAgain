@@ -66,6 +66,7 @@ void DesignerView::deleteItem()
     std::cout << "SampleEditorView::deleteItem() -> " << std::endl;
     QList<QGraphicsItem*> selected = m_graphicsView->scene()->selectedItems();
     for(int i=0; i<selected.size(); ++i) {
+        //selected[i]->setGraphicsEffect(0);
         m_graphicsView->scene()->removeItem(selected[i]);
         delete selected[i];
     }

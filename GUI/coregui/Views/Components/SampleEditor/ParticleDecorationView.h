@@ -5,10 +5,11 @@
 
 class ParticleDecorationView : public ISampleRectView
 {
+    Q_OBJECT
+    Q_PROPERTY(QString name READ getName WRITE setName )
+
 public:
     ParticleDecorationView(QGraphicsItem *parent = 0);
-
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 };
 

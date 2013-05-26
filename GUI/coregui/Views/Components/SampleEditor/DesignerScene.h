@@ -7,6 +7,7 @@
 class QGraphicsSceneDragDropEvent;
 class DesignerMimeData;
 class DesignerWidgetFactory;
+class QGraphicsDropShadowEffect;
 
 //! base class for sample designer scene
 class DesignerSceneInterface : public QGraphicsScene
@@ -47,6 +48,8 @@ private:
     int m_ymin;
     int m_ymax;
     DesignerWidgetFactory *m_widgetFactory;
+
+//    QGraphicsDropShadowEffect *m_shadow_effect;
 
 };
 

@@ -2,10 +2,8 @@
 #include "LayerView.h"
 #include "MultiLayerView.h"
 #include "FormFactorView.h"
-//#include "FormFactorFullSphereView.h"
-//#include "FormFactorPyramidView.h"
 #include "ParticleDecorationView.h"
-#include "InterferenceFunction1DParaCrystalView.h"
+#include "InterferenceFunctionView.h"
 
 
 DesignerWidgetFactory::DesignerWidgetFactory()

@@ -29,7 +29,6 @@ public:
 
     virtual QRectF boundingRect() const { return getRectangle(); }
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-//    virtual QNEPort* addPort(const QString &name, bool isOutput, int flags = 0, int ptr = 0);
 
     virtual QNEPort* addPort(const QString &name, QNEPort::PortDirection direction, QNEPort::PortType port_type);
 
@@ -53,6 +52,7 @@ protected:
     QString m_name;
     QColor m_color;
     QRect m_rect;
+    int m_roundpar;
     double m_label_vspace; // vertical space occupied by the label
     QString m_label;
 };

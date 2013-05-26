@@ -86,15 +86,15 @@ bool QNodesEditor::eventFilter(QObject *o, QEvent *e)
 			}
 			break;
 		}
-		case Qt::RightButton:
-		{
-			QGraphicsItem *item = itemAt(me->scenePos());
-			if (item && (item->type() == QNEConnection::Type || item->type() == QNEBlock::Type))
-				delete item;
-			// if (selBlock == (QNEBlock*) item)
-				// selBlock = 0;
-			break;
-		}
+//		case Qt::RightButton:
+//		{
+//			QGraphicsItem *item = itemAt(me->scenePos());
+//			if (item && (item->type() == QNEConnection::Type || item->type() == QNEBlock::Type))
+//				delete item;
+//			// if (selBlock == (QNEBlock*) item)
+//				// selBlock = 0;
+//			break;
+//		}
 		}
 	}
 	case QEvent::GraphicsSceneMouseMove:

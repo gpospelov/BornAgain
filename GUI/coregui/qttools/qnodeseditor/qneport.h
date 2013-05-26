@@ -55,13 +55,10 @@ public:
         Output
     };
 
-//    QNEPort(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
-//    QNEPort(QGraphicsItem *parent = 0, const QString &name=QString("unnamed"), bool isOutput=false);
     QNEPort(QGraphicsItem *parent = 0, const QString &name=QString("unnamed"), PortDirection direction = Input, PortType port_type = Default);
 
 	~QNEPort();
 
-//    void setNEBlock(QNEBlock*);
     void setNEBlock(ISampleView*);
 
 	void setName(const QString &n);
@@ -76,11 +73,10 @@ public:
 
 	int type() const { return Type; }
 
-//    QNEBlock* block() const;
     ISampleView* block() const;
 
-	quint64 ptr();
-	void setPtr(quint64);
+//	quint64 ptr();
+//	void setPtr(quint64);
 
 	bool isConnected(QNEPort*);
 

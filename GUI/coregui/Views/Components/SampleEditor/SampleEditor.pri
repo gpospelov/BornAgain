@@ -15,8 +15,8 @@ SOURCES +=  \
     Views/Components/SampleEditor/SampleDesigner.cpp \
     Views/Components/SampleEditor/ObjectPropertyController.cpp \
     Views/Components/SampleEditor/ParticleDecorationView.cpp \
-    Views/Components/SampleEditor/InterferenceFunction1DParaCrystalView.cpp \
-    Views/Components/SampleEditor/FormFactorView.cpp
+    Views/Components/SampleEditor/FormFactorView.cpp \
+    Views/Components/SampleEditor/InterferenceFunctionView.cpp
 
 HEADERS +=  \
     Views/Components/SampleEditor/ISampleView.h \
@@ -31,8 +31,8 @@ HEADERS +=  \
     Views/Components/SampleEditor/SampleDesigner.h \
     Views/Components/SampleEditor/ObjectPropertyController.h \
     Views/Components/SampleEditor/ParticleDecorationView.h \
-    Views/Components/SampleEditor/InterferenceFunction1DParaCrystalView.h \
-    Views/Components/SampleEditor/FormFactorView.h
+    Views/Components/SampleEditor/FormFactorView.h \
+    Views/Components/SampleEditor/InterferenceFunctionView.h
 
 RESOURCES += Views/Components/SampleEditor/SampleEditor.qrc
 

@@ -10,9 +10,18 @@
 //! graphical representation of form factor
 class FormFactorView : public ISampleRectView
 {
+    Q_OBJECT
+
 public:
     FormFactorView(QGraphicsItem *parent = 0);
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    double getWeight() const { return m_weight; }
+
+public slots:
+    void setWeight(double weight) { m_weight = weight; }
+
+private:
+    double m_weight; //! weight of formfactor to be used with ParticleDecoration
 };
 
 
@@ -22,6 +31,7 @@ class FormFactorFullSphereView : public FormFactorView
     Q_OBJECT
     Q_PROPERTY(QString name READ getName WRITE setName )
     Q_PROPERTY(double radius READ getRadius WRITE setRadius )
+    Q_PROPERTY(double weight READ getWeight WRITE setWeight )
 public:
     FormFactorFullSphereView(QGraphicsItem *parent = 0)
         : FormFactorView(parent)
@@ -47,6 +57,7 @@ class FormFactorPyramidView : public FormFactorView
     Q_PROPERTY(double height READ getHeight WRITE setHeight )
     Q_PROPERTY(double half_side READ getHalfSide WRITE setHalfSide )
     Q_PROPERTY(double alpha READ getAlpha WRITE setAlpha )
+    Q_PROPERTY(double weight READ getWeight WRITE setWeight )
 public:
     FormFactorPyramidView(QGraphicsItem *parent = 0)
         : FormFactorView(parent)

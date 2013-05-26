@@ -98,6 +98,14 @@ QPixmap DesignerMimeData::getPixmap(const QString &name)
         return DesignerHelper::getPixmapLayer();
     } else if(name == QString("MultiLayer") ) {
         return DesignerHelper::getPixmapMultiLayer();
+    } else if(name == QString("ParticleDecoration") ) {
+        return DesignerHelper::getPixmapParticleDecoration();
+    } else if(name == QString("InterferenceFunction1DParaCrystal") ) {
+        return DesignerHelper::getPixmapInterferenceFunction();
+    } else if(name == QString("FormFactorFullSphere") ) {
+        return DesignerHelper::getPixmapFormFactor();
+    } else if(name == QString("FormFactorPyramid") ) {
+        return DesignerHelper::getPixmapFormFactor();
     }
     return DesignerHelper::getPixmapDefault();
 }

@@ -77,6 +77,45 @@ QPixmap DesignerHelper::getPixmapMultiLayer() {
 }
 
 
+QPixmap DesignerHelper::getPixmapParticleDecoration()
+{
+    QRect rect(0,0, DesignerHelper::getDefaultDecorationWidth(), DesignerHelper::getDefaultDecorationHeight());
+    QPixmap pixmap(rect.width()+1, rect.height()+1);
+    pixmap.fill(Qt::transparent);
+    QPainter painter(&pixmap);
+    painter.setPen(Qt::black);
+    painter.setBrush(DesignerHelper::getDecorationGradient(Qt::lightGray, rect));
+    painter.drawRoundedRect(rect, 3, 3);
+    return pixmap;
+}
+
+
+QPixmap DesignerHelper::getPixmapInterferenceFunction()
+{
+    QRect rect(0,0, DesignerHelper::getDefaultInterferenceFunctionWidth(), DesignerHelper::getDefaultInterferenceFunctionHeight());
+    QPixmap pixmap(rect.width()+1, rect.height()+1);
+    pixmap.fill(Qt::transparent);
+    QPainter painter(&pixmap);
+    painter.setPen(Qt::black);
+    painter.setBrush(DesignerHelper::getDecorationGradient(Qt::lightGray, rect));
+    painter.drawRoundedRect(rect, 3, 3);
+    return pixmap;
+}
+
+
+QPixmap DesignerHelper::getPixmapFormFactor()
+{
+    QRect rect(0,0, DesignerHelper::getDefaultFormFactorWidth(), DesignerHelper::getDefaultFormFactorHeight());
+    QPixmap pixmap(rect.width()+1, rect.height()+1);
+    pixmap.fill(Qt::transparent);
+    QPainter painter(&pixmap);
+    painter.setPen(Qt::black);
+    painter.setBrush(DesignerHelper::getDecorationGradient(Qt::lightGray, rect));
+    painter.drawRoundedRect(rect, 5, 5);
+    return pixmap;
+}
+
+
 QPixmap DesignerHelper::getPixmapDefault() {
     return QPixmap(":/images/mode_exp.png");
 }

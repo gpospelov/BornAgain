@@ -2,6 +2,7 @@
 #include "DesignerScene.h"
 #include "DesignerView.h"
 
+
 SampleDesigner::SampleDesigner(QWidget *parent)
     : SampleDesignerInterface(parent)
     , m_designerScene(0)
@@ -14,10 +15,3 @@ SampleDesigner::SampleDesigner(QWidget *parent)
     m_editorStack = new QStackedWidget(parent);
     m_editorStack->addWidget(m_designerView);
 }
-
-
-//void SampleEditor::setPropertyEditor(const SamplePropertyEditor *property_editor)
-//{
-//    m_property_editor = property_editor;
-//    connect(m_designerScene, SIGNAL(selectionChanged());
-//}

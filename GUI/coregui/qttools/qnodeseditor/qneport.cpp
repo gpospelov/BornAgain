@@ -217,15 +217,15 @@ ISampleView* QNEPort::block() const
 }
 
 
-quint64 QNEPort::ptr()
-{
-	return m_ptr;
-}
+//quint64 QNEPort::ptr()
+//{
+//	return m_ptr;
+//}
 
-void QNEPort::setPtr(quint64 p)
-{
-	m_ptr = p;
-}
+//void QNEPort::setPtr(quint64 p)
+//{
+//	m_ptr = p;
+//}
 
 bool QNEPort::isConnected(QNEPort *other)
 {

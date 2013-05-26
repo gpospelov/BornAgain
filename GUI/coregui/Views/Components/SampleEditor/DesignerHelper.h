@@ -34,6 +34,9 @@ public:
     static QPixmap getSceneBackground();
     static QPixmap getPixmapLayer();
     static QPixmap getPixmapMultiLayer();
+    static QPixmap getPixmapParticleDecoration();
+    static QPixmap getPixmapInterferenceFunction();
+    static QPixmap getPixmapFormFactor();
     static QPixmap getPixmapDefault();
 
     //! sort graphics item according they y-coordinate
@@ -41,7 +44,7 @@ public:
         return left->y() < right->y();
     }
 
-    //! non-linear converttion of layer's thickness in nanometers to screen size
+    //! non-linear convertion of layer's thickness in nanometers to screen size
     //! to have reasonable graphics representation of layer in the form of QRect
     static int nanometerToScreen(double nanometer);
 

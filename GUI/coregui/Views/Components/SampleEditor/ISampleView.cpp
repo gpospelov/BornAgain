@@ -5,21 +5,19 @@
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
+#include <QGraphicsDropShadowEffect>
 
 ISampleRectView::ISampleRectView(QGraphicsItem *parent, QRect rect)
     : ISampleView(parent)
     , m_name("Unnamed")
     , m_color(Qt::gray)
     , m_rect(rect)
-    , m_label_vspace(30)
+    , m_roundpar(3)
+    , m_label_vspace(35)
 {
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-    //    QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect;
-    //    effect->setBlurRadius(8);
-    //    effect->setOffset(2,2);
-    //    setGraphicsEffect(effect);
 }
 
 
@@ -27,13 +25,24 @@ void ISampleRectView::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 {
     Q_UNUSED(widget);
 
-    painter->setPen(Qt::black);
+    painter->setPen(Qt::gray);
     if (option->state & (QStyle::State_Selected | QStyle::State_HasFocus)) {
         painter->setPen(Qt::DashLine);
     }
 
-    painter->setBrush(DesignerHelper::getLayerGradient(Qt::gray, getRectangle() ) );
-    painter->drawRect(getRectangle());
+    painter->setBrush(DesignerHelper::getDecorationGradient(m_color, getRectangle() ) );
+    painter->drawRoundedRect(getRectangle(), m_roundpar, m_roundpar);
+
+    if ( m_label.isEmpty() ) return;
+
+    painter->setPen(Qt::black);
+    double width = getRectangle().width()*0.9;
+    double yoffset = 5; // space above the label
+    double height = m_label_vspace - yoffset;
+    QFont serifFont("Monospace", 12, QFont::Normal);
+    painter->setFont(serifFont);
+    QRect textRect( getRectangle().x() + (getRectangle().width()-width)/2., getRectangle().y() + yoffset, width, height );
+    painter->drawText(textRect, Qt::AlignCenter, m_label);
 }
 
 
@@ -57,8 +66,14 @@ void ISampleRectView::setPortCoordinates()
     int hspace = getRectangle().height();
     if( !getLabel().isEmpty() ) hspace -= m_label_vspace;
 
-    int dy = hspace / (getNumberOfPorts() + 2);
+    int nintervals = getNumberOfPorts() + 2;
+
+    int dy = hspace / double(nintervals);
     int ypos = getRectangle().height() - hspace + dy;
+
+    if(getNumberOfPorts() == 1) {
+        ypos = getRectangle().height() - hspace + hspace/2;
+    }
 
     int nOutPorts = getNumberOfOutputPorts();
     int nport(0);
@@ -68,7 +83,7 @@ void ISampleRectView::setPortCoordinates()
         if (port->isOutput()) {
             port->setPos(getRectangle().width(), ypos);
         }else{
-            if(nport == nOutPorts) ypos +=dy; // additional margin between output and input ports
+            if(nport == nOutPorts && nOutPorts!=0) ypos +=dy; // additional margin between output and input ports
             port->setPos(0.0, ypos);
         }
         ypos += dy;
@@ -99,7 +114,6 @@ int ISampleRectView::getNumberOfOutputPorts()
 {
     int result(0);
     foreach(QGraphicsItem *item, childItems()) {
-//        QNEPort *port = qobject_cast<QNEPort *>(item->toGraphicsObject());
         QNEPort *port = dynamic_cast<QNEPort *>(item);
         if (port && port->isOutput()) result++;
     }

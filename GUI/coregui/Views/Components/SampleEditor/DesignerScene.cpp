@@ -22,6 +22,7 @@ DesignerScene::DesignerScene(QObject *parent)
     , m_ymax(500)
     , m_widgetFactory(new DesignerWidgetFactory())
 {
+
     setSceneRect(QRectF(-300, -100, 600, 600));
     setBackgroundBrush(DesignerHelper::getSceneBackground());
     //setAcceptDrops(true);
@@ -29,22 +30,8 @@ DesignerScene::DesignerScene(QObject *parent)
     //setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     createLayerDock();
 
-//    QNEBlock *b = new QNEBlock(0, this);
-//    b->addPort("test", 0, QNEPort::NamePort);
-//    b->addPort("TestBlock", 0, QNEPort::TypePort);
-//    b->addInputPort("in1");
-//    b->addInputPort("in2");
-//    b->addInputPort("in3");
-//    b->addOutputPort("out1");
-//    b->addOutputPort("out2");
-//    b->addOutputPort("out3");
-
-//    b = b->clone();
-//    b->setPos(150, 0);
-
     QNodesEditor *nodesEditor = new QNodesEditor(parent);
     nodesEditor->install(this);
-
 }
 
 
@@ -105,6 +92,8 @@ void DesignerScene::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
 }
 
 
+
+
 void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
     std::cout << "DesignerScene::dropEvent() -> " << std::endl;
@@ -116,6 +105,12 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         } else {
             ISampleView *view = m_widgetFactory->create( mimeData->getClassName() );
             addItem(view);
+
+//            QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect;
+//            shadow_effect->setBlurRadius(8);
+//            shadow_effect->setOffset(2,2);
+//            view->setGraphicsEffect(shadow_effect);
+
             view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
 
         }

@@ -81,6 +81,7 @@ inline void LayerView::setThickness(double thickness)
     if(thickness != m_thickness) {
         m_thickness = thickness;
         m_rect.setHeight(DesignerHelper::nanometerToScreen(m_thickness));
+        setPortCoordinates();
         emit heightChanged();
     }
 }

@@ -8,7 +8,7 @@ class QStyleOptionGraphicsItem;
 class QWidget;
 
 
-#include "qneport.h"
+#include "NodeEditorPort.h"
 
 //! parent class for graphic representation of all ISample's
 class ISampleView : public QGraphicsObject
@@ -30,7 +30,7 @@ public:
     virtual QRectF boundingRect() const { return getRectangle(); }
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    virtual QNEPort* addPort(const QString &name, QNEPort::PortDirection direction, QNEPort::PortType port_type);
+    virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type);
 
     QString getName() const { return m_name; }
     QColor getColor() const { return m_color; }

@@ -31,7 +31,7 @@ LayerView::LayerView(QGraphicsItem *parent)
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptDrops(false);
 
-    addPort(" ", QNEPort::Input, QNEPort::ParticleFactory);
+    addPort(" ", NodeEditorPort::Input, NodeEditorPort::ParticleFactory);
 
 }
 

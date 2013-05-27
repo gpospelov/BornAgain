@@ -9,7 +9,7 @@ FormFactorView::FormFactorView(QGraphicsItem *parent)
     setName("FormFactorView");
     setColor(DesignerHelper::getDefaultFormFactorColor());
     setRectangle( QRect(0, 0, DesignerHelper::getDefaultFormFactorWidth(), DesignerHelper::getDefaultFormFactorHeight()) );
-    addPort("out", QNEPort::Output, QNEPort::FormFactor);
-    addPort("transformation", QNEPort::Input, QNEPort::GeometryTransformation);
+    addPort("out", NodeEditorPort::Output, NodeEditorPort::FormFactor);
+    addPort("transformation", NodeEditorPort::Input, NodeEditorPort::GeometryTransformation);
     m_roundpar = 5;
 }

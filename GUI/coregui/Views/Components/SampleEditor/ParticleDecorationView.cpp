@@ -9,8 +9,8 @@ ParticleDecorationView::ParticleDecorationView(QGraphicsItem *parent)
     setLabel("Particle \ndecoration");
     setColor(QColor(135, 206, 50));
     setRectangle( QRect(0, 0, DesignerHelper::getDefaultDecorationWidth(), DesignerHelper::getDefaultDecorationHeight()) );
-    addPort("out", QNEPort::Output, QNEPort::ParticleFactory);
-    addPort("interference", QNEPort::Input, QNEPort::Interference);
-    addPort("form factors", QNEPort::Input, QNEPort::FormFactor);
+    addPort("out", NodeEditorPort::Output, NodeEditorPort::ParticleFactory);
+    addPort("interference", NodeEditorPort::Input, NodeEditorPort::Interference);
+    addPort("form factors", NodeEditorPort::Input, NodeEditorPort::FormFactor);
     m_roundpar = 3;
 }

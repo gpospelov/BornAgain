@@ -11,6 +11,12 @@ class DesignerHelper
 {
 public:
 
+    enum WidgetTypes {
+        ISampleType = QGraphicsItem::UserType+1,
+        NodeEditorPortType,
+        NodeEditorConnectionType
+    };
+
     static int getDefaultLayerWidth() { return m_default_layer_width; }
     static int getDefaultLayerHeight() { return m_default_layer_height; }
 

@@ -1,11 +1,11 @@
 #include "ISampleView.h"
 #include "DesignerHelper.h"
-#include "qneport.h"
+#include "NodeEditorPort.h"
 
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
-#include <QGraphicsDropShadowEffect>
+
 
 ISampleRectView::ISampleRectView(QGraphicsItem *parent, QRect rect)
     : ISampleView(parent)
@@ -47,13 +47,11 @@ void ISampleRectView::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
 
 // adding port to the sample
-QNEPort* ISampleRectView::addPort(const QString &name, QNEPort::PortDirection direction, QNEPort::PortType port_type)
+NodeEditorPort* ISampleRectView::addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type)
 {
-    QNEPort *port = new QNEPort(this, name, direction, port_type);
-    port->setNEBlock(this);
+    NodeEditorPort *port = new NodeEditorPort(this, name, direction, port_type);
     setPortCoordinates();
     return port;
-
 }
 
 
@@ -78,7 +76,7 @@ void ISampleRectView::setPortCoordinates()
     int nOutPorts = getNumberOfOutputPorts();
     int nport(0);
     foreach(QGraphicsItem *item, childItems()) {
-        QNEPort *port = dynamic_cast<QNEPort *>(item);
+        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
         if( !port ) continue;
         if (port->isOutput()) {
             port->setPos(getRectangle().width(), ypos);
@@ -103,7 +101,7 @@ int ISampleRectView::getNumberOfPorts()
 {
     int result(0);
     foreach(QGraphicsItem *item, childItems()) {
-        QNEPort *port = dynamic_cast<QNEPort *>(item);
+        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
         if (port) result++;
     }
     return result;
@@ -114,7 +112,7 @@ int ISampleRectView::getNumberOfOutputPorts()
 {
     int result(0);
     foreach(QGraphicsItem *item, childItems()) {
-        QNEPort *port = dynamic_cast<QNEPort *>(item);
+        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
         if (port && port->isOutput()) result++;
     }
     return result;

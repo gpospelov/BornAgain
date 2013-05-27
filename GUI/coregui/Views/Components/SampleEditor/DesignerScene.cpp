@@ -7,12 +7,10 @@
 #include "DesignerMimeData.h"
 #include "DesignerHelper.h"
 #include "LayerDockView.h"
+#include "NodeEditor.h"
 
 #include <QGraphicsSceneDragDropEvent>
 #include <QGraphicsDropShadowEffect>
-#include "qneblock.h"
-#include "qneport.h"
-#include "qnodeseditor.h"
 
 DesignerScene::DesignerScene(QObject *parent)
     : DesignerSceneInterface(parent)
@@ -30,7 +28,7 @@ DesignerScene::DesignerScene(QObject *parent)
     //setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     createLayerDock();
 
-    QNodesEditor *nodesEditor = new QNodesEditor(parent);
+    NodeEditor *nodesEditor = new NodeEditor(parent);
     nodesEditor->install(this);
 }
 

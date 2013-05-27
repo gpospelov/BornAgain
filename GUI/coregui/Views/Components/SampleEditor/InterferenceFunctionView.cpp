@@ -7,7 +7,7 @@ InterferenceFunctionView::InterferenceFunctionView(QGraphicsItem *parent)
 {
     setColor(QColor(255, 236, 139));
     setRectangle( QRect(0, 0, DesignerHelper::getDefaultInterferenceFunctionWidth(), DesignerHelper::getDefaultInterferenceFunctionHeight()) );
-    addPort("out", QNEPort::Output, QNEPort::Interference);    
+    addPort("out", NodeEditorPort::Output, NodeEditorPort::Interference);    
     m_roundpar = 3;
 }
 

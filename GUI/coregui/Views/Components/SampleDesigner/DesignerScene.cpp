@@ -101,7 +101,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         if(mimeData->getClassName() == QString("Layer") || mimeData->getClassName() == QString("MultiLayer") ) {
             QGraphicsScene::dropEvent(event);
         } else {
-            ISampleView *view = m_widgetFactory->create( mimeData->getClassName() );
+            ISampleView *view = m_widgetFactory->createView( mimeData->getClassName() );
             addItem(view);
 
 //            QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect;

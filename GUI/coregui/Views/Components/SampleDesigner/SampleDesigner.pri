@@ -19,7 +19,9 @@ SOURCES +=  \
     Views/Components/SampleDesigner/ObjectPropertyController.cpp \
     Views/Components/SampleDesigner/ParticleDecorationView.cpp \
     Views/Components/SampleDesigner/SampleDesigner.cpp \
-    Views/Components/SampleDesigner/SamplePropertyEditor.cpp
+    Views/Components/SampleDesigner/SamplePropertyEditor.cpp \
+    Views/Components/SampleDesigner/MaterialView.cpp \
+    Views/Components/SampleDesigner/VariantManager.cpp
 
 
 HEADERS +=  \
@@ -39,7 +41,9 @@ HEADERS +=  \
     Views/Components/SampleDesigner/ObjectPropertyController.h \
     Views/Components/SampleDesigner/ParticleDecorationView.h \
     Views/Components/SampleDesigner/SampleDesigner.h \
-    Views/Components/SampleDesigner/SamplePropertyEditor.h
+    Views/Components/SampleDesigner/SamplePropertyEditor.h \
+    Views/Components/SampleDesigner/MaterialView.h \
+    Views/Components/SampleDesigner/VariantManager.h
 
 RESOURCES += Views/Components/SampleDesigner/SampleDesigner.qrc
 

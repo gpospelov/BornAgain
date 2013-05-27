@@ -19,6 +19,7 @@ public:
 
     static int getDefaultLayerWidth() { return m_default_layer_width; }
     static int getDefaultLayerHeight() { return m_default_layer_height; }
+    static QColor getDefaultLayerColor() { return QColor(Qt::lightGray); }
 
     static int getDefaultMultiLayerWidth() { return m_default_layer_width*1.20; }
     static int getDefaultMultiLayerHeight() { return m_default_layer_height; }
@@ -31,11 +32,15 @@ public:
 
     static int getDefaultFormFactorWidth() { return m_default_layer_height*3; }
     static int getDefaultFormFactorHeight() { return m_default_layer_height*3; }
-    //static QColor getDefaultFormFactorColor() { return QColor(99, 184, 255); }
     static QColor getDefaultFormFactorColor() { return QColor(Qt::lightGray); }
+
+    static int getDefaultMaterialWidth() { return m_default_layer_height*1.2; }
+    static int getDefaultMaterialHeight() { return m_default_layer_height*1.2; }
+    static QColor getDefaultMaterialColor() { return QColor(qrand() % 256, qrand() % 256, qrand() % 256); }
 
     static QGradient getLayerGradient(const QColor &color, const QRect &rect);
     static QGradient getDecorationGradient(const QColor &color, const QRect &rect);
+    static QGradient getMaterialGradient(const QColor &color, const QRect &rect);
 
     static QPixmap getSceneBackground();
     static QPixmap getPixmapLayer();

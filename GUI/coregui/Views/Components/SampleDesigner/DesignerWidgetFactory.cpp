@@ -4,6 +4,7 @@
 #include "FormFactorView.h"
 #include "ParticleDecorationView.h"
 #include "InterferenceFunctionView.h"
+#include "MaterialView.h"
 
 
 DesignerWidgetFactory::DesignerWidgetFactory()
@@ -27,7 +28,6 @@ DesignerWidgetFactory::DesignerWidgetFactory()
         IFactoryCreateFunction<FormFactorPyramidView, ISampleView>
     );
 
-
    registerItem(
         "ParticleDecoration",
         IFactoryCreateFunction<ParticleDecorationView, ISampleView>
@@ -38,10 +38,15 @@ DesignerWidgetFactory::DesignerWidgetFactory()
         IFactoryCreateFunction<InterferenceFunction1DParaCrystalView, ISampleView>
     );
 
+   registerItem(
+        "HomogeneousMaterial",
+        IFactoryCreateFunction<MaterialView, ISampleView>
+    );
+
 }
 
 
-ISampleView *DesignerWidgetFactory::create(const QString &name)
+ISampleView *DesignerWidgetFactory::createView(const QString &name)
 {
     ISampleView *result(0);
     try {

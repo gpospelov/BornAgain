@@ -11,7 +11,7 @@ class DesignerWidgetFactory : public IFactory<std::string, ISampleView>
 public:
     DesignerWidgetFactory();
 
-    ISampleView *create(const QString &name);
+    ISampleView *createView(const QString &name);
 
 };
 

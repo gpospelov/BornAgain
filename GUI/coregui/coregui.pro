@@ -12,7 +12,7 @@ CONFIG += BORNAGAIN_ROOT BORNAGAIN_PYTHON
 
 
 include($$PWD/Views/Components/widgetbox/widgetbox.pri)
-include($$PWD/Views/Components/SampleEditor/SampleEditor.pri)
+include($$PWD/Views/Components/SampleDesigner/SampleDesigner.pri)
 include($$PWD/qttools/qtpropertybrowser/qtpropertybrowser.pri)
 
 SOURCES += \

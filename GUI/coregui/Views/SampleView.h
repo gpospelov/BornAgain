@@ -9,9 +9,12 @@
 
 class SampleDesignerInterface;
 class SampleDesigner;
+class SampleToolBar;
 
 class SampleView : public Manhattan::FancyMainWindow
 {
+    Q_OBJECT
+
 public:
 
     enum SubWindows
@@ -27,14 +30,15 @@ public:
 
 public slots:
     void resetToDefaultLayout();
-
+    void materialEditorCall();
 
 private:
     void initSubWindows();
 
-    SampleDesigner *m_sampleEditor;
+    SampleDesigner *m_sampleDesigner;
     QWidget *m_subWindows[NumberOfSubWindows];
     QDockWidget *m_dockWidgets[NumberOfSubWindows];
+    SampleToolBar *m_toolBar;
 
 };
 

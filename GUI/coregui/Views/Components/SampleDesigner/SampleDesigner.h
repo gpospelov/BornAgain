@@ -24,7 +24,7 @@ public:
 };
 
 
-//! sample designer
+//! sample designer provide central window with graphic scene to drag and drop
 class SampleDesigner: public SampleDesignerInterface
 {
     Q_OBJECT

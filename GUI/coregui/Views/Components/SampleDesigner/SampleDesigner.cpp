@@ -8,7 +8,6 @@ SampleDesigner::SampleDesigner(QWidget *parent)
     , m_designerScene(0)
     , m_designerView(0)
     , m_editorStack(0)
-    //, m_property_editor(0)
 {
     m_designerScene = new DesignerScene(parent);
     m_designerView = new DesignerView(parent, m_designerScene);

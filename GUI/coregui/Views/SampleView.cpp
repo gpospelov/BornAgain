@@ -1,11 +1,19 @@
 #include "SampleView.h"
 #include "SampleViewComponents.h"
 #include "SampleDesigner.h"
+#include "SampleToolBar.h"
+
 
 #include <QDockWidget>
 #include <QAbstractItemView>
-#include "widgetbox.h"
+//#include "widgetbox.h"
+//#include "QToolBar"
+#include <QToolBar>
+#include <QAction>
+#include <QToolButton>
 
+
+#include <iostream>
 
 #if QT_VERSION < 0x050000
 #define QStringLiteral QString
@@ -14,13 +22,14 @@
 
 SampleView::SampleView(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
-    , m_sampleEditor(0)
+    , m_sampleDesigner(0)
+    , m_toolBar(0)
 {
-    m_sampleEditor = new SampleDesigner(parent);
+    m_sampleDesigner = new SampleDesigner(parent);
 
     setObjectName(QLatin1String("SampleView"));
 
-    setCentralWidget(m_sampleEditor->getCentralWidget());
+    setCentralWidget(m_sampleDesigner->getCentralWidget());
 
     setDocumentMode(true);
     setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
@@ -28,6 +37,8 @@ SampleView::SampleView(QWidget *parent)
     setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
     initSubWindows();
+
+
 
     for (int i = 0; i < NumberOfSubWindows; i++) {
         QWidget *subWindow = m_subWindows[i];
@@ -43,23 +54,26 @@ SampleView::SampleView(QWidget *parent)
     }
     resetToDefaultLayout();
 
-//    connect(m_sampleEditor->getDesignerScene())
+    m_toolBar = new SampleToolBar(this);
+    addToolBar(m_toolBar);
 }
 
+
+void SampleView::materialEditorCall()
+{
+    std::cout << "SampleView::materialEditorCall() ->" << std::endl;
+}
 
 
 void SampleView::initSubWindows()
 {
     qFill(m_subWindows, m_subWindows + NumberOfSubWindows, static_cast<QWidget*>(0));
 
-    m_subWindows[WidgetBoxSubWindow] = SampleViewComponents::createWidgetBox(m_sampleEditor, this);
+    m_subWindows[WidgetBoxSubWindow] = SampleViewComponents::createWidgetBox(m_sampleDesigner, this);
 
-    SampleTreeInspectorInterface *oi = SampleViewComponents::createTreeInspector(this);
-    oi->setWindowTitle(tr("Object Inspector"));
-    oi->setObjectName(QLatin1String("ObjectInspector"));
-    m_subWindows[SampleInspectorSubWindow] = oi;
+    m_subWindows[SampleInspectorSubWindow] = SampleViewComponents::createTreeInspector(this);
 
-    m_subWindows[PropertyEditorSubWindow] = SampleViewComponents::createPropertyEditor(m_sampleEditor, this);
+    m_subWindows[PropertyEditorSubWindow] = SampleViewComponents::createPropertyEditor(m_sampleDesigner, this);
 
     SampleInfoStreamInterface *ae = SampleViewComponents::createInfoStream(this);
     ae->setWindowTitle(tr("Info Stream"));

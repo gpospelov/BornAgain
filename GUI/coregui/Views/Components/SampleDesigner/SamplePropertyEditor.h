@@ -13,20 +13,9 @@ class QtVariantProperty;
 class QVariant;
 class QtAbstractPropertyBrowser;
 
-//class SamplePropertyEditorInterface : public QWidget
-//{
-//    Q_OBJECT
 
-//public:
-//    explicit SamplePropertyEditorInterface(QWidget *parent = 0) : QWidget(parent)
-//    {
-//        setMinimumSize(128, 128);
-//        setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-//    }
-//    virtual ~SamplePropertyEditorInterface(){}
-//};
-
-//! property editor to modify property of the object which is currently selected on the graphics scene
+//! property editor to modify property of the objectcurrently selected on the graphics scene
+//! located in the bottom right corner of SampleView
 class SamplePropertyEditor : public QWidget
 {
     Q_OBJECT

@@ -1,4 +1,6 @@
 #include "DesignerView.h"
+#include "DesignerMimeData.h"
+#include "DesignerWidgetFactory.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QVBoxLayout>
@@ -9,11 +11,11 @@
 #include "LayerView.h"
 #include "LayerView.h"
 
+#include "styledbar.h"
+
 #include <cmath>
 #include <iostream>
 
-#include "DesignerMimeData.h"
-#include "DesignerWidgetFactory.h"
 
 DesignerView::DesignerView(QWidget *parent, QGraphicsScene *scene)
     : QWidget(parent)
@@ -25,7 +27,12 @@ DesignerView::DesignerView(QWidget *parent, QGraphicsScene *scene)
 //    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
    setAcceptDrops(false);
 
+//   Manhattan::StyledBar *bar = new Manhattan::StyledBar;
+
     QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(0);
+    layout->setSpacing(0);
+//    layout->addWidget(bar);
     m_graphicsView = new QGraphicsView(scene);
     m_graphicsView->setAcceptDrops(true);
 

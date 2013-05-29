@@ -3,15 +3,30 @@
 #include "SampleDesigner.h"
 
 
-SampleWidgetBoxInterface *SampleViewComponents::createWidgetBox(SampleDesignerInterface *core, QWidget *parent)
+//SampleTreeInspector::SampleTreeInspector(QWidget *parent)
+//    : QWidget(parent)
+//{
+//    setMinimumSize(128, 128);
+//    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+//}
+
+
+
+//SampleWidgetBoxInterface *SampleViewComponents::createWidgetBox(SampleDesignerInterface *core, QWidget *parent)
+//{
+//    QDesignerWidgetBoxInterface *result = new qdesigner_internal::WidgetBox(core, parent);
+//    result->setFileName(QStringLiteral(":/widgetbox/widgetbox.xml"));
+//    result->load();
+//    result->setWindowTitle(QLatin1String("Widget Box"));
+//    result->setObjectName(QLatin1String("WidgetBox"));
+//    //m_sampleEditor->setWidgetBox(wb);
+//    return result;
+//}
+
+SampleWidgetBox *SampleViewComponents::createWidgetBox(SampleDesignerInterface *core, QWidget *parent)
 {
-    QDesignerWidgetBoxInterface *result = new qdesigner_internal::WidgetBox(core, parent);
-    result->setFileName(QStringLiteral(":/widgetbox/widgetbox.xml"));
-    result->load();
-    result->setWindowTitle(QLatin1String("Widget Box"));
-    result->setObjectName(QLatin1String("WidgetBox"));
-    //m_sampleEditor->setWidgetBox(wb);
-    return result;
+    return new SampleWidgetBox(core, parent);
 }
 
 
@@ -19,15 +34,15 @@ SampleWidgetBoxInterface *SampleViewComponents::createWidgetBox(SampleDesignerIn
 SamplePropertyEditor *SampleViewComponents::createPropertyEditor(SampleDesignerInterface *core, QWidget *parent)
 {
     //SamplePropertyEditorInterface *result = new SamplePropertyEditorInterface(parent);
-    SamplePropertyEditor *result = new SamplePropertyEditor(core, parent);
-    result->setWindowTitle(QLatin1String("Property Editor"));
-    result->setObjectName(QLatin1String("PropertyEditor"));
-    return result;
+//    SamplePropertyEditor *result = new SamplePropertyEditor(core, parent);
+//    result->setWindowTitle(QLatin1String("Property Editor"));
+//    result->setObjectName(QLatin1String("PropertyEditor"));
+    return new SamplePropertyEditor(core, parent);
 }
 
-SampleTreeInspectorInterface *SampleViewComponents::createTreeInspector(QWidget *parent)
+SampleTreeInspector *SampleViewComponents::createTreeInspector(QWidget *parent)
 {
-    return new SampleTreeInspectorInterface(parent);
+    return new SampleTreeInspector(parent);
 }
 
 SampleInfoStreamInterface *SampleViewComponents::createInfoStream(QWidget *parent)

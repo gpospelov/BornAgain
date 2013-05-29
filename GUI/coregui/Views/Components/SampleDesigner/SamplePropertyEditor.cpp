@@ -1,4 +1,6 @@
 #include "SamplePropertyEditor.h"
+#include "VariantManager.h"
+
 #include "qtvariantproperty.h"
 #include "qttreepropertybrowser.h"
 
@@ -47,6 +49,9 @@ SamplePropertyEditor::SamplePropertyEditor(SampleDesignerInterface *sample_desig
 //    , m_propertyEditor(0)
     , m_object(0)
 {
+    setWindowTitle(QLatin1String("Property Editor"));
+    setObjectName(QLatin1String("PropertyEditor"));
+
 //    m_variantManager = new QtVariantPropertyManager(this);
 //    connect(m_variantManager, SIGNAL(valueChanged(QtProperty*, QVariant)), SLOT(valueChanged(QtProperty*,QVariant)));
 
@@ -72,8 +77,13 @@ SamplePropertyEditor::SamplePropertyEditor(SampleDesignerInterface *sample_desig
     layout->setMargin(0);
     layout->addWidget(m_browser);
 
-    m_readOnlyManager = new QtVariantPropertyManager(this);
-    m_manager = new QtVariantPropertyManager(this);
+    //m_readOnlyManager = new QtVariantPropertyManager(this);
+    m_readOnlyManager = new VariantManager(this);
+
+    //m_manager = new QtVariantPropertyManager(this);
+    m_manager = new VariantManager(this);
+
+
     QtVariantEditorFactory *factory = new QtVariantEditorFactory(this);
     m_browser->setFactoryForManager(m_manager, factory);
 
@@ -277,8 +287,12 @@ void SamplePropertyEditor::addClassProperties(const QMetaObject *metaObject)
 
         for (int idx = metaObject->propertyOffset(); idx < metaObject->propertyCount(); idx++) {
             QMetaProperty metaProperty = metaObject->property(idx);
-            std::cout << "XXX " << metaProperty.name() << " " << metaProperty.type() << " " << metaProperty.typeName()<< std::endl;
             int type = metaProperty.userType();
+            std::cout << "XXX metaProperty.name():" << metaProperty.name()
+                      << " metaProperty.type():" << metaProperty.type()
+                      << " metaProperty.typeName():" << metaProperty.typeName()
+                      << " metaProperty.userType():" << metaProperty.userType()
+                      << std::endl;
             QtVariantProperty *subProperty = 0;
             if (!metaProperty.isReadable()) {
                 subProperty = m_readOnlyManager->addProperty(QVariant::String, QLatin1String(metaProperty.name()));

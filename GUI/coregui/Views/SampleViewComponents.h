@@ -3,7 +3,10 @@
 
 #include <QWidget>
 #include "widgetbox.h"
+
 #include "SamplePropertyEditor.h"
+#include "SampleTreeInspector.h"
+#include "SampleWidgetBox.h"
 
 //class SampleWidgetBoxInterface : public QWidget
 //{
@@ -15,26 +18,11 @@
 //    }
 //};
 
-class SampleDesignerInterface;
+//class SampleDesignerInterface;
 
-typedef QDesignerWidgetBoxInterface SampleWidgetBoxInterface;
+//typedef QDesignerWidgetBoxInterface SampleWidgetBoxInterface;
 
 
-//class SamplePropertyEditorInterface : public QWidget
-//{
-//public:
-//    explicit SamplePropertyEditorInterface(QWidget *parent = 0);
-//};
-
-class SampleTreeInspectorInterface : public QWidget
-{
-public:
-    explicit SampleTreeInspectorInterface(QWidget *parent = 0) : QWidget(parent)
-    {
-        setMinimumSize(128, 128);
-        setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    }
-};
 
 class SampleInfoStreamInterface : public QWidget
 {
@@ -51,10 +39,9 @@ public:
 class SampleViewComponents
 {
 public:
-    static SampleWidgetBoxInterface *createWidgetBox(SampleDesignerInterface *core, QWidget *parent);
-//    static SamplePropertyEditorInterface *createPropertyEditor(QWidget *parent);
+    static SampleWidgetBox *createWidgetBox(SampleDesignerInterface *core, QWidget *parent);
     static SamplePropertyEditor *createPropertyEditor(SampleDesignerInterface *core,QWidget *parent);
-    static SampleTreeInspectorInterface *createTreeInspector(QWidget *parent);
+    static SampleTreeInspector *createTreeInspector(QWidget *parent);
     static SampleInfoStreamInterface *createInfoStream(QWidget *parent);
 };
 

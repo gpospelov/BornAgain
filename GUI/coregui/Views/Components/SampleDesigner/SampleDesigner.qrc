@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/SampleDesigner">
+        <file>images/background2.png</file>
+        <file>images/background3.png</file>
+        <file>images/background4.png</file>
+        <file>images/prev.png</file>
+        <file>images/next.png</file>
+    </qresource>
+</RCC>

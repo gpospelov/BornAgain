@@ -50,7 +50,7 @@ QT_BEGIN_NAMESPACE
 class QDesignerFormEditorInterface;
 class DomUI;
 
-class ISampleEditor;
+class SampleDesignerInterface;
 
 namespace qdesigner_internal {
 
@@ -58,7 +58,7 @@ class QT_WIDGETBOX_EXPORT WidgetBoxDnDItem : public QDesignerDnDItem
 {
 public:
 //    WidgetBoxDnDItem(QDesignerFormEditorInterface *core,
-    WidgetBoxDnDItem(ISampleEditor *core,
+    WidgetBoxDnDItem(SampleDesignerInterface *core,
                      DomUI *dom_ui,
                      const QPoint &global_mouse_pos);
 };

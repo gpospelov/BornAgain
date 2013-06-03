@@ -4,6 +4,7 @@
 
 #include <QAbstractTableModel>
 #include <QMap>
+#include <QVector>
 
 class IMaterial;
 

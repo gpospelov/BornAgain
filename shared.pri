@@ -35,7 +35,7 @@ LIBS += -lgsl -lgslcblas
 
 # --- checking eigen headers ---
 EIGEN_HEADERFILE = Eigen/Core
-EIGEN_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+EIGEN_HEADER_LOCATIONS = /opt/local/include /opt/local/include/eigen3  /usr/local/include /usr/include
 for(dir, EIGEN_HEADER_LOCATIONS): isEmpty(EIGEN_INCLUDE): exists($${dir}/$${EIGEN_HEADERFILE}): EIGEN_INCLUDE = $${dir}
 isEmpty(EIGEN_INCLUDE): message("Can't find" $${EIGEN_HEADERFILE} "in" $${EIGEN_HEADER_LOCATIONS})
 INCLUDEPATH *=  $${EIGEN_INCLUDE}

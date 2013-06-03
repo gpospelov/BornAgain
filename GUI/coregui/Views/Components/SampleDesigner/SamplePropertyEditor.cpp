@@ -77,11 +77,11 @@ SamplePropertyEditor::SamplePropertyEditor(SampleDesignerInterface *sample_desig
     layout->setMargin(0);
     layout->addWidget(m_browser);
 
-    //m_readOnlyManager = new QtVariantPropertyManager(this);
-    m_readOnlyManager = new VariantManager(this);
+    m_readOnlyManager = new QtVariantPropertyManager(this);
+    //m_readOnlyManager = new VariantManager(this);
 
-    //m_manager = new QtVariantPropertyManager(this);
-    m_manager = new VariantManager(this);
+    m_manager = new QtVariantPropertyManager(this);
+    //m_manager = new VariantManager(this);
 
 
     QtVariantEditorFactory *factory = new QtVariantEditorFactory(this);

@@ -91,75 +91,75 @@ QVariant VariantManager::value(const QtProperty *property) const
 
 QString VariantManager::valueText(const QtProperty *property) const
 {
-    if (propertyToData.contains(property)) {
-        QVariant v = propertyToData[property].value;
-        //QPointF p = v.value<QPointF>();
-        complex_t p = v.value<complex_t>();
-//        return QString(tr("(%1, %2)").arg(QString::number(p.x()))
-//                                 .arg(QString::number(p.y())));
-        return QString(tr("(%1, %2)").arg(QString::number(p.real()))
-                       .arg(QString::number(p.imag())));
-    }
+//    if (propertyToData.contains(property)) {
+//        QVariant v = propertyToData[property].value;
+//        //QPointF p = v.value<QPointF>();
+//        complex_t p = v.value<complex_t>();
+////        return QString(tr("(%1, %2)").arg(QString::number(p.x()))
+////                                 .arg(QString::number(p.y())));
+//        return QString(tr("(%1, %2)").arg(QString::number(p.real()))
+//                       .arg(QString::number(p.imag())));
+//    }
     return QtVariantPropertyManager::valueText(property);
 }
 
 void VariantManager::setValue(QtProperty *property, const QVariant &val)
 {
-    if (propertyToData.contains(property)) {
+//    if (propertyToData.contains(property)) {
 
-        if (val.type() != qMetaTypeId<complex_t>() && !val.canConvert(qMetaTypeId<complex_t>()))
-            return;
-        //QPointF p = val.value<QPointF>();
-        complex_t p = val.value<complex_t>();
+//        if (val.type() != qMetaTypeId<complex_t>() && !val.canConvert(qMetaTypeId<complex_t>()))
+//            return;
+//        //QPointF p = val.value<QPointF>();
+//        complex_t p = val.value<complex_t>();
 
-        Data d = propertyToData[property];
-        d.value.setValue(p);
-        if (d.x)
-            d.x->setValue(p.real());
-        if (d.y)
-            d.y->setValue(p.imag());
-        propertyToData[property] = d;
-        emit propertyChanged(property);
-        emit valueChanged(property, p.real());
-        return;
-    }
+//        Data d = propertyToData[property];
+//        d.value.setValue(p);
+//        if (d.x)
+//            d.x->setValue(p.real());
+//        if (d.y)
+//            d.y->setValue(p.imag());
+//        propertyToData[property] = d;
+//        emit propertyChanged(property);
+//        emit valueChanged(property, p.real());
+//        return;
+//    }
     QtVariantPropertyManager::setValue(property, val);
 }
 
 void VariantManager::initializeProperty(QtProperty *property)
 {
-    if (propertyType(property) == qMetaTypeId<complex_t>()) {
-        Data d;
+//    if (propertyType(property) == qMetaTypeId<complex_t>()) {
+//        Data d;
 
-//        d.value = QPointF(0, 0);
-        d.value.setValue(complex_t(1, 0));
+////        d.value = QPointF(0, 0);
+//        d.value.setValue(complex_t(1, 0));
 
-        VariantManager *that = (VariantManager *)this;
+//        VariantManager *that = (VariantManager *)this;
 
-        d.x = that->addProperty(QVariant::Double);
-        d.x->setPropertyName(tr("real"));
-        property->addSubProperty(d.x);
-        xToProperty[d.x] = property;
+//        d.x = that->addProperty(QVariant::Double);
+//        d.x->setPropertyName(tr("real"));
+//        property->addSubProperty(d.x);
+//        xToProperty[d.x] = property;
 
-        d.y = that->addProperty(QVariant::Double);
-        d.y->setPropertyName(tr("imag"));
-        property->addSubProperty(d.y);
-        yToProperty[d.y] = property;
+//        d.y = that->addProperty(QVariant::Double);
+//        d.y->setPropertyName(tr("imag"));
+//        property->addSubProperty(d.y);
+//        yToProperty[d.y] = property;
 
-        propertyToData[property] = d;
-    }
+//        propertyToData[property] = d;
+//    }
     QtVariantPropertyManager::initializeProperty(property);
 }
 
 void VariantManager::uninitializeProperty(QtProperty *property)
 {
-    if (propertyToData.contains(property)) {
-        Data d = propertyToData[property];
-        if (d.x)
-            xToProperty.remove(d.x);
-        if (d.y)
-            yToProperty.remove(d.y);
-        propertyToData.remove(property);
-    }
+//    if (propertyToData.contains(property)) {
+//        Data d = propertyToData[property];
+//        if (d.x)
+//            xToProperty.remove(d.x);
+//        if (d.y)
+//            yToProperty.remove(d.y);
+//        propertyToData.remove(property);
+//    }
     QtVariantPropertyManager::uninitializeProperty(property);
 }

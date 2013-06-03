@@ -3,6 +3,10 @@
 #include "styledbar.h"
 #include <QVBoxLayout>
 
+#if QT_VERSION < 0x050000
+#define QStringLiteral QString
+#endif
+
 
 SampleWidgetBox::SampleWidgetBox(SampleDesignerInterface *core, QWidget *parent)
     : QWidget(parent)

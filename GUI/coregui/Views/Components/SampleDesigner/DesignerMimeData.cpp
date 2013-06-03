@@ -13,6 +13,11 @@
 
 #include "DesignerHelper.h"
 
+#if QT_VERSION < 0x050000
+#define QStringLiteral QString
+#endif
+
+
 DesignerMimeData::DesignerMimeData(const QString &entryname, const QString &xmldescr, QDrag *drag)
     : m_entryname(entryname)
     , m_xmldescr(xmldescr)

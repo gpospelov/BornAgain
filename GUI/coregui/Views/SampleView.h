@@ -10,6 +10,8 @@
 class SampleDesignerInterface;
 class SampleDesigner;
 class SampleToolBar;
+class MaterialBrowser;
+
 
 class SampleView : public Manhattan::FancyMainWindow
 {
@@ -27,6 +29,8 @@ public:
     };
 
     SampleView(QWidget *parent = 0);
+    virtual ~SampleView();
+
 
 public slots:
     void resetToDefaultLayout();
@@ -39,7 +43,7 @@ private:
     QWidget *m_subWindows[NumberOfSubWindows];
     QDockWidget *m_dockWidgets[NumberOfSubWindows];
     SampleToolBar *m_toolBar;
-
+    MaterialBrowser *m_materialBrowser;
 };
 
 

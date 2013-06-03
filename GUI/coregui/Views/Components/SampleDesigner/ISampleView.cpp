@@ -60,7 +60,7 @@ void ISampleRectView::setPortCoordinates()
 {
     if(!getNumberOfPorts()) return;
 
-    // without main label ports will occupy all vertical space
+    // without main label ports can be placed over all vertical space
     int hspace = getRectangle().height();
     if( !getLabel().isEmpty() ) hspace -= m_label_vspace;
 
@@ -70,6 +70,7 @@ void ISampleRectView::setPortCoordinates()
     int ypos = getRectangle().height() - hspace + dy;
 
     if(getNumberOfPorts() == 1) {
+        // if number of ports is 1, place it in the middle
         ypos = getRectangle().height() - hspace + hspace/2;
     }
 

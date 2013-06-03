@@ -50,6 +50,8 @@ public:
     static QPixmap getPixmapFormFactor();
     static QPixmap getPixmapDefault();
 
+    static QColor getRandomColor() { return QColor(qrand() % 256, qrand() % 256, qrand() % 256); }
+
     //! sort graphics item according they y-coordinate
     static bool sort_layers(QGraphicsItem* left, QGraphicsItem *right) {
         return left->y() < right->y();

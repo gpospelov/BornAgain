@@ -2,6 +2,7 @@
 #include "SampleViewComponents.h"
 #include "SampleDesigner.h"
 #include "SampleToolBar.h"
+#include "MaterialBrowser.h"
 
 
 #include <QDockWidget>
@@ -22,11 +23,10 @@
 
 SampleView::SampleView(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
-    , m_sampleDesigner(0)
+    , m_sampleDesigner(new SampleDesigner(parent))
     , m_toolBar(0)
+    , m_materialBrowser(new MaterialBrowser(parent))
 {
-    m_sampleDesigner = new SampleDesigner(parent);
-
     setObjectName(QLatin1String("SampleView"));
 
     setCentralWidget(m_sampleDesigner->getCentralWidget());
@@ -37,8 +37,6 @@ SampleView::SampleView(QWidget *parent)
     setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
     initSubWindows();
-
-
 
     for (int i = 0; i < NumberOfSubWindows; i++) {
         QWidget *subWindow = m_subWindows[i];
@@ -58,6 +56,12 @@ SampleView::SampleView(QWidget *parent)
     addToolBar(m_toolBar);
 }
 
+
+SampleView::~SampleView()
+{
+    delete m_sampleDesigner;
+    delete m_materialBrowser;
+}
 
 void SampleView::materialEditorCall()
 {

@@ -6,6 +6,7 @@
 #include <QStyle>
 #include <iostream>
 
+#include "MaterialBrowserView.h"
 
 //! main tool bar on top of SampleView window
 SampleToolBar::SampleToolBar(QWidget *parent)
@@ -25,5 +26,6 @@ SampleToolBar::SampleToolBar(QWidget *parent)
 
 void SampleToolBar::materialEditorCall()
 {
-    std::cout << "SampleView::materialEditorCall() ->" << std::endl;
+    std::cout << "SampleToolBar::materialEditorCall() ->" << std::endl;
+    new MaterialBrowserView(parentWidget());
 }

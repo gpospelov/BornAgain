@@ -24,7 +24,10 @@ SOURCES +=  \
     Views/Components/SampleDesigner/VariantManager.cpp \
     Views/Components/SampleDesigner/SampleTreeInspector.cpp \
     Views/Components/SampleDesigner/SampleWidgetBox.cpp \
-    Views/Components/SampleDesigner/SampleToolBar.cpp
+    Views/Components/SampleDesigner/SampleToolBar.cpp \
+    Views/Components/SampleDesigner/MaterialBrowserModel.cpp \
+    Views/Components/SampleDesigner/MaterialBrowserView.cpp \
+    Views/Components/SampleDesigner/MaterialBrowser.cpp
 
 
 HEADERS +=  \
@@ -49,7 +52,10 @@ HEADERS +=  \
     Views/Components/SampleDesigner/VariantManager.h \
     Views/Components/SampleDesigner/SampleTreeInspector.h \
     Views/Components/SampleDesigner/SampleWidgetBox.h \
-    Views/Components/SampleDesigner/SampleToolBar.h
+    Views/Components/SampleDesigner/SampleToolBar.h \
+    Views/Components/SampleDesigner/MaterialBrowserModel.h \
+    Views/Components/SampleDesigner/MaterialBrowserView.h \
+    Views/Components/SampleDesigner/MaterialBrowser.h
 
 RESOURCES += Views/Components/SampleDesigner/SampleDesigner.qrc
 

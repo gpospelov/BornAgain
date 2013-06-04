@@ -17,21 +17,24 @@
 
 int MaterialBrowserView::m_nmaterial = 0;
 
-MaterialBrowserView::MaterialBrowserView(QWidget *parent)
+MaterialBrowserView::MaterialBrowserView(MaterialBrowserModel *tableModel, QWidget *parent)
     : QDialog(parent)
     , m_tableView(0)
-    , m_tableModel(0)
+    , m_tableModel(tableModel)
     , m_statusBar(0)
     , m_toolBar(0)
 {
+    setWindowTitle("Material Browser");
     std::cout << "MaterialEditorView::MaterialEditorView() ->  " << std::endl;
     setMinimumSize(128, 128);
+    resize(512, 256);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_tableView = new MyTableView(this);
-    m_tableModel = new MaterialBrowserModel(0);
+    std::cout << "XXX " << m_tableModel << std::endl;
     m_tableView->setModel( m_tableModel );
     m_tableView->horizontalHeader()->setStretchLastSection(true);
+    m_tableView->horizontalHeader()->resizeSection(0, 120);
 
     m_toolBar = new QToolBar(this);
     m_toolBar->setFixedHeight(28);
@@ -41,6 +44,7 @@ MaterialBrowserView::MaterialBrowserView(QWidget *parent)
     m_toolBar->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
     m_statusBar = new QStatusBar(this);
+    connect(m_tableModel, SIGNAL(SetDataMessage(QString)), this, SLOT(showMessage(QString)));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -59,6 +63,12 @@ MaterialBrowserView::MaterialBrowserView(QWidget *parent)
 MaterialBrowserView::~MaterialBrowserView()
 {
     std::cout << "MaterialBrowserView::~MaterialBrowserView() ->" << std::endl;
+}
+
+
+void MaterialBrowserView::showMessage(const QString &message)
+{
+    m_statusBar->showMessage(message, 4000);
 }
 
 
@@ -91,13 +101,14 @@ void MaterialBrowserView::removeMaterial()
     std::cout << "MaterialBrowserView::removeMaterial() -> " << std::endl;
     QModelIndexList selectedList = m_tableView->selectionModel()->selectedRows();
     if( !selectedList.size() ) {
-        m_statusBar->showMessage("Select one or more rows to delete materials", 3000);
+        showMessage("Select one or more rows to delete materials");
     }
+    m_tableModel->RemoveMaterials(selectedList);
 
-    for(int i=0; i<selectedList.size(); ++i) {
-        m_tableModel->RemoveMaterial(selectedList[i].row());
-        std::cout << "XXX " << i << " " << selectedList[i].row()<< std::endl;
-    }
+//    for(int i=0; i<selectedList.size(); ++i) {
+//        m_tableModel->RemoveMaterial(selectedList[i].row());
+//        std::cout << "XXX " << i << " " << selectedList[i].row()<< std::endl;
+//    }
 }
 
 

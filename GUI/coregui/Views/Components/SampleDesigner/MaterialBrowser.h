@@ -5,6 +5,7 @@
 
 class QWidget;
 class MaterialBrowserView;
+class MaterialBrowserModel;
 
 
 //! main class to access materials
@@ -28,6 +29,7 @@ private:
     QWidget *m_parent;
     static MaterialBrowser *m_instance;
     MaterialBrowserView *m_browserView;
+    MaterialBrowserModel *m_browserModel;
 };
 
 #endif // MATERIALBROWSER_H

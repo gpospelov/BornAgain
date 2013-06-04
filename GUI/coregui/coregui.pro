@@ -2,7 +2,7 @@
 # qmake project file to compile GUI core
 # -----------------------------------------------------------------------------
 
-QT       += core gui webkit webkitwidgets designer designercomponents
+QT       += core gui script webkit webkitwidgets designer designercomponents
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = coregui
 TEMPLATE = app

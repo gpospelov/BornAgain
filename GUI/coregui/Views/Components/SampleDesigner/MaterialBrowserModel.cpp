@@ -2,6 +2,8 @@
 #include "DesignerHelper.h"
 #include "MaterialManager.h"
 #include <QColor>
+#include <QtScript>
+
 
 #if QT_VERSION < 0x050000
 #define QStringLiteral QString
@@ -35,13 +37,25 @@ void MaterialBrowserModel::UpdateMaterials()
 }
 
 
-void MaterialBrowserModel::RemoveMaterial(int nrow)
+void MaterialBrowserModel::RemoveMaterials(const QModelIndexList &index_list)
 {
-    const IMaterial *mat = m_nrow_mat[nrow];
-    std::cout << "MaterialBrowserModel::RemoveMaterial(int nrow) -> removing material " << nrow << " " << mat->getName() << std::endl;
-    MaterialManager::instance().deleteMaterial(mat->getName());
-    m_mat_color.remove(mat);
-    m_nrow_mat.remove(nrow);
+    if( !index_list.size() ) return;
+
+    for(int i=0; i<index_list.size(); ++i) {
+        int nrow = index_list[i].row();
+        const IMaterial *mat = m_nrow_mat[nrow];
+        std::cout << "MaterialBrowserModel::RemoveMaterial(int nrow) -> removing material " << nrow << " " << mat->getName() << std::endl;
+        MaterialManager::instance().deleteMaterial(mat->getName());
+        m_mat_color.remove(mat);
+        m_nrow_mat[nrow] = 0;
+    }
+
+    QVector<const IMaterial *> tmp;
+    for(int i=0; i<m_nrow_mat.size(); ++i) {
+        if( m_nrow_mat[i] != 0 ) tmp.append(m_nrow_mat[i]);
+    }
+    m_nrow_mat = tmp;
+
     emit layoutChanged();
 }
 
@@ -49,7 +63,6 @@ void MaterialBrowserModel::RemoveMaterial(int nrow)
 int MaterialBrowserModel::rowCount(const QModelIndex & /*parent*/) const
  {
     return MaterialManager::getNumberOfMaterials();
-//    return m_nraw_mat.size();
  }
 
 
@@ -61,23 +74,15 @@ int MaterialBrowserModel::columnCount(const QModelIndex & /*parent*/) const
 
 QVariant MaterialBrowserModel::data(const QModelIndex &index, int role) const
 {
-//    std::cout << "MaterialBrowserModel::data() -> 1.1" << std::endl;
-    const HomogeneousMaterial *mat = dynamic_cast<const HomogeneousMaterial *>(m_nrow_mat.at(index.row()));
-    if( !mat ) {
-        std::cout << " MaterialBrowserModel::data() -> Panic" << std::endl;
+    if(index.row() >= m_nrow_mat.size() ) {
+        std::cout << "MaterialBrowserModel::data() -> 1.1 XXX Empty???" << std::endl;
         return QVariant();
     }
-//    std::cout << "MaterialBrowserModel::data() -> 1.2" << std::endl;
+    const HomogeneousMaterial *mat = dynamic_cast<const HomogeneousMaterial *>(m_nrow_mat.at(index.row()));
+    Q_ASSERT(mat);
 
     if (role == Qt::DisplayRole)
     {
-//        std::cout << "MaterialBrowserModel::data() -> 1.3 " << index.row() << " " << m_nraw_mat.at(index.row()) << std::endl;
-        const HomogeneousMaterial *mat = dynamic_cast<const HomogeneousMaterial *>(m_nrow_mat.at(index.row()));
-        if( !mat ) {
-            std::cout << " MaterialBrowserModel::data() -> Panic" << std::endl;
-            return QVariant();
-        }
-        std::cout << "MaterialBrowserModel::data() -> " << mat << " " << mat->getName() << " " << mat->getRefractiveIndex().real()<< std::endl;
         switch(index.column()) {
         case MaterialName:
             return QString(mat->getName().c_str());
@@ -125,59 +130,100 @@ QVariant MaterialBrowserModel::headerData(int section, Qt::Orientation orientati
 
 bool MaterialBrowserModel::setData(const QModelIndex & index, const QVariant & value, int role)
 {
-    if (role == Qt::EditRole)
-    {
+    if (role == Qt::EditRole) {
+        if(index.row() >= m_nrow_mat.size() ) {
+            std::cout << "MaterialBrowserModel::setData() -> 1.1 XXX Empty???" << std::endl;
+            return false;
+        }
         const HomogeneousMaterial *mat = dynamic_cast<const HomogeneousMaterial *>(m_nrow_mat.at(index.row()));
+        Q_ASSERT(mat);
+
         complex_t refractiveIndex;
         bool status(true);
         double double_value;
-        if( !mat ) {
-            std::cout << " MaterialBrowserModel::setData() -> Panic #1" << std::endl;
-            return false;
-        }
+
         switch(index.column()) {
         case MaterialName:
             std::cout << " MaterialBrowserModel::setData() -> 1.1 " << value.toString().toStdString() << std::endl;
-
-            MaterialManager::instance().setMaterialName(mat->getName(), value.toString().toStdString());
-//            return QString(mat->getName().c_str());
+            if( !value.toString().size()) {
+                emit SetDataMessage("Material should have non empty name");
+                return false;
+            }
+            status = MaterialManager::instance().setMaterialName(mat->getName(), value.toString().toStdString());
+            if(!status) {
+                emit SetDataMessage("Already existing name");
+                return false;
+            }
             break;
         case MaterialIndexReal:
-            double_value = value.toDouble(&status);
+
+            //double_value = getDoubleValue(value, status);
+            double_value = evaluateDoubleValue(value, status);
             std::cout << " MaterialBrowserModel::setData() -> 1.2 " << double_value << " result " << status << std::endl;
-            if(status) {
-                refractiveIndex = mat->getRefractiveIndex();
-                refractiveIndex.real() = double_value;
-                MaterialManager::instance().setMaterialRefractiveIndex(mat->getName(), refractiveIndex);
+            if(!status) {
+                emit SetDataMessage("Can't convert value to double");
+                return false;
             }
-//            return QString::number(mat->getRefractiveIndex().real());
+            refractiveIndex = mat->getRefractiveIndex();
+            refractiveIndex.real() = double_value;
+            status = MaterialManager::instance().setMaterialRefractiveIndex(mat->getName(), refractiveIndex);
+            if(!status) {
+                emit SetDataMessage("Can't set given value of RefractiveIndex");
+                return false;
+            }
+
+
             break;
         case MaterialIndexImag:
-//            return QString::number(mat->getRefractiveIndex().imag());
+            //double_value = value.toDouble(&status);
+            double_value = evaluateDoubleValue(value, status);
+            std::cout << " MaterialBrowserModel::setData() -> 1.2 " << double_value << " result " << status << std::endl;
+            if(!status) {
+                emit SetDataMessage("Can't convert value to double");
+                return false;
+            }
+            refractiveIndex = mat->getRefractiveIndex();
+            refractiveIndex.imag() = double_value;
+            status = MaterialManager::instance().setMaterialRefractiveIndex(mat->getName(), refractiveIndex);
+            if(!status) {
+                emit SetDataMessage("Can't set given value of RefractiveIndex");
+                return false;
+            }
+
             break;
         case MaterialTitle:
+            emit SetDataMessage("Not implemented ;)");
             break;
         default:
-            std::cout << " MaterialBrowserModel::setData() -> Panic #2" << std::endl;
-            return false;
+            break;
         }
         return true;
-
-//        //save value from editor to member m_gridData
-//        m_gridData[index.row()][index.column()] = value.toString();
-//        //for presentation purposes only: build and emit a joined string
-//        QString result;
-//        for(int row= 0; row < ROWS; row++)
-//        {
-//            for(int col= 0; col < COLS; col++)
-//            {
-//                result += m_gridData[row][col] + " ";
-//            }
-//        }
-//        emit editCompleted( result );
     }
     return true;
 }
+
+
+double MaterialBrowserModel::getDoubleValue(const QVariant &variant, bool &status)
+{
+    return variant.toDouble(&status);
+}
+
+double MaterialBrowserModel::evaluateDoubleValue(const QVariant &variant, bool &status)
+{
+    QString formula = variant.toString();
+    if( !formula.size() ) {
+        status = false;
+        return 0.0;
+    }
+    QScriptEngine myEngine;
+    QScriptValue x = myEngine.evaluate(formula);
+    if( !x.isNumber()) {
+        status = false;
+        return 0.0;
+    }
+    return x.toNumber();
+}
+
 
 
 Qt::ItemFlags MaterialBrowserModel::flags(const QModelIndex & /*index*/) const

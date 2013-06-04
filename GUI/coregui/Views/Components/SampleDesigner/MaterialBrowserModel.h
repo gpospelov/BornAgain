@@ -32,10 +32,15 @@ public:
 
 public slots:
     void UpdateMaterials();
-    void RemoveMaterial(int nrow);
+    void RemoveMaterials(const QModelIndexList &index_list);
+
+signals:
+    void SetDataMessage(const QString &message);
 
 private:
     QColor getMaterialColor(const QString &name);
+    double getDoubleValue(const QVariant &variant, bool &status);
+    double evaluateDoubleValue(const QVariant &variant, bool &status);
 
     QMap<const IMaterial *, QColor> m_mat_color;
     QVector<const IMaterial *> m_nrow_mat;

@@ -15,10 +15,10 @@ public:
     explicit SampleToolBar(QWidget *parent = 0);
 
 public slots:
-    void materialEditorCall();
+    void materialBrowserCall();
 
 private:
-    QAction *m_goBackAction;
+    QAction *m_materialBrowserAction;
 };
 
 

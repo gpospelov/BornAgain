@@ -3,6 +3,10 @@
 
 #include <QObject>
 
+class QWidget;
+class MaterialBrowserView;
+
+
 //! main class to access materials
 class MaterialBrowser : public QObject
 {
@@ -13,8 +17,17 @@ public:
 
     static MaterialBrowser *instance();
 
+public slots:
+    //! create new MaterialBrowserView or raise old one if exists
+    void BrowserViewCall();
+
+    //! delete MaterialBrowserView if it was closed by the user
+    void BrowserViewOnCloseEvent();
+
 private:
+    QWidget *m_parent;
     static MaterialBrowser *m_instance;
+    MaterialBrowserView *m_browserView;
 };
 
 #endif // MATERIALBROWSER_H

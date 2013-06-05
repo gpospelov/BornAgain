@@ -112,20 +112,20 @@ class BasicVector3D {
     // ----
 
     //! Returns squared magnitude squared of the vector.
-    T mag2() const; //!< @TODO: return type always double
+    T mag2() const;
 
     //! Returns magnitude of the vector.
-    T mag() const; //!< @TODO: return type always double
+    T mag() const;
 
     // --------------------------------------------
     // Cylindrical and spherical coordinate systems
     // --------------------------------------------
 
     //! Returns squared distance from z axis.
-    T magxy2() const; //!< @TODO: return type always double
+    T magxy2() const;
 
     //! Returns distance from z axis.
-    T magxy() const; //!< @TODO: return type always double
+    T magxy() const;
 
     //! Returns azimuth angle.
     double phi() const;
@@ -133,25 +133,24 @@ class BasicVector3D {
     //! Returns polar angle.
     double theta() const;
 
-    //! Returns cosine of polar angle.
-    T cosTheta() const; //!< @TODO: return type always double
+    //! Returns cosine of polar angle - return type always double
+    T cosTheta() const;
 
     // -------------------
     // Combine two vectors
     // -------------------
 
     //! Scalar product.
-    //!< @TODO: mathematically unsound, should always return real
-    T dot(const BasicVector3D<T>& v) const
-    { return x()*v.x()+y()*v.y()+z()*v.z(); }
+    T dot(const BasicVector3D<T>& v) const;
+    //{ return x()*v.x()+y()*v.y()+z()*v.z();}
 
     //! Vector product.
-    BasicVector3D<T> cross(const BasicVector3D<T>& v) const
-    {
-        return BasicVector3D<T> (y()*v.z() - z()*v.y(),
-                                 z()*v.x() - x()*v.z(),
-                                 x()*v.y() - y()*v.x() );
-    }
+    BasicVector3D<T> cross(const BasicVector3D<T>& v ) const;
+   // {
+   //     return BasicVector3D<T> (y()*v.z() - z()*v.y(),
+   //                              z()*v.x() - x()*v.z(),
+   //                              x()*v.y() - y()*v.x() );
+   // }
 
     //! Returns square of transverse component with respect to given axis.
     double perp2(const BasicVector3D<T>& v) const;
@@ -218,6 +217,7 @@ class BasicVector3D {
             v_[2] = k*std::sin(_alpha);
         }
 };
+
 
 // =========================================================================
 // Non-member functions for BasicVector3D<T>

@@ -37,7 +37,7 @@ double BasicVector3D<double>::mag2() const
 template<>
 complex_t BasicVector3D<complex_t>::mag2() const
 {
-    return x()*std::conj(x())+y()*std::conj(y())+z()*std::conj(z());
+    return std::conj(x())*x()+std::conj(y())*y()+std::conj(z())*z();
 }
 
 //! Returns magnitude of the vector.
@@ -47,7 +47,7 @@ double BasicVector3D<double>::mag() const
     return std::sqrt(mag2());
 }
 
-//! @TODO eliminate this, it is plain wrong
+//! Returns magnitude of the vector.
 template<>
 complex_t BasicVector3D<complex_t>::mag() const
 {
@@ -69,7 +69,7 @@ double BasicVector3D<double>::magxy2() const
 template<>
 complex_t BasicVector3D<complex_t>::magxy2() const
 {
-    return x()*std::conj(x())+y()*std::conj(y());
+    return std::conj(x())*x()+std::conj(y())*y();
 }
 
 //! Returns distance from z axis.
@@ -90,14 +90,14 @@ complex_t BasicVector3D<complex_t>::magxy() const
 template<>
 double BasicVector3D<double>::phi() const
 {
-    return x() == 0.0&& y() == 0.0 ? 0.0 : std::atan2(y(),x());
+    return x() == 0.0 && y() == 0.0 ? 0.0 : std::atan2(y(),x());
 }
 
 //! Returns polar angle.
 template<>
 double BasicVector3D<double>::theta() const
 {
-    return x() == 0.0&& y() == 0.0&& z() == 0.0 ?
+    return x() == 0.0 && y() == 0.0&& z() == 0.0 ?
         0.0 : std::atan2(magxy(),z());
 }
 
@@ -109,26 +109,30 @@ double BasicVector3D<double>::cosTheta() const
     return std::abs(ma) == 0 ? 1 : z()/ma;
 }
 
-
-//! @TODO eliminate this, it is plain wrong
- template<>
-complex_t BasicVector3D<complex_t>::cosTheta() const
- {
-    complex_t ma = mag();
-    return std::abs(ma) == 0 ? 1 : abs(z())/ma;
-}
-
-//  //! @TODO eliminate this, it is plain wrong
+// //! @TODO eliminate this, it is plain wrong
 // template<>
- //complex_t BasicVector3D<complex_t>::cosTheta() const
-// {
-//     complex_t ma = mag();
-//    return std::abs(ma) == 0 ? 1 : z()/ma;
+//complex_t BasicVector3D<complex_t>::cosTheta() const
+//{
+//   complex_t ma = mag();
+//   return std::abs(ma) == 0 ? 1 : z()/ma;
 //}
 
 // -----------------------------------------------------------------------------
 // Combine two vectors
 // -----------------------------------------------------------------------------
+//! Returns dot product of vectors
+template<>
+complex_t BasicVector3D<complex_t>::dot(const BasicVector3D<complex_t>& v) const
+{
+  // return x()*std::conj(v.x())+y()*std::conj(v.y())+z()*std::conj(v.z());
+     return std::conj(x())*v.x()+std::conj(y())*v.y()+std::conj(z())*v.z();
+}
+
+template<>
+double BasicVector3D<double>::dot(const BasicVector3D<double>& v) const
+{
+   return x()*v.x()+y()*v.y()+z()*v.z();
+}
 
  //! Returns cross product of vectors
  template<>

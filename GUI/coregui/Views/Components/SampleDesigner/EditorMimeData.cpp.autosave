@@ -1,0 +1,29 @@
+#include "EditorMimeData.h"
+
+
+
+Qt::DropAction EditorMimeData::execDrag(const QDesignerDnDItems &items, QWidget * dragSource)
+{
+   
+    if (items.empty())
+        return Qt::IgnoreAction;
+
+    QDrag *drag = new QDrag(dragSource);
+    QDesignerMimeData *mimeData = new QDesignerMimeData(items, drag);
+
+    // Store pointers to widgets that are to be re-shown if a move operation is canceled
+    QWidgetList reshowWidgets;
+    const QDesignerDnDItems::const_iterator cend = items.constEnd();
+    for (QDesignerDnDItems::const_iterator it = items.constBegin(); it != cend; ++it )
+        if (QWidget *w = (*it)->widget())
+            if ((*it)->type() ==  QDesignerDnDItemInterface::MoveDrop)
+                reshowWidgets.push_back(w);
+
+    const Qt::DropAction executedAction = drag->exec(Qt::CopyAction|Qt::MoveAction, mimeData->proposedDropAction());
+
+    if (executedAction == Qt::IgnoreAction && !reshowWidgets.empty())
+        foreach (QWidget *w, reshowWidgets)
+            w->show();
+
+    return executedAction;
+}

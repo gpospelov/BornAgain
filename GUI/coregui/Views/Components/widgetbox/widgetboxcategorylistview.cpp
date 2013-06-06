@@ -137,7 +137,7 @@ WidgetBoxCategoryEntry::WidgetBoxCategoryEntry(const QDesignerWidgetBoxInterface
 class WidgetBoxCategoryModel : public QAbstractListModel {
 public:
 //    explicit WidgetBoxCategoryModel(QDesignerFormEditorInterface *core, QObject *parent = 0);
-    explicit WidgetBoxCategoryModel(ISampleEditor *core, QObject *parent = 0);
+    explicit WidgetBoxCategoryModel(SampleDesignerInterface *core, QObject *parent = 0);
 
     // QAbstractListModel
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
@@ -165,13 +165,13 @@ private:
 
     QRegExp m_classNameRegExp;
 //    QDesignerFormEditorInterface *m_core;
-    ISampleEditor *m_core;
+    SampleDesignerInterface *m_core;
     WidgetBoxCategoryEntrys m_items;
     QListView::ViewMode m_viewMode;
 };
 
 //WidgetBoxCategoryModel::WidgetBoxCategoryModel(QDesignerFormEditorInterface *core, QObject *parent) :
-WidgetBoxCategoryModel::WidgetBoxCategoryModel(ISampleEditor *core, QObject *parent) :
+WidgetBoxCategoryModel::WidgetBoxCategoryModel(SampleDesignerInterface *core, QObject *parent) :
     QAbstractListModel(parent),
 #if QT_VERSION >= 0x050000
     m_classNameRegExp( QStringLiteral("<widget +class *= *\"([^\"]+)\"") ),
@@ -398,7 +398,7 @@ QWidget *WidgetBoxCategoryEntryDelegate::createEditor(QWidget *parent,
 // ----------------------  WidgetBoxCategoryListView
 
 //WidgetBoxCategoryListView::WidgetBoxCategoryListView(QDesignerFormEditorInterface *core, QWidget *parent) :
-WidgetBoxCategoryListView::WidgetBoxCategoryListView(ISampleEditor *core, QWidget *parent) :
+WidgetBoxCategoryListView::WidgetBoxCategoryListView(SampleDesignerInterface *core, QWidget *parent) :
     QListView(parent),
     m_proxyModel(new QSortFilterProxyModel(this)),
     m_model(new WidgetBoxCategoryModel(core, this))

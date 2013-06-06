@@ -56,10 +56,13 @@
 #include <QVBoxLayout>
 #include <QApplication>
 #include <QToolBar>
+#include <QDrag>
 
 #include <QtGui/QIcon>
 
-#include "SampleEditor.h"
+#include "SampleDesigner.h"
+
+#include "DesignerMimeData.h"
 
 #include <iostream>
 QT_BEGIN_NAMESPACE
@@ -67,7 +70,7 @@ QT_BEGIN_NAMESPACE
 namespace qdesigner_internal {
 
 //WidgetBox::WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent, Qt::WindowFlags flags)
-WidgetBox::WidgetBox(ISampleEditor *core, QWidget *parent, Qt::WindowFlags flags)
+WidgetBox::WidgetBox(SampleDesignerInterface *core, QWidget *parent, Qt::WindowFlags flags)
     : QDesignerWidgetBox(parent, flags),
       m_core(core),
       m_view(new WidgetBoxTreeWidget(m_core))
@@ -103,7 +106,7 @@ WidgetBox::~WidgetBox()
 //    return m_core;
 //}
 
-ISampleEditor *WidgetBox::core() const
+SampleDesignerInterface *WidgetBox::core() const
 {
     return m_core;
 }
@@ -111,21 +114,11 @@ ISampleEditor *WidgetBox::core() const
 
 void WidgetBox::handleMousePress(const QString &name, const QString &xml, const QPoint &global_mouse_pos)
 {
-    if (QApplication::mouseButtons() != Qt::LeftButton)
-        return;
+    Q_UNUSED(global_mouse_pos);
+    if (QApplication::mouseButtons() != Qt::LeftButton) return;
 
-    std::cout << "WidgetBox::handleMousePress() -> XXX Not implemented." << std::endl;
-    return;
-
-    (void)name;
-    (void)xml;
-    (void)global_mouse_pos;
-//    DomUI *ui = xmlToUi(name, xml, true);
-//    if (ui == 0)
-//        return;
-//    QList<QDesignerDnDItemInterface*> item_list;
-//    item_list.append(new WidgetBoxDnDItem(core(), ui, global_mouse_pos));
-//    m_core->formWindowManager()->dragItems(item_list);
+    std::cout << "WidgetBox::handleMousePress() -> name:" << name.toStdString() << std::endl;
+    DesignerMimeData::execDrag(name, xml, this );
 }
 
 int WidgetBox::categoryCount() const
@@ -202,6 +195,7 @@ bool WidgetBox::save()
 static const QDesignerMimeData *checkDragEvent(QDropEvent * event,
                                                bool acceptEventsFromWidgetBox)
 {
+    std::cout << "QDesignerMimeData *checkDragEvent() -> ?" << std::endl;
     const QDesignerMimeData *mimeData = qobject_cast<const QDesignerMimeData *>(event->mimeData());
     if (!mimeData) {
         event->ignore();

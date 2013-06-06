@@ -7,11 +7,16 @@
 #include <QDockWidget>
 
 
-class ISampleEditor;
-class SampleEditor;
+class SampleDesignerInterface;
+class SampleDesigner;
+class SampleToolBar;
+class MaterialBrowser;
+
 
 class SampleView : public Manhattan::FancyMainWindow
 {
+    Q_OBJECT
+
 public:
 
     enum SubWindows
@@ -24,18 +29,21 @@ public:
     };
 
     SampleView(QWidget *parent = 0);
+    virtual ~SampleView();
+
 
 public slots:
     void resetToDefaultLayout();
-
+    void materialEditorCall();
 
 private:
     void initSubWindows();
 
-    SampleEditor *m_sampleEditor;
+    SampleDesigner *m_sampleDesigner;
     QWidget *m_subWindows[NumberOfSubWindows];
     QDockWidget *m_dockWidgets[NumberOfSubWindows];
-
+    SampleToolBar *m_toolBar;
+    MaterialBrowser *m_materialBrowser;
 };
 
 

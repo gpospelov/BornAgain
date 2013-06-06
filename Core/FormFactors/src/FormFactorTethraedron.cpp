@@ -20,7 +20,7 @@
 FormFactorTethraedron::FormFactorTethraedron(
     double height, double half_side, double alpha)
 {
-    setName("FormFactorTethraerdon");
+    setName("FormFactorTethraedron");
     m_height = height;
     m_half_side = half_side;
     m_alpha = alpha;
@@ -45,7 +45,6 @@ FormFactorTethraedron* FormFactorTethraedron::clone() const
 
 complex_t FormFactorTethraedron::evaluate_for_q(const cvector_t& q) const
 {
-
     double H = m_height;
     double R = m_half_side;
     double tga = std::tan(m_alpha);
@@ -58,7 +57,7 @@ complex_t FormFactorTethraedron::evaluate_for_q(const cvector_t& q) const
     const complex_t im(0,1);
 
     if (std::abs(qx)==0.0 && std::abs(qy)==0.0) {
-         complex_t qzH_half = qz*H/2.0;
+        complex_t qzH_half = qz*H/2.0;
         F = m_root3*R*R*H*std::exp(im*qzH_half)*MathFunctions::Sinc(qzH_half);
     }
     else {

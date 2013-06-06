@@ -67,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabWidget->insertTab(5, m_jobView, QIcon(":/images/mode_job.png"), "Jobs");
     m_tabWidget->insertTab(6, m_fitView, QIcon(":/images/mode_fit.png"), "Fit");
 
+    m_tabWidget->setCurrentIndex(2);
     setCentralWidget(m_tabWidget);
 
 //    m_tabWidget->statusBar()->setProperty("p_styled", true);

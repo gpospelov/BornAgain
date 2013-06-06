@@ -3,9 +3,9 @@
 # -----------------------------------------------------------------------------
 TARGET   = BornAgainCore
 TEMPLATE = lib
-CONFIG  += plugin # to remove versions from file name
+CONFIG  += lib # to remove versions from file name
 QT      -= core gui
-QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
+#QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
 #CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
@@ -349,5 +349,5 @@ CONFIG(debug, debug|release) {
 target.path = $$PWD/../lib
 INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
-QMAKE_POST_LINK = (make install)
+QMAKE_POST_LINK = $$MAKE_COMMAND -f $(MAKEFILE) install
 

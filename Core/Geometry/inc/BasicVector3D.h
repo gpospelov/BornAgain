@@ -21,7 +21,7 @@
 #ifndef GEOMETRY_BASICVECTOR3D_H
 #define GEOMETRY_BASICVECTOR3D_H
 
-#include <cmath>
+#include "Numeric.h"
 #include <complex>
 
 namespace Geometry {

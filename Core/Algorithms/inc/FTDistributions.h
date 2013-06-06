@@ -20,6 +20,8 @@
 #include "IParameterized.h"
 #include <cmath>
 
+#include "Numeric.h"
+
 class IFTDistribution1D
 {
  public:

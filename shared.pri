@@ -1,3 +1,12 @@
+win32 {
+    MAKE_COMMAND = mingw32-make
+    SONAME = a
+}
+macx|unix {
+    MAKE_COMMAND = make
+    SONAME = so
+}
+
 # -----------------------------------------------------------------------------
 # checking common prerequisites
 # -----------------------------------------------------------------------------
@@ -5,7 +14,7 @@ lessThan(QT_VERSION, 4.5) {
     error("BornAgain requires Qt 4.5 or greater")
 }
 
-!macx:!unix {
+!macx:!unix:!win32 {
   error("Unknown operation system")
 }
 
@@ -25,7 +34,12 @@ isEqual(env_debug_variable, "yes") {
 
 # --- checking gsl header ---
 GSL_HEADERFILE = gsl/gsl_sf_bessel.h
-GSL_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+macx|unix {
+  GSL_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+}
+win32 {
+  GSL_HEADER_LOCATIONS = "C:/Program Files (x86)/GnuWin32/include"
+}
 for(dir, GSL_HEADER_LOCATIONS): isEmpty(GSL_INCLUDE): exists($${dir}/$${GSL_HEADERFILE}): GSL_INCLUDE = $${dir}
 isEmpty(GSL_INCLUDE): message("Can't find" $${GSL_HEADERFILE} "in" $${GSL_HEADER_LOCATIONS})
 GSL_LIB = $$replace(GSL_INCLUDE,"include","lib")
@@ -42,7 +56,12 @@ INCLUDEPATH *=  $${EIGEN_INCLUDE}
 
 # --- checking fftw3 ---
 FFTW3_HEADERFILE = fftw3.h
-FFTW3_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+macx|unix {
+  FFTW3_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+}
+win32 {
+  FFTW3_HEADER_LOCATIONS = "C:/Program Files (x86)/Libraries/fftw-3.3.3-dll32/include"
+}
 for(dir, FFTW3_HEADER_LOCATIONS): isEmpty(FFTW3_INCLUDE): exists($${dir}/$${FFTW3_HEADERFILE}): FFTW3_INCLUDE = $${dir}
 isEmpty(FFTW3_INCLUDE): message("Can't find" $${FFTW3_HEADERFILE} "in" $${FFTW3_HEADER_LOCATIONS})
 FFTW3_LIB = $$replace(FFTW3_INCLUDE,"include","lib")
@@ -52,24 +71,37 @@ LIBS += -lfftw3
 
 # --- checking boost ---
 BOOST_HEADERFILE = boost/version.hpp
-BOOST_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+macx|unix {
+  BOOST_HEADER_LOCATIONS = /opt/local/include /usr/local/include /usr/include
+}
+win32 {
+  BOOST_HEADER_LOCATIONS = "C:/Boost/include"
+}
 for(dir, BOOST_HEADER_LOCATIONS): isEmpty(BOOST_INCLUDE): exists($${dir}/$${BOOST_HEADERFILE}): BOOST_INCLUDE = $${dir}
 isEmpty(BOOST_INCLUDE): message("Can't find" $${BOOST_HEADERFILE} "in" $${BOOST_HEADER_LOCATIONS})
 BOOST_LIBFILES = libboost*
-BOOST_LIB_LOCATIONS = /opt/local/lib /usr/local/lib /usr/lib64 /usr/lib
-for(dir, BOOST_LIB_LOCATIONS): isEmpty(BOOST_LIB) {
-  NumberOfSuchFiles=$$system(ls $${dir}/$${BOOST_LIBFILES} 2> /dev/null | wc -l)
-  !isEqual(NumberOfSuchFiles, 0): BOOST_LIB = $${dir}
+# following check only works on *nix systems
+macx|unix {
+  BOOST_LIB_LOCATIONS = /opt/local/lib /usr/local/lib /usr/lib64 /usr/lib
+  for(dir, BOOST_LIB_LOCATIONS): isEmpty(BOOST_LIB) {
+    NumberOfSuchFiles=$$system(ls $${dir}/$${BOOST_LIBFILES} 2> /dev/null | wc -l)
+    !isEqual(NumberOfSuchFiles, 0): BOOST_LIB = $${dir}
+  }
+}
+win32 {
+  BOOST_LIB = "C:/Boost/lib"
 }
 isEmpty(BOOST_LIB): message("Can't find" $${BOOST_LIBFILES} "in" $${BOOST_LIB_LOCATIONS})
 INCLUDEPATH *=  $${BOOST_INCLUDE}
 LIBS *= -L$${BOOST_LIB}
 LIBS += -lboost_program_options -lboost_iostreams -lboost_system -lboost_signals -lboost_filesystem -lboost_regex -lboost_thread
-# checking special case when system doesn't have libboost_thread library but have libbost_thread-mt
-NumberOfSuchFiles=$$system(ls $${BOOST_LIB}/libboost_thread-mt* 2> /dev/null | wc -l)
-!isEqual(NumberOfSuchFiles, 0) {
-  # library libboost_thread-mt exists
-  LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
+# checking special case when system doesn't have libboost_thread library but have libboost_thread-mt
+!win32 {
+  NumberOfSuchFiles=$$system(ls $${BOOST_LIB}/libboost_thread-mt* 2> /dev/null | wc -l)
+  !isEqual(NumberOfSuchFiles, 0) {
+    # library libboost_thread-mt exists
+    LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
+  }
 }
 
 isEmpty(GSL_INCLUDE): error("missed dependency:" $${GSL_HEADERFILE})

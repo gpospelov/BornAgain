@@ -66,9 +66,9 @@ public:
     static int m_default_layer_width;
 };
 
-#include <complex>
-typedef std::complex<double> complex_t;
-Q_DECLARE_METATYPE(complex_t)
+//#include <complex>
+//typedef std::complex<double> complex_t;
+//Q_DECLARE_METATYPE(complex_t)
 
 
 #endif // EDITORHELPER_H

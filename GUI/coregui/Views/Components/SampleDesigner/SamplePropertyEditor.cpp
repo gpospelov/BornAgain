@@ -1,5 +1,6 @@
 #include "SamplePropertyEditor.h"
-#include "VariantManager.h"
+//#include "VariantManager.h"
+#include "ObjectVariantManager.h"
 
 #include "qtvariantproperty.h"
 #include "qttreepropertybrowser.h"
@@ -77,11 +78,13 @@ SamplePropertyEditor::SamplePropertyEditor(SampleDesignerInterface *sample_desig
     layout->setMargin(0);
     layout->addWidget(m_browser);
 
-    m_readOnlyManager = new QtVariantPropertyManager(this);
+    //m_readOnlyManager = new QtVariantPropertyManager(this);
     //m_readOnlyManager = new VariantManager(this);
+    m_readOnlyManager = new ObjectVariantManager(this);
 
-    m_manager = new QtVariantPropertyManager(this);
+    //m_manager = new QtVariantPropertyManager(this);
     //m_manager = new VariantManager(this);
+    m_manager = new ObjectVariantManager(this);
 
 
     QtVariantEditorFactory *factory = new QtVariantEditorFactory(this);
@@ -232,30 +235,46 @@ void SamplePropertyEditor::updateClassProperties(const QMetaObject *metaObject, 
 
 
 
-
+// show property of currently selected object (triggered by the graphics scene)
+// if more than one object is selected, show only last selected
 void SamplePropertyEditor::selectionChanged()
 {
-    std::cout << "SamplePropertyEditor::selectionChanged() 1.1" << std::endl;
-
     QList<QGraphicsItem *> items = m_sample_designer->getScene()->selectedItems();
     if( !items.size() ) return;
-    std::cout << "SamplePropertyEditor::selectionChanged() 1.2" << std::endl;
     QObject *object = items.back()->toGraphicsObject();
     setObject(object);
-    std::cout << "SamplePropertyEditor::selectionChanged() 1.3" << std::endl;
 }
 
 
-//void SamplePropertyEditor::setObject(QObject *object)
-//{
-//    std::cout << "SamplePropertyEditor::setObject() " << std::endl;
-//    if(m_object == object )
-//        return;
-//    std::cout << "SamplePropertyEditor::setObject() -> Object changed" << std::endl;
-//    m_object = object;
+// assigns objects to the property editor
+void SamplePropertyEditor::setObject(QObject *object)
+{
+    std::cout << "SamplePropertyEditor::setObject() -> 2.1" << std::endl;
+    if (m_object == object)
+        return;
 
-//    addClassProperties(m_object->metaObject());
-//}
+    std::cout << "SamplePropertyEditor::setObject() -> 2.2" << std::endl;
+    if (m_object) {
+        saveExpandedState();
+        QListIterator<QtProperty *> it(m_topLevelProperties);
+        while (it.hasNext()) {
+            m_browser->removeProperty(it.next());
+        }
+        m_topLevelProperties.clear();
+    }
+
+    std::cout << "SamplePropertyEditor::setObject() -> 2.3" << std::endl;
+    m_object = object;
+
+    if (!m_object)
+        return;
+
+    std::cout << "SamplePropertyEditor::setObject() -> 2.4" << std::endl;
+    addClassProperties(m_object->metaObject());
+    std::cout << "SamplePropertyEditor::setObject() -> 2.5" << std::endl;
+
+    restoreExpandedState();
+}
 
 
 void SamplePropertyEditor::addClassProperties(const QMetaObject *metaObject)
@@ -335,6 +354,7 @@ void SamplePropertyEditor::addClassProperties(const QMetaObject *metaObject)
                 //topItem->addSubProperty(item);
 
             } else if (m_manager->isPropertyTypeSupported(type)) {
+                std::cout << "XXXXX adding property " << type << std::endl;
                 if (!metaProperty.isWritable())
                     subProperty = m_readOnlyManager->addProperty(type, QLatin1String(metaProperty.name()) + QLatin1String(" (Non Writable)"));
                 if (!metaProperty.isDesignable())
@@ -393,34 +413,6 @@ void SamplePropertyEditor::slotValueChanged(QtProperty *property, const QVariant
 }
 
 
-void SamplePropertyEditor::setObject(QObject *object)
-{
-    std::cout << "SamplePropertyEditor::setObject() -> 2.1" << std::endl;
-    if (m_object == object)
-        return;
-
-    std::cout << "SamplePropertyEditor::setObject() -> 2.2" << std::endl;
-    if (m_object) {
-        saveExpandedState();
-        QListIterator<QtProperty *> it(m_topLevelProperties);
-        while (it.hasNext()) {
-            m_browser->removeProperty(it.next());
-        }
-        m_topLevelProperties.clear();
-    }
-
-    std::cout << "SamplePropertyEditor::setObject() -> 2.3" << std::endl;
-    m_object = object;
-
-    if (!m_object)
-        return;
-
-    std::cout << "SamplePropertyEditor::setObject() -> 2.4" << std::endl;
-    addClassProperties(m_object->metaObject());
-    std::cout << "SamplePropertyEditor::setObject() -> 2.5" << std::endl;
-
-    restoreExpandedState();
-}
 
 
 //void SamplePropertyEditor::valueChanged(QtProperty *property, const QVariant &value)

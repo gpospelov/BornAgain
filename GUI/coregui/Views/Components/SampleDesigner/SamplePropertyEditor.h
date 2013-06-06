@@ -27,6 +27,7 @@ public:
     QObject *getObject() const;
 
 public slots:
+    //! show property of currently selected object (triggered by graphics scene)
     void selectionChanged();
 
 private slots:
@@ -34,6 +35,7 @@ private slots:
     void slotValueChanged(QtProperty *property, const QVariant &value);
 
 private:
+    //! assigns objects to the property editor
     void setObject(QObject *object);
 
 

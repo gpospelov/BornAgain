@@ -20,14 +20,14 @@ SOURCES +=  \
     Views/Components/SampleDesigner/SampleDesigner.cpp \
     Views/Components/SampleDesigner/SamplePropertyEditor.cpp \
     Views/Components/SampleDesigner/MaterialView.cpp \
-    Views/Components/SampleDesigner/VariantManager.cpp \
     Views/Components/SampleDesigner/SampleTreeInspector.cpp \
     Views/Components/SampleDesigner/SampleWidgetBox.cpp \
     Views/Components/SampleDesigner/SampleToolBar.cpp \
     Views/Components/SampleDesigner/MaterialBrowserModel.cpp \
     Views/Components/SampleDesigner/MaterialBrowserView.cpp \
     Views/Components/SampleDesigner/MaterialBrowser.cpp \
-    Views/Components/SampleDesigner/ObjectPropertyManager.cpp
+    Views/Components/SampleDesigner/ObjectPropertyManager.cpp \
+    Views/Components/SampleDesigner/ObjectVariantManager.cpp
 
 
 HEADERS +=  \
@@ -48,14 +48,14 @@ HEADERS +=  \
     Views/Components/SampleDesigner/SampleDesigner.h \
     Views/Components/SampleDesigner/SamplePropertyEditor.h \
     Views/Components/SampleDesigner/MaterialView.h \
-    Views/Components/SampleDesigner/VariantManager.h \
     Views/Components/SampleDesigner/SampleTreeInspector.h \
     Views/Components/SampleDesigner/SampleWidgetBox.h \
     Views/Components/SampleDesigner/SampleToolBar.h \
     Views/Components/SampleDesigner/MaterialBrowserModel.h \
     Views/Components/SampleDesigner/MaterialBrowserView.h \
     Views/Components/SampleDesigner/MaterialBrowser.h \
-    Views/Components/SampleDesigner/ObjectPropertyManager.h
+    Views/Components/SampleDesigner/ObjectPropertyManager.h \
+    Views/Components/SampleDesigner/ObjectVariantManager.h
 
 RESOURCES += Views/Components/SampleDesigner/SampleDesigner.qrc
 

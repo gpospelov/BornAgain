@@ -80,6 +80,8 @@ inline void LayerView::setColor(const QColor &color)
 inline void LayerView::setMaterialProperty(const MaterialProperty &materialProperty)
 {
     m_materialProperty = materialProperty;
+    m_color = materialProperty.getColor();
+    update();
 }
 
 

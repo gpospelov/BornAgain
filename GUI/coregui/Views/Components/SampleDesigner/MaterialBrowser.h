@@ -1,6 +1,8 @@
 #ifndef MATERIALBROWSER_H
 #define MATERIALBROWSER_H
 
+#include "MaterialProperty.h"
+
 #include <QObject>
 #include <QColor>
 #include <QIcon>
@@ -9,30 +11,6 @@
 class QWidget;
 class MaterialBrowserView;
 class MaterialBrowserModel;
-
-
-//! The MaterialProperty defines material property (name,color) to be used
-//! in LayerView, FormFactorView together with SamplePropertyEditor
-class MaterialProperty
-{
-public:
-    MaterialProperty() : m_name("Undefined"), m_color(Qt::red){}
-    virtual ~MaterialProperty(){}
-    QString getName() const { return m_name; }
-    QColor getColor() const { return m_color; }
-    QPixmap getPixmap() const {
-        QPixmap pixmap(10,10);
-        pixmap.fill(getColor());
-        return pixmap;
-    }
-    void setName(const QString &name) { m_name = name; }
-    void setColor(const QColor &color) { m_color = color; }
-private:
-    QString m_name;
-    QColor m_color;
-};
-
-Q_DECLARE_METATYPE(MaterialProperty)
 
 
 //! The MaterialBrowser is the main class to create, edit and access materials.

@@ -11,6 +11,7 @@
 
 MaterialBrowserModel::MaterialBrowserModel(QObject *parent)
     : QAbstractTableModel(parent)
+    , m_selected_row(-1)
 {
     UpdateMaterials();
 }
@@ -30,7 +31,7 @@ void MaterialBrowserModel::UpdateMaterials()
         const IMaterial *m = (*it).second;
         if(m_mat_color.contains(m)) continue;
         std::cout << " MaterialBrowserModel::UpdateMaterials() -> getting new material " << m->getName() << std::endl;
-        m_mat_color[m] = getMaterialColor( QString(m->getName().c_str()) );
+        m_mat_color[m] = suggestMaterialColor( QString(m->getName().c_str()) );
         m_nrow_mat.append(m);
     }
     emit layoutChanged();
@@ -99,7 +100,12 @@ QVariant MaterialBrowserModel::data(const QModelIndex &index, int role) const
         }
     } else if (role == Qt::DecorationRole && index.column() == 0) {
         return m_mat_color[mat];
+    } else if (role == Qt::CheckStateRole && index.column() == 0) {
+        if(index.row() == m_selected_row) return Qt::Checked;
+        return Qt::Unchecked;
     }
+
+
     return QVariant();
 }
 
@@ -198,6 +204,14 @@ bool MaterialBrowserModel::setData(const QModelIndex & index, const QVariant & v
             break;
         }
         return true;
+    } else if(role == Qt::CheckStateRole)  {
+        if(m_selected_row == index.row()) {
+            resetSelection();
+        } else {
+            m_selected_row = index.row();
+            emit layoutChanged();
+        }
+        return true;
     }
     return true;
 }
@@ -228,11 +242,11 @@ double MaterialBrowserModel::evaluateDoubleValue(const QVariant &variant, bool &
 
 Qt::ItemFlags MaterialBrowserModel::flags(const QModelIndex & /*index*/) const
 {
-    return Qt::ItemIsSelectable |  Qt::ItemIsEditable | Qt::ItemIsEnabled ;
+    return Qt::ItemIsSelectable |  Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable ;
 }
 
 
-QColor MaterialBrowserModel::getMaterialColor(const QString &name)
+QColor MaterialBrowserModel::suggestMaterialColor(const QString &name)
 {
     if(name == QStringLiteral("Air") ) {
         return QColor(176, 226, 255);
@@ -244,3 +258,16 @@ QColor MaterialBrowserModel::getMaterialColor(const QString &name)
     return DesignerHelper::getRandomColor();
 }
 
+
+MaterialProperty MaterialBrowserModel::getSelectedMaterialProperty()
+{
+    if( !hasSelection() ) {
+        return MaterialProperty();
+    } else {
+        const IMaterial *mat = m_nrow_mat.at(m_selected_row);
+        MaterialProperty p;
+        p.setName(QString(mat->getName().c_str()));
+        p.setColor(m_mat_color[mat]);
+        return p;
+    }
+}

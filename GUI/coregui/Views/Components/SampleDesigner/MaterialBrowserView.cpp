@@ -13,9 +13,10 @@
 #include <QtGlobal>
 #include <QApplication>
 #include <QAction>
+#include <QPushButton>
 #include <iostream>
 
-int MaterialBrowserView::m_nmaterial = 0;
+int MaterialBrowserView::m_IndexOfUnnamed = 0;
 
 MaterialBrowserView::MaterialBrowserView(MaterialBrowserModel *tableModel, QWidget *parent)
     : QDialog(parent)
@@ -29,12 +30,13 @@ MaterialBrowserView::MaterialBrowserView(MaterialBrowserModel *tableModel, QWidg
     setMinimumSize(128, 128);
     resize(512, 256);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    //setStyleSheet("background-color:white;");
 
     m_tableView = new MyTableView(this);
     std::cout << "XXX " << m_tableModel << std::endl;
     m_tableView->setModel( m_tableModel );
     m_tableView->horizontalHeader()->setStretchLastSection(true);
-    m_tableView->horizontalHeader()->resizeSection(0, 120);
+    m_tableView->horizontalHeader()->resizeSection(0, 140);
 
     m_toolBar = new QToolBar(this);
     m_toolBar->setFixedHeight(28);
@@ -51,18 +53,42 @@ MaterialBrowserView::MaterialBrowserView(MaterialBrowserModel *tableModel, QWidg
     layout->setSpacing(0);
     layout->addWidget(m_toolBar);
     layout->addWidget(m_tableView);
+
+    QPushButton *closeButton = new QPushButton(tr("Close"));
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
+
+    QHBoxLayout *buttonsLayout = new QHBoxLayout;
+    buttonsLayout->addStretch(1);
+    buttonsLayout->addWidget(closeButton);
+    buttonsLayout->setMargin(0);
+    buttonsLayout->setSpacing(0);
+    layout->addLayout(buttonsLayout);
+
     layout->addWidget(m_statusBar);
+
     setLayout(layout);
 
     SetupActions();
 
-    show();
+//    show();
 }
 
 
 MaterialBrowserView::~MaterialBrowserView()
 {
     std::cout << "MaterialBrowserView::~MaterialBrowserView() ->" << std::endl;
+}
+
+
+bool MaterialBrowserView::close()
+{
+    std::cout << "MaterialBrowserView::close() ->" << std::endl;
+    Q_ASSERT(m_tableModel);
+    if( !m_tableModel->hasSelection() && isModal() ) {
+        showMessage("Please select material with checkbox");
+        return false;
+    }
+    return QDialog::close();
 }
 
 
@@ -86,13 +112,13 @@ void MaterialBrowserView::SetupActions()
 
 void MaterialBrowserView::addMaterial()
 {
-    QString name = QString("unnamed%1").arg(m_nmaterial);
+    QString name = QString("unnamed%1").arg(m_IndexOfUnnamed);
     std::cout << "MaterialBrowserView::addMaterial() -> " << name.toStdString() << std::endl;
     MaterialManager::instance().getHomogeneousMaterial(name.toStdString(), 1.0, 0.0);
     m_tableModel->UpdateMaterials();
     m_tableView->scrollToBottom();
 
-    m_nmaterial++;
+    m_IndexOfUnnamed++;
 }
 
 

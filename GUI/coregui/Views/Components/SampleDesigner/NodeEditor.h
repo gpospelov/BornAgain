@@ -7,7 +7,6 @@
  * Copyright (c) 2012, STANISLAW ADASZEWSKI
  */
 
-
 #include <QObject>
 
 class QGraphicsScene;
@@ -15,6 +14,9 @@ class NodeEditorConnection;
 class QGraphicsItem;
 class QPointF;
 
+//! The NodeEditor class implement for QGraphicsScene an editable schematic
+//! of the dependency graph, displaying nodes and the connections between their
+//! attributes
 class NodeEditor : public QObject
 {
 	Q_OBJECT

@@ -2,13 +2,41 @@
 #define MATERIALBROWSER_H
 
 #include <QObject>
+#include <QColor>
+#include <QIcon>
+#include <QPixmap>
 
 class QWidget;
 class MaterialBrowserView;
 class MaterialBrowserModel;
 
 
-//! main class to access materials
+//! The MaterialProperty defines material property (name,color) to be used
+//! in LayerView, FormFactorView together with SamplePropertyEditor
+class MaterialProperty
+{
+public:
+    MaterialProperty() : m_name("Undefined"), m_color(Qt::red){}
+    virtual ~MaterialProperty(){}
+    QString getName() const { return m_name; }
+    QColor getColor() const { return m_color; }
+    QPixmap getPixmap() const {
+        QPixmap pixmap(10,10);
+        pixmap.fill(getColor());
+        return pixmap;
+    }
+    void setName(const QString &name) { m_name = name; }
+    void setColor(const QColor &color) { m_color = color; }
+private:
+    QString m_name;
+    QColor m_color;
+};
+
+Q_DECLARE_METATYPE(MaterialProperty)
+
+
+//! The MaterialBrowser is the main class to create, edit and access materials.
+//! MaterialBrowser is created/deleted in SampleView, used by others via instance() method.
 class MaterialBrowser : public QObject
 {
     Q_OBJECT
@@ -18,14 +46,18 @@ public:
 
     static MaterialBrowser *instance();
 
+    static MaterialProperty getMaterialProperty() { return instance()->this_getSelectedMaterialProperty(); }
+
 public slots:
     //! create new MaterialBrowserView or raise old one if exists
-    void BrowserViewCall();
+    void BrowserViewCall(bool isModal = false);
 
     //! delete MaterialBrowserView if it was closed by the user
     void BrowserViewOnCloseEvent();
 
 private:
+    MaterialProperty this_getSelectedMaterialProperty();
+
     QWidget *m_parent;
     static MaterialBrowser *m_instance;
     MaterialBrowserView *m_browserView;

@@ -3,7 +3,7 @@
 
 #include "ISampleView.h"
 #include "DesignerHelper.h"
-
+#include "MaterialBrowser.h"
 
 //! graphics representation of Layer
 class LayerView : public ISampleRectView
@@ -11,6 +11,7 @@ class LayerView : public ISampleRectView
     Q_OBJECT
     Q_PROPERTY(QString name READ getName WRITE setName )
     Q_PROPERTY(double thickness READ getThickness WRITE setThickness )
+    Q_PROPERTY(MaterialProperty material READ getMaterialProperty WRITE setMaterialProperty )
 
 public:
     LayerView(QGraphicsItem *parent = 0);
@@ -22,11 +23,13 @@ public:
     QString getName() const { return m_name; }
     double getThickness() const { return m_thickness; }
     QColor getColor() const { return m_color; }
+    MaterialProperty getMaterialProperty() const { return m_materialProperty; }
 
 public slots:
     void setName(const QString &name);
     void setThickness(double thickness);
     void setColor(const QColor &color);
+    void setMaterialProperty(const MaterialProperty &materialProperty);
 
 signals:
     void LayerMoved();
@@ -45,6 +48,7 @@ private:
     qreal m_fixed_xpos;
     bool m_fixed;
     double m_thickness;
+    MaterialProperty m_materialProperty;
 };
 
 
@@ -73,6 +77,10 @@ inline void LayerView::setColor(const QColor &color)
     }
 }
 
+inline void LayerView::setMaterialProperty(const MaterialProperty &materialProperty)
+{
+    m_materialProperty = materialProperty;
+}
 
 
 #endif // LAYERVIEW_H

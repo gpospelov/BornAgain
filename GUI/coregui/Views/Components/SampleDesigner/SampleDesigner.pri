@@ -26,8 +26,9 @@ SOURCES +=  \
     Views/Components/SampleDesigner/MaterialBrowserModel.cpp \
     Views/Components/SampleDesigner/MaterialBrowserView.cpp \
     Views/Components/SampleDesigner/MaterialBrowser.cpp \
-    Views/Components/SampleDesigner/ObjectPropertyManager.cpp \
-    Views/Components/SampleDesigner/ObjectVariantManager.cpp
+    Views/Components/SampleDesigner/PropertyBrowserUtils.cpp \
+    Views/Components/SampleDesigner/PropertyVariantManager.cpp \
+    Views/Components/SampleDesigner/PropertyVariantFactory.cpp
 
 
 HEADERS +=  \
@@ -54,8 +55,9 @@ HEADERS +=  \
     Views/Components/SampleDesigner/MaterialBrowserModel.h \
     Views/Components/SampleDesigner/MaterialBrowserView.h \
     Views/Components/SampleDesigner/MaterialBrowser.h \
-    Views/Components/SampleDesigner/ObjectPropertyManager.h \
-    Views/Components/SampleDesigner/ObjectVariantManager.h
+    Views/Components/SampleDesigner/PropertyBrowserUtils.h \
+    Views/Components/SampleDesigner/PropertyVariantManager.h \
+    Views/Components/SampleDesigner/PropertyVariantFactory.h
 
 RESOURCES += Views/Components/SampleDesigner/SampleDesigner.qrc
 

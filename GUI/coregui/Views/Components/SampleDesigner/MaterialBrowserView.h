@@ -28,7 +28,7 @@ public:
     int sizeHintForColumn(int column) const
     {
         int result = QTableView::sizeHintForColumn(column);
-        if(column == 0) result *= 1.2;
+        if(column == 0) result *= 1.4;
         return result;
     }
 
@@ -49,6 +49,7 @@ public slots:
     void addMaterial();
     void removeMaterial();
     void showMessage(const QString &message);
+    bool close();
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -59,7 +60,7 @@ private:
     MaterialBrowserModel *m_tableModel;
     QStatusBar *m_statusBar;
     QToolBar *m_toolBar;
-    static int m_nmaterial;
+    static int m_IndexOfUnnamed;
 };
 
 #endif // MATERIALBROWSERVIEW_H

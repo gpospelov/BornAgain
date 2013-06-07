@@ -38,13 +38,21 @@ MaterialBrowser *MaterialBrowser::instance()
 
 
 // create new MaterialBrowserView or raise old one if exists
-void MaterialBrowser::BrowserViewCall()
+void MaterialBrowser::BrowserViewCall(bool isModal)
 {
     std::cout << "MaterialBrowser::BrowserViewCall()" << std::endl;
     if( !m_browserView ) {
         std::cout << " MaterialBrowser::BrowserViewCall() " << m_parent << std::endl;
+        m_browserModel->resetSelection();
         m_browserView = new MaterialBrowserView(m_browserModel, m_parent);
+//        NonModal,
+//        WindowModal,
+//        ApplicationModal
+
         connect( m_browserView, SIGNAL(WindowClosed()), this, SLOT(BrowserViewOnCloseEvent()) );
+        //m_browserView->setWindowModality(Qt::ApplicationModal);
+        m_browserView->setModal(isModal);
+        m_browserView->show();
     } else {
         m_browserView->raise();
     }
@@ -57,4 +65,13 @@ void MaterialBrowser::BrowserViewOnCloseEvent()
     std::cout << "MaterialBrowser::BrowserViewOnCloseEvent()" << std::endl;
     delete m_browserView;
     m_browserView = 0;
+}
+
+
+MaterialProperty MaterialBrowser::this_getSelectedMaterialProperty()
+{
+    std::cout << "MaterialBrowser::this_getMaterialProperty()-> " << std::endl;
+    BrowserViewCall(true);
+    Q_ASSERT(m_browserModel->hasSelection());
+    return m_browserModel->getSelectedMaterialProperty();
 }

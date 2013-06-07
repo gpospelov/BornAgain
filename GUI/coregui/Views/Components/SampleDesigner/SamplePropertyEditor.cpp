@@ -1,6 +1,6 @@
 #include "SamplePropertyEditor.h"
-//#include "VariantManager.h"
-#include "ObjectVariantManager.h"
+#include "PropertyVariantManager.h"
+#include "PropertyVariantFactory.h"
 
 #include "qtvariantproperty.h"
 #include "qttreepropertybrowser.h"
@@ -80,15 +80,18 @@ SamplePropertyEditor::SamplePropertyEditor(SampleDesignerInterface *sample_desig
 
     //m_readOnlyManager = new QtVariantPropertyManager(this);
     //m_readOnlyManager = new VariantManager(this);
-    m_readOnlyManager = new ObjectVariantManager(this);
+    m_readOnlyManager = new PropertyVariantManager(this);
 
     //m_manager = new QtVariantPropertyManager(this);
     //m_manager = new VariantManager(this);
-    m_manager = new ObjectVariantManager(this);
+    m_manager = new PropertyVariantManager(this);
 
 
-    QtVariantEditorFactory *factory = new QtVariantEditorFactory(this);
+//    QtVariantEditorFactory *factory = new QtVariantEditorFactory(this);
+//    m_browser->setFactoryForManager(m_manager, factory);
+    QtVariantEditorFactory *factory = new PropertyVariantFactory();
     m_browser->setFactoryForManager(m_manager, factory);
+
 
     connect(m_manager, SIGNAL(valueChanged(QtProperty *, const QVariant &)),
                 this, SLOT(slotValueChanged(QtProperty *, const QVariant &)));

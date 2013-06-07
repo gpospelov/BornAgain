@@ -30,6 +30,7 @@ class FormFactorFullSphereView : public FormFactorView
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ getName WRITE setName )
+//    Q_PROPERTY(MaterialProperty material READ getMaterialProperty WRITE setMaterialProperty )
     Q_PROPERTY(double weight READ getWeight WRITE setWeight )
     Q_PROPERTY(double radius READ getRadius WRITE setRadius )
 public:
@@ -54,6 +55,7 @@ class FormFactorPyramidView : public FormFactorView
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ getName WRITE setName )
+//    Q_PROPERTY(MaterialProperty material READ getMaterialProperty WRITE setMaterialProperty )
     Q_PROPERTY(double weight READ getWeight WRITE setWeight )
     Q_PROPERTY(double height READ getHeight WRITE setHeight )
     Q_PROPERTY(double half_side READ getHalfSide WRITE setHalfSide )

@@ -108,6 +108,7 @@ QIcon PropertyVariantManager::valueIcon(const QtProperty *property) const
 
 void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
 {
+    std::cout << "ObjectVariantManager::setValue() -> XXX 1.1 " << val.type() << " " << val.userType() << " " << materialTypeId() << std::endl;
     if (theValues.contains(property)) {
 //        if (val.type() != QVariant::String && !val.canConvert(QVariant::String))
 //            return;
@@ -120,7 +121,17 @@ void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
 //        emit propertyChanged(property);
 //        emit valueChanged(property, str);
 //        return;
-        std::cout << "ObjectVariantManager::setValue() -> XXX" << std::endl;
+        std::cout << "ObjectVariantManager::setValue() -> XXX 1.2" << std::endl;
+        if( val.userType() != materialTypeId() ) return;
+        std::cout << "ObjectVariantManager::setValue() -> XXX 1.3" << std::endl;
+        MaterialProperty mat = val.value<MaterialProperty>();
+        theValues[property] = mat;
+
+        QVariant v2;
+        v2.setValue(mat);
+        emit propertyChanged(property);
+        emit valueChanged(property, v2);
+
 
         return;
     }

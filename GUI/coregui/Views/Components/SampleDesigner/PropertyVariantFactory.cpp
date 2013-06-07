@@ -104,8 +104,11 @@ void PropertyVariantFactory::slotSetValue(const MaterialProperty &value)
             if (!manager)
                 return;
             QVariant var;
+            std::cout << "PropertyVariantFactory::slotSetValue() ->  value " << value.getName().toStdString() << std::endl;
             var.setValue(value);
             manager->setValue(property, var);
+            std::cout << "PropertyVariantFactory::slotSetValue() ->  done " <<  std::endl;
+
             return;
         }
         itEditor++;

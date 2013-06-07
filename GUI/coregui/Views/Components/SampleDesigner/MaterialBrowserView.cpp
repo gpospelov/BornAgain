@@ -88,6 +88,7 @@ bool MaterialBrowserView::close()
         showMessage("Please select material with checkbox");
         return false;
     }
+    accepted();
     return QDialog::close();
 }
 

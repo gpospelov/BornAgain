@@ -396,8 +396,10 @@ void SamplePropertyEditor::restoreExpandedState()
 
 void SamplePropertyEditor::slotValueChanged(QtProperty *property, const QVariant &value)
 {
+    std::cout << "SamplePropertyEditor::slotValueChanged() -> 1.1" << std::endl;
     if (!m_propertyToIndex.contains(property))
         return;
+    std::cout << "SamplePropertyEditor::slotValueChanged() -> 1.2" << std::endl;
 
     int idx = m_propertyToIndex.value(property);
 
@@ -412,7 +414,7 @@ void SamplePropertyEditor::slotValueChanged(QtProperty *property, const QVariant
         metaProperty.write(m_object, value);
     }
 
-    updateClassProperties(metaObject, false);
+//    updateClassProperties(metaObject, false);
 }
 
 

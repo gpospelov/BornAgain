@@ -50,7 +50,8 @@ public:
 
 public slots:
     //! create new MaterialBrowserView or raise old one if exists
-    void BrowserViewCall(bool isModal = false);
+    //! @param isModal The dialog window will be independent from main view, if true
+    void BrowserViewCall(bool isModal = true);
 
     //! delete MaterialBrowserView if it was closed by the user
     void BrowserViewOnCloseEvent();

@@ -40,7 +40,7 @@ MaterialBrowser *MaterialBrowser::instance()
 // create new MaterialBrowserView or raise old one if exists
 void MaterialBrowser::BrowserViewCall(bool isModal)
 {
-    std::cout << "MaterialBrowser::BrowserViewCall()" << std::endl;
+    std::cout << "MaterialBrowser::BrowserViewCall() isModal " << isModal << std::endl;
     if( !m_browserView ) {
         std::cout << " MaterialBrowser::BrowserViewCall() " << m_parent << std::endl;
         m_browserModel->resetSelection();
@@ -51,10 +51,23 @@ void MaterialBrowser::BrowserViewCall(bool isModal)
 
         connect( m_browserView, SIGNAL(WindowClosed()), this, SLOT(BrowserViewOnCloseEvent()) );
         //m_browserView->setWindowModality(Qt::ApplicationModal);
-        m_browserView->setModal(isModal);
-        m_browserView->show();
+        //m_browserView->setModal(isModal);
+        std::cout << "MaterialBrowser::BrowserViewCall() -> before " << std::endl;
+        if(isModal) {
+            m_browserView->show();
+        } else {
+            if(m_browserView->exec() == QDialog::Accepted) return;
+        }
+        std::cout << "MaterialBrowser::BrowserViewCall() -> after " << std::endl;
     } else {
-        m_browserView->raise();
+        if(isModal) {
+            m_browserView->raise();
+            //m_browserView->show();
+        } else {
+            m_browserView->hide();
+            if(m_browserView->exec() == QDialog::Accepted) return;
+        }
+
     }
 }
 
@@ -70,8 +83,12 @@ void MaterialBrowser::BrowserViewOnCloseEvent()
 
 MaterialProperty MaterialBrowser::this_getSelectedMaterialProperty()
 {
-    std::cout << "MaterialBrowser::this_getMaterialProperty()-> " << std::endl;
-    BrowserViewCall(true);
+    std::cout << "MaterialBrowser::this_getMaterialProperty()-> 1.1" << std::endl;
+    BrowserViewCall(false);
+    std::cout << "MaterialBrowser::this_getMaterialProperty()-> 1.2" << std::endl;
     Q_ASSERT(m_browserModel->hasSelection());
     return m_browserModel->getSelectedMaterialProperty();
 }
+
+
+

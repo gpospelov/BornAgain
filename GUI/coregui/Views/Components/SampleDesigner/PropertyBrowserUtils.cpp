@@ -41,11 +41,14 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
 void MaterialPropertyEdit::buttonClicked()
 {
     std::cout << "MaterialPropertyEdit::buttonClicked() -> " << std::endl;
-    QString filePath = QFileDialog::getOpenFileName(this, tr("Choose a file"), theLineEdit->text(), theFilter);
-    if (filePath.isNull())
+    //QString filePath = QFileDialog::getOpenFileName(this, tr("Choose a file"), theLineEdit->text(), theFilter);
+    m_materialProperty = MaterialBrowser::getMaterialProperty();
+    std::cout << "MaterialPropertyEdit::buttonClicked() -> property " << m_materialProperty.getName().toStdString() << std::endl;
+
+//    if (filePath.isNull())
 //        return;
 //    theLineEdit->setText(filePath);
-    m_label->setText(filePath);
+    m_label->setText(m_materialProperty.getName());
     //emit filePathChanged(filePath);
     emit materialPropertyChanged(m_materialProperty);
 }

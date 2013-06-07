@@ -31,8 +31,6 @@ LayerView::LayerView(QGraphicsItem *parent)
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptDrops(false);
 
-    m_materialProperty.setName("XXXXX");
-
     addPort(" ", NodeEditorPort::Input, NodeEditorPort::ParticleFactory);
 
 }

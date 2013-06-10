@@ -42,3 +42,9 @@ void MaterialPropertyEdit::buttonClicked()
 }
 
 
+void MaterialPropertyEdit::setMaterialProperty(const MaterialProperty &materialProperty)
+{
+    m_materialProperty = materialProperty;
+    m_textLabel->setText(m_materialProperty.getName());
+    m_pixmapLabel->setPixmap(m_materialProperty.getPixmap());
+}

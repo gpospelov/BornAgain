@@ -27,6 +27,9 @@ QWidget *PropertyVariantFactory::createEditor(QtVariantPropertyManager *manager,
 {
     if (manager->propertyType(property) == PropertyVariantManager::materialTypeId()) {
         MaterialPropertyEdit *editor = new MaterialPropertyEdit(parent);
+//        QVariant var = manager->value(property);
+//        MaterialProperty mat = var.value<MaterialProperty>();
+//        editor->setMaterialProperty(mat);
 //        editor->setFilePath(manager->value(property).toString());
 //        editor->setFilter(manager->attributeValue(property, QLatin1String("filter")).toString());
 
@@ -60,9 +63,10 @@ void PropertyVariantFactory::disconnectPropertyManager(QtVariantPropertyManager 
 void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
                 const QVariant &value)
 {
-    std::cout << "PropertyVariantFactory::slotPropertyChanged() ->" << std::endl;
+    std::cout << "PropertyVariantFactory::slotPropertyChanged() ->v1.1" << std::endl;
     if (!theCreatedEditors.contains(property))
         return;
+    std::cout << "PropertyVariantFactory::slotPropertyChanged() ->v1.2" << std::endl;
 
     QList<MaterialPropertyEdit *> editors = theCreatedEditors[property];
     QListIterator<MaterialPropertyEdit *> itEditor(editors);
@@ -70,6 +74,7 @@ void PropertyVariantFactory::slotPropertyChanged(QtProperty *property,
 //        itEditor.next()->setFilePath(value.toString());
     while (itEditor.hasNext()) {
         MaterialProperty mat = value.value<MaterialProperty>();
+        std::cout << "PropertyVariantFactory::slotPropertyChanged() ->v1.3" << mat.getName().toStdString()<< std::endl;
         itEditor.next()->setMaterialProperty(mat);
     }
 }

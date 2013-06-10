@@ -50,7 +50,7 @@ QVariant PropertyVariantManager::value(const QtProperty *property) const
     if (theValues.contains(property)) {
         QVariant v;
         v.setValue(theValues[property]);
-        std::cout << "PropertyVariantManager::value() -> " << std::endl;
+        std::cout << "PropertyVariantManager::value() -> " << theValues[property].getName().toStdString() << std::endl;
         return v;
     }
     //    return theValues[property].value;
@@ -123,8 +123,8 @@ void PropertyVariantManager::setValue(QtProperty *property, const QVariant &val)
 //        return;
         std::cout << "ObjectVariantManager::setValue() -> XXX 1.2" << std::endl;
         if( val.userType() != materialTypeId() ) return;
-        std::cout << "ObjectVariantManager::setValue() -> XXX 1.3" << std::endl;
         MaterialProperty mat = val.value<MaterialProperty>();
+        std::cout << "ObjectVariantManager::setValue() -> XXX 1.3 " << mat.getName().toStdString()<< std::endl;
         theValues[property] = mat;
 
         QVariant v2;

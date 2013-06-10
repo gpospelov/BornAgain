@@ -13,7 +13,7 @@ class MaterialPropertyEdit : public QWidget
 public:
     MaterialPropertyEdit(QWidget *parent = 0);
 
-    void setMaterialProperty(const MaterialProperty &materialProperty) { m_materialProperty = materialProperty; }
+    void setMaterialProperty(const MaterialProperty &materialProperty);
     MaterialProperty getMaterialProperty() const {return m_materialProperty; }
 signals:
     void materialPropertyChanged(const MaterialProperty &material);

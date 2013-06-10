@@ -182,39 +182,55 @@ CONFIG(PEDANTIC) {
 # add ROOT libraries
 # -----------------------------------------------------------------------------
 CONFIG(BORNAGAIN_ROOT) {
+  macx|unix {
     MYROOT = $$system(root-config --prefix)
-    isEmpty(MYROOT): error("Could not run root-config. Install ROOT, and set PATH to include ROOTSYS/bin.")
-    message("Found ROOT under directory " $${MYROOT})
+    LIBEXT = so
+  }
+  win32 {
+    MYROOT = "C:/root"
+    LIBEXT = lib
+  }
+  isEmpty(MYROOT): error("Could not run root-config. Install ROOT, and set PATH to include ROOTSYS/bin.")
+  message("Found ROOT under directory " $${MYROOT})
 
+  macx|unix {
     INCLUDEPATH += $$system(root-config --incdir)
-    MYROOTCINT = $${MYROOT}/bin/rootcint
+  }
+  win32 {
+    INCLUDEPATH += "C:/root/include"
+  }
+  MYROOTCINT = $${MYROOT}/bin/rootcint
+  macx|unix {
     ROOTLIBDIR = $$system(root-config --libdir)
-    LIBS += -L$${ROOTLIBDIR}
-    #REQUIRED_ROOT_LIBS = Cint Core EG Eve FTGL Ged Geom Graf Graf3d Gpad Gui Hist MathCore MathMore Matrix Minuit2 Physics Postscript RGL Rint RIO Thread Tree TreePlayer
-    REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix MathCore MathMore Minuit2 Thread
+  }
+  win32 {
+    ROOTLIBDIR = "C:/root/lib"
+  }
+  LIBS += -L$${ROOTLIBDIR}
+  REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix MathCore Minuit2 Thread
 
-    # check existence of required ROOT libraries
-    for(x, REQUIRED_ROOT_LIBS) {
-        libfile = $${ROOTLIBDIR}/lib$${x}.so
-        !exists($${libfile}) : MISSED_ROOT_LIBRARIES += $${libfile}
-        LIBS += -l$${x}
-    }
-    !isEmpty(MISSED_ROOT_LIBRARIES): error( "The following libraries are missing in $${ROOTLIBDIR}: $${MISSED_ROOT_LIBRARIES}.")
+  # check existence of required ROOT libraries
+  for(x, REQUIRED_ROOT_LIBS) {
+    libfile = $${ROOTLIBDIR}/lib$${x}.$${LIBEXT}
+    !exists($${libfile}) : MISSED_ROOT_LIBRARIES += $${libfile}
+    LIBS += $${libfile}
+  }
+  !isEmpty(MISSED_ROOT_LIBRARIES): error( "The following libraries are missing in $${ROOTLIBDIR}: $${MISSED_ROOT_LIBRARIES}.")
 
-    LIBS += -lpthread -lm -ldl
+  LIBS += -lpthread -lm #-ldl
 
-    # generation of ROOT dictionaries
-    !isEmpty(BORNAGAIN_ROOT_DICT_FOR_CLASSES) {
-        ROOT_CINT_TARGET = $${TARGET}
-        SOURCES *= src/$${ROOT_CINT_TARGET}Dict.cpp
-        rootcint.target = src/$${ROOT_CINT_TARGET}Dict.cpp
-        rootcint.commands += $$MYROOTCINT
-        rootcint.commands +=  -f $$rootcint.target  -c  -I$$BORNAGAIN_ROOT_DICT_INCLUDES $$BORNAGAIN_ROOT_DICT_FOR_CLASSES
-        rootcint.depends = $$BORNAGAIN_ROOT_DICT_FOR_CLASSES
-        rootcintecho.commands = @echo "Generating dictionary $$rootcint.target for $$BORNAGAIN_ROOT_DICT_FOR_CLASSES classes"
-        QMAKE_EXTRA_TARGETS += rootcintecho rootcint
-        QMAKE_CLEAN +=  src/$${ROOT_CINT_TARGET}Dict.cpp src/$${ROOT_CINT_TARGET}Dict.h
-    }
+  # generation of ROOT dictionaries
+  !isEmpty(BORNAGAIN_ROOT_DICT_FOR_CLASSES) {
+    ROOT_CINT_TARGET = $${TARGET}
+    SOURCES *= src/$${ROOT_CINT_TARGET}Dict.cpp
+    rootcint.target = src/$${ROOT_CINT_TARGET}Dict.cpp
+    rootcint.commands += $$MYROOTCINT
+    rootcint.commands +=  -f $$rootcint.target  -c  -I$$BORNAGAIN_ROOT_DICT_INCLUDES $$BORNAGAIN_ROOT_DICT_FOR_CLASSES
+    rootcint.depends = $$BORNAGAIN_ROOT_DICT_FOR_CLASSES
+    rootcintecho.commands = @echo "Generating dictionary $$rootcint.target for $$BORNAGAIN_ROOT_DICT_FOR_CLASSES classes"
+    QMAKE_EXTRA_TARGETS += rootcintecho rootcint
+    QMAKE_CLEAN +=  src/$${ROOT_CINT_TARGET}Dict.cpp src/$${ROOT_CINT_TARGET}Dict.h
+  }
 }
 
 

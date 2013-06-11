@@ -240,16 +240,26 @@ CONFIG(BORNAGAIN_ROOT) {
 #CONFIG  += BORNAGAIN_PYTHON
 CONFIG(BORNAGAIN_PYTHON) {
   # user wants to compile python module
-  WhichPython=$$system(which python)
+  macx|unix {
+    WhichPython=$$system(which python)
+  }
+  win32 {
+    WhichPython="C:/Python27"
+  }
   isEmpty(WhichPython) {
     # we do not have python
     error("Can not find any sign of python")
   } else {
     # we have python
-    pythonvers=$$system("python -c 'import sys; sys.stdout.write(sys.version[:3])'")
-    pythonsysincdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
-    #pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib/python\" + sys.version[:3])'")
-    pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'")
+    pythonvers=$$system("python -c \"import sys; sys.stdout.write(sys.version[:3])\" ")
+    macx|unix {
+      pythonsysincdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/include/python\" + sys.version[:3])'")
+      pythonsyslibdir=$$system("python -c 'import sys; sys.stdout.write(sys.prefix + \"/lib\" )'")
+    }
+    win32 {
+      pythonsysincdir=$${WhichPython}/include
+      pythonsyslibdir=$${WhichPython}/libs
+    }
     #message(we have python)
     #message($$pythonvers)
     #message($$pythonsysincdir)
@@ -260,7 +270,7 @@ CONFIG(BORNAGAIN_PYTHON) {
     LIBS += -lboost_python -L$$pythonsyslibdir -lpython$$pythonvers
 
     # we need to know the location of numpy
-    pythonnumpy=$$system("python -c 'import sys; import numpy; sys.stdout.write(numpy.get_include())'")
+    pythonnumpy=$$system("python -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")
     !exists($$pythonnumpy/numpy/arrayobject.h): error("Can't find numpy/arrayobject.h in $$pythonnumpy, you have to install python-numpy-devel")
     INCLUDEPATH += $$pythonnumpy
   }

@@ -8,7 +8,7 @@ macx|unix {
   ROOT = $$system(root-config --prefix)
 }
 win32 {
-  ROOT = "C:/root"
+#  ROOT = "C:/root"
 }
 isEmpty(ROOT) {
     message("No ROOT installation found. libBornAgainFit and App" will not be compiled.)

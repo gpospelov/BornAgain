@@ -25,16 +25,10 @@ public:
 
     MultiLayerView(QGraphicsItem *parent = 0);
 
-//    QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-//    QRect rect() const { return m_rect; }
 
     void addLayer(LayerView *layer, QPointF pos=QPointF());
     void addMultiLayer(MultiLayerView *layer, QPointF pos=QPointF());
-
-    void setColor(const QColor &color) { m_color = color; }
-    void setRectangle(const QRect &rect) { m_rect = rect; }
 
     //! allows droping of object of given type
     void allowDropType(const QString &name);
@@ -68,16 +62,11 @@ protected:
     bool isExpectedObject(const QString &name);
 
 private:
-
-//    QColor m_color;
-//    QRect m_rect;
     QList<QRectF> m_drop_areas;
     QStringList m_expected_types;
     QStringList m_current_types;
-
     qreal m_fixed_xpos;
     bool m_fixed;
-
 };
 
 

@@ -24,15 +24,17 @@ public:
 
     static MaterialBrowser *instance();
 
-    static MaterialProperty getMaterialProperty() { return instance()->this_getSelectedMaterialProperty(); }
+    static MaterialProperty getMaterialProperty();
+
+    static void BrowserViewCall(Qt::WindowModality modality=Qt::NonModal);
 
 public slots:
     //! create new MaterialBrowserView or raise old one if exists
-    //! @param isModal The dialog window will be independent from main view, if true
-    void BrowserViewCall(bool isModal = true);
+    //! @param A modal widget prevents widgets in all other windows from getting any input.
+    void this_BrowserViewCall(Qt::WindowModality modality=Qt::NonModal);
 
     //! delete MaterialBrowserView if it was closed by the user
-    void BrowserViewOnCloseEvent();
+    void BrowserViewOnDeleteEvent();
 
 private:
     MaterialProperty this_getSelectedMaterialProperty();

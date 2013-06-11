@@ -17,14 +17,8 @@
 #include "DesignerHelper.h"
 #include "DesignerMimeData.h"
 
-
-
-
 MultiLayerView::MultiLayerView(QGraphicsItem *parent)
-//    : LayerView(parent)
     : ISampleRectView(parent)
-//    , m_color(Qt::blue)
-//    , m_rect(0, 0, DesignerHelper::getDefaultMultiLayerWidth(), DesignerHelper::getDefaultMultiLayerHeight())
     , m_fixed_xpos(0)
     , m_fixed(false)
 {
@@ -35,8 +29,6 @@ MultiLayerView::MultiLayerView(QGraphicsItem *parent)
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptDrops(true);
-    //    setCursor(Qt::OpenHandCursor);
-    //    setAcceptedMouseButtons(Qt::LeftButton);
 
     m_expected_types << QString("Layer") << QString("MultiLayer");
     allowDropType(QString("Layer"));

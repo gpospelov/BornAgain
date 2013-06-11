@@ -32,16 +32,16 @@ public:
 
     virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type);
 
-    QString getName() const { return m_name; }
-    QColor getColor() const { return m_color; }
-    void setColor(const QColor &color) { m_color = color; }
-    QRect getRectangle() const { return m_rect;}
-    void setRectangle(QRect rect) { m_rect = rect; }
-    QString getLabel() const { return m_label; }
-    void setLabel(const QString &name);
+    virtual QString getName() const { return m_name; }
+    virtual QColor getColor() const { return m_color; }
+    virtual QRect getRectangle() const { return m_rect;}
+    virtual void setRectangle(QRect rect) { m_rect = rect; }
+    virtual QString getLabel() const { return m_label; }
+    virtual void setLabel(const QString &name);
 
 public slots:
-    void setName(const QString &name) { m_name = name; }
+    virtual void setName(const QString &name) { m_name = name; }
+    virtual void setColor(const QColor &color) { m_color = color; }
 
 protected:
     virtual void setPortCoordinates();

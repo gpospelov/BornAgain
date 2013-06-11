@@ -5,6 +5,11 @@
 #include <QString>
 #include <QColor>
 #include <QPixmap>
+#include <QMetaType>
+
+#if QT_VERSION < 0x050000
+#define QStringLiteral QString
+#endif
 
 
 //! The MaterialProperty defines material property (name,color) to be used
@@ -23,6 +28,8 @@ public:
     }
     void setName(const QString &name) { m_name = name; }
     void setColor(const QColor &color) { m_color = color; }
+    bool operator!=(const MaterialProperty &other) { return getName() != other.getName();}
+    bool isDefined() { return m_name != QStringLiteral("Undefined"); }
 private:
     QString m_name;
     QColor m_color;

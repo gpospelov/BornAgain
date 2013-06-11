@@ -35,10 +35,12 @@ MaterialPropertyEdit::MaterialPropertyEdit(QWidget *parent)
 
 void MaterialPropertyEdit::buttonClicked()
 {
-    m_materialProperty = MaterialBrowser::getMaterialProperty();
-    m_textLabel->setText(m_materialProperty.getName());
-    m_pixmapLabel->setPixmap(m_materialProperty.getPixmap());
-    emit materialPropertyChanged(m_materialProperty);
+    std::cout << "MaterialPropertyEdit::buttonClicked() " << std::endl;
+    MaterialProperty mat = MaterialBrowser::getMaterialProperty();
+    if(mat != m_materialProperty && mat.isDefined() ) {
+        setMaterialProperty(mat);
+        emit materialPropertyChanged(m_materialProperty);
+    }
 }
 
 

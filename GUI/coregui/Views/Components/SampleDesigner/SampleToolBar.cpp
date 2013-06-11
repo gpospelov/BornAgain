@@ -28,7 +28,5 @@ SampleToolBar::SampleToolBar(QWidget *parent)
 void SampleToolBar::materialBrowserCall()
 {
     std::cout << "SampleToolBar::materialBrowserCall() ->" << std::endl;
-    //new MaterialBrowserView(parentWidget());
-    Q_ASSERT(MaterialBrowser::instance());
-    MaterialBrowser::instance()->BrowserViewCall();
+    MaterialBrowser::BrowserViewCall();
 }

@@ -31,17 +31,13 @@ public slots:
     void selectionChanged();
 
 private slots:
-//    void valueChanged(QtProperty *property, const QVariant &value);
     void slotValueChanged(QtProperty *property, const QVariant &value);
 
 private:
     //! assigns objects to the property editor
     void setObject(QObject *object);
 
-
     SampleDesignerInterface *m_sample_designer;
-//    QtVariantPropertyManager *m_variantManager;
-//    QtTreePropertyBrowser *m_propertyEditor;
 
     QObject *m_object; //! object to modify
 
@@ -60,14 +56,14 @@ private:
 
     void addClassProperties(const QMetaObject *metaObject);
     void updateClassProperties(const QMetaObject *metaObject, bool recursive);
-    void saveExpandedState();
-    void restoreExpandedState();
-    int enumToInt(const QMetaEnum &metaEnum, int enumValue) const;
-    int intToEnum(const QMetaEnum &metaEnum, int intValue) const;
-    int flagToInt(const QMetaEnum &metaEnum, int flagValue) const;
-    int intToFlag(const QMetaEnum &metaEnum, int intValue) const;
+//    void saveExpandedState();
+//    void restoreExpandedState();
+//    int enumToInt(const QMetaEnum &metaEnum, int enumValue) const;
+//    int intToEnum(const QMetaEnum &metaEnum, int intValue) const;
+//    int flagToInt(const QMetaEnum &metaEnum, int flagValue) const;
+//    int intToFlag(const QMetaEnum &metaEnum, int intValue) const;
     bool isSubValue(int value, int subValue) const;
-    bool isPowerOf2(int value) const;
+//    bool isPowerOf2(int value) const;
 
 };
 

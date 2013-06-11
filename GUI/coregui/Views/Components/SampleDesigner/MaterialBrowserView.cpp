@@ -32,30 +32,31 @@ MaterialBrowserView::MaterialBrowserView(MaterialBrowserModel *tableModel, QWidg
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     //setStyleSheet("background-color:white;");
 
-    m_tableView = new MyTableView(this);
+//    m_tableView = new MyTableView;
+    m_tableView = new QTableView;
     std::cout << "XXX " << m_tableModel << std::endl;
     m_tableView->setModel( m_tableModel );
     m_tableView->horizontalHeader()->setStretchLastSection(true);
     m_tableView->horizontalHeader()->resizeSection(0, 140);
 
-    m_toolBar = new QToolBar(this);
+    m_toolBar = new QToolBar;
     m_toolBar->setFixedHeight(28);
     m_toolBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     const int size = style()->pixelMetric(QStyle::PM_SmallIconSize);
     m_toolBar->setIconSize(QSize(size, size));
     m_toolBar->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
-    m_statusBar = new QStatusBar(this);
+    m_statusBar = new QStatusBar;
     connect(m_tableModel, SIGNAL(SetDataMessage(QString)), this, SLOT(showMessage(QString)));
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setMargin(0);
     layout->setSpacing(0);
     layout->addWidget(m_toolBar);
     layout->addWidget(m_tableView);
 
     QPushButton *closeButton = new QPushButton(tr("Close"));
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(closeButtonClicked()));
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addStretch(1);
@@ -70,7 +71,8 @@ MaterialBrowserView::MaterialBrowserView(MaterialBrowserModel *tableModel, QWidg
 
     SetupActions();
 
-//    show();
+//    setAttribute(Qt::WA_DeleteOnClose);
+//    setAttribute(Qt::WA_QuitOnClose);
 }
 
 
@@ -80,16 +82,34 @@ MaterialBrowserView::~MaterialBrowserView()
 }
 
 
-bool MaterialBrowserView::close()
+void MaterialBrowserView::closeButtonClicked()
 {
-    std::cout << "MaterialBrowserView::close() ->" << std::endl;
+    std::cout << "MaterialBrowserView::close() -> 1.1" << std::endl;
     Q_ASSERT(m_tableModel);
     if( !m_tableModel->hasSelection() && isModal() ) {
         showMessage("Please select material with checkbox");
-        return false;
+//        setResult(QDialog::Rejected);
+//        return false;
+        return;
     }
-    accepted();
-    return QDialog::close();
+    std::cout << "MaterialBrowserView::close() -> 1.2" << std::endl;
+//    setResult(QDialog::Accepted);
+    accept();
+    std::cout << "MaterialBrowserView::close() -> 1.3" << std::endl;
+    close();
+    std::cout << "MaterialBrowserView::close() -> 1.4" << std::endl;
+//    return QDialog::close();
+}
+
+
+void MaterialBrowserView::close()
+{
+    Q_ASSERT(m_tableModel);
+    if( !m_tableModel->hasSelection() && isModal() ) {
+        showMessage("Please select material with checkbox");
+        return;
+    }
+    QDialog::close();
 }
 
 
@@ -139,11 +159,11 @@ void MaterialBrowserView::removeMaterial()
 }
 
 
-void MaterialBrowserView::closeEvent(QCloseEvent *event)
-{
-    std::cout << "MaterialBrowserView::closeEvent() ->" << std::endl;
-    emit WindowClosed();
-    event->accept();
-}
+//void MaterialBrowserView::closeEvent(QCloseEvent *event)
+//{
+//    std::cout << "MaterialBrowserView::closeEvent() ->" << std::endl;
+//    emit WindowClosed();
+//    event->accept();
+//}
 
 

@@ -20,28 +20,24 @@ public:
 
     void setFixedX() { m_fixed_xpos = x(); m_fixed=true; }
     qreal getFixedX() { return m_fixed_xpos; }
-    QString getName() const { return m_name; }
     double getThickness() const { return m_thickness; }
-    QColor getColor() const { return m_color; }
     MaterialProperty getMaterialProperty() const { return m_materialProperty; }
 
 public slots:
-    void setName(const QString &name);
     void setThickness(double thickness);
-    void setColor(const QColor &color);
     void setMaterialProperty(const MaterialProperty &materialProperty);
 
 signals:
     void LayerMoved();
 
 protected:
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+//    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
-    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
-    virtual void dropEvent(QGraphicsSceneDragDropEvent *event);
-    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
+//    virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
+//    virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *event);
+//    virtual void dropEvent(QGraphicsSceneDragDropEvent *event);
+//    virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
 private:
@@ -51,13 +47,6 @@ private:
     MaterialProperty m_materialProperty;
 };
 
-
-inline void LayerView::setName(const QString &name)
-{
-    if(name != m_name) {
-        m_name = name;
-    }
-}
 
 inline void LayerView::setThickness(double thickness)
 {
@@ -69,18 +58,11 @@ inline void LayerView::setThickness(double thickness)
     }
 }
 
-inline void LayerView::setColor(const QColor &color)
-{
-    if(color != m_color) {
-        m_color = color;
-        update();
-    }
-}
 
 inline void LayerView::setMaterialProperty(const MaterialProperty &materialProperty)
 {
     m_materialProperty = materialProperty;
-    m_color = materialProperty.getColor();
+    setColor(materialProperty.getColor());
     update();
 }
 

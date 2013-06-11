@@ -14,7 +14,7 @@ class QToolBar;
 class MyTableView : public QTableView
 {
 public:
-    MyTableView(QWidget *parent) : QTableView(parent){}
+    explicit MyTableView(QWidget *parent = 0) : QTableView(parent){}
 //    QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const
 //     {
 //       return QSize(50,50);
@@ -49,14 +49,15 @@ public slots:
     void addMaterial();
     void removeMaterial();
     void showMessage(const QString &message);
-    bool close();
+    void closeButtonClicked();
+    void close();
 
 protected:
-    void closeEvent(QCloseEvent *event);
+    //void closeEvent(QCloseEvent *event);
 private:
     void SetupActions();
 
-    MyTableView *m_tableView;
+    QTableView *m_tableView;
     MaterialBrowserModel *m_tableModel;
     QStatusBar *m_statusBar;
     QToolBar *m_toolBar;

@@ -102,36 +102,36 @@ SamplePropertyEditor::SamplePropertyEditor(SampleDesignerInterface *sample_desig
 }
 
 
-int SamplePropertyEditor::enumToInt(const QMetaEnum &metaEnum, int enumValue) const
-{
-    QMap<int, int> valueMap; // dont show multiple enum values which have the same values
-    int pos = 0;
-    for (int i = 0; i < metaEnum.keyCount(); i++) {
-        int value = metaEnum.value(i);
-        if (!valueMap.contains(value)) {
-            if (value == enumValue)
-                return pos;
-            valueMap[value] = pos++;
-        }
-    }
-    return -1;
-}
+//int SamplePropertyEditor::enumToInt(const QMetaEnum &metaEnum, int enumValue) const
+//{
+//    QMap<int, int> valueMap; // dont show multiple enum values which have the same values
+//    int pos = 0;
+//    for (int i = 0; i < metaEnum.keyCount(); i++) {
+//        int value = metaEnum.value(i);
+//        if (!valueMap.contains(value)) {
+//            if (value == enumValue)
+//                return pos;
+//            valueMap[value] = pos++;
+//        }
+//    }
+//    return -1;
+//}
 
-int SamplePropertyEditor::intToEnum(const QMetaEnum &metaEnum, int intValue) const
-{
-    QMap<int, bool> valueMap; // dont show multiple enum values which have the same values
-    QList<int> values;
-    for (int i = 0; i < metaEnum.keyCount(); i++) {
-        int value = metaEnum.value(i);
-        if (!valueMap.contains(value)) {
-            valueMap[value] = true;
-            values.append(value);
-        }
-    }
-    if (intValue >= values.count())
-        return -1;
-    return values.at(intValue);
-}
+//int SamplePropertyEditor::intToEnum(const QMetaEnum &metaEnum, int intValue) const
+//{
+//    QMap<int, bool> valueMap; // dont show multiple enum values which have the same values
+//    QList<int> values;
+//    for (int i = 0; i < metaEnum.keyCount(); i++) {
+//        int value = metaEnum.value(i);
+//        if (!valueMap.contains(value)) {
+//            valueMap[value] = true;
+//            values.append(value);
+//        }
+//    }
+//    if (intValue >= values.count())
+//        return -1;
+//    return values.at(intValue);
+//}
 
 bool SamplePropertyEditor::isSubValue(int value, int subValue) const
 {
@@ -149,60 +149,60 @@ bool SamplePropertyEditor::isSubValue(int value, int subValue) const
     return true;
 }
 
-bool SamplePropertyEditor::isPowerOf2(int value) const
-{
-    while (value) {
-        if (value & 1) {
-            return value == 1;
-        }
-        value = value >> 1;
-    }
-    return false;
-}
+//bool SamplePropertyEditor::isPowerOf2(int value) const
+//{
+//    while (value) {
+//        if (value & 1) {
+//            return value == 1;
+//        }
+//        value = value >> 1;
+//    }
+//    return false;
+//}
 
-int SamplePropertyEditor::flagToInt(const QMetaEnum &metaEnum, int flagValue) const
-{
-    if (!flagValue)
-        return 0;
-    int intValue = 0;
-    QMap<int, int> valueMap; // dont show multiple enum values which have the same values
-    int pos = 0;
-    for (int i = 0; i < metaEnum.keyCount(); i++) {
-        int value = metaEnum.value(i);
-        if (!valueMap.contains(value) && isPowerOf2(value)) {
-            if (isSubValue(flagValue, value))
-                intValue |= (1 << pos);
-            valueMap[value] = pos++;
-        }
-    }
-    return intValue;
-}
+//int SamplePropertyEditor::flagToInt(const QMetaEnum &metaEnum, int flagValue) const
+//{
+//    if (!flagValue)
+//        return 0;
+//    int intValue = 0;
+//    QMap<int, int> valueMap; // dont show multiple enum values which have the same values
+//    int pos = 0;
+//    for (int i = 0; i < metaEnum.keyCount(); i++) {
+//        int value = metaEnum.value(i);
+//        if (!valueMap.contains(value) && isPowerOf2(value)) {
+//            if (isSubValue(flagValue, value))
+//                intValue |= (1 << pos);
+//            valueMap[value] = pos++;
+//        }
+//    }
+//    return intValue;
+//}
 
 
-int SamplePropertyEditor::intToFlag(const QMetaEnum &metaEnum, int intValue) const
-{
-    QMap<int, bool> valueMap; // dont show multiple enum values which have the same values
-    QList<int> values;
-    for (int i = 0; i < metaEnum.keyCount(); i++) {
-        int value = metaEnum.value(i);
-        if (!valueMap.contains(value) && isPowerOf2(value)) {
-            valueMap[value] = true;
-            values.append(value);
-        }
-    }
-    int flagValue = 0;
-    int temp = intValue;
-    int i = 0;
-    while (temp) {
-        if (i >= values.count())
-            return -1;
-        if (temp & 1)
-            flagValue |= values.at(i);
-        i++;
-        temp = temp >> 1;
-    }
-    return flagValue;
-}
+//int SamplePropertyEditor::intToFlag(const QMetaEnum &metaEnum, int intValue) const
+//{
+//    QMap<int, bool> valueMap; // dont show multiple enum values which have the same values
+//    QList<int> values;
+//    for (int i = 0; i < metaEnum.keyCount(); i++) {
+//        int value = metaEnum.value(i);
+//        if (!valueMap.contains(value) && isPowerOf2(value)) {
+//            valueMap[value] = true;
+//            values.append(value);
+//        }
+//    }
+//    int flagValue = 0;
+//    int temp = intValue;
+//    int i = 0;
+//    while (temp) {
+//        if (i >= values.count())
+//            return -1;
+//        if (temp & 1)
+//            flagValue |= values.at(i);
+//        i++;
+//        temp = temp >> 1;
+//    }
+//    return flagValue;
+//}
 
 
 void SamplePropertyEditor::updateClassProperties(const QMetaObject *metaObject, bool recursive)
@@ -223,14 +223,14 @@ void SamplePropertyEditor::updateClassProperties(const QMetaObject *metaObject, 
         if (metaProperty.isReadable()) {
             if (m_classToIndexToProperty.contains(metaObject) && m_classToIndexToProperty[metaObject].contains(idx)) {
                 QtVariantProperty *subProperty = m_classToIndexToProperty[metaObject][idx];
-                if (metaProperty.isEnumType()) {
-                    if (metaProperty.isFlagType())
-                        subProperty->setValue(flagToInt(metaProperty.enumerator(), metaProperty.read(m_object).toInt()));
-                    else
-                        subProperty->setValue(enumToInt(metaProperty.enumerator(), metaProperty.read(m_object).toInt()));
-                } else {
+//                if (metaProperty.isEnumType()) {
+//                    if (metaProperty.isFlagType())
+//                        subProperty->setValue(flagToInt(metaProperty.enumerator(), metaProperty.read(m_object).toInt()));
+//                    else
+//                        subProperty->setValue(enumToInt(metaProperty.enumerator(), metaProperty.read(m_object).toInt()));
+//                } else {
                     subProperty->setValue(metaProperty.read(m_object));
-                }
+//                }
             }
         }
     }
@@ -243,8 +243,8 @@ void SamplePropertyEditor::updateClassProperties(const QMetaObject *metaObject, 
 void SamplePropertyEditor::selectionChanged()
 {
     QList<QGraphicsItem *> items = m_sample_designer->getScene()->selectedItems();
-    if( !items.size() ) return;
-    QObject *object = items.back()->toGraphicsObject();
+    QObject *object(0);
+    if( items.size() ) object = items.back()->toGraphicsObject();
     setObject(object);
 }
 
@@ -253,12 +253,11 @@ void SamplePropertyEditor::selectionChanged()
 void SamplePropertyEditor::setObject(QObject *object)
 {
     std::cout << "SamplePropertyEditor::setObject() -> 2.1" << std::endl;
-    if (m_object == object)
-        return;
+    if (m_object == object) return;
 
     std::cout << "SamplePropertyEditor::setObject() -> 2.2" << std::endl;
     if (m_object) {
-        saveExpandedState();
+//        saveExpandedState();
         QListIterator<QtProperty *> it(m_topLevelProperties);
         while (it.hasNext()) {
             m_browser->removeProperty(it.next());
@@ -269,22 +268,20 @@ void SamplePropertyEditor::setObject(QObject *object)
     std::cout << "SamplePropertyEditor::setObject() -> 2.3" << std::endl;
     m_object = object;
 
-    if (!m_object)
-        return;
+    if (!m_object) return;
 
     std::cout << "SamplePropertyEditor::setObject() -> 2.4" << std::endl;
     addClassProperties(m_object->metaObject());
     std::cout << "SamplePropertyEditor::setObject() -> 2.5" << std::endl;
 
-    restoreExpandedState();
+//    restoreExpandedState();
 }
 
 
 void SamplePropertyEditor::addClassProperties(const QMetaObject *metaObject)
 {
     std::cout << "SamplePropertyEditor::addClassProperties() -> 3.1" << std::endl;
-    if (!metaObject)
-        return;
+    if (!metaObject) return;
 
 //    complex_t aaa(1,2);
 //    QVariant var;
@@ -319,36 +316,36 @@ void SamplePropertyEditor::addClassProperties(const QMetaObject *metaObject)
             if (!metaProperty.isReadable()) {
                 subProperty = m_readOnlyManager->addProperty(QVariant::String, QLatin1String(metaProperty.name()));
                 subProperty->setValue(QLatin1String("< Non Readable >"));
-            } else if (metaProperty.isEnumType()) {
-                if (metaProperty.isFlagType()) {
-                    subProperty = m_manager->addProperty(QtVariantPropertyManager::flagTypeId(), QLatin1String(metaProperty.name()));
-                    QMetaEnum metaEnum = metaProperty.enumerator();
-                    QMap<int, bool> valueMap;
-                    QStringList flagNames;
-                    for (int i = 0; i < metaEnum.keyCount(); i++) {
-                        int value = metaEnum.value(i);
-                        if (!valueMap.contains(value) && isPowerOf2(value)) {
-                            valueMap[value] = true;
-                            flagNames.append(QLatin1String(metaEnum.key(i)));
-                        }
-                    subProperty->setAttribute(QLatin1String("flagNames"), flagNames);
-                    subProperty->setValue(flagToInt(metaEnum, metaProperty.read(m_object).toInt()));
-                    }
-                } else {
-                    subProperty = m_manager->addProperty(QtVariantPropertyManager::enumTypeId(), QLatin1String(metaProperty.name()));
-                    QMetaEnum metaEnum = metaProperty.enumerator();
-                    QMap<int, bool> valueMap; // dont show multiple enum values which have the same values
-                    QStringList enumNames;
-                    for (int i = 0; i < metaEnum.keyCount(); i++) {
-                        int value = metaEnum.value(i);
-                        if (!valueMap.contains(value)) {
-                            valueMap[value] = true;
-                            enumNames.append(QLatin1String(metaEnum.key(i)));
-                        }
-                    }
-                    subProperty->setAttribute(QLatin1String("enumNames"), enumNames);
-                    subProperty->setValue(enumToInt(metaEnum, metaProperty.read(m_object).toInt()));
-                }
+//            } else if (metaProperty.isEnumType()) {
+//                if (metaProperty.isFlagType()) {
+//                    subProperty = m_manager->addProperty(QtVariantPropertyManager::flagTypeId(), QLatin1String(metaProperty.name()));
+//                    QMetaEnum metaEnum = metaProperty.enumerator();
+//                    QMap<int, bool> valueMap;
+//                    QStringList flagNames;
+//                    for (int i = 0; i < metaEnum.keyCount(); i++) {
+//                        int value = metaEnum.value(i);
+//                        if (!valueMap.contains(value) && isPowerOf2(value)) {
+//                            valueMap[value] = true;
+//                            flagNames.append(QLatin1String(metaEnum.key(i)));
+//                        }
+//                    subProperty->setAttribute(QLatin1String("flagNames"), flagNames);
+//                    subProperty->setValue(flagToInt(metaEnum, metaProperty.read(m_object).toInt()));
+//                    }
+//                } else {
+//                    subProperty = m_manager->addProperty(QtVariantPropertyManager::enumTypeId(), QLatin1String(metaProperty.name()));
+//                    QMetaEnum metaEnum = metaProperty.enumerator();
+//                    QMap<int, bool> valueMap; // dont show multiple enum values which have the same values
+//                    QStringList enumNames;
+//                    for (int i = 0; i < metaEnum.keyCount(); i++) {
+//                        int value = metaEnum.value(i);
+//                        if (!valueMap.contains(value)) {
+//                            valueMap[value] = true;
+//                            enumNames.append(QLatin1String(metaEnum.key(i)));
+//                        }
+//                    }
+//                    subProperty->setAttribute(QLatin1String("enumNames"), enumNames);
+//                    subProperty->setValue(enumToInt(metaEnum, metaProperty.read(m_object).toInt()));
+//                }
 //            } else if(metaProperty.typeName() == QString("complex_t")) {
 
 //                subProperty = m_manager->addProperty(1024, QLatin1String(" PointF Property"));
@@ -383,15 +380,15 @@ void SamplePropertyEditor::addClassProperties(const QMetaObject *metaObject)
 }
 
 
-void SamplePropertyEditor::saveExpandedState()
-{
+//void SamplePropertyEditor::saveExpandedState()
+//{
 
-}
+//}
 
-void SamplePropertyEditor::restoreExpandedState()
-{
+//void SamplePropertyEditor::restoreExpandedState()
+//{
 
-}
+//}
 
 
 void SamplePropertyEditor::slotValueChanged(QtProperty *property, const QVariant &value)
@@ -405,14 +402,15 @@ void SamplePropertyEditor::slotValueChanged(QtProperty *property, const QVariant
 
     const QMetaObject *metaObject = m_object->metaObject();
     QMetaProperty metaProperty = metaObject->property(idx);
-    if (metaProperty.isEnumType()) {
-        if (metaProperty.isFlagType())
-            metaProperty.write(m_object, intToFlag(metaProperty.enumerator(), value.toInt()));
-        else
-            metaProperty.write(m_object, intToEnum(metaProperty.enumerator(), value.toInt()));
-    } else {
+//    if (metaProperty.isEnumType()) {
+//        if (metaProperty.isFlagType())
+//            metaProperty.write(m_object, intToFlag(metaProperty.enumerator(), value.toInt()));
+//        else
+//            metaProperty.write(m_object, intToEnum(metaProperty.enumerator(), value.toInt()));
+//    } else {
         metaProperty.write(m_object, value);
-    }
+//    }
+    std::cout << "SamplePropertyEditor::slotValueChanged() -> 1.3" << std::endl;
 
 //    updateClassProperties(metaObject, false);
 }

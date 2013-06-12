@@ -31,6 +31,10 @@
 class MaterialManager: public ISingleton<MaterialManager>
 {
  public:
+    typedef std::map<std::string, IMaterial*> materials_t;
+    typedef materials_t::iterator iterator;
+    typedef materials_t::const_iterator const_iterator;
+
     virtual ~MaterialManager() { clear(); }
 
     //! Returns material from database.
@@ -50,10 +54,28 @@ class MaterialManager: public ISingleton<MaterialManager>
     { return instance().this_getHomogeneousMaterial(
             name, refractive_index_real, refractive_index_imag); }
 
+    //! returns number of materials
+    static int getNumberOfMaterials() { return instance().this_getNumberOfMaterials(); }
+
     //! Sends class description to stream.
     friend std::ostream& operator<<(
         std::ostream& ostr, const MaterialManager& m)
     { m.print(ostr); return ostr; }
+
+    //! access to container begin
+    iterator begin() { return m_materials.begin(); }
+
+    //! access to container begin
+    iterator end() { return m_materials.end(); }
+
+    //! set new material name
+    bool setMaterialName(const std::string &old_name, const std::string &new_name);
+
+    //! set new material refractive index
+    bool setMaterialRefractiveIndex(const std::string &name, const complex_t &index);
+
+    //! delete material
+    bool deleteMaterial(const std::string &name);
 
  protected:
     MaterialManager(){}
@@ -65,7 +87,8 @@ class MaterialManager: public ISingleton<MaterialManager>
     //! Dump this to stream.
     virtual void print(std::ostream& ostr) const;
 
-    std::map<std::string, IMaterial*> m_materials; //!< our database
+    materials_t m_materials; //!< our database
+
  private:
     const IMaterial *this_getMaterial(const std::string& name);
     const IMaterial *this_getHomogeneousMaterial(
@@ -73,6 +96,8 @@ class MaterialManager: public ISingleton<MaterialManager>
     const IMaterial *this_getHomogeneousMaterial(
         const std::string& name,
         double refractive_index_real, double refractive_index_imag);
+    int this_getNumberOfMaterials() const { return m_materials.size(); }
+
     void check_refractive_index(const complex_t &index);
 };
 

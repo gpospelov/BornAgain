@@ -40,7 +40,7 @@ public:
 private:
     DesignerScene *m_designerScene; //! scene which holds all objects
     DesignerView *m_designerView;   //! graphical representation of scene with object
-    QStackedWidget *m_editorStack;    //! stack for varaiety of SampleEditorView
+    QStackedWidget *m_editorStack;    //! stack for varaiety of DesignerView's
 };
 
 

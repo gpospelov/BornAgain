@@ -2,67 +2,96 @@
 #include "DesignerHelper.h"
 #include "MaterialManager.h"
 #include <QColor>
+#include <QtScript>
+
+
+#if QT_VERSION < 0x050000
+#define QStringLiteral QString
+#endif
 
 MaterialBrowserModel::MaterialBrowserModel(QObject *parent)
     : QAbstractTableModel(parent)
-{    
-    std::cout << "MaterialBrowserModel XXX 1.1 " << std::endl;
-    addMaterial("Air", 1., 0.);
-    std::cout << "MaterialBrowserModel XXX 1.2 " << std::endl;
-    addMaterial("Substrate", 1-6e-6, 2e-8);
-    std::cout << "MaterialBrowserModel XXX 1.3 " << std::endl;
-    addMaterial("Default", 1., 0.);
-    std::cout << "MaterialBrowserModel XXX 1.4 " << std::endl;
+    , m_selected_row(-1)
+{
+    UpdateMaterials();
 }
 
 
-void MaterialBrowserModel::addMaterial(const char *name, double index_real, double index_imag)
+MaterialBrowserModel::~MaterialBrowserModel()
 {
-    const IMaterial *m = MaterialManager::getHomogeneousMaterial(name, index_real, index_imag);
-    m_mat_color[m] = DesignerHelper::getRandomColor();
-    m_nraw_mat.append(m);
+    std::cout << "MaterialBrowserModel::~MaterialBrowserModel()" << std::endl;
+}
+
+
+// collecting info about defined materials
+void MaterialBrowserModel::UpdateMaterials()
+{
+    std::cout << "MaterialBrowserModel::UpdateMaterials() -> nmaterials " << MaterialManager::getNumberOfMaterials() << std::endl;
+    for(MaterialManager::iterator it = MaterialManager::instance().begin(); it!= MaterialManager::instance().end(); ++it) {
+        const IMaterial *m = (*it).second;
+        if(m_mat_color.contains(m)) continue;
+        std::cout << " MaterialBrowserModel::UpdateMaterials() -> getting new material " << m->getName() << std::endl;
+        m_mat_color[m] = suggestMaterialColor( QString(m->getName().c_str()) );
+        m_nrow_mat.append(m);
+    }
+    emit layoutChanged();
+}
+
+
+void MaterialBrowserModel::RemoveMaterials(const QModelIndexList &index_list)
+{
+    if( !index_list.size() ) return;
+
+    for(int i=0; i<index_list.size(); ++i) {
+        int nrow = index_list[i].row();
+        const IMaterial *mat = m_nrow_mat[nrow];
+        std::cout << "MaterialBrowserModel::RemoveMaterial(int nrow) -> removing material " << nrow << " " << mat->getName() << std::endl;
+        MaterialManager::instance().deleteMaterial(mat->getName());
+        m_mat_color.remove(mat);
+        m_nrow_mat[nrow] = 0;
+    }
+
+    QVector<const IMaterial *> tmp;
+    for(int i=0; i<m_nrow_mat.size(); ++i) {
+        if( m_nrow_mat[i] != 0 ) tmp.append(m_nrow_mat[i]);
+    }
+    m_nrow_mat = tmp;
+
+    emit layoutChanged();
 }
 
 
 int MaterialBrowserModel::rowCount(const QModelIndex & /*parent*/) const
  {
-    return m_nraw_mat.size();
+    return MaterialManager::getNumberOfMaterials();
  }
 
 
 int MaterialBrowserModel::columnCount(const QModelIndex & /*parent*/) const
  {
-     return 4;
+     return NumberOfMaterialProperties;
  }
 
 
 QVariant MaterialBrowserModel::data(const QModelIndex &index, int role) const
 {
-    std::cout << "MaterialBrowserModel::data() -> 1.1" << std::endl;
-    const HomogeneousMaterial *mat = dynamic_cast<const HomogeneousMaterial *>(m_nraw_mat.at(index.row()));
-    if( !mat ) {
-        std::cout << " MaterialBrowserModel::data() -> Panic" << std::endl;
+    if(index.row() >= m_nrow_mat.size() ) {
+        std::cout << "MaterialBrowserModel::data() -> 1.1 XXX Empty???" << std::endl;
         return QVariant();
     }
-    std::cout << "MaterialBrowserModel::data() -> 1.2" << std::endl;
+    const HomogeneousMaterial *mat = dynamic_cast<const HomogeneousMaterial *>(m_nrow_mat.at(index.row()));
+    Q_ASSERT(mat);
 
     if (role == Qt::DisplayRole)
     {
-        std::cout << "MaterialBrowserModel::data() -> 1.3 " << index.row() << " " << m_nraw_mat.at(index.row()) << std::endl;
-        const HomogeneousMaterial *mat = dynamic_cast<const HomogeneousMaterial *>(m_nraw_mat.at(index.row()));
-        if( !mat ) {
-            std::cout << " MaterialBrowserModel::data() -> Panic" << std::endl;
-            return QVariant();
-        }
-        std::cout << "XXX " << mat << " " << mat->getName() << " " << mat->getRefractiveIndex().real()<< std::endl;
         switch(index.column()) {
-        case 0:
+        case MaterialName:
             return QString(mat->getName().c_str());
-        case 1:
+        case MaterialIndexReal:
             return QString::number(mat->getRefractiveIndex().real());
-        case 2:
+        case MaterialIndexImag:
             return QString::number(mat->getRefractiveIndex().imag());
-        case 3:
+        case MaterialTitle:
             return QString();
         default:
             return QString("Row%1, Column%2")
@@ -71,7 +100,12 @@ QVariant MaterialBrowserModel::data(const QModelIndex &index, int role) const
         }
     } else if (role == Qt::DecorationRole && index.column() == 0) {
         return m_mat_color[mat];
+    } else if (role == Qt::CheckStateRole && index.column() == 0) {
+        if(index.row() == m_selected_row) return Qt::Checked;
+        return Qt::Unchecked;
     }
+
+
     return QVariant();
 }
 
@@ -83,13 +117,13 @@ QVariant MaterialBrowserModel::headerData(int section, Qt::Orientation orientati
         if (orientation == Qt::Horizontal) {
             switch (section)
             {
-            case 0:
+            case MaterialName:
                 return QString("Name");
-            case 1:
+            case MaterialIndexReal:
                 return QString("Index::real");
-            case 2:
+            case MaterialIndexImag:
                 return QString("Index::imag");
-            case 3:
+            case MaterialTitle:
                 return QString("Comment");
             }
         } else if (orientation == Qt::Vertical) {
@@ -100,3 +134,152 @@ QVariant MaterialBrowserModel::headerData(int section, Qt::Orientation orientati
 }
 
 
+bool MaterialBrowserModel::setData(const QModelIndex & index, const QVariant & value, int role)
+{
+    if (role == Qt::EditRole) {
+        if(index.row() >= m_nrow_mat.size() ) {
+            std::cout << "MaterialBrowserModel::setData() -> 1.1 XXX Empty???" << std::endl;
+            return false;
+        }
+        const HomogeneousMaterial *mat = dynamic_cast<const HomogeneousMaterial *>(m_nrow_mat.at(index.row()));
+        Q_ASSERT(mat);
+
+        complex_t refractiveIndex;
+        bool status(true);
+        double double_value;
+
+        switch(index.column()) {
+        case MaterialName:
+            std::cout << " MaterialBrowserModel::setData() -> 1.1 " << value.toString().toStdString() << std::endl;
+            if( !value.toString().size()) {
+                emit SetDataMessage("Material should have non empty name");
+                return false;
+            }
+            status = MaterialManager::instance().setMaterialName(mat->getName(), value.toString().toStdString());
+            if(!status) {
+                emit SetDataMessage("Already existing name");
+                return false;
+            }
+            break;
+        case MaterialIndexReal:
+
+            //double_value = getDoubleValue(value, status);
+            double_value = evaluateDoubleValue(value, status);
+            std::cout << " MaterialBrowserModel::setData() -> 1.2 " << double_value << " result " << status << std::endl;
+            if(!status) {
+                emit SetDataMessage("Can't convert value to double");
+                return false;
+            }
+            refractiveIndex = mat->getRefractiveIndex();
+            refractiveIndex.real() = double_value;
+            status = MaterialManager::instance().setMaterialRefractiveIndex(mat->getName(), refractiveIndex);
+            if(!status) {
+                emit SetDataMessage("Can't set given value of RefractiveIndex");
+                return false;
+            }
+
+
+            break;
+        case MaterialIndexImag:
+            //double_value = value.toDouble(&status);
+            double_value = evaluateDoubleValue(value, status);
+            std::cout << " MaterialBrowserModel::setData() -> 1.2 " << double_value << " result " << status << std::endl;
+            if(!status) {
+                emit SetDataMessage("Can't convert value to double");
+                return false;
+            }
+            refractiveIndex = mat->getRefractiveIndex();
+            refractiveIndex.imag() = double_value;
+            status = MaterialManager::instance().setMaterialRefractiveIndex(mat->getName(), refractiveIndex);
+            if(!status) {
+                emit SetDataMessage("Can't set given value of RefractiveIndex");
+                return false;
+            }
+
+            break;
+        case MaterialTitle:
+            emit SetDataMessage("Not implemented ;)");
+            break;
+        default:
+            break;
+        }
+        return true;
+    } else if(role == Qt::CheckStateRole)  {
+        if(m_selected_row == index.row()) {
+            resetSelection();
+        } else {
+            m_selected_row = index.row();
+            emit layoutChanged();
+        }
+        return true;
+    }
+    return true;
+}
+
+
+double MaterialBrowserModel::getDoubleValue(const QVariant &variant, bool &status)
+{
+    return variant.toDouble(&status);
+}
+
+double MaterialBrowserModel::evaluateDoubleValue(const QVariant &variant, bool &status)
+{
+    QString formula = variant.toString();
+    if( !formula.size() ) {
+        status = false;
+        return 0.0;
+    }
+    QScriptEngine myEngine;
+    QScriptValue x = myEngine.evaluate(formula);
+    if( !x.isNumber()) {
+        status = false;
+        return 0.0;
+    }
+    return x.toNumber();
+}
+
+
+
+Qt::ItemFlags MaterialBrowserModel::flags(const QModelIndex & /*index*/) const
+{
+    return Qt::ItemIsSelectable |  Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable ;
+}
+
+
+QColor MaterialBrowserModel::suggestMaterialColor(const QString &name)
+{
+    if(name == QStringLiteral("Air") ) {
+        return QColor(176, 226, 255);
+    } else if(name == QStringLiteral("Substrate") ) {
+        return QColor(205,102,0);
+    } else if ( name == QStringLiteral("Default") ) {
+        return QColor(Qt::green);
+    }
+    return DesignerHelper::getRandomColor();
+}
+
+
+MaterialProperty MaterialBrowserModel::getSelectedMaterialProperty()
+{
+    if( !hasSelection() ) {
+        return MaterialProperty();
+    } else {
+        const IMaterial *mat = m_nrow_mat.at(m_selected_row);
+        MaterialProperty p;
+        p.setName(QString(mat->getName().c_str()));
+        p.setColor(m_mat_color[mat]);
+        return p;
+    }
+}
+
+
+MaterialProperty MaterialBrowserModel::getDefaultMaterialProperty()
+{
+    const IMaterial *mat = MaterialManager::getMaterial("Default");
+    MaterialProperty matProperty;
+    if(mat) {
+        matProperty.setName(QString(mat->getName().c_str()));
+        matProperty.setColor(m_mat_color[mat]);
+    }
+    return matProperty;
+}

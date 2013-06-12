@@ -39,11 +39,11 @@ public slots:
 private:
     void initSubWindows();
 
+    MaterialBrowser *m_materialBrowser;
     SampleDesigner *m_sampleDesigner;
+    SampleToolBar *m_toolBar;
     QWidget *m_subWindows[NumberOfSubWindows];
     QDockWidget *m_dockWidgets[NumberOfSubWindows];
-    SampleToolBar *m_toolBar;
-    MaterialBrowser *m_materialBrowser;
 };
 
 

@@ -16,18 +16,20 @@ SOURCES +=  \
     Views/Components/SampleDesigner/NodeEditor.cpp \
     Views/Components/SampleDesigner/NodeEditorConnection.cpp \
     Views/Components/SampleDesigner/NodeEditorPort.cpp \
-    Views/Components/SampleDesigner/ObjectPropertyController.cpp \
     Views/Components/SampleDesigner/ParticleDecorationView.cpp \
     Views/Components/SampleDesigner/SampleDesigner.cpp \
     Views/Components/SampleDesigner/SamplePropertyEditor.cpp \
     Views/Components/SampleDesigner/MaterialView.cpp \
-    Views/Components/SampleDesigner/VariantManager.cpp \
     Views/Components/SampleDesigner/SampleTreeInspector.cpp \
     Views/Components/SampleDesigner/SampleWidgetBox.cpp \
     Views/Components/SampleDesigner/SampleToolBar.cpp \
     Views/Components/SampleDesigner/MaterialBrowserModel.cpp \
     Views/Components/SampleDesigner/MaterialBrowserView.cpp \
-    Views/Components/SampleDesigner/MaterialBrowser.cpp
+    Views/Components/SampleDesigner/MaterialBrowser.cpp \
+    Views/Components/SampleDesigner/PropertyBrowserUtils.cpp \
+    Views/Components/SampleDesigner/PropertyVariantManager.cpp \
+    Views/Components/SampleDesigner/PropertyVariantFactory.cpp \
+    Views/Components/SampleDesigner/MaterialProperty.cpp
 
 
 HEADERS +=  \
@@ -44,18 +46,20 @@ HEADERS +=  \
     Views/Components/SampleDesigner/NodeEditor.h \
     Views/Components/SampleDesigner/NodeEditorConnection.h \
     Views/Components/SampleDesigner/NodeEditorPort.h \
-    Views/Components/SampleDesigner/ObjectPropertyController.h \
     Views/Components/SampleDesigner/ParticleDecorationView.h \
     Views/Components/SampleDesigner/SampleDesigner.h \
     Views/Components/SampleDesigner/SamplePropertyEditor.h \
     Views/Components/SampleDesigner/MaterialView.h \
-    Views/Components/SampleDesigner/VariantManager.h \
     Views/Components/SampleDesigner/SampleTreeInspector.h \
     Views/Components/SampleDesigner/SampleWidgetBox.h \
     Views/Components/SampleDesigner/SampleToolBar.h \
     Views/Components/SampleDesigner/MaterialBrowserModel.h \
     Views/Components/SampleDesigner/MaterialBrowserView.h \
-    Views/Components/SampleDesigner/MaterialBrowser.h
+    Views/Components/SampleDesigner/MaterialBrowser.h \
+    Views/Components/SampleDesigner/PropertyBrowserUtils.h \
+    Views/Components/SampleDesigner/PropertyVariantManager.h \
+    Views/Components/SampleDesigner/PropertyVariantFactory.h \
+    Views/Components/SampleDesigner/MaterialProperty.h
 
 RESOURCES += Views/Components/SampleDesigner/SampleDesigner.qrc
 

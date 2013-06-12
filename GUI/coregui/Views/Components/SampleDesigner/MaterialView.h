@@ -3,6 +3,7 @@
 
 #include "ISampleView.h"
 #include <QMap>
+#include "Types.h"
 
 //! graphical representation of material
 class MaterialView : public ISampleView

@@ -23,9 +23,9 @@
 
 SampleView::SampleView(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
-    , m_sampleDesigner(new SampleDesigner(parent))
+    , m_materialBrowser(new MaterialBrowser(this))
+    , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
-    , m_materialBrowser(new MaterialBrowser(parent))
 {
     setObjectName(QLatin1String("SampleView"));
 
@@ -52,6 +52,7 @@ SampleView::SampleView(QWidget *parent)
     }
     resetToDefaultLayout();
 
+    // toolBar should be initialized after MaterialBrowser
     m_toolBar = new SampleToolBar(this);
     addToolBar(m_toolBar);
 }

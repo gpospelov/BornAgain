@@ -55,6 +55,9 @@ class TestMiscellaneous : public IFunctionalTest
     //! testing of loggin system
     void test_LogSystem();
 
+    //! testing print visitor
+    void test_PrintVisitor();
+
 };
 
 #endif // TESTMISCELLANEOUS_H

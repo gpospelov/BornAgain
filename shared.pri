@@ -105,7 +105,8 @@ LOCATIONS = $$PWD/Core/Algorithms/inc \
             $$PWD/Core/FormFactors/inc  \
             $$PWD/Core/Geometry/inc  \
             $$PWD/Core/Samples/inc  \
-            $$PWD/Core/Tools/inc
+            $$PWD/Core/Tools/inc \
+            $$PWD/Core/StandardSamples
 
 INCLUDEPATH += $${LOCATIONS}
 DEPENDPATH  += $${LOCATIONS}

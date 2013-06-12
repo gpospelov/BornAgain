@@ -33,6 +33,7 @@
 #include "Utils.h"
 #include "Types.h"
 #include "MessageService.h"
+#include "SampleBuilderFactory.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -49,17 +50,34 @@ TestMiscellaneous::TestMiscellaneous()
 
 void TestMiscellaneous::execute()
 {
+    test_PrintVisitor();
     //test_LogSystem();
     //test_OutputDataTo2DArray();
     //test_KVectorContainer();
     //test_OutputDataIOFactory();
     //test_FastSin();
     //test_DoubleToComplexInterpolatingFunction();
-    test_FormFactor1();
+    //test_FormFactor1();
     //test_FormFactor();
     //test_DrawMesocrystal();
 }
 
+
+/* ************************************************************************* */
+// test of log system
+/* ************************************************************************* */
+void TestMiscellaneous::test_PrintVisitor()
+{
+    std::cout << "TestMiscellaneous::test_PrintVisitor() ->" << std::endl;
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs01");
+    std::cout << (*sample) << std::endl;
+}
+
+
+/* ************************************************************************* */
+// test of log system
+/* ************************************************************************* */
 void TestMiscellaneous::test_LogSystem()
 {
     std::cout << "TestMiscellaneous::test_LogSystem() -> Info" << std::endl;

@@ -131,7 +131,10 @@ SOURCES += \
     Fitting/src/FitSuiteStrategies.cpp \
     Fitting/src/IFitSuiteStrategy.cpp \
     Fitting/src/MinimizerScan.cpp \
-    Fitting/src/MinimizerTest.cpp
+    Fitting/src/MinimizerTest.cpp \
+    StandardSamples/SampleBuilderFactory.cpp \
+    StandardSamples/IsGISAXS01Builder.cpp
+
 
 HEADERS += \
     Geometry/inc/BasicVector3D.h \
@@ -308,7 +311,10 @@ HEADERS += \
     Fitting/inc/IFitSuiteStrategy.h \
     Fitting/inc/IMinimizer.h \
     Fitting/inc/MinimizerScan.h \
-    Fitting/inc/MinimizerTest.h
+    Fitting/inc/MinimizerTest.h \
+    StandardSamples/SampleBuilderFactory.h \
+    StandardSamples/IsGISAXS01Builder.h
+
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)

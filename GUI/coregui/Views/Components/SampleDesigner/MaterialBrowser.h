@@ -28,6 +28,8 @@ public:
 
     static void BrowserViewCall(Qt::WindowModality modality=Qt::NonModal);
 
+    static MaterialProperty getDefaultMaterialProperty();
+
 public slots:
     //! create new MaterialBrowserView or raise old one if exists
     //! @param A modal widget prevents widgets in all other windows from getting any input.
@@ -38,6 +40,7 @@ public slots:
 
 private:
     MaterialProperty this_getSelectedMaterialProperty();
+    MaterialProperty this_getDefaultMaterialProperty();
 
     QWidget *m_parent;
     static MaterialBrowser *m_instance;

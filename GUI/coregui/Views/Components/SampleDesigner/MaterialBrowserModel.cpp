@@ -271,3 +271,15 @@ MaterialProperty MaterialBrowserModel::getSelectedMaterialProperty()
         return p;
     }
 }
+
+
+MaterialProperty MaterialBrowserModel::getDefaultMaterialProperty()
+{
+    const IMaterial *mat = MaterialManager::getMaterial("Default");
+    MaterialProperty matProperty;
+    if(mat) {
+        matProperty.setName(QString(mat->getName().c_str()));
+        matProperty.setColor(m_mat_color[mat]);
+    }
+    return matProperty;
+}

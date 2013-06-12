@@ -30,9 +30,7 @@ MaterialBrowserView::MaterialBrowserView(MaterialBrowserModel *tableModel, QWidg
     setMinimumSize(128, 128);
     resize(512, 256);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    //setStyleSheet("background-color:white;");
 
-//    m_tableView = new MyTableView;
     m_tableView = new QTableView;
     std::cout << "XXX " << m_tableModel << std::endl;
     m_tableView->setModel( m_tableModel );
@@ -151,11 +149,6 @@ void MaterialBrowserView::removeMaterial()
         showMessage("Select one or more rows to delete materials");
     }
     m_tableModel->RemoveMaterials(selectedList);
-
-//    for(int i=0; i<selectedList.size(); ++i) {
-//        m_tableModel->RemoveMaterial(selectedList[i].row());
-//        std::cout << "XXX " << i << " " << selectedList[i].row()<< std::endl;
-//    }
 }
 
 

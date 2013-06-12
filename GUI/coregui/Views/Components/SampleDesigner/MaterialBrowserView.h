@@ -11,29 +11,6 @@ class QToolBar;
 
 #include <iostream>
 
-class MyTableView : public QTableView
-{
-public:
-    explicit MyTableView(QWidget *parent = 0) : QTableView(parent){}
-//    QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const
-//     {
-//       return QSize(50,50);
-//     }
-
-    int sizeHintForRow(int row) const
-    {
-        std::cout << "AAAAA " << QTableView::sizeHintForRow(row) << std::endl;
-        return 10;
-    }
-    int sizeHintForColumn(int column) const
-    {
-        int result = QTableView::sizeHintForColumn(column);
-        if(column == 0) result *= 1.4;
-        return result;
-    }
-
-};
-
 
 class MaterialBrowserView : public QDialog
 {

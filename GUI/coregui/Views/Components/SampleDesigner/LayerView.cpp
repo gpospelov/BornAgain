@@ -22,7 +22,7 @@ LayerView::LayerView(QGraphicsItem *parent)
     , m_fixed(false)
     , m_thickness(10*Units::nanometer)
 {
-    setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256) );
+    //setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256) );
     setRectangle(QRect(0, 0, DesignerHelper::getDefaultLayerWidth(), DesignerHelper::getDefaultLayerHeight()));
     setName(QString("Layer"));
     setToolTip(QString("%1\n%2").arg("LayerView").arg("Homogeneous layer"));
@@ -32,7 +32,7 @@ LayerView::LayerView(QGraphicsItem *parent)
     setAcceptDrops(false);
 
     addPort(" ", NodeEditorPort::Input, NodeEditorPort::ParticleFactory);
-
+    setMaterialProperty(MaterialBrowser::getDefaultMaterialProperty());
 }
 
 

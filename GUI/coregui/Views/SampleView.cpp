@@ -23,8 +23,8 @@
 
 SampleView::SampleView(QWidget *parent)
     : Manhattan::FancyMainWindow(parent)
-    , m_sampleDesigner(new SampleDesigner(this))
     , m_materialBrowser(new MaterialBrowser(this))
+    , m_sampleDesigner(new SampleDesigner(this))
     , m_toolBar(0)
 {
     setObjectName(QLatin1String("SampleView"));

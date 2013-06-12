@@ -34,6 +34,7 @@ public:
     void resetSelection() { m_selected_row = -1; }
     bool hasSelection() { return (m_selected_row >= 0 ? true : false); }
     MaterialProperty getSelectedMaterialProperty();
+    MaterialProperty getDefaultMaterialProperty();
 
 public slots:
     void UpdateMaterials();

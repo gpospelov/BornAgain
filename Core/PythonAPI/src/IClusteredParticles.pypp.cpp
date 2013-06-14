@@ -54,6 +54,11 @@ struct IClusteredParticles_wrapper : IClusteredParticles, bp::wrapper< IClustere
         func_setAmbientRefractiveIndex( refractive_index );
     }
 
+    virtual void accept( ::ISampleVisitor * p_visitor ){
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(p_visitor) );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -222,6 +227,16 @@ void register_IClusteredParticles_class(){
                 "setAmbientRefractiveIndex"
                 , bp::pure_virtual( setAmbientRefractiveIndex_function_type(&::IClusteredParticles::setAmbientRefractiveIndex) )
                 , ( bp::arg("refractive_index") ) );
+        
+        }
+        { //::ISample::accept
+        
+            typedef void ( ::ISample::*accept_function_type )( ::ISampleVisitor * ) ;
+            
+            IClusteredParticles_exposer.def( 
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::ISample::accept) )
+                , ( bp::arg("p_visitor") ) );
         
         }
         { //::IParameterized::areParametersChanged

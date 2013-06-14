@@ -62,6 +62,11 @@ struct IDecoration_wrapper : IDecoration, bp::wrapper< IDecoration > {
         return func_getParticleInfo( index );
     }
 
+    virtual void accept( ::ISampleVisitor * p_visitor ){
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(p_visitor) );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -274,6 +279,16 @@ void register_IDecoration_class(){
                 "setTotalParticleSurfaceDensity"
                 , setTotalParticleSurfaceDensity_function_type( &::IDecoration::setTotalParticleSurfaceDensity )
                 , ( bp::arg("surface_density") ) );
+        
+        }
+        { //::ISample::accept
+        
+            typedef void ( ::ISample::*accept_function_type )( ::ISampleVisitor * ) ;
+            
+            IDecoration_exposer.def( 
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::ISample::accept) )
+                , ( bp::arg("p_visitor") ) );
         
         }
         { //::IParameterized::areParametersChanged

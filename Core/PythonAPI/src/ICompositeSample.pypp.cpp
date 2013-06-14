@@ -73,6 +73,11 @@ struct ICompositeSample_wrapper : ICompositeSample, bp::wrapper< ICompositeSampl
         return ICompositeSample::size( );
     }
 
+    virtual void accept( ::ISampleVisitor * p_visitor ){
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(p_visitor) );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -253,6 +258,16 @@ void register_ICompositeSample_class(){
                 "size"
                 , size_function_type(&::ICompositeSample::size)
                 , default_size_function_type(&ICompositeSample_wrapper::default_size) );
+        
+        }
+        { //::ISample::accept
+        
+            typedef void ( ::ISample::*accept_function_type )( ::ISampleVisitor * ) ;
+            
+            ICompositeSample_exposer.def( 
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::ISample::accept) )
+                , ( bp::arg("p_visitor") ) );
         
         }
         { //::IParameterized::areParametersChanged

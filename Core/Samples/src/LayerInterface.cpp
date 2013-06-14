@@ -31,6 +31,17 @@ LayerInterface::~LayerInterface()
     delete m_roughness;
 }
 
+void LayerInterface::accept(ISampleVisitor *visitor)
+{
+    visitor->visit(this);
+    if(m_roughness) {
+        visitor->enter();
+        m_roughness->accept(visitor);
+        visitor->leave();
+    }
+}
+
+
 LayerInterface *LayerInterface::createSmoothInterface(const Layer *p_layer_top, const Layer *p_layer_bottom)
 {
     LayerInterface *lr = new LayerInterface();

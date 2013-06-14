@@ -26,53 +26,33 @@ class LayerDecorator : public Layer
 {
  public:
     //! Constructs LayerDecorator object by cloning _layer_ and _decoration_.
-    LayerDecorator(const Layer& layer, const IDecoration& decoration)
-        : mp_decorated_layer(layer.clone()), mp_decoration(decoration.clone())
-    {
-        setName("LayerDecorator");
-        registerChild(mp_decorated_layer);
-        registerChild(mp_decoration);
-        init_parameters();
-    }
+    LayerDecorator(const Layer& layer, const IDecoration& decoration);
+    virtual ~LayerDecorator();
 
-    virtual ~LayerDecorator()
-    {
-        delete mp_decorated_layer;
-        delete mp_decoration;
-    }
-
-    virtual LayerDecorator *clone() const
-    { return new LayerDecorator(*this); }
+    virtual LayerDecorator *clone() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor);
 
-    //! Sets _thickness_ in Angstrom.
-    virtual void setThickness(double thickness)
-    { mp_decorated_layer->setThickness(thickness); }
+    //! Sets _thickness_ in nanometers.
+    virtual void setThickness(double thickness);
 
-    //! Returns thickness in Angstrom.
-    virtual double getThickness() const
-    { return mp_decorated_layer->getThickness(); }
+    //! Returns thickness in nanometers.
+    virtual double getThickness() const;
 
     //! Sets _material_.
-    virtual void setMaterial(const IMaterial* material)
-    { mp_decorated_layer->setMaterial(material); }
+    virtual void setMaterial(const IMaterial* material);
 
     //! Sets _material_ and _thickness_ in Angstrom.
-    virtual void setMaterial(const IMaterial* material, double thickness)
-    { mp_decorated_layer->setMaterial(material, thickness); }
+    virtual void setMaterial(const IMaterial* material, double thickness);
 
     //! Returns material
-    const virtual IMaterial* getMaterial() const
-    { return mp_decorated_layer->getMaterial(); }
+    const virtual IMaterial* getMaterial() const;
 
     //! Returns refractive index.
-    virtual complex_t getRefractiveIndex() const
-    { return mp_decorated_layer->getRefractiveIndex(); }
+    virtual complex_t getRefractiveIndex() const;
 
-    virtual void init_parameters()
-    { getParameterPool()->clear(); }
+    virtual void init_parameters();
 
     const Layer* getDecoratedLayer() const { return mp_decorated_layer; }
 
@@ -85,25 +65,11 @@ class LayerDecorator : public Layer
 
     virtual DiffuseDWBASimulation *createDiffuseDWBASimulation() const;
 
-    virtual double getTotalParticleSurfaceDensity() const {
-        if (mp_decoration) {
-            return mp_decoration->getTotalParticleSurfaceDensity();
-        }
-        return 0.;
-    }
+    virtual double getTotalParticleSurfaceDensity() const;
 
  protected:
     //! Constructs a new object by cloning _other_'s layer and decoration.
-    LayerDecorator(const LayerDecorator& other)
-        : Layer(other)
-    {
-        mp_decorated_layer = other.getDecoratedLayer()->clone();
-        mp_decoration = other.getDecoration()->clone();
-        setName("LayerDecorator");
-        registerChild(mp_decorated_layer);
-        registerChild(mp_decoration);
-        init_parameters();
-    }
+    LayerDecorator(const LayerDecorator& other);
 
     Layer *mp_decorated_layer;
     IDecoration *mp_decoration;
@@ -111,6 +77,51 @@ class LayerDecorator : public Layer
  private:
     void print(std::ostream& ostr) const;
 };
+
+
+inline LayerDecorator *LayerDecorator::clone() const
+{
+    return new LayerDecorator(*this);
+}
+
+inline void LayerDecorator::setThickness(double thickness)
+{
+    mp_decorated_layer->setThickness(thickness);
+}
+
+inline double LayerDecorator::getThickness() const
+{
+    return mp_decorated_layer->getThickness();
+}
+
+inline void LayerDecorator::setMaterial(const IMaterial* material)
+{
+    mp_decorated_layer->setMaterial(material);
+}
+
+inline void LayerDecorator::setMaterial(const IMaterial* material, double thickness)
+{
+    mp_decorated_layer->setMaterial(material, thickness);
+}
+
+inline const IMaterial* LayerDecorator::getMaterial() const
+{
+    return mp_decorated_layer->getMaterial();
+}
+
+inline complex_t LayerDecorator::getRefractiveIndex() const
+{
+    return mp_decorated_layer->getRefractiveIndex();
+}
+
+inline double LayerDecorator::getTotalParticleSurfaceDensity() const
+{
+    if (mp_decoration) {
+        return mp_decoration->getTotalParticleSurfaceDensity();
+    }
+    return 0.;
+}
+
 
 #endif /* LAYERDECORATOR_H_ */
 

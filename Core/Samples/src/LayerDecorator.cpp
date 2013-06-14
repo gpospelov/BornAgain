@@ -15,6 +15,52 @@
 
 #include "LayerDecorator.h"
 
+
+LayerDecorator::LayerDecorator(const Layer& layer, const IDecoration& decoration)
+    : mp_decorated_layer(layer.clone()), mp_decoration(decoration.clone())
+{
+    setName("LayerDecorator");
+    registerChild(mp_decorated_layer);
+    registerChild(mp_decoration);
+    init_parameters();
+}
+
+
+LayerDecorator::LayerDecorator(const LayerDecorator& other)
+    : Layer(other)
+{
+    mp_decorated_layer = other.getDecoratedLayer()->clone();
+    mp_decoration = other.getDecoration()->clone();
+    setName("LayerDecorator");
+    registerChild(mp_decorated_layer);
+    registerChild(mp_decoration);
+    init_parameters();
+}
+
+
+LayerDecorator::~LayerDecorator()
+{
+    delete mp_decorated_layer;
+    delete mp_decoration;
+}
+
+
+void LayerDecorator::init_parameters()
+{
+    getParameterPool()->clear();
+}
+
+
+void LayerDecorator::accept(ISampleVisitor *visitor)
+{
+    visitor->visit(this);
+    visitor->enter();
+    mp_decorated_layer->accept(visitor);
+    mp_decoration->accept(visitor);
+    visitor->leave();
+}
+
+
 DiffuseDWBASimulation* LayerDecorator::createDiffuseDWBASimulation() const
 {
     DiffuseDWBASimulation *p_sim = new DiffuseDWBASimulation;

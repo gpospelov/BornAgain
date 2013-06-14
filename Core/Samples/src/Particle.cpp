@@ -40,6 +40,16 @@ Particle::~Particle()
     delete mp_form_factor;
 }
 
+
+void Particle::accept(ISampleVisitor *visitor)
+{
+    visitor->visit(this);
+    visitor->enter();
+    mp_form_factor->accept(visitor);
+    visitor->leave();
+}
+
+
 Particle* Particle::clone() const
 {
     IFormFactor *p_form_factor = mp_form_factor->clone();

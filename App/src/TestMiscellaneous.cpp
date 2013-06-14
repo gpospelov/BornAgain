@@ -34,6 +34,7 @@
 #include "Types.h"
 #include "MessageService.h"
 #include "SampleBuilderFactory.h"
+#include "SamplePrintVisitor.h"
 
 #include "TGraph.h"
 #include "TH2D.h"
@@ -71,7 +72,10 @@ void TestMiscellaneous::test_PrintVisitor()
     std::cout << "TestMiscellaneous::test_PrintVisitor() ->" << std::endl;
     SampleBuilderFactory factory;
     ISample *sample = factory.createSample("isgisaxs01");
-    std::cout << (*sample) << std::endl;
+    //std::cout << (*sample) << std::endl;
+
+    SamplePrintVisitor visitor;
+    sample->accept(&visitor);
 }
 
 

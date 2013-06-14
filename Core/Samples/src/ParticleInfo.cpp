@@ -75,6 +75,16 @@ void ParticleInfo::init_parameters()
 {
     getParameterPool()->clear();
     getParameterPool()->registerParameter("depth", &m_depth);
+    getParameterPool()->registerParameter("abundance", &m_abundance);
+}
+
+
+void ParticleInfo::accept(ISampleVisitor *visitor)
+{
+    visitor->visit(this);
+    visitor->enter();
+    mp_particle->accept(visitor);
+    visitor->leave();
 }
 
 

@@ -17,8 +17,33 @@
 #include "Exceptions.h"
 #include <iomanip>
 
-//! Sets layer thickness in Angstrom.
 
+Layer::Layer(const IMaterial* material, double thickness)
+    : m_thickness(thickness)
+{
+    setName("Layer");
+    setMaterial(material);
+    init_parameters();
+}
+
+
+Layer::Layer(const Layer& other) : ICompositeSample()
+{
+    mp_material = other.mp_material;
+    m_thickness = other.m_thickness;
+    setName(other.getName());
+    init_parameters();
+}
+
+
+void Layer::init_parameters()
+{
+    getParameterPool()->clear();
+    getParameterPool()->registerParameter("thickness", &m_thickness);
+}
+
+
+//! Sets layer thickness in Angstrom.
 void Layer::setThickness(double thickness)
 {
     if (thickness < 0.)
@@ -26,8 +51,8 @@ void Layer::setThickness(double thickness)
     m_thickness = thickness;
 }
 
-//! Sets _material_ of the layer.
 
+//! Sets _material_ of the layer.
 void Layer::setMaterial(const IMaterial* material)
 {
     if ( !material )
@@ -35,8 +60,15 @@ void Layer::setMaterial(const IMaterial* material)
     mp_material = material;
 }
 
-//! Prints description.
 
+void Layer::setMaterial(const IMaterial* material, double thickness)
+{
+    setMaterial(material);
+    setThickness(thickness);
+}
+
+
+//! Prints description.
 void Layer::print(std::ostream& ostr) const
 {
     ICompositeSample::print(ostr);

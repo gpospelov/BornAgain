@@ -29,7 +29,7 @@ class LayerInterface : public ICompositeSample
     virtual ~LayerInterface();
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *visitor);
 
     //! Creates smooth interface between two layers
     static LayerInterface* createSmoothInterface(

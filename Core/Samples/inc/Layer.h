@@ -33,19 +33,12 @@ class Layer : public ICompositeSample
         init_parameters();
     }
 
-    //! Constructs layer made of _material_ with _thickness_ in Angstrom.
-    Layer(const IMaterial* material, double thickness=0)
-        : m_thickness(thickness)
-    {
-        setName("Layer");
-        setMaterial(material);
-        init_parameters();
-    }
+    //! Constructs layer made of _material_ with _thickness_ in nanometers.
+    Layer(const IMaterial* material, double thickness=0);
 
     virtual ~Layer() {}
 
     virtual Layer *clone() const { return new Layer(*this); }
-    //virtual Layer *clone() const { return new Layer(mp_material, m_thickness); }
 
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
@@ -60,18 +53,13 @@ class Layer : public ICompositeSample
     virtual void setMaterial(const IMaterial* material);
 
     //! Sets _material_ and _thickness_.
-    virtual void setMaterial(const IMaterial* material, double thickness)
-    { setMaterial(material); setThickness(thickness); }
+    virtual void setMaterial(const IMaterial* material, double thickness);
 
     //! Returns layer's material.
     virtual const IMaterial* getMaterial() const { return mp_material; }
 
     //! Returns refractive index of the layer's material.
-    virtual complex_t getRefractiveIndex() const
-    {
-        return (dynamic_cast<const HomogeneousMaterial *>
-                (mp_material))->getRefractiveIndex();
-    }
+    virtual complex_t getRefractiveIndex() const;
 
     //! Returns false (override is important for polymorphism of LayerDecorator).
     virtual bool hasDWBASimulation() const { return false; }
@@ -80,24 +68,23 @@ class Layer : public ICompositeSample
     virtual LayerDWBASimulation *createDWBASimulation() const { return 0; }
 
  protected:
-    Layer(const Layer& other) : ICompositeSample()
-    {
-        mp_material = other.mp_material;
-        m_thickness = other.m_thickness;
-        init_parameters();
-    }
+    Layer(const Layer& other);
 
-    virtual void init_parameters()
-    {
-        getParameterPool()->clear();
-        getParameterPool()->registerParameter("thickness", &m_thickness);
-    }
+    void init_parameters();
 
     void print(std::ostream& ostr) const;
 
     const IMaterial* mp_material;    //!< pointer to the material
     double m_thickness;              //!< layer thickness in nanometers
 };
+
+
+inline complex_t Layer::getRefractiveIndex() const
+{
+    const HomogeneousMaterial *material = dynamic_cast<const HomogeneousMaterial *>(mp_material);
+    return (material ? material->getRefractiveIndex() : complex_t(0,0));
+}
+
 
 #endif // LAYER_H
 

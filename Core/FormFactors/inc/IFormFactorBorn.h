@@ -64,6 +64,7 @@ class IFormFactorBorn : public IFormFactor
     double bigZPartIntegral(double qH2) const;
 };
 
+
 inline complex_t IFormFactorBorn::evaluate(
     const cvector_t& k_i, const Bin1DCVector& k_f_bin,
     double alpha_i, double alpha_f) const

@@ -328,6 +328,12 @@ inline bool
 operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 { return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z()); }
 
+template<> std::complex<double> BasicVector3D<std::complex<double> >::dot(
+        const BasicVector3D<std::complex<double> >& v) const;
+
+template<> double BasicVector3D<double>::dot(
+        const BasicVector3D<double>& v) const;
+
 }  // namespace Geometry
 
 #endif /* GEOMETRY_BASICVECTOR3D_H */

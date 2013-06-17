@@ -51,4 +51,4 @@ for(dep, MY_DEPENDENCY_LIB) {
 ###############################################################################
 # runs automatically tests right after linking
 ###############################################################################
-QMAKE_POST_LINK = $$PWD/$(DESTDIR_TARGET)
+QMAKE_POST_LINK = $$PWD/$(TARGET)

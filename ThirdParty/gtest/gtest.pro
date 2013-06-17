@@ -6,7 +6,9 @@ TEMPLATE = lib
 CONFIG  += lib #plugin
 QT      -= gui core
 
-#QMAKE_EXTENSION_SHLIB = so
+macx|unix {
+  QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
+}
 
 include(../../shared.pri)
 

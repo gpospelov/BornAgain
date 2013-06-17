@@ -3,9 +3,9 @@
 
 #include <QObject>
 #include <QStackedWidget>
+#include "DesignerView.h"
 
 class DesignerScene;
-class DesignerView;
 class SamplePropertyEditor;
 class DesignerWidgetFactory;
 
@@ -37,13 +37,14 @@ public:
     DesignerScene *getScene() const { return m_designerScene; }
     DesignerView *getView() const { return m_designerView; }
 
-    QWidget *getCentralWidget() { return m_editorStack; }
+    //QWidget *getCentralWidget() { return m_editorStack; }
+    QWidget *getCentralWidget() { return m_designerView; }
 
 private:
     DesignerWidgetFactory *m_widgetFactory; //! factory to make views of ISample objects
     DesignerScene *m_designerScene; //! scene which holds all objects
     DesignerView *m_designerView;   //! graphical representation of scene with object
-    QStackedWidget *m_editorStack;    //! stack for varaiety of DesignerView's
+//    QStackedWidget *m_editorStack;    //! stack for varaiety of DesignerView's
 };
 
 

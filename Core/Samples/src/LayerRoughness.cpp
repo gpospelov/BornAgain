@@ -43,10 +43,10 @@ LayerRoughness *LayerRoughness::clone() const
 
 void LayerRoughness::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("sigma", &m_sigma);
-    getParameterPool()->registerParameter("hurst", &m_hurstParameter);
-    getParameterPool()->registerParameter("corrlength", &m_latteralCorrLength);
+    clearParameterPool();
+    registerParameter("sigma", &m_sigma);
+    registerParameter("hurst", &m_hurstParameter);
+    registerParameter("corrlength", &m_latteralCorrLength);
 }
 
 

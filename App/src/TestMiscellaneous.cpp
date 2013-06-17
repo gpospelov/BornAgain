@@ -71,7 +71,7 @@ void TestMiscellaneous::test_PrintVisitor()
 {
     std::cout << "TestMiscellaneous::test_PrintVisitor() ->" << std::endl;
     SampleBuilderFactory factory;
-    ISample *sample = factory.createSample("isgisaxs01");
+    ISample *sample = factory.createSample("isgisaxs04_2DDL");
     //std::cout << (*sample) << std::endl;
 
     SamplePrintVisitor visitor;

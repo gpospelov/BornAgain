@@ -47,7 +47,7 @@ LayerDecorator::~LayerDecorator()
 
 void LayerDecorator::init_parameters()
 {
-    getParameterPool()->clear();
+    clearParameterPool();
 }
 
 

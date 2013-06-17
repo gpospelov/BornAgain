@@ -96,3 +96,10 @@ void SamplePrintVisitor::visit(IFormFactor *sample)
               << std::endl;
 }
 
+
+void SamplePrintVisitor::visit(IInterferenceFunction *sample)
+{
+    std::cout << get_indent() << "Visitor_IInterferenceFunction " << sample->getName()
+              << " " << (*sample->getParameterPool())
+              << std::endl;
+}

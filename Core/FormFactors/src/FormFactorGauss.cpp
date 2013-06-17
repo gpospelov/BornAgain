@@ -40,9 +40,9 @@ FormFactorGauss::FormFactorGauss(double height, double width)
 
 void FormFactorGauss::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("height", &m_height);
-    getParameterPool()->registerParameter("width", &m_width);
+    clearParameterPool();
+    registerParameter("height", &m_height);
+    registerParameter("width", &m_width);
 }
 
 FormFactorGauss* FormFactorGauss::clone() const

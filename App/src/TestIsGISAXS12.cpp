@@ -457,17 +457,17 @@ TestIsGISAXS12::TestSampleBuilder::TestSampleBuilder()
 
 void TestIsGISAXS12::TestSampleBuilder::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("particle_probability1", &m_particle_probability1);
-    getParameterPool()->registerParameter("particle_radius1", &m_particle_radius1);
-    getParameterPool()->registerParameter("dispersion_radius1", &m_dispersion_radius1);
-    getParameterPool()->registerParameter("height_aspect_ratio1", &m_height_aspect_ratio1);
-    getParameterPool()->registerParameter("particle_probability2", &m_particle_probability2);
-    getParameterPool()->registerParameter("particle_radius2", &m_particle_radius2);
-    getParameterPool()->registerParameter("dispersion_radius2", &m_dispersion_radius2);
-    getParameterPool()->registerParameter("height_aspect_ratio2", &m_height_aspect_ratio2);
-    getParameterPool()->registerParameter("interf_distance", &m_interf_distance);
-    getParameterPool()->registerParameter("interf_width", &m_interf_width);
+    clearParameterPool();
+    registerParameter("particle_probability1", &m_particle_probability1);
+    registerParameter("particle_radius1", &m_particle_radius1);
+    registerParameter("dispersion_radius1", &m_dispersion_radius1);
+    registerParameter("height_aspect_ratio1", &m_height_aspect_ratio1);
+    registerParameter("particle_probability2", &m_particle_probability2);
+    registerParameter("particle_radius2", &m_particle_radius2);
+    registerParameter("dispersion_radius2", &m_dispersion_radius2);
+    registerParameter("height_aspect_ratio2", &m_height_aspect_ratio2);
+    registerParameter("interf_distance", &m_interf_distance);
+    registerParameter("interf_width", &m_interf_width);
 }
 
 

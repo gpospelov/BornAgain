@@ -38,8 +38,8 @@ Layer::Layer(const Layer& other) : ICompositeSample()
 
 void Layer::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("thickness", &m_thickness);
+    clearParameterPool();
+    registerParameter("thickness", &m_thickness);
 }
 
 

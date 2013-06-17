@@ -45,9 +45,9 @@ void FTDistribution2DCauchy::transformToStarBasis(double qX, double qY,
 
 void FTDistribution2DCauchy::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("omega_x", &m_omega_x);
-    getParameterPool()->registerParameter("omega_y", &m_omega_y);
+    clearParameterPool();
+    registerParameter("omega_x", &m_omega_x);
+    registerParameter("omega_y", &m_omega_y);
 }
 
 

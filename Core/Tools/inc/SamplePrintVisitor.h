@@ -11,13 +11,14 @@ public:
     SamplePrintVisitor();
     void visit(ISample *sample);
     void visit(MultiLayer *sample);
-    void visit(Layer *);
-    void visit(LayerDecorator *);
-    void visit(LayerInterface *);
-    void visit(ParticleDecoration *);
-    void visit(ParticleInfo *);
-    void visit(Particle *);
-    void visit(IFormFactor *);
+    void visit(Layer *sample);
+    void visit(LayerDecorator *sample);
+    void visit(LayerInterface *sample);
+    void visit(ParticleDecoration *sample);
+    void visit(ParticleInfo *sample);
+    void visit(Particle *sample);
+    void visit(IFormFactor *sample);
+    void visit(IInterferenceFunction *sample);
 
     void enter();
     void leave();

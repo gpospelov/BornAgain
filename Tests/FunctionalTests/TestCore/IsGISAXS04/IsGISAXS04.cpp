@@ -10,6 +10,7 @@
 #include "Simulation.h"
 #include "Units.h"
 #include "Utils.h"
+#include "SampleBuilderFactory.h"
 
 #include <iostream>
 #include <cmath>
@@ -33,22 +34,25 @@ FunctionalTests::IsGISAXS04::~IsGISAXS04()
 void FunctionalTests::IsGISAXS04::run1DDL()
 {
     // building sample
-    MultiLayer multi_layer;
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+//    MultiLayer multi_layer;
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+//    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+//    Layer air_layer;
+//    air_layer.setMaterial(p_air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(p_substrate_material);
 
-    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e3*Units::nanometer);
-    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+//    IInterferenceFunction *p_interference_function = new InterferenceFunction1DParaCrystal(20.0*Units::nanometer,7*Units::nanometer, 1e3*Units::nanometer);
+//    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+//    particle_decoration.addInterferenceFunction(p_interference_function);
+//    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    multi_layer.addLayer(air_layer_decorator);
-    multi_layer.addLayer(substrate_layer);
+//    multi_layer.addLayer(air_layer_decorator);
+//    multi_layer.addLayer(substrate_layer);
+
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs04_1DDL");
 
     // building simulation
     Simulation simulation;
@@ -57,9 +61,12 @@ void FunctionalTests::IsGISAXS04::run1DDL()
 
     // running simulation and copying data
     gsl_set_error_handler_off();
-    simulation.setSample(multi_layer);
+    //simulation.setSample(multi_layer);
+    simulation.setSample(*sample);
     simulation.runSimulation();
     m_results[kTest_1DDL] = simulation.getOutputDataClone();
+
+    delete sample;
 }
 
 
@@ -67,25 +74,28 @@ void FunctionalTests::IsGISAXS04::run1DDL()
 void FunctionalTests::IsGISAXS04::run2DDL()
 {
     // building sample
-    MultiLayer multi_layer;
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
+//    MultiLayer multi_layer;
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
+//    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
+//    Layer air_layer;
+//    air_layer.setMaterial(p_air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(p_substrate_material);
 
-    InterferenceFunction2DParaCrystal *p_interference_function = InterferenceFunction2DParaCrystal::createHexagonal(20.0*Units::nanometer, 0.0,
-                                                                                                                    20.0*Units::micrometer, 20.0*Units::micrometer);
-    FTDistribution2DCauchy pdf(1.0*Units::nanometer, 1.0*Units::nanometer);
-    p_interference_function->setProbabilityDistributions(pdf, pdf);
-    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+//    InterferenceFunction2DParaCrystal *p_interference_function = InterferenceFunction2DParaCrystal::createHexagonal(20.0*Units::nanometer, 0.0,
+//                                                                                                                    20.0*Units::micrometer, 20.0*Units::micrometer);
+//    FTDistribution2DCauchy pdf(1.0*Units::nanometer, 1.0*Units::nanometer);
+//    p_interference_function->setProbabilityDistributions(pdf, pdf);
+//    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
+//    particle_decoration.addInterferenceFunction(p_interference_function);
+//    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    multi_layer.addLayer(air_layer_decorator);
-    multi_layer.addLayer(substrate_layer);
+//    multi_layer.addLayer(air_layer_decorator);
+//    multi_layer.addLayer(substrate_layer);
+
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs04_2DDL");
 
     // building simulation
     Simulation simulation;
@@ -93,10 +103,12 @@ void FunctionalTests::IsGISAXS04::run2DDL()
     simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // running simulation and copying data
-    simulation.setSample(multi_layer);
+//    simulation.setSample(multi_layer);
+    simulation.setSample(*sample);
     gsl_set_error_handler_off();
     simulation.runSimulation();
     m_results[kTest_2DDL] = simulation.getOutputDataClone();
+    delete sample;
 }
 
 

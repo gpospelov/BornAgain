@@ -19,9 +19,9 @@
 
 void OutputDataNormalizer::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("scale", &m_scale);
-    getParameterPool()->registerParameter("shift", &m_shift);
+    clearParameterPool();
+    registerParameter("scale", &m_scale);
+    registerParameter("shift", &m_shift);
 }
 
 OutputDataNormalizer *OutputDataNormalizer::clone() const

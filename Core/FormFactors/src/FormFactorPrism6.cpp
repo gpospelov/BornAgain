@@ -29,9 +29,9 @@ FormFactorPrism6::FormFactorPrism6(double height, double half_side)
 
 void FormFactorPrism6::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("height", &m_height);
-    getParameterPool()->registerParameter("half_side", &m_half_side);
+    clearParameterPool();
+    registerParameter("height", &m_height);
+    registerParameter("half_side", &m_half_side);
 }
 
 FormFactorPrism6* FormFactorPrism6::clone() const

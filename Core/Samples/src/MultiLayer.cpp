@@ -48,8 +48,8 @@ void MultiLayer::accept(ISampleVisitor *visitor)
 /* ************************************************************************* */
 void MultiLayer::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("crossCorrLength", &m_crossCorrLength);
+    clearParameterPool();
+    registerParameter("crossCorrLength", &m_crossCorrLength);
 }
 
 /* ************************************************************************* */
@@ -69,7 +69,7 @@ void MultiLayer::clear()
 
     m_layers_z.clear();
 
-    getParameterPool()->clear();
+    clearParameterPool();
 }
 
 //! clone MultiLayer contents including interfaces

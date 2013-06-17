@@ -73,9 +73,9 @@ ParticleInfo::ParticleInfo(
 
 void ParticleInfo::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("depth", &m_depth);
-    getParameterPool()->registerParameter("abundance", &m_abundance);
+    clearParameterPool();
+    registerParameter("depth", &m_depth);
+    registerParameter("abundance", &m_abundance);
 }
 
 

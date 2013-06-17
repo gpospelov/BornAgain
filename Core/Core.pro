@@ -134,7 +134,8 @@ SOURCES += \
     Fitting/src/MinimizerTest.cpp \
     StandardSamples/SampleBuilderFactory.cpp \
     StandardSamples/IsGISAXS01Builder.cpp \
-    Tools/src/SamplePrintVisitor.cpp
+    Tools/src/SamplePrintVisitor.cpp \
+    StandardSamples/IsGISAXS04Builder.cpp
 
 
 HEADERS += \
@@ -315,7 +316,8 @@ HEADERS += \
     Fitting/inc/MinimizerTest.h \
     StandardSamples/SampleBuilderFactory.h \
     StandardSamples/IsGISAXS01Builder.h \
-    Tools/inc/SamplePrintVisitor.h
+    Tools/inc/SamplePrintVisitor.h \
+    StandardSamples/IsGISAXS04Builder.h
 
 
 contains(CONFIG, BORNAGAIN_PYTHON) {

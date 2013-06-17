@@ -15,12 +15,23 @@ IsGISAXS01Builder::IsGISAXS01Builder()
     , m_prism_half_side(5*Units::nanometer)
     , m_cylinder_weight(0.5)
 {
+    init_parameters();
+}
+
+
+void IsGISAXS01Builder::init_parameters()
+{
+    clearParameterPool();
+    registerParameter("cylinder_height", &m_cylinder_height);
+    registerParameter("cylinder_raduis", &m_cylinder_radius);
+    registerParameter("prism_height", &m_prism_height);
+    registerParameter("prism_half_side", &m_prism_half_side);
+    registerParameter("cylinder_weight", &m_cylinder_weight);
 }
 
 
 ISample *IsGISAXS01Builder::buildSample() const
 {
-
     MultiLayer *multi_layer = new MultiLayer();
     const IMaterial *p_air_material =
             MaterialManager::getHomogeneousMaterial("Air", 1., 0.);

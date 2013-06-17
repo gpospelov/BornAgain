@@ -351,10 +351,10 @@ ISample *TestFittingModule2::SampleBuilder::buildSample() const
 
 void TestFittingModule2::SampleBuilder::init_parameters()
 {
-    getParameterPool()->clear();
-    getParameterPool()->registerParameter("m_cylinder_height", &m_cylinder_height);
-    getParameterPool()->registerParameter("m_cylinder_radius", &m_cylinder_radius);
-    getParameterPool()->registerParameter("m_prism3_half_side", &m_prism3_half_side);
-    getParameterPool()->registerParameter("m_prism3_height", &m_prism3_height);
-    getParameterPool()->registerParameter("m_cylinder_ratio", &m_cylinder_ratio);
+    clearParameterPool();
+    registerParameter("m_cylinder_height", &m_cylinder_height);
+    registerParameter("m_cylinder_radius", &m_cylinder_radius);
+    registerParameter("m_prism3_half_side", &m_prism3_half_side);
+    registerParameter("m_prism3_height", &m_prism3_height);
+    registerParameter("m_cylinder_ratio", &m_cylinder_ratio);
 }

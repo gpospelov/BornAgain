@@ -27,6 +27,7 @@ class ParticleDecoration;
 class ParticleInfo;
 class Particle;
 class IFormFactor;
+class IInterferenceFunction;
 
 //! Interface to visit a sample tree and perform operations on its nodes
 
@@ -48,6 +49,7 @@ public:
     virtual void visit(ParticleInfo *) { throw NotImplementedException("ISampleVisitor::visit(ParticleInfo *)"); }
     virtual void visit(Particle *) { throw NotImplementedException("ISampleVisitor::visit(Particle *)"); }
     virtual void visit(IFormFactor *) { throw NotImplementedException("ISampleVisitor::visit(IFormFactor *)"); }
+    virtual void visit(IInterferenceFunction *) { throw NotImplementedException("ISampleVisitor::visit(IInterferenceFunction *)"); }
 
     virtual void enter(){}
     virtual void leave(){}

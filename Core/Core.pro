@@ -349,5 +349,6 @@ CONFIG(debug, debug|release) {
 target.path = $$PWD/../lib
 INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
-QMAKE_POST_LINK = $$MAKE_COMMAND -f $(MAKEFILE) install
+isEmpty(MAKEFILE): MAKEFILE="Makefile"
+QMAKE_POST_LINK = $$MAKE_COMMAND -f $${MAKEFILE} install
 

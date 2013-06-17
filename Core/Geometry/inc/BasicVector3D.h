@@ -22,6 +22,7 @@
 #define GEOMETRY_BASICVECTOR3D_H
 
 #include "Numeric.h"
+#include "Exceptions.h"
 #include <complex>
 
 namespace Geometry {
@@ -141,7 +142,11 @@ class BasicVector3D {
     // -------------------
 
     //! Scalar product.
-    T dot(const BasicVector3D<T>& v) const;
+    T dot(const BasicVector3D<T>& v) const {
+        (void)v;
+        throw NotImplementedException("dot is not defined for this"
+                                      " template parameter");
+    }
     //{ return x()*v.x()+y()*v.y()+z()*v.z();}
 
     //! Vector product.
@@ -153,7 +158,11 @@ class BasicVector3D {
    // }
 
     //! Returns square of transverse component with respect to given axis.
-    double perp2(const BasicVector3D<T>& v) const;
+    double perp2(const BasicVector3D<T>& v) const {
+        (void)v;
+        throw NotImplementedException("perp2 is not defined for this"
+                                      " template parameter");
+    }
 
     //! Returns transverse component with respect to given axis.
     inline T perp(const BasicVector3D<T>& v) const
@@ -181,27 +190,27 @@ class BasicVector3D {
 
     //! Returns unit vector in direction of this (or null vector).
     inline BasicVector3D<T> unit() const {
-        T len = mag();
+        double len = std::abs(mag());
         return (len > 0.0) ?
             BasicVector3D<T>(x()/len, y()/len, z()/len) :
             BasicVector3D<T>();
     }
 
     //! Returns somewhat arbitrarily chosen orthogonal vector.
-    BasicVector3D<T> orthogonal() const {
-        T dx = x() < 0.0 ? -x() : x();
-        T dy = y() < 0.0 ? -y() : y();
-        T dz = z() < 0.0 ? -z() : z();
-        if (dx < dy) {
-            return dx < dz ?
-                BasicVector3D<T>(0.0,z(),-y()) :
-                BasicVector3D<T>(y(),-x(),0.0);
-        } else {
-            return dy < dz ?
-                BasicVector3D<T>(-z(),0.0,x()) :
-                BasicVector3D<T>(y(),-x(),0.0);
-        }
-    }
+//    BasicVector3D<T> orthogonal() const {
+//        T dx = x() < 0.0 ? -x() : x();
+//        T dy = y() < 0.0 ? -y() : y();
+//        T dz = z() < 0.0 ? -z() : z();
+//        if (dx < dy) {
+//            return dx < dz ?
+//                BasicVector3D<T>(0.0,z(),-y()) :
+//                BasicVector3D<T>(y(),-x(),0.0);
+//        } else {
+//            return dy < dz ?
+//                BasicVector3D<T>(-z(),0.0,x()) :
+//                BasicVector3D<T>(y(),-x(),0.0);
+//        }
+//    }
 
     // ---------------------------------------------
     // Specifically for grazing-incidence scattering

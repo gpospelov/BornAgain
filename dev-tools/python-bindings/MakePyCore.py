@@ -72,6 +72,7 @@ include_classes = [
 "IResolutionFunction2D",
 "ISample",
 "ISampleBuilder",
+#"ISampleVisitor",
 "ISelectionRule",
 "ITransform3D",
 "Instrument",
@@ -126,7 +127,7 @@ def ManualClassTunings(mb):
     methods_to_exclude=[
         "phi", "theta", "cosTheta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",
         "setMag", "perp", "perp2", "setPerp", "angle", "unit", "orthogonal",
-        "rotated","rotatedX","rotatedY","rotatedZ"
+        "rotated","rotatedX","rotatedY","rotatedZ","cross","dot"
     ]
     classes_to_exclude = ["BasicVector3D<std::complex<double> >","BasicVector3D<double>","BasicVector3D<int>"]
     builder_utils.ExcludeMemberFunctionsForClasses(mb, methods_to_exclude, classes_to_exclude)

@@ -207,7 +207,7 @@ CONFIG(BORNAGAIN_ROOT) {
     ROOTLIBDIR = "C:/root/lib"
   }
   LIBS += -L$${ROOTLIBDIR}
-  REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix MathCore Minuit2 Thread
+  REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix MathCore MathMore Minuit2 Thread
 
   # check existence of required ROOT libraries
   for(x, REQUIRED_ROOT_LIBS) {

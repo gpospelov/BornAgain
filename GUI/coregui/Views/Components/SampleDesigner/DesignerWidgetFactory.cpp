@@ -7,8 +7,14 @@
 #include "MaterialView.h"
 
 
+DesignerWidgetFactory *DesignerWidgetFactory::m_instance = 0;
+
+
 DesignerWidgetFactory::DesignerWidgetFactory()
 {
+    Q_ASSERT(!m_instance);
+    m_instance = this;
+
    registerItem(
         "Layer",
         IFactoryCreateFunction<LayerView, ISampleView>
@@ -46,7 +52,26 @@ DesignerWidgetFactory::DesignerWidgetFactory()
 }
 
 
+DesignerWidgetFactory::~DesignerWidgetFactory()
+{
+    m_instance = 0;
+}
+
+
+DesignerWidgetFactory *DesignerWidgetFactory::instance()
+{
+    return m_instance;
+}
+
+
 ISampleView *DesignerWidgetFactory::createView(const QString &name)
+{
+    Q_ASSERT(instance());
+    return instance()->this_createView(name);
+}
+
+
+ISampleView *DesignerWidgetFactory::this_createView(const QString &name)
 {
     ISampleView *result(0);
     try {

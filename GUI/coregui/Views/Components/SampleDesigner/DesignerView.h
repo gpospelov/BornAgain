@@ -10,14 +10,13 @@ class QWheelEvent;
 class QKeyEvent;
 
 class DesignerMimeData;
-class DesignerWidgetFactory;
 
 class DesignerView : public QWidget
 {
 public:
 
     explicit DesignerView(QWidget *parent = 0, QGraphicsScene *scene=0);
-    virtual ~DesignerView();
+    virtual ~DesignerView(){}
 
 public slots:
     void zoomIn();
@@ -40,10 +39,6 @@ protected:
 
 private:
     QGraphicsView *m_graphicsView;
-//    QGraphicsScene *m_graphicsScene;
-
-    DesignerWidgetFactory *m_widgetFactory;
-
 };
 
 #endif // DESIGNERVIEW_H

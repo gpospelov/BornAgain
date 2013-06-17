@@ -29,7 +29,7 @@ class DesignerScene : public DesignerSceneInterface
 
 public:
     explicit DesignerScene(QObject *parent = 0);
-    virtual ~DesignerScene();
+    virtual ~DesignerScene(){}
 
 protected:
     virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
@@ -41,17 +41,14 @@ protected:
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
 
 private:
-    void createLayerDock();
     void createSample();
+    void createLayerDock();
 
     int m_xmin;
     int m_xmax;
     int m_ymin;
     int m_ymax;
-    DesignerWidgetFactory *m_widgetFactory;
-
 //    QGraphicsDropShadowEffect *m_shadow_effect;
-
 };
 
 #endif // DESIGNERSCENE_H

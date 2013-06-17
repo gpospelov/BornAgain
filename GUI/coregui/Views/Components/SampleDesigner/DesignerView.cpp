@@ -1,6 +1,5 @@
 #include "DesignerView.h"
 #include "DesignerMimeData.h"
-#include "DesignerWidgetFactory.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QVBoxLayout>
@@ -20,8 +19,6 @@
 DesignerView::DesignerView(QWidget *parent, QGraphicsScene *scene)
     : QWidget(parent)
     , m_graphicsView(0)
-//    , m_graphicsScene(scene)
-    , m_widgetFactory(new DesignerWidgetFactory())
 {
 //    setMinimumSize(128, 128);
 //    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -44,11 +41,6 @@ DesignerView::DesignerView(QWidget *parent, QGraphicsScene *scene)
 //   QShortcut* shortcut = new QShortcut(QKeySequence(Qt::Key_Delete), this);
 //   connect(shortcut, SIGNAL(activated()), this, SLOT(deleteItem()));
 
-}
-
-DesignerView::~DesignerView()
-{
-    delete m_widgetFactory;
 }
 
 

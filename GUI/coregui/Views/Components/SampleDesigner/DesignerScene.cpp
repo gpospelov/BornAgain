@@ -21,7 +21,6 @@ DesignerScene::DesignerScene(QObject *parent)
     , m_xmax(300)
     , m_ymin(-100)
     , m_ymax(500)
-    , m_widgetFactory(new DesignerWidgetFactory())
 {
 
     setSceneRect(QRectF(-300, -100, 600, 600));
@@ -29,23 +28,18 @@ DesignerScene::DesignerScene(QObject *parent)
     //setAcceptDrops(true);
 
     //setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-    MultiLayerView *dock = MultiLayerView::createTopMultiLayer();
-    addItem(dock);
-//    createLayerDock();
+//    MultiLayerView *dock = MultiLayerView::createTopMultiLayer();
+//    addItem(dock);
+    createLayerDock();
 
     NodeEditor *nodeEditor = new NodeEditor(parent);
     nodeEditor->install(this);
 
 
-    createSample();
+    //createSample();
 
 }
 
-
-DesignerScene::~DesignerScene()
-{
-    delete m_widgetFactory;
-}
 
 
 void DesignerScene::createSample()
@@ -59,7 +53,6 @@ void DesignerScene::createSample()
 
 
 }
-
 
 
 // create layer dock which will hold Layer and MultiLayer objects
@@ -125,7 +118,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         if(mimeData->getClassName() == QString("Layer") || mimeData->getClassName() == QString("MultiLayer") ) {
             QGraphicsScene::dropEvent(event);
         } else {
-            ISampleView *view = m_widgetFactory->createView( mimeData->getClassName() );
+            ISampleView *view = DesignerWidgetFactory::createView( mimeData->getClassName() );
             addItem(view);
 
 //            QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect;

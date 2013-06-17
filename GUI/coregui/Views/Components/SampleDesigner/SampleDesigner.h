@@ -7,6 +7,7 @@
 class DesignerScene;
 class DesignerView;
 class SamplePropertyEditor;
+class DesignerWidgetFactory;
 
 
 //! sample designer interface
@@ -28,9 +29,10 @@ public:
 class SampleDesigner: public SampleDesignerInterface
 {
     Q_OBJECT
+
 public:
     SampleDesigner(QWidget *parent = 0);
-    virtual ~SampleDesigner(){}
+    virtual ~SampleDesigner();
 
     DesignerScene *getScene() const { return m_designerScene; }
     DesignerView *getView() const { return m_designerView; }
@@ -38,6 +40,7 @@ public:
     QWidget *getCentralWidget() { return m_editorStack; }
 
 private:
+    DesignerWidgetFactory *m_widgetFactory; //! factory to make views of ISample objects
     DesignerScene *m_designerScene; //! scene which holds all objects
     DesignerView *m_designerView;   //! graphical representation of scene with object
     QStackedWidget *m_editorStack;    //! stack for varaiety of DesignerView's

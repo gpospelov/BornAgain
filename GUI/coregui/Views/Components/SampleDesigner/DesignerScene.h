@@ -42,6 +42,7 @@ protected:
 
 private:
     void createLayerDock();
+    void createSample();
 
     int m_xmin;
     int m_xmax;

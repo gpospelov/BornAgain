@@ -21,9 +21,13 @@ class DesignerMimeData;
 class MultiLayerView : public ISampleRectView
 {
     Q_OBJECT
+
 public:
 
     MultiLayerView(QGraphicsItem *parent = 0);
+
+    //! create top MultiLayer, which will be the dock for all Layer's and MultiLayer's
+    static MultiLayerView *createTopMultiLayer();
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 

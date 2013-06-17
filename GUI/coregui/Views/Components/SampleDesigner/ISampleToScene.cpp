@@ -1,4 +1,4 @@
-#include "SamplePrintVisitor.h"
+#include "ISampleToScene.h"
 #include "ISample.h"
 #include "MultiLayer.h"
 #include "LayerDecorator.h"
@@ -6,22 +6,22 @@
 #include "Particle.h"
 #include <iostream>
 
-SamplePrintVisitor::SamplePrintVisitor() : m_level(0)
+ISampleToScene::ISampleToScene() : m_level(0)
 {
 }
 
-void SamplePrintVisitor::enter()
+void ISampleToScene::enter()
 {
     ++m_level;
 }
 
 
-void SamplePrintVisitor::leave()
+void ISampleToScene::leave()
 {
     --m_level;
 }
 
-std::string SamplePrintVisitor::get_indent()
+std::string ISampleToScene::get_indent()
 {
     std::string result;
     result.resize(m_level*4, '.');
@@ -29,21 +29,21 @@ std::string SamplePrintVisitor::get_indent()
 }
 
 
-void SamplePrintVisitor::visit(const ISample *sample)
+void ISampleToScene::visit(const ISample *sample)
 {
     std::cout << get_indent() << "Visitor_ISample " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
 
-void SamplePrintVisitor::visit(const MultiLayer *sample)
+void ISampleToScene::visit(const MultiLayer *sample)
 {
     std::cout << get_indent() << "Visitor_MultiLayer " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
 
-void SamplePrintVisitor::visit(const Layer *sample)
+void ISampleToScene::visit(const Layer *sample)
 {
     std::cout << get_indent() << "Visitor_Layer " << sample->getName()
               << " " << sample->getMaterial()->getName()
@@ -52,48 +52,55 @@ void SamplePrintVisitor::visit(const Layer *sample)
               << std::endl;
 }
 
-void SamplePrintVisitor::visit(const LayerDecorator *sample)
+void ISampleToScene::visit(const LayerDecorator *sample)
 {
     std::cout << get_indent() << "Visitor_LayerDecorator " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
+
     enter();
     sample->getDecoratedLayer()->accept(this);
     sample->getDecoration()->accept(this);
     leave();
 
+//    visitor->visit(this);
+//    visitor->enter();
+//    mp_decorated_layer->accept(visitor);
+//    mp_decoration->accept(visitor);
+//    visitor->leave();
 
 }
 
-void SamplePrintVisitor::visit(const LayerInterface *sample)
+void ISampleToScene::visit(const LayerInterface *sample)
 {
     std::cout << get_indent() << "Visitor_LayerInterface " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
 
-void SamplePrintVisitor::visit(const ParticleDecoration *sample)
+void ISampleToScene::visit(const ParticleDecoration *sample)
 {
     std::cout << get_indent() << "Visitor_ParticleDecoration " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
+
 }
 
-void SamplePrintVisitor::visit(const ParticleInfo *sample)
+void ISampleToScene::visit(const ParticleInfo *sample)
 {
     std::cout << get_indent() << "Visitor_ParticleInfo " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
 
-void SamplePrintVisitor::visit(const Particle *sample)
+void ISampleToScene::visit(const Particle *sample)
 {
     std::cout << get_indent() << "Visitor_Particle " << sample->getName()
               << " Index:" << sample->getRefractiveIndex()
               << std::endl;
 }
 
-void SamplePrintVisitor::visit(const IFormFactor *sample)
+void ISampleToScene::visit(const IFormFactor *sample)
 {
     std::cout << get_indent() << "Visitor_IFormFactor " << sample->getName()
               << " " << (*sample->getParameterPool())
@@ -101,11 +108,9 @@ void SamplePrintVisitor::visit(const IFormFactor *sample)
 }
 
 
-void SamplePrintVisitor::visit(const IInterferenceFunction *sample)
+void ISampleToScene::visit(const IInterferenceFunction *sample)
 {
     std::cout << get_indent() << "Visitor_IInterferenceFunction " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
-
-
 }

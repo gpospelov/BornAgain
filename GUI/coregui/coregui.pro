@@ -74,6 +74,7 @@ INCLUDEPATH += $$PWD/../../Core/Algorithms/inc \
     $$PWD/../../Core/FormFactors/inc \
     $$PWD/../../Core/Geometry/inc \
     $$PWD/../../Core/Samples/inc \
+    $$PWD/../../Core/StandardSamples/inc \
     $$PWD/../../Core/Tools/inc
 
 # -----------------------------------------------------------------------------

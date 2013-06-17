@@ -20,6 +20,7 @@ class QPointF;
 class NodeEditor : public QObject
 {
 	Q_OBJECT
+
 public:
     explicit NodeEditor(QObject *parent = 0);
 

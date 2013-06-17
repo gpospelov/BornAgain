@@ -23,7 +23,7 @@
 #include <iomanip>
 
 
-void ParticleDecoration::accept(ISampleVisitor *visitor)
+void ParticleDecoration::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
     visitor->enter();

@@ -36,7 +36,7 @@ class LayerRoughness : public IRoughness
     LayerRoughness *clone() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
     //! Returns power spectral density of the surface roughness
     double getSpectralFun(const kvector_t& kvec) const;

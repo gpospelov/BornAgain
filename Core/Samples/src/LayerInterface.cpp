@@ -31,7 +31,7 @@ LayerInterface::~LayerInterface()
     delete m_roughness;
 }
 
-void LayerInterface::accept(ISampleVisitor *visitor)
+void LayerInterface::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
     if(m_roughness) {

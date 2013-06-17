@@ -42,7 +42,7 @@ class MultiLayer : public ICompositeSample
     ~MultiLayer();
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor);
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Returns number of layers in multilayer
     inline size_t getNumberOfLayers() const { return m_layers.size(); }

@@ -37,7 +37,7 @@ class ISample : public IParameterized, public ICloneable
     virtual ISample *clone() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor)=0;
+    virtual void accept(ISampleVisitor *p_visitor) const = 0;
 
     //! Returns an ISimulation if DWBA is required.
     virtual DWBASimulation *createDWBASimulation() const { return 0; }

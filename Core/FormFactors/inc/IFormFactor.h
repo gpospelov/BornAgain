@@ -31,7 +31,7 @@ class IFormFactor : public ISample
     virtual IFormFactor *clone() const=0;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
     //! Passes the refractive index of the ambient material in which this particle is embedded.
     virtual void setAmbientRefractiveIndex(const complex_t& refractive_index)

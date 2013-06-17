@@ -41,7 +41,7 @@ Particle::~Particle()
 }
 
 
-void Particle::accept(ISampleVisitor *visitor)
+void Particle::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
     visitor->enter();

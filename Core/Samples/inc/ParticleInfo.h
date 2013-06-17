@@ -49,7 +49,7 @@ class ParticleInfo : public ICompositeSample
     }
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor);
+    virtual void accept(ISampleVisitor *visitor) const;
 
     //! Returns particle.
     const Particle *getParticle() const { return mp_particle; }

@@ -30,7 +30,7 @@ MultiLayer::~MultiLayer()
     clear();
 }
 
-void MultiLayer::accept(ISampleVisitor *visitor)
+void MultiLayer::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
     visitor->enter();

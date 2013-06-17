@@ -32,7 +32,7 @@ class MesoCrystal : public Particle
     virtual MesoCrystal *clone() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)
     {

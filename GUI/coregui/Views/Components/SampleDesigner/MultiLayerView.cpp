@@ -38,6 +38,20 @@ MultiLayerView::MultiLayerView(QGraphicsItem *parent)
 }
 
 
+// create top MultiLayer, which will be the dock for all Layer's and MultiLayer's
+MultiLayerView *MultiLayerView::createTopMultiLayer()
+{
+    MultiLayerView *result = new MultiLayerView();
+    result->setColor(Qt::lightGray);
+    result->allowDropType(QString("MultiLayer"));
+    result->setToolTip(QString("LayerDock\nDrag and drop here layer or multi layer"));
+    result->setFlag(QGraphicsItem::ItemIsSelectable, false);
+    result->setPos(-result->getRectangle().width()/2, 100.0);
+    return result;
+}
+
+
+
 // allows droping of object of given type
 void MultiLayerView::allowDropType(const QString &name) {
     if(m_current_types.contains(name)) {

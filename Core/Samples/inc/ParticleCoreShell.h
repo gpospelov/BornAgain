@@ -28,7 +28,7 @@ class ParticleCoreShell : public Particle
     virtual ParticleCoreShell *clone() const;
 
     //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
+    virtual void accept(ISampleVisitor *p_visitor) const { p_visitor->visit(this); }
 
     //! Sets the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)

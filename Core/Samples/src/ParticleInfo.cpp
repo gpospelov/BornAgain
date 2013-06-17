@@ -79,7 +79,7 @@ void ParticleInfo::init_parameters()
 }
 
 
-void ParticleInfo::accept(ISampleVisitor *visitor)
+void ParticleInfo::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
     visitor->enter();

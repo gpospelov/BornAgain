@@ -8,6 +8,9 @@
 #include "DesignerHelper.h"
 #include "LayerDockView.h"
 #include "NodeEditor.h"
+#include "ISampleToScene.h"
+#include "SampleBuilderFactory.h"
+
 
 #include <QGraphicsSceneDragDropEvent>
 #include <QGraphicsDropShadowEffect>
@@ -26,10 +29,16 @@ DesignerScene::DesignerScene(QObject *parent)
     //setAcceptDrops(true);
 
     //setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-    createLayerDock();
+    MultiLayerView *dock = MultiLayerView::createTopMultiLayer();
+    addItem(dock);
+//    createLayerDock();
 
-    NodeEditor *nodesEditor = new NodeEditor(parent);
-    nodesEditor->install(this);
+    NodeEditor *nodeEditor = new NodeEditor(parent);
+    nodeEditor->install(this);
+
+
+    createSample();
+
 }
 
 
@@ -38,15 +47,30 @@ DesignerScene::~DesignerScene()
     delete m_widgetFactory;
 }
 
+
+void DesignerScene::createSample()
+{
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs01");
+
+    ISampleToScene visitor;
+
+    sample->accept(&visitor);
+
+
+}
+
+
+
 // create layer dock which will hold Layer and MultiLayer objects
 void DesignerScene::createLayerDock()
 {
     MultiLayerView *ml = new MultiLayerView();
     ml->setColor(Qt::lightGray);
     ml->allowDropType(QString("MultiLayer"));
-    ml->addLayer(new LayerView());
-    ml->addLayer(new LayerView());
-    ml->setToolTip(QString("LayerDock"));
+//    ml->addLayer(new LayerView());
+//    ml->addLayer(new LayerView());
+    ml->setToolTip(QString("LayerDock\nDrag and drop here layer or multi layer"));
     ml->setFlag(QGraphicsItem::ItemIsSelectable, false);
     ml->setPos(-ml->getRectangle().width()/2, 100.0);
     addItem(ml);

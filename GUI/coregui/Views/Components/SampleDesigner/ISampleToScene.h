@@ -1,14 +1,22 @@
-#ifndef SAMPLEPRINTVISITOR_H
-#define SAMPLEPRINTVISITOR_H
+#ifndef ISAMPLETOSCENE_H
+#define ISAMPLETOSCENE_H
 
 #include "ISampleVisitor.h"
-#include <string>
 
-//! The SamplePrintVisitor
-class SamplePrintVisitor : public ISampleVisitor
+class ISampleToScene : public ISampleVisitor
 {
 public:
-    SamplePrintVisitor();
+    ISampleToScene();
+//    void visit(ISample *sample);
+//    void visit(MultiLayer *sample);
+//    void visit(Layer *sample);
+//    void visit(LayerDecorator *sample);
+//    void visit(LayerInterface *sample);
+//    void visit(ParticleDecoration *sample);
+//    void visit(ParticleInfo *sample);
+//    void visit(Particle *sample);
+//    void visit(IFormFactor *sample);
+//    void visit(IInterferenceFunction *sample);
     void visit(const ISample *sample);
     void visit(const MultiLayer *sample);
     void visit(const Layer *sample);
@@ -22,9 +30,10 @@ public:
 
     void enter();
     void leave();
+
 private:
     std::string get_indent();
     int m_level;
 };
 
-#endif // SAMPLEPRINTVISITOR_H
+#endif // ISAMPLETOSCENE_H

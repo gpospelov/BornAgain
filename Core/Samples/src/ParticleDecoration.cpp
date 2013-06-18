@@ -110,7 +110,7 @@ const ParticleInfo* ParticleDecoration::getParticleInfo(size_t index) const
         return m_particles[index];
     throw OutOfBoundsException(
         "ParticleDecoration::getParticleInfo() -> "
-        "Error! Not so many interference functions in this decoration.");
+        "Error! Not so many particles in this decoration.");
 }
 
 double ParticleDecoration::getAbundanceFractionOfParticle(size_t index) const

@@ -33,6 +33,9 @@ class InterferenceFunction2DParaCrystal : public IInterferenceFunction
         p_new->setIntegrationOverXi(m_integrate_xi);
         return p_new;
     }
+
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     static InterferenceFunction2DParaCrystal *createSquare(double peak_distance, double corr_length=0.0,
             double domain_size_1=0.0, double domain_size_2=0.0);
     static InterferenceFunction2DParaCrystal *createHexagonal(double peak_distance, double corr_length=0.0,

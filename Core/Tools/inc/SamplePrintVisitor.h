@@ -17,7 +17,6 @@ public:
     void visit(const ParticleDecoration *sample);
     void visit(const ParticleInfo *sample);
     void visit(const Particle *sample);
-    void visit(const IFormFactor *sample);
     void visit(const IInterferenceFunction *sample);
 
     bool goForward();

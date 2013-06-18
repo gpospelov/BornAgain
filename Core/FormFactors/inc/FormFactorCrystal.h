@@ -31,6 +31,8 @@ class FormFactorCrystal : public IFormFactorBorn
 
     virtual FormFactorCrystal *clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual void setAmbientRefractiveIndex(const complex_t& refractive_index);
 
     virtual complex_t evaluate(

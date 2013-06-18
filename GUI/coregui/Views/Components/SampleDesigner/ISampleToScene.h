@@ -3,6 +3,7 @@
 
 #include "ISampleVisitor.h"
 #include "DesignerScene.h"
+#include <QMap>
 
 class ISampleRectView;
 
@@ -11,16 +12,7 @@ class ISampleToScene : public ISampleVisitor
 {
 public:
     ISampleToScene();
-//    void visit(ISample *sample);
-//    void visit(MultiLayer *sample);
-//    void visit(Layer *sample);
-//    void visit(LayerDecorator *sample);
-//    void visit(LayerInterface *sample);
-//    void visit(ParticleDecoration *sample);
-//    void visit(ParticleInfo *sample);
-//    void visit(Particle *sample);
-//    void visit(IFormFactor *sample);
-//    void visit(IInterferenceFunction *sample);
+
     void visit(const ISample *sample);
     void visit(const MultiLayer *sample);
     void visit(const Layer *sample);
@@ -30,7 +22,15 @@ public:
     void visit(const ParticleInfo *sample);
     void visit(const Particle *sample);
     void visit(const IFormFactor *sample);
+
+    void visit(const FormFactorFullSphere *sample);
+    void visit(const FormFactorPyramid *sample);
+    void visit(const FormFactorCylinder *sample);
+    void visit(const FormFactorPrism3 *sample);
+
     void visit(const IInterferenceFunction *sample);
+    void visit(const InterferenceFunction1DParaCrystal  *);
+    void visit(const InterferenceFunction2DParaCrystal  *);
 
     bool goForward();
     bool goBack();
@@ -41,7 +41,8 @@ private:
     int m_level;
     bool m_can_i_go;
     DesignerScene *m_scene;
-    ISampleRectView *m_context;
+
+    QMap<const ISample *, ISampleRectView *> m_object_to_view;
 };
 
 #endif // ISAMPLETOSCENE_H

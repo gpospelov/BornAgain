@@ -149,4 +149,41 @@ private:
 };
 
 
+//! graphical representation of FormFactorPyramid
+class FormFactorPrism3View : public FormFactorView
+{
+    Q_OBJECT
+    Q_PROPERTY(QString name READ getName WRITE setName )
+    Q_PROPERTY(double weight READ getWeight WRITE setWeight )
+    Q_PROPERTY(MaterialProperty material READ getMaterialProperty WRITE setMaterialProperty )
+    Q_PROPERTY(double height READ getHeight WRITE setHeight )
+    Q_PROPERTY(double half_side READ getHalfSide WRITE setHalfSide )
+public:
+    enum { Type = DesignerHelper::FormFactorPrism3Type };
+    int type() const { return Type; }
+
+    FormFactorPrism3View(QGraphicsItem *parent = 0)
+        : FormFactorView(parent)
+        , m_ff(new FormFactorPrism3(5.0*Units::nanometer, 5.0*Units::nanometer))
+    {
+        setName("FormFactorPrism3");
+        setLabel("Form factor\nprism3");
+    }
+    ~FormFactorPrism3View() { delete m_ff; }
+
+    void setFormFactor(FormFactorPrism3 *ff) { delete m_ff; m_ff = ff; }
+    const FormFactorPrism3 *getFormFactor() const { return m_ff; }
+
+    double getHeight() const { return m_ff->getHeight(); }
+    double getHalfSide() const { return m_ff->getHalfSide(); }
+
+public slots:
+    void setHeight(double height) { m_ff->setHeight(height); }
+    void setHalfSide(double half_side) { m_ff->setHalfSide(half_side); }
+
+private:
+    FormFactorPrism3 *m_ff;
+};
+
+
 #endif // FORMFACTORVIEW_H

@@ -129,13 +129,13 @@ int ISampleRectView::getNumberOfInputPorts()
 
 void ISampleRectView::connectInputPort(ISampleRectView *other)
 {
+    Q_ASSERT(other);
     foreach(QGraphicsItem *item, childItems()) {
         NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
         if (port && port->isInput()) {
             foreach(QGraphicsItem *other_item, other->childItems()) {
                 NodeEditorPort *other_port= dynamic_cast<NodeEditorPort *>(other_item);
-                if(port->getPortType() == other_port->getPortType()) {
-                    std::cout << "XXX " << std::endl;
+                if(other_port && port->getPortType() == other_port->getPortType()) {
                     NodeEditorConnection *conn = new NodeEditorConnection(0, scene());
                     conn->setPort2(port);
                     conn->setPort1(other_port);

@@ -23,7 +23,8 @@ public:
         FormFactorType,
         FormFactorFullSphereType,
         FormFactorPyramidType,
-        FormFactorCylinderType
+        FormFactorCylinderType,
+        FormFactorPrism3Type
     };
 
     static int getDefaultLayerWidth() { return m_default_layer_width; }

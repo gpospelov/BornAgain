@@ -10,6 +10,7 @@
 #include "NodeEditor.h"
 #include "ISampleToScene.h"
 #include "SampleBuilderFactory.h"
+#include "SamplePrintVisitor.h"
 
 
 #include <QGraphicsSceneDragDropEvent>
@@ -45,7 +46,11 @@ DesignerScene::DesignerScene(QObject *parent)
 void DesignerScene::createSample()
 {
     SampleBuilderFactory factory;
-    ISample *sample = factory.createSample("isgisaxs01");
+    ISample *sample = factory.createSample("isgisaxs04_1DDL");
+
+
+//    SamplePrintVisitor print_visitor;
+//    sample->accept(&print_visitor);
 
     ISampleToScene visitor;
     visitor.setScene(this);

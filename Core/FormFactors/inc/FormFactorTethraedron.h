@@ -34,6 +34,8 @@ class FormFactorTethraedron : public IFormFactorBorn
     ~FormFactorTethraedron() {}
     virtual FormFactorTethraedron *clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const { return 3; }
 
     virtual double getHeight() const { return m_height; }

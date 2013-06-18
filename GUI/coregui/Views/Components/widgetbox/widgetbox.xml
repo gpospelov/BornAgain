@@ -123,6 +123,14 @@
             </widget>
         </categoryentry>
         
+        <categoryentry name="Prism3" icon="images/sample_vspacer.png">
+            <widget class="FormFactorPrism3">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+        
     </category>
     
 </widgetbox>

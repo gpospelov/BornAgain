@@ -29,6 +29,8 @@ class FormFactorGauss : public IFormFactorBorn
     ~FormFactorGauss() {}
     virtual FormFactorGauss *clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const { return 2; }
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;

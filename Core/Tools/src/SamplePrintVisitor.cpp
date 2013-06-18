@@ -95,12 +95,12 @@ void SamplePrintVisitor::visit(const Particle *sample)
               << std::endl;
 }
 
-void SamplePrintVisitor::visit(const IFormFactor *sample)
-{
-    std::cout << get_indent() << "Visitor_IFormFactor " << sample->getName()
-              << " " << (*sample->getParameterPool())
-              << std::endl;
-}
+//void SamplePrintVisitor::visit(const IFormFactor *sample)
+//{
+//    std::cout << get_indent() << "Visitor_IFormFactor " << sample->getName()
+//              << " " << (*sample->getParameterPool())
+//              << std::endl;
+//}
 
 
 void SamplePrintVisitor::visit(const IInterferenceFunction *sample)

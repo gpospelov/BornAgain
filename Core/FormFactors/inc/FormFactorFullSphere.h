@@ -28,6 +28,8 @@ class FormFactorFullSphere : public IFormFactorBorn
     ~FormFactorFullSphere() {}
     virtual FormFactorFullSphere *clone() const;
 
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
+
     virtual int getNumberOfStochasticParameters() const { return 1; }
 
     //! Returns radius of sphere

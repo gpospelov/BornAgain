@@ -28,6 +28,12 @@ class ParticleInfo;
 class Particle;
 class IFormFactor;
 class IInterferenceFunction;
+class FormFactorFullSphere;
+class FormFactorPyramid;
+class FormFactorCylinder;
+class FormFactorPrism3;
+class InterferenceFunction1DParaCrystal;
+class InterferenceFunction2DParaCrystal;
 
 //! Interface to visit a sample tree and perform operations on its nodes
 
@@ -49,18 +55,13 @@ public:
     virtual void visit(const ParticleInfo *) { throw NotImplementedException("ISampleVisitor::visit(ParticleInfo *)"); }
     virtual void visit(const Particle *) { throw NotImplementedException("ISampleVisitor::visit(Particle *)"); }
     virtual void visit(const IFormFactor *) { throw NotImplementedException("ISampleVisitor::visit(IFormFactor *)"); }
+    virtual void visit(const FormFactorFullSphere *) { throw NotImplementedException("ISampleVisitor::visit(FormFactorFullSphere *)"); }
+    virtual void visit(const FormFactorPyramid *) { throw NotImplementedException("ISampleVisitor::visit(FormFactorPyramid *)"); }
+    virtual void visit(const FormFactorCylinder *) { throw NotImplementedException("ISampleVisitor::visit(FormFactorCylinder *)"); }
+    virtual void visit(const FormFactorPrism3 *) { throw NotImplementedException("ISampleVisitor::visit(FormFactorPrism3 *)"); }
     virtual void visit(const IInterferenceFunction *) { throw NotImplementedException("ISampleVisitor::visit(IInterferenceFunction *)"); }
-
-//    virtual void visit(ISample *) { throw NotImplementedException("ISampleVisitor::visit(ISample *)"); }
-//    virtual void visit(MultiLayer *) { throw NotImplementedException("ISampleVisitor::visit(MultiLayer *)"); }
-//    virtual void visit(Layer *) { throw NotImplementedException("ISampleVisitor::visit(Layer *)"); }
-//    virtual void visit(LayerDecorator *) { throw NotImplementedException("ISampleVisitor::visit(LayerDecorator *)"); }
-//    virtual void visit(LayerInterface *) { throw NotImplementedException("ISampleVisitor::visit(LayerInterface *)"); }
-//    virtual void visit(ParticleDecoration *) { throw NotImplementedException("ISampleVisitor::visit(ParticleDecoration *)"); }
-//    virtual void visit(ParticleInfo *) { throw NotImplementedException("ISampleVisitor::visit(ParticleInfo *)"); }
-//    virtual void visit(Particle *) { throw NotImplementedException("ISampleVisitor::visit(Particle *)"); }
-//    virtual void visit(IFormFactor *) { throw NotImplementedException("ISampleVisitor::visit(IFormFactor *)"); }
-//    virtual void visit(IInterferenceFunction *) { throw NotImplementedException("ISampleVisitor::visit(IInterferenceFunction *)"); }
+    virtual void visit(const InterferenceFunction1DParaCrystal  *) { throw NotImplementedException("ISampleVisitor::visit(InterferenceFunction1DParaCrystal  *)"); }
+    virtual void visit(const InterferenceFunction2DParaCrystal  *) { throw NotImplementedException("ISampleVisitor::visit(InterferenceFunction2DParaCrystal  *)"); }
 
     virtual bool goForward(){ return true; }
     virtual bool goBack(){ return true; }

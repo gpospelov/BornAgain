@@ -108,6 +108,9 @@ LIBS += -lboost_program_options -lboost_iostreams -lboost_system -lboost_signals
     LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
   }
 }
+win32 {
+  LIBS = $$replace(LIBS, "-lboost_thread", "-lboost_thread-mt")
+}
 
 isEmpty(GSL_INCLUDE): error("missed dependency:" $${GSL_HEADERFILE})
 isEmpty(FFTW3_INCLUDE): error("missed dependency:" $${FFTW3_HEADERFILE})
@@ -207,7 +210,7 @@ CONFIG(BORNAGAIN_ROOT) {
     ROOTLIBDIR = "C:/root/lib"
   }
   LIBS += -L$${ROOTLIBDIR}
-  REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix MathCore MathMore Minuit2 Thread
+  REQUIRED_ROOT_LIBS = Gui Core Cint RIO Hist Graf Graf3d Gpad Tree Rint Postscript Matrix MathCore Minuit2 Thread
 
   # check existence of required ROOT libraries
   for(x, REQUIRED_ROOT_LIBS) {
@@ -267,7 +270,13 @@ CONFIG(BORNAGAIN_PYTHON) {
     lessThan(pythonvers, 2.6): error("BornAgain requires python 2.6 or greater")
     INCLUDEPATH += $$pythonsysincdir
     #LIBS += -L$$pythonsyslibdir -lpython$$pythonvers -lboost_python
-    LIBS += -lboost_python -L$$pythonsyslibdir -lpython$$pythonvers
+    macx|unix {
+      PYTHON_LIB_DIRECTIVE=-lpython$$pythonvers
+    }
+    win32 {
+      PYTHON_LIB_DIRECTIVE="-lpython27"
+    }
+    LIBS += -lboost_python -L$$pythonsyslibdir $$PYTHON_LIB_DIRECTIVE
 
     # we need to know the location of numpy
     pythonnumpy=$$system("python -c \"import sys; import numpy; sys.stdout.write(numpy.get_include())\" ")

@@ -14,7 +14,9 @@ class LayerView : public ISampleRectView
     Q_PROPERTY(MaterialProperty material READ getMaterialProperty WRITE setMaterialProperty )
 
 public:
+    enum { Type = DesignerHelper::LayerType };
     LayerView(QGraphicsItem *parent = 0);
+    int type() const { return Type; }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 

@@ -22,7 +22,10 @@ class InterferenceFunction1DParaCrystalView : public InterferenceFunctionView
     Q_PROPERTY(double width READ getWidth WRITE setWidth )
     Q_PROPERTY(double corr_length READ getCorrLength WRITE setCorrLength )
 public:
+    enum { Type = DesignerHelper::InterferenceFunctionType };
     InterferenceFunction1DParaCrystalView(QGraphicsItem *parent = 0);
+    int type() const { return Type; }
+
     double getPeakDistance() const { return m_peak_distance; }
     double getWidth() const { return m_width; }
     double getCorrLength() const { return m_corr_length; }

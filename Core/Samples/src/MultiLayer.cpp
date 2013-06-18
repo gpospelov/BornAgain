@@ -33,12 +33,13 @@ MultiLayer::~MultiLayer()
 void MultiLayer::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
-    visitor->enter();
-    for(size_t i=0; i<m_layers.size(); ++i) {
-        m_layers[i]->accept(visitor);
-        if(i < m_interfaces.size()) m_interfaces[i]->accept(visitor);
+    if(visitor->goForward()) {
+        for(size_t i=0; i<m_layers.size(); ++i) {
+            m_layers[i]->accept(visitor);
+            if(i < m_interfaces.size()) m_interfaces[i]->accept(visitor);
+        }
+        visitor->goBack();
     }
-    visitor->leave();
 }
 
 

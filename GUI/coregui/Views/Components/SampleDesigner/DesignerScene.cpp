@@ -21,6 +21,7 @@ DesignerScene::DesignerScene(QObject *parent)
     , m_xmax(300)
     , m_ymin(-100)
     , m_ymax(500)
+    , m_dock(0)
 {
 
     setSceneRect(QRectF(-300, -100, 600, 600));
@@ -28,15 +29,14 @@ DesignerScene::DesignerScene(QObject *parent)
     //setAcceptDrops(true);
 
     //setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-//    MultiLayerView *dock = MultiLayerView::createTopMultiLayer();
-//    addItem(dock);
-    createLayerDock();
+    m_dock = MultiLayerView::createTopMultiLayer();
+    addItem(m_dock);
 
     NodeEditor *nodeEditor = new NodeEditor(parent);
     nodeEditor->install(this);
 
 
-    //createSample();
+    createSample();
 
 }
 
@@ -48,25 +48,11 @@ void DesignerScene::createSample()
     ISample *sample = factory.createSample("isgisaxs01");
 
     ISampleToScene visitor;
+    visitor.setScene(this);
 
     sample->accept(&visitor);
 
 
-}
-
-
-// create layer dock which will hold Layer and MultiLayer objects
-void DesignerScene::createLayerDock()
-{
-    MultiLayerView *ml = new MultiLayerView();
-    ml->setColor(Qt::lightGray);
-    ml->allowDropType(QString("MultiLayer"));
-//    ml->addLayer(new LayerView());
-//    ml->addLayer(new LayerView());
-    ml->setToolTip(QString("LayerDock\nDrag and drop here layer or multi layer"));
-    ml->setFlag(QGraphicsItem::ItemIsSelectable, false);
-    ml->setPos(-ml->getRectangle().width()/2, 100.0);
-    addItem(ml);
 }
 
 

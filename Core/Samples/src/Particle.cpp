@@ -44,9 +44,10 @@ Particle::~Particle()
 void Particle::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
-    visitor->enter();
-    mp_form_factor->accept(visitor);
-    visitor->leave();
+    if(visitor->goForward()) {
+        mp_form_factor->accept(visitor);
+        visitor->goBack();
+    }
 }
 
 

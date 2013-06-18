@@ -14,6 +14,7 @@ class MaterialView : public ISampleView
     Q_PROPERTY(QColor color READ getColor WRITE setColor )
 
 public:
+    enum { Type = DesignerHelper::MultiLayerType };
     MaterialView(QGraphicsItem *parent = 0);
     virtual ~MaterialView();
     virtual QRectF boundingRect() const { return m_rect; }

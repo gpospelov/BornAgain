@@ -32,6 +32,7 @@ class FormFactorFullSphere : public IFormFactorBorn
 
     //! Returns radius of sphere
     virtual double getRadius() const { return m_radius; }
+    virtual void setRadius(double radius) {m_radius = radius; }
 
     //! Returns diameter of sphere
     virtual double getHeight() const { return 2.0*m_radius; }

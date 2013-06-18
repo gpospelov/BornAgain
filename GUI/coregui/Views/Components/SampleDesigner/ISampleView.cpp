@@ -1,11 +1,12 @@
 #include "ISampleView.h"
 #include "DesignerHelper.h"
 #include "NodeEditorPort.h"
+#include "NodeEditorConnection.h"
 
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QObject>
-
+#include <iostream>
 
 ISampleRectView::ISampleRectView(QGraphicsItem *parent, QRect rect)
     : ISampleView(parent)
@@ -55,7 +56,7 @@ NodeEditorPort* ISampleRectView::addPort(const QString &name, NodeEditorPort::Po
 }
 
 
-// calculation right y-pos for ports
+// calculation of y-pos for ports
 void ISampleRectView::setPortCoordinates()
 {
     if(!getNumberOfPorts()) return;
@@ -64,7 +65,7 @@ void ISampleRectView::setPortCoordinates()
     int hspace = getRectangle().height();
     if( !getLabel().isEmpty() ) hspace -= m_label_vspace;
 
-    int nintervals = getNumberOfPorts() + 2;
+    int nintervals = getNumberOfPorts() + 2; // one spare interval for margin between input/output ports
 
     int dy = hspace / double(nintervals);
     int ypos = getRectangle().height() - hspace + dy;
@@ -124,3 +125,28 @@ int ISampleRectView::getNumberOfInputPorts()
 {
     return getNumberOfPorts()- getNumberOfOutputPorts();
 }
+
+
+void ISampleRectView::connectInputPort(ISampleRectView *other)
+{
+    foreach(QGraphicsItem *item, childItems()) {
+        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
+        if (port && port->isInput()) {
+            foreach(QGraphicsItem *other_item, other->childItems()) {
+                NodeEditorPort *other_port= dynamic_cast<NodeEditorPort *>(other_item);
+                if(port->getPortType() == other_port->getPortType()) {
+                    std::cout << "XXX " << std::endl;
+                    NodeEditorConnection *conn = new NodeEditorConnection(0, scene());
+                    conn->setPort2(port);
+                    conn->setPort1(other_port);
+                    conn->setPos2(port->scenePos());
+                    conn->setPos1(other_port->scenePos());
+                    conn->updatePath();
+                }
+            }
+        }
+    }
+}
+
+
+

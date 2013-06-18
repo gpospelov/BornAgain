@@ -10,15 +10,17 @@ SamplePrintVisitor::SamplePrintVisitor() : m_level(0)
 {
 }
 
-void SamplePrintVisitor::enter()
+bool SamplePrintVisitor::goForward()
 {
     ++m_level;
+    return true;
 }
 
 
-void SamplePrintVisitor::leave()
+bool SamplePrintVisitor::goBack()
 {
     --m_level;
+    return true;
 }
 
 std::string SamplePrintVisitor::get_indent()
@@ -57,10 +59,10 @@ void SamplePrintVisitor::visit(const LayerDecorator *sample)
     std::cout << get_indent() << "Visitor_LayerDecorator " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
-    enter();
+    goForward();
     sample->getDecoratedLayer()->accept(this);
     sample->getDecoration()->accept(this);
-    leave();
+    goBack();
 
 
 }

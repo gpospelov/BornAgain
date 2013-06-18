@@ -63,6 +63,11 @@ bool NodeEditorPort::isOutput()
     return (m_direction == Output ? true : false);
 }
 
+bool NodeEditorPort::isInput()
+{
+    return !isOutput();
+}
+
 
 QVector<NodeEditorConnection*>& NodeEditorPort::connections()
 {

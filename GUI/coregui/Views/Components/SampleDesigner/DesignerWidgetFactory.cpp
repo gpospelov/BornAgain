@@ -33,6 +33,10 @@ DesignerWidgetFactory::DesignerWidgetFactory()
         "FormFactorPyramid",
         IFactoryCreateFunction<FormFactorPyramidView, ISampleView>
     );
+   registerItem(
+        "FormFactorCylinder",
+        IFactoryCreateFunction<FormFactorCylinderView, ISampleView>
+    );
 
    registerItem(
         "ParticleDecoration",

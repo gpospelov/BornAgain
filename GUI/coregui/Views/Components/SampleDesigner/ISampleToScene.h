@@ -2,7 +2,11 @@
 #define ISAMPLETOSCENE_H
 
 #include "ISampleVisitor.h"
+#include "DesignerScene.h"
 
+class ISampleRectView;
+
+//! The ISampleToScene class provide view of ISample object for graphics scene
 class ISampleToScene : public ISampleVisitor
 {
 public:
@@ -28,12 +32,16 @@ public:
     void visit(const IFormFactor *sample);
     void visit(const IInterferenceFunction *sample);
 
-    void enter();
-    void leave();
+    bool goForward();
+    bool goBack();
 
+    void setScene(DesignerScene *scene) { m_scene = scene; }
 private:
     std::string get_indent();
     int m_level;
+    bool m_can_i_go;
+    DesignerScene *m_scene;
+    ISampleRectView *m_context;
 };
 
 #endif // ISAMPLETOSCENE_H

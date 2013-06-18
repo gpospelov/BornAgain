@@ -13,8 +13,17 @@ public:
 
     enum WidgetTypes {
         ISampleType = QGraphicsItem::UserType+1,
+        ISampleRectType,
         NodeEditorPortType,
-        NodeEditorConnectionType
+        NodeEditorConnectionType,
+        MultiLayerType,
+        LayerType,
+        ParticleDecorationType,
+        InterferenceFunctionType,
+        FormFactorType,
+        FormFactorFullSphereType,
+        FormFactorPyramidType,
+        FormFactorCylinderType
     };
 
     static int getDefaultLayerWidth() { return m_default_layer_width; }

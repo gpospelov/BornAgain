@@ -12,4 +12,5 @@ FormFactorView::FormFactorView(QGraphicsItem *parent)
     addPort("out", NodeEditorPort::Output, NodeEditorPort::FormFactor);
     addPort("transformation", NodeEditorPort::Input, NodeEditorPort::GeometryTransformation);
     m_roundpar = 5;
+    setMaterialProperty(MaterialBrowser::getDefaultMaterialProperty());
 }

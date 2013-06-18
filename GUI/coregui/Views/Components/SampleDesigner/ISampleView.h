@@ -14,9 +14,10 @@ class QWidget;
 class ISampleView : public QGraphicsObject
 {
 public:
+    enum { Type = DesignerHelper::ISampleType };
     ISampleView(QGraphicsItem *parent = 0) : QGraphicsObject(parent) {}
     virtual ~ISampleView(){}
-
+    int type() const { return Type; }
 };
 
 
@@ -24,13 +25,18 @@ public:
 class ISampleRectView : public ISampleView
 {
 public:
+    enum { Type = DesignerHelper::ISampleRectType };
     ISampleRectView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
     virtual ~ISampleRectView(){}
+    int type() const { return Type; }
 
     virtual QRectF boundingRect() const { return getRectangle(); }
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type);
+
+    //! connect input port of given view with appropriate output port of other item
+    virtual void connectInputPort(ISampleRectView *other);
 
     virtual QString getName() const { return m_name; }
     virtual QColor getColor() const { return m_color; }

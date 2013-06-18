@@ -34,10 +34,9 @@ LayerInterface::~LayerInterface()
 void LayerInterface::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
-    if(m_roughness) {
-        visitor->enter();
+    if(m_roughness && visitor->goForward()) {
         m_roughness->accept(visitor);
-        visitor->leave();
+        visitor->goBack();
     }
 }
 

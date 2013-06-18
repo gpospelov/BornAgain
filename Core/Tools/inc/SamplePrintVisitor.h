@@ -20,8 +20,8 @@ public:
     void visit(const IFormFactor *sample);
     void visit(const IInterferenceFunction *sample);
 
-    void enter();
-    void leave();
+    bool goForward();
+    bool goBack();
 private:
     std::string get_indent();
     int m_level;

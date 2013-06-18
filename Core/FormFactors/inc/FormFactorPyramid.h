@@ -36,6 +36,13 @@ class FormFactorPyramid : public IFormFactorBorn
     virtual int getNumberOfStochasticParameters() const { return 3; }
 
     virtual double getHeight() const { return m_height; }
+    virtual void setHeight(double height) { m_height = height; }
+
+    virtual double getHalfSide() const { return m_half_side; }
+    virtual void setHalfSide(double half_side) { m_half_side = half_side; }
+
+    virtual double getAlpha() const { return m_alpha; }
+    virtual void setAlpha(double alpha) { m_alpha = alpha; }
 
     virtual complex_t evaluate_for_q(const cvector_t& q) const;
 

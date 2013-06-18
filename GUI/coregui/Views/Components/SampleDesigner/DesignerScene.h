@@ -8,6 +8,7 @@ class QGraphicsSceneDragDropEvent;
 class DesignerMimeData;
 class DesignerWidgetFactory;
 class QGraphicsDropShadowEffect;
+class MultiLayerView;
 
 //! base class for sample designer scene
 class DesignerSceneInterface : public QGraphicsScene
@@ -31,6 +32,8 @@ public:
     explicit DesignerScene(QObject *parent = 0);
     virtual ~DesignerScene(){}
 
+    MultiLayerView *getTopMultiLayer() { return m_dock; }
+
 protected:
     virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
     virtual void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
@@ -42,12 +45,12 @@ protected:
 
 private:
     void createSample();
-    void createLayerDock();
 
     int m_xmin;
     int m_xmax;
     int m_ymin;
     int m_ymax;
+    MultiLayerView *m_dock;
 //    QGraphicsDropShadowEffect *m_shadow_effect;
 };
 

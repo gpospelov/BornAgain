@@ -115,6 +115,14 @@
             </widget>
         </categoryentry>
         
+        <categoryentry name="Cylinder" icon="images/sample_vspacer.png">
+            <widget class="FormFactorCylinder">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+        
     </category>
     
 </widgetbox>

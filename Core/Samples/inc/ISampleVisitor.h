@@ -62,8 +62,8 @@ public:
 //    virtual void visit(IFormFactor *) { throw NotImplementedException("ISampleVisitor::visit(IFormFactor *)"); }
 //    virtual void visit(IInterferenceFunction *) { throw NotImplementedException("ISampleVisitor::visit(IInterferenceFunction *)"); }
 
-    virtual void enter(){}
-    virtual void leave(){}
+    virtual bool goForward(){ return true; }
+    virtual bool goBack(){ return true; }
 };
 
 

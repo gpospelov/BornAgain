@@ -32,6 +32,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void addLayer(LayerView *layer, QPointF pos=QPointF());
+    void addBottomLayer(LayerView *layer);
     void addMultiLayer(MultiLayerView *layer, QPointF pos=QPointF());
 
     //! allows droping of object of given type

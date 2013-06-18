@@ -54,10 +54,11 @@ void LayerDecorator::init_parameters()
 void LayerDecorator::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
-//    visitor->enter();
-//    mp_decorated_layer->accept(visitor);
-//    mp_decoration->accept(visitor);
-//    visitor->leave();
+    if(visitor->goForward()) {
+        mp_decorated_layer->accept(visitor);
+        mp_decoration->accept(visitor);
+        visitor->goBack();
+    }
 }
 
 

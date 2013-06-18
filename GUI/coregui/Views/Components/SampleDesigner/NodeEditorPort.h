@@ -45,7 +45,8 @@ public:
 
     ~NodeEditorPort();
 
-	bool isOutput();
+    bool isOutput();
+    bool isInput();
 
     QVector<NodeEditorConnection*>& connections();
 

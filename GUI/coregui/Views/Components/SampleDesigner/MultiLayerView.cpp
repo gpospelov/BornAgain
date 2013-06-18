@@ -72,7 +72,7 @@ void MultiLayerView::allowDropType(const QString &name) {
 
 void MultiLayerView::addLayer(LayerView *layer, QPointF pos)
 {
-    std::cout << "MultiLayerView::addLayer" << std::endl;
+    //std::cout << "MultiLayerView::addLayer" << std::endl;
     // adjusting main rectangle othervise item->setPos will not work due to 'LayerView::itemChange'
     m_rect.setHeight(m_rect.height()+layer->boundingRect().height());
 
@@ -85,6 +85,13 @@ void MultiLayerView::addLayer(LayerView *layer, QPointF pos)
     layer->setParentItem(this);
     //emit heightChanged();
 }
+
+void MultiLayerView::addBottomLayer(LayerView *layer)
+{
+    QPointF pos(0, m_rect.height());
+    addLayer(layer, pos);
+}
+
 
 
 void MultiLayerView::addMultiLayer(MultiLayerView *layer, QPointF pos)
@@ -109,7 +116,7 @@ void MultiLayerView::addMultiLayer(MultiLayerView *layer, QPointF pos)
 // called when one of Layer is changed
 void MultiLayerView::updateHeight()
 {
-    std::cout << "MultiLayerView::updateHeight() " << std::endl;
+    //std::cout << "MultiLayerView::updateHeight() " << std::endl;
     // drop areas are rectangles covering the area of layer interfaces
     m_drop_areas.clear();
 
@@ -150,11 +157,6 @@ bool MultiLayerView::isExpectedObject(const QString &name)
     return false;
 }
 
-
-//QRectF MultiLayerView::boundingRect() const
-//{
-//    return rect();
-//}
 
 
 void MultiLayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

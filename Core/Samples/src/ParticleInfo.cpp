@@ -82,9 +82,10 @@ void ParticleInfo::init_parameters()
 void ParticleInfo::accept(ISampleVisitor *visitor) const
 {
     visitor->visit(this);
-    visitor->enter();
-    mp_particle->accept(visitor);
-    visitor->leave();
+    if(visitor->goForward()) {
+        mp_particle->accept(visitor);
+        visitor->goBack();
+    }
 }
 
 

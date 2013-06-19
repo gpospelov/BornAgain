@@ -9,7 +9,13 @@ class InterferenceFunctionView : public ISampleRectView
 {
     Q_OBJECT
 public:
+    enum { Type = DesignerHelper::InterferenceFunctionType };
+
     InterferenceFunctionView(QGraphicsItem *parent = 0);
+
+    virtual void accept(ISampleViewVisitor *visitor) const { visitor->visit(this); }
+
+    int type() const { return Type; }
 };
 
 
@@ -17,13 +23,19 @@ public:
 class InterferenceFunction1DParaCrystalView : public InterferenceFunctionView
 {
     Q_OBJECT
+
     Q_PROPERTY(QString name READ getName WRITE setName )
     Q_PROPERTY(double peak_distance READ getPeakDistance WRITE setPeakDistance )
     Q_PROPERTY(double width READ getWidth WRITE setWidth )
     Q_PROPERTY(double corr_length READ getCorrLength WRITE setCorrLength )
 public:
-    enum { Type = DesignerHelper::InterferenceFunctionType };
+    enum { Type = DesignerHelper::InterferenceFunction1DParaType };
+
     InterferenceFunction1DParaCrystalView(QGraphicsItem *parent = 0);
+
+    //! сalls the ISampleViewVisitor's visit method
+    virtual void accept(ISampleViewVisitor *visitor) const { visitor->visit(this); }
+
     int type() const { return Type; }
 
     double getPeakDistance() const { return m_peak_distance; }

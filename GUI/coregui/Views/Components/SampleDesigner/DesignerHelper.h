@@ -12,7 +12,7 @@ class DesignerHelper
 public:
 
     enum WidgetTypes {
-        ISampleType = QGraphicsItem::UserType+1,
+        ISampleType = QGraphicsItem::UserType+1, // = 65537
         ISampleRectType,
         NodeEditorPortType,
         NodeEditorConnectionType,
@@ -20,6 +20,7 @@ public:
         LayerType,
         ParticleDecorationType,
         InterferenceFunctionType,
+        InterferenceFunction1DParaType,
         FormFactorType,
         FormFactorFullSphereType,
         FormFactorPyramidType,

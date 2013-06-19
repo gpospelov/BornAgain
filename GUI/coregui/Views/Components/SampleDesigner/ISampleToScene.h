@@ -43,6 +43,7 @@ private:
     DesignerScene *m_scene;
 
     QMap<const ISample *, ISampleRectView *> m_object_to_view;
+
 };
 
 #endif // ISAMPLETOSCENE_H

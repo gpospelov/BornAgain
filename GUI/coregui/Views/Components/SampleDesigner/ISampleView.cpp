@@ -127,6 +127,7 @@ int ISampleRectView::getNumberOfInputPorts()
 }
 
 
+// connect input port of given view with appropriate output port(s) of other item
 void ISampleRectView::connectInputPort(ISampleRectView *other)
 {
     Q_ASSERT(other);

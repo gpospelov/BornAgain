@@ -9,6 +9,7 @@
 class LayerView : public ISampleRectView
 {
     Q_OBJECT
+
     Q_PROPERTY(QString name READ getName WRITE setName )
     Q_PROPERTY(double thickness READ getThickness WRITE setThickness )
     Q_PROPERTY(MaterialProperty material READ getMaterialProperty WRITE setMaterialProperty )
@@ -16,6 +17,10 @@ class LayerView : public ISampleRectView
 public:
     enum { Type = DesignerHelper::LayerType };
     LayerView(QGraphicsItem *parent = 0);
+
+    //! сalls the ISampleViewVisitor's visit method
+    virtual void accept(ISampleViewVisitor *visitor) const { visitor->visit(this); }
+
     int type() const { return Type; }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

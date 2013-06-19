@@ -29,6 +29,9 @@ public:
     //! create top MultiLayer, which will be the dock for all Layer's and MultiLayer's
     static MultiLayerView *createTopMultiLayer();
 
+    //! сalls the ISampleViewVisitor's visit method
+    virtual void accept(ISampleViewVisitor *visitor) const { visitor->visit(this); }
+
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void addLayer(LayerView *layer, QPointF pos=QPointF());

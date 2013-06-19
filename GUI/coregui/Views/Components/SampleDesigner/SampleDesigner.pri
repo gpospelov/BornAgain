@@ -30,7 +30,8 @@ SOURCES +=  \
     Views/Components/SampleDesigner/PropertyVariantManager.cpp \
     Views/Components/SampleDesigner/PropertyVariantFactory.cpp \
     Views/Components/SampleDesigner/MaterialProperty.cpp \
-    Views/Components/SampleDesigner/ISampleToScene.cpp
+    Views/Components/SampleDesigner/ISampleToScene.cpp \
+    Views/Components/SampleDesigner/ISampleViewLayoutVisitor.cpp
 
 
 HEADERS +=  \
@@ -61,7 +62,9 @@ HEADERS +=  \
     Views/Components/SampleDesigner/PropertyVariantManager.h \
     Views/Components/SampleDesigner/PropertyVariantFactory.h \
     Views/Components/SampleDesigner/MaterialProperty.h \
-    Views/Components/SampleDesigner/ISampleToScene.h
+    Views/Components/SampleDesigner/ISampleToScene.h \
+    Views/Components/SampleDesigner/ISampleViewVisitor.h \
+    Views/Components/SampleDesigner/ISampleViewLayoutVisitor.h
 
 RESOURCES += Views/Components/SampleDesigner/SampleDesigner.qrc
 

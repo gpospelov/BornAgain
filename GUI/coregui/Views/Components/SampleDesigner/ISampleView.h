@@ -6,8 +6,10 @@
 class QPainter;
 class QStyleOptionGraphicsItem;
 class QWidget;
+class ISampleViewVisitor;
 
 
+#include "ISampleViewVisitor.h"
 #include "NodeEditorPort.h"
 
 //! parent class for graphic representation of all ISample's
@@ -17,8 +19,13 @@ public:
     enum { Type = DesignerHelper::ISampleType };
     ISampleView(QGraphicsItem *parent = 0) : QGraphicsObject(parent) {}
     virtual ~ISampleView(){}
+
+    //! сalls the ISampleViewVisitor's visit method
+    virtual void accept(ISampleViewVisitor *visitor) const = 0;
+
     int type() const { return Type; }
 };
+
 
 
 //! view of ISample's with rectangular shape and node functionality
@@ -28,6 +35,10 @@ public:
     enum { Type = DesignerHelper::ISampleRectType };
     ISampleRectView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
     virtual ~ISampleRectView(){}
+
+    //! сalls the ISampleViewVisitor's visit method
+    virtual void accept(ISampleViewVisitor *visitor) const { visitor->visit(this); }
+
     int type() const { return Type; }
 
     virtual QRectF boundingRect() const { return getRectangle(); }
@@ -35,7 +46,7 @@ public:
 
     virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type);
 
-    //! connect input port of given view with appropriate output port of other item
+    //! connect input port of given view with appropriate output port(s) of other item
     virtual void connectInputPort(ISampleRectView *other);
 
     virtual QString getName() const { return m_name; }
@@ -69,6 +80,8 @@ class ISampleDefaultView : public ISampleRectView
 {
 public:
     ISampleDefaultView(QGraphicsItem *parent = 0) : ISampleRectView(parent){}
+    //! сalls the ISampleViewVisitor's visit method
+    virtual void accept(ISampleViewVisitor *visitor) const { visitor->visit(this); }
 };
 
 

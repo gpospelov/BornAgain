@@ -11,6 +11,7 @@
 #include "ISampleToScene.h"
 #include "SampleBuilderFactory.h"
 #include "SamplePrintVisitor.h"
+#include "ISampleViewLayoutVisitor.h"
 
 
 #include <QGraphicsSceneDragDropEvent>
@@ -57,6 +58,30 @@ void DesignerScene::createSample()
 
     sample->accept(&visitor);
 
+    foreach (QGraphicsItem *item, items()) {
+        std::cout << "item "  << " " << item->type() << std::endl;
+    }
+
+
+    std::cout << "ISampleType " << DesignerHelper::ISampleType << std::endl;
+    std::cout << "ISampleRectType" << DesignerHelper::ISampleRectType << std::endl;
+    std::cout << "NodeEditorPortType" << DesignerHelper::NodeEditorPortType << std::endl;
+    std::cout << "NodeEditorConnectionType" << DesignerHelper::NodeEditorConnectionType << std::endl;
+    std::cout << "MultiLyaerType" << DesignerHelper::MultiLayerType << std::endl;
+    std::cout << "LayerType " << DesignerHelper::LayerType << std::endl;
+    std::cout << "ParticleDecorationType"  << DesignerHelper::ParticleDecorationType << std::endl;
+    std::cout << "InterferenceFunctionType " << DesignerHelper::InterferenceFunctionType << std::endl;
+    std::cout << "FormFactorType " << DesignerHelper::FormFactorType << std::endl;
+    std::cout << "FormFactorFullSphereType " << DesignerHelper::FormFactorFullSphereType << std::endl;
+    std::cout << "FormFactorPyramidType " << DesignerHelper::FormFactorPyramidType << std::endl;
+    std::cout << "FormFactorCylinderType " << DesignerHelper::FormFactorCylinderType << std::endl;
+    std::cout << "FormFactorPrism3Type " << DesignerHelper::FormFactorPrism3Type << std::endl;
+
+
+    ISampleViewLayoutVisitor layout;
+    m_dock->accept(&layout);
+
+//     foreach(QGraphicsItem *item, other->childItems()) {
 
 }
 

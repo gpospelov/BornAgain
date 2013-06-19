@@ -21,7 +21,7 @@ public:
     virtual ~ISampleView(){}
 
     //! сalls the ISampleViewVisitor's visit method
-    virtual void accept(ISampleViewVisitor *visitor) const = 0;
+    virtual void accept(ISampleViewVisitor *visitor) = 0;
 
     int type() const { return Type; }
 };
@@ -37,7 +37,7 @@ public:
     virtual ~ISampleRectView(){}
 
     //! сalls the ISampleViewVisitor's visit method
-    virtual void accept(ISampleViewVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
 
     int type() const { return Type; }
 
@@ -48,6 +48,8 @@ public:
 
     //! connect input port of given view with appropriate output port(s) of other item
     virtual void connectInputPort(ISampleRectView *other);
+
+    virtual QList<ISampleRectView *> getConnectedInputItems() const;
 
     virtual QString getName() const { return m_name; }
     virtual QColor getColor() const { return m_color; }
@@ -81,7 +83,7 @@ class ISampleDefaultView : public ISampleRectView
 public:
     ISampleDefaultView(QGraphicsItem *parent = 0) : ISampleRectView(parent){}
     //! сalls the ISampleViewVisitor's visit method
-    virtual void accept(ISampleViewVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
 };
 
 

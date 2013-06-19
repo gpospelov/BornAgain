@@ -19,7 +19,7 @@ public:
     virtual ~MaterialView();
 
     //! сalls the ISampleViewVisitor's visit method
-    virtual void accept(ISampleViewVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
 
     virtual QRectF boundingRect() const { return m_rect; }
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

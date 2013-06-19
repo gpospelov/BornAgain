@@ -61,7 +61,7 @@ void ISampleRectView::setPortCoordinates()
 {
     if(!getNumberOfPorts()) return;
 
-    // without main label ports can be placed over all vertical space
+    // without main label ports can be placed over all rectangle vertical space
     int hspace = getRectangle().height();
     if( !getLabel().isEmpty() ) hspace -= m_label_vspace;
 
@@ -71,7 +71,7 @@ void ISampleRectView::setPortCoordinates()
     int ypos = getRectangle().height() - hspace + dy;
 
     if(getNumberOfPorts() == 1) {
-        // if number of ports is 1, place it in the middle
+        // if total number of ports is 1, place it in the middle
         ypos = getRectangle().height() - hspace + hspace/2;
     }
 
@@ -123,7 +123,7 @@ int ISampleRectView::getNumberOfOutputPorts()
 
 int ISampleRectView::getNumberOfInputPorts()
 {
-    return getNumberOfPorts()- getNumberOfOutputPorts();
+    return getNumberOfPorts()-getNumberOfOutputPorts();
 }
 
 
@@ -149,5 +149,29 @@ void ISampleRectView::connectInputPort(ISampleRectView *other)
     }
 }
 
+
+QList<ISampleRectView *> ISampleRectView::getConnectedInputItems() const
+{
+//    std::cout << "XXX getConnectedInputItems() " << std::endl;
+    QList<ISampleRectView *> result;
+    foreach(QGraphicsItem *item, childItems()) {
+        NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
+        if (port && port->isInput()) {
+            for(int i=0; i<port->connections().size(); ++i) {
+//                std::cout << "connections " << port << " "
+//                          << " " << port->connections().at(i)->port1()
+//                          << " " << port->connections().at(i)->port2()
+//                          << std::endl;
+                Q_ASSERT(port->connections().at(i)->port1()->parentItem());
+                ISampleRectView *rr = dynamic_cast<ISampleRectView *>(port->connections().at(i)->port1()->parentItem());
+                if(rr) {
+//                    std::cout << "XXX got connection " << rr->getName().toStdString() << std::endl;
+                    result.append(rr);
+                }
+            }
+        }
+    }
+    return result;
+}
 
 

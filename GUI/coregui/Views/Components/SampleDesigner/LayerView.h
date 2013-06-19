@@ -19,7 +19,7 @@ public:
     LayerView(QGraphicsItem *parent = 0);
 
     //! сalls the ISampleViewVisitor's visit method
-    virtual void accept(ISampleViewVisitor *visitor) const { visitor->visit(this); }
+    virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
 
     int type() const { return Type; }
 

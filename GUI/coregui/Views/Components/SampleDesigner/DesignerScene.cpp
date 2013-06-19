@@ -79,7 +79,8 @@ void DesignerScene::createSample()
 
 
     ISampleViewLayoutVisitor layout;
-    m_dock->accept(&layout);
+    layout.makeLayout(m_dock);
+//    m_dock->accept(&layout);
 
 //     foreach(QGraphicsItem *item, other->childItems()) {
 

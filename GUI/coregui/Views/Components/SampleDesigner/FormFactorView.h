@@ -17,9 +17,13 @@ class FormFactorView : public ISampleRectView
 
 public:
     enum { Type = DesignerHelper::FormFactorType };
-    int type() const { return Type; }
 
     FormFactorView(QGraphicsItem *parent = 0);
+
+    //! сalls the ISampleViewVisitor's visit method
+    virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
+
+    int type() const { return Type; }
 
     double getWeight() const { return m_weight; }
     MaterialProperty getMaterialProperty() const { return m_materialProperty; }
@@ -49,7 +53,6 @@ class FormFactorFullSphereView : public FormFactorView
     Q_PROPERTY(double radius READ getRadius WRITE setRadius )
 public:
     enum { Type = DesignerHelper::FormFactorFullSphereType };
-    int type() const { return Type; }
 
     FormFactorFullSphereView(QGraphicsItem *parent = 0)
         : FormFactorView(parent)
@@ -58,6 +61,11 @@ public:
         setLabel("Form factor\nfull sphere");        
     }
     ~FormFactorFullSphereView() { delete m_ff; }
+
+    //! сalls the ISampleViewVisitor's visit method
+    virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
+
+    int type() const { return Type; }
 
     void setFormFactor(FormFactorFullSphere *ff) { delete m_ff; m_ff = ff; }
     const FormFactorFullSphere *getFormFactor() const { return m_ff; }
@@ -84,7 +92,6 @@ class FormFactorPyramidView : public FormFactorView
     Q_PROPERTY(double alpha READ getAlpha WRITE setAlpha )
 public:
     enum { Type = DesignerHelper::FormFactorPyramidType };
-    int type() const { return Type; }
 
     FormFactorPyramidView(QGraphicsItem *parent = 0)
         : FormFactorView(parent)
@@ -94,6 +101,12 @@ public:
         setLabel("Form factor\npyramid");
     }
     ~FormFactorPyramidView() { delete m_ff; }
+
+    //! сalls the ISampleViewVisitor's visit method
+    virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
+
+    int type() const { return Type; }
+
 
     void setFormFactor(FormFactorPyramid *ff) { delete m_ff; m_ff = ff; }
     const FormFactorPyramid *getFormFactor() const { return m_ff; }
@@ -123,7 +136,6 @@ class FormFactorCylinderView : public FormFactorView
     Q_PROPERTY(double radius READ getRadius WRITE setRadius )
 public:
     enum { Type = DesignerHelper::FormFactorCylinderType };
-    int type() const { return Type; }
 
     FormFactorCylinderView(QGraphicsItem *parent = 0)
         : FormFactorView(parent)
@@ -133,6 +145,11 @@ public:
         setLabel("Form factor\ncylinder");
     }
     ~FormFactorCylinderView(){ delete m_ff; }
+
+    //! сalls the ISampleViewVisitor's visit method
+    virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
+
+    int type() const { return Type; }
 
     void setFormFactor(FormFactorCylinder *ff) { delete m_ff; m_ff = ff; }
     const FormFactorCylinder *getFormFactor() const { return m_ff; }
@@ -160,7 +177,6 @@ class FormFactorPrism3View : public FormFactorView
     Q_PROPERTY(double half_side READ getHalfSide WRITE setHalfSide )
 public:
     enum { Type = DesignerHelper::FormFactorPrism3Type };
-    int type() const { return Type; }
 
     FormFactorPrism3View(QGraphicsItem *parent = 0)
         : FormFactorView(parent)
@@ -170,6 +186,10 @@ public:
         setLabel("Form factor\nprism3");
     }
     ~FormFactorPrism3View() { delete m_ff; }
+
+    virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
+
+    int type() const { return Type; }
 
     void setFormFactor(FormFactorPrism3 *ff) { delete m_ff; m_ff = ff; }
     const FormFactorPrism3 *getFormFactor() const { return m_ff; }

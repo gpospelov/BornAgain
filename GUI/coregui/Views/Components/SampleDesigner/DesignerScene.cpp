@@ -141,12 +141,43 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
             //ISampleView *view = DesignerWidgetFactory::createViews( mimeData->getClassName() );
 //            addItems( DesignerWidgetFactory::createViews(mimeData->getClassName()) );
 
+            // TODO - refactor this together with DesignerWidgetFactory: how to create single View or Whole bunch of views
             QList<QGraphicsItem *> items = DesignerWidgetFactory::createViews(mimeData->getClassName());
-            foreach(QGraphicsItem *view, items) {
-                        std::cout << "item "  << " " << view->type() << std::endl;
-                        addItem(view);
-                        //view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
+            if(items.size()) {
+                foreach(QGraphicsItem *view, items) {
+                    std::cout << "item "  << " " << view->type() << std::endl;
+                    addItem(view);
+                    view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
+                }
+            } else {
+                if(items.empty()) {
+                    SampleBuilderFactory factory;
+                    ISample *sample(0);
+                    try {
+                        sample = factory.createSample(mimeData->getClassName().toStdString());
+                    } catch (std::runtime_error& e) {}
+                    if(sample) {
+                        ISampleToScene visitor;
+                        sample->accept(&visitor);
+                        visitor.getItems();
+                        QGraphicsItem *view = visitor.getMultiLayerView();
+                        view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
+
+                        foreach(QGraphicsItem *view, visitor.getItems()) {
+                            addItem(view);
+                        }
+
+                        ISampleViewAligner layout;
+                        layout.makeAlign(visitor.getMultiLayerView());
+
+
+                    }
+                }
+
             }
+
+
+
 
 
 

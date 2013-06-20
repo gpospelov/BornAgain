@@ -1,4 +1,4 @@
-#include "ISampleViewLayoutVisitor.h"
+#include "ISampleViewAligner.h"
 #include "ISampleView.h"
 #include "LayerView.h"
 #include "MultiLayerView.h"
@@ -7,59 +7,50 @@
 #include "ParticleDecorationView.h"
 #include <iostream>
 
-ISampleViewLayoutVisitor::ISampleViewLayoutVisitor() : m_level(0)
+
+//! makes alignment of MultiLayer wil all nodes connected
+//!
+//! we run over all items to know which item is located at which level
+//! here level 0 - is MultiLayer, level 1 - Layers, level 2 - decorations,
+//! level 3 - formfactors and interference etc...
+void ISampleViewAligner::makeAlign(MultiLayerView *multi_layer)
 {
-
-}
-
-
-void ISampleViewLayoutVisitor::makeLayout(MultiLayerView *multi_layer)
-{
+    // run over all items to know which item is located at which level
     multi_layer->accept(this);
 
-//    for(int i=0; i<m_views.size(); ++i) {
-//        std::cout << i << " " << m_views.at(i) << std::endl;
-//    }
-    for(QMap<int, ISampleView * >::iterator it = m_views.begin(); it!= m_views.end(); ++it) {
-        std::cout << "XXX " << it.value() << " " << it.key() << std::endl;
-    }
-
-    QList<int> keys = m_views.keys();
-    qSort(keys.begin(), keys.end(), qGreater<int>());
-    int max_level = keys[0];
-    std::cout << "Maximum level " << keys[0];
-
-    for(int i=0; i<keys.size(); ++i) {
-        std::cout << "XXXXXX " << i << std::endl;
-    }
-
     QPointF start(multi_layer->pos().x(), multi_layer->pos().y());
-    for(int i_level = 2; i_level <= max_level; ++i_level) {
+    for(int i_level = 2; i_level <= getMaximumLevelNumber(); ++i_level) {
         QList<ISampleView *> items = m_views.values(i_level);
-        std::cout << "QQQ " << i_level << " " << items.size() << " " << getTotalVerticalSpace(items) << std::endl;
         start = placeItems(items, start);
-
-
     }
 }
 
 
-QPointF ISampleViewLayoutVisitor::placeItems(const QList<ISampleView *> &items, QPointF start)
+int ISampleViewAligner::getMaximumLevelNumber()
 {
-    qreal dy = 1.2*getTotalVerticalSpace(items);
-    qreal dx = 1.2*getMaximumHorizontalSpace(items);
-    start.setX(start.x() - dx );
+    QList<int> keys = m_views.keys();
+    qSort(keys.begin(), keys.end(), qGreater<int>());
+    return keys[0];
+}
+
+
+//! place given items using given reference point
+QPointF ISampleViewAligner::placeItems(const QList<ISampleView *> &items, QPointF reference)
+{
+    const double size_factor = 1.5;
+    qreal dy = size_factor*getTotalVerticalSpace(items);
+    qreal dx = size_factor*getMaximumHorizontalSpace(items);
+    reference.setX(reference.x() - dx );
     for(int i=0; i<items.size(); ++i) {
-        std::cout << "PPP dx: " << dx << "x() " << start.x() << " y() " << start.y() << std::endl;
-        QPointF pos = start;
+        QPointF pos = reference;
         pos.setY(pos.y() - i*dy/items.size());
         items.at(i)->setPos(pos);
     }
-    return start;
+    return reference;
 }
 
 
-qreal ISampleViewLayoutVisitor::getTotalVerticalSpace(const QList<ISampleView *> &items)
+qreal ISampleViewAligner::getTotalVerticalSpace(const QList<ISampleView *> &items)
 {
     qreal result = 0;
     for(int i=0; i<items.size(); ++i) {
@@ -68,7 +59,8 @@ qreal ISampleViewLayoutVisitor::getTotalVerticalSpace(const QList<ISampleView *>
     return result;
 }
 
-qreal ISampleViewLayoutVisitor::getMaximumHorizontalSpace(const QList<ISampleView *> &items)
+
+qreal ISampleViewAligner::getMaximumHorizontalSpace(const QList<ISampleView *> &items)
 {
     qreal result = 0;
     for(int i=0; i<items.size(); ++i) {
@@ -79,46 +71,19 @@ qreal ISampleViewLayoutVisitor::getMaximumHorizontalSpace(const QList<ISampleVie
 }
 
 
-
-bool ISampleViewLayoutVisitor::goForward()
-{
-    ++m_level;
-    return true;
-}
-
-
-bool ISampleViewLayoutVisitor::goBack()
-{
-    --m_level;
-    return true;
-}
-
-
-std::string ISampleViewLayoutVisitor::get_indent()
-{
-    std::string result;
-    result.resize(m_level*4, '.');
-    return result;
-}
-
-
-//void ISampleViewLayoutVisitor::addView(int level, ISampleView *view)
-//{
-//    if(map.contains)
-//}
-
-
-void ISampleViewLayoutVisitor::visit(ISampleView *view)
+void ISampleViewAligner::visit(ISampleView *view)
 {
     std::cout << get_indent() << "ViewLayoutVisitor(ISampleView) " << m_level << " " << view->type() << " " << std::endl;
 }
 
-void ISampleViewLayoutVisitor::visit(ISampleRectView *view)
+
+void ISampleViewAligner::visit(ISampleRectView *view)
 {
     std::cout << get_indent() << "ViewLayoutVisitor(ISampleRectView) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
 }
 
-void ISampleViewLayoutVisitor::visit(LayerView *view)
+
+void ISampleViewAligner::visit(LayerView *view)
 {
     std::cout << get_indent() << "ViewLayoutVisitor(LayerView) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
@@ -129,10 +94,10 @@ void ISampleViewLayoutVisitor::visit(LayerView *view)
         item->accept(this);
     }
     goBack();
-
 }
 
-void ISampleViewLayoutVisitor::visit(MultiLayerView *view)
+
+void ISampleViewAligner::visit(MultiLayerView *view)
 {
     std::cout << get_indent() << "ViewLayoutVisitor(MultiLayerView) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
@@ -140,58 +105,62 @@ void ISampleViewLayoutVisitor::visit(MultiLayerView *view)
     goForward();
     foreach(QGraphicsItem *item, view->childItems()) {
         ISampleView *layer = dynamic_cast<ISampleView *>(item);
-//        LayerView *layer = dynamic_cast<LayerView *>(item);
-        if(layer) {
-            layer->accept(this);
-        }
+        if(layer) layer->accept(this);
     }
     goBack();
 }
 
-void ISampleViewLayoutVisitor::visit(FormFactorView *view)
+
+void ISampleViewAligner::visit(FormFactorView *view)
 {
     std::cout << get_indent() << "ViewLayoutVisitor(FormFactorView) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
-void ISampleViewLayoutVisitor::visit(FormFactorFullSphereView *view)
+
+void ISampleViewAligner::visit(FormFactorFullSphereView *view)
 {
     std::cout << get_indent() << "ViewLayoutVisitor(FormFactorFullSphereView) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
-void ISampleViewLayoutVisitor::visit(FormFactorPyramidView *view)
+
+void ISampleViewAligner::visit(FormFactorPyramidView *view)
 {
     std::cout << get_indent() << "ViewLayoutVisitor(FormFactorPyramidView) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
-void ISampleViewLayoutVisitor::visit(FormFactorPrism3View *view)
+
+void ISampleViewAligner::visit(FormFactorPrism3View *view)
 {
     std::cout << get_indent() << "ViewLayoutVisitor(FormFactorPrism3View) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
-void ISampleViewLayoutVisitor::visit(FormFactorCylinderView *view)
+
+void ISampleViewAligner::visit(FormFactorCylinderView *view)
 {
     std::cout << get_indent() << "ViewLayoutVisitor(FormFactorCylinderView) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
 
-void ISampleViewLayoutVisitor::visit(InterferenceFunctionView *view)
+void ISampleViewAligner::visit(InterferenceFunctionView *view)
 {
     std::cout << get_indent() << "ViewLayoutVisitor(InterferenceFunctionView) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
-void ISampleViewLayoutVisitor::visit(InterferenceFunction1DParaCrystalView *view)
+
+void ISampleViewAligner::visit(InterferenceFunction1DParaCrystalView *view)
 {
     std::cout << get_indent() << "ViewLayoutVisitor(InterferenceFunction1DParaCrystalView) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
-void ISampleViewLayoutVisitor::visit(ParticleDecorationView *view)
+
+void ISampleViewAligner::visit(ParticleDecorationView *view)
 {
     std::cout << get_indent() << "ViewLayoutVisitor(ParticleDecorationView) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
 
@@ -202,6 +171,5 @@ void ISampleViewLayoutVisitor::visit(ParticleDecorationView *view)
         item->accept(this);
     }
     goBack();
-
 }
 

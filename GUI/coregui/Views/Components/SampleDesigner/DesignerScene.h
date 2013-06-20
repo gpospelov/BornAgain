@@ -43,6 +43,8 @@ protected:
 
     const DesignerMimeData *checkDragEvent(QGraphicsSceneDragDropEvent * event);
 
+    void addItems(const QList<QGraphicsItem *> &items);
+
 private:
     void createSample();
 

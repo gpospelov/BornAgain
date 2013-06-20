@@ -37,6 +37,10 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     connect(m_zoomFitAction, SIGNAL(triggered()), this, SIGNAL(zoomFit()));
     addAction(m_zoomFitAction);
 
+    m_clearAllAction = new QAction(QIcon(":/SampleDesigner/images/eraser.png"), tr("Clear all"), this);
+    connect(m_clearAllAction, SIGNAL(triggered()), this, SIGNAL(clearAll()));
+    addAction(m_clearAllAction);
+
 }
 
 

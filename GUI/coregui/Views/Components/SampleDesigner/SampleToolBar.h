@@ -19,6 +19,7 @@ signals:
     void zoomIn();
     void zoomOut();
     void zoomFit();
+    void clearAll();
 
 public slots:
     void materialBrowserCall();
@@ -28,6 +29,7 @@ private:
     QAction *m_zoomInAction;
     QAction *m_zoomOutAction;
     QAction *m_zoomFitAction;
+    QAction *m_clearAllAction;
 };
 
 

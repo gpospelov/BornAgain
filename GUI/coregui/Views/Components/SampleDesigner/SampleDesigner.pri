@@ -31,7 +31,7 @@ SOURCES +=  \
     Views/Components/SampleDesigner/PropertyVariantFactory.cpp \
     Views/Components/SampleDesigner/MaterialProperty.cpp \
     Views/Components/SampleDesigner/ISampleToScene.cpp \
-    Views/Components/SampleDesigner/ISampleViewLayoutVisitor.cpp
+    Views/Components/SampleDesigner/ISampleViewAligner.cpp
 
 
 HEADERS +=  \
@@ -64,7 +64,7 @@ HEADERS +=  \
     Views/Components/SampleDesigner/MaterialProperty.h \
     Views/Components/SampleDesigner/ISampleToScene.h \
     Views/Components/SampleDesigner/ISampleViewVisitor.h \
-    Views/Components/SampleDesigner/ISampleViewLayoutVisitor.h
+    Views/Components/SampleDesigner/ISampleViewAligner.h
 
 RESOURCES += Views/Components/SampleDesigner/SampleDesigner.qrc
 

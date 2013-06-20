@@ -93,6 +93,7 @@ void SampleView::initActions()
     connect(m_toolBar, SIGNAL(zoomOut()), m_sampleDesigner->getView(), SLOT(zoomOut()));
     connect(m_toolBar, SIGNAL(zoomIn()), m_sampleDesigner->getView(), SLOT(zoomIn()));
     connect(m_toolBar, SIGNAL(zoomFit()), m_sampleDesigner->getView(), SLOT(zoomFit()));
+    connect(m_toolBar, SIGNAL(clearAll()), m_sampleDesigner->getView(), SLOT(clearAll()));
 
     addToolBar(m_toolBar);
 }

@@ -74,8 +74,13 @@ void DesignerView::zoomOut()
 //! zoom view to show all items
 void DesignerView::zoomFit()
 {
-//    m_graphicsView->fitInView(m_graphicsView->scene()->itemsBoundingRect() ,Qt::KeepAspectRatio);
-    m_graphicsView->fitInView(m_graphicsView->scene()->sceneRect() ,Qt::KeepAspectRatio);
+    m_graphicsView->fitInView(m_graphicsView->scene()->itemsBoundingRect() ,Qt::KeepAspectRatio);
+}
+
+
+void DesignerView::clearAll()
+{
+    m_graphicsView->scene()->clear();
 }
 
 

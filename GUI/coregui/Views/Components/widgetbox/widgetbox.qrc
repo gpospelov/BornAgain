@@ -5,5 +5,7 @@
         <file>images/sample_editvlayout.png</file>
         <file>images/sample_spacer.png</file>
         <file>images/sample_vspacer.png</file>
+        <file>images/sample_layers2.png</file>
+        <file>images/sample_layers3.png</file>
     </qresource>
 </RCC>

@@ -11,7 +11,7 @@
 #include "ISampleToScene.h"
 #include "SampleBuilderFactory.h"
 #include "SamplePrintVisitor.h"
-#include "ISampleViewLayoutVisitor.h"
+#include "ISampleViewAligner.h"
 
 
 #include <QGraphicsSceneDragDropEvent>
@@ -46,20 +46,20 @@ DesignerScene::DesignerScene(QObject *parent)
 
 void DesignerScene::createSample()
 {
-    SampleBuilderFactory factory;
-    ISample *sample = factory.createSample("isgisaxs01");
+//    SampleBuilderFactory factory;
+//    ISample *sample = factory.createSample("isgisaxs01");
 
 //    SamplePrintVisitor print_visitor;
 //    sample->accept(&print_visitor);
 
-    ISampleToScene visitor;
-    sample->accept(&visitor);
-    QList<QGraphicsItem *> items = visitor.getItems();
+//    ISampleToScene visitor;
+//    sample->accept(&visitor);
+//    QList<QGraphicsItem *> items = visitor.getItems();
 
-    foreach(QGraphicsItem *item, items) {
-                std::cout << "item "  << " " << item->type() << std::endl;
-                addItem(item);
-    }
+//    foreach(QGraphicsItem *item, items) {
+//                std::cout << "item "  << " " << item->type() << std::endl;
+//                addItem(item);
+//    }
 
 
 //    foreach (QGraphicsItem *item, items()) {
@@ -69,8 +69,25 @@ void DesignerScene::createSample()
 
 
 
-    ISampleViewLayoutVisitor layout;
-    layout.makeLayout(visitor.getMultiLayerView());
+//    ISampleViewAligner layout;
+//    layout.makeAlign(visitor.getMultiLayerView());
+
+}
+
+
+void DesignerScene::addItems(const QList<QGraphicsItem *> &items)
+{
+    foreach(QGraphicsItem *item, items) {
+                std::cout << "item "  << " " << item->type() << std::endl;
+                addItem(item);
+    }
+    //            QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect;
+    //            shadow_effect->setBlurRadius(8);
+    //            shadow_effect->setOffset(2,2);
+    //            view->setGraphicsEffect(shadow_effect);
+
+
+//    view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
 
 }
 
@@ -116,22 +133,22 @@ void DesignerScene::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
 
 void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
-    std::cout << "DesignerScene::dropEvent() -> " << std::endl;
-    //event->acceptProposedAction();
     const DesignerMimeData *mimeData = checkDragEvent(event);
     if (mimeData) {
         if(mimeData->getClassName() == QString("Layer") || mimeData->getClassName() == QString("MultiLayer") ) {
             QGraphicsScene::dropEvent(event);
         } else {
-            ISampleView *view = DesignerWidgetFactory::createView( mimeData->getClassName() );
-            addItem(view);
+            //ISampleView *view = DesignerWidgetFactory::createViews( mimeData->getClassName() );
+//            addItems( DesignerWidgetFactory::createViews(mimeData->getClassName()) );
 
-//            QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect;
-//            shadow_effect->setBlurRadius(8);
-//            shadow_effect->setOffset(2,2);
-//            view->setGraphicsEffect(shadow_effect);
+            QList<QGraphicsItem *> items = DesignerWidgetFactory::createViews(mimeData->getClassName());
+            foreach(QGraphicsItem *view, items) {
+                        std::cout << "item "  << " " << view->type() << std::endl;
+                        addItem(view);
+                        //view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
+            }
 
-            view->setPos(event->scenePos().x()-view->boundingRect().width()/2, event->scenePos().y()-view->boundingRect().height()/2);
+
 
         }
 

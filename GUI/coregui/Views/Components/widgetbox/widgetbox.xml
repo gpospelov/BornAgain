@@ -3,16 +3,32 @@
     
     <category name="Standard samples">
         
-        <categoryentry name="IsGISAXS1 sample" icon="images/sample_editvlayout.png">
-            <widget class="IsGISAXS1">
+        <categoryentry name="IsGISAXS1 sample" icon="images/sample_layers2.png">
+            <widget class="isgisaxs01">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>
             </widget>
         </categoryentry>
 
-        <categoryentry name="IsGISAXS2 sample" icon="images/sample_spacer.png">
-            <widget class="IsGISAXS2">
+        <categoryentry name="IsGISAXS4 1DDL sample" icon="images/sample_layers2.png">
+            <widget class="isgisaxs04_1DDL">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="IsGISAXS4 2DDL sample" icon="images/sample_layers2.png">
+            <widget class="isgisaxs04_2DDL">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="GUI Test sample" icon="images/sample_layers3.png">
+            <widget class="guitest">
                 <property name="objectName">
                     <string notr="true">somestring</string>
                 </property>

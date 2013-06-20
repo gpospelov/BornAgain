@@ -1,6 +1,7 @@
 #ifndef DESIGNERWIDGETFACTORY_H
 #define DESIGNERWIDGETFACTORY_H
 
+#include <QList>
 #include "IFactory.h"
 #include "ISampleView.h"
 
@@ -17,10 +18,10 @@ public:
 
     static DesignerWidgetFactory *instance();
 
-    static ISampleView *createView(const QString &name);
+    static QList<QGraphicsItem *> createViews(const QString &name);
 
 private:
-    ISampleView *this_createView(const QString &name);
+     QList<QGraphicsItem *> this_createViews(const QString &name);
 
     static DesignerWidgetFactory *m_instance;
 };

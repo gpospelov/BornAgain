@@ -52,9 +52,8 @@ SampleView::SampleView(QWidget *parent)
     }
     resetToDefaultLayout();
 
-    // toolBar should be initialized after MaterialBrowser
-    m_toolBar = new SampleToolBar(this);
-    addToolBar(m_toolBar);
+    initActions();
+
 }
 
 
@@ -64,10 +63,10 @@ SampleView::~SampleView()
     delete m_materialBrowser;
 }
 
-void SampleView::materialEditorCall()
-{
-    std::cout << "SampleView::materialEditorCall() ->" << std::endl;
-}
+//void SampleView::materialEditorCall()
+//{
+//    std::cout << "SampleView::materialEditorCall() ->" << std::endl;
+//}
 
 
 void SampleView::initSubWindows()
@@ -84,6 +83,18 @@ void SampleView::initSubWindows()
     ae->setWindowTitle(tr("Info Stream"));
     ae->setObjectName(QLatin1String("InfoStream"));
     m_subWindows[InfoSubWindow] = ae;
+}
+
+
+void SampleView::initActions()
+{
+    // toolBar should be initialized after MaterialBrowser
+    m_toolBar = new SampleToolBar(this);
+    connect(m_toolBar, SIGNAL(zoomOut()), m_sampleDesigner->getView(), SLOT(zoomOut()));
+    connect(m_toolBar, SIGNAL(zoomIn()), m_sampleDesigner->getView(), SLOT(zoomIn()));
+    connect(m_toolBar, SIGNAL(zoomFit()), m_sampleDesigner->getView(), SLOT(zoomFit()));
+
+    addToolBar(m_toolBar);
 }
 
 

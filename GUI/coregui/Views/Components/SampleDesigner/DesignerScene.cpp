@@ -26,7 +26,7 @@ DesignerScene::DesignerScene(QObject *parent)
     , m_dock(0)
 {
 
-    setSceneRect(QRectF(-300, -100, 600, 600));
+    setSceneRect(QRectF(-500, -200, 800, 800));
     setBackgroundBrush(DesignerHelper::getSceneBackground());
     //setAcceptDrops(true);
 

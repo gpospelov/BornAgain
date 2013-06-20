@@ -11,5 +11,6 @@
         <file>images/document-attribute-m.png</file>
         <file>images/magnifier-zoom-in.png</file>
         <file>images/magnifier-zoom-out.png</file>
+        <file>images/magnifier-zoom-fit.png</file>
     </qresource>
 </RCC>

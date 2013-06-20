@@ -9,10 +9,11 @@ class QDragEnterEvent;
 class QWheelEvent;
 class QKeyEvent;
 
-class DesignerMimeData;
-
+//! The DesignerView class provides widget for displaying the contents of DesignerScene
 class DesignerView : public QWidget
 {
+    Q_OBJECT
+
 public:
 
     explicit DesignerView(QWidget *parent = 0, QGraphicsScene *scene=0);
@@ -21,21 +22,13 @@ public:
 public slots:
     void zoomIn();
     void zoomOut();
+    void zoomFit();
     void deleteItem();
 
 protected:
-//    virtual void dragEnterEvent(QDragEnterEvent *event);
-//    virtual void dragMoveEvent(QDragMoveEvent *event);
-//    virtual void dragLeaveEvent(QDragLeaveEvent *event);
-//    virtual void dropEvent(QDropEvent *event);
-    virtual void mouseMoveEvent(QMouseEvent *event);
-
 //    void wheelEvent(QWheelEvent *event);
     void scaleView(qreal scaleFactor);
-
     void keyPressEvent(QKeyEvent *event);
-
-//    const DesignerMimeData *checkDragEvent(QDropEvent * event);
 
 private:
     QGraphicsView *m_graphicsView;

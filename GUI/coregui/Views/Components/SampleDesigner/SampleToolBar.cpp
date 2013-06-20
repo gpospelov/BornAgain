@@ -18,18 +18,25 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     setIconSize(QSize(size, size));
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
-    //m_materialBrowserAction = new QAction(QIcon(":/SampleDesigner/images/next.png"), tr("Material Editor"), this);
-    m_materialBrowserAction = new QAction(QIcon(":/SampleDesigner/images/document-attribute-m.png"), tr("Material Editor"), this);
-    addAction(m_materialBrowserAction);
+    m_materialBrowserAction = new QAction(QIcon(":/SampleDesigner/images/document-attribute-m.png"), tr("Material Editor (M)"), this);
+    m_materialBrowserAction->setShortcut(Qt::Key_M);
     connect(m_materialBrowserAction, SIGNAL(triggered()), this, SLOT(materialBrowserCall()));
+    addAction(m_materialBrowserAction);
 
-//    m_zoomInAction = new QAction(QIcon(":/SampleDesigner/images/next.png"), tr("Zoom in"), this);
-    m_zoomInAction = new QAction(QIcon(":/SampleDesigner/images/magnifier-zoom-out.png"), tr("Zoom out"), this);
+    m_zoomOutAction = new QAction(QIcon(":/SampleDesigner/images/magnifier-zoom-out.png"), tr("Zoom out, Ctrl-"), this);
+    m_zoomOutAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Minus));
+    connect(m_zoomOutAction, SIGNAL(triggered()), this, SIGNAL(zoomOut()));
+    addAction(m_zoomOutAction);
 
-
-
+    m_zoomInAction = new QAction(QIcon(":/SampleDesigner/images/magnifier-zoom-in.png"), tr("Zoom in, Ctrl+"), this);
+    m_zoomInAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Plus));
+    connect(m_zoomInAction, SIGNAL(triggered()), this, SIGNAL(zoomIn()));
     addAction(m_zoomInAction);
-//    addAction(m_zoomOutAction);
+
+    m_zoomFitAction = new QAction(QIcon(":/SampleDesigner/images/magnifier-zoom-fit.png"), tr("Zoom fit"), this);
+    connect(m_zoomFitAction, SIGNAL(triggered()), this, SIGNAL(zoomFit()));
+    addAction(m_zoomFitAction);
+
 }
 
 

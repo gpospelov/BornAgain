@@ -34,10 +34,11 @@ public:
 
 public slots:
     void resetToDefaultLayout();
-    void materialEditorCall();
+//    void materialEditorCall();
 
 private:
     void initSubWindows();
+    void initActions();
 
     MaterialBrowser *m_materialBrowser;
     SampleDesigner *m_sampleDesigner;

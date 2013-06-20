@@ -11,7 +11,7 @@ class ISampleRectView;
 class ISampleToScene : public ISampleVisitor
 {
 public:
-    ISampleToScene();
+    ISampleToScene() : m_level(0) {}
 
     void visit(const ISample *sample);
     void visit(const MultiLayer *sample);
@@ -35,15 +35,35 @@ public:
     bool goForward();
     bool goBack();
 
-    void setScene(DesignerScene *scene) { m_scene = scene; }
+    //! returns list of created views representing ISample object
+    QList<ISampleRectView *> getItems();
+
 private:
     std::string get_indent();
+
     int m_level;
-    bool m_can_i_go;
-    DesignerScene *m_scene;
-
     QMap<const ISample *, ISampleRectView *> m_object_to_view;
-
 };
+
+
+inline bool ISampleToScene::goForward()
+{
+    ++m_level;
+    return true;
+}
+
+inline bool ISampleToScene::goBack()
+{
+    --m_level;
+    return true;
+}
+
+inline std::string ISampleToScene::get_indent()
+{
+    std::string result;
+    result.resize(m_level*4, '.');
+    return result;
+}
+
 
 #endif // ISAMPLETOSCENE_H

@@ -23,21 +23,6 @@
 #include <iomanip>
 
 
-void ParticleDecoration::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
-    if(visitor->goForward()) {
-        for(size_t i=0; i<m_particles.size(); ++i) {
-            m_particles[i]->accept(visitor);
-        }
-        for(size_t i=0; i<m_interference_functions.size(); ++i) {
-            m_interference_functions[i]->accept(visitor);
-        }
-        visitor->goBack();
-    }
-}
-
-
 ParticleDecoration* ParticleDecoration::clone() const
 {
     //   msglog(MSG::DEBUG) << "ParticleDecoration::clone()";

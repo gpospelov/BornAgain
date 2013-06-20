@@ -41,16 +41,6 @@ Particle::~Particle()
 }
 
 
-void Particle::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
-    if(visitor->goForward()) {
-        mp_form_factor->accept(visitor);
-        visitor->goBack();
-    }
-}
-
-
 Particle* Particle::clone() const
 {
     IFormFactor *p_form_factor = mp_form_factor->clone();

@@ -31,8 +31,8 @@ class LayerDecorator : public Layer
 
     virtual LayerDecorator *clone() const;
 
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const;
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Sets _thickness_ in nanometers.
     virtual void setThickness(double thickness);

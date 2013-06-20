@@ -31,15 +31,6 @@ LayerInterface::~LayerInterface()
     delete m_roughness;
 }
 
-void LayerInterface::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
-    if(m_roughness && visitor->goForward()) {
-        m_roughness->accept(visitor);
-        visitor->goBack();
-    }
-}
-
 
 LayerInterface *LayerInterface::createSmoothInterface(const Layer *p_layer_top, const Layer *p_layer_bottom)
 {

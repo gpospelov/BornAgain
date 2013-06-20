@@ -33,8 +33,8 @@ class Particle : public ICompositeSample
     virtual ~Particle();
     virtual Particle *clone() const;
 
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const;
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Sets the refractive index of the ambient material (which influences its scattering power)
     virtual void setAmbientRefractiveIndex(complex_t refractive_index)

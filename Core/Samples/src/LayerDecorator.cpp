@@ -51,17 +51,6 @@ void LayerDecorator::init_parameters()
 }
 
 
-void LayerDecorator::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
-    if(visitor->goForward()) {
-        mp_decorated_layer->accept(visitor);
-        mp_decoration->accept(visitor);
-        visitor->goBack();
-    }
-}
-
-
 DiffuseDWBASimulation* LayerDecorator::createDiffuseDWBASimulation() const
 {
     DiffuseDWBASimulation *p_sim = new DiffuseDWBASimulation;

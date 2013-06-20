@@ -30,18 +30,6 @@ MultiLayer::~MultiLayer()
     clear();
 }
 
-void MultiLayer::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
-    if(visitor->goForward()) {
-        for(size_t i=0; i<m_layers.size(); ++i) {
-            m_layers[i]->accept(visitor);
-            if(i < m_interfaces.size()) m_interfaces[i]->accept(visitor);
-        }
-        visitor->goBack();
-    }
-}
-
 
 /* ************************************************************************* */
 // initialize pool parameters, i.e. register some of class members for later

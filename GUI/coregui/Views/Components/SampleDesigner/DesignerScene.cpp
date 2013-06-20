@@ -31,8 +31,8 @@ DesignerScene::DesignerScene(QObject *parent)
     //setAcceptDrops(true);
 
     //setFlag(QGraphicsItem::ItemSendsGeometryChanges);
-    m_dock = MultiLayerView::createTopMultiLayer();
-    addItem(m_dock);
+//    m_dock = MultiLayerView::createTopMultiLayer();
+//    addItem(m_dock);
 
     NodeEditor *nodeEditor = new NodeEditor(parent);
     nodeEditor->install(this);
@@ -47,42 +47,26 @@ DesignerScene::DesignerScene(QObject *parent)
 void DesignerScene::createSample()
 {
     SampleBuilderFactory factory;
-    ISample *sample = factory.createSample("isgisaxs04_1DDL");
+    ISample *sample = factory.createSample("isgisaxs01");
 
 
-//    SamplePrintVisitor print_visitor;
-//    sample->accept(&print_visitor);
+    SamplePrintVisitor print_visitor;
+    sample->accept(&print_visitor);
 
-    ISampleToScene visitor;
-    visitor.setScene(this);
+//    ISampleToScene visitor;
+//    visitor.setScene(this);
 
-    sample->accept(&visitor);
+//    sample->accept(&visitor);
 
-    foreach (QGraphicsItem *item, items()) {
-        std::cout << "item "  << " " << item->type() << std::endl;
-    }
-
-
-    std::cout << "ISampleType " << DesignerHelper::ISampleType << std::endl;
-    std::cout << "ISampleRectType" << DesignerHelper::ISampleRectType << std::endl;
-    std::cout << "NodeEditorPortType" << DesignerHelper::NodeEditorPortType << std::endl;
-    std::cout << "NodeEditorConnectionType" << DesignerHelper::NodeEditorConnectionType << std::endl;
-    std::cout << "MultiLyaerType" << DesignerHelper::MultiLayerType << std::endl;
-    std::cout << "LayerType " << DesignerHelper::LayerType << std::endl;
-    std::cout << "ParticleDecorationType"  << DesignerHelper::ParticleDecorationType << std::endl;
-    std::cout << "InterferenceFunctionType " << DesignerHelper::InterferenceFunctionType << std::endl;
-    std::cout << "FormFactorType " << DesignerHelper::FormFactorType << std::endl;
-    std::cout << "FormFactorFullSphereType " << DesignerHelper::FormFactorFullSphereType << std::endl;
-    std::cout << "FormFactorPyramidType " << DesignerHelper::FormFactorPyramidType << std::endl;
-    std::cout << "FormFactorCylinderType " << DesignerHelper::FormFactorCylinderType << std::endl;
-    std::cout << "FormFactorPrism3Type " << DesignerHelper::FormFactorPrism3Type << std::endl;
+//    foreach (QGraphicsItem *item, items()) {
+//        std::cout << "item "  << " " << item->type() << std::endl;
+//    }
 
 
-    ISampleViewLayoutVisitor layout;
-    layout.makeLayout(m_dock);
-//    m_dock->accept(&layout);
 
-//     foreach(QGraphicsItem *item, other->childItems()) {
+
+//    ISampleViewLayoutVisitor layout;
+//    layout.makeLayout(m_dock);
 
 }
 

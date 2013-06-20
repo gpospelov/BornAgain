@@ -56,8 +56,8 @@ class ParticleDecoration : public IDecoration
 
     virtual ParticleDecoration *clone() const;
 
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const;
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Adds generic particle
     void addParticle(

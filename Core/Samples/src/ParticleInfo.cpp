@@ -79,16 +79,6 @@ void ParticleInfo::init_parameters()
 }
 
 
-void ParticleInfo::accept(ISampleVisitor *visitor) const
-{
-    visitor->visit(this);
-    if(visitor->goForward()) {
-        mp_particle->accept(visitor);
-        visitor->goBack();
-    }
-}
-
-
 void ParticleInfo::print(std::ostream& ostr) const
 {
     ostr << "ParticleInfo:" << getName() << "<" << this << "> : {" <<

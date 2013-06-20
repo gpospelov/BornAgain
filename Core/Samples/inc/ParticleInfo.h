@@ -22,10 +22,6 @@
 
 //! Holds additional information about particle (used in ParticleDecoration).
 
-//! Currently (March 2013), child classes are
-//! - DiffuseParticleInfo
-//! - PositionParticleInfo
-
 class ParticleInfo : public ICompositeSample
 {
  public:
@@ -48,8 +44,8 @@ class ParticleInfo : public ICompositeSample
             mp_particle->clone(), mP_transform, m_depth, m_abundance);
     }
 
-    //! Calls the ISampleVisitor's visit method
-    virtual void accept(ISampleVisitor *visitor) const;
+    //! calls the ISampleVisitor's visit method
+    virtual void accept(ISampleVisitor *visitor) const { visitor->visit(this); }
 
     //! Returns particle.
     const Particle *getParticle() const { return mp_particle; }

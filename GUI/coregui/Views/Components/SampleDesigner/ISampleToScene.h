@@ -4,6 +4,9 @@
 #include "ISampleVisitor.h"
 #include "DesignerScene.h"
 #include <QMap>
+#include <QList>
+#include <QSet>
+
 
 class ISampleRectView;
 
@@ -11,7 +14,7 @@ class ISampleRectView;
 class ISampleToScene : public ISampleVisitor
 {
 public:
-    ISampleToScene() : m_level(0) {}
+    ISampleToScene() : m_level(0), m_multiLayer(0) {}
 
     void visit(const ISample *sample);
     void visit(const MultiLayer *sample);
@@ -36,13 +39,17 @@ public:
     bool goBack();
 
     //! returns list of created views representing ISample object
-    QList<ISampleRectView *> getItems();
+    QList<QGraphicsItem *> getItems();
+
+    MultiLayerView *getMultiLayerView() { return m_multiLayer; }
 
 private:
     std::string get_indent();
 
     int m_level;
+    MultiLayerView *m_multiLayer;
     QMap<const ISample *, ISampleRectView *> m_object_to_view;
+    QList<QGraphicsItem *> m_connections;
 };
 
 

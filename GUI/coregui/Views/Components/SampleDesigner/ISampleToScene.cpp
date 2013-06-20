@@ -14,13 +14,18 @@
 #include <iostream>
 
 
-//! return created views to the scene
-QList<ISampleRectView *> ISampleToScene::getItems()
+//! return created views and they connections to the scene
+//! only items which do not have parent will be returned (MultiLayers, FormFactor's, Decorations)
+QList<QGraphicsItem *> ISampleToScene::getItems()
 {
-    QList<ISampleRectView *> result;
+    QSet<QGraphicsItem *> parentViews;
+    for(QMap<const ISample *, ISampleRectView *>::iterator it = m_object_to_view.begin();
+        it!= m_object_to_view.end(); ++it) {
+        Q_ASSERT(it.key());
+        if( it.value() && !it.value()->parentItem() ) parentViews.insert(it.value());
+    }
 
-
-
+    QList<QGraphicsItem *> result = parentViews.toList() + m_connections;
     return result;
 }
 
@@ -29,7 +34,9 @@ QList<ISampleRectView *> ISampleToScene::getItems()
 //! creates ISampleView
 void ISampleToScene::visit(const ISample *sample)
 {
+    Q_ASSERT(sample);
     std::cout << get_indent() << "Visitor_ISample " << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
@@ -39,18 +46,18 @@ void ISampleToScene::visit(const ISample *sample)
 //! it to MultiLayerView
 void ISampleToScene::visit(const MultiLayer *sample)
 {
+    Q_ASSERT(sample);
     std::cout << get_indent() << "Visitor_MultiLayer " << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 
-    MultiLayerView *multiLayerView = MultiLayerView::createTopMultiLayer();
+    m_multiLayer = MultiLayerView::createTopMultiLayer();
 
     goForward();
     for(size_t i_layer=0; i_layer < sample->getNumberOfLayers(); ++i_layer) {
         const Layer *layer = sample->getLayer(i_layer);
         layer->accept(this);
-        Q_ASSERT(m_object_to_view[layer]);
-        multiLayerView->addBottomLayer((LayerView *)m_object_to_view[layer]);
         if(i_layer < sample->getNumberOfInterfaces()) {
             const LayerInterface *interface = sample->getLayerInterface(i_layer);
             interface->accept(this);
@@ -58,15 +65,17 @@ void ISampleToScene::visit(const MultiLayer *sample)
     }
     goBack();
 
-    m_object_to_view[sample] = multiLayerView;
+    m_object_to_view[sample] = m_multiLayer;
 
 }
 
 
-//! creates view of Layer
+//! creates view of Layer, adds them to the MultiLayerView
 void ISampleToScene::visit(const Layer *sample)
 {
+    Q_ASSERT(sample);
     std::cout << get_indent() << "Visitor_Layer " << sample->getName()
+              << " " << sample
               << " " << sample->getMaterial()->getName()
               << " " << sample->getRefractiveIndex()
               << " " << (*sample->getParameterPool())
@@ -75,6 +84,7 @@ void ISampleToScene::visit(const Layer *sample)
     LayerView *layerView = new LayerView();
     layerView->setThickness(sample->getThickness());
     layerView->setName(sample->getName().c_str());
+    m_multiLayer->addBottomLayer(layerView);
     m_object_to_view[sample] = layerView;
 }
 
@@ -84,7 +94,9 @@ void ISampleToScene::visit(const Layer *sample)
 //! on the way back connects layer and it's decoration
 void ISampleToScene::visit(const LayerDecorator *sample)
 {
+    Q_ASSERT(sample);
     std::cout << get_indent() << "Visitor_LayerDecorator " << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 
@@ -100,14 +112,16 @@ void ISampleToScene::visit(const LayerDecorator *sample)
 
     Q_ASSERT(m_object_to_view[layer]);
     Q_ASSERT(m_object_to_view[decoration]);
-    m_object_to_view[layer]->connectInputPort(m_object_to_view[decoration]);
+    m_connections += m_object_to_view[layer]->connectInputPort(m_object_to_view[decoration]);
 }
 
 
 //! creates view of LayerInterface
 void ISampleToScene::visit(const LayerInterface *sample)
 {
+    Q_ASSERT(sample);
     std::cout << get_indent() << "Visitor_LayerInterface " << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
@@ -117,12 +131,13 @@ void ISampleToScene::visit(const LayerInterface *sample)
 //! interference functions views
 void ISampleToScene::visit(const ParticleDecoration *sample)
 {
+    Q_ASSERT(sample);
     std::cout << get_indent() << "Visitor_ParticleDecoration " << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 
     ParticleDecorationView *decorationView = new ParticleDecorationView();
-//    m_scene->addItem(decorationView);
     m_object_to_view[sample] = decorationView;
 
     goForward();
@@ -130,14 +145,14 @@ void ISampleToScene::visit(const ParticleDecoration *sample)
         const ParticleInfo *info = sample->getParticleInfo(i_info);
         info->accept(this);
         Q_ASSERT(m_object_to_view[info]);
-        decorationView->connectInputPort(m_object_to_view[info]);
+        m_connections += decorationView->connectInputPort(m_object_to_view[info]);
     }
 
     for(size_t i_func=0; i_func < sample->getNumberOfInterferenceFunctions(); ++i_func) {
         const IInterferenceFunction *func = sample->getInterferenceFunction(i_func);
         func->accept(this);
-        Q_ASSERT(m_object_to_view[func]);
-        decorationView->connectInputPort(m_object_to_view[func]);
+        // InterferenceFunctionNone doesn't have view, so m_object_to_view[func] can be 0
+        if(m_object_to_view[func]) m_connections += decorationView->connectInputPort(m_object_to_view[func]);
     }
     goBack();
 }
@@ -147,7 +162,10 @@ void ISampleToScene::visit(const ParticleDecoration *sample)
 //! representation, method just goes deeper in ISample hierarchy
 void ISampleToScene::visit(const ParticleInfo *sample)
 {
+    Q_ASSERT(sample);
+
     std::cout << get_indent() << "Visitor_ParticleInfo " << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 
@@ -166,7 +184,10 @@ void ISampleToScene::visit(const ParticleInfo *sample)
 //! representation, method just goes deeper in ISample hierarchy
 void ISampleToScene::visit(const Particle *sample)
 {
+    Q_ASSERT(sample);
+
     std::cout << get_indent() << "Visitor_Particle " << sample->getName()
+              << " " << sample
               << " Index:" << sample->getRefractiveIndex()
               << std::endl;
 
@@ -183,7 +204,10 @@ void ISampleToScene::visit(const Particle *sample)
 
 void ISampleToScene::visit(const IFormFactor *sample)
 {
+    Q_ASSERT(sample);
+
     std::cout << get_indent() << "Visitor_IFormFactor " << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 
@@ -193,13 +217,15 @@ void ISampleToScene::visit(const IFormFactor *sample)
 //! creates view of FormFactorFullSphere
 void ISampleToScene::visit(const FormFactorFullSphere *sample)
 {
+    Q_ASSERT(sample);
+
     std::cout << get_indent() << "Visitor_FormFactorFullSphere " << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 
     FormFactorFullSphereView *view = new FormFactorFullSphereView();
     view->setFormFactor(sample->clone());
-    //m_scene->addItem(view);
     m_object_to_view[sample] = view;
 }
 
@@ -207,53 +233,58 @@ void ISampleToScene::visit(const FormFactorFullSphere *sample)
 //! creates view of FormFactorCylinder
 void ISampleToScene::visit(const FormFactorCylinder *sample)
 {
+    Q_ASSERT(sample);
+
     std::cout << get_indent() << "Visitor_FormFactorCylinder " << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 
     FormFactorCylinderView *view = new FormFactorCylinderView();
     view->setFormFactor(sample->clone());
-    //m_scene->addItem(view);
     m_object_to_view[sample] = view;
-    std::cout << "XXX Cylinder " << view << std::endl;
-
 }
 
 
 //! creates view of FormFactorPyramid
 void ISampleToScene::visit(const FormFactorPyramid *sample)
 {
+    Q_ASSERT(sample);
+
     std::cout << get_indent() << "Visitor_FormFactorPyramid " << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 
     FormFactorPyramidView *view = new FormFactorPyramidView();
     view->setFormFactor(sample->clone());
-    //m_scene->addItem(view);
     m_object_to_view[sample] = view;
-
 }
 
 
 //! creates view of FormFactorPrism3
 void ISampleToScene::visit(const FormFactorPrism3 *sample)
 {
+    Q_ASSERT(sample);
+
     std::cout << get_indent() << "Visitor_FormFactorPrism3 " << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 
     FormFactorPrism3View *view = new FormFactorPrism3View();
     view->setFormFactor(sample->clone());
-    //m_scene->addItem(view);
     m_object_to_view[sample] = view;
-
 }
 
 
 //! creates view of IInterferenceFunction
 void ISampleToScene::visit(const IInterferenceFunction *sample)
 {
+    Q_ASSERT(sample);
+
     std::cout << get_indent() << "Visitor_IInterferenceFunction " << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
@@ -262,12 +293,14 @@ void ISampleToScene::visit(const IInterferenceFunction *sample)
 //! creates view of InterferenceFunction1DParaCrystal
 void ISampleToScene::visit(const InterferenceFunction1DParaCrystal *sample)
 {
+    Q_ASSERT(sample);
+
     std::cout << get_indent() << "Visitor_InterferenceFunction1DParaCrystal" << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 
     InterferenceFunction1DParaCrystalView *view = new InterferenceFunction1DParaCrystalView();
-    //m_scene->addItem(view);
     m_object_to_view[sample] = view;
 }
 
@@ -275,7 +308,10 @@ void ISampleToScene::visit(const InterferenceFunction1DParaCrystal *sample)
 //! creates view of InterferenceFunction2DParaCrystal
 void ISampleToScene::visit(const InterferenceFunction2DParaCrystal *sample)
 {
+    Q_ASSERT(sample);
+
     std::cout << get_indent() << "Visitor_InterferenceFunction2DParaCrystal" << sample->getName()
+              << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
 }

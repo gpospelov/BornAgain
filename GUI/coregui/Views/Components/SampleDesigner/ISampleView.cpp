@@ -128,9 +128,11 @@ int ISampleRectView::getNumberOfInputPorts()
 
 
 // connect input port of given view with appropriate output port(s) of other item
-void ISampleRectView::connectInputPort(ISampleRectView *other)
+// returns list of created connection
+QList<QGraphicsItem *> ISampleRectView::connectInputPort(ISampleRectView *other)
 {
     Q_ASSERT(other);
+    QList<QGraphicsItem *> result;
     foreach(QGraphicsItem *item, childItems()) {
         NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
         if (port && port->isInput()) {
@@ -143,10 +145,12 @@ void ISampleRectView::connectInputPort(ISampleRectView *other)
                     conn->setPos2(port->scenePos());
                     conn->setPos1(other_port->scenePos());
                     conn->updatePath();
+                    result.append(conn);
                 }
             }
         }
     }
+    return result;
 }
 
 

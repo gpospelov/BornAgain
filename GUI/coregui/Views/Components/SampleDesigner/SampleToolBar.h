@@ -11,6 +11,7 @@ class QToolBar;
 class SampleToolBar : public QToolBar
 {
     Q_OBJECT
+
 public:
     explicit SampleToolBar(QWidget *parent = 0);
 
@@ -19,6 +20,8 @@ public slots:
 
 private:
     QAction *m_materialBrowserAction;
+    QAction *m_zoomInAction;
+//    QAction *m_zoomOutAction;
 };
 
 

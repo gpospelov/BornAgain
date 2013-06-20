@@ -25,14 +25,12 @@ MaterialBrowserView::MaterialBrowserView(MaterialBrowserModel *tableModel, QWidg
     , m_statusBar(0)
     , m_toolBar(0)
 {
-    setWindowTitle("Material Browser");
-    std::cout << "MaterialEditorView::MaterialEditorView() ->  " << std::endl;
+    setWindowTitle("Material Editor");
     setMinimumSize(128, 128);
     resize(512, 256);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_tableView = new QTableView;
-    std::cout << "XXX " << m_tableModel << std::endl;
     m_tableView->setModel( m_tableModel );
     m_tableView->horizontalHeader()->setStretchLastSection(true);
     m_tableView->horizontalHeader()->resizeSection(0, 140);
@@ -68,9 +66,6 @@ MaterialBrowserView::MaterialBrowserView(MaterialBrowserModel *tableModel, QWidg
     setLayout(layout);
 
     SetupActions();
-
-//    setAttribute(Qt::WA_DeleteOnClose);
-//    setAttribute(Qt::WA_QuitOnClose);
 }
 
 
@@ -86,8 +81,6 @@ void MaterialBrowserView::closeButtonClicked()
     Q_ASSERT(m_tableModel);
     if( !m_tableModel->hasSelection() && isModal() ) {
         showMessage("Please select material with checkbox");
-//        setResult(QDialog::Rejected);
-//        return false;
         return;
     }
     std::cout << "MaterialBrowserView::close() -> 1.2" << std::endl;

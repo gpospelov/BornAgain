@@ -8,5 +8,8 @@
         <file>images/minus-white.png</file>
         <file>images/card--plus.png</file>
         <file>images/card--minus.png</file>
+        <file>images/document-attribute-m.png</file>
+        <file>images/magnifier-zoom-in.png</file>
+        <file>images/magnifier-zoom-out.png</file>
     </qresource>
 </RCC>

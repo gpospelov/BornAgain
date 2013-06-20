@@ -49,14 +49,18 @@ void DesignerScene::createSample()
     SampleBuilderFactory factory;
     ISample *sample = factory.createSample("isgisaxs01");
 
+//    SamplePrintVisitor print_visitor;
+//    sample->accept(&print_visitor);
 
-    SamplePrintVisitor print_visitor;
-    sample->accept(&print_visitor);
+    ISampleToScene visitor;
+    sample->accept(&visitor);
+    QList<QGraphicsItem *> items = visitor.getItems();
 
-//    ISampleToScene visitor;
-//    visitor.setScene(this);
+    foreach(QGraphicsItem *item, items) {
+                std::cout << "item "  << " " << item->type() << std::endl;
+                addItem(item);
+    }
 
-//    sample->accept(&visitor);
 
 //    foreach (QGraphicsItem *item, items()) {
 //        std::cout << "item "  << " " << item->type() << std::endl;
@@ -65,8 +69,8 @@ void DesignerScene::createSample()
 
 
 
-//    ISampleViewLayoutVisitor layout;
-//    layout.makeLayout(m_dock);
+    ISampleViewLayoutVisitor layout;
+    layout.makeLayout(visitor.getMultiLayerView());
 
 }
 

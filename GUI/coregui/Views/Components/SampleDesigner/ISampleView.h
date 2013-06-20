@@ -46,8 +46,8 @@ public:
 
     virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type);
 
-    //! connect input port of given view with appropriate output port(s) of other item
-    virtual void connectInputPort(ISampleRectView *other);
+    //! connect input port of given view with appropriate output port(s) of other item, returns list of created connections
+    virtual QList<QGraphicsItem *> connectInputPort(ISampleRectView *other);
 
     virtual QList<ISampleRectView *> getConnectedInputItems() const;
 

@@ -20,7 +20,8 @@ LayerView::LayerView(QGraphicsItem *parent)
     : ConnectableView(parent)
     , m_fixed_xpos(0)
     , m_fixed(false)
-    , m_thickness(10*Units::nanometer)
+    , m_layer(new Layer())
+//    , m_thickness(10*Units::nanometer)
 {
     //setColor(QColor(qrand() % 256, qrand() % 256, qrand() % 256) );
     setRectangle(QRect(0, 0, DesignerHelper::getDefaultLayerWidth(), DesignerHelper::getDefaultLayerHeight()));
@@ -48,12 +49,6 @@ void LayerView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 }
 
 
-//void LayerView::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-//{
-//    std::cout << "LayerView::mouseMoveEvent -> " << x() << " " << y() << std::endl;
-//    QGraphicsObject::mouseMoveEvent(event);
-//}
-
 void LayerView::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     // remove selection from child items
@@ -72,32 +67,6 @@ void LayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsObject::mouseReleaseEvent(event);
 //    setCursor(Qt::ArrowCursor);
 }
-
-
-//void LayerView::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
-//{
-//    Q_UNUSED(event);
-//    std::cout << "LayerView::dragEnterEvent() ->" << std::endl;
-//}
-
-//void LayerView::dragLeaveEvent(QGraphicsSceneDragDropEvent *event)
-//{
-//    Q_UNUSED(event);
-//    std::cout << "LayerView::dragLeaveEvent() ->" << std::endl;
-//}
-
-//void LayerView::dropEvent(QGraphicsSceneDragDropEvent *event)
-//{
-//    Q_UNUSED(event);
-//    std::cout << "LayerView::dropEvent() ->" << std::endl;
-
-//}
-
-//void LayerView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
-//{
-//    Q_UNUSED(event);
-//    std::cout << "LayerView::dragMoveEvent() ->" << std::endl;
-//}
 
 
 // layers are not allowed to move horizontally

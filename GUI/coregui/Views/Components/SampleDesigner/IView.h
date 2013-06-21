@@ -4,7 +4,7 @@
 #include <QGraphicsObject>
 
 #include "DesignerHelper.h"
-#include "ISampleViewVisitor.h"
+#include "IViewVisitor.h"
 
 
 //! parent class for graphic representation of all ISample's
@@ -17,7 +17,7 @@ public:
     virtual ~IView(){}
 
     //! сalls the ISampleViewVisitor's visit method
-    virtual void accept(ISampleViewVisitor *visitor) = 0;
+    virtual void accept(IViewVisitor *visitor) = 0;
 
     int type() const { return Type; }
 };

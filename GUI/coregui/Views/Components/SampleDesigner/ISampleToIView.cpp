@@ -37,7 +37,7 @@ QList<QGraphicsItem *> ISampleToIView::getItems()
 void ISampleToIView::visit(const ISample *sample)
 {
     Q_ASSERT(sample);
-    std::cout << get_indent() << "Visitor_ISample " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_ISample " << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -49,7 +49,7 @@ void ISampleToIView::visit(const ISample *sample)
 void ISampleToIView::visit(const MultiLayer *sample)
 {
     Q_ASSERT(sample);
-    std::cout << get_indent() << "Visitor_MultiLayer " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_MultiLayer " << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -76,7 +76,7 @@ void ISampleToIView::visit(const MultiLayer *sample)
 void ISampleToIView::visit(const Layer *sample)
 {
     Q_ASSERT(sample);
-    std::cout << get_indent() << "Visitor_Layer " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_Layer " << sample->getName()
               << " " << sample
               << " " << sample->getMaterial()->getName()
               << " " << sample->getRefractiveIndex()
@@ -97,7 +97,7 @@ void ISampleToIView::visit(const Layer *sample)
 void ISampleToIView::visit(const LayerDecorator *sample)
 {
     Q_ASSERT(sample);
-    std::cout << get_indent() << "Visitor_LayerDecorator " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_LayerDecorator " << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -122,7 +122,7 @@ void ISampleToIView::visit(const LayerDecorator *sample)
 void ISampleToIView::visit(const LayerInterface *sample)
 {
     Q_ASSERT(sample);
-    std::cout << get_indent() << "Visitor_LayerInterface " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_LayerInterface " << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -134,7 +134,7 @@ void ISampleToIView::visit(const LayerInterface *sample)
 void ISampleToIView::visit(const ParticleDecoration *sample)
 {
     Q_ASSERT(sample);
-    std::cout << get_indent() << "Visitor_ParticleDecoration " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_ParticleDecoration " << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -166,7 +166,7 @@ void ISampleToIView::visit(const ParticleInfo *sample)
 {
     Q_ASSERT(sample);
 
-    std::cout << get_indent() << "Visitor_ParticleInfo " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_ParticleInfo " << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -188,7 +188,7 @@ void ISampleToIView::visit(const Particle *sample)
 {
     Q_ASSERT(sample);
 
-    std::cout << get_indent() << "Visitor_Particle " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_Particle " << sample->getName()
               << " " << sample
               << " Index:" << sample->getRefractiveIndex()
               << std::endl;
@@ -208,7 +208,7 @@ void ISampleToIView::visit(const IFormFactor *sample)
 {
     Q_ASSERT(sample);
 
-    std::cout << get_indent() << "Visitor_IFormFactor " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_IFormFactor " << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -221,7 +221,7 @@ void ISampleToIView::visit(const FormFactorFullSphere *sample)
 {
     Q_ASSERT(sample);
 
-    std::cout << get_indent() << "Visitor_FormFactorFullSphere " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_FormFactorFullSphere " << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -237,7 +237,7 @@ void ISampleToIView::visit(const FormFactorCylinder *sample)
 {
     Q_ASSERT(sample);
 
-    std::cout << get_indent() << "Visitor_FormFactorCylinder " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_FormFactorCylinder " << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -253,7 +253,7 @@ void ISampleToIView::visit(const FormFactorPyramid *sample)
 {
     Q_ASSERT(sample);
 
-    std::cout << get_indent() << "Visitor_FormFactorPyramid " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_FormFactorPyramid " << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -269,7 +269,7 @@ void ISampleToIView::visit(const FormFactorPrism3 *sample)
 {
     Q_ASSERT(sample);
 
-    std::cout << get_indent() << "Visitor_FormFactorPrism3 " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_FormFactorPrism3 " << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -285,7 +285,7 @@ void ISampleToIView::visit(const IInterferenceFunction *sample)
 {
     Q_ASSERT(sample);
 
-    std::cout << get_indent() << "Visitor_IInterferenceFunction " << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_IInterferenceFunction " << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -297,7 +297,7 @@ void ISampleToIView::visit(const InterferenceFunction1DParaCrystal *sample)
 {
     Q_ASSERT(sample);
 
-    std::cout << get_indent() << "Visitor_InterferenceFunction1DParaCrystal" << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_InterferenceFunction1DParaCrystal" << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;
@@ -312,7 +312,7 @@ void ISampleToIView::visit(const InterferenceFunction2DParaCrystal *sample)
 {
     Q_ASSERT(sample);
 
-    std::cout << get_indent() << "Visitor_InterferenceFunction2DParaCrystal" << sample->getName()
+    std::cout << get_indent() << "ISampleToIView_InterferenceFunction2DParaCrystal" << sample->getName()
               << " " << sample
               << " " << (*sample->getParameterPool())
               << std::endl;

@@ -1,20 +1,22 @@
 #ifndef IVIEWTOISAMPLE_H
 #define IVIEWTOISAMPLE_H
 
-#include "ISampleViewVisitor.h"
+#include "IViewVisitor.h"
 #include <QMap>
 
 class ISample;
+class MultiLayer;
 
-class IViewToISample : public ISampleViewVisitor
+class IViewToISample : public IViewVisitor
 {
 public:
-    IViewToISample() : m_level(0) {}
+    IViewToISample() : m_multiLayer(0), m_level(0) {}
 
     void visit(IView *view);
     void visit(ConnectableView *view);
     void visit(MultiLayerView *view);
     void visit(LayerView *view);
+    void visit(ParticleDecorationView *view);
     void visit(FormFactorView *view);
     void visit(FormFactorFullSphereView *view);
     void visit(FormFactorPyramidView *view);
@@ -22,13 +24,13 @@ public:
     void visit(FormFactorCylinderView *view);
     void visit(InterferenceFunctionView *view);
     void visit(InterferenceFunction1DParaCrystalView *view);
-    void visit(ParticleDecorationView *view);
 
     bool goForward();
     bool goBack();
 
     ISample *makeISample(IView *view);
 
+    MultiLayer *m_multiLayer;
 private:
     std::string get_indent();
     int m_level;

@@ -17,7 +17,7 @@ public:
     virtual ~ConnectableView(){}
 
     //! сalls the ISampleViewVisitor's visit method
-    virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
+    virtual void accept(IViewVisitor *visitor) { visitor->visit(this); }
 
     int type() const { return Type; }
 
@@ -64,7 +64,7 @@ class ISampleDefaultView : public ConnectableView
 public:
     ISampleDefaultView(QGraphicsItem *parent = 0) : ConnectableView(parent){}
     //! сalls the ISampleViewVisitor's visit method
-    virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
+    virtual void accept(IViewVisitor *visitor) { visitor->visit(this); }
 };
 
 

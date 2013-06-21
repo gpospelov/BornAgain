@@ -64,8 +64,8 @@ void DesignerScene::createSample()
     SampleBuilderFactory factory;
     ISample *sample = factory.createSample("isgisaxs01");
 
-//    SamplePrintVisitor print_visitor;
-//    sample->accept(&print_visitor);
+    SamplePrintVisitor print_visitor;
+    sample->accept(&print_visitor);
 
     ISampleToIView visitor;
     sample->accept(&visitor);

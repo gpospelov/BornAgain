@@ -18,14 +18,15 @@ class ParticleDecorationView;
 
 //! Interface to visit a sample view tree and perform operations on its nodes
 
-class ISampleViewVisitor
+class IViewVisitor
 {
 public:
-    virtual ~ISampleViewVisitor(){}
+    virtual ~IViewVisitor(){}
     virtual void visit(IView *) { throw NotImplementedException("ISampleViewVisitor::visit(ISampleView *)"); }
     virtual void visit(ConnectableView *) { throw NotImplementedException("ISampleViewVisitor::visit(ISampleRectView *)"); }
     virtual void visit(MultiLayerView *) { throw NotImplementedException("ISampleViewVisitor::visit(MultiLayerView *)"); }
     virtual void visit(LayerView *) { throw NotImplementedException("ISampleViewVisitor::visit(LayerView *)"); }
+    virtual void visit(ParticleDecorationView *) { throw NotImplementedException("ISampleViewVisitor::visit(ParticleDecorationView *)"); }
     virtual void visit(FormFactorView *) { throw NotImplementedException("ISampleViewVisitor::visit(FormFactorView *)"); }
     virtual void visit(FormFactorFullSphereView *) { throw NotImplementedException("ISampleViewVisitor::visit(FormFactorFullSphereView *)"); }
     virtual void visit(FormFactorPyramidView *) { throw NotImplementedException("ISampleViewVisitor::visit(FormFactorPyramidView *)"); }
@@ -33,7 +34,6 @@ public:
     virtual void visit(FormFactorCylinderView *) { throw NotImplementedException("ISampleViewVisitor::visit(FormFactorCylinderView *)"); }
     virtual void visit(InterferenceFunctionView *) { throw NotImplementedException("ISampleViewVisitor::visit(InterferenceFunctionView *)"); }
     virtual void visit(InterferenceFunction1DParaCrystalView *) { throw NotImplementedException("ISampleViewVisitor::visit(InterferenceFunction1DParaCrystalView *)"); }
-    virtual void visit(ParticleDecorationView *) { throw NotImplementedException("ISampleViewVisitor::visit(ParticleDecorationView *)"); }
 
     virtual bool goForward(){ return true; }
     virtual bool goBack(){ return true; }

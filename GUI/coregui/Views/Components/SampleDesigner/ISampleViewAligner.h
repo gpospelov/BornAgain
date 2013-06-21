@@ -1,14 +1,14 @@
 #ifndef ISAMPLEVIEWALIGNER_H
 #define ISAMPLEVIEWALIGNER_H
 
-#include "ISampleViewVisitor.h"
+#include "IViewVisitor.h"
 #include <QMap>
 #include <QList>
 #include <QPointF>
 
 
 //! The ISampleViewAligner class aligns items of ISampleView
-class ISampleViewAligner : public ISampleViewVisitor
+class ISampleViewAligner : public IViewVisitor
 {
 public:
     ISampleViewAligner() : m_level(0) {}

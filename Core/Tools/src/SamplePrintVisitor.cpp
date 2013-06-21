@@ -13,7 +13,7 @@
 void SamplePrintVisitor::visit(const ISample *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_ISample " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_ISample " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
@@ -22,7 +22,8 @@ void SamplePrintVisitor::visit(const ISample *sample)
 void SamplePrintVisitor::visit(const MultiLayer *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_MultiLayer " << sample->getName()
+    std::cout << "----------------------------------------------" << std::endl;
+    std::cout << get_indent() << "PrintVisitor_MultiLayer " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 
@@ -36,14 +37,14 @@ void SamplePrintVisitor::visit(const MultiLayer *sample)
         }
     }
     goBack();
+    std::cout << "----------------------------------------------" << std::endl;
 }
 
 
 void SamplePrintVisitor::visit(const Layer *sample)
 {
     assert(sample);
-    std::cout << "XXXXXX " << sample->getMaterial() << std::endl;
-    std::cout << get_indent() << "Visitor_Layer " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_Layer " << sample->getName()
               << " " << (sample->getMaterial() ? sample->getMaterial()->getName() : "0_MATERIAL")
               << " " << sample->getRefractiveIndex()
               << " " << (*sample->getParameterPool())
@@ -54,7 +55,7 @@ void SamplePrintVisitor::visit(const Layer *sample)
 void SamplePrintVisitor::visit(const LayerDecorator *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_LayerDecorator " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_LayerDecorator " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 
@@ -73,7 +74,7 @@ void SamplePrintVisitor::visit(const LayerDecorator *sample)
 void SamplePrintVisitor::visit(const LayerInterface *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_LayerInterface " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_LayerInterface " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
@@ -82,7 +83,7 @@ void SamplePrintVisitor::visit(const LayerInterface *sample)
 void SamplePrintVisitor::visit(const ParticleDecoration *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_ParticleDecoration " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_ParticleDecoration " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 
@@ -103,7 +104,7 @@ void SamplePrintVisitor::visit(const ParticleDecoration *sample)
 void SamplePrintVisitor::visit(const ParticleInfo *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_ParticleInfo " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_ParticleInfo " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 
@@ -118,7 +119,7 @@ void SamplePrintVisitor::visit(const ParticleInfo *sample)
 void SamplePrintVisitor::visit(const Particle *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_Particle " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_Particle " << sample->getName()
               << " Index:" << sample->getRefractiveIndex()
               << std::endl;
 
@@ -133,7 +134,7 @@ void SamplePrintVisitor::visit(const Particle *sample)
 void SamplePrintVisitor::visit(const IFormFactor *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_IFormFactor " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_IFormFactor " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 
@@ -143,7 +144,7 @@ void SamplePrintVisitor::visit(const IFormFactor *sample)
 void SamplePrintVisitor::visit(const FormFactorFullSphere *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_FormFactorFullSphere " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_FormFactorFullSphere " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
@@ -152,7 +153,7 @@ void SamplePrintVisitor::visit(const FormFactorFullSphere *sample)
 void SamplePrintVisitor::visit(const FormFactorCylinder *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_FormFactorCylinder " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_FormFactorCylinder " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
@@ -161,7 +162,7 @@ void SamplePrintVisitor::visit(const FormFactorCylinder *sample)
 void SamplePrintVisitor::visit(const FormFactorPyramid *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_FormFactorPyramid " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_FormFactorPyramid " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
@@ -170,7 +171,7 @@ void SamplePrintVisitor::visit(const FormFactorPyramid *sample)
 void SamplePrintVisitor::visit(const FormFactorPrism3 *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_FormFactorPrism3 " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_FormFactorPrism3 " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
@@ -179,7 +180,7 @@ void SamplePrintVisitor::visit(const FormFactorPrism3 *sample)
 void SamplePrintVisitor::visit(const IInterferenceFunction *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_IInterferenceFunction " << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_IInterferenceFunction " << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
@@ -188,7 +189,7 @@ void SamplePrintVisitor::visit(const IInterferenceFunction *sample)
 void SamplePrintVisitor::visit(const InterferenceFunction1DParaCrystal *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_InterferenceFunction1DParaCrystal" << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_InterferenceFunction1DParaCrystal" << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }
@@ -197,7 +198,7 @@ void SamplePrintVisitor::visit(const InterferenceFunction1DParaCrystal *sample)
 void SamplePrintVisitor::visit(const InterferenceFunction2DParaCrystal *sample)
 {
     assert(sample);
-    std::cout << get_indent() << "Visitor_InterferenceFunction2DParaCrystal" << sample->getName()
+    std::cout << get_indent() << "PrintVisitor_InterferenceFunction2DParaCrystal" << sample->getName()
               << " " << (*sample->getParameterPool())
               << std::endl;
 }

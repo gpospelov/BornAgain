@@ -14,7 +14,7 @@ public:
     ParticleDecorationView(QGraphicsItem *parent = 0);
 
     //! сalls the ISampleViewVisitor's visit method
-    virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
+    virtual void accept(IViewVisitor *visitor) { visitor->visit(this); }
 
     int type() const { return Type; }
 

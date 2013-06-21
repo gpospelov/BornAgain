@@ -30,6 +30,7 @@ SampleDesigner::~SampleDesigner()
 
 void SampleDesigner::sceneToISample()
 {
+    SamplePrintVisitor print_visitor;
 
     MultiLayerView *view = getScene()->getMultiLayerView();
     std::cout << "SampleDesigner::sceneToISample() -> " << view<< std::endl;
@@ -41,7 +42,6 @@ void SampleDesigner::sceneToISample()
 //    view->accept(&visitor);
     if(isample) {
         std::cout << "___________>>>" << std::endl;
-        SamplePrintVisitor visitor;
-        isample->accept(&visitor);
+        isample->accept(&print_visitor);
     }
 }

@@ -62,12 +62,12 @@ HEADERS +=  \
     Views/Components/SampleDesigner/PropertyVariantManager.h \
     Views/Components/SampleDesigner/PropertyVariantFactory.h \
     Views/Components/SampleDesigner/MaterialProperty.h \
-    Views/Components/SampleDesigner/ISampleViewVisitor.h \
     Views/Components/SampleDesigner/ISampleViewAligner.h \
     Views/Components/SampleDesigner/IViewToISample.h \
     Views/Components/SampleDesigner/ISampleToIView.h \
     Views/Components/SampleDesigner/IView.h \
-    Views/Components/SampleDesigner/ConnectableView.h
+    Views/Components/SampleDesigner/ConnectableView.h \
+    Views/Components/SampleDesigner/IViewVisitor.h
 
 RESOURCES += Views/Components/SampleDesigner/SampleDesigner.qrc
 

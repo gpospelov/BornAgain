@@ -19,11 +19,6 @@
 
 DesignerScene::DesignerScene(QObject *parent)
     : DesignerSceneInterface(parent)
-    , m_xmin(-300)
-    , m_xmax(300)
-    , m_ymin(-100)
-    , m_ymax(500)
-    , m_dock(0)
 {
 
     setSceneRect(QRectF(-500, -200, 800, 800));
@@ -43,35 +38,45 @@ DesignerScene::DesignerScene(QObject *parent)
 }
 
 
+MultiLayerView *DesignerScene::getMultiLayerView()
+{
+    QList<MultiLayerView *> multiLayers = getMultiLayerViewList();
+    return (multiLayers.size() ? multiLayers.at(0) : 0);
+}
+
+
+QList<MultiLayerView *> DesignerScene::getMultiLayerViewList()
+{
+    QList<MultiLayerView *> result;
+    foreach(QGraphicsItem *item, items()) {
+        if(item->type() == MultiLayerView::Type) {
+            MultiLayerView *view = dynamic_cast<MultiLayerView *>(item);
+            Q_ASSERT(view);
+            result.append(view);
+        }
+    }
+    return result;
+}
+
 
 void DesignerScene::createSample()
 {
-//    SampleBuilderFactory factory;
-//    ISample *sample = factory.createSample("isgisaxs01");
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs01");
 
 //    SamplePrintVisitor print_visitor;
 //    sample->accept(&print_visitor);
 
-//    ISampleToScene visitor;
-//    sample->accept(&visitor);
-//    QList<QGraphicsItem *> items = visitor.getItems();
+    ISampleToScene visitor;
+    sample->accept(&visitor);
+    QList<QGraphicsItem *> items = visitor.getItems();
 
-//    foreach(QGraphicsItem *item, items) {
-//                std::cout << "item "  << " " << item->type() << std::endl;
-//                addItem(item);
-//    }
+    foreach(QGraphicsItem *item, items) {
+        addItem(item);
+    }
 
-
-//    foreach (QGraphicsItem *item, items()) {
-//        std::cout << "item "  << " " << item->type() << std::endl;
-//    }
-
-
-
-
-//    ISampleViewAligner layout;
-//    layout.makeAlign(visitor.getMultiLayerView());
-
+    ISampleViewAligner layout;
+    layout.makeAlign(visitor.getMultiLayerView());
 }
 
 

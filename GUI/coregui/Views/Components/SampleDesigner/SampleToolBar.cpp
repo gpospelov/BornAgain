@@ -7,6 +7,7 @@
 #include <QStyle>
 #include <iostream>
 
+#include "styledbar.h"
 
 //! main tool bar on top of SampleView window
 SampleToolBar::SampleToolBar(QWidget *parent)
@@ -37,9 +38,22 @@ SampleToolBar::SampleToolBar(QWidget *parent)
     connect(m_zoomFitAction, SIGNAL(triggered()), this, SIGNAL(zoomFit()));
     addAction(m_zoomFitAction);
 
+//    addWidget(new Manhattan::StyledSeparator());
+
     m_clearAllAction = new QAction(QIcon(":/SampleDesigner/images/eraser.png"), tr("Clear all"), this);
     connect(m_clearAllAction, SIGNAL(triggered()), this, SIGNAL(clearAll()));
     addAction(m_clearAllAction);
+
+//    insertSeparator(m_clearAllAction);
+//    Manhattan::StyledSeparator *sep = new Manhattan::StyledSeparator(this);
+//    addWidget(new Manhattan::StyledSeparator());
+
+    m_sceneToISampleAction = new QAction(QIcon(":/SampleDesigner/images/next.png"), tr("Generate ISample"), this);
+    connect(m_sceneToISampleAction, SIGNAL(triggered()), this, SIGNAL(sceneToISample()));
+    addAction(m_sceneToISampleAction);
+
+
+//    insertSeparator(m_clearAllAction);
 
 }
 

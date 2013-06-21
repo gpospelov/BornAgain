@@ -15,14 +15,16 @@
 
 
 //! return created views and they connections to the scene
-//! only items which do not have parent will be returned (MultiLayers, FormFactor's, Decorations)
+//! only items which do not have parent will be returned (MultiLayers, FormFactor's, Decorations, NodeEditorConnections)
 QList<QGraphicsItem *> ISampleToScene::getItems()
 {
     QSet<QGraphicsItem *> parentViews;
     for(QMap<const ISample *, ISampleRectView *>::iterator it = m_object_to_view.begin();
         it!= m_object_to_view.end(); ++it) {
         Q_ASSERT(it.key());
-        if( it.value() && !it.value()->parentItem() ) parentViews.insert(it.value());
+        if( it.value() && !it.value()->parentItem() ) {
+            parentViews.insert(it.value());
+        }
     }
 
     QList<QGraphicsItem *> result = parentViews.toList() + m_connections;

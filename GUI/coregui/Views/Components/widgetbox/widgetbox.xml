@@ -1,64 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widgetbox version="0.5">
     
-    <category name="Standard samples">
-        
-        <categoryentry name="IsGISAXS1 sample" icon="images/sample_layers2.png">
-            <widget class="isgisaxs01">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
-
-        <categoryentry name="IsGISAXS4 1DDL sample" icon="images/sample_layers2.png">
-            <widget class="isgisaxs04_1DDL">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
-    
-        <categoryentry name="IsGISAXS4 2DDL sample" icon="images/sample_layers2.png">
-            <widget class="isgisaxs04_2DDL">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
-    
-        <categoryentry name="GUI Test sample" icon="images/sample_layers3.png">
-            <widget class="guitest">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
-    </category>
-    
-    
-    <category name="Materials">
-        
-        <categoryentry name="Homogeneous material" icon="images/sample_spacer.png">
-            <widget class="HomogeneousMaterial">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
-        
-    </category>
-    
-    
     <category name="Layers">
         
-        <categoryentry name="Layer" icon="images/sample_spacer.png">
-            <widget class="Layer">
-                <property name="objectName">
-                    <string notr="true">somestring</string>
-                </property>
-            </widget>
-        </categoryentry>
         
         <categoryentry  name="Multi Layer" icon="images/sample_vspacer.png">
             <widget class="MultiLayer">
@@ -67,6 +11,23 @@
                 </property>
             </widget>
         </categoryentry>
+
+        <categoryentry name="Layer" icon="images/sample_spacer.png">
+            <widget class="Layer">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+        
+        <categoryentry  name="Layer repeater" icon="images/sample_vspacer.png">
+            <widget class="LayerRepeater">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
         
     </category>
     
@@ -113,7 +74,7 @@
     </category>
     
     
-    <category name="Form Factors">
+    <category name="Form factors">
         
         <categoryentry name="Full sphere" icon="images/sample_spacer.png">
             <widget class="FormFactorFullSphere">
@@ -148,5 +109,42 @@
         </categoryentry>
         
     </category>
+
     
+    <category name="Standard samples">
+        
+        <categoryentry name="IsGISAXS1 sample" icon="images/sample_layers2.png">
+            <widget class="isgisaxs01">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+
+        <categoryentry name="IsGISAXS4 1DDL sample" icon="images/sample_layers2.png">
+            <widget class="isgisaxs04_1DDL">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="IsGISAXS4 2DDL sample" icon="images/sample_layers2.png">
+            <widget class="isgisaxs04_2DDL">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    
+        <categoryentry name="GUI Test sample" icon="images/sample_layers3.png">
+            <widget class="guitest">
+                <property name="objectName">
+                    <string notr="true">somestring</string>
+                </property>
+            </widget>
+        </categoryentry>
+    </category>
+    
+
 </widgetbox>

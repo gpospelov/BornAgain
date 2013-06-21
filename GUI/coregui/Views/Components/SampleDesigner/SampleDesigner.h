@@ -40,6 +40,9 @@ public:
     //QWidget *getCentralWidget() { return m_editorStack; }
     QWidget *getCentralWidget() { return m_designerView; }
 
+public slots:
+    void sceneToISample();
+
 private:
     DesignerWidgetFactory *m_widgetFactory; //! factory to make views of ISample objects
     DesignerScene *m_designerScene; //! scene which holds all objects

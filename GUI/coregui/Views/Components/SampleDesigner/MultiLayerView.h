@@ -23,8 +23,11 @@ class MultiLayerView : public ISampleRectView
     Q_OBJECT
 
 public:
+    enum { Type = DesignerHelper::MultiLayerType };
 
     MultiLayerView(QGraphicsItem *parent = 0);
+
+    int type() const { return Type; }
 
     //! create top MultiLayer, which will be the dock for all Layer's and MultiLayer's
     static MultiLayerView *createTopMultiLayer();

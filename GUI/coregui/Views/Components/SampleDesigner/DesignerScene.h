@@ -32,7 +32,9 @@ public:
     explicit DesignerScene(QObject *parent = 0);
     virtual ~DesignerScene(){}
 
-    MultiLayerView *getTopMultiLayer() { return m_dock; }
+//    MultiLayerView *getTopMultiLayer() { return m_dock; }
+    MultiLayerView *getMultiLayerView();
+    QList<MultiLayerView *> getMultiLayerViewList();
 
 protected:
     virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
@@ -45,14 +47,10 @@ protected:
 
     void addItems(const QList<QGraphicsItem *> &items);
 
+
 private:
     void createSample();
 
-    int m_xmin;
-    int m_xmax;
-    int m_ymin;
-    int m_ymax;
-    MultiLayerView *m_dock;
 //    QGraphicsDropShadowEffect *m_shadow_effect;
 };
 

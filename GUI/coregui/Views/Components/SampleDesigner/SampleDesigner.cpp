@@ -2,7 +2,8 @@
 #include "DesignerScene.h"
 #include "DesignerView.h"
 #include "DesignerWidgetFactory.h"
-
+#include "SceneToISample.h"
+#include "MultiLayerView.h"
 
 SampleDesigner::SampleDesigner(QWidget *parent)
     : SampleDesignerInterface(parent)
@@ -21,4 +22,16 @@ SampleDesigner::SampleDesigner(QWidget *parent)
 SampleDesigner::~SampleDesigner()
 {
     delete m_widgetFactory;
+}
+
+
+void SampleDesigner::sceneToISample()
+{
+
+    MultiLayerView *view = getScene()->getMultiLayerView();
+    std::cout << "SampleDesigner::sceneToISample() -> " << view<< std::endl;
+
+    std::cout << "XXX --------" << std::endl;
+    SceneToISample visitor;
+    view->accept(&visitor);
 }

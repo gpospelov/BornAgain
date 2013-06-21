@@ -4,7 +4,7 @@
 #include <QPen>
 #include <QGraphicsScene>
 #include <QPainter>
-
+#include <iostream>
 
 NodeEditorConnection::NodeEditorConnection(QGraphicsItem *parent, QGraphicsScene *scene)
     : QGraphicsPathItem(parent)
@@ -15,7 +15,7 @@ NodeEditorConnection::NodeEditorConnection(QGraphicsItem *parent, QGraphicsScene
 	setZValue(-1);
 	m_port1 = 0;
 	m_port2 = 0;
-    scene->addItem(this);
+    if(scene) scene->addItem(this);
 }
 
 

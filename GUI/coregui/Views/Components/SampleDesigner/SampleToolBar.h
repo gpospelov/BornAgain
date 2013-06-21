@@ -20,6 +20,7 @@ signals:
     void zoomOut();
     void zoomFit();
     void clearAll();
+    void sceneToISample();
 
 public slots:
     void materialBrowserCall();
@@ -30,6 +31,8 @@ private:
     QAction *m_zoomOutAction;
     QAction *m_zoomFitAction;
     QAction *m_clearAllAction;
+    QAction *m_sceneToISampleAction;
+
 };
 
 

@@ -2,8 +2,11 @@
 #include "DesignerScene.h"
 #include "DesignerView.h"
 #include "DesignerWidgetFactory.h"
-#include "SceneToISample.h"
+#include "IViewToISample.h"
 #include "MultiLayerView.h"
+#include "ISample.h"
+
+#include "SamplePrintVisitor.h"
 
 SampleDesigner::SampleDesigner(QWidget *parent)
     : SampleDesignerInterface(parent)
@@ -32,6 +35,13 @@ void SampleDesigner::sceneToISample()
     std::cout << "SampleDesigner::sceneToISample() -> " << view<< std::endl;
 
     std::cout << "XXX --------" << std::endl;
-    SceneToISample visitor;
-    view->accept(&visitor);
+    IViewToISample maker;
+    ISample *isample = maker.makeISample(view);
+    std::cout << "isample " << isample << std::endl;
+//    view->accept(&visitor);
+    if(isample) {
+        std::cout << "___________>>>" << std::endl;
+        SamplePrintVisitor visitor;
+        isample->accept(&visitor);
+    }
 }

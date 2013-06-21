@@ -3,8 +3,8 @@
 
 #include "Exceptions.h"
 
-class ISampleView;
-class ISampleRectView;
+class IView;
+class ConnectableView;
 class LayerView;
 class MultiLayerView;
 class FormFactorView;
@@ -22,10 +22,10 @@ class ISampleViewVisitor
 {
 public:
     virtual ~ISampleViewVisitor(){}
-    virtual void visit(ISampleView *) { throw NotImplementedException("ISampleViewVisitor::visit(ISampleView *)"); }
-    virtual void visit(ISampleRectView *) { throw NotImplementedException("ISampleViewVisitor::visit(ISampleRectView *)"); }
-    virtual void visit(LayerView *) { throw NotImplementedException("ISampleViewVisitor::visit(LayerView *)"); }
+    virtual void visit(IView *) { throw NotImplementedException("ISampleViewVisitor::visit(ISampleView *)"); }
+    virtual void visit(ConnectableView *) { throw NotImplementedException("ISampleViewVisitor::visit(ISampleRectView *)"); }
     virtual void visit(MultiLayerView *) { throw NotImplementedException("ISampleViewVisitor::visit(MultiLayerView *)"); }
+    virtual void visit(LayerView *) { throw NotImplementedException("ISampleViewVisitor::visit(LayerView *)"); }
     virtual void visit(FormFactorView *) { throw NotImplementedException("ISampleViewVisitor::visit(FormFactorView *)"); }
     virtual void visit(FormFactorFullSphereView *) { throw NotImplementedException("ISampleViewVisitor::visit(FormFactorFullSphereView *)"); }
     virtual void visit(FormFactorPyramidView *) { throw NotImplementedException("ISampleViewVisitor::visit(FormFactorPyramidView *)"); }

@@ -1,40 +1,20 @@
 #ifndef ISAMPLEVIEW_H
 #define ISAMPLEVIEW_H
 
-#include <QGraphicsObject>
+#include "IView.h"
+#include "NodeEditorPort.h"
 
 class QPainter;
 class QStyleOptionGraphicsItem;
 class QWidget;
-class ISampleViewVisitor;
-
-
-#include "ISampleViewVisitor.h"
-#include "NodeEditorPort.h"
-
-//! parent class for graphic representation of all ISample's
-class ISampleView : public QGraphicsObject
-{
-public:
-    enum { Type = DesignerHelper::ISampleType };
-    ISampleView(QGraphicsItem *parent = 0) : QGraphicsObject(parent) {}
-    virtual ~ISampleView(){}
-
-    //! сalls the ISampleViewVisitor's visit method
-    virtual void accept(ISampleViewVisitor *visitor) = 0;
-
-    int type() const { return Type; }
-};
-
-
 
 //! view of ISample's with rectangular shape and node functionality
-class ISampleRectView : public ISampleView
+class ConnectableView : public IView
 {
 public:
     enum { Type = DesignerHelper::ISampleRectType };
-    ISampleRectView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
-    virtual ~ISampleRectView(){}
+    ConnectableView(QGraphicsItem *parent = 0, QRect rect = QRect(0,0,50,50) );
+    virtual ~ConnectableView(){}
 
     //! сalls the ISampleViewVisitor's visit method
     virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
@@ -47,9 +27,10 @@ public:
     virtual NodeEditorPort* addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type);
 
     //! connect input port of given view with appropriate output port(s) of other item, returns list of created connections
-    virtual QList<QGraphicsItem *> connectInputPort(ISampleRectView *other);
+    virtual QList<QGraphicsItem *> connectInputPort(ConnectableView *other);
 
-    virtual QList<ISampleRectView *> getConnectedInputItems() const;
+    //! returns list of items connected to all input ports
+    virtual QList<ConnectableView *> getConnectedInputItems() const;
 
     virtual QString getName() const { return m_name; }
     virtual QColor getColor() const { return m_color; }
@@ -78,10 +59,10 @@ protected:
 
 
 //! default view of unimplemented ISample's
-class ISampleDefaultView : public ISampleRectView
+class ISampleDefaultView : public ConnectableView
 {
 public:
-    ISampleDefaultView(QGraphicsItem *parent = 0) : ISampleRectView(parent){}
+    ISampleDefaultView(QGraphicsItem *parent = 0) : ConnectableView(parent){}
     //! сalls the ISampleViewVisitor's visit method
     virtual void accept(ISampleViewVisitor *visitor) { visitor->visit(this); }
 };

@@ -1,7 +1,7 @@
 #ifndef LAYERDOCKVIEW_H
 #define LAYERDOCKVIEW_H
 
-#include "ISampleView.h"
+#include "ConnectableView.h"
 
 #include <QGraphicsItem>
 #include <QGraphicsObject>
@@ -15,7 +15,7 @@ class MultiLayerView;
 class DesignerMimeData;
 
 
-class LayerDockView : public ISampleView
+class LayerDockView : public IView
 {
     Q_OBJECT
 public:

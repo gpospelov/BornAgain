@@ -1,12 +1,12 @@
 #ifndef MATERIALVIEW_H
 #define MATERIALVIEW_H
 
-#include "ISampleView.h"
+#include "ConnectableView.h"
 #include <QMap>
 #include "Types.h"
 
 //! graphical representation of material
-class MaterialView : public ISampleView
+class MaterialView : public IView
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ getName WRITE setName )

@@ -1,5 +1,5 @@
 #include "ISampleViewAligner.h"
-#include "ISampleView.h"
+#include "ConnectableView.h"
 #include "LayerView.h"
 #include "MultiLayerView.h"
 #include "FormFactorView.h"
@@ -20,7 +20,7 @@ void ISampleViewAligner::makeAlign(MultiLayerView *multi_layer)
 
     QPointF start(multi_layer->pos().x(), multi_layer->pos().y());
     for(int i_level = 2; i_level <= getMaximumLevelNumber(); ++i_level) {
-        QList<ISampleView *> items = m_views.values(i_level);
+        QList<IView *> items = m_views.values(i_level);
         start = placeItems(items, start);
     }
 }
@@ -35,7 +35,7 @@ int ISampleViewAligner::getMaximumLevelNumber()
 
 
 //! place given items using given reference point
-QPointF ISampleViewAligner::placeItems(const QList<ISampleView *> &items, QPointF reference)
+QPointF ISampleViewAligner::placeItems(const QList<IView *> &items, QPointF reference)
 {
     const double size_factor = 1.5;
     qreal dy = size_factor*getTotalVerticalSpace(items);
@@ -50,7 +50,7 @@ QPointF ISampleViewAligner::placeItems(const QList<ISampleView *> &items, QPoint
 }
 
 
-qreal ISampleViewAligner::getTotalVerticalSpace(const QList<ISampleView *> &items)
+qreal ISampleViewAligner::getTotalVerticalSpace(const QList<IView *> &items)
 {
     qreal result = 0;
     for(int i=0; i<items.size(); ++i) {
@@ -60,7 +60,7 @@ qreal ISampleViewAligner::getTotalVerticalSpace(const QList<ISampleView *> &item
 }
 
 
-qreal ISampleViewAligner::getMaximumHorizontalSpace(const QList<ISampleView *> &items)
+qreal ISampleViewAligner::getMaximumHorizontalSpace(const QList<IView *> &items)
 {
     qreal result = 0;
     for(int i=0; i<items.size(); ++i) {
@@ -71,29 +71,28 @@ qreal ISampleViewAligner::getMaximumHorizontalSpace(const QList<ISampleView *> &
 }
 
 
-void ISampleViewAligner::visit(ISampleView *view)
+void ISampleViewAligner::visit(IView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(ISampleView ) " << m_level << " " << view->type() << " " << std::endl;
+    //std::cout << get_indent() << "ViewAligner(ISampleView ) " << m_level << " " << view->type() << " " << std::endl;
 }
 
 
-void ISampleViewAligner::visit(ISampleRectView *view)
+void ISampleViewAligner::visit(ConnectableView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(ISampleRectView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    //std::cout << get_indent() << "ViewAligner(ISampleRectView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
 }
 
 
 void ISampleViewAligner::visit(LayerView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(LayerView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    //std::cout << get_indent() << "ViewAligner(LayerView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 
     goForward();
-    foreach(ISampleRectView *item, view->getConnectedInputItems()) {
-        std::cout << "Layer children xxx " << item->type() << std::endl;
+    foreach(ConnectableView *item, view->getConnectedInputItems()) {
         item->accept(this);
     }
     goBack();
@@ -103,12 +102,12 @@ void ISampleViewAligner::visit(LayerView *view)
 void ISampleViewAligner::visit(MultiLayerView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(MultiLayerView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    //std::cout << get_indent() << "ViewAligner(MultiLayerView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 
     goForward();
     foreach(QGraphicsItem *item, view->childItems()) {
-        ISampleView *layer = dynamic_cast<ISampleView *>(item);
+        IView *layer = dynamic_cast<IView *>(item);
         if(layer) layer->accept(this);
     }
     goBack();
@@ -118,7 +117,7 @@ void ISampleViewAligner::visit(MultiLayerView *view)
 void ISampleViewAligner::visit(FormFactorView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(FormFactorView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    //std::cout << get_indent() << "ViewAligner(FormFactorView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
@@ -126,7 +125,7 @@ void ISampleViewAligner::visit(FormFactorView *view)
 void ISampleViewAligner::visit(FormFactorFullSphereView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(FormFactorFullSphereView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    //std::cout << get_indent() << "ViewAligner(FormFactorFullSphereView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
@@ -134,7 +133,7 @@ void ISampleViewAligner::visit(FormFactorFullSphereView *view)
 void ISampleViewAligner::visit(FormFactorPyramidView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(FormFactorPyramidView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    //std::cout << get_indent() << "ViewAligner(FormFactorPyramidView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
@@ -142,7 +141,7 @@ void ISampleViewAligner::visit(FormFactorPyramidView *view)
 void ISampleViewAligner::visit(FormFactorPrism3View *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(FormFactorPrism3View ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    //std::cout << get_indent() << "ViewAligner(FormFactorPrism3View ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
@@ -150,7 +149,7 @@ void ISampleViewAligner::visit(FormFactorPrism3View *view)
 void ISampleViewAligner::visit(FormFactorCylinderView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(FormFactorCylinderView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    //std::cout << get_indent() << "ViewAligner(FormFactorCylinderView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
@@ -158,7 +157,7 @@ void ISampleViewAligner::visit(FormFactorCylinderView *view)
 void ISampleViewAligner::visit(InterferenceFunctionView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(InterferenceFunctionView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    //std::cout << get_indent() << "ViewAligner(InterferenceFunctionView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
@@ -166,7 +165,7 @@ void ISampleViewAligner::visit(InterferenceFunctionView *view)
 void ISampleViewAligner::visit(InterferenceFunction1DParaCrystalView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(InterferenceFunction1DParaCrystalView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    //std::cout << get_indent() << "ViewAligner(InterferenceFunction1DParaCrystalView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
     m_views.insertMulti(m_level, view);
 }
 
@@ -174,12 +173,12 @@ void ISampleViewAligner::visit(InterferenceFunction1DParaCrystalView *view)
 void ISampleViewAligner::visit(ParticleDecorationView *view)
 {
     Q_ASSERT(view);
-    std::cout << get_indent() << "ViewVisitor(ParticleDecorationView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
+    //std::cout << get_indent() << "ViewAligner(ParticleDecorationView ) " << m_level << " " << view->type() << " " << view->getName().toStdString() << std::endl;
 
     m_views.insertMulti(m_level, view);
 
     goForward();
-    foreach(ISampleRectView *item, view->getConnectedInputItems()) {
+    foreach(ConnectableView *item, view->getConnectedInputItems()) {
         item->accept(this);
     }
     goBack();

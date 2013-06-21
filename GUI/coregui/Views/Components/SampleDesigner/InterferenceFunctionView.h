@@ -1,11 +1,11 @@
 #ifndef INTERFERENCEFUNCTIONVIEW_H
 #define INTERFERENCEFUNCTIONVIEW_H
 
-#include "ISampleView.h"
+#include "ConnectableView.h"
 
 
 //! graphical representation of interference function
-class InterferenceFunctionView : public ISampleRectView
+class InterferenceFunctionView : public ConnectableView
 {
     Q_OBJECT
 public:

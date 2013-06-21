@@ -12,7 +12,7 @@ class DesignerHelper
 public:
 
     enum WidgetTypes {
-        ISampleType = QGraphicsItem::UserType+1, // = 65537
+        IViewType = QGraphicsItem::UserType+1, // = 65537
         ISampleRectType,
         NodeEditorPortType,
         NodeEditorConnectionType,

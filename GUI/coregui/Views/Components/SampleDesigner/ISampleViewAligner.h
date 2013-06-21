@@ -13,10 +13,10 @@ class ISampleViewAligner : public ISampleViewVisitor
 public:
     ISampleViewAligner() : m_level(0) {}
 
-    void visit(ISampleView *view);
-    void visit(ISampleRectView *view);
-    void visit(LayerView *view);
+    void visit(IView *view);
+    void visit(ConnectableView *view);
     void visit(MultiLayerView *view);
+    void visit(LayerView *view);
     void visit(FormFactorView *view);
     void visit(FormFactorFullSphereView *view);
     void visit(FormFactorPyramidView *view);
@@ -34,20 +34,20 @@ public:
 
 private:
     //! calculates total vertical space required by given items
-    qreal getTotalVerticalSpace(const QList<ISampleView *> &items);
+    qreal getTotalVerticalSpace(const QList<IView *> &items);
 
     //! calculates maximum horizontal space needed for given items)
-    qreal getMaximumHorizontalSpace(const QList<ISampleView *> &items);
+    qreal getMaximumHorizontalSpace(const QList<IView *> &items);
 
     //! place given items using given reference point
-    QPointF placeItems(const QList<ISampleView *> &items, QPointF reference);
+    QPointF placeItems(const QList<IView *> &items, QPointF reference);
 
     //! returns maximum level number
     int getMaximumLevelNumber();
 
     std::string get_indent();
     int m_level;
-    QMap<int, ISampleView * > m_views; // level to views
+    QMap<int, IView * > m_views; // level to views
 };
 
 

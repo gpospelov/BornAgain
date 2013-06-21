@@ -18,7 +18,7 @@
 #include "DesignerMimeData.h"
 
 MultiLayerView::MultiLayerView(QGraphicsItem *parent)
-    : ISampleRectView(parent)
+    : ConnectableView(parent)
     , m_fixed_xpos(0)
     , m_fixed(false)
 {

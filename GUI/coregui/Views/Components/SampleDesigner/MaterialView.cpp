@@ -7,7 +7,7 @@ int MaterialView::m_nmaterial = 0;
 QMap<QString, MaterialView *> MaterialView::m_materials = QMap<QString, MaterialView *>();
 
 MaterialView::MaterialView(QGraphicsItem *parent)
-    : ISampleView(parent)
+    : IView(parent)
     , m_refractive_index(1,0)
 {
     setFlag(QGraphicsItem::ItemIsMovable, true);

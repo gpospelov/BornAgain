@@ -1,12 +1,11 @@
 #ifndef LAYERVIEW_H
 #define LAYERVIEW_H
 
-#include "ISampleView.h"
-#include "DesignerHelper.h"
+#include "ConnectableView.h"
 #include "MaterialBrowser.h"
 
 //! graphics representation of Layer
-class LayerView : public ISampleRectView
+class LayerView : public ConnectableView
 {
     Q_OBJECT
 

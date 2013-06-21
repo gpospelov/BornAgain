@@ -8,13 +8,13 @@
 #include <QSet>
 
 
-class ISampleRectView;
+class ConnectableView;
 
 //! The ISampleToScene class provide view of ISample object for graphics scene
-class ISampleToScene : public ISampleVisitor
+class ISampleToIView : public ISampleVisitor
 {
 public:
-    ISampleToScene() : m_level(0), m_multiLayer(0) {}
+    ISampleToIView() : m_level(0), m_multiLayer(0) {}
 
     void visit(const ISample *sample);
     void visit(const MultiLayer *sample);
@@ -48,24 +48,24 @@ private:
 
     int m_level;
     MultiLayerView *m_multiLayer;
-    QMap<const ISample *, ISampleRectView *> m_object_to_view;
+    QMap<const ISample *, ConnectableView *> m_sample_to_view;
     QList<QGraphicsItem *> m_connections;
 };
 
 
-inline bool ISampleToScene::goForward()
+inline bool ISampleToIView::goForward()
 {
     ++m_level;
     return true;
 }
 
-inline bool ISampleToScene::goBack()
+inline bool ISampleToIView::goBack()
 {
     --m_level;
     return true;
 }
 
-inline std::string ISampleToScene::get_indent()
+inline std::string ISampleToIView::get_indent()
 {
     std::string result;
     result.resize(m_level*4, '.');

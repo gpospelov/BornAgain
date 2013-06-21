@@ -3,7 +3,7 @@
 
 
 FormFactorView::FormFactorView(QGraphicsItem *parent)
-    : ISampleRectView(parent)
+    : ConnectableView(parent)
     , m_weight(1.0)
 {
     setName("FormFactorView");

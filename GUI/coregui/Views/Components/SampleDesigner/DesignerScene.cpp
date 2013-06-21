@@ -8,7 +8,7 @@
 #include "DesignerHelper.h"
 #include "LayerDockView.h"
 #include "NodeEditor.h"
-#include "ISampleToScene.h"
+#include "ISampleToIView.h"
 #include "SampleBuilderFactory.h"
 #include "SamplePrintVisitor.h"
 #include "ISampleViewAligner.h"
@@ -67,7 +67,7 @@ void DesignerScene::createSample()
 //    SamplePrintVisitor print_visitor;
 //    sample->accept(&print_visitor);
 
-    ISampleToScene visitor;
+    ISampleToIView visitor;
     sample->accept(&visitor);
     QList<QGraphicsItem *> items = visitor.getItems();
 
@@ -162,7 +162,7 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent *event)
                         sample = factory.createSample(mimeData->getClassName().toStdString());
                     } catch (std::runtime_error& e) {}
                     if(sample) {
-                        ISampleToScene visitor;
+                        ISampleToIView visitor;
                         sample->accept(&visitor);
                         visitor.getItems();
                         QGraphicsItem *view = visitor.getMultiLayerView();

@@ -42,8 +42,9 @@ void SamplePrintVisitor::visit(const MultiLayer *sample)
 void SamplePrintVisitor::visit(const Layer *sample)
 {
     assert(sample);
+    std::cout << "XXXXXX " << sample->getMaterial() << std::endl;
     std::cout << get_indent() << "Visitor_Layer " << sample->getName()
-              << " " << sample->getMaterial()->getName()
+              << " " << (sample->getMaterial() ? sample->getMaterial()->getName() : "0_MATERIAL")
               << " " << sample->getRefractiveIndex()
               << " " << (*sample->getParameterPool())
               << std::endl;

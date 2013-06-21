@@ -13,7 +13,7 @@
 
 class QNEBlock;
 class NodeEditorConnection;
-class ISampleView;
+class IView;
 
 class NodeEditorPort : public QGraphicsPathItem
 //class NodeEditorPort : public QGraphicsItem
@@ -54,7 +54,7 @@ public:
 
 	int type() const { return Type; }
 
-    ISampleView* block() const;
+    IView* block() const;
 
     bool isConnected(NodeEditorPort*);
 

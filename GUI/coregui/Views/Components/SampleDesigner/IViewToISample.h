@@ -1,18 +1,20 @@
-#ifndef SCENETOISAMPLE_H
-#define SCENETOISAMPLE_H
+#ifndef IVIEWTOISAMPLE_H
+#define IVIEWTOISAMPLE_H
 
 #include "ISampleViewVisitor.h"
 #include <QMap>
 
-class SceneToISample : public ISampleViewVisitor
+class ISample;
+
+class IViewToISample : public ISampleViewVisitor
 {
 public:
-    SceneToISample() : m_level(0) {}
+    IViewToISample() : m_level(0) {}
 
-    void visit(ISampleView *view);
-    void visit(ISampleRectView *view);
-    void visit(LayerView *view);
+    void visit(IView *view);
+    void visit(ConnectableView *view);
     void visit(MultiLayerView *view);
+    void visit(LayerView *view);
     void visit(FormFactorView *view);
     void visit(FormFactorFullSphereView *view);
     void visit(FormFactorPyramidView *view);
@@ -25,32 +27,37 @@ public:
     bool goForward();
     bool goBack();
 
+    ISample *makeISample(IView *view);
+
 private:
     std::string get_indent();
     int m_level;
-    QMap<int, ISampleView * > m_views; // level to views
+    QMap<int, IView * > m_views; // level to views
+
+    QMap<IView *, ISample *> m_view_to_sample;
+
 };
 
 
-inline bool SceneToISample::goForward()
+inline bool IViewToISample::goForward()
 {
     ++m_level;
     return true;
 }
 
 
-inline bool SceneToISample::goBack()
+inline bool IViewToISample::goBack()
 {
     --m_level;
     return true;
 }
 
 
-inline std::string SceneToISample::get_indent()
+inline std::string IViewToISample::get_indent()
 {
     std::string result;
     result.resize(m_level*4, '.');
     return result;
 }
 
-#endif // SCENETOISAMPLE_H
+#endif // IVIEWTOISAMPLE_H

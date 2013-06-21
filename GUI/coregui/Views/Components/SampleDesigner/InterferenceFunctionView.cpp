@@ -3,7 +3,7 @@
 #include "Units.h"
 
 InterferenceFunctionView::InterferenceFunctionView(QGraphicsItem *parent)
-    : ISampleRectView(parent)
+    : ConnectableView(parent)
 {
     setColor(QColor(255, 236, 139));
     setRectangle( QRect(0, 0, DesignerHelper::getDefaultInterferenceFunctionWidth(), DesignerHelper::getDefaultInterferenceFunctionHeight()) );

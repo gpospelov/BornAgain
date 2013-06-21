@@ -17,7 +17,7 @@
 
 
 LayerView::LayerView(QGraphicsItem *parent)
-    : ISampleRectView(parent)
+    : ConnectableView(parent)
     , m_fixed_xpos(0)
     , m_fixed(false)
     , m_thickness(10*Units::nanometer)

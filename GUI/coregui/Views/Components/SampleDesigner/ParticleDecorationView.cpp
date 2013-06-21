@@ -3,7 +3,7 @@
 
 
 ParticleDecorationView::ParticleDecorationView(QGraphicsItem *parent)
-    : ISampleRectView(parent)
+    : ConnectableView(parent)
 {
     setName("ParticleDecoration");
     setLabel("Particle \ndecoration");

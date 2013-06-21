@@ -6,7 +6,7 @@
 #include "InterferenceFunctionView.h"
 #include "MaterialView.h"
 #include "SampleBuilderFactory.h"
-#include "ISampleToScene.h"
+#include "ISampleToIView.h"
 
 
 DesignerWidgetFactory *DesignerWidgetFactory::m_instance = 0;
@@ -19,44 +19,44 @@ DesignerWidgetFactory::DesignerWidgetFactory()
 
    registerItem(
         "Layer",
-        IFactoryCreateFunction<LayerView, ISampleView>
+        IFactoryCreateFunction<LayerView, IView>
     );
 
    registerItem(
         "MultiLayer",
-        IFactoryCreateFunction<MultiLayerView, ISampleView>
+        IFactoryCreateFunction<MultiLayerView, IView>
     );
 
    registerItem(
         "FormFactorFullSphere",
-        IFactoryCreateFunction<FormFactorFullSphereView, ISampleView>
+        IFactoryCreateFunction<FormFactorFullSphereView, IView>
     );
    registerItem(
         "FormFactorPyramid",
-        IFactoryCreateFunction<FormFactorPyramidView, ISampleView>
+        IFactoryCreateFunction<FormFactorPyramidView, IView>
     );
    registerItem(
         "FormFactorCylinder",
-        IFactoryCreateFunction<FormFactorCylinderView, ISampleView>
+        IFactoryCreateFunction<FormFactorCylinderView, IView>
     );
    registerItem(
         "FormFactorPrism3",
-        IFactoryCreateFunction<FormFactorPrism3View, ISampleView>
+        IFactoryCreateFunction<FormFactorPrism3View, IView>
     );
 
    registerItem(
         "ParticleDecoration",
-        IFactoryCreateFunction<ParticleDecorationView, ISampleView>
+        IFactoryCreateFunction<ParticleDecorationView, IView>
     );
 
    registerItem(
         "InterferenceFunction1DParaCrystal",
-        IFactoryCreateFunction<InterferenceFunction1DParaCrystalView, ISampleView>
+        IFactoryCreateFunction<InterferenceFunction1DParaCrystalView, IView>
     );
 
    registerItem(
         "HomogeneousMaterial",
-        IFactoryCreateFunction<MaterialView, ISampleView>
+        IFactoryCreateFunction<MaterialView, IView>
     );
 
 }

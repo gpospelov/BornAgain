@@ -1,4 +1,4 @@
-#include "ISampleView.h"
+#include "ConnectableView.h"
 #include "DesignerHelper.h"
 #include "NodeEditorPort.h"
 #include "NodeEditorConnection.h"
@@ -8,8 +8,8 @@
 #include <QObject>
 #include <iostream>
 
-ISampleRectView::ISampleRectView(QGraphicsItem *parent, QRect rect)
-    : ISampleView(parent)
+ConnectableView::ConnectableView(QGraphicsItem *parent, QRect rect)
+    : IView(parent)
     , m_name("Unnamed")
     , m_color(Qt::gray)
     , m_rect(rect)
@@ -22,7 +22,7 @@ ISampleRectView::ISampleRectView(QGraphicsItem *parent, QRect rect)
 }
 
 
-void ISampleRectView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void ConnectableView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(widget);
 
@@ -48,7 +48,7 @@ void ISampleRectView::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
 
 // adding port to the sample
-NodeEditorPort* ISampleRectView::addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type)
+NodeEditorPort* ConnectableView::addPort(const QString &name, NodeEditorPort::PortDirection direction, NodeEditorPort::PortType port_type)
 {
     NodeEditorPort *port = new NodeEditorPort(this, name, direction, port_type);
     setPortCoordinates();
@@ -57,7 +57,7 @@ NodeEditorPort* ISampleRectView::addPort(const QString &name, NodeEditorPort::Po
 
 
 // calculation of y-pos for ports
-void ISampleRectView::setPortCoordinates()
+void ConnectableView::setPortCoordinates()
 {
     if(!getNumberOfPorts()) return;
 
@@ -92,14 +92,14 @@ void ISampleRectView::setPortCoordinates()
 }
 
 
-void ISampleRectView::setLabel(const QString &name)
+void ConnectableView::setLabel(const QString &name)
 {
     m_label = name;
     setPortCoordinates();
 }
 
 
-int ISampleRectView::getNumberOfPorts()
+int ConnectableView::getNumberOfPorts()
 {
     int result(0);
     foreach(QGraphicsItem *item, childItems()) {
@@ -110,7 +110,7 @@ int ISampleRectView::getNumberOfPorts()
 }
 
 
-int ISampleRectView::getNumberOfOutputPorts()
+int ConnectableView::getNumberOfOutputPorts()
 {
     int result(0);
     foreach(QGraphicsItem *item, childItems()) {
@@ -121,7 +121,7 @@ int ISampleRectView::getNumberOfOutputPorts()
 }
 
 
-int ISampleRectView::getNumberOfInputPorts()
+int ConnectableView::getNumberOfInputPorts()
 {
     return getNumberOfPorts()-getNumberOfOutputPorts();
 }
@@ -129,7 +129,7 @@ int ISampleRectView::getNumberOfInputPorts()
 
 // connect input port of given view with appropriate output port(s) of other item
 // returns list of created connection
-QList<QGraphicsItem *> ISampleRectView::connectInputPort(ISampleRectView *other)
+QList<QGraphicsItem *> ConnectableView::connectInputPort(ConnectableView *other)
 {
     Q_ASSERT(other);
     QList<QGraphicsItem *> result;
@@ -154,23 +154,18 @@ QList<QGraphicsItem *> ISampleRectView::connectInputPort(ISampleRectView *other)
 }
 
 
-QList<ISampleRectView *> ISampleRectView::getConnectedInputItems() const
+//! returns list of items connected to all input ports
+QList<ConnectableView *> ConnectableView::getConnectedInputItems() const
 {
-//    std::cout << "XXX getConnectedInputItems() " << std::endl;
-    QList<ISampleRectView *> result;
+    QList<ConnectableView *> result;
     foreach(QGraphicsItem *item, childItems()) {
         NodeEditorPort *port = dynamic_cast<NodeEditorPort *>(item);
         if (port && port->isInput()) {
             for(int i=0; i<port->connections().size(); ++i) {
-//                std::cout << "connections " << port << " "
-//                          << " " << port->connections().at(i)->port1()
-//                          << " " << port->connections().at(i)->port2()
-//                          << std::endl;
                 Q_ASSERT(port->connections().at(i)->port1()->parentItem());
-                ISampleRectView *rr = dynamic_cast<ISampleRectView *>(port->connections().at(i)->port1()->parentItem());
-                if(rr) {
-//                    std::cout << "XXX got connection " << rr->getName().toStdString() << std::endl;
-                    result.append(rr);
+                ConnectableView *connected = dynamic_cast<ConnectableView *>(port->connections().at(i)->port1()->parentItem());
+                if(connected) {
+                    result.append(connected);
                 }
             }
         }

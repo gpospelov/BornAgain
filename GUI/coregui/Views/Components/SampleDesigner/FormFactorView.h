@@ -2,7 +2,7 @@
 #define FORMFACTORVIEW_H
 
 #include "Units.h"
-#include "ISampleView.h"
+#include "ConnectableView.h"
 #include "MaterialBrowser.h"
 #include "FormFactors.h"
 #include <QGraphicsItem>
@@ -11,7 +11,7 @@
 
 
 //! graphical representation of form factor
-class FormFactorView : public ISampleRectView
+class FormFactorView : public ConnectableView
 {
     Q_OBJECT
 

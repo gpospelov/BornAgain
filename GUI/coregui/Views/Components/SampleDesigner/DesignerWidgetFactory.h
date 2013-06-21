@@ -3,14 +3,14 @@
 
 #include <QList>
 #include "IFactory.h"
-#include "ISampleView.h"
+#include "ConnectableView.h"
 
 class QString;
 
 //! The DesignerWidgetFactory class creates views of ISample type objects
 //! DesignerWidgetFactory is created/deleted in SampleView, used by others
 //! via instance() method.
-class DesignerWidgetFactory : public IFactory<std::string, ISampleView>
+class DesignerWidgetFactory : public IFactory<std::string, IView>
 {
 public:
     DesignerWidgetFactory();

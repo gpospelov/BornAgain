@@ -1,9 +1,9 @@
 #ifndef PARTICLEDECORATIONVIEW_H
 #define PARTICLEDECORATIONVIEW_H
 
-#include "ISampleView.h"
+#include "ConnectableView.h"
 
-class ParticleDecorationView : public ISampleRectView
+class ParticleDecorationView : public ConnectableView
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ getName WRITE setName )

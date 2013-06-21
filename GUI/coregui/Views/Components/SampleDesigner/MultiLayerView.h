@@ -7,7 +7,7 @@
 #include <QRectF>
 #include <QRect>
 #include <QGradient>
-#include "ISampleView.h"
+#include "ConnectableView.h"
 #include <QStringList>
 
 
@@ -18,7 +18,7 @@ class DesignerMimeData;
 
 //class MultiLayerView : public ISampleView
 //class MultiLayerView : public LayerView
-class MultiLayerView : public ISampleRectView
+class MultiLayerView : public ConnectableView
 {
     Q_OBJECT
 

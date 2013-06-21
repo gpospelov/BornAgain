@@ -9,7 +9,6 @@ SOURCES +=  \
     Views/Components/SampleDesigner/DesignerView.cpp \
     Views/Components/SampleDesigner/DesignerWidgetFactory.cpp \
     Views/Components/SampleDesigner/FormFactorView.cpp \
-    Views/Components/SampleDesigner/ISampleView.cpp \
     Views/Components/SampleDesigner/InterferenceFunctionView.cpp \
     Views/Components/SampleDesigner/LayerView.cpp \
     Views/Components/SampleDesigner/MultiLayerView.cpp \
@@ -30,9 +29,10 @@ SOURCES +=  \
     Views/Components/SampleDesigner/PropertyVariantManager.cpp \
     Views/Components/SampleDesigner/PropertyVariantFactory.cpp \
     Views/Components/SampleDesigner/MaterialProperty.cpp \
-    Views/Components/SampleDesigner/ISampleToScene.cpp \
     Views/Components/SampleDesigner/ISampleViewAligner.cpp \
-    Views/Components/SampleDesigner/SceneToISample.cpp
+    Views/Components/SampleDesigner/IViewToISample.cpp \
+    Views/Components/SampleDesigner/ISampleToIView.cpp \
+    Views/Components/SampleDesigner/ConnectableView.cpp
 
 
 HEADERS +=  \
@@ -42,7 +42,6 @@ HEADERS +=  \
     Views/Components/SampleDesigner/DesignerView.h \
     Views/Components/SampleDesigner/DesignerWidgetFactory.h \
     Views/Components/SampleDesigner/FormFactorView.h \
-    Views/Components/SampleDesigner/ISampleView.h \
     Views/Components/SampleDesigner/InterferenceFunctionView.h \
     Views/Components/SampleDesigner/LayerView.h \
     Views/Components/SampleDesigner/MultiLayerView.h \
@@ -63,10 +62,12 @@ HEADERS +=  \
     Views/Components/SampleDesigner/PropertyVariantManager.h \
     Views/Components/SampleDesigner/PropertyVariantFactory.h \
     Views/Components/SampleDesigner/MaterialProperty.h \
-    Views/Components/SampleDesigner/ISampleToScene.h \
     Views/Components/SampleDesigner/ISampleViewVisitor.h \
     Views/Components/SampleDesigner/ISampleViewAligner.h \
-    Views/Components/SampleDesigner/SceneToISample.h
+    Views/Components/SampleDesigner/IViewToISample.h \
+    Views/Components/SampleDesigner/ISampleToIView.h \
+    Views/Components/SampleDesigner/IView.h \
+    Views/Components/SampleDesigner/ConnectableView.h
 
 RESOURCES += Views/Components/SampleDesigner/SampleDesigner.qrc
 

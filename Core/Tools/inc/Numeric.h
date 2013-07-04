@@ -21,6 +21,10 @@
 
 //! Floating-point epsilon, tolerances, almost-equal.
 
+#ifndef M_PI
+#define M_PI		3.14159265358979323846
+#endif
+
 namespace Numeric {
 
 static const double required_precision = 1.e-4;

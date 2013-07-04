@@ -17,6 +17,7 @@
 #define MULTILAYER_H
 
 #include <vector>
+#include "WinDllMacros.h"
 #include "Layer.h"
 #include "LayerInterface.h"
 #include "LayerRoughness.h"
@@ -35,7 +36,7 @@
 //!  ---------   interface #2
 //!  substrate   layer #3        z=getLayerBottomZ(3)=-60.0
 
-class MultiLayer : public ICompositeSample
+class BA_CORE_API_ MultiLayer : public ICompositeSample
 {
  public:
     MultiLayer();

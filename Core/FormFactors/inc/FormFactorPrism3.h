@@ -21,7 +21,7 @@
 
 //! Formfactor of a prism based on a regular triangle.
 
-class FormFactorPrism3 : public IFormFactorBorn
+class BA_CORE_API_ FormFactorPrism3 : public IFormFactorBorn
 {
  public:
     FormFactorPrism3(double height, double half_side);

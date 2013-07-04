@@ -16,13 +16,14 @@
 #ifndef LAYERDECORATOR_H_
 #define LAYERDECORATOR_H_
 
+#include "WinDllMacros.h"
 #include "Layer.h"
 #include "ParticleDecoration.h"
 #include "LayerDecoratorDWBASimulation.h"
 
 //! Combines a Layer with an IDecoration.
 
-class LayerDecorator : public Layer
+class BA_CORE_API_ LayerDecorator : public Layer
 {
  public:
     //! Constructs LayerDecorator object by cloning _layer_ and _decoration_.

@@ -5,7 +5,9 @@ TARGET   = BornAgainFit
 TEMPLATE = lib
 CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
-QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
+macx|unix {
+  QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
+}
 #CONFIG  += BORNAGAIN_PYTHON
 CONFIG  += BORNAGAIN_ROOT
 
@@ -50,7 +52,7 @@ contains(CONFIG, BORNAGAIN_PYTHON) {
 # -----------------------------------------------------------------------------
 # additional libraries
 # -----------------------------------------------------------------------------
-LIBS += $$PWD/../lib/libBornAgainCore.so
+LIBS += $$PWD/../lib/libBornAgainCore.$${SONAME}
 
 # -----------------------------------------------------------------------------
 # Installing library into dedicated directory at the end of compilation

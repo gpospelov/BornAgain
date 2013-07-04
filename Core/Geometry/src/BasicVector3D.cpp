@@ -135,8 +135,8 @@ double BasicVector3D<double>::dot(const BasicVector3D<double>& v) const
 }
 
  //! Returns cross product of vectors
- template<>
- BasicVector3D<double> BasicVector3D<double>::cross(
+template<>
+BasicVector3D<double> BasicVector3D<double>::cross(
     const BasicVector3D<double>& v) const
 {
     return BasicVector3D<double>(y()*v.z()-v.y()*z(),

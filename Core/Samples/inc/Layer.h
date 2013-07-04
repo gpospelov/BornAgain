@@ -16,6 +16,7 @@
 #ifndef LAYER_H
 #define LAYER_H
 
+#include "WinDllMacros.h"
 #include "ICompositeSample.h"
 #include "IMaterial.h"
 #include "HomogeneousMaterial.h"
@@ -23,7 +24,7 @@
 
 //! A Layer with thickness and pointer to the material
 
-class Layer : public ICompositeSample
+class BA_CORE_API_ Layer : public ICompositeSample
 {
  public:
     //! Constructs empty layer.

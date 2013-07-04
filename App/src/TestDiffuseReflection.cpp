@@ -36,7 +36,7 @@
 
 TestDiffuseReflection::TestDiffuseReflection()
 : m_sample(0)
-, m_data_spec(0)
+//, m_data_spec(0)
 , m_data_offspec(0)
 , m_alphaMin(0.0*Units::degree)
 , m_alphaMax(2.0*Units::degree)

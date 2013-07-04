@@ -16,6 +16,7 @@
 #ifndef SIMULATION_H_
 #define SIMULATION_H_
 
+#include "WinDllMacros.h"
 #include "ISampleBuilder.h"
 #include "Instrument.h"
 #include "SimulationParameters.h"
@@ -24,7 +25,7 @@ class ProgramOptions;
 
 //! Run one simulation.
 
-class Simulation : public IParameterized, public ICloneable
+class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
 {
  public:
     Simulation();

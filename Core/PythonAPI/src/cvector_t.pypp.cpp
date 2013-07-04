@@ -21,28 +21,6 @@ void register_cvector_t_class(){
         cvector_t_exposer_t cvector_t_exposer = cvector_t_exposer_t( "cvector_t", bp::init< >() );
         bp::scope cvector_t_scope( cvector_t_exposer );
         cvector_t_exposer.def( bp::init< std::complex< double >, std::complex< double >, std::complex< double > >(( bp::arg("x1"), bp::arg("y1"), bp::arg("z1") )) );
-        { //::Geometry::BasicVector3D< std::complex< double > >::cross
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::Geometry::BasicVector3D< std::complex< double > > ( exported_class_t::*cross_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
-            
-            cvector_t_exposer.def( 
-                "cross"
-                , cross_function_type( &::Geometry::BasicVector3D< std::complex< double > >::cross )
-                , ( bp::arg("v") ) );
-        
-        }
-        { //::Geometry::BasicVector3D< std::complex< double > >::dot
-        
-            typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;
-            typedef ::std::complex< double > ( exported_class_t::*dot_function_type )( ::Geometry::BasicVector3D< std::complex< double > > const & ) const;
-            
-            cvector_t_exposer.def( 
-                "dot"
-                , dot_function_type( &::Geometry::BasicVector3D< std::complex< double > >::dot )
-                , ( bp::arg("v") ) );
-        
-        }
         { //::Geometry::BasicVector3D< std::complex< double > >::mag
         
             typedef Geometry::BasicVector3D< std::complex< double > > exported_class_t;

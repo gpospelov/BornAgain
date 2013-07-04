@@ -17,6 +17,7 @@
 #ifndef MASKCOORDINATEFUNCTION_H_
 #define MASKCOORDINATEFUNCTION_H_
 
+#include "WinDllMacros.h"
 #include <cstddef>
 #include "ICloneable.h"
 
@@ -39,7 +40,7 @@ class MaskCoordinateFunction : public ICloneable
 
 //! ?
 
-class MaskCoordinateRectangleFunction : public MaskCoordinateFunction
+class BA_CORE_API_ MaskCoordinateRectangleFunction : public MaskCoordinateFunction
 {
  public:
     MaskCoordinateRectangleFunction(size_t rank, const int *minima, const int *maxima);
@@ -56,7 +57,7 @@ class MaskCoordinateRectangleFunction : public MaskCoordinateFunction
 
 //! ?
 
-class MaskCoordinateEllipseFunction : public MaskCoordinateFunction
+class BA_CORE_API_ MaskCoordinateEllipseFunction : public MaskCoordinateFunction
 {
  public:
     MaskCoordinateEllipseFunction(size_t rank, const int *center, const int *radii);

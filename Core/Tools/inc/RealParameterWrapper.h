@@ -16,13 +16,14 @@
 #ifndef REALPARAMETERWRAPPER_H
 #define REALPARAMETERWRAPPER_H
 
+#include "WinDllMacros.h"
 #include "Exceptions.h"
 
 #include <ostream>
 
 //! Wrapper to real parameter for remote access to its value and callback abilities
 
-class RealParameterWrapper {
+class BA_CORE_API_ RealParameterWrapper {
  public:
     explicit RealParameterWrapper(double *par) : m_data(par) {}
     // explicit RealParameterWrapper(double *par) : m_data(par), m_signal() {}

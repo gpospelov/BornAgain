@@ -3,10 +3,12 @@
 # -----------------------------------------------------------------------------
 TARGET   = BornAgainCore
 TEMPLATE = lib
-CONFIG  += plugin # to remove versions from file name
+CONFIG  += lib # to remove versions from file name
 QT      -= core gui
-QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
-#CONFIG  += BORNAGAIN_PYTHON
+macx|unix {
+  QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
+}
+# CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
 # common project settings
@@ -314,11 +316,12 @@ HEADERS += \
     Fitting/inc/IMinimizer.h \
     Fitting/inc/MinimizerScan.h \
     Fitting/inc/MinimizerTest.h \
+    \
     StandardSamples/SampleBuilderFactory.h \
     StandardSamples/IsGISAXS01Builder.h \
     Tools/inc/SamplePrintVisitor.h \
-    StandardSamples/IsGISAXS04Builder.h
-
+    Tools/inc/WinDllMacros.h \
+    StandardSamples/IsGISAXS04Builder.h \
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)
@@ -333,6 +336,9 @@ macx {
 }
 unix:!macx {
     DEFINES += Q_OS_LINUX
+}
+win32 {
+    DEFINES += BA_CORE_BUILD_DLL
 }
 
 CONFIG(debug, debug|release) {
@@ -349,5 +355,6 @@ CONFIG(debug, debug|release) {
 target.path = $$PWD/../lib
 INSTALLS += target
 QMAKE_DISTCLEAN += $$target.path/$(TARGET)
-QMAKE_POST_LINK = (make install)
+isEmpty(MAKEFILE): MAKEFILE="Makefile"
+QMAKE_POST_LINK = $$MAKE_COMMAND -f $${MAKEFILE} install
 

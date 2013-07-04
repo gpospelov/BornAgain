@@ -16,6 +16,7 @@
 #ifndef ISAMPLE_H
 #define ISAMPLE_H
 
+#include "WinDllMacros.h"
 #include "IParameterized.h"
 #include "ICloneable.h"
 #include "ISampleVisitor.h"
@@ -25,7 +26,7 @@ class DWBASimulation;
 
 //! Interface for objects related to scattering
 
-class ISample : public IParameterized, public ICloneable
+class BA_CORE_API_ ISample : public IParameterized, public ICloneable
 {
  public:
     ISample() { setName("ISample"); }

@@ -17,7 +17,7 @@
 #define PYTHONLISTCONVERTER_H
 
 
-#include "Python.h"
+#include "boost/python/detail/wrap_python.hpp"
 
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);

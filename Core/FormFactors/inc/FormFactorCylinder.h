@@ -20,7 +20,7 @@
 
 //! Form factor of a cylinder.
 
-class FormFactorCylinder : public IFormFactorBorn
+class BA_CORE_API_ FormFactorCylinder : public IFormFactorBorn
 {
  public:
     FormFactorCylinder(double height, double radius);

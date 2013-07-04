@@ -16,6 +16,7 @@
 #ifndef ICOMPOSITESAMPLE_H
 #define ICOMPOSITESAMPLE_H
 
+#include "WinDllMacros.h"
 #include "ISample.h"
 #include <list>
 
@@ -38,7 +39,7 @@
 //!   - DiffuseParticleInfo
 //!   - PositionParticleInfo
 //!
-class ICompositeSample : public ISample
+class BA_CORE_API_ ICompositeSample : public ISample
 {
  public:
     ICompositeSample() {}

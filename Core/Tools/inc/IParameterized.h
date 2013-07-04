@@ -16,13 +16,14 @@
 #ifndef IPARAMETERIZED_H_
 #define IPARAMETERIZED_H_
 
+#include "WinDllMacros.h"
 #include "INamed.h"
 #include "IChangeable.h"
 #include "ParameterPool.h"
 
 //! Manage a "local" parameter pool, and a tree of children's pools.
 
-class IParameterized : public INamed
+class BA_CORE_API_ IParameterized : public INamed
 {
  public:
     IParameterized()

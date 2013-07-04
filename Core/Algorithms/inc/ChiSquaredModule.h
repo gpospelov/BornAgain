@@ -16,9 +16,10 @@
 #ifndef CHISQUAREDMODULE_H_
 #define CHISQUAREDMODULE_H_
 
+#include "WinDllMacros.h"
 #include "IChiSquaredModule.h"
 
-class ChiSquaredModule : public IChiSquaredModule
+class BA_CORE_API_ ChiSquaredModule : public IChiSquaredModule
 {
  public:
     ChiSquaredModule() {}

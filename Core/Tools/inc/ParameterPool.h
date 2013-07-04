@@ -16,6 +16,7 @@
 #ifndef PARAMETERPOOL_H
 #define PARAMETERPOOL_H
 
+#include "WinDllMacros.h"
 #include "ICloneable.h"
 #include "RealParameterWrapper.h"
 #include <map>
@@ -23,7 +24,7 @@
 
 //! Holds a map of pointers to parameters (which must have different names).
 
-class ParameterPool : public ICloneable
+class BA_CORE_API_ ParameterPool : public ICloneable
 {
  public:
     //! definition of parameter type and parameter container

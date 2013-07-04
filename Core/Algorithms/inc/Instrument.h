@@ -16,13 +16,14 @@
 #ifndef INSTRUMENT_H_
 #define INSTRUMENT_H_
 
+#include "WinDllMacros.h"
 #include "Beam.h"
 #include "Detector.h"
 #include "IResolutionFunction2D.h"
 
 //! Assembles beam, detector and their relative positions wrt the sample.
 
-class Instrument : public IParameterized
+class BA_CORE_API_ Instrument : public IParameterized
 {
  public:
     Instrument();

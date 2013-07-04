@@ -4,7 +4,12 @@ include($$PWD/shared.pri)
 
 SUBDIRS += Core ThirdParty/gtest
 
-ROOT = $$system(root-config --prefix)
+macx|unix {
+  ROOT = $$system(root-config --prefix)
+}
+win32 {
+#  ROOT = "C:/root"
+}
 isEmpty(ROOT) {
     message("No ROOT installation found. libBornAgainFit and App" will not be compiled.)
 }

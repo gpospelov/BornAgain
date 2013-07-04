@@ -16,13 +16,14 @@
 #ifndef AXISDOUBLE_H_
 #define AXISDOUBLE_H_
 
+#include "WinDllMacros.h"
 #include "IAxis.h"
 
 class AxisBin;  // forward declaration needed for conversion constructor
 
 //! The points of an axis
 
-class AxisDouble : public IAxis
+class BA_CORE_API_ AxisDouble : public IAxis
 {
  public:
     //! constructors

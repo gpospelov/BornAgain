@@ -16,11 +16,12 @@
 #ifndef RESOLUTIONFUNCTION2DSIMPLE_H_
 #define RESOLUTIONFUNCTION2DSIMPLE_H_
 
+#include "WinDllMacros.h"
 #include "IResolutionFunction2D.h"
 
 //! ?
 
-class ResolutionFunction2DSimple : public IResolutionFunction2D
+class BA_CORE_API_ ResolutionFunction2DSimple : public IResolutionFunction2D
 {
  public:
     ResolutionFunction2DSimple(double sigma_x, double sigma_y);

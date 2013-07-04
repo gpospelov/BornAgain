@@ -1,6 +1,5 @@
 TEMPLATE = subdirs
 
-
 SUBDIRS += \
     IsGISAXS01 \
     IsGISAXS02 \

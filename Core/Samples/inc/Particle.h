@@ -25,7 +25,7 @@ class ParticleInfo;
 
 //! A particle with a form factor and refractive index
 
-class Particle : public ICompositeSample
+class BA_CORE_API_ Particle : public ICompositeSample
 {
  public:
     Particle(const complex_t& refractive_index, IFormFactor* p_form_factor = 0);

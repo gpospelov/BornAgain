@@ -16,12 +16,13 @@
 #ifndef BEAM_H_
 #define BEAM_H_
 
+#include "WinDllMacros.h"
 #include "Types.h"
 #include "IParameterized.h"
 
 //! Ideal collimated Beam defined by wavelength, direction and intensity.
 
-class Beam : public IParameterized
+class BA_CORE_API_ Beam : public IParameterized
 {
  public:
     Beam();

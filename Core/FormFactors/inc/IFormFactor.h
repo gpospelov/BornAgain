@@ -17,12 +17,13 @@
 #ifndef IFORMFACTOR_H
 #define IFORMFACTOR_H
 
+#include "WinDllMacros.h"
 #include "ISample.h"
 #include "Bin.h"
 
 //! The basic interface for formfactors.
 
-class IFormFactor : public ISample
+class BA_CORE_API_ IFormFactor : public ISample
 {
  public:
     IFormFactor() {}

@@ -23,6 +23,7 @@
 
 #include "Numeric.h"
 #include "Exceptions.h"
+#include "WinDllMacros.h"
 #include <complex>
 
 namespace Geometry {
@@ -328,11 +329,26 @@ inline bool
 operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
 { return (a.x()!=b.x() || a.y()!=b.y() || a.z()!=b.z()); }
 
-template<> std::complex<double> BasicVector3D<std::complex<double> >::dot(
+template<> BA_CORE_API_ double BasicVector3D<double>::mag2() const;
+
+template<> BA_CORE_API_ double BasicVector3D<double>::mag() const;
+
+template<> BA_CORE_API_ double BasicVector3D<double>::magxy2() const;
+
+template<> BA_CORE_API_ double BasicVector3D<double>::magxy() const;
+
+template<> BA_CORE_API_ std::complex<double>
+        BasicVector3D<std::complex<double> >::magxy() const;
+
+template<> BA_CORE_API_ std::complex<double> BasicVector3D<std::complex<double> >::dot(
         const BasicVector3D<std::complex<double> >& v) const;
 
-template<> double BasicVector3D<double>::dot(
+template<> BA_CORE_API_ double BasicVector3D<double>::dot(
         const BasicVector3D<double>& v) const;
+
+template<> BA_CORE_API_ BasicVector3D<double> BasicVector3D<double>::cross(
+        const BasicVector3D<double>& v) const;
+
 
 }  // namespace Geometry
 

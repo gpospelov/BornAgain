@@ -20,7 +20,7 @@
 
 //! Pure virtual interface for Born formfactors (only depending on q=ki-kf).
 
-class IFormFactorBorn : public IFormFactor
+class BA_CORE_API_ IFormFactorBorn : public IFormFactor
 {
  public:
     IFormFactorBorn() {}

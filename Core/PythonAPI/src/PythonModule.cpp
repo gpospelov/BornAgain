@@ -1,4 +1,4 @@
-#include "Python.h"
+#include "boost/python/detail/wrap_python.hpp"
 #define PY_ARRAY_UNIQUE_SYMBOL BORNAGAIN_PYTHONAPI_ARRAY 
 #include "numpy/arrayobject.h"
 // the order of 3 guys above is important

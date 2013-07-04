@@ -3,7 +3,9 @@
 ###############################################################################
 TEMPLATE = app
 CONFIG  -= qt app_bundle
-CONFIG  += console build_all
+CONFIG  += console release
+TARGET = TestCore
+DESTDIR = $$PWD
 QT      -= core gui
 
 # including common project properties

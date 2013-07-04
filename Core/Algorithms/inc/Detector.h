@@ -16,13 +16,14 @@
 #ifndef DETECTOR_H_
 #define DETECTOR_H_
 
+#include "WinDllMacros.h"
 #include "IDetectorResolution.h"
 #include "DetectorParameters.h"
 #include "SafePointerVector.h"
 
 //! Detector with axes and resolution function.
 
-class Detector : public IParameterized
+class BA_CORE_API_ Detector : public IParameterized
 {
  public:
 

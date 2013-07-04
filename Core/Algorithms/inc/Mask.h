@@ -16,11 +16,12 @@
 #ifndef MASK_H_
 #define MASK_H_
 
+#include "WinDllMacros.h"
 #include "MaskCoordinateFunction.h"
 
 //! Base class for masking OutputData elements.
 
-class Mask : public ICloneable
+class BA_CORE_API_ Mask : public ICloneable
 {
  public:
     template <class TValue, class TContainer> friend class OutputDataIterator;
@@ -48,7 +49,7 @@ class Mask : public ICloneable
 
 //! Mask based on the index modulo a given number.
 
-class MaskIndexModulus : public Mask
+class BA_CORE_API_ MaskIndexModulus : public Mask
 {
  public:
     MaskIndexModulus(size_t modulus, size_t remainder, Mask *p_submask=0)
@@ -66,7 +67,7 @@ class MaskIndexModulus : public Mask
 
 //! Mask based on the coordinates.
 
-class MaskCoordinates : public Mask
+class BA_CORE_API_ MaskCoordinates : public Mask
 {
  public:
     MaskCoordinates(size_t rank, const int *dims, Mask *p_submask=0);

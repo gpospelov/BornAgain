@@ -16,19 +16,20 @@
 #ifndef MATERIALMANAGER_H
 #define MATERIALMANAGER_H
 
-#include <iostream>
-#include <string>
-#include <map>
+#include "WinDllMacros.h"
 #include "Exceptions.h"
 #include "ISingleton.h"
 #include "HomogeneousMaterial.h"
+#include <iostream>
+#include <string>
+#include <map>
 
 //! Manager of materials used in simulation.
 
 //! A singleton that maintains a database of materials, and
 //! provides a common and unique interface for material creation and access.
 //!
-class MaterialManager: public ISingleton<MaterialManager>
+class BA_CORE_API_ MaterialManager: public ISingleton<MaterialManager>
 {
  public:
     typedef std::map<std::string, IMaterial*> materials_t;

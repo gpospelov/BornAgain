@@ -23,7 +23,7 @@
 
 //! Decorator class that adds particles to ISample objects
 
-class ParticleDecoration : public IDecoration
+class BA_CORE_API_ ParticleDecoration : public IDecoration
 {
  public:
     ParticleDecoration()

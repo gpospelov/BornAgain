@@ -1,4 +1,4 @@
-#include "Python.h"
+#include "boost/python/detail/wrap_python.hpp"
 #include "Macros.h"
 GCC_DIAG_OFF(unused-parameter);
 GCC_DIAG_OFF(missing-field-initializers);

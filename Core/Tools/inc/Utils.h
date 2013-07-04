@@ -16,6 +16,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include "WinDllMacros.h"
 #include "Types.h"
 #include "Exceptions.h"
 #include <boost/unordered_map.hpp>
@@ -83,7 +84,7 @@ class StringUsageMap
 
 //! Utilities to deal with file system.
 
-class FileSystem
+class BA_CORE_API_ FileSystem
 {
  public:
     //! Returns path to the current (working) directory

@@ -316,11 +316,12 @@ HEADERS += \
     Fitting/inc/IMinimizer.h \
     Fitting/inc/MinimizerScan.h \
     Fitting/inc/MinimizerTest.h \
+    \
     StandardSamples/SampleBuilderFactory.h \
     StandardSamples/IsGISAXS01Builder.h \
     Tools/inc/SamplePrintVisitor.h \
-    StandardSamples/IsGISAXS04Builder.h
-
+    Tools/inc/WinDllMacros.h \
+    StandardSamples/IsGISAXS04Builder.h \
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)
@@ -335,6 +336,9 @@ macx {
 }
 unix:!macx {
     DEFINES += Q_OS_LINUX
+}
+win32 {
+    DEFINES += BA_CORE_BUILD_DLL
 }
 
 CONFIG(debug, debug|release) {

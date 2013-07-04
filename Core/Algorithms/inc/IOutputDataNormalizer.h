@@ -17,6 +17,7 @@
 #ifndef IOUTPUTDATANORMALIZER_H
 #define IOUTPUTDATANORMALIZER_H
 
+#include "WinDllMacros.h"
 #include "IParameterized.h"
 #include "OutputData.h"
 
@@ -37,7 +38,7 @@ class IOutputDataNormalizer : public IParameterized
 
 //! Standard OutputData normalizer, with configurable max_intensity.
 
-class OutputDataNormalizer : public IOutputDataNormalizer
+class BA_CORE_API_ OutputDataNormalizer : public IOutputDataNormalizer
 {
  public:
     OutputDataNormalizer(double scale=1.0, double shift=0.0)

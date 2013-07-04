@@ -16,6 +16,7 @@
 #ifndef OUTPUTDATAIOFACTORY_H
 #define OUTPUTDATAIOFACTORY_H
 
+#include "WinDllMacros.h"
 #include "OutputDataReader.h"
 #include "OutputDataWriter.h"
 #include <string>
@@ -23,7 +24,7 @@
 
 //! Reads OutputData from files in different format
 
-class OutputDataIOFactory
+class BA_CORE_API_ OutputDataIOFactory
 {
  public:
     typedef boost::shared_ptr<OutputDataReader > OutputDataReader_t;

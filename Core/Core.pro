@@ -8,7 +8,7 @@ QT      -= core gui
 macx|unix {
   QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
 }
-CONFIG  += BORNAGAIN_PYTHON
+# CONFIG  += BORNAGAIN_PYTHON
 
 # -----------------------------------------------------------------------------
 # common project settings

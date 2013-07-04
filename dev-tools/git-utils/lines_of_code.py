@@ -82,7 +82,7 @@ def dirFuncTest(x):
     return False
 
 def dirGUI(x):
-    if "/GUI/coregui" in x  and not "widgetbox" in x: return True
+    if "/GUI/coregui" in x  and not "widgetbox" in x and not "qttools" in x: return True
     if "/AppGUI/coregui" in x: return True
     if "/BASuite" in x: return True
     return False

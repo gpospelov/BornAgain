@@ -3,11 +3,12 @@
 ###############################################################################
 TARGET   = gtest
 TEMPLATE = lib
-CONFIG  += lib #plugin
+CONFIG  += lib
 QT      -= gui core
 
 macx|unix {
   QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
+  CONFIG += plugin # to remove versions from file name
 }
 
 include(../../shared.pri)

@@ -3,10 +3,11 @@
 # -----------------------------------------------------------------------------
 TARGET   = BornAgainCore
 TEMPLATE = lib
-CONFIG  += lib # to remove versions from file name
+CONFIG  += lib
 QT      -= core gui
 macx|unix {
   QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
+  CONFIG += plugin # to remove versions from file name
 }
 # CONFIG  += BORNAGAIN_PYTHON
 

@@ -3,10 +3,10 @@
 # -----------------------------------------------------------------------------
 TARGET   = BornAgainFit
 TEMPLATE = lib
-CONFIG  += plugin # to remove versions from file name
 QT      -= core gui
 macx|unix {
   QMAKE_EXTENSION_SHLIB = so # making standard *.so extension
+  CONFIG  += plugin # to remove versions from file name
 }
 #CONFIG  += BORNAGAIN_PYTHON
 CONFIG  += BORNAGAIN_ROOT

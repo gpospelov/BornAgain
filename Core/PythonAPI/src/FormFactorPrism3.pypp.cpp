@@ -49,6 +49,18 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
         return FormFactorPrism3::evaluate_for_q( boost::ref(q) );
     }
 
+    virtual double getHalfSide(  ) const  {
+        if( bp::override func_getHalfSide = this->get_override( "getHalfSide" ) )
+            return func_getHalfSide(  );
+        else{
+            return this->FormFactorPrism3::getHalfSide(  );
+        }
+    }
+    
+    double default_getHalfSide(  ) const  {
+        return FormFactorPrism3::getHalfSide( );
+    }
+
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
@@ -71,6 +83,30 @@ struct FormFactorPrism3_wrapper : FormFactorPrism3, bp::wrapper< FormFactorPrism
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorPrism3::getNumberOfStochasticParameters( );
+    }
+
+    virtual void setHalfSide( double half_side ) {
+        if( bp::override func_setHalfSide = this->get_override( "setHalfSide" ) )
+            func_setHalfSide( half_side );
+        else{
+            this->FormFactorPrism3::setHalfSide( half_side );
+        }
+    }
+    
+    void default_setHalfSide( double half_side ) {
+        FormFactorPrism3::setHalfSide( half_side );
+    }
+
+    virtual void setHeight( double height ) {
+        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
+            func_setHeight( height );
+        else{
+            this->FormFactorPrism3::setHeight( height );
+        }
+    }
+    
+    void default_setHeight( double height ) {
+        FormFactorPrism3::setHeight( height );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -280,6 +316,17 @@ void register_FormFactorPrism3_class(){
                 , ( bp::arg("q") ) );
         
         }
+        { //::FormFactorPrism3::getHalfSide
+        
+            typedef double ( ::FormFactorPrism3::*getHalfSide_function_type )(  ) const;
+            typedef double ( FormFactorPrism3_wrapper::*default_getHalfSide_function_type )(  ) const;
+            
+            FormFactorPrism3_exposer.def( 
+                "getHalfSide"
+                , getHalfSide_function_type(&::FormFactorPrism3::getHalfSide)
+                , default_getHalfSide_function_type(&FormFactorPrism3_wrapper::default_getHalfSide) );
+        
+        }
         { //::FormFactorPrism3::getHeight
         
             typedef double ( ::FormFactorPrism3::*getHeight_function_type )(  ) const;
@@ -300,6 +347,30 @@ void register_FormFactorPrism3_class(){
                 "getNumberOfStochasticParameters"
                 , getNumberOfStochasticParameters_function_type(&::FormFactorPrism3::getNumberOfStochasticParameters)
                 , default_getNumberOfStochasticParameters_function_type(&FormFactorPrism3_wrapper::default_getNumberOfStochasticParameters) );
+        
+        }
+        { //::FormFactorPrism3::setHalfSide
+        
+            typedef void ( ::FormFactorPrism3::*setHalfSide_function_type )( double ) ;
+            typedef void ( FormFactorPrism3_wrapper::*default_setHalfSide_function_type )( double ) ;
+            
+            FormFactorPrism3_exposer.def( 
+                "setHalfSide"
+                , setHalfSide_function_type(&::FormFactorPrism3::setHalfSide)
+                , default_setHalfSide_function_type(&FormFactorPrism3_wrapper::default_setHalfSide)
+                , ( bp::arg("half_side") ) );
+        
+        }
+        { //::FormFactorPrism3::setHeight
+        
+            typedef void ( ::FormFactorPrism3::*setHeight_function_type )( double ) ;
+            typedef void ( FormFactorPrism3_wrapper::*default_setHeight_function_type )( double ) ;
+            
+            FormFactorPrism3_exposer.def( 
+                "setHeight"
+                , setHeight_function_type(&::FormFactorPrism3::setHeight)
+                , default_setHeight_function_type(&FormFactorPrism3_wrapper::default_setHeight)
+                , ( bp::arg("height") ) );
         
         }
         { //::IParameterized::areParametersChanged

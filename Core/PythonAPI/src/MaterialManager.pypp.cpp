@@ -20,6 +20,16 @@ void register_MaterialManager_class(){
         typedef bp::class_< MaterialManager, boost::noncopyable > MaterialManager_exposer_t;
         MaterialManager_exposer_t MaterialManager_exposer = MaterialManager_exposer_t( "MaterialManager", bp::no_init );
         bp::scope MaterialManager_scope( MaterialManager_exposer );
+        { //::MaterialManager::deleteMaterial
+        
+            typedef bool ( ::MaterialManager::*deleteMaterial_function_type )( ::std::string const & ) ;
+            
+            MaterialManager_exposer.def( 
+                "deleteMaterial"
+                , deleteMaterial_function_type( &::MaterialManager::deleteMaterial )
+                , ( bp::arg("name") ) );
+        
+        }
         { //::MaterialManager::getHomogeneousMaterial
         
             typedef ::IMaterial const * ( *getHomogeneousMaterial_function_type )( ::std::string const &,::complex_t const & );
@@ -53,8 +63,38 @@ void register_MaterialManager_class(){
                 , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
+        { //::MaterialManager::getNumberOfMaterials
+        
+            typedef int ( *getNumberOfMaterials_function_type )(  );
+            
+            MaterialManager_exposer.def( 
+                "getNumberOfMaterials"
+                , getNumberOfMaterials_function_type( &::MaterialManager::getNumberOfMaterials ) );
+        
+        }
+        { //::MaterialManager::setMaterialName
+        
+            typedef bool ( ::MaterialManager::*setMaterialName_function_type )( ::std::string const &,::std::string const & ) ;
+            
+            MaterialManager_exposer.def( 
+                "setMaterialName"
+                , setMaterialName_function_type( &::MaterialManager::setMaterialName )
+                , ( bp::arg("old_name"), bp::arg("new_name") ) );
+        
+        }
+        { //::MaterialManager::setMaterialRefractiveIndex
+        
+            typedef bool ( ::MaterialManager::*setMaterialRefractiveIndex_function_type )( ::std::string const &,::complex_t const & ) ;
+            
+            MaterialManager_exposer.def( 
+                "setMaterialRefractiveIndex"
+                , setMaterialRefractiveIndex_function_type( &::MaterialManager::setMaterialRefractiveIndex )
+                , ( bp::arg("name"), bp::arg("index") ) );
+        
+        }
         MaterialManager_exposer.staticmethod( "getHomogeneousMaterial" );
         MaterialManager_exposer.staticmethod( "getMaterial" );
+        MaterialManager_exposer.staticmethod( "getNumberOfMaterials" );
     }
 
 }

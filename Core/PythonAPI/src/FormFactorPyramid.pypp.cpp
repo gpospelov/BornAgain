@@ -49,6 +49,30 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
         return FormFactorPyramid::evaluate_for_q( boost::ref(q) );
     }
 
+    virtual double getAlpha(  ) const  {
+        if( bp::override func_getAlpha = this->get_override( "getAlpha" ) )
+            return func_getAlpha(  );
+        else{
+            return this->FormFactorPyramid::getAlpha(  );
+        }
+    }
+    
+    double default_getAlpha(  ) const  {
+        return FormFactorPyramid::getAlpha( );
+    }
+
+    virtual double getHalfSide(  ) const  {
+        if( bp::override func_getHalfSide = this->get_override( "getHalfSide" ) )
+            return func_getHalfSide(  );
+        else{
+            return this->FormFactorPyramid::getHalfSide(  );
+        }
+    }
+    
+    double default_getHalfSide(  ) const  {
+        return FormFactorPyramid::getHalfSide( );
+    }
+
     virtual double getHeight(  ) const  {
         if( bp::override func_getHeight = this->get_override( "getHeight" ) )
             return func_getHeight(  );
@@ -71,6 +95,42 @@ struct FormFactorPyramid_wrapper : FormFactorPyramid, bp::wrapper< FormFactorPyr
     
     int default_getNumberOfStochasticParameters(  ) const  {
         return FormFactorPyramid::getNumberOfStochasticParameters( );
+    }
+
+    virtual void setAlpha( double alpha ) {
+        if( bp::override func_setAlpha = this->get_override( "setAlpha" ) )
+            func_setAlpha( alpha );
+        else{
+            this->FormFactorPyramid::setAlpha( alpha );
+        }
+    }
+    
+    void default_setAlpha( double alpha ) {
+        FormFactorPyramid::setAlpha( alpha );
+    }
+
+    virtual void setHalfSide( double half_side ) {
+        if( bp::override func_setHalfSide = this->get_override( "setHalfSide" ) )
+            func_setHalfSide( half_side );
+        else{
+            this->FormFactorPyramid::setHalfSide( half_side );
+        }
+    }
+    
+    void default_setHalfSide( double half_side ) {
+        FormFactorPyramid::setHalfSide( half_side );
+    }
+
+    virtual void setHeight( double height ) {
+        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
+            func_setHeight( height );
+        else{
+            this->FormFactorPyramid::setHeight( height );
+        }
+    }
+    
+    void default_setHeight( double height ) {
+        FormFactorPyramid::setHeight( height );
     }
 
     virtual bool areParametersChanged(  ) {
@@ -280,6 +340,28 @@ void register_FormFactorPyramid_class(){
                 , ( bp::arg("q") ) );
         
         }
+        { //::FormFactorPyramid::getAlpha
+        
+            typedef double ( ::FormFactorPyramid::*getAlpha_function_type )(  ) const;
+            typedef double ( FormFactorPyramid_wrapper::*default_getAlpha_function_type )(  ) const;
+            
+            FormFactorPyramid_exposer.def( 
+                "getAlpha"
+                , getAlpha_function_type(&::FormFactorPyramid::getAlpha)
+                , default_getAlpha_function_type(&FormFactorPyramid_wrapper::default_getAlpha) );
+        
+        }
+        { //::FormFactorPyramid::getHalfSide
+        
+            typedef double ( ::FormFactorPyramid::*getHalfSide_function_type )(  ) const;
+            typedef double ( FormFactorPyramid_wrapper::*default_getHalfSide_function_type )(  ) const;
+            
+            FormFactorPyramid_exposer.def( 
+                "getHalfSide"
+                , getHalfSide_function_type(&::FormFactorPyramid::getHalfSide)
+                , default_getHalfSide_function_type(&FormFactorPyramid_wrapper::default_getHalfSide) );
+        
+        }
         { //::FormFactorPyramid::getHeight
         
             typedef double ( ::FormFactorPyramid::*getHeight_function_type )(  ) const;
@@ -300,6 +382,42 @@ void register_FormFactorPyramid_class(){
                 "getNumberOfStochasticParameters"
                 , getNumberOfStochasticParameters_function_type(&::FormFactorPyramid::getNumberOfStochasticParameters)
                 , default_getNumberOfStochasticParameters_function_type(&FormFactorPyramid_wrapper::default_getNumberOfStochasticParameters) );
+        
+        }
+        { //::FormFactorPyramid::setAlpha
+        
+            typedef void ( ::FormFactorPyramid::*setAlpha_function_type )( double ) ;
+            typedef void ( FormFactorPyramid_wrapper::*default_setAlpha_function_type )( double ) ;
+            
+            FormFactorPyramid_exposer.def( 
+                "setAlpha"
+                , setAlpha_function_type(&::FormFactorPyramid::setAlpha)
+                , default_setAlpha_function_type(&FormFactorPyramid_wrapper::default_setAlpha)
+                , ( bp::arg("alpha") ) );
+        
+        }
+        { //::FormFactorPyramid::setHalfSide
+        
+            typedef void ( ::FormFactorPyramid::*setHalfSide_function_type )( double ) ;
+            typedef void ( FormFactorPyramid_wrapper::*default_setHalfSide_function_type )( double ) ;
+            
+            FormFactorPyramid_exposer.def( 
+                "setHalfSide"
+                , setHalfSide_function_type(&::FormFactorPyramid::setHalfSide)
+                , default_setHalfSide_function_type(&FormFactorPyramid_wrapper::default_setHalfSide)
+                , ( bp::arg("half_side") ) );
+        
+        }
+        { //::FormFactorPyramid::setHeight
+        
+            typedef void ( ::FormFactorPyramid::*setHeight_function_type )( double ) ;
+            typedef void ( FormFactorPyramid_wrapper::*default_setHeight_function_type )( double ) ;
+            
+            FormFactorPyramid_exposer.def( 
+                "setHeight"
+                , setHeight_function_type(&::FormFactorPyramid::setHeight)
+                , default_setHeight_function_type(&FormFactorPyramid_wrapper::default_setHeight)
+                , ( bp::arg("height") ) );
         
         }
         { //::IParameterized::areParametersChanged

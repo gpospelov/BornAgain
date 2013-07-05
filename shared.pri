@@ -241,7 +241,7 @@ CONFIG(BORNAGAIN_ROOT) {
 # -----------------------------------------------------------------------------
 # add python API support
 # -----------------------------------------------------------------------------
-#CONFIG  += BORNAGAIN_PYTHON
+CONFIG  += BORNAGAIN_PYTHON
 CONFIG(BORNAGAIN_PYTHON) {
   # user wants to compile python module
   macx|unix {

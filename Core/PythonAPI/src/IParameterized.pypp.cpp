@@ -176,7 +176,7 @@ void register_IParameterized_class(){
         }
         { //::IParameterized::getParameterPool
         
-            typedef ::ParameterPool * ( ::IParameterized::*getParameterPool_function_type )(  ) ;
+            typedef ::ParameterPool const * ( ::IParameterized::*getParameterPool_function_type )(  ) const;
             
             IParameterized_exposer.def( 
                 "getParameterPool"

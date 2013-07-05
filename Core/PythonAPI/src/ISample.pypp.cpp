@@ -25,6 +25,11 @@ struct ISample_wrapper : ISample, bp::wrapper< ISample > {
     
     }
 
+    virtual void accept( ::ISampleVisitor * p_visitor ) const {
+        bp::override func_accept = this->get_override( "accept" );
+        func_accept( boost::python::ptr(p_visitor) );
+    }
+
     virtual ::ISample * clone(  ) const  {
         if( bp::override func_clone = this->get_override( "clone" ) )
             return func_clone(  );
@@ -148,6 +153,16 @@ void register_ISample_class(){
         typedef bp::class_< ISample_wrapper, bp::bases< IParameterized, ICloneable >, boost::noncopyable > ISample_exposer_t;
         ISample_exposer_t ISample_exposer = ISample_exposer_t( "ISample", bp::init< >() );
         bp::scope ISample_scope( ISample_exposer );
+        { //::ISample::accept
+        
+            typedef void ( ::ISample::*accept_function_type )( ::ISampleVisitor * ) const;
+            
+            ISample_exposer.def( 
+                "accept"
+                , bp::pure_virtual( accept_function_type(&::ISample::accept) )
+                , ( bp::arg("p_visitor") ) );
+        
+        }
         { //::ISample::clone
         
             typedef ::ISample * ( ::ISample::*clone_function_type )(  ) const;

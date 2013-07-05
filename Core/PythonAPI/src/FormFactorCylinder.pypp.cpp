@@ -85,6 +85,30 @@ struct FormFactorCylinder_wrapper : FormFactorCylinder, bp::wrapper< FormFactorC
         return FormFactorCylinder::getRadius( );
     }
 
+    virtual void setHeight( double height ) {
+        if( bp::override func_setHeight = this->get_override( "setHeight" ) )
+            func_setHeight( height );
+        else{
+            this->FormFactorCylinder::setHeight( height );
+        }
+    }
+    
+    void default_setHeight( double height ) {
+        FormFactorCylinder::setHeight( height );
+    }
+
+    virtual void setRadius( double radius ) {
+        if( bp::override func_setRadius = this->get_override( "setRadius" ) )
+            func_setRadius( radius );
+        else{
+            this->FormFactorCylinder::setRadius( radius );
+        }
+    }
+    
+    void default_setRadius( double radius ) {
+        FormFactorCylinder::setRadius( radius );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -311,6 +335,30 @@ void register_FormFactorCylinder_class(){
                 "getRadius"
                 , getRadius_function_type(&::FormFactorCylinder::getRadius)
                 , default_getRadius_function_type(&FormFactorCylinder_wrapper::default_getRadius) );
+        
+        }
+        { //::FormFactorCylinder::setHeight
+        
+            typedef void ( ::FormFactorCylinder::*setHeight_function_type )( double ) ;
+            typedef void ( FormFactorCylinder_wrapper::*default_setHeight_function_type )( double ) ;
+            
+            FormFactorCylinder_exposer.def( 
+                "setHeight"
+                , setHeight_function_type(&::FormFactorCylinder::setHeight)
+                , default_setHeight_function_type(&FormFactorCylinder_wrapper::default_setHeight)
+                , ( bp::arg("height") ) );
+        
+        }
+        { //::FormFactorCylinder::setRadius
+        
+            typedef void ( ::FormFactorCylinder::*setRadius_function_type )( double ) ;
+            typedef void ( FormFactorCylinder_wrapper::*default_setRadius_function_type )( double ) ;
+            
+            FormFactorCylinder_exposer.def( 
+                "setRadius"
+                , setRadius_function_type(&::FormFactorCylinder::setRadius)
+                , default_setRadius_function_type(&FormFactorCylinder_wrapper::default_setRadius)
+                , ( bp::arg("radius") ) );
         
         }
         { //::IParameterized::areParametersChanged

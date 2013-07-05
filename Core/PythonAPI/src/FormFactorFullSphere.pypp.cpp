@@ -85,6 +85,18 @@ struct FormFactorFullSphere_wrapper : FormFactorFullSphere, bp::wrapper< FormFac
         return FormFactorFullSphere::getRadius( );
     }
 
+    virtual void setRadius( double radius ) {
+        if( bp::override func_setRadius = this->get_override( "setRadius" ) )
+            func_setRadius( radius );
+        else{
+            this->FormFactorFullSphere::setRadius( radius );
+        }
+    }
+    
+    void default_setRadius( double radius ) {
+        FormFactorFullSphere::setRadius( radius );
+    }
+
     virtual bool areParametersChanged(  ) {
         if( bp::override func_areParametersChanged = this->get_override( "areParametersChanged" ) )
             return func_areParametersChanged(  );
@@ -311,6 +323,18 @@ void register_FormFactorFullSphere_class(){
                 "getRadius"
                 , getRadius_function_type(&::FormFactorFullSphere::getRadius)
                 , default_getRadius_function_type(&FormFactorFullSphere_wrapper::default_getRadius) );
+        
+        }
+        { //::FormFactorFullSphere::setRadius
+        
+            typedef void ( ::FormFactorFullSphere::*setRadius_function_type )( double ) ;
+            typedef void ( FormFactorFullSphere_wrapper::*default_setRadius_function_type )( double ) ;
+            
+            FormFactorFullSphere_exposer.def( 
+                "setRadius"
+                , setRadius_function_type(&::FormFactorFullSphere::setRadius)
+                , default_setRadius_function_type(&FormFactorFullSphere_wrapper::default_setRadius)
+                , ( bp::arg("radius") ) );
         
         }
         { //::IParameterized::areParametersChanged

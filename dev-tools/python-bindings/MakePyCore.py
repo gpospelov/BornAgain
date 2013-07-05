@@ -123,6 +123,9 @@ def ManualClassTunings(mb):
     #
     shared_ptrs = mb.decls( lambda decl: decl.name.startswith( 'shared_ptr<' ) )
     shared_ptrs.disable_warnings( messages.W1040 )
+    # ISample
+    cl = mb.class_('ISample') # given class is only to teach pyplusplus to templates, but we do not need class itself to be visible in python, excluding it...
+    cl.member_function("accept").include();
     # BasicVector3D
     methods_to_exclude=[
         "phi", "theta", "cosTheta", "getPhi", "getTheta", "setPhi", "setTheta", "setR",

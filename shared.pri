@@ -1,3 +1,7 @@
+# Common settings for all BornAgain compilations
+
+CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
+
 win32 {
     MAKE_COMMAND = mingw32-make
     SONAME = a
@@ -241,7 +245,6 @@ CONFIG(BORNAGAIN_ROOT) {
 # -----------------------------------------------------------------------------
 # add python API support
 # -----------------------------------------------------------------------------
-#CONFIG  += BORNAGAIN_PYTHON
 CONFIG(BORNAGAIN_PYTHON) {
   # user wants to compile python module
   macx|unix {

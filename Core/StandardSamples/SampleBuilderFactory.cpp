@@ -1,6 +1,7 @@
 #include "SampleBuilderFactory.h"
 #include "IsGISAXS01Builder.h"
 #include "IsGISAXS02Builder.h"
+#include "IsGISAXS03Builder.h"
 #include "IsGISAXS04Builder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
@@ -15,6 +16,19 @@ SampleBuilderFactory::SampleBuilderFactory()
         "isgisaxs02",
         IFactoryCreateFunction<IsGISAXS02Builder, ISampleBuilder>,
         "Mixture cylinder particles with different size distribution ");
+
+    registerItem(
+        "isgisaxs03_dwba",
+        IFactoryCreateFunction<IsGISAXS03DWBABuilder, ISampleBuilder>,
+        "Cylinder formfactor in DWBA");
+    registerItem(
+        "isgisaxs03_ba",
+        IFactoryCreateFunction<IsGISAXS03BABuilder, ISampleBuilder>,
+        "Cylinder formfactor in BA");
+    registerItem(
+        "isgisaxs03_basize",
+        IFactoryCreateFunction<IsGISAXS03BASizeBuilder, ISampleBuilder>,
+        "Cylinder formfactor in BA");
 
     registerItem(
         "isgisaxs04_1DDL",

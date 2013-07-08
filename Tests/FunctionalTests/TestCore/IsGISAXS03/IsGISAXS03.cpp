@@ -1,19 +1,22 @@
 #include "IsGISAXS03.h"
-#include "FormFactorCylinder.h"
-#include "InterferenceFunctionNone.h"
-#include "LayerDecorator.h"
-#include "MaterialManager.h"
-#include "MultiLayer.h"
-#include "OutputDataIOFactory.h"
-#include "ParticleBuilder.h"
-#include "ParticleDecoration.h"
 #include "Simulation.h"
-#include "StochasticGaussian.h"
-#include "StochasticSampledParameter.h"
+#include "SampleBuilderFactory.h"
 #include "Units.h"
 #include "Utils.h"
 #include <iostream>
 #include <cmath>
+
+#include "MultiLayer.h"
+#include "Layer.h"
+#include "ParticleDecoration.h"
+#include "MaterialManager.h"
+#include "FormFactorCylinder.h"
+#include "InterferenceFunctionNone.h"
+#include "StochasticGaussian.h"
+#include "LayerDecorator.h"
+#include "StochasticSampledParameter.h"
+#include "ParticleBuilder.h"
+#include "OutputDataIOFactory.h"
 
 
 FunctionalTests::IsGISAXS03::IsGISAXS03()
@@ -33,20 +36,8 @@ FunctionalTests::IsGISAXS03::~IsGISAXS03()
 // IsGISAXS3 functional test: cylinder on the substrate
 void FunctionalTests::IsGISAXS03::runDWBA()
 {
-    // building sample
-    MultiLayer multi_layer;
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer.addLayer(air_layer_decorator);
-    multi_layer.addLayer(substrate_layer);
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs03_dwba");
 
     // building simulation
     Simulation simulation;
@@ -55,28 +46,19 @@ void FunctionalTests::IsGISAXS03::runDWBA()
     simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // running simulation and copying data
-    simulation.setSample(multi_layer);
+    simulation.setSample(*sample);
     simulation.runSimulation();
     m_results[kTest_DWBA] = simulation.getOutputDataClone();
+
+    delete sample;
 }
 
 
 // IsGISAXS3 functional test: cylinder in the air
 void FunctionalTests::IsGISAXS03::runBA()
 {
-    // building sample
-    MultiLayer multi_layer;
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    ParticleDecoration particle_decoration( new Particle(n_particle, new FormFactorCylinder(5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer.addLayer(air_layer_decorator);
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs03_ba");
 
     // building simulation
     Simulation simulation;
@@ -85,40 +67,19 @@ void FunctionalTests::IsGISAXS03::runBA()
     simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // running simulation and copying data
-    simulation.setSample(multi_layer);
+    simulation.setSample(*sample);
     simulation.runSimulation();
     m_results[kTest_BA] = simulation.getOutputDataClone();
+
+    delete sample;
 }
 
 
 // IsGISAXS3 functional test: cylinder in the air with size distribution
 void FunctionalTests::IsGISAXS03::runBA_Size()
 {
-    // building sample
-    MultiLayer multi_layer;
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material = MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    ParticleDecoration particle_decoration;
-    // preparing prototype of nano particle
-    double radius = 5*Units::nanometer;
-    double sigma = 0.2*radius;
-    FormFactorCylinder *p_ff_cylinder = new FormFactorCylinder( 5*Units::nanometer, radius);
-    Particle nano_particle(n_particle, p_ff_cylinder);
-    // radius of nanoparticles will be sampled with gaussian probability
-    int nbins(100), nfwhm(2);
-    StochasticDoubleGaussian double_gaussian(radius, sigma);
-    StochasticSampledParameter par(double_gaussian, nbins, nfwhm);
-    ParticleBuilder builder;
-    builder.setPrototype(nano_particle,"/Particle/FormFactorCylinder/radius", par);
-    builder.plantParticles(particle_decoration);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer.addLayer(air_layer_decorator);
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs03_basize");
 
     // building simulation
     Simulation simulation;
@@ -127,9 +88,11 @@ void FunctionalTests::IsGISAXS03::runBA_Size()
     simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
 
     // running simulation and copying data
-    simulation.setSample(multi_layer);
+    simulation.setSample(*sample);
     simulation.runSimulation();
     m_results[kTest_BASize] = simulation.getOutputDataClone();
+
+    delete sample;
 }
 
 

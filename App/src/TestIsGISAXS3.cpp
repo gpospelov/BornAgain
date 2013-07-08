@@ -14,11 +14,13 @@
 // ************************************************************************** //
 
 #include "TestIsGISAXS3.h"
-#include "IsGISAXS03.h"
 #include "IsGISAXSTools.h"
 #include "OutputDataIOFactory.h"
+#include "SampleBuilderFactory.h"
+#include "Simulation.h"
+#include "Units.h"
 #include "Utils.h"
-
+//#include "IsGISAXS03.h"
 #include <fstream>
 
 
@@ -30,13 +32,44 @@ TestIsGISAXS3::TestIsGISAXS3() : IFunctionalTest("TestIsGISAXS3")
 
 void TestIsGISAXS3::execute()
 {
-    FunctionalTests::IsGISAXS03 test;
-    test.runDWBA();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS03::kTest_DWBA), getOutputPath()+"this_cylinder_DWBA.ima");
-    test.runBA();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS03::kTest_BA), getOutputPath()+"this_cylinder_BA.ima");
-    test.runBA_Size();
-    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS03::kTest_BASize), getOutputPath()+"this_cylinder_BA_size.ima");
+//    FunctionalTests::IsGISAXS03 test;
+//    test.runDWBA();
+//    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS03::kTest_DWBA), getOutputPath()+"this_cylinder_DWBA.ima");
+//    test.runBA();
+//    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS03::kTest_BA), getOutputPath()+"this_cylinder_BA.ima");
+//    test.runBA_Size();
+//    OutputDataIOFactory::writeOutputData(*test.getOutputData(FunctionalTests::IsGISAXS03::kTest_BASize), getOutputPath()+"this_cylinder_BA_size.ima");
+
+
+    SampleBuilderFactory factory;
+
+    // building simulation
+    Simulation simulation;
+    simulation.setDetectorParameters(100, 0.0*Units::degree, 2.0*Units::degree,
+                                     100, 0.0*Units::degree, 2.0*Units::degree, true);
+    simulation.setBeamParameters(1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
+
+    // test1
+    ISample *sample = factory.createSample("isgisaxs03_dwba");
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_cylinder_DWBA.ima");
+    delete sample;
+
+    // test2
+    sample = factory.createSample("isgisaxs03_ba");
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_cylinder_BA.ima");
+    delete sample;
+
+    // test3
+    sample = factory.createSample("isgisaxs03_basize");
+    simulation.setSample(*sample);
+    simulation.runSimulation();
+    OutputDataIOFactory::writeOutputData(*simulation.getOutputData(), getOutputPath()+"this_cylinder_BA_size.ima");
+    delete sample;
+
 }
 
 

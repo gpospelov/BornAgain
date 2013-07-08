@@ -22,7 +22,6 @@ FUNCTIONAL_TESTS = $$PWD/../Tests/FunctionalTests/TestCore
 # Our source and headers
 # -----------------------------------------------------------------------------
 SOURCES += \
-    $${FUNCTIONAL_TESTS}/IsGISAXS03/IsGISAXS03.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS06/IsGISAXS06.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS07/IsGISAXS07.cpp \
     $${FUNCTIONAL_TESTS}/IsGISAXS08/IsGISAXS08.cpp \
@@ -81,7 +80,6 @@ SOURCES += \
 
 
 HEADERS += \
-    $${FUNCTIONAL_TESTS}/IsGISAXS03/IsGISAXS03.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS06/IsGISAXS06.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS07/IsGISAXS07.h \
     $${FUNCTIONAL_TESTS}/IsGISAXS08/IsGISAXS08.h \

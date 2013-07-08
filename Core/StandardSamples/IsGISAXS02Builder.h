@@ -1,7 +1,6 @@
 #ifndef ISGISAXS02BUILDER_H
 #define ISGISAXS02BUILDER_H
 
-
 #include "ISampleBuilder.h"
 
 //! The IsGISAXS02Builder class to build sample: mixture cylinder particles with

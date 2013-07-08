@@ -23,7 +23,7 @@ FunctionalTests::IsGISAXS09::IsGISAXS09()
     : m_name("IsGISAXS09")
     , m_description("Pyramids on top of substrate - Rotated pyramids on top of substrate")
     , m_path(Utils::FileSystem::GetHomePath()+
-             "Tests/FunctionalTests/TestCore/IsGISAXS09/")
+             "Tests/ReferenceData/BornAgain/")
 {
     m_results.resize(kNumberOfTests, 0);
 }

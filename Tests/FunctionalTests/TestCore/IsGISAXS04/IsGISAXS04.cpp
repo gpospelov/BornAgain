@@ -12,7 +12,7 @@
 FunctionalTests::IsGISAXS04::IsGISAXS04()
     : m_name("IsGISAXS04")
     , m_description("1D and 2D paracrystal")
-    , m_path(Utils::FileSystem::GetHomePath()+"Tests/FunctionalTests/TestCore/IsGISAXS04/")
+    , m_path(Utils::FileSystem::GetHomePath()+"Tests/ReferenceData/BornAgain/")
 {
     m_results.resize(kNumberOfTests, 0);
     gsl_set_error_handler_off();

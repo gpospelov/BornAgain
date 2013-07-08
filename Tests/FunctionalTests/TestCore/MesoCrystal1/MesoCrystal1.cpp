@@ -31,7 +31,7 @@ int MesoCrystal1::MesoCrystal1::run()
 
     // loading reference data
     std::string filename = Utils::FileSystem::GetHomePath() +
-        "/Tests/FunctionalTests/TestCore/MesoCrystal1/mesocrystal1_reference.txt.gz";
+        "/Tests/ReferenceData/BornAgain/mesocrystal1_reference.txt.gz";
     OutputData<double > *reference_data = OutputDataIOFactory::getOutputData(filename);
 
     // setting detector axis as in reference data

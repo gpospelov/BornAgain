@@ -124,13 +124,13 @@ def RunSimulationBA_Size():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    fBA = gzip.open(path+'../TestCore/IsGISAXS03/isgisaxs03_reference_BA.ima.gz', 'rb')
+    fBA = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs03_reference_BA.ima.gz', 'rb')
     referenceBA=numpy.fromstring(fBA.read(),numpy.float64,sep=' ')
     fBA.close()
-    fBA_Size = gzip.open(path+'../TestCore/IsGISAXS03/isgisaxs03_reference_BA_size.ima.gz', 'rb')
+    fBA_Size = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs03_reference_BA_size.ima.gz', 'rb')
     referenceBA_Size=numpy.fromstring(fBA_Size.read(),numpy.float64,sep=' ')
     fBA_Size.close()
-    fDWBA = gzip.open(path+'../TestCore/IsGISAXS03/isgisaxs03_reference_DWBA.ima.gz', 'rb')
+    fDWBA = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs03_reference_DWBA.ima.gz', 'rb')
     referenceDWBA=numpy.fromstring(fDWBA.read(),numpy.float64,sep=' ')
     fDWBA.close()
     reference=numpy.concatenate((referenceBA,referenceBA_Size,referenceDWBA),axis=0)  

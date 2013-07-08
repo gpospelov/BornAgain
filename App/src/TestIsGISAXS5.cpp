@@ -59,7 +59,7 @@ TestIsGISAXS5::TestIsGISAXS5()
 , mp_sample_builder(0)
 , mp_fitSuite(0)
 {
-    setOutputPath(Utils::FileSystem::GetHomePath()+"./Examples/IsGISAXS_examples/ex-5/");
+    setOutputPath(Utils::FileSystem::GetHomePath()+"./Tests/ReferenceData/IsGISAXS/ex-5/");
 }
 
 void TestIsGISAXS5::execute()

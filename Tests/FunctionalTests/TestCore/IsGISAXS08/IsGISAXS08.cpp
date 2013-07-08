@@ -17,7 +17,7 @@
 FunctionalTests::IsGISAXS08::IsGISAXS08()
     : m_name("IsGISAXS08")
     , m_description("2DDL paracrystal")
-    , m_path(Utils::FileSystem::GetHomePath()+"Tests/FunctionalTests/TestCore/IsGISAXS08/")
+    , m_path(Utils::FileSystem::GetHomePath()+"Tests/ReferenceData/BornAgain/")
 {
     m_results.resize(kNumberOfTests, 0);
 }

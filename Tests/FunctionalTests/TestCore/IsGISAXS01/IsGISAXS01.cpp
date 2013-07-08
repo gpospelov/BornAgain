@@ -40,7 +40,7 @@ int FunctionalTests::IsGISAXS01::analyseResults()
     // Retrieve reference data.
     std::string filename =
         Utils::FileSystem::GetHomePath() +
-        "/Tests/FunctionalTests/TestCore/IsGISAXS01/isgisaxs01_reference.ima.gz";
+        "/Tests/ReferenceData/BornAgain/isgisaxs01_reference.ima.gz";
     OutputData<double > *reference =
         OutputDataIOFactory::getOutputData(filename);
 

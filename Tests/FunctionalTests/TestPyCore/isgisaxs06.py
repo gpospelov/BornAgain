@@ -256,16 +256,16 @@ def buildSample(xi_value):
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    flattice = gzip.open(path+'../TestCore/IsGISAXS06/isgisaxs06_reference_lattice.ima.gz', 'rb')
+    flattice = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs06_reference_lattice.ima.gz', 'rb')
     referencelattice=numpy.fromstring(flattice.read(),numpy.float64,sep=' ')
     flattice.close()
-    fcentered = gzip.open(path+'../TestCore/IsGISAXS06/isgisaxs06_reference_centered.ima.gz', 'rb')
+    fcentered = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs06_reference_centered.ima.gz', 'rb')
     referencecentered=numpy.fromstring(fcentered.read(),numpy.float64,sep=' ')
     fcentered.close()
-    frotated = gzip.open(path+'../TestCore/IsGISAXS06/isgisaxs06_reference_rotated.ima.gz', 'rb')
+    frotated = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs06_reference_rotated.ima.gz', 'rb')
     referencerotated=numpy.fromstring(frotated.read(),numpy.float64,sep=' ')
     frotated.close()
-    fvariants = gzip.open(path+'../TestCore/IsGISAXS06/isgisaxs06_reference_variants.ima.gz', 'rb')
+    fvariants = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs06_reference_variants.ima.gz', 'rb')
     referencevariants=numpy.fromstring(fvariants.read(),numpy.float64,sep=' ')
     fvariants.close()
     reference=numpy.concatenate((referencelattice,referencecentered,referencerotated,referencevariants),axis=0)  

@@ -199,7 +199,7 @@ CONFIG(BORNAGAIN_ROOT) {
     LIBEXT = lib
   }
   isEmpty(MYROOT): error("Could not run root-config. Install ROOT, and set PATH to include ROOTSYS/bin.")
-  message("Found ROOT under directory " $${MYROOT})
+  #message("Found ROOT under directory " $${MYROOT})
 
   macx|unix {
     INCLUDEPATH += $$system(root-config --incdir)

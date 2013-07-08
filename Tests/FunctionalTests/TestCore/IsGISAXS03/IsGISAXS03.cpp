@@ -19,7 +19,7 @@
 FunctionalTests::IsGISAXS03::IsGISAXS03()
     : m_name("IsGISAXS03")
     , m_description("Cylinder formfactor in BA and DWBA")
-    , m_path(Utils::FileSystem::GetHomePath()+std::string("Tests/FunctionalTests/TestCore/IsGISAXS03/"))
+    , m_path(Utils::FileSystem::GetHomePath()+std::string("Tests/ReferenceData/BornAgain/"))
 {
     m_results.resize(kNumberOfTests, 0);
 }

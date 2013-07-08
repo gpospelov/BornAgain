@@ -123,7 +123,7 @@ int FunctionalTests::IsGISAXS07::analyseResults()
     const double threshold(1e-10);
 
     // retrieving reference data
-    std::string filename = Utils::FileSystem::GetHomePath() + "/Tests/FunctionalTests/TestCore/IsGISAXS07/isgisaxs07_reference.ima.gz";
+    std::string filename = Utils::FileSystem::GetHomePath() + "/Tests/ReferenceData/BornAgain/isgisaxs07_reference.ima.gz";
     OutputData<double > *reference = OutputDataIOFactory::getOutputData(filename);
 
     // calculating average relative difference

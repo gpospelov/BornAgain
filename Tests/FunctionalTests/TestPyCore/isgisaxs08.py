@@ -92,10 +92,10 @@ def RunSimulation2():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    f1 = gzip.open(path+'../TestCore/IsGISAXS08/isgisaxs08_reference_2DDL_lattice.ima.gz', 'rb')
+    f1 = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs08_reference_2DDL_lattice.ima.gz', 'rb')
     reference1=numpy.fromstring(f1.read(),numpy.float64,sep=' ')
     f1.close()
-    f2 = gzip.open(path+'../TestCore/IsGISAXS08/isgisaxs08_reference_2DDL_lattice2.ima.gz', 'rb')
+    f2 = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs08_reference_2DDL_lattice2.ima.gz', 'rb')
     reference2=numpy.fromstring(f2.read(),numpy.float64,sep=' ')
     f2.close()
     reference=numpy.concatenate((reference1,reference2),axis=0)    

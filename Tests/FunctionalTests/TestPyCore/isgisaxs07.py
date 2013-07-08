@@ -140,7 +140,7 @@ def RunSimulation():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    f = gzip.open(path+'../TestCore/IsGISAXS07/isgisaxs07_reference.ima.gz', 'rb')
+    f = gzip.open(path+'../../ReferenceData/BornAgain/isgisaxs07_reference.ima.gz', 'rb')
     reference=numpy.fromstring(f.read(),numpy.float64,sep=' ')
     f.close()
     return reference

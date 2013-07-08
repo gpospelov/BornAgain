@@ -11,7 +11,7 @@ win32 {
 #  ROOT = "C:/root"
 }
 isEmpty(ROOT) {
-    message("No ROOT installation found. libBornAgainFit and App" will not be compiled.)
+    message("No ROOT installation found. libBornAgainFit and App will not be compiled.")
 }
 !isEmpty(ROOT) SUBDIRS += Fit App
 

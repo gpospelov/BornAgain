@@ -114,6 +114,9 @@ class BA_CORE_API_ Simulation : public IParameterized, public ICloneable
     //! Apply smearing of intensity due to tilting of z-axis (DEPRECATED)
     void smearIntensityFromZAxisTilting();
 
+    //! creates default IsGISAXS simulation which is used for comparison
+    static Simulation *createDefaultIsGISAXS();
+
  protected:
     Simulation(const Simulation& other);
 

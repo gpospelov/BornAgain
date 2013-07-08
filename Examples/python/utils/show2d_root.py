@@ -1,42 +1,31 @@
 #!/usr/bin/env python
-# Draws two dimensional numpy array using matplotlib
+# Draws two dimensional numpy array using ROOT
 # Usage: python show2d.py file_name
 
-from pylab import *
-from matplotlib.colors import LogNorm
 import argparse
 import os
+import numpy
+import ROOT
+from pylab import *
 
 
-# Define a nice colormap
-cdict = {'red':   ((0.0, 0.0, 0.0), (0.5, 0.0, 0.0), (1.0, 1.0, 1.0)),
-         'green': ((0.0, 0.0, 0.0), (0.5, 0.0, 0.0), (1.0, 1.0, 1.0)),
-         'blue':  ((0.0, 0.0, 0.0), (0.5, 1.0, 1.0), (1.0, 1.0, 1.0))}
-blue_cmap = matplotlib.colors.LinearSegmentedColormap('blue_map', cdict, 256)
+def PlotNumpyArrayWithROOT(a, zmin = 1, zmax = None):
+    nx = a.shape[0]
+    ny = a.shape[1]
+    hist = ROOT.TH2D("hist","hist",nx,0,nx, ny, 0, ny)
+    for (x,y), value in numpy.ndenumerate(a):
+        hist.Fill(x,y,value)
 
-
-def PlotNumpyArray(a, zmin = 1, zmax = None):
-    # Make a plot of the data
-    #print( "plotting..." )
-    amax=a.flatten().max()
-    amean=np.sum(a)/a.size
-    aminplot=amean**2/amax
-    a=np.maximum(a, zmin)
-    dataarray=np.flipud(np.transpose(a))
-    plt.xlabel(r'$\phi_f$', fontsize=20)
-    plt.ylabel(r'$\alpha_f$', fontsize=20)
-    # Use one of the predefined colormaps or the above defined 'blue_cmap':
-    im=plt.imshow(dataarray, norm=LogNorm(), vmax=zmax, cmap=cm.jet) #, interpolation='none')
-    plt.gca().axes.get_xaxis().set_ticks([])
-    plt.gca().axes.get_yaxis().set_ticks([])
-    plt.colorbar(im)
-
-    # Show the plot
-    #print( "showing..." )
-    # Uncomment the next lines to generate a pdf from the plot
-    #extension = 'pdf'
-    #plt.savefig(file_no_prefix + '.%s' %extension, format=extension)
-    plt.show()
+    c1 = ROOT.TCanvas("c1","numpy array", 1024,768)
+    c1.cd()
+    c1.SetLogz()
+    hist.Draw("CONT4Z")
+    c1.Update()
+    #ROOT.gApplication.Run()
+    Interrupt = False
+    while not Interrupt:
+        Interrupt = ROOT.gSystem.ProcessEvents()
+        ROOT.gSystem.Sleep(10)
 
 
 #-------------------------------------------------------------
@@ -72,5 +61,15 @@ if __name__ == '__main__':
     print 'Minimum value of data: ', a.flatten().min()
     print 'Maximum value of data: ', a.flatten().max()
 
-    PlotNumpyArray(a, zmin, zmax)
+    PlotNumpyArrayWithROOT(a, zmin, zmax)
 
+    #rep = ''
+    #while not rep in [ 'q', 'Q' ]:
+        #rep = raw_input( 'enter "q" to quit: ' )
+        #if 1 < len(rep):
+            #rep = rep[0]    
+
+    ROOT.gApplication.Run()
+    
+    #while ROOT.gSystem.ProcessEvent():
+        #print "aaa"

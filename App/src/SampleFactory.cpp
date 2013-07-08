@@ -44,7 +44,7 @@ SampleFactory::SampleFactory()
     //registerItem("IsGISAXS1_CylinderAndPrism", StandardSamples::IsGISAXS1_CylinderAndPrism);
 
     // IsGISAXS2 example: mixture of cylindrical particles with two size distribution
-    registerItem("IsGISAXS2_CylindersMixture", StandardSamples::IsGISAXS2_CylindersMixture);
+    //registerItem("IsGISAXS2_CylindersMixture", StandardSamples::IsGISAXS2_CylindersMixture);
 
     // IsGISAXS3 example: cylinder on top of substrate, cylinder in the air, cylinder with size distribution
     registerItem("IsGISAXS3_CylinderDWBA", StandardSamples::IsGISAXS3_CylinderDWBA);
@@ -52,8 +52,8 @@ SampleFactory::SampleFactory()
     registerItem("IsGISAXS3_CylinderBASize", StandardSamples::IsGISAXS3_CylinderBASize);
 
     // IsGISAXS4 example: cylinders on top of substrate with paracrystal structure factors
-    registerItem("IsGISAXS4_1DDL", StandardSamples::IsGISAXS4_1DDL);
-    registerItem("IsGISAXS4_2DDL", StandardSamples::IsGISAXS4_2DDL);
+    //registerItem("IsGISAXS4_1DDL", StandardSamples::IsGISAXS4_1DDL);
+    //registerItem("IsGISAXS4_2DDL", StandardSamples::IsGISAXS4_2DDL);
 
     // IsGISAXS6 example: cylinders with lattice interference function
     registerItem("IsGISAXS6_lattice", StandardSamples::IsGISAXS6_lattice);

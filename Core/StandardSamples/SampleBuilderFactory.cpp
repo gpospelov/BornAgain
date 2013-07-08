@@ -1,5 +1,6 @@
 #include "SampleBuilderFactory.h"
 #include "IsGISAXS01Builder.h"
+#include "IsGISAXS02Builder.h"
 #include "IsGISAXS04Builder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
@@ -8,7 +9,12 @@ SampleBuilderFactory::SampleBuilderFactory()
     registerItem(
         "isgisaxs01",
         IFactoryCreateFunction<IsGISAXS01Builder, ISampleBuilder>,
-        "IsGISAXS01 example");
+        "Mixture of cylinders and prisms without interference");
+
+    registerItem(
+        "isgisaxs02",
+        IFactoryCreateFunction<IsGISAXS02Builder, ISampleBuilder>,
+        "Mixture cylinder particles with different size distribution ");
 
     registerItem(
         "isgisaxs04_1DDL",

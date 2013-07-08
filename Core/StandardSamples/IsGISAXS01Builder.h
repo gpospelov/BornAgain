@@ -3,8 +3,8 @@
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS01Builder class which generates sample from IsGISAXS ex01 example
-//! Mixture of cylinders and prisms without interference
+//! The IsGISAXS01Builder class to build sample: mixture of cylinders and prisms
+//! without interference (IsGISAXS example #1)
 class IsGISAXS01Builder : public ISampleBuilder
 {
 public:

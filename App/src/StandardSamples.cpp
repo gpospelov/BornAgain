@@ -407,61 +407,61 @@ ISample *StandardSamples::MultilayerOffspecTestcase2b()
 //    return p_multi_layer;
 //}
 
-//! IsGISAXS ex#2: Mixture cylinder particles with different size distribution.
+////! IsGISAXS ex#2: Mixture cylinder particles with different size distribution.
 
-ISample *StandardSamples::IsGISAXS2_CylindersMixture()
-{
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
+//ISample *StandardSamples::IsGISAXS2_CylindersMixture()
+//{
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    const IMaterial *p_air_material = MaterialManager::getHomogeneousMaterial("Air", n_air);
 
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
+//    Layer air_layer;
+//    air_layer.setMaterial(p_air_material);
 
-    ParticleDecoration particle_decoration;
+//    ParticleDecoration particle_decoration;
 
-    // preparing nano particles prototypes for seeding layer's particle_decoration
-    double radius1 = 5*Units::nanometer;
-    double radius2 = 10*Units::nanometer;
-    double height1 = radius1;
-    double height2 = radius2;
-    FormFactorCylinder *p_ff_cylinder1 =
-        new FormFactorCylinder(height1, radius1);
-    Particle cylinder1(n_particle, p_ff_cylinder1 );
+//    // preparing nano particles prototypes for seeding layer's particle_decoration
+//    double radius1 = 5*Units::nanometer;
+//    double radius2 = 10*Units::nanometer;
+//    double height1 = radius1;
+//    double height2 = radius2;
+//    FormFactorCylinder *p_ff_cylinder1 =
+//        new FormFactorCylinder(height1, radius1);
+//    Particle cylinder1(n_particle, p_ff_cylinder1 );
 
-    FormFactorCylinder *p_ff_cylinder2 =
-        new FormFactorCylinder(height2, radius2);
-    Particle cylinder2(n_particle, p_ff_cylinder2 );
+//    FormFactorCylinder *p_ff_cylinder2 =
+//        new FormFactorCylinder(height2, radius2);
+//    Particle cylinder2(n_particle, p_ff_cylinder2 );
 
-    // radius of nanoparticles will be sampled with gaussian probability
-    int nbins=150;
-    double sigma1 = radius1*0.2;
-    double sigma2 = radius2*0.02;
-    int nfwhm(3); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
-    StochasticDoubleGaussian sg1(radius1, sigma1);
-    StochasticSampledParameter par1(sg1,nbins, nfwhm);
-    StochasticDoubleGaussian sg2(radius2, sigma2);
-    StochasticSampledParameter par2(sg2,nbins, nfwhm);
+//    // radius of nanoparticles will be sampled with gaussian probability
+//    int nbins=150;
+//    double sigma1 = radius1*0.2;
+//    double sigma2 = radius2*0.02;
+//    int nfwhm(3); // to have xmin=average-nfwhm*FWHM, xmax=average+nfwhm*FWHM (nfwhm = xR/2, where xR is what is defined in isgisaxs *.inp file)
+//    StochasticDoubleGaussian sg1(radius1, sigma1);
+//    StochasticSampledParameter par1(sg1,nbins, nfwhm);
+//    StochasticDoubleGaussian sg2(radius2, sigma2);
+//    StochasticSampledParameter par2(sg2,nbins, nfwhm);
 
-    // building nano particles
-    ParticleBuilder builder;
-    builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius",
-                         par1, 0.95);
-    builder.plantParticles(particle_decoration);
+//    // building nano particles
+//    ParticleBuilder builder;
+//    builder.setPrototype(cylinder1,"/Particle/FormFactorCylinder/radius",
+//                         par1, 0.95);
+//    builder.plantParticles(particle_decoration);
 
-    builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius",
-                         par2, 0.05);
-    builder.plantParticles(particle_decoration);
+//    builder.setPrototype(cylinder2,"/Particle/FormFactorCylinder/radius",
+//                         par2, 0.05);
+//    builder.plantParticles(particle_decoration);
 
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
+//    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
 
-    // making layer holding all whose nano particles
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    p_multi_layer->addLayer(air_layer_decorator);
+//    // making layer holding all whose nano particles
+//    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+//    p_multi_layer->addLayer(air_layer_decorator);
 
-    return p_multi_layer;
-}
+//    return p_multi_layer;
+//}
 
 //! IsGISAXS ex#3a: Cylinder on top of substrate.
 
@@ -550,70 +550,70 @@ ISample *StandardSamples::IsGISAXS3_CylinderBASize()
     return p_multi_layer;
 }
 
-//! IsGISAXS ex#4a: Cylinders with 1DDL structure factor.
+////! IsGISAXS ex#4a: Cylinders with 1DDL structure factor.
 
-ISample *StandardSamples::IsGISAXS4_1DDL()
-{
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    IInterferenceFunction *p_interference_function =
-        new InterferenceFunction1DParaCrystal
-        (20.0*Units::nanometer,7*Units::nanometer, 1e3*Units::nanometer);
-    ParticleDecoration particle_decoration(
-        new Particle(n_particle, new FormFactorCylinder
-                     (5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+//ISample *StandardSamples::IsGISAXS4_1DDL()
+//{
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-6e-6, 2e-8);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    const IMaterial *p_air_material =
+//        MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material =
+//        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+//    Layer air_layer;
+//    air_layer.setMaterial(p_air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(p_substrate_material);
+//    IInterferenceFunction *p_interference_function =
+//        new InterferenceFunction1DParaCrystal
+//        (20.0*Units::nanometer,7*Units::nanometer, 1e3*Units::nanometer);
+//    ParticleDecoration particle_decoration(
+//        new Particle(n_particle, new FormFactorCylinder
+//                     (5*Units::nanometer, 5*Units::nanometer)));
+//    particle_decoration.addInterferenceFunction(p_interference_function);
+//    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
-    p_multi_layer->addLayer(substrate_layer);
-    return p_multi_layer;
-}
+//    p_multi_layer->addLayer(air_layer_decorator);
+//    p_multi_layer->addLayer(substrate_layer);
+//    return p_multi_layer;
+//}
 
-// IsGISAXS ex#4b: Cylinders with 2DDL structure factor.
+//// IsGISAXS ex#4b: Cylinders with 2DDL structure factor.
 
-ISample *StandardSamples::IsGISAXS4_2DDL()
-{
-    MultiLayer *p_multi_layer = new MultiLayer();
-    complex_t n_air(1.0, 0.0);
-    complex_t n_substrate(1.0-6e-6, 2e-8);
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", n_air);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-    InterferenceFunction2DParaCrystal *p_interference_function =
-        InterferenceFunction2DParaCrystal::createHexagonal
-        (20.0*Units::nanometer,
-         0.0,
-         20.0*Units::micrometer,
-         20.0*Units::micrometer);
-    FTDistribution2DCauchy pdf(1.0*Units::nanometer, 1.0*Units::nanometer);
-    p_interference_function->setProbabilityDistributions(pdf, pdf);
-    ParticleDecoration particle_decoration(
-        new Particle(n_particle, new FormFactorCylinder
-                     (5*Units::nanometer, 5*Units::nanometer)));
-    particle_decoration.addInterferenceFunction(p_interference_function);
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
+//ISample *StandardSamples::IsGISAXS4_2DDL()
+//{
+//    MultiLayer *p_multi_layer = new MultiLayer();
+//    complex_t n_air(1.0, 0.0);
+//    complex_t n_substrate(1.0-6e-6, 2e-8);
+//    complex_t n_particle(1.0-6e-4, 2e-8);
+//    const IMaterial *p_air_material =
+//        MaterialManager::getHomogeneousMaterial("Air", n_air);
+//    const IMaterial *p_substrate_material =
+//        MaterialManager::getHomogeneousMaterial("Substrate", n_substrate);
+//    Layer air_layer;
+//    air_layer.setMaterial(p_air_material);
+//    Layer substrate_layer;
+//    substrate_layer.setMaterial(p_substrate_material);
+//    InterferenceFunction2DParaCrystal *p_interference_function =
+//        InterferenceFunction2DParaCrystal::createHexagonal
+//        (20.0*Units::nanometer,
+//         0.0,
+//         20.0*Units::micrometer,
+//         20.0*Units::micrometer);
+//    FTDistribution2DCauchy pdf(1.0*Units::nanometer, 1.0*Units::nanometer);
+//    p_interference_function->setProbabilityDistributions(pdf, pdf);
+//    ParticleDecoration particle_decoration(
+//        new Particle(n_particle, new FormFactorCylinder
+//                     (5*Units::nanometer, 5*Units::nanometer)));
+//    particle_decoration.addInterferenceFunction(p_interference_function);
+//    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
 
-    p_multi_layer->addLayer(air_layer_decorator);
-    p_multi_layer->addLayer(substrate_layer);
-    return p_multi_layer;
-}
+//    p_multi_layer->addLayer(air_layer_decorator);
+//    p_multi_layer->addLayer(substrate_layer);
+//    return p_multi_layer;
+//}
 
 //! IsGISAXS ex#6a: Cylinders with lattice interference function.
 

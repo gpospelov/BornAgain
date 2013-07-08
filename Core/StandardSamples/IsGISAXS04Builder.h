@@ -4,8 +4,8 @@
 
 #include "ISampleBuilder.h"
 
-//! The IsGISAXS04Builder class which generates sample from IsGISAXS ex04 example
-//! cylinders with 1DDL structure factor
+//! The IsGISAXS04Builder class to build sample: cylinders with 1DDL structure
+//! factor (IsGISAXS example #4)
 class IsGISAXS04Para1DBuilder : public ISampleBuilder
 {
 public:
@@ -24,8 +24,8 @@ private:
 };
 
 
-//! The IsGISAXS04Builder class which generates sample from IsGISAXS ex04 example
-//! cylinders with 2DDL structure factor
+//! The IsGISAXS04Builder class to build sample: cylinders with 2DDL structure
+//! factor (IsGISAXS example #4)
 class IsGISAXS04Para2DBuilder : public ISampleBuilder
 {
 public:

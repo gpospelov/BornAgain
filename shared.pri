@@ -104,7 +104,7 @@ win32 {
 isEmpty(BOOST_LIB): message("Can't find" $${BOOST_LIBFILES} "in" $${BOOST_LIB_LOCATIONS})
 INCLUDEPATH *=  $${BOOST_INCLUDE}
 LIBS *= -L$${BOOST_LIB}
-LIBS += -lboost_program_options -lboost_iostreams -lboost_system -lboost_signals -lboost_filesystem -lboost_regex -lboost_thread -lz
+LIBS += -lboost_program_options -lboost_iostreams -lboost_system -lboost_filesystem -lboost_regex -lboost_thread -lz
 # checking special case when system doesn't have libboost_thread library but have libboost_thread-mt
 !win32 {
   NumberOfSuchFiles=$$system(ls $${BOOST_LIB}/libboost_thread-mt* 2> /dev/null | wc -l)

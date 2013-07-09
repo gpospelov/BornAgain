@@ -140,7 +140,8 @@ SOURCES += \
     Tools/src/SamplePrintVisitor.cpp \
     StandardSamples/IsGISAXS04Builder.cpp \
     StandardSamples/IsGISAXS02Builder.cpp \
-    StandardSamples/IsGISAXS03Builder.cpp
+    StandardSamples/IsGISAXS03Builder.cpp \
+    StandardSamples/IsGISAXS06Builder.cpp
 
 
 HEADERS += \
@@ -326,7 +327,8 @@ HEADERS += \
     Tools/inc/WinDllMacros.h \
     StandardSamples/IsGISAXS04Builder.h \
     StandardSamples/IsGISAXS02Builder.h \
-    StandardSamples/IsGISAXS03Builder.h
+    StandardSamples/IsGISAXS03Builder.h \
+    StandardSamples/IsGISAXS06Builder.h
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)

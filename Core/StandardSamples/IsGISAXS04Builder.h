@@ -1,7 +1,6 @@
 #ifndef ISGISAXS04BUILDER_H
 #define ISGISAXS04BUILDER_H
 
-
 #include "ISampleBuilder.h"
 
 //! The IsGISAXS04Builder class to build sample: cylinders with 1DDL structure

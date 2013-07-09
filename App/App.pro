@@ -141,8 +141,6 @@ HEADERS += \
 
 
 LOCATIONS = $$PWD/inc \
-            $${FUNCTIONAL_TESTS}/IsGISAXS02 \
-            $${FUNCTIONAL_TESTS}/IsGISAXS03 \
             $${FUNCTIONAL_TESTS}/IsGISAXS06 \
             $${FUNCTIONAL_TESTS}/IsGISAXS07 \
             $${FUNCTIONAL_TESTS}/IsGISAXS08 \

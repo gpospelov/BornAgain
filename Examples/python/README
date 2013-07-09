@@ -6,8 +6,10 @@ ex001_CylindersAndPrisms             - Mixture of cylinders and prisms without i
 ex002_CylindersWithSizeDistribution  - Mixture cylinder particles with different size distribution (IsGISAXS example #2)
 ex003_CylinderFormfactor             - Cylinder formfactor in BA and DWBA (IsGISAXS example #3)
 ex004_CylindersParaCrystal           - 1D and 2D paracrystal (IsGISAXS example #4)
+ex006_LatticeWithDisorder            - 2D lattice with different disorder (IsGISAXS example #6)
 
 
+More examples in ./Tests/FunctionalTests
 
 
 

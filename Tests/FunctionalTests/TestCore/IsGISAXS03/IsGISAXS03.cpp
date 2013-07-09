@@ -1,22 +1,11 @@
 #include "IsGISAXS03.h"
-#include "Simulation.h"
+#include "OutputDataIOFactory.h"
 #include "SampleBuilderFactory.h"
+#include "Simulation.h"
 #include "Units.h"
 #include "Utils.h"
 #include <iostream>
 #include <cmath>
-
-#include "MultiLayer.h"
-#include "Layer.h"
-#include "ParticleDecoration.h"
-#include "MaterialManager.h"
-#include "FormFactorCylinder.h"
-#include "InterferenceFunctionNone.h"
-#include "StochasticGaussian.h"
-#include "LayerDecorator.h"
-#include "StochasticSampledParameter.h"
-#include "ParticleBuilder.h"
-#include "OutputDataIOFactory.h"
 
 
 FunctionalTests::IsGISAXS03::IsGISAXS03()

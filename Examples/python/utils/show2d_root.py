@@ -17,15 +17,15 @@ def PlotNumpyArrayWithROOT(a, zmin = 1, zmax = None):
         hist.Fill(x,y,value)
 
     c1 = ROOT.TCanvas("c1","numpy array", 1024,768)
-    c1.cd()
     c1.SetLogz()
+    hist.SetMinimum(zmin)
     hist.Draw("CONT4Z")
     c1.Update()
-    #ROOT.gApplication.Run()
-    Interrupt = False
-    while not Interrupt:
-        Interrupt = ROOT.gSystem.ProcessEvents()
-        ROOT.gSystem.Sleep(10)
+    ROOT.gApplication.Run()
+    #Interrupt = False
+    #while not Interrupt:
+        #Interrupt = ROOT.gSystem.ProcessEvents()
+        #ROOT.gSystem.Sleep(10)
 
 
 #-------------------------------------------------------------
@@ -63,13 +63,4 @@ if __name__ == '__main__':
 
     PlotNumpyArrayWithROOT(a, zmin, zmax)
 
-    #rep = ''
-    #while not rep in [ 'q', 'Q' ]:
-        #rep = raw_input( 'enter "q" to quit: ' )
-        #if 1 < len(rep):
-            #rep = rep[0]    
-
-    ROOT.gApplication.Run()
-    
-    #while ROOT.gSystem.ProcessEvent():
-        #print "aaa"
+        

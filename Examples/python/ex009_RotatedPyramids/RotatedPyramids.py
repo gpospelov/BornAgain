@@ -10,7 +10,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.split(__file__)[0],'..')))
 from libBornAgainCore import *
 from utils.show2d import PlotNumpyArray
 
-
 # ----------------------------------
 # describe sample and run simulation - Rotated Pyramid
 # ----------------------------------
@@ -54,6 +53,7 @@ def RunSimulation():
 #-------------------------------------------------------------
 if __name__ == '__main__':
     result = RunSimulation()
+    #PlotNumpyArrayWithROOT(result)
     PlotNumpyArray(result)
 
 

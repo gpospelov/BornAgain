@@ -81,20 +81,6 @@ def RunSimulation2():
     return GetOutputData(simulation)
 
 
-
-
-        
-
-       
-
-       
-      
-
-    
-
-      
-
-
 # ----------------------------------
 # read reference data from file
 # ----------------------------------
@@ -140,7 +126,7 @@ def runTest():
     result2 = RunSimulation2()
     result = numpy.concatenate((result1,result2),axis=0) 
     reference = GetReferenceData()
-    
+
     diff = GetDifference(result, reference)
     status = "OK"
     if(diff > 1e-10 or numpy.isnan(diff)): status = "FAILED"

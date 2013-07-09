@@ -141,7 +141,8 @@ SOURCES += \
     StandardSamples/IsGISAXS04Builder.cpp \
     StandardSamples/IsGISAXS02Builder.cpp \
     StandardSamples/IsGISAXS03Builder.cpp \
-    StandardSamples/IsGISAXS06Builder.cpp
+    StandardSamples/IsGISAXS06Builder.cpp \
+    StandardSamples/IsGISAXS09Builder.cpp
 
 
 HEADERS += \
@@ -328,7 +329,8 @@ HEADERS += \
     StandardSamples/IsGISAXS04Builder.h \
     StandardSamples/IsGISAXS02Builder.h \
     StandardSamples/IsGISAXS03Builder.h \
-    StandardSamples/IsGISAXS06Builder.h
+    StandardSamples/IsGISAXS06Builder.h \
+    StandardSamples/IsGISAXS09Builder.h
 
 contains(CONFIG, BORNAGAIN_PYTHON) {
    include($$PWD/python_module.pri)

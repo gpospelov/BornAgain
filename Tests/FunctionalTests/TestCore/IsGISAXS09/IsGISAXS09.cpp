@@ -1,27 +1,16 @@
 #include "IsGISAXS09.h"
-#include "MultiLayer.h"
-#include "ParticleDecoration.h"
-#include "LayerDecorator.h"
-#include "ParticleBuilder.h"
-#include "InterferenceFunctionNone.h"
-#include "FormFactorPyramid.h"
-#include "MaterialManager.h"
+#include "OutputDataIOFactory.h"
+#include "SampleBuilderFactory.h"
 #include "Simulation.h"
 #include "Units.h"
-#include "MaterialManager.h"
-#include "OutputDataIOFactory.h"
-#include "Rotate3D.h"
 #include "Utils.h"
-#include "InterferenceFunction1DParaCrystal.h"
-#include "MessageService.h"
-
 #include <iostream>
 #include <cmath>
 
 
 FunctionalTests::IsGISAXS09::IsGISAXS09()
     : m_name("IsGISAXS09")
-    , m_description("Pyramids on top of substrate - Rotated pyramids on top of substrate")
+    , m_description("Pyramids, rotated pyramids on top of substrate")
     , m_path(Utils::FileSystem::GetHomePath()+
              "Tests/ReferenceData/BornAgain/")
 {
@@ -39,28 +28,8 @@ FunctionalTests::IsGISAXS09::~IsGISAXS09()
 // IsGISAXS example #9a: pyramid
 void FunctionalTests::IsGISAXS09::runpyramidZ0()
 {
-    // building sample
-    MultiLayer multi_layer;
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    ParticleDecoration particle_decoration(
-        new Particle(n_particle,
-                     new FormFactorPyramid(5*Units::nanometer,
-                                           5*Units::nanometer,
-                                           Units::deg2rad(54.73 ) ) ) );
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer.addLayer(air_layer_decorator);
-    multi_layer.addLayer(substrate_layer);
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs09");
 
     // building simulation
     Simulation simulation;
@@ -69,46 +38,21 @@ void FunctionalTests::IsGISAXS09::runpyramidZ0()
         100, 0.0*Units::degree, 2.0*Units::degree, true);
     simulation.setBeamParameters(
         1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    simulation.setSample(multi_layer);
+    simulation.setSample(*sample);
 
     // running simulation
     simulation.runSimulation();
     m_results[kTest_Z0] = simulation.getOutputDataClone();
+
+    delete sample;
 }
 
 
 // IsGISAXS example #9b: rotated pyramid
 void FunctionalTests::IsGISAXS09::runpyramidZ45()
 {
-    // building sample
-    MultiLayer multi_layer;
-    const IMaterial *p_air_material =
-        MaterialManager::getHomogeneousMaterial("Air", 1.0, 0.0);
-    const IMaterial *p_substrate_material =
-        MaterialManager::getHomogeneousMaterial("Substrate", 1.0-6e-6, 2e-8);
-    Layer air_layer;
-    air_layer.setMaterial(p_air_material);
-    Layer substrate_layer;
-    substrate_layer.setMaterial(p_substrate_material);
-
-    complex_t n_particle(1.0-6e-4, 2e-8);
-    Particle *pyramid = new Particle(
-        n_particle,
-        new FormFactorPyramid(5*Units::nanometer,
-                              5*Units::nanometer,
-                              Units::deg2rad(54.73)) );
-
-    Geometry::PTransform3D transform(
-        new Geometry::RotateZ_3D(45.*Units::degree) );
-    msglog(MSG::DEBUG) << "created rotZ45 {" << *transform << "}";
-
-    ParticleDecoration particle_decoration;
-    particle_decoration.addParticle(pyramid, transform);
-    particle_decoration.addInterferenceFunction(new InterferenceFunctionNone());
-
-    LayerDecorator air_layer_decorator(air_layer, particle_decoration);
-    multi_layer.addLayer(air_layer_decorator);
-    multi_layer.addLayer(substrate_layer);
+    SampleBuilderFactory factory;
+    ISample *sample = factory.createSample("isgisaxs09_rotated");
 
     // building simulation
     Simulation simulation;
@@ -117,11 +61,13 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
         100, 0.0*Units::degree, 2.0*Units::degree, true);
     simulation.setBeamParameters(
         1.0*Units::angstrom, -0.2*Units::degree, 0.0*Units::degree);
-    simulation.setSample(multi_layer);
+    simulation.setSample(*sample);
 
     // running simulation
     simulation.runSimulation();
     m_results[kTest_Z45] = simulation.getOutputDataClone();
+
+    delete sample;
 }
 
 

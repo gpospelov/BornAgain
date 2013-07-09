@@ -4,6 +4,7 @@
 #include "IsGISAXS03Builder.h"
 #include "IsGISAXS04Builder.h"
 #include "IsGISAXS06Builder.h"
+#include "IsGISAXS09Builder.h"
 
 SampleBuilderFactory::SampleBuilderFactory()
 {
@@ -53,6 +54,16 @@ SampleBuilderFactory::SampleBuilderFactory()
         "isgisaxs06_lattice3",
         IFactoryCreateFunction<IsGISAXS06Lattice3Builder, ISampleBuilder>,
         "2D lattice with different disorder");
+
+    registerItem(
+        "isgisaxs09",
+        IFactoryCreateFunction<IsGISAXS09Builder, ISampleBuilder>,
+        "Pyramids on top of substrate");
+    registerItem(
+        "isgisaxs09_rotated",
+        IFactoryCreateFunction<IsGISAXS09RotatedBuilder, ISampleBuilder>,
+        "Rotated pyramids on top of substrate");
+
 
 }
 

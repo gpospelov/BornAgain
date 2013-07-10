@@ -10,7 +10,7 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/Geometry/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/Samples/inc
-    ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples
     ${CMAKE_CURRENT_SOURCE_DIR}/Tools/inc
 )
 include_directories(${include_dirs})

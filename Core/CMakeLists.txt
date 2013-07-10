@@ -1,9 +1,9 @@
 ############################################################################
 # CMakeLists.txt file for building libBornAgainCore library
 ############################################################################
-
 set(library_name BornAgainCore)
 
+# directories to include
 set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Algorithms/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/Fitting/inc
@@ -13,9 +13,9 @@ set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/StandardSamples/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/Tools/inc
 )
-
 include_directories(${include_dirs})
 
+# files to have in library
 file(GLOB source_files
     "Algorithms/src/*.cpp"
     "Fitting/src/*.cpp"
@@ -34,6 +34,7 @@ if(BORNAGAIN_PYTHON)
     )
 endif()
 
+# making library
 add_library(
     ${library_name}
     SHARED
@@ -42,11 +43,13 @@ add_library(
 set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
 set(${library_name}_LIBRARY_TYPE SHARED)
 
+# dependencies
 target_link_libraries(${library_name} ${FFTW_LIBRARY}) 
 target_link_libraries(${library_name} ${Boost_LIBRARIES}) 
 target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
 target_link_libraries(${library_name} ${PYTHON_LIBRARIES}) 
 
+# exposing library name and list of include directories outside
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 

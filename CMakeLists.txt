@@ -18,6 +18,7 @@ include(SearchInstalledSoftware)
 
 #---Recurse into the given subdirectories.  
 add_subdirectory(Core)
+#add_subdirectory(ThirdParty/gtest/gtest-1.6)
 if(ROOT_FOUND)
     add_subdirectory(Fit)
 endif()

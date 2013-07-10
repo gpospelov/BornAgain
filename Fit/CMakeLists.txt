@@ -1,40 +1,45 @@
 ############################################################################
 # CMakeLists.txt file for building libBornAgainFit library
 ############################################################################
+set(library_name BornAgainFit)
 
-set(LIBRARY_NAME BornAgainFit)
-
-include_directories(
+# directories to include
+set(include_dirs 
     ${CMAKE_CURRENT_SOURCE_DIR}/Factory/inc
 )
+include_directories(${include_dirs})
 
-file(GLOB BornAgainFit_SRC
+# files to have in library
+file(GLOB source_files
     "Factory/src/*.cpp"
     "Factory/src/*.cxx"
 )
 
 if(BORNAGAIN_PYTHON)
-    file(GLOB BornAgainFit_PythonAPI "PythonAPI/src/*.cpp")
-    list(APPEND BornAgainFit_SRC ${BornAgainFit_PythonAPI})
+    file(GLOB pythonapi "PythonAPI/src/*.cpp")
+    list(APPEND ${source_files} ${pythonapi})
     include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
     )
 endif()
 
+# making library
 add_library(
-    ${LIBRARY_NAME}
+    ${library_name}
     SHARED
-    ${BornAgainFit_SRC}
+    ${source_files}
 )
-set_Target_properties(${LIBRARY_NAME} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
-set(${LIBRARY_NAME}_LIBRARY_TYPE SHARED)
+set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${libsuffix})
+set(${library_name}_LIBRARY_TYPE SHARED)
 
-#target_link_libraries(${LIBRARY_NAME} ${FFTW_LIBRARY}) 
-#target_link_libraries(${LIBRARY_NAME} ${Boost_LIBRARIES}) 
-#target_link_libraries(${LIBRARY_NAME} ${GSL_LIBRARIES}) 
-#target_link_libraries(${LIBRARY_NAME} ${PYTHON_LIBRARIES}) 
-
+# dependencies
 include_directories(${BornAgainCore_INCLUDE_DIRS})
-target_link_libraries(${LIBRARY_NAME} ${BornAgainCore_LIBRARY}) 
-target_link_libraries(${LIBRARY_NAME} ${ROOT_LIBRARIES}) 
+target_link_libraries(${library_name} ${BornAgainCore_LIBRARY}) 
+target_link_libraries(${library_name} ${ROOT_LIBRARIES}) 
+
+# exposing library name and list of include directories outside
+set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
+set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
+
+
 

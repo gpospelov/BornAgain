@@ -29,6 +29,13 @@ SOURCES += \
     #Factory/src/FitSuitePrintObserver.cpp \
     #Factory/src/FitSuiteDrawObserver.cpp \
     #Factory/src/FitSuiteWriteTreeObserver.cpp
+    Factory/src/GSLMinimizer.cxx \
+    Factory/src/GSLMinimizer1D.cxx \
+    Factory/src/MultiNumGradFunction.cxx \
+    Factory/src/GSLSimAnnealing.cxx \
+    Factory/src/GSLRndmEngines.cxx \
+    Factory/src/Derivator.cxx \
+    Factory/src/GSLDerivator.cxx
 
 HEADERS += \
     Factory/inc/MinimizerFactory.h \
@@ -41,6 +48,24 @@ HEADERS += \
     #Factory/inc/FitSuitePrintObserver.h \
     #Factory/inc/FitSuiteDrawObserver.h \
     #Factory/inc/FitSuiteWriteTreeObserver.h
+    Factory/inc/GSLMinimizer.h \
+    Factory/inc/GSLMinimizer1D.h \
+    Factory/inc/GSLSimAnnealing.h \
+    Factory/inc/GSLMultiFitFunctionWrapper.h \
+    Factory/inc/GSLMultiFitFunctionAdapter.h \
+    Factory/inc/GSLMultiFit.h \
+    Factory/inc/GSLMultiMinimizer.h \
+    Factory/inc/GSLMultiMinFunctionWrapper.h \
+    Factory/inc/GSLMultiMinFunctionAdapter.h \
+    Factory/inc/GSLFunctionWrapper.h \
+    Factory/inc/MultiNumGradFunction.h \
+    Factory/inc/GSLRngWrapper.h \
+    Factory/inc/GSLRndmEngines.h \
+    Factory/inc/MultiNumGradFunction.h \
+    Factory/inc/Derivator.h \
+    Factory/inc/GSLDerivator.h
+
+
 
 INCLUDEPATH += $$PWD/Factory/inc
 DEPENDPATH  += $$PWD/Factory/inc

@@ -39,60 +39,60 @@ Minimizers = [
 # run several minimization rounds using different minimizers
 # -----------------------------------------------------------------------------
 def runTest():
-  #print "**********************************************************************"
-  #print "*  Starting  TestFit01                                               *"
-  #print "**********************************************************************"
-  nTest=0
-  status = "OK"
-  for m in Minimizers:
-    minimizer_name = m[0]
-    minimizer_algorithm = m[1]
-    print "Minimizer {0:-2d}   {1:}({2:})".format(nTest, minimizer_name, minimizer_algorithm)
-    result_ok = run_fitting(minimizer_name, minimizer_algorithm)
-    nTest+=1
-    if not result_ok: status = "FAILED"
+    #print "**********************************************************************"
+    #print "*  Starting  TestFit01                                               *"
+    #print "**********************************************************************"
+    nTest=0
+    status = "OK"
+    for m in Minimizers:
+        minimizer_name = m[0]
+        minimizer_algorithm = m[1]
+        print "Minimizer {0:-2d}   {1:}({2:})".format(nTest, minimizer_name, minimizer_algorithm)
+        result_ok = run_fitting(minimizer_name, minimizer_algorithm)
+        nTest+=1
+        if not result_ok: status = "FAILED"
 
-  return "TestFit01", "Two parameters fit using variety of minimizers.", status
+    return "TestFit01", "Two parameters fit using variety of minimizers.", status
 
 
 # -----------------------------------------------------------------------------
 # run fitting specified minimizer
 # -----------------------------------------------------------------------------
 def run_fitting(minimizer_name, minimizer_algorithm):
-  sample = buildSample()
-  simulation = createSimulation()
-  simulation.setSample(sample)
+    sample = buildSample()
+    simulation = createSimulation()
+    simulation.setSample(sample)
 
-  # creating real data, which is simply results of our simulation with default values
-  simulation.runSimulation()
-  real_data = simulation.getOutputDataClone()
+    # creating real data, which is simply results of our simulation with default values
+    simulation.runSimulation()
+    real_data = simulation.getOutputDataClone()
 
-  # setting fit suite
-  fitSuite = FitSuite()
-  fitSuite.setMinimizer( MinimizerFactory.createMinimizer(minimizer_name, minimizer_algorithm) )
-  fitSuite.addFitParameter("*height", 4.*nanometer, 0.04*nanometer, AttLimits.lowerLimited(0.01) )
-  fitSuite.addFitParameter("*radius", 6.*nanometer, 0.06*nanometer, AttLimits.lowerLimited(0.01) )
-  fitSuite.addSimulationAndRealData(simulation, real_data)
+    # setting fit suite
+    fitSuite = FitSuite()
+    fitSuite.setMinimizer( MinimizerFactory.createMinimizer(minimizer_name, minimizer_algorithm) )
+    fitSuite.addFitParameter("*height", 4.*nanometer, 0.04*nanometer, AttLimits.lowerLimited(0.01) )
+    fitSuite.addFitParameter("*radius", 6.*nanometer, 0.06*nanometer, AttLimits.lowerLimited(0.01) )
+    fitSuite.addSimulationAndRealData(simulation, real_data)
 
-  # run fit
-  start_time = time.time()
-  fitSuite.runFit()
-  real_time = time.time() - start_time
+    # run fit
+    start_time = time.time()
+    fitSuite.runFit()
+    real_time = time.time() - start_time
 
-  height_found = fitSuite.getMinimizer().getValueOfVariableAtMinimum(0)
-  height_diff = abs(height_found - cylinder_height)/cylinder_height
-  radius_found = fitSuite.getMinimizer().getValueOfVariableAtMinimum(1)
-  radius_diff = abs(radius_found - cylinder_radius)/cylinder_radius
+    height_found = fitSuite.getMinimizer().getValueOfVariableAtMinimum(0)
+    height_diff = abs(height_found - cylinder_height)/cylinder_height
+    radius_found = fitSuite.getMinimizer().getValueOfVariableAtMinimum(1)
+    radius_diff = abs(radius_found - cylinder_radius)/cylinder_radius
 
-  print "            RealTime : {0:.3f} sec".format(real_time)
-  print "            NCalls   : {0:<5d}".format(fitSuite.getNCalls())
-  print '            par1     : {0:.4f} ({1:.3g}) '.format(height_found, height_diff)
-  print '            par2     : {0:.4f} ({1:.3g}) '.format(radius_found, radius_diff)
+    print "            RealTime : {0:.3f} sec".format(real_time)
+    print "            NCalls   : {0:<5d}".format(fitSuite.getNCalls())
+    print '            par1     : {0:.4f} ({1:.3g}) '.format(height_found, height_diff)
+    print '            par2     : {0:.4f} ({1:.3g}) '.format(radius_found, radius_diff)
 
-  diff = 1.0e-02
-  isSuccess = True
-  if( (height_diff > diff) or (radius_diff > diff) ) : isSuccess=False
-  return isSuccess
+    diff = 1.0e-02
+    isSuccess = True
+    if( (height_diff > diff) or (radius_diff > diff) ) : isSuccess=False
+    return isSuccess
 
 
 
@@ -130,7 +130,6 @@ def createSimulation():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = runTest()
-  print name,description,status
-
-
+    name,description,status = runTest()
+    print name,description,status
+    if("FAILED" in status) : exit(1)

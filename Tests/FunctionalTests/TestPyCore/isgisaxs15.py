@@ -105,7 +105,7 @@ def runTest():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-  name,description,status = runTest()
-  print name,description,status
-
+    name,description,status = runTest()
+    print name,description,status
+    if("FAILED" in status) : exit(1)
 

@@ -30,8 +30,10 @@ int MesoCrystal1::MesoCrystal1::run()
     simulation->setSampleBuilder( sample_builder );
 
     // loading reference data
+//    std::string filename = Utils::FileSystem::GetHomePath() +
+//        "/Tests/ReferenceData/BornAgain/mesocrystal1_reference.txt.gz";
     std::string filename = Utils::FileSystem::GetHomePath() +
-        "/Tests/ReferenceData/BornAgain/mesocrystal1_reference.txt.gz";
+        "/Tests/ReferenceData/BornAgain/mesocrystal1b_reference.txt.gz";
     OutputData<double > *reference_data = OutputDataIOFactory::getOutputData(filename);
 
     // setting detector axis as in reference data
@@ -41,6 +43,7 @@ int MesoCrystal1::MesoCrystal1::run()
     simulation->runSimulation();
     simulation->normalize();
     OutputData<double > *result = simulation->getOutputDataClone();
+//    OutputDataIOFactory::writeOutputData(*result, "reference.txt");
 
     // analysing results
     double diff = getDifference(result, reference_data);

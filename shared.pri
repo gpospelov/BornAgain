@@ -1,6 +1,6 @@
 # Common settings for all BornAgain compilations
 
-#CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
+CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
 
 win32 {
     MAKE_COMMAND = mingw32-make

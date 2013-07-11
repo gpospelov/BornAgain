@@ -26,7 +26,7 @@ file(GLOB source_files
 
 if(BORNAGAIN_PYTHON)
     file(GLOB pythonapi "PythonAPI/src/*.cpp" "PythonAPI/inc/__call_policies.pypp.hpp")
-    list(APPEND ${source_files} ${pythonapi})
+    list(APPEND source_files ${pythonapi})
     include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
     )
@@ -50,4 +50,5 @@ target_link_libraries(${library_name} ${PYTHON_LIBRARIES})
 # exposing library name and list of include directories outside
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
+
 

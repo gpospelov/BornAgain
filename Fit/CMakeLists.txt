@@ -17,11 +17,12 @@ file(GLOB source_files
 
 if(BORNAGAIN_PYTHON)
     file(GLOB pythonapi "PythonAPI/src/*.cpp")
-    list(APPEND ${source_files} ${pythonapi})
+    list(APPEND source_files ${pythonapi})
     include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
     )
 endif()
+
 
 # making library
 add_library(

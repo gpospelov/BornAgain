@@ -74,7 +74,7 @@ class MySampleBuilder(ISampleBuilder):
         p_interference_funtion = InterferenceFunctionNone()
         particle_decoration = ParticleDecoration()
 
-        n_max_phi_rotation_steps = 180
+        n_max_phi_rotation_steps = 2
         n_alpha_rotation_steps = 1
         alpha_step = 5.0*degree/n_alpha_rotation_steps
         alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step;
@@ -172,7 +172,7 @@ def runTest():
 def GetReferenceData():
     path = os.path.split(__file__)[0]
     if path: path +="/"
-    filename = path+'../../ReferenceData/BornAgain/mesocrystal1_reference.txt.gz'
+    filename = path+'../../ReferenceData/BornAgain/mesocrystal1b_reference.txt.gz'
     return OutputDataIOFactory.getOutputData(filename)
     return reference
 

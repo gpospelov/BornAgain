@@ -15,7 +15,7 @@ set(boost_libraries_required program_options iostreams system filesystem regex t
 if(BORNAGAIN_PYTHON)
     list(APPEND boost_libraries_required python)
 endif()
-find_package(Boost 1.46.0 COMPONENTS ${boost_libraries_required})
+find_package(Boost 1.48.0 COMPONENTS ${boost_libraries_required} REQUIRED)
 
 # --- GSL ---
 find_package(GSL)

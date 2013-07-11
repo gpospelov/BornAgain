@@ -59,10 +59,8 @@ find_package(GCCXML)
 #                                    LINKDEF linkdef1 ... 
 #                                    OPTIONS opt1...)
 function(ROOT_GENERATE_DICTIONARY dictionary)
-  message("AAAAAAAA 1.1")
   CMAKE_PARSE_ARGUMENTS(ARG "" "" "LINKDEF;OPTIONS" "" ${ARGN})
   #---Get the list of header files-------------------------
-  message("AAAAAAAA 1.2")
   set(headerfiles)
   foreach(fp ${ARG_UNPARSED_ARGUMENTS})
     file(GLOB files ${fp})
@@ -96,7 +94,6 @@ function(ROOT_GENERATE_DICTIONARY dictionary)
     endif()
   endforeach()
   #---call rootcint------------------------------------------
-  message("W ${ROOTCINT_EXECUTABLE} ${dictionary}.cxx ${linkdefs}")
   add_custom_command(OUTPUT ${dictionary}.cxx ${dictionary}.h
                      COMMAND ${ROOTCINT_EXECUTABLE} -cint -f  ${dictionary}.cxx 
                                           -c ${ARG_OPTIONS} ${includedirs} ${headerfiles} ${linkdefs} 

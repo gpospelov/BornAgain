@@ -1,5 +1,5 @@
 ############################################################################
-# CMakeLists.txt file for building BornAgain/App executalbe
+# CMakeLists.txt file for building BornAgain/App executable
 ############################################################################
 
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)

@@ -27,94 +27,34 @@ else()
 endif()
 
 
-#---------------------------------------------------------------------------------------------------
-# BORNAGAIN_USE_PACKAGE( package )
-#---------------------------------------------------------------------------------------------------
-# macro( BORNAGAIN_USE_PACKAGE package )
-#     if( EXISTS ${CMAKE_SOURCE_DIR}/${package}/CMakeLists.txt)
-#         set(_use_packages ${_use_packages} ${package}) 
-#         include_directories( ${CMAKE_SOURCE_DIR}/${package}/inc ) 
-#         set_property(GLOBAL APPEND PROPERTY ROOT_BUILDTREE_PACKAGES ${package})
-#         file(READ ${CMAKE_SOURCE_DIR}/${package}/CMakeLists.txt file_contents)
-#         string( REGEX MATCHALL "ROOT_USE_PACKAGE[ ]*[(][ ]*([^ )])+" vars ${file_contents})
-#         foreach( var ${vars})
-#             string(REGEX REPLACE "ROOT_USE_PACKAGE[ ]*[(][ ]*([^ )])" "\\1" p ${var})
-#             #---avoid calling the same one at the same directory level ---------------------------------
-#             list(FIND _use_packages ${p} _done)
-#             if(_done EQUAL -1)
-#                 ROOT_USE_PACKAGE(${p})
-#             endif()
-#         endforeach()
-#     else()
-#         #find_package(${package})
-#         #GET_PROPERTY(parent DIRECTORY PROPERTY PARENT_DIRECTORY)
-#         #if(parent)
-#             #set(${package}_environment  ${${package}_environment} PARENT_SCOPE)
-#         #else()
-#         #    set(${package}_environment  ${${package}_environment} )
-#         #endif()
-#         include_directories( ${${package}_INCLUDE_DIRS} ) 
-#         link_directories( ${${package}_LIBRARY_DIRS} ) 
-#     endif()
-# endmacro()
-# 
-# 
-# function(ROOT_GENERATE_DICTIONARY dictionary)
-#  message("QQQQ 1.1")
-#   PARSE_ARGUMENTS(ARG "LINKDEF;OPTIONS" "" ${ARGN})
-#   #---Get the list of header files-------------------------
-#   set(headerfiles)
-#   foreach(fp ${ARG_DEFAULT_ARGS})
-#     file(GLOB files inc/${fp})
-#     if(files)
-#       foreach(f ${files})
-#         if(NOT f MATCHES LinkDef)
-#           set(headerfiles ${headerfiles} ${f})
-#         endif()
-#       endforeach()
-#     else()
-#       set(headerfiles ${headerfiles} ${fp})
-#     endif()
-#   endforeach()
-#   string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/inc/" ""  rheaderfiles "${headerfiles}")
-#   #---Get the list of include directories------------------
-#   get_directory_property(incdirs INCLUDE_DIRECTORIES)
-#   if(CMAKE_PROJECT_NAME STREQUAL ROOT)
-#     set(includedirs -I${CMAKE_CURRENT_SOURCE_DIR}/inc 
-#                     -I${CMAKE_BINARY_DIR}/include
-#                     -I${CMAKE_SOURCE_DIR}/cint/cint/include 
-#                     -I${CMAKE_SOURCE_DIR}/cint/cint/stl 
-#                     -I${CMAKE_SOURCE_DIR}/cint/cint/lib)
-#   else()
-#     set(includedirs -I${CMAKE_CURRENT_SOURCE_DIR}/inc) 
-#   endif() 
-#   foreach( d ${incdirs})    
-#    set(includedirs ${includedirs} -I${d})
-#   endforeach()
-#   #---Get the list of definitions---------------------------
-#   get_directory_property(defs COMPILE_DEFINITIONS)
-#   foreach( d ${defs})
-#    if(NOT d MATCHES "=")   
-#      set(definitions ${definitions} -D${d})
-#    endif()
-#   endforeach()
-#   #---Get LinkDef.h file------------------------------------
-#   foreach( f ${ARG_LINKDEF})
-#     if( IS_ABSOLUTE ${f})
-#       set(_linkdef ${_linkdef} ${f})
-#     else() 
-#       if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/inc/${f})
-#         set(_linkdef ${_linkdef} ${CMAKE_CURRENT_SOURCE_DIR}/inc/${f})
-#       else()
-#         set(_linkdef ${_linkdef} ${CMAKE_CURRENT_SOURCE_DIR}/${f})
-#       endif()
-#     endif()
-#   endforeach()
-#   message("QQQQ 1.2 a) ${ARG_OPTIONS} b) ${ARG_LINKDEF} c) ${rootcint_cmd}")
-#   #---call rootcint------------------------------------------
-#   add_custom_command(OUTPUT ${dictionary}.cxx ${dictionary}.h
-#                      COMMAND ${rootcint_cmd} -cint -f  ${dictionary}.cxx 
-#                                           -c ${ARG_OPTIONS} ${definitions} ${includedirs} ${rheaderfiles} ${_linkdef} 
-#                      DEPENDS ${headerfiles} ${_linkdef} ${ROOTCINTDEP})
-# endfunction()
-# 
+
+# -----------------------------------------------------------------------------
+# add executable (ARG, options, one_value_keyword, multi_value_keywoard arguments (aka ${ARG_UNPARSED_ARGUMENTS})
+# -----------------------------------------------------------------------------
+function(BORNAGAIN_EXECUTABLE executable)
+    CMAKE_PARSE_ARGUMENTS(ARG "EXCLUDE_FROM_ALL" "" "LIBRARIES;LOCATIONS" "" ${ARGN})
+    # retrieving source list
+    file(GLOB source_files ${ARG_LOCATIONS}/*.cpp)
+
+    # making executable
+    if(${ARG_EXCLUDE_FROM_ALL}) 
+        add_executable(${executable} EXCLUDE_FROM_ALL ${source_files} )
+    else()
+        add_executable(${executable} ${ARG_UNPARSED_ARGUMENTS} )
+    endif()
+    # linking libraries from the list
+    foreach(_libname ${ARG_LIBRARIES})
+        include_directories(${${_libname}_INCLUDE_DIRS})
+        target_link_libraries(${executable} ${_libname}) 
+    endforeach()
+endfunction()
+
+
+# -----------------------------------------------------------------------------
+# add cmake test
+# -----------------------------------------------------------------------------
+function(BORNAGAIN_ADD_TEST test)
+    add_test( ${test} ${test} ) # TestName ExeName
+    add_dependencies(check ${test})
+endfunction()
+

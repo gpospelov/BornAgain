@@ -2,9 +2,7 @@
 # CMakeLists.txt file for building BornAgain framework
 ############################################################################
 
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
-
-enable_testing(true)
+enable_testing()
 
 add_executable( TestCore main.cpp )
 

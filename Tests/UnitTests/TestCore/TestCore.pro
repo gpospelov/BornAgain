@@ -29,12 +29,7 @@ HEADERS += \
     RealParameterWrapperTest.h \
     SimulationTest.h \
 
-OBJECTS_DIR = obj
-
-#CORE = $$PWD/../../../Core
-#CORE_HEADERS = $${CORE}/Algorithms/inc $${CORE}/FormFactors/inc $${CORE}/Geometry/inc $${CORE}/Samples/inc $${CORE}/Tools/inc $${CORE}/../ThirdParty/gtest/gtest-1.6.0/include
-#INCLUDEPATH += $${CORE_HEADERS}
-#DEPENDPATH += $${CORE_HEADERS} $PWD
+#OBJECTS_DIR = obj
 
 INCLUDEPATH += $${PWD}/../../../ThirdParty/gtest/gtest-1.6.0/include
 

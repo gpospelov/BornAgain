@@ -1,27 +1,18 @@
 ############################################################################
-# CMakeLists.txt file for building libBornAgainFit library
+# CMakeLists.txt file for building libRootMathMore library
 ############################################################################
-set(library_name BornAgainFit)
+set(library_name RootMathMore)
 
 # directories to include
-set(include_dirs 
-    ${CMAKE_CURRENT_SOURCE_DIR}/Factory/inc
+set(include_dirs
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc
 )
 include_directories(${include_dirs})
 
 # files to have in library
 file(GLOB source_files
-    "Factory/src/*.cpp"
-    "Factory/src/*.cxx"
+    "src/*.cxx"
 )
-
-if(BORNAGAIN_PYTHON)
-    file(GLOB pythonapi "PythonAPI/src/*.cpp")
-    list(APPEND ${source_files} ${pythonapi})
-    include_directories(
-        ${CMAKE_CURRENT_SOURCE_DIR}/PythonAPI/inc
-    )
-endif()
 
 # making library
 add_library(
@@ -33,14 +24,10 @@ set_Target_properties(${library_name} PROPERTIES PREFIX ${libprefix} SUFFIX ${li
 set(${library_name}_LIBRARY_TYPE SHARED)
 
 # dependencies
-include_directories(${BornAgainCore_INCLUDE_DIRS})
-target_link_libraries(${library_name} ${BornAgainCore_LIBRARY}) 
+target_link_libraries(${library_name} ${GSL_LIBRARIES}) 
 target_link_libraries(${library_name} ${ROOT_LIBRARIES}) 
-target_link_libraries(${library_name} ${RootMathMore_LIBRARY}) 
 
 # exposing library name and list of include directories outside
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
-
-
 

@@ -10,6 +10,6 @@ set(list_of_tests
 )
 
 foreach(_test ${list_of_tests})
-    BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY} ${BornAgainFit_LIBRARY})
+    BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY} ${BornAgainFit_LIBRARY} ${RootMathMore_LIBRARY})
     BORNAGAIN_ADD_TEST(${_test})
 endforeach()

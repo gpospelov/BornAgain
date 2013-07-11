@@ -17,6 +17,9 @@ file(GLOB source_files
     "${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS15/*.cpp"
 )
 
+# to get rid from files generated via qmake compilaiton
+list(REMOVE_ITEM source_files ${CMAKE_CURRENT_SOURCE_DIR}/src/AppDict.cpp)
+
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS06
@@ -39,9 +42,10 @@ add_executable(${executable_name} ${source_files} AppDict.cxx)
 include_directories(${BornAgainCore_INCLUDE_DIRS})
 target_link_libraries(${executable_name} ${BornAgainCore_LIBRARY}) 
 
-message("AAA ${BornAgainFit_INCLUDE_DIRS}")
 include_directories(${BornAgainFit_INCLUDE_DIRS})
 target_link_libraries(${executable_name} ${BornAgainFit_LIBRARY}) 
+target_link_libraries(${library_name} ${RootMathMore_LIBRARY}) 
+
 
 target_link_libraries(${executable_name} ${ROOT_LIBRARIES}) 
 

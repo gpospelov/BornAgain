@@ -10,7 +10,8 @@ DEPENDPATH  += $$PWD/../../../../Fit/Factory/inc
 
 include($$PWD/../../../../shared.pri)
 DEFINES += STANDALONE
-LIBS += $$PWD/../../../../lib/libBornAgainCore.so $$PWD/../../../../lib/libBornAgainFit.so
+LIBS += $$PWD/../../../../lib/libBornAgainCore.so $$PWD/../../../../lib/libBornAgainFit.so $$PWD/../../../../lib/libRootMathMore.$${SONAME}
+
 
 SOURCES += TestFit02.cpp \
     SampleBuilder.cpp

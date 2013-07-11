@@ -14,7 +14,7 @@ target_link_libraries(TestCore gtest)
 
 add_test( TestCore TestCore) # TestName ExeName
 
-# given command adds execution of TestCore just after compilation
+# add execution of TestCore just after compilation
 add_custom_command(TARGET TestCore POST_BUILD COMMAND TestCore)
 
 

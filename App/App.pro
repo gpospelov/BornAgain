@@ -162,7 +162,7 @@ DEPENDPATH  += $${LOCATIONS}
 # -----------------------------------------------------------------------------
 # additional libraries
 # -----------------------------------------------------------------------------
-LIBS += $$PWD/../lib/libBornAgainCore.so $$PWD/../lib/libBornAgainFit.so
+LIBS += $$PWD/../lib/libBornAgainCore.so $$PWD/../lib/libBornAgainFit.so $$PWD/../lib/libRootMathMore.so
 
 INCLUDEPATH += $$PWD/../Fit/Factory/inc
 DEPENDPATH  += $$PWD/../Fit/Factory/inc

@@ -1,5 +1,5 @@
 ############################################################################
-# CMakeLists.txt file for building BornAgain framework
+# CMakeLists.txt file for building and running unit tests
 ############################################################################
 
 enable_testing()
@@ -12,6 +12,10 @@ include_directories(${BornAgainCore_INCLUDE_DIRS})
 target_link_libraries(TestCore ${BornAgainCore_LIBRARY}) 
 target_link_libraries(TestCore gtest)
 
-add_test( TestCore TestCore ) # TestName ExeName
-#add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS TestCore)
+add_test( TestCore TestCore) # TestName ExeName
+
+# given command adds execution of TestCore just after compilation
+add_custom_command(TARGET TestCore POST_BUILD COMMAND TestCore)
+
+
 

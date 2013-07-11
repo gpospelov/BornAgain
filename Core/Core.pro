@@ -44,6 +44,7 @@ SOURCES += \
     Tools/src/ParameterPool.cpp \
     Tools/src/ProgramOptions.cpp \
     Tools/src/RealParameterWrapper.cpp \
+    Tools/src/SamplePrintVisitor.cpp \
     Tools/src/StochasticGaussian.cpp \
     Tools/src/StochasticSampledParameter.cpp \
     Tools/src/Types.cpp \
@@ -123,21 +124,8 @@ SOURCES += \
     Samples/src/ParticleInfo.cpp \
     Samples/src/PositionParticleInfo.cpp \
     \
-    Fitting/src/FitObject.cpp \
-    Fitting/src/FitParameter.cpp \
-    Fitting/src/FitParameterLinked.cpp \
-    Fitting/src/FitSuite.cpp \
-    Fitting/src/FitSuiteFunctions.cpp \
-    Fitting/src/FitSuiteObjects.cpp \
-    Fitting/src/FitSuiteParameters.cpp \
-    Fitting/src/FitSuitePrintObserver.cpp \
-    Fitting/src/FitSuiteStrategies.cpp \
-    Fitting/src/IFitSuiteStrategy.cpp \
-    Fitting/src/MinimizerScan.cpp \
-    Fitting/src/MinimizerTest.cpp \
     StandardSamples/SampleBuilderFactory.cpp \
     StandardSamples/IsGISAXS01Builder.cpp \
-    Tools/src/SamplePrintVisitor.cpp \
     StandardSamples/IsGISAXS04Builder.cpp \
     StandardSamples/IsGISAXS02Builder.cpp \
     StandardSamples/IsGISAXS03Builder.cpp \
@@ -188,6 +176,7 @@ HEADERS += \
     Tools/inc/ProgramOptions.h \
     Tools/inc/RealParameterWrapper.h \
     Tools/inc/SafePointerVector.h \
+    Tools/inc/SamplePrintVisitor.h \
     Tools/inc/StochasticDiracDelta.h \
     Tools/inc/StochasticDoubleGate.h \
     Tools/inc/StochasticGaussian.h \
@@ -196,6 +185,7 @@ HEADERS += \
     Tools/inc/Types.h \
     Tools/inc/Units.h \
     Tools/inc/Utils.h \
+    Tools/inc/WinDllMacros.h \
     \
     Algorithms/inc/Beam.h \
     Algorithms/inc/ChiSquaredFrequency.h \
@@ -306,26 +296,8 @@ HEADERS += \
     Samples/inc/PositionParticleInfo.h \
     Samples/inc/Samples.h \
     \
-    Fitting/inc/AttFitting.h \
-    Fitting/inc/AttLimits.h \
-    Fitting/inc/FitObject.h \
-    Fitting/inc/FitParameter.h \
-    Fitting/inc/FitParameterLinked.h \
-    Fitting/inc/FitSuite.h \
-    Fitting/inc/FitSuiteFunctions.h \
-    Fitting/inc/FitSuiteObjects.h \
-    Fitting/inc/FitSuiteParameters.h \
-    Fitting/inc/FitSuitePrintObserver.h \
-    Fitting/inc/FitSuiteStrategies.h \
-    Fitting/inc/IFitSuiteStrategy.h \
-    Fitting/inc/IMinimizer.h \
-    Fitting/inc/MinimizerScan.h \
-    Fitting/inc/MinimizerTest.h \
-    \
     StandardSamples/SampleBuilderFactory.h \
     StandardSamples/IsGISAXS01Builder.h \
-    Tools/inc/SamplePrintVisitor.h \
-    Tools/inc/WinDllMacros.h \
     StandardSamples/IsGISAXS04Builder.h \
     StandardSamples/IsGISAXS02Builder.h \
     StandardSamples/IsGISAXS03Builder.h \

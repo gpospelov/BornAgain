@@ -6,7 +6,6 @@ set(library_name BornAgainCore)
 # directories to include
 set(include_dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/Algorithms/inc
-    ${CMAKE_CURRENT_SOURCE_DIR}/Fitting/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/FormFactors/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/Geometry/inc
     ${CMAKE_CURRENT_SOURCE_DIR}/Samples/inc
@@ -18,7 +17,6 @@ include_directories(${include_dirs})
 # files to have in library
 file(GLOB source_files
     "Algorithms/src/*.cpp"
-    "Fitting/src/*.cpp"
     "FormFactors/src/*.cpp"
     "Geometry/src/*.cpp"
     "Samples/src/*.cpp"

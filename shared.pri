@@ -146,7 +146,6 @@ CONFIG(BORNAGAIN_JCNS) {
 # general include paths
 # -----------------------------------------------------------------------------
 LOCATIONS = $$PWD/Core/Algorithms/inc \
-            $$PWD/Core/Fitting/inc  \
             $$PWD/Core/FormFactors/inc  \
             $$PWD/Core/Geometry/inc  \
             $$PWD/Core/Samples/inc  \

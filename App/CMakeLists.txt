@@ -17,7 +17,7 @@ file(GLOB source_files
     "${CMAKE_CURRENT_SOURCE_DIR}/../Tests/FunctionalTests/TestCore/IsGISAXS15/*.cpp"
 )
 
-# to get rid from files generated via qmake compilaiton
+# to get rid from files generated via qmake compilation
 list(REMOVE_ITEM source_files ${CMAKE_CURRENT_SOURCE_DIR}/src/AppDict.cpp)
 
 include_directories(

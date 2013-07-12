@@ -31,3 +31,5 @@ target_link_libraries(${library_name} ${ROOT_LIBRARIES})
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
+# installation
+install (TARGETS ${library_name} DESTINATION lib)

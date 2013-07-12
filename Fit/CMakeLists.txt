@@ -43,5 +43,14 @@ target_link_libraries(${library_name} ${RootMathMore_LIBRARY})
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
+# -----------------------------------------------
+# installation
+# -----------------------------------------------
+install (TARGETS ${library_name} DESTINATION lib)
 
+# list of headers to install
+file(GLOB include_files
+    "Factory/inc/*.h"
+)
+install (FILES ${include_files} DESTINATION include)
 

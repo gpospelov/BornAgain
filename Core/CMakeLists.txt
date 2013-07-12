@@ -51,4 +51,21 @@ target_link_libraries(${library_name} ${PYTHON_LIBRARIES})
 set(${library_name}_INCLUDE_DIRS ${include_dirs} PARENT_SCOPE)
 set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
+# -----------------------------------------------
+# installation
+# -----------------------------------------------
+install (TARGETS ${library_name} DESTINATION lib)
+install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples FILES_MATCHING PATTERN "*.py")
+install (DIRECTORY ${CMAKE_SOURCE_DIR}/Examples/ DESTINATION Examples FILES_MATCHING PATTERN "README")
+
+# list of headers to install
+file(GLOB include_files
+    "Algorithms/inc/*.h"
+    "FormFactors/inc/*.h"
+    "Geometry/inc/*.h"
+    "Samples/inc/*.h"
+    "Tools/inc/*.h"
+)
+install (FILES ${include_files} DESTINATION include)
+
 

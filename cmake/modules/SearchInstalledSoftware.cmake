@@ -3,13 +3,13 @@
 find_package(Eigen3 3.1.0)
 if(NOT EIGEN3_FOUND) 
     set(EIGEN3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/ThirdParty/eigen3)
-    message("-- Build in version of Eigen3 will be used")
+    message(STATUS "Build in version of Eigen3 will be used")
 endif()
 include_directories(${EIGEN3_INCLUDE_DIR})
 
 # --- FFTW3 ---
 find_package(FFTW)
-include_directories(${FFTW_INCLUDE_DIR})
+include_directories(${FFTW_INCLUDE_DIR} REQUIRED)
 
 # --- Boost ---
 set(Boost_USE_STATIC_LIBS OFF)
@@ -30,7 +30,6 @@ if(NOT BUILTIN_GSL)
         message(STATUS "No GSL has been found. Install it, or run cmake -DBUILTIN_GSL=ON to use build in GSL installation.")
     endif()
 endif()
-
 if(BUILTIN_GSL)
     set(gsl_version 1.9)
     include(ExternalProject)

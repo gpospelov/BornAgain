@@ -15,6 +15,7 @@
 
 
 #include "SpecularMatrix.h"
+#include "Numeric.h"
 
 void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
         MultiLayerCoeff_t& coeff)
@@ -28,16 +29,17 @@ void SpecularMatrix::execute(const MultiLayer& sample, const kvector_t& k,
 
     // check if there is a roughness and if so, calculate the effective
     // matrix to insert at this interface (else unit matrix)
+    static const double picoeff = std::pow(M_PI/2., 1.5);
     for (size_t i=0; i<sample.getNumberOfInterfaces(); ++i) {
-        const LayerInterface *interface = sample.getLayerInterface(i);
-        if(interface->getRoughness() ) {
-            complex_t a = calculateRoughnessParameter(
-                    *interface, k, false);
-            complex_t b = calculateRoughnessParameter(
-                    *interface, k, true);
+        double sigma = 0.0;
+        if (sample.getLayerInterface(i)->getRoughness()) {
+            sigma = sample.getLayerBottomInterface(i)->getRoughness()->getSigma();
+        }
+        if(sigma > 0.0) {
+            double sig_eff = picoeff*sigma*k.mag();
             complex_t lambda_lower = coeff[i+1].lambda;
             complex_t lambda_upper = coeff[i].lambda;
-            m_roughness_pmatrices[i] = calculatePMatrix(a, b,
+            m_roughness_pmatrices[i] = calculatePMatrix(sig_eff,
                     lambda_lower, lambda_upper);
         }
         else {
@@ -94,40 +96,33 @@ void SpecularMatrix::calculateTransferAndBoundary(const MultiLayer& sample,
     }
 }
 
-complex_t SpecularMatrix::calculateRoughnessParameter(const LayerInterface &interface,
-        const kvector_t& k, bool invert_term) const
-{
-    double k0 = k.mag();
-    complex_t n_lower = interface.getLayerBottom()->getRefractiveIndex();
-    complex_t n_upper = interface.getLayerTop()->getRefractiveIndex();
-    double sig = interface.getRoughness()->getSigma()*std::sqrt(M_PI/2.0);
-    double sign = invert_term ? -1.0 : 1.0;
-    // when n is interpolated tanh-wise
-//    return k0*(n_upper-n_lower)*sig*(
-//            n_lower-n_upper + sign*(n_lower+n_upper)*std::log(4.0) );
-    // when n^2 is interpolated tanh-wise
-    return sign*k0*(n_upper*n_upper-n_lower*n_lower)*sig*std::log(2.0)/2.0;
-}
-
-Eigen::Matrix2cd SpecularMatrix::calculatePMatrix(complex_t a, complex_t b,
+Eigen::Matrix2cd SpecularMatrix::calculatePMatrix(double sigma_eff,
         complex_t lambda_lower, complex_t lambda_upper) const
 {
-    std::cout << "a: " << a << " b: " << b << " ll: "
-            << lambda_lower << " lu: " << lambda_upper << std::endl;
-    complex_t i(0.0, 1.0);
-    Eigen::Matrix2cd p_lower;
-    p_lower(0,0) = std::cos(a/lambda_lower/2.0);
-    p_lower(0,1) = i*lambda_lower*std::sin(a/lambda_lower/2.0);
-    p_lower(1,0) = i*std::sin(a/lambda_lower/2.0)/lambda_lower;
-    p_lower(1,1) = std::cos(a/lambda_lower/2.0);
+    // first check for equal lambdas
+    if (lambda_lower == lambda_upper) {
+        return getUnitMatrix();
+    }
+    complex_t l_low = sigma_eff*lambda_lower;
+    complex_t l_upp = sigma_eff*lambda_upper;
+    complex_t p00(1.0, 0.0); // initialize for unit matrix
+    if (std::abs(lambda_lower)<Numeric::double_epsilon) {
+        p00 = getLimitPMatrixElement(l_upp);
+    }
+    else if (std::abs(lambda_upper)<Numeric::double_epsilon) {
+        p00 = 1.0/getLimitPMatrixElement(l_low);
+    }
+    else {
+        p00 = getLimitPMatrixElement(l_upp)
+                / getLimitPMatrixElement(l_low);
+    }
+    Eigen::Matrix2cd p;
+    p(0,0) = p00;
+    p(0,1) = 0.0;
+    p(1,0) = 0.0;
+    p(1,1) = 1.0/p00;
 
-    Eigen::Matrix2cd p_upper;
-    p_upper(0,0) = std::cos(b/lambda_upper/2.0);
-    p_upper(0,1) = i*lambda_upper*std::sin(b/lambda_upper/2.0);
-    p_upper(1,0) = i*std::sin(b/lambda_upper/2.0)/lambda_upper;
-    p_upper(1,1) = std::cos(b/lambda_upper/2.0);
-
-    return p_upper*p_lower;
+    return p;
 }
 
 Eigen::Matrix2cd SpecularMatrix::getUnitMatrix() const
@@ -138,4 +133,9 @@ Eigen::Matrix2cd SpecularMatrix::getUnitMatrix() const
     unit(1,0) = 0.0;
     unit(1,1) = 1.0;
     return unit;
+}
+
+complex_t SpecularMatrix::getLimitPMatrixElement(complex_t sigma_lambda) const
+{
+    return std::sqrt(sigma_lambda/std::tanh(sigma_lambda));
 }

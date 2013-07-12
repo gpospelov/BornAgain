@@ -17,6 +17,8 @@
 
 #include "SampleFactory.h"
 #include "Units.h"
+#include "FitParameterLinked.h"
+
 #include "TCanvas.h"
 #include "TGraph.h"
 #include "DrawHelper.h"
@@ -37,6 +39,9 @@ void TestSpecularMatrix::execute()
 
     // calculate amplitudes for several standard multi-layer samples
     test_standard_samples();
+
+    // calculate Fresnel coefficients for multi-layer with different roughnesses
+    test_roughness_set();
 }
 
 void TestSpecularMatrix::test_standard_samples()
@@ -185,6 +190,147 @@ void TestSpecularMatrix::draw_standard_samples()
     leg->SetFillStyle(0);
     leg->AddEntry(gr, "|R_top|+|T_bottom|","pl");
     leg->Draw();
+
+    // drawing sample geometry
+    c1->cd((int)nlayers+1);
+    DrawHelper::DrawMultilayer(mp_sample);
+}
+
+void TestSpecularMatrix::test_roughness_set()
+{
+    mp_sample = dynamic_cast<MultiLayer *>(SampleFactory::createSample("MultilayerOffspecTestcase1a"));
+
+    std::cout << *mp_sample << std::endl;
+    std::cout << "-----" << std::endl;
+    ParameterPool *newpool = mp_sample->createParameterTree();
+    std::cout << *newpool << std::endl;
+
+    FitParameterLinked multipar;
+
+    multipar.addMatchedParametersFromPool(newpool, "/*/*/*/sigma");
+    std::cout << "multipar: " << multipar << std::endl;
+
+    std::cout << *mp_sample << std::endl;
+
+    mp_coeffs = new OutputData<SpecularMatrix::MultiLayerCoeff_t >;
+    mp_coeffs->addAxis(std::string("alpha_i"), 1000, 0.0*Units::degree, 2.0*Units::degree);
+    mp_coeffs->addAxis(std::string("roughness"), 6, 0.0, 12.0*Units::nanometer);
+    OutputData<SpecularMatrix::MultiLayerCoeff_t >::iterator it = mp_coeffs->begin();
+    while (it != mp_coeffs->end()) {
+        double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
+        double roughness = mp_coeffs->getValueOfAxis("roughness", it.getIndex());
+        multipar.setValue(roughness);
+
+        kvector_t kvec;
+        kvec.setLambdaAlphaPhi(1.54*Units::angstrom, -alpha_i, 0.0);
+        SpecularMatrix::MultiLayerCoeff_t coeffs;
+        SpecularMatrix MatrixCalculator;
+        MatrixCalculator.execute(*mp_sample, kvec, coeffs);
+        *it = coeffs;
+        ++it;
+    }
+
+    draw_roughness_set();}
+
+void TestSpecularMatrix::draw_roughness_set()
+{
+    static int ncall = 0;
+
+    size_t nlayers = mp_sample->getNumberOfLayers();
+
+    // graphics for R,T coefficients in layers as a function of alpha_i
+    size_t ncoeffs = 2;
+    enum key_coeffs { kCoeffR, kCoeffT};
+
+    const IAxis *p_rough = mp_coeffs->getAxis("roughness");
+    size_t nroughness = p_rough->getSize();
+
+
+    std::vector<std::vector<std::vector<TGraph *> > > gr_coeff; // [nlayers][ncoeffs][nroughness]
+    gr_coeff.resize(nlayers);
+    for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
+        gr_coeff[i_layer].resize(ncoeffs);
+        for(size_t i_coeff=0; i_coeff<ncoeffs; i_coeff++) {
+            gr_coeff[i_layer][i_coeff].resize(nroughness,0);
+            for(size_t i_rough =0; i_rough<nroughness; i_rough++){
+                gr_coeff[i_layer][i_coeff][i_rough] = new TGraph();
+            }
+        }
+    }
+
+    OutputData<SpecularMatrix::MultiLayerCoeff_t >::const_iterator it = mp_coeffs->begin();
+    while (it != mp_coeffs->end()) {
+        double alpha_i = mp_coeffs->getValueOfAxis("alpha_i", it.getIndex());
+        size_t i_alpha = mp_coeffs->getIndexOfAxis("alpha_i", it.getIndex());
+        size_t i_rough = mp_coeffs->getIndexOfAxis("roughness", it.getIndex());
+
+        SpecularMatrix::MultiLayerCoeff_t coeffs = *it;
+
+        // Filling graphics for R,T as a function of alpha_i
+        for(size_t i_layer=0; i_layer<nlayers; ++i_layer ) {
+            gr_coeff[i_layer][kCoeffR][i_rough]->SetPoint((int)i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].R()) );
+            gr_coeff[i_layer][kCoeffT][i_rough]->SetPoint((int)i_alpha, Units::rad2deg(alpha_i), std::abs(coeffs[i_layer].T()) );
+        }
+        ++it;
+    }
+
+    // create name of canvas different for each new call of this method
+    std::ostringstream os;
+    os << (ncall++) << std::endl;
+    std::string cname = std::string("c1_test_Fresnel_roughness")+os.str();
+    TCanvas *c1 = new TCanvas(cname.c_str(),"Fresnel Coefficients in Multilayer",1024,768);
+    DrawHelper::SetMagnifier(c1);
+
+    // estimate subdivision of canvas (we need place for 'nlayers' and for one sample picture)
+    int ndiv(2);
+    if( nlayers+1 > 4 ) ndiv = int(sqrt(nlayers+1)+1);
+    c1->Divide(ndiv,ndiv);
+
+    int i_coeff_sel = kCoeffR;
+    for(size_t i_layer=0; i_layer<nlayers; i_layer++) {
+        c1->cd((int)i_layer+1);
+        gPad->SetLogy();
+
+        // calculating histogram limits common for all graphs on given pad
+        double xmin(0), ymin(0), xmax(0), ymax(0);
+        for(size_t i_rough=0; i_rough<nroughness; i_rough++){
+            double x1(0), y1(0), x2(0), y2(0);
+            gr_coeff[i_layer][i_coeff_sel][i_rough]->ComputeRange(x1, y1, x2, y2);
+            if(x1 < xmin ) xmin= x1;
+            if(x2 > xmax ) xmax = x2;
+            if(y1 < ymin ) ymin = y1;
+            if(y2 > ymax ) ymax = y2;
+        }
+        TH1F h1ref("h1ref","h1ref",100, xmin, xmax);
+        h1ref.SetMinimum(1e-6);
+        h1ref.SetMaximum(10);
+        h1ref.SetStats(0);
+        h1ref.SetTitle("");
+        h1ref.GetXaxis()->SetTitle("angle, deg");
+        h1ref.GetYaxis()->SetTitle("|R|, |T|");
+        h1ref.DrawCopy();
+
+        TLegend *leg = new TLegend(0.18,0.20,0.28,0.69);
+        leg->SetTextSize(0.04);
+        leg->SetBorderSize(1);
+        leg->SetFillStyle(0);
+        std::ostringstream os;
+        os << " layer #" << i_layer;
+        leg->SetHeader(os.str().c_str());
+
+        for(size_t i_rough=0; i_rough<nroughness; i_rough++) {
+            TGraph *gr = gr_coeff[i_layer][i_coeff_sel][i_rough];
+            gr->SetLineColor( i_rough+1 );
+            gr->SetMarkerColor(  i_rough+1 );
+            gr->SetMarkerStyle(21);
+            gr->SetMarkerSize(0.2);
+            gr->Draw("pl same");
+            std::ostringstream os;
+            os << "rgh " << i_rough;
+            leg->AddEntry(gr, os.str().c_str(),"pl");
+        }
+        leg->Draw();
+    }
 
     // drawing sample geometry
     c1->cd((int)nlayers+1);

@@ -71,11 +71,10 @@ private:
            MultiLayerCoeff_t& coeff) const;
    void calculateTransferAndBoundary(const MultiLayer& sample,
            const kvector_t& k, MultiLayerCoeff_t& coeff) const;
-   complex_t calculateRoughnessParameter(const LayerInterface &interface,
-           const kvector_t& k, bool invert_term) const;
-   Eigen::Matrix2cd calculatePMatrix(complex_t a, complex_t b,
+   Eigen::Matrix2cd calculatePMatrix(double sigma_eff,
            complex_t lambda_lower, complex_t lambda_upper) const;
    Eigen::Matrix2cd getUnitMatrix() const;
+   complex_t getLimitPMatrixElement(complex_t sigma_lambda) const;
 };
 
 #endif /* SPECULARMATRIX_H_ */

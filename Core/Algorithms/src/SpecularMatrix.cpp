@@ -105,17 +105,8 @@ Eigen::Matrix2cd SpecularMatrix::calculatePMatrix(double sigma_eff,
     }
     complex_t l_low = sigma_eff*lambda_lower;
     complex_t l_upp = sigma_eff*lambda_upper;
-    complex_t p00(1.0, 0.0); // initialize for unit matrix
-    if (std::abs(lambda_lower)<Numeric::double_epsilon) {
-        p00 = getLimitPMatrixElement(l_upp);
-    }
-    else if (std::abs(lambda_upper)<Numeric::double_epsilon) {
-        p00 = 1.0/getLimitPMatrixElement(l_low);
-    }
-    else {
-        p00 = getLimitPMatrixElement(l_upp)
-                / getLimitPMatrixElement(l_low);
-    }
+    complex_t p00; // initialize for unit matrix
+    p00 = getPMatrixElement(l_low)/ getPMatrixElement(l_upp);
     Eigen::Matrix2cd p;
     p(0,0) = p00;
     p(0,1) = 0.0;
@@ -135,7 +126,10 @@ Eigen::Matrix2cd SpecularMatrix::getUnitMatrix() const
     return unit;
 }
 
-complex_t SpecularMatrix::getLimitPMatrixElement(complex_t sigma_lambda) const
+complex_t SpecularMatrix::getPMatrixElement(complex_t sigma_lambda) const
 {
-    return std::sqrt(sigma_lambda/std::tanh(sigma_lambda));
+    if (std::abs(sigma_lambda)<Numeric::double_epsilon) {
+        return 1.0;
+    }
+    return std::sqrt(std::tanh(sigma_lambda)/sigma_lambda);
 }

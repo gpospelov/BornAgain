@@ -74,7 +74,7 @@ private:
    Eigen::Matrix2cd calculatePMatrix(double sigma_eff,
            complex_t lambda_lower, complex_t lambda_upper) const;
    Eigen::Matrix2cd getUnitMatrix() const;
-   complex_t getLimitPMatrixElement(complex_t sigma_lambda) const;
+   complex_t getPMatrixElement(complex_t sigma_lambda) const;
 };
 
 #endif /* SPECULARMATRIX_H_ */

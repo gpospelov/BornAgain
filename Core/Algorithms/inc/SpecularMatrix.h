@@ -28,7 +28,7 @@
 class SpecularMatrix : public ISimulation
 {
 public:
-    SpecularMatrix() : m_use_roughness(false) { (void)m_use_roughness; }
+    SpecularMatrix() {}
 
    //! layer coefficients for matrix formalism
    class LayerMatrixCoeff {
@@ -65,10 +65,16 @@ public:
    void execute(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff);
 
 private:
-   bool m_use_roughness;
+   std::vector<Eigen::Matrix2cd> m_roughness_pmatrices;
 
-   void calculateEigenvalues(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff) const;
-   void calculateTransferAndBoundary(const MultiLayer& sample, const kvector_t& k, MultiLayerCoeff_t& coeff) const;
+   void calculateEigenvalues(const MultiLayer& sample, const kvector_t& k,
+           MultiLayerCoeff_t& coeff) const;
+   void calculateTransferAndBoundary(const MultiLayer& sample,
+           const kvector_t& k, MultiLayerCoeff_t& coeff) const;
+   Eigen::Matrix2cd calculatePMatrix(double sigma_eff,
+           complex_t lambda_lower, complex_t lambda_upper) const;
+   Eigen::Matrix2cd getUnitMatrix() const;
+   complex_t getPMatrixElement(complex_t sigma_lambda) const;
 };
 
 #endif /* SPECULARMATRIX_H_ */

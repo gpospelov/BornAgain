@@ -1,6 +1,10 @@
 
 # --- Eigen3 ---
-find_package(Eigen3)
+find_package(Eigen3 3.1.0)
+if(NOT EIGEN3_FOUND) 
+    set(EIGEN3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/ThirdParty/eigen3)
+    message("-- Build in version of Eigen3 will be used")
+endif()
 include_directories(${EIGEN3_INCLUDE_DIR})
 
 # --- FFTW3 ---

@@ -1,6 +1,6 @@
 # Common settings for all BornAgain compilations
 
-CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
+#CONFIG  += BORNAGAIN_PYTHON # provide python bindings compilation
 
 win32 {
     MAKE_COMMAND = mingw32-make
@@ -61,7 +61,10 @@ win32 {
   EIGEN_HEADER_LOCATIONS = "C:/Program Files (x86)/Libraries/eigen-3.1.3"
 }
 for(dir, EIGEN_HEADER_LOCATIONS): isEmpty(EIGEN_INCLUDE): exists($${dir}/$${EIGEN_HEADERFILE}): EIGEN_INCLUDE = $${dir}
-isEmpty(EIGEN_INCLUDE): message("Can't find" $${EIGEN_HEADERFILE} "in" $${EIGEN_HEADER_LOCATIONS})
+isEmpty(EIGEN_INCLUDE) {
+    message("Can't find" $${EIGEN_HEADERFILE} "in" $${EIGEN_HEADER_LOCATIONS} " Using build in eigen3")
+    EIGEN_INCLUDE = $$PWD/ThirdParty/eigen3
+}
 INCLUDEPATH *=  $${EIGEN_INCLUDE}
 
 # --- checking fftw3 ---

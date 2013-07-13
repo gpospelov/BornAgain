@@ -38,9 +38,9 @@ class TestSpecularMatrix : public IFunctionalTest
     void draw_standard_samples();
 
     //! Returns amplitudes vs. alpha_i for set of roughnesses
-//    void test_roughness_set();
+    void test_roughness_set();
     //! draw result of the test
-//    void draw_roughness_set();
+    void draw_roughness_set();
 
     MultiLayer *mp_sample; //!< pointer to multilayer sample
     OutputData<SpecularMatrix::MultiLayerCoeff_t  > *mp_coeffs; //!< output data structure

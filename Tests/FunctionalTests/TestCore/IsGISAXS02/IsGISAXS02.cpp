@@ -33,12 +33,12 @@ void FunctionalTests::IsGISAXS02::run()
 }
 
 
-int FunctionalTests::IsGISAXS02::analyseResults()
+int FunctionalTests::IsGISAXS02::analyseResults(const std::string &path_to_data)
 {
     const double threshold(1e-10);
 
     // retrieving reference data
-    std::string filename = Utils::FileSystem::GetHomePath() + "/Tests/ReferenceData/BornAgain/isgisaxs02_reference.ima.gz";
+    std::string filename = path_to_data + "isgisaxs02_reference.ima.gz";
     OutputData<double > *reference = OutputDataIOFactory::getOutputData(filename);
 
     // calculating average relative difference
@@ -62,11 +62,17 @@ int FunctionalTests::IsGISAXS02::analyseResults()
 
 
 #ifdef STANDALONE
-int main()
+std::string GetPathToData(int argc, char **argv)
+{
+    if(argc == 2) return argv[1];
+    return Utils::FileSystem::GetPathToExecutable(argv[0]) + "../../../ReferenceData/BornAgain/";
+}
+
+int main(int argc, char **argv)
 {
     FunctionalTests::IsGISAXS02 test;
     test.run();
 
-    return test.analyseResults();
+    return test.analyseResults(GetPathToData(argc, argv));
 }
 #endif

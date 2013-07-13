@@ -11,7 +11,6 @@
 FunctionalTests::IsGISAXS03::IsGISAXS03()
     : m_name("IsGISAXS03")
     , m_description("Cylinder formfactor in BA and DWBA")
-    , m_path(Utils::FileSystem::GetHomePath()+std::string("Tests/ReferenceData/BornAgain/"))
 {
     m_results.resize(kNumberOfTests, 0);
 }
@@ -85,7 +84,7 @@ void FunctionalTests::IsGISAXS03::runBA_Size()
 }
 
 
-int FunctionalTests::IsGISAXS03::analyseResults()
+int FunctionalTests::IsGISAXS03::analyseResults(const std::string &path_to_data)
 {
     const double threshold(1e-10);
     const char *reference_files[kNumberOfTests] = {"isgisaxs03_reference_DWBA.ima.gz", "isgisaxs03_reference_BA.ima.gz", "isgisaxs03_reference_BA_size.ima.gz"};
@@ -93,7 +92,7 @@ int FunctionalTests::IsGISAXS03::analyseResults()
 
     // retrieving reference data and generated examples
     for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
-        OutputData<double> *reference = OutputDataIOFactory::getOutputData(m_path + reference_files[i_test]);
+        OutputData<double> *reference = OutputDataIOFactory::getOutputData(path_to_data + reference_files[i_test]);
         OutputData<double> *result = m_results[i_test];
 
         // calculating average relative difference
@@ -116,13 +115,19 @@ int FunctionalTests::IsGISAXS03::analyseResults()
 
 
 #ifdef STANDALONE
-int main()
+std::string GetPathToData(int argc, char **argv)
+{
+    if(argc == 2) return argv[1];
+    return Utils::FileSystem::GetPathToExecutable(argv[0]) + "../../../ReferenceData/BornAgain/";
+}
+
+int main(int argc, char **argv)
 {
     FunctionalTests::IsGISAXS03 test;
     test.runDWBA();
     test.runBA();
     test.runBA_Size();
-    return test.analyseResults();
+    return test.analyseResults(GetPathToData(argc, argv));
 }
 #endif
 

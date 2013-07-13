@@ -7,7 +7,6 @@ enable_testing()
 add_executable( TestCore main.cpp )
 
 # dependencies
-message("XXX ${gtest_SOURCE_DIR}")
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 include_directories(${BornAgainCore_INCLUDE_DIRS})
 target_link_libraries(TestCore ${BornAgainCore_LIBRARY}) 

@@ -38,14 +38,12 @@ void FunctionalTests::IsGISAXS01::run()
 }
 
 
-int FunctionalTests::IsGISAXS01::analyseResults()
+int FunctionalTests::IsGISAXS01::analyseResults(const std::string &path_to_data)
 {
     const double threshold(1e-10);
 
     // Retrieve reference data.
-    std::string filename =
-        Utils::FileSystem::GetHomePath() +
-        "/Tests/ReferenceData/BornAgain/isgisaxs01_reference.ima.gz";
+    std::string filename = path_to_data + "isgisaxs01_reference.ima.gz";
     OutputData<double > *reference =
         OutputDataIOFactory::getOutputData(filename);
 
@@ -74,12 +72,16 @@ int FunctionalTests::IsGISAXS01::analyseResults()
 
 
 #ifdef STANDALONE
-int main()
+std::string GetPathToData(int argc, char **argv)
 {
-    //MSG::SetLevel(MSG::INFO);
+    if(argc == 2) return argv[1];
+    return Utils::FileSystem::GetPathToExecutable(argv[0]) + "../../../ReferenceData/BornAgain/";
+}
+
+int main(int argc, char **argv)
+{
     FunctionalTests::IsGISAXS01 test;
     test.run();
-
-    return test.analyseResults();
+    return test.analyseResults(GetPathToData(argc,argv));
 }
 #endif

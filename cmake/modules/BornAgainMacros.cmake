@@ -54,7 +54,8 @@ endfunction()
 # add cmake test
 # -----------------------------------------------------------------------------
 function(BORNAGAIN_ADD_TEST test)
-    add_test( ${test} ${test} ) # TestName ExeName
+    CMAKE_PARSE_ARGUMENTS(ARG "" "INPUT_DIR" "" "" ${ARGN})
+    add_test( ${test} ${test} "${ARG_INPUT_DIR}") # TestName ExeName
     add_dependencies(check ${test})
 endfunction()
 

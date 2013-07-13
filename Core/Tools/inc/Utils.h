@@ -104,6 +104,10 @@ class BA_CORE_API_ FileSystem
 
     //! Returns file extension after stripping '.gz' if any
     static std::string GetFileMainExtension(const std::string& name);
+
+    //! returns path to executable
+    static std::string GetPathToExecutable(const std::string& argv0);
+
  private:
     static std::string m_relative_path; //!< it's value of argv[0], i.e. the path from working directory to executable module
 };

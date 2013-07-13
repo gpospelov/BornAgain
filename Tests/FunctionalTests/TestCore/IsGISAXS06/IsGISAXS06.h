@@ -22,7 +22,7 @@ class IsGISAXS06
     ~IsGISAXS06();
 
     void runlattice(), runcentered(), runrotated(), runvariants();
-    int analyseResults();
+    int analyseResults(const std::string &path_to_data = std::string());
 
     const OutputData<double> *getOutputData(size_t ntest=0) { return m_results.at(ntest); }
 

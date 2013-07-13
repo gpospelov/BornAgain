@@ -21,8 +21,6 @@
 FunctionalTests::IsGISAXS06::IsGISAXS06()
     : m_name("IsGISAXS06")
     , m_description("2D lattice with different disorder")
-    , m_path(Utils::FileSystem::GetHomePath() +
-             "Tests/ReferenceData/BornAgain/")
 {
     m_results.resize(kNumberOfTests, 0);
 
@@ -120,7 +118,7 @@ void FunctionalTests::IsGISAXS06::runvariants()
 }
 
 
-int FunctionalTests::IsGISAXS06::analyseResults()
+int FunctionalTests::IsGISAXS06::analyseResults(const std::string &path_to_executable)
 {
     const double threshold(1e-10);
     const char *reference_files[kNumberOfTests] = {
@@ -134,7 +132,7 @@ int FunctionalTests::IsGISAXS06::analyseResults()
     // retrieving reference data and generated examples
     for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
         OutputData<double> *reference =
-            OutputDataIOFactory::getOutputData(m_path + reference_files[i_test]);
+            OutputDataIOFactory::getOutputData(path_to_executable + reference_files[i_test]);
         OutputData<double> *result = m_results[i_test];
 
         // calculating average relative difference
@@ -158,7 +156,13 @@ int FunctionalTests::IsGISAXS06::analyseResults()
 
 
 #ifdef STANDALONE
-int main()
+std::string GetPathToData(int argc, char **argv)
+{
+    if(argc == 2) return argv[1];
+    return Utils::FileSystem::GetPathToExecutable(argv[0]) + "../../../ReferenceData/BornAgain/";
+}
+
+int main(int argc, char **argv)
 {
     FunctionalTests::IsGISAXS06 test;
     test.runlattice();
@@ -166,7 +170,7 @@ int main()
     test.runrotated();
     test.runvariants();
 
-    return test.analyseResults();
+    return test.analyseResults(GetPathToData(argc, argv));
 }
 #endif
 

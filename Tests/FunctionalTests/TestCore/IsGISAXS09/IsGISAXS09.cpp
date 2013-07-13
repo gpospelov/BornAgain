@@ -11,8 +11,6 @@
 FunctionalTests::IsGISAXS09::IsGISAXS09()
     : m_name("IsGISAXS09")
     , m_description("Pyramids, rotated pyramids on top of substrate")
-    , m_path(Utils::FileSystem::GetHomePath()+
-             "Tests/ReferenceData/BornAgain/")
 {
     m_results.resize(kNumberOfTests, 0);
 }
@@ -71,7 +69,7 @@ void FunctionalTests::IsGISAXS09::runpyramidZ45()
 }
 
 
-int FunctionalTests::IsGISAXS09::analyseResults()
+int FunctionalTests::IsGISAXS09::analyseResults(const std::string &path_to_data)
 {
     const double threshold(1e-10);
     const char *reference_files[kNumberOfTests] =
@@ -82,7 +80,7 @@ int FunctionalTests::IsGISAXS09::analyseResults()
     // retrieving reference data and generated examples
     for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
         OutputData<double> *reference =
-            OutputDataIOFactory::getOutputData(m_path +
+                OutputDataIOFactory::getOutputData(path_to_data +
                                                reference_files[i_test]);
         OutputData<double> *result = m_results[i_test];
 
@@ -107,11 +105,17 @@ int FunctionalTests::IsGISAXS09::analyseResults()
 
 
 #ifdef STANDALONE
-int main()
+std::string GetPathToData(int argc, char **argv)
+{
+    if(argc == 2) return argv[1];
+    return Utils::FileSystem::GetPathToExecutable(argv[0]) + "../../../ReferenceData/BornAgain/";
+}
+
+int main(int argc, char **argv)
 {
     FunctionalTests::IsGISAXS09 test;
     test.runpyramidZ0();
     test.runpyramidZ45();
-    return test.analyseResults();
+    return test.analyseResults(GetPathToData(argc, argv));
 }
 #endif

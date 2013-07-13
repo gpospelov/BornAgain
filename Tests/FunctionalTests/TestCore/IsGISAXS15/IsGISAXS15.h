@@ -15,7 +15,7 @@ public :
     ~IsGISAXS15() { delete m_result; }
 
     void run();
-    int analyseResults();
+    int analyseResults(const std::string &path_to_data = std::string());
 
     const OutputData<double> *getOutputData() { return m_result; }
 

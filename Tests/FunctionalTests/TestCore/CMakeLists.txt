@@ -21,6 +21,6 @@ set(list_of_tests
 
 foreach(_test ${list_of_tests})
     BORNAGAIN_EXECUTABLE(${_test} LOCATIONS ${_test} EXCLUDE_FROM_ALL LIBRARIES ${BornAgainCore_LIBRARY})
-    BORNAGAIN_ADD_TEST(${_test})
+    BORNAGAIN_ADD_TEST(${_test} INPUT_DIR ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain/)
 endforeach()
 

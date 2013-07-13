@@ -12,7 +12,6 @@
 FunctionalTests::IsGISAXS04::IsGISAXS04()
     : m_name("IsGISAXS04")
     , m_description("1D and 2D paracrystal")
-    , m_path(Utils::FileSystem::GetHomePath()+"Tests/ReferenceData/BornAgain/")
 {
     m_results.resize(kNumberOfTests, 0);
     gsl_set_error_handler_off();
@@ -60,14 +59,14 @@ void FunctionalTests::IsGISAXS04::run2DDL()
 }
 
 
-int FunctionalTests::IsGISAXS04::analyseResults()
+int FunctionalTests::IsGISAXS04::analyseResults(const std::string &path_to_data)
 {
     const double threshold(1e-10);
     const char *reference_files[kNumberOfTests] = {"isgisaxs04_reference_1DDL.ima.gz", "isgisaxs04_reference_2DDLh.ima.gz"};
     bool status_ok(true);
 
     for(size_t i_test=0; i_test<kNumberOfTests; ++i_test) {
-        OutputData<double> *reference = OutputDataIOFactory::getOutputData(m_path + reference_files[i_test]);
+        OutputData<double> *reference = OutputDataIOFactory::getOutputData(path_to_data + reference_files[i_test]);
         OutputData<double> *result = m_results[i_test];
 
         // calculating average relative difference
@@ -90,13 +89,18 @@ int FunctionalTests::IsGISAXS04::analyseResults()
 
 
 #ifdef STANDALONE
-int main()
+std::string GetPathToData(int argc, char **argv)
+{
+    if(argc == 2) return argv[1];
+    return Utils::FileSystem::GetPathToExecutable(argv[0]) + "../../../ReferenceData/BornAgain/";
+}
+
+int main(int argc, char **argv)
 {
     FunctionalTests::IsGISAXS04 test;
     test.run1DDL();
     test.run2DDL();
-    return test.analyseResults();
-
+    return test.analyseResults(GetPathToData(argc, argv));
 }
 #endif
 

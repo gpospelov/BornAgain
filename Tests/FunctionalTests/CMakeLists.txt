@@ -6,7 +6,9 @@ enable_testing()
 add_custom_target(check ${CMAKE_CTEST_COMMAND})
 #add_custom_target(check ${CMAKE_CTEST_COMMAND} -V)
 
-execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Tests/ReferenceData ${CMAKE_BINARY_DIR}/Tests/ReferenceData)
+execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Tests/ReferenceData/BornAgain ${CMAKE_BINARY_DIR}/Tests/ReferenceData/BornAgain)
+execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Tests/FunctionalTests/TestPyCore ${CMAKE_BINARY_DIR}/Tests/FunctionalTests/TestPyCore)
+execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Tests/FunctionalTests/TestPyFit ${CMAKE_BINARY_DIR}/Tests/FunctionalTests/TestPyFit)
 
 add_subdirectory(TestCore)
 add_subdirectory(TestPyCore)

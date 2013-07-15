@@ -47,11 +47,11 @@ class LayerDecorator : public Layer
     //! Calls the ISampleVisitor's visit method
     virtual void accept(ISampleVisitor *p_visitor) { p_visitor->visit(this); }
 
-    //! Sets _thickness_ in Angstrom.
+    //! Sets _thickness_ in nanometers.
     virtual void setThickness(double thickness)
     { mp_decorated_layer->setThickness(thickness); }
 
-    //! Returns thickness in Angstrom.
+    //! Returns thickness in nanometers.
     virtual double getThickness() const
     { return mp_decorated_layer->getThickness(); }
 
@@ -59,7 +59,7 @@ class LayerDecorator : public Layer
     virtual void setMaterial(const IMaterial* material)
     { mp_decorated_layer->setMaterial(material); }
 
-    //! Sets _material_ and _thickness_ in Angstrom.
+    //! Sets _material_ and _thickness_ in nanometers.
     virtual void setMaterial(const IMaterial* material, double thickness)
     { mp_decorated_layer->setMaterial(material, thickness); }
 

@@ -1,0 +1,91 @@
+%Appendix
+\chapter{Implemented classes}
+
+\begin{itemize}
+\item Particle decoration
+\item Layer
+\item MultiLayer
+\item Simulation
+\end{itemize}
+
+\chapter{Form factors}
+% plots of particles + orientation of the axes
+% plots of the form factors
+
+\begin{itemize}
+\item Parallelepiped (\texttt{FormFactorParallelepiped})
+
+\begin{equation}
+F() = 4H R^2\exp(i q_z H/2) \frac{sin(q_xR)}{q_x R}\frac{ \sin(q_yR)}{q_y R}\frac{\sin(q_z H/2)}{q_z H/2}
+\end{equation}
+\item Pyramid (\texttt{FormFactorPyramid})
+
+\begin{align*}
+        q_1 &=(H/2)((q_x-q_y)/\tan(\alpha) + q_z)\\
+        q_2 &=(H/2)((q_x-q_y)/\tan(\alpha) - q_z)\\
+        q_3 &=(H/2)((q_x+q_y)/\tan(\alpha) + q_z) \\
+        q_4 &=(H/2)((q_x+q_y)/\tan(\alpha) - q_z)\\
+        K_1 &= \frac{\sin(q_1)}{q_1} \exp(i q_1)  + i \frac{\sin(q_2)}{q_2} \exp(-i q_2)\\
+        K_2 &= -i \frac{sin(q_1)}{q_1} exp(i q_1) +i \frac{\sin(q_2)}{q_2} \exp(-i q_2)\\
+        K_3 &= \frac{\sin(q_3)}{q_3}\exp(i q_3)    + \frac{\sin(q_4)}{q_4} \exp(-i q_4)\\
+        K_4 &= -i \frac{\sin(q_3)}{q_3} \exp(i q_3) + i \frac{\sin(q_4)}{q_4} \exp(-i q_4)\\     
+  F() &= \frac{H}{q_x q_y} [ K_1 \cos( (q_x-q_y)R ) + K_2 \sin( (q_x-q_y)R ) - K_3 \cos( (q_x+q_y) R ) - K_4 \sin( (q_x+q_y) R )]
+   \end{align*}
+	
+\item Cylinder (\texttt{FormFactorCylinder})
+
+  \begin{equation}
+ F()=   H  \frac{\sin(q_ z H/2)}{q_z H/2} \exp(i q_ z H/2) 2\pi R^2 \frac{J_1(|q_{\parallel} R |)}{|q_{\parallel} R| }
+ \end{equation}
+ 
+
+\item Prism3 (\texttt{FormFactorPrism3})
+
+\begin{equation}
+    F()= 2 \sqrt{3}\frac{\exp(-i q_y R/\sqrt{3})}{q_x^2-3q_y^2}[\exp(i \sqrt{3} q_y R ) -\cos(q_x R)-i \sqrt{3} q_y R \frac{\sin(q_x R)}{q_x R}]   H \frac{\sin(q_z H/2 )}{q_z H/2} \exp(i q_z H/2)
+\end{equation}
+
+\item Sphere (\texttt{FormFactorSphere})
+
+\begin{equation}    
+return 2\pi \exp(i q_z (H-R))\int_{R-H} ^{R} R_z^2 \frac{J_1(|q_p*R_z|) }{|q_p*R_z|}
+        \exp(i q_z*Z)
+\end{equation}
+
+
+\item Full sphere (\texttt{FormFactorFullSphere})
+
+\begin{equation}
+radial = 4\pi R^3*\frac{\sin(q R) - q R*\cos(q R)}{(qR)^3}
+\end{equation}
+
+\item Box (\texttt{FormFactorBox})
+
+\begin{equation}
+F()= 4H R W\exp(i q_z H/2) \frac{\sin(q_x R)}{q_x R} \frac{  \sin(q_y W) }{q_y W}\frac{\sin(q_z H/2)}{q_z H/2}
+\end{equation}
+    
+	
+\end{itemize}
+
+\chapter{Interference functions}
+
+\begin{itemize}
+\item	No interference 
+\item	decoupling approximation 	
+\item 	local mono disperse approximation 
+\item 	size spacing approximation 
+\end{itemize}
+
+
+\chapter{Pair correlation functions}
+\begin{itemize}
+\item The Debye hard core 
+\item The gaussian
+\item The Lennard-Jonnes  	
+\item The gate pair correlation 	
+\item The Debye hard core with power-law decrease  	
+\item The Zhu pair correlation function 	
+\item The Venables pair correlation function 	
+\item The bidimensional hard core pair function.
+\end{itemize}	
